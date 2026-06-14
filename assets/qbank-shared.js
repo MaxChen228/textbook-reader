@@ -1,0 +1,289 @@
+(function () {
+  function bindHistoryBackLinks(root = document) {
+    root.querySelectorAll('[data-history-back]').forEach((link) => {
+      if (link.dataset.historyBackBound === 'true') return;
+      link.dataset.historyBackBound = 'true';
+      link.addEventListener('click', (event) => {
+        if (window.history.length > 1) {
+          event.preventDefault();
+          window.history.back();
+        }
+      });
+    });
+  }
+
+  function countUp(el, target, duration) {
+    if (!el) return;
+    const start = performance.now();
+    el.classList.add('counting');
+
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      el.textContent = Math.round(ease * target);
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = target;
+        el.classList.remove('counting');
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function safeHtml(text) {
+    const segments = String(text ?? '')
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .split(/((?:\$\$[\s\S]*?\$\$))/g);
+
+    return segments.map((segment, index) => {
+      if (index % 2 === 1) {
+        return escapeHtml(segment.trim());
+      }
+
+      return escapeHtml(segment)
+        .replace(/\n{3,}/g, '\n\n')
+        .replace(/\n/g, '<br>')
+        .replace(/^(<br>)+|(<br>)+$/g, '');
+    }).join('');
+  }
+
+  // MathJax CDN 用 async 載入，呼叫端可能在 CDN executed 前先呼叫到。
+  // _mathjax_head.html 把 window.MathJax 設成 config 物件（truthy 但無 typesetPromise），
+  // 所以只測 `!window.MathJax` 不夠 — 必須等 typesetPromise 函式真的出現。
+  function renderMath(targets) {
+    if (!window.MathJax) return Promise.resolve();
+
+    function callTypeset() {
+      if (targets == null) return MathJax.typesetPromise();
+      const nodes = Array.isArray(targets) ? targets.filter(Boolean) : [targets].filter(Boolean);
+      if (!nodes.length) return Promise.resolve();
+      return MathJax.typesetPromise(nodes);
+    }
+
+    if (typeof MathJax.typesetPromise === 'function') return callTypeset();
+
+    // CDN 尚未 ready：輪詢 startup.promise / typesetPromise（最多 ~3s）。
+    return new Promise(resolve => {
+      let tries = 0;
+      const tick = () => {
+        if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+          (window.MathJax.startup && window.MathJax.startup.promise
+            ? MathJax.startup.promise
+            : Promise.resolve()
+          ).then(() => callTypeset()).then(resolve, resolve);
+          return;
+        }
+        if (++tries > 60) {
+          console.warn('[renderMath] MathJax not ready after 3s — math left unrendered');
+          return resolve();
+        }
+        setTimeout(tick, 50);
+      };
+      tick();
+    });
+  }
+
+  async function fetchJson(url, options) {
+    const response = await fetch(url, options);
+    const contentType = response.headers.get('content-type') || '';
+    let payload = null;
+
+    if (contentType.includes('application/json')) {
+      payload = await response.json();
+    } else {
+      const text = await response.text();
+      payload = text ? { message: text } : null;
+    }
+
+    if (!response.ok) {
+      const message = payload && typeof payload === 'object'
+        ? payload.error || payload.message || payload.detail
+        : null;
+      const error = new Error(message || `HTTP ${response.status}`);
+      error.status = response.status;
+      error.payload = payload;
+      throw error;
+    }
+
+    return payload;
+  }
+
+  function errorMessage(error, fallback) {
+    return (error && error.message) || fallback;
+  }
+
+  function createChip({
+    text = '',
+    html = null,
+    count = null,
+    className = '',
+    active = false,
+    tag = 'button',
+    type = 'button',
+    value = null,
+    dataset = {},
+    onClick = null,
+  } = {}) {
+    const chip = document.createElement(tag);
+    const extraClasses = String(className || '').trim();
+    chip.className = `chip qbk-chip${extraClasses ? ` ${extraClasses}` : ''}${active ? ' active' : ''}`;
+    if (tag === 'button' && type) chip.type = type;
+    if (value != null) chip.dataset.val = value;
+    Object.entries(dataset || {}).forEach(([key, val]) => {
+      if (val != null) chip.dataset[key] = val;
+    });
+    if (html != null) chip.innerHTML = html;
+    else chip.textContent = text;
+    if (count != null) {
+      const n = document.createElement('span');
+      n.className = 'n';
+      n.textContent = count;
+      chip.appendChild(n);
+    }
+    if (onClick) chip.addEventListener('click', onClick);
+    return chip;
+  }
+
+  function bindSidebarDrawer({
+    sidebarId = 'sidebar',
+    overlayId = 'sidebar-overlay',
+    buttonId = 'btn-sidebar',
+    openClass = 'open',
+    closeOnEscape = false,
+  } = {}) {
+    const sidebar = document.getElementById(sidebarId);
+    const overlay = document.getElementById(overlayId);
+    const button = document.getElementById(buttonId);
+    if (!sidebar || !overlay || !button) return null;
+
+    const open = () => {
+      sidebar.classList.add(openClass);
+      overlay.classList.add(openClass);
+    };
+    const close = () => {
+      sidebar.classList.remove(openClass);
+      overlay.classList.remove(openClass);
+    };
+    const toggle = () => {
+      sidebar.classList.toggle(openClass);
+      overlay.classList.toggle(openClass);
+    };
+
+    if (button.dataset.drawerBound !== 'true') {
+      button.dataset.drawerBound = 'true';
+      button.addEventListener('click', toggle);
+    }
+    if (overlay.dataset.drawerBound !== 'true') {
+      overlay.dataset.drawerBound = 'true';
+      overlay.addEventListener('click', close);
+    }
+    if (closeOnEscape && document.body && document.body.dataset.drawerEscapeBound !== 'true') {
+      document.body.dataset.drawerEscapeBound = 'true';
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') close();
+      });
+    }
+
+    return { open, close, toggle };
+  }
+
+  function renderMarkdown(md) {
+    if (typeof marked === 'undefined') return safeHtml(md);
+    var stash = [];
+    var save = function (m) { stash.push(m); return '\x00M' + (stash.length - 1) + '\x00'; };
+    var safe = md.replace(/\$\$[\s\S]*?\$\$/g, save).replace(/\$[^$\n]+?\$/g, save);
+    var html = marked.parse(safe);
+    html = html.replace(/\x00M(\d+)\x00/g, function (_, i) { return stash[i]; });
+    return html;
+  }
+
+  // MathJax 設定的單一 source。各頁的 <script>MathJax={...}</script>
+  // 應替換為 QBankShared.mathJaxConfig() 後注入。
+  const mathJaxConfig = {
+    tex: {
+      inlineMath: [['$', '$']],
+      displayMath: [['$$', '$$']],
+      tags: 'none',
+      packages: { '[+]': ['ams', 'boldsymbol', 'noerrors', 'noundefined'] },
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] },
+    loader: { load: ['[tex]/ams', '[tex]/boldsymbol', '[tex]/noerrors', '[tex]/noundefined'] },
+    startup: { typeset: false },
+  };
+
+  function printTypographyCss() {
+    return `
+@import url('https://cdn.jsdelivr.net/npm/computer-modern@0.1.3/cmu-serif.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;600&display=swap');
+:root {
+  --latin-serif: 'CMU Serif', 'Computer Modern Serif', 'Computer Modern', 'Latin Modern Roman', 'Times New Roman';
+  --cjk-serif: 'Noto Serif TC', 'Source Han Serif TC', '思源宋體 TC', 'Songti TC', 'STSong', serif;
+  --serif: var(--latin-serif), var(--cjk-serif), serif;
+  --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}`;
+  }
+
+  // 開新視窗、寫 body、注入 MathJax、等 fonts/images 就緒後呼叫 window.print()。
+  // bodyHtml 是純內容（不含 <html><head>），title 為視窗標題，extraStyles 為頁面 <style>。
+  function openPrintWindow({ title, bodyHtml, extraStyles }) {
+    const html = `<!DOCTYPE html><html lang="zh-TW"><head>
+<meta charset="UTF-8"><title>${escapeHtml(title || '')}</title>
+<script>MathJax=${JSON.stringify(mathJaxConfig)};</` + `script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></` + `script>
+<style>${extraStyles || ''}</style></head><body>
+${bodyHtml}
+<script>
+function waitImages(){var imgs=Array.from(document.images||[]);if(!imgs.length)return Promise.resolve();return Promise.all(imgs.map(function(img){if(img.complete)return Promise.resolve();return new Promise(function(r){img.addEventListener("load",r,{once:true});img.addEventListener("error",r,{once:true});});}));}
+function nextPaint(){return new Promise(function(r){requestAnimationFrame(function(){requestAnimationFrame(r);});});}
+async function printWhenReady(){try{await window.MathJax.startup.promise;await MathJax.typesetPromise();if(document.fonts&&document.fonts.ready)await document.fonts.ready;await waitImages();await nextPaint();setTimeout(function(){window.print();},80);}catch(e){console.error(e);window.print();}}
+window.addEventListener("load",printWhenReady,{once:true});
+</` + `script></body></html>`;
+    const w = window.open('', '_blank');
+    if (!w) return null;
+    w.document.write(html);
+    w.document.close();
+    return w;
+  }
+
+  function relTime(dt) {
+    var d = new Date(dt + (dt.endsWith('Z') ? '' : 'Z'));
+    var diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 60) return '剛剛';
+    if (diff < 3600) return Math.floor(diff / 60) + ' 分前';
+    if (diff < 86400) return Math.floor(diff / 3600) + ' 時前';
+    return Math.floor(diff / 86400) + ' 天前';
+  }
+
+  window.QBankShared = {
+    bindHistoryBackLinks,
+    bindSidebarDrawer,
+    countUp,
+    createChip,
+    escapeHtml,
+    fetchJson,
+    errorMessage,
+    mathJaxConfig,
+    openPrintWindow,
+    printTypographyCss,
+    relTime,
+    renderMarkdown,
+    renderMath,
+    safeHtml,
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => bindHistoryBackLinks(), { once: true });
+  } else {
+    bindHistoryBackLinks();
+  }
+})();

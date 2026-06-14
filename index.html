@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>教科書 Reader</title>
+  <script src="assets/qbank-shared.js"></script>
+  <script>if(!window.MathJax)window.MathJax=QBankShared.mathJaxConfig;</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <link rel="stylesheet" href="assets/qbank-shared.css">
+  <style>
+    :root {
+      --article-fs: 18px;
+      --article-lh: 1.78;
+    }
+    body { font-size: 14px; line-height: 1.7; transition: background .25s ease, color .25s ease; }
+    /* ── dark theme tokens（限本頁 scope） ───────────────────────────────── */
+    body[data-theme="dark"] {
+      --bg: #15140f;
+      --surface: #1c1a14;
+      --border: #2f2a22;
+      --border-l: #25211a;
+      --text: #ebe5d5;
+      --sub: #8a8275;
+      --ink: #f1ead9;
+      --ink-light: #bdb39e;
+      --accent: #d6cfb8;
+    }
+    body[data-theme="dark"] mjx-container { color: inherit; }
+
+    :root { --qbk-sidebar-width: 250px; }
+
+    /* view switch ─────────────────────────────────────────────────────── */
+    #app[data-view="library"] #reader-sidebar-overlay,
+    #app[data-view="library"] .reader-only { display: none; }
+    #app[data-view="library"] .reader-sidebar-only { display: none; }
+    #app[data-view="library"] #library-view { display: block; }
+    #app[data-view="library"] #content { display: none; }
+
+    #app[data-view="reader"] #library-view { display: none; }
+    #app[data-view="reader"] .library-only { display: none; }
+    #app[data-view="reader"] .library-sidebar-only { display: none; }
+
+    /* ── sidebar (reader-only) ───────────────────────────────────────── */
+    .library-sidebar-only,
+    .reader-sidebar-only {
+      min-height: 0; height: 100%; display: flex; flex-direction: column;
+    }
+    #sidebar-header {
+      min-height: 52px; padding: 12px 20px 11px; border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .sb-back {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-family: var(--mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .12em; color: var(--sub); text-decoration: none;
+      text-transform: uppercase;
+      transition: color .15s ease;
+    }
+    .sb-back:hover { color: var(--ink); }
+    .sb-bookname {
+      margin-top: 6px;
+      font-family: var(--serif); font-size: 16px; font-weight: 600;
+      color: var(--text); line-height: 1.3;
+    }
+    .sb-bookmeta {
+      margin-top: 2px;
+      font-family: var(--mono); font-size: 10px; color: var(--sub);
+      letter-spacing: .04em;
+    }
+
+    #toc { flex: 1; overflow-y: auto; padding: 8px 0 14px; }
+    #toc::-webkit-scrollbar { width: 3px; }
+    #toc::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .toc-group-label {
+      padding: 14px 20px 6px; font-family: var(--mono); font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .14em; color: var(--sub);
+    }
+    .toc-item {
+      display: flex; align-items: baseline; gap: 10px; padding: 8px 20px;
+      cursor: pointer; font-size: 13.5px; line-height: 1.4;
+      color: var(--text); border-left: 2px solid transparent;
+      transition: background .12s ease, border-color .12s ease;
+    }
+    .toc-item:hover { background: var(--bg); }
+    .toc-item.active { background: var(--bg); border-left-color: var(--ink); font-weight: 600; }
+    .toc-num { font-family: var(--mono); font-size: 11px; color: var(--sub); flex-shrink: 0; min-width: 34px; }
+    .toc-item.active .toc-num { color: var(--ink); }
+    .toc-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .toc-meta { font-family: var(--mono); font-size: 9px; color: var(--sub); flex-shrink: 0; }
+    .toc-caret {
+      flex-shrink: 0; width: 10px; font-family: var(--mono); font-size: 9px;
+      color: var(--sub); text-align: center; transition: transform .15s ease;
+      display: inline-block; opacity: .6;
+    }
+    .toc-item.has-children { padding-left: 18px; gap: 8px; }
+    .toc-item.expanded .toc-caret { transform: rotate(90deg); opacity: 1; }
+    .toc-section-list { display: none; padding: 2px 0 8px; }
+    .toc-item.expanded + .toc-section-list { display: block; }
+    .toc-sec {
+      display: flex; align-items: baseline; gap: 10px; cursor: pointer;
+      padding: 5px 20px 5px 52px; font-size: 12.5px; line-height: 1.45;
+      color: var(--ink-light); border-left: 2px solid transparent;
+      transition: color .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .toc-sec:hover { color: var(--text); background: var(--bg); }
+    .toc-sec.active { color: var(--ink); border-left-color: var(--ink-light); background: var(--bg); }
+    .toc-sec[data-level="3"] { padding-left: 72px; font-size: 11.5px; color: var(--sub); }
+    .toc-sec[data-level="3"]:hover { color: var(--text); }
+    .toc-sec-num { font-family: var(--mono); font-size: 10px; color: var(--sub); flex-shrink: 0; min-width: 28px; }
+    .toc-sec.active .toc-sec-num { color: var(--ink); }
+    .toc-sec-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* ── 章/節複製按鈕 ────────────────────────────────────────────────── */
+    .toc-copy {
+      margin-left: auto;
+      opacity: 0;
+    }
+    .toc-item:hover .toc-copy, .toc-sec:hover .toc-copy { opacity: .65; }
+    .toc-copy:hover, .toc-copy.copied { opacity: 1 !important; }
+
+    .reader-tabs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+      padding: 8px 12px; border-bottom: 1px solid var(--border);
+    }
+    .reader-tab {
+      border: 1px solid transparent; background: transparent; color: var(--sub);
+      font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .08em;
+      padding: 6px 8px; border-radius: 4px; cursor: pointer; text-transform: uppercase;
+    }
+    .reader-tab:hover { color: var(--ink); background: var(--bg); }
+    .reader-tab.active { color: var(--ink); border-color: var(--border); background: var(--bg); }
+    #catalog-panel {
+      display: none; flex: 1; min-height: 0; overflow: hidden; flex-direction: column;
+      border-top: 0;
+    }
+    .catalog-tools { padding: 10px 12px 8px; border-bottom: 1px solid var(--border-l); }
+    .catalog-search {
+      width: 100%; height: 32px; padding: 0 9px;
+      font-family: var(--mono); font-size: 11px;
+      border: 1px solid var(--border); border-radius: 4px;
+      background: var(--surface); color: var(--text);
+    }
+    .catalog-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px; }
+    .catalog-type {
+      border: 1px solid var(--border-l); background: transparent; color: var(--sub);
+      font-family: var(--mono); font-size: 9px; letter-spacing: .04em;
+      padding: 5px 4px; border-radius: 4px; cursor: pointer;
+    }
+    .catalog-type.active { color: var(--ink); border-color: var(--border); background: var(--bg); font-weight: 700; }
+    .catalog-list { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 0 14px; }
+    .catalog-item {
+      display: flex; gap: 9px; padding: 8px 12px; cursor: pointer;
+      border-left: 2px solid transparent; color: var(--text);
+    }
+    .catalog-item:hover { background: var(--bg); }
+    .catalog-item.active { border-left-color: var(--ink); background: var(--bg); }
+    .catalog-thumb {
+      width: 56px; height: 44px; flex: 0 0 56px;
+      border: 1px solid var(--border-l); border-radius: 3px;
+      object-fit: contain; background: #fff;
+    }
+    body[data-theme="dark"] .catalog-thumb[data-kind="line"] { filter: invert(1) hue-rotate(180deg); }
+    .catalog-body { min-width: 0; flex: 1; }
+    .catalog-id { font-family: var(--mono); font-size: 10px; color: var(--ink); font-weight: 700; }
+    .catalog-meta { font-family: var(--mono); font-size: 9px; color: var(--sub); margin-top: 1px; }
+    .catalog-text {
+      margin-top: 2px; font-size: 11.5px; line-height: 1.35; color: var(--ink-light);
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .catalog-empty {
+      padding: 34px 14px; text-align: center; color: var(--sub);
+      font-family: var(--mono); font-size: 11px; line-height: 1.6;
+    }
+    .catalog-load-more {
+      display: block; width: calc(100% - 24px); margin: 8px 12px 0;
+    }
+    #catalog-detail-modal {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(8, 7, 5, .48); align-items: center; justify-content: center;
+      padding: 18px;
+    }
+    #catalog-detail-modal.open { display: flex; }
+    .catalog-detail-dialog {
+      width: min(860px, 96vw); max-height: 88vh; display: flex; flex-direction: column;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.28);
+    }
+    .catalog-detail-head {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      padding: 12px 14px; border-bottom: 1px solid var(--border);
+    }
+    .catalog-detail-title {
+      font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink);
+    }
+    .catalog-detail-meta {
+      margin-top: 3px; font-family: var(--mono); font-size: 10px; color: var(--sub);
+    }
+    .catalog-detail-body {
+      overflow: auto; padding: 18px; font-family: var(--article-font);
+      color: var(--text); background: var(--surface);
+    }
+    .catalog-detail-body figure,
+    .catalog-detail-body .tbl,
+    .catalog-detail-body .eq { margin: 0; }
+    .catalog-detail-body figure img {
+      display: block; max-width: 100%; max-height: 62vh; object-fit: contain;
+      margin: 0 auto; background: #fff; border: 1px solid var(--border-l);
+    }
+    body[data-theme="dark"] .catalog-detail-body figure[data-kind="line"] img {
+      filter: invert(1) hue-rotate(180deg);
+    }
+    .catalog-detail-body .eq { overflow-x: auto; padding: 16px 4px; }
+    .catalog-detail-body .catalog-detail-fallback {
+      font-family: var(--mono); font-size: 12px; line-height: 1.6; color: var(--sub);
+      padding: 18px; border: 1px dashed var(--border); border-radius: 4px;
+    }
+    .catalog-detail-actions {
+      display: flex; justify-content: flex-end; gap: 8px;
+      padding: 10px 14px; border-top: 1px solid var(--border);
+    }
+
+    /* ── main ───────────────────────────────────────────────────────── */
+    #main { transition: background .25s ease; }
+    #topbar { transition: background .25s ease, border-color .25s ease; }
+    #crumb { flex: 1; min-width: 0; font-family: var(--mono); font-size: 11px; color: var(--sub); letter-spacing: .03em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #crumb .cur { color: var(--text); font-weight: 600; }
+
+    /* ── library view ──────────────────────────────────────────────── */
+    #library-view { display: none; flex: 1; overflow: hidden; }
+    #library-view::-webkit-scrollbar { width: 5px; }
+    #library-view::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+
+    .library-rail { gap: 0; }
+    .library-subjects { margin-bottom: 18px; }
+    .library-rail-stats {
+      display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--border-l);
+      font-family: var(--mono); font-size: 10px; color: var(--sub); letter-spacing: .03em;
+    }
+    .library-rail-stats strong { color: var(--ink); font-size: 12px; }
+    .lib-wrap { height: 100%; overflow-y: auto; padding: 20px 28px 48px; }
+    .lib-wrap::-webkit-scrollbar { width: 4px; }
+    .lib-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .lib-search {
+      max-width: 320px;
+      padding-left: 12px;
+    }
+
+    .lib-group { margin-bottom: 22px; }
+    .lib-group-label {
+      font-family: var(--mono); font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .16em; color: var(--sub);
+      padding-bottom: 6px; margin-bottom: 10px;
+      border-bottom: 1px solid var(--border-l);
+    }
+    .lib-grid {
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    .lib-card {
+      padding: 0; background: var(--surface);
+      cursor: pointer; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      transition: background .25s ease;
+    }
+    body[data-theme="dark"] .lib-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+    .lib-card-cover {
+      width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+      background: var(--bg); border-bottom: 1px solid var(--border-l);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lib-card-cover img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: filter .25s ease;
+    }
+    body[data-theme="dark"] .lib-card-cover img { filter: brightness(.92); }
+    .lib-card-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .lib-card-title {
+      font-family: var(--serif); font-size: 15px; font-weight: 600; line-height: 1.25;
+      color: var(--text);
+    }
+    .lib-card-author {
+      font-family: var(--serif); font-size: 11.5px; color: var(--sub); line-height: 1.35;
+      font-style: italic;
+    }
+    .lib-card-meta {
+      margin-top: auto; padding-top: 6px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 9px; color: var(--sub); letter-spacing: .04em;
+    }
+    .lib-card-meta .edition {
+      padding: 2px 7px; border: 1px solid var(--border); border-radius: 3px; color: var(--ink-light);
+    }
+    .lib-card-meta .zh-badge {
+      padding: 2px 7px; border: 1px solid var(--ink-light); border-radius: 3px;
+      color: var(--ink); font-weight: 600; letter-spacing: .06em;
+    }
+    .lib-empty {
+      padding: 60px 20px; text-align: center; color: var(--sub);
+      font-family: var(--mono); font-size: 12px;
+    }
+
+    /* ── content / article ─────────────────────────────────────────── */
+    #content {
+      flex: 1; min-width: 0;
+      overflow-y: auto; overflow-x: hidden;
+      overscroll-behavior-x: none;
+    }
+    #content::-webkit-scrollbar { width: 5px; }
+    #content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+    .article {
+      max-width: var(--article-max-width, 880px); margin: 0 auto; padding: 56px 72px 120px;
+      font-family: var(--article-font); font-size: var(--article-fs); line-height: var(--article-lh);
+      min-width: 0;
+    }
+    .article p { margin: 0 0 18px; font-feature-settings: 'kern','liga','lnum'; }
+    .article h1, .article h2, .article h3 { font-family: var(--article-font); font-feature-settings: 'kern','liga'; }
+    .article h1 { font-size: 30px; font-weight: 700; margin: 0 0 8px; letter-spacing: 0; line-height: 1.2; }
+    .article h1 .ch-num { font-family: var(--mono); font-size: 12px; color: var(--sub); letter-spacing: .14em; display: block; margin-bottom: 10px; text-transform: uppercase; }
+    .article h2 { font-size: 22px; font-weight: 700; margin: 44px 0 16px; padding-bottom: 6px; border-bottom: 1px solid var(--border-l); }
+    .article h3 { font-size: 17px; font-weight: 700; margin: 30px 0 12px; color: var(--text); }
+    .article .sec-h .sec-num { font-family: var(--mono); font-weight: 500; color: var(--sub); margin-right: 8px; font-size: .85em; letter-spacing: .03em; }
+    .article .sec-h { scroll-margin-top: 24px; }
+    .problem-body { font-family: var(--article-font); }
+
+    /* ── 雙語模式：英文原文預設，點 block 展開中譯 ───────────────────── */
+    .bi-block {
+      margin: 0 0 18px;
+    }
+    .bi-block > summary {
+      list-style: none;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background .15s ease;
+    }
+    .bi-block > summary::-webkit-details-marker { display: none; }
+    .bi-block > summary:hover {
+      background: color-mix(in srgb, var(--ink) 5%, transparent);
+    }
+    .bi-block > summary p { margin-bottom: 0; }
+    .bi-block[open] > summary {
+      margin-bottom: 8px;
+    }
+    .bi-panel {
+      font-family: var(--cjk-serif);
+      color: var(--ink-light); font-size: .94em; line-height: 1.85;
+      margin: 4px 0 20px; padding: 10px 14px 10px 16px;
+      border-left: 2px solid var(--border-l);
+      background: color-mix(in srgb, var(--surface) 70%, transparent);
+      border-radius: 0 6px 6px 0;
+    }
+    .bi-panel p { margin: 0 0 8px; }
+    .bi-panel p:last-child { margin-bottom: 0; }
+    .bi-reveal {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin: -4px 0 18px;
+      font-family: var(--mono); font-size: 10px; color: var(--sub);
+      letter-spacing: .04em;
+    }
+    .bi-reveal > summary {
+      list-style: none; cursor: pointer; padding: 2px 0;
+      border-bottom: 1px solid transparent;
+    }
+    .bi-reveal > summary::-webkit-details-marker { display: none; }
+    .bi-reveal > summary:hover { color: var(--ink); border-bottom-color: var(--border); }
+    .bi-reveal[open] { display: block; }
+    .bi-reveal[open] > summary { display: inline-block; margin-bottom: 8px; color: var(--ink); }
+    .bi-reveal .bi-panel { margin-bottom: 0; }
+
+    .eq {
+      margin: 14px 0; text-align: center; position: relative; cursor: pointer; border-radius: 6px;
+      transition: background .15s ease;
+      max-width: 100%; overflow: visible;
+    }
+    .eq mjx-container[display="true"] {
+      max-width: 100%; margin: 0 !important;
+      overflow-x: auto !important; overflow-y: hidden !important;
+    }
+    .eq mjx-container[display="true"] mjx-math { overflow: visible !important; }
+    .eq .label { font-family: var(--mono); font-size: 11px; color: var(--sub); }
+    /* ── 數學式複製 affordance ─────────────────────────────────────────── */
+    .eq:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+    .eq::after {
+      content: '⧉ 複製 LaTeX'; position: absolute; top: 2px; right: 8px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .04em; color: var(--sub);
+      opacity: 0; transition: opacity .15s ease; pointer-events: none;
+    }
+    .eq:hover::after { opacity: .75; }
+    .eq.copied::after { content: '✓ 已複製'; color: var(--ink); opacity: 1; }
+    .qb-inline-math { border-radius: 3px; transition: background .12s ease; }
+    .qb-inline-math:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+    #copy-toast {
+      position: fixed; bottom: 28px; left: 50%; z-index: 10000;
+      transform: translateX(-50%) translateY(8px);
+      padding: 8px 18px; border-radius: 6px;
+      background: var(--ink); color: var(--bg);
+      font-family: var(--mono); font-size: 12px; letter-spacing: .03em;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .article figure { margin: 22px 0; text-align: center; }
+    .article figure img {
+      max-width: min(100%, 480px); max-height: 42vh; height: auto;
+      border: 1px solid var(--border-l); border-radius: 3px;
+      cursor: zoom-in; background: #fff;
+      transition: filter .25s ease, border-color .25s ease, opacity .15s ease;
+    }
+    .article figure img:hover { opacity: .92; }
+    /* 相鄰 figure 自動並排（MinerU 常把 (a)(b) 子圖拆成獨立 block） */
+    .fig-row {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      align-items: flex-start; justify-content: center;
+      margin: 22px 0;
+    }
+    .fig-row figure { margin: 0; flex: 1 1 240px; max-width: 480px; }
+    .fig-row figure img { max-width: 100%; max-height: 36vh; }
+    /* 暗色：線條圖反相（黑線→白線、白底→黑底），照片溫和 dim */
+    body[data-theme="dark"] .article figure[data-kind="line"] img {
+      filter: invert(1) hue-rotate(180deg);
+      background: #fff;  /* 反相後 #fff → #000，融入暗底 */
+      border-color: var(--border);
+    }
+    body[data-theme="dark"] .article figure[data-kind="photo"] img,
+    body[data-theme="dark"] .article figure:not([data-kind]) img {
+      filter: brightness(.88) contrast(1.04);
+      border-color: var(--border);
+    }
+    .article figcaption { margin-top: 12px; font-size: 13px; color: var(--sub); font-style: italic; }
+
+    /* ── lightbox（點圖放大看原圖） ───────────────────────────────────── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8, 7, 5, .88); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 32px;
+      cursor: zoom-out; animation: lb-fade .15s ease;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 95vw; max-height: 95vh; object-fit: contain;
+      background: #fff; border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      cursor: zoom-out;
+      /* lightbox 內永遠看原圖，不套 invert/dim */
+      filter: none !important;
+    }
+    #lightbox-caption {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      max-width: 80vw; padding: 6px 14px;
+      background: rgba(0,0,0,.5); color: #f1ead9; border-radius: 4px;
+      font-family: var(--serif); font-size: 13px; font-style: italic;
+      text-align: center; pointer-events: none;
+    }
+    #lightbox-close {
+      position: absolute; top: 18px; right: 24px;
+      width: 36px; height: 36px; border: 0; background: rgba(255,255,255,.08);
+      color: #f1ead9; border-radius: 50%; cursor: pointer;
+      font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s ease;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,.18); }
+    @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+    .tbl { margin: 22px 0; overflow-x: auto; }
+    .tbl table { border-collapse: collapse; font-size: 14px; margin: 0 auto; }
+    .tbl th, .tbl td { border: 1px solid var(--border); padding: 6px 14px; }
+    .tbl-cap, .tbl-fn { font-size: 12.5px; color: var(--sub); text-align: center; margin: 6px 0; font-style: italic; }
+
+    .example { margin: 22px 0; padding: 14px 20px; background: var(--bg); border-left: 3px solid var(--ink-light); border-radius: 0 4px 4px 0; }
+    .example-marker { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--ink); text-transform: uppercase; }
+
+    /* problems */
+    .problems-section { margin-top: 60px; padding-top: 28px; border-top: 2px solid var(--ink); }
+    .problems-section > h2 { border: 0; font-size: 24px; margin-top: 0; }
+    .problem {
+      margin: 0 0 22px; padding: 20px 24px; border: 1px solid var(--border);
+      border-radius: 6px; background: var(--surface);
+      transition: background .25s ease, border-color .25s ease;
+    }
+    .problem-num {
+      font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      color: var(--ink); margin-bottom: 10px; text-transform: uppercase;
+    }
+    .problem-body p:last-child { margin-bottom: 0; }
+    .problem-body-empty {
+      font-family: var(--mono); font-size: 12px; color: var(--sub);
+      padding: 8px 12px; border-left: 2px solid var(--border);
+      background: var(--surface); font-style: italic;
+    }
+    .problem-solution { margin-top: 14px; }
+    .problem-solution summary {
+      cursor: pointer; font-family: var(--mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; color: var(--sub); text-transform: uppercase;
+      padding: 6px 0; user-select: none;
+    }
+    .problem-solution summary:hover { color: var(--ink); }
+    .problem-solution[open] summary { color: var(--ink); margin-bottom: 10px; }
+    .problem-solution .solution-body {
+      padding: 14px 16px; border-left: 2px solid var(--border);
+      font-family: var(--article-font);
+    }
+    .problem-solution .solution-body p:last-child { margin-bottom: 0; }
+
+    body[data-edit-mode="on"] .editable-block {
+      position: relative; outline: 1px dashed color-mix(in srgb, var(--ink) 28%, transparent);
+      outline-offset: 4px; border-radius: 4px;
+    }
+    #empty, #loading {
+      display: flex; align-items: center; justify-content: center; flex: 1;
+      color: var(--sub); font-family: var(--mono); font-size: 12px; padding: 40px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .article { padding: 28px 22px 80px; }
+      #app[data-view="library"] #sidebar {
+        position: static; left: auto; top: auto; bottom: auto; z-index: auto;
+        width: 210px; transition: none;
+      }
+      #app[data-view="library"] .library-rail { padding: 12px; }
+      .lib-wrap { padding: 16px 12px 60px; }
+      .lib-search { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="qbk-app" data-view="library">
+  <div id="reader-sidebar-overlay" class="qbk-sidebar-overlay"></div>
+  <aside id="sidebar" class="qbk-sidebar">
+    <div class="library-sidebar-only">
+      <div class="library-sidebar-header qbk-sidebar-header">
+        <h1><a href="#" id="lib-home">參考書</a></h1>
+      </div>
+      <div class="library-rail qbk-sidebar-body qbk-scroll">
+        <label class="library-rail-label qbk-filter-label">學科 subject</label>
+        <div class="library-subjects qbk-chip-group" id="library-subjects"></div>
+        <div class="library-rail-stats">
+          <div><strong id="library-stat-books">—</strong> 本參考書</div>
+          <div><strong id="library-stat-chapters">—</strong> 章節</div>
+          <div><strong id="library-stat-translated">—</strong> 本中譯</div>
+        </div>
+      </div>
+    </div>
+    <div class="reader-sidebar-only">
+      <div id="sidebar-header">
+        <a class="sb-back" href="#" id="sb-back">← Library</a>
+        <div class="sb-bookname" id="sb-bookname">—</div>
+        <div class="sb-bookmeta" id="sb-bookmeta"></div>
+      </div>
+      <div class="reader-tabs" id="reader-tabs">
+        <button class="reader-tab active" type="button" data-sidebar-mode="toc">TOC</button>
+        <button class="reader-tab" type="button" data-sidebar-mode="catalog">Catalog</button>
+      </div>
+      <div id="toc"></div>
+      <div id="catalog-panel">
+        <div class="catalog-tools">
+          <input class="catalog-search" id="catalog-search" type="search" placeholder="搜尋圖表…" autocomplete="off">
+          <div class="catalog-types" id="catalog-types">
+            <button class="catalog-type active" type="button" data-catalog-type="figures">Figures</button>
+            <button class="catalog-type" type="button" data-catalog-type="tables">Tables</button>
+            <button class="catalog-type" type="button" data-catalog-type="equations">Equations</button>
+          </div>
+        </div>
+        <div class="catalog-list" id="catalog-list"></div>
+      </div>
+      <div id="sidebar-footer" class="qbk-sidebar-footer"></div>
+    </div>
+  </aside>
+
+  <div id="main" class="qbk-main">
+    <div id="topbar" class="qbk-topbar">
+      <button class="reader-only qbk-drawer-btn" id="btn-reader-sidebar" type="button" aria-label="切換章節">☰</button>
+      <div id="crumb" class="reader-only"></div>
+      <div class="topbar-spacer reader-only"></div>
+      <div class="topbar-spacer library-only"></div>
+      <input class="lib-search library-only qbk-search" id="lib-search" type="search" placeholder="搜尋書名或作者…" autocomplete="off">
+      <span class="meta library-only qbk-result-count" id="library-count"></span>
+      <button class="qbk-control-btn reader-only" id="btn-prev" disabled>← prev</button>
+      <button class="qbk-control-btn reader-only" id="btn-next" disabled>next →</button>
+      <div class="qbk-popover-wrap">
+        <button class="qbk-icon-btn" id="btn-settings" title="顯示設置" aria-haspopup="true" aria-expanded="false">⚙</button>
+        <div class="qbk-popover" id="settings-pop" role="dialog" aria-label="顯示設置">
+          <div class="qbk-control-panel-head">
+            <div>
+              <div class="qbk-control-panel-title">Reader</div>
+              <div class="qbk-control-panel-meta" id="reader-panel-state">Library</div>
+            </div>
+            <button class="qbk-icon-btn compact" id="btn-panel-copy" type="button" title="複製目前章節" aria-label="複製目前章節" disabled>⧉</button>
+          </div>
+          <div class="qbk-control-row">
+            <span class="qbk-control-label">主題</span>
+            <div class="qbk-segmented" id="seg-theme">
+              <button data-theme="auto">Auto</button>
+              <button data-theme="light">Light</button>
+              <button data-theme="dark">Dark</button>
+            </div>
+          </div>
+          <div class="qbk-control-row">
+            <span class="qbk-control-label">語言</span>
+            <div class="qbk-segmented" id="seg-lang">
+              <button data-lang="en">English</button>
+              <button data-lang="zh">中文</button>
+              <button data-lang="bi">雙語</button>
+            </div>
+          </div>
+          <div class="qbk-control-row">
+            <div class="qbk-control-label-line">
+              <span class="qbk-control-label">字級</span>
+              <span class="qbk-control-value" id="fs-value">18px</span>
+            </div>
+            <input class="qbk-slider" id="slider-fs" type="range" min="1" max="10" step="1" aria-label="字級">
+            <div class="qbk-slider-scale"><span>小</span><span>大</span></div>
+          </div>
+          <div class="qbk-control-row">
+            <div class="qbk-control-label-line">
+              <span class="qbk-control-label">行高</span>
+              <span class="qbk-control-value" id="lh-value">1.82</span>
+            </div>
+            <input class="qbk-slider" id="slider-lh" type="range" min="1" max="10" step="1" aria-label="行高">
+            <div class="qbk-slider-scale"><span>密</span><span>疏</span></div>
+          </div>
+          <div class="qbk-control-row">
+            <div class="qbk-control-label-line">
+              <span class="qbk-control-label">版心</span>
+              <span class="qbk-control-value" id="width-value">880px</span>
+            </div>
+            <input class="qbk-slider" id="slider-width" type="range" min="1" max="10" step="1" aria-label="版心">
+            <div class="qbk-slider-scale"><span>窄</span><span>寬</span></div>
+          </div>
+          <div class="qbk-control-actions">
+            <button class="qbk-control-btn" id="btn-panel-prev" type="button" disabled>Prev</button>
+            <button class="qbk-control-btn" id="btn-panel-next" type="button" disabled>Next</button>
+            <button class="qbk-control-btn" id="btn-panel-copy-text" type="button" disabled>Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="library-view">
+      <div class="lib-wrap qbk-scroll">
+        <div id="lib-groups"></div>
+      </div>
+    </div>
+
+    <div id="content"><div id="loading">loading...</div></div>
+  </div>
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大">
+  <button id="lightbox-close" aria-label="關閉">✕</button>
+  <img id="lightbox-img" alt="">
+  <div id="lightbox-caption"></div>
+</div>
+
+<div id="catalog-detail-modal" role="dialog" aria-modal="true" aria-label="Catalog detail">
+  <div class="catalog-detail-dialog">
+    <div class="catalog-detail-head">
+      <div>
+        <div class="catalog-detail-title" id="catalog-detail-title">Catalog</div>
+        <div class="catalog-detail-meta" id="catalog-detail-meta"></div>
+      </div>
+      <button class="qbk-icon-btn compact" id="catalog-detail-close" type="button" aria-label="關閉">✕</button>
+    </div>
+    <div class="catalog-detail-body" id="catalog-detail-body"></div>
+    <div class="catalog-detail-actions">
+      <button class="qbk-control-btn compact" id="catalog-detail-cancel" type="button">Close</button>
+      <button class="qbk-control-btn compact" id="catalog-detail-navigate" type="button">Navigate</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const esc = QBankShared.safeHtml
+const renderMarkdown = QBankShared.renderMarkdown
+const escAttr = (s) => String(s ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+let books = []         // list of book metadata
+let book = null        // currently loaded book.json
+let slug = null
+let currentKind = null // 'ch' | 'app'
+let currentKey = null  // chapter number or appendix id
+let pendingAnchor = null // section anchor to scroll to after next showChunk
+let librarySubject = 'all'
+let sectionObserver = null
+let sectionScrollHandler = null
+let mathObserver = null // 增量 MathJax typeset：只排版進入視窗的 block
+let mathScrollHandler = null
+let activeSectionAnchor = null
+let readerDrawer = null
+const bookCache = {}
+const chunkCache = {}
+const catalogCache = {}
+let sidebarMode = 'toc'
+let catalogType = 'figures'
+let catalogQuery = ''
+let catalogLimit = 80
+let catalogSearchTimer = null
+let catalogDetailTarget = null
+
+// ── 顯示設置（localStorage 持久） ──
+const SETTINGS_KEY = 'textbook.settings.v1'
+const DEFAULT_SETTINGS = { lang: 'en', fsStep: 4, lhStep: 5, widthStep: 5, theme: 'auto' }
+const VALID_LANGS = ['en', 'zh', 'bi']
+const VALID_THEMES = ['auto', 'light', 'dark']
+const FS_VALUES = [10, 12, 14, 16, 18, 22, 26, 30, 35, 40]
+const LH_VALUES = [1.00, 1.15, 1.30, 1.50, 1.70, 1.95, 2.25, 2.55, 2.85, 3.20]
+const WIDTH_VALUES = [640, 700, 760, 820, 880, 940, 1000, 1060, 1120, 1180]
+let settings = loadSettings()
+const darkMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null
+const PROGRESS_KEY = 'textbook.readerProgress.v1'
+let progressSaveTimer = null
+
+function clampStep(value, fallback) {
+  const n = Number(value)
+  if (Number.isInteger(n) && n >= 1 && n <= 10) return n
+  return fallback
+}
+
+function nearestStep(values, value, fallback) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return fallback
+  let best = 0
+  values.forEach((v, i) => {
+    if (Math.abs(v - n) < Math.abs(values[best] - n)) best = i
+  })
+  return best + 1
+}
+
+function loadSettings() {
+  let raw = {}
+  try { raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') } catch {}
+  const merged = {
+    lang: VALID_LANGS.includes(raw.lang) ? raw.lang : DEFAULT_SETTINGS.lang,
+    fsStep: clampStep(raw.fsStep, nearestStep(FS_VALUES, raw.fs, DEFAULT_SETTINGS.fsStep)),
+    lhStep: clampStep(raw.lhStep, raw.lh && raw.lh in { compact: 1, normal: 1, loose: 1 }
+      ? { compact: 2, normal: 6, loose: 9 }[raw.lh]
+      : DEFAULT_SETTINGS.lhStep),
+    widthStep: clampStep(raw.widthStep, raw.width && raw.width in { focus: 1, standard: 1, wide: 1 }
+      ? { focus: 2, standard: 5, wide: 8 }[raw.width]
+      : DEFAULT_SETTINGS.widthStep),
+    theme: VALID_THEMES.includes(raw.theme) ? raw.theme : DEFAULT_SETTINGS.theme,
+  }
+  if (JSON.stringify(merged) !== JSON.stringify(raw)) {
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(merged)) } catch {}
+  }
+  return merged
+}
+
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings))
+}
+
+function progressChunkKey(s = slug, kind = currentKind, key = currentKey) {
+  if (!s || !kind || key == null) return null
+  return `${s}/${kind}/${key}`
+}
+
+function loadProgress() {
+  try {
+    const data = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}')
+    return data && typeof data === 'object' ? data : {}
+  } catch {
+    return {}
+  }
+}
+
+function saveProgress(data) {
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(data)) } catch {}
+}
+
+function chunkProgress(s = slug, kind = currentKind, key = currentKey) {
+  const ck = progressChunkKey(s, kind, key)
+  if (!ck) return null
+  return loadProgress().chunks?.[ck] || null
+}
+
+function persistCurrentProgress() {
+  if (!slug || !currentKind || currentKey == null) return
+  const content = document.getElementById('content')
+  const maxScroll = Math.max(0, content.scrollHeight - content.clientHeight)
+  const item = {
+    slug,
+    kind: currentKind,
+    key: String(currentKey),
+    anchor: activeSectionAnchor || headingAnchorForScroll(content) || null,
+    scrollTop: Math.max(0, Math.round(content.scrollTop || 0)),
+    scrollRatio: maxScroll ? Math.min(1, Math.max(0, content.scrollTop / maxScroll)) : 0,
+    updatedAt: Date.now(),
+  }
+  const data = loadProgress()
+  const ck = progressChunkKey()
+  data.last = item
+  data.chunks = data.chunks && typeof data.chunks === 'object' ? data.chunks : {}
+  data.chunks[ck] = item
+  saveProgress(data)
+}
+
+function scheduleProgressSave() {
+  if (progressSaveTimer) clearTimeout(progressSaveTimer)
+  progressSaveTimer = setTimeout(() => {
+    progressSaveTimer = null
+    persistCurrentProgress()
+  }, 250)
+}
+
+function savedProgressTargetFor(s) {
+  const last = loadProgress().last
+  if (!last || last.slug !== s || !last.kind || last.key == null) return null
+  return last
+}
+
+function restoreProgressPosition(saved) {
+  if (!saved) return false
+  const content = document.getElementById('content')
+  const maxScroll = Math.max(0, content.scrollHeight - content.clientHeight)
+  if (Number.isFinite(saved.scrollRatio) && maxScroll > 0) {
+    content.scrollTop = Math.round(maxScroll * saved.scrollRatio)
+    updateActiveSectionFromScroll()
+    return true
+  }
+  if (Number.isFinite(saved.scrollTop)) {
+    content.scrollTop = Math.max(0, saved.scrollTop)
+    updateActiveSectionFromScroll()
+    return true
+  }
+  const byAnchor = saved.anchor ? document.getElementById(saved.anchor) : null
+  if (byAnchor) {
+    byAnchor.scrollIntoView({ behavior: 'auto', block: 'start' })
+    setActiveSection(saved.anchor)
+    return true
+  }
+  return false
+}
+
+function resolvedTheme() {
+  if (settings.theme === 'dark' || settings.theme === 'light') return settings.theme
+  return (darkMQ && darkMQ.matches) ? 'dark' : 'light'
+}
+
+function applySettings() {
+  document.body.dataset.lang = settings.lang
+  document.body.dataset.theme = resolvedTheme()
+  const fs = FS_VALUES[settings.fsStep - 1]
+  const lh = LH_VALUES[settings.lhStep - 1]
+  const width = WIDTH_VALUES[settings.widthStep - 1]
+  document.documentElement.style.setProperty('--article-fs', fs + 'px')
+  document.documentElement.style.setProperty('--article-lh', lh)
+  document.documentElement.style.setProperty('--article-max-width', width + 'px')
+  document.querySelectorAll('#seg-lang button').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === settings.lang))
+  document.getElementById('slider-fs').value = String(settings.fsStep)
+  document.getElementById('slider-lh').value = String(settings.lhStep)
+  document.getElementById('slider-width').value = String(settings.widthStep)
+  document.getElementById('fs-value').textContent = fs + 'px'
+  document.getElementById('lh-value').textContent = lh.toFixed(2)
+  document.getElementById('width-value').textContent = width + 'px'
+  document.querySelectorAll('#seg-theme button').forEach(b =>
+    b.classList.toggle('active', b.dataset.theme === settings.theme))
+}
+
+// 靜態化：URL query 改成檔名 suffix。無 zh overlay 的書一律回 '' → 顯英文、零 404。
+let currentBookHasZh = false
+
+function langSuffix() {
+  if (!currentBookHasZh) return ''
+  if (settings.lang === 'zh') return '.zh'
+  if (settings.lang === 'bi') return '.bi'
+  return ''
+}
+
+function bookLangKey() {
+  return (currentBookHasZh && settings.lang === 'zh') ? 'zh' : 'en'
+}
+
+function bookLangSuffix() {
+  return (currentBookHasZh && settings.lang === 'zh') ? '.zh' : ''
+}
+
+function setupSettingsUI() {
+  const btn = document.getElementById('btn-settings')
+  const pop = document.getElementById('settings-pop')
+  btn.onclick = (e) => {
+    e.stopPropagation()
+    const open = !pop.classList.contains('open')
+    pop.classList.toggle('open', open)
+    btn.classList.toggle('open', open)
+    btn.setAttribute('aria-expanded', String(open))
+  }
+  document.addEventListener('click', (e) => {
+    if (!pop.contains(e.target) && e.target !== btn) {
+      pop.classList.remove('open'); btn.classList.remove('open')
+      btn.setAttribute('aria-expanded', 'false')
+    }
+  })
+  document.getElementById('seg-lang').addEventListener('click', async (e) => {
+    const b = e.target.closest('button[data-lang]')
+    if (!b || b.dataset.lang === settings.lang) return
+    settings.lang = b.dataset.lang
+    persistCurrentProgress()
+    saveSettings(); applySettings()
+    if (slug) {
+      await loadBook(slug, { reloadForLanguage: true })
+      if (currentKind) await showChunk(currentKind, currentKey, { preserveScroll: true })
+      else showBookOverview()
+    }
+  })
+  document.getElementById('slider-fs').addEventListener('input', (e) => {
+    settings.fsStep = clampStep(e.target.value, DEFAULT_SETTINGS.fsStep)
+    saveSettings(); applySettings()
+  })
+  document.getElementById('slider-lh').addEventListener('input', (e) => {
+    settings.lhStep = clampStep(e.target.value, DEFAULT_SETTINGS.lhStep)
+    saveSettings(); applySettings()
+  })
+  document.getElementById('slider-width').addEventListener('input', (e) => {
+    settings.widthStep = clampStep(e.target.value, DEFAULT_SETTINGS.widthStep)
+    saveSettings(); applySettings()
+  })
+  document.getElementById('seg-theme').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-theme]')
+    if (!b) return
+    settings.theme = b.dataset.theme
+    saveSettings(); applySettings()
+  })
+  document.getElementById('btn-panel-copy').addEventListener('click', copyCurrentChunk)
+  document.getElementById('btn-panel-copy-text').addEventListener('click', copyCurrentChunk)
+  // 系統 prefers-color-scheme 變動 → auto 模式跟著切
+  if (darkMQ) {
+    const onChange = () => { if (settings.theme === 'auto') applySettings() }
+    if (darkMQ.addEventListener) darkMQ.addEventListener('change', onChange)
+    else if (darkMQ.addListener) darkMQ.addListener(onChange)
+  }
+}
+
+// ── init ──
+async function init() {
+  applySettings()
+  setupSettingsUI()
+  readerDrawer = QBankShared.bindSidebarDrawer({
+    overlayId: 'reader-sidebar-overlay',
+    buttonId: 'btn-reader-sidebar',
+  })
+  document.getElementById('sb-back').addEventListener('click', (e) => {
+    e.preventDefault(); location.hash = ''
+  })
+  document.getElementById('lib-search').addEventListener('input', (e) => {
+    renderLibrary(e.target.value)
+  })
+  setupSidebarModes()
+  setupCatalogDetail()
+  setupLightbox()
+  setupMathCopy()
+  try {
+    books = await QBankShared.fetchJson('data/books.json')
+    if (!books.length) {
+      showLibrary()
+      document.getElementById('lib-groups').innerHTML =
+        '<div class="lib-empty">無資料 — 先跑 <code>mineru_ingest</code> 把書送進來</div>'
+      return
+    }
+    renderLibraryRail()
+    parseHash({ restoreSaved: true })
+  } catch (e) {
+    document.getElementById('loading').textContent = '載入失敗：' + e.message
+  }
+}
+
+function closeReaderSidebar() {
+  if (readerDrawer) readerDrawer.close()
+}
+
+function setupSidebarModes() {
+  document.getElementById('reader-tabs').addEventListener('click', async (e) => {
+    const b = e.target.closest('button[data-sidebar-mode]')
+    if (!b) return
+    await setSidebarMode(b.dataset.sidebarMode)
+  })
+  document.getElementById('catalog-types').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-catalog-type]')
+    if (!b) return
+    catalogType = b.dataset.catalogType
+    catalogLimit = 80
+    renderCatalogPanel()
+  })
+  document.getElementById('catalog-search').addEventListener('input', (e) => {
+    if (catalogSearchTimer) clearTimeout(catalogSearchTimer)
+    catalogSearchTimer = setTimeout(() => {
+      catalogQuery = e.target.value || ''
+      catalogLimit = 80
+      renderCatalogPanel()
+    }, 120)
+  })
+}
+
+async function setSidebarMode(mode) {
+  sidebarMode = mode === 'catalog' ? 'catalog' : 'toc'
+  document.querySelectorAll('.reader-tab').forEach(b =>
+    b.classList.toggle('active', b.dataset.sidebarMode === sidebarMode))
+  document.getElementById('toc').style.display = sidebarMode === 'toc' ? 'block' : 'none'
+  document.getElementById('catalog-panel').style.display = sidebarMode === 'catalog' ? 'flex' : 'none'
+  if (sidebarMode === 'catalog') {
+    await loadCatalog(slug)
+    renderCatalogPanel()
+  }
+}
+
+function currentReaderLabel() {
+  if (!slug || !book) return 'Library'
+  if (!currentKind) return book.title || slug
+  const items = currentKind === 'ch' ? book.chapters : book.appendices
+  const idField = currentKind === 'ch' ? 'num' : 'id'
+  const item = (items || []).find(it => String(it[idField]) === String(currentKey))
+  const prefix = currentKind === 'ch' ? `Ch ${currentKey}` : `App ${currentKey}`
+  return [prefix, item?.title].filter(Boolean).join(' · ')
+}
+
+function setButtonAction(id, enabled, handler) {
+  const btn = document.getElementById(id)
+  if (!btn) return
+  btn.disabled = !enabled
+  btn.onclick = enabled ? handler : null
+}
+
+function updateReaderPanel({ prev = null, next = null } = {}) {
+  const isChunk = Boolean(currentKind && currentKey)
+  const state = document.getElementById('reader-panel-state')
+  if (state) state.textContent = currentReaderLabel()
+  setButtonAction('btn-panel-prev', Boolean(prev), () => navigate(slug, currentKind, prev))
+  setButtonAction('btn-panel-next', Boolean(next), () => navigate(slug, currentKind, next))
+  document.querySelectorAll('#btn-panel-copy, #btn-panel-copy-text').forEach(btn => {
+    btn.disabled = !isChunk
+  })
+}
+
+async function copyCurrentChunk(e) {
+  if (e) e.stopPropagation()
+  if (!currentKind || !currentKey) return
+  await copyChapter(currentKind, currentKey, e?.currentTarget || null)
+}
+
+// ── lightbox ──────────────────────────────────────────────────────
+function setupLightbox() {
+  const lb = document.getElementById('lightbox')
+  const lbImg = document.getElementById('lightbox-img')
+  const lbCap = document.getElementById('lightbox-caption')
+  // delegate：content 區所有 figure img 點擊 → 開 lightbox
+  document.getElementById('content').addEventListener('click', (e) => {
+    const img = e.target.closest('figure img')
+    if (!img) return
+    e.preventDefault()
+    lbImg.src = img.src
+    lbImg.alt = img.alt || ''
+    const cap = img.parentElement?.querySelector('figcaption')?.textContent || ''
+    lbCap.textContent = cap
+    lbCap.style.display = cap ? 'block' : 'none'
+    lb.classList.add('open')
+    document.body.style.overflow = 'hidden'
+  })
+  const close = () => {
+    lb.classList.remove('open')
+    lbImg.src = ''
+    document.body.style.overflow = ''
+  }
+  lb.addEventListener('click', close)
+  document.getElementById('lightbox-close').addEventListener('click', (e) => {
+    e.stopPropagation(); close()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) close()
+  })
+}
+
+// ── library view ──────────────────────────────────────────────────
+function showLibrary() {
+  persistCurrentProgress()
+  document.getElementById('app').dataset.view = 'library'
+  closeReaderSidebar()
+  cleanupSectionSpy()
+  slug = null; book = null; currentKind = null; currentKey = null
+  updateReaderPanel()
+  renderLibrary(document.getElementById('lib-search').value || '')
+  document.title = '教科書 Reader'
+}
+
+function renderLibraryRail() {
+  const subjects = new Map()
+  books.forEach(b => {
+    const key = b.subject || 'Other'
+    subjects.set(key, (subjects.get(key) || 0) + 1)
+  })
+  const ordered = [...subjects.keys()].sort((a, b) => {
+    if (a === 'Other') return 1
+    if (b === 'Other') return -1
+    return a.localeCompare(b)
+  })
+  const root = document.getElementById('library-subjects')
+  root.innerHTML = ''
+  const addChip = (subject, label, count) => {
+    root.appendChild(QBankShared.createChip({
+      text: label + ' ',
+      count,
+      active: librarySubject === subject,
+      dataset: { subject },
+      onClick: () => {
+        librarySubject = subject
+        renderLibraryRail()
+        renderLibrary(document.getElementById('lib-search').value || '')
+      },
+    }))
+  }
+  addChip('all', '全部', books.length)
+  ordered.forEach(s => addChip(s, s, subjects.get(s)))
+  document.getElementById('library-stat-books').textContent = books.length
+  document.getElementById('library-stat-chapters').textContent =
+    books.reduce((sum, b) => sum + (b.chapter_count || 0), 0)
+  document.getElementById('library-stat-translated').textContent =
+    books.filter(b => b.has_zh).length
+}
+
+function renderLibrary(filter) {
+  const wrap = document.getElementById('lib-groups')
+  const count = document.getElementById('library-count')
+  const q = (filter || '').trim().toLowerCase()
+  const subjectFiltered = librarySubject === 'all'
+    ? books
+    : books.filter(b => (b.subject || 'Other') === librarySubject)
+  const filtered = q
+    ? subjectFiltered.filter(b => (b.title||'').toLowerCase().includes(q)
+        || (b.author||'').toLowerCase().includes(q))
+    : subjectFiltered
+  count.textContent = `${filtered.length}/${books.length}`
+
+  if (!filtered.length) {
+    wrap.innerHTML = '<div class="lib-empty">沒有相符的書</div>'
+    return
+  }
+  // group by subject
+  const groups = new Map()
+  filtered.forEach(b => {
+    const key = b.subject || 'Other'
+    if (!groups.has(key)) groups.set(key, [])
+    groups.get(key).push(b)
+  })
+  // 排序：有 subject 字母排序在前、Other 殿後
+  const orderedKeys = [...groups.keys()].sort((a, b) => {
+    if (a === 'Other') return 1
+    if (b === 'Other') return -1
+    return a.localeCompare(b)
+  })
+  wrap.innerHTML = orderedKeys.map(k => {
+    const items = groups.get(k)
+    return `<div class="lib-group">
+      <div class="lib-group-label">${esc(k)}</div>
+      <div class="lib-grid">
+        ${items.map(libCardHtml).join('')}
+      </div>
+    </div>`
+  }).join('')
+  wrap.querySelectorAll('.lib-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault()
+      navigate(card.dataset.slug)
+    })
+  })
+}
+
+function libCardHtml(b) {
+  const meta = [
+    b.edition ? `<span class="edition">${esc(b.edition)}</span>` : '',
+    b.has_zh ? `<span class="zh-badge" title="已有中文翻譯">中譯</span>` : '',
+    b.chapter_count != null ? `<span>${b.chapter_count} 章</span>` : '',
+    b.appendix_count ? `<span>· ${b.appendix_count} 附錄</span>` : '',
+  ].filter(Boolean).join('')
+  const cover = b.has_cover
+    ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy"></div>`
+    : ''
+  return `<a class="lib-card qbk-raised-item" href="#${esc(b.slug)}" data-slug="${esc(b.slug)}">
+    ${cover}
+    <div class="lib-card-body">
+      <div class="lib-card-title">${esc(b.title)}</div>
+      <div class="lib-card-author">${esc(b.author || '')}</div>
+      <div class="lib-card-meta">${meta}</div>
+    </div>
+  </a>`
+}
+
+// ── reader：sidebar header + TOC ──────────────────────────────────
+function updateSidebarHeader() {
+  document.getElementById('sb-bookname').textContent = book?.title || '—'
+  const meta = [book?.author, book?.edition].filter(Boolean).join(' · ')
+  document.getElementById('sb-bookmeta').textContent = meta
+}
+
+async function loadBook(s, { reloadForLanguage = false } = {}) {
+  currentBookHasZh = !!(books.find(b => b.slug === s) || {}).has_zh
+  const key = `${s}/${bookLangKey()}`
+  if (!reloadForLanguage && slug === s && book && bookCache[key]) {
+    if (sidebarMode === 'catalog') {
+      await loadCatalog(s)
+      renderCatalogPanel()
+    }
+    return book
+  }
+  slug = s
+  if (!bookCache[key]) {
+    bookCache[key] = await QBankShared.fetchJson(`data/${s}/book${bookLangSuffix()}.json`)
+  }
+  book = bookCache[key]
+  updateSidebarHeader()
+  renderTOC()
+  if (sidebarMode === 'catalog') {
+    await loadCatalog(s)
+    renderCatalogPanel()
+  }
+  document.title = `${book.title} — 教科書`
+  return book
+}
+
+function renderTOC() {
+  const el = document.getElementById('toc')
+  el.innerHTML = ''
+  const isZh = settings.lang === 'zh'
+  const buildItem = (kind, key, num, title, meta, sections) => {
+    const hasSecs = (sections || []).length > 0
+    const it = document.createElement('div')
+    it.className = 'toc-item' + (hasSecs ? ' has-children' : '')
+    it.dataset.kind = kind; it.dataset.key = String(key)
+    it.innerHTML =
+      (hasSecs ? `<span class="toc-caret">▸</span>` : `<span class="toc-caret"></span>`) +
+      `<span class="toc-num">${num}</span>` +
+      `<span class="toc-title">${esc(title)}</span>` +
+      (meta ? `<span class="toc-meta">${meta}</span>` : '')
+    it.onclick = () => navigate(slug, kind, key)
+    const cpBtn = document.createElement('button')
+    cpBtn.className = 'toc-copy qbk-icon-btn compact'; cpBtn.type = 'button'; cpBtn.title = '複製本章純文字'
+    cpBtn.textContent = '⧉'
+    cpBtn.onclick = (e) => { e.stopPropagation(); copyChapter(kind, key, cpBtn) }
+    it.appendChild(cpBtn)
+    el.appendChild(it)
+    if (hasSecs) {
+      const list = document.createElement('div')
+      list.className = 'toc-section-list'
+      list.dataset.parentKind = kind; list.dataset.parentKey = String(key)
+      sections.forEach(s => {
+        const si = document.createElement('div')
+        si.className = 'toc-sec'
+        si.dataset.kind = kind; si.dataset.key = String(key); si.dataset.anchor = s.anchor
+        si.dataset.level = String(s.level)
+        si.innerHTML =
+          `<span class="toc-sec-num">${s.id ? esc(s.id) : ''}</span>` +
+          `<span class="toc-sec-title">${esc(s.title)}</span>`
+        si.onclick = (e) => { e.stopPropagation(); jumpToSection(kind, key, s.anchor) }
+        const scBtn = document.createElement('button')
+        scBtn.className = 'toc-copy qbk-icon-btn compact'; scBtn.type = 'button'; scBtn.title = '複製本節純文字'
+        scBtn.textContent = '⧉'
+        scBtn.onclick = (e) => { e.stopPropagation(); copySection(kind, key, s.anchor, scBtn) }
+        si.appendChild(scBtn)
+        list.appendChild(si)
+      })
+      el.appendChild(list)
+    }
+  }
+  if (book.chapters?.length) {
+    el.insertAdjacentHTML('beforeend',
+      `<div class="toc-group-label">${isZh ? '章節' : 'Chapters'}</div>`)
+    book.chapters.forEach(c => buildItem('ch', c.num, `Ch ${c.num}`, c.title,
+      `${c.problem_count}${isZh ? '題' : ' pb'}`, c.sections))
+  }
+  if (book.appendices?.length) {
+    el.insertAdjacentHTML('beforeend',
+      `<div class="toc-group-label">${isZh ? '附錄' : 'Appendices'}</div>`)
+    book.appendices.forEach(a => buildItem('app', a.id, `App ${a.id}`, a.title, '', a.sections))
+  }
+  highlightTOC()
+}
+
+async function loadCatalog(s) {
+  if (!s) return null
+  if (!catalogCache[s]) {
+    catalogCache[s] = await QBankShared.fetchJson(`data/${s}/catalogs.json`)
+  }
+  return catalogCache[s]
+}
+
+function catalogCounts() {
+  const data = catalogCache[slug] || {}
+  return {
+    figures: (data.figures || []).filter(e => e.id).length,
+    tables: (data.tables || []).filter(e => e.id).length,
+    equations: (data.equations || []).filter(e => e.label).length,
+  }
+}
+
+function catalogSearchText(e) {
+  return [
+    e.id, e.caption, e.section, e.problem, e.label, e.tex_preview,
+    e.chunk_kind === 'ch' ? `ch ${e.chunk_key}` : `app ${e.chunk_key}`,
+  ].filter(Boolean).join(' ').toLowerCase()
+}
+
+function filteredCatalogItems() {
+  const data = catalogCache[slug] || {}
+  const all = data[catalogType] || []
+  const semantic = all.filter(e => catalogType === 'equations' ? e.label : e.id)
+  const q = catalogQuery.trim().toLowerCase()
+  if (!q) return semantic
+  return semantic.filter(e => catalogSearchText(e).includes(q))
+}
+
+function catalogTypeLabel(type) {
+  return { figures: 'Figure', tables: 'Table', equations: 'Equation' }[type] || 'Item'
+}
+
+function catalogDisplayId(e) {
+  if (catalogType === 'equations') return e.label ? `(${e.label})` : 'Equation'
+  return e.id || catalogTypeLabel(catalogType)
+}
+
+function catalogItemText(e) {
+  if (catalogType === 'equations') {
+    const tex = e.tex || e.tex_preview || ''
+    return tex ? `$$${esc(tex)}$$` : ''
+  }
+  return e.caption || (e.problem ? `Problem ${e.problem}` : '')
+}
+
+function catalogMeta(e) {
+  const loc = e.chunk_kind === 'ch' ? `Ch ${e.chunk_key}` : `App ${e.chunk_key}`
+  const sec = e.section ? ` §${e.section}` : ''
+  const prob = e.problem ? ` · P ${e.problem}` : ''
+  return `${loc}${sec}${prob}`
+}
+
+function catalogItemHtml(e) {
+  const active = e.chunk_kind === currentKind && String(e.chunk_key) === String(currentKey)
+    && e.anchor === activeSectionAnchor
+  const thumb = catalogType === 'figures' && e.src
+    ? `<img class="catalog-thumb" data-kind="${escAttr(e.kind || '')}" src="img/${slug}/${escAttr(e.src)}" alt="">`
+    : ''
+  return `<div class="catalog-item${active ? ' active' : ''}" data-kind="${escAttr(e.chunk_kind)}" data-key="${escAttr(e.chunk_key)}" data-anchor="${escAttr(e.anchor)}">
+    ${thumb}
+    <div class="catalog-body">
+      <div class="catalog-id">${esc(catalogDisplayId(e))}</div>
+      <div class="catalog-meta">${esc(catalogMeta(e))}</div>
+      <div class="catalog-text">${catalogType === 'equations' ? catalogItemText(e) : esc(catalogItemText(e))}</div>
+    </div>
+  </div>`
+}
+
+function renderCatalogPanel() {
+  const list = document.getElementById('catalog-list')
+  document.querySelectorAll('.catalog-type').forEach(b =>
+    b.classList.toggle('active', b.dataset.catalogType === catalogType))
+  const counts = catalogCounts()
+  document.querySelectorAll('.catalog-type').forEach(b => {
+    const n = counts[b.dataset.catalogType] || 0
+    b.textContent = `${b.dataset.catalogType[0].toUpperCase()}${b.dataset.catalogType.slice(1)} ${n}`
+  })
+  if (!slug || !catalogCache[slug]) {
+    list.innerHTML = '<div class="catalog-empty">No catalog</div>'
+    return
+  }
+  const items = filteredCatalogItems()
+  if (!items.length) {
+    list.innerHTML = '<div class="catalog-empty">No matches</div>'
+    return
+  }
+  const shown = items.slice(0, catalogLimit)
+  list.innerHTML = shown.map(catalogItemHtml).join('')
+  if (catalogType === 'equations') QBankShared.renderMath(list)
+  list.querySelectorAll('.catalog-item').forEach((el, i) => {
+    el.addEventListener('click', () => openCatalogDetail(shown[i], catalogType))
+  })
+  if (items.length > catalogLimit) {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'qbk-control-btn compact catalog-load-more'
+    btn.textContent = `More ${items.length - catalogLimit}`
+    btn.onclick = () => { catalogLimit += 80; renderCatalogPanel() }
+    list.appendChild(btn)
+  }
+}
+
+function setupCatalogDetail() {
+  document.getElementById('catalog-detail-close').addEventListener('click', closeCatalogDetail)
+  document.getElementById('catalog-detail-cancel').addEventListener('click', closeCatalogDetail)
+  document.getElementById('catalog-detail-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'catalog-detail-modal') closeCatalogDetail()
+  })
+  document.getElementById('catalog-detail-navigate').addEventListener('click', () => {
+    const target = catalogDetailTarget
+    closeCatalogDetail()
+    if (target?.entry) jumpToCatalogEntry(target.entry)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('catalog-detail-modal').classList.contains('open')) {
+      closeCatalogDetail()
+    }
+  })
+}
+
+function closeCatalogDetail() {
+  document.getElementById('catalog-detail-modal').classList.remove('open')
+  document.getElementById('catalog-detail-body').innerHTML = ''
+  document.body.style.overflow = ''
+  catalogDetailTarget = null
+}
+
+async function openCatalogDetail(entry, type) {
+  if (!entry) return
+  catalogDetailTarget = { entry, type }
+  document.getElementById('catalog-detail-title').textContent = catalogDisplayIdForType(entry, type)
+  document.getElementById('catalog-detail-meta').textContent = catalogMeta(entry)
+  const body = document.getElementById('catalog-detail-body')
+  body.innerHTML = '<div class="catalog-detail-fallback">Loading…</div>'
+  document.getElementById('catalog-detail-modal').classList.add('open')
+  document.body.style.overflow = 'hidden'
+  const html = await catalogDetailHtml(entry, type)
+  if (!catalogDetailTarget || catalogDetailTarget.entry !== entry) return
+  body.innerHTML = html
+  wrapInlineMath(body)
+  QBankShared.renderMath(body)
+}
+
+function catalogDisplayIdForType(e, type) {
+  if (type === 'equations') return e.label ? `(${e.label})` : 'Equation'
+  return e.id || catalogTypeLabel(type)
+}
+
+async function catalogDetailHtml(entry, type) {
+  if (type === 'equations') {
+    const tex = entry.tex || entry.tex_preview || ''
+    const tag = entry.label && !/\\tag\s*\{/.test(tex) ? ` \\tag{${esc(entry.label)}}` : ''
+    return tex
+      ? `<div class="eq" data-tex="${escAttr(`$$${tex}$$`)}">$$${esc(tex)}${tag}$$</div>`
+      : '<div class="catalog-detail-fallback">Catalog audit failed: missing equation source.</div>'
+  }
+  const extracted = await extractCatalogAnchorHtml(entry)
+  if (extracted) return extracted
+  if (type === 'figures' && entry.src) {
+    const cap = entry.caption ? `<figcaption>${esc(entry.caption)}</figcaption>` : ''
+    const kind = entry.kind ? ` data-kind="${escAttr(entry.kind)}"` : ''
+    return `<figure${kind}><img src="img/${slug}/${escAttr(entry.src)}" alt="${escAttr(entry.caption || '')}">${cap}</figure>`
+  }
+  const label = catalogDisplayIdForType(entry, type)
+  return `<div class="catalog-detail-fallback">Catalog audit failed: ${esc(label)} has no resolvable anchor.</div>`
+}
+
+async function extractCatalogAnchorHtml(entry) {
+  if (!entry?.anchor || !entry.chunk_kind || entry.chunk_key == null) return ''
+  try {
+    const data = await fetchChunk(entry.chunk_kind, entry.chunk_key)
+    const secPrefix = entry.chunk_kind === 'ch' ? String(data.num) : `app${data.id}`
+    const tmp = document.createElement('div')
+    tmp.innerHTML = `${renderBody(data.body || [], secPrefix)}${renderProblems(data.problems || [])}`
+    const target = [...tmp.querySelectorAll('[id]')].find(el => el.id === entry.anchor)
+    if (!target) return ''
+    target.querySelectorAll('.edit-block-btn').forEach(btn => btn.remove())
+    if (target.closest('details')) {
+      let details = target.closest('details')
+      while (details) {
+        details.open = true
+        details = details.parentElement?.closest('details')
+      }
+    }
+    return target.outerHTML
+  } catch {
+    return ''
+  }
+}
+
+function jumpToCatalogEntry(entry) {
+  if (!entry) return
+  if (entry.chunk_kind === currentKind && String(entry.chunk_key) === String(currentKey)) {
+    scrollToAnchor(entry.anchor)
+    setActiveSection(entry.anchor)
+  } else {
+    pendingAnchor = entry.anchor
+    navigate(slug, entry.chunk_kind, entry.chunk_key)
+  }
+  closeReaderSidebar()
+}
+
+function highlightTOC() {
+  document.querySelectorAll('.toc-item').forEach(it => {
+    const on = it.dataset.kind === currentKind && it.dataset.key === String(currentKey)
+    it.classList.toggle('active', on)
+    it.classList.toggle('expanded', on && it.classList.contains('has-children'))
+  })
+}
+
+function jumpToSection(kind, key, anchor) {
+  if (kind === currentKind && String(key) === String(currentKey)) {
+    scrollToAnchor(anchor)
+    setActiveSection(anchor)
+  } else {
+    pendingAnchor = anchor
+    navigate(slug, kind, key)
+  }
+}
+
+function scrollToAnchor(anchor) {
+  const el = document.getElementById(anchor)
+  if (!el) return
+  let details = el.closest('details')
+  while (details) {
+    details.open = true
+    details = details.parentElement?.closest('details')
+  }
+  // 即時跳（不 smooth）：lazy 模式下平滑滾過長路徑會逐段觸發 typeset，等於重排整章。
+  el.scrollIntoView({ block: 'start' })
+  const content = document.getElementById('content')
+  if (content && content._primeVisible) content._primeVisible()
+}
+
+function setActiveSection(anchor) {
+  activeSectionAnchor = anchor || null
+  document.querySelectorAll('.toc-sec').forEach(s =>
+    s.classList.toggle('active', Boolean(anchor) && s.dataset.anchor === anchor))
+  revealActiveTOC(anchor)
+}
+
+function revealActiveTOC(anchor) {
+  const toc = document.getElementById('toc')
+  const target = anchor
+    ? toc.querySelector(`.toc-sec[data-anchor="${CSS.escape(anchor)}"]`)
+    : toc.querySelector(`.toc-item.active`)
+  if (!target) return
+  target.scrollIntoView({ block: 'nearest' })
+}
+
+function cleanupSectionSpy() {
+  if (sectionObserver) {
+    sectionObserver.disconnect()
+    sectionObserver = null
+  }
+  const content = document.getElementById('content')
+  if (sectionScrollHandler) {
+    content.removeEventListener('scroll', sectionScrollHandler)
+    sectionScrollHandler = null
+  }
+  activeSectionAnchor = null
+  setActiveSection(null)
+}
+
+function cleanupMathObserver() {
+  if (mathObserver) {
+    mathObserver.disconnect()
+    mathObserver = null
+  }
+  const content = document.getElementById('content')
+  if (content && mathScrollHandler) {
+    content.removeEventListener('scroll', mathScrollHandler)
+    mathScrollHandler = null
+  }
+}
+
+const MATH_BUFFER = 1400 // 視窗下方預先 typeset 的緩衝（px）
+
+// 整章一次 typeset 上千條數學式會阻塞主執行緒數秒（實測 ch03 ≈ 2–6s / 17 萬 DOM 節點）。
+// 改為增量排版：只處理可視範圍（含下方 buffer）的 render unit → 重載瞬開、滾動才陸續排版。
+// 以 scroll 事件 + 二分搜尋為主路徑（可靠處理任意捲動位置與 anchor 跳段），
+// IntersectionObserver 為輔（一般瀏覽下提前在 buffer 邊緣觸發，減少滾動時的補排延遲）。
+function setupIncrementalMath(content) {
+  cleanupMathObserver()
+  const article = content.querySelector('.article')
+  if (!article) return Promise.resolve()
+
+  // render unit：article 的頂層子節點；題目區拆成每一題各自一個 unit。
+  const units = []
+  for (const child of article.children) {
+    if (child.classList && child.classList.contains('problems-section')) {
+      child.querySelectorAll(':scope > .problem').forEach(p => units.push(p))
+    } else {
+      units.push(child)
+    }
+  }
+  const typesetUnit = (el) => {
+    if (!el || !el.isConnected || el.dataset.mathDone) return
+    el.dataset.mathDone = '1'
+    if (mathObserver) mathObserver.unobserve(el)
+    QBankShared.renderMath(el)
+  }
+  content._typesetUnit = typesetUnit
+  content._primeVisible = () => primeVisibleMath(content, units)
+
+  if ('IntersectionObserver' in window) {
+    mathObserver = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) typesetUnit(e.target)
+    }, { root: content, rootMargin: `0px 0px ${MATH_BUFFER}px 0px` })
+    units.forEach(el => mathObserver.observe(el))
+  }
+
+  let ticking = false
+  mathScrollHandler = () => {
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(() => { ticking = false; content._primeVisible() })
+  }
+  content.addEventListener('scroll', mathScrollHandler, { passive: true })
+
+  // 主動排版目前視窗內的 unit，不依賴 observer 的初始回呼。
+  content._primeVisible()
+  return Promise.resolve()
+}
+
+// typeset 落在「視窗頂 → 視窗底 + buffer」範圍內的 unit。units 依文件順序（offsetTop 遞增），
+// 二分搜尋第一個 bottom 進入視窗的 unit，再往下排到超出 buffer 為止 → O(log n + 可視數)。
+function primeVisibleMath(content, units) {
+  if (!content._typesetUnit || !units.length) return
+  const cr = content.getBoundingClientRect()
+  const top = cr.top, limit = cr.bottom + MATH_BUFFER
+  let lo = 0, hi = units.length - 1, start = units.length
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1
+    if (units[mid].getBoundingClientRect().bottom >= top) { start = mid; hi = mid - 1 }
+    else lo = mid + 1
+  }
+  for (let i = start; i < units.length; i++) {
+    if (units[i].getBoundingClientRect().top > limit) break
+    content._typesetUnit(units[i])
+  }
+}
+
+function headingAnchorForScroll(content) {
+  const heads = [...content.querySelectorAll('.article > .sec-h')]
+  if (!heads.length) return null
+  const readingLine = content.scrollTop + content.clientHeight * 0.18
+  let current = null
+  for (const h of heads) {
+    if (h.offsetTop <= readingLine) current = h
+    else break
+  }
+  return current?.id || null
+}
+
+function updateActiveSectionFromScroll() {
+  if (!currentKind) return
+  const content = document.getElementById('content')
+  const anchor = headingAnchorForScroll(content)
+  if (anchor !== activeSectionAnchor) {
+    setActiveSection(anchor)
+    scheduleProgressSave()
+  }
+}
+
+function setupSectionSpy() {
+  cleanupSectionSpy()
+  const content = document.getElementById('content')
+  const headings = [...content.querySelectorAll('.article > .sec-h')]
+  if (!headings.length) return
+
+  if ('IntersectionObserver' in window) {
+    sectionObserver = new IntersectionObserver(() => updateActiveSectionFromScroll(), {
+      root: content,
+      rootMargin: '-15% 0px -75% 0px',
+      threshold: [0, 1],
+    })
+    headings.forEach(h => sectionObserver.observe(h))
+  }
+
+  let ticking = false
+  sectionScrollHandler = () => {
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(() => {
+      ticking = false
+      updateActiveSectionFromScroll()
+      scheduleProgressSave()
+    })
+  }
+  content.addEventListener('scroll', sectionScrollHandler, { passive: true })
+  updateActiveSectionFromScroll()
+}
+
+// ── navigation ──
+function navigate(s, kind, key) {
+  persistCurrentProgress()
+  if (!s) { location.hash = ''; return }
+  if (!kind) location.hash = s
+  else location.hash = `${s}/${kind}/${key}`
+}
+
+async function parseHash({ restoreSaved = false } = {}) {
+  const h = location.hash.slice(1)
+  if (!h) {
+    if (restoreSaved) {
+      const last = loadProgress().last
+      if (last?.slug && last.kind && last.key != null && books.find(b => b.slug === last.slug)) {
+        navigate(last.slug, last.kind, last.key)
+        return
+      }
+    }
+    showLibrary(); return
+  }
+  const parts = h.split('/')
+  const s = parts[0]
+  if (!books.find(b => b.slug === s)) {
+    showLibrary()
+    document.getElementById('lib-groups').insertAdjacentHTML('afterbegin',
+      `<div class="lib-empty">找不到書：${esc(s)}</div>`)
+    return
+  }
+  document.getElementById('app').dataset.view = 'reader'
+  closeReaderSidebar()
+  await loadBook(s)
+  if (parts.length >= 3) {
+    await showChunk(parts[1], parts[2])
+  } else {
+    const saved = savedProgressTargetFor(s)
+    if (saved) navigate(saved.slug, saved.kind, saved.key)
+    else showBookOverview()
+  }
+}
+
+window.addEventListener('hashchange', () => parseHash())
+
+function showBookOverview() {
+  cleanupSectionSpy()
+  currentKind = currentKey = null
+  highlightTOC()
+  document.getElementById('crumb').innerHTML =
+    `<span class="cur">${esc(book.title)}</span> <span style="color:var(--sub)">— ${book.chapters?.length||0} 章</span>`
+  document.getElementById('btn-prev').disabled = true
+  document.getElementById('btn-next').disabled = true
+  updateReaderPanel()
+  document.getElementById('content').innerHTML = `
+    <div class="article">
+      <h1>${esc(book.title)}</h1>
+      <p style="color:var(--sub);margin-top:6px;font-style:italic">${esc(book.author||'')}${book.edition?` · ${esc(book.edition)} edition`:''}</p>
+      <p>從左側選章節開始閱讀。</p>
+    </div>`
+}
+
+async function showChunk(kind, key, { preserveScroll = false } = {}) {
+  cleanupSectionSpy()
+  cleanupMathObserver()
+  currentKind = kind; currentKey = key
+  highlightTOC()
+  const isZh = settings.lang === 'zh'
+  const content = document.getElementById('content')
+  const previousScrollTop = preserveScroll ? content.scrollTop : 0
+  const savedPosition = preserveScroll || pendingAnchor ? null : chunkProgress(slug, kind, key)
+  content.innerHTML = '<div id="loading">loading...</div>'
+  content.scrollLeft = 0
+  let data
+  try {
+    data = await fetchChunk(kind, key)
+  } catch (e) {
+    content.innerHTML = `<div id="empty">章節載入失敗</div>`
+    return
+  }
+
+  const label = kind === 'ch' ? `Ch ${data.num}` : `App ${data.id}`
+  document.getElementById('crumb').innerHTML =
+    `${esc(book.title)} <span style="color:var(--ink-light);margin:0 6px">›</span> <span class="cur">${label} ${esc(data.title)}</span>`
+  setupNav(kind, key)
+
+  const heading = kind === 'ch'
+    ? (isZh ? `第 ${data.num} 章` : `Chapter ${data.num}`)
+    : (isZh ? `附錄 ${data.id}` : `Appendix ${data.id}`)
+  const secPrefix = kind === 'ch' ? String(data.num) : `app${data.id}`
+  const titleZh = biReveal(data.title_zh)
+  const articleHtml = `
+    <article class="article">
+      <h1><span class="ch-num">${heading}</span>${esc(data.title)}</h1>
+      ${titleZh}
+      ${renderBody(data.body || [], secPrefix)}
+      ${renderProblems(data.problems || [])}
+    </article>`
+  content.innerHTML = articleHtml
+  groupAdjacentFigures(content)
+  wrapInlineMath(content)
+  content.scrollLeft = 0
+
+  // 先定位捲動位置（用尚未 typeset 的 DOM offset），再啟動增量排版。
+  // 增量模式下高度會隨捲動成長，故以 anchor 為主、pixel 為輔，並在 typeset 後再校正一次。
+  const restoreAnchor = pendingAnchor || (savedPosition && savedPosition.anchor) || null
+  if (restoreAnchor && document.getElementById(restoreAnchor)) {
+    scrollToAnchor(restoreAnchor)
+    setActiveSection(restoreAnchor)
+  } else if (savedPosition) {
+    restoreProgressPosition(savedPosition)
+  } else {
+    content.scrollTop = previousScrollTop
+  }
+
+  // renderMath 會輪詢等 MathJax CDN ready（硬重載時 CDN 可能晚於首次 showChunk）
+  setupIncrementalMath(content)
+  setupSectionSpy()
+
+  // 視窗內 unit 在下一兩個 frame 排版完，高度確定後把 anchor 重新校正到頂。
+  if (restoreAnchor && document.getElementById(restoreAnchor)) {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (currentKind === kind && String(currentKey) === String(key) && document.getElementById(restoreAnchor)) {
+        scrollToAnchor(restoreAnchor)
+        if (content._primeVisible) content._primeVisible()
+      }
+    }))
+  }
+  if (pendingAnchor) {
+    pendingAnchor = null
+    persistCurrentProgress()
+  }
+  if (sidebarMode === 'catalog') renderCatalogPanel()
+}
+
+// MinerU 常把 (a)(b) 子圖拆成獨立 figure block；把相鄰 figure 包進 .fig-row 並排顯示
+function groupAdjacentFigures(root) {
+  root.querySelectorAll('article.article, .problem-body, .solution-body').forEach(scope => {
+    const children = [...scope.children]
+    let i = 0
+    while (i < children.length) {
+      if (children[i].tagName !== 'FIGURE') { i++; continue }
+      let j = i + 1
+      while (j < children.length && children[j].tagName === 'FIGURE') j++
+      if (j - i >= 2) {
+        const row = document.createElement('div')
+        row.className = 'fig-row'
+        scope.insertBefore(row, children[i])
+        for (let k = i; k < j; k++) row.appendChild(children[k])
+      }
+      i = j
+    }
+  })
+}
+
+// ── 數學式複製 ─────────────────────────────────────────────────────
+// block：.eq 由 data-tex 承載完整 LaTeX（見 renderBlock）。
+// inline：typeset 前把段落文字裡的 $...$ 包成 .qb-inline-math 並記原始碼，
+//         MathJax 隨後在 span 內 typeset；原始碼留在 span 上供複製。
+function wrapInlineMath(root) {
+  const blocked = (node) => {
+    let p = node.parentElement
+    while (p && p !== root) {
+      if (p.classList && (p.classList.contains('eq') || p.classList.contains('qb-inline-math'))) return true
+      if (p.tagName === 'SCRIPT' || p.tagName === 'STYLE') return true
+      p = p.parentElement
+    }
+    return false
+  }
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (node.nodeValue.indexOf('$') === -1) return NodeFilter.FILTER_REJECT
+      return blocked(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+    },
+  })
+  const re = /\$\$[\s\S]*?\$\$|\$[^$\n]+?\$/g
+  const targets = []
+  let tn
+  while ((tn = walker.nextNode())) targets.push(tn)
+  targets.forEach((node) => {
+    const text = node.nodeValue
+    re.lastIndex = 0
+    if (!re.test(text)) return
+    re.lastIndex = 0
+    const frag = document.createDocumentFragment()
+    let last = 0, m
+    while ((m = re.exec(text))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)))
+      const span = document.createElement('span')
+      span.className = 'qb-inline-math'
+      span.dataset.tex = m[0]
+      span.textContent = m[0]
+      frag.appendChild(span)
+      last = m.index + m[0].length
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)))
+    node.parentNode.replaceChild(frag, node)
+  })
+}
+
+let copyToastTimer = null
+function showCopyToast(msg) {
+  let t = document.getElementById('copy-toast')
+  if (!t) { t = document.createElement('div'); t.id = 'copy-toast'; document.body.appendChild(t) }
+  t.textContent = msg
+  t.classList.add('show')
+  if (copyToastTimer) clearTimeout(copyToastTimer)
+  copyToastTimer = setTimeout(() => t.classList.remove('show'), 1300)
+}
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true } catch {}
+  try {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'
+    document.body.appendChild(ta)
+    ta.select()
+    const ok = document.execCommand('copy')
+    document.body.removeChild(ta)
+    return ok
+  } catch { return false }
+}
+
+// 選取範圍 → 純文字：每個數學元素換成它的完整 LaTeX 原始碼（含 $ 分隔符）。
+// 無數學則回傳 null（交還瀏覽器預設複製，不破壞一般文字選取）。
+function selectionToLatexText(range) {
+  const host = document.createElement('div')
+  host.appendChild(range.cloneContents())
+  if (!host.querySelector('[data-tex]')) return null
+  host.querySelectorAll('[data-tex]').forEach((el) => {
+    const tex = el.getAttribute('data-tex')
+    const block = el.classList.contains('eq')
+    el.replaceWith(document.createTextNode(block ? '\n' + tex + '\n' : tex))
+  })
+  host.querySelectorAll('p, h1, h2, h3, li, figcaption').forEach((el) => el.append('\n'))
+  return host.textContent.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim()
+}
+
+function setupMathCopy() {
+  const content = document.getElementById('content')
+  // block：點擊整塊複製（拖曳選取中則不觸發，留給 copy 事件）
+  content.addEventListener('click', (e) => {
+    const eq = e.target.closest('.eq')
+    if (!eq || !eq.dataset.tex) return
+    const sel = window.getSelection()
+    if (sel && !sel.isCollapsed && content.contains(sel.anchorNode)) return
+    copyText(eq.dataset.tex).then((ok) => {
+      if (!ok) return
+      eq.classList.add('copied')
+      setTimeout(() => eq.classList.remove('copied'), 1300)
+      showCopyToast('已複製 LaTeX')
+    })
+  })
+  // inline / 混合：Cmd-C 時選到任何數學式 → 整段 LaTeX 進剪貼簿
+  document.addEventListener('copy', (e) => {
+    const sel = window.getSelection()
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return
+    if (!content.contains(sel.anchorNode) && !content.contains(sel.focusNode)) return
+    const text = selectionToLatexText(sel.getRangeAt(0))
+    if (text == null) return
+    e.clipboardData.setData('text/plain', text)
+    e.preventDefault()
+    showCopyToast('已複製（含 LaTeX）')
+  })
+}
+
+function setupNav(kind, key) {
+  const items = kind === 'ch' ? book.chapters : book.appendices
+  const idField = kind === 'ch' ? 'num' : 'id'
+  const idx = items.findIndex(it => String(it[idField]) === String(key))
+  const prev = idx > 0 ? items[idx-1] : null
+  const next = idx >= 0 && idx < items.length-1 ? items[idx+1] : null
+  const prevBtn = document.getElementById('btn-prev')
+  const nextBtn = document.getElementById('btn-next')
+  prevBtn.disabled = !prev
+  nextBtn.disabled = !next
+  prevBtn.onclick = prev ? () => navigate(slug, kind, prev[idField]) : null
+  nextBtn.onclick = next ? () => navigate(slug, kind, next[idField]) : null
+  updateReaderPanel({
+    prev: prev ? prev[idField] : null,
+    next: next ? next[idField] : null,
+  })
+}
+
+// ── render body / problems ──
+// 靜態站無編輯功能；保留 stub 以免動到眾多 call site。
+function editAttrs() { return '' }
+function editButton() { return '' }
+
+function renderBody(blocks, secPrefix, basePath = ['body']) {
+  let counter = 0
+  const isBi = settings.lang === 'bi'
+  return blocks.map((b, i) => {
+    const path = [...basePath, i]
+    if (b.t === 'section' || b.t === 'subsection') {
+      counter += 1
+      const bid = (b.id || '').trim()
+      const anchor = bid ? `sec-${bid}` : `sec-${secPrefix}-${counter}`
+      const tag = b.t === 'section' ? 'h2' : 'h3'
+      const num = bid ? `<span class="sec-num">${esc(bid)}</span> ` : ''
+      return `<${tag} id="${anchor}" class="sec-h editable-block"${editAttrs(path, 'title', b.t, b.title)}>${num}${esc(b.title)}${editButton()}</${tag}>${isBi ? biReveal(b.title_zh) : ''}`
+    }
+    return renderBlock(b, isBi, path)
+  }).join('')
+}
+
+function biPanel(html) {
+  return `<div class="bi-panel">${html}</div>`
+}
+
+function biReveal(text) {
+  if (!text) return ''
+  return `<details class="bi-reveal"><summary></summary>${biPanel(renderMarkdown(text))}</details>`
+}
+
+function biBlock(enHtml, zhText) {
+  if (!zhText) return enHtml
+  return `<details class="bi-block"><summary>${enHtml}</summary>${biPanel(renderMarkdown(zhText))}</details>`
+}
+
+function renderBlock(b, isBi, path) {
+  switch (b.t) {
+    case 'example':
+      return `<div class="example-marker">Example ${esc(b.id)}</div>`
+    case 'p': {
+      const id = b.id ? ` id="${escAttr(b.id)}"` : ''
+      const en = `<p${id}>${renderMarkdown(b.md || '')}</p>`
+      const body = isBi ? biBlock(en, b.md_zh) : en
+      return `<div class="editable-block"${editAttrs(path, 'md', 'p', b.md)}>${body}${editButton()}</div>`
+    }
+    case 'eq': {
+      const tag = b.label && !/\\tag\s*\{/.test(b.tex || '') ? ` \\tag{${b.label}}` : ''
+      const id = b.id ? ` id="${escAttr(b.id)}"` : ''
+      return `<div class="eq editable-block"${id}${editAttrs(path, 'tex', 'eq', b.tex)} data-tex="${escAttr(`$$${b.tex}$$`)}" title="點擊複製 LaTeX">$$${b.tex}${tag}$$${editButton()}</div>`
+    }
+    case 'fig': {
+      const cap = b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''
+      const id = b.id ? ` id="${escAttr(b.id)}"` : ''
+      const kind = b.kind ? ` data-kind="${esc(b.kind)}"` : ''
+      const fig = `<figure class="editable-block"${id}${kind}${editAttrs(path, 'caption', 'fig', b.caption)}><img src="img/${slug}/${esc(b.src)}" loading="lazy" alt="${esc(b.caption||'')}">${cap}${editButton()}</figure>`
+      return fig + (isBi ? biReveal(b.caption_zh) : '')
+    }
+    case 'table': {
+      const cap = b.caption ? `<div class="tbl-cap">${esc(b.caption)}</div>` : ''
+      const fn  = b.footnote ? `<div class="tbl-fn">${esc(b.footnote)}</div>` : ''
+      const html = (b.html || '').replace(/src="images\//g, `src="img/${slug}/`)
+      const zh = [b.caption_zh, b.footnote_zh].filter(Boolean).join('\n\n')
+      const id = b.id ? ` id="${escAttr(b.id)}"` : ''
+      return `<div class="tbl editable-block"${id}${editAttrs(path, 'caption', 'table', b.caption)}>${cap}${html}${fn}${editButton()}</div>${isBi ? biReveal(zh) : ''}`
+    }
+  }
+  return ''
+}
+
+function renderProblems(probs) {
+  if (!probs.length) return ''
+  const isZh = settings.lang === 'zh'
+  const heading = isZh ? '題目' : 'Problems'
+  const probLabel = isZh ? '題' : 'Problem'
+  const solLabel = isZh ? '展開解答' : 'Show solution'
+  const emptyLabel = isZh ? '⚠ 此題 OCR 漏抓，請查原書' : '⚠ OCR missing — see original PDF'
+  return `<section class="problems-section">
+    <h2>${heading}</h2>
+    ${probs.map((p, idx) => `
+      <div class="problem" id="prob-${esc(p.num)}">
+        <div class="problem-num">${probLabel} ${esc(p.num)}</div>
+        <div class="problem-body">${(p.body && p.body.length)
+          ? renderBody(p.body, `p${p.num}`, ['problems', idx, 'body'])
+          : `<div class="problem-body-empty">${emptyLabel}</div>`}</div>
+        ${p.solution && p.solution.length ? `
+        <details class="problem-solution">
+          <summary>${solLabel}</summary>
+          <div class="solution-body">${renderBody(p.solution, `s${p.num}`, ['problems', idx, 'solution'])}</div>
+        </details>` : ''}
+      </div>`).join('')}
+  </section>`
+}
+
+async function fetchChunk(kind, key) {
+  const ck = `${slug}/${kind}/${key}/${settings.lang}`
+  if (chunkCache[ck]) return chunkCache[ck]
+  const base = kind === 'ch' ? `data/${slug}/ch/${key}` : `data/${slug}/app/${key}`
+  const data = await QBankShared.fetchJson(`${base}${langSuffix()}.json`)
+  chunkCache[ck] = data
+  return data
+}
+
+function tableToText(html) {
+  const tmp = document.createElement('div'); tmp.innerHTML = html || ''
+  const rows = [...tmp.querySelectorAll('tr')]
+  if (!rows.length) return tmp.textContent.trim()
+  return rows.map(r => [...r.children].map(c => c.textContent.trim()).join('\t')).join('\n')
+}
+
+function blockToText(b) {
+  switch (b.t) {
+    case 'section': case 'subsection': {
+      const id = (b.id || '').trim()
+      return (id ? id + ' ' : '') + (b.title || '')
+    }
+    case 'example': return `Example ${b.id || ''}`.trim()
+    case 'p': return b.md || ''
+    case 'eq': return `$$${b.tex}${b.label && !/\\tag\s*\{/.test(b.tex || '') ? ` \\tag{${b.label}}` : ''}$$`
+    case 'fig': return b.caption ? `[Figure] ${b.caption}` : '[Figure]'
+    case 'table': {
+      const body = tableToText(b.html)
+      return [b.caption || '', body, b.footnote || ''].filter(Boolean).join('\n')
+    }
+  }
+  return ''
+}
+
+function blocksToText(blocks) {
+  return (blocks || []).map(blockToText).filter(Boolean).join('\n\n')
+}
+
+function problemsToText(probs) {
+  if (!probs || !probs.length) return ''
+  const out = ['Problems']
+  probs.forEach(p => {
+    let s = `Problem ${p.num}`
+    const body = blocksToText(p.body)
+    if (body) s += '\n' + body
+    const sol = blocksToText(p.solution)
+    if (sol) s += '\nSolution\n' + sol
+    out.push(s)
+  })
+  return out.join('\n\n')
+}
+
+function chunkToText(kind, data) {
+  const head = kind === 'ch'
+    ? `Chapter ${data.num} — ${data.title}`
+    : `Appendix ${data.id} — ${data.title}`
+  return [head, blocksToText(data.body), problemsToText(data.problems)]
+    .filter(Boolean).join('\n\n').trim()
+}
+
+function sectionToText(kind, data, anchor) {
+  const body = data.body || []
+  const secPrefix = kind === 'ch' ? String(data.num) : `app${data.id}`
+  let counter = 0
+  const idxOf = {}
+  body.forEach((b, i) => {
+    if (b.t === 'section' || b.t === 'subsection') {
+      counter += 1
+      const id = (b.id || '').trim()
+      idxOf[id ? `sec-${id}` : `sec-${secPrefix}-${counter}`] = i
+    }
+  })
+  const start = idxOf[anchor]
+  if (start == null) return chunkToText(kind, data)
+  const startIsSection = body[start].t === 'section'
+  let end = body.length
+  for (let i = start + 1; i < body.length; i++) {
+    const t = body[i].t
+    if (t === 'section' || (!startIsSection && t === 'subsection')) { end = i; break }
+  }
+  return blocksToText(body.slice(start, end)).trim()
+}
+
+function flashCopy(ok, btn) {
+  showCopyToast(ok ? '已複製純文字' : '複製失敗')
+  if (ok && btn) { btn.classList.add('copied'); setTimeout(() => btn.classList.remove('copied'), 900) }
+}
+
+async function copyChapter(kind, key, btn) {
+  try {
+    const data = await fetchChunk(kind, key)
+    flashCopy(await copyText(chunkToText(kind, data)), btn)
+  } catch { showCopyToast('載入失敗') }
+}
+
+async function copySection(kind, key, anchor, btn) {
+  try {
+    const data = await fetchChunk(kind, key)
+    flashCopy(await copyText(sectionToText(kind, data, anchor)), btn)
+  } catch { showCopyToast('載入失敗') }
+}
+
+init()
+</script>
+</body>
+</html>
