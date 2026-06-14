@@ -686,8 +686,8 @@ let pendingAnchor = null // section anchor to scroll to after next showChunk
 let librarySubject = 'all'
 let sectionObserver = null
 let sectionScrollHandler = null
-let mathObserver = null // 增量 MathJax typeset：只排版進入視窗的 block
-let mathScrollHandler = null
+let mathScrollHandler = null // 視窗化增量 MathJax：只保留視窗附近排版
+let mathResizeHandler = null
 let activeSectionAnchor = null
 let readerDrawer = null
 const bookCache = {}
@@ -1547,23 +1547,24 @@ function cleanupSectionSpy() {
 }
 
 function cleanupMathObserver() {
-  if (mathObserver) {
-    mathObserver.disconnect()
-    mathObserver = null
-  }
   const content = document.getElementById('content')
   if (content && mathScrollHandler) {
     content.removeEventListener('scroll', mathScrollHandler)
     mathScrollHandler = null
   }
+  if (mathResizeHandler) {
+    window.removeEventListener('resize', mathResizeHandler)
+    mathResizeHandler = null
+  }
 }
 
-const MATH_BUFFER = 1400 // 視窗下方預先 typeset 的緩衝（px）
+// 整章一次 typeset 上千條公式 → 阻塞數秒、17 萬 DOM 節點、分頁 RAM 數百 MB。
+// 改為「視窗化 + derender」：只保留視窗 ± RENDER_MARGIN 的公式排版；
+// 捲出 DERENDER_MARGIN 的 unit 還原成輕量原始碼（釋放 MathJax DOM），記憶體因此封頂。
+// derender 時以 placeholder 高度占位 → 版面不位移、視覺無感。
+const RENDER_MARGIN = 900    // 視窗上下預先排版的緩衝（px）；進視窗前就排好，正常捲動不見原始碼
+const DERENDER_MARGIN = 3000 // 超出此距離才還原；必須 > RENDER_MARGIN，避免邊界反覆 render/derender 抖動
 
-// 整章一次 typeset 上千條數學式會阻塞主執行緒數秒（實測 ch03 ≈ 2–6s / 17 萬 DOM 節點）。
-// 改為增量排版：只處理可視範圍（含下方 buffer）的 render unit → 重載瞬開、滾動才陸續排版。
-// 以 scroll 事件 + 二分搜尋為主路徑（可靠處理任意捲動位置與 anchor 跳段），
-// IntersectionObserver 為輔（一般瀏覽下提前在 buffer 邊緣觸發，減少滾動時的補排延遲）。
 function setupIncrementalMath(content) {
   cleanupMathObserver()
   const article = content.querySelector('.article')
@@ -1578,51 +1579,70 @@ function setupIncrementalMath(content) {
       units.push(child)
     }
   }
-  const typesetUnit = (el) => {
-    if (!el || !el.isConnected || el.dataset.mathDone) return
-    el.dataset.mathDone = '1'
-    if (mathObserver) mathObserver.unobserve(el)
-    QBankShared.renderMath(el)
-  }
-  content._typesetUnit = typesetUnit
-  content._primeVisible = () => primeVisibleMath(content, units)
+  const rendered = new Set()   // 目前已 typeset 的 unit（derender 掃描只看這些，O(視窗數)）
 
-  if ('IntersectionObserver' in window) {
-    mathObserver = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) typesetUnit(e.target)
-    }, { root: content, rootMargin: `0px 0px ${MATH_BUFFER}px 0px` })
-    units.forEach(el => mathObserver.observe(el))
+  const renderUnit = async (el) => {
+    if (!el || !el.isConnected || el.dataset.mathState === 'rendered') return
+    if (el._mathRaw == null) el._mathRaw = el.innerHTML   // 首次排版前存原始碼
+    el.dataset.mathState = 'rendered'
+    el.style.minHeight = ''
+    rendered.add(el)
+    await QBankShared.renderMath(el)
   }
+  const derenderUnit = (el) => {
+    if (el.dataset.mathState !== 'rendered' || el._mathRaw == null) return
+    el.style.minHeight = el.getBoundingClientRect().height + 'px'  // 占位防版面跳動
+    el.innerHTML = el._mathRaw
+    el.dataset.mathState = 'raw'
+    rendered.delete(el)
+  }
+
+  // 視窗 refresh：① derender 離開 keep 範圍的 unit；② 排版 render 範圍內未排版的 unit（逐個 await，
+  // 讓高度隨排版成長後再決定下一個，杜絕「排版前量壓縮高度導致過度選取」）。re-entrancy 用 flag 防併發。
+  let refreshing = false, pending = false
+  const refresh = async () => {
+    if (refreshing) { pending = true; return }
+    refreshing = true
+    try {
+      const cr = content.getBoundingClientRect()
+      const H = cr.height
+      // ① derender 離開 keep 範圍者
+      for (const el of [...rendered]) {
+        const r = el.getBoundingClientRect()
+        const top = r.top - cr.top, bot = r.bottom - cr.top
+        if (bot < -DERENDER_MARGIN || top > H + DERENDER_MARGIN) derenderUnit(el)
+      }
+      // ② render 範圍：二分搜第一個 bottom 進入 render 視窗者，往下逐個排版
+      let lo = 0, hi = units.length - 1, start = units.length
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1
+        if (units[mid].getBoundingClientRect().bottom - cr.top >= -RENDER_MARGIN) { start = mid; hi = mid - 1 }
+        else lo = mid + 1
+      }
+      for (let i = start; i < units.length; i++) {
+        if (units[i].getBoundingClientRect().top - cr.top > H + RENDER_MARGIN) break
+        await renderUnit(units[i])   // await → 排版後高度更新，下一輪 rect 反映真實位置
+      }
+    } finally {
+      refreshing = false
+      if (pending) { pending = false; refresh() }
+    }
+  }
+  content._primeVisible = refresh
+  content._typesetUnit = renderUnit
 
   let ticking = false
   mathScrollHandler = () => {
     if (ticking) return
     ticking = true
-    requestAnimationFrame(() => { ticking = false; content._primeVisible() })
+    requestAnimationFrame(() => { ticking = false; refresh() })
   }
   content.addEventListener('scroll', mathScrollHandler, { passive: true })
+  mathResizeHandler = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; refresh() }) } }
+  window.addEventListener('resize', mathResizeHandler)
 
-  // 主動排版目前視窗內的 unit，不依賴 observer 的初始回呼。
-  content._primeVisible()
+  refresh()   // 初始排版視窗內 unit（同步呼叫，不依賴 rAF）
   return Promise.resolve()
-}
-
-// typeset 落在「視窗頂 → 視窗底 + buffer」範圍內的 unit。units 依文件順序（offsetTop 遞增），
-// 二分搜尋第一個 bottom 進入視窗的 unit，再往下排到超出 buffer 為止 → O(log n + 可視數)。
-function primeVisibleMath(content, units) {
-  if (!content._typesetUnit || !units.length) return
-  const cr = content.getBoundingClientRect()
-  const top = cr.top, limit = cr.bottom + MATH_BUFFER
-  let lo = 0, hi = units.length - 1, start = units.length
-  while (lo <= hi) {
-    const mid = (lo + hi) >> 1
-    if (units[mid].getBoundingClientRect().bottom >= top) { start = mid; hi = mid - 1 }
-    else lo = mid + 1
-  }
-  for (let i = start; i < units.length; i++) {
-    if (units[i].getBoundingClientRect().top > limit) break
-    content._typesetUnit(units[i])
-  }
 }
 
 function headingAnchorForScroll(content) {
