@@ -91,11 +91,11 @@ uv run python -m book_pipeline.status
 | `pipeline_queue.py` | **跨書全 stage 單一真相**（status.py 超集）：crawl→triage→qc→ingest→audit→parse→sol→deploy。`--next` 給下一可動項，每項標 `[LLM]`/`[det]`。 |
 | `mineru_budget.py` | MinerU 每日頁數預算輕量排程（per-account，UTC 重置）。超 quota 不硬拒、靠引擎 resubmit 自癒，故只決定「今天開不開新書」。 |
 | `pipeline_tick.py` | 單次 tick：resume in-flight → wishlist 爬書 → 走 actionable。det 直跑，LLM（crawl/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。**`--dry-run` 印計劃**。 |
-| `daemon_run.sh` + `com.qbank.bookpipeline.plist` | launchd 每 45 min 觸發 wrapper。安裝需使用者授權（建立持久背景排程）。 |
+| `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
 | `crawl_wishlist.json` | 爬書意圖（`topics` 空則不爬）。crawl agent 讀此 + inventory 自行選書選版。 |
 | `references/{crawl,qc}.md` | headless agent 的 crawl / 視覺 QC 流程指引。 |
 
-**新 stage**（pipeline_queue 在 status 前後補的）：`0.2 待qc`（triage 判 needs_llm）、`0.3 待ingest`（triage 過）、`deploy`（parse 完 → textbook-reader build+push）。`R *拒` = triage/qc 判不可用。
+**新 stage**（pipeline_queue 在 status 前後補的）：`0.2 待qc`（triage 判 needs_llm）、`0.3 待ingest`（triage 過）、`deploy`（parse 完 → 本地 `build.build_all` 烤 data/img，nginx 直讀即時上站，**無 git push**）。`R *拒` = triage/qc 判不可用。
 
 互動排查迴圈時：`pipeline_queue` 看全景、`pipeline_tick --dry-run` 看下個 tick 會做什麼、`tail reports/daemon.log` 看歷史。
 
