@@ -184,19 +184,44 @@ def books_status() -> dict:
 
 
 # ── 錯誤掃描 ─────────────────────────────────────────────────────────────────
+def _last_tick_start() -> datetime | None:
+    """daemon.log 最後一次 '=== tick start ===' 的 UTC 時戳。"""
+    last = None
+    for line in _tail(DAEMON_LOG, 400):
+        if 'tick start' in line:
+            last = _parse_ts(line) or last
+    return last
+
+
 def scan_errors(since_min: int = 180) -> list:
+    # 錯誤窗以「最近一次 tick start」為地板：只反映最新一輪 tick 的錯誤，
+    # 已解決的舊錯誤在下一輪 clean tick 後自動消失（stdout.log 多數行無日期戳，
+    # 否則永遠掃得到、誤判已修復的問題仍存在）。
     cutoff = _now_utc() - timedelta(minutes=since_min)
+    tick_floor = _last_tick_start()
+    if tick_floor and tick_floor > cutoff:
+        cutoff = tick_floor
     out = []
     for path, src in ((DAEMON_LOG, 'daemon.log'), (STDOUT_LOG, 'stdout'),
                       (ERR_LOG, 'launchd.err')):
-        last_ts = None
-        for line in _tail(path, 300):
-            ts = _parse_ts(line)
+        lines = _tail(path, 300)
+        tss = [_parse_ts(l) for l in lines]
+        # 每行的「有效 ts」：取至該行為止最後見到的時戳；檔頭無時戳的行
+        # 向後找第一個時戳近似（否則早期錯誤永遠 eff=None 被一律收，誤判長存）。
+        eff_ts = [None] * len(lines)
+        carry = None
+        for i, ts in enumerate(tss):
             if ts:
-                last_ts = ts
+                carry = ts
+            eff_ts[i] = carry
+        fwd = None
+        for i in range(len(lines) - 1, -1, -1):
+            if tss[i]:
+                fwd = tss[i]
+            if eff_ts[i] is None:
+                eff_ts[i] = fwd
+        for line, eff in zip(lines, eff_ts):
             if ERROR_RE.search(line):
-                # stdout/err 無時間戳 → 用該檔最後見到的 ts 近似；無則一律收
-                eff = ts or last_ts
                 if eff and eff < cutoff:
                     continue
                 out.append({'src': src, 'ts_utc': eff.isoformat() if eff else None,
