@@ -50,8 +50,10 @@ uv run python -m http.server 8001                        # 本機預覽
 
 - **靜態托管**:docker compose nginx:alpine,mount repo 根 `:ro`,`restart: always`,bind `127.0.0.1:8001:80`。nginx 直讀磁碟,daemon 烤新檔即時生效(免 reload)。
 - **對外**:CF `kg-standby` tunnel(id `03ad6631-…`,zone `wordnexus.lol`)加 ingress `books.wordnexus.lol→localhost:8001`(整包覆寫須含 kg `→8000` 規則 + 末尾 404)+ proxied CNAME。SOP:`~/butler/docs/cloudflare-tunnel-hosting.md`。
-- **daemon**:`book_pipeline/daemon_run.sh` + plist(`com.textbookreader.bookpipeline`)。MinerU token 從 `~/.secrets` source(勿入 plist/git)。
-- 憑證:`.env`(MINERU_API_TOKEN)、`~/.secrets/{zlib.env,zlib_session.json}`、rclone(Drive 備份)。
+- **daemon**:`book_pipeline/daemon_run.sh` + plist(`com.textbookreader.bookpipeline`,45min/tick)。MinerU token 由 wrapper `source ~/.secrets/mineru.env`(`export MINERU_API_TOKEN[2]=`)注入,勿入 plist/git。
+- **監控**:`/dev` 頁(`dev/index.html`,復用 reader 元件)即時看 daemon/budget/錯誤/書本階段。單一真相源 `book_pipeline/devctl.py`——網頁與 CLI 共用:`devctl status|snapshot|errors|incident|kick`。snapshot 由 `pipeline_tick.log()` 事件驅動刷新(節流 8s)+ `com.textbookreader.devsnapshot` plist 60s 心跳;寫 `dev/status.json`(gitignore)。**出事除錯入口 = `uv run python -m book_pipeline.devctl incident`**。
+- **`/dev` 存取**:CF Access 信箱閘(app `textbook-dev`,只給 max970228,session 1 月)+ nginx `Cf-Access-Authenticated-User-Email` header 把關。設定/改 policy 全 CLI,SOP `~/butler/docs/cloudflare-tunnel-hosting.md` §9。
+- 憑證:`~/.secrets/{mineru.env,zlib.env,zlib_session.json}`、`cloudflare_token`(含 Access scope)、rclone(Drive 備份)。各機獨立,絕不入 git。
 
 ## Gotchas
 
