@@ -1,0 +1,67 @@
+# book.json metadata 規範（單一真相）
+#
+# audit-book skill 寫 yaml 時必須 cite 本檔；normalize_metadata.py 用本檔驗證。
+# 新增 subject 必須先加入本檔 → 經 review → 才在 book.json 用。
+
+# ── subject: controlled vocabulary ─────────────────────────────────────
+# 一本書一個 subject。同類書（電磁學/熱物理）必須對齊同字串。
+# 新主題不在 list → normalize 報錯，要求補 list。
+subjects:
+  # 物理
+  - Electromagnetism      # Griffiths Intro to Electrodynamics, Cheng Field & Wave
+  - Quantum Mechanics     # Griffiths QM, Sakurai
+  - Thermal Physics       # Kittel, Blundell（統一 Thermal Physics、不細分 stat mech）
+  - Classical Mechanics
+  - Solid State Physics
+  - Optics
+  - Particle Physics
+  - General Relativity
+  - Waves                 # Pain The Physics of Vibrations and Waves（振動與波）
+
+  # 數學
+  - Linear Algebra        # Strang
+  - Calculus              # Thomas
+  - Mathematical Methods
+  - Real Analysis
+  - Complex Analysis
+  - Differential Equations
+  - Probability
+  - Differential Geometry  # Nakahara Geometry, Topology and Physics（微分幾何 / 拓樸 for 物理）
+
+  # 工程
+  - Electric Circuits     # Alexander/Sadiku
+  - Microelectronics      # Sedra/Smith
+  - Signal Processing     # Oppenheim (待 ingest)
+  - Digital Logic
+  - Control Systems
+  - Computer Architecture
+  - Computer Networks     # Tanenbaum/Wetherall Computer Networks
+  - Computer Science      # Brookshear CS: An Overview（計算機概論 / 通論）
+  - Operating Systems     # Silberschatz Operating System Concepts
+
+# ── edition: 格式規範 ──────────────────────────────────────────────────
+# 必須是 "<N>(st|nd|rd|th)" 純序數字串，or "<N>(st|nd|rd|th) <variant>"
+# 不知道版本 → null（不要瞎填、不要寫 ""）
+# variant 限定（書背實際印的子標）：
+#   - International / Global / Asian / SI / Student / Instructor
+edition_format:
+  pattern: '^(\d+)(st|nd|rd|th)( (International|Global|Asian|SI|Student|Instructor))?$'
+  examples:
+    - "1st"
+    - "2nd"
+    - "3rd"
+    - "4th"
+    - "7th International"
+    - null  # 不知道版本
+
+# ── author: 格式規範 ───────────────────────────────────────────────────
+# 多作者統一用 "; "（分號 + 空格）分隔
+# 不要用 " and "、不要用 ", "（逗號可能在名字內部用，例如 "Smith, John"）
+# 名字格式：First Middle Last，不要 "Last, First"
+author_format:
+  separator: '; '
+  pattern: '^[^,]+(; [^,]+)*$'  # 不出現 ", "（避免 Last, First 風格）
+  examples:
+    - "David J. Griffiths"
+    - "Adel S. Sedra; Kenneth C. Smith"
+    - "Charles Kittel; Herbert Kroemer"

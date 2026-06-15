@@ -1,0 +1,11 @@
+{
+  "slug": "griffiths_qm3",
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-griffiths-qm3-sol",
+      "action": "copy_solution_images",
+      "from_slug": "griffiths_qm3_sol",
+      "reason": "Merged solution figure blocks reference image hashes from the solution book ingest; copy those immutable image assets into the main book image directory so reader/catalog anchors resolve."
+    }
+  ]
+}

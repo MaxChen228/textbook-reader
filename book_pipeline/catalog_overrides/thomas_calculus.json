@@ -1,0 +1,27 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "thomas-figure-14.15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "problem:14.2.2:body[22]",
+      "position": "before",
+      "page": 820,
+      "clip": [
+        0.035,
+        0.405,
+        0.315,
+        0.94
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-14.15",
+        "kind": "line",
+        "caption": "Figure 14.15: (a) The graph of f(x,y)=2x^2y/(x^4+y^2). (b) Along each path y=kx^2 the value of f is constant, but varies with k (Example 6)."
+      },
+      "reason": "The raw PDF contains Figure 14.15 in the left margin beside Example 6, but MinerU did not emit a figure block for it."
+    }
+  ]
+}

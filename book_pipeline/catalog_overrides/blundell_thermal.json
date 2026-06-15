@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "blundell-fig-33.1-footnote-split",
+      "action": "replace_text",
+      "chunk": "ch33",
+      "selector": "body[62]",
+      "field": "md",
+      "old": "Fig. 33.1.2 Because",
+      "new": "Fig. 33.1. Because",
+      "reason": "PDF text has Fig. 33.1 followed by footnote marker 2; the OCR merge created a false Figure 33.1.2 reference."
+    }
+  ]
+}

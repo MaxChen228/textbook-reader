@@ -1,26 +1,20 @@
 #!/usr/bin/env python3
-"""把 qbank 的 textbooks.corpus 即時轉換預烤成靜態 JSON。
+"""把本地 textbooks.corpus 的即時轉換預烤成靜態 JSON。
 
 用法：
-    QBANK_ROOT=~/project/qbank python3 build/bake_json.py [slug ...]
+    uv run python -m build.bake_json [slug ...]
 
-不帶 slug = 全部書；帶 slug = 只烤指定書（Phase 0 單書驗證用）。
+不帶 slug = 全部書；帶 slug = 只烤指定書（單書驗證用）。
 輸出到 ../data/。所有圖片引用的 .jpg 在此一併改寫成 .webp（檔案轉檔由 convert_images.py 負責）。
 """
 from __future__ import annotations
 
 import json
-import os
 import re
 import sys
 from pathlib import Path
 
-QBANK = Path(os.environ.get('QBANK_ROOT', '')).expanduser()
-if not QBANK.is_dir():
-    sys.exit('需設定 QBANK_ROOT 指向 qbank repo，例如 QBANK_ROOT=~/project/qbank')
-sys.path.insert(0, str(QBANK))
-
-from textbooks import corpus  # noqa: E402
+from textbooks import corpus
 
 OUT = Path(__file__).resolve().parent.parent / 'data'
 JPG_TO_WEBP = re.compile(r'\.jpg$', re.IGNORECASE)

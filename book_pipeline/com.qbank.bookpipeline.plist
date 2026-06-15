@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  book_pipeline 自動化迴圈 launchd agent（每 45 分一次 tick）。
+  安裝（需使用者授權，會建立持久背景排程）：
+    cp book_pipeline/com.qbank.bookpipeline.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.qbank.bookpipeline.plist
+  停用：
+    launchctl unload ~/Library/LaunchAgents/com.qbank.bookpipeline.plist
+  注意：路徑寫死 /Users/chenliangyu；換機需改。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.qbank.bookpipeline</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/Users/chenliangyu/project/qbank/book_pipeline/daemon_run.sh</string>
+  </array>
+
+  <key>StartInterval</key>
+  <integer>2700</integer>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/chenliangyu/project/qbank/book_pipeline/reports/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/chenliangyu/project/qbank/book_pipeline/reports/launchd.err.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/chenliangyu</string>
+  </dict>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

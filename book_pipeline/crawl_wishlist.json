@@ -1,0 +1,4 @@
+{
+  "_doc": "自動爬書 wishlist。topics 為空時 daemon 不爬。你跟 agent 討論後在此填想補的主題/書名/科目；headless crawl agent 會讀此檔 + crawl_zlib inventory（現有書況）自行判斷選哪本、哪版，再 crawl_zlib fetch 下載。每日受 z-library 10 本額度限制。",
+  "topics": []
+}

@@ -1,0 +1,55 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "36.5",
+      "classification": "external",
+      "reason": "The source text explicitly references Chapter 36, Vol. I.",
+      "where": "ch13.json body[119]",
+      "evidence": "Text says: Chapter 36, Vol. I; see Fig. 36-5."
+    },
+    {
+      "type": "table",
+      "ref": "2.2",
+      "classification": "external",
+      "reason": "The source text explicitly references Vol. I.",
+      "where": "ch11.json body[186]",
+      "evidence": "Text says: Table 2-2 of Vol. I."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "feynman-fig-34.5-metadata",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[141]",
+      "expect": {
+        "id": "fig-34-6"
+      },
+      "set": {
+        "id": "fig-34.5",
+        "caption": "Fig. 34-5. The possible magnetic energies of an atomic system with a spin of 3/2 in a magnetic field B.",
+        "catalog_repair_source": "agent-metadata-swap"
+      },
+      "reason": "This image is Fig. 34-5; MinerU attached the following Fig. 34-6 id/caption to it."
+    },
+    {
+      "id": "feynman-fig-34.6-metadata",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[142]",
+      "expect": {
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-34.6",
+        "caption": "Fig. 34-6. The two possible energy states of an electron in a magnetic field B.",
+        "catalog_repair_source": "agent-metadata-swap"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "This block is the actual Fig. 34-6 and should be visible in the catalog."
+    }
+  ]
+}

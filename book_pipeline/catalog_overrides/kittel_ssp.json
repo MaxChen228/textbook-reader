@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "8.5b",
+      "classification": "source_mismatch",
+      "reason": "The PDF page contains blue-link text Fig. 8.5a/Fig. 8.5b but the visible source figure on that page is captioned Figure 18; no Figure 8.5 target caption exists in the raw PDF.",
+      "where": "ch17.json body[231]",
+      "evidence": "Raw PDF page 732 shows Figure 18 Electron-hole recombination into photons and link text Fig. 8.5a/Fig. 8.5b."
+    },
+    {
+      "type": "table",
+      "ref": "18.2",
+      "classification": "source_mismatch",
+      "reason": "The merged solution references Table 18.2, but the raw textbook PDF has no Table 18.2 target caption/text.",
+      "where": "ch20.json problem 2 solution[2]",
+      "evidence": "Raw PDF text search finds no Table 18.2 or Table 18 target."
+    }
+  ],
+  "overrides": []
+}

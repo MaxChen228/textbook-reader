@@ -2,12 +2,11 @@
 """一鍵 build：bake JSON + convert images。
 
 用法：
-    QBANK_ROOT=~/project/qbank python3 build/build_all.py [slug ...]
+    uv run python -m build.build_all [slug ...]
 """
 import sys
 
-import bake_json
-import convert_images
+from build import bake_json, convert_images
 
 if __name__ == '__main__':
     args = sys.argv[1:]

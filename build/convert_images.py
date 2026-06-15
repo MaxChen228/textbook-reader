@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
-"""把 qbank 各書的 unified/images/<hash>.jpg + cover.jpg 轉成 WebP，輸出到 ../img/<slug>/。
+"""把本地各書的 unified/images/<hash>.jpg + cover.jpg 轉成 WebP，輸出到 ../img/<slug>/。
 
 用法：
-    QBANK_ROOT=~/project/qbank python3 build/convert_images.py [slug ...]
+    uv run python -m build.convert_images [slug ...]
 
 q80（實測省 ~41%）。冪等：dst 已存在且 mtime 不舊於 src 則跳過，支援增量重跑。
 """
 from __future__ import annotations
 
-import os
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
-QBANK = Path(os.environ.get('QBANK_ROOT', '')).expanduser()
-if not QBANK.is_dir():
-    sys.exit('需設定 QBANK_ROOT 指向 qbank repo')
-
-DATA_DIR = QBANK / 'book_pipeline' / 'mineru_data'
-OUT = Path(__file__).resolve().parent.parent / 'img'
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
+OUT = ROOT / 'img'
 QUALITY = '80'
 
 

@@ -1,0 +1,418 @@
+#!/usr/bin/env python3
+"""book_pipeline.crawl_zlib — z-library eapi 爬取 client（確定性，零 LLM）。
+
+pipeline 最上游：把 z-library 的書下載成 raw_pdfs/<slug>.pdf，銜接既有
+mineru_ingest → audit → parse → deploy。設計鐵則：
+
+- 認證只讀 ~/.secrets/zlib.env（ZLIB_EMAIL/ZLIB_PASSWORD/ZLIB_DOMAIN）；
+  session（remix_userid/userkey）快取在 ~/.secrets/zlib_session.json（chmod 600），
+  避免每次重登；401 自動重登。**絕不把密碼/userkey echo 到 stdout/log。**
+- 走 JSON eapi（/eapi/...），不靠 HTML scraping（後者隨版面腐爛）。
+- 冪等：已在 slug_map / mineru_data / crawl_manifest（md5）中的書直接跳。
+- 每日下載額度（免費 10/日）是真瓶頸：fetch 前查 profile，額度不足乾淨停（rc=4）。
+
+「選哪本/哪版」由 agent 看 search/inventory 輸出後決定；本工具只做確定性
+搜尋排序、去重、下載、登錄。
+
+用法：
+  uv run --with requests python -m book_pipeline.crawl_zlib limits
+  uv run --with requests python -m book_pipeline.crawl_zlib inventory [--json]
+  uv run --with requests python -m book_pipeline.crawl_zlib search "<query>" \
+      [--ext pdf] [--lang english] [--year-from N] [--limit 20] [--json]
+  uv run --with requests python -m book_pipeline.crawl_zlib fetch <id> <hash> --slug <slug>
+"""
+from __future__ import annotations
+
+import argparse
+import glob
+import json
+import os
+import re
+import sys
+import time
+from datetime import datetime, timezone
+
+import requests
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BP = os.path.join(ROOT, 'book_pipeline')
+DATA = os.path.join(BP, 'mineru_data')
+RAW = os.path.join(ROOT, 'raw_pdfs')
+SLUG_MAP = os.path.join(BP, 'slug_map.json')
+CRAWL_MANIFEST = os.path.join(BP, 'crawl_manifest.json')
+
+ENV_PATH = os.path.expanduser('~/.secrets/zlib.env')
+SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')
+UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+
+SOLUTION_RE = re.compile(
+    r'\b(solutions?\s+manual|instructor\'?s?\s+(solutions?|manual)|answer\s+key|'
+    r'\[solutions?\]|solution\s+manual|solutions?\s+to)\b', re.I)
+
+
+# ── 認證 ──────────────────────────────────────────────────────────────────
+
+def _load_env() -> dict:
+    if not os.path.exists(ENV_PATH):
+        sys.exit(f'缺 {ENV_PATH}（ZLIB_EMAIL/ZLIB_PASSWORD/ZLIB_DOMAIN）')
+    d = {}
+    for line in open(ENV_PATH):
+        line = line.strip()
+        if line and '=' in line and not line.startswith('#'):
+            k, v = line.split('=', 1)
+            d[k.strip()] = v.strip()
+    return d
+
+
+def _base() -> str:
+    return _load_env().get('ZLIB_DOMAIN', 'https://z-library.sk').rstrip('/')
+
+
+def _save_session(uid: str, key: str) -> None:
+    old_umask = os.umask(0o077)
+    try:
+        with open(SESSION_PATH, 'w') as f:
+            json.dump({'remix_userid': uid, 'remix_userkey': key}, f)
+        os.chmod(SESSION_PATH, 0o600)
+    finally:
+        os.umask(old_umask)
+
+
+def _login() -> tuple[str, str]:
+    env = _load_env()
+    base = env.get('ZLIB_DOMAIN', 'https://z-library.sk').rstrip('/')
+    r = requests.post(f'{base}/eapi/user/login',
+                      data={'email': env['ZLIB_EMAIL'], 'password': env['ZLIB_PASSWORD']},
+                      headers={'User-Agent': UA}, timeout=30)
+    r.raise_for_status()
+    j = r.json()
+    if not j.get('success'):
+        sys.exit(f'登入失敗：{j}')
+    u = j['user']
+    uid, key = str(u['id']), u['remix_userkey']
+    _save_session(uid, key)
+    return uid, key
+
+
+def _session() -> tuple[str, str]:
+    """回傳 (uid, key)，優先讀快取，無則登入。"""
+    if os.path.exists(SESSION_PATH):
+        try:
+            s = json.load(open(SESSION_PATH))
+            return str(s['remix_userid']), s['remix_userkey']
+        except Exception:
+            pass
+    return _login()
+
+
+class Client:
+    def __init__(self):
+        self.base = _base()
+        self.uid, self.key = _session()
+        self.s = requests.Session()
+        self.s.headers.update({'User-Agent': UA,
+                               'remix-userid': self.uid, 'remix-userkey': self.key})
+        self.s.cookies.update({'remix_userid': self.uid, 'remix_userkey': self.key})
+
+    def _relogin(self):
+        self.uid, self.key = _login()
+        self.s.headers.update({'remix-userid': self.uid, 'remix-userkey': self.key})
+        self.s.cookies.update({'remix_userid': self.uid, 'remix_userkey': self.key})
+
+    def _get(self, path: str, **kw):
+        r = self.s.get(self.base + path, timeout=60, **kw)
+        if r.status_code in (401, 403):
+            self._relogin()
+            r = self.s.get(self.base + path, timeout=60, **kw)
+        return r
+
+    def profile(self) -> dict:
+        j = self._get('/eapi/user/profile').json()
+        return j.get('user', {})
+
+    def search(self, q: str, ext=None, lang=None, year_from=None, year_to=None,
+               limit=20, page=1) -> list[dict]:
+        data = {'message': q, 'limit': limit, 'page': page}
+        if ext:
+            data['extensions[]'] = ext
+        if lang:
+            data['languages[]'] = lang
+        if year_from:
+            data['yearFrom'] = year_from
+        if year_to:
+            data['yearTo'] = year_to
+        r = self.s.post(f'{self.base}/eapi/book/search', data=data, timeout=60)
+        if r.status_code in (401, 403):
+            self._relogin()
+            r = self.s.post(f'{self.base}/eapi/book/search', data=data, timeout=60)
+        return r.json().get('books', [])
+
+    def download(self, dl_path: str, dest: str) -> int:
+        """串流下載到 dest，回傳 bytes。dl_path 形如 /dl/xxx。"""
+        r = self._get(dl_path, stream=True, allow_redirects=True)
+        r.raise_for_status()
+        ctype = r.headers.get('Content-Type', '')
+        if 'text/html' in ctype:
+            raise RuntimeError(f'下載回傳 HTML（額度耗盡或需驗證）：{dl_path}')
+        n = 0
+        tmp = dest + '.part'
+        with open(tmp, 'wb') as f:
+            for chunk in r.iter_content(1 << 16):
+                f.write(chunk)
+                n += len(chunk)
+        os.replace(tmp, dest)
+        return n
+
+
+# ── inventory（去重 + agent context）─────────────────────────────────────
+
+def _slug_map() -> dict:
+    try:
+        return (json.load(open(SLUG_MAP)) or {}).get('map', {})
+    except Exception:
+        return {}
+
+
+def _crawl_manifest() -> list[dict]:
+    try:
+        return json.load(open(CRAWL_MANIFEST)) or []
+    except Exception:
+        return []
+
+
+def _known_slugs() -> set:
+    """現有書 slug：slug_map 值 ∪ mineru_data 目錄（含 _sol）∪ crawl_manifest。"""
+    slugs = set(_slug_map().values())
+    slugs |= {os.path.basename(p.rstrip('/')) for p in glob.glob(f'{DATA}/*/')}
+    slugs |= {e['slug'] for e in _crawl_manifest() if e.get('slug')}
+    return slugs
+
+
+def _known_md5() -> set:
+    return {e['md5'] for e in _crawl_manifest() if e.get('md5')}
+
+
+def inventory() -> dict:
+    """agent 決策用：現有全部書 slug + 已爬 md5。讓 agent 避免重複爬。"""
+    sm = _slug_map()
+    return {
+        'known_slugs': sorted(_known_slugs()),
+        'crawled': [{k: e.get(k) for k in ('slug', 'title', 'author', 'year', 'is_solution')}
+                    for e in _crawl_manifest()],
+        'raw_filename_to_slug': sm,
+    }
+
+
+# ── search 排序（堪用啟發式）──────────────────────────────────────────────
+
+def _is_solution(title: str) -> bool:
+    return bool(SOLUTION_RE.search(title or ''))
+
+
+def _score(b: dict) -> float:
+    """堪用度粗排（最終 type 由下載後 pdf_triage 定）。"""
+    s = 0.0
+    size = b.get('filesize') or 0
+    mb = size / 1e6
+    if b.get('extension', '').lower() == 'pdf':
+        s += 10
+    # 合理檔案大小帶：教科書多在 3–80MB；過小常殘缺/無圖、過大常高解析掃描
+    if 3 <= mb <= 80:
+        s += 5
+    elif 1.5 <= mb < 3 or 80 < mb <= 150:
+        s += 1
+    elif mb < 1.5:
+        s -= 3
+    if b.get('publisher'):
+        s += 2
+    try:
+        yr = int(b.get('year') or 0)
+        if yr >= 2000:
+            s += min((yr - 2000) / 10, 2)
+    except Exception:
+        pass
+    try:
+        s += min(float(b.get('interestScore') or 0) / 2, 2.5)
+    except Exception:
+        pass
+    if (b.get('pages') or 0) > 50:
+        s += 1
+    return s
+
+
+def _rank(books: list[dict]) -> list[dict]:
+    return sorted(books, key=_score, reverse=True)
+
+
+def _annotate(b: dict, known_md5: set) -> dict:
+    return {
+        'id': b.get('id'), 'hash': b.get('hash'),
+        'title': b.get('title'), 'author': b.get('author'),
+        'year': b.get('year'), 'edition': b.get('edition'),
+        'publisher': b.get('publisher'),
+        'extension': b.get('extension'),
+        'mb': round((b.get('filesize') or 0) / 1e6, 1),
+        'pages': b.get('pages'),
+        'language': b.get('language'),
+        'md5': b.get('md5'),
+        'interest': b.get('interestScore'),
+        'is_solution': _is_solution(b.get('title', '')),
+        'have': b.get('md5') in known_md5,
+        'score': round(_score(b), 1),
+        'dl': b.get('dl'),
+    }
+
+
+# ── CLI ───────────────────────────────────────────────────────────────────
+
+def cmd_limits(args) -> int:
+    u = Client().profile()
+    used, lim = u.get('downloads_today'), u.get('downloads_limit')
+    print(json.dumps({'downloads_today': used, 'downloads_limit': lim,
+                      'remaining': (lim - used) if (lim is not None and used is not None) else None,
+                      'isPremium': u.get('isPremium')}, ensure_ascii=False))
+    return 0
+
+
+def cmd_inventory(args) -> int:
+    inv = inventory()
+    if args.json:
+        print(json.dumps(inv, ensure_ascii=False, indent=2))
+    else:
+        print(f"已知 slug（{len(inv['known_slugs'])}）：")
+        print('  ' + ' '.join(inv['known_slugs']))
+        if inv['crawled']:
+            print(f"\n已爬（crawl_manifest，{len(inv['crawled'])}）：")
+            for e in inv['crawled']:
+                tag = ' [SOL]' if e.get('is_solution') else ''
+                print(f"  {e['slug']:24} {e.get('title','')}{tag}")
+    return 0
+
+
+def cmd_search(args) -> int:
+    books = Client().search(args.query, ext=args.ext, lang=args.lang,
+                            year_from=args.year_from, limit=args.limit)
+    known = _known_md5()
+    rows = [_annotate(b, known) for b in _rank(books)]
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+        return 0
+    print(f"搜尋「{args.query}」→ {len(rows)} 筆（依堪用度排序）\n")
+    print(f"{'#':>2} {'id':>9} {'sc':>4} {'mb':>6} {'pg':>5} {'yr':>5} {'ext':>4} {'kind':>4} have  title")
+    for i, r in enumerate(rows):
+        kind = 'SOL' if r['is_solution'] else 'main'
+        have = '✓' if r['have'] else ''
+        title = (r['title'] or '')[:60]
+        print(f"{i:>2} {r['id']:>9} {r['score']:>4} {r['mb']:>6} "
+              f"{str(r['pages'] or ''):>5} {str(r['year'] or ''):>5} "
+              f"{(r['extension'] or ''):>4} {kind:>4} {have:>4}  {title}")
+    print("\nfetch：crawl_zlib fetch <id> <hash> --slug <slug>")
+    return 0
+
+
+def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
+    # slug_map 追加（不覆既有）
+    try:
+        sm = json.load(open(SLUG_MAP))
+    except Exception:
+        sm = {'map': {}}
+    sm.setdefault('map', {})[raw_filename] = slug
+    json.dump(sm, open(SLUG_MAP, 'w'), ensure_ascii=False, indent=2)
+    # crawl_manifest 追加
+    man = _crawl_manifest()
+    man = [e for e in man if e.get('slug') != slug]
+    man.append({
+        'slug': slug, 'raw_filename': raw_filename,
+        'zlib_id': book.get('id'), 'hash': book.get('hash'), 'md5': md5,
+        'title': book.get('title'), 'author': book.get('author'),
+        'year': book.get('year'), 'edition': book.get('edition'),
+        'publisher': book.get('publisher'), 'extension': book.get('extension'),
+        'filesize': book.get('filesize'), 'pages': book.get('pages'),
+        'is_solution': _is_solution(book.get('title', '')),
+        'downloaded_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+    })
+    json.dump(man, open(CRAWL_MANIFEST, 'w'), ensure_ascii=False, indent=2)
+
+
+def cmd_fetch(args) -> int:
+    slug = args.slug
+    if slug in _known_slugs() and not args.force:
+        print(f'已存在 slug={slug}（slug_map/mineru_data/manifest）→ 跳過。--force 覆寫。')
+        return 0
+    dest = os.path.join(RAW, f'{slug}.pdf')
+    if os.path.exists(dest) and not args.force:
+        print(f'已存在檔案 {dest} → 跳過。')
+        return 0
+
+    cl = Client()
+    u = cl.profile()
+    used, lim = u.get('downloads_today'), u.get('downloads_limit')
+    if lim is not None and used is not None and used >= lim:
+        print(f'今日額度耗盡（{used}/{lim}）→ 等明日重置。', file=sys.stderr)
+        return 4
+
+    # 取書詳情拿 dl 路徑（search 也有，但 fetch 走 id 較穩）
+    book = None
+    detail = cl._get(f'/eapi/book/{args.id}/{args.hash}').json()
+    book = detail.get('book') or detail
+    dl = book.get('dl')
+    if not dl:
+        # 退而求其次：用傳入 hash search 再撈（罕見）
+        print(f'無 dl 路徑，detail keys={list(detail.keys())}', file=sys.stderr)
+        return 1
+    ext = (book.get('extension') or 'pdf').lower()
+    if ext != 'pdf':
+        print(f'警告：extension={ext} 非 pdf，MinerU 吃 PDF；仍下載但需另轉。', file=sys.stderr)
+
+    os.makedirs(RAW, exist_ok=True)
+    print(f'下載 id={args.id} → {dest}（額度 {used}/{lim}）…')
+    n = cl.download(dl, dest)
+    print(f'  完成 {n/1e6:.1f} MB')
+
+    # md5 去重（下載後算）
+    import hashlib
+    h = hashlib.md5()
+    with open(dest, 'rb') as f:
+        for c in iter(lambda: f.read(1 << 20), b''):
+            h.update(c)
+    md5 = h.hexdigest()
+
+    raw_filename = f'{slug}.pdf'
+    _register(slug, raw_filename, book, md5)
+    print(f'  已登錄 slug_map + crawl_manifest（md5={md5[:8]}…）')
+    print(f'  下一步：mineru_ingest raw_pdfs/{slug}.pdf --slug {slug}')
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description='z-library eapi 爬取 client')
+    sub = ap.add_subparsers(dest='cmd', required=True)
+
+    sub.add_parser('limits').set_defaults(func=cmd_limits)
+
+    p_inv = sub.add_parser('inventory')
+    p_inv.add_argument('--json', action='store_true')
+    p_inv.set_defaults(func=cmd_inventory)
+
+    p_s = sub.add_parser('search')
+    p_s.add_argument('query')
+    p_s.add_argument('--ext', default='pdf')
+    p_s.add_argument('--lang', default=None)
+    p_s.add_argument('--year-from', type=int, default=None)
+    p_s.add_argument('--limit', type=int, default=20)
+    p_s.add_argument('--json', action='store_true')
+    p_s.set_defaults(func=cmd_search)
+
+    p_f = sub.add_parser('fetch')
+    p_f.add_argument('id')
+    p_f.add_argument('hash')
+    p_f.add_argument('--slug', required=True)
+    p_f.add_argument('--force', action='store_true')
+    p_f.set_defaults(func=cmd_fetch)
+
+    args = ap.parse_args()
+    return args.func(args)
+
+
+if __name__ == '__main__':
+    sys.exit(main())

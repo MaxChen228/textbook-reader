@@ -1,0 +1,37 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "P4.45",
+      "classification": "source_mismatch",
+      "reason": "The problem text references Fig. P4.45, but adjacent raw PDF pages show P4.44, P4.46, P4.47, P4.49, P4.50, P4.52, P4.54, and P4.55; no Figure P4.45 target exists in the source PDF.",
+      "where": "ch04.json problem 4.45 body[0]",
+      "evidence": "Raw PDF pages 324-326 contain the problem text and neighboring problem figures, but no Figure P4.45 caption."
+    },
+    {
+      "type": "figure",
+      "ref": "P4.48",
+      "classification": "source_mismatch",
+      "reason": "The problem text references Fig. P4.48, but the raw PDF pages around the problem do not contain a Figure P4.48 caption.",
+      "where": "ch04.json problem 4.48 body[0]",
+      "evidence": "Raw PDF page 325 shows Figure P4.47, Figure P4.49, and Figure P4.50; no Figure P4.48 target is present."
+    },
+    {
+      "type": "figure",
+      "ref": "P4.51",
+      "classification": "source_mismatch",
+      "reason": "The problem text references Fig. P4.51, but the raw PDF jumps from nearby problem text to Figure P4.52/P4.54/P4.55 with no Figure P4.51 target.",
+      "where": "ch04.json problem 4.51 body[0]",
+      "evidence": "Raw PDF pages 325-326 contain the problem text and neighboring figures, but no Figure P4.51 caption."
+    },
+    {
+      "type": "figure",
+      "ref": "P8.81",
+      "classification": "source_mismatch",
+      "reason": "The problem text references Fig. P8.81, but the visible source figure on the page is Figure P8.74 and no Figure P8.81 target is present in the raw PDF text search.",
+      "where": "ch08.json problem 8.76 body[0]",
+      "evidence": "Raw PDF page 704 shows the problem text and Figure P8.74; no Figure P8.81 caption exists."
+    }
+  ],
+  "overrides": []
+}
