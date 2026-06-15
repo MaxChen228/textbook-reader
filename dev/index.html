@@ -202,7 +202,7 @@
   }
 
   // ── 客戶端自走時鐘：只重算時間欄位，每秒跑，不碰伺服器 ──
-  function serverEpoch(d) { return Date.parse(d.generated_at_utc + (d.generated_at_utc.endsWith('Z') ? '' : 'Z')) }
+  function serverEpoch(d) { const t = d.generated_at_utc; return Date.parse(/(Z|[+-]\d\d:?\d\d)$/.test(t) ? t : t + 'Z') }
   function tickClocks() {
     if (!last) return
     const driftMs = Date.now() - serverEpoch(last)   // 自快照生成至今經過

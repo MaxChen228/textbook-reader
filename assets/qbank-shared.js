@@ -256,7 +256,8 @@ window.addEventListener("load",printWhenReady,{once:true});
   }
 
   function relTime(dt) {
-    var d = new Date(dt + (dt.endsWith('Z') ? '' : 'Z'));
+    // 已含時區（Z 或 ±hh:mm 偏移）就別再補 Z，否則 "…+00:00Z" 非法 → NaN
+    var d = new Date(/(Z|[+-]\d\d:?\d\d)$/.test(dt) ? dt : dt + 'Z');
     var diff = (Date.now() - d.getTime()) / 1000;
     if (diff < 60) return '剛剛';
     if (diff < 3600) return Math.floor(diff / 60) + ' 分前';
