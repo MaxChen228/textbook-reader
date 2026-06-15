@@ -1,4 +1,10 @@
 {
-  "_doc": "自動爬書 wishlist。topics 為空時 daemon 不爬。你跟 agent 討論後在此填想補的主題/書名/科目；headless crawl agent 會讀此檔 + crawl_zlib inventory（現有書況）自行判斷選哪本、哪版，再 crawl_zlib fetch 下載。每日受 z-library 10 本額度限制。",
-  "topics": []
+  "_doc": "自動爬書 wishlist。topics 為空時 daemon 不爬。crawl agent 每 tick 讀此檔 + crawl_zlib inventory（現有書況）自行判斷選哪本、哪版，再 crawl_zlib fetch 下載。每日受 z-library 10 本額度限制。設計為『常駐廣義指令』：不寫會用完的具體書單，而是給長期方向，agent 自動挑最該補的經典缺口、永不耗盡。",
+  "_rules": "鐵則：(1) 只補大學/研究所層級、公認經典的英文原文教科書；(2) 先查 inventory，已有的書（含不同版次的同一本）不重爬；(3) 同主題優先補『該領域最標準的那本』而非冷門；(4) 每本選最新且 OCR 友善的版次；(5) 寧缺勿濫，沒有夠格的經典可補就當天不爬。",
+  "topics": [
+    "物理經典缺口：固態物理(Ashcroft & Mermin)、量子場論(Peskin & Schroeder / Schwartz / Srednicki)、進階統計力學(Pathria / Reif)、光學(Hecht)、流體力學(Landau-Lifshitz Fluid / Kundu)、粒子物理與標準模型、非線性動力學與混沌(Strogatz)、電漿物理(Chen)",
+    "數學經典缺口：複變分析(Ahlfors)、實分析/測度(Royden / Folland)、抽象代數(Dummit & Foote)、拓樸(Munkres)、微分幾何(do Carmo)、常微分方程(Arnold)、偏微分方程(Evans)、機率論(Durrett / Billingsley)",
+    "電機/CS 經典缺口：訊號與系統(Oppenheim)、數位訊號處理、通訊系統(Proakis)、控制系統(Ogata / Franklin)、演算法(CLRS)、計算機結構(Patterson & Hennessy)、編譯器(龍書)、計算機網路與作業系統的其他標準本",
+    "工程數學/計算經典缺口：數值方法/數值分析(Burden & Faires)、計算物理、最佳化(Boyd Convex Optimization)、矩陣計算(Golub & Van Loan)"
+  ]
 }

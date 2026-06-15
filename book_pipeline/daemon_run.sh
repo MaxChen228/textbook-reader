@@ -6,6 +6,9 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 [ -f "$HOME/.secrets/mineru.env" ] && source "$HOME/.secrets/mineru.env"
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
+# max-llm 2：crawl 是最上游、每 tick 優先吃 1 個 LLM 名額；給 2 才能同時推進
+# 1 個下游階段（qc/audit），否則下載的書一直積著不被處理（全自動會塞在 crawl）。
+# 2 個 headless claude 序列跑約 30min < 45min tick 間隔，不超時。
 exec uv run python -m book_pipeline.pipeline_tick \
-    --once --max-llm 1 \
+    --once --max-llm 2 \
     >> book_pipeline/reports/daemon.stdout.log 2>&1
