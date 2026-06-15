@@ -1,0 +1,12 @@
+# standby 靜態托管：nginx 直讀 repo 工作目錄，daemon 烤新檔即時生效（免 reload）。
+# 對外經 Cloudflare kg-standby tunnel：books.wordnexus.lol → 127.0.0.1:8001。
+services:
+  textbook-reader:
+    image: nginx:alpine
+    container_name: textbook-reader
+    restart: always
+    ports:
+      - "127.0.0.1:8001:80"        # 只綁 loopback，tunnel 走本機
+    volumes:
+      - .:/usr/share/nginx/html:ro                          # repo 根（唯讀）
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro

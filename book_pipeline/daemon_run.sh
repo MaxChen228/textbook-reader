@@ -2,8 +2,10 @@
 # book_pipeline 自動化迴圈 — launchd 觸發的單次 tick wrapper。
 # launchd 環境極簡，需顯式補 PATH（uv 在 ~/.local/bin，claude/homebrew 在 /opt/homebrew/bin）。
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-cd "$HOME/project/qbank" || exit 1
+# MinerU token 不入 plist/git（plist world-readable）；從 ~/.secrets 載入進程環境。
+[ -f "$HOME/.secrets/mineru.env" ] && source "$HOME/.secrets/mineru.env"
+cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
-exec uv run --with pymupdf --with requests python -m book_pipeline.pipeline_tick \
+exec uv run python -m book_pipeline.pipeline_tick \
     --once --max-llm 1 \
     >> book_pipeline/reports/daemon.stdout.log 2>&1
