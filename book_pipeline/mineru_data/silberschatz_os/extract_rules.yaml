@@ -1,0 +1,183 @@
+# Silberschatz, Operating System Concepts, 9th ed — extract_rules
+slug: silberschatz_os
+title: "Operating System Concepts"
+author: "Abraham Silberschatz; Peter Baer Galvin; Greg Gagne"
+edition: "9th"
+subject: "Operating Systems"
+publisher: "Wiley"
+language: "en"
+
+filter_types: [page_number, header, footer]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 26
+appendices_start_page: 932
+bibliography_start_page: null
+index_start_page: 934
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 26
+    page_end: 77
+    chapter_title_block_idx: 298
+    problems_block_idx: 736
+    next_chapter_block_idx: 776
+  - num: 2
+    title: "Operating-System Structures"
+    page_start: 78
+    page_end: 127
+    chapter_title_block_idx: 776
+    problems_block_idx: 1119
+    next_chapter_block_idx: 1237
+  - num: 3
+    title: "Processes"
+    page_start: 128
+    page_end: 185
+    chapter_title_block_idx: 1237
+    problems_block_idx: 1633
+    next_chapter_block_idx: 1780
+  - num: 4
+    title: "Threads"
+    page_start: 186
+    page_end: 225
+    chapter_title_block_idx: 1780
+    problems_block_idx: 2069
+    next_chapter_block_idx: 2170
+  - num: 5
+    title: "Process Synchronization"
+    page_start: 226
+    page_end: 283
+    chapter_title_block_idx: 2170
+    problems_block_idx: 2576
+    next_chapter_block_idx: 2758
+  - num: 6
+    title: "CPU Scheduling"
+    page_start: 284
+    page_end: 337
+    chapter_title_block_idx: 2758
+    problems_block_idx: 3182
+    next_chapter_block_idx: 3272
+  - num: 7
+    title: "Deadlocks"
+    page_start: 338
+    page_end: 373
+    chapter_title_block_idx: 3272
+    problems_block_idx: 3562
+    next_chapter_block_idx: 3649
+  - num: 8
+    title: "Main Memory"
+    page_start: 374
+    page_end: 419
+    chapter_title_block_idx: 3649
+    problems_block_idx: 4000
+    next_chapter_block_idx: 4064
+  - num: 9
+    title: "Virtual Memory"
+    page_start: 420
+    page_end: 489
+    chapter_title_block_idx: 4064
+    problems_block_idx: 4566
+    next_chapter_block_idx: 4747
+  - num: 10
+    title: "Mass-Storage Structure"
+    page_start: 490
+    page_end: 525
+    chapter_title_block_idx: 4747
+    problems_block_idx: 5037
+    next_chapter_block_idx: 5094
+  - num: 11
+    title: "File-System Interface"
+    page_start: 526
+    page_end: 565
+    chapter_title_block_idx: 5094
+    problems_block_idx: 5425
+    next_chapter_block_idx: 5450
+  - num: 12
+    title: "File-System Implementation"
+    page_start: 566
+    page_end: 609
+    chapter_title_block_idx: 5450
+    problems_block_idx: 5797
+    next_chapter_block_idx: 5876
+  - num: 13
+    title: "I/O Systems"
+    page_start: 610
+    page_end: 647
+    chapter_title_block_idx: 5876
+    problems_block_idx: 6124
+    next_chapter_block_idx: 6155
+  - num: 14
+    title: "Protection"
+    page_start: 648
+    page_end: 679
+    chapter_title_block_idx: 6155
+    problems_block_idx: 6394
+    next_chapter_block_idx: 6434
+  - num: 15
+    title: "Security"
+    page_start: 680
+    page_end: 733
+    chapter_title_block_idx: 6434
+    problems_block_idx: 6843
+    next_chapter_block_idx: 6885
+  - num: 16
+    title: "Virtual Machines"
+    page_start: 734
+    page_end: 763
+    chapter_title_block_idx: 6885
+    problems_block_idx: 7126
+    next_chapter_block_idx: 7145
+  - num: 17
+    title: "Distributed Systems"
+    page_start: 764
+    page_end: 803
+    chapter_title_block_idx: 7145
+    problems_block_idx: 7449
+    next_chapter_block_idx: 7485
+  - num: 18
+    title: "The Linux System"
+    page_start: 804
+    page_end: 851
+    chapter_title_block_idx: 7485
+    problems_block_idx: 7899
+    next_chapter_block_idx: 7934
+  - num: 19
+    title: "Windows 7"
+    page_start: 852
+    page_end: 909
+    chapter_title_block_idx: 7934
+    problems_block_idx: 8456
+    next_chapter_block_idx: 8476
+  - num: 20
+    title: "Influential Operating Systems"
+    page_start: 910
+    page_end: 931
+    chapter_title_block_idx: 8476
+    problems_block_idx: 8650
+    next_chapter_block_idx: 8668
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(Bibliographical Notes|Bibliography)\s*$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

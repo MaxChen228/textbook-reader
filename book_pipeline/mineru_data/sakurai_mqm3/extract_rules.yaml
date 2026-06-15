@@ -1,0 +1,164 @@
+slug: sakurai_mqm3
+title: "Modern Quantum Mechanics"
+author: J. J. Sakurai; Jim Napolitano
+edition: "3rd"
+subject: "Quantum Mechanics"
+publisher: "Cambridge University Press"
+language: en
+
+# ---- block 過濾規則 ----
+# 這些 type 永不出現在 parsed 輸出
+filter_types:
+  - page_number
+  - header           # Sakurai 每頁 running head（章名 / "Problems"）
+  - page_footnote    # 頁尾腳注：本書腳注幾乎都在 footnote 區，併入 body 會干擾段落
+  - footer
+  - aside_text
+
+# image / chart 的 content 與 sub_type 是偽 mermaid，永遠丟（用 img_path + image_caption）
+ignore_image_content: true
+ignore_chart_content: true
+
+# ---- 內容範圍 ----
+# 前段 page_idx 0..22 是封面 / 版權 / Contents / Preface / Foreword / Memoriam
+# 第一個正文 block 是 idx 268 (page_idx 23): "Fundamental Concepts"（Ch1 title）
+body_start_page: 23
+
+# 後段：Bibliography 起點 (page_idx 563)；Index 起點 (page_idx 566)
+# Appendices A/B/C/F 之間缺 D/E（OCR 觀察：原書即缺，非 OCR 漏抽）
+appendices_start_page: 536
+bibliography_start_page: 563
+index_start_page: 566
+
+# ---- 章節邊界 ----
+# 判定邏輯：
+# 1. 每章首頁有一個獨立的 text_level=1 block，其 text 為 chapter title（純標題、無頁碼尾巴）
+# 2. Ch1: 標題為 "Fundamental Concepts"（沒有前綴 "1"，因為原書 Ch1 印在書名後）
+# 3. Ch2/3/4/7: 標題形如 "<N> Chapter Title" 黏在同一 block（e.g. "3 Theory of Angular Momentum"）
+# 4. Ch5/6/8: chapter number 與 title 分成兩個連續 text_level=1 block（e.g. "5" + "Approximation Methods"）
+# 5. 每章末尾 "Problems" 為 text_level=1 + text=="Problems" 的獨立 block；之後直到下一章開頭都是題目
+# 6. page_idx 數值是 0-based PDF page；下面已實測 reproducible
+chapters:
+  - num: 1
+    title: "Fundamental Concepts"
+    page_start: 23
+    page_end: 83
+    chapter_title_block_idx: 268
+    problems_block_idx: 1217        # "Problems" heading
+    next_chapter_block_idx: 1365    # 即 ch2 起點，作為 ch1 的右界 sentinel
+
+  - num: 2
+    title: "Quantum Dynamics"
+    page_start: 84
+    page_end: 170
+    chapter_title_block_idx: 1365
+    problems_block_idx: 2645
+    next_chapter_block_idx: 2839
+
+  - num: 3
+    title: "Theory of Angular Momentum"
+    page_start: 171
+    page_end: 270
+    chapter_title_block_idx: 2839
+    problems_block_idx: 4412
+    next_chapter_block_idx: 4583
+
+  - num: 4
+    title: "Symmetry in Quantum Mechanics"
+    page_start: 271
+    page_end: 309
+    chapter_title_block_idx: 4583
+    problems_block_idx: 5190
+    next_chapter_block_idx: 5228     # Ch5 是「5」+「Approximation Methods」兩塊；以 "5" 塊為章首
+
+  - num: 5
+    title: "Approximation Methods"
+    page_start: 310
+    page_end: 392
+    chapter_title_block_idx: 5228     # 數字 "5" 塊
+    chapter_title_block_idx_secondary: 5229   # "Approximation Methods" 塊
+    problems_block_idx: 6434
+    next_chapter_block_idx: 6634
+
+  - num: 6
+    title: "Scattering Theory"
+    page_start: 393
+    page_end: 450
+    chapter_title_block_idx: 6634
+    chapter_title_block_idx_secondary: 6635
+    problems_block_idx: 7498
+    next_chapter_block_idx: 7576
+
+  - num: 7
+    title: "Identical Particles"
+    page_start: 451
+    page_end: 499
+    chapter_title_block_idx: 7576
+    problems_block_idx: 8307
+    next_chapter_block_idx: 8355
+
+  - num: 8
+    title: "Relativistic Quantum Mechanics"
+    page_start: 500
+    page_end: 535
+    chapter_title_block_idx: 8355
+    chapter_title_block_idx_secondary: 8356
+    problems_block_idx: 8908
+    next_chapter_block_idx: 8953      # = Appendix A 起點
+
+# ---- 附錄 ----
+# 原書缺 Appendix D, E（書中即缺，非 OCR 失誤）
+appendices:
+  - id: A
+    title: "Electromagnetic Units"
+    page_start: 536
+    chapter_title_block_idx: 8953
+  - id: B
+    title: "Elementary Solutions to Schrödinger's Wave Equation"
+    page_start: 542
+    chapter_title_block_idx: 9041
+  - id: C
+    title: "Hamiltonian for a Charge in an Electromagnetic Field"
+    page_start: 552
+    chapter_title_block_idx: 9241
+  - id: F
+    title: "Notes on Complex Variables"
+    page_start: 557
+    chapter_title_block_idx: 9294
+
+# ---- heading 偵測 regex（在 chapter 範圍內） ----
+# section 與 subsection 都是 text_level=1
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+
+# section_re 與 subsection_re 都會匹配 "1.1.1 ..."，務必先試 subsection_re
+heading_priority: [subsection_re, section_re]
+
+# ---- 題號 pattern ----
+# Problems 區內，題號黏在內文起頭：例 "1.1 A beam of silver atoms ..."
+# 部分題（如 1.2、1.10、1.20、...）首段獨立成 block 為 "1.2 Prove" 等短句
+# regex 只匹配 text type、行首 "N.M "（N = 章號，需與當章對齊）
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true   # 第一段 N 必須等於當章 num，否則略過
+
+# 已知 OCR 漏題（list block 變空）—— parser 應警告但不修
+# Ch1: 缺 1.7, 1.8, 1.9（OCR 把該頁底部當 list block，內容遺失）
+known_missing_problems:
+  - chapter: 1
+    nums: ["1.7", "1.8", "1.9"]
+
+# ---- equation ----
+# MinerU equation block 的 text 為 "$$\n<TeX>\n$$" 包裹
+# label 抽取自尾段 \tag{N.M}
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ---- example / 內文題目 ----
+# Sakurai 內文偶有 "Example" 段落（少；多藏在 subsection 中），需以 regex 偵
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+# ---- figure ----
+# 同頁的多張 image 常成連串 block；image_caption 是 list，可能空
+# 第一張 caption 若為 "(a)" 等子標，需向後合併下一個含 "Fig. X.Y" 的 caption
+figure_caption_merge: true
+figure_caption_main_re: '^Fig\.\s*\d+\.\d+'

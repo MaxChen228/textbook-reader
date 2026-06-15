@@ -1,0 +1,170 @@
+# ── 書本 metadata ──
+slug: nakahara_gtp
+title: "Geometry, Topology and Physics"
+author: "Mikio Nakahara"
+edition: "2nd"
+subject: Differential Geometry
+publisher: "Institute of Physics Publishing"
+language: en
+
+# ── block 過濾 ──
+filter_types: [page_number, header, footer, page_footnote, aside_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 23
+appendices_start_page: 582
+bibliography_start_page: 582
+index_start_page: 587
+
+# ── inline-problem 模式 ──
+# 章 1-5,7,9,10,12 有獨立 "Problems" heading → 走二分（pbi 非 null）。
+# 章 6,8,11,13,14 無 Problems heading 且無章末習題（只在內文出現 "Exercise N.M."）→ pbi=null。
+# 這些章內的 "N.M Title" 皆為 section heading（text_level==1），inline walker 的 detect_heading
+# 會先把它們判為 heading 歸入 body，不會誤切成 problem。故設 true 安全且正確。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Quantum Physics"
+    page_start: 23
+    page_end: 88
+    chapter_title_block_idx: 426
+    chapter_title_block_idx_secondary: 427
+    problems_block_idx: 1636
+    next_chapter_block_idx: 1649
+  - num: 2
+    title: "Mathematical Preliminaries"
+    page_start: 89
+    page_end: 114
+    chapter_title_block_idx: 1649
+    chapter_title_block_idx_secondary: 1650
+    problems_block_idx: 1954
+    next_chapter_block_idx: 1964
+  - num: 3
+    title: "Homology Groups"
+    page_start: 115
+    page_end: 142
+    chapter_title_block_idx: 1964
+    chapter_title_block_idx_secondary: 1965
+    problems_block_idx: 2393
+    next_chapter_block_idx: 2397
+  - num: 4
+    title: "Homotopy Groups"
+    page_start: 143
+    page_end: 190
+    chapter_title_block_idx: 2397
+    chapter_title_block_idx_secondary: 2398
+    problems_block_idx: 2986
+    next_chapter_block_idx: 2994
+  - num: 5
+    title: "Manifolds"
+    page_start: 191
+    page_end: 247
+    chapter_title_block_idx: 2994
+    chapter_title_block_idx_secondary: 2995
+    problems_block_idx: 3873
+    next_chapter_block_idx: 3891
+  - num: 6
+    title: "de Rham Cohomology Groups"
+    page_start: 248
+    page_end: 265
+    chapter_title_block_idx: 3891
+    chapter_title_block_idx_secondary: 3892
+    problems_block_idx: null
+    next_chapter_block_idx: 4207
+  - num: 7
+    title: "Riemannian Geometry"
+    page_start: 266
+    page_end: 329
+    chapter_title_block_idx: 4207
+    chapter_title_block_idx_secondary: 4208
+    problems_block_idx: 5339
+    next_chapter_block_idx: 5355
+  - num: 8
+    title: "Complex Manifolds"
+    page_start: 330
+    page_end: 369
+    chapter_title_block_idx: 5355
+    chapter_title_block_idx_secondary: 5356
+    problems_block_idx: null
+    next_chapter_block_idx: 6006
+  - num: 9
+    title: "Fibre Bundles"
+    page_start: 370
+    page_end: 395
+    chapter_title_block_idx: 6006
+    chapter_title_block_idx_secondary: 6007
+    problems_block_idx: 6382
+    next_chapter_block_idx: 6394
+  - num: 10
+    title: "Connections on Fibre Bundles"
+    page_start: 396
+    page_end: 440
+    chapter_title_block_idx: 6394
+    chapter_title_block_idx_secondary: 6395
+    problems_block_idx: 7170
+    next_chapter_block_idx: 7174
+  - num: 11
+    title: "Characteristic Classes"
+    page_start: 441
+    page_end: 474
+    chapter_title_block_idx: 7174
+    chapter_title_block_idx_secondary: 7175
+    problems_block_idx: null
+    next_chapter_block_idx: 7787
+  - num: 12
+    title: "Index Theorems"
+    page_start: 475
+    page_end: 522
+    chapter_title_block_idx: 7787
+    chapter_title_block_idx_secondary: 7788
+    problems_block_idx: 8674
+    next_chapter_block_idx: 8683
+  - num: 13
+    title: "Anomalies in Gauge Field Theories"
+    page_start: 523
+    page_end: 549
+    chapter_title_block_idx: 8683
+    chapter_title_block_idx_secondary: 8684
+    problems_block_idx: null
+    next_chapter_block_idx: 9123
+  - num: 14
+    title: "Bosonic String Theory"
+    page_start: 550
+    page_end: 581
+    chapter_title_block_idx: 9123
+    chapter_title_block_idx_secondary: 9124
+    problems_block_idx: null
+    next_chapter_block_idx: 9678
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

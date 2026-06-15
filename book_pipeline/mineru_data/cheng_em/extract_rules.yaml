@@ -1,0 +1,132 @@
+slug: cheng_em
+title: Field and Wave Electromagnetics
+author: David K. Cheng
+edition: null
+subject: Electromagnetism
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 18
+appendices_start_page: 568
+bibliography_start_page: null
+index_start_page: 576
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Electromagnetic Model
+    page_start: 18
+    page_end: 26
+    chapter_title_block_idx: 172
+    problems_block_idx: null
+    next_chapter_block_idx: 253
+  - num: 2
+    title: Vector Analysis
+    page_start: 27
+    page_end: 81
+    chapter_title_block_idx: 253
+    problems_block_idx: 1088
+    next_chapter_block_idx: 1157
+  - num: 3
+    title: Static Electric Fields
+    page_start: 82
+    page_end: 149
+    chapter_title_block_idx: 1157
+    problems_block_idx: 2075
+    next_chapter_block_idx: 2141
+  - num: 4
+    title: Solution of Electrostatic Problems
+    page_start: 150
+    page_end: 188
+    chapter_title_block_idx: 2141
+    problems_block_idx: 2744
+    next_chapter_block_idx: 2780
+  - num: 5
+    title: Steady Electric Currents
+    page_start: 189
+    page_end: 212
+    chapter_title_block_idx: 2780
+    problems_block_idx: 3102
+    next_chapter_block_idx: 3153
+  - num: 6
+    title: Static Magnetic Fields
+    page_start: 213
+    page_end: 284
+    chapter_title_block_idx: 3153
+    problems_block_idx: 4083
+    next_chapter_block_idx: 4185
+  - num: 7
+    title: Time-Varying Fields and Maxwell's Equations
+    page_start: 285
+    page_end: 322
+    chapter_title_block_idx: 4185
+    problems_block_idx: 4718
+    next_chapter_block_idx: 4778
+  - num: 8
+    title: Plane Electromagnetic Waves
+    page_start: 323
+    page_end: 386
+    chapter_title_block_idx: 4778
+    problems_block_idx: 5751
+    next_chapter_block_idx: 5857
+  - num: 9
+    title: Theory and Applications of Transmission Lines
+    page_start: 387
+    page_end: 459
+    chapter_title_block_idx: 5857
+    problems_block_idx: 6869
+    next_chapter_block_idx: 6942
+  - num: 10
+    title: Waveguides and Cavity Resonators
+    page_start: 460
+    page_end: 516
+    chapter_title_block_idx: 6942
+    problems_block_idx: 7796
+    next_chapter_block_idx: 7873
+  - num: 11
+    title: Antennas and Radiating Systems
+    page_start: 517
+    page_end: 567
+    chapter_title_block_idx: 7873
+    problems_block_idx: 8529
+    next_chapter_block_idx: 8588
+
+appendices:
+  - id: A
+    title: Symbols and Units
+    page_start: 569
+    chapter_title_block_idx: 8588
+  - id: B
+    title: Some Useful Material Constants
+    page_start: 572
+    chapter_title_block_idx: 8603
+
+section_re: '^(\d+[\-–]\d+)\s+(.+)$'
+subsection_re: '^(\d+[\-–]\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^P\.(\d+-\d+)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\s*-\s*[0-9]+[a-z]?)\s*\}'
+
+example_start_re: '^Example\s+(\d+-\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

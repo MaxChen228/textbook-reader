@@ -1,0 +1,128 @@
+slug: tamvakis_qm
+title: Problems and Solutions in Quantum Mechanics
+author: Kyriakos Tamvakis
+edition: null
+subject: Quantum Mechanics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 10
+appendices_start_page: 341
+bibliography_start_page: 341
+index_start_page: 342
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Wave functions
+    page_start: 10
+    page_end: 25
+    chapter_title_block_idx: 43
+    chapter_title_block_idx_secondary: 44
+    problems_block_idx: null
+    next_chapter_block_idx: 350
+  - num: 2
+    title: The free particle
+    page_start: 26
+    page_end: 40
+    chapter_title_block_idx: 350
+    chapter_title_block_idx_secondary: 351
+    problems_block_idx: null
+    next_chapter_block_idx: 639
+  - num: 3
+    title: Simple potentials
+    page_start: 41
+    page_end: 90
+    chapter_title_block_idx: 639
+    chapter_title_block_idx_secondary: 640
+    problems_block_idx: null
+    next_chapter_block_idx: 1544
+  - num: 4
+    title: The harmonic oscillator
+    page_start: 91
+    page_end: 126
+    chapter_title_block_idx: 1544
+    chapter_title_block_idx_secondary: 1545
+    problems_block_idx: null
+    next_chapter_block_idx: 2271
+  - num: 5
+    title: Angular momentum
+    page_start: 127
+    page_end: 163
+    chapter_title_block_idx: 2271
+    chapter_title_block_idx_secondary: 2272
+    problems_block_idx: null
+    next_chapter_block_idx: 3007
+  - num: 6
+    title: Quantum behaviour
+    page_start: 164
+    page_end: 186
+    chapter_title_block_idx: 3007
+    chapter_title_block_idx_secondary: 3008
+    problems_block_idx: null
+    next_chapter_block_idx: 3414
+  - num: 7
+    title: General motion
+    page_start: 187
+    page_end: 252
+    chapter_title_block_idx: 3414
+    chapter_title_block_idx_secondary: 3415
+    problems_block_idx: null
+    next_chapter_block_idx: 4716
+  - num: 8
+    title: Many-particle systems
+    page_start: 253
+    page_end: 281
+    chapter_title_block_idx: 4716
+    chapter_title_block_idx_secondary: 4717
+    problems_block_idx: null
+    next_chapter_block_idx: 5275
+  - num: 9
+    title: Approximation methods
+    page_start: 282
+    page_end: 312
+    chapter_title_block_idx: 5275
+    chapter_title_block_idx_secondary: 5276
+    problems_block_idx: null
+    next_chapter_block_idx: 5827
+  - num: 10
+    title: Scattering
+    page_start: 313
+    page_end: 340
+    chapter_title_block_idx: 5827
+    problems_block_idx: null
+    next_chapter_block_idx: 6377
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+# 題本：每題 Problem N.M 後緊接 lvl=1 'Solution' heading + 解答，至下一 Problem。
+# walker 命中後把解答收進 problem.solution（與 sol_extract merge 同欄位），不混進 problem.body
+solution_start_re: '^Solution\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

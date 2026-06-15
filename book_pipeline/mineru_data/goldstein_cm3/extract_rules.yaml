@@ -1,0 +1,154 @@
+slug: goldstein_cm3
+title: Classical Mechanics
+author: Herbert Goldstein; Charles P. Poole; John L. Safko
+edition: 3rd
+subject: Classical Mechanics
+publisher: Pearson
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 19
+appendices_start_page: 619
+bibliography_start_page: 644
+index_start_page: 649
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Survey of the Elementary Principles
+    page_start: 19
+    page_end: 51
+    chapter_title_block_idx: 217
+    problems_block_idx: 686
+    next_chapter_block_idx: 723
+  - num: 2
+    title: Variational Principles and Lagrange’s Equations
+    page_start: 52
+    page_end: 87
+    chapter_title_block_idx: 723
+    chapter_title_block_idx_secondary: 724
+    problems_block_idx: 1165
+    next_chapter_block_idx: 1224
+  - num: 3
+    title: The Central Force Problem
+    page_start: 88
+    page_end: 151
+    chapter_title_block_idx: 1224
+    chapter_title_block_idx_secondary: 1225
+    problems_block_idx: 1971
+    next_chapter_block_idx: 2050
+  - num: 4
+    title: The Kinematics of Rigid Body Motion
+    page_start: 152
+    page_end: 201
+    chapter_title_block_idx: 2050
+    chapter_title_block_idx_secondary: 2051
+    problems_block_idx: 2768
+    next_chapter_block_idx: 2778
+  - num: 5
+    title: The Rigid Body Equations of Motion
+    page_start: 202
+    page_end: 255
+    chapter_title_block_idx: 2778
+    chapter_title_block_idx_secondary: 2779
+    problems_block_idx: 3494
+    next_chapter_block_idx: 3537
+  - num: 6
+    title: Oscillations
+    page_start: 256
+    page_end: 293
+    chapter_title_block_idx: 3537
+    chapter_title_block_idx_secondary: 3538
+    problems_block_idx: 4029
+    next_chapter_block_idx: 4073
+  - num: 7
+    title: The Classical Mechanics of the Special Theory of Relativity
+    page_start: 294
+    page_end: 351
+    chapter_title_block_idx: 4073
+    chapter_title_block_idx_secondary: 4074
+    problems_block_idx: 4871
+    next_chapter_block_idx: 4912
+  - num: 8
+    title: The Hamilton Equations of Motion
+    page_start: 352
+    page_end: 385
+    chapter_title_block_idx: 4912
+    chapter_title_block_idx_secondary: 4913
+    problems_block_idx: 5350
+    next_chapter_block_idx: 5415
+  - num: 9
+    title: Canonical Transformations
+    page_start: 386
+    page_end: 447
+    chapter_title_block_idx: 5415
+    chapter_title_block_idx_secondary: 5416
+    problems_block_idx: 6285
+    next_chapter_block_idx: 6378
+  - num: 10
+    title: Hamilton–Jacobi Theory and Action-Angle Variables
+    page_start: 448
+    page_end: 500
+    chapter_title_block_idx: 6378
+    chapter_title_block_idx_secondary: 6379
+    problems_block_idx: 7123
+    next_chapter_block_idx: 7172
+  - num: 11
+    title: Classical Chaos
+    page_start: 501
+    page_end: 543
+    chapter_title_block_idx: 7172
+    chapter_title_block_idx_secondary: 7173
+    problems_block_idx: 7525
+    next_chapter_block_idx: 7566
+  - num: 12
+    title: Canonical Perturbation Theory
+    page_start: 544
+    page_end: 575
+    chapter_title_block_idx: 7566
+    problems_block_idx: 8014
+    next_chapter_block_idx: 8039
+  - num: 13
+    title: Introduction to the Lagrangian and Hamiltonian Formulations for Continuous Systems and Fields
+    page_start: 576
+    page_end: 618
+    chapter_title_block_idx: 8040
+    chapter_title_block_idx_secondary: 8041
+    problems_block_idx: 8603
+    next_chapter_block_idx: 8658
+
+appendices:
+  - id: A
+    title: Euler Angles in Alternate Conventions and Cayley–Klein Parameters
+    page_start: 619
+    chapter_title_block_idx: 8660
+  - id: B
+    title: Groups and Algebras
+    page_start: 623
+    chapter_title_block_idx: 8722
+  - id: C
+    title: Solutions to Select Exercises
+    page_start: 635
+    chapter_title_block_idx: 8875
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

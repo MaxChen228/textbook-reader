@@ -1,0 +1,162 @@
+slug: carroll_gr
+title: "Spacetime and Geometry: An Introduction to General Relativity"
+author: Sean M. Carroll
+edition: null
+subject: General Relativity
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 13
+appendices_start_page: 435
+bibliography_start_page: 507
+index_start_page: 513
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Special Relativity and Flat Spacetime"
+    page_start: 13
+    page_end: 59
+    chapter_title_block_idx: 94
+    chapter_title_block_idx_secondary: 95
+    problems_block_idx: 670
+    next_chapter_block_idx: 702
+  - num: 2
+    title: "Manifolds"
+    page_start: 60
+    page_end: 104
+    chapter_title_block_idx: 702
+    chapter_title_block_idx_secondary: 703
+    problems_block_idx: 1151
+    next_chapter_block_idx: 1184
+  - num: 3
+    title: "Curvature"
+    page_start: 105
+    page_end: 162
+    chapter_title_block_idx: 1184
+    chapter_title_block_idx_secondary: 1185
+    problems_block_idx: 1896
+    next_chapter_block_idx: 1964
+  - num: 4
+    title: "Gravitation"
+    page_start: 163
+    page_end: 204
+    chapter_title_block_idx: 1964
+    chapter_title_block_idx_secondary: 1965
+    problems_block_idx: 2482
+    next_chapter_block_idx: 2514
+  - num: 5
+    title: "The Schwarzschild Solution"
+    page_start: 205
+    page_end: 249
+    chapter_title_block_idx: 2514
+    chapter_title_block_idx_secondary: 2515
+    problems_block_idx: 3098
+    next_chapter_block_idx: 3122
+  - num: 6
+    title: "More General Black Holes"
+    page_start: 250
+    page_end: 285
+    chapter_title_block_idx: 3122
+    chapter_title_block_idx_secondary: 3123
+    problems_block_idx: 3566
+    next_chapter_block_idx: 3590
+  - num: 7
+    title: "Perturbation Theory and Gravitational Radiation"
+    page_start: 286
+    page_end: 334
+    chapter_title_block_idx: 3590
+    chapter_title_block_idx_secondary: 3591
+    problems_block_idx: 4244
+    next_chapter_block_idx: 4277
+  - num: 8
+    title: "Cosmology"
+    page_start: 335
+    page_end: 387
+    chapter_title_block_idx: 4277
+    problems_block_idx: 4951
+    next_chapter_block_idx: 4974
+  - num: 9
+    title: "Quantum Field Theory in Curved Spacetime"
+    page_start: 388
+    page_end: 434
+    chapter_title_block_idx: 4974
+    chapter_title_block_idx_secondary: 4975
+    # 章節無 Exercises；用末段 sentinel 讓 problems range 為空。
+    # 章內出現的 "1./2./3." 為 QM 公理列舉（9.2 節），非題目。
+    problems_block_idx: 5571
+    next_chapter_block_idx: 5572
+
+appendices:
+  - id: A
+    title: "Maps between Manifolds"
+    page_start: 435
+    chapter_title_block_idx: 5572
+  - id: B
+    title: "Diffeomorphisms and Lie Derivatives"
+    page_start: 441
+    chapter_title_block_idx: 5625
+  - id: C
+    title: "Submanifolds"
+    page_start: 451
+    chapter_title_block_idx: 5732
+  - id: D
+    title: "Hypersurfaces"
+    page_start: 455
+    chapter_title_block_idx: 5767
+  - id: E
+    title: "Stokes's Theorem"
+    page_start: 465
+    chapter_title_block_idx: 5919
+  - id: F
+    title: "Geodesic Congruences"
+    page_start: 471
+    chapter_title_block_idx: 6000
+  - id: G
+    title: "Conformal Transformations"
+    page_start: 479
+    chapter_title_block_idx: 6105
+  - id: H
+    title: "Conformal Diagrams"
+    page_start: 483
+    chapter_title_block_idx: 6161
+  - id: I
+    title: "The Parallel Propagator"
+    page_start: 491
+    chapter_title_block_idx: 6261
+  - id: J
+    title: "Noncoordinate Bases"
+    page_start: 495
+    chapter_title_block_idx: 6304
+
+section_re: '^(\d+\.\d+)\s+(?:■\s+)?(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

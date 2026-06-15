@@ -1,0 +1,121 @@
+# ── 書本 metadata ──
+slug: tanenbaum_cn
+title: Computer Networks
+author: Andrew S. Tanenbaum; David J. Wetherall
+edition: "5th"
+subject: Computer Networks
+publisher: Prentice Hall
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 24
+appendices_start_page: 900
+bibliography_start_page: 900
+index_start_page: 928
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: INTRODUCTION
+    page_start: 24
+    page_end: 111
+    chapter_title_block_idx: 266
+    chapter_title_block_idx_secondary: 267
+    problems_block_idx: 1088
+    next_chapter_block_idx: 1114
+  - num: 2
+    title: THE PHYSICAL LAYER
+    page_start: 112
+    page_end: 215
+    chapter_title_block_idx: 1114
+    chapter_title_block_idx_secondary: 1115
+    problems_block_idx: 2053
+    next_chapter_block_idx: 2110
+  - num: 3
+    title: THE DATA LINK LAYER
+    page_start: 216
+    page_end: 279
+    chapter_title_block_idx: 2110
+    chapter_title_block_idx_secondary: 2111
+    problems_block_idx: 2647
+    next_chapter_block_idx: 2684
+  - num: 4
+    title: THE MEDIUM ACCESS CONTROL SUBLAYER
+    page_start: 280
+    page_end: 377
+    chapter_title_block_idx: 2684
+    chapter_title_block_idx_secondary: 2685
+    problems_block_idx: 3603
+    next_chapter_block_idx: 3661
+  - num: 5
+    title: THE NETWORK LAYER
+    page_start: 378
+    page_end: 517
+    chapter_title_block_idx: 3661
+    chapter_title_block_idx_secondary: 3662
+    problems_block_idx: 4967
+    next_chapter_block_idx: 5026
+  - num: 6
+    title: THE TRANSPORT LAYER
+    page_start: 518
+    page_end: 633
+    chapter_title_block_idx: 5026
+    chapter_title_block_idx_secondary: 5027
+    problems_block_idx: 6074
+    next_chapter_block_idx: 6103
+  - num: 7
+    title: THE APPLICATION LAYER
+    page_start: 634
+    page_end: 785
+    chapter_title_block_idx: 6103
+    chapter_title_block_idx_secondary: 6104
+    problems_block_idx: 7559
+    next_chapter_block_idx: 7592
+  - num: 8
+    title: NETWORK SECURITY
+    page_start: 786
+    page_end: 899
+    chapter_title_block_idx: 7592
+    chapter_title_block_idx_secondary: 7593
+    problems_block_idx: 8666
+    next_chapter_block_idx: 8714
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+# 編號型：section N.M（ALL CAPS title），subsection N.M.M（Title Case）。
+# N.M alternation 強制 title 非空（lookahead），避免頁眉純編號 block 被當合法 heading。
+section_re: '^(\d+\.\d+)(?=\s+\S)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Problems 區題號為純流水 "1. " "2. "（每章從 1 重置）→ chapter_must_match false
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+-[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

@@ -1,0 +1,201 @@
+slug: arfken_mp7
+title: "Mathematical Methods for Physicists: A Comprehensive Guide"
+author: "George B. Arfken; Hans J. Weber; Frank E. Harris"
+edition: "7th"
+subject: "Mathematical Methods"
+publisher: "Academic Press"
+language: en
+
+filter_types: [page_number, header, footer, page_footnote, aside_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 6
+appendices_start_page: 1174
+bibliography_start_page: null
+index_start_page: 1174
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: "Mathematical Preliminaries"
+    page_start: 6
+    page_end: 87
+    chapter_title_block_idx: 66
+    problems_block_idx: null
+    next_chapter_block_idx: 1439
+  - num: 2
+    title: "Determinants and Matrices"
+    page_start: 88
+    page_end: 126
+    chapter_title_block_idx: 1439
+    problems_block_idx: null
+    next_chapter_block_idx: 2128
+  - num: 3
+    title: "Vector Analysis"
+    page_start: 127
+    page_end: 207
+    chapter_title_block_idx: 2128
+    problems_block_idx: null
+    next_chapter_block_idx: 3583
+  - num: 4
+    title: "Tensors and Differential Forms"
+    page_start: 208
+    page_end: 252
+    chapter_title_block_idx: 3583
+    problems_block_idx: null
+    next_chapter_block_idx: 4333
+  - num: 5
+    title: "Vector Spaces"
+    page_start: 253
+    page_end: 299
+    chapter_title_block_idx: 4333
+    problems_block_idx: null
+    next_chapter_block_idx: 5123
+  - num: 6
+    title: "Eigenvalue Problems"
+    page_start: 300
+    page_end: 329
+    chapter_title_block_idx: 5123
+    problems_block_idx: null
+    next_chapter_block_idx: 5630
+  - num: 7
+    title: "Ordinary Differential Equations"
+    page_start: 330
+    page_end: 381
+    chapter_title_block_idx: 5630
+    problems_block_idx: null
+    next_chapter_block_idx: 6607
+  - num: 8
+    title: "Sturm-Liouville Theory"
+    page_start: 382
+    page_end: 400
+    chapter_title_block_idx: 6607
+    problems_block_idx: null
+    next_chapter_block_idx: 6886
+  - num: 9
+    title: "Partial Differential Equations"
+    page_start: 401
+    page_end: 445
+    chapter_title_block_idx: 6886
+    problems_block_idx: null
+    next_chapter_block_idx: 7605
+  - num: 10
+    title: "Green's Functions"
+    page_start: 446
+    page_end: 466
+    chapter_title_block_idx: 7605
+    problems_block_idx: null
+    next_chapter_block_idx: 7966
+  - num: 11
+    title: "Complex Variable Theory"
+    page_start: 467
+    page_end: 548
+    chapter_title_block_idx: 7966
+    problems_block_idx: null
+    next_chapter_block_idx: 9237
+  - num: 12
+    title: "Further Topics in Analysis"
+    page_start: 549
+    page_end: 596
+    chapter_title_block_idx: 9237
+    problems_block_idx: null
+    next_chapter_block_idx: 10009
+  - num: 13
+    title: "Gamma Function"
+    page_start: 597
+    page_end: 639
+    chapter_title_block_idx: 10009
+    problems_block_idx: null
+    next_chapter_block_idx: 10728
+  - num: 14
+    title: "Bessel Functions"
+    page_start: 640
+    page_end: 710
+    chapter_title_block_idx: 10728
+    problems_block_idx: null
+    next_chapter_block_idx: 11870
+  - num: 15
+    title: "Legendre Functions"
+    page_start: 711
+    page_end: 768
+    chapter_title_block_idx: 11870
+    problems_block_idx: null
+    next_chapter_block_idx: 12779
+  - num: 16
+    title: "Angular Momentum"
+    page_start: 769
+    page_end: 810
+    chapter_title_block_idx: 12779
+    problems_block_idx: null
+    next_chapter_block_idx: 13437
+  - num: 17
+    title: "Group Theory"
+    page_start: 811
+    page_end: 866
+    chapter_title_block_idx: 13437
+    problems_block_idx: null
+    next_chapter_block_idx: 14160
+  - num: 18
+    title: "More Special Functions"
+    page_start: 867
+    page_end: 929
+    chapter_title_block_idx: 14160
+    problems_block_idx: null
+    next_chapter_block_idx: 15204
+  - num: 19
+    title: "Fourier Series"
+    page_start: 930
+    page_end: 957
+    chapter_title_block_idx: 15204
+    problems_block_idx: null
+    next_chapter_block_idx: 15626
+  - num: 20
+    title: "Integral Transforms"
+    page_start: 958
+    page_end: 1041
+    chapter_title_block_idx: 15626
+    problems_block_idx: null
+    next_chapter_block_idx: 17003
+  - num: 21
+    title: "Integral Equations"
+    page_start: 1042
+    page_end: 1074
+    chapter_title_block_idx: 17003
+    problems_block_idx: null
+    next_chapter_block_idx: 17581
+  - num: 22
+    title: "Calculus of Variations"
+    page_start: 1075
+    page_end: 1118
+    chapter_title_block_idx: 17581
+    problems_block_idx: null
+    next_chapter_block_idx: 18315
+  - num: 23
+    title: "Probability and Statistics"
+    page_start: 1119
+    page_end: 1173
+    chapter_title_block_idx: 18315
+    problems_block_idx: null
+    next_chapter_block_idx: 19093
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Za-z].*)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,130 @@
+slug: rudin_analysis
+title: Principles of Mathematical Analysis
+author: Walter Rudin
+edition: 3rd
+subject: Real Analysis
+publisher: McGraw-Hill
+language: en
+
+filter_types: [page_number, header, footer, aside_text, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 12
+appendices_start_page: 327
+bibliography_start_page: 327
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Real and Complex Number Systems
+    page_start: 12
+    page_end: 32
+    chapter_title_block_idx: 223
+    chapter_title_block_idx_secondary: 224
+    problems_block_idx: 624
+    next_chapter_block_idx: 683
+  - num: 2
+    title: Basic Topology
+    page_start: 33
+    page_end: 53
+    chapter_title_block_idx: 683
+    chapter_title_block_idx_secondary: 684
+    problems_block_idx: 1005
+    next_chapter_block_idx: 1053
+  - num: 3
+    title: Numerical Sequences and Series
+    page_start: 54
+    page_end: 86
+    chapter_title_block_idx: 1053
+    chapter_title_block_idx_secondary: 1054
+    problems_block_idx: 1655
+    next_chapter_block_idx: 1762
+  - num: 4
+    title: Continuity
+    page_start: 87
+    page_end: 104
+    chapter_title_block_idx: 1762
+    chapter_title_block_idx_secondary: 1763
+    problems_block_idx: 2050
+    next_chapter_block_idx: 2118
+  - num: 5
+    title: Differentiation
+    page_start: 105
+    page_end: 120
+    chapter_title_block_idx: 2118
+    chapter_title_block_idx_secondary: 2119
+    problems_block_idx: 2329
+    next_chapter_block_idx: 2474
+  - num: 6
+    title: The Riemann-Stieltjes Integral
+    page_start: 121
+    page_end: 142
+    chapter_title_block_idx: 2474
+    chapter_title_block_idx_secondary: 2475
+    problems_block_idx: 2849
+    next_chapter_block_idx: 2949
+  - num: 7
+    title: Sequences and Series of Functions
+    page_start: 143
+    page_end: 169
+    chapter_title_block_idx: 2949
+    chapter_title_block_idx_secondary: 2950
+    problems_block_idx: 3406
+    next_chapter_block_idx: 3534
+  - num: 8
+    title: Some Special Functions
+    page_start: 170
+    page_end: 200
+    chapter_title_block_idx: 3534
+    chapter_title_block_idx_secondary: 3535
+    problems_block_idx: 4023
+    next_chapter_block_idx: 4197
+  - num: 9
+    title: Functions of Several Variables
+    page_start: 201
+    page_end: 240
+    chapter_title_block_idx: 4197
+    chapter_title_block_idx_secondary: 4198
+    problems_block_idx: 4905
+    next_chapter_block_idx: 5030
+  - num: 10
+    title: Integration of Differential Forms
+    page_start: 241
+    page_end: 292
+    chapter_title_block_idx: 5030
+    chapter_title_block_idx_secondary: 5031
+    problems_block_idx: 5884
+    next_chapter_block_idx: 6129
+  - num: 11
+    title: The Lebesgue Theory
+    page_start: 293
+    page_end: 326
+    chapter_title_block_idx: 6129
+    chapter_title_block_idx_secondary: 6130
+    problems_block_idx: 6798
+    next_chapter_block_idx: 6856
+
+appendices: []
+
+section_re: '^()([A-Z][A-Z][A-Z\- ’‘''.,&/:]*[A-Z.)])$'
+subsection_re: '^()([A-Z][a-z]*(?:[:\s\-’‘''][A-Za-z][A-Za-z]*)+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^(\d+\.\d+)\s+Example'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

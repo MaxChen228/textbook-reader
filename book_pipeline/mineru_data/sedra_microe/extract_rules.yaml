@@ -1,0 +1,195 @@
+slug: sedra_microe
+title: Microelectronic Circuits
+author: Adel S. Sedra; Kenneth C. Smith
+edition: 7th International
+subject: Microelectronics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 31
+appendices_start_page: 1451
+bibliography_start_page: null
+index_start_page: 1457
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Electronics and Semiconductors
+    page_start: 31
+    page_end: 120
+    chapter_title_block_idx: 1003
+    chapter_title_block_idx_secondary: 1004
+    problems_block_idx: 1995
+    next_chapter_block_idx: 2236
+  - num: 2
+    title: Operational Amplifiers
+    page_start: 121
+    page_end: 196
+    chapter_title_block_idx: 2236
+    chapter_title_block_idx_secondary: 2237
+    problems_block_idx: 2944
+    next_chapter_block_idx: 3252
+  - num: 3
+    title: Diodes
+    page_start: 197
+    page_end: 266
+    chapter_title_block_idx: 3252
+    chapter_title_block_idx_secondary: 3253
+    problems_block_idx: 3950
+    next_chapter_block_idx: 4181
+  - num: 4
+    title: Bipolar Junction Transistors (BJTs)
+    page_start: 267
+    page_end: 328
+    chapter_title_block_idx: 4181
+    chapter_title_block_idx_secondary: 4182
+    problems_block_idx: 4832
+    next_chapter_block_idx: 4956
+  - num: 5
+    title: MOS Field-Effect Transistors (MOSFETs)
+    page_start: 329
+    page_end: 386
+    chapter_title_block_idx: 4956
+    chapter_title_block_idx_secondary: 4957
+    problems_block_idx: 5558
+    next_chapter_block_idx: 5740
+  - num: 6
+    title: Transistor Amplifiers
+    page_start: 387
+    page_end: 526
+    chapter_title_block_idx: 5740
+    chapter_title_block_idx_secondary: 5741
+    problems_block_idx: 7211
+    next_chapter_block_idx: 7601
+  - num: 7
+    title: Building Blocks of Integrated-Circuit Amplifiers
+    page_start: 527
+    page_end: 612
+    chapter_title_block_idx: 7601
+    chapter_title_block_idx_secondary: 7602
+    problems_block_idx: 8502
+    next_chapter_block_idx: 8751
+  - num: 8
+    title: Differential and Multistage Amplifiers
+    page_start: 613
+    page_end: 712
+    chapter_title_block_idx: 8751
+    chapter_title_block_idx_secondary: 8752
+    problems_block_idx: 9902
+    next_chapter_block_idx: 10217
+  - num: 9
+    title: Frequency Response
+    page_start: 713
+    page_end: 822
+    chapter_title_block_idx: 10217
+    chapter_title_block_idx_secondary: 10218
+    problems_block_idx: 11511
+    next_chapter_block_idx: 11784
+  - num: 10
+    title: Feedback
+    page_start: 823
+    page_end: 938
+    chapter_title_block_idx: 11784
+    chapter_title_block_idx_secondary: 11785
+    problems_block_idx: 12974
+    next_chapter_block_idx: 13344
+  - num: 11
+    title: Output Stages and Power Amplifiers
+    page_start: 939
+    page_end: 1012
+    chapter_title_block_idx: 13344
+    chapter_title_block_idx_secondary: 13345
+    problems_block_idx: 14108
+    next_chapter_block_idx: 14271
+  - num: 12
+    title: Operational-Amplifier Circuits
+    page_start: 1013
+    page_end: 1102
+    chapter_title_block_idx: 14271
+    chapter_title_block_idx_secondary: 14272
+    problems_block_idx: 15395
+    next_chapter_block_idx: 15551
+  - num: 13
+    title: Filters and Tuned Amplifiers
+    page_start: 1103
+    page_end: 1190
+    chapter_title_block_idx: 15551
+    chapter_title_block_idx_secondary: 15552
+    problems_block_idx: 16507
+    next_chapter_block_idx: 16674
+  - num: 14
+    title: Signal Generators and Waveform-Shaping Circuits
+    page_start: 1191
+    page_end: 1250
+    chapter_title_block_idx: 16674
+    chapter_title_block_idx_secondary: 16675
+    problems_block_idx: 17234
+    next_chapter_block_idx: 17377
+  - num: 15
+    title: CMOS Digital Logic Circuits
+    page_start: 1251
+    page_end: 1326
+    chapter_title_block_idx: 17377
+    chapter_title_block_idx_secondary: 17378
+    problems_block_idx: 18314
+    next_chapter_block_idx: 18460
+  - num: 16
+    title: Advanced Topics in Digital Integrated-Circuit Design
+    page_start: 1327
+    page_end: 1396
+    chapter_title_block_idx: 18460
+    chapter_title_block_idx_secondary: 18461
+    problems_block_idx: 19136
+    next_chapter_block_idx: 19272
+  - num: 17
+    title: Memory Circuits
+    page_start: 1397
+    page_end: 1450
+    chapter_title_block_idx: 19272
+    chapter_title_block_idx_secondary: 19273
+    problems_block_idx: 19738
+    next_chapter_block_idx: 19833
+
+appendices:
+  - id: G
+    title: Comparison of the MOSFET and the BJT
+    page_start: 1451
+    chapter_title_block_idx: 19833
+  - id: J
+    title: Standard Resistance Values and Unit Prefixes
+    page_start: 1454
+    chapter_title_block_idx: 19844
+  - id: K
+    title: Typical Parameter Values for IC Devices Fabricated in CMOS and Bipolar Processes
+    page_start: 1456
+    chapter_title_block_idx: 19855
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:D\s+)?(?:\\?\*)*\s*(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

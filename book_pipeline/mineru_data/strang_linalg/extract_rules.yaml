@@ -1,0 +1,117 @@
+slug: strang_linalg
+title: Linear Algebra and Its Applications
+author: Gilbert Strang
+edition: "4th"
+subject: Linear Algebra
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 8
+appendices_start_page: 422
+bibliography_start_page: null
+index_start_page: 499
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Matrices and Gaussian Elimination
+    page_start: 8
+    page_end: 75
+    chapter_title_block_idx: 148
+    chapter_title_block_idx_secondary: 149
+    problems_block_idx: null
+    next_chapter_block_idx: 1376
+  - num: 2
+    title: Vector Spaces
+    page_start: 76
+    page_end: 147
+    chapter_title_block_idx: 1376
+    chapter_title_block_idx_secondary: 1377
+    problems_block_idx: null
+    next_chapter_block_idx: 2555
+  - num: 3
+    title: Orthogonality
+    page_start: 148
+    page_end: 207
+    chapter_title_block_idx: 2555
+    chapter_title_block_idx_secondary: 2556
+    problems_block_idx: null
+    next_chapter_block_idx: 3567
+  - num: 4
+    title: Determinants
+    page_start: 208
+    page_end: 239
+    chapter_title_block_idx: 3567
+    problems_block_idx: null
+    next_chapter_block_idx: 4124
+  - num: 5
+    title: Eigenvalues and Eigenvectors
+    page_start: 240
+    page_end: 317
+    chapter_title_block_idx: 4124
+    problems_block_idx: null
+    next_chapter_block_idx: 5517
+  - num: 6
+    title: Positive Definite Matrices
+    page_start: 318
+    page_end: 357
+    chapter_title_block_idx: 5517
+    chapter_title_block_idx_secondary: 5518
+    problems_block_idx: null
+    next_chapter_block_idx: 6222
+  - num: 7
+    title: Computations with Matrices
+    page_start: 358
+    page_end: 383
+    chapter_title_block_idx: 6222
+    chapter_title_block_idx_secondary: 6223
+    problems_block_idx: null
+    next_chapter_block_idx: 6672
+  - num: 8
+    title: Linear Programming and Game Theory
+    page_start: 384
+    page_end: 421
+    chapter_title_block_idx: 6672
+    chapter_title_block_idx_secondary: 6673
+    problems_block_idx: null
+    next_chapter_block_idx: 7242
+
+appendices:
+  - id: A
+    title: Intersection, Sum, and Product of Spaces
+    page_start: 422
+    chapter_title_block_idx: 7242
+  - id: B
+    title: The Jordan Form
+    page_start: 429
+    chapter_title_block_idx: 7337
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\S.*\S|\S)()$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

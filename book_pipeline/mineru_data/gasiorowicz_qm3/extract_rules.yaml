@@ -1,0 +1,224 @@
+slug: gasiorowicz_qm3
+title: "Quantum Physics"
+author: "Stephen Gasiorowicz"
+edition: "3rd"
+subject: Quantum Mechanics
+publisher: Wiley
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - page_number
+  - header
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15
+appendices_start_page: 445
+bibliography_start_page: 446
+index_start_page: 449
+
+# ── inline-problem 模式 ──
+# Ch18/Ch20 無獨立 PROBLEMS heading（pbi=null），有 numbered list 偽命中，宣告 inline 走混合模式
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "The Emergence of Quantum Physics"
+    page_start: 15
+    page_end: 41
+    chapter_title_block_idx: 293
+    problems_block_idx: 576
+    next_chapter_block_idx: 660
+
+  - num: 2
+    title: "Wave-Particle Duality, Probability, and the Schrödinger Equation"
+    page_start: 42
+    page_end: 70
+    chapter_title_block_idx: 660
+    problems_block_idx: 971
+    next_chapter_block_idx: 1156
+
+  - num: 3
+    title: "Eigenvalues, Eigenfunctions, and the Expansion Postulate"
+    page_start: 71
+    page_end: 92
+    chapter_title_block_idx: 1156
+    problems_block_idx: 1522
+    next_chapter_block_idx: 1583
+
+  - num: 4
+    title: "One-Dimensional Potentials"
+    page_start: 93
+    page_end: 132
+    chapter_title_block_idx: 1583
+    problems_block_idx: 1989
+    next_chapter_block_idx: 2254
+
+  - num: 5
+    title: "The General Structure of Wave Mechanics"
+    page_start: 133
+    page_end: 147
+    chapter_title_block_idx: 2254
+    problems_block_idx: 2492
+    next_chapter_block_idx: 2569
+
+  - num: 6
+    title: "Operator Methods in Quantum Mechanics"
+    page_start: 148
+    page_end: 160
+    chapter_title_block_idx: 2569
+    problems_block_idx: 2785
+    next_chapter_block_idx: 2865
+
+  - num: 7
+    title: "Angular Momentum"
+    page_start: 161
+    page_end: 178
+    chapter_title_block_idx: 2865
+    problems_block_idx: 3051
+    next_chapter_block_idx: 3205
+
+  - num: 8
+    title: "The Schrödinger Equation in Three Dimensions and the Hydrogen Atom"
+    page_start: 179
+    page_end: 201
+    chapter_title_block_idx: 3205
+    problems_block_idx: 3453
+    next_chapter_block_idx: 3629
+
+  - num: 9
+    title: "Matrix Representation of Operators"
+    page_start: 202
+    page_end: 213
+    chapter_title_block_idx: 3629
+    problems_block_idx: 3842
+    next_chapter_block_idx: 3865
+
+  - num: 10
+    title: "Spin"
+    page_start: 214
+    page_end: 235
+    chapter_title_block_idx: 3865
+    problems_block_idx: 4162
+    next_chapter_block_idx: 4311
+
+  - num: 11
+    title: "Time-Independent Perturbation Theory"
+    page_start: 236
+    page_end: 249
+    chapter_title_block_idx: 4311
+    problems_block_idx: 4526
+    next_chapter_block_idx: 4571
+
+  - num: 12
+    title: "The Real Hydrogen Atom"
+    page_start: 250
+    page_end: 260
+    chapter_title_block_idx: 4571
+    problems_block_idx: 4720
+    next_chapter_block_idx: 4746
+
+  - num: 13
+    title: "Many-Particle Systems"
+    page_start: 261
+    page_end: 278
+    chapter_title_block_idx: 4746
+    problems_block_idx: 5022
+    next_chapter_block_idx: 5092
+
+  - num: 14
+    title: "About Atoms and Molecules"
+    page_start: 279
+    page_end: 317
+    chapter_title_block_idx: 5092
+    problems_block_idx: 5359
+    next_chapter_block_idx: 5580
+
+  - num: 15
+    title: "Time-Dependent Perturbation Theory"
+    page_start: 318
+    page_end: 333
+    chapter_title_block_idx: 5580
+    problems_block_idx: 5725
+    next_chapter_block_idx: 5875
+
+  - num: 16
+    title: "The Interaction of Charged Particles with the Electromagnetic Field"
+    page_start: 334
+    page_end: 353
+    chapter_title_block_idx: 5875
+    problems_block_idx: 6144
+    next_chapter_block_idx: 6256
+
+  - num: 17
+    title: "Radiative Decays"
+    page_start: 354
+    page_end: 365
+    chapter_title_block_idx: 6256
+    problems_block_idx: 6432
+    next_chapter_block_idx: 6465
+
+  - num: 18
+    title: "Selected Topics on Radiation"
+    page_start: 366
+    page_end: 390
+    chapter_title_block_idx: 6465
+    problems_block_idx: null
+    next_chapter_block_idx: 6896
+
+  - num: 19
+    title: "Collision Theory"
+    page_start: 391
+    page_end: 419
+    chapter_title_block_idx: 6896
+    problems_block_idx: 7315
+    next_chapter_block_idx: 7386
+
+  - num: 20
+    title: "Entanglement and Its Implications"
+    page_start: 420
+    page_end: 444
+    chapter_title_block_idx: 7386
+    problems_block_idx: null
+    next_chapter_block_idx: 8132
+
+# ── 附錄（無）──
+appendices: []
+
+# ── heading regex ──
+# Numbered sections: "1-1 BLACKBODY RADIATION", "2-3 THE PROBABILITY INTERPRETATION..."
+# Plain subsections: "The Rutherford Planetary Model", "The Bohr Postulates"
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^()((?:[A-Z\*][A-Za-z\*].{3,}|[A-Z]{3,}(?:\s+[A-Z]{2,})+))$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Problems are numbered simply: "1. ...", "2. ..." (restart at 1 per chapter)
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+# Tags like \tag {1-1}, \tag {1-2}, \tag {12-16}
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+-[0-9]+[a-z]?)\}'
+
+# ── example ──
+# EXAMPLE 1-1, EXAMPLE 2-3 etc.
+example_start_re: '^(EXAMPLE\s+\d+-\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

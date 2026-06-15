@@ -1,0 +1,213 @@
+# ── 書本 metadata ──
+slug: shankar_qm
+title: Principles of Quantum Mechanics
+author: Ramamurti Shankar
+edition: 2nd
+subject: Quantum Mechanics
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 19
+appendices_start_page: 659
+bibliography_start_page: 658
+index_start_page: 673
+
+# ── inline-problem 模式 ──
+# Shankar 章內題目為 inline：Exercise N.M.K 散落 section 中，無獨立 Problems heading。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Mathematical Introduction
+    page_start: 19
+    page_end: 91
+    chapter_title_block_idx: 150
+    problems_block_idx: null
+    next_chapter_block_idx: 1341
+  - num: 2
+    title: Review of Classical Mechanics
+    page_start: 92
+    page_end: 123
+    chapter_title_block_idx: 1341
+    problems_block_idx: null
+    next_chapter_block_idx: 1830
+  - num: 3
+    title: All Is Not Well with Classical Mechanics
+    page_start: 124
+    page_end: 130
+    chapter_title_block_idx: 1830
+    problems_block_idx: null
+    next_chapter_block_idx: 1901
+  - num: 4
+    title: The Postulates—a General Discussion
+    page_start: 131
+    page_end: 166
+    chapter_title_block_idx: 1901
+    problems_block_idx: null
+    next_chapter_block_idx: 2421
+  - num: 5
+    title: Simple Problems in One Dimension
+    page_start: 167
+    page_end: 194
+    chapter_title_block_idx: 2421
+    problems_block_idx: null
+    next_chapter_block_idx: 2867
+  - num: 6
+    title: The Classical Limit
+    page_start: 195
+    page_end: 200
+    chapter_title_block_idx: 2867
+    problems_block_idx: null
+    next_chapter_block_idx: 2937
+  - num: 7
+    title: The Harmonic Oscillator
+    page_start: 201
+    page_end: 237
+    chapter_title_block_idx: 2937
+    problems_block_idx: null
+    next_chapter_block_idx: 3548
+  - num: 8
+    title: The Path Integral Formulation of Quantum Theory
+    page_start: 238
+    page_end: 250
+    chapter_title_block_idx: 3548
+    problems_block_idx: null
+    next_chapter_block_idx: 3746
+  - num: 9
+    title: The Heisenberg Uncertainty Relations
+    page_start: 251
+    page_end: 260
+    chapter_title_block_idx: 3746
+    problems_block_idx: null
+    next_chapter_block_idx: 3915
+  - num: 10
+    title: Systems with N Degrees of Freedom
+    page_start: 261
+    page_end: 292
+    chapter_title_block_idx: 3915
+    problems_block_idx: null
+    next_chapter_block_idx: 4398
+  - num: 11
+    title: Symmetries and Their Consequences
+    page_start: 293
+    page_end: 317
+    chapter_title_block_idx: 4398
+    problems_block_idx: null
+    next_chapter_block_idx: 4832
+  - num: 12
+    title: Rotational Invariance and Angular Momentum
+    page_start: 318
+    page_end: 365
+    chapter_title_block_idx: 4832
+    problems_block_idx: null
+    next_chapter_block_idx: 5744
+  - num: 13
+    title: The Hydrogen Atom
+    page_start: 366
+    page_end: 384
+    chapter_title_block_idx: 5744
+    problems_block_idx: null
+    next_chapter_block_idx: 6024
+  - num: 14
+    title: Spin
+    page_start: 385
+    page_end: 413
+    chapter_title_block_idx: 6024
+    problems_block_idx: null
+    next_chapter_block_idx: 6465
+  - num: 15
+    title: Addition of Angular Momenta
+    page_start: 414
+    page_end: 438
+    chapter_title_block_idx: 6465
+    problems_block_idx: null
+    next_chapter_block_idx: 6878
+  - num: 16
+    title: The Variational and WKB Methods
+    page_start: 439
+    page_end: 459
+    chapter_title_block_idx: 6878
+    problems_block_idx: null
+    next_chapter_block_idx: 7191
+  - num: 17
+    title: Time-Independent Perturbation Theory
+    page_start: 460
+    page_end: 480
+    chapter_title_block_idx: 7191
+    problems_block_idx: null
+    next_chapter_block_idx: 7505
+  - num: 18
+    title: Time-Dependent Perturbation Theory
+    page_start: 481
+    page_end: 529
+    chapter_title_block_idx: 7505
+    problems_block_idx: null
+    next_chapter_block_idx: 8279
+  - num: 19
+    title: Scattering Theory
+    page_start: 530
+    page_end: 568
+    chapter_title_block_idx: 8279
+    problems_block_idx: null
+    next_chapter_block_idx: 8877
+  - num: 20
+    title: The Dirac Equation
+    page_start: 569
+    page_end: 585
+    chapter_title_block_idx: 8877
+    problems_block_idx: null
+    next_chapter_block_idx: 9132
+  - num: 21
+    title: "Path Integrals: Part II"
+    page_start: 586
+    page_end: 658
+    chapter_title_block_idx: 9132
+    problems_block_idx: null
+    next_chapter_block_idx: 10256
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 659
+    chapter_title_block_idx: 10256
+
+# ── heading regex ──
+# 章內 section 形如 "1.1. Title"（N.M. 帶結尾點），subsection 形如 "1.3.1. Title"（N.M.K.）。
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+# 題目皆為 "Exercise N.M.K." 散落 section 中。capture 整個 N.M.K（含 section 段），章號 = split('.')[0]。
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

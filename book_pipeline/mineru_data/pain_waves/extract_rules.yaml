@@ -1,0 +1,182 @@
+slug: pain_waves
+title: The Physics of Vibrations and Waves
+author: H. J. Pain
+edition: 6th
+subject: Waves
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 18
+appendices_start_page: 547
+bibliography_start_page: null
+index_start_page: 565
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Simple Harmonic Motion
+    page_start: 18
+    page_end: 52
+    chapter_title_block_idx: 339
+    chapter_title_block_idx_secondary: 340
+    problems_block_idx: null
+    next_chapter_block_idx: 911
+  - num: 2
+    title: Damped Simple Harmonic Motion
+    page_start: 53
+    page_end: 68
+    chapter_title_block_idx: 911
+    chapter_title_block_idx_secondary: 912
+    problems_block_idx: null
+    next_chapter_block_idx: 1199
+  - num: 3
+    title: The Forced Oscillator
+    page_start: 69
+    page_end: 94
+    chapter_title_block_idx: 1199
+    chapter_title_block_idx_secondary: 1200
+    problems_block_idx: null
+    next_chapter_block_idx: 1637
+  - num: 4
+    title: Coupled Oscillations
+    page_start: 95
+    page_end: 122
+    chapter_title_block_idx: 1637
+    chapter_title_block_idx_secondary: 1638
+    problems_block_idx: null
+    next_chapter_block_idx: 2153
+  - num: 5
+    title: Transverse Wave Motion
+    page_start: 123
+    page_end: 166
+    chapter_title_block_idx: 2153
+    chapter_title_block_idx_secondary: 2154
+    problems_block_idx: null
+    next_chapter_block_idx: 2913
+  - num: 6
+    title: Longitudinal Waves
+    page_start: 167
+    page_end: 186
+    chapter_title_block_idx: 2913
+    chapter_title_block_idx_secondary: 2914
+    problems_block_idx: null
+    next_chapter_block_idx: 3255
+  - num: 7
+    title: Waves on Transmission Lines
+    page_start: 187
+    page_end: 213
+    chapter_title_block_idx: 3255
+    chapter_title_block_idx_secondary: 3256
+    problems_block_idx: null
+    next_chapter_block_idx: 3713
+  - num: 8
+    title: Electromagnetic Waves
+    page_start: 214
+    page_end: 253
+    chapter_title_block_idx: 3713
+    chapter_title_block_idx_secondary: 3714
+    problems_block_idx: null
+    next_chapter_block_idx: 4370
+  - num: 9
+    title: Waves in More than One Dimension
+    page_start: 254
+    page_end: 281
+    chapter_title_block_idx: 4370
+    chapter_title_block_idx_secondary: 4371
+    problems_block_idx: null
+    next_chapter_block_idx: 4874
+  - num: 10
+    title: Fourier Methods
+    page_start: 282
+    page_end: 319
+    chapter_title_block_idx: 4874
+    chapter_title_block_idx_secondary: 4875
+    problems_block_idx: null
+    next_chapter_block_idx: 5427
+  - num: 11
+    title: Waves in Optical Systems
+    page_start: 320
+    page_end: 347
+    chapter_title_block_idx: 5427
+    chapter_title_block_idx_secondary: 5428
+    problems_block_idx: null
+    next_chapter_block_idx: 5858
+  - num: 12
+    title: Interference and Diffraction
+    page_start: 348
+    page_end: 425
+    chapter_title_block_idx: 5858
+    chapter_title_block_idx_secondary: 5859
+    problems_block_idx: null
+    next_chapter_block_idx: 6913
+  - num: 13
+    title: Wave Mechanics
+    page_start: 426
+    page_end: 473
+    chapter_title_block_idx: 6913
+    chapter_title_block_idx_secondary: 6914
+    problems_block_idx: null
+    next_chapter_block_idx: 7697
+  - num: 14
+    title: Non-linear Oscillations and Chaos
+    page_start: 474
+    page_end: 519
+    chapter_title_block_idx: 7697
+    chapter_title_block_idx_secondary: 7698
+    problems_block_idx: null
+    next_chapter_block_idx: 8179
+  - num: 15
+    title: Non-linear Waves, Shocks and Solitons
+    page_start: 520
+    page_end: 546
+    chapter_title_block_idx: 8179
+    chapter_title_block_idx_secondary: 8180
+    problems_block_idx: null
+    next_chapter_block_idx: 8585
+
+appendices:
+  - id: "1"
+    title: "Normal Modes, Phase Space and Statistical Physics"
+    page_start: 547
+    chapter_title_block_idx: 8585
+  - id: "2"
+    title: "Kirchhoff's Integral Theorem"
+    page_start: 561
+    chapter_title_block_idx: 8803
+  - id: "3"
+    title: "Non-Linear Schrodinger Equation"
+    page_start: 564
+    chapter_title_block_idx: 8846
+
+section_re: '^()((?!Problem\.?\s+\d)[A-Z][A-Za-z0-9].*\S)$'
+subsection_re: '^()(\(\d+\)\s+\S.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\.?\s+(\d+\.\d+)\s*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+# ⚠ PENDING — 不要 merge。重新校準後維持 pending，原因有三（全屬 ingest/parser 上游品質，非 sol_rules 可解）：
+#
+# 1. 主書部分章節 body 是 OCR 垃圾：ch1 num "1.3" 的「題幹」是 "0.55555 4. 0.818181"（答案數字串，
+#    非題幹）；ch2 body 是終答（"1+i"）。把解答配到這種 body 的卡片無意義。
+#    （ch3/ch6/ch9 的 body 確是真題幹，且與 sol 答案語義對齊正確 → regex key 對齊本身沒問題。）
+# 2. sol 書缺 Chapter 2 anchor：content_list 把第 2 章答案（"4.x"）錯置進 "Chapter 1" 區段，
+#    導致 ch2 配對率 0%、ch1 區段混入跨章題號。
+# 3. 章邊界在兩本書皆不可靠：單一「章」內 N.M 的 section 前綴橫跨 1,2,4,5,6,8,14...（含 OCR 噪音如 1646），
+#    per-chapter dict[num] 可能跨 section 撞 key → 即使表面對齊也有錯配風險。
+#
+# dry-run 總配對率 37.1%（ch2=0%，多數章因 Boas 答案書僅答選定題而偏低）。
+# 待主書 boas_mp + 解答書 boas_mp_sol 重新 ingest / 修 parser 章邊界後再評估。下列配置為校準起點。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '(\d+\.\d+)\s'
+multi_per_block: true
+_pending: true

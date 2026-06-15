@@ -1,0 +1,163 @@
+# ── 書本 metadata ──
+slug: boas_mp
+title: Mathematical Methods in the Physical Sciences
+author: Mary L. Boas
+edition: 3rd
+subject: Mathematical Methods
+publisher: Wiley
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, aside_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 20
+appendices_start_page: 798
+bibliography_start_page: 798
+index_start_page: 830
+
+# ── inline-problem 模式 ──
+# Boas 風格：題目散落各節中，無獨立章末 Problems heading。每節有 "PROBLEMS, SECTION N"
+# heading，其下題號從 1 重置（純流水 N.），故 inline + namespace_by_section。
+inline_problems: true
+problem_num_namespace_by_section: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Infinite Series, Power Series
+    page_start: 20
+    page_end: 64
+    chapter_title_block_idx: 133
+    problems_block_idx: null
+    next_chapter_block_idx: 1005
+  - num: 2
+    title: Complex Numbers
+    page_start: 65
+    page_end: 100
+    chapter_title_block_idx: 1005
+    problems_block_idx: null
+    next_chapter_block_idx: 1836
+  - num: 3
+    title: Linear Algebra
+    page_start: 101
+    page_end: 206
+    chapter_title_block_idx: 1836
+    problems_block_idx: null
+    next_chapter_block_idx: 3627
+  - num: 4
+    title: Partial Differentiation
+    page_start: 207
+    page_end: 259
+    chapter_title_block_idx: 3627
+    problems_block_idx: null
+    next_chapter_block_idx: 4686
+  - num: 5
+    title: Multiple Integrals; Applications of Integration
+    page_start: 260
+    page_end: 294
+    chapter_title_block_idx: 4686
+    problems_block_idx: null
+    next_chapter_block_idx: 5293
+  - num: 6
+    title: Vector Analysis
+    page_start: 295
+    page_end: 358
+    chapter_title_block_idx: 5293
+    problems_block_idx: null
+    next_chapter_block_idx: 6388
+  - num: 7
+    title: Fourier Series and Transforms
+    page_start: 359
+    page_end: 408
+    chapter_title_block_idx: 6388
+    problems_block_idx: null
+    next_chapter_block_idx: 7225
+  - num: 8
+    title: Ordinary Differential Equations
+    page_start: 409
+    page_end: 490
+    chapter_title_block_idx: 7225
+    problems_block_idx: null
+    next_chapter_block_idx: 8820
+  - num: 9
+    title: Calculus of Variations
+    page_start: 491
+    page_end: 514
+    chapter_title_block_idx: 8820
+    problems_block_idx: null
+    next_chapter_block_idx: 9274
+  - num: 10
+    title: Tensor Analysis
+    page_start: 515
+    page_end: 555
+    chapter_title_block_idx: 9274
+    problems_block_idx: null
+    next_chapter_block_idx: 9940
+  - num: 11
+    title: Special Functions
+    page_start: 556
+    page_end: 580
+    chapter_title_block_idx: 9940
+    problems_block_idx: null
+    next_chapter_block_idx: 10448
+  - num: 12
+    title: Series Solutions of Differential Equations; Legendre, Bessel, Hermite, and Laguerre Functions
+    page_start: 581
+    page_end: 637
+    chapter_title_block_idx: 10448
+    problems_block_idx: null
+    next_chapter_block_idx: 11499
+  - num: 13
+    title: Partial Differential Equations
+    page_start: 638
+    page_end: 684
+    chapter_title_block_idx: 11499
+    problems_block_idx: null
+    next_chapter_block_idx: 12288
+  - num: 14
+    title: Functions of a Complex Variable
+    page_start: 685
+    page_end: 740
+    chapter_title_block_idx: 12288
+    problems_block_idx: null
+    next_chapter_block_idx: 13307
+  - num: 15
+    title: Probability and Statistics
+    page_start: 741
+    page_end: 797
+    chapter_title_block_idx: 13307
+    problems_block_idx: null
+    next_chapter_block_idx: 14039
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+# section: "N. TITLE"（ALL CAPS 章節標題），id=N，供 namespace_by_section 串接
+# subsection: "A. Title" 字母子節 + "PROBLEMS, SECTION N" 題組標題；id group 留空
+#   （空 id → walker 不覆寫 current_section_id，故題號 namespace 仍掛在數字 section 上）
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^()((?:[A-Z]\.\s+.+)|(?:PROBLEMS,\s+SECTION\s+\d+))$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 題目以純流水 "N. ..." 起頭，每節 reset → problem_chapter_must_match=false
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+)\.'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（人工確認後才填） ──
+known_missing_problems: []

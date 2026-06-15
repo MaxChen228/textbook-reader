@@ -1,0 +1,182 @@
+# ── 書本 metadata ──
+slug: razavi_microe
+title: Fundamentals of Microelectronics
+author: Behzad Razavi
+edition: null
+subject: Microelectronics
+publisher: Wiley
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 26
+appendices_start_page: 898
+bibliography_start_page: null
+index_start_page: 918
+
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction to Microelectronics
+    page_start: 26
+    page_end: 45
+    chapter_title_block_idx: 489
+    problems_block_idx: null
+    next_chapter_block_idx: 758
+  - num: 2
+    title: Basic Physics of Semiconductors
+    page_start: 46
+    page_end: 83
+    chapter_title_block_idx: 758
+    problems_block_idx: 1287
+    next_chapter_block_idx: 1361
+  - num: 3
+    title: Diode Models and Circuits
+    page_start: 84
+    page_end: 146
+    chapter_title_block_idx: 1361
+    problems_block_idx: 2121
+    next_chapter_block_idx: 2243
+  - num: 4
+    title: Physics of Bipolar Transistors
+    page_start: 147
+    page_end: 194
+    chapter_title_block_idx: 2243
+    problems_block_idx: 2812
+    next_chapter_block_idx: 2965
+  - num: 5
+    title: Bipolar Amplifiers
+    page_start: 195
+    page_end: 294
+    chapter_title_block_idx: 2965
+    problems_block_idx: 4369
+    next_chapter_block_idx: 4622
+  - num: 6
+    title: Physics of MOS Transistors
+    page_start: 295
+    page_end: 333
+    chapter_title_block_idx: 4622
+    problems_block_idx: 5075
+    next_chapter_block_idx: 5215
+  - num: 7
+    title: CMOS Amplifiers
+    page_start: 334
+    page_end: 378
+    chapter_title_block_idx: 5215
+    problems_block_idx: 5757
+    next_chapter_block_idx: 5969
+  - num: 8
+    title: Operational Amplifier as a Black Box
+    page_start: 379
+    page_end: 419
+    chapter_title_block_idx: 5969
+    problems_block_idx: 6516
+    next_chapter_block_idx: 6625
+  - num: 9
+    title: Cascode Stages and Current Mirrors
+    page_start: 420
+    page_end: 461
+    chapter_title_block_idx: 6625
+    problems_block_idx: 7141
+    next_chapter_block_idx: 7329
+  - num: 10
+    title: Differential Amplifiers
+    page_start: 462
+    page_end: 526
+    chapter_title_block_idx: 7329
+    problems_block_idx: 8132
+    next_chapter_block_idx: 8333
+  - num: 11
+    title: Frequency Response
+    page_start: 527
+    page_end: 587
+    chapter_title_block_idx: 8333
+    problems_block_idx: 9172
+    next_chapter_block_idx: 9316
+  - num: 12
+    title: Feedback
+    page_start: 588
+    page_end: 665
+    chapter_title_block_idx: 9316
+    problems_block_idx: 10330
+    next_chapter_block_idx: 10527
+  - num: 13
+    title: Oscillators
+    page_start: 666
+    page_end: 697
+    chapter_title_block_idx: 10527
+    problems_block_idx: 10886
+    next_chapter_block_idx: 10964
+  - num: 14
+    title: Output Stages and Power Amplifiers
+    page_start: 698
+    page_end: 731
+    chapter_title_block_idx: 10964
+    problems_block_idx: 11367
+    next_chapter_block_idx: 11468
+  - num: 15
+    title: Analog Filters
+    page_start: 732
+    page_end: 784
+    chapter_title_block_idx: 11468
+    problems_block_idx: 12223
+    next_chapter_block_idx: 12313
+  - num: 16
+    title: Digital CMOS Circuits
+    page_start: 785
+    page_end: 825
+    chapter_title_block_idx: 12313
+    problems_block_idx: 12830
+    next_chapter_block_idx: 12907
+  - num: 17
+    title: CMOS Amplifiers
+    page_start: 826
+    page_end: 897
+    chapter_title_block_idx: 12907
+    problems_block_idx: 13868
+    next_chapter_block_idx: 14080
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Introduction to SPICE
+    page_start: 898
+    chapter_title_block_idx: 14080
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

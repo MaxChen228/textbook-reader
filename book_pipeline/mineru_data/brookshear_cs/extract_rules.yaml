@@ -1,0 +1,166 @@
+slug: brookshear_cs
+title: "Computer Science: An Overview"
+author: "J. Glenn Brookshear; Dennis Brylow"
+edition: "13th Global"
+subject: Computer Science
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 17
+appendices_start_page: 670
+bibliography_start_page: null
+index_start_page: 726
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 17
+    page_end: 38
+    chapter_title_block_idx: 184
+    problems_block_idx: null
+    next_chapter_block_idx: 370
+  - num: 1
+    title: Data Storage
+    page_start: 39
+    page_end: 110
+    chapter_title_block_idx: 370
+    problems_block_idx: 1136
+    next_chapter_block_idx: 1291
+  - num: 2
+    title: Data Manipulation
+    page_start: 111
+    page_end: 162
+    chapter_title_block_idx: 1291
+    problems_block_idx: 1766
+    next_chapter_block_idx: 1912
+  - num: 3
+    title: Operating Systems
+    page_start: 163
+    page_end: 196
+    chapter_title_block_idx: 1912
+    problems_block_idx: 2140
+    next_chapter_block_idx: 2228
+  - num: 4
+    title: Networking and the Internet
+    page_start: 197
+    page_end: 258
+    chapter_title_block_idx: 2228
+    problems_block_idx: 2744
+    next_chapter_block_idx: 2840
+  - num: 5
+    title: Algorithms
+    page_start: 259
+    page_end: 318
+    chapter_title_block_idx: 2840
+    problems_block_idx: 3401
+    next_chapter_block_idx: 3522
+  - num: 6
+    title: Programming Languages
+    page_start: 319
+    page_end: 388
+    chapter_title_block_idx: 3522
+    problems_block_idx: 4202
+    next_chapter_block_idx: 4310
+  - num: 7
+    title: Software Engineering
+    page_start: 389
+    page_end: 436
+    chapter_title_block_idx: 4310
+    problems_block_idx: 4649
+    next_chapter_block_idx: 4726
+  - num: 8
+    title: Data Abstractions
+    page_start: 437
+    page_end: 484
+    chapter_title_block_idx: 4726
+    problems_block_idx: 5106
+    next_chapter_block_idx: 5210
+  - num: 9
+    title: Database Systems
+    page_start: 485
+    page_end: 532
+    chapter_title_block_idx: 5210
+    problems_block_idx: 5602
+    next_chapter_block_idx: 5702
+  - num: 10
+    title: Computer Graphics
+    page_start: 533
+    page_end: 574
+    chapter_title_block_idx: 5702
+    problems_block_idx: 6021
+    next_chapter_block_idx: 6102
+  - num: 11
+    title: Artificial Intelligence
+    page_start: 575
+    page_end: 628
+    chapter_title_block_idx: 6102
+    problems_block_idx: 6498
+    next_chapter_block_idx: 6613
+  - num: 12
+    title: Theory of Computation
+    page_start: 629
+    page_end: 669
+    chapter_title_block_idx: 6613
+    problems_block_idx: 6976
+    next_chapter_block_idx: 7064
+
+appendices:
+  - id: A
+    title: ASCII
+    page_start: 670
+    chapter_title_block_idx: 7064
+  - id: B
+    title: Circuits to Manipulate Two’s Complement Representations
+    page_start: 671
+    chapter_title_block_idx: 7069
+  - id: C
+    title: "Vole: A Simple Machine Language"
+    page_start: 674
+    chapter_title_block_idx: 7087
+  - id: D
+    title: High-Level Programming Languages
+    page_start: 677
+    chapter_title_block_idx: 7104
+  - id: E
+    title: The Equivalence of Iterative and Recursive Structures
+    page_start: 679
+    chapter_title_block_idx: 7124
+  - id: F
+    title: Answers to Questions & Exercises
+    page_start: 681
+    chapter_title_block_idx: 7146
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: "^()((?:[A-Z]|[0-9][A-Z])[A-Za-z0-9 ’''&,/:?()\\-]{0,68})$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\\*\s+)?(\d+)\.\s'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+# 章末 CHAPTER REVIEW PROBLEMS 後緊接 SOCIAL ISSUES/ADDITIONAL READING（同 N. 編號），
+# 提早結束 problems 區、丟棄其後 block，避免討論題被當習題且題號重複
+problems_end_re: '^(SOCIAL ISSUES|ADDITIONAL READING)\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

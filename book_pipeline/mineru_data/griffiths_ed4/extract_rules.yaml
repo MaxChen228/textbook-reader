@@ -1,0 +1,140 @@
+slug: griffiths_ed4
+title: Introduction to Electrodynamics
+author: David J. Griffiths
+edition: 4th
+subject: Electromagnetism
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 18
+appendices_start_page: 592
+bibliography_start_page: null
+index_start_page: 606
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: Vector Analysis
+    page_start: 18
+    page_end: 75
+    chapter_title_block_idx: 318
+    problems_block_idx: null
+    next_chapter_block_idx: 1257
+  - num: 2
+    title: Electrostatics
+    page_start: 76
+    page_end: 129
+    chapter_title_block_idx: 1257
+    problems_block_idx: null
+    next_chapter_block_idx: 1980
+  - num: 3
+    title: Potentials
+    page_start: 130
+    page_end: 183
+    chapter_title_block_idx: 1980
+    problems_block_idx: null
+    next_chapter_block_idx: 2755
+  - num: 4
+    title: Electric Fields in Matter
+    page_start: 184
+    page_end: 226
+    chapter_title_block_idx: 2755
+    problems_block_idx: null
+    next_chapter_block_idx: 3362
+  - num: 5
+    title: Magnetostatics
+    page_start: 227
+    page_end: 282
+    chapter_title_block_idx: 3362
+    problems_block_idx: null
+    next_chapter_block_idx: 4139
+  - num: 6
+    title: Magnetic Fields in Matter
+    page_start: 283
+    page_end: 312
+    chapter_title_block_idx: 4139
+    problems_block_idx: null
+    next_chapter_block_idx: 4510
+  - num: 7
+    title: Electrodynamics
+    page_start: 313
+    page_end: 372
+    chapter_title_block_idx: 4510
+    problems_block_idx: null
+    next_chapter_block_idx: 5305
+  - num: 8
+    title: Conservation Laws
+    page_start: 373
+    page_end: 398
+    chapter_title_block_idx: 5305
+    problems_block_idx: null
+    next_chapter_block_idx: 5720
+  - num: 9
+    title: Electromagnetic Waves
+    page_start: 399
+    page_end: 452
+    chapter_title_block_idx: 5720
+    problems_block_idx: null
+    next_chapter_block_idx: 6541
+  - num: 10
+    title: Potentials and Fields
+    page_start: 453
+    page_end: 482
+    chapter_title_block_idx: 6541
+    problems_block_idx: null
+    next_chapter_block_idx: 7039
+  - num: 11
+    title: Radiation
+    page_start: 483
+    page_end: 518
+    chapter_title_block_idx: 7039
+    problems_block_idx: null
+    next_chapter_block_idx: 7609
+  - num: 12
+    title: Electrodynamics and Relativity
+    page_start: 519
+    page_end: 591
+    chapter_title_block_idx: 7609
+    problems_block_idx: null
+    next_chapter_block_idx: 8609
+
+appendices:
+  - id: A
+    title: Vector Calculus in Curvilinear Coordinates
+    page_start: 592
+    chapter_title_block_idx: 8609
+  - id: B
+    title: The Helmholtz Theorem
+    page_start: 599
+    chapter_title_block_idx: 8712
+
+section_re: '^(\d+\.\d+)\s+([A-Z][A-Z0-9 ’‘''\-,.:&/()]+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^!?\s*Problem\s+(\d+\.\d+)'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

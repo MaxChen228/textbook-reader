@@ -1,0 +1,192 @@
+# ── 書本 metadata ──
+slug: kittel_thermal
+title: Thermal Physics
+author: Charles Kittel; Herbert Kroemer
+edition: 2nd
+subject: Thermal Physics
+publisher: W. H. Freeman
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍 ──
+body_start_page: 22
+appendices_start_page: 456
+bibliography_start_page: null
+index_start_page: 482
+
+# ── inline-problem 模式 ──
+# Ch1 無獨立 "PROBLEMS" heading（題目直接接在正文後面，沒切開），走 inline。
+# Ch2-15 章末皆有 "PROBLEMS" 全大寫 heading，走二分。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: States of a Model System
+    page_start: 22
+    page_end: 43
+    chapter_title_block_idx: 202
+    chapter_title_block_idx_secondary: 201
+    problems_block_idx: null
+    next_chapter_block_idx: 450
+  - num: 2
+    title: Entropy and Temperature
+    page_start: 44
+    page_end: 71
+    chapter_title_block_idx: 450
+    problems_block_idx: 747
+    next_chapter_block_idx: 780
+  - num: 3
+    title: Boltzmann Distribution and Helmholtz Free Energy
+    page_start: 72
+    page_end: 103
+    chapter_title_block_idx: 780
+    problems_block_idx: 1145
+    next_chapter_block_idx: 1203
+  - num: 4
+    title: Thermal Radiation and Planck Distribution
+    page_start: 104
+    page_end: 133
+    chapter_title_block_idx: 1203
+    problems_block_idx: 1454
+    next_chapter_block_idx: 1511
+  - num: 5
+    title: Chemical Potential and Gibbs Distribution
+    page_start: 134
+    page_end: 167
+    chapter_title_block_idx: 1511
+    problems_block_idx: 1845
+    next_chapter_block_idx: 1900
+  - num: 6
+    title: Ideal Gas
+    page_start: 168
+    page_end: 197
+    chapter_title_block_idx: 1901
+    chapter_title_block_idx_secondary: 1900
+    problems_block_idx: 2271
+    next_chapter_block_idx: 2322
+  - num: 7
+    title: Fermi and Bose Gases
+    page_start: 198
+    page_end: 241
+    chapter_title_block_idx: 2322
+    problems_block_idx: 2739
+    next_chapter_block_idx: 2787
+  - num: 8
+    title: Heat and Work
+    page_start: 242
+    page_end: 277
+    chapter_title_block_idx: 2787
+    problems_block_idx: 3118
+    next_chapter_block_idx: 3141
+  - num: 9
+    title: Gibbs Free Energy and Chemical Reactions
+    page_start: 278
+    page_end: 291
+    chapter_title_block_idx: 3141
+    problems_block_idx: 3310
+    next_chapter_block_idx: 3346
+  - num: 10
+    title: Phase Transformations
+    page_start: 292
+    page_end: 325
+    chapter_title_block_idx: 3346
+    problems_block_idx: 3670
+    next_chapter_block_idx: 3712
+  - num: 11
+    title: Binary Mixtures
+    page_start: 326
+    page_end: 349
+    chapter_title_block_idx: 3712
+    problems_block_idx: 3894
+    next_chapter_block_idx: 3902
+  - num: 12
+    title: Cryogenics
+    page_start: 350
+    page_end: 369
+    chapter_title_block_idx: 3902
+    problems_block_idx: 4042
+    next_chapter_block_idx: 4061
+  - num: 13
+    title: Semiconductor Statistics
+    page_start: 370
+    page_end: 405
+    chapter_title_block_idx: 4061
+    problems_block_idx: 4481
+    next_chapter_block_idx: 4496
+  - num: 14
+    title: Kinetic Theory
+    page_start: 406
+    page_end: 439
+    chapter_title_block_idx: 4496
+    problems_block_idx: 4943
+    next_chapter_block_idx: 4979
+  - num: 15
+    title: Propagation
+    page_start: 440
+    page_end: 455
+    chapter_title_block_idx: 4979
+    problems_block_idx: 5184
+    next_chapter_block_idx: 5219
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Some Integrals Containing Exponentials
+    page_start: 456
+    chapter_title_block_idx: 5219
+  - id: B
+    title: Temperature Scales
+    page_start: 462
+    chapter_title_block_idx: 5305
+  - id: C
+    title: Poisson Distribution
+    page_start: 470
+    chapter_title_block_idx: 5372
+  - id: D
+    title: Pressure
+    page_start: 476
+    chapter_title_block_idx: 5450
+  - id: E
+    title: Negative Temperature
+    page_start: 477
+    chapter_title_block_idx: 5462
+
+# ── heading regex ──
+# 純文字 ALL CAPS 型：section 全大寫（如 "BINARY MODEL SYSTEMS"），
+# subsection 為 Title Case 短句（如 "Most Probable Configuration"）。
+section_re: '^()([A-Z][A-Z][A-Z\- ’‘'',.&/:]*[A-Z.)])$'
+subsection_re: '^()([A-Z][a-z]*(?:[:\s\-’‘'',][A-Za-z][A-Za-z]*)+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+# 此書題號為 "1. Lorem ipsum..." 純流水正整數
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+# 本書內文 Example 以 inline 形式出現於 text（如 "Example: ..."），無獨立段落 heading
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
