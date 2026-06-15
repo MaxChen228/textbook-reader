@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  dev 監控頁快照刷新 launchd agent（standby，每 120s 重生 dev/status.json）。
+  純讀取無 LLM，與主 pipeline daemon（com.textbookreader.bookpipeline）獨立。
+  安裝：
+    cp book_pipeline/com.textbookreader.devsnapshot.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.textbookreader.devsnapshot.plist
+  停用：
+    launchctl unload ~/Library/LaunchAgents/com.textbookreader.devsnapshot.plist
+  注意：路徑寫死 /Users/chenliangyu；換機需改。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.textbookreader.devsnapshot</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/Users/chenliangyu/project/textbook-reader/book_pipeline/devsnapshot_run.sh</string>
+  </array>
+
+  <!-- 60s 心跳 fallback：抓 tick 之外的變化（進程無聲死掉、budget UTC 跨日歸零）。
+       tick 進行中的事件刷新由 pipeline_tick.log() 直接呼叫 write_snapshot 完成（節流 8s），
+       比 launchd WatchPaths 可靠（後者在現代 macOS 對頻繁寫入的檔案觸發不穩）。 -->
+  <key>StartInterval</key>
+  <integer>60</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/chenliangyu</string>
+  </dict>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

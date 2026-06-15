@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>pipeline dev · textbook-reader</title>
+  <script src="../assets/qbank-shared.js"></script>
+  <link rel="stylesheet" href="../assets/qbank-shared.css">
+  <style>
+    /* dark tokens — 與 reader (index.html) 同一份，限本頁 scope */
+    body { font-size: 14px; line-height: 1.6; transition: background .25s ease, color .25s ease; }
+    body[data-theme="dark"] {
+      --bg: #15140f; --surface: #1c1a14; --border: #2f2a22; --border-l: #25211a;
+      --text: #ebe5d5; --sub: #8a8275; --ink: #f1ead9; --ink-light: #bdb39e; --accent: #d6cfb8;
+    }
+
+    .dev-wrap { max-width: 1080px; margin: 0 auto; padding: 24px 20px 96px; }
+    @media (max-width: 640px) { .dev-wrap { padding: 16px 12px 72px; } }
+
+    /* panel — 沿用 reader 卡片語彙：surface 底、border、圓角 */
+    .dev-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 18px; margin-bottom: 16px;
+    }
+    .dev-panel > h2 {
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--sub);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .dev-label { font-family: var(--mono); font-size: 11px; color: var(--sub); letter-spacing: .04em; }
+    .dev-mono  { font-family: var(--mono); }
+
+    /* 健康燈 */
+    .dev-health { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: baseline; }
+    .dev-health .big { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--ink); }
+    .dev-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+    .dot-ok   { background: var(--status-known); }
+    .dot-warn { background: var(--status-unknown); }
+    .dot-bad  { background: var(--status-danger); }
+    .dot-idle { background: var(--status-skip); }
+    .dev-kv { display: flex; flex-direction: column; gap: 3px; }
+    .dev-kv .v { font-family: var(--mono); font-size: 15px; color: var(--text); }
+
+    .dev-llm {
+      margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--border);
+      border-radius: 6px; font-family: var(--mono); font-size: 12px; color: var(--ink-light);
+    }
+
+    /* 額度條 */
+    .dev-bar-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+    .dev-bar-row .name { font-family: var(--mono); font-size: 12px; width: 180px; flex-shrink: 0; color: var(--text); }
+    .dev-bar { flex: 1; height: 8px; background: var(--border-l); border-radius: 4px; overflow: hidden; }
+    .dev-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width .4s ease; }
+    .dev-bar-row .num { font-family: var(--mono); font-size: 11px; color: var(--sub); width: 96px; text-align: right; flex-shrink: 0; }
+
+    /* 錯誤 */
+    .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0;
+      font-family: var(--mono); font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
+    .dev-err .src { color: var(--sub); margin-right: 8px; }
+    .dev-ok-msg { color: var(--status-known); font-family: var(--mono); font-size: 13px; }
+
+    /* 書本表 */
+    .dev-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .dev-table th { text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--sub); padding: 6px 10px; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .dev-table td { padding: 7px 10px; border-bottom: 1px solid var(--border-l); }
+    .dev-table tr:last-child td { border-bottom: none; }
+    .dev-table td.slug { font-family: var(--mono); font-size: 12px; color: var(--text); }
+    .dev-table td.ps   { font-family: var(--mono); font-size: 12px; color: var(--sub); text-align: right; white-space: nowrap; }
+    .stage-pill { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    .st-0 { background: color-mix(in srgb, var(--status-danger) 16%, transparent); color: var(--status-danger); }
+    .st-1, .st-2 { background: color-mix(in srgb, var(--status-unknown) 18%, transparent); color: var(--status-unknown); }
+    .st-3 { background: color-mix(in srgb, var(--status-known) 16%, transparent); color: var(--status-known); }
+    .st-4 { background: color-mix(in srgb, var(--status-known) 28%, transparent); color: var(--status-known); font-weight: 600; }
+    .todo-tag { font-family: var(--mono); font-size: 10px; color: var(--sub); }
+    .todo-act { color: var(--status-unknown); }
+
+    /* log */
+    .dev-log { font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--ink-light);
+      background: var(--bg); border: 1px solid var(--border-l); border-radius: 6px; padding: 10px 12px;
+      max-height: 320px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+
+    .dev-foot { font-family: var(--mono); font-size: 11px; color: var(--sub); text-align: center; margin-top: 8px; }
+    .spin { display: inline-block; animation: sp 1s linear infinite; }
+    @keyframes sp { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="topbar" class="qbk-topbar">
+    <div class="system-tabs">
+      <a href="../">Library</a>
+      <span class="system-tabs-divider"></span>
+      <a class="active" href="#">Dev</a>
+    </div>
+    <div class="topbar-spacer"></div>
+    <span class="meta qbk-result-count" id="updated"></span>
+    <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
+    <div class="qbk-segmented" id="seg-theme" style="margin-left:4px">
+      <button data-theme="auto">Auto</button>
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+
+  <div class="dev-wrap">
+    <div class="dev-panel" id="p-health">
+      <h2>daemon 健康</h2>
+      <div class="dev-health" id="health"></div>
+      <div id="llm"></div>
+    </div>
+
+    <div class="dev-panel">
+      <h2>MinerU 額度 <span class="dev-label" id="budget-date"></span></h2>
+      <div id="budget"></div>
+    </div>
+
+    <div class="dev-panel" id="p-err">
+      <h2 id="err-head">錯誤</h2>
+      <div id="errors"></div>
+    </div>
+
+    <div class="dev-panel">
+      <h2>書本階段 <span class="dev-label" id="book-count"></span></h2>
+      <div style="overflow-x:auto">
+        <table class="dev-table">
+          <thead><tr><th>slug</th><th>階段</th><th style="text-align:right">題/解</th><th>待辦</th></tr></thead>
+          <tbody id="books"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="dev-panel">
+      <h2>daemon.log 尾段 <span class="dev-label">(UTC)</span></h2>
+      <div class="dev-log" id="log"></div>
+    </div>
+
+    <div class="dev-foot" id="foot"></div>
+  </div>
+
+  <script>
+  const { fetchJson, relTime, escapeHtml } = QBankShared
+  const REFRESH_MS = 8000   // 撿新檔（snapshot 由 launchd WatchPaths 事件驅動，~1s 內就緒）
+  const CLOCK_MS = 1000     // 客戶端自走時鐘：時間欄位每秒本地推算，零伺服器負擔
+  let timer = null, clockTimer = null
+  let last = null           // 最近一份 snapshot，供時鐘 re-derive 時間欄位
+
+  // ── 主題：與 reader 共用 localStorage（textbook.settings.v1）──
+  const SETTINGS_KEY = 'textbook.settings.v1'
+  const darkMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null
+  function readTheme() {
+    try { return (JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}').theme) || 'auto' } catch { return 'auto' }
+  }
+  function writeTheme(t) {
+    let s = {}; try { s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') } catch {}
+    s.theme = t; localStorage.setItem(SETTINGS_KEY, JSON.stringify(s))
+  }
+  function applyTheme() {
+    const t = readTheme()
+    const dark = t === 'dark' || (t === 'auto' && darkMQ && darkMQ.matches)
+    document.body.setAttribute('data-theme', dark ? 'dark' : 'light')
+    document.querySelectorAll('#seg-theme button').forEach(b =>
+      b.classList.toggle('active', b.dataset.theme === t))
+  }
+  document.querySelectorAll('#seg-theme button').forEach(b =>
+    b.addEventListener('click', () => { writeTheme(b.dataset.theme); applyTheme() }))
+  if (darkMQ) darkMQ.addEventListener('change', applyTheme)
+  applyTheme()
+
+  // ── 階段 → 色階 ──
+  function stageClass(stage) {
+    const c = stage.trim()[0]
+    if (c === '4') return 'st-4'
+    if (c === '3') return 'st-3'
+    if (c === '1' || c === '2') return 'st-1'
+    return 'st-0' // 0 / 0.5 / X 未ingest
+  }
+
+  function fmtDur(s) { return s == null ? '—' : (s < 90 ? `${s}s` : `${Math.round(s/60)}m`) }
+  // 倒數（秒）→ 文字
+  function fmtCountdown(s) {
+    if (s == null) return '—'
+    if (s <= 0) return '隨時觸發'
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60)
+    return m < 1 ? `${sec}s 後` : (m < 60 ? `${m}m ${sec}s 後` : `${(m/60).toFixed(1)} 時後`)
+  }
+  // 已歷時（秒）→ 文字
+  function fmtElapsed(s) {
+    if (s == null || s < 0) return '?'
+    const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = Math.floor(s%60)
+    return h ? `${h}h ${m}m` : (m ? `${m}m ${sec}s` : `${sec}s`)
+  }
+  // 解析 ps etime（"09:04" / "01:02:03" / "1-02:03:04"）→ 秒
+  function parseEtime(e) {
+    if (!e) return null
+    let days = 0, rest = e
+    if (e.includes('-')) { const [d, r] = e.split('-'); days = +d; rest = r }
+    const parts = rest.split(':').map(Number)
+    let sec = parts.pop() || 0, min = parts.pop() || 0, hr = parts.pop() || 0
+    return days*86400 + hr*3600 + min*60 + sec
+  }
+
+  // ── 客戶端自走時鐘：只重算時間欄位，每秒跑，不碰伺服器 ──
+  function serverEpoch(d) { return Date.parse(d.generated_at_utc + (d.generated_at_utc.endsWith('Z') ? '' : 'Z')) }
+  function tickClocks() {
+    if (!last) return
+    const driftMs = Date.now() - serverEpoch(last)   // 自快照生成至今經過
+    const dm = last.daemon
+    // 下次 tick 倒數
+    const nextEl = document.getElementById('h-next')
+    if (nextEl) nextEl.textContent = dm.next_tick_eta_s == null ? '—'
+      : fmtCountdown(dm.next_tick_eta_s - driftMs/1000)
+    // 上次 tick 相對時間
+    const ltEl = document.getElementById('h-lasttick')
+    if (ltEl && dm.last_tick_start_utc) ltEl.textContent = relTime(dm.last_tick_start_utc) + ' · ' + fmtDur(dm.last_tick_duration_s)
+    // AI 工人已歷時（snapshot 當下 + drift）
+    const leEl = document.getElementById('h-llm-elapsed')
+    if (leEl && dm.llm_job) {
+      const base = parseEtime(dm.llm_job.elapsed)
+      leEl.textContent = base == null ? escapeHtml(dm.llm_job.elapsed) : fmtElapsed(base + driftMs/1000)
+    }
+    const up = document.getElementById('updated')
+    if (up) up.textContent = '更新於 ' + relTime(last.generated_at_utc)
+  }
+
+  function render(d) {
+    last = d
+    // 健康
+    const dm = d.daemon
+    const healthy = dm.installed && (dm.last_exit_code === 0 || dm.last_exit_code === null)
+    let dot, word
+    if (!dm.installed) { dot = 'dot-bad'; word = '未安裝' }
+    else if (dm.in_tick_now) { dot = 'dot-ok'; word = '正在跑 tick' }
+    else if (healthy) { dot = 'dot-ok'; word = '待命中' }
+    else { dot = 'dot-bad'; word = `異常 exit=${dm.last_exit_code}` }
+    document.getElementById('health').innerHTML = `
+      <div class="dev-kv"><span class="dev-label">狀態</span>
+        <span class="big"><span class="dev-dot ${dot}"></span>${word}</span></div>
+      <div class="dev-kv"><span class="dev-label">上次 tick</span>
+        <span class="v" id="h-lasttick">—</span></div>
+      <div class="dev-kv"><span class="dev-label">下次約</span>
+        <span class="v" id="h-next">—</span></div>
+      <div class="dev-kv"><span class="dev-label">上次結束碼</span>
+        <span class="v">${dm.last_exit_code ?? '—'}</span></div>`
+    document.getElementById('llm').innerHTML = dm.llm_job
+      ? `<div class="dev-llm">🤖 AI 工人在跑：<b>${escapeHtml(dm.llm_job.slug || '?')}</b> · pid ${dm.llm_job.pid} · 已 <span id="h-llm-elapsed">${escapeHtml(dm.llm_job.elapsed)}</span></div>`
+      : ''
+
+    // 額度
+    document.getElementById('budget-date').textContent = `(${d.budget.date_utc} UTC)`
+    document.getElementById('budget').innerHTML = Object.entries(d.budget.accounts).map(([name, v]) => {
+      const pct = Math.min(100, Math.round(v.used / v.daily_cap * 100))
+      return `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
+        <span class="dev-bar"><span style="width:${pct}%"></span></span>
+        <span class="num">${v.used}/${v.daily_cap}</span></div>`
+    }).join('')
+
+    // 錯誤
+    const errs = d.errors || []
+    const eh = document.getElementById('err-head')
+    eh.innerHTML = errs.length ? `🔴 錯誤 (${errs.length})` : `🟢 錯誤`
+    document.getElementById('errors').innerHTML = errs.length
+      ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
+      : `<div class="dev-ok-msg">✓ 無錯誤</div>`
+
+    // 書本
+    document.getElementById('book-count').textContent = `(${d.total} 本 · 待辦 ${d.actionable.length})`
+    const actMap = Object.fromEntries((d.actionable || []).map(a => [a.slug, a.todo]))
+    document.getElementById('books').innerHTML = d.books.map(b => {
+      const ps = b.prob ? `${b.sol||0}/${b.prob}` : '—'
+      const todo = b.todo === '—' ? '' : b.todo.split(' ').map(t =>
+        `<span class="todo-tag ${actMap[b.slug] && actMap[b.slug].includes(t) ? 'todo-act' : ''}">${escapeHtml(t)}</span>`).join(' ')
+      return `<tr><td class="slug">${escapeHtml(b.slug)}</td>
+        <td><span class="stage-pill ${stageClass(b.stage)}">${escapeHtml(b.stage)}</span></td>
+        <td class="ps">${ps}</td><td>${todo}</td></tr>`
+    }).join('')
+
+    // log
+    document.getElementById('log').textContent = (d.recent_log || []).join('\n')
+
+    document.getElementById('foot').textContent = `snapshot ${d.generated_at_local}（事件驅動刷新 · 撿檔每 ${REFRESH_MS/1000}s · 時鐘每秒）`
+    tickClocks()  // 立即填一次時間欄位
+  }
+
+  async function load() {
+    const btn = document.getElementById('btn-refresh')
+    btn.innerHTML = '<span class="spin">↻</span> refresh'
+    try {
+      const d = await fetchJson('status.json?_=' + Date.now())
+      render(d)
+    } catch (e) {
+      document.getElementById('foot').textContent = '讀取 status.json 失敗：' + (e.message || e)
+    } finally {
+      btn.innerHTML = '↻ refresh'
+    }
+  }
+
+  function start() {
+    if (!timer) timer = setInterval(load, REFRESH_MS)
+    if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
+  }
+  function stop() {
+    clearInterval(timer); clearInterval(clockTimer); timer = clockTimer = null
+  }
+  document.getElementById('btn-refresh').addEventListener('click', load)
+  load()
+  start()
+  // 分頁切到背景就停（省電/省算）；回到前景立即補一次
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop()
+    else { load(); start() }
+  })
+  </script>
+</body>
+</html>

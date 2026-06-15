@@ -60,6 +60,25 @@ LLM_PROMPTS = {
 }
 
 
+_last_snap = 0.0
+
+
+def _refresh_snapshot() -> None:
+    """事件驅動刷新 dev 監控快照：每個 log 事件順手重生 dev/status.json，
+    節流 ~8s 避免一個 tick 內暴衝（per-book audit 有成本）。best-effort，絕不拖垮 tick。"""
+    global _last_snap
+    import time
+    now = time.monotonic()
+    if now - _last_snap < 8:
+        return
+    _last_snap = now
+    try:
+        from book_pipeline.devctl import write_snapshot
+        write_snapshot()
+    except Exception:
+        pass
+
+
 def log(msg: str) -> None:
     ts = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     line = f'[{ts}] {msg}'
@@ -67,6 +86,7 @@ def log(msg: str) -> None:
     os.makedirs(os.path.dirname(LOG), exist_ok=True)
     with open(LOG, 'a') as f:
         f.write(line + '\n')
+    _refresh_snapshot()
 
 
 def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False) -> int:

@@ -14,6 +14,9 @@ __pycache__/
 /data/
 /img/
 
+# dev 監控快照（devctl snapshot 定時重生，不入 git；dev/index.html 才追蹤）
+/dev/status.json
+
 # 教科書原始 PDF
 raw_pdfs/
 *.pdf
