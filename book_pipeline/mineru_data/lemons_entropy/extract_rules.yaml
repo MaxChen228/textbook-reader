@@ -1,0 +1,140 @@
+slug: lemons_entropy
+title: "A Student's Guide to Entropy"
+author: "Don S. Lemons"
+edition: "1st"
+subject: Thermal Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 13
+appendices_start_page: 173
+bibliography_start_page: null
+index_start_page: 190
+
+inline_problems: false
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: "Thermodynamic entropy"
+    page_start: 13
+    page_end: 43
+    chapter_title_block_idx: 99
+    problems_block_idx: 397
+    next_chapter_block_idx: 435
+
+  - num: 2
+    title: "Statistical entropy"
+    page_start: 44
+    page_end: 64
+    chapter_title_block_idx: 435
+    chapter_title_block_idx_secondary: 434
+    problems_block_idx: 630
+    next_chapter_block_idx: 649
+
+  - num: 3
+    title: "Entropy of classical systems"
+    page_start: 65
+    page_end: 86
+    chapter_title_block_idx: 649
+    chapter_title_block_idx_secondary: 648
+    problems_block_idx: 896
+    next_chapter_block_idx: 919
+
+  - num: 4
+    title: "Entropy of quantized systems"
+    page_start: 87
+    page_end: 107
+    chapter_title_block_idx: 919
+    chapter_title_block_idx_secondary: 918
+    problems_block_idx: 1119
+    next_chapter_block_idx: 1147
+
+  - num: 5
+    title: "Entropy of a non-isolated system"
+    page_start: 108
+    page_end: 116
+    chapter_title_block_idx: 1147
+    chapter_title_block_idx_secondary: 1146
+    problems_block_idx: 1244
+    next_chapter_block_idx: 1252
+
+  - num: 6
+    title: "Entropy of fermion systems"
+    page_start: 117
+    page_end: 133
+    chapter_title_block_idx: 1252
+    chapter_title_block_idx_secondary: 1251
+    problems_block_idx: 1407
+    next_chapter_block_idx: 1425
+
+  - num: 7
+    title: "Entropy of systems of bosons"
+    page_start: 134
+    page_end: 151
+    chapter_title_block_idx: 1425
+    chapter_title_block_idx_secondary: 1424
+    problems_block_idx: 1609
+    next_chapter_block_idx: 1633
+
+  - num: 8
+    title: "Entropy of information"
+    page_start: 152
+    page_end: 172
+    chapter_title_block_idx: 1633
+    chapter_title_block_idx_secondary: 1632
+    problems_block_idx: 1811
+    next_chapter_block_idx: 1855
+
+appendices:
+  - id: "I"
+    title: "Physical constants and standard definitions"
+    page_start: 173
+    chapter_title_block_idx: 1855
+
+  - id: "II"
+    title: "Formulary"
+    page_start: 174
+    chapter_title_block_idx: 1861
+
+  - id: "III"
+    title: "Glossary"
+    page_start: 175
+    chapter_title_block_idx: 1873
+
+  - id: "IV"
+    title: "Time line"
+    page_start: 181
+    chapter_title_block_idx: 1974
+
+  - id: "V"
+    title: "Answers to problems"
+    page_start: 184
+    chapter_title_block_idx: 1984
+
+  - id: "VI"
+    title: "Annotated further reading"
+    page_start: 187
+    chapter_title_block_idx: 2052
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(?!Example\s+\d+\.\d+)(?!Problems$)()([A-Z][^0-9].{1,79})$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+\d+\.\d+\s+(.+)$'
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
