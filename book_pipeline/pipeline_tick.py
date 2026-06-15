@@ -89,17 +89,47 @@ def log(msg: str) -> None:
     _refresh_snapshot()
 
 
-def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False) -> int:
+def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
+         env: dict | None = None) -> int:
     log(('DRY ' if dry else 'RUN ') + ' '.join(shlex.quote(c) for c in cmd))
     if dry:
         return 0
-    return subprocess.run(cmd, cwd=cwd).returncode
+    return subprocess.run(cmd, cwd=cwd, env=env).returncode
+
+
+def _llm_env() -> dict | None:
+    """LLM 派工的環境。BOOK_PIPELINE_PROVIDER=kimi → 把同一個 claude CLI（harness 不變）
+    導到 Kimi Code 端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。其餘情況回 None
+    （沿用現有環境＝Claude Max 訂閱）。"""
+    if os.environ.get('BOOK_PIPELINE_PROVIDER', '').lower() != 'kimi':
+        return None
+    key_path = os.path.expanduser('~/.secrets/kimi.env')
+    try:
+        with open(key_path) as f:
+            key = f.read().strip()
+    except OSError:
+        log(f'⚠ provider=kimi 但讀不到 {key_path} → 退回預設供應商')
+        return None
+    if not key:
+        log(f'⚠ {key_path} 為空 → 退回預設供應商')
+        return None
+    env = dict(os.environ)
+    env.update({
+        'ANTHROPIC_BASE_URL': 'https://api.kimi.com/coding',
+        'ANTHROPIC_AUTH_TOKEN': key,
+        'ANTHROPIC_MODEL': 'kimi-for-coding',
+        'ANTHROPIC_DEFAULT_OPUS_MODEL': 'kimi-for-coding',
+        'ANTHROPIC_DEFAULT_SONNET_MODEL': 'kimi-for-coding',
+        'ANTHROPIC_DEFAULT_HAIKU_MODEL': 'kimi-for-coding',
+        'ANTHROPIC_SMALL_FAST_MODEL': 'kimi-for-coding',
+    })
+    return env
 
 
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
     cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT]
-    return _run(cmd, cwd=ROOT, dry=dry)
+    return _run(cmd, cwd=ROOT, dry=dry, env=_llm_env())
 
 
 def _wishlist_pending() -> list:
