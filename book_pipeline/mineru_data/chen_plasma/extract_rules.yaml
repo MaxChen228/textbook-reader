@@ -1,0 +1,132 @@
+slug: chen_plasma
+title: Introduction to Plasma Physics and Controlled Fusion
+author: Francis F. Chen
+edition: 3rd
+subject: Plasma Physics
+publisher: Springer International Publishing Switzerland
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 420
+bibliography_start_page: null
+index_start_page: 493
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 30
+    chapter_title_block_idx: 120
+    problems_block_idx: null
+    next_chapter_block_idx: 326
+  - num: 2
+    title: Single-Particle Motions
+    page_start: 31
+    page_end: 61
+    chapter_title_block_idx: 326
+    problems_block_idx: null
+    next_chapter_block_idx: 733
+  - num: 3
+    title: Plasmas as Fluids
+    page_start: 62
+    page_end: 85
+    chapter_title_block_idx: 733
+    problems_block_idx: null
+    next_chapter_block_idx: 1041
+  - num: 4
+    title: Waves in Plasmas
+    page_start: 86
+    page_end: 155
+    chapter_title_block_idx: 1041
+    problems_block_idx: null
+    next_chapter_block_idx: 1838
+  - num: 5
+    title: Diffusion and Resistivity
+    page_start: 156
+    page_end: 196
+    chapter_title_block_idx: 1838
+    problems_block_idx: null
+    next_chapter_block_idx: 2341
+  - num: 6
+    title: Equilibrium and Stability
+    page_start: 197
+    page_end: 220
+    chapter_title_block_idx: 2341
+    problems_block_idx: null
+    next_chapter_block_idx: 2619
+  - num: 7
+    title: Kinetic Theory
+    page_start: 221
+    page_end: 276
+    chapter_title_block_idx: 2619
+    problems_block_idx: null
+    next_chapter_block_idx: 3246
+  - num: 8
+    title: Nonlinear Effects
+    page_start: 277
+    page_end: 341
+    chapter_title_block_idx: 3246
+    problems_block_idx: null
+    next_chapter_block_idx: 3936
+  - num: 9
+    title: Special Plasmas
+    page_start: 342
+    page_end: 362
+    chapter_title_block_idx: 3936
+    problems_block_idx: null
+    next_chapter_block_idx: 4150
+  - num: 10
+    title: Plasma Applications
+    page_start: 363
+    page_end: 419
+    chapter_title_block_idx: 4150
+    problems_block_idx: null
+    next_chapter_block_idx: 4588
+
+appendices:
+  - id: A
+    title: Units, Constants and Formulas, Vector Relations
+    page_start: 421
+    chapter_title_block_idx: 4588
+  - id: B
+    title: Theory of Waves in a Cold Uniform Plasma
+    page_start: 425
+    chapter_title_block_idx: 4635
+  - id: C
+    title: Sample Three-Hour Final Exam
+    page_start: 431
+    chapter_title_block_idx: 4732
+  - id: D
+    title: Answers to Some Problems
+    page_start: 437
+    chapter_title_block_idx: 4804
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?)\}'
+
+example_start_re: null
+
+known_missing_problems: []
