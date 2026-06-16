@@ -1,0 +1,191 @@
+slug: pathria_statmech
+title: "Statistical Mechanics"
+author: "R. K. Pathria; Paul D. Beale"
+edition: "4th"
+subject: "Thermal Physics"
+publisher: "Academic Press"
+language: "en"
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 29
+appendices_start_page: 702
+bibliography_start_page: 738
+index_start_page: 754
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "The statistical basis of thermodynamics"
+    page_start: 29
+    page_end: 52
+    chapter_title_block_idx: 273
+    next_chapter_block_idx: 602
+    problems_block_idx: 557
+  - num: 2
+    title: "Elements of ensemble theory"
+    page_start: 53
+    page_end: 66
+    chapter_title_block_idx: 602
+    next_chapter_block_idx: 802
+    problems_block_idx: 772
+  - num: 3
+    title: "The canonical ensemble"
+    page_start: 67
+    page_end: 120
+    chapter_title_block_idx: 802
+    next_chapter_block_idx: 1570
+    problems_block_idx: 1416
+  - num: 4
+    title: "The grand canonical ensemble"
+    page_start: 121
+    page_end: 144
+    chapter_title_block_idx: 1570
+    next_chapter_block_idx: 1913
+    problems_block_idx: 1858
+  - num: 5
+    title: "Formulation of quantum statistics"
+    page_start: 145
+    page_end: 182
+    chapter_title_block_idx: 1913
+    next_chapter_block_idx: 2443
+    problems_block_idx: 2389
+  - num: 6
+    title: "The theory of simple gases"
+    page_start: 183
+    page_end: 222
+    chapter_title_block_idx: 2443
+    next_chapter_block_idx: 2999
+    problems_block_idx: 2879
+  - num: 7
+    title: "Ideal Bose systems"
+    page_start: 223
+    page_end: 274
+    chapter_title_block_idx: 2999
+    next_chapter_block_idx: 3729
+    problems_block_idx: 3565
+  - num: 8
+    title: "Ideal Fermi systems"
+    page_start: 275
+    page_end: 318
+    chapter_title_block_idx: 3729
+    next_chapter_block_idx: 4321
+    problems_block_idx: 4223
+  - num: 9
+    title: "Thermodynamics of the early universe"
+    page_start: 319
+    page_end: 342
+    chapter_title_block_idx: 4321
+    next_chapter_block_idx: 4581
+    problems_block_idx: 4568
+  - num: 10
+    title: "Statistical mechanics of interacting systems: the method of cluster expansions"
+    page_start: 343
+    page_end: 388
+    chapter_title_block_idx: 4581
+    next_chapter_block_idx: 5229
+    problems_block_idx: 5143
+  - num: 11
+    title: "Statistical mechanics of interacting systems: the method of quantized fields"
+    page_start: 389
+    page_end: 444
+    chapter_title_block_idx: 5229
+    next_chapter_block_idx: 6053
+    problems_block_idx: 5944
+  - num: 12
+    title: "Phase transitions: criticality, universality, and scaling"
+    page_start: 445
+    page_end: 514
+    chapter_title_block_idx: 6053
+    next_chapter_block_idx: 7050
+    problems_block_idx: 6912
+  - num: 13
+    title: "Phase transitions: exact (or almost exact) results for various models"
+    page_start: 515
+    page_end: 582
+    chapter_title_block_idx: 7050
+    next_chapter_block_idx: 8076
+    problems_block_idx: 7913
+  - num: 14
+    title: "Phase transitions: the renormalization group approach"
+    page_start: 583
+    page_end: 626
+    chapter_title_block_idx: 8076
+    next_chapter_block_idx: 8784
+    problems_block_idx: 8726
+  - num: 15
+    title: "Fluctuations and nonequilibrium statistical mechanics"
+    page_start: 627
+    page_end: 686
+    chapter_title_block_idx: 8784
+    next_chapter_block_idx: 9653
+    problems_block_idx: 9566
+  - num: 16
+    title: "Computer simulations"
+    page_start: 687
+    page_end: 701
+    chapter_title_block_idx: 9653
+    next_chapter_block_idx: 9808
+    problems_block_idx: 9798
+
+appendices:
+  - id: "A"
+    title: "Influence of boundary conditions on the distribution of quantum states"
+    page_start: 702
+    chapter_title_block_idx: 9809
+  - id: "B"
+    title: "Certain mathematical functions"
+    page_start: 704
+    chapter_title_block_idx: 9855
+  - id: "C"
+    title: "Volume and surface area of an n-dimensional sphere of radius R"
+    page_start: 711
+    chapter_title_block_idx: 9983
+  - id: "D"
+    title: "On Bose-Einstein functions"
+    page_start: 713
+    chapter_title_block_idx: 10027
+  - id: "E"
+    title: "On Fermi-Dirac functions"
+    page_start: 716
+    chapter_title_block_idx: 10081
+  - id: "F"
+    title: "A rigorous analysis of the ideal Bose gas and the onset of Bose-Einstein condensation"
+    page_start: 719
+    chapter_title_block_idx: 10132
+  - id: "G"
+    title: "On Watson functions"
+    page_start: 724
+    chapter_title_block_idx: 10206
+  - id: "H"
+    title: "Thermodynamic relationships"
+    page_start: 725
+    chapter_title_block_idx: 10238
+  - id: "I"
+    title: "Pseudorandom numbers"
+    page_start: 733
+    chapter_title_block_idx: 10387
+
+section_re: "^((?:\\d+\\.\\d+)(?:\\.\\d+)*(?:\\.[A-Z])?)\\s+(.+)$"
+subsection_re: "^((?:\\d+\\.\\d+)(?:\\.\\d+)*(?:\\.[A-Z])?)\\s+(.+)$"
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: "^([0-9]+\\.[0-9]+)\\.?\\s+"
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: "\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
