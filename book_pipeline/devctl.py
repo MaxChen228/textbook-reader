@@ -37,8 +37,8 @@ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
-# daily 架構：tick 每天 08:30 台灣 = 00:30 UTC（與 plist StartCalendarInterval 一致）
-TICK_UTC_HOUR, TICK_UTC_MIN = 0, 30
+# hourly 架構：plist StartInterval=3600，每小時一 tick（與 .plist 一致）。
+TICK_INTERVAL_S = 3600
 
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
@@ -100,10 +100,13 @@ def daemon_health() -> dict:
     last_dur = None
     if last_start and last_end and last_end >= last_start:
         last_dur = int((last_end - last_start).total_seconds())
-    # daily：下次 tick = 下個 00:30 UTC（=08:30 台灣），固定時刻、不依賴上次 tick
-    nxt = now.replace(hour=TICK_UTC_HOUR, minute=TICK_UTC_MIN, second=0, microsecond=0)
-    if nxt <= now:
-        nxt += timedelta(days=1)
+    # hourly：launchd StartInterval 從上次 tick 起算 TICK_INTERVAL_S。投影到未來最近一格。
+    if last_start:
+        nxt = last_start + timedelta(seconds=TICK_INTERVAL_S)
+        while nxt <= now:
+            nxt += timedelta(seconds=TICK_INTERVAL_S)
+    else:
+        nxt = now + timedelta(seconds=TICK_INTERVAL_S)
     next_eta = int((nxt - now).total_seconds())
 
     tick_proc = _proc_info('pipeline_tick')
