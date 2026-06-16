@@ -1,0 +1,132 @@
+slug: ogata_control
+title: Modern Control Engineering
+author: Katsuhiko Ogata
+edition: 5th
+subject: Control Systems
+publisher: Prentice Hall
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 869
+bibliography_start_page: null
+index_start_page: 896
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Control Systems
+    page_start: 11
+    page_end: 22
+    chapter_title_block_idx: 125
+    problems_block_idx: null
+    next_chapter_block_idx: 245
+  - num: 2
+    title: Mathematical Modeling of Control Systems
+    page_start: 23
+    page_end: 72
+    chapter_title_block_idx: 245
+    problems_block_idx: 986
+    next_chapter_block_idx: 1040
+  - num: 3
+    title: Mathematical Modeling of Mechanical Systems and Electrical Systems
+    page_start: 73
+    page_end: 109
+    chapter_title_block_idx: 1040
+    problems_block_idx: 1614
+    next_chapter_block_idx: 1647
+  - num: 4
+    title: Mathematical Modeling of Fluid Systems and Thermal Systems
+    page_start: 110
+    page_end: 168
+    chapter_title_block_idx: 1647
+    problems_block_idx: 2521
+    next_chapter_block_idx: 2577
+  - num: 5
+    title: Transient and Steady-State Response Analyses
+    page_start: 169
+    page_end: 278
+    chapter_title_block_idx: 2577
+    problems_block_idx: 4107
+    next_chapter_block_idx: 4202
+  - num: 6
+    title: Control Systems Analysis and Design by the Root-Locus Method
+    page_start: 279
+    page_end: 407
+    chapter_title_block_idx: 4202
+    problems_block_idx: 6071
+    next_chapter_block_idx: 6154
+  - num: 7
+    title: Control Systems Analysis and Design by the Frequency-Response Method
+    page_start: 408
+    page_end: 576
+    chapter_title_block_idx: 6154
+    chapter_title_block_idx_secondary: 6155
+    problems_block_idx: 8261
+    next_chapter_block_idx: 8387
+  - num: 8
+    title: PID Controllers and Modified PID Controllers
+    page_start: 577
+    page_end: 657
+    chapter_title_block_idx: 8387
+    problems_block_idx: 9326
+    next_chapter_block_idx: 9399
+  - num: 9
+    title: Control Systems Analysis in State Space
+    page_start: 658
+    page_end: 731
+    chapter_title_block_idx: 9399
+    problems_block_idx: 10844
+    next_chapter_block_idx: 10917
+  - num: 10
+    title: Control Systems Design in State Space
+    page_start: 732
+    page_end: 868
+    chapter_title_block_idx: 10917
+    problems_block_idx: 13296
+    next_chapter_block_idx: 13456
+
+appendices:
+  - id: "A"
+    title: Laplace Transform Tables
+    page_start: 869
+    chapter_title_block_idx: 13456
+  - id: "B"
+    title: Partial-Fraction Expansion
+    page_start: 877
+    chapter_title_block_idx: 13533
+  - id: "C"
+    title: Vector-Matrix Algebra
+    page_start: 884
+    chapter_title_block_idx: 13646
+
+section_re: '^(\d+)[\-–](\d+)\s+(.+)$'
+subsection_re: '^((?:\d+[\-–]\d+[\-–]\d+(?=[\s]+\S))|(?:EXAMPLE\s+\d+[\-–]\d+)|(?:MATLAB\s+Program\s+\d+[\-–]\d+)|(?:A\s+Few\s+(?:Remarks|Comments)\s+on)|(?:Comparison\s+of)|(?:Summary\s+of)|(?:Concluding\s+Comments\s+on)|(?:Robust\s+Stability))[\s]*(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^B[\-–](\d+)[\-–](\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\\tag\s*\{([0-9]+-[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+[\-–]\d+)'
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

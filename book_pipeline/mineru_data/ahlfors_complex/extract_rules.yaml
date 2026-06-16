@@ -1,0 +1,100 @@
+slug: ahlfors_complex
+title: "Complex Analysis"
+author: "Lars V. Ahlfors"
+edition: "3rd"
+subject: "Complex Analysis"
+publisher: "McGraw-Hill"
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 360
+bibliography_start_page: null
+index_start_page: 344
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Complex Numbers"
+    page_start: 20
+    page_end: 39
+    chapter_title_block_idx: 211
+    problems_block_idx: 236
+    next_chapter_block_idx: 537
+  - num: 2
+    title: "Complex Functions"
+    page_start: 40
+    page_end: 66
+    chapter_title_block_idx: 537
+    problems_block_idx: 641
+    next_chapter_block_idx: 956
+  - num: 3
+    title: "Analytic Functions as Mappings"
+    page_start: 68
+    page_end: 118
+    chapter_title_block_idx: 956
+    problems_block_idx: 1010
+    next_chapter_block_idx: 1572
+  - num: 4
+    title: "Complex Integration"
+    page_start: 120
+    page_end: 193
+    chapter_title_block_idx: 1572
+    chapter_title_block_idx_secondary: null
+    problems_block_idx: 1680
+    next_chapter_block_idx: 2638
+  - num: 5
+    title: "Series and Product Developments"
+    page_start: 194
+    page_end: 246
+    chapter_title_block_idx: 2638
+    problems_block_idx: 2681
+    next_chapter_block_idx: 3470
+  - num: 6
+    title: "Conformal Mapping. Dirichlet's Problem"
+    page_start: 248
+    page_end: 280
+    chapter_title_block_idx: 3470
+    problems_block_idx: 3504
+    next_chapter_block_idx: 3850
+  - num: 7
+    title: "Elliptic Functions"
+    page_start: 282
+    page_end: 301
+    chapter_title_block_idx: 3850
+    problems_block_idx: 4010
+    next_chapter_block_idx: 4134
+  - num: 8
+    title: "Global Analytic Functions"
+    page_start: 302
+    page_end: 341
+    chapter_title_block_idx: 4134
+    problems_block_idx: 4201
+    next_chapter_block_idx: 4592
+
+appendices: []
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,109 @@
+slug: do_carmo_dg
+title: Differential Geometry of Curves and Surfaces
+author: Manfredo P. do Carmo
+edition: 2nd
+subject: Differential Geometry
+publisher: Dover Publications, Inc.
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 135
+bibliography_start_page: null
+index_start_page: 518
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Curves
+    page_start: 16
+    page_end: 67
+    chapter_title_block_idx: 88
+    chapter_title_block_idx_secondary: 89
+    problems_block_idx: null
+    next_chapter_block_idx: 780
+  - num: 2
+    title: Regular Surfaces
+    page_start: 68
+    page_end: 150
+    chapter_title_block_idx: 780
+    chapter_title_block_idx_secondary: 781
+    problems_block_idx: null
+    next_chapter_block_idx: 1962
+  - num: 3
+    title: The Geometry of the Gauss Map
+    page_start: 151
+    page_end: 234
+    chapter_title_block_idx: 1962
+    chapter_title_block_idx_secondary: 1963
+    problems_block_idx: null
+    next_chapter_block_idx: 3205
+  - num: 4
+    title: The Intrinsic Geometry of Surfaces
+    page_start: 235
+    page_end: 335
+    chapter_title_block_idx: 3205
+    chapter_title_block_idx_secondary: 3206
+    problems_block_idx: null
+    next_chapter_block_idx: 4703
+  - num: 5
+    title: Global Differential Geometry
+    page_start: 336
+    page_end: 474
+    chapter_title_block_idx: 4703
+    chapter_title_block_idx_secondary: 4704
+    problems_block_idx: null
+    next_chapter_block_idx: 6658
+
+appendices:
+  - id: A
+    title: Continuity and Differentiability
+    page_start: 135
+    chapter_title_block_idx: 1742
+  - id: B
+    title: Maps and Quadratic Forms
+    page_start: 232
+    chapter_title_block_idx: 3154
+  - id: C
+    title: Fundamental Theorems of the Local Theory of Curves and Surfaces
+    page_start: 330
+    chapter_title_block_idx: 4599
+  - id: D
+    title: Euclidean Spaces
+    page_start: 475
+    chapter_title_block_idx: 6658
+
+section_re: '^(\d+-\d+)\.\s+(.+)$'
+subsection_re: '^([A-Z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\*?)(\d+)\.\s+(?:Show\s+|Prove\s+|Find\s+|Determine\s+|Check\s+|Compute\s+|Give\s+|Verify\s+|Obtain\s+|If\s+|Consider\s+|Draw\s+|Construct\s+|Explain\s+|Is\s+|Are\s+|Does\s+|Sketch\s+|Parametrize\s+|Using\s+|Apply\s+|Extend\s+|Generalize\s+|In\s+|With\s+|For\s+|One\s+way\s+|Define\s+|For\s+any\s+pair\s+|For\s+any\s+)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)\.\s+'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

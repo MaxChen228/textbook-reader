@@ -1,0 +1,125 @@
+slug: burden_numerical
+title: Numerical Analysis
+author: Richard L. Burden; J. Douglas Faires; Annette M. Burden
+edition: 10th
+subject: Mathematical Methods
+publisher: Cengage Learning
+language: en
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 18
+appendices_start_page: 798
+bibliography_start_page: 798
+index_start_page: 906
+inline_problems: true
+problem_num_namespace_by_section: true
+chapters:
+  - num: 1
+    title: Mathematical Preliminaries and Error Analysis
+    page_start: 18
+    page_end: 63
+    chapter_title_block_idx: 208
+    problems_block_idx: null
+    next_chapter_block_idx: 1176
+  - num: 2
+    title: Solutions of Equations in One Variable
+    page_start: 64
+    page_end: 119
+    chapter_title_block_idx: 1176
+    problems_block_idx: null
+    next_chapter_block_idx: 2424
+  - num: 3
+    title: Interpolation and Polynomial Approximation
+    page_start: 120
+    page_end: 187
+    chapter_title_block_idx: 2424
+    problems_block_idx: null
+    next_chapter_block_idx: 3765
+  - num: 4
+    title: Numerical Differentiation and Integration
+    page_start: 188
+    page_end: 275
+    chapter_title_block_idx: 3765
+    problems_block_idx: null
+    next_chapter_block_idx: 5599
+  - num: 5
+    title: Initial-Value Problems for Ordinary Differential Equations
+    page_start: 276
+    page_end: 377
+    chapter_title_block_idx: 5599
+    problems_block_idx: null
+    next_chapter_block_idx: 7944
+  - num: 6
+    title: Direct Methods for Solving Linear Systems
+    page_start: 378
+    page_end: 453
+    chapter_title_block_idx: 7944
+    problems_block_idx: null
+    next_chapter_block_idx: 9823
+  - num: 7
+    title: Iterative Techniques in Matrix Algebra
+    page_start: 454
+    page_end: 521
+    chapter_title_block_idx: 9823
+    chapter_title_block_idx_secondary: 9824
+    problems_block_idx: null
+    next_chapter_block_idx: 11462
+  - num: 8
+    title: Approximation Theory
+    page_start: 522
+    page_end: 585
+    chapter_title_block_idx: 11462
+    chapter_title_block_idx_secondary: 11463
+    problems_block_idx: null
+    next_chapter_block_idx: 12761
+  - num: 9
+    title: Approximating Eigenvalues
+    page_start: 586
+    page_end: 657
+    chapter_title_block_idx: 12761
+    problems_block_idx: null
+    next_chapter_block_idx: 14382
+  - num: 10
+    title: Numerical Solutions of Nonlinear Systems of Equations
+    page_start: 658
+    page_end: 701
+    chapter_title_block_idx: 14382
+    problems_block_idx: null
+    next_chapter_block_idx: 15482
+  - num: 11
+    title: Boundary-Value Problems for Ordinary Differential Equations
+    page_start: 702
+    page_end: 747
+    chapter_title_block_idx: 15482
+    problems_block_idx: null
+    next_chapter_block_idx: 16549
+  - num: 12
+    title: Numerical Solutions to Partial Differential Equations
+    page_start: 748
+    page_end: 797
+    chapter_title_block_idx: 16549
+    problems_block_idx: null
+    next_chapter_block_idx: 17666
+appendices: []
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+example_start_re: '^Example\s+(\d+)'
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

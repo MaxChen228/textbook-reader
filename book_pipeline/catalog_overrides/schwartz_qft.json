@@ -1,0 +1,33 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "schwartz_qft-ch28-remove-orphan-caption",
+      "action": "replace_text",
+      "chunk": "ch28",
+      "selector": "body[133]",
+      "field": "md",
+      "old": "-Fig. 28.2 Baryon octet and decuplet organized by quantum numbers. Diagonal lines have the same charge and horizontal lines have the same strangeness (number of strange quarks minus strange antiquarks in the hadron).",
+      "new": "",
+      "reason": "MinerU 只抽出 caption 沒抽出圖塊；用 pdf_crop_insert 另建 fig block，避免 caption 重複顯示"
+    },
+    {
+      "id": "schwartz_qft-fig-28.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch28",
+      "selector": "body[133]",
+      "position": "before",
+      "page": 594,
+      "clip": [0.07, 0.10, 0.93, 0.36],
+      "zoom": 2.5,
+      "src": "manual_fig-28.2.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-28.2",
+        "kind": "line",
+        "caption": "Figure 28.2: Baryon octet and decuplet organized by quantum numbers. Diagonal lines have the same charge and horizontal lines have the same strangeness (number of strange quarks minus strange antiquarks in the hadron)."
+      },
+      "reason": "MinerU 遺漏 Figure 28.2（baryon octet/decuplet 圖），raw PDF p.594 確實存在，以 pdf_crop 補回"
+    }
+  ]
+}

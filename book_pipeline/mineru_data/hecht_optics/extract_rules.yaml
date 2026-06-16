@@ -1,0 +1,149 @@
+slug: hecht_optics
+title: Optics
+author: Eugene Hecht
+edition: 4th
+subject: Optics
+publisher: Addison Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 7
+appendices_start_page: 654
+bibliography_start_page: 663
+index_start_page: 693
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: A Brief History
+    page_start: 7
+    page_end: 15
+    chapter_title_block_idx: 94
+    problems_block_idx: null
+    next_chapter_block_idx: 203
+  - num: 2
+    title: Wave Motion
+    page_start: 16
+    page_end: 42
+    chapter_title_block_idx: 203
+    problems_block_idx: null
+    next_chapter_block_idx: 757
+  - num: 3
+    title: Electromagnetic Theory, Photons, and Light
+    page_start: 43
+    page_end: 91
+    chapter_title_block_idx: 757
+    problems_block_idx: 1446
+    next_chapter_block_idx: 1543
+  - num: 4
+    title: The Propagation of Light
+    page_start: 92
+    page_end: 154
+    chapter_title_block_idx: 1543
+    problems_block_idx: 2325
+    next_chapter_block_idx: 2454
+  - num: 5
+    title: Geometrical Optics
+    page_start: 155
+    page_end: 248
+    chapter_title_block_idx: 2454
+    problems_block_idx: null
+    next_chapter_block_idx: 3643
+  - num: 6
+    title: More on Geometrical Optics
+    page_start: 249
+    page_end: 287
+    chapter_title_block_idx: 3643
+    problems_block_idx: 4173
+    next_chapter_block_idx: 4220
+  - num: 7
+    title: The Superposition of Waves
+    page_start: 288
+    page_end: 330
+    chapter_title_block_idx: 4220
+    problems_block_idx: 4824
+    next_chapter_block_idx: 4919
+  - num: 8
+    title: Polarization
+    page_start: 331
+    page_end: 391
+    chapter_title_block_idx: 4919
+    problems_block_idx: 5650
+    next_chapter_block_idx: 5745
+  - num: 9
+    title: Interference
+    page_start: 392
+    page_end: 448
+    chapter_title_block_idx: 5745
+    problems_block_idx: 6599
+    next_chapter_block_idx: 6670
+  - num: 10
+    title: Diffraction
+    page_start: 449
+    page_end: 523
+    chapter_title_block_idx: 6670
+    problems_block_idx: null
+    next_chapter_block_idx: 7714
+  - num: 11
+    title: Fourier Optics
+    page_start: 524
+    page_end: 564
+    chapter_title_block_idx: 7714
+    problems_block_idx: 8332
+    next_chapter_block_idx: 8386
+  - num: 12
+    title: Basics of Coherence Theory
+    page_start: 565
+    page_end: 585
+    chapter_title_block_idx: 8386
+    problems_block_idx: 8643
+    next_chapter_block_idx: 8668
+  - num: 13
+    title: "Modern Optics: Lasers and Other Topics"
+    page_start: 586
+    page_end: 653
+    chapter_title_block_idx: 8668
+    problems_block_idx: 9408
+    next_chapter_block_idx: 9472
+
+appendices:
+  - id: "1"
+    title: Electromagnetic Theory
+    page_start: 654
+    chapter_title_block_idx: 9472
+  - id: "2"
+    title: The Kirchhoff Diffraction Theory
+    page_start: 657
+    chapter_title_block_idx: 9571
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\*?\s+'
+problem_chapter_must_match: true
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
