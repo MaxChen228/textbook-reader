@@ -1,0 +1,8 @@
+# griffiths_qm3_sol — Instructor's Solution Manual, Griffiths QM 3e
+# 主書 griffiths_qm3 problem['num'] 格式為 "N.M"（如 1.1, 2.13）。
+# sol 章 anchor 為 lvl=1 text "Chapter N"；題目 anchor 為 lvl=1 text "Problem N.M"。
+# sol 子題（(a)/(b)…）是 body 內獨立 block，非題號後綴，故 problem_re 不需 [a-z]。
+# 附錄 A (Problem A.1..A.20) 主書無對應章，自然不配（chapter_re 只收純數字章號）。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^Problem\s+(\d+\.\d+)'
+multi_per_block: false
