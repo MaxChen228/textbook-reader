@@ -41,6 +41,10 @@ LOG = os.path.join(BP, 'reports', 'daemon.log')
 WISHLIST = os.path.join(BP, 'crawl_wishlist.json')
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
+# headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
+# audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
+# 正常 audit ~25min；40min 留足餘裕，只在真卡死時觸發。可用 env 覆寫。
+LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '2400'))
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -90,11 +94,28 @@ def log(msg: str) -> None:
 
 
 def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
-         env: dict | None = None) -> int:
+         env: dict | None = None, timeout: int | None = None) -> int:
     log(('DRY ' if dry else 'RUN ') + ' '.join(shlex.quote(c) for c in cmd))
     if dry:
         return 0
-    return subprocess.run(cmd, cwd=cwd, env=env).returncode
+    if timeout is None:
+        return subprocess.run(cmd, cwd=cwd, env=env).returncode
+    # 有 timeout（LLM 派工）：start_new_session 讓子工自成 process group，逾時殺整組。
+    # claude -p 會 spawn 子 agent（孫程序），單殺父程序會留孤兒繼續空轉，故用 killpg。
+    import signal
+    import time
+    p = subprocess.Popen(cmd, cwd=cwd, env=env, start_new_session=True)
+    try:
+        return p.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 tick 將自動重派')
+        try:
+            os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+            time.sleep(5)
+            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+        return -1
 
 
 def _llm_env() -> dict | None:
@@ -129,7 +150,7 @@ def _llm_env() -> dict | None:
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
     cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT]
-    return _run(cmd, cwd=ROOT, dry=dry, env=_llm_env())
+    return _run(cmd, cwd=ROOT, dry=dry, env=_llm_env(), timeout=LLM_TIMEOUT)
 
 
 def _wishlist_pending() -> list:
