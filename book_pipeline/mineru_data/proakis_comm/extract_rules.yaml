@@ -1,0 +1,182 @@
+slug: proakis_comm
+title: Digital Communications
+author: John G. Proakis; Masoud Salehi
+edition: 5th
+subject: Digital Communications
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 1127
+bibliography_start_page: 1127
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 19
+    page_end: 34
+    chapter_title_block_idx: 331
+    chapter_title_block_idx_secondary: 333
+    problems_block_idx: null
+    next_chapter_block_idx: 477
+  - num: 2
+    title: Deterministic and Random Signal Analysis
+    page_start: 35
+    page_end: 112
+    chapter_title_block_idx: 477
+    problems_block_idx: 1544
+    next_chapter_block_idx: 1776
+  - num: 3
+    title: Digital Modulation Schemes
+    page_start: 113
+    page_end: 177
+    chapter_title_block_idx: 1776
+    problems_block_idx: 2488
+    next_chapter_block_idx: 2669
+  - num: 4
+    title: Optimum Receivers for AWGN Channels
+    page_start: 178
+    page_end: 307
+    chapter_title_block_idx: 2669
+    problems_block_idx: 4081
+    next_chapter_block_idx: 4406
+  - num: 5
+    title: Carrier and Symbol Synchronization
+    page_start: 308
+    page_end: 347
+    chapter_title_block_idx: 4406
+    problems_block_idx: 4901
+    next_chapter_block_idx: 4944
+  - num: 6
+    title: An Introduction to Information Theory
+    page_start: 348
+    page_end: 399
+    chapter_title_block_idx: 4944
+    problems_block_idx: 5690
+    next_chapter_block_idx: 5982
+  - num: 7
+    title: Linear Block Codes
+    page_start: 418
+    page_end: 500
+    chapter_title_block_idx: 5982
+    problems_block_idx: 7081
+    next_chapter_block_idx: 7212
+  - num: 8
+    title: Trellis and Graph Based Codes
+    page_start: 509
+    page_end: 607
+    chapter_title_block_idx: 7212
+    problems_block_idx: 8299
+    next_chapter_block_idx: 8397
+  - num: 9
+    title: Digital Communication Through Band-Limited Channels
+    page_start: 615
+    page_end: 691
+    chapter_title_block_idx: 8397
+    problems_block_idx: 9477
+    next_chapter_block_idx: 9709
+  - num: 10
+    title: Adaptive Equalization
+    page_start: 707
+    page_end: 754
+    chapter_title_block_idx: 9709
+    problems_block_idx: 10286
+    next_chapter_block_idx: 10357
+  - num: 11
+    title: Multichannel and Multicarrier Systems
+    page_start: 755
+    page_end: 779
+    chapter_title_block_idx: 10357
+    problems_block_idx: 10646
+    next_chapter_block_idx: 10681
+  - num: 12
+    title: Spread Spectrum Signals for Digital Communications
+    page_start: 780
+    page_end: 847
+    chapter_title_block_idx: 10681
+    problems_block_idx: 11346
+    next_chapter_block_idx: 11409
+  - num: 13
+    title: "Fading Channels I: Characterization and Signaling"
+    page_start: 848
+    page_end: 916
+    chapter_title_block_idx: 11409
+    problems_block_idx: 12130
+    next_chapter_block_idx: 12255
+  - num: 14
+    title: "Fading Channels II: Capacity and Coding"
+    page_start: 917
+    page_end: 983
+    chapter_title_block_idx: 12255
+    problems_block_idx: 12979
+    next_chapter_block_idx: 13029
+  - num: 15
+    title: Multiple-Antenna Systems
+    page_start: 984
+    page_end: 1038
+    chapter_title_block_idx: 13029
+    problems_block_idx: 13639
+    next_chapter_block_idx: 13746
+  - num: 16
+    title: Multiuser Communications
+    page_start: 1046
+    page_end: 1102
+    chapter_title_block_idx: 13746
+    problems_block_idx: 14387
+    next_chapter_block_idx: 14484
+
+appendices:
+  - id: A
+    title: Matrices
+    page_start: 1103
+    chapter_title_block_idx: 14484
+  - id: B
+    title: Error Probability for Multichannel Binary Signals
+    page_start: 1108
+    chapter_title_block_idx: 14576
+  - id: C
+    title: Error Probabilities for Adaptive Reception of M-Phase Signals
+    page_start: 1114
+    chapter_title_block_idx: 14661
+  - id: D
+    title: Square Root Factorization
+    page_start: 1125
+    chapter_title_block_idx: 14820
+
+section_re: '^(\d+\.\d+)(?=[\s ]+\S)[\s ]+(.+)$'
+subsection_re: '^(\d+\.\d+–\d+)(?=[\s ]+\S)[\s ]+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+-[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+\.\d+–\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
