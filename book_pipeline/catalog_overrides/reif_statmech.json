@@ -1,0 +1,95 @@
+{
+  "overrides": [
+    {
+      "id": "reif-fig-2.8.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[209]",
+      "expect": { "id": "fig-2.7.4" },
+      "set": { "id": "fig-2.8.1", "catalog_repair_source": "agent-id-fix" },
+      "reason": "caption 'Fig. 2·8·1 Two gases A and A′ separated by a piston' 真實身分是 2.8.1，MinerU 把 id 錯位成 fig-2.7.4。改 id 對齊 caption。2.7.4 另有 1 個 catalog entry 供應，移除本塊不回歸。"
+    },
+    {
+      "id": "reif-fig-2.11.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[289]",
+      "expect": { "id": "fig-2.10.2" },
+      "set": { "id": "fig-2.11.2", "catalog_repair_source": "agent-id-fix" },
+      "reason": "caption 'Fig. 2·11·2 Relation between mean pressure p and volume V...' 真實身分 2.11.2，MinerU 錯位成 fig-2.10.2。2.10.2 另有 1 個 entry（body[251] cap 真為 2·10·2）供應，不回歸。"
+    },
+    {
+      "id": "reif-fig-3.3.3-idfix",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[91]",
+      "expect": { "id": "fig-ch03-91" },
+      "set": { "id": "fig-3.3.3", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fig. 3·3·3 Schematic illustration of the functional dependence of P(E)...'，middot 分隔使 parser 解不出語意 id 落到 fallback fig-ch03-91 並被標 unnumbered_body_fig。改語意 id + 移除 exclude（圖實有編號）後納入 catalog（純新增）。"
+    },
+    {
+      "id": "reif-fig-3.9.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[368]",
+      "expect": { "id": "fig-ch03-368" },
+      "set": { "id": "fig-3.9.1", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fig. 3·9·1 A gas A interacting through a movable piston with a spring A′'，fallback fig-ch03-368 + unnumbered_body_fig。改語意 id + 移除 exclude（純新增）。"
+    },
+    {
+      "id": "reif-fig-8.6.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[249]",
+      "expect": { "id": "fig-ch08-249" },
+      "set": { "id": "fig-8.6.1", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fig. 8·6·1 Schematic diagram showing curves of constant temperature...'，fallback fig-ch08-249 + unnumbered_body_fig。改語意 id + 移除 exclude（純新增）。"
+    },
+    {
+      "id": "reif-fig-9.16.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[818]",
+      "expect": { "id": "fig-9.16" },
+      "set": { "id": "fig-9.16.1", "catalog_repair_source": "agent-id-fix" },
+      "reason": "caption 'Fig. 9·16·1 The Fermi function at a finite temperature T' 真實身分 9.16.1，MinerU 兩塊（818/819）都壓成 fig-9.16。改 818→9.16.1；bare ref '9.16'（實為 9·16·1 misOCR）仍由 819 供應，不回歸。"
+    },
+    {
+      "id": "reif-fig-5.11.4-caption-restore",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[524]",
+      "field": "md",
+      "old": "Fig. 5·11·4 A real engine.",
+      "new": "Figure 5.11.4 A real engine.",
+      "reason": "Fig 5·11·4「A real engine」MinerU 沒抓成圖檔，只把 caption OCR 成此 p 塊（middot 故 parser 不認）。把編號正規成 dots → build_catalogs 的 _leading_caption 從此塊產 fig-5.11.4（kind=text，無 bitmap，C3 豁免），覆蓋 block[509] 對 'Fig. 5-11-4' 的真實引用。"
+    },
+    {
+      "id": "reif-fig-15.4.1-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[152]",
+      "field": "md",
+      "old": "Fig. 15-4 1",
+      "new": "Fig. 15.4.1",
+      "reason": "正文 'Fig. 15-4 1' 是 'Fig. 15·4·1' 的 misOCR（中點被讀成 '-' 與空格，第三級被切開），audit 誤判成 ref 15.4。鄰近 eq 編號 (15·4·1)/(15·4·2) 佐證。改回 15.4.1。"
+    },
+    {
+      "id": "reif-fig-15.4.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[132]",
+      "expect": { "id": "fig-ch15-132" },
+      "set": {
+        "id": "fig-15.4.1",
+        "caption": "Fig. 15.4.1 Interaction between nuclear spins, electron spins, and the lattice heat reservoir in the Overhauser effect.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "body[132] 圖檔內印有 'Fig. 15·4·1 Interaction between nuclear spins, electron spins, and the lattice heat reservoir in the Overhauser effect.'（目視確認），但 MinerU 沒抽出 caption 欄、id 落到 fallback fig-ch15-132。補語意 id + caption，配合 ref misOCR 修正覆蓋 15.4.1。"
+    }
+  ]
+}

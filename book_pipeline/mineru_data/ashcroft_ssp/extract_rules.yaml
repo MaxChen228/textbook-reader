@@ -1,0 +1,393 @@
+# extract_rules.yaml — ashcroft_ssp (Ashcroft & Mermin, Solid State Physics)
+# 依 audit-book.md §2 schema / §3 deterministic 8 步，全由 content_list.json 推得。
+
+# ── 書本 metadata（cite metadata_schema.yaml）──
+slug: ashcroft_ssp
+title: Solid State Physics
+author: Neil W. Ashcroft; N. David Mermin
+edition: null                 # OCR 內未見版次標記；A&M 僅有單一版（1976）
+subject: Solid State Physics   # ∈ metadata_schema.yaml subjects
+publisher: Holt, Rinehart and Winston
+language: en
+
+# ── block 過濾 ──
+# §3 Step 2：header/page_number/footer/page_footnote 一律進；ref_text count=48>5 進；aside_text 本書無。
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+body_start_page: 22            # ch1 "The Drude Theory of Metals" 起頁
+appendices_start_page: 778     # Appendix A "Summary of Important Numerical Relations" 起頁
+bibliography_start_page: null  # 本書無集中 Bibliography（參考置於章末/footnote）
+index_start_page: 820          # 字母索引起頁（"a_0, see Bohr radius"）
+
+# ── inline-problem 模式 ──
+# 每章末皆有獨立 "PROBLEMS" heading（31 個，text_level=2）→ 全本二分模式。
+inline_problems: false
+
+# ── 章節（34 章）──
+# anchor 多為 text_level=1/2 的 "N Title" 或 split 的 bare-int+title 片段。
+chapters:
+  - num: 1
+    title: The Drude Theory of Metals
+    page_start: 22
+    page_end: 49
+    chapter_title_block_idx: 197
+    problems_block_idx: 507
+    next_chapter_block_idx: 541
+  - num: 2
+    title: The Sommerfeld Theory of Metals
+    page_start: 50
+    page_end: 77
+    chapter_title_block_idx: 541
+    problems_block_idx: 893
+    next_chapter_block_idx: 948
+  - num: 3
+    title: Failures of the Free Electron Model
+    page_start: 78
+    page_end: 83
+    chapter_title_block_idx: 948
+    problems_block_idx: 994      # A&M ch3 無題；body "1./2./3." 為正文枚舉(命中 problem_start_re)→ pbi 不可 null(validate_rules 規則)；指 994=header(filter 後 body 0 損)使 problems 區 [995,995) 空
+    next_chapter_block_idx: 995
+  - num: 4
+    title: Crystal Lattices
+    page_start: 84
+    page_end: 105
+    chapter_title_block_idx: 995
+    chapter_title_block_idx_secondary: 996   # bare "4" + "Crystal Lattices"
+    problems_block_idx: 1203
+    next_chapter_block_idx: 1222
+  - num: 5
+    title: The Reciprocal Lattice
+    page_start: 106
+    page_end: 115
+    chapter_title_block_idx: 1222
+    problems_block_idx: 1330
+    next_chapter_block_idx: 1350
+  - num: 6
+    title: Determination of Crystal Structures by X-ray Diffraction
+    page_start: 116
+    page_end: 131
+    chapter_title_block_idx: 1350
+    problems_block_idx: 1502
+    next_chapter_block_idx: 1526
+  - num: 7
+    title: Classification of Bravais Lattices and Crystal Structures
+    page_start: 132
+    page_end: 151
+    chapter_title_block_idx: 1526
+    problems_block_idx: 1697
+    next_chapter_block_idx: 1716
+  - num: 8
+    title: 'Electron Levels in a Periodic Potential: General Properties'
+    page_start: 152
+    page_end: 171
+    chapter_title_block_idx: 1716
+    chapter_title_block_idx_secondary: 1717   # bare "8" + 多段標題片段
+    problems_block_idx: 1975
+    next_chapter_block_idx: 2049
+  - num: 9
+    title: Electrons in a Weak Periodic Potential
+    page_start: 172
+    page_end: 195
+    chapter_title_block_idx: 2049
+    chapter_title_block_idx_secondary: 2050   # bare "9" + 標題
+    problems_block_idx: 2275
+    next_chapter_block_idx: 2340
+  - num: 10
+    title: The Tight-Binding Method
+    page_start: 196
+    page_end: 211
+    chapter_title_block_idx: 2340
+    problems_block_idx: 2498
+    next_chapter_block_idx: 2535
+  - num: 11
+    title: Other Methods for Calculating Band Structure
+    page_start: 212
+    page_end: 233
+    chapter_title_block_idx: 2535
+    problems_block_idx: 2776
+    next_chapter_block_idx: 2802
+  - num: 12
+    title: The Semiclassical Model of Electron Dynamics
+    page_start: 234
+    page_end: 263
+    chapter_title_block_idx: 2802
+    chapter_title_block_idx_secondary: 2803   # bare "12" + 多段標題片段
+    problems_block_idx: 3161
+    next_chapter_block_idx: 3215
+  - num: 13
+    title: The Semiclassical Theory of Conduction in Metals
+    page_start: 264
+    page_end: 283
+    chapter_title_block_idx: 3215
+    chapter_title_block_idx_secondary: 3216   # bare "13" + 多段標題片段
+    problems_block_idx: 3495
+    next_chapter_block_idx: 3565
+  - num: 14
+    title: Measuring the Fermi Surface
+    page_start: 284
+    page_end: 303
+    chapter_title_block_idx: 3565
+    chapter_title_block_idx_secondary: 3566
+    problems_block_idx: 3779
+    next_chapter_block_idx: 3788
+  - num: 15
+    title: Band Structure of Selected Metals
+    page_start: 304
+    page_end: 333
+    chapter_title_block_idx: 3788
+    chapter_title_block_idx_secondary: 3789
+    problems_block_idx: 4039
+    next_chapter_block_idx: 4059
+  - num: 16
+    title: Beyond the Relaxation-Time Approximation
+    page_start: 334
+    page_end: 349
+    chapter_title_block_idx: 4059
+    chapter_title_block_idx_secondary: 4060   # bare "16" + 多段標題片段
+    problems_block_idx: 4243
+    next_chapter_block_idx: 4284
+  - num: 17
+    title: Beyond the Independent Electron Approximation
+    page_start: 350
+    page_end: 373
+    chapter_title_block_idx: 4284
+    chapter_title_block_idx_secondary: 4285
+    problems_block_idx: 4598
+    next_chapter_block_idx: 4643
+  - num: 18
+    title: Surface Effects
+    page_start: 374
+    page_end: 393
+    chapter_title_block_idx: 4643
+    problems_block_idx: 4843
+    next_chapter_block_idx: 4882
+  - num: 19
+    title: Classification of Solids
+    page_start: 394
+    page_end: 415
+    chapter_title_block_idx: 4882
+    chapter_title_block_idx_secondary: 4883
+    problems_block_idx: 5057
+    next_chapter_block_idx: 5077
+  - num: 20
+    title: Cohesive Energy
+    page_start: 416
+    page_end: 435
+    chapter_title_block_idx: 5077
+    problems_block_idx: 5263
+    next_chapter_block_idx: 5299
+  - num: 21
+    title: Failures of the Static Lattice Model
+    page_start: 436
+    page_end: 441
+    chapter_title_block_idx: 5299
+    chapter_title_block_idx_secondary: 5300   # bare "21" + 標題
+    problems_block_idx: 5364     # A&M ch21 概述章無題；body 枚舉命中 problem_start_re → pbi 不可 null；指 5364=page_footnote(filter 後 body 0 損)使 problems 區 [5365,5365) 空
+    next_chapter_block_idx: 5365
+  - num: 22
+    title: Classical Theory of the Harmonic Crystal
+    page_start: 442
+    page_end: 471
+    chapter_title_block_idx: 5365
+    chapter_title_block_idx_secondary: 5366
+    problems_block_idx: 5756
+    next_chapter_block_idx: 5812
+  - num: 23
+    title: Quantum Theory of the Harmonic Crystal
+    page_start: 472
+    page_end: 489
+    chapter_title_block_idx: 5812
+    chapter_title_block_idx_secondary: 5813
+    problems_block_idx: 6021
+    next_chapter_block_idx: 6040
+  - num: 24
+    title: Measuring Phonon Dispersion Relations
+    page_start: 490
+    page_end: 507
+    chapter_title_block_idx: 6040
+    chapter_title_block_idx_secondary: 6041
+    problems_block_idx: 6242
+    next_chapter_block_idx: 6256
+  - num: 25
+    title: Anharmonic Effects in Crystals
+    page_start: 508
+    page_end: 531
+    chapter_title_block_idx: 6256
+    chapter_title_block_idx_secondary: 6257
+    problems_block_idx: 6520
+    next_chapter_block_idx: 6552
+  - num: 26
+    title: Phonons in Metals
+    page_start: 532
+    page_end: 553
+    chapter_title_block_idx: 6552
+    problems_block_idx: 6809
+    next_chapter_block_idx: 6843
+  - num: 27
+    title: Dielectric Properties of Insulators
+    page_start: 554
+    page_end: 581
+    chapter_title_block_idx: 6843
+    chapter_title_block_idx_secondary: 6844   # bare "27" + 多段標題片段
+    problems_block_idx: 7190
+    next_chapter_block_idx: 7233
+  - num: 28
+    title: Homogeneous Semiconductors
+    page_start: 582
+    page_end: 609
+    chapter_title_block_idx: 7233
+    chapter_title_block_idx_secondary: 7234
+    problems_block_idx: 7519
+    next_chapter_block_idx: 7556
+  - num: 29
+    title: Inhomogeneous Semiconductors
+    page_start: 610
+    page_end: 635
+    chapter_title_block_idx: 7556
+    chapter_title_block_idx_secondary: 7557
+    problems_block_idx: 7819
+    next_chapter_block_idx: 7873
+  - num: 30
+    title: Defects in Crystals
+    page_start: 636
+    page_end: 663
+    chapter_title_block_idx: 7873
+    problems_block_idx: 8148
+    next_chapter_block_idx: 8198
+  - num: 31
+    title: Diamagnetism and Paramagnetism
+    page_start: 664
+    page_end: 691
+    chapter_title_block_idx: 8198
+    chapter_title_block_idx_secondary: 8199
+    problems_block_idx: 8534      # ⚠ ch31 "PROBLEMS" heading OCR 漏；anchor 設於 problem 1(8535) 前一塊
+    next_chapter_block_idx: 8608
+  - num: 32
+    title: Electron Interactions and Magnetic Structure
+    page_start: 692
+    page_end: 713
+    chapter_title_block_idx: 8608
+    chapter_title_block_idx_secondary: 8609
+    problems_block_idx: 8828
+    next_chapter_block_idx: 8882
+  - num: 33
+    title: Magnetic Ordering
+    page_start: 714
+    page_end: 745
+    chapter_title_block_idx: 8882
+    problems_block_idx: 9252
+    next_chapter_block_idx: 9298
+  - num: 34
+    title: Superconductivity
+    page_start: 746
+    page_end: 777
+    chapter_title_block_idx: 9298
+    chapter_title_block_idx_secondary: 9299   # bare "34" + "Superconductivity"
+    problems_block_idx: 9663
+    next_chapter_block_idx: 9715   # = Appendix A anchor
+
+# ── 附錄 A–P（16 個）──
+# 字母由 equation \tag{X.n} 序列校準（B..N,P 皆有 lettered tags；A/O 為表/散文無 tag）。
+appendices:
+  - id: A
+    title: Summary of Important Numerical Relations in the Free Electron Theory of Metals
+    page_start: 778
+    chapter_title_block_idx: 9715
+  - id: B
+    title: The Chemical Potential
+    page_start: 780
+    chapter_title_block_idx: 9753
+  - id: C
+    title: The Sommerfeld Expansion
+    page_start: 781
+    chapter_title_block_idx: 9772
+  - id: D
+    title: Plane-Wave Expansions of Periodic Functions in More Than One Dimension
+    page_start: 783
+    chapter_title_block_idx: 9809
+  - id: E
+    title: The Velocity and Effective Mass of Bloch Electrons
+    page_start: 786
+    chapter_title_block_idx: 9850
+  - id: F
+    title: Some Identities Related to Fourier Analysis of Periodic Systems
+    page_start: 788
+    chapter_title_block_idx: 9883
+  - id: G
+    title: The Variational Principle for Schrödinger's Equation
+    page_start: 790
+    chapter_title_block_idx: 9903
+  - id: H
+    title: Hamiltonian Formulation of the Semiclassical Equations of Motion, and Liouville's Theorem
+    page_start: 792
+    chapter_title_block_idx: 9931
+  - id: I
+    title: Green's Theorem for Periodic Functions
+    page_start: 793
+    chapter_title_block_idx: 9948
+  - id: J
+    title: Conditions for the Absence of Interband Transitions in Uniform Electric or Magnetic Fields
+    page_start: 794
+    chapter_title_block_idx: 9969
+  - id: K
+    title: Optical Properties of Solids
+    page_start: 797
+    chapter_title_block_idx: 10009   # "Appendix K" 標籤；標題 "Optical Properties of Solids" 隨後
+  - id: L
+    title: Quantum Theory of the Harmonic Crystal
+    page_start: 801
+    chapter_title_block_idx: 10066
+  - id: M
+    title: Conservation of Crystal Momentum
+    page_start: 805
+    chapter_title_block_idx: 10138
+  - id: N
+    title: Theory of the Scattering of Neutrons by a Crystal
+    page_start: 811
+    chapter_title_block_idx: 10227
+  - id: O
+    title: Anharmonic Terms and n-Phonon Processes
+    page_start: 817
+    chapter_title_block_idx: 10324   # "Appendix O" 標籤；標題隨後
+  - id: P
+    title: Evaluation of the Landé g-Factor
+    page_start: 818
+    chapter_title_block_idx: 10330
+
+# ── heading regex ──
+# 本書 section heading = ALL-CAPS（text_level=2）。注意：parser.detect_heading 僅對 lvl==1 觸發，
+# 故 lvl=2 的 section 多會落為段落 p（無資料遺失）；此 regex 仍依 §3 Step 7 ALL-CAPS 型給足 2 capture group。
+# section_re 強制 title 非空（id group 空、title group 至少 1 字元）。
+section_re: '^()([A-Z][A-Z][A-Z\-’''`,.&/:() ]*[A-Z.)0-9])$'
+subsection_re: '^()([A-Z][a-z]+(?:[:\s\-’''`,][A-Za-z][A-Za-z]*)+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 題目格式 "1. Title" / "2. Title"（純流水、每章從 1 起），text_level=2。
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false   # 純流水題號（非 N.M），split('.')[0] 即題號自身
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example ──
+example_start_re: null              # 本書無 "Example N" 內文題段落
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（人工確認前一律空）──
+known_missing_problems: []

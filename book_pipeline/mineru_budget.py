@@ -97,6 +97,11 @@ def _account_num(account: str) -> str:
     return '1' if account == 'MINERU_API_TOKEN' else account.replace('MINERU_API_TOKEN', '')
 
 
+# 上傳中（uploading=True）entry 超過此秒數仍未翻 ready → 視為崩潰殘留，可重新提交（自癒）。
+STALE_UPLOAD_SECS = int(os.environ.get('MINERU_STALE_UPLOAD_SECS', '7200'))
+UPLOAD_LOG = os.path.join(BP, 'reports', 'uploads.log')
+
+
 def _pending_entries() -> list:
     try:
         return json.load(open(PENDING_PATH)) or []
@@ -104,8 +109,53 @@ def _pending_entries() -> list:
         return []
 
 
+def _age_secs(e: dict) -> float:
+    """entry submitted_at 距今秒數；無時戳回 inf（保守視為老舊、不擋重提）。"""
+    ts = e.get('submitted_at')
+    if not ts:
+        return float('inf')
+    try:
+        dt = datetime.strptime(ts, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - dt).total_seconds()
+    except Exception:
+        return float('inf')
+
+
 def in_flight() -> set:
+    """manifest 內全部 slug（含上傳中與就緒）。dashboard / 一般「mineru 處理中」判斷用。"""
     return {e['slug'] for e in _pending_entries() if e.get('slug')}
+
+
+def occupied() -> set:
+    """正被 MinerU 佔用、不該重新提交的 slug：就緒（uploading falsy）或上傳中且未 stale。
+    上傳中但超過 STALE_UPLOAD_SECS（崩潰殘留）→ 排除 → tick 會重新提交覆寫（自癒）。"""
+    out = set()
+    for e in _pending_entries():
+        s = e.get('slug')
+        if not s:
+            continue
+        if e.get('uploading'):
+            if _age_secs(e) < STALE_UPLOAD_SECS:
+                out.add(s)  # 上傳中且新鮮 → 佔用
+            # else stale → 不佔用，可重提
+        else:
+            out.add(s)  # 就緒 → 佔用（等 harvest）
+    return out
+
+
+def harvestable() -> set:
+    """可收割的 slug：已完成上傳（uploading falsy）。上傳中的書 OCR 尚不完整、跳過。"""
+    return {e['slug'] for e in _pending_entries()
+            if e.get('slug') and not e.get('uploading')}
+
+
+def mark_submitting(slug: str, account: str, pages: int) -> None:
+    """spawn detached upload 前先寫佔位 entry（batch_id=None, uploading=True），關閉
+    『Popen 返回』到『子程序早寫 manifest』之間的空窗，防同窗內重複提交。子程序的
+    pending_add 會以真 batch_id 覆寫本佔位。"""
+    from book_pipeline import mineru_ingest as mi
+    n = max(1, (pages + 179) // 180)
+    mi.pending_add(slug, None, [[0, 0]] * n, 1, 'en', account=account, uploading=True)
 
 
 def _pending_entry(slug: str) -> dict | None:
@@ -125,16 +175,24 @@ def _raw_pdf(slug: str) -> str | None:
 
 
 def submit_ingest(slug: str, account: str) -> int:
-    """async submit-only：切片+上傳 MinerU+寫 manifest，**不 poll OCR**（雲端排隊跑）。
-    對應 mineru_ingest --upload。提交後該書進 in-flight，由 harvest_ingest 收割。
-    回 rc（0=已提交）。"""
+    """async submit：**detached 背景**切片+上傳 MinerU（不等 PUT 完成、不 poll OCR）→
+    立刻返回，tick 不被慢上傳堵住。對應 mineru_ingest --upload；子程序自寫 manifest
+    （早寫 uploading=True，PUT 完翻 False），start_new_session 使其 outlive 本 tick。
+    輸出導 uploads.log。回 0=已 spawn / 1=無 PDF。呼叫端須先 mark_submitting 佔位。"""
     pdf = _raw_pdf(slug)
     if not pdf:
         return 1
     cmd = ['uv', 'run', '--with', 'requests', '--with', 'pymupdf',
            'python', '-m', 'book_pipeline.mineru_ingest', pdf,
            '--slug', slug, '--account', _account_num(account), '--upload']
-    return subprocess.run(cmd, cwd=ROOT).returncode
+    os.makedirs(os.path.dirname(UPLOAD_LOG), exist_ok=True)
+    logf = open(UPLOAD_LOG, 'a')
+    logf.write(f'\n===== {datetime.now(timezone.utc).isoformat(timespec="seconds")} '
+               f'submit {slug} acct={_account_num(account)} =====\n')
+    logf.flush()
+    subprocess.Popen(cmd, cwd=ROOT, stdout=logf, stderr=subprocess.STDOUT,
+                     start_new_session=True)
+    return 0
 
 
 def harvest_ingest(slug: str, max_wait: int = 1800) -> int:
@@ -155,9 +213,11 @@ def harvest_ingest(slug: str, max_wait: int = 1800) -> int:
 
 
 def status_report() -> dict:
+    up = sorted(in_flight() - harvestable())
     return {'date': _today(), 'priority_pages': PRIORITY_PAGES,
             'accounts': {a: {'used': account_used(a), 'remaining': account_remaining(a)}
                          for a in ACCOUNTS},
+            'uploading': up, 'harvestable': sorted(harvestable()),
             'in_flight': sorted(in_flight())}
 
 

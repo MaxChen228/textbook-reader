@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "oppen-p11.3e-misocr-figref",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "problem:11.3:body[18]",
+      "field": "md",
+      "old": "Consider the circuit of Figure 1.3",
+      "new": "Consider the circuit of Figure P11.3-4",
+      "reason": "misOCR (C4): raw PDF p.736 part (e) reads 'Consider the circuit of Figure P11.3-4. In this case Z1(s)=R, Z2(s)=C/s' — the RC integrator op-amp circuit shown directly below as Figure P11.3-4. 'Figure 1.3' is an OCR garble of the local problem figure ref P11.3-4 (which already appears elsewhere in the corpus and is not a missing ref)."
+    },
+    {
+      "id": "oppen-p11.14-misocr-figref",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "problem:11.14:body[11]",
+      "field": "md",
+      "old": "is equivalent to the system Figure 1.2",
+      "new": "is equivalent to the system Figure P11.14(b)",
+      "reason": "misOCR (C4): raw PDF p.746 reads 'the feedback system of Figure P11.14(a) when x(t) is given by eq. (P11.14-3) is equivalent to the system Figure P11.14(b)'. The parser garbled 'Figure P11.14(b)' (the 'is equivalent to the system Figure ___' slot) into 'Figure 1.2'. P11.14(b) already appears elsewhere in the block/corpus and is not a missing ref."
+    }
+  ]
+}

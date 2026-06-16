@@ -59,6 +59,7 @@ unified content_list（global page_idx、images/ 合併）。
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import json
 import os
@@ -67,6 +68,7 @@ import shutil
 import sys
 import time
 import zipfile
+from contextlib import contextmanager
 from pathlib import Path
 
 import fitz
@@ -505,6 +507,20 @@ def assemble(raw_root: Path, ranges: list[tuple[int, int]], overlap: int,
 #           無 account → 'MINERU_API_TOKEN'。
 
 PENDING_PATH = ROOT / 'book_pipeline' / '_pending_batches.json'
+PENDING_LOCK = ROOT / 'book_pipeline' / '_pending_batches.lock'
+
+
+@contextmanager
+def _pending_lock():
+    """跨進程互斥鎖（fcntl.flock）保護 _pending_batches.json 的 read-modify-write。
+    多個 --upload 並行提交時若不鎖，各自讀舊 list→append→寫，會互相覆蓋丟 entry
+    （atomic rename 只防寫一半、不防丟更新）。所有 pending RMW 須在此鎖內完成。"""
+    with open(PENDING_LOCK, 'w') as lf:
+        fcntl.flock(lf, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lf, fcntl.LOCK_UN)
 
 
 def _read_pending() -> list[dict]:
@@ -514,7 +530,8 @@ def _read_pending() -> list[dict]:
 
 
 def _write_pending(items: list[dict]) -> None:
-    """Atomic write：先寫 .tmp 再 rename，避免 Ctrl-C / 併發寫一半。"""
+    """Atomic write：先寫 .tmp 再 rename，避免 Ctrl-C / 併發寫一半。
+    注意：呼叫端須持 _pending_lock() 包住整個 read→modify→write 才防併發丟更新。"""
     tmp = PENDING_PATH.with_suffix('.json.tmp')
     tmp.write_text(json.dumps(items, ensure_ascii=False, indent=2) + '\n')
     tmp.replace(PENDING_PATH)
@@ -531,40 +548,58 @@ def _entry_batches(entry: dict) -> list[dict]:
 
 def pending_add(slug: str, batch_id: str, ranges: list[tuple[int, int]],
                 overlap: int, language: str,
-                account: str = DEFAULT_ACCOUNT_ENV) -> None:
-    items = _read_pending()
-    # 同 slug 已在 list → 覆寫（重新 submit 的情況）
-    items = [it for it in items if it.get('slug') != slug]
-    items.append({
-        'slug': slug,
-        'batch_id': batch_id,
-        'submitted_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-        'ranges': ranges,
-        'overlap': overlap,
-        'language': language,
-        'account': account,
-        'batches': [{'batch_id': batch_id, 'chunk_idxs': list(range(len(ranges)))}],
-    })
-    _write_pending(items)
+                account: str = DEFAULT_ACCOUNT_ENV, uploading: bool = False) -> None:
+    """寫/覆寫 slug 的 manifest entry。uploading=True 表 PUT 上傳尚未完成（書已進
+    in-flight 防重提，但 harvest 須跳過直到翻 False）。submit() 在取得 batch_id 後即以
+    uploading=True 早寫，PUT 全完成再 pending_mark_ready() 翻 False。"""
+    with _pending_lock():
+        items = _read_pending()
+        # 同 slug 已在 list → 覆寫（重新 submit 的情況）
+        items = [it for it in items if it.get('slug') != slug]
+        items.append({
+            'slug': slug,
+            'batch_id': batch_id,
+            'submitted_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+            'ranges': ranges,
+            'overlap': overlap,
+            'language': language,
+            'account': account,
+            'uploading': uploading,
+            'batches': [{'batch_id': batch_id, 'chunk_idxs': list(range(len(ranges)))}],
+        })
+        _write_pending(items)
+
+
+def pending_mark_ready(slug: str) -> None:
+    """PUT 上傳全完成 → 翻 uploading=False，該書才可被 harvest 收割。"""
+    with _pending_lock():
+        items = _read_pending()
+        for it in items:
+            if it.get('slug') == slug:
+                it['uploading'] = False
+                _write_pending(items)
+                return
 
 
 def pending_add_batch(slug: str, batch_id: str, chunk_idxs: list[int]) -> None:
     """補傳 failed chunk 後，把新 batch 追加進該 slug 的 batches。
     若 manifest 無此 slug（已被移除）→ no-op（receiver 用 in-memory 狀態續跑）。"""
-    items = _read_pending()
-    for it in items:
-        if it.get('slug') == slug:
-            bs = it.get('batches') or _entry_batches(it)
-            bs.append({'batch_id': batch_id, 'chunk_idxs': list(chunk_idxs)})
-            it['batches'] = bs
-            _write_pending(items)
-            return
+    with _pending_lock():
+        items = _read_pending()
+        for it in items:
+            if it.get('slug') == slug:
+                bs = it.get('batches') or _entry_batches(it)
+                bs.append({'batch_id': batch_id, 'chunk_idxs': list(chunk_idxs)})
+                it['batches'] = bs
+                _write_pending(items)
+                return
 
 
 def pending_remove(slug: str) -> None:
-    items = _read_pending()
-    items = [it for it in items if it.get('slug') != slug]
-    _write_pending(items)
+    with _pending_lock():
+        items = _read_pending()
+        items = [it for it in items if it.get('slug') != slug]
+        _write_pending(items)
 
 
 # ── Submit：切 + 上傳 + 寫 manifest，不 poll ─────────────────────────────────
@@ -601,14 +636,19 @@ def submit(pdf_path: Path, slug: str, chunk_size: int, overlap: int,
     urls = upload['file_urls']
     print(f'  batch_id={batch_id}', flush=True)
 
+    # 早寫 manifest（uploading=True）：書即進 in-flight 防跨 tick 重複提交；PUT 期間崩潰
+    # 也留下 batch_id，stale 回收可重提 / --resume auto_resubmit 補缺。
+    pending_add(slug, batch_id, ranges, overlap, language, account=account, uploading=True)
+    print(f'[manifest] 早寫 {PENDING_PATH}（uploading=True）', flush=True)
+
     print('\n[upload] PUT 上傳', flush=True)
     for p, url in zip(chunk_pdfs, urls):
         t0 = time.time()
         code = put_file(url, p)
         print(f'  {p.name}: HTTP {code}  {time.time()-t0:.1f}s', flush=True)
 
-    pending_add(slug, batch_id, ranges, overlap, language, account=account)
-    print(f'\n[manifest] 已加入 {PENDING_PATH}', flush=True)
+    pending_mark_ready(slug)
+    print(f'\n[manifest] {slug} uploading→False（可收割）', flush=True)
     print(f'\n完成 submit → batch_id={batch_id}', flush=True)
     print(f'下一步：git add {PENDING_PATH.relative_to(ROOT)} && git commit && push', flush=True)
     print(f'        然後在任何地方跑 receive（雲端 agent / 本機）', flush=True)

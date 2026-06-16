@@ -116,11 +116,19 @@ def _snippet(text: str, limit: int = 180) -> str:
 
 
 def _walk_lists(data: dict[str, Any]) -> list[tuple[str, list[dict[str, Any]]]]:
+    # 重複 problem num 在實際 parsed 資料中常見（parser 把多個習題誤標同號）。
+    # 對同 num 的第 occ>0 個 occurrence 加 `#occ` 標記，使 selector 可消歧；
+    # occ==0 不加後綴 → 與舊格式（apply 取第一個 match）完全相容。
     groups: list[tuple[str, list[dict[str, Any]]]] = [('body', data.get('body') or [])]
+    seen: dict[Any, int] = {}
     for pidx, prob in enumerate(data.get('problems') or []):
-        groups.append((f"problem {prob.get('num') or pidx} body", prob.get('body') or []))
+        label = prob.get('num') or pidx
+        occ = seen.get(label, 0)
+        seen[label] = occ + 1
+        tag = f'{label}#{occ}' if occ else f'{label}'
+        groups.append((f"problem {tag} body", prob.get('body') or []))
         if prob.get('solution'):
-            groups.append((f"problem {prob.get('num') or pidx} solution", prob.get('solution') or []))
+            groups.append((f"problem {tag} solution", prob.get('solution') or []))
     return groups
 
 

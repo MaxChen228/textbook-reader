@@ -1,0 +1,201 @@
+# Dummit & Foote, Abstract Algebra (3rd ed) — extract_rules
+# 由 audit-book 8-step deterministic 流程產出。
+
+slug: dummit_foote_algebra
+title: Abstract Algebra
+author: David S. Dummit; Richard M. Foote
+edition: 3rd
+subject: Abstract Algebra
+publisher: Wiley
+language: en
+
+filter_types: [page_number, header, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+
+# MinerU 把本書 N.M section heading 標成 text_level=2（94/95 個；章名/EXERCISES 亦多為 lvl2），
+# 但少數 straggler（如 §10.3）OCR 標成 lvl1。parser.detect_heading 預設只認 lvl1，故 inline walker
+# 追不到 section → namespace_by_section 失效、題號 collapse 跨節重複。設 [1, 2] 兩級都收，
+# section_re 為數字開頭（^\d）故不會誤吃 lvl1 的 EXERCISES/章名（皆字母開頭）。
+heading_text_level: [1, 2]
+
+body_start_page: 14
+appendices_start_page: 918
+bibliography_start_page: null
+index_start_page: 932
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Preliminaries
+    page_start: 14
+    page_end: 28
+    chapter_title_block_idx: 126
+    problems_block_idx: null
+    next_chapter_block_idx: 347
+  - num: 1
+    title: Introduction to Groups
+    page_start: 29
+    page_end: 58
+    chapter_title_block_idx: 347
+    problems_block_idx: null
+    next_chapter_block_idx: 807
+  - num: 2
+    title: Subgroups
+    page_start: 59
+    page_end: 85
+    chapter_title_block_idx: 807
+    problems_block_idx: null
+    next_chapter_block_idx: 1244
+  - num: 3
+    title: Quotient Groups and Homomorphisms
+    page_start: 86
+    page_end: 124
+    chapter_title_block_idx: 1244
+    problems_block_idx: null
+    next_chapter_block_idx: 1847
+  - num: 4
+    title: Group Actions
+    page_start: 125
+    page_end: 164
+    chapter_title_block_idx: 1847
+    problems_block_idx: null
+    next_chapter_block_idx: 2495
+  - num: 5
+    title: Direct and Semidirect Products and Abelian Groups
+    page_start: 165
+    page_end: 200
+    chapter_title_block_idx: 2495
+    problems_block_idx: null
+    next_chapter_block_idx: 3080
+  - num: 6
+    title: Further Topics in Group Theory
+    page_start: 201
+    page_end: 235
+    chapter_title_block_idx: 3080
+    problems_block_idx: null
+    next_chapter_block_idx: 3574
+  - num: 7
+    title: Introduction to Rings
+    page_start: 236
+    page_end: 282
+    chapter_title_block_idx: 3574
+    problems_block_idx: null
+    next_chapter_block_idx: 4317
+  - num: 8
+    title: Euclidean Domains, Principal Ideal Domains, and Unique Factorization Domains
+    page_start: 283
+    page_end: 307
+    chapter_title_block_idx: 4317
+    problems_block_idx: null
+    next_chapter_block_idx: 4659
+  - num: 9
+    title: Polynomial Rings
+    page_start: 308
+    page_end: 349
+    chapter_title_block_idx: 4659
+    problems_block_idx: null
+    next_chapter_block_idx: 5222
+  - num: 10
+    title: Introduction to Module Theory
+    page_start: 350
+    page_end: 420
+    chapter_title_block_idx: 5222
+    problems_block_idx: null
+    next_chapter_block_idx: 6314
+  - num: 11
+    title: Vector Spaces
+    page_start: 421
+    page_end: 468
+    chapter_title_block_idx: 6314
+    problems_block_idx: null
+    next_chapter_block_idx: 7102
+  - num: 12
+    title: Modules over Principal Ideal Domains
+    page_start: 469
+    page_end: 522
+    chapter_title_block_idx: 7102
+    problems_block_idx: null
+    next_chapter_block_idx: 7909
+  - num: 13
+    title: Field Theory
+    page_start: 523
+    page_end: 570
+    chapter_title_block_idx: 7909
+    problems_block_idx: null
+    next_chapter_block_idx: 8675
+  - num: 14
+    title: Galois Theory
+    page_start: 571
+    page_end: 667
+    chapter_title_block_idx: 8675
+    problems_block_idx: null
+    next_chapter_block_idx: 10301
+  - num: 15
+    title: Commutative Rings and Algebraic Geometry
+    page_start: 669
+    page_end: 762
+    chapter_title_block_idx: 10301
+    problems_block_idx: null
+    next_chapter_block_idx: 11618
+  - num: 16
+    title: Artinian Rings, Discrete Valuation Rings, and Dedekind Domains
+    page_start: 763
+    page_end: 788
+    chapter_title_block_idx: 11618
+    problems_block_idx: null
+    next_chapter_block_idx: 11996
+  - num: 17
+    title: Introduction to Homological Algebra and Group Cohomology
+    page_start: 789
+    page_end: 852
+    chapter_title_block_idx: 11996
+    problems_block_idx: null
+    next_chapter_block_idx: 13008
+  - num: 18
+    title: Representation Theory and Character Theory
+    page_start: 853
+    page_end: 892
+    chapter_title_block_idx: 13008
+    problems_block_idx: null
+    next_chapter_block_idx: 13619
+  - num: 19
+    title: Examples and Applications of Character Theory
+    page_start: 893
+    page_end: 917
+    chapter_title_block_idx: 13619
+    problems_block_idx: null
+    next_chapter_block_idx: 13962
+
+appendices:
+  - id: "I"
+    title: Cartesian Products and Zorn's Lemma
+    page_start: 918
+    chapter_title_block_idx: 13963
+  - id: "II"
+    title: Category Theory
+    page_start: 924
+    chapter_title_block_idx: 14048
+
+# OCR 把章號開頭為「1」的 section 編號拆字（'1 .1'、'1 0.1'、'1 8.1'）→ [\d ]* 容忍編號內空白；
+# parser.detect_heading 再 re.sub 去空白還原成乾淨 id（'1 0.1'→'10.1'）。title 仍強制 \s+(.+) 非空。
+section_re: '^(\d[\d ]*\.\d+)\s+(.+)$'
+subsection_re: '^(\d[\d ]*\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -30,7 +30,7 @@ SCHEMA_KEYS = {
     'problem_num_namespace_by_section', 'problems_end_re', 'solution_start_re',
     'equation_strip_dollar', 'equation_label_re',
     'example_start_re', 'figure_caption_merge', 'figure_caption_main_re',
-    'known_missing_problems',
+    'known_missing_problems', 'heading_text_level',
 }
 REQUIRED_KEYS = (
     'slug', 'title', 'body_start_page', 'appendices_start_page',
@@ -114,6 +114,14 @@ def validate(slug: str) -> int:
                             f'N.M alternation 須強制 title 非空（用 \\s+(.+)$ 或 lookahead (?=[\\s ]+\\S)）')
         except Exception:
             pass
+
+    # heading_text_level：選填，MinerU section heading 的 text_level（預設 1，須 ≥1 正整數）。
+    # 可為 list[int]——OCR level 不一致時兩級都收（Dummit&Foote [1, 2]）。
+    if 'heading_text_level' in R:
+        hl = R['heading_text_level']
+        hl_list = hl if isinstance(hl, list) else [hl]
+        if not hl_list or not all(isinstance(x, int) and not isinstance(x, bool) and x >= 1 for x in hl_list):
+            errs.append(f'heading_text_level 須為 ≥1 的整數或其 list（得到 {hl!r}）')
 
     # known_missing_problems schema: list of {chapter:int, nums:[str]}
     for i, kp in enumerate(R.get('known_missing_problems') or []):

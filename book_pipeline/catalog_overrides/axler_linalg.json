@@ -1,0 +1,710 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "axler-exclude-ch01-body_109",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[109]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-109"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-body_110",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[110]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-110"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-body_111",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[111]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-111"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-body_117",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[117]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-117"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-body_126",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[126]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-126"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-problem_1-24_body_6",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "problem:1.24:body[6]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-prob46-6"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch01-problem_1-24_body_17",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "problem:1.24:body[17]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-prob46-17"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch02-problem_2-20_body_2",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.20:body[2]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-prob19-2"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch02-problem_2-20o1_body_13",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.20#1:body[13]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-prob51-13"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch03-problem_3-17_body_3",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.17:body[3]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-prob16-3"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch03-problem_3-24o1_body_71",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.24#1:body[71]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-prob90-71"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch03-problem_3-33o1_body_11",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.33#1:body[11]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-prob142-11"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch04-body_20",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[20]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-20"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch04-problem_4-14_body_8",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14:body[8]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-prob13-8"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch04-problem_4-14_body_17",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14:body[17]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-prob13-17"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch05-problem_5-14o2_body_2",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.14#2:body[2]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-prob82-2"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch05-problem_5-10o4_body_8",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.10#4:body[8]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-prob115-8"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch05-problem_5-10o4_body_14",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.10#4:body[14]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-prob115-14"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-body_107",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[107]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-107"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-body_140",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[140]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-140"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-body_155",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[155]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-155"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-34_body_1",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.34:body[1]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob33-1"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-23o1_body_164",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.23#1:body[164]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob57-164"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-23o1_body_179",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.23#1:body[179]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob57-179"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-23o1_body_184",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.23#1:body[184]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob57-184"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-23o2_body_4",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.23#2:body[4]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob80-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch06-problem_6-23o2_body_14",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.23#2:body[14]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob80-14"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-32_body_4",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.32:body[4]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob31-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_142",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[142]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-142"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_148",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[148]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-148"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_149",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[149]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-149"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_150",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[150]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-150"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_186",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[186]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-186"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_187",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[187]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-187"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_201",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[201]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-201"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_204",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[204]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-204"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_224",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[224]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-224"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_231",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[231]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob117-231"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-32o1_body_11",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.32#1:body[11]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob149-11"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch08-problem_8-23o1_body_7",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.23#1:body[7]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-prob47-7"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch08-problem_8-23o1_body_31",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.23#1:body[31]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-prob47-31"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch08-problem_8-13o3_body_10",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.13#3:body[10]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-prob74-10"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch09-problem_9-10_body_6",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.10:body[6]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-prob8-6"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 figure 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch02-problem_2-11o1_body_67",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.11#1:body[67]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch02-prob30-67"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 table 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-20o3_body_55",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.20#3:body[55]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch07-prob100-55"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 table 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-20o3_body_92",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.20#3:body[92]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch07-prob100-92"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 table 為習題/版權內嵌影像，無編號亦無 caption，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    },
+    {
+      "id": "axler-exclude-ch07-problem_7-17o4_body_245",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.17#4:body[245]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch07-prob117-245"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Axler LADR 4e 全書圖表不編號；此 table 有描述 caption 但無 Figure/Table N.M，正文無對應 ref，不入 numbered catalog（reader 仍 inline 顯示）。"
+    }
+  ]
+}

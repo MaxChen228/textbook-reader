@@ -1,0 +1,186 @@
+# reif_statmech — Reif, Fundamentals of Statistical and Thermal Physics
+# 由 deterministic 探查（content_list.json，N=10546）產出，cite metadata_schema.yaml。
+
+slug: reif_statmech
+title: Fundamentals of Statistical and Thermal Physics
+author: Frederick Reif
+edition: null
+subject: Thermal Physics
+publisher: McGraw-Hill
+language: en
+
+# ── block 過濾 ──
+# type_count: header627 page_number920 footer9 page_footnote51 aside_text5 ref_text29
+# ref_text count=29 (>5) → 進 filter
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based page_idx）──
+body_start_page: 16          # idx240 "Introduction to statistical methods" pg16
+appendices_start_page: 620   # idx9418 "Appendices" pg620
+bibliography_start_page: 646 # idx9846 "Bibliography" pg646
+index_start_page: 658        # idx10001 "Index" pg658
+
+# ── inline-problem 模式 ──
+# 每章末有獨立 ALL-CAPS "PROBLEMS" heading → 全本二分
+inline_problems: false
+
+# ── 章節 ──
+# 章標題為 text_level==2（部分 ch2/3/11 為 lvl1）；以描述性章名 block 為 primary anchor。
+# 每章 problems_block_idx = 該章區間內「第一個」PROBLEMS heading（跨頁重複的第二個由
+# parser 略過，不影響切題，因 PROBLEMS 不匹配 section_re/subsection_re）。
+chapters:
+  - num: 1
+    title: Introduction to statistical methods
+    page_start: 16
+    page_end: 61
+    chapter_title_block_idx: 240
+    problems_block_idx: 847
+    next_chapter_block_idx: 932
+  - num: 2
+    title: Statistical description of systems of particles
+    page_start: 62
+    page_end: 101
+    chapter_title_block_idx: 932
+    problems_block_idx: 1353
+    next_chapter_block_idx: 1400
+  - num: 3
+    title: Statistical thermodynamics
+    page_start: 102
+    page_end: 142
+    chapter_title_block_idx: 1400
+    problems_block_idx: 1980
+    next_chapter_block_idx: 1995
+  - num: 4
+    title: Macroscopic parameters and their measurement
+    page_start: 143
+    page_end: 166
+    chapter_title_block_idx: 1995
+    problems_block_idx: 2281
+    next_chapter_block_idx: 2308
+  - num: 5
+    title: Simple applications of macroscopic thermodynamics
+    page_start: 167
+    page_end: 215
+    chapter_title_block_idx: 2308
+    problems_block_idx: 2998
+    next_chapter_block_idx: 3113
+  - num: 6
+    title: Basic methods and results of statistical mechanics
+    page_start: 216
+    page_end: 251
+    chapter_title_block_idx: 3113
+    problems_block_idx: 3635
+    next_chapter_block_idx: 3704
+  - num: 7
+    title: Simple applications of statistical mechanics
+    page_start: 252
+    page_end: 302
+    chapter_title_block_idx: 3704
+    problems_block_idx: 4389
+    next_chapter_block_idx: 4464
+  - num: 8
+    title: Equilibrium between phases or chemical species
+    page_start: 303
+    page_end: 345
+    chapter_title_block_idx: 4464
+    problems_block_idx: 5114
+    next_chapter_block_idx: 5168
+  - num: 9
+    title: Quantum statistics of ideal gases
+    page_start: 346
+    page_end: 418
+    chapter_title_block_idx: 5168
+    problems_block_idx: 6291
+    next_chapter_block_idx: 6377
+  - num: 10
+    title: Systems of interacting particles
+    page_start: 419
+    page_end: 452
+    chapter_title_block_idx: 6377
+    problems_block_idx: 6817
+    next_chapter_block_idx: 6845
+  - num: 11
+    title: Magnetism and low temperatures
+    page_start: 453
+    page_end: 475
+    chapter_title_block_idx: 6845
+    problems_block_idx: 7121
+    next_chapter_block_idx: 7141
+  - num: 12
+    title: Elementary kinetic theory of transport processes
+    page_start: 476
+    page_end: 508
+    chapter_title_block_idx: 7141
+    problems_block_idx: 7583
+    next_chapter_block_idx: 7619
+  - num: 13
+    title: Transport theory using the relaxation-time approximation
+    page_start: 509
+    page_end: 530
+    chapter_title_block_idx: 7619
+    problems_block_idx: 7938
+    next_chapter_block_idx: 7977
+  - num: 14
+    title: Near-exact formulation of transport theory
+    page_start: 531
+    page_end: 562
+    chapter_title_block_idx: 7977
+    problems_block_idx: 8501
+    next_chapter_block_idx: 8533
+  - num: 15
+    title: Irreversible processes and fluctuations
+    page_start: 563
+    page_end: 619
+    chapter_title_block_idx: 8533
+    problems_block_idx: 9380
+    next_chapter_block_idx: 9418
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Appendices
+    page_start: 620
+    chapter_title_block_idx: 9418
+
+# ── heading regex ──
+# body 內 section 為 "N·M Title"（middle-dot U+00B7，部分用 '.'，可帶前綴 \* 與內部空白），
+# 例：'1·1 Elementary...'、'\*1·10 Calculation...'、'\*1 · 11 Probability...'、'7.9 Maxwell...'。
+# 強制 title 非空（\s+(.+)$）→ 不會吞純編號頁眉。subsection 為三段 'N·M·K'（本書 body 無，
+# 但 appendix/equation 用三段；保留模式以防）。
+section_re: '^\\?\*?\s*(\d+\s*[·.]\s*\d+)\s+(.+)$'
+subsection_re: '^\\?\*?\s*(\d+\s*[·.]\s*\d+\s*[·.]\s*\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 題目行首為 'N.M ...'（period，lvl=None），例 '1.1 What is...'、'4.1 (a) One kilogram...'。
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+# 全 equation 以 '$$\n' 開頭 '\n$$' 結尾 → strip true。
+# \tag 內為 middle-dot 多段（'1·2·1'）或包 '$...$'（'$1\cdot2\cdot5$'）或純整數；
+# 用通吃 1-group capture 抓 tag 內容。
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+# ── example ──
+# 內文無獨立 "Example N" 段落（僅一處 "Examples of thermometers" 為小標，非題型）→ null
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

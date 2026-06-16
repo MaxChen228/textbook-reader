@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "peskin-fix-ref-12.13-to-21.13",
+      "action": "replace_text",
+      "chunk": "ch21",
+      "selector": "body[418]",
+      "field": "md",
+      "old": "shown in Fig. 12.13. The diagrams are built from",
+      "new": "shown in Fig. 21.13. The diagrams are built from",
+      "reason": "書本勘誤：raw PDF 物理頁 789 原文印『Fig. 12.13』，但全書無 Figure 12.13（ch12 只到 12.5），且緊鄰物理頁 790 即 Figure 21.13『Elementary vacuum polarization amplitudes of fermionic currents』，內容與正文『two vacuum polarization amplitudes... two fermion propagators』完全吻合。正文 ref 是原書 typo，目標就是 fig-21.13；改正文編號使 ref 解析到既存圖（真修，非分類逃避）。"
+    }
+  ]
+}

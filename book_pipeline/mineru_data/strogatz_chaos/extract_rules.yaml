@@ -1,0 +1,160 @@
+# ── 書本 metadata ──
+slug: strogatz_chaos
+title: Nonlinear Dynamics and Chaos
+author: Steven H. Strogatz
+edition: 3rd
+subject: Differential Equations
+publisher: CRC Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [page_number, header, footer, aside_text, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15
+appendices_start_page: 553
+bibliography_start_page: 565
+index_start_page: 585
+
+# ── inline-problem 模式 ──
+# 全本 inline（所有 ch.problems_block_idx=null）。原因：MinerU 把本書所有 section /
+# Example / 'EXERCISES FOR CHAPTER N' heading 都輸出成 text_level=2，parser detect_heading
+# 只認 lvl=1 → 二分模式靠不到 Problems heading 切點，且二分的「題號末段遞增守則」會把
+# Strogatz 每節重置的 N.M.K 題號（2.1.5→2.2.1→2.3.1…）誤判回退而大量丟題。
+# inline walker 對 N.M.K 三段題號 int(raw_num) 拋 ValueError → 跳過遞增守則 → 完整收題。
+# 題號自帶節 namespace（N.M.K），故 problem_num_namespace_by_section 維持 false。
+inline_problems: true
+
+# ── 章節 ──
+# chapter_title_block_idx = 該章 'N.0' intro 區段的前一塊（章標題塊或填充塊），
+#   parser body_start = title_idx+1 = N.0 區段，正文從 N.0 起算。
+# problems_block_idx 全 null（inline 模式）。
+chapters:
+  - num: 1
+    title: Overview
+    page_start: 15
+    page_end: 28
+    chapter_title_block_idx: 189
+    problems_block_idx: null
+    next_chapter_block_idx: 300
+  - num: 2
+    title: Flows on the Line
+    page_start: 29
+    page_end: 64
+    chapter_title_block_idx: 300
+    problems_block_idx: null
+    next_chapter_block_idx: 730
+  - num: 3
+    title: Bifurcations
+    page_start: 65
+    page_end: 120
+    chapter_title_block_idx: 730
+    problems_block_idx: null
+    next_chapter_block_idx: 1417
+  - num: 4
+    title: Flows on the Circle
+    page_start: 121
+    page_end: 150
+    chapter_title_block_idx: 1417
+    problems_block_idx: null
+    next_chapter_block_idx: 1797
+  - num: 5
+    title: Linear Systems
+    page_start: 151
+    page_end: 174
+    chapter_title_block_idx: 1797
+    problems_block_idx: null
+    next_chapter_block_idx: 2128
+  - num: 6
+    title: Phase Plane
+    page_start: 175
+    page_end: 232
+    chapter_title_block_idx: 2128
+    problems_block_idx: null
+    next_chapter_block_idx: 2907
+  - num: 7
+    title: Limit Cycles
+    page_start: 233
+    page_end: 280
+    chapter_title_block_idx: 2907
+    problems_block_idx: null
+    next_chapter_block_idx: 3615
+  - num: 8
+    title: Bifurcations Revisited
+    page_start: 281
+    page_end: 350
+    chapter_title_block_idx: 3615
+    problems_block_idx: null
+    next_chapter_block_idx: 4491
+  - num: 9
+    title: Lorenz Equations
+    page_start: 351
+    page_end: 398
+    chapter_title_block_idx: 4491
+    problems_block_idx: null
+    next_chapter_block_idx: 5089
+  - num: 10
+    title: One-Dimensional Maps
+    page_start: 399
+    page_end: 448
+    chapter_title_block_idx: 5089
+    problems_block_idx: null
+    next_chapter_block_idx: 5691
+  - num: 11
+    title: Fractals
+    page_start: 449
+    page_end: 474
+    chapter_title_block_idx: 5691
+    problems_block_idx: null
+    next_chapter_block_idx: 6004
+  - num: 12
+    title: Strange Attractors
+    page_start: 475
+    page_end: 510
+    chapter_title_block_idx: 6004
+    problems_block_idx: null
+    next_chapter_block_idx: 6376
+  - num: 13
+    title: Kuramoto Model
+    page_start: 511
+    page_end: 552
+    chapter_title_block_idx: 6376
+    problems_block_idx: null
+    next_chapter_block_idx: 7002
+
+# ── 附錄 ──
+# 本書無 Appendix；back-matter 為 Answers / References / Index（非附錄）。
+appendices: []
+
+# ── heading regex ──
+# 章節為 'N.M Title'（N.M 後強制非空 title）；subsection 為 'N.M.K Title' 或具名 Title-Case 短句。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 習題編號 'N.M.K'（如 2.5.1）；首段 N == 章號 → must_match true。
+problem_start_re: '^(\d+\.\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+# MinerU \tag{...} 內僅保留節內流水（int 或 int+letter，如 1 / 8a），非印本的 N.M.K。
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+# 'Example N.M.K:' 標題。
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\s*:'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

@@ -1,0 +1,153 @@
+# ── 書本 metadata ──
+slug: oppenheim_signals
+title: Signals and Systems
+author: Alan V. Oppenheim; Alan S. Willsky; Ian T. Young
+edition: null
+subject: Signal Processing
+publisher: Prentice-Hall
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 9
+appendices_start_page: 386
+bibliography_start_page: 391
+index_start_page: 394
+
+# ── inline-problem 模式 ──
+# 全本二分：每章章末有獨立 "PROBLEMS" heading（ALL CAPS, text_level=2）。
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 8
+    page_end: 12
+    chapter_title_block_idx: 132
+    problems_block_idx: null      # 簡短導論章，無題
+    next_chapter_block_idx: 161
+  - num: 2
+    title: Signals and Systems
+    page_start: 12
+    page_end: 42
+    chapter_title_block_idx: 161
+    chapter_title_block_idx_secondary: 162
+    problems_block_idx: 606
+    next_chapter_block_idx: 1075
+  - num: 3
+    title: Linear Time-Invariant Systems
+    page_start: 43
+    page_end: 88
+    chapter_title_block_idx: 1075
+    problems_block_idx: 1868
+    next_chapter_block_idx: 2649
+  - num: 4
+    title: Fourier Analysis for Continuous-Time Signals and Systems
+    page_start: 89
+    page_end: 152
+    chapter_title_block_idx: 2649
+    chapter_title_block_idx_secondary: 2650
+    problems_block_idx: 3911
+    next_chapter_block_idx: 4559
+  - num: 5
+    title: Fourier Analysis for Discrete-Time Signals and Systems
+    page_start: 153
+    page_end: 205
+    chapter_title_block_idx: 4559
+    problems_block_idx: 5492
+    next_chapter_block_idx: 6104
+  - num: 6
+    title: Filtering
+    page_start: 205
+    page_end: 226
+    chapter_title_block_idx: 6104
+    problems_block_idx: 6898
+    next_chapter_block_idx: 7038
+  - num: 7
+    title: Modulation
+    page_start: 226
+    page_end: 258
+    chapter_title_block_idx: 7038
+    problems_block_idx: 7414
+    next_chapter_block_idx: 7677
+  - num: 8
+    title: Sampling
+    page_start: 258
+    page_end: 288
+    chapter_title_block_idx: 7677
+    problems_block_idx: 8096
+    next_chapter_block_idx: 8349
+  - num: 9
+    title: The Laplace Transform
+    page_start: 288
+    page_end: 314
+    chapter_title_block_idx: 8349
+    problems_block_idx: 9015
+    next_chapter_block_idx: 9470
+  - num: 10
+    title: The z-Transform
+    page_start: 314
+    page_end: 342
+    chapter_title_block_idx: 9470
+    problems_block_idx: 10165
+    next_chapter_block_idx: 10494
+  - num: 11
+    title: Linear Feedback Systems
+    page_start: 342
+    page_end: 385
+    chapter_title_block_idx: 10494
+    problems_block_idx: 11145
+    next_chapter_block_idx: 11697
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Partial Fraction Expansion
+    page_start: 386
+    chapter_title_block_idx: 11697
+
+# ── heading regex ──
+# 編號型 N.M：section 全大寫標題（'2.5 SYSTEMS'）、subsection Title Case（'2.6.1 ...'）。
+# section_re 後段強制至少 1 個 non-whitespace title 字元（不允許空 title）。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+# 題號型 'N.M. '（trailing dot），如 '3.1.'、'11.2.'。1 capture group。
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+# \tag {2.1a} / \tag {2.10} 型（label 含可選 trailing 字母）。MinerU $$...$$ 包殼。
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+# 'Example 3.1' 型 text_level=2 標題。
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+# ── figure ──
+# 試開 figure_caption_merge 反而讓 unresolved refs/empty captions 變多（24→50, 323→355），
+# 故保持 false；殘留 H6/H7 是 OCR 漏抓圖檔/caption 的資料品質問題，非 audit yaml 可修。
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

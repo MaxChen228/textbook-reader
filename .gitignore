@@ -23,11 +23,13 @@ raw_pdfs/
 
 # Log 與 runtime 狀態
 *.log
+*.lock
 book_pipeline/reports/
 book_pipeline/.tick.lock
 book_pipeline/_pending_batches.json
 book_pipeline/mineru_budget.json
 book_pipeline/pipeline_state.json
+book_pipeline/crawl_manifest.json
 
 # mineru_data：git 只追蹤「貴重成果」(parsed/*.zh.json + extract_rules.yaml + cover.jpg)，
 # 機器產物（unified 書頁圖+OCR、chunks/raw/batches、parsed/*.json）一律不入 git，改 rsync/Drive 備份。

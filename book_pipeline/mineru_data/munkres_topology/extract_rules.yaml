@@ -1,0 +1,157 @@
+slug: munkres_topology
+title: Topology
+author: James R. Munkres
+edition: 2nd
+subject: Topology
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 4
+appendices_start_page: 502
+bibliography_start_page: 502
+index_start_page: 504
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Set Theory and Logic
+    page_start: 4
+    page_end: 75
+    chapter_title_block_idx: 30
+    chapter_title_block_idx_secondary: 31
+    problems_block_idx: null
+    next_chapter_block_idx: 1331
+  - num: 2
+    title: Topological Spaces and Continuous Functions
+    page_start: 76
+    page_end: 147
+    chapter_title_block_idx: 1331
+    chapter_title_block_idx_secondary: 1332
+    problems_block_idx: null
+    next_chapter_block_idx: 2634
+  - num: 3
+    title: Connectedness and Compactness
+    page_start: 148
+    page_end: 189
+    chapter_title_block_idx: 2634
+    chapter_title_block_idx_secondary: 2635
+    problems_block_idx: null
+    next_chapter_block_idx: 3347
+  - num: 4
+    title: Countability and Separation Axioms
+    page_start: 190
+    page_end: 230
+    chapter_title_block_idx: 3347
+    chapter_title_block_idx_secondary: 3348
+    problems_block_idx: null
+    next_chapter_block_idx: 4012
+  - num: 5
+    title: The Tychonoff Theorem
+    page_start: 231
+    page_end: 243
+    chapter_title_block_idx: 4012
+    chapter_title_block_idx_secondary: 4013
+    problems_block_idx: null
+    next_chapter_block_idx: 4222
+  - num: 6
+    title: Metrization Theorems and Paracompactness
+    page_start: 244
+    page_end: 263
+    chapter_title_block_idx: 4222
+    chapter_title_block_idx_secondary: 4223
+    problems_block_idx: null
+    next_chapter_block_idx: 4550
+  - num: 7
+    title: Complete Metric Spaces and Function Spaces
+    page_start: 264
+    page_end: 294
+    chapter_title_block_idx: 4550
+    chapter_title_block_idx_secondary: 4551
+    problems_block_idx: null
+    next_chapter_block_idx: 5094
+  - num: 8
+    title: Baire Spaces and Dimension Theory
+    page_start: 295
+    page_end: 319
+    chapter_title_block_idx: 5094
+    chapter_title_block_idx_secondary: 5095
+    problems_block_idx: null
+    next_chapter_block_idx: 5521
+  - num: 9
+    title: The Fundamental Group
+    page_start: 320
+    page_end: 374
+    chapter_title_block_idx: 5521
+    chapter_title_block_idx_secondary: 5522
+    problems_block_idx: null
+    next_chapter_block_idx: 6404
+  - num: 10
+    title: Separation Theorems in the Plane
+    page_start: 375
+    page_end: 405
+    chapter_title_block_idx: 6404
+    chapter_title_block_idx_secondary: 6405
+    problems_block_idx: null
+    next_chapter_block_idx: 6836
+  - num: 11
+    title: The Seifert-van Kampen Theorem
+    page_start: 406
+    page_end: 445
+    chapter_title_block_idx: 6836
+    chapter_title_block_idx_secondary: 6837
+    problems_block_idx: null
+    next_chapter_block_idx: 7500
+  - num: 12
+    title: Classification of Surfaces
+    page_start: 471
+    page_end: 501
+    chapter_title_block_idx: 7872
+    chapter_title_block_idx_secondary: 7873
+    problems_block_idx: null
+    next_chapter_block_idx: 8325
+  - num: 13
+    title: Classification of Covering Spaces
+    page_start: 446
+    page_end: 470
+    chapter_title_block_idx: 7500
+    chapter_title_block_idx_secondary: 7501
+    problems_block_idx: null
+    next_chapter_block_idx: 7872
+
+appendices: []
+
+# Munkres：chapter title=text_level 1、§-section heading=text_level 2。
+# parser detect_heading 預設只認 lvl 1，故指定 2 才能偵測 §-section 並驅動 namespace。
+heading_text_level: 2
+# section_re 兩支 alternation（共用 2 group: id, title）：
+#   (a) §-section「§ N Title」→ id=N（純數字；(?!\.) 排除被 OCR 誤標 lvl2 的「N. 題目」）
+#   (b) 章末「∗Supplementary Exercises: Topic」→ id=Supplementary（與 §N 不撞，解 namespace 重號）
+section_re: '^[∗*\s]*(?:§\s*)?(\d+(?!\.)|Supplementary)(?:\s+Exercises)?[\s:.]+(\S.*?)\s*†?\s*$'
+subsection_re: '^()([A-Z][A-Za-z][^.\n]{0,78})$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

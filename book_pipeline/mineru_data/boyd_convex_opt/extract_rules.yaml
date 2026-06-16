@@ -1,0 +1,165 @@
+# extract_rules.yaml — boyd_convex_opt
+# Stephen Boyd & Lieven Vandenberghe, Convex Optimization (Cambridge UP, 2004).
+# 由 audit-book deterministic 流程產出（§3 八步）。
+
+# ── 書本 metadata ──
+slug: boyd_convex_opt
+title: Convex Optimization
+author: Stephen Boyd; Lieven Vandenberghe
+edition: null                # 書內只標 "First published 2004"，非序數版本字串 → null
+subject: Optimization
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15
+appendices_start_page: 647
+bibliography_start_page: 699
+index_start_page: 715
+
+# ── inline-problem 模式 ──
+inline_problems: false        # 全本章末 "Exercises" 段 → 二分模式
+
+# ── 章節 ──
+# chapter_title_block_idx = "Chapter N"（text_level=1）；secondary = 章名 block（cti+1），
+# 兩者一起跳過 → body_start 落在第一個 section。問題段 anchor = 章末 "Exercises"（text_level=2）。
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 15
+    page_end: 34
+    chapter_title_block_idx: 167
+    chapter_title_block_idx_secondary: 168
+    problems_block_idx: 353       # ch1 無 Exercises；切在 Bibliography 後、Part-I divider 前 → 0 題
+    next_chapter_block_idx: 356
+  - num: 2
+    title: Convex sets
+    page_start: 35
+    page_end: 80
+    chapter_title_block_idx: 356
+    chapter_title_block_idx_secondary: 357
+    problems_block_idx: 900
+    next_chapter_block_idx: 1031
+  - num: 3
+    title: Convex functions
+    page_start: 81
+    page_end: 140
+    chapter_title_block_idx: 1031
+    chapter_title_block_idx_secondary: 1032
+    problems_block_idx: 1868
+    next_chapter_block_idx: 2129
+  - num: 4
+    title: Convex optimization problems
+    page_start: 141
+    page_end: 228
+    chapter_title_block_idx: 2129
+    chapter_title_block_idx_secondary: 2130
+    problems_block_idx: 3233
+    next_chapter_block_idx: 3802
+  - num: 5
+    title: Duality
+    page_start: 229
+    page_end: 304
+    chapter_title_block_idx: 3802
+    chapter_title_block_idx_secondary: 3803
+    problems_block_idx: 4876
+    next_chapter_block_idx: 5265
+  - num: 6
+    title: Approximation and fitting
+    page_start: 305
+    page_end: 364
+    chapter_title_block_idx: 5265
+    chapter_title_block_idx_secondary: 5266
+    problems_block_idx: 5999
+    next_chapter_block_idx: 6141
+  - num: 7
+    title: Statistical estimation
+    page_start: 365
+    page_end: 410
+    chapter_title_block_idx: 6141
+    chapter_title_block_idx_secondary: 6142
+    problems_block_idx: 6856
+    next_chapter_block_idx: 6941
+  - num: 8
+    title: Geometric problems
+    page_start: 411
+    page_end: 470
+    chapter_title_block_idx: 6941
+    chapter_title_block_idx_secondary: 6942
+    problems_block_idx: 7735
+    next_chapter_block_idx: 7909
+  - num: 9
+    title: Unconstrained minimization
+    page_start: 471
+    page_end: 534
+    chapter_title_block_idx: 7909
+    chapter_title_block_idx_secondary: 7910
+    problems_block_idx: 8805
+    next_chapter_block_idx: 8962
+  - num: 10
+    title: Equality constrained minimization
+    page_start: 535
+    page_end: 574
+    chapter_title_block_idx: 8962
+    chapter_title_block_idx_secondary: 8963
+    problems_block_idx: 9550
+    next_chapter_block_idx: 9622
+  - num: 11
+    title: Interior-point methods
+    page_start: 575
+    page_end: 646
+    chapter_title_block_idx: 9622
+    chapter_title_block_idx_secondary: 9623
+    problems_block_idx: 10584
+    next_chapter_block_idx: 10760
+
+# ── 附錄 ──
+# chapter_title_block_idx = 附錄標題 block（跳過 "Appendix X" 那行）。
+appendices:
+  - id: A
+    title: Mathematical background
+    page_start: 647
+    chapter_title_block_idx: 10761
+  - id: B
+    title: Problems involving two quadratic functions
+    page_start: 667
+    chapter_title_block_idx: 11145
+  - id: C
+    title: Numerical linear algebra background
+    page_start: 675
+    chapter_title_block_idx: 11256
+
+# ── heading regex ──
+# body section/subsection 為 N.M / N.M.K 編號型。注意本書 MinerU 把它們標成
+# text_level=2（非 1），parser detect_heading 只認 lvl==1 → 實際 body 不會切出
+# section/subsection block（降級為段落）。regex 仍依觀察填正確（見 _audit.md ⚠H）。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Exercises 題號 "2.9 Voronoi...", "2.1 Let ..."（含早段塞在 list_items 的 2.1–2.8）。
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true        # 題號首段 = 章號（N.M → split('.')[0]==N）
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example ──
+example_start_re: null          # 本書無 "Example N.M" heading 段落（範例內嵌正文）
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

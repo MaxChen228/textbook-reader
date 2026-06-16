@@ -246,18 +246,25 @@ def block_to_struct(b: dict, label_re: re.Pattern,
 
 def detect_heading(text: str, lvl: int | None,
                    section_re: re.Pattern, subsection_re: re.Pattern,
-                   example_re: re.Pattern | None) -> dict | None:
-    """檢查 text 是否為 section/subsection/example heading。回 None 表非 heading。"""
-    if lvl != 1:
+                   example_re: re.Pattern | None,
+                   heading_level: int | list[int] = 1) -> dict | None:
+    """檢查 text 是否為 section/subsection/example heading。回 None 表非 heading。
+    heading_level：MinerU 把 section heading 標成哪個 text_level（預設 1）。可給 int
+    或 list[int]——OCR level 不一致時（Dummit&Foote 多數 section lvl2、少數 straggler lvl1）
+    設 [1, 2] 兩級都收。Munkres 這類 chapter=lvl1、§-section=lvl2 的書設 2。"""
+    levels = heading_level if isinstance(heading_level, (list, tuple, set, frozenset)) else (heading_level,)
+    if lvl not in levels:
         return None
     t = text.strip()
+    # section id 去內部空白：救低品質 OCR 把 section 編號拆字（Dummit&Foote `1 0.1`→`10.1`、
+    # `1 .1`→`1.1`）。clean 書本 id 無空白 → no-op，對其他書無影響。
     # subsection 優先（1.1.1）才不會被 section regex 吞掉
     m = subsection_re.match(t)
     if m:
-        return {'t': 'subsection', 'id': m.group(1), 'title': m.group(2).strip()}
+        return {'t': 'subsection', 'id': re.sub(r'\s+', '', m.group(1)), 'title': m.group(2).strip()}
     m = section_re.match(t)
     if m:
-        return {'t': 'section', 'id': m.group(1), 'title': m.group(2).strip()}
+        return {'t': 'section', 'id': re.sub(r'\s+', '', m.group(1)), 'title': m.group(2).strip()}
     if example_re:
         m = example_re.match(t)
         if m:
@@ -276,6 +283,7 @@ def build_body(blocks: list[dict], rules: dict, label_re: re.Pattern,
     暫不做子樹包覆（schema 是 flat array，example 後面的 block 直到下個 heading 都屬於該 example）。"""
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
+    heading_level = rules.get('heading_text_level', 1)
 
     out: list[dict] = []
     pending_fig_subcaption: str | None = None   # for figure_caption_merge
@@ -287,7 +295,7 @@ def build_body(blocks: list[dict], rules: dict, label_re: re.Pattern,
 
         # heading
         if t == 'text':
-            h = detect_heading(text, lvl, section_re, subsection_re, example_re)
+            h = detect_heading(text, lvl, section_re, subsection_re, example_re, heading_level)
             if h:
                 out.append(h)
                 continue
@@ -359,6 +367,7 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
     章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
+    heading_level = rules.get('heading_text_level', 1)
 
     problems: list[dict] = []
     current: dict | None = None
@@ -369,8 +378,8 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
         t = b.get('type')
         text = (b.get('text') or '').strip()
 
-        # problems-end terminator（最高優先）：lvl=1 text 命中 → close current 並停止整個 problems 區
-        if (problems_end_re is not None and b.get('text_level') == 1 and t == 'text'
+        # problems-end terminator（最高優先）：heading-lvl text 命中 → close current 並停止整個 problems 區
+        if (problems_end_re is not None and b.get('text_level') == heading_level and t == 'text'
                 and problems_end_re.match(text)):
             if current:
                 problems.append(current)
@@ -379,13 +388,13 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
             break
 
         # solution-start：題目開啟中遇 solution heading → 後續收進 current['solution']（heading 丟棄）
-        if (solution_start_re is not None and current is not None and b.get('text_level') == 1
+        if (solution_start_re is not None and current is not None and b.get('text_level') == heading_level
                 and t == 'text' and solution_start_re.match(text)):
             in_solution = True
             continue
 
-        # heading-terminator：lvl=1 text 命中 section/subsection regex → close current
-        if (current is not None and b.get('text_level') == 1 and t == 'text'
+        # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
+        if (current is not None and b.get('text_level') == heading_level and t == 'text'
                 and ((section_re and section_re.match(text))
                      or (subsection_re and subsection_re.match(text)))):
             problems.append(current)
@@ -490,6 +499,7 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     """
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
+    heading_level = rules.get('heading_text_level', 1)
 
     body: list[dict] = []
     problems: list[dict] = []
@@ -505,7 +515,7 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
         lvl = b.get('text_level')
 
         # problems-end terminator（最高優先）：close current，其後不再開新題（heading/內容歸 body）
-        if (not problems_ended and problems_end_re is not None and lvl == 1 and t == 'text'
+        if (not problems_ended and problems_end_re is not None and lvl == heading_level and t == 'text'
                 and problems_end_re.match(text)):
             if current:
                 problems.append(current)
@@ -514,14 +524,14 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
             problems_ended = True
 
         # solution-start：題目開啟中遇 solution heading → 後續收進 current['solution']（heading 本身丟棄）
-        if (solution_start_re is not None and current is not None and lvl == 1 and t == 'text'
+        if (solution_start_re is not None and current is not None and lvl == heading_level and t == 'text'
                 and solution_start_re.match(text)):
             in_solution = True
             continue
 
         # heading：close 當前題目，heading 一定屬 chapter body
         if t == 'text':
-            h = detect_heading(text, lvl, section_re, subsection_re, example_re)
+            h = detect_heading(text, lvl, section_re, subsection_re, example_re, heading_level)
             if h:
                 if current:
                     problems.append(current)

@@ -6,6 +6,16 @@
       "action": "copy_solution_images",
       "from_slug": "griffiths_qm3_sol",
       "reason": "Merged solution figure blocks reference image hashes from the solution book ingest; copy those immutable image assets into the main book image directory so reader/catalog anchors resolve."
+    },
+    {
+      "id": "fix-table-4.2-caption-stray-b-prefix",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[72]",
+      "field": "caption",
+      "old": "(b) Table 4.2",
+      "new": "Table 4.2",
+      "reason": "ch04 body[72] 是 Table 4.2（associated Legendre functions P_l^m 的 functional form/graphs，以圖呈現）的圖塊，但 MinerU 把鄰圖殘留的子圖標記『(b) 』OCR 進 caption 開頭，使 build_catalogs._caption_labels 的 leading-anchor 檢查失敗 → 既不產生語義 id（C7 unresolved visual），也不註冊 tbl-4.2（C5 正文 Table 4.2 ref 無覆蓋）。去掉雜訊前綴後 caption 以『Table 4.2:』開頭，_caption_labels 抓到 → entry 自動 id=tbl-4.2、type=table，C5/C7 同時消。"
     }
   ]
 }

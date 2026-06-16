@@ -50,13 +50,21 @@ def _select_list_and_index(data: dict[str, Any], selector: str) -> tuple[list[di
     if selector.startswith('problem:'):
         prefix, rest = selector.removeprefix('problem:').rsplit(':', 1)
         problem_num = prefix
+        # 可選 occurrence 限定 `#OCC`（消歧重複 num）；無 `#` → occ=0＝取第一個 match（舊格式相容）。
+        occ = 0
+        if '#' in problem_num:
+            problem_num, occ_raw = problem_num.rsplit('#', 1)
+            occ = int(occ_raw)
         field, raw_idx = rest.split('[', 1)
         idx = int(raw_idx[:-1])
+        seen = 0
         for prob in data.get('problems') or []:
             if str(prob.get('num')) == problem_num:
-                blocks = prob.get(field) or []
-                return blocks, idx
-        raise LookupError(f'problem not found: {problem_num}')
+                if seen == occ:
+                    blocks = prob.get(field) or []
+                    return blocks, idx
+                seen += 1
+        raise LookupError(f'problem not found: {problem_num}#{occ}')
     raise ValueError(f'unsupported selector: {selector}')
 
 

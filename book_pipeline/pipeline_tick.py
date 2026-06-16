@@ -24,12 +24,15 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
 import fcntl
 import json
 import os
 import shlex
 import subprocess
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
@@ -46,6 +49,13 @@ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 # audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
 # 正常 audit ~25min；40min 留足餘裕，只在真卡死時觸發。可用 env 覆寫。
 LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '2400'))
+# ingest async upload 的並行度：upload 是 IO bound（切片+PUT MinerU，~8min/本），多本
+# 並行打滿上傳頻寬。manifest RMW 由 mineru_ingest 的 fcntl 鎖保護，並行安全。
+INGEST_PARALLEL = int(os.environ.get('BOOK_PIPELINE_INGEST_PARALLEL', '4'))
+# LLM 階段（audit/qc/sol_extract）並行度：各書 LLM 任務獨立無依賴 → 全並行。預設 0=不限
+# （= 本輪待推進書數，全部同時跑）。經驗上 Claude 並發數 + 本機 RAM 都撞不到瓶頸
+# （Max 限制是 token rolling window 非並發數）；真要壓低（debug）才設 env >0。
+LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -62,35 +72,53 @@ LLM_PROMPTS = {
         "extract_rules.yaml → parser → smoke iterate。"),
     'sol_extract': (
         "對主書 slug={slug} 執行 audit-sol 流程（references/audit-sol.md）merge 解答書。"),
+    'catalog_audit': (
+        "對 slug={slug} 執行 catalog 修復流程，**嚴格遵照 references/catalog-audit.md** "
+        "（含各 critical 類別的查證與修法、override action 語意、陷阱）：跑 audit_catalog 看殘留 "
+        "→ 產 book_pipeline/catalog_overrides/{slug}.json → apply_catalog_overrides → 重審，"
+        "把 critical 降到最低（多數可全清零）。真不可修者（源頭缺）列入 _catalog_audit.md 即可收工。"),
 }
 
 
 _last_snap = 0.0
+_snap_lock = threading.Lock()
 
 
 def _refresh_snapshot() -> None:
-    """事件驅動刷新 dev 監控快照：每個 log 事件順手重生 dev/status.json，
-    節流 ~8s 避免一個 tick 內暴衝（per-book audit 有成本）。best-effort，絕不拖垮 tick。"""
+    """事件驅動刷新 dev 監控快照：每個 log 事件順手重生 dev/status.json，節流 ~8s。
+    **絕不在 _log_lock 內呼叫**：build_snapshot 重（評估全書 + 讀 pending/state）且會碰
+    其他鎖 → 若持 _log_lock 跑它，會與『持他鎖又要 log』的 thread 反轉死鎖（並行下必現）。
+    自帶 non-blocking _snap_lock：已有 thread 在刷就跳過，避免 N thread 同時 build_snapshot。"""
     global _last_snap
     import time
     now = time.monotonic()
     if now - _last_snap < 8:
         return
-    _last_snap = now
+    if not _snap_lock.acquire(blocking=False):
+        return  # 別的 thread 正在刷 → 跳過本次（best-effort）
     try:
+        _last_snap = now
         from book_pipeline.devctl import write_snapshot
         write_snapshot()
     except Exception:
         pass
+    finally:
+        _snap_lock.release()
+
+
+_log_lock = threading.Lock()
 
 
 def log(msg: str) -> None:
     ts = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     line = f'[{ts}] {msg}'
-    print(line)
-    os.makedirs(os.path.dirname(LOG), exist_ok=True)
-    with open(LOG, 'a') as f:
-        f.write(line + '\n')
+    # _log_lock 只守 print + 寫檔（真正的共享 mutation，廉價、不碰他鎖）。snapshot 刷新
+    # 移到鎖外：它重且碰他鎖，留在鎖內會死鎖（見 _refresh_snapshot docstring）。
+    with _log_lock:
+        print(line)
+        os.makedirs(os.path.dirname(LOG), exist_ok=True)
+        with open(LOG, 'a') as f:
+            f.write(line + '\n')
     _refresh_snapshot()
 
 
@@ -148,10 +176,54 @@ def _llm_env() -> dict | None:
     return env
 
 
+# Claude Max 5 小時滾動窗（非週額度）撞頂時 claude -p 會吐這些字串、秒退。撞到後本 tick
+# 內其餘 LLM 派工一律 defer（不再空轉 25s/本 + 假「停滯」log）；下個 tick clear 重試。
+_llm_exhausted = threading.Event()
+SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
+
+
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
+    """派 headless claude 跑 LLM 階段。回 rc；-2 = 撞 Claude 5h session 限額 → 呼叫端 defer。
+    偵測：捕捉合併輸出（仍即時印出）→ 命中 SESSION_LIMIT_MARKERS 即設 _llm_exhausted。"""
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
     cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT]
-    return _run(cmd, cwd=ROOT, dry=dry, env=_llm_env(), timeout=LLM_TIMEOUT)
+    if dry:
+        log('DRY ' + ' '.join(shlex.quote(c) for c in cmd))
+        return 0
+    if _llm_exhausted.is_set():
+        log(f'defer LLM {todo_verb} {slug or ""}：本 tick 已撞 Claude session 限額，等下個 tick reset')
+        return -2
+    log('RUN ' + ' '.join(shlex.quote(c) for c in cmd))
+    import signal
+    import time
+    p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(), start_new_session=True,
+                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    captured: list[str] = []
+
+    def _pump():
+        for line in p.stdout:  # type: ignore[union-attr]
+            captured.append(line)
+            sys.stdout.write(line)
+    t = threading.Thread(target=_pump, daemon=True)
+    t.start()
+    try:
+        rc = p.wait(timeout=LLM_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        log(f'⏱ TIMEOUT {LLM_TIMEOUT}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
+        try:
+            os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+            time.sleep(5)
+            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+        return -1
+    t.join(timeout=5)
+    out = ''.join(captured).lower()
+    if any(m in out for m in SESSION_LIMIT_MARKERS):
+        _llm_exhausted.set()
+        log(f'❌ Claude 5h session 限額已滿（{todo_verb} {slug or ""}）→ 本 tick 餘 LLM 全 defer，下個 tick reset 後重試')
+        return -2
+    return rc
 
 
 def _wishlist_pending() -> list:
@@ -236,14 +308,15 @@ def do_submit(slug: str, dry: bool) -> int:
     """async 提交一本待 ingest 書到 MinerU（切+傳，**不等 OCR**）。進 in-flight，OCR
     並行於雲端排隊跑，由 do_harvest 收割。MinerU 無每日硬上限（超高優先配額僅降速），
     故不闸门、一律提交（pick_account 只做帳號負載均衡）。"""
-    if slug in mb.in_flight():
-        return 0  # 已提交，等 harvest
+    if slug in mb.occupied():
+        return 0  # 上傳中/就緒，等 harvest，不重提
     pages = mb.estimate_pages(slug) or 200
     acct = mb.pick_account(pages)
-    log(f'ingest submit {slug}：{pages} 頁 → 帳號{mb._account_num(acct)}（async，不等 OCR）')
+    log(f'ingest submit {slug}：{pages} 頁 → 帳號{mb._account_num(acct)}（detached upload，不等）')
     if dry:
         return 0
     mb.record_start(slug, acct, pages)
+    mb.mark_submitting(slug, acct, pages)  # 先佔位防空窗重提
     return mb.submit_ingest(slug, acct)
 
 
@@ -280,10 +353,17 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     # build-only：烤出本地 data/<slug> + img/<slug>，nginx 直讀工作目錄即時上站（無 git/push）
     build = ['uv', 'run', 'python', '-m', 'build.build_all', slug]
     log(('DRY ' if dry else 'RUN ') + 'build_all ' + slug)
-    if not dry:
-        subprocess.run(build, cwd=READER_ROOT)
+    if dry:
+        return 0
+    rc = subprocess.run(build, cwd=READER_ROOT).returncode
+    # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 tick 重試（不誤標 done）。
+    book_json = os.path.join(READER_ROOT, 'data', slug, 'book.json')
+    if rc == 0 and os.path.isfile(book_json):
         q.mark_deployed(slug)
-    return 0
+        log(f'deploy {slug} ✓：book.json 已烤出，上站')
+    else:
+        log(f'❌ deploy {slug}：build rc={rc}，book.json={"有" if os.path.isfile(book_json) else "無"} → 不標 deployed，下個 tick 重試')
+    return rc
 
 
 def do_catalog_repair(slug: str, dry: bool) -> int:
@@ -306,7 +386,48 @@ def do_catalog_repair(slug: str, dry: bool) -> int:
     if after == 0:
         log(f'catalog_repair {slug} ✓：critical {before}→0，catalog 過關')
     else:
-        log(f'❌ catalog_repair {slug}：critical {before}→{after}，殘餘 {after} 項需 LLM/人工修')
+        log(f'catalog_repair {slug}：critical {before}→{after}（確定性已盡，殘餘交 LLM）')
+    return after  # 回殘留 critical 數（0=過關）
+
+
+def _catalog_critical(slug: str) -> int:
+    from book_pipeline.catalog_audit import audit_catalog
+    return audit_catalog(slug, write_report=False).get('critical') or 0
+
+
+def do_catalog_resolve(slug: str, dry: bool) -> int:
+    """catalog 三層收斂，保證**不 forever-stall**：
+      1) 確定性 repair 三件套（清掉大宗）。殘留 0 → 過關。
+      2) 殘留 >0 且未派過 LLM → 派 LLM catalog-audit（產 catalog_overrides：pdf_crop 救圖
+         / alias / 修 ref），apply 後重審。清 0 → 過關。
+      3) LLM 已派過仍殘留（多為 MinerU 源頭缺、無法憑空生）→ mark_catalog_accepted →
+         assess 不再 gate，書照常 deploy（殘留 surface 不阻塞）。
+    回 0=已收斂（過關或 accept，可續 deploy）/ -2=LLM 撞 session 限額（defer 下個 tick）。"""
+    residual = do_catalog_repair(slug, dry)
+    if residual == 0:
+        return 0
+    if dry:
+        log(f'DRY catalog {slug}：殘留 {residual} → 真跑時派 LLM / accept')
+        return 0
+    if q.catalog_llm_done(slug):
+        # 上個 tick 已派過 LLM、本 tick 確定性後仍殘留 → 終局 accept（不可修者）
+        q.mark_catalog_accepted(slug, residual)
+        log(f'catalog {slug}：LLM 修復後仍殘 {residual}（源頭缺不可修）→ accept，照常 deploy')
+        return 0
+    log(f'catalog {slug} → LLM 修復殘留 {residual}（產 overrides：pdf_crop/alias/修 ref）')
+    rc = dispatch_llm('catalog_audit', slug, dry)
+    if rc != 0:
+        # session 限額(-2) 或 claude 出錯/timeout → defer 重試，不 mark_llm_done、不誤 accept
+        log(f'catalog {slug}：LLM rc={rc} → defer，下個 tick 重派（不誤 accept）')
+        return -2
+    q.mark_catalog_llm_done(slug)
+    after = _catalog_critical(slug)
+    if after == 0:
+        log(f'catalog {slug} ✓：LLM 修復後 critical→0，過關')
+        return 0
+    # LLM 已盡力仍殘留 → accept（保證 deploy，不卡）
+    q.mark_catalog_accepted(slug, after)
+    log(f'catalog {slug}：LLM 後殘 {after}（不可修）→ accept，照常 deploy')
     return 0
 
 
@@ -319,7 +440,7 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     後的 advance，或下個 tick）才續 parse→…→deploy。其餘停點：deploy=終點；done／可選
     translate／triage·qc 拒（R/X）→ 收工；同一 stage 連兩步沒前進 → 停（防失敗空轉）。
     """
-    last_stage = None
+    last_key = None
     for _ in range(max_steps):
         row = q.assess_one(slug)
         stage = row.get('stage', '') or ''
@@ -328,17 +449,20 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         # 無必要 work：done／可選 translate／triage·qc 拒（R）／無源（X）
         if todo in ('—', '') or todo.endswith('(可選)') or stage.startswith(('R', 'X')):
             return
-        if stage == last_stage:
-            log(f'advance {slug} 停滯於「{stage}」（{verb} 未前進）→ 停，待人工/下個 tick')
+        # 停滯鍵用 (stage, verb)：todo 在同 stage 內推進（如 catalog_audit→deploy 皆在 3）
+        # 算前進、不誤判停滯；唯有同階段同動作連兩步沒變（修復沒清掉）才真停。
+        key = (stage, verb)
+        if key == last_key:
+            log(f'advance {slug} 停滯於「{stage}/{verb}」（未前進）→ 停，待下個 tick 重試')
             return
-        last_stage = stage
+        last_key = key
 
         if dry:
             log(f'DRY advance {slug}：下一步 {verb}（stage={stage}）')
             return
         if verb == 'ingest':
-            # async 斷點：已 in-flight → 等 harvest 收割，不重 submit；否則 async 提交後停。
-            if slug in mb.in_flight():
+            # async 斷點：已 occupied（上傳中/就緒）→ 等 harvest，不重 submit；否則 detached 提交後停。
+            if slug in mb.occupied():
                 return
             do_submit(slug, dry)
             return
@@ -348,10 +472,14 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         if verb == 'parse':
             do_parse(slug, dry)
         elif verb == 'catalog_audit':
-            do_catalog_repair(slug, dry)
+            rc = do_catalog_resolve(slug, dry)
+            if rc == -2:  # LLM 撞 session 限額 → defer 本書，下個 tick 重試
+                return
         elif row.get('llm') or verb in LLM_PROMPTS:
             log(f'advance {slug} → LLM {verb}')
-            dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
+            rc = dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
+            if rc == -2:  # Claude session 限額 → defer 本書，等下個 tick reset（非「停滯」）
+                return
         else:
             log(f'advance {slug} skip：未知確定性 todo={todo}')
             return
@@ -370,17 +498,53 @@ def _sorted_rows() -> list:
     return rows
 
 
+def _advance_parallel(slugs: list[str], dry: bool, no_deploy: bool) -> None:
+    """並行縱向推進多本書（LLM 階段獨立無依賴 → 不設人為上限：0=並發到書數，全部同時）。
+    一本炸不連坐（exception 收進 future，log ❌ 不傳播）。"""
+    if not slugs:
+        return
+    if dry:
+        for s in slugs:
+            advance_book(s, dry, no_deploy)
+        return
+    with ThreadPoolExecutor(max_workers=LLM_PARALLEL or len(slugs)) as aex:
+        futs = {aex.submit(advance_book, s, dry, no_deploy): s for s in slugs}
+        for f in cf.as_completed(futs):
+            if f.exception():
+                log(f'❌ advance {futs[f]} 異常：{f.exception()}')
+
+
+def _harvest_parallel(slugs: list[str], dry: bool) -> None:
+    """並行收割多本 in-flight（poll OCR 是 IO bound → 並發到 INGEST_PARALLEL）。"""
+    if dry or not slugs:
+        return
+    with ThreadPoolExecutor(max_workers=INGEST_PARALLEL) as hex_:
+        futs = {hex_.submit(do_harvest, s, dry): s for s in slugs}
+        for f in cf.as_completed(futs):
+            if f.exception():
+                log(f'❌ harvest {futs[f]} 異常：{f.exception()}')
+
+
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
+    _llm_exhausted.clear()  # 每 tick 重試一次 LLM（上個 tick 撞額度後可能已 reset）
 
-    # A. 收割既有 in-flight：上輪/更早 async submit 的 OCR 早已並行於雲端跑，poll 組 unified。
-    for slug in sorted(mb.in_flight()):
-        do_harvest(slug, dry)
+    # A. 收割已就緒 in-flight（uploading=False）：OCR 早已並行於雲端，並行 poll 組 unified。
+    _harvest_parallel(sorted(mb.harvestable()), dry)
 
-    # B. 每本書縱向推進：triage→qc→ingest(async submit 後停)；unified 就緒→parse→…→deploy。
-    for r in _sorted_rows():
-        advance_book(r['slug'], dry, no_deploy)
+    # B. 不同資源並行，不互堵：待ingest書 → detached 背景 upload（fire-and-forget，立刻返回、
+    #    不被慢上傳堵住整 tick）；其餘書 → 主線程同時並行縱向 advance（LLM 與 upload 真並行）。
+    rows = _sorted_rows()
+    occ = mb.occupied()
+    ingest_slugs = [r['slug'] for r in rows
+                    if r['todo'].split('(')[0] == 'ingest' and r['slug'] not in occ]
+    skip = set(ingest_slugs)
+    for s in ingest_slugs:
+        do_submit(s, dry)  # detached upload，立刻返回；早寫 manifest 防跨 tick 重提
+
+    # advance 非待ingest書：LLM 階段（audit/qc/sol_extract）各書獨立無依賴 → 並行。
+    _advance_parallel([r['slug'] for r in rows if r['slug'] not in skip], dry, no_deploy)
 
     # C. crawl 補新書：每爬一本立刻 advance（triage→qc→ingest async submit），不囤批。
     #    zlib 與 MinerU 是獨立資源池 → crawl 與 ingest 各自榨乾、互不阻塞。
@@ -392,14 +556,11 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         if dry:
             break  # dry 只示範一輪
 
-    # D. 收割本 tick 新 submit 的：OCR 並行於雲端 → 統一 poll（總等待≈最慢一本，非序列總和）。
+    # D. 再收割一輪已就緒書（剛 crawl→submit 的多半還在上傳/OCR，主要收 A 階段後翻 ready 的）。
     if not dry:
-        for slug in sorted(mb.in_flight()):
-            do_harvest(slug, dry)
-
-        # E. 對收割到 unified 的書再縱向推進（parse→audit→catalog→sol→deploy 一條龍）。
-        for r in _sorted_rows():
-            advance_book(r['slug'], dry, no_deploy)
+        _harvest_parallel(sorted(mb.harvestable()), dry)
+        # E. 對收割到 unified 的書再並行縱向推進（parse→audit→catalog→sol→deploy 一條龍）。
+        _advance_parallel([r['slug'] for r in _sorted_rows()], dry, no_deploy)
 
     log('=== tick end ===')
     return 0

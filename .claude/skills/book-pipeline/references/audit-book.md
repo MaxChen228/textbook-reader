@@ -45,6 +45,13 @@ filter_types: [<str>, ...]              # optional, default []
                                         # page_footnote, aside_text, ref_text
 ignore_image_content: <bool>            # optional, default false
 ignore_chart_content: <bool>            # optional, default false
+heading_text_level: <int>               # optional, default 1
+                                        # MinerU 把 section/subsection/Example heading 標在哪個 text_level。
+                                        # 多數書 =1；但約 1/3 書（strogatz/axler/munkres/cormen/boyd/peskin/
+                                        # ashcroft/dummit/feynman_em2/lemons/lindner/oppenheim/reif…）MinerU 把
+                                        # §-heading 全標成 lvl2 → **必須設 2**，否則 parser detect_heading 認不到
+                                        # 任何 heading，body 變 flat（章內無 section/subsection/Example 結構）。
+                                        # 判定見 §3 Step 3。預設 1，既有 lvl1 書省略即可（向後相容）。
 
 # ── 內容範圍（global 0-based PDF page_idx） ──
 body_start_page: <int>                  # required
@@ -87,6 +94,13 @@ appendices:                             # optional, list 可空
 section_re: <regex str>                 # required
 subsection_re: <regex str>             # required
 heading_priority: [subsection_re, section_re]  # required, 固定這個順序
+heading_text_level: <int>               # optional, default 1
+                                        # MinerU 把 section heading 標成哪個 text_level。
+                                        # 多數書 section=lvl1；但少數書（Munkres：chapter title=lvl1、
+                                        # §-section heading=lvl2）section 在 lvl2 → 設 2，否則 detect_heading
+                                        # 偵測不到 section（整本無 heading 結構 + inline namespace 失效）。
+                                        # 判定：跑 Step 3 看 text_level==1 是否只有 chapter title、
+                                        # 真正的 section heading 落在 text_level==2 → 設 2。
 
 # ── 題號 ──
 problem_start_re: <regex str>           # required, 必須有 1 個 capture group（題號）
@@ -159,11 +173,29 @@ type_count = Counter(b['type'] for b in blocks)
 
 `ignore_image_content` 與 `ignore_chart_content` 一律設 **true**（MinerU 的 image/chart content 是偽 mermaid 雜訊）。
 
-### Step 3 — 列出所有 `text_level == 1` block
+### Step 3 — 偵測 heading_text_level 並列出 heading-level block
+
+**先判斷 section heading 落在哪個 text_level**（MinerU 各書不一，約 1/3 書標在 lvl2，認錯 → body 全 flat）：
+
+```python
+from collections import Counter
+import re
+def secish(b):  # 像 'N.M ...' / 'NA ...'（Axler）section heading 的 block
+    return b['type'] == 'text' and bool(re.match(r'^\d+[.\dA-Z]', (b.get('text') or '').strip()))
+lvl_secish = Counter(b.get('text_level') for b in blocks if secish(b))
+HEADING_LVL = lvl_secish.most_common(1)[0][0] if lvl_secish else 1
+print('section-like heading 的 text_level 分布:', dict(lvl_secish), '→ HEADING_LVL =', HEADING_LVL)
+```
+
+- `HEADING_LVL == 1`（多數書）→ yaml 省略 `heading_text_level`（用預設 1）
+- `HEADING_LVL == 2`（strogatz/axler/munkres 等）→ yaml **必須**設 `heading_text_level: 2`，否則 parser 認不到 heading、body 全 flat
+- 注意：章標題（chapter title）可能落在**不同** level（Munkres/strogatz：章名 lvl1、§-section lvl2）。`heading_text_level` 只管 section/subsection/Example；chapter anchor（Step 4-5）仍由 `chapter_title_block_idx` 手動指定，不受此欄影響。
+
+然後用該 level 建後續工作面：
 
 ```python
 H = [(i, b['page_idx'], b.get('text', '').strip()) for i, b in enumerate(blocks)
-     if b.get('text_level') == 1 and b['type'] == 'text']
+     if b.get('text_level') == HEADING_LVL and b['type'] == 'text']
 ```
 
 把 `(idx, page_idx, text)` 印出來檢視。這份 list 是後續 step 4-7 的工作面。

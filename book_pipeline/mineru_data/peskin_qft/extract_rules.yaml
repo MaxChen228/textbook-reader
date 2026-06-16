@@ -1,0 +1,254 @@
+# Peskin & Schroeder — An Introduction to Quantum Field Theory
+# Deterministic extract rules（§3 8-step；無範例對照、無 LLM 直覺）
+
+# ── 書本 metadata ──
+slug: peskin_qft
+title: An Introduction to Quantum Field Theory
+author: Michael E. Peskin; Daniel V. Schroeder
+edition: null
+subject: Particle Physics
+publisher: Westview Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [page_number, header, footer, page_footnote, aside_text, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+body_start_page: 25
+appendices_start_page: 823
+bibliography_start_page: 833
+index_start_page: 839
+
+# ── inline-problem 模式 ──
+# 全本二分：18 章（除 1/8/14/22 無題章）各有單一章末 "Problems" heading
+inline_problems: false
+
+# ── 章節 ──
+# chapter_title_block_idx  = "Chapter N" block（level 2，每章皆有、遞增無跳號）
+# chapter_title_block_idx_secondary = 緊接其後的章名 block（parser body 起點取兩者 max+1）
+chapters:
+  - num: 1
+    title: 'Invitation: Pair Production in $e^{+}e^{-}$ Annihilation'
+    page_start: 25
+    page_end: 34
+    chapter_title_block_idx: 358
+    chapter_title_block_idx_secondary: 359
+    problems_block_idx: null
+    next_chapter_block_idx: 446
+  - num: 2
+    title: The Klein-Gordon Field
+    page_start: 35
+    page_end: 56
+    chapter_title_block_idx: 446
+    chapter_title_block_idx_secondary: 447
+    problems_block_idx: 747
+    next_chapter_block_idx: 778
+  - num: 3
+    title: The Dirac Field
+    page_start: 57
+    page_end: 98
+    chapter_title_block_idx: 778
+    chapter_title_block_idx_secondary: 779
+    problems_block_idx: 1390
+    next_chapter_block_idx: 1499
+  - num: 4
+    title: Interacting Fields and Feynman Diagrams
+    page_start: 99
+    page_end: 152
+    chapter_title_block_idx: 1499
+    chapter_title_block_idx_secondary: 1500
+    problems_block_idx: 2189
+    next_chapter_block_idx: 2262
+  - num: 5
+    title: Elementary Processes of Quantum Electrodynamics
+    page_start: 153
+    page_end: 196
+    chapter_title_block_idx: 2262
+    chapter_title_block_idx_secondary: 2263
+    problems_block_idx: 2821
+    next_chapter_block_idx: 2916
+  - num: 6
+    title: 'Radiative Corrections: Introduction'
+    page_start: 197
+    page_end: 232
+    chapter_title_block_idx: 2916
+    chapter_title_block_idx_secondary: 2917
+    problems_block_idx: 3412
+    next_chapter_block_idx: 3452
+  - num: 7
+    title: 'Radiative Corrections: Some Formal Developments'
+    page_start: 233
+    page_end: 286
+    chapter_title_block_idx: 3452
+    chapter_title_block_idx_secondary: 3453
+    problems_block_idx: 4075
+    next_chapter_block_idx: 4148
+  - num: 8
+    title: 'Invitation: Ultraviolet Cutoffs and Critical Fluctuations'
+    page_start: 287
+    page_end: 296
+    chapter_title_block_idx: 4148
+    chapter_title_block_idx_secondary: 4149
+    problems_block_idx: null
+    next_chapter_block_idx: 4249
+  - num: 9
+    title: Functional Methods
+    page_start: 297
+    page_end: 336
+    chapter_title_block_idx: 4249
+    chapter_title_block_idx_secondary: 4250
+    problems_block_idx: 4807
+    next_chapter_block_idx: 4848
+  - num: 10
+    title: Systematics of Renormalization
+    page_start: 337
+    page_end: 368
+    chapter_title_block_idx: 4848
+    chapter_title_block_idx_secondary: 4849
+    problems_block_idx: 5231
+    next_chapter_block_idx: 5257
+  - num: 11
+    title: Renormalization and Symmetry
+    page_start: 369
+    page_end: 414
+    chapter_title_block_idx: 5257
+    chapter_title_block_idx_secondary: 5258
+    problems_block_idx: 5797
+    next_chapter_block_idx: 5854
+  - num: 12
+    title: The Renormalization Group
+    page_start: 415
+    page_end: 460
+    chapter_title_block_idx: 5854
+    chapter_title_block_idx_secondary: 5855
+    problems_block_idx: 6466
+    next_chapter_block_idx: 6481
+  - num: 13
+    title: Critical Exponents and Scalar Field Theory
+    page_start: 461
+    page_end: 494
+    chapter_title_block_idx: 6481
+    chapter_title_block_idx_secondary: 6482
+    problems_block_idx: 6905
+    next_chapter_block_idx: 6968
+  - num: 14
+    title: 'Invitation: The Parton Model of Hadron Structure'
+    page_start: 495
+    page_end: 502
+    chapter_title_block_idx: 6968
+    chapter_title_block_idx_secondary: 6969
+    problems_block_idx: null
+    next_chapter_block_idx: 7038
+  - num: 15
+    title: Non-Abelian Gauge Invariance
+    page_start: 503
+    page_end: 526
+    chapter_title_block_idx: 7038
+    chapter_title_block_idx_secondary: 7039
+    problems_block_idx: 7383
+    next_chapter_block_idx: 7427
+  - num: 16
+    title: Quantization of Non-Abelian Gauge Theories
+    page_start: 527
+    page_end: 566
+    chapter_title_block_idx: 7427
+    chapter_title_block_idx_secondary: 7428
+    problems_block_idx: 7975
+    next_chapter_block_idx: 7984
+  - num: 17
+    title: Quantum Chromodynamics
+    page_start: 567
+    page_end: 620
+    chapter_title_block_idx: 7984
+    chapter_title_block_idx_secondary: 7985
+    problems_block_idx: 8590
+    next_chapter_block_idx: 8651
+  - num: 18
+    title: Operator Products and Effective Vertices
+    page_start: 621
+    page_end: 672
+    chapter_title_block_idx: 8651
+    chapter_title_block_idx_secondary: 8652
+    problems_block_idx: 9327
+    next_chapter_block_idx: 9373
+  - num: 19
+    title: Perturbation Theory Anomalies
+    page_start: 673
+    page_end: 710
+    chapter_title_block_idx: 9373
+    chapter_title_block_idx_secondary: 9374
+    problems_block_idx: 9910
+    next_chapter_block_idx: 9954
+  - num: 20
+    title: Gauge Theories with Spontaneous Symmetry Breaking
+    page_start: 711
+    page_end: 752
+    chapter_title_block_idx: 9954
+    chapter_title_block_idx_secondary: 9955
+    problems_block_idx: 10522
+    next_chapter_block_idx: 10570
+  - num: 21
+    title: Quantization of Spontaneously Broken Gauge Theories
+    page_start: 753
+    page_end: 802
+    chapter_title_block_idx: 10570
+    chapter_title_block_idx_secondary: 10571
+    problems_block_idx: 11164
+    next_chapter_block_idx: 11223
+  - num: 22
+    title: Quantum Field Theory at the Frontier
+    page_start: 803
+    page_end: 822
+    chapter_title_block_idx: 11223
+    chapter_title_block_idx_secondary: 11224
+    problems_block_idx: null
+    next_chapter_block_idx: 11408
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Reference Formulae
+    page_start: 823
+    chapter_title_block_idx: 11408
+
+# ── heading regex ──
+# Peskin section heading = "N.M Title"（如 "2.1 The Necessity..."）。
+# subsection = 無編號 Title Case（"Lagrangian Field Theory"），無 N.M.N 三層編號，
+# 故 subsection_re 用 N.M.N 佔位（語意正確；book 內無此型）。
+# 註：本書 section/subsection block 在 MinerU 標為 text_level==2，
+# parser detect_heading 僅認 text_level==1，故 body 內 heading 不觸發（退化為段落）；
+# 不影響 block 陣列有效性與 problems 切分（problem_start_re 不依賴 level）。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 題號型 "N.M"（2.1, 3.1, 11.1 …），首段=章號 → must_match=true
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+# Ch22「Frontier」綜述章無 Problems heading（pbi=null, P4 真無題），但其 section
+# 沿用全章號編碼 "22.1 …"（text_level==2 的 section heading，非習題）。validator 掃
+# pbi=null 章全範圍時會把這些 section 誤判為 problem_start 命中。Ch22 章首 text_level==1
+# 標題位於這些 section 之前，靠 problems_end_re 在 validator/parser 掃描時提早 break，
+# 排除假陽性。此 regex 只匹配 Frontier 章名，對其他章 problems 區切分零副作用。
+problems_end_re: '^Quantum Field Theory at the Frontier$'
+solution_start_re: null
+
+# ── equation ──
+# MinerU v4：equation block 以 $$\n...\n$$ 包覆 → strip_dollar=true
+# 編號以 \tag{N.M} 出現（如 \tag{4.90}）；多數公式無 inline tag
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題）──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

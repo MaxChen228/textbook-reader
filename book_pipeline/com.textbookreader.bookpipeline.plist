@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每天 08:30 台灣一次 tick）。
-  節奏=daily 對齊額度 reset（zlib/MinerU 每日 UTC 0:00 reset；08:30 台灣=UTC 00:30，reset 後）。
-  一個 daily tick 把當日額度榨乾：crawl 爬滿 zlib 10/日、ingest 打滿 MinerU、audit/catalog 全做完。
+  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每小時一次 tick）。
+  節奏=hourly：縱向連續流，每 tick harvest 已就緒 OCR + advance 各書 + 重試被擋階段。
+  為何不再 daily：Claude 5h 滾動窗 reset≠每日，audit 撞瞬時限額後若等明日 tick=浪費最多 24h；
+  hourly 讓 5h 窗阻塞當天自癒（每 tick 一次廉價探測即重試）、OCR 完成後 ~1h 內收割（非隔日）。
+  daily 額度（zlib 10/日、MinerU priority）不會超用：crawl 派工前自查 zlib 餘額、MinerU 無硬上限。
+  launchd 不並發同 Label：上個 tick 未結束（如慢上傳）則跳過本次 → 天然 backpressure。
   安裝（需使用者授權，會建立持久背景排程 + RunAtLoad 立即跑一次全鏈 tick）：
     cp book_pipeline/com.textbookreader.bookpipeline.plist ~/Library/LaunchAgents/
     launchctl load ~/Library/LaunchAgents/com.textbookreader.bookpipeline.plist
@@ -22,13 +25,8 @@
     <string>/Users/chenliangyu/project/textbook-reader/book_pipeline/daemon_run.sh</string>
   </array>
 
-  <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key>
-    <integer>8</integer>
-    <key>Minute</key>
-    <integer>30</integer>
-  </dict>
+  <key>StartInterval</key>
+  <integer>3600</integer>
 
   <key>RunAtLoad</key>
   <true/>
