@@ -37,6 +37,7 @@ from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
+from book_pipeline import worker_registry as wr
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -56,13 +57,21 @@ INGEST_PARALLEL = int(os.environ.get('BOOK_PIPELINE_INGEST_PARALLEL', '4'))
 # （= 本輪待推進書數，全部同時跑）。經驗上 Claude 並發數 + 本機 RAM 都撞不到瓶頸
 # （Max 限制是 token rolling window 非並發數）；真要壓低（debug）才設 env >0。
 LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
+# 並行 crawl 下載度：planner 選好 K 本後，K 個確定性 `crawl_zlib fetch` 並行下載（IO bound，
+# 40MB/本）。帳號由 daemon 依各帳號餘額預先指派（--account），不靠 agent 自選 → 零碰撞。
+CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
-    'crawl': (
-        "你是 book_pipeline 自動爬書 agent。讀 book_pipeline/crawl_wishlist.json 的主題與 "
-        "`crawl_zlib inventory` 的現有書況，決定一本最該補的書，`crawl_zlib search` 選版次後 "
-        "`crawl_zlib fetch` 下載。遵 .claude/skills/book-pipeline/references/crawl.md。"),
+    'crawl_plan': (
+        "你是 book_pipeline 自動爬書**規劃** agent（只選書、**不下載**）。步驟："
+        "(1) 跑 `uv run --with requests python -m book_pipeline.crawl_zlib limits` 看今日總剩餘額度 R。"
+        "(2) 讀 book_pipeline/crawl_wishlist.json 主題 + `crawl_zlib inventory` 現有書況。"
+        "(3) 挑最多 min(R, 12) 本**互異**、最該補的經典缺口；逐本 `crawl_zlib search` 選最佳版次"
+        "（最新、OCR 友善），取得每本 id 與 hash。**互異鐵則**：同一本（含不同版次）只列一次、"
+        "且不得與 inventory 已有者重複。(4) 把計畫寫成 JSON 到 book_pipeline/reports/crawl_plan.json："
+        '{{"books":[{{"slug":"..","id":"..","hash":"..","title":".."}}],"reason":".."}}，'
+        "無合格缺口則 books 空陣列、reason 說明。**絕不執行 fetch**。遵 references/crawl.md 選書規則。"),
     'qc': (
         "對 slug={slug} 跑 `pdf_contactsheet {slug}`，看產出的 PNG，判斷書是否正確/清晰/完整/"
         "可供 MinerU OCR。結論呼叫 `python -m book_pipeline.pipeline_queue` 的 set_qc："
@@ -182,48 +191,87 @@ _llm_exhausted = threading.Event()
 SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
 
 
+def _tool_label(blk: dict) -> str:
+    """tool_use block → 「工具名: 代表性參數」精簡標籤（給 /dev 工人面板）。"""
+    name = blk.get('name', 'tool')
+    inp = blk.get('input') or {}
+    for k in ('command', 'file_path', 'path', 'pattern', 'query',
+              'description', 'url', 'prompt', 'slug'):
+        v = inp.get(k)
+        if isinstance(v, str) and v.strip():
+            return f'{name}: {v.strip()}'
+    return name
+
+
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     """派 headless claude 跑 LLM 階段。回 rc；-2 = 撞 Claude 5h session 限額 → 呼叫端 defer。
-    偵測：捕捉合併輸出（仍即時印出）→ 命中 SESSION_LIMIT_MARKERS 即設 _llm_exhausted。"""
+    輸出走 stream-json：逐步 tool_use/text 事件即時餵 worker_registry（/dev 工人面板看
+    最近 5 條工具調用/發言 + 總調用數）；合併文字仍掃 SESSION_LIMIT_MARKERS 設 _llm_exhausted。"""
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
-    cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT]
+    cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
+           '--output-format', 'stream-json', '--verbose']
     if dry:
         log('DRY ' + ' '.join(shlex.quote(c) for c in cmd))
         return 0
     if _llm_exhausted.is_set():
         log(f'defer LLM {todo_verb} {slug or ""}：本 tick 已撞 Claude session 限額，等下個 tick reset')
         return -2
-    log('RUN ' + ' '.join(shlex.quote(c) for c in cmd))
+    log(f'RUN llm {todo_verb} {slug or ""}（stream-json）')
     import signal
     import time
+    provider = os.environ.get('BOOK_PIPELINE_PROVIDER', 'claude').lower()
     p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     captured: list[str] = []
+    wkey = f'{slug or todo_verb}:{p.pid}'
+    wr.register(wkey, slug, todo_verb, p.pid, provider)
 
     def _pump():
         for line in p.stdout:  # type: ignore[union-attr]
             captured.append(line)
-            sys.stdout.write(line)
+            s = line.strip()
+            if not s:
+                continue
+            try:
+                ev = json.loads(s)
+            except Exception:
+                continue
+            if ev.get('type') != 'assistant':
+                continue
+            for blk in (ev.get('message', {}).get('content') or []):
+                bt = blk.get('type')
+                if bt == 'tool_use':
+                    lbl = _tool_label(blk)
+                    wr.event(wkey, 'tool', lbl)
+                    sys.stdout.write(f'[{slug or todo_verb}] 🔧 {lbl[:160]}\n')
+                elif bt == 'text':
+                    txt = (blk.get('text') or '').strip()
+                    if txt:
+                        wr.event(wkey, 'text', txt)
+                        sys.stdout.write(f'[{slug or todo_verb}] 💬 {txt[:160]}\n')
     t = threading.Thread(target=_pump, daemon=True)
     t.start()
     try:
-        rc = p.wait(timeout=LLM_TIMEOUT)
-    except subprocess.TimeoutExpired:
-        log(f'⏱ TIMEOUT {LLM_TIMEOUT}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
         try:
-            os.killpg(os.getpgid(p.pid), signal.SIGTERM)
-            time.sleep(5)
-            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-        except (ProcessLookupError, PermissionError):
-            pass
-        return -1
-    t.join(timeout=5)
-    out = ''.join(captured).lower()
-    if any(m in out for m in SESSION_LIMIT_MARKERS):
-        _llm_exhausted.set()
-        log(f'❌ Claude 5h session 限額已滿（{todo_verb} {slug or ""}）→ 本 tick 餘 LLM 全 defer，下個 tick reset 後重試')
-        return -2
-    return rc
+            rc = p.wait(timeout=LLM_TIMEOUT)
+        except subprocess.TimeoutExpired:
+            log(f'⏱ TIMEOUT {LLM_TIMEOUT}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
+            try:
+                os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+                time.sleep(5)
+                os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+            return -1
+        t.join(timeout=5)
+        out = ''.join(captured).lower()
+        if any(m in out for m in SESSION_LIMIT_MARKERS):
+            _llm_exhausted.set()
+            log(f'❌ Claude 5h session 限額已滿（{todo_verb} {slug or ""}）→ 本 tick 餘 LLM 全 defer，下個 tick reset 後重試')
+            return -2
+        return rc
+    finally:
+        wr.unregister(wkey)
 
 
 def _wishlist_pending() -> list:
@@ -236,72 +284,108 @@ def _wishlist_pending() -> list:
         return []
 
 
-CRAWL_SENTINEL = os.path.join(BP, 'reports', 'crawl_last.json')
+CRAWL_PLAN = os.path.join(BP, 'reports', 'crawl_plan.json')
 
 
-def _zlib_remaining() -> int | None:
-    """查 z-library 今日剩餘下載額度；查不到回 None（不當成 0，避免誤判耗盡）。"""
+def _zlib_accounts_remaining() -> list[dict] | None:
+    """各帳號今日剩餘額度 [{account, remaining}]；查不到回 None。"""
     try:
         out = subprocess.run(
             ['uv', 'run', '--with', 'requests', 'python', '-m',
              'book_pipeline.crawl_zlib', 'limits'],
-            cwd=ROOT, capture_output=True, text=True, timeout=60)
-        return json.loads(out.stdout or '{}').get('remaining')
+            cwd=ROOT, capture_output=True, text=True, timeout=90)
+        return (json.loads(out.stdout or '{}').get('accounts')) or None
     except Exception as e:
         log(f'crawl：查額度失敗 {e}')
         return None
 
 
-def _read_crawl_sentinel() -> dict | None:
-    """crawl agent 收尾寫的結構化結果（reports/crawl_last.json）。讀不到回 None。"""
+def _read_crawl_plan() -> dict | None:
     try:
-        return json.load(open(CRAWL_SENTINEL))
+        return json.load(open(CRAWL_PLAN))
     except Exception:
         return None
 
 
-def do_crawl_one(dry: bool) -> str | None:
-    """wishlist 驅動爬**一本**書（LLM）。成功回新書 slug；無主題／額度耗盡／收斂／失敗回 None。
+def _fetch_book(b: dict) -> str | None:
+    """確定性下載單本（planner 已選好 id/hash/slug，daemon 已指派 account）。
+    回 slug=成功 / None=失敗。rc 0 且 raw_pdfs/<slug>.pdf 存在才算成功（不信 rc）。"""
+    slug, bid, bhash = b.get('slug'), str(b.get('id', '')), str(b.get('hash', ''))
+    if not (slug and bid and bhash):
+        log(f'❌ crawl plan 條目缺欄位：{b}')
+        return None
+    cmd = ['uv', 'run', '--with', 'requests', '--with', 'playwright', 'python', '-m',
+           'book_pipeline.crawl_zlib', 'fetch', bid, bhash, '--slug', slug]
+    if b.get('account') is not None:
+        cmd += ['--account', str(b['account'])]
+    rc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).returncode
+    if rc == 0 and os.path.isfile(os.path.join(ROOT, 'raw_pdfs', f'{slug}.pdf')):
+        log(f'crawl ok：已補書 slug={slug}（acct {b.get("account")}）')
+        return slug
+    log(f'❌ crawl fetch 失敗 slug={slug} rc={rc}')
+    return None
 
-    縱向架構：tick 每爬一本就立刻 advance_book 推它往下（不囤批）。客觀驗證產出
-    （額度是否消耗 + agent sentinel），不信 agent 自述。非成功一律 surface（`❌` 被
-    devctl ERROR_RE 捕獲 → /dev 可見），杜絕「沒補到書卻一片綠、要人追 transcript」。"""
+
+def do_crawl_parallel(dry: bool) -> list[str]:
+    """wishlist 驅動爬書：1 隻 planner agent（LLM）選 K 本互異缺口 → daemon 依各帳號餘額
+    預先指派 account → **並行**確定性下載（CRAWL_PARALLEL）。回成功補到的 slug 清單。
+
+    第一性原理：只有『選哪本』需判斷（LLM、共享 inventory→須單一決策避免碰撞）；『下載』
+    是確定性的（fetch id hash --slug），可並行。故拆開：K 隻序列 LLM agent → 1 隻 planner
+    + K 個並行下載。帳號由 daemon 指派（非 agent 自選）→ 多本不會搶同一帳號／超額。"""
     topics = _wishlist_pending()
     if not topics:
-        return None
+        return []
     if dry:
-        log(f'crawl plan：wishlist 有 {len(topics)} 主題（真跑時查額度後派 agent 選書）')
-        dispatch_llm('crawl', None, dry=True)
-        return None
-    rem = _zlib_remaining()
-    if rem is None:
+        log(f'crawl plan：wishlist 有 {len(topics)} 主題（真跑時派 planner 選書 → 並行下載）')
+        dispatch_llm('crawl_plan', None, dry=True)
+        return []
+    accts = _zlib_accounts_remaining()
+    if accts is None:
         log('crawl skip：查額度失敗，本 tick 不派 crawl')
-        return None
-    if rem <= 0:
-        log(f'crawl defer：今日下載額度耗盡（remaining={rem}）→ 明日')
-        return None
+        return []
+    slots = [a['account'] for a in accts for _ in range(max(0, a.get('remaining') or 0))]
+    if not slots:
+        log('crawl defer：今日所有帳號額度耗盡 → 明日')
+        return []
     try:
-        os.remove(CRAWL_SENTINEL)
+        os.remove(CRAWL_PLAN)
     except FileNotFoundError:
         pass
-    log(f'crawl dispatch：wishlist {len(topics)} 主題，額度剩 {rem}')
-    dispatch_llm('crawl', None, dry=False)
-    rem_after = _zlib_remaining()
-    res = _read_crawl_sentinel()
-    if rem_after is not None and rem_after < rem:  # 額度消耗 = 真下載成功的硬訊號
-        slug = (res or {}).get('slug')
-        log(f'crawl ok：已補書 slug={slug}（額度 {rem}→{rem_after}）')
-        return slug
-    if res is None:
-        log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）')
-    elif res.get('action') == 'no_candidate':
-        log(f'crawl 收斂：{res.get("reason", "無更多合格經典缺口")}（正常）')
-    elif res.get('action') == 'failed':
-        log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）')
-    else:  # action=fetched 卻沒扣額度 → 自以為成功但其實沒下到
-        log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
-            f'疑 z-library /dl/ 下載端故障')
-    return None
+    log(f'crawl plan dispatch：wishlist {len(topics)} 主題，總額度剩 {len(slots)}')
+    dispatch_llm('crawl_plan', None, dry=False)
+    plan = _read_crawl_plan()
+    if not plan:
+        log('❌ crawl plan 空：planner 未產 crawl_plan.json（崩潰／逾時？）')
+        return []
+    books = plan.get('books') or []
+    if not books:
+        log(f'crawl 收斂：{plan.get("reason", "無更多合格經典缺口")}（正常）')
+        return []
+    # 去重（slug + id）+ 依帳號餘額容量截斷 + 預先指派 account（零碰撞）
+    seen, uniq = set(), []
+    for b in books:
+        kdup = (b.get('slug'), str(b.get('id')))
+        if not b.get('slug') or kdup in seen:
+            continue
+        seen.add(kdup)
+        uniq.append(b)
+    uniq = uniq[:len(slots)]
+    for i, b in enumerate(uniq):
+        b['account'] = slots[i]
+    log(f'crawl fan-out：計畫 {len(books)} 本 → 去重後 {len(uniq)} 本並行下載（配額容 {len(slots)}）')
+    crawled: list[str] = []
+    with ThreadPoolExecutor(max_workers=min(CRAWL_PARALLEL, len(uniq))) as ex:
+        futs = {ex.submit(_fetch_book, b): b for b in uniq}
+        for f in cf.as_completed(futs):
+            try:
+                s = f.result()
+                if s:
+                    crawled.append(s)
+            except Exception as e:
+                log(f'❌ crawl fetch {futs[f].get("slug")} 異常：{e}')
+    log(f'crawl done：成功下載 {len(crawled)}/{len(uniq)} 本')
+    return crawled
 
 
 def do_submit(slug: str, dry: bool) -> int:
@@ -529,6 +613,8 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
     _llm_exhausted.clear()  # 每 tick 重試一次 LLM（上個 tick 撞額度後可能已 reset）
+    if not dry:
+        wr.reset()  # 清空 worker 註冊表（含上次崩潰殘留），本 tick 新工人重新登記
 
     # A. 收割已就緒 in-flight（uploading=False）：OCR 早已並行於雲端，並行 poll 組 unified。
     _harvest_parallel(sorted(mb.harvestable()), dry)
@@ -546,15 +632,11 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     # advance 非待ingest書：LLM 階段（audit/qc/sol_extract）各書獨立無依賴 → 並行。
     _advance_parallel([r['slug'] for r in rows if r['slug'] not in skip], dry, no_deploy)
 
-    # C. crawl 補新書：每爬一本立刻 advance（triage→qc→ingest async submit），不囤批。
-    #    zlib 與 MinerU 是獨立資源池 → crawl 與 ingest 各自榨乾、互不阻塞。
-    while True:
-        slug = do_crawl_one(dry)
-        if not slug:
-            break  # 無主題／額度耗盡／收斂／失敗
-        advance_book(slug, dry, no_deploy)
-        if dry:
-            break  # dry 只示範一輪
+    # C. crawl 補新書：1 隻 planner 選 K 本互異缺口 → 並行下載當日全額度（3 帳號=30 本）→
+    #    補到的書並行 advance（triage→qc→ingest async submit）。zlib 與 MinerU 獨立資源池、互不阻塞。
+    crawled = do_crawl_parallel(dry)
+    if crawled and not dry:
+        _advance_parallel(crawled, dry, no_deploy)
 
     # D. 再收割一輪已就緒書（剛 crawl→submit 的多半還在上傳/OCR，主要收 A 階段後翻 ready 的）。
     if not dry:

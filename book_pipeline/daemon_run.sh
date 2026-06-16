@@ -8,7 +8,7 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 # （harness 仍是 claude CLI，僅換後端，key 由 _llm_env() 讀 ~/.secrets/kimi.env）。
 # 實測 kimi-for-coding 在 audit 易陷「漫遊 content_list 反覆重讀」迴圈卡死，故預設回
 # claude；要省訂閱額度再把這行改 kimi 即切換。
-export BOOK_PIPELINE_PROVIDER=claude
+export BOOK_PIPELINE_PROVIDER=kimi
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
 # 不設 --max-llm：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全部跑完，瓶頸

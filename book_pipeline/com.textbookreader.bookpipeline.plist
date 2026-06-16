@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每小時一次 tick）。
-  節奏=hourly：縱向連續流，每 tick harvest 已就緒 OCR + advance 各書 + 重試被擋階段。
-  為何不再 daily：Claude 5h 滾動窗 reset≠每日，audit 撞瞬時限額後若等明日 tick=浪費最多 24h；
-  hourly 讓 5h 窗阻塞當天自癒（每 tick 一次廉價探測即重試）、OCR 完成後 ~1h 內收割（非隔日）。
-  daily 額度（zlib 10/日、MinerU priority）不會超用：crawl 派工前自查 zlib 餘額、MinerU 無硬上限。
-  launchd 不並發同 Label：上個 tick 未結束（如慢上傳）則跳過本次 → 天然 backpressure。
+  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每天一次 tick）。
+  節奏=daily 00:30 UTC（=08:30 台灣，zlib 額度 00:00 UTC 重置後半小時，已滿額）。
+  為何 daily（非 hourly）：LLM 後端已切 kimi（非 Claude 5h 滾動窗）→ 無「當天撞限額需每小時
+  重試」需求；單 tick 一次榨乾全日資源——並行 crawl 把當日 zlib 全額度（3 帳號=30 本）一次
+  fan-out 下載+ingest，確定性階段一條龍推到底。MinerU OCR 為 async：當日提交、隔日 tick 收割
+  （+1 日延遲換來零 hourly churn）。launchd 不並發同 Label：上個 tick 未結束則跳過本次。
   安裝（需使用者授權，會建立持久背景排程 + RunAtLoad 立即跑一次全鏈 tick）：
     cp book_pipeline/com.textbookreader.bookpipeline.plist ~/Library/LaunchAgents/
+    launchctl unload ~/Library/LaunchAgents/com.textbookreader.bookpipeline.plist 2>/dev/null
     launchctl load ~/Library/LaunchAgents/com.textbookreader.bookpipeline.plist
   停用：
     launchctl unload ~/Library/LaunchAgents/com.textbookreader.bookpipeline.plist
@@ -25,8 +26,13 @@
     <string>/Users/chenliangyu/project/textbook-reader/book_pipeline/daemon_run.sh</string>
   </array>
 
-  <key>StartInterval</key>
-  <integer>3600</integer>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>0</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
 
   <key>RunAtLoad</key>
   <true/>

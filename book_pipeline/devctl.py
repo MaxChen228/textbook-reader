@@ -27,6 +27,9 @@ from datetime import datetime, timezone, timedelta
 
 from book_pipeline import status as st
 from book_pipeline import mineru_budget as bud
+from book_pipeline import worker_registry as wr
+from book_pipeline import book_timeline as tl
+from book_pipeline import pipeline_queue as q
 
 ROOT = st.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -37,8 +40,10 @@ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
-# hourly 架構：plist StartInterval=3600，每小時一 tick（與 .plist 一致）。
-TICK_INTERVAL_S = 3600
+# daily 架構：tick 每天 08:30 台灣 = 00:30 UTC（與 plist StartCalendarInterval 一致）。
+# zlib 額度 00:00 UTC 重置 → 00:30 跑時已滿額。kimi 為 LLM 後端（非 Claude 5h 窗）→ 無
+# 「當天撞限額需 hourly 重試」需求，daily 一次榨乾全日資源即可。
+TICK_UTC_HOUR, TICK_UTC_MIN = 0, 30
 
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
@@ -54,6 +59,17 @@ def _parse_ts(line: str) -> datetime | None:
     if not m:
         return None
     return datetime.strptime(m.group(1), '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc)
+
+
+def _parse_ts_iso(s: str | None) -> datetime | None:
+    """ISO8601（worker_registry 寫的 started/updated）→ aware datetime；失敗回 None。"""
+    if not s:
+        return None
+    try:
+        d = datetime.fromisoformat(s)
+        return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
 
 
 def _tail(path: str, n: int) -> list[str]:
@@ -100,13 +116,10 @@ def daemon_health() -> dict:
     last_dur = None
     if last_start and last_end and last_end >= last_start:
         last_dur = int((last_end - last_start).total_seconds())
-    # hourly：launchd StartInterval 從上次 tick 起算 TICK_INTERVAL_S。投影到未來最近一格。
-    if last_start:
-        nxt = last_start + timedelta(seconds=TICK_INTERVAL_S)
-        while nxt <= now:
-            nxt += timedelta(seconds=TICK_INTERVAL_S)
-    else:
-        nxt = now + timedelta(seconds=TICK_INTERVAL_S)
+    # daily：下次 tick = 下個 00:30 UTC（=08:30 台灣），固定時刻、不依賴上次 tick。
+    nxt = now.replace(hour=TICK_UTC_HOUR, minute=TICK_UTC_MIN, second=0, microsecond=0)
+    if nxt <= now:
+        nxt += timedelta(days=1)
     next_eta = int((nxt - now).total_seconds())
 
     tick_proc = _proc_info('pipeline_tick')
@@ -172,15 +185,54 @@ def in_flight_ingest() -> list:
         return []
 
 
+# ── 進行中 LLM 工人（即時工具調用）─────────────────────────────────────────────
+def _pid_alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+        return True
+    except (ProcessLookupError, ValueError):
+        return False
+    except PermissionError:
+        return True
+
+
+def workers() -> list:
+    """進行中 LLM worker（dev/workers.json）。過濾 stale：pid 已死或起 > LLM_TIMEOUT。
+    每 worker 含 slug/verb/provider/total_calls + 最近 5 條工具調用/發言（recent）。"""
+    data = wr.load()
+    out = []
+    now = _now_utc()
+    for w in data.get('workers', []):
+        pid = w.get('pid')
+        if isinstance(pid, int) and not _pid_alive(pid):
+            continue
+        started = _parse_ts_iso(w.get('started'))
+        if started and (now - started).total_seconds() > 3600:
+            continue  # 超 1h 必為殘留（LLM_TIMEOUT 40min）
+        out.append(w)
+    return out
+
+
 # ── 書本階段 ─────────────────────────────────────────────────────────────────
 def books_status() -> dict:
     pending = st._load_pending()
     raw = st._raw_slug_map()
     slugs = st.all_slugs(pending, raw)
+    state = q._load_state()
     rows = []
     todos = []
     for s in slugs:
         r = st.assess(s, pending, raw)
+        # 觀測式時間軸：deployed-aware label（已部署 → 'deployed'，否則用 stage）→
+        # observe 冪等 append-on-change，建出每書階段轉換史。既有書回填 deployed_at（唯一
+        # 留存的歷史時戳），否則它們只會從此刻起顯示 deployed、丟失過去。
+        deployed = os.path.exists(os.path.join(ROOT, 'data', s, 'book.json'))
+        dep_at = (state.get(s) or {}).get('deployed_at')
+        if deployed and dep_at:
+            tl.seed(s, 'deployed', dep_at)
+        label = 'deployed' if deployed else r.get('stage', '')
+        tl.observe(s, label)
+        r['timeline'] = tl.get(s)
         rows.append(r)
         non_opt = [p for p in r['todo'].split() if p not in ('—', 'translate(可選)')]
         if non_opt:
@@ -242,6 +294,7 @@ def build_snapshot(since_min: int = 180) -> dict:
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'daemon': daemon_health(),
         'budget': budget_status(),
+        'workers': workers(),
         'in_flight_ingest': in_flight_ingest(),
         'errors': scan_errors(since_min),
         'recent_log': _tail(DAEMON_LOG, 40),
@@ -271,9 +324,15 @@ def _print_human(snap: dict) -> None:
         dur_s = '跑中' if dur is None else f'{dur}s'
         print(f"   last tick start {d['last_tick_start_utc']} "
               f"dur={dur_s}  next≈{d['next_tick_eta_s']}s")
-    if d['llm_job']:
-        j = d['llm_job']
-        print(f"   🤖 LLM 工人在跑：{j['slug']} (pid {j['pid']}, {j['elapsed']})")
+    wk = snap.get('workers') or []
+    if wk:
+        print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
+        for w in wk:
+            print(f"   · {w.get('slug') or w.get('verb')} [{w.get('verb')}] "
+                  f"pid {w.get('pid')} · {w.get('provider')} · 共 {w.get('total_calls', 0)} 次調用")
+            for r in (w.get('recent') or [])[-5:]:
+                icon = '🔧' if r.get('kind') == 'tool' else '💬'
+                print(f"        {icon} {(r.get('label') or '')[:100]}")
     b = snap['budget']
     print(f"\n💳 MinerU 額度 ({b['date_utc']} UTC):")
     for a, v in b['accounts'].items():
@@ -301,7 +360,32 @@ def main(argv: list[str] | None = None) -> int:
     p_er.add_argument('--json', action='store_true')
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
     sub.add_parser('kick', help='立刻觸發一輪 tick')
+    p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
+    p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
+    p_tl.add_argument('--json', action='store_true')
     args = ap.parse_args(argv)
+
+    if args.cmd == 'timeline':
+        write_snapshot()  # 先觀測一次，確保時間軸含當下階段
+        allt = tl.load_all()
+        if args.json:
+            print(json.dumps(allt if not args.slug else allt.get(args.slug, []),
+                             ensure_ascii=False, indent=2))
+            return 0
+        slugs = [args.slug] if args.slug else sorted(allt)
+        for s in slugs:
+            evs = allt.get(s, [])
+            print(f"\n📖 {s}")
+            for j, e in enumerate(evs):
+                at = (e['at'] or '').replace('T', ' ').replace('+00:00', '')
+                span = ''
+                if j + 1 < len(evs):
+                    dt = (_parse_ts_iso(evs[j + 1]['at']) - _parse_ts_iso(e['at'])).total_seconds()
+                    span = f"  ▸ {int(dt)}s" if dt < 90 else (
+                        f"  ▸ {dt/60:.0f}m" if dt < 5400 else f"  ▸ {dt/3600:.1f}h")
+                seed = ' (回填)' if e.get('seeded') else ''
+                print(f"   {at} UTC  {e['stage']}{seed}{span}")
+        return 0
 
     if args.cmd == 'status':
         snap = build_snapshot()

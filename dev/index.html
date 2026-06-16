@@ -47,6 +47,33 @@
       margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--border);
       border-radius: 6px; font-family: var(--mono); font-size: 12px; color: var(--ink-light);
     }
+    .dev-idle { color: var(--sub); }
+
+    /* 進行中 LLM 工人 */
+    .wk-card { border: 1px solid var(--border); border-radius: 7px; padding: 10px 12px; margin: 8px 0; background: var(--border-l); }
+    .wk-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .wk-head b { font-size: 13px; color: var(--text); }
+    .wk-tag { font-family: var(--mono); font-size: 10px; padding: 1px 6px; border-radius: 4px; background: var(--accent); color: #fff; letter-spacing: .03em; }
+    .wk-meta { font-family: var(--mono); font-size: 11px; color: var(--sub); }
+    .wk-evs { display: flex; flex-direction: column; gap: 3px; }
+    .wk-ev { display: flex; gap: 7px; align-items: baseline; font-family: var(--mono); font-size: 11.5px; color: var(--ink-light); }
+    .wk-ico { flex-shrink: 0; }
+    .wk-lbl { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .wk-t { flex-shrink: 0; color: var(--sub); font-size: 10px; }
+    .wk-dim { color: var(--sub); font-style: italic; }
+
+    /* 每書階段時間軸 */
+    .bk-row { cursor: pointer; }
+    .bk-row:hover { background: var(--border-l); }
+    .bk-caret { color: var(--sub); font-size: 10px; display: inline-block; width: 10px; }
+    .bk-detail > td { background: var(--border-l); padding: 8px 14px 10px 28px; }
+    .tl-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .tl-row { display: flex; align-items: baseline; gap: 10px; font-family: var(--mono); font-size: 11.5px; }
+    .tl-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; align-self: center; }
+    .tl-stage { min-width: 130px; color: var(--text); }
+    .tl-seed { font-size: 9px; color: var(--sub); border: 1px solid var(--border); border-radius: 3px; padding: 0 3px; }
+    .tl-at { color: var(--sub); }
+    .tl-dur { color: var(--accent); }
 
     /* 額度條 */
     .dev-bar-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
@@ -109,6 +136,11 @@
       <h2>daemon 健康</h2>
       <div class="dev-health" id="health"></div>
       <div id="llm"></div>
+    </div>
+
+    <div class="dev-panel" id="p-workers">
+      <h2>進行中 LLM 工人 <span class="dev-label" id="workers-count"></span></h2>
+      <div id="workers"></div>
     </div>
 
     <div class="dev-panel">
@@ -178,6 +210,17 @@
   }
 
   function fmtDur(s) { return s == null ? '—' : (s < 90 ? `${s}s` : `${Math.round(s/60)}m`) }
+  // 時間軸跨度（毫秒）→ s/m/h/d
+  function fmtSpan(ms) {
+    if (ms == null || ms < 0) return ''
+    const s = Math.round(ms / 1000)
+    if (s < 90) return `${s}s`
+    const m = Math.round(s / 60)
+    if (m < 90) return `${m}m`
+    const h = ms / 3.6e6
+    if (h < 36) return `${h.toFixed(1)}h`
+    return `${(h / 24).toFixed(1)}d`
+  }
   // 倒數（秒）→ 文字
   function fmtCountdown(s) {
     if (s == null) return '—'
@@ -267,13 +310,25 @@
     // 書本
     document.getElementById('book-count').textContent = `(${d.total} 本 · 待辦 ${d.actionable.length})`
     const actMap = Object.fromEntries((d.actionable || []).map(a => [a.slug, a.todo]))
-    document.getElementById('books').innerHTML = d.books.map(b => {
+    document.getElementById('books').innerHTML = d.books.map((b, i) => {
       const ps = b.prob ? `${b.sol||0}/${b.prob}` : '—'
       const todo = b.todo === '—' ? '' : b.todo.split(' ').map(t =>
         `<span class="todo-tag ${actMap[b.slug] && actMap[b.slug].includes(t) ? 'todo-act' : ''}">${escapeHtml(t)}</span>`).join(' ')
-      return `<tr><td class="slug">${escapeHtml(b.slug)}</td>
+      const tline = b.timeline || []
+      const tlRows = tline.map((e, j) => {
+        const nx = tline[j + 1]
+        const dur = nx ? fmtSpan(Date.parse(nx.at) - Date.parse(e.at)) : ''
+        const at = (e.at || '').replace('T', ' ').replace('+00:00', '')
+        return `<div class="tl-row"><span class="tl-dot"></span>`
+          + `<span class="tl-stage">${escapeHtml(e.stage)}${e.seeded ? ' <span class="tl-seed">回填</span>' : ''}</span>`
+          + `<span class="tl-at">${escapeHtml(at)} UTC</span>`
+          + `<span class="tl-dur">${dur ? '▸ ' + dur : ''}</span></div>`
+      }).join('')
+      const caret = tline.length ? '<span class="bk-caret">▸</span> ' : ''
+      return `<tr class="bk-row" data-i="${i}"><td class="slug">${caret}${escapeHtml(b.slug)}</td>
         <td><span class="stage-pill ${stageClass(b.stage)}">${escapeHtml(b.stage)}</span></td>
         <td class="ps">${ps}</td><td>${todo}</td></tr>`
+        + `<tr class="bk-detail" id="bk-d-${i}" hidden><td colspan="4"><div class="tl-wrap">${tlRows || '（尚無階段記錄）'}</div></td></tr>`
     }).join('')
 
     // log
@@ -281,6 +336,48 @@
 
     document.getElementById('foot').textContent = `snapshot ${d.generated_at_local}（事件驅動刷新 · 撿檔每 ${REFRESH_MS/1000}s · 時鐘每秒）`
     tickClocks()  // 立即填一次時間欄位
+  }
+
+  // ── 進行中 LLM 工人（獨立快迴圈，直讀 workers.json，比 8s snapshot 更即時）──
+  const WORKERS_MS = 2000
+  let workersTimer = null
+  function renderWorkers(data) {
+    const ws = (data && data.workers || []).filter(w => {
+      // 防崩潰殘留：起 > 1h 必為 stale（LLM_TIMEOUT 40min）
+      const t = w.started ? Date.parse(w.started) : 0
+      return !t || (Date.now() - t) < 3600e3
+    })
+    const cnt = document.getElementById('workers-count')
+    const box = document.getElementById('workers')
+    if (!ws.length) {
+      cnt.textContent = ''
+      box.innerHTML = '<div class="dev-llm dev-idle">😴 目前無 LLM 工人在跑</div>'
+      return
+    }
+    cnt.textContent = `(${ws.length})`
+    box.innerHTML = ws.map(w => {
+      const recent = (w.recent || []).slice(-5).map(r => {
+        const icon = r.kind === 'tool' ? '🔧' : '💬'
+        const rel = r.t ? relTime(r.t) : ''
+        return `<div class="wk-ev"><span class="wk-ico">${icon}</span>`
+             + `<span class="wk-lbl">${escapeHtml(r.label || '')}</span>`
+             + `<span class="wk-t">${escapeHtml(rel)}</span></div>`
+      }).join('') || '<div class="wk-ev wk-dim">（尚無事件…）</div>'
+      return `<div class="wk-card">
+        <div class="wk-head">
+          <b>${escapeHtml(w.slug || w.verb || '?')}</b>
+          <span class="wk-tag">${escapeHtml(w.verb || '')}</span>
+          <span class="wk-meta">${escapeHtml(w.provider || '')} · pid ${w.pid}
+            · <b>${w.total_calls || 0}</b> 次工具調用</span>
+        </div>
+        <div class="wk-evs">${recent}</div>
+      </div>`
+    }).join('')
+  }
+  async function loadWorkers() {
+    try {
+      renderWorkers(await fetchJson('workers.json?_=' + Date.now()))
+    } catch { renderWorkers({ workers: [] }) }
   }
 
   async function load() {
@@ -299,17 +396,30 @@
   function start() {
     if (!timer) timer = setInterval(load, REFRESH_MS)
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
+    if (!workersTimer) workersTimer = setInterval(loadWorkers, WORKERS_MS)
   }
   function stop() {
-    clearInterval(timer); clearInterval(clockTimer); timer = clockTimer = null
+    clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer)
+    timer = clockTimer = workersTimer = null
   }
-  document.getElementById('btn-refresh').addEventListener('click', load)
+  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers() })
+  // 委派：點書列 → 展開/收合該書階段時間軸（innerHTML 每刷新重建，故監聽掛 tbody）
+  document.getElementById('books').addEventListener('click', (e) => {
+    const row = e.target.closest('tr.bk-row')
+    if (!row) return
+    const det = document.getElementById('bk-d-' + row.dataset.i)
+    if (!det) return
+    det.hidden = !det.hidden
+    const c = row.querySelector('.bk-caret')
+    if (c) c.textContent = det.hidden ? '▸' : '▾'
+  })
   load()
+  loadWorkers()
   start()
   // 分頁切到背景就停（省電/省算）；回到前景立即補一次
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop()
-    else { load(); start() }
+    else { load(); loadWorkers(); start() }
   })
   </script>
 </body>
