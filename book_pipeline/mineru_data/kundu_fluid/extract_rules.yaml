@@ -1,0 +1,182 @@
+slug: kundu_fluid
+title: Fluid Mechanics
+author: Pijush K. Kundu; Ira M. Cohen; David R. Dowling
+edition: 5th
+subject: Fluid Mechanics
+publisher: Academic Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 27
+appendices_start_page: 879
+bibliography_start_page: null
+index_start_page: 901
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 27
+    page_end: 64
+    chapter_title_block_idx: 700
+    problems_block_idx: 1063
+    next_chapter_block_idx: 1132
+  - num: 2
+    title: Cartesian Tensors
+    page_start: 65
+    page_end: 90
+    chapter_title_block_idx: 1132
+    problems_block_idx: 1467
+    next_chapter_block_idx: 1503
+  - num: 3
+    title: Kinematics
+    page_start: 91
+    page_end: 120
+    chapter_title_block_idx: 1503
+    problems_block_idx: 1758
+    next_chapter_block_idx: 1813
+  - num: 4
+    title: Conservation Laws
+    page_start: 121
+    page_end: 196
+    chapter_title_block_idx: 1813
+    problems_block_idx: 2533
+    next_chapter_block_idx: 2726
+  - num: 5
+    title: Vorticity Dynamics
+    page_start: 197
+    page_end: 222
+    chapter_title_block_idx: 2726
+    problems_block_idx: 2957
+    next_chapter_block_idx: 3016
+  - num: 6
+    title: Ideal Flow
+    page_start: 223
+    page_end: 278
+    chapter_title_block_idx: 3016
+    problems_block_idx: 3553
+    next_chapter_block_idx: 3692
+  - num: 7
+    title: Gravity Waves
+    page_start: 279
+    page_end: 334
+    chapter_title_block_idx: 3692
+    problems_block_idx: 4348
+    next_chapter_block_idx: 4407
+  - num: 8
+    title: Laminar Flow
+    page_start: 335
+    page_end: 386
+    chapter_title_block_idx: 4407
+    chapter_title_block_idx_secondary: 4408
+    problems_block_idx: 4924
+    next_chapter_block_idx: 5080
+  - num: 9
+    title: Boundary Layers and Related Topics
+    page_start: 387
+    page_end: 446
+    chapter_title_block_idx: 5080
+    problems_block_idx: 5587
+    next_chapter_block_idx: 5710
+  - num: 10
+    title: Computational Fluid Dynamics
+    page_start: 447
+    page_end: 498
+    chapter_title_block_idx: 5710
+    problems_block_idx: 6363
+    next_chapter_block_idx: 6397
+  - num: 11
+    title: Instability
+    page_start: 499
+    page_end: 566
+    chapter_title_block_idx: 6397
+    problems_block_idx: 7066
+    next_chapter_block_idx: 7169
+  - num: 12
+    title: Turbulence
+    page_start: 567
+    page_end: 646
+    chapter_title_block_idx: 7169
+    problems_block_idx: 7897
+    next_chapter_block_idx: 8042
+  - num: 13
+    title: Geophysical Fluid Dynamics
+    page_start: 647
+    page_end: 716
+    chapter_title_block_idx: 8042
+    problems_block_idx: 8899
+    next_chapter_block_idx: 8921
+  - num: 14
+    title: Aerodynamics
+    page_start: 717
+    page_end: 754
+    chapter_title_block_idx: 8921
+    problems_block_idx: 9203
+    next_chapter_block_idx: 9286
+  - num: 15
+    title: Compressible Flow
+    page_start: 755
+    page_end: 804
+    chapter_title_block_idx: 9286
+    problems_block_idx: 9751
+    next_chapter_block_idx: 9783
+  - num: 16
+    title: Introduction to Biofluid Mechanics
+    page_start: 805
+    page_end: 878
+    chapter_title_block_idx: 9783
+    problems_block_idx: 10638
+    next_chapter_block_idx: 10670
+
+appendices:
+  - id: A
+    title: Conversion Factors, Constants, and Fluid Properties
+    page_start: 879
+    chapter_title_block_idx: 10670
+  - id: B
+    title: Mathematical Tools and Resources
+    page_start: 883
+    chapter_title_block_idx: 10701
+  - id: C
+    title: Founders of Modern Fluid Dynamics
+    page_start: 895
+    chapter_title_block_idx: 10917
+  - id: D
+    title: Visual Resources
+    page_start: 899
+    chapter_title_block_idx: 10949
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^(EXAMPLE\s+\d+\.\d+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
