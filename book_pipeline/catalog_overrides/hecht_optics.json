@@ -1,0 +1,23 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hecht_optics-fig-10.58-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.47:body[0]",
+      "position": "before",
+      "page": 512,
+      "clip": [0.12, 0.15, 0.52, 0.43],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.58",
+        "kind": "line",
+        "caption": "Figure 10.58 The semi-infinite opaque screen.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "MinerU 漏抓 Figure 10.58；raw PDF p.512 左欄確有該圖，caption 為 'Figure 10.58 The semi-infinite opaque screen.'。插於引用它的 problem 10.47 之前。"
+    }
+  ]
+}
