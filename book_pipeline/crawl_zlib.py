@@ -42,7 +42,8 @@ SLUG_MAP = os.path.join(BP, 'slug_map.json')
 CRAWL_MANIFEST = os.path.join(BP, 'crawl_manifest.json')
 
 ENV_PATH = os.path.expanduser('~/.secrets/zlib.env')
-SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')
+SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')  # legacy 帳號0 快取
+ACCOUNTS_PATH = os.path.expanduser('~/.secrets/zlib_accounts.json')
 UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
@@ -69,54 +70,85 @@ def _base() -> str:
     return _load_env().get('ZLIB_DOMAIN', 'https://z-library.sk').rstrip('/')
 
 
-def _save_session(uid: str, key: str) -> None:
+def _accounts() -> list[dict]:
+    """多帳號清單 [{email,password}]。優先讀 zlib_accounts.json（輪換用）；
+    無則退回 zlib.env 單帳號（向後相容）。每帳號免費 10 下載/日，N 帳號 → 10N/日。"""
+    if os.path.exists(ACCOUNTS_PATH):
+        try:
+            a = json.load(open(ACCOUNTS_PATH)) or []
+            if a:
+                return a
+        except Exception:
+            pass
+    env = _load_env()
+    return [{'email': env['ZLIB_EMAIL'], 'password': env['ZLIB_PASSWORD']}]
+
+
+def n_accounts() -> int:
+    return len(_accounts())
+
+
+def _session_path(account: int) -> str:
+    """帳號別 session 快取路徑。帳號0 沿用 legacy zlib_session.json（向後相容）。"""
+    return SESSION_PATH if account == 0 else os.path.expanduser(
+        f'~/.secrets/zlib_session_{account}.json')
+
+
+def _save_session(account: int, uid: str, key: str) -> None:
     old_umask = os.umask(0o077)
     try:
-        with open(SESSION_PATH, 'w') as f:
+        p = _session_path(account)
+        with open(p, 'w') as f:
             json.dump({'remix_userid': uid, 'remix_userkey': key}, f)
-        os.chmod(SESSION_PATH, 0o600)
+        os.chmod(p, 0o600)
     finally:
         os.umask(old_umask)
 
 
-def _login() -> tuple[str, str]:
-    env = _load_env()
-    base = env.get('ZLIB_DOMAIN', 'https://z-library.sk').rstrip('/')
+def _login(account: int = 0) -> tuple[str, str]:
+    accts = _accounts()
+    if account >= len(accts):
+        sys.exit(f'帳號索引 {account} 超出範圍（共 {len(accts)} 個）')
+    acc = accts[account]
+    base = _base()
     r = requests.post(f'{base}/eapi/user/login',
-                      data={'email': env['ZLIB_EMAIL'], 'password': env['ZLIB_PASSWORD']},
+                      data={'email': acc['email'], 'password': acc['password']},
                       headers={'User-Agent': UA}, timeout=30)
     r.raise_for_status()
     j = r.json()
     if not j.get('success'):
-        sys.exit(f'登入失敗：{j}')
+        sys.exit(f'登入失敗（帳號{account} {acc["email"]}）：{j}')
     u = j['user']
     uid, key = str(u['id']), u['remix_userkey']
-    _save_session(uid, key)
+    _save_session(account, uid, key)
     return uid, key
 
 
-def _session() -> tuple[str, str]:
-    """回傳 (uid, key)，優先讀快取，無則登入。"""
-    if os.path.exists(SESSION_PATH):
+def _session(account: int = 0) -> tuple[str, str]:
+    """回傳該帳號 (uid, key)，優先讀快取，無則登入。"""
+    p = _session_path(account)
+    if os.path.exists(p):
         try:
-            s = json.load(open(SESSION_PATH))
+            s = json.load(open(p))
             return str(s['remix_userid']), s['remix_userkey']
         except Exception:
             pass
-    return _login()
+    return _login(account)
 
 
 class Client:
-    def __init__(self):
+    def __init__(self, account: int = 0):
+        self.account = account
+        self.email = _accounts()[account].get('email') if account < n_accounts() else None
         self.base = _base()
-        self.uid, self.key = _session()
+        self.uid, self.key = _session(account)
         self.s = requests.Session()
         self.s.headers.update({'User-Agent': UA,
                                'remix-userid': self.uid, 'remix-userkey': self.key})
         self.s.cookies.update({'remix_userid': self.uid, 'remix_userkey': self.key})
 
     def _relogin(self):
-        self.uid, self.key = _login()
+        self.uid, self.key = _login(self.account)
         self.s.headers.update({'remix-userid': self.uid, 'remix-userkey': self.key})
         self.s.cookies.update({'remix_userid': self.uid, 'remix_userkey': self.key})
 
@@ -295,12 +327,39 @@ def _annotate(b: dict, known_md5: set) -> dict:
 
 # ── CLI ───────────────────────────────────────────────────────────────────
 
+def account_remaining_live(account: int) -> dict:
+    """即時查單帳號額度。回 {account,email,used,limit,remaining,premium}；登入失敗 remaining=None。"""
+    try:
+        u = Client(account).profile()
+        used, lim = u.get('downloads_today'), u.get('downloads_limit')
+        rem = (lim - used) if (lim is not None and used is not None) else None
+        return {'account': account, 'email': _accounts()[account].get('email'),
+                'used': used, 'limit': lim, 'remaining': rem,
+                'premium': bool(u.get('isPremium'))}
+    except SystemExit as e:
+        return {'account': account, 'email': _accounts()[account].get('email'),
+                'used': None, 'limit': None, 'remaining': None, 'error': str(e)}
+
+
+def all_remaining() -> list[dict]:
+    return [account_remaining_live(i) for i in range(n_accounts())]
+
+
+def pick_account() -> int | None:
+    """挑一個今日仍有額度的帳號（remaining 最多者）做輪換。全耗盡回 None。
+    remaining 查不到（登入失敗）的帳號跳過、不誤選。"""
+    cand = [a for a in all_remaining() if (a.get('remaining') or 0) > 0]
+    if not cand:
+        return None
+    return max(cand, key=lambda a: a['remaining'])['account']
+
+
 def cmd_limits(args) -> int:
-    u = Client().profile()
-    used, lim = u.get('downloads_today'), u.get('downloads_limit')
-    print(json.dumps({'downloads_today': used, 'downloads_limit': lim,
-                      'remaining': (lim - used) if (lim is not None and used is not None) else None,
-                      'isPremium': u.get('isPremium')}, ensure_ascii=False))
+    accts = all_remaining()
+    total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
+    out = {'accounts': accts, 'total_remaining': total,
+           'remaining': total}  # remaining=總額（daemon _zlib_remaining 讀此鍵，30/日語意）
+    print(json.dumps(out, ensure_ascii=False))
     return 0
 
 
@@ -374,12 +433,19 @@ def cmd_fetch(args) -> int:
         print(f'已存在檔案 {dest} → 跳過。')
         return 0
 
-    cl = Client()
+    # 多帳號輪換：--account 指定則用之，否則自動挑今日仍有額度者。全耗盡才 clean-stop。
+    account = args.account if getattr(args, 'account', None) is not None else pick_account()
+    if account is None:
+        rems = all_remaining()
+        print(f'所有 {len(rems)} 帳號今日額度皆耗盡 → 等明日重置。', file=sys.stderr)
+        return 4
+    cl = Client(account)
     u = cl.profile()
     used, lim = u.get('downloads_today'), u.get('downloads_limit')
     if lim is not None and used is not None and used >= lim:
-        print(f'今日額度耗盡（{used}/{lim}）→ 等明日重置。', file=sys.stderr)
+        print(f'帳號{account}（{cl.email}）已耗盡（{used}/{lim}）→ 等明日重置。', file=sys.stderr)
         return 4
+    print(f'帳號{account}（{cl.email}）額度 {used}/{lim}', file=sys.stderr)
 
     # 取書詳情拿 dl 路徑（search 也有，但 fetch 走 id 較穩）
     book = None
@@ -438,6 +504,8 @@ def main() -> int:
     p_f.add_argument('hash')
     p_f.add_argument('--slug', required=True)
     p_f.add_argument('--force', action='store_true')
+    p_f.add_argument('--account', type=int, default=None,
+                     help='指定帳號索引（預設自動輪換挑有額度者）')
     p_f.set_defaults(func=cmd_fetch)
 
     args = ap.parse_args()

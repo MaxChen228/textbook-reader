@@ -1,5 +1,5 @@
 {
-  "_doc": "自動爬書 wishlist。topics 為空時 daemon 不爬。crawl agent 每 tick 讀此檔 + crawl_zlib inventory（現有書況）自行判斷選哪本、哪版，再 crawl_zlib fetch 下載。每日受 z-library 10 本額度限制。設計為『常駐廣義指令』：不寫會用完的具體書單，而是給長期方向，agent 自動挑最該補的經典缺口、永不耗盡。",
+  "_doc": "自動爬書 wishlist。topics 為空時 daemon 不爬。crawl agent 每 tick 讀此檔 + crawl_zlib inventory（現有書況）自行判斷選哪本、哪版，再 crawl_zlib fetch 下載。每日受 z-library 額度限制（3 帳號輪換 = 30 本/日，fetch 自動挑有額度帳號）。設計為『常駐廣義指令』：不寫會用完的具體書單，而是給長期方向，agent 自動挑最該補的經典缺口、永不耗盡。",
   "_rules": "鐵則：(1) 只補大學/研究所層級、公認經典的英文原文教科書；(2) 先查 inventory，已有的書（含不同版次的同一本）不重爬；(3) 同主題優先補『該領域最標準的那本』而非冷門；(4) 每本選最新且 OCR 友善的版次；(5) 寧缺勿濫，沒有夠格的經典可補就當天不爬。",
   "topics": [
     "物理經典缺口：固態物理(Ashcroft & Mermin)、量子場論(Peskin & Schroeder / Schwartz / Srednicki)、進階統計力學(Pathria / Reif)、光學(Hecht)、流體力學(Landau-Lifshitz Fluid / Kundu)、粒子物理與標準模型、非線性動力學與混沌(Strogatz)、電漿物理(Chen)",
