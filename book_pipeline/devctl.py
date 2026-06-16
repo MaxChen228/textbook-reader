@@ -23,6 +23,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 
 from book_pipeline import status as st
@@ -48,6 +49,10 @@ TICK_UTC_HOUR, TICK_UTC_MIN = 0, 30
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
 ERROR_RE = re.compile(r'未設定|Traceback|Exception|Error|ERROR|錯誤|failed|FAILED|❌|拒絕|denied', re.I)
+# 成功摘要常含 `errors=0`/`unmatched=N`，其中 "errors" 子字串會誤觸 ERROR_RE。這類
+# 計數行只要無強錯誤標記（Traceback/❌/FAILED…）就非真錯誤，排除以免 false positive。
+BENIGN_RE = re.compile(r'\berrors?=0\b', re.I)
+STRONG_ERR_RE = re.compile(r'Traceback|Exception|❌|FAILED|未設定|拒絕|denied', re.I)
 
 
 def _now_utc() -> datetime:
@@ -175,6 +180,42 @@ def budget_status() -> dict:
     return {'date_utc': bud._today(), 'daily_cap': bud.PRIORITY_PAGES, 'accounts': accts}
 
 
+# ── zlib 帳號額度（網路查詢，TTL 快取）────────────────────────────────────────
+ZLIB_CACHE = os.path.join(ROOT, 'dev', 'zlib_quota.json')
+ZLIB_TTL_S = 300  # snapshot 高頻重建；zlib 餘額至多每 5 分打一次網路（登入查 downloads_today）
+
+
+def zlib_status() -> dict:
+    """各 zlib 帳號今日餘額。讀 dev/zlib_quota.json 快取；過期才打網路刷新。
+    zlib 故障 → 回最後快取（含 stale 標記），絕不讓 snapshot 失敗。"""
+    cache = None
+    if os.path.exists(ZLIB_CACHE):
+        try:
+            cache = json.load(open(ZLIB_CACHE))
+        except Exception:
+            cache = None
+    fresh = cache and (time.time() - cache.get('fetched_at', 0)) < ZLIB_TTL_S
+    if fresh:
+        return {**cache, 'stale': False}
+    try:
+        from book_pipeline import crawl_zlib as cz
+        accts = cz.all_remaining()
+        total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
+        snap = {'accounts': accts, 'total_remaining': total,
+                'fetched_at': time.time(),
+                'fetched_at_local': datetime.now().isoformat(timespec='seconds')}
+        os.makedirs(os.path.dirname(ZLIB_CACHE), exist_ok=True)
+        tmp = ZLIB_CACHE + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(snap, f, ensure_ascii=False)
+        os.replace(tmp, ZLIB_CACHE)
+        return {**snap, 'stale': False}
+    except Exception as e:
+        if cache:
+            return {**cache, 'stale': True, 'error': str(e)}
+        return {'accounts': [], 'total_remaining': None, 'stale': True, 'error': str(e)}
+
+
 # ── 進行中 ingest ────────────────────────────────────────────────────────────
 def in_flight_ingest() -> list:
     if not os.path.exists(PENDING_PATH):
@@ -279,6 +320,8 @@ def scan_errors(since_min: int = 180) -> list:
                 eff_ts[i] = fwd
         for line, eff in zip(lines, eff_ts):
             if ERROR_RE.search(line):
+                if BENIGN_RE.search(line) and not STRONG_ERR_RE.search(line):
+                    continue  # errors=0 成功摘要，非真錯誤
                 if eff and eff < cutoff:
                     continue
                 out.append({'src': src, 'ts_utc': eff.isoformat() if eff else None,
@@ -294,6 +337,7 @@ def build_snapshot(since_min: int = 180) -> dict:
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'daemon': daemon_health(),
         'budget': budget_status(),
+        'zlib': zlib_status(),
         'workers': workers(),
         'in_flight_ingest': in_flight_ingest(),
         'errors': scan_errors(since_min),
@@ -337,6 +381,14 @@ def _print_human(snap: dict) -> None:
     print(f"\n💳 MinerU 額度 ({b['date_utc']} UTC):")
     for a, v in b['accounts'].items():
         print(f"   {a}: 用 {v['used']}/{v['daily_cap']}，剩 {v['remaining']}")
+    z = snap.get('zlib') or {}
+    zt = z.get('total_remaining')
+    print(f"\n📥 zlib 額度（總剩 {zt if zt is not None else '?'}/30"
+          f"{' · STALE' if z.get('stale') else ''}）:")
+    for a in (z.get('accounts') or []):
+        rem = a.get('remaining')
+        print(f"   {a.get('email')}: 剩 {rem if rem is not None else '查無'}"
+              f"/{a.get('limit') if a.get('limit') is not None else '?'}")
     if snap['in_flight_ingest']:
         print(f"\n📤 進行中 ingest: {len(snap['in_flight_ingest'])} 批")
     errs = snap['errors']

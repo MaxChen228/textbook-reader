@@ -46,10 +46,14 @@ LOG = os.path.join(BP, 'reports', 'daemon.log')
 WISHLIST = os.path.join(BP, 'crawl_wishlist.json')
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
+# codex 派工後端（BOOK_PIPELINE_PROVIDER=codex）：headless `codex exec --json`。認證走
+# ~/.codex/auth.json（codex login，ChatGPT 訂閱）。模型預設 gpt-5.4，env 可覆寫。
+CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
+CODEX_MODEL = os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4')
 # headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
 # audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
-# 正常 audit ~25min；40min 留足餘裕，只在真卡死時觸發。可用 env 覆寫。
-LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '2400'))
+# 正常 audit ~25min；1h 留足餘裕（重書 smoke 迭代偶逼近 40min），只在真卡死時觸發。env 可覆寫。
+LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '3600'))
 # ingest async upload 的並行度：upload 是 IO bound（切片+PUT MinerU，~8min/本），多本
 # 並行打滿上傳頻寬。manifest RMW 由 mineru_ingest 的 fcntl 鎖保護，並行安全。
 INGEST_PARALLEL = int(os.environ.get('BOOK_PIPELINE_INGEST_PARALLEL', '4'))
@@ -60,6 +64,10 @@ LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
 # 並行 crawl 下載度：planner 選好 K 本後，K 個確定性 `crawl_zlib fetch` 並行下載（IO bound，
 # 40MB/本）。帳號由 daemon 依各帳號餘額預先指派（--account），不靠 agent 自選 → 零碰撞。
 CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
+# harvest poll 上限（秒）：OCR 全好的書第一次 poll 就秒收；沒好的書等到此上限就放棄、留
+# in-flight 下個 tick 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 tick）。OCR 是 async、
+# 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
+HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -156,11 +164,11 @@ def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
         return -1
 
 
-def _llm_env() -> dict | None:
-    """LLM 派工的環境。BOOK_PIPELINE_PROVIDER=kimi → 把同一個 claude CLI（harness 不變）
-    導到 Kimi Code 端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。其餘情況回 None
-    （沿用現有環境＝Claude Max 訂閱）。"""
-    if os.environ.get('BOOK_PIPELINE_PROVIDER', '').lower() != 'kimi':
+def _llm_env(provider: str) -> dict | None:
+    """指定 provider 的派工環境。kimi → 把同一個 claude CLI（harness 不變）導到 Kimi Code
+    端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。claude/codex → None（claude 沿用 Claude
+    Max 訂閱；codex 用自己的 ~/.codex/auth.json）。"""
+    if provider != 'kimi':
         return None
     key_path = os.path.expanduser('~/.secrets/kimi.env')
     try:
@@ -185,10 +193,33 @@ def _llm_env() -> dict | None:
     return env
 
 
-# Claude Max 5 小時滾動窗（非週額度）撞頂時 claude -p 會吐這些字串、秒退。撞到後本 tick
-# 內其餘 LLM 派工一律 defer（不再空轉 25s/本 + 假「停滯」log）；下個 tick clear 重試。
-_llm_exhausted = threading.Event()
+# Provider failover 串接：撞額度的 provider 不再讓整輪停擺，而是換鏈上下一個 provider 重跑
+# 同一任務。鏈預設 kimi→codex→claude（env BOOK_PIPELINE_PROVIDER_CHAIN 覆寫，逗號分隔）；
+# 未設則退回單一 BOOK_PIPELINE_PROVIDER（向後相容）。全鏈撞光才 defer 到下個 tick。
+def _provider_chain() -> list[str]:
+    raw = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
+    if raw:
+        chain = [p.strip().lower() for p in raw.split(',') if p.strip()]
+        if chain:
+            return chain
+    return [os.environ.get('BOOK_PIPELINE_PROVIDER', 'claude').lower()]
+
+
+# 撞額度的 provider（本 tick 內標記，跨並行子工共享 → 不再重複撞同一耗盡的 provider）。
+# 每 tick 開頭清空重試。
+_exhausted_providers: set[str] = set()
+_exhausted_lock = threading.Lock()
+# claude/kimi 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
 SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
+CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests',
+                       'insufficient_quota', 'exceeded your current', '429 ',
+                       'resource_exhausted')
+
+
+def _hit_limit(provider: str, out: str) -> bool:
+    """從合併輸出判斷是否撞該 provider 的額度限制。"""
+    markers = CODEX_LIMIT_MARKERS if provider == 'codex' else SESSION_LIMIT_MARKERS
+    return any(m in out for m in markers)
 
 
 def _tool_label(blk: dict) -> str:
@@ -203,26 +234,65 @@ def _tool_label(blk: dict) -> str:
     return name
 
 
-def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
-    """派 headless claude 跑 LLM 階段。回 rc；-2 = 撞 Claude 5h session 限額 → 呼叫端 defer。
-    輸出走 stream-json：逐步 tool_use/text 事件即時餵 worker_registry（/dev 工人面板看
-    最近 5 條工具調用/發言 + 總調用數）；合併文字仍掃 SESSION_LIMIT_MARKERS 設 _llm_exhausted。"""
-    prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
-    cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
-           '--output-format', 'stream-json', '--verbose']
-    if dry:
-        log('DRY ' + ' '.join(shlex.quote(c) for c in cmd))
-        return 0
-    if _llm_exhausted.is_set():
-        log(f'defer LLM {todo_verb} {slug or ""}：本 tick 已撞 Claude session 限額，等下個 tick reset')
-        return -2
-    log(f'RUN llm {todo_verb} {slug or ""}（stream-json）')
+def _build_llm_cmd(provider: str, prompt: str) -> list[str]:
+    """依 provider 組 headless 派工命令。
+    claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json。
+    codex：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon 信任
+    環境，audit/repair 要寫 mineru_data、跑 uv），--model 預設 gpt-5.4。"""
+    if provider == 'codex':
+        return [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
+                '-C', ROOT, '--sandbox', 'danger-full-access',
+                '--model', CODEX_MODEL, prompt]
+    return [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
+            '--output-format', 'stream-json', '--verbose']
+
+
+def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
+    """單一 JSONL 事件 → worker_registry。claude 與 codex schema 不同，各自解。"""
+    if provider == 'codex':
+        t = ev.get('type')
+        item = ev.get('item') or {}
+        it = item.get('type')
+        # 工具調用：item.started 時記一次（避免 started+completed 重複計數）
+        if t == 'item.started' and it and it != 'agent_message':
+            cmd = item.get('command') or item.get('path') or item.get('name') or it
+            lbl = f'{it}: {cmd}' if it != 'command_execution' else f'shell: {cmd}'
+            wr.event(wkey, 'tool', lbl)
+            sys.stdout.write(f'[{tag}] 🔧 {lbl[:160]}\n')
+        elif t == 'item.completed' and it == 'agent_message':
+            txt = (item.get('text') or '').strip()
+            if txt:
+                wr.event(wkey, 'text', txt)
+                sys.stdout.write(f'[{tag}] 💬 {txt[:160]}\n')
+        return
+    # claude/kimi stream-json
+    if ev.get('type') != 'assistant':
+        return
+    for blk in (ev.get('message', {}).get('content') or []):
+        bt = blk.get('type')
+        if bt == 'tool_use':
+            lbl = _tool_label(blk)
+            wr.event(wkey, 'tool', lbl)
+            sys.stdout.write(f'[{tag}] 🔧 {lbl[:160]}\n')
+        elif bt == 'text':
+            txt = (blk.get('text') or '').strip()
+            if txt:
+                wr.event(wkey, 'text', txt)
+                sys.stdout.write(f'[{tag}] 💬 {txt[:160]}\n')
+
+
+def _run_one(provider: str, todo_verb: str, slug: str | None,
+             prompt: str) -> tuple[int, bool]:
+    """用單一 provider 跑一次派工。回 (rc, hit_limit)。hit_limit=True 代表撞該 provider 額度，
+    呼叫端據此換鏈上下一個 provider 重跑同一任務。timeout→(-1, False)（逾時非額度）。"""
     import signal
     import time
-    provider = os.environ.get('BOOK_PIPELINE_PROVIDER', 'claude').lower()
-    p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(), start_new_session=True,
+    cmd = _build_llm_cmd(provider, prompt)
+    log(f'RUN llm {todo_verb} {slug or ""}（{provider}/JSONL）')
+    p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     captured: list[str] = []
+    tag = slug or todo_verb
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
 
@@ -236,19 +306,7 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
                 ev = json.loads(s)
             except Exception:
                 continue
-            if ev.get('type') != 'assistant':
-                continue
-            for blk in (ev.get('message', {}).get('content') or []):
-                bt = blk.get('type')
-                if bt == 'tool_use':
-                    lbl = _tool_label(blk)
-                    wr.event(wkey, 'tool', lbl)
-                    sys.stdout.write(f'[{slug or todo_verb}] 🔧 {lbl[:160]}\n')
-                elif bt == 'text':
-                    txt = (blk.get('text') or '').strip()
-                    if txt:
-                        wr.event(wkey, 'text', txt)
-                        sys.stdout.write(f'[{slug or todo_verb}] 💬 {txt[:160]}\n')
+            _pump_event(provider, ev, wkey, tag)
     t = threading.Thread(target=_pump, daemon=True)
     t.start()
     try:
@@ -262,16 +320,40 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
                 os.killpg(os.getpgid(p.pid), signal.SIGKILL)
             except (ProcessLookupError, PermissionError):
                 pass
-            return -1
+            return -1, False
         t.join(timeout=5)
         out = ''.join(captured).lower()
-        if any(m in out for m in SESSION_LIMIT_MARKERS):
-            _llm_exhausted.set()
-            log(f'❌ Claude 5h session 限額已滿（{todo_verb} {slug or ""}）→ 本 tick 餘 LLM 全 defer，下個 tick reset 後重試')
-            return -2
-        return rc
+        return rc, _hit_limit(provider, out)
     finally:
         wr.unregister(wkey)
+
+
+def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
+    """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈撞額度 → 呼叫端 defer。
+    鏈預設 kimi→codex→claude（_provider_chain）。某 provider 撞額度即標記（本 tick 內共享，
+    並行子工不再重複撞）、換下一個 provider **重跑同一任務**（不浪費派工）；全鏈撞光才 -2。"""
+    prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
+    chain = _provider_chain()
+    if dry:
+        log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt)))
+        return 0
+    tried = []
+    for provider in chain:
+        with _exhausted_lock:
+            if provider in _exhausted_providers:
+                continue
+        tried.append(provider)
+        rc, hit = _run_one(provider, todo_verb, slug, prompt)
+        if not hit:
+            return rc  # 成功或非額度失敗 → 交回呼叫端
+        with _exhausted_lock:
+            _exhausted_providers.add(provider)
+        nxt = next((q for q in chain if q != provider
+                    and q not in _exhausted_providers), None)
+        log(f'⚠ {provider} 撞額度（{todo_verb} {slug or ""}）→ '
+            + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
+    log(f'❌ 全 provider 撞額度 {chain}（試過 {tried}）→ defer {todo_verb} {slug or ""}，下個 tick 重試')
+    return -2
 
 
 def _wishlist_pending() -> list:
@@ -405,19 +487,21 @@ def do_submit(slug: str, dry: bool) -> int:
 
 
 def do_harvest(slug: str, dry: bool) -> int:
-    """poll 收割 in-flight 書的 OCR → download+assemble→unified。OCR 早已並行於雲端，
-    這裡只把就緒 chunk 收回組裝。rc 0=組好可 parse / 3=部分仍 OCR 中（留 in-flight 下個
-    tick 再收）/ 1=無 manifest。"""
+    """poll 收割 in-flight 書的 OCR → download+assemble→unified。**非阻塞**：用短 max_wait
+    （HARVEST_MAX_WAIT），OCR 全好的書第一次 poll 就秒收，沒好的書幾十秒就放棄、留 in-flight
+    下個 tick 再收——**絕不等 OCR 跑完而凍住整 tick**（曾因預設 30min 等待把整條鏈卡死，
+    害下游 audit/crawl 全停）。rc 0=組好可 parse / 2=poll 逾時(OCR 未完) / 3=部分 chunk 缺
+    （2、3 皆留 in-flight 重收，非錯誤）/ 1=無 manifest。"""
     if dry:
         log(f'DRY ingest harvest {slug}（poll OCR → 收割）')
         return 0
-    log(f'ingest harvest {slug}：poll OCR batch → 收割就緒 chunk')
-    rc = mb.harvest_ingest(slug)
+    log(f'ingest harvest {slug}：poll OCR batch（max_wait={HARVEST_MAX_WAIT}s）→ 收就緒 chunk')
+    rc = mb.harvest_ingest(slug, max_wait=HARVEST_MAX_WAIT)
     if rc == 0:
         log(f'ingest harvest {slug} ✓：unified 組好，可 parse')
-    elif rc == 3:
-        log(f'ingest harvest {slug}：部分 chunk 仍 OCR 中 → 留 in-flight，下個 tick 再收')
-    elif rc != 0:
+    elif rc in (2, 3):
+        log(f'ingest harvest {slug}：OCR 尚未全完成（rc={rc}）→ 留 in-flight，下個 tick 再收')
+    else:
         log(f'❌ ingest harvest {slug}：rc={rc}')
     return rc
 
@@ -612,7 +696,8 @@ def _harvest_parallel(slugs: list[str], dry: bool) -> None:
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
-    _llm_exhausted.clear()  # 每 tick 重試一次 LLM（上個 tick 撞額度後可能已 reset）
+    with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
+        _exhausted_providers.clear()
     if not dry:
         wr.reset()  # 清空 worker 註冊表（含上次崩潰殘留），本 tick 新工人重新登記
 
@@ -629,12 +714,24 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     for s in ingest_slugs:
         do_submit(s, dry)  # detached upload，立刻返回；早寫 manifest 防跨 tick 重提
 
-    # advance 非待ingest書：LLM 階段（audit/qc/sol_extract）各書獨立無依賴 → 並行。
-    _advance_parallel([r['slug'] for r in rows if r['slug'] not in skip], dry, no_deploy)
-
-    # C. crawl 補新書：1 隻 planner 選 K 本互異缺口 → 並行下載當日全額度（3 帳號=30 本）→
-    #    補到的書並行 advance（triage→qc→ingest async submit）。zlib 與 MinerU 獨立資源池、互不阻塞。
-    crawled = do_crawl_parallel(dry)
+    # B+C 並發：advance 既有書（LLM/audit/qc/sol_extract）與 crawl 補新書（zlib 下載 + planner）
+    # 是**獨立資源池**，不該互等 → 同時跑。否則 crawl 卡在 audit barrier 後面 = 額度遲遲不消耗、
+    # audit 慢就整批新書都不爬。各書 LLM 任務獨立無依賴 → advance 內部本就全並行。
+    adv_slugs = [r['slug'] for r in rows if r['slug'] not in skip]
+    if dry:
+        _advance_parallel(adv_slugs, dry, no_deploy)
+        crawled = do_crawl_parallel(dry)
+    else:
+        with ThreadPoolExecutor(max_workers=2) as bc:
+            fb = bc.submit(_advance_parallel, adv_slugs, dry, no_deploy)
+            fc = bc.submit(do_crawl_parallel, dry)
+            cf.wait([fb, fc])
+            if fb.exception():
+                log(f'❌ phase B advance 異常：{fb.exception()}')
+            crawled = [] if fc.exception() else (fc.result() or [])
+            if fc.exception():
+                log(f'❌ phase C crawl 異常：{fc.exception()}')
+    # crawl 補到的新書並行 advance（triage→qc→ingest async submit）。
     if crawled and not dry:
         _advance_parallel(crawled, dry, no_deploy)
 

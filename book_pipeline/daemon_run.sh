@@ -4,10 +4,20 @@
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # MinerU token 不入 plist/git（plist world-readable）；從 ~/.secrets 載入進程環境。
 [ -f "$HOME/.secrets/mineru.env" ] && source "$HOME/.secrets/mineru.env"
-# LLM 派工供應商：claude=Claude Max 訂閱（原生，預設）；kimi=導到 Kimi Code 端點
-# （harness 仍是 claude CLI，僅換後端，key 由 _llm_env() 讀 ~/.secrets/kimi.env）。
-# 實測 kimi-for-coding 在 audit 易陷「漫遊 content_list 反覆重讀」迴圈卡死，故預設回
-# claude；要省訂閱額度再把這行改 kimi 即切換。
+# LLM 派工供應商（三選一）：
+#   kimi   = claude CLI 導到 Kimi Code 端點（預設，省 Claude 訂閱額度；key 讀 ~/.secrets/kimi.env）
+#   claude = Claude Max 訂閱原生（claude CLI 不換後端）
+#   codex  = OpenAI codex CLI `codex exec --json`（認證走 ~/.codex/auth.json＝codex login ChatGPT
+#            訂閱；模型 BOOK_PIPELINE_CODEX_MODEL 預設 gpt-5.4）。codex CLI 須裝 npm @openai/codex
+#            （headless），勿用 brew cask 那份 GUI 包裝（dyld 啟動卡死、不適 launchd 無 GUI session）。
+# 三者都吃 dispatch_llm 的 1h process-group timeout 護欄（卡死即殺、下個 tick 重派）。
+# kimi 偶在 audit 陷「漫遊 content_list 反覆重讀」迴圈，靠 timeout 兜底。
+#
+# Failover 串接（BOOK_PIPELINE_PROVIDER_CHAIN，逗號分隔，優先序由左到右）：某 provider 撞額度
+# 不再讓整輪停擺，而是換鏈上下一個重跑「同一任務」（不浪費派工），全鏈撞光才 defer 到下個 tick。
+# 預設 kimi→codex→claude：先榨 kimi（省 Claude 額度）、撞了用 codex（ChatGPT 訂閱）、再撞回 Claude
+# Max 原生。要單一 provider 就清掉 CHAIN、改用下面的 BOOK_PIPELINE_PROVIDER（向後相容）。
+export BOOK_PIPELINE_PROVIDER_CHAIN=kimi,codex,claude
 export BOOK_PIPELINE_PROVIDER=kimi
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
