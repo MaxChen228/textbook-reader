@@ -1,0 +1,27 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "7-0",
+      "classification": "external",
+      "reason": "原書/ OCR 產生 'Fig. 7-0'，本書圖錄無此編號；疑為原書排版錯字或 MinerU 將 '7-1'/'7-4' 誤讀，無法安全對應現有圖。",
+      "where": "ch07.json problem 7 body[47]",
+      "evidence": "Parsed text: '...identified with the closure of the shaded region in Fig. 7-0.'"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "ahlfors-ch08-prob3-fig11-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:3:body[11]",
+      "set": {
+        "catalog_exclude_reason": "duplicate image: the actual captioned figure FIG. 8-2 is the following block[12]; this block is an uncaptioned companion/double image and should not be indexed separately."
+      },
+      "expect": {
+        "t": "fig",
+        "src": "217c847a2d78216c610d126e1265407b8280e855f130985770775c63b485ad2f.jpg"
+      }
+    }
+  ]
+}
