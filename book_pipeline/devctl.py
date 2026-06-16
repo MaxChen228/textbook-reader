@@ -37,7 +37,8 @@ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
-START_INTERVAL = 2700  # 與 plist StartInterval 一致
+# daily 架構：tick 每天 08:30 台灣 = 00:30 UTC（與 plist StartCalendarInterval 一致）
+TICK_UTC_HOUR, TICK_UTC_MIN = 0, 30
 
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
@@ -99,10 +100,11 @@ def daemon_health() -> dict:
     last_dur = None
     if last_start and last_end and last_end >= last_start:
         last_dur = int((last_end - last_start).total_seconds())
-    next_eta = None
-    if last_start:
-        nxt = last_start + timedelta(seconds=START_INTERVAL)
-        next_eta = int((nxt - now).total_seconds())
+    # daily：下次 tick = 下個 00:30 UTC（=08:30 台灣），固定時刻、不依賴上次 tick
+    nxt = now.replace(hour=TICK_UTC_HOUR, minute=TICK_UTC_MIN, second=0, microsecond=0)
+    if nxt <= now:
+        nxt += timedelta(days=1)
+    next_eta = int((nxt - now).total_seconds())
 
     tick_proc = _proc_info('pipeline_tick')
     llm_proc = _proc_info('claude -p')
@@ -262,8 +264,10 @@ def _print_human(snap: dict) -> None:
     print(f"{light} daemon installed={d['installed']} last_exit={d['last_exit_code']} "
           f"running_now={d['tick_running']}")
     if d['last_tick_start_utc']:
+        dur = d['last_tick_duration_s']
+        dur_s = '跑中' if dur is None else f'{dur}s'
         print(f"   last tick start {d['last_tick_start_utc']} "
-              f"dur={d['last_tick_duration_s']}s  next≈{d['next_tick_eta_s']}s")
+              f"dur={dur_s}  next≈{d['next_tick_eta_s']}s")
     if d['llm_job']:
         j = d['llm_job']
         print(f"   🤖 LLM 工人在跑：{j['slug']} (pid {j['pid']}, {j['elapsed']})")
