@@ -1,0 +1,113 @@
+# ── 書本 metadata ──
+slug: lindner_theoretical_physics
+title: "A Complete Course on Theoretical Physics"
+author: "Albrecht Lindner; Dieter Strauch"
+edition: "1st"
+subject: Theoretical Physics
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+# 注意：本書的 section/subsection running header 被 MinerU 分類為 type=text tl=2，
+# 無法單靠 type 過濾。detect_heading() 只對 tl=1 觸發，tl=2 blocks 不會產生 section 節點，
+# body 為 flat paragraph 陣列（見 _audit.md）。
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 20          # pg=0: 封面; pg=1-19: 版權/序/TOC; pg=20: Ch1 第一節 1.1 開始
+appendices_start_page: 639   # Appendix A Important Constants (block 9166)
+bibliography_start_page: null  # 無獨立 bibliography，各章有 per-chapter References
+index_start_page: 641        # Index 從 pg=641 起（block 9180，字母 'A'）
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+# 備注：Ch1/2/4/5 無獨立 chapter title text block，
+# chapter_title_block_idx 設為前一章末尾的 anchor block，body_start = idx+1 即指向第一節。
+chapters:
+  - num: 1
+    title: "Basics of Experience"
+    page_start: 20
+    page_end: 73
+    chapter_title_block_idx: 361     # type=header 'Contents' pg=19（body_start=362 → 1.1 Vector Analysis）
+    problems_block_idx: null         # Ch1 無 Problems 章節
+    next_chapter_block_idx: 1122     # type=header '1 Basics of Experience' pg=73
+
+  - num: 2
+    title: "Classical Mechanics"
+    page_start: 74
+    page_end: 181
+    chapter_title_block_idx: 1122    # type=header '1 Basics of Experience' pg=73（body_start=1123 → 2.1）
+    problems_block_idx: 2510         # type=text tl=2 'Problems' pg=172
+    next_chapter_block_idx: 2612     # type=text tl=2 'Chapter 3 Electromagnetism' pg=182
+
+  - num: 3
+    title: "Electromagnetism"
+    page_start: 182
+    page_end: 293
+    chapter_title_block_idx: 2612    # type=text tl=2 'Chapter 3 Electromagnetism' pg=182
+    problems_block_idx: 4106         # type=text tl=2 'Problems' pg=286
+    next_chapter_block_idx: 4188     # type=header '3 Electromagnetism' pg=293
+
+  - num: 4
+    title: "Quantum Mechanics I"
+    page_start: 294
+    page_end: 416
+    chapter_title_block_idx: 4188    # type=header '3 Electromagnetism' pg=293（body_start=4189 → 4.1）
+    problems_block_idx: 5818         # type=text tl=2 'Problems' pg=408
+    next_chapter_block_idx: 5918     # type=page_number '397' pg=416
+
+  - num: 5
+    title: "Quantum Mechanics II"
+    page_start: 417
+    page_end: 529
+    chapter_title_block_idx: 5918    # type=page_number '397' pg=416（body_start=5919 → 5.1）
+    problems_block_idx: null         # Ch5 無 Problems 章節
+    next_chapter_block_idx: 7696     # type=text tl=1 'Chapter 6 Thermodynamics and Statistics' pg=530
+
+  - num: 6
+    title: "Thermodynamics and Statistics"
+    page_start: 530
+    page_end: 638
+    chapter_title_block_idx: 7696    # type=text tl=1 'Chapter 6 Thermodynamics and Statistics' pg=530
+    problems_block_idx: 9068         # type=text tl=2 'Problems' pg=629
+    next_chapter_block_idx: 9166     # type=text tl=2 'Appendix A Important Constants' pg=639
+
+# ── 附錄 ──
+appendices:
+  - id: "A"
+    title: "Important Constants"
+    page_start: 639
+    chapter_title_block_idx: 9166    # type=text tl=2 'Appendix A Important Constants' pg=639
+
+# ── heading regex（各恰好 2 capture groups: (id, title)） ──
+# 本書 section/subsection headings 為 tl=2 blocks，detect_heading() 僅對 tl=1 觸發，
+# 故這些 regex 在正常流程中不會命中（body 為 flat），但仍正確定義以符合 schema。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 本書題目格式：'Problem N.M ...'，N=章號，M=題號（如 'Problem 2.1 Determine...'）
+problem_start_re: '^Problem\s+(\d+\.\d+)\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'   # 本書方程無標籤，此 regex 不會命中
+
+# ── example（1 capture group）──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
