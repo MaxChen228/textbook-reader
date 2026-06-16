@@ -1,0 +1,12 @@
+# Griffiths Introduction to Electrodynamics 4e — Instructor's Solution Manual
+# 主書 griffiths_ed4 problem['num'] = "N.M"（章.題，純 N.M，全書零字母後綴）。
+#
+# chapter_re: 解答本 12 章 anchor 皆 lvl1 純 "Chapter N"，乾淨吻合預設。
+#
+# problem_re: 相對引擎預設（^Problem\s+(\d+\.\d+[a-z]?)）做兩處針對性修正，皆為對齊正確性、非放鬆配對：
+#   1. 去掉尾端 [a-z]?：主書 num 全是純 N.M（驗證零字母後綴），原 [a-z]? 只會吸進 OCR 垃圾，
+#      把 'Problem 2.4roblem 2.4' 抓成 key '2.4r'、'2.14...roblem' 抓成 '2.14r'（永遠對不上主書、純噪音）。
+#   2. 前置 (?:Problem\s+\d+\.\d+\s*)* 取「最後一個」Problem 號：解答本有 OCR 重疊頁眉
+#      'Problem A.BProblem A.C'，其後跟的正文其實是 A.C 的解答（已逐題語義核對）。預設貪婪停在第一個號
+#      會造成跨題錯位 — 2.2←2.20、3.11←3.10、7.46←7.44 三例。取末號修正之，2.20/3.10/7.44 各歸正位。
+problem_re: '^(?:Problem\s+\d+\.\d+\s*)*Problem\s+(\d+\.\d+)'
