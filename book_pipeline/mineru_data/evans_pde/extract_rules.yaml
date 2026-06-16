@@ -1,0 +1,154 @@
+slug: evans_pde
+title: Partial Differential Equations
+author: Lawrence C. Evans
+edition: 2nd
+subject: Differential Equations
+publisher: American Mathematical Society
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 669
+bibliography_start_page: 705
+index_start_page: 719
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 32
+    chapter_title_block_idx: 208
+    problems_block_idx: 382
+    next_chapter_block_idx: 413
+  - num: 2
+    title: Four Important Linear Partial Differential Equations
+    page_start: 33
+    page_end: 104
+    chapter_title_block_idx: 413
+    problems_block_idx: 1588
+    next_chapter_block_idx: 1715
+  - num: 3
+    title: Nonlinear First-Order PDE
+    page_start: 105
+    page_end: 174
+    chapter_title_block_idx: 1715
+    problems_block_idx: 2938
+    next_chapter_block_idx: 3041
+  - num: 4
+    title: Other Ways to Represent Solutions
+    page_start: 175
+    page_end: 254
+    chapter_title_block_idx: 3041
+    problems_block_idx: 4435
+    next_chapter_block_idx: 4555
+  - num: 5
+    title: Sobolev Spaces
+    page_start: 255
+    page_end: 308
+    chapter_title_block_idx: 4555
+    problems_block_idx: 5548
+    next_chapter_block_idx: 5632
+  - num: 6
+    title: Second-Order Elliptic Equations
+    page_start: 309
+    page_end: 364
+    chapter_title_block_idx: 5632
+    problems_block_idx: 6727
+    next_chapter_block_idx: 6840
+  - num: 7
+    title: Linear Evolution Equations
+    page_start: 365
+    page_end: 442
+    chapter_title_block_idx: 6840
+    problems_block_idx: 8291
+    next_chapter_block_idx: 8360
+  - num: 8
+    title: The Calculus of Variations
+    page_start: 443
+    page_end: 510
+    chapter_title_block_idx: 8360
+    problems_block_idx: 9596
+    next_chapter_block_idx: 9712
+  - num: 9
+    title: Nonvariational Techniques
+    page_start: 511
+    page_end: 558
+    chapter_title_block_idx: 9712
+    problems_block_idx: 10612
+    next_chapter_block_idx: 10702
+  - num: 10
+    title: Hamilton–Jacobi Equations
+    page_start: 559
+    page_end: 586
+    chapter_title_block_idx: 10702
+    problems_block_idx: 11148
+    next_chapter_block_idx: 11236
+  - num: 11
+    title: Systems of Conservation Laws
+    page_start: 587
+    page_end: 632
+    chapter_title_block_idx: 11236
+    problems_block_idx: 12052
+    next_chapter_block_idx: 12128
+  - num: 12
+    title: Nonlinear Wave Equations
+    page_start: 633
+    page_end: 668
+    chapter_title_block_idx: 12128
+    problems_block_idx: 12742
+    next_chapter_block_idx: 12842
+
+appendices:
+  - id: A
+    title: NOTATION
+    page_start: 669
+    chapter_title_block_idx: 12842
+  - id: B
+    title: INEQUALITIES
+    page_start: 677
+    chapter_title_block_idx: 13016
+  - id: C
+    title: CALCULUS
+    page_start: 681
+    chapter_title_block_idx: 13121
+  - id: D
+    title: FUNCTIONAL ANALYSIS
+    page_start: 690
+    chapter_title_block_idx: 13282
+  - id: E
+    title: MEASURE THEORY
+    page_start: 700
+    chapter_title_block_idx: 13496
+
+section_re: '^((?:\d+\.\d+|[A-E]\.\d+))\.\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[a-z]|i|ii|iii|iv|v|vi|vii|viii|ix|x))\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^\d+\.\d+\.\s+REFERENCES$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

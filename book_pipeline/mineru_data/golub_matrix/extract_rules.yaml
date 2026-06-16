@@ -1,0 +1,141 @@
+slug: golub_matrix
+title: Matrix Computations
+author: Gene H. Golub; Charles F. Van Loan
+edition: 4th
+subject: Linear Algebra
+publisher: The Johns Hopkins University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 771
+bibliography_start_page: null
+index_start_page: 771
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Matrix Multiplication
+    page_start: 25
+    page_end: 86
+    chapter_title_block_idx: 239
+    chapter_title_block_idx_secondary: 240
+    problems_block_idx: null
+    next_chapter_block_idx: 1356
+  - num: 2
+    title: Matrix Analysis
+    page_start: 87
+    page_end: 128
+    chapter_title_block_idx: 1356
+    chapter_title_block_idx_secondary: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 2246
+  - num: 3
+    title: General Linear Systems
+    page_start: 129
+    page_end: 176
+    chapter_title_block_idx: 2246
+    chapter_title_block_idx_secondary: 2247
+    problems_block_idx: null
+    next_chapter_block_idx: 3144
+  - num: 4
+    title: Special Linear Systems
+    page_start: 177
+    page_end: 256
+    chapter_title_block_idx: 3144
+    chapter_title_block_idx_secondary: 3145
+    problems_block_idx: null
+    next_chapter_block_idx: 4636
+  - num: 5
+    title: Orthogonalization and Least Squares
+    page_start: 257
+    page_end: 326
+    chapter_title_block_idx: 4636
+    chapter_title_block_idx_secondary: 4637
+    problems_block_idx: null
+    next_chapter_block_idx: 6014
+  - num: 6
+    title: Modified Least Squares Problems and Methods
+    page_start: 327
+    page_end: 370
+    chapter_title_block_idx: 6014
+    chapter_title_block_idx_secondary: 6015
+    problems_block_idx: null
+    next_chapter_block_idx: 6872
+  - num: 7
+    title: Unsymmetric Eigenvalue Problems
+    page_start: 371
+    page_end: 462
+    chapter_title_block_idx: 6872
+    chapter_title_block_idx_secondary: 6873
+    problems_block_idx: null
+    next_chapter_block_idx: 8592
+  - num: 8
+    title: Symmetric Eigenvalue Problems
+    page_start: 463
+    page_end: 536
+    chapter_title_block_idx: 8592
+    chapter_title_block_idx_secondary: 8593
+    problems_block_idx: null
+    next_chapter_block_idx: 10045
+  - num: 9
+    title: Functions of Matrices
+    page_start: 537
+    page_end: 568
+    chapter_title_block_idx: 10045
+    chapter_title_block_idx_secondary: 10046
+    problems_block_idx: null
+    next_chapter_block_idx: 10696
+  - num: 10
+    title: Large Sparse Eigenvalue Problems
+    page_start: 569
+    page_end: 620
+    chapter_title_block_idx: 10696
+    chapter_title_block_idx_secondary: 10697
+    problems_block_idx: null
+    next_chapter_block_idx: 11701
+  - num: 11
+    title: Large Sparse Linear System Problems
+    page_start: 621
+    page_end: 704
+    chapter_title_block_idx: 11701
+    chapter_title_block_idx_secondary: 11702
+    problems_block_idx: null
+    next_chapter_block_idx: 13287
+  - num: 12
+    title: Special Topics
+    page_start: 705
+    page_end: 770
+    chapter_title_block_idx: 13287
+    chapter_title_block_idx_secondary: 13288
+    problems_block_idx: null
+    next_chapter_block_idx: 14556
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^P(\d+\.\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)*[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
