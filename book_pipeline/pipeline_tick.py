@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import fcntl
+import json
 import os
 import shlex
 import subprocess
@@ -163,9 +164,37 @@ def _wishlist_pending() -> list:
         return []
 
 
+CRAWL_SENTINEL = os.path.join(BP, 'reports', 'crawl_last.json')
+
+
+def _zlib_remaining() -> int | None:
+    """查 z-library 今日剩餘下載額度；查不到回 None（不當成 0，避免誤判耗盡）。"""
+    try:
+        out = subprocess.run(
+            ['uv', 'run', '--with', 'requests', 'python', '-m',
+             'book_pipeline.crawl_zlib', 'limits'],
+            cwd=ROOT, capture_output=True, text=True, timeout=60)
+        return json.loads(out.stdout or '{}').get('remaining')
+    except Exception as e:
+        log(f'crawl：查額度失敗 {e}')
+        return None
+
+
+def _read_crawl_sentinel() -> dict | None:
+    """crawl agent 收尾寫的結構化結果（reports/crawl_last.json）。讀不到回 None。"""
+    try:
+        return json.load(open(CRAWL_SENTINEL))
+    except Exception:
+        return None
+
+
 def do_crawl(dry: bool) -> bool:
-    """wishlist 驅動的爬書（LLM）。有主題且今日下載額度 > 0 才派 headless claude。
-    回傳是否消耗了一個 LLM slot。"""
+    """wishlist 驅動的爬書（LLM）。有主題且今日額度 > 0 才派 headless claude。
+    回傳是否消耗了一個 LLM slot。
+
+    關鍵：dispatch 後**客觀驗證產出**（額度是否消耗 + agent sentinel），不再相信
+    agent 自述「成功」。空手/失敗一律 log 成 `❌`（被 devctl ERROR_RE 捕獲 → /dev
+    頁可見），杜絕「crawl 沒補到書卻一片綠、要人追 transcript」的 silent failure。"""
     topics = _wishlist_pending()
     if not topics:
         return False
@@ -173,22 +202,35 @@ def do_crawl(dry: bool) -> bool:
         log(f'crawl plan：wishlist 有 {len(topics)} 主題（真跑時查額度後派 agent 選書）')
         dispatch_llm('crawl', None, dry=True)
         return True
-    # 真跑：查下載額度
-    try:
-        out = subprocess.run(
-            ['uv', 'run', '--with', 'requests', 'python', '-m',
-             'book_pipeline.crawl_zlib', 'limits'],
-            cwd=ROOT, capture_output=True, text=True, timeout=60)
-        import json
-        rem = json.loads(out.stdout or '{}').get('remaining')
-    except Exception as e:
-        log(f'crawl skip：查額度失敗 {e}')
+    rem = _zlib_remaining()
+    if rem is None:
+        log('crawl skip：查額度失敗，本 tick 不派 crawl')
         return False
-    if not rem or rem <= 0:
+    if rem <= 0:
         log(f'crawl defer：今日下載額度耗盡（remaining={rem}）→ 明日')
         return False
+    # 派工前清掉舊 sentinel，確保讀到的是本次結果（非上次殘留）
+    try:
+        os.remove(CRAWL_SENTINEL)
+    except FileNotFoundError:
+        pass
     log(f'crawl dispatch：wishlist {len(topics)} 主題，額度剩 {rem}')
     dispatch_llm('crawl', None, dry=False)
+    # ── 客觀驗證產出（額度消耗是「真下載成功」的硬訊號）──
+    rem_after = _zlib_remaining()
+    res = _read_crawl_sentinel()
+    if rem_after is not None and rem_after < rem:
+        slug = (res or {}).get('slug', '?')
+        log(f'crawl ok：已補書 slug={slug}（額度 {rem}→{rem_after}）')
+    elif res is None:
+        log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）→ 下個 tick 重試')
+    elif res.get('action') == 'no_candidate':
+        log(f'crawl 無新書：{res.get("reason", "無合格經典缺口可補")}（正常，非錯誤）')
+    elif res.get('action') == 'failed':
+        log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）→ 下個 tick 重試')
+    else:  # action=fetched 卻沒扣額度 → agent 自以為成功但其實沒下到
+        log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
+            f'疑 z-library /dl/ 下載端 503 → 下個 tick 重試')
     return True
 
 
@@ -283,7 +325,10 @@ def main() -> int:
     g = ap.add_mutually_exclusive_group()
     g.add_argument('--dry-run', action='store_true', help='印計劃不執行（預設）')
     g.add_argument('--once', action='store_true', help='真正執行一次')
-    ap.add_argument('--max-llm', type=int, default=1, help='本 tick headless claude 上限')
+    # 預設無上限：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全跑完，瓶頸交給
+    # 外部額度（zlib 10/日、MinerU 預算）與 per-LLM timeout 護欄，而非人為 cap 卡住排隊。
+    # 仍保留旗標供 debug 時手動壓低（如 --max-llm 1）。
+    ap.add_argument('--max-llm', type=int, default=999, help='本 tick headless claude 上限（預設 999≈無限）')
     ap.add_argument('--no-deploy', action='store_true', help='跳過 build+push')
     args = ap.parse_args()
     dry = not args.once

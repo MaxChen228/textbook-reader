@@ -29,3 +29,18 @@ uv run --with requests python -m book_pipeline.crawl_zlib fetch <id> <hash> --sl
 - 下載後**不要**自己跑 ingest——daemon 下個 tick 會依 `pdf_triage` 判定自動接手（born_digital/good 直接 ingest；可疑先 qc）。
 - 下載回 HTML（額度耗盡/需驗證）會報錯中止，不要硬試。
 - 拿不準某主題該抓哪本、或 topics 模糊 → 在回覆說明候選與理由，**寧缺勿濫**抓錯書。
+
+## 收尾回報（強制，daemon 靠它判定成敗）
+
+結束前**務必**寫 `book_pipeline/reports/crawl_last.json`（單一 JSON object），daemon 讀它客觀判斷這次 crawl 是「補到書 / 沒合格書 / 失敗」，不靠你的文字自述。三選一：
+
+```jsonc
+{"action": "fetched",      "slug": "ashcroft_ssp", "reason": "Ashcroft 固態物理，填 wishlist 缺口"}
+{"action": "no_candidate", "slug": null,           "reason": "wishlist 經典缺口都已有，今日無合格新書"}
+{"action": "failed",       "slug": "ashcroft_ssp", "reason": "fetch 回 503，z-library /dl/ 下載端故障"}
+```
+
+鐵則：
+- **只有 `fetch` 真的成功、`raw_pdfs/<slug>.pdf` 確實落地，才寫 `fetched`。** fetch 報錯（503/HTML/逾時）一律 `failed` 並在 `reason` 寫實際錯誤——**絕不**把失敗美化成「等恢復」就正常結束，那會讓 daemon 誤判成功。
+- 主動判斷「沒合格書可補」→ `no_candidate`（正常、非錯誤）。
+- 寫檔用 Write 工具或 `python3 -c`；確保是合法 JSON。

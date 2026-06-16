@@ -11,9 +11,9 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 export BOOK_PIPELINE_PROVIDER=claude
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
-# max-llm 2：crawl 是最上游、每 tick 優先吃 1 個 LLM 名額；給 2 才能同時推進
-# 1 個下游階段（qc/audit），否則下載的書一直積著不被處理（全自動會塞在 crawl）。
-# 2 個 headless claude 序列跑約 30min < 45min tick 間隔，不超時。
+# 不設 --max-llm：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全部跑完，瓶頸
+# 只交給外部額度（zlib 10/日、MinerU 預算）與 per-LLM 40min timeout 護欄。一個長 tick
+# 靠 flock 擋住後續 launchd 觸發、做完即釋放，不會堆疊；卡死的子工由 timeout 殺掉重派。
 exec uv run python -m book_pipeline.pipeline_tick \
-    --once --max-llm 2 \
+    --once \
     >> book_pipeline/reports/daemon.stdout.log 2>&1

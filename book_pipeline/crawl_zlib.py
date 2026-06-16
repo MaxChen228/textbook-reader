@@ -43,7 +43,8 @@ CRAWL_MANIFEST = os.path.join(BP, 'crawl_manifest.json')
 
 ENV_PATH = os.path.expanduser('~/.secrets/zlib.env')
 SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')
-UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
+      '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
 SOLUTION_RE = re.compile(
     r'\b(solutions?\s+manual|instructor\'?s?\s+(solutions?|manual)|answer\s+key|'
@@ -148,12 +149,17 @@ class Client:
         return r.json().get('books', [])
 
     def download(self, dl_path: str, dest: str) -> int:
-        """串流下載到 dest，回傳 bytes。dl_path 形如 /dl/xxx。"""
+        """下載到 dest，回傳 bytes。dl_path 形如 /dl/xxx。
+
+        z-library 對 /dl/ 加了 JS challenge（「Checking your browser」，回 503 或 HTML，
+        純 HTTP client 過不去）。策略：先試 requests（無 challenge 時最快），命中 challenge
+        就退到 playwright headless 真瀏覽器執行 JS 後下載。"""
         r = self._get(dl_path, stream=True, allow_redirects=True)
-        r.raise_for_status()
         ctype = r.headers.get('Content-Type', '')
-        if 'text/html' in ctype:
-            raise RuntimeError(f'下載回傳 HTML（額度耗盡或需驗證）：{dl_path}')
+        if r.status_code == 503 or 'text/html' in ctype:
+            r.close()  # JS challenge 擋下載 → 真瀏覽器破關
+            return self._download_via_browser(self.base + dl_path, dest)
+        r.raise_for_status()
         n = 0
         tmp = dest + '.part'
         with open(tmp, 'wb') as f:
@@ -162,6 +168,30 @@ class Client:
                 n += len(chunk)
         os.replace(tmp, dest)
         return n
+
+    def _download_via_browser(self, dl_url: str, dest: str) -> int:
+        """playwright headless：帶現有 session cookie 開下載頁，跑完 z-library 的 JS
+        challenge 後存檔。chromium 需先裝（`uv run playwright install chromium`）。"""
+        from urllib.parse import urlparse
+        from playwright.sync_api import sync_playwright
+        domain = '.' + (urlparse(self.base).hostname or 'z-library.sk')
+        tmp = dest + '.part'
+        with sync_playwright() as p:
+            br = p.chromium.launch(headless=True)
+            try:
+                ctx = br.new_context(accept_downloads=True, user_agent=UA)
+                ctx.add_cookies([
+                    {'name': 'remix_userid', 'value': str(self.uid), 'domain': domain, 'path': '/'},
+                    {'name': 'remix_userkey', 'value': self.key, 'domain': domain, 'path': '/'},
+                ])
+                page = ctx.new_page()
+                with page.expect_download(timeout=120000) as di:
+                    page.goto(dl_url, wait_until='commit')
+                di.value.save_as(tmp)
+            finally:
+                br.close()
+        os.replace(tmp, dest)
+        return os.path.getsize(dest)
 
 
 # ── inventory（去重 + agent context）─────────────────────────────────────
