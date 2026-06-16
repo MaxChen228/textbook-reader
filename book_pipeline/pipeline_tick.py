@@ -209,28 +209,34 @@ def do_crawl(dry: bool) -> bool:
     if rem <= 0:
         log(f'crawl defer：今日下載額度耗盡（remaining={rem}）→ 明日')
         return False
-    # 派工前清掉舊 sentinel，確保讀到的是本次結果（非上次殘留）
-    try:
-        os.remove(CRAWL_SENTINEL)
-    except FileNotFoundError:
-        pass
-    log(f'crawl dispatch：wishlist {len(topics)} 主題，額度剩 {rem}')
-    dispatch_llm('crawl', None, dry=False)
-    # ── 客觀驗證產出（額度消耗是「真下載成功」的硬訊號）──
-    rem_after = _zlib_remaining()
-    res = _read_crawl_sentinel()
-    if rem_after is not None and rem_after < rem:
-        slug = (res or {}).get('slug', '?')
-        log(f'crawl ok：已補書 slug={slug}（額度 {rem}→{rem_after}）')
-    elif res is None:
-        log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）→ 下個 tick 重試')
-    elif res.get('action') == 'no_candidate':
-        log(f'crawl 無新書：{res.get("reason", "無合格經典缺口可補")}（正常，非錯誤）')
-    elif res.get('action') == 'failed':
-        log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）→ 下個 tick 重試')
-    else:  # action=fetched 卻沒扣額度 → agent 自以為成功但其實沒下到
-        log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
-            f'疑 z-library /dl/ 下載端 503 → 下個 tick 重試')
+    # daily tick：把 zlib 當日額度爬滿——loop 直到額度耗盡／agent 回 no_candidate／失敗。
+    # 每輪客觀驗證（額度消耗是「真下載成功」的硬訊號），非成功一律 break 避免空轉無限迴圈。
+    fetched = 0
+    while rem > 0:
+        try:
+            os.remove(CRAWL_SENTINEL)
+        except FileNotFoundError:
+            pass
+        log(f'crawl dispatch（第 {fetched + 1} 本）：wishlist {len(topics)} 主題，額度剩 {rem}')
+        dispatch_llm('crawl', None, dry=False)
+        rem_after = _zlib_remaining()
+        res = _read_crawl_sentinel()
+        if rem_after is not None and rem_after < rem:
+            fetched += 1
+            log(f'crawl ok：已補書 slug={(res or {}).get("slug", "?")}（額度 {rem}→{rem_after}）')
+            rem = rem_after
+            continue  # 額度還有 → 繼續爬下一本，把當日額度榨乾
+        if res is None:
+            log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）→ 停止本輪')
+        elif res.get('action') == 'no_candidate':
+            log(f'crawl 收斂：{res.get("reason", "無更多合格經典缺口")}（已補 {fetched} 本，正常）')
+        elif res.get('action') == 'failed':
+            log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）→ 停止本輪')
+        else:  # action=fetched 卻沒扣額度 → 自以為成功但其實沒下到
+            log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
+                f'疑 z-library /dl/ 下載端故障 → 停止本輪')
+        break
+    log(f'crawl 本輪結束：共補 {fetched} 本，額度剩 {rem}')
     return True
 
 
@@ -271,6 +277,30 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     return 0
 
 
+def do_catalog_repair(slug: str, dry: bool) -> int:
+    """catalog_audit 殘漏的確定性修復閉環（無 LLM）：repair 三件套 → re-audit。
+    三個 repair 各自確定性、自帶 _manual_repair_backups（可回滾）；metadata 補 caption/id、
+    from_unified 從 MinerU 原文找回缺塊、aliases 連結 ref→既有塊。critical 清零 → catalog
+    過關，下個 tick 自然推進（sol/deploy）；殘餘 critical → surface ❌（少數書需 LLM/人工）。
+    repair 改的是 parsed/*.json，status 判定『有 book.json 即不重 parse』故結果持久。"""
+    from book_pipeline.catalog_audit import audit_catalog
+    before = audit_catalog(slug, write_report=False).get('critical') or 0
+    if before == 0:
+        return 0
+    log(f'catalog_repair {slug}：critical={before} → 跑確定性 repair 三件套')
+    if dry:
+        return 0
+    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_metadata', '--slug', slug])
+    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_from_unified', slug])
+    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_aliases', slug])
+    after = audit_catalog(slug, write_report=False).get('critical') or 0
+    if after == 0:
+        log(f'catalog_repair {slug} ✓：critical {before}→0，catalog 過關')
+    else:
+        log(f'❌ catalog_repair {slug}：critical {before}→{after}，殘餘 {after} 項需 LLM/人工修')
+    return 0
+
+
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}, max_llm={max_llm}) ===')
     log('budget: ' + str(mb.status_report()))
@@ -297,8 +327,8 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         slug, todo = r['slug'], r['todo']
         verb = todo.split('(')[0]
         if r['llm'] or verb in LLM_PROMPTS:
-            if llm_done >= max_llm:
-                log(f'skip {slug} {todo}（本 tick LLM 上限 {max_llm} 已滿）')
+            if max_llm and llm_done >= max_llm:
+                log(f'skip {slug} {todo}（本 tick LLM 上限 {max_llm} 已滿，debug 壓低）')
                 continue
             log(f'LLM dispatch {slug} → {verb}')
             dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
@@ -312,7 +342,7 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         elif verb == 'deploy':
             do_deploy(slug, dry, no_deploy)
         elif verb == 'catalog_audit':
-            log(f'defer {slug}：catalog_audit 需修復流程（catalog_audit.py / repair_*），surface 不自動跑')
+            do_catalog_repair(slug, dry)
         else:
             log(f'skip {slug}：未知確定性 todo={todo}')
 
@@ -325,10 +355,10 @@ def main() -> int:
     g = ap.add_mutually_exclusive_group()
     g.add_argument('--dry-run', action='store_true', help='印計劃不執行（預設）')
     g.add_argument('--once', action='store_true', help='真正執行一次')
-    # 預設無上限：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全跑完，瓶頸交給
-    # 外部額度（zlib 10/日、MinerU 預算）與 per-LLM timeout 護欄，而非人為 cap 卡住排隊。
-    # 仍保留旗標供 debug 時手動壓低（如 --max-llm 1）。
-    ap.add_argument('--max-llm', type=int, default=999, help='本 tick headless claude 上限（預設 999≈無限）')
+    # 限流交給外部額度（zlib 10/日、MinerU 預算）與 per-LLM 40min timeout，不用人為計數。
+    # daily tick：LLM 可解的階段（qc/audit/sol_extract）每天一次全做完。--max-llm 0=不限
+    # （預設，額度驅動）；>0 僅供 debug 壓低派工數。
+    ap.add_argument('--max-llm', type=int, default=0, help='headless claude 上限，0=不限（預設）')
     ap.add_argument('--no-deploy', action='store_true', help='跳過 build+push')
     args = ap.parse_args()
     dry = not args.once
