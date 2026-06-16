@@ -1,0 +1,120 @@
+slug: durrett_probability
+title: Probability Theory and Examples
+author: Rick Durrett
+edition: 5th
+subject: Probability
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 7
+appendices_start_page: 406
+bibliography_start_page: 422
+index_start_page: 427
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Measure Theory
+    page_start: 13
+    page_end: 48
+    chapter_title_block_idx: 181
+    problems_block_idx: 317
+    next_chapter_block_idx: 894
+  - num: 2
+    title: Laws of Large Numbers
+    page_start: 49
+    page_end: 109
+    chapter_title_block_idx: 894
+    problems_block_idx: 1082
+    next_chapter_block_idx: 2062
+  - num: 3
+    title: Central Limit Theorems
+    page_start: 110
+    page_end: 189
+    chapter_title_block_idx: 2062
+    problems_block_idx: 2101
+    next_chapter_block_idx: 3692
+  - num: 4
+    title: Martingales
+    page_start: 190
+    page_end: 243
+    chapter_title_block_idx: 3692
+    problems_block_idx: 3871
+    next_chapter_block_idx: 4757
+  - num: 5
+    title: Markov Chains
+    page_start: 244
+    page_end: 297
+    chapter_title_block_idx: 4757
+    problems_block_idx: 4799
+    next_chapter_block_idx: 5724
+  - num: 6
+    title: Ergodic Theorems
+    page_start: 298
+    page_end: 316
+    chapter_title_block_idx: 5724
+    problems_block_idx: 5760
+    next_chapter_block_idx: 6070
+  - num: 7
+    title: Brownian Motion
+    page_start: 317
+    page_end: 347
+    chapter_title_block_idx: 6070
+    problems_block_idx: 6170
+    next_chapter_block_idx: 6672
+  - num: 8
+    title: Applications to Random Walk
+    page_start: 348
+    page_end: 375
+    chapter_title_block_idx: 6672
+    problems_block_idx: 6789
+    next_chapter_block_idx: 7245
+  - num: 9
+    title: Multidimensional Brownian Motion
+    page_start: 376
+    page_end: 405
+    chapter_title_block_idx: 7245
+    problems_block_idx: 7300
+    next_chapter_block_idx: 7878
+
+appendices:
+  - id: A
+    title: Measure Theory Details
+    page_start: 406
+    chapter_title_block_idx: 7878
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+heading_text_level: 2
+
+problem_start_re: '^(\d+\.\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
