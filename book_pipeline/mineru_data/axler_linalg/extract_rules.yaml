@@ -1,0 +1,113 @@
+slug: axler_linalg
+title: "Linear Algebra Done Right"
+author: "Sheldon Axler"
+edition: "4th"
+subject: "Linear Algebra"
+publisher: "Springer"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 19
+appendices_start_page: null
+bibliography_start_page: null
+index_start_page: 385
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Vector Spaces"
+    page_start: 19
+    page_end: 44
+    chapter_title_block_idx: 297
+    problems_block_idx: null
+    next_chapter_block_idx: 798
+  - num: 2
+    title: "Finite-Dimensional Vector Spaces"
+    page_start: 45
+    page_end: 68
+    chapter_title_block_idx: 798
+    problems_block_idx: null
+    next_chapter_block_idx: 1249
+  - num: 3
+    title: "Linear Maps"
+    page_start: 69
+    page_end: 136
+    chapter_title_block_idx: 1249
+    problems_block_idx: null
+    next_chapter_block_idx: 2574
+  - num: 4
+    title: "Polynomials"
+    page_start: 137
+    page_end: 150
+    chapter_title_block_idx: 2574
+    problems_block_idx: null
+    next_chapter_block_idx: 2866
+  - num: 5
+    title: "Eigenvalues and Eigenvectors"
+    page_start: 151
+    page_end: 198
+    chapter_title_block_idx: 2866
+    problems_block_idx: null
+    next_chapter_block_idx: 3746
+  - num: 6
+    title: "Inner Product Spaces"
+    page_start: 199
+    page_end: 244
+    chapter_title_block_idx: 3746
+    problems_block_idx: null
+    next_chapter_block_idx: 4677
+  - num: 7
+    title: "Operators on Inner Product Spaces"
+    page_start: 245
+    page_end: 314
+    chapter_title_block_idx: 4677
+    problems_block_idx: null
+    next_chapter_block_idx: 5985
+  - num: 8
+    title: "Operators on Complex Vector Spaces"
+    page_start: 315
+    page_end: 350
+    chapter_title_block_idx: 5985
+    problems_block_idx: null
+    next_chapter_block_idx: 6656
+  - num: 9
+    title: "Multilinear Algebra and Determinants"
+    page_start: 351
+    page_end: 383
+    chapter_title_block_idx: 6656
+    problems_block_idx: null
+    next_chapter_block_idx: 7525
+
+appendices: []
+
+section_re: '^(\d+[A-Z])\s+(.*)$'
+subsection_re: '^(\d+\.\d+)\s+(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\s'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^(\d+\.\d+)\s+example:'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
