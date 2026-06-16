@@ -34,6 +34,7 @@ from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
+from book_pipeline import status as st
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -188,56 +189,48 @@ def _read_crawl_sentinel() -> dict | None:
         return None
 
 
-def do_crawl(dry: bool) -> bool:
-    """wishlist 驅動的爬書（LLM）。有主題且今日額度 > 0 才派 headless claude。
-    回傳是否消耗了一個 LLM slot。
+def do_crawl_one(dry: bool) -> str | None:
+    """wishlist 驅動爬**一本**書（LLM）。成功回新書 slug；無主題／額度耗盡／收斂／失敗回 None。
 
-    關鍵：dispatch 後**客觀驗證產出**（額度是否消耗 + agent sentinel），不再相信
-    agent 自述「成功」。空手/失敗一律 log 成 `❌`（被 devctl ERROR_RE 捕獲 → /dev
-    頁可見），杜絕「crawl 沒補到書卻一片綠、要人追 transcript」的 silent failure。"""
+    縱向架構：tick 每爬一本就立刻 advance_book 推它往下（不囤批）。客觀驗證產出
+    （額度是否消耗 + agent sentinel），不信 agent 自述。非成功一律 surface（`❌` 被
+    devctl ERROR_RE 捕獲 → /dev 可見），杜絕「沒補到書卻一片綠、要人追 transcript」。"""
     topics = _wishlist_pending()
     if not topics:
-        return False
+        return None
     if dry:
         log(f'crawl plan：wishlist 有 {len(topics)} 主題（真跑時查額度後派 agent 選書）')
         dispatch_llm('crawl', None, dry=True)
-        return True
+        return None
     rem = _zlib_remaining()
     if rem is None:
         log('crawl skip：查額度失敗，本 tick 不派 crawl')
-        return False
+        return None
     if rem <= 0:
         log(f'crawl defer：今日下載額度耗盡（remaining={rem}）→ 明日')
-        return False
-    # daily tick：把 zlib 當日額度爬滿——loop 直到額度耗盡／agent 回 no_candidate／失敗。
-    # 每輪客觀驗證（額度消耗是「真下載成功」的硬訊號），非成功一律 break 避免空轉無限迴圈。
-    fetched = 0
-    while rem > 0:
-        try:
-            os.remove(CRAWL_SENTINEL)
-        except FileNotFoundError:
-            pass
-        log(f'crawl dispatch（第 {fetched + 1} 本）：wishlist {len(topics)} 主題，額度剩 {rem}')
-        dispatch_llm('crawl', None, dry=False)
-        rem_after = _zlib_remaining()
-        res = _read_crawl_sentinel()
-        if rem_after is not None and rem_after < rem:
-            fetched += 1
-            log(f'crawl ok：已補書 slug={(res or {}).get("slug", "?")}（額度 {rem}→{rem_after}）')
-            rem = rem_after
-            continue  # 額度還有 → 繼續爬下一本，把當日額度榨乾
-        if res is None:
-            log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）→ 停止本輪')
-        elif res.get('action') == 'no_candidate':
-            log(f'crawl 收斂：{res.get("reason", "無更多合格經典缺口")}（已補 {fetched} 本，正常）')
-        elif res.get('action') == 'failed':
-            log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）→ 停止本輪')
-        else:  # action=fetched 卻沒扣額度 → 自以為成功但其實沒下到
-            log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
-                f'疑 z-library /dl/ 下載端故障 → 停止本輪')
-        break
-    log(f'crawl 本輪結束：共補 {fetched} 本，額度剩 {rem}')
-    return True
+        return None
+    try:
+        os.remove(CRAWL_SENTINEL)
+    except FileNotFoundError:
+        pass
+    log(f'crawl dispatch：wishlist {len(topics)} 主題，額度剩 {rem}')
+    dispatch_llm('crawl', None, dry=False)
+    rem_after = _zlib_remaining()
+    res = _read_crawl_sentinel()
+    if rem_after is not None and rem_after < rem:  # 額度消耗 = 真下載成功的硬訊號
+        slug = (res or {}).get('slug')
+        log(f'crawl ok：已補書 slug={slug}（額度 {rem}→{rem_after}）')
+        return slug
+    if res is None:
+        log(f'❌ crawl 空手：agent 未回報結果（崩潰／逾時？額度 {rem} 未動）')
+    elif res.get('action') == 'no_candidate':
+        log(f'crawl 收斂：{res.get("reason", "無更多合格經典缺口")}（正常）')
+    elif res.get('action') == 'failed':
+        log(f'❌ crawl 失敗：{res.get("reason", "未知")}（額度未消耗）')
+    else:  # action=fetched 卻沒扣額度 → 自以為成功但其實沒下到
+        log(f'❌ crawl 異常：agent 宣稱 fetched slug={res.get("slug", "?")} 但額度未消耗，'
+            f'疑 z-library /dl/ 下載端故障')
+    return None
 
 
 def do_ingest(slug: str, dry: bool) -> int:
@@ -301,51 +294,85 @@ def do_catalog_repair(slug: str, dry: bool) -> int:
     return 0
 
 
+def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:
+    """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
+    audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
+
+    停點（符合宗旨「除非塞在某處的額度限制才停，掉下一天 tick 後繼續」）：
+      - ingest 後 OCR 未在 max-wait 內就緒 → 留 in-flight，下個 tick resume（async 斷點）
+      - ingest 撞 MinerU 帳號預算 → do_ingest 內 defer，unified 不就緒 → 停，明日續
+      - deploy = pipeline 終點；done／可選 translate／triage·qc 拒 → 收工
+      - 同一 stage 連續兩步沒前進 → 停（防失敗空轉），surface 待人工/下個 tick
+    """
+    last_stage = None
+    for _ in range(max_steps):
+        row = q.assess_one(slug)
+        stage = row.get('stage', '') or ''
+        todo = row.get('todo', '—')
+        verb = todo.split('(')[0]
+        # 無必要 work：done／可選 translate／triage·qc 拒（R）／無源（X）
+        if todo in ('—', '') or todo.endswith('(可選)') or stage.startswith(('R', 'X')):
+            return
+        if stage == last_stage:
+            log(f'advance {slug} 停滯於「{stage}」（{verb} 未前進）→ 停，待人工/下個 tick')
+            return
+        last_stage = stage
+
+        if dry:
+            log(f'DRY advance {slug}：下一步 {verb}（stage={stage}）')
+            return
+        if verb == 'ingest':
+            do_ingest(slug, dry)
+            # OCR 在 max-wait 內組好 unified → 同 tick 續往下；否則停（async 斷點/撞預算）。
+            if st._exists(slug, 'unified', 'content_list.json'):
+                continue
+            log(f'advance {slug}：ingest 已提交但 OCR 未就緒（或撞預算）→ 停，下個 tick resume')
+            return
+        if verb == 'deploy':
+            do_deploy(slug, dry, no_deploy)
+            return  # pipeline 終點
+        if verb == 'parse':
+            do_parse(slug, dry)
+        elif verb == 'catalog_audit':
+            do_catalog_repair(slug, dry)
+        elif row.get('llm') or verb in LLM_PROMPTS:
+            log(f'advance {slug} → LLM {verb}')
+            dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
+        else:
+            log(f'advance {slug} skip：未知確定性 todo={todo}')
+            return
+    log(f'advance {slug}：達 max_steps={max_steps} → 停（防失控）')
+
+
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
-    log(f'=== tick start (dry={dry}, max_llm={max_llm}) ===')
+    log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
 
-    # 2) resume in-flight ingests（無視預算）
+    # 2) resume in-flight ingests（OCR 已在雲端跑，無視預算組完）
     for slug in sorted(mb.in_flight()):
         do_ingest(slug, dry)
 
-    llm_done = 0
-
-    # 3) actionable（先做：已在手的書 ingest/parse/deploy/catalog 全推完，先榨乾 MinerU 額度）
-    #    crawl 放最後（step 4）——zlib 與 MinerU 是獨立資源池，crawl loop 不可阻塞 ingest。
+    # 3) 每本書縱向推進：各自沿 pipeline 跑到底／撞額度／OCR 等待，互不阻塞、不囤批。
+    #    上游優先排序：先推接近 ingest 的書（讓新書早點上站），純體感、不影響正確性。
     rows = q.build_queue()
-    actionable = [r for r in rows
-                  if r['todo'] not in ('—', '', 'translate(可選)')
-                  and not r['stage'].startswith('R')]
-    order = {'0.2': 1, '0.3': 2, '0.5': 2, '1': 3, '2': 4, '3': 5, '4': 5}
-    actionable.sort(key=lambda r: order.get(r['stage'].split()[0], 9))
+    order = {'0.2': 0, '0.3': 1, '0.5': 1, '1': 2, '2': 3, '3': 4, '4': 4}
 
-    for r in actionable:
-        slug, todo = r['slug'], r['todo']
-        verb = todo.split('(')[0]
-        if r['llm'] or verb in LLM_PROMPTS:
-            if max_llm and llm_done >= max_llm:
-                log(f'skip {slug} {todo}（本 tick LLM 上限 {max_llm} 已滿，debug 壓低）')
-                continue
-            log(f'LLM dispatch {slug} → {verb}')
-            dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
-            llm_done += 1
-            continue
-        # 確定性
-        if verb == 'ingest':
-            do_ingest(slug, dry)
-        elif verb == 'parse':
-            do_parse(slug, dry)
-        elif verb == 'deploy':
-            do_deploy(slug, dry, no_deploy)
-        elif verb == 'catalog_audit':
-            do_catalog_repair(slug, dry)
-        else:
-            log(f'skip {slug}：未知確定性 todo={todo}')
+    def _ord(r):
+        parts = (r.get('stage') or '').split()
+        return order.get(parts[0] if parts else '', 9)
+    rows.sort(key=_ord)
+    for r in rows:
+        advance_book(r['slug'], dry, no_deploy)
 
-    # 4) wishlist 驅動的爬書（LLM，補新書，放最後榨乾 zlib——新書這 tick 只到 qc，下 tick 才 ingest）
-    if do_crawl(dry):
-        llm_done += 1
+    # 4) crawl 補新書：每爬一本立刻縱向推進它（triage→qc→ingest 撞 MinerU 才停），不囤批。
+    #    zlib 與 MinerU 是獨立資源池 → crawl 與 ingest 交錯消耗、各自榨乾當日額度。
+    while True:
+        slug = do_crawl_one(dry)
+        if not slug:
+            break  # 無主題／額度耗盡／收斂／失敗
+        advance_book(slug, dry, no_deploy)
+        if dry:
+            break  # dry 只示範一輪
 
     log('=== tick end ===')
     return 0

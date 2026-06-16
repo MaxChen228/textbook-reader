@@ -147,6 +147,15 @@ def build_queue() -> list[dict]:
     return [assess_full(s, pending, raw, state) for s in slugs]
 
 
+def assess_one(slug: str) -> dict:
+    """單本即時 stage 判定（縱向推進每步後重算用）。每次重載 pending/raw/state，
+    因為 ingest/parse/audit 會改變磁碟狀態 → 下一步判定須看最新真相。"""
+    pending = st._load_pending()
+    raw = st._raw_slug_map()
+    state = _load_state()
+    return assess_full(slug, pending, raw, state)
+
+
 def next_actionable(rows: list[dict]) -> dict | None:
     """pipeline 上游優先：依 stage 前綴排序，回第一個有 todo 的（非拒絕/done）。"""
     order = {'0.2': 0, '0.3': 1, '0.5': 1, '1': 2, '2': 3, '3': 4, '4': 4}
