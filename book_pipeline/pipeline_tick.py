@@ -311,11 +311,8 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
 
     llm_done = 0
 
-    # 3) wishlist 驅動的爬書（LLM，最上游）
-    if do_crawl(dry):
-        llm_done += 1
-
-    # 4) actionable（上游優先）
+    # 3) actionable（先做：已在手的書 ingest/parse/deploy/catalog 全推完，先榨乾 MinerU 額度）
+    #    crawl 放最後（step 4）——zlib 與 MinerU 是獨立資源池，crawl loop 不可阻塞 ingest。
     rows = q.build_queue()
     actionable = [r for r in rows
                   if r['todo'] not in ('—', '', 'translate(可選)')
@@ -345,6 +342,10 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
             do_catalog_repair(slug, dry)
         else:
             log(f'skip {slug}：未知確定性 todo={todo}')
+
+    # 4) wishlist 驅動的爬書（LLM，補新書，放最後榨乾 zlib——新書這 tick 只到 qc，下 tick 才 ingest）
+    if do_crawl(dry):
+        llm_done += 1
 
     log('=== tick end ===')
     return 0
