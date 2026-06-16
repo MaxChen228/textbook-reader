@@ -155,8 +155,8 @@ def budget_status() -> dict:
     for a in bud.ACCOUNTS:
         used = bud.account_used(a)
         accts[a] = {'used': used, 'remaining': bud.account_remaining(a),
-                    'daily_cap': bud.DAILY_PAGES}
-    return {'date_utc': bud._today(), 'daily_cap': bud.DAILY_PAGES, 'accounts': accts}
+                    'daily_cap': bud.PRIORITY_PAGES}
+    return {'date_utc': bud._today(), 'daily_cap': bud.PRIORITY_PAGES, 'accounts': accts}
 
 
 # ── 進行中 ingest ────────────────────────────────────────────────────────────

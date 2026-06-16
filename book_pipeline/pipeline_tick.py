@@ -34,7 +34,6 @@ from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
-from book_pipeline import status as st
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -233,20 +232,37 @@ def do_crawl_one(dry: bool) -> str | None:
     return None
 
 
-def do_ingest(slug: str, dry: bool) -> int:
-    pages = mb.estimate_pages(slug) or 200
+def do_submit(slug: str, dry: bool) -> int:
+    """async 提交一本待 ingest 書到 MinerU（切+傳，**不等 OCR**）。進 in-flight，OCR
+    並行於雲端排隊跑，由 do_harvest 收割。MinerU 無每日硬上限（超高優先配額僅降速），
+    故不闸门、一律提交（pick_account 只做帳號負載均衡）。"""
     if slug in mb.in_flight():
-        log(f'ingest resume {slug}（in-flight，無視預算）')
-        return 0 if dry else mb.run_ingest(slug, mb.ACCOUNTS[0])
+        return 0  # 已提交，等 harvest
+    pages = mb.estimate_pages(slug) or 200
     acct = mb.pick_account(pages)
-    if not acct:
-        log(f'ingest defer {slug}：{pages} 頁，今日各帳號預算不足 → 明日')
-        return 0
-    log(f'ingest start {slug}：{pages} 頁 → {acct}')
+    log(f'ingest submit {slug}：{pages} 頁 → 帳號{mb._account_num(acct)}（async，不等 OCR）')
     if dry:
         return 0
     mb.record_start(slug, acct, pages)
-    return mb.run_ingest(slug, acct)
+    return mb.submit_ingest(slug, acct)
+
+
+def do_harvest(slug: str, dry: bool) -> int:
+    """poll 收割 in-flight 書的 OCR → download+assemble→unified。OCR 早已並行於雲端，
+    這裡只把就緒 chunk 收回組裝。rc 0=組好可 parse / 3=部分仍 OCR 中（留 in-flight 下個
+    tick 再收）/ 1=無 manifest。"""
+    if dry:
+        log(f'DRY ingest harvest {slug}（poll OCR → 收割）')
+        return 0
+    log(f'ingest harvest {slug}：poll OCR batch → 收割就緒 chunk')
+    rc = mb.harvest_ingest(slug)
+    if rc == 0:
+        log(f'ingest harvest {slug} ✓：unified 組好，可 parse')
+    elif rc == 3:
+        log(f'ingest harvest {slug}：部分 chunk 仍 OCR 中 → 留 in-flight，下個 tick 再收')
+    elif rc != 0:
+        log(f'❌ ingest harvest {slug}：rc={rc}')
+    return rc
 
 
 def do_parse(slug: str, dry: bool) -> int:
@@ -298,11 +314,10 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
 
-    停點（符合宗旨「除非塞在某處的額度限制才停，掉下一天 tick 後繼續」）：
-      - ingest 後 OCR 未在 max-wait 內就緒 → 留 in-flight，下個 tick resume（async 斷點）
-      - ingest 撞 MinerU 帳號預算 → do_ingest 內 defer，unified 不就緒 → 停，明日續
-      - deploy = pipeline 終點；done／可選 translate／triage·qc 拒 → 收工
-      - 同一 stage 連續兩步沒前進 → 停（防失敗空轉），surface 待人工/下個 tick
+    ingest 是 async 斷點：走到 ingest 只 submit（不等 OCR），書進 in-flight 後停；OCR
+    並行於雲端排隊跑，由 tick 的 harvest 階段統一收割 → 組好 unified 後（同 tick 收割階段
+    後的 advance，或下個 tick）才續 parse→…→deploy。其餘停點：deploy=終點；done／可選
+    translate／triage·qc 拒（R/X）→ 收工；同一 stage 連兩步沒前進 → 停（防失敗空轉）。
     """
     last_stage = None
     for _ in range(max_steps):
@@ -322,11 +337,10 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
             log(f'DRY advance {slug}：下一步 {verb}（stage={stage}）')
             return
         if verb == 'ingest':
-            do_ingest(slug, dry)
-            # OCR 在 max-wait 內組好 unified → 同 tick 續往下；否則停（async 斷點/撞預算）。
-            if st._exists(slug, 'unified', 'content_list.json'):
-                continue
-            log(f'advance {slug}：ingest 已提交但 OCR 未就緒（或撞預算）→ 停，下個 tick resume')
+            # async 斷點：已 in-flight → 等 harvest 收割，不重 submit；否則 async 提交後停。
+            if slug in mb.in_flight():
+                return
+            do_submit(slug, dry)
             return
         if verb == 'deploy':
             do_deploy(slug, dry, no_deploy)
@@ -344,16 +358,8 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     log(f'advance {slug}：達 max_steps={max_steps} → 停（防失控）')
 
 
-def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
-    log(f'=== tick start (dry={dry}) ===')
-    log('budget: ' + str(mb.status_report()))
-
-    # 2) resume in-flight ingests（OCR 已在雲端跑，無視預算組完）
-    for slug in sorted(mb.in_flight()):
-        do_ingest(slug, dry)
-
-    # 3) 每本書縱向推進：各自沿 pipeline 跑到底／撞額度／OCR 等待，互不阻塞、不囤批。
-    #    上游優先排序：先推接近 ingest 的書（讓新書早點上站），純體感、不影響正確性。
+def _sorted_rows() -> list:
+    """全書 queue，上游優先排序（先推接近 ingest 的書讓新書早上站；純體感不影響正確性）。"""
     rows = q.build_queue()
     order = {'0.2': 0, '0.3': 1, '0.5': 1, '1': 2, '2': 3, '3': 4, '4': 4}
 
@@ -361,11 +367,23 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         parts = (r.get('stage') or '').split()
         return order.get(parts[0] if parts else '', 9)
     rows.sort(key=_ord)
-    for r in rows:
+    return rows
+
+
+def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
+    log(f'=== tick start (dry={dry}) ===')
+    log('budget: ' + str(mb.status_report()))
+
+    # A. 收割既有 in-flight：上輪/更早 async submit 的 OCR 早已並行於雲端跑，poll 組 unified。
+    for slug in sorted(mb.in_flight()):
+        do_harvest(slug, dry)
+
+    # B. 每本書縱向推進：triage→qc→ingest(async submit 後停)；unified 就緒→parse→…→deploy。
+    for r in _sorted_rows():
         advance_book(r['slug'], dry, no_deploy)
 
-    # 4) crawl 補新書：每爬一本立刻縱向推進它（triage→qc→ingest 撞 MinerU 才停），不囤批。
-    #    zlib 與 MinerU 是獨立資源池 → crawl 與 ingest 交錯消耗、各自榨乾當日額度。
+    # C. crawl 補新書：每爬一本立刻 advance（triage→qc→ingest async submit），不囤批。
+    #    zlib 與 MinerU 是獨立資源池 → crawl 與 ingest 各自榨乾、互不阻塞。
     while True:
         slug = do_crawl_one(dry)
         if not slug:
@@ -373,6 +391,15 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         advance_book(slug, dry, no_deploy)
         if dry:
             break  # dry 只示範一輪
+
+    # D. 收割本 tick 新 submit 的：OCR 並行於雲端 → 統一 poll（總等待≈最慢一本，非序列總和）。
+    if not dry:
+        for slug in sorted(mb.in_flight()):
+            do_harvest(slug, dry)
+
+        # E. 對收割到 unified 的書再縱向推進（parse→audit→catalog→sol→deploy 一條龍）。
+        for r in _sorted_rows():
+            advance_book(r['slug'], dry, no_deploy)
 
     log('=== tick end ===')
     return 0
