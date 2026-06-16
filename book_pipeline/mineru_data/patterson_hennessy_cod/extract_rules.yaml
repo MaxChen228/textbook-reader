@@ -1,0 +1,96 @@
+slug: patterson_hennessy_cod
+title: 'Computer Organization and Design: The Hardware/Software Interface, ARM Edition'
+author: David A. Patterson; John L. Hennessy
+edition: 5th
+subject: Computer Architecture
+publisher: Morgan Kaufmann
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 26
+appendices_start_page: 770
+bibliography_start_page: 1038
+index_start_page: 855
+inline_problems: false
+chapters:
+- num: 1
+  title: Computer Abstractions and Technology
+  page_start: 26
+  page_end: 97
+  chapter_title_block_idx: 237
+  problems_block_idx: 883
+  next_chapter_block_idx: 1065
+- num: 2
+  title: 'Instructions: Language of the Computer'
+  page_start: 98
+  page_end: 258
+  chapter_title_block_idx: 1065
+  problems_block_idx: 2801
+  next_chapter_block_idx: 2967
+- num: 3
+  title: Arithmetic for Computers
+  page_start: 259
+  page_end: 336
+  chapter_title_block_idx: 2967
+  problems_block_idx: 3803
+  next_chapter_block_idx: 3848
+- num: 4
+  title: The Processor
+  page_start: 337
+  page_end: 504
+  chapter_title_block_idx: 3848
+  problems_block_idx: 5015
+  next_chapter_block_idx: 5249
+- num: 5
+  title: 'Large and Fast: Exploiting Memory Hierarchy'
+  page_start: 505
+  page_end: 672
+  chapter_title_block_idx: 5249
+  problems_block_idx: 6535
+  next_chapter_block_idx: 6858
+- num: 6
+  title: Parallel Processors from Client to Cloud
+  page_start: 673
+  page_end: 769
+  chapter_title_block_idx: 6858
+  problems_block_idx: 7570
+  next_chapter_block_idx: 7845
+appendices:
+- id: A
+  title: The Basics of Logic Design
+  page_start: 770
+  chapter_title_block_idx: 7845
+- id: B
+  title: Graphics and Computing GPUs
+  page_start: 877
+  chapter_title_block_idx: 11706
+- id: C
+  title: Mapping Control to Hardware
+  page_start: 960
+  chapter_title_block_idx: 12419
+- id: D
+  title: A Survey of RISC Architectures for Desktop, Server, and Embedded Computers
+  page_start: 993
+  chapter_title_block_idx: 12647
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority: [subsection_re, section_re]
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\s*\{([0-9]+[a-z]?)\}
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []
