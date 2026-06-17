@@ -1,5 +1,8 @@
 #!/bin/zsh
-# book_pipeline 自動化迴圈 — launchd 觸發的單次 tick wrapper。
+# book_pipeline 自動化迴圈 — launchd 觸發的反應式 controller wrapper（非定時批次）。
+# 下方 BOOK_PIPELINE_REACTIVE=1 → 一個長駐 controller 持續 observe→派工→reap→harvest→sleep，
+# 可做的 transition 立即派、worker 完成即 wake 重觀測（下游秒接力）。launchd StartInterval 只是
+# 「監工」：controller 自退（跑滿 walltime 或連數輪無事）後 15min 內重拉；flock 確保只有一隻。
 # launchd 環境極簡，需顯式補 PATH（uv 在 ~/.local/bin，claude/homebrew 在 /opt/homebrew/bin）。
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # MinerU token 不入 plist/git（plist world-readable）；從 ~/.secrets 載入進程環境。
