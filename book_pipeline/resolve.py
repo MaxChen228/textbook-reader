@@ -235,6 +235,8 @@ def cmd_commit(args) -> int:
     t = _find_target(args.slug)
     if not t:
         return _emit({'error': f'{args.slug} 非書單 target → 拒絕落盤（不寫 ghost）'}) or 2
+    if sum([bool(args.absent), bool(args.review), bool(args.id or args.hash)]) > 1:
+        return _emit({'error': '模式衝突：--absent / --review / (--id+--hash) 三者擇一'}) or 2
     now = datetime.now(timezone.utc).isoformat(timespec='seconds')
     if args.absent:
         entry = {'absent': True, 'note': args.note or '', 'by': 'agent', 'at': now}

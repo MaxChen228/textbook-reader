@@ -123,9 +123,16 @@ CONTROLLER_STATE = os.path.join(BP, '.controller.json')
 RELOAD_REQUEST = os.path.join(BP, 'reload_request')
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）。
-# 註：crawl 選書已不在此——書單 SoT（booklists/）+ 確定性 resolver 取代了舊「派 LLM 從零重推書單」
-# 的土炮做法（見 refill_crawl_queue）。本表只剩真正需 LLM 判斷的下游階段。
+# 註：crawl **選書**仍確定性（書單 SoT + select_next），但 crawl **解析**（書名→z-lib id/hash）需判斷
+# → 改回 LLM agent（'crawl' 條目，見 do_crawl_resolve / references/crawl.md）；買書員 drain 仍確定性。
+# 曾試圖把解析也確定性化（信心門檻自動配），假陽性太多（Chemistry→Food Chemistry、Gallian 題解→Dummit）。
 LLM_PROMPTS = {
+    'crawl': (
+        "你是 book_pipeline 的 **crawl 解析 agent**：替書單 target 在 z-library 找出『正是這本書』的 "
+        "id/hash，或判定 absent/review。**嚴格遵照 .claude/skills/book-pipeline/references/crawl.md**"
+        "（工具、判準、proposal 管道、硬邊界全在那）。**只 search、不下載、不選書、不碰額度。** "
+        "本批要解的 target slug（逗號分隔）：{slug}。逐本：target → search →（歧義時 inspect）→ 判斷 → commit。"
+        "advisory_conf 只是提示、非裁決；寧缺勿錯——可疑就 absent/review，別 commit 錯的。"),
     'qc': (
         "對 slug={slug} 跑 `pdf_contactsheet {slug}`，看產出的 PNG，判斷書是否正確/清晰/完整/"
         "可供 MinerU OCR。結論呼叫 `python -m book_pipeline.pipeline_queue` 的 set_qc："

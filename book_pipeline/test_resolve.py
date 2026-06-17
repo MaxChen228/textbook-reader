@@ -126,6 +126,19 @@ def test_commit_rejects_ghost():
     print('✓ cmd_commit：拒寫非書單 target')
 
 
+def test_commit_rejects_conflicting_modes():
+    # --absent 同時帶 --id → 模式衝突拒絕（不靜默讓 absent 蓋掉 id）。用**真** target 過 ghost 守門，
+    # 才真的踩到衝突分支（否則 ghost 先擋＝測不到衝突）。
+    from book_pipeline import booklists as bl
+    real = next((t['slug'] for t in bl.targets()), None)
+    if real is None:
+        print('⚠ 無書單 target，跳過衝突測試'); return
+    args = argparse.Namespace(slug=real, id='1', hash='h', title=None, author=None,
+                              mb=None, absent=True, review=False, note=None)
+    assert rs.cmd_commit(args) == 2          # 真 target 過守門 → 命中衝突分支 → 2（且不寫盤）
+    print('✓ cmd_commit：--absent + --id 衝突 → 拒絕（不靜默）')
+
+
 if __name__ == '__main__':
     test_confidence()
     test_author_word_boundary()
@@ -139,4 +152,5 @@ if __name__ == '__main__':
     test_exact_match_requires_author()
     test_exact_match_rejects_ambiguous_dup()
     test_commit_rejects_ghost()
+    test_commit_rejects_conflicting_modes()
     print('\n全部通過 ✅')
