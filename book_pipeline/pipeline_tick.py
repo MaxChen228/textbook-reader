@@ -166,7 +166,8 @@ def _refresh_snapshot() -> None:
     try:
         _last_snap = now
         from book_pipeline.devctl import write_snapshot
-        write_snapshot()
+        write_snapshot()  # write_timeline=False（預設）：controller 記憶體碼可能舊，只刷 live status.json、
+                          # 不碰歷史時間軸；時間軸由 60s devsnapshot 單一寫手寫（防版本歪斜 churn）
     except Exception:
         pass
     finally:

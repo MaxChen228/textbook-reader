@@ -191,7 +191,7 @@ def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
     # ── ingest 前：triage / qc ──
     if not has_unified:
         if slug in pending:  # 已 PUT、unified 未組 → 續 ingest
-            return {'slug': slug, 'stage': '0.5 ingest中斷', 'todo': 'ingest', 'llm': False}
+            return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'llm': False}
         tri = _triage(slug, raw)
         if tri is None:
             # 無源 = 殘留 slug 或待補；crawl 由 wishlist 驅動（見 pipeline_tick），

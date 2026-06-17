@@ -293,7 +293,7 @@ def _cover_url(slug: str) -> str | None:
     return None
 
 
-def books_status() -> dict:
+def books_status(write_timeline: bool = False) -> dict:
     pending = st._load_pending()
     raw = st._raw_slug_map()
     slugs = st.all_slugs(pending, raw)
@@ -316,10 +316,14 @@ def books_status() -> dict:
         # 留存的歷史時戳），否則它們只會從此刻起顯示 deployed、丟失過去。
         deployed = os.path.exists(os.path.join(ROOT, 'data', s, 'book.json'))
         dep_at = (state.get(s) or {}).get('deployed_at')
-        if deployed and dep_at:
-            tl.seed(s, 'deployed', dep_at)
         label = 'deployed' if deployed else r.get('stage', '')
-        tl.observe(s, label)
+        # 時間軸 = append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠跑最新碼）寫。
+        # 常駐 controller 的事件式刷新用記憶體舊碼，若也 observe→與 devsnapshot 新碼版本歪斜時
+        # 兩者對同一書算出不同 stage、輪流蓋寫 → 歷史無限亂跳（billingsley churn 根因）。讀(get)一律可。
+        if write_timeline:
+            if deployed and dep_at:
+                tl.seed(s, 'deployed', dep_at)
+            tl.observe(s, label)
         r['timeline'] = tl.get(s)
         # 歷史 agent session 摘要（slug 命中 OR ∈ corpus sweep 的 touched）；完整逐事件由網頁
         # 點開時直接 fetch sessions/<id>.jsonl，故此處只掛輕量摘要（封頂避免 status.json 爆量）。
@@ -434,9 +438,9 @@ def math_health() -> dict:
     }
 
 
-def build_snapshot(since_min: int = 180) -> dict:
+def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
-    bs = books_status()
+    bs = books_status(write_timeline=write_timeline)
     zl = zlib_status()
     wks = workers()
     return {
@@ -456,9 +460,11 @@ def build_snapshot(since_min: int = 180) -> dict:
     }
 
 
-def write_snapshot() -> str:
+def write_snapshot(write_timeline: bool = False) -> str:
     hist.reconcile()  # 順手清死孤兒 JSONL（finish 前被 SIGKILL 的殘檔）；低頻心跳即可
-    snap = build_snapshot()
+    # write_timeline 預設 False：controller 的事件式刷新（記憶體舊碼）只更新 live status.json、不碰歷史；
+    # 只有 60s devsnapshot CLI 傳 True 寫時間軸 → 單一寫手、版本一致，杜絕歷史 churn。
+    snap = build_snapshot(write_timeline=write_timeline)
     os.makedirs(os.path.dirname(SNAPSHOT_PATH), exist_ok=True)
     tmp = SNAPSHOT_PATH + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
@@ -603,7 +609,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == 'snapshot':
-        path = write_snapshot()
+        path = write_snapshot(write_timeline=True)  # 60s 心跳 plist = 時間軸唯一寫手（永遠最新碼）
         print(f'wrote {path}')
         return 0
 

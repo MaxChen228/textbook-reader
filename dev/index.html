@@ -288,18 +288,21 @@
     { ico: '📚', name: '編目 catalog' },
     { ico: '✅', name: '上站完成' },
     { ico: '🧮', name: '數學 sweep', math: true },  // 隊尾 corpus 收尾 agent（對稱隊頭 crawl）；不放書、放跨書 agent + 殘餘
+    { ico: '🚫', name: '淘汰', reject: true },  // 終端死路（qc/triage 拒、無源）；不在前進車道、不灌水「待 OCR」
   ]
   const DONE_ST = 6
   const MATH_ST = 7
-  function stationOf(b) {  // 書本一律落在 1..6；站台 0（爬書）只放 crawl agent，不放書
+  const REJECT_ST = 8
+  function stationOf(b) {  // 書本落在 1..6（前進）/ 6 上站 / 8 淘汰；站 0 爬書、7 數學 sweep 不放書
     if (b.deployed) return DONE_ST
     const c = (b.stage || '').trim().split(' ')[0]
+    if (c === 'R' || c === 'X') return REJECT_ST  // 拒/無源 = 死路，移出前進車道（不再混進「待 OCR」騙人）
     if (c === '4') return DONE_ST
     if (c === '3') return 5
     if (c === '2') return 4
     if (c === '1') return 3
     if (c === '0.5') return 2
-    return 1  // X / 0 待 ingest
+    return 1  // 0 待 ingest
   }
   // crawl agent：slug=null、verb=crawl_plan → 過去 applyWalkers 疊不到任何書卡而完全隱形。
   // 改在「爬書」站台直接以 worker 渲染，回答「現在有沒有 agent 在爬書」。
@@ -503,6 +506,7 @@
     const m = last && last.math
     if (!m) return '—'
     if (!m.node_available) return 'node 缺 · 未驗證'
+    if (mathWorkers().length) return `sweeping 中 · 殘 ${m.corpus_bad_occ} occ`  // 正在掃 → 不再顯「待/尚未」自相矛盾
     const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
                             : ' · 尚未 sweep'
     return `殘 ${m.corpus_bad_occ} occ · ${m.due ? '待 sweep' : '健康'}${sw}`
