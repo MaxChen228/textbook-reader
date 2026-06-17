@@ -19,6 +19,9 @@ math_validate.locator_to_target 產（report findings 已附 targets，agent 直
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
+import re
 import sys
 from collections import Counter
 from datetime import datetime
@@ -132,10 +135,100 @@ def apply_overrides(slug: str) -> dict[str, int]:
     return dict(stats)
 
 
+def _ov_id(slug: str, chunk: str, selector: str, tex: str) -> str:
+    """穩定唯一 id：<slug>-<chunk>-<sanitized selector>-<tex hash6>。
+    tex hash 確保同一 selector 上多條相異壞式不撞 id。"""
+    sel = re.sub(r"[^a-z0-9]+", "-", selector.lower()).strip("-")
+    h = hashlib.sha1((tex or "").encode("utf-8")).hexdigest()[:6]
+    return re.sub(r"-+", "-", f"{slug}-{chunk}-{sel}-{h}").strip("-")
+
+
+def _exact_inline_region(field_value: str, field: str, tex: str) -> tuple[str, str] | None:
+    """在欄位完整字串裡找 inner.strip()==tex 的數學區，回 (old 精確段, 原始 inner)。
+    複用 math_audit._math_regions（與 reader / collect_formulas 同一套定界文法）→ old 含
+    原樣定界符與空白，replace 必命中。找不到回 None（交呼叫端 fallback）。"""
+    from book_pipeline.math_audit import _math_regions
+    for start, end, inner in _math_regions(field_value, field):
+        if inner.strip() == tex:
+            return field_value[start:end], inner
+    return None
+
+
+def finding_to_override(slug: str, finding: dict[str, Any], new: str, *,
+                        target: dict[str, str] | None = None,
+                        field_value: str | None = None) -> dict[str, Any]:
+    r"""一條 math_validate finding + LLM 給的 new(正確 tex) → 一條 override dict。
+    把「手填 id/action/chunk/selector/field/expect/anchor/old」全自動化，**只剩 new 要 LLM 判**
+    （消滅開環的機械填欄斷點）。
+
+    fix_eq_tex（target.field=='tex'）：完全自足——expect=finding.tex（apply guard 用 strip 比對）、
+      new=原始 new tex（eq block 存裸 tex）。
+    fix_inline_math（md/caption/footnote/title）：old 是欄內的數學「子字串」、anchor 是整欄指紋。
+      給 field_value（該欄完整字串）→ 用 _math_regions 精確取 old 與原樣定界、new 同定界包覆、附 anchor。
+      沒給 → best-effort 用 finding.display 重建 $tex$/$$tex$$ 且不附 anchor（apply 端 old 對不上只會
+      skip-drift，絕不誤改）。"""
+    tgt = target or next(iter(finding.get("targets") or []), None)
+    if not tgt:
+        raise ValueError(f"{slug}: finding 無 targets，無法定位 override（tex={finding.get('tex')!r}）")
+    chunk, selector = tgt["chunk"], tgt["selector"]
+    field = tgt.get("field", "md")
+    tex = finding.get("tex") or ""
+    ov: dict[str, Any] = {"id": _ov_id(slug, chunk, selector, tex)}
+    if field == "tex":
+        ov.update(action="fix_eq_tex", chunk=chunk, selector=selector, expect=tex, new=new)
+        return ov
+    ov.update(action="fix_inline_math", chunk=chunk, selector=selector, field=field)
+    region = _exact_inline_region(field_value, field, tex) if field_value is not None else None
+    if region is not None:
+        old, inner = region
+        ov["old"] = old
+        ov["new"] = old.replace(inner, new, 1)          # 保留原樣定界與空白
+        ov["anchor"] = overlay_anchor({field: field_value})
+    else:
+        wrap = "$$" if finding.get("display") else "$"   # fallback：無 field_value
+        ov["old"] = f"{wrap}{tex}{wrap}"
+        ov["new"] = f"{wrap}{new}{wrap}"
+    return ov
+
+
+def _make_override_main(argv: list[str]) -> int:
+    """make-override CLI：讀 live report 的某條 finding，產 override JSON 條目（印出，agent 自行併入
+    math_overrides/<slug>.json）。需 live 資料（parsed/_math_report.json + parsed chunk）。"""
+    from book_pipeline.math_validate import read_report
+    ap = argparse.ArgumentParser(prog='python -m book_pipeline.apply_math_overrides make-override')
+    ap.add_argument('--slug', required=True)
+    ap.add_argument('--index', type=int, required=True, help='_math_report.json findings 的索引')
+    ap.add_argument('--new', required=True, help='LLM 判定的正確 tex（inline 給裸 inner、eq 給裸 tex）')
+    args = ap.parse_args(argv)
+    rep = read_report(args.slug)
+    if not rep:
+        ap.error(f"無 report：{args.slug}")
+    findings = rep.get("findings") or []
+    if not 0 <= args.index < len(findings):
+        ap.error(f"index 越界（0..{len(findings) - 1}）")
+    finding = findings[args.index]
+    tgt = next(iter(finding.get("targets") or []), None)
+    field_value = None
+    if tgt and tgt.get("field") != "tex":
+        try:                                              # 讀 live 欄位值供精確定位 + anchor
+            data = _load_json(_chunk_path(args.slug, tgt["chunk"]))
+            holder, key = _resolve_field(data, tgt["selector"], tgt.get("field", "md"))
+            v = holder.get(key)
+            field_value = v if isinstance(v, str) else None
+        except _DRIFT_ERRORS:
+            field_value = None
+    ov = finding_to_override(args.slug, finding, args.new, field_value=field_value)
+    print(json.dumps(ov, ensure_ascii=False, indent=2))
+    return 0
+
+
 def main() -> int:
+    argv = sys.argv[1:]
+    if argv and argv[0] == 'make-override':
+        return _make_override_main(argv[1:])
     ap = argparse.ArgumentParser(prog='python -m book_pipeline.apply_math_overrides')
     ap.add_argument('slug')
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     stats = apply_overrides(args.slug)
     print(f"[math-overrides] {args.slug}: {stats}")
     return 0
