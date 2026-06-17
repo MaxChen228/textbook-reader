@@ -212,6 +212,17 @@ def test_finding_to_override_no_targets_raises():
         pass
 
 
+def test_finding_to_override_empty_tex_raises():
+    # 空 tex → fallback 會產 old="$$" 誤改任何含 $$ 的欄 → 必 raise
+    tgt = [{"chunk": "ch01", "selector": "body[0]", "field": "md"}]
+    for bad in ("", "   ", None):
+        try:
+            amo.finding_to_override("bk", _finding(bad, tgt), "y")
+            assert False, f"空 tex({bad!r}) 應 raise"
+        except ValueError:
+            pass
+
+
 def test_finding_to_override_roundtrip_apply():
     # 端到端契約：finding → override → apply_overrides 實際修好（eq + inline 各一）
     _setup()
@@ -245,6 +256,7 @@ if __name__ == "__main__":
         test_finding_to_override_inline_with_fieldvalue(); print("✓ finding→override：inline 精確 old/anchor")
         test_finding_to_override_inline_fallback_no_anchor(); print("✓ finding→override：inline fallback 無 anchor")
         test_finding_to_override_no_targets_raises(); print("✓ finding→override：無 targets raise")
+        test_finding_to_override_empty_tex_raises(); print("✓ finding→override：空 tex raise（防誤改）")
         test_finding_to_override_roundtrip_apply(); print("✓ finding→override→apply round-trip 修復 eq+inline")
     finally:
         _teardown()

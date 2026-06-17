@@ -144,9 +144,10 @@ def _ov_id(slug: str, chunk: str, selector: str, tex: str) -> str:
 
 
 def _exact_inline_region(field_value: str, field: str, tex: str) -> tuple[str, str] | None:
-    """在欄位完整字串裡找 inner.strip()==tex 的數學區，回 (old 精確段, 原始 inner)。
-    複用 math_audit._math_regions（與 reader / collect_formulas 同一套定界文法）→ old 含
-    原樣定界符與空白，replace 必命中。找不到回 None（交呼叫端 fallback）。"""
+    """在欄位完整字串裡找 inner.strip()==tex 的數學區，回 (old 精確段, _math_regions 的 inner)。
+    複用 math_audit._math_regions（與 reader / collect_formulas 同一套定界文法）。_math_regions 的
+    inner 已 strip，old=field_value[start:end] 仍含原樣定界符與外圍空白；inner 在 old 內唯一出現，
+    故 old.replace(inner, new, 1) 既保留定界又必命中。找不到回 None（交呼叫端 fallback）。"""
     from book_pipeline.math_audit import _math_regions
     for start, end, inner in _math_regions(field_value, field):
         if inner.strip() == tex:
@@ -165,14 +166,19 @@ def finding_to_override(slug: str, finding: dict[str, Any], new: str, *,
       new=原始 new tex（eq block 存裸 tex）。
     fix_inline_math（md/caption/footnote/title）：old 是欄內的數學「子字串」、anchor 是整欄指紋。
       給 field_value（該欄完整字串）→ 用 _math_regions 精確取 old 與原樣定界、new 同定界包覆、附 anchor。
-      沒給 → best-effort 用 finding.display 重建 $tex$/$$tex$$ 且不附 anchor（apply 端 old 對不上只會
-      skip-drift，絕不誤改）。"""
+      沒給 → best-effort 僅用 $tex$/$$tex$$ 重建（不覆蓋 \(..\)/\[..\] 定界）且不附 anchor（apply 端
+      old 對不上只會 skip-drift，絕不誤改）。
+    注意：occ>1 同一欄重複同式時，apply 端預設只換首處——若 finding 確為「單欄多次」需 agent 自行
+      在產出的 dict 補 all=True（occ 也可能跨欄，每 target 各一條才對，故不自動設）。"""
     tgt = target or next(iter(finding.get("targets") or []), None)
     if not tgt:
         raise ValueError(f"{slug}: finding 無 targets，無法定位 override（tex={finding.get('tex')!r}）")
     chunk, selector = tgt["chunk"], tgt["selector"]
     field = tgt.get("field", "md")
     tex = finding.get("tex") or ""
+    if not tex.strip():
+        # 空 tex 無法安全定位：inline fallback 會產 old="$$"（命中任何含 $$ 的欄 → 誤改）。
+        raise ValueError(f"{slug}: finding.tex 空，無法產 override（會誤改）")
     ov: dict[str, Any] = {"id": _ov_id(slug, chunk, selector, tex)}
     if field == "tex":
         ov.update(action="fix_eq_tex", chunk=chunk, selector=selector, expect=tex, new=new)
