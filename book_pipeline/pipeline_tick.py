@@ -682,19 +682,29 @@ def _zlib_remaining_cached():
 def _merge_plan_into_queue(queue: list[dict], plan: dict | None, have: set) -> int:
     """把一批選好的書（{'books':[{slug,id,hash,title}]}，來自書單 select_next）**append** 進清單；
     去重 vs 清單∪inventory。回實際新增數。daemon 端權威去重 = 既有 re-crawl bug 的修補。"""
-    if not plan:
+    # _merge 是清單的權威 gate。雖 refill 餵的是確定性 select_next 結果，此函式仍是防禦邊界：
+    # canon resolver（書名→z-lib id/hash）回傳變異、或未來再有 producer 餵入時，畸形不得 crash/靜默損毀。
+    if not isinstance(plan, dict):
+        return 0
+    books = plan.get('books')
+    if not isinstance(books, list):
         return 0
     qslugs = {b['slug'] for b in queue}
     added = 0
-    for b in (plan.get('books') or []):
+    for b in books:
+        if not isinstance(b, dict):
+            continue  # 條目非 dict（裸 slug 字串等）→ 跳過，不對字串 .get crash
         slug = b.get('slug')
-        if not slug or not re.fullmatch(r'[a-z0-9_]{1,64}', slug):
+        if not isinstance(slug, str) or not re.fullmatch(r'[a-z0-9_]{1,64}', slug):
             continue
         if slug in qslugs or slug in have:
             continue
-        if not (b.get('id') and b.get('hash')):
+        bid, bhash = b.get('id'), b.get('hash')
+        if not (bid and bhash):
             continue
-        queue.append({'slug': slug, 'id': str(b['id']), 'hash': str(b['hash']),
+        if not (isinstance(bid, (str, int)) and isinstance(bhash, (str, int))):
+            continue  # id/hash 須純量；list/dict 會被 str() 成字面 "['123']" 流進 fetch URL → 404 靜默丟書
+        queue.append({'slug': slug, 'id': str(bid), 'hash': str(bhash),
                       'title': b.get('title', ''), 'fails': 0})
         qslugs.add(slug)
         added += 1

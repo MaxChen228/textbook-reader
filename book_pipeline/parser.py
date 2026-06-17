@@ -156,7 +156,7 @@ def block_to_struct(b: dict, label_re: re.Pattern,
         # MinerU 的 type=list 常把內容放在 list_items 陣列、text 留空。
         # 必須讀 list_items 才不會漏題（Griffiths Problem 1.44/1.45/2.58 等 (a)(b)(c) 子題）。
         if t == 'list' and not text:
-            items = [(x or '').strip() for x in (b.get('list_items') or [])]
+            items = [str(x).strip() for x in (b.get('list_items') or []) if x is not None]
             items = [x for x in items if x]
             if items:
                 return {'t': 'p', 'md': '\n\n'.join(items)}
@@ -190,7 +190,9 @@ def block_to_struct(b: dict, label_re: re.Pattern,
         out['kind'] = 'photo' if b.get('sub_type') == 'natural_image' else 'line'
         # aspect：由 MinerU bbox 算寬高比，前端用 aspect-ratio 預留 layout 避免 CLS
         bbox = b.get('bbox') or []
-        if len(bbox) == 4:
+        # bbox 是 OCR 估座標，正常為 4 個 number；偶混 None/str（缺值/未轉型）。全為 number 才算 aspect，
+        # 否則略過此純 layout 優化欄——絕不讓一個壞 bbox 的減法 TypeError 炸掉整本解析。
+        if len(bbox) == 4 and all(isinstance(v, (int, float)) for v in bbox):
             w = bbox[2] - bbox[0]
             h = bbox[3] - bbox[1]
             if w > 0 and h > 0:
@@ -222,7 +224,9 @@ def block_to_struct(b: dict, label_re: re.Pattern,
 
     if t == 'table':
         body_html = b.get('table_body') or ''
-        if not body_html:
+        # out['html'] 是出口型別不變式（前端直接 innerHTML 注入）。複雜表格偶被 OCR 吐成結構化
+        # dict/list → 非 str 一律丟（回 None），絕不讓 [object Object] 靜默漏到 reader。
+        if not isinstance(body_html, str) or not body_html:
             return None
         captions = b.get('table_caption') or []
         footnotes = b.get('table_footnote') or []
@@ -341,7 +345,7 @@ def expand_list_blocks(blocks: list[dict]) -> list[dict]:
     out: list[dict] = []
     for b in blocks:
         if b.get('type') == 'list' and not (b.get('text') or '').strip():
-            items = [(x or '').strip() for x in (b.get('list_items') or [])]
+            items = [str(x).strip() for x in (b.get('list_items') or []) if x is not None]
             items = [x for x in items if x]
             if items:
                 for it in items:
