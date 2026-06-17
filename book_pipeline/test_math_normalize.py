@@ -36,6 +36,15 @@ TEX_CASES = [
      r"\beta _ { h }  \left( \varphi _ { 1 * }  \left( \left[ f \right]   \right)   \right)"),
     # R5 裸 \bgroup（無配對的純噪訊）
     (r"\mathbb { A } ^ { 2 } \bgroup ?", r"\mathbb { A } ^ { 2 }  ?"),
+    # R6 MathType slash residue：\mathord/\mathbin + \left/ + \vphantom + \kern - delimiterspace → /
+    (r"{ R \mathord { \left/ { \vphantom { R Q } } \right. \kern - delimiterspace } Q }",
+     r"{ R / Q }"),
+    (r"{ { \partial T } \mathord { \left/ { \vphantom { { \partial T } { \partial y } } } \right. \kern - delimiterspace } { \partial y } }",
+     r"{ { \partial T } / { \partial y } }"),
+    (r"{ \tilde { S } } ( p ) = - { p \mathord { \left/ { \vphantom { p } } \right. \kern - delimiterspace } p ^ { 2 } }",
+     r"{ \tilde { S } } ( p ) = - { p / p ^ { 2 } }"),
+    (r"\boldsymbol { q } \mathbin { \left/ \vphantom { \left( \boldsymbol { q } \mathbin { \left/ \vphantom { \left( \boldsymbol { x } + \boldsymbol { \hat { x } } \right) } \right.}  \kern - delimiterspace \right.} \left( \boldsymbol { x } + \boldsymbol { \hat { x } } \right)  \kern - delimiterspace \right.} \left( \boldsymbol { x } - \boldsymbol { \hat { x } } + \boldsymbol { \hat { x } } \right)",
+     r"\boldsymbol { q } / \left( \boldsymbol { x } - \boldsymbol { \hat { x } } + \boldsymbol { \hat { x } } \right)"),
 ]
 
 # 必須完全不動（正確 LaTeX / 巢狀 / 含空白的相鄰）
@@ -50,6 +59,7 @@ NOOP_CASES = [
     r"x \times y",                       # R4：合法 \times 勿動
     r"a \ifmmode b \fi",                 # R4：非「條件乘號」形的 \ifmmode 不碰
     r"\mathopen{(} x \mathclose{)}",     # R5：獨立 \mathopen/\mathclose（無 \bgroup）合法，勿動
+    r"\mathord{\cdot}",                  # R6：非 slash 殘體的 \mathord 勿動
 ]
 
 
@@ -113,7 +123,7 @@ def test_normalize_chunk_math_walks_everything():
 
 
 if __name__ == "__main__":
-    test_tex_rules_fix_samples();            print("✓ R1-R5 修復真實樣本")
+    test_tex_rules_fix_samples();            print("✓ R1-R6 修復真實樣本")
     test_tex_idempotent();                   print("✓ tex 冪等")
     test_tex_noop_on_valid();                print("✓ 正確式/巢狀/跳脫 no-op")
     test_md_inline_only_touches_math();      print("✓ md inline 只動數學區")

@@ -135,12 +135,81 @@ def _remove_group_noise(tex: str) -> str:
     return cur
 
 
+# ── R6：MathType 斜線殘體 \mathord{ \left/ \vphantom... \right. \kern - delimiterspace } → / ─
+# OCR 常把「斜線表示商/相量」讀成 MathType 的定界符殘體，核心訊號固定包含
+# \left/ + \vphantom + \kern - delimiterspace，常包在 \mathord/\mathbin 中。
+# 這段在 MathJax 會因 \kern 維度缺失直接 hard fail；折成字面 / 可保留兩側運算元，
+# 例如 {R \mathord{...} Q} → {R / Q}。只命中含 delimiterspace 的 slash 殘體，
+# 正確 TeX 不會出現此 token 組合。冪等。
+_SLASH_WRAPPER_CMDS = (r"\mathord", r"\mathbin")
+_KERN_DELIM_RE = re.compile(r"\\kern\s*-\s*\\?delimiterspace")
+
+
+def _read_braced_group(tex: str, start: int) -> tuple[str, int] | None:
+    if start >= len(tex) or tex[start] != "{":
+        return None
+    depth = 0
+    i = start
+    n = len(tex)
+    while i < n:
+        c = tex[i]
+        if c == "\\" and i + 1 < n:
+            i += 2
+            continue
+        if c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                return tex[start + 1:i], i + 1
+        i += 1
+    return None
+
+
+def _is_mathtype_slash_body(body: str) -> bool:
+    stripped = body.strip()
+    if not stripped.startswith((r"\left/", "/")):
+        return False
+    return r"\vphantom" in stripped and _KERN_DELIM_RE.search(stripped) is not None
+
+
+def _collapse_mathtype_slash(tex: str) -> str:
+    if r"\vphantom" not in tex or "delimiterspace" not in tex:
+        return tex
+    out: list[str] = []
+    i = 0
+    n = len(tex)
+    while i < n:
+        matched = False
+        for cmd in _SLASH_WRAPPER_CMDS:
+            if not tex.startswith(cmd, i):
+                continue
+            j = i + len(cmd)
+            while j < n and tex[j].isspace():
+                j += 1
+            group = _read_braced_group(tex, j)
+            if not group:
+                continue
+            body, end = group
+            if _is_mathtype_slash_body(body):
+                out.append("/")
+                i = end
+                matched = True
+                break
+        if matched:
+            continue
+        out.append(tex[i])
+        i += 1
+    return "".join(out)
+
+
 # ── 規則目錄（有序套用）──────────────────────────────────────────────────────
 _TEX_RULES = (
     _fix_tag_math,
     _merge_double_scripts,
     _fix_cond_times,
     _remove_group_noise,
+    _collapse_mathtype_slash,
 )
 
 

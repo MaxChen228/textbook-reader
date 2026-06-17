@@ -4,7 +4,13 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: math  （4 條；proposed=0）
+## domain: math  （5 條；proposed=1）
+
+### P-2026-06-17-collapse-mathtype-slash-phantom- — Collapse MathType slash phantom/kern residue to /
+- proposed | type=normalize-rule | source=math_sweep | 偵測=\\kern,\\vphantom,\\mathord,\\left/
+- 證據：cluster other occ=4 in dummit_foote_algebra plus token_signals: \\kern occ=21 / 10 books, \\vphantom occ=20 / 9 books; representative samples from dummit_foote_algebra, boas_mp, griffiths_qm3, rudin_analysis, srednicki_qft
+- 提議：Replace exact MathType slash residue \\mathord{\\left/ {\\vphantom{...}} \\right. \\kern - delimiterspace} (and equivalent \\mathbin form) with literal /
+- 風險：Could collapse non-slash delimiter constructs if pattern too broad; keep match exact on left/phantom/right./kern sequence and rely on full-corpus gate for collateral
 
 ### P-2026-06-17-bgroup — \bgroup / \aftergroup / \egroup 群組噪訊收斂
 - accepted | type=normalize-rule | source=math_sweep | 偵測=\bgroup \egroup \aftergroup
