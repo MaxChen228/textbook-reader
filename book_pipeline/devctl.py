@@ -375,23 +375,23 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     backlog = pipeline 待消化深度；state 決定爬書站閒置文案。複用已算好的 books/zlib/workers，
     不重打網路。"""
     from book_pipeline import pipeline_tick as pt
-    bl_rows = pt._crawl_backlog_books(books_snap['books'])  # 單一真相源（與控制迴圈同函式，防漂移）
-    backlog = len(bl_rows)
-    # 待消化書清單（/dev 爬書站閒置時列出「正在消化哪 N 本」，純名字免封面）
-    backlog_books = [{'slug': r['slug'], 'title': r.get('title') or r['slug'],
-                      'stage': r.get('stage', ''), 'deployed': False} for r in bl_rows]
+    rows = books_snap['books']
+    backlog = pt._crawl_backlog(rows)  # 待製（pre-serve）深度：非 deployed 有強制待辦 + in-flight；單一真相源
+    def _mand(r): return [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]
+    polish = sum(1 for r in rows if r.get('deployed') and _mand(r))  # 已上站、catalog/sol 精修中（不擋爬）
+    pol = f'（精修 {polish} 已上站、不擋爬）' if polish else ''
     crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
     R = zlib_snap.get('total_remaining')
     if crawling:
         state, reason = 'refilling', '補貨中 · planner 規劃選書'
     elif backlog >= pt.CRAWL_LOW:
-        state, reason = 'draining', f'backlog {backlog} ≥ 水位 {pt.CRAWL_LOW}，消化中'
+        state, reason = 'draining', f'待製 {backlog} ≥ 水位 {pt.CRAWL_LOW}，消化中{pol}'
     elif R == 0:
-        state, reason = 'quota_empty', '今日額度用罄，待重置（下輪自動重探）'
+        state, reason = 'quota_empty', f'今日額度用罄，待重置（下輪自動重探）{pol}'
     else:
-        state, reason = 'feeding', f'backlog {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨'
-    return {'backlog': backlog, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
-            'state': state, 'reason': reason, 'backlog_books': backlog_books}
+        state, reason = 'feeding', f'待製 {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨{pol}'
+    return {'backlog': backlog, 'polish': polish, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
+            'state': state, 'reason': reason}
 
 
 def build_snapshot(since_min: int = 180) -> dict:

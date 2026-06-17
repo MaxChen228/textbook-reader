@@ -66,14 +66,10 @@
     .book .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
     .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
-    /* 爬書站閒置時列出 backlog 書（純名字、免封面、可點開抽屜） */
-    .cn-reason { padding: 2px 4px 6px; }
-    .crawl-name { display: flex; gap: 6px; align-items: baseline; cursor: pointer;
-      font-family: var(--mono); font-size: 11px; color: var(--ink-light);
-      padding: 3px 6px; border-radius: 5px; border: 1px solid var(--border-l); background: var(--bg); }
-    .crawl-name:hover { border-color: var(--accent); color: var(--text); }
-    .crawl-name .cn-st { flex-shrink: 0; font-size: 12px; }
-    .crawl-name .cn-tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位原因行 */
+    /* 已上站但 catalog/sol 仍待精修的書：done 卡右上角 🔧（上站完成≠全部完美） */
+    .refine-badge { position: absolute; top: -5px; right: -5px; z-index: 3; font-size: 11px;
+      line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
     .dm-word { font-family: var(--mono); font-size: 12px; color: var(--ink-light); font-weight: 600; margin-left: 2px; }
     .book .ttl { font-family: var(--mono); font-size: 10px; color: var(--ink-light); margin-top: 4px; line-height: 1.25;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -377,6 +373,14 @@
     }
     const cv = el.querySelector('.cv')
     setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
+    setRefine(cv, b)
+  }
+  // 已上站但仍有強制待辦（catalog_audit/sol_extract）→ 角標 🔧，標示「服務中、品檢精修中」
+  function setRefine(cvEl, b) {
+    let r = cvEl.querySelector('.refine-badge')
+    if (b.deployed && hasMand(b)) {
+      if (!r) { r = document.createElement('span'); r.className = 'refine-badge'; r.textContent = '🔧'; cvEl.appendChild(r) }
+    } else if (r) r.remove()
   }
   function makeBookEl(b, done) {
     const el = document.createElement('div')
@@ -415,37 +419,15 @@
     applyWalkers()
   }
 
-  // ── 爬書站閒置時列出的 backlog 書（純名字 chip，可點開抽屜）──
-  function backlogBooks() { return (last && last.crawl && last.crawl.backlog_books) || [] }
-  function makeNameEl(b) {
-    const el = document.createElement('div')
-    el.className = 'crawl-name'; el.dataset.slug = b.slug; el.title = b.title || b.slug
-    el.innerHTML = '<span class="cn-st"></span><span class="cn-tt"></span>'
-    updateNameEl(el, b)
-    return el
-  }
-  function updateNameEl(el, b) {
-    const ico = STATIONS[stationOf(b)].ico, t = b.title || b.slug
-    const stEl = el.querySelector('.cn-st'), ttEl = el.querySelector('.cn-tt')
-    if (stEl.textContent !== ico) stEl.textContent = ico
-    if (ttEl.textContent !== t) { ttEl.textContent = t; el.title = t }
-  }
-
-  // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）
-  // 有 agent 在爬 → 顯示 agent 卡；閒置 → 列出 backlog 書名單（讓「消化中 N 本」看得見、可點開）。
+  // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）。
+  // 有 agent 在爬 → 顯示 agent 卡；閒置 → 只顯示水位原因行（backlog 書本就在各自站台，不在此重複列）。
   function reconcileCrawl() {
     const cw = crawlWorkers()
     const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 無 agent 爬書'
     if (crawlReasonEl && crawlReasonEl.textContent !== reason) crawlReasonEl.textContent = reason
-    const desired = cw.length
-      ? cw.map(w => ({ k: 'wk:' + w.key, agent: w }))
-      : backlogBooks().map(b => ({ k: 'bk:' + b.slug, book: b }))
-    reconcileLane(laneEls[0], desired, d => d.k,
-      d => d.agent ? makeCrawlEl(d.agent) : makeNameEl(d.book),
-      (el, d) => d.agent ? updateCrawlEl(el, d.agent) : updateNameEl(el, d.book),
+    reconcileLane(laneEls[0], cw, w => w.key, makeCrawlEl, updateCrawlEl,
       '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
-    const cnt = cw.length || (last && last.crawl ? last.crawl.backlog : 0)
-    if (cntEls[0].textContent !== String(cnt)) cntEls[0].textContent = cnt
+    if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
     stationEls[0].classList.toggle('st-active', cw.length > 0)
   }
 
@@ -556,7 +538,7 @@
   document.getElementById('dr-mask').addEventListener('click', closeDrawer)
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
   document.getElementById('line').addEventListener('click', e => {
-    const card = e.target.closest('.book, .crawl-name'); if (!card) return
+    const card = e.target.closest('.book'); if (!card) return
     if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
     else if (card.dataset.slug) openDrawer(card.dataset.slug)
   })
@@ -597,10 +579,17 @@
     const de = document.getElementById('dm-dot'); if (de) de.className = 'dev-dot ' + dot
     const we = document.getElementById('dm-word'); if (we) we.textContent = word
   }
-  function updateLineSub() {  // 書數 / 待辦 / live 工人數（工人 poll 也刷）
+  // 強制待辦（非 — 非 可選）：區分「待製(未上站)」與「精修(已上站仍有 catalog/sol)」
+  function hasMand(b) { return (b.todo || '').split(/\s+/).some(t => t && t !== '—' && !t.endsWith('(可選)')) }
+  function updateLineSub() {  // 上站 / 待製 / 精修 / live 工人數（deployed≠done，分開計避免「待辦 57」誤導）
     if (!last) return
     const el = document.getElementById('line-sub'); if (!el) return
-    el.textContent = `· ${last.total} 本 · 待辦 ${(last.actionable || []).length} · 工人 ${liveWorkers().length} 🛠️`
+    const bs = last.books || []
+    const dep = bs.filter(b => b.deployed).length
+    const pending = bs.filter(b => !b.deployed && hasMand(b)).length     // 待製：尚未上站
+    const polish = bs.filter(b => b.deployed && hasMand(b)).length        // 精修：已上站、catalog/sol 待修
+    el.textContent = `· ${last.total} 本 · 上站 ${dep} · 待製 ${pending}`
+      + (polish ? ` · 精修 ${polish}` : '') + ` · 工人 ${liveWorkers().length} 🛠️`
   }
 
   // per-field gating（root-cause F）：值未變不寫 DOM，靜置時不觸發 paint
