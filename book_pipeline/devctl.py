@@ -267,11 +267,16 @@ def _pretty_title(slug: str) -> str:
 
 def _cover_url(slug: str) -> str | None:
     """書封 URL（相對 dev/ 頁）。優先已部署 webp，退而求 OCR 階段的 mineru cover.jpg；皆無回 None
-    （前端以標題首字產生佔位卡）。nginx mount repo 根 → 兩路徑皆可直讀。"""
-    if os.path.exists(os.path.join(ROOT, 'img', slug, 'cover.webp')):
-        return f'../img/{slug}/cover.webp'
-    if os.path.exists(os.path.join(ROOT, 'book_pipeline', 'mineru_data', slug, 'cover.jpg')):
-        return f'../book_pipeline/mineru_data/{slug}/cover.jpg'
+    （前端以標題首字產生佔位卡）。nginx mount repo 根 → 兩路徑皆可直讀。
+
+    附 ?v=<mtime> cache-buster：(1) 封面換版即換 URL，繞過 /img 的 immutable 長快取；(2) 繞過
+    瀏覽器/CF 在 nginx 開放 cover.jpg 白名單『之前』對該路徑快取下來的 404（否則破圖殘留到 hard reload）。"""
+    webp = os.path.join(ROOT, 'img', slug, 'cover.webp')
+    if os.path.exists(webp):
+        return f'../img/{slug}/cover.webp?v={int(os.path.getmtime(webp))}'
+    jpg = os.path.join(ROOT, 'book_pipeline', 'mineru_data', slug, 'cover.jpg')
+    if os.path.exists(jpg):
+        return f'../book_pipeline/mineru_data/{slug}/cover.jpg?v={int(os.path.getmtime(jpg))}'
     return None
 
 

@@ -65,6 +65,8 @@
     .book .cv img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .book .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
+    .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
+    .dm-word { font-family: var(--mono); font-size: 12px; color: var(--ink-light); font-weight: 600; margin-left: 2px; }
     .book .ttl { font-family: var(--mono); font-size: 10px; color: var(--ink-light); margin-top: 4px; line-height: 1.25;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .book:hover { transform: translateY(-3px); }
@@ -167,14 +169,10 @@
   </div>
 
   <div class="dev-wrap">
-    <!-- 健康條 -->
+    <!-- 產線（hero）：daemon 狀態折進標題，去除上方冗餘 health 條 -->
     <div class="dev-panel">
-      <div class="hbar" id="health"></div>
-    </div>
-
-    <!-- 產線（hero） -->
-    <div class="dev-panel">
-      <h2>製書產線 <span class="dev-label" id="line-sub"></span></h2>
+      <h2>製書產線 <span class="dev-dot" id="dm-dot"></span><span class="dm-word" id="dm-word"></span>
+        <span class="dev-label" id="line-sub"></span></h2>
       <div class="line" id="line"></div>
     </div>
 
@@ -220,6 +218,7 @@
   let timer = null, clockTimer = null, workersTimer = null
   let last = null, lastWorkers = []
   let openSlug = null   // 抽屜當前綁定的書
+  let openWkey = null   // 抽屜綁定的 worker（爬書 agent，無書本實體時用）
 
   // ── 主題（與 reader 共用） ──
   const SETTINGS_KEY = 'textbook.settings.v1'
@@ -237,23 +236,28 @@
 
   // ── 產線站台定義（依 stage 前導碼 + deployed 映射） ──
   const STATIONS = [
-    { ico: '📥', name: '待 OCR' },
+    { ico: '📥', name: '爬書 crawl', crawl: true },
+    { ico: '📨', name: '待 OCR' },
     { ico: '🛰️', name: 'OCR 雲端' },
     { ico: '🔍', name: '稽核 audit' },
     { ico: '🧩', name: '解析 parse' },
     { ico: '📚', name: '編目 catalog' },
     { ico: '✅', name: '上站完成' },
   ]
-  function stationOf(b) {
-    if (b.deployed) return 5
+  const DONE_ST = 6
+  function stationOf(b) {  // 書本一律落在 1..6；站台 0（爬書）只放 crawl agent，不放書
+    if (b.deployed) return DONE_ST
     const c = (b.stage || '').trim().split(' ')[0]
-    if (c === '4') return 5
-    if (c === '3') return 4
-    if (c === '2') return 3
-    if (c === '1') return 2
-    if (c === '0.5') return 1
-    return 0  // X / 0 待 ingest
+    if (c === '4') return DONE_ST
+    if (c === '3') return 5
+    if (c === '2') return 4
+    if (c === '1') return 3
+    if (c === '0.5') return 2
+    return 1  // X / 0 待 ingest
   }
+  // crawl agent：slug=null、verb=crawl_plan → 過去 applyWalkers 疊不到任何書卡而完全隱形。
+  // 改在「爬書」站台直接以 worker 渲染，回答「現在有沒有 agent 在爬書」。
+  function crawlWorkers() { return liveWorkers().filter(w => w.verb === 'crawl_plan' || w.verb === 'crawl') }
   // 一句話講清楚「這本書此刻到底在幹嘛 / 卡不卡」——產線最常被問的問題
   function statusText(b, w) {
     if (w) return { cls: 'work', txt: `🔧 工人處理中 · ${w.verb || ''}` }
@@ -307,8 +311,19 @@
     d.books.forEach(b => buckets[stationOf(b)].push(b))
     const lineEl = document.getElementById('line')
     lineEl.innerHTML = STATIONS.map((st, i) => {
+      if (st.crawl) {  // 爬書站：渲染 crawl agent（非書卡）
+        const cw = crawlWorkers()
+        const cards = cw.map(w => `<div class="book crawl-card working" data-wkey="${escapeHtml(w.key)}" title="爬書 agent">
+          <div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div>
+          <div class="ttl">規劃選書 ·${w.total_calls || 0}</div></div>`).join('')
+          || '<div class="dev-label" style="padding:6px 2px">閒置 · 無 agent 爬書</div>'
+        return `<div class="station ${cw.length ? 'st-active' : ''}">
+          <div class="st-head"><span class="st-ico">${st.ico}</span><span class="st-name">${st.name}</span>
+            <span class="st-cnt">${cw.length}</span></div>
+          <div class="lane">${cards}</div></div>`
+      }
       const bs = buckets[i]
-      const done = i === 5
+      const done = i === DONE_ST
       const cards = bs.map(b => {
         const ps = probBadge(b)
         const ttl = done ? '' : `<div class="ttl">${escapeHtml(b.title || b.slug)}</div>`
@@ -328,7 +343,7 @@
   function applyWalkers() {
     const live = liveWorkers()
     const bySlug = new Map(live.map(w => [w.slug, w]))
-    document.querySelectorAll('#line .book').forEach(el => {
+    document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
       const w = bySlug.get(el.dataset.slug)
       el.querySelector('.walker')?.remove()
       el.querySelector('.work-ring')?.remove()
@@ -343,20 +358,43 @@
   }
 
   // ── 抽屜：完整可滾 tool-use ──
-  function openDrawer(slug) {
-    openSlug = slug
+  function _openDrawerEl() {
     document.getElementById('dr-mask').classList.add('open')
     document.getElementById('drawer').classList.add('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'false')
-    renderDrawer()
   }
+  function openDrawer(slug) { openSlug = slug; openWkey = null; _openDrawerEl(); renderDrawer() }
+  function openWorkerDrawer(wkey) { openWkey = wkey; openSlug = null; _openDrawerEl(); renderDrawer() }
   function closeDrawer() {
-    openSlug = null
+    openSlug = null; openWkey = null
     document.getElementById('dr-mask').classList.remove('open')
     document.getElementById('drawer').classList.remove('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'true')
   }
+  // 爬書 agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在爬什麼」）
+  function renderWorkerDrawer() {
+    const w = lastWorkers.find(x => x.key === openWkey)
+    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph">🤖</div>`
+    document.getElementById('dr-title').textContent = '爬書 agent'
+    document.getElementById('dr-sub').textContent = w ? `${w.verb} · ${w.provider} · pid ${w.pid}` : '本輪已結束'
+    const st = w ? { cls: 'work', txt: '🔧 規劃選書 / 下載中…' } : { cls: 'ready', txt: '☑ 本輪爬書已結束' }
+    document.getElementById('dr-meta').innerHTML =
+      `<span class="dr-status dr-st-${st.cls}">${st.txt}</span>`
+      + (w ? `<span><b>${w.total_calls || 0}</b> 次工具調用</span><span>${escapeHtml(w.provider || '')}</span>` : '')
+    const evs = document.getElementById('dr-evs')
+    if (w && (w.recent || []).length) {
+      evs.innerHTML = w.recent.map(r => {
+        const ico = r.kind === 'tool' ? '🔧' : '💬'
+        return `<div class="ev ${r.kind}"><span class="ico">${ico}</span><span class="n">${escapeHtml(r.t ? relTime(r.t) : '')}</span>`
+          + `<span class="lbl">${escapeHtml(r.label || '')}</span></div>`
+      }).join('')
+    } else {
+      evs.innerHTML = `<div class="dr-empty">${w ? '（agent 尚無事件…）' : '本輪爬書 agent 已結束'}</div>`
+    }
+    document.getElementById('dr-tl').innerHTML = ''
+  }
   function renderDrawer() {
+    if (openWkey) return renderWorkerDrawer()
     if (!openSlug || !last) return
     const b = last.books.find(x => x.slug === openSlug); if (!b) return
     const w = workerOf(openSlug)
@@ -400,7 +438,9 @@
   document.getElementById('dr-mask').addEventListener('click', closeDrawer)
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
   document.getElementById('line').addEventListener('click', e => {
-    const card = e.target.closest('.book'); if (card) openDrawer(card.dataset.slug)
+    const card = e.target.closest('.book'); if (!card) return
+    if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
+    else if (card.dataset.slug) openDrawer(card.dataset.slug)
   })
 
   // ── 工具：跨度格式 ──
@@ -428,28 +468,27 @@
     if (up) up.textContent = '更新於 ' + relTime(last.generated_at_utc)
   }
 
-  function renderHealth(d) {
+  function renderHealth(d) {  // daemon 狀態折進產線標題（dm-dot + dm-word）
     const dm = d.daemon
     const healthy = dm.installed && (dm.last_exit_code === 0 || dm.last_exit_code === null)
     let dot, word
-    if (!dm.installed) { dot = 'dot-bad'; word = '未安裝' }
-    else if (dm.in_tick_now) { dot = 'dot-ok live'; word = '正在跑 tick' }
-    else if (healthy) { dot = 'dot-ok'; word = '待命中' }
+    if (!dm.installed) { dot = 'dot-bad'; word = 'daemon 未安裝' }
+    else if (dm.in_tick_now) { dot = 'dot-ok live'; word = 'controller 運轉中' }
+    else if (healthy) { dot = 'dot-ok'; word = '待命' }
     else { dot = 'dot-bad'; word = `異常 exit=${dm.last_exit_code}` }
-    const nW = liveWorkers().length
-    document.getElementById('health').innerHTML =
-      `<div class="kv"><span class="dev-dot ${dot}"></span><span class="v">${word}</span></div>
-       <div class="kv"><span class="k">工人</span><span class="v">${nW} 🛠️</span></div>
-       <div class="kv"><span class="k">上次tick</span><span class="v" id="h-lasttick">—</span></div>
-       <div class="kv"><span class="k">下次約</span><span class="v" id="h-next">—</span></div>
-       <div class="kv"><span class="k">書本</span><span class="v">${d.total}</span></div>
-       <div class="kv"><span class="k">待辦</span><span class="v">${(d.actionable||[]).length}</span></div>`
+    const de = document.getElementById('dm-dot'); if (de) de.className = 'dev-dot ' + dot
+    const we = document.getElementById('dm-word'); if (we) we.textContent = word
+  }
+  function updateLineSub() {  // 書數 / 待辦 / live 工人數（工人 poll 也刷）
+    if (!last) return
+    const el = document.getElementById('line-sub'); if (!el) return
+    el.textContent = `· ${last.total} 本 · 待辦 ${(last.actionable || []).length} · 工人 ${liveWorkers().length} 🛠️`
   }
 
   function render(d) {
     last = d
     renderHealth(d)
-    document.getElementById('line-sub').textContent = `(${d.total} 本 · 待辦 ${(d.actionable||[]).length})`
+    updateLineSub()
     renderLine(d)
 
     document.getElementById('budget-date').textContent = `(${d.budget.date_utc} UTC)`
@@ -484,7 +523,7 @@
     try { const data = await fetchJson('workers.json?_=' + Date.now()); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
     applyWalkers()
-    if (last) { renderHealth(last); tickClocks() }  // 補值：renderHealth 重建會把時鐘格設回「—」，立即 tickClocks 填回防閃
+    if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
     if (openSlug) renderDrawer()
   }
   async function load() {
