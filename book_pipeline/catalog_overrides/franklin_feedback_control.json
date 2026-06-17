@@ -1,0 +1,28 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "franklin-feedback-control-fig-3.68-recover",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.60:body[3]",
+      "expect": {
+        "id": "fig-ch03-prob56-3",
+        "caption": "Problem 3.60 figure",
+        "catalog_exclude_reason": "problem_inline_unlabeled_fig"
+      },
+      "set": {
+        "id": "fig-3.68",
+        "caption": "Figure 3.68\nElectric power-line conductor",
+        "catalog_aliases": [
+          "3.68"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Problem 3.61 正文引用 Fig. 3.68；實際圖塊被 parser 掛到 Problem 3.60，且前一段 OCR 掉首字母。恢復語意 id/caption 讓 catalog 供應對齊正文引用。"
+    }
+  ]
+}
