@@ -842,7 +842,7 @@ def tick_reactive(no_deploy: bool) -> int:
 
             # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）
             for slug in sorted(mb.harvestable()):
-                if _start(slug, lambda s=slug: do_harvest(s, False)):
+                if _start(f'harvest:{slug}', lambda s=slug: do_harvest(s, False)):
                     dispatched += 1
 
             # B. async 提交待 ingest（detached upload，立即返回）/ 縱向推進其餘書
@@ -856,7 +856,7 @@ def tick_reactive(no_deploy: bool) -> int:
                     continue
                 if slug in leased_slugs:
                     continue  # 前一 controller crash 的 orphan 子進程還在做這本 → 等 reap/kill
-                if _start(slug, lambda s=slug: advance_book(s, False, no_deploy)):
+                if _start(f'advance:{slug}', lambda s=slug: advance_book(s, False, no_deploy)):
                     dispatched += 1
 
             # C. crawl 補新書：每個 controller invocation 一次（quota 0 時內部 cheap-skip）
@@ -865,13 +865,15 @@ def tick_reactive(no_deploy: bool) -> int:
                 if _start('__crawl__', lambda: do_crawl_parallel(False)):
                     dispatched += 1
 
-            # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪無新派工且無在跑 → 收工退出
+            # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
+            # occ 非空＝有書 OCR 在雲端排隊，harvestable() 隨時會翻就緒 → 不可進 idle 提早退出
+            # （否則只剩待收 OCR 時提早收工，正是本架構要消除的 work-conservation 違反）。
             with ifl_lock:
                 busy = len(inflight)
-            if dispatched == 0 and busy == 0:
+            if dispatched == 0 and busy == 0 and not occ:
                 idle += 1
                 if idle >= LOOP_IDLE_ROUNDS:
-                    log(f'reactive loop：連 {idle} 輪無工作 → 排空收工（launchd 下次重拉）')
+                    log(f'reactive loop：連 {idle} 輪無工作且無 in-flight OCR → 排空收工（launchd 下次重拉）')
                     break
             else:
                 idle = 0
