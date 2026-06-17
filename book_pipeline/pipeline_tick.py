@@ -853,10 +853,13 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         row = q.assess_one(slug)
         stage = row.get('stage', '') or ''
         todo = row.get('todo', '—')
-        verb = todo.split('(')[0]
-        # 無必要 work：done／可選 translate／triage·qc 拒（R）／無源（X）
-        if todo in ('—', '') or todo.endswith('(可選)') or stage.startswith(('R', 'X')):
+        # todo 可能多項空白分隔，含 (可選) 非阻塞項（已部署/已 accept 的 catalog、已部署的 sol、translate）。
+        # 取第一個「非可選」項當下一步動作；全可選/無 → 本書收工。**不可**用 todo.split('(')[0]：
+        # 多項時會抓到可選前綴項（如 catalog_audit(可選)）→ 對已 accept 的 catalog 每輪重跑空轉。
+        actionable = [t for t in todo.split() if t not in ('—', '') and not t.endswith('(可選)')]
+        if not actionable or stage.startswith(('R', 'X')):
             return
+        verb = actionable[0].split('(')[0]
         # 停滯鍵用 (stage, verb)：todo 在同 stage 內推進（如 catalog_audit→deploy 皆在 3）
         # 算前進、不誤判停滯；唯有同階段同動作連兩步沒變（修復沒清掉）才真停。
         key = (stage, verb)

@@ -206,7 +206,11 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
         opt = '(可選)' if (_deployed(slug) or _catalog_accepted(slug)) else ''
         todo.append(f'catalog_audit({catalog_critical}){opt}')
     if has_sol_book and sol == 0 and not _sol_pending(slug):
-        todo.append(f'sol_extract({slug}_sol)')
+        # sol_extract 同 catalog_audit：上站前是 gate（解答併入主書才完整），但**已上站**後降可選。
+        # 否則一本「已部署、解答書卻 merge 不成」的書（如 griffiths_qm3）會讓 advance loop 每輪重派
+        # 昂貴的 sol_extract LLM、reactive loop 永不 idle——與 catalog 同構的 post-deploy busy-loop。
+        sol_opt = '(可選)' if _deployed(slug) else ''
+        todo.append(f'sol_extract({slug}_sol){sol_opt}')
     if not has_zh:
         todo.append('translate(可選)')
     stage = '4 sol已merge' if (tot and sol) else '3 parsed'
