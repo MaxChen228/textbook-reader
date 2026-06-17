@@ -189,7 +189,12 @@
     .dr-st-done { color: var(--status-ok, #4caf50); }
     .dr-st-wait { color: var(--status-warn, #d9a441); }
     .dr-st-ready { color: var(--sub); }
-    .dr-evs { flex: 1; overflow-y: auto; padding: 10px 14px; }
+    /* 抽屜身體單一捲動容器：dr-evs/dr-tl/dr-hist 一起捲，杜絕舊版只有 dr-evs 內捲、dr-tl/dr-hist
+       溢出被裁切且整體無法捲（→ 即時 LLM 串流被擠到看不到也捲不到）。flex column 供 order 重排。 */
+    .dr-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+    .dr-evs { padding: 10px 14px; }
+    /* 數學 sweep 抽屜：把 LLM 即時串流（dr-hist）order 拉到頂，「它有在動」第一眼可見、不必往下捲找 */
+    .drawer.math-mode #dr-hist { order: -1; border-top: none; }
     .ev { display: flex; gap: 8px; align-items: baseline; font-family: var(--mono); font-size: 11.5px;
       color: var(--ink-light); padding: 4px 0; border-bottom: 1px solid var(--border-l); }
     .ev:last-child { border-bottom: none; }
@@ -311,9 +316,11 @@
       <button class="dr-close" id="dr-close" title="關閉">✕</button>
     </div>
     <div class="dr-meta" id="dr-meta"></div>
-    <div class="dr-evs" id="dr-evs"></div>
-    <div class="dr-tl" id="dr-tl"></div>
-    <div class="dr-hist" id="dr-hist"></div>
+    <div class="dr-body" id="dr-body">
+      <div class="dr-evs" id="dr-evs"></div>
+      <div class="dr-tl" id="dr-tl"></div>
+      <div class="dr-hist" id="dr-hist"></div>
+    </div>
   </aside>
 
   <script>
@@ -379,7 +386,14 @@
     if (b.deployed) return { cls: 'done', txt: '✅ 已上站完成' }
     const mand = (b.todo || '').trim().split(/\s+/)
       .filter(t => t && t !== '—' && !t.endsWith('(可選)'))
-    if (mand.length) return { cls: 'wait', txt: `⏳ 待 ${mand[0].split('(')[0]}（暫無工人，下個 cycle 派）` }
+    if (mand.length) {
+      const v = mand[0].split('(')[0], sc = (b.stage || '').trim().split(' ')[0]
+      // ingest 是雲端 OCR 非同步邊界：無本地工人是正常的（雲端在跑），別誤報「暫無工人，下個 cycle 派」
+      if (v === 'ingest') return sc === '0.5'
+        ? { cls: 'wait', txt: '🛰️ OCR 雲端處理中（雲端跑，無本地工人屬正常）' }
+        : { cls: 'wait', txt: '📨 待提交 OCR 雲端（下個 cycle 派）' }
+      return { cls: 'wait', txt: `⏳ 待 ${v}（暫無工人，下個 cycle 派）` }
+    }
     return { cls: 'ready', txt: '☑ 已完工，待部署 / 可選翻譯（非卡關）' }
   }
   // 題/解徽章：有解答本才顯示「解/題」比；否則只報題數，避免「0/371」誤讀成卡住
@@ -734,6 +748,7 @@
   }
   // corpus 數學殘餘總覽抽屜（點數學 sweep 尾站）：top 髒書（可點進該書）+ 上次 sweep 詳情。
   function renderMathDrawer() {
+    document.getElementById('drawer').classList.add('math-mode')  // 把 LLM 即時串流 order 拉到抽屜頂
     const m = (last && last.math) || {}
     document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph math-ph">🧮</div>`
     document.getElementById('dr-title').textContent = '數學 sweep · 跨書殘餘'
@@ -861,6 +876,7 @@
     document.getElementById('dr-hist').innerHTML = ''
   }
   function renderDrawer() {
+    document.getElementById('drawer').classList.remove('math-mode')  // 預設關閉；math 抽屜自行開啟
     if (openMath) return renderMathDrawer()
     if (openSession) return renderSessionDrawer()
     if (openWkey) return renderWorkerDrawer()
