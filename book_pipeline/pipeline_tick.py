@@ -117,20 +117,25 @@ LLM_PROMPTS = {
     'qc': (
         "對 slug={slug} 跑 `pdf_contactsheet {slug}`，看產出的 PNG，判斷書是否正確/清晰/完整/"
         "可供 MinerU OCR。結論呼叫 `python -m book_pipeline.pipeline_queue` 的 set_qc："
-        "通過用 pass、不可用 reject。遵 references/qc.md。"),
+        "通過用 pass、不可用 reject。遵 .claude/skills/book-pipeline/references/qc.md。"),
     'audit': (
-        "對 slug={slug} 執行 /book-pipeline 的 audit-book 流程（references/audit-book.md）：產 "
+        "對 slug={slug} 執行 /book-pipeline 的 audit-book 流程"
+        "（.claude/skills/book-pipeline/references/audit-book.md）：產 "
         "extract_rules.yaml → parser → smoke iterate。"),
     'sol_extract': (
-        "對主書 slug={slug} 執行 audit-sol 流程（references/audit-sol.md）merge 解答書。"),
+        "對主書 slug={slug} 執行 audit-sol 流程"
+        "（.claude/skills/book-pipeline/references/audit-sol.md）merge 解答書。"),
     'catalog_audit': (
-        "對 slug={slug} 執行 catalog 修復流程，**嚴格遵照 references/catalog-audit.md** "
+        "對 slug={slug} 執行 catalog 修復流程，"
+        "**嚴格遵照 .claude/skills/book-pipeline/references/catalog-audit.md** "
         "（含各 critical 類別的查證與修法、override action 語意、陷阱）：跑 audit_catalog 看殘留 "
         "→ 產 book_pipeline/catalog_overrides/{slug}.json → apply_catalog_overrides → 重審，"
         "把 critical 降到最低（多數可全清零）。真不可修者（源頭缺）列入 _catalog_audit.md 即可收工。"),
     'math_sweep': (
         "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，非單本）。"
-        "**嚴格遵照 references/math-sweep.md**。**autonomous 模式硬規則**："
+        "**嚴格遵照 .claude/skills/book-pipeline/references/math-sweep.md**（parsed 檔路徑慣例："
+        "book_pipeline/mineru_data/<slug>/parsed/<chunk>.json；eq 修法的 expect 可直接抄 finding 的 tex）。"
+        "**autonomous 模式硬規則**："
         "(1) 跑 `uv run python -m book_pipeline.math_validate --aggregate --json` 取跨書聚合殘餘。"
         "(2) 高頻可泛化者（巨集/normalize 規則）**只 append 提案到 book_pipeline/math_overrides/_proposals.md**，"
         "**絕不**自行改 math_macros.json / math_normalize.py（核心碼，交人工 review 升級）。"
