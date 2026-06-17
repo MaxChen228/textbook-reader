@@ -32,12 +32,14 @@ import shlex
 import subprocess
 import sys
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
 from book_pipeline import worker_registry as wr
+from book_pipeline import leases
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -68,6 +70,18 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # in-flight 下個 tick 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 tick）。OCR 是 async、
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
 HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
+
+# === 反應式控制迴圈（BOOK_PIPELINE_REACTIVE=1 啟用；預設 0 = 現行單次 tick，行為一字不差）===
+# 第一性原理：單一 controller 進程內跑「有界 observe→非阻塞派工→reap→harvest→sleep」迴圈，
+# 把「三條件齊備（上游產物就緒 ∧ 資源可用 ∧ 無人在做）」的 transition 立刻派成 thread worker；
+# worker 跑完釋放→下個 cycle 自動發現新開門工作。worker 仍是本進程子執行緒/子進程 →
+# registry/exhaustion 沿用 in-memory 共享（零 refactor）；leases 只防「跨 invocation/crash 的
+# orphan LLM 子進程」+ 統一 timeout-kill。達牆鐘上限即退出讓 launchd 重拉（crash-safe 邊界）。
+REACTIVE = os.environ.get('BOOK_PIPELINE_REACTIVE', '0') == '1'
+LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))      # 50min 後退出重拉
+LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
+LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
+LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -319,6 +333,9 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     tag = slug or todo_verb
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
+    # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
+    # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
+    leases.acquire(todo_verb, slug, p.pid, LLM_TIMEOUT)
 
     def _pump():
         for line in p.stdout:  # type: ignore[union-attr]
@@ -354,6 +371,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         err = '\n'.join(err_parts).lower()
         return rc, (rc != 0 and _hit_limit(provider, err))
     finally:
+        leases.release(todo_verb, slug)
         wr.unregister(wkey)
 
 
@@ -723,6 +741,13 @@ def _harvest_parallel(slugs: list[str], dry: bool) -> None:
 
 
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
+    """派工入口：REACTIVE=1 且真跑 → 反應式控制迴圈；否則 → 現行單次 tick（行為不變）。"""
+    if REACTIVE and not dry:
+        return tick_reactive(no_deploy)
+    return tick_once(dry, max_llm, no_deploy)
+
+
+def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
     with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
@@ -771,6 +796,90 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
         _advance_parallel([r['slug'] for r in _sorted_rows()], dry, no_deploy)
 
     log('=== tick end ===')
+    return 0
+
+
+def tick_reactive(no_deploy: bool) -> int:
+    """反應式控制迴圈（見頂部 REACTIVE 註解）。單一 controller 進程：每 cycle observe→把三條件
+    齊備的 transition 派成 thread worker（不阻塞）→reap→sleep；牆鐘上限或排空即退出讓 launchd
+    重拉。worker 同進程 → registry/exhaustion in-memory 共享；leases 防跨 crash orphan 子進程。"""
+    log(f'=== reactive loop start (walltime={LOOP_WALLTIME}s poll={LOOP_POLL}s) ===')
+    log('budget: ' + str(mb.status_report()))
+    wr.reset()
+    with _exhausted_lock:  # 本 controller 起頭重置額度旗標（下個 invocation 再重探恢復）
+        _exhausted_providers.clear()
+
+    inflight: set[str] = set()
+    ifl_lock = threading.Lock()
+    ex = ThreadPoolExecutor(max_workers=LOOP_CONCURRENCY)
+
+    def _start(key: str, fn) -> bool:
+        """key 不在 inflight 才提交 worker；結束自動移出。回是否真的派了（同進程去重）。"""
+        with ifl_lock:
+            if key in inflight:
+                return False
+            inflight.add(key)
+
+        def _run():
+            try:
+                fn()
+            except Exception as e:  # 一本炸不連坐
+                log(f'❌ worker {key} 異常：{e}')
+            finally:
+                with ifl_lock:
+                    inflight.discard(key)
+        ex.submit(_run)
+        return True
+
+    deadline = time.monotonic() + LOOP_WALLTIME
+    idle = 0
+    crawled_once = False
+    try:
+        while time.monotonic() < deadline:
+            # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
+            leased_slugs = {r.get('slug') for r in leases.active(log=log)}
+            dispatched = 0
+
+            # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）
+            for slug in sorted(mb.harvestable()):
+                if _start(slug, lambda s=slug: do_harvest(s, False)):
+                    dispatched += 1
+
+            # B. async 提交待 ingest（detached upload，立即返回）/ 縱向推進其餘書
+            occ = mb.occupied()
+            for r in _sorted_rows():
+                slug = r['slug']
+                verb = r['todo'].split('(')[0]
+                if verb == 'ingest':
+                    if slug not in occ:
+                        do_submit(slug, False)
+                    continue
+                if slug in leased_slugs:
+                    continue  # 前一 controller crash 的 orphan 子進程還在做這本 → 等 reap/kill
+                if _start(slug, lambda s=slug: advance_book(s, False, no_deploy)):
+                    dispatched += 1
+
+            # C. crawl 補新書：每個 controller invocation 一次（quota 0 時內部 cheap-skip）
+            if not crawled_once:
+                crawled_once = True
+                if _start('__crawl__', lambda: do_crawl_parallel(False)):
+                    dispatched += 1
+
+            # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪無新派工且無在跑 → 收工退出
+            with ifl_lock:
+                busy = len(inflight)
+            if dispatched == 0 and busy == 0:
+                idle += 1
+                if idle >= LOOP_IDLE_ROUNDS:
+                    log(f'reactive loop：連 {idle} 輪無工作 → 排空收工（launchd 下次重拉）')
+                    break
+            else:
+                idle = 0
+            time.sleep(LOOP_POLL)
+    finally:
+        log('reactive loop：等待在跑 worker 收尾…')
+        ex.shutdown(wait=True)
+    log('=== reactive loop end ===')
     return 0
 
 
