@@ -116,6 +116,40 @@ def mark_catalog_accepted(slug: str, residual: int) -> None:
         _save_state(s)
 
 
+# ── crawl 下載失敗計數（買書員直讀解析池下載，唯一需持久的下載態）─────────────
+# 買書員不再有購物清單 buffer：每 tick 直接 select_next 取解析池待下載書。一本連 MAX_FETCH_FAILS
+# 次 fetch 失敗 → 記此計數，select_next 的 caller 把它排除（不再無限重試卡住隊頭）。源頭變化
+# （resolution 重解 / 換 id-hash）時架構師可 clear。存 state[slug]['crawl_fails']（int）。
+def crawl_fail_count(slug: str, state: dict | None = None) -> int:
+    s = state if state is not None else _load_state()
+    return int((s.get(slug, {}) or {}).get('crawl_fails') or 0)
+
+
+def bump_crawl_fail(slug: str) -> int:
+    """+1 該書 fetch 失敗計數，回新值。"""
+    with _state_lock():
+        s = _load_state()
+        n = int((s.get(slug, {}) or {}).get('crawl_fails') or 0) + 1
+        s.setdefault(slug, {})['crawl_fails'] = n
+        _save_state(s)
+    return n
+
+
+def clear_crawl_fail(slug: str) -> None:
+    """清除該書 fetch 失敗計數（抓成功 / 架構師重解後）。"""
+    with _state_lock():
+        s = _load_state()
+        if (s.get(slug, {}) or {}).pop('crawl_fails', None) is not None:
+            _save_state(s)
+
+
+def crawl_blocked_slugs(max_fails: int, state: dict | None = None) -> set:
+    """fetch 失敗達上限、該排除出下載候選的 slug 集合（select_next 的 exclude）。"""
+    s = state if state is not None else _load_state()
+    return {slug for slug, v in s.items()
+            if isinstance(v, dict) and int(v.get('crawl_fails') or 0) >= max_fails}
+
+
 # ── math sweep（Phase 2，corpus-level track-only；不 gate deploy）──────────────
 # 每書殘餘存 state[slug]['math']（do_math_track 寫，post-deploy）；全域 sweep 進度存
 # state['__math__']（'__' 前綴非合法 slug → 不會被 build_queue 誤當書）。corpus_math_residual

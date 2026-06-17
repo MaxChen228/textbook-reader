@@ -92,7 +92,7 @@ uv run python -m book_pipeline.status
 | `mineru_budget.py` | MinerU 每日頁數預算輕量排程（per-account，UTC 重置）。超 quota 不硬拒、靠引擎 resubmit 自癒，故只決定「今天開不開新書」。 |
 | `pipeline_tick.py` | 單次 tick：resume in-flight → 自書單 SoT 確定性補爬 → 走 actionable。det 直跑，LLM（**crawl 解析**/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。crawl 選書/買書員確定性，但**解析（書名→id/hash）是 LLM agent**。**`--dry-run` 印計劃**。 |
 | `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
-| `booklists/*.json` | **書單 SoT**（整個 project 唯一真相）：領域檔內含具名子單 → 主書（書名+作者）。refill 自此確定性選書，零 LLM。題本不手列（主書 `solution!=false` → 系統自衍生 `<slug>_sol` target）。 |
+| `booklists/*.json` | **書單 SoT**（整個 project 唯一真相）：領域檔內含具名子單 → 主書（書名+作者）。買書員 `select_next` 自此確定性選書下載，零 LLM。題本不手列（主書 `solution!=false` → 系統自衍生 `<slug>_sol` target）。 |
 | `resolve.py` + `crawl_resolution.json` | **crawl agent 的 harness**：queue/target/search（候選+advisory 信心分，只 search）/inspect/commit（resolved\|absent\|review）。解析交 LLM agent 判斷（規則會假陽性）；`auto` 只自動採用零歧義 exact 主書。決定寫 sidecar 永久 cache。 |
 | `math_sweep.py` | corpus 數學 sweep 的 agent 介面（逐條 override 待辦）：`list`（讀全 corpus render 殘餘）/`batch`（批量打自架 LLM 逐條改寫 + render 守門）/`fix --gid --new`（單條改寫，render 驗證即落地）。取代舊「規則+全 corpus gate」死結。 |
 | `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`/`--cluster`（結構骨架＋診斷 token 聚類）。post-deploy 由 daemon track，殘餘記入 state；sweep 經 `math_sweep list` 讀 report。 |

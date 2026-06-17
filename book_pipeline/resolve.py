@@ -3,7 +3,7 @@
 做成一套查詢/落盤工具，讓 LLM crawl agent 親自查、親自挑。
 
 [architect note]
-crawl 三段分工：選書（booklists 確定性，canon ∖ owned ∖ queued）→ **解析（本模組：agent 判斷）**
+crawl 三段分工：選書（booklists 確定性，canon ∖ owned）→ **解析（本模組：agent 判斷）**
 → 買書（買書員確定性 drain）。解析曾試圖確定性化（標題重疊+信心門檻自動採用），但解答本標題泛化、
 主書短題名會撞「假 1.0」（'Chemistry'→《Food Chemistry》、Gallian 題解→Dummit）——**確定性不可靠，
 故交回 agent 判斷**。本模組退成工具：
@@ -175,14 +175,14 @@ def cmd_target(args) -> int:
     t = _find_target(args.slug)
     if not t:
         return _emit({'error': f'{args.slug} 非書單 target'}) or 2
-    have, queued, res = bl.have_slugs(), bl.queued_slugs(), bl.load_resolution()
+    have, res = bl.have_slugs(), bl.load_resolution()
     out = {'slug': t['slug'], 'kind': t['kind'], 'title': _base_title(t), 'title_full': t['title'],
            'author': t.get('author', ''), 'edition_pref': t.get('edition_pref', ''),
            'field': t.get('field', ''), 'of': t.get('of'),
-           'status': bl.status_of(t['slug'], have, queued, res),
+           'status': bl.status_of(t['slug'], have, res),
            'suggested_query': _build_query(t)}
     if t['kind'] == 'solution' and t.get('of'):
-        out['main_status'] = bl.status_of(t['of'], have, queued, res)
+        out['main_status'] = bl.status_of(t['of'], have, res)
         out['main_owned'] = t['of'] in have
     return _emit(out)
 

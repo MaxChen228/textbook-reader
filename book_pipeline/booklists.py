@@ -20,10 +20,9 @@
 緊接其主書排序。其狀態同樣由 inventory + resolution 衍生（resolver 查無正版即標 absent → 永不再排，
 殺掉舊系統「每 tick 重新確認 Peskin 沒解答」的空轉）。
 
-狀態六態（衍生，join inventory + 購物清單 + resolution sidecar）：
+狀態五態（衍生，純 join inventory + resolution sidecar，無任何 runtime buffer）：
   owned      已在 mineru_data/ 或 raw_pdfs/（不再爬）
-  queued     已在 crawl_queue.json 購物清單待抓
-  ready      已確認 zlib id/hash、未 owned/未 queued → refill 的確定性候選
+  ready      已確認 zlib id/hash、未 owned → 買書員直接下載的候選（= 解析池）
   absent     crawl agent 查證 z-lib 無此書 → 永不再排（catalog 顯示「無法收錄」）
   review     crawl agent 信心不足、待**架構師**人工裁決 → **不自動重試**（不回 crawl agent 工作母體）
   unresolved 尚未解析（crawl agent 的工作母體：select_next 的上游、解析池的 State 1）
@@ -31,9 +30,13 @@
 review 與 unresolved 必須分立：unresolved=agent 還沒看、review=agent 看過不敢判。混為一談會讓
 review 書每 cycle 被重派、燒 token、且解析池永遠補不滿（review 不算 confirmed）→ daemon 不收斂。
 
-下游：refill（pipeline_tick）用 select_next() 確定性拉 ready；do_crawl_resolve 用 unresolved_targets()
-切批派 crawl agent；build 用 annotate() 烤 catalog；devctl/dev 頁用 progress() 顯示收錄進度。
-本模組純讀，sidecar 唯一寫者 = crawl agent 的 `resolve commit`（resolved/absent/review，包 flock）。
+（2026-06 簡化：廢「queued / crawl_queue.json 購物清單 buffer」第六態——買書員改每 tick 直接
+select_next 取解析池下載，buffer 唯一不可推導的下載失敗計數移到 pipeline_state.json。狀態遂收斂成
+純 (inventory, resolution) 的函式，無 runtime buffer 漏進收錄表。）
+
+下游：買書員（pipeline_tick.drain）用 select_next() 確定性取 ready 直接下載；do_crawl_resolve 用
+unresolved_targets() 切批派 crawl agent；build 用 annotate() 烤 catalog；devctl/dev 頁用 progress()
+顯示收錄進度。本模組純讀，sidecar 唯一寫者 = crawl agent 的 `resolve commit`（包 flock）。
 """
 from __future__ import annotations
 
@@ -50,7 +53,6 @@ BOOKLISTS_DIR = os.path.join(BP, 'booklists')
 RESOLUTION = os.path.join(BP, 'crawl_resolution.json')
 DATA_DIR = os.path.join(BP, 'mineru_data')
 RAW = os.path.join(ROOT, 'raw_pdfs')
-CRAWL_QUEUE = os.path.join(BP, 'crawl_queue.json')
 SLUG_MAP = os.path.join(BP, 'slug_map.json')
 
 SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
@@ -58,12 +60,11 @@ SOL_SUFFIX = '_sol'
 
 # 衍生狀態（見模組 docstring）
 OWNED = 'owned'
-QUEUED = 'queued'
 READY = 'ready'
 ABSENT = 'absent'
 REVIEW = 'review'          # crawl agent 信心不足 → 待架構師人工裁決，不自動重試（見模組 docstring）
 UNRESOLVED = 'unresolved'
-STATUSES = (OWNED, QUEUED, READY, ABSENT, REVIEW, UNRESOLVED)
+STATUSES = (OWNED, READY, ABSENT, REVIEW, UNRESOLVED)
 
 
 # ── 載入 SoT ──────────────────────────────────────────────────────────────
@@ -139,11 +140,6 @@ def have_slugs() -> set:
     return have
 
 
-def queued_slugs() -> set:
-    q = jsonio.read_json(CRAWL_QUEUE, {}) or {}
-    return {b['slug'] for b in (q.get('books') or []) if b.get('slug')}
-
-
 def load_resolution() -> dict:
     """resolver 寫的解析 sidecar：{slug: {id,hash,title,at} | {absent:true,at,note} | {review:true,...}}。"""
     return jsonio.read_json(RESOLUTION, {}) or {}
@@ -163,11 +159,9 @@ def save_resolution(updates: dict) -> dict:
         return cur
 
 
-def status_of(slug: str, have: set, queued: set, resolution: dict) -> str:
+def status_of(slug: str, have: set, resolution: dict) -> str:
     if slug in have:
         return OWNED
-    if slug in queued:
-        return QUEUED
     r = resolution.get(slug) or {}
     if r.get('absent'):
         return ABSENT
@@ -180,71 +174,76 @@ def status_of(slug: str, have: set, queued: set, resolution: dict) -> str:
 
 # ── 下游 API：annotate / select_next / progress ───────────────────────────
 def annotate(files: list[dict] | None = None, have: set | None = None,
-             queued: set | None = None, resolution: dict | None = None) -> list[dict]:
+             resolution: dict | None = None) -> list[dict]:
     """每個 target 附 status（build catalog / devctl 用）。參數可注入（測試）。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
-    queued = queued_slugs() if queued is None else queued
     resolution = load_resolution() if resolution is None else resolution
     rows = []
     for t in targets(files):
         r = dict(t)
-        r['status'] = status_of(t['slug'], have, queued, resolution)
+        r['status'] = status_of(t['slug'], have, resolution)
         rows.append(r)
     return rows
 
 
 def select_next(n: int, files: list[dict] | None = None, have: set | None = None,
-                queued: set | None = None, resolution: dict | None = None) -> list[dict]:
-    """**確定性 refill**：status==READY 的 target，按書單序取前 n →
-    [{slug,id,hash,title}]（可直接 merge 進 crawl_queue）。**零 LLM**。"""
+                resolution: dict | None = None, exclude: set | None = None) -> list[dict]:
+    """**確定性下載候選**：status==READY 的 target，按書單序取前 n → [{slug,id,hash,title}]
+    （買書員直接拿去下載）。**零 LLM**。exclude = 該排除的 slug（下載失敗達上限者，由 caller 提供）。"""
     n = max(0, int(n))
     if n == 0:
         return []
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
-    queued = queued_slugs() if queued is None else queued
     resolution = load_resolution() if resolution is None else resolution
-    # 註：解答本 target 獨立解析，可能在其主書尚未 owned/queued 時就 READY 而先被選——刻意允許
+    exclude = exclude or set()
+    # 註：解答本 target 獨立解析，可能在其主書尚未 owned 時就 READY 而先被選——刻意允許
     # （每本書獨立可得性，題本與主書解耦；catalog 仍各自顯示三態）。
     picks = []
     for t in targets(files):
         if len(picks) >= n:
             break
-        if status_of(t['slug'], have, queued, resolution) != READY:
+        if t['slug'] in exclude:
+            continue
+        if status_of(t['slug'], have, resolution) != READY:
             continue
         r = resolution[t['slug']]
-        picks.append({'slug': t['slug'], 'id': str(r['id']), 'hash': str(r['hash']),
+        bid, bhash = r.get('id'), r.get('hash')
+        # id/hash 須純量：sidecar 畸形（list/dict）會被 str() 成字面 "['123']" 流進 fetch URL → 404
+        # 靜默丟書。寧可此 target 暫不下載（保持 READY、不入候選），不污染下游。
+        if not (isinstance(bid, (str, int)) and isinstance(bhash, (str, int))):
+            continue
+        picks.append({'slug': t['slug'], 'id': str(bid), 'hash': str(bhash),
                       'title': r.get('title') or t['title']})
     return picks
 
 
 def unresolved_targets(files: list[dict] | None = None, have: set | None = None,
-                       queued: set | None = None, resolution: dict | None = None) -> list[dict]:
+                       resolution: dict | None = None) -> list[dict]:
     """status==UNRESOLVED 的 target（書單序）——crawl agent 的工作母體（State 1：在書單、未確認
     z-lib 連結）。daemon 切批派給 agent；agent 也可 `resolve queue` 自查。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
-    queued = queued_slugs() if queued is None else queued
     resolution = load_resolution() if resolution is None else resolution
     return [t for t in targets(files)
-            if status_of(t['slug'], have, queued, resolution) == UNRESOLVED]
+            if status_of(t['slug'], have, resolution) == UNRESOLVED]
 
 
 def pool_counts(files: list[dict] | None = None, have: set | None = None,
-                queued: set | None = None, resolution: dict | None = None) -> dict:
-    """爬書水位母數。confirmed = READY+QUEUED = **State 2（已確認 z-lib 連結、未 owned）**——
-    crawl agent 解析池水位看這個（目標常住 ≥ CRAWL_POOL_LOW）。unresolved = State 1（待 agent 解析）。"""
-    pr = progress(files, have, queued, resolution)
+                resolution: dict | None = None) -> dict:
+    """爬書水位母數。confirmed = READY = **已確認 z-lib 連結、未 owned 的解析池**——crawl agent
+    解析池水位看這個（目標常住 ≥ CRAWL_POOL_LOW）。unresolved = State 1（待 agent 解析）。"""
+    pr = progress(files, have, resolution)
     o = pr['overall']
-    return {'confirmed': o[READY] + o[QUEUED], 'ready': o[READY], 'queued': o[QUEUED],
+    return {'confirmed': o[READY], 'ready': o[READY],
             'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED], 'absent': o[ABSENT]}
 
 
 def progress(files: list[dict] | None = None, have: set | None = None,
-             queued: set | None = None, resolution: dict | None = None) -> dict:
+             resolution: dict | None = None) -> dict:
     """各領域 + 整體的狀態統計（dev 頁收錄進度）。"""
-    rows = annotate(files, have, queued, resolution)
+    rows = annotate(files, have, resolution)
 
     def tally(rs: list[dict]) -> dict:
         c = {s: 0 for s in STATUSES}
@@ -262,16 +261,15 @@ def progress(files: list[dict] | None = None, have: set | None = None,
 
 
 def catalog(files: list[dict] | None = None, have: set | None = None,
-            queued: set | None = None, resolution: dict | None = None) -> dict:
+            resolution: dict | None = None) -> dict:
     """UI 收錄表結構：field → sublist → 主書（status + 解答本 sol_status）+ 各層統計。
     build 烤成 data/catalog.json 供 reader library 渲染收錄表；status 對應 UI 三態：
-    owned/queued/ready→已收錄或排隊中、absent→無法收錄、review/unresolved→待收錄（公開 UI 不分
+    owned/ready→已收錄或排隊中、absent→無法收錄、review/unresolved→待收錄（公開 UI 不分
     待裁/待解析，皆「待收錄」；review 的架構師待裁細節只在 /dev 面板顯示）。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
-    queued = queued_slugs() if queued is None else queued
     resolution = load_resolution() if resolution is None else resolution
-    pr = progress(files, have, queued, resolution)
+    pr = progress(files, have, resolution)
     fields = []
     for f in files:
         subs = []
@@ -280,11 +278,11 @@ def catalog(files: list[dict] | None = None, have: set | None = None,
             for b in (sl.get('books') or []):
                 slug = b.get('slug', '')
                 e = {'slug': slug, 'title': b.get('title', ''), 'author': b.get('author', ''),
-                     'status': status_of(slug, have, queued, resolution)}
+                     'status': status_of(slug, have, resolution)}
                 if b.get('edition_pref'):
                     e['edition_pref'] = b['edition_pref']
                 if b.get('solution', True):
-                    e['sol_status'] = status_of(f'{slug}{SOL_SUFFIX}', have, queued, resolution)
+                    e['sol_status'] = status_of(f'{slug}{SOL_SUFFIX}', have, resolution)
                 books.append(e)
             subs.append({'name': sl.get('name', ''), 'books': books})
         fields.append({'field': f.get('field', ''), 'field_id': f.get('field_id', ''),
@@ -372,7 +370,7 @@ def main() -> int:
     if args.cmd == 'progress':
         pr = progress()
         o = pr['overall']
-        print(f'整體：{o[OWNED]}/{o["total"]} 收錄 · queued {o[QUEUED]} · ready {o[READY]} · '
+        print(f'整體：{o[OWNED]}/{o["total"]} 收錄 · ready {o[READY]} · '
               f'absent {o[ABSENT]} · review {o[REVIEW]} · unresolved {o[UNRESOLVED]}（主書 {o["main"]}）')
         for fld, c in pr['by_field'].items():
             print(f'  {fld:18} {c[OWNED]:>3}/{c["total"]:<3} 收錄  '

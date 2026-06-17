@@ -67,8 +67,12 @@
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
     .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
     .math-ph { background: linear-gradient(135deg, #7b5cd6, #4a2b87) !important; }  /* 數學 sweep agent */
-    /* 購物清單待抓書卡（非 agent，靜態待命）：暗藍灰、無 spinner、不可點 */
+    /* 待下載書卡（非 agent，靜態待命）：暗藍灰、無 spinner。有 z-lib url → 可點開該書頁 */
     .crawl-card.queued { cursor: default; }
+    .crawl-card.queued.linked { cursor: pointer; }
+    a.crawl-card.queued { text-decoration: none; color: inherit; }
+    a.crawl-card.queued.linked:hover .cv { opacity: 1; }
+    a.crawl-card.queued.linked:hover { transform: translateY(-2px); transition: transform .12s; }
     .crawl-card.queued .cv { opacity: .8; }
     .queue-ph { background: linear-gradient(135deg, #5a6b8c, #38434f) !important; font-size: 26px !important; }
     .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位 / 數學 sweep 殘餘原因行 */
@@ -473,21 +477,28 @@
     return el
   }
 
-  // ── 爬書站（站 0）= 購物清單 buffer：planner agent 卡（在跑時）+ 待抓書清單卡（持久，額度0也在）──
+  // ── 爬書站（站 0）= 解析池下一輪待下載書（select_next 即時推導，無 buffer）：crawl agent 卡（解析中）
+  //    + 待下載書卡（額度0也照列）──
   function crawlItems() {
     const agents = crawlWorkers().map(w => ({ kind: 'agent', key: 'a:' + w.key, w }))
     const q = ((last && last.crawl && last.crawl.queue) || []).map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
-    return agents.concat(q)  // planner agent 卡在前、待抓書清單在後
+    return agents.concat(q)  // agent 卡在前、待下載書在後
   }
   function makeCrawlEl(it) {
-    const el = document.createElement('div')
     if (it.kind === 'agent') {
+      const el = document.createElement('div')
       el.className = 'book crawl-card working'; el.dataset.wkey = it.w.key; el.title = '爬書 planner agent'
       el.innerHTML = '<div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div><div class="ttl"></div>'
-    } else {
-      el.className = 'book crawl-card queued'; el.dataset.queued = it.b.slug; el.title = it.b.title || it.b.slug
-      el.innerHTML = `<div class="cv"><div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div></div><div class="ttl"></div>`
+      updateCrawlEl(el, it)
+      return el
     }
+    // queued：有 z-lib url → 渲成可點 <a>（新頁開該書頁，便於人工核對/手動補抓）；無 url 退回 div
+    const url = it.b.url
+    const el = document.createElement(url ? 'a' : 'div')
+    el.className = 'book crawl-card queued' + (url ? ' linked' : ''); el.dataset.queued = it.b.slug
+    el.title = (it.b.title || it.b.slug) + (url ? ' · 點開 z-lib 頁' : '')
+    if (url) { el.href = url; el.target = '_blank'; el.rel = 'noopener noreferrer' }
+    el.innerHTML = `<div class="cv"><div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div></div><div class="ttl"></div>`
     updateCrawlEl(el, it)
     return el
   }
@@ -513,8 +524,8 @@
     applyWalkers()
   }
 
-  // 爬書 lane（站 0）就地 reconcile —— 2s cadence。顯示購物清單（具體待抓書，持久、額度0也在）+
-  // planner agent 卡（補貨中）。count = 清單長度（非 agent 數）→ 額度耗盡時 badge 仍顯真實待抓書數。
+  // 爬書 lane（站 0）就地 reconcile —— 2s cadence。顯示解析池下一輪待下載書（select_next 推導，額度0也在）+
+  // crawl agent 卡（解析中）。count = 解析池可下載總數（非 agent 數）→ 額度耗盡時 badge 仍顯真實可下載書數。
   function reconcileCrawl() {
     const items = crawlItems()
     const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 清單空'

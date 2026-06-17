@@ -15,7 +15,6 @@
   uv run python -m book_pipeline.devctl incident           # 出事時的全貌 dump（status+errors+log+進程）
   uv run python -m book_pipeline.devctl kick               # 硬殺重啟（棄在飛工作；緊急/卡死用）
   uv run python -m book_pipeline.devctl reload             # 優雅載入新碼：排空在飛 worker 後退出（零浪費）
-  uv run python -m book_pipeline.devctl crawl-refill        # 手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）
 """
 from __future__ import annotations
 
@@ -420,33 +419,44 @@ def scan_errors(since_min: int = 180) -> list:
 
 # ── 快照組裝 ─────────────────────────────────────────────────────────────────
 def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
-    """爬書購物清單水位（回答 /dev『清單有哪些具體待抓書、何時抓』）。
-    queue = 持久購物清單（pipeline_tick.crawl_queue.json，具體待抓書）→ /dev 直接列出（額度0也照在）。
-    backlog = pipeline 待消化深度（drain backpressure 用）。複用已算好的 books/zlib，不重打網路。
-    補貨已是確定性（從書單 SoT 拉，無 LLM）→ 不再偵測『planner agent 在跑』。"""
+    """爬書下載狀態（回答 /dev『下一輪會抓哪些具體書、何時抓』）。
+    queue = **解析池前 N 本待下載書**（select_next 即時推導，無購物清單 buffer；額度0也照列）。
+    backlog = pipeline 待消化深度（drain backpressure 用）。複用已算好的 books/zlib，不重打網路。"""
     from book_pipeline import pipeline_tick as pt
+    from book_pipeline import booklists, pipeline_queue as q
     rows = books_snap['books']
-    have = pt._have_slugs()
-    queue = [b for b in pt._load_queue() if b.get('slug') and b['slug'] not in have]  # 同 daemon 進場去重
     backlog = pt._crawl_backlog(rows)
-    room = max(0, pt.CRAWL_HIGH - backlog)  # pipeline 還能容納幾本在飛
+    room = max(0, pt.CRAWL_INFLIGHT_CAP - backlog)  # pipeline 還能容納幾本在飛
     R = zlib_snap.get('total_remaining')
-    n = len(queue)
-    cap = min(n, room)
+    blocked = q.crawl_blocked_slugs(pt.MAX_FETCH_FAILS)
+    # 展示「下一輪會抓的書」：取 room（或預設一屏）本解析池 ready，排除失敗達上限者
+    show = booklists.select_next(max(room, 20), exclude=blocked)
+    pool = booklists.pool_counts()
+    n_ready = pool['ready']                            # 解析池整體可下載書數（含未展示）
+    cap = min(len(show), room)
     if isinstance(R, int):
         cap = min(cap, R)
-    if n == 0:
-        state, reason = 'refilling', '清單空 · 下輪自動從書單確定性補貨'
+    if n_ready == 0:
+        state, reason = 'idle', '解析池無 ready · 待 crawl agent 解析或書單加新書'
     elif R == 0:
-        state, reason = 'quota_empty', f'清單 {n} 本待抓 · 今日額度0 · 重置後自動抓'
+        state, reason = 'quota_empty', f'解析池 {n_ready} 本可下載 · 今日額度0 · 重置後自動抓'
     elif room <= 0:
-        state, reason = 'holding', f'清單 {n} 本待抓 · pipeline 滿（backlog {backlog}）· 待消化'
+        state, reason = 'holding', f'解析池 {n_ready} 本可下載 · pipeline 滿（backlog {backlog}）· 待消化'
     else:
-        state, reason = 'draining', f'清單 {n} 本待抓 · 有額度 · 下輪抓 {cap} 本'
+        state, reason = 'draining', f'解析池 {n_ready} 本可下載 · 有額度 · 下輪抓 {cap} 本'
+    try:
+        from book_pipeline import crawl_zlib
+        base = crawl_zlib._base()                          # zlib.env 的 ZLIB_DOMAIN（各機獨立、access-gated）
+    except Exception:
+        base = ''
+    def _url(b):                                            # z-lib book 頁 = {domain}/book/{id}/{hash}（select_next 已帶純量 id/hash）
+        return f"{base}/book/{b['id']}/{b['hash']}" if base and b.get('id') and b.get('hash') else ''
     qview = [{'slug': b['slug'], 'title': b.get('title', ''),
-              'is_sol': b['slug'].endswith('_sol'), 'fails': int(b.get('fails', 0) or 0)} for b in queue]
-    return {'queue': qview, 'count': n, 'backlog': backlog, 'room': room,
-            'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH, 'state': state, 'reason': reason}
+              'is_sol': b['slug'].endswith('_sol'),
+              'url': _url(b),
+              'fails': q.crawl_fail_count(b['slug'])} for b in show]
+    return {'queue': qview, 'count': n_ready, 'backlog': backlog, 'room': room,
+            'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason}
 
 
 def math_health() -> dict:
@@ -603,7 +613,6 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
     sub.add_parser('kick', help='硬殺重啟（棄在飛工作；緊急用）')
     sub.add_parser('reload', help='優雅載入新碼：排空在飛 worker 後退出（零浪費）')
-    sub.add_parser('crawl-refill', help='手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -714,23 +723,6 @@ def main(argv: list[str] | None = None) -> int:
         }
         print(json.dumps(bundle, ensure_ascii=False, indent=2))
         return 0
-
-    if args.cmd == 'crawl-refill':
-        # 只丟「強制補貨」marker（不自己 refill → 不與 daemon 搶寫 crawl_queue.json）。**立即**派 crawl
-        # 小弟：daemon 運轉中 → SIGUSR1 喚醒它馬上 re-observe 撿 marker（不殺在飛 worker）；閒置 → kick 起來。
-        from book_pipeline import pipeline_tick as pt
-        pt.request_refill()
-        if pt.wake_controller():
-            print('📑 已排入強制補貨請求 · 已喚醒 daemon → 立即派 crawl 小弟補書單（不中斷在飛工作）')
-            print('   看進度：devctl status（crawl 區）或 books.wordnexus.lol/dev')
-            return 0
-        uid = os.getuid()  # 無 live controller（閒置等 launchd 重拉）→ 不帶 -k 啟動它，立即起來認請求
-        r = subprocess.run(['launchctl', 'kickstart', f'gui/{uid}/{PLIST_LABEL}'])
-        if r.returncode == 0:
-            print('📑 已排入強制補貨請求 · daemon 閒置 → 已 kick，立即起 controller 派 crawl 小弟補書單')
-        else:
-            print(f'📑 已排入強制補貨請求；kick 失敗 rc={r.returncode}（daemon 下個 tick 重拉時自動認）')
-        return r.returncode
 
     if args.cmd == 'reload':
         # 優雅上線新碼：丟 reload marker + SIGUSR1 喚醒 → controller 排空在飛 worker 後退出，
