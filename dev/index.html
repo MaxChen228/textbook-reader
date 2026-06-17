@@ -179,7 +179,7 @@
     <!-- 次要：額度 / 錯誤 -->
     <div class="cols">
       <div class="dev-panel">
-        <h2>MinerU 額度 <span class="dev-label" id="budget-date"></span></h2>
+        <h2>MinerU 今日送頁 <span class="dev-label" id="budget-date"></span></h2>
         <div id="budget"></div>
         <h2 style="margin-top:14px">zlib 帳號額度 <span class="dev-label" id="zlib-total"></span></h2>
         <div id="zlib"></div>
@@ -491,12 +491,12 @@
     updateLineSub()
     renderLine(d)
 
-    document.getElementById('budget-date').textContent = `(${d.budget.date_utc} UTC)`
-    document.getElementById('budget').innerHTML = Object.entries(d.budget.accounts).map(([name, v]) => {
-      const pct = Math.min(100, Math.round(v.used / v.daily_cap * 100))
-      return `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
-        <span class="dev-bar"><span style="width:${pct}%"></span></span><span class="num">${v.used}/${v.daily_cap}</span></div>`
-    }).join('')
+    // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
+    document.getElementById('budget-date').textContent = `(${d.budget.date_utc} UTC · 無上限)`
+    document.getElementById('budget').innerHTML = Object.entries(d.budget.accounts).map(([name, v]) =>
+      `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
+        <span class="num">${v.used} 頁</span></div>`
+    ).join('')
 
     const z = d.zlib || {}, zt = z.total_remaining
     document.getElementById('zlib-total').textContent = `(總剩 ${zt == null ? '?' : zt}/30${z.stale ? ' · STALE' : ''})`

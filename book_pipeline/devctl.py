@@ -177,12 +177,10 @@ def _proc_info(needle: str) -> dict | None:
 
 # ── MinerU 額度 ──────────────────────────────────────────────────────────────
 def budget_status() -> dict:
-    accts = {}
-    for a in bud.ACCOUNTS:
-        used = bud.account_used(a)
-        accts[a] = {'used': used, 'remaining': bud.account_remaining(a),
-                    'daily_cap': bud.PRIORITY_PAGES}
-    return {'date_utc': bud._today(), 'daily_cap': bud.PRIORITY_PAGES, 'accounts': accts}
+    # MinerU 無每日硬上限：>1000 頁僅降解析優先級（排隊變慢）、非拒絕。故只報「今日已送頁數」
+    # 這個資訊量（負載均衡用），不畫 used/cap 進度條以免誤導成「額度將耗盡」。
+    accts = {a: {'used': bud.account_used(a)} for a in bud.ACCOUNTS}
+    return {'date_utc': bud._today(), 'accounts': accts}
 
 
 # ── zlib 帳號額度（網路查詢，TTL 快取）────────────────────────────────────────
@@ -410,9 +408,9 @@ def _print_human(snap: dict) -> None:
                 icon = '🔧' if r.get('kind') == 'tool' else '💬'
                 print(f"        {icon} {(r.get('label') or '')[:100]}")
     b = snap['budget']
-    print(f"\n💳 MinerU 額度 ({b['date_utc']} UTC):")
+    print(f"\n💳 MinerU 今日送頁（{b['date_utc']} UTC · 無上限，>1000 僅降優先）:")
     for a, v in b['accounts'].items():
-        print(f"   {a}: 用 {v['used']}/{v['daily_cap']}，剩 {v['remaining']}")
+        print(f"   {a}: 已送 {v['used']} 頁")
     z = snap.get('zlib') or {}
     zt = z.get('total_remaining')
     print(f"\n📥 zlib 額度（總剩 {zt if zt is not None else '?'}/30"

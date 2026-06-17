@@ -9,7 +9,7 @@
   - submit_ingest：切+傳+寫 manifest，**不 poll**（雲端排隊跑）→ 書進 in-flight
   - harvest_ingest：poll in-flight 的 batch → download+assemble→unified（收割就緒的）
   - pick_account：挑今日 used 最少帳號做負載均衡（**不闸门**，一律返回一個帳號全提交）
-  - PRIORITY_PAGES 僅供 dashboard 顯示「今日高優先級餘量」，不作硬性阻擋
+  - account_used 僅供負載均衡 + dashboard 顯示「今日已送頁數」（無 cap 概念，避免誤導）
 
 真相仍在引擎：in-flight（_pending_batches.json 有）每 tick 無條件 harvest，chunk 級
 冪等 + failed 自動補傳會自癒。不修改 mineru_ingest.py；透過 subprocess 呼叫它的
@@ -27,9 +27,8 @@ BP = os.path.join(ROOT, 'book_pipeline')
 BUDGET_PATH = os.path.join(BP, 'mineru_budget.json')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 
-# MinerU 高優先級配額（頁/帳號/日）：超過僅降解析優先級排隊、非硬拒（limit 文檔）。
-# 僅供 dashboard 顯示「今日高優先級餘量」進度條 + pick_account 負載均衡，**不作閘門**。
-PRIORITY_PAGES = int(os.environ.get('MINERU_PRIORITY_PAGES', '2000'))
+# MinerU 無每日硬上限：>1000 頁僅降解析優先級（排隊變慢）、非拒絕（limit 文檔）。
+# 故無 cap/remaining 概念——僅記今日 used 頁數供負載均衡與 dashboard 資訊顯示。
 ACCOUNTS = ['MINERU_API_TOKEN', 'MINERU_API_TOKEN2']  # 對應 --account 1 / 2
 
 
@@ -70,11 +69,6 @@ def estimate_pages(slug: str) -> int | None:
 
 def account_used(account: str) -> int:
     return int(_load().get(_today(), {}).get(account, {}).get('pages', 0))
-
-
-def account_remaining(account: str) -> int:
-    """今日高優先級餘量（dashboard 用，非硬上限）。超過 0 不代表停，只代表降優先排隊。"""
-    return max(0, PRIORITY_PAGES - account_used(account))
 
 
 def pick_account(pages: int = 0) -> str:
@@ -214,9 +208,8 @@ def harvest_ingest(slug: str, max_wait: int = 1800) -> int:
 
 def status_report() -> dict:
     up = sorted(in_flight() - harvestable())
-    return {'date': _today(), 'priority_pages': PRIORITY_PAGES,
-            'accounts': {a: {'used': account_used(a), 'remaining': account_remaining(a)}
-                         for a in ACCOUNTS},
+    return {'date': _today(),
+            'accounts': {a: {'used': account_used(a)} for a in ACCOUNTS},
             'uploading': up, 'harvestable': sorted(harvestable()),
             'in_flight': sorted(in_flight())}
 
