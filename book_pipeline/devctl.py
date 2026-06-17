@@ -483,7 +483,22 @@ def math_health() -> dict:
         'last_sweep': sweep or None,
         'running': q.math_batch_running(state),       # batch 正在打 API（純 API、無 agent）→ /dev 顯處理中
         'last_batch': q.math_last_batch(state),        # 上次 batch：解幾條/觸幾書/殘餘 before→after
+        'recent_batches': _math_recent_batches(5),     # 末 5 批 LLM 逐批判決摘要（incident 可觀測，無原文省 size）
     }
+
+
+def _math_recent_batches(n: int = 5) -> list:
+    """末 n 批 LLM 處理摘要（讀 dev/math_history.jsonl，省去 raw 原文）：給 incident dump 看
+    『模型逐批解了什麼/漏回/render 不過』。完整原文用 `math_sweep raw --tail N --json` 或 /dev 即時看。"""
+    from book_pipeline import math_sweep as ms
+    out = []
+    for r in ms._read_history(n):
+        c: dict = {}
+        for v in r.get('verdicts', []):
+            c[v.get('outcome')] = c.get(v.get('outcome'), 0) + 1
+        out.append({'ts': r.get('ts'), 'pool': r.get('pool'), 'batch': r.get('batch'),
+                    'state': r.get('state'), 'n': r.get('n'), 'outcomes': c})
+    return out
 
 
 def booklist_progress() -> dict:

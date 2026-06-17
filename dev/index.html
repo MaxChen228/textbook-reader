@@ -90,6 +90,37 @@
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
     .math-row:hover .lbl { color: var(--accent); }
+    /* 數學 sweep 抽屜：即時 LLM 串流 + 歷史批次回溯 */
+    .mr-stream { border: 1px solid rgba(123,92,214,.28); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px;
+      background: rgba(123,92,214,.06); }
+    .mr-stream.live { border-color: rgba(123,92,214,.6); animation: mrpulse 1.4s ease-in-out infinite; }
+    .mr-badge { font-weight: 700; }
+    .mr-meta { font-size: 11px; opacity: .6; margin: 2px 0 6px; font-family: ui-monospace, monospace; }
+    .mr-raw { font-family: ui-monospace, monospace; font-size: 11px; line-height: 1.4; white-space: pre-wrap;
+      word-break: break-word; max-height: 240px; overflow-y: auto; margin: 0 0 6px; padding: 6px 8px;
+      background: rgba(0,0,0,.16); border-radius: 6px; }
+    .mr-raw.mr-wait { opacity: .5; }
+    .mr-vds { display: flex; flex-direction: column; gap: 3px; }
+    .mv-row { display: flex; gap: 6px; font-size: 11px; padding: 3px 4px; border-radius: 5px; background: rgba(127,127,127,.07); }
+    .mv-row.mr-ok { background: rgba(64,180,120,.12); }
+    .mv-row.mr-bad { background: rgba(220,90,90,.12); }
+    .mv-row.mr-warn { background: rgba(220,170,60,.12); }
+    .mv-ico { flex: 0 0 14px; text-align: center; }
+    .mv-bd { flex: 1; min-width: 0; }
+    .mv-slug { font-weight: 700; }
+    .mv-tag { opacity: .6; }
+    .mv-tex { font-family: ui-monospace, monospace; font-size: 10.5px; opacity: .85; word-break: break-word; margin-top: 1px; }
+    .mv-tex code { background: rgba(0,0,0,.14); padding: 0 3px; border-radius: 3px; }
+    .mv-arr { opacity: .5; }
+    .mv-err { font-family: ui-monospace, monospace; font-size: 10px; color: #d66; word-break: break-word; margin-top: 2px; }
+    .mh-item { border-bottom: 1px solid rgba(127,127,127,.12); }
+    .mh-head { display: flex; gap: 7px; align-items: center; padding: 6px 2px; cursor: pointer; font-size: 12px; }
+    .mh-head:hover { background: rgba(127,127,127,.06); }
+    .mh-tw { flex: 0 0 12px; opacity: .55; }
+    .mh-when { opacity: .55; font-size: 11px; }
+    .mh-tag { font-family: ui-monospace, monospace; opacity: .7; }
+    .mh-sum { margin-left: auto; font-family: ui-monospace, monospace; font-size: 11px; }
+    .mh-body { padding: 4px 2px 8px; }
     /* 數學 sweep 尾站可點（開 corpus 抽屜）→ 整站 hover 提示 */
     .station.st-clickable { cursor: pointer; }
     .station.st-clickable:hover .st-name { color: var(--accent); }
@@ -284,9 +315,11 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000
-  let timer = null, clockTimer = null, workersTimer = null
+  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200
+  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null
   let last = null, lastWorkers = []
+  let mathLive = null, mathHistory = []  // math sweep 即時串流快照 + 歷史批次（僅 math 抽屜開時輪詢）
+  let mathHistOpen = new Set()           // 歷史批次展開的 batch 序號
   let openSlug = null   // 抽屜當前綁定的書
   let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
   let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
@@ -661,7 +694,25 @@
     openMath = true; openSlug = null; openWkey = null; openSession = null
     document.getElementById('dr-back').hidden = true
     _openDrawerEl(); renderDrawer()
+    startMathRaw()  // 開抽屜才輪詢 live 串流 + 歷史（省 idle 時的閒置請求）
   }
+  // math sweep 即時串流 + 歷史批次：只在數學抽屜開著時輪詢（live 1.2s 跟得上模型逐字生成）
+  async function loadMathRaw() {
+    try { mathLive = await fetchJson('math_live.json?_=' + Date.now()) } catch (e) { /* 尚無批次 */ }
+    try {
+      const res = await fetch('math_history.jsonl?_=' + Date.now())
+      if (res.ok) {
+        mathHistory = (await res.text()).split('\n').filter(Boolean)
+          .map(l => { try { return JSON.parse(l) } catch (e) { return null } }).filter(Boolean)
+      }
+    } catch (e) { /* 尚無歷史 */ }
+    if (openMath) renderMathStream()
+  }
+  function startMathRaw() {
+    loadMathRaw()
+    if (!mathRawTimer) mathRawTimer = setInterval(loadMathRaw, MATHRAW_MS)
+  }
+  function stopMathRaw() { clearInterval(mathRawTimer); mathRawTimer = null }
   // 歷史 session 重播：開抽屜呈現該場完整逐事件（fromSlug=從某書歷程點進來 → 顯示返回鈕）
   function openSessionDrawer(summary, fromSlug) {
     if (!summary) return
@@ -671,6 +722,7 @@
     _openDrawerEl(); renderDrawer()
   }
   function closeDrawer() {
+    stopMathRaw()
     openSlug = null; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
     document.getElementById('dr-back').hidden = true
     document.getElementById('dr-mask').classList.remove('open')
@@ -714,7 +766,71 @@
         : `<div class="dr-empty" style="text-align:left;padding:4px 2px">本輪無書可改（殘餘皆硬殘）</div>`
     } else swHtml += `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`
     document.getElementById('dr-tl').innerHTML = swHtml
-    document.getElementById('dr-hist').innerHTML = ''  // 非書本抽屜：清掉殘留的書本 Agent 歷程
+    renderMathStream()  // dr-hist 放即時 LLM 串流 + 歷史批次回溯
+  }
+  // outcome → 圖示/文案（逐條判決）
+  const MR_OUTCOME = {
+    accepted:   ['✓', 'mr-ok',   '已落地'],
+    render_fail:['✗', 'mr-bad',  'render 不過'],
+    render_err: ['⚠', 'mr-warn', 'render 異常·重試'],
+    missing:    ['·', 'mr-warn', '模型漏回·重試'],
+    locate_fail:['⊘', 'mr-warn', '無法定位·棄'],
+    batch_fail: ['✗', 'mr-bad',  '整批失敗·重試'],
+  }
+  function _verdictRow(v) {
+    const [ico, cls, txt] = MR_OUTCOME[v.outcome] || ['?', '', v.outcome || '']
+    const arrow = v.new ? ` <span class="mv-arr">→</span> <code>${escapeHtml(v.new)}</code>` : ''
+    const rerr = v.render_err ? `<div class="mv-err">${escapeHtml(v.render_err)}</div>` : ''
+    return `<div class="mv-row ${cls}"><span class="mv-ico">${ico}</span>`
+      + `<span class="mv-bd"><span class="mv-slug">${escapeHtml(v.slug || '')}</span> `
+      + `<span class="mv-tag">${txt}</span><div class="mv-tex"><code>${escapeHtml(v.tex || '')}</code>${arrow}</div>${rerr}</span></div>`
+  }
+  function _batchSummary(r) {
+    const c = {}; (r.verdicts || []).forEach(v => { c[v.outcome] = (c[v.outcome] || 0) + 1 })
+    const parts = []
+    if (c.accepted) parts.push(`✓${c.accepted}`)
+    const retry = (c.render_fail || 0) + (c.missing || 0) + (c.render_err || 0) + (c.batch_fail || 0)
+    if (retry) parts.push(`↻${retry}`)
+    if (c.locate_fail) parts.push(`⊘${c.locate_fail}`)
+    return parts.join(' ') || '—'
+  }
+  // 即時串流 + 歷史回溯，渲入 dr-hist（隨 MATHRAW_MS poll 刷新）
+  function renderMathStream() {
+    const el = document.getElementById('dr-hist'); if (!el) return
+    let html = ''
+    const lv = mathLive
+    if (lv && lv.state && lv.state !== 'none') {
+      const streaming = lv.state === 'streaming'
+      const badge = streaming ? '🔴 即時生成中…' : (lv.state === 'done' ? '🟢 本批完成' : '⚪ 待命（最近一批）')
+      html += `<div class="mr-stream ${streaming ? 'live' : ''}">`
+        + `<div class="h">LLM 即時串流 · <span class="mr-badge">${badge}</span></div>`
+        + `<div class="mr-meta">${escapeHtml(lv.pool || '')}·r${lv.round}·#${lv.batch} · ${escapeHtml(lv.model || '')} · ${lv.n} 條</div>`
+      if (lv.raw) html += `<pre class="mr-raw" id="mr-raw">${escapeHtml(lv.raw)}</pre>`
+      else if (streaming) html += `<pre class="mr-raw mr-wait">（等待模型首 token…）</pre>`
+      if ((lv.verdicts || []).length) html += `<div class="mr-vds">${lv.verdicts.map(_verdictRow).join('')}</div>`
+      html += `</div>`
+    }
+    const hist = mathHistory.slice().reverse()
+    html += `<div class="h" style="margin-top:10px">歷史批次（末 ${mathHistory.length}，點開看原文+判決）</div>`
+    if (!hist.length) html += `<div class="dr-empty" style="text-align:left;padding:4px 2px">尚無歷史批次</div>`
+    hist.forEach(r => {
+      const open = mathHistOpen.has(r.batch)
+      html += `<div class="mh-item"><div class="mh-head" data-mbatch="${r.batch}">`
+        + `<span class="mh-tw">${open ? '▾' : '▸'}</span>`
+        + `<span class="mh-when">${relTime(r.ts)}</span>`
+        + `<span class="mh-tag">${escapeHtml(r.pool || '')}·#${r.batch}</span>`
+        + `<span class="mh-sum">${_batchSummary(r)}</span></div>`
+      if (open) {
+        html += `<div class="mh-body">`
+        if (r.error) html += `<div class="mv-err">批失敗：${escapeHtml(r.error)}</div>`
+        if (r.raw) html += `<pre class="mr-raw">${escapeHtml(r.raw)}</pre>`
+        html += `<div class="mr-vds">${(r.verdicts || []).map(_verdictRow).join('')}</div></div>`
+      }
+      html += `</div>`
+    })
+    el.innerHTML = html
+    // 串流期 pre 自動捲到底（看最新生成）
+    if (lv && lv.state === 'streaming') { const pre = document.getElementById('mr-raw'); if (pre) pre.scrollTop = pre.scrollHeight }
   }
   // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
   function renderWorkerDrawer() {
@@ -876,6 +992,12 @@
   })
   // session row 點擊：抽屜歷程（from=當前書）與 corpus 面板（無 from）共用
   document.getElementById('dr-hist').addEventListener('click', e => {
+    const mh = e.target.closest('.mh-head')  // 數學抽屜：展開/收合歷史批次
+    if (mh) {
+      const b = Number(mh.dataset.mbatch)
+      if (mathHistOpen.has(b)) mathHistOpen.delete(b); else mathHistOpen.add(b)
+      renderMathStream(); return
+    }
     const row = e.target.closest('.sess'); if (!row) return
     openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), openSlug)
   })
@@ -1008,11 +1130,11 @@
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
     if (!workersTimer) workersTimer = setInterval(loadWorkers, WORKERS_MS)
   }
-  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); timer = clockTimer = workersTimer = null }
+  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); timer = clockTimer = workersTimer = null; stopMathRaw() }
   document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers() })
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); start()
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); start() } })
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); start(); if (openMath) startMathRaw() } })
   </script>
 </body>
 </html>

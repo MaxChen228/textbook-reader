@@ -22,6 +22,9 @@ tmp/
 
 # dev 監控快照（devctl snapshot 定時重生，不入 git；dev/index.html 才追蹤）
 /dev/status.json
+# math sweep 可觀測性：即時串流快照 + 歷史批次回溯（math_sweep batch 直寫，可重生）
+/dev/math_live.json
+/dev/math_history.jsonl
 
 # 教科書原始 PDF
 raw_pdfs/

@@ -17,14 +17,18 @@ from __future__ import annotations
 
 import argparse
 import base64
+import datetime
 import hashlib
 import json
 import os
 import socket
 import sys
+import tempfile
+import time
 import urllib.request
 from collections import defaultdict
-from typing import Any, Iterator
+from pathlib import Path
+from typing import Any, Callable, Iterator
 
 from book_pipeline.apply_math_overrides import (
     apply_overrides,
@@ -44,6 +48,53 @@ from book_pipeline.math_validate import (
 def _log(msg: str) -> None:
     """進度印 stderr（stdout 留給 JSON 結果，agent/管線解析）。"""
     print(msg, file=sys.stderr, flush=True)
+
+
+# ── 可觀測性：即時串流 + 歷史回溯（寫進 dev/，nginx 直服務、dev 頁相對 fetch；gitignore）──
+# 比照 dev/workers.json / dev/agent_history 既有模式。live=當前批次串流快照（throttle 重寫），
+# history=append-only jsonl（每批一條完成記錄，prune 末 200 批）。daemon 子程序直寫，dev 頁輪詢。
+_ROOT = Path(__file__).resolve().parent.parent
+_DEV_DIR = _ROOT / "dev"
+_LIVE_PATH = _DEV_DIR / "math_live.json"
+_HISTORY_PATH = _DEV_DIR / "math_history.jsonl"
+_HISTORY_KEEP = 200
+_LIVE_THROTTLE = 0.4  # 串流期間最短重寫間隔（秒），避免每 token 一次 IO
+
+
+def _now_iso() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+
+
+def _atomic_write_json(path: Path, obj: Any) -> None:
+    """同目錄 temp + os.replace 原子落盤（dev 頁 fetch 永不讀到半截）。"""
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=".tmp_", suffix=".json")
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(obj, fh, ensure_ascii=False)
+        os.replace(tmp, path)
+    except Exception:  # 可觀測性失敗絕不拖垮 batch 主流程
+        pass
+
+
+def _live_write(rec: dict[str, Any]) -> None:
+    _atomic_write_json(_LIVE_PATH, rec)
+
+
+def _history_append(rec: dict[str, Any]) -> None:
+    """append 一條完成記錄 + prune 末 _HISTORY_KEEP 批（讀全檔重寫，量小可接受）。"""
+    try:
+        _HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
+        lines: list[str] = []
+        if _HISTORY_PATH.exists():
+            lines = _HISTORY_PATH.read_text(encoding="utf-8").splitlines()
+        lines.append(json.dumps(rec, ensure_ascii=False))
+        lines = lines[-_HISTORY_KEEP:]
+        tmp = _HISTORY_PATH.with_suffix(".jsonl.tmp")
+        tmp.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        os.replace(tmp, _HISTORY_PATH)
+    except Exception:
+        pass
 
 
 def _gid(slug: str, tex: str, display: bool) -> str:
@@ -223,8 +274,9 @@ def _ccnexus_auth() -> str:
 
 
 def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str,
-              timeout: int = 300) -> str:
-    """送一批 payload（[{i,err,tex}]）打 /v1/chat/completions（stream），回拼接後的全文。"""
+              timeout: int = 300, on_delta: Callable[[str], None] | None = None) -> str:
+    """送一批 payload（[{i,err,tex}]）打 /v1/chat/completions（stream），回拼接後的全文。
+    on_delta(full_text_so_far)：每收一段 SSE delta 回呼（給即時串流可觀測性，呼叫端自 throttle）。"""
     body = {
         "model": model, "stream": True,
         "messages": [
@@ -250,7 +302,11 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
                 continue
             ch = o.get("choices") or []                # usage-only / keepalive chunk 無 choices
             if ch:
-                out.append(ch[0].get("delta", {}).get("content") or "")
+                piece = ch[0].get("delta", {}).get("content") or ""
+                if piece:
+                    out.append(piece)
+                    if on_delta is not None:
+                        on_delta("".join(out))
     return "".join(out)
 
 
@@ -284,46 +340,95 @@ def _clip(s: str, n: int = 60) -> str:
 
 
 def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
-                  accepted: dict[str, list], gid_new: dict[str, str], verbose: bool = False) -> list:
+                  accepted: dict[str, list], gid_new: dict[str, str], verbose: bool = False,
+                  pool_name: str = "", rnd: int = 0, seq: list[int] | None = None) -> list:
     """跑一個池一輪：分批打 LLM → 解析 → 每條 render 守門 → 過則收 override 進 accepted。
     回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。
-    verbose → 逐條 log「書 · 舊 tex → 新 tex · render 過/不過」（daemon 想看處理流程時開）。"""
+    verbose → 逐條 log「書 · 舊 tex → 新 tex · render 過/不過」（daemon 想看處理流程時開）。
+
+    可觀測性：每批寫 dev/math_live.json（串流期 throttle 重寫模型原文）+ 完成後 append
+    dev/math_history.jsonl（含 payload/原文/逐條判決），供 dev 頁即時看 + 歷史回溯。
+    seq=[next_batch_no] 可變單元素 list，跨池累進全域批次序號。"""
     nxt: list = []
+    if seq is None:
+        seq = [0]
     for grp in _batched(pool, batch_n):
-        payload = [{"i": i, "err": f.get("err") or "", "tex": f.get("tex") or ""}
-                   for i, (_g, _s, f) in enumerate(grp)]
+        bno = seq[0]
+        seq[0] += 1
+        items = [{"i": i, "gid": g, "slug": s, "err": f.get("err") or "",
+                  "tex": f.get("tex") or "", "display": bool(f.get("display"))}
+                 for i, (g, s, f) in enumerate(grp)]
+        payload = [{"i": it["i"], "err": it["err"], "tex": it["tex"]} for it in items]
+        base_rec = {"ts": _now_iso(), "pool": pool_name, "round": rnd, "batch": bno,
+                    "model": model, "n": len(grp), "items": items}
+
+        # 串流：on_delta throttle 重寫 live，讓 dev 頁看模型逐字生成
+        last = [0.0]
+
+        def _on_delta(full: str, _br=base_rec, _last=last) -> None:
+            now = time.monotonic()
+            if now - _last[0] < _LIVE_THROTTLE:
+                return
+            _last[0] = now
+            _live_write({**_br, "state": "streaming", "raw": full, "verdicts": []})
+
+        _live_write({**base_rec, "state": "streaming", "raw": "", "verdicts": []})
         try:
-            ans = _parse_jsonl(_call_llm(payload, model=model, base=base, auth=auth))
+            raw_text = _call_llm(payload, model=model, base=base, auth=auth, on_delta=_on_delta)
+            ans = _parse_jsonl(raw_text)
         except Exception as e:  # 連線/逾時/HTTP → 整批重試
             _log(f"  ⚠ 批失敗（{len(grp)} 條重試）：{e}")
+            rec = {**base_rec, "state": "error", "raw": "", "error": str(e),
+                   "verdicts": [{"i": it["i"], "gid": it["gid"], "slug": it["slug"],
+                                 "outcome": "batch_fail"} for it in items]}
+            _live_write(rec)
+            _history_append(rec)
             nxt.extend(grp)
             continue
+
+        verdicts: list[dict[str, Any]] = []
         for i, (gid, slug, f) in enumerate(grp):
             new = ans.get(i)
+            v_rec: dict[str, Any] = {"i": i, "gid": gid, "slug": slug,
+                                     "tex": f.get("tex") or "", "new": new or ""}
             if not new:                                   # 模型漏回
                 if verbose:
                     _log(f"  · {slug} 模型漏回 · {_clip(f.get('tex'))}")
+                v_rec["outcome"] = "missing"
+                verdicts.append(v_rec)
                 nxt.append((gid, slug, f))
                 continue
             try:
                 v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
             except Exception as e:                        # render_check.js 偶發非零退出 → 該條重試
                 _log(f"  ⚠ render 異常（1 條重試）：{e}")
+                v_rec["outcome"] = "render_err"
+                verdicts.append(v_rec)
                 nxt.append((gid, slug, f))
                 continue
             if not v.get("ok"):                           # render 守門：不過不落地
                 if verbose:
                     _log(f"  ✗ {slug} render 不過 · {_clip(f.get('tex'))} → {_clip(new)}")
+                v_rec["outcome"] = "render_fail"
+                v_rec["render_err"] = v.get("err") or ""
+                verdicts.append(v_rec)
                 nxt.append((gid, slug, f))
                 continue
             try:
                 accepted[slug].extend(finding_to_overrides(slug, f, new))
                 gid_new[gid] = new
+                v_rec["outcome"] = "accepted"
                 if verbose:
                     _log(f"  ✓ {slug} · {_clip(f.get('tex'))} → {_clip(new)}")
             except ValueError:                            # 無 targets / 空 tex → 無法定位，棄
+                v_rec["outcome"] = "locate_fail"
                 if verbose:
                     _log(f"  ⊘ {slug} 無法定位（無 targets/空 tex）· {_clip(f.get('tex'))}")
+            verdicts.append(v_rec)
+
+        rec = {**base_rec, "state": "done", "raw": raw_text, "verdicts": verdicts}
+        _live_write(rec)
+        _history_append(rec)
     return nxt
 
 
@@ -358,14 +463,24 @@ def cmd_batch(a: argparse.Namespace) -> int:
     accepted: dict[str, list] = defaultdict(list)
     gid_new: dict[str, str] = {}
     still: list = []
+    seq = [0]  # 跨池累進的全域批次序號（給可觀測性記錄定址）
     for name, (pool, bn) in pools.items():
         for rnd in range(a.rounds):
             if not pool:
                 break
             _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條（批 {bn}）")
             pool = _process_pool(pool, bn, model=a.model, base=base, auth=auth,
-                                 accepted=accepted, gid_new=gid_new, verbose=getattr(a, 'verbose', False))
+                                 accepted=accepted, gid_new=gid_new, verbose=getattr(a, 'verbose', False),
+                                 pool_name=name, rnd=rnd, seq=seq)
         still.extend(pool)
+    # 收尾：live 標 idle（保留末批內容供 dev 頁顯示「最近一批」，但狀態非 streaming）
+    try:
+        if _LIVE_PATH.exists():
+            cur = json.loads(_LIVE_PATH.read_text(encoding="utf-8"))
+            if cur.get("state") in ("streaming", "done"):
+                _live_write({**cur, "state": "idle"})
+    except Exception:
+        pass
 
     # 落地：每書一次 merge + apply + 重驗（避免每條重驗整書）
     remaining: dict[str, int] = {}
@@ -379,6 +494,54 @@ def cmd_batch(a: argparse.Namespace) -> int:
     out = {"ok": True, "accepted": len(gid_new), "still_failing": len(still),
            "books_touched": len(accepted), "remaining_by_book": remaining}
     print(json.dumps(out, ensure_ascii=False, indent=2))
+    return 0
+
+
+def _read_history(tail: int = 20, *, gid: str | None = None,
+                  slug: str | None = None) -> list[dict[str, Any]]:
+    """讀 dev/math_history.jsonl 末 tail 批（可選 gid/slug 篩選，篩 verdicts 含該 gid/slug 的批）。"""
+    if not _HISTORY_PATH.exists():
+        return []
+    recs: list[dict[str, Any]] = []
+    for ln in _HISTORY_PATH.read_text(encoding="utf-8").splitlines():
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            recs.append(json.loads(ln))
+        except ValueError:
+            continue
+    if gid:
+        recs = [r for r in recs if any(v.get("gid") == gid for v in r.get("verdicts", []))]
+    if slug:
+        recs = [r for r in recs if any(v.get("slug") == slug for v in r.get("verdicts", []))]
+    return recs[-tail:]
+
+
+def cmd_raw(a: argparse.Namespace) -> int:
+    """回溯模型原始回應：--live 看當前/最近一批串流，否則印歷史末 N 批（含原文+逐條判決）。"""
+    if a.live:
+        if _LIVE_PATH.exists():
+            print(_LIVE_PATH.read_text(encoding="utf-8"))
+        else:
+            print(json.dumps({"state": "none", "msg": "尚無 live 批次"}, ensure_ascii=False))
+        return 0
+    recs = _read_history(a.tail, gid=a.gid, slug=a.book)
+    if a.json:
+        print(json.dumps(recs, ensure_ascii=False, indent=2))
+        return 0
+    for r in recs:
+        head = f"[{r.get('ts')}] {r.get('pool')}·r{r.get('round')}·#{r.get('batch')} · {r.get('state')} · n={r.get('n')}"
+        print(head)
+        for v in r.get("verdicts", []):
+            mark = {"accepted": "✓", "render_fail": "✗", "render_err": "⚠",
+                    "missing": "·", "locate_fail": "⊘", "batch_fail": "✗"}.get(v.get("outcome"), "?")
+            line = f"  {mark} {v.get('slug')} · {_clip(v.get('tex'))}"
+            if v.get("new"):
+                line += f" → {_clip(v.get('new'))}"
+            print(line)
+    if not recs:
+        print("（無歷史批次）")
     return 0
 
 
@@ -412,6 +575,14 @@ def _build_parser() -> argparse.ArgumentParser:
     p_batch.add_argument("--dry-run", action="store_true", help="只印規模/分池/base，不打 LLM 不落地")
     p_batch.add_argument("--verbose", action="store_true", help="逐條 log 書·舊→新·render 過/不過（看處理流程）")
     p_batch.set_defaults(func=cmd_batch)
+
+    p_raw = sub.add_parser("raw", help="回溯模型原始回應（即時 live / 歷史批次）")
+    p_raw.add_argument("--live", action="store_true", help="印當前/最近一批 live 串流快照")
+    p_raw.add_argument("--tail", type=int, default=20, help="印歷史末 N 批（預設 20）")
+    p_raw.add_argument("--gid", help="只看含某 gid 的批次")
+    p_raw.add_argument("--book", help="只看含某 slug 的批次")
+    p_raw.add_argument("--json", action="store_true", help="JSON 輸出（完整原文+判決）")
+    p_raw.set_defaults(func=cmd_raw)
 
     return ap
 
