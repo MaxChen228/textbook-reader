@@ -79,6 +79,9 @@ CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
 # 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
 CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
+# 數學 sweep 每 tick 上限：do_math_sweep 跑 `math_sweep batch --limit`，每 tick 只解一批殘式即回、上站、
+# 下 tick 續 → 增量可見（reactor occ 逐 tick 降）+ walltime 安全（不單 tick 吞整個 corpus 撞 50min 作廢）。
+MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT', '80'))
 DATA_DIR = os.path.join(BP, 'mineru_data')
 MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 排除出下載候選
 # harvest poll 上限（秒）：OCR 全好的書第一次 poll 就秒收；沒好的書等到此上限就放棄、留
@@ -924,16 +927,18 @@ def do_math_sweep(dry: bool) -> int:
     if not due:
         return 0
     cur = mv.macros_version()
-    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch（純 API，macros={cur}）')
+    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch --limit {MATH_BATCH_LIMIT}（純 API，macros={cur}）')
     if dry:
-        log('DRY uv run python -m book_pipeline.math_sweep batch')
+        log(f'DRY uv run python -m book_pipeline.math_sweep batch --limit {MATH_BATCH_LIMIT}')
         return 0
     before_by_book = mv.residual_by_book()  # 派工前快照：normalize 規則/macro 修的書未必有 override，靠殘餘降偵測
     t0 = time.time()
     q.set_math_batch_running(total)         # 持久 flag → /dev 顯「batch 處理中」（獨立 devsnapshot 進程讀得到）
     try:
-        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch'],
-                              cwd=READER_ROOT, capture_output=True, text=True)
+        # stdout=PIPE 取 JSON 結果；stderr 直通（_log 進度走 stderr）→ launchd.err.log 即時可見，不被吞。
+        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep',
+                               'batch', '--limit', str(MATH_BATCH_LIMIT)],
+                              cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=None, text=True)
     finally:
         q.clear_math_batch_running()
     res = {}
@@ -943,7 +948,7 @@ def do_math_sweep(dry: bool) -> int:
     except Exception:
         pass
     if proc.returncode != 0 or not res.get('ok'):
-        err = res.get('error') or (proc.stderr or '')[-300:] or f'rc={proc.returncode}'
+        err = res.get('error') or f'rc={proc.returncode}（進度/錯誤詳見 launchd.err.log）'
         log(f'❌ math sweep batch 失敗（{err}）→ 不記狀態，下個 tick 重試')
         return 1
     log(f"math sweep batch：解 {res.get('accepted', 0)} 條 · 觸 {res.get('books_touched', 0)} 書 · "
