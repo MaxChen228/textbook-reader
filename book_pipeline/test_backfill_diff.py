@@ -56,6 +56,20 @@ def test_gate_verdict_no_net_change_fails():
     assert v["delta"] == 0 and v["ok"] is False    # 必須嚴格下降才採用
 
 
+def test_gate_verdict_ok_by_occ_not_locator_count_under_12cap():
+    # 核心契約：findings locators 有 12-cap，但 ok/delta 取自 stats.bad_occ（精確、不截斷）。
+    # 一條 occ=20 的式子修好：locators 僅列 12，但 before_occ=20→after_occ=0、ok=True。
+    before = {"b1": {"stats": {"bad_occ": 20},
+                     "findings": [{"tex": "bad", "locators": [f"ch01:body[{i}]" for i in range(12)]}]}}
+    after = {"b1": {"stats": {"bad_occ": 0}, "findings": []}}
+    v = gate_verdict(before, after)
+    assert v["before_occ"] == 20 and v["after_occ"] == 0 and v["delta"] == -20 and v["ok"] is True
+    # 反向：locator 集合相同(churn)但 occ 不降 → delta=0 → 不過（cap 不影響此判定）
+    after2 = {"b1": {"stats": {"bad_occ": 20},
+                     "findings": [{"tex": "bad2", "locators": [f"ch01:body[{i}]" for i in range(12)]}]}}
+    assert gate_verdict(before, after2)["ok"] is False
+
+
 def test_gate_verdict_collateral_surfaced_when_passing_with_override():
     # 規則修了 b1 的 5 條、誤傷 1 條但被同變更 override 回去 → after 該位置已不在 findings
     # （模擬 override 後）：before 5 壞、after 1 壞且非新位置 → ok
@@ -71,5 +85,6 @@ if __name__ == "__main__":
     test_gate_verdict_net_improvement_passes();      print("✓ gate_verdict：淨降無 regression → pass")
     test_gate_verdict_regression_fails_even_if_corpus_drops(); print("✓ gate_verdict：任一書上升 → fail（即使 corpus 降）")
     test_gate_verdict_no_net_change_fails();         print("✓ gate_verdict：無淨降 → fail（須嚴格下降）")
+    test_gate_verdict_ok_by_occ_not_locator_count_under_12cap(); print("✓ gate_verdict：ok 依 bad_occ（12-cap 不影響判定）")
     test_gate_verdict_collateral_surfaced_when_passing_with_override(); print("✓ gate_verdict：collateral 已 override → pass")
     print("\n全部通過 ✅")

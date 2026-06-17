@@ -135,7 +135,7 @@ def main(argv: list[str] | None = None) -> int:
     v = gate_verdict(before_reports, after_reports)
     print("\n" + "=" * 60)
     print(f"CORPUS bad_occ: {v['before_occ']} → {v['after_occ']}  (Δ {v['delta']:+d}, fixed {v['fixed_total']})")
-    print("residual by_category:", " ".join(f"{k}={v_}" for k, v_ in agg_cat.most_common()))
+    print("residual by_category:", " ".join(f"{cat}={cnt}" for cat, cnt in agg_cat.most_common()))
     if v["collateral"]:
         n = sum(len(c["locators"]) for c in v["collateral"])
         print(f"\n⚠ COLLATERAL（好→壞，{n} 處／{len(v['collateral'])} 書，須補 override）:")
