@@ -498,7 +498,10 @@
     el.className = 'book crawl-card queued' + (url ? ' linked' : ''); el.dataset.queued = it.b.slug
     el.title = (it.b.title || it.b.slug) + (url ? ' · 點開 z-lib 頁' : '')
     if (url) { el.href = url; el.target = '_blank'; el.rel = 'noopener noreferrer' }
-    el.innerHTML = `<div class="cv"><div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div></div><div class="ttl"></div>`
+    const cv = it.b.cover
+      ? `<img src="${escapeHtml(it.b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${it.b.is_sol ? '📑' : '📘'}'}))">`
+      : `<div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div>`
+    el.innerHTML = `<div class="cv">${cv}</div><div class="ttl"></div>`
     updateCrawlEl(el, it)
     return el
   }

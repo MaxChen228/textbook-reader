@@ -26,6 +26,23 @@ from datetime import datetime, timezone
 from book_pipeline import booklists as bl
 from book_pipeline import crawl_zlib as cz
 
+def enrich_links(bid: str, bhash: str) -> dict:
+    """eapi detail → 公開 book 頁 href + 封面 cover（best-effort、純 metadata 不耗下載額度）。
+    sidecar 存的 id/短hash 推不出公開 URL（href 用另一組 hash + title-slug + .html）→ 必須撈 detail。
+    任何失敗回 {}（commit 不因網路掛掉；缺 href 的 entry 由 backfill 補）。"""
+    try:
+        d = cz.Client()._get(f'/eapi/book/{bid}/{bhash}').json()
+        b = d.get('book') or d
+        out = {}
+        if b.get('href'):
+            out['href'] = b['href']
+        if b.get('cover'):
+            out['cover'] = b['cover']
+        return out
+    except Exception:
+        return {}
+
+
 # 標題比對用：去除無資訊的常見詞，避免「Introduction to X」這類殼字灌高重疊
 _STOP = {
     'a', 'an', 'the', 'of', 'to', 'and', 'in', 'for', 'on', 'with', 'its',
@@ -245,6 +262,7 @@ def cmd_commit(args) -> int:
     elif args.id and args.hash:
         entry = {'id': str(args.id), 'hash': str(args.hash), 'title': args.title or '',
                  'author': args.author or '', 'mb': args.mb, 'by': 'agent', 'at': now}
+        entry.update(enrich_links(str(args.id), str(args.hash)))   # 補 href/cover（公開 book 頁 + 封面）
         if args.note:
             entry['note'] = args.note
     else:

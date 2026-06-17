@@ -444,16 +444,11 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
         state, reason = 'holding', f'解析池 {n_ready} 本可下載 · pipeline 滿（backlog {backlog}）· 待消化'
     else:
         state, reason = 'draining', f'解析池 {n_ready} 本可下載 · 有額度 · 下輪抓 {cap} 本'
-    try:
-        from book_pipeline import crawl_zlib
-        base = crawl_zlib._base()                          # zlib.env 的 ZLIB_DOMAIN（各機獨立、access-gated）
-    except Exception:
-        base = ''
-    def _url(b):                                            # z-lib book 頁 = {domain}/book/{id}/{hash}（select_next 已帶純量 id/hash）
-        return f"{base}/book/{b['id']}/{b['hash']}" if base and b.get('id') and b.get('hash') else ''
+    res = booklists.load_resolution()                      # href/cover 存此（resolve commit 時 enrich；sidecar 短 hash 推不出公開 URL）
     qview = [{'slug': b['slug'], 'title': b.get('title', ''),
               'is_sol': b['slug'].endswith('_sol'),
-              'url': _url(b),
+              'url': res.get(b['slug'], {}).get('href', ''),
+              'cover': res.get(b['slug'], {}).get('cover', ''),
               'fails': q.crawl_fail_count(b['slug'])} for b in show]
     return {'queue': qview, 'count': n_ready, 'backlog': backlog, 'room': room,
             'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason}
