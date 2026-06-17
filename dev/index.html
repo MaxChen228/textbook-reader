@@ -92,6 +92,10 @@
     /* 題/解小章 */
     .ps-badge { position: absolute; left: 4px; bottom: 4px; font-family: var(--mono); font-size: 9px;
       background: rgba(0,0,0,.62); color: #f1ead9; padding: 0 5px; border-radius: 4px; backdrop-filter: blur(2px); }
+    /* 已上站書的數學殘餘角標（紫，bottom-right）：把「數學 sweep 在修哪些上架書」直接畫在書牆上，
+       不必開抽屜。資訊性、不擋服務；sweep 修好後 occ 歸 0、角標自動消失。 */
+    .math-badge { position: absolute; right: 4px; bottom: 4px; z-index: 3; font-family: var(--mono); font-size: 9px;
+      background: rgba(123,92,214,.92); color: #fff; padding: 0 5px; border-radius: 4px; letter-spacing: -.3px; }
 
     /* 匠人（worker）疊在書卡 — 綁 slug */
     .walker { position: absolute; top: -7px; right: -7px; z-index: 3; display: flex; align-items: center; gap: 4px;
@@ -160,6 +164,7 @@
     .sess .sd { color: var(--ink-light); }
     .sess .sk-ok { color: var(--status-ok, #4caf50); font-weight: 700; }
     .sess .sk-bad { color: var(--status-danger, #d9534f); font-weight: 700; }
+    .sess .sk-recon { color: var(--status-warn, #d9a441); font-weight: 700; }
     .sess .corp { color: var(--accent); }
     #corpus .sess { font-size: 12px; }
 
@@ -419,8 +424,19 @@
     }
     const cv = el.querySelector('.cv')
     setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
-    setRefine(cv, b); setReject(cv, b)
+    setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b)
     el.classList.toggle('rejected', !b.deployed && /^[RX]/.test((b.stage || '').trim()))
+  }
+  // 已上站書的數學殘餘角標：讓「數學 sweep 在微調哪些上架書」直接顯示在書牆上（不必開抽屜）。
+  // 上架後維護維度——書留在「上站完成」，sweep 就地修內容；修好 occ 歸 0 → 角標自動消失。
+  function setMathBadge(cvEl, b) {
+    let m = cvEl.querySelector('.math-badge')
+    if (b.deployed && b.math_bad > 0) {
+      const txt = `🧮${b.math_bad}`
+      if (!m) { m = document.createElement('span'); m.className = 'math-badge'; cvEl.appendChild(m) }
+      if (m.textContent !== txt) m.textContent = txt
+      m.title = `數學式渲染殘餘 ${b.math_bad} occ（已上站、不擋服務；待數學 sweep 微調）`
+    } else if (m) m.remove()
   }
   // qc/triage 拒（R）或無源（X）= 已淘汰、不會被處理 → 角標標示，視覺上區別於「待處理」
   function setReject(cvEl, b) {
@@ -509,7 +525,9 @@
     if (mathWorkers().length) return `sweeping 中 · 殘 ${m.corpus_bad_occ} occ`  // 正在掃 → 不再顯「待/尚未」自相矛盾
     const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
                             : ' · 尚未 sweep'
-    return `殘 ${m.corpus_bad_occ} occ · ${m.due ? '待 sweep' : '健康'}${sw}`
+    // 健康≠無殘：due=false 時殘餘多半是 OCR 硬殘（現有 macros 修不動、已穩定不再 churn）
+    const health = m.due ? '🔴待 sweep' : (m.corpus_bad_occ > 0 ? '🟢硬殘穩定' : '🟢全淨')
+    return `殘 ${m.corpus_bad_occ} occ · ${health}${sw}`
   }
   function reconcileMath() {
     const mw = mathWorkers(), m = last && last.math
@@ -593,7 +611,9 @@
       `macros ${m.macros_version || '?'}${m.node_available ? '' : ' · node 缺·未驗證'}`
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status ${m.due ? 'dr-st-wait' : 'dr-st-done'}">`
-      + `${m.due ? '🔴 殘餘過門檻 · 待跨書 sweep' : '🟢 殘餘在門檻內 · 健康'}</span>`
+      + `${m.due ? '🔴 殘餘過門檻 · 待跨書 sweep'
+                 : (m.corpus_bad_occ > 0 ? '🟢 健康 · 餘為 OCR 硬殘，現有 macros 修不動、不再 churn'
+                                         : '🟢 全 corpus 數學皆可渲染')}</span>`
       + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span><span>門檻 <b>${m.threshold ?? '?'}</b></span>`
       + `<span><b>${m.books_with_residual ?? 0}</b> 書有殘</span>`
     const tb = m.top_books || []
@@ -604,10 +624,16 @@
           + `<span class="n">${b.bad_occ}${b.in_last_sweep ? ' ✓' : ''}</span></div>`).join('')
       : `<div class="dr-empty">無殘餘 — 全 corpus 數學式皆可渲染 🎉</div>`
     const sw = m.last_sweep
-    document.getElementById('dr-tl').innerHTML = `<div class="h">上次 sweep</div>` + (sw
-      ? `<div class="tlrow"><span class="stg">${relTime(sw.at)}</span>`
+    let swHtml = `<div class="h">上次 sweep（上架後微調 · 書留在「上站完成」不流經本站）</div>`
+    if (sw) {
+      swHtml += `<div class="tlrow"><span class="stg">${relTime(sw.at)}</span>`
         + `<span class="at">改 ${(sw.touched || []).length} 書</span><span class="du">→殘 ${sw.residual_after} occ</span></div>`
-      : `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`)
+      swHtml += (sw.touched || []).length
+        ? (sw.touched).map(s => `<div class="ev tool math-row" data-slug="${escapeHtml(s)}">`
+            + `<span class="ico">🔧</span><span class="lbl">${escapeHtml(s)}</span><span class="n">已微調</span></div>`).join('')
+        : `<div class="dr-empty" style="text-align:left;padding:4px 2px">本輪無書可改（殘餘皆硬殘）</div>`
+    } else swHtml += `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`
+    document.getElementById('dr-tl').innerHTML = swHtml
     document.getElementById('dr-hist').innerHTML = ''  // 非書本抽屜：清掉殘留的書本 Agent 歷程
   }
   // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
@@ -700,7 +726,8 @@
   }
   function indexSessions(arr) { for (const s of (arr || [])) sessById.set(s.id, s) }
   function sessRowHtml(s) {
-    const okCls = s.ok ? 'sk-ok' : 'sk-bad', okTxt = s.ok ? '✓' : `✗rc${s.rc}`
+    const okCls = s.reconstructed ? 'sk-recon' : (s.ok ? 'sk-ok' : 'sk-bad')
+    const okTxt = s.reconstructed ? '◷' : (s.ok ? '✓' : `✗rc${s.rc}`)
     const corp = s.slug == null ? ` <span class="corp">corpus</span>` : ''
     // data-sid 用 encodeURIComponent：id 內含 slug（檔名衍生，未必純 ASCII/無引號）→ 防屬性截斷
     return `<div class="sess" data-sid="${encodeURIComponent(s.id)}">`
@@ -725,7 +752,8 @@
     document.getElementById('dr-title').textContent = s.verb + (s.slug == null ? ' · corpus' : '')
     const startedTxt = (s.started || '').replace('T', ' ').replace('+00:00', '')
     document.getElementById('dr-sub').textContent = `${s.slug || 'corpus'} · ${startedTxt} UTC`
-    const okTxt = s.ok ? '☑ 成功' : `✗ 失敗 rc=${s.rc}`, okCls = s.ok ? 'done' : 'wait'
+    const okTxt = s.reconstructed ? '◷ 未收尾（事後從 JSONL 重建）' : (s.ok ? '☑ 成功' : `✗ 失敗 rc=${s.rc}`)
+    const okCls = s.reconstructed ? 'wait' : (s.ok ? 'done' : 'wait')
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status dr-st-${okCls}">${okTxt}</span>`
       + `<span>模型 <b>${escapeHtml(s.model || '')}</b></span><span>harness <b>${escapeHtml(s.harness || '')}</b></span>`

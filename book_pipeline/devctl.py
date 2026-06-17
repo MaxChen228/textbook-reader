@@ -397,6 +397,13 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     from book_pipeline import pipeline_tick as pt
     rows = books_snap['books']
     backlog = pt._crawl_backlog(rows)  # 待製（pre-serve）深度：非 deployed 有強制待辦 + in-flight；單一真相源
+    # wishlist 是『常駐廣義指令』（主題方向，非具體書單）→ 額度用罄時無「被卡住的書」可列；
+    # 改報常駐主題領域數，讓閒置欄不空洞（誠實呈現：在這 N 個方向上待命補書）。
+    try:
+        with open(os.path.join(ROOT, 'book_pipeline', 'crawl_wishlist.json'), encoding='utf-8') as f:
+            topics = len(json.load(f).get('topics') or [])
+    except Exception:
+        topics = 0
     def _mand(r): return [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]
     polish = sum(1 for r in rows if r.get('deployed') and _mand(r))  # 已上站、catalog/sol 精修中（不擋爬）
     pol = f'（精修 {polish} 已上站、不擋爬）' if polish else ''
@@ -407,11 +414,11 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     elif backlog >= pt.CRAWL_LOW:
         state, reason = 'draining', f'待製 {backlog} ≥ 水位 {pt.CRAWL_LOW}，消化中{pol}'
     elif R == 0:
-        state, reason = 'quota_empty', f'今日額度用罄，待重置（下輪自動重探）{pol}'
+        state, reason = 'quota_empty', f'今日額度用罄 · 重置後自動重探 · {topics} 領域常駐補書{pol}'
     else:
         state, reason = 'feeding', f'待製 {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨{pol}'
     return {'backlog': backlog, 'polish': polish, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
-            'state': state, 'reason': reason}
+            'topics': topics, 'state': state, 'reason': reason}
 
 
 def math_health() -> dict:
@@ -593,9 +600,10 @@ def main(argv: list[str] | None = None) -> int:
             corp = ' (corpus)' if r.get('slug') is None else ''
             dur = r.get('duration_s')
             dur_s = '?' if dur is None else (f'{dur}s' if dur < 90 else f'{dur//60}m{dur%60:02d}s')
-            mark = '✓' if r.get('ok') else f"✗rc={r.get('rc')}"
+            mark = ('◷重建' if r.get('reconstructed')
+                    else ('✓' if r.get('ok') else f"✗rc={r.get('rc')}"))
             at = (r.get('started') or '').replace('T', ' ').replace('+00:00', '')
-            print(f"   {at} UTC  {r.get('verb')}{corp} · {r.get('model')}({r.get('harness')}) · "
+            print(f"   {at} UTC  {r.get('verb')}{corp} · {r.get('model') or '—'}({r.get('harness') or '—'}) · "
                   f"{dur_s} · {r.get('total_calls', 0)}call · {mark}")
             print(f"        id={r.get('id')}")
         return 0
