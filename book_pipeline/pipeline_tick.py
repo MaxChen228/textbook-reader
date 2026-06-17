@@ -275,8 +275,7 @@ def _merge(base: DispatchSpec, over: DispatchSpec | None) -> DispatchSpec:
 
 
 def _env_override(spec: DispatchSpec) -> DispatchSpec:
-    """env 運維臨時拉桿凌駕（最高優先）。未設的 env 不動該欄。codex-pool 的模型另有
-    BOOK_PIPELINE_CODEX_POOL_MODEL 獨立凌駕，在 _build_llm_cmd 取模型時處理（pool 特例）。"""
+    """env 運維臨時拉桿凌駕（最高優先）。未設的 env 不動該欄。"""
     ch = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
     if ch:
         parsed = tuple(p.strip().lower() for p in ch.split(',') if p.strip())
@@ -391,12 +390,10 @@ def _tool_label(blk: dict) -> str:
     return name
 
 
-def _codex_model(provider: str, spec: DispatchSpec) -> str:
-    """codex 家族實際模型：spec.codex_model 為底，codex-pool 另由 env 獨立凌駕（pool 特例）。"""
-    m = spec.codex_model or 'gpt-5.4'
-    if provider == 'codex-pool':
-        m = os.environ.get('BOOK_PIPELINE_CODEX_POOL_MODEL') or m
-    return m
+def _codex_model(spec: DispatchSpec) -> str:
+    """codex 家族（含 codex-pool）模型：統一取 spec.codex_model（resolved spec 恒有值；
+    防禦性 fallback gpt-5.4）。pool 與原生 codex 後端白名單相同，不分開持有模型。"""
+    return spec.codex_model or 'gpt-5.4'
 
 
 def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
@@ -404,16 +401,15 @@ def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
     claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json；claude 可由
     spec.claude_model 帶 --model（kimi 不帶，靠 _llm_env 的 ANTHROPIC_MODEL）。
     codex/codex-pool：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon
-    信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 取 spec.codex_model（codex-pool 另由
-    BOOK_PIPELINE_CODEX_POOL_MODEL 獨立凌駕）；spec.codex_effort 非空帶 -c model_reasoning_effort；
-    codex-pool 額外帶 `-p nexus`（走 ccNexus 池子 profile）。
+    信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 取 spec.codex_model；spec.codex_effort
+    非空帶 -c model_reasoning_effort；codex-pool 額外帶 `-p nexus`（走 ccNexus 池子 profile）。
     ⚠ 全權沙箱為【已審視的接受風險】：daemon 本質需 fs-write+exec 才能產書，收緊即失能。
     對應緩解——注入面 slug 已白名單化（_fetch_book / crawl_zlib，[a-z0-9_]{1,64}）、
     不可信的 OCR 產物在 bake 邊界消毒（nh3 表格 + marked raw-HTML 轉義）。勿擅自收緊。"""
     if _is_codex(provider):
         cmd = [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
                '-C', ROOT, '--sandbox', 'danger-full-access',
-               '--model', _codex_model(provider, spec)]
+               '--model', _codex_model(spec)]
         if spec.codex_effort:
             # codex 的 TOML config override（值需引號才當字串）；只 codex 家族有此旋鈕
             cmd += ['-c', f'model_reasoning_effort="{spec.codex_effort}"']
@@ -522,7 +518,7 @@ def _display_model(provider: str, spec: DispatchSpec) -> str:
     """歷程/面板顯示的模型 label：codex 家族＝實際模型（附 effort），claude＝自訂模型，
     kimi＝provider 名（後端固定 kimi-for-coding）。"""
     if _is_codex(provider):
-        m = _codex_model(provider, spec)
+        m = _codex_model(spec)
         return f'{m}/{spec.codex_effort}' if spec.codex_effort else m
     if provider == 'claude' and spec.claude_model:
         return spec.claude_model
