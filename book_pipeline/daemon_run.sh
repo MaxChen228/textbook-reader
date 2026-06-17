@@ -7,21 +7,26 @@
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # MinerU token 不入 plist/git（plist world-readable）；從 ~/.secrets 載入進程環境。
 [ -f "$HOME/.secrets/mineru.env" ] && source "$HOME/.secrets/mineru.env"
-# LLM 派工供應商（三選一）：
-#   kimi   = claude CLI 導到 Kimi Code 端點（預設，省 Claude 訂閱額度；key 讀 ~/.secrets/kimi.env）
-#   claude = Claude Max 訂閱原生（claude CLI 不換後端）
-#   codex  = OpenAI codex CLI `codex exec --json`（認證走 ~/.codex/auth.json＝codex login ChatGPT
-#            訂閱；模型 BOOK_PIPELINE_CODEX_MODEL 預設 gpt-5.4）。codex CLI 須裝 npm @openai/codex
-#            （headless），勿用 brew cask 那份 GUI 包裝（dyld 啟動卡死、不適 launchd 無 GUI session）。
-# 三者都吃 dispatch_llm 的 1h process-group timeout 護欄（卡死即殺、下個 tick 重派）。
+# LLM 派工供應商（四選一）：
+#   codex-pool = codex CLI 走 ccNexus 池子（codex -p nexus；maxn970228 token 輪換、獨立額度；
+#                profile 在 ~/.codex/nexus.config.toml）。模型 BOOK_PIPELINE_CODEX_POOL_MODEL
+#                （fallback BOOK_PIPELINE_CODEX_MODEL，預設 gpt-5.4；池子白名單 5.5/5.4/5.4-mini/spark）
+#   codex      = OpenAI codex CLI `codex exec --json`（原生 OAuth ~/.codex/auth.json＝codex login
+#                ChatGPT 訂閱；與 codex-pool 不同帳號＝不同額度）。模型 BOOK_PIPELINE_CODEX_MODEL
+#                （預設 gpt-5.4）。codex CLI 須裝 npm @openai/codex（headless），勿用 brew cask GUI 包裝
+#                （dyld 啟動卡死、不適 launchd 無 GUI session）。
+#   kimi       = claude CLI 導到 Kimi Code 端點（省 Claude 額度；key 讀 ~/.secrets/kimi.env）
+#   claude     = Claude Max 訂閱原生（claude CLI 不換後端；模型 BOOK_PIPELINE_CLAUDE_MODEL，空=預設）
+# 四者都吃 dispatch_llm 的 1h process-group timeout 護欄（卡死即殺、下個 tick 重派）。
 # kimi 偶在 audit 陷「漫遊 content_list 反覆重讀」迴圈，靠 timeout 兜底。
 #
 # Failover 串接（BOOK_PIPELINE_PROVIDER_CHAIN，逗號分隔，優先序由左到右）：某 provider 撞額度
 # 不再讓整輪停擺，而是換鏈上下一個重跑「同一任務」（不浪費派工），全鏈撞光才 defer 到下個 tick。
-# 預設 kimi→codex→claude：先榨 kimi（省 Claude 額度）、撞了用 codex（ChatGPT 訂閱）、再撞回 Claude
-# Max 原生。要單一 provider 就清掉 CHAIN、改用下面的 BOOK_PIPELINE_PROVIDER（向後相容）。
-export BOOK_PIPELINE_PROVIDER_CHAIN=kimi,codex,claude
-export BOOK_PIPELINE_PROVIDER=kimi
+# 預設 codex-pool→codex→kimi→claude：先榨池子（maxn970228 專用獨立額度）、撞了切原生 codex
+# （ChatGPT 訂閱）、再 kimi、最後才動用 Claude Max 原生當保底。要單一 provider 就清掉 CHAIN、
+# 改用下面的 BOOK_PIPELINE_PROVIDER（向後相容）。
+export BOOK_PIPELINE_PROVIDER_CHAIN=codex-pool,codex,kimi,claude
+export BOOK_PIPELINE_PROVIDER=codex-pool
 # 反應式控制迴圈（取代 daily 單次 tick）：一個 controller 進程跑有界 observe→非阻塞派工→
 # reap→harvest→sleep 迴圈，三條件齊備（產物就緒 ∧ 資源可用 ∧ 無人在做）的 transition 立即
 # 派 thread worker，OCR 一就緒即收割（延遲塌縮到一 poll cycle，免人工 kick）。launchd

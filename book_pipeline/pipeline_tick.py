@@ -52,10 +52,12 @@ LOCK = os.path.join(BP, '.tick.lock')
 LOG = os.path.join(BP, 'reports', 'daemon.log')
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
-# codex 派工後端（BOOK_PIPELINE_PROVIDER=codex）：headless `codex exec --json`。認證走
-# ~/.codex/auth.json（codex login，ChatGPT 訂閱）。模型預設 gpt-5.4，env 可覆寫。
+# codex 派工後端：headless `codex exec --json`。兩條 codex provider：
+#   codex      = 原生 OAuth（~/.codex/auth.json，codex login ChatGPT 訂閱）
+#   codex-pool = ccNexus 池子（codex -p nexus + CCNEXUS_API_KEY；maxn970228 token 輪換、
+#                與原生 codex 不同帳號＝獨立額度）。profile 在兩機 ~/.codex/nexus.config.toml。
+# 模型由 _provider_model 讀 env（除 kimi 外各 provider 皆可調，預設見該函數）。
 CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
-CODEX_MODEL = os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4')
 # headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
 # audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
 # 正常 audit ~25min；1h 留足餘裕（重書 smoke 迭代偶逼近 40min），只在真卡死時觸發。env 可覆寫。
@@ -220,10 +222,35 @@ def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
         return -1
 
 
+def _is_codex(provider: str) -> bool:
+    """codex 家族（原生 OAuth + 池子）：共用 codex CLI 命令骨架、event schema、限額 markers。"""
+    return provider in ('codex', 'codex-pool')
+
+
+def _provider_model(provider: str) -> str:
+    """各 provider 的模型覆寫（kimi 除外，由 _llm_env 寫死 kimi-for-coding）。
+    回 '' = 不顯式帶 --model，用該 harness 預設。"""
+    if provider == 'codex':
+        return os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4')
+    if provider == 'codex-pool':
+        # 池子白名單僅 gpt-5.5/5.4/5.4-mini/5.3-codex-spark（ccNexus fork 透傳修復）；
+        # 切非 gpt-5.5 依賴該修復在線，否則被 endpoint 釘回 gpt-5.5（功能不壞、模型沒切成）。
+        return (os.environ.get('BOOK_PIPELINE_CODEX_POOL_MODEL')
+                or os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4'))
+    if provider == 'claude':
+        return os.environ.get('BOOK_PIPELINE_CLAUDE_MODEL', '').strip()
+    return ''  # kimi
+
+
 def _llm_env(provider: str) -> dict | None:
     """指定 provider 的派工環境。kimi → 把同一個 claude CLI（harness 不變）導到 Kimi Code
-    端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。claude/codex → None（claude 沿用 Claude
+    端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。codex-pool → 注入 dummy CCNEXUS_API_KEY
+    （codex 要求 env_key 非空才肯走 nexus profile）。claude/codex → None（claude 沿用 Claude
     Max 訂閱；codex 用自己的 ~/.codex/auth.json）。"""
+    if provider == 'codex-pool':
+        env = dict(os.environ)
+        env.setdefault('CCNEXUS_API_KEY', 'unused')
+        return env
     if provider != 'kimi':
         return None
     key_path = os.path.expanduser('~/.secrets/kimi.env')
@@ -252,11 +279,18 @@ def _llm_env(provider: str) -> dict | None:
 # Provider failover 串接：撞額度的 provider 不再讓整輪停擺，而是換鏈上下一個 provider 重跑
 # 同一任務。鏈預設 kimi→codex→claude（env BOOK_PIPELINE_PROVIDER_CHAIN 覆寫，逗號分隔）；
 # 未設則退回單一 BOOK_PIPELINE_PROVIDER（向後相容）。全鏈撞光才 defer 到下個 tick。
+KNOWN_PROVIDERS = ('claude', 'kimi', 'codex', 'codex-pool')
+
+
 def _provider_chain() -> list[str]:
     raw = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
     if raw:
         chain = [p.strip().lower() for p in raw.split(',') if p.strip()]
         if chain:
+            unknown = [p for p in chain if p not in KNOWN_PROVIDERS]
+            if unknown:
+                log(f'⚠ provider chain 含未知 provider {unknown}（合法：{KNOWN_PROVIDERS}）'
+                    f' → 將走 claude CLI 預設分支，恐非預期')
             return chain
     return [os.environ.get('BOOK_PIPELINE_PROVIDER', 'claude').lower()]
 
@@ -274,7 +308,7 @@ CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests'
 
 def _hit_limit(provider: str, out: str) -> bool:
     """從合併輸出判斷是否撞該 provider 的額度限制。"""
-    markers = CODEX_LIMIT_MARKERS if provider == 'codex' else SESSION_LIMIT_MARKERS
+    markers = CODEX_LIMIT_MARKERS if _is_codex(provider) else SESSION_LIMIT_MARKERS
     return any(m in out for m in markers)
 
 
@@ -283,7 +317,7 @@ def _event_error_text(provider: str, ev: dict) -> str:
     （絕不能掃整段 transcript：被 audit 的書內容與工人指令本身常含 quota/429/rate limit，
     會把成功的派工誤判成撞額度。歷史 bug：codex 額度滿卻連環「撞額度」failover。）"""
     t = ev.get('type') or ''
-    if provider == 'codex':
+    if _is_codex(provider):
         # 三條錯誤通道（實測 codex exec --json）：頂層 error 事件、turn.failed、error item。
         # 真 429 的 message 內嵌 JSON：{"type":"error","status":429,"error":{...}}
         if t == 'error':
@@ -316,18 +350,28 @@ def _tool_label(blk: dict) -> str:
 
 def _build_llm_cmd(provider: str, prompt: str) -> list[str]:
     """依 provider 組 headless 派工命令。
-    claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json。
-    codex：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon 信任
-    環境，audit/repair 要寫 mineru_data、跑 uv），--model 預設 gpt-5.4。
+    claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json；claude 可由
+    BOOK_PIPELINE_CLAUDE_MODEL 帶 --model（kimi 不帶，靠 _llm_env 的 ANTHROPIC_MODEL）。
+    codex/codex-pool：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon
+    信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 由 _provider_model 取；codex-pool
+    額外帶 `-p nexus`（走 ccNexus 池子 profile）。
     ⚠ 全權沙箱為【已審視的接受風險】：daemon 本質需 fs-write+exec 才能產書，收緊即失能。
     對應緩解——注入面 slug 已白名單化（_fetch_book / crawl_zlib，[a-z0-9_]{1,64}）、
     不可信的 OCR 產物在 bake 邊界消毒（nh3 表格 + marked raw-HTML 轉義）。勿擅自收緊。"""
-    if provider == 'codex':
-        return [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
-                '-C', ROOT, '--sandbox', 'danger-full-access',
-                '--model', CODEX_MODEL, prompt]
-    return [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
-            '--output-format', 'stream-json', '--verbose']
+    if _is_codex(provider):
+        cmd = [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
+               '-C', ROOT, '--sandbox', 'danger-full-access',
+               '--model', _provider_model(provider)]
+        if provider == 'codex-pool':
+            cmd += ['-p', 'nexus']
+        cmd.append(prompt)
+        return cmd
+    cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
+           '--output-format', 'stream-json', '--verbose']
+    m = _provider_model(provider)  # claude 自訂模型；kimi 回 '' 不帶
+    if m:
+        cmd += ['--model', m]
+    return cmd
 
 
 def _emit(wkey: str, kind: str, label: str, tag: str) -> None:
@@ -340,7 +384,7 @@ def _emit(wkey: str, kind: str, label: str, tag: str) -> None:
 
 def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
     """單一 JSONL 事件 → 事件匯流（_emit）。claude 與 codex schema 不同，各自解。"""
-    if provider == 'codex':
+    if _is_codex(provider):
         t = ev.get('type')
         item = ev.get('item') or {}
         it = item.get('type')
@@ -435,7 +479,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
     hist.start(wkey, slug, todo_verb, p.pid, provider,
-               CODEX_MODEL if provider == 'codex' else provider)
+               _provider_model(provider) or provider)
     result_rc = -1  # finally 用：timeout 路徑直接 return -1 不設 rc，故先給地板值
     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。

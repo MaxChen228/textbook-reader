@@ -24,7 +24,7 @@ uv run python -m http.server 8001                        # 本機預覽
 
 `pipeline_tick.py` 是 launchd 每 ~45min 觸發的 daemon 單 tick,推進整條鏈:
 - **crawl**(z-library 爬書,**全確定性、零 LLM**:見下「書單 SoT」)→ **triage**(pdf_triage)→ **qc**(視覺驗證,LLM)→ **ingest**(`mineru_ingest`+`mineru_budget` 多帳號預算,MinerU 雲端 API)→ **parse**(`parser.py`→`mineru_data/<slug>/parsed/*.json`)→ **audit**(LLM,產 extract_rules.yaml)→ **catalog**(`build_catalogs`)→ **sol_extract**(LLM 合併解答書)→ **deploy**。
-- 確定性階段 daemon 直跑;需判斷的階段(qc/audit/sol_extract)派 headless claude 跑 `.claude/skills/book-pipeline/references/*.md`。
+- 確定性階段 daemon 直跑;需判斷的階段(qc/audit/sol_extract)派 headless LLM 跑 `.claude/skills/book-pipeline/references/*.md`。派工後端可選(`BOOK_PIPELINE_PROVIDER_CHAIN` failover,預設 `codex-pool,codex,kimi,claude`):**codex-pool**(codex CLI 走 ccNexus 池子)/**codex**(原生 OAuth)/**kimi**/**claude**(Max);除 kimi 外模型皆可調(`BOOK_PIPELINE_{CODEX,CODEX_POOL,CLAUDE}_MODEL`)。見 `daemon_run.sh` 註解。
 
 ### 書單 SoT 驅動的 crawl(整套爬書系統的分母,2026-06 重構)
 
