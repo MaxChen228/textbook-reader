@@ -214,7 +214,8 @@ def zlib_status() -> dict:
         from book_pipeline import crawl_zlib as cz
         accts = cz.all_remaining()
         total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
-        snap = {'accounts': accts, 'total_remaining': total,
+        total_limit = sum(a['limit'] for a in accts if a.get('limit') is not None)  # 每帳號 10/日 × N（不再硬編 30）
+        snap = {'accounts': accts, 'total_remaining': total, 'total_limit': total_limit,
                 'fetched_at': time.time(),
                 'fetched_at_utc': _now_utc().isoformat(),  # 前端 relTime 用（naive local 會被當 UTC 致 +8h 偏移）
                 'fetched_at_local': datetime.now().isoformat(timespec='seconds')}
@@ -484,7 +485,8 @@ def _print_human(snap: dict) -> None:
         print(f"   {a}: 已送 {v['used']} 頁")
     z = snap.get('zlib') or {}
     zt = z.get('total_remaining')
-    print(f"\n📥 zlib 額度（總剩 {zt if zt is not None else '?'}/30"
+    zcap = z.get('total_limit') or '?'
+    print(f"\n📥 zlib 額度（總剩 {zt if zt is not None else '?'}/{zcap}"
           f"{' · STALE' if z.get('stale') else ''}）:")
     for a in (z.get('accounts') or []):
         rem = a.get('remaining')

@@ -357,7 +357,7 @@ def pick_account() -> int | None:
 def cmd_limits(args) -> int:
     accts = all_remaining()
     total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
-    # accounts=各帳號餘額（daemon 並行 crawl 依此預先指派 account）；total/remaining=總額（30/日語意）。
+    # accounts=各帳號餘額（daemon 並行 crawl 依此預先指派 account）；total/remaining=總額（10×N 帳號/日）。
     out = {'accounts': accts, 'total_remaining': total, 'remaining': total}
     print(json.dumps(out, ensure_ascii=False))
     return 0

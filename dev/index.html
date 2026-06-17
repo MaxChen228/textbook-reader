@@ -703,7 +703,8 @@
 
     const z = d.zlib || {}, zt = z.total_remaining
     const zage = z.fetched_at_utc ? ' · ' + relTime(z.fetched_at_utc) : ''
-    setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/30${z.stale ? ' · STALE' : ''}${zage})`)
+    const zcap = z.total_limit || (z.accounts || []).reduce((s, a) => s + (a.limit || 0), 0) || '?'
+    setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/${zcap}${z.stale ? ' · STALE' : ''}${zage})`)
     setHtml('zlib', (z.accounts || []).map(a => {
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
