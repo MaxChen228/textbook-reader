@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>教科書題目</title>
+  <script src="assets/qbank-shared.js"></script>
+  <script>if(!window.MathJax)window.MathJax=QBankShared.mathJaxConfig;</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <link rel="stylesheet" href="assets/qbank-shared.css">
+  <style>
+    body { font-size: 14px; line-height: 1.7; }
+    :root { --qbk-sidebar-width: 260px; }
+    #app[data-mode="detail"] #list-view { display: none; }
+    #app[data-mode="list"] #detail-view { display: none; }
+    .problem-sidebar-title {
+      font-family: var(--mono); font-size: 13px; font-weight: 700;
+      letter-spacing: .06em; color: var(--text); text-transform: uppercase;
+    }
+    .problem-sidebar-title a { color: inherit; text-decoration: none; }
+    .problem-tools { display: grid; gap: 12px; }
+    .filter-group label {
+      display: block; margin-bottom: 7px; font-family: var(--mono);
+      font-size: 10px; font-weight: 700; color: var(--sub);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .view-toggle { display: flex; gap: 3px; flex-shrink: 0; }
+    .problem-list { padding: 14px; display: grid; gap: 10px; }
+    .problem-card {
+      border: 1px solid var(--border); background: var(--surface);
+      border-radius: 6px; padding: 14px 16px; cursor: pointer;
+      text-decoration: none; color: inherit; display: block;
+      position: relative;
+    }
+    .problem-card:hover { border-color: var(--ink-light); transform: translateY(-1px); }
+    .problem-card.selected {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px rgba(42, 37, 32, .12);
+    }
+    .problem-card-head {
+      display: flex; gap: 10px; align-items: baseline; justify-content: space-between;
+      font-family: var(--mono); font-size: 11px; color: var(--sub);
+    }
+    .problem-card-main { display: flex; align-items: baseline; gap: 9px; min-width: 0; }
+    .problem-card-cb { accent-color: var(--ink); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0; }
+    .problem-card-id { color: var(--ink); font-weight: 700; letter-spacing: .04em; }
+    .problem-card-book {
+      margin-top: 5px; font-family: var(--serif); font-size: 15px;
+      color: var(--text); font-weight: 600;
+    }
+    .problem-card-preview {
+      margin-top: 7px; color: var(--ink-light); font-size: 13px; line-height: 1.55;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .problem-card-meta {
+      margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 10px; color: var(--sub);
+    }
+    .pill {
+      border: 1px solid var(--border-l); border-radius: 999px;
+      padding: 1px 7px; background: var(--bg);
+    }
+    .pill.ok { color: var(--status-known); border-color: color-mix(in srgb, var(--status-known) 45%, var(--border)); }
+    .problem-grid {
+      display: none; padding: 20px 24px; overflow-y: auto;
+    }
+    .grid-section { margin-bottom: 28px; }
+    .grid-section-header {
+      display: flex; align-items: baseline; gap: 8px;
+      margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .grid-section-title {
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; color: var(--ink); text-transform: uppercase;
+    }
+    .grid-section-sub, .grid-section-count {
+      font-family: var(--mono); font-size: 9px; color: var(--sub); letter-spacing: .04em;
+    }
+    .grid-section-count { margin-left: auto; }
+    .grid-blocks { display: flex; flex-wrap: wrap; gap: 5px; }
+    .grid-block {
+      padding: 5px 10px; border: 1px solid var(--border); border-radius: 3px;
+      font-family: var(--mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .05em; color: var(--ink-light); background: var(--surface);
+      cursor: pointer; transition: all .15s; text-decoration: none;
+      display: inline-block; user-select: none; position: relative;
+    }
+    .grid-block:hover {
+      border-color: var(--ink); color: var(--ink); background: #fff;
+      transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+    .grid-block.selected {
+      border-color: var(--ink); background: #fff;
+      box-shadow: 0 0 0 2px rgba(42, 37, 32, .12);
+    }
+    .grid-block.no-solution { border-left: 3px solid var(--status-skip); }
+    .grid-block.has-solution { border-left: 3px solid var(--status-known); }
+    .drag-hit { border-color: var(--ink-light); background: #fff; }
+    .drag-select-box {
+      position: fixed; z-index: 1200;
+      border: 1px dashed var(--ink); background: rgba(42, 37, 32, .12);
+      pointer-events: none; display: none;
+    }
+    body.is-drag-selecting, body.is-drag-selecting * {
+      user-select: none !important; -webkit-user-select: none !important;
+    }
+    #sel-bar {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--ink); color: #fff; border-radius: 6px; padding: 10px 20px;
+      display: none; align-items: center; gap: 14px;
+      font-family: var(--mono); font-size: 11px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
+      z-index: 1000; white-space: nowrap;
+    }
+    #sel-bar.visible { display: flex; }
+    #sel-bar-count { font-weight: 700; letter-spacing: .04em; }
+    .sel-opts { display: flex; align-items: center; gap: 10px; }
+    .sel-opt {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 10px; letter-spacing: .04em; cursor: pointer;
+    }
+    .sel-opt input { accent-color: #fff; width: 11px; height: 11px; cursor: pointer; }
+    .sel-opt span { color: rgba(255, 255, 255, .85); }
+    .btn-sel {
+      padding: 5px 14px; border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, .3); background: transparent;
+      color: #fff; font-family: var(--mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .05em; text-transform: uppercase; cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-sel:hover { background: rgba(255, 255, 255, .12); }
+    .btn-sel.primary { background: #fff; color: var(--ink); border-color: #fff; }
+    .btn-sel.primary:hover { background: #eee; }
+    #empty, #loading, #fetch-error {
+      padding: 40px; color: var(--sub); font-family: var(--mono);
+      font-size: 12px; text-align: center;
+    }
+    #fetch-error { color: var(--status-danger); display: none; }
+    #fetch-error.visible { display: block; }
+    .detail-wrap {
+      max-width: 980px; width: 100%; margin: 0 auto;
+      padding: 28px 28px 80px;
+    }
+    .detail-back {
+      display: inline-flex; margin-bottom: 22px; color: var(--sub);
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+      text-decoration: none; text-transform: uppercase;
+    }
+    .detail-back:hover { color: var(--ink); }
+    .detail-head {
+      border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 18px;
+    }
+    .detail-id {
+      font-family: var(--mono); color: var(--ink); font-size: 13px;
+      font-weight: 700; letter-spacing: .08em;
+    }
+    .detail-title {
+      margin-top: 8px; font-family: var(--serif); font-size: 26px;
+      line-height: 1.25; color: var(--text);
+    }
+    .detail-meta {
+      margin-top: 8px; display: flex; flex-wrap: wrap; gap: 7px;
+      font-family: var(--mono); font-size: 10px; color: var(--sub);
+    }
+    .section {
+      border: 1px solid var(--border); border-radius: 6px; background: var(--surface);
+      padding: 24px 30px; margin-top: 12px;
+    }
+    .section-label {
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--sub);
+      margin-bottom: 12px; display: flex; justify-content: space-between; gap: 12px;
+    }
+    .problem-body { font-family: var(--article-font); font-size: 17px; line-height: 2; }
+    .solution-body { font-family: var(--article-font); font-size: 14px; line-height: 1.9; }
+    .eq { overflow-x: auto; padding: 12px 4px; cursor: pointer; }
+    figure { margin: 18px 0; }
+    figure img { max-width: 100%; display: block; margin: 0 auto; background: #fff; }
+    figcaption, .tbl-cap, .tbl-fn { color: var(--sub); font-size: 12px; margin-top: 6px; }
+    .tbl { overflow-x: auto; }
+    .detail-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    @media (max-width: 768px) {
+      .qbk-sidebar { position: fixed; left: -260px; top: 0; bottom: 0; z-index: 20; transition: left .2s; }
+      .qbk-sidebar.open { left: 0; }
+      .detail-wrap { padding: 20px 16px 72px; }
+      .section { padding: 20px 18px; }
+      .detail-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="qbk-app" data-mode="list">
+  <div id="sidebar-overlay" class="qbk-sidebar-overlay"></div>
+  <aside id="sidebar" class="qbk-sidebar">
+    <div class="qbk-sidebar-header between">
+      <div class="problem-sidebar-title"><a href="problems.html">Problems</a></div>
+    </div>
+    <div class="qbk-sidebar-body qbk-scroll problem-tools">
+      <div class="filter-group">
+        <label>Book</label>
+        <div class="qbk-chip-group" id="filter-book"></div>
+      </div>
+      <div class="filter-group">
+        <label>Subject</label>
+        <div class="qbk-chip-group" id="filter-subject"></div>
+      </div>
+      <div class="filter-group">
+        <label>Chapter</label>
+        <div class="qbk-chip-group" id="filter-chapter"></div>
+      </div>
+      <div class="filter-group">
+        <label>Solution</label>
+        <div class="qbk-chip-group" id="filter-solution"></div>
+      </div>
+    </div>
+    <div class="qbk-sidebar-footer">
+      <a class="utility-link" href="index.html">Reader</a>
+    </div>
+  </aside>
+
+  <main class="qbk-main">
+    <div class="qbk-topbar">
+      <button id="btn-sidebar" class="qbk-drawer-btn" type="button" aria-label="切換側欄">☰</button>
+      <div class="system-tabs">
+        <a href="index.html">Library</a>
+        <span class="system-tabs-divider"></span>
+        <a class="active" href="problems.html">Problems</a>
+      </div>
+      <div class="qbk-search-wrap">
+        <input id="search" class="qbk-search" type="search" placeholder="search problem, book, chapter..." autocomplete="off">
+      </div>
+      <span id="result-count" class="qbk-result-count"></span>
+      <div class="view-toggle">
+        <button class="qbk-icon-btn" id="btn-view-list" type="button" title="列表">☰</button>
+        <button class="qbk-icon-btn active" id="btn-view-grid" type="button" title="格覽">⊞</button>
+      </div>
+    </div>
+    <div id="fetch-error"></div>
+    <div id="list-view" class="qbk-scroll">
+      <div id="loading">loading...</div>
+      <div id="problem-list" class="problem-list"></div>
+      <div id="problem-grid" class="problem-grid"></div>
+      <div id="empty" style="display:none">no problems</div>
+    </div>
+    <div id="detail-view" class="qbk-scroll"></div>
+  </main>
+</div>
+
+<div id="sel-bar">
+  <span id="sel-bar-count">已選 0 題</span>
+  <span class="sel-opts">
+    <label class="sel-opt"><input type="checkbox" id="sel-inc-q" checked><span>題目</span></label>
+    <label class="sel-opt"><input type="checkbox" id="sel-inc-sol" checked><span>解答</span></label>
+  </span>
+  <button class="btn-sel primary" id="sel-copy" type="button">複製</button>
+  <button class="btn-sel primary" id="sel-pdf" type="button">匯出 PDF</button>
+  <label class="sel-opt"><input type="checkbox" id="pdf-pagebreak"><span>每題換頁</span></label>
+  <button class="btn-sel" id="sel-clear" type="button">清除</button>
+</div>
+<div id="drag-select-box" class="drag-select-box" aria-hidden="true"></div>
+
+<script>
+const S = window.QBankShared
+const esc = S.escapeHtml
+const escAttr = (s) => String(s ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+let allProblems = []
+let filtered = []
+let activeBook = 'all'
+let activeSubject = 'all'
+let activeChapter = 'all'
+let activeSolution = 'all'
+let searchQ = ''
+let viewMode = localStorage.getItem('textbook.problems.view') || 'grid'
+let selectedIds = new Set()
+let suppressClickUntil = 0
+
+S.bindSidebarDrawer()
+
+function setError(message) {
+  const el = document.getElementById('fetch-error')
+  el.textContent = message || ''
+  el.classList.toggle('visible', Boolean(message))
+}
+
+function label(value) {
+  return value || 'Unknown'
+}
+
+function textPreview(p) {
+  return (p.question_text || '').replace(/\s+/g, ' ').trim() || 'OCR missing - see original PDF'
+}
+
+function chip(container, text, value, active, onClick, count = null) {
+  container.appendChild(S.createChip({ text, value, active, count, onClick }))
+}
+
+function countsBy(items, fn) {
+  const out = new Map()
+  items.forEach(item => {
+    const key = fn(item) || 'Unknown'
+    out.set(key, (out.get(key) || 0) + 1)
+  })
+  return [...out.entries()].sort((a, b) => String(a[0]).localeCompare(String(b[0])))
+}
+
+function buildFilters() {
+  const bookEl = document.getElementById('filter-book')
+  const subjectEl = document.getElementById('filter-subject')
+  const chapterEl = document.getElementById('filter-chapter')
+  const solEl = document.getElementById('filter-solution')
+  bookEl.innerHTML = ''
+  subjectEl.innerHTML = ''
+  chapterEl.innerHTML = ''
+  solEl.innerHTML = ''
+
+  chip(bookEl, 'All', 'all', activeBook === 'all', () => { activeBook = 'all'; render() }, allProblems.length)
+  countsBy(allProblems, p => p.book_title).forEach(([book, count]) => {
+    chip(bookEl, book, book, activeBook === book, () => { activeBook = book; render() }, count)
+  })
+
+  chip(subjectEl, 'All', 'all', activeSubject === 'all', () => { activeSubject = 'all'; render() }, allProblems.length)
+  countsBy(allProblems, p => p.subject).forEach(([subject, count]) => {
+    chip(subjectEl, label(subject), subject, activeSubject === subject, () => { activeSubject = subject; render() }, count)
+  })
+
+  const chapterSource = allProblems.filter(p =>
+    (activeBook === 'all' || p.book_title === activeBook) &&
+    (activeSubject === 'all' || (p.subject || 'Unknown') === activeSubject)
+  )
+  chip(chapterEl, 'All', 'all', activeChapter === 'all', () => { activeChapter = 'all'; render() }, chapterSource.length)
+  countsBy(chapterSource, p => `Ch ${p.chapter}`).forEach(([chapter, count]) => {
+    chip(chapterEl, chapter, chapter, activeChapter === chapter, () => { activeChapter = chapter; render() }, count)
+  })
+
+  chip(solEl, 'All', 'all', activeSolution === 'all', () => { activeSolution = 'all'; render() }, allProblems.length)
+  chip(solEl, 'With solution', 'yes', activeSolution === 'yes', () => { activeSolution = 'yes'; render() },
+    allProblems.filter(p => p.has_solution).length)
+  chip(solEl, 'No solution', 'no', activeSolution === 'no', () => { activeSolution = 'no'; render() },
+    allProblems.filter(p => !p.has_solution).length)
+}
+
+function matches(p) {
+  if (activeBook !== 'all' && p.book_title !== activeBook) return false
+  if (activeSubject !== 'all' && (p.subject || 'Unknown') !== activeSubject) return false
+  if (activeChapter !== 'all' && `Ch ${p.chapter}` !== activeChapter) return false
+  if (activeSolution === 'yes' && !p.has_solution) return false
+  if (activeSolution === 'no' && p.has_solution) return false
+  if (searchQ) {
+    const hay = [
+      p.id, p.num, p.book_title, p.chapter_title, p.question_text, p.solution_text, p.subject,
+    ].join(' ').toLowerCase()
+    if (!hay.includes(searchQ)) return false
+  }
+  return true
+}
+
+function render() {
+  buildFilters()
+  filtered = allProblems.filter(matches)
+  document.getElementById('result-count').textContent = `${filtered.length}/${allProblems.length}`
+  const list = document.getElementById('problem-list')
+  const grid = document.getElementById('problem-grid')
+  document.getElementById('loading').style.display = 'none'
+  document.getElementById('empty').style.display = filtered.length ? 'none' : ''
+  list.style.display = viewMode === 'list' ? 'grid' : 'none'
+  grid.style.display = viewMode === 'grid' ? 'block' : 'none'
+  if (!filtered.length) {
+    list.innerHTML = ''
+    grid.innerHTML = ''
+    return
+  }
+  if (viewMode === 'grid') renderGrid()
+  else renderList()
+  syncRenderedSelection()
+}
+
+function openProblem(id) {
+  location.hash = encodeURIComponent(id)
+}
+
+function renderList() {
+  const list = document.getElementById('problem-list')
+  list.innerHTML = filtered.map(cardHtml).join('')
+  list.querySelectorAll('.problem-card').forEach((card, i) => {
+    card.addEventListener('click', (e) => {
+      if (Date.now() < suppressClickUntil) { e.preventDefault(); return }
+      if (e.target.closest('input, label, button')) return
+      e.preventDefault()
+      if (e.metaKey || e.ctrlKey) toggleIdSelection(filtered[i].id)
+      else openProblem(filtered[i].id)
+    })
+    card.querySelector('.problem-card-cb').addEventListener('click', (e) => {
+      e.stopPropagation()
+    })
+    card.querySelector('.problem-card-cb').addEventListener('change', (e) => {
+      setIdSelection(filtered[i].id, e.target.checked)
+    })
+  })
+}
+
+function cardHtml(p) {
+  return `<a class="problem-card" href="problems.html#${encodeURIComponent(p.id)}" data-id="${escAttr(p.id)}">
+    <div class="problem-card-head">
+      <span class="problem-card-main">
+        <input class="problem-card-cb" type="checkbox" aria-label="選取 ${escAttr(p.num)}">
+        <span class="problem-card-id">Problem ${esc(p.num)}</span>
+      </span>
+      <span>${p.has_solution ? 'solution' : 'no solution'}</span>
+    </div>
+    <div class="problem-card-book">${esc(p.book_title || p.book_slug)}</div>
+    <div class="problem-card-preview">${esc(textPreview(p))}</div>
+    <div class="problem-card-meta">
+      <span class="pill">${esc(label(p.subject))}</span>
+      <span class="pill">Ch ${esc(p.chapter)} · ${esc(p.chapter_title || '')}</span>
+      ${p.has_solution ? '<span class="pill ok">solution</span>' : ''}
+    </div>
+  </a>`
+}
+
+function renderGrid() {
+  const grid = document.getElementById('problem-grid')
+  const groups = new Map()
+  filtered.forEach(p => {
+    const key = p.book_title || p.book_slug || 'Unknown'
+    if (!groups.has(key)) groups.set(key, [])
+    groups.get(key).push(p)
+  })
+  grid.innerHTML = [...groups.entries()].map(([book, items]) => {
+    const first = items[0] || {}
+    const byChapter = new Map()
+    items.forEach(p => {
+      const key = `Ch ${p.chapter}`
+      if (!byChapter.has(key)) byChapter.set(key, [])
+      byChapter.get(key).push(p)
+    })
+    const blocks = [...byChapter.entries()].map(([chapter, probs]) => `
+      <div class="grid-section">
+        <div class="grid-section-header">
+          <span class="grid-section-title">${esc(chapter)}</span>
+          <span class="grid-section-sub">${esc(probs[0]?.chapter_title || '')}</span>
+          <span class="grid-section-count">${probs.length} 題</span>
+        </div>
+        <div class="grid-blocks">
+          ${probs.map(p => `<a class="grid-block ${p.has_solution ? 'has-solution' : 'no-solution'}" href="problems.html#${encodeURIComponent(p.id)}" data-id="${escAttr(p.id)}">${esc(p.num)}</a>`).join('')}
+        </div>
+      </div>`).join('')
+    return `<section class="grid-book">
+      <div class="grid-section-header">
+        <span class="grid-section-title">${esc(book)}</span>
+        <span class="grid-section-sub">${esc(label(first.subject))}</span>
+        <span class="grid-section-count">${items.length} 題</span>
+      </div>
+      ${blocks}
+    </section>`
+  }).join('')
+  grid.querySelectorAll('.grid-block').forEach(block => {
+    block.addEventListener('click', (e) => {
+      if (Date.now() < suppressClickUntil) { e.preventDefault(); return }
+      e.preventDefault()
+      const id = block.dataset.id
+      if (e.metaKey || e.ctrlKey) toggleIdSelection(id)
+      else openProblem(id)
+    })
+  })
+}
+
+function setViewMode(mode) {
+  viewMode = mode === 'list' ? 'list' : 'grid'
+  localStorage.setItem('textbook.problems.view', viewMode)
+  document.body.classList.toggle('grid-mode', viewMode === 'grid')
+  document.getElementById('btn-view-list').classList.toggle('active', viewMode === 'list')
+  document.getElementById('btn-view-grid').classList.toggle('active', viewMode === 'grid')
+}
+
+document.getElementById('btn-view-list').addEventListener('click', () => {
+  if (viewMode === 'list') return
+  setViewMode('list')
+  render()
+})
+document.getElementById('btn-view-grid').addEventListener('click', () => {
+  if (viewMode === 'grid') return
+  setViewMode('grid')
+  render()
+})
+
+function updateSelBar() {
+  const n = selectedIds.size
+  document.getElementById('sel-bar-count').textContent = `已選 ${n} 題`
+  document.getElementById('sel-bar').classList.toggle('visible', n > 0)
+}
+
+function syncRenderedSelection() {
+  document.querySelectorAll('.problem-card').forEach(card => {
+    const on = selectedIds.has(card.dataset.id)
+    card.classList.toggle('selected', on)
+    const cb = card.querySelector('.problem-card-cb')
+    if (cb) cb.checked = on
+  })
+  document.querySelectorAll('.grid-block').forEach(block => {
+    block.classList.toggle('selected', selectedIds.has(block.dataset.id))
+  })
+  updateSelBar()
+}
+
+function setIdSelection(id, selected) {
+  if (selected) selectedIds.add(id)
+  else selectedIds.delete(id)
+  syncRenderedSelection()
+}
+
+function toggleIdSelection(id) {
+  setIdSelection(id, !selectedIds.has(id))
+}
+
+function selectedProblems() {
+  return allProblems.filter(p => selectedIds.has(p.id))
+}
+
+function selectedMarkdown() {
+  const incQ = document.getElementById('sel-inc-q').checked
+  const incSol = document.getElementById('sel-inc-sol').checked
+  return selectedProblems().map(p => {
+    const parts = [`## ${p.book_title} - Problem ${p.num}`]
+    parts.push(`\`${[label(p.subject), `Ch ${p.chapter}`, p.id].join(' · ')}\``)
+    if (incQ) parts.push('', p.question_text || '')
+    if (incSol && p.solution_text) parts.push('', '### Solution', p.solution_text)
+    return parts.join('\n')
+  }).join('\n\n---\n\n')
+}
+
+document.getElementById('sel-clear').addEventListener('click', () => {
+  selectedIds.clear()
+  syncRenderedSelection()
+})
+document.getElementById('sel-copy').addEventListener('click', (e) => {
+  copyText(selectedMarkdown(), e.currentTarget)
+})
+document.getElementById('sel-pdf').addEventListener('click', () => {
+  const problems = selectedProblems()
+  if (!problems.length) return
+  const incQ = document.getElementById('sel-inc-q').checked
+  const incSol = document.getElementById('sel-inc-sol').checked
+  const pageBreak = document.getElementById('pdf-pagebreak').checked
+  const body = problems.map((p, i) => {
+    const breakStyle = pageBreak && i < problems.length - 1 ? ' style="page-break-after:always"' : ''
+    return `<section class="q-item"${breakStyle}>
+      <div class="q-id">${esc(p.book_title)} · Problem ${esc(p.num)}</div>
+      ${incQ ? `<div class="sec-label">Problem</div>${blocksHtml(p.body, p.book_slug)}` : ''}
+      ${incSol && p.has_solution ? `<div class="sec-label">Solution</div>${blocksHtml(p.solution, p.book_slug)}` : ''}
+    </section>`
+  }).join(pageBreak ? '' : '<hr class="q-sep">')
+  S.openPrintWindow({
+    title: 'Textbook Problems',
+    bodyHtml: body,
+    extraStyles: [
+      S.printTypographyCss(),
+      'body{font-family:var(--serif);font-size:13px;color:#1a1a18;padding:24px 32px;line-height:1.9;}',
+      '.q-item{margin-bottom:32px;}.q-id{font-family:monospace;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7a756c;margin-bottom:8px;}',
+      '.sec-label{font-family:monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7a756c;margin-top:20px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #dbd6cd;}',
+      '.q-sep{border:none;border-top:1px solid #dbd6cd;margin:24px 0;}img{max-width:100%;display:block;margin:12px auto;}.eq{overflow-x:auto;padding:10px 0;}',
+      '@media print{body{padding:0;}}',
+    ].join('\n'),
+  })
+})
+
+function setupDragSelect() {
+  const overlay = document.getElementById('drag-select-box')
+  const area = document.getElementById('list-view')
+  const state = { active: false, moved: false, x: 0, y: 0, hits: new Set(), base: new Set(), add: false }
+  const selector = () => viewMode === 'grid' ? '.grid-block' : '.problem-card'
+  const intersects = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
+  const clearHits = () => document.querySelectorAll('.drag-hit').forEach(el => el.classList.remove('drag-hit'))
+
+  area.addEventListener('mousedown', (e) => {
+    if (document.getElementById('app').dataset.mode !== 'list') return
+    if (e.button !== 0 || e.target.closest('input, button, label')) return
+    state.active = true
+    state.moved = false
+    state.x = e.clientX
+    state.y = e.clientY
+    state.hits.clear()
+    state.base = new Set(selectedIds)
+    state.add = e.metaKey || e.ctrlKey
+    document.body.classList.add('is-drag-selecting')
+  })
+  window.addEventListener('mousemove', (e) => {
+    if (!state.active) return
+    const dx = e.clientX - state.x
+    const dy = e.clientY - state.y
+    if (!state.moved && Math.hypot(dx, dy) < 6) return
+    state.moved = true
+    e.preventDefault()
+    const left = Math.min(state.x, e.clientX)
+    const top = Math.min(state.y, e.clientY)
+    const rect = { left, top, right: Math.max(state.x, e.clientX), bottom: Math.max(state.y, e.clientY) }
+    overlay.style.display = 'block'
+    overlay.style.left = `${left}px`
+    overlay.style.top = `${top}px`
+    overlay.style.width = `${Math.abs(dx)}px`
+    overlay.style.height = `${Math.abs(dy)}px`
+    state.hits.clear()
+    clearHits()
+    document.querySelectorAll(selector()).forEach(el => {
+      if (intersects(rect, el.getBoundingClientRect())) {
+        el.classList.add('drag-hit')
+        if (el.dataset.id) state.hits.add(el.dataset.id)
+      }
+    })
+  }, { passive: false })
+  window.addEventListener('mouseup', () => {
+    if (!state.active) return
+    overlay.style.display = 'none'
+    clearHits()
+    document.body.classList.remove('is-drag-selecting')
+    if (state.moved) {
+      suppressClickUntil = Date.now() + 180
+      selectedIds = state.add ? new Set([...state.base, ...state.hits]) : new Set(state.hits)
+      syncRenderedSelection()
+    }
+    state.active = false
+  })
+}
+
+function blockHtml(b, slug) {
+  switch (b.t) {
+    case 'p':
+      return `<p>${S.renderMarkdown(b.md || '')}</p>`
+    case 'eq': {
+      const tag = b.label && !/\\tag\s*\{/.test(b.tex || '') ? ` \\tag{${b.label}}` : ''
+      return `<div class="eq" data-tex="${escAttr(`$$${b.tex || ''}$$`)}">$$${esc(b.tex || '')}${esc(tag)}$$</div>`
+    }
+    case 'fig': {
+      const cap = b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''
+      return `<figure><img src="img/${escAttr(slug)}/${escAttr(b.src || '')}" loading="lazy" alt="${escAttr(b.caption || '')}">${cap}</figure>`
+    }
+    case 'table': {
+      const html = String(b.html || '').replace(/src="images\//g, `src="img/${escAttr(slug)}/`)
+      return `<div class="tbl">${b.caption ? `<div class="tbl-cap">${esc(b.caption)}</div>` : ''}${html}${b.footnote ? `<div class="tbl-fn">${esc(b.footnote)}</div>` : ''}</div>`
+    }
+    default:
+      return ''
+  }
+}
+
+function blocksHtml(blocks, slug) {
+  return (blocks || []).map(b => blockHtml(b, slug)).join('') || '<p>OCR missing - see original PDF.</p>'
+}
+
+function problemMarkdown(p) {
+  const parts = [
+    `## ${p.book_title} - Problem ${p.num}`,
+    '',
+    p.question_text || '',
+  ]
+  if (p.solution_text) parts.push('', '### Solution', p.solution_text)
+  return parts.join('\n')
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const old = btn.textContent
+    btn.textContent = 'Copied'
+    btn.classList.add('copied')
+    setTimeout(() => { btn.textContent = old; btn.classList.remove('copied') }, 1200)
+  })
+}
+
+function printProblem(p) {
+  S.openPrintWindow({
+    title: `${p.book_title} - Problem ${p.num}`,
+    bodyHtml: `<h1>Problem ${esc(p.num)}</h1>${blocksHtml(p.body, p.book_slug)}${p.has_solution ? `<h2>Solution</h2>${blocksHtml(p.solution, p.book_slug)}` : ''}`,
+    extraStyles: [
+      S.printTypographyCss(),
+      'body{font-family:var(--serif);font-size:14px;line-height:1.9;max-width:820px;margin:0 auto;padding:32px 40px;}',
+      'h1,h2{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;}',
+      'img{max-width:100%;display:block;margin:12px auto;}',
+      '.eq{overflow-x:auto;padding:10px 0;}',
+    ].join('\n'),
+  })
+}
+
+function showDetail(p) {
+  document.getElementById('app').dataset.mode = 'detail'
+  document.getElementById('sel-bar').classList.remove('visible')
+  const root = document.getElementById('detail-view')
+  root.innerHTML = `<div class="detail-wrap">
+    <a class="detail-back" href="problems.html" id="back-list">← Problems</a>
+    <div class="detail-head">
+      <div class="detail-id">Problem ${esc(p.num)}</div>
+      <div class="detail-title">${esc(p.book_title || p.book_slug)}</div>
+      <div class="detail-meta">
+        <span class="pill">${esc(label(p.subject))}</span>
+        <span class="pill">Chapter ${esc(p.chapter)} · ${esc(p.chapter_title || '')}</span>
+        ${p.has_solution ? '<span class="pill ok">solution</span>' : '<span class="pill">no solution</span>'}
+      </div>
+      <div class="detail-actions">
+        <a class="qbk-control-btn compact" href="${escAttr(p.href_reader || 'index.html')}">Open in Reader</a>
+        <button class="qbk-control-btn compact" id="copy-md" type="button">Copy Markdown</button>
+        <button class="qbk-control-btn compact" id="copy-json" type="button">Copy JSON</button>
+        <button class="qbk-control-btn compact" id="print-pdf" type="button">PDF</button>
+      </div>
+    </div>
+    <section class="section">
+      <div class="section-label">Problem</div>
+      <div class="problem-body">${blocksHtml(p.body, p.book_slug)}</div>
+    </section>
+    ${p.has_solution ? `<section class="section">
+      <div class="section-label">Solution</div>
+      <div class="solution-body">${blocksHtml(p.solution, p.book_slug)}</div>
+    </section>` : ''}
+  </div>`
+  document.getElementById('back-list').onclick = (e) => { e.preventDefault(); history.pushState('', document.title, 'problems.html'); showList() }
+  document.getElementById('copy-md').onclick = (e) => copyText(problemMarkdown(p), e.currentTarget)
+  document.getElementById('copy-json').onclick = (e) => copyText(JSON.stringify(p, null, 2), e.currentTarget)
+  document.getElementById('print-pdf').onclick = () => printProblem(p)
+  root.querySelectorAll('.eq').forEach(eq => {
+    eq.addEventListener('click', () => {
+      if (eq.dataset.tex) navigator.clipboard.writeText(eq.dataset.tex)
+    })
+  })
+  S.renderMath(root)
+}
+
+function showList() {
+  document.getElementById('app').dataset.mode = 'list'
+  document.getElementById('detail-view').innerHTML = ''
+  render()
+}
+
+function route() {
+  const raw = location.hash.slice(1)
+  if (!raw) {
+    showList()
+    return
+  }
+  const id = decodeURIComponent(raw)
+  const p = allProblems.find(item => item.id === id)
+  if (!p) {
+    setError(`problem not found: ${id}`)
+    showList()
+    return
+  }
+  setError('')
+  showDetail(p)
+}
+
+document.getElementById('search').addEventListener('input', (e) => {
+  searchQ = (e.target.value || '').trim().toLowerCase()
+  if (document.getElementById('app').dataset.mode === 'list') render()
+})
+document.addEventListener('keydown', (e) => {
+  const target = e.target
+  const editable = target && (
+    target.tagName === 'INPUT' ||
+    target.tagName === 'TEXTAREA' ||
+    target.isContentEditable
+  )
+  if (editable) return
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'a') {
+    e.preventDefault()
+    selectedIds = new Set(filtered.map(p => p.id))
+    syncRenderedSelection()
+  }
+})
+window.addEventListener('hashchange', route)
+
+async function init() {
+  try {
+    const data = await S.fetchJson('data/problems.json', { cache: 'no-cache' })
+    allProblems = Array.isArray(data) ? data : (data.problems || [])
+    setError('')
+    setViewMode(viewMode)
+    setupDragSelect()
+    route()
+  } catch (err) {
+    document.getElementById('loading').textContent = 'data/problems.json not found - run build first.'
+    setError(S.errorMessage(err, 'failed to load problems'))
+  }
+}
+
+init()
+</script>
+</body>
+</html>

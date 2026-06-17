@@ -12,8 +12,10 @@ from __future__ import annotations
 import json
 import re
 import sys
+from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote
 
 import nh3
 
@@ -54,6 +56,99 @@ def _rewrite_chunk(chunk: dict) -> dict:
         _rewrite_blocks(prob.get('body', []))
         _rewrite_blocks(prob.get('solution', []))
     return chunk
+
+
+def _block_text(block: dict) -> str:
+    t = block.get('t')
+    if t in ('section', 'subsection'):
+        return block.get('title') or ''
+    if t == 'example':
+        return f"Example {block.get('id') or ''}".strip()
+    if t == 'p':
+        return block.get('md') or ''
+    if t == 'eq':
+        return block.get('tex') or ''
+    if t == 'fig':
+        return block.get('caption') or ''
+    if t == 'table':
+        return ' '.join([
+            block.get('caption') or '',
+            block.get('footnote') or '',
+        ]).strip()
+    return ''
+
+
+def _blocks_text(blocks: list) -> str:
+    return '\n\n'.join(
+        text for text in (_block_text(b) for b in blocks or [])
+        if text
+    )
+
+
+def _problem_id(slug: str, kind: str, key: str | int, num: str) -> str:
+    return f'tb:{slug}:{kind}:{key}:p:{num}'
+
+
+def _problem_reader_href(slug: str, kind: str, key: str | int, num: str) -> str:
+    return f'index.html#{slug}/{kind}/{key}?problem={quote(num, safe="")}'
+
+
+def build_problem_index(books: list[dict]) -> list[dict]:
+    """Flatten baked textbook problems into a static qbank-like index."""
+    problems: list[dict] = []
+    for b in books:
+        slug = b['slug']
+        book = corpus.load_book(slug, None)
+        if not book:
+            continue
+        for ch in book.get('chapters', []):
+            n = ch['num']
+            chunk = corpus.load_chapter(slug, n, None)
+            if not chunk:
+                continue
+            chunk = _rewrite_chunk(deepcopy(chunk))
+            for p in chunk.get('problems') or []:
+                num = str(p.get('num') or '').strip()
+                if not num:
+                    continue
+                body = p.get('body') or []
+                solution = p.get('solution') or []
+                problems.append({
+                    'id': _problem_id(slug, 'ch', n, num),
+                    'book_slug': slug,
+                    'book_title': book.get('title') or b.get('title') or slug,
+                    'author': book.get('author') or b.get('author'),
+                    'subject': book.get('subject') or b.get('subject'),
+                    'kind': 'ch',
+                    'key': str(n),
+                    'chapter': n,
+                    'chapter_title': ch.get('title') or chunk.get('title'),
+                    'num': num,
+                    'body': body,
+                    'solution': solution,
+                    'question_text': _blocks_text(body),
+                    'solution_text': _blocks_text(solution),
+                    'has_solution': bool(solution),
+                    'href_reader': _problem_reader_href(slug, 'ch', n, num),
+                })
+    problems.sort(key=lambda p: (
+        p.get('subject') or '',
+        p.get('book_title') or '',
+        p.get('chapter') or 0,
+        p.get('num') or '',
+    ))
+    return problems
+
+
+def bake_problems(books: list[dict]) -> None:
+    problems = build_problem_index(books)
+    dump(OUT / 'problems.json', {
+        'version': 1,
+        'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+        'count': len(problems),
+        'problems': problems,
+    })
+    print(f'baked problems.json：{len(problems)} problems')
 
 
 def _rewrite_catalogs(cat: dict) -> dict:
@@ -108,10 +203,11 @@ def bake_catalog() -> None:
 
 
 def main(argv: list[str]) -> None:
-    books = corpus.list_books()
+    all_books = corpus.list_books()
+    books = all_books
     wanted = set(argv)
     if wanted:
-        books = [b for b in books if b['slug'] in wanted]
+        books = [b for b in all_books if b['slug'] in wanted]
         if not books:
             sys.exit(f'找不到指定 slug：{wanted}')
     else:
@@ -122,8 +218,9 @@ def main(argv: list[str]) -> None:
         print(f'baked {b["slug"]}  (has_zh={b.get("has_zh")})')
     # 單書模式也刷新 books.json（含全部書，前端 library 需完整清單）
     if wanted:
-        dump(OUT / 'books.json', corpus.list_books())
+        dump(OUT / 'books.json', all_books)
     bake_catalog()  # 完整收錄表（書單 SoT × 三態）——每次 build 都重生
+    bake_problems(all_books)
     print(f'done: {len(books)} book(s) → {OUT}')
 
 
