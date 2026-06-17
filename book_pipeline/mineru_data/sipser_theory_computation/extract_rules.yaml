@@ -1,0 +1,181 @@
+slug: sipser_theory_computation
+title: Introduction to the Theory of Computation
+author: Michael Sipser
+edition: 3rd International
+subject: Theory of Computation
+publisher: Cengage Learning
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, footer, page_number]
+ignore_image_content: true
+ignore_chart_content: true
+# heading_text_level: 2 blocks are section/subsection markers.
+# Most of content_list.json 'text' blocks with text_level=2 are:
+# figure labels (FIGURE N.M), theorems (THEOREM N.M), examples (EXAMPLE N.M),
+# section numbers (N.M standalone), section titles (UPPERCASE), etc.
+# We use section_re and subsection_re that effectively never fire,
+# because Sipser uses split two-block format for sections:
+#   block A: '1.1'      (level 2, standalone number)
+#   block B: 'FINITE AUTOMATA' (level 2, uppercase title)
+# The parser's detect_heading operates on single blocks, so N.M+title can't be
+# captured as a single section. Choosing non-firing regexes avoids false positives
+# (e.g., problem text '7.40 Let ...' was accidentally level-2 via OCR).
+heading_text_level: 2
+
+# ── 內容範圍 ──
+# PDF page_idx 0-based. Ch0 Introduction = page_idx 23 (printed page 1).
+# Front matter: copyright, dedication, ToC, prefaces = page_idx 0-22.
+body_start_page: 23
+appendices_start_page: 465  # no formal appendices; set == bibliography
+bibliography_start_page: 465  # 'Selected Bibliography' at block [6445] page_idx 465
+index_start_page: 470         # 'Index' header at block [6505] page_idx 470
+
+# ── inline-problem ──
+inline_problems: false  # each chapter has EXERCISES + PROBLEMS section at end
+
+# ── 章節 ──
+# Chapters 0-10. Chapter title block patterns:
+#   Ch0, Ch1, Ch9: only a spaced-title block (level 2 or 1), no preceding number block.
+#   Ch2-8, Ch10: standalone digit block (level 2) + spaced-title block (level 1 or 2).
+# chapter_title_block_idx = primary anchor (number block if present, else title block).
+# chapter_title_block_idx_secondary = title block for chapters with separate number block.
+# next_chapter_block_idx = primary anchor of the following chapter (or bibliography).
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 23
+    page_end: 52
+    chapter_title_block_idx: 354   # [354] pg=23 lvl=2 'I N T R O D U C T I O N'
+    problems_block_idx: 693        # [693] pg=47 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 739    # [739] pg=53 lvl=1 'R E G U L A R L A N G U A G E S'
+
+  - num: 1
+    title: Regular Languages
+    page_start: 53
+    page_end: 122
+    chapter_title_block_idx: 739   # [739] pg=53 lvl=1 'R E G U L A R L A N G U A G E S'
+    problems_block_idx: 1436       # [1436] pg=105 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 1733   # [1733] pg=123 lvl=2 '2'
+
+  - num: 2
+    title: Context-Free Languages
+    page_start: 123
+    page_end: 186
+    chapter_title_block_idx: 1733          # [1733] pg=123 lvl=2 '2'
+    chapter_title_block_idx_secondary: 1734  # [1734] pg=123 lvl=1 'C O N T E X T - F R E E L A N G U A G E S'
+    problems_block_idx: 2418               # [2418] pg=176 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 2591           # [2591] pg=187 lvl=2 '3'
+
+  - num: 3
+    title: The Church-Turing Thesis
+    page_start: 187
+    page_end: 214
+    chapter_title_block_idx: 2591          # [2591] pg=187 lvl=2 '3'
+    chapter_title_block_idx_secondary: 2592  # [2592] pg=187 lvl=2 'T H E C H U R C H ----T U R I N G T H E S I S'
+    problems_block_idx: 2861               # [2861] pg=209 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 2952           # [2952] pg=215 lvl=2 '4'
+
+  - num: 4
+    title: Decidability
+    page_start: 215
+    page_end: 236
+    chapter_title_block_idx: 2952          # [2952] pg=215 lvl=2 '4'
+    chapter_title_block_idx_secondary: 2953  # [2953] pg=215 lvl=2 'D E C I D A B I L I T Y'
+    problems_block_idx: 3188               # [3188] pg=232 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 3265           # [3265] pg=237 lvl=2 '5'
+
+  - num: 5
+    title: Reducibility
+    page_start: 237
+    page_end: 266
+    chapter_title_block_idx: 3265          # [3265] pg=237 lvl=2 '5'
+    chapter_title_block_idx_secondary: 3266  # [3266] pg=237 lvl=2 'R E D U C I B I L I T Y'
+    problems_block_idx: 3637               # [3637] pg=261 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 3719           # [3719] pg=267 lvl=2 '6'
+
+  - num: 6
+    title: Advanced Topics in Computability Theory
+    page_start: 267
+    page_end: 296
+    chapter_title_block_idx: 3719          # [3719] pg=267 lvl=2 '6'
+    chapter_title_block_idx_secondary: 3720  # [3720] pg=267 lvl=2 'A D V A N C E D T O P I C S I N C O M P U T A B I L I T Y T H E O R Y'
+    problems_block_idx: 4101               # [4101] pg=292 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 4144           # [4144] pg=297 lvl=2 '7'
+
+  - num: 7
+    title: Time Complexity
+    page_start: 297
+    page_end: 352
+    chapter_title_block_idx: 4144          # [4144] pg=297 lvl=2 '7'
+    chapter_title_block_idx_secondary: 4145  # [4145] pg=297 lvl=2 'T I M E C O M P L E X I T Y'
+    problems_block_idx: 4781               # [4781] pg=344 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 4937           # [4937] pg=353 lvl=2 '8'
+
+  - num: 8
+    title: Space Complexity
+    page_start: 353
+    page_end: 384
+    chapter_title_block_idx: 4937          # [4937] pg=353 lvl=2 '8'
+    chapter_title_block_idx_secondary: 4938  # [4938] pg=353 lvl=2 'S P A C E C O M P L E X I T Y'
+    problems_block_idx: 5279               # [5279] pg=379 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 5357           # [5357] pg=385 lvl=1 'I N T R A C T A B I L I T Y'
+
+  - num: 9
+    title: Intractability
+    page_start: 385
+    page_end: 414
+    chapter_title_block_idx: 5357          # [5357] pg=385 lvl=1 'I N T R A C T A B I L I T Y'
+    problems_block_idx: 5695               # [5695] pg=411 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 5742           # [5742] pg=415 lvl=2 '10'
+
+  - num: 10
+    title: Advanced Topics in Complexity Theory
+    page_start: 415
+    page_end: 464
+    chapter_title_block_idx: 5742          # [5742] pg=415 lvl=2 '10'
+    chapter_title_block_idx_secondary: 5743  # [5743] pg=415 lvl=2 'A D V A N C E D T O P I C S I N C O M P L E X I T Y T H E O R Y'
+    problems_block_idx: 6413               # [6413] pg=461 lvl=2 'EXERCISES'
+    next_chapter_block_idx: 6445           # [6445] pg=465 lvl=None 'Selected Bibliography'
+
+appendices: []
+
+# ── heading regex ──
+# Sipser sections use split two-block format (N.M on one line, title on next).
+# detect_heading cannot bridge two separate blocks, so section_re is designed
+# to match only 'N.M UPPERCASE-TITLE' in a SINGLE block (never occurs in this PDF).
+# Prevents false positives from problem texts like '7.40 Let ...' (OCR level-2 artifact).
+section_re: '^(\d+\.\d+)\s+([A-Z]{4,}[A-Z\s,\-'']+)$'
+# Sipser has no three-level section numbering (N.M.K never appears).
+subsection_re: '^(\d+\.\d+\.\d+)\s+(\S.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Problems labeled 'N.M text'. Optional prefix [A?] for asterisked/challenge problems.
+# e.g., '1.3 The formal...', 'A1.1 The following...', '?1.35 Let...', 'A?0.15 Ramsey...'
+# Capture group 1 = 'N.M' (chapter.problem number).
+# problem_chapter_must_match: True -> checks int(num.split('.')[0]) == ch_num.
+# SELECTED SOLUTIONS re-list a subset of problems with same N.M prefix, but with
+# lower numbers than max already seen -> blocked by monotone-increase guard.
+problem_start_re: '^[A?]*(\d+\.\d+)\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+# Sipser equations are wrapped in $$...$$ by MinerU; no \tag{} numbering used.
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+# ── example ──
+# Examples use 'EXAMPLE N.M' heading at text_level=2.
+# Capture group 1 = 'N.M' (e.g., '0.5', '1.7', '10.48').
+example_start_re: '^EXAMPLE\s+([\d.]+)$'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
