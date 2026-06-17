@@ -256,13 +256,13 @@ DEFAULT_DISPATCH = DispatchSpec(
     timeout=3600,
 )
 # per-stage 覆寫（只列偏離預設者；未列 stage 全走 DEFAULT_DISPATCH）。reasoning effort 分層：
-# 重判斷（audit/catalog_audit/sol_extract）high、解析/掃描（crawl/math_sweep）medium、視覺 qc low。
+# 重判斷（audit/catalog_audit/sol_extract）high、解析（crawl）medium、視覺 qc low。
+# 註：math_sweep 已純 API 化（do_math_sweep 直跑 batch、不派 LLM）→ 不入此表。
 STAGE_DISPATCH: dict[str, DispatchSpec] = {
     'audit':         DispatchSpec(codex_effort='high'),
     'catalog_audit': DispatchSpec(codex_effort='high'),
     'sol_extract':   DispatchSpec(codex_effort='high'),
     'crawl':         DispatchSpec(codex_effort='medium'),
-    'math_sweep':    DispatchSpec(codex_effort='medium'),
     'qc':            DispatchSpec(codex_effort='low'),
 }
 
