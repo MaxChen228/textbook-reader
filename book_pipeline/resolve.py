@@ -32,7 +32,11 @@ _STOP = {
 }
 _AUTHOR_DROP = {'and', 'jr', 'iii', 'von', 'van', 'der', 'den', 'del'}
 MAIN_THRESHOLD = 0.55     # 主書採用信心門檻
-SOL_THRESHOLD = 0.50      # 解答本（須先確認 is_solution，門檻可略低）
+# 解答本門檻：**須作者佐證**。conf = 0.6×標題重疊 + 0.4×作者命中 → 作者不命中者上限 0.6（純標題分）。
+# 解答本標題高度泛化（'X Solutions Manual'），純標題重疊會把他書的解答本跨配進來（實測：Dummit↔Gallian、
+# Shankar↔Griffiths、Sipser↔Lewis、Karlin↔Papoulis…全卡在 conf 0.6）。門檻 > 0.6 等於強制「作者至少部分命中」
+# （有命中即 ≥0.7），把這批假陽性打成 absent，不讓買書員花額度抓錯解答、污染 corpus。
+SOL_THRESHOLD = 0.65
 
 
 def _tokens(s: str) -> set:

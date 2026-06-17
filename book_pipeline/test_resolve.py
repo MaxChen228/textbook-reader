@@ -103,6 +103,20 @@ def test_resolve_target_solution_absent():
     print('✓ resolve_target：解答本查無 → absent（永不再查）')
 
 
+def test_resolve_target_solution_needs_author():
+    # 解答本標題全中但作者不符（generic sol 標題的典型跨書假陽性）→ conf 0.6 < SOL_THRESHOLD → absent。
+    # 擋的就是 Dummit↔Gallian、Shankar↔Griffiths 這種「同類書解答本標題撞詞」誤配。
+    t = _t('taylor_mechanics_sol', 'Classical Mechanics — Solutions', 'Taylor', kind='solution')
+    cl = FakeClient([_book('Classical Mechanics Solutions Manual', 'Goldstein', bid='WRONG')])
+    action, entry = rs.resolve_target(cl, t)
+    assert action == 'absent', (action, entry)          # 作者無佐證的解答本不採（0.6 < 0.65）
+    # 對照：同搜尋結果但作者佐證（Taylor 命中）→ conf ≥0.7 → resolved
+    cl2 = FakeClient([_book('Classical Mechanics Solutions Manual', 'John R. Taylor', bid='OK', bhash='z')])
+    action2, entry2 = rs.resolve_target(cl2, t)
+    assert action2 == 'resolved' and entry2['id'] == 'OK', (action2, entry2)
+    print('✓ resolve_target：解答本須作者佐證（標題全中作者不符→absent，作者命中→resolved）')
+
+
 def test_resolve_target_main_review():
     t = _t('mtw_gravitation', 'Gravitation', 'Misner, Thorne & Wheeler')
     cl = FakeClient([_book('Organic Chemistry', 'Clayden'),
@@ -121,5 +135,6 @@ if __name__ == '__main__':
     test_pick_skips_non_pdf()
     test_resolve_target_resolved()
     test_resolve_target_solution_absent()
+    test_resolve_target_solution_needs_author()
     test_resolve_target_main_review()
     print('\n全部通過 ✅')
