@@ -255,6 +255,21 @@ def workers() -> list:
 
 
 # ── 書本階段 ─────────────────────────────────────────────────────────────────
+def _pretty_title(slug: str) -> str:
+    """slug → 可讀書名（產線卡片用）。e.g. jackson_electrodynamics → Jackson Electrodynamics。"""
+    return slug.replace('_', ' ').replace('-', ' ').title()
+
+
+def _cover_url(slug: str) -> str | None:
+    """書封 URL（相對 dev/ 頁）。優先已部署 webp，退而求 OCR 階段的 mineru cover.jpg；皆無回 None
+    （前端以標題首字產生佔位卡）。nginx mount repo 根 → 兩路徑皆可直讀。"""
+    if os.path.exists(os.path.join(ROOT, 'img', slug, 'cover.webp')):
+        return f'../img/{slug}/cover.webp'
+    if os.path.exists(os.path.join(ROOT, 'book_pipeline', 'mineru_data', slug, 'cover.jpg')):
+        return f'../book_pipeline/mineru_data/{slug}/cover.jpg'
+    return None
+
+
 def books_status() -> dict:
     pending = st._load_pending()
     raw = st._raw_slug_map()
@@ -264,6 +279,8 @@ def books_status() -> dict:
     todos = []
     for s in slugs:
         r = st.assess(s, pending, raw)
+        r['title'] = _pretty_title(s)
+        r['cover'] = _cover_url(s)
         # 觀測式時間軸：deployed-aware label（已部署 → 'deployed'，否則用 stage）→
         # observe 冪等 append-on-change，建出每書階段轉換史。既有書回填 deployed_at（唯一
         # 留存的歷史時戳），否則它們只會從此刻起顯示 deployed、丟失過去。
@@ -274,6 +291,7 @@ def books_status() -> dict:
         label = 'deployed' if deployed else r.get('stage', '')
         tl.observe(s, label)
         r['timeline'] = tl.get(s)
+        r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
         rows.append(r)
         non_opt = [p for p in r['todo'].split() if p not in ('—', 'translate(可選)')]
         if non_opt:

@@ -20,7 +20,8 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORKERS_PATH = os.path.join(ROOT, 'dev', 'workers.json')
 
-RECENT_CAP = 5          # 每 worker 保留最近幾條事件
+RECENT_CAP = 200        # 每 worker 保留最近幾條事件（/dev 工人面板可滾完整 tool-use；
+                        # 200 涵蓋幾乎所有 audit 的工具調用數，仍封頂避免 workers.json 爆量）
 _FLUSH_THROTTLE = 1.0   # 秒；event 高頻 → 合併寫盤
 
 _lock = threading.Lock()
