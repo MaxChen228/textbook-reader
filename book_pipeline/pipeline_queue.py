@@ -149,13 +149,18 @@ def math_accepted(slug: str, state: dict | None = None) -> int:
 
 def mark_math_accepted(slug: str, occ: int, reason: str = '') -> None:
     """agent 判定該書 occ 條殘餘源文已毀、連 override 成可渲染都做不到 → accept；不再計入
-    residual_unaccepted（收斂終態）。reason 存稽核用（真 0 政策下 accept 應極少，須留證）。"""
+    residual_unaccepted（收斂終態）。reason 存稽核用（真 0 政策下 accept 應極少，須留證）。
+    夾住 occ ≤ 該書當前殘餘——以 **report 為 ground truth**（非 state.math 快取：存量書 state 無
+    bad_occ → 夾值失效 → 接受任意 occ，正是冷啟空窗坑）。report 不存在則 raise，絕不 silent 接受。"""
     from datetime import datetime, timezone
+    from book_pipeline import math_validate as mv
+    bad = (mv.read_report(slug) or {}).get('stats', {}).get('bad_occ')
+    if bad is None:
+        raise ValueError(f'{slug} 無 math report，無法 accept（先跑 math_validate）')
     with _state_lock():
         s = _load_state()
         m = s.setdefault(slug, {}).setdefault('math', {})
-        bad = int(m.get('bad_occ') or 0)
-        m['accepted'] = min(int(occ), bad) if bad else int(occ)  # 不超過當前殘餘
+        m['accepted'] = min(int(occ), int(bad))  # 不超過當前殘餘（report 權威）
         m['accepted_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
         if reason:
             m['accepted_reason'] = reason

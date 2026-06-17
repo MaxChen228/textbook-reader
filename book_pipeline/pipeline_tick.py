@@ -1075,7 +1075,7 @@ def do_math_sweep(dry: bool) -> int:
         do_math_track(slug)
     residual_after = q.corpus_math_residual()
     q.mark_math_swept(cur, total, residual_after, sorted(rebake))  # total = 本輪 before（供 fixpoint 判定）
-    hist.set_touched('math_sweep', rebake)  # corpus session 回填改動書清單 → 各書抽屜查得此場歷程
+    hist.set_touched('math_sweep', sorted(rebake))  # corpus session 回填改動書清單 → 各書抽屜查得此場歷程
     log(f'math sweep ✓：本輪改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
     return 0
 
