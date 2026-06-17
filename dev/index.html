@@ -75,6 +75,17 @@
     a.crawl-card.queued.linked:hover { transform: translateY(-2px); transition: transform .12s; }
     .crawl-card.queued .cv { opacity: .8; }
     .queue-ph { background: linear-gradient(135deg, #5a6b8c, #38434f) !important; font-size: 26px !important; }
+    /* 數學 sweep reactor（站 7，error-centric，非書卡）：焦點=待解 occ 數、batch 處理中時脈動。主題中性 */
+    .math-reactor { padding: 12px 8px; border-radius: 12px; cursor: pointer; text-align: center;
+      display: flex; flex-direction: column; gap: 7px; align-items: center;
+      background: rgba(123,92,214,.10); border: 1px solid rgba(123,92,214,.32); }
+    .math-reactor.running { animation: mrpulse 1.25s ease-in-out infinite; border-color: rgba(123,92,214,.7); }
+    @keyframes mrpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(123,92,214,0); }
+                         50% { box-shadow: 0 0 0 5px rgba(123,92,214,.32); } }
+    .mr-state { font-size: 13px; font-weight: 700; }
+    .mr-occ b { font-size: 36px; font-weight: 800; line-height: 1; color: #7b5cd6; display: block; }
+    .mr-occ span { font-size: 11px; opacity: .55; }
+    .mr-last { font-size: 11px; opacity: .68; line-height: 1.45; white-space: pre-line; }
     .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位 / 數學 sweep 殘餘原因行 */
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
@@ -540,42 +551,60 @@
     stationEls[0].classList.toggle('st-active', items.length > 0)
   }
 
-  // ── 數學 sweep lane（站 7，對稱 crawl）：corpus-level 收尾 agent（slug=null → 不疊書卡，
-  // 同 crawl 的隱形 worker 問題，靠本站直接渲染。count=待清書數、reason=殘餘/門檻/上次 sweep）──
-  function mathWorkers() { return liveWorkers().filter(w => w.verb === 'math_sweep') }
-  function makeMathEl(w) {
-    const el = document.createElement('div')
-    el.className = 'book crawl-card working'; el.dataset.wkey = w.key; el.title = '數學 sweep agent'
-    el.innerHTML = '<div class="cv"><div class="ph crawl-ph math-ph">🧮</div><div class="work-ring"></div></div><div class="ttl"></div>'
-    updateMathEl(el, w)
-    return el
-  }
-  function updateMathEl(el, w) {
-    const ttl = el.querySelector('.ttl'), txt = `跨書清殘 ·${w.total_calls || 0}`
-    if (ttl.textContent !== txt) ttl.textContent = txt
+  // ── 數學 sweep lane（站 7）：**非以書為單位、非 agent**。邏輯 = corpus 有多少壞式（occ），daemon 直跑
+  // math_sweep batch（純自架 LLM API）解掉。本站渲染一個 error-centric「reactor」：焦點 = 待解 occ 數、
+  // 狀態 = batch 處理中/待解/fixpoint/全淨、底下一行 = 上次 batch 戰績。count badge = 壞式數（非書數）──
+  let mathReactorEl = null
+  function renderMathReactor(m) {
+    const lane = laneEls[MATH_ST]
+    if (!mathReactorEl || mathReactorEl.parentNode !== lane) {
+      lane.innerHTML = ''
+      mathReactorEl = document.createElement('div')
+      mathReactorEl.className = 'math-reactor'
+      mathReactorEl.innerHTML =
+        '<div class="mr-state"></div><div class="mr-occ"><b></b><span>occ 待解</span></div><div class="mr-last"></div>'
+      lane.appendChild(mathReactorEl)
+    }
+    const sEl = mathReactorEl.querySelector('.mr-state'), bEl = mathReactorEl.querySelector('.mr-occ b'),
+          lEl = mathReactorEl.querySelector('.mr-last')
+    if (!m) { if (sEl.textContent !== '—') sEl.textContent = '—'; mathReactorEl.classList.remove('running'); return }
+    const occ = m.residual_unaccepted ?? m.corpus_bad_occ ?? 0
+    let icon, label
+    if (!m.node_available) { icon = '⚠️'; label = 'node 缺 · 未驗證' }
+    else if (m.running) { icon = '🔵'; label = 'batch 處理中…' }
+    else if (m.due) { icon = '🔴'; label = '待 batch 解' }
+    else if (occ > 0) { icon = '🟠'; label = 'fixpoint · 卡住' }
+    else { icon = '🟢'; label = '全淨 · 真 0' }
+    mathReactorEl.classList.toggle('running', !!m.running)
+    const st = `${icon} ${label}`; if (sEl.textContent !== st) sEl.textContent = st
+    if (bEl.textContent !== String(occ)) bEl.textContent = occ
+    const lb = m.last_batch
+    const lbTxt = lb
+      ? `上次 batch ${relTime(lb.at)}\n解 ${lb.accepted || 0} 條 · 觸 ${lb.books_touched || 0} 書 · 殘 ${lb.before}→${lb.after}`
+      : '尚未 batch'
+    if (lEl.textContent !== lbTxt) lEl.textContent = lbTxt
   }
   function mathReason() {
     const m = last && last.math
     if (!m) return '—'
     if (!m.node_available) return 'node 缺 · 未驗證'
-    if (mathWorkers().length) return `sweeping 中 · 殘 ${m.corpus_bad_occ} occ`  // 正在掃 → 不再顯「待/尚未」自相矛盾
-    const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
-                            : ' · 尚未 sweep'
-    // 收斂目標=真 0（residual_unaccepted）；due=false 的非零殘餘多為 fixpoint（逐條改不動、已 accept 或卡住）
+    if (m.running) return `batch 處理中 · 殘 ${m.corpus_bad_occ} occ`
+    const lb = m.last_batch
+    const lbTxt = lb ? ` · 上次 batch ${relTime(lb.at)} 解 ${lb.accepted || 0} 條` : ' · 尚未 batch'
+    // 收斂目標=真 0（residual_unaccepted）；due=false 的非零殘餘多為 fixpoint（batch 也解不動、已 accept 或硬殘）
     const un = m.residual_unaccepted ?? m.corpus_bad_occ
-    const health = m.due ? '🔴待 sweep' : (un > 0 ? '🟢fixpoint(卡)' : '🟢全淨')
+    const health = m.due ? '🔴待 batch' : (un > 0 ? '🟠fixpoint(卡)' : '🟢全淨')
     const acc = m.accepted_total ? `（已 accept ${m.accepted_total}）` : ''
-    return `未解 ${un}${acc} occ · ${health}${sw}`
+    return `未解 ${un}${acc} occ · ${health}${lbTxt}`
   }
   function reconcileMath() {
-    const mw = mathWorkers(), m = last && last.math
+    const m = last && last.math
     const reason = mathReason()
     if (mathReasonEl && mathReasonEl.textContent !== reason) mathReasonEl.textContent = reason
-    reconcileLane(laneEls[MATH_ST], mw, w => w.key, makeMathEl, updateMathEl,
-      '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
-    const cnt = m ? (m.books_with_residual || 0) : 0  // 待清書數（已上站、僅數學殘餘）
-    if (cntEls[MATH_ST].textContent !== String(cnt)) cntEls[MATH_ST].textContent = cnt
-    stationEls[MATH_ST].classList.toggle('st-active', mw.length > 0 || !!(m && m.due))
+    renderMathReactor(m)
+    const occ = m ? (m.residual_unaccepted ?? m.corpus_bad_occ ?? 0) : 0  // count = 壞式數（errors），非書數
+    if (cntEls[MATH_ST].textContent !== String(occ)) cntEls[MATH_ST].textContent = occ
+    stationEls[MATH_ST].classList.toggle('st-active', !!(m && (m.running || m.due)))
   }
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
@@ -649,14 +678,16 @@
       `macros ${m.macros_version || '?'}${m.node_available ? '' : ' · node 缺·未驗證'}`
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status ${m.due ? 'dr-st-wait' : 'dr-st-done'}">`
-      + `${m.due ? '🔴 未解殘餘>0 · 待跨書 sweep（朝真 0）'
-                 : (m.reason === 'fixpoint' ? '🟢 fixpoint · 逐條改不動，待 agent accept 或外部變化'
-                    : (m.residual_unaccepted > 0 ? '🟢 卡住 · 未解殘餘'
-                                                 : '🟢 全 corpus 數學皆可渲染（真 0）'))}</span>`
+      + `${m.running ? '🔵 batch 處理中（純自架 API）'
+                 : (m.due ? '🔴 未解殘餘>0 · 待 batch 解（朝真 0）'
+                 : (m.reason === 'fixpoint' ? '🟠 fixpoint · batch 也解不動，待 accept 或外部變化'
+                    : (m.residual_unaccepted > 0 ? '🟠 卡住 · 未解殘餘'
+                                                 : '🟢 全 corpus 數學皆可渲染（真 0）')))}</span>`
       + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span>`
       + `<span>未解 <b>${m.residual_unaccepted ?? '?'}</b>`
       + `${m.accepted_total ? ` <small style="opacity:.6">已 accept ${m.accepted_total}</small>` : ''}</span>`
       + `<span><b>${m.books_with_residual ?? 0}</b> 書有殘</span>`
+      + (m.last_batch ? `<span><small style="opacity:.6">上次 batch 解 ${m.last_batch.accepted || 0} · 剩 ${m.last_batch.still_failing || 0} 硬殘</small></span>` : '')
     const tb = m.top_books || []
     document.getElementById('dr-evs').innerHTML = tb.length
       ? `<div class="dr-empty" style="text-align:left;padding:6px 2px">殘餘最多的書（點開看該書）</div>`

@@ -235,6 +235,46 @@ def mark_math_swept(macros_version: str, residual_before: int, residual_after: i
         _save_state(s)
 
 
+def math_batch_running(state: dict | None = None) -> dict | None:
+    """batch 是否正在跑（持久化：do_math_sweep 在 worker thread 設，獨立 devsnapshot 進程要讀得到）。
+    回 {at, before} 或 None。crash/SIGKILL 留下的殘 flag 由下次 do_math_sweep 起頭覆蓋、結束清除。"""
+    s = state if state is not None else _load_state()
+    return (s.get(MATH_STATE_KEY) or {}).get('batch_running') or None
+
+
+def set_math_batch_running(before: int) -> None:
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        s.setdefault(MATH_STATE_KEY, {})['batch_running'] = {
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'before': before}
+        _save_state(s)
+
+
+def clear_math_batch_running() -> None:
+    with _state_lock():
+        s = _load_state()
+        if s.get(MATH_STATE_KEY):
+            s[MATH_STATE_KEY].pop('batch_running', None)
+            _save_state(s)
+
+
+def math_last_batch(state: dict | None = None) -> dict | None:
+    """上次 batch 結果（解了幾條/觸幾書/殘餘 before→after），供 /dev 顯示。"""
+    s = state if state is not None else _load_state()
+    return (s.get(MATH_STATE_KEY) or {}).get('last_batch') or None
+
+
+def record_math_batch(result: dict) -> None:
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        d = dict(result)
+        d['at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        s.setdefault(MATH_STATE_KEY, {})['last_batch'] = d
+        _save_state(s)
+
+
 def _deployed(slug: str, state: dict) -> bool:
     """已部署 = textbook-reader/data/<slug>/book.json 存在（真相在 reader repo）。"""
     if os.path.exists(os.path.join(READER_ROOT, 'data', slug, 'book.json')):

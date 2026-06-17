@@ -142,23 +142,7 @@ LLM_PROMPTS = {
         "（含各 critical 類別的查證與修法、override action 語意、陷阱）：跑 audit_catalog 看殘留 "
         "→ 產 book_pipeline/catalog_overrides/{slug}.json → apply_catalog_overrides → 重審，"
         "把 critical 降到最低（多數可全清零）。真不可修者（源頭缺）列入 _catalog_audit.md 即可收工。"),
-    'math_sweep': (
-        "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，逐條 override 待辦）。"
-        "**嚴格遵照 .claude/skills/book-pipeline/references/math-sweep.md**（CLI、判準、陷阱全在那）。"
-        "**目標＝真 0**：把 corpus 數學渲染殘餘（residual_unaccepted）收斂到 0。殘餘是**可列舉待辦清單**——"
-        "每條一個壞式，你只做不可化約判斷『這條壞 tex 該長什麼樣』，逐條 override 改寫（不污染原始數據）。"
-        "驗證是 O(單式)<1ms 的單條 render，不跑全 corpus gate。你**自己**完成整圈、人不在迴圈裡。"
-        "(1) **讀待辦**：`uv run python -m book_pipeline.math_sweep list --json`——每條含 gid/tex/err/occ。"
-        "(2) **改寫**：主力＝`uv run python -m book_pipeline.math_sweep batch`（批量打自架 LLM 逐條改寫、"
-        "render 守門 + retry，最省）；個別難條 → `sweep fix --gid <gid> --new '<正確 tex>'`（單條 render "
-        "驗證過才落地，沒過印 err 讓你重寫）。兩者都自動產 override 併入 math_overrides/<slug>.json、apply、重驗。"
-        "**絕不手改 parsed/*.json**。"
-        "(3) **真 0 收斂**：清完一輪 `sweep list` 確認待辦下降 → **重烤受影響書上站**（build.build_all）。"
-        "反覆做直到 residual_unaccepted=0。**唯有**源文已毀、連 override 成可渲染都做不到的極少數 → "
-        "`devctl math-accept --slug <s> --occ <n> --reason '<為何不可渲染>'`（要留證；別為清零硬塞語意錯的式子）。"
-        "(4) **稀有手段**（非預設）：若某 OCR token 跨極多書同病灶、逐條不划算 → 才考慮寫 Layer 1 規則"
-        "（math_normalize.py + test_math_normalize.py fixture）；但 95% 殘餘是單發式、泛化零槓桿，**預設走逐條**。"
-        "錯了 owner 一個 git revert 推平，放手做。"),
+    # 註：math_sweep 已**不派 agent**（do_math_sweep 直跑 math_sweep batch 純 API）→ 此處無 math_sweep prompt。
 }
 
 
@@ -930,26 +914,40 @@ def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
 
 
 def do_math_sweep(dry: bool) -> int:
-    """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：
-    residual_unaccepted>0 且非 fixpoint → 派**一隻**跨書 sweep agent（逐條 override 待辦：math_sweep
-    list/batch/fix 單式 render 驗證即落地 override + self-commit）→ daemon 把殘餘變動的書重烤上站
-    → 重量殘餘、記錄 sweep 狀態（before/after，供 fixpoint 判定）。
-    回 0=完成/跳過、-2=LLM 撞額度（defer 下個 tick，不記狀態）。"""
+    """corpus-level 數學 sweep（track-only，不綁單本 advance 關鍵路徑）：residual_unaccepted>0 且非
+    fixpoint → daemon **直接 det-step 跑 `math_sweep batch`**（純自架 LLM API：list→分批 spark→render
+    守門→per-book apply+重驗；**無無頭 agent 層**——邏輯就是「有多少壞式、batch 打 API 解掉」，非以書為
+    單位派 agent）→ daemon 把殘餘變動的書重烤上站 → 重量殘餘、記錄 sweep/batch 狀態（供 fixpoint 判定）。
+    回 0=完成/跳過、1=batch 基礎設施失敗（node/ccnexus，不記狀態 → 下個 tick 重試）。"""
     from book_pipeline import math_validate as mv
     due, total = _math_sweep_due()
     if not due:
         return 0
     cur = mv.macros_version()
-    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 派跨書 sweep agent（macros={cur}）')
+    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch（純 API，macros={cur}）')
     if dry:
-        dispatch_llm('math_sweep', None, dry=True)
+        log('DRY uv run python -m book_pipeline.math_sweep batch')
         return 0
     before_by_book = mv.residual_by_book()  # 派工前快照：normalize 規則/macro 修的書未必有 override，靠殘餘降偵測
     t0 = time.time()
-    rc = dispatch_llm('math_sweep', None, dry=False)
-    if rc == -2:
-        log('math sweep：LLM 撞額度 → defer 下個 tick（不記 sweep 狀態）')
-        return -2
+    q.set_math_batch_running(total)         # 持久 flag → /dev 顯「batch 處理中」（獨立 devsnapshot 進程讀得到）
+    try:
+        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch'],
+                              cwd=READER_ROOT, capture_output=True, text=True)
+    finally:
+        q.clear_math_batch_running()
+    res = {}
+    try:
+        if proc.stdout.strip():
+            res = json.loads(proc.stdout.strip().splitlines()[-1])  # batch JSON 結果在 stdout 末行
+    except Exception:
+        pass
+    if proc.returncode != 0 or not res.get('ok'):
+        err = res.get('error') or (proc.stderr or '')[-300:] or f'rc={proc.returncode}'
+        log(f'❌ math sweep batch 失敗（{err}）→ 不記狀態，下個 tick 重試')
+        return 1
+    log(f"math sweep batch：解 {res.get('accepted', 0)} 條 · 觸 {res.get('books_touched', 0)} 書 · "
+        f"剩 {res.get('still_failing', 0)} 條硬殘")
     # daemon 確定性收尾（apply 從 agent 收回 daemon，比照 catalog；消除「agent apply 的書必須恰等於
     # daemon 重烤的書」的脆弱耦合）：對每本有 override 的書 idempotent re-apply；凡本輪真有改動（apply
     # 產生 applied，含重 parse 沖掉後重套）或 override 本輪新寫（mtime>t0）→ 重烤上站（live 讀 data/，
@@ -984,8 +982,11 @@ def do_math_sweep(dry: bool) -> int:
         do_math_track(slug)
     residual_after = q.corpus_math_residual()
     q.mark_math_swept(cur, total, residual_after, sorted(rebake))  # total = 本輪 before（供 fixpoint 判定）
+    q.record_math_batch({'accepted': res.get('accepted', 0), 'still_failing': res.get('still_failing', 0),
+                         'books_touched': res.get('books_touched', 0),
+                         'before': total, 'after': residual_after, 'rebaked': sorted(rebake)})
     hist.set_touched('math_sweep', sorted(rebake))  # corpus session 回填改動書清單 → 各書抽屜查得此場歷程
-    log(f'math sweep ✓：本輪改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
+    log(f'math sweep ✓：batch 後改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
     return 0
 
 
@@ -1324,9 +1325,10 @@ def tick_reactive(no_deploy: bool) -> int:
             if _drain_due(rows) and _start('__crawl_drain__', lambda r=rows: drain_crawl_queue(r)):
                 dispatched += 1
 
-            # C3. corpus-level 數學 sweep（track-only）：residual_unaccepted>0 且非 fixpoint 才派一隻跨書
-            # agent。__math_sweep__ key 自動序列化（在跑時不疊派）；_math_sweep_due 在 fixpoint/converged
-            # 回 False → loop 能收斂 idle（不再 busy-loop）。
+            # C3. corpus-level 數學 sweep（track-only）：residual_unaccepted>0 且非 fixpoint 才跑。**無無頭
+            # agent**——do_math_sweep 直接 det-step 跑 math_sweep batch（純自架 API：有多少壞式就 batch 解
+            # 多少，非以書為單位）。__math_sweep__ key 自動序列化（在跑時不疊派）；fixpoint/converged → due
+            # False → loop 能收斂 idle。
             due, _resid = _math_sweep_due()
             if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
                 dispatched += 1

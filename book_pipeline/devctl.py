@@ -481,6 +481,8 @@ def math_health() -> dict:
         'books_with_residual': len(books),
         'top_books': books[:20],
         'last_sweep': sweep or None,
+        'running': q.math_batch_running(state),       # batch 正在打 API（純 API、無 agent）→ /dev 顯處理中
+        'last_batch': q.math_last_batch(state),        # 上次 batch：解幾條/觸幾書/殘餘 before→after
     }
 
 
