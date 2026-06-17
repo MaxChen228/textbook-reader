@@ -90,6 +90,7 @@
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
     .math-row:hover .lbl { color: var(--accent); }
+    .ev.math-row .n { width: auto; white-space: nowrap; padding-left: 8px; }  /* 「已微調」/殘餘數不折成兩行 */
     /* 數學 sweep 抽屜：即時 LLM 串流 + 歷史批次回溯 */
     .mr-stream { border: 1px solid rgba(123,92,214,.28); border-radius: 10px; padding: 8px 10px; margin-bottom: 6px;
       background: rgba(123,92,214,.06); }
@@ -195,6 +196,9 @@
     .dr-evs { padding: 10px 14px; }
     /* 數學 sweep 抽屜：把 LLM 即時串流（dr-hist）order 拉到頂，「它有在動」第一眼可見、不必往下捲找 */
     .drawer.math-mode #dr-hist { order: -1; border-top: none; }
+    /* 串流是 hero：streaming 時 sticky 釘在抽屜頂（往下捲看列表時 tokens 仍在視野）+ 加高 token 面板 */
+    .drawer.math-mode #dr-hist .mr-stream.live { position: sticky; top: 0; z-index: 3; background: var(--surface); box-shadow: 0 6px 14px -8px rgba(0,0,0,.5); }
+    .drawer.math-mode #dr-hist .mr-stream.live .mr-raw { max-height: 42vh; min-height: 120px; }
     .ev { display: flex; gap: 8px; align-items: baseline; font-family: var(--mono); font-size: 11.5px;
       color: var(--ink-light); padding: 4px 0; border-bottom: 1px solid var(--border-l); }
     .ev:last-child { border-bottom: none; }
