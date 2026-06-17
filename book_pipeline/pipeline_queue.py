@@ -194,7 +194,7 @@ def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
             return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'llm': False}
         tri = _triage(slug, raw)
         if tri is None:
-            # 無源 = 殘留 slug 或待補；crawl 由 wishlist 驅動（見 pipeline_tick），
+            # 無源 = 殘留 slug 或待補；crawl 由書單 SoT 驅動（見 pipeline_tick），
             # 不從此處觸發，僅 surface。
             return {'slug': slug, 'stage': 'X 無源', 'todo': '—', 'llm': False}
         qc = state.get(slug, {}).get('qc')
