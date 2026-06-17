@@ -1,0 +1,169 @@
+slug: cover_thomas_information_theory
+title: Elements of Information Theory
+author: Thomas M. Cover; Joy A. Thomas
+edition: null
+subject: Information Theory
+publisher: John Wiley & Sons, Inc.
+language: en
+
+filter_types: [header, page_number, footer]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 532
+bibliography_start_page: 532
+index_start_page: 551
+
+inline_problems: false
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: Introduction and Preview
+    page_start: 23
+    page_end: 33
+    chapter_title_block_idx: 275
+    problems_block_idx: null
+    next_chapter_block_idx: 367
+
+  - num: 2
+    title: Entropy, Relative Entropy and Mutual Information
+    page_start: 34
+    page_end: 71
+    chapter_title_block_idx: 367
+    problems_block_idx: 865
+    next_chapter_block_idx: 994
+
+  - num: 3
+    title: The Asymptotic Equipartition Property
+    page_start: 72
+    page_end: 81
+    chapter_title_block_idx: 994
+    problems_block_idx: 1098
+    next_chapter_block_idx: 1135
+
+  - num: 4
+    title: Entropy Rates of a Stochastic Process
+    page_start: 82
+    page_end: 99
+    chapter_title_block_idx: 1135
+    problems_block_idx: 1326
+    next_chapter_block_idx: 1427
+
+  - num: 5
+    title: Data Compression
+    page_start: 100
+    page_end: 146
+    chapter_title_block_idx: 1427
+    problems_block_idx: 1988
+    next_chapter_block_idx: 2092
+
+  - num: 6
+    title: Gambling and Data Compression
+    page_start: 147
+    page_end: 165
+    chapter_title_block_idx: 2092
+    problems_block_idx: 2316
+    next_chapter_block_idx: 2369
+
+  - num: 7
+    title: Kolmogorov Complexity
+    page_start: 166
+    page_end: 204
+    chapter_title_block_idx: 2369
+    problems_block_idx: 2855
+    next_chapter_block_idx: 2887
+
+  - num: 8
+    title: Channel Capacity
+    page_start: 205
+    page_end: 245
+    chapter_title_block_idx: 2887
+    problems_block_idx: 3406
+    next_chapter_block_idx: 3454
+
+  - num: 9
+    title: Differential Entropy
+    page_start: 246
+    page_end: 260
+    chapter_title_block_idx: 3454
+    problems_block_idx: 3695
+    next_chapter_block_idx: 3715
+
+  - num: 10
+    title: The Gaussian Channel
+    page_start: 261
+    page_end: 287
+    chapter_title_block_idx: 3715
+    problems_block_idx: 4070
+    next_chapter_block_idx: 4115
+
+  - num: 11
+    title: Maximum Entropy and Spectral Estimation
+    page_start: 288
+    page_end: 300
+    chapter_title_block_idx: 4115
+    problems_block_idx: 4279
+    next_chapter_block_idx: 4297
+
+  - num: 12
+    title: Information Theory and Statistics
+    page_start: 301
+    page_end: 357
+    chapter_title_block_idx: 4297
+    problems_block_idx: 5176
+    next_chapter_block_idx: 5228
+
+  - num: 13
+    title: Rate Distortion Theory
+    page_start: 358
+    page_end: 395
+    chapter_title_block_idx: 5228
+    problems_block_idx: 5692
+    next_chapter_block_idx: 5777
+
+  - num: 14
+    title: Network Information Theory
+    page_start: 396
+    page_end: 480
+    chapter_title_block_idx: 5777
+    problems_block_idx: 6902
+    next_chapter_block_idx: 7001
+
+  - num: 15
+    title: Information Theory and the Stock Market
+    page_start: 481
+    page_end: 503
+    chapter_title_block_idx: 7001
+    problems_block_idx: 7366
+    next_chapter_block_idx: 7394
+
+  - num: 16
+    title: Inequalities in Information Theory
+    page_start: 504
+    page_end: 531
+    chapter_title_block_idx: 7394
+    problems_block_idx: 7825
+    next_chapter_block_idx: 7833
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^HISTORICAL NOTES$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

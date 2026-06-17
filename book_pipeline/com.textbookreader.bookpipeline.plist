@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
   textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每天一次 tick）。
-  節奏=daily 00:30 UTC（=08:30 台灣，zlib 額度 00:00 UTC 重置後半小時，已滿額）。
+  節奏=daily 08:30 台灣 = 00:30 UTC（zlib 額度 00:00 UTC 重置後半小時，已滿額）。
+  ⚠ launchd StartCalendarInterval 用「系統本地時區」（felix=Asia/Taipei），故下方 Hour=8
+    才等於 00:30 UTC；devctl next_eta 以 00:30 UTC 計，兩者須一致（改這裡也要同步 devctl）。
   為何 daily（非 hourly）：LLM 後端已切 kimi（非 Claude 5h 滾動窗）→ 無「當天撞限額需每小時
   重試」需求；單 tick 一次榨乾全日資源——並行 crawl 把當日 zlib 全額度（3 帳號=30 本）一次
   fan-out 下載+ingest，確定性階段一條龍推到底。MinerU OCR 為 async：當日提交、隔日 tick 收割
@@ -29,7 +31,7 @@
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>0</integer>
+    <integer>8</integer>
     <key>Minute</key>
     <integer>30</integer>
   </dict>

@@ -212,14 +212,38 @@ _exhausted_lock = threading.Lock()
 # claude/kimi 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
 SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
 CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests',
-                       'insufficient_quota', 'exceeded your current', '429 ',
-                       'resource_exhausted')
+                       'insufficient_quota', 'exceeded your current',
+                       'status":429', 'status": 429', 'resource_exhausted')
 
 
 def _hit_limit(provider: str, out: str) -> bool:
     """從合併輸出判斷是否撞該 provider 的額度限制。"""
     markers = CODEX_LIMIT_MARKERS if provider == 'codex' else SESSION_LIMIT_MARKERS
     return any(m in out for m in markers)
+
+
+def _event_error_text(provider: str, ev: dict) -> str:
+    """只從『終端錯誤事件』抽出可供限額判定的文字；正常 agent 訊息/工具指令一律回 ''。
+    （絕不能掃整段 transcript：被 audit 的書內容與工人指令本身常含 quota/429/rate limit，
+    會把成功的派工誤判成撞額度。歷史 bug：codex 額度滿卻連環「撞額度」failover。）"""
+    t = ev.get('type') or ''
+    if provider == 'codex':
+        # 三條錯誤通道（實測 codex exec --json）：頂層 error 事件、turn.failed、error item。
+        # 真 429 的 message 內嵌 JSON：{"type":"error","status":429,"error":{...}}
+        if t == 'error':
+            return str(ev.get('message') or json.dumps(ev, ensure_ascii=False))
+        if t == 'turn.failed':
+            err = ev.get('error')
+            return json.dumps(err, ensure_ascii=False) if isinstance(err, dict) else str(err or '')
+        if t == 'item.completed':
+            item = ev.get('item') or {}
+            if item.get('type') == 'error':
+                return str(item.get('message') or item.get('text') or json.dumps(item, ensure_ascii=False))
+        return ''
+    # claude/kimi stream-json：終端 result 事件帶 is_error / 非 success subtype 才算錯誤面
+    if t == 'result' and (ev.get('is_error') or ev.get('subtype') not in (None, 'success')):
+        return str(ev.get('result') or ev.get('error') or json.dumps(ev, ensure_ascii=False))
+    return ''
 
 
 def _tool_label(blk: dict) -> str:
@@ -291,22 +315,26 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     log(f'RUN llm {todo_verb} {slug or ""}（{provider}/JSONL）')
     p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    captured: list[str] = []
+    err_parts: list[str] = []  # 只裝『終端錯誤事件 + 非 JSON(CLI/stderr) 行』供限額判定
     tag = slug or todo_verb
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
 
     def _pump():
         for line in p.stdout:  # type: ignore[union-attr]
-            captured.append(line)
             s = line.strip()
             if not s:
                 continue
             try:
                 ev = json.loads(s)
             except Exception:
+                # 非 JSON＝CLI/stderr 原生錯誤（額度/認證/crash）→ 納入錯誤判定面
+                err_parts.append(s)
                 continue
             _pump_event(provider, ev, wkey, tag)
+            et = _event_error_text(provider, ev)
+            if et:
+                err_parts.append(et)
     t = threading.Thread(target=_pump, daemon=True)
     t.start()
     try:
@@ -322,8 +350,9 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
                 pass
             return -1, False
         t.join(timeout=5)
-        out = ''.join(captured).lower()
-        return rc, _hit_limit(provider, out)
+        # rc==0（成功跑完）絕不可能是撞額度；只在失敗且錯誤面含限額字才判 hit
+        err = '\n'.join(err_parts).lower()
+        return rc, (rc != 0 and _hit_limit(provider, err))
     finally:
         wr.unregister(wkey)
 

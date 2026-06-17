@@ -1,0 +1,129 @@
+slug: franklin_feedback_control
+title: Feedback Control of Dynamic Systems
+author: Gene F. Franklin; J. David Powell; Abbas Emami-Naeini
+edition: 7th
+subject: Control Systems
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 827
+bibliography_start_page: 863
+index_start_page: 871
+
+chapters:
+  - num: 1
+    title: An Overview and Brief History of Feedback Control
+    page_start: 24
+    page_end: 45
+    chapter_title_block_idx: 404
+    problems_block_idx: 571
+    next_chapter_block_idx: 595
+  - num: 2
+    title: Dynamic Models
+    page_start: 46
+    page_end: 106
+    chapter_title_block_idx: 595
+    problems_block_idx: 1318
+    next_chapter_block_idx: 1449
+  - num: 3
+    title: Dynamic Response
+    page_start: 107
+    page_end: 202
+    chapter_title_block_idx: 1449
+    problems_block_idx: 2683
+    next_chapter_block_idx: 3008
+  - num: 4
+    title: A First Analysis of Feedback
+    page_start: 203
+    page_end: 256
+    chapter_title_block_idx: 3008
+    problems_block_idx: 3524
+    next_chapter_block_idx: 3747
+  - num: 5
+    title: The Root-Locus Design Method
+    page_start: 257
+    page_end: 330
+    chapter_title_block_idx: 3747
+    problems_block_idx: 4534
+    next_chapter_block_idx: 4787
+  - num: 6
+    title: The Frequency-Response Design Method
+    page_start: 331
+    page_end: 455
+    chapter_title_block_idx: 4787
+    problems_block_idx: 5934
+    next_chapter_block_idx: 6309
+  - num: 7
+    title: State-Space Design
+    page_start: 456
+    page_end: 612
+    chapter_title_block_idx: 6309
+    problems_block_idx: 8429
+    next_chapter_block_idx: 8821
+  - num: 8
+    title: Digital Control
+    page_start: 613
+    page_end: 659
+    chapter_title_block_idx: 8821
+    problems_block_idx: 9400
+    next_chapter_block_idx: 9488
+  - num: 9
+    title: Nonlinear Systems
+    page_start: 660
+    page_end: 725
+    chapter_title_block_idx: 9488
+    problems_block_idx: 10178
+    next_chapter_block_idx: 10364
+  - num: 10
+    title: "Control System Design: Principles and Case Studies"
+    page_start: 726
+    page_end: 826
+    chapter_title_block_idx: 10364
+    problems_block_idx: 11233
+    next_chapter_block_idx: 11413
+
+appendices:
+  - id: A
+    title: Laplace Transforms
+    page_start: 827
+    chapter_title_block_idx: 11413
+  - id: B
+    title: Solutions to the Review Questions
+    page_start: 842
+    chapter_title_block_idx: 11721
+  - id: C
+    title: Matlab Commands
+    page_start: 859
+    chapter_title_block_idx: 12003
+
+section_re: '^((?:[A-Z]\.)?\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:[A-Z]\.)?\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^1\.9\s+Feedback in Biology$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: '^EXAMPLE\s+((?:[A-Z]\.)?\d+\.\d+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

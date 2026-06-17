@@ -1,0 +1,180 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "kardar-ch01-body28-exclude-subfigure",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[28]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered companion subfigure for Fig. 1.2; the semantic catalog entry is the adjacent captioned main figure."
+      },
+      "expect": {
+        "t": "fig",
+        "caption": "(A)&(B)"
+      }
+    },
+    {
+      "id": "kardar-ch01-body126-exclude-subfigure-a",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[126]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered subfigure (a) belonging to Fig. 1.14; only the following captioned aggregate figure should be indexed."
+      },
+      "expect": {
+        "t": "fig",
+        "caption": "(a)"
+      }
+    },
+    {
+      "id": "kardar-ch01-body127-exclude-subfigure-b",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[127]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered subfigure (b) belonging to Fig. 1.14; only the following captioned aggregate figure should be indexed."
+      },
+      "expect": {
+        "t": "fig",
+        "caption": "(b)"
+      }
+    },
+    {
+      "id": "kardar-ch01-body136-exclude-unnumbered-schematic",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[136]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered schematic embedded in the exposition; no figure number or caption is present in the OCR stream."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch01-prob10-body1-exclude-unnumbered-problem-fig",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "problem:10:body[1]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered problem diagram referenced only locally as 'the above cycle'; not a numbered catalog figure."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch02-prob12-body1-exclude-unnumbered-problem-fig",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:12:body[1]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered problem diagram ('figure below') without a stable figure number/caption."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch03-prob10-body11-exclude-unnumbered-problem-fig",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:10:body[11]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered problem diagram referenced only by local prose; no semantic figure number is available."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch05-body63-exclude-unnumbered-diagram",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[63]",
+      "set": {
+        "catalog_exclude_reason": "Inline schematic for the diagrammatic expansion conventions; intentionally unnumbered."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch05-body65-exclude-unnumbered-diagram",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[65]",
+      "set": {
+        "catalog_exclude_reason": "Inline graph example for Eq. (5.18); intentionally unnumbered."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch05-prob6-body3-exclude-unnumbered-problem-fig",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:6:body[3]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered problem illustration of the cylindrical geometry; no stable figure caption/number."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch05-prob7-body1-exclude-unnumbered-problem-fig",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:7:body[1]",
+      "set": {
+        "catalog_exclude_reason": "Unnumbered problem illustration of hard rods; no semantic figure number is present."
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch06-body24-exclude-inline-table",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[24]",
+      "set": {
+        "catalog_exclude_reason": "Inline data table accompanying Fig. 6.1; it is not a numbered table and should not be indexed as a standalone catalog item.",
+        "catalog_repair_source": "agent-caption-reassignment"
+      },
+      "expect": {
+        "t": "table",
+        "id": "fig-6.1"
+      }
+    },
+    {
+      "id": "kardar-ch06-body25-promote-fig61",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[25]",
+      "set": {
+        "id": "fig-6.1",
+        "caption": "Fig. 6.1 Temperature dependence of the heat capacity for a typical gas of diatomic molecules.",
+        "catalog_repair_source": "agent-caption-reassignment"
+      },
+      "expect": {
+        "t": "fig"
+      }
+    },
+    {
+      "id": "kardar-ch07-prob9-body4-exclude-inline-table",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:9:body[4]",
+      "set": {
+        "catalog_exclude_reason": "Inline supporting table inside a problem statement; unnumbered and not intended as a catalog table."
+      },
+      "expect": {
+        "t": "table"
+      }
+    }
+  ]
+}

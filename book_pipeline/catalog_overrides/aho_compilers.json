@@ -1,0 +1,209 @@
+{
+  "overrides": [
+    {
+      "id": "aho-fig-3.25-normalize",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[287]",
+      "expect": {
+        "id": "tbl-ch03-287"
+      },
+      "set": {
+        "id": "fig-3.25",
+        "caption": "Figure 3.25: Transition table for the NFA of Fig. 3.24",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption spacing prevented figure-number extraction; raw PDF page 171 shows Figure 3.25."
+    },
+    {
+      "id": "aho-fig-4.47-normalize",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[805]",
+      "expect": {
+        "id": "tbl-ch04-805"
+      },
+      "set": {
+        "id": "fig-4.47",
+        "caption": "Figure 4.47: Computation of lookaheads",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption spacing prevented figure-number extraction; raw PDF page 262 shows Figure 4.47."
+    },
+    {
+      "id": "aho-fig-5.8-normalize",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[111]",
+      "expect": {
+        "id": "tbl-ch05-111"
+      },
+      "set": {
+        "id": "fig-5.8",
+        "caption": "Figure 5.8: Syntax-directed definition for simple type declarations",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption spacing prevented figure-number extraction; raw PDF page 338 shows Figure 5.8."
+    },
+    {
+      "id": "aho-fig-5.10-normalize",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[134]",
+      "expect": {
+        "id": "tbl-ch05-134"
+      },
+      "set": {
+        "id": "fig-5.10",
+        "caption": "Figure 5.10: Constructing syntax trees for simple expressions",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption spacing prevented figure-number extraction in parsed table block."
+    },
+    {
+      "id": "aho-fig-6.22-normalize",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[273]",
+      "expect": {
+        "id": "tbl-ch06-273"
+      },
+      "set": {
+        "id": "fig-6.22",
+        "caption": "Figure 6.22: Semantic actions for array references",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "OCR split 'Figure' into 'Fi gure'; raw PDF shows Figure 6.22."
+    },
+    {
+      "id": "aho-fig-6.43-normalize",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[509]",
+      "expect": {
+        "id": "tbl-ch06-509"
+      },
+      "set": {
+        "id": "fig-6.43",
+        "caption": "Figure 6.43: Translation scheme for boolean expressions",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "OCR split 'Figure' into 'Fi gure'; raw PDF page 427 shows Figure 6.43."
+    },
+    {
+      "id": "aho-fig-11.49-normalize",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[793]",
+      "expect": {
+        "id": "tbl-ch11-793"
+      },
+      "set": {
+        "id": "fig-11.49",
+        "caption": "Figure 11.49: Pipelined execution of Example 11.55 with m = 4 and n = 3.",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "OCR split 'Figure' into 'Fi gure'; raw PDF page 885 shows Figure 11.49."
+    },
+    {
+      "id": "aho-fig-11.62-normalize",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[1027]",
+      "expect": {
+        "id": "fig-11.23--1"
+      },
+      "set": {
+        "id": "fig-11.62",
+        "caption": "Figure 11.62: Code of Fig. 11.23 after partitioning (Fig. 11.24) and array contraction",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "reason": "Caption and id drifted to Fig. 11.23 alias; raw PDF caption is Figure 11.62."
+    },
+    {
+      "id": "aho-ref-2.34-2.35-split",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[378]",
+      "field": "md",
+      "old": "Fig. 2.34-2.35",
+      "new": "Fig. 2.34 and Fig. 2.35",
+      "reason": "Range reference was parsed as a synthetic single figure number 2.34.2.35."
+    },
+    {
+      "id": "aho-ref-6.36-6.37-split",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[426]",
+      "field": "md",
+      "old": "Fig. 6.36-6.37",
+      "new": "Fig. 6.36 and Fig. 6.37",
+      "reason": "Range reference was parsed as a synthetic single figure number 6.36.6.37."
+    },
+    {
+      "id": "aho-fig-1.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[19]",
+      "position": "before",
+      "page": 26,
+      "clip": [
+        0.28,
+        0.11,
+        0.83,
+        0.40
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-1.4",
+        "kind": "line",
+        "caption": "Figure 1.4: A hybrid compiler"
+      },
+      "reason": "MinerU only emitted stray text nodes ('source program', 'Translator'); raw PDF page 26 contains the full Figure 1.4 diagram."
+    },
+    {
+      "id": "aho-fig-11.19-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[341]",
+      "position": "before",
+      "page": 833,
+      "clip": [
+        0.16,
+        0.08,
+        0.86,
+        0.61
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.19",
+        "kind": "line",
+        "caption": "Figure 11.19: Rank and nullity of affine accesses"
+      },
+      "reason": "MinerU missed the full-page table figure; raw PDF page 833 contains Figure 11.19."
+    }
+  ]
+}

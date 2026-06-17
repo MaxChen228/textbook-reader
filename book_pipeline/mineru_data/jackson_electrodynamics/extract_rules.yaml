@@ -1,0 +1,167 @@
+slug: jackson_electrodynamics
+title: "Classical Electrodynamics"
+author: John David Jackson
+edition: 3rd
+subject: Electromagnetism
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 48
+appendices_start_page: 799
+bibliography_start_page: 809
+index_start_page: 815
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Electrostatics
+    page_start: 48
+    page_end: 80
+    chapter_title_block_idx: 539
+    problems_block_idx: 973
+    next_chapter_block_idx: 1068
+  - num: 2
+    title: "Boundary-Value Problems in Electrostatics: I"
+    page_start: 81
+    page_end: 118
+    chapter_title_block_idx: 1068
+    problems_block_idx: 1464
+    next_chapter_block_idx: 1621
+  - num: 3
+    title: "Boundary-Value Problems in Electrostatics: II"
+    page_start: 119
+    page_end: 168
+    chapter_title_block_idx: 1621
+    problems_block_idx: 2328
+    next_chapter_block_idx: 2498
+  - num: 4
+    title: "Multipoles, Electrostatics of Macroscopic Media, Dielectrics"
+    page_start: 169
+    page_end: 197
+    chapter_title_block_idx: 2498
+    problems_block_idx: 2901
+    next_chapter_block_idx: 2963
+  - num: 5
+    title: "Magnetostatics, Faraday's Law, Quasi-Static Fields"
+    page_start: 198
+    page_end: 260
+    chapter_title_block_idx: 2963
+    problems_block_idx: 3765
+    next_chapter_block_idx: 3972
+  - num: 6
+    title: "Maxwell Equations, Macroscopic Electromagnetism, Conservation Laws"
+    page_start: 261
+    page_end: 318
+    chapter_title_block_idx: 3972
+    problems_block_idx: 4709
+    next_chapter_block_idx: 4912
+  - num: 7
+    title: "Plane Electromagnetic Waves and Wave Propagation"
+    page_start: 319
+    page_end: 375
+    chapter_title_block_idx: 4912
+    problems_block_idx: 5567
+    next_chapter_block_idx: 5774
+  - num: 8
+    title: "Waveguides, Resonant Cavities, and Optical Fibers"
+    page_start: 376
+    page_end: 430
+    chapter_title_block_idx: 5774
+    problems_block_idx: 6466
+    next_chapter_block_idx: 6637
+  - num: 9
+    title: "Radiating Systems, Multipole Fields and Radiation"
+    page_start: 431
+    page_end: 479
+    chapter_title_block_idx: 6637
+    problems_block_idx: 7329
+    next_chapter_block_idx: 7438
+  - num: 10
+    title: Scattering and Diffraction
+    page_start: 480
+    page_end: 537
+    chapter_title_block_idx: 7438
+    problems_block_idx: 8178
+    next_chapter_block_idx: 8298
+  - num: 11
+    title: "Special Theory of Relativity"
+    page_start: 538
+    page_end: 602
+    chapter_title_block_idx: 8298
+    problems_block_idx: 9156
+    next_chapter_block_idx: 9369
+  - num: 12
+    title: "Dynamics of Relativistic Particles and Electromagnetic Fields"
+    page_start: 603
+    page_end: 647
+    chapter_title_block_idx: 9369
+    problems_block_idx: 9996
+    next_chapter_block_idx: 10106
+  - num: 13
+    title: "Collisions, Energy Loss, and Scattering of Charged Particles; Cherenkov and Transition Radiation"
+    page_start: 648
+    page_end: 684
+    chapter_title_block_idx: 10106
+    problems_block_idx: 10519
+    next_chapter_block_idx: 10618
+  - num: 14
+    title: "Radiation by Moving Charges"
+    page_start: 685
+    page_end: 731
+    chapter_title_block_idx: 10618
+    problems_block_idx: 11159
+    next_chapter_block_idx: 11346
+  - num: 15
+    title: "Bremsstrahlung, Method of Virtual Quanta, Radiative Beta Processes"
+    page_start: 732
+    page_end: 768
+    chapter_title_block_idx: 11346
+    problems_block_idx: 11774
+    next_chapter_block_idx: 11889
+  - num: 16
+    title: "Radiation Damping, Classical Models of Charged Particles"
+    page_start: 769
+    page_end: 798
+    chapter_title_block_idx: 11889
+    problems_block_idx: 12316
+    next_chapter_block_idx: 12410
+
+appendices:
+  - id: A
+    title: "Appendix on Units and Dimensions"
+    page_start: 799
+    chapter_title_block_idx: 12410
+
+section_re: '^((?:\d+\.\d+)|(?:\d+))\s+(.+)$'
+subsection_re: '^((?:[A-Z]\.)|(?:\([a-z]\))|(?:\d+\.))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{\s*([A-Z]?\.?\d+(?:\.\d+)?[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

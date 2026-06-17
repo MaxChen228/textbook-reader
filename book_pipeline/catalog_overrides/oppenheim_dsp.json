@@ -1,0 +1,37 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "oppenheim-dsp-prob23-figure-p23-2",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:23:body[8]",
+      "expect": {
+        "id": "fig-P23.1",
+        "caption": "Figure P23.1",
+        "src": "dafe2fafd0fa7bbf1c9e950aabe8439820e9a675ed46a9a26aaceb244fb668f7.jpg"
+      },
+      "set": {
+        "id": "fig-P23.2",
+        "caption": "Figure P23.2",
+        "catalog_repair_source": "agent-reviewed-raw-pdf"
+      }
+    },
+    {
+      "id": "oppenheim-dsp-prob38-figure-p39-3",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:38:body[9]",
+      "expect": {
+        "id": "fig-P39.2",
+        "caption": "Figure P39.2",
+        "src": "0164557633228a92acec78f149f6822ba77d0172152c40486ae8acc0f38dc51b.jpg"
+      },
+      "set": {
+        "id": "fig-P39.3",
+        "caption": "Figure P39.3",
+        "catalog_repair_source": "agent-reviewed-raw-pdf"
+      }
+    }
+  ]
+}

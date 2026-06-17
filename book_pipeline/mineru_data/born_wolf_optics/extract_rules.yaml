@@ -1,0 +1,200 @@
+slug: born_wolf_optics
+title: "Principles of Optics: Electromagnetic Theory of Propagation, Interference and Diffraction of Light"
+author: Max Born; Emil Wolf
+edition: 7th
+subject: Optics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 36
+appendices_start_page: 888
+bibliography_start_page: null
+index_start_page: 960
+
+chapters:
+  - num: 1
+    title: Basic properties of the electromagnetic field
+    page_start: 36
+    page_end: 109
+    chapter_title_block_idx: 578
+    problems_block_idx: null
+    next_chapter_block_idx: 1872
+  - num: 2
+    title: Electromagnetic potentials and polarization
+    page_start: 110
+    page_end: 150
+    chapter_title_block_idx: 1872
+    problems_block_idx: null
+    next_chapter_block_idx: 2577
+  - num: 3
+    title: Foundations of geometrical optics
+    page_start: 151
+    page_end: 176
+    chapter_title_block_idx: 2577
+    problems_block_idx: null
+    next_chapter_block_idx: 2990
+  - num: 4
+    title: Geometrical theory of optical imaging
+    page_start: 177
+    page_end: 262
+    chapter_title_block_idx: 2990
+    problems_block_idx: null
+    next_chapter_block_idx: 4348
+  - num: 5
+    title: Geometrical theory of aberrations
+    page_start: 263
+    page_end: 295
+    chapter_title_block_idx: 4348
+    problems_block_idx: null
+    next_chapter_block_idx: 4857
+  - num: 6
+    title: Image-forming instruments
+    page_start: 296
+    page_end: 320
+    chapter_title_block_idx: 4857
+    problems_block_idx: null
+    next_chapter_block_idx: 5104
+  - num: 7
+    title: Elements of the theory of interference and interferometers
+    page_start: 321
+    page_end: 446
+    chapter_title_block_idx: 5104
+    problems_block_idx: null
+    next_chapter_block_idx: 6642
+  - num: 8
+    title: Elements of the theory of diffraction
+    page_start: 447
+    page_end: 551
+    chapter_title_block_idx: 6642
+    problems_block_idx: null
+    next_chapter_block_idx: 8090
+  - num: 9
+    title: The diffraction theory of aberrations
+    page_start: 552
+    page_end: 588
+    chapter_title_block_idx: 8090
+    problems_block_idx: null
+    next_chapter_block_idx: 8564
+  - num: 10
+    title: Interference and diffraction with partially coherent light
+    page_start: 589
+    page_end: 667
+    chapter_title_block_idx: 8564
+    problems_block_idx: null
+    next_chapter_block_idx: 9703
+  - num: 11
+    title: Rigorous diffraction theory
+    page_start: 668
+    page_end: 708
+    chapter_title_block_idx: 9703
+    problems_block_idx: null
+    next_chapter_block_idx: 10348
+  - num: 12
+    title: Diffraction of light by ultrasonic waves
+    page_start: 709
+    page_end: 729
+    chapter_title_block_idx: 10348
+    problems_block_idx: null
+    next_chapter_block_idx: 10679
+  - num: 13
+    title: Scattering from inhomogeneous media
+    page_start: 730
+    page_end: 769
+    chapter_title_block_idx: 10679
+    problems_block_idx: null
+    next_chapter_block_idx: 11316
+  - num: 14
+    title: Optics of metals
+    page_start: 770
+    page_end: 824
+    chapter_title_block_idx: 11316
+    problems_block_idx: null
+    next_chapter_block_idx: 12115
+  - num: 15
+    title: Optics of crystals
+    page_start: 825
+    page_end: 887
+    chapter_title_block_idx: 12115
+    problems_block_idx: null
+    next_chapter_block_idx: 13006
+
+appendices:
+  - id: I
+    title: The calculus of variations
+    page_start: 888
+    chapter_title_block_idx: 13006
+  - id: II
+    title: Light optics, electron optics and wave mechanics
+    page_start: 908
+    chapter_title_block_idx: 13358
+  - id: III
+    title: Asymptotic approximations to integrals
+    page_start: 918
+    chapter_title_block_idx: 13489
+  - id: IV
+    title: The Dirac delta function
+    page_start: 927
+    chapter_title_block_idx: 13617
+  - id: V
+    title: A mathematical lemma used in the rigorous derivation of the Lorentz-Lorenz formula (§2.4.2)
+    page_start: 933
+    chapter_title_block_idx: 13708
+  - id: VI
+    title: Propagation of discontinuities in an electromagnetic field (§3.1.1)
+    page_start: 936
+    chapter_title_block_idx: 13746
+  - id: VII
+    title: The circle polynomials of Zernike (§9.2.1)
+    page_start: 940
+    chapter_title_block_idx: 13812
+  - id: VIII
+    title: Proof of the inequality $|\\mu_{12}(\\nu)| \\leqslant 1$ for the spectral degree of coherence (§10.5)
+    page_start: 946
+    chapter_title_block_idx: 13924
+  - id: IX
+    title: Proof of a reciprocity inequality (§10.8.3)
+    page_start: 947
+    chapter_title_block_idx: 13942
+  - id: X
+    title: Evaluation of two integrals (§12.2.2)*
+    page_start: 949
+    chapter_title_block_idx: 13970
+  - id: XI
+    title: Energy conservation in scalar wavefields (§13.3)
+    page_start: 953
+    chapter_title_block_idx: 14027
+  - id: XII
+    title: Proof of Jones' lemma (§13.3)
+    page_start: 956
+    chapter_title_block_idx: 14067
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

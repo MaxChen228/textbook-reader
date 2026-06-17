@@ -1,0 +1,100 @@
+slug: kardar_statistical_physics
+title: Statistical Physics of Particles
+author: Mehran Kardar
+edition: 1st
+subject: Thermal Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 222
+bibliography_start_page: null
+index_start_page: 329
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Thermodynamics
+    page_start: 12
+    page_end: 45
+    chapter_title_block_idx: 133
+    chapter_title_block_idx_secondary: 134
+    problems_block_idx: 493
+    next_chapter_block_idx: 575
+  - num: 2
+    title: Probability
+    page_start: 46
+    page_end: 67
+    chapter_title_block_idx: 575
+    problems_block_idx: 832
+    next_chapter_block_idx: 905
+  - num: 3
+    title: Kinetic theory of gases
+    page_start: 68
+    page_end: 108
+    chapter_title_block_idx: 905
+    problems_block_idx: 1336
+    next_chapter_block_idx: 1514
+  - num: 4
+    title: Classical statistical mechanics
+    page_start: 109
+    page_end: 136
+    chapter_title_block_idx: 1514
+    problems_block_idx: 1845
+    next_chapter_block_idx: 1929
+  - num: 5
+    title: Interacting particles
+    page_start: 137
+    page_end: 166
+    chapter_title_block_idx: 1929
+    chapter_title_block_idx_secondary: 1930
+    problems_block_idx: 2248
+    next_chapter_block_idx: 2368
+  - num: 6
+    title: Quantum statistical mechanics
+    page_start: 167
+    page_end: 191
+    chapter_title_block_idx: 2368
+    problems_block_idx: 2672
+    next_chapter_block_idx: 2755
+  - num: 7
+    title: Ideal quantum gases
+    page_start: 192
+    page_end: 221
+    chapter_title_block_idx: 2755
+    problems_block_idx: 3029
+    next_chapter_block_idx: 3170
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(\b\B)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

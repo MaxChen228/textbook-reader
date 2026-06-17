@@ -1,0 +1,151 @@
+slug: oppenheim_dsp
+title: Discrete-Time Signal Processing
+author: Alan V. Oppenheim; Ronald W. Schafer
+edition: 3rd
+subject: Signal Processing
+publisher: Pearson Education Limited
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 3
+appendices_start_page: 1013
+bibliography_start_page: null
+index_start_page: 1033
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 3
+    page_end: 11
+    chapter_title_block_idx: 16
+    problems_block_idx: null
+    next_chapter_block_idx: 57
+  - num: 2
+    title: Discrete-Time Signals and Systems
+    page_start: 12
+    page_end: 104
+    chapter_title_block_idx: 57
+    chapter_title_block_idx_secondary: 58
+    problems_block_idx: 884
+    next_chapter_block_idx: 1379
+  - num: 3
+    title: The z-Transform
+    page_start: 105
+    page_end: 161
+    chapter_title_block_idx: 1379
+    problems_block_idx: 1872
+    next_chapter_block_idx: 2161
+  - num: 4
+    title: Sampling of Continuous-Time Signals
+    page_start: 162
+    page_end: 285
+    chapter_title_block_idx: 2161
+    problems_block_idx: 2982
+    next_chapter_block_idx: 3481
+  - num: 5
+    title: Transform Analysis of Linear Time-Invariant Systems
+    page_start: 286
+    page_end: 387
+    chapter_title_block_idx: 3481
+    chapter_title_block_idx_secondary: 3483
+    problems_block_idx: 4206
+    next_chapter_block_idx: 4688
+  - num: 6
+    title: Structures for Discrete-Time Systems
+    page_start: 388
+    page_end: 511
+    chapter_title_block_idx: 4688
+    chapter_title_block_idx_secondary: 4690
+    problems_block_idx: 5473
+    next_chapter_block_idx: 5810
+  - num: 7
+    title: Filter Design Techniques
+    page_start: 512
+    page_end: 644
+    chapter_title_block_idx: 5810
+    chapter_title_block_idx_secondary: 5811
+    problems_block_idx: 6504
+    next_chapter_block_idx: 7061
+  - num: 8
+    title: The Discrete Fourier Transform
+    page_start: 645
+    page_end: 740
+    chapter_title_block_idx: 7061
+    chapter_title_block_idx_secondary: 7062
+    problems_block_idx: 7711
+    next_chapter_block_idx: 8222
+  - num: 9
+    title: Computation of the Discrete Fourier Transform
+    page_start: 741
+    page_end: 818
+    chapter_title_block_idx: 8222
+    chapter_title_block_idx_secondary: 8224
+    problems_block_idx: 8621
+    next_chapter_block_idx: 9024
+  - num: 10
+    title: Fourier Analysis of Signals Using the Discrete Fourier Transform
+    page_start: 819
+    page_end: 921
+    chapter_title_block_idx: 9024
+    chapter_title_block_idx_secondary: 9026
+    problems_block_idx: 9598
+    next_chapter_block_idx: 10005
+  - num: 11
+    title: Parametric Signal Modeling
+    page_start: 922
+    page_end: 974
+    chapter_title_block_idx: 10005
+    chapter_title_block_idx_secondary: 10006
+    problems_block_idx: 10396
+    next_chapter_block_idx: 10632
+  - num: 12
+    title: Discrete Hilbert Transforms
+    page_start: 975
+    page_end: 1012
+    chapter_title_block_idx: 10632
+    chapter_title_block_idx_secondary: 10633
+    problems_block_idx: 10951
+    next_chapter_block_idx: 11121
+
+appendices:
+  - id: A
+    title: Random Signals
+    page_start: 1013
+    chapter_title_block_idx: 11121
+  - id: B
+    title: Continuous-Time Filters
+    page_start: 1027
+    chapter_title_block_idx: 11334
+
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

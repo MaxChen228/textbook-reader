@@ -320,6 +320,10 @@ def scan_errors(since_min: int = 180) -> list:
                 eff_ts[i] = fwd
         for line, eff in zip(lines, eff_ts):
             if ERROR_RE.search(line):
+                # LLM 工人工具調用/發言回顯（`[slug] 🔧 …` / `💬 …`）是活動紀錄非錯誤；
+                # 其 Bash 命令字串常含 error/grep error 等誤觸 ERROR_RE。一律略過。
+                if '🔧' in line or '💬' in line:
+                    continue
                 if BENIGN_RE.search(line) and not STRONG_ERR_RE.search(line):
                     continue  # errors=0 成功摘要，非真錯誤
                 if eff and eff < cutoff:
