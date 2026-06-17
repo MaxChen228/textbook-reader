@@ -19,14 +19,25 @@ OUT = ROOT / 'img'
 QUALITY = '80'
 
 
-def _convert(job: tuple[str, str]) -> bool:
+def _convert(job: tuple[str, str]) -> tuple[int, str]:
+    """回 (狀態, 訊息)：1=轉了 / 0=跳過(已最新) / -1=失敗。單張失敗【絕不拋】——否則
+    ProcessPool.map 迭代會炸掉整個 build、留下 data/ 已烤但 img/ 半成品的撕裂狀態。"""
     src, dst = job
     sp, dp = Path(src), Path(dst)
-    if dp.is_file() and dp.stat().st_mtime >= sp.stat().st_mtime:
-        return False  # 已是最新，跳過
-    dp.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(['cwebp', '-q', QUALITY, '-quiet', src, '-o', dst], check=True)
-    return True
+    try:
+        if dp.is_file() and dp.stat().st_mtime >= sp.stat().st_mtime:
+            return 0, ''  # 已是最新，跳過
+        dp.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(['cwebp', '-q', QUALITY, '-quiet', src, '-o', dst],
+                       check=True, capture_output=True)
+        return 1, ''
+    except FileNotFoundError:
+        return -1, f'{src}: cwebp 未安裝（brew install webp）'
+    except subprocess.CalledProcessError as e:
+        err = (e.stderr or b'').decode('utf-8', 'replace').strip()[:160]
+        return -1, f'{src}: cwebp rc={e.returncode} {err}'
+    except OSError as e:
+        return -1, f'{src}: {e}'
 
 
 def _jobs_for(slug: str) -> list[tuple[str, str]]:
@@ -51,13 +62,29 @@ def main(argv: list[str]) -> None:
         all_jobs.extend(_jobs_for(slug))
     print(f'{len(slugs)} book(s), {len(all_jobs)} image(s) to check')
 
-    converted = 0
+    converted = skipped = failed = 0
+    failures: list[str] = []
     with ProcessPoolExecutor() as pool:
-        for i, did in enumerate(pool.map(_convert, all_jobs, chunksize=64)):
-            converted += int(did)
+        for i, (st, msg) in enumerate(pool.map(_convert, all_jobs, chunksize=64)):
+            if st == 1:
+                converted += 1
+            elif st == 0:
+                skipped += 1
+            else:
+                failed += 1
+                if len(failures) < 20:
+                    failures.append(msg)
             if (i + 1) % 5000 == 0:
                 print(f'  {i + 1}/{len(all_jobs)} processed, {converted} converted')
-    print(f'done: {converted} converted, {len(all_jobs) - converted} skipped → {OUT}')
+    print(f'done: {converted} converted, {skipped} skipped, {failed} failed → {OUT}')
+    if failures:
+        print(f'⚠ {failed} 張轉檔失敗（前 {len(failures)} 筆）：')
+        for m in failures:
+            print('   ', m)
+        # 全失敗（多半 cwebp 未安裝）= build 實質壞掉 → 非零退出讓 build_all/daemon 察覺；
+        # 零星壞圖則容忍（其餘照轉、站照上，只缺幾張圖）。
+        if failed == len(all_jobs) and all_jobs:
+            sys.exit('✗ 全部轉檔失敗 — 多半 cwebp 未安裝（brew install webp）')
 
 
 if __name__ == '__main__':

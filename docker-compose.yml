@@ -9,4 +9,7 @@ services:
       - "127.0.0.1:8001:80"        # 只綁 loopback，tunnel 走本機
     volumes:
       - .:/usr/share/nginx/html:ro                          # repo 根（唯讀）
-      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      # 掛「目錄」而非單檔：編輯器以 atomic-rename 改寫 nginx.conf 會換 inode，
+      # 單檔 bind mount 在 Docker-Desktop(macOS) 下會就此斷掉（容器內檔案憑空消失、
+      # 下次 restart nginx 起不來）。掛目錄則 inode 穩定，改檔後僅需 nginx -s reload。
+      - ./deploy:/etc/nginx/conf.d:ro                        # deploy/*.conf → 經 *.conf glob 載入
