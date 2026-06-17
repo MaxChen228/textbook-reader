@@ -45,6 +45,13 @@ TEX_CASES = [
      r"{ \tilde { S } } ( p ) = - { p / p ^ { 2 } }"),
     (r"\boldsymbol { q } \mathbin { \left/ \vphantom { \left( \boldsymbol { q } \mathbin { \left/ \vphantom { \left( \boldsymbol { x } + \boldsymbol { \hat { x } } \right) } \right.}  \kern - delimiterspace \right.} \left( \boldsymbol { x } + \boldsymbol { \hat { x } } \right)  \kern - delimiterspace \right.} \left( \boldsymbol { x } - \boldsymbol { \hat { x } } + \boldsymbol { \hat { x } } \right)",
      r"\boldsymbol { q } / \left( \boldsymbol { x } - \boldsymbol { \hat { x } } + \boldsymbol { \hat { x } } \right)"),
+    # R7 underlined angle residue：\underline{{\left/ ... \left. \right.}} → \underline{\angle ...}
+    (r"\mathbf {V} _ {a n} = V _ {p} \underline {{\left/ 0 ^ {\circ} \left. \right.}}",
+     r"\mathbf {V} _ {a n} = V _ {p} \underline{\angle 0 ^ {\circ}}"),
+    (r"\frac {z _ {1}}{z _ {2}} = \frac {r _ {1}}{r _ {2}} \underline {{{\left/ \phi_ {1} - \phi_ {2} \left. \right.}}}",
+     r"\frac {z _ {1}}{z _ {2}} = \frac {r _ {1}}{r _ {2}} \underline{\angle \phi_ {1} - \phi_ {2}}"),
+    (r"G (j 0) = 1 \underline {{\left/ 0 ^ {\circ} \left. \right.}} \quad \text { and } \quad G \left(j \frac {1}{T}\right) = \frac {1}{\sqrt {2}} \underline {{\left/ - 4 5 ^ {\circ} \left. \right.}}",
+     r"G (j 0) = 1 \underline{\angle 0 ^ {\circ}} \quad \text { and } \quad G \left(j \frac {1}{T}\right) = \frac {1}{\sqrt {2}} \underline{\angle - 4 5 ^ {\circ}}"),
 ]
 
 # 必須完全不動（正確 LaTeX / 巢狀 / 含空白的相鄰）
@@ -60,6 +67,7 @@ NOOP_CASES = [
     r"a \ifmmode b \fi",                 # R4：非「條件乘號」形的 \ifmmode 不碰
     r"\mathopen{(} x \mathclose{)}",     # R5：獨立 \mathopen/\mathclose（無 \bgroup）合法，勿動
     r"\mathord{\cdot}",                  # R6：非 slash 殘體的 \mathord 勿動
+    r"\underline{\angle \theta}",        # R7：已正確的 underlined angle 勿動
 ]
 
 
@@ -123,7 +131,7 @@ def test_normalize_chunk_math_walks_everything():
 
 
 if __name__ == "__main__":
-    test_tex_rules_fix_samples();            print("✓ R1-R6 修復真實樣本")
+    test_tex_rules_fix_samples();            print("✓ R1-R7 修復真實樣本")
     test_tex_idempotent();                   print("✓ tex 冪等")
     test_tex_noop_on_valid();                print("✓ 正確式/巢狀/跳脫 no-op")
     test_md_inline_only_touches_math();      print("✓ md inline 只動數學區")

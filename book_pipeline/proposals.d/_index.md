@@ -4,13 +4,25 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: math  （5 條；proposed=1）
+## domain: math  （7 條；proposed=3）
 
 ### P-2026-06-17-collapse-mathtype-slash-phantom- — Collapse MathType slash phantom/kern residue to /
 - proposed | type=normalize-rule | source=math_sweep | 偵測=\\kern,\\vphantom,\\mathord,\\left/
 - 證據：cluster other occ=4 in dummit_foote_algebra plus token_signals: \\kern occ=21 / 10 books, \\vphantom occ=20 / 9 books; representative samples from dummit_foote_algebra, boas_mp, griffiths_qm3, rudin_analysis, srednicki_qft
 - 提議：Replace exact MathType slash residue \\mathord{\\left/ {\\vphantom{...}} \\right. \\kern - delimiterspace} (and equivalent \\mathbin form) with literal /
 - 風險：Could collapse non-slash delimiter constructs if pattern too broad; keep match exact on left/phantom/right./kern sequence and rely on full-corpus gate for collateral
+
+### P-2026-06-17-collapse-underlined-angle-ocr-re — Collapse underlined angle OCR residue
+- proposed | type=normalize-rule | source=math_sweep | 偵測=\\underline + \\left/
+- 證據：clustered underlined-angle residue in alexander_circuits and ogata_control; 22 residual occurrences across 2 books; representative tex=\\underline{{\\left/ 0 ^ {\\circ} \\left. \\right.}}
+- 提議：R7 _collapse_underlined_angle: \\underline{{\\left/ ... \\left. \\right.}} -> \\underline{\\angle ...}
+- 風險：could misread legitimate underlined slash constructs; matcher constrained to \\underline + \\left/ + \\left. + \\right. and excludes vphantom/delimiterspace forms
+
+### P-2026-06-17-nu-n-ocr-pseudo-macro-collapse — \Nu → N OCR pseudo-macro collapse
+- proposed | type=normalize-rule | source=math_sweep | 偵測=\Nu
+- 證據：cluster undefined_macro occ=53 / 7 books; sampled all usages are letter N: N_2 in atkins/lindner/thijssen, integer N in rudin/goldstein, Gauss map N in do_carmo, norm N_{K/F} in dummit
+- 提議：Layer 1 normalize: replace exact control sequence \\Nu with literal N
+- 風險：Pseudo-macro collapse is safe only if corpus-wide usage is consistently Latin N; full-corpus gate must verify no collateral
 
 ### P-2026-06-17-bgroup — \bgroup / \aftergroup / \egroup 群組噪訊收斂
 - accepted | type=normalize-rule | source=math_sweep | 偵測=\bgroup \egroup \aftergroup

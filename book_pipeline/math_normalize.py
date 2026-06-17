@@ -203,6 +203,67 @@ def _collapse_mathtype_slash(tex: str) -> str:
     return "".join(out)
 
 
+# ── R7：相量角度殘體 \underline{{\left/ ... \left. \right.}} → \underline{\angle ...} ──────
+# 工程書常把極座標/相量角度印成 underlined angle；OCR 會讀成
+# \underline{{\left/ θ \left. \right.}}（有時多包一層空 brace）。這段在 MathJax 因
+# 畸形 \left...\right. + 多餘 brace 失敗；折成可渲染且語意等價的 \underline{\angle θ}。
+# 只命中含 \underline + \left/ + \left. + \right. 且不含 \vphantom/delimiterspace
+# 的殘體；正確 slash / underline 不碰。冪等。
+def _strip_outer_braces(text: str) -> str:
+    cur = text.strip()
+    while cur.startswith("{") and cur.endswith("}"):
+        group = _read_braced_group(cur, 0)
+        if not group:
+            break
+        inner, end = group
+        if end != len(cur):
+            break
+        cur = inner.strip()
+    return cur
+
+
+def _extract_underlined_angle(body: str) -> str | None:
+    inner = _strip_outer_braces(body)
+    if not inner.startswith(r"\left/"):
+        return None
+    if r"\left." not in inner or r"\right." not in inner:
+        return None
+    if r"\vphantom" in inner or "delimiterspace" in inner:
+        return None
+    angle = inner[len(r"\left/"):].replace(r"\left.", "").replace(r"\right.", "").strip()
+    return angle or None
+
+
+def _collapse_underlined_angle(tex: str) -> str:
+    if r"\underline" not in tex or r"\left/" not in tex:
+        return tex
+    out: list[str] = []
+    i = 0
+    n = len(tex)
+    while i < n:
+        if not tex.startswith(r"\underline", i):
+            out.append(tex[i])
+            i += 1
+            continue
+        j = i + len(r"\underline")
+        while j < n and tex[j].isspace():
+            j += 1
+        group = _read_braced_group(tex, j)
+        if not group:
+            out.append(tex[i])
+            i += 1
+            continue
+        body, end = group
+        angle = _extract_underlined_angle(body)
+        if angle is None:
+            out.append(tex[i:end])
+            i = end
+            continue
+        out.append(r"\underline{\angle " + angle + "}")
+        i = end
+    return "".join(out)
+
+
 # ── 規則目錄（有序套用）──────────────────────────────────────────────────────
 _TEX_RULES = (
     _fix_tag_math,
@@ -210,6 +271,7 @@ _TEX_RULES = (
     _fix_cond_times,
     _remove_group_noise,
     _collapse_mathtype_slash,
+    _collapse_underlined_angle,
 )
 
 
