@@ -3,8 +3,14 @@ __pycache__/
 *.py[cod]
 .venv/
 
+# Node（math_validate 的 render_check.js 依賴 mathjax-full；package.json/lock 追蹤、modules 不入 git）
+book_pipeline/node_modules/
+
 # macOS
 .DS_Store
+
+# 暫存 scratch（基線/驗證原型、實渲測試頁等）
+tmp/
 
 # 環境與憑證
 .env

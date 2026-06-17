@@ -28,8 +28,10 @@ import yaml
 
 try:
     from book_pipeline import build_catalogs
+    from book_pipeline.math_normalize import normalize_chunk_math, normalize_tex
 except ModuleNotFoundError:  # 允許 uv run python book_pipeline/parser.py <slug>
     import build_catalogs
+    from math_normalize import normalize_chunk_math, normalize_tex
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
@@ -164,7 +166,8 @@ def block_to_struct(b: dict, label_re: re.Pattern,
         return {'t': 'p', 'md': text}
 
     if t == 'equation':
-        tex = strip_eq_wrapper(b.get('text') or '')
+        # normalize 須在抽 label 前：R1 把 \tag{$..$}→\tag{..} 才被 label_re 命中
+        tex = normalize_tex(strip_eq_wrapper(b.get('text') or ''))
         tex, label = extract_eq_label(tex, label_re)
         if not tex:
             return None
@@ -691,6 +694,7 @@ def parse_book(slug: str) -> dict:
         data = parse_chapter(ch, all_blocks, rules, regexes)
         fname = f"ch{ch['num']:02d}.json"
         assign_catalog_ids(data, fname.removesuffix('.json'))
+        normalize_chunk_math(data)
         (out_dir / fname).write_text(json.dumps(data, ensure_ascii=False, indent=2))
         chapter_files.append({
             'num': ch['num'],
@@ -717,6 +721,7 @@ def parse_book(slug: str) -> dict:
         data = parse_appendix(app, next_idx, all_blocks, rules, regexes)
         fname = f"app{app['id']}.json"
         assign_catalog_ids(data, fname.removesuffix('.json'))
+        normalize_chunk_math(data)
         (out_dir / fname).write_text(json.dumps(data, ensure_ascii=False, indent=2))
         appendix_files.append({
             'id': app['id'],
