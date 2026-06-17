@@ -90,7 +90,7 @@ LLM_PROMPTS = {
         "你是 book_pipeline 自動爬書**規劃** agent（只選書、**不下載**）。步驟："
         "(1) 跑 `uv run --with requests python -m book_pipeline.crawl_zlib limits` 看今日總剩餘額度 R。"
         "(2) 讀 book_pipeline/crawl_wishlist.json 主題 + `crawl_zlib inventory` 現有書況。"
-        "(3) 挑最多 min(R, 12) 本**互異**、最該補的經典缺口；逐本 `crawl_zlib search` 選最佳版次"
+        "(3) 挑最多 min(R, 5) 本**互異**、最該補的經典缺口；逐本 `crawl_zlib search` 選最佳版次"
         "（最新、OCR 友善），取得每本 id 與 hash。**互異鐵則**：同一本（含不同版次）只列一次、"
         "且不得與 inventory 已有者重複。(4) 把計畫寫成 JSON 到 book_pipeline/reports/crawl_plan.json："
         '{{"books":[{{"slug":"..","id":"..","hash":"..","title":".."}}],"reason":".."}}，'
@@ -816,6 +816,7 @@ def tick_reactive(no_deploy: bool) -> int:
 
     inflight: set[str] = set()
     ifl_lock = threading.Lock()
+    wake = threading.Event()  # 工人完成即 set → 控制迴圈立刻重觀測，免等滿一個 LOOP_POLL
     ex = ThreadPoolExecutor(max_workers=LOOP_CONCURRENCY)
 
     def _start(key: str, fn) -> bool:
@@ -833,12 +834,13 @@ def tick_reactive(no_deploy: bool) -> int:
             finally:
                 with ifl_lock:
                     inflight.discard(key)
+                wake.set()  # 某書某階段做完 → 其下游/同站別書可能即刻可派，喚醒迴圈
         ex.submit(_run)
         return True
 
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
-    crawled_once = False
+    crawl_state = {'idle': False}  # 某輪 crawl 回空（額度耗盡／無缺口）→ True，本 controller 停派 crawl
     try:
         while time.monotonic() < deadline:
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
@@ -868,13 +870,23 @@ def tick_reactive(no_deploy: bool) -> int:
                     continue
                 if slug in leased_slugs:
                     continue  # 前一 controller crash 的 orphan 子進程還在做這本 → 等 reap/kill
+                # 只剩可選(translate)／無工作(—) → 不派 worker：advance_book 本就 early-return，
+                # 省一條空轉 thread + 一次 assess。有任一必做 token（audit/parse/catalog_audit/
+                # sol_extract/deploy）才推進 → live 工人數＝真有事做的書數，不再一書一空轉 worker。
+                if not [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]:
+                    continue
                 if _start(f'advance:{slug}', lambda s=slug: advance_book(s, False, no_deploy)):
                     dispatched += 1
 
-            # C. crawl 補新書：每個 controller invocation 一次（quota 0 時內部 cheap-skip）
-            if not crawled_once:
-                crawled_once = True
-                if _start('__crawl__', lambda: do_crawl_parallel(False)):
+            # C. crawl 補新書：額度未耗盡前**持續**派（一次一個，__crawl__ key 自動序列化），每輪
+            # planner 規劃 ≤5 本並行下載。某輪回空（額度 0 / 無更多缺口 / 查額度失敗）→ idle，本
+            # controller 停派；下個 launchd 重拉時 crawl_state 重置、重探額度恢復。quota=0 時
+            # do_crawl_parallel 在派 LLM 前即 cheap-skip（slots 空 → 不花 planner 額度）。
+            if not crawl_state['idle']:
+                def _crawl_round():
+                    if not do_crawl_parallel(False):
+                        crawl_state['idle'] = True
+                if _start('__crawl__', _crawl_round):
                     dispatched += 1
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
@@ -889,7 +901,10 @@ def tick_reactive(no_deploy: bool) -> int:
                     break
             else:
                 idle = 0
-            time.sleep(LOOP_POLL)
+            # 事件驅動：工人一完成即被喚醒重觀測（transition 延遲從「滿一個 poll」塌到一次
+            # observe，~16s）；無事件則睡滿 LOOP_POLL 當 OCR 輪詢/外部變更的上限節奏。
+            wake.wait(LOOP_POLL)
+            wake.clear()
     finally:
         log('reactive loop：等待在跑 worker 收尾…')
         ex.shutdown(wait=True)

@@ -66,14 +66,54 @@ def _sol_pending(slug: str) -> bool:
         return False
 
 
+# catalog critical 計數快取：audit_catalog 是重活（全文 regex + 逐圖存在性檢查，~0.23s/書），
+# 但輸入（catalogs.json / content_list.json / catalog_overrides）多數 observe 間不變。以這三者
+# 的 (mtime_ns, size) 為指紋，磁碟持久化 slug→(指紋,critical)：長駐 controller 重觀測與 60s
+# devsnapshot 皆 warm-hit → build_queue 從 ~14s 塌到 <1s（僅剛變動的書重算）。指紋變即自動失效。
+_CRIT_CACHE_PATH = os.path.join(ROOT, 'book_pipeline', '.catalog_crit_cache.json')
+_crit_cache: dict | None = None
+
+
+def _catalog_fingerprint(slug: str) -> list:
+    sig = []
+    for p in (os.path.join(DATA, slug, 'parsed', 'catalogs.json'),
+              os.path.join(DATA, slug, 'unified', 'content_list.json'),
+              os.path.join(ROOT, 'book_pipeline', 'catalog_overrides', f'{slug}.json')):
+        try:
+            st = os.stat(p)
+            sig.append([st.st_mtime_ns, st.st_size])
+        except OSError:
+            sig.append([0, 0])
+    return sig
+
+
 def _catalog_critical(slug: str) -> int:
-    """Return catalog semantic critical count without writing audit reports."""
+    """Return catalog semantic critical count without writing audit reports（指紋快取）。"""
     if not _exists(slug, 'parsed', 'catalogs.json'):
         return 0
+    global _crit_cache
+    if _crit_cache is None:
+        try:
+            _crit_cache = json.load(open(_CRIT_CACHE_PATH)) or {}
+        except Exception:
+            _crit_cache = {}
+    fp = _catalog_fingerprint(slug)
+    hit = _crit_cache.get(slug)
+    if hit and hit.get('fp') == fp:
+        return hit['crit']
     try:
-        return int(audit_catalog(slug, write_report=False).get('critical') or 0)
+        crit = int(audit_catalog(slug, write_report=False).get('critical') or 0)
     except Exception:
-        return 1
+        crit = 1
+    _crit_cache[slug] = {'fp': fp, 'crit': crit}
+    try:  # 原子寫；多進程競寫最壞=覆蓋彼此更新，下個 cycle 自癒（derived 值，低風險）
+        tmp = _CRIT_CACHE_PATH + f'.tmp{os.getpid()}'
+        with open(tmp, 'w') as f:
+            json.dump(_crit_cache, f)
+        os.replace(tmp, _CRIT_CACHE_PATH)
+    except Exception:
+        pass
+    return crit
 
 
 def _load_pending() -> set:
