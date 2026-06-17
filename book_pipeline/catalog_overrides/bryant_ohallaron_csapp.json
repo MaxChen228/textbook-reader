@@ -1,0 +1,27 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "csapp-fig-8.45-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.23:body[0]",
+      "position": "after",
+      "page": 1791,
+      "clip": [
+        0.18,
+        0.11,
+        0.89,
+        0.87
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.45",
+        "kind": "text",
+        "caption": "Figure 8.45: Counter program referenced in Problem 8.23."
+      },
+      "reason": "Raw PDF pages 1791-1792 contain Figure 8.45, but parsed ch08 dropped the figure block entirely; insert a catalogable figure anchor adjacent to Problem 8.23."
+    }
+  ]
+}

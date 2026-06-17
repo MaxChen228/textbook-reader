@@ -1,0 +1,171 @@
+slug: griffiths_particles
+title: Introduction to Elementary Particles
+author: David Griffiths
+edition: 2nd
+subject: Particle Physics
+publisher: WILEY-VCH Verlag GmbH & Co. KGaA
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 440
+bibliography_start_page: null
+index_start_page: 458
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 18
+    page_end: 29
+    chapter_title_block_idx: 245
+    chapter_title_block_idx_secondary: 246
+    problems_block_idx: null
+    next_chapter_block_idx: 323
+  - num: 1
+    title: Historical Introduction to the Elementary Particles
+    page_start: 30
+    page_end: 75
+    chapter_title_block_idx: 323
+    chapter_title_block_idx_secondary: 324
+    problems_block_idx: 693
+    next_chapter_block_idx: 726
+  - num: 2
+    title: Elementary Particle Dynamics
+    page_start: 76
+    page_end: 105
+    chapter_title_block_idx: 726
+    chapter_title_block_idx_secondary: 727
+    problems_block_idx: 999
+    next_chapter_block_idx: 1049
+  - num: 3
+    title: Relativistic Kinematics
+    page_start: 106
+    page_end: 131
+    chapter_title_block_idx: 1049
+    chapter_title_block_idx_secondary: 1050
+    problems_block_idx: 1368
+    next_chapter_block_idx: 1438
+  - num: 4
+    title: Symmetries
+    page_start: 132
+    page_end: 175
+    chapter_title_block_idx: 1438
+    chapter_title_block_idx_secondary: 1439
+    problems_block_idx: 1880
+    next_chapter_block_idx: 1963
+  - num: 5
+    title: Bound States
+    page_start: 176
+    page_end: 213
+    chapter_title_block_idx: 1963
+    chapter_title_block_idx_secondary: 1964
+    problems_block_idx: 2367
+    next_chapter_block_idx: 2395
+  - num: 6
+    title: The Feynman Calculus
+    page_start: 214
+    page_end: 241
+    chapter_title_block_idx: 2395
+    chapter_title_block_idx_secondary: 2396
+    problems_block_idx: 2756
+    next_chapter_block_idx: 2782
+  - num: 7
+    title: Quantum Electrodynamics
+    page_start: 242
+    page_end: 291
+    chapter_title_block_idx: 2782
+    chapter_title_block_idx_secondary: 2783
+    problems_block_idx: 3499
+    next_chapter_block_idx: 3621
+  - num: 8
+    title: Electrodynamics and Chromodynamics of Quarks
+    page_start: 292
+    page_end: 323
+    chapter_title_block_idx: 3621
+    chapter_title_block_idx_secondary: 3622
+    problems_block_idx: 4004
+    next_chapter_block_idx: 4067
+  - num: 9
+    title: Weak Interactions
+    page_start: 324
+    page_end: 369
+    chapter_title_block_idx: 4067
+    chapter_title_block_idx_secondary: 4068
+    problems_block_idx: 4675
+    next_chapter_block_idx: 4753
+  - num: 10
+    title: Gauge Theories
+    page_start: 370
+    page_end: 403
+    chapter_title_block_idx: 4753
+    chapter_title_block_idx_secondary: 4754
+    problems_block_idx: 5218
+    next_chapter_block_idx: 5272
+  - num: 11
+    title: Neutrino Oscillations
+    page_start: 404
+    page_end: 417
+    chapter_title_block_idx: 5272
+    chapter_title_block_idx_secondary: 5273
+    problems_block_idx: 5429
+    next_chapter_block_idx: 5443
+  - num: 12
+    title: "Afterword: What's Next?"
+    page_start: 418
+    page_end: 439
+    chapter_title_block_idx: 5443
+    chapter_title_block_idx_secondary: 5444
+    problems_block_idx: 5624
+    next_chapter_block_idx: 5655
+
+appendices:
+  - id: A
+    title: The Dirac Delta Function
+    page_start: 440
+    chapter_title_block_idx: 5655
+  - id: B
+    title: Decay Rates and Cross Sections
+    page_start: 446
+    chapter_title_block_idx: 5733
+  - id: C
+    title: Pauli and Dirac Matrices
+    page_start: 450
+    chapter_title_block_idx: 5783
+  - id: D
+    title: Feynman Rules (Tree Level)
+    page_start: 454
+    chapter_title_block_idx: 5840
+
+section_re: '^()((?!(?:Problems|References|Index|Appendix [A-Z])$)[A-Z][^\n]+)$'
+subsection_re: '^(__never_subsection__)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

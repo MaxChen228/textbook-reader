@@ -1,0 +1,81 @@
+{
+  "slug": "folland_real_analysis",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2:body[36]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-prob0-36"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure immediately preceding the numbered Fig. 2.1 block; exclude from numbered catalog.",
+      "id": "folland_real_analysis-001"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[409]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-409"
+      },
+      "set": {
+        "id": "fig-B.1",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Caption contains a formal appendix-style label 'Fig. B.1'; assign semantic id manually.",
+      "id": "folland_real_analysis-002"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2:body[37]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-prob0-37"
+      },
+      "set": {
+        "id": "fig-2.1",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Caption contains the formal label 'Fig. 2.1', but OCR inserts spaces and prevents automatic semantic-id derivation.",
+      "id": "folland_real_analysis-003"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[4]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch10-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Terminology comparison table has no formal table number/caption in parsed output; exclude from numbered catalog.",
+      "id": "folland_real_analysis-004"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "problem:15:body[22]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-prob13-22"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure immediately preceding the numbered Fig. 11.1 block; exclude from numbered catalog.",
+      "id": "folland_real_analysis-005"
+    }
+  ]
+}

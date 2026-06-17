@@ -1,0 +1,14 @@
+{
+  "slug": "cottingham_standard_model",
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "18.5",
+      "classification": "source_mismatch",
+      "reason": "Raw PDF 的 Problem 18.4/18.5 原文都寫『Fig. 18.5』，但 Chapter 18 在原書實際只有 Figure 18.2（The unitarity triangle）與 Figure 18.3（apex/shaded region），全書不存在 Figure 18.5。",
+      "where": "ch18.json problem:18.4:body[0]; ch18.json problem:18.5:body[2]",
+      "evidence": "PyMuPDF 逐頁查 raw_pdfs/cottingham_standard_model.pdf：page 204 有 'Figure 18.2 The unitarity triangle.'，page 205 有 'Figure 18.3 The apex of the unitarity triangle...'，page 206 的 Problems 18.4/18.5 兩處都寫 'Fig. 18.5'，且全書搜尋不到任何 'Figure 18.5' 或 'Figure 18.4'。"
+    }
+  ],
+  "overrides": []
+}

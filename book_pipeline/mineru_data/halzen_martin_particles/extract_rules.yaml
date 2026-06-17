@@ -1,0 +1,178 @@
+slug: halzen_martin_particles
+title: 'Quarks and Leptons: An Introductory Course in Modern Particle Physics'
+author: Francis Halzen; Alan D. Martin
+edition: null
+subject: Particle Physics
+publisher: John Wiley & Sons, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 376
+bibliography_start_page: 402
+index_start_page: 406
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: A Preview of Particle Physics
+    page_start: 22
+    page_end: 53
+    chapter_title_block_idx: 135
+    chapter_title_block_idx_secondary: 136
+    problems_block_idx: null
+    next_chapter_block_idx: 391
+  - num: 2
+    title: Symmetries and Quarks
+    page_start: 54
+    page_end: 90
+    chapter_title_block_idx: 391
+    chapter_title_block_idx_secondary: 392
+    problems_block_idx: null
+    next_chapter_block_idx: 922
+  - num: 3
+    title: Antiparticles
+    page_start: 91
+    page_end: 104
+    chapter_title_block_idx: 922
+    chapter_title_block_idx_secondary: 923
+    problems_block_idx: null
+    next_chapter_block_idx: 1137
+  - num: 4
+    title: Electrodynamics of Spinless Particles
+    page_start: 105
+    page_end: 120
+    chapter_title_block_idx: 1137
+    chapter_title_block_idx_secondary: 1138
+    problems_block_idx: null
+    next_chapter_block_idx: 1366
+  - num: 5
+    title: The Dirac Equation
+    page_start: 121
+    page_end: 137
+    chapter_title_block_idx: 1366
+    chapter_title_block_idx_secondary: 1367
+    problems_block_idx: null
+    next_chapter_block_idx: 1684
+  - num: 6
+    title: Electrodynamics of Spin- $\frac{1}{2}$ Particles
+    page_start: 138
+    page_end: 172
+    chapter_title_block_idx: 1684
+    chapter_title_block_idx_secondary: 1685
+    problems_block_idx: null
+    next_chapter_block_idx: 2225
+  - num: 7
+    title: Loops, Renormalization, Running Coupling Constants, and All That
+    page_start: 173
+    page_end: 192
+    chapter_title_block_idx: 2225
+    chapter_title_block_idx_secondary: 2226
+    problems_block_idx: null
+    next_chapter_block_idx: 2471
+  - num: 8
+    title: The Structure of Hadrons
+    page_start: 193
+    page_end: 208
+    chapter_title_block_idx: 2471
+    chapter_title_block_idx_secondary: 2472
+    problems_block_idx: null
+    next_chapter_block_idx: 2689
+  - num: 9
+    title: Partons
+    page_start: 209
+    page_end: 225
+    chapter_title_block_idx: 2689
+    chapter_title_block_idx_secondary: 2690
+    problems_block_idx: null
+    next_chapter_block_idx: 2885
+  - num: 10
+    title: Quantum Chromodynamics
+    page_start: 226
+    page_end: 246
+    chapter_title_block_idx: 2885
+    chapter_title_block_idx_secondary: 2886
+    problems_block_idx: null
+    next_chapter_block_idx: 3143
+  - num: 11
+    title: $e^{+}e^{-}$ Annihilation and QCD
+    page_start: 247
+    page_end: 271
+    chapter_title_block_idx: 3143
+    chapter_title_block_idx_secondary: 3144
+    problems_block_idx: null
+    next_chapter_block_idx: 3435
+  - num: 12
+    title: Weak Interactions
+    page_start: 272
+    page_end: 312
+    chapter_title_block_idx: 3435
+    chapter_title_block_idx_secondary: 3436
+    problems_block_idx: null
+    next_chapter_block_idx: 4016
+  - num: 13
+    title: Electroweak Interactions
+    page_start: 313
+    page_end: 331
+    chapter_title_block_idx: 4016
+    chapter_title_block_idx_secondary: 4017
+    problems_block_idx: null
+    next_chapter_block_idx: 4298
+  - num: 14
+    title: Gauge Symmetries
+    page_start: 332
+    page_end: 351
+    chapter_title_block_idx: 4298
+    chapter_title_block_idx_secondary: 4299
+    problems_block_idx: null
+    next_chapter_block_idx: 4592
+  - num: 15
+    title: The Weinberg-Salam Model and Beyond
+    page_start: 352
+    page_end: 375
+    chapter_title_block_idx: 4592
+    chapter_title_block_idx_secondary: 4593
+    problems_block_idx: null
+    next_chapter_block_idx: 4921
+
+appendices:
+  - id: A
+    title: Answers and Comments on the Exercises
+    page_start: 376
+    chapter_title_block_idx: 4921
+  - id: B
+    title: Supplementary Reading
+    page_start: 398
+    chapter_title_block_idx: 5356
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^EXERCISE\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

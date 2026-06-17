@@ -1,0 +1,3024 @@
+{
+  "slug": "griffiths_particles",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "action": "set_fields",
+      "chunk": "ch00",
+      "selector": "body[4]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch00-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-001"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch00",
+      "selector": "body[16]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch00-16"
+      },
+      "set": {
+        "id": "fig-I.1",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Roman/appendix-prefixed formal figure label; build_catalogs regex does not derive semantic id automatically.",
+      "id": "griffiths_particles-002"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[40]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-40"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-003"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[142]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-142"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-004"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[145]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-145"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-005"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[148]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-148"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-006"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[155]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-155"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-007"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[156]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-156"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-008"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[157]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-157"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-009"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[158]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-158"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-010"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[159]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-159"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-011"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[160]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-160"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-012"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[161]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-161"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-013"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[163]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-163"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-014"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[165]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-165"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-015"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[169]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-169"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-016"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[172]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-172"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-017"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[194]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-194"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-018"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[195]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-195"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-019"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[209]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-209"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-020"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[212]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-212"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-021"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[220]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-220"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-022"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[4]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch02-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-023"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[10]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-10"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-024"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[13]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-13"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-025"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[16]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-16"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-026"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[18]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-18"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-027"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[21]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-21"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-028"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[22]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-22"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-029"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[23]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-23"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-030"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[25]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-25"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-031"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[26]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-26"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-032"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[28]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-28"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-033"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[31]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-31"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-034"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[33]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-33"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-035"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[35]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-35"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-036"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[40]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-40"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-037"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[43]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-43"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-038"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[50]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-50"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-039"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[55]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-55"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-040"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[57]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-57"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-041"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[61]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-61"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-042"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[64]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-64"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-043"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[73]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-73"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-044"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[76]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-76"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-045"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[82]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-82"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-046"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[92]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-92"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-047"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[96]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-96"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-048"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[98]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-98"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-049"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[101]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-101"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-050"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[109]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-109"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-051"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[111]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-111"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-052"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[115]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-115"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-053"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[120]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-120"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-054"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[123]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-123"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-055"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[126]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-126"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-056"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[128]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-128"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-057"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[131]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-131"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-058"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[134]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-134"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-059"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[137]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-137"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-060"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[138]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-138"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-061"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[154]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-154"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-062"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[156]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-156"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-063"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[163]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-163"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-064"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[251]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-251"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-065"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.6:body[3]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-prob5-3"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-066"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.6:body[4]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-prob5-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-067"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[205]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-205"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-068"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[208]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-208"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-069"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[213]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-213"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-070"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[221]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-221"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-071"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.2:body[1]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch04-prob1-1"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-072"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.40:body[1]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-prob39-1"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-073"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[123]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-123"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-074"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[135]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-135"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-075"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[154]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-154"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-076"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[203]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-203"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-077"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[204]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-204"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-078"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[205]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-205"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-079"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[209]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-209"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-080"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[34]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-34"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-081"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[175]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-175"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-082"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[178]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-178"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-083"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[180]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-180"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-084"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[181]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-181"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-085"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[182]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-182"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-086"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[183]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-183"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-087"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[185]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-185"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-088"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[187]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-187"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-089"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[188]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-188"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-090"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[255]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-255"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-091"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[258]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-258"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-092"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[260]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-260"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-093"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[262]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-262"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-094"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[264]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-264"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-095"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[267]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-267"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-096"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[310]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch07-310"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-097"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[334]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-334"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-098"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[412]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-412"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-099"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[432]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-432"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-100"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[542]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-542"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-101"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[548]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-548"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-102"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[596]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-596"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-103"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[598]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-598"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-104"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[600]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-600"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-105"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[4]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-4"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-106"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[8]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-8"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-107"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[13]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-13"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-108"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[42]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-42"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-109"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[50]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-50"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-110"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[91]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-91"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-111"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[109]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-109"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-112"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[162]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-162"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-113"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[175]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-175"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-114"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[198]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-198"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-115"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[211]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-211"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-116"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[212]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-212"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-117"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[213]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-213"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-118"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[273]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-273"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-119"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[276]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-276"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-120"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[284]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-284"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-121"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[288]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-288"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-122"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[290]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-290"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-123"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[292]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-292"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-124"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.17:body[1]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-prob13-1"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-125"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[14]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-14"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-126"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[21]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-21"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-127"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[45]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-45"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-128"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[80]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-80"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-129"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[100]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-100"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-130"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[102]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-102"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-131"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[114]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-114"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-132"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[166]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-166"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-133"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[179]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-179"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-134"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[186]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-186"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-135"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[189]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-189"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-136"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[214]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-214"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-137"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[225]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-225"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-138"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[227]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-227"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-139"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[238]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-238"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-140"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[248]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-248"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-141"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[250]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-250"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-142"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[275]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-275"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-143"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[278]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-278"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-144"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[280]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-280"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-145"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[287]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-287"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-146"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[292]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-292"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-147"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[308]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-308"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-148"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[398]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-398"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-149"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[422]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-422"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-150"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[425]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-425"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-151"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[270]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-270"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-152"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[286]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-286"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-153"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[305]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-305"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-154"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[334]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-334"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-155"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[360]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-360"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-156"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[365]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-365"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-157"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "problem:10.1:body[1]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-prob0-1"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-158"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[94]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-94"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Caption text does not contain a formal Figure/Table label; treat as unnumbered inline visual or companion subfigure.",
+      "id": "griffiths_particles-159"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[108]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-108"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-160"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[109]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-109"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-161"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "problem:11.6:body[2]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-prob5-2"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-162"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[6]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-6"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-163"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[8]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-8"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-164"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[9]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-9"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-165"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[17]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-17"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-166"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[21]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-21"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-167"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[23]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-23"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-168"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[25]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-25"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-169"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[28]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-28"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-170"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[46]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-46"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-171"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[47]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-47"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-172"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[49]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-49"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-173"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[50]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-50"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-174"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[53]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-53"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-175"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[54]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-54"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-176"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[64]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-64"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-177"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[10]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appA-10"
+      },
+      "set": {
+        "id": "fig-A.1",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Roman/appendix-prefixed formal figure label; build_catalogs regex does not derive semantic id automatically.",
+      "id": "griffiths_particles-178"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[20]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appA-20"
+      },
+      "set": {
+        "id": "fig-A.2",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Roman/appendix-prefixed formal figure label; build_catalogs regex does not derive semantic id automatically.",
+      "id": "griffiths_particles-179"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[21]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appA-21"
+      },
+      "set": {
+        "id": "fig-A.3",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Roman/appendix-prefixed formal figure label; build_catalogs regex does not derive semantic id automatically.",
+      "id": "griffiths_particles-180"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[49]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appA-49"
+      },
+      "set": {
+        "id": "fig-A.4",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Roman/appendix-prefixed formal figure label; build_catalogs regex does not derive semantic id automatically.",
+      "id": "griffiths_particles-181"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[15]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-15"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-182"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[18]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-18"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-183"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[20]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-20"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-184"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[23]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-23"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-185"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[28]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-28"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-186"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[30]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-30"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-187"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[32]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-32"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-188"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[34]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-appD-34"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-189"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[35]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-35"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-190"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[37]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-37"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-191"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[39]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-39"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-192"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[45]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appD-45"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "OCR visual block has no stable caption/number in parsed output; exclude from numbered catalog.",
+      "id": "griffiths_particles-193"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[209]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.9"
+      },
+      "set": {
+        "caption": "Fig. 4.9 Helicity. In (a) the spin and velocity are parallel (helicity +1); in (b) they are antiparallel (helicity -1).",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.9a",
+            "type": "figure",
+            "caption": "Figure 4.9(a)"
+          },
+          {
+            "id": "fig-4.9b",
+            "type": "figure",
+            "caption": "Figure 4.9(b)"
+          }
+        ],
+        "catalog_repair_source": "agent-caption-alias-repair"
+      },
+      "reason": "Figure 4.9 is split across two OCR image blocks: body[208] is subfigure (a), body[209] carries the shared caption plus subfigure (b). Promote body[209] as the semantic figure and expose aliases for refs 4.9a/4.9b.",
+      "id": "griffiths_particles-194"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[223]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.11"
+      },
+      "set": {
+        "caption": "Fig. 4.11 Reflections and inversions.",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.11a",
+            "type": "figure",
+            "caption": "Figure 4.11(a)"
+          },
+          {
+            "id": "fig-4.11b",
+            "type": "figure",
+            "caption": "Figure 4.11(b)"
+          }
+        ],
+        "catalog_repair_source": "agent-caption-alias-repair"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Figure 4.11 is split into subfigure (a) at body[221] and caption-bearing subfigure (b) at body[223]. Keep body[221] excluded, and make body[223] the semantic figure with aliases for lettered refs.",
+      "id": "griffiths_particles-195"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[239]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.3"
+      },
+      "set": {
+        "caption": "Fig. 9.3 (a) A typical semileptonic decay ($\\overline{K}^0 \\to \\pi^+ + \\mu^- + \\overline{\\nu}_\\mu$). (b) A typical nonleptonic weak decay ($\\Lambda \\to p^+ + \\pi^-$).",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.3a",
+            "type": "figure",
+            "caption": "Figure 9.3(a)"
+          },
+          {
+            "id": "fig-9.3b",
+            "type": "figure",
+            "caption": "Figure 9.3(b)"
+          }
+        ],
+        "catalog_repair_source": "agent-caption-alias-repair"
+      },
+      "reason": "Figure 9.3 uses a separate unlabeled subfigure block for (a) and a caption-bearing block for (b). Normalize the caption on body[239] and expose aliases for refs 9.3a/9.3b.",
+      "id": "griffiths_particles-196"
+    },
+    {
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[95]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-11.5"
+      },
+      "set": {
+        "caption": "Fig. 11.5 'Normal' and 'inverted' neutrino mass spectrum. The units are $(\\mathrm{eV} / c^2)^2$ .",
+        "catalog_repair_source": "agent-caption-alias-repair"
+      },
+      "reason": "The shared caption for Figure 11.5 was OCR'd with a stray leading 'Inverted'. Normalize it so build_catalogs can recover fig-11.5 while the companion 'Normal' subfigure block stays excluded.",
+      "id": "griffiths_particles-197"
+    },
+    {
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[196]",
+      "position": "before",
+      "page": 64,
+      "clip": [
+        0.05,
+        0.18,
+        0.92,
+        0.95
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig_1_13.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-1.13",
+        "caption": "Fig. 1.13 The charmed baryon. The most probable interpretation of this event is v_μ + p → Λ_c^+ + μ^- + π^+ + π^-. The charmed baryon decays (Λ_c^+ → Λ + π^+) too soon to leave a track, but the subsequent decay of the Λ is clearly visible. (Photo courtesy of Samios, N. P. Brookhaven National Laboratory.)",
+        "kind": "photo",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 64 contains Fig. 1.13, but MinerU unified/parsed dropped the visual block entirely; insert a deterministic crop so catalog refs resolve.",
+      "id": "griffiths_particles-198"
+    }
+  ]
+}

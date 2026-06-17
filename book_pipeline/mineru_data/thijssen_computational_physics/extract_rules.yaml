@@ -1,0 +1,186 @@
+slug: thijssen_computational_physics
+title: Computational Physics
+author: J. M. Thijssen
+edition: 2nd
+subject: Theoretical Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 574
+bibliography_start_page: null
+index_start_page: 630
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 30
+    chapter_title_block_idx: 163
+    problems_block_idx: 241
+    next_chapter_block_idx: 267
+  - num: 2
+    title: Quantum scattering with a spherically symmetric potential
+    page_start: 31
+    page_end: 45
+    chapter_title_block_idx: 267
+    chapter_title_block_idx_secondary: 268
+    problems_block_idx: 416
+    next_chapter_block_idx: 442
+  - num: 3
+    title: The variational method for the Schrödinger equation
+    page_start: 46
+    page_end: 59
+    chapter_title_block_idx: 442
+    chapter_title_block_idx_secondary: 443
+    problems_block_idx: 605
+    next_chapter_block_idx: 667
+  - num: 4
+    title: The Hartree-Fock method
+    page_start: 60
+    page_end: 105
+    chapter_title_block_idx: 667
+    chapter_title_block_idx_secondary: 668
+    problems_block_idx: 1149
+    next_chapter_block_idx: 1279
+  - num: 5
+    title: Density functional theory
+    page_start: 106
+    page_end: 138
+    chapter_title_block_idx: 1279
+    chapter_title_block_idx_secondary: 1280
+    problems_block_idx: 1629
+    next_chapter_block_idx: 1704
+  - num: 6
+    title: Solving the Schrodinger equation in periodic solids
+    page_start: 139
+    page_end: 185
+    chapter_title_block_idx: 1704
+    chapter_title_block_idx_secondary: 1705
+    problems_block_idx: 2205
+    next_chapter_block_idx: 2288
+  - num: 7
+    title: Classical equilibrium statistical mechanics
+    page_start: 186
+    page_end: 213
+    chapter_title_block_idx: 2288
+    chapter_title_block_idx_secondary: 2289
+    problems_block_idx: 2589
+    next_chapter_block_idx: 2615
+  - num: 8
+    title: Molecular dynamics simulations
+    page_start: 214
+    page_end: 279
+    chapter_title_block_idx: 2615
+    chapter_title_block_idx_secondary: 2616
+    problems_block_idx: 3331
+    next_chapter_block_idx: 3442
+  - num: 9
+    title: Quantum molecular dynamics
+    page_start: 280
+    page_end: 311
+    chapter_title_block_idx: 3442
+    chapter_title_block_idx_secondary: 3443
+    problems_block_idx: 3799
+    next_chapter_block_idx: 3865
+  - num: 10
+    title: The Monte Carlo method
+    page_start: 312
+    page_end: 354
+    chapter_title_block_idx: 3865
+    chapter_title_block_idx_secondary: 3866
+    problems_block_idx: 4304
+    next_chapter_block_idx: 4333
+  - num: 11
+    title: Transfer matrix and diagonalisation of spin chains
+    page_start: 355
+    page_end: 388
+    chapter_title_block_idx: 4333
+    chapter_title_block_idx_secondary: 4334
+    problems_block_idx: 4652
+    next_chapter_block_idx: 4734
+  - num: 12
+    title: Quantum Monte Carlo methods
+    page_start: 389
+    page_end: 439
+    chapter_title_block_idx: 4734
+    chapter_title_block_idx_secondary: 4735
+    problems_block_idx: 5255
+    next_chapter_block_idx: 5341
+  - num: 13
+    title: The finite element method for partial differential equations
+    page_start: 440
+    page_end: 464
+    chapter_title_block_idx: 5341
+    chapter_title_block_idx_secondary: 5342
+    problems_block_idx: 5645
+    next_chapter_block_idx: 5663
+  - num: 14
+    title: The lattice Boltzmann method for fluid dynamics
+    page_start: 465
+    page_end: 482
+    chapter_title_block_idx: 5663
+    chapter_title_block_idx_secondary: 5664
+    problems_block_idx: 5897
+    next_chapter_block_idx: 5909
+  - num: 15
+    title: Computational methods for lattice field theories
+    page_start: 483
+    page_end: 556
+    chapter_title_block_idx: 5909
+    chapter_title_block_idx_secondary: 5910
+    problems_block_idx: 6726
+    next_chapter_block_idx: 6828
+  - num: 16
+    title: High performance computing and parallelism
+    page_start: 557
+    page_end: 573
+    chapter_title_block_idx: 6828
+    chapter_title_block_idx_secondary: 6829
+    problems_block_idx: 6993
+    next_chapter_block_idx: 6998
+
+appendices:
+  - id: A
+    title: Numerical methods
+    page_start: 574
+    chapter_title_block_idx: 6998
+  - id: B
+    title: Random number generators
+    page_start: 622
+    chapter_title_block_idx: 7640
+
+section_re: '^\*?((?:\d+\.\d+|[A-Z]\d+))\s+(.+)$'
+subsection_re: '^\*?((?:\d+\.\d+\.\d+|[A-Z]\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:\d+\.\d+))\s+(?:\[[A-Z]\]\s+)?'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^References$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.)?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: '^(PROGRAMMING EXERCISE)$'
+
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+[A-Z]?\d+(?:\.\d+)?'
+
+known_missing_problems: []

@@ -1,0 +1,135 @@
+slug: folland_real_analysis
+title: Real Analysis
+author: Gerald B. Folland
+edition: 2nd
+subject: Real Analysis
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 377
+bibliography_start_page: 377
+index_start_page: 391
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Prologue
+    page_start: 13
+    page_end: 30
+    chapter_title_block_idx: 101
+    problems_block_idx: null
+    next_chapter_block_idx: 365
+  - num: 1
+    title: Measures
+    page_start: 31
+    page_end: 54
+    chapter_title_block_idx: 365
+    problems_block_idx: null
+    next_chapter_block_idx: 688
+  - num: 2
+    title: Integration
+    page_start: 55
+    page_end: 96
+    chapter_title_block_idx: 688
+    problems_block_idx: null
+    next_chapter_block_idx: 1271
+  - num: 3
+    title: Signed Measures and Differentiation
+    page_start: 97
+    page_end: 124
+    chapter_title_block_idx: 1271
+    problems_block_idx: null
+    next_chapter_block_idx: 1693
+  - num: 4
+    title: Point Set Topology
+    page_start: 125
+    page_end: 162
+    chapter_title_block_idx: 1693
+    problems_block_idx: null
+    next_chapter_block_idx: 2137
+  - num: 5
+    title: Elements of Functional Analysis
+    page_start: 163
+    page_end: 192
+    chapter_title_block_idx: 2137
+    problems_block_idx: null
+    next_chapter_block_idx: 2562
+  - num: 6
+    title: LP Spaces
+    page_start: 193
+    page_end: 222
+    chapter_title_block_idx: 2562
+    problems_block_idx: null
+    next_chapter_block_idx: 3022
+  - num: 7
+    title: Radon Measures
+    page_start: 223
+    page_end: 246
+    chapter_title_block_idx: 3022
+    problems_block_idx: null
+    next_chapter_block_idx: 3365
+  - num: 8
+    title: Elements of Fourier Analysis
+    page_start: 247
+    page_end: 292
+    chapter_title_block_idx: 3365
+    problems_block_idx: null
+    next_chapter_block_idx: 4087
+  - num: 9
+    title: Elements of Distribution Theory
+    page_start: 293
+    page_end: 324
+    chapter_title_block_idx: 4087
+    problems_block_idx: null
+    next_chapter_block_idx: 4580
+  - num: 10
+    title: Topics in Probability Theory
+    page_start: 325
+    page_end: 350
+    chapter_title_block_idx: 4580
+    problems_block_idx: null
+    next_chapter_block_idx: 4961
+  - num: 11
+    title: More Measures and Integrals
+    page_start: 351
+    page_end: 376
+    chapter_title_block_idx: 4961
+    problems_block_idx: null
+    next_chapter_block_idx: 5324
+
+appendices: []
+
+section_re: '^(\d+\s*\.\s*\d+)\s+([A-Z0-9$][A-Z0-9\s\-$\\{}^().,:;/&''"]*[A-Z0-9$)])$'
+subsection_re: '^(\d+\s*\.\s*\d+\s*\.\s*\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^([1-9]\d?)\s*\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

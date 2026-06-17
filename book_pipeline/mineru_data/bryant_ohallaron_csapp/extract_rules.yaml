@@ -1,0 +1,143 @@
+slug: bryant_ohallaron_csapp
+title: "Computer Systems: A Programmer's Perspective"
+author: Randal E. Bryant; David R. O'Hallaron
+edition: 3rd
+subject: Computer Science
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 73
+appendices_start_page: 2307
+bibliography_start_page: 2318
+index_start_page: 2336
+
+chapters:
+  - num: 1
+    title: A Tour of Computer Systems
+    page_start: 73
+    page_end: 135
+    chapter_title_block_idx: 583
+    chapter_title_block_idx_secondary: 585
+    problems_block_idx: 828
+    next_chapter_block_idx: 841
+  - num: 2
+    title: Representing and Manipulating Information
+    page_start: 136
+    page_end: 432
+    chapter_title_block_idx: 841
+    chapter_title_block_idx_secondary: 846
+    problems_block_idx: 1999
+    next_chapter_block_idx: 2496
+  - num: 3
+    title: Machine-Level Representation of Programs
+    page_start: 433
+    page_end: 849
+    chapter_title_block_idx: 2496
+    chapter_title_block_idx_secondary: 2498
+    problems_block_idx: 3962
+    next_chapter_block_idx: 4399
+  - num: 4
+    title: Processor Architecture
+    page_start: 850
+    page_end: 1144
+    chapter_title_block_idx: 4399
+    chapter_title_block_idx_secondary: 4404
+    problems_block_idx: 5476
+    next_chapter_block_idx: 5721
+  - num: 5
+    title: Optimizing Program Performance
+    page_start: 1145
+    page_end: 1323
+    chapter_title_block_idx: 5721
+    chapter_title_block_idx_secondary: 5726
+    problems_block_idx: 6380
+    next_chapter_block_idx: 6480
+  - num: 6
+    title: The Memory Hierarchy
+    page_start: 1324
+    page_end: 1511
+    chapter_title_block_idx: 6480
+    chapter_title_block_idx_secondary: 6484
+    problems_block_idx: 7149
+    next_chapter_block_idx: 7386
+  - num: 7
+    title: Linking
+    page_start: 1512
+    page_end: 1629
+    chapter_title_block_idx: 7386
+    chapter_title_block_idx_secondary: 7391
+    problems_block_idx: 7904
+    next_chapter_block_idx: 7981
+  - num: 8
+    title: Exceptional Control Flow
+    page_start: 1630
+    page_end: 1802
+    chapter_title_block_idx: 7981
+    problems_block_idx: 8623
+    next_chapter_block_idx: 8752
+  - num: 9
+    title: Virtual Memory
+    page_start: 1803
+    page_end: 1983
+    chapter_title_block_idx: 8752
+    chapter_title_block_idx_secondary: 8754
+    problems_block_idx: 9438
+    next_chapter_block_idx: 9547
+  - num: 10
+    title: System-Level I/O
+    page_start: 1984
+    page_end: 2045
+    chapter_title_block_idx: 9547
+    chapter_title_block_idx_secondary: 9549
+    problems_block_idx: 9778
+    next_chapter_block_idx: 9812
+  - num: 11
+    title: Network Programming
+    page_start: 2046
+    page_end: 2155
+    chapter_title_block_idx: 9812
+    problems_block_idx: 10265
+    next_chapter_block_idx: 10300
+  - num: 12
+    title: Concurrent Programming
+    page_start: 2156
+    page_end: 2306
+    chapter_title_block_idx: 10300
+    chapter_title_block_idx_secondary: 10305
+    problems_block_idx: 10852
+    next_chapter_block_idx: 10987
+
+appendices:
+  - id: A
+    title: Error Handling
+    page_start: 2307
+    chapter_title_block_idx: 10987
+
+section_re: '^((?:[A-Z]\.\d+|\d+\.\d+))\s+(.+)$'
+subsection_re: '^((?:[A-Z]\.\d+\.\d+|\d+\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)(?:\s+[◆♦]+(?:\s*[◆♦]+)*)?\s*$'
+problem_chapter_must_match: true
+problems_end_re: '^Solutions to Practice Problems$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\d+(?:\.\d+)*[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
