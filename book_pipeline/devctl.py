@@ -14,6 +14,7 @@
   uv run python -m book_pipeline.devctl errors [--since-min 120]
   uv run python -m book_pipeline.devctl incident           # 出事時的全貌 dump（status+errors+log+進程）
   uv run python -m book_pipeline.devctl kick               # 立刻手動觸發一輪 tick
+  uv run python -m book_pipeline.devctl crawl-refill        # 手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）
 """
 from __future__ import annotations
 
@@ -553,6 +554,7 @@ def main(argv: list[str] | None = None) -> int:
     p_er.add_argument('--json', action='store_true')
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
     sub.add_parser('kick', help='立刻觸發一輪 tick')
+    sub.add_parser('crawl-refill', help='手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -648,6 +650,23 @@ def main(argv: list[str] | None = None) -> int:
         }
         print(json.dumps(bundle, ensure_ascii=False, indent=2))
         return 0
+
+    if args.cmd == 'crawl-refill':
+        # 只丟「強制補貨」marker（不自己 refill → 不與 daemon 搶寫 crawl_queue.json）。實際派 crawl 小弟
+        # 由 daemon 做：運轉中 → 下個 observe cycle 自然認 marker（不中斷在飛工作）；閒置 → kick 起來認。
+        from book_pipeline import pipeline_tick as pt
+        pt.request_refill()
+        if daemon_health()['tick_running']:
+            print('📑 已排入強制補貨請求 · daemon 運轉中 → 下個 observe cycle 自動派 crawl 小弟補書單')
+            print('   看進度：devctl status（crawl 區）或 books.wordnexus.lol/dev')
+            return 0
+        uid = os.getuid()  # daemon 閒置（等 launchd 重拉）→ 不帶 -k 啟動它，數秒內起 controller 認請求
+        r = subprocess.run(['launchctl', 'kickstart', f'gui/{uid}/{PLIST_LABEL}'])
+        if r.returncode == 0:
+            print('📑 已排入強制補貨請求 · daemon 閒置 → 已 kick，數秒內起 controller 派 crawl 小弟補書單')
+        else:
+            print(f'📑 已排入強制補貨請求；kick 失敗 rc={r.returncode}（daemon 下個 tick 重拉時自動認）')
+        return r.returncode
 
     if args.cmd == 'kick':
         uid = os.getuid()

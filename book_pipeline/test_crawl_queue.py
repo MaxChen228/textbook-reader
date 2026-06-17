@@ -16,6 +16,7 @@ def _setup():
     d = tempfile.mkdtemp(prefix='crawlq_')
     pt.CRAWL_QUEUE = os.path.join(d, 'crawl_queue.json')
     pt.CRAWL_PLAN = os.path.join(d, 'crawl_plan.json')
+    pt.CRAWL_REFILL_FORCE = os.path.join(d, 'crawl_refill_request')
     pt.log = lambda *a, **k: None
     pt.hist.set_touched = lambda *a, **k: None
     from book_pipeline import devctl  # drain 內 import → 直接 stub 該函式
@@ -161,6 +162,50 @@ def test_refill_exhaust_sets_cooldown():
     print('✓ refill：planner 補不滿 → 寫入冷卻時戳（下次 _refill_due 看它收斂）')
 
 
+def test_force_marker_roundtrip():
+    _setup()
+    assert pt._refill_force_pending() is False        # 起初無請求
+    pt.request_refill()
+    assert pt._refill_force_pending() is True          # 丟一張 → 待消費
+    pt._clear_refill_force()
+    assert pt._refill_force_pending() is False          # 消費後清掉
+    print('✓ force marker：request/peek/clear 三態正確（CLI→daemon 的單向 signal）')
+
+
+def test_force_refill_bypasses_watermark():
+    _setup()
+    _write_queue([_q(f's{i}') for i in range(pt.CRAWL_LOW)])  # 清單滿水位 → _refill_due False
+    pt._have_slugs = lambda: set()
+    pt._crawl_backlog = lambda rows: pt.CRAWL_HIGH           # room=0 → 買書員 hold（純測 refill 由 marker 觸發）
+    pt._wishlist_pending = lambda: ['topic']
+    def _stub(*a, **k):
+        json.dump({'books': [{'slug': 'forced1', 'id': '9', 'hash': 'z'}], 'reason': 'x'},
+                  open(pt.CRAWL_PLAN, 'w'))
+        return 0
+    pt.dispatch_llm = _stub
+    assert pt._refill_due() is False                         # 水位之上：正常不會補
+    pt.request_refill()                                       # 手動強制
+    pt.do_crawl_tick(dry=False, rows=[])
+    assert 'forced1' in [b['slug'] for b in _read_queue()]    # 無視水位仍補進新書
+    assert pt._refill_force_pending() is False                # marker 消費（恰一次）
+    print('✓ force refill：無視水位/冷卻補貨 + 消費 marker（手動觸發語意）')
+
+
+def test_force_refill_skip_when_full():
+    _setup()
+    _write_queue([_q(f's{i}') for i in range(pt.CRAWL_HIGH)])  # 清單已滿 HIGH → want<=0
+    pt._have_slugs = lambda: set()
+    pt._crawl_backlog = lambda rows: pt.CRAWL_HIGH
+    pt._wishlist_pending = lambda: ['topic']
+    def _no_dispatch(*a, **k): raise AssertionError('清單已滿不該派 planner 找 0 本')
+    pt.dispatch_llm = _no_dispatch
+    pt.request_refill()
+    pt.do_crawl_tick(dry=False, rows=[])                       # 不該拋（want<=0 守衛擋下）
+    assert len(_read_queue()) == pt.CRAWL_HIGH                 # 清單原封
+    assert pt._refill_force_pending() is False                # 請求仍消費（已盡力、別重試空轉）
+    print('✓ force refill：清單已滿 → 跳過派工但仍消費請求（不空叫 planner 找 0 本）')
+
+
 if __name__ == '__main__':
     test_drain_crosses_off_fetched()
     test_drain_drops_after_max_fails()
@@ -171,4 +216,7 @@ if __name__ == '__main__':
     test_refill_cooldown_blocks_churn()
     test_refill_merge_dedup()
     test_refill_exhaust_sets_cooldown()
+    test_force_marker_roundtrip()
+    test_force_refill_bypasses_watermark()
+    test_force_refill_skip_when_full()
     print('\n全部通過 ✅')
