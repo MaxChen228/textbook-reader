@@ -407,8 +407,11 @@
   // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）
   function reconcileCrawl() {
     const cw = crawlWorkers()
+    const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 無 agent 爬書'
     reconcileLane(laneEls[0], cw, w => w.key, makeCrawlEl, updateCrawlEl,
-      '<div class="dev-label lane-empty" style="padding:6px 2px">閒置 · 無 agent 爬書</div>')
+      `<div class="dev-label lane-empty" style="padding:6px 2px">${escapeHtml(reason)}</div>`)
+    const ph = laneEls[0].querySelector('.lane-empty')  // 既有 placeholder：reason 變了也跟刷
+    if (ph && ph.textContent !== reason) ph.textContent = reason
     if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
     stationEls[0].classList.toggle('st-active', cw.length > 0)
   }
@@ -584,7 +587,7 @@
         <span class="num">${v.used} 頁</span></div>`).join(''))
 
     const z = d.zlib || {}, zt = z.total_remaining
-    const zage = z.fetched_at_local ? ' · ' + relTime(z.fetched_at_local) : ''
+    const zage = z.fetched_at_utc ? ' · ' + relTime(z.fetched_at_utc) : ''
     setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/30${z.stale ? ' · STALE' : ''}${zage})`)
     setHtml('zlib', (z.accounts || []).map(a => {
       const lim = a.limit, rem = a.remaining

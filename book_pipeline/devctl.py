@@ -193,10 +193,8 @@ def invalidate_zlib_cache() -> None:
     消除『剛爬完仍顯示舊額度（4/30 vs live 0/30）』的 5 分 staleness 窗。"""
     try:
         os.remove(ZLIB_CACHE)
-    except FileNotFoundError:
-        pass
-    except Exception:
-        pass
+    except OSError:
+        pass  # 不存在或刪除失敗皆無關緊要（快取本就可重建）
 
 
 def zlib_status() -> dict:
@@ -217,6 +215,7 @@ def zlib_status() -> dict:
         total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
         snap = {'accounts': accts, 'total_remaining': total,
                 'fetched_at': time.time(),
+                'fetched_at_utc': _now_utc().isoformat(),  # 前端 relTime 用（naive local 會被當 UTC 致 +8h 偏移）
                 'fetched_at_local': datetime.now().isoformat(timespec='seconds')}
         os.makedirs(os.path.dirname(ZLIB_CACHE), exist_ok=True)
         tmp = ZLIB_CACHE + '.tmp'
@@ -371,19 +370,47 @@ def scan_errors(since_min: int = 180) -> list:
 
 
 # ── 快照組裝 ─────────────────────────────────────────────────────────────────
+def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
+    """爬書水位狀態（回答 /dev『有額度卻沒爬？』）。與 pipeline_tick._crawl_backlog 同義：
+    backlog = pipeline 待消化深度；state 決定爬書站閒置文案。複用已算好的 books/zlib/workers，
+    不重打網路。"""
+    from book_pipeline import pipeline_tick as pt
+    ifl = bud.in_flight()
+    pending = sum(1 for r in books_snap['books']
+                  if r['slug'] not in ifl
+                  and [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')])
+    backlog = pending + len(ifl)
+    crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
+    R = zlib_snap.get('total_remaining')
+    if crawling:
+        state, reason = 'refilling', '補貨中 · planner 規劃選書'
+    elif backlog >= pt.CRAWL_LOW:
+        state, reason = 'draining', f'backlog {backlog} ≥ 水位 {pt.CRAWL_LOW}，消化中'
+    elif R == 0:
+        state, reason = 'quota_empty', '今日額度用罄，待重置（下輪自動重探）'
+    else:
+        state, reason = 'feeding', f'backlog {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨'
+    return {'backlog': backlog, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
+            'state': state, 'reason': reason}
+
+
 def build_snapshot(since_min: int = 180) -> dict:
     now = _now_utc()
+    bs = books_status()
+    zl = zlib_status()
+    wks = workers()
     return {
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'daemon': daemon_health(),
         'budget': budget_status(),
-        'zlib': zlib_status(),
-        'workers': workers(),
+        'zlib': zl,
+        'workers': wks,
         'in_flight_ingest': in_flight_ingest(),
         'errors': scan_errors(since_min),
         'recent_log': _tail(DAEMON_LOG, 40),
-        **books_status(),
+        'crawl': crawl_status(bs, zl, wks),
+        **bs,
     }
 
 

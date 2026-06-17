@@ -20,7 +20,7 @@ uv run --with requests python -m book_pipeline.crawl_zlib search "<q>" --lang en
 1. **查額度**：`limits` 取 `total_remaining` = R。`R<=0` → 寫空計畫（`books:[]`, reason 說明今日爬滿）即收工。
 2. **讀意圖**：`book_pipeline/crawl_wishlist.json` 的 `topics`（使用者想補的主題/書名/科目）。
 3. **查現況**：`inventory`。已在 `known_slugs` 的書**不重複**；對照 topics 找主書缺口。**同時**掃一遍 inventory 的主書（非 `_sol`、非 `is_solution`），凡 `<slug>_sol` 不在 `known_slugs` 者 = 缺解答本的候選。
-4. **挑 K 本互異**：K = min(R, 12)，兩類缺口合計。**解答本優先**（補既有書 CP 值最高）：先為缺解答的高價值主書各跑 `search "<書名> solutions manual" --lang english`，找到 `kind=SOL` 且確屬該書的官方解答 → 列為 `{"slug":"<main>_sol", ...}`；剩餘名額再填 wishlist 主書缺口。逐本 `search` 選版次，欄位判讀：
+4. **挑 K 本互異**：K = min(R, Q)，其中 Q 是 daemon 依 pipeline 待消化量（低水位補貨）算出的**本批名額**、寫進你的派工 prompt（`min(R, <quota>)`）；無特別指示時上限視為 20。兩類缺口合計。**解答本優先**（補既有書 CP 值最高）：先為缺解答的高價值主書各跑 `search "<書名> solutions manual" --lang english`，找到 `kind=SOL` 且確屬該書的官方解答 → 列為 `{"slug":"<main>_sol", ...}`；剩餘名額再填 wishlist 主書缺口。逐本 `search` 選版次，欄位判讀：
    - `kind=SOL` = 解答本（slug 必須是對應主書的 `<main>_sol`，main 須是 inventory 既有 slug）。**只收確屬該主書的官方/instructor 解答**，版次盡量對齊主書；查無正牌解答就略過該本。
    - 偏好：版次新、`mb` 落在 3–80（過小常殘缺、過大常高解析掃描）、`pages` 合理、有 `publisher`、`have=✓` 代表已爬過（跳過）。
    - **同書多版挑一本**最堪用的；拿不準寧選正式出版年份明確者。
