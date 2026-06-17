@@ -311,7 +311,7 @@ def books_status() -> dict:
         r['timeline'] = tl.get(s)
         r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
         rows.append(r)
-        non_opt = [p for p in r['todo'].split() if p not in ('—', 'translate(可選)')]
+        non_opt = [p for p in r['todo'].split() if p != '—' and not p.endswith('(可選)')]
         if non_opt:
             todos.append({'slug': s, 'todo': ' '.join(non_opt)})
     return {'books': rows, 'actionable': todos, 'total': len(rows)}

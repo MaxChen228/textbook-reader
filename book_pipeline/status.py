@@ -37,6 +37,20 @@ def _exists(slug: str, *parts: str) -> bool:
     return os.path.exists(os.path.join(DATA, slug, *parts))
 
 
+def _deployed(slug: str) -> bool:
+    """已上站 = data/<slug>/book.json 已烤出（build_all 產物）。"""
+    return os.path.exists(os.path.join(ROOT, 'data', slug, 'book.json'))
+
+
+def _catalog_accepted(slug: str) -> bool:
+    """catalog 殘留已 accept（det+LLM 修完仍殘、源頭缺不可修）→ 不再當強制待辦。"""
+    try:
+        st = json.load(open(os.path.join(ROOT, 'book_pipeline', 'pipeline_state.json')))
+        return bool((st.get(slug) or {}).get('catalog_accepted'))
+    except Exception:
+        return False
+
+
 def sol_stats(slug: str) -> tuple[int, int]:
     """回傳 (problem 總數, 有 solution 數)。schema：ch*.json/app*.json 的 problems 鍵。"""
     tot = sol = 0
@@ -173,7 +187,11 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
     todo = []
     catalog_critical = _catalog_critical(slug)
     if catalog_critical:
-        todo.append(f'catalog_audit({catalog_critical})')
+        # catalog_audit 只在「上站前」當強制 gate（須修到可接受才服務）。一旦已上站或已 accept
+        # （det+LLM 修完仍殘、多為 MinerU 源頭缺）→ 降可選：不再無限重審/重生 catalogs.json/燒 LLM。
+        # （殘留多為 C2 空 caption / C7 缺 id 等 OCR 源頭缺，重審也補不出 → churn 無收益。）
+        opt = '(可選)' if (_deployed(slug) or _catalog_accepted(slug)) else ''
+        todo.append(f'catalog_audit({catalog_critical}){opt}')
     if has_sol_book and sol == 0 and not _sol_pending(slug):
         todo.append(f'sol_extract({slug}_sol)')
     if not has_zh:
@@ -198,7 +216,7 @@ def main() -> int:
     for r in rows:
         ps = f"{r.get('sol',0)}/{r.get('prob',0)}" if r.get('prob') else '—'
         print(f"{r['slug']:20} {r['stage']:<16} {ps:>10} {'有' if r['sol_book'] else '':>5}  {r['todo']}")
-        non_optional = ' '.join(p for p in r['todo'].split() if p != 'translate(可選)')
+        non_optional = ' '.join(p for p in r['todo'].split() if not p.endswith('(可選)'))
         if non_optional and non_optional != '—':
             todos.append((r['slug'], non_optional))
     if todos:

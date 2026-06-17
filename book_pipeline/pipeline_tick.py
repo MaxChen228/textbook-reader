@@ -71,6 +71,7 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 把爬速綁定消化速（producer/consumer），取代舊「梭哈到額度見底→永久 latch」。一隻 agent 補一大批。
 CRAWL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_LOW', '5'))    # 低水位：backlog 低於此才補貨
 CRAWL_HIGH = int(os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')) # 補到此目標（單批 ≈ min(剩額, HIGH-backlog)）
+CRAWL_RETRY_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_RETRY_S', '300'))  # crawl 補貨重試最小間隔（防額度0時緊湊空轉）
 # harvest poll 上限（秒）：OCR 全好的書第一次 poll 就秒收；沒好的書等到此上限就放棄、留
 # in-flight 下個 tick 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 tick）。OCR 是 async、
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
@@ -879,6 +880,7 @@ def tick_reactive(no_deploy: bool) -> int:
 
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
+    last_crawl_attempt = -1e9  # 時間退避：crawl round 額度 0 時秒退 + wake.set 會造成緊湊重派
     try:
         while time.monotonic() < deadline:
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
@@ -921,11 +923,16 @@ def tick_reactive(no_deploy: bool) -> int:
             # 就讓 pipeline 消化、本輪不爬（不 latch，下輪重評）。__crawl__ key 自動序列化（planner
             # 在跑時 _start 回 False、不疊派）。額度 0 時 do_crawl_parallel cheap-skip，下輪自動重探
             # → 隔日額度恢復免重啟。backlog 會隨補到的書自然升過 LOW 形成 hysteresis、防抖動。
+            # 時間退避（CRAWL_RETRY_S）：額度 0 時 do_crawl_parallel 秒退、worker 結束 wake.set
+            # 立刻喚醒 → 每 cycle 重派＝緊湊空轉 + log spam。故 crawl 至多每 CRAWL_RETRY_S 試一次
+            # （仍 latch-free：到點自動重探，隔日額度恢復即續爬）。額度充足時 planner 真在跑、
+            # __crawl__ 佔住 inflight，退避不影響其節奏。
             backlog = _crawl_backlog(rows)
-            if backlog < CRAWL_LOW:
+            if backlog < CRAWL_LOW and (time.monotonic() - last_crawl_attempt) >= CRAWL_RETRY_S:
                 cap = CRAWL_HIGH - backlog
                 if _start('__crawl__', lambda c=cap: do_crawl_parallel(False, c)):
                     dispatched += 1
+                    last_crawl_attempt = time.monotonic()
                     log(f'crawl 補貨：backlog {backlog} < 水位 {CRAWL_LOW} → 派 planner（本批名額上限 {cap}）')
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
