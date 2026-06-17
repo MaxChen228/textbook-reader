@@ -716,8 +716,8 @@ def main(argv: list[str] | None = None) -> int:
             cs = code_status()
             b = cs.get('behind')
             stale = f'（目前落後 {b} commit）' if b else ''
-            print(f'🔄 已請求優雅 reload{stale}：controller 排空在飛 worker 後退出 → launchd 載入新碼（零浪費）')
-            print('   ≤StartInterval(15min) 內新碼上線；devctl status 的 code 變 HEAD 即完成。要立刻：改用 kick（硬殺、棄在飛工作）。')
+            print(f'🔄 已請求優雅 reload{stale}：controller 排空在飛 worker 後退出 → 立即自動拉起新碼（零浪費、零空檔）')
+            print('   無在飛工作 → 秒級完成；有 audit 在飛 → 排空後才換（不棄工作）。devctl status 的 code 變 HEAD 即完成。')
             return 0
         uid = os.getuid()
         r = subprocess.run(['launchctl', 'kickstart', f'gui/{uid}/{PLIST_LABEL}'])

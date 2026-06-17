@@ -654,6 +654,28 @@ def _clear_reload() -> None:
         pass
 
 
+PLIST_LABEL = 'com.textbookreader.bookpipeline'  # 與 plist Label / devctl 一致
+
+
+def _schedule_respawn() -> None:
+    """reload 專用：丟一個 detached 小弟，**等本 controller 退出（.tick.lock 釋放）後**才
+    `launchctl kickstart` 拉起新碼 → 退出即刻 respawn、零空檔。為何要等死：鎖是 LOCK_EX|LOCK_NB，
+    舊實例還活著時 kickstart 的新實例會搶不到鎖而「跳過本次」→ 必須等舊的死透。只在 reload 走
+    （idle/walltime 自然退出**不**呼叫）→ 維持 idle 收斂、不變 crash 行為。若與 launchd StartInterval
+    fire 撞期 → NB 鎖天然序列化（一個拿到跑、另一個跳過），不雙跑。"""
+    pid = os.getpid()
+    uid = os.getuid()
+    # 等本進程死透（鎖釋放）→ 立即 kickstart。detached（new session）→ 不隨本進程退出被收掉。
+    script = (f'while kill -0 {pid} 2>/dev/null; do sleep 0.3; done; '
+              f'exec /bin/launchctl kickstart gui/{uid}/{PLIST_LABEL}')
+    try:
+        subprocess.Popen(['/bin/sh', '-c', script], start_new_session=True,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        log('reload：已排程 detached respawn（本進程退出即 kickstart 拉新碼，零空檔）')
+    except Exception as e:
+        log(f'reload respawn 排程失敗（退回 launchd StartInterval ≤15min）：{e}')
+
+
 def wake_controller() -> bool:
     """送 SIGUSR1 喚醒 live controller 立即 re-observe（撿 marker 立刻派工、**不中斷在飛 worker**）。
     回是否真的送出（無 live controller → False，呼叫端改 kick 起一個）。"""
@@ -1351,6 +1373,7 @@ def tick_reactive(no_deploy: bool) -> int:
             if _reload_pending():
                 _clear_reload()
                 log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
+                _schedule_respawn()  # 排程 detached re-kick：本進程排空退出即刻拉新碼（零空檔）
                 break
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
             leased_slugs = {r.get('slug') for r in leases.active(log=log)}
