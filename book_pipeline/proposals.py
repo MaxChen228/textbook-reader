@@ -322,27 +322,39 @@ def cmd_check(a: argparse.Namespace) -> int:
 
 
 def cmd_gate(a: argparse.Namespace) -> int:
+    """真實數據閘（取代人審）：snapshot 完整 before 報告 → backfill 重 parse/套 override/重渲染
+    → 公式級 gate_verdict。採用準則（使用者定）：**嚴格淨降 且 無任一書殘餘上升**——任何規則必有
+    edge case（好→壞 collateral），collateral 不丟規則、須在同一變更內補 override 掉，gate 才過。"""
     from book_pipeline import math_validate as mv
+    from book_pipeline.backfill_math import gate_verdict
     if not mv.node_available():
         print("⚠ node_modules/mathjax-full 缺 → 無法驗證，gate 跳過（非通過）。", file=sys.stderr)
         return 0
-    before = mv.residual_by_book()
-    tot_before = sum(before.values())
-    print(f"gate: 回歸前 corpus 殘餘 {tot_before} occ（{len(before)} 書）→ 跑 backfill_math…")
+    slugs = a.slug or mv.all_slugs()
+    before = {s: mv.read_report(s) for s in slugs}
+    tot_before = sum((before[s] or {}).get("stats", {}).get("bad_occ", 0) for s in slugs)
+    print(f"gate: 回歸前 corpus 殘餘 {tot_before} occ（{len(slugs)} 書）→ 跑 backfill_math…")
     rc = subprocess.run(["uv", "run", "python", "-m", "book_pipeline.backfill_math", *a.slug],
                         cwd=ROOT).returncode
     if rc != 0:
         print(f"❌ backfill_math 退出碼 {rc}", file=sys.stderr); return rc
-    after = mv.residual_by_book()
-    tot_after = sum(after.values())
-    risers = {s: (before.get(s, 0), after[s]) for s in after if after[s] > before.get(s, 0)}
-    print(f"\ngate: 回歸後 corpus 殘餘 {tot_after} occ（Δ {tot_after - tot_before:+d}）")
-    if risers:
-        print(f"❌ {len(risers)} 書殘餘上升 → 回退：")
-        for s, (b, c) in sorted(risers.items(), key=lambda kv: kv[1][0] - kv[1][1]):
-            print(f"    {s}: {b} → {c} (+{c - b})")
+    after = {s: mv.read_report(s) for s in slugs}
+    v = gate_verdict(before, after)
+    print(f"\ngate: 回歸後 corpus 殘餘 {v['after_occ']} occ（Δ {v['delta']:+d}, fixed {v['fixed_total']}）")
+    if v["collateral"]:
+        n = sum(len(c["locators"]) for c in v["collateral"])
+        print(f"⚠ collateral 好→壞 {n} 處（須補 override 後重跑）:")
+        for c in v["collateral"]:
+            print(f"    {c['slug']}: {', '.join(c['locators'][:8])}{' …' if len(c['locators']) > 8 else ''}")
+    if v["regressed"]:
+        print(f"❌ {len(v['regressed'])} 書殘餘上升 → 補 override 或回退：")
+        for r in sorted(v["regressed"], key=lambda r: r["before"] - r["after"]):
+            print(f"    {r['slug']}: {r['before']} → {r['after']} (+{r['after'] - r['before']})")
         return 1
-    print("✓ 無任何書殘餘上升 — 回歸閘通過。")
+    if v["delta"] >= 0:
+        print("❌ 無淨改善（Δ≥0）→ 此變更不採用（新規則一定要比舊的好）。")
+        return 1
+    print(f"✓ 嚴格淨降 {v['delta']:+d}、無書上升 — 閘通過（採用）。")
     return 0
 
 
