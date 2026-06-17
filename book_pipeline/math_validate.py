@@ -212,6 +212,20 @@ def read_report(slug: str) -> dict[str, Any] | None:
         return None
 
 
+def residual_by_book() -> dict[str, int]:
+    """每書數學殘餘 bad_occ（讀既有 _math_report.json，跳過 skipped/缺檔）。
+    **reports 是 ground truth**：state[slug]['math'] 只是 daemon post-deploy 寫的快取，對「本功能
+    上線前就部署、之後不會重部署」的存量書有冷啟空窗（state 無紀錄→殘餘被算成 0）。故 corpus 殘餘
+    總和、門檻判定、/dev 顯示一律以此為準，避免『state 0 vs reports 452』的假矛盾。"""
+    out: dict[str, int] = {}
+    for slug in all_slugs():
+        rep = read_report(slug)
+        if not rep or rep.get("status") == "skipped":
+            continue
+        out[slug] = int(rep.get("stats", {}).get("bad_occ") or 0)
+    return out
+
+
 def aggregate_reports() -> dict[str, Any]:
     """讀全 corpus 既有 _math_report.json，跨書聚合成 sweep 的 pattern-mining 視圖。
 

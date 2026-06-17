@@ -27,6 +27,7 @@ import time
 from datetime import datetime, timezone, timedelta
 
 from book_pipeline import status as st
+from book_pipeline import math_validate as mv
 from book_pipeline import mineru_budget as bud
 from book_pipeline import worker_registry as wr
 from book_pipeline import book_timeline as tl
@@ -293,6 +294,7 @@ def books_status() -> dict:
     raw = st._raw_slug_map()
     slugs = st.all_slugs(pending, raw)
     state = q._load_state()
+    math_by_book = mv.residual_by_book()  # 每書數學殘餘（reports 真相）→ 書本抽屜顯示
     rows = []
     todos = []
     for s in slugs:
@@ -315,6 +317,7 @@ def books_status() -> dict:
         tl.observe(s, label)
         r['timeline'] = tl.get(s)
         r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
+        r['math_bad'] = math_by_book.get(s)  # 數學殘餘 occ（None=未驗/缺）→ 抽屜顯示，不 gate
         rows.append(r)
         non_opt = [p for p in r['todo'].split() if p != '—' and not p.endswith('(可選)')]
         if non_opt:
@@ -402,21 +405,15 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
 def math_health() -> dict:
     """corpus-level 數學殘餘健康度（track-only）：總殘餘 vs 門檻、上次 sweep、殘餘最多的書。
     答 /dev『數學式壞了多少、何時會被 sweep、哪幾本最髒、哪些已經過 sweep』。"""
-    from book_pipeline import math_validate as mv
     from book_pipeline import pipeline_tick as pt
     state = q._load_state()
     sweep = q.math_sweep_state(state)
     touched = set(sweep.get('touched') or [])
-    books = []
-    for slug, v in state.items():
-        if slug == q.MATH_STATE_KEY:
-            continue
-        m = (v or {}).get('math') or {}
-        if m.get('bad_occ'):
-            books.append({'slug': slug, 'bad_occ': m['bad_occ'],
-                          'in_last_sweep': slug in touched})
+    by_book = mv.residual_by_book()  # reports = ground truth（非 state，避免冷啟空窗顯示 0）
+    books = [{'slug': s, 'bad_occ': n, 'in_last_sweep': s in touched}
+             for s, n in by_book.items() if n]
     books.sort(key=lambda b: -b['bad_occ'])
-    total = q.corpus_math_residual(state)
+    total = sum(by_book.values())
     return {
         'node_available': mv.node_available(),
         'macros_version': mv.macros_version(),

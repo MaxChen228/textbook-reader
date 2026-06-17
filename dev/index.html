@@ -66,7 +66,14 @@
     .book .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
     .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
-    .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位原因行 */
+    .math-ph { background: linear-gradient(135deg, #7b5cd6, #4a2b87) !important; }  /* 數學 sweep agent */
+    .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位 / 數學 sweep 殘餘原因行 */
+    /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
+    .math-row { cursor: pointer; }
+    .math-row:hover .lbl { color: var(--accent); }
+    /* 數學 sweep 尾站可點（開 corpus 抽屜）→ 整站 hover 提示 */
+    .station.st-clickable { cursor: pointer; }
+    .station.st-clickable:hover .st-name { color: var(--accent); }
     /* 已上站但 catalog/sol 仍待精修的書：done 卡右上角 🔧（上站完成≠全部完美） */
     .refine-badge { position: absolute; top: -5px; right: -5px; z-index: 3; font-size: 11px;
       line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
@@ -226,7 +233,8 @@
   let timer = null, clockTimer = null, workersTimer = null
   let last = null, lastWorkers = []
   let openSlug = null   // 抽屜當前綁定的書
-  let openWkey = null   // 抽屜綁定的 worker（爬書 agent，無書本實體時用）
+  let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
+  let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
 
   // ── 主題（與 reader 共用） ──
   const SETTINGS_KEY = 'textbook.settings.v1'
@@ -251,8 +259,10 @@
     { ico: '🧩', name: '解析 parse' },
     { ico: '📚', name: '編目 catalog' },
     { ico: '✅', name: '上站完成' },
+    { ico: '🧮', name: '數學 sweep', math: true },  // 隊尾 corpus 收尾 agent（對稱隊頭 crawl）；不放書、放跨書 agent + 殘餘
   ]
   const DONE_ST = 6
+  const MATH_ST = 7
   function stationOf(b) {  // 書本一律落在 1..6；站台 0（爬書）只放 crawl agent，不放書
     if (b.deployed) return DONE_ST
     const c = (b.stage || '').trim().split(' ')[0]
@@ -298,23 +308,24 @@
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
   // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 2s worker cadence。
   const stationEls = [], laneEls = [], cntEls = []
-  let crawlReasonEl = null
+  let crawlReasonEl = null, mathReasonEl = null
   function buildScaffold() {
     const lineEl = document.getElementById('line')
     lineEl.innerHTML = ''
     STATIONS.forEach((st, i) => {
       const done = i === DONE_ST
       const station = document.createElement('div')
-      station.className = 'station'
+      station.className = 'station' + (st.math ? ' st-clickable' : '')  // 尾站點開 corpus 數學抽屜
       station.innerHTML = `<div class="st-head"><span class="st-ico">${st.ico}</span>`
         + `<span class="st-name">${escapeHtml(st.name)}</span><span class="st-cnt">0</span></div>`
-        + (st.crawl ? '<div class="cn-reason dev-label"></div>' : '')
+        + ((st.crawl || st.math) ? '<div class="cn-reason dev-label"></div>' : '')
         + `<div class="lane${done ? ' done' : ''}"></div>`
       lineEl.appendChild(station)
       stationEls[i] = station
       laneEls[i] = station.querySelector('.lane')
       cntEls[i] = station.querySelector('.st-cnt')
       if (st.crawl) crawlReasonEl = station.querySelector('.cn-reason')
+      if (st.math) mathReasonEl = station.querySelector('.cn-reason')
     })
   }
 
@@ -423,7 +434,7 @@
     const buckets = STATIONS.map(() => [])
     d.books.forEach(b => buckets[stationOf(b)].push(b))
     for (let i = 0; i < STATIONS.length; i++) {
-      if (STATIONS[i].crawl) continue  // 站 0 由爬書 cadence 管
+      if (STATIONS[i].crawl || STATIONS[i].math) continue  // 站 0 爬書 / 站 7 數學 sweep = agent 站，不放書
       const done = i === DONE_ST, bs = buckets[i]
       reconcileLane(laneEls[i], bs, b => b.slug,
         b => makeBookEl(b, done), (el, b) => updateBookEl(el, b, done),
@@ -444,6 +455,39 @@
       '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
     if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
     stationEls[0].classList.toggle('st-active', cw.length > 0)
+  }
+
+  // ── 數學 sweep lane（站 7，對稱 crawl）：corpus-level 收尾 agent（slug=null → 不疊書卡，
+  // 同 crawl 的隱形 worker 問題，靠本站直接渲染。count=待清書數、reason=殘餘/門檻/上次 sweep）──
+  function mathWorkers() { return liveWorkers().filter(w => w.verb === 'math_sweep') }
+  function makeMathEl(w) {
+    const el = document.createElement('div')
+    el.className = 'book crawl-card working'; el.dataset.wkey = w.key; el.title = '數學 sweep agent'
+    el.innerHTML = '<div class="cv"><div class="ph crawl-ph math-ph">🧮</div><div class="work-ring"></div></div><div class="ttl"></div>'
+    updateMathEl(el, w)
+    return el
+  }
+  function updateMathEl(el, w) {
+    const ttl = el.querySelector('.ttl'), txt = `跨書清殘 ·${w.total_calls || 0}`
+    if (ttl.textContent !== txt) ttl.textContent = txt
+  }
+  function mathReason() {
+    const m = last && last.math
+    if (!m) return '—'
+    if (!m.node_available) return 'node 缺 · 未驗證'
+    const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
+                            : ' · 尚未 sweep'
+    return `殘 ${m.corpus_bad_occ} occ · ${m.due ? '待 sweep' : '健康'}${sw}`
+  }
+  function reconcileMath() {
+    const mw = mathWorkers(), m = last && last.math
+    const reason = mathReason()
+    if (mathReasonEl && mathReasonEl.textContent !== reason) mathReasonEl.textContent = reason
+    reconcileLane(laneEls[MATH_ST], mw, w => w.key, makeMathEl, updateMathEl,
+      '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
+    const cnt = m ? (m.books_with_residual || 0) : 0  // 待清書數（已上站、僅數學殘餘）
+    if (cntEls[MATH_ST].textContent !== String(cnt)) cntEls[MATH_ST].textContent = cnt
+    stationEls[MATH_ST].classList.toggle('st-active', mw.length > 0 || !!(m && m.due))
   }
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
@@ -478,21 +522,49 @@
     document.getElementById('drawer').classList.add('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'false')
   }
-  function openDrawer(slug) { openSlug = slug; openWkey = null; _openDrawerEl(); renderDrawer() }
-  function openWorkerDrawer(wkey) { openWkey = wkey; openSlug = null; _openDrawerEl(); renderDrawer() }
+  function openDrawer(slug) { openSlug = slug; openWkey = null; openMath = false; _openDrawerEl(); renderDrawer() }
+  function openWorkerDrawer(wkey) { openWkey = wkey; openSlug = null; openMath = false; _openDrawerEl(); renderDrawer() }
+  function openMathDrawer() { openMath = true; openSlug = null; openWkey = null; _openDrawerEl(); renderDrawer() }
   function closeDrawer() {
-    openSlug = null; openWkey = null
+    openSlug = null; openWkey = null; openMath = false
     document.getElementById('dr-mask').classList.remove('open')
     document.getElementById('drawer').classList.remove('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'true')
   }
-  // 爬書 agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在爬什麼」）
+  // corpus 數學殘餘總覽抽屜（點數學 sweep 尾站）：top 髒書（可點進該書）+ 上次 sweep 詳情。
+  function renderMathDrawer() {
+    const m = (last && last.math) || {}
+    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph math-ph">🧮</div>`
+    document.getElementById('dr-title').textContent = '數學 sweep · 跨書殘餘'
+    document.getElementById('dr-sub').textContent =
+      `macros ${m.macros_version || '?'}${m.node_available ? '' : ' · node 缺·未驗證'}`
+    document.getElementById('dr-meta').innerHTML =
+      `<span class="dr-status ${m.due ? 'dr-st-wait' : 'dr-st-done'}">`
+      + `${m.due ? '🔴 殘餘過門檻 · 待跨書 sweep' : '🟢 殘餘在門檻內 · 健康'}</span>`
+      + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span><span>門檻 <b>${m.threshold ?? '?'}</b></span>`
+      + `<span><b>${m.books_with_residual ?? 0}</b> 書有殘</span>`
+    const tb = m.top_books || []
+    document.getElementById('dr-evs').innerHTML = tb.length
+      ? `<div class="dr-empty" style="text-align:left;padding:6px 2px">殘餘最多的書（點開看該書）</div>`
+        + tb.map(b => `<div class="ev tool math-row" data-slug="${escapeHtml(b.slug)}"><span class="ico">📕</span>`
+          + `<span class="lbl">${escapeHtml(b.slug)}</span>`
+          + `<span class="n">${b.bad_occ}${b.in_last_sweep ? ' ✓' : ''}</span></div>`).join('')
+      : `<div class="dr-empty">無殘餘 — 全 corpus 數學式皆可渲染 🎉</div>`
+    const sw = m.last_sweep
+    document.getElementById('dr-tl').innerHTML = `<div class="h">上次 sweep</div>` + (sw
+      ? `<div class="tlrow"><span class="stg">${relTime(sw.at)}</span>`
+        + `<span class="at">改 ${(sw.touched || []).length} 書</span><span class="du">→殘 ${sw.residual_after} occ</span></div>`
+      : `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`)
+  }
+  // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
   function renderWorkerDrawer() {
     const w = lastWorkers.find(x => x.key === openWkey)
-    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph">🤖</div>`
-    document.getElementById('dr-title').textContent = '爬書 agent'
+    const isMath = w && w.verb === 'math_sweep'
+    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph${isMath ? ' math-ph' : ''}">${isMath ? '🧮' : '🤖'}</div>`
+    document.getElementById('dr-title').textContent = isMath ? '數學 sweep agent' : '爬書 agent'
     document.getElementById('dr-sub').textContent = w ? `${w.verb} · ${w.provider} · pid ${w.pid}` : '本輪已結束'
-    const st = w ? { cls: 'work', txt: '🔧 規劃選書 / 下載中…' } : { cls: 'ready', txt: '☑ 本輪爬書已結束' }
+    const st = w ? { cls: 'work', txt: isMath ? '🔧 跨書清殘 / 寫 override…' : '🔧 規劃選書 / 下載中…' }
+                 : { cls: 'ready', txt: isMath ? '☑ 本輪數學 sweep 已結束' : '☑ 本輪爬書已結束' }
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status dr-st-${st.cls}">${st.txt}</span>`
       + (w ? `<span><b>${w.total_calls || 0}</b> 次工具調用</span><span>${escapeHtml(w.provider || '')}</span>` : '')
@@ -504,11 +576,12 @@
           + `<span class="lbl">${escapeHtml(r.label || '')}</span></div>`
       }).join('')
     } else {
-      evs.innerHTML = `<div class="dr-empty">${w ? '（agent 尚無事件…）' : '本輪爬書 agent 已結束'}</div>`
+      evs.innerHTML = `<div class="dr-empty">${w ? '（agent 尚無事件…）' : '本輪 agent 已結束'}</div>`
     }
     document.getElementById('dr-tl').innerHTML = ''
   }
   function renderDrawer() {
+    if (openMath) return renderMathDrawer()
     if (openWkey) return renderWorkerDrawer()
     if (!openSlug || !last) return
     const b = last.books.find(x => x.slug === openSlug); if (!b) return
@@ -523,6 +596,7 @@
       `<span class="dr-status dr-st-${st.cls}">${escapeHtml(st.txt)}</span>`
       + `<span>階段 <b>${escapeHtml(b.stage || '—')}</b></span><span>站台 <b>${stName}</b></span>`
       + (probStr ? `<span>題/解 <b>${escapeHtml(probStr)}</b></span>` : '')
+      + (b.math_bad ? `<span>數學殘 <b>${b.math_bad} occ</b>（已上站、不擋服務）</span>` : '')
       + (w ? `<span>工人 <b>${escapeHtml(w.verb||'')}</b></span><span>${escapeHtml(w.provider||'')} · pid ${w.pid}</span><span><b>${w.total_calls||0}</b> 次工具調用</span>`
            : `<span class="dev-label">目前無工人在此書</span>`)
     const evs = document.getElementById('dr-evs')
@@ -553,9 +627,17 @@
   document.getElementById('dr-mask').addEventListener('click', closeDrawer)
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
   document.getElementById('line').addEventListener('click', e => {
-    const card = e.target.closest('.book'); if (!card) return
-    if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
-    else if (card.dataset.slug) openDrawer(card.dataset.slug)
+    const card = e.target.closest('.book')
+    if (card) {
+      if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
+      else if (card.dataset.slug) openDrawer(card.dataset.slug)
+      return
+    }
+    if (e.target.closest('.station') === stationEls[MATH_ST]) openMathDrawer()  // 點尾站空白 → corpus 數學總覽
+  })
+  // corpus 抽屜內 top 髒書 → 點開該書抽屜
+  document.getElementById('dr-evs').addEventListener('click', e => {
+    const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
   })
 
   // ── 工具：跨度格式 ──
@@ -611,6 +693,7 @@
     renderHealth(d)
     updateLineSub()
     reconcileBooks(d)
+    reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 2s loadWorkers 管）
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
     setText('budget-date', `(${d.budget.date_utc} UTC · 無上限)`)
@@ -644,6 +727,7 @@
     try { const data = await fetchJson('workers.json?_=' + Date.now()); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
     reconcileCrawl()  // 爬書站走 2s cadence（≤2s 反映 worker 起/止，非 8s）
+    reconcileMath()   // 數學 sweep agent 同走 2s cadence（slug=null，本站直接渲染）
     applyWalkers()
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
     if (openSlug || openWkey) renderDrawer()

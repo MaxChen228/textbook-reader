@@ -139,10 +139,11 @@ def math_info(slug: str, state: dict | None = None) -> dict:
 
 
 def corpus_math_residual(state: dict | None = None) -> int:
-    """全 corpus 殘餘總和（跳過 __math__ 與無 math 紀錄者）。門檻判據單一真相。"""
-    s = state if state is not None else _load_state()
-    return sum(int((v or {}).get('math', {}).get('bad_occ') or 0)
-               for k, v in s.items() if k != MATH_STATE_KEY)
+    """全 corpus 殘餘總和 = 各書 _math_report.json 的 bad_occ 加總。**reports 為 ground truth**：
+    state.math 是有冷啟空窗的快取（存量書部署在本功能前→state 無紀錄→被算 0），故門檻判定/顯示
+    一律改讀 reports（mv.residual_by_book）。state 參數保留呼叫相容，現已不據以加總。"""
+    from book_pipeline import math_validate as mv
+    return sum(mv.residual_by_book().values())
 
 
 def math_sweep_state(state: dict | None = None) -> dict:
