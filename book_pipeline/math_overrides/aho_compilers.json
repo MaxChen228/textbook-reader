@@ -1,0 +1,70 @@
+{
+  "overrides": [
+    {
+      "id": "aho_compilers-ch09-body-867-f042e6",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[867]",
+      "expect": "/ ^ {*} = \\underset {n > 0} {\\mathbf {A}} _ {f -}",
+      "new": "/^{*} = {\\underset{n > 0}{\\mathbf{A}}}_{f -}"
+    },
+    {
+      "id": "aho_compilers-ch04-body-95-d0ef4b",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[95]",
+      "field": "md",
+      "old": "$E \\right. \\left. E$",
+      "new": "$E \\left. \\right. E$",
+      "anchor": "ab5c05db"
+    },
+    {
+      "id": "aho_compilers-ch09-body-523-2a6cfb",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[523]",
+      "expect": "h (f i (m o) \\mathrm{A} / 2 0 0)) <   h \\left\\{ \\right.h \\left\\{ \\right.m o\\left. \\right)\\left. \\right) \\mathrm{A} / _ {3} \\left(\\left/ 2 \\left(\\mathrm{m} _ {0}\\right)\\right)\\left. \\right.",
+      "new": "h (f i (m o) \\mathrm{A} / 2 0 0)) < h \\left\\{ \\right. h \\left\\{ \\right. m o \\left. \\right) \\left. \\right) \\mathrm{A} /_{3} \\left(/ 2 \\left(\\mathrm{m}_{0}\\right)\\right)"
+    },
+    {
+      "id": "aho_compilers-ch04-body-222-b533ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[222]",
+      "expect": "\\begin{array}{c c c c c c} S \\text {-^ {A} a} & / & b \\\\ A ^ {\\wedge} b d A ^ {\\prime} & / & A ^ {\\prime} \\\\ A ^ {\\prime} \\text {-*} c A ^ {\\prime} & | & a d & A ^ {\\prime} & | & e \\end{array}",
+      "new": "\\begin{array}{c c c c c c} S \\text{-}^{A} a & / & b \\\\ A^{\\wedge} b d A^{\\prime} & / & A^{\\prime} \\\\ A^{\\prime} \\text{-*} c A^{\\prime} & | & a d & A^{\\prime} & | & e \\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch04-body-233-f953a9",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[233]",
+      "expect": "\\begin{array}{l} A \\text {- - » } \\bullet a A ^ {\\prime} \\quad I 7 \\\\ \\mathbf {A} ^ {\\prime} \\text {- - > / 3 i j ft I \\cdots I (3 _ {n}} \\end{array}",
+      "new": "\\begin{array}{l} A \\text{- - » } \\bullet a A^{\\prime} \\quad I 7 \\\\ \\mathbf{A}^{\\prime} \\text{- - > / 3 i j ft I } \\cdots \\text{ I (3}_{n} \\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch04-body-238-c4b1b2",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[238]",
+      "expect": "\\begin{array}{l}\\text {S - M Et S S' I a}\\\\\\text {S ^ {\\prime} \\wedge e S I e}\\\\E \\rightarrow 6\\end{array}",
+      "new": "\\begin{array}{l}\\text{S - M Et S S' I a}\\\\ S^{\\prime} \\wedge e S I e\\\\ E \\rightarrow 6\\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch04-body-653-ac1390",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[653]",
+      "expect": "\\begin{array}{c c c} S \\text {- + } B & B \\\\ B \\text {- ^ {a}} B & / & b \\end{array}",
+      "new": "\\begin{array}{c c c} S \\text{- + } B & B \\\\ B \\text{-}^{a} B & / & b \\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch06-body-289-f75441",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[289]",
+      "expect": "\\begin{array}{l} \\text { if   /   has   type   s   \\longrightarrow\\bullet   t   and   x   has   type   s,} \\\\ \\text { then   expression   f(x)   has   type   t } \\end{array} / _ {f i} \\wedge",
+      "new": "\\begin{array}{l} \\text{ if / has type s } \\longrightarrow \\bullet \\text{ t and x has type s,} \\\\ \\text{ then expression f(x) has type t } \\end{array} /_{f i} \\wedge"
+    }
+  ]
+}
