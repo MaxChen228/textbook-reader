@@ -117,6 +117,7 @@ LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))      
 LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
 LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
 LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
+DRAIN_BOUND = int(os.environ.get('BOOK_PIPELINE_DRAIN_BOUND', '120'))           # 退出排空在飛 worker 的上限秒數，逾時快殺+強退（防無上限 drain 凍結/孤兒鎖）
 # live reactive controller 的 statefile（JSON {pid, sha, started}）：loop 起頭寫、退出即刪。
 #   pid → 外部送 SIGUSR1 喚醒（reload）；sha → 此 controller 載入的 git 版本，供
 #   「daemon 跑的是哪版碼、離 HEAD 多遠」即時觀測（免上線後做 forensics）。per-machine、gitignore。
@@ -1536,8 +1537,39 @@ def tick_reactive(no_deploy: bool) -> int:
             wake.clear()
     finally:
         _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
-        log('reactive loop：等待在跑 worker 收尾…')
-        ex.shutdown(wait=True)
+        # bounded drain：給在飛 worker 有限時間（DRAIN_BOUND）自然收尾，逾時升級「快殺子工 + 強制
+        # 退出」。取代舊 ex.shutdown(wait=True) 的無上限等待——它會卡在長在飛批次（math sweep 是純
+        # API thread，連 _kill_inflight_children 都殺不掉）→ reload/walltime 退出時 24min 凍結 +
+        # 舊實例不死續持 .tick.lock 的孤兒鎖（見 orphan-lock memory）。被棄 worker 的產物全可從 disk
+        # 重導、下個 controller 冪等重派，故強退安全（符合「狀態皆 disk 真相重導」架構）。
+        log(f'reactive loop：排空在飛 worker（上限 {DRAIN_BOUND}s）…')
+        ex.shutdown(wait=False)  # 不再接新、不阻塞
+        _drain_deadline = time.monotonic() + DRAIN_BOUND
+        while time.monotonic() < _drain_deadline:
+            with ifl_lock:
+                if not inflight:
+                    break
+            time.sleep(0.5)
+        with ifl_lock:
+            _stuck = len(inflight)
+        if _stuck == 0:
+            log('reactive loop：在飛 worker 已排空，優雅退出')
+        else:
+            _killed = _kill_inflight_children()  # 快殺可殺的 LLM 子工 → 解開卡在 p.wait 的 worker thread
+            log(f'reactive loop：drain 逾時 {DRAIN_BOUND}s → 快殺 {_killed} 在飛子工、棄置 {_stuck} worker'
+                '（產物 disk 重導、下個 controller 重派），強制退出')
+            _grace = time.monotonic() + 5  # 極短 grace 讓被快殺的 worker 收尾（hist.finish/leases.release）
+            while time.monotonic() < _grace:
+                with ifl_lock:
+                    if not inflight:
+                        break
+                time.sleep(0.2)
+            with ifl_lock:
+                _residual = len(inflight)
+            if _residual:
+                log(f'reactive loop：仍有 {_residual} 個非子進程型卡死 worker（純 API）→ os._exit 強退（respawn/launchd 重拉）')
+                sys.stdout.flush()
+                os._exit(0)  # 唯一能停掉卡死 thread 的手段；flock 隨進程死釋放、respawn 小弟接手
     log('=== reactive loop end ===')
     return 0
 
