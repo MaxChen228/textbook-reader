@@ -55,6 +55,9 @@ book_pipeline/mineru_data/*/parsed/_override_backups/
 # dev 即時工人面板（worker_registry 高頻寫，不入 git）
 /dev/workers.json
 
+# agent 歷史歸檔（agent_history append-only，standby 機器產物各機獨立，不入 git）
+/dev/agent_history/
+
 # 每書階段時間軸（觀測史，runtime，各機獨立，不入 git）
 book_pipeline/book_timeline.json
 book_pipeline/reports/crawl_plan.json

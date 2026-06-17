@@ -30,6 +30,7 @@ from book_pipeline import status as st
 from book_pipeline import math_validate as mv
 from book_pipeline import mineru_budget as bud
 from book_pipeline import worker_registry as wr
+from book_pipeline import agent_history as hist
 from book_pipeline import book_timeline as tl
 from book_pipeline import pipeline_queue as q
 
@@ -47,6 +48,8 @@ PLIST_LABEL = 'com.textbookreader.bookpipeline'
 # 「下次約」= 上次結束 + 此間隔（controller 正在跑時無意義 → 回 None，前端顯示「正在跑」）。
 # 須與 plist StartInterval 一致（改一邊要改另一邊）。
 TICK_INTERVAL_S = int(os.environ.get('BOOK_PIPELINE_TICK_INTERVAL', '900'))
+# 每書 snapshot 帶幾場最近 session 摘要（完整史在 index.json / 逐事件在 sessions/*.jsonl）。
+SESSIONS_PER_BOOK = 40
 
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
@@ -296,6 +299,7 @@ def books_status() -> dict:
     slugs = st.all_slugs(pending, raw)
     state = q._load_state()
     math_by_book = mv.residual_by_book()  # 每書數學殘餘（reports 真相）→ 書本抽屜顯示
+    sess_by_slug = hist.sessions_grouped(limit=SESSIONS_PER_BOOK)  # 讀 index 一次，迴圈外分發
     rows = []
     todos = []
     for s in slugs:
@@ -317,6 +321,9 @@ def books_status() -> dict:
         label = 'deployed' if deployed else r.get('stage', '')
         tl.observe(s, label)
         r['timeline'] = tl.get(s)
+        # 歷史 agent session 摘要（slug 命中 OR ∈ corpus sweep 的 touched）；完整逐事件由網頁
+        # 點開時直接 fetch sessions/<id>.jsonl，故此處只掛輕量摘要（封頂避免 status.json 爆量）。
+        r['sessions'] = sess_by_slug.get(s, [])
         r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
         r['math_bad'] = math_by_book.get(s)  # 數學殘餘 occ（None=未驗/缺）→ 抽屜顯示，不 gate
         rows.append(r)
@@ -444,11 +451,13 @@ def build_snapshot(since_min: int = 180) -> dict:
         'recent_log': _tail(DAEMON_LOG, 40),
         'crawl': crawl_status(bs, zl, wks),
         'math': math_health(),
+        'corpus_sessions': hist.corpus_sessions(limit=50),  # 非單書 agent 作業（crawl_plan/math_sweep）
         **bs,
     }
 
 
 def write_snapshot() -> str:
+    hist.reconcile()  # 順手清死孤兒 JSONL（finish 前被 SIGKILL 的殘檔）；低頻心跳即可
     snap = build_snapshot()
     os.makedirs(os.path.dirname(SNAPSHOT_PATH), exist_ok=True)
     tmp = SNAPSHOT_PATH + '.tmp'
@@ -529,6 +538,10 @@ def main(argv: list[str] | None = None) -> int:
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
+    p_hi = sub.add_parser('history', help='某書的歷史 agent session（audit/catalog_audit/math_sweep…）')
+    p_hi.add_argument('slug', help='書 slug')
+    p_hi.add_argument('--session', help='展開某 session id 的完整逐事件')
+    p_hi.add_argument('--json', action='store_true')
     args = ap.parse_args(argv)
 
     if args.cmd == 'timeline':
@@ -551,6 +564,34 @@ def main(argv: list[str] | None = None) -> int:
                         f"  ▸ {dt/60:.0f}m" if dt < 5400 else f"  ▸ {dt/3600:.1f}h")
                 seed = ' (回填)' if e.get('seeded') else ''
                 print(f"   {at} UTC  {e['stage']}{seed}{span}")
+        return 0
+
+    if args.cmd == 'history':
+        if args.session:
+            evs = hist.load_session(args.session)
+            if args.json:
+                print(json.dumps(evs, ensure_ascii=False, indent=2))
+                return 0
+            print(f"\n🧵 session {args.session} — {len(evs)} 事件")
+            for e in evs:
+                icon = '🔧' if e.get('kind') == 'tool' else '💬'
+                at = (e.get('t') or '').replace('T', ' ').replace('+00:00', '')
+                print(f"   {at}  {icon} {e.get('label', '')}")
+            return 0
+        sess = hist.sessions_for(args.slug)
+        if args.json:
+            print(json.dumps(sess, ensure_ascii=False, indent=2))
+            return 0
+        print(f"\n📖 {args.slug} — {len(sess)} 場 agent session（新→舊）")
+        for r in sess:
+            corp = ' (corpus)' if r.get('slug') is None else ''
+            dur = r.get('duration_s')
+            dur_s = '?' if dur is None else (f'{dur}s' if dur < 90 else f'{dur//60}m{dur%60:02d}s')
+            mark = '✓' if r.get('ok') else f"✗rc={r.get('rc')}"
+            at = (r.get('started') or '').replace('T', ' ').replace('+00:00', '')
+            print(f"   {at} UTC  {r.get('verb')}{corp} · {r.get('model')}({r.get('harness')}) · "
+                  f"{dur_s} · {r.get('total_calls', 0)}call · {mark}")
+            print(f"        id={r.get('id')}")
         return 0
 
     if args.cmd == 'status':

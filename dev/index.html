@@ -145,6 +145,23 @@
     .tlrow .stg { min-width: 120px; color: var(--text); }
     .tlrow .at { color: var(--sub); } .tlrow .du { color: var(--accent); }
     .dr-empty { color: var(--sub); font-family: var(--mono); font-size: 12px; padding: 16px; text-align: center; }
+    .dr-back { font-size: 16px; line-height: 1; }
+
+    /* ── agent 歷程（per-book 抽屜底 + corpus 面板共用 session row） ── */
+    .dr-hist { padding: 8px 16px 16px; border-top: 1px solid var(--border-l); }
+    .dr-hist .h { font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--sub); margin-bottom: 6px; letter-spacing: .05em; }
+    .sess { display: flex; gap: 9px; align-items: baseline; font-family: var(--mono); font-size: 11.5px;
+      color: var(--ink-light); padding: 6px 8px; margin: 2px 0; border: 1px solid var(--border-l); border-radius: 6px;
+      cursor: pointer; flex-wrap: wrap; }
+    .sess:hover { border-color: var(--accent); background: var(--bg); }
+    .sess .sv { color: var(--text); font-weight: 600; min-width: 92px; }
+    .sess .sm { color: var(--sub); }
+    .sess .st { color: var(--sub); margin-left: auto; }
+    .sess .sd { color: var(--ink-light); }
+    .sess .sk-ok { color: var(--status-ok, #4caf50); font-weight: 700; }
+    .sess .sk-bad { color: var(--status-danger, #d9534f); font-weight: 700; }
+    .sess .corp { color: var(--accent); }
+    #corpus .sess { font-size: 12px; }
 
     /* ── 額度條 / 錯誤 / log（次要面板，沿用舊樣式） ── */
     .dev-bar-row { display: flex; align-items: center; gap: 12px; margin: 7px 0; }
@@ -205,6 +222,12 @@
       </div>
     </div>
 
+    <!-- corpus 作業（非單書 agent：crawl_plan / math_sweep）-->
+    <div class="dev-panel" id="p-corpus" hidden>
+      <h2>Corpus 作業 <span class="dev-label">非單書 agent（crawl_plan / math_sweep）· 點開看完整歷程</span></h2>
+      <div id="corpus"></div>
+    </div>
+
     <!-- log -->
     <div class="dev-panel">
       <h2>daemon.log 尾段 <span class="dev-label">(UTC)</span></h2>
@@ -218,6 +241,7 @@
   <div class="drawer-mask" id="dr-mask"></div>
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="dr-head">
+      <button class="dr-close" id="dr-back" title="返回" hidden>←</button>
       <div class="dr-cv" id="dr-cv"></div>
       <div class="dr-tt"><b id="dr-title">—</b><span class="sub" id="dr-sub"></span></div>
       <button class="dr-close" id="dr-close" title="關閉">✕</button>
@@ -225,6 +249,7 @@
     <div class="dr-meta" id="dr-meta"></div>
     <div class="dr-evs" id="dr-evs"></div>
     <div class="dr-tl" id="dr-tl"></div>
+    <div class="dr-hist" id="dr-hist"></div>
   </aside>
 
   <script>
@@ -235,6 +260,9 @@
   let openSlug = null   // 抽屜當前綁定的書
   let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
   let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
+  let openSession = null, openSessionFrom = null  // 歷史 session 重播 + 返回來源書
+  const sessEventCache = new Map()  // session id → 完整事件（懶載一次；只快取成功結果）
+  const sessById = new Map()        // session id → 摘要（render 時建檔；點擊解析不依賴 live last churn）
 
   // ── 主題（與 reader 共用） ──
   const SETTINGS_KEY = 'textbook.settings.v1'
@@ -522,11 +550,32 @@
     document.getElementById('drawer').classList.add('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'false')
   }
-  function openDrawer(slug) { openSlug = slug; openWkey = null; openMath = false; _openDrawerEl(); renderDrawer() }
-  function openWorkerDrawer(wkey) { openWkey = wkey; openSlug = null; openMath = false; _openDrawerEl(); renderDrawer() }
-  function openMathDrawer() { openMath = true; openSlug = null; openWkey = null; _openDrawerEl(); renderDrawer() }
-  function closeDrawer() {
+  function openDrawer(slug) {
+    openSlug = slug; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    document.getElementById('dr-back').hidden = true
+    _openDrawerEl(); renderDrawer()  // 書本分支會渲 dr-hist（隨 2s/8s poll 保持 live）
+  }
+  function openWorkerDrawer(wkey) {
+    openWkey = wkey; openSlug = null; openMath = false; openSession = null
+    document.getElementById('dr-back').hidden = true
+    _openDrawerEl(); renderDrawer()
+  }
+  function openMathDrawer() {
+    openMath = true; openSlug = null; openWkey = null; openSession = null
+    document.getElementById('dr-back').hidden = true
+    _openDrawerEl(); renderDrawer()
+  }
+  // 歷史 session 重播：開抽屜呈現該場完整逐事件（fromSlug=從某書歷程點進來 → 顯示返回鈕）
+  function openSessionDrawer(summary, fromSlug) {
+    if (!summary) return
+    openSession = summary; openSessionFrom = fromSlug || null
     openSlug = null; openWkey = null; openMath = false
+    document.getElementById('dr-back').hidden = !fromSlug
+    _openDrawerEl(); renderDrawer()
+  }
+  function closeDrawer() {
+    openSlug = null; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    document.getElementById('dr-back').hidden = true
     document.getElementById('dr-mask').classList.remove('open')
     document.getElementById('drawer').classList.remove('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'true')
@@ -555,6 +604,7 @@
       ? `<div class="tlrow"><span class="stg">${relTime(sw.at)}</span>`
         + `<span class="at">改 ${(sw.touched || []).length} 書</span><span class="du">→殘 ${sw.residual_after} occ</span></div>`
       : `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`)
+    document.getElementById('dr-hist').innerHTML = ''  // 非書本抽屜：清掉殘留的書本 Agent 歷程
   }
   // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
   function renderWorkerDrawer() {
@@ -579,9 +629,11 @@
       evs.innerHTML = `<div class="dr-empty">${w ? '（agent 尚無事件…）' : '本輪 agent 已結束'}</div>`
     }
     document.getElementById('dr-tl').innerHTML = ''
+    document.getElementById('dr-hist').innerHTML = ''
   }
   function renderDrawer() {
     if (openMath) return renderMathDrawer()
+    if (openSession) return renderSessionDrawer()
     if (openWkey) return renderWorkerDrawer()
     if (!openSlug || !last) return
     const b = last.books.find(x => x.slug === openSlug); if (!b) return
@@ -622,9 +674,80 @@
             + `<span class="du">${dur ? '▸ ' + dur : ''}</span></div>`
         }).join('')
       : ''
+    renderDrawerHistory(b)  // dr-hist 隨書本分支重繪 → 開抽屜後新 session 也會冒出、舊 row 不會凍結
+  }
+  // ── 歷史 agent session（完整逐事件，懶載 JSONL） ──
+  // 回事件陣列（200，含真正空檔回 []）；fetch 失敗 / 404（已被 prune）回 null → 呼叫端區分且不快取
+  async function fetchSessionEvents(id) {
+    try {
+      const res = await fetch('agent_history/sessions/' + encodeURIComponent(id) + '.jsonl?_=' + Date.now())
+      if (!res.ok) return null
+      const txt = await res.text()
+      return txt.split('\n').filter(Boolean).map(l => { try { return JSON.parse(l) } catch (e) { return null } }).filter(Boolean)
+    } catch (e) { return null }
+  }
+  function evRowsHtml(events) {
+    if (!events || !events.length) return `<div class="dr-empty">（此 session 無事件）</div>`
+    return events.map(r => {
+      const ico = r.kind === 'tool' ? '🔧' : '💬'
+      return `<div class="ev ${r.kind}"><span class="ico">${ico}</span><span class="n">${escapeHtml(r.t ? relTime(r.t) : '')}</span>`
+        + `<span class="lbl">${escapeHtml(r.label || '')}</span></div>`
+    }).join('')
+  }
+  function indexSessions(arr) { for (const s of (arr || [])) sessById.set(s.id, s) }
+  function sessRowHtml(s) {
+    const okCls = s.ok ? 'sk-ok' : 'sk-bad', okTxt = s.ok ? '✓' : `✗rc${s.rc}`
+    const corp = s.slug == null ? ` <span class="corp">corpus</span>` : ''
+    // data-sid 用 encodeURIComponent：id 內含 slug（檔名衍生，未必純 ASCII/無引號）→ 防屬性截斷
+    return `<div class="sess" data-sid="${encodeURIComponent(s.id)}">`
+      + `<span class="sv">${escapeHtml(s.verb || '')}${corp}</span>`
+      + `<span class="sm">${escapeHtml(s.model || '')}(${escapeHtml(s.harness || '')})</span>`
+      + `<span class="sd">${fmtDur(s.duration_s)} · ${s.total_calls || 0}call</span>`
+      + `<span class="st">${escapeHtml(s.started ? relTime(s.started) : '')}</span>`
+      + `<span class="sk ${okCls}">${okTxt}</span></div>`
+  }
+  function renderDrawerHistory(b) {
+    const ss = (b && b.sessions) || []
+    indexSessions(ss)
+    document.getElementById('dr-hist').innerHTML = ss.length
+      ? `<div class="h">Agent 歷程 (${ss.length})</div>` + ss.map(sessRowHtml).join('')
+      : `<div class="h">Agent 歷程</div><div class="dr-empty">尚無歷史 agent session</div>`
+  }
+  // 點擊解析：用 render 當下建檔的 sessById（不受 last 的 prune/窗口 churn 影響）
+  function findSession(id) { return sessById.get(id) || null }
+  function renderSessionDrawer() {
+    const s = openSession; if (!s) return
+    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph">${s.slug == null ? '🌐' : '🔧'}</div>`
+    document.getElementById('dr-title').textContent = s.verb + (s.slug == null ? ' · corpus' : '')
+    const startedTxt = (s.started || '').replace('T', ' ').replace('+00:00', '')
+    document.getElementById('dr-sub').textContent = `${s.slug || 'corpus'} · ${startedTxt} UTC`
+    const okTxt = s.ok ? '☑ 成功' : `✗ 失敗 rc=${s.rc}`, okCls = s.ok ? 'done' : 'wait'
+    document.getElementById('dr-meta').innerHTML =
+      `<span class="dr-status dr-st-${okCls}">${okTxt}</span>`
+      + `<span>模型 <b>${escapeHtml(s.model || '')}</b></span><span>harness <b>${escapeHtml(s.harness || '')}</b></span>`
+      + `<span>時長 <b>${fmtDur(s.duration_s)}</b></span><span><b>${s.total_calls || 0}</b> 次工具調用</span>`
+      + (s.touched && s.touched.length ? `<span>改動 <b>${s.touched.length}</b> 書</span>` : '')
+    document.getElementById('dr-tl').innerHTML = ''
+    document.getElementById('dr-hist').innerHTML = ''
+    const evsEl = document.getElementById('dr-evs')
+    const cached = sessEventCache.get(s.id)
+    if (cached) { evsEl.innerHTML = evRowsHtml(cached); return }
+    evsEl.innerHTML = `<div class="dr-empty">載入完整歷程…</div>`
+    fetchSessionEvents(s.id).then(evs => {
+      const stillOpen = openSession && openSession.id === s.id
+      if (evs === null) {  // fetch 失敗 / 已被 prune → 不快取（下次重開重試），明示有別於「真的無事件」
+        if (stillOpen) evsEl.innerHTML = `<div class="dr-empty">載入失敗或歷程已清除，稍後重試</div>`
+        return
+      }
+      sessEventCache.set(s.id, evs)  // 只快取成功結果（含真正空檔）
+      if (stillOpen) evsEl.innerHTML = evRowsHtml(evs)
+    })
   }
   document.getElementById('dr-close').addEventListener('click', closeDrawer)
   document.getElementById('dr-mask').addEventListener('click', closeDrawer)
+  document.getElementById('dr-back').addEventListener('click', () => {
+    if (openSessionFrom) openDrawer(openSessionFrom); else closeDrawer()
+  })
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
   document.getElementById('line').addEventListener('click', e => {
     const card = e.target.closest('.book')
@@ -638,6 +761,15 @@
   // corpus 抽屜內 top 髒書 → 點開該書抽屜
   document.getElementById('dr-evs').addEventListener('click', e => {
     const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
+  })
+  // session row 點擊：抽屜歷程（from=當前書）與 corpus 面板（無 from）共用
+  document.getElementById('dr-hist').addEventListener('click', e => {
+    const row = e.target.closest('.sess'); if (!row) return
+    openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), openSlug)
+  })
+  document.getElementById('corpus').addEventListener('click', e => {
+    const row = e.target.closest('.sess'); if (!row) return
+    openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), null)
   })
 
   // ── 工具：跨度格式 ──
@@ -718,6 +850,11 @@
     setHtml('errors', errs.length
       ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
       : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
+
+    const cs = d.corpus_sessions || []
+    indexSessions(cs)
+    document.getElementById('p-corpus').hidden = !cs.length
+    if (cs.length) setHtml('corpus', `<div class="dev-label" style="margin-bottom:6px">${cs.length} 場（新→舊）</div>` + cs.map(sessRowHtml).join(''))
 
     setText('log', (d.recent_log || []).join('\n'))
     setText('foot', `snapshot ${d.generated_at_local}（撿檔每 ${REFRESH_MS/1000}s · 工人每 ${WORKERS_MS/1000}s · 時鐘每秒）`)

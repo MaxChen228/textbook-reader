@@ -1,0 +1,249 @@
+#!/usr/bin/env python3
+"""book_pipeline.agent_history — 每本書的 LLM agent 完整歷程歸檔（append-only，/dev 抽屜歷史源）。
+
+worker_registry 是「此刻誰在跑」的 live 面板（記憶體、recent 砍到 200 條、label 砍到 240 字）；
+本模組是「跑過哪些 session、完整做了什麼」的持久史，兩者互補。三維度都在 pipeline_tick
+的 _run_one() 收斂後才進來，故此處 schema 統一：
+  verb    = audit / catalog_audit / math_sweep / qc / sol_extract / crawl_plan（6 種 LLM 任務）
+  harness = claude-cli（claude/kimi 同一 CLI）/ codex-cli（codex）
+  model   = claude / kimi / gpt-5.4（由 provider 推導，caller 傳入）
+
+生命週期（與 worker_registry 並行呼叫，但寫【完整原文】不截字、不封頂）：
+  start()  ── 派工起頭，建 in-mem session meta。
+  event()  ── 每個工具調用 / LLM 發言 → 完整一行寫 sessions/<id>.jsonl（每行一事件）。
+  finish() ── 收尾（含 timeout / 撞額度的失敗 session 也記）→ 摘要 append 到 index.json。
+
+corpus-level（slug=None）的 math_sweep / crawl_plan：session 記 slug=None，事後由 caller 以
+set_touched() 回填它實際改動的書清單 → 每書抽屜以「slug 命中 OR ∈ touched」查得。
+
+落地 dev/agent_history/（gitignore，比照 workers.json/status.json，standby 機器產物各機獨立）。
+"""
+from __future__ import annotations
+
+import json
+import os
+import threading
+from datetime import datetime, timezone
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HIST_DIR = os.path.join(ROOT, 'dev', 'agent_history')
+SESS_DIR = os.path.join(HIST_DIR, 'sessions')
+INDEX_PATH = os.path.join(HIST_DIR, 'index.json')
+
+# 全域上限：index 超出即刪最舊（含其 JSONL）。append 序≈時間序，故砍頭。env 可覆寫。
+MAX_SESSIONS = int(os.environ.get('BOOK_PIPELINE_HISTORY_CAP', '3000'))
+# reconcile：JSONL 存在但 index 無對應 entry（finish 前進程被 SIGKILL）且夠老 → 視為死孤兒清除。
+_ORPHAN_AGE_S = 3600
+
+_lock = threading.Lock()
+_sessions: dict[str, dict] = {}  # key -> in-mem meta（start→finish 生命週期；崩潰後新進程自然空）
+_last_by_verb: dict[str, str] = {}  # verb -> 本進程最後 finish 的 session id（set_touched 精準回填用）
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec='seconds')
+
+
+def _harness_of(provider: str) -> str:
+    return 'codex-cli' if provider == 'codex' else 'claude-cli'  # claude/kimi 同一 CLI harness
+
+
+def _session_id(slug: str | None, verb: str, pid: int, started: str) -> str:
+    # 排序友善（時戳前綴）+ 可讀 + 唯一（pid 區分同秒同 verb 的並行子工）
+    ts = started.replace('+00:00', 'Z').replace('-', '').replace(':', '')
+    return f'{ts}-{verb}-{slug or "corpus"}-{pid}'
+
+
+def _load_index() -> tuple[list, bool]:
+    """讀 index → (rows, ok)。檔不存在 → ([], True)（正常空）。
+    毀損（JSON 壞）→ 改名保全該檔後 ([], True)（可安全重起，舊資料留 .corrupt-* 供搶救）。
+    暫時性讀取失敗（OSError，非毀損）→ ([], False)：寫端據此【放棄本次寫入】，
+    絕不以空清單覆寫 index.json（否則一次讀失敗就抹掉全部歷史）。"""
+    if not os.path.exists(INDEX_PATH):
+        return [], True
+    try:
+        with open(INDEX_PATH, encoding='utf-8') as f:
+            return (json.load(f) or []), True
+    except (json.JSONDecodeError, ValueError):
+        try:
+            os.replace(INDEX_PATH, INDEX_PATH + '.corrupt-'
+                       + _now().replace(':', '').replace('+00:00', 'Z'))
+        except OSError:
+            pass
+        return [], True
+    except OSError:
+        return [], False
+
+
+def _read_index() -> list:
+    """讀端便利包裝：拿不到就回空（讀端 graceful，不影響資料安全）。"""
+    return _load_index()[0]
+
+
+def _write_index_locked(rows: list) -> None:
+    os.makedirs(HIST_DIR, exist_ok=True)
+    tmp = INDEX_PATH + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(rows, f, ensure_ascii=False)
+    os.replace(tmp, INDEX_PATH)  # 原子寫，避免網頁/devctl 讀到半截
+
+
+def _sess_path(sid: str) -> str:
+    return os.path.join(SESS_DIR, sid + '.jsonl')
+
+
+# ── 生命週期 ───────────────────────────────────────────────────────────────────
+def start(key: str, slug: str | None, verb: str, pid: int, provider: str, model: str) -> None:
+    started = _now()
+    with _lock:
+        os.makedirs(SESS_DIR, exist_ok=True)  # 一次建好；event() 熱路徑不再每事件 makedirs
+        _sessions[key] = {
+            'id': _session_id(slug, verb, pid, started), 'slug': slug, 'verb': verb,
+            'pid': pid, 'provider': provider, 'harness': _harness_of(provider),
+            'model': model, 'started': started, 'calls': 0, 'events': 0}
+
+
+def event(key: str, kind: str, label: str) -> None:
+    """完整原文寫盤（不截字、不封頂）。kind='tool'（計入 total_calls）或 'text'（LLM 發言）。"""
+    with _lock:
+        s = _sessions.get(key)
+        if not s:
+            return
+        if kind == 'tool':
+            s['calls'] += 1
+        s['events'] += 1
+        line = json.dumps({'t': _now(), 'kind': kind, 'label': label}, ensure_ascii=False)
+        with open(_sess_path(s['id']), 'a', encoding='utf-8') as f:
+            f.write(line + '\n')  # 逐行 flush：crash-safe，已寫的事件不丟
+
+
+def finish(key: str, rc: int) -> str | None:
+    """收尾：摘要 append 到 index.json，回 session id。timeout/撞額度的失敗也記（rc!=0, ok=False）。"""
+    ended = _now()
+    with _lock:
+        s = _sessions.pop(key, None)
+        if not s:
+            return None
+        try:
+            dur = int((datetime.fromisoformat(ended)
+                       - datetime.fromisoformat(s['started'])).total_seconds())
+        except Exception:
+            dur = None
+        os.makedirs(SESS_DIR, exist_ok=True)
+        sp = _sess_path(s['id'])
+        if not os.path.exists(sp):
+            open(sp, 'a', encoding='utf-8').close()  # 零事件 session 也留空檔，免網頁 fetch 404
+        row = {
+            'id': s['id'], 'slug': s['slug'], 'verb': s['verb'], 'provider': s['provider'],
+            'harness': s['harness'], 'model': s['model'], 'started': s['started'],
+            'ended': ended, 'duration_s': dur, 'total_calls': s['calls'],
+            'events': s['events'], 'rc': rc, 'ok': rc == 0, 'touched': []}
+        rows, ok = _load_index()
+        if not ok:
+            return s['id']  # index 暫時讀不到 → 跳過歸檔（JSONL 仍在），絕不覆寫抹除全史
+        rows.append(row)
+        _prune_locked(rows)
+        _write_index_locked(rows)
+        _last_by_verb[s['verb']] = s['id']  # set_touched 精準回填用（本進程最後一場該 verb）
+        return s['id']
+
+
+def set_touched(verb: str, touched: list[str]) -> str | None:
+    """corpus-level 收尾回填：把【本進程剛 finish 的那場該 verb session】標記其實際改動的書清單。
+    用 finish 記下的確切 id 定位（非掃 index 猜「最新一筆 verb」）→ 即使未來並行 corpus 作業也不標錯。"""
+    with _lock:
+        sid = _last_by_verb.get(verb)
+        if not sid:
+            return None
+        rows, ok = _load_index()
+        if not ok:
+            return None
+        for r in rows:
+            if r.get('id') == sid:
+                r['touched'] = list(touched)
+                _write_index_locked(rows)
+                return sid
+    return None
+
+
+def _prune_locked(rows: list) -> None:
+    while len(rows) > MAX_SESSIONS:
+        old = rows.pop(0)
+        try:
+            os.remove(_sess_path(old['id']))
+        except OSError:
+            pass
+
+
+# ── 讀端（devctl / CLI；網頁直接 fetch JSONL）────────────────────────────────────
+def sessions_for(slug: str, limit: int | None = None) -> list:
+    """某書的歷史 session 摘要（slug 命中 OR ∈ touched），新→舊。"""
+    rows = _read_index()
+    out = [r for r in rows if r.get('slug') == slug or slug in (r.get('touched') or [])]
+    out.reverse()
+    return out[:limit] if limit else out
+
+
+def sessions_grouped(limit: int | None = None) -> dict:
+    """讀 index 一次，建 slug → session 摘要（新→舊，per-slug 封頂）。devctl 批次掛書用，
+    避免每書各 _read_index() 一次（snapshot 對 N 本書會把整個 index 讀 N 遍）。
+    corpus session（slug=None）依其 touched 歸入每本被改動的書。"""
+    by: dict = {}
+    for r in reversed(_read_index()):  # 新→舊
+        keys = set(r.get('touched') or [])
+        if r.get('slug') is not None:
+            keys.add(r['slug'])
+        for k in keys:
+            lst = by.setdefault(k, [])
+            if limit is None or len(lst) < limit:
+                lst.append(r)
+    return by
+
+
+def corpus_sessions(limit: int | None = None) -> list:
+    """非單書（slug=None）的 session 摘要：crawl_plan / math_sweep 等跨全書作業，新→舊。
+    /dev『Corpus 作業』面板用（這些不掛在任何一本書下）。"""
+    rows = [r for r in _read_index() if r.get('slug') is None]
+    rows.reverse()
+    return rows[:limit] if limit else rows
+
+
+def load_session(sid: str) -> list:
+    """某 session 的完整事件（CLI 用；網頁直接 fetch sessions/<id>.jsonl）。"""
+    out = []
+    try:
+        with open(_sess_path(sid), encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    out.append(json.loads(line))
+    except Exception:
+        pass
+    return out
+
+
+def reconcile() -> int:
+    """清死孤兒：JSONL 存在但 index 無對應、且 mtime 夠老（finish 前被 SIGKILL）。回清除數。
+    低頻呼叫（devctl snapshot 心跳）即可，純清潔不影響正確性。"""
+    import time
+    with _lock:
+        if not os.path.isdir(SESS_DIR):
+            return 0
+        known = {r.get('id') for r in _read_index()}
+        live = {s['id'] for s in _sessions.values()}
+        now = time.time()
+        n = 0
+        for fn in os.listdir(SESS_DIR):
+            if not fn.endswith('.jsonl'):
+                continue
+            sid = fn[:-6]
+            if sid in known or sid in live:
+                continue
+            p = os.path.join(SESS_DIR, fn)
+            try:
+                if now - os.path.getmtime(p) > _ORPHAN_AGE_S:
+                    os.remove(p)
+                    n += 1
+            except OSError:
+                pass
+        return n

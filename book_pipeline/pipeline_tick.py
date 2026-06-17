@@ -39,6 +39,7 @@ from datetime import datetime, timezone
 from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
 from book_pipeline import worker_registry as wr
+from book_pipeline import agent_history as hist
 from book_pipeline import leases
 from book_pipeline import extract_cover
 
@@ -315,8 +316,16 @@ def _build_llm_cmd(provider: str, prompt: str) -> list[str]:
             '--output-format', 'stream-json', '--verbose']
 
 
+def _emit(wkey: str, kind: str, label: str, tag: str) -> None:
+    """單一事件 → live 面板（wr，截字/節流）+ 完整歷程（hist，原文不截）+ stdout 回顯。
+    新增事件來源只改這一處，免「wr/hist 雙呼叫漏改」。kind='tool'|'text'。"""
+    wr.event(wkey, kind, label)
+    hist.event(wkey, kind, label)
+    sys.stdout.write(f'[{tag}] {"🔧" if kind == "tool" else "💬"} {label[:160]}\n')
+
+
 def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
-    """單一 JSONL 事件 → worker_registry。claude 與 codex schema 不同，各自解。"""
+    """單一 JSONL 事件 → 事件匯流（_emit）。claude 與 codex schema 不同，各自解。"""
     if provider == 'codex':
         t = ev.get('type')
         item = ev.get('item') or {}
@@ -325,13 +334,11 @@ def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
         if t == 'item.started' and it and it != 'agent_message':
             cmd = item.get('command') or item.get('path') or item.get('name') or it
             lbl = f'{it}: {cmd}' if it != 'command_execution' else f'shell: {cmd}'
-            wr.event(wkey, 'tool', lbl)
-            sys.stdout.write(f'[{tag}] 🔧 {lbl[:160]}\n')
+            _emit(wkey, 'tool', lbl, tag)
         elif t == 'item.completed' and it == 'agent_message':
             txt = (item.get('text') or '').strip()
             if txt:
-                wr.event(wkey, 'text', txt)
-                sys.stdout.write(f'[{tag}] 💬 {txt[:160]}\n')
+                _emit(wkey, 'text', txt, tag)
         return
     # claude/kimi stream-json
     if ev.get('type') != 'assistant':
@@ -339,14 +346,11 @@ def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
     for blk in (ev.get('message', {}).get('content') or []):
         bt = blk.get('type')
         if bt == 'tool_use':
-            lbl = _tool_label(blk)
-            wr.event(wkey, 'tool', lbl)
-            sys.stdout.write(f'[{tag}] 🔧 {lbl[:160]}\n')
+            _emit(wkey, 'tool', _tool_label(blk), tag)
         elif bt == 'text':
             txt = (blk.get('text') or '').strip()
             if txt:
-                wr.event(wkey, 'text', txt)
-                sys.stdout.write(f'[{tag}] 💬 {txt[:160]}\n')
+                _emit(wkey, 'text', txt, tag)
 
 
 def _run_one(provider: str, todo_verb: str, slug: str | None,
@@ -363,6 +367,9 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     tag = slug or todo_verb
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
+    hist.start(wkey, slug, todo_verb, p.pid, provider,
+               CODEX_MODEL if provider == 'codex' else provider)
+    result_rc = -1  # finally 用：timeout 路徑直接 return -1 不設 rc，故先給地板值
     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
     leases.acquire(todo_verb, slug, p.pid, LLM_TIMEOUT)
@@ -395,12 +402,15 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
                 os.killpg(os.getpgid(p.pid), signal.SIGKILL)
             except (ProcessLookupError, PermissionError):
                 pass
-            return -1, False
+            t.join(timeout=5)  # 子進程已死 → stdout 關閉、_pump 收尾；先排空再讓 finally finish，
+            return -1, False   # 否則被 kill session 的尾段事件（hist.event）會 pop 後遭丟棄
         t.join(timeout=5)
         # rc==0（成功跑完）絕不可能是撞額度；只在失敗且錯誤面含限額字才判 hit
         err = '\n'.join(err_parts).lower()
+        result_rc = rc
         return rc, (rc != 0 and _hit_limit(provider, err))
     finally:
+        hist.finish(wkey, result_rc)  # 失敗/timeout/撞額度的 session 也記（rc!=0, ok=False）
         leases.release(todo_verb, slug)
         wr.unregister(wkey)
 
@@ -581,7 +591,9 @@ def do_crawl_parallel(dry: bool, want: int) -> list[str]:
             except Exception as e:
                 log(f'❌ crawl fetch {futs[f].get("slug")} 異常：{e}')
     log(f'crawl done：成功下載 {len(crawled)}/{len(uniq)} 本')
-    if crawled:  # 剛花掉 zlib 額度 → 事件式失效快取，下個 snapshot 立刻反映 live 餘額（消 5 分 staleness）
+    if crawled:
+        hist.set_touched('crawl_plan', crawled)  # 此 planner session 帶進的書 → 各書抽屜查得此場歷程
+        # 剛花掉 zlib 額度 → 事件式失效快取，下個 snapshot 立刻反映 live 餘額（消 5 分 staleness）
         try:
             from book_pipeline import devctl
             devctl.invalidate_zlib_cache()
@@ -737,6 +749,7 @@ def do_math_sweep(dry: bool) -> int:
         do_math_track(slug)
     residual_after = q.corpus_math_residual()
     q.mark_math_swept(cur, residual_after, rebake)
+    hist.set_touched('math_sweep', rebake)  # corpus session 回填改動書清單 → 各書抽屜查得此場歷程
     log(f'math sweep ✓：本輪改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
     return 0
 
