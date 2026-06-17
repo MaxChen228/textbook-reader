@@ -391,34 +391,35 @@ def scan_errors(since_min: int = 180) -> list:
 
 # ── 快照組裝 ─────────────────────────────────────────────────────────────────
 def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
-    """爬書水位狀態（回答 /dev『有額度卻沒爬？』）。與 pipeline_tick._crawl_backlog 同義：
-    backlog = pipeline 待消化深度；state 決定爬書站閒置文案。複用已算好的 books/zlib/workers，
-    不重打網路。"""
+    """爬書購物清單水位（回答 /dev『清單有哪些具體待抓書、何時抓』）。
+    queue = 持久購物清單（pipeline_tick.crawl_queue.json，具體待抓書）→ /dev 直接列出（額度0也照在）。
+    backlog = pipeline 待消化深度（drain backpressure 用）。複用已算好的 books/zlib/workers，不重打網路。"""
     from book_pipeline import pipeline_tick as pt
     rows = books_snap['books']
-    backlog = pt._crawl_backlog(rows)  # 待製（pre-serve）深度：非 deployed 有強制待辦 + in-flight；單一真相源
-    # wishlist 是『常駐廣義指令』（主題方向，非具體書單）→ 額度用罄時無「被卡住的書」可列；
-    # 改報常駐主題領域數，讓閒置欄不空洞（誠實呈現：在這 N 個方向上待命補書）。
-    try:
-        with open(os.path.join(ROOT, 'book_pipeline', 'crawl_wishlist.json'), encoding='utf-8') as f:
-            topics = len(json.load(f).get('topics') or [])
-    except Exception:
-        topics = 0
-    def _mand(r): return [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]
-    polish = sum(1 for r in rows if r.get('deployed') and _mand(r))  # 已上站、catalog/sol 精修中（不擋爬）
-    pol = f'（精修 {polish} 已上站、不擋爬）' if polish else ''
+    have = pt._have_slugs()
+    queue = [b for b in pt._load_queue() if b.get('slug') and b['slug'] not in have]  # 同 daemon 進場去重
+    backlog = pt._crawl_backlog(rows)
+    room = max(0, pt.CRAWL_HIGH - backlog)  # pipeline 還能容納幾本在飛
     crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
     R = zlib_snap.get('total_remaining')
+    n = len(queue)
+    cap = min(n, room)
+    if isinstance(R, int):
+        cap = min(cap, R)
     if crawling:
-        state, reason = 'refilling', '補貨中 · planner 規劃選書'
-    elif backlog >= pt.CRAWL_LOW:
-        state, reason = 'draining', f'待製 {backlog} ≥ 水位 {pt.CRAWL_LOW}，消化中{pol}'
+        state, reason = 'refilling', f'清單 {n} 本 · planner 補貨中'
+    elif n == 0:
+        state, reason = 'refilling', '清單已抓空 · 下輪 planner 補貨'
     elif R == 0:
-        state, reason = 'quota_empty', f'今日額度用罄 · 重置後自動重探 · {topics} 領域常駐補書{pol}'
+        state, reason = 'quota_empty', f'清單 {n} 本待抓 · 今日額度0 · 重置後自動抓'
+    elif room <= 0:
+        state, reason = 'holding', f'清單 {n} 本待抓 · pipeline 滿（backlog {backlog}）· 待消化'
     else:
-        state, reason = 'feeding', f'待製 {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨{pol}'
-    return {'backlog': backlog, 'polish': polish, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
-            'topics': topics, 'state': state, 'reason': reason}
+        state, reason = 'draining', f'清單 {n} 本待抓 · 有額度 · 下輪抓 {cap} 本'
+    qview = [{'slug': b['slug'], 'title': b.get('title', ''),
+              'is_sol': b['slug'].endswith('_sol'), 'fails': int(b.get('fails', 0) or 0)} for b in queue]
+    return {'queue': qview, 'count': n, 'backlog': backlog, 'room': room,
+            'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH, 'state': state, 'reason': reason}
 
 
 def math_health() -> dict:

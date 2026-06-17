@@ -26,7 +26,7 @@ uv run --with requests python -m book_pipeline.crawl_zlib search "<q>" --lang en
    - 偏好：版次新、`mb` 落在 3–80（過小常殘缺、過大常高解析掃描）、`pages` 合理、有 `publisher`、`have=✓` 代表已爬過（跳過）。
    - **同書多版挑一本**最堪用的；拿不準寧選正式出版年份明確者。
    - 取得每本的 `id` 與 `hash`（`--json` 輸出含 hash）。
-5. **slug 命名**：沿用既有慣例（作者姓_主題，kebab/底線小寫，如 `axler_linalg`、`griffiths_ed4`）；查 `slug_map.json` 風格保持一致。**計畫內 slug 不得重複、不得與 inventory 既有者重複。**
+5. **slug 命名**：沿用既有慣例（作者姓_主題，kebab/底線小寫，如 `axler_linalg`、`griffiths_ed4`）；查 `slug_map.json` 風格保持一致。**計畫內 slug 不得重複、不得與 inventory 既有者重複、也不得與 daemon 在 prompt 給你的「已涵蓋清單」重複**（那串 slug 已經有了、別再選）。
 
 ## 鐵則
 

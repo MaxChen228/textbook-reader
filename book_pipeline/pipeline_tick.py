@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures as cf
 import fcntl
+import glob
 import json
 import os
 import re
@@ -71,9 +72,17 @@ LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
 CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 爬書低水位補貨（watermark）：backlog（pipeline 內待消化書數）< LOW 才派一隻 planner 補到 HIGH。
 # 把爬速綁定消化速（producer/consumer），取代舊「梭哈到額度見底→永久 latch」。一隻 agent 補一大批。
-CRAWL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_LOW', '5'))    # 低水位：backlog 低於此才補貨
-CRAWL_HIGH = int(os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')) # 補到此書單水位（單批要找 = HIGH-backlog，與額度無關）
-CRAWL_RETRY_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_RETRY_S', '300'))  # crawl 補貨重試最小間隔（防額度0時緊湊空轉）
+CRAWL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_LOW', '5'))    # 清單低水位：購物清單剩餘 < 此才叫 planner 補貨
+CRAWL_HIGH = int(os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')) # 補到此清單水位（單批 planner 要找 = HIGH - 清單長度）
+CRAWL_RETRY_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_RETRY_S', '300'))  # crawl 重試最小間隔（防額度0時緊湊空轉）
+# 購物清單（持久 buffer）：planner 選好的「待抓書」存這（slug/id/hash/title/fails）。drain 抓到即劃掉、
+# refill 低於水位才補。檔在 BP 根（同 pipeline_state.json，per-machine runtime state、gitignore）。
+CRAWL_QUEUE = os.path.join(BP, 'crawl_queue.json')
+DATA_DIR = os.path.join(BP, 'mineru_data')
+MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 移出清單
+# refill 冷卻：planner 補不滿清單（wishlist 暫無更多合格缺口）→ 進冷卻、停重派，避免「清單永遠 < 水位 →
+# 每輪重叫 planner 卻補不到」的無收斂 churn（同 math_sweep GROWTH 的收斂哲學）。drain 改變清單或冷卻到期才重試。
+CRAWL_REFILL_COOLDOWN_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_REFILL_COOLDOWN_S', '21600'))  # 6h
 # harvest poll 上限（秒）：OCR 全好的書第一次 poll 就秒收；沒好的書等到此上限就放棄、留
 # in-flight 下個 tick 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 tick）。OCR 是 async、
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
@@ -111,6 +120,7 @@ LLM_PROMPTS = {
         "確屬該書才列為 slug=`<main>_sol`。**解答本優先**（補既有書 CP 值最高），其餘填主書缺口。"
         "逐本 `crawl_zlib search` 選最佳版次（最新、OCR 友善），取得每本 id 與 hash。**互異鐵則**："
         "同一本（含不同版次）只列一次、且不得與 inventory 已有者重複。"
+        "除 inventory 外，這些書也**已經涵蓋、別再選**：{exclude}。"
         "(3) 把計畫寫成 JSON 到 book_pipeline/reports/crawl_plan.json："
         '{{"books":[{{"slug":"..","id":"..","hash":"..","title":".."}}],"reason":".."}}，'
         "唯有全領域皆已覆蓋、湊不滿 {want} 本時才可少於該數並在 reason 說明。"
@@ -425,13 +435,17 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         wr.unregister(wkey)
 
 
-def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, want: int | None = None) -> int:
+def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, want: int | None = None,
+                 exclude: list[str] | None = None) -> int:
     """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈撞額度 → 呼叫端 defer。
     鏈預設 kimi→codex→claude（_provider_chain）。某 provider 撞額度即標記（本 tick 內共享，
     並行子工不再重複撞）、換下一個 provider **重跑同一任務**（不浪費派工）；全鏈撞光才 -2。
-    want：crawl_plan 的本批要找幾本（純書單水位，**與下載額度無關**）；其餘 prompt 無 {want} 佔位，
-    format 自動忽略。"""
-    prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '', want=(CRAWL_HIGH if want is None else want))
+    want：crawl_plan 的本批要找幾本（純書單水位，**與下載額度無關**）。
+    exclude：crawl_plan 已在購物清單待抓的 slug（planner 不得重列）。其餘 prompt 無 {want}/{exclude}
+    佔位，format 自動忽略。"""
+    prompt = LLM_PROMPTS[todo_verb].format(
+        slug=slug or '', want=(CRAWL_HIGH if want is None else want),
+        exclude=(', '.join(exclude) if exclude else '（目前無）'))
     chain = _provider_chain()
     if dry:
         log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt)))
@@ -488,6 +502,94 @@ def _read_crawl_plan() -> dict | None:
         return None
 
 
+# ── 購物清單（持久 buffer）：producer-buffer-consumer 解耦的核心資料結構 ──────────────
+#   planner（producer）低水位時補貨進清單；daemon（consumer）有額度即從清單頭抓、抓到劃掉。
+#   清單與額度徹底解耦 → /dev 爬書欄永遠有貨可顯示（額度0只是抓不動，清單照在）。
+def _load_queue_full() -> dict:
+    """讀購物清單完整 payload（books + meta）。檔缺時**一次性種子**自舊 reports/crawl_plan.json
+    （遷移既有計畫、零丟失）。"""
+    try:
+        return json.load(open(CRAWL_QUEUE)) or {}
+    except Exception:
+        plan = _read_crawl_plan()  # 種子：舊 ephemeral 計畫 → 持久清單
+        return {'books': [b for b in ((plan or {}).get('books') or []) if b.get('slug')]}
+
+
+def _load_queue() -> list[dict]:
+    """購物清單 books（薄包裝；due 判斷 / devctl 用）。"""
+    return [b for b in (_load_queue_full().get('books') or []) if b.get('slug')]
+
+
+def _save_queue(books: list[dict], reason: str = '', exhausted_at=None) -> None:
+    """原子寫購物清單（tmp+replace）。單寫手：只在 tick 的 crawl worker 內呼叫（__crawl__ 序列化）。
+    refill_exhausted_at：wishlist 補不滿時的冷卻時戳（_in_cooldown 用），None=未枯竭。"""
+    tmp = CRAWL_QUEUE + f'.tmp{os.getpid()}'
+    payload = {'books': books, 'count': len(books), 'reason': reason,
+               'refill_exhausted_at': exhausted_at}
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, CRAWL_QUEUE)
+
+
+def _in_cooldown(exhausted_at) -> bool:
+    """refill 是否在冷卻中（wishlist 暫枯竭、停重派直到冷卻到期）。"""
+    try:
+        return exhausted_at is not None and (time.time() - float(exhausted_at)) < CRAWL_REFILL_COOLDOWN_S
+    except Exception:
+        return False
+
+
+def _have_slugs() -> set:
+    """已存在、不該再爬的 slug：mineru_data/* 任何書（含 _sol、含 in-flight）∪ raw_pdfs/*.pdf。
+    daemon 端去重的權威來源——擋 planner 誤選既有書（曾見 james_islr 等已 parsed 書被重列）。"""
+    have = set()
+    try:
+        for p in glob.glob(os.path.join(DATA_DIR, '*')):
+            if os.path.isdir(p):
+                have.add(os.path.basename(p))
+    except Exception:
+        pass
+    try:
+        for p in glob.glob(os.path.join(ROOT, 'raw_pdfs', '*.pdf')):
+            have.add(os.path.basename(p)[:-4])
+    except Exception:
+        pass
+    return have
+
+
+def _zlib_remaining_cached():
+    """廉價讀 zlib 今日餘額快取（dev/zlib_quota.json，devctl 60s 心跳刷新）→ reactive due 判斷用，
+    不打網路。回 int 餘額 / None=未知（樂觀視為可能有額度，drain 階段再做權威查詢）。"""
+    try:
+        c = json.load(open(os.path.join(ROOT, 'dev', 'zlib_quota.json')))
+        r = c.get('total_remaining')
+        return int(r) if r is not None else None
+    except Exception:
+        return None
+
+
+def _merge_plan_into_queue(queue: list[dict], plan: dict | None, have: set) -> int:
+    """把 planner 的 crawl_plan.json 提案 **append** 進清單；去重 vs 清單∪inventory。回實際新增數。
+    （planner 寫 delta 計畫、契約不變；daemon 負責 merge+去重 = 既有 re-crawl bug 的權威修補。）"""
+    if not plan:
+        return 0
+    qslugs = {b['slug'] for b in queue}
+    added = 0
+    for b in (plan.get('books') or []):
+        slug = b.get('slug')
+        if not slug or not re.fullmatch(r'[a-z0-9_]{1,64}', slug):
+            continue
+        if slug in qslugs or slug in have:
+            continue
+        if not (b.get('id') and b.get('hash')):
+            continue
+        queue.append({'slug': slug, 'id': str(b['id']), 'hash': str(b['hash']),
+                      'title': b.get('title', ''), 'fails': 0})
+        qslugs.add(slug)
+        added += 1
+    return added
+
+
 def _fetch_book(b: dict) -> str | None:
     """確定性下載單本（planner 已選好 id/hash/slug，daemon 已指派 account）。
     回 slug=成功 / None=失敗。rc 0 且 raw_pdfs/<slug>.pdf 存在才算成功（不信 rc）。"""
@@ -525,93 +627,151 @@ def _crawl_backlog(rows: list[dict]) -> int:
     return len(_crawl_backlog_books(rows))
 
 
-def _crawl_want(backlog: int) -> int:
-    """本批要找幾本新書 = **純書單水位缺口**，與下載額度完全無關（額度只在下載階段咬）。
-    hysteresis：backlog ≥ 低水位 → 0（讓 pipeline 消化、不抖動）；< 低水位才補，補到 CRAWL_HIGH。
-    這是交給 crawl agent 的唯一數字——agent 對額度全盲，只負責找滿這個數量。兩 tick 路徑共用此式。"""
-    return CRAWL_HIGH - backlog if backlog < CRAWL_LOW else 0
+def _drain_due(rows: list[dict]) -> bool:
+    """**買書員**是否該跑（cheap、免 subprocess、保 idle 收斂）：清單有貨 ∧ pipeline 有空間 ∧
+    額度快取≠0。額度快取 None（未知）→ 樂觀（drain 內權威查）。額度0/清單空/pipeline 滿 → 不跑。"""
+    have = _have_slugs()
+    queue = [b for b in _load_queue() if b['slug'] not in have]
+    return bool(queue) and _crawl_backlog(rows) < CRAWL_HIGH and _zlib_remaining_cached() != 0
 
 
-def do_crawl_parallel(dry: bool, want: int) -> list[str]:
-    """wishlist 驅動爬書。**選書與額度徹底解耦**（第一性原理）：
+def _refill_due() -> bool:
+    """**crawl 小弟（LLM）**是否該派：清單（去重後）< 水位 ∧ 不在冷卻。與額度、pipeline 全無關。"""
+    full = _load_queue_full()
+    have = _have_slugs()
+    queue = [b for b in (full.get('books') or []) if b.get('slug') and b['slug'] not in have]
+    return len(queue) < CRAWL_LOW and not _in_cooldown(full.get('refill_exhausted_at'))
 
-      ① 選書（planner agent，LLM）：純『書單缺什麼』的函數——讀 wishlist + inventory，找 want 本
-         互異缺口。want = 書單水位缺口（daemon 用 _crawl_want 算好遞入），**與下載額度無關**；
-         agent 對額度全盲（見 LLM_PROMPTS['crawl_plan'] 與 references/crawl.md）。
-      ② 下載（daemon 確定性並行）：**額度只在這裡咬**——計畫 K 本 → 下載 min(K, 今日槽位) 本，依各
-         帳號餘額預先指派 account（零碰撞）；下不完的留待後續 cycle（書仍缺→下輪再選），多天自然排空。
 
-    為何拆：只有『選哪本』需判斷（LLM、共享 inventory→須單一決策避免碰撞）；『下載』是確定性的
-    （fetch id hash --slug）、可並行。回成功補到的 slug 清單。want<=0（水位已滿）→ 不爬。"""
-    topics = _wishlist_pending()
-    if not topics or want <= 0:
-        return []
+def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
+    """**買書員（確定性，非 agent）**：有額度就照購物清單抓、抓到就**劃掉**。與 LLM 完全無關、
+    無退避——每次有額度+有貨+pipeline 有空間就跑。**額度只在這裡咬**。回本輪抓到的 slug（已落
+    raw_pdfs，reactive loop 下個 observe 自然接手 ingest，毋須在此 advance）。"""
+    full = _load_queue_full()
+    have = _have_slugs()
+    orig = full.get('books') or []
+    # 進場去重：清單裡其實已存在的（已從別路徑抓到 / 舊誤入）→ 直接劃掉（確定性、與是否抓無關）
+    queue = [b for b in orig if b.get('slug') and b['slug'] not in have]
+    exhausted_at = full.get('refill_exhausted_at')
+    reason = full.get('reason', '') or ''
+    backlog = _crawl_backlog(rows)
+    room = max(0, CRAWL_HIGH - backlog)  # pipeline 還能容納幾本在飛（backpressure：滿了不抓，清單照留）
+    deduped = len(queue) != len(orig)
+
     if dry:
-        log(f'crawl plan：wishlist {len(topics)} 主題（真跑時派 planner 找 {want} 本 → 並行下載）')
-        dispatch_llm('crawl_plan', None, dry=True, want=want)
+        rem = _zlib_remaining_cached()
+        tail = '' if (queue and room > 0) else ' → 本輪不抓'
+        log(f'crawl 買書員：清單 {len(queue)} 本 · pipeline 餘裕 {room} · 額度(快取) {rem}{tail}')
         return []
-    # daemon 資源決策：今日無下載槽就不派 planner（派了也下不到、白燒 LLM）。這是「要不要叫 agent
-    # 出門」的決定，**不把額度數字遞給 agent** → 不違反 agent 全盲。不 latch：下輪自動重探，隔日恢復即續。
+
+    def _persist_if_deduped():
+        if deduped:
+            _save_queue(queue, reason=reason, exhausted_at=exhausted_at)
+
+    if not (queue and room > 0):
+        if queue and room <= 0:
+            log(f'crawl 買書員 hold：pipeline 已滿（backlog {backlog} ≥ {CRAWL_HIGH}）→ 清單 {len(queue)} 本待消化')
+        _persist_if_deduped()
+        return []
+
     accts = _zlib_accounts_remaining()
     if accts is None:
-        log('crawl skip：查額度失敗，本輪不派 crawl')
+        log('crawl 買書員 skip：查額度失敗，本輪不抓（清單原封保留）')
+        _persist_if_deduped()
         return []
     slots = [a['account'] for a in accts for _ in range(max(0, a.get('remaining') or 0))]
-    if not slots:
-        log('crawl defer：今日所有帳號額度耗盡 → 明日（不 latch，下輪自動重探）')
+    n = min(len(queue), len(slots), room)
+    if n <= 0:
+        log('crawl 買書員 defer：今日額度耗盡 → 清單原封保留待明日（不 latch，下輪自動重探）')
+        _persist_if_deduped()
         return []
-    try:
-        os.remove(CRAWL_PLAN)
-    except FileNotFoundError:
-        pass
-    log(f'crawl plan dispatch：派 planner 找 {want} 本（書單水位，與額度無關）；'
-        f'今日可下載槽 {len(slots)}（額度僅下載階段咬）')
-    dispatch_llm('crawl_plan', None, dry=False, want=want)
-    plan = _read_crawl_plan()
-    if not plan:
-        log('❌ crawl plan 空：planner 未產 crawl_plan.json（崩潰／逾時？）')
-        return []
-    books = plan.get('books') or []
-    if not books:
-        log(f'crawl 收斂：{plan.get("reason", "無更多合格經典缺口")}（正常）')
-        return []
-    # 去重（slug + id）
-    seen, uniq = set(), []
-    for b in books:
-        kdup = (b.get('slug'), str(b.get('id')))
-        if not b.get('slug') or kdup in seen:
-            continue
-        seen.add(kdup)
-        uniq.append(b)
-    if not uniq:
-        log('crawl：計畫去重後無有效書（slug 缺/全重複）→ 本輪無下載')
-        return []
-    # ② 下載階段才受額度限制：計畫 K 本 → 下載 min(K, 槽位)；超出的留待後續 cycle（書仍缺→下輪再選）
-    if len(uniq) > len(slots):
-        log(f'crawl：計畫 {len(uniq)} 本 > 今日可下載槽 {len(slots)} → 本輪先下 {len(slots)} 本，餘留待後續 cycle')
-    uniq = uniq[:len(slots)]
-    for i, b in enumerate(uniq):
+
+    batch = queue[:n]
+    for i, b in enumerate(batch):
         b['account'] = slots[i]
-    log(f'crawl fan-out：去重後 {len(uniq)} 本並行下載（帳號槽 {len(slots)}）')
-    crawled: list[str] = []
-    with ThreadPoolExecutor(max_workers=min(CRAWL_PARALLEL, len(uniq))) as ex:
-        futs = {ex.submit(_fetch_book, b): b for b in uniq}
+    log(f'crawl 買書員：清單 {len(queue)} 本 → 本輪抓 {n}（額度槽 {len(slots)}、pipeline 餘裕 {room}）')
+    ok, crawled = set(), []
+    with ThreadPoolExecutor(max_workers=min(CRAWL_PARALLEL, n)) as ex:
+        futs = {ex.submit(_fetch_book, b): b for b in batch}
         for f in cf.as_completed(futs):
+            b = futs[f]
             try:
                 s = f.result()
-                if s:
-                    crawled.append(s)
             except Exception as e:
-                log(f'❌ crawl fetch {futs[f].get("slug")} 異常：{e}')
-    log(f'crawl done：成功下載 {len(crawled)}/{len(uniq)} 本')
+                s = None
+                log(f'❌ crawl fetch {b.get("slug")} 異常：{e}')
+            if s:
+                ok.add(b['slug']); crawled.append(s)
+            else:
+                b['fails'] = int(b.get('fails', 0)) + 1
+    # 結算清單：成功劃掉 / 失敗達上限丟棄 / 其餘保留重試（清掉本輪臨時 account 指派）
+    newq = []
+    for b in queue:
+        if b['slug'] in ok:
+            continue
+        if int(b.get('fails', 0)) >= MAX_FETCH_FAILS:
+            log(f'crawl drop：{b["slug"]} 連 {b.get("fails")} 次 fetch 失敗 → 移出清單（待 refill 補替代）')
+            continue
+        b.pop('account', None)
+        newq.append(b)
+    _save_queue(newq, reason=reason, exhausted_at=exhausted_at)
+    log(f'crawl 買書員 done：抓到 {len(ok)}/{n}，清單剩 {len(newq)} 本')
     if crawled:
-        hist.set_touched('crawl_plan', crawled)  # 此 planner session 帶進的書 → 各書抽屜查得此場歷程
-        # 剛花掉 zlib 額度 → 事件式失效快取，下個 snapshot 立刻反映 live 餘額（消 5 分 staleness）
+        hist.set_touched('crawl_plan', crawled)  # 帶進的書 → 各書抽屜查得此爬書歷程
         try:
             from book_pipeline import devctl
-            devctl.invalidate_zlib_cache()
+            devctl.invalidate_zlib_cache()  # 剛花額度 → 失效快取，下個 snapshot 反映 live 餘額
         except Exception:
             pass
+    return crawled
+
+
+def refill_crawl_queue(dry: bool = False) -> int:
+    """**crawl 小弟（LLM planner agent）**：清單低於水位時去 wishlist 找新缺口書補進清單。整套裡
+    唯一的『crawl agent』——只選書、**不碰下載/劃掉/額度/清單管理**（視野見 LLM_PROMPTS['crawl_plan']
+    + references/crawl.md）。補不滿（wishlist 暫枯竭）→ 進冷卻、停 churn。回新增書數。"""
+    full = _load_queue_full()
+    have = _have_slugs()
+    queue = [b for b in (full.get('books') or []) if b.get('slug') and b['slug'] not in have]
+    exhausted_at = full.get('refill_exhausted_at')
+    reason = full.get('reason', '') or ''
+    if not _wishlist_pending():
+        log('crawl refill skip：wishlist topics 空（daemon 不爬）')
+        return 0
+    want = CRAWL_HIGH - len(queue)
+    exclude = sorted({b['slug'] for b in queue})  # 只給「清單已排隊」（inventory agent 自己查）→ 視野最小
+    if dry:
+        log(f'crawl refill（dry）：清單 {len(queue)} < 水位 {CRAWL_LOW} → 真跑時派 planner 找 {want} 本')
+        return 0
+    log(f'crawl refill：清單 {len(queue)} < 水位 {CRAWL_LOW} → 派 planner 找 {want} 本（與額度無關）')
+    try:
+        os.remove(CRAWL_PLAN)  # 清舊產出，planner 寫新的
+    except FileNotFoundError:
+        pass
+    dispatch_llm('crawl_plan', None, dry=False, want=want, exclude=exclude)
+    plan = _read_crawl_plan()
+    added = _merge_plan_into_queue(queue, plan, have)  # daemon 端權威去重 vs 清單∪inventory
+    reason = (plan or {}).get('reason', '') or reason
+    if added:
+        exhausted_at = None  # 補成功 → 解除冷卻
+        log(f'crawl refill done：planner 補入 {added} 本 → 清單 {len(queue)} 本')
+    elif len(queue) < CRAWL_LOW:
+        exhausted_at = time.time()  # wishlist 暫補不滿 → 進冷卻、停重派 churn
+        log(f'crawl refill 收斂：wishlist 暫無更多合格缺口（{((plan or {}).get("reason") or "計畫空/全去重")[:60]}）'
+            f' → 冷卻 {CRAWL_REFILL_COOLDOWN_S // 3600}h')
+    else:
+        log('crawl refill：planner 無新增（清單已達水位）')
+    _save_queue(queue, reason=reason, exhausted_at=exhausted_at)
+    return added
+
+
+def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
+    """oneshot tick 的 crawl 編排：先**買書員 drain**（確定性、劃掉），再（清單低於水位才）派**crawl
+    小弟 refill**。reactive loop **不**走此函數——它把 drain/refill 當兩個獨立 due-gated 步驟分派
+    （C1 確定性買書員每 cycle、C2 agent 退避補貨），徹底解耦『劃掉』與『agent』。回 drain 抓到的 slug。"""
+    crawled = drain_crawl_queue(rows, dry)
+    if _refill_due():
+        refill_crawl_queue(dry)
     return crawled
 
 
@@ -972,14 +1132,13 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     # 是**獨立資源池**，不該互等 → 同時跑。否則 crawl 卡在 audit barrier 後面 = 額度遲遲不消耗、
     # audit 慢就整批新書都不爬。各書 LLM 任務獨立無依賴 → advance 內部本就全並行。
     adv_slugs = [r['slug'] for r in rows if r['slug'] not in skip]
-    crawl_want = _crawl_want(_crawl_backlog(rows))  # 兩 tick 路徑共用同一水位式（與 reactive 一致）
     if dry:
         _advance_parallel(adv_slugs, dry, no_deploy)
-        crawled = do_crawl_parallel(dry, crawl_want)
+        crawled = do_crawl_tick(dry, rows)  # 買書員 drain（劃掉）+ 低水位才 refill（agent）
     else:
         with ThreadPoolExecutor(max_workers=2) as bc:
             fb = bc.submit(_advance_parallel, adv_slugs, dry, no_deploy)
-            fc = bc.submit(do_crawl_parallel, dry, crawl_want)
+            fc = bc.submit(do_crawl_tick, dry, rows)
             cf.wait([fb, fc])
             if fb.exception():
                 log(f'❌ phase B advance 異常：{fb.exception()}')
@@ -1039,7 +1198,7 @@ def tick_reactive(no_deploy: bool) -> int:
 
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
-    last_crawl_attempt = -1e9  # 時間退避：crawl round 額度 0 時秒退 + wake.set 會造成緊湊重派
+    last_refill_attempt = -1e9  # 退避只套「叫 crawl agent 補貨」（補不到時別狂叫）；買書員 drain 無退避
     try:
         while time.monotonic() < deadline:
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
@@ -1077,22 +1236,22 @@ def tick_reactive(no_deploy: bool) -> int:
                 if _start(f'advance:{slug}', lambda s=slug: advance_book(s, False, no_deploy)):
                     dispatched += 1
 
-            # C. crawl 低水位補貨（watermark，取代永久 latch）：want = _crawl_want(backlog) = 本批要找
-            # 幾本新書（**純書單水位 HIGH-backlog，與額度無關**）。backlog 健康（≥LOW）→ want=0、不爬，
-            # 讓 pipeline 消化（不 latch，下輪重評）。額度限制不在這裡——它只在 do_crawl_parallel 的下載
-            # 階段咬（want 照樣遞給 agent，agent 全盲）。__crawl__ key 自動序列化（planner 在跑時 _start
-            # 回 False、不疊派）。今日無下載槽時 do_crawl_parallel cheap-skip，下輪自動重探→隔日恢復免重啟。
-            # 時間退避（CRAWL_RETRY_S）：無槽時 do_crawl_parallel 秒退、worker 結束 wake.set 立刻喚醒 →
-            # 每 cycle 重派＝緊湊空轉 + log spam。故 crawl 至多每 CRAWL_RETRY_S 試一次（仍 latch-free）。
-            backlog = _crawl_backlog(rows)
-            want = _crawl_want(backlog)
-            if want > 0 and (time.monotonic() - last_crawl_attempt) >= CRAWL_RETRY_S:
-                if _start('__crawl__', lambda w=want: do_crawl_parallel(False, w)):
-                    dispatched += 1
-                    last_crawl_attempt = time.monotonic()
-                    log(f'crawl 補貨：backlog {backlog} < 水位 {CRAWL_LOW} → 派 planner 找 {want} 本（書單水位）')
+            # C1. 買書員（確定性、非 agent、無退避）：清單有貨 ∧ 額度 ∧ pipeline 有空間 → 派確定性 drain
+            # worker 抓+劃掉（無 LLM、不註冊 worker_registry → 不顯示為 crawl agent；__crawl_drain__ 序列化）。
+            # 每 cycle 可派 → 有額度就持續買、抓到就劃掉、與 agent 節奏無關。額度0/清單空/pipeline 滿 →
+            # _drain_due False → 不派 → loop 能 idle 收斂（額度經快取判斷，免 subprocess）。
+            if _drain_due(rows) and _start('__crawl_drain__', lambda r=rows: drain_crawl_queue(r)):
+                dispatched += 1
 
-            # C2. corpus-level 數學 sweep（track-only）：殘餘過門檻才派一隻跨書 agent。__math_sweep__
+            # C2. crawl 小弟（整套唯一的 LLM crawl agent）：清單 < 水位 ∧ 不在冷卻 → 派 planner 補貨。
+            # 退避（CRAWL_RETRY_S）只套這裡——補不到（wishlist 暫枯竭）時別狂叫 agent；__crawl_refill__ 序列化。
+            # 它只補清單、不碰下載/劃掉/額度（視野最小）。冷卻 + 退避雙保險 → 補不滿時 loop 仍能 idle 收斂。
+            if _refill_due() and (time.monotonic() - last_refill_attempt) >= CRAWL_RETRY_S:
+                if _start('__crawl_refill__', lambda: refill_crawl_queue(False)):
+                    dispatched += 1
+                    last_refill_attempt = time.monotonic()
+
+            # C3. corpus-level 數學 sweep（track-only）：殘餘過門檻才派一隻跨書 agent。__math_sweep__
             # key 自動序列化（在跑時不疊派）；_math_sweep_due 在已 sweep 狀態回 False → loop 能收斂 idle。
             due, _resid = _math_sweep_due()
             if due and _start('__math_sweep__', lambda: do_math_sweep(False)):

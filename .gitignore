@@ -36,6 +36,7 @@ book_pipeline/_pending_batches.json
 book_pipeline/mineru_budget.json
 book_pipeline/pipeline_state.json
 book_pipeline/crawl_manifest.json
+book_pipeline/crawl_queue.json
 
 # mineru_data：git 只追蹤「貴重成果」(parsed/*.zh.json + extract_rules.yaml + cover.jpg)，
 # 機器產物（unified 書頁圖+OCR、chunks/raw/batches、parsed/*.json）一律不入 git，改 rsync/Drive 備份。

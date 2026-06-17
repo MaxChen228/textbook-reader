@@ -67,6 +67,10 @@
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
     .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
     .math-ph { background: linear-gradient(135deg, #7b5cd6, #4a2b87) !important; }  /* 數學 sweep agent */
+    /* 購物清單待抓書卡（非 agent，靜態待命）：暗藍灰、無 spinner、不可點 */
+    .crawl-card.queued { cursor: default; }
+    .crawl-card.queued .cv { opacity: .8; }
+    .queue-ph { background: linear-gradient(135deg, #5a6b8c, #38434f) !important; font-size: 26px !important; }
     .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位 / 數學 sweep 殘餘原因行 */
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
@@ -463,16 +467,27 @@
     return el
   }
 
-  // ── 爬書卡 builder / updater（station 0，走 2s worker cadence）──
-  function makeCrawlEl(w) {
+  // ── 爬書站（站 0）= 購物清單 buffer：planner agent 卡（在跑時）+ 待抓書清單卡（持久，額度0也在）──
+  function crawlItems() {
+    const agents = crawlWorkers().map(w => ({ kind: 'agent', key: 'a:' + w.key, w }))
+    const q = ((last && last.crawl && last.crawl.queue) || []).map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
+    return agents.concat(q)  // planner agent 卡在前、待抓書清單在後
+  }
+  function makeCrawlEl(it) {
     const el = document.createElement('div')
-    el.className = 'book crawl-card working'; el.dataset.wkey = w.key; el.title = '爬書 agent'
-    el.innerHTML = '<div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div><div class="ttl"></div>'
-    updateCrawlEl(el, w)
+    if (it.kind === 'agent') {
+      el.className = 'book crawl-card working'; el.dataset.wkey = it.w.key; el.title = '爬書 planner agent'
+      el.innerHTML = '<div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div><div class="ttl"></div>'
+    } else {
+      el.className = 'book crawl-card queued'; el.dataset.queued = it.b.slug; el.title = it.b.title || it.b.slug
+      el.innerHTML = `<div class="cv"><div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div></div><div class="ttl"></div>`
+    }
+    updateCrawlEl(el, it)
     return el
   }
-  function updateCrawlEl(el, w) {
-    const ttl = el.querySelector('.ttl'), txt = `規劃選書 ·${w.total_calls || 0}`
+  function updateCrawlEl(el, it) {
+    const ttl = el.querySelector('.ttl')
+    const txt = it.kind === 'agent' ? `規劃選書 ·${it.w.total_calls || 0}` : (it.b.title || it.b.slug)
     if (ttl.textContent !== txt) ttl.textContent = txt
   }
 
@@ -492,16 +507,17 @@
     applyWalkers()
   }
 
-  // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）。
-  // 有 agent 在爬 → 顯示 agent 卡；閒置 → 只顯示水位原因行（backlog 書本就在各自站台，不在此重複列）。
+  // 爬書 lane（站 0）就地 reconcile —— 2s cadence。顯示購物清單（具體待抓書，持久、額度0也在）+
+  // planner agent 卡（補貨中）。count = 清單長度（非 agent 數）→ 額度耗盡時 badge 仍顯真實待抓書數。
   function reconcileCrawl() {
-    const cw = crawlWorkers()
-    const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 無 agent 爬書'
+    const items = crawlItems()
+    const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 清單空'
     if (crawlReasonEl && crawlReasonEl.textContent !== reason) crawlReasonEl.textContent = reason
-    reconcileLane(laneEls[0], cw, w => w.key, makeCrawlEl, updateCrawlEl,
+    reconcileLane(laneEls[0], items, it => it.key, makeCrawlEl, updateCrawlEl,
       '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
-    if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
-    stationEls[0].classList.toggle('st-active', cw.length > 0)
+    const cnt = (last && last.crawl && last.crawl.count) || 0
+    if (cntEls[0].textContent !== String(cnt)) cntEls[0].textContent = cnt
+    stationEls[0].classList.toggle('st-active', items.length > 0)
   }
 
   // ── 數學 sweep lane（站 7，對稱 crawl）：corpus-level 收尾 agent（slug=null → 不疊書卡，
