@@ -508,7 +508,9 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     problems: list[dict] = []
     current: dict | None = None
     current_section_id: str = str(ch_num)  # fallback：第一個 section 前用章號
-    max_num_seen = 0        # 非 namespace 模式：題號遞增守則（擋正文 numbered list 偽命中）
+    max_num_seen: tuple = ()  # 非 namespace 模式：題號遞增守則（擋正文 numbered list 偽命中）。
+                              # 用【整數 tuple】比較：'1.44'→(1,44)、per-section '1.1.1'→(1,1,1)
+                              # 皆單調遞增（1.2.1>1.1.9），故 section 重起不誤殺；純末段比較會。
     problems_ended = False  # problems_end_re 命中後：題目起點失效、後續歸 body
     in_solution = False     # solution_start_re 命中後：後續 block 收進 current['solution']
 
@@ -557,9 +559,9 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                     except ValueError:
                         m = None
                 # 遞增守則（非 namespace 模式）：題號回退視為正文 numbered list 偽命中
-                if m and not namespace_by_section and max_num_seen > 0:
-                    try:
-                        if int(raw_num) <= max_num_seen:
+                if m and not namespace_by_section and max_num_seen:
+                    try:  # 整數 tuple 比較：題號回退（≤ 已見最大）= 離開題目區的偽命中
+                        if tuple(int(x) for x in raw_num.split('.')) <= max_num_seen:
                             m = None
                     except ValueError:
                         pass
@@ -572,7 +574,7 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                     in_solution = False
                     if not namespace_by_section:
                         try:
-                            max_num_seen = max(max_num_seen, int(raw_num))
+                            max_num_seen = max(max_num_seen, tuple(int(x) for x in raw_num.split('.')))
                         except ValueError:
                             pass
                     if tail:
@@ -778,14 +780,24 @@ def check_problem_gaps(slug: str, chapter_files: list[dict], out_dir: Path,
         nums = [p['num'] for p in data['problems']]
         if not nums:
             continue
-        # 預期：1 ~ max（題號可能含點 N.M 取末段，或純整數取自身）
+        # namespace_by_section 書（num 形如 'sec.prob'，≥2 段）：各節題號自成 1..max，不可混成
+        # 一條序列查連續（會把『§1.2 缺 4』與『§1.3 有 4』互相抵銷 → 假 gap）。偵測：任一 num
+        # 含 ≥2 個點 → 按 section 前綴（去末段）分組、各組內獨立查。否則沿用全章 1..max。
         try:
-            seconds = sorted({int(n.split('.')[-1]) for n in nums})
-            max_n = max(seconds)
-            expected_set = set(range(1, max_n + 1))
-            got_set = set(seconds)
-            gap = sorted(expected_set - got_set)
-            gap_strs = [f'{ch_num}.{g}' for g in gap]
+            if any(n.count('.') >= 2 for n in nums):
+                by_sec: dict[str, set[int]] = {}
+                for n in nums:
+                    parts = n.split('.')
+                    by_sec.setdefault('.'.join(parts[:-1]), set()).add(int(parts[-1]))
+                gap_strs = [f'{sec}.{g}'
+                            for sec, got in by_sec.items()
+                            for g in sorted(set(range(1, max(got) + 1)) - got)]
+                rng = f'{ch_num} · per-section（{len(by_sec)} 節）'
+            else:
+                seconds = {int(n.split('.')[-1]) for n in nums}
+                max_n = max(seconds)
+                gap_strs = [f'{ch_num}.{g}' for g in sorted(set(range(1, max_n + 1)) - seconds)]
+                rng = f'{ch_num}.1–{ch_num}.{max_n}'
             known_strs = known.get(ch_num, set())
             unexpected = [g for g in gap_strs if g not in known_strs]
             covered_known = [g for g in gap_strs if g in known_strs]
@@ -795,7 +807,7 @@ def check_problem_gaps(slug: str, chapter_files: list[dict], out_dir: Path,
                     'unexpected_missing': unexpected,
                     'known_missing': covered_known,
                     'count_present': len(nums),
-                    'expected_range': f'{ch_num}.1–{ch_num}.{max_n}',
+                    'expected_range': rng,
                 })
         except (ValueError, IndexError):
             continue
