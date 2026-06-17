@@ -297,6 +297,36 @@
       padding: 2px 7px; border: 1px solid var(--ink-light); border-radius: 3px;
       color: var(--ink); font-weight: 600; letter-spacing: .06em;
     }
+    .lib-card-meta .sol-badge {
+      padding: 2px 7px; border: 1px solid var(--accent, var(--ink-light)); border-radius: 3px;
+      color: var(--accent, var(--ink)); font-weight: 600; letter-spacing: .06em;
+    }
+    /* 收錄表：領域群組統計 + 具名子單標題 */
+    .lib-group-stat {
+      font-family: var(--mono); font-size: 9px; font-weight: 600;
+      color: var(--ink-light); letter-spacing: .08em; margin-left: 6px;
+    }
+    .lib-sublist { margin-bottom: 16px; }
+    .lib-sublist-label {
+      font-family: var(--serif); font-size: 12px; font-weight: 600; font-style: italic;
+      color: var(--sub); margin-bottom: 8px;
+    }
+    /* ghost 卡：待收錄/無法收錄，不可點，淡化呈現 */
+    .lib-card-ghost {
+      cursor: default;
+      border: 1px dashed var(--border); background: transparent;
+      opacity: .72;
+    }
+    .lib-card-ghost .lib-card-title { color: var(--sub); font-weight: 500; }
+    .lib-card-ghost.shelf-absent { opacity: .5; }
+    .shelf-pill {
+      padding: 2px 7px; border-radius: 3px; font-weight: 600; letter-spacing: .06em;
+    }
+    .shelf-pill.shelf-pending { border: 1px solid var(--border); color: var(--sub); }
+    .shelf-pill.shelf-absent {
+      border: 1px solid var(--border-l); color: var(--sub);
+      text-decoration: line-through; text-decoration-thickness: 1px;
+    }
     .lib-empty {
       padding: 60px 20px; text-align: center; color: var(--sub);
       font-family: var(--mono); font-size: 12px;
@@ -534,12 +564,12 @@
         <h1><a href="#" id="lib-home">參考書</a></h1>
       </div>
       <div class="library-rail qbk-sidebar-body qbk-scroll">
-        <label class="library-rail-label qbk-filter-label">學科 subject</label>
+        <label class="library-rail-label qbk-filter-label">領域 field</label>
         <div class="library-subjects qbk-chip-group" id="library-subjects"></div>
         <div class="library-rail-stats">
-          <div><strong id="library-stat-books">—</strong> 本參考書</div>
-          <div><strong id="library-stat-chapters">—</strong> 章節</div>
-          <div><strong id="library-stat-translated">—</strong> 本中譯</div>
+          <div><strong id="library-stat-books">—</strong> 已收錄</div>
+          <div><strong id="library-stat-chapters">—</strong> 目標正典</div>
+          <div><strong id="library-stat-translated">—</strong> 待收錄</div>
         </div>
       </div>
     </div>
@@ -677,13 +707,15 @@ const renderMarkdown = QBankShared.renderMarkdown
 const escAttr = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-let books = []         // list of book metadata
+let books = []         // 已收錄可讀書 metadata（data/books.json）
+let catalog = null     // 完整收錄表（data/catalog.json）：書單 SoT × 三態，library 渲染來源
+let bookBySlug = {}    // slug → 已收錄書 metadata（catalog owned 卡片 join 封面/章數/中譯）
 let book = null        // currently loaded book.json
 let slug = null
 let currentKind = null // 'ch' | 'app'
 let currentKey = null  // chapter number or appendix id
 let pendingAnchor = null // section anchor to scroll to after next showChunk
-let librarySubject = 'all'
+let libraryField = 'all'
 let sectionObserver = null
 let sectionScrollHandler = null
 let mathScrollHandler = null // 視窗化增量 MathJax：只保留視窗附近排版
@@ -955,7 +987,12 @@ async function init() {
   setupMathCopy()
   try {
     books = await QBankShared.fetchJson('data/books.json')
-    if (!books.length) {
+    bookBySlug = Object.fromEntries(books.map(b => [b.slug, b]))
+    // 收錄表 = 書單 SoT × 三態（data/catalog.json）。缺檔（舊 build）→ 退回用已收錄書合成（只顯示已收錄）。
+    try { catalog = await QBankShared.fetchJson('data/catalog.json') }
+    catch (e) { catalog = synthCatalogFromBooks() }
+    if (!catalog || !catalog.fields || !catalog.fields.length) catalog = synthCatalogFromBooks()
+    if (!books.length && !catalog.fields.some(f => f.sublists.some(s => s.books.length))) {
       showLibrary()
       document.getElementById('lib-groups').innerHTML =
         '<div class="lib-empty">無資料 — 先跑 <code>mineru_ingest</code> 把書送進來</div>'
@@ -967,6 +1004,23 @@ async function init() {
     document.getElementById('loading').textContent = '載入失敗：' + e.message
   }
 }
+
+// catalog.json 缺檔時的退路：用已收錄書按 subject 合成單一領域收錄表（全 owned）。
+function synthCatalogFromBooks() {
+  const bySub = {}
+  books.forEach(b => { (bySub[b.subject || '其他'] ||= []).push(
+    { slug: b.slug, title: b.title, author: b.author || '', status: 'owned' }) })
+  return { fields: [{ field: '已收錄', field_id: 'owned',
+    sublists: Object.keys(bySub).sort().map(n => ({ name: n, books: bySub[n] })) }] }
+}
+
+// 五態 → 使用者三態：已收錄 / 待收錄（排隊或待解析）/ 無法收錄。
+function shelfState(status) {
+  if (status === 'owned') return 'owned'
+  if (status === 'absent') return 'absent'
+  return 'pending'  // queued | ready | unresolved
+}
+const SHELF_LABEL = { owned: '已收錄', pending: '待收錄', absent: '無法收錄' }
 
 function closeReaderSidebar() {
   if (readerDrawer) readerDrawer.close()
@@ -1085,81 +1139,81 @@ function showLibrary() {
   document.title = '教科書 Reader'
 }
 
+// 收錄表統計：跨指定 fields 數主書三態（已收錄/待收錄/無法收錄）。
+function catalogTally(fields) {
+  let owned = 0, total = 0, pending = 0, absent = 0
+  fields.forEach(f => f.sublists.forEach(sl => sl.books.forEach(b => {
+    total++
+    const st = shelfState(b.status)
+    if (st === 'owned') owned++
+    else if (st === 'absent') absent++
+    else pending++
+  })))
+  return { owned, total, pending, absent }
+}
+
 function renderLibraryRail() {
-  const subjects = new Map()
-  books.forEach(b => {
-    const key = b.subject || 'Other'
-    subjects.set(key, (subjects.get(key) || 0) + 1)
-  })
-  const ordered = [...subjects.keys()].sort((a, b) => {
-    if (a === 'Other') return 1
-    if (b === 'Other') return -1
-    return a.localeCompare(b)
-  })
   const root = document.getElementById('library-subjects')
   root.innerHTML = ''
-  const addChip = (subject, label, count) => {
+  const addChip = (field, label, owned, total) => {
     root.appendChild(QBankShared.createChip({
       text: label + ' ',
-      count,
-      active: librarySubject === subject,
-      dataset: { subject },
+      count: `${owned}/${total}`,
+      active: libraryField === field,
+      dataset: { field },
       onClick: () => {
-        librarySubject = subject
+        libraryField = field
         renderLibraryRail()
         renderLibrary(document.getElementById('lib-search').value || '')
       },
     }))
   }
-  addChip('all', '全部', books.length)
-  ordered.forEach(s => addChip(s, s, subjects.get(s)))
-  document.getElementById('library-stat-books').textContent = books.length
-  document.getElementById('library-stat-chapters').textContent =
-    books.reduce((sum, b) => sum + (b.chapter_count || 0), 0)
-  document.getElementById('library-stat-translated').textContent =
-    books.filter(b => b.has_zh).length
+  const all = catalogTally(catalog.fields)
+  addChip('all', '全部', all.owned, all.total)
+  catalog.fields.forEach(f => {
+    const t = catalogTally([f])
+    addChip(f.field_id, f.field, t.owned, t.total)
+  })
+  document.getElementById('library-stat-books').textContent = all.owned
+  document.getElementById('library-stat-chapters').textContent = all.total
+  document.getElementById('library-stat-translated').textContent = all.pending + all.absent
 }
 
+// 收錄表渲染：catalog.fields（書單 SoT × 三態）→ field 群組 → 具名子單 → 三態卡片。
+// 搜尋對 title/author 做子字串過濾；libraryField 選領域。只有「已收錄」卡可點進 reader。
 function renderLibrary(filter) {
   const wrap = document.getElementById('lib-groups')
   const count = document.getElementById('library-count')
   const q = (filter || '').trim().toLowerCase()
-  const subjectFiltered = librarySubject === 'all'
-    ? books
-    : books.filter(b => (b.subject || 'Other') === librarySubject)
-  const filtered = q
-    ? subjectFiltered.filter(b => (b.title||'').toLowerCase().includes(q)
-        || (b.author||'').toLowerCase().includes(q))
-    : subjectFiltered
-  count.textContent = `${filtered.length}/${books.length}`
+  const matchBook = b => !q
+    || (b.title || '').toLowerCase().includes(q)
+    || (b.author || '').toLowerCase().includes(q)
+  let totalAll = 0
+  catalog.fields.forEach(f => f.sublists.forEach(sl => { totalAll += sl.books.length }))
 
-  if (!filtered.length) {
-    wrap.innerHTML = '<div class="lib-empty">沒有相符的書</div>'
-    return
-  }
-  // group by subject
-  const groups = new Map()
-  filtered.forEach(b => {
-    const key = b.subject || 'Other'
-    if (!groups.has(key)) groups.set(key, [])
-    groups.get(key).push(b)
-  })
-  // 排序：有 subject 字母排序在前、Other 殿後
-  const orderedKeys = [...groups.keys()].sort((a, b) => {
-    if (a === 'Other') return 1
-    if (b === 'Other') return -1
-    return a.localeCompare(b)
-  })
-  wrap.innerHTML = orderedKeys.map(k => {
-    const items = groups.get(k)
+  const fields = catalog.fields.filter(f => libraryField === 'all' || f.field_id === libraryField)
+  let shown = 0
+  const html = fields.map(f => {
+    const sublists = f.sublists
+      .map(sl => ({ name: sl.name, books: sl.books.filter(matchBook) }))
+      .filter(sl => sl.books.length)
+    if (!sublists.length) return ''
+    const t = catalogTally([{ ...f, sublists }])
+    shown += t.total
+    const subHtml = sublists.map(sl => `<div class="lib-sublist">
+      <div class="lib-sublist-label">${esc(sl.name)}</div>
+      <div class="lib-grid">${sl.books.map(catalogCardHtml).join('')}</div>
+    </div>`).join('')
     return `<div class="lib-group">
-      <div class="lib-group-label">${esc(k)}</div>
-      <div class="lib-grid">
-        ${items.map(libCardHtml).join('')}
-      </div>
+      <div class="lib-group-label">${esc(f.field)}
+        <span class="lib-group-stat">${t.owned}/${t.total} 收錄</span></div>
+      ${subHtml}
     </div>`
   }).join('')
-  wrap.querySelectorAll('.lib-card').forEach(card => {
+
+  count.textContent = `${shown}/${totalAll}`
+  wrap.innerHTML = html || '<div class="lib-empty">沒有相符的書</div>'
+  wrap.querySelectorAll('.lib-card[data-slug]').forEach(card => {
     card.addEventListener('click', (e) => {
       e.preventDefault()
       navigate(card.dataset.slug)
@@ -1167,24 +1221,37 @@ function renderLibrary(filter) {
   })
 }
 
-function libCardHtml(b) {
-  const meta = [
-    b.edition ? `<span class="edition">${esc(b.edition)}</span>` : '',
-    b.has_zh ? `<span class="zh-badge" title="已有中文翻譯">中譯</span>` : '',
-    b.chapter_count != null ? `<span>${b.chapter_count} 章</span>` : '',
-    b.appendix_count ? `<span>· ${b.appendix_count} 附錄</span>` : '',
-  ].filter(Boolean).join('')
-  const cover = b.has_cover
-    ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy"></div>`
-    : ''
-  return `<a class="lib-card qbk-raised-item" href="#${esc(b.slug)}" data-slug="${esc(b.slug)}">
-    ${cover}
+// 收錄表卡片：已收錄→join bookBySlug 取封面/版次/中譯/章數，可點；
+// 待收錄/無法收錄→ghost 卡（不可點），掛 shelf-pill 標狀態。
+function catalogCardHtml(b) {
+  const st = shelfState(b.status)
+  if (st === 'owned') {
+    const m = bookBySlug[b.slug] || {}
+    const meta = [
+      m.edition ? `<span class="edition">${esc(m.edition)}</span>` : '',
+      m.has_zh ? `<span class="zh-badge" title="已有中文翻譯">中譯</span>` : '',
+      m.chapter_count != null ? `<span>${m.chapter_count} 章</span>` : '',
+      b.sol_status === 'owned' ? `<span class="sol-badge" title="已收錄解答本">解答</span>` : '',
+    ].filter(Boolean).join('')
+    const cover = m.has_cover
+      ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy"></div>`
+      : ''
+    return `<a class="lib-card qbk-raised-item" href="#${esc(b.slug)}" data-slug="${esc(b.slug)}">
+      ${cover}
+      <div class="lib-card-body">
+        <div class="lib-card-title">${esc(b.title || m.title || b.slug)}</div>
+        <div class="lib-card-author">${esc(b.author || m.author || '')}</div>
+        <div class="lib-card-meta">${meta}</div>
+      </div>
+    </a>`
+  }
+  return `<div class="lib-card lib-card-ghost shelf-${st}">
     <div class="lib-card-body">
-      <div class="lib-card-title">${esc(b.title)}</div>
+      <div class="lib-card-title">${esc(b.title || b.slug)}</div>
       <div class="lib-card-author">${esc(b.author || '')}</div>
-      <div class="lib-card-meta">${meta}</div>
+      <div class="lib-card-meta"><span class="shelf-pill shelf-${st}">${SHELF_LABEL[st]}</span></div>
     </div>
-  </a>`
+  </div>`
 }
 
 // ── reader：sidebar header + TOC ──────────────────────────────────
