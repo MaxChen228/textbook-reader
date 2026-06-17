@@ -312,9 +312,20 @@ def _triage(slug: str, raw: dict) -> dict | None:
             _triage_cache = {}
     if key and key in _triage_cache:
         return _triage_cache[key]
+    # pymupdf 對病態 PDF（corrupt / 半下載 / 超大）會無限打轉、無 timeout → 曾整份 build_snapshot
+    # 卡死 14min，launchd 因前一實例未退而不觸發新 60s run → status.json 凍結數分鐘（看板假象）。
+    # 故隔離進子進程跑硬 timeout：超時/壞檔 → review+needs_llm（轉 qc 視覺驗證），cache 之不再重試。
+    import sys
+    import subprocess
     try:
-        from book_pipeline import pdf_triage
-        res = pdf_triage.classify(path)
+        cp = subprocess.run([sys.executable, '-m', 'book_pipeline.pdf_triage', path, '--json'],
+                            cwd=ROOT, capture_output=True, text=True, timeout=45)
+        arr = json.loads(cp.stdout) if cp.stdout.strip() else []
+        res = arr[0] if arr else {'verdict': 'review', 'needs_llm': True,
+                                  'error': cp.stderr.strip()[:200] or '無輸出'}
+    except subprocess.TimeoutExpired:
+        res = {'verdict': 'review', 'needs_llm': True, 'type': 'unknown', 'quality': 'bad',
+               'reasons': ['triage 逾時（PDF 病態/超大）→ 轉視覺驗證'], 'error': 'triage timeout'}
     except Exception as e:
         return {'verdict': 'review', 'needs_llm': True, 'error': str(e)}
     if key:
