@@ -230,13 +230,28 @@ def unresolved_targets(files: list[dict] | None = None, have: set | None = None,
             if status_of(t['slug'], have, resolution) == UNRESOLVED]
 
 
+def is_trustworthy(entry: dict | None) -> bool:
+    """resolution entry 是否由**現役（agent-judged）演算法**產出。判據 = 有 `by` 戳記
+    （agent / auto-exact / agent-rehome）。舊確定性 resolver（2026-06 廢棄、自承不可靠）的遺留 entry
+    無 `by`、帶 `conf` 欄位 → **不可信**（換演算法時未失效的 stale cache）。水位母數只認可信者，
+    否則 stale legacy 撐滿池 → 新 resolver 永不喚醒 → 舊錯誤凍結（self-perpetuating stale-cache trap）。"""
+    return bool(entry) and 'by' in entry
+
+
 def pool_counts(files: list[dict] | None = None, have: set | None = None,
                 resolution: dict | None = None) -> dict:
-    """爬書水位母數。confirmed = READY = **已確認 z-lib 連結、未 owned 的解析池**——crawl agent
-    解析池水位看這個（目標常住 ≥ CRAWL_POOL_LOW）。unresolved = State 1（待 agent 解析）。"""
+    """爬書水位母數。confirmed = READY = 已確認 z-lib 連結、未 owned 的解析池。
+    **confirmed_trustworthy** = 其中由現役演算法解出者（`_crawl_resolve_due` 用此，非 confirmed）——
+    legacy entry 不算數，確保換演算法後 resolver 會醒來重解。unresolved = State 1（待 agent 解析）。"""
+    files = load_files() if files is None else files
+    have = have_slugs() if have is None else have
+    resolution = load_resolution() if resolution is None else resolution
     pr = progress(files, have, resolution)
     o = pr['overall']
-    return {'confirmed': o[READY], 'ready': o[READY],
+    trust = sum(1 for t in targets(files)
+                if status_of(t['slug'], have, resolution) == READY
+                and is_trustworthy(resolution.get(t['slug'])))
+    return {'confirmed': o[READY], 'confirmed_trustworthy': trust, 'ready': o[READY],
             'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED], 'absent': o[ABSENT]}
 
 

@@ -942,11 +942,12 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
 
 
 def _crawl_resolve_due() -> tuple[bool, dict]:
-    """**crawl 解析 agent** 是否該派：解析池（confirmed = READY，已確認 z-lib 連結、未 owned）
+    """**crawl 解析 agent** 是否該派：**可信**解析池（confirmed_trustworthy = 現役演算法解出、未 owned）
     < CRAWL_POOL_LOW ∧ 仍有 unresolved target 可解。回 (due, pool_counts)。池夠滿或無 unresolved →
-    不派 → loop 能 idle 收斂（不 busy-loop）。"""
+    不派 → loop 能 idle 收斂（不 busy-loop）。**用 trustworthy 非 confirmed**：舊確定性 resolver 的
+    stale legacy entry（無 `by` 戳記）不算數，否則撐滿池 → 新 resolver 永不醒 → 舊錯誤凍結。"""
     pc = booklists.pool_counts()
-    return (pc['confirmed'] < CRAWL_POOL_LOW and pc['unresolved'] > 0), pc
+    return (pc['confirmed_trustworthy'] < CRAWL_POOL_LOW and pc['unresolved'] > 0), pc
 
 
 def do_crawl_resolve(dry: bool) -> int:
@@ -960,7 +961,8 @@ def do_crawl_resolve(dry: bool) -> int:
     batch = [t['slug'] for t in booklists.unresolved_targets()[:CRAWL_RESOLVE_BATCH]]
     if not batch:
         return 0
-    log(f'crawl 解析：池 confirmed {pc["confirmed"]}/{CRAWL_POOL_LOW}（unresolved {pc["unresolved"]}）'
+    log(f'crawl 解析：可信池 {pc["confirmed_trustworthy"]}/{CRAWL_POOL_LOW}'
+        f'（confirmed {pc["confirmed"]} 含 legacy；unresolved {pc["unresolved"]}）'
         f' → 派 crawl agent 解析 {len(batch)} 本')
     return dispatch_llm('crawl', ','.join(batch), dry)
 

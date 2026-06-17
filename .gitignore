@@ -31,6 +31,9 @@ tmp/
 raw_pdfs/
 *.pdf
 
+# resolver 誤配書的隔離區（re-home/quarantine 遷移搬入；保留 OCR 不刪、各機獨立、不入 git）
+book_pipeline/_quarantine/
+
 # Log 與 runtime 狀態
 *.log
 *.lock
