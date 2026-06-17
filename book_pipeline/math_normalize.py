@@ -98,10 +98,49 @@ def _merge_double_scripts(tex: str) -> str:
     return cur
 
 
+# ── R4：收斂條件乘號 \ifmmode \times \else \texttimes \fi → \times ────────────
+# 原始碼把「math/text 雙態相容」的條件乘號整段被 OCR 讀進公式（\ifmmode 判模式：
+# 數學區用 \times、文字區用 \texttimes）。reader 一律數學區 → 此段恆等於 \times；
+# 且 \ifmmode/\texttimes 在 MathJax 皆 undefined（整段現為殘餘）。折成 \times。冪等。
+_COND_TIMES = re.compile(r"\\ifmmode\s*\\times\s*\\else\s*\\texttimes\s*\\fi")
+
+
+def _fix_cond_times(tex: str) -> str:
+    if r"\ifmmode" not in tex:
+        return tex
+    return _COND_TIMES.sub(r"\\times", tex)
+
+
+# ── R5：移除 \bgroup/\egroup/\aftergroup 群組噪訊 ─────────────────────────────
+# MinerU 把相位角/定界符 OCR 成 \mathopen{}\mathclose\bgroup … \aftergroup\egroup 的
+# 成對群組噪訊（\bgroup/\egroup/\aftergroup 在 MathJax 全 undefined）。安全性論證：
+# 凡含這些 token 的式子本就 render 失敗 → 移除只能 fail→pass 或維持，絕不讓既有過關式
+# 變壞（回歸閘天然安全）。只錨定在 \bgroup/\egroup 上動手——\mathopen/\mathclose 單獨
+# 是合法命令，僅在其緊鄰 \bgroup 時連帶移除（成對噪訊），不碰獨立使用。冪等（到 fixpoint）。
+_NOISE_OPEN = re.compile(r"\\mathopen\s*\{\s*\}\s*\\mathclose\s*\\bgroup")
+_NOISE_CLOSE = re.compile(r"\\mathclose\s*\\bgroup")
+_NOISE_BARE = re.compile(r"\\(?:aftergroup|bgroup|egroup)")
+
+
+def _remove_group_noise(tex: str) -> str:
+    if not ("\\bgroup" in tex or "\\egroup" in tex or "\\aftergroup" in tex):
+        return tex
+    prev = None
+    cur = tex
+    while cur != prev:
+        prev = cur
+        cur = _NOISE_OPEN.sub("", cur)   # \mathopen{}\mathclose\bgroup（成對開）
+        cur = _NOISE_CLOSE.sub("", cur)  # 殘留 \mathclose\bgroup（巢狀閉）
+        cur = _NOISE_BARE.sub("", cur)   # 任何剩餘裸 token（含 \aftergroup\egroup）
+    return cur
+
+
 # ── 規則目錄（有序套用）──────────────────────────────────────────────────────
 _TEX_RULES = (
     _fix_tag_math,
     _merge_double_scripts,
+    _fix_cond_times,
+    _remove_group_noise,
 )
 
 

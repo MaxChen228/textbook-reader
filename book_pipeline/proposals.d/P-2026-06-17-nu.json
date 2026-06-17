@@ -1,0 +1,18 @@
+{
+  "id": "P-2026-06-17-nu",
+  "domain": "math",
+  "type": "macro",
+  "status": "rejected",
+  "title": "\\Nu 映射",
+  "detect": [
+    "\\Nu"
+  ],
+  "source": "math_sweep",
+  "resolution": "pseudo-macro-guard semantically-ambiguous",
+  "created": "2026-06-17T12:57:02+00:00",
+  "updated": "2026-06-17T12:57:15+00:00",
+  "evidence": "\\Nu \\colon S \\to \\mathbb{R}^3（高斯映射 N）、\\Nu \\geq \\Nu_0、\\Nu_{K/F}(\\alpha)（範數 N）；6 書。×20 occ。",
+  "proposal": "原提案 Layer 0 macro \\Nu→\\nu。",
+  "risk": "\\Nu 在 test_no_ocr_glue_pseudomacros 禁收清單；且語意非唯一——\\Nu→\\nu 對所有觀測樣本皆錯（實為大寫 N）。",
+  "disposition": "per-slug override（觀測語境全為大寫 N：高斯映射 N、Rudin 自然數界 N、Dummit 範數 N_{K/F}）"
+}

@@ -68,3 +68,6 @@ book_pipeline/reports/crawl_plan.json
 book_pipeline/.leases/
 book_pipeline/.catalog_crit_cache.json
 book_pipeline/mineru_data/*/page*.png
+
+# proposals 原子寫暫存（atomic_write_json 的 tmp 殘檔）
+book_pipeline/proposals.d/*.tmp*

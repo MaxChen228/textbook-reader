@@ -1,0 +1,18 @@
+{
+  "id": "P-2026-06-17-ifmmode",
+  "domain": "math",
+  "type": "normalize-rule",
+  "status": "accepted",
+  "title": "\\ifmmode 條件乘號展開",
+  "detect": [
+    "\\ifmmode"
+  ],
+  "source": "math_sweep",
+  "resolution": "R4 _fix_cond_times",
+  "created": "2026-06-17T12:57:02+00:00",
+  "updated": "2026-06-17T12:57:14+00:00",
+  "evidence": "SU(2) \\ifmmode \\times \\else \\texttimes \\fi { } …；MathJax 報 Undefined control sequence \\ifmmode；出現在 schwartz_qft、srednicki_qft。×17 occ / 2 書。",
+  "proposal": "Layer 1 normalize 規則：\\ifmmode \\times \\else \\texttimes \\fi → \\times。",
+  "risk": "低；reader 一律數學區 → 恆等於 \\times。全 corpus 回歸確認無誤吞。",
+  "disposition": ""
+}
