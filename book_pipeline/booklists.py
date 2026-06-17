@@ -34,8 +34,8 @@ from __future__ import annotations
 
 import argparse
 import glob
-import json
 import os
+import re
 
 from book_pipeline import jsonio
 
@@ -47,8 +47,6 @@ DATA_DIR = os.path.join(BP, 'mineru_data')
 RAW = os.path.join(ROOT, 'raw_pdfs')
 CRAWL_QUEUE = os.path.join(BP, 'crawl_queue.json')
 SLUG_MAP = os.path.join(BP, 'slug_map.json')
-
-import re
 
 SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
 SOL_SUFFIX = '_sol'
@@ -141,8 +139,17 @@ def queued_slugs() -> set:
 
 
 def load_resolution() -> dict:
-    """resolver 寫的解析 sidecar：{slug: {id,hash,md5,title,at} | {absent:true,at,note}}。"""
+    """resolver 寫的解析 sidecar：{slug: {id,hash,title,at} | {absent:true,at,note} | {review:true,...}}。"""
     return jsonio.read_json(RESOLUTION, {}) or {}
+
+
+def save_resolution(updates: dict) -> dict:
+    """把 {slug: entry} 合併進 resolution sidecar 並原子寫。**resolver 是唯一寫者**（CLI 單跑、
+    不與 daemon 並發寫此檔），故 read-merge-write 無需鎖。回合併後全表。"""
+    cur = load_resolution()
+    cur.update(updates)
+    jsonio.atomic_write_json(RESOLUTION, cur, indent=1)
+    return cur
 
 
 def status_of(slug: str, have: set, queued: set, resolution: dict) -> str:
@@ -185,6 +192,8 @@ def select_next(n: int, files: list[dict] | None = None, have: set | None = None
     have = have_slugs() if have is None else have
     queued = queued_slugs() if queued is None else queued
     resolution = load_resolution() if resolution is None else resolution
+    # 註：解答本 target 獨立解析，可能在其主書尚未 owned/queued 時就 READY 而先被選——刻意允許
+    # （每本書獨立可得性，題本與主書解耦；catalog 仍各自顯示三態）。
     picks = []
     for t in targets(files):
         if len(picks) >= n:
