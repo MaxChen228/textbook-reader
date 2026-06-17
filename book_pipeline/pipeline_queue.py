@@ -127,15 +127,39 @@ def mark_math_validated(slug: str, bad_occ: int, macros_version: str) -> None:
     from datetime import datetime, timezone
     with _state_lock():
         s = _load_state()
-        s.setdefault(slug, {})['math'] = {
-            'bad_occ': bad_occ, 'macros_version': macros_version,
-            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        # merge（非整段重寫）→ 保留 'accepted'（agent 標記的不可渲染殘餘），免被 re-validate 清掉
+        m = s.setdefault(slug, {}).setdefault('math', {})
+        m.update(bad_occ=bad_occ, macros_version=macros_version,
+                 at=datetime.now(timezone.utc).isoformat(timespec='seconds'))
         _save_state(s)
 
 
 def math_info(slug: str, state: dict | None = None) -> dict:
     s = state if state is not None else _load_state()
     return (s.get(slug, {}) or {}).get('math') or {}
+
+
+def math_accepted(slug: str, state: dict | None = None) -> int:
+    """該書「已 accept、連 override 成可渲染都做不到」的殘餘 occ（真 0 政策下應極少）。"""
+    s = state if state is not None else _load_state()
+    return int((((s.get(slug, {}) or {}).get('math') or {}).get('accepted')) or 0)
+
+
+def mark_math_accepted(slug: str, occ: int) -> None:
+    """agent 判定該書 occ 條殘餘源文已毀、不可渲染 → accept；不再計入 residual_unaccepted（收斂終態）。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        m = s.setdefault(slug, {}).setdefault('math', {})
+        m['accepted'] = int(occ)
+        m['accepted_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        _save_state(s)
+
+
+def math_accepted_total(state: dict | None = None) -> int:
+    s = state if state is not None else _load_state()
+    return sum(int(((v or {}).get('math') or {}).get('accepted') or 0)
+               for k, v in s.items() if k != MATH_STATE_KEY and isinstance(v, dict))
 
 
 def corpus_math_residual(state: dict | None = None) -> int:
@@ -151,12 +175,16 @@ def math_sweep_state(state: dict | None = None) -> dict:
     return (s.get(MATH_STATE_KEY) or {}).get('last_sweep') or {}
 
 
-def mark_math_swept(macros_version: str, residual_after: int, touched: list[str]) -> None:
+def mark_math_swept(macros_version: str, residual_before: int, residual_after: int,
+                    touched: list[str]) -> None:
+    """記錄本輪 sweep：殘餘 before→after + 改動書清單。residual_before 供 _sweep_decision 判
+    fixpoint（同 macros 下沒降也沒改書 → 停派，避免 busy-loop）。"""
     from datetime import datetime, timezone
     with _state_lock():
         s = _load_state()
         s.setdefault(MATH_STATE_KEY, {})['last_sweep'] = {
-            'macros_version': macros_version, 'residual_after': residual_after,
+            'macros_version': macros_version,
+            'residual_before': residual_before, 'residual_after': residual_after,
             'touched': touched,
             'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
         _save_state(s)

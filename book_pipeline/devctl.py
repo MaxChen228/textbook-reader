@@ -461,14 +461,17 @@ def math_health() -> dict:
              for s, n in by_book.items() if n]
     books.sort(key=lambda b: -b['bad_occ'])
     total = sum(by_book.values())
+    accepted = q.math_accepted_total(state)
+    due, reason = pt._sweep_decision(mv.node_available(), total, accepted,
+                                     sweep or None, mv.macros_version())
     return {
         'node_available': mv.node_available(),
         'macros_version': mv.macros_version(),
         'corpus_bad_occ': total,
-        'threshold': pt.MATH_SWEEP_THRESHOLD,           # 靜態地板（冷啟首次 sweep 用）
-        'refire_threshold': pt._math_refire_threshold(state),  # 動態重派門檻 = max(地板, 上次收斂+GROWTH)
-        'growth': pt.MATH_SWEEP_GROWTH,
-        'due': pt._math_sweep_due(state)[0],  # 真相同 daemon（含 GROWTH/macros/node），非僅 ≥門檻
+        'accepted_total': accepted,                 # 已 accept（不可渲染）的殘餘
+        'residual_unaccepted': total - accepted,    # 收斂目標 → 0
+        'due': due,                                 # 真相同 daemon（fixpoint/macros/node）
+        'reason': reason,                           # due / converged / fixpoint / no-node
         'books_with_residual': len(books),
         'top_books': books[:20],
         'last_sweep': sweep or None,

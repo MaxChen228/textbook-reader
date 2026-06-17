@@ -96,14 +96,12 @@ CRAWL_REFILL_FORCE = os.path.join(BP, 'crawl_refill_request')
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
 HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
-# 數學式 corpus-level sweep（Phase 2，track-only，不 gate deploy）：書先上站，殘餘累積到門檻
-# 才派**一隻**跨書 sweep agent 一次清。THRESHOLD = 觸發水位（全 corpus 壞式 occ 總和）；
-# 數學 sweep 派工模型：a=100, b≈0。THRESHOLD(a)=殘餘累積到此才派——調高=批量攢夠才一次
-# 結構化大掃，而非低門檻一輪一輪 nibble；agent 之 mandate 是把可清的收斂到趨近零（見 prompt）。
-# GROWTH 為**防 busy-loop 安全閥**：autonomous 無法自改核心碼，可泛化殘餘只能提 proposals 交人工，
-# 故單次 sweep 後殘餘未必 <a；已 sweep 後須再長 GROWTH 才重派（max(a, 殘餘+GROWTH)），避免同態反覆喚醒。
-MATH_SWEEP_THRESHOLD = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_THRESHOLD', '100'))
-MATH_SWEEP_GROWTH = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_GROWTH', '25'))
+# 數學式 corpus-level sweep（全 LLM 閉環，track-only，不 gate deploy）：收斂目標 = **真 0**。
+# 棄舊棘輪門檻（max(100, 上次殘餘+GROWTH)——殘餘降到門檻下就永久停派、卡在非零）。新模型：只要
+# **residual_unaccepted = corpus 殘餘 − 已 accept（不可渲染）> 0** 就持續派 sweep（agent 自己寫
+# normalize 規則/macro/override + 真實數據閘自驗，人退出迴圈），直到真 0 或全數 accept。
+# 防 busy-loop 改靠 **fixpoint 偵測**（見 _sweep_decision）：上次 sweep 在相同 macros 下既沒降殘餘
+# 也沒改書、且此後 corpus 殘餘未變 → 原地踏步 → 不派，等外部變化（新書部署 / agent 改碼換 macros）。
 
 # === 反應式控制迴圈（BOOK_PIPELINE_REACTIVE=1 啟用；預設 0 = 現行單次 tick，行為一字不差）===
 # 第一性原理：單一 controller 進程內跑「有界 observe→非阻塞派工→reap→harvest→sleep」迴圈，
@@ -989,29 +987,37 @@ def do_math_track(slug: str) -> int:
         return -1
 
 
-def _math_refire_threshold(state: dict | None = None) -> int:
-    """corpus 殘餘要達到多少 occ 才會（再次）派 sweep —— _math_sweep_due 的唯一門檻真相源。
-    冷啟/換 macros → 靜態地板 THRESHOLD（a=100，攢夠才結構化大掃）；已在同 macros sweep 過 →
-    動態升級為 max(地板, 上次收斂殘餘 + GROWTH)（防 busy-loop：autonomous 清不掉的泛化殘餘只能提
-    proposals 交人工，單次 sweep 後殘餘未必 <a）。看板/CLI 一律顯示這個值，穩定 = N < 此動態門檻。"""
-    from book_pipeline import math_validate as mv
-    s = state if state is not None else q._load_state()
-    ls = q.math_sweep_state(s)
-    if ls and ls.get('macros_version') == mv.macros_version() and ls.get('residual_after') is not None:
-        return max(MATH_SWEEP_THRESHOLD, int(ls['residual_after']) + MATH_SWEEP_GROWTH)
-    return MATH_SWEEP_THRESHOLD
+def _sweep_decision(node_available: bool, total: int, accepted: int,
+                    last_sweep: dict | None, cur_macros: str) -> tuple[bool, str]:
+    """純收斂判定（不碰磁碟/node，可單測）。回 (該不該 sweep, reason)。
+      no-node    缺 node_modules → 無從驗證，永不派。
+      converged  residual_unaccepted = total − accepted ≤ 0 → 真 0（或剩餘全已 accept）。
+      fixpoint   上次 sweep 在相同 macros 下沒降殘餘也沒改書、且 corpus 殘餘此後未變 → 原地踏步，
+                 不派（等外部變化：新書部署改 total、或 agent 改 macros）。
+      due        其餘（residual_unaccepted>0 且非 fixpoint）→ 派，繼續朝真 0 收斂。"""
+    if not node_available:
+        return False, "no-node"
+    if total - accepted <= 0:
+        return False, "converged"
+    ls = last_sweep or {}
+    if ls.get("macros_version") == cur_macros and ls.get("residual_after") == total:
+        progressed = ((ls.get("residual_before") is not None
+                       and ls["residual_after"] < ls["residual_before"])
+                      or bool(ls.get("touched")))
+        if not progressed:
+            return False, "fixpoint"
+    return True, "due"
 
 
 def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
-    """廉價門檻判定（讀 state，不重跑 node）。回 (該不該 sweep, 當前 corpus 殘餘 occ)。
-    缺 node → 永不 due（無從驗證）；殘餘 ≥ 動態重派門檻（見 _math_refire_threshold）→ due。
-    保證 reactive loop 能收斂 idle：sweep 後門檻升到「上次收斂 + GROWTH」，殘餘沒再長就不重派。"""
+    """廉價判定（讀 state，不重跑 node）。回 (該不該 sweep, 當前 corpus 殘餘 occ)。
+    判定邏輯見 _sweep_decision（residual_unaccepted>0 且非 fixpoint）。"""
     from book_pipeline import math_validate as mv
-    if not mv.node_available():
-        return False, 0
     s = state if state is not None else q._load_state()
     total = q.corpus_math_residual(s)
-    return total >= _math_refire_threshold(s), total
+    due, _reason = _sweep_decision(mv.node_available(), total, q.math_accepted_total(s),
+                                   q.math_sweep_state(s), mv.macros_version())
+    return due, total
 
 
 def do_math_sweep(dry: bool) -> int:
@@ -1024,7 +1030,7 @@ def do_math_sweep(dry: bool) -> int:
     if not due:
         return 0
     cur = mv.macros_version()
-    log(f'math sweep：corpus 殘餘 {total} occ ≥ 門檻 {MATH_SWEEP_THRESHOLD} → 派跨書 sweep agent（macros={cur}）')
+    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 派跨書 sweep agent（macros={cur}）')
     if dry:
         dispatch_llm('math_sweep', None, dry=True)
         return 0
@@ -1059,7 +1065,7 @@ def do_math_sweep(dry: bool) -> int:
             log(f'❌ math sweep 重烤 {slug} build rc={brc}（parsed 已修、data 未更新，下個 sweep 重試）')
         do_math_track(slug)
     residual_after = q.corpus_math_residual()
-    q.mark_math_swept(cur, residual_after, rebake)
+    q.mark_math_swept(cur, total, residual_after, rebake)  # total = 本輪 before（供 fixpoint 判定）
     hist.set_touched('math_sweep', rebake)  # corpus session 回填改動書清單 → 各書抽屜查得此場歷程
     log(f'math sweep ✓：本輪改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
     return 0

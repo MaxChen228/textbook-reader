@@ -547,11 +547,11 @@
     if (mathWorkers().length) return `sweeping 中 · 殘 ${m.corpus_bad_occ} occ`  // 正在掃 → 不再顯「待/尚未」自相矛盾
     const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
                             : ' · 尚未 sweep'
-    // 健康≠無殘：due=false 時殘餘多半是 OCR 硬殘（現有 macros 修不動、已穩定不再 churn）
-    const health = m.due ? '🔴待 sweep' : (m.corpus_bad_occ > 0 ? '🟢硬殘穩定' : '🟢全淨')
-    // 顯示「殘/重派門檻」而非「殘/靜態地板」→ 殘 446 < 464 才看得出為何穩定（消視覺矛盾）
-    const rf = m.refire_threshold ?? m.threshold
-    return `殘 ${m.corpus_bad_occ}/${rf} occ · ${health}${sw}`
+    // 收斂目標=真 0（residual_unaccepted）；due=false 的非零殘餘多為 fixpoint（規則修不動、已 accept 或卡住）
+    const un = m.residual_unaccepted ?? m.corpus_bad_occ
+    const health = m.due ? '🔴待 sweep' : (un > 0 ? '🟢fixpoint(卡)' : '🟢全淨')
+    const acc = m.accepted_total ? `（已 accept ${m.accepted_total}）` : ''
+    return `未解 ${un}${acc} occ · ${health}${sw}`
   }
   function reconcileMath() {
     const mw = mathWorkers(), m = last && last.math
@@ -635,12 +635,13 @@
       `macros ${m.macros_version || '?'}${m.node_available ? '' : ' · node 缺·未驗證'}`
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status ${m.due ? 'dr-st-wait' : 'dr-st-done'}">`
-      + `${m.due ? '🔴 殘餘過門檻 · 待跨書 sweep'
-                 : (m.corpus_bad_occ > 0 ? '🟢 健康 · 餘為 OCR 硬殘，現有 macros 修不動、不再 churn'
-                                         : '🟢 全 corpus 數學皆可渲染')}</span>`
+      + `${m.due ? '🔴 未解殘餘>0 · 待跨書 sweep（朝真 0）'
+                 : (m.reason === 'fixpoint' ? '🟢 fixpoint · 規則修不動，待 agent 改碼/accept 或外部變化'
+                    : (m.residual_unaccepted > 0 ? '🟢 卡住 · 未解殘餘'
+                                                 : '🟢 全 corpus 數學皆可渲染（真 0）'))}</span>`
       + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span>`
-      + `<span>重派門檻 <b>${m.refire_threshold ?? m.threshold ?? '?'}</b>`
-      + `${(m.refire_threshold && m.refire_threshold !== m.threshold) ? ` <small style="opacity:.6">地板 ${m.threshold}+成長 ${m.growth ?? 25}</small>` : ''}</span>`
+      + `<span>未解 <b>${m.residual_unaccepted ?? '?'}</b>`
+      + `${m.accepted_total ? ` <small style="opacity:.6">已 accept ${m.accepted_total}</small>` : ''}</span>`
       + `<span><b>${m.books_with_residual ?? 0}</b> 書有殘</span>`
     const tb = m.top_books || []
     document.getElementById('dr-evs').innerHTML = tb.length
