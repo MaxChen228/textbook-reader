@@ -23,8 +23,18 @@ uv run python -m http.server 8001                        # 本機預覽
 ## Pipeline 架構（book_pipeline/）
 
 `pipeline_tick.py` 是 launchd 每 ~45min 觸發的 daemon 單 tick,推進整條鏈:
-- **crawl**(z-library 爬書,LLM 派 headless `claude -p`)→ **triage**(pdf_triage)→ **qc**(視覺驗證,LLM)→ **ingest**(`mineru_ingest`+`mineru_budget` 多帳號預算,MinerU 雲端 API)→ **parse**(`parser.py`→`mineru_data/<slug>/parsed/*.json`)→ **audit**(LLM,產 extract_rules.yaml)→ **catalog**(`build_catalogs`)→ **sol_extract**(LLM 合併解答書)→ **deploy**。
-- 確定性階段 daemon 直跑;需判斷的階段派 headless claude 跑 `.claude/skills/book-pipeline/references/*.md`。
+- **crawl**(z-library 爬書,**全確定性、零 LLM**:見下「書單 SoT」)→ **triage**(pdf_triage)→ **qc**(視覺驗證,LLM)→ **ingest**(`mineru_ingest`+`mineru_budget` 多帳號預算,MinerU 雲端 API)→ **parse**(`parser.py`→`mineru_data/<slug>/parsed/*.json`)→ **audit**(LLM,產 extract_rules.yaml)→ **catalog**(`build_catalogs`)→ **sol_extract**(LLM 合併解答書)→ **deploy**。
+- 確定性階段 daemon 直跑;需判斷的階段(qc/audit/sol_extract)派 headless claude 跑 `.claude/skills/book-pipeline/references/*.md`。
+
+### 書單 SoT 驅動的 crawl(整套爬書系統的分母,2026-06 重構)
+
+- **`book_pipeline/booklists/*.json` = 整個 project 唯一 SoT**:兩層(領域檔 → 具名子單 → 主書`{slug,title,author}`),人工維護、git 追蹤。**owned 狀態絕不存檔**(由 mineru_data/raw_pdfs 即時推導)。題本不手列:主書 `solution!=false`(預設 true)→ 系統自衍生 `<slug>_sol` target。邏輯層 `booklists.py`(targets/status_of/select_next/catalog/progress/validate/reconcile)。
+- **crawl 的三段全確定性,LLM 徹底退場**(取代舊「每次補貨把全 wishlist+inventory 丟 LLM 從零重推」的土炮):
+  1. **refill**(`refill_crawl_queue`):低水位時 `booklists.select_next(n)` 自書單序取 status==ready 的 target 補進購物清單 buffer。
+  2. **resolver**(`resolve.py` → `crawl_resolution.json` sidecar,gitignore):書單 target(書名,作者)→ z-lib 具體 id/hash 的**唯一需判斷步驟**,但也確定性化(search+標題詞重疊×作者姓氏命中算信心分)。信心不足:**題本標 absent(永不再查,殺空轉)、主書標 review(待架構師人工裁決,不自動重試)**。一次性 cache,refill 之後純查表。**只 search 不 fetch**,不耗下載額度。
+  3. **買書員**(drain):有額度即從 buffer 頭抓、抓到劃掉(確定性,唯一消費額度處)。
+- **架構師職責**:resolver 標 review 的主書 → 看 `crawl_resolution.json` 候選、`resolve --force --slug <x>` 重解或人工改 booklists。這是架構師任務(非 worker agent),故無 crawl skill reference。
+- **收錄表 UI**:build 烤 `data/catalog.json`(書單 SoT × 五態:owned/queued/ready/absent/unresolved)→ reader library 渲染完整收錄表(三態:已收錄/待收錄/無法收錄)。`data/books.json`(已收錄可讀書)餵內容、`catalog.json` 餵收錄表,並存。
 - `status.py` 從**實際資料**判斷每書階段(非檔名臆測);`pipeline_queue.py` 在其前後補 crawl/qc/deploy 組成完整 queue;`pipeline_state.json` 持久化 qc verdict + deploy 狀態避免重複 LLM/部署。
 - **路徑根基**:`ROOT = dirname(dirname(__file__))`(`status.py`/`corpus.py`/`pipeline_queue.ROOT`),所有狀態檔/`mineru_data`/`raw_pdfs` 都 repo-root 相對 → 模組原名擺 repo 根下即全自動正確。
 - **deploy 已本地化**:`do_deploy()` 只跑 `uv run python -m build.build_all <slug>` 烤出 data/img(nginx 直讀工作目錄即時上站),**無 git push**。
@@ -38,7 +48,7 @@ uv run python -m http.server 8001                        # 本機預覽
 
 ## 資料模型
 
-`textbooks/corpus.py` 是 `mineru_data/<slug>/parsed/` 的唯讀層。書 = chapters(`ch`)+ appendices(`app`)。chunk 有 `body`(block 陣列)+ 可選 `problems`。block 用 `t`:`section`/`subsection`、`p`(markdown)、`eq`(LaTeX)、`fig`、`table`、`example`。語言三態 en(預設)/zh/bi(雙語),由 `parsed/*.zh.json` overlay 稀疏合併(防漂移用 anchor hash)。`*.zh.json` + `extract_rules.yaml` + `catalog_overrides/` 是 git 唯一追蹤的「貴重成果」(機器產物全 ignore)。
+`textbooks/corpus.py` 是 `mineru_data/<slug>/parsed/` 的唯讀層。書 = chapters(`ch`)+ appendices(`app`)。chunk 有 `body`(block 陣列)+ 可選 `problems`。block 用 `t`:`section`/`subsection`、`p`(markdown)、`eq`(LaTeX)、`fig`、`table`、`example`。語言三態 en(預設)/zh/bi(雙語),由 `parsed/*.zh.json` overlay 稀疏合併(防漂移用 anchor hash)。`book_pipeline/booklists/*.json`(書單 SoT)+ `*.zh.json` + `extract_rules.yaml` + `catalog_overrides/` 是 git 唯一追蹤的「貴重成果」(機器產物如 `crawl_resolution.json`/`crawl_queue.json`/`data/`/`img/` 全 ignore)。
 
 ## 前端 reader（index.html）
 

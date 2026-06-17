@@ -319,8 +319,8 @@
     if (c === '0.5') return 2
     return 1  // 0 待 ingest
   }
-  // crawl agent：slug=null、verb=crawl_plan → 過去 applyWalkers 疊不到任何書卡而完全隱形。
-  // 改在「爬書」站台直接以 worker 渲染，回答「現在有沒有 agent 在爬書」。
+  // crawl 已全確定性化（refill 自書單 SoT + 買書員 + resolver，零 LLM agent）→ 通常無 live worker。
+  // 保留 'crawl' verb 過濾以相容歷史 session 顯示（crawl_plan 是舊 LLM planner 的歷史 verb）。
   function crawlWorkers() { return liveWorkers().filter(w => w.verb === 'crawl_plan' || w.verb === 'crawl') }
   // 一句話講清楚「這本書此刻到底在幹嘛 / 卡不卡」——產線最常被問的問題
   function statusText(b, w) {

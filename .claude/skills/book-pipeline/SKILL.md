@@ -90,12 +90,13 @@ uv run python -m book_pipeline.status
 | `pdf_contactsheet.py` | 抽樣頁拼單張 PNG，供 qc 一次 vision 驗證。 |
 | `pipeline_queue.py` | **跨書全 stage 單一真相**（status.py 超集）：crawl→triage→qc→ingest→audit→parse→sol→deploy。`--next` 給下一可動項，每項標 `[LLM]`/`[det]`。 |
 | `mineru_budget.py` | MinerU 每日頁數預算輕量排程（per-account，UTC 重置）。超 quota 不硬拒、靠引擎 resubmit 自癒，故只決定「今天開不開新書」。 |
-| `pipeline_tick.py` | 單次 tick：resume in-flight → wishlist 爬書 → 走 actionable。det 直跑，LLM（crawl/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。**`--dry-run` 印計劃**。 |
+| `pipeline_tick.py` | 單次 tick：resume in-flight → 自書單 SoT 確定性補爬 → 走 actionable。det 直跑，LLM（qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。**crawl 已無 LLM**（refill+買書員+resolver 全確定性）。**`--dry-run` 印計劃**。 |
 | `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
-| `crawl_wishlist.json` | 爬書意圖（`topics` 空則不爬）。crawl agent 讀此 + inventory 自行選書選版。 |
+| `booklists/*.json` | **書單 SoT**（整個 project 唯一真相）：領域檔內含具名子單 → 主書（書名+作者）。refill 自此確定性選書，零 LLM。題本不手列（主書 `solution!=false` → 系統自衍生 `<slug>_sol` target）。 |
+| `resolve.py` + `crawl_resolution.json` | 書單 target →（書名,作者）→ z-lib id/hash 的**確定性解析器**（search+信心分，零 LLM）；結果寫 sidecar 永久 cache。信心不足：題本標 absent（永不再查）、主書標 review（待架構師裁決）。 |
 | `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`。post-deploy 由 daemon track，殘餘記入 state。 |
 | `apply_math_overrides.py` + `math_overrides/` | corpus 數學 sweep 的 reviewable 修復（比照 catalog_overrides）：`fix_eq_tex`/`fix_inline_math`，git 追蹤、可重播。 |
-| `references/{crawl,qc,math-sweep}.md` | headless agent 的 crawl / 視覺 QC / **跨書數學 sweep** 流程指引。 |
+| `references/{qc,math-sweep}.md` | headless agent 的 視覺 QC / **跨書數學 sweep** 流程指引。（crawl 已確定性化，無 agent 流程。） |
 
 **新 stage**（pipeline_queue 在 status 前後補的）：`0.2 待qc`（triage 判 needs_llm）、`0.3 待ingest`（triage 過）、`deploy`（parse 完 → 本地 `build.build_all` 烤 data/img，nginx 直讀即時上站，**無 git push**）。`R *拒` = triage/qc 判不可用。
 

@@ -82,8 +82,9 @@ CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '2
 CRAWL_QUEUE = os.path.join(BP, 'crawl_queue.json')
 DATA_DIR = os.path.join(BP, 'mineru_data')
 MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 移出清單
-# refill 冷卻：planner 補不滿清單（wishlist 暫無更多合格缺口）→ 進冷卻、停重派，避免「清單永遠 < 水位 →
-# 每輪重叫 planner 卻補不到」的無收斂 churn（同 math_sweep GROWTH 的收斂哲學）。drain 改變清單或冷卻到期才重試。
+# refill 冷卻：書單補不滿清單（正典都 owned/queued/absent、暫無 ready target）→ 進冷卻、停重補，避免
+# 「清單永遠 < 水位 → 每輪重跑 resolver 卻補不到」的無收斂 churn（同 math_sweep GROWTH 的收斂哲學）。
+# drain 改變清單或冷卻到期才重試。
 CRAWL_REFILL_COOLDOWN_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_REFILL_COOLDOWN_S', '21600'))  # 6h
 # 手動「強制補貨」請求 marker：外部（CLI `devctl crawl-refill`，未來亦可換 UI 按鈕）丟一張即可，
 # daemon 下個 observe cycle 認它 → **無視水位/冷卻/退避**立刻派 crawl 小弟補到 HIGH，消費即刪（恰跑一次）。
@@ -473,9 +474,6 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     return -2
 
 
-CRAWL_PLAN = os.path.join(BP, 'reports', 'crawl_plan.json')
-
-
 def _zlib_accounts_remaining() -> list[dict] | None:
     """各帳號今日剩餘額度 [{account, remaining}]；查不到回 None。"""
     try:
@@ -489,24 +487,15 @@ def _zlib_accounts_remaining() -> list[dict] | None:
         return None
 
 
-def _read_crawl_plan() -> dict | None:
-    try:
-        return json.load(open(CRAWL_PLAN))
-    except Exception:
-        return None
-
-
 # ── 購物清單（持久 buffer）：producer-buffer-consumer 解耦的核心資料結構 ──────────────
-#   planner（producer）低水位時補貨進清單；daemon（consumer）有額度即從清單頭抓、抓到劃掉。
-#   清單與額度徹底解耦 → /dev 爬書欄永遠有貨可顯示（額度0只是抓不動，清單照在）。
+#   refill（producer）低水位時自書單 SoT 確定性補貨進清單；daemon 買書員（consumer）有額度即從
+#   清單頭抓、抓到劃掉。清單與額度徹底解耦 → /dev 爬書欄永遠有貨可顯示（額度0只是抓不動，清單照在）。
 def _load_queue_full() -> dict:
-    """讀購物清單完整 payload（books + meta）。檔缺時**一次性種子**自舊 reports/crawl_plan.json
-    （遷移既有計畫、零丟失）。"""
+    """讀購物清單完整 payload（books + meta）。檔缺 → 空清單（refill 會自書單 SoT 補回）。"""
     try:
         return json.load(open(CRAWL_QUEUE)) or {}
     except Exception:
-        plan = _read_crawl_plan()  # 種子：舊 ephemeral 計畫 → 持久清單
-        return {'books': [b for b in ((plan or {}).get('books') or []) if b.get('slug')]}
+        return {'books': []}
 
 
 def _load_queue() -> list[dict]:
@@ -516,7 +505,7 @@ def _load_queue() -> list[dict]:
 
 def _save_queue(books: list[dict], reason: str = '', exhausted_at=None) -> None:
     """原子寫購物清單（tmp+replace）。單寫手：只在 tick 的 crawl worker 內呼叫（__crawl__ 序列化）。
-    refill_exhausted_at：wishlist 補不滿時的冷卻時戳（_in_cooldown 用），None=未枯竭。"""
+    refill_exhausted_at：書單補不滿時的冷卻時戳（_in_cooldown 用），None=未枯竭。"""
     tmp = CRAWL_QUEUE + f'.tmp{os.getpid()}'
     payload = {'books': books, 'count': len(books), 'reason': reason,
                'refill_exhausted_at': exhausted_at}
@@ -526,7 +515,7 @@ def _save_queue(books: list[dict], reason: str = '', exhausted_at=None) -> None:
 
 
 def _in_cooldown(exhausted_at) -> bool:
-    """refill 是否在冷卻中（wishlist 暫枯竭、停重派直到冷卻到期）。"""
+    """refill 是否在冷卻中（書單 ready target 暫枯竭、停重補直到冷卻到期）。"""
     try:
         return exhausted_at is not None and (time.time() - float(exhausted_at)) < CRAWL_REFILL_COOLDOWN_S
     except Exception:

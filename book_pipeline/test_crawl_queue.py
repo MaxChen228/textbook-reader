@@ -2,7 +2,7 @@
 
 涵蓋 producer-buffer-consumer 解耦的正確性：
   買書員 drain（確定性，劃掉/失敗計數/達上限丟棄/進場去重/額度0保留/pipeline 滿不抓）、
-  crawl 小弟 refill（merge 去重/wishlist 枯竭進冷卻防 churn）、_drain_due / _refill_due。
+  refill（merge 去重/書單 ready 枯竭進冷卻防 churn）、_drain_due / _refill_due。
 這是「劃掉=確定性、agent 只補貨」架構的地基——drain 與 agent 徹底解耦，故測得硬一點。"""
 
 import json
@@ -15,7 +15,6 @@ from book_pipeline import pipeline_tick as pt
 def _setup():
     d = tempfile.mkdtemp(prefix='crawlq_')
     pt.CRAWL_QUEUE = os.path.join(d, 'crawl_queue.json')
-    pt.CRAWL_PLAN = os.path.join(d, 'crawl_plan.json')
     pt.CRAWL_REFILL_FORCE = os.path.join(d, 'crawl_refill_request')
     pt.CONTROLLER_STATE = os.path.join(d, '.controller.json')
     pt.RELOAD_REQUEST = os.path.join(d, 'reload_request')
@@ -126,7 +125,7 @@ def test_refill_cooldown_blocks_churn():
     assert pt._refill_due() is False                         # 冷卻中 → 不再叫 agent（防 churn）
     _write_queue([], exhausted_at=pt.time.time() - pt.CRAWL_REFILL_COOLDOWN_S - 1)  # 過期
     assert pt._refill_due() is True
-    print('✓ refill：wishlist 枯竭冷卻中不重派、過期才重試（無收斂迴圈病的解藥）')
+    print('✓ refill：書單 ready 枯竭冷卻中不重補、過期才重試（無收斂迴圈病的解藥）')
 
 
 def test_refill_merge_dedup():
