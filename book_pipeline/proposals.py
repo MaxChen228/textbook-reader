@@ -72,6 +72,12 @@ ID_RE = re.compile(r"^P-\d{4}-\d{2}-\d{2}-[a-z0-9][a-z0-9_-]*$")
 DOMAINS: dict[str, dict[str, Any]] = {
     "math": {"types": {"macro", "normalize-rule", "override"}, "checker": "math"},
     "catalog": {"types": {"override", "rule"}, "checker": None},
+    # crawl agent 的 feedback 管道：撞到系統性問題回報架構師，別默默 workaround。
+    # booklist-fix=書單 SoT 標題/作者/slug 有誤或歧義；edition-pref=版次偏好該設/該改；
+    # availability=正典書 z-lib 查無合法 PDF（記錄共識，免每隻 agent 重撞）；
+    # harness-gap=search/inspect 工具不夠力（查不到、metadata 缺）。
+    "crawl": {"types": {"booklist-fix", "edition-pref", "availability", "harness-gap"},
+              "checker": None},
 }
 
 FIELDS = ("evidence", "proposal", "risk", "disposition")  # 散文欄位

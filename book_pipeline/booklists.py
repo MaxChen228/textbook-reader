@@ -144,12 +144,16 @@ def load_resolution() -> dict:
 
 
 def save_resolution(updates: dict) -> dict:
-    """把 {slug: entry} 合併進 resolution sidecar 並原子寫。**resolver 是唯一寫者**（CLI 單跑、
-    不與 daemon 並發寫此檔），故 read-merge-write 無需鎖。回合併後全表。"""
-    cur = load_resolution()
-    cur.update(updates)
-    jsonio.atomic_write_json(RESOLUTION, cur, indent=1)
-    return cur
+    """把 {slug: entry} 合併進 resolution sidecar 並原子寫。寫者 = crawl agent 的 `resolve commit`
+    （daemon 可並行派多隻 agent，各解各的 slug）→ read-merge-write 包 flock 互斥，防兩隻 agent 同時
+    讀-改-寫互蓋（每筆 commit 一次極短臨界區）。回合併後全表。"""
+    import fcntl
+    with open(RESOLUTION + '.lock', 'w') as lf:
+        fcntl.flock(lf, fcntl.LOCK_EX)
+        cur = load_resolution()
+        cur.update(updates)
+        jsonio.atomic_write_json(RESOLUTION, cur, indent=1)
+        return cur
 
 
 def status_of(slug: str, have: set, queued: set, resolution: dict) -> str:
@@ -215,6 +219,28 @@ def has_unresolved(files: list[dict] | None = None, have: set | None = None,
     resolution = load_resolution() if resolution is None else resolution
     return any(status_of(t['slug'], have, queued, resolution) == UNRESOLVED
                for t in targets(files))
+
+
+def unresolved_targets(files: list[dict] | None = None, have: set | None = None,
+                       queued: set | None = None, resolution: dict | None = None) -> list[dict]:
+    """status==UNRESOLVED 的 target（書單序）——crawl agent 的工作母體（State 1：在書單、未確認
+    z-lib 連結）。daemon 切批派給 agent；agent 也可 `resolve queue` 自查。"""
+    files = load_files() if files is None else files
+    have = have_slugs() if have is None else have
+    queued = queued_slugs() if queued is None else queued
+    resolution = load_resolution() if resolution is None else resolution
+    return [t for t in targets(files)
+            if status_of(t['slug'], have, queued, resolution) == UNRESOLVED]
+
+
+def pool_counts(files: list[dict] | None = None, have: set | None = None,
+                queued: set | None = None, resolution: dict | None = None) -> dict:
+    """爬書水位母數。confirmed = READY+QUEUED = **State 2（已確認 z-lib 連結、未 owned）**——
+    crawl agent 解析池水位看這個（目標常住 ≥ CRAWL_POOL_LOW）。unresolved = State 1（待 agent 解析）。"""
+    pr = progress(files, have, queued, resolution)
+    o = pr['overall']
+    return {'confirmed': o[READY] + o[QUEUED], 'ready': o[READY], 'queued': o[QUEUED],
+            'unresolved': o[UNRESOLVED], 'owned': o[OWNED], 'absent': o[ABSENT]}
 
 
 def progress(files: list[dict] | None = None, have: set | None = None,
