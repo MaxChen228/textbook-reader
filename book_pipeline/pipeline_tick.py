@@ -90,9 +90,13 @@ LLM_PROMPTS = {
         "你是 book_pipeline 自動爬書**規劃** agent（只選書、**不下載**）。步驟："
         "(1) 跑 `uv run --with requests python -m book_pipeline.crawl_zlib limits` 看今日總剩餘額度 R。"
         "(2) 讀 book_pipeline/crawl_wishlist.json 主題 + `crawl_zlib inventory` 現有書況。"
-        "(3) 挑最多 min(R, 5) 本**互異**、最該補的經典缺口；逐本 `crawl_zlib search` 選最佳版次"
-        "（最新、OCR 友善），取得每本 id 與 hash。**互異鐵則**：同一本（含不同版次）只列一次、"
-        "且不得與 inventory 已有者重複。(4) 把計畫寫成 JSON 到 book_pipeline/reports/crawl_plan.json："
+        "(3) 挑最多 min(R, 5) 本**互異**缺口，**兩類**合計：(A) wishlist 經典主書缺口；"
+        "(B) **解答本**——掃 inventory 主書（非 _sol/非 is_solution），凡 `<slug>_sol` 不在 known_slugs "
+        "者，跑 `crawl_zlib search \"<書名> solutions manual\" --lang english` 找官方解答（kind=SOL），"
+        "確屬該書才列為 slug=`<main>_sol`。**解答本優先**（補既有書 CP 值最高），剩餘名額填主書缺口。"
+        "逐本 `crawl_zlib search` 選最佳版次（最新、OCR 友善），取得每本 id 與 hash。**互異鐵則**："
+        "同一本（含不同版次）只列一次、且不得與 inventory 已有者重複。"
+        "(4) 把計畫寫成 JSON 到 book_pipeline/reports/crawl_plan.json："
         '{{"books":[{{"slug":"..","id":"..","hash":"..","title":".."}}],"reason":".."}}，'
         "無合格缺口則 books 空陣列、reason 說明。**絕不執行 fetch**。遵 references/crawl.md 選書規則。"),
     'qc': (
