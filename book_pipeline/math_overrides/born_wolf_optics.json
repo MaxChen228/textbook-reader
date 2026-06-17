@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "born_wolf_optics-ch14-body-459-11c049",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[459]",
+      "expect": "\\left. \\begin{array}{l} r ^ {e} \\Pi^ {(w)} = \\frac {1}{k ^ {(\\mathrm{II}) 2}} \\sum_ {l = 1} ^ {\\infty} ^ {e} A _ {l} \\psi_ {l} \\left(k ^ {(\\mathrm{II})} r\\right) P _ {l} ^ {(1)} (\\cos \\theta) \\cos \\phi , \\\\ r ^ {m} \\Pi^ {(w)} = \\frac {\\mathrm{i}}{k ^ {(\\mathrm{II})} k _ {2} ^ {(\\mathrm{II})}} \\sum_ {l = 1} ^ {\\infty} ^ {m} A _ {l} \\psi_ {l} \\left(k ^ {(\\mathrm{II})} r\\right) P _ {l} ^ {(1)} (\\cos \\theta) \\sin \\phi . \\end{array} \\right\\}",
+      "new": "\\left. \\begin{array}{l} r ^ {e} \\Pi^ {(w)} = \\frac {1}{k ^ {(\\mathrm{II}) 2}} \\sum_ {l = 1} ^ {\\infty} A _ {l} ^ {e} \\psi_ {l} \\left(k ^ {(\\mathrm{II})} r\\right) P _ {l} ^ {(1)} (\\cos \\theta) \\cos \\phi , \\\\ r ^ {m} \\Pi^ {(w)} = \\frac {\\mathrm{i}}{k ^ {(\\mathrm{II})} k _ {2} ^ {(\\mathrm{II})}} \\sum_ {l = 1} ^ {\\infty} A _ {l} ^ {m} \\psi_ {l} \\left(k ^ {(\\mathrm{II})} r\\right) P _ {l} ^ {(1)} (\\cos \\theta) \\sin \\phi . \\end{array} \\right\\}"
+    },
+    {
+      "id": "born_wolf_optics-ch14-body-461-caaff7",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[461]",
+      "expect": "\\left. \\begin{array}{l} r ^ {e} \\Pi^ {(s)} = \\frac {1}{k ^ {(I) 2}} \\sum_ {l = 1} ^ {\\infty} ^ {e} B _ {l} \\zeta_ {1} ^ {(1)} (k ^ {(I)} r) P _ {l} ^ {(1)} (\\cos \\theta) \\cos \\phi , \\\\ r ^ {m} \\Pi^ {(s)} = \\frac {\\mathrm{i}}{k ^ {(I)} k _ {2} ^ {(I)}} \\sum_ {l = 1} ^ {\\infty} ^ {m} B _ {l} \\zeta_ {1} ^ {(1)} (k ^ {(I)} r) P _ {l} ^ {(1)} (\\cos \\theta) \\sin \\phi . \\end{array} \\right\\}",
+      "new": "\\left. \\begin{array}{l} r ^ {e} \\Pi^ {(s)} = \\frac {1}{k ^ {(I) 2}} \\sum_ {l = 1} ^ {\\infty} B _ {l} \\zeta_ {1} ^ {(1)} (k ^ {(I)} r) P _ {l} ^ {(1)} (\\cos \\theta) \\cos \\phi , \\\\ r ^ {m} \\Pi^ {(s)} = \\frac {\\mathrm{i}}{k ^ {(I)} k _ {2} ^ {(I)}} \\sum_ {l = 1} ^ {\\infty} B _ {l} \\zeta_ {1} ^ {(1)} (k ^ {(I)} r) P _ {l} ^ {(1)} (\\cos \\theta) \\sin \\phi . \\end{array} \\right\\}"
+    }
+  ]
+}

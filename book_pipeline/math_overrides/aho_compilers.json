@@ -65,6 +65,228 @@
       "selector": "body[289]",
       "expect": "\\begin{array}{l} \\text { if   /   has   type   s   \\longrightarrow\\bullet   t   and   x   has   type   s,} \\\\ \\text { then   expression   f(x)   has   type   t } \\end{array} / _ {f i} \\wedge",
       "new": "\\begin{array}{l} \\text{ if / has type s } \\longrightarrow \\bullet \\text{ t and x has type s,} \\\\ \\text{ then expression f(x) has type t } \\end{array} /_{f i} \\wedge"
+    },
+    {
+      "id": "aho_compilers-ch06-body-294-1939a4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[294]",
+      "expect": "\\begin{array}{l} \\text {if f(x) is an expression,} \\\\ \\text {then for some a and 0, f has type a \\longrightarrow (3 and x has type a} \\end{array} , _ {\\mathrm{o}} ^ {\\wedge}",
+      "new": "\\begin{array}{l}\\mathrm{if }f(x)\\mathrm{ is an expression,}\\\\\\mathrm{then for some }a\\mathrm{ and }b,\\ f\\mathrm{ has type }a\\longrightarrow b\\mathrm{ and }x\\mathrm{ has type }a\\end{array}_{\\mathrm{o}}^{\\wedge}"
+    },
+    {
+      "id": "aho_compilers-ch06-body-480-bccfc7",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[480]",
+      "field": "md",
+      "old": "$B _ { \\mathbf { \\varepsilon } } \\circ \\mathbf { \\varepsilon } _ { - } { \\bf { \\mathcal { B } } } i \\mathrm { ~ { ~ \\bf ~ I ~ } ~ } { \\bf { \\tau } } \\textbf { \\leq } B _ { z }$",
+      "new": "$\\mathbf{B}_{\\mathbf{\\varepsilon}}\\circ\\mathbf{\\varepsilon}_{-}\\mathbf{\\mathcal{B}}\\, i\\,\\mathbf{I}\\mathbf{\\tau}\\le B_{z}$",
+      "anchor": "ce5c478c"
+    },
+    {
+      "id": "aho_compilers-ch09-body-190-7f1b2c",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[190]",
+      "expect": "\\text { gens } - \\text { gen } _ {n} \\text { U } (\\text { gen } _ {n} \\text {-i} - \\text { killn }) \\text { U } (\\text { gen } _ {n} \\text {-2} - \\text { kill } _ {n} \\text {-\\backslash} - \\text { kill } _ {n}) \\text { U }",
+      "new": "\\mathrm{gens}-\\mathrm{gen}_{n}U(\\mathrm{gen}_{n}-i-\\mathrm{kill}_{n})U(\\mathrm{gen}_{n}-2-\\mathrm{kill}_{n}\\setminus \\mathrm{kill}_{n})U"
+    },
+    {
+      "id": "aho_compilers-ch09-body-917-cab0e4",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[917]",
+      "field": "md",
+      "old": "$\\begin{array} { r l } { \\mathbf { j u s t } \\quad } & { { } \\quad \\mathbf { o u T [ s _ { \\ast } ] } ^ { \\ast \\quad \\mathrm { ~ \\textit ~ { ~  ~ } ~ } } \\quad \\mathbf { g } ^ { \\textit { \\textmd e n s e } } \\mathbf { t } } \\end{array}$",
+      "new": "$\\begin{array}{rl}\\mathbf{just}\\quad & \\mathbf{Out}[s_*]^{\\ast}\\mathbf{g}^{\\mathrm{ense}}\\mathbf{t}\\end{array}$",
+      "anchor": "23e18979"
+    },
+    {
+      "id": "aho_compilers-ch09-body-918-a523e0",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[918]",
+      "field": "md",
+      "old": "$\\mathrm { / . R s . O U T p B i ] } \\quad \\textrm { J ^ { u s : } } \\quad / \\textrm { R I } , 0 \\textrm { U T } [ \\textrm { B } ! ] , \\textrm { w ~ h ~ c ~ n ~ }$",
+      "new": "$\\mathrm{/Rs.OUTpBi]}\\ \\mathbf{J}^{\\mathrm{us:}}\\ / \\mathrm{RI},0\\ \\mathrm{UT}[\\mathrm{B}!],\\mathrm{whcn}$",
+      "anchor": "054ea841"
+    },
+    {
+      "id": "aho_compilers-ch10-body-369-6ae35d",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[369]",
+      "expect": "\\max _ {\\text { c   a   cycle   in   G }} \\frac {\\text { Yje   in   c   de }}{\\text { X^e   in   c   ^ {\\wedge }}}",
+      "new": "\\max_{\\mathrm{c\\ a\\ cycle\\ in\\ G}}\\frac{\\mathrm{Yje\\ in\\ c\\ de}}{\\mathrm{X}^e\\,\\mathrm{in}\\,c^{\\wedge}}"
+    },
+    {
+      "id": "aho_compilers-ch11-body-326-0e9542",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[326]",
+      "field": "md",
+      "old": "$\\begin{array} { r } { \\mathbf { F } \\mathbf { v } _ { \\textrm { \\textmu } } = \\mathbf { \\mu } \\mathbf { 0 } _ { \\textrm { \\textmu } } } \\end{array}$",
+      "new": "$\\begin{array}{r}{\\mathbf{F}\\mathbf{v}_{\\mu}=\\mathbf{\\mu}\\mathbf{0}_{\\mu}}\\end{array}$",
+      "anchor": "f16970f7"
+    },
+    {
+      "id": "aho_compilers-ch11-body-888-6bab64",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[888]",
+      "expect": "\\left| \\begin{array}{c c} \\text {\" 1\"} \\\\ 0 \\end{array} \\right| _ {I} \\left| \\begin{array}{c c} \\text {\" 1\"} \\\\ \\text {\\text {工}} \\end{array} \\right|",
+      "new": "\\left|\\begin{array}{c}1\\\\0\\end{array}\\right|_{I}\\left|\\begin{array}{c}1\\\\\\mathrm{工}\\end{array}\\right|"
+    },
+    {
+      "id": "aho_compilers-ch11-body-955-76fc16",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[955]",
+      "expect": "\\begin{array}{c c} \\text {^ {\\prime} 1} & 0 \\\\ 1 & 1 \\end{array}",
+      "new": "\\begin{array}{cc}1^{\\prime}&0\\\\1&1\\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch12-body-414-0fdf17",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[414]",
+      "field": "md",
+      "old": "$i \\ = \\ \\textrm { 1 , 2 , \\ldots , n }$",
+      "new": "$i=1,\\dots,n$",
+      "anchor": "71aade4e"
+    },
+    {
+      "id": "aho_compilers-appB-body-8-24dfb6",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[8]",
+      "expect": "\\mathbf {A} \\mathbf {v} _ {0} \\mathbf {M} [ \\mathrm{r} _ {0} ] [ \\mathrm{c} ^ {\\prime}: \\mathrm{m} ] + \\bullet \\bullet \\bullet + \\text {Ay - iM[r^{\\prime} -l][c^{\\prime} :m]} > 0;",
+      "new": "\\mathbf{A}\\mathbf{v}_0\\mathbf{M}[\\mathrm{r}_0][\\mathrm{c}^{\\prime}:\\mathrm{m}] + \\bullet\\bullet\\bullet + \\mathrm{Ay}-i\\mathbf{M}[r^{\\prime}-\\ell][c^{\\prime}:m] > 0;"
+    },
+    {
+      "id": "aho_compilers-ch04-body-671-c4d089",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[671]",
+      "field": "md",
+      "old": "$ 8 } } .$",
+      "new": "$ 8.$",
+      "anchor": "f47844f5"
+    },
+    {
+      "id": "aho_compilers-ch04-body-859-10e1be",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[859]",
+      "field": "md",
+      "old": "$ } , item $",
+      "new": "$ item $",
+      "anchor": "8ff9014a"
+    },
+    {
+      "id": "aho_compilers-ch04-body-114-0fc9df",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[114]",
+      "field": "md",
+      "old": "$a \\_ { \\mathrm { ~ \\normalfont ~ \\left( 3 \\right. \\kern - delimiterspace } 2 }$",
+      "new": "$a_{\\mathrm{(3,2)}}$",
+      "anchor": "e8b5ce1f"
+    },
+    {
+      "id": "aho_compilers-ch04-body-780-d4c4ba",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[780]",
+      "field": "md",
+      "old": "$\\mathbf { G O T o } ( \\mathbf { c L O S U R E } ( \\{ [ ^ { \\land } \\qquad &  \\& ] \\} ) , X ) ,$",
+      "new": "$\\mathbf{GOTO}\\left(\\mathbf{CLOSEURE}(\\{[\\land\\ \\&]\\}),X\\right),$",
+      "anchor": "7bea31dc"
+    },
+    {
+      "id": "aho_compilers-ch05-body-163-c67555",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[163]",
+      "field": "md",
+      "old": "$C \\_ { \\mathrm { ~ \\scriptsize ~ { ~ \\left[ ~ \\begin{array} { l } { \\end{array}  } ~ } } }\\right]$",
+      "new": "$C_{[\\,]}$",
+      "anchor": "4472633f"
+    },
+    {
+      "id": "aho_compilers-ch08-body-566-8f81c4",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[566]",
+      "expect": "\\begin{array}{c c} R i & * _ {-} \\\\ & R _ {i} \\end{array} \\begin{array}{c c} + \\\\ C _ {a} \\end{array} \\qquad \\qquad \\begin{array}{c c} \\{\\quad \\text {if (a = 1)} \\\\ \\text {INC Ri} \\\\ \\text {else} \\\\ \\text {ADD Ri, Ri, #a} \\end{array}",
+      "new": "\\begin{array}{cc}R_i&*_{-}\\\\ &R_i\\end{array}\\begin{array}{c}+\\\\ C_a\\end{array}\\qquad\\qquad\\begin{array}{l}\\{\\mathrm{if }(a=1)\\\\\\mathrm{INC\\ Ri}\\\\\\mathrm{else}\\\\\\mathrm{ADD\\ Ri,Ri,\\#a}\\end{array}"
+    },
+    {
+      "id": "aho_compilers-ch03-problem-3-3-8-body-3-35c3f8",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3 . 3 . 8 :body[3]",
+      "field": "md",
+      "old": "$ matches the right end of a line. The operator \" is also used to introduce complemented character classes, but the context always makes it clear which meaning is intended. For example, \\~ [ \\~ a e i o u ] \\* \\$",
+      "new": "$ matches the right end of a line. The operator \\sim is also used to introduce complemented character classes, but the context always makes it clear which meaning is intended. For example, [\\sim aeiou]^*$",
+      "anchor": "a7f0de5a"
+    },
+    {
+      "id": "aho_compilers-ch04-body-951-369521",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[951]",
+      "expect": "\\text { line }: \\text { expr } > \\backslash n ^ {\\prime} \\quad \\{\\text { printf07.d\\n\",   1) }; \\}",
+      "new": "\\mathrm{line}:\\mathrm{expr} > \\backslash n^{\\prime}\\quad\\{\\mathrm{printf07.d}\\backslash n,\\,1)\\}"
+    },
+    {
+      "id": "aho_compilers-ch04-problem-4-2-2-body-4-fdc5b1",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4 . 2 . 2 :body[4]",
+      "field": "md",
+      "old": "\\(S)\\S \\* \\ a with string (a + a) \\* a.",
+      "new": "(S)\\S * a with string (a+a) * a.",
+      "anchor": "edac2e80"
+    },
+    {
+      "id": "aho_compilers-ch06-problem-6-6-2-body-0-37f7da",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6 . 6 . 2 :body[0]",
+      "field": "md",
+      "old": "\\(B) }. Show what the code layout looks like for this translation, and revise the rule for while-loops in Fig. 6.36.",
+      "new": "(B). Show what the code layout looks like for this translation, and revise the rule for while-loops in Fig. 6.36.",
+      "anchor": "abd31930"
+    },
+    {
+      "id": "aho_compilers-ch09-body-341-24d492",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[341]",
+      "field": "md",
+      "old": "$\\romannumeral 2$",
+      "new": "$\\mathrm{ii}$",
+      "anchor": "72ed9dd0"
+    },
+    {
+      "id": "aho_compilers-appB-body-26-785197",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[26]",
+      "field": "md",
+      "old": "\\(-M[row][col]/M[r][coV])]]",
+      "new": "-M[row][col]/M[r][col]",
+      "anchor": "2ddd4c27"
+    },
+    {
+      "id": "aho_compilers-ch12-body-167-f5ec86",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[167]",
+      "expect": "\\begin{array}{l} 1) \\quad r d (B, N, B, N, X) \\quad \\therefore \\quad d e f (B, N, X) \\\\ \\begin{array}{l} 2) \\quad r d (B, N, C, M, X) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text { : - } \\qquad \\qquad r d \\{B, N \\quad - \\quad I, C, M, X) \\quad k \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\q \\\\ 3) \\quad r d (B, 0, C, M, X) \\quad : - \\quad r d (D, N, C, M, X) k   s u c c (D, N, B) \\\\ \\end{array}",
+      "new": "\\begin{array}{l} 1) \\quad r d (B, N, B, N, X) \\quad \\therefore \\quad d e f (B, N, X) \\\\ 2) \\quad r d (B, N, C, M, X) \\\\ \\qquad : - \\qquad r d (B, N, I, C, M, X) \\quad k \\\\ 3) \\quad r d (B, 0, C, M, X) \\quad : - \\quad r d (D, N, C, M, X) \\quad s u c c (D, N, B) \\end{array}"
     }
   ]
 }

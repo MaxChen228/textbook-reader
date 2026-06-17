@@ -1,0 +1,60 @@
+{
+  "overrides": [
+    {
+      "id": "boas_mp-ch08-body-436-3f3f8d",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[436]",
+      "field": "md",
+      "old": "$( \\omega ^ { 2 } - \\omega ^ { \\prime } ^ { 2 } ) ^ { 2 } + 4 b ^ { 2 } \\omega ^ { \\prime } ^ { 2 }$",
+      "new": "$(\\omega^{2} - \\omega^{\\prime 2})^{2} + 4 b^{2} \\omega^{\\prime 2}$",
+      "anchor": "a4340826"
+    },
+    {
+      "id": "boas_mp-ch03-problem-15-15-body-0-5741d4",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:15.15:body[0]",
+      "field": "md",
+      "old": "$\\left\\{ \\begin{array} { l l } { x ^ { \\prime } = 2 x + 5 y } \\\\ { y ^ { \\prime } = x + 3 y } \\end{array} \\right. \\qquad \\left\\{ \\begin{array} { l l }  x ^ { \\prime \\prime } = { \\begin{array} { l } { x ^ { \\prime } - 2 y ^ { \\prime } } \\\\ { y ^ { \\prime \\prime } = 3 x ^ { \\prime } - 5 y ^ { \\prime } } \\end{array} } \\right. \\end{array}$",
+      "new": "$\\left\\{\\begin{array}{l} x' = 2x + 5y \\\\ y' = x + 3y \\end{array}\\right. \\qquad \\left\\{\\begin{array}{l} x'' = x' - 2y' \\\\ y'' = 3x' - 5y' \\end{array}\\right.$",
+      "anchor": "c20c1759"
+    },
+    {
+      "id": "boas_mp-ch01-problem-6-15-body-1-f7e939",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "problem:6.15:body[1]",
+      "expect": "\\sum_ {n = 1} ^ {\\infty} \\frac {1}{n ^ {p}} \\text {is} \\left\\{ \\begin{array}{l l} \\text {convergent} & \\text {if p > 1 ,} \\\\ \\text {divergent} & \\text {if p\\leq 1 .} \\end{array} \\right.",
+      "new": "\\sum_{n = 1}^{\\infty} \\frac{1}{n^{p}} \\text{ is } \\left\\{\\begin{array}{ll}\\text{convergent} & \\text{if }p > 1,\\\\ \\text{divergent} & \\text{if }p\\le 1.\\end{array}\\right."
+    },
+    {
+      "id": "boas_mp-ch03-body-527-11f7ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[527]",
+      "expect": "\\text {(Inner product of \\mathbf {A} and \\mathbf {B}) = \\sum_ {i = 1} ^ {n} A _ {i} ^ {*} B _ {i}}",
+      "new": "(\\text{Inner product of } \\mathbf{A} \\text{ and } \\mathbf{B}) = \\sum_{i = 1}^{n} A_{i}^{*} B_{i}"
+    },
+    {
+      "id": "boas_mp-ch13-body-52-6f33af",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[52]",
+      "field": "md",
+      "old": "$\\begin{array} { r }  a { \\mathrm { ~ \\end{array} ~ } } = \\begin{array} { l } { { \\frac { 1 } { 2 } } e ^ { 3 0 k } } \\end{array}$",
+      "new": "$a = \\frac{1}{2}e^{30k}$",
+      "anchor": "84fa5dac"
+    },
+    {
+      "id": "boas_mp-ch04-problem-12-9-body-0-846257",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:12.9:body[0]",
+      "field": "md",
+      "old": "$\\begin{array} { r l r } & { } &  \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\mathrm  \\end{array}$",
+      "new": "$\\begin{array}{r l r} & {} & \\mathrm { ~ } \\mathrm { ~ } \\mathrm { ~ } \\end{array}$",
+      "anchor": "21e5e504"
+    }
+  ]
+}

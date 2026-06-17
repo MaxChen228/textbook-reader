@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "ashcroft_ssp-ch01-body-147-ff66fb",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[147]",
+      "expect": "\\omega_ {p} \\tau = 1. 6 \\times 1 0 ^ {2} \\left(\\frac {r _ {s}}{a _ {0}}\\right) ^ {3} ^ {2} \\left(\\frac {1}{\\rho_ {\\mu}}\\right). \\tag {1.39}",
+      "new": "\\omega_{p}\\tau = 1.6\\times 10^{2} \\left(\\frac{r_{s}}{a_{0}}\\right)^{3/2}\\left(\\frac{1}{\\rho_{\\mu}}\\right). \\tag{1.39}"
+    },
+    {
+      "id": "ashcroft_ssp-ch08-body-173-d64268",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[173]",
+      "expect": "g _ {n} (\\varepsilon) d \\varepsilon = (2 / V) \\times \\begin{array}{l} \\text {(the number of allowed wave vectors} \\\\ \\text {in the nth band in the energy range} \\\\ \\text {from \\varepsilon to \\varepsilon + d\\varepsilon).} \\end{array} \\tag {8.58}",
+      "new": "g_n(\\varepsilon)\\,d\\varepsilon = (2 / V)\\times \\begin{array}{l} \\text{(the number of allowed wave vectors} \\\\ \\text{in the nth band in the energy range} \\\\ \\text{from } \\varepsilon \\text{ to } \\varepsilon + d\\varepsilon). \\end{array} \\tag{8.58}"
+    },
+    {
+      "id": "ashcroft_ssp-ch29-body-128-80d0ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "body[128]",
+      "expect": "\\boxed  \\begin{array}{l} D _ {n} \\frac {d ^ {2} n _ {c}}{d x ^ {2}} = \\frac {n _ {c} - n _ {c} ^ {0}}{\\tau_ {n}}, \\\\ D _ {p} \\frac {d ^ {2} p _ {v}}{d x ^ {2}} = \\frac {p _ {v} - p _ {v} ^ {0}}{\\tau_ {p}}. \\end{array} (E \\approx 0) \\tag {29.36}",
+      "new": "\\boxed{\\begin{array}{l} D_n \\frac{d^{2} n_c}{d x^{2}}=\\frac{n_c - n_c^{0}}{\\tau_n},\\\\ D_p \\frac{d^{2} p_v}{d x^{2}}=\\frac{p_v - p_v^{0}}{\\tau_p}. \\end{array}} (E\\approx 0) \\tag{29.36}"
+    }
+  ]
+}

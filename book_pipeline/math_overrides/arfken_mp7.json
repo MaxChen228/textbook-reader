@@ -1,0 +1,30 @@
+{
+  "overrides": [
+    {
+      "id": "arfken_mp7-ch11-body-818-ebe4f2",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[818]",
+      "expect": "2 S = \\sum_ {n = - \\infty} ^ {\\infty} ^ {\\prime} \\frac {1}{n (n + 1)}, \\tag {11.125}",
+      "new": "2 S = \\sum_{n = -\\infty}^{\\infty\\prime} \\frac{1}{n(n+1)}, \\tag{11.125}"
+    },
+    {
+      "id": "arfken_mp7-ch21-body-329-01e727",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[329]",
+      "expect": "\\varphi (x) = f (x) + a _ {p} \\varphi_ {p} + \\lambda_ {p} \\sum_ {i = 1} ^ {\\infty} ^ {\\prime} \\frac {\\varphi_ {i} (x)}{\\lambda_ {i} - \\lambda_ {p}} \\int_ {a} ^ {b} f (t) \\varphi_ {i} (t) d t. \\tag {21.91}",
+      "new": "\\varphi(x)=f(x)+a_p\\varphi_p+\\lambda_p\\sum_{i = 1}^{\\infty\\prime} \\frac{\\varphi_i(x)}{\\lambda_i - \\lambda_p} \\int_a^b f(t)\\varphi_i(t)\\,dt. \\tag{21.91}"
+    },
+    {
+      "id": "arfken_mp7-ch11-body-168-4f34c5",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[168]",
+      "field": "md",
+      "old": "$- C _ { 2 } ^ { \\prime }  \\mathrm  $",
+      "new": "$-C_{2}^{\\prime}  $",
+      "anchor": "b9a10439"
+    }
+  ]
+}

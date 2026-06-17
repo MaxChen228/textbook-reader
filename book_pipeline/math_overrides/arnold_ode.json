@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "arnold_ode-ch02-body-33-b704ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[33]",
+      "expect": "\\dot {\\mathbf {x}} = \\mathbf {v} (\\mathbf {x}, \\boldsymbol {\\alpha}), \\quad \\mathbf {x} \\in U \\tag {1_{\\alpha}}",
+      "new": "\\dot{\\mathbf{x}}=\\mathbf{v}(\\mathbf{x},\\boldsymbol{\\alpha}),\\quad \\mathbf{x}\\in U \\tag{$1_{\\alpha}$}"
+    }
+  ]
+}
