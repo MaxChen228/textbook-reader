@@ -188,6 +188,17 @@ ZLIB_CACHE = os.path.join(ROOT, 'dev', 'zlib_quota.json')
 ZLIB_TTL_S = 300  # snapshot 高頻重建；zlib 餘額至多每 5 分打一次網路（登入查 downloads_today）
 
 
+def invalidate_zlib_cache() -> None:
+    """事件式失效：爬書一輪剛花掉額度後呼叫，刪快取 → 下個 snapshot 立刻重抓 live 餘額，
+    消除『剛爬完仍顯示舊額度（4/30 vs live 0/30）』的 5 分 staleness 窗。"""
+    try:
+        os.remove(ZLIB_CACHE)
+    except FileNotFoundError:
+        pass
+    except Exception:
+        pass
+
+
 def zlib_status() -> dict:
     """各 zlib 帳號今日餘額。讀 dev/zlib_quota.json 快取；過期才打網路刷新。
     zlib 故障 → 回最後快取（含 stale 標記），絕不讓 snapshot 失敗。"""

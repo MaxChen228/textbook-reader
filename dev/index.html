@@ -287,73 +287,155 @@
     return lastWorkers.filter(w => { const t = w.started ? Date.parse(w.started) : 0; return !t || (Date.now() - t) < 3600e3 })
   }
 
-  // ── FLIP：記住每張書卡位置，重建後從舊位置滑到新位置 ──
-  function snapPositions() {
-    const m = new Map()
-    document.querySelectorAll('#line .book').forEach(el => m.set(el.dataset.slug, el.getBoundingClientRect()))
-    return m
-  }
-  function playFlip(prev) {
-    document.querySelectorAll('#line .book').forEach(el => {
-      const old = prev.get(el.dataset.slug); if (!old) return
-      const now = el.getBoundingClientRect()
-      const dx = old.left - now.left, dy = old.top - now.top
-      if (!dx && !dy) return
-      el.style.transition = 'none'
-      el.style.transform = `translate(${dx}px,${dy}px)`
-      requestAnimationFrame(() => { el.style.transition = ''; el.style.transform = '' })
+  // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
+  // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 2s worker cadence。
+  const stationEls = [], laneEls = [], cntEls = []
+  function buildScaffold() {
+    const lineEl = document.getElementById('line')
+    lineEl.innerHTML = ''
+    STATIONS.forEach((st, i) => {
+      const done = i === DONE_ST
+      const station = document.createElement('div')
+      station.className = 'station'
+      station.innerHTML = `<div class="st-head"><span class="st-ico">${st.ico}</span>`
+        + `<span class="st-name">${escapeHtml(st.name)}</span><span class="st-cnt">0</span></div>`
+        + `<div class="lane${done ? ' done' : ''}"></div>`
+      lineEl.appendChild(station)
+      stationEls[i] = station
+      laneEls[i] = station.querySelector('.lane')
+      cntEls[i] = station.querySelector('.st-cnt')
     })
   }
 
-  function renderLine(d) {
-    const prev = snapPositions()
+  // ── 通用 keyed reconcile：DOM 有 desired 無→移除；desired 有 DOM 無→建立；皆有→就地更新。
+  // 維持 desired 順序（insertBefore anchor），無 FLIP 量測、無全盤重建。空時放 placeholder。──
+  function reconcileLane(laneEl, desired, keyOf, makeEl, updateEl, emptyHtml) {
+    const ph0 = laneEl.querySelector('.lane-empty')
+    if (ph0 && desired.length) ph0.remove()
+    const existing = new Map()
+    for (const el of [...laneEl.children]) if (el.__key !== undefined) existing.set(el.__key, el)
+    const keySet = new Set(desired.map(keyOf))
+    for (const [k, el] of existing) if (!keySet.has(k)) { el.remove(); existing.delete(k) }
+    let anchor = laneEl.firstElementChild
+    for (const item of desired) {
+      const k = keyOf(item)
+      let el = existing.get(k)
+      if (el) updateEl(el, item)
+      else { el = makeEl(item); el.__key = k }
+      if (el === anchor) anchor = anchor.nextElementSibling
+      else laneEl.insertBefore(el, anchor)
+    }
+    if (!desired.length && !laneEl.querySelector('.lane-empty'))
+      laneEl.insertAdjacentHTML('beforeend', emptyHtml)
+  }
+
+  // ── 書卡 builder / updater（root-cause C：img strict === 才換 src，不重觸發 lazy 重載）──
+  function setCover(cvEl, b) {
+    if (b.cover) {
+      let img = cvEl.querySelector('img')
+      if (!img) {
+        cvEl.querySelector('.ph')?.remove()
+        img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''
+        cvEl.insertBefore(img, cvEl.firstChild)
+      }
+      if (img.getAttribute('src') !== b.cover) img.setAttribute('src', b.cover)  // 完全相同（含 ?v=）絕不碰
+    } else if (!cvEl.querySelector('.ph')) {
+      cvEl.querySelector('img')?.remove()
+      const init = (b.title || b.slug).replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase()
+      const h = hue(b.slug)
+      const ph = document.createElement('div'); ph.className = 'ph'
+      ph.style.background = `linear-gradient(135deg,hsl(${h} 38% 42%),hsl(${(h+40)%360} 42% 30%))`
+      ph.textContent = init || '?'
+      cvEl.insertBefore(ph, cvEl.firstChild)
+    }
+  }
+  function setBadge(cvEl, b) {
+    let badge = cvEl.querySelector('.ps-badge')
+    if (!b.prob) { badge?.remove(); return }
+    const txt = b.sol_book ? (b.sol || 0) + '/' + b.prob : b.prob + ' 題'
+    if (!badge) { badge = document.createElement('span'); badge.className = 'ps-badge'; cvEl.appendChild(badge) }
+    if (badge.textContent !== txt) badge.textContent = txt
+  }
+  function updateBookEl(el, b, done) {
+    const t = b.title || b.slug
+    if (el.title !== t) el.title = t
+    if (!done) {
+      let ttl = el.querySelector('.ttl')
+      if (!ttl) { ttl = document.createElement('div'); ttl.className = 'ttl'; el.appendChild(ttl) }
+      if (ttl.textContent !== t) ttl.textContent = t
+    }
+    const cv = el.querySelector('.cv')
+    setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
+  }
+  function makeBookEl(b, done) {
+    const el = document.createElement('div')
+    el.className = 'book'; el.dataset.slug = b.slug
+    el.appendChild(Object.assign(document.createElement('div'), { className: 'cv' }))
+    updateBookEl(el, b, done)
+    return el
+  }
+
+  // ── 爬書卡 builder / updater（station 0，走 2s worker cadence）──
+  function makeCrawlEl(w) {
+    const el = document.createElement('div')
+    el.className = 'book crawl-card working'; el.dataset.wkey = w.key; el.title = '爬書 agent'
+    el.innerHTML = '<div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div><div class="ttl"></div>'
+    updateCrawlEl(el, w)
+    return el
+  }
+  function updateCrawlEl(el, w) {
+    const ttl = el.querySelector('.ttl'), txt = `規劃選書 ·${w.total_calls || 0}`
+    if (ttl.textContent !== txt) ttl.textContent = txt
+  }
+
+  // 書 lane（站 1..6）就地 reconcile —— 8s status cadence
+  function reconcileBooks(d) {
     const buckets = STATIONS.map(() => [])
     d.books.forEach(b => buckets[stationOf(b)].push(b))
-    const lineEl = document.getElementById('line')
-    lineEl.innerHTML = STATIONS.map((st, i) => {
-      if (st.crawl) {  // 爬書站：渲染 crawl agent（非書卡）
-        const cw = crawlWorkers()
-        const cards = cw.map(w => `<div class="book crawl-card working" data-wkey="${escapeHtml(w.key)}" title="爬書 agent">
-          <div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div>
-          <div class="ttl">規劃選書 ·${w.total_calls || 0}</div></div>`).join('')
-          || '<div class="dev-label" style="padding:6px 2px">閒置 · 無 agent 爬書</div>'
-        return `<div class="station ${cw.length ? 'st-active' : ''}">
-          <div class="st-head"><span class="st-ico">${st.ico}</span><span class="st-name">${st.name}</span>
-            <span class="st-cnt">${cw.length}</span></div>
-          <div class="lane">${cards}</div></div>`
-      }
-      const bs = buckets[i]
-      const done = i === DONE_ST
-      const cards = bs.map(b => {
-        const ps = probBadge(b)
-        const ttl = done ? '' : `<div class="ttl">${escapeHtml(b.title || b.slug)}</div>`
-        return `<div class="book" data-slug="${escapeHtml(b.slug)}" title="${escapeHtml(b.title||b.slug)}">
-          <div class="cv">${coverHtml(b)}${ps}</div>${ttl}</div>`
-      }).join('') || '<div class="dev-label" style="padding:6px 2px">—</div>'
-      return `<div class="station ${bs.length ? 'st-active' : ''}">
-        <div class="st-head"><span class="st-ico">${st.ico}</span><span class="st-name">${st.name}</span>
-          <span class="st-cnt">${bs.length}</span></div>
-        <div class="lane ${done ? 'done' : ''}">${cards}</div></div>`
-    }).join('')
-    playFlip(prev)
+    for (let i = 0; i < STATIONS.length; i++) {
+      if (STATIONS[i].crawl) continue  // 站 0 由爬書 cadence 管
+      const done = i === DONE_ST, bs = buckets[i]
+      reconcileLane(laneEls[i], bs, b => b.slug,
+        b => makeBookEl(b, done), (el, b) => updateBookEl(el, b, done),
+        '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
+      if (cntEls[i].textContent !== String(bs.length)) cntEls[i].textContent = bs.length
+      stationEls[i].classList.toggle('st-active', bs.length > 0)
+    }
     applyWalkers()
   }
 
-  // 把 live 工人疊到對應 slug 的書卡上
+  // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）
+  function reconcileCrawl() {
+    const cw = crawlWorkers()
+    reconcileLane(laneEls[0], cw, w => w.key, makeCrawlEl, updateCrawlEl,
+      '<div class="dev-label lane-empty" style="padding:6px 2px">閒置 · 無 agent 爬書</div>')
+    if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
+    stationEls[0].classList.toggle('st-active', cw.length > 0)
+  }
+
+  // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
+  const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl_plan:'📥' }
   function applyWalkers() {
-    const live = liveWorkers()
-    const bySlug = new Map(live.map(w => [w.slug, w]))
+    const bySlug = new Map(liveWorkers().map(w => [w.slug, w]))
     document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
       const w = bySlug.get(el.dataset.slug)
-      el.querySelector('.walker')?.remove()
-      el.querySelector('.work-ring')?.remove()
-      el.classList.toggle('working', !!w)
-      if (w) {
-        const face = ({ audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl_plan:'📥' })[w.verb] || '🛠️'
-        el.querySelector('.cv').insertAdjacentHTML('beforeend', '<div class="work-ring"></div>')
-        el.insertAdjacentHTML('beforeend',
-          `<div class="walker"><span class="face">${face}</span>${escapeHtml(w.verb||'')} ·${w.total_calls||0}</div>`)
+      let walker = el.querySelector('.walker')
+      if (!w) {  // 工人離開 → 移除疊加（僅在 transition 時改 DOM）
+        if (walker) { walker.remove(); el.querySelector('.cv .work-ring')?.remove(); el.classList.remove('working') }
+        return
       }
+      el.classList.add('working')
+      if (!el.querySelector('.cv .work-ring'))
+        el.querySelector('.cv').insertAdjacentHTML('beforeend', '<div class="work-ring"></div>')
+      if (!walker) {  // 新工人 → 建一次 walker；之後僅更新文字、節點留存 → bob 動畫不中斷
+        walker = document.createElement('div'); walker.className = 'walker'
+        walker.innerHTML = '<span class="face"></span><span class="wt"></span>'
+        el.appendChild(walker)
+      }
+      const face = WFACE[w.verb] || '🛠️', wt = `${w.verb || ''} ·${w.total_calls || 0}`
+      const fEl = walker.querySelector('.face'), tEl = walker.querySelector('.wt')
+      if (fEl.textContent !== face) fEl.textContent = face
+      if (tEl.textContent !== wt) tEl.textContent = wt
     })
   }
 
@@ -485,46 +567,51 @@
     el.textContent = `· ${last.total} 本 · 待辦 ${(last.actionable || []).length} · 工人 ${liveWorkers().length} 🛠️`
   }
 
+  // per-field gating（root-cause F）：值未變不寫 DOM，靜置時不觸發 paint
+  function setHtml(id, html) { const el = document.getElementById(id); if (el && el.__h !== html) { el.__h = html; el.innerHTML = html } }
+  function setText(id, txt) { const el = document.getElementById(id); if (el && el.textContent !== txt) el.textContent = txt }
+
   function render(d) {
     last = d
     renderHealth(d)
     updateLineSub()
-    renderLine(d)
+    reconcileBooks(d)
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
-    document.getElementById('budget-date').textContent = `(${d.budget.date_utc} UTC · 無上限)`
-    document.getElementById('budget').innerHTML = Object.entries(d.budget.accounts).map(([name, v]) =>
+    setText('budget-date', `(${d.budget.date_utc} UTC · 無上限)`)
+    setHtml('budget', Object.entries(d.budget.accounts).map(([name, v]) =>
       `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
-        <span class="num">${v.used} 頁</span></div>`
-    ).join('')
+        <span class="num">${v.used} 頁</span></div>`).join(''))
 
     const z = d.zlib || {}, zt = z.total_remaining
-    document.getElementById('zlib-total').textContent = `(總剩 ${zt == null ? '?' : zt}/30${z.stale ? ' · STALE' : ''})`
-    document.getElementById('zlib').innerHTML = (z.accounts || []).map(a => {
+    const zage = z.fetched_at_local ? ' · ' + relTime(z.fetched_at_local) : ''
+    setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/30${z.stale ? ' · STALE' : ''}${zage})`)
+    setHtml('zlib', (z.accounts || []).map(a => {
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
       const numTxt = rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`
       return `<div class="dev-bar-row"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
         <span class="dev-bar"><span style="width:${pct}%"></span></span><span class="num">${numTxt}</span></div>`
-    }).join('') || '<div class="dev-label">查詢中…</div>'
+    }).join('') || '<div class="dev-label">查詢中…</div>')
 
     const errs = d.errors || []
-    document.getElementById('err-head').innerHTML = errs.length ? `🔴 錯誤 (${errs.length})` : `🟢 錯誤`
-    document.getElementById('errors').innerHTML = errs.length
+    setHtml('err-head', errs.length ? `🔴 錯誤 (${errs.length})` : `🟢 錯誤`)
+    setHtml('errors', errs.length
       ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
-      : `<div class="dev-ok-msg">✓ 無錯誤</div>`
+      : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
 
-    document.getElementById('log').textContent = (d.recent_log || []).join('\n')
-    document.getElementById('foot').textContent = `snapshot ${d.generated_at_local}（撿檔每 ${REFRESH_MS/1000}s · 工人每 ${WORKERS_MS/1000}s · 時鐘每秒）`
+    setText('log', (d.recent_log || []).join('\n'))
+    setText('foot', `snapshot ${d.generated_at_local}（撿檔每 ${REFRESH_MS/1000}s · 工人每 ${WORKERS_MS/1000}s · 時鐘每秒）`)
     tickClocks()
   }
 
   async function loadWorkers() {
     try { const data = await fetchJson('workers.json?_=' + Date.now()); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
+    reconcileCrawl()  // 爬書站走 2s cadence（≤2s 反映 worker 起/止，非 8s）
     applyWalkers()
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
-    if (openSlug) renderDrawer()
+    if (openSlug || openWkey) renderDrawer()
   }
   async function load() {
     const btn = document.getElementById('btn-refresh')
@@ -541,6 +628,7 @@
   }
   function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); timer = clockTimer = workersTimer = null }
   document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers() })
+  buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); start()
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); start() } })
   </script>

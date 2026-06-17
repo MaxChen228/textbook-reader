@@ -519,6 +519,12 @@ def do_crawl_parallel(dry: bool) -> list[str]:
             except Exception as e:
                 log(f'❌ crawl fetch {futs[f].get("slug")} 異常：{e}')
     log(f'crawl done：成功下載 {len(crawled)}/{len(uniq)} 本')
+    if crawled:  # 剛花掉 zlib 額度 → 事件式失效快取，下個 snapshot 立刻反映 live 餘額（消 5 分 staleness）
+        try:
+            from book_pipeline import devctl
+            devctl.invalidate_zlib_cache()
+        except Exception:
+            pass
     return crawled
 
 
