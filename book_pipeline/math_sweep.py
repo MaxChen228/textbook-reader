@@ -16,9 +16,14 @@ O(corpus)≈30min 降到 O(單式)<1ms。不污染 parsed：走 math_overrides/<
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
+import os
+import socket
 import sys
+import urllib.request
+from collections import defaultdict
 from typing import Any, Iterator
 
 from book_pipeline.apply_math_overrides import (
@@ -33,6 +38,11 @@ from book_pipeline.math_validate import (
     validate_book,
     write_report,
 )
+
+
+def _log(msg: str) -> None:
+    """進度印 stderr（stdout 留給 JSON 結果，agent/管線解析）。"""
+    print(msg, file=sys.stderr, flush=True)
 
 
 def _gid(slug: str, tex: str, display: bool) -> str:
@@ -158,6 +168,9 @@ def cmd_fix(a: argparse.Namespace) -> int:
     # 單書重驗（O(單書) 秒級，非全 corpus）→ 確認該 gid 從殘餘消失。
     rep = validate_book(slug)
     write_report(slug, rep)
+    if rep.get("status") == "skipped":
+        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "revalidate",
+                     "warn": "node 不可用，重驗 skipped → 無法確認是否清掉（override 已寫）"}, 1)
     still = _gid_present(slug, a.gid, rep)
     out: dict[str, Any] = {
         "ok": not still, "gid": a.gid, "slug": slug,
@@ -168,6 +181,172 @@ def cmd_fix(a: argparse.Namespace) -> int:
         out["warn"] = ("override 已寫但該式仍在殘餘 → 多半 selector 漂移被 apply skip-drift"
                        "（檢查 apply 結果），或 new 經套用後仍非可渲染")
     return emit(out, 0 if not still else 1)
+
+
+# ── sweep batch：批量打自架 LLM（gpt-5.3-codex-spark）逐條改寫，render 守門 ──────
+#
+# 經濟學（實測）：spark 是 reasoning 模型，主成本 completion 隨條數線性、batch 攤不平；
+# batch 唯一省的是 input overhead 的零頭。故 N 不為「省 token」衝大——N=40 是 wall-clock/
+# 重試粒度/不爆 completion 的甜蜜點。真正的省在：payload 精簡（只送 i/tex/err）、render
+# 本機守門（<1ms，不過不落地）、帶 retry 池≤2 輪、長式分流。
+
+DEFAULT_MODEL = "gpt-5.3-codex-spark"
+_LLM_SYS = (
+    '你是 LaTeX 修復器。每條給壞 tex（OCR 殘體）與其 MathJax 編譯錯誤，回**最小修正、'
+    '語意不變、可被 MathJax 渲染**的正確 tex。逐條只回 JSONL，每行一個物件 '
+    '{"i":<原序號>,"tex":"<正確 tex>"}，不要 markdown 圍欄、不要解釋、不要多餘字。'
+)
+
+
+def _ccnexus_base() -> str:
+    """base url：env 覆寫優先；否則雙機判定（felix=本機 127.0.0.1、其他=felix Tailscale IP）。"""
+    if (b := os.environ.get("CCNEXUS_BASE_URL")):
+        return b.rstrip("/")
+    return ("http://127.0.0.1:3021"
+            if "chenliangyus" in socket.gethostname().lower()
+            else "http://100.118.39.104:3021")
+
+
+def _ccnexus_auth() -> str:
+    """讀 ~/.secrets/ccnexus.env → Basic Auth header 值（base64）。"""
+    env: dict[str, str] = {}
+    with open(os.path.expanduser("~/.secrets/ccnexus.env"), encoding="utf-8") as fh:
+        for ln in fh:
+            if "=" in ln and not ln.lstrip().startswith("#"):
+                k, _, v = ln.strip().partition("=")
+                env[k] = v
+    return base64.b64encode(f'{env["CCNEXUS_ADMIN_USER"]}:{env["CCNEXUS_ADMIN_PASS"]}'.encode()).decode()
+
+
+def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str,
+              timeout: int = 300) -> str:
+    """送一批 payload（[{i,err,tex}]）打 /v1/chat/completions（stream），回拼接後的全文。"""
+    body = {
+        "model": model, "stream": True,
+        "messages": [
+            {"role": "system", "content": _LLM_SYS},
+            {"role": "user", "content": "\n".join(json.dumps(x, ensure_ascii=False) for x in payload)},
+        ],
+    }
+    req = urllib.request.Request(
+        base + "/v1/chat/completions", data=json.dumps(body).encode(),
+        headers={"Content-Type": "application/json", "Authorization": f"Basic {auth}"})
+    out: list[str] = []
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        for raw in resp:
+            s = raw.decode("utf-8", "ignore").strip()
+            if not s.startswith("data:"):
+                continue
+            s = s[5:].strip()
+            if s == "[DONE]":
+                break
+            try:
+                o = json.loads(s)
+            except ValueError:
+                continue
+            out.append(o["choices"][0].get("delta", {}).get("content") or "")
+    return "".join(out)
+
+
+def _parse_jsonl(text: str) -> dict[int, str]:
+    """容錯解析模型輸出 → {i: new_tex}。逐行抓 {...}，忽略 markdown 圍欄/解釋/壞行。"""
+    out: dict[int, str] = {}
+    for ln in text.splitlines():
+        ln = ln.strip().strip("`").strip()
+        if not (ln.startswith("{") and ln.endswith("}")):
+            continue
+        try:
+            o = json.loads(ln)
+        except ValueError:
+            continue
+        if "i" in o and isinstance(o.get("tex"), str):
+            out[int(o["i"])] = o["tex"]
+    return out
+
+
+def _batched(seq: list, n: int):
+    for i in range(0, len(seq), n):
+        yield seq[i:i + n]
+
+
+def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
+                  accepted: dict[str, list], gid_new: dict[str, str]) -> list:
+    """跑一個池一輪：分批打 LLM → 解析 → 每條 render 守門 → 過則收 override 進 accepted。
+    回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。"""
+    nxt: list = []
+    for grp in _batched(pool, batch_n):
+        payload = [{"i": i, "err": f.get("err") or "", "tex": f.get("tex") or ""}
+                   for i, (_g, _s, f) in enumerate(grp)]
+        try:
+            ans = _parse_jsonl(_call_llm(payload, model=model, base=base, auth=auth))
+        except Exception as e:  # 連線/逾時/HTTP → 整批重試
+            _log(f"  ⚠ 批失敗（{len(grp)} 條重試）：{e}")
+            nxt.extend(grp)
+            continue
+        for i, (gid, slug, f) in enumerate(grp):
+            new = ans.get(i)
+            if not new:                                   # 模型漏回
+                nxt.append((gid, slug, f))
+                continue
+            v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
+            if not v.get("ok"):                           # render 守門：不過不落地
+                nxt.append((gid, slug, f))
+                continue
+            try:
+                accepted[slug].extend(finding_to_overrides(slug, f, new))
+                gid_new[gid] = new
+            except ValueError:                            # 無 targets / 空 tex → 無法定位，棄
+                pass
+    return nxt
+
+
+def cmd_batch(a: argparse.Namespace) -> int:
+    """list → 分批打 spark → render 守門 → per-book 一次 merge+apply+重驗。JSON 結果印 stdout。"""
+    work = [(_gid(s, f.get("tex") or "", bool(f.get("display"))), s, f)
+            for s, f in iter_todo(book=a.book, category=a.category)]
+    if a.limit is not None:
+        work = work[:a.limit]
+    if not work:
+        print(json.dumps({"ok": True, "accepted": 0, "msg": "無待辦"}, ensure_ascii=False))
+        return 0
+
+    LONG = 400  # 長式（>400 字元）分流，用較小批避免吃掉整批注意力
+    pools = {
+        "short": ([w for w in work if len(w[2].get("tex") or "") <= LONG], a.n),
+        "long":  ([w for w in work if len(w[2].get("tex") or "") > LONG], max(6, a.n // 5)),
+    }
+    if a.dry_run:
+        print(json.dumps({"ok": True, "dry_run": True, "total": len(work),
+                          "short": len(pools["short"][0]), "long": len(pools["long"][0]),
+                          "base": _ccnexus_base(), "model": a.model}, ensure_ascii=False, indent=2))
+        return 0
+
+    base, auth = _ccnexus_base(), _ccnexus_auth()
+    accepted: dict[str, list] = defaultdict(list)
+    gid_new: dict[str, str] = {}
+    still: list = []
+    for name, (pool, bn) in pools.items():
+        for rnd in range(a.rounds):
+            if not pool:
+                break
+            _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條（批 {bn}）")
+            pool = _process_pool(pool, bn, model=a.model, base=base, auth=auth,
+                                 accepted=accepted, gid_new=gid_new)
+        still.extend(pool)
+
+    # 落地：每書一次 merge + apply + 重驗（避免每條重驗整書）
+    remaining: dict[str, int] = {}
+    for slug, ovs in accepted.items():
+        merge_overrides(slug, ovs)
+        apply_overrides(slug)
+        rep = validate_book(slug)
+        write_report(slug, rep)
+        remaining[slug] = rep.get("stats", {}).get("bad_unique", 0)
+
+    out = {"ok": True, "accepted": len(gid_new), "still_failing": len(still),
+           "books_touched": len(accepted), "remaining_by_book": remaining}
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    return 0
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -188,6 +367,17 @@ def _build_parser() -> argparse.ArgumentParser:
                        help="正確 tex（eq 給裸 tex、inline 給裸 inner）。源文已毀不可渲染者改用 "
                             "`devctl math-accept`，勿硬塞語意錯的式子")
     p_fix.set_defaults(func=cmd_fix)
+
+    p_batch = sub.add_parser(
+        "batch", help="批量打自架 LLM 逐條改寫殘餘（render 守門 + retry + 長式分流）")
+    p_batch.add_argument("--n", type=int, default=40, help="短式每批條數（預設 40）")
+    p_batch.add_argument("--rounds", type=int, default=2, help="retry 輪數（預設 2）")
+    p_batch.add_argument("--model", default=DEFAULT_MODEL, help=f"模型（預設 {DEFAULT_MODEL}）")
+    p_batch.add_argument("--book", help="只處理某書 slug")
+    p_batch.add_argument("--category", help="只處理某分類")
+    p_batch.add_argument("--limit", type=int, help="最多處理幾條（試水溫用）")
+    p_batch.add_argument("--dry-run", action="store_true", help="只印規模/分池/base，不打 LLM 不落地")
+    p_batch.set_defaults(func=cmd_batch)
 
     return ap
 

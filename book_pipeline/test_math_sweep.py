@@ -17,6 +17,8 @@ import argparse
 import contextlib
 import io
 import json as _json
+import os
+from collections import defaultdict
 
 from book_pipeline import math_sweep
 
@@ -181,6 +183,123 @@ def test_fix_unknown_gid(monkeypatch):
     rc, out, spy = _run_fix(monkeypatch, finding=None, render_ok=True, after_findings=[])
     assert rc == 1 and out["ok"] is False and "查無" in out["error"]
     assert spy == []
+
+
+# ── sweep batch：JSONL 容錯 / render 門控+retry / 雙機 base / per-book 落地 ────
+#
+# 為何重要：batch 把「想 new tex」外包給 LLM，安全全靠本機 render 門控（壞的不落地、進
+# retry）。LLM 輸出不可信（漏條/亂回/markdown）→ _parse_jsonl 必須容錯，_process_pool 必須
+# 漏條與 render-fail 都丟回 retry，cmd_batch 必須每書只落地一次。全 hermetic、不打真 API。
+
+def _finding_t(tex, display=False):
+    return {"tex": tex, "display": display, "occ": 1, "category": "x", "err": "e",
+            "targets": [{"chunk": "ch01", "selector": "body[0]", "field": "tex"}]}
+
+
+def test_parse_jsonl_tolerant():
+    txt = '```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n{"i":2}\n```'
+    # markdown 圍欄/雜訊/缺 tex(i2)/無 i(bad) 全跳過，只留合法兩條
+    assert math_sweep._parse_jsonl(txt) == {0: "a", 1: "b"}
+
+
+def test_batched():
+    assert list(math_sweep._batched([1, 2, 3, 4, 5], 2)) == [[1, 2], [3, 4], [5]]
+
+
+def test_ccnexus_base_env_and_host(monkeypatch):
+    old = os.environ.pop("CCNEXUS_BASE_URL", None)
+    try:
+        os.environ["CCNEXUS_BASE_URL"] = "http://x:1"          # env 覆寫優先
+        assert math_sweep._ccnexus_base() == "http://x:1"
+        del os.environ["CCNEXUS_BASE_URL"]
+        monkeypatch.setattr(math_sweep.socket, "gethostname", lambda: "chenliangyusAir.local")
+        assert "127.0.0.1" in math_sweep._ccnexus_base()       # felix → 本機
+        monkeypatch.setattr(math_sweep.socket, "gethostname", lambda: "MacBook-Air-7")
+        assert "100.118.39.104" in math_sweep._ccnexus_base()  # oscar → felix IP
+    finally:
+        if old is not None:
+            os.environ["CCNEXUS_BASE_URL"] = old
+        else:
+            os.environ.pop("CCNEXUS_BASE_URL", None)
+
+
+def test_process_pool_gates_and_retries(monkeypatch):
+    pool = [("g0", "bookA", _finding_t("BAD0")),
+            ("g1", "bookA", _finding_t("OK1")),
+            ("g2", "bookB", _finding_t("MISS2"))]
+    # 模型：i0 回壞 tex（render fail）、i1 回好 tex、i2 漏回
+    monkeypatch.setattr(math_sweep, "_call_llm",
+                        lambda payload, **k: '{"i":0,"tex":"BADNEW"}\n{"i":1,"tex":"GOODNEW"}')
+    monkeypatch.setattr(math_sweep, "run_render",
+                        lambda items: {0: {"ok": items[0]["s"] == "GOODNEW"}})
+    monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s + "-ov"}])
+    accepted = defaultdict(list); gid_new = {}
+    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+                                   accepted=accepted, gid_new=gid_new)
+    assert gid_new == {"g1": "GOODNEW"}                         # 只 i1 落地
+    assert accepted["bookA"] == [{"id": "bookA-ov"}]
+    assert {x[0] for x in nxt} == {"g0", "g2"}                  # render-fail + 漏回 → retry
+
+
+def test_process_pool_batch_failure_retries_all(monkeypatch):
+    pool = [("g0", "bookA", _finding_t("X")), ("g1", "bookA", _finding_t("Y"))]
+    def boom(*a, **k):
+        raise RuntimeError("conn reset")
+    monkeypatch.setattr(math_sweep, "_call_llm", boom)
+    monkeypatch.setattr(math_sweep, "run_render", lambda i: {0: {"ok": True}})
+    accepted = defaultdict(list); gid_new = {}
+    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+                                   accepted=accepted, gid_new=gid_new)
+    assert len(nxt) == 2 and not gid_new                       # 整批失敗 → 全重試、零落地
+
+
+def _batch_ns(**kw):
+    base = dict(n=40, rounds=2, model="m", book=None, category=None, limit=None, dry_run=False)
+    base.update(kw)
+    return argparse.Namespace(**base)
+
+
+def test_cmd_batch_end_to_end(monkeypatch):
+    todo = [("bookA", _finding_t("A")), ("bookA", _finding_t("B")), ("bookB", _finding_t("C"))]
+    monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter(todo))
+    monkeypatch.setattr(math_sweep, "_ccnexus_base", lambda: "http://x")
+    monkeypatch.setattr(math_sweep, "_ccnexus_auth", lambda: "auth")
+    monkeypatch.setattr(
+        math_sweep, "_call_llm",
+        lambda payload, **k: "\n".join('{"i":%d,"tex":"NEW%d"}' % (x["i"], x["i"]) for x in payload))
+    monkeypatch.setattr(math_sweep, "run_render", lambda items: {0: {"ok": True}})
+    monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s}])
+    landed = []
+    monkeypatch.setattr(math_sweep, "merge_overrides",
+                        lambda s, ovs: (landed.append(("merge", s, len(ovs))),
+                                        {"added": len(ovs), "replaced": 0})[1])
+    monkeypatch.setattr(math_sweep, "apply_overrides", lambda s: (landed.append(("apply", s)), {})[1])
+    monkeypatch.setattr(math_sweep, "validate_book",
+                        lambda s: {"status": "pass", "findings": [], "stats": {"bad_unique": 0}})
+    monkeypatch.setattr(math_sweep, "write_report", lambda s, r: None)
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = math_sweep.cmd_batch(_batch_ns())
+    out = _json.loads(buf.getvalue())
+    assert rc == 0 and out["accepted"] == 3 and out["books_touched"] == 2 and out["still_failing"] == 0
+    assert out["remaining_by_book"] == {"bookA": 0, "bookB": 0}
+    # 每書 merge+apply 各一次（per-book 落地、非每條）
+    assert sorted(landed) == sorted(
+        [("merge", "bookA", 2), ("apply", "bookA"), ("merge", "bookB", 1), ("apply", "bookB")])
+
+
+def test_cmd_batch_dry_run_no_api(monkeypatch):
+    todo = [("bookA", _finding_t("short")), ("bookA", _finding_t("x" * 500))]
+    monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter(todo))
+    monkeypatch.setattr(math_sweep, "_ccnexus_base", lambda: "http://x")
+    called = []
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda *a, **k: called.append(1))
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        math_sweep.cmd_batch(_batch_ns(dry_run=True))
+    out = _json.loads(buf.getvalue())
+    assert out["dry_run"] and out["total"] == 2 and out["short"] == 1 and out["long"] == 1
+    assert called == []                                        # dry-run 絕不打 LLM
 
 
 # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──

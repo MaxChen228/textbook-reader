@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from collections import Counter
@@ -237,7 +238,10 @@ def merge_overrides(slug: str, new_ovs: list[dict[str, Any]]) -> dict[str, int]:
         by_id[ov["id"]] = ov
     spec["overrides"] = list(by_id.values())
     OVERRIDE_DIR.mkdir(parents=True, exist_ok=True)
-    _write_json(path, spec)
+    # 原子寫（temp + os.replace）：batch 大量寫時，避免半寫檔被同進程 apply_overrides 讀到。
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(tmp, path)
     return {"added": added, "replaced": replaced}
 
 
