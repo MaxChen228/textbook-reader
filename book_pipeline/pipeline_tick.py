@@ -916,8 +916,9 @@ def refill_crawl_queue(dry: bool = False) -> int:
 
 def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
     """oneshot tick 的 crawl 編排：先**買書員 drain**（確定性、劃掉），再（清單低於水位才）**確定性
-    refill**（從書單 SoT 拉 ready；ready 不足跑 resolver 解析更多——皆無 LLM）。reactive loop **不**走
-    此函數——它把 drain/refill 當兩個獨立 due-gated 步驟分派（C1 買書員每 cycle、C2 退避補貨）。回 drain 抓到的 slug。"""
+    refill**（從書單 SoT 只搬 ready 進清單，零 LLM；解析 unresolved→ready 是 do_crawl_resolve 的事，本路不碰）。
+    reactive loop **不**走此函數——它把 drain/refill/crawl 解析當獨立 due-gated 步驟分派（C1 買書員每 cycle、
+    C2 退避補貨、C4 解析 agent）。回 drain 抓到的 slug。"""
     crawled = drain_crawl_queue(rows, dry)
     forced = _refill_force_pending()  # 手動強制補貨請求：無視水位/冷卻直接補
     if forced or _refill_due():
@@ -1431,9 +1432,10 @@ def tick_reactive(no_deploy: bool) -> int:
             if _drain_due(rows) and _start('__crawl_drain__', lambda r=rows: drain_crawl_queue(r)):
                 dispatched += 1
 
-            # C2. 確定性 refill（**無 LLM**）：清單 < 水位 ∧ 不在冷卻 → 從書單 SoT 拉 ready 補貨；ready 不足
-            # 跑 resolver 解析更多（只 search、不耗額度）。退避（CRAWL_RETRY_S）只套這裡——補不出（剩 review/
-            # absent）時別狂跑 resolver；__crawl_refill__ 序列化。冷卻 + 退避雙保險 → 補不滿時 loop 仍能 idle 收斂。
+            # C2. 確定性 refill（**無 LLM**）：清單 < 水位 ∧ 不在冷卻 → 從書單 SoT 拉 ready 補進買書員清單。
+            # **只搬不解析**——解析（unresolved→ready）是 C4 crawl agent 的事；本步驟只把 agent 已確認連結的
+            # ready 搬進 buffer。ready 池空（剩 review/absent/待 C4 解析）→ 進冷卻停 churn。退避（CRAWL_RETRY_S）
+            # 只套這裡；__crawl_refill__ 序列化。冷卻 + 退避雙保險 → 補不滿時 loop 仍能 idle 收斂。
             # forced（手動 `devctl crawl-refill` 丟的 marker）= **無視水位/冷卻/退避**立刻補：消費綁「真派出去」
             # （_start True 才 clear）→ 已在補時不清、下個 cycle 再認 → 恰跑一次，不雙派。
             forced = _refill_force_pending()

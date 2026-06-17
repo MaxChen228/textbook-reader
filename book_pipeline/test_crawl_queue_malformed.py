@@ -124,23 +124,22 @@ def test_merge_plan_nonscalar_id_hash_rejected():
 def test_refill_no_ready_converges_to_cooldown():
     """churn 止血：書單暫無可補的 ready（剩 review/absent 或待解析）時，refill 須補 0 本並寫
     refill_exhausted_at 冷卻時戳 → _refill_due 後續 False，不每個 observe cycle 空轉重跑。
-    沒這條，低水位會讓 reactive loop 每 cycle 重跑 refill（雖無 LLM，仍是無謂 churn + 可能反覆起
-    resolver 子進程）。釘住確定性 refill 的收斂契約。
+    沒這條，低水位會讓 reactive loop 每 cycle 重跑 refill（雖無 LLM，仍是無謂 churn）。釘住確定性
+    refill 的收斂契約。（refill 只搬 ready、不再觸發任何 resolver；解析是 do_crawl_resolve 另路。）
 
     hermetic：重導 CRAWL_QUEUE/LOG 到 tmp（檔缺 → _load_queue_full 種子成空清單），stub
-    booklists.select_next→[]（無 ready）、has_unresolved→False（無待解析、不觸發 resolver 子進程）、
-    have_slugs→set()，及 pt._have_slugs→set()（_refill_due 用）。絕不碰真實購物清單/書單/狀態檔。"""
+    booklists.select_next→[]（無 ready 可搬）、have_slugs→set()，及 pt._have_slugs→set()（_refill_due
+    用）。絕不碰真實購物清單/書單/狀態檔。"""
     d = tempfile.mkdtemp(prefix='refill_cooldown_')
     saved = {k: getattr(pt, k) for k in ('CRAWL_QUEUE', 'LOG', '_have_slugs')}
     bl = pt.booklists
-    bl_saved = {k: getattr(bl, k) for k in ('select_next', 'has_unresolved', 'have_slugs')}
+    bl_saved = {k: getattr(bl, k) for k in ('select_next', 'have_slugs')}
     try:
         pt.CRAWL_QUEUE = os.path.join(d, 'crawl_queue.json')   # 檔缺 → 清單空 → want>0 真進補貨
         pt.LOG = os.path.join(d, 'daemon.log')
         pt._have_slugs = lambda: set()
         bl.have_slugs = lambda *a, **k: set()
-        bl.select_next = lambda *a, **k: []                    # 無 ready 可補
-        bl.has_unresolved = lambda *a, **k: False              # 無待解析 → 不跑 resolver
+        bl.select_next = lambda *a, **k: []                    # 無 ready 可搬
 
         added = pt.refill_crawl_queue(dry=False)
         assert added == 0, '無 ready 須補 0 本'

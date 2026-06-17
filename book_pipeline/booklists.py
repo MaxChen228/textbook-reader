@@ -20,15 +20,20 @@
 緊接其主書排序。其狀態同樣由 inventory + resolution 衍生（resolver 查無正版即標 absent → 永不再排，
 殺掉舊系統「每 tick 重新確認 Peskin 沒解答」的空轉）。
 
-狀態五態（衍生，join inventory + 購物清單 + resolution sidecar）：
+狀態六態（衍生，join inventory + 購物清單 + resolution sidecar）：
   owned      已在 mineru_data/ 或 raw_pdfs/（不再爬）
   queued     已在 crawl_queue.json 購物清單待抓
-  ready      已解析出 zlib id/hash、未 owned/未 queued → refill 的確定性候選
-  absent     resolver 查證 z-lib 無此書 → 永不再排（catalog 顯示「無法收錄」）
-  unresolved 尚未解析（待 resolver 處理）
+  ready      已確認 zlib id/hash、未 owned/未 queued → refill 的確定性候選
+  absent     crawl agent 查證 z-lib 無此書 → 永不再排（catalog 顯示「無法收錄」）
+  review     crawl agent 信心不足、待**架構師**人工裁決 → **不自動重試**（不回 crawl agent 工作母體）
+  unresolved 尚未解析（crawl agent 的工作母體：select_next 的上游、解析池的 State 1）
 
-下游：refill（pipeline_tick）用 select_next() 確定性拉貨；build 用 annotate() 烤 catalog；
-devctl/dev 頁用 progress() 顯示各領域收錄進度。本模組純讀，唯一寫者是 resolver（寫 sidecar）。
+review 與 unresolved 必須分立：unresolved=agent 還沒看、review=agent 看過不敢判。混為一談會讓
+review 書每 cycle 被重派、燒 token、且解析池永遠補不滿（review 不算 confirmed）→ daemon 不收斂。
+
+下游：refill（pipeline_tick）用 select_next() 確定性拉 ready；do_crawl_resolve 用 unresolved_targets()
+切批派 crawl agent；build 用 annotate() 烤 catalog；devctl/dev 頁用 progress() 顯示收錄進度。
+本模組純讀，sidecar 唯一寫者 = crawl agent 的 `resolve commit`（resolved/absent/review，包 flock）。
 """
 from __future__ import annotations
 
@@ -56,8 +61,9 @@ OWNED = 'owned'
 QUEUED = 'queued'
 READY = 'ready'
 ABSENT = 'absent'
+REVIEW = 'review'          # crawl agent 信心不足 → 待架構師人工裁決，不自動重試（見模組 docstring）
 UNRESOLVED = 'unresolved'
-STATUSES = (OWNED, QUEUED, READY, ABSENT, UNRESOLVED)
+STATUSES = (OWNED, QUEUED, READY, ABSENT, REVIEW, UNRESOLVED)
 
 
 # ── 載入 SoT ──────────────────────────────────────────────────────────────
@@ -144,9 +150,10 @@ def load_resolution() -> dict:
 
 
 def save_resolution(updates: dict) -> dict:
-    """把 {slug: entry} 合併進 resolution sidecar 並原子寫。寫者 = crawl agent 的 `resolve commit`
-    （daemon 可並行派多隻 agent，各解各的 slug）→ read-merge-write 包 flock 互斥，防兩隻 agent 同時
-    讀-改-寫互蓋（每筆 commit 一次極短臨界區）。回合併後全表。"""
+    """把 {slug: entry} 合併進 resolution sidecar 並原子寫。寫者 = crawl agent 的 `resolve commit`。
+    daemon 端 crawl 解析單隻序列化（__crawl_resolve__ key），但 flock 仍是必要邊界：單隻 agent 一批
+    多筆 commit、與 controller 重啟/手動 CLI 可能並發 read-merge-write → flock 互斥防互蓋（每筆 commit
+    一次極短臨界區）。回合併後全表。"""
     import fcntl
     with open(RESOLUTION + '.lock', 'w') as lf:
         fcntl.flock(lf, fcntl.LOCK_EX)
@@ -164,6 +171,8 @@ def status_of(slug: str, have: set, queued: set, resolution: dict) -> str:
     r = resolution.get(slug) or {}
     if r.get('absent'):
         return ABSENT
+    if r.get('review'):
+        return REVIEW          # 待架構師裁決：絕不落 UNRESOLVED（否則回 crawl agent 工作母體被重派）
     if r.get('id') and r.get('hash'):
         return READY
     return UNRESOLVED
@@ -210,17 +219,6 @@ def select_next(n: int, files: list[dict] | None = None, have: set | None = None
     return picks
 
 
-def has_unresolved(files: list[dict] | None = None, have: set | None = None,
-                   queued: set | None = None, resolution: dict | None = None) -> bool:
-    """是否還有 unresolved target（resolver 有事可做）。refill 用：ready 不足時要不要跑 resolver。"""
-    files = load_files() if files is None else files
-    have = have_slugs() if have is None else have
-    queued = queued_slugs() if queued is None else queued
-    resolution = load_resolution() if resolution is None else resolution
-    return any(status_of(t['slug'], have, queued, resolution) == UNRESOLVED
-               for t in targets(files))
-
-
 def unresolved_targets(files: list[dict] | None = None, have: set | None = None,
                        queued: set | None = None, resolution: dict | None = None) -> list[dict]:
     """status==UNRESOLVED 的 target（書單序）——crawl agent 的工作母體（State 1：在書單、未確認
@@ -240,7 +238,7 @@ def pool_counts(files: list[dict] | None = None, have: set | None = None,
     pr = progress(files, have, queued, resolution)
     o = pr['overall']
     return {'confirmed': o[READY] + o[QUEUED], 'ready': o[READY], 'queued': o[QUEUED],
-            'unresolved': o[UNRESOLVED], 'owned': o[OWNED], 'absent': o[ABSENT]}
+            'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED], 'absent': o[ABSENT]}
 
 
 def progress(files: list[dict] | None = None, have: set | None = None,
@@ -267,7 +265,8 @@ def catalog(files: list[dict] | None = None, have: set | None = None,
             queued: set | None = None, resolution: dict | None = None) -> dict:
     """UI 收錄表結構：field → sublist → 主書（status + 解答本 sol_status）+ 各層統計。
     build 烤成 data/catalog.json 供 reader library 渲染收錄表；status 對應 UI 三態：
-    owned/queued/ready→已收錄或排隊中、absent→無法收錄、unresolved→待解析。"""
+    owned/queued/ready→已收錄或排隊中、absent→無法收錄、review/unresolved→待收錄（公開 UI 不分
+    待裁/待解析，皆「待收錄」；review 的架構師待裁細節只在 /dev 面板顯示）。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
     queued = queued_slugs() if queued is None else queued
@@ -374,7 +373,7 @@ def main() -> int:
         pr = progress()
         o = pr['overall']
         print(f'整體：{o[OWNED]}/{o["total"]} 收錄 · queued {o[QUEUED]} · ready {o[READY]} · '
-              f'absent {o[ABSENT]} · unresolved {o[UNRESOLVED]}（主書 {o["main"]}）')
+              f'absent {o[ABSENT]} · review {o[REVIEW]} · unresolved {o[UNRESOLVED]}（主書 {o["main"]}）')
         for fld, c in pr['by_field'].items():
             print(f'  {fld:18} {c[OWNED]:>3}/{c["total"]:<3} 收錄  '
                   f'(ready {c[READY]} · unresolved {c[UNRESOLVED]} · absent {c[ABSENT]})')

@@ -132,7 +132,6 @@ def test_refill_merge_dedup():
     _setup()
     _write_queue([_q('queued1')])
     pt.booklists.have_slugs = lambda: {'owned1'}
-    pt.booklists.has_unresolved = lambda *a, **k: False
     # 模擬書單 select_next 回（已排隊/已有/非法/新書各一）→ daemon 端 merge 只收新書
     pt.booklists.select_next = lambda n, *a, **k: [
         {'slug': 'queued1', 'id': '9', 'hash': 'z', 'title': 'x'},
@@ -149,8 +148,7 @@ def test_refill_exhaust_sets_cooldown():
     _setup()
     _write_queue([])
     pt.booklists.have_slugs = lambda: set()
-    pt.booklists.select_next = lambda n, *a, **k: []        # 無 ready 可補
-    pt.booklists.has_unresolved = lambda *a, **k: False     # 也無 unresolved → 不跑 resolver
+    pt.booklists.select_next = lambda n, *a, **k: []        # 無 ready 可搬（解析另路，refill 不觸發 resolver）
     added = pt.refill_crawl_queue(dry=False)
     assert added == 0
     assert json.load(open(pt.CRAWL_QUEUE))['refill_exhausted_at'] is not None  # 進冷卻
@@ -173,7 +171,6 @@ def test_force_refill_bypasses_watermark():
     pt._have_slugs = lambda: set()
     pt.booklists.have_slugs = lambda: set()
     pt._crawl_backlog = lambda rows: pt.CRAWL_HIGH           # room=0 → 買書員 hold（純測 refill 由 marker 觸發）
-    pt.booklists.has_unresolved = lambda *a, **k: False
     pt.booklists.select_next = lambda n, *a, **k: [{'slug': 'forced1', 'id': '9', 'hash': 'z', 'title': 'x'}]
     assert pt._refill_due() is False                         # 水位之上：正常不會補
     pt.request_refill()                                       # 手動強制

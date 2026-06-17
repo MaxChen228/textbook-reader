@@ -913,7 +913,8 @@
     const bl = d.booklists || {}, blo = bl.overall || {}
     const blPct = blo.total ? Math.round(blo.owned / blo.total * 100) : 0
     setText('bl-overall', blo.total
-      ? `(${blo.owned}/${blo.total} · ${blPct}% · ready ${blo.ready} · 待解析 ${blo.unresolved} · 無法收錄 ${blo.absent})`
+      ? `(${blo.owned}/${blo.total} · ${blPct}% · ready ${blo.ready} · 待解析 ${blo.unresolved}`
+        + (blo.review ? ` · 待裁 ${blo.review}` : '') + ` · 無法收錄 ${blo.absent})`
       : '')
     setHtml('booklists', Object.entries(bl.by_field || {}).map(([f, c]) => {
       const p = c.total ? Math.round(c.owned / c.total * 100) : 0
