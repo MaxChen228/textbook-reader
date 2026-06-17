@@ -42,6 +42,24 @@ def test_confidence():
     print('✓ confidence：標題詞重疊×0.6 + 作者命中×0.4、stopword 不灌水')
 
 
+def test_author_word_boundary():
+    # 'Hall' 不該子字串假命中 'Marshall'（詞界比對）→ 作者 0 分、僅標題分
+    b = _book('Principles of Neural Science', 'Eric Marshall')  # 非 Hall
+    assert rs.confidence('Principles of Neural Science', 'Hall', b) == 0.6
+    # 真正同姓（詞界命中）→ 滿分
+    assert rs.confidence('Quantum Mechanics', 'Hall',
+                         _book('Quantum Mechanics', 'Brian C. Hall')) == 1.0
+    print('✓ confidence：作者詞界比對（Hall 不命中 Marshall、真同姓才算）')
+
+
+def test_query_surname():
+    assert rs.query_surname('John David Jackson') == 'jackson'      # 取最後 token（姓）
+    assert rs.query_surname('Goldstein, Poole & Safko') == 'goldstein'  # 第一作者
+    assert rs.query_surname('Sakurai & Napolitano') == 'sakurai'
+    assert rs.query_surname('') == ''
+    print('✓ query_surname：取第一作者的姓（最後 name token）')
+
+
 def test_pick_type_filter():
     target_main = _t('jackson_electrodynamics', 'Classical Electrodynamics', 'Jackson')
     books = [
@@ -97,6 +115,8 @@ def test_resolve_target_main_review():
 
 if __name__ == '__main__':
     test_confidence()
+    test_author_word_boundary()
+    test_query_surname()
     test_pick_type_filter()
     test_pick_skips_non_pdf()
     test_resolve_target_resolved()

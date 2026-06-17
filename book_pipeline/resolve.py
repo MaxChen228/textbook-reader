@@ -26,10 +26,11 @@ from book_pipeline import crawl_zlib as cz
 
 # 標題比對用：去除無資訊的常見詞，避免「Introduction to X」這類殼字灌高重疊
 _STOP = {
-    'a', 'an', 'the', 'of', 'to', 'and', 'in', 'for', 'on', 'with', 'its', 'an',
+    'a', 'an', 'the', 'of', 'to', 'and', 'in', 'for', 'on', 'with', 'its',
     'introduction', 'intro', 'principles', 'fundamentals', 'course', 'first',
     'edition', 'vol', 'volume', 'modern', 'elementary', 'applied', 'theory',
 }
+_AUTHOR_DROP = {'and', 'jr', 'iii', 'von', 'van', 'der', 'den', 'del'}
 MAIN_THRESHOLD = 0.55     # 主書採用信心門檻
 SOL_THRESHOLD = 0.50      # 解答本（須先確認 is_solution，門檻可略低）
 
@@ -39,24 +40,34 @@ def _tokens(s: str) -> set:
             if len(w) >= 3 and w not in _STOP}
 
 
-def _surnames(author: str) -> set:
-    """作者字串 → 姓氏 token 集（粗略）：'Sakurai & Napolitano'→{sakurai,napolitano}；
-    'J. D. Jackson'→{jackson}。取長度≥3 的英文字、去掉常見連接/縮寫殘渣。"""
-    drop = {'and', 'jr', 'iii', 'von', 'van', 'der', 'den', 'del'}
+def _name_tokens(author: str) -> set:
+    """作者字串 → 名字 token 集（含 first/last name）：'Sakurai & Napolitano'→{sakurai,napolitano}；
+    'J. D. Jackson'→{jackson}。取長度≥3 的英文字、去掉常見連接/縮寫殘渣。author_hit 比對用。"""
     return {w.lower() for w in re.findall(r'[A-Za-z]{3,}', author or '')
-            if w.lower() not in drop}
+            if w.lower() not in _AUTHOR_DROP}
+
+
+def query_surname(author: str) -> str:
+    """查詢用姓氏：取**第一作者**的最後一個名字 token（'John David Jackson'→jackson、
+    'Goldstein, Poole & Safko'→goldstein）。比 sorted()[0] 取字母序最前者（常是 first name）準。"""
+    first = re.split(r'[,&]', author or '', maxsplit=1)[0]
+    toks = [w.lower() for w in re.findall(r'[A-Za-z]{3,}', first)
+            if w.lower() not in _AUTHOR_DROP]
+    return toks[-1] if toks else ''
 
 
 def confidence(title: str, author: str, book: dict) -> float:
     """target（書名,作者）對某 z-lib 結果的匹配信心 0~1。
-    = 0.6×標題詞重疊（佔 canon 標題詞比例）+ 0.4×作者姓氏是否命中（出現在結果 author 或 title）。"""
+    = 0.6×標題詞重疊（佔 canon 標題詞比例）+ 0.4×作者姓氏是否命中（**詞界**比對結果 author 或 title，
+    避免 'Hall'∈'Marshall' 這類子字串假命中）。"""
     ct = _tokens(title)
     if not ct:
         return 0.0
     bt = _tokens(book.get('title', ''))
     overlap = len(ct & bt) / len(ct)
     hay = f"{book.get('author', '')} {book.get('title', '')}".lower()
-    author_hit = 1.0 if any(sn in hay for sn in _surnames(author)) else 0.0
+    author_hit = 1.0 if any(re.search(rf'\b{re.escape(sn)}\b', hay)
+                            for sn in _name_tokens(author)) else 0.0
     return round(0.6 * overlap + 0.4 * author_hit, 3)
 
 
@@ -88,8 +99,8 @@ def resolve_target(client, target: dict) -> tuple[str, dict]:
     entry 直接是要寫進 resolution sidecar 的值。"""
     now = datetime.now(timezone.utc).isoformat(timespec='seconds')
     title, author = _base_title(target), target.get('author', '')
-    sn = sorted(_surnames(author))
-    q = f"{title} {sn[0]}" if sn else title          # 書名 + 一個姓氏，提升命中
+    sn = query_surname(author)
+    q = f"{title} {sn}".strip()                       # 書名 + 第一作者姓氏，提升命中
     if target['kind'] == 'solution':
         q = f"{title} solutions manual"
     books = client.search(q, ext='pdf', lang='english', limit=20)
