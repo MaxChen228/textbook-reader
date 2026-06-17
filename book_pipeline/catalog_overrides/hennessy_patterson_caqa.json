@@ -1,0 +1,51 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hennessy-caqa-fig-1.19-promote-table",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[366]",
+      "expect": {
+        "id": "tbl-ch01-366"
+      },
+      "set": {
+        "id": "fig-1.19",
+        "caption": "Figure 1.19 SPEC2017 programs and the evolution of the SPEC benchmarks over time, with integer programs above the line and floating-point programs below the line.",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 68 captions the adjacent table block as Figure 1.19; parser left it as an unnumbered table."
+    },
+    {
+      "id": "hennessy-caqa-fig-1.21-promote-table",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[388]",
+      "expect": {
+        "id": "tbl-ch01-388"
+      },
+      "set": {
+        "id": "fig-1.21",
+        "caption": "Figure 1.21 SPEC CPU2017 Integer Speed execution times and SPECRatios for the Sun UltraSPARC-IV+, AMD EPYC 7763, and Intel Xeon Platinum 8380.",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 73 captions the adjacent comparison table as Figure 1.21; parser left it as an unnumbered table."
+    },
+    {
+      "id": "hennessy-caqa-prob-4.5-table-4.2-fix",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.5:body[8]",
+      "field": "md",
+      "old": "Table 4.2",
+      "new": "Figure 4.2",
+      "reason": "Raw PDF page 388 problem text says Table 4.2, but chapter 4 only contains Figure 4.2 for the RV64V instruction list; no Table 4.2 exists."
+    }
+  ]
+}

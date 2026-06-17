@@ -1,0 +1,139 @@
+slug: modern_operating_systems
+title: Modern Operating Systems
+author: Andrew S. Tanenbaum; Herbert Bos
+edition: 5th
+subject: Operating Systems
+publisher: Pearson
+language: en
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 29
+appendices_start_page: 1149
+bibliography_start_page: null
+index_start_page: 1149
+chapters:
+  - num: 1
+    title: INTRODUCTION
+    page_start: 29
+    page_end: 112
+    chapter_title_block_idx: 523
+    chapter_title_block_idx_secondary: 524
+    problems_block_idx: 1313
+    next_chapter_block_idx: 1361
+  - num: 2
+    title: PROCESSES AND THREADS
+    page_start: 113
+    page_end: 206
+    chapter_title_block_idx: 1361
+    chapter_title_block_idx_secondary: 1362
+    problems_block_idx: 2213
+    next_chapter_block_idx: 2280
+  - num: 3
+    title: MEMORY MANAGEMENT
+    page_start: 207
+    page_end: 286
+    chapter_title_block_idx: 2280
+    chapter_title_block_idx_secondary: 2281
+    problems_block_idx: 2978
+    next_chapter_block_idx: 3097
+  - num: 4
+    title: FILE SYSTEMS
+    page_start: 287
+    page_end: 364
+    chapter_title_block_idx: 3097
+    chapter_title_block_idx_secondary: 3098
+    problems_block_idx: 3805
+    next_chapter_block_idx: 3845
+  - num: 5
+    title: INPUT/OUTPUT
+    page_start: 365
+    page_end: 464
+    chapter_title_block_idx: 3845
+    chapter_title_block_idx_secondary: 3846
+    problems_block_idx: 4770
+    next_chapter_block_idx: 4825
+  - num: 6
+    title: DEADLOCKS
+    page_start: 465
+    page_end: 504
+    chapter_title_block_idx: 4825
+    chapter_title_block_idx_secondary: 4826
+    problems_block_idx: 5191
+    next_chapter_block_idx: 5249
+  - num: 7
+    title: VIRTUALIZATION AND THE CLOUD
+    page_start: 505
+    page_end: 554
+    chapter_title_block_idx: 5249
+    chapter_title_block_idx_secondary: 5250
+    problems_block_idx: 5671
+    next_chapter_block_idx: 5680
+  - num: 8
+    title: MULTIPLE PROCESSOR SYSTEMS
+    page_start: 555
+    page_end: 632
+    chapter_title_block_idx: 5680
+    chapter_title_block_idx_secondary: 5681
+    problems_block_idx: 6417
+    next_chapter_block_idx: 6451
+  - num: 9
+    title: SECURITY
+    page_start: 633
+    page_end: 730
+    chapter_title_block_idx: 6451
+    chapter_title_block_idx_secondary: 6452
+    problems_block_idx: 7332
+    next_chapter_block_idx: 7401
+  - num: 10
+    title: "CASE STUDY 1: UNIX, LINUX, AND ANDROID"
+    page_start: 731
+    page_end: 898
+    chapter_title_block_idx: 7401
+    chapter_title_block_idx_secondary: 7402
+    problems_block_idx: 8948
+    next_chapter_block_idx: 9044
+  - num: 11
+    title: "CASE STUDY 2: WINDOWS 11"
+    page_start: 899
+    page_end: 1068
+    chapter_title_block_idx: 9044
+    chapter_title_block_idx_secondary: 9045
+    problems_block_idx: 10475
+    next_chapter_block_idx: 10499
+  - num: 12
+    title: OPERATING SYSTEM DESIGN
+    page_start: 1069
+    page_end: 1114
+    chapter_title_block_idx: 10499
+    chapter_title_block_idx_secondary: 10500
+    problems_block_idx: 10957
+    next_chapter_block_idx: 10990
+  - num: 13
+    title: READING LIST AND BIBLIOGRAPHY
+    page_start: 1115
+    page_end: 1148
+    chapter_title_block_idx: 10990
+    chapter_title_block_idx_secondary: 10991
+    problems_block_idx: null
+    next_chapter_block_idx: 11266
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+equation_strip_dollar: true
+equation_label_re: \\tag\s*\{([0-9]+[a-z]?)\}
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: ^(?:\([a-z]\)\s*(?:\|\s*)?)?Figure\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?\.
+known_missing_problems: []

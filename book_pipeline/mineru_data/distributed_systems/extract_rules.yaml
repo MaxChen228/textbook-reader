@@ -1,0 +1,120 @@
+slug: distributed_systems
+title: Distributed Systems
+author: Maarten van Steen; Andrew S. Tanenbaum
+edition: 4th
+subject: Distributed Systems
+publisher: Maarten van Steen
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 630
+bibliography_start_page: null
+index_start_page: 630
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 16
+    page_end: 69
+    chapter_title_block_idx: 197
+    chapter_title_block_idx_secondary: 206
+    problems_block_idx: null
+    next_chapter_block_idx: 711
+  - num: 2
+    title: Architectures
+    page_start: 70
+    page_end: 125
+    chapter_title_block_idx: 711
+    chapter_title_block_idx_secondary: 713
+    problems_block_idx: null
+    next_chapter_block_idx: 1238
+  - num: 3
+    title: Processes
+    page_start: 126
+    page_end: 195
+    chapter_title_block_idx: 1238
+    chapter_title_block_idx_secondary: 1240
+    problems_block_idx: null
+    next_chapter_block_idx: 1882
+  - num: 4
+    title: Communication
+    page_start: 196
+    page_end: 261
+    chapter_title_block_idx: 1882
+    chapter_title_block_idx_secondary: 1885
+    problems_block_idx: null
+    next_chapter_block_idx: 2496
+  - num: 5
+    title: Coordination
+    page_start: 262
+    page_end: 339
+    chapter_title_block_idx: 2496
+    chapter_title_block_idx_secondary: 2498
+    problems_block_idx: null
+    next_chapter_block_idx: 3265
+  - num: 6
+    title: Naming
+    page_start: 340
+    page_end: 405
+    chapter_title_block_idx: 3265
+    chapter_title_block_idx_secondary: 3268
+    problems_block_idx: null
+    next_chapter_block_idx: 3901
+  - num: 7
+    title: Consistency and replication
+    page_start: 406
+    page_end: 475
+    chapter_title_block_idx: 3901
+    chapter_title_block_idx_secondary: 3905
+    problems_block_idx: null
+    next_chapter_block_idx: 4629
+  - num: 8
+    title: Fault tolerance
+    page_start: 476
+    page_end: 559
+    chapter_title_block_idx: 4629
+    chapter_title_block_idx_secondary: 4632
+    problems_block_idx: null
+    next_chapter_block_idx: 5472
+  - num: 9
+    title: Security
+    page_start: 560
+    page_end: 629
+    chapter_title_block_idx: 5472
+    chapter_title_block_idx_secondary: 5474
+    problems_block_idx: null
+    next_chapter_block_idx: 7411
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

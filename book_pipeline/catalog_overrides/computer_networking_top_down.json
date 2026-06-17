@@ -1,0 +1,38 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "5.2.2.1",
+      "classification": "external",
+      "reason": "The text explicitly cites an external 3GPP document: 'Table 5.2.2.1 in [3GPP 38.214 2024]'.",
+      "where": "ch07.json body[302]",
+      "evidence": "This is a standards-document table reference, not an in-book table target."
+    },
+    {
+      "type": "table",
+      "ref": "7.3",
+      "classification": "source_mismatch",
+      "reason": "The parsed book contains Table 7.1 and Table 7.2 in this region, but no Table 7.3 catalog entry or caption exists in the source extraction.",
+      "where": "ch07.json body[178]",
+      "evidence": "The surrounding section references Table 7.2 immediately after this sentence; unified/parsed catalogs contain no in-book Table 7.3 target."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "computer-networking-fix-fig-1.15",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[152]",
+      "expect": {
+        "id": "fig-1.16",
+        "caption": "Figure 1 . 1 5 Goog le cloud locations and network"
+      },
+      "set": {
+        "id": "fig-1.15",
+        "caption": "Figure 1.15 Google cloud locations and network",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "The body text explicitly references Figure 1.15, and this image caption OCR drifted into a spaced-out '1 . 1 5' string while inheriting the wrong semantic id."
+    }
+  ]
+}

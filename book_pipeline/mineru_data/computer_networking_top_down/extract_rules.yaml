@@ -1,0 +1,107 @@
+slug: computer_networking_top_down
+title: "Computer Networking: A Top-Down Approach"
+author: "James F. Kurose; Keith W. Ross"
+edition: "9th"
+subject: "Computer Networks"
+publisher: "Pearson"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 658
+bibliography_start_page: 658
+index_start_page: 700
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Computer Networks and the Internet"
+    page_start: 24
+    page_end: 95
+    chapter_title_block_idx: 435
+    problems_block_idx: 932
+    next_chapter_block_idx: 1038
+  - num: 2
+    title: "Application Layer"
+    page_start: 96
+    page_end: 180
+    chapter_title_block_idx: 1038
+    problems_block_idx: 1718
+    next_chapter_block_idx: 1840
+  - num: 3
+    title: "Transport Layer"
+    page_start: 181
+    page_end: 285
+    chapter_title_block_idx: 1840
+    problems_block_idx: 2571
+    next_chapter_block_idx: 2729
+  - num: 4
+    title: "The Network Layer: Data Plane"
+    page_start: 286
+    page_end: 351
+    chapter_title_block_idx: 2729
+    problems_block_idx: 3189
+    next_chapter_block_idx: 3284
+  - num: 5
+    title: "The Network Layer: Control Plane"
+    page_start: 352
+    page_end: 411
+    chapter_title_block_idx: 3284
+    problems_block_idx: 3716
+    next_chapter_block_idx: 3801
+  - num: 6
+    title: "The Link Layer and LANs"
+    page_start: 412
+    page_end: 488
+    chapter_title_block_idx: 3801
+    problems_block_idx: 4343
+    next_chapter_block_idx: 4454
+  - num: 7
+    title: "Wireless and Mobile Networks"
+    page_start: 489
+    page_end: 579
+    chapter_title_block_idx: 4454
+    problems_block_idx: 5139
+    next_chapter_block_idx: 5217
+  - num: 8
+    title: "Security in Computer Networks"
+    page_start: 580
+    page_end: 657
+    chapter_title_block_idx: 5217
+    problems_block_idx: 5869
+    next_chapter_block_idx: 5941
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:P|R)\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^(Wireshark Lab(?:s)?(?::.*)?|References|Index)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

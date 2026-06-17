@@ -1,0 +1,152 @@
+slug: hennessy_patterson_caqa
+title: "Computer Architecture: A Quantitative Approach"
+author: John L. Hennessy; David A. Patterson; Christos Kozyrakis
+edition: 7th
+subject: Computer Architecture
+publisher: Morgan Kaufmann
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 667
+bibliography_start_page: null
+index_start_page: 1511
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Fundamentals of Quantitative Design and Analysis
+    page_start: 17
+    page_end: 108
+    chapter_title_block_idx: 218
+    problems_block_idx: null
+    next_chapter_block_idx: 1070
+  - num: 2
+    title: Memory Hierarchy Design
+    page_start: 109
+    page_end: 190
+    chapter_title_block_idx: 1070
+    problems_block_idx: null
+    next_chapter_block_idx: 1715
+  - num: 3
+    title: Instruction-Level Parallelism and Its Exploitation
+    page_start: 191
+    page_end: 302
+    chapter_title_block_idx: 1715
+    problems_block_idx: null
+    next_chapter_block_idx: 2599
+  - num: 4
+    title: Data-Level Parallelism in Vector, SIMD, and GPU Architectures
+    page_start: 303
+    page_end: 394
+    chapter_title_block_idx: 2599
+    problems_block_idx: null
+    next_chapter_block_idx: 3357
+  - num: 5
+    title: Thread-Level Parallelism
+    page_start: 395
+    page_end: 484
+    chapter_title_block_idx: 3357
+    problems_block_idx: null
+    next_chapter_block_idx: 4119
+  - num: 6
+    title: Warehouse-Scale Architectures for Utility Computing
+    page_start: 485
+    page_end: 600
+    chapter_title_block_idx: 4119
+    problems_block_idx: null
+    next_chapter_block_idx: 4923
+  - num: 7
+    title: Domain-Specific Architectures
+    page_start: 601
+    page_end: 666
+    chapter_title_block_idx: 4923
+    problems_block_idx: null
+    next_chapter_block_idx: 5500
+
+appendices:
+  - id: A
+    title: Instruction Set Principles
+    page_start: 667
+    chapter_title_block_idx: 5500
+  - id: B
+    title: Review of Memory Hierarchy
+    page_start: 723
+    chapter_title_block_idx: 5979
+  - id: C
+    title: "Pipelining: Basic and Intermediate Concepts"
+    page_start: 793
+    chapter_title_block_idx: 6686
+  - id: D
+    title: Storage Systems
+    page_start: 873
+    chapter_title_block_idx: 7342
+  - id: E
+    title: Embedded Systems
+    page_start: 943
+    chapter_title_block_idx: 8080
+  - id: F
+    title: Interconnection Networks
+    page_start: 971
+    chapter_title_block_idx: 8300
+  - id: G
+    title: Vector Processors in More Depth
+    page_start: 1093
+    chapter_title_block_idx: 9196
+  - id: H
+    title: "Hardware and Software for VLIW and EPIC"
+    page_start: 1129
+    chapter_title_block_idx: 9545
+  - id: I
+    title: Large-Scale Multiprocessors and Scientific Applications
+    page_start: 1175
+    chapter_title_block_idx: 9930
+  - id: J
+    title: Computer Arithmetic
+    page_start: 1223
+    chapter_title_block_idx: 10325
+  - id: K
+    title: Survey of Instruction Set Architectures
+    page_start: 1299
+    chapter_title_block_idx: 10998
+  - id: L
+    title: "Advanced Concepts on Address Translation"
+    page_start: 1377
+    chapter_title_block_idx: 11638
+  - id: M
+    title: "Historical Perspectives and References"
+    page_start: 1379
+    chapter_title_block_idx: 11652
+
+section_re: '^((?:\d+\.\d+|[A-M]\.\d+))\s+([A-Za-z].+)$'
+subsection_re: "^()([A-Z][A-Za-z0-9][A-Za-z0-9/&,:;()'\"\\-– ]{0,120})$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.?\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9A-Za-z.]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
