@@ -75,8 +75,10 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 CRAWL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_LOW', '5'))    # 清單低水位：購物清單剩餘 < 此才補貨
 CRAWL_HIGH = int(os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')) # 補到此清單水位（單批要補 = HIGH - 清單長度）
 CRAWL_RETRY_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_RETRY_S', '300'))  # crawl 重試最小間隔（防額度0時緊湊空轉）
-# refill 時若書單 ready 不足，單批跑確定性 resolver（書名→z-lib id/hash，無 LLM、只 search）解析幾本。
-CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))
+# 解析池水位（State 2 = 已確認 z-lib 連結、未 owned = READY+QUEUED）：低於此就派 crawl agent 解析更多
+# unresolved，讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
+CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
+CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
 # 購物清單（持久 buffer）：refill 自書單 SoT 選好的「待抓書」存這（slug/id/hash/title/fails）。drain 抓到即劃掉、
 # refill 低於水位才補。檔在 BP 根（同 pipeline_state.json，per-machine runtime state、gitignore）。
 CRAWL_QUEUE = os.path.join(BP, 'crawl_queue.json')
@@ -854,29 +856,35 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
     return crawled
 
 
-def _run_resolver(limit: int) -> None:
-    """跑確定性 canon resolver（書名→z-lib id/hash，或標 absent；**無 LLM、只 search、不耗下載額度**）
-    把 unresolved 書名解析成可下載目標，補充書單的 ready 池。與買書員一樣是確定性步驟，daemon 直跑
-    （非 agent，不註冊 worker_registry）。子進程跑 book_pipeline.resolve。"""
-    log(f'crawl resolver：解析最多 {limit} 本 unresolved 書名 → id/hash（無 LLM、只 search）')
-    try:
-        out = subprocess.run(
-            ['uv', 'run', '--with', 'requests', 'python', '-m', 'book_pipeline.resolve',
-             '--limit', str(limit)], cwd=ROOT, capture_output=True, text=True, timeout=900)
-        tail = (out.stdout or '').strip().splitlines()
-        if tail:
-            log(f'crawl resolver：{tail[-1]}')
-        if out.returncode != 0:
-            log(f'⚠ crawl resolver rc={out.returncode}：{(out.stderr or "")[:200]}')
-    except Exception as e:
-        log(f'⚠ crawl resolver 異常：{e}')
+def _crawl_resolve_due() -> tuple[bool, dict]:
+    """**crawl 解析 agent** 是否該派：解析池（confirmed = READY+QUEUED，已確認 z-lib 連結、未 owned）
+    < CRAWL_POOL_LOW ∧ 仍有 unresolved target 可解。回 (due, pool_counts)。池夠滿或無 unresolved →
+    不派 → loop 能 idle 收斂（不 busy-loop）。"""
+    pc = booklists.pool_counts()
+    return (pc['confirmed'] < CRAWL_POOL_LOW and pc['unresolved'] > 0), pc
+
+
+def do_crawl_resolve(dry: bool) -> int:
+    """解析池低於水位 → 派一隻 **crawl agent** 解析一批 unresolved target（書名→z-lib id/hash 判斷）。
+    agent 用 resolve.py 的 target/search/inspect/commit 工具親自查/挑（確定性配對會假陽性：Chemistry→
+    Food Chemistry、Gallian 題解→Dummit，故交 LLM 判斷）。單隻在飛——reactive loop 的 __crawl_resolve__
+    key 自動序列化：本批 commit 後、下個 cycle 池仍低才派下一批，不並發撞同批。回 dispatch_llm rc（dry→0）。"""
+    due, pc = _crawl_resolve_due()
+    if not due:
+        return 0
+    batch = [t['slug'] for t in booklists.unresolved_targets()[:CRAWL_RESOLVE_BATCH]]
+    if not batch:
+        return 0
+    log(f'crawl 解析：池 confirmed {pc["confirmed"]}/{CRAWL_POOL_LOW}（unresolved {pc["unresolved"]}）'
+        f' → 派 crawl agent 解析 {len(batch)} 本')
+    return dispatch_llm('crawl', ','.join(batch), dry)
 
 
 def refill_crawl_queue(dry: bool = False) -> int:
-    """**確定性 refill（無 LLM）**：清單低於水位 → 從書單 SoT（booklists/）拉已解析(ready)的書補進
-    購物清單；ready 不足且仍有 unresolved → 先跑確定性 resolver（書名→id/hash，只 search）產更多
-    ready 再拉。補不出新書（剩下皆 review/absent，或 resolver 也解不出）→ 進冷卻、停 churn。回新增數。
-    取代舊「派 LLM planner 讀整本 wishlist 從零重推書單」的土炮做法（零 token、零漂移、有分母）。
+    """**確定性 refill（無 LLM）**：購物清單低於水位 → 從書單 SoT 拉已解析(ready)的書補進清單（買書員
+    抽的貨）。**解析（unresolved → ready）由 crawl agent 另路負責（do_crawl_resolve），本函式不再觸發
+    解析**——只搬 agent 已確認連結的 ready 進 buffer。ready 池空（剩 review/absent/待 agent 解析）→ 進
+    冷卻、停 churn（等 crawl agent 補出 ready，drain 改清單或冷卻到期才重試）。回新增數。
     買書員 drain 仍是唯一咬下載額度處；本函式與額度無關。"""
     full = _load_queue_full()
     have = booklists.have_slugs()
@@ -890,20 +898,17 @@ def refill_crawl_queue(dry: bool = False) -> int:
     if dry:
         ready = len(booklists.select_next(want))
         log(f'crawl refill（dry）：清單 {len(queue)} < 水位 → 想補 {want}，書單 ready {ready}'
-            f'（不足且有 unresolved 會先跑 resolver）')
+            f'（ready 由 crawl agent 解析產出；本函式只搬不解析）')
         return 0
-    picks = booklists.select_next(want)
-    if len(picks) < want and booklists.has_unresolved():
-        _run_resolver(CRAWL_RESOLVE_BATCH)         # ready 不夠 → 解析更多書名（確定性、無 LLM）
-        picks = booklists.select_next(want)
+    picks = booklists.select_next(want)             # 只搬 agent 已確認連結的 ready；解析另由 crawl agent 負責
     added = _merge_plan_into_queue(queue, {'books': picks}, have)  # 去重 vs 清單∪inventory
     if added:
         exhausted_at = None                         # 補成功 → 解除冷卻
         reason = f'書單確定性補貨 +{added}'
         log(f'crawl refill done：書單補入 {added} 本 → 清單 {len(queue)} 本（確定性、零 LLM）')
     elif len(queue) < CRAWL_LOW:
-        exhausted_at = time.time()                  # 補不出 ready（剩 review/absent/解析不出）→ 冷卻、停 churn
-        log(f'crawl refill 收斂：書單暫無可補的 ready（剩 review/absent 或待解析）'
+        exhausted_at = time.time()                  # 暫無 ready 可搬（剩 review/absent/待 agent 解析）→ 冷卻、停 churn
+        log(f'crawl refill 收斂：書單暫無可搬的 ready（剩 review/absent 或待 crawl agent 解析）'
             f' → 冷卻 {CRAWL_REFILL_COOLDOWN_S // 3600}h')
     _save_queue(queue, reason=reason, exhausted_at=exhausted_at)
     return added
@@ -1321,6 +1326,9 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     # F. corpus-level 數學 sweep（track-only reduce job，殘餘過門檻才派一隻跨書 agent）。
     do_math_sweep(dry)
 
+    # G. crawl 解析 agent（解析池 < 水位 ∧ 有 unresolved → 派一隻解析一批書名→id/hash）。
+    do_crawl_resolve(dry)
+
     log('=== tick end ===')
     return 0
 
@@ -1441,6 +1449,13 @@ def tick_reactive(no_deploy: bool) -> int:
             # 回 False → loop 能收斂 idle（不再 busy-loop）。
             due, _resid = _math_sweep_due()
             if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
+                dispatched += 1
+
+            # C4. crawl 解析 agent：解析池（已確認連結未 owned）< 水位 ∧ 有 unresolved → 派一隻 crawl
+            # agent 解析一批（書名→id/hash 判斷）。__crawl_resolve__ key 自動序列化（單隻在飛，本批 commit
+            # 後下個 cycle 池仍低才派下一批，不並發撞同批）。池夠滿/無 unresolved → due False → loop 收斂。
+            cr_due, _pc = _crawl_resolve_due()
+            if cr_due and _start('__crawl_resolve__', lambda: do_crawl_resolve(False)):
                 dispatched += 1
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
