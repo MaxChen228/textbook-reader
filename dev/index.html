@@ -579,9 +579,17 @@
     const st = `${icon} ${label}`; if (sEl.textContent !== st) sEl.textContent = st
     if (bEl.textContent !== String(occ)) bEl.textContent = occ
     const lb = m.last_batch
-    const lbTxt = lb
-      ? `上次 batch ${relTime(lb.at)}\n解 ${lb.accepted || 0} 條 · 觸 ${lb.books_touched || 0} 書 · 殘 ${lb.before}→${lb.after}`
-      : '尚未 batch'
+    // running 時不顯「尚未 batch」（自相矛盾）：改顯本批起算經過時間（relTime 客端每 render 重算 → 看得出在跑）
+    // + 上一批戰績（若有）。非 running 才顯上次 batch 結果；真的從沒跑過才「尚未 batch」。
+    let lbTxt
+    if (m.running) {
+      lbTxt = `本批處理中 · 起 ${relTime(m.running.at)}`
+        + (lb ? `\n上批 解 ${lb.accepted || 0} · 剩 ${lb.still_failing || 0} 硬殘` : '\n首批尚未完成')
+    } else if (lb) {
+      lbTxt = `上次 batch ${relTime(lb.at)}\n解 ${lb.accepted || 0} 條 · 觸 ${lb.books_touched || 0} 書 · 殘 ${lb.before}→${lb.after}`
+    } else {
+      lbTxt = '尚未 batch'
+    }
     if (lEl.textContent !== lbTxt) lEl.textContent = lbTxt
   }
   function mathReason() {
