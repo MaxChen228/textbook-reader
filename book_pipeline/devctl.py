@@ -437,7 +437,9 @@ def math_health() -> dict:
         'node_available': mv.node_available(),
         'macros_version': mv.macros_version(),
         'corpus_bad_occ': total,
-        'threshold': pt.MATH_SWEEP_THRESHOLD,
+        'threshold': pt.MATH_SWEEP_THRESHOLD,           # 靜態地板（冷啟首次 sweep 用）
+        'refire_threshold': pt._math_refire_threshold(state),  # 動態重派門檻 = max(地板, 上次收斂+GROWTH)
+        'growth': pt.MATH_SWEEP_GROWTH,
         'due': pt._math_sweep_due(state)[0],  # 真相同 daemon（含 GROWTH/macros/node），非僅 ≥門檻
         'books_with_residual': len(books),
         'top_books': books[:20],
@@ -527,7 +529,9 @@ def _print_human(snap: dict) -> None:
         sw = (f" · 上次 sweep {sweep.get('at','?')} 改 {len(sweep.get('touched') or [])} 書 "
               f"→殘{sweep.get('residual_after','?')}") if sweep else ' · 尚未 sweep'
         flag = '🔴' if m.get('due') else '🟢'
-        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ / 門檻 {m.get('threshold')}"
+        rf = m.get('refire_threshold', m.get('threshold'))
+        floor = f"（地板 {m.get('threshold')}）" if rf != m.get('threshold') else ''
+        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ / 重派門檻 {rf}{floor}"
               f" · {m.get('books_with_residual')} 書有殘{sw}")
         for b in (m.get('top_books') or [])[:8]:
             print(f"   {b['slug']}: {b['bad_occ']} occ{'  ✓已sweep' if b.get('in_last_sweep') else ''}")

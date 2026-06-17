@@ -527,7 +527,9 @@
                             : ' · 尚未 sweep'
     // 健康≠無殘：due=false 時殘餘多半是 OCR 硬殘（現有 macros 修不動、已穩定不再 churn）
     const health = m.due ? '🔴待 sweep' : (m.corpus_bad_occ > 0 ? '🟢硬殘穩定' : '🟢全淨')
-    return `殘 ${m.corpus_bad_occ} occ · ${health}${sw}`
+    // 顯示「殘/重派門檻」而非「殘/靜態地板」→ 殘 446 < 464 才看得出為何穩定（消視覺矛盾）
+    const rf = m.refire_threshold ?? m.threshold
+    return `殘 ${m.corpus_bad_occ}/${rf} occ · ${health}${sw}`
   }
   function reconcileMath() {
     const mw = mathWorkers(), m = last && last.math
@@ -614,7 +616,9 @@
       + `${m.due ? '🔴 殘餘過門檻 · 待跨書 sweep'
                  : (m.corpus_bad_occ > 0 ? '🟢 健康 · 餘為 OCR 硬殘，現有 macros 修不動、不再 churn'
                                          : '🟢 全 corpus 數學皆可渲染')}</span>`
-      + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span><span>門檻 <b>${m.threshold ?? '?'}</b></span>`
+      + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span>`
+      + `<span>重派門檻 <b>${m.refire_threshold ?? m.threshold ?? '?'}</b>`
+      + `${(m.refire_threshold && m.refire_threshold !== m.threshold) ? ` <small style="opacity:.6">地板 ${m.threshold}+成長 ${m.growth ?? 25}</small>` : ''}</span>`
       + `<span><b>${m.books_with_residual ?? 0}</b> 書有殘</span>`
     const tb = m.top_books || []
     document.getElementById('dr-evs').innerHTML = tb.length

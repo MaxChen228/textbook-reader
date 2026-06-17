@@ -698,22 +698,29 @@ def do_math_track(slug: str) -> int:
         return -1
 
 
+def _math_refire_threshold(state: dict | None = None) -> int:
+    """corpus 殘餘要達到多少 occ 才會（再次）派 sweep —— _math_sweep_due 的唯一門檻真相源。
+    冷啟/換 macros → 靜態地板 THRESHOLD；已在同 macros sweep 過 → 動態升級為
+    max(地板, 上次收斂殘餘 + GROWTH)（防同一狀態反覆喚醒 LLM）。看板/CLI 一律顯示這個值，
+    消除『殘 N occ ≥ 地板 50 卻顯示穩定』的視覺矛盾——穩定其實是 N < 此動態門檻。"""
+    from book_pipeline import math_validate as mv
+    s = state if state is not None else q._load_state()
+    ls = q.math_sweep_state(s)
+    if ls and ls.get('macros_version') == mv.macros_version() and ls.get('residual_after') is not None:
+        return max(MATH_SWEEP_THRESHOLD, int(ls['residual_after']) + MATH_SWEEP_GROWTH)
+    return MATH_SWEEP_THRESHOLD
+
+
 def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
     """廉價門檻判定（讀 state，不重跑 node）。回 (該不該 sweep, 當前 corpus 殘餘 occ)。
-    缺 node → 永不 due（無從驗證）；殘餘 < 門檻 → 不 due；已在同 macros sweep 過且殘餘
-    未再長過 GROWTH → 不 due（防同一狀態反覆喚醒 LLM、保證 reactive loop 能收斂 idle）。"""
+    缺 node → 永不 due（無從驗證）；殘餘 ≥ 動態重派門檻（見 _math_refire_threshold）→ due。
+    保證 reactive loop 能收斂 idle：sweep 後門檻升到「上次收斂 + GROWTH」，殘餘沒再長就不重派。"""
     from book_pipeline import math_validate as mv
     if not mv.node_available():
         return False, 0
     s = state if state is not None else q._load_state()
     total = q.corpus_math_residual(s)
-    if total < MATH_SWEEP_THRESHOLD:
-        return False, total
-    ls = q.math_sweep_state(s)
-    if (ls and ls.get('macros_version') == mv.macros_version()
-            and total < int(ls.get('residual_after') or 0) + MATH_SWEEP_GROWTH):
-        return False, total
-    return True, total
+    return total >= _math_refire_threshold(s), total
 
 
 def do_math_sweep(dry: bool) -> int:
