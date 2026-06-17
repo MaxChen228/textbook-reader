@@ -15,7 +15,116 @@
       "reason": "The merged solution references Table 18.2, but the raw textbook PDF has no Table 18.2 target caption/text.",
       "where": "ch20.json problem 2 solution[2]",
       "evidence": "Raw PDF text search finds no Table 18.2 or Table 18 target."
+    },
+    {
+      "type": "figure",
+      "ref": "2.6",
+      "classification": "source_mismatch",
+      "reason": "The raw PDF sentence cites Fig. 2.6 while discussing the scattering vector Δk = k′ − k, but Chapter 2's matching target caption is Figure 7; no Figure 2.6 caption exists in parsed/raw source.",
+      "where": "ch19.json body[22]",
+      "evidence": "Raw PDF page 792 says \"... scattering vectors Δk = k′ – k, as in Fig. 2.6\", while Chapter 2 contains Figure 7 \"Definition of the scattering vector Δk ...\" and no Figure 2.6 target."
     }
   ],
-  "overrides": []
+  "overrides": [
+    {
+      "id": "kittel-fig-1.7-alias",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[50]",
+      "set": {
+        "catalog_exclude_reason": "catalog_alias_anchor",
+        "catalog_repair_source": "agent-cross-chapter-alias",
+        "catalog_aliases": [
+          {
+            "id": "fig-1.7",
+            "type": "figure",
+            "caption": "Figure 1.7",
+            "source": "agent-local-numbering-alias",
+            "evidence": "Raw PDF page 694 cites Fig. 1.7/Fig. 1.7b for the five two-dimensional nets; the anchored block is Chapter 1 Figure 7 \"Four special lattices in two dimensions.\""
+          }
+        ]
+      },
+      "reason": "Cross-chapter reference uses chapter-qualified numbering for Chapter 1 Figure 7; aliasing the parent figure also resolves the subfigure-style Fig. 1.7b reference."
+    },
+    {
+      "id": "kittel-fig-2.17-alias",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[215]",
+      "set": {
+        "catalog_exclude_reason": "catalog_alias_anchor",
+        "catalog_repair_source": "agent-cross-chapter-alias",
+        "catalog_aliases": [
+          {
+            "id": "fig-2.17",
+            "type": "figure",
+            "caption": "Figure 2.17",
+            "source": "agent-local-numbering-alias",
+            "evidence": "Raw PDF page 791 cites Fig. 2.17 of Chapter 2 for sharp powder rings; the anchored block is Chapter 2 Figure 17 comparing x-ray reflections from KCl and KBr powders."
+          }
+        ]
+      },
+      "reason": "This is a cross-chapter citation to Chapter 2 Figure 17 using chapter-qualified numbering."
+    },
+    {
+      "id": "kittel-fig-6.14-alias",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[219]",
+      "set": {
+        "catalog_exclude_reason": "catalog_alias_anchor",
+        "catalog_repair_source": "agent-cross-chapter-alias",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.14",
+            "type": "figure",
+            "caption": "Figure 6.14",
+            "source": "agent-local-numbering-alias",
+            "evidence": "Raw PDF page 400 cites Fig. 6.14 in the open-orbit magnetoresistance problem; the anchored block is Chapter 6 Figure 14 \"The standard geometry for the Hall effect\"."
+          }
+        ]
+      },
+      "reason": "Problem text refers back to Chapter 6 Figure 14 with an explicit chapter prefix."
+    },
+    {
+      "id": "kittel-fig-7.12-alias",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[261]",
+      "set": {
+        "catalog_exclude_reason": "catalog_alias_anchor",
+        "catalog_repair_source": "agent-cross-chapter-alias",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.12",
+            "type": "figure",
+            "caption": "Figure 7.12",
+            "source": "agent-local-numbering-alias",
+            "evidence": "Raw PDF page 705 cites Fig. 7.12 while discussing surface states; the anchored block is Chapter 7 Figure 12 showing complex wavevector solutions in the energy gap."
+          }
+        ]
+      },
+      "reason": "The chapter 17 discussion points back to Chapter 7 Figure 12 using chapter-qualified numbering."
+    },
+    {
+      "id": "kittel-tbl-11.2-alias",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[117]",
+      "set": {
+        "catalog_exclude_reason": "catalog_alias_anchor",
+        "catalog_repair_source": "agent-cross-chapter-alias",
+        "catalog_aliases": [
+          {
+            "id": "tbl-11.2",
+            "type": "table",
+            "caption": "Table 11.2",
+            "source": "agent-local-numbering-alias",
+            "evidence": "Raw PDF page 507 cites Table 11.2 for ferric/ferrous magneton data; the anchored block is Chapter 11 TABLE 2 \"Effective magneton numbers for iron group ions\"."
+          }
+        ]
+      },
+      "reason": "Chapter 12 refers back to Chapter 11 Table 2 using chapter-qualified numbering."
+    }
+  ]
 }

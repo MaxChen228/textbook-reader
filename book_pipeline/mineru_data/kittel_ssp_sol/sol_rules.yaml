@@ -1,4 +1,24 @@
-# Kittel SSP 解答書：CHAPTER N（全大寫）+ 純整數題號（章內 reset，對主書純整數 num）
+# ⚠ PENDING — 不要 merge。這本解答書不是單靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. 解答書是「選題解答重新編號」，不是沿用主書題號。
+#    例：sol CH1 只有 1/2/3 三題，但語義抽樣顯示「2.」其實對主書 ch1 problem 3、
+#    「3.」對主書 problem 4；也就是解答書內部序號是連續重排，不是主書 num。
+#
+# 2. 中後段章號存在亂序，非 regex 可修。
+#    語義抽樣顯示 sol CH14 對應主書 ch15（surface/interface plasmons），
+#    sol CH15 對應主書 ch16（Kramers-Kronig / optics），
+#    sol CH16 才對應主書 ch14（dielectrics / polarizability）。
+#
+# 3. 即使放寬題號 regex（如 ^(\d+)(?:[a-z])?\.），仍會穩定錯配。
+#    例：sol ch18 problem 2 是 "Filling subbands"，但主書 ch18 problem 2 是
+#    "Tunneling current"；直接 merge 會把錯解寫進卡片。
+#
+# dry-run:
+#   - 原規則 ^(\d+)\.\s: 92/172 = 53%
+#   - 放寬 ^(\d+)(?:[a-z])?\.: 126/172 = 73%
+# 但高配對率來自錯配，不可接受。待未來若要救，只能靠人工建立 chapter/problem 映射表
+# 或升級 sol_extract schema 支援 remap；目前先維持 pending，避免污染主書 parsed/。
 chapter_re: '^CHAPTER\s+(\d+)\s*$'
-problem_re: '^(\d+)\.\s'
+problem_re: '^(\d+)(?:[a-z])?\.'
 multi_per_block: false
+_pending: true

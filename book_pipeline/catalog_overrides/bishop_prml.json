@@ -1,0 +1,3823 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "12.11",
+      "classification": "source_missing",
+      "reason": "正文在 ch09 提到 principal component analysis 中處理 missing values 的例子，但整本 parsed/captions/catalogs 內不存在任何 Figure 12.11，且唯一接近的 fig-13.11 是 HMM 手寫數字示例，語義不符，不能硬做 alias。",
+      "evidence": "全文檢索僅 ch09 body[161] 出現 Figure 12.11；catalogs.json 無 fig-12.11，所有 ch*.json 亦無 caption/id 12.11。ch12 內容已是書上第 13 章，存在 fig-13.11，但 caption 為 on-line handwritten digits，與 PCA missing-values 例子無關。",
+      "where": "ch09.json body[161]"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bishop_prml-appA-body-12-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[12]",
+      "set": {
+        "id": "fig-A.2",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bd32de7a17714d86802c4cf8aff75c10f1c4b6a42e55768abda6ea850c7c3176.jpg",
+        "caption": "Figure A.2 The three geometrical configurations of the oil, water, and gas phases used to generate the oil flow data set. For each configuration, the proportions of the three phases can vary.",
+        "id": "fig-appA-12"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.2 開頭，但 build_catalogs 現行圖號 regex 不吃 A.2 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appA-body-14-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[14]",
+      "set": {
+        "id": "fig-A.3",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8406837f33a67d1f8a0b2a03dee1f8e40f4439596da1c225a12936bcd273bca2.jpg",
+        "caption": "Figure A.3 Cross section of the pipe showing the arrangement of the six beam lines, each of which comprises a single dualenergy gamma densitometer. Note that the vertical beams are asymmetrically arranged relative to the central axis (shown by the dotted line).",
+        "id": "fig-appA-14"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.3 開頭，但 build_catalogs 現行圖號 regex 不吃 A.3 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appA-body-27-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[27]",
+      "set": {
+        "id": "fig-A.4",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "22180e74615c13664ec0054c14824b33dc2233364a706665cbf416b9120b3423.jpg",
+        "caption": "Figure A.4 The Old Faithful geyser in Yellowstone National Park. c Bruce T. Gourley www.brucegourley.com.",
+        "id": "fig-appA-27"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.4 開頭，但 build_catalogs 現行圖號 regex 不吃 A.4 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appA-body-28-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[28]",
+      "set": {
+        "id": "fig-A.5",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "61718cad542965c41252cfd26426aafc50985aa5e47b63e455aa1b54241a8d0a.jpg",
+        "caption": "Figure A.5 Plot of the time to the next eruption in minutes (vertical axis) versus the duration of the eruption in minutes (horizontal axis) for the Old Faithful data set.",
+        "id": "fig-appA-28"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.5 開頭，但 build_catalogs 現行圖號 regex 不吃 A.5 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appA-body-32-exclude",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[32]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a08f4eb05c4b567530078a5f981b158223eb581f5c90f6762e11cdf81bafee68.jpg",
+        "id": "fig-appA-32"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appA-body-33-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[33]",
+      "set": {
+        "id": "fig-A.6",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "9d5d9812a81ff621224085b2ff0e3c2edfed59de6ba7323dbd912053c878f2c5.jpg",
+        "caption": "Figure A.6 The left-hand plot shows the synthetic regression data set along with the underlying sinusoidal function from which the data points were generated. The right-hand plot shows the true conditional distribution $p ( t | x )$ from which the labels are generated, in which the green curve denotes the mean, and the shaded region spans one standard deviation on each side of the mean.",
+        "id": "fig-appA-33"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.6 開頭，但 build_catalogs 現行圖號 regex 不吃 A.6 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appA-body-34-exclude",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[34]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "81b2fce60eddac99ccbf083eb6877fe08efbafdc69899cc8469586b5a9bad815.jpg",
+        "id": "fig-appA-34"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appA-body-35-appendix-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[35]",
+      "set": {
+        "id": "fig-A.7",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "35403520820e878d53937d081fc8a782631198dbf171506e2a1e3ace7dd58a77.jpg",
+        "caption": "Figure A.7 The left plot shows the synthetic classification data set with data from the two classes shown in red and blue. On the right is a plot of the true posterior probabilities, shown on a colour scale going from pure red denoting probability of the red class is 1 to pure blue denoting probability of the red class is 0. Because these probabilities are known, the optimal decision boundary for minimizing the misclassification rate (which corresponds to the contour along which the posterior probabilities for each class equal 0.5) can be evaluated and is shown by the green curve. This decision boundary is also plotted on the left-hand figure.",
+        "id": "fig-appA-35"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure A.7 開頭，但 build_catalogs 現行圖號 regex 不吃 A.7 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appB-body-10-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[10]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e932679f17b6a37e08278803a440950df118b85bd996709fc5df60d534bc2ea7.jpg",
+        "id": "fig-appB-10"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-18-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[18]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c9f465b6718bbd893dbd9ce1aa4aa4d3162e2cc9a52e1321275cc42c5e99f939.jpg",
+        "id": "fig-appB-18"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-28-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[28]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2ad5011943d6661ce2a5ecc036d23d43511077bcccd4f7b03a86fd6b15de113e.jpg",
+        "id": "fig-appB-28"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-48-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[48]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f2197b2f2f5eb8e1f354478af8a8e18358d63730e008c6fbd6964e45f37250c5.jpg",
+        "id": "fig-appB-48"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-58-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[58]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c9fcada20ed8aac0652e88e4733e1897cc771e87b06a3fd8b2e02bd3455a0bd1.jpg",
+        "id": "fig-appB-58"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-91-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[91]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8a37f52ffe807c97d034d65a77d157f4ffce612f18fc6eefade54144f7bfd997.jpg",
+        "id": "fig-appB-91"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-117-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[117]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "1b1c934f56e4c0ef20e11875046b0ad39ca3fe2f7db6d860fc0a9b29dbe135f9.jpg",
+        "id": "fig-appB-117"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-139-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[139]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "d785310e13d7b9b17dfcc333ba0a9b86e39a94cf2d70111149d2ffdcc08cf541.jpg",
+        "id": "fig-appB-139"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appB-body-141-exclude",
+      "action": "set_fields",
+      "chunk": "appB",
+      "selector": "body[141]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4a2f0564e1229df8872c57617159f823c4211fbc297c4977552913474c688385.jpg",
+        "id": "fig-appB-141"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-appD-body-7-appendix-id",
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[7]",
+      "set": {
+        "id": "fig-D.1",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ea9c2c0a05a268c381e5743c6e297c6d4816417905378fcbc16003e6104fe65f.jpg",
+        "caption": "Figure D.1 A functional derivative can be defined by considering how the value of $\\mathtt { a }$ functional $F [ y ]$ changes when the function $y ( x )$ is changed to $y ( x ) + \\epsilon \\eta ( x )$ where $\\eta ( x )$ is an arbitrary function of x.",
+        "id": "fig-appD-7"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure D.1 開頭，但 build_catalogs 現行圖號 regex 不吃 D.1 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appE-body-9-appendix-id",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[9]",
+      "set": {
+        "id": "fig-E.1",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "107881096143b07540aa48ec6d054340f0a73a1e61df06282b284d91b0b3564b.jpg",
+        "caption": "Figure E.1 A geometrical picture of the technique of Lagrange multipliers in which we seek to maximize a function $f ( \\mathbf { x } )$ , subject to the constraint $g ( \\mathbf { x } ) = 0$ . If x is D dimensional, the constraint $g ( \\mathbf { x } ) = 0$ corresponds to a subspace of dimensionality $D - 1$ , indicated by the red curve. The problem can be solved by optimizing the Lagrangian function $L ( \\mathbf { x } , \\lambda ) = f ( \\mathbf { x } ) \\dot { + } \\lambda g ( \\mathbf { x } )$ .",
+        "id": "fig-appE-9"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure E.1 開頭，但 build_catalogs 現行圖號 regex 不吃 E.1 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appE-body-23-appendix-id",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[23]",
+      "set": {
+        "id": "fig-E.2",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b65d695c6ab38d2b466dce4b829be0d6f7dfe8a9a009274524a73de7e3c5e254.jpg",
+        "caption": "Figure E.2 A simple example of the use of Lagrange multipliers in which the aim is to maximize $f ( x _ { 1 } , x _ { 2 } ) ~ =$ $1 - x _ { 1 } ^ { 2 } - x _ { 2 } ^ { 2 }$ subject to the constraint $g ( x _ { 1 } , x _ { 2 } ) = 0$ where $g ( x _ { 1 } , x _ { 2 } ) = x _ { 1 } + x _ { 2 } - 1$ . The circles show contours of the function $f ( x _ { 1 } , x _ { 2 } )$ , and the diagonal line shows the constraint surface $g ( x _ { 1 } , x _ { 2 } ) = \\bar { 0 }$ .",
+        "id": "fig-appE-23"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure E.2 開頭，但 build_catalogs 現行圖號 regex 不吃 E.2 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-appE-body-28-appendix-id",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[28]",
+      "set": {
+        "id": "fig-E.3",
+        "catalog_repair_source": "agent-appendix-caption-id"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "af168c11b930e104eea898dac5aaa4a3c488a8c375c7c72116e2c5e4fc7ff13b.jpg",
+        "caption": "Figure E.3 Illustration of the problem of maximizing $f ( \\mathbf { x } )$ subject to the inequality constraint $g ( \\mathbf { x } ) \\geqslant 0 .$ .",
+        "id": "fig-appE-28"
+      },
+      "reason": "Caption 以正式 appendix 標號 Figure E.3 開頭，但 build_catalogs 現行圖號 regex 不吃 E.3 這種 appendix 編號，需手動指定 semantic id 讓 catalog 收錄。"
+    },
+    {
+      "id": "bishop_prml-ch01-body-28-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[28]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "96c2e18e2817d7b4b665edce76d591c1d63b3243c05503d6dd5c376708aa896d.jpg",
+        "id": "fig-ch01-28"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-29-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[29]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ea0aad17c348727fbadc0c97ec20a9995df456bf752e5080d40328da52beba7e.jpg",
+        "id": "fig-ch01-29"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-30-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[30]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "80cb9379c88a3feee4b6941709def59f48a72d75d38ada31a3c25bed83cb96ad.jpg",
+        "id": "fig-ch01-30"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-40-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[40]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "44572c1a4842af29fa5ff4ea00c4f21347fe62a6d88c695a45cd872d499d4fd9.jpg",
+        "id": "fig-ch01-40"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-46-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[46]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b563138cd669fa9a173150ebb11a469e63d6b21ebad9d6a3320ea6dd8483f936.jpg",
+        "id": "fig-ch01-46"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-67-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[67]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "9f2fdbd145143aa4f4c95ac95f64b8e472e41f5a37427d4ee3fea712ed3a7084.jpg",
+        "id": "fig-ch01-67"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-105-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[105]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7d737eaeeefd5e0637b9aea7967cdadd0517cddc72e1f8102b05d66c38a4d64d.jpg",
+        "caption": "p(X)",
+        "id": "fig-ch01-105"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-106-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[106]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2917a0a603320152eace16768b7c63636902b34e12d85394815715bb67d4195c.jpg",
+        "caption": "p(X|Y = 1)",
+        "id": "fig-ch01-106"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-107-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[107]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "fe633b4590729af76b04cac7283ec5f68cfc6898fd26f1c1549ad053ff3d37b1.jpg",
+        "id": "fig-ch01-107"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-178-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[178]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0fb78e6c88c93f4f3f942a16ed50ca81aec4d142423e5cec45471c881f1cf3d2.jpg",
+        "caption": "Royal Society in sues regarding",
+        "id": "fig-ch01-178"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-207-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[207]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f4d82b0175f9c8af74a85d6e7be51be1e5e9b3ea081442fdf596aa37230d872e.jpg",
+        "id": "fig-ch01-207"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-297-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[297]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bb92e7c867fd55dcd7215b6d868e00a8913762b226e8805952b49a99cae635e5.jpg",
+        "id": "fig-ch01-297"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-369-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[369]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "3c38110a2fa7a66c8cf4335a8f22532ea78e624838c5ada916c82a67de37bac6.jpg",
+        "id": "fig-ch01-369"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-417-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[417]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "49fb242fbc524ffeb623d076b62f4e5a86835e4c3374f09f646c9914ca3b9b6f.jpg",
+        "id": "fig-ch01-417"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-418-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[418]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "154df9852bfaa46766c993ba4603ad07eb75ddcbca61f6b49e6f3a3b63affd4a.jpg",
+        "id": "fig-ch01-418"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-419-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[419]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a447c7342772c39d10ef68b43b7ad6c59cc8dc3618de122c50600a55f9fbda8d.jpg",
+        "id": "fig-ch01-419"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-449-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[449]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "57f4bdd3b2b5d47588ae699223d8f69ad231a244f7f66f33fba1a3970737dd1e.jpg",
+        "id": "fig-ch01-449"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-464-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[464]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e63b81bab72977dd4a3a2f37c39f6875ffef0386c630b2fee266f7d35e3bb325.jpg",
+        "id": "fig-ch01-464"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch01-body-497-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[497]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5f4174f2656e86f7293bf29387a97cefe463fece5c7663e1a9445ff4696c05b3.jpg",
+        "id": "fig-ch01-497"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-21-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[21]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ebdd273b725db45610fe35aad4bb3ad7a2d3e1c3b2d927848a243b3e48ea5885.jpg",
+        "id": "fig-ch02-21"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-54-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[54]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8efbd4c4ef29c2d2b780ecad4cb16df46f6014ad27454dc8a41caa8fcd44602f.jpg",
+        "id": "fig-ch02-54"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-55-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[55]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f852abdcab89bf724b00aa93617065b10dd887a0817317d5aed78be57ba6435d.jpg",
+        "id": "fig-ch02-55"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-56-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[56]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "32308afd0390baca78c1ce196e065afc9bf5e4144c5ad14cc28914324da5ca32.jpg",
+        "id": "fig-ch02-56"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-61-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[61]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b6b0405d7279d6f15c802405a485a9b882cb238ddfe52b4cd3e7493a0f34946f.jpg",
+        "id": "fig-ch02-61"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-62-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[62]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b6ef14425e307483e2a0f28d1e5de9cc358ef6b3e88fd07aba917f8dd4e936ae.jpg",
+        "id": "fig-ch02-62"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-130-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[130]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c1a5c71594b768fab3940509734089533bccaff34b5da135d31f1395aa3f93c2.jpg",
+        "caption": "Fourier series. in Belgium, and",
+        "id": "fig-ch02-130"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-133-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[133]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "62a5e66d75f0d00691a201a4ffca9258d953fff7245dac62c83cecb267cfb9b7.jpg",
+        "id": "fig-ch02-133"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-134-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[134]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c29ca48c27adbcf9e2ffa7c54d93bbd3208bdc0aec2646dd66157d4a13fc1baf.jpg",
+        "id": "fig-ch02-134"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-147-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[147]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0034b1a013de49d8242a4fff11d627f71ac28598b8a9ac50ebee3cfa2deeabdd.jpg",
+        "id": "fig-ch02-147"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-148-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[148]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "30aca17556c284ad729165d1c77c398000977eb392b0cc879cfe9d5774a761f9.jpg",
+        "id": "fig-ch02-148"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-154-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[154]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "aacdfeb341c4d90675793899eabb4b872145b1cad0242ac6ec5ee42d06cc57ce.jpg",
+        "id": "fig-ch02-154"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-217-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[217]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b7a260f1a4b10ee357ff39882a3da8669994f05f15ccc9cb67be5ef7a98894c8.jpg",
+        "caption": "(b)",
+        "id": "fig-ch02-217"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-218-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[218]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "54091871a1393ba0b9a84dbc3dc6cc076a9e1f0959bc1dc6a814dccf1b8d7098.jpg",
+        "caption": "(c)",
+        "id": "fig-ch02-218"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-295-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[295]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "1105b09230fa82e31aa96bcb2030fda4c423f5295d8456fe64ba3f13c6bb0b57.jpg",
+        "id": "fig-ch02-295"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-416-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[416]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bdfd8312988b837a8e31e1d40b6eef9381f20a69f1745506307ab95d26470d2e.jpg",
+        "id": "fig-ch02-416"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-425-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[425]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0a6cb7fd1c47848fe964bcc5f0ea850393ee1a50a48099778517e041f21601be.jpg",
+        "id": "fig-ch02-425"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-426-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[426]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5a542720710206276d24101fbe435e3b9458588a0a7791e311e5a01ddcfa571a.jpg",
+        "id": "fig-ch02-426"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-474-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[474]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "288af7cb164c1dc1fca2b51b79c8b40ee7b57cfcd9a7ab655781e646d057f7b8.jpg",
+        "caption": "(a)",
+        "id": "fig-ch02-474"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-519-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[519]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "272efab8e8581d213aba2f3f14624d72cb51ff94f738cd3dcd8fc877956e878b.jpg",
+        "id": "fig-ch02-519"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-533-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[533]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "99f1161c8ac94e54f717682698dc1c1b042876b946c4d4196edbf7fd1321fcfa.jpg",
+        "id": "fig-ch02-533"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-549-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[549]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "60cfd3d27cc4ec833a70a96b2b625bf88c1cbb73f335ef100b9d2c0a725327a1.jpg",
+        "id": "fig-ch02-549"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-566-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[566]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "d48f843b049d807c4de756a9092e5ad1b3de4669d922cda722cd68209f8a7fd8.jpg",
+        "id": "fig-ch02-566"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-567-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[567]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "34455047c22611c689929aada5e57dff136eafde1525796552b6f53eb55770d2.jpg",
+        "id": "fig-ch02-567"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-728-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[728]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f895384d17915e01ecaa41fae5a238b142502a95b5395fce3c6fad20973ab687.jpg",
+        "id": "fig-ch02-728"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-740-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[740]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "657ec5f52a0fd21eaccd1860c3913795630ac019034b6709685a1ce900663ba5.jpg",
+        "caption": "(b)",
+        "id": "fig-ch02-740"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-743-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[743]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e4599fa4359bcf3ac779f0557302401374ffb586a568ca4ce88c65fac1b1cfec.jpg",
+        "id": "fig-ch02-743"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch02-body-744-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[744]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "596b3067ed864adc3e051ee07ed9353c3fcc0355341d86cf45eee586c0b8928b.jpg",
+        "id": "fig-ch02-744"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-23-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[23]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "209baca1056b0e8d26023f188efc47ba15ea5207f109678d52c584e6791bbe28.jpg",
+        "id": "fig-ch03-23"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-24-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[24]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "17a5c7e8bd3e7dd99412894be3bad43b20fc75e6aee26a4fca5533ca102b7b14.jpg",
+        "id": "fig-ch03-24"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-86-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[86]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "72e2dba2f5b3e9ef84a5d378cff0eaa1779c0711d0db6b38aaa231da7d83595e.jpg",
+        "id": "fig-ch03-86"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-87-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[87]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7c44bcd374903b4feb7ee3895303ff6f05ed54d1a585883a399c7adad366fe95.jpg",
+        "id": "fig-ch03-87"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-88-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[88]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "dc933df847851a03c22e8ccd1b7d4c9292a7b4eba904bb426fae04661eef2845.jpg",
+        "id": "fig-ch03-88"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-102-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[102]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4f5efb0c7ac7478aad3bda5a5127bb7bf4ff85080f72a7eb28e70610ffda000a.jpg",
+        "id": "fig-ch03-102"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-142-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[142]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ddf8a6ef2f206e3d43a4684dcaa53dbd5ae1b0e7933f2b570b313444a69b8dd7.jpg",
+        "id": "fig-ch03-142"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-143-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[143]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c2aecfe465c748347f246fd8a66ed3766b8a616e8da0dee8a9c3c3257fe4eaa4.jpg",
+        "id": "fig-ch03-143"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-144-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[144]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c0b8892ea9c40a965e76d2c65ffc6bc5691797cbed3d48c8425b97914ae32da5.jpg",
+        "id": "fig-ch03-144"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-145-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[145]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0d23da037f66bdabb7233b850a1d40015ce612cad055ba4b476a648747d64744.jpg",
+        "id": "fig-ch03-145"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-146-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[146]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ee48de64a70346ee77dfbc8e8f633e21c1a480df8fe4e9fccdbb7549f1b60caa.jpg",
+        "id": "fig-ch03-146"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-179-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[179]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a80b50642bf3f14dae8fe4f8fc1c30cc81ebedac8ddbb5bd2f11c24fe59714d5.jpg",
+        "caption": "likelihood",
+        "id": "fig-ch03-179"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-180-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[180]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "78265c4d753f35f1fcacdcdb3fe34644952cda0dab1f8c3351ee5a770c43f97c.jpg",
+        "id": "fig-ch03-180"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-181-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[181]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ea5db179d3f1564c841b98de6c67f98a46237715974749b212acb117fc478cca.jpg",
+        "id": "fig-ch03-181"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-182-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[182]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6ecd03de3546c49fa9bef97618636090b1b7b8032bee40983a1e06775c79a86d.jpg",
+        "id": "fig-ch03-182"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-183-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[183]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7cf68caa8bc57bb40eb5beb7287d05aa144211e445271b3de3137dc893201577.jpg",
+        "id": "fig-ch03-183"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-184-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[184]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bfe688c4a11accd044819b3747e73a08b31ec953204c81dba2357ca5077c6d23.jpg",
+        "id": "fig-ch03-184"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-185-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[185]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e5b06d196dd11dfb6c8630223b682a371c9369c32cba72460a883604b4126b8f.jpg",
+        "id": "fig-ch03-185"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-186-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[186]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7e1a5e328cbd2b419d45de24a2e843a7c0a506635514ded96cddfdb075b5431c.jpg",
+        "id": "fig-ch03-186"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-187-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[187]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8b7e6447257dc6b2904d782b61c0cf68fea530ab39abbd7ad0a27b7552f282dc.jpg",
+        "id": "fig-ch03-187"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-188-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[188]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "078e413c46a12af1e294fe112047168a3ccd4ce16f0347c778da97c9be3a7069.jpg",
+        "id": "fig-ch03-188"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-203-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[203]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "58131c1f0ea7423a3c192cddc580451e44f08cebdcf05e2587091aa4d41a0b08.jpg",
+        "id": "fig-ch03-203"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-204-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[204]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b422137cf3833856c11afb7f880635195550b2b88b7d418da56cc3ed017c2559.jpg",
+        "id": "fig-ch03-204"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-205-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[205]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "89491b9aab819e706e25810873c54485dc840ca7734805bfcac6aa8a261ddfe5.jpg",
+        "id": "fig-ch03-205"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-208-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[208]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a89c4d61a70f9921307d5ff3d86a6e3bb02e340f26369b9ad97101c86a8aa88e.jpg",
+        "id": "fig-ch03-208"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-209-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[209]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "aed9c4d593236bb3955d290ae2fd4a99b6a70c7917a15f868ec177bbe922fadc.jpg",
+        "id": "fig-ch03-209"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-210-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[210]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "401faf2baede687d6e79018ac5b416110be214f78ecc4fa36b4104b4a31fde3b.jpg",
+        "id": "fig-ch03-210"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-228-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[228]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "330cd7f33e83b140b35dff5e4ad880001f67cc79e2f1f0f408dbdceec08e2ec9.jpg",
+        "id": "fig-ch03-228"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch03-body-357-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[357]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4285a81038be18fc9775b0da5ad807bc1c187fbdf53891e72184fcb1e486b11f.jpg",
+        "id": "fig-ch03-357"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-31-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[31]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "199bad8ea08a03925a5511191dcddf9f1f80baba5db3f6f7169790b62f9f0dbf.jpg",
+        "id": "fig-ch04-31"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-68-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[68]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8d2e0a39a62d14272d73267fccc55fe3b308b8af9442d5297678212c6f9077a3.jpg",
+        "id": "fig-ch04-68"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-75-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[75]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0e4359d1ff91c1493f1c878d7c5624eb98b8457af53e2367f9a9ba186cbf298b.jpg",
+        "id": "fig-ch04-75"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-84-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[84]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c6da0f373721d1391bafe7fda5b9e2248f4e1c88abbf8ab29b40a20bd1df27ca.jpg",
+        "id": "fig-ch04-84"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-162-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[162]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "efa98ddf81a8c0646018811b5e129cb6de2467301d0976cfb4458c42b2a82ba9.jpg",
+        "id": "fig-ch04-162"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-178-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[178]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7770874be89f89bae16ce63068ea3ea63c4f1c1da84376463bd02639e2993c19.jpg",
+        "id": "fig-ch04-178"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-179-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[179]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "07a73e459a4eda115020eedda124e4f275517754b485d859465d88484bcb8ea6.jpg",
+        "id": "fig-ch04-179"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-180-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[180]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "3082eaac8d8b04d3aaac1821aec89b87f8c8f4e96cca442423b539e2027ad638.jpg",
+        "id": "fig-ch04-180"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-182-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[182]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5dcd10716de85ce80fffc8c9cffec6e6990f04178a40d6da27fcd410257da685.jpg",
+        "id": "fig-ch04-182"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-183-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[183]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ac63f1bb3627511aef3ba7f0934dbeb89892d64975dec407523a3051b3427464.jpg",
+        "id": "fig-ch04-183"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-219-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[219]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "806bd5b6d09fd42909e37635c6411137e28fd88e52f5abcf91fcb373ee521c50.jpg",
+        "id": "fig-ch04-219"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-228-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[228]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5d9fe4abba3ff9f2ac2625a8efc61f23f61b63b1c75ebe4cd9289e983460457c.jpg",
+        "id": "fig-ch04-228"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-281-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[281]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5216832e1962eb0a8de755706bd6695663ef07b7122c07ab104642a6941403a0.jpg",
+        "id": "fig-ch04-281"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch04-body-417-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[417]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "d17a889873c00e553f857699f179cd7995448038c71d26173718698c9665bb05.jpg",
+        "id": "fig-ch04-417"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-40-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[40]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ea06cfa91c17ad31dea3c36c1893cc0be439226568bb43c8d2a769b3a981973a.jpg",
+        "caption": "(b)",
+        "id": "fig-ch05-40"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-41-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[41]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b639755242a80afbc0c8e8010b1af857c67225586024333e8f466ef14d27fe67.jpg",
+        "caption": "(c)",
+        "id": "fig-ch05-41"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-42-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[42]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "007956f184d9c8676c2bb08f943945f02898e8fcdf5dac2dea85c9b92926e7ff.jpg",
+        "caption": "(d)",
+        "id": "fig-ch05-42"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-355-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[355]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f5e1a645d200bb6b0a1be745bb20685b811433d809fc9a9367b389eea2552007.jpg",
+        "id": "fig-ch05-355"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-356-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[356]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "43d7e740693a62da74a67a010b5726b743797ac13b033b3d07f6639494db8130.jpg",
+        "id": "fig-ch05-356"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-393-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[393]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "55280c6ee16ef3feebc3452b6524283af64f58e12c8696badf3f00ecf895312c.jpg",
+        "id": "fig-ch05-393"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-394-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[394]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "abab328ab5aa2d24a6016687ab51a743fa5e60590b045afd56dc1f153416c997.jpg",
+        "caption": "αw1 = 1000, αb1 = 100, αw2 = 1, αb2 = 1",
+        "id": "fig-ch05-394"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-395-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[395]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8a2197e843eb6bacaf723f21391231185897c609bcbfed8bc95e86cdebb4e51a.jpg",
+        "id": "fig-ch05-395"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-399-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[399]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6892027457b819e6889dfd6257266f544a4347335bcba2da115c13e871abc6ed.jpg",
+        "id": "fig-ch05-399"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-411-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[411]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "928f649c9db8ac7edd37a0b85f160d95b4c6e61ba424521cca42aa36c86f83e1.jpg",
+        "id": "fig-ch05-411"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-412-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[412]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "35852ea6f8cda758856ccdf2dcc303eaeaad1c6442c2d96b60c07fa5aeec5008.jpg",
+        "id": "fig-ch05-412"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-413-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[413]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "784650a9cb11b29466eba08e667fd45a9ec21f946b53f17b8ac1904caf3da8e6.jpg",
+        "id": "fig-ch05-413"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-414-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[414]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0b30c00ab7a82664bb8bdf6c935fe7c0c991a5461a4244e4ca773d65c82e989b.jpg",
+        "id": "fig-ch05-414"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-415-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[415]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "24796b26101bc196607afdc7d825ef8c230eae8a3ade47ec1fe2023ea2666d3f.jpg",
+        "id": "fig-ch05-415"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-416-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[416]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c40eba9b014ed345de29c67c2cc69e1f352890cb4a044d50469874cd6245baba.jpg",
+        "id": "fig-ch05-416"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-434-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[434]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c7adbf4e444de8f11dad726af3dfe47a5590e4bbdbb640227b9b533809155a8f.jpg",
+        "id": "fig-ch05-434"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-435-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[435]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2358431c0940329dd7b733e68163efea75eb7e1ac8801fd55a64664a051758a3.jpg",
+        "id": "fig-ch05-435"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-436-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[436]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "eaa19bf0bbbd9ea34f622801f8223d1dcb39c04343b032942e0cd63a3328e9f5.jpg",
+        "id": "fig-ch05-436"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-515-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[515]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ea5727a6762b02b5891022198c89a1cd944953f564e17df0eda2ffab82a47223.jpg",
+        "id": "fig-ch05-515"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-549-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[549]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ec2f5ed9ae4deff4136ba4c2f25bfd5e74459aefb717b82fea7663d505378cb9.jpg",
+        "caption": "(b)",
+        "id": "fig-ch05-549"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-550-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[550]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "400e2369bebc2a9195ebc0501a28624f77fe1a3934bfd046511449c5d6f59b1f.jpg",
+        "caption": "(c)",
+        "id": "fig-ch05-550"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-551-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[551]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6119a49484b15ab0eed82dec67cf79367e60c49ce7c6868d14d864ab2d39dd99.jpg",
+        "caption": "(d)",
+        "id": "fig-ch05-551"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch05-body-651-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[651]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6a455b880d137c6828b2b3ce76111a406be1105ca6681aa8b15dfb1d6a024e8b.jpg",
+        "id": "fig-ch05-651"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-41-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[41]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "57076e28ce545da9ef1620e77a7eea67dcf24d3c4bb8d1d6797ef80867733fc5.jpg",
+        "id": "fig-ch06-41"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-42-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[42]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "1fddda878e74ec68de43dc66f47ca13d52caa3c5d071ca88ec0d92a57435494f.jpg",
+        "id": "fig-ch06-42"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-43-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[43]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0adcb750f8516a4af70bfffb2e2711e17d6fb97bd39dc5c4b85475d8b71d5aa5.jpg",
+        "id": "fig-ch06-43"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-44-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[44]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2454062320eb81ed6a0b29874017d6588a46e7c4cc8d0362865546ddc5619fac.jpg",
+        "id": "fig-ch06-44"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-45-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[45]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "680d36f1acb367bb8fe276aace8e5d5a13d42cbb5b7c44bc519f2dff3fe6c9ec.jpg",
+        "id": "fig-ch06-45"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-128-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[128]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2d6ecc19bacd9ba3b8573c392c71085aa542136df5dc39bf08f7bc6bb0b3a4dd.jpg",
+        "id": "fig-ch06-128"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-184-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[184]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7142fc0222d3be616c7f1a5e1e064cbe2fe9b3f7fffd0280ec42eac46c811a2e.jpg",
+        "id": "fig-ch06-184"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-210-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[210]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "65ca04db30b30438cc46c90ee354e3fa2e9b4b3171d5d1efcd74a4a915cf69b0.jpg",
+        "id": "fig-ch06-210"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-211-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[211]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "16714baba61b3596ba257df388f79885f0ea365355196fc41bbacb7a0d8d3ed6.jpg",
+        "id": "fig-ch06-211"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-212-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[212]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bb726abcdcd747f4e68a5867aeedc05d845fd12d47a05b613a4cf8989d6292cf.jpg",
+        "id": "fig-ch06-212"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-213-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[213]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f10f2766ebb0ddf6598d737461797302a1cb86049e82d38ac501c97c2b99d22f.jpg",
+        "id": "fig-ch06-213"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-214-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[214]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "17adc0dd87d7f5dcce99e261d8629a273ace81aa76fc597ccbe86a25b78f27f7.jpg",
+        "id": "fig-ch06-214"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-245-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[245]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "cd52bc2f8a1bc04ff1f316131e352a97ed4eecd4ee75bd9d272d9e04103d3412.jpg",
+        "id": "fig-ch06-245"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-260-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[260]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a7fc02d46dd29cc3759da6899ed2b57a1a23d68e946f4e2c6e78ea3eafed32ca.jpg",
+        "id": "fig-ch06-260"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch06-body-322-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[322]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ebc0f78e1810eca8f7d3789a795b95783b26990a7553485679b80215fff71895.jpg",
+        "id": "fig-ch06-322"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch07-body-13-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[13]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "21339f9f1b50f243ace044c7854c5221750affdaa3aebaba126be26c788b9ef4.jpg",
+        "id": "fig-ch07-13"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch07-body-41-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[41]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4dc49609d3632db87c3c186a2af82c9591894c003cc33ff4200e3292f84dc0c3.jpg",
+        "caption": "fessor at the Royal Artillery School in Turin. For many",
+        "id": "fig-ch07-41"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch07-body-267-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[267]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "de65a864fe55898a4e1283996aebb0b23d8fb2f305299e0b6e3a4e1559444fcb.jpg",
+        "id": "fig-ch07-267"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch07-body-288-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[288]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2f5e69397f0bba37c381f44b10d36e1ca9d014910ada4d83c741e9ee4c71d49b.jpg",
+        "id": "fig-ch07-288"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch07-body-350-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[350]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "d583841ca79dde690c851c20fdd274b4df21d06abd7e6e1df7754081c190c6f5.jpg",
+        "id": "fig-ch07-350"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-191-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[191]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "9fb7635ff4808db7eb39dccb8797b0035d581d26841f3c19e28ca5cd3c27eb38.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-191"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-196-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[196]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "21455093329e56dbc26c20f69dbad3b80959e061e1f31644d10cf2d9343a66ef.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-196"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-254-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[254]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6d0c7d4cbaf630f145d183d22a085ac6ffcaf92010b5c73b509102ab53f2c415.jpg",
+        "id": "fig-ch08-254"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-255-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[255]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6ac4c0598a9591da2423f68dd04c5287ca75738b74adb29d0fc0e6d2dc44c75a.jpg",
+        "id": "fig-ch08-255"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-256-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[256]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "39137a4e2a6015be1fb7697148a18663a8d148aa0384a6107ea9dd91a14463e6.jpg",
+        "id": "fig-ch08-256"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-278-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[278]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f2d579765aa8980f540329d70e019d2c28311a30c6f4e029d7d209610f384894.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-278"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-308-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[308]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "70ec909118e584190ee1d8313e60178911edc6f5aade03e133177e71aaf86ba3.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-308"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-309-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[309]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "17c0657310e1e848af051b32eba01166f386b81760588ef17aafa0fffcd5dd87.jpg",
+        "caption": "(c)",
+        "id": "fig-ch08-309"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-357-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[357]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "44710ec1cfaa5e1705ed6880e4ea58caef584a33deee4a1b4491885cd992e892.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-357"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-358-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[358]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0dfad978c7e041c4420eae528da86f46edf12a0addfcf9a0ba8d7f30e8de03df.jpg",
+        "caption": "(c)",
+        "id": "fig-ch08-358"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-374-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[374]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "352565116ce1bac8033d4e119d99a37831ab0355ca959bec7574b24e18dfa311.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-374"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-375-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[375]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "adc7e2792336bfe32ac5106b8dafc63c4fbacc09116eca2ecf7d94611c8d956f.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-375"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-377-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[377]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "27cef043e186b941b822f62848dce17f2293ca751a1fd6fadd7843c54e7b805e.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-377"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-378-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[378]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b72df47c9b46c79c27c9b8a6711848f65cbaf664cfb99b51b2108f35329b0067.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-378"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-385-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[385]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a619f15a4592f3afadea515ad0bfe61efe08a36e1ba395891466bbe09dd9f3c2.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-385"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-386-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[386]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f024f02a9dcfc5654e0384dedb86f4515ec52de75461d822995cc57315f9f236.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-386"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-394-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[394]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "21f2e0644b4d5b838709ec7fb9c5c6d00d67fa75d6402c876a46c15b5530ef45.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-394"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-395-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[395]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "937000bee1ac97bc87881839f770ff1983ee748160c07ed0949b30f078166e37.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-395"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-396-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[396]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e3ee36fc80fb70a32b4d105a309d7aa4b754978749c6d1a6eb8f24b796290eb4.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-396"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-397-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[397]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "dd81ac850d2f2cea7b009c928ea38897baee037906323144cdc4c7b77d63ca31.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-397"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-434-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[434]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "6b90cdff7201a402c3b3e12c4f10dd307a53e6ff65a4bad90d2c6aa24dcdadbc.jpg",
+        "caption": "(b)",
+        "id": "fig-ch08-434"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch08-body-465-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[465]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ebaf75bb06e9b41b50b1ad1356ee976f0229f0267268f40def0258b862d00407.jpg",
+        "caption": "(a)",
+        "id": "fig-ch08-465"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-21-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[21]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "caacb5587a356a0bba17f94ebe00b0dfec3669e1a202e2eccf1acb6403f444ea.jpg",
+        "id": "fig-ch09-21"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-22-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[22]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "189d791ed2553bce464c37530bdb8b01387d4bd0a1d746adfcc4b8df54dd3e4c.jpg",
+        "id": "fig-ch09-22"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-23-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[23]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "9b15d572d942869adf53b5c9cd7233cd787e15b3b6b8b8d93c9cd70b4aba1727.jpg",
+        "id": "fig-ch09-23"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-24-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[24]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "916f7c4064af2153c02d6326af1c6cbcdec76eb8ce318aa4aba17fa1c19e2730.jpg",
+        "id": "fig-ch09-24"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-25-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[25]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "12420a8965d1678e60b4e88ec13cb299d58029a169eaad668355c570b08e92ff.jpg",
+        "id": "fig-ch09-25"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-26-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[26]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c33ce617f8bfa4f22c303460ccc3f7731f65bf79388a197de00cb3195463e660.jpg",
+        "id": "fig-ch09-26"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-27-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[27]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7440adf3021ef79619d26b8fb5b48179e41767ffc950a22cbafa0c200d39d8ce.jpg",
+        "id": "fig-ch09-27"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-28-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[28]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ee7ab1161ff8b21edd81b51374560e915b22bf62a5fdde10b58cefa2e1b9c3d6.jpg",
+        "id": "fig-ch09-28"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-77-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[77]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0979c4d395e3c31eba78e970d59aeff7ae81e9ab47b009a05630a65fc74f4eb7.jpg",
+        "id": "fig-ch09-77"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-78-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[78]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "a02c56ca008199ad16096f7747bfb2ef9735806bff867ea2812ce27dd8a54559.jpg",
+        "id": "fig-ch09-78"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-110-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[110]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "859344bac28d296291beca712315982590d807aa529065ea8d857c481dccd44d.jpg",
+        "id": "fig-ch09-110"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-111-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[111]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "2018a52679f45b0b159a309a3b7149d8a626cf64d759cdf88b0b48d66c2965b2.jpg",
+        "id": "fig-ch09-111"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-112-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[112]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "5d7b9857dda9f3f22b37d717ad1cb98bf195af6881b62227d79c0f5f64363958.jpg",
+        "id": "fig-ch09-112"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-113-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[113]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "207f9fd4f90e98e9f64b0447fa588ce31622a8ef494c715e98939aa0e4d8d327.jpg",
+        "id": "fig-ch09-113"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch09-body-114-exclude",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[114]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "01a8fd42fc203db31ca793cd1c0eeb3922dac5dda1c829cb21172ecd53b51ecf.jpg",
+        "id": "fig-ch09-114"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-15-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[15]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ad52916c171eb2a903709a7c4640ebb61db4776f590af92f5a1f24d8d55527f9.jpg",
+        "id": "fig-ch10-15"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-31-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[31]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "99b545f7f539b56b5c68c42ba44348a75997a5c374bb59cb06d3936874289237.jpg",
+        "id": "fig-ch10-31"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-58-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[58]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0b00a4704807dfc493ab669f77cc5c81101edecfce7f05c46cf04c879b673ac0.jpg",
+        "caption": "(b)",
+        "id": "fig-ch10-58"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-69-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[69]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "83fde545241780af1a16220abbda1b22f7d3f798c2039dcecb866f4718f695c6.jpg",
+        "caption": "(a)",
+        "id": "fig-ch10-69"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-70-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[70]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0a8dac2ce6a65b43954d074825a82e89d8e54fd6180bcdbc81e255bff9082212.jpg",
+        "caption": "(b)",
+        "id": "fig-ch10-70"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-109-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[109]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "500963d3837b2aa2a9eb318d77cbb6ef3438c1dea28abc14c048fb79d4b6b0c8.jpg",
+        "id": "fig-ch10-109"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-110-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[110]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "74b15c34cbb44e74e7e8058f40aa9f55225d2aaee1b7d9017265eb71ce1b5bf8.jpg",
+        "id": "fig-ch10-110"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-111-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[111]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "bf3c71d9d181449d0cb005f3f0eaccb3c68130adc72b89c92d60ba37928e2ab4.jpg",
+        "id": "fig-ch10-111"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-221-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[221]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "cafee111c4e278aef7ea2730e67c565867696fc0eced47843278956970eeb686.jpg",
+        "id": "fig-ch10-221"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-222-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[222]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "698416a8fa6d753553bf067fd9f5496f727e6b362d2cf3e12a5d7d7e4905a6f3.jpg",
+        "id": "fig-ch10-222"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-223-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[223]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f44536ec907d10ae34815d170d43feb3fbb38f196fbbe6cb11ba6f0c9c032429.jpg",
+        "id": "fig-ch10-223"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-377-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[377]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "3ab3c81e66eba0d2fc735522c7621908fc9c4d0ff8f0c9b87817dc0139e57419.jpg",
+        "id": "fig-ch10-377"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-378-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[378]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "7dfabcf90b300a4f6fae792bf68c5cfe46831c3888070014c4d0662904c34681.jpg",
+        "id": "fig-ch10-378"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-407-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[407]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4c71733e1ccd2c7fb7e3dd0b92aac2d055ce2f8b23a1da9a185db3d4be94ee33.jpg",
+        "id": "fig-ch10-407"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-484-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[484]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "eb0b31f2c0ea38743305f620b41457e8f0ad66d60ee7abb6f0967581685463d4.jpg",
+        "id": "fig-ch10-484"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-570-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[570]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0d7d63e903ae32c728c15c305e8a861daab398cfd9936b305c8d867276b9b491.jpg",
+        "id": "fig-ch10-570"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-639-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[639]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "aaad0125e3ad584ff6d9440243483a454d1d3830469cf5046fdcbe65864c6705.jpg",
+        "id": "fig-ch10-639"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-647-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[647]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f6f709c10963ebd66791f7d42eb44113970b49b00a100bbe2e217f20d25c6b06.jpg",
+        "id": "fig-ch10-647"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch10-body-659-exclude",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[659]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c0f3ac216f22f138e2f93c6d257216c0ca15c890921ea96b992aa8e8a4790b01.jpg",
+        "id": "fig-ch10-659"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch11-body-189-exclude",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[189]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f6134d42449df235c45d879a5a3db2a69441fb31a74252998aab9cbe542ad477.jpg",
+        "id": "fig-ch11-189"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch11-body-213-exclude",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[213]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "180b640c9d3c4d9db7bccd5be0531014bdf3a1df2ee310ee59f9f0a628aa09f9.jpg",
+        "id": "fig-ch11-213"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch11-body-243-exclude",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[243]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "b5b0d91cf3ec86fd16ce306087268a18f5e9ace9b037d62ab340ace91b05b08c.jpg",
+        "id": "fig-ch11-243"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch11-body-277-exclude",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[277]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "c0884c7e81716967d1c107d3b88d899ebd851486bdef14bb5217f055d428faea.jpg",
+        "id": "fig-ch11-277"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-6-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[6]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "79cca3d05236fa5d00d888d323fa2f277cb542b8084d4e9a7c207649614ae949.jpg",
+        "id": "fig-ch12-6"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-7-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[7]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "0010fa678540cc5e140e233257f46cee5d807fe3a18a83877187af001b1134e1.jpg",
+        "id": "fig-ch12-7"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-8-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[8]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "4bfebfef70baa41e45e38f5adb6b0f9ad43b3cb5e2e91e32b7f250be1c43f5da.jpg",
+        "id": "fig-ch12-8"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-9-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[9]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "678574497896fc7ef51b24e7557430c52489df6f0bc63aab881e5f61c59680c1.jpg",
+        "id": "fig-ch12-9"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-10-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[10]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "89f03627192ccfbed0828dbc4ff4414677b2536f2adbce3fabed686a87e25773.jpg",
+        "id": "fig-ch12-10"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-61-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[61]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "8a8bace55501e3f82668aa6b02d2d0c6be7ed1994f3f97c6695381cbb6a931c3.jpg",
+        "id": "fig-ch12-61"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-330-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[330]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "3f51632a59630944cc95564159dc71299c33927548eb3f52a63b2899cfd4be0f.jpg",
+        "id": "fig-ch12-330"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch12-body-331-exclude",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[331]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "60c3aa6627f67677a2da1eaca1d2d5424ea9adf220c74496028696220a56e53e.jpg",
+        "id": "fig-ch12-331"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-72-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[72]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f1c2f077bdde65599abdef9d3b3e693117eb1c537832fb11f56dab17c5207fd8.jpg",
+        "id": "fig-ch13-72"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-73-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[73]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "130a0832a526429a7ade41c7bc4d38d2c7e4a594f0e786d56815c946feaf2020.jpg",
+        "id": "fig-ch13-73"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-74-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[74]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e3d9af60ba21b5217e951a687d1011ac7c7367743e810776da1fbba9e2f9d4ef.jpg",
+        "id": "fig-ch13-74"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-75-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[75]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "d7af86e5fd4d52a2d5b856818406f4d97aaadeacabd05d7e81a5ab7fa02b3a6a.jpg",
+        "id": "fig-ch13-75"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-76-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[76]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "eab9786e1c34ef7efb93a2f71a5f7ea181da595daa63cec8f7588c54bd878462.jpg",
+        "id": "fig-ch13-76"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-172-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[172]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ee80903ab841ff97c0cc3f0b53f719018d53d887a3df9d346b08e649a36c94d3.jpg",
+        "id": "fig-ch13-172"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-173-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[173]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "467a5bd515172fdceeff92e391f69d16bcb5ce0481c1cc83e3b094072a3da2d5.jpg",
+        "id": "fig-ch13-173"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-174-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[174]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "f4dca34b92254e04e0d35a204dfe5eafa61a331f815b0b6ce2a08f933495a288.jpg",
+        "id": "fig-ch13-174"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-175-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[175]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "db3071c33eb7b54f7730581d92d60f09378e6a44da7ba184bc03d51eaad2ecb5.jpg",
+        "id": "fig-ch13-175"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-176-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[176]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "cd7eb03358a8672b7f013fd4e3ab344ba57f967028c9ffe7ac5ffc1a6c3b4b73.jpg",
+        "id": "fig-ch13-176"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-184-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[184]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "ab7550eadf571e3d60caa5f22b5e811b589d9b44d4c44638fdd85e602c280cf6.jpg",
+        "id": "fig-ch13-184"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-207-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[207]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "cb1cbf0845c052bbd87b349159066e4bc6dd120c98f42d4969e9a7df9d4132c0.jpg",
+        "id": "fig-ch13-207"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    },
+    {
+      "id": "bishop_prml-ch13-body-208-exclude",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[208]",
+      "set": {
+        "catalog_exclude_reason": "No formal Figure/Table label is present in this extracted visual block; treat it as an inline, companion, or otherwise non-catalog visual instead of a semantic catalog entry.",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "expect": {
+        "t": "fig",
+        "src": "e1ec056de1f1823c87fa480fb6cc51876d81f991bd3863e2b5acf1aa4e6120fa.jpg",
+        "id": "fig-ch13-208"
+      },
+      "reason": "This visual block has no recoverable formal figure/table number in OCR output, and there are no remaining unresolved正文 refs that require it to anchor a semantic catalog entry."
+    }
+  ]
+}

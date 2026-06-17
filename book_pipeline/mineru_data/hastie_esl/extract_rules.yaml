@@ -1,0 +1,189 @@
+slug: hastie_esl
+title: "The Elements of Statistical Learning: Data Mining, Inference, and Prediction"
+author: "Trevor Hastie; Robert Tibshirani; Jerome Friedman"
+edition: "2nd"
+subject: "Machine Learning"
+publisher: "Springer"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 717
+bibliography_start_page: 717
+index_start_page: 755
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 19
+    page_end: 26
+    chapter_title_block_idx: 316
+    chapter_title_block_idx_secondary: 317
+    problems_block_idx: null
+    next_chapter_block_idx: 499
+  - num: 2
+    title: "Overview of Supervised Learning"
+    page_start: 27
+    page_end: 60
+    chapter_title_block_idx: 499
+    problems_block_idx: 816
+    next_chapter_block_idx: 853
+  - num: 3
+    title: "Linear Methods for Regression"
+    page_start: 61
+    page_end: 118
+    chapter_title_block_idx: 853
+    chapter_title_block_idx_secondary: 854
+    problems_block_idx: 1396
+    next_chapter_block_idx: 1477
+  - num: 4
+    title: "Linear Methods for Classification"
+    page_start: 119
+    page_end: 156
+    chapter_title_block_idx: 1477
+    problems_block_idx: 1837
+    next_chapter_block_idx: 1872
+  - num: 5
+    title: "Basis Expansions and Regularization"
+    page_start: 157
+    page_end: 208
+    chapter_title_block_idx: 1872
+    chapter_title_block_idx_secondary: 1873
+    problems_block_idx: 2311
+    next_chapter_block_idx: 2408
+  - num: 6
+    title: "Kernel Smoothing Methods"
+    page_start: 209
+    page_end: 236
+    chapter_title_block_idx: 2408
+    chapter_title_block_idx_secondary: 2409
+    problems_block_idx: 2662
+    next_chapter_block_idx: 2685
+  - num: 7
+    title: "Model Assessment and Selection"
+    page_start: 237
+    page_end: 278
+    chapter_title_block_idx: 2685
+    chapter_title_block_idx_secondary: 2686
+    problems_block_idx: 3093
+    next_chapter_block_idx: 3133
+  - num: 8
+    title: "Model Inference and Averaging"
+    page_start: 279
+    page_end: 312
+    chapter_title_block_idx: 3133
+    chapter_title_block_idx_secondary: 3134
+    problems_block_idx: 3496
+    next_chapter_block_idx: 3519
+  - num: 9
+    title: "Additive Models, Trees, and Related Methods"
+    page_start: 313
+    page_end: 354
+    chapter_title_block_idx: 3519
+    chapter_title_block_idx_secondary: 3520
+    problems_block_idx: 3921
+    next_chapter_block_idx: 3946
+  - num: 10
+    title: "Boosting and Additive Trees"
+    page_start: 355
+    page_end: 406
+    chapter_title_block_idx: 3946
+    chapter_title_block_idx_secondary: 3947
+    problems_block_idx: 4419
+    next_chapter_block_idx: 4468
+  - num: 11
+    title: "Neural Networks"
+    page_start: 407
+    page_end: 434
+    chapter_title_block_idx: 4468
+    chapter_title_block_idx_secondary: 4469
+    problems_block_idx: 4724
+    next_chapter_block_idx: 4741
+  - num: 12
+    title: "Support Vector Machines and Flexible Discriminants"
+    page_start: 435
+    page_end: 476
+    chapter_title_block_idx: 4741
+    chapter_title_block_idx_secondary: 4742
+    problems_block_idx: 5153
+    next_chapter_block_idx: 5203
+  - num: 13
+    title: "Prototype Methods and Nearest-Neighbors"
+    page_start: 477
+    page_end: 502
+    chapter_title_block_idx: 5203
+    problems_block_idx: 5390
+    next_chapter_block_idx: 5425
+  - num: 14
+    title: "Unsupervised Learning"
+    page_start: 503
+    page_end: 604
+    chapter_title_block_idx: 5425
+    chapter_title_block_idx_secondary: 5426
+    problems_block_idx: 6383
+    next_chapter_block_idx: 6480
+  - num: 15
+    title: "Random Forests"
+    page_start: 605
+    page_end: 622
+    chapter_title_block_idx: 6480
+    chapter_title_block_idx_secondary: 6481
+    problems_block_idx: 6627
+    next_chapter_block_idx: 6645
+  - num: 16
+    title: "Ensemble Learning"
+    page_start: 623
+    page_end: 642
+    chapter_title_block_idx: 6645
+    chapter_title_block_idx_secondary: 6646
+    problems_block_idx: 6835
+    next_chapter_block_idx: 6844
+  - num: 17
+    title: "Undirected Graphical Models"
+    page_start: 643
+    page_end: 666
+    chapter_title_block_idx: 6844
+    chapter_title_block_idx_secondary: 6845
+    problems_block_idx: 7084
+    next_chapter_block_idx: 7133
+  - num: 18
+    title: "High-Dimensional Problems: p >> N"
+    page_start: 667
+    page_end: 716
+    chapter_title_block_idx: 7133
+    chapter_title_block_idx_secondary: 7134
+    problems_block_idx: 7585
+    next_chapter_block_idx: 8892
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Ex\.\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: '^(References|Index)$'
+solution_start_re: null
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:FIGURE|Figure|Fig\.|TABLE|Table)\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z])?[.:]'
+
+known_missing_problems: []

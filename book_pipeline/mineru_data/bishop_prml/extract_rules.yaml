@@ -1,0 +1,150 @@
+slug: bishop_prml
+title: Pattern Recognition and Machine Learning
+author: Christopher M. Bishop
+edition: null
+subject: Machine Learning
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 645
+bibliography_start_page: 675
+index_start_page: 693
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 83
+    chapter_title_block_idx: 275
+    problems_block_idx: 946
+    next_chapter_block_idx: 1057
+  - num: 2
+    title: Probability Distributions
+    page_start: 84
+    page_end: 153
+    chapter_title_block_idx: 1057
+    problems_block_idx: 1949
+    next_chapter_block_idx: 2092
+  - num: 3
+    title: Linear Models for Regression
+    page_start: 154
+    page_end: 194
+    chapter_title_block_idx: 2092
+    problems_block_idx: 2551
+    next_chapter_block_idx: 2617
+  - num: 4
+    title: Linear Models for Classification
+    page_start: 195
+    page_end: 240
+    chapter_title_block_idx: 2617
+    problems_block_idx: 3212
+    next_chapter_block_idx: 3250
+  - num: 5
+    title: Neural Networks
+    page_start: 241
+    page_end: 306
+    chapter_title_block_idx: 3250
+    problems_block_idx: 4057
+    next_chapter_block_idx: 4127
+  - num: 6
+    title: Kernel Methods
+    page_start: 307
+    page_end: 339
+    chapter_title_block_idx: 4127
+    problems_block_idx: 4532
+    next_chapter_block_idx: 4560
+  - num: 7
+    title: Sparse Kernel Machines
+    page_start: 340
+    page_end: 373
+    chapter_title_block_idx: 4560
+    problems_block_idx: 4998
+    next_chapter_block_idx: 5013
+  - num: 8
+    title: Graphical Models
+    page_start: 374
+    page_end: 437
+    chapter_title_block_idx: 5013
+    problems_block_idx: 5709
+    next_chapter_block_idx: 5735
+  - num: 9
+    title: Mixture Models and EM
+    page_start: 438
+    page_end: 474
+    chapter_title_block_idx: 5735
+    problems_block_idx: 6139
+    next_chapter_block_idx: 6179
+  - num: 10
+    title: Approximate Inference
+    page_start: 475
+    page_end: 536
+    chapter_title_block_idx: 6179
+    problems_block_idx: 7005
+    next_chapter_block_idx: 7049
+  - num: 11
+    title: Sampling Methods
+    page_start: 537
+    page_end: 572
+    chapter_title_block_idx: 7049
+    problems_block_idx: 7436
+    next_chapter_block_idx: 7454
+  - num: 12
+    title: Sequential Data
+    page_start: 573
+    page_end: 620
+    chapter_title_block_idx: 7454
+    problems_block_idx: 7959
+    next_chapter_block_idx: 8001
+  - num: 13
+    title: Combining Models
+    page_start: 621
+    page_end: 644
+    chapter_title_block_idx: 8001
+    problems_block_idx: 8268
+    next_chapter_block_idx: 8288
+
+appendices:
+  - id: A
+    title: Data Sets
+    page_start: 645
+    chapter_title_block_idx: 8288
+  - id: B
+    title: Probability Distributions
+    page_start: 652
+    chapter_title_block_idx: 8341
+  - id: C
+    title: Properties of Matrices
+    page_start: 661
+    chapter_title_block_idx: 8514
+  - id: D
+    title: Calculus of Variations
+    page_start: 668
+    chapter_title_block_idx: 8645
+  - id: E
+    title: Lagrange Multipliers
+    page_start: 671
+    chapter_title_block_idx: 8681
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Exercise\s+(\d+\.\d+)$'

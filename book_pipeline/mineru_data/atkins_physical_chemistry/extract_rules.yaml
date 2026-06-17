@@ -1,0 +1,223 @@
+# Atkins' Physical Chemistry (12th ed) — extract_rules
+# Deterministic audit-book output from unified/content_list.json only.
+# Metadata fields follow book_pipeline/metadata_schema.yaml.
+
+slug: atkins_physical_chemistry
+title: Atkins' Physical Chemistry
+author: Peter Atkins; Julio de Paula; James Keeler
+edition: 12th
+subject: Physical Chemistry
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 42
+appendices_start_page: 916
+bibliography_start_page: null
+index_start_page: 954
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The properties of gases
+    page_start: 42
+    page_end: 71
+    chapter_title_block_idx: 1438
+    chapter_title_block_idx_secondary: 1439
+    problems_block_idx: 1947
+    next_chapter_block_idx: 2064
+  - num: 2
+    title: The First Law
+    page_start: 72
+    page_end: 113
+    chapter_title_block_idx: 2064
+    chapter_title_block_idx_secondary: 2065
+    problems_block_idx: 2857
+    next_chapter_block_idx: 2984
+  - num: 3
+    title: The Second and Third Laws
+    page_start: 114
+    page_end: 157
+    chapter_title_block_idx: 2984
+    chapter_title_block_idx_secondary: 2985
+    problems_block_idx: 3769
+    next_chapter_block_idx: 3921
+  - num: 4
+    title: Physical transformations of pure substances
+    page_start: 158
+    page_end: 179
+    chapter_title_block_idx: 3921
+    chapter_title_block_idx_secondary: 3922
+    problems_block_idx: 4254
+    next_chapter_block_idx: 4352
+  - num: 5
+    title: Simple mixtures
+    page_start: 180
+    page_end: 243
+    chapter_title_block_idx: 4352
+    chapter_title_block_idx_secondary: 4353
+    problems_block_idx: 5423
+    next_chapter_block_idx: 5634
+  - num: 6
+    title: Chemical equilibrium
+    page_start: 244
+    page_end: 275
+    chapter_title_block_idx: 5634
+    chapter_title_block_idx_secondary: 5635
+    problems_block_idx: 6283
+    next_chapter_block_idx: 6435
+  - num: 7
+    title: Quantum theory
+    page_start: 276
+    page_end: 343
+    chapter_title_block_idx: 6435
+    chapter_title_block_idx_secondary: 6436
+    problems_block_idx: 7688
+    next_chapter_block_idx: 7956
+  - num: 8
+    title: Atomic structure and spectra
+    page_start: 344
+    page_end: 381
+    chapter_title_block_idx: 7956
+    chapter_title_block_idx_secondary: 7957
+    problems_block_idx: 8622
+    next_chapter_block_idx: 8690
+  - num: 9
+    title: Molecular structure
+    page_start: 382
+    page_end: 435
+    chapter_title_block_idx: 8690
+    chapter_title_block_idx_secondary: 8691
+    problems_block_idx: 9711
+    next_chapter_block_idx: 9848
+  - num: 10
+    title: Molecular symmetry
+    page_start: 436
+    page_end: 465
+    chapter_title_block_idx: 9848
+    chapter_title_block_idx_secondary: 9849
+    problems_block_idx: 10372
+    next_chapter_block_idx: 10438
+  - num: 11
+    title: Molecular spectroscopy
+    page_start: 466
+    page_end: 537
+    chapter_title_block_idx: 10438
+    chapter_title_block_idx_secondary: 10439
+    problems_block_idx: 11585
+    next_chapter_block_idx: 11818
+  - num: 12
+    title: Magnetic resonance
+    page_start: 538
+    page_end: 581
+    chapter_title_block_idx: 11818
+    chapter_title_block_idx_secondary: 11819
+    problems_block_idx: 12512
+    next_chapter_block_idx: 12617
+  - num: 13
+    title: Statistical thermodynamics
+    page_start: 582
+    page_end: 635
+    chapter_title_block_idx: 12617
+    chapter_title_block_idx_secondary: 12618
+    problems_block_idx: 13669
+    next_chapter_block_idx: 13841
+  - num: 14
+    title: Molecular interactions
+    page_start: 636
+    page_end: 693
+    chapter_title_block_idx: 13841
+    chapter_title_block_idx_secondary: 13842
+    problems_block_idx: 14892
+    next_chapter_block_idx: 15032
+  - num: 15
+    title: Solids
+    page_start: 694
+    page_end: 745
+    chapter_title_block_idx: 15032
+    chapter_title_block_idx_secondary: 15033
+    problems_block_idx: 15781
+    next_chapter_block_idx: 15938
+  - num: 16
+    title: Molecules in motion
+    page_start: 746
+    page_end: 775
+    chapter_title_block_idx: 15938
+    chapter_title_block_idx_secondary: 15939
+    problems_block_idx: 16566
+    next_chapter_block_idx: 16672
+  - num: 17
+    title: Chemical kinetics
+    page_start: 776
+    page_end: 831
+    chapter_title_block_idx: 16672
+    chapter_title_block_idx_secondary: 16673
+    problems_block_idx: 17807
+    next_chapter_block_idx: 18024
+  - num: 18
+    title: Reaction dynamics
+    page_start: 832
+    page_end: 873
+    chapter_title_block_idx: 18024
+    chapter_title_block_idx_secondary: 18025
+    problems_block_idx: 18791
+    next_chapter_block_idx: 18918
+  - num: 19
+    title: Processes at solid surfaces
+    page_start: 874
+    page_end: 915
+    chapter_title_block_idx: 18918
+    chapter_title_block_idx_secondary: 18919
+    problems_block_idx: 19578
+    next_chapter_block_idx: 19720
+
+appendices:
+  - id: A
+    title: Mathematical resources
+    page_start: 917
+    chapter_title_block_idx: 19720
+  - id: B
+    title: Quantities and units
+    page_start: 921
+    chapter_title_block_idx: 19792
+  - id: C
+    title: Data
+    page_start: 923
+    chapter_title_block_idx: 19807
+  - id: D
+    title: Character tables
+    page_start: 949
+    chapter_title_block_idx: 20032
+
+section_re: '^(?:TOPIC\s+)?(\d+[A-Z])\s+(.+)$'
+subsection_re: '^(\d+[A-Z]?(?:\.\d+)?(?:\([a-z]\))?)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^[DEPI](\d+(?:[A-Z])?\.\d+)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^INTEGRATED ACTIVITIES$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+[A-Z]?\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: '^Example\s+(\d+[A-Z](?:\.\d+)?)\b'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?Figure\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?'
+
+known_missing_problems: []
