@@ -40,6 +40,7 @@ from book_pipeline import pipeline_queue as q
 from book_pipeline import mineru_budget as mb
 from book_pipeline import worker_registry as wr
 from book_pipeline import leases
+from book_pipeline import extract_cover
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -761,6 +762,10 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     # B. 不同資源並行，不互堵：待ingest書 → detached 背景 upload（fire-and-forget，立刻返回、
     #    不被慢上傳堵住整 tick）；其餘書 → 主線程同時並行縱向 advance（LLM 與 upload 真並行）。
     rows = _sorted_rows()
+    try:
+        extract_cover.ensure_covers([r['slug'] for r in rows])
+    except Exception as e:
+        log(f'封面補抽異常（不影響派工）：{e}')
     occ = mb.occupied()
     ingest_slugs = [r['slug'] for r in rows
                     if r['todo'].split('(')[0] == 'ingest' and r['slug'] not in occ]
@@ -847,7 +852,14 @@ def tick_reactive(no_deploy: bool) -> int:
 
             # B. async 提交待 ingest（detached upload，立即返回）/ 縱向推進其餘書
             occ = mb.occupied()
-            for r in _sorted_rows():
+            rows = _sorted_rows()
+            # 封面冪等補抽：raw PDF 一落地即可生 cover.jpg（不必等 OCR），/dev 產線即時有封面。
+            try:
+                if extract_cover.ensure_covers([r['slug'] for r in rows]):
+                    log('封面：補抽新書 cover.jpg')
+            except Exception as e:
+                log(f'封面補抽異常（不影響派工）：{e}')
+            for r in rows:
                 slug = r['slug']
                 verb = r['todo'].split('(')[0]
                 if verb == 'ingest':

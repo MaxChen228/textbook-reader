@@ -86,6 +86,30 @@ def extract_one(slug: str, pdf_path: Path, *, force: bool = False) -> Path | Non
     return out
 
 
+def ensure_covers(slugs) -> int:
+    """pipeline 自動鉤子：給一批 slug，凡缺 cover.jpg 且能在 raw_pdfs/ 探到對應 PDF 者，
+    抽第一頁補上。冪等（已有則 stat 一下即跳過、不印），回實際新抽的張數。
+
+    封面源頭 = raw PDF 第一頁 → 一本書「下載落地（triage 完成）」那刻起即可生成，
+    不必等 OCR。解答本（_sol）跳過。任何單本失敗不連坐。"""
+    made = 0
+    for slug in slugs:
+        if _is_solution_pdf(slug):
+            continue
+        out = DATA_DIR / slug / 'cover.jpg'
+        if out.is_file():
+            continue
+        pdf = find_pdf_for_slug(slug)
+        if pdf is None:
+            continue  # 還沒下載到 PDF（crawl 中）→ 下個 cycle 再試
+        try:
+            if extract_one(slug, pdf) is not None:
+                made += 1
+        except Exception as e:
+            print(f'  ✗ {slug}: 抽封面失敗 {e}')
+    return made
+
+
 def _audited_slugs() -> list[str]:
     """掃 mineru_data/ 找已 ingest（unified/content_list.json 存在）且非解答本的 slug。"""
     out: list[str] = []

@@ -36,8 +36,8 @@
     .dev-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: middle; }
     .dot-ok { background: var(--status-known); } .dot-bad { background: var(--status-danger); }
     .dot-warn { background: var(--status-unknown); } .dot-idle { background: var(--status-skip); }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-    .live { animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.62} }
+    .live { animation: pulse 2.2s ease-in-out infinite; }
 
     /* ── 產線 ── */
     .line { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; align-items: stretch; }
@@ -109,6 +109,12 @@
     .dr-meta { padding: 10px 16px; border-bottom: 1px solid var(--border-l); font-family: var(--mono); font-size: 11px; color: var(--ink-light);
       display: flex; flex-wrap: wrap; gap: 6px 16px; }
     .dr-meta b { color: var(--accent); }
+    .dr-status { flex-basis: 100%; font-size: 12.5px; font-weight: 600; padding: 5px 9px; border-radius: 6px;
+      border: 1px solid var(--border); }
+    .dr-st-work { color: var(--accent); border-color: var(--accent); }
+    .dr-st-done { color: var(--status-ok, #4caf50); }
+    .dr-st-wait { color: var(--status-warn, #d9a441); }
+    .dr-st-ready { color: var(--sub); }
     .dr-evs { flex: 1; overflow-y: auto; padding: 10px 14px; }
     .ev { display: flex; gap: 8px; align-items: baseline; font-family: var(--mono); font-size: 11.5px;
       color: var(--ink-light); padding: 4px 0; border-bottom: 1px solid var(--border-l); }
@@ -248,6 +254,20 @@
     if (c === '0.5') return 1
     return 0  // X / 0 待 ingest
   }
+  // 一句話講清楚「這本書此刻到底在幹嘛 / 卡不卡」——產線最常被問的問題
+  function statusText(b, w) {
+    if (w) return { cls: 'work', txt: `🔧 工人處理中 · ${w.verb || ''}` }
+    if (b.deployed) return { cls: 'done', txt: '✅ 已上站完成' }
+    const mand = (b.todo || '').trim().split(/\s+/)
+      .filter(t => t && t !== '—' && !t.endsWith('(可選)'))
+    if (mand.length) return { cls: 'wait', txt: `⏳ 待 ${mand[0].split('(')[0]}（暫無工人，下個 cycle 派）` }
+    return { cls: 'ready', txt: '☑ 已完工，待部署 / 可選翻譯（非卡關）' }
+  }
+  // 題/解徽章：有解答本才顯示「解/題」比；否則只報題數，避免「0/371」誤讀成卡住
+  function probBadge(b) {
+    if (!b.prob) return ''
+    return `<span class="ps-badge">${b.sol_book ? (b.sol || 0) + '/' + b.prob : b.prob + ' 題'}</span>`
+  }
   // slug → 穩定色（封面佔位用）
   function hue(s) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) % 360; return h }
   function coverHtml(b, big) {
@@ -290,7 +310,7 @@
       const bs = buckets[i]
       const done = i === 5
       const cards = bs.map(b => {
-        const ps = b.prob ? `<span class="ps-badge">${(b.sol||0)}/${b.prob}</span>` : ''
+        const ps = probBadge(b)
         const ttl = done ? '' : `<div class="ttl">${escapeHtml(b.title || b.slug)}</div>`
         return `<div class="book" data-slug="${escapeHtml(b.slug)}" title="${escapeHtml(b.title||b.slug)}">
           <div class="cv">${coverHtml(b)}${ps}</div>${ttl}</div>`
@@ -344,9 +364,12 @@
     document.getElementById('dr-title').textContent = b.title || b.slug
     document.getElementById('dr-sub').textContent = b.slug
     const stName = STATIONS[stationOf(b)].name
+    const st = statusText(b, w)
+    const probStr = b.prob ? (b.sol_book ? `${b.sol || 0}/${b.prob} 解` : `${b.prob} 題（無解答本）`) : ''
     document.getElementById('dr-meta').innerHTML =
-      `<span>階段 <b>${escapeHtml(b.stage || '—')}</b></span><span>站台 <b>${stName}</b></span>`
-      + (b.prob ? `<span>題/解 <b>${b.sol||0}/${b.prob}</b></span>` : '')
+      `<span class="dr-status dr-st-${st.cls}">${escapeHtml(st.txt)}</span>`
+      + `<span>階段 <b>${escapeHtml(b.stage || '—')}</b></span><span>站台 <b>${stName}</b></span>`
+      + (probStr ? `<span>題/解 <b>${escapeHtml(probStr)}</b></span>` : '')
       + (w ? `<span>工人 <b>${escapeHtml(w.verb||'')}</b></span><span>${escapeHtml(w.provider||'')} · pid ${w.pid}</span><span><b>${w.total_calls||0}</b> 次工具調用</span>`
            : `<span class="dev-label">目前無工人在此書</span>`)
     const evs = document.getElementById('dr-evs')
@@ -416,7 +439,7 @@
     const nW = liveWorkers().length
     document.getElementById('health').innerHTML =
       `<div class="kv"><span class="dev-dot ${dot}"></span><span class="v">${word}</span></div>
-       <div class="kv"><span class="k">工人</span><span class="v ${nW?'live':''}">${nW} 🛠️</span></div>
+       <div class="kv"><span class="k">工人</span><span class="v">${nW} 🛠️</span></div>
        <div class="kv"><span class="k">上次tick</span><span class="v" id="h-lasttick">—</span></div>
        <div class="kv"><span class="k">下次約</span><span class="v" id="h-next">—</span></div>
        <div class="kv"><span class="k">書本</span><span class="v">${d.total}</span></div>
@@ -461,7 +484,7 @@
     try { const data = await fetchJson('workers.json?_=' + Date.now()); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
     applyWalkers()
-    renderHealth(last || { daemon:{}, total:0, actionable:[] })
+    if (last) { renderHealth(last); tickClocks() }  // 補值：renderHealth 重建會把時鐘格設回「—」，立即 tickClocks 填回防閃
     if (openSlug) renderDrawer()
   }
   async function load() {
