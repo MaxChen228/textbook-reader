@@ -113,6 +113,9 @@ LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))      
 LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
 LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
 LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
+# live reactive controller 的 pidfile：loop 起頭寫自己 pid、退出即刪。外部（devctl crawl-refill）
+# 讀它送 SIGUSR1 → loop 立即 re-observe 撿 marker（**立即**派工、不殺在飛 worker）。per-machine、gitignore。
+CONTROLLER_PID = os.path.join(BP, '.controller.pid')
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -577,6 +580,50 @@ def _clear_refill_force() -> None:
         os.remove(CRAWL_REFILL_FORCE)
     except OSError:
         pass
+
+
+def _write_controller_pid() -> None:
+    try:
+        with open(CONTROLLER_PID, 'w') as f:
+            f.write(str(os.getpid()))
+    except OSError:
+        pass
+
+
+def _clear_controller_pid() -> None:
+    try:
+        os.remove(CONTROLLER_PID)
+    except OSError:
+        pass
+
+
+def controller_pid() -> int | None:
+    """live reactive controller 的 pid（pidfile + 探活）；無 pidfile / 進程已死 → None。"""
+    try:
+        pid = int(open(CONTROLLER_PID).read().strip())
+    except (OSError, ValueError):
+        return None
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return None
+    except PermissionError:
+        return pid  # 活著但無權 signal（同 user 不會發生）→ 仍視為活
+    return pid
+
+
+def wake_controller() -> bool:
+    """送 SIGUSR1 喚醒 live controller 立即 re-observe（撿 marker 立刻派工、**不中斷在飛 worker**）。
+    回是否真的送出（無 live controller → False，呼叫端改 kick 起一個）。"""
+    import signal
+    pid = controller_pid()
+    if pid is None:
+        return False
+    try:
+        os.kill(pid, signal.SIGUSR1)
+        return True
+    except OSError:
+        return False
 
 
 def _have_slugs() -> set:
@@ -1242,6 +1289,16 @@ def tick_reactive(no_deploy: bool) -> int:
         ex.submit(_run)
         return True
 
+    # 外部喚醒：SIGUSR1 → wake.set() → loop 立即 re-observe（devctl crawl-refill 等手動觸發用，
+    # 不殺在飛 worker）。signal.signal 須在主執行緒（tick_reactive 由 main 直呼，成立）。寫 pidfile
+    # 供外部找到本 controller；非主執行緒/平台不支援則略過 → 退回 LOOP_POLL 節奏（功能降級不報錯）。
+    import signal
+    try:
+        signal.signal(signal.SIGUSR1, lambda *a: wake.set())
+        _write_controller_pid()
+    except (ValueError, OSError):
+        pass
+
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
     last_refill_attempt = -1e9  # 退避只套「叫 crawl agent 補貨」（補不到時別狂叫）；買書員 drain 無退避
@@ -1325,6 +1382,7 @@ def tick_reactive(no_deploy: bool) -> int:
             wake.wait(LOOP_POLL)
             wake.clear()
     finally:
+        _clear_controller_pid()  # 退出即撤 pidfile → 外部改走 kick 起新 controller
         log('reactive loop：等待在跑 worker 收尾…')
         ex.shutdown(wait=True)
     log('=== reactive loop end ===')

@@ -17,6 +17,7 @@ def _setup():
     pt.CRAWL_QUEUE = os.path.join(d, 'crawl_queue.json')
     pt.CRAWL_PLAN = os.path.join(d, 'crawl_plan.json')
     pt.CRAWL_REFILL_FORCE = os.path.join(d, 'crawl_refill_request')
+    pt.CONTROLLER_PID = os.path.join(d, '.controller.pid')
     pt.log = lambda *a, **k: None
     pt.hist.set_touched = lambda *a, **k: None
     from book_pipeline import devctl  # drain 內 import → 直接 stub 該函式
@@ -206,6 +207,36 @@ def test_force_refill_skip_when_full():
     print('✓ force refill：清單已滿 → 跳過派工但仍消費請求（不空叫 planner 找 0 本）')
 
 
+def test_controller_pid_roundtrip():
+    _setup()
+    assert pt.controller_pid() is None               # 無 pidfile
+    assert pt.wake_controller() is False             # 無 controller → 不送、回 False（呼叫端改 kick）
+    pt._write_controller_pid()                        # 寫本進程 pid（活著）
+    assert pt.controller_pid() == os.getpid()
+    open(pt.CONTROLLER_PID, 'w').write('999999')      # 必死 pid → 探活回 None
+    assert pt.controller_pid() is None
+    pt._clear_controller_pid()
+    assert pt.controller_pid() is None
+    print('✓ controller pid：寫/探活/死pid/清 四態正確（外部喚醒的定址基礎）')
+
+
+def test_wake_controller_sends_signal():
+    import signal as _sig
+    import time as _t
+    _setup()
+    fired = []
+    old = _sig.signal(_sig.SIGUSR1, lambda *a: fired.append(1))
+    try:
+        pt._write_controller_pid()                    # pidfile 指向本進程
+        assert pt.wake_controller() is True           # 送 SIGUSR1 給自己
+        _t.sleep(0.05)                                 # 讓 handler 跑
+        assert fired, 'SIGUSR1 應觸發 handler（= reactive loop 的 wake.set）'
+    finally:
+        _sig.signal(_sig.SIGUSR1, old)
+        pt._clear_controller_pid()
+    print('✓ wake_controller：os.kill SIGUSR1 端到端送達 controller（立即喚醒，不殺在飛 worker）')
+
+
 if __name__ == '__main__':
     test_drain_crosses_off_fetched()
     test_drain_drops_after_max_fails()
@@ -219,4 +250,6 @@ if __name__ == '__main__':
     test_force_marker_roundtrip()
     test_force_refill_bypasses_watermark()
     test_force_refill_skip_when_full()
+    test_controller_pid_roundtrip()
+    test_wake_controller_sends_signal()
     print('\n全部通過 ✅')

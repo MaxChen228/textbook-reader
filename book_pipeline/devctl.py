@@ -652,18 +652,18 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == 'crawl-refill':
-        # 只丟「強制補貨」marker（不自己 refill → 不與 daemon 搶寫 crawl_queue.json）。實際派 crawl 小弟
-        # 由 daemon 做：運轉中 → 下個 observe cycle 自然認 marker（不中斷在飛工作）；閒置 → kick 起來認。
+        # 只丟「強制補貨」marker（不自己 refill → 不與 daemon 搶寫 crawl_queue.json）。**立即**派 crawl
+        # 小弟：daemon 運轉中 → SIGUSR1 喚醒它馬上 re-observe 撿 marker（不殺在飛 worker）；閒置 → kick 起來。
         from book_pipeline import pipeline_tick as pt
         pt.request_refill()
-        if daemon_health()['tick_running']:
-            print('📑 已排入強制補貨請求 · daemon 運轉中 → 下個 observe cycle 自動派 crawl 小弟補書單')
+        if pt.wake_controller():
+            print('📑 已排入強制補貨請求 · 已喚醒 daemon → 立即派 crawl 小弟補書單（不中斷在飛工作）')
             print('   看進度：devctl status（crawl 區）或 books.wordnexus.lol/dev')
             return 0
-        uid = os.getuid()  # daemon 閒置（等 launchd 重拉）→ 不帶 -k 啟動它，數秒內起 controller 認請求
+        uid = os.getuid()  # 無 live controller（閒置等 launchd 重拉）→ 不帶 -k 啟動它，立即起來認請求
         r = subprocess.run(['launchctl', 'kickstart', f'gui/{uid}/{PLIST_LABEL}'])
         if r.returncode == 0:
-            print('📑 已排入強制補貨請求 · daemon 閒置 → 已 kick，數秒內起 controller 派 crawl 小弟補書單')
+            print('📑 已排入強制補貨請求 · daemon 閒置 → 已 kick，立即起 controller 派 crawl 小弟補書單')
         else:
             print(f'📑 已排入強制補貨請求；kick 失敗 rc={r.returncode}（daemon 下個 tick 重拉時自動認）')
         return r.returncode
