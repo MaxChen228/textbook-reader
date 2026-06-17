@@ -278,10 +278,16 @@ def _batched(seq: list, n: int):
         yield seq[i:i + n]
 
 
+def _clip(s: str, n: int = 60) -> str:
+    s = " ".join((s or "").split())
+    return s if len(s) <= n else s[:n] + "…"
+
+
 def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
-                  accepted: dict[str, list], gid_new: dict[str, str]) -> list:
+                  accepted: dict[str, list], gid_new: dict[str, str], verbose: bool = False) -> list:
     """跑一個池一輪：分批打 LLM → 解析 → 每條 render 守門 → 過則收 override 進 accepted。
-    回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。"""
+    回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。
+    verbose → 逐條 log「書 · 舊 tex → 新 tex · render 過/不過」（daemon 想看處理流程時開）。"""
     nxt: list = []
     for grp in _batched(pool, batch_n):
         payload = [{"i": i, "err": f.get("err") or "", "tex": f.get("tex") or ""}
@@ -295,6 +301,8 @@ def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
         for i, (gid, slug, f) in enumerate(grp):
             new = ans.get(i)
             if not new:                                   # 模型漏回
+                if verbose:
+                    _log(f"  · {slug} 模型漏回 · {_clip(f.get('tex'))}")
                 nxt.append((gid, slug, f))
                 continue
             try:
@@ -304,13 +312,18 @@ def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
                 nxt.append((gid, slug, f))
                 continue
             if not v.get("ok"):                           # render 守門：不過不落地
+                if verbose:
+                    _log(f"  ✗ {slug} render 不過 · {_clip(f.get('tex'))} → {_clip(new)}")
                 nxt.append((gid, slug, f))
                 continue
             try:
                 accepted[slug].extend(finding_to_overrides(slug, f, new))
                 gid_new[gid] = new
+                if verbose:
+                    _log(f"  ✓ {slug} · {_clip(f.get('tex'))} → {_clip(new)}")
             except ValueError:                            # 無 targets / 空 tex → 無法定位，棄
-                pass
+                if verbose:
+                    _log(f"  ⊘ {slug} 無法定位（無 targets/空 tex）· {_clip(f.get('tex'))}")
     return nxt
 
 
@@ -351,7 +364,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
                 break
             _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條（批 {bn}）")
             pool = _process_pool(pool, bn, model=a.model, base=base, auth=auth,
-                                 accepted=accepted, gid_new=gid_new)
+                                 accepted=accepted, gid_new=gid_new, verbose=getattr(a, 'verbose', False))
         still.extend(pool)
 
     # 落地：每書一次 merge + apply + 重驗（避免每條重驗整書）
@@ -397,6 +410,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_batch.add_argument("--category", help="只處理某分類")
     p_batch.add_argument("--limit", type=int, help="最多處理幾條（試水溫用）")
     p_batch.add_argument("--dry-run", action="store_true", help="只印規模/分池/base，不打 LLM 不落地")
+    p_batch.add_argument("--verbose", action="store_true", help="逐條 log 書·舊→新·render 過/不過（看處理流程）")
     p_batch.set_defaults(func=cmd_batch)
 
     return ap

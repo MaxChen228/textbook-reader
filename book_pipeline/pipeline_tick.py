@@ -939,8 +939,8 @@ def do_math_sweep(dry: bool) -> int:
     q.set_math_batch_running(total)         # 持久 flag → /dev 顯「batch 處理中」（獨立 devsnapshot 進程讀得到）
     try:
         # stdout=PIPE 取 JSON 結果；stderr 直通（_log 進度走 stderr）→ launchd.err.log 即時可見，不被吞。
-        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep',
-                               'batch', '--limit', str(MATH_BATCH_LIMIT), '--rounds', str(MATH_BATCH_ROUNDS)],
+        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch',
+                               '--limit', str(MATH_BATCH_LIMIT), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
                               cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=None, text=True)
     finally:
         q.clear_math_batch_running()
