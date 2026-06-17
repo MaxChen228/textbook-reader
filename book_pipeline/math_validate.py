@@ -35,6 +35,7 @@ MACROS_FILE = ROOT / "book_pipeline" / "math_macros.json"
 NODE_HEAP_MB = 6144
 
 UNDEF_RE = re.compile(r"[Uu]ndefined control sequence\s*(\\[A-Za-z@]+|\\.)")
+_CTRL_RE = re.compile(r"\\[a-zA-Z@]+")   # 控制字邊界（skeleton 與 token_signals 共用，定義一致）
 
 
 def all_slugs() -> list[str]:
@@ -157,12 +158,10 @@ def skeleton(tex: str) -> str:
     while i < n:
         c = s[i]
         if c == "\\":
-            if i + 1 < n and s[i + 1].isalpha():
-                j = i + 2
-                while j < n and s[j].isalpha():
-                    j += 1
-                out.append(s[i:j])          # 控制字 \frac \bgroup \vphantom …
-                i = j
+            m = _CTRL_RE.match(s, i)
+            if m:
+                out.append(m.group())       # 控制字 \frac \bgroup \vphantom …（邊界同 token_signals）
+                i = m.end()
             elif i + 1 < n:
                 out.append(s[i:i + 2])      # 控制符 \, \{ \\ \. …
                 i += 2
@@ -369,9 +368,6 @@ def cluster_findings(items) -> list[dict[str, Any]]:
         out.append(c)
     out.sort(key=lambda c: (-c["total_occ"], -c["book_count"], c["category"], c["signature"]))
     return out
-
-
-_CTRL_RE = re.compile(r"\\[a-zA-Z@]+")
 
 
 def token_signals(items) -> list[dict[str, Any]]:
