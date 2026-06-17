@@ -113,9 +113,13 @@ LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))      
 LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
 LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
 LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
-# live reactive controller 的 pidfile：loop 起頭寫自己 pid、退出即刪。外部（devctl crawl-refill）
-# 讀它送 SIGUSR1 → loop 立即 re-observe 撿 marker（**立即**派工、不殺在飛 worker）。per-machine、gitignore。
-CONTROLLER_PID = os.path.join(BP, '.controller.pid')
+# live reactive controller 的 statefile（JSON {pid, sha, started}）：loop 起頭寫、退出即刪。
+#   pid → 外部送 SIGUSR1 喚醒（crawl-refill / reload）；sha → 此 controller 載入的 git 版本，供
+#   「daemon 跑的是哪版碼、離 HEAD 多遠」即時觀測（免上線後做 forensics）。per-machine、gitignore。
+CONTROLLER_STATE = os.path.join(BP, '.controller.json')
+# reload 請求 marker：`devctl reload` 丟它 + SIGUSR1 → loop **排空在飛 worker 後優雅退出**、launchd 載
+# 入新碼（零浪費；對比 kick -k 硬殺跳過 finally 會棄工作）。SIGUSR1 統一語意＝「醒來看控制 marker」（refill/reload 共用）。
+RELOAD_REQUEST = os.path.join(BP, 'reload_request')
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）
 LLM_PROMPTS = {
@@ -582,34 +586,72 @@ def _clear_refill_force() -> None:
         pass
 
 
-def _write_controller_pid() -> None:
+def _code_version() -> str:
+    """本 controller 載入的 git 版本（short SHA）；git 不可用 → '?'。"""
     try:
-        with open(CONTROLLER_PID, 'w') as f:
-            f.write(str(os.getpid()))
+        r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT,
+                           capture_output=True, text=True, timeout=5)
+        return r.stdout.strip() or '?'
+    except Exception:
+        return '?'
+
+
+def _write_controller_state() -> None:
+    try:
+        with open(CONTROLLER_STATE, 'w') as f:
+            json.dump({'pid': os.getpid(), 'sha': _code_version(), 'started': time.time()}, f)
     except OSError:
         pass
 
 
-def _clear_controller_pid() -> None:
+def _clear_controller_state() -> None:
     try:
-        os.remove(CONTROLLER_PID)
+        os.remove(CONTROLLER_STATE)
     except OSError:
         pass
 
 
-def controller_pid() -> int | None:
-    """live reactive controller 的 pid（pidfile + 探活）；無 pidfile / 進程已死 → None。"""
+def controller_info() -> dict | None:
+    """live reactive controller 狀態 {pid, sha, started}（statefile + 探活）；無檔/進程已死 → None。"""
     try:
-        pid = int(open(CONTROLLER_PID).read().strip())
-    except (OSError, ValueError):
+        st = json.load(open(CONTROLLER_STATE))
+        pid = int(st['pid'])
+    except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
         return None
     try:
         os.kill(pid, 0)
     except ProcessLookupError:
         return None
     except PermissionError:
-        return pid  # 活著但無權 signal（同 user 不會發生）→ 仍視為活
-    return pid
+        pass  # 活著但無權 signal（同 user 不會發生）→ 仍視為活
+    return st
+
+
+def controller_pid() -> int | None:
+    """live controller 的 pid（給外部 signal 定址）；無/已死 → None。"""
+    info = controller_info()
+    return info.get('pid') if info else None
+
+
+def request_reload() -> None:
+    """丟『優雅 reload』請求（`devctl reload` 用）：loop 排空在飛 worker 後退出 → launchd 載入新碼（零浪費）。
+    與 kick -k 的差別 = 不殺在飛工作。寫 marker 是唯一副作用，實際 drain/exit 由 controller 自己做。"""
+    try:
+        with open(RELOAD_REQUEST, 'w') as f:
+            f.write(str(time.time()))
+    except OSError:
+        pass
+
+
+def _reload_pending() -> bool:
+    return os.path.exists(RELOAD_REQUEST)
+
+
+def _clear_reload() -> None:
+    try:
+        os.remove(RELOAD_REQUEST)
+    except OSError:
+        pass
 
 
 def wake_controller() -> bool:
@@ -1259,7 +1301,7 @@ def tick_reactive(no_deploy: bool) -> int:
     """反應式控制迴圈（見頂部 REACTIVE 註解）。單一 controller 進程：每 cycle observe→把三條件
     齊備的 transition 派成 thread worker（不阻塞）→reap→sleep；牆鐘上限或排空即退出讓 launchd
     重拉。worker 同進程 → registry/exhaustion in-memory 共享；leases 防跨 crash orphan 子進程。"""
-    log(f'=== reactive loop start (walltime={LOOP_WALLTIME}s poll={LOOP_POLL}s) ===')
+    log(f'=== reactive loop start (code={_code_version()} walltime={LOOP_WALLTIME}s poll={LOOP_POLL}s) ===')
     log('budget: ' + str(mb.status_report()))
     wr.reset()
     with _exhausted_lock:  # 本 controller 起頭重置額度旗標（下個 invocation 再重探恢復）
@@ -1295,7 +1337,7 @@ def tick_reactive(no_deploy: bool) -> int:
     import signal
     try:
         signal.signal(signal.SIGUSR1, lambda *a: wake.set())
-        _write_controller_pid()
+        _write_controller_state()
     except (ValueError, OSError):
         pass
 
@@ -1304,6 +1346,12 @@ def tick_reactive(no_deploy: bool) -> int:
     last_refill_attempt = -1e9  # 退避只套「叫 crawl agent 補貨」（補不到時別狂叫）；買書員 drain 無退避
     try:
         while time.monotonic() < deadline:
+            # 優雅 reload：收到請求即停派新工、跳出迴圈 → finally 的 ex.shutdown(wait=True) 排空在飛
+            # worker（audit/advance 跑完才退）→ 進程退出，launchd 載入新碼。零浪費（對比 kick -k 硬殺）。
+            if _reload_pending():
+                _clear_reload()
+                log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
+                break
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
             leased_slugs = {r.get('slug') for r in leases.active(log=log)}
             dispatched = 0
@@ -1382,7 +1430,7 @@ def tick_reactive(no_deploy: bool) -> int:
             wake.wait(LOOP_POLL)
             wake.clear()
     finally:
-        _clear_controller_pid()  # 退出即撤 pidfile → 外部改走 kick 起新 controller
+        _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
         log('reactive loop：等待在跑 worker 收尾…')
         ex.shutdown(wait=True)
     log('=== reactive loop end ===')

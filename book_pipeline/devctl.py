@@ -13,7 +13,8 @@
   uv run python -m book_pipeline.devctl snapshot           # 寫 dev/status.json（launchd 刷新用）
   uv run python -m book_pipeline.devctl errors [--since-min 120]
   uv run python -m book_pipeline.devctl incident           # 出事時的全貌 dump（status+errors+log+進程）
-  uv run python -m book_pipeline.devctl kick               # 立刻手動觸發一輪 tick
+  uv run python -m book_pipeline.devctl kick               # 硬殺重啟（棄在飛工作；緊急/卡死用）
+  uv run python -m book_pipeline.devctl reload             # 優雅載入新碼：排空在飛 worker 後退出（零浪費）
   uv run python -m book_pipeline.devctl crawl-refill        # 手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）
 """
 from __future__ import annotations
@@ -95,6 +96,33 @@ def _sh(cmd: list[str]) -> str:
         return subprocess.run(cmd, capture_output=True, text=True, timeout=15).stdout
     except Exception:
         return ''
+
+
+def _git(args: list[str]) -> str:
+    try:
+        return subprocess.run(['git', *args], cwd=ROOT, capture_output=True,
+                              text=True, timeout=5).stdout.strip()
+    except Exception:
+        return ''
+
+
+def code_status() -> dict:
+    """跑中 controller 載入的 git 版本 vs 工作目錄 HEAD（答『daemon 跑哪版碼、離最新多遠、會不會自動更新』）。
+    running=None → 無 live controller（閒置，下次 launchd respawn 直接載 HEAD）。behind>0 → 落後，
+    下次優雅退出/respawn 自動跟上（毋須 kick）。消除上線後『是不是舊碼』的 forensics。"""
+    from book_pipeline import pipeline_tick as pt
+    info = pt.controller_info()
+    running = (info or {}).get('sha')
+    head = _git(['rev-parse', '--short', 'HEAD']) or '?'
+    behind = None
+    if running and running != '?' and head != '?':
+        if running == head:
+            behind = 0
+        else:
+            c = _git(['rev-list', '--count', f'{running}..HEAD'])
+            behind = int(c) if c.isdigit() else None
+    return {'running': running, 'head': head, 'behind': behind,
+            'started': (info or {}).get('started')}
 
 
 # ── daemon 健康 ──────────────────────────────────────────────────────────────
@@ -458,6 +486,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'daemon': daemon_health(),
+        'code': code_status(),
         'budget': budget_status(),
         'zlib': zl,
         'workers': wks,
@@ -496,6 +525,15 @@ def _print_human(snap: dict) -> None:
         dur_s = '跑中' if dur is None else f'{dur}s'
         print(f"   last tick start {d['last_tick_start_utc']} "
               f"dur={dur_s}  next≈{d['next_tick_eta_s']}s")
+    c = snap.get('code') or {}
+    if c.get('running'):
+        b = c.get('behind')
+        tag = ('✅ 最新' if b == 0 else
+               (f'⏳ 落後 HEAD {b} commit（下次 reload/respawn 自動跟上，毋須 kick）' if b
+                else 'HEAD 未知'))
+        print(f"   code={c['running']} · HEAD={c.get('head')} · {tag}")
+    elif c.get('head'):
+        print(f"   code=閒置（無 live controller）· HEAD={c.get('head')}（下次 respawn 直接載）")
     wk = snap.get('workers') or []
     if wk:
         print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
@@ -553,7 +591,8 @@ def main(argv: list[str] | None = None) -> int:
     p_er.add_argument('--since-min', type=int, default=180)
     p_er.add_argument('--json', action='store_true')
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
-    sub.add_parser('kick', help='立刻觸發一輪 tick')
+    sub.add_parser('kick', help='硬殺重啟（棄在飛工作；緊急用）')
+    sub.add_parser('reload', help='優雅載入新碼：排空在飛 worker 後退出（零浪費）')
     sub.add_parser('crawl-refill', help='手動叫一次 crawl 小弟補書單（強制，無視水位/冷卻）')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
@@ -666,6 +705,24 @@ def main(argv: list[str] | None = None) -> int:
             print('📑 已排入強制補貨請求 · daemon 閒置 → 已 kick，立即起 controller 派 crawl 小弟補書單')
         else:
             print(f'📑 已排入強制補貨請求；kick 失敗 rc={r.returncode}（daemon 下個 tick 重拉時自動認）')
+        return r.returncode
+
+    if args.cmd == 'reload':
+        # 優雅上線新碼：丟 reload marker + SIGUSR1 喚醒 → controller 排空在飛 worker 後退出，
+        # launchd 載入新碼。零浪費（對比 kick 硬殺棄工作）。無 live controller（閒置）→ 直接 kick 起新碼。
+        from book_pipeline import pipeline_tick as pt
+        pt.request_reload()
+        if pt.wake_controller():
+            cs = code_status()
+            b = cs.get('behind')
+            stale = f'（目前落後 {b} commit）' if b else ''
+            print(f'🔄 已請求優雅 reload{stale}：controller 排空在飛 worker 後退出 → launchd 載入新碼（零浪費）')
+            print('   ≤StartInterval(15min) 內新碼上線；devctl status 的 code 變 HEAD 即完成。要立刻：改用 kick（硬殺、棄在飛工作）。')
+            return 0
+        uid = os.getuid()
+        r = subprocess.run(['launchctl', 'kickstart', f'gui/{uid}/{PLIST_LABEL}'])
+        print('🔄 無 live controller（閒置）→ 已 kick 起新碼' if r.returncode == 0
+              else f'reload 請求已下；kick 失敗 rc={r.returncode}（下個 StartInterval 自動載新碼）')
         return r.returncode
 
     if args.cmd == 'kick':

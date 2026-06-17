@@ -17,7 +17,8 @@ def _setup():
     pt.CRAWL_QUEUE = os.path.join(d, 'crawl_queue.json')
     pt.CRAWL_PLAN = os.path.join(d, 'crawl_plan.json')
     pt.CRAWL_REFILL_FORCE = os.path.join(d, 'crawl_refill_request')
-    pt.CONTROLLER_PID = os.path.join(d, '.controller.pid')
+    pt.CONTROLLER_STATE = os.path.join(d, '.controller.json')
+    pt.RELOAD_REQUEST = os.path.join(d, 'reload_request')
     pt.log = lambda *a, **k: None
     pt.hist.set_touched = lambda *a, **k: None
     from book_pipeline import devctl  # drain 內 import → 直接 stub 該函式
@@ -207,17 +208,30 @@ def test_force_refill_skip_when_full():
     print('✓ force refill：清單已滿 → 跳過派工但仍消費請求（不空叫 planner 找 0 本）')
 
 
-def test_controller_pid_roundtrip():
+def test_controller_state_roundtrip():
     _setup()
-    assert pt.controller_pid() is None               # 無 pidfile
+    assert pt.controller_info() is None              # 無 statefile
+    assert pt.controller_pid() is None
     assert pt.wake_controller() is False             # 無 controller → 不送、回 False（呼叫端改 kick）
-    pt._write_controller_pid()                        # 寫本進程 pid（活著）
+    pt._write_controller_state()                      # 寫本進程 pid + sha（活著）
+    info = pt.controller_info()
+    assert info and info['pid'] == os.getpid() and 'sha' in info  # 含版本 → 觀測「跑哪版碼」
     assert pt.controller_pid() == os.getpid()
-    open(pt.CONTROLLER_PID, 'w').write('999999')      # 必死 pid → 探活回 None
-    assert pt.controller_pid() is None
-    pt._clear_controller_pid()
-    assert pt.controller_pid() is None
-    print('✓ controller pid：寫/探活/死pid/清 四態正確（外部喚醒的定址基礎）')
+    json.dump({'pid': 999999, 'sha': 'dead'}, open(pt.CONTROLLER_STATE, 'w'))  # 必死 pid → 探活 None
+    assert pt.controller_info() is None
+    pt._clear_controller_state()
+    assert pt.controller_info() is None
+    print('✓ controller state：寫/探活/sha/死pid/清 正確（版本觀測 + 喚醒定址）')
+
+
+def test_reload_marker_roundtrip():
+    _setup()
+    assert pt._reload_pending() is False
+    pt.request_reload()
+    assert pt._reload_pending() is True               # 丟請求 → loop 下個 observe 認它優雅退出
+    pt._clear_reload()
+    assert pt._reload_pending() is False
+    print('✓ reload marker：request/peek/clear 三態正確（優雅 reload 信號）')
 
 
 def test_wake_controller_sends_signal():
@@ -227,13 +241,13 @@ def test_wake_controller_sends_signal():
     fired = []
     old = _sig.signal(_sig.SIGUSR1, lambda *a: fired.append(1))
     try:
-        pt._write_controller_pid()                    # pidfile 指向本進程
+        pt._write_controller_state()                  # statefile 指向本進程
         assert pt.wake_controller() is True           # 送 SIGUSR1 給自己
         _t.sleep(0.05)                                 # 讓 handler 跑
         assert fired, 'SIGUSR1 應觸發 handler（= reactive loop 的 wake.set）'
     finally:
         _sig.signal(_sig.SIGUSR1, old)
-        pt._clear_controller_pid()
+        pt._clear_controller_state()
     print('✓ wake_controller：os.kill SIGUSR1 端到端送達 controller（立即喚醒，不殺在飛 worker）')
 
 
@@ -250,6 +264,7 @@ if __name__ == '__main__':
     test_force_marker_roundtrip()
     test_force_refill_bypasses_watermark()
     test_force_refill_skip_when_full()
-    test_controller_pid_roundtrip()
+    test_controller_state_roundtrip()
+    test_reload_marker_roundtrip()
     test_wake_controller_sends_signal()
     print('\n全部通過 ✅')
