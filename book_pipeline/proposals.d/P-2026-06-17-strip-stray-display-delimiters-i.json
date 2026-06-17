@@ -1,0 +1,18 @@
+{
+  "id": "P-2026-06-17-strip-stray-display-delimiters-i",
+  "domain": "math",
+  "type": "normalize-rule",
+  "status": "proposed",
+  "title": "strip stray display delimiters inside math payload",
+  "detect": [
+    "\\] \\[ \\( \\)"
+  ],
+  "source": "math_sweep",
+  "resolution": "",
+  "created": "2026-06-17T18:49:21+00:00",
+  "updated": "2026-06-17T18:49:21+00:00",
+  "evidence": "cluster: \\] occ=3 books=3; \\( occ=3 books=1; all are in already-math payloads where mode delimiters become undefined residuals",
+  "proposal": "Layer 1 normalize: in normalize_tex, delete stray \\\\[ and \\\\] tokens; collapse stray \\\\( and \\\\) to literal parentheses inside math payload",
+  "risk": "May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any",
+  "disposition": ""
+}

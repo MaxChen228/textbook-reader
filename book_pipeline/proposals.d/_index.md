@@ -4,7 +4,7 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: math  （7 條；proposed=3）
+## domain: math  （8 條；proposed=4）
 
 ### P-2026-06-17-collapse-mathtype-slash-phantom- — Collapse MathType slash phantom/kern residue to /
 - proposed | type=normalize-rule | source=math_sweep | 偵測=\\kern,\\vphantom,\\mathord,\\left/
@@ -23,6 +23,12 @@
 - 證據：cluster undefined_macro occ=53 / 7 books; sampled all usages are letter N: N_2 in atkins/lindner/thijssen, integer N in rudin/goldstein, Gauss map N in do_carmo, norm N_{K/F} in dummit
 - 提議：Layer 1 normalize: replace exact control sequence \\Nu with literal N
 - 風險：Pseudo-macro collapse is safe only if corpus-wide usage is consistently Latin N; full-corpus gate must verify no collateral
+
+### P-2026-06-17-strip-stray-display-delimiters-i — strip stray display delimiters inside math payload
+- proposed | type=normalize-rule | source=math_sweep | 偵測=\] \[ \( \)
+- 證據：cluster: \] occ=3 books=3; \( occ=3 books=1; all are in already-math payloads where mode delimiters become undefined residuals
+- 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
+- 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
 ### P-2026-06-17-bgroup — \bgroup / \aftergroup / \egroup 群組噪訊收斂
 - accepted | type=normalize-rule | source=math_sweep | 偵測=\bgroup \egroup \aftergroup

@@ -52,6 +52,13 @@ TEX_CASES = [
      r"\frac {z _ {1}}{z _ {2}} = \frac {r _ {1}}{r _ {2}} \underline{\angle \phi_ {1} - \phi_ {2}}"),
     (r"G (j 0) = 1 \underline {{\left/ 0 ^ {\circ} \left. \right.}} \quad \text { and } \quad G \left(j \frac {1}{T}\right) = \frac {1}{\sqrt {2}} \underline {{\left/ - 4 5 ^ {\circ} \left. \right.}}",
      r"G (j 0) = 1 \underline{\angle 0 ^ {\circ}} \quad \text { and } \quad G \left(j \frac {1}{T}\right) = \frac {1}{\sqrt {2}} \underline{\angle - 4 5 ^ {\circ}}"),
+    # R8 stray mode/display delimiters inside math payload
+    (r"\pi_{4}(S^{2})\xrightarrow{\Sigma}\pi_{5}(S^{3})\longrightarrow 0\]\[\underset {\mathbb{Z}}{\overset{\mathfrak{u}}{\longrightarrow}}",
+     r"\pi_{4}(S^{2})\xrightarrow{\Sigma}\pi_{5}(S^{3})\longrightarrow 0\underset {\mathbb{Z}}{\overset{\mathfrak{u}}{\longrightarrow}}"),
+    (r"\begin{array}{c}\frac{1001}{10}\\\end{array}\]\[\text{Divisor } 1000",
+     r"\begin{array}{c}\frac{1001}{10}\\\end{array}\text{Divisor } 1000"),
+    (r"\(S)\S \* \ a", r"(S)\S \* \ a"),
+    (r"\(-M[row][col]/M[r][coV])]]", r"(-M[row][col]/M[r][coV])]]"),
 ]
 
 # 必須完全不動（正確 LaTeX / 巢狀 / 含空白的相鄰）
@@ -68,6 +75,7 @@ NOOP_CASES = [
     r"\mathopen{(} x \mathclose{)}",     # R5：獨立 \mathopen/\mathclose（無 \bgroup）合法，勿動
     r"\mathord{\cdot}",                  # R6：非 slash 殘體的 \mathord 勿動
     r"\underline{\angle \theta}",        # R7：已正確的 underlined angle 勿動
+    r"(x+y)[z]",                         # R8：正常括號/方括號不動
 ]
 
 

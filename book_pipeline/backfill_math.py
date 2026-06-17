@@ -15,7 +15,8 @@ import sys
 import traceback
 from collections import Counter
 
-from book_pipeline.apply_catalog_overrides import apply_overrides
+from book_pipeline.apply_catalog_overrides import apply_overrides as apply_catalog_overrides
+from book_pipeline.apply_math_overrides import apply_overrides as apply_math_overrides
 from book_pipeline.math_validate import (
     all_slugs,
     node_available,
@@ -85,15 +86,24 @@ def gate_verdict(before_by_slug: dict[str, dict | None],
 
 
 def _reparse(slug: str) -> str:
-    """重 parse + （有則）重套 catalog override。回狀態字串。"""
+    """重 parse + （有則）重套 catalog/math overrides。回狀態字串。"""
     parse_book(slug)
+    statuses = ["parsed"]
     try:
-        apply_overrides(slug)
-        return "parsed+overrides"
+        apply_catalog_overrides(slug)
+        statuses.append("catalog-overrides")
     except FileNotFoundError:
-        return "parsed"
+        pass
     except Exception as e:  # override 壞不該擋 backfill
-        return f"parsed (override ERR: {e})"
+        statuses.append(f"catalog-override ERR: {e}")
+    try:
+        apply_math_overrides(slug)
+        statuses.append("math-overrides")
+    except FileNotFoundError:
+        pass
+    except Exception as e:  # override 壞不該擋 backfill
+        statuses.append(f"math-override ERR: {e}")
+    return " + ".join(statuses)
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -264,6 +264,23 @@ def _collapse_underlined_angle(tex: str) -> str:
     return "".join(out)
 
 
+# ── R8：清除誤入數學 payload 的模式/顯示 delimiter 殘體 ────────────────────────
+# normalize_tex 處理的已是「進入數學模式後的裸 TeX」：此時 \[ \] \( \) 不再是合法 mode
+# switch，只會變成 undefined residual。OCR 常把 display 邊界殘留在 eq tex，或把字面括號
+# 誤讀成 \( / \)。修法：
+#   - \[ / \]：在已進入 math payload 後僅是包殼殘體，直接刪除。
+#   - \( / \)：在 math payload 內通常是括號 OCR 誤讀，折成字面 ( / )。
+# 正確式不會在裸 payload 內含這些 token；冪等。
+def _strip_mode_delimiter_residue(tex: str) -> str:
+    if not any(tok in tex for tok in (r"\[", r"\]", r"\(", r"\)")):
+        return tex
+    tex = tex.replace(r"\[", "")
+    tex = tex.replace(r"\]", "")
+    tex = tex.replace(r"\(", "(")
+    tex = tex.replace(r"\)", ")")
+    return tex
+
+
 # ── 規則目錄（有序套用）──────────────────────────────────────────────────────
 _TEX_RULES = (
     _fix_tag_math,
@@ -272,6 +289,7 @@ _TEX_RULES = (
     _remove_group_noise,
     _collapse_mathtype_slash,
     _collapse_underlined_angle,
+    _strip_mode_delimiter_residue,
 )
 
 
