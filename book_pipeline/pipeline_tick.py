@@ -98,10 +98,12 @@ CRAWL_REFILL_FORCE = os.path.join(BP, 'crawl_refill_request')
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
 HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
-# 數學式 corpus-level sweep（全 LLM 閉環，track-only，不 gate deploy）：收斂目標 = **真 0**。
+# 數學式 corpus-level sweep（逐條 override 待辦，track-only，不 gate deploy）：收斂目標 = **真 0**。
 # 棄舊棘輪門檻（max(100, 上次殘餘+GROWTH)——殘餘降到門檻下就永久停派、卡在非零）。新模型：只要
-# **residual_unaccepted = corpus 殘餘 − 已 accept（不可渲染）> 0** 就持續派 sweep（agent 自己寫
-# normalize 規則/macro/override + 真實數據閘自驗，人退出迴圈），直到真 0 或全數 accept。
+# **residual_unaccepted = corpus 殘餘 − 已 accept（不可渲染）> 0** 就持續派 sweep。agent 走 math_sweep
+# 三工具（list 讀待辦 / batch 批量改寫 / fix 單條），每條單式 render 驗證即落地 override，人退出迴圈，
+# 直到真 0 或全數 accept。**棄**舊「寫泛化規則→全 corpus gate（序列重渲染 30min+）」閉環——實測該 gate
+# 塞不進 50min walltime 必 timeout、殘餘永卡非零；且 95% 殘餘是單發式、泛化規則零槓桿（規則路徑降為稀有手段）。
 # 防 busy-loop 改靠 **fixpoint 偵測**（見 _sweep_decision）：上次 sweep 在相同 macros 下既沒降殘餘
 # 也沒改書、且此後 corpus 殘餘未變 → 原地踏步 → 不派，等外部變化（新書部署 / agent 改碼換 macros）。
 
@@ -153,26 +155,22 @@ LLM_PROMPTS = {
         "→ 產 book_pipeline/catalog_overrides/{slug}.json → apply_catalog_overrides → 重審，"
         "把 critical 降到最低（多數可全清零）。真不可修者（源頭缺）列入 _catalog_audit.md 即可收工。"),
     'math_sweep': (
-        "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，全 LLM 閉環）。"
-        "**嚴格遵照 .claude/skills/book-pipeline/references/math-sweep.md**（決策樹、閘、CLI、陷阱全在那）。"
-        "**目標＝真 0**：把 corpus 數學渲染殘餘（residual_unaccepted）收斂到 0。你**自己**完成整圈——"
-        "人不在迴圈裡；安全靠真實數據閘 + git 可回退，不靠人審。"
-        "(1) **眼睛**：`uv run python -m book_pipeline.math_validate --cluster --json`——看結構簇（同病灶跨書）"
-        "與 token_signals（最該寫規則的 OCR token）。由高 occ／多書往下做。"
-        "(2) **選修法**：跨多書同病灶 → 寫 Layer 1 規則（math_normalize.py，附 before/after fixture 進 "
-        "test_math_normalize.py）或 Layer 0 macro（math_macros.json，跑 build.gen_macros）；單書/規則的 "
-        "edge case/源文已毀 → per-book override（`apply_math_overrides make-override --slug <s> --index <i> "
-        "--new '<正確 tex>'` 自動填欄，只剩 new 要你判；併入 math_overrides/<slug>.json）。**你被授權改核心碼**。"
-        "(3) **真實數據閘（採用準則）**：每個變更跑 `uv run python -m book_pipeline.proposals gate`（全 corpus，"
-        "**不帶 slug**——規則是全域的）。準則：**嚴格淨降 且 無任一書殘餘上升**才算採用。任何規則必有 edge case，"
-        "閘會列出『好→壞 collateral』——**不要丟規則，對那幾條補 override** 再重跑，直到淨降且無上升。"
-        "code 變更先跑 test_math_normalize/test_math_macros；閘沒過就 `git checkout` 退掉該變更。"
-        "(4) **決策日誌 + self-resolve**：每條泛化修法用 `proposals propose … --source math_sweep` 記一筆，"
-        "閘過後 `proposals resolve <id> --status accepted --resolution '<規則名> 淨降N'` 自記（稽核軌跡）。"
-        "(5) **真 0 收斂**：閘綠的變更**自己 commit + 重烤受影響書上站**（build.build_all），反覆做直到 "
-        "residual_unaccepted=0。**唯有**源文已毀、連 override 成可渲染都做不到的極少數 → "
-        "`devctl math-accept --slug <s> --occ <n> --reason '<為何不可渲染>'`（§8，要留證；別為清零硬塞語意錯的式子）。"
-        "**絕不手改 parsed/*.json**（override 才是正解）；錯了 owner 一個 git revert 推平，放手做。"),
+        "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，逐條 override 待辦）。"
+        "**嚴格遵照 .claude/skills/book-pipeline/references/math-sweep.md**（CLI、判準、陷阱全在那）。"
+        "**目標＝真 0**：把 corpus 數學渲染殘餘（residual_unaccepted）收斂到 0。殘餘是**可列舉待辦清單**——"
+        "每條一個壞式，你只做不可化約判斷『這條壞 tex 該長什麼樣』，逐條 override 改寫（不污染原始數據）。"
+        "驗證是 O(單式)<1ms 的單條 render，不跑全 corpus gate。你**自己**完成整圈、人不在迴圈裡。"
+        "(1) **讀待辦**：`uv run python -m book_pipeline.math_sweep list --json`——每條含 gid/tex/err/occ。"
+        "(2) **改寫**：主力＝`uv run python -m book_pipeline.math_sweep batch`（批量打自架 LLM 逐條改寫、"
+        "render 守門 + retry，最省）；個別難條 → `sweep fix --gid <gid> --new '<正確 tex>'`（單條 render "
+        "驗證過才落地，沒過印 err 讓你重寫）。兩者都自動產 override 併入 math_overrides/<slug>.json、apply、重驗。"
+        "**絕不手改 parsed/*.json**。"
+        "(3) **真 0 收斂**：清完一輪 `sweep list` 確認待辦下降 → **重烤受影響書上站**（build.build_all）。"
+        "反覆做直到 residual_unaccepted=0。**唯有**源文已毀、連 override 成可渲染都做不到的極少數 → "
+        "`devctl math-accept --slug <s> --occ <n> --reason '<為何不可渲染>'`（要留證；別為清零硬塞語意錯的式子）。"
+        "(4) **稀有手段**（非預設）：若某 OCR token 跨極多書同病灶、逐條不划算 → 才考慮寫 Layer 1 規則"
+        "（math_normalize.py + test_math_normalize.py fixture）；但 95% 殘餘是單發式、泛化零槓桿，**預設走逐條**。"
+        "錯了 owner 一個 git revert 推平，放手做。"),
 }
 
 
@@ -1101,8 +1099,8 @@ def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
 
 def do_math_sweep(dry: bool) -> int:
     """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：
-    residual_unaccepted>0 且非 fixpoint → 派**一隻**跨書 sweep agent（全 LLM 閉環：自己寫
-    normalize 規則/macro/override + 真實數據閘自驗 + self-commit）→ daemon 把殘餘變動的書重烤上站
+    residual_unaccepted>0 且非 fixpoint → 派**一隻**跨書 sweep agent（逐條 override 待辦：math_sweep
+    list/batch/fix 單式 render 驗證即落地 override + self-commit）→ daemon 把殘餘變動的書重烤上站
     → 重量殘餘、記錄 sweep 狀態（before/after，供 fixpoint 判定）。
     回 0=完成/跳過、-2=LLM 撞額度（defer 下個 tick，不記狀態）。"""
     from book_pipeline import math_validate as mv
@@ -1140,8 +1138,9 @@ def do_math_sweep(dry: bool) -> int:
         if fresh or any(k.endswith(':applied') and v for k, v in stats.items()):
             rebake.add(slug)
             log(f'math sweep：{slug} {stats} → 重烤上站')
-    # normalize 規則/macro 修的書沒有 override → 靠「殘餘下降」補進 rebake（agent 閉環會跑 gate 重 parse
-    # 全 corpus，故 reports 已是最新；不重烤這些書 reader 看不到規則修復）。
+    # 稀有規則路徑：normalize 規則/macro 修的書沒有 override → 靠「殘餘下降」補進 rebake（該路徑會自跑
+    # backfill 重 parse + 重驗，reports 已最新；不重烤這些書 reader 看不到規則修復）。逐條 override 主路徑
+    # 由上面 mtime/applied 偵測涵蓋，math_sweep fix/batch 已逐書 validate_book 寫最新 report。
     for slug, after in mv.residual_by_book().items():
         if after < before_by_book.get(slug, after) and slug not in rebake:
             rebake.add(slug)

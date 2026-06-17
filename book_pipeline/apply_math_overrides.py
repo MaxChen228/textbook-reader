@@ -245,33 +245,10 @@ def merge_overrides(slug: str, new_ovs: list[dict[str, Any]]) -> dict[str, int]:
     return {"added": added, "replaced": replaced}
 
 
-def _make_override_main(argv: list[str]) -> int:
-    """make-override CLI：讀 live report 的某條 finding，產 override JSON 條目（印出，agent 自行併入
-    math_overrides/<slug>.json）。需 live 資料（parsed/_math_report.json + parsed chunk）。"""
-    from book_pipeline.math_validate import read_report
-    ap = argparse.ArgumentParser(prog='python -m book_pipeline.apply_math_overrides make-override')
-    ap.add_argument('--slug', required=True)
-    ap.add_argument('--index', type=int, required=True, help='_math_report.json findings 的索引')
-    ap.add_argument('--new', required=True, help='LLM 判定的正確 tex（inline 給裸 inner、eq 給裸 tex）')
-    args = ap.parse_args(argv)
-    rep = read_report(args.slug)
-    if not rep:
-        ap.error(f"無 report：{args.slug}")
-    findings = rep.get("findings") or []
-    if not 0 <= args.index < len(findings):
-        ap.error(f"index 越界（0..{len(findings) - 1}）")
-    finding = findings[args.index]
-    tgt = next(iter(finding.get("targets") or []), None)
-    field_value = _live_field_value(args.slug, tgt) if tgt else None
-    ov = finding_to_override(args.slug, finding, args.new, target=tgt, field_value=field_value)
-    print(json.dumps(ov, ensure_ascii=False, indent=2))
-    return 0
-
-
 def main() -> int:
+    # 逐條改寫已由 `math_sweep fix/batch` 接手（render 守門 + apply，嚴格優於舊 make-override 印 JSON
+    # 手動併入流程）；本 CLI 僅剩 apply：套 math_overrides/<slug>.json → parsed。
     argv = sys.argv[1:]
-    if argv and argv[0] == 'make-override':
-        return _make_override_main(argv[1:])
     ap = argparse.ArgumentParser(prog='python -m book_pipeline.apply_math_overrides')
     ap.add_argument('slug')
     args = ap.parse_args(argv)

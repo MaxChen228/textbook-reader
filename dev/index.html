@@ -547,7 +547,7 @@
     if (mathWorkers().length) return `sweeping 中 · 殘 ${m.corpus_bad_occ} occ`  // 正在掃 → 不再顯「待/尚未」自相矛盾
     const sw = m.last_sweep ? ` · 上次 ${relTime(m.last_sweep.at)} 改 ${(m.last_sweep.touched || []).length} 書`
                             : ' · 尚未 sweep'
-    // 收斂目標=真 0（residual_unaccepted）；due=false 的非零殘餘多為 fixpoint（規則修不動、已 accept 或卡住）
+    // 收斂目標=真 0（residual_unaccepted）；due=false 的非零殘餘多為 fixpoint（逐條改不動、已 accept 或卡住）
     const un = m.residual_unaccepted ?? m.corpus_bad_occ
     const health = m.due ? '🔴待 sweep' : (un > 0 ? '🟢fixpoint(卡)' : '🟢全淨')
     const acc = m.accepted_total ? `（已 accept ${m.accepted_total}）` : ''
@@ -636,7 +636,7 @@
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status ${m.due ? 'dr-st-wait' : 'dr-st-done'}">`
       + `${m.due ? '🔴 未解殘餘>0 · 待跨書 sweep（朝真 0）'
-                 : (m.reason === 'fixpoint' ? '🟢 fixpoint · 規則修不動，待 agent 改碼/accept 或外部變化'
+                 : (m.reason === 'fixpoint' ? '🟢 fixpoint · 逐條改不動，待 agent accept 或外部變化'
                     : (m.residual_unaccepted > 0 ? '🟢 卡住 · 未解殘餘'
                                                  : '🟢 全 corpus 數學皆可渲染（真 0）'))}</span>`
       + `<span>corpus <b>${m.corpus_bad_occ ?? '?'}</b> occ</span>`
