@@ -508,12 +508,13 @@ def do_crawl_parallel(dry: bool, cap: int | None = None) -> list[str]:
     if quota <= 0:
         log(f'crawl defer：水位名額 {cap} 已滿 → 本輪不爬')
         return []
+    total_rem = sum(max(0, a.get('remaining') or 0) for a in accts)
     slots = slots[:quota]
     try:
         os.remove(CRAWL_PLAN)
     except FileNotFoundError:
         pass
-    log(f'crawl plan dispatch：wishlist {len(topics)} 主題，本批名額 {quota}（額度剩 {len(accts) and sum(max(0,a.get("remaining") or 0) for a in accts)}，水位上限 {cap}）')
+    log(f'crawl plan dispatch：wishlist {len(topics)} 主題，本批名額 {quota}（額度剩 {total_rem}，水位上限 {cap}）')
     dispatch_llm('crawl_plan', None, dry=False, quota=quota)
     plan = _read_crawl_plan()
     if not plan:

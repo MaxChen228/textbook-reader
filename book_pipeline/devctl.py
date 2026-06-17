@@ -375,11 +375,7 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     backlog = pipeline 待消化深度；state 決定爬書站閒置文案。複用已算好的 books/zlib/workers，
     不重打網路。"""
     from book_pipeline import pipeline_tick as pt
-    ifl = bud.in_flight()
-    pending = sum(1 for r in books_snap['books']
-                  if r['slug'] not in ifl
-                  and [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')])
-    backlog = pending + len(ifl)
+    backlog = pt._crawl_backlog(books_snap['books'])  # 單一真相源（與控制迴圈同函式，防定義漂移）
     crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
     R = zlib_snap.get('total_remaining')
     if crawling:
