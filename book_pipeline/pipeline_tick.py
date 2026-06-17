@@ -51,6 +51,7 @@ ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
 LOCK = os.path.join(BP, '.tick.lock')
 LOG = os.path.join(BP, 'reports', 'daemon.log')
+STAGES_PATH = os.path.join(ROOT, 'dev', 'stages.json')  # live 階段快訊（單卡即時，繞 status.json 8s 節流）
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 # codex 派工後端：headless `codex exec --json`。兩條 codex provider：
@@ -197,6 +198,42 @@ def log(msg: str) -> None:
         with open(LOG, 'a') as f:
             f.write(line + '\n')
     _refresh_snapshot()
+
+
+# ── live 階段快訊（dev/stages.json）────────────────────────────────────────────
+# 書一轉換階段就把 {slug: stage} 寫進極小檔（不走 status.json 的 8s 全量節流），供 /dev 以
+# ~1.5s cadence 即時撿出單卡階段變化 + 閃示。**只寫 live 階段、不碰 timeline 歷史**（歷史單一
+# 寫手仍是 60s devsnapshot，見 devctl）→ controller 舊碼寫此檔不引入版本歪斜（與它本就在寫的
+# status.json live books[].stage 同性質）。controller 是此檔唯一寫手；前端用 generated_at_utc 守新舊。
+_stage_map: dict[str, str] = {}
+_stage_lock = threading.Lock()
+
+
+def _publish_stages(pairs) -> None:
+    """更新 in-memory 階段表，有變動才原子寫出 dev/stages.json。pairs = [(slug, stage), …]，冪等。"""
+    with _stage_lock:
+        changed = False
+        for slug, stage in pairs:
+            if stage and _stage_map.get(slug) != stage:
+                _stage_map[slug] = stage
+                changed = True
+        if not changed:
+            return
+        snap = {'generated_at_utc': datetime.now(timezone.utc).isoformat(),
+                'stages': dict(_stage_map)}
+    try:
+        os.makedirs(os.path.dirname(STAGES_PATH), exist_ok=True)
+        tmp = STAGES_PATH + '.tmp'
+        with open(tmp, 'w') as f:
+            json.dump(snap, f, ensure_ascii=False)
+        os.replace(tmp, STAGES_PATH)  # 原子替換，前端永不讀到半截
+    except Exception:
+        pass
+
+
+def emit_stage(slug: str, stage: str) -> None:
+    """單書階段轉換的最早可知點即時發佈（advance_book 每步呼叫；同階段不重寫）。"""
+    _publish_stages([(slug, stage)])
 
 
 def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
@@ -1207,6 +1244,7 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     for _ in range(max_steps):
         row = q.assess_one(slug)
         stage = row.get('stage', '') or ''
+        emit_stage(slug, stage)  # live 階段快訊：轉換最早可知點即時發佈（冪等）
         todo = row.get('todo', '—')
         # todo 可能多項空白分隔，含 (可選) 非阻塞項（已部署/已 accept 的 catalog、已部署的 sol、translate）。
         # 取第一個「非可選」項當下一步動作；全可選/無 → 本書收工。**不可**用 todo.split('(')[0]：
@@ -1261,6 +1299,7 @@ def _sorted_rows() -> list:
         parts = (r.get('stage') or '').split()
         return order.get(parts[0] if parts else '', 9)
     rows.sort(key=_ord)
+    _publish_stages([(r.get('slug', ''), r.get('stage', '') or '') for r in rows])  # 每 observe 全書階段快訊
     return rows
 
 

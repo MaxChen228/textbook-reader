@@ -131,6 +131,9 @@
     .reject-badge { position: absolute; left: 4px; top: 4px; z-index: 3; font-family: var(--mono);
       font-size: 9px; background: rgba(176,42,42,.88); color: #fff; padding: 1px 5px; border-radius: 4px; }
     .book.rejected .cv { opacity: .5; filter: grayscale(.5); }
+    @keyframes stageflash { 0% { box-shadow: 0 0 0 3px var(--accent), 0 0 16px 3px var(--accent); }
+                            100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
+    .book.stage-flash .cv { animation: stageflash 1.15s ease-out 1; }
     .dm-word { font-family: var(--mono); font-size: 12px; color: var(--ink-light); font-weight: 600; margin-left: 2px; }
     .book .ttl { font-family: var(--mono); font-size: 10px; color: var(--ink-light); margin-top: 4px; line-height: 1.25;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -315,9 +318,9 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200
-  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null
-  let last = null, lastWorkers = []
+  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200, STAGES_MS = 1500
+  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null
+  let last = null, lastWorkers = [], lastStageGen = ''
   let mathLive = null, mathHistory = []  // math sweep 即時串流快照 + 歷史批次（僅 math 抽屜開時輪詢）
   let mathHistOpen = new Set()           // 歷史批次展開的 batch 序號
   let openSlug = null   // 抽屜當前綁定的書
@@ -1117,6 +1120,28 @@
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
     if (openSlug || openWkey) renderDrawer()
   }
+  // live 階段快訊：~1.5s 撿 dev/stages.json（極小 {slug:stage}），單卡階段一變就地移 lane + 閃示，
+  // 不必等 8s 全量 status.json。stages.json 由 controller 在轉換瞬間寫（繞過 status 的 8s 節流）。
+  async function loadStages() {
+    if (!last || !last.books) return
+    let s
+    try { s = await fetchJson('stages.json?_=' + Date.now()) } catch { return }  // 尚無檔 / controller 未起
+    if (!s || !s.stages || !s.generated_at_utc) return
+    if (s.generated_at_utc === lastStageGen) return                                  // 無新版 → 不動
+    if (last.generated_at_utc && s.generated_at_utc < last.generated_at_utc) return  // 比剛撿的 status 還舊 → 跳過
+    lastStageGen = s.generated_at_utc
+    const flash = []
+    last.books.forEach(b => {
+      const ns = s.stages[b.slug]
+      if (ns != null && ns !== b.stage) { b.stage = ns; flash.push(b.slug) }
+    })
+    if (!flash.length) return
+    reconcileBooks(last)  // 複用既有 lane 移動 / 卡片更新邏輯（stationOf 純由 stage 驅動）
+    flash.forEach(sl => {
+      const el = document.querySelector('.book[data-slug="' + (window.CSS ? CSS.escape(sl) : sl) + '"]')
+      if (el) { el.classList.remove('stage-flash'); void el.offsetWidth; el.classList.add('stage-flash') }
+    })
+  }
   async function load() {
     const btn = document.getElementById('btn-refresh')
     btn.innerHTML = '<span class="spin">↻</span> refresh'
@@ -1129,9 +1154,10 @@
     if (!timer) timer = setInterval(load, REFRESH_MS)
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
     if (!workersTimer) workersTimer = setInterval(loadWorkers, WORKERS_MS)
+    if (!stagesTimer) stagesTimer = setInterval(loadStages, STAGES_MS)
   }
-  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); timer = clockTimer = workersTimer = null; stopMathRaw() }
-  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers() })
+  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); timer = clockTimer = workersTimer = stagesTimer = null; stopMathRaw() }
+  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages() })
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); start()
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); start(); if (openMath) startMathRaw() } })
