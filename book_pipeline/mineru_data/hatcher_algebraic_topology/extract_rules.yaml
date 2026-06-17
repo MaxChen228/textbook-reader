@@ -1,0 +1,90 @@
+slug: hatcher_algebraic_topology
+title: Algebraic Topology
+author: Allen Hatcher
+edition: null
+subject: Topology
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 2
+appendices_start_page: 527
+bibliography_start_page: 541
+index_start_page: 547
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Some Underlying Geometric Notions
+    page_start: 9
+    page_end: 28
+    chapter_title_block_idx: 100
+    problems_block_idx: null
+    next_chapter_block_idx: 341
+  - num: 1
+    title: The Fundamental Group
+    page_start: 29
+    page_end: 104
+    chapter_title_block_idx: 342
+    problems_block_idx: null
+    next_chapter_block_idx: 1204
+  - num: 2
+    title: Homology
+    page_start: 105
+    page_end: 192
+    chapter_title_block_idx: 1204
+    chapter_title_block_idx_secondary: 1205
+    problems_block_idx: null
+    next_chapter_block_idx: 2276
+  - num: 3
+    title: Cohomology
+    page_start: 193
+    page_end: 344
+    chapter_title_block_idx: 2276
+    chapter_title_block_idx_secondary: 2277
+    problems_block_idx: null
+    next_chapter_block_idx: 4081
+  - num: 4
+    title: Homotopy Theory
+    page_start: 345
+    page_end: 526
+    chapter_title_block_idx: 4081
+    chapter_title_block_idx_secondary: 4082
+    problems_block_idx: null
+    next_chapter_block_idx: 6191
+
+appendices:
+  - id: "A"
+    title: Topology of Cell Complexes
+    page_start: 527
+    chapter_title_block_idx: 6191
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+[a-z]?)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
