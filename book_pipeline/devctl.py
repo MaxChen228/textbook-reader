@@ -296,7 +296,12 @@ def books_status() -> dict:
     rows = []
     todos = []
     for s in slugs:
-        r = st.assess(s, pending, raw)
+        # 用 daemon 同款 assess_full（state-aware：認 qc/triage 拒、catalog accept、deploy gate）
+        # → dashboard 與 daemon 永不分歧（根治「看板顯示與實際派工不一致」的矛盾源）。
+        r = q.assess_full(s, pending, raw, state)
+        r.setdefault('prob', 0)
+        r.setdefault('sol', 0)
+        r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')
         r['title'] = _pretty_title(s)
         r['cover'] = _cover_url(s)
         # 觀測式時間軸：deployed-aware label（已部署 → 'deployed'，否則用 stage）→
