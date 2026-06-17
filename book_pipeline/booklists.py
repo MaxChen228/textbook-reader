@@ -206,6 +206,17 @@ def select_next(n: int, files: list[dict] | None = None, have: set | None = None
     return picks
 
 
+def has_unresolved(files: list[dict] | None = None, have: set | None = None,
+                   queued: set | None = None, resolution: dict | None = None) -> bool:
+    """是否還有 unresolved target（resolver 有事可做）。refill 用：ready 不足時要不要跑 resolver。"""
+    files = load_files() if files is None else files
+    have = have_slugs() if have is None else have
+    queued = queued_slugs() if queued is None else queued
+    resolution = load_resolution() if resolution is None else resolution
+    return any(status_of(t['slug'], have, queued, resolution) == UNRESOLVED
+               for t in targets(files))
+
+
 def progress(files: list[dict] | None = None, have: set | None = None,
              queued: set | None = None, resolution: dict | None = None) -> dict:
     """各領域 + 整體的狀態統計（dev 頁收錄進度）。"""

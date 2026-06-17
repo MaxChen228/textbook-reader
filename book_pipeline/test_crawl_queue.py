@@ -132,36 +132,30 @@ def test_refill_cooldown_blocks_churn():
 def test_refill_merge_dedup():
     _setup()
     _write_queue([_q('queued1')])
-    pt._have_slugs = lambda: {'owned1'}
-    pt._wishlist_pending = lambda: ['topic']
-    # 模擬 planner：寫 crawl_plan.json（含已排隊/已有/非法/新書各一）→ daemon 端 merge 只收新書
-    def _stub_dispatch(*a, **k):
-        json.dump({'books': [{'slug': 'queued1', 'id': '9', 'hash': 'z'},
-                             {'slug': 'owned1', 'id': '9', 'hash': 'z'},
-                             {'slug': 'Bad Slug', 'id': '9', 'hash': 'z'},
-                             {'slug': 'good1', 'id': '9', 'hash': 'z'}], 'reason': 'x'},
-                  open(pt.CRAWL_PLAN, 'w'))
-        return 0
-    pt.dispatch_llm = _stub_dispatch
+    pt.booklists.have_slugs = lambda: {'owned1'}
+    pt.booklists.has_unresolved = lambda *a, **k: False
+    # 模擬書單 select_next 回（已排隊/已有/非法/新書各一）→ daemon 端 merge 只收新書
+    pt.booklists.select_next = lambda n, *a, **k: [
+        {'slug': 'queued1', 'id': '9', 'hash': 'z', 'title': 'x'},
+        {'slug': 'owned1', 'id': '9', 'hash': 'z', 'title': 'x'},
+        {'slug': 'Bad Slug', 'id': '9', 'hash': 'z', 'title': 'x'},
+        {'slug': 'good1', 'id': '9', 'hash': 'z', 'title': 'x'}]
     added = pt.refill_crawl_queue(dry=False)
     assert added == 1, added
     assert sorted(b['slug'] for b in _read_queue()) == ['good1', 'queued1']
-    print('✓ refill：daemon 端 merge 去重（清單已有/inventory已有/非法 slug 全擋，只新書進）')
+    print('✓ refill：merge 去重（清單已有/inventory已有/非法 slug 全擋，只新書進）')
 
 
 def test_refill_exhaust_sets_cooldown():
     _setup()
     _write_queue([])
-    pt._have_slugs = lambda: set()
-    pt._wishlist_pending = lambda: ['topic']
-    def _stub_empty(*a, **k):
-        json.dump({'books': [], 'reason': 'wishlist 已覆蓋'}, open(pt.CRAWL_PLAN, 'w'))  # 補不到
-        return 0
-    pt.dispatch_llm = _stub_empty
+    pt.booklists.have_slugs = lambda: set()
+    pt.booklists.select_next = lambda n, *a, **k: []        # 無 ready 可補
+    pt.booklists.has_unresolved = lambda *a, **k: False     # 也無 unresolved → 不跑 resolver
     added = pt.refill_crawl_queue(dry=False)
     assert added == 0
     assert json.load(open(pt.CRAWL_QUEUE))['refill_exhausted_at'] is not None  # 進冷卻
-    print('✓ refill：planner 補不滿 → 寫入冷卻時戳（下次 _refill_due 看它收斂）')
+    print('✓ refill：書單補不出 ready（剩 review/absent）→ 寫冷卻時戳（下次 _refill_due 收斂）')
 
 
 def test_force_marker_roundtrip():
@@ -178,13 +172,10 @@ def test_force_refill_bypasses_watermark():
     _setup()
     _write_queue([_q(f's{i}') for i in range(pt.CRAWL_LOW)])  # 清單滿水位 → _refill_due False
     pt._have_slugs = lambda: set()
+    pt.booklists.have_slugs = lambda: set()
     pt._crawl_backlog = lambda rows: pt.CRAWL_HIGH           # room=0 → 買書員 hold（純測 refill 由 marker 觸發）
-    pt._wishlist_pending = lambda: ['topic']
-    def _stub(*a, **k):
-        json.dump({'books': [{'slug': 'forced1', 'id': '9', 'hash': 'z'}], 'reason': 'x'},
-                  open(pt.CRAWL_PLAN, 'w'))
-        return 0
-    pt.dispatch_llm = _stub
+    pt.booklists.has_unresolved = lambda *a, **k: False
+    pt.booklists.select_next = lambda n, *a, **k: [{'slug': 'forced1', 'id': '9', 'hash': 'z', 'title': 'x'}]
     assert pt._refill_due() is False                         # 水位之上：正常不會補
     pt.request_refill()                                       # 手動強制
     pt.do_crawl_tick(dry=False, rows=[])
@@ -197,15 +188,15 @@ def test_force_refill_skip_when_full():
     _setup()
     _write_queue([_q(f's{i}') for i in range(pt.CRAWL_HIGH)])  # 清單已滿 HIGH → want<=0
     pt._have_slugs = lambda: set()
+    pt.booklists.have_slugs = lambda: set()
     pt._crawl_backlog = lambda rows: pt.CRAWL_HIGH
-    pt._wishlist_pending = lambda: ['topic']
-    def _no_dispatch(*a, **k): raise AssertionError('清單已滿不該派 planner 找 0 本')
-    pt.dispatch_llm = _no_dispatch
+    def _no_select(*a, **k): raise AssertionError('清單已滿不該 select_next 找 0 本')
+    pt.booklists.select_next = _no_select
     pt.request_refill()
     pt.do_crawl_tick(dry=False, rows=[])                       # 不該拋（want<=0 守衛擋下）
     assert len(_read_queue()) == pt.CRAWL_HIGH                 # 清單原封
     assert pt._refill_force_pending() is False                # 請求仍消費（已盡力、別重試空轉）
-    print('✓ force refill：清單已滿 → 跳過派工但仍消費請求（不空叫 planner 找 0 本）')
+    print('✓ force refill：清單已滿 → 跳過補貨但仍消費請求（不空叫 select_next 找 0 本）')
 
 
 def test_controller_state_roundtrip():
