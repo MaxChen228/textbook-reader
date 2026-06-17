@@ -1,0 +1,67 @@
+{
+  "overrides": [
+    {
+      "id": "peskin-deltaL-ch03-body523",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[523]",
+      "field": "md",
+      "anchor": "fbbf0113",
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$",
+      "all": true
+    },
+    {
+      "id": "peskin-deltaL-ch11-body282",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[282]",
+      "field": "md",
+      "anchor": "78faa28a",
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$"
+    },
+    {
+      "id": "peskin-gamma-prime-text-ch05-body42",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[42]",
+      "expect": "\\operatorname{tr} (\\text {any odd \\# of \\gamma^{\\prime} s}) = 0",
+      "new": "\\operatorname{tr} (\\text {any odd \\# of } \\gamma^{\\prime} \\text { s}) = 0"
+    },
+    {
+      "id": "peskin-gamma-prime-text-appA-body71",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[71]",
+      "expect": "\\operatorname{tr} (\\text {any odd \\# of \\gamma^{\\prime} s}) = 0",
+      "new": "\\operatorname{tr} (\\text {any odd \\# of } \\gamma^{\\prime} \\text { s}) = 0"
+    },
+    {
+      "id": "peskin-overline-phi-ch04-body134",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[134]",
+      "expect": "\\overline {{\\phi (x) \\phi}} (y) \\equiv \\left\\{ \\begin{array}{l l} {\\left[ \\phi^ {+} (x), \\phi^ {-} (y) \\right]} & \\text {for x^{0} > y^{0}}; \\\\ {\\left[ \\phi^ {+} (y), \\phi^ {-} (x) \\right]} & \\text {for y^{0} > x^{0}}. \\end{array} \\right. \\tag {4.35}",
+      "new": "\\overline {{\\phi (x) \\phi}} (y) \\equiv \\left\\{ \\begin{array}{l l} {\\left[ \\phi^ {+} (x), \\phi^ {-} (y) \\right]} & \\text {for } x^{0} > y^{0}; \\\\ {\\left[ \\phi^ {+} (y), \\phi^ {-} (x) \\right]} & \\text {for } y^{0} > x^{0}. \\end{array} \\right. \\tag {4.35}"
+    },
+    {
+      "id": "peskin-underset-circle-sub-j-ch11-body182",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[182]",
+      "expect": "\\underset {i} {\\bigcirc} _ {j} = \\frac {1}{2} (- 2 i \\lambda \\delta^ {i j}) \\int \\frac {d ^ {d} k}{(2 \\pi) ^ {d}} \\frac {i}{k ^ {2} - 2 \\mu^ {2}} = - i \\lambda \\delta^ {i j} \\frac {\\Gamma (1 - \\frac {d}{2})}{(4 \\pi) ^ {d / 2}} \\Big (\\frac {1}{2 \\mu^ {2}} \\Big) ^ {1 - \\frac {d}{2}}.",
+      "new": "\\underset {i} {\\bigcirc_{j}} = \\frac {1}{2} (- 2 i \\lambda \\delta^ {i j}) \\int \\frac {d ^ {d} k}{(2 \\pi) ^ {d}} \\frac {i}{k ^ {2} - 2 \\mu^ {2}} = - i \\lambda \\delta^ {i j} \\frac {\\Gamma (1 - \\frac {d}{2})}{(4 \\pi) ^ {d / 2}} \\Big (\\frac {1}{2 \\mu^ {2}} \\Big) ^ {1 - \\frac {d}{2}}."
+    },
+    {
+      "id": "peskin-F-A-b-ch20-body373",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[373]",
+      "field": "md",
+      "anchor": "30943ddd",
+      "old": "$F_A_b$",
+      "new": "$F_{A b}$"
+    }
+  ]
+}

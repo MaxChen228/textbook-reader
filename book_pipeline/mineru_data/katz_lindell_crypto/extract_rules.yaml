@@ -1,0 +1,166 @@
+# extract_rules.yaml — katz_lindell_crypto
+# Deterministic audit-book output from unified/content_list.json only.
+
+slug: katz_lindell_crypto
+title: Introduction to Modern Cryptography
+author: Jonathan Katz; Yehuda Lindell
+edition: 3rd
+subject: Cryptography
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 23
+appendices_start_page: 589
+bibliography_start_page: 617
+index_start_page: 633
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 23
+    page_end: 44
+    chapter_title_block_idx: 363
+    problems_block_idx: 559
+    next_chapter_block_idx: 575
+  - num: 2
+    title: Perfectly Secret Encryption
+    page_start: 45
+    page_end: 64
+    chapter_title_block_idx: 575
+    problems_block_idx: 739
+    next_chapter_block_idx: 801
+  - num: 3
+    title: Private-Key Encryption
+    page_start: 65
+    page_end: 126
+    chapter_title_block_idx: 801
+    problems_block_idx: 1430
+    next_chapter_block_idx: 1504
+  - num: 4
+    title: Message Authentication Codes
+    page_start: 127
+    page_end: 166
+    chapter_title_block_idx: 1504
+    problems_block_idx: 1941
+    next_chapter_block_idx: 2000
+  - num: 5
+    title: CCA-Security and Authenticated Encryption
+    page_start: 167
+    page_end: 187
+    chapter_title_block_idx: 2000
+    problems_block_idx: 2207
+    next_chapter_block_idx: 2224
+  - num: 6
+    title: Hash Functions and Applications
+    page_start: 188
+    page_end: 226
+    chapter_title_block_idx: 2224
+    problems_block_idx: 2590
+    next_chapter_block_idx: 2622
+  - num: 7
+    title: Practical Constructions of Symmetric-Key Primitives
+    page_start: 227
+    page_end: 279
+    chapter_title_block_idx: 2622
+    problems_block_idx: 3099
+    next_chapter_block_idx: 3175
+  - num: 8
+    title: "*Theoretical Constructions of Symmetric-Key Primitives"
+    page_start: 280
+    page_end: 322
+    chapter_title_block_idx: 3175
+    problems_block_idx: 3669
+    next_chapter_block_idx: 3713
+  - num: 9
+    title: Number Theory and Cryptographic Hardness Assumptions
+    page_start: 323
+    page_end: 381
+    chapter_title_block_idx: 3713
+    problems_block_idx: 4502
+    next_chapter_block_idx: 4569
+  - num: 10
+    title: "*Algorithms for Factoring and Computing Discrete Logarithms"
+    page_start: 382
+    page_end: 400
+    chapter_title_block_idx: 4569
+    problems_block_idx: 4791
+    next_chapter_block_idx: 4813
+  - num: 11
+    title: Key Management and the Public-Key Revolution
+    page_start: 401
+    page_end: 416
+    chapter_title_block_idx: 4813
+    problems_block_idx: 4946
+    next_chapter_block_idx: 4961
+  - num: 12
+    title: Public-Key Encryption
+    page_start: 417
+    page_end: 478
+    chapter_title_block_idx: 4961
+    problems_block_idx: 5701
+    next_chapter_block_idx: 5755
+  - num: 13
+    title: Digital Signature Schemes
+    page_start: 479
+    page_end: 513
+    chapter_title_block_idx: 5755
+    problems_block_idx: 6121
+    next_chapter_block_idx: 6140
+  - num: 14
+    title: "*Quantum-Secure Cryptography"
+    page_start: 514
+    page_end: 539
+    chapter_title_block_idx: 6140
+    problems_block_idx: 6446
+    next_chapter_block_idx: 6461
+  - num: 15
+    title: "*Advanced Topics in Public-Key Encryption"
+    page_start: 540
+    page_end: 588
+    chapter_title_block_idx: 6461
+    problems_block_idx: 7070
+    next_chapter_block_idx: 7163
+
+appendices:
+  - id: A
+    title: Mathematical Background
+    page_start: 589
+    chapter_title_block_idx: 7163
+  - id: B
+    title: Basic Algorithmic Number Theory
+    page_start: 600
+    chapter_title_block_idx: 7326
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+heading_text_level: 2
+
+problem_start_re: '^((?:\d+\.\d+|\d+))\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(References|Index)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([A-Z]?\.?[0-9]+(?:\.[0-9]+)?[a-z]?)\s*\}'
+
+example_start_re: '^Example\s+([A-Z]?\.?\d+(?:\.\d+)?)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

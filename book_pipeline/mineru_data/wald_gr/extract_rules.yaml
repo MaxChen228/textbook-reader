@@ -1,0 +1,171 @@
+slug: wald_gr
+title: General Relativity
+author: Robert M. Wald
+edition: null
+subject: General Relativity
+publisher: The University of Chicago Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 437
+bibliography_start_page: null
+index_start_page: 499
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 24
+    chapter_title_block_idx: 97
+    problems_block_idx: 154
+    next_chapter_block_idx: 161
+  - num: 2
+    title: Manifolds and Tensor Fields
+    page_start: 25
+    page_end: 42
+    chapter_title_block_idx: 161
+    problems_block_idx: 330
+    next_chapter_block_idx: 372
+  - num: 3
+    title: Curvature
+    page_start: 43
+    page_end: 68
+    chapter_title_block_idx: 372
+    problems_block_idx: 726
+    next_chapter_block_idx: 753
+  - num: 4
+    title: Einstein's Equation
+    page_start: 69
+    page_end: 104
+    chapter_title_block_idx: 753
+    problems_block_idx: 1183
+    next_chapter_block_idx: 1213
+  - num: 5
+    title: Homogeneous, Isotropic Cosmology
+    page_start: 105
+    page_end: 131
+    chapter_title_block_idx: 1213
+    problems_block_idx: 1463
+    next_chapter_block_idx: 1481
+  - num: 6
+    title: The Schwarzschild Solution
+    page_start: 132
+    page_end: 172
+    chapter_title_block_idx: 1481
+    problems_block_idx: 1989
+    next_chapter_block_idx: 2010
+  - num: 7
+    title: Methods for Solving Einstein's Equation
+    page_start: 175
+    page_end: 201
+    chapter_title_block_idx: 2010
+    problems_block_idx: 2387
+    next_chapter_block_idx: 2397
+  - num: 8
+    title: Causal Structure
+    page_start: 202
+    page_end: 224
+    chapter_title_block_idx: 2397
+    problems_block_idx: 2625
+    next_chapter_block_idx: 2640
+  - num: 9
+    title: Singularities
+    page_start: 225
+    page_end: 256
+    chapter_title_block_idx: 2640
+    problems_block_idx: 2981
+    next_chapter_block_idx: 2989
+  - num: 10
+    title: The Initial Value Formulation
+    page_start: 257
+    page_end: 282
+    chapter_title_block_idx: 2989
+    problems_block_idx: 3250
+    next_chapter_block_idx: 3266
+  - num: 11
+    title: Asymptotic Flatness
+    page_start: 283
+    page_end: 311
+    chapter_title_block_idx: 3266
+    problems_block_idx: 3495
+    next_chapter_block_idx: 3521
+  - num: 12
+    title: Black Holes
+    page_start: 312
+    page_end: 353
+    chapter_title_block_idx: 3521
+    problems_block_idx: 3932
+    next_chapter_block_idx: 3945
+  - num: 13
+    title: Spinors
+    page_start: 354
+    page_end: 391
+    chapter_title_block_idx: 3945
+    problems_block_idx: 4382
+    next_chapter_block_idx: 4405
+  - num: 14
+    title: Quantum Effects in Strong Gravitational Fields
+    page_start: 392
+    page_end: 436
+    chapter_title_block_idx: 4405
+    problems_block_idx: 4764
+    next_chapter_block_idx: 4799
+
+appendices:
+  - id: A
+    title: Topological Spaces
+    page_start: 437
+    chapter_title_block_idx: 4799
+  - id: B
+    title: Differential Forms, Integration, and Frobenius's Theorem
+    page_start: 442
+    chapter_title_block_idx: 4852
+  - id: C
+    title: Maps of Manifolds, Lie Derivatives, and Killing Fields
+    page_start: 451
+    chapter_title_block_idx: 4983
+  - id: D
+    title: Conformal Transformations
+    page_start: 459
+    chapter_title_block_idx: 5103
+  - id: E
+    title: Lagrangian and Hamiltonian Formulations of General Relativity
+    page_start: 464
+    chapter_title_block_idx: 5167
+  - id: F
+    title: Units and Dimensions
+    page_start: 484
+    chapter_title_block_idx: 5434
+
+section_re: '^((?:\\d+\\.[0-9A-Za-z]+)|(?:[A-Z]\\.[0-9A-Za-z]+))\\s+(.+)$'
+subsection_re: '^((?:\\d+|[A-Z])\\.[0-9A-Za-z]+\\.[0-9A-Za-z]+)\\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\\d+)\\.\\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\\\tag\\s*\\{((?:[A-Z]|\\d+)(?:\\.\\d+)+(?:[a-z])?)\\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

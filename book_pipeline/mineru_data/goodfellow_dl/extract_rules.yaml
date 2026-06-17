@@ -1,0 +1,214 @@
+# Deep Learning — extract_rules
+# Deterministic audit-book output from unified/content_list.json only.
+# Metadata fields follow book_pipeline/metadata_schema.yaml.
+
+slug: goodfellow_dl
+title: Deep Learning
+author: Ian Goodfellow; Yoshua Bengio; Aaron Courville
+edition: null
+subject: Machine Learning
+publisher: MIT Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 734
+bibliography_start_page: 734
+index_start_page: 791
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 45
+    chapter_title_block_idx: 135
+    chapter_title_block_idx_secondary: 136
+    problems_block_idx: null
+    next_chapter_block_idx: 305
+  - num: 2
+    title: Linear Algebra
+    page_start: 46
+    page_end: 67
+    chapter_title_block_idx: 305
+    chapter_title_block_idx_secondary: 306
+    problems_block_idx: null
+    next_chapter_block_idx: 610
+  - num: 3
+    title: Probability and Information Theory
+    page_start: 68
+    page_end: 94
+    chapter_title_block_idx: 610
+    chapter_title_block_idx_secondary: 611
+    problems_block_idx: null
+    next_chapter_block_idx: 907
+  - num: 4
+    title: Numerical Computation
+    page_start: 95
+    page_end: 112
+    chapter_title_block_idx: 907
+    chapter_title_block_idx_secondary: 908
+    problems_block_idx: null
+    next_chapter_block_idx: 1082
+  - num: 5
+    title: Machine Learning Basics
+    page_start: 113
+    page_end: 180
+    chapter_title_block_idx: 1082
+    chapter_title_block_idx_secondary: 1083
+    problems_block_idx: null
+    next_chapter_block_idx: 1732
+  - num: 6
+    title: Deep Feedforward Networks
+    page_start: 181
+    page_end: 240
+    chapter_title_block_idx: 1732
+    chapter_title_block_idx_secondary: 1733
+    problems_block_idx: null
+    next_chapter_block_idx: 2297
+  - num: 7
+    title: Regularization for Deep Learning
+    page_start: 241
+    page_end: 287
+    chapter_title_block_idx: 2297
+    chapter_title_block_idx_secondary: 2298
+    problems_block_idx: null
+    next_chapter_block_idx: 2748
+  - num: 8
+    title: Optimization for Training Deep Models
+    page_start: 288
+    page_end: 342
+    chapter_title_block_idx: 2748
+    chapter_title_block_idx_secondary: 2749
+    problems_block_idx: null
+    next_chapter_block_idx: 3205
+  - num: 9
+    title: Convolutional Networks
+    page_start: 343
+    page_end: 383
+    chapter_title_block_idx: 3205
+    chapter_title_block_idx_secondary: 3206
+    problems_block_idx: null
+    next_chapter_block_idx: 3492
+  - num: 10
+    title: "Sequence Modeling: Recurrent and Recursive Nets"
+    page_start: 384
+    page_end: 432
+    chapter_title_block_idx: 3492
+    chapter_title_block_idx_secondary: 3493
+    problems_block_idx: null
+    next_chapter_block_idx: 3879
+  - num: 11
+    title: Practical Methodology
+    page_start: 433
+    page_end: 454
+    chapter_title_block_idx: 3879
+    chapter_title_block_idx_secondary: 3880
+    problems_block_idx: null
+    next_chapter_block_idx: 4054
+  - num: 12
+    title: Applications
+    page_start: 455
+    page_end: 501
+    chapter_title_block_idx: 4054
+    chapter_title_block_idx_secondary: 4055
+    problems_block_idx: null
+    next_chapter_block_idx: 4412
+  - num: 13
+    title: Linear Factor Models
+    page_start: 502
+    page_end: 515
+    chapter_title_block_idx: 4412
+    chapter_title_block_idx_secondary: 4413
+    problems_block_idx: null
+    next_chapter_block_idx: 4540
+  - num: 14
+    title: Autoencoders
+    page_start: 516
+    page_end: 540
+    chapter_title_block_idx: 4540
+    chapter_title_block_idx_secondary: 4541
+    problems_block_idx: null
+    next_chapter_block_idx: 4749
+  - num: 15
+    title: Representation Learning
+    page_start: 541
+    page_end: 571
+    chapter_title_block_idx: 4749
+    chapter_title_block_idx_secondary: 4750
+    problems_block_idx: null
+    next_chapter_block_idx: 4951
+  - num: 16
+    title: Structured Probabilistic Models for Deep Learning
+    page_start: 572
+    page_end: 603
+    chapter_title_block_idx: 4951
+    chapter_title_block_idx_secondary: 4952
+    problems_block_idx: null
+    next_chapter_block_idx: 5201
+  - num: 17
+    title: Monte Carlo Methods
+    page_start: 604
+    page_end: 619
+    chapter_title_block_idx: 5201
+    chapter_title_block_idx_secondary: 5202
+    problems_block_idx: null
+    next_chapter_block_idx: 5346
+  - num: 18
+    title: Confronting the Partition Function
+    page_start: 620
+    page_end: 645
+    chapter_title_block_idx: 5346
+    chapter_title_block_idx_secondary: 5347
+    problems_block_idx: null
+    next_chapter_block_idx: 5615
+  - num: 19
+    title: Approximate Inference
+    page_start: 646
+    page_end: 667
+    chapter_title_block_idx: 5615
+    chapter_title_block_idx_secondary: 5616
+    problems_block_idx: null
+    next_chapter_block_idx: 5857
+  - num: 20
+    title: Deep Generative Models
+    page_start: 668
+    page_end: 733
+    chapter_title_block_idx: 5857
+    chapter_title_block_idx_secondary: 5858
+    problems_block_idx: null
+    next_chapter_block_idx: 6473
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+(?:\.\d+){2,})\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?!)()$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:FIGURE|Figure|Fig\.|TABLE|Table)\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z])?[.:]'
+
+known_missing_problems: []

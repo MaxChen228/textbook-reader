@@ -1,0 +1,86 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "2.4",
+      "classification": "external",
+      "reason": "The sentence explicitly cites Figure 2.4 of Deng and Yu (2014), which is an external survey rather than an in-book figure target.",
+      "where": "ch12.json body[84]",
+      "evidence": "The text says “see figure 2.4 of Deng and Yu [2014]”."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "goodfellow-dl-fig-6.8",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[250]",
+      "expect": {
+        "t": "fig",
+        "src": "152973c58cdeb0f820e3844bc1b876ed85018813f11fdb5ef90415f91cb416e0.jpg",
+        "id": "fig-6.9",
+        "caption": "(a)"
+      },
+      "set": {
+        "id": "fig-6.8",
+        "caption": "Figure 6.8",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "The prose references Figure 6.8 immediately before this three-panel computational-graph sequence; OCR lost the shared caption and incorrectly attached the next figure number."
+    },
+    {
+      "id": "goodfellow-dl-fig-10.13",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[145]",
+      "expect": {
+        "t": "fig",
+        "src": "ae0e4ba94d63210fefca6bd795fe1ac820d07a5745d34f3835f7524d59d41039.jpg",
+        "id": "fig-10.14",
+        "caption": "(a)"
+      },
+      "set": {
+        "id": "fig-10.13",
+        "caption": "Figure 10.13",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "The discussion in ch10 body[151] cites Figure 10.13 / 10.13a / 10.13b / 10.13c; this first panel is the intended anchor for the shared multi-panel figure, while the auto-repair drifted to Figure 10.14."
+    },
+    {
+      "id": "goodfellow-dl-fig-16.8",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[90]",
+      "expect": {
+        "t": "fig",
+        "src": "6a67e08e46a0bdb4ba27ccaea8c87066828d5947d5bbd390b79a125046c7d13a.jpg",
+        "id": "fig-16.9",
+        "caption": "(a)"
+      },
+      "set": {
+        "id": "fig-16.8",
+        "caption": "Figure 16.8",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "Section 16.2.5 points to Figure 16.8 as the guide to active paths in directed models; OCR split that figure into unlabeled panels and shifted the following Figure 16.9 number onto them."
+    },
+    {
+      "id": "goodfellow-dl-fig-20.1",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[19]",
+      "expect": {
+        "t": "fig",
+        "src": "4ff404cb707d15f0a9411238997297d189ed8b7f5986d3b5d22b8ce4f44dce75.jpg",
+        "id": "fig-20.2",
+        "caption": "(a)"
+      },
+      "set": {
+        "id": "fig-20.1",
+        "caption": "Figure 20.1",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "reason": "The RBM introduction cites Figure 20.1 / 20.1a / 20.1b; the shared caption is missing from OCR and the next Figure 20.2 number was incorrectly propagated onto the subpanels."
+    }
+  ]
+}

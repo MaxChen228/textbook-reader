@@ -1,0 +1,155 @@
+slug: nielsen_chuang
+title: Quantum Computation and Quantum Information
+author: Michael A. Nielsen; Isaac L. Chuang
+edition: null
+subject: Quantum Information
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 34
+appendices_start_page: 641
+bibliography_start_page: 682
+index_start_page: 698
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction and overview
+    page_start: 34
+    page_end: 92
+    chapter_title_block_idx: 356
+    problems_block_idx: null
+    next_chapter_block_idx: 950
+  - num: 2
+    title: Introduction to quantum mechanics
+    page_start: 93
+    page_end: 152
+    chapter_title_block_idx: 950
+    problems_block_idx: null
+    next_chapter_block_idx: 1861
+  - num: 3
+    title: Introduction to computer science
+    page_start: 153
+    page_end: 203
+    chapter_title_block_idx: 1861
+    problems_block_idx: null
+    next_chapter_block_idx: 2328
+  - num: 4
+    title: Quantum circuits
+    page_start: 204
+    page_end: 248
+    chapter_title_block_idx: 2328
+    problems_block_idx: null
+    next_chapter_block_idx: 2921
+  - num: 5
+    title: The quantum Fourier transform and its applications
+    page_start: 249
+    page_end: 280
+    chapter_title_block_idx: 2921
+    problems_block_idx: null
+    next_chapter_block_idx: 3352
+  - num: 6
+    title: Quantum search algorithms
+    page_start: 281
+    page_end: 309
+    chapter_title_block_idx: 3352
+    problems_block_idx: null
+    next_chapter_block_idx: 3690
+  - num: 7
+    title: "Quantum computers: physical realization"
+    page_start: 310
+    page_end: 385
+    chapter_title_block_idx: 3690
+    problems_block_idx: null
+    next_chapter_block_idx: 4603
+  - num: 8
+    title: Quantum noise and quantum operations
+    page_start: 386
+    page_end: 431
+    chapter_title_block_idx: 4603
+    problems_block_idx: null
+    next_chapter_block_idx: 5273
+  - num: 9
+    title: Distance measures for quantum information
+    page_start: 432
+    page_end: 457
+    chapter_title_block_idx: 5273
+    problems_block_idx: null
+    next_chapter_block_idx: 5713
+  - num: 10
+    title: Quantum error-correction
+    page_start: 458
+    page_end: 532
+    chapter_title_block_idx: 5713
+    problems_block_idx: null
+    next_chapter_block_idx: 6535
+  - num: 11
+    title: Entropy and information
+    page_start: 533
+    page_end: 560
+    chapter_title_block_idx: 6535
+    problems_block_idx: null
+    next_chapter_block_idx: 7025
+  - num: 12
+    title: Quantum information theory
+    page_start: 561
+    page_end: 640
+    chapter_title_block_idx: 7025
+    problems_block_idx: null
+    next_chapter_block_idx: 8073
+
+appendices:
+  - id: "1"
+    title: Notes on basic probability theory
+    page_start: 641
+    chapter_title_block_idx: 8073
+  - id: "2"
+    title: Group theory
+    page_start: 643
+    chapter_title_block_idx: 8105
+  - id: "3"
+    title: The Solovay-Kitaev theorem
+    page_start: 650
+    chapter_title_block_idx: 8206
+  - id: "4"
+    title: Number theory
+    page_start: 658
+    chapter_title_block_idx: 8312
+  - id: "5"
+    title: Public key cryptography and the RSA cryptosystem
+    page_start: 673
+    chapter_title_block_idx: 8562
+  - id: "6"
+    title: Proof of Lieb's theorem
+    page_start: 678
+    chapter_title_block_idx: 8609
+
+section_re: '^((?:\d+|A\d+)\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|A\d+)\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+heading_text_level:
+  - 1
+  - 2
+
+problem_start_re: '^(?:Exercise|Problem)\s+(\d+\.\d+):\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

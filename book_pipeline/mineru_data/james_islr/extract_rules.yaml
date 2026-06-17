@@ -1,0 +1,157 @@
+# An Introduction to Statistical Learning: with Applications in R (2nd ed) — extract_rules
+# Deterministic audit-book output from unified/content_list.json only.
+
+slug: james_islr
+title: "An Introduction to Statistical Learning: with Applications in R"
+author: "Gareth James; Daniela Witten; Trevor Hastie; Robert Tibshirani"
+edition: 2nd
+subject: Machine Learning
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 604
+bibliography_start_page: null
+index_start_page: 604
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 11
+    page_end: 24
+    chapter_title_block_idx: 207
+    chapter_title_block_idx_secondary: 208
+    problems_block_idx: null
+    next_chapter_block_idx: 326
+  - num: 2
+    title: Statistical Learning
+    page_start: 25
+    page_end: 68
+    chapter_title_block_idx: 326
+    chapter_title_block_idx_secondary: 327
+    problems_block_idx: 737
+    next_chapter_block_idx: 804
+  - num: 3
+    title: Linear Regression
+    page_start: 69
+    page_end: 138
+    chapter_title_block_idx: 804
+    chapter_title_block_idx_secondary: 805
+    problems_block_idx: 1476
+    next_chapter_block_idx: 1567
+  - num: 4
+    title: Classification
+    page_start: 139
+    page_end: 206
+    chapter_title_block_idx: 1567
+    chapter_title_block_idx_secondary: 1568
+    problems_block_idx: 2202
+    next_chapter_block_idx: 2291
+  - num: 5
+    title: Resampling Methods
+    page_start: 207
+    page_end: 234
+    chapter_title_block_idx: 2291
+    chapter_title_block_idx_secondary: 2292
+    problems_block_idx: 2509
+    next_chapter_block_idx: 2568
+  - num: 6
+    title: Linear Model Selection and Regularization
+    page_start: 235
+    page_end: 298
+    chapter_title_block_idx: 2568
+    chapter_title_block_idx_secondary: 2569
+    problems_block_idx: 3165
+    next_chapter_block_idx: 3247
+  - num: 7
+    title: Moving Beyond Linearity
+    page_start: 299
+    page_end: 336
+    chapter_title_block_idx: 3247
+    chapter_title_block_idx_secondary: 3248
+    problems_block_idx: 3615
+    next_chapter_block_idx: 3695
+  - num: 8
+    title: Tree-Based Methods
+    page_start: 337
+    page_end: 376
+    chapter_title_block_idx: 3695
+    chapter_title_block_idx_secondary: 3696
+    problems_block_idx: 4065
+    next_chapter_block_idx: 4105
+  - num: 9
+    title: Support Vector Machines
+    page_start: 377
+    page_end: 412
+    chapter_title_block_idx: 4105
+    chapter_title_block_idx_secondary: 4106
+    problems_block_idx: 4444
+    next_chapter_block_idx: 4498
+  - num: 10
+    title: Deep Learning
+    page_start: 413
+    page_end: 470
+    chapter_title_block_idx: 4498
+    chapter_title_block_idx_secondary: 4499
+    problems_block_idx: 5144
+    next_chapter_block_idx: 5169
+  - num: 11
+    title: Survival Analysis and Censored Data
+    page_start: 471
+    page_end: 504
+    chapter_title_block_idx: 5169
+    chapter_title_block_idx_secondary: 5170
+    problems_block_idx: 5501
+    next_chapter_block_idx: 5559
+  - num: 12
+    title: Unsupervised Learning
+    page_start: 505
+    page_end: 560
+    chapter_title_block_idx: 5559
+    chapter_title_block_idx_secondary: 5560
+    problems_block_idx: 6083
+    next_chapter_block_idx: 6147
+  - num: 13
+    title: Multiple Testing
+    page_start: 561
+    page_end: 603
+    chapter_title_block_idx: 6147
+    chapter_title_block_idx_secondary: 6148
+    problems_block_idx: 6541
+    next_chapter_block_idx: 6579
+
+appendices: []
+
+section_re: '^((?:\d+\.\d+(?=\s+\S))|)(?:\s+)?(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "james-islr-fix-table-12-2-1-misocr",
+      "action": "replace_text",
+      "chunk": "ch12",
+      "selector": "body[33]",
+      "field": "md",
+      "old": "Table 12.2.1.",
+      "new": "Table 12.1.",
+      "reason": "正文誤將 USArrests PCA loading table 的引用 OCR 成 Table 12.2.1；同章實際 catalog entry 為 tbl-12.1。"
+    }
+  ]
+}
