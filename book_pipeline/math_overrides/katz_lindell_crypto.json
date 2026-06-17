@@ -1,0 +1,60 @@
+{
+  "overrides": [
+    {
+      "id": "katz-vrfy-bgroup-ch06-body51",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[51]",
+      "field": "md",
+      "anchor": "ee97cde4",
+      "old": "$\\mathsf { V r f y } _ { k } \\mathopen { } \\mathclose \\bgroup \\left( H ^ { s } ( m ) , t \\aftergroup \\egroup \\right) \\stackrel { ? } { = } 1 .$",
+      "new": "$\\mathsf { V r f y } _ { k } \\left( H ^ { s } ( m ) , t \\right) \\stackrel { ? } { = } 1 .$"
+    },
+    {
+      "id": "katz-round-concat-ch07-body117",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[117]",
+      "field": "md",
+      "anchor": "ef8b3843",
+      "old": "$x : = S _ { 1 } ( x _ { 1 } ) \\Vdash \\cdot \\cdot \\Vint S _ { 8 } ( x _ { 8 } )$",
+      "new": "$x : = S _ { 1 } ( x _ { 1 } ) \\| \\cdots \\| S _ { 8 } ( x _ { 8 } )$"
+    },
+    {
+      "id": "katz-vrfy-bgroup-ch13-body35",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[35]",
+      "field": "md",
+      "anchor": "768d8aa8",
+      "old": "$\\mathsf { V r f y } _ { p k } \\mathopen { } \\mathclose \\bgroup \\left( H ^ { s } ( m ) , \\sigma \\aftergroup \\egroup \\right) \\stackrel { ? } { = } 1$",
+      "new": "$\\mathsf { V r f y } _ { p k } \\left( H ^ { s } ( m ) , \\sigma \\right) \\stackrel { ? } { = } 1$"
+    },
+    {
+      "id": "katz-exp-def-ch-appA-body47",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[47]",
+      "field": "md",
+      "anchor": "89087852",
+      "old": "${ \\begin{array} { r } { \\mathsf { E x p } } [ X ] \\ { \\stackrel { \\mathrm { d e f } } { = } } \\ \\sum _ { s \\in S } s \\cdot \\operatorname* { P r } [ X = s ] } \\end{array} $",
+      "new": "$\\mathsf { E x p } [ X ] \\stackrel { \\mathrm { d e f } } { = } \\sum _ { s \\in S } s \\cdot \\Pr [ X = s ]$"
+    },
+    {
+      "id": "katz-boxed-ch14-body128",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[128]",
+      "expect": "s k = \\left( \\begin{array}{c c c} \\framebox {x _ {1, 0}} & x _ {2, 0} & x _ {3, 0} \\\\ x _ {1, 1} & \\framebox {x _ {2, 1}} & \\framebox {x _ {3, 1}} \\end{array} \\right) \\Rightarrow \\sigma = (x _ {1, 0},   x _ {2, 1},   x _ {3, 1})",
+      "new": "s k = \\left( \\begin{array}{c c c} \\boxed {x _ {1, 0}} & x _ {2, 0} & x _ {3, 0} \\\\ x _ {1, 1} & \\boxed {x _ {2, 1}} & \\boxed {x _ {3, 1}} \\end{array} \\right) \\Rightarrow \\sigma = (x _ {1, 0},   x _ {2, 1},   x _ {3, 1})"
+    },
+    {
+      "id": "katz-boxed-ch14-body130",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[130]",
+      "expect": "p k = \\left( \\begin{array}{c c c} \\framebox {y _ {1, 0}} & y _ {2, 0} & y _ {3, 0} \\\\ y _ {1, 1} & \\framebox {y _ {2, 1}} & \\framebox {y _ {3, 1}} \\end{array} \\right) \\Rightarrow \\begin{array}{c} H (x _ {1}) \\stackrel {{?}} {{=}} y _ {1, 0} \\\\ H (x _ {2}) \\stackrel {{?}} {{=}} y _ {2, 1} \\\\ H (x _ {3}) \\stackrel {{?}} {{=}} y _ {3, 1} \\end{array}",
+      "new": "p k = \\left( \\begin{array}{c c c} \\boxed {y _ {1, 0}} & y _ {2, 0} & y _ {3, 0} \\\\ y _ {1, 1} & \\boxed {y _ {2, 1}} & \\boxed {y _ {3, 1}} \\end{array} \\right) \\Rightarrow \\begin{array}{c} H (x _ {1}) \\stackrel {{?}} {{=}} y _ {1, 0} \\\\ H (x _ {2}) \\stackrel {{?}} {{=}} y _ {2, 1} \\\\ H (x _ {3}) \\stackrel {{?}} {{=}} y _ {3, 1} \\end{array}"
+    }
+  ]
+}
