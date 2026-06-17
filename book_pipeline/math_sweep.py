@@ -33,6 +33,7 @@ from book_pipeline.apply_math_overrides import (
 )
 from book_pipeline.math_validate import (
     iter_reports,
+    node_available,
     read_report,
     run_render,
     validate_book,
@@ -215,7 +216,10 @@ def _ccnexus_auth() -> str:
             if "=" in ln and not ln.lstrip().startswith("#"):
                 k, _, v = ln.strip().partition("=")
                 env[k] = v
-    return base64.b64encode(f'{env["CCNEXUS_ADMIN_USER"]}:{env["CCNEXUS_ADMIN_PASS"]}'.encode()).decode()
+    u, pw = env.get("CCNEXUS_ADMIN_USER"), env.get("CCNEXUS_ADMIN_PASS")
+    if not u or not pw:
+        raise RuntimeError("~/.secrets/ccnexus.env 缺 CCNEXUS_ADMIN_USER / CCNEXUS_ADMIN_PASS")
+    return base64.b64encode(f"{u}:{pw}".encode()).decode()
 
 
 def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str,
@@ -244,7 +248,9 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
                 o = json.loads(s)
             except ValueError:
                 continue
-            out.append(o["choices"][0].get("delta", {}).get("content") or "")
+            ch = o.get("choices") or []                # usage-only / keepalive chunk 無 choices
+            if ch:
+                out.append(ch[0].get("delta", {}).get("content") or "")
     return "".join(out)
 
 
@@ -260,7 +266,10 @@ def _parse_jsonl(text: str) -> dict[int, str]:
         except ValueError:
             continue
         if "i" in o and isinstance(o.get("tex"), str):
-            out[int(o["i"])] = o["tex"]
+            try:
+                out[int(o["i"])] = o["tex"]
+            except (ValueError, TypeError):            # 模型回非數字 i → 跳過該條，不中斷解析
+                continue
     return out
 
 
@@ -288,7 +297,12 @@ def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
             if not new:                                   # 模型漏回
                 nxt.append((gid, slug, f))
                 continue
-            v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
+            try:
+                v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
+            except Exception as e:                        # render_check.js 偶發非零退出 → 該條重試
+                _log(f"  ⚠ render 異常（1 條重試）：{e}")
+                nxt.append((gid, slug, f))
+                continue
             if not v.get("ok"):                           # render 守門：不過不落地
                 nxt.append((gid, slug, f))
                 continue
@@ -311,15 +325,21 @@ def cmd_batch(a: argparse.Namespace) -> int:
         return 0
 
     LONG = 400  # 長式（>400 字元）分流，用較小批避免吃掉整批注意力
+    long_n = min(a.n, max(6, a.n // 5))   # clamp：--n<6 時 long 批不該反比 short 大
     pools = {
         "short": ([w for w in work if len(w[2].get("tex") or "") <= LONG], a.n),
-        "long":  ([w for w in work if len(w[2].get("tex") or "") > LONG], max(6, a.n // 5)),
+        "long":  ([w for w in work if len(w[2].get("tex") or "") > LONG], long_n),
     }
     if a.dry_run:
         print(json.dumps({"ok": True, "dry_run": True, "total": len(work),
                           "short": len(pools["short"][0]), "long": len(pools["long"][0]),
                           "base": _ccnexus_base(), "model": a.model}, ensure_ascii=False, indent=2))
         return 0
+
+    if not node_available():   # render 守門是 batch 的全部安全基礎；node 缺 → graceful 中止，不裸炸
+        print(json.dumps({"ok": False, "error": "node_modules/mathjax-full 缺 → 無 render 守門，"
+                          "batch 中止（先 npm --prefix book_pipeline install）"}, ensure_ascii=False))
+        return 1
 
     base, auth = _ccnexus_base(), _ccnexus_auth()
     accepted: dict[str, list] = defaultdict(list)

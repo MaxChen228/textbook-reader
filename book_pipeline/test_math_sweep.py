@@ -302,6 +302,33 @@ def test_cmd_batch_dry_run_no_api(monkeypatch):
     assert called == []                                        # dry-run 絕不打 LLM
 
 
+def test_cmd_batch_node_unavailable(monkeypatch):
+    # node 缺 → render 守門失效 → graceful 中止（rc=1），絕不打 LLM、不落地
+    monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter([("bookA", _finding_t("A"))]))
+    monkeypatch.setattr(math_sweep, "node_available", lambda: False)
+    called = []
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda *a, **k: called.append(1))
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = math_sweep.cmd_batch(_batch_ns())
+    out = _json.loads(buf.getvalue())
+    assert rc == 1 and out["ok"] is False and "node" in out["error"] and called == []
+
+
+def test_process_pool_render_exception_retries(monkeypatch):
+    # render_check.js 偶發 raise（非 verdict）→ 該條進 retry、零落地（不裸炸整批）
+    pool = [("g0", "bookA", _finding_t("X"))]
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"tex":"NEW"}')
+    def boom(items):
+        raise RuntimeError("render_check crash")
+    monkeypatch.setattr(math_sweep, "run_render", boom)
+    monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": "x"}])
+    accepted = defaultdict(list); gid_new = {}
+    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+                                   accepted=accepted, gid_new=gid_new)
+    assert len(nxt) == 1 and not gid_new and not accepted
+
+
 # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──
 def _run():
     import inspect
