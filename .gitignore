@@ -22,6 +22,7 @@ tmp/
 
 # dev 監控快照（devctl snapshot 定時重生，不入 git；dev/index.html 才追蹤）
 /dev/status.json
+/dev/stages.json  # live 階段快訊（controller 轉換瞬間直寫，可重生）
 # math sweep 可觀測性：即時串流快照 + 歷史批次回溯（math_sweep batch 直寫，可重生）
 /dev/math_live.json
 /dev/math_history.jsonl
@@ -76,3 +77,6 @@ book_pipeline/mineru_data/*/page*.png
 
 # proposals 原子寫暫存（atomic_write_json 的 tmp 殘檔）
 book_pipeline/proposals.d/*.tmp*
+
+# triage 結果快取（按檔內容；可重生）
+/book_pipeline/.triage_cache.json

@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import tempfile
 import os
 import sys
 from contextlib import contextmanager
@@ -282,8 +283,17 @@ def _deployed(slug: str, state: dict) -> bool:
     return bool(state.get(slug, {}).get('deployed_at'))
 
 
+# pdf_triage.classify 對固定 PDF 是確定性的，但 pymupdf 開整本 ~1.4s/書 → 每份 build_snapshot
+# 對全部 pre-ingest 書重跑一遍（21 本≈29s）是 status.json 過期（age 飆 5 分）的元兇。按
+# (檔名,mtime,size) 持久快取：re-download 換檔→key 變→自動失效；多進程（devsnapshot/controller）
+# 共用同檔，atomic 寫。命中即 ~0s → build_snapshot 34.7s→~6s、60s 心跳追得上。
+_TRIAGE_CACHE_PATH = os.path.join(ROOT, 'book_pipeline', '.triage_cache.json')
+_triage_cache: dict | None = None
+
+
 def _triage(slug: str, raw: dict) -> dict | None:
-    """對該 slug 的 raw PDF 跑 triage（廉價）。無 PDF 回 None。"""
+    """對該 slug 的 raw PDF 跑 triage（按檔內容快取，命中免重開 PDF）。無 PDF 回 None。"""
+    global _triage_cache
     fn = raw.get(slug)
     if not fn:
         return None
@@ -291,10 +301,33 @@ def _triage(slug: str, raw: dict) -> dict | None:
     if not os.path.isfile(path):
         return None
     try:
+        sb = os.stat(path)
+        key = f'{fn}:{int(sb.st_mtime)}:{sb.st_size}'
+    except OSError:
+        key = None
+    if _triage_cache is None:
+        try:
+            _triage_cache = json.load(open(_TRIAGE_CACHE_PATH)) or {}
+        except Exception:
+            _triage_cache = {}
+    if key and key in _triage_cache:
+        return _triage_cache[key]
+    try:
         from book_pipeline import pdf_triage
-        return pdf_triage.classify(path)
+        res = pdf_triage.classify(path)
     except Exception as e:
         return {'verdict': 'review', 'needs_llm': True, 'error': str(e)}
+    if key:
+        _triage_cache[key] = res
+        try:  # atomic：同目錄 temp + replace，多進程安全
+            d = os.path.dirname(_TRIAGE_CACHE_PATH)
+            fd, tmp = tempfile.mkstemp(dir=d, prefix='.triage_', suffix='.json')
+            with os.fdopen(fd, 'w', encoding='utf-8') as fh:
+                json.dump(_triage_cache, fh, ensure_ascii=False)
+            os.replace(tmp, _TRIAGE_CACHE_PATH)
+        except Exception:
+            pass
+    return res
 
 
 def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
