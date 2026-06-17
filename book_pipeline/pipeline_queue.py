@@ -147,14 +147,18 @@ def math_accepted(slug: str, state: dict | None = None) -> int:
     return int((((s.get(slug, {}) or {}).get('math') or {}).get('accepted')) or 0)
 
 
-def mark_math_accepted(slug: str, occ: int) -> None:
-    """agent 判定該書 occ 條殘餘源文已毀、不可渲染 → accept；不再計入 residual_unaccepted（收斂終態）。"""
+def mark_math_accepted(slug: str, occ: int, reason: str = '') -> None:
+    """agent 判定該書 occ 條殘餘源文已毀、連 override 成可渲染都做不到 → accept；不再計入
+    residual_unaccepted（收斂終態）。reason 存稽核用（真 0 政策下 accept 應極少，須留證）。"""
     from datetime import datetime, timezone
     with _state_lock():
         s = _load_state()
         m = s.setdefault(slug, {}).setdefault('math', {})
-        m['accepted'] = int(occ)
+        bad = int(m.get('bad_occ') or 0)
+        m['accepted'] = min(int(occ), bad) if bad else int(occ)  # 不超過當前殘餘
         m['accepted_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        if reason:
+            m['accepted_reason'] = reason
         _save_state(s)
 
 

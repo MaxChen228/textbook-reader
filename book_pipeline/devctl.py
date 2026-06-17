@@ -611,7 +611,22 @@ def main(argv: list[str] | None = None) -> int:
     p_hi.add_argument('slug', help='書 slug')
     p_hi.add_argument('--session', help='展開某 session id 的完整逐事件')
     p_hi.add_argument('--json', action='store_true')
+    p_ma = sub.add_parser('math-accept',
+                          help='[math sweep] 標記某書 N 條殘餘為「源文已毀、不可渲染」accept（§8，極少用）')
+    p_ma.add_argument('--slug', required=True)
+    p_ma.add_argument('--occ', type=int, required=True, help='accept 的殘餘 occ 數（夾至當前 bad_occ）')
+    p_ma.add_argument('--reason', required=True, help='稽核理由（為何連 override 成可渲染都做不到）')
     args = ap.parse_args(argv)
+
+    if args.cmd == 'math-accept':
+        bad = (mv.read_report(args.slug) or {}).get('stats', {}).get('bad_occ')
+        if bad is None:
+            print(f'⚠ {args.slug} 無 math report（先 math_validate）', file=sys.stderr); return 1
+        q.mark_math_accepted(args.slug, args.occ, args.reason)
+        acc = q.math_accepted(args.slug)
+        print(f'✓ {args.slug} math accept {acc}/{bad} occ（reason: {args.reason}）'
+              f' → residual_unaccepted 扣除；真 0 政策下應極少，owner 可稽核 pipeline_state')
+        return 0
 
     if args.cmd == 'timeline':
         write_snapshot()  # 先觀測一次，確保時間軸含當下階段
