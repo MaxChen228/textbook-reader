@@ -19,19 +19,21 @@ from book_pipeline import math_sweep
 # ── _gid：穩定 id 契約 ────────────────────────────────────────────────────
 def test_gid_stable_and_unique():
     tex = r"\frac{a}{b}"
-    # 同 (slug, tex) → 同 gid（冪等、可重現）
-    assert math_sweep._gid("strang", tex) == math_sweep._gid("strang", tex)
+    # 同 (slug, tex, display) → 同 gid（冪等、可重現）
+    assert math_sweep._gid("strang", tex, False) == math_sweep._gid("strang", tex, False)
     # 格式 <slug>:<8 hex>
-    gid = math_sweep._gid("strang", tex)
+    gid = math_sweep._gid("strang", tex, False)
     slug, _, h = gid.partition(":")
     assert slug == "strang"
     assert len(h) == 8 and all(c in "0123456789abcdef" for c in h), gid
     # 跨 tex 不撞
-    assert math_sweep._gid("strang", tex) != math_sweep._gid("strang", r"\frac{b}{a}")
+    assert math_sweep._gid("strang", tex, False) != math_sweep._gid("strang", r"\frac{b}{a}", False)
     # 跨 slug 不撞（同 tex 不同書 → 不同 gid，fix 才不會套錯書）
-    assert math_sweep._gid("strang", tex) != math_sweep._gid("axler", tex)
+    assert math_sweep._gid("strang", tex, False) != math_sweep._gid("axler", tex, False)
+    # 跨 display 不撞：同書同 tex 但 inline vs display 是兩條 finding，fix 反查必須唯一
+    assert math_sweep._gid("strang", tex, False) != math_sweep._gid("strang", tex, True)
     # 空 tex 不炸
-    assert math_sweep._gid("x", "").startswith("x:")
+    assert math_sweep._gid("x", "", False).startswith("x:")
 
 
 # ── 假 corpus：兩書、含 skipped 與 category 多樣 ──────────────────────────
@@ -81,8 +83,8 @@ def test_collect_todo_flattens_all(monkeypatch):
     # targets 是「條數」非列表
     nu = next(r for r in rows if r["tex"] == r"\Nu")
     assert nu["targets"] == 2
-    # gid 與 _gid 一致
-    assert nu["gid"] == math_sweep._gid("bookA", r"\Nu")
+    # gid 與 _gid 一致（含 display 維度）
+    assert nu["gid"] == math_sweep._gid("bookA", r"\Nu", False)
 
 
 def test_collect_todo_book_filter(monkeypatch):
@@ -97,6 +99,8 @@ def test_collect_todo_category_and_limit(monkeypatch):
     _patch(monkeypatch)
     assert [r["category"] for r in math_sweep.collect_todo(category="left_right")] == ["left_right"]
     assert len(math_sweep.collect_todo(limit=2)) == 2
+    # limit=0 須回 0 條（非 falsy-當無限制）
+    assert math_sweep.collect_todo(limit=0) == []
 
 
 # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──

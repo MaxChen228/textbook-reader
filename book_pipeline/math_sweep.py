@@ -24,12 +24,14 @@ from typing import Any, Iterator
 from book_pipeline.math_validate import iter_reports, read_report
 
 
-def _gid(slug: str, tex: str) -> str:
-    """全域穩定 id = <slug>:<sha1(tex)[:8]>。
+def _gid(slug: str, tex: str, display: bool) -> str:
+    """全域穩定 id = <slug>:<sha1(display\\0tex)[:8]>。
 
-    綁 tex 內容（非 findings 列表 index）→ report 重生後 findings 順序變動也不漂移。
-    同書內同 tex 經 collect_formulas dedup 成單一 finding，故 (slug, tex) → 唯一 gid。"""
-    h = hashlib.sha1((tex or "").encode("utf-8")).hexdigest()[:8]
+    綁 finding 的真 dedup 鍵 (tex, display)（collect_formulas 以 (tex,_display_for) dedup）
+    而非 findings 列表 index → report 重生後順序變動也不漂移。納入 display 是必要的：同書
+    同一 tex 同時以 inline($...$) 與 display($$...$$) 出現 = 兩條獨立 finding，少了 display
+    兩者撞同一 gid，fix 反查會取錯條、用錯 render 模式套錯 override。"""
+    h = hashlib.sha1(f"{int(bool(display))}\x00{tex or ''}".encode("utf-8")).hexdigest()[:8]
     return f"{slug}:{h}"
 
 
@@ -57,7 +59,7 @@ def _todo_row(slug: str, f: dict[str, Any]) -> dict[str, Any]:
     """一條 finding → agent-friendly 精簡待辦列（只給做決策必需的欄位，省 token）。"""
     tex = f.get("tex") or ""
     return {
-        "gid": _gid(slug, tex),
+        "gid": _gid(slug, tex, bool(f.get("display"))),
         "slug": slug,
         "category": f.get("category"),
         "display": bool(f.get("display")),
@@ -71,7 +73,7 @@ def _todo_row(slug: str, f: dict[str, Any]) -> dict[str, Any]:
 def collect_todo(*, book: str | None = None, category: str | None = None,
                  limit: int | None = None) -> list[dict[str, Any]]:
     rows = [_todo_row(s, f) for s, f in iter_todo(book=book, category=category)]
-    if limit:
+    if limit is not None:
         rows = rows[:limit]
     return rows
 
