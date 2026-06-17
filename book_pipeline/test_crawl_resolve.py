@@ -9,7 +9,7 @@ from book_pipeline import booklists as bl
 
 def _pc(confirmed, unresolved):
     return {'confirmed': confirmed, 'unresolved': unresolved, 'ready': confirmed,
-            'queued': 0, 'owned': 0, 'absent': 0}
+            'queued': 0, 'review': 0, 'owned': 0, 'absent': 0}     # 鏡像真實 pool_counts 形狀（含 review 桶）
 
 
 def test_due():

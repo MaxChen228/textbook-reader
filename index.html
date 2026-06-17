@@ -1014,11 +1014,11 @@ function synthCatalogFromBooks() {
     sublists: Object.keys(bySub).sort().map(n => ({ name: n, books: bySub[n] })) }] }
 }
 
-// 五態 → 使用者三態：已收錄 / 待收錄（排隊或待解析）/ 無法收錄。
+// 六態 → 使用者三態：已收錄 / 待收錄（排隊/待解析/待裁）/ 無法收錄。
 function shelfState(status) {
   if (status === 'owned') return 'owned'
   if (status === 'absent') return 'absent'
-  return 'pending'  // queued | ready | unresolved
+  return 'pending'  // queued | ready | unresolved | review（review=架構師待裁，公開 UI 同視「待收錄」）
 }
 const SHELF_LABEL = { owned: '已收錄', pending: '待收錄', absent: '無法收錄' }
 
