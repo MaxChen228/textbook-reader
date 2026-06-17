@@ -751,10 +751,14 @@ def main(argv: list[str] | None = None) -> int:
         return r.returncode
 
     if args.cmd == 'kick':
+        # 強制重啟（kickstart -k → SIGTERM）。controller 已 SIGTERM-safe：收訊號即快殺在飛 LLM 子工、
+        # 排空收尾（finish 全跑、不留未收尾幽靈）再退，launchd 隨即重拉。日常上線新碼請優先用 `reload`
+        # （等在飛 worker 自然跑完、零浪費）；`kick` 用於要立刻換碼/重啟、可接受中止在飛工作時。
         uid = os.getuid()
         r = subprocess.run(['launchctl', 'kickstart', '-k',
                             f'gui/{uid}/{PLIST_LABEL}'])
-        print('kicked' if r.returncode == 0 else f'failed rc={r.returncode}')
+        print('kicked（已安全：在飛 worker 被快殺收尾、記錄保全）' if r.returncode == 0
+              else f'failed rc={r.returncode}')
         return r.returncode
 
     return 1

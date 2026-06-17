@@ -32,6 +32,12 @@
   <key>StartInterval</key>
   <integer>900</integer>
 
+  <!-- 強制重啟（kickstart -k / unload）時 launchd 先送 SIGTERM、逾此秒數才升級 SIGKILL。
+       controller 收 SIGTERM 會快殺在飛 LLM 子工後優雅排空（finish 全跑、不留未收尾幽靈），
+       實測 <1s 完成；25s 只是明確留餘裕（預設亦 20s，此處文件化並加碼，不調大以免掩蓋掛死）。 -->
+  <key>ExitTimeOut</key>
+  <integer>25</integer>
+
   <key>RunAtLoad</key>
   <true/>
 

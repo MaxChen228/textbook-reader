@@ -115,6 +115,48 @@ def test_finish_replaces_reconstructed():
     print('✓ finish 冪等：取代 reconcile 先還原的同 id（不重複登記）')
 
 
+def test_sidecar_provider_recovery():
+    """start() 落 sidecar → controller 被 SIGKILL（繞過 finish）→ reconcile 重建仍補回 provider。
+    這正是原 bug（math_sweep 被部署硬殺 → provider=null 幽靈）的回歸防護。"""
+    _setup()
+    key = 'math_sweep:codex'
+    hist.start(key, None, 'math_sweep', _dead_pid(), 'codex', 'gpt-5.4')
+    sid = hist._sessions[key]['id']
+    hist.event(key, 'tool', 'shell: rg ...')
+    assert os.path.exists(hist._meta_path(sid)), 'start() 應落 metadata sidecar'
+    hist._sessions.clear()  # 模擬 controller 被殺：in-mem session 全失（finish 從沒跑）
+    assert hist.reconcile() == 1
+    r = hist._read_index()[0]
+    assert r['reconstructed'] is True and r['rc'] is None, r
+    assert r['provider'] == 'codex' and r['harness'] == 'codex-cli' and r['model'] == 'gpt-5.4', r
+    print('✓ start sidecar → 被殺後 reconcile 重建仍補回 provider（非 null，回歸防護）')
+
+
+def test_finish_removes_sidecar():
+    """正常 finish → 權威 row 落 index、冗餘 sidecar 清掉；正常 row 仍帶 provider。"""
+    _setup()
+    key = 'audit:55'
+    hist.start(key, 'b', 'audit', 55, 'kimi', 'kimi')
+    sid = hist._sessions[key]['id']
+    assert os.path.exists(hist._meta_path(sid))
+    hist.finish(key, 0)
+    assert not os.path.exists(hist._meta_path(sid)), 'finish 後 sidecar 應移除'
+    r = hist._read_index()[0]
+    assert r['provider'] == 'kimi' and 'reconstructed' not in r, r
+    print('✓ finish 移除冗餘 sidecar；正常 row 仍帶 provider')
+
+
+def test_reconstruct_without_sidecar_null():
+    """無 sidecar（舊孤兒 / start 寫盤失敗）→ provider 退回 null（向後相容）。"""
+    _setup()
+    sid = f'20260101T000000Z-audit-old-{_dead_pid()}'
+    _write_orphan(sid, [('tool', 'x', '2026-01-01T00:00:05+00:00')])
+    assert hist.reconcile() == 1
+    r = hist._read_index()[0]
+    assert r['provider'] is None and r['reconstructed'] is True, r
+    print('✓ 無 sidecar → provider 退回 null（相容舊孤兒）')
+
+
 def test_corpus_slug_none():
     _setup()
     sid = f'20260617T083744Z-math_sweep-corpus-{_dead_pid()}'
@@ -131,5 +173,8 @@ if __name__ == '__main__':
     test_live_pid_skipped()
     test_stale_alive_reconstructed()
     test_finish_replaces_reconstructed()
+    test_sidecar_provider_recovery()
+    test_finish_removes_sidecar()
+    test_reconstruct_without_sidecar_null()
     test_corpus_slug_none()
     print('\n全部通過 ✅')

@@ -391,6 +391,59 @@ def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
                 _emit(wkey, 'text', txt, tag)
 
 
+# ── 終止安全：在飛 LLM 子進程登記表（pid → pgid）。SIGTERM/SIGINT（部署 kickstart -k / Ctrl-C）
+# 時主動快殺整組 → _run_one 的 finally（hist.finish/leases.release/wr.unregister）秒級跑完 →
+# 不留「未收尾」幽靈、不丟記錄、退出遠早於 launchd ExitTimeOut 升級 SIGKILL。子進程
+# start_new_session ⇒ 自成 process group，pgid==pid。
+_inflight_children: dict[int, int] = {}
+_inflight_lock = threading.Lock()
+
+
+def _register_child(pid: int, pgid: int) -> None:
+    with _inflight_lock:
+        _inflight_children[pid] = pgid
+
+
+def _unregister_child(pid: int) -> None:
+    with _inflight_lock:
+        _inflight_children.pop(pid, None)
+
+
+def _kill_inflight_children() -> int:
+    """快殺所有在飛 LLM 子進程組（SIGKILL）。signal-handler 安全：只做 GIL 原子快照讀（不取
+    _inflight_lock，免與持鎖的 worker thread 死鎖）+ os.killpg 系統呼叫。回殺掉的組數。"""
+    import signal as _sig
+    pgids = list(_inflight_children.values())  # GIL 下 list(dict.values()) 原子快照
+    for pgid in pgids:
+        try:
+            os.killpg(pgid, _sig.SIGKILL)
+        except OSError:
+            pass
+    return len(pgids)
+
+
+def _install_term_handlers(wake, terminating) -> bool:
+    """安裝 SIGTERM/SIGINT handler（部署 kickstart -k 的 SIGTERM、Ctrl-C）。收訊號即：① 主動快殺在飛
+    LLM 子工 → 其 _run_one finally（hist.finish/leases.release）秒級跑完、不留未收尾幽靈；② 設 terminating
+    旗標 + wake 喚醒 → loop 跳出、finally 的 ex.shutdown(wait=True) 立即完成、優雅退出（launchd 重拉新碼）。
+    即使訊號在已進入 ex.shutdown 死等時才到，先殺子工亦能解開 worker 的 p.wait（CPython 主執行緒的
+    join/lock 等待可被訊號中斷以執行本 handler，返回後 join 即完成）。須在主執行緒裝；非主執行緒/平台
+    不支援 → 回 False（呼叫端降級，不報錯）。"""
+    import signal
+
+    def _handle_term(signum, frame):
+        terminating.set()
+        n = _kill_inflight_children()
+        wake.set()
+        log(f'🛑 收到 signal {signum} → 快殺 {n} 個在飛 LLM 子工、排空退出（launchd 重拉新碼）')
+    try:
+        signal.signal(signal.SIGTERM, _handle_term)
+        signal.signal(signal.SIGINT, _handle_term)
+        return True
+    except (ValueError, OSError):
+        return False
+
+
 def _run_one(provider: str, todo_verb: str, slug: str | None,
              prompt: str) -> tuple[int, bool]:
     """用單一 provider 跑一次派工。回 (rc, hit_limit)。hit_limit=True 代表撞該 provider 額度，
@@ -411,6 +464,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
     leases.acquire(todo_verb, slug, p.pid, LLM_TIMEOUT)
+    _register_child(p.pid, p.pid)  # start_new_session ⇒ pgid==pid；SIGTERM 時整組可被快殺
 
     def _pump():
         for line in p.stdout:  # type: ignore[union-attr]
@@ -448,7 +502,8 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         result_rc = rc
         return rc, (rc != 0 and _hit_limit(provider, err))
     finally:
-        hist.finish(wkey, result_rc)  # 失敗/timeout/撞額度的 session 也記（rc!=0, ok=False）
+        _unregister_child(p.pid)  # 先撤登記，免 handler 對已收尾 pid 空殺（無害但乾淨）
+        hist.finish(wkey, result_rc)  # 失敗/timeout/撞額度/被終止的 session 也記（rc!=0, ok=False）
         leases.release(todo_verb, slug)
         wr.unregister(wkey)
 
@@ -1372,17 +1427,24 @@ def tick_reactive(no_deploy: bool) -> int:
     # 不殺在飛 worker）。signal.signal 須在主執行緒（tick_reactive 由 main 直呼，成立）。寫 pidfile
     # 供外部找到本 controller；非主執行緒/平台不支援則略過 → 退回 LOOP_POLL 節奏（功能降級不報錯）。
     import signal
+    _terminating = threading.Event()  # SIGTERM/SIGINT → 快殺在飛子工後優雅排空退出
     try:
         signal.signal(signal.SIGUSR1, lambda *a: wake.set())
         _write_controller_state()
     except (ValueError, OSError):
         pass
+    _install_term_handlers(wake, _terminating)  # SIGTERM/SIGINT：快殺在飛 LLM 子工 → 排空優雅退出
 
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
     last_refill_attempt = -1e9  # 退避只套「refill 補貨」（補不到時別狂跑 resolver）；買書員 drain 無退避
     try:
         while time.monotonic() < deadline:
+            # 終止信號（SIGTERM/SIGINT）：handler 已快殺在飛子工 → 直接排空退出。不 _schedule_respawn
+            # （kickstart -k 由 launchd 自帶重拉；純 kill 由 StartInterval 兜底），避免雙重重拉。
+            if _terminating.is_set():
+                log('reactive loop：終止信號 → 在飛 LLM 子工已快殺、排空退出')
+                break
             # 優雅 reload：收到請求即停派新工、跳出迴圈 → finally 的 ex.shutdown(wait=True) 排空在飛
             # worker（audit/advance 跑完才退）→ 進程退出，launchd 載入新碼。零浪費（對比 kick -k 硬殺）。
             if _reload_pending():

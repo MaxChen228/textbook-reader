@@ -94,6 +94,38 @@ def _sess_path(sid: str) -> str:
     return os.path.join(SESS_DIR, sid + '.jsonl')
 
 
+def _meta_path(sid: str) -> str:
+    return os.path.join(SESS_DIR, sid + '.meta.json')
+
+
+def _write_meta(sid: str, meta: dict) -> None:
+    """旁路 metadata（provider/harness/model）：start() 即落盤，供 controller 被 SIGKILL（繞過 finish）
+    後 reconcile 從 JSONL 重建時讀回——否則重建 row 的 provider 只能 null。原子寫，best-effort。"""
+    try:
+        os.makedirs(SESS_DIR, exist_ok=True)
+        tmp = _meta_path(sid) + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(meta, f, ensure_ascii=False)
+        os.replace(tmp, _meta_path(sid))
+    except OSError:
+        pass  # sidecar 純加分；寫不成最多退回 provider=null，不影響主流程
+
+
+def _read_meta(sid: str) -> dict:
+    try:
+        with open(_meta_path(sid), encoding='utf-8') as f:
+            return json.load(f) or {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        return {}
+
+
+def _remove_meta(sid: str) -> None:
+    try:
+        os.remove(_meta_path(sid))
+    except OSError:
+        pass
+
+
 def _pid_of(sid: str) -> int | None:
     """從 session id 末段取回子工 pid（_session_id 以 -<pid> 結尾）。"""
     tail = sid.rsplit('-', 1)
@@ -115,8 +147,9 @@ def _pid_alive(pid: int) -> bool:
 
 def _reconstruct_row(sid: str, path: str) -> dict | None:
     """從孤兒 JSONL 還原一筆 index row（finish 沒跑成的補登記）。id 已編碼 ts/verb/slug；
-    events/calls/ended 由 JSONL 內容導出。provider/model/rc 無法從事件流還原 → None，並標
-    reconstructed=True 供 UI 中性呈現：finish 從未執行 → 結束碼本就未知，不謊報成功亦不謊報失敗。"""
+    events/calls/ended 由 JSONL 內容導出；provider/harness/model 從 start() 落的 sidecar 讀回
+    （無 sidecar 才退回 None）。rc 無從還原 → None，並標 reconstructed=True 供 UI 中性呈現：
+    finish 從未執行 → 結束碼本就未知，不謊報成功亦不謊報失敗。"""
     parts = sid.split('-')
     if len(parts) < 4:
         return None
@@ -152,9 +185,11 @@ def _reconstruct_row(sid: str, path: str) -> dict | None:
         dur = int((datetime.fromisoformat(ended) - started_dt).total_seconds())
     except Exception:
         dur = None
+    meta = _read_meta(sid)  # start() 落的 provider/harness/model（被 SIGKILL 繞過 finish 時的唯一來源）
     return {
-        'id': sid, 'slug': slug, 'verb': verb, 'provider': None, 'harness': None,
-        'model': None, 'started': started, 'ended': ended, 'duration_s': dur,
+        'id': sid, 'slug': slug, 'verb': verb, 'provider': meta.get('provider'),
+        'harness': meta.get('harness'), 'model': meta.get('model'),
+        'started': started, 'ended': ended, 'duration_s': dur,
         'total_calls': calls, 'events': events, 'rc': None, 'ok': None,
         'touched': [], 'reconstructed': True}
 
@@ -164,10 +199,15 @@ def start(key: str, slug: str | None, verb: str, pid: int, provider: str, model:
     started = _now()
     with _lock:
         os.makedirs(SESS_DIR, exist_ok=True)  # 一次建好；event() 熱路徑不再每事件 makedirs
+        sid = _session_id(slug, verb, pid, started)
         _sessions[key] = {
-            'id': _session_id(slug, verb, pid, started), 'slug': slug, 'verb': verb,
+            'id': sid, 'slug': slug, 'verb': verb,
             'pid': pid, 'provider': provider, 'harness': _harness_of(provider),
             'model': model, 'started': started, 'calls': 0, 'events': 0}
+        # 旁路 metadata：provider/harness/model 即落 sidecar。index 維持「只記已收尾/重建 row」不變量
+        # （running session 不污染歷史面板）；若 controller 被 SIGKILL 繞過 finish，reconcile 從 JSONL
+        # 重建時讀此 sidecar 補回 provider（否則只能 null＝原 bug 的成因之一）。
+        _write_meta(sid, {'provider': provider, 'harness': _harness_of(provider), 'model': model})
 
 
 def event(key: str, kind: str, label: str) -> None:
@@ -217,6 +257,7 @@ def finish(key: str, rc: int) -> str | None:
             rows.append(row)
         _prune_locked(rows)
         _write_index_locked(rows)
+        _remove_meta(s['id'])  # 權威 row 已落 index → sidecar 冗餘，清掉
         _last_by_verb[s['verb']] = s['id']  # set_touched 精準回填用（本進程最後一場該 verb）
         return s['id']
 
@@ -242,10 +283,11 @@ def set_touched(verb: str, touched: list[str]) -> str | None:
 def _prune_locked(rows: list) -> None:
     while len(rows) > MAX_SESSIONS:
         old = rows.pop(0)
-        try:
-            os.remove(_sess_path(old['id']))
-        except OSError:
-            pass
+        for pth in (_sess_path(old['id']), _meta_path(old['id'])):
+            try:
+                os.remove(pth)
+            except OSError:
+                pass
 
 
 # ── 讀端（devctl / CLI；網頁直接 fetch JSONL）────────────────────────────────────
@@ -296,11 +338,11 @@ def load_session(sid: str) -> list:
 
 
 def reconcile() -> int:
-    """自癒孤兒：JSONL 在、index 無對應 row（finish 沒跑成——daemon 被砍 / daemon thread 退出
+    """自癒孤兒：JSONL 在、index 無對應 row（finish 沒跑成——daemon 被 SIGKILL / daemon thread 退出
     未走 finally）。index 是 JSONL 衍生快取 → 【還原】row 而非刪除（舊版直接 os.remove 等於銷毀
-    可救的真實歷程）。pid 已死即還原；pid 仍活但 JSONL 逾 _ORPHAN_AGE_S 沒更新（pid 重用嫌疑）
-    也還原；其餘（pid 活且新鮮＝可能仍在跑）留給其 live session 自行 finish。回還原筆數。
-    低頻呼叫（devctl snapshot 心跳 60s）即可，純清潔不影響正確性。"""
+    可救的真實歷程）；provider/harness/model 由 _reconstruct_row 從 start() 落的 sidecar 讀回。pid 已死
+    即還原；pid 仍活但 JSONL 逾 _ORPHAN_AGE_S 沒更新（pid 重用嫌疑）也還原；其餘（pid 活且新鮮＝可能
+    仍在跑）留給其 live session 自行 finish。回還原筆數。低頻呼叫（devctl 心跳 60s）即可，純清潔不影響正確性。"""
     import time
     with _lock:
         if not os.path.isdir(SESS_DIR):
@@ -314,7 +356,7 @@ def reconcile() -> int:
         recovered = []
         for fn in os.listdir(SESS_DIR):
             if not fn.endswith('.jsonl'):
-                continue
+                continue  # .meta.json sidecar 不是 session，跳過
             sid = fn[:-6]
             if sid in known or sid in live:
                 continue
