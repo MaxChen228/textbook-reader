@@ -1,0 +1,178 @@
+slug: landau_lifshitz_fluid
+title: Fluid Mechanics
+author: L. D. Landau; E. M. Lifshitz
+edition: 2nd
+subject: Fluid Mechanics
+publisher: Pergamon Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 9
+appendices_start_page: 540
+bibliography_start_page: null
+index_start_page: 540
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Ideal Fluids
+    page_start: 9
+    page_end: 51
+    chapter_title_block_idx: 110
+    chapter_title_block_idx_secondary: 111
+    problems_block_idx: null
+    next_chapter_block_idx: 1042
+  - num: 2
+    title: Viscous Fluids
+    page_start: 52
+    page_end: 102
+    chapter_title_block_idx: 1042
+    chapter_title_block_idx_secondary: 1043
+    problems_block_idx: null
+    next_chapter_block_idx: 2091
+  - num: 3
+    title: Turbulence
+    page_start: 103
+    page_end: 164
+    chapter_title_block_idx: 2091
+    chapter_title_block_idx_secondary: 2092
+    problems_block_idx: null
+    next_chapter_block_idx: 3088
+  - num: 4
+    title: Boundary Layers
+    page_start: 165
+    page_end: 199
+    chapter_title_block_idx: 3088
+    chapter_title_block_idx_secondary: 3089
+    problems_block_idx: null
+    next_chapter_block_idx: 3649
+  - num: 5
+    title: Thermal Conduction in Fluids
+    page_start: 200
+    page_end: 234
+    chapter_title_block_idx: 3649
+    chapter_title_block_idx_secondary: 3650
+    problems_block_idx: null
+    next_chapter_block_idx: 4326
+  - num: 6
+    title: Diffusion
+    page_start: 235
+    page_end: 245
+    chapter_title_block_idx: 4326
+    chapter_title_block_idx_secondary: 4327
+    problems_block_idx: null
+    next_chapter_block_idx: 4531
+  - num: 7
+    title: Surface Phenomena
+    page_start: 246
+    page_end: 258
+    chapter_title_block_idx: 4531
+    chapter_title_block_idx_secondary: 4532
+    problems_block_idx: null
+    next_chapter_block_idx: 4777
+  - num: 8
+    title: Sound
+    page_start: 259
+    page_end: 320
+    chapter_title_block_idx: 4777
+    chapter_title_block_idx_secondary: 4778
+    problems_block_idx: null
+    next_chapter_block_idx: 5990
+  - num: 9
+    title: Shock Waves
+    page_start: 321
+    page_end: 368
+    chapter_title_block_idx: 5990
+    chapter_title_block_idx_secondary: 5991
+    problems_block_idx: null
+    next_chapter_block_idx: 6847
+  - num: 10
+    title: One-Dimensional Gas Flow
+    page_start: 369
+    page_end: 421
+    chapter_title_block_idx: 6847
+    chapter_title_block_idx_secondary: 6848
+    problems_block_idx: null
+    next_chapter_block_idx: 7782
+  - num: 11
+    title: The Intersection of Surfaces of Discontinuity
+    page_start: 422
+    page_end: 442
+    chapter_title_block_idx: 7782
+    chapter_title_block_idx_secondary: 7783
+    problems_block_idx: null
+    next_chapter_block_idx: 8074
+  - num: 12
+    title: Two-Dimensional Gas Flow
+    page_start: 443
+    page_end: 474
+    chapter_title_block_idx: 8074
+    chapter_title_block_idx_secondary: 8075
+    problems_block_idx: null
+    next_chapter_block_idx: 8583
+  - num: 13
+    title: Flow Past Finite Bodies
+    page_start: 475
+    page_end: 491
+    chapter_title_block_idx: 8583
+    chapter_title_block_idx_secondary: 8584
+    problems_block_idx: null
+    next_chapter_block_idx: 8883
+  - num: 14
+    title: Fluid Dynamics of Combustion
+    page_start: 492
+    page_end: 512
+    chapter_title_block_idx: 8883
+    chapter_title_block_idx_secondary: 8884
+    problems_block_idx: null
+    next_chapter_block_idx: 9208
+  - num: 15
+    title: Relativistic Fluid Dynamics
+    page_start: 513
+    page_end: 522
+    chapter_title_block_idx: 9208
+    chapter_title_block_idx_secondary: 9209
+    problems_block_idx: null
+    next_chapter_block_idx: 9401
+  - num: 16
+    title: Dynamics of Superfluids
+    page_start: 523
+    page_end: 539
+    chapter_title_block_idx: 9401
+    chapter_title_block_idx_secondary: 9402
+    problems_block_idx: null
+    next_chapter_block_idx: 10500
+
+appendices: []
+
+section_re: '^(§\d+)\.\s+(.+)$'
+subsection_re: '^()([A-Z][A-Z\s\-–]+[A-Z])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEM\s+(\d+)\.?\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: '^SOLUTION\.\s+'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
