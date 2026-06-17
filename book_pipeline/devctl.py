@@ -450,8 +450,9 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
 
 
 def math_health() -> dict:
-    """corpus-level 數學殘餘健康度（track-only）：總殘餘 vs 門檻、上次 sweep、殘餘最多的書。
-    答 /dev『數學式壞了多少、何時會被 sweep、哪幾本最髒、哪些已經過 sweep』。"""
+    """corpus-level 數學殘餘健康度（track-only）：總殘餘 / 未解(residual_unaccepted) / 已 accept、
+    收斂判定（due|converged|fixpoint|no-node）、上次 sweep、殘餘最多的書。
+    答 /dev『數學式壞了多少、是否還會被 sweep、哪幾本最髒、哪些已過 sweep』。"""
     from book_pipeline import pipeline_tick as pt
     state = q._load_state()
     sweep = q.math_sweep_state(state)
@@ -578,9 +579,9 @@ def _print_human(snap: dict) -> None:
         sw = (f" · 上次 sweep {sweep.get('at','?')} 改 {len(sweep.get('touched') or [])} 書 "
               f"→殘{sweep.get('residual_after','?')}") if sweep else ' · 尚未 sweep'
         flag = '🔴' if m.get('due') else '🟢'
-        rf = m.get('refire_threshold', m.get('threshold'))
-        floor = f"（地板 {m.get('threshold')}）" if rf != m.get('threshold') else ''
-        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ / 重派門檻 {rf}{floor}"
+        acc = f"（已 accept {m.get('accepted_total')}）" if m.get('accepted_total') else ''
+        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ · "
+              f"未解 {m.get('residual_unaccepted')}{acc} occ [{m.get('reason')}]"
               f" · {m.get('books_with_residual')} 書有殘{sw}")
         for b in (m.get('top_books') or [])[:8]:
             print(f"   {b['slug']}: {b['bad_occ']} occ{'  ✓已sweep' if b.get('in_last_sweep') else ''}")

@@ -131,6 +131,8 @@ def mark_math_validated(slug: str, bad_occ: int, macros_version: str) -> None:
         m = s.setdefault(slug, {}).setdefault('math', {})
         m.update(bad_occ=bad_occ, macros_version=macros_version,
                  at=datetime.now(timezone.utc).isoformat(timespec='seconds'))
+        if m.get('accepted'):  # 夾住 accepted ≤ 當前殘餘（源頭修復後自癒，免 total-accepted 變負→假收斂）
+            m['accepted'] = min(int(m['accepted']), bad_occ)
         _save_state(s)
 
 

@@ -1021,9 +1021,10 @@ def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
 
 
 def do_math_sweep(dry: bool) -> int:
-    """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：殘餘累積
-    過門檻 → 派**一隻**跨書 sweep agent（寫 math_overrides + `proposals propose`，autonomous 不碰核心碼）
-    → daemon 確定性把被改的書重烤上站 → 重量殘餘、記錄 sweep 狀態（防重派）。
+    """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：
+    residual_unaccepted>0 且非 fixpoint → 派**一隻**跨書 sweep agent（全 LLM 閉環：自己寫
+    normalize 規則/macro/override + 真實數據閘自驗 + self-commit）→ daemon 把殘餘變動的書重烤上站
+    → 重量殘餘、記錄 sweep 狀態（before/after，供 fixpoint 判定）。
     回 0=完成/跳過、-2=LLM 撞額度（defer 下個 tick，不記狀態）。"""
     from book_pipeline import math_validate as mv
     due, total = _math_sweep_due()
@@ -1410,8 +1411,9 @@ def tick_reactive(no_deploy: bool) -> int:
                     if forced:
                         _clear_refill_force()
 
-            # C3. corpus-level 數學 sweep（track-only）：殘餘過門檻才派一隻跨書 agent。__math_sweep__
-            # key 自動序列化（在跑時不疊派）；_math_sweep_due 在已 sweep 狀態回 False → loop 能收斂 idle。
+            # C3. corpus-level 數學 sweep（track-only）：residual_unaccepted>0 且非 fixpoint 才派一隻跨書
+            # agent。__math_sweep__ key 自動序列化（在跑時不疊派）；_math_sweep_due 在 fixpoint/converged
+            # 回 False → loop 能收斂 idle（不再 busy-loop）。
             due, _resid = _math_sweep_due()
             if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
                 dispatched += 1

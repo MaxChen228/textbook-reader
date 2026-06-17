@@ -55,6 +55,14 @@ def test_accepted_reduces_unaccepted_to_due_boundary():
     assert _sweep_decision(True, 4, 3, None, M) == (True, "due")               # 未解 1 → 派
 
 
+def test_old_state_without_residual_before_migration():
+    # 升級前的存量 state 沒有 residual_before：progressed 退回靠 touched 判定，不崩、不鎖死。
+    old_empty = {"macros_version": M, "residual_after": 5, "touched": []}        # 無 residual_before
+    assert _sweep_decision(True, 5, 0, old_empty, M) == (False, "fixpoint")      # 沒改書 → fixpoint
+    old_touched = {"macros_version": M, "residual_after": 5, "touched": ["b1"]}  # 有改書
+    assert _sweep_decision(True, 5, 0, old_touched, M) == (True, "due")          # → 續派
+
+
 if __name__ == "__main__":
     test_no_node_never_due();                        print("✓ 缺 node → 永不派")
     test_converged_true_zero_or_all_accepted();      print("✓ 真 0 / 全 accept → converged")
@@ -64,4 +72,5 @@ if __name__ == "__main__":
     test_macros_change_breaks_fixpoint();            print("✓ 改 macros → 破 fixpoint")
     test_external_residual_change_breaks_fixpoint(); print("✓ 殘餘外部變動 → 破 fixpoint")
     test_accepted_reduces_unaccepted_to_due_boundary(); print("✓ accepted 邊界")
+    test_old_state_without_residual_before_migration(); print("✓ 舊 state（缺 residual_before）遷移")
     print("\n全部通過 ✅")
