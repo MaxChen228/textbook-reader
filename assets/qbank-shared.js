@@ -199,6 +199,18 @@
 
   function renderMarkdown(md) {
     if (typeof marked === 'undefined') return safeHtml(md);
+    if (!renderMarkdown._htmlSafe) {
+      // 一次性：中和 OCR 來源夾帶的原生 HTML（公開站自動爬任意 PDF → 儲存型 XSS）。只動 raw-HTML
+      // token，正常 markdown/標題/清單照常；math 已 stash 出去不受影響。失敗則退回原行為、不破渲染。
+      try {
+        var escHtml = function (h) {
+          var s = (h && typeof h === 'object' && h.text != null) ? h.text : h;
+          return String(s == null ? '' : s).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        };
+        marked.use({ renderer: { html: escHtml } });
+      } catch (e) { /* renderer API 變動 → 維持原行為 */ }
+      renderMarkdown._htmlSafe = true;
+    }
     var stash = [];
     var save = function (m) { stash.push(m); return '\x00M' + (stash.length - 1) + '\x00'; };
     var safe = md.replace(/\$\$[\s\S]*?\$\$/g, save).replace(/\$[^$\n]+?\$/g, save);

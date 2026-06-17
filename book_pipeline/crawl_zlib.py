@@ -34,6 +34,8 @@ from datetime import datetime, timezone
 
 import requests
 
+from book_pipeline import jsonio
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, 'book_pipeline')
 DATA = os.path.join(BP, 'mineru_data')
@@ -95,11 +97,13 @@ def _session_path(account: int) -> str:
 
 
 def _save_session(account: int, uid: str, key: str) -> None:
-    old_umask = os.umask(0o077)
+    old_umask = os.umask(0o077)  # tmp 與正式檔皆以 0o600 建立（憑證快取）
     try:
         p = _session_path(account)
-        with open(p, 'w') as f:
+        tmp = f'{p}.tmp{os.getpid()}'
+        with open(tmp, 'w') as f:
             json.dump({'remix_userid': uid, 'remix_userkey': key}, f)
+        os.replace(tmp, p)   # 原子寫：SIGKILL 半截不留下截斷的憑證檔
         os.chmod(p, 0o600)
     finally:
         os.umask(old_umask)
@@ -117,7 +121,8 @@ def _login(account: int = 0) -> tuple[str, str]:
     r.raise_for_status()
     j = r.json()
     if not j.get('success'):
-        sys.exit(f'登入失敗（帳號{account} {acc["email"]}）：{j}')
+        # 只印 message，不傾印整個回應 j（恪守「絕不 echo 密碼/userkey/session 片段」鐵則）
+        sys.exit(f'登入失敗（帳號{account} {acc["email"]}）：{j.get("message") or "未知錯誤"}')
     u = j['user']
     uid, key = str(u['id']), u['remix_userkey']
     _save_session(account, uid, key)
@@ -400,13 +405,10 @@ def cmd_search(args) -> int:
 
 
 def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
-    # slug_map 追加（不覆既有）
-    try:
-        sm = json.load(open(SLUG_MAP))
-    except Exception:
-        sm = {'map': {}}
+    # slug_map 追加（不覆既有）；slug_map 是 raw→slug 的唯一登記表，原子寫免截斷
+    sm = jsonio.read_json(SLUG_MAP, {'map': {}})
     sm.setdefault('map', {})[raw_filename] = slug
-    json.dump(sm, open(SLUG_MAP, 'w'), ensure_ascii=False, indent=2)
+    jsonio.atomic_write_json(SLUG_MAP, sm, indent=2)
     # crawl_manifest 追加
     man = _crawl_manifest()
     man = [e for e in man if e.get('slug') != slug]
@@ -420,11 +422,14 @@ def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
         'is_solution': _is_solution(book.get('title', '')),
         'downloaded_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
     })
-    json.dump(man, open(CRAWL_MANIFEST, 'w'), ensure_ascii=False, indent=2)
+    jsonio.atomic_write_json(CRAWL_MANIFEST, man, indent=2)
 
 
 def cmd_fetch(args) -> int:
     slug = args.slug
+    if not re.fullmatch(r'[a-z0-9_]{1,64}', slug or ''):  # 深層強制：slug 流入路徑/argv，擋穿越
+        print(f'✗ slug 不合法（須 [a-z0-9_]{{1,64}}）：{slug!r}')
+        return 2
     if slug in _known_slugs() and not args.force:
         print(f'已存在 slug={slug}（slug_map/mineru_data/manifest）→ 跳過。--force 覆寫。')
         return 0

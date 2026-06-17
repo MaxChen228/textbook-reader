@@ -14,15 +14,29 @@ import re
 import sys
 from pathlib import Path
 
+import nh3
+
 from textbooks import corpus
 
 OUT = Path(__file__).resolve().parent.parent / 'data'
 JPG_TO_WEBP = re.compile(r'\.jpg$', re.IGNORECASE)
 HTML_IMG_RE = re.compile(r'(src="images/[0-9a-fA-F]+)\.jpg"')
 
+# table.html 是 MinerU OCR 對【自動爬來的任意 PDF】的產出 → 公開站的儲存型 XSS 注入面。
+# 烤進 data/ 前以白名單消毒一次（零 runtime 成本、結果可追蹤）：只留表格結構 + 相對 img src，
+# 剝 script/on*/style/未知標籤；math $...$ 是純文字、原樣保留。
+_TABLE_TAGS = {'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th', 'caption', 'colgroup', 'col',
+               'br', 'span', 'sup', 'sub', 'b', 'i', 'em', 'strong', 'u', 'p', 'pre', 'code', 'img'}
+_TABLE_ATTRS = {'td': {'colspan', 'rowspan', 'align'}, 'th': {'colspan', 'rowspan', 'align', 'scope'},
+                'img': {'src', 'alt'}, 'col': {'span'}, 'colgroup': {'span'}}
+
+
+def _sanitize_table_html(html: str) -> str:
+    return nh3.clean(html, tags=_TABLE_TAGS, attributes=_TABLE_ATTRS)
+
 
 def _rewrite_blocks(blocks: list) -> None:
-    """就地把 fig.src 與 table.html 內的 .jpg 改成 .webp。"""
+    """就地把 fig.src 與 table.html 內的 .jpg 改成 .webp；table.html 先過白名單消毒（XSS）。"""
     for b in blocks or []:
         if not isinstance(b, dict):
             continue
@@ -30,7 +44,7 @@ def _rewrite_blocks(blocks: list) -> None:
         if t == 'fig' and isinstance(b.get('src'), str):
             b['src'] = JPG_TO_WEBP.sub('.webp', b['src'])
         if t == 'table' and isinstance(b.get('html'), str):
-            b['html'] = HTML_IMG_RE.sub(r'\1.webp"', b['html'])
+            b['html'] = HTML_IMG_RE.sub(r'\1.webp"', _sanitize_table_html(b['html']))
 
 
 def _rewrite_chunk(chunk: dict) -> dict:

@@ -28,6 +28,7 @@ import concurrent.futures as cf
 import fcntl
 import json
 import os
+import re
 import shlex
 import subprocess
 import sys
@@ -313,7 +314,10 @@ def _build_llm_cmd(provider: str, prompt: str) -> list[str]:
     """依 provider 組 headless 派工命令。
     claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json。
     codex：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon 信任
-    環境，audit/repair 要寫 mineru_data、跑 uv），--model 預設 gpt-5.4。"""
+    環境，audit/repair 要寫 mineru_data、跑 uv），--model 預設 gpt-5.4。
+    ⚠ 全權沙箱為【已審視的接受風險】：daemon 本質需 fs-write+exec 才能產書，收緊即失能。
+    對應緩解——注入面 slug 已白名單化（_fetch_book / crawl_zlib，[a-z0-9_]{1,64}）、
+    不可信的 OCR 產物在 bake 邊界消毒（nh3 表格 + marked raw-HTML 轉義）。勿擅自收緊。"""
     if provider == 'codex':
         return [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
                 '-C', ROOT, '--sandbox', 'danger-full-access',
@@ -490,6 +494,9 @@ def _fetch_book(b: dict) -> str | None:
     slug, bid, bhash = b.get('slug'), str(b.get('id', '')), str(b.get('hash', ''))
     if not (slug and bid and bhash):
         log(f'❌ crawl plan 條目缺欄位：{b}')
+        return None
+    if not re.fullmatch(r'[a-z0-9_]{1,64}', slug):  # LLM 產出，須擋路徑穿越/任意檔名
+        log(f'❌ crawl plan slug 不合法（須 [a-z0-9_]{{1,64}}）：{slug!r} → 拒絕')
         return None
     cmd = ['uv', 'run', '--with', 'requests', '--with', 'playwright', 'python', '-m',
            'book_pipeline.crawl_zlib', 'fetch', bid, bhash, '--slug', slug]
