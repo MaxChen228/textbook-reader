@@ -466,18 +466,19 @@ def _fetch_book(b: dict) -> str | None:
     return None
 
 
-def _crawl_backlog(rows: list[dict]) -> int:
-    """pipeline 內待消化書數（爬書水位的 consumer 深度）。每本只算一次：
-    in-flight OCR 的書算進 OCR；其餘有強制待辦（非 — 非 可選）的書算進待辦。
-    deployed 書 todo=— → 自然不計。爬速綁此值：backlog<LOW 才補、>=LOW 讓 pipeline 消化。"""
+def _crawl_backlog_books(rows: list[dict]) -> list[dict]:
+    """pipeline 內待消化的書清單（爬書水位的 consumer 集合）：in-flight OCR、或仍有強制待辦
+    （非 — 非 可選）的非 deployed 書。deployed 書 todo=— 且不在 OCR → 自然排除。每本恰一次。"""
     ifl = mb.in_flight()
-    pending = 0
-    for r in rows:
-        if r['slug'] in ifl:
-            continue  # 已算進 OCR in-flight，避免重複計數
-        if [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]:
-            pending += 1
-    return pending + len(ifl)
+    return [r for r in rows
+            if not r.get('deployed')
+            and (r['slug'] in ifl
+                 or [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')])]
+
+
+def _crawl_backlog(rows: list[dict]) -> int:
+    """backlog 書數（爬速綁此值：<LOW 才補、>=LOW 讓 pipeline 消化）。= 清單長度，單一真相源。"""
+    return len(_crawl_backlog_books(rows))
 
 
 def do_crawl_parallel(dry: bool, cap: int | None = None) -> list[str]:

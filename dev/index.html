@@ -66,6 +66,14 @@
     .book .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
       font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
     .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
+    /* 爬書站閒置時列出 backlog 書（純名字、免封面、可點開抽屜） */
+    .cn-reason { padding: 2px 4px 6px; }
+    .crawl-name { display: flex; gap: 6px; align-items: baseline; cursor: pointer;
+      font-family: var(--mono); font-size: 11px; color: var(--ink-light);
+      padding: 3px 6px; border-radius: 5px; border: 1px solid var(--border-l); background: var(--bg); }
+    .crawl-name:hover { border-color: var(--accent); color: var(--text); }
+    .crawl-name .cn-st { flex-shrink: 0; font-size: 12px; }
+    .crawl-name .cn-tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .dm-word { font-family: var(--mono); font-size: 12px; color: var(--ink-light); font-weight: 600; margin-left: 2px; }
     .book .ttl { font-family: var(--mono); font-size: 10px; color: var(--ink-light); margin-top: 4px; line-height: 1.25;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -290,6 +298,7 @@
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
   // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 2s worker cadence。
   const stationEls = [], laneEls = [], cntEls = []
+  let crawlReasonEl = null
   function buildScaffold() {
     const lineEl = document.getElementById('line')
     lineEl.innerHTML = ''
@@ -299,11 +308,13 @@
       station.className = 'station'
       station.innerHTML = `<div class="st-head"><span class="st-ico">${st.ico}</span>`
         + `<span class="st-name">${escapeHtml(st.name)}</span><span class="st-cnt">0</span></div>`
+        + (st.crawl ? '<div class="cn-reason dev-label"></div>' : '')
         + `<div class="lane${done ? ' done' : ''}"></div>`
       lineEl.appendChild(station)
       stationEls[i] = station
       laneEls[i] = station.querySelector('.lane')
       cntEls[i] = station.querySelector('.st-cnt')
+      if (st.crawl) crawlReasonEl = station.querySelector('.cn-reason')
     })
   }
 
@@ -404,15 +415,37 @@
     applyWalkers()
   }
 
+  // ── 爬書站閒置時列出的 backlog 書（純名字 chip，可點開抽屜）──
+  function backlogBooks() { return (last && last.crawl && last.crawl.backlog_books) || [] }
+  function makeNameEl(b) {
+    const el = document.createElement('div')
+    el.className = 'crawl-name'; el.dataset.slug = b.slug; el.title = b.title || b.slug
+    el.innerHTML = '<span class="cn-st"></span><span class="cn-tt"></span>'
+    updateNameEl(el, b)
+    return el
+  }
+  function updateNameEl(el, b) {
+    const ico = STATIONS[stationOf(b)].ico, t = b.title || b.slug
+    const stEl = el.querySelector('.cn-st'), ttEl = el.querySelector('.cn-tt')
+    if (stEl.textContent !== ico) stEl.textContent = ico
+    if (ttEl.textContent !== t) { ttEl.textContent = t; el.title = t }
+  }
+
   // 爬書 lane（站 0）就地 reconcile —— 2s worker cadence（root-cause E：爬書卡是 live-worker 資料）
+  // 有 agent 在爬 → 顯示 agent 卡；閒置 → 列出 backlog 書名單（讓「消化中 N 本」看得見、可點開）。
   function reconcileCrawl() {
     const cw = crawlWorkers()
     const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 無 agent 爬書'
-    reconcileLane(laneEls[0], cw, w => w.key, makeCrawlEl, updateCrawlEl,
-      `<div class="dev-label lane-empty" style="padding:6px 2px">${escapeHtml(reason)}</div>`)
-    const ph = laneEls[0].querySelector('.lane-empty')  // 既有 placeholder：reason 變了也跟刷
-    if (ph && ph.textContent !== reason) ph.textContent = reason
-    if (cntEls[0].textContent !== String(cw.length)) cntEls[0].textContent = cw.length
+    if (crawlReasonEl && crawlReasonEl.textContent !== reason) crawlReasonEl.textContent = reason
+    const desired = cw.length
+      ? cw.map(w => ({ k: 'wk:' + w.key, agent: w }))
+      : backlogBooks().map(b => ({ k: 'bk:' + b.slug, book: b }))
+    reconcileLane(laneEls[0], desired, d => d.k,
+      d => d.agent ? makeCrawlEl(d.agent) : makeNameEl(d.book),
+      (el, d) => d.agent ? updateCrawlEl(el, d.agent) : updateNameEl(el, d.book),
+      '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
+    const cnt = cw.length || (last && last.crawl ? last.crawl.backlog : 0)
+    if (cntEls[0].textContent !== String(cnt)) cntEls[0].textContent = cnt
     stationEls[0].classList.toggle('st-active', cw.length > 0)
   }
 
@@ -523,7 +556,7 @@
   document.getElementById('dr-mask').addEventListener('click', closeDrawer)
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
   document.getElementById('line').addEventListener('click', e => {
-    const card = e.target.closest('.book'); if (!card) return
+    const card = e.target.closest('.book, .crawl-name'); if (!card) return
     if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
     else if (card.dataset.slug) openDrawer(card.dataset.slug)
   })

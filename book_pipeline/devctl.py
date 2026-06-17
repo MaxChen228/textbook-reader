@@ -375,7 +375,11 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     backlog = pipeline 待消化深度；state 決定爬書站閒置文案。複用已算好的 books/zlib/workers，
     不重打網路。"""
     from book_pipeline import pipeline_tick as pt
-    backlog = pt._crawl_backlog(books_snap['books'])  # 單一真相源（與控制迴圈同函式，防定義漂移）
+    bl_rows = pt._crawl_backlog_books(books_snap['books'])  # 單一真相源（與控制迴圈同函式，防漂移）
+    backlog = len(bl_rows)
+    # 待消化書清單（/dev 爬書站閒置時列出「正在消化哪 N 本」，純名字免封面）
+    backlog_books = [{'slug': r['slug'], 'title': r.get('title') or r['slug'],
+                      'stage': r.get('stage', ''), 'deployed': False} for r in bl_rows]
     crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
     R = zlib_snap.get('total_remaining')
     if crawling:
@@ -387,7 +391,7 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
     else:
         state, reason = 'feeding', f'backlog {backlog} < 水位 {pt.CRAWL_LOW}，下個 cycle 補貨'
     return {'backlog': backlog, 'low': pt.CRAWL_LOW, 'high': pt.CRAWL_HIGH,
-            'state': state, 'reason': reason}
+            'state': state, 'reason': reason, 'backlog_books': backlog_books}
 
 
 def build_snapshot(since_min: int = 180) -> dict:
