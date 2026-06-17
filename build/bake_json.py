@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import nh3
@@ -93,6 +94,19 @@ def bake_book(slug: str, has_zh: bool) -> None:
             dump(base / 'app' / f'{aid}.bi.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'bi')))
 
 
+def bake_catalog() -> None:
+    """烤 data/catalog.json = 完整收錄表（書單 SoT × 三態，含解答本狀態）。
+    與 books.json（已收錄可讀書）並存：books.json 餵 reader 內容、catalog.json 餵 library 收錄表。
+    每次 build 都重生（書單/解析狀態會變），冪等。"""
+    from book_pipeline import booklists
+    cat = booklists.catalog()
+    cat['generated_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    dump(OUT / 'catalog.json', cat)
+    o = cat['overall']
+    print(f"baked catalog.json：{o['owned']}/{o['total']} 收錄 · {o['main']} 主書 · "
+          f"ready {o['ready']} · absent {o['absent']} · unresolved {o['unresolved']}")
+
+
 def main(argv: list[str]) -> None:
     books = corpus.list_books()
     wanted = set(argv)
@@ -109,6 +123,7 @@ def main(argv: list[str]) -> None:
     # 單書模式也刷新 books.json（含全部書，前端 library 需完整清單）
     if wanted:
         dump(OUT / 'books.json', corpus.list_books())
+    bake_catalog()  # 完整收錄表（書單 SoT × 三態）——每次 build 都重生
     print(f'done: {len(books)} book(s) → {OUT}')
 
 

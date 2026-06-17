@@ -237,6 +237,37 @@ def progress(files: list[dict] | None = None, have: set | None = None,
             'by_field': {f: tally(rs) for f, rs in by_field.items()}}
 
 
+def catalog(files: list[dict] | None = None, have: set | None = None,
+            queued: set | None = None, resolution: dict | None = None) -> dict:
+    """UI 收錄表結構：field → sublist → 主書（status + 解答本 sol_status）+ 各層統計。
+    build 烤成 data/catalog.json 供 reader library 渲染收錄表；status 對應 UI 三態：
+    owned/queued/ready→已收錄或排隊中、absent→無法收錄、unresolved→待解析。"""
+    files = load_files() if files is None else files
+    have = have_slugs() if have is None else have
+    queued = queued_slugs() if queued is None else queued
+    resolution = load_resolution() if resolution is None else resolution
+    pr = progress(files, have, queued, resolution)
+    fields = []
+    for f in files:
+        subs = []
+        for sl in (f.get('sublists') or []):
+            books = []
+            for b in (sl.get('books') or []):
+                slug = b.get('slug', '')
+                e = {'slug': slug, 'title': b.get('title', ''), 'author': b.get('author', ''),
+                     'status': status_of(slug, have, queued, resolution)}
+                if b.get('edition_pref'):
+                    e['edition_pref'] = b['edition_pref']
+                if b.get('solution', True):
+                    e['sol_status'] = status_of(f'{slug}{SOL_SUFFIX}', have, queued, resolution)
+                books.append(e)
+            subs.append({'name': sl.get('name', ''), 'books': books})
+        fields.append({'field': f.get('field', ''), 'field_id': f.get('field_id', ''),
+                       'order': f.get('order', 9999), 'sublists': subs,
+                       'stats': pr['by_field'].get(f.get('field', ''), {})})
+    return {'fields': fields, 'overall': pr['overall']}
+
+
 # ── 驗證 / 對賬（assembly 與 CI 用，不自動改 SoT）──────────────────────────
 def validate(files: list[dict] | None = None) -> list[str]:
     """schema + slug 全域唯一/合法性。回錯誤清單（空=通過）。"""

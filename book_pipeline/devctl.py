@@ -419,26 +419,24 @@ def scan_errors(since_min: int = 180) -> list:
 
 
 # ── 快照組裝 ─────────────────────────────────────────────────────────────────
-def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
+def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
     """爬書購物清單水位（回答 /dev『清單有哪些具體待抓書、何時抓』）。
     queue = 持久購物清單（pipeline_tick.crawl_queue.json，具體待抓書）→ /dev 直接列出（額度0也照在）。
-    backlog = pipeline 待消化深度（drain backpressure 用）。複用已算好的 books/zlib/workers，不重打網路。"""
+    backlog = pipeline 待消化深度（drain backpressure 用）。複用已算好的 books/zlib，不重打網路。
+    補貨已是確定性（從書單 SoT 拉，無 LLM）→ 不再偵測『planner agent 在跑』。"""
     from book_pipeline import pipeline_tick as pt
     rows = books_snap['books']
     have = pt._have_slugs()
     queue = [b for b in pt._load_queue() if b.get('slug') and b['slug'] not in have]  # 同 daemon 進場去重
     backlog = pt._crawl_backlog(rows)
     room = max(0, pt.CRAWL_HIGH - backlog)  # pipeline 還能容納幾本在飛
-    crawling = any((w.get('verb') in ('crawl_plan', 'crawl')) for w in wks)
     R = zlib_snap.get('total_remaining')
     n = len(queue)
     cap = min(n, room)
     if isinstance(R, int):
         cap = min(cap, R)
-    if crawling:
-        state, reason = 'refilling', f'清單 {n} 本 · planner 補貨中'
-    elif n == 0:
-        state, reason = 'refilling', '清單已抓空 · 下輪 planner 補貨'
+    if n == 0:
+        state, reason = 'refilling', '清單空 · 下輪自動從書單確定性補貨'
     elif R == 0:
         state, reason = 'quota_empty', f'清單 {n} 本待抓 · 今日額度0 · 重置後自動抓'
     elif room <= 0:
@@ -477,6 +475,13 @@ def math_health() -> dict:
     }
 
 
+def booklist_progress() -> dict:
+    """書單 SoT 收錄進度（/dev 收錄表分母）：整體 + 各領域五態統計（owned/queued/ready/absent/
+    unresolved）。答『目標正典共幾本、收了幾 %、各領域進度、還有多少待解析/無法收錄』。"""
+    from book_pipeline import booklists
+    return booklists.progress()
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -493,9 +498,10 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'in_flight_ingest': in_flight_ingest(),
         'errors': scan_errors(since_min),
         'recent_log': _tail(DAEMON_LOG, 40),
-        'crawl': crawl_status(bs, zl, wks),
+        'crawl': crawl_status(bs, zl),
+        'booklists': booklist_progress(),
         'math': math_health(),
-        'corpus_sessions': hist.corpus_sessions(limit=50),  # 非單書 agent 作業（crawl_plan/math_sweep）
+        'corpus_sessions': hist.corpus_sessions(limit=50),  # 非單書 agent 作業（math_sweep 等）
         **bs,
     }
 

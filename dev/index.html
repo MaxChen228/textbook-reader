@@ -231,9 +231,15 @@
       </div>
     </div>
 
-    <!-- corpus 作業（非單書 agent：crawl_plan / math_sweep）-->
+    <!-- 收錄進度（書單 SoT = 目標正典分母；確定性 refill 從此拉貨）-->
+    <div class="dev-panel">
+      <h2>收錄進度 <span class="dev-label" id="bl-overall"></span></h2>
+      <div id="booklists"></div>
+    </div>
+
+    <!-- corpus 作業（非單書 agent：math_sweep 等）-->
     <div class="dev-panel" id="p-corpus" hidden>
-      <h2>Corpus 作業 <span class="dev-label">非單書 agent（crawl_plan / math_sweep）· 點開看完整歷程</span></h2>
+      <h2>Corpus 作業 <span class="dev-label">非單書 agent（math_sweep 等）· 點開看完整歷程</span></h2>
       <div id="corpus"></div>
     </div>
 
@@ -902,6 +908,18 @@
     setHtml('errors', errs.length
       ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
       : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
+
+    const bl = d.booklists || {}, blo = bl.overall || {}
+    const blPct = blo.total ? Math.round(blo.owned / blo.total * 100) : 0
+    setText('bl-overall', blo.total
+      ? `(${blo.owned}/${blo.total} · ${blPct}% · ready ${blo.ready} · 待解析 ${blo.unresolved} · 無法收錄 ${blo.absent})`
+      : '')
+    setHtml('booklists', Object.entries(bl.by_field || {}).map(([f, c]) => {
+      const p = c.total ? Math.round(c.owned / c.total * 100) : 0
+      return `<div class="dev-bar-row"><span class="name">${escapeHtml(f)}</span>
+        <span class="dev-bar"><span style="width:${p}%"></span></span>
+        <span class="num">${c.owned}/${c.total}</span></div>`
+    }).join('') || '<div class="dev-label">（無書單）</div>')
 
     const cs = d.corpus_sessions || []
     indexSessions(cs)
