@@ -244,6 +244,44 @@ def test_finding_to_override_roundtrip_apply():
         _teardown()
 
 
+def test_finding_to_overrides_multi_target():
+    # 一條 finding 的多 target → 多條 override（每 target 一條，共用同一 new）。
+    # inline target 自動讀 live 欄位精確定位 + anchor（_live_field_value 走真實 parsed）。
+    _setup()
+    try:
+        f = _finding(r"5\AA", [
+            {"chunk": "ch01", "selector": "body[1]", "field": "md"},     # inline，live 讀值
+            {"chunk": "ch01", "selector": "body[0]", "field": "tex"},    # eq
+        ])
+        ovs = amo.finding_to_overrides(SLUG, f, r"5\text{Å}")
+        assert len(ovs) == 2, ovs
+        inline = next(o for o in ovs if o["action"] == "fix_inline_math")
+        eq = next(o for o in ovs if o["action"] == "fix_eq_tex")
+        # inline 取到 live field_value → 精確 old + anchor
+        assert inline["old"] == r"$5\AA$" and "anchor" in inline
+        assert eq["new"] == r"5\text{Å}"
+    finally:
+        _teardown()
+
+
+def test_merge_overrides_dedup():
+    # 併入按 id 去重：新增累加、同 id 覆蓋為新值、檔案落地。
+    _setup()
+    try:
+        a = {"id": "x1", "action": "fix_eq_tex", "new": "v1"}
+        b = {"id": "x2", "action": "fix_eq_tex", "new": "w1"}
+        assert amo.merge_overrides(SLUG, [a, b]) == {"added": 2, "replaced": 0}
+        assert len(json.loads(OV_FILE.read_text())["overrides"]) == 2
+        # 同 id 覆蓋（new 改值）+ 一條全新
+        a2 = {"id": "x1", "action": "fix_eq_tex", "new": "v2"}
+        c = {"id": "x3", "action": "fix_eq_tex", "new": "z1"}
+        assert amo.merge_overrides(SLUG, [a2, c]) == {"added": 1, "replaced": 1}
+        spec = {o["id"]: o for o in json.loads(OV_FILE.read_text())["overrides"]}
+        assert len(spec) == 3 and spec["x1"]["new"] == "v2"   # 覆蓋為新值
+    finally:
+        _teardown()
+
+
 if __name__ == "__main__":
     try:
         test_fix_eq_tex();                    print("✓ fix_eq_tex：applied/noop/skip-drift/非eq/越界/缺expect")
@@ -258,6 +296,8 @@ if __name__ == "__main__":
         test_finding_to_override_no_targets_raises(); print("✓ finding→override：無 targets raise")
         test_finding_to_override_empty_tex_raises(); print("✓ finding→override：空 tex raise（防誤改）")
         test_finding_to_override_roundtrip_apply(); print("✓ finding→override→apply round-trip 修復 eq+inline")
+        test_finding_to_overrides_multi_target(); print("✓ finding→overrides：多 target 各一條（inline live 定位）")
+        test_merge_overrides_dedup();         print("✓ merge_overrides：按 id 去重累加/覆蓋落地")
     finally:
         _teardown()
     print("\n全部通過 ✅")

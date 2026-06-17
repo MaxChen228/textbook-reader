@@ -21,7 +21,18 @@ import json
 import sys
 from typing import Any, Iterator
 
-from book_pipeline.math_validate import iter_reports, read_report
+from book_pipeline.apply_math_overrides import (
+    apply_overrides,
+    finding_to_overrides,
+    merge_overrides,
+)
+from book_pipeline.math_validate import (
+    iter_reports,
+    read_report,
+    run_render,
+    validate_book,
+    write_report,
+)
 
 
 def _gid(slug: str, tex: str, display: bool) -> str:
@@ -96,6 +107,69 @@ def cmd_list(a: argparse.Namespace) -> int:
     return 0
 
 
+def _find_by_gid(gid: str) -> tuple[str, dict[str, Any] | None]:
+    """gid → (slug, finding)。gid 前綴即 slug，只讀該書 report 找 (tex,display) hash 命中者。
+    查無 → (slug, None)（report 過期/已修/gid 打錯）。"""
+    slug = gid.split(":", 1)[0]
+    rep = read_report(slug)
+    if not rep or rep.get("status") == "skipped":
+        return slug, None
+    for f in rep.get("findings") or []:
+        if _gid(slug, f.get("tex") or "", bool(f.get("display"))) == gid:
+            return slug, f
+    return slug, None
+
+
+def _gid_present(slug: str, gid: str, rep: dict[str, Any]) -> bool:
+    return any(
+        _gid(slug, f.get("tex") or "", bool(f.get("display"))) == gid
+        for f in rep.get("findings") or []
+    )
+
+
+def cmd_fix(a: argparse.Namespace) -> int:
+    """gid + 正確 tex → 單條 render 驗證（O(1)，取代 30min 全 corpus gate）→ 寫 override
+    → apply → 單書重驗確認消失。全程 JSON 輸出（agent-friendly、省 token）。"""
+    def emit(obj: dict[str, Any], rc: int) -> int:
+        print(json.dumps(obj, ensure_ascii=False))
+        return rc
+
+    slug, finding = _find_by_gid(a.gid)
+    if finding is None:
+        return emit({"ok": False, "gid": a.gid, "slug": slug,
+                     "error": "gid 查無對應待辦（已修 / report 過期 / 打錯）；先跑 `sweep list`"}, 1)
+
+    # 單條 render 驗證 new（display 與 finding 對齊）——不過即擋下、不落地。
+    verdict = run_render([{"i": 0, "s": a.new, "d": bool(finding.get("display"))}]).get(0) or {}
+    if not verdict.get("ok"):
+        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "render",
+                     "error": f"new tex 仍渲染失敗：{verdict.get('err') or 'unknown'}",
+                     "hint": "改寫後重試（override 未落地）"}, 1)
+
+    # 產 override（每 target 一條，共用 new）→ 併入 override file → apply 到 parsed。
+    try:
+        ovs = finding_to_overrides(slug, finding, a.new)
+    except ValueError as e:
+        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "build_override",
+                     "error": str(e)}, 1)
+    merged = merge_overrides(slug, ovs)
+    apply_stats = apply_overrides(slug)
+
+    # 單書重驗（O(單書) 秒級，非全 corpus）→ 確認該 gid 從殘餘消失。
+    rep = validate_book(slug)
+    write_report(slug, rep)
+    still = _gid_present(slug, a.gid, rep)
+    out: dict[str, Any] = {
+        "ok": not still, "gid": a.gid, "slug": slug,
+        "overrides": merged, "apply": apply_stats,
+        "book_remaining": rep.get("stats", {}).get("bad_unique", 0),
+    }
+    if still:
+        out["warn"] = ("override 已寫但該式仍在殘餘 → 多半 selector 漂移被 apply skip-drift"
+                       "（檢查 apply 結果），或 new 經套用後仍非可渲染")
+    return emit(out, 0 if not still else 1)
+
+
 def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="python -m book_pipeline.math_sweep")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -106,6 +180,14 @@ def _build_parser() -> argparse.ArgumentParser:
     p_list.add_argument("--limit", type=int, help="最多列幾條")
     p_list.add_argument("--json", action="store_true", help="JSON 輸出（agent 用）")
     p_list.set_defaults(func=cmd_list)
+
+    p_fix = sub.add_parser(
+        "fix", help="把某 gid 的壞式改寫成正確 tex（render 驗證→override→apply→重驗）")
+    p_fix.add_argument("--gid", required=True, help="待辦 gid（從 `sweep list` 抄）")
+    p_fix.add_argument("--new", required=True,
+                       help="正確 tex（eq 給裸 tex、inline 給裸 inner）。源文已毀不可渲染者改用 "
+                            "`devctl math-accept`，勿硬塞語意錯的式子")
+    p_fix.set_defaults(func=cmd_fix)
 
     return ap
 

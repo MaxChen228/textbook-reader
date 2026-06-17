@@ -197,6 +197,50 @@ def finding_to_override(slug: str, finding: dict[str, Any], new: str, *,
     return ov
 
 
+def _live_field_value(slug: str, tgt: dict[str, str]) -> str | None:
+    """讀某 target 的 live 欄位完整字串（inline 精確定位 old + anchor 用）。
+    tex target、或 selector/欄位漂移 → None（呼叫端 fallback）。"""
+    if tgt.get("field") == "tex":
+        return None
+    try:
+        data = _load_json(_chunk_path(slug, tgt["chunk"]))
+        holder, key = _resolve_field(data, tgt["selector"], tgt.get("field", "md"))
+        v = holder.get(key)
+        return v if isinstance(v, str) else None
+    except _DRIFT_ERRORS:
+        return None
+
+
+def finding_to_overrides(slug: str, finding: dict[str, Any], new: str) -> list[dict[str, Any]]:
+    """一條 finding 的**所有** targets → 多條 override（每 target 一條，共用同一 new）。
+
+    finding_to_override 是單 target；本函式對 finding 的每個出現位置各產一條（inline target
+    自動讀 live 欄位精確定位）→ math_sweep fix 一鍵清掉該壞式的所有 occ。"""
+    targets = finding.get("targets") or []
+    if not targets:
+        raise ValueError(f"{slug}: finding 無 targets，無法定位 override（tex={finding.get('tex')!r}）")
+    return [
+        finding_to_override(slug, finding, new, target=tgt, field_value=_live_field_value(slug, tgt))
+        for tgt in targets
+    ]
+
+
+def merge_overrides(slug: str, new_ovs: list[dict[str, Any]]) -> dict[str, int]:
+    """併入 math_overrides/<slug>.json，按 id 去重（同 id 覆蓋為新）。回 {added, replaced}。"""
+    path = OVERRIDE_DIR / f'{slug}.json'
+    spec = _load_json(path) if path.is_file() else {"overrides": []}
+    by_id: dict[str, dict] = {o["id"]: o for o in spec.get("overrides") or []}
+    added = replaced = 0
+    for ov in new_ovs:
+        replaced += ov["id"] in by_id
+        added += ov["id"] not in by_id
+        by_id[ov["id"]] = ov
+    spec["overrides"] = list(by_id.values())
+    OVERRIDE_DIR.mkdir(parents=True, exist_ok=True)
+    _write_json(path, spec)
+    return {"added": added, "replaced": replaced}
+
+
 def _make_override_main(argv: list[str]) -> int:
     """make-override CLI：讀 live report 的某條 finding，產 override JSON 條目（印出，agent 自行併入
     math_overrides/<slug>.json）。需 live 資料（parsed/_math_report.json + parsed chunk）。"""
@@ -214,16 +258,8 @@ def _make_override_main(argv: list[str]) -> int:
         ap.error(f"index 越界（0..{len(findings) - 1}）")
     finding = findings[args.index]
     tgt = next(iter(finding.get("targets") or []), None)
-    field_value = None
-    if tgt and tgt.get("field") != "tex":
-        try:                                              # 讀 live 欄位值供精確定位 + anchor
-            data = _load_json(_chunk_path(args.slug, tgt["chunk"]))
-            holder, key = _resolve_field(data, tgt["selector"], tgt.get("field", "md"))
-            v = holder.get(key)
-            field_value = v if isinstance(v, str) else None
-        except _DRIFT_ERRORS:
-            field_value = None
-    ov = finding_to_override(args.slug, finding, args.new, field_value=field_value)
+    field_value = _live_field_value(args.slug, tgt) if tgt else None
+    ov = finding_to_override(args.slug, finding, args.new, target=tgt, field_value=field_value)
     print(json.dumps(ov, ensure_ascii=False, indent=2))
     return 0
 
