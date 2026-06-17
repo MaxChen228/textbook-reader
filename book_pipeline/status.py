@@ -130,6 +130,19 @@ def _catalog_critical(slug: str) -> int:
     return crit
 
 
+def _math_residual(slug: str):
+    """讀 _math_report.json 殘餘 bad_occ（None=未驗/skip/缺）。track-only 資訊，不 gate。
+    status 是 pipeline_queue 的下層、不能 import 它，故直接讀檔（非經 state）。"""
+    p = os.path.join(DATA, slug, 'parsed', '_math_report.json')
+    try:
+        r = json.load(open(p))
+    except Exception:
+        return None
+    if r.get('status') == 'skipped':
+        return None
+    return int(r.get('stats', {}).get('bad_occ') or 0)
+
+
 def _load_pending() -> set:
     """_pending_batches.json 內已 submit、等 receiver poll 的 slug。"""
     p = os.path.join(ROOT, 'book_pipeline', '_pending_batches.json')
@@ -200,7 +213,8 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
     if has_zh:
         stage += ' +zh'
     return {'slug': slug, 'stage': stage, 'todo': ' '.join(todo) or '—',
-            'prob': tot, 'sol': sol, 'sol_book': has_sol_book}
+            'prob': tot, 'sol': sol, 'sol_book': has_sol_book,
+            'math_bad': _math_residual(slug)}
 
 
 def main() -> int:
@@ -215,7 +229,9 @@ def main() -> int:
     todos = []
     for r in rows:
         ps = f"{r.get('sol',0)}/{r.get('prob',0)}" if r.get('prob') else '—'
-        print(f"{r['slug']:20} {r['stage']:<16} {ps:>10} {'有' if r['sol_book'] else '':>5}  {r['todo']}")
+        mb = r.get('math_bad')
+        todo_disp = r['todo'] + (f'  ·math殘{mb}' if mb else '')
+        print(f"{r['slug']:20} {r['stage']:<16} {ps:>10} {'有' if r['sol_book'] else '':>5}  {todo_disp}")
         non_optional = ' '.join(p for p in r['todo'].split() if not p.endswith('(可選)'))
         if non_optional and non_optional != '—':
             todos.append((r['slug'], non_optional))

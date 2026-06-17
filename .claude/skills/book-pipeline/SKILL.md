@@ -93,7 +93,9 @@ uv run python -m book_pipeline.status
 | `pipeline_tick.py` | 單次 tick：resume in-flight → wishlist 爬書 → 走 actionable。det 直跑，LLM（crawl/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。**`--dry-run` 印計劃**。 |
 | `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
 | `crawl_wishlist.json` | 爬書意圖（`topics` 空則不爬）。crawl agent 讀此 + inventory 自行選書選版。 |
-| `references/{crawl,qc}.md` | headless agent 的 crawl / 視覺 QC 流程指引。 |
+| `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`。post-deploy 由 daemon track，殘餘記入 state。 |
+| `apply_math_overrides.py` + `math_overrides/` | corpus 數學 sweep 的 reviewable 修復（比照 catalog_overrides）：`fix_eq_tex`/`fix_inline_math`，git 追蹤、可重播。 |
+| `references/{crawl,qc,math-sweep}.md` | headless agent 的 crawl / 視覺 QC / **跨書數學 sweep** 流程指引。 |
 
 **新 stage**（pipeline_queue 在 status 前後補的）：`0.2 待qc`（triage 判 needs_llm）、`0.3 待ingest`（triage 過）、`deploy`（parse 完 → 本地 `build.build_all` 烤 data/img，nginx 直讀即時上站，**無 git push**）。`R *拒` = triage/qc 判不可用。
 

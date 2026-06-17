@@ -77,6 +77,12 @@ CRAWL_RETRY_S = int(os.environ.get('BOOK_PIPELINE_CRAWL_RETRY_S', '300'))  # cra
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
 HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
+# 數學式 corpus-level sweep（Phase 2，track-only，不 gate deploy）：書先上站，殘餘累積到門檻
+# 才派**一隻**跨書 sweep agent 一次清。THRESHOLD = 觸發水位（全 corpus 壞式 occ 總和）；
+# GROWTH = 已 sweep 過後須再長這麼多才重派（防同一狀態反覆喚醒 LLM）。env 可覆寫。
+MATH_SWEEP_THRESHOLD = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_THRESHOLD', '50'))
+MATH_SWEEP_GROWTH = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_GROWTH', '25'))
+
 # === 反應式控制迴圈（BOOK_PIPELINE_REACTIVE=1 啟用；預設 0 = 現行單次 tick，行為一字不差）===
 # 第一性原理：單一 controller 進程內跑「有界 observe→非阻塞派工→reap→harvest→sleep」迴圈，
 # 把「三條件齊備（上游產物就緒 ∧ 資源可用 ∧ 無人在做）」的 transition 立刻派成 thread worker；
@@ -119,6 +125,17 @@ LLM_PROMPTS = {
         "（含各 critical 類別的查證與修法、override action 語意、陷阱）：跑 audit_catalog 看殘留 "
         "→ 產 book_pipeline/catalog_overrides/{slug}.json → apply_catalog_overrides → 重審，"
         "把 critical 降到最低（多數可全清零）。真不可修者（源頭缺）列入 _catalog_audit.md 即可收工。"),
+    'math_sweep': (
+        "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，非單本）。"
+        "**嚴格遵照 references/math-sweep.md**。**autonomous 模式硬規則**："
+        "(1) 跑 `uv run python -m book_pipeline.math_validate --aggregate --json` 取跨書聚合殘餘。"
+        "(2) 高頻可泛化者（巨集/normalize 規則）**只 append 提案到 book_pipeline/math_overrides/_proposals.md**，"
+        "**絕不**自行改 math_macros.json / math_normalize.py（核心碼，交人工 review 升級）。"
+        "(3) 其餘 one-off：逐書寫 book_pipeline/math_overrides/<slug>.json（action fix_eq_tex/fix_inline_math，"
+        "targets 直接抄 finding 的 chunk/selector/field，eq 用 expect、inline 用 anchor guard；同欄重複式用 all、"
+        "重複 problem num 用 selector 的 #OCC，見 SOP §4）。寫完自跑 `apply_math_overrides <slug>` + "
+        "`math_validate <slug>` 驗殘餘下降——**daemon 會在你收工後確定性 re-apply + 重烤上站**（部署不用你管）。"
+        "(4) 真不可修者（源頭 OCR 亂碼/截斷，無 PDF 可重建）留著即可，daemon 會記錄。**絕不手改 parsed/*.json**。"),
 }
 
 
@@ -617,9 +634,96 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if rc == 0 and os.path.isfile(book_json):
         q.mark_deployed(slug)
         log(f'deploy {slug} ✓：book.json 已烤出，上站')
+        do_math_track(slug)  # 上站即量數學殘餘（track-only，best-effort，不影響 deploy rc）
     else:
         log(f'❌ deploy {slug}：build rc={rc}，book.json={"有" if os.path.isfile(book_json) else "無"} → 不標 deployed，下個 tick 重試')
     return rc
+
+
+def do_math_track(slug: str) -> int:
+    """post-deploy 量該書數學式渲染殘餘，寫 _math_report.json + state（do_math_sweep 門檻判據）。
+    best-effort：缺 node_modules → graceful skip（bad_occ=0）；任何例外吞掉、絕不影響 deploy。
+    回殘餘 bad_occ（-1=出錯）。"""
+    try:
+        from book_pipeline import math_validate as mv
+        rep = mv.validate_book(slug)
+        mv.write_report(slug, rep)
+        bad = int(rep.get('stats', {}).get('bad_occ') or 0)
+        q.mark_math_validated(slug, bad, rep.get('macros_version', 'none'))
+        if rep.get('status') == 'fail':
+            log(f'math track {slug}：殘餘 {bad} occ（by_cat {rep.get("by_category")}）')
+        return bad
+    except Exception as e:
+        log(f'math track {slug} 異常（不影響 deploy）：{e}')
+        return -1
+
+
+def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
+    """廉價門檻判定（讀 state，不重跑 node）。回 (該不該 sweep, 當前 corpus 殘餘 occ)。
+    缺 node → 永不 due（無從驗證）；殘餘 < 門檻 → 不 due；已在同 macros sweep 過且殘餘
+    未再長過 GROWTH → 不 due（防同一狀態反覆喚醒 LLM、保證 reactive loop 能收斂 idle）。"""
+    from book_pipeline import math_validate as mv
+    if not mv.node_available():
+        return False, 0
+    s = state if state is not None else q._load_state()
+    total = q.corpus_math_residual(s)
+    if total < MATH_SWEEP_THRESHOLD:
+        return False, total
+    ls = q.math_sweep_state(s)
+    if (ls and ls.get('macros_version') == mv.macros_version()
+            and total < int(ls.get('residual_after') or 0) + MATH_SWEEP_GROWTH):
+        return False, total
+    return True, total
+
+
+def do_math_sweep(dry: bool) -> int:
+    """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：殘餘累積
+    過門檻 → 派**一隻**跨書 sweep agent（寫 math_overrides + _proposals，autonomous 不碰核心碼）
+    → daemon 確定性把被改的書重烤上站 → 重量殘餘、記錄 sweep 狀態（防重派）。
+    回 0=完成/跳過、-2=LLM 撞額度（defer 下個 tick，不記狀態）。"""
+    from book_pipeline import math_validate as mv
+    due, total = _math_sweep_due()
+    if not due:
+        return 0
+    cur = mv.macros_version()
+    log(f'math sweep：corpus 殘餘 {total} occ ≥ 門檻 {MATH_SWEEP_THRESHOLD} → 派跨書 sweep agent（macros={cur}）')
+    if dry:
+        dispatch_llm('math_sweep', None, dry=True)
+        return 0
+    t0 = time.time()
+    rc = dispatch_llm('math_sweep', None, dry=False)
+    if rc == -2:
+        log('math sweep：LLM 撞額度 → defer 下個 tick（不記 sweep 狀態）')
+        return -2
+    # daemon 確定性收尾（apply 從 agent 收回 daemon，比照 catalog；消除「agent apply 的書必須恰等於
+    # daemon 重烤的書」的脆弱耦合）：對每本有 override 的書 idempotent re-apply；凡本輪真有改動（apply
+    # 產生 applied，含重 parse 沖掉後重套）或 override 本輪新寫（mtime>t0）→ 重烤上站（live 讀 data/，
+    # 不重烤看不到修復）+ 重量殘餘。apply 失配自動 skip-drift，全程不 raise。
+    from book_pipeline import apply_math_overrides as amo
+    od = os.path.join(BP, 'math_overrides')
+    rebake: list[str] = []
+    for fn in sorted(os.listdir(od) if os.path.isdir(od) else []):
+        if not fn.endswith('.json') or fn.startswith('_'):
+            continue
+        slug = fn[:-5]
+        fresh = os.path.getmtime(os.path.join(od, fn)) > t0
+        try:
+            stats = amo.apply_overrides(slug)
+        except Exception as e:
+            log(f'❌ math sweep apply {slug}：{e}')
+            continue
+        if fresh or any(k.endswith(':applied') and v for k, v in stats.items()):
+            rebake.append(slug)
+            log(f'math sweep：{slug} {stats} → 重烤上站')
+    for slug in rebake:
+        brc = subprocess.run(['uv', 'run', 'python', '-m', 'build.build_all', slug], cwd=READER_ROOT).returncode
+        if brc != 0:
+            log(f'❌ math sweep 重烤 {slug} build rc={brc}（parsed 已修、data 未更新，下個 sweep 重試）')
+        do_math_track(slug)
+    residual_after = q.corpus_math_residual()
+    q.mark_math_swept(cur, residual_after, rebake)
+    log(f'math sweep ✓：本輪改 {len(rebake)} 書，corpus 殘餘 {total}→{residual_after} occ')
+    return 0
 
 
 def do_catalog_repair(slug: str, dry: bool) -> int:
@@ -840,6 +944,9 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
         # E. 對收割到 unified 的書再並行縱向推進（parse→audit→catalog→sol→deploy 一條龍）。
         _advance_parallel([r['slug'] for r in _sorted_rows()], dry, no_deploy)
 
+    # F. corpus-level 數學 sweep（track-only reduce job，殘餘過門檻才派一隻跨書 agent）。
+    do_math_sweep(dry)
+
     log('=== tick end ===')
     return 0
 
@@ -934,6 +1041,12 @@ def tick_reactive(no_deploy: bool) -> int:
                     dispatched += 1
                     last_crawl_attempt = time.monotonic()
                     log(f'crawl 補貨：backlog {backlog} < 水位 {CRAWL_LOW} → 派 planner（本批名額上限 {cap}）')
+
+            # C2. corpus-level 數學 sweep（track-only）：殘餘過門檻才派一隻跨書 agent。__math_sweep__
+            # key 自動序列化（在跑時不疊派）；_math_sweep_due 在已 sweep 狀態回 False → loop 能收斂 idle。
+            due, _resid = _math_sweep_due()
+            if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
+                dispatched += 1
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
             # occ 非空＝有書 OCR 在雲端排隊，harvestable() 隨時會翻就緒 → 不可進 idle 提早退出
