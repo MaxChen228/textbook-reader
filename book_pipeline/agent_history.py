@@ -32,7 +32,9 @@ INDEX_PATH = os.path.join(HIST_DIR, 'index.json')
 
 # 全域上限：index 超出即刪最舊（含其 JSONL）。append 序≈時間序，故砍頭。env 可覆寫。
 MAX_SESSIONS = int(os.environ.get('BOOK_PIPELINE_HISTORY_CAP', '3000'))
-# reconcile：JSONL 存在但 index 無對應 entry（finish 前進程被 SIGKILL）且夠老 → 視為死孤兒清除。
+# reconcile：JSONL 在、index 無對應 row（finish 沒跑成——daemon 被砍 / daemon thread 退出未走
+# finally）。index 是 JSONL 的【衍生快取】，可重建 → 不刪、改【從 JSONL 還原 row】。pid 已死即還原；
+# pid 仍活但 JSONL 逾此秒數沒更新（pid 重用嫌疑）也還原；其餘留給其 live session 自行 finish。
 _ORPHAN_AGE_S = 3600
 
 _lock = threading.Lock()
@@ -92,6 +94,71 @@ def _sess_path(sid: str) -> str:
     return os.path.join(SESS_DIR, sid + '.jsonl')
 
 
+def _pid_of(sid: str) -> int | None:
+    """從 session id 末段取回子工 pid（_session_id 以 -<pid> 結尾）。"""
+    tail = sid.rsplit('-', 1)
+    return int(tail[1]) if len(tail) == 2 and tail[1].isdigit() else None
+
+
+def _pid_alive(pid: int) -> bool:
+    """signal 0 探活：不存在→False；無權 signal（別 user）→保守視為活、不重建。"""
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    except OSError:
+        return False
+    return True
+
+
+def _reconstruct_row(sid: str, path: str) -> dict | None:
+    """從孤兒 JSONL 還原一筆 index row（finish 沒跑成的補登記）。id 已編碼 ts/verb/slug；
+    events/calls/ended 由 JSONL 內容導出。provider/model/rc 無法從事件流還原 → None，並標
+    reconstructed=True 供 UI 中性呈現：finish 從未執行 → 結束碼本就未知，不謊報成功亦不謊報失敗。"""
+    parts = sid.split('-')
+    if len(parts) < 4:
+        return None
+    ts, verb = parts[0], parts[1]
+    slug = '-'.join(parts[2:-1])  # corpus session 的 slug 段為字面 "corpus"
+    slug = None if slug == 'corpus' else slug
+    try:
+        started_dt = datetime.strptime(ts, '%Y%m%dT%H%M%SZ').replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+    calls = events = 0
+    last_t = None
+    try:
+        with open(path, encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    ev = json.loads(line)
+                except (json.JSONDecodeError, ValueError):
+                    continue
+                events += 1
+                if ev.get('kind') == 'tool':
+                    calls += 1
+                if ev.get('t'):
+                    last_t = ev['t']
+    except OSError:
+        return None
+    started = started_dt.isoformat(timespec='seconds')
+    ended = last_t or started
+    try:
+        dur = int((datetime.fromisoformat(ended) - started_dt).total_seconds())
+    except Exception:
+        dur = None
+    return {
+        'id': sid, 'slug': slug, 'verb': verb, 'provider': None, 'harness': None,
+        'model': None, 'started': started, 'ended': ended, 'duration_s': dur,
+        'total_calls': calls, 'events': events, 'rc': None, 'ok': None,
+        'touched': [], 'reconstructed': True}
+
+
 # ── 生命週期 ───────────────────────────────────────────────────────────────────
 def start(key: str, slug: str | None, verb: str, pid: int, provider: str, model: str) -> None:
     started = _now()
@@ -141,7 +208,13 @@ def finish(key: str, rc: int) -> str | None:
         rows, ok = _load_index()
         if not ok:
             return s['id']  # index 暫時讀不到 → 跳過歸檔（JSONL 仍在），絕不覆寫抹除全史
-        rows.append(row)
+        # 冪等：若 reconcile 已先還原同 id（慢 session 被誤判 stale）→ 以權威 finish 取代之
+        for i, r in enumerate(rows):
+            if r.get('id') == row['id']:
+                rows[i] = row
+                break
+        else:
+            rows.append(row)
         _prune_locked(rows)
         _write_index_locked(rows)
         _last_by_verb[s['verb']] = s['id']  # set_touched 精準回填用（本進程最後一場該 verb）
@@ -223,16 +296,22 @@ def load_session(sid: str) -> list:
 
 
 def reconcile() -> int:
-    """清死孤兒：JSONL 存在但 index 無對應、且 mtime 夠老（finish 前被 SIGKILL）。回清除數。
-    低頻呼叫（devctl snapshot 心跳）即可，純清潔不影響正確性。"""
+    """自癒孤兒：JSONL 在、index 無對應 row（finish 沒跑成——daemon 被砍 / daemon thread 退出
+    未走 finally）。index 是 JSONL 衍生快取 → 【還原】row 而非刪除（舊版直接 os.remove 等於銷毀
+    可救的真實歷程）。pid 已死即還原；pid 仍活但 JSONL 逾 _ORPHAN_AGE_S 沒更新（pid 重用嫌疑）
+    也還原；其餘（pid 活且新鮮＝可能仍在跑）留給其 live session 自行 finish。回還原筆數。
+    低頻呼叫（devctl snapshot 心跳 60s）即可，純清潔不影響正確性。"""
     import time
     with _lock:
         if not os.path.isdir(SESS_DIR):
             return 0
-        known = {r.get('id') for r in _read_index()}
+        rows, ok = _load_index()
+        if not ok:
+            return 0  # index 暫讀不到 → 本輪不動，下次心跳再來（絕不把全部誤判成孤兒）
+        known = {r.get('id') for r in rows}
         live = {s['id'] for s in _sessions.values()}
         now = time.time()
-        n = 0
+        recovered = []
         for fn in os.listdir(SESS_DIR):
             if not fn.endswith('.jsonl'):
                 continue
@@ -241,9 +320,18 @@ def reconcile() -> int:
                 continue
             p = os.path.join(SESS_DIR, fn)
             try:
-                if now - os.path.getmtime(p) > _ORPHAN_AGE_S:
-                    os.remove(p)
-                    n += 1
+                fresh = now - os.path.getmtime(p) <= _ORPHAN_AGE_S
             except OSError:
-                pass
-        return n
+                continue
+            pid = _pid_of(sid)
+            if pid is not None and _pid_alive(pid) and fresh:
+                continue  # pid 活 + JSONL 新 → 可能仍在跑，留給它自己 finish（免重複登記）
+            row = _reconstruct_row(sid, p)
+            if row is not None:
+                recovered.append(row)
+        if recovered:
+            rows.extend(recovered)
+            rows.sort(key=lambda r: r.get('started') or '')  # 還原 row 插回時間序（prune 砍頭靠此序）
+            _prune_locked(rows)
+            _write_index_locked(rows)
+        return len(recovered)

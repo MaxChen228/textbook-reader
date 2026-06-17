@@ -32,6 +32,7 @@ import os
 import sys
 from contextlib import contextmanager
 
+from book_pipeline import jsonio
 from book_pipeline import status as st
 
 ROOT = st.ROOT
@@ -60,14 +61,13 @@ LLM_TODOS = {'qc', 'audit', 'crawl'}
 
 
 def _load_state() -> dict:
-    try:
-        return json.load(open(STATE_PATH)) or {}
-    except Exception:
-        return {}
+    # 容錯讀：毀損 → 改名 .corrupt 保全後回 {}（絕不讓壞檔靜默清空全部 QC/deploy/catalog 標記）
+    return jsonio.read_json(STATE_PATH, {})
 
 
 def _save_state(s: dict) -> None:
-    json.dump(s, open(STATE_PATH, 'w'), ensure_ascii=False, indent=2)
+    # 原子寫：launchd/SIGKILL 寫一半只截斷 tmp，正檔永遠完整（_state_lock 已序列化 RMW）
+    jsonio.atomic_write_json(STATE_PATH, s, indent=2)
 
 
 def set_qc(slug: str, verdict: str, note: str = '', by: str = 'claude') -> None:

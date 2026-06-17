@@ -20,7 +20,10 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import threading
 from datetime import datetime, timezone
+
+from book_pipeline import jsonio
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -31,20 +34,21 @@ PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 # 故無 cap/remaining 概念——僅記今日 used 頁數供負載均衡與 dashboard 資訊顯示。
 ACCOUNTS = ['MINERU_API_TOKEN', 'MINERU_API_TOKEN2']  # 對應 --account 1 / 2
 
+# record_start 的 _load→改→_save RMW 進程內互斥（tick_once 的 _advance_parallel 並行 advance 會
+# 並發呼叫 → 不鎖會丟頁數/書清單）。跨進程由 pipeline_tick main() 的 flock 序列化 tick。
+_budget_lock = threading.Lock()
+
 
 def _today() -> str:
     return datetime.now(timezone.utc).strftime('%Y-%m-%d')
 
 
 def _load() -> dict:
-    try:
-        return json.load(open(BUDGET_PATH)) or {}
-    except Exception:
-        return {}
+    return jsonio.read_json(BUDGET_PATH, {})  # 容錯讀（毀損→保全壞檔後回 {}）
 
 
 def _save(d: dict) -> None:
-    json.dump(d, open(BUDGET_PATH, 'w'), ensure_ascii=False, indent=2)
+    jsonio.atomic_write_json(BUDGET_PATH, d, indent=2)  # 原子寫，免 SIGKILL 截斷成壞檔
 
 
 def estimate_pages(slug: str) -> int | None:
@@ -78,13 +82,14 @@ def pick_account(pages: int = 0) -> str:
 
 
 def record_start(slug: str, account: str, pages: int) -> None:
-    d = _load()
-    day = d.setdefault(_today(), {})
-    ent = day.setdefault(account, {'pages': 0, 'books': []})
-    if slug not in ent['books']:
-        ent['books'].append(slug)
-        ent['pages'] += pages
-    _save(d)
+    with _budget_lock:
+        d = _load()
+        day = d.setdefault(_today(), {})
+        ent = day.setdefault(account, {'pages': 0, 'books': []})
+        if slug not in ent['books']:
+            ent['books'].append(slug)
+            ent['pages'] += pages
+        _save(d)
 
 
 def _account_num(account: str) -> str:

@@ -14,14 +14,17 @@ pid 重用防護：acquire 時用 `ps -o lstart=,comm=` 擷取進程「身分 to
 存入租約；active 重查並比對——pid 被 OS 回收給無關進程時 token 不符 → 視為死、unlink 但
 **絕不 killpg**（那是別人的進程）。lstart 解析度 1 秒，疊加 comm 比對，誤判機率可忽略。
 
-並發假設：active() 會做 reap 副作用（unlink/kill），**僅持 tick flock 的單一控制迴圈可呼叫**
-（daemon 以 flock 序列化 tick，故無並發 reap 同一租約的競態）。
+並發假設：active() 會做 reap 副作用（unlink/kill）。跨進程由 launchd flock 序列化 tick；
+進程內（reactive 模式下 controller 掃描+reap 與多 worker thread 的 acquire/release 並發操作同一
+LEASE_DIR）由模組級 _lock 序列化 → acquire/release/active 皆 thread-safe（破壞性 reap 的「單一
+呼叫者」前提在進程內靠此鎖成立，非僅靠 identity-token + atomic-replace 湊巧兜底）。
 """
 
 import json
 import os
 import signal
 import subprocess
+import threading
 import time
 
 # 與 pipeline_tick 同根：本檔位於 book_pipeline/ 下，_BP 即指 book_pipeline/。
@@ -33,6 +36,10 @@ DEFAULT_TTL = int(os.environ.get('BOOK_PIPELINE_LEASE_TTL', '3600'))
 # runaway SIGTERM 後給多久自清，逾此 active() 才補 SIGKILL（對齊 pipeline_tick 既有 5s 寬限，
 # 但兩段式跨 scan、非阻塞 sleep）。
 KILL_GRACE = int(os.environ.get('BOOK_PIPELINE_LEASE_KILL_GRACE', '5'))
+
+# 進程內序列化 acquire/release/active（見模組 docstring「並發假設」）。reactive 模式下 reap 與
+# worker 的 acquire/release 並發同一 LEASE_DIR；此鎖把「單一呼叫者」前提在進程內坐實。
+_lock = threading.Lock()
 
 
 def _key(verb: str, slug: str | None) -> str:
@@ -63,26 +70,28 @@ def _proc_identity(pid: int) -> str | None:
 
 def acquire(verb: str, slug: str | None, pid: int, ttl: int | None = None) -> str:
     """寫一張 (verb, slug) 租約，回租約檔路徑。呼叫端在 spawn 脫離 worker 後立即呼叫。"""
-    os.makedirs(LEASE_DIR, exist_ok=True)
-    path = _path(verb, slug)
-    rec = {
-        'verb': verb,
-        'slug': slug,
-        'pid': int(pid),
-        'identity': _proc_identity(int(pid)),  # pid 重用二次校驗用
-        'started_at': time.time(),
-        'ttl': int(ttl if ttl is not None else DEFAULT_TTL),
-    }
-    tmp = path + '.tmp'
-    with open(tmp, 'w') as f:
-        json.dump(rec, f)
-    os.replace(tmp, path)  # 原子寫，避免讀到半截
-    return path
+    with _lock:
+        os.makedirs(LEASE_DIR, exist_ok=True)
+        path = _path(verb, slug)
+        rec = {
+            'verb': verb,
+            'slug': slug,
+            'pid': int(pid),
+            'identity': _proc_identity(int(pid)),  # pid 重用二次校驗用
+            'started_at': time.time(),
+            'ttl': int(ttl if ttl is not None else DEFAULT_TTL),
+        }
+        tmp = path + '.tmp'
+        with open(tmp, 'w') as f:
+            json.dump(rec, f)
+        os.replace(tmp, path)  # 原子寫，避免讀到半截
+        return path
 
 
 def release(verb: str, slug: str | None) -> None:
     """worker 正常完成後主動釋放租約（亦由 active() 在偵測 pid 已死時代為清掉）。"""
-    _safe_unlink(_path(verb, slug))
+    with _lock:
+        _safe_unlink(_path(verb, slug))
 
 
 def _killpg(pid: int, sig) -> None:
@@ -96,8 +105,13 @@ def _killpg(pid: int, sig) -> None:
 
 def active(now: float | None = None, log=None) -> list[dict]:
     """掃 LEASE_DIR、即時 reap，回「真正在跑」的租約清單（每筆含 verb/slug/pid/started_at/ttl）。
-    reap 副作用見模組 docstring。僅持 tick flock 的單一控制迴圈可呼叫。log 可選（kill 通報）。"""
-    now = time.time() if now is None else now
+    reap 副作用見模組 docstring。進程內由 _lock 序列化（reactive 安全），跨進程由 launchd flock。
+    log 可選（kill 通報）。"""
+    with _lock:
+        return _active_locked(time.time() if now is None else now, log)
+
+
+def _active_locked(now: float, log) -> list[dict]:
     out: list[dict] = []
     try:
         names = os.listdir(LEASE_DIR)
