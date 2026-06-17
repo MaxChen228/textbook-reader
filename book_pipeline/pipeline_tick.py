@@ -36,6 +36,7 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
@@ -56,7 +57,8 @@ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 #   codex      = 原生 OAuth（~/.codex/auth.json，codex login ChatGPT 訂閱）
 #   codex-pool = ccNexus 池子（codex -p nexus + CCNEXUS_API_KEY；maxn970228 token 輪換、
 #                與原生 codex 不同帳號＝獨立額度）。profile 在兩機 ~/.codex/nexus.config.toml。
-# 模型由 _provider_model 讀 env（除 kimi 外各 provider 皆可調，預設見該函數）。
+# 模型/effort/chain/timeout 全收斂進「派工配置層」（DispatchSpec + DEFAULT_DISPATCH/
+# STAGE_DISPATCH + _resolve_dispatch，見下），非散落於此。
 CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
 # headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
 # audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
@@ -227,19 +229,79 @@ def _is_codex(provider: str) -> bool:
     return provider in ('codex', 'codex-pool')
 
 
-def _provider_model(provider: str) -> str:
-    """各 provider 的模型覆寫（kimi 除外，由 _llm_env 寫死 kimi-for-coding）。
-    回 '' = 不顯式帶 --model，用該 harness 預設。"""
-    if provider == 'codex':
-        return os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4')
-    if provider == 'codex-pool':
-        # 池子白名單僅 gpt-5.5/5.4/5.4-mini/5.3-codex-spark（ccNexus fork 透傳修復）；
-        # 切非 gpt-5.5 依賴該修復在線，否則被 endpoint 釘回 gpt-5.5（功能不壞、模型沒切成）。
-        return (os.environ.get('BOOK_PIPELINE_CODEX_POOL_MODEL')
-                or os.environ.get('BOOK_PIPELINE_CODEX_MODEL', 'gpt-5.4'))
-    if provider == 'claude':
-        return os.environ.get('BOOK_PIPELINE_CLAUDE_MODEL', '').strip()
-    return ''  # kimi
+# ── 派工配置層（單一真相源）────────────────────────────────────────────────
+# 每個 LLM stage「怎麼派」收斂成一個 DispatchSpec：provider failover 優先序、各家模型、
+# codex reasoning effort、timeout。三層合併（_resolve_dispatch）：
+#   DEFAULT_DISPATCH ← STAGE_DISPATCH[verb]（per-stage 覆寫）← env（運維臨時拉桿，最高）。
+# 新增可操縱維度＝擴 DispatchSpec 一個欄 + _build_llm_cmd 消費它，無第三處散落。
+KNOWN_PROVIDERS = ('codex-pool', 'codex', 'kimi', 'claude')
+
+
+@dataclass(frozen=True)
+class DispatchSpec:
+    """單一 stage 的派工配置。欄位 None＝繼承上層 / 不帶該旗標。"""
+    chain: tuple[str, ...] | None = None   # provider failover 優先序
+    codex_model: str | None = None         # codex 家族模型（gpt-5.x；池子白名單見下）
+    codex_effort: str | None = None        # codex reasoning effort（low/medium/high）
+    claude_model: str | None = None        # claude 模型（kimi 由 _llm_env 寫死，不適用）
+    timeout: int | None = None             # 派工 wall-clock 上限（秒）
+
+
+# 全域底：chain＝優先榨池子（maxn970228 獨立額度）→ 原生 codex → kimi → Claude Max 保底。
+# codex 家族預設 gpt-5.4（池子白名單 gpt-5.5/5.4/5.4-mini/5.3-codex-spark 內，需 ccNexus
+# fork 透傳修復在線才切得動非 5.5）。timeout 1h：正常 audit ~25min，留卡死護欄餘裕。
+DEFAULT_DISPATCH = DispatchSpec(
+    chain=('codex-pool', 'codex', 'kimi', 'claude'),
+    codex_model='gpt-5.4',
+    timeout=3600,
+)
+# per-stage 覆寫（只列偏離預設者；未列 stage 全走 DEFAULT_DISPATCH）。reasoning effort 分層：
+# 重判斷（audit/catalog_audit/sol_extract）high、解析/掃描（crawl/math_sweep）medium、視覺 qc low。
+STAGE_DISPATCH: dict[str, DispatchSpec] = {
+    'audit':         DispatchSpec(codex_effort='high'),
+    'catalog_audit': DispatchSpec(codex_effort='high'),
+    'sol_extract':   DispatchSpec(codex_effort='high'),
+    'crawl':         DispatchSpec(codex_effort='medium'),
+    'math_sweep':    DispatchSpec(codex_effort='medium'),
+    'qc':            DispatchSpec(codex_effort='low'),
+}
+
+
+def _merge(base: DispatchSpec, over: DispatchSpec | None) -> DispatchSpec:
+    """over 的非 None 欄覆寫 base。"""
+    if over is None:
+        return base
+    return replace(base, **{k: v for k, v in vars(over).items() if v is not None})
+
+
+def _env_override(spec: DispatchSpec) -> DispatchSpec:
+    """env 運維臨時拉桿凌駕（最高優先）。未設的 env 不動該欄。codex-pool 的模型另有
+    BOOK_PIPELINE_CODEX_POOL_MODEL 獨立凌駕，在 _build_llm_cmd 取模型時處理（pool 特例）。"""
+    ch = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
+    if ch:
+        parsed = tuple(p.strip().lower() for p in ch.split(',') if p.strip())
+        if parsed:
+            spec = replace(spec, chain=parsed)
+    for env_key, field in (('BOOK_PIPELINE_CODEX_MODEL', 'codex_model'),
+                           ('BOOK_PIPELINE_CODEX_EFFORT', 'codex_effort'),
+                           ('BOOK_PIPELINE_CLAUDE_MODEL', 'claude_model')):
+        v = os.environ.get(env_key)
+        if v:
+            spec = replace(spec, **{field: v})
+    to = os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT')
+    if to:
+        spec = replace(spec, timeout=int(to))
+    return spec
+
+
+def _resolve_dispatch(verb: str) -> DispatchSpec:
+    """三層合併 → fully-resolved spec：DEFAULT ← STAGE_DISPATCH[verb] ← env。"""
+    spec = _env_override(_merge(DEFAULT_DISPATCH, STAGE_DISPATCH.get(verb)))
+    unknown = [p for p in (spec.chain or ()) if p not in KNOWN_PROVIDERS]
+    if unknown:
+        log(f'⚠ provider chain 含未知 provider {unknown}（合法：{KNOWN_PROVIDERS}）'
+            f' → 將走 claude CLI 預設分支，恐非預期')
+    return spec
 
 
 def _llm_env(provider: str) -> dict | None:
@@ -274,25 +336,6 @@ def _llm_env(provider: str) -> dict | None:
         'ANTHROPIC_SMALL_FAST_MODEL': 'kimi-for-coding',
     })
     return env
-
-
-# Provider failover 串接：撞額度的 provider 不再讓整輪停擺，而是換鏈上下一個 provider 重跑
-# 同一任務。鏈預設 kimi→codex→claude（env BOOK_PIPELINE_PROVIDER_CHAIN 覆寫，逗號分隔）；
-# 未設則退回單一 BOOK_PIPELINE_PROVIDER（向後相容）。全鏈撞光才 defer 到下個 tick。
-KNOWN_PROVIDERS = ('claude', 'kimi', 'codex', 'codex-pool')
-
-
-def _provider_chain() -> list[str]:
-    raw = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
-    if raw:
-        chain = [p.strip().lower() for p in raw.split(',') if p.strip()]
-        if chain:
-            unknown = [p for p in chain if p not in KNOWN_PROVIDERS]
-            if unknown:
-                log(f'⚠ provider chain 含未知 provider {unknown}（合法：{KNOWN_PROVIDERS}）'
-                    f' → 將走 claude CLI 預設分支，恐非預期')
-            return chain
-    return [os.environ.get('BOOK_PIPELINE_PROVIDER', 'claude').lower()]
 
 
 # 撞額度的 provider（本 tick 內標記，跨並行子工共享 → 不再重複撞同一耗盡的 provider）。
@@ -348,29 +391,40 @@ def _tool_label(blk: dict) -> str:
     return name
 
 
-def _build_llm_cmd(provider: str, prompt: str) -> list[str]:
-    """依 provider 組 headless 派工命令。
+def _codex_model(provider: str, spec: DispatchSpec) -> str:
+    """codex 家族實際模型：spec.codex_model 為底，codex-pool 另由 env 獨立凌駕（pool 特例）。"""
+    m = spec.codex_model or 'gpt-5.4'
+    if provider == 'codex-pool':
+        m = os.environ.get('BOOK_PIPELINE_CODEX_POOL_MODEL') or m
+    return m
+
+
+def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
+    """依 provider + 解析後的 DispatchSpec 組 headless 派工命令。
     claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json；claude 可由
-    BOOK_PIPELINE_CLAUDE_MODEL 帶 --model（kimi 不帶，靠 _llm_env 的 ANTHROPIC_MODEL）。
+    spec.claude_model 帶 --model（kimi 不帶，靠 _llm_env 的 ANTHROPIC_MODEL）。
     codex/codex-pool：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon
-    信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 由 _provider_model 取；codex-pool
-    額外帶 `-p nexus`（走 ccNexus 池子 profile）。
+    信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 取 spec.codex_model（codex-pool 另由
+    BOOK_PIPELINE_CODEX_POOL_MODEL 獨立凌駕）；spec.codex_effort 非空帶 -c model_reasoning_effort；
+    codex-pool 額外帶 `-p nexus`（走 ccNexus 池子 profile）。
     ⚠ 全權沙箱為【已審視的接受風險】：daemon 本質需 fs-write+exec 才能產書，收緊即失能。
     對應緩解——注入面 slug 已白名單化（_fetch_book / crawl_zlib，[a-z0-9_]{1,64}）、
     不可信的 OCR 產物在 bake 邊界消毒（nh3 表格 + marked raw-HTML 轉義）。勿擅自收緊。"""
     if _is_codex(provider):
         cmd = [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
                '-C', ROOT, '--sandbox', 'danger-full-access',
-               '--model', _provider_model(provider)]
+               '--model', _codex_model(provider, spec)]
+        if spec.codex_effort:
+            # codex 的 TOML config override（值需引號才當字串）；只 codex 家族有此旋鈕
+            cmd += ['-c', f'model_reasoning_effort="{spec.codex_effort}"']
         if provider == 'codex-pool':
             cmd += ['-p', 'nexus']
         cmd.append(prompt)
         return cmd
     cmd = [CLAUDE_BIN, '-p', prompt, '--add-dir', ROOT,
            '--output-format', 'stream-json', '--verbose']
-    m = _provider_model(provider)  # claude 自訂模型；kimi 回 '' 不帶
-    if m:
-        cmd += ['--model', m]
+    if provider == 'claude' and spec.claude_model:
+        cmd += ['--model', spec.claude_model]
     return cmd
 
 
@@ -464,13 +518,24 @@ def _install_term_handlers(wake, terminating) -> bool:
         return False
 
 
+def _display_model(provider: str, spec: DispatchSpec) -> str:
+    """歷程/面板顯示的模型 label：codex 家族＝實際模型（附 effort），claude＝自訂模型，
+    kimi＝provider 名（後端固定 kimi-for-coding）。"""
+    if _is_codex(provider):
+        m = _codex_model(provider, spec)
+        return f'{m}/{spec.codex_effort}' if spec.codex_effort else m
+    if provider == 'claude' and spec.claude_model:
+        return spec.claude_model
+    return provider
+
+
 def _run_one(provider: str, todo_verb: str, slug: str | None,
-             prompt: str) -> tuple[int, bool]:
-    """用單一 provider 跑一次派工。回 (rc, hit_limit)。hit_limit=True 代表撞該 provider 額度，
-    呼叫端據此換鏈上下一個 provider 重跑同一任務。timeout→(-1, False)（逾時非額度）。"""
+             prompt: str, spec: DispatchSpec) -> tuple[int, bool]:
+    """用單一 provider + 解析後 spec 跑一次派工。回 (rc, hit_limit)。hit_limit=True 代表撞該
+    provider 額度，呼叫端據此換鏈上下一個 provider 重跑同一任務。timeout→(-1, False)（逾時非額度）。"""
     import signal
     import time
-    cmd = _build_llm_cmd(provider, prompt)
+    cmd = _build_llm_cmd(provider, prompt, spec)
     log(f'RUN llm {todo_verb} {slug or ""}（{provider}/JSONL）')
     p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -479,11 +544,12 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
     hist.start(wkey, slug, todo_verb, p.pid, provider,
-               _provider_model(provider) or provider)
+               _display_model(provider, spec))
     result_rc = -1  # finally 用：timeout 路徑直接 return -1 不設 rc，故先給地板值
+    timeout = spec.timeout or LLM_TIMEOUT
     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
-    leases.acquire(todo_verb, slug, p.pid, LLM_TIMEOUT)
+    leases.acquire(todo_verb, slug, p.pid, timeout)
     _register_child(p.pid, p.pid)  # start_new_session ⇒ pgid==pid；SIGTERM 時整組可被快殺
 
     def _pump():
@@ -505,9 +571,9 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     t.start()
     try:
         try:
-            rc = p.wait(timeout=LLM_TIMEOUT)
+            rc = p.wait(timeout=timeout)
         except subprocess.TimeoutExpired:
-            log(f'⏱ TIMEOUT {LLM_TIMEOUT}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
+            log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
             try:
                 os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                 time.sleep(5)
@@ -530,13 +596,15 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
 
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈撞額度 → 呼叫端 defer。
-    鏈預設 kimi→codex→claude（_provider_chain）。某 provider 撞額度即標記（本 tick 內共享，
-    並行子工不再重複撞）、換下一個 provider **重跑同一任務**（不浪費派工）；全鏈撞光才 -2。
+    派工策略（chain/model/effort/timeout）由 _resolve_dispatch(verb) 解析（DEFAULT←STAGE←env）。
+    某 provider 撞額度即標記（本 tick 內共享，並行子工不再重複撞）、換下一個 provider **重跑同一
+    任務**（不浪費派工）；全鏈撞光才 -2。
     （crawl 選書已不派 LLM——改書單 SoT + 確定性 resolver；本函式只服務 qc/audit/sol_extract 等下游階段。）"""
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
-    chain = _provider_chain()
+    spec = _resolve_dispatch(todo_verb)
+    chain = list(spec.chain or ())
     if dry:
-        log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt)))
+        log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt, spec)))
         return 0
     tried = []
     for provider in chain:
@@ -544,7 +612,7 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
             if provider in _exhausted_providers:
                 continue
         tried.append(provider)
-        rc, hit = _run_one(provider, todo_verb, slug, prompt)
+        rc, hit = _run_one(provider, todo_verb, slug, prompt, spec)
         if not hit:
             return rc  # 成功或非額度失敗 → 交回呼叫端
         with _exhausted_lock:
