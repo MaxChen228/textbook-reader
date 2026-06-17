@@ -2,7 +2,7 @@
 
 正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
-決策準則：`.claude/skills/book-pipeline/references/proposals-review.md`。
+決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
 ## domain: math  （4 條；proposed=0）
 
