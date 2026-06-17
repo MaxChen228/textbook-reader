@@ -947,7 +947,7 @@ def do_math_sweep(dry: bool) -> int:
     res = {}
     try:
         if proc.stdout.strip():
-            res = json.loads(proc.stdout.strip().splitlines()[-1])  # batch JSON 結果在 stdout 末行
+            res = json.loads(proc.stdout.strip())  # stdout 全部 = batch 的 JSON 結果（indent=2 多行，進度走 stderr）
     except Exception:
         pass
     if proc.returncode != 0 or not res.get('ok'):
