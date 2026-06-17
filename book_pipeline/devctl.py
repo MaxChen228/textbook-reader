@@ -229,6 +229,24 @@ def invalidate_zlib_cache() -> None:
         pass  # 不存在或刪除失敗皆無關緊要（快取本就可重建）
 
 
+def write_zlib_cache(accts: list) -> dict:
+    """把一份**權威 live 帳號額度**寫進 dev/zlib_quota.json（gate 與 /dev 顯示共用同一快取）。
+    買書員 drain 每次權威查 `limits` 後回寫 → 額度恢復即時反映在 gate＋dashboard（免等 300s TTL）；
+    確認 0 時寫 fresh-0 也順手 throttle 下次 re-probe（見 pipeline_tick._zlib_remaining_cached）。"""
+    total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
+    total_limit = sum(a['limit'] for a in accts if a.get('limit') is not None)  # 每帳號 10/日 × N（不再硬編 30）
+    snap = {'accounts': accts, 'total_remaining': total, 'total_limit': total_limit,
+            'fetched_at': time.time(),
+            'fetched_at_utc': _now_utc().isoformat(),  # 前端 relTime 用（naive local 會被當 UTC 致 +8h 偏移）
+            'fetched_at_local': datetime.now().isoformat(timespec='seconds')}
+    os.makedirs(os.path.dirname(ZLIB_CACHE), exist_ok=True)
+    tmp = ZLIB_CACHE + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(snap, f, ensure_ascii=False)
+    os.replace(tmp, ZLIB_CACHE)
+    return snap
+
+
 def zlib_status() -> dict:
     """各 zlib 帳號今日餘額。讀 dev/zlib_quota.json 快取；過期才打網路刷新。
     zlib 故障 → 回最後快取（含 stale 標記），絕不讓 snapshot 失敗。"""
@@ -243,18 +261,7 @@ def zlib_status() -> dict:
         return {**cache, 'stale': False}
     try:
         from book_pipeline import crawl_zlib as cz
-        accts = cz.all_remaining()
-        total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
-        total_limit = sum(a['limit'] for a in accts if a.get('limit') is not None)  # 每帳號 10/日 × N（不再硬編 30）
-        snap = {'accounts': accts, 'total_remaining': total, 'total_limit': total_limit,
-                'fetched_at': time.time(),
-                'fetched_at_utc': _now_utc().isoformat(),  # 前端 relTime 用（naive local 會被當 UTC 致 +8h 偏移）
-                'fetched_at_local': datetime.now().isoformat(timespec='seconds')}
-        os.makedirs(os.path.dirname(ZLIB_CACHE), exist_ok=True)
-        tmp = ZLIB_CACHE + '.tmp'
-        with open(tmp, 'w', encoding='utf-8') as f:
-            json.dump(snap, f, ensure_ascii=False)
-        os.replace(tmp, ZLIB_CACHE)
+        snap = write_zlib_cache(cz.all_remaining())
         return {**snap, 'stale': False}
     except Exception as e:
         if cache:

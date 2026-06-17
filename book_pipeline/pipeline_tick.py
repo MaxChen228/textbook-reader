@@ -622,13 +622,22 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
 
 
 def _zlib_accounts_remaining() -> list[dict] | None:
-    """各帳號今日剩餘額度 [{account, remaining}]；查不到回 None。"""
+    """各帳號今日剩餘額度 [{account, remaining}]；查不到回 None。**權威 live 查**（繞快取）。
+    查到即回寫 dev/zlib_quota.json → gate 與 /dev 顯示即時反映恢復（免等 300s TTL）；確認 0 時
+    寫 fresh-0 也順手 throttle 下次 re-probe（_zlib_remaining_cached 信任 fresh-0 達 _ZLIB_GATE_ZERO_TTL）。"""
     try:
         out = subprocess.run(
             ['uv', 'run', '--with', 'requests', 'python', '-m',
              'book_pipeline.crawl_zlib', 'limits'],
             cwd=ROOT, capture_output=True, text=True, timeout=90)
-        return (json.loads(out.stdout or '{}').get('accounts')) or None
+        accts = (json.loads(out.stdout or '{}').get('accounts')) or None
+        if accts:
+            try:
+                from book_pipeline import devctl
+                devctl.write_zlib_cache(accts)  # 權威結果回寫共用快取（顯示同步＋自動 throttle re-probe）
+            except Exception:
+                pass
+        return accts
     except Exception as e:
         log(f'crawl：查額度失敗 {e}')
         return None
@@ -756,13 +765,27 @@ def _have_slugs() -> set:
     return have
 
 
+# 快取「0」當硬閘門的可信時效（秒）。額度 0→正（每日 reset／回補）是『解除阻擋買書員』方向、
+# 且**無失效事件**（invalidate_zlib_cache 只在花額度時觸發、恢復時不觸發）。若信任 stale-0 會卡住
+# 買書員整個 ZLIB_TTL（~5min）→「額度好了卻遲遲不拉書」。故 0 僅 fresh 時可信，更舊 → 樂觀重查。
+_ZLIB_GATE_ZERO_TTL = 90
+
+
 def _zlib_remaining_cached():
-    """廉價讀 zlib 今日餘額快取（dev/zlib_quota.json，devctl 60s 心跳刷新）→ reactive due 判斷用，
-    不打網路。回 int 餘額 / None=未知（樂觀視為可能有額度，drain 階段再做權威查詢）。"""
+    """廉價讀 zlib 今日餘額快取（dev/zlib_quota.json）→ reactive due 判斷用，不打網路。
+    回 int 餘額 / None=未知（樂觀視為可能有額度，drain 階段再做權威查詢並回寫快取）。
+    關鍵：正餘額永遠可信（正值不會假阻擋，drain 自我校正）；但「0」只有 fresh(<_ZLIB_GATE_ZERO_TTL)
+    才當硬閘門信，stale-0 → 回 None（樂觀）→ drain 走權威 live 查偵測恢復（查後回寫，自動 throttle
+    下次 re-probe）。否則 stale-0 會卡買書員整個 TTL。"""
     try:
         c = json.load(open(os.path.join(ROOT, 'dev', 'zlib_quota.json')))
         r = c.get('total_remaining')
-        return int(r) if r is not None else None
+        if r is None:
+            return None
+        r = int(r)
+        if r == 0 and (time.time() - (c.get('fetched_at') or 0)) > _ZLIB_GATE_ZERO_TTL:
+            return None  # stale-0：不信任當阻擋 → 樂觀，交 drain 權威查偵測恢復
+        return r
     except Exception:
         return None
 
