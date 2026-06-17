@@ -313,9 +313,10 @@ def _pretty_title(slug: str) -> str:
     return slug.replace('_', ' ').replace('-', ' ').title()
 
 
-def _cover_url(slug: str) -> str | None:
-    """書封 URL（相對 dev/ 頁）。優先已部署 webp，退而求 OCR 階段的 mineru cover.jpg；皆無回 None
-    （前端以標題首字產生佔位卡）。nginx mount repo 根 → 兩路徑皆可直讀。
+def _cover_url(slug: str, res_cover: str | None = None) -> str | None:
+    """書封 URL（相對 dev/ 頁）。優先已部署 webp → OCR 階段 mineru cover.jpg → resolution sidecar 的
+    z-lib 封面 URL（pre-ingest 書尚無本地封面，但 crawl 解析時 enrich_links 已存 z-lib CDN 封面，
+    讓『待 OCR/待 ingest』卡也有真封面、不掉字首色塊佔位）；皆無回 None。nginx mount repo 根 → 本地兩路徑可直讀。
 
     附 ?v=<mtime> cache-buster：(1) 封面換版即換 URL，繞過 /img 的 immutable 長快取；(2) 繞過
     瀏覽器/CF 在 nginx 開放 cover.jpg 白名單『之前』對該路徑快取下來的 404（否則破圖殘留到 hard reload）。"""
@@ -325,7 +326,7 @@ def _cover_url(slug: str) -> str | None:
     jpg = os.path.join(ROOT, 'book_pipeline', 'mineru_data', slug, 'cover.jpg')
     if os.path.exists(jpg):
         return f'../book_pipeline/mineru_data/{slug}/cover.jpg?v={int(os.path.getmtime(jpg))}'
-    return None
+    return res_cover or None  # pre-ingest：退而求 z-lib CDN 封面（絕對 URL，瀏覽器直載）
 
 
 def books_status(write_timeline: bool = False) -> dict:
@@ -335,6 +336,8 @@ def books_status(write_timeline: bool = False) -> dict:
     state = q._load_state()
     math_by_book = mv.residual_by_book()  # 每書數學殘餘（reports 真相）→ 書本抽屜顯示
     sess_by_slug = hist.sessions_grouped(limit=SESSIONS_PER_BOOK)  # 讀 index 一次，迴圈外分發
+    from book_pipeline import booklists
+    res_cov = booklists.load_resolution()  # 迴圈外讀一次：pre-ingest 書封面退而求 sidecar z-lib 封面
     rows = []
     todos = []
     for s in slugs:
@@ -345,7 +348,7 @@ def books_status(write_timeline: bool = False) -> dict:
         r.setdefault('sol', 0)
         r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')
         r['title'] = _pretty_title(s)
-        r['cover'] = _cover_url(s)
+        r['cover'] = _cover_url(s, (res_cov.get(s) or {}).get('cover'))
         # 觀測式時間軸：deployed-aware label（已部署 → 'deployed'，否則用 stage）→
         # observe 冪等 append-on-change，建出每書階段轉換史。既有書回填 deployed_at（唯一
         # 留存的歷史時戳），否則它們只會從此刻起顯示 deployed、丟失過去。
