@@ -94,7 +94,7 @@ uv run python -m book_pipeline.status
 | `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
 | `booklists/*.json` | **書單 SoT**（整個 project 唯一真相）：領域檔內含具名子單 → 主書（書名+作者）。refill 自此確定性選書，零 LLM。題本不手列（主書 `solution!=false` → 系統自衍生 `<slug>_sol` target）。 |
 | `resolve.py` + `crawl_resolution.json` | 書單 target →（書名,作者）→ z-lib id/hash 的**確定性解析器**（search+信心分，零 LLM）；結果寫 sidecar 永久 cache。信心不足：題本標 absent（永不再查）、主書標 review（待架構師裁決）。 |
-| `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`。post-deploy 由 daemon track，殘餘記入 state。 |
+| `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`/`--cluster`（結構骨架＋診斷 token 聚類，sweep 的眼睛）。post-deploy 由 daemon track，殘餘記入 state。 |
 | `apply_math_overrides.py` + `math_overrides/` | corpus 數學 sweep 的 reviewable 修復（比照 catalog_overrides）：`fix_eq_tex`/`fix_inline_math`，git 追蹤、可重播。 |
 | `references/{qc,math-sweep}.md` | headless agent 的 視覺 QC / **跨書數學 sweep** 流程指引。（crawl 已確定性化，無 agent 流程。） |
 

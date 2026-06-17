@@ -450,8 +450,9 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
 
 
 def math_health() -> dict:
-    """corpus-level 數學殘餘健康度（track-only）：總殘餘 vs 門檻、上次 sweep、殘餘最多的書。
-    答 /dev『數學式壞了多少、何時會被 sweep、哪幾本最髒、哪些已經過 sweep』。"""
+    """corpus-level 數學殘餘健康度（track-only）：總殘餘 / 未解(residual_unaccepted) / 已 accept、
+    收斂判定（due|converged|fixpoint|no-node）、上次 sweep、殘餘最多的書。
+    答 /dev『數學式壞了多少、是否還會被 sweep、哪幾本最髒、哪些已過 sweep』。"""
     from book_pipeline import pipeline_tick as pt
     state = q._load_state()
     sweep = q.math_sweep_state(state)
@@ -461,14 +462,17 @@ def math_health() -> dict:
              for s, n in by_book.items() if n]
     books.sort(key=lambda b: -b['bad_occ'])
     total = sum(by_book.values())
+    accepted = q.math_accepted_total(state)
+    due, reason = pt._sweep_decision(mv.node_available(), total, accepted,
+                                     sweep or None, mv.macros_version())
     return {
         'node_available': mv.node_available(),
         'macros_version': mv.macros_version(),
         'corpus_bad_occ': total,
-        'threshold': pt.MATH_SWEEP_THRESHOLD,           # 靜態地板（冷啟首次 sweep 用）
-        'refire_threshold': pt._math_refire_threshold(state),  # 動態重派門檻 = max(地板, 上次收斂+GROWTH)
-        'growth': pt.MATH_SWEEP_GROWTH,
-        'due': pt._math_sweep_due(state)[0],  # 真相同 daemon（含 GROWTH/macros/node），非僅 ≥門檻
+        'accepted_total': accepted,                 # 已 accept（不可渲染）的殘餘
+        'residual_unaccepted': total - accepted,    # 收斂目標 → 0
+        'due': due,                                 # 真相同 daemon（fixpoint/macros/node）
+        'reason': reason,                           # due / converged / fixpoint / no-node
         'books_with_residual': len(books),
         'top_books': books[:20],
         'last_sweep': sweep or None,
@@ -575,9 +579,9 @@ def _print_human(snap: dict) -> None:
         sw = (f" · 上次 sweep {sweep.get('at','?')} 改 {len(sweep.get('touched') or [])} 書 "
               f"→殘{sweep.get('residual_after','?')}") if sweep else ' · 尚未 sweep'
         flag = '🔴' if m.get('due') else '🟢'
-        rf = m.get('refire_threshold', m.get('threshold'))
-        floor = f"（地板 {m.get('threshold')}）" if rf != m.get('threshold') else ''
-        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ / 重派門檻 {rf}{floor}"
+        acc = f"（已 accept {m.get('accepted_total')}）" if m.get('accepted_total') else ''
+        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ · "
+              f"未解 {m.get('residual_unaccepted')}{acc} occ [{m.get('reason')}]"
               f" · {m.get('books_with_residual')} 書有殘{sw}")
         for b in (m.get('top_books') or [])[:8]:
             print(f"   {b['slug']}: {b['bad_occ']} occ{'  ✓已sweep' if b.get('in_last_sweep') else ''}")
@@ -607,7 +611,22 @@ def main(argv: list[str] | None = None) -> int:
     p_hi.add_argument('slug', help='書 slug')
     p_hi.add_argument('--session', help='展開某 session id 的完整逐事件')
     p_hi.add_argument('--json', action='store_true')
+    p_ma = sub.add_parser('math-accept',
+                          help='[math sweep] 標記某書 N 條殘餘為「源文已毀、不可渲染」accept（§8，極少用）')
+    p_ma.add_argument('--slug', required=True)
+    p_ma.add_argument('--occ', type=int, required=True, help='accept 的殘餘 occ 數（夾至當前 bad_occ）')
+    p_ma.add_argument('--reason', required=True, help='稽核理由（為何連 override 成可渲染都做不到）')
     args = ap.parse_args(argv)
+
+    if args.cmd == 'math-accept':
+        bad = (mv.read_report(args.slug) or {}).get('stats', {}).get('bad_occ')
+        if bad is None:
+            print(f'⚠ {args.slug} 無 math report（先 math_validate）', file=sys.stderr); return 1
+        q.mark_math_accepted(args.slug, args.occ, args.reason)
+        acc = q.math_accepted(args.slug)
+        print(f'✓ {args.slug} math accept {acc}/{bad} occ（reason: {args.reason}）'
+              f' → residual_unaccepted 扣除；真 0 政策下應極少，owner 可稽核 pipeline_state')
+        return 0
 
     if args.cmd == 'timeline':
         write_snapshot()  # 先觀測一次，確保時間軸含當下階段

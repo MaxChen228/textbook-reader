@@ -35,6 +35,7 @@ MACROS_FILE = ROOT / "book_pipeline" / "math_macros.json"
 NODE_HEAP_MB = 6144
 
 UNDEF_RE = re.compile(r"[Uu]ndefined control sequence\s*(\\[A-Za-z@]+|\\.)")
+_CTRL_RE = re.compile(r"\\[a-zA-Z@]+")   # 控制字邊界（skeleton 與 token_signals 共用，定義一致）
 
 
 def all_slugs() -> list[str]:
@@ -141,6 +142,45 @@ def categorize(err: str) -> tuple[str, str | None]:
     return "other", None
 
 
+def skeleton(tex: str) -> str:
+    r"""把一條壞 tex 抽成「結構骨架」：只留控制序列（\frac \left \kern \bgroup \vphantom…）
+    與結構符（^ _ { } &）；其餘所有內容（識別符／數字／標點／正負號／空白）整段塌縮成單一
+    占位 ·。空的 {} 與有內容的 {·} 仍可區分（保留 missing-arg 訊號）。
+
+    動機：aggregate_reports 用完全相同 tex 當 key → 「同一 OCR 病灶、內文不同」的式子
+    （a^{x}^{y} 與 p^{m}^{n}、各書相量 \underline{{\left/ ±θ°\left.\right.}} 不論角度正負）
+    全被打散成 occ≈1，跨書泛化視野消失。骨架讓它們映到同一鍵 → cluster_reports 看得見
+    「這條跨 N 書是同一條規則能清的病」。冪等：skeleton(skeleton(x)) == skeleton(x)
+    （· 屬內容字 → 再塌縮仍是 ·；控制字／結構符無變化）。"""
+    s = tex or ""
+    out: list[str] = []
+    i, n = 0, len(s)
+    while i < n:
+        c = s[i]
+        if c == "\\":
+            m = _CTRL_RE.match(s, i)
+            if m:
+                out.append(m.group())       # 控制字 \frac \bgroup \vphantom …（邊界同 token_signals）
+                i = m.end()
+            elif i + 1 < n:
+                out.append(s[i:i + 2])      # 控制符 \, \{ \\ \. …
+                i += 2
+            else:
+                out.append("\\")            # 尾端裸 backslash（保證前進，免無窮迴圈）
+                i += 1
+        elif c in "^_{}&":
+            out.append(c)                   # 結構符
+            i += 1
+        else:                               # 內容 run（非結構、非控制）→ 單一 ·；純空白只當分隔
+            j = i
+            while j < n and s[j] not in "\\^_{}&":
+                j += 1
+            if s[i:j].strip():
+                out.append("·")
+            i = j
+    return " ".join(out)
+
+
 def validate_book(slug: str) -> dict[str, Any]:
     formulas = collect_formulas(slug)
     keys = list(formulas.keys())
@@ -212,6 +252,16 @@ def read_report(slug: str) -> dict[str, Any] | None:
         return None
 
 
+def iter_reports():
+    """yield (slug, report) for 全 corpus 既有 _math_report.json（跳過 skipped/缺檔）。
+    aggregate_reports / cluster_reports 共用的單一讀取入口。"""
+    for slug in all_slugs():
+        rep = read_report(slug)
+        if not rep or rep.get("status") == "skipped":
+            continue
+        yield slug, rep
+
+
 def residual_by_book() -> dict[str, int]:
     """每書數學殘餘 bad_occ（讀既有 _math_report.json，跳過 skipped/缺檔）。
     **reports 是 ground truth**：state[slug]['math'] 只是 daemon post-deploy 寫的快取，對「本功能
@@ -238,10 +288,7 @@ def aggregate_reports() -> dict[str, Any]:
     groups: dict[tuple[str, bool], dict[str, Any]] = {}
     books = books_with_residual = bad_occ = bad_unique = 0
     stale: list[str] = []
-    for slug in all_slugs():
-        rep = read_report(slug)
-        if not rep or rep.get("status") == "skipped":
-            continue
+    for slug, rep in iter_reports():
         books += 1
         if rep.get("macros_version") and rep["macros_version"] != cur:
             stale.append(slug)
@@ -278,6 +325,104 @@ def aggregate_reports() -> dict[str, Any]:
     }
 
 
+def _cluster_key(f: dict[str, Any]) -> tuple[str, str]:
+    """聚類鍵：undefined_macro 用巨集名（同巨集一簇）；其餘用 (category, tex 骨架)。
+    比 aggregate 的「完全相同 tex」粗一級 → 同病灶不同內文歸一簇。"""
+    cat = f.get("category") or "other"
+    if cat == "undefined_macro" and f.get("detail"):
+        return cat, f["detail"]
+    return cat, skeleton(f.get("tex") or "")
+
+
+def cluster_findings(items) -> list[dict[str, Any]]:
+    """items: iterable of (slug, finding) → 結構簽章聚類。純函式（不碰磁碟），可單測。
+
+    每簇 = 同一 OCR 病灶跨書合併，附 total_occ / 書數 / uniques（折進的相異壞式數）/
+    各書 occ / 最多 3 條真實樣本（含 targets，可直接寫 override）。按 total_occ 排序：
+    高 occ＋多書 = 最該寫一條 normalize 規則一次清；低 occ 單書 = per-slug override。"""
+    clusters: dict[tuple[str, str], dict[str, Any]] = {}
+    for slug, f in items:
+        key = _cluster_key(f)
+        occ = int(f.get("occ") or 0)
+        c = clusters.get(key)
+        if c is None:
+            c = clusters[key] = {
+                "category": key[0], "signature": key[1],
+                "total_occ": 0, "uniques": 0, "err": f.get("err"),
+                "_books": {}, "examples": [],
+            }
+        c["total_occ"] += occ
+        c["uniques"] += 1
+        c["_books"][slug] = c["_books"].get(slug, 0) + occ
+        if len(c["examples"]) < 3:
+            c["examples"].append({
+                "slug": slug, "tex": f.get("tex"), "display": bool(f.get("display")),
+                "targets": f.get("targets") or [],
+            })
+    out: list[dict[str, Any]] = []
+    for c in clusters.values():
+        books = c.pop("_books")
+        c["book_count"] = len(books)
+        c["books"] = sorted(({"slug": s, "occ": o} for s, o in books.items()),
+                            key=lambda b: (-b["occ"], b["slug"]))
+        out.append(c)
+    out.sort(key=lambda c: (-c["total_occ"], -c["book_count"], c["category"], c["signature"]))
+    return out
+
+
+def token_signals(items) -> list[dict[str, Any]]:
+    r"""跨壞式統計每個控制序列的 書數/occ/相異式數，按 (書數, occ) 排序。純函式，可單測。
+
+    回答「哪個 OCR token 是最高槓桿的規則標的」——\vphantom/\kern/\bgroup/\ifmmode 集中在壞式
+    ＝該寫一條 Layer 1 規則；\frac/\left 這種普遍高頻則是雜訊。不做 denylist（不臆測），
+    原始直方圖交 LLM 判（全 LLM 裁決）。每條壞式對同一 token 只計一次（occ 取該式 occ）。"""
+    tok: dict[str, dict[str, Any]] = {}
+    for slug, f in items:
+        occ = int(f.get("occ") or 0)
+        for m in set(_CTRL_RE.findall(f.get("tex") or "")):
+            t = tok.get(m)
+            if t is None:
+                t = tok[m] = {"token": m, "occ": 0, "uniques": 0, "_books": set()}
+            t["uniques"] += 1
+            t["occ"] += occ
+            t["_books"].add(slug)
+    out: list[dict[str, Any]] = []
+    for t in tok.values():
+        t["book_count"] = len(t.pop("_books"))
+        out.append(t)
+    out.sort(key=lambda t: (-t["book_count"], -t["occ"], t["token"]))
+    return out
+
+
+def cluster_reports() -> dict[str, Any]:
+    """讀全 corpus 既有 _math_report.json，產 sweep agent 的「眼睛」：兩種跨書視野——
+    clusters（結構骨架，揭露被 exact-tex 打散的可泛化質量、定位 override）＋
+    token_signals（診斷控制序列直方圖，指出最該寫規則的 OCR token）。"""
+    cur = macros_version()
+    items: list[tuple[str, dict[str, Any]]] = []
+    books = with_residual = bad_occ = bad_unique = 0
+    stale: list[str] = []
+    for slug, rep in iter_reports():
+        books += 1
+        if rep.get("macros_version") and rep["macros_version"] != cur:
+            stale.append(slug)
+        findings = rep.get("findings") or []
+        if findings:
+            with_residual += 1
+        for f in findings:
+            bad_occ += int(f.get("occ") or 0)
+            bad_unique += 1
+            items.append((slug, f))
+    return {
+        "macros_version": cur,
+        "corpus": {"books": books, "books_with_residual": with_residual,
+                   "bad_occ": bad_occ, "bad_unique": bad_unique},
+        "stale_books": stale,
+        "clusters": cluster_findings(items),
+        "token_signals": token_signals(items),
+    }
+
+
 def _print_aggregate(agg: dict[str, Any]) -> None:
     c = agg["corpus"]
     print(f"CORPUS math residual @macros={agg['macros_version']}: "
@@ -297,6 +442,29 @@ def _print_aggregate(agg: dict[str, Any]) -> None:
             print(f"        err: {g['err'][:120]}")
 
 
+def _print_clusters(cl: dict[str, Any]) -> None:
+    c = cl["corpus"]
+    print(f"CORPUS math residual @macros={cl['macros_version']}: "
+          f"books={c['books']} with_residual={c['books_with_residual']} "
+          f"bad_occ={c['bad_occ']} bad_unique={c['bad_unique']} "
+          f"clusters={len(cl['clusters'])}")
+    if cl["stale_books"]:
+        print(f"⚠ {len(cl['stale_books'])} 書 report 用舊 macros（需重 validate）")
+    print("\n── 結構簇（同病灶跨書合併，高 occ＋多書 先寫規則）──")
+    for cluster in cl["clusters"][:40]:
+        ex = cluster["examples"][0] if cluster["examples"] else {}
+        dm = "$$" if ex.get("display") else "$"
+        print(f"  ×{cluster['total_occ']:<4} [{cluster['category']}] "
+              f"{cluster['book_count']}書 {cluster['uniques']}式  sig={cluster['signature'][:70]}")
+        if ex.get("tex"):
+            print(f"        e.g. {dm}{ex['tex'][:90]}{dm}  [{ex.get('slug')}]")
+        if cluster.get("err"):
+            print(f"        err: {cluster['err'][:110]}")
+    print("\n── 診斷 token（壞式中的控制序列，書數先；高書數＋高 occ＝最該寫規則）──")
+    for t in cl.get("token_signals", [])[:25]:
+        print(f"  {t['book_count']:>2}書 ×{t['occ']:<4} {t['uniques']:>3}式  {t['token']}")
+
+
 def _print_human(report: dict[str, Any]) -> None:
     s = report["stats"]
     print(f"{report['slug']}: {report['status']}  "
@@ -313,7 +481,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("slug", nargs="?")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--aggregate", action="store_true",
-                    help="讀全 corpus 既有 _math_report.json 聚合（不重跑 render；sweep 的 pattern-mining 入口）")
+                    help="讀全 corpus 既有 _math_report.json 聚合（不重跑 render；exact-tex 視圖）")
+    ap.add_argument("--cluster", action="store_true",
+                    help="結構骨架聚類（同病灶跨書合併，揭露被 exact-tex 打散的可泛化質量；sweep 的眼睛）")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
 
@@ -323,6 +493,14 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(agg, ensure_ascii=False, indent=2))
         else:
             _print_aggregate(agg)
+        return 0
+
+    if args.cluster:
+        cl = cluster_reports()
+        if args.json:
+            print(json.dumps(cl, ensure_ascii=False, indent=2))
+        else:
+            _print_clusters(cl)
         return 0
 
     slugs = all_slugs() if args.all else ([args.slug] if args.slug else [])

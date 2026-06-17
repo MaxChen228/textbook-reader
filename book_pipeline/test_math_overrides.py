@@ -169,6 +169,81 @@ def test_locator_to_target():
     assert locator_to_target("app01:title") == {"chunk": "app01", "selector": "title"}
 
 
+def _finding(tex, targets, display=False):
+    return {"category": "double_script", "detail": None, "err": "e",
+            "tex": tex, "display": display, "occ": 1, "locators": [], "targets": targets}
+
+
+def test_finding_to_override_eq_self_contained():
+    # fix_eq_tex：完全自足，expect=finding.tex、new=裸 new、無 anchor
+    f = _finding(r"a^{x}^{y}", [{"chunk": "ch01", "selector": "body[0]", "field": "tex"}], display=True)
+    ov = amo.finding_to_override("bk", f, r"a^{x y}")
+    assert ov["action"] == "fix_eq_tex"
+    assert ov["chunk"] == "ch01" and ov["selector"] == "body[0]"
+    assert ov["expect"] == r"a^{x}^{y}" and ov["new"] == r"a^{x y}"
+    assert "anchor" not in ov and "old" not in ov
+    assert ov["id"].startswith("bk-ch01-body-0-")
+
+
+def test_finding_to_override_inline_with_fieldvalue():
+    # fix_inline_math + field_value：用 _math_regions 精確取 old（含原樣定界）、new 同定界、附 anchor
+    fv = r"see $5\AA$ here"
+    f = _finding(r"5\AA", [{"chunk": "ch01", "selector": "body[1]", "field": "md"}])
+    ov = amo.finding_to_override("bk", f, r"5\text{Å}", field_value=fv)
+    assert ov["action"] == "fix_inline_math" and ov["field"] == "md"
+    assert ov["old"] == r"$5\AA$" and ov["new"] == r"$5\text{Å}$"
+    assert ov["anchor"] == overlay_anchor({"md": fv})
+
+
+def test_finding_to_override_inline_fallback_no_anchor():
+    # 無 field_value → best-effort $tex$ 重建、不附 anchor（apply 端 old 對不上只 skip-drift）
+    f = _finding(r"\bad", [{"chunk": "ch01", "selector": "body[3]", "field": "md"}], display=False)
+    ov = amo.finding_to_override("bk", f, r"\good")
+    assert ov["old"] == r"$\bad$" and ov["new"] == r"$\good$" and "anchor" not in ov
+    fd = _finding(r"\bad", [{"chunk": "ch01", "selector": "body[3]", "field": "md"}], display=True)
+    assert amo.finding_to_override("bk", fd, r"\good")["old"] == r"$$\bad$$"
+
+
+def test_finding_to_override_no_targets_raises():
+    try:
+        amo.finding_to_override("bk", _finding("x", []), "y")
+        assert False, "無 targets 應 raise"
+    except ValueError:
+        pass
+
+
+def test_finding_to_override_empty_tex_raises():
+    # 空 tex → fallback 會產 old="$$" 誤改任何含 $$ 的欄 → 必 raise
+    tgt = [{"chunk": "ch01", "selector": "body[0]", "field": "md"}]
+    for bad in ("", "   ", None):
+        try:
+            amo.finding_to_override("bk", _finding(bad, tgt), "y")
+            assert False, f"空 tex({bad!r}) 應 raise"
+        except ValueError:
+            pass
+
+
+def test_finding_to_override_roundtrip_apply():
+    # 端到端契約：finding → override → apply_overrides 實際修好（eq + inline 各一）
+    _setup()
+    orig = amo.build_catalogs
+    amo.build_catalogs = lambda slug: None   # 隔離 build_catalogs（無 book.json fixture，比照 gate 測試）
+    try:
+        f_eq = _finding(r"a^{x}^{y}", [{"chunk": "ch01", "selector": "body[0]", "field": "tex"}], True)
+        md_fv = _block(1)["md"]                                # "see $5\AA$ here"
+        f_in = _finding(r"5\AA", [{"chunk": "ch01", "selector": "body[1]", "field": "md"}])
+        ovs = [amo.finding_to_override(SLUG, f_eq, r"a^{x y}"),
+               amo.finding_to_override(SLUG, f_in, r"5\text{Å}", field_value=md_fv)]
+        OV_FILE.write_text(json.dumps({"overrides": ovs}, ensure_ascii=False), encoding="utf-8")
+        stats = amo.apply_overrides(SLUG)
+        assert stats.get("fix_eq_tex:applied") == 1 and stats.get("fix_inline_math:applied") == 1, stats
+        assert _block(0)["tex"] == r"a^{x y}"
+        assert _block(1)["md"] == r"see $5\text{Å}$ here"
+    finally:
+        amo.build_catalogs = orig
+        _teardown()
+
+
 if __name__ == "__main__":
     try:
         test_fix_eq_tex();                    print("✓ fix_eq_tex：applied/noop/skip-drift/非eq/越界/缺expect")
@@ -177,6 +252,12 @@ if __name__ == "__main__":
         test_all_replace_occ_gt_1();          print("✓ all 替換（occ>1 同欄同式）")
         test_apply_overrides_build_catalogs_gate(); print("✓ apply_overrides：build_catalogs gate + 不支援 action raise")
         test_locator_to_target();             print("✓ locator→selector 橋接")
+        test_finding_to_override_eq_self_contained(); print("✓ finding→override：eq 自足")
+        test_finding_to_override_inline_with_fieldvalue(); print("✓ finding→override：inline 精確 old/anchor")
+        test_finding_to_override_inline_fallback_no_anchor(); print("✓ finding→override：inline fallback 無 anchor")
+        test_finding_to_override_no_targets_raises(); print("✓ finding→override：無 targets raise")
+        test_finding_to_override_empty_tex_raises(); print("✓ finding→override：空 tex raise（防誤改）")
+        test_finding_to_override_roundtrip_apply(); print("✓ finding→override→apply round-trip 修復 eq+inline")
     finally:
         _teardown()
     print("\n全部通過 ✅")
