@@ -81,8 +81,11 @@ HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
 # 數學式 corpus-level sweep（Phase 2，track-only，不 gate deploy）：書先上站，殘餘累積到門檻
 # 才派**一隻**跨書 sweep agent 一次清。THRESHOLD = 觸發水位（全 corpus 壞式 occ 總和）；
-# GROWTH = 已 sweep 過後須再長這麼多才重派（防同一狀態反覆喚醒 LLM）。env 可覆寫。
-MATH_SWEEP_THRESHOLD = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_THRESHOLD', '50'))
+# 數學 sweep 派工模型：a=100, b≈0。THRESHOLD(a)=殘餘累積到此才派——調高=批量攢夠才一次
+# 結構化大掃，而非低門檻一輪一輪 nibble；agent 之 mandate 是把可清的收斂到趨近零（見 prompt）。
+# GROWTH 為**防 busy-loop 安全閥**：autonomous 無法自改核心碼，可泛化殘餘只能提 proposals 交人工，
+# 故單次 sweep 後殘餘未必 <a；已 sweep 後須再長 GROWTH 才重派（max(a, 殘餘+GROWTH)），避免同態反覆喚醒。
+MATH_SWEEP_THRESHOLD = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_THRESHOLD', '100'))
 MATH_SWEEP_GROWTH = int(os.environ.get('BOOK_PIPELINE_MATH_SWEEP_GROWTH', '25'))
 
 # === 反應式控制迴圈（BOOK_PIPELINE_REACTIVE=1 啟用；預設 0 = 現行單次 tick，行為一字不差）===
@@ -136,15 +139,22 @@ LLM_PROMPTS = {
         "你是 book_pipeline 的 **corpus-level 數學式 sweep agent**（跨全書，非單本）。"
         "**嚴格遵照 .claude/skills/book-pipeline/references/math-sweep.md**（parsed 檔路徑慣例："
         "book_pipeline/mineru_data/<slug>/parsed/<chunk>.json；eq 修法的 expect 可直接抄 finding 的 tex）。"
+        "**目標：把 corpus 數學渲染殘餘結構化收斂到趨近零**——不是跑一輪就交差。**反覆**："
+        "aggregate → 分類修 → 重 validate，直到殘餘**停止下降**（只剩你權限外或源頭不可逆的硬 edge）才收工。"
         "**autonomous 模式硬規則**："
-        "(1) 跑 `uv run python -m book_pipeline.math_validate --aggregate --json` 取跨書聚合殘餘。"
-        "(2) 高頻可泛化者（巨集/normalize 規則）**只 append 提案到 book_pipeline/math_overrides/_proposals.md**，"
-        "**絕不**自行改 math_macros.json / math_normalize.py（核心碼，交人工 review 升級）。"
-        "(3) 其餘 one-off：逐書寫 book_pipeline/math_overrides/<slug>.json（action fix_eq_tex/fix_inline_math，"
+        "(1) 跑 `uv run python -m book_pipeline.math_validate --aggregate --json` 取跨書聚合殘餘，由高頻往下做。"
+        "(2) **結構化優先**：可跨書泛化者（巨集缺定義 / 機械 OCR pattern）**用建議系統 CLI 提案**（交人工升級核心碼）："
+        "`uv run python -m book_pipeline.proposals propose --domain math --type <macro|normalize-rule> "
+        "--source math_sweep --title '<簡述>' --detect '<\\token…>' --evidence '<壞樣本+err+哪些書>' "
+        "--proposal '<建議規則/巨集>' --risk '<誤改風險>'`（自動 id、schema 強制、並行安全）。"
+        "**絕不**自行改 math_macros.json / math_normalize.py。先提案再做 one-off，避免重工。"
+        "(3) 其餘逐書 one-off：寫 book_pipeline/math_overrides/<slug>.json（action fix_eq_tex/fix_inline_math，"
         "targets 直接抄 finding 的 chunk/selector/field，eq 用 expect、inline 用 anchor guard；同欄重複式用 all、"
         "重複 problem num 用 selector 的 #OCC，見 SOP §4）。寫完自跑 `apply_math_overrides <slug>` + "
-        "`math_validate <slug>` 驗殘餘下降——**daemon 會在你收工後確定性 re-apply + 重烤上站**（部署不用你管）。"
-        "(4) 真不可修者（源頭 OCR 亂碼/截斷，無 PDF 可重建）留著即可，daemon 會記錄。**絕不手改 parsed/*.json**。"),
+        "`math_validate <slug>` 確認該書殘餘下降。**收工前再跑一次 aggregate 確認總殘餘已收斂**。"
+        "(4) 源頭 OCR 亂碼/截斷、無 PDF 可重建的少數硬 edge：**留著即可**（§8 accept），"
+        "**不要為了清零硬塞語意錯的式子、也不要寫死過擬合邊界的演算法**。"
+        "卡關或發現系統性問題 → 走建議系統 `proposals propose` 記下交人工。**絕不手改 parsed/*.json**。"),
 }
 
 
@@ -700,9 +710,9 @@ def do_math_track(slug: str) -> int:
 
 def _math_refire_threshold(state: dict | None = None) -> int:
     """corpus 殘餘要達到多少 occ 才會（再次）派 sweep —— _math_sweep_due 的唯一門檻真相源。
-    冷啟/換 macros → 靜態地板 THRESHOLD；已在同 macros sweep 過 → 動態升級為
-    max(地板, 上次收斂殘餘 + GROWTH)（防同一狀態反覆喚醒 LLM）。看板/CLI 一律顯示這個值，
-    消除『殘 N occ ≥ 地板 50 卻顯示穩定』的視覺矛盾——穩定其實是 N < 此動態門檻。"""
+    冷啟/換 macros → 靜態地板 THRESHOLD（a=100，攢夠才結構化大掃）；已在同 macros sweep 過 →
+    動態升級為 max(地板, 上次收斂殘餘 + GROWTH)（防 busy-loop：autonomous 清不掉的泛化殘餘只能提
+    proposals 交人工，單次 sweep 後殘餘未必 <a）。看板/CLI 一律顯示這個值，穩定 = N < 此動態門檻。"""
     from book_pipeline import math_validate as mv
     s = state if state is not None else q._load_state()
     ls = q.math_sweep_state(s)
@@ -725,7 +735,7 @@ def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
 
 def do_math_sweep(dry: bool) -> int:
     """corpus-level 數學 sweep reduce job（track-only，不綁單本 advance 關鍵路徑）：殘餘累積
-    過門檻 → 派**一隻**跨書 sweep agent（寫 math_overrides + _proposals，autonomous 不碰核心碼）
+    過門檻 → 派**一隻**跨書 sweep agent（寫 math_overrides + `proposals propose`，autonomous 不碰核心碼）
     → daemon 確定性把被改的書重烤上站 → 重量殘餘、記錄 sweep 狀態（防重派）。
     回 0=完成/跳過、-2=LLM 撞額度（defer 下個 tick，不記狀態）。"""
     from book_pipeline import math_validate as mv

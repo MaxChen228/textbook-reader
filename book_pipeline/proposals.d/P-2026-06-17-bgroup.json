@@ -1,0 +1,20 @@
+{
+  "id": "P-2026-06-17-bgroup",
+  "domain": "math",
+  "type": "normalize-rule",
+  "status": "accepted",
+  "title": "\\bgroup / \\aftergroup / \\egroup 群組噪訊收斂",
+  "detect": [
+    "\\bgroup",
+    "\\egroup",
+    "\\aftergroup"
+  ],
+  "source": "math_sweep",
+  "resolution": "R5 _remove_group_noise",
+  "created": "2026-06-17T12:57:02+00:00",
+  "updated": "2026-06-17T12:57:14+00:00",
+  "evidence": "\\mathopen{}\\mathclose\\bgroup … \\aftergroup\\egroup 成對噪訊；alexander_circuits/axler_linalg/dummit_foote_algebra/hatcher_algebraic_topology/rudin_analysis/schwartz_qft。×19 occ。",
+  "proposal": "Layer 1 normalize 移除成對 \\mathopen{}\\mathclose\\bgroup / \\aftergroup\\egroup / 殘留 \\mathclose\\bgroup / 裸 token。",
+  "risk": "低；這些 token 在 MathJax 全 undefined → 凡含者本就 fail，移除只能 fail→pass，回歸閘天然安全。",
+  "disposition": ""
+}

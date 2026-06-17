@@ -23,6 +23,19 @@ TEX_CASES = [
     (r"a_{i}_{j}", r"a_{i j}"),
     # 混合
     (r"T_{\mu}_{\nu}^{a}^{b}", r"T_{\mu \nu}^{a b}"),
+    # R4 fix_cond_times：條件乘號（math/text 雙態相容）→ \times（尾隨 { } 原樣保留）
+    (r"\mathrm { S U } ( 2 ) \ifmmode \times \else \texttimes \fi { } \mathrm { S U } ( 2 )",
+     r"\mathrm { S U } ( 2 ) \times { } \mathrm { S U } ( 2 )"),
+    # R5 移除群組噪訊：成對開（\mathopen{}\mathclose\bgroup）/ 閉（\aftergroup\egroup）
+    (r"\mathbf { Z } _ { \mathrm { T h } } = 4 . 4 7 3 \mathopen { } \mathclose \bgroup / - 7 . 6 4 ^ { \circ } ~ \Omega",
+     r"\mathbf { Z } _ { \mathrm { T h } } = 4 . 4 7 3  / - 7 . 6 4 ^ { \circ } ~ \Omega"),
+    (r"\mathrm { d } _ { X } \mathopen { } \mathclose \bgroup \left( x , \mathfrak { p } \aftergroup \egroup \right) < \delta",
+     r"\mathrm { d } _ { X }  \left( x , \mathfrak { p }   \right) < \delta"),
+    # R5 巢狀：含殘留 \mathclose\bgroup（無 \mathopen{} 前綴）→ 收斂成平衡式
+    (r"\beta _ { h } \mathopen { } \mathclose \bgroup \left( \varphi _ { 1 * } \mathclose \bgroup \left( \left[ f \right] \aftergroup \egroup \right) \aftergroup \egroup \right)",
+     r"\beta _ { h }  \left( \varphi _ { 1 * }  \left( \left[ f \right]   \right)   \right)"),
+    # R5 裸 \bgroup（無配對的純噪訊）
+    (r"\mathbb { A } ^ { 2 } \bgroup ?", r"\mathbb { A } ^ { 2 }  ?"),
 ]
 
 # 必須完全不動（正確 LaTeX / 巢狀 / 含空白的相鄰）
@@ -34,6 +47,9 @@ NOOP_CASES = [
     r"\tag{eq:1}",           # tag 無 $：勿動
     r"\text{price is \$5}",  # 跳脫 \$：勿剝
     r"\left( \frac{1}{2} \right)",
+    r"x \times y",                       # R4：合法 \times 勿動
+    r"a \ifmmode b \fi",                 # R4：非「條件乘號」形的 \ifmmode 不碰
+    r"\mathopen{(} x \mathclose{)}",     # R5：獨立 \mathopen/\mathclose（無 \bgroup）合法，勿動
 ]
 
 
@@ -97,7 +113,7 @@ def test_normalize_chunk_math_walks_everything():
 
 
 if __name__ == "__main__":
-    test_tex_rules_fix_samples();            print("✓ R1-R3 修復真實樣本")
+    test_tex_rules_fix_samples();            print("✓ R1-R5 修復真實樣本")
     test_tex_idempotent();                   print("✓ tex 冪等")
     test_tex_noop_on_valid();                print("✓ 正確式/巢狀/跳脫 no-op")
     test_md_inline_only_touches_math();      print("✓ md inline 只動數學區")

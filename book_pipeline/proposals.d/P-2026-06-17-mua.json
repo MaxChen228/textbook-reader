@@ -1,0 +1,18 @@
+{
+  "id": "P-2026-06-17-mua",
+  "domain": "math",
+  "type": "macro",
+  "status": "rejected",
+  "title": "\\muA 單位巨集",
+  "detect": [
+    "\\muA"
+  ],
+  "source": "math_sweep",
+  "resolution": "already-resolved single-book",
+  "created": "2026-06-17T12:57:02+00:00",
+  "updated": "2026-06-17T12:57:15+00:00",
+  "evidence": "I_B = 0.1 \\, \\muA；僅 sedra_microe。×7 occ / 1 書。",
+  "proposal": "原提案 Layer 0 macro \\muA→\\mu\\text{A}。",
+  "risk": "\\muA 在禁收清單；只此 1 本無泛化價值，已由 sedra_microe.json override 清零。",
+  "disposition": "已由 math_overrides/sedra_microe.json 5 條 override 清零（bad_occ=0），macro 冗餘"
+}
