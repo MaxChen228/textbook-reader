@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，每天一次 tick）。
-  節奏=daily 08:30 台灣 = 00:30 UTC（zlib 額度 00:00 UTC 重置後半小時，已滿額）。
-  ⚠ launchd StartCalendarInterval 用「系統本地時區」（felix=Asia/Taipei），故下方 Hour=8
-    才等於 00:30 UTC；devctl next_eta 以 00:30 UTC 計，兩者須一致（改這裡也要同步 devctl）。
-  為何 daily（非 hourly）：LLM 後端已切 kimi（非 Claude 5h 滾動窗）→ 無「當天撞限額需每小時
-  重試」需求；單 tick 一次榨乾全日資源——並行 crawl 把當日 zlib 全額度（3 帳號=30 本）一次
-  fan-out 下載+ingest，確定性階段一條龍推到底。MinerU OCR 為 async：當日提交、隔日 tick 收割
-  （+1 日延遲換來零 hourly churn）。launchd 不並發同 Label：上個 tick 未結束則跳過本次。
+  textbook-reader 教科書 pipeline 自動化迴圈 launchd agent（standby，反應式控制迴圈）。
+  節奏=StartInterval 900s（15min）重拉。daemon_run.sh 設 BOOK_PIPELINE_REACTIVE=1：一個
+  controller 進程跑有界 observe→非阻塞派工→reap→harvest→sleep 迴圈，三條件齊備（產物就緒 ∧
+  資源可用 ∧ 無人在做）的 transition 立即派 thread worker。MinerU OCR 為 async：一 poll 到
+  就緒即收割（延遲塌縮到一 poll cycle，免人工 kick）。crawl 每 invocation 一次、zlib 額度 0
+  即 cheap-skip → 天然退化日節奏（不必固定時刻）。controller 排空或達牆鐘(50min)退出，launchd
+  下個 900s 重拉；flock 序列化：上個 controller 未結束則本次 fire 被跳過（不並發同 Label）。
+  ⚠ devctl TICK_INTERVAL_S 須與此 900 一致（改一邊改另一邊）。要回滾 daily 單次 tick：
+  daemon_run.sh 設 BOOK_PIPELINE_REACTIVE=0 並把此處改回 StartCalendarInterval。
   安裝（需使用者授權，會建立持久背景排程 + RunAtLoad 立即跑一次全鏈 tick）：
     cp book_pipeline/com.textbookreader.bookpipeline.plist ~/Library/LaunchAgents/
     launchctl unload ~/Library/LaunchAgents/com.textbookreader.bookpipeline.plist 2>/dev/null
@@ -28,13 +29,8 @@
     <string>/Users/chenliangyu/project/textbook-reader/book_pipeline/daemon_run.sh</string>
   </array>
 
-  <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key>
-    <integer>8</integer>
-    <key>Minute</key>
-    <integer>30</integer>
-  </dict>
+  <key>StartInterval</key>
+  <integer>900</integer>
 
   <key>RunAtLoad</key>
   <true/>

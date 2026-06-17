@@ -41,10 +41,11 @@ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
-# daily 架構：tick 每天 08:30 台灣 = 00:30 UTC（與 plist StartCalendarInterval 一致）。
-# zlib 額度 00:00 UTC 重置 → 00:30 跑時已滿額。kimi 為 LLM 後端（非 Claude 5h 窗）→ 無
-# 「當天撞限額需 hourly 重試」需求，daily 一次榨乾全日資源即可。
-TICK_UTC_HOUR, TICK_UTC_MIN = 0, 30
+# 反應式架構：daemon 走 launchd StartInterval（非固定時刻）。一個 controller 跑有界 observe→
+# 派工→harvest→sleep 迴圈，排空或達牆鐘即退；launchd 每 TICK_INTERVAL_S 重拉（flock 序列化）。
+# 「下次約」= 上次結束 + 此間隔（controller 正在跑時無意義 → 回 None，前端顯示「正在跑」）。
+# 須與 plist StartInterval 一致（改一邊要改另一邊）。
+TICK_INTERVAL_S = int(os.environ.get('BOOK_PIPELINE_TICK_INTERVAL', '900'))
 
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
@@ -109,37 +110,41 @@ def daemon_health() -> dict:
                     last_exit = None
             break
 
-    # 解析 daemon.log 取最後一次 tick start / end（UTC）
+    # 解析 daemon.log 取最後一次 tick/迴圈 start / end（UTC）。兼容單次 tick 與反應式迴圈兩種標記。
     last_start = last_end = None
     for line in _tail(DAEMON_LOG, 400):
-        if 'tick start' in line:
+        if 'tick start' in line or 'reactive loop start' in line:
             last_start = _parse_ts(line) or last_start
-        elif 'tick end' in line:
+        elif 'tick end' in line or 'reactive loop end' in line:
             last_end = _parse_ts(line) or last_end
 
     now = _now_utc()
     last_dur = None
     if last_start and last_end and last_end >= last_start:
         last_dur = int((last_end - last_start).total_seconds())
-    # daily：下次 tick = 下個 00:30 UTC（=08:30 台灣），固定時刻、不依賴上次 tick。
-    nxt = now.replace(hour=TICK_UTC_HOUR, minute=TICK_UTC_MIN, second=0, microsecond=0)
-    if nxt <= now:
-        nxt += timedelta(days=1)
-    next_eta = int((nxt - now).total_seconds())
-
+    # 「運轉中」由 log 標記推導（比 _proc_info 時序穩）：有 start 且尚無更新的 end → controller 在跑。
+    running = bool(last_start and (last_end is None or last_start > last_end))
     tick_proc = _proc_info('pipeline_tick')
+    # StartInterval 架構：下次 ≈ 上次結束 + 間隔；運轉中不可預測 → None（前端顯示「正在跑」）。
+    if running:
+        next_eta = None
+    elif last_end:
+        next_eta = max(0, int((last_end + timedelta(seconds=TICK_INTERVAL_S) - now).total_seconds()))
+    else:
+        next_eta = None
+
     llm_proc = _proc_info('claude -p')
 
     return {
         'installed': installed,
         'last_exit_code': last_exit,
-        'tick_running': bool(tick_proc),
+        'tick_running': running,
         'tick_proc': tick_proc,
         'last_tick_start_utc': last_start.isoformat() if last_start else None,
         'last_tick_end_utc': last_end.isoformat() if last_end else None,
         'last_tick_duration_s': last_dur,
         'next_tick_eta_s': next_eta,
-        'in_tick_now': bool(tick_proc),
+        'in_tick_now': running,
         'llm_job': llm_proc,  # 正在跑的 headless claude -p（None=無）
     }
 

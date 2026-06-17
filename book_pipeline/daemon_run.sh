@@ -19,6 +19,14 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 # Max 原生。要單一 provider 就清掉 CHAIN、改用下面的 BOOK_PIPELINE_PROVIDER（向後相容）。
 export BOOK_PIPELINE_PROVIDER_CHAIN=kimi,codex,claude
 export BOOK_PIPELINE_PROVIDER=kimi
+# 反應式控制迴圈（取代 daily 單次 tick）：一個 controller 進程跑有界 observe→非阻塞派工→
+# reap→harvest→sleep 迴圈，三條件齊備（產物就緒 ∧ 資源可用 ∧ 無人在做）的 transition 立即
+# 派 thread worker，OCR 一就緒即收割（延遲塌縮到一 poll cycle，免人工 kick）。launchd
+# StartInterval 重拉、flock 序列化。LOOP_POLL=150：observe(build_queue 掃全書)~16s，故 poll
+# 拉到 150s 把 observe 攤提到 ~10% duty（預設 75 對 16s observe 太密）。要回滾單次 tick 模型：
+# 設 BOOK_PIPELINE_REACTIVE=0（程式碼預設即 0，行為退回 tick_once）。
+export BOOK_PIPELINE_REACTIVE=1
+export BOOK_PIPELINE_LOOP_POLL=150
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
 # 不設 --max-llm：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全部跑完，瓶頸
