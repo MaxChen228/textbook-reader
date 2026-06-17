@@ -116,6 +116,51 @@ def mark_catalog_accepted(slug: str, residual: int) -> None:
         _save_state(s)
 
 
+# ── math sweep（Phase 2，corpus-level track-only；不 gate deploy）──────────────
+# 每書殘餘存 state[slug]['math']（do_math_track 寫，post-deploy）；全域 sweep 進度存
+# state['__math__']（'__' 前綴非合法 slug → 不會被 build_queue 誤當書）。corpus_math_residual
+# 是 do_math_sweep 的廉價門檻判據（讀一個 state 檔，不重跑 node）。
+MATH_STATE_KEY = '__math__'
+
+
+def mark_math_validated(slug: str, bad_occ: int, macros_version: str) -> None:
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        s.setdefault(slug, {})['math'] = {
+            'bad_occ': bad_occ, 'macros_version': macros_version,
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        _save_state(s)
+
+
+def math_info(slug: str, state: dict | None = None) -> dict:
+    s = state if state is not None else _load_state()
+    return (s.get(slug, {}) or {}).get('math') or {}
+
+
+def corpus_math_residual(state: dict | None = None) -> int:
+    """全 corpus 殘餘總和（跳過 __math__ 與無 math 紀錄者）。門檻判據單一真相。"""
+    s = state if state is not None else _load_state()
+    return sum(int((v or {}).get('math', {}).get('bad_occ') or 0)
+               for k, v in s.items() if k != MATH_STATE_KEY)
+
+
+def math_sweep_state(state: dict | None = None) -> dict:
+    s = state if state is not None else _load_state()
+    return (s.get(MATH_STATE_KEY) or {}).get('last_sweep') or {}
+
+
+def mark_math_swept(macros_version: str, residual_after: int, touched: list[str]) -> None:
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        s.setdefault(MATH_STATE_KEY, {})['last_sweep'] = {
+            'macros_version': macros_version, 'residual_after': residual_after,
+            'touched': touched,
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        _save_state(s)
+
+
 def _deployed(slug: str, state: dict) -> bool:
     """已部署 = textbook-reader/data/<slug>/book.json 存在（真相在 reader repo）。"""
     if os.path.exists(os.path.join(READER_ROOT, 'data', slug, 'book.json')):

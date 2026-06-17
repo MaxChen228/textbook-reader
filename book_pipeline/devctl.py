@@ -394,6 +394,36 @@ def crawl_status(books_snap: dict, zlib_snap: dict, wks: list) -> dict:
             'state': state, 'reason': reason, 'backlog_books': backlog_books}
 
 
+def math_health() -> dict:
+    """corpus-level 數學殘餘健康度（track-only）：總殘餘 vs 門檻、上次 sweep、殘餘最多的書。
+    答 /dev『數學式壞了多少、何時會被 sweep、哪幾本最髒、哪些已經過 sweep』。"""
+    from book_pipeline import math_validate as mv
+    from book_pipeline import pipeline_tick as pt
+    state = q._load_state()
+    sweep = q.math_sweep_state(state)
+    touched = set(sweep.get('touched') or [])
+    books = []
+    for slug, v in state.items():
+        if slug == q.MATH_STATE_KEY:
+            continue
+        m = (v or {}).get('math') or {}
+        if m.get('bad_occ'):
+            books.append({'slug': slug, 'bad_occ': m['bad_occ'],
+                          'in_last_sweep': slug in touched})
+    books.sort(key=lambda b: -b['bad_occ'])
+    total = q.corpus_math_residual(state)
+    return {
+        'node_available': mv.node_available(),
+        'macros_version': mv.macros_version(),
+        'corpus_bad_occ': total,
+        'threshold': pt.MATH_SWEEP_THRESHOLD,
+        'due': pt._math_sweep_due(state)[0],  # 真相同 daemon（含 GROWTH/macros/node），非僅 ≥門檻
+        'books_with_residual': len(books),
+        'top_books': books[:20],
+        'last_sweep': sweep or None,
+    }
+
+
 def build_snapshot(since_min: int = 180) -> dict:
     now = _now_utc()
     bs = books_status()
@@ -410,6 +440,7 @@ def build_snapshot(since_min: int = 180) -> dict:
         'errors': scan_errors(since_min),
         'recent_log': _tail(DAEMON_LOG, 40),
         'crawl': crawl_status(bs, zl, wks),
+        'math': math_health(),
         **bs,
     }
 
@@ -463,6 +494,17 @@ def _print_human(snap: dict) -> None:
     print(f"\n{'🔴' if errs else '🟢'} 錯誤 ({len(errs)}):")
     for e in errs[-10:]:
         print(f"   [{e['src']}] {e['line']}")
+    m = snap.get('math') or {}
+    if m:
+        node = '' if m.get('node_available') else '（node 缺，未驗證）'
+        sweep = m.get('last_sweep') or {}
+        sw = (f" · 上次 sweep {sweep.get('at','?')} 改 {len(sweep.get('touched') or [])} 書 "
+              f"→殘{sweep.get('residual_after','?')}") if sweep else ' · 尚未 sweep'
+        flag = '🔴' if m.get('due') else '🟢'
+        print(f"\n{flag} 數學殘餘 {node}: corpus {m.get('corpus_bad_occ')} occ / 門檻 {m.get('threshold')}"
+              f" · {m.get('books_with_residual')} 書有殘{sw}")
+        for b in (m.get('top_books') or [])[:8]:
+            print(f"   {b['slug']}: {b['bad_occ']} occ{'  ✓已sweep' if b.get('in_last_sweep') else ''}")
     print(f"\n📚 書本 ({snap['total']}) — 待辦 {len(snap['actionable'])}:")
     for t in snap['actionable']:
         print(f"   {t['slug']}: {t['todo']}")
