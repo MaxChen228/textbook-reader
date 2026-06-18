@@ -520,6 +520,17 @@
       padding: 8px 12px; border-left: 2px solid var(--border);
       background: var(--surface); font-style: italic;
     }
+    .problem-tools {
+      display: flex; justify-content: flex-end; margin-bottom: 8px;
+    }
+    .problem-open {
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--sub); text-decoration: none;
+      border: 1px solid var(--border); border-radius: 3px;
+      padding: 3px 8px;
+    }
+    .problem-open:hover { color: var(--ink); border-color: var(--ink-light); }
     .problem-solution { margin-top: 14px; }
     .problem-solution summary {
       cursor: pointer; font-family: var(--mono); font-size: 11px; font-weight: 700;
@@ -606,6 +617,7 @@
       <div id="crumb" class="reader-only"></div>
       <div class="topbar-spacer reader-only"></div>
       <div class="topbar-spacer library-only"></div>
+      <a class="utility-link" href="problems.html">Problems</a>
       <input class="lib-search library-only qbk-search" id="lib-search" type="search" placeholder="搜尋書名或作者…" autocomplete="off">
       <span class="meta library-only qbk-result-count" id="library-count"></span>
       <button class="qbk-control-btn reader-only" id="btn-prev" disabled>← prev</button>
@@ -732,6 +744,7 @@ let catalogQuery = ''
 let catalogLimit = 80
 let catalogSearchTimer = null
 let catalogDetailTarget = null
+let pendingProblemNum = null
 
 // ── 顯示設置（localStorage 持久） ──
 const SETTINGS_KEY = 'textbook.settings.v1'
@@ -1789,7 +1802,10 @@ async function parseHash({ restoreSaved = false } = {}) {
     }
     showLibrary(); return
   }
-  const parts = h.split('/')
+  const [pathPart, queryPart = ''] = h.split('?')
+  const params = new URLSearchParams(queryPart)
+  pendingProblemNum = params.get('problem')
+  const parts = pathPart.split('/')
   const s = parts[0]
   if (!books.find(b => b.slug === s)) {
     showLibrary()
@@ -1872,7 +1888,11 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
   // 先定位捲動位置（用尚未 typeset 的 DOM offset），再啟動增量排版。
   // 增量模式下高度會隨捲動成長，故以 anchor 為主、pixel 為輔，並在 typeset 後再校正一次。
   const restoreAnchor = pendingAnchor || (savedPosition && savedPosition.anchor) || null
-  if (restoreAnchor && document.getElementById(restoreAnchor)) {
+  const problemAnchor = pendingProblemNum ? `prob-${pendingProblemNum}` : null
+  if (problemAnchor && document.getElementById(problemAnchor)) {
+    scrollToAnchor(problemAnchor)
+    pendingProblemNum = null
+  } else if (restoreAnchor && document.getElementById(restoreAnchor)) {
     scrollToAnchor(restoreAnchor)
     setActiveSection(restoreAnchor)
   } else if (savedPosition) {
@@ -2132,6 +2152,9 @@ function renderProblems(probs) {
     <h2>${heading}</h2>
     ${probs.map((p, idx) => `
       <div class="problem" id="prob-${esc(p.num)}">
+        <div class="problem-tools">
+          <a class="problem-open" href="problems.html#${encodeURIComponent(`tb:${slug}:${currentKind}:${currentKey}:p:${p.num}`)}">Open in Problems</a>
+        </div>
         <div class="problem-num">${probLabel} ${esc(p.num)}</div>
         <div class="problem-body">${(p.body && p.body.length)
           ? renderBody(p.body, `p${p.num}`, ['problems', idx, 'body'])
