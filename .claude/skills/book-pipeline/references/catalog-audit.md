@@ -278,6 +278,15 @@ caption 空且無 exclude reason。
 ## 7. 硬規則
 
 - **絕不手改 `parsed/*.json`**——一切走 `catalog_overrides/<slug>.json` + `apply_catalog_overrides`。手改會在下次 parser 重建時蒸發。
+- **你的合法產物只有 `catalog_overrides/<slug>.json`**（+ pdf_crop 寫的 `unified/images/*.png`）。**禁止改任何
+  `book_pipeline/*.py`**（含 `build_catalogs.py`/`catalog_audit.py`）。`build_catalogs` 抓不到你這本的圖說
+  形態（如離散 caption block）時：**不要改 build_catalogs 讓自己過**（污染所有書、且被 scope_guard 自動還原成
+  提案）。先試 override（set_fields/aliases/pdf_crop_insert 多半能逐本解）；override 真涵蓋不了才提案：
+  ```bash
+  uv run python -m book_pipeline.proposals propose --domain engine --type tooling-gap \
+    --slug <slug> --title "<build_catalogs 缺哪種 caption 偵測能力>" \
+    --evidence "<具體形態 + 為何 override 解不了>" --proposal "<建議引擎怎麼補>"
+  ```
 - override 是**疊加、可重播、冪等**：每筆給唯一 `id` 標籤、`reason`，能加 `expect` 就加（防 selector 飄移）。
 - **不破壞既有正確 catalog**：改 id 前先確認目標 id 沒被別的 entry 佔用；replace_text 的 `old` 要長到唯一。
 - `ref_classifications` 必填 `evidence`，且只用於**真不在本書**的 ref；能真修的先真修。

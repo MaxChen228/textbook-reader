@@ -62,7 +62,13 @@ def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
 
     cells = []
     for i in idxs:
-        pix = doc[i].get_pixmap(matrix=fitz.Matrix(zoom, zoom))
+        page = doc[i]
+        # width-bounded zoom：最終只需 CELL_W 寬，渲染解析度就綁在「略大於 CELL_W」即可，
+        # 與頁面實體尺寸脫鉤。掃描書 mediabox/嵌圖巨大時，固定 zoom 會全解析度解碼再 downscale
+        # 丟掉（>30s 像卡死，正是 qc agent 燒掉 10–30 工具調用跟渲染器搏鬥的根因）。封頂後 ≤幾秒。
+        pw = page.rect.width or CELL_W
+        eff_zoom = min(zoom, (CELL_W * 1.1) / pw)
+        pix = page.get_pixmap(matrix=fitz.Matrix(eff_zoom, eff_zoom))
         img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
         scale = CELL_W / img.width
         img = img.resize((CELL_W, int(img.height * scale)))
@@ -84,7 +90,11 @@ def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
         sheet.paste(im, (x, y + LABEL_H))
 
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    sheet.save(out, 'PNG')
+    # 原子寫：先寫 .tmp 再 rename。渲染慢/中途被 SIGKILL（daemon kick -k）時，絕不留半寫入壞檔
+    # ——qc agent 曾親撞「contactsheet PNG 是半寫入壞檔」、再燒一輪工具調用繞它。
+    tmp = out + '.tmp'
+    sheet.save(tmp, 'PNG')
+    os.replace(tmp, out)
     return out
 
 

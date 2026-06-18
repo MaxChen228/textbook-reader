@@ -144,7 +144,21 @@ known_missing_problems:                 # optional, default []
 
 派 sub-agent 嚴格按下列流程。每步**輸入是什麼、輸出是什麼**寫死，不要自由發揮。
 
-### Step 1 — 載入並建索引
+### Step 0 — 先跑 scout（必做，省掉手刻翻 content_list）
+
+**第一個動作就跑這個**，它把 Step 1–7 的機械部分（type 統計→filter_types、heading_text_level
+偵測、章節/附錄/index 錨點候選、regex 推斷樣本）一次吐成結構化候選報告：
+
+```bash
+uv run --with pyyaml python -m book_pipeline.audit_scout <slug>
+```
+
+**讀這份報告即可下判斷、寫 yaml**——**不要**再開 `content_list.json` 生肉手刻 python 翻頁，
+**不要**讀 `parser.py`/`build_catalogs.py`/`smoke.py` 等引擎源碼（你的工作是產 yaml，不是懂引擎內部；
+真要查 schema 看本檔 §2）。scout 每節標「→ 你判斷什麼」：候選是起點、最終決定由你下。下面 Step 1–8
+是各步的判準細節（scout 不確定/標 ⚠ 時回來查），不需逐步再手跑一遍 scout 已做的統計。
+
+### Step 1 — 載入並建索引（scout 已做；僅 scout 漏標的細節才手查）
 
 ```python
 import json
@@ -393,7 +407,20 @@ uv run --with pymupdf python -m book_pipeline.extract_cover $SLUG
 
 ## 6. 硬規則
 
-- **不要動** `.env`、`book_pipeline/mineru_ingest.py`、`book_pipeline/parser.py`
+- **你的合法產物只有**：`mineru_data/<slug>/extract_rules.yaml`、`mineru_data/<slug>/_audit.md`、
+  `mineru_data/<slug>/cover.jpg`，以及（如需新 subject）`metadata_schema.yaml` append。**禁止改任何
+  `book_pipeline/*.py` / `build/*.py` / `.claude/skills/**` / 其他書**——這些是引擎/工具，不是你的輸出。
+- **引擎表達不了你這本書時：停手 + 提案，絕不擅改引擎**。parser / build_catalogs / smoke 若無法正確
+  切你這本的章節/圖說/題號，那是「工具不夠力」——不要去改 `parser.py`/`build_catalogs.py` 讓自己這本過
+  （那會污染所有書、且被 scope_guard 自動還原成一筆提案）。改下指令記一筆，回報架構師收編：
+  ```bash
+  uv run python -m book_pipeline.proposals propose --domain engine --type tooling-gap \
+    --slug <slug> --title "<一句話：哪個引擎缺哪種能力>" \
+    --evidence "<你這本的具體形態，如：圖說是獨立 text block 緊鄰 image，build_catalogs 抓不到>" \
+    --proposal "<你建議引擎怎麼補>"
+  ```
+  能用 schema 內既有欄位（inline_problems / heading_text_level / problems_end_re / solution_start_re…）
+  表達的，先用欄位（那才是給你的工具）；**真的**欄位都涵蓋不了才提案 + 把該書 surface 為未完成。
 - Sub-agent **不可**讀別本書（如 `sakurai_mqm3` / `kittel_thermal`）的 `extract_rules.yaml` 作參考 — 全部依本檔 §2 schema 與 §3 方法產出
 - 主對話收回報後**必跑** §5 validate，不合規不准 commit
 - `_audit.md` 是過程紀錄，**不入 git**（gitignore 已含 `parsed/_*.md`，不過 `_audit.md` 在上層；視情況加白名單或讓他留本機）

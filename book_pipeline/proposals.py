@@ -73,6 +73,10 @@ DOMAINS: dict[str, dict[str, Any]] = {
     # harness-gap=search/inspect 工具不夠力（查不到、metadata 缺）。
     "crawl": {"types": {"booklist-fix", "edition-pref", "availability", "harness-gap"},
               "checker": None},
+    # scope_guard 的捕獲口：worker 越界改受保護程式碼面（book_pipeline/*.py…）→ 守衛把那份
+    # diff 捕成 engine/patch 提案、還原核心碼。patch=worker 實際改動（improvement 不流失，
+    # 架構師事後收編或駁回）；tooling-gap=工具不夠力逼得 worker 想繞過（該補工具，見 harness-gap 之於 crawl）。
+    "engine": {"types": {"patch", "tooling-gap"}, "checker": None},
 }
 
 FIELDS = ("evidence", "proposal", "risk", "disposition")  # 散文欄位

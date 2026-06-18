@@ -46,6 +46,7 @@ from book_pipeline import agent_history as hist
 from book_pipeline import leases
 from book_pipeline import extract_cover
 from book_pipeline import booklists
+from book_pipeline import scope_guard
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -587,6 +588,9 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     import time
     cmd = _build_llm_cmd(provider, prompt, spec)
     log(f'RUN llm {todo_verb} {slug or ""}（{provider}/JSONL）')
+    # 引擎源碼面守衛 bracket：spawn 前拍受保護檔指紋（含架構師既有未提交改動）→ finally 收尾比對，
+    # 只有「此 worker 存活期間新變動的受保護檔」歸給它（捕 engine/patch 提案 [+enforce 還原]）。
+    sg_pre = scope_guard.snapshot()
     p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     err_parts: list[str] = []  # 只裝『終端錯誤事件 + 非 JSON(CLI/stderr) 行』供限額/中斷判定
@@ -651,6 +655,10 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         hist.finish(wkey, result_rc)  # 失敗/timeout/撞額度/被終止的 session 也記（rc!=0, ok=False）
         leases.release(todo_verb, slug)
         wr.unregister(wkey)
+        try:  # 守衛收尾：此 worker 是否擅改了受保護程式碼面（見 scope_guard）
+            scope_guard.check_worker(sg_pre, verb=todo_verb, slug=slug, session=wkey, log=log)
+        except Exception as e:
+            log(f'scope_guard 異常（不影響派工）：{e}')
 
 
 def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, label: str | None = None) -> int:
