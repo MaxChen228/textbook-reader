@@ -53,3 +53,32 @@ def test_blocking_marker_terminates_deploy_scheduling(tmp_state):
     state = q._load_state()
     bq = q.book_qc_review("wrongbook", state)
     assert bq and bq.get("review")
+
+
+# --- _book_qc_block fail-open（零誤判核心：gate 自身故障絕不擋好書）---
+
+def test_block_fail_open_on_missing_book(monkeypatch):
+    from book_pipeline import pipeline_tick as pt
+    from textbooks import corpus
+    monkeypatch.setattr(corpus, "load_book", lambda s: None)
+    assert pt._book_qc_block("not_parsed_yet") == []
+
+
+def test_block_fail_open_on_exception(monkeypatch):
+    from book_pipeline import pipeline_tick as pt
+    from textbooks import corpus
+    monkeypatch.setattr(pt, "log", lambda *a, **k: None)
+    def boom(_):
+        raise RuntimeError("corpus 壞了")
+    monkeypatch.setattr(corpus, "load_book", boom)
+    assert pt._book_qc_block("any") == []  # 異常 → fail-open，照常部署
+
+
+def test_block_detects_companion(monkeypatch):
+    from book_pipeline import pipeline_tick as pt
+    from textbooks import corpus
+    monkeypatch.setattr(corpus, "load_book", lambda s: {
+        "title": "Study Guide for Some Textbook",
+        "chapters": [{"num": n, "body_count": 50} for n in range(1, 11)],
+        "appendices": []})
+    assert pt._book_qc_block("fake_slug") == ["companion"]
