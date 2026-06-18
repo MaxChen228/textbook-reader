@@ -289,14 +289,19 @@ def cmd_fix(a: argparse.Namespace) -> int:
     return emit(out, 0 if not still else 1)
 
 
-# ── sweep batch：批量打自架 LLM（gpt-5.3-codex-spark）逐條改寫，render 守門 ──────
+# ── sweep batch：批量打自架 LLM（預設 gpt-5.4）逐條改寫，render 守門 ──────
 #
-# 經濟學（實測）：spark 是 reasoning 模型，主成本 completion 隨條數線性、batch 攤不平；
-# batch 唯一省的是 input overhead 的零頭。故 N 不為「省 token」衝大——N=40 是 wall-clock/
-# 重試粒度/不爆 completion 的甜蜜點。真正的省在：payload 精簡（只送 i/tex/err）、render
-# 本機守門（<1ms，不過不落地）、帶 retry 池≤2 輪、長式分流。
+# 經濟學（實測）：reasoning 模型主成本 completion 隨條數線性、batch 攤不平；batch 唯一省的
+# 是 input overhead 的零頭。故 N 不為「省 token」衝大——N=40 是 wall-clock/重試粒度/不爆
+# completion 的甜蜜點。真正的省在：payload 精簡（只送 i/tex/err）、render 本機守門（<1ms，
+# 不過不落地）、帶 retry 池≤2 輪、長式分流。
+#
+# 模型選 5.4（與 qc/audit 派工的 codex 家族家規一致、池子白名單內）：實測對「信心型幻覺」遠
+# 穩於 5.3-codex-spark——spark 把化學 N₂ 的 OCR 殘體 `\Nu_2` 修成物理頻率 `\nu_2`（小寫、能
+# render、語意全錯，閘攔不到），5.4/5.5 正確還原 `N_2`；5.4 延遲較 5.5 省 ~35%、品質追平，故定
+# 為預設。env BOOK_PIPELINE_MATH_MODEL 可運維臨時凌駕。
 
-DEFAULT_MODEL = "gpt-5.3-codex-spark"
+DEFAULT_MODEL = os.environ.get("BOOK_PIPELINE_MATH_MODEL", "gpt-5.4")
 # 強約束 + few-shot：render gate 只能擋確定性空殼/原語，攔不到「信心型幻覺」（把噪音編成
 # \mathrm{width} 這種看似合法卻無中生有的內容）。源頭治理在 prompt——明令禁止臆造/空殼/中和，
 # 並給「源文已毀」一個誠實出口 unrecoverable（→ 系統標 math-accept 終態），取代「假修蒙混」。
