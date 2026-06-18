@@ -300,6 +300,9 @@ def test_semantic_reason_still_blocks_empty_after_flip():
     assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"
     assert sr(r"$\phantom{}\hphantom{}$") == "empty_shell"   # 空 phantom → 黑名單刪命令+空引數 → 空
     assert sr(r"$\quad\qquad\,$") == "empty_shell"           # 純間距無內容
+    assert sr(r"$\strut\mathstrut\null$") == "empty_shell"   # 純撐桿無內容（phase-B review nit）
+    assert sr(r"$\substack{}$") == "empty_shell"             # 空 substack
+    assert sr(r"$\substack{a \\ b}$") is None                # 有內容的 substack 仍放行
     assert sr(r"${\let\mathbf\relax \mathbf{}}$") == "tex_primitive"
 
 

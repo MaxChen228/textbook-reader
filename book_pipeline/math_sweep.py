@@ -138,7 +138,8 @@ _FORMAT_CTRL = re.compile(
     r"|text(?:rm|bf|it|sf|tt|normal|up|sc|md|color)?|mbox|hbox|operatorname|mathop"
     r"|left|right|middle|bigl|bigr|Bigl|Bigr|biggl|biggr|Biggl|Biggr|big|Big|bigg|Bigg"
     r"|displaystyle|textstyle|scriptstyle|scriptscriptstyle|limits|nolimits"
-    r"|begin|end|phantom|hphantom|vphantom|smash|hspace|vspace|kern|mkern|mskip|raisebox"
+    r"|begin|end|phantom|hphantom|vphantom|smash|strut|mathstrut|null|substack"
+    r"|hspace|vspace|kern|mkern|mskip|raisebox"
     r"|quad|qquad|space|nobreakspace|thinspace|negthinspace|medspace|thickspace)\b")
 
 
