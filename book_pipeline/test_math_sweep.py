@@ -197,9 +197,10 @@ def _finding_t(tex, display=False):
 
 
 def test_parse_jsonl_tolerant():
-    txt = '```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n{"i":2}\n```'
-    # markdown 圍欄/雜訊/缺 tex(i2)/無 i(bad) 全跳過，只留合法兩條
-    assert math_sweep._parse_jsonl(txt) == {0: "a", 1: "b"}
+    txt = ('```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n'
+           '{"i":2}\n{"i":3,"unrecoverable":true}\n```')
+    # markdown 圍欄/雜訊/缺 tex 無 unrec(i2)/無 i(bad) 全跳過；fix 兩條 + unrecoverable 一條
+    assert math_sweep._parse_jsonl(txt) == {0: {"tex": "a"}, 1: {"tex": "b"}, 3: {"unrec": True}}
 
 
 def test_batched():
@@ -223,34 +224,76 @@ def test_ccnexus_base_env_and_host(monkeypatch):
             os.environ.pop("CCNEXUS_BASE_URL", None)
 
 
-def test_process_pool_gates_and_retries(monkeypatch):
-    pool = [("g0", "bookA", _finding_t("BAD0")),
-            ("g1", "bookA", _finding_t("OK1")),
-            ("g2", "bookB", _finding_t("MISS2"))]
-    # 模型：i0 回壞 tex（render fail）、i1 回好 tex、i2 漏回
+def _one(grp, monkeypatch):
+    return math_sweep._run_one_batch(grp, 0, model="m", base="b", auth="a", pool_name="short", rnd=0)
+
+
+def test_run_one_batch_gates_and_retries(monkeypatch):
+    grp = [("g0", "bookA", _finding_t("BAD0")),
+           ("g1", "bookA", _finding_t("OK1")),
+           ("g2", "bookB", _finding_t("MISS2"))]
+    # 模型：i0 回壞 tex（render fail）、i1 回好 tex、i2 漏回。批次 render → 須回 per-item verdict。
     monkeypatch.setattr(math_sweep, "_call_llm",
                         lambda payload, **k: '{"i":0,"tex":"BADNEW"}\n{"i":1,"tex":"GOODNEW"}')
     monkeypatch.setattr(math_sweep, "run_render",
-                        lambda items: {0: {"ok": items[0]["s"] == "GOODNEW"}})
+                        lambda items: {it["i"]: {"ok": it["s"] == "GOODNEW"} for it in items})
     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s + "-ov"}])
-    accepted = defaultdict(list); gid_new = {}
-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
-                                   accepted=accepted, gid_new=gid_new)
-    assert gid_new == {"g1": "GOODNEW"}                         # 只 i1 落地
-    assert accepted["bookA"] == [{"id": "bookA-ov"}]
-    assert {x[0] for x in nxt} == {"g0", "g2"}                  # render-fail + 漏回 → retry
+    res = _one(grp, monkeypatch)
+    assert res["accepts"] == [("bookA", "g1", "GOODNEW", [{"id": "bookA-ov"}])]  # 只 i1 落地
+    assert {x[0] for x in res["retry"]} == {"g0", "g2"}                          # render-fail + 漏回
+    assert res["unrec"] == []
 
 
-def test_process_pool_batch_failure_retries_all(monkeypatch):
-    pool = [("g0", "bookA", _finding_t("X")), ("g1", "bookA", _finding_t("Y"))]
+def test_run_one_batch_llm_failure_retries_all(monkeypatch):
+    grp = [("g0", "bookA", _finding_t("X")), ("g1", "bookA", _finding_t("Y"))]
     def boom(*a, **k):
         raise RuntimeError("conn reset")
     monkeypatch.setattr(math_sweep, "_call_llm", boom)
-    monkeypatch.setattr(math_sweep, "run_render", lambda i: {0: {"ok": True}})
-    accepted = defaultdict(list); gid_new = {}
-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
-                                   accepted=accepted, gid_new=gid_new)
-    assert len(nxt) == 2 and not gid_new                       # 整批失敗 → 全重試、零落地
+    res = _one(grp, monkeypatch)
+    assert res["state"] == "error" and res["retry"] == grp and not res["accepts"]  # 整批重試零落地
+
+
+def test_run_one_batch_unrecoverable_exits_retry(monkeypatch):
+    # 模型誠實宣告 unrecoverable → 進 unrec 終態、**不重試**（退出無限重試迴圈）
+    grp = [("g0", "bookA", _finding_t("NOISE"))]
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"unrecoverable":true}')
+    monkeypatch.setattr(math_sweep, "run_render", lambda items: {})
+    res = _one(grp, monkeypatch)
+    assert res["unrec"] == [("bookA", 1)] and not res["retry"] and not res["accepts"]
+    assert res["verdicts"][0]["outcome"] == "unrecoverable"
+
+
+# ── 語意守門：render 過但空殼/原語不可落地（render gate 之上的第二道閘）─────────
+def test_semantic_reason_blocks_empty_and_primitive():
+    sr = math_sweep.semantic_reason
+    assert sr(r"$\mathrm{~~} $") == "empty_shell"              # 純 nbsp 空白
+    assert sr("$$ $$") == "empty_shell"                       # 空 display
+    assert sr("") == "empty_shell"                            # 空字串
+    assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"  # 一排空盒
+    assert sr(r"${\let\mathbf\relax \mathbf{}\mathbf{}}$") == "tex_primitive"  # \let 中和
+    assert sr(r"$\def\x{}\x$") == "tex_primitive"
+
+
+def test_semantic_reason_passes_legit_short_formulas():
+    sr = math_sweep.semantic_reason
+    for ok in (r"$N_{2}$", r"$\nu_{2}$", r"$\sqrt{2}$", r"$\alpha = 1$", r"$\alpha \in K$",
+               r"$\partial U$", r"$\delta L$", r"\mu\text{A}", r"$T|_{\mathrm{null}(T)^\perp}$",
+               r"$\chi _ { 2 }$", r"$\omega_{\mu}^{a}{}_{b}$",
+               r"\begin{array}{c c c c} a & b & c & d \\ \end{array}"):  # 表格欄位規格不誤殺
+        assert sr(ok) is None, ok
+
+
+def test_run_one_batch_semantic_gate_blocks_renderable_empty(monkeypatch):
+    # 模型回「能 render 但語意空洞」的空殼 → render_ok=True 卻必須擋下不落地、回流重試
+    grp = [("g0", "bookA", _finding_t("DESTROYED_OCR"))]
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: r'{"i":0,"tex":"\\mathrm{~~} "}')
+    monkeypatch.setattr(math_sweep, "run_render", lambda items: {it["i"]: {"ok": True} for it in items})
+    monkeypatch.setattr(math_sweep, "finding_to_overrides",
+                        lambda s, f, n: (_ for _ in ()).throw(AssertionError("空殼不該落地")))
+    res = _one(grp, monkeypatch)
+    assert not res["accepts"]                                 # 零落地
+    assert {x[0] for x in res["retry"]} == {"g0"}             # 回流重試
+    assert res["verdicts"][0]["outcome"] == "semantic_fail"
 
 
 def _batch_ns(**kw):
@@ -267,7 +310,7 @@ def test_cmd_batch_end_to_end(monkeypatch):
     monkeypatch.setattr(
         math_sweep, "_call_llm",
         lambda payload, **k: "\n".join('{"i":%d,"tex":"NEW%d"}' % (x["i"], x["i"]) for x in payload))
-    monkeypatch.setattr(math_sweep, "run_render", lambda items: {0: {"ok": True}})
+    monkeypatch.setattr(math_sweep, "run_render", lambda items: {it["i"]: {"ok": True} for it in items})
     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s}])
     landed = []
     monkeypatch.setattr(math_sweep, "merge_overrides",
@@ -315,18 +358,16 @@ def test_cmd_batch_node_unavailable(monkeypatch):
     assert rc == 1 and out["ok"] is False and "node" in out["error"] and called == []
 
 
-def test_process_pool_render_exception_retries(monkeypatch):
-    # render_check.js 偶發 raise（非 verdict）→ 該條進 retry、零落地（不裸炸整批）
-    pool = [("g0", "bookA", _finding_t("X"))]
+def test_run_one_batch_render_exception_retries(monkeypatch):
+    # render_check.js 偶發 raise（整批 spawn 掛）→ 全候選進 retry、零落地（不裸炸整批）
+    grp = [("g0", "bookA", _finding_t("X"))]
     monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"tex":"NEW"}')
     def boom(items):
         raise RuntimeError("render_check crash")
     monkeypatch.setattr(math_sweep, "run_render", boom)
     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": "x"}])
-    accepted = defaultdict(list); gid_new = {}
-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
-                                   accepted=accepted, gid_new=gid_new)
-    assert len(nxt) == 1 and not gid_new and not accepted
+    res = _one(grp, monkeypatch)
+    assert {x[0] for x in res["retry"]} == {"g0"} and not res["accepts"]
 
 
 # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──

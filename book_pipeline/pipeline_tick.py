@@ -85,11 +85,14 @@ CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
 # 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
 CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
-# 數學 sweep 每 tick 上限 + 輪數：do_math_sweep 跑 `math_sweep batch --limit L --rounds 1`。每 tick 只解
-# 一小批殘式（一次 spark call 即回 ≈ 3-5 分），**完成即記 last_batch、occ 階梯下降、上站**，下 tick 續。
-# rounds=1 不在 tick 內重試（round 2 為零頭再花一整次 call 不划算）——失敗條下個 tick re-list 自然重試。
-# 小批 + 單輪 = 高頻回饋（記錄區常有東西）+ walltime 安全（不單 tick 吞整個 corpus 撞 50min 作廢）。
-MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT', '40'))
+# 數學 sweep 每 tick 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
+# --rounds 1`。8 worker 並發各打一批 spark（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
+# 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
+# rounds=1 不在 tick 內重試——失敗條下個 tick re-list 自然重試。walltime 安全（並發不拉長單 tick 牆鐘）。
+MATH_BATCH_WORKERS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_WORKERS', '8'))
+MATH_BATCH_N = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_N', '40'))
+MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT',
+                                      str(MATH_BATCH_WORKERS * MATH_BATCH_N)))  # 餵滿 8 worker
 MATH_BATCH_ROUNDS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_ROUNDS', '1'))
 DATA_DIR = os.path.join(BP, 'mineru_data')
 MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 排除出下載候選
@@ -1141,9 +1144,9 @@ def do_math_sweep(dry: bool) -> int:
     if not due:
         return 0
     cur = mv.macros_version()
-    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch --limit {MATH_BATCH_LIMIT} --rounds {MATH_BATCH_ROUNDS}（純 API，macros={cur}）')
+    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch --limit {MATH_BATCH_LIMIT} --workers {MATH_BATCH_WORKERS} --n {MATH_BATCH_N} --rounds {MATH_BATCH_ROUNDS}（純 API，{MATH_BATCH_WORKERS} worker 並發，macros={cur}）')
     if dry:
-        log(f'DRY uv run python -m book_pipeline.math_sweep batch --limit {MATH_BATCH_LIMIT} --rounds {MATH_BATCH_ROUNDS}')
+        log(f'DRY uv run python -m book_pipeline.math_sweep batch --limit {MATH_BATCH_LIMIT} --workers {MATH_BATCH_WORKERS} --n {MATH_BATCH_N} --rounds {MATH_BATCH_ROUNDS}')
         return 0
     before_by_book = mv.residual_by_book()  # 派工前快照：normalize 規則/macro 修的書未必有 override，靠殘餘降偵測
     t0 = time.time()
@@ -1151,7 +1154,8 @@ def do_math_sweep(dry: bool) -> int:
     try:
         # stdout=PIPE 取 JSON 結果；stderr 直通（_log 進度走 stderr）→ launchd.err.log 即時可見，不被吞。
         proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch',
-                               '--limit', str(MATH_BATCH_LIMIT), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
+                               '--limit', str(MATH_BATCH_LIMIT), '--workers', str(MATH_BATCH_WORKERS),
+                               '--n', str(MATH_BATCH_N), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
                               cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=None, text=True)
     finally:
         q.clear_math_batch_running()
