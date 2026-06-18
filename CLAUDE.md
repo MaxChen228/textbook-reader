@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 uv run python -m build.build_all [slug ...]              # 烤靜態站（不帶 slug = 全部書）
 uv run python -m book_pipeline.status                    # 全書 stage 儀表板
+uv run python -m book_pipeline.book_audit [slug ...]     # 新進書唯讀體檢（書本身對不對/完不完整）
 uv run python -m book_pipeline.pipeline_tick --dry-run   # daemon 單 tick 計畫（不執行）
 uv run python -m book_pipeline.pipeline_queue            # 跨書全 stage work-queue
 uv run python -m http.server 8001                        # 本機預覽
