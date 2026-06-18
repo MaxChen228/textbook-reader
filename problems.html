@@ -267,8 +267,10 @@ const esc = S.escapeHtml
 const escAttr = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
+const RENDER_CAP = 3000  // 一次最多渲染的卡片/格塊數，超出顯示提示請收斂篩選（防 6 萬節點凍結）
 let allProblems = []
 let filtered = []
+let displayed = []
 let activeBook = 'all'
 let activeSubject = 'all'
 let activeChapter = 'all'
@@ -361,7 +363,10 @@ function matches(p) {
 function render() {
   buildFilters()
   filtered = allProblems.filter(matches)
-  document.getElementById('result-count').textContent = `${filtered.length}/${allProblems.length}`
+  const capped = filtered.length > RENDER_CAP
+  displayed = capped ? filtered.slice(0, RENDER_CAP) : filtered
+  document.getElementById('result-count').textContent =
+    capped ? `${RENDER_CAP}/${filtered.length} 顯示` : `${filtered.length}/${allProblems.length}`
   const list = document.getElementById('problem-list')
   const grid = document.getElementById('problem-grid')
   document.getElementById('loading').style.display = 'none'
@@ -375,6 +380,13 @@ function render() {
   }
   if (viewMode === 'grid') renderGrid()
   else renderList()
+  if (capped) {
+    const container = viewMode === 'grid' ? grid : list
+    const note = document.createElement('div')
+    note.style.cssText = 'grid-column:1/-1;padding:14px;color:var(--sub);font-family:var(--mono);font-size:11px;text-align:center'
+    note.textContent = `顯示前 ${RENDER_CAP} / 共 ${filtered.length} 題 — 用左側篩選或搜尋收斂`
+    container.prepend(note)
+  }
   syncRenderedSelection()
 }
 
@@ -384,20 +396,20 @@ function openProblem(id) {
 
 function renderList() {
   const list = document.getElementById('problem-list')
-  list.innerHTML = filtered.map(cardHtml).join('')
+  list.innerHTML = displayed.map(cardHtml).join('')
   list.querySelectorAll('.problem-card').forEach((card, i) => {
     card.addEventListener('click', (e) => {
       if (Date.now() < suppressClickUntil) { e.preventDefault(); return }
       if (e.target.closest('input, label, button')) return
       e.preventDefault()
-      if (e.metaKey || e.ctrlKey) toggleIdSelection(filtered[i].id)
-      else openProblem(filtered[i].id)
+      if (e.metaKey || e.ctrlKey) toggleIdSelection(displayed[i].id)
+      else openProblem(displayed[i].id)
     })
     card.querySelector('.problem-card-cb').addEventListener('click', (e) => {
       e.stopPropagation()
     })
     card.querySelector('.problem-card-cb').addEventListener('change', (e) => {
-      setIdSelection(filtered[i].id, e.target.checked)
+      setIdSelection(displayed[i].id, e.target.checked)
     })
   })
 }
@@ -424,7 +436,7 @@ function cardHtml(p) {
 function renderGrid() {
   const grid = document.getElementById('problem-grid')
   const groups = new Map()
-  filtered.forEach(p => {
+  displayed.forEach(p => {
     const key = p.book_title || p.book_slug || 'Unknown'
     if (!groups.has(key)) groups.set(key, [])
     groups.get(key).push(p)
@@ -536,12 +548,15 @@ document.getElementById('sel-clear').addEventListener('click', () => {
   selectedIds.clear()
   syncRenderedSelection()
 })
-document.getElementById('sel-copy').addEventListener('click', (e) => {
-  copyText(selectedMarkdown(), e.currentTarget)
+document.getElementById('sel-copy').addEventListener('click', async (e) => {
+  const btn = e.currentTarget
+  await Promise.all(selectedProblems().map(ensureBlocks))
+  copyText(selectedMarkdown(), btn)
 })
-document.getElementById('sel-pdf').addEventListener('click', () => {
+document.getElementById('sel-pdf').addEventListener('click', async () => {
   const problems = selectedProblems()
   if (!problems.length) return
+  await Promise.all(problems.map(ensureBlocks))
   const incQ = document.getElementById('sel-inc-q').checked
   const incSol = document.getElementById('sel-inc-sol').checked
   const pageBreak = document.getElementById('pdf-pagebreak').checked
@@ -650,6 +665,22 @@ function blocksHtml(blocks, slug) {
   return (blocks || []).map(b => blockHtml(b, slug)).join('') || '<p>OCR missing - see original PDF.</p>'
 }
 
+// 區塊 → 純文字（鏡像 bake_json._block_text），供 copy/PDF 匯出取完整內容。
+function blockText(b) {
+  switch (b.t) {
+    case 'section': case 'subsection': return b.title || ''
+    case 'example': return `Example ${b.id || ''}`.trim()
+    case 'p': return b.md || ''
+    case 'eq': return b.tex || ''
+    case 'fig': return b.caption || ''
+    case 'table': return [b.caption || '', b.footnote || ''].join(' ').trim()
+    default: return ''
+  }
+}
+function blocksToText(blocks) {
+  return (blocks || []).map(blockText).filter(Boolean).join('\n\n')
+}
+
 function problemMarkdown(p) {
   const parts = [
     `## ${p.book_title} - Problem ${p.num}`,
@@ -683,10 +714,15 @@ function printProblem(p) {
   })
 }
 
-function showDetail(p) {
+async function showDetail(p) {
   document.getElementById('app').dataset.mode = 'detail'
   document.getElementById('sel-bar').classList.remove('visible')
   const root = document.getElementById('detail-view')
+  if (!p.body) {
+    root.innerHTML = '<div class="detail-wrap" style="color:var(--sub);font-family:var(--mono);font-size:12px">loading...</div>'
+    await ensureBlocks(p)
+    if (decodeURIComponent(location.hash.slice(1)) !== p.id) return  // 載入中已切走
+  }
   root.innerHTML = `<div class="detail-wrap">
     <a class="detail-back" href="problems.html" id="back-list">← Problems</a>
     <div class="detail-head">
@@ -768,10 +804,63 @@ document.addEventListener('keydown', (e) => {
 })
 window.addEventListener('hashchange', route)
 
+// 索引 v2 = 輕量 tuple [bookIdx, chapter, num, hasSol, preview] + books 去重表。
+// body/solution 不在索引內，detail/匯出時由 ensureBlocks 按需抓 data/<slug>/ch/<n>.json。
+function hydrate(data) {
+  const books = data.books || []
+  const rows = data.problems || []
+  if (!rows.length || !Array.isArray(rows[0])) return rows  // 舊 v1 全欄位格式，原樣用
+  return rows.map(([bi, ch, num, hs, preview]) => {
+    const b = books[bi] || {}
+    const slug = b.slug || ''
+    const key = String(ch)
+    return {
+      id: `tb:${slug}:ch:${ch}:p:${num}`,
+      book_slug: slug,
+      book_title: b.title || slug,
+      author: b.author || null,
+      subject: b.subject || null,
+      kind: 'ch',
+      key,
+      chapter: ch,
+      chapter_title: (b.chapters || {})[key] || '',
+      num,
+      has_solution: !!hs,
+      question_text: preview || '',      // 預覽＋搜尋用；完整文字在 ensureBlocks 後補上
+      href_reader: `index.html#${slug}/ch/${ch}?problem=${encodeURIComponent(num)}`,
+    }
+  })
+}
+
+const chapterCache = new Map()
+function loadChapter(slug, ch) {
+  const k = `${slug}/${ch}`
+  if (!chapterCache.has(k)) {
+    chapterCache.set(k, S.fetchJson(`data/${slug}/ch/${ch}.json`).catch(() => null))
+  }
+  return chapterCache.get(k)
+}
+
+// 按需把完整 body/solution 區塊掛上 problem 物件（冪等，抓過即快取）。
+async function ensureBlocks(p) {
+  if (p.body) return p
+  const chunk = await loadChapter(p.book_slug, p.chapter)
+  const match = (chunk && chunk.problems || []).find(x => String(x.num).trim() === p.num)
+  p.body = (match && match.body) || []
+  p.solution = (match && match.solution) || []
+  if (match) {
+    p.question_text = blocksToText(p.body)
+    p.solution_text = blocksToText(p.solution)
+  } else {
+    p.solution_text = p.solution_text || ''
+  }
+  return p
+}
+
 async function init() {
   try {
     const data = await S.fetchJson('data/problems.json', { cache: 'no-cache' })
-    allProblems = Array.isArray(data) ? data : (data.problems || [])
+    allProblems = hydrate(data)
     setError('')
     setViewMode(viewMode)
     setupDragSelect()

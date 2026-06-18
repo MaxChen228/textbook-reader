@@ -12,10 +12,8 @@ from __future__ import annotations
 import json
 import re
 import sys
-from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import quote
 
 import nh3
 
@@ -85,17 +83,27 @@ def _blocks_text(blocks: list) -> str:
     )
 
 
-def _problem_id(slug: str, kind: str, key: str | int, num: str) -> str:
-    return f'tb:{slug}:{kind}:{key}:p:{num}'
+def _preview(text: str, limit: int = 200) -> str:
+    """壓成單行、截斷成卡片預覽＋搜尋用的短字串（避免每題挾帶整段全文）。"""
+    text = ' '.join((text or '').split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    sp = cut.rfind(' ')
+    if sp > limit * 0.6:
+        cut = cut[:sp]
+    return cut + '…'
 
 
-def _problem_reader_href(slug: str, kind: str, key: str | int, num: str) -> str:
-    return f'index.html#{slug}/{kind}/{key}?problem={quote(num, safe="")}'
+def build_problem_index(books: list[dict]) -> tuple[list[dict], list[list]]:
+    """烤成輕量索引：books 去重表 + 每題 tuple [bookIdx, chapter, num, hasSol, preview]。
 
-
-def build_problem_index(books: list[dict]) -> list[dict]:
-    """Flatten baked textbook problems into a static qbank-like index."""
-    problems: list[dict] = []
+    body/solution 區塊**不**入索引（與 data/<slug>/ch/<n>.json 完全重複，
+    detail/匯出時 reader 端按需抓那份既有分片）→ 索引從 ~110MB 砍到 ~15MB。
+    """
+    book_table: list[dict] = []
+    book_idx: dict[str, int] = {}
+    rows: list[list] = []
     for b in books:
         slug = b['slug']
         book = corpus.load_book(slug, None)
@@ -106,44 +114,43 @@ def build_problem_index(books: list[dict]) -> list[dict]:
             chunk = corpus.load_chapter(slug, n, None)
             if not chunk:
                 continue
-            chunk = _rewrite_chunk(deepcopy(chunk))
-            for p in chunk.get('problems') or []:
+            problems = chunk.get('problems') or []
+            if not problems:
+                continue
+            if slug not in book_idx:
+                book_idx[slug] = len(book_table)
+                book_table.append({
+                    'slug': slug,
+                    'title': book.get('title') or b.get('title') or slug,
+                    'author': book.get('author') or b.get('author'),
+                    'subject': book.get('subject') or b.get('subject'),
+                    'chapters': {},
+                })
+            bi = book_idx[slug]
+            ch_title = ch.get('title') or chunk.get('title')
+            if ch_title:
+                book_table[bi]['chapters'][str(n)] = ch_title
+            for p in problems:
                 num = str(p.get('num') or '').strip()
                 if not num:
                     continue
-                body = p.get('body') or []
-                solution = p.get('solution') or []
-                problems.append({
-                    'id': _problem_id(slug, 'ch', n, num),
-                    'book_slug': slug,
-                    'book_title': book.get('title') or b.get('title') or slug,
-                    'author': book.get('author') or b.get('author'),
-                    'subject': book.get('subject') or b.get('subject'),
-                    'kind': 'ch',
-                    'key': str(n),
-                    'chapter': n,
-                    'chapter_title': ch.get('title') or chunk.get('title'),
-                    'num': num,
-                    'body': body,
-                    'solution': solution,
-                    'question_text': _blocks_text(body),
-                    'solution_text': _blocks_text(solution),
-                    'has_solution': bool(solution),
-                    'href_reader': _problem_reader_href(slug, 'ch', n, num),
-                })
-    problems.sort(key=lambda p: (
-        p.get('subject') or '',
-        p.get('book_title') or '',
-        p.get('chapter') or 0,
-        p.get('num') or '',
+                preview = _preview(_blocks_text(p.get('body') or []))
+                rows.append([bi, n, num, 1 if p.get('solution') else 0, preview])
+    rows.sort(key=lambda r: (
+        book_table[r[0]].get('subject') or '',
+        book_table[r[0]].get('title') or '',
+        r[1] if isinstance(r[1], int) else 0,
+        r[2],
     ))
-    return problems
+    return book_table, rows
 
 
 def bake_problems(books: list[dict]) -> None:
-    problems = build_problem_index(books)
+    book_table, problems = build_problem_index(books)
     dump(OUT / 'problems.json', {
-        'version': 1,
+        'version': 2,
+        'fields': ['book', 'chapter', 'num', 'has_solution', 'preview'],
+        'books': book_table,
         'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'count': len(problems),
         'problems': problems,
