@@ -1058,6 +1058,25 @@ def do_parse(slug: str, dry: bool) -> int:
                  'book_pipeline.parser', slug], dry=dry)
 
 
+def _book_qc_block(slug: str) -> list[str]:
+    """部署前書況 gate：parse 後驗「書對不對/完不完整」的硬缺陷（confusion/殘卷）。
+    回 blocking reasons（空=通過）。fail-open：gate 自身出錯絕不擋好書（零誤判優先），
+    僅 log。confusion 類缺陷源頭在 crawl，下游 stage 無從補 → 標 review 待架構師裁決。"""
+    try:
+        from textbooks import corpus
+        from book_pipeline import booklists as bl
+        from book_pipeline import book_qc
+        book = corpus.load_book(slug)
+        if not book:
+            return []
+        sot = next((t for t in bl.targets() if t.get('slug') == slug), None)
+        flags = book_qc.detect(book, (sot or {}).get('title', ''))
+        return book_qc.blocking_reasons(flags)
+    except Exception as e:
+        log(f'book_qc gate {slug} 異常（fail-open，照常部署）：{e}')
+        return []
+
+
 def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if no_deploy:
         log(f'deploy skip {slug}（--no-deploy）')
@@ -1065,6 +1084,14 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if not os.path.isdir(READER_ROOT):
         log(f'deploy skip {slug}：找不到 textbook-reader ({READER_ROOT})')
         return 0
+    # 書況 gate：硬缺陷（書錯/殘卷）→ 標 review 不上站；通過則清除舊標記（書已修/重 parse）
+    block = _book_qc_block(slug)
+    if block and not dry:
+        q.mark_book_qc(slug, block)
+        log(f'deploy BLOCK {slug}：書況不合格 {block} → 標 review，不上站（源頭缺，待架構師裁決）')
+        return 0
+    if not dry:
+        q.clear_book_qc(slug)
     # build-only：烤出本地 data/<slug> + img/<slug>，nginx 直讀工作目錄即時上站（無 git/push）
     build = ['uv', 'run', 'python', '-m', 'build.build_all', slug]
     log(('DRY ' if dry else 'RUN ') + 'build_all ' + slug)

@@ -38,6 +38,7 @@ uv run python -m http.server 8001                        # 本機預覽
 - `status.py` 從**實際資料**判斷每書階段(非檔名臆測);`pipeline_queue.py` 在其前後補 crawl/qc/deploy 組成完整 queue;`pipeline_state.json` 持久化 qc verdict + deploy 狀態避免重複 LLM/部署。
 - **路徑根基**:`ROOT = dirname(dirname(__file__))`(`status.py`/`corpus.py`/`pipeline_queue.ROOT`),所有狀態檔/`mineru_data`/`raw_pdfs` 都 repo-root 相對 → 模組原名擺 repo 根下即全自動正確。
 - **deploy 已本地化**:`do_deploy()` 只跑 `uv run python -m build.build_all <slug>` 烤出 data/img(nginx 直讀工作目錄即時上站),**無 git push**。
+- **部署前書況 gate**(`book_qc.py`,parse 後/build 前):確定性零 LLM 驗「書對不對/完不完整」,攔 crawl 配錯書(`companion`/`title_mismatch`)與殘卷(`partial_source`/`chapter_gap`)——這類源頭缺陷下游 stage 無從補。命中硬缺陷 → `q.mark_book_qc` 標 review、**不上站**,`assess_full` 後續 tick 見標記回 `R 書況` 終止排程(不再耗 build/LLM)。**fail-open**(gate 自身出錯絕不擋好書)。**架構師職責**:`book_audit` 看旗標 → 修 booklists 重解/找完整版 → 重 parse 後 `do_deploy` 自動 `clear_book_qc` 放行。worker 無此職責(屬 crawl/架構師域,故無 skill reference)。
 
 ## Build self-contained（build/）
 

@@ -87,6 +87,34 @@ def mark_deployed(slug: str) -> None:
         _save_state(s)
 
 
+def mark_book_qc(slug: str, reasons: list[str]) -> None:
+    """標記書況不合格（book_qc 部署前 gate 命中硬缺陷）→ 終止部署，待架構師裁決。
+    與視覺 QC（set_qc）分屬不同檢查：qc=PDF 可不可讀、book_qc=parse 後書對不對/完不完整。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        s.setdefault(slug, {})['book_qc'] = {
+            'review': True, 'reasons': list(reasons),
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        _save_state(s)
+
+
+def clear_book_qc(slug: str) -> None:
+    """書況通過/已修復 → 清除 review 標記（讓書恢復可部署）。"""
+    with _state_lock():
+        s = _load_state()
+        if s.get(slug, {}).pop('book_qc', None) is not None:
+            if not s.get(slug):  # 清空殼，不留 {slug:{}}
+                s.pop(slug, None)
+            _save_state(s)
+
+
+def book_qc_review(slug: str, state: dict | None = None) -> dict | None:
+    """讀書況 review 標記（None=未標/已通過）。"""
+    s = state if state is not None else _load_state()
+    return s.get(slug, {}).get('book_qc')
+
+
 def catalog_llm_done(slug: str, state: dict | None = None) -> bool:
     """該書是否已派過 LLM catalog 修復（避免每 tick 重派；殘留則終局 accept）。"""
     s = state if state is not None else _load_state()
@@ -374,6 +402,11 @@ def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
     # 已切章節（3/4）且未部署 → deploy
     if stage.startswith(('3', '4')):
         if not _deployed(slug, state):
+            # 書況 gate 已標 review（parse 後驗出書錯/殘卷）→ 終止，不再排程部署（待架構師裁決）
+            bq = book_qc_review(slug, state)
+            if bq and bq.get('review'):
+                return {'slug': slug, 'stage': 'R 書況', 'todo': '—', 'llm': False,
+                        'note': '；'.join(bq.get('reasons', []))}
             # 解答/翻譯為可選；只要 parsed 就可部署，但 sol 未 merge 先提示
             non_opt = [t for t in todo.split() if t != '—' and not t.startswith('translate')]
             # catalog 已 accept（det+LLM 修完仍殘留、源頭缺不可修）→ 不再 gate deploy
