@@ -26,6 +26,27 @@
       text-transform: uppercase; letter-spacing: .08em;
     }
     .view-toggle { display: flex; gap: 3px; flex-shrink: 0; }
+    /* Book 篩選：書封小圖 + 標題 + 題數，等高對齊成整齊清單 */
+    .book-picker { display: grid; gap: 2px; }
+    .book-pick {
+      display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 9px;
+      width: 100%; padding: 5px 7px; border: 0; border-radius: 5px;
+      background: transparent; cursor: pointer; text-align: left; color: var(--text); font: inherit;
+    }
+    .book-pick:hover { background: var(--surface); }
+    .book-pick.active { background: var(--ink); color: #fff; }
+    .book-pick-cover {
+      width: 26px; height: 34px; border-radius: 2px; overflow: hidden;
+      background: var(--border-l); display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 8px; color: var(--sub);
+    }
+    .book-pick-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .book-pick-title {
+      font-size: 12px; line-height: 1.3; min-width: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .book-pick-count { font-family: var(--mono); font-size: 10px; color: var(--sub); justify-self: end; }
+    .book-pick.active .book-pick-count { color: rgba(255, 255, 255, .7); }
     .problem-list { padding: 14px; display: grid; gap: 10px; }
     .problem-card {
       border: 1px solid var(--border); background: var(--surface);
@@ -200,7 +221,7 @@
     <div class="qbk-sidebar-body qbk-scroll problem-tools">
       <div class="filter-group">
         <label>Book</label>
-        <div class="qbk-chip-group" id="filter-book"></div>
+        <div class="book-picker" id="filter-book"></div>
       </div>
       <div class="filter-group">
         <label>Subject</label>
@@ -309,6 +330,31 @@ function countsBy(items, fn) {
   return [...out.entries()].sort((a, b) => String(a[0]).localeCompare(String(b[0])))
 }
 
+function bookList() {
+  const m = new Map()  // book_title -> {slug, count}（標題去重；slug 取首見，用於書封）
+  allProblems.forEach(p => {
+    const title = p.book_title || p.book_slug || 'Unknown'
+    const e = m.get(title) || { title, slug: p.book_slug || '', count: 0 }
+    e.count++
+    m.set(title, e)
+  })
+  return [...m.values()].sort((a, b) => a.title.localeCompare(b.title))
+}
+
+function bookPick({ title, slug, count, glyph }, active, onClick) {
+  const btn = document.createElement('button')
+  btn.type = 'button'
+  btn.className = 'book-pick' + (active ? ' active' : '')
+  const cover = slug
+    ? `<img src="img/${escAttr(slug)}/cover.webp" alt="" loading="lazy" onerror="this.remove()">`
+    : (glyph || '')
+  btn.innerHTML = `<span class="book-pick-cover">${cover}</span>` +
+    `<span class="book-pick-title">${esc(title)}</span>` +
+    `<span class="book-pick-count">${count}</span>`
+  btn.addEventListener('click', onClick)
+  return btn
+}
+
 function buildFilters() {
   const bookEl = document.getElementById('filter-book')
   const subjectEl = document.getElementById('filter-subject')
@@ -319,9 +365,10 @@ function buildFilters() {
   chapterEl.innerHTML = ''
   solEl.innerHTML = ''
 
-  chip(bookEl, 'All', 'all', activeBook === 'all', () => { activeBook = 'all'; render() }, allProblems.length)
-  countsBy(allProblems, p => p.book_title).forEach(([book, count]) => {
-    chip(bookEl, book, book, activeBook === book, () => { activeBook = book; render() }, count)
+  bookEl.appendChild(bookPick({ title: 'All', slug: '', count: allProblems.length, glyph: '⊞' },
+    activeBook === 'all', () => { activeBook = 'all'; render() }))
+  bookList().forEach(b => {
+    bookEl.appendChild(bookPick(b, activeBook === b.title, () => { activeBook = b.title; render() }))
   })
 
   chip(subjectEl, 'All', 'all', activeSubject === 'all', () => { activeSubject = 'all'; render() }, allProblems.length)
