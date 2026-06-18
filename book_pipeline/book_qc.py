@@ -23,9 +23,12 @@ COMPANION_RE = re.compile(
     r"lab(?:oratory)?\s+manual|test\s+bank|in\s+focus)\b",
     re.IGNORECASE,
 )
-# SoT 書名標示「第二卷以後」→ 首章號 > 1 是正確接續（如 Cohen QM Vol2 自 ch8 起），不旗標
+# SoT 書名標示「第二卷以後」→ 首章號 > 1 是正確接續（如 Cohen QM Vol2 自 ch8 起），不旗標。
+# 阿拉伯 2–99 + 羅馬 II–XXX（≥2，長者優先避免部分匹配）；vol/part 共用同一數字 alternation。
+_ROMAN_GE2 = (r"xxx|xxix|xxviii|xxvii|xxvi|xxv|xxiv|xxiii|xxii|xxi|xx|xix|xviii|xvii|xvi|"
+              r"xv|xiv|xiii|xii|xi|x|ix|viii|vii|vi|v|iv|iii|ii")
 _VOL_GE2_RE = re.compile(
-    r"\b(?:vol(?:ume)?\.?\s*(?:[2-9]|1[0-9]|ii+|iv|vi*)|part\s*(?:[2-9]|ii+|iv))\b",
+    rf"\b(?:vol(?:ume)?|part)\.?\s*(?:[2-9]|[1-9][0-9]|{_ROMAN_GE2})\b",
     re.IGNORECASE,
 )
 # 章號缺口門檻：相鄰章號差 > 此值 → 中段缺失（容忍正常的小跳號）

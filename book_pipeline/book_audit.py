@@ -44,7 +44,9 @@ def audit_book(slug: str, sot: dict | None = None, residual: dict | None = None)
     sot_title = (sot or {}).get("title") or ""
 
     flags = book_qc.detect(book, sot_title)
-    empties = [c.get("num") or c.get("id") for c in (chs + apps) if c.get("body_count", 0) == 0]
+    # 與 book_qc.empty_chapter_reason 同謂詞：題本（有 problems）的 body=0 章不算空
+    empties = [c.get("num") or c.get("id") for c in (chs + apps)
+               if c.get("body_count", 0) == 0 and c.get("problem_count", 0) == 0]
 
     def S(k):
         return sum(c.get(k, 0) for c in chs) + sum(c.get(k, 0) for c in apps)

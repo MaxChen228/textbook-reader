@@ -31,6 +31,18 @@ def test_partial_source_exempts_volume_two_plus():
     assert qc.partial_source_reason([8, 9], "Foundations, Volume 1") == "partial_source(starts@8)"
 
 
+def test_partial_source_volume_roman_and_part_branches():
+    # part 分支 roman + vol 高號（≥9）皆須豁免（補 review 揪出的不對稱缺口）
+    assert qc.partial_source_reason([5, 6], "Some Treatise, Part VI") is None
+    assert qc.partial_source_reason([3, 4], "Series, Part V") is None
+    assert qc.partial_source_reason([20, 21], "Handbook, Volume IX") is None
+    assert qc.partial_source_reason([30, 31], "Handbook, Volume X") is None
+    assert qc.partial_source_reason([12, 13], "Course of Theoretical Physics, Volume 12") is None
+    # 卷標示為 1 / 無 → 仍旗標（不被 roman 子串誤豁免）
+    assert qc.partial_source_reason([5, 6], "Part I: Foundations") == "partial_source(starts@5)"
+    assert qc.partial_source_reason([5, 6], "Vivid Mechanics") == "partial_source(starts@5)"
+
+
 # --- chapter_gap（中段缺失）---
 
 def test_chapter_gap_flags_large_hole():
