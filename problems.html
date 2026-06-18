@@ -79,14 +79,15 @@
     .lib-ch.active { background: var(--ink); color: #fff; }
     .lib-ch.active .lib-tree-count { color: rgba(255, 255, 255, .7); }
     .lib-ch-name { font-family: var(--mono); font-size: 10.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .problem-list { padding: 14px; display: grid; gap: 10px; }
+    /* 虛擬捲動：#problem-list 設成定高捲動畫布（高度=列數×ROW_H），卡片絕對定位、只掛載視窗內者 */
+    .problem-list { position: relative; }
     .problem-card {
+      position: absolute; left: 14px; right: 14px; height: 124px; box-sizing: border-box;
       border: 1px solid var(--border); background: var(--surface);
-      border-radius: 6px; padding: 14px 16px; cursor: pointer;
-      text-decoration: none; color: inherit; display: block;
-      position: relative;
+      border-radius: 6px; padding: 12px 16px; cursor: pointer;
+      text-decoration: none; color: inherit; display: block; overflow: hidden;
     }
-    .problem-card:hover { border-color: var(--ink-light); transform: translateY(-1px); }
+    .problem-card:hover { border-color: var(--ink-light); }
     .problem-card.selected {
       border-color: var(--ink);
       box-shadow: 0 0 0 2px rgba(42, 37, 32, .12);
@@ -99,14 +100,16 @@
     .problem-card-cb { accent-color: var(--ink); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0; }
     .problem-card-id { color: var(--ink); font-weight: 700; letter-spacing: .04em; }
     .problem-card-book {
-      margin-top: 5px; font-family: var(--serif); font-size: 15px;
+      margin-top: 4px; font-family: var(--serif); font-size: 15px;
       color: var(--text); font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .problem-card-preview {
-      margin-top: 7px; color: var(--ink-light); font-size: 13px; line-height: 1.55;
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-      overflow: hidden;
+      margin-top: 6px; color: var(--ink-light); font-size: 13px; line-height: 1.5;
+      max-height: 39px; overflow: hidden;
     }
+    .problem-card-preview p { margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .problem-card-preview mjx-container { display: inline; margin: 0; }
     .problem-card-meta {
       margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;
       font-family: var(--mono); font-size: 10px; color: var(--sub);
@@ -312,10 +315,13 @@ const esc = S.escapeHtml
 const escAttr = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-const RENDER_CAP = 3000  // 一次最多渲染的卡片/格塊數，超出顯示提示請收斂篩選（防 6 萬節點凍結）
+const RENDER_CAP = 4000   // grid 格覽一次最多渲染的格塊數（grid 無虛擬捲動）
+const ROW_H = 136         // list 虛擬捲動的固定列高（卡片 124 + 間距 12）
 let allProblems = []
 let filtered = []
 let displayed = []
+let listScroll = null     // 目前綁在 #list-view 的捲動處理器（切換/重渲時解綁）
+let listRange = [-1, -1]  // 上次已掛載的可見列區間，避免無變化的重繪
 let activeBook = 'all'
 let activeField = 'all'
 let activeChapter = 'all'
@@ -501,7 +507,9 @@ function matches(p) {
 function render() {
   buildFilters()
   filtered = allProblems.filter(matches)
-  const capped = filtered.length > RENDER_CAP
+  const isGrid = viewMode === 'grid'
+  // list 走虛擬捲動 → 無上限；grid 無虛擬化 → 仍設上限防 6 萬格塊凍結
+  const capped = isGrid && filtered.length > RENDER_CAP
   displayed = capped ? filtered.slice(0, RENDER_CAP) : filtered
   document.getElementById('result-count').textContent =
     capped ? `${RENDER_CAP}/${filtered.length} 顯示` : `${filtered.length}/${allProblems.length}`
@@ -509,21 +517,24 @@ function render() {
   const grid = document.getElementById('problem-grid')
   document.getElementById('loading').style.display = 'none'
   document.getElementById('empty').style.display = filtered.length ? 'none' : ''
-  list.style.display = viewMode === 'list' ? 'grid' : 'none'
-  grid.style.display = viewMode === 'grid' ? 'block' : 'none'
+  list.style.display = isGrid ? 'none' : 'block'
+  grid.style.display = isGrid ? 'block' : 'none'
   if (!filtered.length) {
     list.innerHTML = ''
+    list.style.height = '0px'
     grid.innerHTML = ''
     return
   }
-  if (viewMode === 'grid') renderGrid()
-  else renderList()
-  if (capped) {
-    const container = viewMode === 'grid' ? grid : list
-    const note = document.createElement('div')
-    note.style.cssText = 'grid-column:1/-1;padding:14px;color:var(--sub);font-family:var(--mono);font-size:11px;text-align:center'
-    note.textContent = `顯示前 ${RENDER_CAP} / 共 ${filtered.length} 題 — 用左側篩選或搜尋收斂`
-    container.prepend(note)
+  if (isGrid) {
+    renderGrid()
+    if (capped) {
+      const note = document.createElement('div')
+      note.style.cssText = 'padding:14px;color:var(--sub);font-family:var(--mono);font-size:11px;text-align:center'
+      note.textContent = `顯示前 ${RENDER_CAP} / 共 ${filtered.length} 題 — 用左側篩選或搜尋收斂`
+      grid.prepend(note)
+    }
+  } else {
+    renderList()
   }
   syncRenderedSelection()
 }
@@ -532,37 +543,73 @@ function openProblem(id) {
   location.hash = encodeURIComponent(id)
 }
 
+// 虛擬捲動清單：畫布高 = 列數×ROW_H，只掛載視窗 ±BUFFER 列的卡片並對其 typeset LaTeX。
+// DOM 與 MathJax 工作量恆定（~視窗列數），與總題數無關 → 6 萬題也不卡。
+const LIST_BUFFER = 5
 function renderList() {
+  const scroller = document.getElementById('list-view')
   const list = document.getElementById('problem-list')
-  list.innerHTML = displayed.map(cardHtml).join('')
-  list.querySelectorAll('.problem-card').forEach((card, i) => {
+  const canvasH = displayed.length * ROW_H + 14
+  list.style.height = `${canvasH}px`
+  const maxScroll = Math.max(0, canvasH - (scroller.clientHeight || 600))
+  if (scroller.scrollTop > maxScroll) scroller.scrollTop = maxScroll  // 篩選變短時別捲到空白
+  listRange = [-1, -1]
+  if (!listScroll) {
+    let ticking = false
+    listScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => { ticking = false; paintList() })
+    }
+    scroller.addEventListener('scroll', listScroll, { passive: true })
+  }
+  paintList()
+}
+
+function paintList() {
+  if (viewMode !== 'list') return
+  const scroller = document.getElementById('list-view')
+  const list = document.getElementById('problem-list')
+  const top = scroller.scrollTop
+  const vh = scroller.clientHeight || 600
+  const start = Math.max(0, Math.floor(top / ROW_H) - LIST_BUFFER)
+  const end = Math.min(displayed.length, Math.ceil((top + vh) / ROW_H) + LIST_BUFFER)
+  if (start === listRange[0] && end === listRange[1]) return  // 視窗未變 → 不重繪
+  listRange = [start, end]
+  let html = ''
+  for (let i = start; i < end; i++) html += cardHtml(displayed[i], 14 + i * ROW_H, i)
+  // 丟掉舊卡前先清其 MathJax 內部節點引用 → 長時間捲動不累積記憶體
+  if (window.MathJax && MathJax.typesetClear) { try { MathJax.typesetClear([list]) } catch (e) { /* noop */ } }
+  list.innerHTML = html
+  list.querySelectorAll('.problem-card').forEach(card => {
+    const p = displayed[+card.dataset.i]
     card.addEventListener('click', (e) => {
       if (Date.now() < suppressClickUntil) { e.preventDefault(); return }
       if (e.target.closest('input, label, button')) return
       e.preventDefault()
-      if (e.metaKey || e.ctrlKey) toggleIdSelection(displayed[i].id)
-      else openProblem(displayed[i].id)
+      if (e.metaKey || e.ctrlKey) toggleIdSelection(p.id)
+      else openProblem(p.id)
     })
-    card.querySelector('.problem-card-cb').addEventListener('click', (e) => {
-      e.stopPropagation()
-    })
-    card.querySelector('.problem-card-cb').addEventListener('change', (e) => {
-      setIdSelection(displayed[i].id, e.target.checked)
-    })
+    const cb = card.querySelector('.problem-card-cb')
+    cb.addEventListener('click', (e) => e.stopPropagation())
+    cb.addEventListener('change', (e) => setIdSelection(p.id, e.target.checked))
   })
+  S.renderMath(list)   // 只 typeset 已掛載（可見）的卡 → 工作量恆定
 }
 
-function cardHtml(p) {
-  return `<a class="problem-card" href="problems.html#${encodeURIComponent(p.id)}" data-id="${escAttr(p.id)}">
+function cardHtml(p, top, i) {
+  const sel = selectedIds.has(p.id)
+  return `<a class="problem-card${sel ? ' selected' : ''}" style="top:${top}px" data-i="${i}"
+      href="problems.html#${encodeURIComponent(p.id)}" data-id="${escAttr(p.id)}">
     <div class="problem-card-head">
       <span class="problem-card-main">
-        <input class="problem-card-cb" type="checkbox" aria-label="選取 ${escAttr(p.num)}">
+        <input class="problem-card-cb" type="checkbox"${sel ? ' checked' : ''} aria-label="選取 ${escAttr(p.num)}">
         <span class="problem-card-id">Problem ${esc(p.num)}</span>
       </span>
       <span>${p.has_solution ? 'solution' : 'no solution'}</span>
     </div>
     <div class="problem-card-book">${esc(p.book_title || p.book_slug)}</div>
-    <div class="problem-card-preview">${esc(textPreview(p))}</div>
+    <div class="problem-card-preview">${S.renderMarkdown(textPreview(p))}</div>
     <div class="problem-card-meta">
       <span class="pill">${esc(label(p.subject))}</span>
       <span class="pill">Ch ${esc(p.chapter)} · ${esc(p.chapter_title || '')}</span>

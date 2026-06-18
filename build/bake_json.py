@@ -65,7 +65,8 @@ def _block_text(block: dict) -> str:
     if t == 'p':
         return block.get('md') or ''
     if t == 'eq':
-        return block.get('tex') or ''
+        tex = block.get('tex') or ''
+        return f'${tex}$' if tex else ''   # 預覽用 → 包 $ 讓 MathJax 認得（_blocks_text 僅供 preview）
     if t == 'fig':
         return block.get('caption') or ''
     if t == 'table':
@@ -84,15 +85,19 @@ def _blocks_text(blocks: list) -> str:
 
 
 def _preview(text: str, limit: int = 200) -> str:
-    """壓成單行、截斷成卡片預覽＋搜尋用的短字串（避免每題挾帶整段全文）。"""
+    """壓成單行、截斷成卡片預覽＋搜尋用的短字串（避免每題挾帶整段全文）。
+    前端會渲染 LaTeX，故截斷不可切在 $…$ 中間 → 落單的 $ 連同殘段砍掉。"""
     text = ' '.join((text or '').split())
-    if len(text) <= limit:
-        return text
-    cut = text[:limit]
-    sp = cut.rfind(' ')
-    if sp > limit * 0.6:
-        cut = cut[:sp]
-    return cut + '…'
+    truncated = len(text) > limit
+    if truncated:
+        cut = text[:limit]
+        sp = cut.rfind(' ')
+        if sp > limit * 0.6:
+            cut = cut[:sp]
+        text = cut
+    if text.count('$') % 2 == 1:          # $ 落單 = 數學被截一半 → 砍掉殘段
+        text = text[:text.rfind('$')].rstrip()
+    return text + ('…' if truncated else '')
 
 
 def _field_map() -> dict[str, dict]:
