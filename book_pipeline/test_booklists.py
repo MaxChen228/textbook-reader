@@ -53,8 +53,8 @@ def test_targets_solution_expansion_and_order():
 
 def test_status_five_states():
     have = {'jackson'}
-    resolution = {'jackson_sol': {'id': '1', 'hash': 'a'},      # ready
-                  'rudin': {'id': '2', 'hash': 'b'},            # ready
+    resolution = {'jackson_sol': {'id': '1', 'hash': 'a', 'by': 'agent'},  # ready（現役演算法）
+                  'rudin': {'id': '2', 'hash': 'b', 'by': 'agent'},        # ready
                   'griffiths_em': {'absent': True},             # absent
                   'rudin_sol': {'review': True}}                # review（待架構師裁決）
     assert bl.status_of('jackson', have, resolution) == bl.OWNED
@@ -68,7 +68,11 @@ def test_status_five_states():
     assert bl.status_of('rudin_sol', have, {}) == bl.UNRESOLVED
     # owned 優先於 resolution（即使有解析，已 owned 就 owned）
     assert bl.status_of('jackson', have, {'jackson': {'id': '9', 'hash': 'z'}}) == bl.OWNED
-    print('✓ status：owned>ready/absent/review/unresolved 五態 + owned 優先 + review≠unresolved + 無 queued')
+    # provenance gate：legacy 解析（id+hash 但無 by 戳記）→ 降級 UNRESOLVED（stale cache 自動失效，
+    # 交 resolver 重解、drain 不下載）。但 owned 仍優先、legacy 已 owned 不重解。
+    assert bl.status_of('rudin', set(), {'rudin': {'id': '2', 'hash': 'b'}}) == bl.UNRESOLVED
+    assert bl.status_of('rudin', {'rudin'}, {'rudin': {'id': '2', 'hash': 'b'}}) == bl.OWNED
+    print('✓ status：owned>ready/absent/review/unresolved + owned 優先 + review≠unresolved + legacy 無by→unresolved')
 
 
 def test_review_excluded_from_worklist_and_pool():
@@ -77,7 +81,7 @@ def test_review_excluded_from_worklist_and_pool():
     files = _fixture()  # targets: jackson, jackson_sol, griffiths_em, rudin, rudin_sol
     have = set()
     resolution = {'jackson': {'review': True},                 # 主書 review
-                  'jackson_sol': {'id': '1', 'hash': 'a'},      # ready（confirmed）
+                  'jackson_sol': {'id': '1', 'hash': 'a', 'by': 'agent'},  # ready（confirmed，現役）
                   'rudin': {'absent': True}}                    # absent
     # rudin_sol、griffiths_em 無 resolution → 真 unresolved
     worklist = [t['slug'] for t in bl.unresolved_targets(files, have, resolution)]
@@ -93,8 +97,8 @@ def test_select_next_deterministic_ready_only_in_order():
     files = _fixture()
     have = set()
     resolution = {
-        'rudin': {'id': '10', 'hash': 'r', 'title': 'Baby Rudin'},
-        'jackson': {'id': '20', 'hash': 'j'},
+        'rudin': {'id': '10', 'hash': 'r', 'title': 'Baby Rudin', 'by': 'agent'},
+        'jackson': {'id': '20', 'hash': 'j', 'by': 'agent'},
         'jackson_sol': {'absent': True},            # absent → 不選
     }
     picks = bl.select_next(5, files, have, resolution)
@@ -109,7 +113,8 @@ def test_select_next_deterministic_ready_only_in_order():
 
 def test_select_next_skips_owned_and_excludes():
     files = _fixture()
-    resolution = {'jackson': {'id': '1', 'hash': 'a'}, 'rudin': {'id': '2', 'hash': 'b'}}
+    resolution = {'jackson': {'id': '1', 'hash': 'a', 'by': 'agent'},
+                  'rudin': {'id': '2', 'hash': 'b', 'by': 'agent'}}
     # jackson owned → 不選；rudin 在 exclude（如下載失敗達上限）→ 不選
     picks = bl.select_next(5, files, have={'jackson'}, resolution=resolution, exclude={'rudin'})
     assert picks == [], picks
@@ -122,11 +127,11 @@ def test_select_next_skips_owned_and_excludes():
 def test_select_next_skips_malformed_resolution():
     """sidecar 畸形守衛：id/hash 非純量（list/dict）→ 跳過不入候選（不被 str() 成 "[\'123\']" 污染 fetch URL）。"""
     files = _fixture()
-    resolution = {'jackson': {'id': ['1'], 'hash': 'a'},        # id 是 list → 畸形
-                  'rudin': {'id': '2', 'hash': {'x': 1}}}       # hash 是 dict → 畸形
+    resolution = {'jackson': {'id': ['1'], 'hash': 'a', 'by': 'agent'},   # id 是 list → 畸形
+                  'rudin': {'id': '2', 'hash': {'x': 1}, 'by': 'agent'}}  # hash 是 dict → 畸形
     assert bl.select_next(5, files, have=set(), resolution=resolution) == []
     # 修正成純量 → 正常收
-    resolution['jackson'] = {'id': '1', 'hash': 'a'}
+    resolution['jackson'] = {'id': '1', 'hash': 'a', 'by': 'agent'}
     assert [p['slug'] for p in bl.select_next(5, files, have=set(), resolution=resolution)] == ['jackson']
     print('✓ select_next：畸形 id/hash（非純量）跳過、純量照收（防 fetch URL 污染靜默丟書）')
 
@@ -134,7 +139,7 @@ def test_select_next_skips_malformed_resolution():
 def test_progress_tally():
     files = _fixture()
     have = {'jackson'}
-    resolution = {'rudin': {'id': '1', 'hash': 'a'}, 'griffiths_em': {'absent': True}}
+    resolution = {'rudin': {'id': '1', 'hash': 'a', 'by': 'agent'}, 'griffiths_em': {'absent': True}}
     pr = bl.progress(files, have, resolution=resolution)
     o = pr['overall']
     # targets: jackson(owned) jackson_sol(unresolved) griffiths_em(absent) rudin(ready) rudin_sol(unresolved)

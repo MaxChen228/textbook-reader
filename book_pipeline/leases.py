@@ -20,6 +20,7 @@ LEASE_DIR）由模組級 _lock 序列化 → acquire/release/active 皆 thread-s
 呼叫者」前提在進程內靠此鎖成立，非僅靠 identity-token + atomic-replace 湊巧兜底）。
 """
 
+import hashlib
 import json
 import os
 import signal
@@ -42,10 +43,23 @@ KILL_GRACE = int(os.environ.get('BOOK_PIPELINE_LEASE_KILL_GRACE', '5'))
 _lock = threading.Lock()
 
 
+# 檔名長度上限：macOS（APFS/HFS+）單一檔名 ≤255 bytes。租約檔尾接 `.json`，原子寫再加 `.tmp`
+# → 後綴最多 9 bytes，故 base 名保守封頂 200。逾此（呼叫端把「整批 slug」join 成單一 slug 傳入，
+# 如 crawl_resolve 一次解析數十本書）必爆 ENAMETOOLONG → 整個 worker 異常空轉。primitive 不變式：
+# _key 永遠回合法長度檔名，與呼叫端語意無關。
+_KEY_MAX = 200
+
+
 def _key(verb: str, slug: str | None) -> str:
-    """(verb, slug) → 檔名安全的租約 key。slug=None（如 crawl_plan）只用 verb。"""
+    """(verb, slug) → 檔名安全的租約 key。slug=None（如 crawl_plan）只用 verb。
+    超長（呼叫端把整批 id/slug join 成單一 slug）→ 截斷 + 全文 sha1 後綴：保長度合法、且
+    determinism 不破（同 (verb,slug)→同 key、不同長 key 雜湊近不碰撞）。"""
     raw = f'{verb}_{slug}' if slug else verb
-    return ''.join(c if (c.isalnum() or c in '_-.') else '_' for c in raw)
+    safe = ''.join(c if (c.isalnum() or c in '_-.') else '_' for c in raw)
+    if len(safe) <= _KEY_MAX:
+        return safe
+    digest = hashlib.sha1(raw.encode('utf-8')).hexdigest()[:16]
+    return f'{safe[:_KEY_MAX - 17]}_{digest}'  # 17 = '_' + 16 hex，總長 = _KEY_MAX
 
 
 def _path(verb: str, slug: str | None) -> str:

@@ -32,13 +32,14 @@ def test_dispatch_one_agent_batch():
     try:
         bl.pool_counts = lambda: _pc(30, 50)
         bl.unresolved_targets = lambda: [{'slug': f'b{i}', 'kind': 'main'} for i in range(50)]
-        pt.dispatch_llm = lambda verb, slug, dry: cap.append((verb, slug, dry)) or 0
+        pt.dispatch_llm = lambda verb, slug, dry, label=None: cap.append((verb, slug, dry, label)) or 0
         rc = pt.do_crawl_resolve(dry=False)
         assert rc == 0 and len(cap) == 1, cap
-        verb, slug, dry = cap[0]
+        verb, slug, dry, label = cap[0]
         assert verb == 'crawl' and dry is False
         assert len(slug.split(',')) == pt.CRAWL_RESOLVE_BATCH, len(slug.split(','))  # 單批 = BATCH
-        print(f'✓ do_crawl_resolve：派 1 隻 crawl agent、批次 {pt.CRAWL_RESOLVE_BATCH} 本')
+        assert label == '__crawl_resolve__', label  # lease/registry 穩定鍵，batch slug 只進 prompt
+        print(f'✓ do_crawl_resolve：派 1 隻 crawl agent、批次 {pt.CRAWL_RESOLVE_BATCH} 本、label 穩定鍵')
     finally:
         bl.pool_counts, bl.unresolved_targets, pt.dispatch_llm = o1, o2, o3
 

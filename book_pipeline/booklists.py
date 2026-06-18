@@ -168,7 +168,11 @@ def status_of(slug: str, have: set, resolution: dict) -> str:
     if r.get('review'):
         return REVIEW          # 待架構師裁決：絕不落 UNRESOLVED（否則回 crawl agent 工作母體被重派）
     if r.get('id') and r.get('hash'):
-        return READY
+        # provenance gate：只有現役（agent-judged）演算法解出的才算 READY。舊確定性 resolver 的
+        # legacy entry（無 by 戳記、~9% 假陽性）→ 視為**未解析**，回 unresolved_targets 交 agent 重解、
+        # 且永不進 select_next 下載候選（杜絕 stale 誤配書被 drain 下載）。換演算法時 stale cache 經此
+        # 自動失效。owned 書於最上面先判 OWNED、不受影響（已有 PDF，誤配交 audit 抓，不重解）。
+        return READY if is_trustworthy(r) else UNRESOLVED
     return UNRESOLVED
 
 
@@ -233,25 +237,23 @@ def unresolved_targets(files: list[dict] | None = None, have: set | None = None,
 def is_trustworthy(entry: dict | None) -> bool:
     """resolution entry 是否由**現役（agent-judged）演算法**產出。判據 = 有 `by` 戳記
     （agent / auto-exact / agent-rehome）。舊確定性 resolver（2026-06 廢棄、自承不可靠）的遺留 entry
-    無 `by`、帶 `conf` 欄位 → **不可信**（換演算法時未失效的 stale cache）。水位母數只認可信者，
-    否則 stale legacy 撐滿池 → 新 resolver 永不喚醒 → 舊錯誤凍結（self-perpetuating stale-cache trap）。"""
+    無 `by`、帶 `conf` 欄位 → **不可信**（換演算法時未失效的 stale cache）。`status_of` 用此把 legacy
+    解析降級成 UNRESOLVED → resolver 重解、drain 不下載 → stale cache 自動失效（見其註解）。"""
     return bool(entry) and 'by' in entry
 
 
 def pool_counts(files: list[dict] | None = None, have: set | None = None,
                 resolution: dict | None = None) -> dict:
     """爬書水位母數。confirmed = READY = 已確認 z-lib 連結、未 owned 的解析池。
-    **confirmed_trustworthy** = 其中由現役演算法解出者（`_crawl_resolve_due` 用此，非 confirmed）——
-    legacy entry 不算數，確保換演算法後 resolver 會醒來重解。unresolved = State 1（待 agent 解析）。"""
+    **READY 現已 ⟹ trustworthy**（`status_of` 把 legacy 無 by 解析降級為 UNRESOLVED）→ confirmed
+    天然只含現役演算法解出者，無須再分 confirmed_trustworthy。unresolved = State 1（待 agent 解析，
+    含被降級的 legacy）。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
     pr = progress(files, have, resolution)
     o = pr['overall']
-    trust = sum(1 for t in targets(files)
-                if status_of(t['slug'], have, resolution) == READY
-                and is_trustworthy(resolution.get(t['slug'])))
-    return {'confirmed': o[READY], 'confirmed_trustworthy': trust, 'ready': o[READY],
+    return {'confirmed': o[READY], 'ready': o[READY],
             'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED], 'absent': o[ABSENT]}
 
 

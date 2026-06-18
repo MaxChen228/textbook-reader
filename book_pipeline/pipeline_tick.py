@@ -392,6 +392,20 @@ def _hit_limit(provider: str, out: str) -> bool:
     return any(m in out for m in markers)
 
 
+# 服務中斷標記（provider/基礎設施掛了，非任務失敗、非額度）。失敗且零事件已是最強中斷訊號
+# （見 _run_one）；這些標記補「漏了幾個事件才斷線」的情況。5xx/連線/串流斷皆屬之。
+OUTAGE_MARKERS = ('service unavailable', 'status":503', 'status": 503', 'status":502',
+                  'status": 502', 'status":500', 'status": 500', 'bad gateway', 'gateway timeout',
+                  'connection refused', 'connection reset', 'connection error', 'econnrefused',
+                  'stream disconnected', 'stream error', 'network error', 'failed to connect',
+                  'temporarily unavailable', 'upstream connect error')
+
+
+def _hit_outage(out: str) -> bool:
+    """從合併輸出判斷是否為 provider/基礎設施服務中斷（非任務失敗、非額度）→ 該 failover。"""
+    return any(m in out for m in OUTAGE_MARKERS)
+
+
 def _event_error_text(provider: str, ev: dict) -> str:
     """只從『終端錯誤事件』抽出可供限額判定的文字；正常 agent 訊息/工具指令一律回 ''。
     （絕不能掃整段 transcript：被 audit 的書內容與工人指令本身常含 quota/429/rate limit，
@@ -564,16 +578,19 @@ def _display_model(provider: str, spec: DispatchSpec) -> str:
 
 
 def _run_one(provider: str, todo_verb: str, slug: str | None,
-             prompt: str, spec: DispatchSpec) -> tuple[int, bool]:
-    """用單一 provider + 解析後 spec 跑一次派工。回 (rc, hit_limit)。hit_limit=True 代表撞該
-    provider 額度，呼叫端據此換鏈上下一個 provider 重跑同一任務。timeout→(-1, False)（逾時非額度）。"""
+             prompt: str, spec: DispatchSpec) -> tuple[int, str | None]:
+    """用單一 provider + 解析後 spec 跑一次派工。回 (rc, failover_reason)。reason ∈ {None, 'limit',
+    'outage'}：None=成功或「agent 真跑了卻任務失敗」（不換 provider）；'limit'=撞額度；'outage'=服務中斷
+    （零事件 / 5xx / 連線錯——外部掛了）。後二者呼叫端換鏈上下一 provider 重跑同一任務。timeout→(-1, None)
+    （逾時自有 kill+下個 tick 重派處理，不在此 failover）。slug 此處即 dispatch_llm 傳入的識別/lease 鍵。"""
     import signal
     import time
     cmd = _build_llm_cmd(provider, prompt, spec)
     log(f'RUN llm {todo_verb} {slug or ""}（{provider}/JSONL）')
     p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    err_parts: list[str] = []  # 只裝『終端錯誤事件 + 非 JSON(CLI/stderr) 行』供限額判定
+    err_parts: list[str] = []  # 只裝『終端錯誤事件 + 非 JSON(CLI/stderr) 行』供限額/中斷判定
+    n_events = [0]             # 本次 provider 產出的 JSONL 事件數；rc≠0 且 ==0 = provider 從未接上 = 中斷
     tag = slug or todo_verb
     wkey = f'{slug or todo_verb}:{p.pid}'
     wr.register(wkey, slug, todo_verb, p.pid, provider)
@@ -597,6 +614,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
                 # 非 JSON＝CLI/stderr 原生錯誤（額度/認證/crash）→ 納入錯誤判定面
                 err_parts.append(s)
                 continue
+            n_events[0] += 1  # 成功 parse 的事件 → provider 確實接上並產出（zero=從未接上=中斷）
             _pump_event(provider, ev, wkey, tag)
             et = _event_error_text(provider, ev)
             if et:
@@ -615,12 +633,19 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
             except (ProcessLookupError, PermissionError):
                 pass
             t.join(timeout=5)  # 子進程已死 → stdout 關閉、_pump 收尾；先排空再讓 finally finish，
-            return -1, False   # 否則被 kill session 的尾段事件（hist.event）會 pop 後遭丟棄
+            return -1, None    # 否則被 kill session 的尾段事件（hist.event）會 pop 後遭丟棄
         t.join(timeout=5)
-        # rc==0（成功跑完）絕不可能是撞額度；只在失敗且錯誤面含限額字才判 hit
         err = '\n'.join(err_parts).lower()
         result_rc = rc
-        return rc, (rc != 0 and _hit_limit(provider, err))
+        # rc==0（成功跑完）→ 不 failover。失敗才分類：額度 > 中斷（零事件=provider 從未接上，或 5xx/連線
+        # 錯）> 任務失敗（有事件、agent 真跑了卻 rc≠0 → 換 provider 無益，回 None 交呼叫端）。
+        if rc == 0:
+            return rc, None
+        if _hit_limit(provider, err):
+            return rc, 'limit'
+        if n_events[0] == 0 or _hit_outage(err):
+            return rc, 'outage'
+        return rc, None
     finally:
         _unregister_child(p.pid)  # 先撤登記，免 handler 對已收尾 pid 空殺（無害但乾淨）
         hist.finish(wkey, result_rc)  # 失敗/timeout/撞額度/被終止的 session 也記（rc!=0, ok=False）
@@ -628,13 +653,18 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         wr.unregister(wkey)
 
 
-def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
-    """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈撞額度 → 呼叫端 defer。
+def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, label: str | None = None) -> int:
+    """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈不可用 → 呼叫端 defer。
     派工策略（chain/model/effort/timeout）由 _resolve_dispatch(verb) 解析（DEFAULT←STAGE←env）。
-    某 provider 撞額度即標記（本 tick 內共享，並行子工不再重複撞）、換下一個 provider **重跑同一
-    任務**（不浪費派工）；全鏈撞光才 -2。
-    （crawl 選書已不派 LLM——改書單 SoT + 確定性 resolver；本函式只服務 qc/audit/sol_extract 等下游階段。）"""
+    **failover 觸發二類**（_run_one 回 reason）：① 撞額度（limit）② 服務中斷（outage：provider 零事件
+    /5xx/連線錯——外部掛了，非任務失敗）。兩者皆標記 provider 本 tick exhausted（並行子工不再重撞死池）、
+    換下一個 provider **重跑同一任務**（不浪費派工）；全鏈耗盡才 -2。**「有事件但 rc≠0」= agent 真跑了卻
+    任務失敗 → 不 failover**（換 provider 無益且恐雙寫），rc 交回呼叫端。
+    label：lease/registry/hist 的顯示鍵（預設 = slug）；crawl 解析傳 '__crawl_resolve__' 當穩定 singleton
+    鍵，真正 batch slug 只進 prompt（見 do_crawl_resolve）。
+    （crawl 選書已不派 LLM——改書單 SoT + 確定性 resolver；本函式服務 qc/audit/sol_extract/crawl 解析。）"""
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
+    key = label or slug  # lease/registry/hist 身分鍵；prompt 已由真 slug 建好，key 只管識別/序列化
     spec = _resolve_dispatch(todo_verb)
     chain = list(spec.chain or ())
     if dry:
@@ -646,16 +676,17 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
             if provider in _exhausted_providers:
                 continue
         tried.append(provider)
-        rc, hit = _run_one(provider, todo_verb, slug, prompt, spec)
-        if not hit:
-            return rc  # 成功或非額度失敗 → 交回呼叫端
+        rc, reason = _run_one(provider, todo_verb, key, prompt, spec)
+        if not reason:
+            return rc  # 成功，或 agent 真跑了卻任務失敗 → 交回呼叫端，不換 provider
         with _exhausted_lock:
-            _exhausted_providers.add(provider)
+            _exhausted_providers.add(provider)  # 額度/中斷皆標死本 tick：免其他子工重撞同一掛掉的 provider
         nxt = next((q for q in chain if q != provider
                     and q not in _exhausted_providers), None)
-        log(f'⚠ {provider} 撞額度（{todo_verb} {slug or ""}）→ '
+        why = '撞額度' if reason == 'limit' else '服務中斷'
+        log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
             + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
-    log(f'❌ 全 provider 撞額度 {chain}（試過 {tried}）→ defer {todo_verb} {slug or ""}，下個 tick 重試')
+    log(f'❌ 全 provider 不可用 {chain}（試過 {tried}）→ defer {todo_verb} {key or ""}，下個 tick 重試')
     return -2
 
 
@@ -942,12 +973,12 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
 
 
 def _crawl_resolve_due() -> tuple[bool, dict]:
-    """**crawl 解析 agent** 是否該派：**可信**解析池（confirmed_trustworthy = 現役演算法解出、未 owned）
-    < CRAWL_POOL_LOW ∧ 仍有 unresolved target 可解。回 (due, pool_counts)。池夠滿或無 unresolved →
-    不派 → loop 能 idle 收斂（不 busy-loop）。**用 trustworthy 非 confirmed**：舊確定性 resolver 的
-    stale legacy entry（無 `by` 戳記）不算數，否則撐滿池 → 新 resolver 永不醒 → 舊錯誤凍結。"""
+    """**crawl 解析 agent** 是否該派：解析池 confirmed（= READY = 已確認連結、未 owned）< CRAWL_POOL_LOW
+    ∧ 仍有 unresolved target 可解。回 (due, pool_counts)。池夠滿或無 unresolved → 不派 → loop 能 idle
+    收斂（不 busy-loop）。**provenance 不在此判**：`status_of` 已把 legacy 無 by 解析降級成 UNRESOLVED →
+    confirmed 天然只含現役演算法解出者、被降級的 legacy 自動進 unresolved 重解（stale cache 自動失效）。"""
     pc = booklists.pool_counts()
-    return (pc['confirmed_trustworthy'] < CRAWL_POOL_LOW and pc['unresolved'] > 0), pc
+    return (pc['confirmed'] < CRAWL_POOL_LOW and pc['unresolved'] > 0), pc
 
 
 def do_crawl_resolve(dry: bool) -> int:
@@ -961,10 +992,11 @@ def do_crawl_resolve(dry: bool) -> int:
     batch = [t['slug'] for t in booklists.unresolved_targets()[:CRAWL_RESOLVE_BATCH]]
     if not batch:
         return 0
-    log(f'crawl 解析：可信池 {pc["confirmed_trustworthy"]}/{CRAWL_POOL_LOW}'
-        f'（confirmed {pc["confirmed"]} 含 legacy；unresolved {pc["unresolved"]}）'
-        f' → 派 crawl agent 解析 {len(batch)} 本')
-    return dispatch_llm('crawl', ','.join(batch), dry)
+    log(f'crawl 解析：解析池 {pc["confirmed"]}/{CRAWL_POOL_LOW}'
+        f'（unresolved {pc["unresolved"]}，含被降級的 legacy）→ 派 crawl agent 解析 {len(batch)} 本')
+    # label 固定 '__crawl_resolve__'：當 lease/registry/hist 的穩定 singleton key（真正的 batch slug
+    # 列表只進 prompt）→ lease 不再用整批 slug 串成超長檔名、/dev 不顯示怪 slug、跨 crash 同一穩定鍵。
+    return dispatch_llm('crawl', ','.join(batch), dry, label='__crawl_resolve__')
 
 
 def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
