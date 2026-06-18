@@ -68,6 +68,17 @@
       font-family: var(--mono); font-size: 9px; font-weight: 700; text-transform: uppercase;
       letter-spacing: .1em; color: var(--sub); padding: 8px 7px 3px;
     }
+    /* 第四層 = 章節（展開書才出現）：最深縮排，整合原獨立 Chapter 面板 */
+    .lib-ch-body { margin: 1px 0 5px 26px; padding-left: 8px; border-left: 1px solid var(--border-l); display: grid; gap: 1px; }
+    .lib-ch {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 7px;
+      width: 100%; padding: 4px 7px; border: 0; border-radius: 4px;
+      background: transparent; cursor: pointer; text-align: left; color: var(--ink-light); font: inherit;
+    }
+    .lib-ch:hover { background: var(--surface); }
+    .lib-ch.active { background: var(--ink); color: #fff; }
+    .lib-ch.active .lib-tree-count { color: rgba(255, 255, 255, .7); }
+    .lib-ch-name { font-family: var(--mono); font-size: 10.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .problem-list { padding: 14px; display: grid; gap: 10px; }
     .problem-card {
       border: 1px solid var(--border); background: var(--surface);
@@ -245,10 +256,6 @@
         <div class="lib-tree" id="filter-book"></div>
       </div>
       <div class="filter-group">
-        <label>Chapter</label>
-        <div class="qbk-chip-group" id="filter-chapter"></div>
-      </div>
-      <div class="filter-group">
         <label>Solution</label>
         <div class="qbk-chip-group" id="filter-solution"></div>
       </div>
@@ -313,6 +320,7 @@ let activeBook = 'all'
 let activeField = 'all'
 let activeChapter = 'all'
 let expandedFields = new Set()
+let expandedBooks = new Set()
 let activeSolution = 'all'
 let searchQ = ''
 let viewMode = localStorage.getItem('textbook.problems.view') || 'grid'
@@ -403,13 +411,48 @@ function buildBookTree(bookEl) {
       sl.textContent = s.name
       body.appendChild(sl)
       s.bookArr.forEach(b => {
+        const open = expandedBooks.has(b.title) || activeBook === b.title
         body.appendChild(bookPick(b, activeBook === b.title, () => {
+          if (expandedBooks.has(b.title)) expandedBooks.delete(b.title)
+          else expandedBooks.add(b.title)
           activeBook = b.title; activeChapter = 'all'; render()
         }))
+        if (!open) return
+        const chBox = document.createElement('div')
+        chBox.className = 'lib-ch-body'
+        chBox.appendChild(chapterRow('All chapters', b.count, activeBook === b.title && activeChapter === 'all',
+          () => { activeBook = b.title; activeChapter = 'all'; render() }))
+        bookChapters(b.title).forEach(c => {
+          const key = `Ch ${c.chapter}`
+          chBox.appendChild(chapterRow(`Ch ${c.chapter}${c.title ? ' · ' + c.title : ''}`, c.count,
+            activeBook === b.title && activeChapter === key,
+            () => { activeBook = b.title; activeChapter = key; render() }))
+        })
+        body.appendChild(chBox)
       })
     })
     bookEl.appendChild(body)
   })
+}
+
+function bookChapters(title) {
+  const m = new Map()  // chapter -> {chapter, title, count}
+  allProblems.forEach(p => {
+    if ((p.book_title || p.book_slug) !== title) return
+    const e = m.get(p.chapter) || { chapter: p.chapter, title: p.chapter_title || '', count: 0 }
+    e.count++
+    m.set(p.chapter, e)
+  })
+  return [...m.values()].sort((a, b) => (a.chapter || 0) - (b.chapter || 0))
+}
+
+function chapterRow(text, count, active, onClick) {
+  const btn = document.createElement('button')
+  btn.type = 'button'
+  btn.className = 'lib-ch' + (active ? ' active' : '')
+  btn.innerHTML = `<span class="lib-ch-name">${esc(text)}</span><span class="lib-tree-count">${count}</span>`
+  btn.addEventListener('click', onClick)
+  return btn
 }
 
 function bookPick({ title, slug, count, glyph }, active, onClick) {
@@ -428,21 +471,10 @@ function bookPick({ title, slug, count, glyph }, active, onClick) {
 
 function buildFilters() {
   const bookEl = document.getElementById('filter-book')
-  const chapterEl = document.getElementById('filter-chapter')
   const solEl = document.getElementById('filter-solution')
-  chapterEl.innerHTML = ''
   solEl.innerHTML = ''
 
   buildBookTree(bookEl)
-
-  const chapterSource = allProblems.filter(p =>
-    (activeBook === 'all' || p.book_title === activeBook) &&
-    (activeBook !== 'all' || activeField === 'all' || p.field_id === activeField)
-  )
-  chip(chapterEl, 'All', 'all', activeChapter === 'all', () => { activeChapter = 'all'; render() }, chapterSource.length)
-  countsBy(chapterSource, p => `Ch ${p.chapter}`).forEach(([chapter, count]) => {
-    chip(chapterEl, chapter, chapter, activeChapter === chapter, () => { activeChapter = chapter; render() }, count)
-  })
 
   chip(solEl, 'All', 'all', activeSolution === 'all', () => { activeSolution = 'all'; render() }, allProblems.length)
   chip(solEl, 'With solution', 'yes', activeSolution === 'yes', () => { activeSolution = 'yes'; render() },
