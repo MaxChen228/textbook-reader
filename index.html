@@ -323,6 +323,7 @@
       padding: 2px 7px; border-radius: 3px; font-weight: 600; letter-spacing: .06em;
     }
     .shelf-pill.shelf-pending { border: 1px solid var(--border); color: var(--sub); }
+    .shelf-pill.shelf-processing { border: 1px dashed var(--border); color: var(--sub); }
     .shelf-pill.shelf-absent {
       border: 1px solid var(--border-l); color: var(--sub);
       text-decoration: line-through; text-decoration-thickness: 1px;
@@ -1020,7 +1021,7 @@ function shelfState(status) {
   if (status === 'absent') return 'absent'
   return 'pending'  // queued | ready | unresolved | review（review=架構師待裁，公開 UI 同視「待收錄」）
 }
-const SHELF_LABEL = { owned: '已收錄', pending: '待收錄', absent: '無法收錄' }
+const SHELF_LABEL = { owned: '已收錄', pending: '待收錄', absent: '無法收錄', processing: '處理中' }
 
 function closeReaderSidebar() {
   if (readerDrawer) readerDrawer.close()
@@ -1221,20 +1222,24 @@ function renderLibrary(filter) {
   })
 }
 
-// 收錄表卡片：已收錄→join bookBySlug 取封面/版次/中譯/章數，可點；
-// 待收錄/無法收錄→ghost 卡（不可點），掛 shelf-pill 標狀態。
+// 收錄表卡片：已收錄(且已部署)→join bookBySlug 取封面/版次/中譯/章數，可點；處理中(owned 目錄存在
+// 但未 bake 進 books.json)→ghost 卡（不可點）；待收錄/無法收錄→ghost 卡。皆掛 shelf-pill 標狀態。
 function catalogCardHtml(b) {
   const st = shelfState(b.status)
-  if (st === 'owned') {
-    const m = bookBySlug[b.slug] || {}
+  const m = bookBySlug[b.slug]
+  // owned 但不在 books.json（已部署集）= 管線未跑完（crawl+OCR 了、尚未 parse/audit/deploy）→ 處理中：
+  // 不可點（點了會導去不存在的 data/<slug> 空白頁）、不顯封面/章數（那些 deploy 時才 bake）。
+  if (st === 'owned' && m) {
     const meta = [
       m.edition ? `<span class="edition">${esc(m.edition)}</span>` : '',
       m.has_zh ? `<span class="zh-badge" title="已有中文翻譯">中譯</span>` : '',
       m.chapter_count != null ? `<span>${m.chapter_count} 章</span>` : '',
       b.sol_status === 'owned' ? `<span class="sol-badge" title="已收錄解答本">解答</span>` : '',
     ].filter(Boolean).join('')
+    // onerror：封面 webp 萬一 404（如 deploy 空窗或 immutable 快取黏死）→ 收掉封面框、退化成無封面卡，
+    // 不顯瀏覽器破圖 icon。build_all 已 convert 先於 bake 杜絕產生空窗，此為前端防線。
     const cover = m.has_cover
-      ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy"></div>`
+      ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy" onerror="this.closest('.lib-card-cover').style.display='none'"></div>`
       : ''
     return `<a class="lib-card qbk-raised-item" href="#${esc(b.slug)}" data-slug="${esc(b.slug)}">
       ${cover}
@@ -1245,11 +1250,12 @@ function catalogCardHtml(b) {
       </div>
     </a>`
   }
-  return `<div class="lib-card lib-card-ghost shelf-${st}">
+  const ghost = (st === 'owned') ? 'processing' : st   // owned 但未部署 → 處理中 ghost
+  return `<div class="lib-card lib-card-ghost shelf-${ghost}">
     <div class="lib-card-body">
       <div class="lib-card-title">${esc(b.title || b.slug)}</div>
       <div class="lib-card-author">${esc(b.author || '')}</div>
-      <div class="lib-card-meta"><span class="shelf-pill shelf-${st}">${SHELF_LABEL[st]}</span></div>
+      <div class="lib-card-meta"><span class="shelf-pill shelf-${ghost}">${SHELF_LABEL[ghost]}</span></div>
     </div>
   </div>`
 }
