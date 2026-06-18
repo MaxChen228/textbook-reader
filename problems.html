@@ -47,6 +47,27 @@
     }
     .book-pick-count { font-family: var(--mono); font-size: 10px; color: var(--sub); justify-self: end; }
     .book-pick.active .book-pick-count { color: rgba(255, 255, 255, .7); }
+    /* 巢狀分類樹：Field（可摺疊大項）→ sublist 標籤 → book 列（與 library 同分類） */
+    .lib-tree { display: grid; gap: 1px; }
+    .lib-tree-all, .lib-field {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 7px;
+      width: 100%; padding: 7px; border: 0; border-radius: 5px;
+      background: transparent; cursor: pointer; text-align: left; color: var(--text); font: inherit;
+    }
+    .lib-tree-all { grid-template-columns: 1fr auto; margin-bottom: 2px; }
+    .lib-tree-all:hover, .lib-field:hover { background: var(--surface); }
+    .lib-tree-all.active, .lib-field.active { background: var(--ink); color: #fff; }
+    .lib-field-name { font-size: 12.5px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lib-field-chev { font-size: 9px; color: var(--sub); transition: transform .15s; }
+    .lib-field.open .lib-field-chev { transform: rotate(90deg); }
+    .lib-field.active .lib-field-chev { color: rgba(255, 255, 255, .7); }
+    .lib-tree-count { font-family: var(--mono); font-size: 10px; color: var(--sub); justify-self: end; }
+    .lib-field.active .lib-tree-count, .lib-tree-all.active .lib-tree-count { color: rgba(255, 255, 255, .7); }
+    .lib-field-body { margin: 1px 0 5px 10px; padding-left: 8px; border-left: 1px solid var(--border-l); display: grid; gap: 1px; }
+    .lib-sub-label {
+      font-family: var(--mono); font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--sub); padding: 8px 7px 3px;
+    }
     .problem-list { padding: 14px; display: grid; gap: 10px; }
     .problem-card {
       border: 1px solid var(--border); background: var(--surface);
@@ -220,12 +241,8 @@
     </div>
     <div class="qbk-sidebar-body qbk-scroll problem-tools">
       <div class="filter-group">
-        <label>Book</label>
-        <div class="book-picker" id="filter-book"></div>
-      </div>
-      <div class="filter-group">
-        <label>Subject</label>
-        <div class="qbk-chip-group" id="filter-subject"></div>
+        <label>Library</label>
+        <div class="lib-tree" id="filter-book"></div>
       </div>
       <div class="filter-group">
         <label>Chapter</label>
@@ -293,8 +310,9 @@ let allProblems = []
 let filtered = []
 let displayed = []
 let activeBook = 'all'
-let activeSubject = 'all'
+let activeField = 'all'
 let activeChapter = 'all'
+let expandedFields = new Set()
 let activeSolution = 'all'
 let searchQ = ''
 let viewMode = localStorage.getItem('textbook.problems.view') || 'grid'
@@ -330,15 +348,68 @@ function countsBy(items, fn) {
   return [...out.entries()].sort((a, b) => String(a[0]).localeCompare(String(b[0])))
 }
 
-function bookList() {
-  const m = new Map()  // book_title -> {slug, count}（標題去重；slug 取首見，用於書封）
+// 巢狀分類樹（與 library 同 SoT）：Field → sublist → book，依 frank/srank 排序。
+function libraryTree() {
+  const fields = new Map()
   allProblems.forEach(p => {
+    let f = fields.get(p.field_id)
+    if (!f) { f = { field: p.field, field_id: p.field_id, frank: p.frank, count: 0, subs: new Map() }; fields.set(p.field_id, f) }
+    f.count++
+    const sname = p.sublist || '其他'
+    let s = f.subs.get(sname)
+    if (!s) { s = { name: sname, srank: p.srank, books: new Map() }; f.subs.set(sname, s) }
     const title = p.book_title || p.book_slug || 'Unknown'
-    const e = m.get(title) || { title, slug: p.book_slug || '', count: 0 }
-    e.count++
-    m.set(title, e)
+    let bk = s.books.get(title)
+    if (!bk) { bk = { title, slug: p.book_slug || '', count: 0 }; s.books.set(title, bk) }
+    bk.count++
   })
-  return [...m.values()].sort((a, b) => a.title.localeCompare(b.title))
+  const farr = [...fields.values()].sort((a, b) => a.frank - b.frank || a.field.localeCompare(b.field))
+  farr.forEach(f => {
+    f.sublists = [...f.subs.values()].sort((a, b) => a.srank - b.srank || a.name.localeCompare(b.name))
+    f.sublists.forEach(s => { s.bookArr = [...s.books.values()].sort((a, b) => a.title.localeCompare(b.title)) })
+  })
+  return farr
+}
+
+function buildBookTree(bookEl) {
+  bookEl.innerHTML = ''
+  const allRow = document.createElement('button')
+  allRow.type = 'button'
+  allRow.className = 'lib-tree-all' + (activeBook === 'all' && activeField === 'all' ? ' active' : '')
+  allRow.innerHTML = `<span class="lib-field-name">All Books</span><span class="lib-tree-count">${allProblems.length}</span>`
+  allRow.onclick = () => { activeBook = 'all'; activeField = 'all'; activeChapter = 'all'; render() }
+  bookEl.appendChild(allRow)
+
+  libraryTree().forEach(f => {
+    const hasActiveBook = f.sublists.some(s => s.bookArr.some(b => b.title === activeBook))
+    const open = expandedFields.has(f.field_id) || (activeField === f.field_id && activeBook === 'all') || hasActiveBook
+    const head = document.createElement('button')
+    head.type = 'button'
+    head.className = 'lib-field' + (activeField === f.field_id && activeBook === 'all' ? ' active' : '') + (open ? ' open' : '')
+    head.innerHTML = `<span class="lib-field-chev">▸</span><span class="lib-field-name">${esc(f.field)}</span><span class="lib-tree-count">${f.count}</span>`
+    head.onclick = () => {
+      if (expandedFields.has(f.field_id)) expandedFields.delete(f.field_id)
+      else expandedFields.add(f.field_id)
+      activeField = f.field_id; activeBook = 'all'; activeChapter = 'all'
+      render()
+    }
+    bookEl.appendChild(head)
+    if (!open) return
+    const body = document.createElement('div')
+    body.className = 'lib-field-body'
+    f.sublists.forEach(s => {
+      const sl = document.createElement('div')
+      sl.className = 'lib-sub-label'
+      sl.textContent = s.name
+      body.appendChild(sl)
+      s.bookArr.forEach(b => {
+        body.appendChild(bookPick(b, activeBook === b.title, () => {
+          activeBook = b.title; activeChapter = 'all'; render()
+        }))
+      })
+    })
+    bookEl.appendChild(body)
+  })
 }
 
 function bookPick({ title, slug, count, glyph }, active, onClick) {
@@ -357,28 +428,16 @@ function bookPick({ title, slug, count, glyph }, active, onClick) {
 
 function buildFilters() {
   const bookEl = document.getElementById('filter-book')
-  const subjectEl = document.getElementById('filter-subject')
   const chapterEl = document.getElementById('filter-chapter')
   const solEl = document.getElementById('filter-solution')
-  bookEl.innerHTML = ''
-  subjectEl.innerHTML = ''
   chapterEl.innerHTML = ''
   solEl.innerHTML = ''
 
-  bookEl.appendChild(bookPick({ title: 'All', slug: '', count: allProblems.length, glyph: '⊞' },
-    activeBook === 'all', () => { activeBook = 'all'; render() }))
-  bookList().forEach(b => {
-    bookEl.appendChild(bookPick(b, activeBook === b.title, () => { activeBook = b.title; render() }))
-  })
-
-  chip(subjectEl, 'All', 'all', activeSubject === 'all', () => { activeSubject = 'all'; render() }, allProblems.length)
-  countsBy(allProblems, p => p.subject).forEach(([subject, count]) => {
-    chip(subjectEl, label(subject), subject, activeSubject === subject, () => { activeSubject = subject; render() }, count)
-  })
+  buildBookTree(bookEl)
 
   const chapterSource = allProblems.filter(p =>
     (activeBook === 'all' || p.book_title === activeBook) &&
-    (activeSubject === 'all' || (p.subject || 'Unknown') === activeSubject)
+    (activeBook !== 'all' || activeField === 'all' || p.field_id === activeField)
   )
   chip(chapterEl, 'All', 'all', activeChapter === 'all', () => { activeChapter = 'all'; render() }, chapterSource.length)
   countsBy(chapterSource, p => `Ch ${p.chapter}`).forEach(([chapter, count]) => {
@@ -394,7 +453,7 @@ function buildFilters() {
 
 function matches(p) {
   if (activeBook !== 'all' && p.book_title !== activeBook) return false
-  if (activeSubject !== 'all' && (p.subject || 'Unknown') !== activeSubject) return false
+  if (activeBook === 'all' && activeField !== 'all' && p.field_id !== activeField) return false
   if (activeChapter !== 'all' && `Ch ${p.chapter}` !== activeChapter) return false
   if (activeSolution === 'yes' && !p.has_solution) return false
   if (activeSolution === 'no' && p.has_solution) return false
@@ -875,6 +934,11 @@ function hydrate(data) {
       has_solution: !!hs,
       question_text: preview || '',      // 預覽＋搜尋用；完整文字在 ensureBlocks 後補上
       href_reader: `index.html#${slug}/ch/${ch}?problem=${encodeURIComponent(num)}`,
+      field: b.field || '其他',
+      field_id: b.field_id || 'other',
+      sublist: b.sublist || '',
+      frank: b.frank ?? 999,
+      srank: b.srank ?? 999,
     }
   })
 }

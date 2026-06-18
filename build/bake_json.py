@@ -95,12 +95,30 @@ def _preview(text: str, limit: int = 200) -> str:
     return cut + '…'
 
 
+def _field_map() -> dict[str, dict]:
+    """slug → 領域分類（Field→sublist），與 library 收錄表同源（booklists.catalog）。
+    frank/srank = 領域/子單在 SoT 的排序，供前端與 library 一致排列。"""
+    from book_pipeline import booklists
+    cat = booklists.catalog()
+    m: dict[str, dict] = {}
+    for fi, f in enumerate(cat.get('fields', [])):
+        for si, sl in enumerate(f.get('sublists', [])):
+            for b in sl.get('books', []):
+                m.setdefault(b.get('slug'), {
+                    'field': f.get('field'), 'field_id': f.get('field_id'),
+                    'sublist': sl.get('name'), 'frank': fi, 'srank': si,
+                })
+    return m
+
+
 def build_problem_index(books: list[dict]) -> tuple[list[dict], list[list]]:
     """烤成輕量索引：books 去重表 + 每題 tuple [bookIdx, chapter, num, hasSol, preview]。
 
     body/solution 區塊**不**入索引（與 data/<slug>/ch/<n>.json 完全重複，
     detail/匯出時 reader 端按需抓那份既有分片）→ 索引從 ~110MB 砍到 ~15MB。
+    books 表帶 field/sublist（與 library 同分類）供前端巢狀側欄。
     """
+    fmap = _field_map()
     book_table: list[dict] = []
     book_idx: dict[str, int] = {}
     rows: list[list] = []
@@ -119,11 +137,17 @@ def build_problem_index(books: list[dict]) -> tuple[list[dict], list[list]]:
                 continue
             if slug not in book_idx:
                 book_idx[slug] = len(book_table)
+                fm = fmap.get(slug, {})
                 book_table.append({
                     'slug': slug,
                     'title': book.get('title') or b.get('title') or slug,
                     'author': book.get('author') or b.get('author'),
                     'subject': book.get('subject') or b.get('subject'),
+                    'field': fm.get('field') or '其他',
+                    'field_id': fm.get('field_id') or 'other',
+                    'sublist': fm.get('sublist') or (book.get('subject') or b.get('subject') or '其他'),
+                    'frank': fm.get('frank', 999),
+                    'srank': fm.get('srank', 999),
                     'chapters': {},
                 })
             bi = book_idx[slug]
