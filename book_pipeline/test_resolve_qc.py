@@ -33,6 +33,13 @@ def test_instructor_manual_exempt_for_solution():
     assert r["block"] == []
 
 
+def test_solution_with_divergent_title_not_blocked():
+    # 解答本書名不重複正書名（只提作者）→ 與正書名零重疊，但 sol 一律豁免、絕不 block
+    r = rv.resolution_qc(_sol("Principles of Mathematical Analysis"),
+                         "Solutions Manual to Walter Rudin")
+    assert r["block"] == [] and r["advisory"] == []
+
+
 # --- title_mismatch：0% 才 block，低重疊只 advisory ---
 
 def test_title_mismatch_zero_overlap_blocks_main():

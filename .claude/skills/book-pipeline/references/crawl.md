@@ -24,6 +24,9 @@ uv run python -m book_pipeline.resolve target <slug>
 
 # 2. 查候選（只 search、不下載、不耗額度）。預設只 pdf+english、含每筆完整 metadata
 #    與 advisory_conf（標題重疊×0.6+作者命中×0.4，**只是提示、不是裁決**）+ kind_match
+#    + book_qc（下載前書況預檢）：每筆候選帶 {block:[...], advisory:[...]}——
+#      **block 非空 = 鐵定配錯書（main 抓到週邊書 / 書名與 SoT 零重疊），絕不可採用**（commit 會硬拒）；
+#      advisory = 書名可疑、要警覺。先掃掉 block 非空的候選，再從乾淨的裡挑。
 uv run --with requests python -m book_pipeline.resolve search <slug>
 #    查不到好的就換查法 / 放寬：
 uv run --with requests python -m book_pipeline.resolve search <slug> --query "<自訂字串>"
@@ -35,6 +38,7 @@ uv run --with requests python -m book_pipeline.resolve inspect <id> <hash>
 
 **怎麼判斷哪一筆才對**（看 metadata，別只看 advisory_conf）：
 
+- **先看 `book_qc.block`**：非空就跳過該候選（確定性零誤判預檢，已幫你排掉 main 抓週邊書、書名零重疊這類鐵錯）。`book_qc.advisory` 非空則加倍看清楚。
 - **書名要對**：是這本書本身，不是同主題的別本、改編本、study guide、workbook、lecture notes。
 - **作者要對**：作者欄或標題裡有該作者的姓（advisory_conf ≥0.7 通常代表作者有佐證；**~0.6 多半是純標題撞詞、要警覺**）。
 - **版次**：有 `edition_pref` 就盡量靠攏；無則取較新、檔案大小合理（教科書多 3–80MB）、頁數足、出版社齊的版本。
@@ -45,6 +49,8 @@ uv run --with requests python -m book_pipeline.resolve inspect <id> <hash>
 
 ```bash
 # A. 確信找到 → resolved（title/author/mb 從你選的那筆候選帶過來，供 dashboard 顯示）
+#    書況閘會擋下鐵定配錯的候選（book_qc.block 非空）→ 報錯要你改挑或 --review。
+#    你確信無誤（如閘誤判的另類書名）才加 --force 繞過；否則別硬繞。
 uv run python -m book_pipeline.resolve commit <slug> --id <id> --hash <hash> \
     --title "<候選標題>" --author "<候選作者>" --mb <大小>
 

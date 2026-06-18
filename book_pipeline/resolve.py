@@ -102,23 +102,22 @@ def _base_title(t: dict) -> str:
 
 def resolution_qc(target: dict, cand_title: str) -> dict:
     """候選書名 vs SoT 的下載前書況預檢（純書名比對、零額度），治本上游 gate。
-    回 {'advisory': [...], 'block': [...]}：
-      - companion：候選書名含 Study Guide/Solutions Manual/Instructor… → **只對 main 目標 block**
-        （解答本本就該含這些字，豁免，否則秒殺合法解答本）。
+    回 {'advisory': [...], 'block': [...]}。**整道閘只套 main 目標**——解答本書名天生發散
+    （含 "Solutions Manual"、常不重複正書名 → companion 命中、title 與正書名零重疊都是常態），
+    一律豁免，交回 kind_match + agent 判斷（見 crawl skill）。main 目標：
+      - companion：候選書名含 Study Guide/Manual/Instructor… → block（主書不該是週邊書）。
       - title_mismatch：書名重疊過低 → advisory；重疊=0（零共享區別性 token、鐵定配錯書）→ block。
-    block = agent 不准 commit resolved（須改挑候選或 --review）；advisory = 提示 agent 警覺。
-    cand_title 空 → 回空（無從比對，fail-open 不擋）。"""
+    cand_title 空 / 非 main → 回空（fail-open 不擋）。"""
     advisory, block = [], []
-    if not cand_title:
+    if not cand_title or target.get('kind') == 'solution':
         return {'advisory': advisory, 'block': block}
     base = _base_title(target)
-    is_main = target.get('kind') != 'solution'
-    if book_qc.companion_reason(cand_title) and is_main:
+    if book_qc.companion_reason(cand_title):
         block.append('companion：主書目標卻抓到週邊/解答書（書名含 Study Guide/Manual…）')
-    tm = book_qc.title_mismatch_reason(base, cand_title)
-    if tm:
-        advisory.append(tm)
-        if book_qc.title_overlap(base, cand_title) == 0.0:
+    ov = book_qc.title_overlap(base, cand_title)
+    if ov is not None and ov < book_qc.TITLE_OVERLAP_MIN:
+        advisory.append(f'title_mismatch({ov:.0%})')
+        if ov == 0.0:
             block.append('title_mismatch(0%)：候選書名與 SoT 零重疊，鐵定配錯書')
     return {'advisory': advisory, 'block': block}
 
