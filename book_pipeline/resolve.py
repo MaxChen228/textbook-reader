@@ -24,6 +24,7 @@ import sys
 from datetime import datetime, timezone
 
 from book_pipeline import booklists as bl
+from book_pipeline import book_qc
 from book_pipeline import crawl_zlib as cz
 
 def enrich_links(bid: str, bhash: str) -> dict:
@@ -97,6 +98,29 @@ def confidence(title: str, author: str, book: dict) -> float:
 def _base_title(t: dict) -> str:
     """解答本 target 的 title 是『<主書名> — Solutions』，比對時還原成主書名。"""
     return t['title'].split(' — Solutions')[0] if t['kind'] == 'solution' else t['title']
+
+
+def resolution_qc(target: dict, cand_title: str) -> dict:
+    """候選書名 vs SoT 的下載前書況預檢（純書名比對、零額度），治本上游 gate。
+    回 {'advisory': [...], 'block': [...]}：
+      - companion：候選書名含 Study Guide/Solutions Manual/Instructor… → **只對 main 目標 block**
+        （解答本本就該含這些字，豁免，否則秒殺合法解答本）。
+      - title_mismatch：書名重疊過低 → advisory；重疊=0（零共享區別性 token、鐵定配錯書）→ block。
+    block = agent 不准 commit resolved（須改挑候選或 --review）；advisory = 提示 agent 警覺。
+    cand_title 空 → 回空（無從比對，fail-open 不擋）。"""
+    advisory, block = [], []
+    if not cand_title:
+        return {'advisory': advisory, 'block': block}
+    base = _base_title(target)
+    is_main = target.get('kind') != 'solution'
+    if book_qc.companion_reason(cand_title) and is_main:
+        block.append('companion：主書目標卻抓到週邊/解答書（書名含 Study Guide/Manual…）')
+    tm = book_qc.title_mismatch_reason(base, cand_title)
+    if tm:
+        advisory.append(tm)
+        if book_qc.title_overlap(base, cand_title) == 0.0:
+            block.append('title_mismatch(0%)：候選書名與 SoT 零重疊，鐵定配錯書')
+    return {'advisory': advisory, 'block': block}
 
 
 def pick(target: dict, books: list[dict]) -> tuple[dict | None, float]:
@@ -223,6 +247,7 @@ def cmd_search(args) -> int:
         r = cz._annotate(b, known)
         r['advisory_conf'] = confidence(base, author, b)
         r['kind_match'] = (cz._is_solution(b.get('title', '')) == (t['kind'] == 'solution'))
+        r['book_qc'] = resolution_qc(t, b.get('title', ''))  # 下載前書況預檢（block→不可採用）
         rows.append(r)
     return _emit({'query': q, 'target': {'slug': t['slug'], 'kind': t['kind'],
                   'title': base, 'author': author}, 'candidates': rows})
@@ -260,6 +285,13 @@ def cmd_commit(args) -> int:
     elif args.review:
         entry = {'review': True, 'note': args.note or '', 'by': 'agent', 'at': now}
     elif args.id and args.hash:
+        # 下載前書況閘：候選書名鐵定配錯（main 抓週邊 / 書名零重疊）→ 拒落盤，逼改挑或 --review。
+        # 純書名比對、零誤判（companion 只套 main、title 須 0% 重疊才 block）；治本省後續整條鏈浪費。
+        qcres = resolution_qc(t, args.title or '')
+        if qcres['block'] and not args.force:
+            return _emit({'error': '書況閘擋下：此候選鐵定配錯書 → 改挑候選或 --review（確認無誤可 --force）',
+                          'slug': t['slug'], 'cand_title': args.title or '',
+                          'block': qcres['block'], 'advisory': qcres['advisory']}) or 2
         entry = {'id': str(args.id), 'hash': str(args.hash), 'title': args.title or '',
                  'author': args.author or '', 'mb': args.mb, 'by': 'agent', 'at': now}
         entry.update(enrich_links(str(args.id), str(args.hash)))   # 補 href/cover（公開 book 頁 + 封面）
@@ -344,6 +376,7 @@ def main() -> int:
     p.add_argument('--mb', type=float, default=None)
     p.add_argument('--absent', action='store_true')
     p.add_argument('--review', action='store_true')
+    p.add_argument('--force', action='store_true', help='繞過書況閘（確認候選無誤時才用）')
     p.add_argument('--note', default=None)
     p.set_defaults(fn=cmd_commit)
 

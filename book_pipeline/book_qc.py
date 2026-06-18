@@ -79,16 +79,21 @@ def companion_reason(landed_title: str) -> str | None:
     return "companion" if COMPANION_RE.search(landed_title or "") else None
 
 
-def title_mismatch_reason(sot_title: str, landed_title: str) -> str | None:
-    """兩書名重疊係數過低 → 配錯書。用 min 分母（重疊係數）：短書名是長書名子集
-    （如落地『Real Analysis』vs SoT『Real Analysis: Modern Techniques…』）算 100% 不誤判。
-    任一方無 token 則跳過（無從比對）。"""
+def title_overlap(sot_title: str, landed_title: str) -> float | None:
+    """兩書名重疊係數（min 分母）：短書名是長書名子集（落地『Real Analysis』vs SoT
+    『Real Analysis: Modern Techniques…』）算 1.0。任一方無 token → None（無從比對）。
+    0.0 = 零個共享區別性 token = 鐵定配錯書（resolver 強閘判據）。"""
     st, lt = tokens(sot_title), tokens(landed_title)
     if not st or not lt:
         return None
-    overlap = len(st & lt) / min(len(st), len(lt))
-    if overlap < TITLE_OVERLAP_MIN:
-        return f"title_mismatch({overlap:.0%})"
+    return len(st & lt) / min(len(st), len(lt))
+
+
+def title_mismatch_reason(sot_title: str, landed_title: str) -> str | None:
+    """重疊係數過低 → 配錯書。任一方無 token 則跳過（無從比對）。"""
+    ov = title_overlap(sot_title, landed_title)
+    if ov is not None and ov < TITLE_OVERLAP_MIN:
+        return f"title_mismatch({ov:.0%})"
     return None
 
 
