@@ -169,8 +169,10 @@ def finding_to_override(slug: str, finding: dict[str, Any], new: str, *,
       給 field_value（該欄完整字串）→ 用 _math_regions 精確取 old 與原樣定界、new 同定界包覆、附 anchor。
       沒給 → best-effort 僅用 $tex$/$$tex$$ 重建（不覆蓋 \(..\)/\[..\] 定界）且不附 anchor（apply 端
       old 對不上只會 skip-drift，絕不誤改）。
-    注意：occ>1 同一欄重複同式時，apply 端預設只換首處——若 finding 確為「單欄多次」需 agent 自行
-      在產出的 dict 補 all=True（occ 也可能跨欄，每 target 各一條才對，故不自動設）。"""
+    occ>1 同一欄重複同式：inline override 一律設 all=True（同欄全換）。一條 finding = 一個 unique
+      (tex,display)，其每個出現都套同一 new，故「同欄內全部同式換成同一 new」永遠正確；old 是完整
+      定界數學 span（$..$/$$..$$ 或精確 region），replace 全換不會誤及更大式。跨欄仍每 target 各一條
+      （targets 已按 {chunk,selector,field} 去重）→ 配合 locators 解 12-cap，一輪清掉高 occ 式全部。"""
     tgt = target or next(iter(finding.get("targets") or []), None)
     if not tgt:
         raise ValueError(f"{slug}: finding 無 targets，無法定位 override（tex={finding.get('tex')!r}）")
@@ -184,7 +186,7 @@ def finding_to_override(slug: str, finding: dict[str, Any], new: str, *,
     if field == "tex":
         ov.update(action="fix_eq_tex", chunk=chunk, selector=selector, expect=tex, new=new)
         return ov
-    ov.update(action="fix_inline_math", chunk=chunk, selector=selector, field=field)
+    ov.update(action="fix_inline_math", chunk=chunk, selector=selector, field=field, all=True)
     region = _exact_inline_region(field_value, field, tex) if field_value is not None else None
     if region is not None:
         old, inner = region

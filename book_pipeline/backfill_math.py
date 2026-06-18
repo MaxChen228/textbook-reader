@@ -30,7 +30,7 @@ from book_pipeline.parser import parse_book
 def _bad_locators(report: dict | None) -> dict[str, str]:
     """{locator: tex} — 展開 report.findings 的 locators。locator（chunk:位置）跨 normalize 穩定，
     故能追「同一位置」的壞→好/好→壞（tex 被規則改寫不影響位置身分）。
-    注意：findings 的 locators 有 12-cap，高 occ 式會截斷 → 位置級 diff 為 best-effort 指引；
+    注意：findings 的 locators 有 1000-cap，極高 occ 式仍可能截斷 → 位置級 diff 為 best-effort 指引；
     權威淨值仍以 stats.bad_occ（精確）為準。"""
     out: dict[str, str] = {}
     for f in (report or {}).get("findings") or []:
