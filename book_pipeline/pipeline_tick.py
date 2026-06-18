@@ -86,7 +86,7 @@ CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
 CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
 # 數學 sweep 每 tick 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
-# --rounds 1`。8 worker 並發各打一批 spark（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
+# --rounds 1`。8 worker 並發各打一批 LLM（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
 # 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
 # rounds=1 不在 tick 內重試——失敗條下個 tick re-list 自然重試。walltime 安全（並發不拉長單 tick 牆鐘）。
 MATH_BATCH_WORKERS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_WORKERS', '8'))
@@ -1162,7 +1162,7 @@ def _math_sweep_due(state: dict | None = None) -> tuple[bool, int]:
 
 def do_math_sweep(dry: bool) -> int:
     """corpus-level 數學 sweep（track-only，不綁單本 advance 關鍵路徑）：residual_unaccepted>0 且非
-    fixpoint → daemon **直接 det-step 跑 `math_sweep batch`**（純自架 LLM API：list→分批 spark→render
+    fixpoint → daemon **直接 det-step 跑 `math_sweep batch`**（純自架 LLM API：list→分批 LLM→render
     守門→per-book apply+重驗；**無無頭 agent 層**——邏輯就是「有多少壞式、batch 打 API 解掉」，非以書為
     單位派 agent）→ daemon 把殘餘變動的書重烤上站 → 重量殘餘、記錄 sweep/batch 狀態（供 fixpoint 判定）。
     回 0=完成/跳過、1=batch 基礎設施失敗（node/ccnexus，不記狀態 → 下個 tick 重試）。"""

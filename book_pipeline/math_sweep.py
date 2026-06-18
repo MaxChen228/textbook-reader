@@ -127,20 +127,24 @@ _TEX_PRIMITIVE = re.compile(
     r"\\(?:let|def|edef|gdef|xdef|catcode|relax|csname|expandafter|futurelet"
     r"|newcommand|renewcommand|providecommand)\b")
 _CTRL_SEQ = re.compile(r"\\[A-Za-z@]+")
-# 內容承載控制序列（希臘字母/算子/符號）：剝掉會誤判空殼，故計為內容字元（→ 佔位 §）。
-_CONTENT_CTRL = re.compile(
-    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa"
-    r"|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega"
-    r"|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega"
-    r"|partial|nabla|infty|sum|int|prod|oint|pm|mp|times|cdot|cdots|ldots|sqrt|hbar|ell|aleph"
-    r"|Re|Im|forall|exists|in|notin|subset|cup|cap|wedge|vee|neg|to|mapsto|langle|rangle"
-    r"|dagger|star|prime|circ|oplus|otimes|perp|parallel|approx|equiv|sim|propto|leq|geq|neq"
-    r"|ll|gg|deg)\b")
+# 格式/字體/間距/結構 wrapper：本身**不承載內容**，剝掉不該算「有東西」。改採黑名單制——
+# 只列這些已知無內容的控制序列當「可刪」，其餘任何 \xxx 一律當內容（佔位 §）。
+# 為何翻成黑名單（原白名單制是 bug 源）：白名單只收了幾十個希臘字母/算子，凡白名單外的合法
+# 符號（`\complement` `\upharpoonright` `\nexists` `\boxtimes`…）都被當格式刪光 → core 變空
+# → 合法式被誤判 empty_shell 永久退回、無法收斂（實證：brown_lemay `\complement{\upharpoonright}`）。
+# 黑名單只需窮舉「確定無內容」的 wrapper（封閉小集），新符號自動歸內容、零誤殺。
+_FORMAT_CTRL = re.compile(
+    r"\\(?:math(?:rm|bf|it|sf|tt|cal|frak|bb|scr|normal)|boldsymbol|pmb|mathversion"
+    r"|text(?:rm|bf|it|sf|tt|normal|up|sc|md|color)?|mbox|hbox|operatorname|mathop"
+    r"|left|right|middle|bigl|bigr|Bigl|Bigr|biggl|biggr|Biggl|Biggr|big|Big|bigg|Bigg"
+    r"|displaystyle|textstyle|scriptstyle|scriptscriptstyle|limits|nolimits"
+    r"|begin|end|phantom|hphantom|vphantom|smash|hspace|vspace|kern|mkern|mskip|raisebox"
+    r"|quad|qquad|space|nobreakspace|thinspace|negthinspace|medspace|thickspace)\b")
 
 
 def semantic_reason(new: str) -> str | None:
     r"""render ok 後的語意守門：回 reject 原因（None=通過）。純函式、零磁碟、可單測。
-    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\mathrm{null}(T)$）全放行。"""
+    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\complement{\upharpoonright}$）全放行。"""
     s = (new or "").strip()
     for a, b in (("$$", "$$"), (r"\[", r"\]"), (r"\(", r"\)"), ("$", "$")):
         if s.startswith(a) and s.endswith(b) and len(s) >= len(a) + len(b):
@@ -148,8 +152,8 @@ def semantic_reason(new: str) -> str | None:
             break
     if _TEX_PRIMITIVE.search(s):
         return "tex_primitive"
-    core = _CONTENT_CTRL.sub("§", s)               # 內容控制序列 → 佔位（保留它代表的內容）
-    core = _CTRL_SEQ.sub("", core)                  # 其餘（格式）控制序列 → 刪
+    core = _FORMAT_CTRL.sub("", s)                  # 已知無內容的格式/字體/間距 wrapper → 刪
+    core = _CTRL_SEQ.sub("§", core)                 # 其餘任何控制序列 → 視為內容（佔位 §）
     core = re.sub(r"[\^_{}&~\\,;:!\s]", "", core)   # 結構/nbsp/空白/標點控制 → 刪
     if not core:
         return "empty_shell"
@@ -521,7 +525,7 @@ def _write_agg_live(*, started: float, total: int, done: int, accepted: int, unr
 
 
 def cmd_batch(a: argparse.Namespace) -> int:
-    """list → 分批打 spark → render 守門 → per-book 一次 merge+apply+重驗。JSON 結果印 stdout。"""
+    """list → 分批打 LLM → render 守門 → per-book 一次 merge+apply+重驗。JSON 結果印 stdout。"""
     work = [(_gid(s, f.get("tex") or "", bool(f.get("display"))), s, f)
             for s, f in iter_todo(book=a.book, category=a.category)]
     if a.limit is not None:

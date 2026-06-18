@@ -283,6 +283,26 @@ def test_semantic_reason_passes_legit_short_formulas():
         assert sr(ok) is None, ok
 
 
+def test_semantic_reason_passes_whitelist_outside_symbols():
+    # 黑名單翻轉護欄：合法但不在舊白名單的符號（剝光會誤判空殼）必須放行。
+    # 實證 bug：brown_lemay `\complement{\upharpoonright}` 被誤判 empty_shell 永久退回。
+    sr = math_sweep.semantic_reason
+    for ok in (r"$\complement{\upharpoonright}$", r"$\nexists x$", r"$A \boxtimes B$",
+               r"$\hbar\Game$", r"$\varnothing$", r"$a \multimap b$",
+               r"$\mathbb{Z}_{\geq 0}$"):    # mathbb 是格式但 Z 是內容 → 放行
+        assert sr(ok) is None, ok
+
+
+def test_semantic_reason_still_blocks_empty_after_flip():
+    # 黑名單翻轉不得放鬆空殼/原語偵測（含純間距/phantom 等無內容 wrapper）。
+    sr = math_sweep.semantic_reason
+    assert sr(r"$\mathrm{~~}$") == "empty_shell"
+    assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"
+    assert sr(r"$\phantom{}\hphantom{}$") == "empty_shell"   # 空 phantom → 黑名單刪命令+空引數 → 空
+    assert sr(r"$\quad\qquad\,$") == "empty_shell"           # 純間距無內容
+    assert sr(r"${\let\mathbf\relax \mathbf{}}$") == "tex_primitive"
+
+
 def test_run_one_batch_semantic_gate_blocks_renderable_empty(monkeypatch):
     # 模型回「能 render 但語意空洞」的空殼 → render_ok=True 卻必須擋下不落地、回流重試
     grp = [("g0", "bookA", _finding_t("DESTROYED_OCR"))]
