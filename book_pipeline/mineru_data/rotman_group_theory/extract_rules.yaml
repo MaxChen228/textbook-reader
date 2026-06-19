@@ -1,0 +1,155 @@
+slug: rotman_group_theory
+title: An Introduction to the Theory of Groups
+author: Joseph J. Rotman
+edition: 4th
+subject: Abstract Algebra
+publisher: Springer-Verlag New York
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 490
+bibliography_start_page: 510
+index_start_page: 517
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Groups and Homomorphisms
+    page_start: 16
+    page_end: 34
+    chapter_title_block_idx: 259
+    problems_block_idx: null
+    next_chapter_block_idx: 542
+  - num: 2
+    title: The Isomorphism Theorems
+    page_start: 35
+    page_end: 57
+    chapter_title_block_idx: 542
+    problems_block_idx: null
+    next_chapter_block_idx: 920
+  - num: 3
+    title: Symmetric Groups and G-Sets
+    page_start: 58
+    page_end: 87
+    chapter_title_block_idx: 920
+    problems_block_idx: null
+    next_chapter_block_idx: 1378
+  - num: 4
+    title: The Sylow Theorems
+    page_start: 88
+    page_end: 103
+    chapter_title_block_idx: 1378
+    problems_block_idx: null
+    next_chapter_block_idx: 1615
+  - num: 5
+    title: Normal Series
+    page_start: 104
+    page_end: 139
+    chapter_title_block_idx: 1615
+    problems_block_idx: null
+    next_chapter_block_idx: 2193
+  - num: 6
+    title: Finite Direct Products
+    page_start: 140
+    page_end: 168
+    chapter_title_block_idx: 2193
+    problems_block_idx: null
+    next_chapter_block_idx: 2616
+  - num: 7
+    title: Extensions and Cohomology
+    page_start: 169
+    page_end: 231
+    chapter_title_block_idx: 2616
+    problems_block_idx: null
+    next_chapter_block_idx: 3640
+  - num: 8
+    title: Some Simple Linear Groups
+    page_start: 232
+    page_end: 261
+    chapter_title_block_idx: 3640
+    problems_block_idx: null
+    next_chapter_block_idx: 4139
+  - num: 9
+    title: Permutations and the Mathieu Groups
+    page_start: 262
+    page_end: 321
+    chapter_title_block_idx: 4139
+    problems_block_idx: null
+    next_chapter_block_idx: 5009
+  - num: 10
+    title: Abelian Groups
+    page_start: 322
+    page_end: 357
+    chapter_title_block_idx: 5009
+    problems_block_idx: null
+    next_chapter_block_idx: 5595
+  - num: 11
+    title: Free Groups and Free Products
+    page_start: 358
+    page_end: 432
+    chapter_title_block_idx: 5595
+    problems_block_idx: null
+    next_chapter_block_idx: 6784
+  - num: 12
+    title: The Word Problem
+    page_start: 433
+    page_end: 489
+    chapter_title_block_idx: 6784
+    problems_block_idx: null
+    next_chapter_block_idx: 7632
+
+appendices:
+  - id: I
+    title: Some Major Algebraic Systems
+    page_start: 490
+    chapter_title_block_idx: 7632
+  - id: II
+    title: Equivalence Relations and Equivalence Classes
+    page_start: 492
+    chapter_title_block_idx: 7643
+  - id: III
+    title: Functions
+    page_start: 494
+    chapter_title_block_idx: 7662
+  - id: IV
+    title: Zorn's Lemma
+    page_start: 496
+    chapter_title_block_idx: 7675
+  - id: V
+    title: Countability
+    page_start: 498
+    chapter_title_block_idx: 7690
+  - id: VI
+    title: Commutative Rings
+    page_start: 500
+    chapter_title_block_idx: 7707
+
+section_re: "^()(Division Algorithm\\.|(?!(?:CHAPTER|APPENDIX)\\b|(?:EXERCISE|EXERCISES)\\b|(?:Theorem|Lemma|Corollary|Proof)\\b|(?:Bibliography|Notation|Index|Graduate Texts in Mathematics)$)[A-Za-z$][A-Za-z0-9$()\\-–,;:/.\\s'’]*[A-Za-z$)])$"
+subsection_re: "^()(\\b\\B)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^(\\d+\\.\\d+)\\.\\s+"
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([^}]+)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

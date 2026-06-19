@@ -24,7 +24,7 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （94 條；proposed=94）
+## domain: engine  （120 條；proposed=120）
 
 ### P-2026-06-18-artin-algebra — catalog 無法把相鄰 text 圖說綁回 image/table
 - proposed | type=tooling-gap | source=agent
@@ -1885,10 +1885,25 @@ index 764d7c2..701078a 100644
 - 證據：smoke remains critical after valid chapter/problem parse: H6 unresolved Figure refs=1 and H7 empty_captions=32. Unified blocks show one logical figure split across multiple image blocks with only the last block carrying the caption (Fig. 2.7 at idx 602-605), subfigure runs where only the last block carries the main caption after (a)/(b)/(c) markers (Fig. 15.2 at idx 5274-5276, Fig. 23.3 at idx 7970-7972), and one image caption containing multiple figure numbers so Figure 4.4 is referenced but only Fig. 4.3 is indexable.
 - 提議：Extend parser/catalog audit to support figure groups: allow multiple consecutive image blocks to share one trailing caption, preserve subfigure semantics, and split one caption into multiple catalog ids when it names multiple figures (for example Fig. 4.3 and Fig. 4.4 in one image). This should be expressed in engine logic or new schema fields, not by distorting chapter audit rules.
 
+### P-2026-06-19-acheson-elementary-fluid-dynamic — catalog 無法把鄰近正文圖說綁回 captionless figure shards
+- proposed | type=tooling-gap | source=agent
+- 證據：本書 validate/parser 已綠（9 chapters, 2 appendices；章末 Exercises 切分正常），最佳規則集 smoke 僅殘 H7 empty_captions=18。parsed/_catalog_audit.md 顯示多個 figure block 本身無 media caption，而可見圖說/圖號在鄰近普通 text block 或多 panel shard 的尾端，例如 ch01 body[148-149]/[161]、ch02 body[14]/[105]/[144]/[244]、ch03 body[15]/[36]/[40]/[217]/[435-437]。嘗試 figure_caption_merge + Fig. N.M 主圖說 regex 後，smoke 反而惡化成 H6 unresolved Figure refs=3 與 H7 empty_captions=38，證明現有 extract_rules schema 只能處理有限的 fig-to-fig merge，不能穩定處理 prose-bound captions 或 captionless sibling shards。
+- 提議：擴充 catalog/figure extraction，允許以 declarative 規則把鄰近 bare text 綁定到前後 image/chart 作為 semantic caption/id，並允許將無正式 caption 的 sibling shards 標記為 non-indexable；現有 figure_caption_merge/figure_caption_main_re 對 acheson_elementary_fluid_dynamics 不足。
+
 ### P-2026-06-19-aitchison-hey-gauge-theories — Support multi-volume slugs with mid-book appendices and references/index
 - proposed | type=tooling-gap | source=agent
 - 證據：aitchison_hey_gauge_theories unified/content_list.json contains Volume 1 chapters 1-11 (e.g. block 223/page_idx 18, 595/56, 4874/344), then Volume 1 appendices A-L (e.g. 5882/416, 6202/434), then References at 6244/page_idx 438 and Index at 6339/page_idx 444, then Volume 2 chapters 12-22 restart at 7517/page_idx 473 and continue to chapter 22 at 12482/page_idx 841, followed by Volume 2 appendices M-Q at 13637/page_idx 927 and 13920/page_idx 947. Current extract_rules schema only supports a single tail sequence chapters -> appendices -> bibliography/index via appendices_start_page, bibliography_start_page, index_start_page. Any yaml would either truncate volume 2 or silently swallow volume 1 appendices/references/index into chapter 11/12 body ranges.
 - 提議：Extend extract_rules/parser to support ordered content segments across a slug, not just one tail appendices block. A workable design is an explicit ordered range list that can emit chapter -> appendix -> references -> index -> chapter transitions deterministically, or ingest-time support to split one OCR artifact into multiple book slugs before audit. Until then, audit-book cannot safely generate extract_rules.yaml for this slug.
+
+### P-2026-06-19-aitchison-hey-gauge-theories-2 — support detached figure captions in catalog build
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H6/H7: parsed/_catalog_audit.md shows 176 empty figure/table captions and unresolved refs because many captions like 'FIGURE 1.1' or caption text are separate text blocks adjacent to image blocks rather than MinerU image_caption fields; current yaml only supports figure_caption_merge on existing captions, not adjacent text caption attachment
+- 提議：extend parser/build_catalogs to associate adjacent caption-like text blocks with preceding image/table blocks, including multi-block captions and panel markers like '(a)' followed by 'FIGURE 1.1'
+
+### P-2026-06-19-aitchison-hey-gauge-theories-3 — support multi-segment appendices across combined volumes
+- proposed | type=tooling-gap | source=agent
+- 證據：same slug contains volume 1 chapters 1-11, then appendices A-L plus references/index, then volume 2 chapters 12-22, then appendices M-Q. extract_rules schema only supports one tail appendices segment, so including both appendix blocks would cause volume 1 appendix L to swallow volume 2正文
+- 提議：allow multiple ordered non-chapter segments in extract_rules, e.g. chapter/appendix/bibliography/index/chapter/... or per-segment appendix groups with independent cutoffs
 
 ### P-2026-06-19-altland-simons-cmft — catalog gate 無法 declaratively 綁定相鄰圖說或排除 captionless visual
 - proposed | type=tooling-gap | source=agent
@@ -2077,6 +2092,21 @@ index 64c85cd..a64e18d 100644
 - 證據：smoke 第二輪僅殘 H6/H7：unresolved Figure refs=20、Table refs=1、empty_captions=1032。parsed/_catalog_audit.md 顯示大量 case 為 image/table block 本身無 caption，而語義在鄰近 bare text，例如 ch00 body[51] 周邊文字含 'Figure 0.1.4 Figure 0.1.5 ...'、多個 exercise 圖塊只有 '(a)/(b)' 或題目敘述，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把鄰接 text 綁到 visual，也無法 declaratively exclude 非可索引 exercise 圖 shard。
 - 提議：擴充 deterministic catalog repair：允許 per-book 將鄰接 text/prose 指定為 figure/table caption donor，並支援對 captionless exercise/inline 圖塊標記 exclude reason 或 shard merge。否則像 anton_calculus 這種大量課本插圖即使章節/題目切分正確，仍會長期卡在 smoke H6/H7。
 
+### P-2026-06-19-baumann-cosmology — adjacent text captions are not merged into empty figure catalog entries
+- proposed | type=tooling-gap | source=agent
+- 證據：baumann_cosmology validate/parser are green on chapter/problem structure, but smoke remains critical at H6 unresolved Figure refs=88 and H7 empty_captions=34. parsed/_catalog_audit.md shows many image blocks whose visible semantics live in neighboring prose or standalone text, e.g. ch02 body[194] after='tFig. 2.4 Historical measurements ...', ch03 body[40] after='tFig. 3.1 Numerical evaluation ...', and many prose-bound refs like unified idx 685 'Figure 2.8 shows ...'. parser figure_caption_merge only redistributes an existing fig caption from a later fig to a previous '(a)/(b)' fig; it cannot absorb adjacent text captions into empty image blocks.
+- 提議：Extend parser/build_catalogs with a schema-controlled adjacent-caption merger that can attach neighboring text blocks to preceding image/chart/table blocks when the media block caption is empty. Support standalone caption blocks like 'Fig. 2.4 ...', prose-bound labels like 'Figure 2.8 shows ...', and shared captions across sibling visual shards.
+
+### P-2026-06-19-bott-tu-differential-forms — catalog audit cannot attach adjacent text captions to unlabeled visual blocks
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H7 remains after audit iteration for bott_tu_differential_forms: 119 empty figure/table captions and 121 unresolved visual semantics. In unified/content_list.json, many image blocks have image_caption=[] even when nearby text references a figure (e.g. idx 551 on p34 sits between Example 2.6 text mentioning Figure 2.2 and subsequent discussion; idx 560-562 on p35 are split text_image fragments with no caption). parser.py only reads image_caption/chart_caption/table_caption from the visual block itself; figure_caption_main_re only merges captions that already exist on fig nodes, so YAML cannot recover these cases.
+- 提議：Extend parser/catalog ingestion to optionally attach neighboring text-caption blocks or inline Figure/Table references to immediately adjacent visual blocks, and/or mark unlabeled visual fragments with catalog_exclude_reason so smoke H7 distinguishes true missing captions from OCR fragmentation.
+
+### P-2026-06-19-carroll-ostlie-astrophysics — catalog 無法 declaratively 綁定相鄰/分片圖說
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/validate 已綠（30 chapters, 12 appendices），最佳 smoke 仍 H6 unresolved Figure refs=10、H7 empty_captions=50。parsed/_catalog_audit.md 顯示大量 case 為 multi-panel 或 captionless visual shard，真正 Figure N.M caption 落在相鄰裸 text、後續 sibling panel，或同一 caption 綁多個 image block，例如 ch02 §2.1 的 Figure 2.1/2.5、ch04 §4.3 的 Figure 4.8/4.10、ch06 多個 (a)(b)(c)(d) panel、ch11/24/29 等。嘗試 extract_rules figure_caption_merge + main regex 後 smoke 反而惡化成 H6=49、H7=101，證明現有 schema 只能處理有限 fig-to-fig merge，無法穩定表達相鄰 text caption donor、captionless sibling shard merge、或 non-indexable visual exclusion。
+- 提議：擴充 catalog/build 或 yaml-level media override，至少支援：1) 指定鄰近 text/prose 為 figure caption donor；2) 將連續 sibling image shard 合併到同一 semantic figure；3) 對無正式 caption 的教學示意圖標記 non-indexable/exclude reason。否則這類圖說與影像分離的教材無法只靠 audit-book schema 收斂到 smoke 全綠。
+
 ### P-2026-06-19-chaikin-lubensky-condensed-matte — worker 越界改核心碼：book_pipeline/parser.py（qc chaikin_lubensky_condensed_matter）
 - proposed | type=patch | source=scope_guard
 - 證據：scope_guard bracket：worker [qc chaikin_lubensky_condensed_matter] session=chaikin_lubensky_condensed_matter:73059 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
@@ -2211,6 +2241,11 @@ index bcd23d0..14da154 100644
 - 證據：本書大量 figure 被 MinerU 拆成多個 image block；常見型態是前幾塊 caption 空白或僅有 (a)/(b)，最後一塊才帶 Fig. X.Y 主 caption。現行 parser/build_catalogs 會把每個 image block 各自進 catalog，導致 smoke H7 empty_captions=77。
 - 提議：增加 schema/engine 支援 subfigure grouping 或 per-figure exclude reason，允許多個 image block 共享一個 semantic figure id/caption，未承載主 caption 的子圖可標記為從 catalog 排除。
 
+### P-2026-06-19-coddington-levinson-ode — Catalog parser cannot merge shared caption across sibling figures
+- proposed | type=tooling-gap | source=agent
+- 證據：Chapter 15 section 1 has two consecutive image blocks where the first has empty caption and the second carries a combined caption 'FIG. 5... FIG. 6...'. Current extract_rules fields only support figure_caption_merge when the previous figure already has a subcaption like (a)/(b), so smoke H7 remains with empty_captions=1 for coddington_levinson_ode.
+- 提議：Extend deterministic catalog extraction so audit-book can declaratively attach one figure caption to multiple consecutive sibling figure blocks, or mark a sibling as non-primary/merged-into-next without changing book text.
+
 ### P-2026-06-19-coleman-many-body-physics — catalog audit cannot recover adjacent text captions for figures in coleman_many_body_physics
 - proposed | type=tooling-gap | source=codex
 - 證據：Smoke H6/H7: unresolved Figure refs=31, empty figure/table captions=153. In unified/content_list.json many image/chart blocks have empty image_caption/chart_caption arrays while the real caption is emitted as adjacent text blocks, e.g. idx 1471 image page 91 followed by text 'Illustrating the Jordan–Wigner transformation...' and then 'Fig. 4.2'; idx 4186-4188 image triplet page 264 followed by text referring to Figure 8.4; idx 5212 image + idx 5213 chart page 331 followed only by text 'Fig. 9.4'. Current extract_rules schema cannot express caption pickup from neighboring text blocks, and figure_caption_merge only merges fig-internal captions.
@@ -2222,6 +2257,124 @@ index bcd23d0..14da154 100644
 - 提議：diff --git a/book_pipeline/booklists/biology.json b/book_pipeline/booklists/biology.json
 index 6d0609e..4cb843a 100644
 Binary files a/book_pipeline/booklists/biology.json and b/book_pipeline/booklists/biology.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-10 — worker 越界改核心碼：book_pipeline/devctl.py（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:83008 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+index 991effe..e2ed59f 100644
+--- a/book_pipeline/devctl.py
++++ b/book_pipeline/devctl.py
+@@ -45,6 +45,7 @@ STDOUT_LOG = os.path.join(REPORTS, 'daemon.stdout.log')
+ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
+ PENDING_PATH = os.path.join(BP, '_pending_batches.json')
+ SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
++PROPOSALS_PATH = os.path.join(ROOT, 'dev', 'proposals.json')
+ PLIST_LABEL = 'com.textbookreader.bookpipeline'
+ # 反應式架構：daemon 走 launchd StartInterval（非固定時刻）。一個 controller 跑有界 observe→
+ # 派工→harvest→sleep 迴圈，排空或達牆鐘即退；launchd 每 TICK_INTERVAL_S 重拉（flock 序列化）。
+@@ -592,9 +593,71 @@ def write_snapshot(write_timeline: bool = False) -> str:
+     with open(tmp, 'w', encoding='utf-8') as f:
+         json.dump(snap, f, ensure_ascii=False, indent=2)
+     os.replace(tmp, SNAPSHOT_PATH)  # 原子寫，避免網頁讀到半截
++    try:
++        write_proposals()  # 順手寫 proposals 側欄 feed（獨立檔；隨 8s 事件驅動 + 60s 心跳自動刷新）
++    except Exception:
++        pass  # fail-safe：proposals 出錯絕不擋 status.json 寫出
+     return SNAPSHOT_PATH
+ 
+ 
++# ── proposals 側欄 feed（/dev 即時看 agent 提出的提案）─────────────────────────
++def proposals_feed(resolved_limit: int = 30) -> dict:
++    """當前 proposals（book_pipeline/proposals.d/）→ /dev proposals 側欄資料源。
++    proposed（待決議）帶完整散文欄位（evidence/proposal/risk/disposition/detect）供展開；
++    已決議（accepted/rejected/superseded）僅摘要、近 resolved_limit 筆 → 避免長 diff 體積膨脹。
++    proposed 排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals resolve CLI）。"""
++    from book_pipeline import proposals as pr
++
++    def _clip(s: str, n: int = 6000) -> str:  # 防極端長 diff 撐爆 feed；完整見 CLI proposals show <id>
++        s = s or ''
++        return s if len(s) <= n else s[:n] + f'\n…（截斷 {len(s) - n} 字元，完整見 proposals show）'
++
++    recs = pr.load_all()
++    counts = {s: 0 for s in ('proposed', 'accepted', 'rejected', 'superseded')}
++    by_domain: dict[str, int] = {}
++    proposed, resolved = [], []
++    for r in recs:
++        stt = r.get('status') or 'proposed'
++        counts[stt] = counts.get(stt, 0) + 1
++        dom = r.get('domain') or '?'
++        by_domain[dom] = by_domain.get(dom, 0) + 1
++        item = {
++            'id': r.get('id'), 'domain': dom, 'type': r.get('type'),
++            'status': stt, 'title': r.get('title') or r.get('id'),
++            'slug': r.get('slug') or None, 'source': r.get('source') or '',
++            'created': r.get('created'), 'updated': r.get('updated'),
++            'resolution': r.get('resolution') or '',
++        }
++        if stt == 'proposed':
++            item.update({
++                'evidence': _clip(r.get('evidence')), 'proposal': _clip(r.get('proposal')),
++                'risk': _clip(r.get('risk')), 'disposition': _clip(r.get('disposition')),
++                'detect': r.get('detect') or [],
++            })
++            proposed.append(item)
++        else:
++            resolved.append(item)
++    proposed.sort(key=lambda x: x.get('created') or '', reverse=True)
++    resolved.sort(key=lambda x: x.get('updated') or x.get('created') or '', reverse=True)
++    return {
++        'generated_at_utc': _now_utc().isoformat(),
++        'total': len(recs),
++        'counts': counts,
++        'by_domain': by_domain,
++        'items': proposed + resolved[:resolved_limit],
++    }
++
++
++def write_proposals() -> str:
++    feed = proposals_feed()
++    os.makedirs(os.path.dirname(PROPOSALS_PATH), exist_ok=True)
++    tmp = PROPOSALS_PATH + '.tmp'
++    with open(tmp, 'w', encoding='utf-8') as f:
++        json.dump(feed, f, ensure_ascii=False, indent=2)
++    os.replace(tmp, PROPOSALS_PATH)  # 原子寫，避免網頁讀到半截
++    return PROPOSALS_PATH
++
++
+ # ── 人讀輸出 ─────────────────────────────────────────────────────────────────
+ def _print_human(snap: dict) -> None:
+     d = snap['daemon']
+@@ -669,6 +732,8 @@ def main(argv: list[str] | None = None) -> int:
+     p_st = sub.add_parser('status', help='完整快照')
+     p_st.add_argument('--json', action='store_true')
+     sub.add_parser('snapshot', help='寫 dev/status.json')
++    p_pr = sub.add_parser('proposals', help='當前 proposals feed（/dev 側欄資料源）')
++    p_pr.add_argument('--json', action='store_true')
+     p_er = sub.add_parser('errors', help='只看錯誤')
+     p_er.add_argument('--since-min', type=int, default=180)
+     p_er.add_argument('--json', action='store_true')
+@@ -755,6 +820,19 @@ def main(argv: list[str] | None = None) -> int:
+         print(f'wrote {path}')
+         return 0
+ 
++    if args.cmd == 'proposals':
++        feed = proposals_feed()
++        if args.json:
++            print(json.dumps(feed, ensure_ascii=False, indent=2))
++            return 0
++        c = feed['counts']
++        print(f"提案 {feed['total']}：proposed {c['proposed']} · accepted {c['accepted']} · "
++              f"rejected {c['rejected']} · superseded {c['superseded']}　by-domain {feed['by_domain']}")
++        for it in feed['items']:
++            mark = '🟡待決' if it['status'] == 'proposed' else f"·{it['status']}"
++            print(f"   {mark}  {it['id']}  [{it['domain']}/{it['type']}] {(it['title'] or '')[:54]}")
++        return 0
++
+     if args.cmd == 'errors':
+         errs = scan_errors(args.since_min)
+         if args.json:
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-19-crawl-resolve-2 — worker 越界改核心碼：book_pipeline/booklists/materials.json（crawl __crawl_resolve__）
@@ -2293,11 +2446,72 @@ Binary files a/book_pipeline/booklists/chemistry.json and b/book_pipeline/bookli
 - 證據：parser/validate 已綠（25 chapters, 5 appendices），smoke 只剩 H6 unresolved Figure refs=2 與 H7 empty_captions=2212。parsed/_catalog_audit.md 顯示大量 figure/table block 本身沒有 caption/id，語義落在相鄰 text block，例如 ch01 body[188] 前文引用 Fig. 1.6、後鄰 text='Fig. 1.6'；ch01 body[201]/[212] 的真正 caption 在後鄰 prose 'Typical Java development environment—compilation phase.' / '...loading phase.'；另有大量 Common Programming / Good Programming / code screenshot / inline visual 只剩鄰接 prose，現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法 declaratively 將相鄰 bare text 綁成 caption，也無法將無正式 caption 的 visual 標成 non-indexable。
 - 提議：擴充 deterministic catalog repair 能力：1) 允許 per-book 將相鄰 text block 指定為 figure/table caption donor；2) 允許 reviewable per-visual exclude/nonindexable reason，用於 code screenshot、inline illustration、captionless fragments。否則像 Deitel 這種大量 captions 落在鄰接 prose 的教材只能 parser-green，無法通過 smoke H6/H7。
 
+### P-2026-06-19-demtroder-atoms-molecules-photon — catalog 無法把鄰接 Fig./Figure 文字塊綁回 captionless image
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/validate 皆綠，但 smoke 持續 H6/H7：unresolved Figure refs=134、empty captions=175。parsed/_catalog_audit.md 顯示大量案例為 image block 本身無 caption，而相鄰普通 text block 才帶完整語義，如 'Fig. 2.24. ...', 'Fig. 2.49a-d. ...', 'Fig. 2.95a,b. ...'；另有多個連續圖塊僅共享一段後置文字圖說。現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法把普通 text/prose caption donor 綁回 image/table，也無法把多個 captionless sibling 視覺塊合併到後續主圖說。
+- 提議：擴充 deterministic catalog/parser repair：允許 per-book 將鄰接 text/prose block 宣告為 image/table caption donor，並支援 captionless sibling panels 合併到後續帶主圖說的圖。否則像 demtroder_atoms_molecules_photons 這類書只能 parser 結構綠，但無法清除 H6/H7。
+
+### P-2026-06-19-do-carmo-riemannian-geometry — catalog 無法 declaratively 合併空 caption sibling figure
+- proposed | type=tooling-gap | source=agent
+- 證據：ch13 §2 page 284 有兩個連續 image block（unified idx 3766, 3767；parsed ch13 body[36], body[37]）。後者被抽成 caption 'Figure 3 Figure 4'，前者 caption 空白。現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，而 parser 只會在前一圖 caption 為 (a)/(b) 子圖時把主 caption 往前搬；對空 caption 的前導 sibling figure 無法 declaratively 合併或標註非主圖，導致 smoke H7 empty_captions=1。
+- 提議：擴充 catalog/parser 的 declarative 規則：允許把連續 captionless sibling figures 併入後續帶主 caption 的 figure，或允許 per-book 對前導 sibling figure 標註 non-primary/exclude reason。這樣像 Figure 3/Figure 4 共享版面但前塊無 caption 的案例可在不改書本內容的前提下清掉 H7。
+
+### P-2026-06-19-dodelson-modern-cosmology — adjacent text captions are not merged into empty figure/table catalog entries
+- proposed | type=tooling-gap | source=agent
+- 證據：Smoke H7: empty_captions=13. Examples include ch10 Fig. 10.2 where parsed body has a fig block followed by a paragraph 'FIGURE 10.2 ...', plus appendix tables where section headings (e.g. 'B.1 Physical constants') act as the only caption. parser.py only reads image_caption/chart_caption/table_caption from MinerU blocks and figure_caption_merge only redistributes existing fig captions across subfigures; it does not absorb adjacent text/table-heading captions.
+- 提議：Add a schema-controlled adjacent-caption merger in parser/build_catalogs that can attach nearby text blocks to preceding image/chart/table blocks when the visual block has empty caption. Support both formal labels ('FIGURE 10.2', 'Table B.1') and heading-as-caption patterns for unlabeled appendix tables.
+
+### P-2026-06-19-foot-atomic-physics — catalog engine misses inline figure captions in OCR text blocks
+- proposed | type=tooling-gap | source=agent
+- 證據：foot_atomic_physics smoke stays at H6 unresolved Figure refs=5 and H7 empty_captions=103 after enabling figure_caption_merge/figure_caption_main_re; catalog audit shows many captions embedded as plain text blocks like 'Fig. 2.1 ...', 'Fig. 6.1 (a) ...', 'Table 2.2 ...' adjacent to images but still emitted as <missing-id>/empty caption.
+- 提議：Teach catalog extraction to promote nearby text/ref_text blocks that start with Fig./Figure/Table into figure/table captions even when MinerU splits multipart figures or orders image/text blocks irregularly; merge caption spans across adjacent blocks before assigning semantic ids.
+
+### P-2026-06-19-guillemin-pollack-differential-t — Inline exercise parser cannot delimit section-local exercise blocks from numbered prose/hints
+- proposed | type=tooling-gap | source=agent
+- 證據：This book uses repeated section-local EXERCISES blocks, but the same sections also contain numbered theorem properties or post-exercise hint lists outside the exercise block. After audit-book iteration with inline_problems=true and problem_num_namespace_by_section=true, smoke still reports H2 duplicates such as ch02 5.1..5.12 (actual exercises plus 'Hints (listed by exercise number)' items at unified/full.md lines 2784-2830), ch03 duplicate 3.1 after line 3763, and ch04 duplicate 5.1/5.2/5.3 from theorem property lists at lines 5686-5700 plus real EXERCISES at line 5864. Current extract_rules schema has only one problems_block_idx per chapter and no way to mark multiple per-section exercise ranges or terminate inline problems on non-heading cues.
+- 提議：Extend extract_rules/parser to support repeated per-section exercise blocks explicitly, for example a heading regex that marks problem-mode entry plus a complementary exit cue, or a chapter-local list of exercise subranges. This would let inline parsing ignore numbered prose and hint lists outside true EXERCISES regions without distorting problem_start_re.
+
+### P-2026-06-19-guillemin-pollack-differential-t-2 — Catalog builder cannot recover semantic figure ids from split or grouped captions in Guillemin-Pollack
+- proposed | type=tooling-gap | source=agent
+- 證據：After parser succeeds, smoke remains red on H6/H7 with catalog unresolved Figure refs=2 and empty_captions=14. parsed/_catalog_audit.md shows many figures whose visible caption is split across neighboring prose/image blocks, for example ch01 body[4]/[5] around Figure 1-1 ('Sphere' / 'Torus' / 'Smooth surface Figure 1-1'), ch03 body[244]-[249] grouped surfaces ending at 'Figure 3-16', and appB body[16]-[24] with Figure A-1/A-2/A-3 distributed across adjacent blocks. Current extract_rules fields figure_caption_merge/figure_caption_main_re are not expressive enough to bind grouped multi-block captions or classify such visuals safely, leaving unresolved refs like Figure 1.8 and Figure 1.21.
+- 提議：Extend parser/catalog extraction so adjacent prose/image runs can be grouped into one visual cluster with semantic caption/id assignment, including trailing label-only blocks (e.g. 'Figure 3-16'), grouped subfigure labels, and appendix-style Figure A-n ids. This should be engine-level logic or a richer per-book caption binding schema, not ad hoc problem regex changes.
+
+### P-2026-06-19-hungerford-algebra — Catalog audit 無法處理無 caption 的交換圖/依存圖
+- proposed | type=tooling-gap | source=agent
+- 證據：hungerford_algebra 共有 64 個 figure/table 空 caption；多數是 commutative diagram 或 chapter dependency graph，前後文只有『the following diagram』『interdependence ... as follows』之類描述，extract_rules.yaml 無欄位可補 semantic id/exclude reason，smoke H7 因此卡住。
+- 提議：在 catalog audit / override 層加入 captionless diagram policy：允許用鄰近前後文產生 review queue，或提供 per-block exclude reason 載體，避免把無 caption 的數學交換圖一律視為致命。
+
+### P-2026-06-19-katok-hasselblatt-dynamical-syst — Catalog builder 無法處理同圖拆成多個無 caption fig block
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H6/H7: unresolved Figure 9.2.6=1, empty figure/table captions=35。parsed 內常見模式是連續多個 fig block，只有最後一個帶 FIGURE X.Y.Z caption，例如 ch07 body[93,94,95]、ch09 body[44,45]、appA body[257]；其餘 fig 只剩 fig-chXX-NN fallback id，無法建立 catalog semantic id。
+- 提議：在 parser/catalog 階段支援將連續無 caption 的 fig/table block 與其後第一個主 caption 合併成單一 semantic figure，或允許將前置無 caption block 標記為 subfigure/excluded，避免 H6/H7 將此類 OCR 切裂視為 critical。
+
 ### P-2026-06-19-kolb-turner-early-universe — worker 越界改核心碼：book_pipeline/status.py（qc kolb_turner_early_universe）
 - proposed | type=patch | source=scope_guard
 - 證據：scope_guard bracket：worker [qc kolb_turner_early_universe] session=kolb_turner_early_universe:75604 存活期間，受保護程式碼面 book_pipeline/status.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：(無 diff 文本，book_pipeline/status.py modified)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-kolb-turner-early-universe-2 — catalog audit cannot resolve fragmented figures and unlabeled tables
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H7 remains after schema iteration: 16 unresolved visual semantics. Repeated pattern: multiple consecutive image/chart blocks become separate fig nodes with only the last node carrying caption (e.g. ch06 Fig. 6.1 appears as fig-ch06-30/31/32 plus fig-6.1 at block 33). Appendix tables also surface without table_caption or exclude reason (e.g. appA body block 11, appB body block 32). Current figure_caption_merge only handles prior subcaption '(a)' cases, not shared main captions across consecutive visual blocks.
+- 提議：Extend parser/catalog stage to collapse consecutive visual fragments that share one downstream main caption, or generate stable fallback ids/exclude reasons for uncaptained table/image blocks so smoke H7 can distinguish true defects from OCR fragmentation.
+
+### P-2026-06-19-krane-introductory-nuclear-physi — Catalog audit cannot bind captionless visual shards to adjacent Figure/Table captions
+- proposed | type=tooling-gap | source=agent
+- 證據：validate/parser 已綠（20 chapters, 3 appendices），smoke 兩輪皆只剩 H7 empty_captions=142。開啟 extract_rules 的 figure_caption_merge=true 與 Figure/Table N.M main regex 後，smoke 指標完全不變。parsed/_catalog_audit.md 顯示大量 case 為 captionless line/table shard 緊鄰另一個已帶 Figure/Table caption 的 sibling visual，例如 ch02 body[140]->body[141] fig-ch02-140 / fig-2.6、body[163]->body[164] fig-ch02-163 / fig-2.8、ch05 body[13:14] 多個 shard 對應 Figure 5.3；另有 table/figure caption 在相鄰 prose 或多 shard 間拆開。現有 schema 欄位無法 declaratively 把這些 shard 併到主 caption 或標成同一 semantic visual。
+- 提議：在 catalog/build 階段支援 sibling visual shard consolidation：對連續 image/chart/line/table block 與相鄰 Figure/Table caption donor 建立 group，將主 caption / semantic id 掛到整組 visual；或提供 per-book declarative shard-merge / nonindexable visual schema。
+- 風險：若直接在單書 yaml workaround，會把大量真正圖表 shard 留成 empty-caption critical，或為了過 smoke 過度放寬 caption regex 污染其他書。
+
+### P-2026-06-19-lax-functional-analysis — catalog gate 無法 declaratively 排除 captionless inline figures
+- proposed | type=tooling-gap | source=agent
+- 證據：validate/parser 已綠（38 chapters, 3 appendices），smoke 唯一 critical 為 H7 empty_captions=66。parsed/_catalog_audit.md 顯示 case 幾乎全是正文或 exercise 內的 inline visual，前後文沒有可抽的 Figure/Table caption，例如 ch06 body[27]、ch14 body[103]、ch31 body[132]、appB body[98]/[269]；現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法把這類無正式 caption 且無外部引用需求的圖 declaratively 標成 non-indexable。
+- 提議：擴充 catalog/audit schema，允許 per-book 或 per-visual 將 captionless inline figure/table 標記為 non-indexable / exclude with reviewable reason；必要時再支援鄰近 text caption donor，但本書主要缺的是 exclusion 能力。
+
+### P-2026-06-19-lee-riemannian-manifolds — Catalog engine cannot resolve captionless sibling figure shards
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke is structurally green after audit iteration except H7 empty_captions=29. parsed/_catalog_audit.md shows repeated captionless fig blocks whose visible semantics live in a sibling fig or nearby prose: e.g. ch02 body[307] is fig-ch02-307 with empty caption immediately before section 'Lengths and Distances'; ch05 body[278] is a captionless fig shard immediately followed by fig-5.5/5.6; ch09 body[63] is a captionless fig shard immediately followed by fig-9.10/9.11. parser.figure_caption_merge only upgrades a previous fig when its caption is '(a)/(b)' and the current fig already carries a main caption, so extract_rules cannot declaratively merge or exclude these empty shards.
+- 提議：Extend catalog/figure extraction so captionless sibling image shards can inherit or share a later semantic figure caption/id, or allow declarative exclusion/non-indexable marking for figure shards without standalone semantics. Current extract_rules fields figure_caption_merge and figure_caption_main_re are insufficient for this OCR pattern.
 
 ### P-2026-06-19-marder-condensed-matter-physics — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc marder_condensed_matter_physics）
 - proposed | type=patch | source=scope_guard
@@ -2497,6 +2711,11 @@ index d0298ba..f506ed8 100644
 - 證據：parser/validate 已綠（27 chapters, 3 appendices），smoke 第二輪仍 H6 unresolved Figure refs=1 與 H7 empty_captions=86。parsed/_catalog_audit.md 顯示大量視覺塊本身沒有 semantic caption/id，真正圖說在相鄰 text/prose 或連續 sibling shard 的最後一塊，例如 ch01 body[56-58] Figure 1.5 / Figures 1.7(A)(B)、ch02 body[19-23] Figure 2.2、ch04 body[32] Figure 4.6、ch27 等；開啟 extract_rules 的 figure_caption_merge + main regex 完全無改善，證明現有 schema 只能處理有限的 fig-caption merge，不能把鄰接 text caption donor 綁回前面 visual。
 - 提議：擴充 deterministic catalog repair/schema：1) 允許 per-book 將鄰近 text/prose block 宣告為 figure/table caption donor；2) 或允許把連續 captionless sibling visual shard 併入後續帶正式 Figure N.M caption 的塊；3) 允許對沒有正式 caption 的 visual 給 reviewable exclude/nonindexable reason。否則像 marder_condensed_matter_physics 這類結構上 parser-green 的教材，會長期卡在 smoke H6/H7。
 
+### P-2026-06-19-milnor-differential-topology — Uncaptioned figure blocks cannot satisfy catalog H7 in audit flow
+- proposed | type=tooling-gap | source=agent
+- 證據：Milnor Topology has 8 image blocks with empty source image_caption (e.g. idx 85, 87, 112, 114, 121, 123, 158, 225 in unified/content_list.json). parser/build_catalogs only index captions from image_caption and figure_caption_merge only reattaches an existing main caption to a prior subcaptioned figure; it cannot synthesize or exclude truly uncaptioned diagrams. smoke therefore stays critical with H7 empty_captions=8 after valid extract_rules, parser, and metadata normalization.
+- 提議：Add a schema-level or engine-level path for uncaptioned figures: either allow rules to mark specific figure blocks as exclude_from_catalog, or let catalog audit accept deterministic synthetic captions/ids derived from page+local sequence when source image_caption is empty but the figure is still semantically useful.
+
 ### P-2026-06-19-perkins-high-energy-physics — catalog 無法吸收相鄰文字圖說與多 panel sibling 圖
 - proposed | type=tooling-gap | source=agent
 - 證據：smoke 第二輪仍 H7 empty_captions=43。代表案例：unified idx 359(image) 後鄰 360 為正文敘述，圖說語義不在 media caption；idx 452-453 為連續 image，圖說只在後續正文提到 Figure 1.7；多 panel case 如 ch02 body[35..42] 只有最後 caption 含 '(f) Fig. 2.1 ...'，前面 sibling 仍各自成 captionless figures。figure_caption_merge + figure_caption_main_re 已嘗試，smoke 無改善。
@@ -2524,6 +2743,11 @@ index d0298ba..f506ed8 100644
 - 證據：poole_linear_algebra mixes true inline problems ('Problem N ...'), chapter-review questions ('N. ...'), and non-problem numbered lists inside intros/definitions. Current single regex problem_start_re cannot distinguish ch1 racetrack rules or ch2/ch7 definition property lists from real problems, leaving final smoke H2 duplicates (1.1/1.2/1.3, Definition.1/2/3, intro Problem 5 repeat).
 - 提議：Let inline walker consult the active heading kind or nearby cue text before accepting bare numeric starts. For example: accept plain 'N. ...' only inside exercise/review sections, or allow per-book context maps such as numeric_problem_headings=[Exercises, Review Questions] while keeping 'Problem N' global.
 
+### P-2026-06-19-reed-simon-functional-analysis — Catalog repair needs caption-donor / nonindexable visual support
+- proposed | type=tooling-gap | source=agent
+- 證據：audit-book 規則已收斂到 smoke 僅剩 H7 empty_captions=3。具體殘留：1) ch08 body[124] 是 image block，正式 caption 在後鄰普通 text 'FIGURE VIII.1 The self-adjoint extensions of T.'；現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，不能把 text caption donor 綁回 image。2) ch06 body[164] 是比較表，無 caption 但屬正文輔助表，schema 無法宣告 nonindexable/exclude reason。3) ch10 body[423] 是無 caption 的 inline diagram，亦無法 declaratively 排除。
+- 提議：Extend parser/build_catalogs schema with two deterministic capabilities: (a) per-book adjacent text-to-figure/table caption donor rules, so a nearby prose/text block can supply caption/id to a preceding visual block; (b) reviewable nonindexable/exclude markers for captionless auxiliary figures/tables that should remain in reader body but stay out of catalog audit.
+
 ### P-2026-06-19-rosen-discrete-math — worker 越界改核心碼：book_pipeline/parser.py（audit rosen_discrete_math）
 - proposed | type=patch | source=scope_guard
 - 證據：scope_guard bracket：worker [audit rosen_discrete_math] session=rosen_discrete_math:62521 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
@@ -2550,10 +2774,25 @@ index 2c80077..8104e5a 100644
      all_blocks = load_unified(slug)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
+### P-2026-06-19-rotman-group-theory — catalog 無法 declaratively 處理未編號內嵌圖與交換圖
+- proposed | type=tooling-gap | source=agent
+- 證據：rotman_group_theory validate/parser 已綠（12 chapters, 6 appendices），smoke 僅殘 H7：empty_captions=84、unresolved Figure/Table refs=0、fallback_ids=0。parsed/_catalog_audit.md 的 work queue 顯示幾乎全部殘留都是正文中的未編號交換圖/示意圖，例如 ch02 body[156]/[167]/[182]、ch07 body[375]/[378]、ch10 body[179]、problem 10.57；前後文只有 'the following diagram' / 'Consider the diagram' / 'commutative diagram' 類敘述，沒有 Figure N.M caption，也無外部引用需要索引。現有 extract_rules schema 只有 figure_caption_merge/figure_caption_main_re，無法把這類無 caption 且非可索引 visual declaratively 標成 exclude/nonindexable。
+- 提議：擴充 deterministic catalog schema 或後處理：允許 per-book 對未編號內嵌 visual（交換圖、commutative diagram、示意圖）宣告 exclude_reason/nonindexable，或允許以相鄰 prose 模式規則批次排除『the following diagram』型無 caption 圖。否則像 Rotman 這種章節/題目結構完全正確的書，會長期卡在 smoke H7。
+
+### P-2026-06-19-rybicki-lightman-radiative-proce — catalog 無法 declaratively 合併 captionless sibling figures / parent figure refs
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke after parser is red only at catalog semantics: H6 unresolved Figure refs=10 and H7 empty_captions=2. parsed/_catalog_audit.md shows multiple patterns not expressible by current extract_rules schema: (1) captionless sibling image immediately followed by a separate fig block carrying the real caption, e.g. ch04 body[37]/body[38] around Figure 4.2 and ch04 body[500] around §4.9; (2) captions encode only panel labels like Figure 1.16a / 1.16b, Figure 2.1a, Figure 4.11a, Figure 9.2a while正文引用 parent Figure 1.16 / 2.3 / 4.11 / 9.2; current figure_caption_merge only rewrites a previous fig whose caption is literally (a)/(b), so it cannot synthesize parent aliases or merge captionless sibling visuals.
+- 提議：Extend parser/catalog repair declaratively so audit-book can (a) merge adjacent captionless sibling fig/table blocks into the following captioned visual, and (b) derive parent aliases/exclude reasons for panel-only captions such as Figure 1.16a/1.16b when正文 references Figure 1.16. Without this, books like Rybicki-Lightman can be parser-green but cannot clear smoke H6/H7 through extract_rules alone.
+
 ### P-2026-06-19-ryder-qft — catalog 無法從鄰近 prose / sibling visual 恢復圖說
 - proposed | type=tooling-gap | source=agent
 - 證據：ryder_qft 的 chapter/problem 結構已穩定：validate_rules 通過，parser 產 11 chapters + 1 appendix，smoke 最佳規則集僅殘 H7 empty_captions=23。parsed/_catalog_audit.md 顯示多數 captionless figure 的語義不在 media caption，而在鄰近 bare text 或 sibling panel，例如 ch06 §6.3 body[178] 後方文字才有 'Fig. 6.3 ...'；ch06 §6.5 body[354-355] 與 ch09 §9.1 body[26-27] 為 (a)/(b)/(c) 多 panel，只有最後 sibling 帶主圖說。嘗試 extract_rules 的 figure_caption_merge + main regex 後，smoke 反而惡化成 H6 unresolved Figure refs=5 與 H7 empty_captions=29，證明現有 schema 只能處理有限的 subcaption→main-caption 合併，無法穩定處理這本書的 prose-bound caption 與 captionless sibling shards。
 - 提議：擴充 catalog/figure extraction，使 image/table 能 declaratively 關聯鄰近 bare text 或後續 sibling visual 的 caption/id，並允許把無正式 caption 的 visual shard 標記為 non-indexable。現有 extract_rules 的 figure_caption_merge / figure_caption_main_re 對 ryder_qft 不足。
+
+### P-2026-06-19-serre-linear-representations-fin — catalog audit cannot resolve captionless tables/figures in Serre
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H7 reports 22 unresolved visual semantics in parsed/_catalog_audit.md; offenders are captionless tables/figures inferred from surrounding prose (e.g. character tables, commutative-triangle diagram) and extract_rules.yaml has no per-item figure/table exclude or semantic-id controls
+- 提議：teach catalog/build step to classify captionless visual blocks from local context or allow reviewable per-book overrides for figure/table semantic id and exclusion metadata
 
 ### P-2026-06-19-tinkham-superconductivity — catalog audit 無法從獨立 text 圖說回掛 figure
 - proposed | type=tooling-gap | source=codex
@@ -2584,6 +2823,11 @@ index 2c80077..8104e5a 100644
 - proposed | type=tooling-gap | source=agent
 - 證據：parser/smoke 在章節結構已綠，但 H7 殘留 empty_captions=8。catalog_audit 顯示多個案例是連續多個 fig block 中，前幾個 image block 無 caption，只有最後一個 sibling fig 帶 Figure 3.1 / 14.10 / 14.11 主圖說（例如 ch03 body[223..226]、ch14 body[293..296]）；另有 appendix table block 已有 caption 但無編號 id（appA body[60..63]）。現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，實測開啟後 smoke 無變化，無法把 captionless sibling 視覺塊 declaratively 併入後續主圖說，也無法為無編號但有 caption 的表格提供 reviewable semantic id/exclude reason。
 - 提議：擴充 deterministic catalog/parser repair 能力：1) 允許 per-book 將連續 captionless sibling figures/table shards 宣告併入後續帶主 caption 的視覺塊；2) 允許對有 caption 但無正式 Figure/Table 編號的視覺塊給 declarative semantic id 或 exclude reason。否則像 Weinberg 這種多 panel OCR 只能 parser 綠，無法清掉 smoke H7。
+
+### P-2026-06-19-wong-nuclear-physics — catalog 無法把鄰接 bare text 圖說綁回前置 visual
+- proposed | type=tooling-gap | source=codex
+- 證據：wong_nuclear_physics validate/parser 已綠，但 smoke 兩輪後仍 H7 empty_captions=23、unresolved visual semantics=45。parsed/_catalog_audit.md 顯示多數 case 為 image/line/table block 本身 caption 空白，而真正圖說在相鄰 text block，例如 ch03 body[201] 後鄰 'Figure 3-1: ...'、ch04 body[116] 後鄰 'Figure 4-3: ...'、ch05 body[401] 同塊含前置軸標再接 'Figure 5-5: ...'，以及多 panel '(a)/(b)/(c)' shard 只有最後 text 帶主圖說。嘗試 figure_caption_merge=true 與 Figure/Table 主圖說 regex 後 smoke 指標完全不變，證明現有 schema 無法 declaratively 把 bare text caption donor 綁到前後 visual 或標記 captionless shard 非可索引。
+- 提議：擴充 catalog/figure extraction：允許以 declarative 規則把鄰近 text block 綁定到 image/chart/table 作為 semantic id/caption，並支援多 panel sibling shard 共用尾端主圖說或顯式 exclude non-indexable visual。
 
 ### P-2026-06-19-zelle-python-programming — catalog audit cannot exclude captionless code listings or bind neighboring visual captions
 - proposed | type=tooling-gap | source=agent

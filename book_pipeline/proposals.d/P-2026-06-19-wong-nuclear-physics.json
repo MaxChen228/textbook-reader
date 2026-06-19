@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-wong-nuclear-physics",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法把鄰接 bare text 圖說綁回前置 visual",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-19T06:12:41+00:00",
+  "updated": "2026-06-19T06:12:41+00:00",
+  "evidence": "wong_nuclear_physics validate/parser 已綠，但 smoke 兩輪後仍 H7 empty_captions=23、unresolved visual semantics=45。parsed/_catalog_audit.md 顯示多數 case 為 image/line/table block 本身 caption 空白，而真正圖說在相鄰 text block，例如 ch03 body[201] 後鄰 'Figure 3-1: ...'、ch04 body[116] 後鄰 'Figure 4-3: ...'、ch05 body[401] 同塊含前置軸標再接 'Figure 5-5: ...'，以及多 panel '(a)/(b)/(c)' shard 只有最後 text 帶主圖說。嘗試 figure_caption_merge=true 與 Figure/Table 主圖說 regex 後 smoke 指標完全不變，證明現有 schema 無法 declaratively 把 bare text caption donor 綁到前後 visual 或標記 captionless shard 非可索引。",
+  "proposal": "擴充 catalog/figure extraction：允許以 declarative 規則把鄰近 text block 綁定到 image/chart/table 作為 semantic id/caption，並支援多 panel sibling shard 共用尾端主圖說或顯式 exclude non-indexable visual。",
+  "risk": "",
+  "disposition": ""
+}

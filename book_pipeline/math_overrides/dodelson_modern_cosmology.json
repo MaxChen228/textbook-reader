@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "dodelson_modern_cosmology-ch03-body-29-f3e1b6",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[29]",
+      "expect": "T _ {(\\Lambda)} ^ {\\mu} _ {\\nu} = - \\frac {\\Lambda}{8 \\pi G} \\delta_ {\\nu} ^ {\\mu} = \\left( \\begin{array}{c c c c} - \\rho_ {\\Lambda} & 0 & 0 & 0 \\\\ 0 & - \\rho_ {\\Lambda} & 0 & 0 \\\\ 0 & 0 & - \\rho_ {\\Lambda} & 0 \\\\ 0 & 0 & 0 & - \\rho_ {\\Lambda} \\end{array} \\right), \\quad \\text { where } \\quad \\rho_ {\\Lambda} \\equiv \\frac {\\Lambda}{8 \\pi G} \\tag {3.10}",
+      "new": "T_{(\\Lambda)\\nu}^{\\mu}=-\\frac{\\Lambda}{8\\pi G}\\delta_{\\nu}^{\\mu}=\\left(\\begin{array}{cccc}-\\rho_{\\Lambda}&0&0&0\\\\0&-\\rho_{\\Lambda}&0&0\\\\0&0&-\\rho_{\\Lambda}&0\\\\0&0&0&-\\rho_{\\Lambda}\\end{array}\\right),\\quad \\text{where }\\quad \\rho_{\\Lambda}\\equiv \\frac{\\Lambda}{8\\pi G}\\tag{3.10}"
+    },
+    {
+      "id": "dodelson_modern_cosmology-ch12-body-73-065ecd",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[73]",
+      "expect": "u _ {\\mathrm{m}} ^ {i} ^ {\\prime} + u _ {\\mathrm{m}} ^ {j} \\frac {\\partial}{\\partial x ^ {j}} u _ {\\mathrm{m}} ^ {i} + a H u _ {\\mathrm{m}} ^ {i} + \\frac {\\partial \\Psi}{\\partial x ^ {i}} = 0,",
+      "new": "u_{\\mathrm{m}}^{i'}+u_{\\mathrm{m}}^{j}\\frac{\\partial}{\\partial x^{j}}u_{\\mathrm{m}}^{i}+aHu_{\\mathrm{m}}^{i}+\\frac{\\partial\\Psi}{\\partial x^{i}}=0,"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+slug: krane_introductory_nuclear_physics
+title: Introductory Nuclear Physics
+author: Kenneth S. Krane
+edition: null
+subject: Nuclear Physics
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 828
+bibliography_start_page: null
+index_start_page: 848
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: BASIC CONCEPTS
+    page_start: 15
+    page_end: 21
+    chapter_title_block_idx: 178
+    problems_block_idx: 228
+    next_chapter_block_idx: 229
+  - num: 2
+    title: ELEMENTS OF QUANTUM MECHANICS
+    page_start: 22
+    page_end: 56
+    chapter_title_block_idx: 229
+    problems_block_idx: 618
+    next_chapter_block_idx: 651
+  - num: 3
+    title: NUCLEAR PROPERTIES
+    page_start: 57
+    page_end: 92
+    chapter_title_block_idx: 651
+    problems_block_idx: 937
+    next_chapter_block_idx: 963
+  - num: 4
+    title: THE FORCE BETWEEN NUCLEONS
+    page_start: 93
+    page_end: 128
+    chapter_title_block_idx: 963
+    problems_block_idx: 1323
+    next_chapter_block_idx: 1360
+  - num: 5
+    title: NUCLEAR MODELS
+    page_start: 129
+    page_end: 172
+    chapter_title_block_idx: 1360
+    problems_block_idx: 1642
+    next_chapter_block_idx: 1659
+  - num: 6
+    title: RADIOACTIVE DECAY
+    page_start: 173
+    page_end: 204
+    chapter_title_block_idx: 1659
+    problems_block_idx: 1965
+    next_chapter_block_idx: 1995
+  - num: 7
+    title: DETECTING NUCLEAR RADIATIONS
+    page_start: 205
+    page_end: 258
+    chapter_title_block_idx: 1995
+    problems_block_idx: 2386
+    next_chapter_block_idx: 2393
+  - num: 8
+    title: ALPHA DECAY
+    page_start: 259
+    page_end: 284
+    chapter_title_block_idx: 2393
+    problems_block_idx: 2574
+    next_chapter_block_idx: 2587
+  - num: 9
+    title: BETA DECAY
+    page_start: 285
+    page_end: 339
+    chapter_title_block_idx: 2587
+    problems_block_idx: 3045
+    next_chapter_block_idx: 3071
+  - num: 10
+    title: GAMMA DECAY
+    page_start: 340
+    page_end: 390
+    chapter_title_block_idx: 3071
+    problems_block_idx: 3490
+    next_chapter_block_idx: 3512
+  - num: 11
+    title: NUCLEAR REACTIONS
+    page_start: 391
+    page_end: 456
+    chapter_title_block_idx: 3512
+    problems_block_idx: 4050
+    next_chapter_block_idx: 4073
+  - num: 12
+    title: NEUTRON PHYSICS
+    page_start: 457
+    page_end: 490
+    chapter_title_block_idx: 4073
+    problems_block_idx: 4319
+    next_chapter_block_idx: 4327
+  - num: 13
+    title: NUCLEAR FISSION
+    page_start: 491
+    page_end: 540
+    chapter_title_block_idx: 4327
+    problems_block_idx: 4670
+    next_chapter_block_idx: 4682
+  - num: 14
+    title: NUCLEAR FUSION
+    page_start: 541
+    page_end: 571
+    chapter_title_block_idx: 4682
+    problems_block_idx: 4943
+    next_chapter_block_idx: 4947
+  - num: 15
+    title: ACCELERATORS
+    page_start: 572
+    page_end: 614
+    chapter_title_block_idx: 4947
+    problems_block_idx: 5211
+    next_chapter_block_idx: 5219
+  - num: 16
+    title: NUCLEAR SPIN AND MOMENTS
+    page_start: 615
+    page_end: 665
+    chapter_title_block_idx: 5219
+    problems_block_idx: 5648
+    next_chapter_block_idx: 5661
+  - num: 17
+    title: MESON PHYSICS
+    page_start: 666
+    page_end: 713
+    chapter_title_block_idx: 5661
+    problems_block_idx: 6143
+    next_chapter_block_idx: 6165
+  - num: 18
+    title: PARTICLE PHYSICS
+    page_start: 714
+    page_end: 767
+    chapter_title_block_idx: 6165
+    problems_block_idx: 6646
+    next_chapter_block_idx: 6684
+  - num: 19
+    title: NUCLEAR ASTROPHYSICS
+    page_start: 768
+    page_end: 800
+    chapter_title_block_idx: 6684
+    problems_block_idx: 6996
+    next_chapter_block_idx: 7000
+  - num: 20
+    title: APPLICATIONS OF NUCLEAR PHYSICS
+    page_start: 801
+    page_end: 827
+    chapter_title_block_idx: 7000
+    problems_block_idx: null
+    next_chapter_block_idx: 7190
+
+appendices:
+  - id: A
+    title: SPECIAL RELATIVITY
+    page_start: 828
+    chapter_title_block_idx: 7190
+  - id: B
+    title: CENTER-OF-MASS REFERENCE FRAME
+    page_start: 831
+    chapter_title_block_idx: 7236
+  - id: C
+    title: TABLE OF NUCLEAR PROPERTIES
+    page_start: 835
+    chapter_title_block_idx: 7293
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:\d+|[A-Z])\.\d+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,119 @@
+slug: acheson_elementary_fluid_dynamics
+title: Elementary Fluid Dynamics
+author: D. J. Acheson
+edition: null
+subject: Fluid Mechanics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 357
+bibliography_start_page: 393
+index_start_page: 400
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 10
+    page_end: 34
+    chapter_title_block_idx: 88
+    problems_block_idx: 373
+    next_chapter_block_idx: 417
+  - num: 2
+    title: Elementary viscous flow
+    page_start: 35
+    page_end: 64
+    chapter_title_block_idx: 417
+    problems_block_idx: 738
+    next_chapter_block_idx: 823
+  - num: 3
+    title: Waves
+    page_start: 65
+    page_end: 128
+    chapter_title_block_idx: 823
+    problems_block_idx: 1558
+    next_chapter_block_idx: 1717
+  - num: 4
+    title: Classical aerofoil theory
+    page_start: 129
+    page_end: 165
+    chapter_title_block_idx: 1717
+    problems_block_idx: 2167
+    next_chapter_block_idx: 2236
+  - num: 5
+    title: Vortex motion
+    page_start: 166
+    page_end: 209
+    chapter_title_block_idx: 2236
+    problems_block_idx: 2606
+    next_chapter_block_idx: 2778
+  - num: 6
+    title: The Navier-Stokes equations
+    page_start: 210
+    page_end: 229
+    chapter_title_block_idx: 2778
+    problems_block_idx: 3013
+    next_chapter_block_idx: 3085
+  - num: 7
+    title: Very viscous flow
+    page_start: 230
+    page_end: 268
+    chapter_title_block_idx: 3085
+    problems_block_idx: 3504
+    next_chapter_block_idx: 3646
+  - num: 8
+    title: Boundary layers
+    page_start: 269
+    page_end: 308
+    chapter_title_block_idx: 3646
+    problems_block_idx: 4037
+    next_chapter_block_idx: 4184
+  - num: 9
+    title: Instability
+    page_start: 309
+    page_end: 356
+    chapter_title_block_idx: 4184
+    problems_block_idx: 4677
+    next_chapter_block_idx: 4746
+
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 357
+    chapter_title_block_idx: 4746
+  - id: B
+    title: Hints and answers for exercises
+    page_start: 365
+    chapter_title_block_idx: 4869
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\.?\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.?\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

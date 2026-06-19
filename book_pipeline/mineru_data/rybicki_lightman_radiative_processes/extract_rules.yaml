@@ -1,0 +1,137 @@
+# extract_rules.yaml — rybicki_lightman_radiative_processes
+# Deterministic audit-book output from unified/content_list.json only.
+
+slug: rybicki_lightman_radiative_processes
+title: Radiative Processes in Astrophysics
+author: George B. Rybicki; Alan P. Lightman
+edition: null
+subject: Astrophysics
+publisher: Wiley-VCH Verlag GmbH & Co. KGaA
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 390
+bibliography_start_page: null
+index_start_page: 390
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Fundamentals of Radiative Transfer
+    page_start: 16
+    page_end: 65
+    chapter_title_block_idx: 201
+    chapter_title_block_idx_secondary: 202
+    problems_block_idx: 818
+    next_chapter_block_idx: 872
+  - num: 2
+    title: Basic Theory of Radiation Fields
+    page_start: 66
+    page_end: 91
+    chapter_title_block_idx: 872
+    chapter_title_block_idx_secondary: 873
+    problems_block_idx: 1213
+    next_chapter_block_idx: 1243
+  - num: 3
+    title: Radiation from Moving Charges
+    page_start: 92
+    page_end: 120
+    chapter_title_block_idx: 1243
+    chapter_title_block_idx_secondary: 1244
+    problems_block_idx: 1578
+    next_chapter_block_idx: 1623
+  - num: 4
+    title: Relativistic Covariance and Kinematics
+    page_start: 121
+    page_end: 169
+    chapter_title_block_idx: 1623
+    chapter_title_block_idx_secondary: 1624
+    problems_block_idx: 2232
+    next_chapter_block_idx: 2328
+  - num: 5
+    title: Bremsstrahlung
+    page_start: 170
+    page_end: 181
+    chapter_title_block_idx: 2328
+    chapter_title_block_idx_secondary: 2329
+    problems_block_idx: 2445
+    next_chapter_block_idx: 2459
+  - num: 6
+    title: Synchrotron Radiation
+    page_start: 182
+    page_end: 209
+    chapter_title_block_idx: 2459
+    chapter_title_block_idx_secondary: 2460
+    problems_block_idx: 2750
+    next_chapter_block_idx: 2783
+  - num: 7
+    title: Compton Scattering
+    page_start: 210
+    page_end: 238
+    chapter_title_block_idx: 2783
+    chapter_title_block_idx_secondary: 2784
+    problems_block_idx: 3163
+    next_chapter_block_idx: 3174
+  - num: 8
+    title: Plasma Effects
+    page_start: 239
+    page_end: 252
+    chapter_title_block_idx: 3174
+    chapter_title_block_idx_secondary: 3175
+    problems_block_idx: 3334
+    next_chapter_block_idx: 3359
+  - num: 9
+    title: Atomic Structure
+    page_start: 253
+    page_end: 281
+    chapter_title_block_idx: 3359
+    chapter_title_block_idx_secondary: 3360
+    problems_block_idx: 3638
+    next_chapter_block_idx: 3692
+  - num: 10
+    title: Radiative Transitions
+    page_start: 282
+    page_end: 308
+    chapter_title_block_idx: 3692
+    chapter_title_block_idx_secondary: 3693
+    problems_block_idx: 4042
+    next_chapter_block_idx: 4073
+  - num: 11
+    title: Molecular Structure
+    page_start: 309
+    page_end: 389
+    chapter_title_block_idx: 4073
+    chapter_title_block_idx_secondary: 4074
+    problems_block_idx: 4274
+    next_chapter_block_idx: 5272
+
+section_re: '^(\d+\.\d+)\s+([A-Z].+)$'
+subsection_re: '^((?:\d+\.)?)\s*((?=.*[a-z])[A-Z].+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)(?:[—–-]\s*|\s*$)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(?:REFERENCE|REFERENCES|SOLUTIONS|INDEX)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

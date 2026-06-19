@@ -1,0 +1,178 @@
+slug: foot_atomic_physics
+title: Atomic Physics
+author: Christopher J. Foot
+edition: 1st
+subject: Atomic Physics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 312
+bibliography_start_page: 333
+index_start_page: 340
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Early atomic physics
+    page_start: 15
+    page_end: 35
+    chapter_title_block_idx: 267
+    chapter_title_block_idx_secondary: 268
+    problems_block_idx: 483
+    next_chapter_block_idx: 539
+  - num: 2
+    title: The hydrogen atom
+    page_start: 36
+    page_end: 58
+    chapter_title_block_idx: 539
+    chapter_title_block_idx_secondary: 537
+    problems_block_idx: 861
+    next_chapter_block_idx: 920
+  - num: 3
+    title: Helium
+    page_start: 59
+    page_end: 73
+    chapter_title_block_idx: 920
+    chapter_title_block_idx_secondary: 933
+    problems_block_idx: 1100
+    next_chapter_block_idx: 1143
+  - num: 4
+    title: The alkalis
+    page_start: 74
+    page_end: 93
+    chapter_title_block_idx: 1143
+    chapter_title_block_idx_secondary: 1140
+    problems_block_idx: 1294
+    next_chapter_block_idx: 1378
+  - num: 5
+    title: The LS-coupling scheme
+    page_start: 94
+    page_end: 110
+    chapter_title_block_idx: 1378
+    chapter_title_block_idx_secondary: 1376
+    problems_block_idx: 1512
+    next_chapter_block_idx: 1558
+  - num: 6
+    title: Hyperfine structure and isotope shift
+    page_start: 111
+    page_end: 136
+    chapter_title_block_idx: 1558
+    problems_block_idx: 1864
+    next_chapter_block_idx: 1924
+  - num: 7
+    title: The interaction of atoms with radiation
+    page_start: 137
+    page_end: 164
+    chapter_title_block_idx: 1924
+    chapter_title_block_idx_secondary: 1933
+    problems_block_idx: 2310
+    next_chapter_block_idx: 2387
+  - num: 8
+    title: Doppler-free laser spectroscopy
+    page_start: 165
+    page_end: 191
+    chapter_title_block_idx: 2387
+    chapter_title_block_idx_secondary: 2394
+    problems_block_idx: 2632
+    next_chapter_block_idx: 2686
+  - num: 9
+    title: Laser cooling and trapping
+    page_start: 192
+    page_end: 231
+    chapter_title_block_idx: 2686
+    chapter_title_block_idx_secondary: 2685
+    problems_block_idx: 3099
+    next_chapter_block_idx: 3190
+  - num: 10
+    title: Magnetic trapping, evaporative cooling and Bose-Einstein condensation
+    page_start: 232
+    page_end: 259
+    chapter_title_block_idx: 3190
+    chapter_title_block_idx_secondary: 3188
+    problems_block_idx: 3462
+    next_chapter_block_idx: 3529
+  - num: 11
+    title: Atom interferometry
+    page_start: 260
+    page_end: 272
+    chapter_title_block_idx: 3529
+    chapter_title_block_idx_secondary: 3528
+    problems_block_idx: 3645
+    next_chapter_block_idx: 3661
+  - num: 12
+    title: Ion traps
+    page_start: 273
+    page_end: 295
+    chapter_title_block_idx: 3661
+    chapter_title_block_idx_secondary: 3669
+    problems_block_idx: 3891
+    next_chapter_block_idx: 3920
+  - num: 13
+    title: Quantum computing
+    page_start: 296
+    page_end: 311
+    chapter_title_block_idx: 3920
+    chapter_title_block_idx_secondary: 3919
+    problems_block_idx: 4038
+    next_chapter_block_idx: 4090
+
+appendices:
+  - id: A
+    title: Perturbation theory
+    page_start: 312
+    chapter_title_block_idx: 4090
+  - id: B
+    title: The calculation of electrostatic energies
+    page_start: 316
+    chapter_title_block_idx: 4142
+  - id: C
+    title: Magnetic dipole transitions
+    page_start: 319
+    chapter_title_block_idx: 4167
+  - id: D
+    title: The line shape in saturated absorption spectroscopy
+    page_start: 321
+    chapter_title_block_idx: 4190
+  - id: E
+    title: Raman and two-photon transitions
+    page_start: 324
+    chapter_title_block_idx: 4219
+  - id: F
+    title: The statistical mechanics of Bose-Einstein condensation
+    page_start: 329
+    chapter_title_block_idx: 4278
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\((\d+\.\d+)\)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]|[0-9]+)\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\s+'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?(?:Figure|Fig(?:ure|\.)?|Table)\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?(?:\([^)]+\))?(?:[.:]|\s)'
+
+known_missing_problems: []

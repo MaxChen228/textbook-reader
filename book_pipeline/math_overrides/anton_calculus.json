@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "anton_calculus-ch09-body-82-00f06c",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[82]",
+      "field": "md",
+      "all": true,
+      "old": "$( d ) \\operatorname* { l i m } _ { n \\to + \\infty } _ { } ( a _ { n } - b _ { n } ) = \\operatorname* { l i m } _ { n \\to + \\infty } _ { } a _ { n } - \\operatorname* { l i m } _ { n \\to + \\infty } _ { } b _ { n } = L _ { 1 } - L _ { 2 }$",
+      "new": "$( d ) \\operatorname* { l i m } _ { n \\to + \\infty } ( a _ { n } - b _ { n } ) = \\operatorname* { l i m } _ { n \\to + \\infty } a _ { n } - \\operatorname* { l i m } _ { n \\to + \\infty } b _ { n } = L _ { 1 } - L _ { 2 }$",
+      "anchor": "150f803c"
+    },
+    {
+      "id": "anton_calculus-ch09-body-87-ca822d",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[87]",
+      "expect": "\\begin{array}{l} \\text {If f(x)\\to L as x\\to + \\infty ,} \\\\ \\text {then f(n)\\to L as n\\to + \\infty .} \\end{array}",
+      "new": "\\begin{array}{l} \\text {If } f(x)\\to L \\text { as } x\\to + \\infty , \\\\ \\text {then } f(n)\\to L \\text { as } n\\to + \\infty . \\end{array}"
+    },
+    {
+      "id": "anton_calculus-ch15-body-958-c9f8d8",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[958]",
+      "expect": "\\begin{array}{l} W = \\oint_ {C} \\mathbf {F} \\cdot d \\mathbf {r} = \\oint_ {C} \\left(e ^ {x} - y ^ {3}\\right) d x + (\\cos y + x ^ {3}) d y \\\\ = \\iint_ {R} \\left[ \\frac {\\partial}{\\partial x} (\\cos y + x ^ {3}) - \\frac {\\partial}{\\partial y} (e ^ {x} - y ^ {3}) \\right] d A  s T h e o r e m$} \\\\ = \\iint_ {R} (3 x ^ {2} + 3 y ^ {2}) d A = 3 \\iint_ {R} (x ^ {2} + y ^ {2}) d A \\\\ = 3 \\int_ {0} ^ {2 \\pi} \\int_ {0} ^ {1} (r ^ {2}) r d r d \\theta = \\frac {3}{4} \\int_ {0} ^ {2 \\pi} d \\theta = \\frac {3 \\pi}{2} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} W = \\oint_{C} \\mathbf{F} \\cdot d\\mathbf{r} = \\oint_{C} \\left(e^{x} - y^{3}\\right) dx + (\\cos y + x^{3}) dy \\\\ = \\iint_{R} \\left[ \\frac{\\partial}{\\partial x}(\\cos y + x^{3}) - \\frac{\\partial}{\\partial y}(e^{x} - y^{3}) \\right] dA \\\\ = \\iint_{R} (3x^{2} + 3y^{2}) dA = 3 \\iint_{R} (x^{2} + y^{2}) dA \\\\ = 3 \\int_{0}^{2\\pi} \\int_{0}^{1} (r^{2}) r\\,dr\\,d\\theta = \\frac{3}{4} \\int_{0}^{2\\pi} d\\theta = \\frac{3\\pi}{2} \\\\ \\end{array}"
+    }
+  ]
+}

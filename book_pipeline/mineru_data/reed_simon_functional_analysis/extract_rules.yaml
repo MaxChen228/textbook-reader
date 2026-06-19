@@ -1,0 +1,113 @@
+slug: reed_simon_functional_analysis
+title: "Methods of Modern Mathematical Physics. I: Functional Analysis"
+author: Michael Reed; Barry Simon
+edition: null
+subject: Functional Analysis
+publisher: Academic Press, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 405
+bibliography_start_page: null
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Preliminaries
+    page_start: 13
+    page_end: 47
+    chapter_title_block_idx: 109
+    problems_block_idx: 512
+    next_chapter_block_idx: 573
+  - num: 2
+    title: Hilbert Spaces
+    page_start: 48
+    page_end: 78
+    chapter_title_block_idx: 573
+    problems_block_idx: 962
+    next_chapter_block_idx: 1024
+  - num: 3
+    title: Banach Spaces
+    page_start: 79
+    page_end: 101
+    chapter_title_block_idx: 1024
+    problems_block_idx: 1269
+    next_chapter_block_idx: 1367
+  - num: 4
+    title: Topological Spaces
+    page_start: 102
+    page_end: 135
+    chapter_title_block_idx: 1367
+    problems_block_idx: 1724
+    next_chapter_block_idx: 1813
+  - num: 5
+    title: Locally Convex Spaces
+    page_start: 136
+    page_end: 193
+    chapter_title_block_idx: 1813
+    problems_block_idx: 2476
+    next_chapter_block_idx: 2634
+  - num: 6
+    title: Bounded Operators
+    page_start: 194
+    page_end: 232
+    chapter_title_block_idx: 2634
+    problems_block_idx: 3124
+    next_chapter_block_idx: 3251
+  - num: 7
+    title: The Spectral Theorem
+    page_start: 233
+    page_end: 260
+    chapter_title_block_idx: 3251
+    problems_block_idx: 3582
+    next_chapter_block_idx: 3664
+  - num: 8
+    title: Unbounded Operators
+    page_start: 261
+    page_end: 329
+    chapter_title_block_idx: 3664
+    problems_block_idx: 4559
+    next_chapter_block_idx: 4668
+  - num: 9
+    title: The Fourier Transform
+    page_start: 330
+    page_end: 355
+    chapter_title_block_idx: 4668
+    problems_block_idx: 4933
+    next_chapter_block_idx: 5056
+  - num: 10
+    title: Supplementary Material
+    page_start: 356
+    page_end: 404
+    chapter_title_block_idx: 5056
+    problems_block_idx: 5732
+    next_chapter_block_idx: 5834
+
+section_re: '^((?:(?:[IVX]+\.)?\d+(?:\.\d+)?)|(?:Supplement to [IVX]+\.\d+)|(?:Additional supplement))\s+(.+)$'
+subsection_re: '^()([^\s\S])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\?[*†+]\s*)?(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([IVXS]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-guillemin-pollack-differential-t-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog builder cannot recover semantic figure ids from split or grouped captions in Guillemin-Pollack",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:45:25+00:00",
+  "updated": "2026-06-19T06:45:25+00:00",
+  "evidence": "After parser succeeds, smoke remains red on H6/H7 with catalog unresolved Figure refs=2 and empty_captions=14. parsed/_catalog_audit.md shows many figures whose visible caption is split across neighboring prose/image blocks, for example ch01 body[4]/[5] around Figure 1-1 ('Sphere' / 'Torus' / 'Smooth surface Figure 1-1'), ch03 body[244]-[249] grouped surfaces ending at 'Figure 3-16', and appB body[16]-[24] with Figure A-1/A-2/A-3 distributed across adjacent blocks. Current extract_rules fields figure_caption_merge/figure_caption_main_re are not expressive enough to bind grouped multi-block captions or classify such visuals safely, leaving unresolved refs like Figure 1.8 and Figure 1.21.",
+  "proposal": "Extend parser/catalog extraction so adjacent prose/image runs can be grouped into one visual cluster with semantic caption/id assignment, including trailing label-only blocks (e.g. 'Figure 3-16'), grouped subfigure labels, and appendix-style Figure A-n ids. This should be engine-level logic or a richer per-book caption binding schema, not ad hoc problem regex changes.",
+  "risk": "",
+  "disposition": ""
+}

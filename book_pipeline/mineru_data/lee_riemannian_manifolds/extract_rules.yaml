@@ -1,0 +1,155 @@
+slug: lee_riemannian_manifolds
+title: Introduction to Riemannian Manifolds
+author: John M. Lee
+edition: 2nd
+subject: Differential Geometry
+publisher: Springer International Publishing
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 380
+bibliography_start_page: null
+index_start_page: 443
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: What Is Curvature?
+    page_start: 14
+    page_end: 21
+    chapter_title_block_idx: 211
+    chapter_title_block_idx_secondary: 212
+    problems_block_idx: null
+    next_chapter_block_idx: 297
+  - num: 2
+    title: Riemannian Metrics
+    page_start: 22
+    page_end: 67
+    chapter_title_block_idx: 297
+    chapter_title_block_idx_secondary: 298
+    problems_block_idx: 850
+    next_chapter_block_idx: 966
+  - num: 3
+    title: Model Riemannian Manifolds
+    page_start: 68
+    page_end: 96
+    chapter_title_block_idx: 966
+    chapter_title_block_idx_secondary: 967
+    problems_block_idx: 1304
+    next_chapter_block_idx: 1361
+  - num: 4
+    title: Connections
+    page_start: 97
+    page_end: 125
+    chapter_title_block_idx: 1361
+    chapter_title_block_idx_secondary: 1362
+    problems_block_idx: 1747
+    next_chapter_block_idx: 1793
+  - num: 5
+    title: The Levi-Civita Connection
+    page_start: 126
+    page_end: 161
+    chapter_title_block_idx: 1793
+    chapter_title_block_idx_secondary: 1794
+    problems_block_idx: 2209
+    next_chapter_block_idx: 2297
+  - num: 6
+    title: Geodesics and Distance
+    page_start: 162
+    page_end: 202
+    chapter_title_block_idx: 2297
+    chapter_title_block_idx_secondary: 2298
+    problems_block_idx: 2712
+    next_chapter_block_idx: 2825
+  - num: 7
+    title: Curvature
+    page_start: 203
+    page_end: 234
+    chapter_title_block_idx: 2825
+    chapter_title_block_idx_secondary: 2826
+    problems_block_idx: 3286
+    next_chapter_block_idx: 3329
+  - num: 8
+    title: Riemannian Submanifolds
+    page_start: 235
+    page_end: 272
+    chapter_title_block_idx: 3329
+    chapter_title_block_idx_secondary: 3330
+    problems_block_idx: 3780
+    next_chapter_block_idx: 3902
+  - num: 9
+    title: The Gauss–Bonnet Theorem
+    page_start: 273
+    page_end: 292
+    chapter_title_block_idx: 3902
+    chapter_title_block_idx_secondary: 3903
+    problems_block_idx: 4117
+    next_chapter_block_idx: 4145
+  - num: 10
+    title: Jacobi Fields
+    page_start: 293
+    page_end: 327
+    chapter_title_block_idx: 4145
+    chapter_title_block_idx_secondary: 4146
+    problems_block_idx: 4562
+    next_chapter_block_idx: 4624
+  - num: 11
+    title: Comparison Theory
+    page_start: 328
+    page_end: 353
+    chapter_title_block_idx: 4624
+    chapter_title_block_idx_secondary: 4625
+    problems_block_idx: 4962
+    next_chapter_block_idx: 4988
+  - num: 12
+    title: Curvature and Topology
+    page_start: 354
+    page_end: 379
+    chapter_title_block_idx: 4988
+    chapter_title_block_idx_secondary: 4989
+    problems_block_idx: 5262
+    next_chapter_block_idx: 5289
+
+appendices:
+  - id: A
+    title: Review of Smooth Manifolds
+    page_start: 380
+    chapter_title_block_idx: 5289
+  - id: B
+    title: Review of Tensors
+    page_start: 400
+    chapter_title_block_idx: 5550
+  - id: C
+    title: Review of Lie Groups
+    page_start: 416
+    chapter_title_block_idx: 5816
+
+section_re: '^()([A-Z][A-Za-z0-9,;:()''"“”‘’./?&-–]*(?:\s+[A-Za-z0-9,;:()''"“”‘’./?&-–]+)*)$'
+subsection_re: '^()((?=a)b)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

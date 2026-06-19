@@ -1,0 +1,34 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "baumann-cosmology-fig-7.9-text",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[156]",
+      "field": "caption",
+      "old": "tFig. 7.9",
+      "new": "Fig. 7.9",
+      "reason": "去除 caption 的 OCR 前綴 t，讓圖說語意可讀且與正文引用一致。"
+    },
+    {
+      "id": "baumann-cosmology-fig-7.9-id",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[156]",
+      "expect": {
+        "id": "fig-ch07-156",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-7.9",
+        "caption": "Fig. 7.9 Illustration of the spherical Bessel function ${ j _ { l } } ( x )$ and its derivative for $l = 2 0$ .",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "此圖塊已有 Figure 7.9 caption，先前被誤標成 unnumbered_body_fig；改回語意 id 以覆蓋正文 Fig. 7.9 引用。"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+slug: do_carmo_riemannian_geometry
+title: Riemannian Geometry
+author: Manfredo Perdigao do Carmo
+edition: 2nd
+subject: Differential Geometry
+publisher: Birkhauser Boston
+language: en
+
+filter_types:
+  - header
+  - page_number
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 306
+bibliography_start_page: 306
+index_start_page: 311
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Differentiable Manifolds
+    page_start: 15
+    page_end: 48
+    chapter_title_block_idx: 120
+    problems_block_idx: 509
+    next_chapter_block_idx: 559
+  - num: 1
+    title: Riemannian Metrics
+    page_start: 49
+    page_end: 61
+    chapter_title_block_idx: 559
+    problems_block_idx: 681
+    next_chapter_block_idx: 711
+  - num: 2
+    title: Affine Connections; Riemannian Connections
+    page_start: 62
+    page_end: 73
+    chapter_title_block_idx: 711
+    problems_block_idx: 825
+    next_chapter_block_idx: 868
+  - num: 3
+    title: Geodesics; Convex Neighborhoods
+    page_start: 74
+    page_end: 101
+    chapter_title_block_idx: 868
+    problems_block_idx: 1093
+    next_chapter_block_idx: 1233
+  - num: 4
+    title: Curvature
+    page_start: 102
+    page_end: 123
+    chapter_title_block_idx: 1233
+    problems_block_idx: 1500
+    next_chapter_block_idx: 1596
+  - num: 5
+    title: Jacobi Fields
+    page_start: 124
+    page_end: 137
+    chapter_title_block_idx: 1596
+    problems_block_idx: 1732
+    next_chapter_block_idx: 1799
+  - num: 6
+    title: Isometric Immersions
+    page_start: 138
+    page_end: 157
+    chapter_title_block_idx: 1799
+    problems_block_idx: 2022
+    next_chapter_block_idx: 2088
+  - num: 7
+    title: Complete Manifolds; Hopf-Rinow and Hadamard Theorems
+    page_start: 158
+    page_end: 168
+    chapter_title_block_idx: 2088
+    problems_block_idx: 2180
+    next_chapter_block_idx: 2221
+  - num: 8
+    title: Spaces of Constant Curvature
+    page_start: 169
+    page_end: 204
+    chapter_title_block_idx: 2221
+    problems_block_idx: 2543
+    next_chapter_block_idx: 2716
+  - num: 9
+    title: Variations of Energy
+    page_start: 205
+    page_end: 223
+    chapter_title_block_idx: 2716
+    problems_block_idx: 2931
+    next_chapter_block_idx: 2963
+  - num: 10
+    title: The Rauch Comparison Theorem
+    page_start: 224
+    page_end: 255
+    chapter_title_block_idx: 2963
+    problems_block_idx: 3339
+    next_chapter_block_idx: 3423
+  - num: 11
+    title: The Morse Index Theorem
+    page_start: 256
+    page_end: 266
+    chapter_title_block_idx: 3423
+    problems_block_idx: 3526
+    next_chapter_block_idx: 3562
+  - num: 12
+    title: The Fundamental Group of Manifolds of Negative Curvature
+    page_start: 267
+    page_end: 278
+    chapter_title_block_idx: 3562
+    problems_block_idx: null
+    next_chapter_block_idx: 3712
+  - num: 13
+    title: The Sphere Theorem
+    page_start: 279
+    page_end: 305
+    chapter_title_block_idx: 3712
+    problems_block_idx: null
+    next_chapter_block_idx: 4023
+
+appendices: []
+
+section_re: '^([1-9]\d*)\.\s+(.+)$'
+subsection_re: '^([1-9]\d*\.[1-9]\d*)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?:(?:\()|(?:Let|Prove|Show|Introduce|Obtain|A|In|Consider|It|Jacobi|If|Identify|Use|Suppose)\b)'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

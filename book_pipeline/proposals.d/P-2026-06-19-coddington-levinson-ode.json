@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-coddington-levinson-ode",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog parser cannot merge shared caption across sibling figures",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:37:50+00:00",
+  "updated": "2026-06-19T07:37:50+00:00",
+  "evidence": "Chapter 15 section 1 has two consecutive image blocks where the first has empty caption and the second carries a combined caption 'FIG. 5... FIG. 6...'. Current extract_rules fields only support figure_caption_merge when the previous figure already has a subcaption like (a)/(b), so smoke H7 remains with empty_captions=1 for coddington_levinson_ode.",
+  "proposal": "Extend deterministic catalog extraction so audit-book can declaratively attach one figure caption to multiple consecutive sibling figure blocks, or mark a sibling as non-primary/merged-into-next without changing book text.",
+  "risk": "",
+  "disposition": ""
+}

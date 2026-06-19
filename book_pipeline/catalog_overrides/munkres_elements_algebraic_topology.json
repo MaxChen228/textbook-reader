@@ -1,0 +1,710 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.4.1114",
+      "classification": "mis_ocr",
+      "reason": "OCR fused the intended figure range 1.4.11-1.4.14 into a single non-existent figure number.",
+      "where": "ch01.json problem:1.4.2:body[0]",
+      "evidence": "Adjacent parsed blocks are fig-1.4.11, fig-1.4.12, fig-1.4.13, and fig-1.4.14."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-body-336-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[336]",
+      "expect": { "id": "fig-ch01-336" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-body-420-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[420]",
+      "expect": { "id": "fig-ch01-420" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-body-445-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[445]",
+      "expect": { "id": "fig-ch01-445" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-body-838-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[838]",
+      "expect": { "id": "fig-ch01-838" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-body-879-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[879]",
+      "expect": { "id": "fig-ch01-879" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-55-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[55]",
+      "expect": { "id": "fig-ch02-55" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-146-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[146]",
+      "expect": { "id": "fig-ch02-146" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-147-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[147]",
+      "expect": { "id": "fig-ch02-147" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-271-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[271]",
+      "expect": { "id": "fig-ch02-271" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-310-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[310]",
+      "expect": { "id": "fig-ch02-310" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-417-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[417]",
+      "expect": { "id": "fig-ch02-417" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-420-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[420]",
+      "expect": { "id": "fig-ch02-420" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-body-650-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[650]",
+      "expect": { "id": "fig-ch02-650" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-prob-2-5-2-body-4-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.5.2:body[4]",
+      "expect": { "id": "fig-ch02-prob11-4" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-prob-2-6-4-body-3-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.6.4:body[3]",
+      "expect": { "id": "fig-ch02-prob17-3" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-prob-2-6-4-body-4-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.6.4:body[4]",
+      "expect": { "id": "fig-ch02-prob17-4" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch02-prob-2-9-1-body-1-exclude",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.9.1:body[1]",
+      "expect": { "id": "fig-ch02-prob30-1" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch03-body-97-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[97]",
+      "expect": { "id": "fig-ch03-97" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch03-body-217-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[217]",
+      "expect": { "id": "fig-ch03-217" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch03-body-289-exclude",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[289]",
+      "expect": { "id": "fig-ch03-289" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-73-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[73]",
+      "expect": { "id": "fig-ch04-73" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-89-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[89]",
+      "expect": { "id": "fig-ch04-89" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-92-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[92]",
+      "expect": { "id": "fig-ch04-92" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-277-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[277]",
+      "expect": { "id": "fig-ch04-277" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-434-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[434]",
+      "expect": { "id": "fig-ch04-434" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-501-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[501]",
+      "expect": { "id": "fig-ch04-501" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-820-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[820]",
+      "expect": { "id": "fig-ch04-820" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-821-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[821]",
+      "expect": { "id": "fig-ch04-821" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-1074-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[1074]",
+      "expect": { "id": "fig-ch04-1074" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-1196-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[1196]",
+      "expect": { "id": "fig-ch04-1196" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-1273-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[1273]",
+      "expect": { "id": "fig-ch04-1273" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-prob-4-14-5-body-1-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14.5:body[1]",
+      "expect": { "id": "fig-ch04-prob70-1" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-prob-4-14-5-body-2-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14.5:body[2]",
+      "expect": { "id": "fig-ch04-prob70-2" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-prob-4-14-5-body-3-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14.5:body[3]",
+      "expect": { "id": "fig-ch04-prob70-3" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-prob-4-14-5-body-5-exclude",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.14.5:body[5]",
+      "expect": { "id": "fig-ch04-prob70-5" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-24-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[24]",
+      "expect": { "id": "fig-ch05-24" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-42-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[42]",
+      "expect": { "id": "fig-ch05-42" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-462-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[462]",
+      "expect": { "id": "fig-ch05-462" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-604-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[604]",
+      "expect": { "id": "fig-ch05-604" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-610-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[610]",
+      "expect": { "id": "fig-ch05-610" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-749-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[749]",
+      "expect": { "id": "fig-ch05-749" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-772-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[772]",
+      "expect": { "id": "fig-ch05-772" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch06-body-70-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[70]",
+      "expect": { "id": "fig-ch06-70" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch06-body-80-exclude",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[80]",
+      "expect": { "id": "fig-ch06-80" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-58-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[58]",
+      "expect": { "id": "fig-ch07-58" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-66-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[66]",
+      "expect": { "id": "fig-ch07-66" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-200-exclude",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[200]",
+      "expect": { "id": "fig-ch07-200" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-337-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[337]",
+      "expect": { "id": "fig-ch08-337" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-485-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[485]",
+      "expect": { "id": "fig-ch08-485" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-624-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[624]",
+      "expect": { "id": "fig-ch08-624" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-720-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[720]",
+      "expect": { "id": "fig-ch08-720" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-758-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[758]",
+      "expect": { "id": "fig-ch08-758" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-1026-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[1026]",
+      "expect": { "id": "fig-ch08-1026" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch08-body-1080-exclude",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[1080]",
+      "expect": { "id": "fig-ch08-1080" },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_visual",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Unnumbered inline visual with no indexable caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch01-prob-1-13-2-body-4-table-exclude",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "problem:1.13.2:body[4]",
+      "expect": { "id": "tbl-ch01-prob54-4" },
+      "set": {
+        "catalog_exclude_reason": "inline_table_without_caption",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Inline table used as local exposition, without standalone catalog caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-767-table-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[767]",
+      "expect": { "id": "tbl-ch05-767" },
+      "set": {
+        "catalog_exclude_reason": "inline_table_without_caption",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Inline table used as local exposition, without standalone catalog caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-777-table-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[777]",
+      "expect": { "id": "tbl-ch05-777" },
+      "set": {
+        "catalog_exclude_reason": "inline_table_without_caption",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Inline table used as local exposition, without standalone catalog caption."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch05-body-790-table-exclude",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[790]",
+      "expect": { "id": "tbl-ch05-790" },
+      "set": {
+        "catalog_exclude_reason": "inline_table_without_caption",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Inline table used as local exposition, without standalone catalog caption."
+    }
+  ]
+}

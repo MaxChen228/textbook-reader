@@ -1,0 +1,67 @@
+{
+  "overrides": [
+    {
+      "id": "devore_probability_statistics-ch12-body-254-171ca9",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[254]",
+      "field": "md",
+      "all": true,
+      "old": "$y = \\Nu 0 _ { z }$",
+      "new": "$y=N0_{z}$",
+      "anchor": "6bafca69"
+    },
+    {
+      "id": "devore_probability_statistics-ch12-body-415-171ca9",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[415]",
+      "field": "md",
+      "all": true,
+      "old": "$y = \\Nu 0 _ { z }$",
+      "new": "$y=N0_{z}$",
+      "anchor": "8f594282"
+    },
+    {
+      "id": "devore_probability_statistics-ch13-body-556-02f70f",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[556]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mu _ { Y \\cdot } _ { \\boldsymbol { X } _ { 1 } ^ { * } , \\ldots , \\boldsymbol { X } _ { k } ^ { * } }$",
+      "new": "$\\mu_{Y\\cdot,\\boldsymbol{X}_{1}^{*},\\ldots,\\boldsymbol{X}_{k}^{*}}$",
+      "anchor": "ea62ecd7"
+    },
+    {
+      "id": "devore_probability_statistics-ch04-body-400-fdcc0b",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[400]",
+      "expect": "\\begin{array}{l} (1 0 0 p) \\text {th percentile} \\\\ \\text {for normal (\\mu, \\sigma)} \\end{array} = \\mu + \\left[ \\begin{array}{c} (1 0 0 p) \\text {th for} \\\\ \\text {standard normal} \\end{array} \\right] \\cdot \\sigma",
+      "new": "\\begin{array}{l}(100p)\\text{th percentile}\\\\ \\text{for normal }(\\mu,\\sigma)\\end{array}=\\mu+\\left[\\begin{array}{c}(100p)\\text{th for}\\\\ \\text{standard normal}\\end{array}\\right]\\cdot \\sigma"
+    },
+    {
+      "id": "devore_probability_statistics-ch07-body-517-5f527b",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[517]",
+      "field": "md",
+      "all": true,
+      "old": "$\\smash  \\widetilde { \\mu } \\} \\cup$",
+      "new": "$\\smash{\\widetilde{\\mu}}\\}\\cup$",
+      "anchor": "028bfa99"
+    },
+    {
+      "id": "devore_probability_statistics-ch14-body-270-752208",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[270]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\mu \\Nu \\cdot \\ q _ { m } )$",
+      "new": "$(\\mu N\\cdot q_{m})$",
+      "anchor": "85ef10fc"
+    }
+  ]
+}

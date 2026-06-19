@@ -1,0 +1,85 @@
+{
+  "overrides": [
+    {
+      "id": "epp_discrete_math-ch04-problem-4-8-30-body-2-5ccf92",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.8.30:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$N _ { 6 } _ { } ^ { } = p _ { 1 } \\cdot p _ { 2 } \\cdot p _ { 3 } \\cdot p _ { 4 } \\cdot p _ { 5 } \\cdot p _ { 6 } .$",
+      "new": "$N _ { 6 } = p _ { 1 } \\cdot p _ { 2 } \\cdot p _ { 3 } \\cdot p _ { 4 } \\cdot p _ { 5 } \\cdot p _ { 6 } .$",
+      "anchor": "18458d43"
+    },
+    {
+      "id": "epp_discrete_math-ch02-problem-2-2-3-body-0-2387fc",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.2.3:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\right. , \\left.$",
+      "new": "$\\left. , \\right.$"
+    },
+    {
+      "id": "epp_discrete_math-ch11-body-430-ae7b6b",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[430]",
+      "expect": "E _ {k} = E _ {k - 1} + \\left[ \\begin{array}{l} \\text { the   expected   number   of   comparisons } \\\\ \\text { used   to   place   a[k]   into   position } \\\\ \\text { relative   to   a[1],   a[2],   \\ldots,   a[k - 1]} \\end{array} \\right].",
+      "new": "E _ {k} = E _ {k - 1} + \\left[ \\begin{array}{l} \\text { the   expected   number   of   comparisons } \\\\ \\text { used   to   place   } a[k] \\text {   into   position } \\\\ \\text { relative   to   } a[1], a[2], \\ldots, a[k - 1] \\end{array} \\right]."
+    },
+    {
+      "id": "epp_discrete_math-ch12-body-363-b74e80",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[363]",
+      "expect": "L _ {i, j} ^ {k} = \\left\\{x \\in I ^ {*} \\left| \\begin{array}{l} \\text {when the symbols of x are input to A in sequence,} \\\\ A \\text {goes from state s_{i} to state s_{j} without traveling} \\\\ \\text {through an intermediate state s_{h} for which h > k} \\end{array} \\right. \\right\\}.",
+      "new": "L _ {i, j} ^ {k} = \\left\\{x \\in I ^ {*} \\mid \\begin{array}{l} \\text {when the symbols of } x \\text { are input to } A \\text { in sequence,} \\\\ A \\text { goes from state } s_{i} \\text { to state } s_{j} \\text { without traveling} \\\\ \\text {through an intermediate state } s_{h} \\text { for which } h > k \\end{array} \\right\\}."
+    },
+    {
+      "id": "epp_discrete_math-ch12-body-242-762886",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[242]",
+      "field": "md",
+      "all": true,
+      "old": "$s _ { 0 } { \\big { J } } .$",
+      "new": "$s _ { 0 } { \\bigl( J \\bigr) } .$",
+      "anchor": "1d99ce6b"
+    },
+    {
+      "id": "epp_discrete_math-ch09-problem-9-3-28-body-0-ffb33a",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.3.28:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$ 2 let\\* $",
+      "new": "$ 2\\ \\mathrm{let}* $",
+      "anchor": "bdab89b8"
+    },
+    {
+      "id": "epp_discrete_math-ch10-body-250-8133b4",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[250]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nu _ { 2 } \\tmspace + 2 \\nu _ { 3 } ,$",
+      "new": "$\\nu _ { 2 } + 2 \\nu _ { 3 } ,$",
+      "anchor": "b25cd735"
+    },
+    {
+      "id": "epp_discrete_math-ch10-body-400-40f9a4",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[400]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nu _ { 2 } \\tmspace + \\Delta _ { i } \\nu _ { i }$",
+      "new": "$\\nu _ { 2 } + \\Delta _ { i } \\nu _ { i }$",
+      "anchor": "0d3f492e"
+    }
+  ]
+}

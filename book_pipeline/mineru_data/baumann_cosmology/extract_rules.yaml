@@ -1,0 +1,116 @@
+slug: baumann_cosmology
+title: Cosmology
+author: Daniel Baumann
+edition: null
+subject: Cosmology
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 400
+bibliography_start_page: 468
+index_start_page: 479
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 22
+    page_end: 35
+    chapter_title_block_idx: 252
+    problems_block_idx: 345
+    next_chapter_block_idx: 371
+  - num: 2
+    title: The Expanding Universe
+    page_start: 36
+    page_end: 90
+    chapter_title_block_idx: 371
+    problems_block_idx: 1131
+    next_chapter_block_idx: 1266
+  - num: 3
+    title: The Hot Big Bang
+    page_start: 91
+    page_end: 152
+    chapter_title_block_idx: 1266
+    chapter_title_block_idx_secondary: 1267
+    problems_block_idx: 2074
+    next_chapter_block_idx: 2164
+  - num: 4
+    title: Cosmological Inflation
+    page_start: 153
+    page_end: 187
+    chapter_title_block_idx: 2164
+    chapter_title_block_idx_secondary: 2165
+    problems_block_idx: 2559
+    next_chapter_block_idx: 2642
+  - num: 5
+    title: Structure Formation
+    page_start: 188
+    page_end: 224
+    chapter_title_block_idx: 2642
+    chapter_title_block_idx_secondary: 2643
+    problems_block_idx: 3172
+    next_chapter_block_idx: 3234
+  - num: 6
+    title: Relativistic Perturbation Theory
+    page_start: 225
+    page_end: 279
+    chapter_title_block_idx: 3234
+    problems_block_idx: 4079
+    next_chapter_block_idx: 4151
+  - num: 7
+    title: Cosmic Microwave Background
+    page_start: 280
+    page_end: 356
+    chapter_title_block_idx: 4151
+    problems_block_idx: 5170
+    next_chapter_block_idx: 5271
+  - num: 8
+    title: Quantum Initial Conditions
+    page_start: 357
+    page_end: 399
+    chapter_title_block_idx: 5271
+    chapter_title_block_idx_secondary: 5272
+    problems_block_idx: 5862
+    next_chapter_block_idx: 5950
+
+appendices:
+  - id: A
+    title: Elements of General Relativity
+    page_start: 400
+    chapter_title_block_idx: 5950
+  - id: B
+    title: Details of the CMB Analysis
+    page_start: 437
+    chapter_title_block_idx: 6582
+  - id: C
+    title: Useful Quantities and Relations
+    page_start: 456
+    chapter_title_block_idx: 6908
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+known_missing_problems: []

@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "2.1",
+      "classification": "external",
+      "reason": "正文明示「Carruthers 1966, table 2.1」，目標是外部參考書的表格，不是本書 chapter 2 的內部 table ref。",
+      "where": "ch22.json problem:22.12:body[150]",
+      "evidence": "raw PDF p.919 prints \"they are tabulated in Carruthers 1966, table 2.1\"; parsed catalogs only contain in-book table ids tbl-22.1 and tbl-22.1--1, with no tbl-2.1 target to repair."
+    }
+  ],
+  "overrides": []
+}

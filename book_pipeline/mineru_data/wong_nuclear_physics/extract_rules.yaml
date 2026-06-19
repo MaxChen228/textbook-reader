@@ -1,0 +1,132 @@
+slug: wong_nuclear_physics
+title: Introductory Nuclear Physics
+author: Samuel S.M. Wong
+edition: 2nd
+subject: Nuclear Physics
+publisher: Wiley-VCH Verlag GmbH & Co. KGaA
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 411
+bibliography_start_page: 449
+index_start_page: 459
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 15
+    page_end: 34
+    chapter_title_block_idx: 121
+    problems_block_idx: 303
+    next_chapter_block_idx: 314
+  - num: 2
+    title: Nucleon Structure
+    page_start: 35
+    page_end: 70
+    chapter_title_block_idx: 314
+    problems_block_idx: 714
+    next_chapter_block_idx: 735
+  - num: 3
+    title: Nuclear Force and Two-Nucleon Systems
+    page_start: 71
+    page_end: 118
+    chapter_title_block_idx: 735
+    problems_block_idx: 1308
+    next_chapter_block_idx: 1370
+  - num: 4
+    title: Bulk Properties of Nuclei
+    page_start: 119
+    page_end: 174
+    chapter_title_block_idx: 1370
+    problems_block_idx: 2034
+    next_chapter_block_idx: 2070
+  - num: 5
+    title: Electromagnetic and Weak Interaction
+    page_start: 175
+    page_end: 218
+    chapter_title_block_idx: 2070
+    chapter_title_block_idx_secondary: 2071
+    problems_block_idx: 2655
+    next_chapter_block_idx: 2668
+  - num: 6
+    title: Nuclear Collective Motion
+    page_start: 219
+    page_end: 248
+    chapter_title_block_idx: 2668
+    problems_block_idx: 2982
+    next_chapter_block_idx: 2994
+  - num: 7
+    title: Microscopic Models of Nuclear Structure
+    page_start: 249
+    page_end: 288
+    chapter_title_block_idx: 2994
+    chapter_title_block_idx_secondary: 2995
+    problems_block_idx: 3437
+    next_chapter_block_idx: 3460
+  - num: 8
+    title: Nuclear Reactions
+    page_start: 289
+    page_end: 330
+    chapter_title_block_idx: 3460
+    problems_block_idx: 3936
+    next_chapter_block_idx: 3951
+  - num: 9
+    title: Nuclei under Extreme Conditions
+    page_start: 331
+    page_end: 368
+    chapter_title_block_idx: 3951
+    problems_block_idx: 4329
+    next_chapter_block_idx: 4351
+  - num: 10
+    title: Nuclear Astrophysics
+    page_start: 369
+    page_end: 402
+    chapter_title_block_idx: 4351
+    problems_block_idx: 4703
+    next_chapter_block_idx: 4724
+  - num: 11
+    title: "Nuclear Physics: Present and Future"
+    page_start: 403
+    page_end: 410
+    chapter_title_block_idx: 4724
+    problems_block_idx: null
+    next_chapter_block_idx: 4773
+
+appendices:
+  - id: A
+    title: Parity and Angular Momentum
+    page_start: 411
+    chapter_title_block_idx: 4773
+  - id: B
+    title: Scattering by a Central Potential
+    page_start: 423
+    chapter_title_block_idx: 4958
+
+section_re: '^([0-9A-Z]+-[0-9]+)\s+(.+)$'
+subsection_re: '^(?!)()(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^([0-9]+-[0-9]+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9A-Z]+-[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

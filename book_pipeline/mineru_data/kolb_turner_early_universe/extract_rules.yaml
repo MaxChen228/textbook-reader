@@ -1,0 +1,143 @@
+slug: kolb_turner_early_universe
+title: The Early Universe
+author: Edward W. Kolb; Michael S. Turner
+edition: null
+subject: Cosmology
+publisher: Addison-Wesley Publishing Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 44
+appendices_start_page: 542
+bibliography_start_page: null
+index_start_page: 578
+
+chapters:
+  - num: 1
+    title: THE UNIVERSE OBSERVED
+    page_start: 44
+    page_end: 71
+    chapter_title_block_idx: 277
+    chapter_title_block_idx_secondary: 278
+    problems_block_idx: null
+    next_chapter_block_idx: 476
+  - num: 2
+    title: ROBERTSON-WALKER METRIC
+    page_start: 72
+    page_end: 89
+    chapter_title_block_idx: 476
+    chapter_title_block_idx_secondary: 477
+    problems_block_idx: null
+    next_chapter_block_idx: 697
+  - num: 3
+    title: STANDARD COSMOLOGY
+    page_start: 90
+    page_end: 129
+    chapter_title_block_idx: 697
+    chapter_title_block_idx_secondary: 698
+    problems_block_idx: null
+    next_chapter_block_idx: 1164
+  - num: 4
+    title: BIG-BANG NUCLEOSYNTHESIS
+    page_start: 130
+    page_end: 157
+    chapter_title_block_idx: 1164
+    chapter_title_block_idx_secondary: 1165
+    problems_block_idx: null
+    next_chapter_block_idx: 1398
+  - num: 5
+    title: THERMODYNAMICS IN THE EXPANDING UNIVERSE
+    page_start: 158
+    page_end: 199
+    chapter_title_block_idx: 1398
+    chapter_title_block_idx_secondary: 1399
+    problems_block_idx: null
+    next_chapter_block_idx: 1862
+  - num: 6
+    title: BARYOGENESIS
+    page_start: 200
+    page_end: 237
+    chapter_title_block_idx: 1862
+    chapter_title_block_idx_secondary: 1863
+    problems_block_idx: null
+    next_chapter_block_idx: 2243
+  - num: 7
+    title: PHASE TRANSITIONS
+    page_start: 238
+    page_end: 303
+    chapter_title_block_idx: 2243
+    chapter_title_block_idx_secondary: 2244
+    problems_block_idx: null
+    next_chapter_block_idx: 2823
+  - num: 8
+    title: INFLATION
+    page_start: 304
+    page_end: 363
+    chapter_title_block_idx: 2823
+    chapter_title_block_idx_secondary: 2824
+    problems_block_idx: null
+    next_chapter_block_idx: 3381
+  - num: 9
+    title: STRUCTURE FORMATION
+    page_start: 364
+    page_end: 443
+    chapter_title_block_idx: 3381
+    chapter_title_block_idx_secondary: 3382
+    problems_block_idx: null
+    next_chapter_block_idx: 4183
+  - num: 10
+    title: AXIONS
+    page_start: 444
+    page_end: 489
+    chapter_title_block_idx: 4183
+    chapter_title_block_idx_secondary: 4184
+    problems_block_idx: null
+    next_chapter_block_idx: 4604
+  - num: 11
+    title: TOWARD THE PLANCK EPOCH
+    page_start: 490
+    page_end: 541
+    chapter_title_block_idx: 4604
+    chapter_title_block_idx_secondary: 4605
+    problems_block_idx: null
+    next_chapter_block_idx: 5066
+
+appendices:
+  - id: A
+    title: Units; Physical Parameters
+    page_start: 542
+    chapter_title_block_idx: 5066
+  - id: B
+    title: Particle Physics Review
+    page_start: 550
+    chapter_title_block_idx: 5180
+
+section_re: '^((?:[A-Z]|\d+)\.\d+)\s+(.+)$'
+subsection_re: '^((?:[A-Z]|\d+)\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: null
+
+known_missing_problems: []

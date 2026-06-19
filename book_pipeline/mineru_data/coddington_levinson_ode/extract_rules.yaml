@@ -1,0 +1,186 @@
+slug: coddington_levinson_ode
+title: Theory of Ordinary Differential Equations
+author: Earl A. Coddington; Norman Levinson
+edition: null
+subject: Differential Equations
+publisher: Tata McGraw-Hill Publishing Co. Ltd.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+  - 1
+  - 2
+
+body_start_page: 15
+appendices_start_page: 431
+bibliography_start_page: 431
+index_start_page: 437
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Existence and Uniqueness of Solutions
+    page_start: 15
+    page_end: 55
+    chapter_title_block_idx: 151
+    chapter_title_block_idx_secondary: 152
+    problems_block_idx: 852
+    next_chapter_block_idx: 950
+  - num: 2
+    title: Existence and Uniqueness of Solutions (Continued)
+    page_start: 56
+    page_end: 75
+    chapter_title_block_idx: 950
+    chapter_title_block_idx_secondary: 951
+    problems_block_idx: 1338
+    next_chapter_block_idx: 1355
+  - num: 3
+    title: Linear Differential Equations
+    page_start: 76
+    page_end: 121
+    chapter_title_block_idx: 1355
+    chapter_title_block_idx_secondary: 1356
+    problems_block_idx: 2097
+    next_chapter_block_idx: 2359
+  - num: 4
+    title: "Linear Systems with Isolated Singularities: Singularities of the First Kind"
+    page_start: 122
+    page_end: 151
+    chapter_title_block_idx: 2359
+    chapter_title_block_idx_secondary: 2360
+    problems_block_idx: 2890
+    next_chapter_block_idx: 2953
+  - num: 5
+    title: "Linear Systems with Isolated Singularities: Singularities of the Second Kind"
+    page_start: 152
+    page_end: 187
+    chapter_title_block_idx: 2953
+    chapter_title_block_idx_secondary: 2954
+    problems_block_idx: 3708
+    next_chapter_block_idx: 3739
+  - num: 6
+    title: Asymptotic Behavior of Linear Systems Containing a Large Parameter
+    page_start: 188
+    page_end: 198
+    chapter_title_block_idx: 3739
+    chapter_title_block_idx_secondary: 3740
+    problems_block_idx: 3949
+    next_chapter_block_idx: 3957
+  - num: 7
+    title: Self-adjoint Eigenvalue Problems on a Finite Interval
+    page_start: 199
+    page_end: 221
+    chapter_title_block_idx: 3957
+    chapter_title_block_idx_secondary: 3958
+    problems_block_idx: 4293
+    next_chapter_block_idx: 4447
+  - num: 8
+    title: Oscillation and Comparison Theorems for Second-order Linear Equations and Applications
+    page_start: 222
+    page_end: 235
+    chapter_title_block_idx: 4447
+    chapter_title_block_idx_secondary: 4448
+    problems_block_idx: 4701
+    next_chapter_block_idx: 4737
+  - num: 9
+    title: Singular Self-adjoint Boundary-value Problems for Second-order Equations
+    page_start: 236
+    page_end: 274
+    chapter_title_block_idx: 4737
+    chapter_title_block_idx_secondary: 4738
+    problems_block_idx: 5406
+    next_chapter_block_idx: 5570
+  - num: 10
+    title: Singular Self-adjoint Boundary-value Problems for nth-order Equations
+    page_start: 275
+    page_end: 297
+    chapter_title_block_idx: 5570
+    chapter_title_block_idx_secondary: 5571
+    problems_block_idx: 5978
+    next_chapter_block_idx: 6033
+  - num: 11
+    title: Algebraic Properties of Linear Boundary-value Problems on a Finite Interval
+    page_start: 298
+    page_end: 311
+    chapter_title_block_idx: 6033
+    chapter_title_block_idx_secondary: 6034
+    problems_block_idx: 6293
+    next_chapter_block_idx: 6314
+  - num: 12
+    title: Non-self-adjoint Boundary-value Problems
+    page_start: 312
+    page_end: 327
+    chapter_title_block_idx: 6314
+    chapter_title_block_idx_secondary: 6315
+    problems_block_idx: 6596
+    next_chapter_block_idx: 6626
+  - num: 13
+    title: "Asymptotic Behavior of Nonlinear Systems; Stability"
+    page_start: 328
+    page_end: 361
+    chapter_title_block_idx: 6626
+    chapter_title_block_idx_secondary: 6627
+    problems_block_idx: 7261
+    next_chapter_block_idx: 7325
+  - num: 14
+    title: Perturbation of Systems Having a Periodic Solution
+    page_start: 362
+    page_end: 384
+    chapter_title_block_idx: 7325
+    chapter_title_block_idx_secondary: 7326
+    problems_block_idx: 7686
+    next_chapter_block_idx: 7710
+  - num: 15
+    title: Perturbation Theory of Two-dimensional Real Autonomous Systems
+    page_start: 385
+    page_end: 402
+    chapter_title_block_idx: 7710
+    chapter_title_block_idx_secondary: 7711
+    problems_block_idx: 8001
+    next_chapter_block_idx: 8014
+  - num: 16
+    title: The Poincare-Bendixson Theory of Two-dimensional Autonomous Systems
+    page_start: 403
+    page_end: 417
+    chapter_title_block_idx: 8014
+    chapter_title_block_idx_secondary: 8015
+    problems_block_idx: 8191
+    next_chapter_block_idx: 8226
+  - num: 17
+    title: Differential Equations on a Torus
+    page_start: 418
+    page_end: 430
+    chapter_title_block_idx: 8226
+    chapter_title_block_idx_secondary: 8227
+    problems_block_idx: null
+    next_chapter_block_idx: 8473
+
+appendices: []
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: >-
+  ^(\d+)\.\s+(?!(?:Existence\ of\ Solutions|Uniqueness\ of\ Solutions|The\ Method\ of\ Successive\ Approximations|Continuation\ of\ Solutions|Systems\ of\ Differential\ Equations|The\ nth\-order\ Equation|Dependence\ of\ Solutions\ on\ Initial\ Conditions\ and\ Parameters|Complex\ Systems|Further\ Uniqueness\ Results|Uniqueness\ and\ Successive\ Approximations|Variation\ of\ Solutions\ with\ Respect\ to\ Initial\ Conditions\ and\ Parameters|Preliminary\ Definitions\ and\ Notations|Linear\ Homogeneous\ Systems|Nonhomogeneous\ Linear\ Systems|Linear\ Systems\ with\ Constant\ Coefficients|Linear\ Systems\ with\ Periodic\ Coefficients|Linear\ Differential\ Equations\ of\ Order\ n|Linear\ Equations\ with\ Analytic\ Coefficients|Asymptotic\ Behavior\ of\ the\ Solutions\ of\ Certain\ Linear\ Systems|Introduction|Classification\ of\ Singularities|Formal\ Solutions|Structure\ of\ Fundamental\ Matrices|The\ Equation\ of\ the\ nth\ Order|Singularities\ at\ Infinity|An\ Example:\ the\ Second\-order\ Equation|The\ Frobenius\ Method|Asymptotic\ Series|Existence\ of\ Solutions\ Which\ Have\ the\ Formal\ Solutions\ as\ Asymptotic\ Expansions—the\ Real\ Case|The\ Asymptotic\ Nature\ of\ the\ Formal\ Solutions\ in\ the\ Complex\ Case|The\ Case\ Where\ \$A_\{0\}\$\ Has\ Multiple\ Characteristic\ Roots|Irregular\ Singular\ Points\ of\ an\ nth\-order\ Equation|The\ Laplace\ Integral\ and\ Asymptotic\ Series|Asymptotic\ Behavior\ of\ Solutions|The\ Case\ of\ Equal\ Characteristic\ Roots|Self\-adjoint\ Eigenvalue\ Problems|The\ Existence\ of\ Eigenvalues†|The\ Expansion\ and\ Completeness\ Theorems|Comparison\ Theorems|Existence\ of\ Eigenvalues|Periodic\ Boundary\ Conditions|Stability\ Regions\ of\ Second\-order\ Equations\ with\ Periodic\ Coefficients|The\ Limit\-point\ and\ Limit\-circle\ Cases|The\ Completeness\ and\ Expansion\ Theorems\ in\ the\ Limit\-point\ Case\ at\ Infinity|The\ Limit\-circle\ Case\ at\ Infinity|Singular\ Behavior\ at\ Both\ Ends\ of\ an\ Interval|The\ Expansion\ Theorem\ and\ Parseval\ Equality|The\ Inverse\-transform\ Theorem\ and\ the\ Uniqueness\ of\ the\ Spectral\ Matrix|Green's\ Function|Representation\ of\ the\ Spectral\ Matrix\ by\ Green's\ Function|Introduction†|The\ Boundary\-form\ Formula|Homogeneous\ Boundary\-value\ Problems\ and\ Adjoint\ Problems|Nonhomogeneous\ Boundary\-value\ Problems\ and\ Green's\ Function|The\ nth\-order\ Case|The\ Form\ of\ the\ Expansion|Asymptotic\ Stability|First\ Variation:\ Orbital\ Stability|Asymptotic\ Behavior\ of\ a\ System|Conditional\ Stability|Behavior\ of\ Solutions\ off\ the\ Stable\ Manifold|Nonautonomous\ Systems|Autonomous\ Systems|Perturbation\ of\ a\ Linear\ System\ with\ a\ Periodic\ Solution\ in\ the\ Nonautonomous\ Case|Perturbation\ of\ an\ Autonomous\ System\ with\ a\ Vanishing\ Jacobian|Two\-dimensional\ Linear\ Systems|Perturbations\ of\ Two\-dimensional\ Linear\ Systems|Proper\ Nodes\ and\ Proper\ Spiral\ Points|Centers|Improper\ Nodes|Saddle\ Points|Limit\ Sets\ of\ an\ Orbit|The\ Poincaré\-Bendixson\ Theorem|Limit\ Sets\ with\ Critical\ Points|The\ Index\ of\ an\ Isolated\ Critical\ Point|The\ Index\ of\ a\ Simple\ Critical\ Point|The\ Rotation\ Number|The\ Cluster\ Set|The\ Ergodic\ Case|Characterization\ of\ Solutions\ in\ the\ Ergodic\ Case|A\ System\ of\ Two\ Equations)\s*$).+
+problem_chapter_must_match: false
+problems_end_re: '^(CHAPTER\s+\d+|REFERENCES|INDEX)\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([A-Za-z0-9.]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

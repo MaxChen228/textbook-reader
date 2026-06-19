@@ -1,0 +1,162 @@
+slug: dodelson_modern_cosmology
+title: Modern Cosmology
+author: Scott Dodelson; Fabian Schmidt
+edition: 2nd
+subject: Cosmology
+publisher: Elsevier
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 437
+bibliography_start_page: 480
+index_start_page: 485
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The concordance model of cosmology
+    page_start: 16
+    page_end: 34
+    chapter_title_block_idx: 205
+    problems_block_idx: 338
+    next_chapter_block_idx: 357
+  - num: 2
+    title: The expanding universe
+    page_start: 35
+    page_end: 69
+    chapter_title_block_idx: 357
+    problems_block_idx: 745
+    next_chapter_block_idx: 775
+  - num: 3
+    title: The fundamental equations of cosmology
+    page_start: 70
+    page_end: 96
+    chapter_title_block_idx: 775
+    problems_block_idx: 1080
+    next_chapter_block_idx: 1121
+  - num: 4
+    title: The origin of species
+    page_start: 97
+    page_end: 121
+    chapter_title_block_idx: 1121
+    problems_block_idx: 1362
+    next_chapter_block_idx: 1387
+  - num: 5
+    title: "The inhomogeneous universe: matter & radiation"
+    page_start: 122
+    page_end: 144
+    chapter_title_block_idx: 1387
+    problems_block_idx: 1662
+    next_chapter_block_idx: 1676
+  - num: 6
+    title: "The inhomogeneous universe: gravity"
+    page_start: 145
+    page_end: 166
+    chapter_title_block_idx: 1676
+    problems_block_idx: 1962
+    next_chapter_block_idx: 1988
+  - num: 7
+    title: Initial conditions
+    page_start: 167
+    page_end: 204
+    chapter_title_block_idx: 1988
+    problems_block_idx: 2395
+    next_chapter_block_idx: 2482
+  - num: 8
+    title: "Growth of structure: linear theory"
+    page_start: 205
+    page_end: 239
+    chapter_title_block_idx: 2482
+    problems_block_idx: 2840
+    next_chapter_block_idx: 2883
+  - num: 9
+    title: The cosmic microwave background
+    page_start: 240
+    page_end: 278
+    chapter_title_block_idx: 2883
+    problems_block_idx: 3256
+    next_chapter_block_idx: 3302
+  - num: 10
+    title: The polarized CMB
+    page_start: 279
+    page_end: 301
+    chapter_title_block_idx: 3302
+    problems_block_idx: 3532
+    next_chapter_block_idx: 3545
+  - num: 11
+    title: "Probes of structure: tracers"
+    page_start: 302
+    page_end: 330
+    chapter_title_block_idx: 3545
+    problems_block_idx: 3824
+    next_chapter_block_idx: 3856
+  - num: 12
+    title: "Growth of structure: beyond linear theory"
+    page_start: 331
+    page_end: 378
+    chapter_title_block_idx: 3856
+    problems_block_idx: 4338
+    next_chapter_block_idx: 4395
+  - num: 13
+    title: "Probes of structure: lensing"
+    page_start: 379
+    page_end: 405
+    chapter_title_block_idx: 4395
+    problems_block_idx: 4669
+    next_chapter_block_idx: 4702
+  - num: 14
+    title: Analysis and inference
+    page_start: 406
+    page_end: 436
+    chapter_title_block_idx: 4702
+    problems_block_idx: 5013
+    next_chapter_block_idx: 5055
+
+appendices:
+  - id: A
+    title: Solutions to selected exercises
+    page_start: 437
+    chapter_title_block_idx: 5055
+  - id: B
+    title: Numbers
+    page_start: 469
+    chapter_title_block_idx: 5628
+  - id: C
+    title: Special functions
+    page_start: 471
+    chapter_title_block_idx: 5641
+  - id: D
+    title: Symbols
+    page_start: 476
+    chapter_title_block_idx: 5727
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\s*\\{((?:[A-Z]\\.)?\\d+(?:\\.\\d+)*[a-z]?)\\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

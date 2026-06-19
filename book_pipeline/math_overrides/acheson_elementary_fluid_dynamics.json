@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "acheson_elementary_fluid_dynamics-ch09-body-279-11a4d6",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[279]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nabla\\cdotu=\\nabla\\cdot u^{*}=\\nabla\\cdot v=0$",
+      "new": "$\\nabla\\cdot u=\\nabla\\cdot u^{*}=\\nabla\\cdot v=0$",
+      "anchor": "c15fa0a8"
+    },
+    {
+      "id": "acheson_elementary_fluid_dynamics-appB-body-303-4fdd02",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[303]",
+      "field": "md",
+      "all": true,
+      "old": "$e_{ii}=\\nabla\\cdotu$",
+      "new": "$e_{ii}=\\nabla\\cdot u$",
+      "anchor": "8c386262"
+    }
+  ]
+}

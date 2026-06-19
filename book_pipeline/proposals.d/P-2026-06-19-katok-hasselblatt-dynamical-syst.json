@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-katok-hasselblatt-dynamical-syst",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog builder 無法處理同圖拆成多個無 caption fig block",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:40:57+00:00",
+  "updated": "2026-06-19T07:40:57+00:00",
+  "evidence": "smoke H6/H7: unresolved Figure 9.2.6=1, empty figure/table captions=35。parsed 內常見模式是連續多個 fig block，只有最後一個帶 FIGURE X.Y.Z caption，例如 ch07 body[93,94,95]、ch09 body[44,45]、appA body[257]；其餘 fig 只剩 fig-chXX-NN fallback id，無法建立 catalog semantic id。",
+  "proposal": "在 parser/catalog 階段支援將連續無 caption 的 fig/table block 與其後第一個主 caption 合併成單一 semantic figure，或允許將前置無 caption block 標記為 subfigure/excluded，避免 H6/H7 將此類 OCR 切裂視為 critical。",
+  "risk": "",
+  "disposition": ""
+}

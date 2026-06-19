@@ -1,0 +1,134 @@
+slug: demtroder_atoms_molecules_photons
+title: Atoms, Molecules and Photons
+author: Wolfgang Demtroder
+edition: 2nd
+subject: Atomic and Molecular Physics
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 529
+bibliography_start_page: 581
+index_start_page: 591
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 21
+    chapter_title_block_idx: 298
+    problems_block_idx: null
+    next_chapter_block_idx: 356
+  - num: 2
+    title: The Concept of the Atom
+    page_start: 22
+    page_end: 95
+    chapter_title_block_idx: 356
+    problems_block_idx: 1694
+    next_chapter_block_idx: 1738
+  - num: 3
+    title: Development of Quantum Physics
+    page_start: 96
+    page_end: 142
+    chapter_title_block_idx: 1738
+    problems_block_idx: 2637
+    next_chapter_block_idx: 2643
+  - num: 4
+    title: Basic Concepts of Quantum Mechanics
+    page_start: 143
+    page_end: 171
+    chapter_title_block_idx: 2643
+    problems_block_idx: 3330
+    next_chapter_block_idx: 3335
+  - num: 5
+    title: The Hydrogen Atom
+    page_start: 172
+    page_end: 213
+    chapter_title_block_idx: 3335
+    problems_block_idx: 4141
+    next_chapter_block_idx: 4146
+  - num: 6
+    title: Atoms with More Than One Electron
+    page_start: 214
+    page_end: 258
+    chapter_title_block_idx: 4146
+    problems_block_idx: 4880
+    next_chapter_block_idx: 4886
+  - num: 7
+    title: Emission and Absorption of Electromagnetic Radiation by Atoms
+    page_start: 259
+    page_end: 300
+    chapter_title_block_idx: 4886
+    problems_block_idx: 5766
+    next_chapter_block_idx: 5782
+  - num: 8
+    title: Lasers
+    page_start: 301
+    page_end: 337
+    chapter_title_block_idx: 5782
+    problems_block_idx: 6359
+    next_chapter_block_idx: 6385
+  - num: 9
+    title: Diatomic Molecules
+    page_start: 338
+    page_end: 392
+    chapter_title_block_idx: 6385
+    problems_block_idx: 7462
+    next_chapter_block_idx: 7467
+  - num: 10
+    title: Polyatomic Molecules
+    page_start: 393
+    page_end: 430
+    chapter_title_block_idx: 7467
+    problems_block_idx: 8091
+    next_chapter_block_idx: 8096
+  - num: 11
+    title: Experimental Techniques in Atomic and Molecular Physics
+    page_start: 431
+    page_end: 496
+    chapter_title_block_idx: 8096
+    problems_block_idx: 9231
+    next_chapter_block_idx: 9250
+  - num: 12
+    title: Modern Developments in Atomic and Molecular Physics
+    page_start: 497
+    page_end: 528
+    chapter_title_block_idx: 9250
+    problems_block_idx: 9736
+    next_chapter_block_idx: 9743
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^Chronological Table for the Development of Atomic and Molecular Physics$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

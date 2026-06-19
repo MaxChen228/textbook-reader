@@ -1,0 +1,80 @@
+# Differential Forms in Algebraic Topology — extract_rules
+slug: bott_tu_differential_forms
+title: Differential Forms in Algebraic Topology
+author: Raoul Bott; Loring W. Tu
+edition: null
+subject: Topology
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 316
+bibliography_start_page: 316
+index_start_page: 327
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: de Rham Theory
+    page_start: 23
+    page_end: 98
+    chapter_title_block_idx: 354
+    problems_block_idx: null
+    next_chapter_block_idx: 1591
+  - num: 2
+    title: The Cech-de Rham Complex
+    page_start: 99
+    page_end: 163
+    chapter_title_block_idx: 1591
+    chapter_title_block_idx_secondary: 1592
+    problems_block_idx: null
+    next_chapter_block_idx: 2558
+  - num: 3
+    title: Spectral Sequences and Applications
+    page_start: 164
+    page_end: 275
+    chapter_title_block_idx: 2558
+    chapter_title_block_idx_secondary: 2559
+    problems_block_idx: null
+    next_chapter_block_idx: 4262
+  - num: 4
+    title: Characteristic Classes
+    page_start: 276
+    page_end: 315
+    chapter_title_block_idx: 4262
+    chapter_title_block_idx_secondary: 4263
+    problems_block_idx: null
+    next_chapter_block_idx: 6274
+
+appendices: []
+
+section_re: '^§(\d+)\s+(.+)$'
+subsection_re: '^(?!CHAPTER\b)(?!§\d+\s)(?!References$)(?!Index$)(?!EXAMPLE\b)()(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+(?:\.\d+)+)\.?\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9IVXLC]+(?:\.[0-9]+)*[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+([0-9]+(?:\.[0-9]+)*)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

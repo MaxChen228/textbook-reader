@@ -1,0 +1,122 @@
+slug: hungerford_algebra
+title: Algebra
+author: Thomas W. Hungerford
+edition: null
+subject: Abstract Algebra
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 512
+bibliography_start_page: 512
+index_start_page: 516
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Prerequisites and Preliminaries
+    page_start: 24
+    page_end: 45
+    chapter_title_block_idx: 150
+    problems_block_idx: null
+    next_chapter_block_idx: 480
+  - num: 2
+    title: Groups
+    page_start: 46
+    page_end: 92
+    chapter_title_block_idx: 480
+    problems_block_idx: null
+    next_chapter_block_idx: 1085
+  - num: 3
+    title: The Structure of Groups
+    page_start: 93
+    page_end: 136
+    chapter_title_block_idx: 1085
+    problems_block_idx: null
+    next_chapter_block_idx: 1683
+  - num: 4
+    title: Rings
+    page_start: 137
+    page_end: 190
+    chapter_title_block_idx: 1683
+    problems_block_idx: null
+    next_chapter_block_idx: 2516
+  - num: 5
+    title: Modules
+    page_start: 191
+    page_end: 252
+    chapter_title_block_idx: 2516
+    problems_block_idx: null
+    next_chapter_block_idx: 3412
+  - num: 6
+    title: Fields and Galois Theory
+    page_start: 253
+    page_end: 333
+    chapter_title_block_idx: 3412
+    problems_block_idx: null
+    next_chapter_block_idx: 4503
+  - num: 7
+    title: The Structure of Fields
+    page_start: 334
+    page_end: 349
+    chapter_title_block_idx: 4503
+    problems_block_idx: null
+    next_chapter_block_idx: 4687
+  - num: 8
+    title: Linear Algebra
+    page_start: 350
+    page_end: 393
+    chapter_title_block_idx: 4687
+    problems_block_idx: null
+    next_chapter_block_idx: 5269
+  - num: 9
+    title: Commutative Rings and Modules
+    page_start: 394
+    page_end: 436
+    chapter_title_block_idx: 5269
+    problems_block_idx: null
+    next_chapter_block_idx: 5864
+  - num: 10
+    title: The Structure of Rings
+    page_start: 437
+    page_end: 486
+    chapter_title_block_idx: 5864
+    problems_block_idx: null
+    next_chapter_block_idx: 6607
+  - num: 11
+    title: Categories
+    page_start: 487
+    page_end: 511
+    chapter_title_block_idx: 6607
+    problems_block_idx: null
+    next_chapter_block_idx: 6940
+
+section_re: '^(\d+)\.\s+([A-Z][A-Z0-9,;:()''&\- ]*[A-Z0-9)])$'
+subsection_re: '^()(EXERCISES|APPENDIX: .+|PROOF\. Exercise\.)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

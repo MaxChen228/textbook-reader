@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-lax-functional-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog gate 無法 declaratively 排除 captionless inline figures",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:35:54+00:00",
+  "updated": "2026-06-19T07:35:54+00:00",
+  "evidence": "validate/parser 已綠（38 chapters, 3 appendices），smoke 唯一 critical 為 H7 empty_captions=66。parsed/_catalog_audit.md 顯示 case 幾乎全是正文或 exercise 內的 inline visual，前後文沒有可抽的 Figure/Table caption，例如 ch06 body[27]、ch14 body[103]、ch31 body[132]、appB body[98]/[269]；現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法把這類無正式 caption 且無外部引用需求的圖 declaratively 標成 non-indexable。",
+  "proposal": "擴充 catalog/audit schema，允許 per-book 或 per-visual 將 captionless inline figure/table 標記為 non-indexable / exclude with reviewable reason；必要時再支援鄰近 text caption donor，但本書主要缺的是 exclusion 能力。",
+  "risk": "",
+  "disposition": ""
+}

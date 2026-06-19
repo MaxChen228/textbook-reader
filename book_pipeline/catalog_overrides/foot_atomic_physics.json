@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "fix-ex4-10-fig-4-7-footnote-merge",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.10:body[1]",
+      "field": "md",
+      "old": "the potentials in the central-field approximation illustrated in Fig. 4.7.30",
+      "new": "the potentials in the central-field approximation illustrated in Fig. 4.7",
+      "reason": "正文把 Figure 4.7 後面的腳註 30 黏成 ref；catalog 端只有 fig-4.7，屬 misOCR ref。"
+    }
+  ]
+}

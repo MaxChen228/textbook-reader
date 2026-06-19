@@ -292,6 +292,22 @@
       "old": "\\( [,\\] ) satisfies the Jacobi identity). ✦",
       "new": "([,])\\text{ satisfies the Jacobi identity). ✦}",
       "anchor": "6ad0a22a"
+    },
+    {
+      "id": "spivak_differential_geometry-ch26-body-77-a237b3",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[77]",
+      "expect": "(*) \\qquad \\det \\left( \\begin{array}{c c c} \\framebox {(W _ {i j}) - \\lambda I} & W _ {1} \\\\ \\framebox {W _ {3}} & W _ {2} \\\\ W _ {1} & W _ {2} & W _ {3} \\\\ 0 \\end{array} \\right) = 0.",
+      "new": "(*)\\qquad \\det\\left(\\begin{array}{ccc}\\framebox{$(W_{ij})-\\lambda I$}&W_{1}&\\\\\\framebox{$W_{3}$}&W_{2}&\\\\W_{1}&W_{2}&W_{3}\\\\0&&\\end{array}\\right)=0."
+    },
+    {
+      "id": "spivak_differential_geometry-ch36-body-725-3dca77",
+      "action": "fix_eq_tex",
+      "chunk": "ch36",
+      "selector": "body[725]",
+      "expect": "\\tilde {A} Y _ {i} \\tilde {A} ^ {- 1} = \\left( \\begin{array}{c c c} \\framebox {A} & 0 \\\\ 0 & \\ldots & 0 \\\\ 0 & \\ldots & 0 \\end{array} \\right) \\left( \\begin{array}{c c c} \\framebox {0} & 0 \\\\ 0 & \\vdots \\\\ 0 & 1 \\\\ 0 & \\vdots \\\\ 0 & - 1 & \\ldots \\\\ 0 & 0 \\end{array} \\right) \\left( \\begin{array}{c c c} \\framebox {A ^ {\\mathbf {t}}} & 0 \\\\ 0 & \\vdots \\\\ 0 & 0 \\\\ 0 & \\ldots & 1 \\end{array} \\right)",
+      "new": "\\tilde{A}Y_{i}\\tilde{A}^{-1}=\\left(\\begin{array}{ccc}\\framebox{$A$}&0&\\\\0&\\ldots&0\\\\0&\\ldots&0\\end{array}\\right)\\left(\\begin{array}{ccc}\\framebox{$0$}&0&\\\\0&\\vdots&\\\\0&1&\\\\0&\\vdots&\\\\0&-1&\\ldots\\\\0&0&\\end{array}\\right)\\left(\\begin{array}{ccc}\\framebox{$A^{\\mathbf{t}}$}&0&\\\\0&\\vdots&\\\\0&0&\\\\0&\\ldots&1\\end{array}\\right)"
     }
   ]
 }

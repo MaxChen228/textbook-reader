@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-hungerford-algebra",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog audit 無法處理無 caption 的交換圖/依存圖",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:35:54+00:00",
+  "updated": "2026-06-19T07:35:54+00:00",
+  "evidence": "hungerford_algebra 共有 64 個 figure/table 空 caption；多數是 commutative diagram 或 chapter dependency graph，前後文只有『the following diagram』『interdependence ... as follows』之類描述，extract_rules.yaml 無欄位可補 semantic id/exclude reason，smoke H7 因此卡住。",
+  "proposal": "在 catalog audit / override 層加入 captionless diagram policy：允許用鄰近前後文產生 review queue，或提供 per-block exclude reason 載體，避免把無 caption 的數學交換圖一律視為致命。",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,197 @@
+slug: katok_hasselblatt_dynamical_systems
+title: Introduction to the Modern Theory of Dynamical Systems
+author: Anatole Katok; Boris Hasselblatt
+edition: null
+subject: Dynamical Systems
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 720
+bibliography_start_page: null
+index_start_page: 812
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 20
+    page_end: 33
+    chapter_title_block_idx: 241
+    problems_block_idx: null
+    next_chapter_block_idx: 351
+  - num: 1
+    title: First examples
+    page_start: 34
+    page_end: 75
+    chapter_title_block_idx: 351
+    problems_block_idx: null
+    next_chapter_block_idx: 960
+  - num: 2
+    title: Equivalence, classification, and invariants
+    page_start: 76
+    page_end: 123
+    chapter_title_block_idx: 960
+    problems_block_idx: null
+    next_chapter_block_idx: 1684
+  - num: 3
+    title: Principal classes of asymptotic topological invariants
+    page_start: 124
+    page_end: 151
+    chapter_title_block_idx: 1684
+    problems_block_idx: null
+    next_chapter_block_idx: 2120
+  - num: 4
+    title: Statistical behavior of orbits and introduction to ergodic theory
+    page_start: 152
+    page_end: 201
+    chapter_title_block_idx: 2120
+    problems_block_idx: null
+    next_chapter_block_idx: 2894
+  - num: 5
+    title: Systems with smooth invariant measures and more examples
+    page_start: 202
+    page_end: 255
+    chapter_title_block_idx: 2894
+    problems_block_idx: null
+    next_chapter_block_idx: 3614
+  - num: 6
+    title: Local hyperbolic theory and its applications
+    page_start: 256
+    page_end: 305
+    chapter_title_block_idx: 3614
+    problems_block_idx: null
+    next_chapter_block_idx: 4372
+  - num: 7
+    title: Transversality and genericity
+    page_start: 306
+    page_end: 325
+    chapter_title_block_idx: 4372
+    problems_block_idx: null
+    next_chapter_block_idx: 4583
+  - num: 8
+    title: Orbit growth arising from topology
+    page_start: 326
+    page_end: 353
+    chapter_title_block_idx: 4583
+    problems_block_idx: null
+    next_chapter_block_idx: 4959
+  - num: 9
+    title: Variational aspects of dynamics
+    page_start: 354
+    page_end: 399
+    chapter_title_block_idx: 4959
+    problems_block_idx: null
+    next_chapter_block_idx: 5531
+  - num: 10
+    title: "Introduction: What is low-dimensional dynamics?"
+    page_start: 400
+    page_end: 405
+    chapter_title_block_idx: 5531
+    problems_block_idx: null
+    next_chapter_block_idx: 5592
+  - num: 11
+    title: Homeomorphisms of the circle
+    page_start: 406
+    page_end: 419
+    chapter_title_block_idx: 5592
+    problems_block_idx: null
+    next_chapter_block_idx: 5797
+  - num: 12
+    title: Circle diffeomorphisms
+    page_start: 420
+    page_end: 469
+    chapter_title_block_idx: 5797
+    problems_block_idx: null
+    next_chapter_block_idx: 6509
+  - num: 13
+    title: Flows on surfaces and related dynamical systems
+    page_start: 470
+    page_end: 507
+    chapter_title_block_idx: 6509
+    problems_block_idx: null
+    next_chapter_block_idx: 6950
+  - num: 14
+    title: Continuous maps of the interval
+    page_start: 508
+    page_end: 537
+    chapter_title_block_idx: 6950
+    problems_block_idx: null
+    next_chapter_block_idx: 7396
+  - num: 15
+    title: Smooth maps of the interval
+    page_start: 538
+    page_end: 549
+    chapter_title_block_idx: 7396
+    problems_block_idx: null
+    next_chapter_block_idx: 7531
+  - num: 16
+    title: Survey of examples
+    page_start: 550
+    page_end: 583
+    chapter_title_block_idx: 7531
+    problems_block_idx: null
+    next_chapter_block_idx: 8008
+  - num: 17
+    title: Topological properties of hyperbolic sets
+    page_start: 584
+    page_end: 615
+    chapter_title_block_idx: 8008
+    problems_block_idx: null
+    next_chapter_block_idx: 8446
+  - num: 18
+    title: Metric structure of hyperbolic sets
+    page_start: 616
+    page_end: 633
+    chapter_title_block_idx: 8446
+    problems_block_idx: null
+    next_chapter_block_idx: 8676
+  - num: 19
+    title: Equilibrium states and smooth invariant measures
+    page_start: 634
+    page_end: 677
+    chapter_title_block_idx: 8676
+    problems_block_idx: null
+    next_chapter_block_idx: 9345
+  - num: 20
+    title: Dynamical systems with nonuniformly hyperbolic behavior
+    page_start: 678
+    page_end: 719
+    chapter_title_block_idx: 9345
+    problems_block_idx: null
+    next_chapter_block_idx: 10080
+
+appendices:
+  - id: A
+    title: Background material
+    page_start: 720
+    chapter_title_block_idx: 10080
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^([a-z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+\.\d+(?:\\?\*)?)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

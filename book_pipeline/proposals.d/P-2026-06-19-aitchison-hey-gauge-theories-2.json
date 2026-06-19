@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-aitchison-hey-gauge-theories-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "support detached figure captions in catalog build",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:49:00+00:00",
+  "updated": "2026-06-19T07:49:00+00:00",
+  "evidence": "smoke H6/H7: parsed/_catalog_audit.md shows 176 empty figure/table captions and unresolved refs because many captions like 'FIGURE 1.1' or caption text are separate text blocks adjacent to image blocks rather than MinerU image_caption fields; current yaml only supports figure_caption_merge on existing captions, not adjacent text caption attachment",
+  "proposal": "extend parser/build_catalogs to associate adjacent caption-like text blocks with preceding image/table blocks, including multi-block captions and panel markers like '(a)' followed by 'FIGURE 1.1'",
+  "risk": "",
+  "disposition": ""
+}

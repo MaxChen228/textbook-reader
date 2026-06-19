@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "fix-fig-8-15-footnote-merge",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[8]",
+      "field": "md",
+      "old": "see Fig. 8.15.1 Apart from these lines",
+      "new": "see Fig. 8.15. Apart from these lines",
+      "reason": "raw PDF p.579 顯示這裡是 Figure 8.15 後接腳註上標 1，OCR 把註腳黏成 ref 8.15.1；catalog 端只有 fig-8.15，屬 misOCR ref。"
+    },
+    {
+      "id": "fix-fig-18-13-footnote-merge",
+      "action": "replace_text",
+      "chunk": "ch18",
+      "selector": "body[102]",
+      "field": "md",
+      "old": "see Fig. 18.13.9 When $r \\gg R$",
+      "new": "see Fig. 18.13. When $r \\gg R$",
+      "reason": "raw PDF p.684 顯示這裡是 Figure 18.13 後接腳註上標 9，OCR 把註腳黏成 ref 18.13.9；同章 p.696 亦可見真正圖號為 Figure 18.13。"
+    }
+  ]
+}

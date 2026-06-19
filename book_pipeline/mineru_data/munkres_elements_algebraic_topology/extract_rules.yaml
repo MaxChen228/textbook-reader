@@ -1,0 +1,103 @@
+slug: munkres_elements_algebraic_topology
+title: Elements of Algebraic Topology
+author: James R. Munkres; Steven G. Krantz; Harold R. Parks
+edition: 2nd
+subject: Topology
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 549
+bibliography_start_page: 555
+index_start_page: 571
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Homology Groups of a Simplicial Complex
+    page_start: 15
+    page_end: 106
+    chapter_title_block_idx: 155
+    problems_block_idx: null
+    next_chapter_block_idx: 1477
+  - num: 2
+    title: Topological Invariance of the Homology Groups
+    page_start: 107
+    page_end: 163
+    chapter_title_block_idx: 1477
+    problems_block_idx: null
+    next_chapter_block_idx: 2353
+  - num: 3
+    title: Relative Homology and the Eilenberg-Steenrod Axioms
+    page_start: 164
+    page_end: 200
+    chapter_title_block_idx: 2353
+    problems_block_idx: null
+    next_chapter_block_idx: 2987
+  - num: 4
+    title: Singular Homology Theory
+    page_start: 201
+    page_end: 314
+    chapter_title_block_idx: 2987
+    problems_block_idx: null
+    next_chapter_block_idx: 4680
+  - num: 5
+    title: Cohomology
+    page_start: 315
+    page_end: 379
+    chapter_title_block_idx: 4680
+    problems_block_idx: null
+    next_chapter_block_idx: 5746
+  - num: 6
+    title: Homology with Coefficients
+    page_start: 380
+    page_end: 394
+    chapter_title_block_idx: 5746
+    problems_block_idx: null
+    next_chapter_block_idx: 6030
+  - num: 7
+    title: Homological Algebra
+    page_start: 395
+    page_end: 456
+    chapter_title_block_idx: 6030
+    problems_block_idx: null
+    next_chapter_block_idx: 7196
+  - num: 8
+    title: Duality in Manifolds
+    page_start: 457
+    page_end: 548
+    chapter_title_block_idx: 7196
+    problems_block_idx: null
+    next_chapter_block_idx: 8680
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()((?:EXERCISES?|Exercises?)|(?:[A-Z*][A-Za-z0-9*&()\[\],./; -]*[A-Za-z0-9*.)]))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

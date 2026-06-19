@@ -1,0 +1,110 @@
+slug: milnor_differential_topology
+title: Topology from the Differentiable Viewpoint
+author: John W. Milnor
+edition: null
+subject: Topology
+publisher: The University Press of Virginia
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 65
+bibliography_start_page: 69
+index_start_page: 73
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Smooth manifolds and smooth maps
+    page_start: 11
+    page_end: 19
+    chapter_title_block_idx: 52
+    problems_block_idx: null
+    next_chapter_block_idx: 194
+  - num: 2
+    title: The theorem of Sard and Brown
+    page_start: 20
+    page_end: 25
+    chapter_title_block_idx: 194
+    problems_block_idx: null
+    next_chapter_block_idx: 281
+  - num: 3
+    title: Proof of Sard's theorem
+    page_start: 26
+    page_end: 29
+    chapter_title_block_idx: 281
+    problems_block_idx: null
+    next_chapter_block_idx: 340
+  - num: 4
+    title: The degree modulo 2 of a mapping
+    page_start: 30
+    page_end: 35
+    chapter_title_block_idx: 340
+    problems_block_idx: null
+    next_chapter_block_idx: 428
+  - num: 5
+    title: Oriented manifolds
+    page_start: 36
+    page_end: 41
+    chapter_title_block_idx: 428
+    problems_block_idx: null
+    next_chapter_block_idx: 513
+  - num: 6
+    title: Vector fields and the Euler number
+    page_start: 42
+    page_end: 51
+    chapter_title_block_idx: 513
+    problems_block_idx: null
+    next_chapter_block_idx: 656
+  - num: 7
+    title: Framed cobordism; the Pontryagin construction
+    page_start: 52
+    page_end: 61
+    chapter_title_block_idx: 656
+    chapter_title_block_idx_secondary: 657
+    problems_block_idx: null
+    next_chapter_block_idx: 818
+  - num: 8
+    title: Exercises
+    page_start: 62
+    page_end: 64
+    chapter_title_block_idx: 818
+    problems_block_idx: null
+    next_chapter_block_idx: 871
+
+appendices:
+  - id: A
+    title: Classifying 1-manifolds
+    page_start: 65
+    chapter_title_block_idx: 871
+
+section_re: "^()([A-Z][A-Z0-9 .,';:()\\-]+[A-Z0-9)])$"
+subsection_re: "^()([A-Z][A-Za-z]*(?:\\s+[A-Za-z][A-Za-z]*)+)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "(?i)^problem\\s+((?:\\d\\s*)+)[\\.,]?\\s+"
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

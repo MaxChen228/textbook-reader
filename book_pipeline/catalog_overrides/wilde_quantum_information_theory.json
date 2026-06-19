@@ -1,0 +1,193 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "wilde-fix-fig-6.3",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[107]",
+      "set": {
+        "id": "fig-6.3",
+        "caption": "Figure 6.3 This figure depicts the teleportation protocol.",
+        "catalog_repair_source": "agent-caption-fix"
+      },
+      "reason": "正文明確引用 Figure 6.3，但 MinerU 只保留了無編號 caption。"
+    },
+    {
+      "id": "wilde-exclude-ch03-prob-3.5.11-table",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.5.11:body[7]",
+      "set": {
+        "catalog_exclude_reason": "OCR split out an unlabeled auxiliary table fragment with no stable semantic caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免無 caption 的表格殘片觸發 catalog gate。"
+    },
+    {
+      "id": "wilde-exclude-ch09-fig-4",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[4]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned companion panel; the following sibling carries the semantic Figure 9.1 caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "左側子圖無獨立 caption，不應單獨進 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch09-fig-257",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[257]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned visual fragment with no stable OCR caption or referenced figure number.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch09-fig-316",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[316]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned companion panel; the following sibling carries the semantic Figure 9.4 caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "左側子圖無獨立 caption，不應單獨進 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch09-fig-331",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[331]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned visual fragment immediately before a subsection heading, with no stable semantic caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch09-prob-9.4.1-fig",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.4.1:body[13]",
+      "set": {
+        "catalog_exclude_reason": "Problem-local figure fragment has no recoverable caption in OCR output.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免題目內空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch10-fig-19",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[19]",
+      "set": {
+        "catalog_exclude_reason": "OCR emitted an unlabeled graphic just before prose naming the binary entropy function, without a stable figure number.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch12-table-416",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[416]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned table-like fragment near chapter close; no stable table title survives OCR.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 表格殘片進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch14-fig-192",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[192]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned visual fragment in proof exposition with no recoverable figure number.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch20-fig-66",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[66]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned graphic fragment embedded in surrounding prose, without a stable semantic caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch20-fig-344",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[344]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned graphic fragment with no recoverable figure number in OCR output.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch23-table-181",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[181]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned table fragment produced by OCR in explanatory text, without a stable table title.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 表格殘片進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch23-fig-301",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[301]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned graphic fragment with no stable semantic caption in OCR output.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch23-fig-325",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[325]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned companion panel preceding the captioned Figure 23.3 block.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "左側子圖無獨立 caption，不應單獨進 catalog。"
+    },
+    {
+      "id": "wilde-exclude-ch23-fig-395",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[395]",
+      "set": {
+        "catalog_exclude_reason": "Uncaptioned graphic fragment near chapter end with no recoverable figure number.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免空 caption 圖塊進入 catalog。"
+    },
+    {
+      "id": "wilde-exclude-appA-fig-39",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[39]",
+      "set": {
+        "catalog_exclude_reason": "OCR emitted an unlabeled appendix graphic fragment alongside lemma text, without a stable caption.",
+        "catalog_repair_source": "agent-semantic-exclude"
+      },
+      "reason": "避免附錄中的空 caption 圖塊進入 catalog。"
+    }
+  ]
+}

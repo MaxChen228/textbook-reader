@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-do-carmo-riemannian-geometry",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法 declaratively 合併空 caption sibling figure",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:33:44+00:00",
+  "updated": "2026-06-19T06:33:44+00:00",
+  "evidence": "ch13 §2 page 284 有兩個連續 image block（unified idx 3766, 3767；parsed ch13 body[36], body[37]）。後者被抽成 caption 'Figure 3 Figure 4'，前者 caption 空白。現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，而 parser 只會在前一圖 caption 為 (a)/(b) 子圖時把主 caption 往前搬；對空 caption 的前導 sibling figure 無法 declaratively 合併或標註非主圖，導致 smoke H7 empty_captions=1。",
+  "proposal": "擴充 catalog/parser 的 declarative 規則：允許把連續 captionless sibling figures 併入後續帶主 caption 的 figure，或允許 per-book 對前導 sibling figure 標註 non-primary/exclude reason。這樣像 Figure 3/Figure 4 共享版面但前塊無 caption 的案例可在不改書本內容的前提下清掉 H7。",
+  "risk": "",
+  "disposition": ""
+}

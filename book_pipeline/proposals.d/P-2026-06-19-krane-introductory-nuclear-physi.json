@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-krane-introductory-nuclear-physi",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog audit cannot bind captionless visual shards to adjacent Figure/Table captions",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:22:47+00:00",
+  "updated": "2026-06-19T06:22:47+00:00",
+  "evidence": "validate/parser 已綠（20 chapters, 3 appendices），smoke 兩輪皆只剩 H7 empty_captions=142。開啟 extract_rules 的 figure_caption_merge=true 與 Figure/Table N.M main regex 後，smoke 指標完全不變。parsed/_catalog_audit.md 顯示大量 case 為 captionless line/table shard 緊鄰另一個已帶 Figure/Table caption 的 sibling visual，例如 ch02 body[140]->body[141] fig-ch02-140 / fig-2.6、body[163]->body[164] fig-ch02-163 / fig-2.8、ch05 body[13:14] 多個 shard 對應 Figure 5.3；另有 table/figure caption 在相鄰 prose 或多 shard 間拆開。現有 schema 欄位無法 declaratively 把這些 shard 併到主 caption 或標成同一 semantic visual。",
+  "proposal": "在 catalog/build 階段支援 sibling visual shard consolidation：對連續 image/chart/line/table block 與相鄰 Figure/Table caption donor 建立 group，將主 caption / semantic id 掛到整組 visual；或提供 per-book declarative shard-merge / nonindexable visual schema。",
+  "risk": "若直接在單書 yaml workaround，會把大量真正圖表 shard 留成 empty-caption critical，或為了過 smoke 過度放寬 caption regex 污染其他書。",
+  "disposition": ""
+}

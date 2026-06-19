@@ -1,0 +1,197 @@
+slug: shu_physical_universe
+title: "The Physical Universe: An Introduction to Astronomy"
+author: Frank H. Shu
+edition: null
+subject: Astronomy
+publisher: University Science Books
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 583
+bibliography_start_page: null
+index_start_page: 589
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: The Birth of Science
+    page_start: 19
+    page_end: 29
+    chapter_title_block_idx: 476
+    problems_block_idx: null
+    next_chapter_block_idx: 578
+  - num: 2
+    title: Classical Mechanics, Light, and Astronomical Telescopes
+    page_start: 30
+    page_end: 48
+    chapter_title_block_idx: 578
+    problems_block_idx: null
+    next_chapter_block_idx: 775
+  - num: 3
+    title: The Great Laws of Microscopic Physics
+    page_start: 49
+    page_end: 77
+    chapter_title_block_idx: 775
+    problems_block_idx: null
+    next_chapter_block_idx: 1160
+  - num: 4
+    title: The Great Laws of Macroscopic Physics
+    page_start: 78
+    page_end: 98
+    chapter_title_block_idx: 1160
+    problems_block_idx: null
+    next_chapter_block_idx: 1420
+  - num: 5
+    title: The Sun as a Star
+    page_start: 99
+    page_end: 117
+    chapter_title_block_idx: 1420
+    problems_block_idx: null
+    next_chapter_block_idx: 1633
+  - num: 6
+    title: Nuclear Energy and Synthesis of the Elements
+    page_start: 118
+    page_end: 140
+    chapter_title_block_idx: 1633
+    problems_block_idx: null
+    next_chapter_block_idx: 1968
+  - num: 7
+    title: The End States of Stars
+    page_start: 141
+    page_end: 159
+    chapter_title_block_idx: 1968
+    problems_block_idx: null
+    next_chapter_block_idx: 2215
+  - num: 8
+    title: Evolution of the Stars
+    page_start: 160
+    page_end: 174
+    chapter_title_block_idx: 2215
+    problems_block_idx: null
+    next_chapter_block_idx: 2377
+  - num: 9
+    title: Star Clusters and the Hertzsprung-Russell Diagram
+    page_start: 175
+    page_end: 194
+    chapter_title_block_idx: 2377
+    problems_block_idx: null
+    next_chapter_block_idx: 2605
+  - num: 10
+    title: Binary Stars
+    page_start: 195
+    page_end: 226
+    chapter_title_block_idx: 2605
+    problems_block_idx: null
+    next_chapter_block_idx: 2900
+  - num: 11
+    title: The Material Between the Stars
+    page_start: 227
+    page_end: 270
+    chapter_title_block_idx: 2900
+    problems_block_idx: null
+    next_chapter_block_idx: 3311
+  - num: 12
+    title: "Our Galaxy: The Milky Way System"
+    page_start: 271
+    page_end: 301
+    chapter_title_block_idx: 3311
+    problems_block_idx: null
+    next_chapter_block_idx: 3633
+  - num: 13
+    title: Quiet and Active Galaxies
+    page_start: 302
+    page_end: 347
+    chapter_title_block_idx: 3633
+    problems_block_idx: null
+    next_chapter_block_idx: 4043
+  - num: 14
+    title: Clusters of Galaxies and the Expansion of the Universe
+    page_start: 348
+    page_end: 370
+    chapter_title_block_idx: 4043
+    problems_block_idx: null
+    next_chapter_block_idx: 4234
+  - num: 15
+    title: Gravitation and Cosmology
+    page_start: 371
+    page_end: 396
+    chapter_title_block_idx: 4234
+    problems_block_idx: null
+    next_chapter_block_idx: 4574
+  - num: 16
+    title: The Big Bang and the Creation of the Material World
+    page_start: 397
+    page_end: 430
+    chapter_title_block_idx: 4574
+    problems_block_idx: null
+    next_chapter_block_idx: 4956
+  - num: 17
+    title: The Solar System
+    page_start: 431
+    page_end: 474
+    chapter_title_block_idx: 4956
+    problems_block_idx: null
+    next_chapter_block_idx: 5326
+  - num: 18
+    title: Origin of the Solar System and the Earth
+    page_start: 475
+    page_end: 513
+    chapter_title_block_idx: 5326
+    problems_block_idx: null
+    next_chapter_block_idx: 5691
+  - num: 19
+    title: The Nature of Life on Earth
+    page_start: 514
+    page_end: 543
+    chapter_title_block_idx: 5691
+    problems_block_idx: null
+    next_chapter_block_idx: 5967
+  - num: 20
+    title: Life and Intelligence in the Universe
+    page_start: 544
+    page_end: 582
+    chapter_title_block_idx: 5967
+    problems_block_idx: null
+    next_chapter_block_idx: 6338
+
+appendices:
+  - id: A
+    title: Constants
+    page_start: 583
+    chapter_title_block_idx: 6338
+  - id: B
+    title: Euclidean Geometry
+    page_start: 585
+    chapter_title_block_idx: 6347
+  - id: C
+    title: Greek Alphabet
+    page_start: 586
+    chapter_title_block_idx: 6364
+
+section_re: "^()((?!Problem\\b|BOX\\b|CONTENTS\\b|INDEX\\b|PART\\b)[A-Z][A-Za-z0-9$.,:;?()'\\-/]*(?:\\s+[A-Za-z0-9$.,:;?()'\\-/]+)*)$"
+subsection_re: "^(__never__)\\s+(.+)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^Problem\\s+(\\d+\\.\\d+)\\b"
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{\\$?([0-9]+(?:\\.[0-9]+)?[a-z]?)"
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: "^(Figure|Table)\\s+\\d+\\.\\d+[A-Za-z]?\\."
+
+known_missing_problems: []

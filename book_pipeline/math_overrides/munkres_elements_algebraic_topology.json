@@ -1,0 +1,90 @@
+{
+  "overrides": [
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-591-bd568b",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[591]",
+      "expect": "C _ {p} ^ {\\prime} = \\left\\{ \\begin{array}{l l} G & \\text {if p = 0 ,} \\\\ 0 & \\text {if p\\neq 0 .} \\end{array} \\right.",
+      "new": "C_{p}^{\\prime}=\\left\\{\\begin{array}{ll}G&\\text{if }p=0,\\\\0&\\text{if }p\\neq 0.\\end{array}\\right."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch03-body-246-cc5156",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[246]",
+      "expect": "\\dots \\longrightarrow H _ {i} (K _ {0} \\cap K _ {1}, L _ {0} \\cap L _ {1}) \\longrightarrow H _ {i} (K _ {0}, L _ {0}) \\oplus H _ {i} (K _ {1}, L _ {1}) \\underset {\\bigcup_ {H _ {i} (K _ {0} \\cup K _ {1}, L _ {0} \\cup L _ {1})} \\longrightarrow \\dots .}",
+      "new": "\\dots\\longrightarrow H_{i}(K_{0}\\cap K_{1},L_{0}\\cap L_{1})\\longrightarrow H_{i}(K_{0},L_{0})\\oplus H_{i}(K_{1},L_{1})\\longrightarrow H_{i}(K_{0}\\cup K_{1},L_{0}\\cup L_{1})\\longrightarrow\\dots."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-510-999cb0",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[510]",
+      "expect": "0 \\to \\bigoplus_ {p + q = m} H _ {p} (\\mathcal {C}) \\otimes H _ {q} (\\mathcal {C} ^ {\\prime}) \\xrightarrow {\\Theta} H _ {m} (\\mathcal {C} \\otimes \\mathcal {C} ^ {\\prime}) \\underset {\\bigoplus_ {p + q = m} H _ {p - 1} (\\mathcal {C}) * H _ {q} (\\mathcal {C} ^ {\\prime}) \\to 0,}",
+      "new": "0\\to\\bigoplus_{p+q=m}H_{p}(\\mathcal{C})\\otimes H_{q}(\\mathcal{C}^{\\prime})\\xrightarrow{\\Theta}H_{m}(\\mathcal{C}\\otimes\\mathcal{C}^{\\prime})\\to\\bigoplus_{p+q=m}H_{p-1}(\\mathcal{C})*H_{q}(\\mathcal{C}^{\\prime})\\to 0,"
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-638-71c3e1",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[638]",
+      "expect": "0 \\to \\bigoplus_ {p + q = m} H _ {p} (\\mathcal {C}) \\otimes H _ {q} (\\mathcal {C} ^ {\\prime}) \\longrightarrow H _ {m} (\\mathcal {C} \\otimes \\mathcal {C} ^ {\\prime}) \\underset {\\bigoplus_ {p + q = m} H _ {p - 1} (\\mathcal {C}) * H _ {q} (\\mathcal {C} ^ {\\prime}) \\to 0.}",
+      "new": "0\\to\\bigoplus_{p+q=m}H_{p}(\\mathcal{C})\\otimes H_{q}(\\mathcal{C}^{\\prime})\\longrightarrow H_{m}(\\mathcal{C}\\otimes\\mathcal{C}^{\\prime})\\to\\bigoplus_{p+q=m}H_{p-1}(\\mathcal{C})*H_{q}(\\mathcal{C}^{\\prime})\\to 0."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-670-efb577",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[670]",
+      "expect": "0 \\to \\bigoplus_ {p + q = m} H _ {p} (X) \\otimes H _ {q} (Y) \\longrightarrow H _ {m} (X \\times Y) \\underset {\\bigoplus_ {p + q = m} H _ {p - 1} (X) * H _ {q} (Y) \\to 0.}",
+      "new": "0\\to\\bigoplus_{p+q=m}H_{p}(X)\\otimes H_{q}(Y)\\longrightarrow H_{m}(X\\times Y)\\to\\bigoplus_{p+q=m}H_{p-1}(X)*H_{q}(Y)\\to 0."
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch03-problem-3-5-3-body-2-8ed9b2",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.5.3:body[2]",
+      "expect": "\\begin{array}{c c c c c} A & \\xrightarrow {i} & X _ {1} & \\xrightarrow {\\alpha} & (X _ {1}, A) \\\\ j \\Big \\downarrow & & k \\Big \\downarrow & & \\Big \\downarrow \\gamma \\\\ X _ {2} & \\xrightarrow [ \\ell ] & X & \\xrightarrow [ \\beta ] & (X, X _ {2}). \\end{array}",
+      "new": "\\begin{array}{ccccc}A&\\xrightarrow{i}&X_{1}&\\xrightarrow{\\alpha}&(X_{1},A)\\\\j\\Big\\downarrow&&k\\Big\\downarrow&&\\Big\\downarrow\\gamma\\\\X_{2}&\\xrightarrow[\\ell]{}&X&\\xrightarrow[\\beta]{}&(X,X_{2}).\\end{array}"
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-102-020361",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[102]",
+      "expect": "\\begin{array}{c} 0 \\leftarrow \\operatorname{Ext} (A, G) \\leftarrow \\operatorname{Ext} (B, G) \\leftarrow \\operatorname{Ext} (C, G) \\leftarrow \\\\ \\hskip - 1 4. 2 2 6 3 7 p t \\operatorname{Hom} (A, G) \\leftarrow \\operatorname{Hom} (B, G) \\leftarrow \\operatorname{Hom} (C, G) \\leftarrow 0  , \\end{array}",
+      "new": "\\begin{array}{c}0\\leftarrow\\operatorname{Ext}(A,G)\\leftarrow\\operatorname{Ext}(B,G)\\leftarrow\\operatorname{Ext}(C,G)\\leftarrow\\\\\\hskip-14.22637pt\\operatorname{Hom}(A,G)\\leftarrow\\operatorname{Hom}(B,G)\\leftarrow\\operatorname{Hom}(C,G)\\leftarrow 0,\\end{array}"
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-412-abf72e",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[412]",
+      "field": "md",
+      "all": true,
+      "old": "$\\partial ^ { \\prime } : U _ { p + 1 } \\big \\to W _ { p }$",
+      "new": "$\\partial^{\\prime}:U_{p+1}\\to W_{p}$",
+      "anchor": "54a3237f"
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch04-body-815-b66a26",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[815]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\dag ) , \\dgamma$",
+      "new": "$(\\dag),\\ \\dagger$",
+      "anchor": "f26a733c"
+    },
+    {
+      "id": "munkres_elements_algebraic_topology-ch07-body-579-5021ac",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[579]",
+      "expect": "\\begin{array}{r c l} H _ {k} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) & \\cong & \\left\\{ \\begin{array}{l l} 0 & \\text {if k\\notin\\{0,r,s,r + s\\}}, \\\\ \\mathbb {Z} & \\text {if k\\in\\{0,r + s\\}}, \\end{array} \\right. \\\\ H _ {r} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) & \\cong & H _ {s} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) \\\\ & \\cong & \\left\\{ \\begin{array}{l l} \\mathbb {Z} \\oplus \\mathbb {Z} & \\text {if r = s}, \\\\ \\mathbb {Z} & \\text {if r\\neq s}, \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{r c l} H _ {k} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) & \\cong & \\left\\{ \\begin{array}{l l} 0 & \\text {if } k\\notin\\{0,r,s,r + s\\}, \\\\ \\mathbb {Z} & \\text {if } k\\in\\{0,r + s\\}, \\end{array} \\right. \\\\ H _ {r} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) & \\cong & H _ {s} (\\mathbb {S} ^ {r} \\times \\mathbb {S} ^ {s}) \\\\ & \\cong & \\left\\{ \\begin{array}{l l} \\mathbb {Z} \\oplus \\mathbb {Z} & \\text {if } r = s, \\\\ \\mathbb {Z} & \\text {if } r\\neq s, \\end{array} \\right. \\end{array}"
+    }
+  ]
+}

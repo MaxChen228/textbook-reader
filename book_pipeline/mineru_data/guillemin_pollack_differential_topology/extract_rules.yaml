@@ -1,0 +1,84 @@
+slug: guillemin_pollack_differential_topology
+title: Differential Topology
+author: Victor Guillemin; Alan Pollack
+edition: null
+subject: Topology
+publisher: Prentice-Hall, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 215
+bibliography_start_page: 225
+index_start_page: 229
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Manifolds and Smooth Maps
+    page_start: 14
+    page_end: 69
+    chapter_title_block_idx: 115
+    problems_block_idx: null
+    next_chapter_block_idx: 755
+  - num: 2
+    title: Transversality and Intersection
+    page_start: 70
+    page_end: 106
+    chapter_title_block_idx: 755
+    problems_block_idx: null
+    next_chapter_block_idx: 1180
+  - num: 3
+    title: Oriented Intersection Theory
+    page_start: 107
+    page_end: 163
+    chapter_title_block_idx: 1180
+    problems_block_idx: null
+    next_chapter_block_idx: 1938
+  - num: 4
+    title: Integration on Manifolds
+    page_start: 164
+    page_end: 214
+    chapter_title_block_idx: 1938
+    problems_block_idx: null
+    next_chapter_block_idx: 2732
+
+appendices:
+  - id: A
+    title: Measure Zero and Sard's Theorem
+    page_start: 215
+    chapter_title_block_idx: 2732
+  - id: B
+    title: Classification of Compact One-Manifolds
+    page_start: 221
+    chapter_title_block_idx: 2814
+
+section_re: '^§\s*(\d+)\s+(.+?)(?:[†*])?$'
+subsection_re: '^()(EXERCISES)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\\*)?(\d+)\.'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

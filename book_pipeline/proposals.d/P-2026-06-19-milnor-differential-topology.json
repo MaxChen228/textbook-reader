@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-milnor-differential-topology",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Uncaptioned figure blocks cannot satisfy catalog H7 in audit flow",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:21:13+00:00",
+  "updated": "2026-06-19T06:21:13+00:00",
+  "evidence": "Milnor Topology has 8 image blocks with empty source image_caption (e.g. idx 85, 87, 112, 114, 121, 123, 158, 225 in unified/content_list.json). parser/build_catalogs only index captions from image_caption and figure_caption_merge only reattaches an existing main caption to a prior subcaptioned figure; it cannot synthesize or exclude truly uncaptioned diagrams. smoke therefore stays critical with H7 empty_captions=8 after valid extract_rules, parser, and metadata normalization.",
+  "proposal": "Add a schema-level or engine-level path for uncaptioned figures: either allow rules to mark specific figure blocks as exclude_from_catalog, or let catalog audit accept deterministic synthetic captions/ids derived from page+local sequence when source image_caption is empty but the figure is still semantically useful.",
+  "risk": "",
+  "disposition": ""
+}

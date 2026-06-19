@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-rotman-group-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法 declaratively 處理未編號內嵌圖與交換圖",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:40:04+00:00",
+  "updated": "2026-06-19T07:40:04+00:00",
+  "evidence": "rotman_group_theory validate/parser 已綠（12 chapters, 6 appendices），smoke 僅殘 H7：empty_captions=84、unresolved Figure/Table refs=0、fallback_ids=0。parsed/_catalog_audit.md 的 work queue 顯示幾乎全部殘留都是正文中的未編號交換圖/示意圖，例如 ch02 body[156]/[167]/[182]、ch07 body[375]/[378]、ch10 body[179]、problem 10.57；前後文只有 'the following diagram' / 'Consider the diagram' / 'commutative diagram' 類敘述，沒有 Figure N.M caption，也無外部引用需要索引。現有 extract_rules schema 只有 figure_caption_merge/figure_caption_main_re，無法把這類無 caption 且非可索引 visual declaratively 標成 exclude/nonindexable。",
+  "proposal": "擴充 deterministic catalog schema 或後處理：允許 per-book 對未編號內嵌 visual（交換圖、commutative diagram、示意圖）宣告 exclude_reason/nonindexable，或允許以相鄰 prose 模式規則批次排除『the following diagram』型無 caption 圖。否則像 Rotman 這種章節/題目結構完全正確的書，會長期卡在 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}

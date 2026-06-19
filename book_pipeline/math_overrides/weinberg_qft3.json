@@ -1,0 +1,61 @@
+{
+  "overrides": [
+    {
+      "id": "weinberg_qft3-ch27-body-258-89e36d",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "body[258]",
+      "field": "md",
+      "all": true,
+      "old": "$[\\phi^\\Lambda^\\dagger \\phi^\\Lambda]$",
+      "new": "$[\\phi^{\\Lambda\\dagger}\\phi^{\\Lambda}]$",
+      "anchor": "7f6c1340"
+    },
+    {
+      "id": "weinberg_qft3-ch25-body-10-26c521",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[10]",
+      "expect": "C _ {a b} ^ {c} ^ {*} = - C _ {b a} ^ {c}.",
+      "new": "C_{ab}^{c*}=-C_{ba}^{c}."
+    },
+    {
+      "id": "weinberg_qft3-ch30-body-79-341494",
+      "action": "fix_inline_math",
+      "chunk": "ch30",
+      "selector": "body[79]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathcal{D}'_{R}^{2} = \\mathcal{D}'_{L}^{2}$",
+      "new": "$\\mathcal{D}_{R}^{\\prime 2}=\\mathcal{D}_{L}^{\\prime 2}$",
+      "anchor": "d46af943"
+    },
+    {
+      "id": "weinberg_qft3-ch27-body-116-89ef69",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "body[116]",
+      "field": "md",
+      "all": true,
+      "old": "$\\int d^{4}x\\deltaL$",
+      "new": "$\\int d^{4}x\\,\\delta L$",
+      "anchor": "5b01957d"
+    },
+    {
+      "id": "weinberg_qft3-ch27-body-614-404de1",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[614]",
+      "expect": "\\begin{array}{l} - 2 \\sqrt {2} \\operatorname{Im} \\sum_ {A n m} \\left(t _ {A} ^ {\\prime}\\right) _ {m n} \\phi_ {n} ^ {\\prime} \\left(\\psi_ {m L} ^ {\\prime \\mathrm{T}} \\epsilon \\psi_ {A L}\\right) - 2 \\sqrt {2} \\operatorname{Im} \\sum_ {A n m} \\left(t _ {A} ^ {\\prime}\\right) _ {m n} \\phi_ {m} ^ {\\prime \\prime} \\left(\\psi_ {n L} ^ {\\prime \\mathrm{T}} \\epsilon \\psi_ {A L}\\right) \\\\ + 2 \\sqrt {2} \\operatorname{Im} \\sum_ {A n m} \\left(t _ {A} ^ {\\prime}\\right) _ {m n} \\left(\\psi_ {n L} ^ {\\prime \\mathrm{T}} \\epsilon \\lambda_ {A L}\\right) \\phi_ {m} ^ {\\prime *} - 2 \\sqrt {2} \\operatorname{Im} \\sum_ {A n m} \\left(t _ {A} ^ {\\prime}\\right) _ {n m} \\left(\\psi_ {n L} ^ {\\prime \\mathrm{T}} \\epsilon \\lambda_ {A L}\\right) \\phi_ {m} ^ {\\prime \\prime *} \\\\ - \\frac {1}{4} \\sum_ {A} f _ {A \\mu \\nu} f _ {A} ^ {\\mu \\nu} + \\frac {g ^ {2} \\theta}{6 4 \\pi^ {2}} \\epsilon_ {\\mu \\nu \\rho \\sigma} \\sum_ {A} f _ {A} ^ {\\mu \\nu} f _ {A} ^ {\\rho \\sigma} \\\\ - \\sum_ {A B n m} \\left\\{t _ {A} ^ {\\prime}, t _ {B} ^ {\\prime} \\right\\} _ {m n} \\phi_ {A} \\phi_ {B} ^ {*} \\left(\\phi_ {n} ^ {\\prime} \\phi_ {m} ^ {\\prime *} + \\phi_ {n} ^ {\\prime \\prime *} \\phi_ {m} ^ {\\prime \\prime}\\right) \\\\ - \\frac {1}{2} \\sum_ {A} \\left[ \\sum_ {n m} (t _ {A} ^ {\\prime}) _ {n m} \\Big (\\phi_ {n} ^ {\\prime *} \\phi_ {m} ^ {\\prime} - \\phi_ {n} ^ {\\prime \\prime} \\phi_ {m} ^ {\\prime \\prime *} \\Big) \\right] ^ {2} \\\\ + \\frac {1}{2} \\sum_ {A B C D E} C _ {A B C} C _ {A D E} \\phi_ {B} ^ {*} \\phi_ {C} \\phi_ {D} ^ {*} \\phi_ {E} - 2 \\sum_ {A} \\left| \\sum_ {n m} \\left(t _ {A} ^ {\\prime}\\right) _ {n m} \\phi_ {n} ^ {\\prime} \\phi_ {m} ^ {\\prime \\prime} \\right| ^ {2} \\\\ - 4 \\operatorname{Re} \\sum_ {n m} \\left(t _ {A} ^ {\\prime} \\mu\\right) _ {n m} \\phi_ {n} ^ {\\prime *} \\phi_ {m} ^ {\\prime} - 4 \\operatorname{Re} \\sum_ {n m} \\left(\\mu t _ {A} ^ {\\prime}\\right) _ {n m} \\phi_ {n} ^ {\\prime \\prime} \\phi_ {m} ^ {\\prime \\prime *} \\\\ - 2 \\sum_ {n m} (\\mu^ {\\dagger} \\mu) _ {n m} \\phi_ {n} ^ {\\prime} ^ {*} \\phi_ {m} ^ {\\prime} - 2 \\sum_ {n m} (\\mu \\mu^ {\\dagger}) _ {n m} \\phi_ {n} ^ {\\prime \\prime} \\phi_ {m} ^ {\\prime \\prime} ^ {*}.  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} - 2 \\sqrt{2} \\operatorname{Im} \\sum_{A n m} \\left(t_{A}^{\\prime}\\right)_{m n} \\phi_{n}^{\\prime} \\left(\\psi_{m L}^{\\prime \\mathrm{T}} \\epsilon \\psi_{A L}\\right) - 2 \\sqrt{2} \\operatorname{Im} \\sum_{A n m} \\left(t_{A}^{\\prime}\\right)_{m n} \\phi_{m}^{\\prime \\prime} \\left(\\psi_{n L}^{\\prime \\mathrm{T}} \\epsilon \\psi_{A L}\\right) \\\\ + 2 \\sqrt{2} \\operatorname{Im} \\sum_{A n m} \\left(t_{A}^{\\prime}\\right)_{m n} \\left(\\psi_{n L}^{\\prime \\mathrm{T}} \\epsilon \\lambda_{A L}\\right) \\phi_{m}^{\\prime *} - 2 \\sqrt{2} \\operatorname{Im} \\sum_{A n m} \\left(t_{A}^{\\prime}\\right)_{n m} \\left(\\psi_{n L}^{\\prime \\mathrm{T}} \\epsilon \\lambda_{A L}\\right) \\phi_{m}^{\\prime \\prime *} \\\\ - \\frac{1}{4} \\sum_{A} f_{A \\mu \\nu} f_{A}^{\\mu \\nu} + \\frac{g^{2} \\theta}{6 4 \\pi^{2}} \\epsilon_{\\mu \\nu \\rho \\sigma} \\sum_{A} f_{A}^{\\mu \\nu} f_{A}^{\\rho \\sigma} \\\\ - \\sum_{A B n m} \\left\\{t_{A}^{\\prime}, t_{B}^{\\prime} \\right\\}_{m n} \\phi_{A} \\phi_{B}^{*} \\left(\\phi_{n}^{\\prime} \\phi_{m}^{\\prime *} + \\phi_{n}^{\\prime \\prime *} \\phi_{m}^{\\prime \\prime}\\right) \\\\ - \\frac{1}{2} \\sum_{A} \\left[ \\sum_{n m} (t_{A}^{\\prime})_{n m} \\Big(\\phi_{n}^{\\prime *} \\phi_{m}^{\\prime} - \\phi_{n}^{\\prime \\prime} \\phi_{m}^{\\prime \\prime *} \\Big) \\right]^{2} \\\\ + \\frac{1}{2} \\sum_{A B C D E} C_{A B C} C_{A D E} \\phi_{B}^{*} \\phi_{C} \\phi_{D}^{*} \\phi_{E} - 2 \\sum_{A} \\left| \\sum_{n m} \\left(t_{A}^{\\prime}\\right)_{n m} \\phi_{n}^{\\prime} \\phi_{m}^{\\prime \\prime} \\right|^{2} \\\\ - 4 \\operatorname{Re} \\sum_{n m} \\left(t_{A}^{\\prime} \\mu\\right)_{n m} \\phi_{n}^{\\prime *} \\phi_{m}^{\\prime} - 4 \\operatorname{Re} \\sum_{n m} \\left(\\mu t_{A}^{\\prime}\\right)_{n m} \\phi_{n}^{\\prime \\prime} \\phi_{m}^{\\prime \\prime *} \\\\ - 2 \\sum_{n m} (\\mu^{\\dagger} \\mu)_{n m} \\phi_{n}^{\\prime *} \\phi_{m}^{\\prime} - 2 \\sum_{n m} (\\mu \\mu^{\\dagger})_{n m} \\phi_{n}^{\\prime \\prime} \\phi_{m}^{\\prime \\prime *}. \\\\ \\end{array}"
+    },
+    {
+      "id": "weinberg_qft3-ch27-body-626-285aef",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[626]",
+      "expect": "\\begin{array}{l} V = \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {*} \\phi_ {C} ^ {\\prime} \\right| ^ {2} + \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {*} \\phi_ {C} ^ {\\prime \\prime *} \\right| ^ {2} + \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} \\phi_ {C} ^ {\\prime} \\right| ^ {2} \\\\ + \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} \\phi_ {C} ^ {\\prime \\prime *} \\right| ^ {2} + \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {\\prime *} \\phi_ {C} ^ {\\prime \\prime} \\right| ^ {2} \\\\ + \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {\\prime} \\phi_ {C} ^ {\\prime \\prime} \\right| ^ {2} + \\frac {1}{2} \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {\\prime} \\phi_ {C} ^ {\\prime *} \\right| ^ {2} \\\\ + \\frac {1}{2} \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} ^ {\\prime \\prime} \\phi_ {C} ^ {\\prime \\prime} ^ {*} \\right| ^ {2} + \\frac {1}{2} \\sum_ {A} \\left| \\sum_ {B C} C _ {A B C} \\phi_ {B} \\phi_ {C} ^ {*} \\right| ^ {2}.  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} V = \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{*} \\phi_{C}^{\\prime} \\right|^{2} + \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{*} \\phi_{C}^{\\prime \\prime *} \\right|^{2} + \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B} \\phi_{C}^{\\prime} \\right|^{2} \\\\ + \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B} \\phi_{C}^{\\prime \\prime *} \\right|^{2} + \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{\\prime *} \\phi_{C}^{\\prime \\prime} \\right|^{2} \\\\ + \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{\\prime} \\phi_{C}^{\\prime \\prime} \\right|^{2} + \\frac{1}{2} \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{\\prime} \\phi_{C}^{\\prime *} \\right|^{2} \\\\ + \\frac{1}{2} \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B}^{\\prime \\prime} \\phi_{C}^{\\prime \\prime *} \\right|^{2} + \\frac{1}{2} \\sum_{A} \\left| \\sum_{B C} C_{A B C} \\phi_{B} \\phi_{C}^{*} \\right|^{2}. \\\\ \\end{array}"
+    }
+  ]
+}

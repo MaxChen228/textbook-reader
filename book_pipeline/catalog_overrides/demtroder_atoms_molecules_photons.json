@@ -1,0 +1,605 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "demtroder-fix-fig-6.33",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[416]",
+      "expect": {
+        "id": "fig-6.34"
+      },
+      "set": {
+        "id": "fig-6.33",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 明確是 Fig. 6.33a,b，但此 block 被誤記成 fig-6.34。"
+    },
+    {
+      "id": "demtroder-fix-fig-6.4-parent",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[79]",
+      "expect": {
+        "id": "fig-6.4a"
+      },
+      "set": {
+        "id": "fig-6.4",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 6.4a,b，parent id 應為 fig-6.4 才能覆蓋 6.4b。"
+    },
+    {
+      "id": "demtroder-fix-fig-6.38-parent",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[475]",
+      "expect": {
+        "id": "fig-6.38a"
+      },
+      "set": {
+        "id": "fig-6.38",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 6.38a,b，parent id 應為 fig-6.38 才能覆蓋 6.38 與 6.38b。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.5-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[110]",
+      "expect": {
+        "id": "fig-7.5a"
+      },
+      "set": {
+        "id": "fig-7.5",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.5a,b，parent id 應為 fig-7.5。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.20-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[384]",
+      "expect": {
+        "id": "fig-7.20a"
+      },
+      "set": {
+        "id": "fig-7.20",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.20a-c，parent id 應為 fig-7.20 才能覆蓋 7.20b、7.20c。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.23-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[437]",
+      "expect": {
+        "id": "fig-7.23a"
+      },
+      "set": {
+        "id": "fig-7.23",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.23a,b，parent id 應為 fig-7.23 才能覆蓋 7.23 與 7.23b。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.24-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[474]",
+      "expect": {
+        "id": "fig-7.24a"
+      },
+      "set": {
+        "id": "fig-7.24",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.24a-c，parent id 應為 fig-7.24。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.27-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[497]",
+      "expect": {
+        "id": "fig-7.27a"
+      },
+      "set": {
+        "id": "fig-7.27",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.27a,b，parent id 應為 fig-7.27。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.41-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[611]",
+      "expect": {
+        "id": "fig-7.41a"
+      },
+      "set": {
+        "id": "fig-7.41",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.41a,b，parent id 應為 fig-7.41。"
+    },
+    {
+      "id": "demtroder-fix-fig-7.46-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[668]",
+      "expect": {
+        "id": "fig-7.46a"
+      },
+      "set": {
+        "id": "fig-7.46",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 7.46a-c，parent id 應為 fig-7.46 才能覆蓋 7.46b。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.21-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[164]",
+      "expect": {
+        "id": "fig-8.21a"
+      },
+      "set": {
+        "id": "fig-8.21",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.21a,b，parent id 應為 fig-8.21。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.25-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[205]",
+      "expect": {
+        "id": "fig-8.25a"
+      },
+      "set": {
+        "id": "fig-8.25",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.25a-d，parent id 應為 fig-8.25 才能覆蓋 8.25c、8.25d。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.35-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[257]",
+      "expect": {
+        "id": "fig-8.35a"
+      },
+      "set": {
+        "id": "fig-8.35",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.35a-c，parent id 應為 fig-8.35。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.36-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[264]",
+      "expect": {
+        "id": "fig-8.36a"
+      },
+      "set": {
+        "id": "fig-8.36",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.36a,b，parent id 應為 fig-8.36。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.51-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[379]",
+      "expect": {
+        "id": "fig-8.51a"
+      },
+      "set": {
+        "id": "fig-8.51",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.51a,b，parent id 應為 fig-8.51。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.52-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[401]",
+      "expect": {
+        "id": "fig-8.52a"
+      },
+      "set": {
+        "id": "fig-8.52",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.52a-c，parent id 應為 fig-8.52。"
+    },
+    {
+      "id": "demtroder-fix-fig-8.58-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[452]",
+      "expect": {
+        "id": "fig-8.58a"
+      },
+      "set": {
+        "id": "fig-8.58",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 8.58a,b，parent id 應為 fig-8.58。"
+    },
+    {
+      "id": "demtroder-fix-fig-9.8-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[86]",
+      "expect": {
+        "id": "fig-9.8a"
+      },
+      "set": {
+        "id": "fig-9.8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 9.8a,b，parent id 應為 fig-9.8。"
+    },
+    {
+      "id": "demtroder-fix-fig-9.37-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[448]",
+      "expect": {
+        "id": "fig-9.37a"
+      },
+      "set": {
+        "id": "fig-9.37",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 9.37a,b，parent id 應為 fig-9.37 才能覆蓋 9.37 與 9.37b。"
+    },
+    {
+      "id": "demtroder-fix-fig-9.41-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[494]",
+      "expect": {
+        "id": "fig-9.41a"
+      },
+      "set": {
+        "id": "fig-9.41",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 9.41a,b，parent id 應為 fig-9.41。"
+    },
+    {
+      "id": "demtroder-fix-fig-9.60-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[885]",
+      "expect": {
+        "id": "fig-9.60a"
+      },
+      "set": {
+        "id": "fig-9.60",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 為 Fig. 9.60a,b，parent id 應為 fig-9.60 才能覆蓋 9.60 與 9.60b。"
+    },
+    {
+      "id": "demtroder-alias-fig-6.4-parent",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[79]",
+      "expect": {
+        "id": "fig-6.4"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-6.4"
+          }
+        ]
+      },
+      "reason": "build_catalogs 從 caption 抽到 6.4a；補 parent alias 讓 6.4b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-6.38-parent",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[475]",
+      "expect": {
+        "id": "fig-6.38"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-6.38"
+          }
+        ]
+      },
+      "reason": "build_catalogs 會保留主 caption 的 6.38a；補 parent alias 覆蓋 6.38 與 6.38b。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.5-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[110]",
+      "expect": {
+        "id": "fig-7.5"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.5"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.5 與 Fig. 7.5b 都可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.20-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[384]",
+      "expect": {
+        "id": "fig-7.20"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.20"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.20b / 7.20c 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.23-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[437]",
+      "expect": {
+        "id": "fig-7.23"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.23"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.23 與 Fig. 7.23b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.24-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[474]",
+      "expect": {
+        "id": "fig-7.24"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.24"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.24 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.27-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[497]",
+      "expect": {
+        "id": "fig-7.27"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.27"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.27b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.41-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[611]",
+      "expect": {
+        "id": "fig-7.41"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.41"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.41 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-7.46-parent",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[668]",
+      "expect": {
+        "id": "fig-7.46"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.46"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 7.46b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-8.25-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[205]",
+      "expect": {
+        "id": "fig-8.25"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.25"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 8.25c / 8.25d 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-8.35-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[257]",
+      "expect": {
+        "id": "fig-8.35"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.35"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 8.35b / 8.35c 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-8.36-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[264]",
+      "expect": {
+        "id": "fig-8.36"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.36"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 8.36 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-8.51-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[379]",
+      "expect": {
+        "id": "fig-8.51"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.51"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 8.51 與 Fig. 8.51b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-8.58-parent",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[452]",
+      "expect": {
+        "id": "fig-8.58"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.58"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 8.58 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-9.8-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[86]",
+      "expect": {
+        "id": "fig-9.8"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.8"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 9.8 與 Fig. 9.8b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-9.37-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[448]",
+      "expect": {
+        "id": "fig-9.37"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.37"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 9.37 與 Fig. 9.37b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-9.41-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[494]",
+      "expect": {
+        "id": "fig-9.41"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.41"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 9.41b 可被 catalog 覆蓋。"
+    },
+    {
+      "id": "demtroder-alias-fig-9.60-parent",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[885]",
+      "expect": {
+        "id": "fig-9.60"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.60"
+          }
+        ]
+      },
+      "reason": "補 parent alias 讓 Fig. 9.60 與 Fig. 9.60b 可被 catalog 覆蓋。"
+    }
+  ]
+}

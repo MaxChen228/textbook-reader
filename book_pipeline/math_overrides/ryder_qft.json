@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "ryder_qft-ch11-body-543-ac49db",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[543]",
+      "expect": "\\begin{array}{l} (\\bar {\\sigma} _ {\\mu} \\sigma_ {\\nu} \\bar {\\sigma} _ {\\rho}) _ {\\dot {\\beta} \\alpha} = \\bar {\\sigma} _ {\\mu \\dot {\\beta}} ^ {\\beta} \\sigma_ {\\nu \\beta} ^ {\\dot {\\gamma}} \\bar {\\sigma} _ {\\rho \\dot {\\gamma} \\alpha} \\\\ = \\sigma_ {\\mu} ^ {\\beta} _ {\\dot {\\beta}} \\bar {\\sigma} _ {\\nu} ^ {\\dot {\\gamma}} _ {\\beta} \\sigma_ {\\rho \\alpha \\dot {\\gamma}} \\\\ = \\left(\\sigma_ {\\rho} \\bar {\\sigma} _ {v} \\sigma_ {\\mu}\\right) _ {\\alpha \\dot {\\beta}} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} (\\bar{\\sigma}_{\\mu}\\sigma_{\\nu}\\bar{\\sigma}_{\\rho})_{\\dot{\\beta}\\alpha}=\\bar{\\sigma}_{\\mu\\dot{\\beta}}{}^{\\beta}\\sigma_{\\nu\\beta}{}^{\\dot{\\gamma}}\\bar{\\sigma}_{\\rho\\dot{\\gamma}\\alpha} \\\\ =\\sigma_{\\mu}{}^{\\beta}{}_{\\dot{\\beta}}\\bar{\\sigma}_{\\nu}{}^{\\dot{\\gamma}}{}_{\\beta}\\sigma_{\\rho\\alpha\\dot{\\gamma}} \\\\ =\\left(\\sigma_{\\rho}\\bar{\\sigma}_{v}\\sigma_{\\mu}\\right)_{\\alpha\\dot{\\beta}} \\\\ \\end{array}"
+    },
+    {
+      "id": "ryder_qft-ch11-body-725-913581",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[725]",
+      "expect": "\\begin{array}{l} = \\frac {1}{2} \\theta^ {2} \\sigma_ {\\dot {\\alpha}} ^ {\\mu \\beta} \\sigma_ {\\beta \\dot {\\beta}} ^ {\\nu} \\bar {\\theta} ^ {\\dot {\\beta}} \\partial_ {\\mu} \\partial_ {\\nu} \\\\ = \\frac {1}{2} \\theta^ {2} \\bar {\\sigma} _ {\\dot {\\alpha}} ^ {\\mu} ^ {\\beta} \\sigma_ {\\beta \\dot {\\beta}} ^ {\\nu} \\bar {\\theta} ^ {\\dot {\\beta}} \\partial_ {\\mu} \\partial_ {\\nu} \\\\ = \\frac {1}{2} \\theta^ {2} (\\bar {\\sigma} ^ {\\mu} \\sigma^ {\\nu}) _ {\\dot {\\alpha} \\dot {\\beta}} \\bar {\\theta} ^ {\\dot {\\beta}} \\partial_ {\\mu} \\partial_ {\\nu} \\\\ = \\frac {1}{4} \\theta^ {2} (\\bar {\\sigma} ^ {\\mu} \\sigma^ {\\nu} + \\bar {\\sigma} ^ {\\nu} \\sigma^ {\\mu}) _ {\\dot {\\alpha} \\dot {\\beta}} \\bar {\\theta} ^ {\\dot {\\beta}} \\partial_ {\\mu} \\partial_ {\\nu} \\\\ = \\frac {1}{2} \\theta^ {2} \\bar {\\theta} _ {\\dot {\\alpha}} \\square  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} = \\frac{1}{2}\\theta^{2}\\sigma_{\\dot{\\alpha}}^{\\mu\\beta}\\sigma_{\\beta\\dot{\\beta}}^{\\nu}\\bar{\\theta}^{\\dot{\\beta}}\\partial_{\\mu}\\partial_{\\nu} \\\\ = \\frac{1}{2}\\theta^{2}\\bar{\\sigma}_{\\dot{\\alpha}}{}^{\\mu\\beta}\\sigma_{\\beta\\dot{\\beta}}^{\\nu}\\bar{\\theta}^{\\dot{\\beta}}\\partial_{\\mu}\\partial_{\\nu} \\\\ = \\frac{1}{2}\\theta^{2}(\\bar{\\sigma}^{\\mu}\\sigma^{\\nu})_{\\dot{\\alpha}\\dot{\\beta}}\\bar{\\theta}^{\\dot{\\beta}}\\partial_{\\mu}\\partial_{\\nu} \\\\ = \\frac{1}{4}\\theta^{2}(\\bar{\\sigma}^{\\mu}\\sigma^{\\nu}+\\bar{\\sigma}^{\\nu}\\sigma^{\\mu})_{\\dot{\\alpha}\\dot{\\beta}}\\bar{\\theta}^{\\dot{\\beta}}\\partial_{\\mu}\\partial_{\\nu} \\\\ = \\frac{1}{2}\\theta^{2}\\bar{\\theta}_{\\dot{\\alpha}}\\square \\\\ \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "chaikin_lubensky_condensed_matter-ch08-body-793-75ab17",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[793]",
+      "expect": "\\begin{array}{l} G _ {\\phi \\phi} ^ {0} ^ {- 1} (\\mathbf {q}, \\omega) = - i \\omega + \\lambda_ {0} q ^ {2} (r + q ^ {2}), \\\\ G _ {g g} ^ {0 - 1} (\\mathbf {q}, \\omega) = - i \\omega + \\overline {{{\\eta}}} _ {0} q ^ {2}.  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} G_{\\phi\\phi}^{0^{-1}}(\\mathbf{q},\\omega)=-i\\omega+\\lambda_{0}q^{2}(r+q^{2}),\\\\ G_{gg}^{0-1}(\\mathbf{q},\\omega)=-i\\omega+\\overline{\\eta}_{0}q^{2}.\\\\ \\end{array}"
+    },
+    {
+      "id": "chaikin_lubensky_condensed_matter-ch08-body-795-ab2db4",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[795]",
+      "expect": "G _ {\\phi \\phi} ^ {- 1} (\\mathbf {q}, \\omega) = G _ {\\phi \\phi} ^ {0} ^ {- 1} (\\mathbf {q}, \\omega) + \\Sigma_ {\\phi \\phi} (\\mathbf {q}, \\omega),",
+      "new": "G_{\\phi\\phi}^{-1}(\\mathbf{q},\\omega)=G_{\\phi\\phi}^{0^{-1}}(\\mathbf{q},\\omega)+\\Sigma_{\\phi\\phi}(\\mathbf{q},\\omega),"
+    },
+    {
+      "id": "chaikin_lubensky_condensed_matter-ch10-body-211-e334ce",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[211]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL = L' - L$",
+      "new": "$\\delta L=L'-L$",
+      "anchor": "9fd1e90c"
+    }
+  ]
+}

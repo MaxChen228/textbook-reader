@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-aitchison-hey-gauge-theories-3",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "support multi-segment appendices across combined volumes",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T07:49:00+00:00",
+  "updated": "2026-06-19T07:49:00+00:00",
+  "evidence": "same slug contains volume 1 chapters 1-11, then appendices A-L plus references/index, then volume 2 chapters 12-22, then appendices M-Q. extract_rules schema only supports one tail appendices segment, so including both appendix blocks would cause volume 1 appendix L to swallow volume 2正文",
+  "proposal": "allow multiple ordered non-chapter segments in extract_rules, e.g. chapter/appendix/bibliography/index/chapter/... or per-segment appendix groups with independent cutoffs",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,312 @@
+# extract_rules.yaml — carroll_ostlie_astrophysics
+# Deterministic audit-book output from unified/content_list.json only.
+
+slug: carroll_ostlie_astrophysics
+title: An Introduction to Modern Astrophysics
+author: Bradley W. Carroll; Dale A. Ostlie
+edition: 2nd
+subject: Astrophysics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 1298
+bibliography_start_page: null
+index_start_page: 1330
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Celestial Sphere
+    page_start: 21
+    page_end: 41
+    chapter_title_block_idx: 187
+    problems_block_idx: 371
+    next_chapter_block_idx: 390
+  - num: 2
+    title: Celestial Mechanics
+    page_start: 42
+    page_end: 75
+    chapter_title_block_idx: 390
+    problems_block_idx: 829
+    next_chapter_block_idx: 883
+  - num: 3
+    title: The Continuous Spectrum of Light
+    page_start: 76
+    page_end: 102
+    chapter_title_block_idx: 883
+    problems_block_idx: 1180
+    next_chapter_block_idx: 1233
+  - num: 4
+    title: The Theory of Special Relativity
+    page_start: 103
+    page_end: 129
+    chapter_title_block_idx: 1233
+    problems_block_idx: 1533
+    next_chapter_block_idx: 1592
+  - num: 5
+    title: The Interaction of Light and Matter
+    page_start: 130
+    page_end: 159
+    chapter_title_block_idx: 1592
+    problems_block_idx: 1879
+    next_chapter_block_idx: 1914
+  - num: 6
+    title: Telescopes
+    page_start: 160
+    page_end: 198
+    chapter_title_block_idx: 1914
+    problems_block_idx: 2233
+    next_chapter_block_idx: 2287
+  - num: 7
+    title: Binary Systems and Stellar Parameters
+    page_start: 199
+    page_end: 220
+    chapter_title_block_idx: 2287
+    problems_block_idx: 2480
+    next_chapter_block_idx: 2519
+  - num: 8
+    title: The Classification of Stellar Spectra
+    page_start: 221
+    page_end: 249
+    chapter_title_block_idx: 2519
+    problems_block_idx: 2750
+    next_chapter_block_idx: 2769
+  - num: 9
+    title: Stellar Atmospheres
+    page_start: 250
+    page_end: 302
+    chapter_title_block_idx: 2769
+    problems_block_idx: 3321
+    next_chapter_block_idx: 3385
+  - num: 10
+    title: The Interiors of Stars
+    page_start: 303
+    page_end: 367
+    chapter_title_block_idx: 3385
+    problems_block_idx: 4271
+    next_chapter_block_idx: 4337
+  - num: 11
+    title: The Sun
+    page_start: 368
+    page_end: 416
+    chapter_title_block_idx: 4337
+    problems_block_idx: 4733
+    next_chapter_block_idx: 4765
+  - num: 12
+    title: The Interstellar Medium and Star Formation
+    page_start: 417
+    page_end: 464
+    chapter_title_block_idx: 4765
+    problems_block_idx: 5245
+    next_chapter_block_idx: 5293
+  - num: 13
+    title: Main Sequence and Post-Main-Sequence Stellar Evolution
+    page_start: 465
+    page_end: 501
+    chapter_title_block_idx: 5293
+    problems_block_idx: 5604
+    next_chapter_block_idx: 5638
+  - num: 14
+    title: Stellar Pulsation
+    page_start: 502
+    page_end: 536
+    chapter_title_block_idx: 5638
+    problems_block_idx: 5933
+    next_chapter_block_idx: 5982
+  - num: 15
+    title: The Fate of Massive Stars
+    page_start: 537
+    page_end: 575
+    chapter_title_block_idx: 5982
+    problems_block_idx: 6329
+    next_chapter_block_idx: 6357
+  - num: 16
+    title: The Degenerate Remnants of Stars
+    page_start: 576
+    page_end: 627
+    chapter_title_block_idx: 6357
+    problems_block_idx: 6861
+    next_chapter_block_idx: 6926
+  - num: 17
+    title: General Relativity and Black Holes
+    page_start: 628
+    page_end: 671
+    chapter_title_block_idx: 6926
+    problems_block_idx: 7330
+    next_chapter_block_idx: 7412
+  - num: 18
+    title: Close Binary Star Systems
+    page_start: 672
+    page_end: 732
+    chapter_title_block_idx: 7412
+    problems_block_idx: 7974
+    next_chapter_block_idx: 8052
+  - num: 19
+    title: Physical Processes in the Solar System
+    page_start: 733
+    page_end: 755
+    chapter_title_block_idx: 8052
+    problems_block_idx: 8266
+    next_chapter_block_idx: 8309
+  - num: 20
+    title: The Terrestrial Planets
+    page_start: 756
+    page_end: 793
+    chapter_title_block_idx: 8309
+    problems_block_idx: 8601
+    next_chapter_block_idx: 8640
+  - num: 21
+    title: The Realms of the Giant Planets
+    page_start: 794
+    page_end: 831
+    chapter_title_block_idx: 8640
+    problems_block_idx: 8949
+    next_chapter_block_idx: 9016
+  - num: 22
+    title: Minor Bodies of the Solar System
+    page_start: 832
+    page_end: 866
+    chapter_title_block_idx: 9016
+    problems_block_idx: 9296
+    next_chapter_block_idx: 9316
+  - num: 23
+    title: Formation of Planetary Systems
+    page_start: 867
+    page_end: 892
+    chapter_title_block_idx: 9316
+    problems_block_idx: 9532
+    next_chapter_block_idx: 9555
+  - num: 24
+    title: The Milky Way Galaxy
+    page_start: 893
+    page_end: 958
+    chapter_title_block_idx: 9555
+    problems_block_idx: 10158
+    next_chapter_block_idx: 10246
+  - num: 25
+    title: The Nature of Galaxies
+    page_start: 959
+    page_end: 1017
+    chapter_title_block_idx: 10246
+    problems_block_idx: 10805
+    next_chapter_block_idx: 10865
+  - num: 26
+    title: Galactic Evolution
+    page_start: 1018
+    page_end: 1056
+    chapter_title_block_idx: 10865
+    problems_block_idx: 11165
+    next_chapter_block_idx: 11224
+  - num: 27
+    title: The Structure of the Universe
+    page_start: 1057
+    page_end: 1103
+    chapter_title_block_idx: 11224
+    problems_block_idx: 11621
+    next_chapter_block_idx: 11653
+  - num: 28
+    title: Active Galaxies
+    page_start: 1104
+    page_end: 1162
+    chapter_title_block_idx: 11653
+    problems_block_idx: 12173
+    next_chapter_block_idx: 12213
+  - num: 29
+    title: Cosmology
+    page_start: 1163
+    page_end: 1248
+    chapter_title_block_idx: 12213
+    chapter_title_block_idx_secondary: 12220
+    problems_block_idx: 13218
+    next_chapter_block_idx: 13359
+  - num: 30
+    title: The Early Universe
+    page_start: 1249
+    page_end: 1297
+    chapter_title_block_idx: 13359
+    problems_block_idx: 13836
+    next_chapter_block_idx: 13857
+
+appendices:
+  - id: C
+    title: Solar System Data
+    page_start: 1298
+    chapter_title_block_idx: 13857
+  - id: D
+    title: The Constellations
+    page_start: 1300
+    chapter_title_block_idx: 13866
+  - id: E
+    title: The Brightest Stars
+    page_start: 1302
+    chapter_title_block_idx: 13875
+  - id: F
+    title: The Nearest Stars
+    page_start: 1304
+    chapter_title_block_idx: 13882
+  - id: G
+    title: Stellar Data
+    page_start: 1306
+    chapter_title_block_idx: 13893
+  - id: H
+    title: The Messier Catalog
+    page_start: 1310
+    chapter_title_block_idx: 13904
+  - id: I
+    title: Constants, A Programming Module
+    page_start: 1313
+    chapter_title_block_idx: 13916
+  - id: J
+    title: Orbit, A Planetary Orbit Code
+    page_start: 1314
+    chapter_title_block_idx: 13924
+  - id: K
+    title: TwoStars, A Binary Star Code
+    page_start: 1315
+    chapter_title_block_idx: 13932
+  - id: L
+    title: StatStar, A Stellar Structure Code
+    page_start: 1320
+    chapter_title_block_idx: 13987
+  - id: M
+    title: Galaxy, A Tidal Interaction Code
+    page_start: 1323
+    chapter_title_block_idx: 14025
+  - id: N
+    title: WMAP Data
+    page_start: 1326
+    chapter_title_block_idx: 14080
+
+section_re: '^(\d+\.\d+)(?=\s*■?\s*\S)\s*■?\s*(.+)$'
+subsection_re: '^()((?=.*[a-z])[A-Z][A-Za-z0-9''’–-]*(?:[ ][A-Za-z0-9''’(),./:–-]+)+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:\d+\.\d+|[A-Z]\.\d+)[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\.?'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "mukhanov_physical_foundations_cosmology-ch09-problem-9-23-body-11-883986",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.23:body[11]",
+      "expect": "Y _ {l m (a b)} ^ {E} \\equiv N _ {l} \\big (Y _ {l m; a b} - \\frac {1}{2} g _ {a b} Y _ {l m} ^ {; c} _ {c} \\big)",
+      "new": "Y_{lm(ab)}^{E}\\equiv N_{l}\\big(Y_{lm;ab}-\\frac{1}{2}g_{ab}Y_{lm}^{;c}{}_{c}\\big)"
+    },
+    {
+      "id": "mukhanov_physical_foundations_cosmology-ch03-body-391-a7ade3",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[391]",
+      "field": "md",
+      "all": true,
+      "old": "$e p \\stackrel { \\left. } { \\right. } \\gamma 2 S$",
+      "new": "$ep\\gamma 2S$",
+      "anchor": "6e57bf06"
+    },
+    {
+      "id": "mukhanov_physical_foundations_cosmology-ch04-problem-4-31-body-0-5d2482",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.31:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\chi \\bar { \\chi } \\stackrel { \\left. } { \\right. } f \\bar { f }$",
+      "new": "$\\chi\\bar{\\chi}f\\bar{f}$",
+      "anchor": "b4aa7353"
+    }
+  ]
+}

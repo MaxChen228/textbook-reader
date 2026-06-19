@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "poole_linear_algebra-ch07-problem-reviewquestions-1-body-2-2bc908",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:ReviewQuestions.1:body[2]",
+      "expect": "\\begin{array}{l} \\text {(b) If u = \\left[ \\begin{array}{c} u _ {1} \\\\ u _ {2} \\end{array} \\right] and v = \\left[ \\begin{array}{c} v _ {1} \\\\ v _ {2} \\end{array} \\right], then \\langle u, v \\rangle = 4 u _ {1} v _ {1} -} \\\\ 2 u _ {1} v _ {2} - 2 u _ {2} v _ {1} + 4 u _ {2} v _ {2} \\text { defines an inner product } \\\\ \\text { on } \\mathbb {R} ^ {2}. \\end{array}",
+      "new": "\\begin{array}{l}\\text{(b) If }u=\\left[\\begin{array}{c}u_{1}\\\\u_{2}\\end{array}\\right]\\text{ and }v=\\left[\\begin{array}{c}v_{1}\\\\v_{2}\\end{array}\\right],\\text{ then }\\langle u,v\\rangle=4u_{1}v_{1}-\\\\2u_{1}v_{2}-2u_{2}v_{1}+4u_{2}v_{2}\\text{ defines an inner product }\\\\\\text{on }\\mathbb{R}^{2}.\\end{array}"
+    },
+    {
+      "id": "poole_linear_algebra-appE-body-816-5f5c91",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[816]",
+      "expect": "\\begin{array}{l} \\text {Exercise 19, e_{1} , e_{2} , and e_{3} all belong to} \\\\ \\text {span(e_{1} , e_{1} + e_{2} , e_{1} + e_{2} + e_{3}). Therefore, by} \\end{array}",
+      "new": "\\begin{array}{l}\\text{Exercise 19, }e_{1},e_{2},\\text{ and }e_{3}\\text{ all belong to}\\\\\\text{span(}e_{1},e_{1}+e_{2},e_{1}+e_{2}+e_{3}\\text{). Therefore, by}\\end{array}"
+    },
+    {
+      "id": "poole_linear_algebra-appE-body-1523-9a0749",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[1523]",
+      "expect": "\\begin{array}{l} \\text {19. Hint: Let a = T(E_{11}), b = T(E_{12}), c = T(E_{21})}, \\\\ d = T (E _ {2 2}). \\end{array}",
+      "new": "\\begin{array}{l}\\text{19. Hint: Let }a=T(E_{11}),\\ b=T(E_{12}),\\ c=T(E_{21}),\\\\d=T(E_{22}).\\end{array}"
+    },
+    {
+      "id": "poole_linear_algebra-appE-body-564-4f9311",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[564]",
+      "expect": "\\begin{array}{l} \\text { »A = [1 1 1 0 0;1 -1 0 1 0;0 0 0 0 1]} \\\\ \\mathrm{A=} \\\\ \\quad \\begin{array}{r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r} & 1 & 1 & 1 & 0 & 0; 1 & - 1 & 0 & 1 & 0; 0 & 0 & 0 & 0 & 0 & 1 ] \\\\ & 1 & 1 & 1 & 0 & 0 \\\\ & 1 & - 1 & 0 & 1 & 0 \\\\ & 0 & 0 & 0 & 0 & 1 \\\\ \\hline \\text { »rref (A) } \\\\ \\text { ans } = \\\\ \\quad \\begin{array}{r c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c} 1. 0 0 0 0 & & & 0 & & 0. 5 0 0 0 & & 0. 5 0 0 0 & & 0 \\\\ & 0 & & 1. 0 0 0 0 & & 0. 5 0 0 0 & & - 0. 5 0 0 0 & & 0 \\\\ & 0 & & & 0, & & & 0 & & & 1. 0 0 0 0 \\end{array} \\end{array}",
+      "new": "\\begin{array}{l} \\text{»A = [1\\ 1\\ 1\\ 0\\ 0;1\\ -1\\ 0\\ 1\\ 0;0\\ 0\\ 0\\ 0\\ 1]} \\\\ \\mathrm{A=} \\\\ \\quad \\begin{array}{r r r r r} 1 & 1 & 1 & 0 & 0 \\\\ 1 & -1 & 0 & 1 & 0 \\\\ 0 & 0 & 0 & 0 & 1 \\end{array} \\\\ \\hline \\text{»rref (A)} \\\\ \\text{ans} = \\\\ \\quad \\begin{array}{c c c c c} 1.0000 & 0 & 0.5000 & 0.5000 & 0 \\\\ 0 & 1.0000 & 0.5000 & -0.5000 & 0 \\\\ 0 & 0 & 0 & 0 & 1.0000 \\end{array} \\end{array}"
+    }
+  ]
+}

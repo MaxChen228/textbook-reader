@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-serre-linear-representations-fin",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot resolve captionless tables/figures in Serre",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:39:37+00:00",
+  "updated": "2026-06-19T06:39:37+00:00",
+  "evidence": "smoke H7 reports 22 unresolved visual semantics in parsed/_catalog_audit.md; offenders are captionless tables/figures inferred from surrounding prose (e.g. character tables, commutative-triangle diagram) and extract_rules.yaml has no per-item figure/table exclude or semantic-id controls",
+  "proposal": "teach catalog/build step to classify captionless visual blocks from local context or allow reviewable per-book overrides for figure/table semantic id and exclusion metadata",
+  "risk": "",
+  "disposition": ""
+}

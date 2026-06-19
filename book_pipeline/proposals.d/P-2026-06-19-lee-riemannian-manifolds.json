@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-lee-riemannian-manifolds",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog engine cannot resolve captionless sibling figure shards",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T06:30:16+00:00",
+  "updated": "2026-06-19T06:30:16+00:00",
+  "evidence": "smoke is structurally green after audit iteration except H7 empty_captions=29. parsed/_catalog_audit.md shows repeated captionless fig blocks whose visible semantics live in a sibling fig or nearby prose: e.g. ch02 body[307] is fig-ch02-307 with empty caption immediately before section 'Lengths and Distances'; ch05 body[278] is a captionless fig shard immediately followed by fig-5.5/5.6; ch09 body[63] is a captionless fig shard immediately followed by fig-9.10/9.11. parser.figure_caption_merge only upgrades a previous fig when its caption is '(a)/(b)' and the current fig already carries a main caption, so extract_rules cannot declaratively merge or exclude these empty shards.",
+  "proposal": "Extend catalog/figure extraction so captionless sibling image shards can inherit or share a later semantic figure caption/id, or allow declarative exclusion/non-indexable marking for figure shards without standalone semantics. Current extract_rules fields figure_caption_merge and figure_caption_main_re are insufficient for this OCR pattern.",
+  "risk": "",
+  "disposition": ""
+}
