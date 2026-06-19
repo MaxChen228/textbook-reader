@@ -2,17 +2,17 @@
   "id": "P-2026-06-17-nu-n-ocr-pseudo-macro-collapse",
   "domain": "math",
   "type": "normalize-rule",
-  "status": "proposed",
+  "status": "rejected",
   "title": "\\Nu → N OCR pseudo-macro collapse",
   "detect": [
     "\\Nu"
   ],
   "source": "math_sweep",
-  "resolution": "",
+  "resolution": "already-resolved",
   "created": "2026-06-17T16:49:57+00:00",
-  "updated": "2026-06-17T16:49:57+00:00",
+  "updated": "2026-06-19T09:23:40+00:00",
   "evidence": "cluster undefined_macro occ=53 / 7 books; sampled all usages are letter N: N_2 in atkins/lindner/thijssen, integer N in rudin/goldstein, Gauss map N in do_carmo, norm N_{K/F} in dummit",
   "proposal": "Layer 1 normalize: replace exact control sequence \\\\Nu with literal N",
   "risk": "Pseudo-macro collapse is safe only if corpus-wide usage is consistently Latin N; full-corpus gate must verify no collateral",
-  "disposition": ""
+  "disposition": "live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘"
 }

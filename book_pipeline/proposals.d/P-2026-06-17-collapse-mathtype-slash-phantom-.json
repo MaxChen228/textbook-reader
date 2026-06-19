@@ -2,17 +2,17 @@
   "id": "P-2026-06-17-collapse-mathtype-slash-phantom-",
   "domain": "math",
   "type": "normalize-rule",
-  "status": "proposed",
+  "status": "rejected",
   "title": "Collapse MathType slash phantom/kern residue to /",
   "detect": [
     "\\\\kern,\\\\vphantom,\\\\mathord,\\\\left/"
   ],
   "source": "math_sweep",
-  "resolution": "",
+  "resolution": "already-resolved",
   "created": "2026-06-17T16:26:14+00:00",
-  "updated": "2026-06-17T16:26:14+00:00",
+  "updated": "2026-06-19T09:23:40+00:00",
   "evidence": "cluster other occ=4 in dummit_foote_algebra plus token_signals: \\\\kern occ=21 / 10 books, \\\\vphantom occ=20 / 9 books; representative samples from dummit_foote_algebra, boas_mp, griffiths_qm3, rudin_analysis, srednicki_qft",
   "proposal": "Replace exact MathType slash residue \\\\mathord{\\\\left/ {\\\\vphantom{...}} \\\\right. \\\\kern - delimiterspace} (and equivalent \\\\mathbin form) with literal /",
   "risk": "Could collapse non-slash delimiter constructs if pattern too broad; keep match exact on left/phantom/right./kern sequence and rely on full-corpus gate for collateral",
-  "disposition": ""
+  "disposition": "live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘"
 }

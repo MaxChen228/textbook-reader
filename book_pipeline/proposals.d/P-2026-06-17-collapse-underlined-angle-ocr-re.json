@@ -2,17 +2,17 @@
   "id": "P-2026-06-17-collapse-underlined-angle-ocr-re",
   "domain": "math",
   "type": "normalize-rule",
-  "status": "proposed",
+  "status": "rejected",
   "title": "Collapse underlined angle OCR residue",
   "detect": [
     "\\\\underline + \\\\left/"
   ],
   "source": "math_sweep",
-  "resolution": "",
+  "resolution": "already-resolved",
   "created": "2026-06-17T17:24:44+00:00",
-  "updated": "2026-06-17T17:24:44+00:00",
+  "updated": "2026-06-19T09:23:40+00:00",
   "evidence": "clustered underlined-angle residue in alexander_circuits and ogata_control; 22 residual occurrences across 2 books; representative tex=\\\\underline{{\\\\left/ 0 ^ {\\\\circ} \\\\left. \\\\right.}}",
   "proposal": "R7 _collapse_underlined_angle: \\\\underline{{\\\\left/ ... \\\\left. \\\\right.}} -> \\\\underline{\\\\angle ...}",
   "risk": "could misread legitimate underlined slash constructs; matcher constrained to \\\\underline + \\\\left/ + \\\\left. + \\\\right. and excludes vphantom/delimiterspace forms",
-  "disposition": ""
+  "disposition": "live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘"
 }

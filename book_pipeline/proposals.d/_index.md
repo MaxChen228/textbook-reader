@@ -4,22 +4,25 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （3 條；proposed=3）
+## domain: crawl  （3 條；proposed=0）
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
-- proposed | type=booklist-fix | source=crawl
+- accepted | type=booklist-fix | source=crawl
+- 決議：已釘 Volume 1（booklists/physics.json title→'Quantum Mechanics, Volume 1: Basic Concepts…'），與既有 _vol2 配成兩卷、不再與 1-3 合集混淆
 - 證據：slug=cohen_tannoudji_qm, title=Quantum Mechanics, edition_pref=2nd；z-lib 命中 122132670《Quantum Mechanics, Volume 1: Basic Concepts, Tools, and Applications, Second Edition》與 6061115《Quantum Mechanics 1-3》；同書單另有 cohen_tannoudji_qm_vol2。
 - 提議：把 cohen_tannoudji_qm 明確改成 Volume 1（或改成新的 vol1 slug），避免與 2nd ed 三卷本/全套合集混淆。
 - 風險：若維持現狀，crawl agent 可能把同一 canonical 書誤落到 vol1 或 1-3 合集，造成 SoT 與實際 PDF 不一致。
 
 ### P-2026-06-19-clarify-grafakos-classical-fouri — Clarify grafakos classical_fourier_analysis target title
-- proposed | type=booklist-fix | source=crawl
+- accepted | type=booklist-fix | source=crawl
+- 決議：已改合本（booklists/math.json title→'Classical and Modern Fourier Analysis'、移除 edition_pref；z-lib 僅穩定命中合本，使用者拍板收合本）
 - 證據：slug grafakos_classical_fourier_analysis targets 'Classical Fourier Analysis' by Loukas Grafakos, but search only surfaces 'Classical and modern fourier analysis' by Grafakos (e.g. 120353979) and no exact Classical Fourier Analysis record.
 - 提議：Confirm whether the intended canonical book is the later split-volume title 'Classical Fourier Analysis' or the earlier/alternate title 'Classical and Modern Fourier Analysis'; update SoT/slug accordingly.
 - 風險：Without title disambiguation, crawl agents may incorrectly resolve to a different edition/title lineage or keep bouncing on review.
 
 ### P-2026-06-19-specify-volume-for-kobayashi-nom — Specify volume for kobayashi_nomizu_differential_geometry
-- proposed | type=booklist-fix | source=crawl
+- accepted | type=booklist-fix | source=crawl
+- 決議：已拆兩卷（booklists/math.json：原 slug→Volume I + 新增 _vol2→Volume II）
 - 證據：slug kobayashi_nomizu_differential_geometry maps to 'Foundations of Differential Geometry', but inspect 1267482 says it is a two-volume work; search also returns explicit Volume I (840569) and Volume II (a70b60). Current target/slug lacks volume disambiguation.
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
@@ -2892,31 +2895,7 @@ index 2c80077..8104e5a 100644
 - 提議：(無 diff 文本，book_pipeline/pdf_contactsheet.py modified)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
-## domain: math  （8 條；proposed=4）
-
-### P-2026-06-17-collapse-mathtype-slash-phantom- — Collapse MathType slash phantom/kern residue to /
-- proposed | type=normalize-rule | source=math_sweep | 偵測=\\kern,\\vphantom,\\mathord,\\left/
-- 證據：cluster other occ=4 in dummit_foote_algebra plus token_signals: \\kern occ=21 / 10 books, \\vphantom occ=20 / 9 books; representative samples from dummit_foote_algebra, boas_mp, griffiths_qm3, rudin_analysis, srednicki_qft
-- 提議：Replace exact MathType slash residue \\mathord{\\left/ {\\vphantom{...}} \\right. \\kern - delimiterspace} (and equivalent \\mathbin form) with literal /
-- 風險：Could collapse non-slash delimiter constructs if pattern too broad; keep match exact on left/phantom/right./kern sequence and rely on full-corpus gate for collateral
-
-### P-2026-06-17-collapse-underlined-angle-ocr-re — Collapse underlined angle OCR residue
-- proposed | type=normalize-rule | source=math_sweep | 偵測=\\underline + \\left/
-- 證據：clustered underlined-angle residue in alexander_circuits and ogata_control; 22 residual occurrences across 2 books; representative tex=\\underline{{\\left/ 0 ^ {\\circ} \\left. \\right.}}
-- 提議：R7 _collapse_underlined_angle: \\underline{{\\left/ ... \\left. \\right.}} -> \\underline{\\angle ...}
-- 風險：could misread legitimate underlined slash constructs; matcher constrained to \\underline + \\left/ + \\left. + \\right. and excludes vphantom/delimiterspace forms
-
-### P-2026-06-17-nu-n-ocr-pseudo-macro-collapse — \Nu → N OCR pseudo-macro collapse
-- proposed | type=normalize-rule | source=math_sweep | 偵測=\Nu
-- 證據：cluster undefined_macro occ=53 / 7 books; sampled all usages are letter N: N_2 in atkins/lindner/thijssen, integer N in rudin/goldstein, Gauss map N in do_carmo, norm N_{K/F} in dummit
-- 提議：Layer 1 normalize: replace exact control sequence \\Nu with literal N
-- 風險：Pseudo-macro collapse is safe only if corpus-wide usage is consistently Latin N; full-corpus gate must verify no collateral
-
-### P-2026-06-17-strip-stray-display-delimiters-i — strip stray display delimiters inside math payload
-- proposed | type=normalize-rule | source=math_sweep | 偵測=\] \[ \( \)
-- 證據：cluster: \] occ=3 books=3; \( occ=3 books=1; all are in already-math payloads where mode delimiters become undefined residuals
-- 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
-- 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
+## domain: math  （8 條；proposed=0）
 
 ### P-2026-06-17-bgroup — \bgroup / \aftergroup / \egroup 群組噪訊收斂
 - accepted | type=normalize-rule | source=math_sweep | 偵測=\bgroup \egroup \aftergroup
@@ -2931,6 +2910,22 @@ index 2c80077..8104e5a 100644
 - 證據：SU(2) \ifmmode \times \else \texttimes \fi { } …；MathJax 報 Undefined control sequence \ifmmode；出現在 schwartz_qft、srednicki_qft。×17 occ / 2 書。
 - 提議：Layer 1 normalize 規則：\ifmmode \times \else \texttimes \fi → \times。
 - 風險：低；reader 一律數學區 → 恆等於 \times。全 corpus 回歸確認無誤吞。
+
+### P-2026-06-17-collapse-mathtype-slash-phantom- — Collapse MathType slash phantom/kern residue to /
+- rejected | type=normalize-rule | source=math_sweep | 偵測=\\kern,\\vphantom,\\mathord,\\left/
+- 決議：already-resolved
+- 處置：live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘
+- 證據：cluster other occ=4 in dummit_foote_algebra plus token_signals: \\kern occ=21 / 10 books, \\vphantom occ=20 / 9 books; representative samples from dummit_foote_algebra, boas_mp, griffiths_qm3, rudin_analysis, srednicki_qft
+- 提議：Replace exact MathType slash residue \\mathord{\\left/ {\\vphantom{...}} \\right. \\kern - delimiterspace} (and equivalent \\mathbin form) with literal /
+- 風險：Could collapse non-slash delimiter constructs if pattern too broad; keep match exact on left/phantom/right./kern sequence and rely on full-corpus gate for collateral
+
+### P-2026-06-17-collapse-underlined-angle-ocr-re — Collapse underlined angle OCR residue
+- rejected | type=normalize-rule | source=math_sweep | 偵測=\\underline + \\left/
+- 決議：already-resolved
+- 處置：live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘
+- 證據：clustered underlined-angle residue in alexander_circuits and ogata_control; 22 residual occurrences across 2 books; representative tex=\\underline{{\\left/ 0 ^ {\\circ} \\left. \\right.}}
+- 提議：R7 _collapse_underlined_angle: \\underline{{\\left/ ... \\left. \\right.}} -> \\underline{\\angle ...}
+- 風險：could misread legitimate underlined slash constructs; matcher constrained to \\underline + \\left/ + \\left. + \\right. and excludes vphantom/delimiterspace forms
 
 ### P-2026-06-17-mua — \muA 單位巨集
 - rejected | type=macro | source=math_sweep | 偵測=\muA
@@ -2947,3 +2942,19 @@ index 2c80077..8104e5a 100644
 - 證據：\Nu \colon S \to \mathbb{R}^3（高斯映射 N）、\Nu \geq \Nu_0、\Nu_{K/F}(\alpha)（範數 N）；6 書。×20 occ。
 - 提議：原提案 Layer 0 macro \Nu→\nu。
 - 風險：\Nu 在 test_no_ocr_glue_pseudomacros 禁收清單；且語意非唯一——\Nu→\nu 對所有觀測樣本皆錯（實為大寫 N）。
+
+### P-2026-06-17-nu-n-ocr-pseudo-macro-collapse — \Nu → N OCR pseudo-macro collapse
+- rejected | type=normalize-rule | source=math_sweep | 偵測=\Nu
+- 決議：already-resolved
+- 處置：live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘
+- 證據：cluster undefined_macro occ=53 / 7 books; sampled all usages are letter N: N_2 in atkins/lindner/thijssen, integer N in rudin/goldstein, Gauss map N in do_carmo, norm N_{K/F} in dummit
+- 提議：Layer 1 normalize: replace exact control sequence \\Nu with literal N
+- 風險：Pseudo-macro collapse is safe only if corpus-wide usage is consistently Latin N; full-corpus gate must verify no collateral
+
+### P-2026-06-17-strip-stray-display-delimiters-i — strip stray display delimiters inside math payload
+- rejected | type=normalize-rule | source=math_sweep | 偵測=\] \[ \( \)
+- 決議：already-resolved
+- 處置：live 0 occ（proposals check @macros=8eeaf9c1）：math sweep 逐條 override 主路徑已清乾淨，全域規則多餘
+- 證據：cluster: \] occ=3 books=3; \( occ=3 books=1; all are in already-math payloads where mode delimiters become undefined residuals
+- 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
+- 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
