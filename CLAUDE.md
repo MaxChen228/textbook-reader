@@ -30,6 +30,10 @@ uv run python -m http.server 8001                        # 本機預覽
 - **`devctl`** — daemon 即時控制/健康(kick/reload/incident/snapshot,見下「監控」)。
 - **`pipeline_queue`** — work-queue 機制 + `first_seen_at` 入庫戳資料層(`--backfill-first-seen` 補登歷史)。入庫時間單一真相 = `pipeline_state.json` 的 `first_seen_at`,每 observe idempotent 蓋、零缺口。
 
+上四者觀測 live pipeline;另一軸是**決策日誌**——
+
+- **`proposals`**(`book_pipeline/proposals.py`,`proposals.d/<id>.json` 一案一檔 + `_index.md` 視圖) — 各 agent 跑到一半發現「值得跨書泛化、但 autonomous 不該擅改核心碼」就一行 `propose` 落案;**這是 provenance/稽核軌跡,不是等人核准的佇列**。架構師裁決 SOP:**先查真相層再裁,絕不照提案文字拍腦袋**——engine/patch(scope_guard 捕獲,多是 worker 越界改進已被主線收編的殘留)`grep` working-tree 對應函式是否已存在(已落地→`superseded`)、math/normalize-rule 跑 `proposals check` 看 live aggregate occ(0→`rejected/already-resolved`,逐條 override 已清則全域規則多餘)。**批次事務工具**:`resolve` 收多 id 或 `--where-domain/-type/-source` 過濾 proposed(刻意只命中 proposed)→ 全批先套用、一次 lint、全過才落盤、結尾只 render 一次(all-or-nothing,`--dry-run` 先看圈中誰);成批同去向別再外部迴圈硬湊。
+
 ## Pipeline 架構（book_pipeline/）
 
 `pipeline_tick.py` 是 launchd 每 ~45min 觸發的 daemon 單 tick,推進整條鏈:
