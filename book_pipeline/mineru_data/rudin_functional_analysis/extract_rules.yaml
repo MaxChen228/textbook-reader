@@ -1,0 +1,151 @@
+slug: rudin_functional_analysis
+title: Functional Analysis
+author: Walter Rudin
+edition: 2nd
+subject: Functional Analysis
+publisher: McGraw-Hill, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 407
+bibliography_start_page: 428
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Topological Vector Spaces
+    page_start: 17
+    page_end: 57
+    chapter_title_block_idx: 181
+    chapter_title_block_idx_secondary: 183
+    problems_block_idx: 835
+    next_chapter_block_idx: 909
+  - num: 2
+    title: Completeness
+    page_start: 58
+    page_end: 71
+    chapter_title_block_idx: 909
+    problems_block_idx: 1116
+    next_chapter_block_idx: 1178
+  - num: 3
+    title: Convexity
+    page_start: 72
+    page_end: 107
+    chapter_title_block_idx: 1178
+    chapter_title_block_idx_secondary: 1180
+    problems_block_idx: 1698
+    next_chapter_block_idx: 1813
+  - num: 4
+    title: Duality in Banach Spaces
+    page_start: 108
+    page_end: 131
+    chapter_title_block_idx: 1813
+    problems_block_idx: 2180
+    next_chapter_block_idx: 2283
+  - num: 5
+    title: Some Applications
+    page_start: 132
+    page_end: 164
+    chapter_title_block_idx: 2283
+    problems_block_idx: 2791
+    next_chapter_block_idx: 2842
+  - num: 6
+    title: Test Functions and Distributions
+    page_start: 165
+    page_end: 197
+    chapter_title_block_idx: 2842
+    chapter_title_block_idx_secondary: 2845
+    problems_block_idx: 3420
+    next_chapter_block_idx: 3512
+  - num: 7
+    title: Fourier Transforms
+    page_start: 198
+    page_end: 225
+    chapter_title_block_idx: 3512
+    problems_block_idx: 3959
+    next_chapter_block_idx: 4069
+  - num: 8
+    title: Applications to Differential Equations
+    page_start: 226
+    page_end: 241
+    chapter_title_block_idx: 4069
+    problems_block_idx: 4319
+    next_chapter_block_idx: 4400
+  - num: 9
+    title: Tauberian Theory
+    page_start: 242
+    page_end: 258
+    chapter_title_block_idx: 4400
+    problems_block_idx: 4662
+    next_chapter_block_idx: 4718
+  - num: 10
+    title: Banach Algebras
+    page_start: 259
+    page_end: 290
+    chapter_title_block_idx: 4718
+    chapter_title_block_idx_secondary: 4723
+    problems_block_idx: 5226
+    next_chapter_block_idx: 5301
+  - num: 11
+    title: Commutative Banach Algebras
+    page_start: 291
+    page_end: 321
+    chapter_title_block_idx: 5301
+    chapter_title_block_idx_secondary: 5303
+    problems_block_idx: 5777
+    next_chapter_block_idx: 5879
+  - num: 12
+    title: Bounded Operators on a Hilbert Space
+    page_start: 322
+    page_end: 362
+    chapter_title_block_idx: 5879
+    problems_block_idx: 6576
+    next_chapter_block_idx: 6687
+  - num: 13
+    title: Unbounded Operators
+    page_start: 363
+    page_end: 406
+    chapter_title_block_idx: 6687
+    problems_block_idx: 7512
+    next_chapter_block_idx: 7610
+
+appendices:
+  - id: A
+    title: Compactness and Continuity
+    page_start: 407
+    chapter_title_block_idx: 7610
+  - id: B
+    title: Notes and Comments
+    page_start: 413
+    chapter_title_block_idx: 7691
+
+section_re: "^()([A-Z][A-Za-z'\\-]*(?: [A-Za-z][A-Za-z'\\-]*)*)$"
+subsection_re: "^()([0-9]+\\.[0-9]+\\.[0-9]+\\s+.+)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^((?:[0-9I]\\s*)+)\\.\\s+"
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

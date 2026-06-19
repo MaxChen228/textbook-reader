@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-brezis-functional-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog_audit 對無編號示意圖缺少 exclude/id 表達",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-18T22:08:47+00:00",
+  "updated": "2026-06-18T22:08:47+00:00",
+  "evidence": "brezis_functional_analysis 在 parser+smoke 後僅殘 H7: parsed/_catalog_audit.md 列出 9 個 figure 與 2 個 table 的 C7/C2，其中多數 image 周邊只有正文或引用（如 ch01 body[79], ch05 body[32], ch10 body[7]），現有 extract_rules 僅有 figure_caption_merge/main_re，無法為非 Figure N 編號圖塊給 semantic id 或 exclude reason。",
+  "proposal": "補 catalog/parse 層對非編號視覺塊的 declarative exclusion 或 stable nonsemantic id 支援，例如允許 extract_rules 以 regex/anchor 將示意圖標成 exclude_reason=decorative/inline-derivation，或讓 catalog_audit 對無 caption 編號但無 unresolved ref 的圖塊降級。",
+  "risk": "",
+  "disposition": ""
+}

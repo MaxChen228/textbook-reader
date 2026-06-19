@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-thomson-particle-physics",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog builder cannot suppress or merge split figure fragments",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T04:12:30+00:00",
+  "updated": "2026-06-18T04:12:30+00:00",
+  "evidence": "MinerU splits many figures into multiple image blocks where only one later block carries the main '-Fig. N.M ...' caption or where subfigure labels like '(a)' '(b)' are separate images. audit-book schema fields cannot mark captionless fragments as non-indexable, and figure_caption_merge only handles '(a)/(b)->main caption' subsets while leaving many captionless fragments unresolved. Smoke stays at H6 unresolved Figure refs=12 and H7 empty_captions=178 on the conservative ruleset.",
+  "proposal": "Extend catalog/build pipeline to support per-book or generic suppression/merging of split figure fragments without requiring parser hacks: e.g. merge adjacent image blocks until a main figure caption is seen, or allow schema-level figure exclusion predicates for captionless fragments/subfigure shards.",
+  "risk": "",
+  "disposition": ""
+}

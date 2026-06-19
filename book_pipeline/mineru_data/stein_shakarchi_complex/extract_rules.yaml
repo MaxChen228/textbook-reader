@@ -1,0 +1,121 @@
+slug: stein_shakarchi_complex
+title: Complex Analysis
+author: Elias M. Stein; Rami Shakarchi
+edition: null
+subject: Complex Analysis
+publisher: Princeton University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 336
+bibliography_start_page: 387
+index_start_page: 393
+
+chapters:
+  - num: 1
+    title: Preliminaries to Complex Analysis
+    page_start: 19
+    page_end: 49
+    chapter_title_block_idx: 185
+    problems_block_idx: 547
+    next_chapter_block_idx: 690
+  - num: 2
+    title: Cauchy's Theorem and Its Applications
+    page_start: 50
+    page_end: 88
+    chapter_title_block_idx: 690
+    problems_block_idx: 1198
+    next_chapter_block_idx: 1248
+  - num: 3
+    title: Meromorphic Functions and the Logarithm
+    page_start: 89
+    page_end: 128
+    chapter_title_block_idx: 1248
+    problems_block_idx: 1796
+    next_chapter_block_idx: 1845
+  - num: 4
+    title: The Fourier Transform
+    page_start: 129
+    page_end: 151
+    chapter_title_block_idx: 1845
+    problems_block_idx: 2166
+    next_chapter_block_idx: 2213
+  - num: 5
+    title: Entire Functions
+    page_start: 152
+    page_end: 176
+    chapter_title_block_idx: 2213
+    problems_block_idx: 2588
+    next_chapter_block_idx: 2618
+  - num: 6
+    title: The Gamma and Zeta Functions
+    page_start: 177
+    page_end: 198
+    chapter_title_block_idx: 2618
+    problems_block_idx: 2952
+    next_chapter_block_idx: 2979
+  - num: 7
+    title: The Zeta Function and Prime Number Theorem
+    page_start: 199
+    page_end: 222
+    chapter_title_block_idx: 2979
+    problems_block_idx: 3356
+    next_chapter_block_idx: 3376
+  - num: 8
+    title: Conformal Mappings
+    page_start: 223
+    page_end: 278
+    chapter_title_block_idx: 3376
+    problems_block_idx: 4068
+    next_chapter_block_idx: 4171
+  - num: 9
+    title: An Introduction to Elliptic Functions
+    page_start: 279
+    page_end: 300
+    chapter_title_block_idx: 4171
+    problems_block_idx: 4465
+    next_chapter_block_idx: 4491
+  - num: 10
+    title: Applications of Theta Functions
+    page_start: 301
+    page_end: 335
+    chapter_title_block_idx: 4491
+    problems_block_idx: 5008
+    next_chapter_block_idx: 5059
+
+appendices:
+  - id: A
+    title: Asymptotics
+    page_start: 336
+    chapter_title_block_idx: 5059
+  - id: B
+    title: Simple Connectivity and Jordan Curve Theorem
+    page_start: 362
+    chapter_title_block_idx: 5438
+
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\s*(?:\$\{?\s*(?:\\(?:textbf|mathbf)\s*\{\s*)?(?:\^\s*\{\s*)?)?(\d+)\s*\.(?:\s|∗|\*)'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

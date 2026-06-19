@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "modern_operating_systems-ch05-body-203-324895",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[203]",
+      "expect": "\\text { printf } (\" \\text { The   square   of   \\%3d   is   \\%6d\\n\", i, i*i });",
+      "new": "\\text{printf} (\"The square of \\%3d is \\%6d\\\\n\", i, i*i);"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "artin_algebra-ch16-body-376-b42811",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[376]",
+      "expect": "\\begin{array}{c} \\text {H^{\\prime}} \\\\ K \\\\ G \\end{array} \\begin{array}{c} K ^ {\\prime} \\\\ \\hline g \\\\ F \\end{array} \\begin{array}{c} H \\\\ F ^ {\\prime} \\\\ \\hline G ^ {\\prime} \\end{array}",
+      "new": "\\begin{array}{c} H^{\\prime}\\\\ K\\\\ G \\end{array} \\begin{array}{c} K^{\\prime}\\\\ \\hline g\\\\ F \\end{array} \\begin{array}{c} H\\\\ F^{\\prime}\\\\ \\hline G^{\\prime} \\end{array}"
+    },
+    {
+      "id": "artin_algebra-ch14-body-50-e14fde",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[50]",
+      "expect": "\\left[ \\begin{array}{c c c} {P} & {1} & {0} \\end{array} \\right] \\left[ \\begin{array}{c} {Q} \\\\ {\\hline 0} \\end{array} \\right] = I _ {m}.",
+      "new": "\\left[ \\begin{array}{c c c} {P} & {1} & {0} \\end{array} \\right] \\left[ \\begin{array}{c} {Q} \\\\ {0} \\end{array} \\right] = I_{m}."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "gasiorowicz_qm3-ch06-body-172-e06450",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[172]",
+      "expect": "\\begin{array}{l} \\langle B \\rangle_ {t} = \\left\\langle \\psi (t) \\right| B | \\psi (t) \\rangle \\\\ \\begin{array}{l} = \\left\\langle e ^ {- i H t / \\hbar} \\psi (0) \\right| B \\left| e ^ {- i H t / \\hbar} \\psi (0) \\right\\rangle \\\\ \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. \\left. 1, 0\\right) \\right] _ {t} 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0\\right) 0, 0 \\\\ = \\left\\langle \\psi (0) \\right| e ^ {i H t / \\hbar} B e ^ {- i H t / \\hbar} | \\psi (0) \\rangle  \\\\ = \\langle \\psi (0) | B (t) | \\psi (0) \\rangle \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\langle B \\rangle_{t} = \\left\\langle \\psi (t) \\right| B | \\psi (t) \\rangle \\\\ = \\left\\langle e ^ {- i H t / \\hbar} \\psi (0) \\right| B \\left| e ^ {- i H t / \\hbar} \\psi (0) \\right\\rangle \\\\ = \\left\\langle \\psi (0) \\right| e ^ {i H t / \\hbar} B e ^ {- i H t / \\hbar} | \\psi (0) \\rangle \\\\ = \\langle \\psi (0) | B (t) | \\psi (0) \\rangle \\end{array}"
+    }
+  ]
+}

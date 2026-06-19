@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-hartshorne-algebraic-geometry",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog cannot bind Hartshorne bare-text figure captions or exclude captionless diagrams",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T23:07:34+00:00",
+  "updated": "2026-06-18T23:07:34+00:00",
+  "evidence": "parser/smoke is structurally green (5 chapters, 3 appendices; only H7 remains: fallback_ids=0 empty_captions=37). parsed/_catalog_audit.md shows many visual blocks whose visible semantics live in neighboring prose or standalone text, not media captions: e.g. ch05 body has 'Figure 18 summarizes ...' before chart block; ch05 §2 uses 'Notation 2.8.1 ... (Fig. 19)' next to an image; appB has 'Fig. 24' / 'Fig. 25' embedded in prose; many diagrams in ch02/ch04/ch05 are image blocks with empty captions and no adjacent media-borne main caption. parser.figure_caption_merge only upgrades a previous fig with subcaption '(a)/(b)' when the current fig already carries a main caption, so extract_rules figure_caption_merge/main_re cannot attach neighboring text or mark these captionless diagrams non-indexable.",
+  "proposal": "Extend deterministic catalog extraction so audit-book can bind neighboring bare text/prose figure mentions to nearby image/chart blocks, or allow reviewable per-visual exclude/nonindexable annotations for captionless legacy diagrams. Without that, books like Hartshorne can parse chapters/problems correctly but remain stuck on smoke H7 for catalog semantics.",
+  "risk": "",
+  "disposition": ""
+}

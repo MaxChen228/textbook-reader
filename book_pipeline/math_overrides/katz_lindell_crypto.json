@@ -55,6 +55,16 @@
       "selector": "body[130]",
       "expect": "p k = \\left( \\begin{array}{c c c} \\framebox {y _ {1, 0}} & y _ {2, 0} & y _ {3, 0} \\\\ y _ {1, 1} & \\framebox {y _ {2, 1}} & \\framebox {y _ {3, 1}} \\end{array} \\right) \\Rightarrow \\begin{array}{c} H (x _ {1}) \\stackrel {{?}} {{=}} y _ {1, 0} \\\\ H (x _ {2}) \\stackrel {{?}} {{=}} y _ {2, 1} \\\\ H (x _ {3}) \\stackrel {{?}} {{=}} y _ {3, 1} \\end{array}",
       "new": "p k = \\left( \\begin{array}{c c c} \\boxed {y _ {1, 0}} & y _ {2, 0} & y _ {3, 0} \\\\ y _ {1, 1} & \\boxed {y _ {2, 1}} & \\boxed {y _ {3, 1}} \\end{array} \\right) \\Rightarrow \\begin{array}{c} H (x _ {1}) \\stackrel {{?}} {{=}} y _ {1, 0} \\\\ H (x _ {2}) \\stackrel {{?}} {{=}} y _ {2, 1} \\\\ H (x _ {3}) \\stackrel {{?}} {{=}} y _ {3, 1} \\end{array}"
+    },
+    {
+      "id": "katz_lindell_crypto-appB-body-176-8c5992",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[176]",
+      "field": "md",
+      "old": "${ \\ v q } ^ { \\prime } { \\vline } = h ^ { 0 } = 1$",
+      "new": "${ \\ v q } ^ { \\prime } \\mid = h ^ { 0 } = 1$",
+      "anchor": "890d80b1"
     }
   ]
 }

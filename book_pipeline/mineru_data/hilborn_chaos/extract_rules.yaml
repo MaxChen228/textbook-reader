@@ -1,0 +1,173 @@
+slug: hilborn_chaos
+title: "Chaos and Nonlinear Dynamics: An Introduction for Scientists and Engineers"
+author: Robert C. Hilborn
+edition: null
+subject: Nonlinear Dynamics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 0
+appendices_start_page: 560
+bibliography_start_page: 641
+index_start_page: 691
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Three Chaotic Systems
+    page_start: 0
+    page_end: 43
+    chapter_title_block_idx: 7
+    problems_block_idx: null
+    next_chapter_block_idx: 499
+  - num: 2
+    title: The Universality of Chaos
+    page_start: 44
+    page_end: 67
+    chapter_title_block_idx: 499
+    problems_block_idx: null
+    next_chapter_block_idx: 747
+  - num: 3
+    title: "Dynamics in State Space: One and Two Dimensions"
+    page_start: 68
+    page_end: 116
+    chapter_title_block_idx: 747
+    problems_block_idx: null
+    next_chapter_block_idx: 1436
+  - num: 4
+    title: "Three-Dimensional State Space and Chaos"
+    page_start: 117
+    page_end: 159
+    chapter_title_block_idx: 1436
+    problems_block_idx: null
+    next_chapter_block_idx: 1939
+  - num: 5
+    title: Iterated Maps
+    page_start: 160
+    page_end: 217
+    chapter_title_block_idx: 1939
+    problems_block_idx: null
+    next_chapter_block_idx: 2631
+  - num: 6
+    title: Quasi-Periodicity and Chaos
+    page_start: 218
+    page_end: 258
+    chapter_title_block_idx: 2631
+    problems_block_idx: null
+    next_chapter_block_idx: 3139
+  - num: 7
+    title: Intermittency and Crises
+    page_start: 259
+    page_end: 281
+    chapter_title_block_idx: 3139
+    problems_block_idx: null
+    next_chapter_block_idx: 3406
+  - num: 8
+    title: Hamiltonian Systems
+    page_start: 282
+    page_end: 328
+    chapter_title_block_idx: 3406
+    problems_block_idx: null
+    next_chapter_block_idx: 3975
+  - num: 9
+    title: Quantifying Chaos
+    page_start: 329
+    page_end: 388
+    chapter_title_block_idx: 3975
+    problems_block_idx: null
+    next_chapter_block_idx: 4704
+  - num: 10
+    title: Many Dimensions and Multifractals
+    page_start: 389
+    page_end: 448
+    chapter_title_block_idx: 4704
+    problems_block_idx: null
+    next_chapter_block_idx: 5423
+  - num: 11
+    title: Pattern Formation and Spatiotemporal Chaos
+    page_start: 449
+    page_end: 511
+    chapter_title_block_idx: 5423
+    problems_block_idx: null
+    next_chapter_block_idx: 6122
+  - num: 12
+    title: "Quantum Chaos, The Theory of Complexity, and Other Topics"
+    page_start: 512
+    page_end: 559
+    chapter_title_block_idx: 6122
+    problems_block_idx: null
+    next_chapter_block_idx: 6615
+
+appendices:
+  - id: A
+    title: Fourier Power Spectra
+    page_start: 560
+    chapter_title_block_idx: 6615
+  - id: B
+    title: Bifurcation Theory
+    page_start: 570
+    chapter_title_block_idx: 6762
+  - id: C
+    title: The Lorenz Model
+    page_start: 577
+    chapter_title_block_idx: 6856
+  - id: D
+    title: The Research Literature on Chaos
+    page_start: 591
+    chapter_title_block_idx: 7104
+  - id: E
+    title: Computer Programs
+    page_start: 593
+    chapter_title_block_idx: 7132
+  - id: F
+    title: Theory of the Universal Feigenbaum Numbers
+    page_start: 601
+    chapter_title_block_idx: 7417
+  - id: G
+    title: The Duffing Double-Well Oscillator
+    page_start: 613
+    chapter_title_block_idx: 7588
+  - id: H
+    title: "Other Universal Features for One-Dimensional Iterated Maps"
+    page_start: 619
+    chapter_title_block_idx: 7669
+  - id: I
+    title: The van der Pol Oscillator
+    page_start: 624
+    chapter_title_block_idx: 7739
+  - id: J
+    title: Simple Laser Dynamics Models
+    page_start: 633
+    chapter_title_block_idx: 7878
+
+section_re: '^((?:\d+\.\d+|[A-Z](?:\.\d+|-\d+))(?:\.\d+)?)\.?\s+(.+)$'
+subsection_re: '^()((?!(?:Chaos and Nonlinear Dynamics: An Introduction for Scientists and Engineers|Abstract and Keywords|References|Index)$)(?!Exercise(?:s)?\b)(?:\(p\.\d+\)\s+)?[A-Z][^\n]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Exercise\s+)?((?:(?<=Exercise\s)(?:[A-Z]|\d+)(?:\.\d+)*(?:\.?-\d+)?)|(?:CE[A-Z]?\d*(?:-\d+)))\.'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]|\d+)(?:[.-]\d+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:Fig(?:ure)?\.?\s+(?:[A-Z]|\d+)(?:\.\d+)?(?:-\d+)?\.?|Table\s+(?:[A-Z]|\d+)(?:\.\d+)?(?:-\d+)?)'
+
+known_missing_problems: []

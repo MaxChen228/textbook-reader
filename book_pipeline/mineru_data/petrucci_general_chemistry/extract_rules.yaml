@@ -1,0 +1,178 @@
+slug: petrucci_general_chemistry
+title: "General Chemistry: Principles and Modern Applications"
+author: "Ralph H. Petrucci; F. Geoffrey Herring; Jeffry D. Madura; Carey Bissonnette"
+edition: null
+subject: "General Chemistry"
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 2
+appendices_start_page: 640
+bibliography_start_page: null
+index_start_page: 695
+
+inline_problems: false
+
+chapters:
+  - num: 15
+    title: Principles of Chemical Equilibrium
+    page_start: 2
+    page_end: 46
+    chapter_title_block_idx: 3
+    chapter_title_block_idx_secondary: 2
+    problems_block_idx: 692
+    next_chapter_block_idx: 1008
+  - num: 16
+    title: Acids and Bases
+    page_start: 47
+    page_end: 101
+    chapter_title_block_idx: 1008
+    chapter_title_block_idx_secondary: 1009
+    problems_block_idx: 1955
+    next_chapter_block_idx: 2154
+  - num: 17
+    title: Additional Aspects of Acid-Base Equilibria
+    page_start: 102
+    page_end: 142
+    chapter_title_block_idx: 2154
+    chapter_title_block_idx_secondary: 2153
+    problems_block_idx: 2764
+    next_chapter_block_idx: 2973
+  - num: 18
+    title: Solubility and Complex-Ion Equilibria
+    page_start: 143
+    page_end: 177
+    chapter_title_block_idx: 2973
+    chapter_title_block_idx_secondary: 2974
+    problems_block_idx: 3559
+    next_chapter_block_idx: 3695
+  - num: 19
+    title: Electrochemistry
+    page_start: 178
+    page_end: 234
+    chapter_title_block_idx: 3695
+    chapter_title_block_idx_secondary: 3694
+    problems_block_idx: 4669
+    next_chapter_block_idx: 4990
+  - num: 20
+    title: Chemical Kinetics
+    page_start: 235
+    page_end: 289
+    chapter_title_block_idx: 4990
+    chapter_title_block_idx_secondary: 4991
+    problems_block_idx: 5911
+    next_chapter_block_idx: 6175
+  - num: 21
+    title: "Chemistry of the Main-Group Elements I: Groups 1, 2, 13, and 14"
+    page_start: 290
+    page_end: 348
+    chapter_title_block_idx: 6175
+    chapter_title_block_idx_secondary: 6174
+    problems_block_idx: 7042
+    next_chapter_block_idx: 7193
+  - num: 22
+    title: "Chemistry of the Main-Group Elements II: Groups 18, 17, 16, 15, and Hydrogen"
+    page_start: 349
+    page_end: 403
+    chapter_title_block_idx: 7193
+    chapter_title_block_idx_secondary: 7194
+    problems_block_idx: 8015
+    next_chapter_block_idx: 8200
+  - num: 23
+    title: The Transition Elements
+    page_start: 404
+    page_end: 441
+    chapter_title_block_idx: 8200
+    chapter_title_block_idx_secondary: 8199
+    problems_block_idx: 8739
+    next_chapter_block_idx: 8882
+  - num: 24
+    title: Complex Ions and Coordination Compounds
+    page_start: 442
+    page_end: 482
+    chapter_title_block_idx: 8882
+    problems_block_idx: 9482
+    next_chapter_block_idx: 9626
+  - num: 25
+    title: Nuclear Chemistry
+    page_start: 483
+    page_end: 519
+    chapter_title_block_idx: 9626
+    chapter_title_block_idx_secondary: 9627
+    problems_block_idx: 10169
+    next_chapter_block_idx: 10281
+  - num: 26
+    title: Structures of Organic Compounds
+    page_start: 520
+    page_end: 580
+    chapter_title_block_idx: 10281
+    chapter_title_block_idx_secondary: 10280
+    problems_block_idx: 11234
+    next_chapter_block_idx: 11563
+  - num: 27
+    title: Reactions of Organic Compounds
+    page_start: 581
+    page_end: 638
+    chapter_title_block_idx: 11563
+    chapter_title_block_idx_secondary: 11564
+    problems_block_idx: 12295
+    next_chapter_block_idx: 12497
+
+appendices:
+  - id: A
+    title: Mathematical Operations
+    page_start: 640
+    chapter_title_block_idx: 12512
+  - id: B
+    title: Some Basic Physical Concepts
+    page_start: 650
+    chapter_title_block_idx: 12730
+  - id: C
+    title: SI Units
+    page_start: 654
+    chapter_title_block_idx: 12798
+  - id: D
+    title: Data Tables
+    page_start: 656
+    chapter_title_block_idx: 12822
+  - id: E
+    title: Concept Maps
+    page_start: 676
+    chapter_title_block_idx: 12887
+  - id: F
+    title: Glossary
+    page_start: 678
+    chapter_title_block_idx: 12900
+
+section_re: '^(\d+-\d+)\s+(?!CONCEPT ASSESSMENT$|ARE YOU WONDERING\??$)(.+)$'
+subsection_re: '^()(?!CONTENTS$|LEARNING OBJECTIVES$|KEEP IN MIND$|CHEMISTRY$|Summary$|Mastering CHEMISTRY$|Integrative Example$|Integrative and Advanced Exercises$|Feature Problems$|Self-Assessment Exercises$|Exercises$|Analyze$|Solve$|Assess$|(?:PRACTICE )?EXAMPLE\b|CONCEPT ASSESSMENT$|(?:▲\s*)?FIGURE\b|Appendix$|[A-Z]-\d+\b)([A-Z][^\n]{2,})$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+[a-z]?)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+-\d+)\b'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:▲\s*)?FIGURE\s+(\d+-\d+)\b'
+
+known_missing_problems: []

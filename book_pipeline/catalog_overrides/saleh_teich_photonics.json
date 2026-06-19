@@ -1,0 +1,24 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "22.1.7",
+      "classification": "source_mismatch",
+      "reason": "原 PDF 正文頁把 2x2 switch 的子圖寫成 Fig. 22.1-7(b)，但緊接下一頁實際圖說是 Figure 21.1-7，且 (b) 子圖正是 integrated electro-optic directional coupler；本書不存在 Figure 22.1-7。",
+      "where": "ch21.json body[54]",
+      "evidence": "Raw PDF physical page 874 (printed p.837) says \"illustrated in Fig. 22.1-7(b)\". Raw PDF physical page 875 (printed p.838) shows \"Figure 21.1-7\" with caption \"(b) A 2 x 2 switch using an integrated electro-optic directional coupler.\""
+    }
+  ],
+  "overrides": [
+    {
+      "id": "saleh-fig-22.3.4-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch22",
+      "selector": "body[196]",
+      "field": "md",
+      "old": "Figure 2.3-4 is a plot of this relation",
+      "new": "Figure 22.3-4 is a plot of this relation",
+      "reason": "Raw PDF physical page 934 (printed p.897) 的正文實際是 Figure 22.3-4；parsed OCR 少掉前導 2，導致 audit 誤判缺 ref。"
+    }
+  ]
+}

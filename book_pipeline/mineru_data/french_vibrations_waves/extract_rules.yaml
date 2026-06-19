@@ -1,0 +1,110 @@
+slug: french_vibrations_waves
+title: Vibrations and Waves
+author: A. P. French
+edition: 1st
+subject: Waves
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 313
+bibliography_start_page: null
+index_start_page: 323
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Periodic motions
+    page_start: 13
+    page_end: 28
+    chapter_title_block_idx: 150
+    problems_block_idx: 292
+    next_chapter_block_idx: 321
+  - num: 2
+    title: The superposition of periodic motions
+    page_start: 29
+    page_end: 50
+    chapter_title_block_idx: 321
+    problems_block_idx: 521
+    next_chapter_block_idx: 540
+  - num: 3
+    title: The free vibrations of physical systems
+    page_start: 51
+    page_end: 86
+    chapter_title_block_idx: 540
+    problems_block_idx: 901
+    next_chapter_block_idx: 984
+  - num: 4
+    title: Forced vibrations and resonance
+    page_start: 87
+    page_end: 128
+    chapter_title_block_idx: 984
+    problems_block_idx: 1350
+    next_chapter_block_idx: 1425
+  - num: 5
+    title: Coupled oscillators and normal modes
+    page_start: 129
+    page_end: 170
+    chapter_title_block_idx: 1425
+    problems_block_idx: 1826
+    next_chapter_block_idx: 1894
+  - num: 6
+    title: Normal modes of continuous systems. Fourier analysis
+    page_start: 171
+    page_end: 210
+    chapter_title_block_idx: 1894
+    problems_block_idx: null
+    next_chapter_block_idx: 2362
+  - num: 7
+    title: Progressive waves
+    page_start: 211
+    page_end: 262
+    chapter_title_block_idx: 2362
+    problems_block_idx: 2904
+    next_chapter_block_idx: 2987
+  - num: 8
+    title: Boundary effects and interference
+    page_start: 263
+    page_end: 312
+    chapter_title_block_idx: 2987
+    problems_block_idx: 3397
+    next_chapter_block_idx: 3450
+
+appendices:
+  - id: A
+    title: A short bibliography
+    page_start: 313
+    chapter_title_block_idx: 3450
+  - id: B
+    title: Answers to problems
+    page_start: 319
+    chapter_title_block_idx: 3473
+
+section_re: '^()((?!CHAPTER\s+\d+$)(?!\d+\s)(?:[A-Z0-9"“”''’‘(),.;:/?&-]|\s|\$|\^|\{|\}|\\)+)$'
+subsection_re: '^()([^\s\S])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+-[0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

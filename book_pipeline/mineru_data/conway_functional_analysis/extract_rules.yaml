@@ -1,0 +1,147 @@
+slug: conway_functional_analysis
+title: A Course in Functional Analysis
+author: John B. Conway
+edition: 2nd
+subject: Functional Analysis
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 386
+bibliography_start_page: 401
+index_start_page: 412
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Hilbert Spaces
+    page_start: 18
+    page_end: 42
+    chapter_title_block_idx: 145
+    chapter_title_block_idx_secondary: 144
+    problems_block_idx: null
+    next_chapter_block_idx: 553
+  - num: 2
+    title: Operators on Hilbert Space
+    page_start: 43
+    page_end: 79
+    chapter_title_block_idx: 553
+    chapter_title_block_idx_secondary: 552
+    problems_block_idx: null
+    next_chapter_block_idx: 1152
+  - num: 3
+    title: Banach Spaces
+    page_start: 80
+    page_end: 115
+    chapter_title_block_idx: 1152
+    chapter_title_block_idx_secondary: 1151
+    problems_block_idx: null
+    next_chapter_block_idx: 1701
+  - num: 4
+    title: Locally Convex Spaces
+    page_start: 116
+    page_end: 140
+    chapter_title_block_idx: 1701
+    chapter_title_block_idx_secondary: 1700
+    problems_block_idx: null
+    next_chapter_block_idx: 2061
+  - num: 5
+    title: Weak Topologies
+    page_start: 141
+    page_end: 182
+    chapter_title_block_idx: 2061
+    chapter_title_block_idx_secondary: 2060
+    problems_block_idx: null
+    next_chapter_block_idx: 2687
+  - num: 6
+    title: Linear Operators on a Banach Space
+    page_start: 183
+    page_end: 203
+    chapter_title_block_idx: 2687
+    chapter_title_block_idx_secondary: 2686
+    problems_block_idx: null
+    next_chapter_block_idx: 2985
+  - num: 7
+    title: Banach Algebras and Spectral Theory for Operators on a Banach Space
+    page_start: 204
+    page_end: 248
+    chapter_title_block_idx: 2985
+    chapter_title_block_idx_secondary: 2984
+    problems_block_idx: null
+    next_chapter_block_idx: 3656
+  - num: 8
+    title: 'C\*-Algebras'
+    page_start: 249
+    page_end: 271
+    chapter_title_block_idx: 3656
+    chapter_title_block_idx_secondary: 3655
+    problems_block_idx: null
+    next_chapter_block_idx: 3955
+  - num: 9
+    title: Normal Operators on Hilbert Space
+    page_start: 272
+    page_end: 319
+    chapter_title_block_idx: 3955
+    chapter_title_block_idx_secondary: 3954
+    problems_block_idx: null
+    next_chapter_block_idx: 4634
+  - num: 10
+    title: Unbounded Operators
+    page_start: 320
+    page_end: 363
+    chapter_title_block_idx: 4634
+    chapter_title_block_idx_secondary: 4633
+    problems_block_idx: null
+    next_chapter_block_idx: 5321
+  - num: 11
+    title: Fredholm Theory
+    page_start: 364
+    page_end: 385
+    chapter_title_block_idx: 5321
+    chapter_title_block_idx_secondary: 5320
+    problems_block_idx: null
+    next_chapter_block_idx: 5629
+
+appendices:
+  - id: A
+    title: Preliminaries
+    page_start: 386
+    chapter_title_block_idx: 5629
+  - id: B
+    title: 'The Dual of $L^p (\mu)$'
+    page_start: 392
+    chapter_title_block_idx: 5708
+  - id: C
+    title: 'The Dual of $C_0(X)$'
+    page_start: 395
+    chapter_title_block_idx: 5748
+
+section_re: '^§(\d+(?:\\\*)?)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

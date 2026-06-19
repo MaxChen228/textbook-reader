@@ -1,0 +1,160 @@
+# Steven Weinberg, The Quantum Theory of Fields, Volume I: Foundations
+
+slug: weinberg_qft1
+title: "The Quantum Theory of Fields, Volume I: Foundations"
+author: Steven Weinberg
+edition: null
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+# 本書無全書末端 Appendix；各章 appendix 內嵌在 chapter body。
+# 末章後直接進 Author Index，故 appendices_start_page 取 index 起點。
+appendices_start_page: 619
+bibliography_start_page: null
+index_start_page: 619
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Historical Introduction
+    page_start: 23
+    page_end: 70
+    chapter_title_block_idx: 336
+    problems_block_idx: null
+    next_chapter_block_idx: 798
+  - num: 2
+    title: Relativistic Quantum Mechanics
+    page_start: 71
+    page_end: 128
+    chapter_title_block_idx: 798
+    chapter_title_block_idx_secondary: 799
+    problems_block_idx: 1755
+    next_chapter_block_idx: 1767
+  - num: 3
+    title: Scattering Theory
+    page_start: 129
+    page_end: 190
+    chapter_title_block_idx: 1767
+    chapter_title_block_idx_secondary: 1768
+    problems_block_idx: 2606
+    next_chapter_block_idx: 2627
+  - num: 4
+    title: The Cluster Decomposition Principle
+    page_start: 191
+    page_end: 212
+    chapter_title_block_idx: 2627
+    chapter_title_block_idx_secondary: 2629
+    problems_block_idx: 2851
+    next_chapter_block_idx: 2870
+  - num: 5
+    title: Quantum Fields and Antiparticles
+    page_start: 213
+    page_end: 280
+    chapter_title_block_idx: 2870
+    chapter_title_block_idx_secondary: 2871
+    problems_block_idx: 3925
+    next_chapter_block_idx: 3952
+  - num: 6
+    title: The Feynman Rules
+    page_start: 281
+    page_end: 313
+    chapter_title_block_idx: 3952
+    problems_block_idx: 4326
+    next_chapter_block_idx: 4337
+  - num: 7
+    title: The Canonical Formalism
+    page_start: 314
+    page_end: 360
+    chapter_title_block_idx: 4337
+    problems_block_idx: 5135
+    next_chapter_block_idx: 5151
+  - num: 8
+    title: Electrodynamics
+    page_start: 361
+    page_end: 397
+    chapter_title_block_idx: 5151
+    problems_block_idx: 5746
+    next_chapter_block_idx: 5760
+  - num: 9
+    title: Path-Integral Methods
+    page_start: 398
+    page_end: 446
+    chapter_title_block_idx: 5760
+    chapter_title_block_idx_secondary: 5761
+    problems_block_idx: 6453
+    next_chapter_block_idx: 6467
+  - num: 10
+    title: Non-Perturbative Methods
+    page_start: 447
+    page_end: 493
+    chapter_title_block_idx: 6467
+    problems_block_idx: 7130
+    next_chapter_block_idx: 7142
+  - num: 11
+    title: One-Loop Radiative Corrections in Quantum Electrodynamics
+    page_start: 494
+    page_end: 520
+    chapter_title_block_idx: 7142
+    chapter_title_block_idx_secondary: 7143
+    problems_block_idx: 7494
+    next_chapter_block_idx: 7500
+  - num: 12
+    title: General Renormalization Theory
+    page_start: 521
+    page_end: 555
+    chapter_title_block_idx: 7500
+    chapter_title_block_idx_secondary: 7501
+    problems_block_idx: 7850
+    next_chapter_block_idx: 7861
+  - num: 13
+    title: Infrared Effects
+    page_start: 556
+    page_end: 585
+    chapter_title_block_idx: 7861
+    chapter_title_block_idx_secondary: 7862
+    problems_block_idx: 8204
+    next_chapter_block_idx: 8214
+  - num: 14
+    title: Bound States in External Fields
+    page_start: 586
+    page_end: 618
+    chapter_title_block_idx: 8214
+    chapter_title_block_idx_secondary: 8215
+    problems_block_idx: 8635
+    next_chapter_block_idx: 9525
+
+appendices: []
+
+# 主體 section 為 N.M；章內 appendix headings（如 "Appendix A ..." / "Appendix Traces"）
+# 也視為 heading，保留在 chapter body 內，而不是切成 global appendices。
+section_re: '^((?:\d+\.\d+)|(?:Appendix(?:\s+[A-Z])?))\s+(.+)$'
+# 少量無編號小標存在於 text_level=2（如 "(A) Algebra", "Scalar Field, Derivative Coupling", "A"）。
+subsection_re: '^()((?!(?:Problems|References|Bibliography|Author Index|Subject Index)$)(?!(?:Appendix(?:\s|$)))(?:[A-Z]|\([A-Z]\)\s+.+|[A-Z][^\n]{1,100}))$'
+heading_priority: [subsection_re, section_re]
+
+# 章末習題是純流水 1., 2., 3. ...；不帶章號前綴。
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+# References 多為 text_level=2，此 regex 對末章 Author Index 至少可提早截斷。
+problems_end_re: '^(References|Bibliography|Author Index|Subject Index)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+# 公式標號含一般三段式 1.2.3，也含章內 appendix 形式 2.A.1 / 7.A.30。
+equation_label_re: '\\tag\s*\{([0-9]+\.(?:[0-9]+|[A-Z])\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?(?:Figure|Table)\s+\d+(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?'
+
+known_missing_problems: []

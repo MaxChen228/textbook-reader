@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "feynman_em2-ch21-body-3-bf75f1",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[3]",
+      "expect": "\\boldsymbol {E} = \\frac {q}{4 \\pi \\epsilon_ {0} c ^ {2} r ^ {\\prime}} \\left[ \\begin{array}{l} \\text {acceleration of the charge at (t - r^{\\prime} /c)} \\\\ \\text {projected at right angles to r^{\\prime}} \\end{array} \\right] \\tag {$21.1^{\\prime}$}",
+      "new": "\\boldsymbol{E} = \\frac {q}{4\\pi \\epsilon_{0} c^{2} r^{\\prime}} \\left[ \\begin{array}{l} \\text{acceleration of the charge at (t - r'/c)} \\\\ \\text{projected at right angles to r'} \\end{array} \\right] \\tag{21.1'}"
+    }
+  ]
+}

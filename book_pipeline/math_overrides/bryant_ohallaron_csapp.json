@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "bryant_ohallaron_csapp-ch02-body-790-8ea8a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[790]",
+      "expect": "\\begin{array}{l} \\text {B2Uw + k([xw - 1,xw - 2,\\ldots,x0,0,\\ldots,0]) = \\sum i = 0w - 1xi2i + k =} \\\\ [ \\sum i = 0 w - 1 x i 2 i ] \\cdot 2 k = x 2 k \\end{array}",
+      "new": "\\begin{array}{l} B2Uw + k([x_{w - 1},x_{w - 2},\\ldots,x_0,0,\\ldots,0]) = \\sum_{i = 0}^{w - 1}x_i2^{i} + k = \\left[\\sum_{i = 0}^{w - 1}x_i2^i\\right] \\cdot 2^{k} = x_{2k} \\end{array}"
+    },
+    {
+      "id": "bryant_ohallaron_csapp-ch06-body-370-e64905",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[370]",
+      "field": "md",
+      "old": "$\\begin{array} { r l } { \\mathrm { x } , } & { { } \\mathrm { x } \\left[ \\mathrm { \\perp  } } \\end{\\right]array} \\end{array}$",
+      "new": "$\\begin{array}{rl} x, & x^\\perp \\end{array}$",
+      "anchor": "1a6f636f"
+    }
+  ]
+}

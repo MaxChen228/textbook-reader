@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-batchelor-fluid",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog cannot bind bare-text figure captions for batchelor_fluid",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T08:12:00+00:00",
+  "updated": "2026-06-18T08:12:00+00:00",
+  "evidence": "smoke stays critical after two extract_rules iterations: H6 unresolved Figure refs=12 and H7 empty_captions=39. Catalog audit shows many figures whose visible id/caption lives in neighboring bare text such as '(b) Figure 1.3.3. ...', 'Figure 5.10.4. ...', or prose-like 'Figure 4.10.1 shows ...', plus multi-image plate shards where only one later block carries the figure id. Enabling figure_caption_merge with a Figure N.N.N. main-caption regex made no change.",
+  "proposal": "Extend catalog extraction to attach neighboring bare text blocks or sibling image fragments to a figure semantic id/caption, or allow captionless shards to be marked non-indexable without failing H6/H7. Current schema fields cannot express this OCR pattern safely.",
+  "risk": "",
+  "disposition": ""
+}

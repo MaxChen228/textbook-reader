@@ -1,0 +1,32 @@
+{
+  "overrides": [
+    {
+      "id": "sethna_statistical_mechanics-ch07-body-20-707c4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[20]",
+      "expect": "\\begin{array}{r l} ^ 3 \\mathrm {In \\textit {Dirac^ {\\prime} s notation,} \\langle\\Psi| \\mathbf {M} |\\Phi\\rangle} & = \\\\ \\int \\Psi^ {*} \\mathbf {M} \\Phi . \\end{array}",
+      "new": "\\begin{array}{r l} 3 \\mathrm {In \\textit {Dirac' s notation,} \\langle\\Psi| \\mathbf {M} |\\Phi\\rangle} & = \\\\ \\int \\Psi^ {*} \\mathbf {M} \\Phi . \\end{array}"
+    },
+    {
+      "id": "sethna_statistical_mechanics-ch07-problem-7-4-body-2-86061a",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.4:body[2]",
+      "field": "md",
+      "old": "$\\textbf { \\textit { \\textbf { \\rho } } } _ { i s }$",
+      "new": "$\\rho _ { i s }$",
+      "anchor": "7781eaf3"
+    },
+    {
+      "id": "sethna_statistical_mechanics-ch12-body-102-56432f",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[102]",
+      "field": "md",
+      "old": "$\\begin{array} { r } { D _ { \\mathrm { i n t } } \\^ { \\smile } \\propto \\ S ^ { - \\bar { \\tau } } } \\end{array}$",
+      "new": "$\\begin{array} { r } { D _ { \\mathrm { i n t } } ^ { \\smile } \\propto \\ S ^ { - \\bar { \\tau } } } \\end{array}$",
+      "anchor": "5d12a694"
+    }
+  ]
+}

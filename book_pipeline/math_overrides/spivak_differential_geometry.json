@@ -1,0 +1,268 @@
+{
+  "overrides": [
+    {
+      "id": "spivak_differential_geometry-ch30-body-216-c7d70d",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[216]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {2} (s)}{d s} = - \\kappa_ {1} (s) \\mathbf {v} _ {1} (s) + \\kappa_ {2} (s) \\mathbf {v} _ {3} (s). \\tag {F_{2}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {2} (s)}{d s} = - \\kappa_ {1} (s) \\mathbf {v} _ {1} (s) + \\kappa_ {2} (s) \\mathbf {v} _ {3} (s). \\tag {$F_{2}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-218-8c4565",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[218]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {1} (s)}{d s} = \\kappa_ {1} (s) \\mathbf {v} _ {2} (s) \\tag {F_{1}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {1} (s)}{d s} = \\kappa_ {1} (s) \\mathbf {v} _ {2} (s) \\tag {$F_{1}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-219-a0762f",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[219]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {2} (s)}{d s} = - \\kappa_ {1} (s) \\mathbf {v} _ {1} (s) + \\kappa_ {2} (s) \\mathbf {v} _ {3} (s) \\tag {F_{2}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {2} (s)}{d s} = - \\kappa_ {1} (s) \\mathbf {v} _ {1} (s) + \\kappa_ {2} (s) \\mathbf {v} _ {3} (s) \\tag {$F_{2}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-221-1a52bc",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[221]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {j - 1} (s)}{d s} = - \\kappa_ {j - 2} (s) \\mathbf {v} _ {j - 2} (s) + \\kappa_ {j - 1} (s) \\mathbf {v} _ {j} (s). \\tag {(F_{j-1})}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {j - 1} (s)}{d s} = - \\kappa_ {j - 2} (s) \\mathbf {v} _ {j - 2} (s) + \\kappa_ {j - 1} (s) \\mathbf {v} _ {j} (s). \\tag {$(F_{j-1})$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-233-ae4c06",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[233]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {j} (s)}{d s} = - \\kappa_ {j - 1} (s) \\mathbf {v} _ {j - 1} (s) + \\kappa_ {j} (s) \\mathbf {v} _ {j + 1} (s). \\tag {F_{j}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {j} (s)}{d s} = - \\kappa_ {j - 1} (s) \\mathbf {v} _ {j - 1} (s) + \\kappa_ {j} (s) \\mathbf {v} _ {j + 1} (s). \\tag {$F_{j}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-235-f6323b",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[235]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {m} (s)}{d s} = - \\kappa_ {m - 1} (s) \\mathbf {v} _ {m - 1} (s). \\tag {F_{m}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {m} (s)}{d s} = - \\kappa_ {m - 1} (s) \\mathbf {v} _ {m - 1} (s). \\tag {$F_{m}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-252-06bc2b",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[252]",
+      "expect": "v _ {j} ^ {\\prime} (s) = F _ {j} (c (s), v _ {1} (s), \\dots , v _ {m} (s)). \\tag {E_{j}}",
+      "new": "v _ {j} ^ {\\prime} (s) = F _ {j} (c (s), v _ {1} (s), \\dots , v _ {m} (s)). \\tag {$E_{j}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-2318-a36ef5",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[2318]",
+      "expect": "\\langle D ^ {1} _ {X _ {i}} s ^ {1} (X _ {i _ {1}}, X _ {i _ {2}}), s ^ {1} (X _ {j _ {1}}, X _ {j _ {2}}) \\rangle = E _ {1} (X _ {i}, X _ {i _ {1}}, X _ {i _ {2}}, X _ {j _ {1}}, X _ {j _ {2}}), \\tag {(a_{1})}",
+      "new": "\\langle D ^ {1} _ {X _ {i}} s ^ {1} (X _ {i _ {1}}, X _ {i _ {2}}), s ^ {1} (X _ {j _ {1}}, X _ {j _ {2}}) \\rangle = E _ {1} (X _ {i}, X _ {i _ {1}}, X _ {i _ {2}}, X _ {j _ {1}}, X _ {j _ {2}}), \\tag {$(a_{1})$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-2333-29b00a",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[2333]",
+      "expect": "\\begin{array}{l} \\langle D ^ {2} _ {X _ {i}} s ^ {2} (X _ {i _ {1}}, X _ {i _ {2}}, X _ {i _ {3}}), s ^ {2} (X _ {j _ {1}}, X _ {j _ {2}}, X _ {j _ {3}}) \\rangle \\tag {a_{2}} \\\\ = E _ {2} (X _ {i}, X _ {i _ {1}}, X _ {i _ {2}}, X _ {i _ {3}}, X _ {j _ {1}}, X _ {j _ {2}}, X _ {j _ {3}}), \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\langle D ^ {2} _ {X _ {i}} s ^ {2} (X _ {i _ {1}}, X _ {i _ {2}}, X _ {i _ {3}}), s ^ {2} (X _ {j _ {1}}, X _ {j _ {2}}, X _ {j _ {3}}) \\rangle \\tag {$a_{2}$} \\\\ = E _ {2} (X _ {i}, X _ {i _ {1}}, X _ {i _ {2}}, X _ {i _ {3}}, X _ {j _ {1}}, X _ {j _ {2}}, X _ {j _ {3}}), \\\\ \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch31-body-589-19d7eb",
+      "action": "fix_eq_tex",
+      "chunk": "ch31",
+      "selector": "body[589]",
+      "expect": "\\mu (X) = \\left\\{ \\begin{array}{l l} a > 0 & \\text {if a X is the cut point of p along} \\\\ & \\text {the geodesic \\gamma_{X} (t) = \\exp t X} \\\\ \\infty & \\text {if \\gamma_{X} has no cut point.} \\end{array} \\right.",
+      "new": "\\mu (X) = \\left\\{ \\begin{array}{l l} a > 0 & \\text {if $a X$ is the cut point of $p$ along} \\\\ & \\text {the geodesic $\\gamma_{X} (t) = \\exp t X$} \\\\ \\infty & \\text {if $\\gamma_{X}$ has no cut point.} \\end{array} \\right."
+    },
+    {
+      "id": "spivak_differential_geometry-ch32-body-637-0c955b",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[637]",
+      "expect": "\\begin{array}{l} \\ker d g (p) = \\begin{array}{l} \\text { tangent   space   at } p \\text { of   the   solution   curve } \\\\ \\text { of   (\\ast\\ast) going   through } p \\end{array} \\\\ = \\ker \\omega (p). \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\ker d g (p) = \\begin{array}{l} \\text { tangent   space   at } p \\text { of   the   solution   curve } \\\\ \\text { of   $(\\ast\\ast)$ going   through } p \\end{array} \\\\ = \\ker \\omega (p). \\\\ \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch32-body-1231-d021ec",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[1231]",
+      "expect": "\\sum_ {r = n + 1} ^ {m} \\theta^ {r} (Z) i ^ {*} \\mu_ {r} = 0, \\quad \\text {using (a) on page 356 and i^{*} \\phi^{r} = 0.}",
+      "new": "\\sum_ {r = n + 1} ^ {m} \\theta^ {r} (Z) i ^ {*} \\mu_ {r} = 0, \\quad \\text {using (a) on page 356 and $i^{*} \\phi^{r} = 0$.}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch33-body-1296-b47f9d",
+      "action": "fix_eq_tex",
+      "chunk": "ch33",
+      "selector": "body[1296]",
+      "expect": "0 = F _ {t} (x, 0, \\mathring {u} (x), \\mathring {u} ^ {\\prime} (x), \\mathring {q} (x), \\mathring {u} ^ {\\prime \\prime} (x), \\mathring {q} ^ {\\prime} (x), \\mathring {t} (x)). \\tag {I_{C}}",
+      "new": "0 = F _ {t} (x, 0, \\mathring {u} (x), \\mathring {u} ^ {\\prime} (x), \\mathring {q} (x), \\mathring {u} ^ {\\prime \\prime} (x), \\mathring {q} ^ {\\prime} (x), \\mathring {t} (x)). \\tag {$I_{C}$}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch36-body-1171-6f5fc4",
+      "action": "fix_eq_tex",
+      "chunk": "ch36",
+      "selector": "body[1171]",
+      "expect": "\\begin{array}{l} \\omega (\\sigma (M)) = M \\quad \\text { for } M \\in \\mathfrak {o} (n) \\\\ \\omega (\\mathbf {R} _ {A *} Y) = A ^ {- 1} \\omega (Y) A \\quad \\begin{array}{l} \\text {for A\\in SO(n) and Y a tangent} \\\\ \\text {vector on SO(N) / \\{I\\} \\times SO(N - n).} \\end{array} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\omega (\\sigma (M)) = M \\quad \\text { for } $M \\in \\mathfrak {o} (n)$ \\\\ \\omega (\\mathbf {R} _ {A *} Y) = A ^ {- 1} \\omega (Y) A \\quad \\begin{array}{l} \\text {for $A\\in SO(n)$ and $Y$ a tangent} \\\\ \\text {vector on $SO(N) / \\{I\\} \\times SO(N - n)$.} \\end{array} \\\\ \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch36-body-381-ff7d11",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "body[381]",
+      "field": "md",
+      "all": true,
+      "old": "$H_c^n (\\pi^{-1}(f(p'}))$",
+      "new": "$H_c^n (\\pi^{-1}(f(p')))$",
+      "anchor": "a4d432dc"
+    },
+    {
+      "id": "spivak_differential_geometry-ch29-body-219-ded215",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[219]",
+      "field": "md",
+      "all": true,
+      "old": "\\(v\\_{1}\\}} is connected.",
+      "new": "v_{1} \\text{ is connected.}",
+      "anchor": "201f441b"
+    },
+    {
+      "id": "spivak_differential_geometry-ch33-body-338-7384cb",
+      "action": "fix_inline_math",
+      "chunk": "ch33",
+      "selector": "body[338]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Sigma\\colonD\\to R^{2n+1}$",
+      "new": "$\\Sigma\\colon D\\to R^{2n+1}$",
+      "anchor": "2c2a8852"
+    },
+    {
+      "id": "spivak_differential_geometry-ch20-body-168-75ca47",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[168]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma'_{\\alpha\\beta}^{\\gamma}(p) = 0$",
+      "new": "$\\Gamma_{\\alpha\\beta}^{\\prime\\gamma}(p) = 0$",
+      "anchor": "52756d88"
+    },
+    {
+      "id": "spivak_differential_geometry-ch24-problem-3-body-0-7340a8",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "problem:3:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$s'_{ij}^{r}$",
+      "new": "$s_{ij}^{\\prime r}$",
+      "anchor": "02048285"
+    },
+    {
+      "id": "spivak_differential_geometry-ch25-body-864-a006ce",
+      "action": "fix_inline_math",
+      "chunk": "ch25",
+      "selector": "body[864]",
+      "field": "md",
+      "all": true,
+      "old": "$\\psi_3^3 (p) = \\psi'_3_3(p) = 0\\implies a_{13}(p) = a_{23}(p) = 0\\implies X'_3(p) = X_3(p)$",
+      "new": "$\\psi_{3}^{3}(p) = \\psi_{3}^{\\prime}{}_{3}(p) = 0\\implies a_{13}(p) = a_{23}(p) = 0\\implies X_{3}^{\\prime}(p) = X_{3}(p)$",
+      "anchor": "f32df5f9"
+    },
+    {
+      "id": "spivak_differential_geometry-ch29-body-5-15cd1c",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$\\omega' = (\\omega'_{j}^{i})$",
+      "new": "$\\omega^{\\prime} = (\\omega_{j}^{\\prime i})$",
+      "anchor": "4ea1a226"
+    },
+    {
+      "id": "spivak_differential_geometry-ch29-body-13-1022a2",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[13]",
+      "field": "md",
+      "all": true,
+      "old": "$\\omega_1^2, \\omega'_1^2$",
+      "new": "$\\omega_{1}^{2}, \\omega_{1}^{\\prime 2}$",
+      "anchor": "c7ed1f09"
+    },
+    {
+      "id": "spivak_differential_geometry-ch02-body-186-a87d14",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[186]",
+      "expect": "\\left(\\frac {\\partial y ^ {i}}{\\partial v ^ {j}}\\right) = \\left( \\begin{array}{c c} \\framebox {1} & 0 \\\\ \\framebox {\\times} & \\framebox {1} _ {1} \\end{array} \\right)",
+      "new": "\\left(\\frac{\\partial y^{i}}{\\partial v^{j}}\\right) = \\left( \\begin{array}{cc} \\framebox{1} & 0 \\\\ \\framebox{$\\times$} & \\framebox{1}_{1} \\end{array} \\right)"
+    },
+    {
+      "id": "spivak_differential_geometry-ch11-body-198-b887d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[198]",
+      "expect": "\\begin{array}{c c c} H _ {c} ^ {n} (\\mathbb {R} ^ {n + 1}) \\longrightarrow H ^ {n} (M) \\xrightarrow {\\delta} H _ {c} ^ {n + 1} (\\mathbb {R} ^ {n + 1} - M) \\longrightarrow H _ {c} ^ {n + 1} (\\mathbb {R} ^ {n + 1}) \\longrightarrow H ^ {n + 1} (M). \\\\ \\text {   ||   } & \\text {   \\ddot {\\varepsilon }   } & \\text {   ||   } \\\\ 0 & \\mathbb {R} & 0 \\end{array}",
+      "new": "\\begin{array}{ccc} H_{c}^{n}(\\mathbb{R}^{n+1}) \\longrightarrow H^{n}(M) \\xrightarrow{\\delta} H_{c}^{n+1}(\\mathbb{R}^{n+1} - M) \\longrightarrow H_{c}^{n+1}(\\mathbb{R}^{n+1}) \\longrightarrow H^{n+1}(M). \\\\ \\text{||} & \\text{$\\ddot{\\varepsilon}$} & \\text{||} \\\\ 0 & \\mathbb{R} & 0 \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch21-body-162-d0f65c",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[162]",
+      "expect": "\\left(\\frac {D V}{\\partial x}\\right) _ {(x, y)} = \\begin{array}{l} \\text {covariant derivative along c(t) = s(t,y)} \\\\ \\text {of t\\mapsto V_{(t,y)}, evaluated at t = x ,} \\end{array}",
+      "new": "\\left(\\frac{D V}{\\partial x}\\right)_{(x, y)} = \\begin{array}{l} \\text{covariant derivative along } c(t) = s(t,y) \\\\ \\text{of } t\\mapsto V_{(t,y)}, \\text{ evaluated at } t = x, \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch26-body-11-04bf78",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[11]",
+      "expect": "\\boxed {k _ {1}, k _ {2} = H \\pm \\sqrt {H ^ {2} - K}.} \\quad \\begin{array}{l} \\text {(The signs of k_{1}, k_{2}} \\\\ \\text {both change when} \\\\ N \\text {is changed.)} \\end{array}",
+      "new": "\\boxed{k_{1}, k_{2} = H \\pm \\sqrt{H^{2} - K}.} \\quad \\begin{array}{l} \\text{(The signs of } k_{1}, k_{2} \\\\ \\text{both change when} \\\\ N \\text{ is changed.)} \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch26-body-68-827454",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[68]",
+      "expect": "\\left\\{ \\begin{array}{l l} \\sum_ {i} a _ {i} W _ {i j} = \\lambda a _ {j} + \\frac {\\mu}{2} W _ {j} & \\text {for some (a_{1} ,a_{2} ,a_{3})\\neq 0, and some \\mu .} \\\\ \\sum_ {i} a _ {i} W _ {i} = 0 & \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{ll} \\sum_{i} a_{i} W_{ij} = \\lambda a_{j} + \\frac{\\mu}{2} W_{j} & \\text{for some } (a_{1}, a_{2}, a_{3})\\neq 0, \\text{ and some } \\mu. \\\\ \\sum_{i} a_{i} W_{i} = 0 & \\end{array} \\right."
+    },
+    {
+      "id": "spivak_differential_geometry-ch32-body-34-cb427d",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{l} (*) \\quad \\left. \\frac {d A (\\bar {\\alpha} (u))}{d u} \\right| _ {u = 0} = \\left. \\frac {d}{d u} \\right| _ {u = 0} \\int_ {D} \\sqrt {\\det g _ {i j} (u)} d t _ {1} d t _ {2} \\\\ = \\int_ {D} \\left. \\frac {\\partial}{\\partial u} \\right| _ {u = 0} \\sqrt {\\det g _ {i j} (u)} d t _ {1} d t _ {2} \\\\ = - \\int_ {D} 2 \\phi H \\sqrt {\\det g _ {i j}} d t _ {1} d t _ {2} \\\\ = - \\int_ {D} 2 \\phi H d A, \\quad d A = \\begin{array}{l} \\text {volume element on D for} \\\\ \\text {the metric f^{*} \\langle ,\\rangle .} \\end{array} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} (*) \\quad \\left. \\frac{dA(\\bar{\\alpha}(u))}{du} \\right|_{u=0} = \\left. \\frac{d}{du} \\right|_{u=0} \\int_{D} \\sqrt{\\det g_{ij}(u)} \\, dt_{1} \\, dt_{2} \\\\ = \\int_{D} \\left. \\frac{\\partial}{\\partial u} \\right|_{u=0} \\sqrt{\\det g_{ij}(u)} \\, dt_{1} \\, dt_{2} \\\\ = -\\int_{D} 2\\phi H \\sqrt{\\det g_{ij}} \\, dt_{1} \\, dt_{2} \\\\ = -\\int_{D} 2\\phi H \\, dA, \\quad dA = \\begin{array}{l} \\text{volume element on D for} \\\\ \\text{the metric } f^{*}\\langle,\\rangle. \\end{array} \\\\ \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch32-body-794-4604d8",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[794]",
+      "expect": "\\begin{array}{l} \\iint_ {D _ {1}} \\frac {d x d y}{| z - z _ {1} | ^ {2 - \\varepsilon_ {1}} \\cdot | z - z _ {2} | ^ {2 - \\varepsilon_ {2}}} \\leq \\frac {1}{\\delta^ {2 - \\varepsilon_ {2}}} \\iint_ {D _ {1}} \\frac {d x d y}{| z - z _ {1} | ^ {2 - \\varepsilon_ {1}}} \\\\ = \\frac {1}{\\delta^ {2 - \\varepsilon_ {2}}} \\int_ {0} ^ {2 \\pi} \\int_ {0} ^ {\\delta} \\frac {1}{r ^ {2 - \\varepsilon_ {1}}} \\cdot r d r d \\theta \\quad \\begin{array}{l} \\text {using polar} \\\\ \\text {coordinates} \\\\ \\text {around z_{1}} \\end{array} \\\\ = \\frac {1}{\\delta^ {2 - \\varepsilon_ {2}}} \\cdot 2 \\pi \\cdot \\int_ {0} ^ {\\delta} r ^ {\\varepsilon_ {1} - 1} d r \\\\ = \\frac {1}{\\delta^ {2 - \\varepsilon_ {2}}} \\cdot 2 \\pi \\cdot \\frac {\\delta^ {\\varepsilon_ {1}}}{\\varepsilon_ {1}} = \\frac {2 \\pi}{\\varepsilon_ {1}} \\cdot \\frac {1}{\\delta^ {2 - \\varepsilon_ {1} - \\varepsilon_ {2}}}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\iint_{D_{1}} \\frac{dx\\,dy}{|z-z_{1}|^{2-\\varepsilon_{1}} \\cdot |z-z_{2}|^{2-\\varepsilon_{2}}} \\leq \\frac{1}{\\delta^{2-\\varepsilon_{2}}} \\iint_{D_{1}} \\frac{dx\\,dy}{|z-z_{1}|^{2-\\varepsilon_{1}}} \\\\ = \\frac{1}{\\delta^{2-\\varepsilon_{2}}} \\int_{0}^{2\\pi} \\int_{0}^{\\delta} \\frac{1}{r^{2-\\varepsilon_{1}}} \\cdot r \\, dr\\, d\\theta \\quad \\begin{array}{l} \\text{using polar} \\\\ \\text{coordinates} \\\\ \\text{around } z_{1} \\end{array} \\\\ = \\frac{1}{\\delta^{2-\\varepsilon_{2}}} \\cdot 2\\pi \\cdot \\int_{0}^{\\delta} r^{\\varepsilon_{1}-1} \\, dr \\\\ = \\frac{1}{\\delta^{2-\\varepsilon_{2}}} \\cdot 2\\pi \\cdot \\frac{\\delta^{\\varepsilon_{1}}}{\\varepsilon_{1}} = \\frac{2\\pi}{\\varepsilon_{1}} \\cdot \\frac{1}{\\delta^{2-\\varepsilon_{1}-\\varepsilon_{2}}}. \\\\ \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch03-body-334-c62d46",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[334]",
+      "expect": "\\begin{array}{l} T (x (U)) \\xrightarrow {\\simeq} (T \\mathbb {R} ^ {n}) | x (U) \\xrightarrow {l ^ {n} | x (U)} \\varepsilon^ {n} (\\mathbb {R} ^ {n}) | x (U) \\\\ (3) \\quad (T M) | U \\xleftarrow {\\simeq} T U \\Bigg \\downarrow \\begin{array}{l l} x _ {*} / & \\left| \\begin{array}{l l} & \\\\ (y \\circ x ^ {- 1}) _ {*} & \\text {old} (y \\circ x ^ {- 1}) _ {*} \\end{array} \\right| \\\\ y _ {*} / & \\\\ T (y (U)) \\xrightarrow {\\simeq} (T \\mathbb {R} ^ {n}) | y (U) \\xrightarrow {t ^ {n} | y (U)} \\varepsilon^ {n} (\\mathbb {R} ^ {n}) | y (U) \\end{array}",
+      "new": "\\begin{array}{l} T(x(U)) \\xrightarrow{\\simeq} (T\\mathbb{R}^{n})|x(U) \\xrightarrow{l^{n}|x(U)} \\varepsilon^{n}(\\mathbb{R}^{n})|x(U) \\\\ (3) \\quad (TM)|U \\xleftarrow{\\simeq} TU \\Bigg\\downarrow \\begin{array}{ll} x_{*}/ & \\left| \\begin{array}{ll} & \\\\ (y\\circ x^{-1})_{*} & \\text{old } (y\\circ x^{-1})_{*} \\end{array} \\right| \\\\ y_{*}/ & \\\\ T(y(U)) \\xrightarrow{\\simeq} (T\\mathbb{R}^{n})|y(U) \\xrightarrow{t^{n}|y(U)} \\varepsilon^{n}(\\mathbb{R}^{n})|y(U) \\end{array} \\end{array}"
+    }
+  ]
+}

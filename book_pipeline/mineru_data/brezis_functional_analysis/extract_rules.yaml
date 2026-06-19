@@ -1,0 +1,135 @@
+slug: brezis_functional_analysis
+title: Functional Analysis, Sobolev Spaces and Partial Differential Equations
+author: Haim Brezis
+edition: null
+subject: Functional Analysis
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 374
+bibliography_start_page: 588
+index_start_page: 598
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Hahn-Banach Theorems. Introduction to the Theory of Conjugate Convex Functions
+    page_start: 11
+    page_end: 39
+    chapter_title_block_idx: 120
+    chapter_title_block_idx_secondary: 121
+    problems_block_idx: 475
+    next_chapter_block_idx: 708
+  - num: 2
+    title: The Uniform Boundedness Principle and the Closed Graph Theorem
+    page_start: 40
+    page_end: 63
+    chapter_title_block_idx: 708
+    chapter_title_block_idx_secondary: 709
+    problems_block_idx: 1088
+    next_chapter_block_idx: 1218
+  - num: 3
+    title: Weak Topologies. Reflexive Spaces. Separable Spaces. Uniform Convexity
+    page_start: 64
+    page_end: 96
+    chapter_title_block_idx: 1218
+    chapter_title_block_idx_secondary: 1219
+    problems_block_idx: 1668
+    next_chapter_block_idx: 1853
+  - num: 4
+    title: Lp Spaces
+    page_start: 97
+    page_end: 138
+    chapter_title_block_idx: 1853
+    problems_block_idx: 2450
+    next_chapter_block_idx: 2775
+  - num: 5
+    title: Hilbert Spaces
+    page_start: 139
+    page_end: 164
+    chapter_title_block_idx: 2775
+    problems_block_idx: 3096
+    next_chapter_block_idx: 3337
+  - num: 6
+    title: Compact Operators. Spectral Decomposition of Self-Adjoint Compact Operators
+    page_start: 165
+    page_end: 187
+    chapter_title_block_idx: 3337
+    chapter_title_block_idx_secondary: 3338
+    problems_block_idx: 3602
+    next_chapter_block_idx: 3827
+  - num: 7
+    title: The Hille-Yosida Theorem
+    page_start: 188
+    page_end: 206
+    chapter_title_block_idx: 3827
+    chapter_title_block_idx_secondary: 3828
+    problems_block_idx: null
+    next_chapter_block_idx: 4207
+  - num: 8
+    title: Sobolev Spaces and the Variational Formulation of Boundary Value Problems in One Dimension
+    page_start: 207
+    page_end: 267
+    chapter_title_block_idx: 4207
+    chapter_title_block_idx_secondary: 4208
+    problems_block_idx: 4893
+    next_chapter_block_idx: 5471
+  - num: 9
+    title: Sobolev Spaces and the Variational Formulation of Elliptic Boundary Value Problems in N Dimensions
+    page_start: 268
+    page_end: 328
+    chapter_title_block_idx: 5471
+    chapter_title_block_idx_secondary: 5472
+    problems_block_idx: null
+    next_chapter_block_idx: 6661
+  - num: 10
+    title: "Evolution Problems: The Heat Equation and the Wave Equation"
+    page_start: 329
+    page_end: 351
+    chapter_title_block_idx: 6661
+    chapter_title_block_idx_secondary: 6662
+    problems_block_idx: null
+    next_chapter_block_idx: 7110
+  - num: 11
+    title: Miscellaneous Complements
+    page_start: 352
+    page_end: 373
+    chapter_title_block_idx: 7110
+    problems_block_idx: null
+    next_chapter_block_idx: 7542
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\$\s*\\(?:boxed|left\\lceil)\s*\{\s*)?(\d+\s*\.\s*\d+)(?:\s*\\right\\rceil)?(?:\s*\}\$?|\s*\$)?(?=(?:\s*$)|(?:\s+(?:Let|Assume|Consider|Find|Check|Show|Given|Prove|Suppose|Determine)\b)|(?:\s+.*\.\s*$))'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

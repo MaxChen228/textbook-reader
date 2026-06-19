@@ -1,0 +1,62 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "6.6.2",
+      "classification": "source_mismatch",
+      "reason": "原書對同一組 crystallographic patterns 同時出現 Figure (6.6.2) 與 Table 6.6.2 的稱呼；catalog 端已有 fig-6.6.2，題目中的 Table 屬來源型別不一致。",
+      "where": "ch06.json problem:5.12:body[5]",
+      "evidence": "raw PDF p.185 says 'illustrated in Figure (6.6.2)', p.186 captions the visual as '(6.6.2) Sample Patterns for the 17 Plane Crystallographic Groups.', p.201 exercise 6.3 says 'Table 6.6.2', and p.202 exercise 6.6 again says 'Figure 6.6.2'."
+    },
+    {
+      "type": "table",
+      "ref": "16.9.9",
+      "classification": "mis_ocr",
+      "reason": "正文把 (16.9.9) 這個 equation-style summary display 正規化成 Table 16.9.9；source 並沒有對應的 numbered table caption。",
+      "where": "ch16.json body[370]",
+      "evidence": "raw PDF p.508 only shows the display label '(16.9.9)' after the prose 'The results are summed up in this table:'; parsed/ch16.json body[280] stores the target as eq-16.9.9, and ch16 has no table block/caption for 16.9.9."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "artin-figure-7-10-8",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[272]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-272",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-7.10.8",
+        "caption": "Figure 7.10.8.",
+        "catalog_repair_source": "agent-caption-promote"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "raw PDF p.314 與 parsed/ch07.json body[273] 顯示此圖後緊接 '(7.10.8)'；原先被標成 unnumbered_body_fig，但實為正文引用的 Figure 7.10.8。"
+    },
+    {
+      "id": "artin-figure-15-9-8",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[308]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch15-308",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-15.9.8",
+        "caption": "Figure 15.9.8. The Cut Plane T.",
+        "catalog_repair_source": "agent-caption-promote"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "raw PDF p.478 與 parsed/ch15.json body[309:310] 顯示圖後緊接 '(15.9.8) The Cut Plane T.'；將被誤排除的 visual 提升為真正 catalog figure。"
+    }
+  ]
+}

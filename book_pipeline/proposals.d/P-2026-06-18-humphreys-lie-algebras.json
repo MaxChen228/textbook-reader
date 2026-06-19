@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-humphreys-lie-algebras",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit lacks per-visual semantic overrides",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T23:09:23+00:00",
+  "updated": "2026-06-18T23:09:23+00:00",
+  "evidence": "smoke reports H7 with fallback_ids=0, empty_captions=17 for inline diagrams/tables that have no explicit caption or only weak labels like Figure 1/Table 1; extract_rules.yaml cannot attach per-visual semantic ids or exclude reasons",
+  "proposal": "add a reviewable per-book visual-overrides channel so audit-book can mark figure/table semantic ids or exclusions without changing parser/catalog engine behavior globally",
+  "risk": "",
+  "disposition": ""
+}

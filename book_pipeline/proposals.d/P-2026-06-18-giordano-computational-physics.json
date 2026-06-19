@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-giordano-computational-physics",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "merge multi-panel figure blocks before catalog audit",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T21:58:34+00:00",
+  "updated": "2026-06-18T21:58:34+00:00",
+  "evidence": "Many figures are emitted as consecutive fig blocks where only the last block carries caption/id, e.g. ch02 body[67-68] and ch03 body[70-71]/[74-76]. parser/smoke leaves 111 empty captions and unresolved Figure/Table refs even with figure_caption_merge=true and a matching figure_caption_main_re.",
+  "proposal": "Teach parser/catalog builder to collapse consecutive figure/table blocks that share one trailing caption block into a single catalogable visual group, or allow extract_rules schema to mark captionless sibling panels as part of the next captioned visual.",
+  "risk": "",
+  "disposition": ""
+}

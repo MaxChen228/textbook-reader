@@ -1,0 +1,130 @@
+{
+  "overrides": [
+    {
+      "id": "dummit_foote_algebra-ch19-body-250-583597",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[250]",
+      "field": "md",
+      "old": "$\\lambda ^ { * } - \\lambda ^ { \\prime } ^ { * } = \\theta - \\theta ^ { \\prime }$",
+      "new": "$\\lambda^{*} - \\lambda^{\\prime *} = \\theta - \\theta^{\\prime}$",
+      "anchor": "e8985ab0"
+    },
+    {
+      "id": "dummit_foote_algebra-ch07-problem-7-1-25-body-3-f7dd4e",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.1.25:body[3]",
+      "field": "md",
+      "old": "$\\textbf { \\em { \\alpha } } \\in \\textbf { \\em { I } } ,$",
+      "new": "$\\alpha \\in I ,$",
+      "anchor": "1a9c5cea"
+    },
+    {
+      "id": "dummit_foote_algebra-ch09-problem-9-4-19-body-3-34b61c",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.4.19:body[3]",
+      "field": "md",
+      "old": "$\\textbf { \\em { \\alpha } } = \\textbf { 1 }$",
+      "new": "$\\alpha = 1$",
+      "anchor": "547f08d1"
+    },
+    {
+      "id": "dummit_foote_algebra-ch14-body-181-70cdcc",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[181]",
+      "field": "md",
+      "old": "$\\textbf { \\em { \\alpha } } \\in \\textbf { \\em K }$",
+      "new": "$\\alpha \\in K$",
+      "anchor": "bcbf8c59"
+    },
+    {
+      "id": "dummit_foote_algebra-ch15-body-537-09045e",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[537]",
+      "expect": "\\left\\{ \\begin{array}{c} \\text {prime ideals P of R} \\\\ \\text {with P\\cap D = \\emptyset} \\end{array} \\right\\} \\quad \\stackrel {{e}} {{\\longrightarrow}} \\quad \\left\\{ \\begin{array}{c} \\text {prime ideals of D^{-1} R} \\\\ \\hline \\end{array} \\right\\}.",
+      "new": "\\left\\{\\begin{array}{c}\\text{prime ideals }P\\text{ of }R\\\\ \\text{with }P\\cap D=\\emptyset\\end{array}\\right\\} \\quad \\stackrel{e}{\\longrightarrow} \\quad \\left\\{\\begin{array}{c}\\text{prime ideals of }D^{-1}R\\end{array}\\right\\}."
+    },
+    {
+      "id": "dummit_foote_algebra-ch10-problem-10-5-12-body-2-d22f83",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "problem:10.5.12:body[2]",
+      "field": "md",
+      "old": "$_ { \\begin{array} { r } { _ { R } ( A , \\prod _ { i \\in I } B _ { i } ) } \\cong \\prod _ { i \\in I } { \\mathrm { H o m } _ { R } ( A , B _ { i } ) } } \\end{array}$",
+      "new": "$\\operatorname{Hom}_R\\left(A,\\prod_{i\\in I}B_i\\right) \\cong \\prod_{i\\in I} \\mathrm{Hom}_R\\left(A,B_i\\right)$",
+      "anchor": "9baaf2c4"
+    },
+    {
+      "id": "dummit_foote_algebra-ch11-problem-11-2-28-body-14-b5fcf0",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "problem:11.2.28:body[14]",
+      "field": "md",
+      "old": "${ \\pmb 5 } ^ { \\hat { \\pmb \\mathrm { u } } }$",
+      "new": "$\\mathbf{5}^{\\hat{\\mathbf{u}}}$",
+      "anchor": "5a29a755"
+    },
+    {
+      "id": "dummit_foote_algebra-ch13-body-212-8fd8af",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[212]",
+      "field": "md",
+      "old": "${ \\sqrt [ { 2 } } ) : \\mathbb { Q } ( { \\sqrt { 2 } } ) ] = 3 .$",
+      "new": "$\\left[\\sqrt[2]{2}:\\mathbb{Q}\\left(\\sqrt{2}\\right)\\right] = 3 .$",
+      "anchor": "b11453bd"
+    },
+    {
+      "id": "dummit_foote_algebra-ch14-body-156-b5173f",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[156]",
+      "field": "md",
+      "old": "${ \\pmb \\mathrm { \\varepsilon } } _ { \\pmb { \\varepsilon } } \\mathbf { 0 }$",
+      "new": "$\\mathbf{\\varepsilon}_{\\mathbf{\\varepsilon}}\\mathbf{0}$",
+      "anchor": "4db07164"
+    },
+    {
+      "id": "dummit_foote_algebra-ch14-problem-14-2-31-body-3-36ff26",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.2.31:body[3]",
+      "field": "md",
+      "old": "$\\Nu _ { K / F } ( \\pmb { \\alpha } )$",
+      "new": "$N _ { K / F } (\\mathbf{\\alpha})$",
+      "anchor": "e19c9efd"
+    },
+    {
+      "id": "dummit_foote_algebra-ch14-problem-14-7-7-body-2-ee81a3",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.7.7:body[2]",
+      "field": "md",
+      "old": "$\\vqrt }\\$",
+      "new": "$\\sqrt{2}$",
+      "anchor": "e9dce0f2"
+    },
+    {
+      "id": "dummit_foote_algebra-ch19-body-87-d46464",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[87]",
+      "expect": "\\begin{array}{l} \\left(\\sum_ {g \\in \\mathcal {K} _ {i}} \\varphi_ {t} (g)\\right) \\left(\\sum_ {g \\in \\mathcal {K} _ {j}} \\varphi_ {t} (g)\\right) = \\sum_ {g _ {i} \\in \\mathcal {K} _ {i}} \\sum_ {g _ {j} \\in \\mathcal {K} _ {j}} \\varphi_ {t} \\left(g _ {i} g _ {j}\\right) \\\\ = \\sum_ {s = 1} ^ {r} \\sum_ {g \\in \\mathcal {K} _ {s}} a _ {i j s} \\varphi_ {t} (g) \\\\ = \\sum_ {s = 1} ^ {r} a _ {i j s} \\sum_ {g \\in \\mathcal {K} _ {s}} \\varphi_ {t} (g) \\quad \\begin{array}{l} \\text {(since a_{ijs} is independent} \\\\ \\text {of g\\in\\mathcal {K} _{s})} \\end{array} \\\\ = \\sum_ {s = 1} ^ {r} a _ {i j s} \\omega_ {t} (\\mathcal {K} _ {s}) I \\quad (\\text {   by   (1)   }). \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left(\\sum_ {g \\in \\mathcal {K} _ {i}} \\varphi_ {t} (g)\\right) \\left(\\sum_ {g \\in \\mathcal {K} _ {j}} \\varphi_ {t} (g)\\right) = \\sum_ {g _ {i} \\in \\mathcal {K} _ {i}} \\sum_ {g _ {j} \\in \\mathcal {K} _ {j}} \\varphi_ {t} \\left(g _ {i} g _ {j}\\right) \\\\ = \\sum_ {s = 1} ^ {r} \\sum_ {g \\in \\mathcal {K} _ {s}} a _ {i j s} \\varphi_ {t} (g) \\\\ = \\sum_ {s = 1} ^ {r} a _ {i j s} \\sum_ {g \\in \\mathcal {K} _ {s}} \\varphi_ {t} (g) \\quad \\begin{array}{l} \\text {(since $a_{ijs}$ is independent} \\\\ \\text {of $g\\in\\mathcal {K} _{s}$)} \\end{array} \\\\ = \\sum_ {s = 1} ^ {r} a _ {i j s} \\omega_ {t} (\\mathcal {K} _ {s}) I \\quad (\\text {   by   (1)   }). \\ \\end{array}"
+    },
+    {
+      "id": "dummit_foote_algebra-ch01-body-70-349cea",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[70]",
+      "field": "md",
+      "old": "$\\mathbf { \\delta } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\beta } \\mathrm { \\alpha } \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\beta } \\mathrm { \\alpha } \\mathbf { \\alpha } \\mathbf { \\beta } \\mathrm \\mathbf { \\alpha } \\mathbf { \\alpha } \\mathbf { \\beta \\alpha } \\mathbf \\mathbf { \\beta } \\mathrm \\mathrm { \\alpha } \\mathbf \\beta \\mathbf { \\alpha } \\mathbf \\beta \\beta \\mathrm \\beta \\mathrm \\alpha \\mathbf { } \\beta \\mathrm \\mathrm \\beta \\mathrm \\beta \\mathrm \\mathrm \\alpha \\mathbf \\beta \\beta \\mathrm \\beta \\mathrm \\mathrm \\beta \\mathrm \\mathrm \\beta \\mathrm \\mathrm \\beta \\mathrm \\mathrm \\beta \\mathrm \\mathrm \\mathrm \\beta \\mathrm \\mathrm \\mathrm \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta \\delta $",
+      "new": "$\\mathbf{\\delta\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\alpha\\beta\\alpha\\alpha\\alpha\\beta\\alpha\\alpha\\beta\\alpha\\alpha\\beta\\alpha\\beta\\alpha\\beta\\beta\\beta\\alpha\\beta\\beta\\alpha\\beta\\beta\\beta\\alpha\\delta\\delta\\delta\\delta\\cdots} $",
+      "anchor": "4dc61660"
+    }
+  ]
+}

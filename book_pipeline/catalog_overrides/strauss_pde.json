@@ -1,0 +1,70 @@
+{
+  "overrides": [
+    {
+      "id": "strauss-fig-3.2.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[248]",
+      "position": "before",
+      "page": 74,
+      "clip": [
+        0.16,
+        0.60,
+        0.84,
+        0.92
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-3.2.2",
+        "kind": "line",
+        "caption": "Figure 2"
+      },
+      "reason": "Raw PDF page 74 contains the half-line domain-of-dependence diagram labeled Figure 2, which the text later cites as Figure 3.2.2; MinerU emitted no figure block in ch03."
+    },
+    {
+      "id": "strauss-fig-3.2.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[253]",
+      "position": "before",
+      "page": 76,
+      "clip": [
+        0.11,
+        0.06,
+        0.88,
+        0.47
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-3.2.4",
+        "kind": "line",
+        "caption": "Figure 4"
+      },
+      "reason": "Raw PDF page 76 contains the reflected-characteristics diagram labeled Figure 4, cited later as Figure 3.2.4; MinerU emitted no figure block in ch03."
+    },
+    {
+      "id": "strauss-fig-10.2.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[339]",
+      "position": "before",
+      "page": 279,
+      "clip": [
+        0.17,
+        0.10,
+        0.79,
+        0.44
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.2.1",
+        "kind": "line",
+        "caption": "Figure 1"
+      },
+      "reason": "Raw PDF page 279 contains the Bessel-function roots plot labeled Figure 1 from Section 10.2, cited later as Figure 10.2.1; MinerU emitted no figure block for it."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "hatcher_algebraic_topology-ch03-problem-27-body-0-7c60ca",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:27:body[0]",
+      "field": "md",
+      "old": "${ \\bigl ( } { } _ { 1 } ^ { 0 } ^ { - 1 } _ { 0 } ^ { } { \\bigr ) }$",
+      "new": "$\\bigl({}_{1}^{0^{-1}}{}_{0}\\bigr)$",
+      "anchor": "2f6f8a34"
+    },
+    {
+      "id": "hatcher_algebraic_topology-ch04-body-22-cc529e",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[22]",
+      "expect": "\\begin{array}{c c} \\framebox {f} & g \\\\ \\hline \\end{array} \\simeq \\framebox {\\framebox {f} \\framebox {g}} \\simeq \\framebox {\\framebox {\\frac {f}{g}}} \\simeq \\framebox {\\framebox {g} \\framebox {f}} \\simeq \\framebox {g} \\framebox {f}",
+      "new": "\\begin{array}{c c} \\boxed{f} & g \\\\ \\hline \\end{array} \\simeq \\boxed{\\boxed {f} \\boxed {g}} \\simeq \\boxed{\\boxed {\\frac {f}{g}}} \\simeq \\boxed{\\boxed {g} \\boxed {f}} \\simeq \\boxed{g}\\boxed{f}"
+    },
+    {
+      "id": "hatcher_algebraic_topology-ch04-body-1105-169541",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[1105]",
+      "field": "md",
+      "old": "$M ( G , n ) { \\mathrel { \\mathop  } } X$",
+      "new": "$M ( G , n ) X$",
+      "anchor": "553a04e7"
+    },
+    {
+      "id": "hatcher_algebraic_topology-ch00-body-52-faeda5",
+      "action": "fix_inline_math",
+      "chunk": "ch00",
+      "selector": "body[52]",
+      "field": "md",
+      "old": "$D _ { \\alpha } ^ { n } \\hookrightarrow X ^ { n - 1 } \\bigl \\amalg _ { \\alpha } D _ { \\alpha } ^ { n } \\to X ^ { n } \\hookrightarrow X$",
+      "new": "$D _ {\\alpha} ^ {n} \\hookrightarrow X ^ {n - 1} \\amalg _ {\\alpha} D _ {\\alpha} ^ {n} \\to X ^ {n} \\hookrightarrow X$",
+      "anchor": "871d6b18"
+    },
+    {
+      "id": "hatcher_algebraic_topology-ch01-body-185-2f4a01",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[185]",
+      "field": "md",
+      "old": "$L : W { \\bigl \\to } P ( W ) $",
+      "new": "$L : W \\to P ( W ) $",
+      "anchor": "605cd1e1"
+    }
+  ]
+}

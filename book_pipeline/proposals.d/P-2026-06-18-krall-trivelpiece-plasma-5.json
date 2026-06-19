@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-krall-trivelpiece-plasma-5",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit 對本書圖塊殘留大量 unresolved visual semantics",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T08:07:45+00:00",
+  "updated": "2026-06-18T08:07:45+00:00",
+  "evidence": "parser 第二輪已正確切出 11 章與 235 題，parsed/ch*.json 內多數 figure 已有 fig-<num> id 與 caption；但 smoke 仍因 _catalog_audit.md 報 unresolved Figure refs=2、empty figure/table captions=40 失敗，且 work queue 中部分 body index 對不上當前 parsed block（例如 ch01 body[162] 實際是 p block）。",
+  "proposal": "檢查 build_catalogs/catalog audit 對 figure-only / split-caption case 的 block 對位與語義 id 判斷；若 parsed figure 已有 id/caption，catalog audit 不應再報 missing-id。必要時補一個只讀 debug 輸出，列出 audit 使用的原始 block 與 parsed block 對應。",
+  "risk": "",
+  "disposition": ""
+}

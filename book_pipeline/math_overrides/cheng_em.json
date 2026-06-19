@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "cheng_em-ch08-body-423-d01dbd",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[423]",
+      "expect": "\\begin{array}{l} \\text {Zeros of E_{1} (z,t)} \\\\ \\text {Maxima of H_{1} (z,t)} \\\\ \\text {Maxima of E_{1} (z,t)} \\\\ \\text {Zeros of H_{1} (z,t)} \\end{array} \\left\\{ \\begin{array}{l} \\text {occur at \\beta_{1} z = -n\\pi, or z = -n \\frac {\\lambda}{2}.} \\\\ n = 0, 1, 2, \\dots . \\end{array} \\right.",
+      "new": "\\begin{array}{l} \\text{Zeros of }E_{1}(z,t)\\\\ \\text{Maxima of }H_{1}(z,t)\\\\ \\text{Maxima of }E_{1}(z,t)\\\\ \\text{Zeros of }H_{1}(z,t) \\end{array} \\left\\{ \\begin{array}{l} \\text{occur at }\\beta_{1} z = -n\\pi, \\text{ or } z = -n \\frac{\\lambda}{2}.\\\\ n = 0, 1, 2, \\dots . \\end{array} \\right."
+    }
+  ]
+}

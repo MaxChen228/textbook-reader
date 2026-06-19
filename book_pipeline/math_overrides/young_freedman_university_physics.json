@@ -1,0 +1,90 @@
+{
+  "overrides": [
+    {
+      "id": "young_freedman_university_physics-ch10-body-35-c00bfd",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[35]",
+      "expect": "\\begin{array}{l} \\text {Torque vector} \\\\ \\text {due to force \\vec {F}} \\\\ \\text {relative to point O} \\end{array} \\vec {\\tau} = \\vec {r} \\times \\vec {F} _ {\\text {Force \\vec {F}}}",
+      "new": "\\begin{array}{l} \\text {Torque vector} \\\\ \\text {due to force } \\vec {F} \\\\ \\text {relative to point O} \\end{array} \\vec {\\tau} = \\vec {r} \\times \\vec {F} _ {\\text {Force } F}"
+    },
+    {
+      "id": "young_freedman_university_physics-ch39-body-247-8623dc",
+      "action": "fix_eq_tex",
+      "chunk": "ch39",
+      "selector": "body[247]",
+      "expect": "\\begin{array}{l} \\text { Orbital   speed } \\\\ \\text { in   nth   orbit } \\\\ \\text { in   the   Bohr   model } \\\\ \\text { Electric   constant } \\end{array} v _ {n} = \\frac {1}{\\epsilon_ {0}} \\frac {e ^ {2}}{2 n h} \\begin{array}{l} \\text { Magnitude   of   electron   charge } \\\\ \\text { Planck's   constant } \\\\ \\text { Principal   quantum   number   (n   =   1,   2,   3,   \\ldots) } \\end{array}",
+      "new": "\\begin{array}{l} \\text { Orbital   speed } \\\\ \\text { in   nth   orbit } \\\\ \\text { in   the   Bohr   model } \\\\ \\text { Electric   constant } \\end{array} v _ {n} = \\frac {1}{\\epsilon_ {0}} \\frac {e ^ {2}}{2 n h} \\begin{array}{l} \\text { Magnitude   of   electron   charge } \\\\ \\text { Planck's   constant } \\\\ \\text { Principal   quantum   number   (n   =   1,   2,   3,   ... ) } \\end{array}"
+    },
+    {
+      "id": "young_freedman_university_physics-appG-body-2110-6d9aae",
+      "action": "fix_eq_tex",
+      "chunk": "appG",
+      "selector": "body[2110]",
+      "expect": "\\begin{array}{l} \\text {b) \\Delta : ddd, udd, uud, uuu, \\Sigma^ {* : dds, uds, uus,}} \\\\ \\Xi^ {*}: d s s, u s s, \\Omega^ {-}: s s s \\end{array}",
+      "new": "\\begin{array}{l} \\Delta : ddd, udd, uud, uuu, \\Sigma^ {* : dds, uds, uus,} \\\\ \\Xi^ {*}: d s s, u s s, \\Omega^ {-}: s s s \\end{array}"
+    },
+    {
+      "id": "young_freedman_university_physics-ch21-problem-21-51-body-0-6ee2f1",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "problem:21.51:body[0]",
+      "field": "md",
+      "old": "$q = -2.50 \\, \\muC$",
+      "new": "$q = -2.50 \\, \\mu\\mathrm{C}$",
+      "anchor": "6f53f79a"
+    },
+    {
+      "id": "young_freedman_university_physics-ch30-problem-30-31-body-0-47c621",
+      "action": "fix_inline_math",
+      "chunk": "ch30",
+      "selector": "problem:30.31:body[0]",
+      "field": "md",
+      "old": "$C = 3.20 \\, \\muF$",
+      "new": "$C = 3.20 \\, \\mu\\mathrm{F}$",
+      "anchor": "378c07df"
+    },
+    {
+      "id": "young_freedman_university_physics-ch31-problem-31-6-body-0-65d444",
+      "action": "fix_inline_math",
+      "chunk": "ch31",
+      "selector": "problem:31.6:body[0]",
+      "field": "md",
+      "old": "$C = 3.50 \\, \\muF$",
+      "new": "$C = 3.50 \\, \\mu\\mathrm{F}$",
+      "anchor": "7db6856a"
+    },
+    {
+      "id": "young_freedman_university_physics-ch33-body-45-6963d8",
+      "action": "fix_eq_tex",
+      "chunk": "ch33",
+      "selector": "body[45]",
+      "expect": "\\underset {(o f a n o p t i c a l m a t e r i a l)} {\\text { Index   of   refraction}} \\dots \\dotsn = \\frac {c}{v} \\overset {\\text { Speed   of   light   in   vacuum }} {\\underset {(S p e e d o f l i g h t i n t h e m a t e r i a l)}}",
+      "new": "\\underset {(o f a n o p t i c a l m a t e r i a l)} {\\text { Index   of   refraction}} n = \\frac {c}{v} \\overset {\\text { Speed   of   light   in   vacuum }} {\\underset {(S p e e d o f l i g h t i n t h e m a t e r i a l)} {n}}"
+    },
+    {
+      "id": "young_freedman_university_physics-ch37-body-273-d10489",
+      "action": "fix_eq_tex",
+      "chunk": "ch37",
+      "selector": "body[273]",
+      "expect": "\\begin{array}{l} \\text {Lorentz velocity} \\\\ \\text {transformation} \\\\ (\\text {velocity in S in terms} \\\\ \\text {of velocity in S ^ {\\prime }}): \\\\ \\text {Speed of light in vacuum} \\end{array} \\quad \\begin{array}{l} x \\text {-velocity of object in frame S} \\\\ v _ {x} = \\frac {v _ {x} ^ {\\prime} + u}{1 + u v _ {x} ^ {\\prime} / c ^ {2}} \\\\ \\text {Velocity of S ^ {\\prime}} \\\\ \\text {relative to S in} \\\\ \\text {positive direction} \\\\ \\text {along x - x ^ {\\prime} -axis} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Lorentz velocity} \\\\ \\text {transformation} \\\\ (\\text {velocity in S in terms} \\\\ \\text {of velocity in S'}): \\\\ \\text {Speed of light in vacuum} \\end{array} \\quad \\begin{array}{l} x \\text {-velocity of object in frame S} \\\\ v _ {x} = \\frac {v _ {x} ^ {\\prime} + u}{1 + u v _ {x} ^ {\\prime} / c ^ {2}} \\\\ \\text {Velocity of S'} \\\\ \\text {relative to S in} \\\\ \\text {positive direction} \\\\ \\text {along x - x' -axis} \\end{array}"
+    },
+    {
+      "id": "young_freedman_university_physics-ch38-body-188-862684",
+      "action": "fix_eq_tex",
+      "chunk": "ch38",
+      "selector": "body[188]",
+      "expect": "\\begin{array}{l l} & \\text {Wavelength of} \\\\ & \\text {scattered radiation} \\end{array} \\quad \\begin{array}{l l} & \\text {Wavelength of} \\\\ & \\text {incident radiation} \\end{array} \\quad \\text {Planck's constant} \\\\ \\text {Compton} \\\\ \\text {scattering:} & \\lambda^ {\\prime} - \\lambda = \\frac {h}{m c} (1 - \\cos \\phi) \\quad \\text {Scattering} \\\\ & \\text {angle} \\\\ & \\text {Electron rest mass} \\quad \\text {Speed of light in vacuum} \\end{array}",
+      "new": "\\begin{array}{l l} & \\text {Wavelength of} \\\\ & \\text {scattered radiation} \\end{array} \\quad \\begin{array}{l l} & \\text {Wavelength of} \\\\ & \\text {incident radiation} \\end{array} \\quad \\begin{array}{l l} \\text {Planck's constant} \\\\ \\text {Compton} \\\\ \\text {scattering:} & \\lambda^{\\prime} - \\lambda = \\frac {h}{m c} (1 - \\cos \\phi) \\quad \\text {Scattering} \\\\ & \\text {angle} \\\\ & \\text {Electron rest mass} \\quad \\text {Speed of light in vacuum} \\end{array}"
+    },
+    {
+      "id": "young_freedman_university_physics-ch37-body-268-768ab0",
+      "action": "fix_eq_tex",
+      "chunk": "ch37",
+      "selector": "body[268]",
+      "expect": "\\begin{array}{l} \\text {Lorentz velocity} \\\\ \\text {transformation} \\\\ (\\text {velocity in S^{\\prime} in terms} \\\\ \\text {of velocity in S}): \\\\ \\text {Speed of light in vacuum} \\end{array} \\quad \\begin{array}{l} x \\text {-velocity of object in frame S^{\\prime}} \\\\ v _ {x} ^ {\\prime} = \\frac {v _ {x} - u}{1 - u v _ {x} / c ^ {2}} \\\\ \\text {Velocity of S^{\\prime}} \\\\ \\text {relative to S in} \\\\ \\text {positive direction} \\\\ \\text {along x - x^{\\prime} -axis} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Lorentz velocity} \\\\ \\text {transformation} \\\\ (\\text {velocity in } S^{\\prime} \\text { in terms} \\\\ \\text {of velocity in } S): \\\\ \\text {Speed of light in vacuum} \\end{array} \\quad \\begin{array}{l} x \\text {-velocity of object in frame } S^{\\prime} \\\\ v _ {x} ^ {\\prime} = \\frac {v _ {x} - u}{1 - u v _ {x} / c ^ {2}} \\\\ \\text {Velocity of } S^{\\prime} \\\\ \\text {relative to } S \\\\ \\text {in} \\\\ \\text {positive direction} \\\\ \\text {along } x - x ^ {\\prime} -axis \\end{array}"
+    }
+  ]
+}

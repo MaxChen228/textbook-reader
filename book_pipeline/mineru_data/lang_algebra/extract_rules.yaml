@@ -1,0 +1,199 @@
+slug: lang_algebra
+title: Algebra
+author: Serge Lang
+edition: 3rd
+subject: Abstract Algebra
+publisher: Springer-Verlag
+language: en
+
+filter_types: [header, page_number, footer, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 874
+bibliography_start_page: 900
+index_start_page: 907
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Groups
+    page_start: 17
+    page_end: 96
+    chapter_title_block_idx: 216
+    chapter_title_block_idx_secondary: 217
+    problems_block_idx: 1505
+    next_chapter_block_idx: 1679
+  - num: 2
+    title: Rings
+    page_start: 97
+    page_end: 130
+    chapter_title_block_idx: 1679
+    problems_block_idx: 2298
+    next_chapter_block_idx: 2344
+  - num: 3
+    title: Modules
+    page_start: 131
+    page_end: 186
+    chapter_title_block_idx: 2344
+    problems_block_idx: 3240
+    next_chapter_block_idx: 3388
+  - num: 4
+    title: Polynomials
+    page_start: 187
+    page_end: 236
+    chapter_title_block_idx: 3388
+    problems_block_idx: 4171
+    next_chapter_block_idx: 4358
+  - num: 5
+    title: Algebraic Extensions
+    page_start: 237
+    page_end: 273
+    chapter_title_block_idx: 4358
+    problems_block_idx: 4911
+    next_chapter_block_idx: 5068
+  - num: 6
+    title: Galois Theory
+    page_start: 274
+    page_end: 345
+    chapter_title_block_idx: 5068
+    problems_block_idx: 6097
+    next_chapter_block_idx: 6359
+  - num: 7
+    title: Extensions of Rings
+    page_start: 346
+    page_end: 367
+    chapter_title_block_idx: 6359
+    problems_block_idx: 6687
+    next_chapter_block_idx: 6721
+  - num: 8
+    title: Transcendental Extensions
+    page_start: 368
+    page_end: 388
+    chapter_title_block_idx: 6721
+    problems_block_idx: 7001
+    next_chapter_block_idx: 7038
+  - num: 9
+    title: Algebraic Spaces
+    page_start: 389
+    page_end: 424
+    chapter_title_block_idx: 7038
+    problems_block_idx: 7610
+    next_chapter_block_idx: 7660
+  - num: 10
+    title: Noetherian Rings and Modules
+    page_start: 425
+    page_end: 459
+    chapter_title_block_idx: 7660
+    problems_block_idx: 8202
+    next_chapter_block_idx: 8302
+  - num: 11
+    title: Real Fields
+    page_start: 460
+    page_end: 474
+    chapter_title_block_idx: 8302
+    problems_block_idx: 8523
+    next_chapter_block_idx: 8552
+  - num: 12
+    title: Absolute Values
+    page_start: 475
+    page_end: 510
+    chapter_title_block_idx: 8552
+    problems_block_idx: 9084
+    next_chapter_block_idx: 9153
+  - num: 13
+    title: Matrices and Linear Maps
+    page_start: 511
+    page_end: 560
+    chapter_title_block_idx: 9153
+    problems_block_idx: 10008
+    next_chapter_block_idx: 10179
+  - num: 14
+    title: Representation of One Endomorphism
+    page_start: 561
+    page_end: 578
+    chapter_title_block_idx: 10179
+    problems_block_idx: 10433
+    next_chapter_block_idx: 10504
+  - num: 15
+    title: Structure of Bilinear Forms
+    page_start: 579
+    page_end: 608
+    chapter_title_block_idx: 10504
+    problems_block_idx: 10954
+    next_chapter_block_idx: 11066
+  - num: 16
+    title: The Tensor Product
+    page_start: 609
+    page_end: 648
+    chapter_title_block_idx: 11066
+    problems_block_idx: 11753
+    next_chapter_block_idx: 11822
+  - num: 17
+    title: Semisimplicity
+    page_start: 649
+    page_end: 670
+    chapter_title_block_idx: 11822
+    problems_block_idx: 12169
+    next_chapter_block_idx: 12202
+  - num: 18
+    title: Representations of Finite Groups
+    page_start: 671
+    page_end: 737
+    chapter_title_block_idx: 12202
+    problems_block_idx: 13314
+    next_chapter_block_idx: 13452
+  - num: 19
+    title: The Alternating Product
+    page_start: 738
+    page_end: 767
+    chapter_title_block_idx: 13452
+    problems_block_idx: 13894
+    next_chapter_block_idx: 14043
+  - num: 20
+    title: General Homology Theory
+    page_start: 768
+    page_end: 841
+    chapter_title_block_idx: 14043
+    problems_block_idx: 15323
+    next_chapter_block_idx: 15503
+  - num: 21
+    title: Finite Free Resolutions
+    page_start: 842
+    page_end: 873
+    chapter_title_block_idx: 15503
+    problems_block_idx: 16053
+    next_chapter_block_idx: 16111
+
+appendices:
+  - id: "1"
+    title: The Transcendence of e and π
+    page_start: 874
+    chapter_title_block_idx: 16111
+  - id: "2"
+    title: Some Set Theory
+    page_start: 881
+    chapter_title_block_idx: 16224
+
+section_re: '^§([0-9]+)\.\s+(.+)$'
+subsection_re: '^((?!)x)(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

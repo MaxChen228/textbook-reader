@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "thomson-ch09-fig-9.16-leading-caption-fix",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[313]",
+      "field": "md",
+      "old": "-Fig. 9.16 The",
+      "new": "Figure 9.16: The",
+      "reason": "MinerU/OCR 將圖說前綴誤成帶連字號的段落文字，導致 build_catalogs 無法辨識 Figure 9.16，連帶讓 9.16a/9.16b/9.16c ref 都失配。"
+    }
+  ]
+}

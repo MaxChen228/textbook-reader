@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "cohen_tannoudji_qm_vol2-ch13-body-782-931b23",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[782]",
+      "expect": "\\left\\{ \\begin{array}{l} ^ {(n)} \\mathcal {M} _ {z} = \\sum_ {p = - \\infty} ^ {+ \\infty} _ {p} ^ {(n)} \\mathcal {M} _ {z}   \\mathrm{e} ^ {i p \\omega t} \\\\ ^ {(n)} \\mathcal {M} _ {\\pm} = \\sum_ {p = - \\infty} ^ {+ \\infty} _ {p} ^ {(n)} \\mathcal {M} _ {\\pm}   \\mathrm{e} ^ {i p \\omega t} \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{l} {}^{(n)} \\mathcal{M}_{z} = \\sum_{p = -\\infty}^{+\\infty} {}_{p}^{(n)} \\mathcal{M}_{z}\\, \\mathrm{e}^{i p \\omega t} \\\\ {}^{(n)} \\mathcal{M}_{\\pm} = \\sum_{p = -\\infty}^{+\\infty} {}_{p}^{(n)} \\mathcal{M}_{\\pm}\\, \\mathrm{e}^{i p \\omega t} \\end{array} \\right."
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol2-ch13-body-1002-85e834",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[1002]",
+      "field": "md",
+      "old": "$\\^ [ \\mathrm { w i d t h } ^ { \\prime \\mathrm { i } }$",
+      "new": "$\\widehat{\\mathrm{width}^{\\prime \\mathrm{i}}}$",
+      "anchor": "5400725c"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "srednicki_qft-ch80-body-21-46b415",
+      "action": "fix_eq_tex",
+      "chunk": "ch80",
+      "selector": "body[21]",
+      "expect": "\\tilde {\\Delta} _ {i} ^ {j} _ {k} ^ {l} (k ^ {2}) = \\frac {(T ^ {a}) _ {i} ^ {j} (T ^ {a}) _ {k} ^ {l}}{k ^ {2} - i \\epsilon}. \\tag {80.8}",
+      "new": "\\tilde {\\Delta} _ { i k } ^ { j l } (k ^ {2}) = \\frac {(T ^ {a}) _ {i} ^ {j} (T ^ {a}) _ {k} ^ {l}}{k ^ {2} - i \\epsilon}. \\tag {80.8}"
+    }
+  ]
+}

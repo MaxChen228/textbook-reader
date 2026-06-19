@@ -17,6 +17,31 @@
       "selector": "problem:18.5.2:body[140]",
       "expect": "\\left\\{ \\begin{array}{c} \\text {quantum state} \\\\ \\text {of field} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {quantum state of} \\\\ \\text {each oscillator} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {number of photons} \\\\ \\text {at each k and \\lambda} \\end{array} \\right\\}",
       "new": "\\left\\{ \\begin{array}{c} \\text {quantum state} \\\\ \\text {of field} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {quantum state of} \\\\ \\text {each oscillator} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {number of photons} \\\\ \\text {at each } k \\text { and } \\lambda \\end{array} \\right\\}"
+    },
+    {
+      "id": "shankar_qm-ch18-problem-18-5-2-body-140-4dd1b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "problem:18.5.2:body[140]",
+      "expect": "\\left\\{ \\begin{array}{c} \\text {quantum state} \\\\ \\text {of field} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {quantum state of} \\\\ \\text {each oscillator} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {number of photons} \\\\ \\text {at each k and \\lambda} \\end{array} \\right\\}",
+      "new": "\\left\\{ \\begin{array}{c} \\text {quantum state} \\\\ \\text {of field} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {quantum state of} \\\\ \\text {each oscillator} \\end{array} \\right\\} \\leftrightarrow \\left\\{ \\begin{array}{c} \\text {number of photons} \\\\ \\text {at each k and } \\lambda \\end{array} \\right\\}"
+    },
+    {
+      "id": "shankar_qm-ch01-body-313-c23f4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[313]",
+      "expect": "\\Omega \\leftrightarrow \\left[ \\begin{array}{c c c c c c c} \\omega_ {1} & 0 & 0 & 0 & 0 & \\dots & 0 \\\\ 0 & \\boxed & & & & & \\\\ 0 & & & & & & \\\\ \\vdots & & & & & & \\\\ 0 & \\boxed & & & & & \\end{array} \\right] \\tag {1.8.12}",
+      "new": "\\Omega \\leftrightarrow \\left[ \\begin{array}{c c c c c c c} \\omega_ {1} & 0 & 0 & 0 & 0 & \\dots & 0 \\\\ 0 & \\boxed{0} & & & & & \\\\ 0 & & & & & & \\\\ \\vdots & & & & & & \\\\ 0 & \\boxed{0} & & & & & \\end{array} \\right] \\tag {1.8.12}"
+    },
+    {
+      "id": "shankar_qm-ch12-problem-12-4-3-body-4-e594b8",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:12.4.3:body[4]",
+      "field": "md",
+      "old": "$L_{\\hat{\\theta}}=\\hat{\\theta}\\cdotL$",
+      "new": "$L_{\\hat{\\theta}}=\\hat{\\theta}\\cdot L$"
     }
   ]
 }

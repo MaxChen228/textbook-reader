@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "kittel_ssp-ch01-body-114-092397",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[114]",
+      "field": "md",
+      "old": "$0 \\textup { \\scriptsize { 1 } } _ { 2 } ^ { 1 } \\textup { \\scriptsize { 1 } } ; \\ \\frac { 1 } { 2 } 0 \\textup { \\scriptsize { \\frac { 1 } { 2 } } ; \\ \\frac { 1 } { 2 } \\frac { 1 } { 2 } 0 }$",
+      "new": "$0 1 _ {2}^{1} 1 ; \\frac { 1 } { 2 } 0 \\frac { 1 } { 2 } ; \\frac { 1 } { 2 } \\frac { 1 } { 2 } 0$",
+      "anchor": "2a041a6c"
+    },
+    {
+      "id": "kittel_ssp-appF-body-68-cc4261",
+      "action": "fix_inline_math",
+      "chunk": "appF",
+      "selector": "body[68]",
+      "field": "md",
+      "old": "$ { \\texttt { ~ \\textsf ~ { ~ \\small ~ \\mathscr ~ } ~ } } _ { \\mathbf { \\lambda } }$",
+      "new": "$ \\mathscr{}_{\\mathbf{\\lambda}}$",
+      "anchor": "f7b6010b"
+    },
+    {
+      "id": "kittel_ssp-ch16-body-228-03b550",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[228]",
+      "field": "md",
+      "old": "$\\pmb \\epsilon ( \\omega , \\pmb \\mathrm { k } )$",
+      "new": "$\\pmb{\\epsilon}(\\omega,\\pmb{\\mathrm{k}})$",
+      "anchor": "d41921ea"
+    }
+  ]
+}

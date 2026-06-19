@@ -1,0 +1,324 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "5.50",
+      "classification": "mis_ocr",
+      "reason": "這裡的 table 是普通名詞，不是 Table 5.50 引用；正文是在說距離一張桌子 5.50 m。",
+      "where": "ch02.json problem:2.72:body[0]",
+      "evidence": "Problem 2.72 says 'she runs to and from a table 5.50 m away', so the audit regex misread noun+distance as a table reference."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "young-fix-fig-26.83-ref-prefix",
+      "action": "replace_text",
+      "chunk": "ch26",
+      "selector": "problem:26.85:body[0]",
+      "field": "md",
+      "old": "Fig. 26.83",
+      "new": "Fig. P26.83",
+      "reason": "Problem 26.85 refers back to challenge Figure P26.83; the second in-paragraph ref dropped the P prefix and created a false missing ref."
+    },
+    {
+      "id": "young-fix-fig-p11.75-caption",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "problem:11.74:body[2]",
+      "expect": {
+        "id": "fig-P11.75",
+        "caption": "11.75 Two uniform, 75.0-g marbles 2.00 cm in diameter are stacked as shown in Fig. P11.75 in a container that is 3.00 cm wide. (a) Find the force that the container exerts on the marbles at the points of contact A, B, and C. (b) What force does each marble exert on the other? Figure P11.75"
+      },
+      "set": {
+        "caption": "Figure P11.75",
+        "catalog_repair_source": "agent-caption-fix"
+      },
+      "reason": "The existing image block is already the correct problem figure, but the caption starts with bare '11.75 ...', so build_catalogs canonized it as fig-11.75 instead of fig-P11.75."
+    },
+    {
+      "id": "young-add-fig-34.48a-alias",
+      "action": "set_fields",
+      "chunk": "ch34",
+      "selector": "body[532]",
+      "expect": {
+        "id": "fig-34.48b",
+        "caption": "(a) Vertical lines are imaged in front of the retina."
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-34.48",
+            "type": "figure",
+            "caption": "Figure 34.48: One type of astigmatism and how it is corrected.",
+            "source": "agent-parent-alias",
+            "evidence": "Raw PDF page 1166 labels the astigmatism pair collectively as Figure 34.48 under the two subfigures."
+          },
+          {
+            "id": "fig-34.48a",
+            "type": "figure",
+            "caption": "Figure 34.48a: (a) Vertical lines are imaged in front of the retina.",
+            "source": "agent-subfigure-alias",
+            "evidence": "Raw PDF page 1166 labels the astigmatism pair as Figure 34.48, with this left panel being subfigure (a)."
+          }
+        ],
+        "catalog_repair_source": "agent-alias-fix"
+      },
+      "reason": "The astigmatism pair was split into two unlabeled image blocks. Adding an explicit alias on the left panel supplies Figure 34.48a without disturbing the existing 34.48b anchor."
+    },
+    {
+      "id": "young-fig-e1.24-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "problem:1.24:body[0]",
+      "position": "after",
+      "page": 53,
+      "clip": [0.736, 0.393, 0.986, 0.580],
+      "block": {
+        "t": "fig",
+        "id": "fig-E1.24",
+        "kind": "line",
+        "caption": "Figure E1.24",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 53 contains Exercise Figure E1.24 beside problem 1.24, but parsed/problem blocks lost the visual entirely."
+    },
+    {
+      "id": "young-tbl-1.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[122]",
+      "position": "after",
+      "page": 33,
+      "clip": [0.065, 0.426, 0.349, 0.791],
+      "block": {
+        "t": "fig",
+        "id": "tbl-1.2",
+        "kind": "line",
+        "caption": "Table 1.2 Using Significant Figures",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Table 1.2 is present on raw PDF page 33 as a structured sidebar table, but parsed output only kept scattered text/equation blocks and never materialized a catalogable table entry."
+    },
+    {
+      "id": "young-fig-e5.37-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:5.37:body[0]",
+      "position": "after",
+      "page": 188,
+      "clip": [0.163, 0.426, 0.458, 0.553],
+      "block": {
+        "t": "fig",
+        "id": "fig-E5.37",
+        "kind": "line",
+        "caption": "Figure E5.37",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 188 shows Figure E5.37 between problems 5.37 and 5.38; parsed content only preserved OCR text from the caption."
+    },
+    {
+      "id": "young-fig-e8.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.44:body[0]",
+      "position": "after",
+      "page": 291,
+      "clip": [0.109, 0.749, 0.566, 0.915],
+      "block": {
+        "t": "fig",
+        "id": "fig-E8.44",
+        "kind": "line",
+        "caption": "Figure E8.44",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 291 contains Figure E8.44 at the lower left of the spread; parsed output kept the caption as text but dropped the actual figure block."
+    },
+    {
+      "id": "young-tbl-9.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[282]",
+      "position": "after",
+      "page": 311,
+      "clip": [0.060, 0.047, 0.970, 0.421],
+      "block": {
+        "t": "fig",
+        "id": "tbl-9.2",
+        "kind": "line",
+        "caption": "Table 9.2 Moments of Inertia of Various Bodies",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Table 9.2 occupies raw PDF page 311, but parsed output split it into detached text plus six figure fragments, so the table itself never received a semantic catalog id."
+    },
+    {
+      "id": "young-fig-p10.59-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.59:body[0]",
+      "position": "after",
+      "page": 358,
+      "clip": [0.773, 0.162, 0.980, 0.511],
+      "block": {
+        "t": "fig",
+        "id": "fig-P10.59",
+        "kind": "line",
+        "caption": "Figure P10.59",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 358 contains Figure P10.59 above problem 10.59, but MinerU skipped it and only captured the surrounding problem text."
+    },
+    {
+      "id": "young-fig-p21.95-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch21",
+      "selector": "problem:21.95:body[0]",
+      "position": "after",
+      "page": 745,
+      "clip": [0.076, 0.626, 0.517, 0.817],
+      "block": {
+        "t": "fig",
+        "id": "fig-P21.95",
+        "kind": "line",
+        "caption": "Figure P21.95",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Challenge Problem 21.95 has a triangular charge diagram on raw PDF page 745; parsed content omitted the figure and kept only the question text."
+    },
+    {
+      "id": "young-fig-p22.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch22",
+      "selector": "problem:22.44:body[0]",
+      "position": "after",
+      "page": 773,
+      "clip": [0.654, 0.689, 0.980, 0.885],
+      "block": {
+        "t": "fig",
+        "id": "fig-P22.44",
+        "kind": "line",
+        "caption": "Figure P22.44",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 773 shows Figure P22.44 next to problem 22.44; parsed output preserved the reference but dropped the visual block."
+    },
+    {
+      "id": "young-fig-e27.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch27",
+      "selector": "problem:27.44:body[0]",
+      "position": "after",
+      "page": 940,
+      "clip": [0.272, 0.596, 0.545, 0.698],
+      "block": {
+        "t": "fig",
+        "id": "fig-E27.44",
+        "kind": "line",
+        "caption": "Figure E27.44",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 940 clearly contains Figure E27.44 between exercises 27.43 and 27.45, but parsed content left only the textual reference."
+    },
+    {
+      "id": "young-fig-e29.14-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch29",
+      "selector": "problem:29.14:body[0]",
+      "position": "after",
+      "page": 1007,
+      "clip": [0.278, 0.804, 0.501, 0.940],
+      "block": {
+        "t": "fig",
+        "id": "fig-E29.14",
+        "kind": "line",
+        "caption": "Figure E29.14",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 1007 includes Figure E29.14 under problem 29.14; parsed content omitted the figure block entirely."
+    },
+    {
+      "id": "young-tbl-30.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch30",
+      "selector": "body[320]",
+      "position": "after",
+      "page": 1032,
+      "clip": [0.654, 0.196, 0.937, 0.647],
+      "block": {
+        "t": "fig",
+        "id": "tbl-30.1",
+        "kind": "line",
+        "caption": "Table 30.1 Oscillation of a Mass-Spring System Compared with Electrical Oscillation in an L-C Circuit",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Table 30.1 is a right-column comparison table on raw PDF page 1032; parsed output flattened it into separate paragraph/equation blocks and lost the semantic table entry."
+    },
+    {
+      "id": "young-fig-e33.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch33",
+      "selector": "problem:33.11:body[0]",
+      "position": "after",
+      "page": 1130,
+      "clip": [0.336, 0.645, 0.573, 0.809],
+      "block": {
+        "t": "fig",
+        "id": "fig-E33.11",
+        "kind": "line",
+        "caption": "Figure E33.11",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Exercise 33.11 on raw PDF page 1130 includes the beaker diagram labeled Figure E33.11; parsed content retained only OCR text from the problem."
+    },
+    {
+      "id": "young-fig-p33.39-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch33",
+      "selector": "problem:33.39:body[0]",
+      "position": "after",
+      "page": 1132,
+      "clip": [0.343, 0.281, 0.566, 0.523],
+      "block": {
+        "t": "fig",
+        "id": "fig-P33.39",
+        "kind": "line",
+        "caption": "Figure P33.39",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 1132 contains Figure P33.39 next to problem 33.39, but parsed content dropped the diagram."
+    },
+    {
+      "id": "young-fig-p33.40-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch33",
+      "selector": "problem:33.40:body[0]",
+      "position": "after",
+      "page": 1132,
+      "clip": [0.343, 0.426, 0.626, 0.664],
+      "block": {
+        "t": "fig",
+        "id": "fig-P33.40",
+        "kind": "line",
+        "caption": "Figure P33.40",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 1132 contains Figure P33.40 directly beneath problem 33.40; parsed content kept only the text reference."
+    },
+    {
+      "id": "young-fig-p33.42-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch33",
+      "selector": "problem:33.42:body[0]",
+      "position": "after",
+      "page": 1132,
+      "clip": [0.343, 0.583, 0.626, 0.809],
+      "block": {
+        "t": "fig",
+        "id": "fig-P33.42",
+        "kind": "line",
+        "caption": "Figure P33.42",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 1132 shows Figure P33.42 for problem 33.42; the parser omitted the figure block, leaving only the prose reference."
+    }
+  ]
+}

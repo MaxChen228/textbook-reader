@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-weinberg-qft1",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot resolve multi-panel figure captions in Weinberg QFT1",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T04:15:12+00:00",
+  "updated": "2026-06-18T04:15:12+00:00",
+  "evidence": "ch06/ch10/ch11/ch12 contain multi-panel figures where only the final panel carries the full 'Figure N.M ...' caption while preceding panels are standalone image blocks with '(a)'/'(b)'/... captions; ch08 §8.2 also has an unlabeled gauge table. After extract_rules.yaml tuning (figure_caption_merge + main caption regex), parser still leaves 7 empty figure/table captions and smoke stays red with H7.",
+  "proposal": "Teach parser/catalog pipeline to collapse adjacent panel images sharing one trailing Figure N.M caption into one semantic figure set (or mark non-primary panels excluded with a stable reason), and allow unlabeled structural tables to be excluded from catalog without engine edits per-book.",
+  "risk": "",
+  "disposition": ""
+}

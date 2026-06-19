@@ -1,0 +1,144 @@
+{
+  "overrides": [
+    {
+      "id": "carroll_gr-ch01-body-221-b984c2",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[221]",
+      "expect": "T _ {\\mu} ^ {\\beta} _ {\\gamma \\delta} = \\eta_ {\\mu \\alpha} T ^ {\\alpha \\beta} _ {\\gamma \\delta},",
+      "new": "T_{\\mu}^{\\beta}{}_{\\gamma\\delta} = \\eta_{\\mu\\alpha} T^{\\alpha\\beta}{}_{\\gamma\\delta},"
+    },
+    {
+      "id": "carroll_gr-ch01-body-263-3bd389",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[263]",
+      "expect": "T _ {\\alpha} ^ {\\mu} _ {\\nu} = \\partial_ {\\alpha} R ^ {\\mu} _ {\\nu}",
+      "new": "T_{\\alpha}^{\\mu}{}_{\\nu} = \\partial_{\\alpha} R^{\\mu}{}_{\\nu}"
+    },
+    {
+      "id": "carroll_gr-ch07-body-145-179100",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[145]",
+      "expect": "\\epsilon^ {j k l} \\partial_ {k} \\partial_ {i} s _ {\\parallel} ^ {i} _ {j} = 0.",
+      "new": "\\epsilon^{jkl} \\partial_{k} \\partial_{i} s_{\\parallel}^{i}{}_{j} = 0."
+    },
+    {
+      "id": "carroll_gr-appJ-body-38-e2fee8",
+      "action": "fix_inline_math",
+      "chunk": "appJ",
+      "selector": "body[38]",
+      "field": "md",
+      "old": "$\\omega_{\\mu}^{a}_{b}$",
+      "new": "$\\omega_{\\mu}^{a}{}_{b}$",
+      "anchor": "e15f3da1"
+    },
+    {
+      "id": "carroll_gr-appJ-body-39-fb2ce6",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[39]",
+      "expect": "\\nabla_ {\\mu} X ^ {a} _ {b} = \\partial_ {\\mu} X ^ {a} _ {b} + \\omega_ {\\mu} ^ {a} _ {c} X ^ {c} _ {b} - \\omega_ {\\mu} ^ {c} _ {b} X ^ {a} _ {c}. \\tag {J.17}",
+      "new": "\\nabla_{\\mu} X^{a}{}_{b} = \\partial_{\\mu} X^{a}{}_{b} + \\omega_{\\mu}^{a}{}_{c} X^{c}{}_{b} - \\omega_{\\mu}^{c}{}_{b} X^{a}{}_{c}. \\tag {J.17}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-46-464234",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[46]",
+      "expect": "\\Gamma_ {\\mu \\lambda} ^ {\\nu} = e _ {a} ^ {\\nu} \\partial_ {\\mu} e _ {\\lambda} ^ {a} + e _ {a} ^ {\\nu} e _ {\\lambda} ^ {b} \\omega_ {\\mu} ^ {a} _ {b}, \\tag {J.20}",
+      "new": "\\Gamma_{\\mu\\lambda}^{\\nu} = e_{a}{}^{\\nu} \\partial_{\\mu} e_{\\lambda}{}^{a} + e_{a}{}^{\\nu} e_{\\lambda}{}^{b} \\omega_{\\mu}^{a}{}_{b}, \\tag {J.20}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-48-1cff56",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[48]",
+      "expect": "\\omega_ {\\mu} ^ {a} _ {b} = e _ {\\nu} ^ {a} e ^ {\\lambda} _ {b} \\Gamma_ {\\mu \\lambda} ^ {\\nu} - e ^ {\\lambda} _ {b} \\partial_ {\\mu} e _ {\\lambda} ^ {a}. \\tag {J.21}",
+      "new": "\\omega_{\\mu}^{a}{}_{b} = e_{\\nu}{}^{a} e^{\\lambda}{}_{b} \\Gamma_{\\mu\\lambda}{}^{\\nu} - e^{\\lambda}{}_{b} \\partial_{\\mu} e_{\\lambda}{}^{a}. \\tag {J.21}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-50-a02951",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[50]",
+      "expect": "\\begin{array}{l} \\nabla_ {\\mu} e _ {\\nu} ^ {a} = \\partial_ {\\mu} e _ {\\nu} ^ {a} - \\Gamma_ {\\mu \\nu} ^ {\\lambda} e _ {\\lambda} ^ {a} + \\omega_ {\\mu} ^ {a} _ {b} e _ {\\nu} ^ {b} \\\\ = 0, \\tag {J.22} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla_{\\mu} e_{\\nu}{}^{a} = \\partial_{\\mu} e_{\\nu}{}^{a} - \\Gamma_{\\mu\\nu}{}^{\\lambda} e_{\\lambda}{}^{a} + \\omega_{\\mu}^{a}{}_{b} e_{\\nu}{}^{b}\\\\ = 0, \\tag {J.22}\\\\ \\end{array}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-53-c0e555",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[53]",
+      "expect": "\\omega_ {\\mu} ^ {a ^ {\\prime}} _ {b ^ {\\prime}} = \\Lambda^ {a ^ {\\prime}} _ {a} \\Lambda^ {b} _ {b ^ {\\prime}} \\omega_ {\\mu} ^ {a} _ {b} - \\Lambda^ {c} _ {b ^ {\\prime}} \\partial_ {\\mu} \\Lambda^ {a ^ {\\prime}} _ {c}. \\tag {J.23}",
+      "new": "\\omega_{\\mu}{}^{a'}{}_{b'} = \\Lambda^{a'}{}_{a} \\Lambda^{b}{}_{b'} \\omega_{\\mu}^{a}{}_{b} - \\Lambda^{c}{}_{b'} \\partial_{\\mu} \\Lambda^{a'}{}_{c}. \\tag {J.23}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-55-24c0d6",
+      "action": "fix_inline_math",
+      "chunk": "appJ",
+      "selector": "body[55]",
+      "field": "md",
+      "old": "$A_{\\mu\\nu}^{a}_{b}$",
+      "new": "$A_{\\mu\\nu}^{a}{}_{b}$",
+      "anchor": "3fe658e8"
+    },
+    {
+      "id": "carroll_gr-appJ-body-58-53c18b",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[58]",
+      "expect": "(\\mathrm{d} X) _ {\\mu \\nu} ^ {a} + (\\omega \\wedge X) _ {\\mu \\nu} ^ {a} = \\partial_ {\\mu} X _ {\\nu} ^ {a} - \\partial_ {\\nu} X _ {\\mu} ^ {a} + \\omega_ {\\mu} ^ {a} _ {b} X _ {\\nu} ^ {b} - \\omega_ {\\nu} ^ {a} _ {b} X _ {\\mu} ^ {b}, \\tag {J.25}",
+      "new": "(\\mathrm{d} X)_{\\mu\\nu}{}^{a} + (\\omega \\wedge X)_{\\mu\\nu}{}^{a} = \\partial_{\\mu} X_{\\nu}{}^{a} - \\partial_{\\nu} X_{\\mu}{}^{a} + \\omega_{\\mu}^{a}{}_{b} X_{\\nu}{}^{b} - \\omega_{\\nu}^{a}{}_{b} X_{\\mu}{}^{b}, \\tag {J.25}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-63-ac354f",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[63]",
+      "expect": "\\omega^ {a} _ {b} = \\omega_ {\\mu} ^ {a} _ {b} \\mathrm{d} x ^ {\\mu}. \\tag {J.27}",
+      "new": "\\omega^{a}{}_{b} = \\omega_{\\mu}^{a}{}_{b} \\mathrm{d}x^{\\mu}. \\tag {J.27}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-69-9bc296",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[69]",
+      "expect": "\\begin{array}{l} T _ {\\mu \\nu} ^ {\\lambda} = e ^ {\\lambda} _ {a} T _ {\\mu \\nu} ^ {a} \\\\ = e ^ {\\lambda} _ {a} (\\partial_ {\\mu} e _ {\\nu} ^ {a} - \\partial_ {\\nu} e _ {\\mu} ^ {a} + \\omega_ {\\mu} ^ {a} _ {b} e _ {\\nu} ^ {b} - \\omega_ {\\nu} ^ {a} _ {b} e _ {\\mu} ^ {b}) \\\\ = \\Gamma_ {\\mu \\nu} ^ {\\lambda} - \\Gamma_ {\\nu \\mu} ^ {\\lambda}, \\tag {J.30} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} T_{\\mu\\nu}{}^{\\lambda} = e^{\\lambda}{}_{a} T_{\\mu\\nu}{}^{a}\\\\ = e^{\\lambda}{}_{a}(\\partial_{\\mu} e_{\\nu}{}^{a} - \\partial_{\\nu} e_{\\mu}{}^{a} + \\omega_{\\mu}^{a}{}_{b} e_{\\nu}{}^{b} - \\omega_{\\nu}^{a}{}_{b} e_{\\mu}{}^{b})\\\\ = \\Gamma_{\\mu\\nu}{}^{\\lambda} - \\Gamma_{\\nu\\mu}{}^{\\lambda}, \\tag {J.30}\\\\ \\end{array}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-77-d38505",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[77]",
+      "expect": "\\begin{array}{l} \\nabla_ {\\mu} \\eta_ {a b} = \\partial_ {\\mu} \\eta_ {a b} - \\omega_ {\\mu} ^ {c} _ {a} \\eta_ {c b} - \\omega_ {\\mu} ^ {c} _ {b} \\eta_ {a c} \\\\ = - \\omega_ {\\mu a b} - \\omega_ {\\mu b a}. \\tag {J.33} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla_{\\mu} \\eta_{ab} = \\partial_{\\mu} \\eta_{ab} - \\omega_{\\mu}{}^{c}{}_{a} \\eta_{cb} - \\omega_{\\mu}{}^{c}{}_{b} \\eta_{ac}\\\\ = - \\omega_{\\mu ab} - \\omega_{\\mu ba}. \\tag {J.33}\\\\ \\end{array}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-142-434e00",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[142]",
+      "expect": "A _ {\\mu} ^ {A ^ {\\prime}} _ {B ^ {\\prime}} = O ^ {A ^ {\\prime}} _ {A} O ^ {B} _ {B ^ {\\prime}} A _ {\\mu} ^ {A} _ {B} - O ^ {C} _ {B ^ {\\prime}} \\partial_ {\\mu} O ^ {A ^ {\\prime}} _ {C}. \\tag {J.55}",
+      "new": "A_{\\mu}{}^{A'}{}_{B'} = O^{A'}{}_{A} O^{B}{}_{B'} A_{\\mu}{}^{A}{}_{B} - O^{C}{}_{B'} \\partial_{\\mu} O^{A'}{}_{C}. \\tag {J.55}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-144-84c102",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[144]",
+      "expect": "D _ {\\mu} \\phi^ {A} = \\partial_ {\\mu} \\phi^ {A} + A _ {\\mu} ^ {A} _ {B} \\phi^ {B} \\tag {J.56}",
+      "new": "D_{\\mu} \\phi^{A} = \\partial_{\\mu} \\phi^{A} + A_{\\mu}{}^{A}{}_{B} \\phi^{B}. \\tag {J.56}"
+    },
+    {
+      "id": "carroll_gr-appJ-body-44-9c8866",
+      "action": "fix_eq_tex",
+      "chunk": "appJ",
+      "selector": "body[44]",
+      "expect": "\\begin{array}{l} \\nabla X = \\left(\\nabla_ {\\mu} X ^ {a}\\right) \\mathrm{d} x ^ {\\mu} \\otimes \\hat {e} _ {(a)} \\\\ = \\left(\\partial_ {\\mu} X ^ {a} + \\omega_ {\\mu} ^ {a} _ {b} X ^ {b}\\right) \\mathrm{d} x ^ {\\mu} \\otimes \\hat {e} _ {(a)} \\\\ = \\left(\\partial_ {\\mu} \\left(e _ {\\nu} ^ {a} X ^ {\\nu}\\right) + \\omega_ {\\mu} ^ {a} _ {b} e _ {\\lambda} ^ {b} X ^ {\\lambda}\\right) d x ^ {\\mu} \\otimes \\left(e _ {a} ^ {\\sigma} \\partial_ {\\sigma}\\right) \\\\ = e ^ {\\sigma} _ {a} (e _ {\\nu} ^ {a} \\partial_ {\\mu} X ^ {\\nu} + X ^ {\\nu} \\partial_ {\\mu} e _ {\\nu} ^ {a} + \\omega_ {\\mu} ^ {a} _ {b} e _ {\\lambda} ^ {b} X ^ {\\lambda}) \\mathrm{d} x ^ {\\mu} \\otimes \\partial_ {\\sigma} \\\\ = \\left(\\partial_ {\\mu} X ^ {\\nu} + e _ {a} ^ {\\nu} \\partial_ {\\mu} e _ {\\lambda} ^ {a} X ^ {\\lambda} + e _ {a} ^ {\\nu} e _ {\\lambda} ^ {b} \\omega_ {\\mu} ^ {a} _ {b} X ^ {\\lambda}\\right) d x ^ {\\mu} \\otimes \\partial_ {\\nu}. \\tag {J.19} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla X = \\left(\\nabla_ {\\mu} X ^ {a}\\right) \\mathrm{d} x ^ {\\mu} \\otimes \\hat {e} _ {(a)} \\\\ = \\left(\\partial_ {\\mu} X ^ {a} + \\omega_ {\\mu} ^ {a} {}_{b} X ^ {b}\\right) \\mathrm{d} x ^ {\\mu} \\otimes \\hat {e} _ {(a)} \\\\ = \\left(\\partial_ {\\mu} \\left(e _ {\\nu} ^ {a} X ^ {\\nu}\\right) + \\omega_ {\\mu} ^ {a} {}_{b} e _ {\\lambda} ^ {b} X ^ {\\lambda}\\right) d x ^ {\\mu} \\otimes \\left(e _ {a} ^ {\\sigma} \\partial_ {\\sigma}\\right) \\\\ = e ^ {\\sigma} _ {a} (e _ {\\nu} ^ {a} \\partial_ {\\mu} X ^ {\\nu} + X ^ {\\nu} \\partial_ {\\mu} e _ {\\nu} ^ {a} + e _ {a} ^ {\\nu} e _ {\\lambda} ^ {b} \\omega_ {\\mu} ^ {a} {}_{b} X ^ {\\lambda}) \\mathrm{d} x ^ {\\mu} \\otimes \\partial_ {\\sigma} \\\\ = \\left(\\partial_ {\\mu} X ^ {\\nu} + e _ {a} ^ {\\nu} \\partial_ {\\mu} e _ {\\lambda} ^ {a} X ^ {\\lambda} + e _ {a} ^ {\\nu} e _ {\\lambda} ^ {b} \\omega_ {\\mu} ^ {a} {}_{b} X ^ {\\lambda}\\right) d x ^ {\\mu} \\otimes \\partial_ {\\nu}. \\tag {J.19} \\\\ \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "ross_stochastic-ch08-body-283-4025fd",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[283]",
+      "expect": "1 = E [ \\text {gain to I|hits 1 - p^{*}} ] \\frac {1 - p ^ {*}}{p ^ {*}} + 2 \\frac {2 p ^ {*} - 1}{p ^ {*}}",
+      "new": "1 = E[\\text{gain to I|hits } 1 - p^{*}] \\frac{1 - p^{*}}{p^{*}} + 2 \\frac{2 p^{*} - 1}{p^{*}}"
+    },
+    {
+      "id": "ross_stochastic-ch09-body-178-ee79de",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[178]",
+      "field": "md",
+      "all": true,
+      "old": "$E[f(X(t_1), \\ldots, X(t_n))]|_{X(0) = i]$",
+      "new": "$E[f(X(t_1), \\ldots, X(t_n))\\mid_{X(0)=i}]$",
+      "anchor": "308b978a"
+    },
+    {
+      "id": "ross_stochastic-ch08-body-481-8e37f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[481]",
+      "expect": "\\begin{array}{l} 1 = \\sum_ {n = 0} ^ {\\infty} P \\{n \\text {   in   system } \\} \\\\ = P (0) \\lim _ {s \\rightarrow 1} \\frac {(1 - s) \\tilde {G} (\\lambda (1 - s))}{\\tilde {G} (\\lambda (1 - s)) - s} \\\\ = P (0) \\frac {\\lim _ {s \\rightarrow 1} \\frac {d}{d s} (1 - s)}{\\lim _ {s \\rightarrow 1} \\frac {d}{d s} [ \\tilde {G} (\\lambda (1 - s)) - s ]} \\quad \\text {(by L'hopital's rule since \\tilde {G} (0) = 1)} \\\\ = \\frac {P (0)}{1 - \\lambda E [ S ]} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} 1 = \\sum_{n=0}^{\\infty} P\\{n \\text{ in system }\\} \\\\ = P(0) \\lim_{s\\rightarrow 1} \\frac{(1-s)\\tilde{G}(\\lambda(1-s))}{\\tilde{G}(\\lambda(1-s))-s} \\\\ = P(0) \\frac{\\lim_{s\\rightarrow 1} \\frac{d}{ds}(1-s)}{\\lim_{s\\rightarrow 1} \\frac{d}{ds}[\\tilde{G}(\\lambda(1-s))-s]} \\quad \\text{(by L'hopital's rule since } \\tilde{G}(0)=1\\text{)} \\\\ = \\frac{P(0)}{1-\\lambda E[S]} \\\\ \\end{array}"
+    }
+  ]
+}

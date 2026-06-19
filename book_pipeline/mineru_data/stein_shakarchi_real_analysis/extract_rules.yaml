@@ -1,0 +1,98 @@
+# extract_rules.yaml — stein_shakarchi_real_analysis
+slug: stein_shakarchi_real_analysis
+title: "Real Analysis: Measure Theory, Integration, and Hilbert Spaces"
+author: Elias M. Stein; Rami Shakarchi
+edition: null
+subject: Real Analysis
+publisher: "Princeton University Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 410
+bibliography_start_page: 410
+index_start_page: 416
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Measure Theory
+    page_start: 20
+    page_end: 67
+    chapter_title_block_idx: 182
+    problems_block_idx: 865
+    next_chapter_block_idx: 908
+  - num: 2
+    title: Integration Theory
+    page_start: 68
+    page_end: 116
+    chapter_title_block_idx: 908
+    problems_block_idx: 1653
+    next_chapter_block_idx: 1689
+  - num: 3
+    title: Differentiation and Integration
+    page_start: 117
+    page_end: 174
+    chapter_title_block_idx: 1689
+    problems_block_idx: 2509
+    next_chapter_block_idx: 2564
+  - num: 4
+    title: "Hilbert Spaces: An Introduction"
+    page_start: 175
+    page_end: 225
+    chapter_title_block_idx: 2564
+    problems_block_idx: 3304
+    next_chapter_block_idx: 3377
+  - num: 5
+    title: "Hilbert Spaces: Several Examples"
+    page_start: 226
+    page_end: 280
+    chapter_title_block_idx: 3377
+    problems_block_idx: 4155
+    next_chapter_block_idx: 4199
+  - num: 6
+    title: "Abstract Measure and Integration Theory"
+    page_start: 281
+    page_end: 341
+    chapter_title_block_idx: 4199
+    problems_block_idx: 5027
+    next_chapter_block_idx: 5083
+  - num: 7
+    title: "Hausdorff Measure and Fractals"
+    page_start: 342
+    page_end: 409
+    chapter_title_block_idx: 5083
+    problems_block_idx: 6048
+    next_chapter_block_idx: 6139
+
+appendices: []
+
+section_re: '^((?:\d+)(?:\s*[\*∗])?)\.?\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+)(?:\s*[\*∗])?)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\$\{?\s*(?:\\mathbf|\\bf)?\s*\{?\s*)?(\d+)\s*\.(?:\s*\\Sigma)?(?:\s*(?:[\*∗])|\s*\^\s*\{\s*[\*∗]\s*\})?\s*(?:\}\s*\}?\$)?\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "pathria_statmech-ch03-problem-3-4-body-4-1c9501",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.4:body[4]",
+      "expect": "\\sum_ {r = 0} ^ {N} ^ {N} C _ {r} = 2 ^ {N};",
+      "new": "\\sum_ {r = 0} ^ {N} C _ {r} = 2 ^ {N};"
+    },
+    {
+      "id": "pathria_statmech-ch03-problem-3-4-body-6-67cdbf",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.4:body[6]",
+      "expect": "\\ln \\left\\{\\sum_ {r = 0} ^ {N} ^ {N} C _ {r} \\right\\} = N \\ln 2. \\tag {a}",
+      "new": "\\ln \\left\\{\\sum_ {r = 0} ^ {N} C _ {r} \\right\\} = N \\ln 2. \\tag {a}"
+    },
+    {
+      "id": "pathria_statmech-ch13-body-424-41c578",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[424]",
+      "field": "md",
+      "old": "$N ^ { 1 / 2 } ^ { \\mathfrak { n } }$",
+      "new": "$N ^ { 1 / 2 \\mathfrak { n } }$",
+      "anchor": "d7bbbab2"
+    },
+    {
+      "id": "pathria_statmech-ch03-body-89-a10a1e",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[89]",
+      "field": "md",
+      "old": "${ \\pmb \\mathcal { E } } ( \\equiv { \\pmb \\mathcal { N } } U )  \\infty$",
+      "new": "${ \\pmb { \\mathcal { E } } } ( \\equiv { \\pmb { \\mathcal { N } } } U )  \\infty$",
+      "anchor": "4af64e2f"
+    },
+    {
+      "id": "pathria_statmech-ch07-body-401-97999d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[401]",
+      "field": "md",
+      "old": "$2 . 4 \\mathring \\mathrm { A } ^ { - 1 }$",
+      "new": "$2 . 4 \\mathring { A } ^ { - 1 }$",
+      "anchor": "33e94b4d"
+    }
+  ]
+}

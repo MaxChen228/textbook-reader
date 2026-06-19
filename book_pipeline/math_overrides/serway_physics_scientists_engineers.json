@@ -1,0 +1,152 @@
+{
+  "overrides": [
+    {
+      "id": "serway_physics_scientists_engineers-ch46-body-289-49469f",
+      "action": "fix_eq_tex",
+      "chunk": "ch46",
+      "selector": "body[289]",
+      "expect": "- m v \\left. \\frac {G m M}\\bigg) \\right]",
+      "new": "- m v \\left. \\frac {G m M}{} \\right]"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch17-problem-16-body-0-60d83b",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "problem:16:body[0]",
+      "field": "md",
+      "old": "$\\Delta P = \\~ \\doteq \\rho \\upsilon \\omega \\sqrt { s _ { \\mathrm { m a x } } ^ { 2 } - \\ s ^ { 2 } }$",
+      "new": "$\\Delta P = \\sim \\doteq \\rho \\upsilon \\omega \\sqrt { s _ { \\mathrm { m a x } } ^ { 2 } - \\ s ^ { 2 } }$",
+      "anchor": "e449f356"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch23-body-29-3cf1f3",
+      "action": "fix_inline_math",
+      "chunk": "ch23",
+      "selector": "body[29]",
+      "field": "md",
+      "old": "$\\neqq$",
+      "new": "$\\neq$",
+      "anchor": "de83dbd1"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-appD-body-339-4561c7",
+      "action": "fix_inline_math",
+      "chunk": "appD",
+      "selector": "body[339]",
+      "field": "md",
+      "old": "$\\operatorname* { m i n } _ { \\mathrm {  ~ \\scriptstyle { \\begin{array} { l l l l } { ~ \\scriptstyle { \\frac { ~ \\tan ~ \\theta ~ - ~ { \\boldsymbol { \\mu } } ~ } { ~ \\theta ~ } ~ } ~ } & { ~ \\operatorname* { m i n } ~ } & { ~ \\scriptstyle { \\frac { ~ \\tan ~ \\theta ~ + ~ { \\boldsymbol { \\mu } } ~ } { ~ \\theta ~ } ~ } } \\\\ { \\mathrm { ~ \\sin ~ \\theta ~ } } & { ~ \\operatorname* { m a x } ~ } & { ~ \\operatorname* { m i n } ~ } & { ~ \\operatorname* { m i n } ~ } \\end{array} } } } \\end{array} \\begin{array} { l } { \\overbrace { \\begin{array} { l } { { \\begin{array} { l } { { \\begin{array} { l } { { \\begin{array} { l } { { \\begin{array} { \\ r l } { ~ \\tan ~ \\theta ~ - ~ { \\boldsymbol { \\mu } } ~ } ~ } \\\\ { { ~ \\tan ~ \\theta } ~ } } \\\\ { { ~ } } & { { ~ \\operatorname* - ~ { \\boldsymbol { \\mu } } ~ } \\tan ~ } } \\end{array} } } } \\end{array} } } \\end{array} } } \\end{array} \\end{array}$",
+      "new": "$\\operatorname* { m i n } _ { \\mathrm {  ~ \\scriptstyle { \\begin{array} { l l l l } { ~ \\scriptstyle { \\frac { ~ \\tan ~ \\theta ~ - ~ { \\boldsymbol { \\mu } } ~ } { ~ \\theta ~ } ~ } ~ } & { ~ \\operatorname* { m i n } ~ } & { ~ \\scriptstyle { \\frac { ~ \\tan ~ \\theta ~ + ~ { \\boldsymbol { \\mu } } ~ } { ~ \\theta ~ } ~ } } \\\\ { \\mathrm { ~ \\sin ~ \\theta ~ } } & { ~ \\operatorname* { m a x } ~ } & { ~ \\operatorname* { m i n } ~ } & { ~ \\operatorname* { m i n } ~ } \\end{array} } } } \\begin{array} { l } { \\overbrace { \\begin{array} { r l } { ~ \\tan ~ \\theta ~ - ~ { \\boldsymbol { \\mu } } ~ } \\\\ { { ~ \\tan ~ \\theta } ~ } \\\\ { { ~ } } & { - { \\boldsymbol { \\mu } } \\tan ~ } \\end{array} } } \\end{array}$",
+      "anchor": "e210e147"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch07-body-175-5e9eb4",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[175]",
+      "field": "md",
+      "old": "$\\underset {  } { \\vec { \\mathbf { F } } } _ { \\mathrm { a p p } }$",
+      "new": "$\\underset{\\mathrm{app}}{\\vec{\\mathbf{F}}}$",
+      "anchor": "5b548e2b"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch29-body-81-71bfff",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[81]",
+      "field": "md",
+      "old": "$\\begin{array} { r } { \\bar { \\boldsymbol { v _ { \\perp } } } = \\sqrt { \\boldsymbol { v _ { y } } _ { \\perp } ^ { 2 } + \\boldsymbol { v _ { z } } _ { \\perp } ^ { 2 } } } \\end{array}$",
+      "new": "$\\begin{array}{r} \\bar{\\boldsymbol{v_{\\perp}}} = \\sqrt{\\boldsymbol{v_{y\\perp}}^{2} + \\boldsymbol{v_{z\\perp}}^{2}} \\end{array}$",
+      "anchor": "09abcb82"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch02-body-443-4f8299",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[443]",
+      "field": "md",
+      "old": "$( v _ { i } = 0 ) , \\stackrel { \\left. } { \\mathrm { s t o p s } } ^ { \\right. } ( v _ { f } = 0 )$",
+      "new": "$(v_{i} = 0), \\stackrel{\\ }{\\mathrm{stops}} (v_{f} = 0)$",
+      "anchor": "c7a8f717"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch05-body-383-828725",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[383]",
+      "field": "md",
+      "old": "$\\overset  { \\mathbf { f } } _ { k } .$",
+      "new": "$\\overset{\\mathbf{f}}{k}.$",
+      "anchor": "710ee4b6"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch20-body-361-82aac2",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[361]",
+      "field": "md",
+      "old": "$T =  \\begin{array} { l } { { \\frac { { k _ { 1 } } { L _ { 2 } } { T _ { c } } \\ + { k _ { 2 } } { L _ { 1 } } { T _ { h } } } } \\\\ { { k _ { 1 } } { L _ { 2 } } \\ + { k _ { 2 } } { L _ { 1 } } } \\end{array} }$",
+      "new": "$T = \\begin{array}{l} \\frac{k_{1} T_{c} + k_{2} T_{h}}{k_{1} L_{2} + k_{2} L_{1}} \\end{array}$",
+      "anchor": "420bd440"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch30-problem-31-body-0-750ba8",
+      "action": "fix_inline_math",
+      "chunk": "ch30",
+      "selector": "problem:31:body[0]",
+      "field": "md",
+      "old": "$I _ { 2 } \\stackrel { \\Delta } { = } \\stackrel { \\bar { 3 . } 0 0 }$",
+      "new": "$I_{2} \\stackrel{\\Delta}{=} \\bar{3.00}$",
+      "anchor": "e4321999"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-appD-body-462-e53591",
+      "action": "fix_inline_math",
+      "chunk": "appD",
+      "selector": "body[462]",
+      "field": "md",
+      "old": "$\\sqrt [ \\mathrm { \\frac { 2 } { 3 } } v _ { i }$",
+      "new": "$\\sqrt[\\frac{2}{3}]{v_{i}}$",
+      "anchor": "2d797056"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch14-body-145-f5dec6",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[145]",
+      "field": "md",
+      "old": "$B - F _ { g } \\stackrel { _ \\textstyle } { = } ( \\rho _ { \\mathrm { f l u i d } } - \\rho _ { \\mathrm { o b j } } ) g \\bar { V } _ { \\mathrm { o b j } } .$",
+      "new": "$B - F_{g} \\stackrel{\\textstyle}{=} ( \\rho_{\\mathrm{fluid}} - \\rho_{\\mathrm{obj}} ) g \\bar{V}_{\\mathrm{obj}} .$",
+      "anchor": "4329ad32"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch07-body-68-314a6d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[68]",
+      "field": "md",
+      "old": "$\\overset  { \\mathbf { A } }$",
+      "new": "$\\overset{\\mathbf{A}}{}$",
+      "anchor": "0df1617b"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch07-body-77-314a6d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[77]",
+      "field": "md",
+      "old": "$\\overset  { \\mathbf { A } }$",
+      "new": "$\\overset{\\mathbf{A}}{}$",
+      "anchor": "239f9925"
+    },
+    {
+      "id": "serway_physics_scientists_engineers-ch07-problem-13-body-0-314a6d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:13:body[0]",
+      "field": "md",
+      "old": "$\\overset  { \\mathbf { A } }$",
+      "new": "$\\overset{\\mathbf{A}}{}$",
+      "anchor": "9bf28646"
+    }
+  ]
+}

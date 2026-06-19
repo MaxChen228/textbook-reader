@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-karlin-taylor-stochastic",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Bind adjacent prose/standalone FIG text to visual blocks in legacy OCR",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T22:17:17+00:00",
+  "updated": "2026-06-18T22:17:17+00:00",
+  "evidence": "karlin_taylor_stochastic parser/smoke is structurally green, but smoke stays red at H7 with empty_captions=9 and unresolved visual semantics=46. Catalog audit shows many figures/tables whose visible caption/id lives in neighboring prose or standalone text blocks like 'Figure 2 ...', 'FIG. 3', 'TABLE II ...', while the image/table block itself has empty or non-semantic caption. extract_rules schema cannot attach adjacent bare text to the visual block, and parser figure_caption_merge only handles subfigure-caption plus later main-caption patterns, not prose-bound captions.",
+  "proposal": "Extend deterministic visual extraction so per-book audit can bind adjacent text/prose captions (for example 'Figure 2', 'FIG. 3', 'TABLE II') to nearby image/table blocks, or allow reviewable per-book visual overrides/excludes for captionless legacy diagrams. Without this, old OCR books can parse chapters/problems correctly but remain stuck on smoke H7.",
+  "risk": "",
+  "disposition": ""
+}

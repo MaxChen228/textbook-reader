@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "durrett_probability-ch08-body-77-fcf4a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[77]",
+      "expect": "S _ {n, (u)} = \\left\\{ \\begin{array}{c l} S _ {n, m} & \\text {if u = m\\in\\{0,1,\\ldots,n\\}} \\\\ \\text {linear for u\\in[m - 1,m]} & \\text {when m\\in\\{1,\\ldots,n\\}} \\end{array} \\right.",
+      "new": "S _ { n , (u) } = \\left\\{\\begin{array}{c l}S_{n, m} & \\text{if }u = m\\in\\{0,1,\\ldots,n\\}\\\\ \\text{linear for }u\\in[m - 1,m] & \\text{when }m\\in\\{1,\\ldots,n\\}\\end{array}\\right."
+    }
+  ]
+}

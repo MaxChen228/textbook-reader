@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-lee-smooth-manifolds",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog parser 缺少 multi-image figure grouping",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T22:04:48+00:00",
+  "updated": "2026-06-18T22:04:48+00:00",
+  "evidence": "lee_smooth_manifolds smoke H7 殘留 empty_captions=60；如 ch05 body[84..86] 三個相鄰 fig block 其實是同一個 Fig. 5.5，只有最後一塊帶 caption，前兩塊被各自落成 caption 幾乎空白的 fig。其他章也有同型問題。",
+  "proposal": "在 figure catalog/build 階段加入相鄰 image block grouping：若連續 image 後接單一 caption-like text/fig block（如 Fig. N.M Title），應合併成單一 figure record，或至少允許 YAML 層宣告 multi-image panels 的歸併策略。",
+  "risk": "",
+  "disposition": ""
+}

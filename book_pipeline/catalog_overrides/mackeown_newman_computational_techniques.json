@@ -1,0 +1,29 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "2.20",
+      "classification": "external",
+      "reason": "正文明確把 table 2.20 歸給 Nussbaum (1971)，不是本書 catalog 對象。",
+      "where": "ch05.json body[116]",
+      "evidence": "Raw PDF p.128: \"The sets of force constants quoted in Nussbaum (1971, table 2.20) ... may suggest alternative models.\""
+    },
+    {
+      "type": "table",
+      "ref": "14.11",
+      "classification": "external",
+      "reason": "正文明確把 table 14.11 歸給 Colthup et al (1975)，不是本書 catalog 對象。",
+      "where": "ch05.json body[116]",
+      "evidence": "Raw PDF p.128: \"... and Colthup et al (1975, table 14.11) may suggest alternative models.\""
+    },
+    {
+      "type": "table",
+      "ref": "A3.1",
+      "classification": "source_mismatch",
+      "reason": "正文印的是 table A3.1，但 appendix 實際存在的 caption 是 Table A.1；原書內不存在 Table A3.1。",
+      "where": "ch01.json body[154]",
+      "evidence": "Raw PDF p.34: \"Using table A3.1...\"; raw PDF p.223 appendix caption: \"Table A.1. Percentage probability of obtaining a value larger than u...\""
+    }
+  ],
+  "overrides": []
+}

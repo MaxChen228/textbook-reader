@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-brown-lemay-central-science",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "figure catalog cannot index split/bare captions in chemistry text",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T04:24:45+00:00",
+  "updated": "2026-06-18T04:24:45+00:00",
+  "evidence": "Final smoke on brown_lemay_central_science stays at H6 unresolved Figure refs=30 and H7 empty_captions=1817 after extract_rules iteration. Parser now cleanly yields chapter-end problems (24 chapters, 63-88 problems/chapter), so remaining failure is catalog-only. Catalog audit shows many MinerU image fragments with no own caption while the visible figure id/caption lives in later bare text like '▲ Figure 1.25 ...' or prose refs like 'Figure 1.9 summarizes ...'. Enabling figure_caption_merge plus a main-caption regex worsened metrics (H6 36, H7 1827), so current schema cannot express these cases safely.",
+  "proposal": "Extend catalog extraction to associate nearby bare text or sibling image fragments with a figure id/caption, and allow captionless figure shards to be marked non-indexable/excluded without poisoning H6/H7. Current figure_caption_merge only handles subcaption-to-main-caption merges and is insufficient for this OCR pattern.",
+  "risk": "",
+  "disposition": ""
+}

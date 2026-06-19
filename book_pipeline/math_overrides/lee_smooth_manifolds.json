@@ -1,0 +1,42 @@
+{
+  "overrides": [
+    {
+      "id": "lee_smooth_manifolds-ch11-body-232-153ebd",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[232]",
+      "expect": "\\int_ {\\widetilde {\\gamma}} \\omega = \\left\\{ \\begin{array}{l l} \\int_ {\\gamma} \\omega & \\text {if \\widetilde {\\gamma} is a forward reparametrization}, \\\\ - \\int_ {\\gamma} \\omega & \\text {if \\widetilde {\\gamma} is a backward reparametrization}. \\end{array} \\right.",
+      "new": "\\int_{\\widetilde{\\gamma}} \\omega = \\left\\{ \\begin{array}{ll} \\int_{\\gamma} \\omega & \\text{if } \\widetilde{\\gamma} \\text{ is a forward reparametrization}, \\\\ -\\int_{\\gamma} \\omega & \\text{if } \\widetilde{\\gamma} \\text{ is a backward reparametrization}. \\end{array} \\right."
+    },
+    {
+      "id": "lee_smooth_manifolds-ch14-body-45-9db6a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[45]",
+      "expect": "\\delta_ {J} ^ {I} = \\left\\{ \\begin{array}{l l} \\operatorname{sgn} \\sigma & \\text { if   neither   I   nor   J   has   a   repeated   index   and   J   =   I_{\\sigma }   for   some   \\sigma\\in S_{k}}, \\\\ 0 & \\text { if   I   or   J   has   a   repeated   index   or   J   is   not   a   permutation   of   I }. \\end{array} \\right.",
+      "new": "\\delta_{J}^{I} = \\left\\{ \\begin{array}{ll} \\operatorname{sgn} \\sigma & \\text{if neither } I \\text{ nor } J \\text{ has a repeated index and } J = I_{\\sigma} \\text{ for some } \\sigma\\in S_{k}, \\\\ 0 & \\text{if } I \\text{ or } J \\text{ has a repeated index or } J \\text{ is not a permutation of } I. \\end{array} \\right."
+    },
+    {
+      "id": "lee_smooth_manifolds-ch22-body-314-0d0380",
+      "action": "fix_inline_math",
+      "chunk": "ch22",
+      "selector": "body[314]",
+      "field": "md",
+      "all": true,
+      "old": "$S _ { \\textrm { \\tiny { \\cdot } } }$",
+      "new": "$S_{\\textrm{\\tiny $\\cdot$}}$",
+      "anchor": "738a3e8e"
+    },
+    {
+      "id": "lee_smooth_manifolds-ch09-body-257-e9229d",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[257]",
+      "field": "md",
+      "all": true,
+      "old": "$J { \\left. {  } }\\right.$",
+      "new": "$J\\left.\\right.$",
+      "anchor": "f7ac9e4c"
+    }
+  ]
+}

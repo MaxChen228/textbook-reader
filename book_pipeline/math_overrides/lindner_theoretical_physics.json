@@ -1,0 +1,116 @@
+{
+  "overrides": [
+    {
+      "id": "lindner_theoretical_physics-ch05-body-777-a95854",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[777]",
+      "expect": "\\langle \\nu | H _ {0} | \\nu^ {\\prime} \\rangle + \\sum_ {n = 1} ^ {N} _ {\\mathrm{a}} \\langle \\nu \\nu_ {n} | V | \\nu^ {\\prime} \\nu_ {n} \\rangle_ {\\mathrm{a}} = e _ {\\nu} \\langle \\nu | \\nu^ {\\prime} \\rangle .",
+      "new": "\\langle \\nu | H _ {0} | \\nu^ {\\prime} \\rangle + \\sum_ {n = 1} ^ {N} \\langle \\nu \\nu_ {n} | V | \\nu^ {\\prime} \\nu_ {n} \\rangle_ {\\mathrm{a}} = e _ {\\nu} \\langle \\nu | \\nu^ {\\prime} \\rangle ."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-785-89852b",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[785]",
+      "expect": "e _ {N} = \\langle \\nu_ {N} | H _ {0} | \\nu_ {N} \\rangle + \\sum_ {n = 1} ^ {N - 1} _ {\\mathrm{a}} \\langle \\nu_ {N} \\nu_ {n} | V | \\nu_ {N} \\nu_ {n} \\rangle_ {\\mathrm{a}}.",
+      "new": "e _ {N} = \\langle \\nu _ {N} | H _ {0} | \\nu _ {N} \\rangle + \\sum_ {n = 1} ^ {N - 1} \\langle \\nu _ {N} \\nu_ {n} | V | \\nu _ {N} \\nu_ {n} \\rangle_ {\\mathrm{a}}."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-795-17ef93",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[795]",
+      "expect": "H _ {\\mathrm{HF}} = \\sum_ {\\nu \\nu^ {\\prime}} \\left(\\langle \\nu | H _ {0} | \\nu^ {\\prime} \\rangle + \\sum_ {n = 1} ^ {N} _ {\\mathrm{a}} \\langle \\nu \\nu_ {n} | V | \\nu^ {\\prime} \\nu_ {n} \\rangle_ {\\mathrm{a}}\\right) \\Psi_ {\\nu} ^ {\\dagger} \\Psi_ {\\nu^ {\\prime}}",
+      "new": "H _ {\\mathrm{HF}} = \\sum_ {\\nu \\nu^ {\\prime}} \\left(\\langle \\nu | H _ {0} | \\nu^ {\\prime} \\rangle + \\sum_ {n = 1} ^ {N} \\langle \\nu \\nu_ {n} | V | \\nu^ {\\prime} \\nu_ {n} \\rangle_ {\\mathrm{a}}\\right) \\Psi_ {\\nu} ^ {\\dagger} \\Psi_ {\\nu^ {\\prime}}"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch01-body-403-fa71cf",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[403]",
+      "expect": "\\mathbf {g} _ {i} \\cdot \\mathbf {g} ^ {k} = \\mathbf {g} ^ {k} \\cdot \\mathbf {g} _ {i} = \\nabla x ^ {k} \\cdot \\frac {\\partial \\mathbf {r}}{\\partial x ^ {i}} = \\frac {\\partial x ^ {k}}{\\partial x ^ {i}} = \\delta_ {i} ^ {k} = \\left\\{ \\begin{array}{l l} 0 & \\text {for i\\neq k ,} \\\\ 1 & \\text {for i = k .} \\end{array} \\right.",
+      "new": "\\mathbf {g} _ {i} \\cdot \\mathbf {g} ^ {k} = \\mathbf {g} ^ {k} \\cdot \\mathbf {g} _ {i} = \\nabla x ^ {k} \\cdot \\frac {\\partial \\mathbf {r}}{\\partial x ^ {i}} = \\frac {\\partial x ^ {k}}{\\partial x ^ {i}} = \\delta_ {i} ^ {k} = \\left\\{ \\begin{array}{l l} 0 & \\text {for } i \\neq k , \\\\ 1 & \\text {for } i = k . \\end{array} \\right."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch02-body-851-c39e75",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[851]",
+      "expect": "[ x ^ {i}, x ^ {j} ] = 0 = [ p _ {i}, p _ {j} ], \\quad [ x ^ {i}, p _ {j} ] = \\delta_ {j} ^ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text {for i = j ,} \\\\ 0 & \\text {for i\\neq j .} \\end{array} \\right.",
+      "new": "[ x ^ {i}, x ^ {j} ] = 0 = [ p _ {i}, p _ {j} ], \\quad [ x ^ {i}, p _ {j} ] = \\delta_ {j} ^ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text {for } i = j , \\\\ 0 & \\text {for } i \\neq j . \\end{array} \\right."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-911-fdf571",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[911]",
+      "expect": "\\mathbf {e} _ {m} \\cdot \\mathbf {e} (\\Omega) = \\sqrt {\\frac {4 \\pi}{3}} \\mathrm{i} Y _ {m} ^ {(1)} (\\Omega) = \\left\\{ \\begin{array}{c c} \\mathrm{i} \\cos \\theta & \\text {for m = 0 ,} \\\\ \\frac {\\mp \\mathrm{i}}{\\sqrt {2}} \\sin \\theta \\exp (\\pm \\mathrm{i} \\varphi) & \\text {for m = \\pm 1 .} \\end{array} \\right.",
+      "new": "\\mathbf {e} _ {m} \\cdot \\mathbf {e} (\\Omega) = \\sqrt {\\frac {4 \\pi}{3}} \\mathrm{i} Y _ {m} ^ {(1)} (\\Omega) = \\left\\{ \\begin{array}{c c} \\mathrm{i} \\cos \\theta & \\text {for } m = 0 , \\\\ \\frac {\\mp \\mathrm{i}}{\\sqrt {2}} \\sin \\theta \\exp (\\pm \\mathrm{i} \\varphi) & \\text {for } m = \\pm 1 . \\end{array} \\right."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch02-body-1175-ad83cf",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[1175]",
+      "field": "md",
+      "old": "${ \\begin{array} { c { \\frac { 1 } { 2 m } } p ^ { 2 } + \\frac { m } { 2 } } f x ^ { 2 } } \\end{array} $",
+      "new": "$\\begin{array}{c} \\frac { 1 } { 2 m } p ^ { 2 } + \\frac { m } { 2 } f x ^ { 2 } \\end{array} $",
+      "anchor": "d65a926a"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch04-body-923-5c33c8",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[923]",
+      "field": "md",
+      "old": "$\\hbar \\nabla \\psi \\overset { \\displaystyle \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\ b { \\tau } } } } } } } } } } } } } } } { = } } \\mathrm { i } \\mathbf { P } \\psi$",
+      "new": "$\\hbar \\nabla \\psi \\overset{ \\displaystyle \\tau }{ = } \\mathrm { i } \\mathbf { P } \\psi$",
+      "anchor": "c3f57847"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-1363-44d0e9",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[1363]",
+      "field": "md",
+      "old": "${ \\begin{array} { c } { { \\frac { \\mathrm { i } } { 4 ! } } } \\ \\varepsilon _ { \\kappa \\lambda \\mu \\nu } \\ \\gamma ^ { \\prime \\kappa } \\gamma ^ { \\prime \\lambda } \\gamma ^ { \\prime \\mu } } \\end{array} $",
+      "new": "$\\begin{array}{c} \\frac { \\mathrm { i } } { 4 ! } \\varepsilon _ { \\kappa \\lambda \\mu \\nu } \\gamma ^ { \\prime \\kappa } \\gamma ^ { \\prime \\lambda } \\gamma ^ { \\prime \\mu } \\end{array} $",
+      "anchor": "84bddce0"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch06-body-1030-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[1030]",
+      "field": "md",
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$\\nu _ {2}$",
+      "anchor": "6dd77abb"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch03-body-852-696fda",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[852]",
+      "expect": "a ^ {\\mu} _ {\\nu} a _ {\\mu} ^ {\\lambda} = g _ {\\nu} ^ {\\lambda} \\quad \\text { and } \\quad a ^ {\\mu} _ {\\nu} ^ {*} = a ^ {\\mu} _ {\\nu}  .",
+      "new": "a^{\\mu}{}_{\\nu} a_{\\mu}{}^{\\lambda} = g_{\\nu}{}^{\\lambda} \\quad \\text{ and } \\quad \\left(a^{\\mu}{}_{\\nu}\\right)^{*} = a^{\\mu}{}_{\\nu} ."
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-781-8461f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[781]",
+      "expect": "\\begin{array}{l} E _ {0} = _ {a} \\langle \\nu_ {1} \\dots \\nu_ {N} | H | \\nu_ {1} \\dots \\nu_ {N} \\rangle_ {\\mathrm{a}} = \\sum_ {n = 1} ^ {N} \\langle \\nu_ {n} | H _ {0} | \\nu_ {n} \\rangle + \\frac {1}{2} \\sum_ {n, m = 1} ^ {N} _ {\\mathrm{a}} \\langle \\nu_ {n} \\nu_ {m} | V | \\nu_ {n} \\nu_ {m} \\rangle_ {\\mathrm{a}} \\\\ = \\sum_ {n = 1} ^ {N} e _ {n} - \\frac {1}{2} \\sum_ {n, m = 1} ^ {N} _ {\\mathrm{a}} \\left\\langle v _ {n} v _ {m} \\right| V \\left| v _ {n} v _ {m} \\right\\rangle_ {\\mathrm{a}}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} E _ {0} = \\langle \\nu _ {1} \\dots \\nu _ {N} | H | \\nu _ {1} \\dots \\nu _ {N} \\rangle _ {\\mathrm{a}} = \\sum _ {n = 1} ^ {N} \\langle \\nu _ {n} | H _ {0} | \\nu _ {n} \\rangle + \\frac {1}{2} \\sum _ {n, m = 1} ^ {N} \\langle \\nu _ {n} \\nu _ {m} | V | \\nu _ {n} \\nu _ {m} \\rangle _ {\\mathrm{a}} \\\\ = \\sum _ {n = 1} ^ {N} e _ {n} - \\frac {1}{2} \\sum _ {n, m = 1} ^ {N} \\left\\langle v _ {n} v _ {m} \\right| V \\left| v _ {n} v _ {m} \\right\\rangle _ {\\mathrm{a}}. \\end{array}"
+    },
+    {
+      "id": "lindner_theoretical_physics-ch05-body-643-488cd9",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[643]",
+      "expect": "{ } _ { \\mathrm{s,a} } \\langle \\nu _ { 1 } v _ { 2 } | \\Psi _ { \\nu } ^ { \\dagger } \\Psi _ { \\nu ^ { \\prime } } | v _ { 1 } ^ { \\prime } v _ { 2 } ^ { \\prime } \\rangle _ { \\mathrm{s,a} } = \\frac { \\langle 0 | \\Psi _ { \\nu _ { 1 } } \\Psi _ { \\nu _ { 2 } } \\Psi _ { \\nu } ^ { \\dagger } \\Psi _ { \\nu ^ { \\prime } } \\Psi _ { \\nu _ { 2 } ^ { \\prime } } ^ { \\dagger } \\Psi _ { \\nu _ { 1 } ^ { \\prime } } ^ { \\dagger } | 0 \\rangle }  \\sqrt { 1 + \\langle v _ { 1 } | v _ { 2 } \\rangle } \\sqrt { 1 + \\langle v _ { 1 } ^ { \\prime } | v _ { 2 } ^ { \\prime } \\rangle } ,",
+      "new": "\\langle \\nu _ { 1 } v _ { 2 } | \\Psi _ { \\nu } ^ { \\dagger } \\Psi _ { \\nu ^ { \\prime } } | v _ { 1 } ^ { \\prime } v _ { 2 } ^ { \\prime } \\rangle _ { \\mathrm{s,a} } = \\frac { \\langle 0 | \\Psi _ { \\nu _ { 1 } } \\Psi _ { \\nu _ { 2 } } \\Psi _ { \\nu } ^ { \\dagger } \\Psi _ { \\nu ^ { \\prime } } \\Psi _ { \\nu _ { 2 } ^ { \\prime } } ^ { \\dagger } \\Psi _ { \\nu _ { 1 } ^ { \\prime } } ^ { \\dagger } | 0 \\rangle }{ \\sqrt { 1 + \\langle v _ { 1 } | v _ { 2 } \\rangle } \\sqrt { 1 + \\langle v _ { 1 } ^ { \\prime } | v _ { 2 } ^ { \\prime } \\rangle } },"
+    }
+  ]
+}

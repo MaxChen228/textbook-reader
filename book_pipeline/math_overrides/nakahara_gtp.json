@@ -1,0 +1,136 @@
+{
+  "overrides": [
+    {
+      "id": "nakahara_gtp-ch07-body-147-03826b",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[147]",
+      "expect": "\\Gamma_ {(\\mu \\nu)} ^ {\\kappa} = \\left\\{ \\begin{array}{l} \\kappa \\\\ \\mu \\nu \\end{array} \\right\\} + \\frac {1}{2} \\left(T _ {\\nu} ^ {\\kappa} _ {\\mu} + T _ {\\mu} ^ {\\kappa} _ {\\nu}\\right) \\tag {7.32}",
+      "new": "\\Gamma_ {(\\mu \\nu)} ^ {\\kappa} = \\left\\{ \\begin{array}{l} \\kappa \\\\ \\mu \\nu \\end{array} \\right\\} + \\frac {1}{2} \\left({T _ {\\nu} ^ {\\kappa}} _ {\\mu} + {T _ {\\mu} ^ {\\kappa}} _ {\\nu}\\right) \\tag {7.32}"
+    },
+    {
+      "id": "nakahara_gtp-ch07-body-151-1092ac",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[151]",
+      "expect": "\\begin{array}{l} \\Gamma^ {\\kappa} _ {\\mu \\nu} = \\Gamma^ {\\kappa} _ {(\\mu \\nu)} + \\Gamma^ {\\kappa} _ {[ \\mu \\nu ]} \\\\ = \\left\\{ \\begin{array}{c} \\kappa \\\\ \\mu \\nu \\end{array} \\right\\} + \\frac {1}{2} (T _ {\\nu} ^ {\\kappa} _ {\\mu} + T _ {\\mu} ^ {\\kappa} _ {\\nu} + T ^ {\\kappa} _ {\\mu \\nu}). \\tag {7.34} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\Gamma^ {\\kappa} _ {\\mu \\nu} = \\Gamma^ {\\kappa} _ {(\\mu \\nu)} + \\Gamma^ {\\kappa} _ {[ \\mu \\nu ]} \\\\ = \\left\\{ \\begin{array}{c} \\kappa \\\\ \\mu \\nu \\end{array} \\right\\} + \\frac {1}{2} ({T _ {\\nu} ^ {\\kappa}} _ {\\mu} + {T _ {\\mu} ^ {\\kappa}} _ {\\nu} + T ^ {\\kappa} _ {\\mu \\nu}). \\tag {7.34} \\\\ \\end{array}"
+    },
+    {
+      "id": "nakahara_gtp-ch07-body-923-0c2515",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[923]",
+      "expect": "\\Omega_ {\\mu} \\equiv \\frac {1}{2} \\mathrm{i} \\Gamma^ {\\alpha} _ {\\mu} ^ {\\beta} \\Sigma_ {\\alpha \\beta} = \\frac {1}{2} \\mathrm{i} e ^ {\\alpha} _ {\\nu} \\nabla_ {\\mu} e ^ {\\beta \\nu} \\Sigma_ {\\alpha \\beta} \\tag {7.227}",
+      "new": "\\Omega_ {\\mu} \\equiv \\frac {1}{2} \\mathrm{i} {\\Gamma ^ {\\alpha} _ {\\mu}} ^ {\\beta} \\Sigma_ {\\alpha \\beta} = \\frac {1}{2} \\mathrm{i} e ^ {\\alpha} _ {\\nu} \\nabla_ {\\mu} e ^ {\\beta \\nu} \\Sigma_ {\\alpha \\beta} \\tag {7.227}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-293-328d8c",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[293]",
+      "expect": "\\nabla_ {X} e _ {\\alpha} = \\left[ \\left(\\sigma_ {i} (0), \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\mathcal {A} _ {i \\mu} ^ {\\beta} _ {\\alpha} e _ {\\beta} ^ {0}\\right) \\right] = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\mathcal {A} _ {i \\mu} ^ {\\beta} _ {\\alpha} e _ {\\beta} \\tag {10.56a}",
+      "new": "\\nabla_ {X} e _ {\\alpha} = \\left[ \\left(\\sigma_ {i} (0), \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} {\\mathcal {A} _ {i \\mu} ^ {\\beta}} _ {\\alpha} e _ {\\beta} ^ {0}\\right) \\right] = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} {\\mathcal {A} _ {i \\mu} ^ {\\beta}} _ {\\alpha} e _ {\\beta} \\tag {10.56a}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-300-731379",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[300]",
+      "expect": "\\nabla_ {X} s = \\left[ \\left(\\sigma_ {i} (0), \\frac {\\mathrm{d} \\xi_ {i}}{\\mathrm{d} t} + \\mathcal {A} _ {i} (X) \\xi_ {i} \\Bigg | _ {t = 0}\\right) \\right] = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\left\\{\\frac {\\partial \\xi_ {i} {} ^ {\\alpha}}{\\partial x ^ {\\mu}} + \\mathcal {A} _ {i \\mu} ^ {\\alpha} _ {\\beta} \\xi_ {i} ^ {\\beta} \\right\\} e _ {\\alpha}. \\tag {10.58}",
+      "new": "\\nabla_ {X} s = \\left[ \\left(\\sigma_ {i} (0), \\frac {\\mathrm{d} \\xi_ {i}}{\\mathrm{d} t} + \\mathcal {A} _ {i} (X) \\xi_ {i} \\Bigg | _ {t = 0}\\right) \\right] = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\left\\{\\frac {\\partial \\xi_ {i} {} ^ {\\alpha}}{\\partial x ^ {\\mu}} + {\\mathcal {A} _ {i \\mu} ^ {\\alpha}} _ {\\beta} \\xi_ {i} ^ {\\beta} \\right\\} e _ {\\alpha}. \\tag {10.58}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-333-b26e20",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[333]",
+      "expect": "\\nabla \\nabla e _ {\\alpha} = e _ {\\beta} \\otimes \\mathfrak {F} _ {i} ^ {\\beta} _ {\\alpha} \\tag {10.70}",
+      "new": "\\nabla \\nabla e _ {\\alpha} = e _ {\\beta} \\otimes {\\mathfrak {F} _ {i} ^ {\\beta}} _ {\\alpha} \\tag {10.70}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-337-81e03e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[337]",
+      "expect": "\\nabla \\nabla s = e _ {\\alpha} \\otimes \\mathfrak {F} _ {i} ^ {\\alpha} _ {\\beta} \\xi^ {\\beta}. \\tag {10.71}",
+      "new": "\\nabla \\nabla s = e _ {\\alpha} \\otimes {\\mathfrak {F} _ {i} ^ {\\alpha}} _ {\\beta} \\xi^ {\\beta}. \\tag {10.71}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-344-d02bf2",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[344]",
+      "expect": "\\mathrm{d} g _ {\\alpha \\beta} = \\mathcal {A} _ {i} ^ {\\gamma} _ {\\alpha} g _ {\\gamma \\beta} + \\mathcal {A} _ {i} ^ {\\gamma} _ {\\beta} g _ {\\alpha \\gamma}. \\tag {10.74}",
+      "new": "\\mathrm{d} g _ {\\alpha \\beta} = {\\mathcal {A} _ {i} ^ {\\gamma}} _ {\\alpha} g _ {\\gamma \\beta} + {\\mathcal {A} _ {i} ^ {\\gamma}} _ {\\beta} g _ {\\alpha \\gamma}. \\tag {10.74}"
+    },
+    {
+      "id": "nakahara_gtp-ch14-body-42-4baa35",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[42]",
+      "expect": "T _ {z \\bar {z}} ^ {\\bar {z}} \\rightarrow g ^ {z \\bar {z}} g _ {z \\bar {z}} T _ {z \\bar {z}} ^ {\\bar {z}} = T _ {z} ^ {z} _ {z}.",
+      "new": "T _ {z \\bar {z}} ^ {\\bar {z}} \\rightarrow g ^ {z \\bar {z}} g _ {z \\bar {z}} T _ {z \\bar {z}} ^ {\\bar {z}} = {T _ {z} ^ {z}} _ {z}."
+    },
+    {
+      "id": "nakahara_gtp-ch07-body-613-f9b302",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[613]",
+      "field": "md",
+      "old": "$e _ { \\alpha } { } ^ { \\mu } ( \\partial _ { \\mu } e _ { \\beta } { } ^ { \\nu } + e _ { \\beta } { } ^ { \\lambda } \\Gamma ^ { \\nu } { } _ { \\mu \\lambda } ) e _ { \\nu } = \\Gamma ^ { \\gamma } { } _ { \\alpha \\beta } e _ { \\gamma } { } ^ { \\nu } e _ { \\nu } { } _  $",
+      "new": "$e _ { \\alpha } { } ^ { \\mu } ( \\partial _ { \\mu } e _ { \\beta } { } ^ { \\nu } + e _ { \\beta } { } ^ { \\lambda } \\Gamma ^ { \\nu } { } _ { \\mu \\lambda } ) e _ { \\nu } = \\Gamma ^ { \\gamma } { } _ { \\alpha \\beta } e _ { \\gamma }  $",
+      "anchor": "94981731"
+    },
+    {
+      "id": "nakahara_gtp-ch12-body-281-ec6c0b",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[281]",
+      "field": "md",
+      "old": "$\\mathrm { i } \\Zeta \\neq 0$",
+      "new": "$\\mathrm { i } \\zeta \\neq 0$",
+      "anchor": "30caffa5"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-323-f4279e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[323]",
+      "expect": "\\begin{array}{l} \\nabla_ {X} \\phi = \\left[ \\left(\\tilde {\\gamma} (0), U (0) ^ {- 1} \\frac {\\mathrm{d} \\Phi^ {\\alpha} (0)}{\\mathrm{d} t} e _ {\\alpha} ^ {0}\\right) \\right] \\\\ + [ (\\tilde {\\gamma} (0), U (0) ^ {- 1} \\mathcal {A} _ {i} (X) ^ {\\alpha} _ {\\beta} \\Phi^ {\\beta} (0) e _ {\\alpha} ^ {0}) ] \\\\ = X ^ {\\mu} \\left(\\frac {\\partial \\Phi^ {\\alpha}}{\\partial x ^ {\\mu}} + \\mathcal {A} _ {i \\mu} ^ {\\alpha} _ {\\beta} \\Phi^ {\\beta}\\right) e _ {\\alpha} \\tag {10.67} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla_ {X} \\phi = \\left[ \\left(\\tilde {\\gamma} (0), U (0) ^ {- 1} \\frac {\\mathrm{d} \\Phi^ {\\alpha} (0)}{\\mathrm{d} t} e _ {\\alpha} ^ {0}\\right) \\right] \\\\ + [ (\\tilde {\\gamma} (0), U (0) ^ {- 1} \\mathcal {A} _ {i \\beta} ^ {\\alpha} (X) \\Phi^ {\\beta} (0) e _ {\\alpha} ^ {0}) ] \\\\ = X ^ {\\mu} \\left(\\frac {\\partial \\Phi^ {\\alpha}}{\\partial x ^ {\\mu}} + \\mathcal {A} _ {i \\mu \\beta} ^ {\\alpha} \\Phi^ {\\beta}\\right) e _ {\\alpha} \\tag {10.67} \\\\ \\end{array}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-335-049b20",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[335]",
+      "expect": "\\begin{array}{l} \\nabla \\nabla e _ {\\alpha} = \\nabla (e _ {\\beta} \\otimes \\mathcal {A} _ {i} ^ {\\beta} _ {\\alpha}) = \\nabla e _ {\\beta} \\wedge \\mathcal {A} _ {i} ^ {\\beta} _ {\\alpha} + e _ {\\beta} \\otimes \\mathrm{d} \\mathcal {A} _ {i} ^ {\\beta} _ {\\alpha} \\\\ = e _ {\\beta} \\otimes (\\mathrm{d} \\mathcal {A} _ {i} ^ {\\beta} _ {\\alpha} + \\mathcal {A} _ {i} ^ {\\beta} _ {\\gamma} \\wedge \\mathcal {A} _ {i} ^ {\\gamma} _ {\\alpha}) = e _ {\\beta} \\otimes \\mathcal {F} _ {i} ^ {\\beta} _ {\\alpha}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla \\nabla e _ {\\alpha} = \\nabla (e _ {\\beta} \\otimes \\mathcal {A} _ {i \\alpha} ^ {\\beta}) = \\nabla e _ {\\beta} \\wedge \\mathcal {A} _ {i \\alpha} ^ {\\beta} + e _ {\\beta} \\otimes \\mathrm{d} \\mathcal {A} _ {i \\alpha} ^ {\\beta} \\\\ = e _ {\\beta} \\otimes (\\mathrm{d} \\mathcal {A} _ {i \\alpha} ^ {\\beta} + \\mathcal {A} _ {i \\gamma} ^ {\\beta} \\wedge \\mathcal {A} _ {i \\alpha} ^ {\\gamma}) = e _ {\\beta} \\otimes \\mathcal {F} _ {i \\alpha} ^ {\\beta}. \\\\ \\end{array}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-291-c5b7ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[291]",
+      "expect": "\\mathcal {A} _ {i} (X) e _ {\\alpha} ^ {0} = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} e _ {\\beta} ^ {0} \\mathcal {A} _ {i \\mu} ^ {\\beta} _ {\\gamma} \\delta_ {\\alpha} ^ {\\gamma} = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\mathcal {A} _ {i \\mu} ^ {\\beta} _ {\\alpha} e _ {\\beta} ^ {0}.",
+      "new": "\\mathcal {A}_{i}(X) e_{\\alpha}^{0} = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} e_{\\beta}^{0} \\mathcal {A}_{i \\mu}{}^{\\beta}{}_{\\gamma} \\delta_{\\alpha}^{\\gamma} = \\frac {\\mathrm{d} x ^ {\\mu}}{\\mathrm{d} t} \\mathcal {A}_{i \\mu}{}^{\\beta}{}_{\\alpha} e_{\\beta}^{0}."
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-295-f15cfc",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[295]",
+      "expect": "\\nabla e _ {\\alpha} = \\mathcal {A} _ {i} ^ {\\beta} _ {\\alpha} e _ {\\beta}. \\tag {10.56b}",
+      "new": "\\nabla e_{\\alpha} = \\mathcal {A}_{i}{}^{\\beta}{}_{\\alpha} e_{\\beta}. \\tag {10.56b}"
+    },
+    {
+      "id": "nakahara_gtp-ch10-body-297-05f2d0",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[297]",
+      "expect": "\\nabla_ {\\partial / \\partial x ^ {\\mu}} e _ {\\alpha} = \\mathcal {A} _ {i \\mu} ^ {\\beta} _ {\\alpha} e _ {\\beta}. \\tag {10.57}",
+      "new": "\\nabla_{\\partial / \\partial x^{\\mu}} e_{\\alpha} = \\mathcal {A}_{i\\mu}{}^{\\beta}{}_{\\alpha} e_{\\beta}. \\tag {10.57}"
+    }
+  ]
+}

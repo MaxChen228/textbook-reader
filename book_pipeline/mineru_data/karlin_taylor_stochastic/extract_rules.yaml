@@ -1,0 +1,126 @@
+slug: karlin_taylor_stochastic
+title: A First Course in Stochastic Processes
+author: Samuel Karlin; Howard M. Taylor
+edition: 2nd
+subject: Probability
+publisher: Academic Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 551
+bibliography_start_page: null
+index_start_page: 568
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: ELEMENTS OF STOCHASTIC PROCESSES
+    page_start: 16
+    page_end: 59
+    chapter_title_block_idx: 226
+    chapter_title_block_idx_secondary: 227
+    problems_block_idx: null
+    next_chapter_block_idx: 928
+  - num: 2
+    title: MARKOV CHAINS
+    page_start: 60
+    page_end: 95
+    chapter_title_block_idx: 928
+    chapter_title_block_idx_secondary: 929
+    problems_block_idx: null
+    next_chapter_block_idx: 1473
+  - num: 3
+    title: THE BASIC LIMIT THEOREM OF MARKOV CHAINS AND APPLICATIONS
+    page_start: 96
+    page_end: 131
+    chapter_title_block_idx: 1473
+    chapter_title_block_idx_secondary: 1474
+    problems_block_idx: null
+    next_chapter_block_idx: 2054
+  - num: 4
+    title: CLASSICAL EXAMPLES OF CONTINUOUS TIME MARKOV CHAINS
+    page_start: 132
+    page_end: 181
+    chapter_title_block_idx: 2054
+    chapter_title_block_idx_secondary: 2055
+    problems_block_idx: null
+    next_chapter_block_idx: 2883
+  - num: 5
+    title: RENEWAL PROCESSES
+    page_start: 182
+    page_end: 252
+    chapter_title_block_idx: 2883
+    chapter_title_block_idx_secondary: 2884
+    problems_block_idx: null
+    next_chapter_block_idx: 4013
+  - num: 6
+    title: MARTINGALES
+    page_start: 253
+    page_end: 354
+    chapter_title_block_idx: 4013
+    chapter_title_block_idx_secondary: 4014
+    problems_block_idx: null
+    next_chapter_block_idx: 5890
+  - num: 7
+    title: BROWNIAN MOTION
+    page_start: 355
+    page_end: 406
+    chapter_title_block_idx: 5890
+    chapter_title_block_idx_secondary: 5891
+    problems_block_idx: null
+    next_chapter_block_idx: 6762
+  - num: 8
+    title: BRANCHING PROCESSES
+    page_start: 407
+    page_end: 457
+    chapter_title_block_idx: 6762
+    chapter_title_block_idx_secondary: 6763
+    problems_block_idx: null
+    next_chapter_block_idx: 7669
+  - num: 9
+    title: STATIONARY PROCESSES
+    page_start: 458
+    page_end: 550
+    chapter_title_block_idx: 7669
+    chapter_title_block_idx_secondary: 7670
+    problems_block_idx: null
+    next_chapter_block_idx: 9295
+
+appendices:
+  - id: A
+    title: REVIEW OF MATRIX ANALYSIS
+    page_start: 551
+    chapter_title_block_idx: 9295
+
+section_re: '^(\d+):\s+(.+)$'
+subsection_re: '^((?:[A-Z])|(?:I{1,3}|IV|V|VI{0,3}|IX|X)|(?:\([a-zivx]+\))|(?:Elementary Problems)|(?:Problems)|(?:NOTES)|(?:REFERENCE(?:S)?)|(?:Preliminaries))(?:\.\s+|\s+)?(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: '^(?:Solutions?|Answers?):\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([A-Z]?[0-9]+(?:\.[0-9]+)?[a-z]?|[IVX]+|\*)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

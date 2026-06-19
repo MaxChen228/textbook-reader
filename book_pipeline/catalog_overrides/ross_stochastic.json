@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "ross-fig-3.3.1-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[121]",
+      "field": "md",
+      "old": "Figure 3.31",
+      "new": "Figure 3.3.1",
+      "reason": "raw PDF p.118 theorem proof prints 'see Figure 3 3 1'; OCR collapsed the dots and audit misread it as ref 3.31."
+    },
+    {
+      "id": "ross-fig-5.6.2-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[403]",
+      "field": "md",
+      "old": "Figure 5.62",
+      "new": "Figure 5.6.2",
+      "reason": "raw PDF p.273 shows caption 'Figure 5.6.2. A tandem queue.' and the paragraph ends with '(Figure 5.6.2)'; OCR dropped the middle dot and produced a false missing ref 5.62."
+    }
+  ]
+}

@@ -12,7 +12,1644 @@
 - 提議：把 cohen_tannoudji_qm 明確改成 Volume 1（或改成新的 vol1 slug），避免與 2nd ed 三卷本/全套合集混淆。
 - 風險：若維持現狀，crawl agent 可能把同一 canonical 書誤落到 vol1 或 1-3 合集，造成 SoT 與實際 PDF 不一致。
 
-## domain: engine  （1 條；proposed=1）
+## domain: engine  （53 條；proposed=53）
+
+### P-2026-06-18-artin-algebra — catalog 無法把相鄰 text 圖說綁回 image/table
+- proposed | type=tooling-gap | source=agent
+- 證據：artin_algebra parser/smoke 在章節與習題切分已綠，但 smoke 仍 H6 unresolved refs=10、H7 empty_captions=91。raw unified 多個 case 為 image/table block 本身無 caption，而下一個 bare text block 才有圖說/語義，例如 idx 1052(image) 後接 idx 1053='(2.7.12) Some Fibres of the Absolute Value Map ...'；ch06 連續 figure 中 caption 有 '(6.1.5)'/'(6.1.6)' 這類 bare text；ch04 body[178:180] 同一語義圖拆成多個 image block，只有最後一塊帶 '(4.4.11) ...'。現有 extract_rules schema 只有 figure_caption_merge/figure_caption_main_re，無法表達『把鄰近 bare text 綁成 caption』或『多個連續 image 共享尾端 caption』。
+- 提議：擴充 deterministic catalog/build 流程，支援 per-book 將相鄰 bare text caption 綁到前一個 image/table，或合併連續 media shards 共用尾端 caption；否則 audit-book 無法把這類 OCR 跑到 smoke 全綠。
+
+### P-2026-06-18-atiyah-macdonald-commutative-alg — catalog extraction needs captionless inline-diagram exclude/bind support
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/smoke is structurally green (11 chapters, chapter-end EXERCISES parsed correctly), but smoke remains critical only at H7 empty_captions=2. unified image block idx 668 (ch02 body[232]) is a commutative-diagram line image between prose sentences 'In fact there is a commutative diagram of ring homomorphisms' and 'in which u ...'; idx 1867 (ch10 body[82]) is another inline diagram after 'ii) => i): by Hilbert''s basis theorem (7.6).' and before graded-ring prose. Both images have empty media captions and no stable Figure/Fig identifier. Current extract_rules schema only has figure_caption_merge/figure_caption_main_re, which cannot safely bind neighboring prose or mark captionless legacy diagrams non-indexable.
+- 提議：Extend deterministic catalog extraction so audit-book can either bind adjacent prose/text blocks to nearby image blocks when explicitly configured, or declare per-visual exclude/nonindexable reasons for captionless inline diagrams. Without that, books like Atiyah-Macdonald can parse chapters/problems correctly but remain stuck on smoke H7.
+
+### P-2026-06-18-batchelor-fluid — catalog cannot bind bare-text figure captions for batchelor_fluid
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke stays critical after two extract_rules iterations: H6 unresolved Figure refs=12 and H7 empty_captions=39. Catalog audit shows many figures whose visible id/caption lives in neighboring bare text such as '(b) Figure 1.3.3. ...', 'Figure 5.10.4. ...', or prose-like 'Figure 4.10.1 shows ...', plus multi-image plate shards where only one later block carries the figure id. Enabling figure_caption_merge with a Figure N.N.N. main-caption regex made no change.
+- 提議：Extend catalog extraction to attach neighboring bare text blocks or sibling image fragments to a figure semantic id/caption, or allow captionless shards to be marked non-indexable without failing H6/H7. Current schema fields cannot express this OCR pattern safely.
+
+### P-2026-06-18-brezis-functional-analysis — catalog_audit 對無編號示意圖缺少 exclude/id 表達
+- proposed | type=tooling-gap | source=codex
+- 證據：brezis_functional_analysis 在 parser+smoke 後僅殘 H7: parsed/_catalog_audit.md 列出 9 個 figure 與 2 個 table 的 C7/C2，其中多數 image 周邊只有正文或引用（如 ch01 body[79], ch05 body[32], ch10 body[7]），現有 extract_rules 僅有 figure_caption_merge/main_re，無法為非 Figure N 編號圖塊給 semantic id 或 exclude reason。
+- 提議：補 catalog/parse 層對非編號視覺塊的 declarative exclusion 或 stable nonsemantic id 支援，例如允許 extract_rules 以 regex/anchor 將示意圖標成 exclude_reason=decorative/inline-derivation，或讓 catalog_audit 對無 caption 編號但無 unresolved ref 的圖塊降級。
+
+### P-2026-06-18-brown-lemay-central-science — figure catalog cannot index split/bare captions in chemistry text
+- proposed | type=tooling-gap | source=agent
+- 證據：Final smoke on brown_lemay_central_science stays at H6 unresolved Figure refs=30 and H7 empty_captions=1817 after extract_rules iteration. Parser now cleanly yields chapter-end problems (24 chapters, 63-88 problems/chapter), so remaining failure is catalog-only. Catalog audit shows many MinerU image fragments with no own caption while the visible figure id/caption lives in later bare text like '▲ Figure 1.25 ...' or prose refs like 'Figure 1.9 summarizes ...'. Enabling figure_caption_merge plus a main-caption regex worsened metrics (H6 36, H7 1827), so current schema cannot express these cases safely.
+- 提議：Extend catalog extraction to associate nearby bare text or sibling image fragments with a figure id/caption, and allow captionless figure shards to be marked non-indexable/excluded without poisoning H6/H7. Current figure_caption_merge only handles subcaption-to-main-caption merges and is insufficient for this OCR pattern.
+
+### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
+- proposed | type=tooling-gap | source=agent
+- 證據：多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
+- 提議：inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
+
+### P-2026-06-18-crawl-resolve — worker 越界改核心碼：book_pipeline/math_sweep.py（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:89722 存活期間，受保護程式碼面 book_pipeline/math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/math_sweep.py b/book_pipeline/math_sweep.py
+index cfa9359..6a9cf50 100644
+--- a/book_pipeline/math_sweep.py
++++ b/book_pipeline/math_sweep.py
+@@ -21,6 +21,7 @@ import datetime
+ import hashlib
+ import json
+ import os
++import re
+ import socket
+ import sys
+ import tempfile
+@@ -31,6 +32,7 @@ from pathlib import Path
+ from typing import Any, Callable, Iterator
+ 
+ from book_pipeline.apply_math_overrides import (
++    OVERRIDE_DIR,
+     apply_overrides,
+     finding_to_overrides,
+     merge_overrides,
+@@ -108,6 +110,51 @@ def _gid(slug: str, tex: str, display: bool) -> str:
+     return f"{slug}:{h}"
+ 
+ 
++# ── 語意守門（render 守門之上的第二道閘）──────────────────────────────────
++# render gate 只驗「MathJax 能否編譯」；但語意空洞的字串是**合法 LaTeX、照樣編譯過**：
++# ``（空字串）、`\mathrm{~~}`（純 nbsp 空白）、`{\let\mathbf\relax \mathbf{}\mathbf{}…}`
++# （把 \mathbf 重定義成空、塞空盒中和垃圾）全部 render ok=true（實測）。LLM 面對「源文已毀、
++# 無公式可救」時的局部理性就是吐這種能 render 的空殼/中和式蒙混過關——實證：cohen ch14 整條
++# 改寫成 `$\mathrm{~~}$`（reader 顯示空白）、dummit ch10 用 \let 中和成一排空 \mathbf{}。這些
++# 都過了 render gate、落地成「已修」的謊（比留 OCR 殘體更糟：殘體會 render error 示警，空殼是靜默）。
++# 語意 gate 攔下 → 不落地（回流重試池；終究留作可見殘餘或交 §8 math-accept，絕不偽裝成已修）。
++#
++# 只攔「零誤殺」的兩類：空殼（去格式/結構後無任何內容字元）、TeX 程式原語（\let \def…無內容用途）。
++# 退化重複（\alpha×30）**刻意不納入**確定性 gate——與合法資料表欄位規格 `{c c c c}`、化學濃度
++# `[\mathrm{B}]/[\mathrm{B}]` 的重複糾纏、易誤殺；那類交「源文已毀 → math-accept 誠實終態」處理。
++_TEX_PRIMITIVE = re.compile(
++    r"\\(?:let|def|edef|gdef|xdef|catcode|relax|csname|expandafter|futurelet"
++    r"|newcommand|renewcommand|providecommand)\b")
++_CTRL_SEQ = re.compile(r"\\[A-Za-z@]+")
++# 內容承載控制序列（希臘字母/算子/符號）：剝掉會誤判空殼，故計為內容字元（→ 佔位 §）。
++_CONTENT_CTRL = re.compile(
++    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa"
++    r"|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega"
++    r"|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega"
++    r"|partial|nabla|infty|sum|int|prod|oint|pm|mp|times|cdot|cdots|ldots|sqrt|hbar|ell|aleph"
++    r"|Re|Im|forall|exists|in|notin|subset|cup|cap|wedge|vee|neg|to|mapsto|langle|rangle"
++    r"|dagger|star|prime|circ|oplus|otimes|perp|parallel|approx|equiv|sim|propto|leq|geq|neq"
++    r"|ll|gg|deg)\b")
++
++
++def semantic_reason(new: str) -> str | None:
++    r"""render ok 後的語意守門：回 reject 原因（None=通過）。純函式、零磁碟、可單測。
++    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\mathrm{null}(T)$）全放行。"""
++    s = (new or "").strip()
++    for a, b in (("$$", "$$"), (r"\[", r"\]"), (r"\(", r"\)"), ("$", "$")):
++        if s.startswith(a) and s.endswith(b) and len(s) >= len(a) + len(b):
++            s = s[len(a):len(s) - len(b)].strip()
++            break
++    if _TEX_PRIMITIVE.search(s):
++        return "tex_primitive"
++    core = _CONTENT_CTRL.sub("§", s)               # 內容控制序列 → 佔位（保留它代表的內容）
++    core = _CTRL_SEQ.sub("", core)                  # 其餘（格式）控制序列 → 刪
++    core = re.sub(r"[\^_{}&~\\,;:!\s]", "", core)   # 結構/nbsp/空白/標點控制 → 刪
++    if not core:
++        return "empty_shell"
++    return None
++
++
+ def iter_todo(*, book: str | None = None,
+               category: str | None = None) -> Iterator[tuple[str, dict[str, Any]]]:
+     """yield (slug, finding) 全 corpus 殘餘待辦。book/category 為可選過濾。
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-crawl-resolve-2 — worker 越界改核心碼：book_pipeline/test_math_sweep.py（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:3404 存活期間，受保護程式碼面 book_pipeline/test_math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/test_math_sweep.py b/book_pipeline/test_math_sweep.py
+index e1d458b..12b0aee 100644
+--- a/book_pipeline/test_math_sweep.py
++++ b/book_pipeline/test_math_sweep.py
+@@ -197,9 +197,10 @@ def _finding_t(tex, display=False):
+ 
+ 
+ def test_parse_jsonl_tolerant():
+-    txt = '```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n{"i":2}\n```'
+-    # markdown 圍欄/雜訊/缺 tex(i2)/無 i(bad) 全跳過，只留合法兩條
+-    assert math_sweep._parse_jsonl(txt) == {0: "a", 1: "b"}
++    txt = ('```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n'
++           '{"i":2}\n{"i":3,"unrecoverable":true}\n```')
++    # markdown 圍欄/雜訊/缺 tex 無 unrec(i2)/無 i(bad) 全跳過；fix 兩條 + unrecoverable 一條
++    assert math_sweep._parse_jsonl(txt) == {0: {"tex": "a"}, 1: {"tex": "b"}, 3: {"unrec": True}}
+ 
+ 
+ def test_batched():
+@@ -223,34 +224,76 @@ def test_ccnexus_base_env_and_host(monkeypatch):
+             os.environ.pop("CCNEXUS_BASE_URL", None)
+ 
+ 
+-def test_process_pool_gates_and_retries(monkeypatch):
+-    pool = [("g0", "bookA", _finding_t("BAD0")),
+-            ("g1", "bookA", _finding_t("OK1")),
+-            ("g2", "bookB", _finding_t("MISS2"))]
+-    # 模型：i0 回壞 tex（render fail）、i1 回好 tex、i2 漏回
++def _one(grp, monkeypatch):
++    return math_sweep._run_one_batch(grp, 0, model="m", base="b", auth="a", pool_name="short", rnd=0)
++
++
++def test_run_one_batch_gates_and_retries(monkeypatch):
++    grp = [("g0", "bookA", _finding_t("BAD0")),
++           ("g1", "bookA", _finding_t("OK1")),
++           ("g2", "bookB", _finding_t("MISS2"))]
++    # 模型：i0 回壞 tex（render fail）、i1 回好 tex、i2 漏回。批次 render → 須回 per-item verdict。
+     monkeypatch.setattr(math_sweep, "_call_llm",
+                         lambda payload, **k: '{"i":0,"tex":"BADNEW"}\n{"i":1,"tex":"GOODNEW"}')
+     monkeypatch.setattr(math_sweep, "run_render",
+-                        lambda items: {0: {"ok": items[0]["s"] == "GOODNEW"}})
++                        lambda items: {it["i"]: {"ok": it["s"] == "GOODNEW"} for it in items})
+     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s + "-ov"}])
+-    accepted = defaultdict(list); gid_new = {}
+-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+-                                   accepted=accepted, gid_new=gid_new)
+-    assert gid_new == {"g1": "GOODNEW"}                         # 只 i1 落地
+-    assert accepted["bookA"] == [{"id": "bookA-ov"}]
+-    assert {x[0] for x in nxt} == {"g0", "g2"}                  # render-fail + 漏回 → retry
++    res = _one(grp, monkeypatch)
++    assert res["accepts"] == [("bookA", "g1", "GOODNEW", [{"id": "bookA-ov"}])]  # 只 i1 落地
++    assert {x[0] for x in res["retry"]} == {"g0", "g2"}                          # render-fail + 漏回
++    assert res["unrec"] == []
+ 
+ 
+-def test_process_pool_batch_failure_retries_all(monkeypatch):
+-    pool = [("g0", "bookA", _finding_t("X")), ("g1", "bookA", _finding_t("Y"))]
++def test_run_one_batch_llm_failure_retries_all(monkeypatch):
++    grp = [("g0", "bookA", _finding_t("X")), ("g1", "bookA", _finding_t("Y"))]
+     def boom(*a, **k):
+         raise RuntimeError("conn reset")
+     monkeypatch.setattr(math_sweep, "_call_llm", boom)
+-    monkeypatch.setattr(math_sweep, "run_render", lambda i: {0: {"ok": True}})
+-    accepted = defaultdict(list); gid_new = {}
+-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+-                                   accepted=accepted, gid_new=gid_new)
+-    assert len(nxt) == 2 and not gid_new                       # 整批失敗 → 全重試、零落地
++    res = _one(grp, monkeypatch)
++    assert res["state"] == "error" and res["retry"] == grp and not res["accepts"]  # 整批重試零落地
++
++
++def test_run_one_batch_unrecoverable_exits_retry(monkeypatch):
++    # 模型誠實宣告 unrecoverable → 進 unrec 終態、**不重試**（退出無限重試迴圈）
++    grp = [("g0", "bookA", _finding_t("NOISE"))]
++    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"unrecoverable":true}')
++    monkeypatch.setattr(math_sweep, "run_render", lambda items: {})
++    res = _one(grp, monkeypatch)
++    assert res["unrec"] == [("bookA", 1)] and not res["retry"] and not res["accepts"]
++    assert res["verdicts"][0]["outcome"] == "unrecoverable"
++
++
++# ── 語意守門：render 過但空殼/原語不可落地（render gate 之上的第二道閘）─────────
++def test_semantic_reason_blocks_empty_and_primitive():
++    sr = math_sweep.semantic_reason
++    assert sr(r"$\mathrm{~~} $") == "empty_shell"              # 純 nbsp 空白
++    assert sr("$$ $$") == "empty_shell"                       # 空 display
++    assert sr("") == "empty_shell"                            # 空字串
++    assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"  # 一排空盒
++    assert sr(r"${\let\mathbf\relax \mathbf{}\mathbf{}}$") == "tex_primitive"  # \let 中和
++    assert sr(r"$\def\x{}\x$") == "tex_primitive"
++
++
++def test_semantic_reason_passes_legit_short_formulas():
++    sr = math_sweep.semantic_reason
++    for ok in (r"$N_{2}$", r"$\nu_{2}$", r"$\sqrt{2}$", r"$\alpha = 1$", r"$\alpha \in K$",
++               r"$\partial U$", r"$\delta L$", r"\mu\text{A}", r"$T|_{\mathrm{null}(T)^\perp}$",
++               r"$\chi _ { 2 }$", r"$\omega_{\mu}^{a}{}_{b}$",
++               r"\begin{array}{c c c c} a & b & c & d \\ \end{array}"):  # 表格欄位規格不誤殺
++        assert sr(ok) is None, ok
++
++
++def test_run_one_batch_semantic_gate_blocks_renderable_empty(monkeypatch):
++    # 模型回「能 render 但語意空洞」的空殼 → render_ok=True 卻必須擋下不落地、回流重試
++    grp = [("g0", "bookA", _finding_t("DESTROYED_OCR"))]
++    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: r'{"i":0,"tex":"\\mathrm{~~} "}')
++    monkeypatch.setattr(math_sweep, "run_render", lambda items: {it["i"]: {"ok": True} for it in items})
++    monkeypatch.setattr(math_sweep, "finding_to_overrides",
++                        lambda s, f, n: (_ for _ in ()).throw(AssertionError("空殼不該落地")))
++    res = _one(grp, monkeypatch)
++    assert not res["accepts"]                                 # 零落地
++    assert {x[0] for x in res["retry"]} == {"g0"}             # 回流重試
++    assert res["verdicts"][0]["outcome"] == "semantic_fail"
+ 
+ 
+ def _batch_ns(**kw):
+@@ -267,7 +310,7 @@ def test_cmd_batch_end_to_end(monkeypatch):
+     monkeypatch.setattr(
+         math_sweep, "_call_llm",
+         lambda payload, **k: "\n".join('{"i":%d,"tex":"NEW%d"}' % (x["i"], x["i"]) for x in payload))
+-    monkeypatch.setattr(math_sweep, "run_render", lambda items: {0: {"ok": True}})
++    monkeypatch.setattr(math_sweep, "run_render", lambda items: {it["i"]: {"ok": True} for it in items})
+     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s}])
+     landed = []
+     monkeypatch.setattr(math_sweep, "merge_overrides",
+@@ -315,18 +358,16 @@ def test_cmd_batch_node_unavailable(monkeypatch):
+     assert rc == 1 and out["ok"] is False and "node" in out["error"] and called == []
+ 
+ 
+-def test_process_pool_render_exception_retries(monkeypatch):
+-    # render_check.js 偶發 raise（非 verdict）→ 該條進 retry、零落地（不裸炸整批）
+-    pool = [("g0", "bookA", _finding_t("X"))]
++def test_run_one_batch_render_exception_retries(monkeypatch):
++    # render_check.js 偶發 raise（整批 spawn 掛）→ 全候選進 retry、零落地（不裸炸整批）
++    grp = [("g0", "bookA", _finding_t("X"))]
+     monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"tex":"NEW"}')
+     def boom(items):
+         raise RuntimeError("render_check crash")
+     monkeypatch.setattr(math_sweep, "run_render", boom)
+     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": "x"}])
+-    accepted = defaultdict(list); gid_new = {}
+-    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
+-                                   accepted=accepted, gid_new=gid_new)
+-    assert len(nxt) == 1 and not gid_new and not accepted
++    res = _one(grp, monkeypatch)
++    assert {x[0] for x in res["retry"]} == {"g0"} and not res["accepts"]
+ 
+ 
+ # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-crawl-resolve-3 — worker 越界改核心碼：book_pipeline/math_sweep.py（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:3404 存活期間，受保護程式碼面 book_pipeline/math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/math_sweep.py b/book_pipeline/math_sweep.py
+index cfa9359..91d5568 100644
+--- a/book_pipeline/math_sweep.py
++++ b/book_pipeline/math_sweep.py
+@@ -21,16 +21,20 @@ import datetime
+ import hashlib
+ import json
+ import os
++import re
+ import socket
+ import sys
+ import tempfile
++import threading
+ import time
+ import urllib.request
+ from collections import defaultdict
++from concurrent.futures import ThreadPoolExecutor, as_completed
+ from pathlib import Path
+ from typing import Any, Callable, Iterator
+ 
+ from book_pipeline.apply_math_overrides import (
++    OVERRIDE_DIR,
+     apply_overrides,
+     finding_to_overrides,
+     merge_overrides,
+@@ -108,6 +112,51 @@ def _gid(slug: str, tex: str, display: bool) -> str:
+     return f"{slug}:{h}"
+ 
+ 
++# ── 語意守門（render 守門之上的第二道閘）──────────────────────────────────
++# render gate 只驗「MathJax 能否編譯」；但語意空洞的字串是**合法 LaTeX、照樣編譯過**：
++# ``（空字串）、`\mathrm{~~}`（純 nbsp 空白）、`{\let\mathbf\relax \mathbf{}\mathbf{}…}`
++# （把 \mathbf 重定義成空、塞空盒中和垃圾）全部 render ok=true（實測）。LLM 面對「源文已毀、
++# 無公式可救」時的局部理性就是吐這種能 render 的空殼/中和式蒙混過關——實證：cohen ch14 整條
++# 改寫成 `$\mathrm{~~}$`（reader 顯示空白）、dummit ch10 用 \let 中和成一排空 \mathbf{}。這些
++# 都過了 render gate、落地成「已修」的謊（比留 OCR 殘體更糟：殘體會 render error 示警，空殼是靜默）。
++# 語意 gate 攔下 → 不落地（回流重試池；終究留作可見殘餘或交 §8 math-accept，絕不偽裝成已修）。
++#
++# 只攔「零誤殺」的兩類：空殼（去格式/結構後無任何內容字元）、TeX 程式原語（\let \def…無內容用途）。
++# 退化重複（\alpha×30）**刻意不納入**確定性 gate——與合法資料表欄位規格 `{c c c c}`、化學濃度
++# `[\mathrm{B}]/[\mathrm{B}]` 的重複糾纏、易誤殺；那類交「源文已毀 → math-accept 誠實終態」處理。
++_TEX_PRIMITIVE = re.compile(
++    r"\\(?:let|def|edef|gdef|xdef|catcode|relax|csname|expandafter|futurelet"
++    r"|newcommand|renewcommand|providecommand)\b")
++_CTRL_SEQ = re.compile(r"\\[A-Za-z@]+")
++# 內容承載控制序列（希臘字母/算子/符號）：剝掉會誤判空殼，故計為內容字元（→ 佔位 §）。
++_CONTENT_CTRL = re.compile(
++    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa"
++    r"|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega"
++    r"|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega"
++    r"|partial|nabla|infty|sum|int|prod|oint|pm|mp|times|cdot|cdots|ldots|sqrt|hbar|ell|aleph"
++    r"|Re|Im|forall|exists|in|notin|subset|cup|cap|wedge|vee|neg|to|mapsto|langle|rangle"
++    r"|dagger|star|prime|circ|oplus|otimes|perp|parallel|approx|equiv|sim|propto|leq|geq|neq"
++    r"|ll|gg|deg)\b")
++
++
++def semantic_reason(new: str) -> str | None:
++    r"""render ok 後的語意守門：回 reject 原因（None=通過）。純函式、零磁碟、可單測。
++    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\mathrm{null}(T)$）全放行。"""
++    s = (new or "").strip()
++    for a, b in (("$$", "$$"), (r"\[", r"\]"), (r"\(", r"\)"), ("$", "$")):
++        if s.startswith(a) and s.endswith(b) and len(s) >= len(a) + len(b):
++            s = s[len(a):len(s) - len(b)].strip()
++            break
++    if _TEX_PRIMITIVE.search(s):
++        return "tex_primitive"
++    core = _CONTENT_CTRL.sub("§", s)               # 內容控制序列 → 佔位（保留它代表的內容）
++    core = _CTRL_SEQ.sub("", core)                  # 其餘（格式）控制序列 → 刪
++    core = re.sub(r"[\^_{}&~\\,;:!\s]", "", core)   # 結構/nbsp/空白/標點控制 → 刪
++    if not core:
++        return "empty_shell"
++    return None
++
++
+ def iter_todo(*, book: str | None = None,
+               category: str | None = None) -> Iterator[tuple[str, dict[str, Any]]]:
+     """yield (slug, finding) 全 corpus 殘餘待辦。book/category 為可選過濾。
+@@ -208,6 +257,12 @@ def cmd_fix(a: argparse.Namespace) -> int:
+                      "error": f"new tex 仍渲染失敗：{verdict.get('err') or 'unknown'}",
+                      "hint": "改寫後重試（override 未落地）"}, 1)
+ 
++    # 語意守門：render 過但空殼/含 TeX 原語 → 擋下不落地（見 semantic_reason）。
++    if (sem := semantic_reason(a.new)):
++        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "semantic",
++                     "error": f"new 通過 render 但語意空洞（{sem}）→ 擋下不落地",
++                     "hint": "源文已毀不可救者用 `devctl math-accept`，勿塞空殼/中和式蒙混"}, 1)
++
+     # 產 override（每 target 一條，共用 new）→ 併入 override file → apply 到 parsed。
+     try:
+         ovs = finding_to_overrides(slug, finding, a.new)
+@@ -243,10 +298,41 @@ def cmd_fix(a: argparse.Namespace) -> int:
+ # 本機守門（<1ms，不過不落地）、帶 retry 池≤2 輪、長式分流。
+ 
+ DEFAULT_MODEL = "gpt-5.3-codex-spark"
++# 強約束 + few-shot：render gate 只能擋確定性空殼/原語，攔不到「信心型幻覺」（把噪音編成
++# \mathrm{width} 這種看似合法卻無中生有的內容）。源頭治理在 prompt——明令禁止臆造/空殼/中和，
++# 並給「源文已毀」一個誠實出口 unrecoverable（→ 系統標 math-accept 終態），取代「假修蒙混」。
++# token input 成本不計（攤平在 render 守門前、且品質遠重於零頭 token）。
+ _LLM_SYS = (
+-    '你是 LaTeX 修復器。每條給壞 tex（OCR 殘體）與其 MathJax 編譯錯誤，回**最小修正、'
+-    '語意不變、可被 MathJax 渲染**的正確 tex。逐條只回 JSONL，每行一個物件 '
+-    '{"i":<原序號>,"tex":"<正確 tex>"}，不要 markdown 圍欄、不要解釋、不要多餘字。'
++    "你是嚴謹的 LaTeX OCR 修復器。輸入每條為一個 JSON 物件 "
++    '{"i":序號,"err":MathJax編譯錯誤,"tex":壞tex}——tex 是教科書數學式經 OCR 後的殘體，'
++    "err 是它丟進 MathJax 的錯誤。任務：在**不臆造、不改變數學語意**的前提下，回最小修正、"
++    "可被 MathJax 渲染的正確 tex。\n\n"
++    "鐵律（違反即為破壞資料，比不修更糟）：\n"
++    "1. 只做最小必要修正：補漏的 {}、修雙上下標（a^b^c→a^{bc}）、補 OCR 誤切的 \\left/\\right 配對。"
++    "保留所有原有符號、上下標、結構，不增不減語意。\n"
++    "2. 嚴禁臆造內容：看不懂的符號別猜成英文單字或無關符號。OCR 把 \\omega 切成 'w'、有把握可還原 "
++    "\\omega；但**絕不可**把一團噪音編成 \\mathrm{width} 這種「看似合法卻無中生有」的內容。\n"
++    "3. 嚴禁空殼蒙混：絕不回 \\mathrm{~~}、空 {}、$$ $$、或用 \\let/\\def/\\relax 把巨集中和成空白"
++    "來「騙過渲染」。能渲染但語意空洞＝製造靜默錯誤，明令禁止（系統另有守門會擋下並退回）。\n"
++    "4. 源文已毀就誠實說：若 tex 已是不可逆 OCR 噪音（大段重複 ^{\\mathrm{~~}}、整排空 \\mathbf{}、"
++    "字符堆疊到無法辨識原式），**不要硬修也不要編造**，回 {\"i\":序號,\"unrecoverable\":true}——"
++    "系統會標為「源文已毀」誠實終態，遠優於塞假式子。\n"
++    "5. unrecoverable 是最後手段、門檻要高：只要還能辨識原式骨架（分數/積分/矩陣/求和/上下標…）就修，不要逃。\n\n"
++    "輸出：逐條只回 JSONL，每行一物件，二選一：\n"
++    '  {"i":序號,"tex":"<正確 tex>"}      ← 修好了\n'
++    '  {"i":序號,"unrecoverable":true}     ← 源文已毀、無可救\n'
++    "不要 markdown 圍欄、不要解釋、不要多餘字。\n\n"
++    "範例：\n"
++    '  輸入 {"i":0,"err":"Double exponent","tex":"e^i\\omega t^2"}\n'
++    '  輸出 {"i":0,"tex":"e^{i\\omega t^2}"}\n'
++    '  輸入 {"i":1,"err":"Missing close brace","tex":"\\frac{a}{b"}\n'
++    '  輸出 {"i":1,"tex":"\\frac{a}{b}"}\n'
++    '  輸入 {"i":2,"err":"Double subscript","tex":"\\sum_{n=1^\\infty a_n"}\n'
++    '  輸出 {"i":2,"tex":"\\sum_{n=1}^{\\infty} a_n"}\n'
++    '  輸入 {"i":3,"err":"...","tex":"^{\\mathrm{~~}}{}^{\\mathrm{~~}}{}^{\\mathrm{~~}}{}^{\\mathrm{~~}}"}\n'
++    '  輸出 {"i":3,"unrecoverable":true}   （整串只剩重複空白佔位，原式不可逆）\n'
++    '  輸入 {"i":4,"err":"...","tex":"\\mathbf{}\\mathbf{}\\mathbf{}\\mathbf{}"}\n'
++    '  輸出 {"i":4,"unrecoverable":true}   （一排空盒，無內容可救；嚴禁回 \\let 中和）'
+ )
+ 
+ 
+@@ -310,9 +396,10 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
+     return "".join(out)
+ 
+ 
+-def _parse_jsonl(text: str) -> dict[int, str]:
+-    """容錯解析模型輸出 → {i: new_tex}。逐行抓 {...}，忽略 markdown 圍欄/解釋/壞行。"""
+-    out: dict[int, str] = {}
++def _parse_jsonl(text: str) -> dict[int, dict[str, Any]]:
++    """容錯解析模型輸出 → {i: {"tex": str}} 或 {i: {"unrec": True}}。逐行抓 {...}，忽略 markdown
++    圍欄/解釋/壞行。兩種合法回應：修好（含 str tex）、或宣告源文已毀（unrecoverable:true）。"""
++    out: dict[int, dict[str, Any]] = {}
+     for ln in text.splitlines():
+         ln = ln.strip().strip("`").strip()
+         if not (ln.startswith("{") and ln.endswith("}")):
+@@ -321,11 +408,16 @@ def _parse_jsonl(text: str) -> dict[int, str]:
+             o = json.loads(ln)
+         except ValueError:
+             continue
+-        if "i" in o and isinstance(o.get("tex"), str):
+-            try:
+-                out[int(o["i"])] = o["tex"]
+-            except (ValueError, TypeError):            # 模型回非數字 i → 跳過該條，不中斷解析
+-                continue
++        if "i" not in o:
++            continue
++        try:
++            i = int(o["i"])
++        except (ValueError, TypeError):                # 模型回非數字 i → 跳過該條，不中斷解析
++            continue
++        if isinstance(o.get("tex"), str):
++            out[i] = {"tex": o["tex"]}
++        elif o.get("unrecoverable") is True:
++            out[i] = {"unrec": True}
+     return out
+ 
+ 
+@@ -339,97 +431,89 @@ def _clip(s: str, n: int = 60) -> str:
+     return s if len(s) <= n else s[:n] + "…"
+ 
+ 
+-def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
+-                  accepted: dict[str, list], gid_new: dict[str, str], verbose: bool = False,
+-                  pool_name: str = "", rnd: int = 0, seq: list[int] | None = None) -> list:
+-    """跑一個池一輪：分批打 LLM → 解析 → 每條 render 守門 → 過則收 override 進 accepted。
+-    回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。
+-    verbose → 逐條 log「書 · 舊 tex → 新 tex · render 過/不過」（daemon 想看處理流程時開）。
+-
+-    可觀測性：每批寫 dev/math_live.json（串流期 throttle 重寫模型原文）+ 完成後 append
+-    dev/math_history.jsonl（含 payload/原文/逐條判決），供 dev 頁即時看 + 歷史回溯。
+-    seq=[next_batch_no] 可變單元素 list，跨池累進全域批次序號。"""
+-    nxt: list = []
+-    if seq is None:
+-        seq = [0]
+-    for grp in _batched(pool, batch_n):
+-        bno = seq[0]
+-        seq[0] += 1
+-        items = [{"i": i, "gid": g, "slug": s, "err": f.get("err") or "",
+-                  "tex": f.get("tex") or "", "display": bool(f.get("display"))}
+-                 for i, (g, s, f) in enumerate(grp)]
+-        payload = [{"i": it["i"], "err": it["err"], "tex": it["tex"]} for it in items]
+-        base_rec = {"ts": _now_iso(), "pool": pool_name, "round": rnd, "batch": bno,
+-                    "model": model, "n": len(grp), "items": items}
+-
+-        # 串流：on_delta throttle 重寫 live，讓 dev 頁看模型逐字生成
+-        last = [0.0]
+-
+-        def _on_delta(full: str, _br=base_rec, _last=last) -> None:
+-            now = time.monotonic()
+-            if now - _last[0] < _LIVE_THROTTLE:
+-                return
+-            _last[0] = now
+-            _live_write({**_br, "state": "streaming", "raw": full, "verdicts": []})
+-
+-        _live_write({**base_rec, "state": "streaming", "raw": "", "verdicts": []})
+-        try:
+-            raw_text = _call_llm(payload, model=model, base=base, auth=auth, on_delta=_on_delta)
+-            ans = _parse_jsonl(raw_text)
+-        except Exception as e:  # 連線/逾時/HTTP → 整批重試
+-            _log(f"  ⚠ 批失敗（{len(grp)} 條重試）：{e}")
+-            rec = {**base_rec, "state": "error", "raw": "", "error": str(e),
+-                   "verdicts": [{"i": it["i"], "gid": it["gid"], "slug": it["slug"],
+-                                 "outcome": "batch_fail"} for it in items]}
+-            _live_write(rec)
+-            _history_append(rec)
+-            nxt.extend(grp)
+-            continue
++# 8 worker 並發時序列化 node render：render <1s、LLM 才是分鐘級瓶頸 → 鎖 render 幾乎不損並行，
++# 又把記憶體封頂在「單一 node 進程」（否則 8×6GB heap 直接撐爆 felix）。
++_render_lock = threading.Lock()
+ 
+-        verdicts: list[dict[str, Any]] = []
+-        for i, (gid, slug, f) in enumerate(grp):
+-            new = ans.get(i)
+-            v_rec: dict[str, Any] = {"i": i, "gid": gid, "slug": slug,
+-                                     "tex": f.get("tex") or "", "new": new or ""}
+-            if not new:                                   # 模型漏回
+-                if verbose:
+-                    _log(f"  · {slug} 模型漏回 · {_clip(f.get('tex'))}")
+-                v_rec["outcome"] = "missing"
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
++
++def _run_one_batch(grp: list, bno: int, *, model: str, base: str, auth: str,
++                   pool_name: str, rnd: int) -> dict[str, Any]:
++    """純 worker（給 ThreadPoolExecutor 並發跑）：對一批 (gid,slug,f) 打 LLM → 解析 → **批次** render
++    守門（一次 node spawn 驗整批，過去每式一 spawn）→ 語意守門。**不碰任何共享狀態、不寫檔**——
++    live/history/merge/apply/accept 全交主線程序列做（原子性）。回結果 dict：
++      accepts [(slug,gid,new,[override])] · unrec [(slug,occ)] · retry [(gid,slug,f)] · verdicts/raw/meta。"""
++    meta = {"ts": _now_iso(), "pool": pool_name, "round": rnd, "batch": bno, "model": model, "n": len(grp)}
++    payload = [{"i": k, "err": f.get("err") or "", "tex": f.get("tex") or ""}
++               for k, (_g, _s, f) in enumerate(grp)]
++    try:
++        raw_text = _call_llm(payload, model=model, base=base, auth=auth)   # 8 並發 → 不做逐 token 串流
++        ans = _parse_jsonl(raw_text)
++    except Exception as e:  # 連線/逾時/HTTP → 整批重試
++        return {**meta, "state": "error", "error": str(e), "raw": "",
++                "accepts": [], "unrec": [], "retry": list(grp),
++                "verdicts": [{"gid": g, "slug": s, "outcome": "batch_fail"} for g, s, _ in grp]}
++
++    # 批次 render 守門：蒐集所有「模型回了 tex」的候選，一次 run_render 驗整批（render 鎖序列化）。
++    cand = [(k, ans[k]["tex"], bool(grp[k][2].get("display")))
++            for k in ans if ans[k].get("tex") is not None and 0 <= k < len(grp)]
++    rmap: dict[int, dict[str, Any]] = {}
++    if cand:
++        with _render_lock:
+             try:
+-                v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
+-            except Exception as e:                        # render_check.js 偶發非零退出 → 該條重試
+-                _log(f"  ⚠ render 異常（1 條重試）：{e}")
+-                v_rec["outcome"] = "render_err"
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
+-            if not v.get("ok"):                           # render 守門：不過不落地
+-                if verbose:
+-                    _log(f"  ✗ {slug} render 不過 · {_clip(f.get('tex'))} → {_clip(new)}")
+-                v_rec["outcome"] = "render_fail"
+-                v_rec["render_err"] = v.get("err") or ""
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
++                rmap = run_render([{"i": k, "s": new, "d": d} for k, new, d in cand])
++            except Exception:
++                rmap = {}                                  # 整批 render 異常 → 全數落入 render_err 重試
++
++    accepts: list = []
++    unrec: list = []
++    retry: list = []
++    verdicts: list[dict[str, Any]] = []
++    for k, (gid, slug, f) in enumerate(grp):
++        ent = ans.get(k)
++        new = (ent or {}).get("tex") if ent else None
++        vr: dict[str, Any] = {"gid": gid, "slug": slug, "tex": f.get("tex") or "", "new": new or ""}
++        if ent and ent.get("unrec"):                       # 模型誠實宣告源文已毀 → 終態，不重試
++            vr["outcome"] = "unrecoverable"
++            unrec.append((slug, int(f.get("occ") or 1)))
++        elif not new:                                      # 漏回 / 非 str 非 unrec → 重試
++            vr["outcome"] = "missing"
++            retry.append((gid, slug, f))
++        elif (v := rmap.get(k)) is None:                   # 批次 render 異常 → 重試
++            vr["outcome"] = "render_err"
++            retry.append((gid, slug, f))
++        elif not v.get("ok"):                              # render 守門：不過不落地
++            vr["outcome"] = "render_fail"
++            vr["render_err"] = v.get("err") or ""
++            retry.append((gid, slug, f))
++        elif (sem := semantic_reason(new)):                # 語意守門：render 過但空殼/原語 → 不落地
++            vr["outcome"] = "semantic_fail"
++            vr["semantic"] = sem
++            retry.append((gid, slug, f))
++        else:
+             try:
+-                accepted[slug].extend(finding_to_overrides(slug, f, new))
+-                gid_new[gid] = new
+-                v_rec["outcome"] = "accepted"
+-                if verbose:
+-                    _log(f"  ✓ {slug} · {_clip(f.get('tex'))} → {_clip(new)}")
+-            except ValueError:                            # 無 targets / 空 tex → 無法定位，棄
+-                v_rec["outcome"] = "locate_fail"
+-                if verbose:
+-                    _log(f"  ⊘ {slug} 無法定位（無 targets/空 tex）· {_clip(f.get('tex'))}")
+-            verdicts.append(v_rec)
+-
+-        rec = {**base_rec, "state": "done", "raw": raw_text, "verdicts": verdicts}
+-        _live_write(rec)
+-        _history_append(rec)
+-    return nxt
++                ovs = finding_to_overrides(slug, f, new)
++                accepts.append((slug, gid, new, ovs))
++                vr["outcome"] = "accepted"
++            except ValueError:                             # 無 targets / 空 tex → 無法定位，棄不重試
++                vr["outcome"] = "locate_fail"
++        verdicts.append(vr)
++    return {**meta, "state": "done", "raw": raw_text,
++            "accepts": accepts, "unrec": unrec, "retry": retry, "verdicts": verdicts}
++
++
++def _write_agg_live(*, started: float, total: int, done: int, accepted: int, unrec: int,
++                    retry: int, hard: int, workers: int, active: int, running: bool) -> None:
++    """聚合進度快照（schema 2）→ dev/math_live.json。8 worker 並發下不再有單一 token 串流，
++    改報「在工作 + 多快」：吞吐(條/分)、進度(done/total)、ETA、活躍 worker 數。dev 頁直讀。"""
++    el = max(time.monotonic() - started, 1e-6)
++    rate = done / el * 60.0
++    _live_write({
++        "schema": 2, "ts": _now_iso(), "state": "running" if running else "idle",
++        "workers": workers, "active": active, "total": total, "done": done,
++        "accepted": accepted, "unrecoverable": unrec, "retry_pending": retry, "hard_residual": hard,
++        "elapsed_s": round(el, 1), "rate_per_min": round(rate, 1),
++        "eta_s": round((total - done) / (done / el)) if done and total > done else (0 if done else None),
++    })
+ 
+ 
+ def cmd_batch(a: argparse.Namespace) -> int:
+@@ -460,39 +544,95 @@ def cmd_batch(a: argparse.Namespace) -> int:
+         return 1
+ 
+     base, auth = _ccnexus_base(), _ccnexus_auth()
++    workers = max(1, getattr(a, "workers", 8))
++    verbose = getattr(a, "verbose", False)
+     accepted: dict[str, list] = defaultdict(list)
+     gid_new: dict[str, str] = {}
++    unrec: dict[str, int] = {}   # slug → 模型判源文已毀的 occ 累計（收尾轉 math-accept 誠實終態）
+     still: list = []
+-    seq = [0]  # 跨池累進的全域批次序號（給可觀測性記錄定址）
++    # 進度聚合（dev 頁「在工作 + 多快」）：done=已到終態（accept/unrec/locate_fail），retry 暫不算 done。
++    started = time.monotonic()
++    total = len(work)
++    cnt = {"done": 0, "accepted": 0, "unrec": 0, "locate": 0}
++    seq = 0  # 全域批次序號（history 定址）
++
++    # 派工：每池每輪把 batch 攤平給 ThreadPoolExecutor(workers) 並發跑純 worker；as_completed 在**主
++    # 線程序列**合併結果（accepted/gid_new/unrec/history/live 全在此寫 → 零競態、原子）。
++    _write_agg_live(started=started, total=total, done=0, accepted=0, unrec=0,
++                    retry=0, hard=0, workers=workers, active=0, running=True)
+     for name, (pool, bn) in pools.items():
+         for rnd in range(a.rounds):
+             if not pool:
+                 break
+-            _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條（批 {bn}）")
+-            pool = _process_pool(pool, bn, model=a.model, base=base, auth=auth,
+-                                 accepted=accepted, gid_new=gid_new, verbose=getattr(a, 'verbose', False),
+-                                 pool_name=name, rnd=rnd, seq=seq)
++            batches = list(_batched(pool, bn))
++            _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條 → {len(batches)} 批 × {workers} worker 並發")
++            next_pool: list = []
++            with ThreadPoolExecutor(max_workers=workers) as ex:
++                futs = {}
++                for grp in batches:
++                    futs[ex.submit(_run_one_batch, grp, seq, model=a.model, base=base,
++                                   auth=auth, pool_name=name, rnd=rnd)] = len(grp)
++                    seq += 1
++                pending = len(futs)
++                for fut in as_completed(futs):
++                    res = fut.result()
++                    for slug, gid, new, ovs in res["accepts"]:
++                        accepted[slug].extend(ovs)
++                        gid_new[gid] = new
++                    for slug, occ in res["unrec"]:
++                        unrec[slug] = unrec.get(slug, 0) + occ
++                    next_pool.extend(res["retry"])
++                    n_acc, n_unr = len(res["accepts"]), len(res["unrec"])
++                    n_loc = res["n"] - n_acc - n_unr - len(res["retry"])
++                    cnt["accepted"] += n_acc; cnt["unrec"] += n_unr; cnt["locate"] += n_loc
++                    cnt["done"] += n_acc + n_unr + n_loc
++                    pending -= 1
++                    if res.get("error"):
++                        _log(f"  ⚠ 批 #{res['batch']} 失敗（{res['n']} 條重試）：{res['error']}")
++                    elif verbose:
++                        _log(f"  批 #{res['batch']}：✓{n_acc} ⊘unrec{n_unr} ↻{len(res['retry'])}")
++                    _history_append({k: res[k] for k in
++
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-crawl-resolve-4 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:3404 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+index 07b2302..d312f88 100644
+--- a/book_pipeline/pipeline_tick.py
++++ b/book_pipeline/pipeline_tick.py
+@@ -85,11 +85,14 @@ CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
+ # 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
+ CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
+ CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
+-# 數學 sweep 每 tick 上限 + 輪數：do_math_sweep 跑 `math_sweep batch --limit L --rounds 1`。每 tick 只解
+-# 一小批殘式（一次 spark call 即回 ≈ 3-5 分），**完成即記 last_batch、occ 階梯下降、上站**，下 tick 續。
+-# rounds=1 不在 tick 內重試（round 2 為零頭再花一整次 call 不划算）——失敗條下個 tick re-list 自然重試。
+-# 小批 + 單輪 = 高頻回饋（記錄區常有東西）+ walltime 安全（不單 tick 吞整個 corpus 撞 50min 作廢）。
+-MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT', '40'))
++# 數學 sweep 每 tick 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
++# --rounds 1`。8 worker 並發各打一批 spark（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
++# 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
++# rounds=1 不在 tick 內重試——失敗條下個 tick re-list 自然重試。walltime 安全（並發不拉長單 tick 牆鐘）。
++MATH_BATCH_WORKERS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_WORKERS', '8'))
++MATH_BATCH_N = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_N', '40'))
++MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT',
++                                      str(MATH_BATCH_WORKERS * MATH_BATCH_N)))  # 餵滿 8 worker
+ MATH_BATCH_ROUNDS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_ROUNDS', '1'))
+ DATA_DIR = os.path.join(BP, 'mineru_data')
+ MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 排除出下載候選
+@@ -1141,9 +1144,9 @@ def do_math_sweep(dry: bool) -> int:
+     if not due:
+         return 0
+     cur = mv.macros_version()
+-    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch --limit {MATH_BATCH_LIMIT} --rounds {MATH_BATCH_ROUNDS}（純 API，macros={cur}）')
++    log(f'math sweep：corpus 殘餘 {total} occ（unaccepted>0、非 fixpoint）→ 直跑 math_sweep batch --limit {MATH_BATCH_LIMIT} --workers {MATH_BATCH_WORKERS} --n {MATH_BATCH_N} --rounds {MATH_BATCH_ROUNDS}（純 API，{MATH_BATCH_WORKERS} worker 並發，macros={cur}）')
+     if dry:
+-        log(f'DRY uv run python -m book_pipeline.math_sweep batch --limit {MATH_BATCH_LIMIT} --rounds {MATH_BATCH_ROUNDS}')
++        log(f'DRY uv run python -m book_pipeline.math_sweep batch --limit {MATH_BATCH_LIMIT} --workers {MATH_BATCH_WORKERS} --n {MATH_BATCH_N} --rounds {MATH_BATCH_ROUNDS}')
+         return 0
+     before_by_book = mv.residual_by_book()  # 派工前快照：normalize 規則/macro 修的書未必有 override，靠殘餘降偵測
+     t0 = time.time()
+@@ -1151,7 +1154,8 @@ def do_math_sweep(dry: bool) -> int:
+     try:
+         # stdout=PIPE 取 JSON 結果；stderr 直通（_log 進度走 stderr）→ launchd.err.log 即時可見，不被吞。
+         proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch',
+-                               '--limit', str(MATH_BATCH_LIMIT), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
++                               '--limit', str(MATH_BATCH_LIMIT), '--workers', str(MATH_BATCH_WORKERS),
++                               '--n', str(MATH_BATCH_N), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
+                               cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=None, text=True)
+     finally:
+         q.clear_math_batch_running()
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-french-vibrations-waves — catalog 無法從鄰近 text block 綁定圖說或排除非索引圖
+- proposed | type=tooling-gap | source=codex
+- 證據：french_vibrations_waves 在 smoke 僅剩 H7: empty_captions=55。多處 figure 沒有 image_caption，而圖說落在鄰近 text block 或 problem 敘述內（例：ch01 Fig. 1-1、ch05 開章三張圖、多個 problem 內示意圖）。現有 schema 只有 figure_caption_merge，可處理子圖 caption 拆塊，但無法表達『把鄰近 bare text 綁成 caption』或『此圖不進 catalog/需 exclude reason』；實測啟用 merge 反而惡化成 H6 unresolved=3 + H7 empty=74。
+- 提議：需要引擎新增其中至少一種能力：1) per-book 規則可將 figure caption 從鄰近 text block / problem 文字綁到 image；或 2) allowlist/denylist 形式標記某些 bare figures 不進 catalog 並帶 exclude reason。這樣 audit 才能把目前 55 個 captionless figures 收斂到可索引狀態，而不必改 parser/build_catalogs。
+- 風險：若不補能力，這本以及同型 OCR（caption 不在 image_caption）會長期卡在 smoke H7，無法達成『catalog 可索引』完成定義。
+
+### P-2026-06-18-georgi-lie-algebras — Support exclusion/classification of inline uncaptained figures in catalog audit
+- proposed | type=tooling-gap | source=agent
+- 證據：georgi_lie_algebras smoke reports H7: fallback_ids=0 empty_captions=95. Catalog audit shows many inline pedagogical diagrams/images surrounded only by prose (e.g. ch01 §1.16, ch08 §8.1, ch23 §23.5) with no stable Figure/Fig caption pattern or semantic id to extract deterministically from extract_rules.yaml fields.
+- 提議：Add an engine-level path to classify or exclude unlabeled inline figures from catalog criticals, or support a per-book override that marks diagram-only images as non-catalog visuals when no deterministic caption/id exists.
+
+### P-2026-06-18-giordano-computational-physics — merge multi-panel figure blocks before catalog audit
+- proposed | type=tooling-gap | source=agent
+- 證據：Many figures are emitted as consecutive fig blocks where only the last block carries caption/id, e.g. ch02 body[67-68] and ch03 body[70-71]/[74-76]. parser/smoke leaves 111 empty captions and unresolved Figure/Table refs even with figure_caption_merge=true and a matching figure_caption_main_re.
+- 提議：Teach parser/catalog builder to collapse consecutive figure/table blocks that share one trailing caption block into a single catalogable visual group, or allow extract_rules schema to mark captionless sibling panels as part of the next captioned visual.
+
+### P-2026-06-18-hardy-wright-number-theory — catalog audit 無法處理無 caption 的內嵌示意圖
+- proposed | type=tooling-gap | source=agent
+- 證據：ch19 page 397 的兩個 image block (idx 7617, 7618) 為 partition graph G/H，MinerU image_caption 與 image_footnote 皆空；前後正文只以敘述引用 graph G/H，現有 extract_rules schema 無法補 caption 或標註 catalog_exclude_reason，導致 smoke H7 empty_captions=2。
+- 提議：為 audit/build_catalogs 增加可 review 的 figure override 或 schema 欄位，允許對指定 image anchor 設 caption、semantic id，或明確標記 catalog_exclude_reason，避免無 caption 的內嵌示意圖卡住 smoke。
+
+### P-2026-06-18-hartshorne-algebraic-geometry — catalog cannot bind Hartshorne bare-text figure captions or exclude captionless diagrams
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/smoke is structurally green (5 chapters, 3 appendices; only H7 remains: fallback_ids=0 empty_captions=37). parsed/_catalog_audit.md shows many visual blocks whose visible semantics live in neighboring prose or standalone text, not media captions: e.g. ch05 body has 'Figure 18 summarizes ...' before chart block; ch05 §2 uses 'Notation 2.8.1 ... (Fig. 19)' next to an image; appB has 'Fig. 24' / 'Fig. 25' embedded in prose; many diagrams in ch02/ch04/ch05 are image blocks with empty captions and no adjacent media-borne main caption. parser.figure_caption_merge only upgrades a previous fig with subcaption '(a)/(b)' when the current fig already carries a main caption, so extract_rules figure_caption_merge/main_re cannot attach neighboring text or mark these captionless diagrams non-indexable.
+- 提議：Extend deterministic catalog extraction so audit-book can bind neighboring bare text/prose figure mentions to nearby image/chart blocks, or allow reviewable per-visual exclude/nonindexable annotations for captionless legacy diagrams. Without that, books like Hartshorne can parse chapters/problems correctly but remain stuck on smoke H7 for catalog semantics.
+
+### P-2026-06-18-hirsch-smale-devaney-ode — catalog audit 無法穩定識別多子圖/共享 caption 的 semantic id
+- proposed | type=tooling-gap | source=agent
+- 證據：hirsch_smale_devaney_ode 在 smoke H7 持續報 critical=1；parsed/_catalog_audit.md 顯示大量 image block 只有 (a)/(b) 子圖或共用 Figure 9.1/Figure 9.2 文字塊，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法表達多圖對一 caption、正文內嵌 figure ref 與子圖 id 對映。
+- 提議：在 parser/catalog 層加入多子圖 caption 對映與 caption semantic-id 抽取規則，至少支援 (a)/(b) 前綴、單 caption 含多個 Figure id、以及將純引用句（See Figure x.y）排除為 caption。
+
+### P-2026-06-18-humphreys-lie-algebras — catalog audit lacks per-visual semantic overrides
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke reports H7 with fallback_ids=0, empty_captions=17 for inline diagrams/tables that have no explicit caption or only weak labels like Figure 1/Table 1; extract_rules.yaml cannot attach per-visual semantic ids or exclude reasons
+- 提議：add a reviewable per-book visual-overrides channel so audit-book can mark figure/table semantic ids or exclusions without changing parser/catalog engine behavior globally
+
+### P-2026-06-18-karlin-taylor-stochastic — Bind adjacent prose/standalone FIG text to visual blocks in legacy OCR
+- proposed | type=tooling-gap | source=agent
+- 證據：karlin_taylor_stochastic parser/smoke is structurally green, but smoke stays red at H7 with empty_captions=9 and unresolved visual semantics=46. Catalog audit shows many figures/tables whose visible caption/id lives in neighboring prose or standalone text blocks like 'Figure 2 ...', 'FIG. 3', 'TABLE II ...', while the image/table block itself has empty or non-semantic caption. extract_rules schema cannot attach adjacent bare text to the visual block, and parser figure_caption_merge only handles subfigure-caption plus later main-caption patterns, not prose-bound captions.
+- 提議：Extend deterministic visual extraction so per-book audit can bind adjacent text/prose captions (for example 'Figure 2', 'FIG. 3', 'TABLE II') to nearby image/table blocks, or allow reviewable per-book visual overrides/excludes for captionless legacy diagrams. Without this, old OCR books can parse chapters/problems correctly but remain stuck on smoke H7.
+
+### P-2026-06-18-kleinberg-algorithm-design — Catalog builder cannot attach detached figure caption text blocks
+- proposed | type=tooling-gap | source=codex
+- 證據：In kleinberg_algorithm_design, many figures are emitted as image blocks with empty image_caption while the actual caption appears as a neighboring text block (e.g. idx 2583 image + idx 2589 'Figure 5.8 ...', idx 3713 inline figure reference text, parser/smoke leaves empty_captions=269 and unresolved Figure refs=1 even after enabling figure_caption_merge).
+- 提議：Extend parser/catalog extraction to optionally bind adjacent text blocks that match figure/table caption patterns to neighboring image/chart/table/code blocks, instead of relying only on image_caption/table_caption arrays and the current subfigure merge heuristic.
+
+### P-2026-06-18-klenke-probability — catalog cannot exclude captionless figure shards in MinerU split images
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke after audit-book rules is stable on chapters/problems but remains critical at H7 empty_captions=117. parsed/_catalog_audit.md shows many chapter-opener or multi-image figure shards with empty captions, while only a later sibling fig carries the visible main caption (for example ch04 body[191-192] and ch05 body[130-132]). parser figure_caption_merge only upgrades a previous fig whose caption is a subcaption like (a)/(b), so current schema cannot attach or exclude these captionless shards.
+- 提議：Extend catalog extraction to associate sibling image shards with a later main figure caption or allow captionless visual fragments to be marked non-indexable/excluded from H7.
+
+### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit krall_trivelpiece_plasma] session=krall_trivelpiece_plasma:2979 存活期間，受保護程式碼面 .claude/skills/book-pipeline/references/crawl.md（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，.claude/skills/book-pipeline/references/crawl.md modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-krall-trivelpiece-plasma-2 — worker 越界改核心碼：book_pipeline/resolve.py（audit krall_trivelpiece_plasma）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit krall_trivelpiece_plasma] session=krall_trivelpiece_plasma:2979 存活期間，受保護程式碼面 book_pipeline/resolve.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/resolve.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-krall-trivelpiece-plasma-3 — worker 越界改核心碼：book_pipeline/test_resolve_qc.py（audit krall_trivelpiece_plasma）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit krall_trivelpiece_plasma] session=krall_trivelpiece_plasma:2979 存活期間，受保護程式碼面 book_pipeline/test_resolve_qc.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/test_resolve_qc.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-krall-trivelpiece-plasma-4 — worker 越界改核心碼：build/bake_json.py（audit krall_trivelpiece_plasma）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit krall_trivelpiece_plasma] session=krall_trivelpiece_plasma:2979 存活期間，受保護程式碼面 build/bake_json.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，build/bake_json.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-krall-trivelpiece-plasma-5 — catalog audit 對本書圖塊殘留大量 unresolved visual semantics
+- proposed | type=tooling-gap | source=agent
+- 證據：parser 第二輪已正確切出 11 章與 235 題，parsed/ch*.json 內多數 figure 已有 fig-<num> id 與 caption；但 smoke 仍因 _catalog_audit.md 報 unresolved Figure refs=2、empty figure/table captions=40 失敗，且 work queue 中部分 body index 對不上當前 parsed block（例如 ch01 body[162] 實際是 p block）。
+- 提議：檢查 build_catalogs/catalog audit 對 figure-only / split-caption case 的 block 對位與語義 id 判斷；若 parsed figure 已有 id/caption，catalog audit 不應再報 missing-id。必要時補一個只讀 debug 輸出，列出 audit 使用的原始 block 與 parsed block 對應。
+
+### P-2026-06-18-landau-lifshitz-qm — catalog audit cannot resolve bare Fig. n captions
+- proposed | type=tooling-gap | source=codex
+- 證據：landau_lifshitz_qm parses cleanly after inline-problem audit, but smoke stays red on H7 only. Unified contains many image/chart blocks whose native caption is just bare labels like 'Fig. 1' (idx 1338 p80), 'Fig. 6' (idx 1658 p94), 'Fig. 13' (idx 3554 p195). No adjacent structured caption block exists, so build_catalogs yields entries with unresolved semantic captions/ids.
+- 提議：Add a deterministic post-parse/catalog rule that can promote nearby prose or per-book override metadata into figure captions, or allow extract_rules/catalog overrides to mark bare-label visuals with catalog_exclude_reason when no semantic caption exists.
+- 風險：Naively attaching surrounding prose to figures can over-capture narrative text and corrupt catalog parity across books; any fix must be deterministic and reviewable.
+
+### P-2026-06-18-lee-smooth-manifolds — catalog parser 缺少 multi-image figure grouping
+- proposed | type=tooling-gap | source=agent
+- 證據：lee_smooth_manifolds smoke H7 殘留 empty_captions=60；如 ch05 body[84..86] 三個相鄰 fig block 其實是同一個 Fig. 5.5，只有最後一塊帶 caption，前兩塊被各自落成 caption 幾乎空白的 fig。其他章也有同型問題。
+- 提議：在 figure catalog/build 階段加入相鄰 image block grouping：若連續 image 後接單一 caption-like text/fig block（如 Fig. N.M Title），應合併成單一 figure record，或至少允許 YAML 層宣告 multi-image panels 的歸併策略。
+
+### P-2026-06-18-mackeown-newman-computational-te — catalog 無法為鄰接文字圖說與羅馬數字表號建立 semantic id
+- proposed | type=tooling-gap | source=agent
+- 證據：Final smoke after parser-clean rules still fails only at catalog stage: parsed/_catalog_audit.md shows empty_captions=9 and unresolved Table refs=3. Many figures carry visible captions in neighboring text blocks like 'Figure 7.2 ...' / 'Figure 8.2 ...' but no semantic id is assigned; many tables in chapter 2 use Roman numerals ('TABLE II', 'TABLE IV', ...), but parser.table_id_from_caption only matches CAT_NUM_PATTERN=[A-Z]?\d+... and therefore leaves them fallback/unindexable. Remaining unresolved refs such as Table A3.1 / 2.20 / 14.11 are citation-like text that need explicit noninternal classification or override capability, not extract_rules tweaks.
+- 提議：Extend deterministic catalog extraction so per-book audit can bind adjacent text captions to nearby image/table blocks and classify noninternal refs, and broaden figure/table id parsing beyond current numeric CAT_NUM_PATTERN (for example Roman numerals or explicit schema-driven aliases/excludes). Without this, audit-book can reach parser-green but cannot drive smoke H6/H7 to green for books with caption-text separation or Roman-numeral tables.
+
+### P-2026-06-18-mtw-gravitation — catalog misses multi-image figures with adjacent text captions
+- proposed | type=tooling-gap | source=codex
+- 證據：mtw_gravitation smoke H6/H7: unresolved Figure refs=3, empty figure captions=240. Unified contains repeated image blocks where only the last image has 'Figure N.M.' or the full caption sits in the next text block (examples: ch02 body[15:18] / unified 1236-1238 for Figure 2.1; ch04 body[177:180] / unified 2283-2285 for Figure 4.1; ch01 body[190:192] / unified 1048-1049 and 20293+ style bare text captions). Current schema can only merge fig captions already attached to image blocks; it cannot bind neighboring text captions or merge unlabeled sibling images into one semantic figure.
+- 提議：Extend parser/catalog tooling so a figure cluster can absorb adjacent text-caption blocks and/or treat consecutive unlabeled image blocks plus one labeled sibling as a single semantic figure with subimages. Expose the needed behavior through schema rather than per-book engine patches.
+
+### P-2026-06-18-petrucci-general-chemistry — catalog parser cannot bind adjacent text-block figure captions
+- proposed | type=tooling-gap | source=agent
+- 證據：Petrucci smoke stops at H6 unresolved Figure refs=86/Table refs=11 and H7 empty_captions=652. Raw unified shows many figures as image block plus adjacent text blocks like idx61='▲ FIGURE 15-1' + idx62='Three approaches to equilibrium in the reaction', or idx99='Dynamic equilibrium illustrated' after a separate image block. parser.block_to_struct only reads image_caption/chart_caption from media blocks and figure_caption_merge only merges fig-caption '(a)/(b)' with a later fig block that already has a main caption, so current schema cannot attach neighboring bare text blocks as figure captions or mark captionless fragments non-indexable.
+- 提議：Extend audit-book/schema + parser to support binding adjacent text blocks to nearby image/chart blocks (for example main-caption block idx patterns or caption-following-text heuristics), and allow explicit exclude/nonindexable annotations for captionless subfigure fragments so catalog_audit H6/H7 can pass without engine-local hacks.
+
+### P-2026-06-18-petrucci-general-chemistry-2 — worker 越界改核心碼：book_pipeline/test_math_sweep.py（catalog_audit petrucci_general_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit petrucci_general_chemistry] session=petrucci_general_chemistry:17828 存活期間，受保護程式碼面 book_pipeline/test_math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/test_math_sweep.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-petrucci-general-chemistry-3 — worker 越界改核心碼：book_pipeline/math_sweep.py（catalog_audit petrucci_general_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit petrucci_general_chemistry] session=petrucci_general_chemistry:17828 存活期間，受保護程式碼面 book_pipeline/math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/math_sweep.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-petrucci-general-chemistry-4 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（catalog_audit petrucci_general_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit petrucci_general_chemistry] session=petrucci_general_chemistry:17828 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/pipeline_tick.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-riley-hobson-bence-mp — catalog extraction cannot recover split figure/table captions in riley_hobson_bence_mp
+- proposed | type=tooling-gap | source=agent
+- 證據：After three audit-book iterations, parser/smoke settles at H6 unresolved refs=1 (Table=1) and H7 empty_captions=59. Base rules use chapter-end Exercises anchors and problems_end_re to stop before Hints and answers; chapter/problem parsing is stable. Catalog audit shows many captionless media shards where the visible semantic id/caption is carried by a sibling panel or neighboring bare text such as '(c) Figure 9.1 ...', 'Figure 24.13 ...', and multi-panel/table fragments. Enabling figure_caption_merge with a Figure/Table main-caption regex worsened smoke to H6 unresolved refs=2 and H7 empty_captions=76, so current schema fields cannot safely express this OCR pattern.
+- 提議：Extend catalog extraction so adjacent bare text or sibling media shards can be associated with a figure/table caption or explicitly excluded from indexing. Current figure_caption_merge only upgrades one immediately previous '(a)/(b)' shard when the current media block already carries a main caption, which is insufficient for this book's multi-panel and split-caption pattern.
+
+### P-2026-06-18-ross-stochastic — Support mid-book appendices between chapters
+- proposed | type=tooling-gap | source=agent
+- 證據：ross_stochastic has a chapter-local appendix at block 1017/page_idx 66 ('APPENDIX' + 'The Strong Law of Large Numbers') between chapter 1 and chapter 2. Current parser schema and parse_book flow only support appendices as tail matter after all chapters: chapters are emitted first, appendices are emitted later, and the last appendix cutoff is derived from bibliography/index/EOF. This makes the chapter boundaries and problem splits deterministic, but the mid-book appendix cannot be surfaced without misclassifying it as chapter body/problems or dropping it entirely.
+- 提議：Extend extract_rules/parser to support appendix ranges interleaved between chapters, for example per-chapter appendix segments or a general ordered content-range list that can emit chapter -> appendix -> chapter transitions deterministically. Until then, audit-book can only parse the 10 main chapters and must omit this appendix.
+
+### P-2026-06-18-rudin-functional-analysis — Allow captionless tables to be excluded from catalog audit
+- proposed | type=tooling-gap | source=agent
+- 證據：Chapter 5 begins with an uncaptioned prerequisite matrix table at parsed/ch05.json body[1] (source block 2285). audit-book schema has no table-caption merge or table-exclude field, so parser+catalog smoke reports H7/C2/C7 even though chapter/problem boundaries are correct.
+- 提議：Add a reviewable way to mark table blocks as non-catalog items when they have no caption, or teach catalog audit/build to auto-exclude captionless structural tables instead of treating them as critical.
+
+### P-2026-06-18-ryden-cosmology — catalog audit cannot resolve inline/multi-image figure semantics from extract rules
+- proposed | type=tooling-gap | source=agent
+- 證據：ryden_cosmology smoke H7 persists after chapter-boundary fix and caption-merge regex. Residual cases are multi-image subfigures with local captions (a)/(b)/(c) plus prose blocks that mention Figure N.M without a standalone caption block, leaving catalog empty_captions=8.
+- 提議：Add a deterministic catalog-semantic repair path that can group adjacent visual blocks into one figure, promote inline Figure/Table references into semantic ids/captions when evidence is local, and mark non-catalog local visuals without requiring manual overrides.
+
+### P-2026-06-18-saleh-teich-photonics — catalog audit cannot resolve captionless figures from MinerU image blocks
+- proposed | type=tooling-gap | source=agent
+- 證據：saleh_teich_photonics smoke remains critical after 3 audit iterations: H6 unresolved Figure refs=8 and H7 empty_captions=170. Many figure blocks have no adjacent caption text in content_list.json, so schema-only regex/figure_caption_merge cannot recover semantic ids or captions.
+- 提議：Extend catalog/build pipeline to support per-book figure exclusion/override maps or OCR-side caption attachment for captionless image blocks, so audit-book can mark unresolved decorative/non-captioned images without modifying parser.py.
+
+### P-2026-06-18-saleh-teich-photonics-2 — worker 越界改核心碼：book_pipeline/test_math_sweep.py（catalog_audit saleh_teich_photonics）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit saleh_teich_photonics] session=saleh_teich_photonics:2998 存活期間，受保護程式碼面 book_pipeline/test_math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/test_math_sweep.py b/book_pipeline/test_math_sweep.py
+index e1d458b..e383135 100644
+--- a/book_pipeline/test_math_sweep.py
++++ b/book_pipeline/test_math_sweep.py
+@@ -197,9 +197,10 @@ def _finding_t(tex, display=False):
+ 
+ 
+ def test_parse_jsonl_tolerant():
+-    txt = '```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n{"i":2}\n```'
+-    # markdown 圍欄/雜訊/缺 tex(i2)/無 i(bad) 全跳過，只留合法兩條
+-    assert math_sweep._parse_jsonl(txt) == {0: "a", 1: "b"}
++    txt = ('```json\n{"i":0,"tex":"a"}\n garbage line\n{"i":1,"tex":"b"}\n{"bad":1}\n'
++           '{"i":2}\n{"i":3,"unrecoverable":true}\n```')
++    # markdown 圍欄/雜訊/缺 tex 無 unrec(i2)/無 i(bad) 全跳過；fix 兩條 + unrecoverable 一條
++    assert math_sweep._parse_jsonl(txt) == {0: {"tex": "a"}, 1: {"tex": "b"}, 3: {"unrec": True}}
+ 
+ 
+ def test_batched():
+@@ -253,6 +254,40 @@ def test_process_pool_batch_failure_retries_all(monkeypatch):
+     assert len(nxt) == 2 and not gid_new                       # 整批失敗 → 全重試、零落地
+ 
+ 
++# ── 語意守門：render 過但空殼/原語不可落地（render gate 之上的第二道閘）─────────
++def test_semantic_reason_blocks_empty_and_primitive():
++    sr = math_sweep.semantic_reason
++    assert sr(r"$\mathrm{~~} $") == "empty_shell"              # 純 nbsp 空白
++    assert sr("$$ $$") == "empty_shell"                       # 空 display
++    assert sr("") == "empty_shell"                            # 空字串
++    assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"  # 一排空盒
++    assert sr(r"${\let\mathbf\relax \mathbf{}\mathbf{}}$") == "tex_primitive"  # \let 中和
++    assert sr(r"$\def\x{}\x$") == "tex_primitive"
++
++
++def test_semantic_reason_passes_legit_short_formulas():
++    sr = math_sweep.semantic_reason
++    for ok in (r"$N_{2}$", r"$\nu_{2}$", r"$\sqrt{2}$", r"$\alpha = 1$", r"$\alpha \in K$",
++               r"$\partial U$", r"$\delta L$", r"\mu\text{A}", r"$T|_{\mathrm{null}(T)^\perp}$",
++               r"$\chi _ { 2 }$", r"$\omega_{\mu}^{a}{}_{b}$",
++               r"\begin{array}{c c c c} a & b & c & d \\ \end{array}"):  # 表格欄位規格不誤殺
++        assert sr(ok) is None, ok
++
++
++def test_process_pool_semantic_gate_blocks_renderable_empty(monkeypatch):
++    # 模型回「能 render 但語意空洞」的空殼 → render_ok=True 卻必須擋下不落地、回流重試
++    pool = [("g0", "bookA", _finding_t("DESTROYED_OCR"))]
++    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: r'{"i":0,"tex":"\\mathrm{~~} "}')
++    monkeypatch.setattr(math_sweep, "run_render", lambda items: {0: {"ok": True}})  # render 放行空殼
++    monkeypatch.setattr(math_sweep, "finding_to_overrides",
++                        lambda s, f, n: (_ for _ in ()).throw(AssertionError("空殼不該落地")))
++    accepted = defaultdict(list); gid_new = {}
++    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
++                                   accepted=accepted, gid_new=gid_new)
++    assert not gid_new and not accepted                       # 零落地
++    assert {x[0] for x in nxt} == {"g0"}                      # 回流重試
++
++
+ def _batch_ns(**kw):
+     base = dict(n=40, rounds=2, model="m", book=None, category=None, limit=None, dry_run=False)
+     base.update(kw)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-saleh-teich-photonics-3 — worker 越界改核心碼：book_pipeline/math_sweep.py（catalog_audit saleh_teich_photonics）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit saleh_teich_photonics] session=saleh_teich_photonics:2998 存活期間，受保護程式碼面 book_pipeline/math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/math_sweep.py b/book_pipeline/math_sweep.py
+index cfa9359..612d7ff 100644
+--- a/book_pipeline/math_sweep.py
++++ b/book_pipeline/math_sweep.py
+@@ -21,16 +21,20 @@ import datetime
+ import hashlib
+ import json
+ import os
++import re
+ import socket
+ import sys
+ import tempfile
++import threading
+ import time
+ import urllib.request
+ from collections import defaultdict
++from concurrent.futures import ThreadPoolExecutor, as_completed
+ from pathlib import Path
+ from typing import Any, Callable, Iterator
+ 
+ from book_pipeline.apply_math_overrides import (
++    OVERRIDE_DIR,
+     apply_overrides,
+     finding_to_overrides,
+     merge_overrides,
+@@ -108,6 +112,51 @@ def _gid(slug: str, tex: str, display: bool) -> str:
+     return f"{slug}:{h}"
+ 
+ 
++# ── 語意守門（render 守門之上的第二道閘）──────────────────────────────────
++# render gate 只驗「MathJax 能否編譯」；但語意空洞的字串是**合法 LaTeX、照樣編譯過**：
++# ``（空字串）、`\mathrm{~~}`（純 nbsp 空白）、`{\let\mathbf\relax \mathbf{}\mathbf{}…}`
++# （把 \mathbf 重定義成空、塞空盒中和垃圾）全部 render ok=true（實測）。LLM 面對「源文已毀、
++# 無公式可救」時的局部理性就是吐這種能 render 的空殼/中和式蒙混過關——實證：cohen ch14 整條
++# 改寫成 `$\mathrm{~~}$`（reader 顯示空白）、dummit ch10 用 \let 中和成一排空 \mathbf{}。這些
++# 都過了 render gate、落地成「已修」的謊（比留 OCR 殘體更糟：殘體會 render error 示警，空殼是靜默）。
++# 語意 gate 攔下 → 不落地（回流重試池；終究留作可見殘餘或交 §8 math-accept，絕不偽裝成已修）。
++#
++# 只攔「零誤殺」的兩類：空殼（去格式/結構後無任何內容字元）、TeX 程式原語（\let \def…無內容用途）。
++# 退化重複（\alpha×30）**刻意不納入**確定性 gate——與合法資料表欄位規格 `{c c c c}`、化學濃度
++# `[\mathrm{B}]/[\mathrm{B}]` 的重複糾纏、易誤殺；那類交「源文已毀 → math-accept 誠實終態」處理。
++_TEX_PRIMITIVE = re.compile(
++    r"\\(?:let|def|edef|gdef|xdef|catcode|relax|csname|expandafter|futurelet"
++    r"|newcommand|renewcommand|providecommand)\b")
++_CTRL_SEQ = re.compile(r"\\[A-Za-z@]+")
++# 內容承載控制序列（希臘字母/算子/符號）：剝掉會誤判空殼，故計為內容字元（→ 佔位 §）。
++_CONTENT_CTRL = re.compile(
++    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa"
++    r"|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega"
++    r"|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega"
++    r"|partial|nabla|infty|sum|int|prod|oint|pm|mp|times|cdot|cdots|ldots|sqrt|hbar|ell|aleph"
++    r"|Re|Im|forall|exists|in|notin|subset|cup|cap|wedge|vee|neg|to|mapsto|langle|rangle"
++    r"|dagger|star|prime|circ|oplus|otimes|perp|parallel|approx|equiv|sim|propto|leq|geq|neq"
++    r"|ll|gg|deg)\b")
++
++
++def semantic_reason(new: str) -> str | None:
++    r"""render ok 後的語意守門：回 reject 原因（None=通過）。純函式、零磁碟、可單測。
++    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\mathrm{null}(T)$）全放行。"""
++    s = (new or "").strip()
++    for a, b in (("$$", "$$"), (r"\[", r"\]"), (r"\(", r"\)"), ("$", "$")):
++        if s.startswith(a) and s.endswith(b) and len(s) >= len(a) + len(b):
++            s = s[len(a):len(s) - len(b)].strip()
++            break
++    if _TEX_PRIMITIVE.search(s):
++        return "tex_primitive"
++    core = _CONTENT_CTRL.sub("§", s)               # 內容控制序列 → 佔位（保留它代表的內容）
++    core = _CTRL_SEQ.sub("", core)                  # 其餘（格式）控制序列 → 刪
++    core = re.sub(r"[\^_{}&~\\,;:!\s]", "", core)   # 結構/nbsp/空白/標點控制 → 刪
++    if not core:
++        return "empty_shell"
++    return None
++
++
+ def iter_todo(*, book: str | None = None,
+               category: str | None = None) -> Iterator[tuple[str, dict[str, Any]]]:
+     """yield (slug, finding) 全 corpus 殘餘待辦。book/category 為可選過濾。
+@@ -208,6 +257,12 @@ def cmd_fix(a: argparse.Namespace) -> int:
+                      "error": f"new tex 仍渲染失敗：{verdict.get('err') or 'unknown'}",
+                      "hint": "改寫後重試（override 未落地）"}, 1)
+ 
++    # 語意守門：render 過但空殼/含 TeX 原語 → 擋下不落地（見 semantic_reason）。
++    if (sem := semantic_reason(a.new)):
++        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "semantic",
++                     "error": f"new 通過 render 但語意空洞（{sem}）→ 擋下不落地",
++                     "hint": "源文已毀不可救者用 `devctl math-accept`，勿塞空殼/中和式蒙混"}, 1)
++
+     # 產 override（每 target 一條，共用 new）→ 併入 override file → apply 到 parsed。
+     try:
+         ovs = finding_to_overrides(slug, finding, a.new)
+@@ -243,10 +298,41 @@ def cmd_fix(a: argparse.Namespace) -> int:
+ # 本機守門（<1ms，不過不落地）、帶 retry 池≤2 輪、長式分流。
+ 
+ DEFAULT_MODEL = "gpt-5.3-codex-spark"
++# 強約束 + few-shot：render gate 只能擋確定性空殼/原語，攔不到「信心型幻覺」（把噪音編成
++# \mathrm{width} 這種看似合法卻無中生有的內容）。源頭治理在 prompt——明令禁止臆造/空殼/中和，
++# 並給「源文已毀」一個誠實出口 unrecoverable（→ 系統標 math-accept 終態），取代「假修蒙混」。
++# token input 成本不計（攤平在 render 守門前、且品質遠重於零頭 token）。
+ _LLM_SYS = (
+-    '你是 LaTeX 修復器。每條給壞 tex（OCR 殘體）與其 MathJax 編譯錯誤，回**最小修正、'
+-    '語意不變、可被 MathJax 渲染**的正確 tex。逐條只回 JSONL，每行一個物件 '
+-    '{"i":<原序號>,"tex":"<正確 tex>"}，不要 markdown 圍欄、不要解釋、不要多餘字。'
++    "你是嚴謹的 LaTeX OCR 修復器。輸入每條為一個 JSON 物件 "
++    '{"i":序號,"err":MathJax編譯錯誤,"tex":壞tex}——tex 是教科書數學式經 OCR 後的殘體，'
++    "err 是它丟進 MathJax 的錯誤。任務：在**不臆造、不改變數學語意**的前提下，回最小修正、"
++    "可被 MathJax 渲染的正確 tex。\n\n"
++    "鐵律（違反即為破壞資料，比不修更糟）：\n"
++    "1. 只做最小必要修正：補漏的 {}、修雙上下標（a^b^c→a^{bc}）、補 OCR 誤切的 \\left/\\right 配對。"
++    "保留所有原有符號、上下標、結構，不增不減語意。\n"
++    "2. 嚴禁臆造內容：看不懂的符號別猜成英文單字或無關符號。OCR 把 \\omega 切成 'w'、有把握可還原 "
++    "\\omega；但**絕不可**把一團噪音編成 \\mathrm{width} 這種「看似合法卻無中生有」的內容。\n"
++    "3. 嚴禁空殼蒙混：絕不回 \\mathrm{~~}、空 {}、$$ $$、或用 \\let/\\def/\\relax 把巨集中和成空白"
++    "來「騙過渲染」。能渲染但語意空洞＝製造靜默錯誤，明令禁止（系統另有守門會擋下並退回）。\n"
++    "4. 源文已毀就誠實說：若 tex 已是不可逆 OCR 噪音（大段重複 ^{\\mathrm{~~}}、整排空 \\mathbf{}、"
++    "字符堆疊到無法辨識原式），**不要硬修也不要編造**，回 {\"i\":序號,\"unrecoverable\":true}——"
++    "系統會標為「源文已毀」誠實終態，遠優於塞假式子。\n"
++    "5. unrecoverable 是最後手段、門檻要高：只要還能辨識原式骨架（分數/積分/矩陣/求和/上下標…）就修，不要逃。\n\n"
++    "輸出：逐條只回 JSONL，每行一物件，二選一：\n"
++    '  {"i":序號,"tex":"<正確 tex>"}      ← 修好了\n'
++    '  {"i":序號,"unrecoverable":true}     ← 源文已毀、無可救\n'
++    "不要 markdown 圍欄、不要解釋、不要多餘字。\n\n"
++    "範例：\n"
++    '  輸入 {"i":0,"err":"Double exponent","tex":"e^i\\omega t^2"}\n'
++    '  輸出 {"i":0,"tex":"e^{i\\omega t^2}"}\n'
++    '  輸入 {"i":1,"err":"Missing close brace","tex":"\\frac{a}{b"}\n'
++    '  輸出 {"i":1,"tex":"\\frac{a}{b}"}\n'
++    '  輸入 {"i":2,"err":"Double subscript","tex":"\\sum_{n=1^\\infty a_n"}\n'
++    '  輸出 {"i":2,"tex":"\\sum_{n=1}^{\\infty} a_n"}\n'
++    '  輸入 {"i":3,"err":"...","tex":"^{\\mathrm{~~}}{}^{\\mathrm{~~}}{}^{\\mathrm{~~}}{}^{\\mathrm{~~}}"}\n'
++    '  輸出 {"i":3,"unrecoverable":true}   （整串只剩重複空白佔位，原式不可逆）\n'
++    '  輸入 {"i":4,"err":"...","tex":"\\mathbf{}\\mathbf{}\\mathbf{}\\mathbf{}"}\n'
++    '  輸出 {"i":4,"unrecoverable":true}   （一排空盒，無內容可救；嚴禁回 \\let 中和）'
+ )
+ 
+ 
+@@ -310,9 +396,10 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
+     return "".join(out)
+ 
+ 
+-def _parse_jsonl(text: str) -> dict[int, str]:
+-    """容錯解析模型輸出 → {i: new_tex}。逐行抓 {...}，忽略 markdown 圍欄/解釋/壞行。"""
+-    out: dict[int, str] = {}
++def _parse_jsonl(text: str) -> dict[int, dict[str, Any]]:
++    """容錯解析模型輸出 → {i: {"tex": str}} 或 {i: {"unrec": True}}。逐行抓 {...}，忽略 markdown
++    圍欄/解釋/壞行。兩種合法回應：修好（含 str tex）、或宣告源文已毀（unrecoverable:true）。"""
++    out: dict[int, dict[str, Any]] = {}
+     for ln in text.splitlines():
+         ln = ln.strip().strip("`").strip()
+         if not (ln.startswith("{") and ln.endswith("}")):
+@@ -321,11 +408,16 @@ def _parse_jsonl(text: str) -> dict[int, str]:
+             o = json.loads(ln)
+         except ValueError:
+             continue
+-        if "i" in o and isinstance(o.get("tex"), str):
+-            try:
+-                out[int(o["i"])] = o["tex"]
+-            except (ValueError, TypeError):            # 模型回非數字 i → 跳過該條，不中斷解析
+-                continue
++        if "i" not in o:
++            continue
++        try:
++            i = int(o["i"])
++        except (ValueError, TypeError):                # 模型回非數字 i → 跳過該條，不中斷解析
++            continue
++        if isinstance(o.get("tex"), str):
++            out[i] = {"tex": o["tex"]}
++        elif o.get("unrecoverable") is True:
++            out[i] = {"unrec": True}
+     return out
+ 
+ 
+@@ -339,97 +431,89 @@ def _clip(s: str, n: int = 60) -> str:
+     return s if len(s) <= n else s[:n] + "…"
+ 
+ 
+-def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
+-                  accepted: dict[str, list], gid_new: dict[str, str], verbose: bool = False,
+-                  pool_name: str = "", rnd: int = 0, seq: list[int] | None = None) -> list:
+-    """跑一個池一輪：分批打 LLM → 解析 → 每條 render 守門 → 過則收 override 進 accepted。
+-    回 next_pool（模型漏回 / render 不過 / 整批失敗者，供下輪重試）。無法定位者丟棄不重試。
+-    verbose → 逐條 log「書 · 舊 tex → 新 tex · render 過/不過」（daemon 想看處理流程時開）。
+-
+-    可觀測性：每批寫 dev/math_live.json（串流期 throttle 重寫模型原文）+ 完成後 append
+-    dev/math_history.jsonl（含 payload/原文/逐條判決），供 dev 頁即時看 + 歷史回溯。
+-    seq=[next_batch_no] 可變單元素 list，跨池累進全域批次序號。"""
+-    nxt: list = []
+-    if seq is None:
+-        seq = [0]
+-    for grp in _batched(pool, batch_n):
+-        bno = seq[0]
+-        seq[0] += 1
+-        items = [{"i": i, "gid": g, "slug": s, "err": f.get("err") or "",
+-                  "tex": f.get("tex") or "", "display": bool(f.get("display"))}
+-                 for i, (g, s, f) in enumerate(grp)]
+-        payload = [{"i": it["i"], "err": it["err"], "tex": it["tex"]} for it in items]
+-        base_rec = {"ts": _now_iso(), "pool": pool_name, "round": rnd, "batch": bno,
+-                    "model": model, "n": len(grp), "items": items}
+-
+-        # 串流：on_delta throttle 重寫 live，讓 dev 頁看模型逐字生成
+-        last = [0.0]
+-
+-        def _on_delta(full: str, _br=base_rec, _last=last) -> None:
+-            now = time.monotonic()
+-            if now - _last[0] < _LIVE_THROTTLE:
+-                return
+-            _last[0] = now
+-            _live_write({**_br, "state": "streaming", "raw": full, "verdicts": []})
+-
+-        _live_write({**base_rec, "state": "streaming", "raw": "", "verdicts": []})
+-        try:
+-            raw_text = _call_llm(payload, model=model, base=base, auth=auth, on_delta=_on_delta)
+-            ans = _parse_jsonl(raw_text)
+-        except Exception as e:  # 連線/逾時/HTTP → 整批重試
+-            _log(f"  ⚠ 批失敗（{len(grp)} 條重試）：{e}")
+-            rec = {**base_rec, "state": "error", "raw": "", "error": str(e),
+-                   "verdicts": [{"i": it["i"], "gid": it["gid"], "slug": it["slug"],
+-                                 "outcome": "batch_fail"} for it in items]}
+-            _live_write(rec)
+-            _history_append(rec)
+-            nxt.extend(grp)
+-            continue
++# 8 worker 並發時序列化 node render：render <1s、LLM 才是分鐘級瓶頸 → 鎖 render 幾乎不損並行，
++# 又把記憶體封頂在「單一 node 進程」（否則 8×6GB heap 直接撐爆 felix）。
++_render_lock = threading.Lock()
+ 
+-        verdicts: list[dict[str, Any]] = []
+-        for i, (gid, slug, f) in enumerate(grp):
+-            new = ans.get(i)
+-            v_rec: dict[str, Any] = {"i": i, "gid": gid, "slug": slug,
+-                                     "tex": f.get("tex") or "", "new": new or ""}
+-            if not new:                                   # 模型漏回
+-                if verbose:
+-                    _log(f"  · {slug} 模型漏回 · {_clip(f.get('tex'))}")
+-                v_rec["outcome"] = "missing"
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
++
++def _run_one_batch(grp: list, bno: int, *, model: str, base: str, auth: str,
++                   pool_name: str, rnd: int) -> dict[str, Any]:
++    """純 worker（給 ThreadPoolExecutor 並發跑）：對一批 (gid,slug,f) 打 LLM → 解析 → **批次** render
++    守門（一次 node spawn 驗整批，過去每式一 spawn）→ 語意守門。**不碰任何共享狀態、不寫檔**——
++    live/history/merge/apply/accept 全交主線程序列做（原子性）。回結果 dict：
++      accepts [(slug,gid,new,[override])] · unrec [(slug,occ)] · retry [(gid,slug,f)] · verdicts/raw/meta。"""
++    meta = {"ts": _now_iso(), "pool": pool_name, "round": rnd, "batch": bno, "model": model, "n": len(grp)}
++    payload = [{"i": k, "err": f.get("err") or "", "tex": f.get("tex") or ""}
++               for k, (_g, _s, f) in enumerate(grp)]
++    try:
++        raw_text = _call_llm(payload, model=model, base=base, auth=auth)   # 8 並發 → 不做逐 token 串流
++        ans = _parse_jsonl(raw_text)
++    except Exception as e:  # 連線/逾時/HTTP → 整批重試
++        return {**meta, "state": "error", "error": str(e), "raw": "",
++                "accepts": [], "unrec": [], "retry": list(grp),
++                "verdicts": [{"gid": g, "slug": s, "outcome": "batch_fail"} for g, s, _ in grp]}
++
++    # 批次 render 守門：蒐集所有「模型回了 tex」的候選，一次 run_render 驗整批（render 鎖序列化）。
++    cand = [(k, ans[k]["tex"], bool(grp[k][2].get("display")))
++            for k in ans if ans[k].get("tex") is not None and 0 <= k < len(grp)]
++    rmap: dict[int, dict[str, Any]] = {}
++    if cand:
++        with _render_lock:
+             try:
+-                v = run_render([{"i": 0, "s": new, "d": bool(f.get("display"))}]).get(0) or {}
+-            except Exception as e:                        # render_check.js 偶發非零退出 → 該條重試
+-                _log(f"  ⚠ render 異常（1 條重試）：{e}")
+-                v_rec["outcome"] = "render_err"
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
+-            if not v.get("ok"):                           # render 守門：不過不落地
+-                if verbose:
+-                    _log(f"  ✗ {slug} render 不過 · {_clip(f.get('tex'))} → {_clip(new)}")
+-                v_rec["outcome"] = "render_fail"
+-                v_rec["render_err"] = v.get("err") or ""
+-                verdicts.append(v_rec)
+-                nxt.append((gid, slug, f))
+-                continue
++                rmap = run_render([{"i": k, "s": new, "d": d} for k, new, d in cand])
++            except Exception:
++                rmap = {}                                  # 整批 render 異常 → 全數落入 render_err 重試
++
++    accepts: list = []
++    unrec: list = []
++    retry: list = []
++    verdicts: list[dict[str, Any]] = []
++    for k, (gid, slug, f) in enumerate(grp):
++        ent = ans.get(k)
++        new = (ent or {}).get("tex") if ent else None
++        vr: dict[str, Any] = {"gid": gid, "slug": slug, "tex": f.get("tex") or "", "new": new or ""}
++        if ent and ent.get("unrec"):                       # 模型誠實宣告源文已毀 → 終態，不重試
++            vr["outcome"] = "unrecoverable"
++            unrec.append((slug, int(f.get("occ") or 1)))
++        elif not new:                                      # 漏回 / 非 str 非 unrec → 重試
++            vr["outcome"] = "missing"
++            retry.append((gid, slug, f))
++        elif (v := rmap.get(k)) is None:                   # 批次 render 異常 → 重試
++            vr["outcome"] = "render_err"
++            retry.append((gid, slug, f))
++        elif not v.get("ok"):                              # render 守門：不過不落地
++            vr["outcome"] = "render_fail"
++            vr["render_err"] = v.get("err") or ""
++            retry.append((gid, slug, f))
++        elif (sem := semantic_reason(new)):                # 語意守門：render 過但空殼/原語 → 不落地
++            vr["outcome"] = "semantic_fail"
++            vr["semantic"] = sem
++            retry.append((gid, slug, f))
++        else:
+             try:
+-                accepted[slug].extend(finding_to_overrides(slug, f, new))
+-                gid_new[gid] = new
+-                v_rec["outcome"] = "accepted"
+-                if verbose:
+-                    _log(f"  ✓ {slug} · {_clip(f.get('tex'))} → {_clip(new)}")
+-            except ValueError:                            # 無 targets / 空 tex → 無法定位，棄
+-                v_rec["outcome"] = "locate_fail"
+-                if verbose:
+-                    _log(f"  ⊘ {slug} 無法定位（無 targets/空 tex）· {_clip(f.get('tex'))}")
+-            verdicts.append(v_rec)
+-
+-        rec = {**base_rec, "state": "done", "raw": raw_text, "verdicts": verdicts}
+-        _live_write(rec)
+-        _history_append(rec)
+-    return nxt
++                ovs = finding_to_overrides(slug, f, new)
++                accepts.append((slug, gid, new, ovs))
++                vr["outcome"] = "accepted"
++            except ValueError:                             # 無 targets / 空 tex → 無法定位，棄不重試
++                vr["outcome"] = "locate_fail"
++        verdicts.append(vr)
++    return {**meta, "state": "done", "raw": raw_text,
++            "accepts": accepts, "unrec": unrec, "retry": retry, "verdicts": verdicts}
++
++
++def _write_agg_live(*, started: float, total: int, done: int, accepted: int, unrec: int,
++                    retry: int, hard: int, workers: int, active: int, running: bool) -> None:
++    """聚合進度快照（schema 2）→ dev/math_live.json。8 worker 並發下不再有單一 token 串流，
++    改報「在工作 + 多快」：吞吐(條/分)、進度(done/total)、ETA、活躍 worker 數。dev 頁直讀。"""
++    el = max(time.monotonic() - started, 1e-6)
++    rate = done / el * 60.0
++    _live_write({
++        "schema": 2, "ts": _now_iso(), "state": "running" if running else "idle",
++        "workers": workers, "active": active, "total": total, "done": done,
++        "accepted": accepted, "unrecoverable": unrec, "retry_pending": retry, "hard_residual": hard,
++        "elapsed_s": round(el, 1), "rate_per_min": round(rate, 1),
++        "eta_s": round((total - done) / (done / el)) if done and total > done else (0 if done else None),
++    })
+ 
+ 
+ def cmd_batch(a: argparse.Namespace) -> int:
+@@ -462,6 +546,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
+     base, auth = _ccnexus_base(), _ccnexus_auth()
+     accepted: dict[str, list] = defaultdict(list)
+     gid_new: dict[str, str] = {}
++    unrec: dict[str, int] = {}   # slug → 模型判源文已毀的 occ 累計（收尾轉 math-accept 誠實終態）
+     still: list = []
+     seq = [0]  # 跨池累進的全域批次序號（給可觀測性記錄定址）
+     for name, (pool, bn) in pools.items():
+@@ -471,7 +556,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
+             _log(f"[{name}] round {rnd + 1}/{a.rounds}：{len(pool)} 條（批 {bn}）")
+             pool = _process_pool(pool, bn, model=a.model, base=base, auth=auth,
+                                  accepted=accepted, gid_new=gid_new, verbose=getattr(a, 'verbose', False),
+-                                 pool_name=name, rnd=rnd, seq=seq)
++                                 pool_name=name, rnd=rnd, seq=seq, unrec=unrec)
+         still.extend(pool)
+     # 收尾：live 標 idle（保留末批內容供 dev 頁顯示「最近一批」，但狀態非 streaming）
+     try:
+@@ -482,17 +567,33 @@ def cmd_batch(a: argparse.Namespace) -> int:
+     except Exception:
+         pass
+ 
+-    # 落地：每書一次 merge + apply + 重驗（避免每條重驗整書）
++    # 落地：每書一次 merge + apply + 重驗（避免每條重驗整書）。unrec-only 書無 override 改動，
++    # 仍重驗以拿到當前 bad_occ 供 mark_math_accepted 夾值。
+     remaining: dict[str, int] = {}
+-    for slug, ovs in accepted.items():
+-        merge_overrides(slug, ovs)
+-        apply_overrides(slug)
++    for slug in set(accepted) | set(unrec):
++        if accepted.get(slug):
++            merge_overrides(slug, accepted[slug])
++            apply_overrides(slug)
+         rep = validate_book(slug)
+         write_report(slug, rep)
+         remaining[slug] = rep.get("stats", {}).get("bad_unique", 0)
+ 
+-    out = {"ok": True, "accepted": len(gid_new), "still_failing": len(still),
+-           "books_touched": len(accepted), "remaining_by_book": remaining}
++    # 源文已毀 → 誠實終態 math-accept（退出無限重試；mark 端夾到 report 殘餘、累進既有 accepted）。
++    marked = 0
++    if unrec:
++        from book_pipeline import pipeline_queue as q
++        st = q._load_state()
++        for slug, occ in unrec.items():
++            prev = int(((st.get(slug) or {}).get("math") or {}).get("accepted") or 0)
++            try:
++                q.mark_math_accepted(slug, prev + occ, "batch: 模型判源文已毀不可渲染（unrecoverable）")
++                marked += occ
++            except ValueError:                    # 無 report（已 revalidate，理論不該發生）→ 跳過
++                pass
++
++    out = {"ok": True, "accepted": len(gid_new), "unrecoverable": marked,
++           "still_failing": len(still), "books_touched": len(set(accepted) | set(unrec)),
++           "remaining_by_book": remaining}
+     print(json.dumps(out, ensure_ascii=False, indent=2))
+     return 0
+ 
+@@ -534,8 +635,9 @@ def cmd_raw(a: argparse.Namespace) -> int:
+         head = f"[{r.get('ts')}] {r.get('pool')}·r{r.get('round')}·#{r.get('batch')} · {r.get('state')} · n={r.get('n')}"
+         print(head)
+         for v in r.get("verdicts", []):
+-            mark = {"accepted": "✓", "render_fail": "✗", "render_err": "⚠",
+-                    "missing": "·", "locate_fail": "⊘", "batch_fail": "✗"}.get(v.get("outcome"), "?")
++            mark = {"
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-spivak-calculus — Catalog builder cannot recover split bare-text figure captions in Spivak
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke stays critical on spivak_calculus with H7 empty_captions=105 under best ruleset. Work queue shows many figures in ch04/ch05 and problem bodies where visible caption/id lives in neighboring bare text like 'FIGURE 1', 'FIGURE 2', '(a)', '(b)', or prose after an image block. Enabling figure_caption_merge plus main regex ^(?:FIGURE|Figure)\s+\d+(?:[.-]\d+)?(?:\b.*)?$ worsened H7 to 141, so current schema cannot safely attach these captions.
+- 提議：Extend catalog/build pipeline so audit-book can bind adjacent bare text to nearby image blocks, merge split figure semantics across neighboring visual/text blocks, or explicitly mark captionless visual fragments non-indexable without editing parser/build code per book.
+
+### P-2026-06-18-spivak-differential-geometry — Catalog builder cannot index captionless visual shards in Spivak DG omnibus
+- proposed | type=tooling-gap | source=agent
+- 證據：Parser/smoke is clean on chapter/problem structure for spivak_differential_geometry (36 chapters parsed; smoke only H7). parsed/_catalog_audit.md reports figures=844, tables=69, empty figure/table captions=873, unresolved visual semantics=913, with many work-queue entries like ch01 body[8], [12], [20], [61], [70], [108] where image blocks have no caption/id and the surrounding prose merely references a nearby diagram. The omnibus PDF contains many pedagogical drawings across five volumes with no inline Figure N caption blocks, so extract_rules fields such as figure_caption_merge / figure_caption_main_re cannot supply stable semantic ids or captions.
+- 提議：Extend deterministic catalog extraction with reviewable per-visual overrides or a way to exclude/bind captionless image shards when OCR provides no semantic figure caption block. Without that, audit-book can reach parser-green but cannot clear smoke H7 on Spivak's omnibus figures without changing engine code.
+
+### P-2026-06-18-stein-shakarchi-complex — catalog gate 無法只靠 audit-book schema 收斂空 caption visual
+- proposed | type=tooling-gap | source=agent
+- 證據：本書 smoke 只剩 H7 empty_captions=3。parsed/_catalog_audit.md 顯示 ch08 §4.3、appA §1、ch10 §2 各有 image/table block 無 caption，但 caption/語義落在相鄰獨立 block 或 duplicated visual 上；現有 extract_rules schema 只有全域 figure_caption_merge/main_re，無法對單書做 per-visual merge/exclude。
+- 提議：新增 reviewable catalog_overrides / yaml-level media overrides，允許 per-visual caption merge、exclude、或 caption donor 綁定；否則 audit-book 在不改 parser/build_catalogs 的前提下無法把這類書跑到 smoke 全綠。
+
+### P-2026-06-18-stein-shakarchi-real-analysis — catalog 無法綁定緊鄰 image 的裸 text 圖說
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H7 empty_captions=13。_catalog_audit 顯示多個 figure 的可見 caption/id 落在相鄰 text block，而非 image_caption，例如 ch01 body[73] 後方 text='Figure 3. Decomposition of O into almost disjoint cubes'、ch07 body[138] 後方 text='Figure 1. Construction of the Sierpinski triangle'。現有 schema 的 figure_caption_merge 只會合併已附著在 figure block 的 caption，無法把鄰近 bare text 綁回該圖。
+- 提議：在 catalog/parser 層新增可選能力：允許將緊鄰 visual block 的 bare text caption 綁定為該圖的 semantic caption/id，或提供 per-book exclude/attach override schema。
+
+### P-2026-06-18-strauss-pde — Catalog extraction cannot recover bare Figure N captions
+- proposed | type=tooling-gap | source=agent
+- 證據：After two extract_rules iterations, parser smoke is clean on chapter/problem structure except H6 unresolved Figure refs=3 and H7 empty_captions=19. catalogs.json still has 128 figure entries with id=null. Many visuals are emitted as image blocks whose visible identifier/caption lives in neighboring bare text such as standalone 'Figure 1'/'Figure 2' blocks or prose around the image, so figure_caption_merge + figure_caption_main_re made no material difference.
+- 提議：Extend catalog extraction to bind neighboring bare text to figure blocks, recover semantic figure ids/captions from standalone 'Figure N' text, or allow captionless visual shards to be excluded without keeping smoke critical.
+
+### P-2026-06-18-thomson-particle-physics — catalog builder cannot suppress or merge split figure fragments
+- proposed | type=tooling-gap | source=agent
+- 證據：MinerU splits many figures into multiple image blocks where only one later block carries the main '-Fig. N.M ...' caption or where subfigure labels like '(a)' '(b)' are separate images. audit-book schema fields cannot mark captionless fragments as non-indexable, and figure_caption_merge only handles '(a)/(b)->main caption' subsets while leaving many captionless fragments unresolved. Smoke stays at H6 unresolved Figure refs=12 and H7 empty_captions=178 on the conservative ruleset.
+- 提議：Extend catalog/build pipeline to support per-book or generic suppression/merging of split figure fragments without requiring parser hacks: e.g. merge adjacent image blocks until a main figure caption is seen, or allow schema-level figure exclusion predicates for captionless fragments/subfigure shards.
+
+### P-2026-06-18-thomson-particle-physics-2 — worker 越界改核心碼：book_pipeline/test_math_sweep.py（catalog_audit thomson_particle_physics）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit thomson_particle_physics] session=thomson_particle_physics:91451 存活期間，受保護程式碼面 book_pipeline/test_math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/test_math_sweep.py b/book_pipeline/test_math_sweep.py
+index e1d458b..4f81620 100644
+--- a/book_pipeline/test_math_sweep.py
++++ b/book_pipeline/test_math_sweep.py
+@@ -253,6 +253,40 @@ def test_process_pool_batch_failure_retries_all(monkeypatch):
+     assert len(nxt) == 2 and not gid_new                       # 整批失敗 → 全重試、零落地
+ 
+ 
++# ── 語意守門：render 過但空殼/原語不可落地（render gate 之上的第二道閘）─────────
++def test_semantic_reason_blocks_empty_and_primitive():
++    sr = math_sweep.semantic_reason
++    assert sr(r"$\mathrm{~~} $") == "empty_shell"              # 純 nbsp 空白
++    assert sr("$$ $$") == "empty_shell"                       # 空 display
++    assert sr("") == "empty_shell"                            # 空字串
++    assert sr(r"$\mathbf{}\mathbf{}\mathbf{}$") == "empty_shell"  # 一排空盒
++    assert sr(r"${\let\mathbf\relax \mathbf{}\mathbf{}}$") == "tex_primitive"  # \let 中和
++    assert sr(r"$\def\x{}\x$") == "tex_primitive"
++
++
++def test_semantic_reason_passes_legit_short_formulas():
++    sr = math_sweep.semantic_reason
++    for ok in (r"$N_{2}$", r"$\nu_{2}$", r"$\sqrt{2}$", r"$\alpha = 1$", r"$\alpha \in K$",
++               r"$\partial U$", r"$\delta L$", r"\mu\text{A}", r"$T|_{\mathrm{null}(T)^\perp}$",
++               r"$\chi _ { 2 }$", r"$\omega_{\mu}^{a}{}_{b}$",
++               r"\begin{array}{c c c c} a & b & c & d \\ \end{array}"):  # 表格欄位規格不誤殺
++        assert sr(ok) is None, ok
++
++
++def test_process_pool_semantic_gate_blocks_renderable_empty(monkeypatch):
++    # 模型回「能 render 但語意空洞」的空殼 → render_ok=True 卻必須擋下不落地、回流重試
++    pool = [("g0", "bookA", _finding_t("DESTROYED_OCR"))]
++    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: r'{"i":0,"tex":"\\mathrm{~~} "}')
++    monkeypatch.setattr(math_sweep, "run_render", lambda items: {0: {"ok": True}})  # render 放行空殼
++    monkeypatch.setattr(math_sweep, "finding_to_overrides",
++                        lambda s, f, n: (_ for _ in ()).throw(AssertionError("空殼不該落地")))
++    accepted = defaultdict(list); gid_new = {}
++    nxt = math_sweep._process_pool(pool, 40, model="m", base="b", auth="a",
++                                   accepted=accepted, gid_new=gid_new)
++    assert not gid_new and not accepted                       # 零落地
++    assert {x[0] for x in nxt} == {"g0"}                      # 回流重試
++
++
+ def _batch_ns(**kw):
+     base = dict(n=40, rounds=2, model="m", book=None, category=None, limit=None, dry_run=False)
+     base.update(kw)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-thomson-particle-physics-3 — worker 越界改核心碼：book_pipeline/math_sweep.py（catalog_audit thomson_particle_physics）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit thomson_particle_physics] session=thomson_particle_physics:91451 存活期間，受保護程式碼面 book_pipeline/math_sweep.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/math_sweep.py b/book_pipeline/math_sweep.py
+index cfa9359..e83e7ad 100644
+--- a/book_pipeline/math_sweep.py
++++ b/book_pipeline/math_sweep.py
+@@ -21,6 +21,7 @@ import datetime
+ import hashlib
+ import json
+ import os
++import re
+ import socket
+ import sys
+ import tempfile
+@@ -31,6 +32,7 @@ from pathlib import Path
+ from typing import Any, Callable, Iterator
+ 
+ from book_pipeline.apply_math_overrides import (
++    OVERRIDE_DIR,
+     apply_overrides,
+     finding_to_overrides,
+     merge_overrides,
+@@ -108,6 +110,51 @@ def _gid(slug: str, tex: str, display: bool) -> str:
+     return f"{slug}:{h}"
+ 
+ 
++# ── 語意守門（render 守門之上的第二道閘）──────────────────────────────────
++# render gate 只驗「MathJax 能否編譯」；但語意空洞的字串是**合法 LaTeX、照樣編譯過**：
++# ``（空字串）、`\mathrm{~~}`（純 nbsp 空白）、`{\let\mathbf\relax \mathbf{}\mathbf{}…}`
++# （把 \mathbf 重定義成空、塞空盒中和垃圾）全部 render ok=true（實測）。LLM 面對「源文已毀、
++# 無公式可救」時的局部理性就是吐這種能 render 的空殼/中和式蒙混過關——實證：cohen ch14 整條
++# 改寫成 `$\mathrm{~~}$`（reader 顯示空白）、dummit ch10 用 \let 中和成一排空 \mathbf{}。這些
++# 都過了 render gate、落地成「已修」的謊（比留 OCR 殘體更糟：殘體會 render error 示警，空殼是靜默）。
++# 語意 gate 攔下 → 不落地（回流重試池；終究留作可見殘餘或交 §8 math-accept，絕不偽裝成已修）。
++#
++# 只攔「零誤殺」的兩類：空殼（去格式/結構後無任何內容字元）、TeX 程式原語（\let \def…無內容用途）。
++# 退化重複（\alpha×30）**刻意不納入**確定性 gate——與合法資料表欄位規格 `{c c c c}`、化學濃度
++# `[\mathrm{B}]/[\mathrm{B}]` 的重複糾纏、易誤殺；那類交「源文已毀 → math-accept 誠實終態」處理。
++_TEX_PRIMITIVE = re.compile(
++    r"\\(?:let|def|edef|gdef|xdef|catcode|relax|csname|expandafter|futurelet"
++    r"|newcommand|renewcommand|providecommand)\b")
++_CTRL_SEQ = re.compile(r"\\[A-Za-z@]+")
++# 內容承載控制序列（希臘字母/算子/符號）：剝掉會誤判空殼，故計為內容字元（→ 佔位 §）。
++_CONTENT_CTRL = re.compile(
++    r"\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa"
++    r"|lambda|mu|nu|xi|pi|varpi|rho|varrho|sigma|varsigma|tau|upsilon|phi|varphi|chi|psi|omega"
++    r"|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega"
++    r"|partial|nabla|infty|sum|int|prod|oint|pm|mp|times|cdot|cdots|ldots|sqrt|hbar|ell|aleph"
++    r"|Re|Im|forall|exists|in|notin|subset|cup|cap|wedge|vee|neg|to|mapsto|langle|rangle"
++    r"|dagger|star|prime|circ|oplus|otimes|perp|parallel|approx|equiv|sim|propto|leq|geq|neq"
++    r"|ll|gg|deg)\b")
++
++
++def semantic_reason(new: str) -> str | None:
++    r"""render ok 後的語意守門：回 reject 原因（None=通過）。純函式、零磁碟、可單測。
++    只攔零誤殺兩類；合法短式（$N_2$ $\sqrt2$ $\alpha=1$ $\mu\text{A}$ $\mathrm{null}(T)$）全放行。"""
++    s = (new or "").strip()
++    for a, b in (("$$", "$$"), (r"\[", r"\]"), (r"\(", r"\)"), ("$", "$")):
++        if s.startswith(a) and s.endswith(b) and len(s) >= len(a) + len(b):
++            s = s[len(a):len(s) - len(b)].strip()
++            break
++    if _TEX_PRIMITIVE.search(s):
++        return "tex_primitive"
++    core = _CONTENT_CTRL.sub("§", s)               # 內容控制序列 → 佔位（保留它代表的內容）
++    core = _CTRL_SEQ.sub("", core)                  # 其餘（格式）控制序列 → 刪
++    core = re.sub(r"[\^_{}&~\\,;:!\s]", "", core)   # 結構/nbsp/空白/標點控制 → 刪
++    if not core:
++        return "empty_shell"
++    return None
++
++
+ def iter_todo(*, book: str | None = None,
+               category: str | None = None) -> Iterator[tuple[str, dict[str, Any]]]:
+     """yield (slug, finding) 全 corpus 殘餘待辦。book/category 為可選過濾。
+@@ -208,6 +255,12 @@ def cmd_fix(a: argparse.Namespace) -> int:
+                      "error": f"new tex 仍渲染失敗：{verdict.get('err') or 'unknown'}",
+                      "hint": "改寫後重試（override 未落地）"}, 1)
+ 
++    # 語意守門：render 過但空殼/含 TeX 原語 → 擋下不落地（見 semantic_reason）。
++    if (sem := semantic_reason(a.new)):
++        return emit({"ok": False, "gid": a.gid, "slug": slug, "stage": "semantic",
++                     "error": f"new 通過 render 但語意空洞（{sem}）→ 擋下不落地",
++                     "hint": "源文已毀不可救者用 `devctl math-accept`，勿塞空殼/中和式蒙混"}, 1)
++
+     # 產 override（每 target 一條，共用 new）→ 併入 override file → apply 到 parsed。
+     try:
+         ovs = finding_to_overrides(slug, finding, a.new)
+@@ -414,6 +467,14 @@ def _process_pool(pool: list, batch_n: int, *, model: str, base: str, auth: str,
+                 verdicts.append(v_rec)
+                 nxt.append((gid, slug, f))
+                 continue
++            if (sem := semantic_reason(new)):             # 語意守門：render 過但空殼/原語 → 不落地
++                if verbose:
++                    _log(f"  ⊘ {slug} 語意空洞({sem}) · {_clip(f.get('tex'))} → {_clip(new)}")
++                v_rec["outcome"] = "semantic_fail"
++                v_rec["semantic"] = sem
++                verdicts.append(v_rec)
++                nxt.append((gid, slug, f))
++                continue
+             try:
+                 accepted[slug].extend(finding_to_overrides(slug, f, new))
+                 gid_new[gid] = new
+@@ -534,7 +595,7 @@ def cmd_raw(a: argparse.Namespace) -> int:
+         head = f"[{r.get('ts')}] {r.get('pool')}·r{r.get('round')}·#{r.get('batch')} · {r.get('state')} · n={r.get('n')}"
+         print(head)
+         for v in r.get("verdicts", []):
+-            mark = {"accepted": "✓", "render_fail": "✗", "render_err": "⚠",
++            mark = {"accepted": "✓", "render_fail": "✗", "render_err": "⚠", "semantic_fail": "⊘",
+                     "missing": "·", "locate_fail": "⊘", "batch_fail": "✗"}.get(v.get("outcome"), "?")
+             line = f"  {mark} {v.get('slug')} · {_clip(v.get('tex'))}"
+             if v.get("new"):
+@@ -545,6 +606,63 @@ def cmd_raw(a: argparse.Namespace) -> int:
+     return 0
+ 
+ 
++def _scan_bad_overrides(book: str | None = None) -> dict[str, list[dict[str, Any]]]:
++    """掃 math_overrides，回 {slug: [被語意 gate 攔下的 override, …]}（唯讀）。
++    抓的是「render 過但空殼/原語」的舊 gateless 落地（gate 上線前產出 / gate 調整後重掃）。"""
++    files = ([OVERRIDE_DIR / f"{book}.json"] if book
++             else sorted(OVERRIDE_DIR.glob("*.json")))
++    out: dict[str, list[dict[str, Any]]] = {}
++    for fp in files:
++        if not fp.is_file() or fp.name.startswith("_"):
++            continue
++        spec = json.loads(fp.read_text(encoding="utf-8"))
++        bad = [o for o in (spec.get("overrides") or []) if semantic_reason(o.get("new", ""))]
++        if bad:
++            out[fp.stem] = bad
++    return out
++
++
++def cmd_purge(a: argparse.Namespace) -> int:
++    """移除語意 gate 攔下的壞落地（render 過但空殼/中和式），canonical 復原：剔 override →
++    重 parse（從 mineru_data 重生乾淨 parsed）→ 重套剩餘 override → 重驗。壞式回流成誠實殘餘
++    （render error 可見、計入殘餘），不再偽裝成已修。--dry-run 只報不改。"""
++    bad = _scan_bad_overrides(a.book)
++    if not bad:
++        print(json.dumps({"ok": True, "purged": 0, "msg": "無語意空殼落地"}, ensure_ascii=False))
++        return 0
++    plan = {slug: [{"id": o.get("id"), "reason": semantic_reason(o.get("new", "")),
++                    "new": (o.get("new") or "")[:60]} for o in ovs]
++            for slug, ovs in bad.items()}
++    if a.dry_run:
++        print(json.dumps({"ok": True, "dry_run": True, "books": len(bad),
++                          "total": sum(len(v) for v in bad.values()), "plan": plan},
++                         ensure_ascii=False, indent=2))
++        return 0
++
++    from book_pipeline import parser as bp_parser
++    result: dict[str, Any] = {}
++    for slug, bad_ovs in bad.items():
++        fp = OVERRIDE_DIR / f"{slug}.json"
++        spec = json.loads(fp.read_text(encoding="utf-8"))
++        bad_ids = {o.get("id") for o in bad_ovs}
++        kept = [o for o in (spec.get("overrides") or []) if o.get("id") not in bad_ids]
++        spec["overrides"] = kept
++        tmp = fp.with_name(fp.name + ".tmp")
++        tmp.write_text(json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8")
++        os.replace(tmp, fp)
++        bp_parser.parse_book(slug)               # 重生乾淨 parsed（壞式回原始 OCR 殘體）
++        apply_overrides(slug)                     # 重套剩餘 good override
++        rep = validate_book(slug)
++        write_report(slug, rep)
++        result[slug] = {"removed": len(bad_ids), "kept": len(kept),
++                        "bad_occ_after": rep.get("stats", {}).get("bad_occ")}
++        _log(f"  purge {slug}：剔 {len(bad_ids)} 條空殼、重 parse+重套（剩 override {len(kept)}）"
++             f" → 殘餘 {rep.get('stats', {}).get('bad_occ')} occ")
++    print(json.dumps({"ok": True, "purged": sum(len(v) for v in bad.values()),
++                      "books": result}, ensure_ascii=False, indent=2))
++    return 0
++
++
+ def _build_parser() -> argparse.ArgumentParser:
+     ap = argparse.ArgumentParser(prog="python -m book_pipeline.math_sweep")
+     sub = ap.add_subparsers(dest="cmd", required=True)
+@@ -584,6 +702,12 @@ def _build_parser() -> argparse.ArgumentParser:
+     p_raw.add_argument("--json", action="store_true", help="JSON 輸出（完整原文+判決）")
+     p_raw.set_defaults(func=cmd_raw)
+ 
++    p_purge = sub.add_parser(
++        "purge", help="移除語意 gate 攔下的壞落地（空殼/中和式）→ 重 parse+重套+重驗")
++    p_purge.add_argument("--book", help="只清某書 slug（預設全 corpus）")
++    p_purge.add_argument("--dry-run", action="store_true", help="只報要剔哪些，不改檔/不重 parse")
++    p_purge.set_defaults(func=cmd_purge)
++
+     return ap
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-18-trefethen-bau-numerical-linear-a — catalog 無法為無編號示意圖建立 semantic caption 或排除理由
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/smoke 後 chapter/problem 結構穩定，但 H7 仍為 critical：parsed/_catalog_audit.md 顯示 figures=81、tables=16、empty figure/table captions=36、unresolved visual semantics=42。多數 image block 本身沒有 image_caption，語義只存在鄰近 prose（如 ch01 body[72], ch02 body[31], ch04 body[22], ch10 body[71]）或根本是未編號示意圖；現有 extract_rules schema 只有 figure_caption_merge/main_re，無法把鄰近 bare text 綁到 figure，也無法 declaratively 給 catalog_exclude_reason。
+- 提議：新增 per-book declarative catalog repair 能力：1) 允許把鄰近 text block 指定為 figure/table caption donor；或 2) 允許在 extract_rules / catalog repair layer 對無正式 Figure/Table 編號且無正文 ref 的視覺塊標記 catalog_exclude_reason。否則這類 lecture note 風格教材無法僅靠 audit-book schema 跑到 smoke 全綠。
+
+### P-2026-06-18-vanlint-wilson-combinatorics — catalog 無法處理無 caption 或鄰文圖說的視覺塊
+- proposed | type=tooling-gap | source=agent
+- 證據：vanlint_wilson_combinatorics parser/smoke 結構已穩定，但 smoke 仍 H7 empty_captions=39。catalog_audit 顯示多個 image/table block 沒有 media caption，語義只存在鄰近正文或根本無獨立 caption（如 ch02 Example 2.1/2.2 的兩張樹圖、ch34 多張 duality 圖、ch38 內嵌示意圖）。現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把鄰文綁定為 caption，也無法 declaratively 排除這些非可索引圖。
+- 提議：為 catalog extraction 增加 per-visual override 或鄰接 caption 綁定/排除機制，允許 audit-book 對 captionless 視覺塊指定 semantic id、caption，或標註 exclude reason，而不需修改 parser 通用行為。
+
+### P-2026-06-18-weinberg-qft1 — catalog audit cannot resolve multi-panel figure captions in Weinberg QFT1
+- proposed | type=tooling-gap | source=agent
+- 證據：ch06/ch10/ch11/ch12 contain multi-panel figures where only the final panel carries the full 'Figure N.M ...' caption while preceding panels are standalone image blocks with '(a)'/'(b)'/... captions; ch08 §8.2 also has an unlabeled gauge table. After extract_rules.yaml tuning (figure_caption_merge + main caption regex), parser still leaves 7 empty figure/table captions and smoke stays red with H7.
+- 提議：Teach parser/catalog pipeline to collapse adjacent panel images sharing one trailing Figure N.M caption into one semantic figure set (or mark non-primary panels excluded with a stable reason), and allow unlabeled structural tables to be excluded from catalog without engine edits per-book.
 
 ### P-2026-06-18-young-freedman-university-physic — build_catalogs 離散圖說(detached caption)回收能力 — young_freedman audit worker 越界版
 - proposed | type=tooling-gap | source=scope_guard-retroactive
@@ -230,6 +1867,11 @@ index 764d7c2..701078a 100644
 -            seen[key] = 0
      return entries
 - 風險：原樣會破 reader 目錄導航 + fail parity test → 已還原。idea 待架構師重做（parity-safe 版）。
+
+### P-2026-06-18-zwiebach-string-theory — Catalog parser cannot represent shared/multi-figure captions in Zwiebach
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke remains critical after valid chapter/problem parse: H6 unresolved Figure refs=1 and H7 empty_captions=32. Unified blocks show one logical figure split across multiple image blocks with only the last block carrying the caption (Fig. 2.7 at idx 602-605), subfigure runs where only the last block carries the main caption after (a)/(b)/(c) markers (Fig. 15.2 at idx 5274-5276, Fig. 23.3 at idx 7970-7972), and one image caption containing multiple figure numbers so Figure 4.4 is referenced but only Fig. 4.3 is indexable.
+- 提議：Extend parser/catalog audit to support figure groups: allow multiple consecutive image blocks to share one trailing caption, preserve subfigure semantics, and split one caption into multiple catalog ids when it names multiple figures (for example Fig. 4.3 and Fig. 4.4 in one image). This should be expressed in engine logic or new schema fields, not by distorting chapter audit rules.
 
 ## domain: math  （8 條；proposed=4）
 

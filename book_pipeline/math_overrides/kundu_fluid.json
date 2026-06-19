@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "kundu_fluid-ch12-body-210-774414",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[210]",
+      "expect": "\\begin{array}{c} \\frac {\\partial \\overline {{e}}}{\\partial t} + U _ {j} \\frac {\\partial \\overline {{e}}}{\\partial x _ {j}} \\\\ \\text {Time rate of} \\\\ \\text {change of \\overline {{E}} following} \\\\ \\text {the mean flow} \\end{array} = \\frac {\\partial}{\\partial x _ {j}} \\bigg (- \\frac {1}{\\rho_ {0}} \\overline {{p u _ {j}}} + 2 \\nu \\overline {{u _ {i} S _ {i j} ^ {\\prime}}} - \\frac {1}{2} \\overline {{u _ {i} ^ {2} u _ {j}}} \\bigg) - \\begin{array}{c} 2 \\nu \\overline {{S _ {i j} ^ {\\prime} S _ {i j} ^ {\\prime}}} \\\\ \\text {viscous} \\\\ \\text {dissipation} \\end{array} - \\begin{array}{c} - \\overline {{u _ {i} u _ {j}}} \\frac {\\partial U _ {i}}{\\partial x _ {j}} \\\\ \\text {gain from} \\\\ \\text {mean flow} \\end{array} + \\begin{array}{c} g \\alpha \\overline {{u _ {3} T ^ {\\prime}}} \\\\ \\text {buoyant} \\\\ \\text {production} \\end{array} .",
+      "new": "\\begin{array}{c} \\frac {\\partial \\overline {{e}}}{\\partial t} + U _ {j} \\frac {\\partial \\overline {{e}}}{\\partial x _ {j}} \\\\ \\text {Time rate of} \\\\ \\text {change of } \\overline {{E}} \\text { following} \\\\ \\text {the mean flow} \\end{array} = \\frac {\\partial}{\\partial x _ {j}} \\bigg (- \\frac {1}{\\rho_ {0}} \\overline {{p u _ {j}}} + 2 \\nu \\overline {{u _ {i} S _ {i j} ^ {\\prime}}} - \\frac {1}{2} \\overline {{u _ {i} ^ {2} u _ {j}}} \\bigg) - \\begin{array}{c} 2 \\nu \\overline {{S _ {i j} ^ {\\prime} S _ {i j} ^ {\\prime}}} \\\\ \\text {viscous} \\\\ \\text {dissipation} \\end{array} - \\begin{array}{c} - \\overline {{u _ {i} u _ {j}}} \\frac {\\partial U _ {i}}{\\partial x _ {j}} \\\\ \\text {gain from} \\\\ \\text {mean flow} \\end{array} + \\begin{array}{c} g \\alpha \\overline {{u _ {3} T ^ {\\prime}}} \\\\ \\text {buoyant} \\\\ \\text {production} \\end{array}."
+    },
+    {
+      "id": "kundu_fluid-ch13-body-695-553605",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[695]",
+      "field": "md",
+      "old": "$K _ { 1 } ^ { 2 } S _ { 1 } / K _ { 2 } ^ { 2 } S _ { 2 } = { \\mathrm { \\small ~ \\sqrt [ { 4 } } } ,$",
+      "new": "$K _ { 1 } ^ { 2 } S _ { 1 } / K _ { 2 } ^ { 2 } S _ { 2 } = { \\mathrm { \\small ~ \\sqrt [ { 4 } ] { } } },$",
+      "anchor": "20437d71"
+    }
+  ]
+}

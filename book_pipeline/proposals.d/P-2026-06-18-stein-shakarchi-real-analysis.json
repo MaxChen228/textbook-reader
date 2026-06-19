@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-stein-shakarchi-real-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法綁定緊鄰 image 的裸 text 圖說",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T21:50:55+00:00",
+  "updated": "2026-06-18T21:50:55+00:00",
+  "evidence": "smoke H7 empty_captions=13。_catalog_audit 顯示多個 figure 的可見 caption/id 落在相鄰 text block，而非 image_caption，例如 ch01 body[73] 後方 text='Figure 3. Decomposition of O into almost disjoint cubes'、ch07 body[138] 後方 text='Figure 1. Construction of the Sierpinski triangle'。現有 schema 的 figure_caption_merge 只會合併已附著在 figure block 的 caption，無法把鄰近 bare text 綁回該圖。",
+  "proposal": "在 catalog/parser 層新增可選能力：允許將緊鄰 visual block 的 bare text caption 綁定為該圖的 semantic caption/id，或提供 per-book exclude/attach override schema。",
+  "risk": "",
+  "disposition": ""
+}

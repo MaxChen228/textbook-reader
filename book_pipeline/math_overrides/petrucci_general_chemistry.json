@@ -1,0 +1,136 @@
+{
+  "overrides": [
+    {
+      "id": "petrucci_general_chemistry-ch19-body-135-62fb8e",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[135]",
+      "expect": "\\mathrm{Cu} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu(s)} \\quad E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} = ?",
+      "new": "\\mathrm{Cu} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu(s)} \\quad E _ {\\mathrm{Cu}} ^ {\\circ 2 +} / \\mathrm{Cu} = ?"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-145-94e2b0",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[145]",
+      "expect": "\\mathrm{Cu} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu(s)} \\quad E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} = + 0. 3 4 0 \\mathrm{V}",
+      "new": "\\mathrm{Cu} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu(s)} \\quad E _ {\\mathrm{Cu}} ^ {\\circ 2 +} / \\mathrm{Cu} = + 0. 3 4 0 \\mathrm{V}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-156-95af6a",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[156]",
+      "expect": "\\mathrm{Zn} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Zn} (\\mathrm{s}) \\quad E _ {\\mathrm{Zn}} ^ {\\circ} ^ {2 +} / \\mathrm{Zn} = - 0. 7 6 3 \\mathrm{V}",
+      "new": "\\mathrm{Zn} ^ {2 +} (1 \\mathrm{M}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Zn} (\\mathrm{s}) \\quad E _ {\\mathrm{Zn}} ^ {\\circ 2 +} / \\mathrm{Zn} = - 0. 7 6 3 \\mathrm{V}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-204-f46760",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[204]",
+      "expect": "0. 7 4 3 \\mathrm{V} = E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} - E _ {\\mathrm{Cd}} ^ {\\circ} ^ {2 +} / \\mathrm{Cd}",
+      "new": "0. 7 4 3 \\mathrm{V} = E _ {\\mathrm{Cu}} ^ {\\circ 2 +} / \\mathrm{Cu} - E _ {\\mathrm{Cd}} ^ {\\circ 2 +} / \\mathrm{Cd}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-205-7d12f1",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[205]",
+      "expect": "= 0. 3 4 0 \\mathrm{V} - E _ {\\mathrm{Cd}} ^ {\\circ} ^ {2 +} / \\mathrm{Cd}",
+      "new": "= 0. 3 4 0 \\mathrm{V} - E _ {\\mathrm{Cd}} ^ {\\circ 2 +} / \\mathrm{Cd}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-206-a5447e",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[206]",
+      "expect": "E _ {\\mathrm{Cd}} ^ {\\circ} ^ {2 +} / \\mathrm{Cd} = 0. 3 4 0 \\mathrm{V} - 0. 7 4 3 \\mathrm{V} = - 0. 4 0 3 \\mathrm{V}",
+      "new": "E _ {\\mathrm{Cd}} ^ {\\circ 2 +} / \\mathrm{Cd} = 0. 3 4 0 \\mathrm{V} - 0. 7 4 3 \\mathrm{V} = - 0. 4 0 3 \\mathrm{V}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-265-c68241",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[265]",
+      "expect": "E _ {\\mathrm{Fe}} ^ {\\circ} ^ {3 +} / \\mathrm{Fe} = (- 0. 1 0 9 F / 3 F) \\mathrm{V} = - 0. 0 3 6 3 \\mathrm{V}",
+      "new": "E _ {\\mathrm{Fe}} ^ {\\circ 3 +} / \\mathrm{Fe} = (- 0. 1 0 9 F / 3 F) \\mathrm{V} = - 0. 0 3 6 3 \\mathrm{V}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-303-bda01c",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[303]",
+      "expect": "\\begin{array}{l} E _ {\\text { cell }} ^ {\\circ} = E ^ {\\circ} (\\text { cathode }) - E ^ {\\circ} (\\text { anode }) \\\\ = E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} - E _ {\\mathrm{Al}} ^ {\\circ} ^ {3 +} / \\mathrm{Al} \\\\ = 0. 3 4 0 \\mathrm{V} - (- 1. 6 7 6 \\mathrm{V}) = 2. 0 1 6 \\mathrm{V} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} E _ {\\text { cell }} ^ {\\circ} = E ^ {\\circ} (\\text { cathode }) - E ^ {\\circ} (\\text { anode }) \\\\ = E _ {\\mathrm{Cu}} ^ {\\circ 2 +} / \\mathrm{Cu} - E _ {\\mathrm{Al}} ^ {\\circ 3 +} / \\mathrm{Al} \\\\ = 0. 3 4 0 \\mathrm{V} - (- 1. 6 7 6 \\mathrm{V}) = 2. 0 1 6 \\mathrm{V} \\\\ \\end{array}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-719-aa46cc",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[719]",
+      "expect": "\\text { Reduction: } \\quad \\mathrm{Cu} ^ {2 +} (\\mathrm{aq}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu} (\\mathrm{s}) \\quad E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} = 0. 3 4 0 \\mathrm{V}",
+      "new": "\\text { Reduction: } \\quad \\mathrm{Cu} ^ {2 +} (\\mathrm{aq}) + 2 \\mathrm{e} ^ {-} \\longrightarrow \\mathrm{Cu} (\\mathrm{s}) \\quad E _ {\\mathrm{Cu}} ^ {\\circ 2 +} / \\mathrm{Cu} = 0. 3 4 0 \\mathrm{V}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch25-body-159-ae9871",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[159]",
+      "expect": "\\begin{array}{l} N \\left(^ {3 2} \\mathrm{P} \\text { atoms }\\right) = 0. 0 0 1 0 0 \\mathrm{g} \\times \\frac {1 \\mathrm{mol} ^ {3 2} \\mathrm{P}}{3 2 . 0 \\mathrm{g}} \\times \\frac {6 . 0 2 2 \\times 1 0 ^ {2 3} {} ^ {3 2} \\mathrm{P} \\text { atoms }}{1 \\mathrm{mol} ^ {3 2} \\mathrm{P}} \\\\ = 1. 8 8 \\times 1 0 ^ {1 9}   ^ {3 2} \\mathrm{Patoms} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} N \\left(^ {3 2} \\mathrm{P} \\text { atoms }\\right) = 0. 0 0 1 0 0 \\mathrm{g} \\times \\frac {1 \\mathrm{mol} ^ {3 2} \\mathrm{P}}{3 2 . 0 \\mathrm{g}} \\times \\frac {6 . 0 2 2 \\times 1 0 ^ {2 3} \\cdot {} ^ {3 2} \\mathrm{P} \\text { atoms }}{1 \\mathrm{mol} ^ {3 2} \\mathrm{P}} \\\\ = 1. 8 8 \\times 1 0 ^ {1 9} \\cdot {} ^ {3 2} \\mathrm{P} \\text {atoms} \\\\ \\end{array}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch25-body-449-ee04d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[449]",
+      "expect": "\\begin{array}{l} N _ {t} = 1 8. 8 \\mathrm{g} ^ {1 3 1} \\mathrm{I} \\times \\frac {1 \\mathrm{mol} ^ {1 3 1} \\mathrm{I}}{1 3 1 \\mathrm{g} ^ {1 3 1} \\mathrm{I}} \\times \\frac {6 . 0 2 2 \\times 1 0 ^ {2 3} {} ^ {1 3 1} \\mathrm{I} \\text { atoms }}{1 \\mathrm{mol} ^ {1 3 1} \\mathrm{I}} \\\\ = 8. 6 4 \\times 1 0 ^ {2 2}   ^ {1 3 1} \\mathrm{Iatoms} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} N _ {t} = 1 8. 8 \\mathrm{g} ^ {1 3 1} \\mathrm{I} \\times \\frac {1 \\mathrm{mol} ^ {1 3 1} \\mathrm{I}}{1 3 1 \\mathrm{g} ^ {1 3 1} \\mathrm{I}} \\times \\frac {6 . 0 2 2 \\times 1 0 ^ {2 3} \\cdot {} ^ {1 3 1} \\mathrm{I} \\text { atoms }}{1 \\mathrm{mol} ^ {1 3 1} \\mathrm{I}} \\\\ = 8. 6 4 \\times 1 0 ^ {2 2} \\cdot {} ^ {1 3 1} \\mathrm{I} \\text {atoms} \\\\ \\end{array}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch27-body-530-f7dd6f",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "body[530]",
+      "field": "md",
+      "old": "$\\mathrm{RO(CH_2)_xCH_2\\cdot + RO\\cdot \\longrightarrow RO(CH_2)_xCH_2OR}$",
+      "new": "$\\mathrm{RO(CH_2)_{x}CH_2\\cdot + RO\\cdot \\longrightarrow RO(CH_2)_{x}CH_2OR}$",
+      "anchor": "6b45ab7e"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch26-body-565-89be7b",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[565]",
+      "expect": "\\mathrm{CO(g)} + 2 \\mathrm {H_ {2} (g)} \\xrightarrow [ \\text {ZnO, Cr_ {2} O_ {3}} ]{\\mathrm {350^ {\\circ} C}} \\mathrm {CH_ {3} OH(g)}",
+      "new": "\\mathrm{CO(g)} + 2 \\mathrm {H_{2} (g)} \\xrightarrow [ \\mathrm {ZnO, Cr_{2} O_{3}} ]{\\mathrm {350^{\\circ} C}} \\mathrm {CH_{3} OH(g)}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch16-problem-116-body-0-25a50f",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "problem:116:body[0]",
+      "field": "md",
+      "old": "$\\mathrm{H_{2}SO_{3}(aq), K_{a_{1}} = 1.3 \\times 10^{-2}$",
+      "new": "$\\mathrm{H_{2}SO_{3}(aq)}, K_{a_{1}} = 1.3 \\times 10^{-2}$",
+      "anchor": "493ac2ed"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch19-body-177-192087",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[177]",
+      "expect": "\\begin{array}{l} E _ {\\text { cell }} ^ {\\circ} = E ^ {\\circ} (\\text { right }) - E ^ {\\circ} (\\text { left }) \\\\ = E ^ {\\circ} (\\text { cathode }) - E ^ {\\circ} (\\text { anode }) \\\\ = E ^ {\\circ} (\\text { reduction   half - cell }) - E ^ {\\circ} (\\text { oxidation   half - cell }) \\\\ = E _ {\\mathrm{Cu}} ^ {\\circ} ^ {2 +} / \\mathrm{Cu} - E _ {\\mathrm{Zn}} ^ {\\circ} ^ {2 +} / \\mathrm{Zn} \\\\ = 0. 3 4 0 \\mathrm{V} - (- 0. 7 6 3 \\mathrm{V}) = 1. 1 0 3 \\mathrm{V} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} E _ {\\text { cell }} ^ {\\circ} = E ^ {\\circ} (\\text { right }) - E ^ {\\circ} (\\text { left }) \\\\ = E ^ {\\circ} (\\text { cathode }) - E ^ {\\circ} (\\text { anode }) \\\\ = E ^ {\\circ} (\\text { reduction   half - cell }) - E ^ {\\circ} (\\text { oxidation   half - cell }) \\\\ = E _ {\\mathrm{Cu}} ^ {\\circ 2+} / \\mathrm{Cu} - E _ {\\mathrm{Zn}} ^ {\\circ 2+} / \\mathrm{Zn} \\\\ = 0. 3 4 0 \\mathrm{V} - (- 0. 7 6 3 \\mathrm{V}) = 1. 1 0 3 \\mathrm{V} \\\\ \\end{array}"
+    },
+    {
+      "id": "petrucci_general_chemistry-ch27-body-120-d2f38d",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[120]",
+      "expect": "\\begin{array}{l l l l l} & \\mathrm{CH} _ {3} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CHBr} > \\mathrm{CH} _ {3} \\mathrm{CBr} \\\\ & & & \\mathrm{CH} _ {3} & \\mathrm{CH} _ {3} \\\\ \\text {Relative rate (for S_{N} 2)} & 1 2 0 0 & 4 0 & 1 6 & 1 \\\\ & & & & \\text {Too slow to measure} \\end{array}",
+      "new": "\\begin{array}{l l l l l} & \\mathrm{CH} _ {3} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{Br} > \\mathrm{CH} _ {3} \\mathrm{CHBr} > \\mathrm{CH} _ {3} \\mathrm{CBr} \\\\ & & & \\mathrm{CH} _ {3} & \\mathrm{CH} _ {3} \\\\ \\text {Relative rate (for } S_{N} 2\\text {)} & 1 2 0 0 & 4 0 & 1 6 & 1 \\\\ & & & & \\text {Too slow to measure} \\end{array}"
+    }
+  ]
+}

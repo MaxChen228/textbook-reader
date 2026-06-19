@@ -1,0 +1,38 @@
+{
+  "overrides": [
+    {
+      "id": "griffiths_qm3-ch06-body-330-c3385c",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[330]",
+      "expect": "\\left\\langle 3 2 - 1 \\mid \\hat {V} _ {z} \\mid 2 1 - 1 \\right\\rangle = C _ {- 1 0 - 1} ^ {1 1} ^ {2} \\langle 3 2 \\| V \\| 2 1 \\rangle = \\frac {1}{\\sqrt {2}} \\langle 3 2 \\| V \\| 2 1 \\rangle ,",
+      "new": "\\left\\langle 3 2 - 1 \\mid \\hat {V} _ {z} \\mid 2 1 - 1 \\right\\rangle = C _ {- 1 0 - 1} ^ {1 1 2} \\langle 3 2 \\| V \\| 2 1 \\rangle = \\frac {1}{\\sqrt {2}} \\langle 3 2 \\| V \\| 2 1 \\rangle ,"
+    },
+    {
+      "id": "griffiths_qm3-ch03-body-65-afd16f",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[65]",
+      "field": "md",
+      "old": "$q . { \\overset { 1 0 } { \\left. } { \\right. } }$",
+      "new": "$q . { \\overset { 1 0 } { \\left. \\right. } }$",
+      "anchor": "d78c3b63"
+    },
+    {
+      "id": "griffiths_qm3-ch07-body-173-151404",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[173]",
+      "expect": "\\gamma \\left<   \\psi_ {a} ^ {0} \\left. \\right| \\psi_ {\\gamma} (\\lambda) \\rangle = \\mu^ {*} \\left<   \\psi_ {a} ^ {0} \\left. \\right| \\psi_ {\\gamma} (\\lambda) \\rangle",
+      "new": "\\gamma \\left\\langle \\psi _ {a} ^ {0} | \\psi _ {\\gamma} (\\lambda) \\right\\rangle = \\mu^ {*} \\left\\langle \\psi _ {a} ^ {0} | \\psi _ {\\gamma} (\\lambda) \\right\\rangle"
+    },
+    {
+      "id": "griffiths_qm3-ch12-body-66-c7d744",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[66]",
+      "expect": "\\rho_ {i j} = \\left\\langle \\right. e _ {i} \\left. \\right| \\hat {\\rho} \\left| \\right. e _ {j} \\left. \\right\\rangle = \\left\\langle \\right. e _ {i} \\left. \\right| \\Psi \\left\\rangle \\left\\langle \\right. \\Psi \\left. \\right| e _ {j} \\left. \\right\\rangle .",
+      "new": "\\rho_{i j} = \\langle e_{i} | \\hat{\\rho} | e_{j} \\rangle = \\langle e_{i} | \\Psi \\rangle \\langle \\Psi | e_{j} \\rangle ."
+    }
+  ]
+}

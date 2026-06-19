@@ -1,0 +1,54 @@
+{
+  "overrides": [
+    {
+      "id": "sipser_theory_computation-ch08-problem-8-9-body-0-4c19ae",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "problem:8.9:body[0]",
+      "field": "md",
+      "old": "$M U L T = \\left\\{ a \\# b \\# c | a , b , \\frac \\right.$",
+      "new": "$M U L T = \\left\\{ a \\# b \\# c \\mid a , b , \\frac {a}{b} \\right\\}$",
+      "anchor": "edbefa93"
+    },
+    {
+      "id": "sipser_theory_computation-ch01-body-419-3f0c1e",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[419]",
+      "field": "md",
+      "old": "$( Q - \\mathrm { \\bar { \\{ } }  q _ { \\mathrm { a c c e p t } } \\mathrm { \\bar { \\} } ) \\times ( Q - \\mathrm { \\bar { \\{ } } } q _ { \\mathrm { s t a r t } } \\mathrm  \\bar { \\} } )$",
+      "new": "$( Q - \\{ q _ { \\mathrm { a c c e p t } } \\} ) \\times ( Q - \\{ q _ { \\mathrm { s t a r t } } \\} )$",
+      "anchor": "49b7520b"
+    },
+    {
+      "id": "sipser_theory_computation-ch04-problem-4-1-body-5-5abf99",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.1:body[5]",
+      "field": "md",
+      "old": "$\\langle M , 0 1 0 0 \\rangle \\in A _ { \\mathsf { R E X } } \\Rup$",
+      "new": "$\\langle M , 0 1 0 0 \\rangle \\in A _ { \\mathsf { R E X } }$",
+      "anchor": "2f4d8b5b"
+    },
+    {
+      "id": "sipser_theory_computation-ch04-problem-4-1-body-7-7017d6",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.1:body[7]",
+      "field": "md",
+      "old": "$\\langle M , M \\rangle \\in E Q _ { \\mathsf { D F A } } \\Rup$",
+      "new": "$\\langle M , M \\rangle \\in E Q _ { \\mathsf { D F A } }$",
+      "anchor": "9a63aa53"
+    },
+    {
+      "id": "sipser_theory_computation-ch06-problem-6-9-body-0-8fca08",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6.9:body[0]",
+      "field": "md",
+      "old": "$B \\not \\\\\\\\not \\Eup T ^ { A }$",
+      "new": "$B \\not\\subseteq T ^ { A }$",
+      "anchor": "99f7042d"
+    }
+  ]
+}

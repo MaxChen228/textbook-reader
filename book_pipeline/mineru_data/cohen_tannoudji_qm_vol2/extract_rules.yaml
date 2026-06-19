@@ -1,0 +1,118 @@
+slug: cohen_tannoudji_qm
+title: 'Quantum Mechanics, Volume II: Angular Momentum, Spin, and Approximation Methods'
+author: 'Claude Cohen-Tannoudji; Bernard Diu; Franck Laloë'
+edition: 2nd
+subject: Quantum Mechanics
+publisher: Wiley-VCH
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 604
+bibliography_start_page: 644
+index_start_page: 678
+
+inline_problems: true
+
+chapters:
+  - num: 8
+    title: 'An elementary approach to the quantum theory of scattering by a potential'
+    page_start: 22
+    page_end: 83
+    chapter_title_block_idx: 367
+    chapter_title_block_idx_secondary: 383
+    problems_block_idx: 1253
+    next_chapter_block_idx: 1307
+  - num: 9
+    title: Electron spin
+    page_start: 84
+    page_end: 113
+    chapter_title_block_idx: 1307
+    chapter_title_block_idx_secondary: 1315
+    problems_block_idx: 1694
+    next_chapter_block_idx: 1798
+  - num: 10
+    title: Addition of angular momenta
+    page_start: 114
+    page_end: 213
+    chapter_title_block_idx: 1798
+    chapter_title_block_idx_secondary: 1812
+    problems_block_idx: 3247
+    next_chapter_block_idx: 3352
+  - num: 11
+    title: Stationary perturbation theory
+    page_start: 214
+    page_end: 329
+    chapter_title_block_idx: 3352
+    chapter_title_block_idx_secondary: 3360
+    problems_block_idx: 4931
+    next_chapter_block_idx: 5102
+  - num: 12
+    title: 'An application of perturbation theory: the fine and hyperfine structure of hydrogen'
+    page_start: 330
+    page_end: 401
+    chapter_title_block_idx: 5102
+    chapter_title_block_idx_secondary: 5111
+    problems_block_idx: null
+    next_chapter_block_idx: 6091
+  - num: 13
+    title: Approximation methods for time-dependent problems
+    page_start: 402
+    page_end: 517
+    chapter_title_block_idx: 6091
+    chapter_title_block_idx_secondary: 6100
+    problems_block_idx: 7728
+    next_chapter_block_idx: 7893
+  - num: 14
+    title: Systems of identical particles
+    page_start: 518
+    page_end: 603
+    chapter_title_block_idx: 7893
+    chapter_title_block_idx_secondary: 7909
+    problems_block_idx: 9009
+    next_chapter_block_idx: 9176
+
+appendices:
+  - id: I
+    title: Fourier series and Fourier transforms
+    page_start: 604
+    chapter_title_block_idx: 9178
+  - id: II
+    title: The Dirac -"function"
+    page_start: 614
+    chapter_title_block_idx: 9387
+  - id: III
+    title: Lagrangian and Hamiltonian in classical mechanics
+    page_start: 626
+    chapter_title_block_idx: 9620
+
+section_re: '^((?:[A-Z]|\d+))\.\s+(.+)$'
+subsection_re: '^((?:[A-Z]|\d+)(?:-[0-9A-Za-z]+)+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+(?:-[A-Za-z0-9]+)*)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

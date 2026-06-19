@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_qm-ch10-body-178-0fefc1",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[178]",
+      "expect": "_ 1 \\mathrm{H}: 1 s ^ {2} S _ {1 / 2} \\quad_ {2} \\mathrm{He}: 1 s ^ {2} ^ {1} S _ {0}",
+      "new": "{}^{1}\\mathrm{H}: 1 s ^ {2} S _ {1 / 2} \\quad {}^{2}\\mathrm{He}: 1 s ^ {2} {}^{1}S _ {0}"
+    },
+    {
+      "id": "landau_lifshitz_qm-ch17-problem-139-none-body-10-2f709c",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "problem:139.None:body[10]",
+      "expect": "\\sigma_ {t r} = \\frac {4 \\pi}{v ^ {4}} (\\log v + _ {1} ^ {1} _ {2}),",
+      "new": "\\sigma _ {t r} = \\frac {4 \\pi}{v ^ {4}} (\\log v + {}_{1}^{1}{}_{2}),"
+    }
+  ]
+}

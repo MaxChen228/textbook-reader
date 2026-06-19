@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "weinberg_qft1-ch06-body-230-2e4abb",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[230]",
+      "expect": "- \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} ],",
+      "new": "- \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} \\right],"
+    },
+    {
+      "id": "weinberg_qft1-ch06-body-98-00265a",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[98]",
+      "expect": "\\begin{array}{l} S _ {\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime} \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} n _ {1} \\mathbf {p} _ {2} \\sigma_ {2} n _ {2}} = (2 \\pi) ^ {- 6} \\sum_ {k ^ {\\prime} l ^ {\\prime} m ^ {\\prime} k l m} (- i) ^ {2} g _ {m ^ {\\prime} m k ^ {\\prime}} g _ {l ^ {\\prime} l k} \\\\ \\times u _ {m ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}\\right) u _ {l ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime}\\right) u _ {m} \\left(\\mathbf {p} _ {2} \\sigma_ {2} n _ {2}\\right) u _ {l} \\left(\\mathbf {p} _ {1} \\sigma_ {1} n _ {1}\\right) \\\\ \\times \\int d ^ {4} x \\int d ^ {4} y e ^ {- i p _ {2} ^ {\\prime} \\cdot x} e ^ {- i p _ {1} ^ {\\prime} \\cdot y} e ^ {i p _ {2} \\cdot x} e ^ {i p _ {1} \\cdot y} (- i) \\Delta_ {k ^ {\\prime} k} (x - y) \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} ]  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} S _ { \\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime} \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} n _ {1} \\mathbf {p} _ {2} \\sigma_ {2} n _ {2}} = (2 \\pi) ^ {- 6} \\sum_ {k ^ {\\prime} l ^ {\\prime} m ^ {\\prime} k l m} (- i) ^ {2} g _ {m ^ {\\prime} m k ^ {\\prime}} g _ {l ^ {\\prime} l k} \\\\ \\times u _ {m ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}\\right) u _ {m} \\left(\\mathbf {p} _ {2} \\sigma_ {2} n _ {2}\\right) u _ {l} \\left(\\mathbf {p} _ {1} \\sigma_ {1} n _ {1}\\right) \\\\ \\times \\int d ^ {4} x \\int d ^ {4} y e ^ {- i p _ {2} ^ {\\prime} \\cdot x} e ^ {- i p _ {1} ^ {\\prime} \\cdot y} e ^ {i p _ {2} \\cdot x} e ^ {i p _ {1} \\cdot y} (- i) \\Delta_ {k ^ {\\prime} k} (x - y) \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} \\right]  \\\\ \\end{array}"
+    },
+    {
+      "id": "weinberg_qft1-ch06-body-220-5b10ae",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[220]",
+      "expect": "\\begin{array}{l} S _ {\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime}, \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} n _ {1}, \\mathbf {p} _ {2} \\sigma_ {2} n _ {2}} = i (2 \\pi) ^ {- 2} \\delta^ {4} \\left(p _ {1} + p _ {2} - p _ {1} ^ {\\prime} - p _ {2} ^ {\\prime}\\right) \\\\ \\times \\sum_ {k ^ {\\prime} l ^ {\\prime} m ^ {\\prime} k l m} g _ {m ^ {\\prime} m k ^ {\\prime}} g _ {l ^ {\\prime} l k} \\frac {P _ {k ^ {\\prime} k} \\left(p _ {1 ^ {\\prime}} - p _ {1}\\right)}{\\left(p _ {1 ^ {\\prime}} - p _ {1}\\right) ^ {2} + m _ {k} ^ {2} - i \\epsilon} \\\\ \\times u _ {m ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}\\right) u _ {l ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime}\\right) u _ {m} ^ {*} \\left(\\mathbf {p} _ {2} \\sigma_ {2} n _ {2}\\right) u _ {l} ^ {*} \\left(\\mathbf {p} _ {1} \\sigma_ {1} n _ {1}\\right) \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} ].  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} S _ { \\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime}, \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} n _ {1}, \\mathbf {p} _ {2} \\sigma_ {2} n _ {2}} = i (2 \\pi) ^ {- 2} \\delta^ {4} \\left(p _ {1} + p _ {2} - p _ {1} ^ {\\prime} - p _ {2} ^ {\\prime}\\right) \\\\ \\times \\sum_ {k ^ {\\prime} l ^ {\\prime} m ^ {\\prime} k l m} g _ {m ^ {\\prime} m k ^ {\\prime}} g _ {l ^ {\\prime} l k} \\frac {P _ {k ^ {\\prime} k} \\left(p _ {1 ^ {\\prime}} - p _ {1}\\right)}{\\left(p _ {1 ^ {\\prime}} - p _ {1}\\right) ^ {2} + m _ {k} ^ {2} - i \\epsilon} \\\\ \\times u _ {m ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime} n _ {2} ^ {\\prime}\\right) u _ {l ^ {\\prime}} ^ {*} \\left(\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} n _ {1} ^ {\\prime}\\right) u _ {m} ^ {*} \\left(\\mathbf {p} _ {2} \\sigma_ {2} n _ {2}\\right) u _ {l} ^ {*} \\left(\\mathbf {p} _ {1} \\sigma_ {1} n _ {1}\\right) \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} \\right].  \\\\ \\end{array}"
+    },
+    {
+      "id": "weinberg_qft1-ch06-body-240-916ab8",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[240]",
+      "expect": "\\begin{array}{l} S _ {\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} \\mathbf {p} _ {2} \\sigma_ {2}} = i (2 \\pi) ^ {- 2} g ^ {2} \\delta^ {4} \\left(p _ {1} + p _ {2} - p _ {1} ^ {\\prime} - p _ {2} ^ {\\prime}\\right) \\\\ \\times \\left(\\bar {u} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime}\\right) \\gamma_ {5} u \\left(\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime}\\right)\\right) \\left(\\bar {u} \\left(\\mathbf {p} _ {2} \\sigma_ {2}\\right) \\gamma_ {5} u \\left(\\mathbf {p} _ {1} \\sigma_ {1}\\right)\\right) \\\\ \\times \\frac {1}{(p _ {1 ^ {\\prime}} - p _ {1}) ^ {2} + m ^ {2} - i \\epsilon} \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} ], \\\\ \\end{array}",
+      "new": "\\begin{array}{l} S _ { \\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime} \\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime}, \\mathbf {p} _ {1} \\sigma_ {1} \\mathbf {p} _ {2} \\sigma_ {2}} = i (2 \\pi) ^ {- 2} g ^ {2} \\delta^ {4} \\left(p _ {1} + p _ {2} - p _ {1} ^ {\\prime} - p _ {2} ^ {\\prime}\\right) \\\\ \\times \\left(\\bar {u} \\left(\\mathbf {p} _ {2} ^ {\\prime} \\sigma_ {2} ^ {\\prime}\\right) \\gamma_ {5} u \\left(\\mathbf {p} _ {1} ^ {\\prime} \\sigma_ {1} ^ {\\prime}\\right)\\right) \\left(\\bar {u} \\left(\\mathbf {p} _ {2} \\sigma_ {2}\\right) \\gamma_ {5} u \\left(\\mathbf {p} _ {1} \\sigma_ {1}\\right)\\right) \\times \\frac {1}{(p _ {1 ^ {\\prime}} - p _ {1}) ^ {2} + m ^ {2} - i \\epsilon} \\\\ - \\left[ 1 ^ {\\prime} \\rightleftharpoons 2 ^ {\\prime} \\right], \\\\ \\end{array}"
+    }
+  ]
+}

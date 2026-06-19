@@ -1,0 +1,76 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "exclude-ch02-prob2.13-inline-table",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.13:body[13]",
+      "expect": {
+        "id": "tbl-ch02-prob12-13"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_inline_table",
+        "catalog_repair_source": "agent-exclude"
+      },
+      "reason": "Problem 2.13 contains an unnumbered inline table, not a numbered catalog table."
+    },
+    {
+      "id": "insert-fig-2.5-conserved-current",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[96]",
+      "position": "before",
+      "page": 53,
+      "clip": [
+        0.61,
+        0.145,
+        0.93,
+        0.185
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-2.5",
+        "kind": "line",
+        "caption": "Fig. 2.5 Conserved current."
+      },
+      "reason": "MinerU missed the small conserved-current diagram in the right column."
+    },
+    {
+      "id": "trim-ch02-body96-caption-prefix",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[97]",
+      "field": "md",
+      "old": "Fig. 2.5 Conserved current. ",
+      "new": "",
+      "reason": "Remove the duplicated caption prefix after inserting Fig. 2.5 as a proper figure block."
+    },
+    {
+      "id": "set-ch03-fig-3.8",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.18:body[5]",
+      "expect": {
+        "id": "fig-ch03-prob17-5"
+      },
+      "set": {
+        "id": "fig-3.8",
+        "caption": "Fig. 3.8 Glass vs. Crystal. (a) Ideal gas of N toms in a big box of size V . (b) N ideal gas atoms ach in a small box of size $V / N$ . The ideal gas on the eft has an additional entropy due to the $N ^ { \\tilde { N } } / N !$ configurations of filling the different small boxes with the toms. This entropy difference is quantitatively simlar to the zero-temperature entropy difference beween a glass (with many metastable configurations) nd a crystal (with a regular lattice of atoms).",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "OCR dropped the leading F in the caption, so the real Fig. 3.8 stayed on a fallback anchor."
+    },
+    {
+      "id": "fix-ch11-prob11.7-misocr-ref",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "problem:11.7:body[22]",
+      "field": "md",
+      "old": "Fig. 11.11.32 At",
+      "new": "Fig. 11.18. At",
+      "reason": "OCR merged the Fig. 11.18 reference with footnote 32."
+    }
+  ]
+}

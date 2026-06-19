@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "sakurai_mqm3-ch02-body-914-c9e3b1",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[914]",
+      "field": "md",
+      "old": "$\\lambda = 1 . 4 2 \\mathring \\mathrm { A }$",
+      "new": "$\\lambda = 1.42\\mathring{\\mathrm{A}}$",
+      "anchor": "2a7e2954"
+    },
+    {
+      "id": "sakurai_mqm3-ch05-body-517-d4a50a",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[517]",
+      "field": "md",
+      "old": "$| 1 \\rangle _ { \\left. } ^ { \\right. } | 2 \\rangle$",
+      "new": "$|1\\rangle|2\\rangle$",
+      "anchor": "4f7d8886"
+    },
+    {
+      "id": "sakurai_mqm3-ch05-body-553-4d07b0",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[553]",
+      "field": "md",
+      "old": "$| + \\rangle _ { \\left. } ^ { \\right. } | - \\rangle$",
+      "new": "$|+\\rangle|-\\rangle$",
+      "anchor": "4c33482b"
+    }
+  ]
+}

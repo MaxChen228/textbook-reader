@@ -1,0 +1,97 @@
+slug: hartshorne_algebraic_geometry
+title: Algebraic Geometry
+author: Robin Hartshorne
+edition: null
+subject: Algebraic Geometry
+publisher: Springer-Verlag
+language: en
+
+filter_types: [header, page_number, footer, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 436
+bibliography_start_page: 471
+index_start_page: 490
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Varieties
+    page_start: 13
+    page_end: 71
+    chapter_title_block_idx: 128
+    chapter_title_block_idx_secondary: 129
+    problems_block_idx: null
+    next_chapter_block_idx: 906
+  - num: 2
+    title: Schemes
+    page_start: 72
+    page_end: 212
+    chapter_title_block_idx: 906
+    chapter_title_block_idx_secondary: 907
+    problems_block_idx: null
+    next_chapter_block_idx: 2692
+  - num: 3
+    title: Cohomology
+    page_start: 213
+    page_end: 304
+    chapter_title_block_idx: 2692
+    chapter_title_block_idx_secondary: 2693
+    problems_block_idx: null
+    next_chapter_block_idx: 4231
+  - num: 4
+    title: Curves
+    page_start: 305
+    page_end: 367
+    chapter_title_block_idx: 4231
+    chapter_title_block_idx_secondary: 4232
+    problems_block_idx: null
+    next_chapter_block_idx: 5148
+  - num: 5
+    title: Surfaces
+    page_start: 368
+    page_end: 435
+    chapter_title_block_idx: 5148
+    chapter_title_block_idx_secondary: 5149
+    problems_block_idx: null
+    next_chapter_block_idx: 6081
+
+appendices:
+  - id: "A"
+    title: Intersection Theory
+    page_start: 436
+    chapter_title_block_idx: 6081
+  - id: "B"
+    title: Transcendental Methods
+    page_start: 450
+    chapter_title_block_idx: 6302
+  - id: "C"
+    title: The Weil Conjectures
+    page_start: 461
+    chapter_title_block_idx: 6422
+
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^()(?!CHAPTER\b|APPENDIX\b|EXERCISES\b|[IVX]+\.?\s+(?:Varieties|Schemes|Cohomology|Curves|Surfaces)\b)([A-Z][a-z]+(?: [A-Z][a-z]+)+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\*{0,2}(\d+\.\d+)\.?\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

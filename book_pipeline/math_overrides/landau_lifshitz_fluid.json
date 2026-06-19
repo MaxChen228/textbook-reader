@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_fluid-ch04-body-205-fe708d",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[205]",
+      "field": "md",
+      "old": "$v^2 = (u + v'_x)^2 + v'_y^2 + v'_z^2$",
+      "new": "$v^2 = (u + v'_{x})^2 + (v'_{y})^2 + (v'_{z})^2$",
+      "anchor": "2a32cd0b"
+    }
+  ]
+}

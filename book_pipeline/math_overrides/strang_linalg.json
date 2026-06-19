@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "strang_linalg-appB-body-458-d366fc",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[458]",
+      "field": "md",
+      "old": "$c = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\\\ 0 \\end{bmatrix} \\rightarrow \\begin{bmatrix} c_{\\text{even}} = \\\\ c_{\\text{odd}} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\\\ 0 \\end{bmatrix} \\rightarrow y' = \\\\ y'' = \\begin{bmatrix} 2 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix} \\rightarrow y = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\\\ 0 \\end{bmatrix}.$",
+      "new": "$c = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\\\ 0 \\end{bmatrix} \\rightarrow \\begin{bmatrix} c_{\\text{even}} \\\\ c_{\\text{odd}} \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\\\ 0 \\end{bmatrix} \\rightarrow y' = y'' = \\begin{bmatrix} 2 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix} \\rightarrow y = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\\\ 0 \\end{bmatrix}.$",
+      "anchor": "a3122a73"
+    }
+  ]
+}

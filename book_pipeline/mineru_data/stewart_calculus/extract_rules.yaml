@@ -1,0 +1,142 @@
+slug: stewart_calculus
+title: "Calculus: Early Transcendentals SOLUTIONS"
+author: "James Stewart; Daniel K. Clegg; Saleem Watson"
+edition: 9th
+subject: Calculus
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 0
+appendices_start_page: 1204
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Functions and Models
+    page_start: 0
+    page_end: 65
+    chapter_title_block_idx: 0
+    problems_block_idx: null
+    next_chapter_block_idx: 1418
+  - num: 2
+    title: Limits and Derivatives
+    page_start: 66
+    page_end: 169
+    chapter_title_block_idx: 1418
+    problems_block_idx: null
+    next_chapter_block_idx: 3543
+  - num: 3
+    title: Differentiation Rules
+    page_start: 170
+    page_end: 315
+    chapter_title_block_idx: 3543
+    problems_block_idx: null
+    next_chapter_block_idx: 6744
+  - num: 4
+    title: Applications of Differentiation
+    page_start: 316
+    page_end: 505
+    chapter_title_block_idx: 6744
+    problems_block_idx: null
+    next_chapter_block_idx: 11178
+  - num: 5
+    title: Integrals
+    page_start: 506
+    page_end: 663
+    chapter_title_block_idx: 11178
+    problems_block_idx: null
+    next_chapter_block_idx: 14606
+  - num: 6
+    title: Techniques of Integration
+    page_start: 664
+    page_end: 799
+    chapter_title_block_idx: 14606
+    problems_block_idx: null
+    next_chapter_block_idx: 17764
+  - num: 7
+    title: Further Applications of Integration
+    page_start: 800
+    page_end: 861
+    chapter_title_block_idx: 17764
+    problems_block_idx: null
+    next_chapter_block_idx: 19103
+  - num: 8
+    title: Differential Equations
+    page_start: 862
+    page_end: 925
+    chapter_title_block_idx: 19103
+    problems_block_idx: null
+    next_chapter_block_idx: 20549
+  - num: 9
+    title: Parametric Equations and Polar Coordinates
+    page_start: 926
+    page_end: 1029
+    chapter_title_block_idx: 20549
+    problems_block_idx: null
+    next_chapter_block_idx: 22811
+  - num: 10
+    title: Vectors and the Geometry of Space
+    page_start: 1030
+    page_end: 1179
+    chapter_title_block_idx: 22811
+    problems_block_idx: null
+    next_chapter_block_idx: 25832
+  - num: 11
+    title: Second-Order Differential Equations
+    page_start: 1180
+    page_end: 1203
+    chapter_title_block_idx: 25832
+    problems_block_idx: null
+    next_chapter_block_idx: 26397
+
+appendices:
+  - id: A
+    title: Abbreviations
+    page_start: 1204
+    chapter_title_block_idx: 26397
+  - id: B
+    title: Test B Analytic Geometry
+    page_start: 1207
+    chapter_title_block_idx: 26484
+  - id: C
+    title: Test C Functions
+    page_start: 1209
+    chapter_title_block_idx: 26519
+  - id: D
+    title: Test D Trigonometry
+    page_start: 1211
+    chapter_title_block_idx: 26559
+
+section_re: '^((?:\d+\.\d+(?=[\s ]+\S))|(?:\d+\s+Review)|(?:TRUE-FALSE QUIZ)|(?:EXERCISES)|(?:APPLIED PROJECT(?:\s+\S.*)?)|(?:DISCOVERY PROJECT(?:\s+\S.*)?)|(?:Observations:))[\s ]*(.*)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,164 @@
+slug: strauss_pde
+title: "Partial Differential Equations: An Introduction"
+author: Walter A. Strauss
+edition: 2nd
+subject: Differential Equations
+publisher: John Wiley & Sons, Ltd
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 425
+bibliography_start_page: 438
+index_start_page: 457
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Where PDEs Come From
+    page_start: 12
+    page_end: 43
+    chapter_title_block_idx: 111
+    chapter_title_block_idx_secondary: 112
+    problems_block_idx: null
+    next_chapter_block_idx: 624
+  - num: 2
+    title: Waves and Diffusions
+    page_start: 44
+    page_end: 67
+    chapter_title_block_idx: 624
+    chapter_title_block_idx_secondary: 625
+    problems_block_idx: null
+    next_chapter_block_idx: 991
+  - num: 3
+    title: Reflections and Sources
+    page_start: 68
+    page_end: 94
+    chapter_title_block_idx: 991
+    chapter_title_block_idx_secondary: 992
+    problems_block_idx: null
+    next_chapter_block_idx: 1431
+  - num: 4
+    title: Boundary Problems
+    page_start: 95
+    page_end: 114
+    chapter_title_block_idx: 1431
+    chapter_title_block_idx_secondary: 1432
+    problems_block_idx: null
+    next_chapter_block_idx: 1765
+  - num: 5
+    title: Fourier Series
+    page_start: 115
+    page_end: 162
+    chapter_title_block_idx: 1765
+    chapter_title_block_idx_secondary: 1766
+    problems_block_idx: null
+    next_chapter_block_idx: 2576
+  - num: 6
+    title: Harmonic Functions
+    page_start: 163
+    page_end: 188
+    chapter_title_block_idx: 2576
+    chapter_title_block_idx_secondary: 2577
+    problems_block_idx: null
+    next_chapter_block_idx: 3010
+  - num: 7
+    title: Green's Identities and Green's Functions
+    page_start: 189
+    page_end: 209
+    chapter_title_block_idx: 3010
+    chapter_title_block_idx_secondary: 3011
+    problems_block_idx: null
+    next_chapter_block_idx: 3354
+  - num: 8
+    title: Computation of Solutions
+    page_start: 210
+    page_end: 238
+    chapter_title_block_idx: 3354
+    chapter_title_block_idx_secondary: 3355
+    problems_block_idx: null
+    next_chapter_block_idx: 3813
+  - num: 9
+    title: Waves in Space
+    page_start: 239
+    page_end: 268
+    chapter_title_block_idx: 3813
+    chapter_title_block_idx_secondary: 3814
+    problems_block_idx: null
+    next_chapter_block_idx: 4305
+  - num: 10
+    title: Boundaries in the Plane and in Space
+    page_start: 269
+    page_end: 309
+    chapter_title_block_idx: 4305
+    chapter_title_block_idx_secondary: 4306
+    problems_block_idx: null
+    next_chapter_block_idx: 5003
+  - num: 11
+    title: General Eigenvalue Problems
+    page_start: 310
+    page_end: 341
+    chapter_title_block_idx: 5003
+    chapter_title_block_idx_secondary: 5004
+    problems_block_idx: null
+    next_chapter_block_idx: 5520
+  - num: 12
+    title: Distributions and Transforms
+    page_start: 342
+    page_end: 368
+    chapter_title_block_idx: 5520
+    chapter_title_block_idx_secondary: 5521
+    problems_block_idx: null
+    next_chapter_block_idx: 5980
+  - num: 13
+    title: PDE Problems from Physics
+    page_start: 369
+    page_end: 390
+    chapter_title_block_idx: 5980
+    chapter_title_block_idx_secondary: 5981
+    problems_block_idx: null
+    next_chapter_block_idx: 6357
+  - num: 14
+    title: Nonlinear PDEs
+    page_start: 391
+    page_end: 424
+    chapter_title_block_idx: 6357
+    chapter_title_block_idx_secondary: 6358
+    problems_block_idx: null
+    next_chapter_block_idx: 6840
+
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 425
+    chapter_title_block_idx: 6840
+
+section_re: '^(\d+\.\d+|[A-Z]\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?!\$|Derivatives are local\b|Mixed derivatives are equal\b|The chain rule is used\b|For the integrals of derivatives\b|Jacobians\b|Infinite series of functions\b|Directional derivatives\b|We.?ll often reduce PDEs\b|Electrostatics\b|Steady fluid flow\b|Analytic functions of a complex variable\b|Brownian motion\b)'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+([0-9]+)\.?$'
+
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s*([0-9]+)'
+
+known_missing_problems: []

@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "rudin_functional_analysis-ch01-body-504-e7cd75",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[504]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{ \\begin{array} { l }  f _ { i } \\right\\} \\end{array}$",
+      "new": "$\\left\\{\\begin{array}{l}f_{i}\\end{array}\\right\\}$",
+      "anchor": "37bf1f4a"
+    },
+    {
+      "id": "rudin_functional_analysis-ch11-body-414-1c1c29",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[414]",
+      "expect": "\\begin{array}{l} \\text {If n = 3, 4, 5, ..., if \\omega = \\exp (2\\pi i / n), if x\\in A, and if z_{p} =} \\\\ e + \\omega^ {- p} x, t h e n \\end{array}",
+      "new": "\\begin{array}{l}\\text{If }n=3,4,5,\\ldots,\\text{ if }\\omega=\\exp(2\\pi i/n),\\text{ if }x\\in A,\\text{ and if }z_{p}=\\\\ e+\\omega^{-p}x,\\text{ then}\\end{array}"
+    },
+    {
+      "id": "rudin_functional_analysis-ch12-body-174-22f674",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[174]",
+      "field": "md",
+      "all": true,
+      "old": "$y ^ { \\ast } \\big { ? }$",
+      "new": "$y^{\\ast}\\bigl\\{?\\bigr\\}$",
+      "anchor": "94d815c4"
+    },
+    {
+      "id": "rudin_functional_analysis-ch03-problem-3-body-2-c8f78b",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "\\(B) disjoint, under the hypotheses of (a).",
+      "new": "(B)\\text{ disjoint, under the hypotheses of (a).}",
+      "anchor": "bf1d2ccb"
+    }
+  ]
+}

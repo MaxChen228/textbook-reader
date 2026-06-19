@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-mtw-gravitation",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog misses multi-image figures with adjacent text captions",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-18T04:13:01+00:00",
+  "updated": "2026-06-18T04:13:01+00:00",
+  "evidence": "mtw_gravitation smoke H6/H7: unresolved Figure refs=3, empty figure captions=240. Unified contains repeated image blocks where only the last image has 'Figure N.M.' or the full caption sits in the next text block (examples: ch02 body[15:18] / unified 1236-1238 for Figure 2.1; ch04 body[177:180] / unified 2283-2285 for Figure 4.1; ch01 body[190:192] / unified 1048-1049 and 20293+ style bare text captions). Current schema can only merge fig captions already attached to image blocks; it cannot bind neighboring text captions or merge unlabeled sibling images into one semantic figure.",
+  "proposal": "Extend parser/catalog tooling so a figure cluster can absorb adjacent text-caption blocks and/or treat consecutive unlabeled image blocks plus one labeled sibling as a single semantic figure with subimages. Expose the needed behavior through schema rather than per-book engine patches.",
+  "risk": "",
+  "disposition": ""
+}

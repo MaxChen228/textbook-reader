@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "georgi_lie_algebras-ch10-body-91-6c7d41",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[91]",
+      "expect": "\\langle v | = v _ {i _ {1} \\dots i _ {m}} ^ {j _ {1} \\dots j _ {n}} ^ {*} \\left\\langle {} _ {j _ {1} \\dots j _ {n}} ^ {i _ {1} \\dots i _ {m}} \\right| \\tag {10.32}",
+      "new": "\\langle v|=\\left(v_{i_{1}\\dots i_{m}}^{j_{1}\\dots j_{n}}\\right)^{*}\\left\\langle {}_{j_{1}\\dots j_{n}}^{i_{1}\\dots i_{m}}\\right|\\tag{10.32}"
+    },
+    {
+      "id": "georgi_lie_algebras-ch10-body-95-8fa0d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[95]",
+      "expect": "\\overline {{{v}}} _ {j _ {1} \\dots j _ {n}} ^ {i _ {1} \\dots i _ {m}} \\equiv v _ {i _ {1} \\dots i _ {m}} ^ {j _ {1} \\dots j _ {n}} ^ {*} \\tag {10.34}",
+      "new": "\\overline{v}_{j_{1}\\dots j_{n}}^{i_{1}\\dots i_{m}}\\equiv \\left(v_{i_{1}\\dots i_{m}}^{j_{1}\\dots j_{n}}\\right)^{*}\\tag{10.34}"
+    },
+    {
+      "id": "georgi_lie_algebras-ch23-body-86-45e7ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[86]",
+      "expect": "\\begin{array}{c c c c c} \\hline n \\\\ k \\end{array} & 1 & 2 & 3 & 4 \\\\ \\hline 0 & - & - & + & + \\\\ \\hline 1 & + & - & - & + \\\\ \\hline 2 & + & + & - & - \\\\ \\hline 3 & - & + & + & - \\end{array} \\tag {23.31}",
+      "new": "\\begin{array}{ccccc}\\hline n\\\\k&1&2&3&4\\\\\\hline 0&-&-&+&+\\\\\\hline 1&+&-&-&+\\\\\\hline 2&+&+&-&-\\\\\\hline 3&-&+&+&-\\end{array}\\tag{23.31}"
+    }
+  ]
+}

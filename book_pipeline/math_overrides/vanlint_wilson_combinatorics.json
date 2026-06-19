@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "vanlint_wilson_combinatorics-ch25-body-24-928cf5",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[24]",
+      "expect": "\\mu (a, b) = \\left\\{ \\begin{array}{c l} (- 1) ^ {r} & \\text {if \\frac {b}{a} is the product of r distinct primes}, \\\\ 0 & \\text {otherwise, i.e. if a\\nmid b or \\frac {b}{a} is not squarefree}. \\end{array} \\right.",
+      "new": "\\mu (a, b) = \\left\\{ \\begin{array}{c l} (- 1) ^ {r} & \\text {if $\\frac {b}{a}$ is the product of $r$ distinct primes}, \\\\ 0 & \\text {otherwise, i.e. if $a\\nmid b$ or $\\frac {b}{a}$ is not squarefree}. \\end{array} \\right."
+    },
+    {
+      "id": "vanlint_wilson_combinatorics-ch25-body-27-f30738",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[27]",
+      "expect": "\\mu (U, W) = \\left\\{ \\begin{array}{c l} (- 1) ^ {k} q ^ {\\binom {k} {2}} & \\text {if U\\subseteq W and dim(W) - dim(U) = k}, \\\\ 0 & \\text {if U\\not\\subseteq W}. \\end{array} \\right.",
+      "new": "\\mu (U, W) = \\left\\{ \\begin{array}{c l} (- 1) ^ {k} q ^ {\\binom {k} {2}} & \\text {if $U\\subseteq W$ and $\\dim(W) - \\dim(U) = k$}, \\\\ 0 & \\text {if $U\\not\\subseteq W$.} \\end{array} \\right."
+    },
+    {
+      "id": "vanlint_wilson_combinatorics-ch25-body-32-75adaf",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[32]",
+      "expect": "\\mu (A, B) = \\left\\{ \\begin{array}{c l} (- 1) ^ {\\dim (B) - \\dim (A)} & \\text {if A\\subseteq B}, \\\\ 0 & \\text {otherwise}. \\end{array} \\right.",
+      "new": "\\mu (A, B) = \\left\\{ \\begin{array}{c l} (- 1) ^ {\\dim (B) - \\dim (A)} & \\text {if $A\\subseteq B$}, \\\\ 0 & \\text {otherwise}. \\end{array} \\right."
+    },
+    {
+      "id": "vanlint_wilson_combinatorics-ch30-body-39-6c9423",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[39]",
+      "expect": "E _ {i} E _ {j} = \\left\\{ \\begin{array}{l l} E _ {i} & \\text {if i = j ,} \\\\ O & \\text {if i\\neq j ,} \\end{array} \\right.",
+      "new": "E _ {i} E _ {j} = \\left\\{ \\begin{array}{l l} E _ {i} & \\text {if } i = j , \\\\ O & \\text {if } i\\neq j , \\end{array} \\right."
+    }
+  ]
+}

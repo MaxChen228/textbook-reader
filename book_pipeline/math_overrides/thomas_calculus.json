@@ -1,0 +1,130 @@
+{
+  "overrides": [
+    {
+      "id": "thomas_calculus-ch02-problem-chapter2questionstoguideyourreview-9-body-0-e31cbe",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:Chapter2QuestionstoGuideYourReview.9:body[0]",
+      "field": "md",
+      "old": "$_ { 1 _ { X }  _ { C } } f ( x ) = L$",
+      "new": "$f _ { 1 _ { X _ { C } } } ( x ) = L$",
+      "anchor": "387e4ca8"
+    },
+    {
+      "id": "thomas_calculus-ch02-problem-chapter6additionalandadvancedexercises-23-body-2-e31cbe",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:Chapter6AdditionalandAdvancedExercises.23:body[2]",
+      "field": "md",
+      "old": "$_ { 1 _ { X }  _ { C } } f ( x ) = L$",
+      "new": "$f _ { 1 _ { X _ { C } } } ( x ) = L$",
+      "anchor": "653b1192"
+    },
+    {
+      "id": "thomas_calculus-ch12-body-153-1ee1bd",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[153]",
+      "field": "md",
+      "old": "$\\mathbf { u } = { \\mathbf \\bigg < } u _ { 1 } , u _ { 2 } , u _ { 3 } { \\ \\rangle }$",
+      "new": "$\\mathbf { u } = \\left\\langle u _ { 1 } , u _ { 2 } , u _ { 3 } \\right\\rangle$",
+      "anchor": "d0266016"
+    },
+    {
+      "id": "thomas_calculus-ch12-body-156-1ee1bd",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[156]",
+      "field": "md",
+      "old": "$\\mathbf { u } = { \\mathbf \\bigg < } u _ { 1 } , u _ { 2 } , u _ { 3 } { \\ \\rangle }$",
+      "new": "$\\mathbf { u } = \\left\\langle u _ { 1 } , u _ { 2 } , u _ { 3 } \\right\\rangle$",
+      "anchor": "6d07ff71"
+    },
+    {
+      "id": "thomas_calculus-ch02-problem-chapter6additionalandadvancedexercises-20-body-0-95e5e3",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:Chapter6AdditionalandAdvancedExercises.20:body[0]",
+      "field": "md",
+      "old": "$_ { 1 _ { x }  _ { c } } ( f ( x ) - g ( x ) ) = - 1$",
+      "new": "$f _ { 1 _ { x _ { c } } } ( f ( x ) - g ( x ) ) = - 1$",
+      "anchor": "7d5ac88f"
+    },
+    {
+      "id": "thomas_calculus-ch10-body-145-d9dff9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[145]",
+      "expect": "\\sum_ {n = 1} ^ {\\infty} a _ {n}, \\qquad \\sum_ {k = 1} ^ {\\infty} a _ {k}, \\qquad \\text { or } \\qquad \\sum a _ {n} \\begin{array}{l} \\text { A   userin   shorthand } \\\\ \\text { when   summation } \\\\ \\text { from   1   to   \\infty   is } \\\\ \\text { understood } \\end{array}",
+      "new": "\\sum_ {n = 1} ^ {\\infty} a _ {n}, \\qquad \\sum_ {k = 1} ^ {\\infty} a _ {k}, \\qquad \\text { or } \\qquad \\sum a _ {n} \\begin{array}{l} \\text { A   userin   shorthand } \\\\ \\text { when   summation } \\\\ \\text { from   1   to   } \\infty \\text { is } \\\\ \\text { understood } \\end{array}"
+    },
+    {
+      "id": "thomas_calculus-ch13-body-409-48e52b",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[409]",
+      "field": "md",
+      "old": "$ , and x (“x triple dot”) means# = $",
+      "new": "$ , and x (“x triple dot”) means\\# = $",
+      "anchor": "f85c76dc"
+    },
+    {
+      "id": "thomas_calculus-ch13-body-459-3d85f6",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[459]",
+      "field": "md",
+      "old": "$ and# $",
+      "new": "$ and\\# $",
+      "anchor": "2aa13e79"
+    },
+    {
+      "id": "thomas_calculus-ch14-problem-14-2-7-body-13-20df57",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.2.7:body[13]",
+      "field": "md",
+      "old": "$\\mathbb { E } \\times \\mathbb { A } M \\mathbb { M } \\mathbb { P } \\mathbb { L } \\mathbb { E } \\textrm {  { ~ \\pi ~ } } \\textrm { F i n d } \\operatorname* { l i m } _ { ( x , y ) \\longrightarrow ( 0 , 0 ) } \\frac { 4 x y ^ { 2 } } { x ^ { 2 } + y ^ { 2 } } \\quad \\textrm { i f } \\operatorname { i t } \\mathrm { e x i s t s . }$",
+      "new": "$\\mathbb { E } \\times \\mathbb { A } M \\mathbb { M } \\mathbb { P } \\mathbb { L } \\mathbb { E } \\pi \\textrm { F i n d } \\operatorname* { l i m } _ { ( x , y ) \\longrightarrow ( 0 , 0 ) } \\frac { 4 x y ^ { 2 } } { x ^ { 2 } + y ^ { 2 } } \\quad \\textrm { i f } \\operatorname { i t } \\mathrm { e x i s t s . }$",
+      "anchor": "7f1f3b56"
+    },
+    {
+      "id": "thomas_calculus-ch02-problem-2-4-39-body-1-defdaa",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.4.39:body[1]",
+      "field": "md",
+      "old": "$\\operatorname * { l i m } _ { y \\to 0 } - \\quad \\hfill y \\cot 4 y$",
+      "new": "$\\lim _ { y \\to 0 } - \\quad y \\cot 4 y$",
+      "anchor": "728c70b8"
+    },
+    {
+      "id": "thomas_calculus-ch05-body-212-638bba",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[212]",
+      "field": "md",
+      "old": "$\\Delta x _ { 1 } = 0 . 2 , \\Delta x _ { 2 } = 0 . 4 , \\Delta x _ { 3 } = 0 . 4 , \\Delta x _ { 4 } = 0 . 5 _ { \\mathrm { { \\scriptscriptstyleperthousand } } }$",
+      "new": "$\\Delta x _ { 1 } = 0 . 2 , \\Delta x _ { 2 } = 0 . 4 , \\Delta x _ { 3 } = 0 . 4 , \\Delta x _ { 4 } = 0 . 5 _ { \\mathrm { \\scriptscriptstyle perthousand } }$",
+      "anchor": "eff70a31"
+    },
+    {
+      "id": "thomas_calculus-ch10-body-421-f0adb6",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[421]",
+      "field": "md",
+      "old": "$\\mathbf { \\mu } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\Sigma } } \\mathbf { \\Sigma } _ { \\mathbf \\Sigma } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } \\mathbf { \\Sigma } _ { \\mathbf \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } _ { \\mathbf \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf \\Sigma { \\Sigma } \\mathbf \\Sigma  \\mathbf { \\Sigma } \\mathbf { \\Sigma \\Sigma } \\mathbf { \\Sigma \\Sigma } \\mathbf \\mathbf { \\Sigma } \\mathbf \\mathbf { \\Sigma \\Sigma } \\mathbf \\Sigma \\mathbf { \\Sigma } \\mathbf \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\mathbf \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma $",
+      "new": "$\\mathbf { \\mu } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } _ { \\mathbf { \\Sigma } } \\mathbf { \\Sigma } _ { \\mathbf { \\Sigma } } \\mathbf { \\Sigma } _ { \\mathbf { \\mu } } \\mathbf { \\Sigma } \\mathbf { \\Sigma } _ { \\mathbf { \\Sigma } } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma \\Sigma } \\mathbf { \\mathbf { \\Sigma } } \\mathbf { \\mathbf { \\Sigma \\Sigma } } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\Sigma \\Sigma \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\mathbf { \\Sigma } \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma \\Sigma $",
+      "anchor": "df4a96a6"
+    },
+    {
+      "id": "thomas_calculus-ch06-problem-6-1-4-body-6-229312",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.1.4:body[6]",
+      "expect": "\\begin{array}{l} V = \\int_ {a} ^ {b} A (x) d x = \\int_ {0} ^ {3} 2 x \\sqrt {9 - x ^ {2}} d x \\\\ = - \\frac {2}{3} (9 - x ^ {2}) ^ {3 / 2} \\bigg ] _ {0} ^ {3} \\qquad \\begin{array}{l} \\text {Let u = 9 - x^{2}}, \\\\ d u = - 2 x   d x, \\text {integrate}, \\\\ \\text {and substitute back}. \\end{array} \\\\ = 0 + \\frac {2}{3} (9) ^ {3 / 2} \\\\ = 1 8. \\\\ \\text {   Let   } u = 9 - x ^ {2}, \\\\ d u = - 2 x d x, \\text { integrate }, \\\\ \\text { and   substitute   back. } \\\\ = 0 + \\frac {2}{3} (9) ^ {3 / 2} \\\\ = 1 8. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} V = \\int_{a}^{b} A(x)\\,dx = \\int_{0}^{3} 2x\\sqrt{9-x^{2}}\\,dx \\\\ = -\\frac{2}{3}(9-x^{2})^{3/2}\\bigg]_{0}^{3} \\qquad \\begin{array}{l} \\text{Let } u = 9-x^{2}, \\\\ du = -2x\\,dx, \\text{ integrate}, \\\\ \\text{ and substitute back}. \\end{array} \\\\ = 0 + \\frac{2}{3}(9)^{3/2} \\\\ = 18. \\\\ \\text{Let } u = 9-x^{2}, \\\\ du = -2x\\,dx, \\text{ integrate}, \\\\ \\text{ and substitute back}. \\\\ = 0 + \\frac{2}{3}(9)^{3/2} \\\\ = 18. \\\\ \\end{array}"
+    }
+  ]
+}

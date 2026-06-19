@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "18.16",
+      "classification": "source_mismatch",
+      "reason": "Raw PDF 在環境章地下水段落直接引用 Figure 18.16，但該章實際只見 Figure 18.15 與 Figure 18.17，書內沒有對應圖號可綁定。",
+      "where": "ch18.json body[275]",
+      "evidence": "Raw PDF p.886 原文含 '(Figure 18.16)'。前頁 p.885 有 caption 'Figure 18.15 Typical average temperature of mid-latitude seawater as a function of depth.'；同章 catalog 下一個可索引圖是 fig-18.17（Eutrophication）。unified page_idx 885 只有文字、無 image/caption block 可產出 Figure 18.16。"
+    },
+    {
+      "type": "figure",
+      "ref": "7.28",
+      "classification": "source_mismatch",
+      "reason": "Raw PDF 在第 22 章鹵素段落直接寫 Figure 7.28，但全書無此圖號；最接近且內容吻合的現存圖是第 7 章 Figure 7.27。",
+      "where": "ch22.json body[195]",
+      "evidence": "Raw PDF p.1067 原文含 'gases. (Figure 7.28) Chlorine readily liquefies…'。全書 catalog 不存在 fig-7.28；第 7 章現有 fig-7.27 caption 為 'The elemental halogens exist as diatomic molecules.'，與引用語意吻合，但源書編號寫成 7.28，屬來源編號不符而非 OCR 漏字。"
+    }
+  ],
+  "overrides": []
+}

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "simon_solid_state-ch12-body-7-07706d",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[7]",
+      "expect": "\\mathbf {R} _ {[ n _ {1} n _ {2} n _ {3} ]} = n _ {1} \\mathbf {a _ {1}} + n _ {2} \\mathbf {a _ {2}} + n _ {3} \\mathbf {a _ {3}} \\quad n _ {1}, n _ {2}, n _ {3} \\in \\mathbb {Z} \\tag {3d}. \\tag {1 2. 1}",
+      "new": "\\mathbf {R} _ {[ n _ {1} n _ {2} n _ {3} ]} = n _ {1} \\mathbf {a _ {1}} + n _ {2} \\mathbf {a _ {2}} + n _ {3} \\mathbf {a _ {3}} \\quad n _ {1}, n _ {2}, n _ {3} \\in \\mathbb {Z} \\tag {3d}."
+    },
+    {
+      "id": "simon_solid_state-ch23-body-95-c853ba",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[95]",
+      "expect": "\\left(\\begin{array}{c c c c c c}U&0&- t&t&0&0\\\\0&0&0&0&0&0\\\\- t&0&0&0&0&- t\\\\t&0&0&0&0&t\\\\0&0&0&0&0&0\\\\0&0&- t&t&0&U\\end{array}\\right)\\left(\\begin{array}{c}\\psi_ {A \\uparrow A \\downarrow}\\\\\\psi_ {A \\uparrow B \\uparrow}\\\\\\psi_ {A \\uparrow B \\downarrow}\\\\\\psi_ {A \\downarrow B \\uparrow}\\\\\\psi_ {A \\downarrow B \\downarrow}\\\\\\psi_ {B \\uparrow B \\downarrow}\\end{array}\\right) = E \\left( \\right.\\begin{array}{c}\\psi_ {A \\uparrow A \\downarrow}\\\\\\psi_ {A \\uparrow B \\uparrow}\\\\\\psi_ {A \\uparrow B \\downarrow}\\\\\\psi_ {A \\downarrow B \\uparrow}\\\\\\psi_ {A \\downarrow B \\downarrow}\\\\\\psi_ {B \\uparrow B \\downarrow}\\end{array}\\middle)",
+      "new": "\\left(\\begin{array}{c c c c c c}U&0&- t&t&0&0\\\\0&0&0&0&0&0\\\\- t&0&0&0&0&- t\\\\t&0&0&0&0&t\\\\0&0&0&0&0&0\\\\0&0&- t&t&0&U\\end{array}\\right)\\left(\\begin{array}{c}\\psi_ {A \\uparrow A \\downarrow}\\\\\\psi_ {A \\uparrow B \\uparrow}\\\\\\psi_ {A \\uparrow B \\downarrow}\\\\\\psi_ {A \\downarrow B \\uparrow}\\\\\\psi_ {A \\downarrow B \\downarrow}\\\\\\psi_ {B \\uparrow B \\downarrow}\\end{array}\\right) = E \\left(\\begin{array}{c}\\psi_ {A \\uparrow A \\downarrow}\\\\\\psi_ {A \\uparrow B \\uparrow}\\\\\\psi_ {A \\uparrow B \\downarrow}\\\\\\psi_ {A \\downarrow B \\uparrow}\\\\\\psi_ {A \\downarrow B \\downarrow}\\\\\\psi_ {B \\uparrow B \\downarrow}\\end{array}\\right)"
+    }
+  ]
+}

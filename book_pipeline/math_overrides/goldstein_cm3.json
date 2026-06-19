@@ -1,0 +1,68 @@
+{
+  "overrides": [
+    {
+      "id": "goldstein_cm3-ch04-body-217-67e576",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[217]",
+      "expect": "\\left( \\begin{array}{c} \\text {rotate} \\\\ \\text {by 180^{\\circ}} \\\\ \\text {about z} \\end{array} \\right) \\left( \\begin{array}{c} \\text {reflect} \\\\ \\text {in the} \\\\ x y \\text {plane} \\end{array} \\right) = \\text {inversion}.",
+      "new": "\\left( \\begin{array}{c} \\text {rotate} \\\\ \\text {by }180^{\\circ} \\\\ \\text {about z} \\end{array} \\right) \\left( \\begin{array}{c} \\text {reflect} \\\\ \\text {in the} \\\\ x y \\text {plane} \\end{array} \\right) = \\text {inversion}."
+    },
+    {
+      "id": "goldstein_cm3-ch07-body-332-a5c9cf",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[332]",
+      "field": "md",
+      "old": "$M = E ^ { \\prime } \\dot { / c } ^ { 2 } . \\dot  $",
+      "new": "$M = E ^ { \\prime } \\dot { / c } ^ { 2 } .  $",
+      "anchor": "fddeb684"
+    },
+    {
+      "id": "goldstein_cm3-ch07-body-239-eec0b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[239]",
+      "expect": "M _ {\\mu \\nu} u ^ {\\mu} v ^ {\\nu} = R _ {\\alpha \\mu} ^ {\\alpha} _ {\\nu} u ^ {\\mu} v ^ {\\nu},",
+      "new": "M _ {\\mu \\nu} u ^ {\\mu} v ^ {\\nu} = R _ {\\alpha \\mu} ^ {\\alpha} {}_{\\nu} u ^ {\\mu} v ^ {\\nu},"
+    },
+    {
+      "id": "goldstein_cm3-ch07-body-241-2ec8ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[241]",
+      "expect": "M _ {\\mu \\nu} = R _ {\\alpha \\mu} ^ {\\alpha} _ {\\nu}. \\tag {$7.62^{\\prime}$}",
+      "new": "M _ {\\mu \\nu} = R _ {\\alpha \\mu} ^ {\\alpha} {}_{\\nu}. \\tag {$7.62^{\\prime}$}"
+    },
+    {
+      "id": "goldstein_cm3-ch11-body-29-c2717c",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[29]",
+      "field": "md",
+      "old": "$\\Nu > 2$",
+      "new": "$\\nu > 2$",
+      "anchor": "17435f17"
+    },
+    {
+      "id": "goldstein_cm3-ch11-body-85-c2717c",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[85]",
+      "field": "md",
+      "old": "$\\Nu > 2$",
+      "new": "$\\nu > 2$",
+      "anchor": "7b6d2590"
+    },
+    {
+      "id": "goldstein_cm3-ch04-body-57-06e9b2",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[57]",
+      "field": "md",
+      "old": "$a _ { 1 } _ { 1 } , a _ { 1 } _ { 2 } , . . . ,$",
+      "new": "$a_{11}, a_{12}, . . . ,$",
+      "anchor": "e629aa95"
+    }
+  ]
+}

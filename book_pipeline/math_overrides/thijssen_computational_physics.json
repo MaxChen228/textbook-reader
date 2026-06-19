@@ -1,0 +1,30 @@
+{
+  "overrides": [
+    {
+      "id": "thijssen_computational_physics-ch06-body-184-3624a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[184]",
+      "expect": "B _ {l m} (\\mathbf {q}) = 4 \\pi R ^ {2} \\mathrm{i} ^ {l} \\Omega^ {- 1 / 2} Y _ {m} ^ {l} ^ {*} (\\theta_ {q}, \\phi_ {q}) b _ {l};",
+      "new": "B _ {l m} (\\mathbf {q}) = 4 \\pi R ^ {2} \\mathrm{i} ^ {l} \\Omega^ {- 1 / 2} Y _ {m} ^ {l*} (\\theta_ {q}, \\phi_ {q}) b _ {l};"
+    },
+    {
+      "id": "thijssen_computational_physics-ch08-body-384-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[384]",
+      "field": "md",
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$Nu _ { 2 }$",
+      "anchor": "0cc948db"
+    },
+    {
+      "id": "thijssen_computational_physics-ch03-problem-3-4-body-1-b8f4e1",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.4:body[1]",
+      "expect": "V (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {for |x| > |a|} \\\\ - V _ {0} & \\text {for |x|\\leq |a|} \\end{array} \\right.",
+      "new": "V (x) = \\left\\{ \\begin{array}{l l} 0 & \\text{for } |x| > |a| \\\\ - V _ {0} & \\text{for } |x| \\leq |a| \\end{array} \\right."
+    }
+  ]
+}

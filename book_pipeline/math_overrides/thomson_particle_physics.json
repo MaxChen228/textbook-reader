@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "id": "thomson_particle_physics-ch07-body-162-076754",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[162]",
+      "expect": "\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega} \\left/ \\left(\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega}\\right) _ {0} \\left. \\right. \\approx G _ {E} ^ {2}.",
+      "new": "\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega} / \\left(\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega}\\right) _ {0} \\approx G _ {E} ^ {2}."
+    },
+    {
+      "id": "thomson_particle_physics-ch07-body-164-18ea69",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[164]",
+      "expect": "\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega} \\left/ \\left(\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega}\\right) _ {0} \\approx \\left(1 + 2 \\tau \\tan^ {2} \\frac {\\theta}{2}\\right) G _ {M} ^ {2}. \\left. \\right.",
+      "new": "\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega} / \\left(\\frac {\\mathrm{d} \\sigma}{\\mathrm{d} \\Omega}\\right) _ {0} \\approx \\left(1 + 2 \\tau \\tan^ {2} \\frac {\\theta}{2}\\right) G _ {M} ^ {2}."
+    },
+    {
+      "id": "thomson_particle_physics-ch17-body-386-d4494e",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[386]",
+      "field": "md",
+      "old": "$\\ell = \\mathrm { \\mathbf { e } ~ o r \\left( \\ell \\mathrm { \\mathbf { \\mu }  } }\\right)$",
+      "new": "$\\ell = \\mathrm { e ~ o r } \\left( \\ell \\mathbf { \\mu } \\right)$",
+      "anchor": "2fae5026"
+    },
+    {
+      "id": "thomson_particle_physics-ch04-problem-4-4-body-0-07f360",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.4:body[0]",
+      "field": "md",
+      "old": "$p ^ { \\mu } = ( { \\cal E } , { \\pmb \\mathsf { p } } )$",
+      "new": "$p ^ { \\mu } = ( { \\mathcal { E } } , { \\pmb { \\mathsf { p } } } )$",
+      "anchor": "d2b81c16"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "4.18",
+      "classification": "source_mismatch",
+      "reason": "Hyperion 段 source PDF 只有 Figure 4.16；後續正文只討論 Figures 4.17/4.18，未出現任何對應 visual 或 caption。",
+      "where": "ch04.json body[154]",
+      "evidence": "Unified page 138 has the only Hyperion image block with caption 'FIGURE 4.16'. Unified page 139 contains prose mentioning Figures 4.17 and 4.18 only. The source PDF page printed 125 shows body text only, and page printed 128 already jumps to EXERCISES/REFERENCES, so no Figure 4.18 visual exists in the source."
+    },
+    {
+      "type": "figure",
+      "ref": "4.19",
+      "classification": "source_mismatch",
+      "reason": "習題 4.19/4.20 引用 Figure 4.19，但 source PDF 與 unified 均無對應 visual 或 caption。",
+      "where": "ch04.json problem:4.19:body[0]",
+      "evidence": "Unified page 141 contains exercises 4.19 and 4.20 referencing Figure 4.19, but there is no image/caption block for Figure 4.19 anywhere in the Hyperion section. The source PDF page printed 128 already contains EXERCISES and REFERENCES with no Figure 4.19 visual."
+    }
+  ],
+  "overrides": []
+}

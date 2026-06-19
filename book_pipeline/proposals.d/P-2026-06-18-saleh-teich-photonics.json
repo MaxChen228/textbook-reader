@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-saleh-teich-photonics",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot resolve captionless figures from MinerU image blocks",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T04:17:42+00:00",
+  "updated": "2026-06-18T04:17:42+00:00",
+  "evidence": "saleh_teich_photonics smoke remains critical after 3 audit iterations: H6 unresolved Figure refs=8 and H7 empty_captions=170. Many figure blocks have no adjacent caption text in content_list.json, so schema-only regex/figure_caption_merge cannot recover semantic ids or captions.",
+  "proposal": "Extend catalog/build pipeline to support per-book figure exclusion/override maps or OCR-side caption attachment for captionless image blocks, so audit-book can mark unresolved decorative/non-captioned images without modifying parser.py.",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,104 @@
+{
+  "overrides": [
+    {
+      "id": "golub_matrix-ch01-body-761-c1b26c",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[761]",
+      "field": "md",
+      "old": "$^ { 6 6 }  ^ { 5 9 }$",
+      "new": "$^{ 6 6 5 9 }$",
+      "anchor": "7520196c"
+    },
+    {
+      "id": "golub_matrix-ch03-body-353-4b8758",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[353]",
+      "field": "md",
+      "old": "$^ { 6 6 }  ^ { \\mathfrak { N } }$",
+      "new": "$^{ 6 6 \\mathfrak { N } }$",
+      "anchor": "27235294"
+    },
+    {
+      "id": "golub_matrix-ch02-body-145-cc4799",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[145]",
+      "field": "md",
+      "old": "$\\left\\| \\left. A B \\right\\| _ { \\Delta } > \\right\\| \\left. A \\right\\| _ { \\Delta } \\right\\| B \\left\\| _ { \\Delta }$",
+      "new": "$\\left\\| A B \\right\\| _ { \\Delta } > \\left\\| A \\right\\| _ { \\Delta } \\left\\| B \\right\\| _ { \\Delta }$",
+      "anchor": "61e9d969"
+    },
+    {
+      "id": "golub_matrix-ch02-body-516-cd051a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[516]",
+      "expect": "\\operatorname{round} (x) = \\left\\{ \\begin{array}{l l} - \\infty & \\text {if x <   - N_{max}}, \\\\ + \\infty & \\text {if x > N_{max}}. \\end{array} \\right.",
+      "new": "\\operatorname{round} (x) = \\left\\{ \\begin{array}{l l} - \\infty & \\text {if } x < - N_{\\max},\\\\ + \\infty & \\text {if } x > N_{\\max}. \\end{array} \\right."
+    },
+    {
+      "id": "golub_matrix-ch12-body-575-6055d3",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[575]",
+      "expect": "\\begin{array}{l} \\text {for i_{1} = 1:n} \\\\ \\quad \\text {for i_{2} = 1:n} \\\\ \\quad \\text {for i_{3} = 1:n} \\\\ \\quad \\text {for i_{4} = 1:n} \\\\ \\mathcal {C} (i _ {1}, i _ {2}, i _ {3}, i _ {4}) = \\sum_ {p = 1} ^ {n} \\sum_ {q = 1} ^ {n} \\mathcal {A} (i _ {1}, p, i _ {3}, q) \\mathcal {B} (p, i _ {2}, q, i _ {4}) \\\\ \\quad \\text {end} \\\\ \\quad \\text {end} \\\\ \\quad \\text {end} \\\\ \\text {end} \\end{array}",
+      "new": "\\begin{array}{l} \\text {for } i _ {1} = 1:n\\\\ \\quad \\text {for } i _ {2} = 1:n\\\\ \\quad \\text {for } i _ {3} = 1:n\\\\ \\quad \\text {for } i _ {4} = 1:n\\\\ \\quad \\mathcal {C} (i _ {1}, i _ {2}, i _ {3}, i _ {4}) = \\sum _ {p = 1} ^ {n} \\sum _ {q = 1} ^ {n} \\mathcal {A} (i _ {1}, p, i _ {3}, q) \\mathcal {B} (p, i _ {2}, q, i _ {4})\\\\ \\quad \\text {end}\\\\ \\quad \\text {end}\\\\ \\quad \\text {end}\\\\ \\text {end} \\end{array}"
+    },
+    {
+      "id": "golub_matrix-ch04-body-200-247728",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[200]",
+      "field": "md",
+      "old": "$\\mathbf { \\mathbf { \\mathbf { \\mathbf { L } } } } \\mathbf { \\mathbf { \\mathbf { D } } } \\mathbf { \\mathbf \\mathbf { \\mathbf { \\mathbf { L } } } } ^ { T }$",
+      "new": "$\\mathbf { L } \\mathbf { D } \\mathbf { L } ^ { T }$",
+      "anchor": "2d767cfb"
+    },
+    {
+      "id": "golub_matrix-ch07-body-894-6b7298",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[894]",
+      "field": "md",
+      "old": "$\\mathrm { F i n d ~ H o u s e h o l d e r ~ } Z _ { k 1 } \\mathrm { ~ s o ~ } \\left[ \\begin{array} { l } { b _ { k + 2 , k } \\ \\big \\vert \\ b _ { k + 2 , k + 1 } \\ \\big \\vert \\ b _ { k + 2 , k + 2 } } \\end{array} \\right] Z _ { k 1 } = \\left[ \\begin{array} { l }  0 \\ \\big \\vert \\ 0 \\ \\big \\vert \\ \\ast \\ \\right] . \\end{array}$",
+      "new": "$\\mathrm { F i n d ~ H o u s e h o l d e r ~ } Z _ { k1 } \\mathrm { ~ s o ~ } \\left[ \\begin{array} { l } { b _ { k + 2 , k } \\ \\big \\vert \\ b _ { k + 2 , k + 1 } \\ \\big \\vert \\ b _ { k + 2 , k + 2 } } \\end{array} \\right] Z _ { k1 } = \\left[ \\begin{array} { l }  0 \\ \\big \\vert \\ 0 \\ \\big \\vert \\ \\ast \\end{array} \\right] .$",
+      "anchor": "cb177e5b"
+    },
+    {
+      "id": "golub_matrix-ch07-body-1182-8c6735",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[1182]",
+      "field": "md",
+      "old": "$\\left\\{ z [ \\right| ( \\mathrm {  { \\left| \\left| \\left| \\boldsymbol { z } \\right.  \\right\\right\\} } A ) ^ { - 1 } = \\mathrm { 1 } / \\epsilon. }$",
+      "new": "$\\left\\{ z \\in ( \\left\\| \\left\\| \\left\\| \\boldsymbol{z} \\right\\| \\right\\| \\right\\| A ) ^ { - 1 } = \\mathrm { 1 } / \\epsilon. \\right\\}$",
+      "anchor": "aae2a4e0"
+    },
+    {
+      "id": "golub_matrix-ch02-body-521-a7f037",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[521]",
+      "expect": "\\operatorname{round} (x) = \\left\\{ \\begin{array}{l l} x _ {-} & \\text {if d_{-} <  d_{+}} \\text {or} d _ {-} = d _ {+} \\text {and} | \\mathsf {s b} (x _ {-}) = 0, \\\\ x _ {+} & \\text {if d_{+} <  d_{-}} \\text {or} d _ {+} = d _ {-} \\text {and} | \\mathsf {s b} (x _ {+}) = 0. \\end{array} \\right.",
+      "new": "\\operatorname{round}(x) = \\left\\{ \\begin{array}{l l} x_{-} & \\text{if }d_{-} <  d_{+} \\text{ or } d _{-} = d _{+} \\text{ and } |\\mathsf{sb}(x _{-})| = 0,\\\\ x_{+} & \\text{if }d_{+} <  d_{-} \\text{ or } d _{+} = d _{-} \\text{ and } |\\mathsf{sb}(x _{+})| = 0.\\end{array} \\right."
+    },
+    {
+      "id": "golub_matrix-ch07-body-435-8773ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[435]",
+      "expect": "\\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\end{array} \\right] \\stackrel {{P _ {3}}} {{\\rightarrow}} \\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & 0 & \\times & \\times & \\times \\\\ 0 & 0 & 0 & \\times & \\times & \\times \\end{array} \\right] \\stackrel {{P _ {4}}} {{\\rightarrow}} \\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & 1 & \\times & \\times & \\times \\\\ 0 & 0 & 0 & 0 & \\times & \\times \\\\ 0 & 0 & 0 & 0 & \\times & \\times \\\\ 0 & 0 & 0 & 0 & x & x \\\\ 0 & 0 & 0 & x & x \\\\ 0 & 0 & x & x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x \\\\ x & x   y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   u   v   u   v   u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v     u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u     v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v      .",
+      "new": "\\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\end{array} \\right] \\stackrel {{P _ {3}}} {{\\rightarrow}} \\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & 0 & \\times & \\times & \\times \\\\ 0 & 0 & 0 & \\times & \\times & \\times \\end{array} \\right] \\stackrel {{P _ {4}}} {{\\rightarrow}} \\left[ \\begin{array}{c c c c c c} \\times & \\times & \\times & \\times & \\times & \\times \\\\ \\times & \\times & \\times & \\times & \\times & \\times \\\\ 0 & \\times & \\times & \\times & \\times & \\times \\\\ 0 & 0 & \\times & \\times & \\times & \\times \\\\ 0 & 0 & 0 & x & x \\\\ x & x \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x & y \\\\ x   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   w   z   u   v   u   v   u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v    u    v     u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u    u     v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v       v      . \\end{array} \\right]"
+    },
+    {
+      "id": "golub_matrix-ch12-body-624-49a15b",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[624]",
+      "expect": "\\mathcal {A} _ {\\mathbf {r} \\times \\mathbf {c}} = \\left[ \\begin{array}{l l l l l l} a _ {1 1 1, 1 1} & a _ {1 1 1, 2 1} & a _ {1 1 1, 1 2} & a _ {1 1 1, 2 2} & a _ {1 1 1, 1 3} & a _ {1 1 1, 2 3} \\\\ a _ {2 1 1, 1 1} & a _ {2 1 1, 2 1} & a _ {2 1 1, 1 2} & a _ {2 1 1, 2 2} & a _ {2 1 1, 1 3} & a _ {2 1 1, 2 3} \\\\ a _ {1 2 1, 1 1} & a _ {1 2 1, 2 1} & a _ {1 2 1, 1 2} & a _ {1 2 1, 2 2} & a _ {1 2 1, 1 3} & a _ {1 2 1, 2 3} \\\\ a _ {2 2 1, 1 1} & a _ {2 2 1, 2 1} & a _ {2 2 1, 1 2} & a _ {2 2 1, 2 2} & a _ {2 2 1, 1 3} & a _ {2 2 1, 2 3} \\\\ a _ {1 3 1, 1 1} & a _ {1 3 1, 2 1} & a _ {1 3 1, 1 2} & a _ {1 3 1, 2 2} & a _ {1 3 1, 1 3} & a _ {1 3 1, 2 3} \\\\ a _ {2 3 1, 1 1} & a _ {2 3 1, 2 1} & a _ {2 3 1, 1 2} & a _ {2 3 1, 2 2} & a _ {2 3 1, 1 3} & a _ {2 3 1, 2 3} \\\\ a _ {1 1 2, 1 1} & a _ {1 1 2, 2 1} & a _ {1 1 2, 1 2} & a _ {1 1 2, 2 2} & a _ {1 1 2, 1 3} & a _ {1 1 2, 2 3} \\\\ a _ {2 1 2, 1 1} & a _ {2 1 2, 2 1} & a _ {2 1 2, 1 2} & a _ {2 1 2, 2 2} & a _ {2 1 2, 1 3} & a _ {2 1 2, 2 3} \\\\ a _ {1 2 2, 1 1} & a _ {1 2 2, 2 1} & a _ {1 2 2, 1 2} & a _ {1 2 2, 2 2} & a _ {1 2 2, 1 3} & a _ {1 2 2, 2 3} \\\\ a _ {2 2 2, 1 1} & a _ {2 2 2, 2 1} & a _ {2 2 2, 1 2} & a _ {2 2 2, 2 2} & a _ {2 2 2, 1 3} & a _ {2 2 \\mathrm{C}, \\mathrm{C}} \\\\ a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & (0) \\\\ (0) ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)} ^ {(0)}, \\end{array} . \\right. \\tag $(\\text{$(8.4.7)$})",
+      "new": "\\mathcal {A} _ {\\mathbf {r} \\times \\mathbf {c}} = \\left[ \\begin{array}{l l l l l l} a _ {1 1 1, 1 1} & a _ {1 1 1, 2 1} & a _ {1 1 1, 1 2} & a _ {1 1 1, 2 2} & a _ {1 1 1, 1 3} & a _ {1 1 1, 2 3} \\\\ a _ {2 1 1, 1 1} & a _ {2 1 1, 2 1} & a _ {2 1 1, 1 2} & a _ {2 1 1, 2 2} & a _ {2 1 1, 1 3} & a _ {2 1 1, 2 3} \\\\ a _ {1 2 1, 1 1} & a _ {1 2 1, 2 1} & a _ {1 2 1, 1 2} & a _ {1 2 1, 2 2} & a _ {1 2 1, 1 3} & a _ {1 2 1, 2 3} \\\\ a _ {2 2 1, 1 1} & a _ {2 2 1, 2 1} & a _ {2 2 1, 1 2} & a _ {2 2 1, 2 2} & a _ {2 2 1, 1 3} & a _ {2 2 1, 2 3} \\\\ a _ {1 3 1, 1 1} & a _ {1 3 1, 2 1} & a _ {1 3 1, 1 2} & a _ {1 3 1, 2 2} & a _ {1 3 1, 1 3} & a _ {1 3 1, 2 3} \\\\ a _ {2 3 1, 1 1} & a _ {2 3 1, 2 1} & a _ {2 3 1, 1 2} & a _ {2 3 1, 2 2} & a _ {2 3 1, 1 3} & a _ {2 3 1, 2 3} \\\\ a _ {1 1 2, 1 1} & a _ {1 1 2, 2 1} & a _ {1 1 2, 1 2} & a _ {1 1 2, 2 2} & a _ {1 1 2, 1 3} & a _ {1 1 2, 2 3} \\\\ a _ {2 1 2, 1 1} & a _ {2 1 2, 2 1} & a _ {2 1 2, 1 2} & a _ {2 1 2, 2 2} & a _ {2 1 2, 1 3} & a _ {2 1 2, 2 3} \\\\ a _ {1 2 2, 1 1} & a _ {1 2 2, 2 1} & a _ {1 2 2, 1 2} & a _ {1 2 2, 2 2} & a _ {1 2 2, 1 3} & a _ {1 2 2, 2 3} \\\\ a _ {2 2 2, 1 1} & a _ {2 2 2, 2 1} & a _ {2 2 2, 1 2} & a _ {2 2 2, 2 2} & a _ {2 2 2, 1 3} & a _ {2 2 2, 2 3} \\\\ a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & a _ {1 \\mathrm{C}, \\mathrm{C}} ^ {(0)} & (0) \\\\ (0) ^ {(0)} \\end{array}\\right. \\tag{(8.4.7)}"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "ogata_control-ch07-body-334-992c0d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[334]",
+      "expect": "\\begin{array}{l} \\text {num = [9 1.8 9];} \\\\ \\text {den = [1 1.2 9 0];} \\\\ \\text {w = logspace(-2,3,100);} \\\\ \\text {bode(num,den,w)} \\\\ \\text {title('Bode Diagram of G(s) = 9(s^2 + 0.2s + 1)/[s(s^2 + 1.2s + 9)]')} \\end{array}",
+      "new": "\\begin{array}{l} \\text {num = [9 1.8 9];} \\\\ \\text {den = [1 1.2 9 0];} \\\\ \\text {w = logspace(-2,3,100);} \\\\ \\text {bode(num,den,w)} \\\\ \\text {title('Bode Diagram of G(s) = 9(s² + 0.2s + 1)/[s(s² + 1.2s + 9)]')} \\end{array}"
+    },
+    {
+      "id": "ogata_control-ch08-body-389-699bd4",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[389]",
+      "field": "md",
+      "old": "${ } ^ { \\left. } s { } ^ { \\right. } , G _ { c 1 } ( s )$",
+      "new": "$\\left. s \\right. , G _ { c 1 } ( s )$",
+      "anchor": "e836702a"
+    }
+  ]
+}

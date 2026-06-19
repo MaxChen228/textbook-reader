@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-kleinberg-algorithm-design",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog builder cannot attach detached figure caption text blocks",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-18T23:08:26+00:00",
+  "updated": "2026-06-18T23:08:26+00:00",
+  "evidence": "In kleinberg_algorithm_design, many figures are emitted as image blocks with empty image_caption while the actual caption appears as a neighboring text block (e.g. idx 2583 image + idx 2589 'Figure 5.8 ...', idx 3713 inline figure reference text, parser/smoke leaves empty_captions=269 and unresolved Figure refs=1 even after enabling figure_caption_merge).",
+  "proposal": "Extend parser/catalog extraction to optionally bind adjacent text blocks that match figure/table caption patterns to neighboring image/chart/table/code blocks, instead of relying only on image_caption/table_caption arrays and the current subfigure merge heuristic.",
+  "risk": "",
+  "disposition": ""
+}

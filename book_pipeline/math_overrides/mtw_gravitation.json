@@ -1,0 +1,272 @@
+{
+  "overrides": [
+    {
+      "id": "mtw_gravitation-ch03-problem-3-4-body-8-877c6f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.4:body[8]",
+      "expect": "\\begin{array}{l} \\boldsymbol {S} = \\boldsymbol {u} \\otimes \\boldsymbol {v} \\otimes \\boldsymbol {\\beta} \\otimes \\boldsymbol {w} \\text {   has   components   } \\\\ S ^ {\\mu \\nu} _ {\\lambda} ^ {\\zeta} = u ^ {\\mu} v ^ {\\nu} \\beta_ {\\lambda} w ^ {\\zeta}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\boldsymbol {S} = \\boldsymbol {u} \\otimes \\boldsymbol {v} \\otimes \\boldsymbol {\\beta} \\otimes \\boldsymbol {w} \\text {   has   components   } \\\\ {S ^ {\\mu \\nu} _ {\\lambda}} ^ {\\zeta} = u ^ {\\mu} v ^ {\\nu} \\beta_ {\\lambda} w ^ {\\zeta}. \\\\ \\end{array}"
+    },
+    {
+      "id": "mtw_gravitation-ch03-problem-3-5-body-2-6d46dc",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.5:body[2]",
+      "expect": "\\boldsymbol {M} = M ^ {\\alpha \\beta} _ {\\gamma} ^ {\\delta} \\boldsymbol {e} _ {\\alpha} \\otimes \\boldsymbol {e} _ {\\beta} \\otimes \\boldsymbol {\\omega} ^ {\\gamma} \\otimes \\boldsymbol {e} _ {\\delta}. \\tag {3.22}",
+      "new": "\\boldsymbol {M} = {M ^ {\\alpha \\beta} _ {\\gamma}} ^ {\\delta} \\boldsymbol {e} _ {\\alpha} \\otimes \\boldsymbol {e} _ {\\beta} \\otimes \\boldsymbol {\\omega} ^ {\\gamma} \\otimes \\boldsymbol {e} _ {\\delta}. \\tag {3.22}"
+    },
+    {
+      "id": "mtw_gravitation-ch03-problem-3-7-body-19-203664",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.7:body[19]",
+      "expect": "\\pmb {M} (\\pmb {u}, \\pmb {v}) = M _ {\\mu \\nu} u ^ {\\mu} v ^ {\\nu} = R _ {\\alpha \\mu} ^ {\\alpha} _ {\\nu} u ^ {\\mu} v ^ {\\nu},",
+      "new": "\\pmb {M} (\\pmb {u}, \\pmb {v}) = M _ {\\mu \\nu} u ^ {\\mu} v ^ {\\nu} = {R _ {\\alpha \\mu} ^ {\\alpha}} _ {\\nu} u ^ {\\mu} v ^ {\\nu},"
+    },
+    {
+      "id": "mtw_gravitation-ch03-problem-3-7-body-21-6868d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.7:body[21]",
+      "expect": "M _ {\\mu \\nu} = R _ {\\alpha \\mu} ^ {\\alpha} _ {\\nu}. \\tag {3.41}",
+      "new": "M _ {\\mu \\nu} = {R _ {\\alpha \\mu} ^ {\\alpha}} _ {\\nu}. \\tag {3.41}"
+    },
+    {
+      "id": "mtw_gravitation-ch03-problem-3-8-body-2-5ec858",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.8:body[2]",
+      "expect": "\\boldsymbol {M} (\\boldsymbol {u}, \\boldsymbol {v}) = R _ {\\alpha \\mu} ^ {\\alpha} _ {\\nu} u ^ {\\mu} v ^ {\\nu}.",
+      "new": "\\boldsymbol {M} (\\boldsymbol {u}, \\boldsymbol {v}) = {R _ {\\alpha \\mu} ^ {\\alpha}} _ {\\nu} u ^ {\\mu} v ^ {\\nu}."
+    },
+    {
+      "id": "mtw_gravitation-ch05-body-320-9cb31c",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[320]",
+      "field": "md",
+      "old": "$S = S^{\\alpha_{\\beta}}^{\\gamma}e_{\\alpha} \\otimes w^{\\beta} \\otimes e_{\\gamma}$",
+      "new": "$S = {S ^ {\\alpha _ {\\beta}}} ^ {\\gamma} e _ {\\alpha} \\otimes w ^ {\\beta} \\otimes e _ {\\gamma}$",
+      "anchor": "9e34bca9"
+    },
+    {
+      "id": "mtw_gravitation-ch07-body-35-47b058",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[35]",
+      "expect": "\\delta I _ {\\text { field }} = (3 2 \\pi G) ^ {- 1} \\int [ \\bar {h} ^ {\\nu \\beta , \\alpha} _ {, \\alpha} \\delta h _ {\\nu \\beta} - 2 \\bar {h} ^ {\\mu \\beta} _ {, \\beta} ^ {, \\alpha} \\delta \\bar {h} _ {\\mu \\alpha} ] d ^ {4} x.",
+      "new": "\\delta I _ {\\text { field }} = (3 2 \\pi G) ^ {- 1} \\int [ \\bar {h} ^ {\\nu \\beta , \\alpha} _ {, \\alpha} \\delta h _ {\\nu \\beta} - 2 {\\bar {h} ^ {\\mu \\beta} _ {, \\beta}} ^ {, \\alpha} \\delta \\bar {h} _ {\\mu \\alpha} ] d ^ {4} x."
+    },
+    {
+      "id": "mtw_gravitation-ch07-body-59-2ee226",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[59]",
+      "expect": "\\Box \\overline {{{h}}} ^ {\\mu \\nu} \\equiv \\overline {{{h}}} _ {, \\alpha} ^ {\\mu \\nu} ^ {\\alpha} = - 1 6 \\pi T ^ {\\mu \\nu} \\tag {7}",
+      "new": "\\Box \\overline {{{h}}} ^ {\\mu \\nu} \\equiv {\\overline {{{h}}} ^ {\\mu \\nu} _ {, \\alpha}} ^ {\\alpha} = - 1 6 \\pi T ^ {\\mu \\nu} \\tag {7}"
+    },
+    {
+      "id": "mtw_gravitation-ch10-problem-10-12-body-2-9161b1",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.12:body[2]",
+      "expect": "(S ^ {\\alpha \\beta} _ {\\gamma} M _ {\\beta} ^ {\\gamma}) _ {; \\alpha} = S ^ {\\alpha \\beta} _ {\\gamma ; \\alpha} M _ {\\beta} ^ {\\gamma} + S ^ {\\alpha \\beta} _ {\\gamma} M _ {\\beta} ^ {\\gamma} _ {; \\alpha}.",
+      "new": "(S ^ {\\alpha \\beta} _ {\\gamma} M _ {\\beta} ^ {\\gamma}) _ {; \\alpha} = S ^ {\\alpha \\beta} _ {\\gamma ; \\alpha} M _ {\\beta} ^ {\\gamma} + S ^ {\\alpha \\beta} _ {\\gamma} {M _ {\\beta} ^ {\\gamma}} _ {; \\alpha}."
+    },
+    {
+      "id": "mtw_gravitation-ch10-problem-10-12-body-5-559284",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "problem:10.12:body[5]",
+      "field": "md",
+      "old": "$M_{\\beta}^{\\gamma}_{;\\alpha}$",
+      "new": "${M _ {\\beta} ^ {\\gamma}} _ {; \\alpha}$",
+      "anchor": "0d1236fe"
+    },
+    {
+      "id": "mtw_gravitation-ch13-body-242-1fc6f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[242]",
+      "expect": "G _ {\\alpha} ^ {    \\beta} _ {; \\beta} \\equiv 0 \\quad \\text {(``contracted Bianchi identity'').} \\tag {13.52}",
+      "new": "{G _ {\\alpha} ^ {    \\beta}} _ {; \\beta} \\equiv 0 \\quad \\text {(``contracted Bianchi identity'').} \\tag {13.52}"
+    },
+    {
+      "id": "mtw_gravitation-ch15-body-146-dc30a1",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[146]",
+      "expect": "= \\boldsymbol {e} _ {\\sigma} (^ {*} R) _ {\\nu} ^ {\\sigma} _ {| \\alpha \\beta |} \\boldsymbol {d} x ^ {\\nu} \\wedge \\boldsymbol {d} x ^ {\\alpha} \\wedge \\boldsymbol {d} x ^ {\\beta},",
+      "new": "= \\boldsymbol {e} _ {\\sigma} {(^ {*} R) _ {\\nu} ^ {\\sigma}} _ {| \\alpha \\beta |} \\boldsymbol {d} x ^ {\\nu} \\wedge \\boldsymbol {d} x ^ {\\alpha} \\wedge \\boldsymbol {d} x ^ {\\beta},"
+    },
+    {
+      "id": "mtw_gravitation-ch15-problem-15-2-body-2-26fdb1",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "problem:15.2:body[2]",
+      "expect": "T _ {\\alpha \\beta \\gamma \\delta} = R _ {\\alpha \\rho \\gamma \\sigma} R _ {\\beta} ^ {\\rho} _ {\\delta} ^ {\\sigma} + ^ {*} R _ {\\alpha \\rho \\gamma \\sigma} ^ {*} R _ {\\beta} ^ {\\rho} _ {\\delta} ^ {\\sigma}. \\tag {15.29}",
+      "new": "T _ {\\alpha \\beta \\gamma \\delta} = R _ {\\alpha \\rho \\gamma \\sigma} {R _ {\\beta} ^ {\\rho}} _ {\\delta} ^ {\\sigma} + ^ {*} R _ {\\alpha \\rho \\gamma \\sigma} ^ {*} {R _ {\\beta} ^ {\\rho}} _ {\\delta} ^ {\\sigma}. \\tag {15.29}"
+    },
+    {
+      "id": "mtw_gravitation-ch15-problem-15-2-body-13-508988",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "problem:15.2:body[13]",
+      "expect": "\\Delta R _ {\\alpha \\beta \\gamma \\delta} \\equiv - R _ {\\alpha \\beta \\gamma \\delta ; \\mu}; ^ {\\mu} + R _ {\\alpha \\beta \\rho \\sigma} R _ {\\gamma \\delta} ^ {\\rho \\sigma} + 2 (R _ {\\alpha \\rho \\gamma \\sigma} R _ {\\beta} ^ {\\rho} _ {\\delta} ^ {\\sigma} - R _ {\\alpha \\rho \\delta \\sigma} R _ {\\beta} ^ {\\rho} _ {\\gamma} ^ {\\sigma}) = 0, \\tag {15.31c}",
+      "new": "\\Delta R _ {\\alpha \\beta \\gamma \\delta} \\equiv - {R _ {\\alpha \\beta \\gamma \\delta ; \\mu}} ^ {\\mu} + R _ {\\alpha \\beta \\rho \\sigma} R _ {\\gamma \\delta} ^ {\\rho \\sigma} + 2 (R _ {\\alpha \\rho \\gamma \\sigma} {R _ {\\beta} ^ {\\rho}} _ {\\delta} ^ {\\sigma} - R _ {\\alpha \\rho \\delta \\sigma} {R _ {\\beta} ^ {\\rho}} _ {\\gamma} ^ {\\sigma}) = 0, \\tag {15.31c}"
+    },
+    {
+      "id": "mtw_gravitation-ch16-body-31-17e002",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[31]",
+      "expect": "- A ^ {\\alpha , \\mu} _ {\\mu} + A ^ {\\mu} _ {, \\mu} ^ {\\alpha} = 4 \\pi J ^ {\\alpha},",
+      "new": "- A ^ {\\alpha , \\mu} _ {\\mu} + {A ^ {\\mu} _ {, \\mu}} ^ {\\alpha} = 4 \\pi J ^ {\\alpha},"
+    },
+    {
+      "id": "mtw_gravitation-ch16-body-33-5b7ef6",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[33]",
+      "expect": "- A ^ {\\alpha ; \\mu} _ {\\mu} + A ^ {\\mu} _ {; \\mu} ^ {\\alpha} = 4 \\pi J ^ {\\alpha}. \\tag {16.5}",
+      "new": "- A ^ {\\alpha ; \\mu} _ {\\mu} + {A ^ {\\mu} _ {; \\mu}} ^ {\\alpha} = 4 \\pi J ^ {\\alpha}. \\tag {16.5}"
+    },
+    {
+      "id": "mtw_gravitation-ch16-problem-16-3-body-5-271676",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "problem:16.3:body[5]",
+      "expect": "B ^ {\\mu ; \\alpha} _ {\\mu} = B ^ {\\mu} _ {; \\mu} ^ {\\alpha} + R ^ {\\alpha} _ {\\mu} B ^ {\\mu}. \\tag {16.6c}",
+      "new": "B ^ {\\mu ; \\alpha} _ {\\mu} = {B ^ {\\mu} _ {; \\mu}} ^ {\\alpha} + R ^ {\\alpha} _ {\\mu} B ^ {\\mu}. \\tag {16.6c}"
+    },
+    {
+      "id": "mtw_gravitation-ch16-problem-16-3-body-28-239d15",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "problem:16.3:body[28]",
+      "expect": "- A ^ {\\alpha ; \\mu} _ {\\mu} + A ^ {\\mu} _ {; \\mu} ^ {\\alpha} + R ^ {\\alpha} _ {\\mu} A ^ {\\mu} = 4 \\pi J ^ {\\alpha}.",
+      "new": "- A ^ {\\alpha ; \\mu} _ {\\mu} + {A ^ {\\mu} _ {; \\mu}} ^ {\\alpha} + R ^ {\\alpha} _ {\\mu} A ^ {\\mu} = 4 \\pi J ^ {\\alpha}."
+    },
+    {
+      "id": "mtw_gravitation-ch18-body-43-7b7b6a",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[43]",
+      "expect": "- A _ {, \\alpha} ^ {\\mu} ^ {\\alpha} = 4 \\pi J ^ {\\mu}. \\tag {18.10b}",
+      "new": "- {A _ {, \\alpha} ^ {\\mu}} ^ {\\alpha} = 4 \\pi J ^ {\\mu}. \\tag {18.10b}"
+    },
+    {
+      "id": "mtw_gravitation-ch22-body-153-c77234",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[153]",
+      "expect": "- A ^ {\\alpha ; \\mu} _ {\\mu} + A ^ {\\mu} _ {; \\mu} ^ {; \\alpha} + R ^ {\\alpha} _ {\\mu} A ^ {\\mu} = 4 \\pi J ^ {\\alpha}. \\tag {$22.19b^{\\prime}$}",
+      "new": "- A ^ {\\alpha ; \\mu} _ {\\mu} + {A ^ {\\mu} _ {; \\mu}} ^ {; \\alpha} + R ^ {\\alpha} _ {\\mu} A ^ {\\mu} = 4 \\pi J ^ {\\alpha}. \\tag {$22.19b^{\\prime}$}"
+    },
+    {
+      "id": "mtw_gravitation-ch27-problem-27-12-body-3-9f2240",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "problem:27.12:body[3]",
+      "field": "md",
+      "old": "$T_{\\alpha}^{\\beta}_{;\\beta} \\equiv 0$",
+      "new": "${T_{\\alpha}^{\\beta}} _ {\\beta} \\equiv 0$",
+      "anchor": "eb5a21f9"
+    },
+    {
+      "id": "mtw_gravitation-ch27-problem-27-12-body-3-a75f5c",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "problem:27.12:body[3]",
+      "field": "md",
+      "old": "$T_{\\alpha}^{\\beta}_{;\\beta} = 0$",
+      "new": "$T_{\\alpha}{}^{\\beta}{}_{;\\beta} = 0$",
+      "anchor": "cf4b901e"
+    },
+    {
+      "id": "mtw_gravitation-ch36-body-349-0fcd37",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "body[349]",
+      "field": "md",
+      "old": "$\\overline{h}^{jk}_{, \\alpha}^{\\alpha} = 0$",
+      "new": "${\\overline{h}^{jk} _ {, \\alpha}} ^ {\\alpha} = 0$",
+      "anchor": "3e7eba83"
+    },
+    {
+      "id": "mtw_gravitation-ch03-problem-3-7-body-49-1a3b2f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.7:body[49]",
+      "expect": "\\boldsymbol {u} \\wedge \\boldsymbol {v} = a \\boldsymbol {v} \\wedge \\boldsymbol {v} = 0 \\quad (\\text { by   antisymmetry   of   ``\\wedge''}).",
+      "new": "\\boldsymbol {u} \\wedge \\boldsymbol {v} = a \\boldsymbol {v} \\wedge \\boldsymbol {v} = 0 \\quad (\\text { by   antisymmetry   of   ``wedge''})."
+    },
+    {
+      "id": "mtw_gravitation-ch16-problem-16-4-body-7-99e7f0",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "problem:16.4:body[7]",
+      "expect": "= \\left(\\frac {d ^ {2} x ^ {\\hat {k}}}{d \\hat {t} ^ {2}}\\right) _ {\\substack {\\text {geodesic}\\\\ \\text {deviation}}} = - R ^ {\\hat {k}} _ {\\hat {0} \\hat {0}} x ^ {\\hat {l}} [ \\text {see equation (1.8^{\\prime})} ];",
+      "new": "= \\left(\\frac {d ^ {2} x ^ {\\hat {k}}}{d \\hat {t} ^ {2}}\\right) _ {\\substack {\\text {geodesic}\\\\ \\text {deviation}}} = - R ^ {\\hat {k}} _ {\\hat {0} \\hat {0}} x ^ {\\hat {l}} [ \\text {see equation (1.8')} ];"
+    },
+    {
+      "id": "mtw_gravitation-ch07-body-28-3aac9c",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[28]",
+      "field": "md",
+      "old": "$\\deltaL_{f}$",
+      "new": "$\\delta L_{f}$",
+      "anchor": "ba45c2f6"
+    },
+    {
+      "id": "mtw_gravitation-ch05-body-25-c8fdad",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[25]",
+      "expect": "\\begin{array}{l} T _ {j k} = \\boldsymbol {T} (\\boldsymbol {e} _ {j}, \\boldsymbol {e} _ {k}) = \\boldsymbol {T} _ {k j} = \\boldsymbol {T} (\\boldsymbol {e} _ {k}, \\boldsymbol {e} _ {j}) \\\\ = \\left( \\begin{array}{c} j \\text {-component of force acting} \\\\ \\text {from side x^{k} -\\varepsilon to side x^{k} +\\varepsilon ,} \\\\ \\text {across a unit surface area with} \\\\ \\text {perpendicular direction e_{k}} \\end{array} \\right) = \\left( \\begin{array}{c} k \\text {-component of force acting} \\\\ \\text {from side x^{j} -\\varepsilon to side x^{j} +\\varepsilon ,} \\\\ \\text {across a unit surface area with} \\\\ \\text {perpendicular direction e_{j}} \\end{array} \\right). \\\\ \\end{array}",
+      "new": "\\begin{array}{l} T _ {j k} = \\boldsymbol {T} (\\boldsymbol {e} _ {j}, \\boldsymbol {e} _ {k}) = \\boldsymbol {T} _ {k j} = \\boldsymbol {T} (\\boldsymbol {e} _ {k}, \\boldsymbol {e} _ {j}) \\\\ = \\left( \\begin{array}{c} j \\text {-component of force acting} \\\\ \\text {from side } x^{k} -\\varepsilon \\text { to side } x^{k} +\\varepsilon, \\text {across a unit surface area with} \\\\ \\text {perpendicular direction } e_{k} \\end{array} \\right) = \\left( \\begin{array}{c} k \\text {-component of force acting} \\\\ \\text {from side } x^{j} -\\varepsilon \\text { to side } x^{j} +\\varepsilon, \\text {across a unit surface area with} \\\\ \\text {perpendicular direction } e_{j} \\end{array} \\right). \\\\ \\end{array}"
+    },
+    {
+      "id": "mtw_gravitation-ch17-body-220-6e75d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[220]",
+      "expect": "\\left( \\begin{array}{c} \\text {scalar curvature invariant,} \\\\ ^ {(3)} R, \\text {of the 3 - geometry} \\\\ \\text {intrinsic to the spacelike} \\\\ \\text {hypersurface S, a quantity} \\\\ \\text {dependent on ``how curved} \\\\ \\text {one cuts the slice\"} \\end{array} \\right) + \\left( \\begin{array}{c} \\text {a correction term that (a)} \\\\ \\text {depends only on the ``ex-} \\\\ \\text {trinsic curvature'' K_{\\alpha\\beta} (Box} \\\\ 1 4. 1 \\text {and Chapter 21) of the} \\\\ \\text {hypersurface relative to} \\\\ \\text {the four - dimensional geometry} \\\\ \\text {in which it is imbedded, and} \\\\ (\\mathrm{b}) \\text {is so calculated (a} \\\\ \\text {uniquely determinate calcu-} \\\\ \\text {lation) that the sum of this} \\\\ \\text {correction term and } ^ {(3)} R \\text {is} \\\\ \\text {independent of ``how curved} \\\\ \\text {one cuts his slice,\" and (c)} \\\\ \\text {has the precise value} \\\\ (\\operatorname{Tr} \\mathcal {K}) ^ {2} - \\operatorname{Tr} \\mathcal {K} ^ {2} \\equiv (K _ {\\alpha} ^ {\\alpha}) ^ {2} - K _ {\\alpha \\beta} K ^ {\\alpha \\beta} \\end{array} \\right)",
+      "new": "\\left( \\begin{array}{c} \\text {scalar curvature invariant,} \\\\ {}^{(3)} R,\\text {of the 3 - geometry} \\\\ \\text {intrinsic to the spacelike} \\\\ \\text {hypersurface S, a quantity} \\\\ \\text {dependent on ``how curved} \\\\ \\text {one cuts the slice\"} \\end{array} \\right) + \\left( \\begin{array}{c} \\text {a correction term that (a)} \\\\ \\text {depends only on the ``ex-} \\\\ \\text {trinsic curvature'' } K_{\\alpha\\beta} \\text { (Box} \\\\ 1 4. 1 \\text {and Chapter 21) of the} \\\\ \\text {hypersurface relative to} \\\\ \\text {the four - dimensional geometry} \\\\ \\text {in which it is imbedded, and} \\\\ (\\mathrm{b}) \\text {is so calculated (a} \\\\ \\text {uniquely determinate calcu-} \\\\ \\text {lation) that the sum of this} \\\\ \\text {correction term and } ^ {(3)} R \\text {is} \\\\ \\text {independent of ``how curved} \\\\ \\text {one cuts his slice,\" and (c)} \\\\ \\text {has the precise value} \\\\ (\\operatorname{Tr} \\mathcal {K}) ^ {2} - \\operatorname{Tr} \\mathcal {K} ^ {2} \\equiv (K _ {\\alpha} ^ {\\alpha}) ^ {2} - K _ {\\alpha \\beta} K ^ {\\alpha \\beta} \\end{array} \\right)"
+    },
+    {
+      "id": "mtw_gravitation-ch15-problem-15-2-body-15-609700",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "problem:15.2:body[15]",
+      "expect": "\\Box R _ {\\alpha \\beta} ^ {\\gamma \\delta} \\equiv R _ {\\alpha \\beta} ^ {\\gamma \\delta} _ {; \\mu}; \\mu = 2 S _ {[ \\alpha} ^ {[ \\gamma} _ {\\beta ]} ^ {\\delta ]}. \\tag {15.31d}",
+      "new": "\\Box R_{\\alpha\\beta}{}^{\\gamma\\delta} \\equiv R_{\\alpha\\beta}{}^{\\gamma\\delta}{}_{;\\mu}; \\mu = 2 S_{[\\alpha}^{[\\gamma}{}_{\\beta]}{}^{\\delta]}. \\tag {15.31d}"
+    },
+    {
+      "id": "mtw_gravitation-ch05-body-324-0eca38",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[324]",
+      "expect": "\\begin{array}{l} \\int \\boldsymbol {S} \\cdot d ^ {3} \\boldsymbol {\\Sigma} = \\int \\left\\langle \\boldsymbol {S} \\cdot d ^ {3} \\boldsymbol {\\Sigma}, \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {1}} \\wedge \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {2}} \\wedge \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {3}} \\right\\rangle d \\lambda^ {1} d \\lambda^ {2} d \\lambda^ {3} \\\\ = \\pmb {e} _ {\\alpha} \\otimes \\pmb {\\omega} ^ {\\beta} \\int S _ {\\beta} ^ {\\alpha} ^ {\\gamma} \\varepsilon_ {\\gamma | \\lambda \\mu \\nu |} \\underbrace {\\frac {\\partial (x ^ {\\lambda} , x ^ {\\mu} , x ^ {\\nu})}{\\partial (\\lambda^ {1} , \\lambda^ {2} , \\lambda^ {3})}} d \\lambda^ {1} d \\lambda^ {2} d \\lambda^ {3}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\int \\boldsymbol {S} \\cdot d ^ {3} \\boldsymbol {\\Sigma} = \\int \\left\\langle \\boldsymbol {S} \\cdot d ^ {3} \\boldsymbol {\\Sigma}, \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {1}} \\wedge \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {2}} \\wedge \\frac {\\partial \\mathcal {P}}{\\partial \\lambda^ {3}} \\right\\rangle d \\lambda^ {1} d \\lambda^ {2} d \\lambda^ {3} \\\\ = \\pmb {e} _ {\\alpha} \\otimes \\pmb {\\omega} ^ {\\beta} \\int S _ {\\beta} ^ {\\alpha \\gamma} \\varepsilon_ {\\gamma | \\lambda \\mu \\nu |} \\underbrace {\\frac {\\partial (x ^ {\\lambda} , x ^ {\\mu} , x ^ {\\nu})}{\\partial (\\lambda^ {1} , \\lambda^ {2} , \\lambda^ {3})}} d \\lambda^ {1} d \\lambda^ {2} d \\lambda^ {3}. \\end{array}"
+    },
+    {
+      "id": "mtw_gravitation-ch04-problem-4-12-body-23-ec697a",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.12:body[23]",
+      "expect": "\\delta_ {\\beta_ {1} \\ldots \\beta_ {p}} ^ {\\alpha_ {1} \\ldots \\alpha_ {p}} = \\left\\{ \\begin{array}{l l} + 1 & \\text {if (\\alpha_{1} ,\\ldots,\\alpha_{p}) is an even permutation of (\\beta_{1} ,\\ldots,\\beta_{p})}, \\\\ - 1 & \\text {if (\\alpha_{1} ,\\ldots,\\alpha_{p}) is an odd permutation of (\\beta_{1} ,\\ldots,\\beta_{p})}, \\\\ 0 & \\text {if (i) any two of the \\alpha^{\\prime}s are the same}, \\\\ 0 & \\text {if (ii) any two of the \\beta^{\\prime}s are the same}, \\\\ 0 & \\text {if (iii) the \\alpha^{\\prime}s and \\beta^{\\prime}s are different sets of integers}. \\end{array} \\right.",
+      "new": "\\delta_ {\\beta_ {1} \\ldots \\beta_ {p}} ^ {\\alpha_ {1} \\ldots\\alpha_{p}} = \\left\\{ \\begin{array}{l l} + 1 & \\text {if ($\\alpha_ {1} ,\\ldots,\\alpha_{p}$) is an even permutation of ($\\beta_ {1} ,\\ldots,\\beta_{p}$)}, \\\\ - 1 & \\text {if ($\\alpha_ {1} ,\\ldots,\\alpha_{p}$) is an odd permutation of ($\\beta_ {1} ,\\ldots,\\beta_{p}$)}, \\\\ 0 & \\text {if (i) any two of the $\\alpha$'s are the same}, \\\\ 0 & \\text {if (ii) any two of the $\\beta$'s are the same}, \\\\ 0 & \\text {if (iii) the $\\alpha$'s and $\\beta$'s are different sets of integers}. \\end{array} \\right."
+    },
+    {
+      "id": "mtw_gravitation-ch10-problem-10-4-body-6-627a7b",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.4:body[6]",
+      "expect": "\\begin{array}{l} [ \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} (\\boldsymbol {v} \\otimes \\boldsymbol {w}) ] (\\boldsymbol {\\rho}, \\sigma) = \\frac {d}{d \\lambda} [ (\\boldsymbol {v} \\otimes \\boldsymbol {w}) (\\boldsymbol {\\rho}, \\sigma) ] \\quad \\text {(def of} \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\text {on a tensor)} \\\\ = \\frac {d}{d \\lambda} [ \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\langle \\boldsymbol {\\sigma}, \\boldsymbol {w} \\rangle ] \\quad (\\text { def   of   tensor   product }\" \\otimes\") \\\\ = \\frac {d \\langle \\boldsymbol {\\rho} , \\boldsymbol {v} \\rangle}{d \\lambda} \\langle \\boldsymbol {\\sigma}, \\boldsymbol {w} \\rangle + \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\frac {d \\langle \\boldsymbol {\\sigma} , \\boldsymbol {w} \\rangle}{d \\lambda} \\quad (\\text { chain   rule   for   derivatives }) \\\\ = \\langle \\boldsymbol {\\rho}, \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {v} \\rangle \\langle \\sigma , \\boldsymbol {w} \\rangle + \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\langle \\sigma , \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {w} \\rangle (\\text {by equation 10.7 with} \\boldsymbol {\\rho}, \\sigma \\text {const}) \\\\ \\begin{array}{r l} = & [ (\\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {v}) \\otimes \\boldsymbol {w} ] (\\boldsymbol {\\rho}, \\boldsymbol {\\sigma}) + [ \\boldsymbol {v} \\otimes (\\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {w}) ] (\\boldsymbol {\\rho}, \\boldsymbol {\\sigma}) \\\\ & \\text {(def of tensor product ``\\otimes'').} \\end{array} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} [ \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} (\\boldsymbol {v} \\otimes \\boldsymbol {w}) ] (\\boldsymbol {\\rho}, \\sigma) = \\frac {d}{d \\lambda} [ (\\boldsymbol {v} \\otimes \\boldsymbol {w}) (\\boldsymbol {\\rho}, \\sigma) ] \\quad \\text {(def of} \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\text {on a tensor)} \\\\ = \\frac {d}{d \\lambda} [ \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\langle \\boldsymbol {\\sigma}, \\boldsymbol {w} \\rangle ] \\quad (\\text { def   of   tensor   product } \\otimes) \\\\ = \\frac {d \\langle \\boldsymbol {\\rho} , \\boldsymbol {v} \\rangle}{d \\lambda} \\langle \\boldsymbol {\\sigma}, \\boldsymbol {w} \\rangle + \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\frac {d \\langle \\boldsymbol {\\sigma} , \\boldsymbol {w} \\rangle}{d \\lambda} \\quad (\\text { chain   rule   for   derivatives }) \\\\ = \\langle \\boldsymbol {\\rho}, \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {v} \\rangle \\langle \\sigma , \\boldsymbol {w} \\rangle + \\langle \\boldsymbol {\\rho}, \\boldsymbol {v} \\rangle \\langle \\sigma , \\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {w} \\rangle (\\text {by equation 10.7 with} \\boldsymbol {\\rho}, \\sigma \\text {const}) \\\\ \\begin{array}{r l} = & [ (\\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {v}) \\otimes \\boldsymbol {w} ] (\\boldsymbol {\\rho}, \\boldsymbol {\\sigma}) + [ \\boldsymbol {v} \\otimes (\\boldsymbol {\\nabla} _ {\\boldsymbol {u}} \\boldsymbol {w}) ] (\\boldsymbol {\\rho}, \\boldsymbol {\\sigma}) \\\\ & \\text {(def of tensor product } \\otimes \\text {).} \\end{array} \\\\ \\end{array}"
+    }
+  ]
+}

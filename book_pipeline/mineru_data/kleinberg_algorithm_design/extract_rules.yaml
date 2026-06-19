@@ -1,0 +1,153 @@
+slug: kleinberg_algorithm_design
+title: Algorithm Design
+author: Jon Kleinberg; Eva Tardos
+edition: 1st
+subject: Algorithms
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 26
+appendices_start_page: 820
+bibliography_start_page: 830
+index_start_page: 840
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: 'Introduction: Some Representative Problems'
+    page_start: 26
+    page_end: 53
+    chapter_title_block_idx: 280
+    chapter_title_block_idx_secondary: 281
+    problems_block_idx: 512
+    next_chapter_block_idx: 576
+  - num: 2
+    title: Basics of Algorithm Analysis
+    page_start: 54
+    page_end: 97
+    chapter_title_block_idx: 576
+    chapter_title_block_idx_secondary: 577
+    problems_block_idx: 940
+    next_chapter_block_idx: 992
+  - num: 3
+    title: Graphs
+    page_start: 98
+    page_end: 139
+    chapter_title_block_idx: 992
+    chapter_title_block_idx_secondary: 993
+    problems_block_idx: 1333
+    next_chapter_block_idx: 1402
+  - num: 4
+    title: Greedy Algorithms
+    page_start: 140
+    page_end: 233
+    chapter_title_block_idx: 1402
+    chapter_title_block_idx_secondary: 1403
+    problems_block_idx: 2131
+    next_chapter_block_idx: 2330
+  - num: 5
+    title: Divide and Conquer
+    page_start: 234
+    page_end: 275
+    chapter_title_block_idx: 2330
+    chapter_title_block_idx_secondary: 2331
+    problems_block_idx: 2761
+    next_chapter_block_idx: 2805
+  - num: 6
+    title: Dynamic Programming
+    page_start: 276
+    page_end: 361
+    chapter_title_block_idx: 2805
+    chapter_title_block_idx_secondary: 2806
+    problems_block_idx: 3430
+    next_chapter_block_idx: 3693
+  - num: 7
+    title: Network Flow
+    page_start: 362
+    page_end: 475
+    chapter_title_block_idx: 3693
+    chapter_title_block_idx_secondary: 3694
+    problems_block_idx: 4524
+    next_chapter_block_idx: 4890
+  - num: 8
+    title: NP and Computational Intractability
+    page_start: 476
+    page_end: 555
+    chapter_title_block_idx: 4890
+    chapter_title_block_idx_secondary: 4891
+    problems_block_idx: 5461
+    next_chapter_block_idx: 5739
+  - num: 9
+    title: 'PSPACE: A Class of Problems beyond NP'
+    page_start: 556
+    page_end: 577
+    chapter_title_block_idx: 5739
+    chapter_title_block_idx_secondary: 5740
+    problems_block_idx: 5954
+    next_chapter_block_idx: 5983
+  - num: 10
+    title: Extending the Limits of Tractability
+    page_start: 578
+    page_end: 623
+    chapter_title_block_idx: 5983
+    chapter_title_block_idx_secondary: 5984
+    problems_block_idx: 6355
+    next_chapter_block_idx: 6397
+  - num: 11
+    title: Approximation Algorithms
+    page_start: 624
+    page_end: 685
+    chapter_title_block_idx: 6397
+    chapter_title_block_idx_secondary: 6398
+    problems_block_idx: 6937
+    next_chapter_block_idx: 7033
+  - num: 12
+    title: Local Search
+    page_start: 686
+    page_end: 731
+    chapter_title_block_idx: 7033
+    chapter_title_block_idx_secondary: 7034
+    problems_block_idx: 7442
+    next_chapter_block_idx: 7481
+  - num: 13
+    title: Randomized Algorithms
+    page_start: 732
+    page_end: 819
+    chapter_title_block_idx: 7481
+    chapter_title_block_idx_secondary: 7482
+    problems_block_idx: 8298
+    next_chapter_block_idx: 8419
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][^\n]{1,120})$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^Notes and Further Reading$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?|[a-z])\}'
+
+example_start_re: '^Solved Exercise (\d+)$'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?(?:Figure|Table)\s+\d+(?:\.\d+)+(?:[A-Za-z](?![A-Za-z]))?[.:]?'
+
+known_missing_problems: []

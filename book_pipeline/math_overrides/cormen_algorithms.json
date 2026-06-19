@@ -1,0 +1,68 @@
+{
+  "overrides": [
+    {
+      "id": "cormen_algorithms-ch06-problem-6-2-7-body-20-1175eb",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6.2-7:body[20]",
+      "field": "md",
+      "old": "$\\lceil n / 2 ^ { h } \\sp { + } \\textnormal { l } \\rceil$",
+      "new": "$\\left\\lceil n / 2 ^ { h + l } \\right\\rceil$",
+      "anchor": "d6157367"
+    },
+    {
+      "id": "cormen_algorithms-ch26-problem-26-1-10-body-27-0f66ee",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "problem:26.1-10:body[27]",
+      "field": "md",
+      "old": "$\\Theta ( n ^ { \\mathrm { l g } \\ } ^ { 7 } / 1 \\mathrm { g } ^ { 2 } \\ n )$",
+      "new": "$\\Theta\\left(\\frac{(\\log n)^{7}}{\\log^{2} n}\\right)$",
+      "anchor": "191dfa47"
+    },
+    {
+      "id": "cormen_algorithms-ch34-problem-34-3-8-body-51-dd5615",
+      "action": "fix_inline_math",
+      "chunk": "ch34",
+      "selector": "problem:34.3-8:body[51]",
+      "field": "caption",
+      "old": "$\\phi = ( ( x _ { 1 } \\right. x _ { 2 } ) \\lor \\lnot ( ( \\lnot x _ { 1 } \\left. x _ { 3 } ) \\lor x _ { 4 } ) ) \\land \\lnot x _ { 2 } .$",
+      "new": "$\\phi = \\left( ( x _ { 1 } \\land x _ { 2 } ) \\lor \\lnot ( ( \\lnot x _ { 1 } \\land x _ { 3 } ) \\lor x _ { 4 } ) \\right) \\land \\lnot x _ { 2 } .$",
+      "anchor": "5270a6f9"
+    },
+    {
+      "id": "cormen_algorithms-ch09-problem-9-4-body-3-95a900",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9-4:body[3]",
+      "expect": "U _ {i} (n) = \\left\\{ \\begin{array}{l l} S (n) & \\text {if i\\geq n / 2}, \\\\ \\lfloor n / 2 \\rfloor + U _ {i} (\\lceil n / 2 \\rceil) + S (2 i) & \\text {otherwise}. \\end{array} \\right.",
+      "new": "U _ { i } (n) = \\left\\{\\begin{array}{l l}S(n) & \\text{if }i\\ge n/2,\\\\ \\lfloor n / 2 \\rfloor + U _ { i } (\\lceil n/2 \\rceil) + S(2 i) & \\text{otherwise}.\\end{array}\\right."
+    },
+    {
+      "id": "cormen_algorithms-ch14-body-16-20a567",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[16]",
+      "expect": "\\begin{array}{c c c c c c c c c c c} \\text {length i} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 1 0 \\\\ \\hline \\text {price p _ {i}} & 1 & 5 & 8 & 9 & 1 0 & 1 7 & 1 7 & 2 0 & 2 4 & 3 0 \\end{array}",
+      "new": "\\begin{array}{c c c c c c c c c c c} \\text{length }i & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\\ \\hline \\text{price }p_i & 1 & 5 & 8 & 9 & 10 & 17 & 17 & 20 & 24 & 30 \\end{array}"
+    },
+    {
+      "id": "cormen_algorithms-ch30-problem-30-3-body-11-b43869",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "problem:30-3:body[11]",
+      "expect": "g (l) = \\left\\{ \\begin{array}{l l} x _ {0} ^ {- l} / (- l)! & \\text {if - (n - 1)\\leq l\\leq 0}, \\\\ 0 & \\text {if 1\\leql\\leqn - 1}. \\end{array} \\right.",
+      "new": "g(l) = \\left\\{\\begin{array}{l l}x_{0}^{-l} / (-l)! & \\text{if }-(n - 1)\\le l\\le 0,\\\\ 0 & \\text{if }1\\le l\\le n - 1.\\end{array}\\right."
+    },
+    {
+      "id": "cormen_algorithms-ch31-problem-31-7-2-body-100-b76c89",
+      "action": "fix_inline_math",
+      "chunk": "ch31",
+      "selector": "problem:31.7-2:body[100]",
+      "field": "md",
+      "old": "$\\operatorname* { P r } { \\left\\{ { \\overline { { B } } } \\ { \\lvert { \\cal A } } } } = 0\\right$",
+      "new": "$\\Pr\\left\\{\\overline{B} \\mid \\mathcal A\\right\\}=0$",
+      "anchor": "129d0049"
+    }
+  ]
+}

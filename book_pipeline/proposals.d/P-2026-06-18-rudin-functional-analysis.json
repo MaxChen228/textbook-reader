@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-rudin-functional-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Allow captionless tables to be excluded from catalog audit",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T21:53:53+00:00",
+  "updated": "2026-06-18T21:53:53+00:00",
+  "evidence": "Chapter 5 begins with an uncaptioned prerequisite matrix table at parsed/ch05.json body[1] (source block 2285). audit-book schema has no table-caption merge or table-exclude field, so parser+catalog smoke reports H7/C2/C7 even though chapter/problem boundaries are correct.",
+  "proposal": "Add a reviewable way to mark table blocks as non-catalog items when they have no caption, or teach catalog audit/build to auto-exclude captionless structural tables instead of treating them as critical.",
+  "risk": "",
+  "disposition": ""
+}

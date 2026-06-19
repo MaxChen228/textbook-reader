@@ -1,0 +1,113 @@
+slug: batchelor_fluid
+title: An Introduction to Fluid Dynamics
+author: G. K. Batchelor
+edition: null
+subject: Fluid Mechanics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 639
+bibliography_start_page: null
+index_start_page: 660
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: The Physical Properties of Fluids
+    page_start: 22
+    page_end: 91
+    chapter_title_block_idx: 309
+    chapter_title_block_idx_secondary: 310
+    problems_block_idx: null
+    next_chapter_block_idx: 1147
+  - num: 2
+    title: Kinematics of the Flow Field
+    page_start: 92
+    page_end: 151
+    chapter_title_block_idx: 1147
+    chapter_title_block_idx_secondary: 1148
+    problems_block_idx: null
+    next_chapter_block_idx: 1983
+  - num: 3
+    title: Equations Governing the Motion of a Fluid
+    page_start: 152
+    page_end: 194
+    chapter_title_block_idx: 1983
+    chapter_title_block_idx_secondary: 1985
+    problems_block_idx: null
+    next_chapter_block_idx: 2574
+  - num: 4
+    title: Flow of a Uniform Incompressible Viscous Fluid
+    page_start: 195
+    page_end: 284
+    chapter_title_block_idx: 2574
+    chapter_title_block_idx_secondary: 2575
+    problems_block_idx: null
+    next_chapter_block_idx: 3843
+  - num: 5
+    title: "Flow at Large Reynolds Number: Effects of Viscosity"
+    page_start: 285
+    page_end: 422
+    chapter_title_block_idx: 3843
+    chapter_title_block_idx_secondary: 3844
+    problems_block_idx: null
+    next_chapter_block_idx: 5296
+  - num: 6
+    title: Irrotational Flow Theory and its Applications
+    page_start: 423
+    page_end: 551
+    chapter_title_block_idx: 5296
+    chapter_title_block_idx_secondary: 5297
+    problems_block_idx: null
+    next_chapter_block_idx: 7031
+  - num: 7
+    title: Flow of Effectively Inviscid Fluid with Vorticity
+    page_start: 552
+    page_end: 638
+    chapter_title_block_idx: 7031
+    chapter_title_block_idx_secondary: 7032
+    problems_block_idx: null
+    next_chapter_block_idx: 8164
+
+appendices:
+  - id: "1"
+    title: Measured values of some physical properties of common fluids
+    page_start: 639
+    chapter_title_block_idx: 8164
+  - id: "2"
+    title: Expressions for some common vector differential quantities in orthogonal curvilinear co-ordinate systems
+    page_start: 643
+    chapter_title_block_idx: 8203
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^()(?!\d+\.\d+\.\s)(?!\d+$)(?!Exercises(?: for chapter \d+)?$)(?!APPENDIX\b)(?!Subject Index$)(?=.*[a-z])(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9I]+(?:\.[0-9I]+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s+)?Figure\s+[0-9I]+(?:\.[0-9I]+)+(?:\([a-z]\))?\.'
+
+known_missing_problems: []

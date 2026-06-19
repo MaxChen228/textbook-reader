@@ -1,0 +1,166 @@
+{
+  "overrides": [
+    {
+      "id": "evans_pde-ch05-body-231-fa13df",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[231]",
+      "field": "md",
+      "old": "$\\partial U ^ { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf } { \\mathbf } } } } } }$",
+      "new": "$\\partial U ^ {\\mathbf{u}}$",
+      "anchor": "d33107b2"
+    },
+    {
+      "id": "evans_pde-appC-body-20-fa13df",
+      "action": "fix_inline_math",
+      "chunk": "appC",
+      "selector": "body[20]",
+      "field": "md",
+      "old": "$\\partial U ^ { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf } { \\mathbf } } } } } }$",
+      "new": "$\\partial U ^ {\\mathbf{u}}$",
+      "anchor": "0c234724"
+    },
+    {
+      "id": "evans_pde-ch03-body-328-16cc6f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[328]",
+      "expect": "\\left\\{ \\begin{array}{l} \\dot {x} ^ {i} (s) = F ^ {i} ^ {\\prime} (z (s)) \\quad (i = 1, \\dots , n) \\\\ \\dot {x} ^ {n + 1} (s) = 1. \\end{array} \\right.",
+      "new": "\\left\\{\\begin{array}{l} \\dot{x}^{i}(s) = F^{i\\prime}(z(s)) \\quad (i = 1, \\dots , n)\\\\ \\dot{x}^{n + 1}(s) = 1. \\end{array}\\right."
+    },
+    {
+      "id": "evans_pde-ch06-body-291-608309",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[291]",
+      "field": "md",
+      "old": "$^ { 6 6 } \\zeta ^ { 2 } ^ { , 9 }$",
+      "new": "$\\zeta^{2,9}$",
+      "anchor": "d9883590"
+    },
+    {
+      "id": "evans_pde-ch07-body-71-d83755",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[71]",
+      "expect": "(\\mathbf {u} _ {m} ^ {\\prime} (t), w _ {k}) = d _ {m} ^ {k} ^ {\\prime} (t).",
+      "new": "(\\mathbf{u}_m^{\\prime}(t), w_k)= d_m^{k\\prime}(t)."
+    },
+    {
+      "id": "evans_pde-ch07-body-537-00e9b7",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[537]",
+      "expect": "(\\mathbf {u} _ {m} ^ {\\prime \\prime} (t), w _ {k}) = d _ {m} ^ {k} ^ {\\prime \\prime} (t).",
+      "new": "(\\mathbf{u}_m^{\\prime\\prime}(t), w_k)= d_m^{k\\prime\\prime}(t)."
+    },
+    {
+      "id": "evans_pde-ch07-body-698-470c34",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[698]",
+      "field": "md",
+      "old": "$d _ { m } ^ { k }  ^ { \\prime \\prime } ( t )$",
+      "new": "$d_m^{k\\prime\\prime}(t)$",
+      "anchor": "d6d927fd"
+    },
+    {
+      "id": "evans_pde-ch02-problem-10-body-2-4edd9a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:10:body[2]",
+      "expect": "v (x) := \\left\\{ \\begin{array}{l l} u (x) & \\text {if x_{n} \\geq 0} \\\\ - u (x _ {1}, \\ldots , x _ {n - 1}, - x _ {n}) & \\text {if x_{n} <   0} \\end{array} \\right.",
+      "new": "v (x) := \\left\\{ \\begin{array}{ll} u (x) & \\text{if } x_{n} \\geq 0 \\\\ -u (x _ {1}, \\ldots , x _ {n - 1}, -x_{n}) & \\text{if } x_{n} < 0 \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch03-body-796-dcde9f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[796]",
+      "expect": "u (x, t) := \\left\\{ \\begin{array}{l l} 0 & \\text {if x <   0} \\\\ \\frac {x}{t} & \\text {if 0 <   x <   t} \\\\ 1 & \\text {if t <   x <   1 + \\frac {t}{2}} \\\\ 0 & \\text {if x > 1 + \\frac {t}{2}} \\end{array} \\right. (0 \\leq t \\leq 2).",
+      "new": "u (x, t) := \\left\\{ \\begin{array}{ll} 0 & \\text{if } x < 0 \\\\ \\frac{x}{t} & \\text{if } 0 < x < t \\\\ 1 & \\text{if } t < x < 1 + \\frac{t}{2} \\\\ 0 & \\text{if } x > 1 + \\frac{t}{2} \\end{array} \\right. (0 \\leq t \\leq 2)."
+    },
+    {
+      "id": "evans_pde-ch03-problem-17-body-1-bfd5f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:17:body[1]",
+      "expect": "u (x, t) := \\left\\{ \\begin{array}{l l} - \\frac {2}{3} \\left(t + \\sqrt {3 x + t ^ {2}}\\right) & \\text {if 4x+ t^{2} >0} \\\\ 0 & \\text {if 4x+ t^{2} <  0} \\end{array} \\right.",
+      "new": "u (x, t) := \\left\\{ \\begin{array}{ll} -\\frac{2}{3}\\left(t + \\sqrt{3 x + t^{2}}\\right) & \\text{if } 4x+ t^{2} > 0 \\\\ 0 & \\text{if } 4x+ t^{2} < 0 \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch04-body-470-985c16",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[470]",
+      "expect": "\\hat {h} (y) = \\left\\{ \\begin{array}{l l} \\beta_ {1} (y) (\\gamma (y) - d) + \\beta_ {2} (y) (- \\gamma (y) - d) & \\text {if |y|\\leq d} \\\\ \\beta_ {1} (y) (i \\delta (y) - d) + \\beta_ {2} (y) (- i \\delta (y) - d) & \\text {if |y|\\geq d}. \\end{array} \\right.",
+      "new": "\\hat{h} (y) = \\left\\{ \\begin{array}{ll} \\beta_{1}(y) (\\gamma(y)-d) + \\beta_{2}(y)(-\\gamma(y)-d) & \\text{if } |y| \\leq d \\\\ \\beta_{1}(y)(i\\delta(y)-d) + \\beta_{2}(y)(-i\\delta(y)-d) & \\text{if } |y| \\geq d. \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch04-body-1233-f652f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1233]",
+      "expect": "\\left\\{ \\begin{array}{l l} \\mathbf {u} _ {x _ {n}} ^ {*} = \\frac {C r}{r - (x _ {1} + \\cdots + x _ {n - 1}) - (u ^ {1 *} + \\cdots + u ^ {m *})} \\left(\\sum_ {j, l} \\mathbf {u} _ {x _ {j}} ^ {l *} + 1\\right) & \\text {for |x| <   r} \\\\ \\mathbf {u} ^ {*} = 0 & \\text {for |x^{\\prime}| <   r , x_{n} = 0 .} \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{ll} \\mathbf{u}_{x_{n}}^{*} = \\frac{C r}{r - (x_{1} + \\cdots + x_{n - 1}) - (u^{1*} + \\cdots + u^{m*})}\\left(\\sum_{j, l} \\mathbf{u}_{x_{j}}^{l*} + 1\\right) & \\text{for } |x| < r \\\\ \\mathbf{u}^{*} = 0 & \\text{for } |x^{\\prime}| < r, x_{n}=0. \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch05-body-101-25dab3",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[101]",
+      "expect": "\\text {``D^{\\alpha} u = 0 on \\partial U'' for all |\\alpha|\\leq k - 1.}",
+      "new": "D^{\\alpha} u = 0 \\text{ on } \\partial U \\text{ for all } |\\alpha|\\leq k - 1."
+    },
+    {
+      "id": "evans_pde-ch07-body-839-b83f1f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[839]",
+      "expect": "a ^ {1 1} v _ {x _ {1}} + \\left[ a ^ {1 2} + \\left((a ^ {1 2}) ^ {2} - a ^ {1 1} a ^ {2 2}\\right) ^ {1 / 2} \\right] v _ {x _ {2}} = 0 \\quad \\text {in} U \\tag {91_{1}}",
+      "new": "a^{11} v_{x_{1}} + \\left[ a^{12} + \\left((a^{12})^{2} - a^{11} a^{22}\\right)^{1 / 2} \\right] v_{x_{2}} = 0 \\quad \\text{in } U \\tag{91\\_1}"
+    },
+    {
+      "id": "evans_pde-ch07-body-841-ee2a67",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[841]",
+      "expect": "a ^ {1 1} v _ {x _ {1}} + \\left[ a ^ {1 2} - \\left((a ^ {1 2}) ^ {2} - a ^ {1 1} a ^ {2 2}\\right) ^ {1 / 2} \\right] v _ {x _ {2}} = 0 \\quad \\text {in} U. \\tag {91_{2}}",
+      "new": "a^{11} v_{x_{1}} + \\left[ a^{12} - \\left((a^{12})^{2} - a^{11} a^{22}\\right)^{1 / 2} \\right] v_{x_{2}} = 0 \\quad \\text{in } U. \\tag{91\\_2}"
+    },
+    {
+      "id": "evans_pde-ch07-problem-10-body-1-c69037",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:10:body[1]",
+      "expect": "\\left\\{ \\begin{array}{l l} u _ {t t} + d u _ {t} - u _ {x x} = f & \\text {in (0,1)\\times(0,T)} \\\\ u = 0 & \\text {on (\\{0\\} \\times[0,T])\\cup(\\{1\\}\\times[0,T])} \\\\ u = g, u _ {t} = h & \\text {on (0,1)\\times\\{t = 0\\}}. \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{ll} u_{t t} + d u_{t} - u_{x x} = f & \\text{in } (0,1)\\times(0,T) \\\\ u = 0 & \\text{on } (\\{0\\}\\times[0,T])\\cup(\\{1\\}\\times[0,T]) \\\\ u = g, u_{t} = h & \\text{on } (0,1)\\times\\{t = 0\\}. \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch07-problem-11-body-1-49fc3d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:11:body[1]",
+      "expect": "\\left\\{ \\begin{array}{l l} u _ {t t} + u _ {x x x x} = 0 & \\text {in (0,1)\\times(0,T)} \\\\ u = u _ {x} = 0 & \\text {on (\\{0\\} \\times[0,T])\\cup(\\{1\\}\\times[0,T])} \\\\ u = g, u _ {t} = h & \\text {on [0,1]\\times\\{t = 0\\}}. \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{ll} u_{t t} + u_{x x x x} = 0 & \\text{in } (0,1)\\times(0,T) \\\\ u = u_{x} = 0 & \\text{on } (\\{0\\}\\times[0,T])\\cup(\\{1\\}\\times[0,T]) \\\\ u = g, u_{t} = h & \\text{on } [0,1]\\times\\{t = 0\\}. \\end{array} \\right."
+    },
+    {
+      "id": "evans_pde-ch09-body-544-83153d",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[544]",
+      "expect": "u (x) <   u (x _ {\\lambda}) \\text {   for   each   point   } x \\in E _ {\\lambda}. \\tag {15_{\\lambda}}",
+      "new": "u (x) < u (x_{\\lambda}) \\text{ for each point } x \\in E_{\\lambda}. \\tag{15\\_lambda}"
+    },
+    {
+      "id": "evans_pde-ch05-body-288-d7d1b3",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[288]",
+      "field": "md",
+      "old": "$\\partial U ^ { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf \\mathbf { \\mathbf } { \\mathbf } } } } } } }$",
+      "new": "$\\partial U$",
+      "anchor": "1f5e0da6"
+    }
+  ]
+}

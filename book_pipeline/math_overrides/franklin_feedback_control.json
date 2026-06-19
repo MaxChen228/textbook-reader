@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "franklin_feedback_control-ch03-body-488-c6d895",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[488]",
+      "expect": "\\begin{array}{l l} \\text {s = tf('s') ;} & \\% \\text {define Laplace variable} \\\\ \\text {sysb = 100 / (s^3 + 10.1*s^2 + 101*s)} & \\% \\text {form transfer function} \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm{s = tf('s') ;} & \\% \\mathrm{define Laplace variable} \\\\ \\mathrm{sysb = 100 / (s^3 + 10.1*s^2 + 101*s)} & \\% \\mathrm{form transfer function} \\end{array}"
+    },
+    {
+      "id": "franklin_feedback_control-ch03-body-521-407584",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[521]",
+      "expect": "\\begin{array}{l l} \\text {s = tf('s') ;} & \\% \\text {define Laplace variable} \\\\ \\text {sysG = 0.0002 / s ^ {2} ;} & \\% \\text {define system by its transfer function} \\\\ \\text {t = 0:0.01:10;} & \\% \\text {set up time vector with dt = 0.01 sec} \\\\ & \\% \\text {pulse of 25N, at 5 sec, for 0.1 sec duration} \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm{s = tf('s') ;} & \\% \\mathrm{define Laplace variable} \\\\ \\mathrm{sysG = 0.0002 / s^{2} ;} & \\% \\mathrm{define system by its transfer function} \\\\ \\mathrm{t = 0:0.01:10;} & \\% \\mathrm{set up time vector with dt = 0.01 sec} \\\\ {} & \\% \\mathrm{pulse of 25N, at 5 sec, for 0.1 sec duration} \\end{array}"
+    },
+    {
+      "id": "franklin_feedback_control-ch05-body-361-1fecda",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[361]",
+      "expect": "\\begin{array}{l} \\text {s = tf('s');} \\\\ \\text {sysG = 1 / ((s^2)*(s + 0.1)^2 + (6.6)^2));} \\\\ \\text {sysD = (s + 1) / (s + 12);} \\\\ \\text {sysL = sysD*sysG;} \\\\ \\text {rlocfind(sysL)} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{s = tf('s');} \\\\ \\mathrm{sysG = 1 / ((s^2)*(s + 0.1)^2 + (6.6)^2));} \\\\ \\mathrm{sysD = (s + 1) / (s + 12);} \\\\ \\mathrm{sysL = sysD*sysG;} \\\\ \\mathrm{rlocfind(sysL)} \\end{array}"
+    }
+  ]
+}

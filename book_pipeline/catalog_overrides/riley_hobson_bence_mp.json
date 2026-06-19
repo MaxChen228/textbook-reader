@@ -1,0 +1,23 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "riley-tbl-27.9-idfix",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[309]",
+      "expect": {
+        "id": "tbl-ch27-309"
+      },
+      "set": {
+        "id": "tbl-27.9",
+        "caption": "Table 27.9 The integration points and weights for a number of n-point Gauss–Laguerre and Gauss–Hermite integration formulae. Where the points are given as $\\pm x _ { i } ,$ the contributions from both $+ x _ { i }$ and $- x _ { i }$ must be included. However, the contribution from any point $x _ { i } = 0$ must be counted only once.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 body[304] 明確引用 Table 27.9；實際供應端是 body[309] 的 table shard，其 footnote 已含完整 'Table 27.9 ...' caption，但目前只有 fallback id tbl-ch27-309 並被標 unnumbered_body_table。把此塊語意化後即可覆蓋唯一殘留 C5。"
+    }
+  ]
+}

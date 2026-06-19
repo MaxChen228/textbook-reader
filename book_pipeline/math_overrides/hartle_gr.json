@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "hartle_gr-ch06-body-45-2acbe1",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[45]",
+      "field": "md",
+      "old": "$\\left gh/c^{2}\\right)^{2}$",
+      "new": "$\\left(gh/c^{2}\\right)^{2}$",
+      "anchor": "38d3fd73"
+    },
+    {
+      "id": "hartle_gr-appC-body-34-fec6bf",
+      "action": "fix_eq_tex",
+      "chunk": "appC",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{l} \\text {In[6]:= inversemetric = Simplify[Inverse[metric]]} \\\\ \\text {cut[6] = \\left\\{\\left\\{1 - \\frac {2r}{r}, 0, 0, 0 \\right\\}, \\left\\{0, \\frac {1}{r^ {2}}, , 0 \\right\\}, \\left\\{0, 0, \\frac {\\mathrm{Csc} - ^ {2}}{r}, 0 \\right\\}, \\left\\{0, 0, 0, \\frac {r}{2m - r} \\right\\} \\right\\}} \\end{array}",
+      "new": "\\begin{array}{l} \\text {In[6]:= inversemetric = Simplify[Inverse[metric]]} \\\\ \\text {cut[6] = } \\left\\{\\left\\{1 - \\frac {2r}{r}, 0, 0, 0 \\right\\}, \\left\\{0, \\frac {1}{r^ {2}}, , 0 \\right\\}, \\left\\{0, 0, \\frac { \\mathrm{Csc} - ^ {2}}{r}, 0 \\right\\}, \\left\\{0, 0, 0, \\frac {r}{2m - r} \\right\\} \\right\\} \\end{array}"
+    }
+  ]
+}

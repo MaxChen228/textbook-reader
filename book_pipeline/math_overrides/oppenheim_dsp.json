@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "oppenheim_dsp-ch03-body-284-6338c1",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[284]",
+      "expect": "x [ n - n _ {0} ] \\stackrel {{\\mathcal {Z}}} {{\\longleftrightarrow}} z ^ {- n _ {0}} X (z), \\qquad \\begin{array}{l} \\text {ROC} = R _ {x} (\\text {except for the} \\\\ \\text {possible addition or} \\\\ \\text {deletion of z = 0 or z = \\infty}). \\end{array}",
+      "new": "x [ n - n _ {0} ] \\stackrel {{\\mathcal {Z}}} {{\\longleftrightarrow}} z ^ { - n _ {0} } X ( z ), \\qquad \\begin{array}{l} \\text {ROC} = R _ {x} (\\text {except for the} \\\\ \\text {possible addition or} \\\\ \\text {deletion of } z = 0 \\text { or } z = \\infty ). \\end{array}"
+    },
+    {
+      "id": "oppenheim_dsp-ch03-problem-10-body-5-171661",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:10:body[5]",
+      "field": "md",
+      "old": "$x [ n ] = { \\overline { { u } } } [ n + 1 0 ] - u [ n + 5 ]  \\overline   $",
+      "new": "$x [ n ] = { \\overline { { u } } } [ n + 1 0 ] - u [ n + 5 ]   $",
+      "anchor": "cf2ae7b1"
+    }
+  ]
+}

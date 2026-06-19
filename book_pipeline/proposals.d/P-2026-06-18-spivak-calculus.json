@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-spivak-calculus",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog builder cannot recover split bare-text figure captions in Spivak",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T22:00:43+00:00",
+  "updated": "2026-06-18T22:00:43+00:00",
+  "evidence": "smoke stays critical on spivak_calculus with H7 empty_captions=105 under best ruleset. Work queue shows many figures in ch04/ch05 and problem bodies where visible caption/id lives in neighboring bare text like 'FIGURE 1', 'FIGURE 2', '(a)', '(b)', or prose after an image block. Enabling figure_caption_merge plus main regex ^(?:FIGURE|Figure)\\s+\\d+(?:[.-]\\d+)?(?:\\b.*)?$ worsened H7 to 141, so current schema cannot safely attach these captions.",
+  "proposal": "Extend catalog/build pipeline so audit-book can bind adjacent bare text to nearby image blocks, merge split figure semantics across neighboring visual/text blocks, or explicitly mark captionless visual fragments non-indexable without editing parser/build code per book.",
+  "risk": "",
+  "disposition": ""
+}

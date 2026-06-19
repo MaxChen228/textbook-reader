@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-klenke-probability",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog cannot exclude captionless figure shards in MinerU split images",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T22:04:24+00:00",
+  "updated": "2026-06-18T22:04:24+00:00",
+  "evidence": "smoke after audit-book rules is stable on chapters/problems but remains critical at H7 empty_captions=117. parsed/_catalog_audit.md shows many chapter-opener or multi-image figure shards with empty captions, while only a later sibling fig carries the visible main caption (for example ch04 body[191-192] and ch05 body[130-132]). parser figure_caption_merge only upgrades a previous fig whose caption is a subcaption like (a)/(b), so current schema cannot attach or exclude these captionless shards.",
+  "proposal": "Extend catalog extraction to associate sibling image shards with a later main figure caption or allow captionless visual fragments to be marked non-indexable/excluded from H7.",
+  "risk": "",
+  "disposition": ""
+}

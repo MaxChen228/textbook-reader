@@ -1,0 +1,105 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "chang-foodchem-fix-ref-1.15c",
+      "action": "replace_text",
+      "chunk": "ch01",
+      "selector": "body[214]",
+      "field": "md",
+      "old": "Fig. 1.15C",
+      "new": "Fig. 1.15",
+      "reason": "正文引用的是 Fig. 1.15 的子圖 C；catalog 只有主圖 1.15。"
+    },
+    {
+      "id": "chang-foodchem-fig-6.25",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[166]",
+      "expect": {
+        "id": "fig-6.24"
+      },
+      "set": {
+        "id": "fig-6.25",
+        "caption": "Fig. 6.25 Structure of some important anthocyanidins",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Fig. 6.24/6.25 在 OCR 中被併成一組視覺 block；保留 6.24，將其中一個 anthocyanidin 子圖升格為 6.25 供正文引用。"
+    },
+    {
+      "id": "chang-foodchem-tbl-2.3",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[36]",
+      "expect": {
+        "id": "tbl-ch02-36"
+      },
+      "set": {
+        "id": "tbl-2.3",
+        "caption": "Table 2.3 Structures and nomenclature of common fatty acids found in plant and animal fats",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "早期脂肪酸總表被 OCR 成 fallback table id。"
+    },
+    {
+      "id": "chang-foodchem-tbl-4.14",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[219]",
+      "expect": {
+        "id": "tbl-4.10"
+      },
+      "set": {
+        "id": "tbl-4.14",
+        "caption": "Table 4.14 Primary reactions in starch modification",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "該表緊鄰正文對 Table 4.14 的引用，現有 4.10 是 OCR 抄前一表號。"
+    },
+    {
+      "id": "chang-foodchem-tbl-10.2",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[63]",
+      "expect": {
+        "id": "tbl-ch10-63"
+      },
+      "set": {
+        "id": "tbl-10.2",
+        "caption": "Table 10.2 Major industrial enzymes and the processes used for their production",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "工業酵素總表缺正式 id。"
+    },
+    {
+      "id": "chang-foodchem-tbl-13.2",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[91]",
+      "expect": {
+        "id": "tbl-ch13-91"
+      },
+      "set": {
+        "id": "tbl-13.2",
+        "caption": "Table 13.2 General characteristics of some American beer types",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "啤酒類型總表缺 caption 與正式 table id。"
+    },
+    {
+      "id": "chang-foodchem-tbl-15.6",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[104]",
+      "expect": {
+        "id": "tbl-ch15-104"
+      },
+      "set": {
+        "id": "tbl-15.6",
+        "caption": "Table 15.6 Properties of some common food acids",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "食用酸性添加物表只有殘缺 caption，需要補正式 table id。"
+    }
+  ]
+}

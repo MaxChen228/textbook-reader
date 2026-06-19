@@ -1,0 +1,30 @@
+{
+  "overrides": [
+    {
+      "id": "patterson_hennessy_cod-ch02-body-392-2bcd1d",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[392]",
+      "expect": "\\begin{array}{l} \\text {SUB X9,X22,X23 // X9 = i - j} \\\\ \\text {CBNZ X9, Else // go to Else if i\\neq j (X9\\neq 0)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {SUB X9,X22,X23 // X9 = i - j} \\\\ \\text {CBNZ X9, Else // go to Else if } i \\neq j \\text { (X9} \\neq 0\\text {)} \\end{array}"
+    },
+    {
+      "id": "patterson_hennessy_cod-ch06-body-452-d5f983",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[452]",
+      "expect": "\\begin{array}{c} \\text {Attainable GFLOPs / sec = Min (Peak Memory BW\\times Arithmetic Intensity, Peak} \\\\ \\text {Floating - Point Performance)} \\end{array}",
+      "new": "\\begin{array}{c} \\text {Attainable GFLOPs / sec = Min (Peak Memory BW× Arithmetic Intensity, Peak} \\\\ \\text {Floating - Point Performance)} \\end{array}"
+    },
+    {
+      "id": "patterson_hennessy_cod-ch02-body-801-7c2542",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[801]",
+      "field": "md",
+      "old": "$4 0 ~ 0 1 0 \\time 1 0 ^ { - 4 0 } _ { \\mathrm { h e x } }$",
+      "new": "$4 0 ~ 0 1 0 \\times 1 0 ^ { - 4 0 } _ { \\mathrm { h e x } }$",
+      "anchor": "f6e5047e"
+    }
+  ]
+}

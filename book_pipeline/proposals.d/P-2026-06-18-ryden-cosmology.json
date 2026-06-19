@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-ryden-cosmology",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot resolve inline/multi-image figure semantics from extract rules",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T21:50:36+00:00",
+  "updated": "2026-06-18T21:50:36+00:00",
+  "evidence": "ryden_cosmology smoke H7 persists after chapter-boundary fix and caption-merge regex. Residual cases are multi-image subfigures with local captions (a)/(b)/(c) plus prose blocks that mention Figure N.M without a standalone caption block, leaving catalog empty_captions=8.",
+  "proposal": "Add a deterministic catalog-semantic repair path that can group adjacent visual blocks into one figure, promote inline Figure/Table references into semantic ids/captions when evidence is local, and mark non-catalog local visuals without requiring manual overrides.",
+  "risk": "",
+  "disposition": ""
+}

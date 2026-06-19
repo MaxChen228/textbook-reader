@@ -1,0 +1,179 @@
+slug: hirsch_smale_devaney_ode
+title: Differential Equations, Dynamical Systems, and an Introduction to Chaos
+author: Morris W. Hirsch; Stephen Smale; Robert L. Devaney
+edition: 2nd
+subject: Differential Equations
+publisher: Academic Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 424
+bibliography_start_page: 424
+index_start_page: 428
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: First-Order Equations
+    page_start: 18
+    page_end: 37
+    chapter_title_block_idx: 162
+    problems_block_idx: 333
+    next_chapter_block_idx: 381
+  - num: 2
+    title: Planar Linear Systems
+    page_start: 38
+    page_end: 55
+    chapter_title_block_idx: 381
+    problems_block_idx: 627
+    next_chapter_block_idx: 663
+  - num: 3
+    title: Phase Portraits for Planar Systems
+    page_start: 56
+    page_end: 77
+    chapter_title_block_idx: 663
+    chapter_title_block_idx_secondary: 664
+    problems_block_idx: 938
+    next_chapter_block_idx: 1007
+  - num: 4
+    title: Classification of Planar Systems
+    page_start: 78
+    page_end: 91
+    chapter_title_block_idx: 1007
+    chapter_title_block_idx_secondary: 1008
+    problems_block_idx: 1168
+    next_chapter_block_idx: 1189
+  - num: 5
+    title: Higher Dimensional Linear Algebra
+    page_start: 92
+    page_end: 123
+    chapter_title_block_idx: 1189
+    chapter_title_block_idx_secondary: 1190
+    problems_block_idx: 1614
+    next_chapter_block_idx: 1653
+  - num: 6
+    title: Higher Dimensional Linear Systems
+    page_start: 124
+    page_end: 155
+    chapter_title_block_idx: 1653
+    chapter_title_block_idx_secondary: 1654
+    problems_block_idx: 2036
+    next_chapter_block_idx: 2094
+  - num: 7
+    title: Nonlinear Systems
+    page_start: 156
+    page_end: 175
+    chapter_title_block_idx: 2094
+    problems_block_idx: 2332
+    next_chapter_block_idx: 2349
+  - num: 8
+    title: Equilibria in Nonlinear Systems
+    page_start: 176
+    page_end: 205
+    chapter_title_block_idx: 2349
+    chapter_title_block_idx_secondary: 2350
+    problems_block_idx: 2708
+    next_chapter_block_idx: 2759
+  - num: 9
+    title: Global Nonlinear Techniques
+    page_start: 206
+    page_end: 231
+    chapter_title_block_idx: 2759
+    problems_block_idx: 3038
+    next_chapter_block_idx: 3080
+  - num: 10
+    title: Closed Orbits and Limit Sets
+    page_start: 232
+    page_end: 251
+    chapter_title_block_idx: 3080
+    chapter_title_block_idx_secondary: 3081
+    problems_block_idx: 3268
+    next_chapter_block_idx: 3312
+  - num: 11
+    title: Applications in Biology
+    page_start: 252
+    page_end: 273
+    chapter_title_block_idx: 3312
+    chapter_title_block_idx_secondary: 3313
+    problems_block_idx: 3517
+    next_chapter_block_idx: 3572
+  - num: 12
+    title: Applications in Circuit Theory
+    page_start: 274
+    page_end: 293
+    chapter_title_block_idx: 3572
+    chapter_title_block_idx_secondary: 3573
+    problems_block_idx: 3783
+    next_chapter_block_idx: 3827
+  - num: 13
+    title: Applications in Mechanics
+    page_start: 294
+    page_end: 319
+    chapter_title_block_idx: 3827
+    chapter_title_block_idx_secondary: 3828
+    problems_block_idx: 4158
+    next_chapter_block_idx: 4191
+  - num: 14
+    title: The Lorenz System
+    page_start: 320
+    page_end: 343
+    chapter_title_block_idx: 4191
+    chapter_title_block_idx_secondary: 4192
+    problems_block_idx: 4443
+    next_chapter_block_idx: 4468
+  - num: 15
+    title: Discrete Dynamical Systems
+    page_start: 344
+    page_end: 375
+    chapter_title_block_idx: 4468
+    chapter_title_block_idx_secondary: 4469
+    problems_block_idx: 4800
+    next_chapter_block_idx: 4851
+  - num: 16
+    title: Homoclinic Phenomena
+    page_start: 376
+    page_end: 399
+    chapter_title_block_idx: 4851
+    chapter_title_block_idx_secondary: 4852
+    problems_block_idx: 5109
+    next_chapter_block_idx: 5133
+  - num: 17
+    title: Existence and Uniqueness Revisited
+    page_start: 400
+    page_end: 423
+    chapter_title_block_idx: 5133
+    problems_block_idx: 5471
+    next_chapter_block_idx: 6155
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(SUBSECTION_NEVER_MATCHES_hirsch_smale_devaney_ode)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^(Bibliography|Index)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Za-z0-9.]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

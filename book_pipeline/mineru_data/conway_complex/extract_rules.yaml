@@ -1,0 +1,147 @@
+slug: conway_complex
+title: "Functions of One Complex Variable I"
+author: "John B. Conway"
+edition: "2nd"
+subject: "Complex Analysis"
+publisher: "Springer-Verlag"
+language: en
+
+filter_types: [header, page_number, footer]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 316
+bibliography_start_page: 324
+index_start_page: 326
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "The Complex Number System"
+    page_start: 14
+    page_end: 23
+    chapter_title_block_idx: 127
+    chapter_title_block_idx_secondary: 128
+    problems_block_idx: null
+    next_chapter_block_idx: 301
+  - num: 2
+    title: "Metric Spaces and the Topology of $\\mathbb{C}$"
+    page_start: 24
+    page_end: 42
+    chapter_title_block_idx: 301
+    chapter_title_block_idx_secondary: 302
+    problems_block_idx: null
+    next_chapter_block_idx: 601
+  - num: 3
+    title: "Elementary Properties and Examples of Analytic Functions"
+    page_start: 43
+    page_end: 70
+    chapter_title_block_idx: 601
+    chapter_title_block_idx_secondary: 602
+    problems_block_idx: null
+    next_chapter_block_idx: 1063
+  - num: 4
+    title: "Complex Integration"
+    page_start: 71
+    page_end: 115
+    chapter_title_block_idx: 1063
+    chapter_title_block_idx_secondary: 1064
+    problems_block_idx: null
+    next_chapter_block_idx: 1756
+  - num: 5
+    title: "Singularities"
+    page_start: 116
+    page_end: 140
+    chapter_title_block_idx: 1756
+    chapter_title_block_idx_secondary: 1757
+    problems_block_idx: null
+    next_chapter_block_idx: 2135
+  - num: 6
+    title: "The Maximum Modulus Theorem"
+    page_start: 141
+    page_end: 154
+    chapter_title_block_idx: 2135
+    chapter_title_block_idx_secondary: 2136
+    problems_block_idx: null
+    next_chapter_block_idx: 2400
+  - num: 7
+    title: "Compactness and Convergence in the Space of Analytic Functions"
+    page_start: 155
+    page_end: 207
+    chapter_title_block_idx: 2400
+    chapter_title_block_idx_secondary: 2401
+    problems_block_idx: null
+    next_chapter_block_idx: 3305
+  - num: 8
+    title: "Runge's Theorem"
+    page_start: 208
+    page_end: 222
+    chapter_title_block_idx: 3305
+    chapter_title_block_idx_secondary: 3306
+    problems_block_idx: null
+    next_chapter_block_idx: 3550
+  - num: 9
+    title: "Analytic Continuation and Riemann Surfaces"
+    page_start: 223
+    page_end: 264
+    chapter_title_block_idx: 3550
+    chapter_title_block_idx_secondary: 3551
+    problems_block_idx: null
+    next_chapter_block_idx: 4128
+  - num: 10
+    title: "Harmonic Functions"
+    page_start: 265
+    page_end: 291
+    chapter_title_block_idx: 4128
+    chapter_title_block_idx_secondary: 4129
+    problems_block_idx: null
+    next_chapter_block_idx: 4576
+  - num: 11
+    title: "Entire Functions"
+    page_start: 292
+    page_end: 304
+    chapter_title_block_idx: 4576
+    chapter_title_block_idx_secondary: 4577
+    problems_block_idx: null
+    next_chapter_block_idx: 4811
+  - num: 12
+    title: "The Range of an Analytic Function"
+    page_start: 305
+    page_end: 315
+    chapter_title_block_idx: 4811
+    chapter_title_block_idx_secondary: 4812
+    problems_block_idx: null
+    next_chapter_block_idx: 4974
+
+appendices:
+  - id: "A"
+    title: "Calculus for Complex Valued Functions on an Interval"
+    page_start: 316
+    chapter_title_block_idx: 4974
+  - id: "B"
+    title: "Suggestions for Further Study and Bibliographical Notes"
+    page_start: 320
+    chapter_title_block_idx: 5009
+
+section_re: '^§\s*(\d+)\.?\s+(.+)$'
+subsection_re: '^()([^\s\S])$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

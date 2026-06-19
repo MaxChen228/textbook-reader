@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "trefethen_bau_numerical_linear_algebra-ch09-body-23-7bb774",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[23]",
+      "expect": "\\begin{array}{l l} \\text {[ Q C , R C ] = c l g s (A) ;} & \\text {Compute a factorization Q^{(c)} R^{(c)} by} \\\\ & \\text {classical Gram - Schmidt.} \\\\ \\text {[ Q M , R M ] = m g s (A) ;} & \\text {Compute a factorization Q^{(m)} R^{(m)} by} \\\\ & \\text {modified Gram - Schmidt.} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {[ Q C , R C ] = c l g s (A) ;} & \\text {Compute a factorization $Q^{(c)} R^{(c)}$ by} \\\\ & \\text {classical Gram - Schmidt.} \\\\ \\text {[ Q M , R M ] = m g s (A) ;} & \\text {Compute a factorization $Q^{(m)} R^{(m)}$ by} \\\\ & \\text {modified Gram - Schmidt.} \\end{array}"
+    }
+  ]
+}

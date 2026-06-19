@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "ma_statistical_mechanics-ch09-body-5-6e6c59",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[5]",
+      "expect": "N <   N _ {m} = V \\left/ \\left(\\frac {4 \\pi}{3} a ^ {3}\\right)\\left. \\right. \\tag {9-2}",
+      "new": "N < N _ {m} = V / \\left(\\frac {4 \\pi}{3} a ^ {3}\\right) \\tag {9-2}"
+    },
+    {
+      "id": "ma_statistical_mechanics-ch10-body-28-230a98",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[28]",
+      "expect": "\\langle 1 \\rangle = \\int \\rho (X) \\mathrm{d} X = 1 = 100 \\% \\quad . \\tag{10 - 7^{\\prime}}",
+      "new": "\\langle 1 \\rangle = \\int \\rho (X) \\mathrm{d} X = 1 = 100 \\% \\quad . \\tag{10 - 7'}"
+    }
+  ]
+}

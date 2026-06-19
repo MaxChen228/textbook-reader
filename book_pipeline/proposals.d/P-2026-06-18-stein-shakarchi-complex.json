@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-stein-shakarchi-complex",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog gate 無法只靠 audit-book schema 收斂空 caption visual",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-18T21:56:57+00:00",
+  "updated": "2026-06-18T21:56:57+00:00",
+  "evidence": "本書 smoke 只剩 H7 empty_captions=3。parsed/_catalog_audit.md 顯示 ch08 §4.3、appA §1、ch10 §2 各有 image/table block 無 caption，但 caption/語義落在相鄰獨立 block 或 duplicated visual 上；現有 extract_rules schema 只有全域 figure_caption_merge/main_re，無法對單書做 per-visual merge/exclude。",
+  "proposal": "新增 reviewable catalog_overrides / yaml-level media overrides，允許 per-visual caption merge、exclude、或 caption donor 綁定；否則 audit-book 在不改 parser/build_catalogs 的前提下無法把這類書跑到 smoke 全綠。",
+  "risk": "",
+  "disposition": ""
+}

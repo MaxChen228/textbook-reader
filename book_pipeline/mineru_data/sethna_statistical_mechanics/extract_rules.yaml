@@ -1,0 +1,133 @@
+slug: sethna_statistical_mechanics
+title: "Statistical Mechanics: Entropy, Order Parameters, and Complexity"
+author: James P. Sethna
+edition: 2nd
+subject: Thermal Physics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 428
+bibliography_start_page: 442
+index_start_page: 456
+
+chapters:
+  - num: 1
+    title: What is statistical mechanics?
+    page_start: 24
+    page_end: 45
+    chapter_title_block_idx: 607
+    problems_block_idx: 637
+    next_chapter_block_idx: 1008
+  - num: 2
+    title: Random walks and emergent properties
+    page_start: 46
+    page_end: 71
+    chapter_title_block_idx: 1008
+    problems_block_idx: 1208
+    next_chapter_block_idx: 1531
+  - num: 3
+    title: Temperature and equilibrium
+    page_start: 72
+    page_end: 101
+    chapter_title_block_idx: 1531
+    problems_block_idx: 1835
+    next_chapter_block_idx: 2123
+  - num: 4
+    title: Phase-space dynamics and ergodicity
+    page_start: 102
+    page_end: 121
+    chapter_title_block_idx: 2123
+    problems_block_idx: 2220
+    next_chapter_block_idx: 2469
+  - num: 5
+    title: Entropy
+    page_start: 122
+    page_end: 161
+    chapter_title_block_idx: 2469
+    problems_block_idx: 2705
+    next_chapter_block_idx: 3223
+  - num: 6
+    title: Free energies
+    page_start: 162
+    page_end: 201
+    chapter_title_block_idx: 3223
+    problems_block_idx: 3578
+    next_chapter_block_idx: 4057
+  - num: 7
+    title: Quantum statistical mechanics
+    page_start: 202
+    page_end: 239
+    chapter_title_block_idx: 4057
+    problems_block_idx: 4378
+    next_chapter_block_idx: 4806
+  - num: 8
+    title: Calculation and computation
+    page_start: 240
+    page_end: 275
+    chapter_title_block_idx: 4806
+    problems_block_idx: 4993
+    next_chapter_block_idx: 5448
+  - num: 9
+    title: Order parameters, broken symmetry, and topology
+    page_start: 276
+    page_end: 309
+    chapter_title_block_idx: 5448
+    problems_block_idx: 5610
+    next_chapter_block_idx: 6049
+  - num: 10
+    title: Correlations, response, and dissipation
+    page_start: 310
+    page_end: 343
+    chapter_title_block_idx: 6049
+    problems_block_idx: 6385
+    next_chapter_block_idx: 6770
+  - num: 11
+    title: Abrupt phase transitions
+    page_start: 344
+    page_end: 371
+    chapter_title_block_idx: 6770
+    problems_block_idx: 6933
+    next_chapter_block_idx: 7252
+  - num: 12
+    title: Continuous phase transitions
+    page_start: 372
+    page_end: 427
+    chapter_title_block_idx: 7252
+    problems_block_idx: 7490
+    next_chapter_block_idx: 8319
+
+appendices:
+  - id: A
+    title: Fourier methods
+    page_start: 428
+    chapter_title_block_idx: 8319
+
+section_re: '^((?:\d+\.\d+|A\.\d+))\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\((\d+\.\d+)\)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\d+(?:\.\d+)+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

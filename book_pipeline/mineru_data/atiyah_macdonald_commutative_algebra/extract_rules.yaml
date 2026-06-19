@@ -1,0 +1,125 @@
+slug: atiyah_macdonald_commutative_algebra
+title: Introduction to Commutative Algebra
+author: M. F. Atiyah; I. G. Macdonald
+edition: null
+subject: Abstract Algebra
+publisher: Addison-Wesley Publishing Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 134
+bibliography_start_page: null
+index_start_page: 134
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Rings and Ideals
+    page_start: 8
+    page_end: 23
+    chapter_title_block_idx: 98
+    problems_block_idx: 285
+    next_chapter_block_idx: 407
+  - num: 2
+    title: Modules
+    page_start: 24
+    page_end: 42
+    chapter_title_block_idx: 407
+    chapter_title_block_idx_secondary: 408
+    problems_block_idx: 670
+    next_chapter_block_idx: 752
+  - num: 3
+    title: Rings and Modules of Fractions
+    page_start: 43
+    page_end: 56
+    chapter_title_block_idx: 752
+    problems_block_idx: 882
+    next_chapter_block_idx: 988
+  - num: 4
+    title: Primary Decomposition
+    page_start: 57
+    page_end: 65
+    chapter_title_block_idx: 988
+    problems_block_idx: 1061
+    next_chapter_block_idx: 1118
+  - num: 5
+    title: Integral Dependence and Valuations
+    page_start: 66
+    page_end: 80
+    chapter_title_block_idx: 1118
+    problems_block_idx: 1271
+    next_chapter_block_idx: 1370
+  - num: 6
+    title: Chain Conditions
+    page_start: 81
+    page_end: 86
+    chapter_title_block_idx: 1370
+    chapter_title_block_idx_secondary: 1371
+    problems_block_idx: 1431
+    next_chapter_block_idx: 1454
+  - num: 7
+    title: Noetherian Rings
+    page_start: 87
+    page_end: 95
+    chapter_title_block_idx: 1454
+    problems_block_idx: 1520
+    next_chapter_block_idx: 1606
+  - num: 8
+    title: Artin Rings
+    page_start: 96
+    page_end: 99
+    chapter_title_block_idx: 1606
+    problems_block_idx: 1639
+    next_chapter_block_idx: 1658
+  - num: 9
+    title: Discrete Valuation Rings and Dedekind Domains
+    page_start: 100
+    page_end: 106
+    chapter_title_block_idx: 1658
+    problems_block_idx: 1748
+    next_chapter_block_idx: 1771
+  - num: 10
+    title: Completions
+    page_start: 107
+    page_end: 122
+    chapter_title_block_idx: 1771
+    problems_block_idx: 1998
+    next_chapter_block_idx: 2041
+  - num: 11
+    title: Dimension Theory
+    page_start: 123
+    page_end: 133
+    chapter_title_block_idx: 2041
+    problems_block_idx: 2207
+    next_chapter_block_idx: 2349
+
+appendices: []
+
+section_re: '^()((?!\d+$)(?!(?:Contents|REFERENCES|Index)$).+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

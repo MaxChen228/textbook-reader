@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "distributed_systems-ch07-body-115-ea9cb8",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[115]",
+      "expect": "\\begin{array}{cccc}\n\\mathrm{A} & \\frac{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\}]}\\mathsf{R}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\})] & \\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A},\\mathsf{B}\\}] & \\mathsf{W}(\\mathsf{M}_2)[\\mathsf{T}_2,\\{\\mathsf{B}\\}] & \\mathsf{R}(\\mathsf{M}_1)? \\\\\n\\mathrm{B} & \\frac{\\mathsf{R}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\})]}{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\})]} & \\mathsf{R}(\\mathsf{M}_1)? \\\\\n\\mathrm{C} & \\frac{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\})]}{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\})]} & \\mathsf{R}(\\mathsf{M}_1)? \n\\end{array}",
+      "new": "\\begin{array}{ccccc} \\mathrm{A} & \\frac{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\}]}{\\mathsf{R}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\}]} & \\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A},\\mathsf{B}\\}] & \\mathsf{W}(\\mathsf{M}_2)[\\mathsf{T}_2,\\{\\mathsf{B}\\}] & \\mathsf{R}(\\mathsf{M}_1)? \\\\ \\mathrm{B} & \\frac{\\mathsf{R}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{A}\\}]}{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\}]} & & & \\mathsf{R}(\\mathsf{M}_1)? \\\\ \\mathrm{C} & \\frac{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\}]}{\\mathsf{W}(\\mathsf{M}_1)[\\mathsf{T}_1,\\{\\mathsf{C}\\}]} & & & \\mathsf{R}(\\mathsf{M}_1)? \\end{array}"
+    }
+  ]
+}

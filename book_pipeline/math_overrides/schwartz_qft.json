@@ -1,0 +1,98 @@
+{
+  "overrides": [
+    {
+      "id": "schwartz_qft-ch04-body-86-990d4d",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[86]",
+      "expect": "\\Delta E _ {0} = \\quad\\begin{array}{c c}\\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{\\overline {{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}\\\\\\hline\\end{array}\\rightarrow \\quad\\begin{array}{c c}\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace \\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{ \\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {\\{\\overbrace {0 1 4 4}}}}}}}}}}}}}}}}}}}}}}}}}}}}\\\\\\hline\\end{array},",
+      "new": "\\Delta E _ {0} = \\quad\\begin{array}{c c}\\overline {} & {}\\\\\\hline\\end{array}\\rightarrow \\quad\\begin{array}{c c}\\overbrace {0 1 4 4} & {}\\\\\\hline\\end{array}"
+    },
+    {
+      "id": "schwartz_qft-ch04-body-68-c82089",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[68]",
+      "expect": "\\Delta E _ {0} = \\sum_ {m > 0} \\frac {\\left| \\langle \\psi_ {0} | H _ {\\text { int }} | \\psi_ {m} \\rangle \\right| ^ {2}}{E _ {0} - E _ {m}} = \\underline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overbrace \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - \\overline - - \\overline - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - \\overline - - - - \\overline - - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\overline {{- - - - \\varepsilon}}}}}}}}}}}}}}}}}}}}}}{\\left. + \\right.}. (4. 3 7)",
+      "new": "\\Delta E _ {0} = \\sum_ {m > 0} \\frac {\\left| \\langle \\psi_ {0} | H _ {\\text { int }} | \\psi_ {m} \\rangle \\right| ^ {2}}{E _ {0} - E _ {m}} \\text {(4. 3 7)}"
+    },
+    {
+      "id": "schwartz_qft-ch03-body-155-1deb6c",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[155]",
+      "field": "md",
+      "old": "$^ { 6 6 } - k ^ { 2 } ^ { , , }$",
+      "new": "$6^{66} - k^{2,,}$",
+      "anchor": "5f913ece"
+    },
+    {
+      "id": "schwartz_qft-ch36-problem-36-8-body-1854-2f660f",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "problem:36.8:body[1854]",
+      "field": "md",
+      "old": "${ } ^ { \\mathfrak { s } } ( \\mathfrak { q } _ { 1 } { } ^ { } ^ { } ) ^ { * }$",
+      "new": "$\\mathfrak{s}(\\mathfrak{q}_{1})^{*}$",
+      "anchor": "d831c7f5"
+    },
+    {
+      "id": "schwartz_qft-ch36-problem-36-8-body-1902-17f4b4",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "problem:36.8:body[1902]",
+      "field": "md",
+      "old": "$^ { \\infty } \\Theta < 1 0 ^ { - 1 2 } ^ { 3 9 }$",
+      "new": "$\\Theta^{\\infty} < 10^{-12.39}$",
+      "anchor": "46013443"
+    },
+    {
+      "id": "schwartz_qft-ch03-body-199-293618",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[199]",
+      "field": "md",
+      "old": "$\\begin{array} { r }  \\boxed { \\begin{array} { r } { \\boxed { x } = g ^ { \\mu \\nu } \\frac { \\partial } { \\partial x ^ { \\mu } } \\frac { \\partial } { \\partial x ^ { \\nu } } } } \\end{array} \\end{array}$",
+      "new": "$\\begin{array}{r} \\boxed{ \\begin{array}{r} \\boxed{x} = g^{\\mu \\nu} \\frac{\\partial}{\\partial x^{\\mu}} \\frac{\\partial}{\\partial x^{\\nu}} \\end{array} } \\end{array}$",
+      "anchor": "daa03488"
+    },
+    {
+      "id": "schwartz_qft-ch36-problem-36-8-body-1652-4873c2",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "problem:36.8:body[1652]",
+      "field": "md",
+      "old": "$\\mathrm { { \\bf \\ddot { e } } } ^ { \\mathrm { { c } } } - \\mathrm { { \\bf 1 \\stackrel { \\ } { } } } ^ { \\mathrm { { \\bf \\stackrel { \\otimes } } } }$",
+      "new": "$\\mathrm{{\\bf \\ddot{e}}}^{\\mathrm{{c}}} - \\mathrm{{\\bf 1 \\stackrel{ }{}}}^{\\mathrm{{\\bf \\stackrel{\\otimes}{}}}}$",
+      "anchor": "48fdf2fc"
+    },
+    {
+      "id": "schwartz_qft-ch04-body-44-81b605",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[44]",
+      "field": "md",
+      "old": "$\\begin{array} { l } { { \\frac { 1 } { k ^ { 2 } } } } \\end{array} = \\ - \\frac { 1 } { \\big \\Pi }$",
+      "new": "$\\begin{array}{l}\\frac{1}{k^{2}}\\end{array} = - \\frac{1}{\\Pi}$",
+      "anchor": "4ba13fa4"
+    },
+    {
+      "id": "schwartz_qft-ch28-body-214-347a87",
+      "action": "fix_eq_tex",
+      "chunk": "ch28",
+      "selector": "body[214]",
+      "expect": "{ } _ { b } \\dots\\dotsa = \\frac { i } { p ^ { 2 } - \\xi m _ { A } ^ { 2 } } \\delta ^ { a b } ,",
+      "new": "\\dots_{b} \\delta^{a} = \\frac{i}{p^{2} - \\xi m_{A}^{2}} \\delta^{ab},"
+    },
+    {
+      "id": "schwartz_qft-ch36-problem-36-8-body-1808-a30fbb",
+      "action": "fix_inline_math",
+      "chunk": "ch36",
+      "selector": "problem:36.8:body[1808]",
+      "field": "md",
+      "old": "$\\mathrm { \\^ { \\ast } < f | M | i > ^ { \\ast } } .$",
+      "new": "$\\mathrm{\\ast < f | M | i >^{\\ast}} .$",
+      "anchor": "3f564e27"
+    }
+  ]
+}

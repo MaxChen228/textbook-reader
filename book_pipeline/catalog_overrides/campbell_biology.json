@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "23.8",
+      "classification": "external",
+      "reason": "Chapter 23 in this corpus is a review-style text chunk with no chapter-local figure supply; the prompt explicitly says \"Looking at Figure 23.8 in your text\", which points the reader back to the main textbook rather than an in-corpus figure target.",
+      "where": "ch23.json body[20]",
+      "evidence": "Parsed ch23 has figure_count=0/table_count=0 and no fig-23.* entries in catalogs.json; the sentence reads \"Looking at Figure 23.8 in your text...\"."
+    },
+    {
+      "type": "table",
+      "ref": "23.1",
+      "classification": "external",
+      "reason": "This review prompt asks the reader to look back at a table that is not part of the review corpus; Chapter 23 has no table blocks or tbl-23.* catalog entries to repair into an in-book target.",
+      "where": "ch23.json problem:4:body[0]",
+      "evidence": "Parsed ch23 has figure_count=0/table_count=0, catalogs.json contains no tbl-23.* entries, and the prompt says \"Look back at the Geologic Record in Table 23.1.\""
+    }
+  ],
+  "overrides": []
+}

@@ -1,0 +1,157 @@
+slug: newman_computational_physics
+title: Computational Physics
+author: Mark Newman
+edition: 1st
+subject: Theoretical Physics
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 517
+bibliography_start_page: null
+index_start_page: 541
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 10
+    page_end: 17
+    chapter_title_block_idx: 100
+    chapter_title_block_idx_secondary: 101
+    problems_block_idx: null
+    next_chapter_block_idx: 147
+  - num: 2
+    title: Python programming for physicists
+    page_start: 18
+    page_end: 96
+    chapter_title_block_idx: 147
+    chapter_title_block_idx_secondary: 148
+    problems_block_idx: null
+    next_chapter_block_idx: 1094
+  - num: 3
+    title: Graphics and visualization
+    page_start: 97
+    page_end: 134
+    chapter_title_block_idx: 1094
+    chapter_title_block_idx_secondary: 1095
+    problems_block_idx: null
+    next_chapter_block_idx: 1476
+  - num: 4
+    title: Accuracy and speed
+    page_start: 135
+    page_end: 148
+    chapter_title_block_idx: 1476
+    chapter_title_block_idx_secondary: 1477
+    problems_block_idx: null
+    next_chapter_block_idx: 1636
+  - num: 5
+    title: Integrals and derivatives
+    page_start: 149
+    page_end: 222
+    chapter_title_block_idx: 1636
+    chapter_title_block_idx_secondary: 1637
+    problems_block_idx: null
+    next_chapter_block_idx: 2472
+  - num: 6
+    title: Solution of linear and nonlinear equations
+    page_start: 223
+    page_end: 297
+    chapter_title_block_idx: 2472
+    chapter_title_block_idx_secondary: 2473
+    problems_block_idx: null
+    next_chapter_block_idx: 3395
+  - num: 7
+    title: Fourier transforms
+    page_start: 298
+    page_end: 335
+    chapter_title_block_idx: 3395
+    chapter_title_block_idx_secondary: 3396
+    problems_block_idx: null
+    next_chapter_block_idx: 3788
+  - num: 8
+    title: Ordinary differential equations
+    page_start: 336
+    page_end: 412
+    chapter_title_block_idx: 3788
+    chapter_title_block_idx_secondary: 3789
+    problems_block_idx: null
+    next_chapter_block_idx: 4661
+  - num: 9
+    title: Partial differential equations
+    page_start: 413
+    page_end: 452
+    chapter_title_block_idx: 4661
+    chapter_title_block_idx_secondary: 4662
+    problems_block_idx: null
+    next_chapter_block_idx: 5112
+  - num: 10
+    title: Random processes and Monte Carlo methods
+    page_start: 453
+    page_end: 510
+    chapter_title_block_idx: 5112
+    chapter_title_block_idx_secondary: 5113
+    problems_block_idx: null
+    next_chapter_block_idx: 5721
+  - num: 11
+    title: Using what you have learned
+    page_start: 511
+    page_end: 516
+    chapter_title_block_idx: 5721
+    chapter_title_block_idx_secondary: 5722
+    problems_block_idx: null
+    next_chapter_block_idx: 5754
+
+appendices:
+  - id: A
+    title: Installing Python
+    page_start: 517
+    chapter_title_block_idx: 5754
+  - id: B
+    title: Differences Between Python Versions
+    page_start: 519
+    chapter_title_block_idx: 5770
+  - id: C
+    title: Gaussian Quadrature
+    page_start: 523
+    chapter_title_block_idx: 5824
+  - id: D
+    title: Convergence of Markov Chain Monte Carlo Calculations
+    page_start: 529
+    chapter_title_block_idx: 5894
+  - id: E
+    title: Useful Programs
+    page_start: 532
+    chapter_title_block_idx: 5929
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+)?)(?:\s+)?([A-Z][A-Z0-9][A-Z0-9 .,:;''"()\-\/&]+)$'
+subsection_re: '^(\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+)\s+([A-Z][A-Z0-9][A-Z0-9 .,:;''"()\-\/&]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Exercise\s+)?(\d+\.\d{1,2})(?::(?:\s|$)|\s+(?=[^\n]*[a-z]))'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+\.\d+):'
+
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+\d+(?:\.\d+)?'
+
+known_missing_problems: []

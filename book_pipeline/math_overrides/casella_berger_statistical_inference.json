@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "id": "casella_berger_statistical_inference-ch09-body-411-1d0653",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[411]",
+      "field": "md",
+      "old": "$\\Sigma X = \\Sigma  \\mathrm  $",
+      "new": "$\\Sigma X = \\Sigma \\mathrm{X}  $",
+      "anchor": "cdb44a95"
+    },
+    {
+      "id": "casella_berger_statistical_inference-ch08-body-8-dc0f62",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[8]",
+      "field": "md",
+      "old": "$\\mathrm { \\^ { 6 6 } n u l l ^ { \\circ } }$",
+      "new": "$\\mathrm{66null^{\\circ}}$",
+      "anchor": "7d6643e9"
+    },
+    {
+      "id": "casella_berger_statistical_inference-ch06-body-51-da9a7e",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[51]",
+      "expect": "\\begin{array}{l} \\frac {f (\\mathbf {x} | \\boldsymbol {\\theta})}{q (T (\\mathbf {x}) | \\boldsymbol {\\theta})} = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{q (T (\\mathbf {x}) | \\boldsymbol {\\theta})} \\quad \\text {(since (6.2.3) is satisfied)} \\\\ = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{\\Sigma_ {A _ {T (\\mathbf {x})}} g (T (\\mathbf {y}) | \\boldsymbol {\\theta}) h (\\mathbf {y})} \\quad \\text {(definition of the pmf of T)} \\\\ = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) \\Sigma_ {A _ {T (\\mathbf {x})}} h (\\mathbf {y})} \\quad \\text {(since T is constant on A_{T(\\mathbf {x})})} \\\\ = \\frac {h (\\mathbf {x})}{\\Sigma_ {A _ {T (\\mathbf {x})}} h (\\mathbf {y})}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\frac {f (\\mathbf {x} | \\boldsymbol {\\theta})}{q (T (\\mathbf {x}) | \\boldsymbol {\\theta})} = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{q (T (\\mathbf {x}) | \\boldsymbol {\\theta})} \\quad \\text {(since (6.2.3) is satisfied)} \\\\ = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{\\sum_{\\mathbf {y} \\in A _ {T (\\mathbf {x})}} g (T (\\mathbf {y}) | \\boldsymbol {\\theta}) h (\\mathbf {y})} \\quad \\text {(definition of the pmf of T)} \\\\ = \\frac {g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) h (\\mathbf {x})}{g (T (\\mathbf {x}) | \\boldsymbol {\\theta}) \\sum_{\\mathbf {y} \\in A _ {T (\\mathbf {x})}} h (\\mathbf {y})} \\quad \\text {(since T is constant on $A _ {T (\\mathbf {x})}$)} \\\\ = \\frac {h (\\mathbf {x})}{\\sum_{\\mathbf {y} \\in A _ {T (\\mathbf {x})}} h (\\mathbf {y})}. \\\\ \\end{array}"
+    },
+    {
+      "id": "casella_berger_statistical_inference-ch05-body-263-02a849",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[263]",
+      "expect": "\\begin{array}{l} f _ {X _ {(j)}} (x) = \\frac {d}{d x} F _ {X _ {(j)}} (x) \\\\ = \\sum_ {k = j} ^ {n} \\binom {n} {k} \\left(k \\left[ F _ {X} (x) \\right] ^ {k - 1} \\left[ 1 - F _ {X} (x) \\right] ^ {n - k} f _ {X} (x) \\right. \\\\ \\left. - (n - k) \\left[ F _ {X} (x) \\right] ^ {k} \\left[ 1 - F _ {X} (x) \\right] ^ {n - k - 1} f _ {X} (x)\\right) \\quad (\\text { chain   rule }) \\\\ = \\binom{n}{j} j f _ {X} (x) [ F _ {X} (x) ] ^ {j - 1} [ 1 - F _ {X} (x) ] ^ {n - j} \\\\ + \\sum_ {k = j + 1} ^ {n} \\binom {n} {k} k [ F _ {X} (x) ] ^ {k - 1} [ 1 - F _ {X} (x) ] ^ {n - k} f _ {X} (x) \\\\ - \\sum_ {k = j} ^ {n - 1} \\binom {n} {k} (n - k) [ F _ {X} (x) ] ^ {k} [ 1 - F _ {X} (x) ] ^ {n - k - 1} f _ {X} (x) \\quad \\binomk = n \\text {term} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} f _ {X _ {(j)}} (x) = \\frac {d}{d x} F _ {X _ {(j)}} (x) \\\\ = \\sum_ {k = j} ^ {n} \\binom {n} {k} \\left(k \\left[ F _ {X} (x) \\right] ^ {k - 1} \\left[ 1 - F _ {X} (x) \\right] ^ {n - k} f _ {X} (x) - (n - k) \\left[ F _ {X} (x) \\right] ^ {k} \\left[ 1 - F _ {X} (x) \\right] ^ {n - k - 1} f _ {X} (x)\\right) \\quad (\\text { chain rule }) \\\\ = \\binom{n}{j} j f _ {X} (x) [ F _ {X} (x) ] ^ {j - 1} [ 1 - F _ {X} (x) ] ^ {n - j} \\\\ + \\sum_ {k = j + 1} ^ {n} \\binom {n} {k} k [ F _ {X} (x) ] ^ {k - 1} [ 1 - F _ {X} (x) ] ^ {n - k} f _ {X} (x) \\\\ - \\sum_ {k = j} ^ {n - 1} \\binom {n} {k} (n - k) [ F _ {X} (x) ] ^ {k} [ 1 - F _ {X} (x) ] ^ {n - k - 1} f _ {X} (x) \\quad \\text {(k = n term)} \\\\ \\end{array}"
+    }
+  ]
+}

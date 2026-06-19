@@ -1,0 +1,31 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "3.11.6",
+      "classification": "source_mismatch",
+      "reason": "來源頁正文確實引用 Table 3.11.6，但本書 chapter 3 的 parsed/catalog 供給端不存在可對齊的 section/body table；僅有少數 problem_inline_unlabeled_table，且 ch03 problem 3.11.6 本身沒有 table block。",
+      "where": "ch10.json problem:12.2.3#1:body[2]",
+      "evidence": "raw chunk_5 origin.pdf p153/page 1208 prints \"From Table 3.11.6...\"; parsed ch03 has no body table blocks and catalog tables only cover problems 3.1.1, 3.1.2, 3.7.8, 3.10.4."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "stewart-calculus-fig-2.6.8-from-problem-figure",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.6.8:body[3]",
+      "expect": {
+        "id": "fig-ch02-prob238-3"
+      },
+      "set": {
+        "id": "fig-2.6.8",
+        "catalog_aliases": [
+          "2.6.8"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Chapter 2 review answer 2.12 explicitly says \"See Figure 2.6.8.\" The source corpus already contains a matching problem 2.6.8 figure block; promote that block from excluded problem-inline figure to semantic fig-2.6.8."
+    }
+  ]
+}

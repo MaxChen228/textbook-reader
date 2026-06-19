@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "id": "folland_real_analysis-ch10-problem-23-body-19-dde13f",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:23:body[19]",
+      "expect": "\\begin{array}{l l} & \\text {There is a constant C > 0 such that for 0 <   s <   t , X _ {t} - X _ {s} has} \\\\ (1 0. 2 2) & \\text {the normal distribution \\nu_ {0} ^ {C(t - s)} with mean 0 and variance C(t - s).} \\end{array}",
+      "new": "\\begin{array}{l l} & \\text{There is a constant } C > 0 \\text{ such that for } 0 < s < t, X_{t} - X_{s} \\text{ has} \\\\ (1 0. 2 2) & \\text{the normal distribution } \\nu_{0}^{C(t - s)} \\text{ with mean 0 and variance } C(t - s). \\end{array}"
+    },
+    {
+      "id": "folland_real_analysis-ch09-problem-35-body-3-e3c574",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:35:body[3]",
+      "expect": "| (R f) ^ {\\widehat} (\\eta) | ^ {2} \\leq C _ {s} \\big (1 + | \\eta | ^ {2} \\big) ^ {(k / 2) - s} \\int | \\widehat {f} (\\eta , \\zeta) | ^ {2} \\big (1 + | \\eta | ^ {2} + | \\zeta | ^ {2} \\big) ^ {s} d \\zeta .",
+      "new": "|\\widehat{(R f)}(\\eta)|^{2} \\leq C_{s} \\big(1 + |\\eta|^{2}\\big)^{(k / 2) - s} \\int |\\widehat{f}(\\eta,\\zeta)|^{2} \\big(1 + |\\eta|^{2} + |\\zeta|^{2}\\big)^{s} d\\zeta."
+    },
+    {
+      "id": "folland_real_analysis-ch03-body-219-0c0887",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[219]",
+      "field": "md",
+      "old": "$F ( x + ) = \\operatorname* { l i m } _ { y } \\lsetminus x ^ { F ( y ) }$",
+      "new": "$F (x +) = \\operatorname*{lim}_{y \\to x} F(y)$",
+      "anchor": "ba1d0e2a"
+    },
+    {
+      "id": "folland_real_analysis-ch08-body-365-0a7f05",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[365]",
+      "field": "md",
+      "old": "$\\begin{array} { r } { \\frac { 1 } { 2 } [ f ( 0 + ) + \\^ { ^ { \\cdot } } f ( 0 - ) ] ) } \\end{array}$",
+      "new": "$\\begin{array}{r} \\frac{1}{2}\\left[f(0 + ) + f(0 -)\\right] \\end{array}$",
+      "anchor": "50deeeeb"
+    }
+  ]
+}

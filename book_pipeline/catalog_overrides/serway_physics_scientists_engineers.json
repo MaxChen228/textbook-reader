@@ -1,0 +1,242 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "serway-fig-9.71-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "problem:72:body[0]",
+      "field": "md",
+      "old": "Figure 9.71",
+      "new": "Figure P9.71",
+      "reason": "Raw PDF page 325 prints the shared problem figure as 'Figure P9.71 Problems 71 and 72.', and problem 72 refers to that same diagram. Parsed text dropped the problem-prefix P, so audit falsely demanded a chapter figure 9.71."
+    },
+    {
+      "id": "serway-fig-30.15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch30",
+      "selector": "body[193]",
+      "position": "after",
+      "page": 950,
+      "clip": [
+        0.56,
+        0.29,
+        0.97,
+        0.68
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-30.15",
+        "kind": "line",
+        "caption": "Figure 30.15: (Example 30.6) A toroid consisting of many turns of wire. If the turns are closely spaced, the magnetic field in the interior of the toroid is tangent to the dashed circle (loop 1) and varies as 1/r. The dimension a is the cross-sectional radius of the torus. The field outside the toroid is very small and can be described by using the amperian loop (loop 2) at the right side, perpendicular to the page."
+      },
+      "reason": "Raw PDF page 950 contains Figure 30.15 beside Example 30.6, but parsed ch30 emitted no figure block between the intro paragraph and solution body."
+    },
+    {
+      "id": "serway-fig-P10.50-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:50:body[1]",
+      "position": "before",
+      "page": 365,
+      "clip": [
+        0.37,
+        0.14,
+        0.56,
+        0.48
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-P10.50",
+        "kind": "line",
+        "caption": "Figure P10.50"
+      },
+      "reason": "Raw PDF page 365 shows the pulley diagram for problem 50, but parsed problem 50 has only text blocks and no figure block."
+    },
+    {
+      "id": "serway-fig-P26.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch26",
+      "selector": "problem:22:body[0]",
+      "position": "after",
+      "page": 838,
+      "clip": [
+        0.31,
+        0.55,
+        0.49,
+        0.83
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-P26.22",
+        "kind": "line",
+        "caption": "Figure P26.22"
+      },
+      "reason": "Raw PDF page 838 contains Figure P26.22 under problem 22, but parsed problem 22 emitted only one paragraph and missed the circuit figure."
+    },
+    {
+      "id": "serway-fig-P8.64-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:64:body[1]",
+      "position": "before",
+      "page": 279,
+      "clip": [
+        0.32,
+        0.33,
+        0.58,
+        0.56
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-P8.64",
+        "kind": "line",
+        "caption": "Figure P8.64"
+      },
+      "reason": "Raw PDF page 279 contains Figure P8.64 between the two problem 64 text paragraphs, but parsed problem 64 has no figure block."
+    },
+    {
+      "id": "serway-fig-22.16-idfix",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[300]",
+      "expect": {
+        "id": "fig-ch22-300"
+      },
+      "set": {
+        "id": "fig-22.16",
+        "caption": "Figure 22.16 Adiabatic free expansion of a gas. The container is thermally insulated from its surroundings; therefore, Q = 0.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption paragraph at ch22 body[292] identifies the nearby fallback image body[300] as Figure 22.16. Promote the real figure block to a semantic catalog id."
+    },
+    {
+      "id": "serway-fig-26.13-idfix",
+      "action": "set_fields",
+      "chunk": "ch26",
+      "selector": "body[229]",
+      "expect": {
+        "id": "fig-ch26-229"
+      },
+      "set": {
+        "id": "fig-26.13",
+        "caption": "Figure 26.13 A charged capacitor (a) before and (b) after insertion of a dielectric between the plates.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The fallback image at ch26 body[229] is the dielectric insertion diagram described by the caption paragraph at body[221]. Assign the parent figure id so refs 26.13/26.13a/26.13b are all covered."
+    },
+    {
+      "id": "serway-fig-33.3-parent",
+      "action": "set_fields",
+      "chunk": "ch33",
+      "selector": "body[34]",
+      "expect": {
+        "id": "fig-33.3b"
+      },
+      "set": {
+        "id": "fig-33.3",
+        "caption": "Figure 33.3 (a) Plots of the instantaneous current i_R and instantaneous voltage Δv_R across a resistor as functions of time. At time t = T, one cycle of the time-varying voltage and current has been completed. (b) Phasor diagram for the resistive circuit.",
+        "catalog_repair_source": "agent-parent-id-fix"
+      },
+      "reason": "Parsed image block body[34] contains the combined (a)/(b) figure, but MinerU labeled it only as subfigure 33.3b. Promoting it to parent fig-33.3 covers refs 33.3, 33.3a, and 33.3b."
+    },
+    {
+      "id": "serway-fig-33.7-parent",
+      "action": "set_fields",
+      "chunk": "ch33",
+      "selector": "body[76]",
+      "expect": {
+        "id": "fig-33.7a"
+      },
+      "set": {
+        "id": "fig-33.7",
+        "caption": "Figure 33.7 (a) Plots of the instantaneous current i_L and instantaneous voltage Δv_L across an inductor as functions of time. (b) Phasor diagram for the inductive circuit.",
+        "catalog_repair_source": "agent-parent-id-fix"
+      },
+      "reason": "Parsed image block body[76] contains both subfigures, but catalogized only as 33.7a. Promote to parent fig-33.7 so the parent and subfigure refs resolve."
+    },
+    {
+      "id": "serway-fig-38.11-parent",
+      "action": "set_fields",
+      "chunk": "ch38",
+      "selector": "body[127]",
+      "expect": {
+        "id": "fig-38.11a"
+      },
+      "set": {
+        "id": "fig-38.11",
+        "caption": "Figure 38.11 (a) The photograph on which Charon, the moon of Pluto, was discovered in 1978. From an Earth-based telescope, atmospheric blurring results in Charon appearing only as a subtle bump on the edge of Pluto. (b) A Hubble Space Telescope photo of Pluto and Charon clearly resolving the pair.",
+        "catalog_repair_source": "agent-parent-id-fix"
+      },
+      "reason": "The existing image block body[127] contains both panels of Figure 38.11 but was labeled only as subfigure 38.11a. Promote to the parent figure id so 38.11/38.11b references resolve."
+    },
+    {
+      "id": "serway-fig-41.4-idfix",
+      "action": "set_fields",
+      "chunk": "ch41",
+      "selector": "body[112]",
+      "expect": {
+        "id": "fig-ch41-112"
+      },
+      "set": {
+        "id": "fig-41.4",
+        "caption": "Figure 41.4 The first three allowed states for a particle confined to a one-dimensional box. The states are shown superimposed on the potential energy function of Figure 41.3b. The wave functions and probability densities are plotted vertically from separate axes.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Fallback image body[112] is the particle-in-a-box panel pair referenced by the caption paragraph at body[123]. Assign the parent figure id so refs 41.4/41.4a/41.4b resolve."
+    },
+    {
+      "id": "serway-fig-43.5-parent",
+      "action": "set_fields",
+      "chunk": "ch43",
+      "selector": "body[54]",
+      "expect": {
+        "id": "fig-ch43-54"
+      },
+      "set": {
+        "id": "fig-43.5",
+        "caption": "Figure 43.5 Rotation of a diatomic molecule around its center of mass. (a) A diatomic molecule oriented along the y axis. (b) Allowed rotational energies of a diatomic molecule expressed as multiples of E1 = ħ²/I.",
+        "catalog_repair_source": "agent-parent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The first fallback panel in body[54] is the (a) half of Figure 43.5; assigning the parent figure id is sufficient because audit treats parent 43.5 as covering refs 43.5a and 43.5b."
+    },
+    {
+      "id": "serway-fig-17.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch17",
+      "selector": "body[87]",
+      "position": "before",
+      "page": 549,
+      "clip": [
+        0.72,
+        0.67,
+        0.99,
+        0.98
+      ],
+      "zoom": 2.8,
+      "block": {
+        "t": "fig",
+        "id": "fig-17.6",
+        "kind": "line",
+        "caption": "Figure 17.6 Spherical waves emitted by a point source. The circular arcs represent the spherical wave fronts that are concentric with the source."
+      },
+      "reason": "Raw PDF page 549 contains Figure 17.6 at the lower-right of the page, but parsed ch17 emitted only the caption paragraph at body[87] and no figure block."
+    }
+  ]
+}

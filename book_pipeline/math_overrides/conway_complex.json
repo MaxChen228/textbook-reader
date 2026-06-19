@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "conway_complex-ch07-body-417-d2a52e",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[417]",
+      "expect": "\\sum_ {n = - \\infty} ^ {\\infty} ^ {\\prime} \\binom{r}{- n} ^ {2} <   \\infty",
+      "new": "\\sum_{n=-\\infty}^{\\infty\\prime}\\binom{r}{-n}^{2}<\\infty"
+    },
+    {
+      "id": "conway_complex-ch07-body-419-8abf51",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[419]",
+      "expect": "\\sin \\pi z = [ \\exp g (z) ] z \\prod_ {n = - \\infty} ^ {\\infty} ^ {\\prime} \\left(1 - \\frac {z}{n}\\right) e ^ {z / n};",
+      "new": "\\sin \\pi z = [\\exp g(z)] z \\prod_{n=-\\infty}^{\\infty\\prime} \\left(1 - \\frac{z}{n}\\right) e^{z/n};"
+    }
+  ]
+}

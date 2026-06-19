@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "cottingham_standard_model-appA-body-24-ed66db",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[24]",
+      "expect": "\\delta_ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if i = j ,} \\\\ 0 & \\text {if i\\neq j .} \\end{array} \\right.",
+      "new": "\\delta_{ij} = \\left\\{\\begin{array}{l l}1 & \\text{if }i = j,\\\\ 0 & \\text{if }i\\ne j.\\end{array}\\right."
+    },
+    {
+      "id": "cottingham_standard_model-ch21-body-97-7edc49",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[97]",
+      "field": "md",
+      "old": "${ \\Chi } _ { 2 }$",
+      "new": "$\\chi _ { 2 }$",
+      "anchor": "a3eada77"
+    }
+  ]
+}

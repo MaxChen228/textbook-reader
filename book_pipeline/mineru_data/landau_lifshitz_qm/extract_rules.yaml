@@ -1,0 +1,198 @@
+slug: landau_lifshitz_qm
+title: "Quantum Mechanics: Non-relativistic Theory"
+author: "L. D. Landau; E. M. Lifshitz"
+edition: "3rd"
+subject: "Quantum Mechanics"
+publisher: "Elsevier Butterworth-Heinemann"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 667
+bibliography_start_page: null
+index_start_page: 687
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: "The Basic Concepts of Quantum Mechanics"
+    page_start: 17
+    page_end: 40
+    chapter_title_block_idx: 265
+    chapter_title_block_idx_secondary: 266
+    problems_block_idx: null
+    next_chapter_block_idx: 626
+  - num: 2
+    title: "Energy and Momentum"
+    page_start: 41
+    page_end: 65
+    chapter_title_block_idx: 626
+    chapter_title_block_idx_secondary: 627
+    problems_block_idx: null
+    next_chapter_block_idx: 1093
+  - num: 3
+    title: "Schrodinger's Equation"
+    page_start: 66
+    page_end: 97
+    chapter_title_block_idx: 1093
+    chapter_title_block_idx_secondary: 1094
+    problems_block_idx: null
+    next_chapter_block_idx: 1741
+  - num: 4
+    title: "Angular Momentum"
+    page_start: 98
+    page_end: 117
+    chapter_title_block_idx: 1741
+    chapter_title_block_idx_secondary: 1742
+    problems_block_idx: null
+    next_chapter_block_idx: 2086
+  - num: 5
+    title: "Motion in a Centrally Symmetric Field"
+    page_start: 118
+    page_end: 148
+    chapter_title_block_idx: 2086
+    chapter_title_block_idx_secondary: 2088
+    problems_block_idx: null
+    next_chapter_block_idx: 2705
+  - num: 6
+    title: "Perturbation Theory"
+    page_start: 149
+    page_end: 179
+    chapter_title_block_idx: 2705
+    chapter_title_block_idx_secondary: 2706
+    problems_block_idx: null
+    next_chapter_block_idx: 3283
+  - num: 7
+    title: "The Quasi-Classical Case"
+    page_start: 180
+    page_end: 214
+    chapter_title_block_idx: 3283
+    chapter_title_block_idx_secondary: 3284
+    problems_block_idx: null
+    next_chapter_block_idx: 3892
+  - num: 8
+    title: "Spin"
+    page_start: 215
+    page_end: 242
+    chapter_title_block_idx: 3892
+    chapter_title_block_idx_secondary: 3893
+    problems_block_idx: null
+    next_chapter_block_idx: 4358
+  - num: 9
+    title: "Identity of Particles"
+    page_start: 243
+    page_end: 266
+    chapter_title_block_idx: 4358
+    chapter_title_block_idx_secondary: 4359
+    problems_block_idx: null
+    next_chapter_block_idx: 4724
+  - num: 10
+    title: "The Atom"
+    page_start: 267
+    page_end: 315
+    chapter_title_block_idx: 4724
+    chapter_title_block_idx_secondary: 4725
+    problems_block_idx: null
+    next_chapter_block_idx: 5494
+  - num: 11
+    title: "The Diatomic Molecule"
+    page_start: 316
+    page_end: 371
+    chapter_title_block_idx: 5494
+    chapter_title_block_idx_secondary: 5495
+    problems_block_idx: null
+    next_chapter_block_idx: 6312
+  - num: 12
+    title: "The Theory of Symmetry"
+    page_start: 372
+    page_end: 413
+    chapter_title_block_idx: 6312
+    chapter_title_block_idx_secondary: 6313
+    problems_block_idx: null
+    next_chapter_block_idx: 6858
+  - num: 13
+    title: "Polyatomic Molecules"
+    page_start: 414
+    page_end: 448
+    chapter_title_block_idx: 6858
+    chapter_title_block_idx_secondary: 6859
+    problems_block_idx: null
+    next_chapter_block_idx: 7370
+  - num: 14
+    title: "Addition of Angular Momenta"
+    page_start: 449
+    page_end: 470
+    chapter_title_block_idx: 7370
+    chapter_title_block_idx_secondary: 7371
+    problems_block_idx: null
+    next_chapter_block_idx: 7712
+  - num: 15
+    title: "Motion in a Magnetic Field"
+    page_start: 471
+    page_end: 489
+    chapter_title_block_idx: 7712
+    chapter_title_block_idx_secondary: 7713
+    problems_block_idx: null
+    next_chapter_block_idx: 8068
+  - num: 16
+    title: "Nuclear Structure"
+    page_start: 490
+    page_end: 519
+    chapter_title_block_idx: 8068
+    chapter_title_block_idx_secondary: 8069
+    problems_block_idx: null
+    next_chapter_block_idx: 8556
+  - num: 17
+    title: "Elastic Collisions"
+    page_start: 520
+    page_end: 610
+    chapter_title_block_idx: 8556
+    chapter_title_block_idx_secondary: 8557
+    problems_block_idx: null
+    next_chapter_block_idx: 10204
+  - num: 18
+    title: "Inelastic Collisions"
+    page_start: 611
+    page_end: 666
+    chapter_title_block_idx: 10204
+    chapter_title_block_idx_secondary: 10205
+    problems_block_idx: null
+    next_chapter_block_idx: 11148
+
+appendices:
+  - id: A
+    title: "Mathematical Appendices"
+    page_start: 667
+    chapter_title_block_idx: 11148
+
+section_re: '^§([0-9]+|[a-z])\.\s+(.+)$'
+subsection_re: '^()((?!PROBLEMS?$)(?!PROBLEM$)(?!CHAPTER\b)(?!INDEX\b)[A-Z][A-Z0-9 ,.''/\-]+[A-Z0-9])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEM(?:\s+([0-9]+)\.)?(?:\s+|$)'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

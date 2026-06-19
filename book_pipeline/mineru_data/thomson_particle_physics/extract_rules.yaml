@@ -1,0 +1,196 @@
+slug: thomson_particle_physics
+title: Modern Particle Physics
+author: Mark Thomson
+edition: null
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 529
+bibliography_start_page: 560
+index_start_page: 563
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 46
+    chapter_title_block_idx: 180
+    problems_block_idx: 422
+    next_chapter_block_idx: 463
+  - num: 2
+    title: Underlying concepts
+    page_start: 47
+    page_end: 74
+    chapter_title_block_idx: 463
+    problems_block_idx: 866
+    next_chapter_block_idx: 906
+  - num: 3
+    title: Decay rates and cross sections
+    page_start: 75
+    page_end: 96
+    chapter_title_block_idx: 906
+    problems_block_idx: 1219
+    next_chapter_block_idx: 1246
+  - num: 4
+    title: The Dirac equation
+    page_start: 97
+    page_end: 130
+    chapter_title_block_idx: 1246
+    problems_block_idx: 1749
+    next_chapter_block_idx: 1802
+  - num: 5
+    title: Interaction by particle exchange
+    page_start: 131
+    page_end: 144
+    chapter_title_block_idx: 1802
+    problems_block_idx: 1974
+    next_chapter_block_idx: 1979
+  - num: 6
+    title: Electron–positron annihilation
+    page_start: 145
+    page_end: 176
+    chapter_title_block_idx: 1979
+    problems_block_idx: 2392
+    next_chapter_block_idx: 2439
+  - num: 7
+    title: Electron–proton elastic scattering
+    page_start: 177
+    page_end: 194
+    chapter_title_block_idx: 2439
+    problems_block_idx: 2664
+    next_chapter_block_idx: 2691
+  - num: 8
+    title: Deep inelastic scattering
+    page_start: 195
+    page_end: 223
+    chapter_title_block_idx: 2691
+    problems_block_idx: 3020
+    next_chapter_block_idx: 3062
+  - num: 9
+    title: Symmetries and the quark model
+    page_start: 224
+    page_end: 258
+    chapter_title_block_idx: 3062
+    problems_block_idx: 3536
+    next_chapter_block_idx: 3572
+  - num: 10
+    title: Quantum Chromodynamics (QCD)
+    page_start: 259
+    page_end: 301
+    chapter_title_block_idx: 3572
+    problems_block_idx: 4073
+    next_chapter_block_idx: 4099
+  - num: 11
+    title: The weak interaction
+    page_start: 302
+    page_end: 323
+    chapter_title_block_idx: 4099
+    problems_block_idx: 4365
+    next_chapter_block_idx: 4406
+  - num: 12
+    title: The weak interactions of leptons
+    page_start: 324
+    page_end: 345
+    chapter_title_block_idx: 4406
+    problems_block_idx: 4671
+    next_chapter_block_idx: 4702
+  - num: 13
+    title: Neutrinos and neutrino oscillations
+    page_start: 346
+    page_end: 380
+    chapter_title_block_idx: 4702
+    problems_block_idx: 5090
+    next_chapter_block_idx: 5144
+  - num: 14
+    title: CP violation and weak hadronic interactions
+    page_start: 381
+    page_end: 424
+    chapter_title_block_idx: 5144
+    problems_block_idx: 5731
+    next_chapter_block_idx: 5776
+  - num: 15
+    title: Electroweak unification
+    page_start: 425
+    page_end: 444
+    chapter_title_block_idx: 5776
+    problems_block_idx: 6068
+    next_chapter_block_idx: 6095
+  - num: 16
+    title: Tests of the Standard Model
+    page_start: 445
+    page_end: 476
+    chapter_title_block_idx: 6095
+    problems_block_idx: 6468
+    next_chapter_block_idx: 6509
+  - num: 17
+    title: The Higgs boson
+    page_start: 477
+    page_end: 515
+    chapter_title_block_idx: 6509
+    problems_block_idx: 7028
+    next_chapter_block_idx: 7071
+  - num: 18
+    title: The Standard Model and beyond
+    page_start: 516
+    page_end: 528
+    chapter_title_block_idx: 7071
+    problems_block_idx: 7183
+    next_chapter_block_idx: 7184
+
+appendices:
+  - id: A
+    title: The Dirac delta-function
+    page_start: 529
+    chapter_title_block_idx: 7184
+  - id: B
+    title: Dirac equation
+    page_start: 532
+    chapter_title_block_idx: 7226
+  - id: C
+    title: The low-mass hadrons
+    page_start: 540
+    chapter_title_block_idx: 7364
+  - id: D
+    title: Gauge boson polarisation states
+    page_start: 542
+    chapter_title_block_idx: 7371
+  - id: E
+    title: Noether’s theorem
+    page_start: 552
+    chapter_title_block_idx: 7540
+  - id: F
+    title: Non-Abelian gauge theories
+    page_start: 554
+    chapter_title_block_idx: 7576
+
+section_re: '^((?:(?:\d+|[A-Z])\.\d+)(?=[\s ]+\S))\s+(.+)$'
+subsection_re: '^((?:(?:\d+|[A-Z])\.\d+\.\d+)(?=[\s ]+\S))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:[A-Z0-9]{0,2}\s+)?(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.)?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

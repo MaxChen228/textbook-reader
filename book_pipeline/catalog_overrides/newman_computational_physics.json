@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "10.1",
+      "classification": "source_mismatch",
+      "reason": "正文提到 Fig. 10.1，但本機 source PDF 在第 10 章開頭只提供未編號的 Brownian motion 章首插圖；真正對應的 Figure 10.1 visual/caption 不在來源中。",
+      "where": "ch10.json body[13]",
+      "evidence": "Unified full.md shows chapter 10 starts at printed page 444 and body[13] on printed page 445 says the LCG plot is 'shown in Fig. 10.1'. The source chunk p0359-0538 page 96 renders printed page 444 with only the Brownian-motion chapter-opener caption, and page 97 renders printed page 445 with the Fig. 10.1 prose but no visual. The next available rendered source pages are printed pages 448 and 449, so there is no Figure 10.1 image/caption anywhere in the source PDF to bind or crop."
+    }
+  ],
+  "overrides": []
+}

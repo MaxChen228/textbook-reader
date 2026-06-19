@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "id": "griffiths_ed4-ch01-body-567-c7f263",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[567]",
+      "expect": "\\delta (x - a) = \\left\\{ \\begin{array}{l l} 0, & \\quad \\text {if x\\neq a} \\\\ \\infty , & \\quad \\text {if x = a} \\end{array} \\right\\} \\text {with} \\int_ {- \\infty} ^ {\\infty} \\delta (x - a) d x = 1.",
+      "new": "\\delta (x - a) = \\left\\{ \\begin{array}{l l} 0, & \\quad \\text {if } x \\neq a\\\\ \\infty , & \\quad \\text {if } x = a \\end{array} \\right\\} \\text {with} \\int_ {- \\infty} ^ {\\infty} \\delta (x - a) d x = 1."
+    },
+    {
+      "id": "griffiths_ed4-ch03-problem-3-41-body-1-23ceba",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.41:body[1]",
+      "field": "md",
+      "old": "$\\mathring \\mathrm { A } .$",
+      "new": "$\\mathring { A } .$",
+      "anchor": "eb1d7ade"
+    },
+    {
+      "id": "griffiths_ed4-ch07-body-427-968383",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[427]",
+      "expect": "\\begin{array}{l} \\left. \\begin{array}{l} \\text {(i)} \\quad \\oint_ {\\mathcal {S}} \\mathbf {D} \\cdot d \\mathbf {a} = Q _ {f _ {\\mathrm{enc}}} \\\\ \\text {(ii)} \\quad \\oint_ {\\mathcal {S}} \\mathbf {B} \\cdot d \\mathbf {a} = 0 \\end{array} \\right\\} \\text {over any closed surface} \\mathcal {S}. \\\\ \\begin{array}{l l} \\text {(iii)} & \\oint_ {\\mathcal {P}} \\mathbf {E} \\cdot d \\mathbf {l} = - \\frac {d}{d t} \\int_ {\\mathcal {S}} \\mathbf {B} \\cdot d \\mathbf {a} \\\\ \\text {(iv)} & \\oint_ {\\mathcal {P}} \\mathbf {H} \\cdot d \\mathbf {l} = I _ {f _ {\\mathrm{enc}}} + \\frac {d}{d t} \\int_ {\\mathcal {S}} \\mathbf {D} \\cdot d \\mathbf {a} \\end{array} \\left\\{ \\begin{array}{l l} & \\text {for any surface \\mathcal {S}} \\\\ & \\text {bounded by the} \\\\ & \\text {closed loop \\mathcal {P}}. \\end{array} \\right. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left. \\begin{array}{l} \\text {(i)} \\quad \\oint_ {\\mathcal {S}} \\mathbf {D} \\cdot d \\mathbf {a} = Q _ {f _ {\\mathrm{enc}}} \\\\ \\text {(ii)} \\quad \\oint_ {\\mathcal {S}} \\mathbf {B} \\cdot d \\mathbf {a} = 0 \\end{array} \\right\\} \\text {over any closed surface} \\mathcal {S}. \\\\ \\begin{array}{l l} \\text {(iii)} & \\oint_ {\\mathcal {P}} \\mathbf {E} \\cdot d \\mathbf {l} = - \\frac {d}{d t} \\int_ {\\mathcal {S}} \\mathbf {B} \\cdot d \\mathbf {a} \\\\ \\text {(iv)} & \\oint_ {\\mathcal {P}} \\mathbf {H} \\cdot d \\mathbf {l} = I _ {f _ {\\mathrm{enc}}} + \\frac {d}{d t} \\int_ {\\mathcal {S}} \\mathbf {D} \\cdot d \\mathbf {a} \\end{array} \\left\\{ \\begin{array}{l l} & \\text {for any surface } \\mathcal {S} \\\\ & \\text {bounded by the} \\\\ & \\text {closed loop } \\mathcal {P}. \\end{array} \\right. \\\\ \\end{array}"
+    },
+    {
+      "id": "griffiths_ed4-ch03-body-479-585198",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[479]",
+      "field": "md",
+      "old": "$\\right. + \\left. = 0 )$",
+      "new": "$\\left. + \\right. = 0$",
+      "anchor": "4e29a3f4"
+    }
+  ]
+}

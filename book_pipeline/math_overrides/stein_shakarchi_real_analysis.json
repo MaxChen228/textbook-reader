@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "stein_shakarchi_real_analysis-ch02-body-444-9d979b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[444]",
+      "expect": "E ^ {y} = \\left\\{ \\begin{array}{c l} [ 0, 1 ] & \\text {if y\\in\\mathcal {N}}, \\\\ \\emptyset & \\text {if y\\notin\\mathcal {N}}. \\end{array} \\right.",
+      "new": "E^{y}=\\left\\{\\begin{array}{cl}[0,1]&\\text{if }y\\in\\mathcal{N},\\\\\\emptyset&\\text{if }y\\notin\\mathcal{N}.\\end{array}\\right."
+    },
+    {
+      "id": "stein_shakarchi_real_analysis-ch03-body-179-2f5706",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[179]",
+      "expect": "\\frac {1}{2 \\pi} F _ {N} (x) = \\left\\{ \\begin{array}{c l} \\frac {1}{2 \\pi N} \\frac {\\sin^ {2} (N x / 2)}{\\sin^ {2} (x / 2)} & \\text {if |x|\\leq\\pi}, \\\\ 0 & \\text {if |x| > \\pi}, \\end{array} \\right.",
+      "new": "\\frac{1}{2\\pi}F_{N}(x)=\\left\\{\\begin{array}{cl}\\frac{1}{2\\pi N}\\frac{\\sin^{2}(Nx/2)}{\\sin^{2}(x/2)}&\\text{if }|x|\\leq\\pi,\\\\0&\\text{if }|x|>\\pi,\\end{array}\\right."
+    },
+    {
+      "id": "stein_shakarchi_real_analysis-ch03-body-355-ecd5bc",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[355]",
+      "expect": "F _ {2} (x) = \\left\\{ \\begin{array}{c l} 0 & \\text {if x = 0 ,} \\\\ 1 / 4 & \\text {if 1 / 9\\leq x\\leq 2 / 9 ,} \\\\ 1 / 2 & \\text {if 1 / 3\\leq x\\leq 2 / 3 ,} \\\\ 3 / 4 & \\text {if 7 / 9\\leq x\\leq 8 / 9 ,} \\\\ 1 & \\text {if x = 1 ,} \\end{array} \\right.",
+      "new": "F_{2}(x)=\\left\\{\\begin{array}{cl}0&\\text{if }x=0,\\\\1/4&\\text{if }1/9\\leq x\\leq 2/9,\\\\1/2&\\text{if }1/3\\leq x\\leq 2/3,\\\\3/4&\\text{if }7/9\\leq x\\leq 8/9,\\\\1&\\text{if }x=1,\\end{array}\\right."
+    },
+    {
+      "id": "stein_shakarchi_real_analysis-ch01-body-139-4b3989",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[139]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textstyle { \\mathcal { O } } = { \\big \\mathrm { \\bar { U } } } _ { j = 1 } ^ { \\infty } Q _ { j } ^ { 0 }$",
+      "new": "$\\textstyle{\\mathcal{O}}=\\bigl\\{\\mathrm{\\bar{U}}_{j=1}^{\\infty}Q_{j}^{0}\\bigr\\}$",
+      "anchor": "869c68a1"
+    }
+  ]
+}

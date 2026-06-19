@@ -1,0 +1,122 @@
+slug: lay_linear_algebra
+title: Linear Algebra and Its Applications
+author: David C. Lay
+edition: 4th
+subject: Linear Algebra
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 509
+bibliography_start_page: null
+index_start_page: 563
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Linear Equations in Linear Algebra
+    page_start: 17
+    page_end: 106
+    chapter_title_block_idx: 254
+    problems_block_idx: null
+    next_chapter_block_idx: 2031
+  - num: 2
+    title: Matrix Algebra
+    page_start: 107
+    page_end: 178
+    chapter_title_block_idx: 2031
+    problems_block_idx: null
+    next_chapter_block_idx: 3449
+  - num: 3
+    title: Determinants
+    page_start: 179
+    page_end: 204
+    chapter_title_block_idx: 3449
+    problems_block_idx: null
+    next_chapter_block_idx: 4053
+  - num: 4
+    title: Vector Spaces
+    page_start: 205
+    page_end: 280
+    chapter_title_block_idx: 4053
+    problems_block_idx: null
+    next_chapter_block_idx: 5660
+  - num: 5
+    title: Eigenvalues and Eigenvectors
+    page_start: 281
+    page_end: 344
+    chapter_title_block_idx: 5660
+    problems_block_idx: null
+    next_chapter_block_idx: 6971
+  - num: 6
+    title: Orthogonality and Least Squares
+    page_start: 345
+    page_end: 408
+    chapter_title_block_idx: 6971
+    problems_block_idx: null
+    next_chapter_block_idx: 8283
+  - num: 7
+    title: Symmetric Matrices and Quadratic Forms
+    page_start: 409
+    page_end: 450
+    chapter_title_block_idx: 8283
+    problems_block_idx: null
+    next_chapter_block_idx: 9122
+  - num: 8
+    title: The Geometry of Vector Spaces
+    page_start: 451
+    page_end: 508
+    chapter_title_block_idx: 9122
+    problems_block_idx: null
+    next_chapter_block_idx: 10176
+
+appendices:
+  - id: A
+    title: Uniqueness of the Reduced Echelon Form
+    page_start: 509
+    chapter_title_block_idx: 10176
+  - id: B
+    title: Complex Numbers
+    page_start: 510
+    chapter_title_block_idx: 10187
+  - id: G
+    title: Glossary
+    page_start: 515
+    chapter_title_block_idx: 10263
+  - id: ANS
+    title: Answers to Odd-Numbered Exercises
+    page_start: 525
+    chapter_title_block_idx: 10686
+
+section_re: "^((?:\\d+\\.\\d+)|(?:CHAPTER\\s+\\d+))\\s+(.+)$"
+subsection_re: "^()([A-Z][A-Za-z0-9$\\{\\}\\[\\]().,:;'\\\"/\\-–—®™ ]{0,100})$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^(\\d+)\\.\\s+(?![a-z]|\\()"
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([^}]+)\\}"
+
+example_start_re: "^EXAMPLE\\s+(\\d+)"
+
+figure_caption_merge: true
+figure_caption_main_re: "^(?:\\([a-z]\\)\\s*)?FIGURE\\b"
+
+known_missing_problems: []

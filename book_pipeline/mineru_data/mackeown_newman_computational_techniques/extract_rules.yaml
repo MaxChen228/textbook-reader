@@ -1,0 +1,112 @@
+slug: mackeown_newman_computational_techniques
+title: Computational Techniques in Physics
+author: P. K. MacKeown; D. J. Newman
+edition: null
+subject: General Physics
+publisher: Adam Hilger
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 215
+bibliography_start_page: 226
+index_start_page: 228
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Linear Fitting and Interpolation Using Transformation and Least Squares Methods
+    page_start: 18
+    page_end: 34
+    chapter_title_block_idx: 164
+    problems_block_idx: 364
+    next_chapter_block_idx: 374
+  - num: 2
+    title: Applications of Least Squares Fitting
+    page_start: 35
+    page_end: 67
+    chapter_title_block_idx: 374
+    problems_block_idx: null
+    next_chapter_block_idx: 754
+  - num: 3
+    title: The Finite Difference Method
+    page_start: 68
+    page_end: 90
+    chapter_title_block_idx: 754
+    problems_block_idx: 975
+    next_chapter_block_idx: 1010
+  - num: 4
+    title: The Matrix Eigenvalue Problem and its Application to Molecular Orbital Theory
+    page_start: 91
+    page_end: 110
+    chapter_title_block_idx: 1010
+    problems_block_idx: null
+    next_chapter_block_idx: 1255
+  - num: 5
+    title: Energy Levels as Eigenvalues
+    page_start: 111
+    page_end: 129
+    chapter_title_block_idx: 1255
+    problems_block_idx: null
+    next_chapter_block_idx: 1436
+  - num: 6
+    title: The Finite Element Method
+    page_start: 130
+    page_end: 149
+    chapter_title_block_idx: 1436
+    chapter_title_block_idx_secondary: 1437
+    problems_block_idx: 1665
+    next_chapter_block_idx: 1687
+  - num: 7
+    title: Monte Carlo Methods
+    page_start: 150
+    page_end: 181
+    chapter_title_block_idx: 1687
+    problems_block_idx: 1964
+    next_chapter_block_idx: 2023
+  - num: 8
+    title: Applications of the Monte Carlo Method
+    page_start: 182
+    page_end: 214
+    chapter_title_block_idx: 2023
+    chapter_title_block_idx_secondary: 2024
+    problems_block_idx: 2332
+    next_chapter_block_idx: 2362
+
+appendices:
+  - id: A
+    title: Mathematical Background
+    page_start: 215
+    chapter_title_block_idx: 2362
+
+section_re: '^(\*?(?:\d+\.\d+|[A-Z]\.\d+|[IVX]+\.)|PROJECT\s+\d+[A-Z]|[A-Z]\.)[:\s]+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(References|Notes and Comments)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\.?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

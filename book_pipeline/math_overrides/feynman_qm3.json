@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "feynman_qm3-ch11-body-112-3209c2",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[112]",
+      "expect": "\\left<   + \\left. \\right| \\hat {\\sigma} _ {z} | + \\rangle = \\sigma_ {1 1} ^ {z} = 1",
+      "new": "\\langle + | \\hat{\\sigma}_{z} | + \\rangle = \\sigma_{11}^{z} = 1"
+    },
+    {
+      "id": "feynman_qm3-ch18-body-122-613bb8",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "body[122]",
+      "field": "md",
+      "old": "$\\textstyle  \\left| \\begin{array} { l } { { \\frac { 3 } { 2 } } , + { \\frac { 3 } { 2 } } , T \\right. } \\end{array}$",
+      "new": "$\\textstyle \\left| \\frac{3}{2}, +\\frac{3}{2}, T \\right\\rangle$",
+      "anchor": "fa7d45fb"
+    },
+    {
+      "id": "feynman_qm3-ch18-body-122-91f54a",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "body[122]",
+      "field": "md",
+      "old": "$\\textstyle  \\left| \\begin{array} { l } { { \\frac { 3 } { 2 } } , + { \\frac { 1 } { 2 } } , T \\right. } \\end{array}$",
+      "new": "$\\textstyle  \\left| \\begin{array} { l } { { \\frac { 3 } { 2 } } , + { \\frac { 1 } { 2 } } , T } \\end{array} \\right.$",
+      "anchor": "25908bf8"
+    },
+    {
+      "id": "feynman_qm3-ch18-body-266-c74efb",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[266]",
+      "expect": "\\left\\{ \\right.\\left| + \\right> ^ {r} \\right| - \\left> ^ {s} \\left. \\right\\rbrace_ {\\mathrm{perm}}",
+      "new": "\\left\\{ \\left| + \\right\\rangle^{r} - \\left| - \\right\\rangle^{s} \\right\\}_{\\mathrm{perm}}"
+    },
+    {
+      "id": "feynman_qm3-ch03-body-50-045b92",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[50]",
+      "expect": "\\left\\langle \\begin{array}{l} \\text {electron at x} \\\\ \\text {photon at D_{1}} \\end{array} \\right| \\begin{array}{l} \\text {electron from s} \\\\ \\text {photon from L} \\end{array} \\Bigg \\rangle = a \\phi_ {1} + b \\phi_ {2}.",
+      "new": "\\left\\langle \\begin{array}{l} \\text{electron at x} \\\\ \\text{photon at } D_{1} \\end{array} \\right| \\begin{array}{l} \\text{electron from s} \\\\ \\text{photon from L} \\end{array} \\Bigg\\rangle = a \\phi_{1} + b \\phi_{2}."
+    },
+    {
+      "id": "feynman_qm3-ch08-body-69-f7eb2f",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[69]",
+      "field": "md",
+      "old": "$\\psi . \\mathrm { { \\begin{array} { r l } { ^ { 6 } B u t } } \\end{array} }$",
+      "new": "$\\psi . \\mathrm{But}$",
+      "anchor": "c60a44c1"
+    }
+  ]
+}

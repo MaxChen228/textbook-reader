@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "deman_food_chemistry-ch06-body-108-b2f8b2",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[108]",
+      "expect": "\\underset {(\\text { red })} {\\mathbf {M b O}} _ {2} \\rightleftharpoons \\underset {(\\text { Purplish })} {\\mathbf {M b}} \\rightleftharpoons \\underset {(\\text { Brownish })} {\\mathbf {M e t M b}}",
+      "new": "\\underset{(\\text{red})}{\\mathbf{M b O}_{2}} \\rightleftharpoons \\underset{(\\text{Purplish})}{\\mathbf{M b}} \\rightleftharpoons \\underset{(\\text{Brownish})}{\\mathbf{M e t M b}}"
+    },
+    {
+      "id": "deman_food_chemistry-ch10-body-81-e5fba7",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[81]",
+      "expect": "\\mathrm{R} _ {2} \\mathrm{COO} - \\left[ \\begin{array}{l} \\mathrm{OCOR} _ {1} \\\\ \\mathrm{OCOR} _ {3} \\end{array} + \\mathrm{H} _ {2} \\mathrm{O} \\rightleftharpoons \\mathrm{L} = \\mathrm{R} _ {2} \\mathrm{COO} - \\left[ \\begin{array}{l} \\mathrm{OH} \\\\ \\mathrm{OCOR} _ {3} \\end{array} + \\mathrm{HO} - \\left[ \\begin{array}{l} \\mathrm{OH} \\\\ \\mathrm{OCOR} _ {3} \\end{array} + \\mathrm{R} _ {1} \\mathrm{COOH} + \\mathrm{R} _ {2} \\mathrm{COOH} + \\dots \\right. \\right.",
+      "new": "\\mathrm{R}_{2}\\mathrm{COO} - \\left[\\begin{array}{l}\\mathrm{OCOR}_{1} \\\\ \\mathrm{OCOR}_{3}\\end{array}\\right] + \\mathrm{H}_{2}\\mathrm{O} \\rightleftharpoons \\mathrm{L} = \\mathrm{R}_{2}\\mathrm{COO} - \\left[\\begin{array}{l}\\mathrm{OH} \\\\ \\mathrm{OCOR}_{3}\\end{array}\\right] + \\mathrm{HO} - \\left[\\begin{array}{l}\\mathrm{OH} \\\\ \\mathrm{OCOR}_{3}\\end{array}\\right] + \\mathrm{R}_{1}\\mathrm{COOH} + \\mathrm{R}_{2}\\mathrm{COOH} + \\dots"
+    }
+  ]
+}

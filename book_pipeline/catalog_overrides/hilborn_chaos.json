@@ -1,0 +1,36 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hilborn-fig-11.17-ref-fix",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "problem:11.6-1:body[0]",
+      "field": "md",
+      "old": "Fig. 11.6-2",
+      "new": "Fig. 11.17",
+      "reason": "raw PDF p.495 的 Exercise 11.6-1 題幹誤寫成 'Fig. 11.6-2'，但前一頁 p.494 真正在說明 sticking probabilities 的圖是 Fig. 11.17；本章也不存在任何 Figure 11.6.2。依 C4 misOCR/錯 ref 路徑直接修正文 demand。"
+    },
+    {
+      "id": "hilborn-table-3.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[54]",
+      "position": "after",
+      "page": 81,
+      "clip": [
+        0.135,
+        0.078,
+        0.855,
+        0.135
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "table",
+        "id": "tbl-3.1",
+        "caption": "Table 3.1 Characteristic Values"
+      },
+      "reason": "raw PDF p.80 底部有標題 'Table 3.1 Characteristic Values'，p.81 頂部承接兩列內容；MinerU 把標題抽成 subsection、漏掉 table block，導致正文 'We summarize these results in Table 3.1.' 無供應。補一個 table block 並裁 p.81 的表格本體。"
+    }
+  ]
+}

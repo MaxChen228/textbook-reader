@@ -60,6 +60,84 @@
       "anchor": "59de8038",
       "old": "$T^{a}_{b}^{cde}$",
       "new": "$T^{acde}_{b}$"
+    },
+    {
+      "id": "wald_gr-ch13-body-51-6a9625",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[51]",
+      "field": "md",
+      "old": "$L_A_B$",
+      "new": "$L _ {A_B}$"
+    },
+    {
+      "id": "wald_gr-ch13-body-69-6a9625",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[69]",
+      "field": "md",
+      "old": "$L_A_B$",
+      "new": "$L _ {A_B}$"
+    },
+    {
+      "id": "wald_gr-ch13-body-96-6a9625",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[96]",
+      "field": "md",
+      "old": "$L_A_B$",
+      "new": "$L _ {A_B}$"
+    },
+    {
+      "id": "wald_gr-ch13-body-40-0ed82f",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[40]",
+      "field": "md",
+      "old": "$T^{AB}_C^{D'}$",
+      "new": "$T ^ { A B D' } _ { C }$"
+    },
+    {
+      "id": "wald_gr-ch02-body-117-c6ad3f",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[117]",
+      "field": "md",
+      "old": "$T^{a}_{b}^{cde}$",
+      "new": "$T ^ { a c d e } _ { b }$"
+    },
+    {
+      "id": "wald_gr-ch07-body-294-fc7f50",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[294]",
+      "expect": "0 = \\dot {R} _ {a c} = - \\frac {1}{2} ^ {0} g ^ {b d} ^ {0} \\nabla_ {a} ^ {0} \\nabla_ {c} \\gamma_ {b d} - \\frac {1}{2} ^ {0} g ^ {b d} ^ {0} \\nabla_ {b} ^ {0} \\nabla_ {d} \\gamma_ {a c} + ^ {0} g ^ {b d} ^ {0} \\nabla_ {b} ^ {0} \\nabla_ {(c} \\gamma_ {a) d}. \\tag {7.5.14}",
+      "new": "0 = \\dot {R} _ {a c} = - \\frac {1}{2} { }^{0} g ^ {b d} { }^{0} \\nabla_ {a} { }^{0} \\nabla_ {c} \\gamma_ {b d} - \\frac {1}{2} { }^{0} g ^ {b d} { }^{0} \\nabla_ {b} { }^{0} \\nabla_ {d} \\gamma_ {a c} + { }^{0} g ^ {b d} { }^{0} \\nabla_ {b} { }^{0} \\nabla_ {(c} \\gamma_ {a) d}. \\tag {7.5.14}"
+    },
+    {
+      "id": "wald_gr-ch07-body-311-de1905",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[311]",
+      "expect": "\\begin{array}{l} \\nabla^ {b} \\nabla_ {(c} \\gamma_ {a) b} = \\nabla_ {(c} \\nabla^ {b} \\gamma_ {a) b} + R _ {(c a)} ^ {b} ^ {d} \\gamma_ {d b} + R _ {(c | b |} ^ {b} ^ {d} \\gamma_ {a) d} \\\\ = \\nabla_ {(c} \\nabla^ {b} \\gamma_ {a) b} + R _ {c a} ^ {b d} \\gamma_ {d b}, \\tag {7.5.22} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\nabla^ {b} \\nabla_ {(c} \\gamma_ {a) b} = \\nabla_ {(c} \\nabla^ {b} \\gamma_ {a) b} + R _ {(c a)} ^ {b d} \\gamma_ {d b} + R _ {(c | b |)} ^ {b d} \\gamma_ {a) d} \\\\ = \\nabla_ {(c} \\nabla^ {b} \\gamma_ {a) b} + R _ {c a} ^ {b d} \\gamma_ {d b}, \\tag {7.5.22} \\\\ \\end{array}"
+    },
+    {
+      "id": "wald_gr-ch13-body-67-a43712",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[67]",
+      "field": "md",
+      "old": "$L_A_B \\in \\mathrm{SL}(2, \\mathbb{C})$",
+      "new": "$L _ {A_B} \\in \\mathrm{SL}(2, \\mathbb{C})$"
+    },
+    {
+      "id": "wald_gr-ch13-body-227-62f61d",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[227]",
+      "expect": "c ^ {\\Sigma_ {1} \\dots \\Sigma_ {k}} _ {\\Lambda_ {1} \\dots \\Lambda_ {l}} ^ {\\Sigma_ {1} ^ {\\prime} \\dots \\Sigma_ {k ^ {\\prime}} ^ {\\prime}} _ {\\Lambda_ {1} ^ {\\prime} \\dots \\Lambda_ {l ^ {\\prime}}} \\in F",
+      "new": "c ^ { \\Sigma _ {1} \\dots \\Sigma _ {k} \\Sigma _ {1} ^ {\\prime} \\dots \\Sigma _ {k ^ {\\prime}} ^ {\\prime} } _ { \\Lambda _ {1} \\dots \\Lambda _ {l} \\Lambda _ {1} ^ {\\prime} \\dots \\Lambda _ {l ^ {\\prime}} } \\in F"
     }
   ]
 }

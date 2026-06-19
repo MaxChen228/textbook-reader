@@ -1,0 +1,59 @@
+{
+  "overrides": [
+    {
+      "id": "hartshorne_algebraic_geometry-ch02-problem-3-20-body-3-48d0b1",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:3.20:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\operatorname{codim}(Y, X) = \\inf \\{\\dim \\mathcal{O}_P_X | P \\in Y\\}$",
+      "new": "$\\operatorname{codim}(Y, X) = \\inf\\{\\dim \\mathcal{O}_{P,X} \\mid P \\in Y\\}$",
+      "anchor": "077f1fa4"
+    },
+    {
+      "id": "hartshorne_algebraic_geometry-ch02-body-103-5d2041",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[103]",
+      "field": "md",
+      "all": true,
+      "old": "$f^#: \\mathcal{C}_{\\operatorname{Spec} A}(V) \\to \\mathcal{C}_{\\operatorname{Spec} B}(f^{-1}(V))$",
+      "new": "$f^{\\#}: \\mathcal{C}_{\\operatorname{Spec} A}(V) \\to \\mathcal{C}_{\\operatorname{Spec} B}(f^{-1}(V))$",
+      "anchor": "ae9d28e4"
+    },
+    {
+      "id": "hartshorne_algebraic_geometry-ch02-body-103-6cd270",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[103]",
+      "field": "md",
+      "all": true,
+      "old": "$f^#: \\mathcal{C}_{\\operatorname{Spec} A} \\to f_*(\\mathcal{C}_{\\operatorname{Spec} B})$",
+      "new": "$f^{\\#}: \\mathcal{C}_{\\operatorname{Spec} A} \\to f_{*}(\\mathcal{C}_{\\operatorname{Spec} B})$",
+      "anchor": "ae9d28e4"
+    },
+    {
+      "id": "hartshorne_algebraic_geometry-ch02-body-338-8802f1",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[338]",
+      "field": "md",
+      "all": true,
+      "old": "$f^#: \\mathcal{O}_Y \\to f_*\\mathcal{O}_X$",
+      "new": "$f^{\\#}: \\mathcal{O}_{Y} \\to f_{*}\\mathcal{O}_{X}$",
+      "anchor": "f97088e9"
+    },
+    {
+      "id": "hartshorne_algebraic_geometry-ch02-problem-2-18-body-5-1dda2d",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.18:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$f^#: \\mathcal{C}_X \\to f_*\\mathcal{C}_Y$",
+      "new": "$f^{\\#}: \\mathcal{C}_{X} \\to f_{*}\\mathcal{C}_{Y}$",
+      "anchor": "bab50626"
+    }
+  ]
+}

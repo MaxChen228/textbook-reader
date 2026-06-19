@@ -1,0 +1,132 @@
+slug: ryden_cosmology
+title: "Introduction to Cosmology"
+author: Barbara Ryden
+edition: 2nd
+subject: Cosmology
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 269
+bibliography_start_page: null
+index_start_page: 272
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 18
+    chapter_title_block_idx: 112
+    problems_block_idx: null
+    next_chapter_block_idx: 150
+  - num: 2
+    title: Fundamental Observations
+    page_start: 19
+    page_end: 39
+    chapter_title_block_idx: 150
+    problems_block_idx: 361
+    next_chapter_block_idx: 378
+  - num: 3
+    title: Newton versus Einstein
+    page_start: 40
+    page_end: 61
+    chapter_title_block_idx: 378
+    problems_block_idx: 648
+    next_chapter_block_idx: 660
+  - num: 4
+    title: Cosmic Dynamics
+    page_start: 62
+    page_end: 81
+    chapter_title_block_idx: 660
+    problems_block_idx: 912
+    next_chapter_block_idx: 922
+  - num: 5
+    title: Model Universes
+    page_start: 82
+    page_end: 114
+    chapter_title_block_idx: 922
+    problems_block_idx: 1327
+    next_chapter_block_idx: 1351
+  - num: 6
+    title: Measuring Cosmological Parameters
+    page_start: 115
+    page_end: 135
+    chapter_title_block_idx: 1351
+    problems_block_idx: 1562
+    next_chapter_block_idx: 1574
+  - num: 7
+    title: Dark Matter
+    page_start: 136
+    page_end: 154
+    chapter_title_block_idx: 1574
+    problems_block_idx: 1776
+    next_chapter_block_idx: 1786
+  - num: 8
+    title: The Cosmic Microwave Background
+    page_start: 155
+    page_end: 178
+    chapter_title_block_idx: 1786
+    problems_block_idx: 2040
+    next_chapter_block_idx: 2047
+  - num: 9
+    title: Nucleosynthesis and the Early Universe
+    page_start: 179
+    page_end: 197
+    chapter_title_block_idx: 2047
+    problems_block_idx: 2232
+    next_chapter_block_idx: 2242
+  - num: 10
+    title: Inflation and the Very Early Universe
+    page_start: 198
+    page_end: 216
+    chapter_title_block_idx: 2242
+    problems_block_idx: 2447
+    next_chapter_block_idx: 2456
+  - num: 11
+    title: "Structure Formation: Gravitational Instability"
+    page_start: 217
+    page_end: 244
+    chapter_title_block_idx: 2456
+    problems_block_idx: 2765
+    next_chapter_block_idx: 2773
+  - num: 12
+    title: "Structure Formation: Baryons and Photons"
+    page_start: 245
+    page_end: 268
+    chapter_title_block_idx: 2773
+    problems_block_idx: 3013
+    next_chapter_block_idx: 3022
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:Figure|Table)\s+\d+(?:\.\d+)+(?:[A-Za-z](?![A-Za-z]))?\b'
+
+known_missing_problems: []

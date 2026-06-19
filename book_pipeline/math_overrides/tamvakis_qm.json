@@ -1,0 +1,30 @@
+{
+  "overrides": [
+    {
+      "id": "tamvakis_qm-ch07-problem-7-24-solution-72-a25344",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.24:solution[72]",
+      "expect": "(E _ {a} - E _ {b}) ^ {2} \\left<   E _ {a} \\left. \\right| (\\mathbf {r} _ {\\perp} - \\mathbf {R} _ {0}) | E _ {b} \\rangle = (\\hbar \\omega) ^ {2} \\left<   E _ {a} \\left. \\right| (\\mathbf {r} _ {\\perp} - \\mathbf {R} _ {0}) | E _ {b} \\rangle",
+      "new": "(E _ {a} - E _ {b}) ^ {2} \\langle   E _ {a} | (\\mathbf {r} _ {\\perp} - \\mathbf {R} _ {0}) | E _ {b} \\rangle = (\\hbar \\omega) ^ {2} \\langle   E _ {a} | (\\mathbf {r} _ {\\perp} - \\mathbf {R} _ {0}) | E _ {b} \\rangle"
+    },
+    {
+      "id": "tamvakis_qm-ch08-problem-8-4-body-2-0d7bd7",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "problem:8.4:body[2]",
+      "field": "md",
+      "old": "$\\var! ^ { 3 }$",
+      "new": "$\\mathrm{var}^{3}$",
+      "anchor": "cb1af128"
+    },
+    {
+      "id": "tamvakis_qm-ch08-problem-8-5-solution-73-2ff562",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8.5:solution[73]",
+      "expect": "\\left<   \\psi_ {1 2} ^ {(+)} \\left. \\right| e ^ {- i T H _ {0} / \\hbar} \\left. e ^ {- i T \\Delta_ {1 2} ^ {(+)} / \\hbar} \\right| \\psi_ {1 2} ^ {(+)} \\rangle = - e ^ {- i \\gamma}",
+      "new": "\\left\\langle \\psi_{1 2}^{(+)} \\right| e^{- i T H_{0} / \\hbar} e^{- i T \\Delta_{1 2}^{(+)} / \\hbar} \\left| \\psi_{1 2}^{(+)} \\right\\rangle = - e^{- i \\gamma}"
+    }
+  ]
+}

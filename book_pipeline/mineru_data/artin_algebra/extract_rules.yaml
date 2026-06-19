@@ -1,0 +1,162 @@
+slug: artin_algebra
+title: Algebra
+author: Michael Artin
+edition: 2nd
+subject: Abstract Algebra
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 524
+bibliography_start_page: 534
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Matrices
+    page_start: 12
+    page_end: 47
+    chapter_title_block_idx: 113
+    problems_block_idx: 626
+    next_chapter_block_idx: 734
+  - num: 2
+    title: Groups
+    page_start: 48
+    page_end: 88
+    chapter_title_block_idx: 734
+    problems_block_idx: 1286
+    next_chapter_block_idx: 1412
+  - num: 3
+    title: Vector Spaces
+    page_start: 89
+    page_end: 112
+    chapter_title_block_idx: 1412
+    problems_block_idx: 1751
+    next_chapter_block_idx: 1826
+  - num: 4
+    title: Linear Operators
+    page_start: 113
+    page_end: 142
+    chapter_title_block_idx: 1826
+    problems_block_idx: 2235
+    next_chapter_block_idx: 2329
+  - num: 5
+    title: Applications of Linear Operators
+    page_start: 143
+    page_end: 164
+    chapter_title_block_idx: 2329
+    problems_block_idx: 2656
+    next_chapter_block_idx: 2710
+  - num: 6
+    title: Symmetry
+    page_start: 165
+    page_end: 205
+    chapter_title_block_idx: 2710
+    problems_block_idx: 3237
+    next_chapter_block_idx: 3369
+  - num: 7
+    title: More Group Theory
+    page_start: 206
+    page_end: 239
+    chapter_title_block_idx: 3369
+    problems_block_idx: 3806
+    next_chapter_block_idx: 3947
+  - num: 8
+    title: Bilinear Forms
+    page_start: 240
+    page_end: 271
+    chapter_title_block_idx: 3947
+    problems_block_idx: 4370
+    next_chapter_block_idx: 4495
+  - num: 9
+    title: Linear Groups
+    page_start: 272
+    page_end: 300
+    chapter_title_block_idx: 4495
+    problems_block_idx: 4847
+    next_chapter_block_idx: 4955
+  - num: 10
+    title: Group Representations
+    page_start: 301
+    page_end: 333
+    chapter_title_block_idx: 4955
+    problems_block_idx: 5382
+    next_chapter_block_idx: 5498
+  - num: 11
+    title: Rings
+    page_start: 334
+    page_end: 369
+    chapter_title_block_idx: 5498
+    problems_block_idx: 5977
+    next_chapter_block_idx: 6066
+  - num: 12
+    title: Factoring
+    page_start: 370
+    page_end: 393
+    chapter_title_block_idx: 6066
+    problems_block_idx: 6368
+    next_chapter_block_idx: 6474
+  - num: 13
+    title: Quadratic Number Fields
+    page_start: 394
+    page_end: 422
+    chapter_title_block_idx: 6474
+    problems_block_idx: 6859
+    next_chapter_block_idx: 6933
+  - num: 14
+    title: Linear Algebra in a Ring
+    page_start: 423
+    page_end: 452
+    chapter_title_block_idx: 6933
+    problems_block_idx: 7335
+    next_chapter_block_idx: 7410
+  - num: 15
+    title: Fields
+    page_start: 453
+    page_end: 487
+    chapter_title_block_idx: 7410
+    problems_block_idx: 7848
+    next_chapter_block_idx: 7923
+  - num: 16
+    title: Galois Theory
+    page_start: 488
+    page_end: 523
+    chapter_title_block_idx: 7923
+    problems_block_idx: 8385
+    next_chapter_block_idx: 8553
+
+appendices:
+  - id: A
+    title: Background Material
+    page_start: 524
+    chapter_title_block_idx: 8553
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^()(?!CHAPTER\b|EXERCISES\b|Section\b|Miscellaneous\s+(?:Exercises|Problems)\b|(?:Lemma|Theorem|Corollary|Proposition|Examples?|Rules?)\b|\([0-9A-Z.]+\)$)([A-Z][A-Za-z0-9$''",.:;!?()\/+=\-\[\]{} ]*[A-Za-z0-9$:)\]}])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:\d+|[A-Z])\.\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[0-9]+|[A-Z])\.[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^Examples?\s+((?:\d+|[A-Z])\.\d+\.\d+)\b.*$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,207 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hrw-fix-fig-5.31",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:9:body[2]",
+      "expect": {
+        "id": "fig-5.30",
+        "caption": "ure 5-31 Problem 7."
+      },
+      "set": {
+        "id": "fig-5.31",
+        "caption": "Figure 5-31 Problem 7.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "raw PDF p.144 右下角清楚顯示該圖為 Figure 5-31 Problem 7；parsed 既有 image block 只差首字母且沿用前一張 id。"
+    },
+    {
+      "id": "hrw-fix-fig-12.71",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "problem:65:body[2]",
+      "expect": {
+        "id": "fig-12.70",
+        "caption": "Problem 61."
+      },
+      "set": {
+        "id": "fig-12.71",
+        "caption": "Figure 12-71 Problem 63.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "raw PDF p.379 右欄中段的既有 image block 是磚塊堆疊圖，圖內 caption 清楚可見 Figure 12-71 Problem 63；parsed 誤承接成前一張 fig-12.70。"
+    },
+    {
+      "id": "hrw-fig-13.32-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "problem:6:body[0]",
+      "position": "after",
+      "page": 407,
+      "clip": [0.24, 0.30, 0.53, 0.48],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.32",
+        "kind": "line",
+        "caption": "Figure 13-32 Problem 6.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.407 左欄可見 Figure 13-32 Problem 6；catalog 缺該 problem figure，直接裁圖補回。"
+    },
+    {
+      "id": "hrw-fig-13.33-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "problem:6:body[1]",
+      "position": "after",
+      "page": 407,
+      "clip": [0.23, 0.39, 0.52, 0.57],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.33",
+        "kind": "line",
+        "caption": "Figure 13-33 Problem 7.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.407 左欄中段可見 Figure 13-33 Problem 7；parsed 問題文字提到 Fig. 13-33，但 catalog 無對應圖。"
+    },
+    {
+      "id": "hrw-fig-15.47-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "problem:52:body[0]",
+      "position": "after",
+      "page": 467,
+      "clip": [0.30, 0.24, 0.58, 0.43],
+      "block": {
+        "t": "fig",
+        "id": "fig-15.47",
+        "kind": "line",
+        "caption": "Figure 15-47 Problem 52.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.467 左欄中段可見 Figure 15-47 Problem 52；MinerU 未保留成可索引 figure block。"
+    },
+    {
+      "id": "hrw-fig-15.48-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "problem:53:body[0]",
+      "position": "after",
+      "page": 467,
+      "clip": [0.16, 0.40, 0.43, 0.64],
+      "block": {
+        "t": "fig",
+        "id": "fig-15.48",
+        "kind": "line",
+        "caption": "Figure 15-48 Problem 53.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.467 左欄下段可見 Figure 15-48 Problem 53；正文引用存在但 catalog 缺圖。"
+    },
+    {
+      "id": "hrw-fig-16.30-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch16",
+      "selector": "problem:3:body[1]",
+      "position": "after",
+      "page": 500,
+      "clip": [0.18, 0.47, 0.45, 0.78],
+      "block": {
+        "t": "fig",
+        "id": "fig-16.30",
+        "kind": "line",
+        "caption": "Figure 16-30 Problem 4.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.500 左欄下半部可見 Figure 16-30 Problem 4（scorpion/beetle 圖）；parsed 只留下正文 ref。"
+    },
+    {
+      "id": "hrw-fig-20.33-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch20",
+      "selector": "problem:55:body[1]",
+      "position": "after",
+      "page": 635,
+      "clip": [0.68, 0.22, 0.90, 0.47],
+      "block": {
+        "t": "fig",
+        "id": "fig-20.33",
+        "kind": "line",
+        "caption": "Figure 20-33 Problem 56.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.635 右欄上半部可見 Figure 20-33 Problem 56；graph 被 MinerU 漏掉，只剩問題文字。"
+    },
+    {
+      "id": "hrw-fig-24.40-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch24",
+      "selector": "problem:19:body[0]",
+      "position": "after",
+      "page": 739,
+      "clip": [0.20, 0.41, 0.60, 0.60],
+      "block": {
+        "t": "fig",
+        "id": "fig-24.40",
+        "kind": "line",
+        "caption": "Figure 24-40 Problems 19 and 20.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.739 左欄下半部可見 Figure 24-40 Problems 19 and 20；catalog 目前缺 fig-24.40。"
+    },
+    {
+      "id": "hrw-fig-24.59-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch24",
+      "selector": "problem:58:body[0]",
+      "position": "after",
+      "page": 742,
+      "clip": [0.18, 0.33, 0.46, 0.53],
+      "block": {
+        "t": "fig",
+        "id": "fig-24.59",
+        "kind": "line",
+        "caption": "Figure 24-59 Problem 58.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.742 左欄中段可見 Figure 24-59 Problem 58 的電位圖；parsed 僅保留正文敘述。"
+    },
+    {
+      "id": "hrw-fig-28.42-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch28",
+      "selector": "problem:42:body[0]",
+      "position": "after",
+      "page": 859,
+      "clip": [0.67, 0.43, 0.93, 0.68],
+      "block": {
+        "t": "fig",
+        "id": "fig-28.42",
+        "kind": "line",
+        "caption": "Figure 28-42 Problem 42.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.859 右欄中段可見 Figure 28-42 Problem 42；MinerU 只抓到下一張 Figure 28-43。"
+    },
+    {
+      "id": "hrw-fig-37.33-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch37",
+      "selector": "problem:84:body[0]",
+      "position": "after",
+      "page": 1179,
+      "clip": [0.17, 0.54, 0.56, 0.81],
+      "block": {
+        "t": "fig",
+        "id": "fig-37.33",
+        "kind": "line",
+        "caption": "Figure 37-33 Problem 84.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "raw PDF p.1179 左欄下段可見 Figure 37-33 Problem 84 的雷達示意圖；catalog 漏圖。"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "nocedal_wright_optimization-ch07-problem-7-5-body-4-2ca005",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.5:body[4]",
+      "field": "md",
+      "old": "$\\textsuperscript { \\textregistered } 7 . 7$",
+      "new": "$\\textsuperscript { R } 7 . 7$",
+      "anchor": "e41e4d53"
+    },
+    {
+      "id": "nocedal_wright_optimization-ch13-body-362-7cafc4",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[362]",
+      "expect": "x _ {i} ^ {+} = \\left\\{ \\begin{array}{l l} x _ {i} - \\gamma d _ {i}, & \\text {for i\\in\\mathcal {B} with i\\neq q ,} \\\\ 0, & \\text {for i = q ,} \\\\ 0, & \\text {for i\\in\\mathcal {N} with i\\neq r ,} \\\\ \\gamma , & \\text {for i = r .} \\end{array} \\right.",
+      "new": "x_{i}^{+} = \\left\\{ \\begin{array}{l l} x_{i} - \\gamma d_{i}, & \\text{for }i\\in\\mathcal{B}\\text{ with }i\\neq q,\\\\ 0, & \\text{for }i = q,\\\\ 0, & \\text{for }i\\in\\mathcal{N}\\text{ with }i\\neq r,\\\\ \\gamma, & \\text{for }i = r.\\end{array} \\right."
+    }
+  ]
+}

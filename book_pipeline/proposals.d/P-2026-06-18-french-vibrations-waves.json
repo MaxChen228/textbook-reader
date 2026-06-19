@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-18-french-vibrations-waves",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法從鄰近 text block 綁定圖說或排除非索引圖",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-18T04:13:06+00:00",
+  "updated": "2026-06-18T04:13:06+00:00",
+  "evidence": "french_vibrations_waves 在 smoke 僅剩 H7: empty_captions=55。多處 figure 沒有 image_caption，而圖說落在鄰近 text block 或 problem 敘述內（例：ch01 Fig. 1-1、ch05 開章三張圖、多個 problem 內示意圖）。現有 schema 只有 figure_caption_merge，可處理子圖 caption 拆塊，但無法表達『把鄰近 bare text 綁成 caption』或『此圖不進 catalog/需 exclude reason』；實測啟用 merge 反而惡化成 H6 unresolved=3 + H7 empty=74。",
+  "proposal": "需要引擎新增其中至少一種能力：1) per-book 規則可將 figure caption 從鄰近 text block / problem 文字綁到 image；或 2) allowlist/denylist 形式標記某些 bare figures 不進 catalog 並帶 exclude reason。這樣 audit 才能把目前 55 個 captionless figures 收斂到可索引狀態，而不必改 parser/build_catalogs。",
+  "risk": "若不補能力，這本以及同型 OCR（caption 不在 image_caption）會長期卡在 smoke H7，無法達成『catalog 可索引』完成定義。",
+  "disposition": ""
+}

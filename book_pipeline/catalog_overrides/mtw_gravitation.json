@@ -1,0 +1,23 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mtw-fig-11.1-restore-catalog-entry",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[44]",
+      "expect": {
+        "id": "fig-ch11-44"
+      },
+      "set": {
+        "id": "fig-11.1",
+        "caption": "Figure 11.1.",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The extracted image at ch11 body[44] visibly contains the embedded caption 'Figure 11.1.', so excluding it as an unnumbered body figure was incorrect and caused the missing Figure 11.1 reference."
+    }
+  ]
+}

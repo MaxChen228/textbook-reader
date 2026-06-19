@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "griffiths_particles-ch04-body-22-a023bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[22]",
+      "expect": "M _ {a} = \\left( \\begin{array}{c c} \\framebox {M _ {a} ^ {(1)}} & (\\text {zeros}) \\\\ (\\text {zeros}) & \\framebox {M _ {a} ^ {(2)}} \\end{array} \\right)",
+      "new": "M _ {a} = \\left( \\begin{array}{c c} \\framebox {$M _ {a} ^ {(1)}$} & (\\text {zeros}) \\\\ (\\text {zeros}) & \\framebox {$M _ {a} ^ {(2)}$} \\end{array} \\right)"
+    }
+  ]
+}

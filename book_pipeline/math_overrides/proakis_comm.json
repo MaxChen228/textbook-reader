@@ -1,0 +1,24 @@
+{
+  "overrides": [
+    {
+      "id": "proakis_comm-ch15-body-137-3098bc",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[137]",
+      "field": "md",
+      "old": "${ \\pmb U } ^ { H } { \\pmb \\bar { U } } = { \\pmb I } ,$",
+      "new": "${ \\pmb { U } } ^ { H } { \\pmb { \\bar { U } } } = { \\pmb { I } },$",
+      "anchor": "903ca454"
+    },
+    {
+      "id": "proakis_comm-ch07-body-830-af43c8",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[830]",
+      "field": "md",
+      "old": "$N \\stackrel { \\smile } { = } 1 5 \\stackrel { \\ightharpoonup } 2 ^ { 4 } - 1$",
+      "new": "$N \\stackrel { \\smile } { = } 1 5 \\stackrel { \\rightharpoonup } { 2 ^ { 4 } - 1 }$",
+      "anchor": "7d40a3df"
+    }
+  ]
+}

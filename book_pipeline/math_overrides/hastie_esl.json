@@ -1,0 +1,38 @@
+{
+  "overrides": [
+    {
+      "id": "hastie_esl-ch03-body-54-14b4d0",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[54]",
+      "expect": "C _ {\\beta} = \\{\\beta | (\\hat {\\beta} - \\beta) ^ {T} \\mathbf {X} ^ {T} \\mathbf {X} (\\hat {\\beta} - \\beta) \\leq \\hat {\\sigma} ^ {2} \\chi_ {p + 1} ^ {2} ^ {(1 - \\alpha)} \\},",
+      "new": "C _ {\\beta} = \\{\\beta | (\\hat {\\beta} - \\beta) ^ {T} \\mathbf {X} ^ {T} \\mathbf {X} (\\hat {\\beta} - \\beta) \\leq \\hat {\\sigma} ^ {2} \\chi _ {p + 1} ^ {2(1 - \\alpha)} \\}, "
+    },
+    {
+      "id": "hastie_esl-ch14-body-41-f6a4b9",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[41]",
+      "field": "md",
+      "old": "${ } ^ { \\mathrm { \\tiny { : } } \\mathrm { p r e d i c t a b i l i t y } } ^ { \\mathrm { \\tiny { : } } } \\ C ( A \\ \\Rightarrow \\ B )$",
+      "new": "${}^{\\mathrm{:predictability:}} C ( A \\Rightarrow B )$",
+      "anchor": "21a7b865"
+    },
+    {
+      "id": "hastie_esl-ch14-body-71-32caa2",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[71]",
+      "expect": "\\left[ \\begin{array}{r c l} \\text {language in home} & = & E n g l i s h \\\\ \\text {income} & <   & \\4 0, 0 0 0 \\\\ \\text {marital status} & = & n o t m a r r i e d \\\\ \\text {number of children} & = & 0 \\\\ \\Downarrow \\end{array} \\right]",
+      "new": "\\left[ \\begin{array}{r c l} \\text {language in home} & = & E n g l i s h \\\\ \\text {income} & <   & 4 0, 0 0 0 \\\\ \\text {marital status} & = & n o t m a r r i e d \\\\ \\text {number of children} & = & 0 \\\\ \\Downarrow \\end{array} \\right]"
+    },
+    {
+      "id": "hastie_esl-ch01-body-18-0a12ee",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[18]",
+      "expect": "\\begin{array}{c c c c c c c c c} 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {7} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {7} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & 3 & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & 4 & 5 & 6 & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & 4. 5 ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime} ^ {\\prime}. \\end{array}",
+      "new": "\\begin{array}{c c c c c c c c c} 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ 0 & 1 & 2 & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {7} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {7} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & 3 & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {8} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & \\texttt {4} & \\texttt {5} & \\texttt {6} & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & 4 & 5 & 6 & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\texttt {0} & 1 & \\texttt {2} & \\texttt {3} & 4 & 5 & 6 & \\texttt {T} & \\texttt {B} & \\texttt {9} \\\\ \\end{array}"
+    }
+  ]
+}

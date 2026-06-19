@@ -1,0 +1,74 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "batchelor-fluid-fix-ch06-body497-fig-6-6-1a-ref",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[497]",
+      "field": "md",
+      "old": "figure 0.6.1(a)",
+      "new": "figure 6.6.1(a)",
+      "reason": "Raw PDF page 470 and adjacent catalog block show this sentence is referring to Figure 6.6.1(a); parsed OCR dropped the leading 6 before the figure number."
+    },
+    {
+      "id": "batchelor-fluid-fix-ch06-body502-fig-6-6-1bc-refs",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[502]",
+      "field": "md",
+      "old": "figure 0.0.1 (6), and those for the particular case $\\kappa aU = 4\\pi$ in figure 0.0.1 (c)",
+      "new": "figure 6.6.1 (b), and those for the particular case $\\kappa aU = 4\\pi$ in figure 6.6.1 (c)",
+      "reason": "Raw PDF page 470 states the intermediate-circulation case is shown in Figure 6.6.1(b) and the special case $\\kappa aU = 4\\pi$ in Figure 6.6.1(c); parsed OCR mangled both references."
+    },
+    {
+      "id": "batchelor-fluid-fix-ch06-body566-fig-6-6-4-ref",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[566]",
+      "field": "md",
+      "old": "figure 0.0.4",
+      "new": "figure 6.6.4",
+      "reason": "Raw PDF page 478 and the nearby figure block both identify the referenced elliptic-cylinder streamline figure as Figure 6.6.4."
+    },
+    {
+      "id": "batchelor-fluid-fix-ch06-body1201-fig-6-13-2-ref",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[1201]",
+      "field": "md",
+      "old": "figure 0.13.2",
+      "new": "figure 6.13.2",
+      "reason": "Raw PDF page 544 and the adjacent captioned figure block confirm this conformal-transformation reference is Figure 6.13.2, not 0.13.2."
+    },
+    {
+      "id": "batchelor-fluid-fix-ch07-body597-fig-7-6-4-ref",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[597]",
+      "field": "md",
+      "old": "figure 7.64",
+      "new": "figure 7.6.4",
+      "reason": "Raw PDF page 612 shows this axisymmetric-wave discussion points to Figure 7.6.4; parsed OCR collapsed the last dot."
+    },
+    {
+      "id": "batchelor-fluid-fix-ch07-body668-fig-7-7-2-block",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[668]",
+      "expect": {
+        "id": "fig-2.3",
+        "caption": "Figure 2-3 The deflecting effect of a momentum tensor on an irregular uniform stream, relative to rotating area."
+      },
+      "set": {
+        "id": "fig-7.7.2",
+        "caption": "Figure 7.7.2. The deflecting effect of a mountain ridge on an incident uniform stream, relative to rotating axes.",
+        "catalog_aliases": [
+          "7.7.2"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Raw PDF page 620 contains the missing chapter-7 figure with caption \"Figure 7.7.2. The deflecting effect of a mountain ridge on an incident uniform stream, relative to rotating axes.\" MinerU emitted the image block but OCR corrupted both its id and caption."
+    }
+  ]
+}
