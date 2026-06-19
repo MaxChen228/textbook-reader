@@ -162,6 +162,11 @@
     .work-ring { position: absolute; inset: -3px; border-radius: 8px; border: 2px solid var(--accent);
       opacity: 0; animation: ring 1.8s ease-out infinite; pointer-events: none; }
     @keyframes ring { 0%{opacity:.7; transform:scale(.97)} 100%{opacity:0; transform:scale(1.06)} }
+    /* 外部 OCR worker（MinerU 雲端，無本地算力）：冷色藍 + 等待感 breathe，一眼別於本地匠人金+bob */
+    .walker.external { background: #3d7fd6; color: #fff; animation: breathe 2.4s ease-in-out infinite; }
+    @keyframes breathe { 0%,100%{opacity:.78} 50%{opacity:1} }
+    .book.external-work .cv { border-color: #3d7fd6; box-shadow: 0 0 0 2px #3d7fd6, 0 2px 10px rgba(0,0,0,.3); }
+    .book.external-work .work-ring { border-color: #3d7fd6; }
 
     /* ── 工人抽屜（完整 tool-use 可滾） ── */
     .drawer-mask { position: fixed; inset: 0; background: rgba(0,0,0,.5); opacity: 0; pointer-events: none;
@@ -502,6 +507,7 @@
       if (!ttl) { ttl = document.createElement('div'); ttl.className = 'ttl'; el.appendChild(ttl) }
       if (ttl.textContent !== t) ttl.textContent = t
     }
+    el.dataset.stage = (b.stage || '').trim()  // applyWalkers 據此判外部 OCR worker（stage 0.3/0.5）
     const cv = el.querySelector('.cv')
     setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
     setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b)
@@ -550,14 +556,16 @@
     if (!crawlLive || !crawlLive.books) return []
     const ended = crawlLive.ended_at
     if (ended && (Date.now() / 1000 - ended) > DL_TAIL_S) return []
-    return crawlLive.books.map(b => ({ kind: 'dl', key: 'd:' + b.slug, b }))
+    // done（已落地）不再渲卡：書已成 owned → 流入「已入庫」里程碑欄、✓ 數留表頭。只渲下載中/失敗。
+    return crawlLive.books.filter(b => b.state !== 'done').map(b => ({ kind: 'dl', key: 'd:' + b.slug, b }))
   }
   function crawlItems() {
     const dl = crawlLiveItems()
-    const dlSlugs = new Set(dl.map(it => it.b.slug))
+    // 排除集含 done（status.json queue 有 8s 滯後，剛抓到的書可能短暫仍列「待下載」→ 防回流閃爍）
+    const allDlSlugs = new Set(((crawlLive && crawlLive.books) || []).map(b => b.slug))
     const agents = crawlWorkers().map(w => ({ kind: 'agent', key: 'a:' + w.key, w }))
     const q = ((last && last.crawl && last.crawl.queue) || [])
-      .filter(b => !dlSlugs.has(b.slug))  // 正在抓/剛抓到的不再列入「待下載」（已 owned）
+      .filter(b => !allDlSlugs.has(b.slug))  // 正在抓/剛抓到的（含 done 已 owned）不再列入「待下載」
       .map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
     return dl.concat(agents, q)  // 下載中卡最前、agent、待下載書最後
   }
@@ -736,24 +744,33 @@
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
   const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥' }
+  // 兩種徽章疊書卡：① 本地 LLM walker（workers.json：金 + bob + verb·call 數）② 外部 OCR worker
+  //（MinerU 雲端，無本地進程 → 從 stage 0.3/0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
   function applyWalkers() {
     const bySlug = new Map(liveWorkers().map(w => [w.slug, w]))
     document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
       const w = bySlug.get(el.dataset.slug)
+      const sc = (el.dataset.stage || '').trim().split(' ')[0]
+      const ocr = !w && (sc === '0.3' || sc === '0.5')  // OCR 段、無本地 worker = 外部雲端進行中
       let walker = el.querySelector('.walker')
-      if (!w) {  // 工人離開 → 移除疊加（僅在 transition 時改 DOM）
-        if (walker) { walker.remove(); el.querySelector('.cv .work-ring')?.remove(); el.classList.remove('working') }
+      if (!w && !ocr) {  // 無任何 worker → 移除疊加（僅在 transition 時改 DOM）
+        if (walker) { walker.remove(); el.querySelector('.cv .work-ring')?.remove() }
+        el.classList.remove('working', 'external-work')
         return
       }
-      el.classList.add('working')
+      // 每輪先重置兩 class 再設正確者（防 0.5→1 / 0.5→audit worker 轉場殘留藍環）
+      el.classList.toggle('working', !ocr)
+      el.classList.toggle('external-work', ocr)
       if (!el.querySelector('.cv .work-ring'))
         el.querySelector('.cv').insertAdjacentHTML('beforeend', '<div class="work-ring"></div>')
-      if (!walker) {  // 新工人 → 建一次 walker；之後僅更新文字、節點留存 → bob 動畫不中斷
+      if (!walker) {  // 新工人 → 建一次 walker；之後僅更新文字、節點留存 → 動畫不中斷
         walker = document.createElement('div'); walker.className = 'walker'
         walker.innerHTML = '<span class="face"></span><span class="wt"></span>'
         el.appendChild(walker)
       }
-      const face = WFACE[w.verb] || '🛠️', wt = `${w.verb || ''} ·${w.total_calls || 0}`
+      walker.classList.toggle('external', ocr)
+      const face = ocr ? '🛰️' : (WFACE[w.verb] || '🛠️')
+      const wt = ocr ? 'OCR 雲端' : `${w.verb || ''} ·${w.total_calls || 0}`
       const fEl = walker.querySelector('.face'), tEl = walker.querySelector('.wt')
       if (fEl.textContent !== face) fEl.textContent = face
       if (tEl.textContent !== wt) tEl.textContent = wt
