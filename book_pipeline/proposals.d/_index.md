@@ -2959,7 +2959,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （31 條；proposed=31）
+## domain: sol  （32 條；proposed=32）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
@@ -3100,6 +3100,11 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：預設 dry-run=0 章/0 題；解答書 Chapter N 全在 text_level=2，且同章 Chapter N 會作為 running header 重複出現。ad hoc 以 ^\d+\.\d+\.\d+\. 抽題可得 275 key，其中 274/651 對上主書；語義抽樣 1.1.2、5.1.2、10.1.2 皆對齊。
 - 提議：升級 sol_extract：支援自訂 chapter anchor text_level，且同章多段需累積不能覆蓋；或直接由題號 N.M.K 導出 chapter，避免依賴章 anchor 切段。
+
+### P-2026-06-19-strogatz-chaos-sol — strogatz_chaos 解答書僅能部分 merge：章 anchor 受限於 lvl1
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run：抽出 6 章 279 題；對主書 317 題配對成功 164 題（51%），未配對 sol 115 題。語義抽樣 3.1.1 / 6.1.1 / 10.4.3 / 11.1.1 / 12.1.1 題幹與解答主題一致。阻塞點是解答書章 2/4/5/7/9 的章號為 text_level=2 純數字行，現行 sol_extract 只收 text_level==1 章 anchor。
+- 提議：升級 sol_extract：支援自訂 chapter anchor text_level 或直接由 problem key N.M.K 導出 chapter；升級後可重跑 strogatz_chaos_sol 以補回目前漏掉的章 2/4/5/7/9。
 
 ### P-2026-06-19-walpole-probability-statistics-s — walpole_probability_statistics 解答本缺少可用章 anchor，僅能部分 merge
 - proposed | type=harness-gap | source=sol_extract

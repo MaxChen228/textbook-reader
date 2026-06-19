@@ -1,0 +1,16 @@
+# ⚠ PENDING — 不要 merge。這份解答書與主書題序語義對齊，但現行 sol_extract harness 無法切章：
+#
+# 1. extract_sol_chapters 只接受 `type=text && text_level==1` 的章 anchor。
+# 2. 本書所有真正章標都是 `type=text && text_level==2` 的 `Chapter N`；`text_level==1` 條目數量為 0。
+# 3. 因此官方 dry-run（用本檔 regex）結果是「抽出 0 章、0 題解答」。
+# 4. 語義抽樣顯示不是錯版：
+#    - ch01 p2/p3/p4：主書題幹與解答分別對應 gry、micron、points/picas
+#    - ch21 p2/p3/p4：對應 identical spheres、Coulomb force、lightning current
+#    - ch31 p1/p2/p3：對應 LC circuit / oscillation frequency / capacitor-inductor energy conversion
+#
+# 結論：這是 harness-gap，不是 regex 或版次問題。待 sol_extract 支援 text_level==2 章標
+# 或允許 header 作章 anchor 後，可直接重跑 merge。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+[a-z]?)\.'
+multi_per_block: false
+_pending: true
