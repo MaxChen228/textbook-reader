@@ -89,12 +89,42 @@ def _catalog_accepted(slug: str) -> bool:
     return bool((_pstate().get(slug) or {}).get('catalog_accepted'))
 
 
+_SOL_CACHE_PATH = os.path.join(ROOT, 'book_pipeline', '.sol_stats_cache.json')
+_sol_cache: dict | None = None
+
+
+def _sol_fingerprint(files: list) -> list:
+    sig = []
+    for chf in files:
+        try:
+            stt = os.stat(chf)
+            sig.append([os.path.basename(chf), stt.st_mtime_ns, stt.st_size])
+        except OSError:
+            sig.append([os.path.basename(chf), 0, 0])
+    return sig
+
+
 def sol_stats(slug: str) -> tuple[int, int]:
-    """回傳 (problem 總數, 有 solution 數)。schema：ch*.json/app*.json 的 problems 鍵。"""
+    """回傳 (problem 總數, 有 solution 數)。schema：ch*.json/app*.json 的 problems 鍵。
+
+    指紋快取（同 _catalog_critical）：sol 數只在 sol_extract merge 進章節檔時才變，多數
+    observe 間不變，但原本每次 json.load 全部章節（~2s/snapshot，build_queue 暖路徑唯一大頭）。
+    以章節檔 (basename, mtime_ns, size) 為指紋持久化 → controller 派工迴圈與快照皆 warm-hit、
+    暖路徑 ~2s→~0.2s（負載下不再爆成數十秒、根治 status.json 凍結）。檔變即自動失效。"""
+    files = sorted(f for f in (glob.glob(f'{DATA}/{slug}/parsed/ch*.json')
+                               + glob.glob(f'{DATA}/{slug}/parsed/app*.json')) if '.zh.' not in f)
+    global _sol_cache
+    if _sol_cache is None:
+        try:
+            _sol_cache = json.load(open(_SOL_CACHE_PATH)) or {}
+        except Exception:
+            _sol_cache = {}
+    fp = _sol_fingerprint(files)
+    hit = _sol_cache.get(slug)
+    if hit and hit.get('fp') == fp:
+        return tuple(hit['ts'])
     tot = sol = 0
-    for chf in glob.glob(f'{DATA}/{slug}/parsed/ch*.json') + glob.glob(f'{DATA}/{slug}/parsed/app*.json'):
-        if '.zh.' in chf:
-            continue
+    for chf in files:
         try:
             blocks = json.load(open(chf))
         except Exception:
@@ -103,6 +133,14 @@ def sol_stats(slug: str) -> tuple[int, int]:
             tot += 1
             if pr.get('solution'):
                 sol += 1
+    _sol_cache[slug] = {'fp': fp, 'ts': [tot, sol]}
+    try:  # 原子寫；多進程競寫最壞=互蓋，下個 cycle 自癒（derived 值，低風險）
+        tmp = _SOL_CACHE_PATH + f'.tmp{os.getpid()}'
+        with open(tmp, 'w') as f:
+            json.dump(_sol_cache, f)
+        os.replace(tmp, _SOL_CACHE_PATH)
+    except Exception:
+        pass
     return tot, sol
 
 
