@@ -1,0 +1,30 @@
+# ⚠ PENDING — 不要 merge。這本目前不能安全併入 thomas_calculus，原因如下：
+#
+# 1. 解答書題號是「section heading + 裸題序」，現行 sol_extract 無法重建主書 key。
+#    - 可用章 anchor 在 lvl=1：`CHAPTER 1 PRELIMINARIES`、`CHAPTER 2 LIMITS AND CONTINUITY` …
+#    - 真正的 section 訊號在 lvl=2：`1.1 REAL NUMBERS AND THE REAL LINE`、
+#      `2.1 RATES OF CHANGE AND LIMITS`、`3.1 THE DERIVATIVE OF A FUNCTION` …
+#    - section 下面的解答則用裸題序開題：`4.`、`5.`、`1.`、`2.` …
+#    主書 problem.num 卻是 section-aware key，例如 `1.3.14`、`2.4.39`、
+#    `Exercises1.2.17`、`Chapter14QuestionstoGuideYourReview.45`。現行 sol_extract 的
+#    problem_re 只能抓單一字串，無法用「section heading + 裸題序」組裝回主書 key。
+#
+# 2. 主書 parsed 已有已知失真，語義抽樣證明不是單靠 regex 就能對齊。
+#    - audit 紀錄明示仍殘 11 個 H2 duplicate（見 thomas_calculus/_audit.md），來源是
+#      inline mode 把解題步驟編號 / EXAMPLE 列舉誤切成題目。
+#    - ch01 甚至不存在任何 `1.2.*` key，但解答書 `1.2 LINES, CIRCLES, AND PARABOLAS`
+#      下有完整逐題解答。
+#    - 語義抽樣（同章同節同題序）顯示主書與解答書系統性錯位：
+#      * 主書 `1.1.4` 是 `g(x)=sqrt(x^2-3x)`；解答書 `1.1` 第 4 題是 NT/NNT 不等式題。
+#      * 主書 `2.1.1` 是 secant slope 概念敘述；解答書 `2.1` 第 1 題是單側極限圖形判讀。
+#      * 主書 `3.1.1` 是導數定義敘述；解答書 `3.1` 第 1 題是 difference quotient 計算。
+#    這代表主書題號 namespace 與正文切題已漂移，硬 merge 只會把錯解答寫進 parsed/。
+#
+# 結論：目前正確終態是 _pending + proposal。需先：
+# - 重做 thomas_calculus 主書 audit/parser，修掉 inline false-positive / section namespace 漂移
+# - 升級 sol_extract，支援以 section heading + 裸題序組裝主書 key
+# 完成後再用下列 regex 當校準起點重跑評估。
+chapter_re: '^CHAPTER\s+(\d+)\b'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true
