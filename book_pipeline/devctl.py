@@ -24,6 +24,7 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone, timedelta
 
@@ -221,6 +222,8 @@ def budget_status() -> dict:
 # ── zlib 帳號額度（網路查詢，TTL 快取）────────────────────────────────────────
 ZLIB_CACHE = os.path.join(ROOT, 'dev', 'zlib_quota.json')
 ZLIB_TTL_S = 300  # snapshot 高頻重建；zlib 餘額至多每 5 分打一次網路（登入查 downloads_today）
+ZLIB_PROBE_TIMEOUT_S = 12  # live 探測（all_remaining 依序登入 N 帳號）的硬上限——逾時退回 stale 快取
+_zlib_probe_lock = threading.Lock()  # single-flight：同時只跑一隻探測，絕不疊 N×login
 
 
 def invalidate_zlib_cache() -> None:
@@ -250,9 +253,36 @@ def write_zlib_cache(accts: list) -> dict:
     return snap
 
 
+def _zlib_probe_bounded() -> dict | None:
+    """live 探測 zlib 額度並回寫快取，但**封頂在 ZLIB_PROBE_TIMEOUT_S**——`all_remaining` 依序
+    登入 N 帳號（每個 login+profile 可達 90s），N 個慢帳號相加最壞達分鐘級；過去無上限直接 hang，
+    凍住整個 build_snapshot → status.json 卡死數分鐘 → 已完成 agent session 看似消失（本 bug 根因）。
+
+    single-flight（_zlib_probe_lock）：已有探測在跑就回 None，絕不疊 N×login。逾時則回 None（呼叫端
+    退回 stale 快取）；探測 thread 為 daemon，長駐 controller 內會自行跑完回寫快取供下次 snapshot 撿，
+    一次性 heartbeat 進程則隨進程退出——無論如何 snapshot 絕不阻塞超過 timeout。"""
+    if not _zlib_probe_lock.acquire(blocking=False):
+        return None  # 已有探測在飛 → 不疊，直接用 stale 快取
+    box: dict = {}
+
+    def _run():
+        try:
+            from book_pipeline import crawl_zlib as cz
+            box['snap'] = write_zlib_cache(cz.all_remaining())
+        except Exception:
+            pass
+        finally:
+            _zlib_probe_lock.release()
+
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+    t.join(ZLIB_PROBE_TIMEOUT_S)
+    return box.get('snap')  # 逾時則 thread 仍在背景跑（鎖未釋放，擋住疊探測），此處回 None
+
+
 def zlib_status() -> dict:
-    """各 zlib 帳號今日餘額。讀 dev/zlib_quota.json 快取；過期才打網路刷新。
-    zlib 故障 → 回最後快取（含 stale 標記），絕不讓 snapshot 失敗。"""
+    """各 zlib 帳號今日餘額。讀 dev/zlib_quota.json 快取；過期才**限時**打網路刷新。
+    zlib 故障/慢 → 回最後快取（含 stale 標記），絕不讓 snapshot 失敗或卡死。"""
     cache = None
     if os.path.exists(ZLIB_CACHE):
         try:
@@ -262,14 +292,12 @@ def zlib_status() -> dict:
     fresh = cache and (time.time() - cache.get('fetched_at', 0)) < ZLIB_TTL_S
     if fresh:
         return {**cache, 'stale': False}
-    try:
-        from book_pipeline import crawl_zlib as cz
-        snap = write_zlib_cache(cz.all_remaining())
+    snap = _zlib_probe_bounded()  # 限時 live 探測；逾時/single-flight 擋下 → None
+    if snap is not None:
         return {**snap, 'stale': False}
-    except Exception as e:
-        if cache:
-            return {**cache, 'stale': True, 'error': str(e)}
-        return {'accounts': [], 'total_remaining': None, 'stale': True, 'error': str(e)}
+    if cache:
+        return {**cache, 'stale': True}  # 退回 stale 快取——snapshot 照常新鮮，只是額度欄稍舊
+    return {'accounts': [], 'total_remaining': None, 'stale': True}
 
 
 # ── 進行中 ingest ────────────────────────────────────────────────────────────

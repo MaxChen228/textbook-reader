@@ -347,7 +347,14 @@ def account_remaining_live(account: int) -> dict:
 
 
 def all_remaining() -> list[dict]:
-    return [account_remaining_live(i) for i in range(n_accounts())]
+    """並行查全帳號額度（各帳號獨立 login+profile，IO-bound）。依序時 N 帳號相加可達分鐘級、
+    拖垮 snapshot；並行後牆鐘 ≈ 最慢單帳號（~數秒）。回傳依 account index 排序，與依序版一致。"""
+    n = n_accounts()
+    if n <= 1:
+        return [account_remaining_live(i) for i in range(n)]
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=n) as ex:
+        return list(ex.map(account_remaining_live, range(n)))
 
 
 def pick_account() -> int | None:
