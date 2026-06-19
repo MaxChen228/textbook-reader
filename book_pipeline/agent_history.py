@@ -5,7 +5,7 @@ worker_registry 是「此刻誰在跑」的 live 面板（記憶體、recent 砍
 本模組是「跑過哪些 session、完整做了什麼」的持久史，兩者互補。三維度都在 pipeline_tick
 的 _run_one() 收斂後才進來，故此處 schema 統一：
   verb    = audit / catalog_audit / math_sweep / qc / sol_extract / crawl_plan（6 種 LLM 任務）
-  harness = claude-cli（claude/kimi 同一 CLI）/ codex-cli（codex）
+  harness = claude-cli（claude/kimi 同一 CLI）/ codex-cli（codex）/ ccnexus-http（math_sweep 走 HTTP batch）
   model   = claude / kimi / gpt-5.4（由 provider 推導，caller 傳入）
 
 生命週期（與 worker_registry 並行呼叫，但寫【完整原文】不截字、不封頂）：
@@ -47,7 +47,11 @@ def _now() -> str:
 
 
 def _harness_of(provider: str) -> str:
-    return 'codex-cli' if provider == 'codex' else 'claude-cli'  # claude/kimi 同一 CLI harness
+    if provider == 'codex':
+        return 'codex-cli'
+    if provider == 'ccnexus':
+        return 'ccnexus-http'  # math_sweep 走 ccNexus /v1/chat/completions（HTTP batch，非 CLI harness）
+    return 'claude-cli'  # claude/kimi 同一 CLI harness
 
 
 def _session_id(slug: str | None, verb: str, pid: int, started: str) -> str:

@@ -46,7 +46,7 @@ from book_pipeline import leases
 from book_pipeline import extract_cover
 from book_pipeline import booklists
 from book_pipeline import scope_guard
-from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch
+from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch, math_sweep_model
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -1184,26 +1184,63 @@ def do_math_sweep(dry: bool) -> int:
     before_by_book = mv.residual_by_book()  # 派工前快照：normalize 規則/macro 修的書未必有 override，靠殘餘降偵測
     t0 = time.time()
     q.set_math_batch_running(total)         # 持久 flag → /dev 顯「batch 處理中」（獨立 devsnapshot 進程讀得到）
+    # math sweep 走 ccNexus HTTP batch（執行路徑非 CLI），但仍納入統一觀測層：controller 端註冊單例
+    # worker（'__math_sweep__'）+ agent_history corpus session，讓 /dev「工人 N」數得到、trace session
+    # 看得到其歷程。do_math_sweep 在所有 _advance_parallel 區塊之後序列跑 → 其窗口內無其他在飛
+    # worker，controller 端註冊安全（worker_registry 本身亦 thread-safe）。細粒度每批進度另存
+    # math_live/math_history（並存，互補）。stderr tee 回本進程 → launchd.err.log 即時可見不被吞。
+    wkey = '__math_sweep__'
+    model = math_sweep_model()
+    out_parts: list[str] = []
+    rc = -1
+    proc = None
     try:
-        # stdout=PIPE 取 JSON 結果；stderr 直通（_log 進度走 stderr）→ launchd.err.log 即時可見，不被吞。
-        proc = subprocess.run(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch',
-                               '--limit', str(MATH_BATCH_LIMIT), '--workers', str(MATH_BATCH_WORKERS),
-                               '--n', str(MATH_BATCH_N), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
-                              cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=None, text=True)
+        proc = subprocess.Popen(['uv', 'run', 'python', '-m', 'book_pipeline.math_sweep', 'batch',
+                                 '--limit', str(MATH_BATCH_LIMIT), '--workers', str(MATH_BATCH_WORKERS),
+                                 '--n', str(MATH_BATCH_N), '--rounds', str(MATH_BATCH_ROUNDS), '--verbose'],
+                                cwd=READER_ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        wr.register(wkey, None, 'math_sweep', proc.pid, 'ccnexus')
+        hist.start(wkey, None, 'math_sweep', proc.pid, 'ccnexus', model)
+
+        def _pump_out():
+            for line in proc.stdout:  # type: ignore[union-attr]
+                out_parts.append(line)  # stdout 全部 = 末尾 batch JSON 結果（indent=2 多行）
+
+        def _pump_err():
+            for line in proc.stderr:  # type: ignore[union-attr]
+                sys.stderr.write(line)  # tee → launchd.err.log 即時可見（不被吞）
+                sys.stderr.flush()
+                s = line.strip()
+                if s:
+                    wr.event(wkey, 'text', s)    # /dev 工人面板即時進度
+                    hist.event(wkey, 'text', s)  # trace session 完整歷程
+        to = threading.Thread(target=_pump_out, daemon=True)
+        te = threading.Thread(target=_pump_err, daemon=True)
+        to.start()
+        te.start()
+        rc = proc.wait()
+        to.join(timeout=5)
+        te.join(timeout=5)
     finally:
+        if proc is not None:
+            hist.finish(wkey, rc)
+            wr.unregister(wkey)
         q.clear_math_batch_running()
     res = {}
+    out = ''.join(out_parts).strip()
     try:
-        if proc.stdout.strip():
-            res = json.loads(proc.stdout.strip())  # stdout 全部 = batch 的 JSON 結果（indent=2 多行，進度走 stderr）
+        if out:
+            res = json.loads(out)  # stdout 全部 = batch 的 JSON 結果（進度走 stderr）
     except Exception:
         pass
-    if proc.returncode != 0 or not res.get('ok'):
-        err = res.get('error') or f'rc={proc.returncode}（進度/錯誤詳見 launchd.err.log）'
+    if rc != 0 or not res.get('ok'):
+        err = res.get('error') or f'rc={rc}（進度/錯誤詳見 launchd.err.log）'
         log(f'❌ math sweep batch 失敗（{err}）→ 不記狀態，下個 tick 重試')
         return 1
     log(f"math sweep batch：解 {res.get('accepted', 0)} 條 · 觸 {res.get('books_touched', 0)} 書 · "
         f"剩 {res.get('still_failing', 0)} 條硬殘")
+    # corpus session 回填實際觸及的書 → 各書抽屜「slug ∈ touched」查得此 sweep 歷程（比照 crawl_plan）。
+    hist.set_touched('math_sweep', list((res.get('remaining_by_book') or {}).keys()))
     # daemon 確定性收尾（apply 從 agent 收回 daemon，比照 catalog；消除「agent apply 的書必須恰等於
     # daemon 重烤的書」的脆弱耦合）：對每本有 override 的書 idempotent re-apply；凡本輪真有改動（apply
     # 產生 applied，含重 parse 沖掉後重套）或 override 本輪新寫（mtime>t0）→ 重烤上站（live 讀 data/，
