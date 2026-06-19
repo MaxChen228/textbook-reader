@@ -1077,6 +1077,77 @@ def _book_qc_block(slug: str) -> list[str]:
         return []
 
 
+# ── 貴重成果 auto-commit ──────────────────────────────────────────────────────
+# daemon 24hr 產書會吐 git 追蹤的貴重成果（math/catalog override、parsed/*.zh.json、
+# extract_rules、cover、索引）。它們本就該被 commit（test_artifacts_committed 這道 deploy
+# 前契約閘掃的就是 committed 成果），但 pipeline 過去從不 commit → 堆在工作區直到人工巨型
+# commit，使 `git status` 失效、真問題被噪音蓋住、無 history 兜底。controller 退出時做一次
+# curated flush 補上這環。commit-only 不 push（跨機同步仍手動）。BOOK_PIPELINE_AUTOCOMMIT=0 關。
+AUTOCOMMIT = os.environ.get('BOOK_PIPELINE_AUTOCOMMIT', '1') != '0'
+_ARTIFACT_PATHS = [
+    'book_pipeline/math_overrides', 'book_pipeline/catalog_overrides',
+    'book_pipeline/booklists', 'book_pipeline/proposals.d',
+    'book_pipeline/slug_map.json', 'book_pipeline/metadata_schema.yaml',
+    'book_pipeline/mineru_data',  # gitignore 已只放行 *.zh.json + extract_rules.yaml + cover.jpg
+]
+
+
+def _artifact_slugs(paths: list[str]) -> list[str]:
+    """從 staged 檔路徑萃取書 slug（去重排序），供 commit 訊息語意化。純函式可測。
+    math_overrides/<slug>.json · catalog_overrides/<slug>.json · mineru_data/<slug>/…；
+    共用索引（slug_map/proposals/metadata/booklists）歸不到單一 slug → 不列。"""
+    slugs = set()
+    for p in paths:
+        parts = p.split('/')
+        if len(parts) >= 3 and parts[0] == 'book_pipeline':
+            if parts[1] in ('math_overrides', 'catalog_overrides') and parts[2].endswith('.json'):
+                slugs.add(parts[2][:-5])
+            elif parts[1] == 'mineru_data':
+                slugs.add(parts[2])
+    return sorted(slugs)
+
+
+def _artifact_commit_msg(files: list[str]) -> tuple[str, str]:
+    """staged 檔清單 → (subject, body)。純函式可測。"""
+    slugs = _artifact_slugs(files)
+    head = ', '.join(slugs[:5]) + (f' (+{len(slugs) - 5})' if len(slugs) > 5 else '')
+    subject = f'data(pipeline): daemon 產書成果 {head or "索引"}（{len(files)} 檔）'
+    body = ('自動提交層（commit_artifacts）：math/catalog override、zh overlay、extract_rules、'
+            'cover、索引。curated 白名單，機器產物由 gitignore 排除。')
+    return subject, body
+
+
+def commit_artifacts() -> None:
+    """貴重成果 curated auto-commit（controller 退出時呼叫，main thread → 無 git index race）。
+    鐵律：**只 stage 白名單路徑、絕不 `git add -A`**——盲加會把 gitignore 的漏（stages.json /
+    隔離書 unified symlink 之類）每次靜默 commit 進去。fail-open：git 任何錯都不擋 pipeline。
+    commit-only 不 push。無 staged 變更 → 靜默 no-op。身份用 global config（Max0228）。"""
+    if not AUTOCOMMIT:
+        return
+    try:
+        # 只 add 實際存在的白名單路徑：`git add -- a b` 任一 pathspec 不存在會整批 fatal、零 staged，
+        # 故某 override 目錄尚未生成時須先濾掉，否則整次 commit 被一條缺路徑拖垮。
+        present = [p for p in _ARTIFACT_PATHS if os.path.exists(os.path.join(ROOT, p))]
+        if not present:
+            return
+        subprocess.run(['git', 'add', '--', *present], cwd=ROOT,
+                       check=False, capture_output=True, timeout=120)
+        staged = subprocess.run(['git', 'diff', '--cached', '--name-only'], cwd=ROOT,
+                                capture_output=True, text=True, timeout=30).stdout.strip()
+        if not staged:
+            return
+        files = staged.splitlines()
+        subject, body = _artifact_commit_msg(files)
+        r = subprocess.run(['git', 'commit', '-q', '-m', subject, '-m', body], cwd=ROOT,
+                           check=False, capture_output=True, text=True, timeout=120)
+        if r.returncode == 0:
+            log(f'auto-commit ✓：{len(files)} 檔成果落盤（{subject}）')
+        else:
+            log(f'auto-commit 失敗（不影響 pipeline）：{(r.stderr or r.stdout).strip()[:200]}')
+    except Exception as e:
+        log(f'auto-commit 異常（不影響 pipeline）：{e}')
+
+
 def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if no_deploy:
         log(f'deploy skip {slug}（--no-deploy）')
@@ -1643,6 +1714,10 @@ def tick_reactive(no_deploy: bool) -> int:
                 log(f'reactive loop：仍有 {_residual} 個非子進程型卡死 worker（純 API）→ os._exit 強退（respawn/launchd 重拉）')
                 sys.stdout.flush()
                 os._exit(0)  # 唯一能停掉卡死 thread 的手段；flock 隨進程死釋放、respawn 小弟接手
+    # 在飛 worker 已排空（上面 drain 完成）→ 此處 main thread 獨佔，安全做貴重成果 auto-commit。
+    # 唯 os._exit 硬退路徑跳過（卡死 worker 可能正寫 override → 不冒半寫風險，下個 controller 退出時補）。
+    if not no_deploy:
+        commit_artifacts()
     log('=== reactive loop end ===')
     return 0
 
