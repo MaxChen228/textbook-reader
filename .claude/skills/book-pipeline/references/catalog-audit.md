@@ -20,17 +20,17 @@
 
 前提：`book_pipeline/mineru_data/<slug>/parsed/` 已有 `book.json` + `catalogs.json` + `chNN.json`（audit-book 已跑完、smoke 綠）。本機才有 `raw_pdfs/<檔>.pdf`（pdf_crop / pdf_contactsheet 必需）。
 
-**工作流程（一律 `uv run --with pyyaml`）**：
+**工作流程（一律 `uv run`，pyyaml/pymupdf 等已在 pyproject 依賴，勿加 `--with`：那會每次冷解析 ephemeral env、拖慢）**：
 
 ```bash
 SLUG=<slug>
 # (1) 看殘留
-uv run --with pyyaml python -c "from book_pipeline.catalog_audit import audit_catalog as a; r=a('$SLUG',write_report=False); print({k:v for k,v in r.items() if k not in('findings','classified_refs')}); [print(f.code,f.message,'||',(f.context or {}).get('snippet') or (f.context or {}).get('where')) for f in r['findings']]"
+uv run python -c "from book_pipeline.catalog_audit import audit_catalog as a; r=a('$SLUG',write_report=False); print({k:v for k,v in r.items() if k not in('findings','classified_refs')}); [print(f.code,f.message,'||',(f.context or {}).get('snippet') or (f.context or {}).get('where')) for f in r['findings']]"
 # (2) 逐 finding 決策（§4），把 override 寫進 catalog_overrides/$SLUG.json（§3）
 # (3) apply：覆寫 parsed/*.json（先自動備份到 parsed/_override_backups/<ts>/）+ rebuild catalogs
-uv run --with pyyaml python -m book_pipeline.apply_catalog_overrides $SLUG
+uv run python -m book_pipeline.apply_catalog_overrides $SLUG
 # (4) 重 audit 驗證 critical 是否下降；非 0 回 (2) iterate
-uv run --with pyyaml python -m book_pipeline.catalog_audit $SLUG
+uv run python -m book_pipeline.catalog_audit $SLUG
 ```
 
 `audit_catalog` 同時把人讀報告寫到 `parsed/_catalog_audit.md`（gitignore）。`apply_overrides` 對每個被改的 chunk **先 `_backup_once` 到 `parsed/_override_backups/<timestamp>/`** 再寫，replay 安全。
@@ -187,7 +187,7 @@ selector index **取自 `audit_catalog` finding 的 `context.path`**（`_block_p
 **Step 0 — 看 catalog 端鄰近 id**。先 dump 該章 figure ids 與 caption，比對 ref：
 
 ```bash
-uv run --with pyyaml python -c "
+uv run python -c "
 import json; from pathlib import Path
 cat=json.loads(Path('book_pipeline/mineru_data/$SLUG/parsed/catalogs.json').read_text())
 for e in cat.get('figures') or []:
@@ -260,7 +260,7 @@ caption 空且無 exclude reason。
 4. **aspect** 自動 = `clip.width/clip.height`，覆寫進 block，不用自己填。
 
 **決定 normalized clip 的方法**：
-- 先拿頁尺寸：`uv run --with pymupdf python -c "import fitz; d=fitz.open('raw_pdfs/<f>.pdf'); r=d[<page-1>].rect; print(r.width,r.height)"`。
+- 先拿頁尺寸：`uv run python -c "import fitz; d=fitz.open('raw_pdfs/<f>.pdf'); r=d[<page-1>].rect; print(r.width,r.height)"`。
 - 估圖在頁面的相對位置：左欄上半 ≈ `[0.05, 0.05, 0.48, 0.5]`，整頁中段 ≈ `[0.1, 0.35, 0.9, 0.7]`。
 - 裁完先 apply、開 `unified/images/<src>` 目視確認框對；偏了就調 clip 重 apply（同 id 會更新、不重插）。寧可框略大含留白，別切到圖內容。
 - thomas 實例 `[0.035, 0.405, 0.315, 0.94]` = 左欄、縱跨頁面 40%–94%（細長直圖）。

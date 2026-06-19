@@ -27,13 +27,13 @@ uv run python -m book_pipeline.resolve target <slug>
 #    + book_qc（下載前書況預檢）：每筆候選帶 {block:[...], advisory:[...]}——
 #      **block 非空 = 鐵定配錯書（main 抓到週邊書 / 書名與 SoT 零重疊），絕不可採用**（commit 會硬拒）；
 #      advisory = 書名可疑、要警覺。先掃掉 block 非空的候選，再從乾淨的裡挑。
-uv run --with requests python -m book_pipeline.resolve search <slug>
+uv run python -m book_pipeline.resolve search <slug>
 #    查不到好的就換查法 / 放寬：
-uv run --with requests python -m book_pipeline.resolve search <slug> --query "<自訂字串>"
-uv run --with requests python -m book_pipeline.resolve search <slug> --any-lang   # 或 --any-ext
+uv run python -m book_pipeline.resolve search <slug> --query "<自訂字串>"
+uv run python -m book_pipeline.resolve search <slug> --any-lang   # 或 --any-ext
 
 # 3. 版次/語言/描述有歧義時，深查單一候選
-uv run --with requests python -m book_pipeline.resolve inspect <id> <hash>
+uv run python -m book_pipeline.resolve inspect <id> <hash>
 ```
 
 **怎麼判斷哪一筆才對**（看 metadata，別只看 advisory_conf）：

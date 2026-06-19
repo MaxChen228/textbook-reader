@@ -75,7 +75,7 @@ uv run python -m book_pipeline.status
 |---|---|---|
 | `ingest` | `references/ingest.md` | 本機一條龍。多本依 quota 分流 account，順序跑（不並行）。中斷重跑同指令冪等續完 |
 | `audit` | `references/audit-book.md` | 派 general-purpose sub-agent，主對話跑 §5 validate |
-| `parse` | — | 直接 `uv run --with pyyaml python -m book_pipeline.parser <slug>`（yaml 已在，只是沒跑過） |
+| `parse` | — | 直接 `uv run python -m book_pipeline.parser <slug>`（yaml 已在，只是沒跑過） |
 | `sol_extract(<sol>)` | `references/audit-sol.md` | 派 sub-agent，含語義抽樣驗證 |
 | `translate(可選)` | 獨立 `/translate-book` | 不在本 skill 範圍 |
 

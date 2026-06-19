@@ -12,7 +12,7 @@
 - **token**：`MINERU_API_TOKEN`（帳號1）+ `MINERU_API_TOKEN2`（帳號2），設於 `.env` 或環境變數。
   - 一條龍模式用 `--account <1|2>` 指定該本走哪個帳號。**絕不 echo token 到 log。**
 - **slug 推導**：raw PDF 檔名 → slug 查 `book_pipeline/slug_map.json`（中文/作者/簡寫無法純機械推，顯式記錄）。解答本 slug 以 `_sol` 結尾。新書先在 slug_map 補一行。
-- **指令一律 uv**：`uv run --with requests --with pymupdf python -m book_pipeline.mineru_ingest ...`
+- **指令一律 uv**：`uv run python -m book_pipeline.mineru_ingest ...`
 - **manifest 只透過 `mineru_ingest.py` 改**（`_pending_batches.json` 是 read-modify-write），**不手編 JSON**。
 - **不要動** `mineru_ingest.py`、`parser.py`、`slug_map.json` 結構、`.env`。
 - **不 commit** `chunks/`（gitignored，submit 後留本機作審計）。新書完成後若要 commit unified，記得 `git add -f` images。
@@ -27,7 +27,7 @@
 
 ```bash
 for pdf in raw_pdfs/*.pdf; do
-  uv run --with pymupdf python -c "import fitz,sys; d=fitz.open(sys.argv[1]); print(f'{d.page_count:5d}  {sys.argv[1]}')" "$pdf"
+  uv run python -c "import fitz,sys; d=fitz.open(sys.argv[1]); print(f'{d.page_count:5d}  {sys.argv[1]}')" "$pdf"
 done | sort -rn
 ```
 
@@ -40,7 +40,7 @@ done | sort -rn
 1. **列待 ingest + 估頁數分流**：status dashboard 的 `ingest` 待辦 slug，配上頁數（上方指令）按帳號分流。跳過條件：`mineru_data/<slug>/unified/content_list.json` 已存在。
 2. **逐本一條龍**：
    ```bash
-   uv run --with requests --with pymupdf python -m book_pipeline.mineru_ingest \
+   uv run python -m book_pipeline.mineru_ingest \
      "raw_pdfs/<file>.pdf" --slug <slug> --account <1|2> \
      --max-wait 2400 --max-retries 4 --resubmit-wait 60
    echo "rc=$?"

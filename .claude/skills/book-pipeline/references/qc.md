@@ -10,12 +10,13 @@
 
 ```bash
 # 1. 產抽樣拼圖（均勻取 6 頁，跳過封面/索引，拼成單張 PNG）
-uv run --with pymupdf --with pillow python -m book_pipeline.pdf_contactsheet <slug> --pages 6
+uv run python -m book_pipeline.pdf_contactsheet <slug> --pages 6
 #    → book_pipeline/reports/contactsheets/<stem>.png
+#    （pymupdf/pillow 已在 pyproject 依賴，勿加 --with：那會每次強制 ephemeral env 冷解析、render 變慢）
 ```
 
 2. **Read 那張 PNG**（一次 vision 呼叫），判斷：
-   - **書對嗎**：書名/作者/版次符合預期（對照 `crawl_manifest.json` 該 slug 的 title）。
+   - **書對嗎**：書名/作者/版次符合預期（版次 SoT = `book_pipeline/booklists/*.json` 該 slug，含 `edition_pref`；勿用已退役的 `crawl_manifest.json`）。
    - **清晰嗎**：文字與公式可辨識？掃描是否過淡/歪斜/污損到 OCR 會大量出錯。
    - **完整嗎**：抽樣頁是否連貫、無大量空白/缺頁跡象。
    - **MinerU 吃得下嗎**：掃描檔只要夠清晰，MinerU OCR 可處理；極糊或手寫批註滿版則否。
