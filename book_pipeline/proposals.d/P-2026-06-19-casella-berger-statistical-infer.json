@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-casella-berger-statistical-infer",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "casella_berger_statistical_inference 解答本無法 merge：章 anchor 落在 header block，現行 sol_extract 不支援",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:11:16+00:00",
+  "updated": "2026-06-19T11:11:16+00:00",
+  "evidence": "2026-06-19 預設 dry-run 抽出 0 章、0 題。來源章資訊拆成 header=Chapter N 與 lvl1 title=Probability Theory 等；現行 sol_extract 只看 text_level==1 的 text block，且 chapter_re group(1) 直接 int()，因此既吃不到 header，也無法從純章名導出章號。旁路分析若改用 header: Chapter N 切章、^N.M 切題，可抽出 12 章 461 題解答，對主書配到 422/625 題；抽樣 ch1/ch2/ch7 前 3 題語義對齊，顯示主要是 harness gap 而非版次錯位。",
+  "proposal": "擴充 sol_extract 的 chapter anchor 能力：至少支援 type=header 的 Chapter N，或支援 title→chapter 映射/自訂 chapter text_level；能力補齊後以 chapter_re=^Chapter\\s+(\\d+)\\s*$、problem_re=^(\\d+\\.\\d+)\\b 重跑 casella_berger_statistical_inference_sol。",
+  "risk": "",
+  "disposition": ""
+}

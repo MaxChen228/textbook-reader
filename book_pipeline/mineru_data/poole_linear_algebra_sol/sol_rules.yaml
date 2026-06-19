@@ -1,0 +1,38 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不能靠現行 sol_extract 安全對齊主書，原因如下：
+#
+# 1. 主書 problem.num 是 section-aware 混合 key，而不是單純章內題序。例如：
+#    - chapter intro：`4.0Introduction:ADynamicalSystemonGraphs.1`
+#    - section exercises：`Exercises4.1.1`
+#    - chapter review：`ReviewQuestions.16`
+#    解答書正文則是在各 section 標題（如 `3.1 Matrix Operations`、`4.1 Introduction ...`）
+#    之後，用裸題序 `1.`、`2.`、`3.` 開題。現行 sol_extract 的 problem_re 只能抓單一字串
+#    當作 key，無法用「section key + 裸題序」重建主書 key。
+#
+# 2. 解答書真正穩定的章/節訊號主要在 text_level=2：
+#    - `Chapter 1`、`Chapter 2`、`Chapter 8`
+#    - `3.1 Matrix Operations`、`4.1 Introduction to Eigenvalues and Eigenvectors`
+#      `8.1 Code Vectors`
+#    但現行 sol_extract 的章 anchor 寫死為 `type=text && text_level==1`。本書僅有 7 個
+#    lvl=1 text block，且多數不是可用章號：`Systems of Linear Equations`、
+#    `Eigenvalues and Eigenvectors`、`Orthogonality`、
+#    `Exploration: Approximating Eigenvalues with the QR Algorithm`、
+#    `Distance and Approximation` 等。
+#
+# 3. 以預設規則 dry-run，sol_extract 只會誤抓到 `Chapter 3` 這一個章 anchor，結果是
+#    `抽出 1 章、0 題解答`，`ch03: 0/372`。這不是配對率差，而是引擎入口就切不出題目。
+#
+# 4. 語義面也不能靠「章號 + 裸題序」硬配。例：主書 `ch03` 的 `3.1` 題幹是
+#    `Compute Fx for the following vectors x`，但解答書 `Chapter 3` 第一個 section
+#    `3.1 Matrix Operations` 的第 1 題是在做 `A + 2D`。若硬把裸題序套到主書前綴，
+#    會把 chapter-intro 題與 section-exercise 解答系統性錯配。
+#
+# 結論：這是 harness gap，不是單純 source-quality 或 regex 問題。
+# 需要 sol_extract 支援：
+# - 自訂 chapter/section anchor 的 text_level
+# - 以 section heading + 裸題序組裝主書 key
+# - 必要時略過 chapter-intro / review 類 key 空洞
+# 在此之前維持 pending，避免把錯解答 merge 進 parsed/。
+chapter_re: '^Chapter\s+(\d+)\b'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true
