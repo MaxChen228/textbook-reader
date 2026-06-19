@@ -20,6 +20,8 @@ import sys
 import fitz
 from PIL import Image, ImageDraw
 
+from book_pipeline.cpu_gate import cpu_bound
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, 'raw_pdfs')
 SLUG_MAP = os.path.join(ROOT, 'book_pipeline', 'slug_map.json')
@@ -55,6 +57,7 @@ def _pick_pages(n: int, k: int) -> list[int]:
     return [min(n - 1, int((lo + (hi - lo) * i / (k - 1)) * n)) for i in range(k)]
 
 
+@cpu_bound('contactsheet')
 def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
     doc = fitz.open(path)
     n = doc.page_count

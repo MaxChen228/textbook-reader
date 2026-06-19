@@ -88,3 +88,5 @@ book_pipeline/proposals.d/*.tmp*
 
 # triage 結果快取（按檔內容；可重生）
 /book_pipeline/.triage_cache.json
+# CPU 工具併發閘的 flock 槽（runtime，可重生）
+/book_pipeline/.cpu_slots/

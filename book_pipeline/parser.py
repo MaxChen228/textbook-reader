@@ -26,6 +26,8 @@ from typing import Any
 
 import yaml
 
+from book_pipeline.cpu_gate import cpu_bound
+
 try:
     from book_pipeline import build_catalogs
     from book_pipeline.math_normalize import normalize_chunk_math, normalize_tex
@@ -685,6 +687,7 @@ def parse_appendix(app: dict, next_start_idx: int, all_blocks: list[dict],
 
 # ── 主流程 ────────────────────────────────────────────────────────────────────
 
+@cpu_bound('parse')
 def parse_book(slug: str) -> dict:
     rules = load_rules(slug)
     all_blocks = load_unified(slug)

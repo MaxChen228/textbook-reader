@@ -26,6 +26,13 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 # 設 BOOK_PIPELINE_REACTIVE=0（程式碼預設即 0，行為退回 tick_once）。
 export BOOK_PIPELINE_REACTIVE=1
 export BOOK_PIPELINE_LOOP_POLL=150
+# IO/CPU 併發分離（第一性原理：LLM agent 子進程牆鐘 90% 等 API＝0 CPU，可放大；真正吃 CPU 的是
+# 它們內部呼叫的 parser/contactsheet，由 cpu_gate flock 閘獨立封頂）。故拉高在飛 agent 數、
+# 同時把本地 CPU 重活限在 ≈核數，解耦兩者 → 多 agent 在飛但不 thrashing。felix=8 核：
+#   LOOP_CONCURRENCY 32→48（更多 agent 並行等 API，下游接力更快）
+#   CPU_TOOL_CONCURRENCY=6（同時最多 6 個 parser/contactsheet，留 2 核給 controller/node/nginx）
+export BOOK_PIPELINE_LOOP_CONCURRENCY=48
+export BOOK_PIPELINE_CPU_TOOL_CONCURRENCY=6
 cd "$HOME/project/textbook-reader" || exit 1
 mkdir -p book_pipeline/reports
 # 不設 --max-llm：LLM 可解的階段（crawl/qc/audit/sol_extract）每 tick 全部跑完，瓶頸
