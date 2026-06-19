@@ -6,11 +6,11 @@
   "title": "parser 無法獨立切 interleaved appendices",
   "detect": [],
   "source": "agent",
-  "resolution": "已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。",
+  "resolution": "back-matter/interleaved 附錄段切分問題，非 caption、repair_catalog_metadata 不涵蓋（先前理由誤植已更正）。實況：in-body 附錄(2A/3A/5A/5B/9A/9B)未切附錄段=cosmetic（內容於 ch body 可讀）；Index(p702)吞進 ch10 已由 commit d36bea2 back-matter cap 止住；Glossary 殘留須 audit 補 bibliography_start_page。皆 per-book/cosmetic，非通用引擎缺口故關。",
   "created": "2026-06-19T04:20:00+00:00",
-  "updated": "2026-06-19T11:12:58+00:00",
+  "updated": "2026-06-19T12:18:30+00:00",
   "evidence": "本書 Appendix 2A/3A/5A/5B/9A/9B 分散插在各章末、位於 bibliography/problems 前；現行 appendices[] 只會從 appendix anchor 連切到下一 appendix 或書尾，無法避免把後續章節吞進 appendix.body，或與章 body 重複。",
   "proposal": "讓 chapter schema 能宣告 chapter-scoped appendices，或讓 parser 可在 chapter body 中對 appendix anchor 開新 chunk 並於 problems/bibliography 前收束。",
   "risk": "",
-  "disposition": ""
+  "disposition": "per-book extract_rules 補 bibliography_start_page≈679；in-body interleaved 附錄同 aitchison 類 n=1，不建通用引擎。"
 }

@@ -27,25 +27,13 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （157 條；proposed=43）
+## domain: engine  （157 條；proposed=39）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
 - 處置：驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。
 - 證據：多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
-
-### P-2026-06-19-aitchison-hey-gauge-theories — Support multi-volume slugs with mid-book appendices and references/index
-- proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine：combined 2-volume，extract_rules appendices:[] → 兩卷全部附錄/references 整段未輸出（Vol1 A-L 在 ch11/ch12 之間 mid-book、Vol2 N/Q 在書末，現 parser 單一末段附錄模型無法表達非連續多區附錄）。章節本身切分正確、內容無損。n=1 高複雜度，不為單書建通用 interleaved-appendix 引擎；待 content_segments 專案或 per-book 處理。
-- 證據：aitchison_hey_gauge_theories unified/content_list.json contains Volume 1 chapters 1-11 (e.g. block 223/page_idx 18, 595/56, 4874/344), then Volume 1 appendices A-L (e.g. 5882/416, 6202/434), then References at 6244/page_idx 438 and Index at 6339/page_idx 444, then Volume 2 chapters 12-22 restart at 7517/page_idx 473 and continue to chapter 22 at 12482/page_idx 841, followed by Volume 2 appendices M-Q at 13637/page_idx 927 and 13920/page_idx 947. Current extract_rules schema only supports a single tail sequence chapters -> appendices -> bibliography/index via appendices_start_page, bibliography_start_page, index_start_page. Any yaml would either truncate volume 2 or silently swallow volume 1 appendices/references/index into chapter 11/12 body ranges.
-- 提議：Extend extract_rules/parser to support ordered content segments across a slug, not just one tail appendices block. A workable design is an explicit ordered range list that can emit chapter -> appendix -> references -> index -> chapter transitions deterministically, or ingest-time support to split one OCR artifact into multiple book slugs before audit. Until then, audit-book cannot safely generate extract_rules.yaml for this slug.
-
-### P-2026-06-19-aitchison-hey-gauge-theories-3 — support multi-segment appendices across combined volumes
-- proposed | type=tooling-gap | source=agent
-- 處置：同 P-2026-06-19-aitchison-hey-gauge-theories（multi-segment 附錄）：combined 2-volume 非連續多區附錄，現附錄模型無法表達；n=1 不建通用引擎，待 content_segments / per-book 處理。
-- 證據：same slug contains volume 1 chapters 1-11, then appendices A-L plus references/index, then volume 2 chapters 12-22, then appendices M-Q. extract_rules schema only supports one tail appendices segment, so including both appendix blocks would cause volume 1 appendix L to swallow volume 2正文
-- 提議：allow multiple ordered non-chapter segments in extract_rules, e.g. chapter/appendix/bibliography/index/chapter/... or per-segment appendix groups with independent cutoffs
 
 ### P-2026-06-19-appel-modern-compiler-implementa — catalog builder 無法穩定從本書抽出 figure/table caption
 - proposed | type=tooling-gap | source=agent
@@ -72,12 +60,6 @@
 - 證據：boneh_applied_crypto validate/parser 綠，但 smoke 仍 critical=1（H7 empty_captions=104）。parsed/_catalog_audit.md 抽樣顯示大量 figure/table block 本身 caption 空白，而圖號/圖說位於相鄰 text block 或多 panel shard 的尾端，例如 ch03 body[18] after='Figure 3.1: ...'、ch05 body[194-198] after='(b) decryption Figure 5.3: ...'、ch21 body[39]/[60]/[64] 的圖說都在鄰接 prose。現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，不能把鄰接 text 綁成 caption donor，也不能把 captionless panel shard 合併成單一 catalog semantic。
 - 提議：擴充 deterministic catalog repair/schema：1) 支援 per-book 將相鄰 text block 指定為 figure/table caption donor；2) 支援把多個 captionless visual shard 綁到後續主 caption；3) 或支援 declarative exclude/non-indexable 標記，讓無正式圖號的流程圖/協定圖不阻塞 H7。
 - 風險：在現有引擎下，此書可 parser 成功但無法 smoke 全綠；若強行改 yaml，只會把正文文字錯當圖說或留下大量空 caption visual。
-
-### P-2026-06-19-chaikin-lubensky-condensed-matte-5 — catalog audit 無法處理多 image block 共用一個圖說
-- proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine 兩缺陷：(1) in-body 附錄(2A/3A/5A/5B/9A/9B)未切為附錄段——cosmetic，內容在 ch body 可讀;(2) Glossary/Index 吞進 ch10 最後一題——其 Index 部分(p702)已由 commit d36bea2 back-matter cap 止住(實測 -1289 block)，Glossary(p679<index p702)殘留需 audit 補 bibliography_start_page≈679。interleaved 附錄段切分待 follow-up。
-- 證據：本書大量 figure 被 MinerU 拆成多個 image block；常見型態是前幾塊 caption 空白或僅有 (a)/(b)，最後一塊才帶 Fig. X.Y 主 caption。現行 parser/build_catalogs 會把每個 image block 各自進 catalog，導致 smoke H7 empty_captions=77。
-- 提議：增加 schema/engine 支援 subfigure grouping 或 per-figure exclude reason，允許多個 image block 共享一個 semantic figure id/caption，未承載主 caption 的子圖可標記為從 catalog 排除。
 
 ### P-2026-06-19-eisenbud-commutative-algebra — catalog audit cannot express captionless diagrams or adjacent figure refs
 - proposed | type=tooling-gap | source=agent
@@ -109,12 +91,6 @@
 - proposed | type=tooling-gap | source=agent
 - 證據：smoke after parser is structurally green except H7. parsed/_catalog_audit.md shows (1) ch01 body[194] is a captionless figure immediately followed by body[195] carrying Figure 1.1 caption; (2) ch02 body[187] is a sibling panel captioned only 'The Naive View' while body[188] carries the actual Figure 2.2 main caption; (3) ch03 body[544] is a captionless figure whose real caption is emitted as the following prose block body[546]='Figure 3.5: Construction 3.6.5, for n = 3'. Current extract_rules fields only support figure_caption_merge for prior '(a)/(b)' subcaptions plus a current captioned fig; they cannot bind adjacent prose caption donors or merge captionless sibling figures.
 - 提議：Extend deterministic catalog extraction so audit-book can declaratively attach adjacent text-block captions to nearby figure blocks and merge captionless sibling panels into a following captioned figure, without changing OCR text or per-book parser code.
-
-### P-2026-06-19-guillemin-pollack-differential-t — Inline exercise parser cannot delimit section-local exercise blocks from numbered prose/hints
-- proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine 但根因=OCR 漏掉習題編號（source defect，非 parser 邏輯）：ch1 §2 EXERCISES 源僅前 2 題帶編號，3+ 題編號被 OCR 丟失 → 無 anchor 可切、靜默併入前一題。屬 source-quality 域，parser 無從補；待換更完整 OCR 源後自然解。
-- 證據：This book uses repeated section-local EXERCISES blocks, but the same sections also contain numbered theorem properties or post-exercise hint lists outside the exercise block. After audit-book iteration with inline_problems=true and problem_num_namespace_by_section=true, smoke still reports H2 duplicates such as ch02 5.1..5.12 (actual exercises plus 'Hints (listed by exercise number)' items at unified/full.md lines 2784-2830), ch03 duplicate 3.1 after line 3763, and ch04 duplicate 5.1/5.2/5.3 from theorem property lists at lines 5686-5700 plus real EXERCISES at line 5864. Current extract_rules schema has only one problems_block_idx per chapter and no way to mark multiple per-section exercise ranges or terminate inline problems on non-heading cues.
-- 提議：Extend extract_rules/parser to support repeated per-section exercise blocks explicitly, for example a heading regex that marks problem-mode entry plus a complementary exit cue, or a chapter-local list of exercise subranges. This would let inline parsing ignore numbered prose and hint lists outside true EXERCISES regions without distorting problem_start_re.
 
 ### P-2026-06-19-hopcroft-automata — catalog cannot bind detached figure/table captions or captionless visual shards
 - proposed | type=tooling-gap | source=agent
@@ -283,6 +259,20 @@
 - 證據：scope_guard bracket：worker [audit krall_trivelpiece_plasma] session=krall_trivelpiece_plasma:2979 存活期間，受保護程式碼面 build/bake_json.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：(無 diff 文本，build/bake_json.py modified)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-aitchison-hey-gauge-theories — Support multi-volume slugs with mid-book appendices and references/index
+- rejected | type=tooling-gap | source=agent
+- 決議：single-book
+- 處置：genuine：combined 2-volume，appendices:[] → 兩卷附錄/references 整段未輸出（Vol1 A-L 在 ch11/ch12 間 mid-book、Vol2 N/Q 書末）；現單末段附錄模型無法表達非連續多區附錄。章節切分正確、內容無損。n=1 高複雜度，不為單書建通用 interleaved-appendix 引擎；待 content_segments 專案或 per-book catalog_overrides 處理。
+- 證據：aitchison_hey_gauge_theories unified/content_list.json contains Volume 1 chapters 1-11 (e.g. block 223/page_idx 18, 595/56, 4874/344), then Volume 1 appendices A-L (e.g. 5882/416, 6202/434), then References at 6244/page_idx 438 and Index at 6339/page_idx 444, then Volume 2 chapters 12-22 restart at 7517/page_idx 473 and continue to chapter 22 at 12482/page_idx 841, followed by Volume 2 appendices M-Q at 13637/page_idx 927 and 13920/page_idx 947. Current extract_rules schema only supports a single tail sequence chapters -> appendices -> bibliography/index via appendices_start_page, bibliography_start_page, index_start_page. Any yaml would either truncate volume 2 or silently swallow volume 1 appendices/references/index into chapter 11/12 body ranges.
+- 提議：Extend extract_rules/parser to support ordered content segments across a slug, not just one tail appendices block. A workable design is an explicit ordered range list that can emit chapter -> appendix -> references -> index -> chapter transitions deterministically, or ingest-time support to split one OCR artifact into multiple book slugs before audit. Until then, audit-book cannot safely generate extract_rules.yaml for this slug.
+
+### P-2026-06-19-guillemin-pollack-differential-t — Inline exercise parser cannot delimit section-local exercise blocks from numbered prose/hints
+- rejected | type=tooling-gap | source=agent
+- 決議：out-of-scope
+- 處置：根因=OCR 漏掉習題編號（ch1 §2 EXERCISES 源僅前 2 題帶編號，3+ 題編號被 OCR 丟失）→ 無 anchor 可切、靜默併入前一題。屬 source-quality 域，parser 無從合成缺失編號；待換更完整 OCR 源自然解。非引擎邏輯缺口。
+- 證據：This book uses repeated section-local EXERCISES blocks, but the same sections also contain numbered theorem properties or post-exercise hint lists outside the exercise block. After audit-book iteration with inline_problems=true and problem_num_namespace_by_section=true, smoke still reports H2 duplicates such as ch02 5.1..5.12 (actual exercises plus 'Hints (listed by exercise number)' items at unified/full.md lines 2784-2830), ch03 duplicate 3.1 after line 3763, and ch04 duplicate 5.1/5.2/5.3 from theorem property lists at lines 5686-5700 plus real EXERCISES at line 5864. Current extract_rules schema has only one problems_block_idx per chapter and no way to mark multiple per-section exercise ranges or terminate inline problems on non-heading cues.
+- 提議：Extend extract_rules/parser to support repeated per-section exercise blocks explicitly, for example a heading regex that marks problem-mode entry plus a complementary exit cue, or a chapter-local list of exercise subranges. This would let inline parsing ignore numbered prose and hint lists outside true EXERCISES regions without distorting problem_start_re.
 
 ### P-2026-06-18-artin-algebra — catalog 無法把相鄰 text 圖說綁回 image/table
 - superseded | type=tooling-gap | source=agent
@@ -2176,6 +2166,13 @@ index 764d7c2..701078a 100644
 - 證據：smoke H6/H7: parsed/_catalog_audit.md shows 176 empty figure/table captions and unresolved refs because many captions like 'FIGURE 1.1' or caption text are separate text blocks adjacent to image blocks rather than MinerU image_caption fields; current yaml only supports figure_caption_merge on existing captions, not adjacent text caption attachment
 - 提議：extend parser/build_catalogs to associate adjacent caption-like text blocks with preceding image/table blocks, including multi-block captions and panel markers like '(a)' followed by 'FIGURE 1.1'
 
+### P-2026-06-19-aitchison-hey-gauge-theories-3 — support multi-segment appendices across combined volumes
+- superseded | type=tooling-gap | source=agent
+- 決議：重複於 P-2026-06-19-aitchison-hey-gauge-theories（同 combined 2-volume 非連續多區附錄議題）。
+- 處置：同 P-2026-06-19-aitchison-hey-gauge-theories（multi-segment 附錄）：combined 2-volume 非連續多區附錄，現附錄模型無法表達；n=1 不建通用引擎，待 content_segments / per-book 處理。
+- 證據：same slug contains volume 1 chapters 1-11, then appendices A-L plus references/index, then volume 2 chapters 12-22, then appendices M-Q. extract_rules schema only supports one tail appendices segment, so including both appendix blocks would cause volume 1 appendix L to swallow volume 2正文
+- 提議：allow multiple ordered non-chapter segments in extract_rules, e.g. chapter/appendix/bibliography/index/chapter/... or per-segment appendix groups with independent cutoffs
+
 ### P-2026-06-19-altland-simons-cmft — catalog gate 無法 declaratively 綁定相鄰圖說或排除 captionless visual
 - superseded | type=tooling-gap | source=agent
 - 決議：已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。
@@ -2514,9 +2511,17 @@ index bcd23d0..14da154 100644
 
 ### P-2026-06-19-chaikin-lubensky-condensed-matte-4 — parser 無法獨立切 interleaved appendices
 - superseded | type=tooling-gap | source=agent
-- 決議：已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。
+- 決議：back-matter/interleaved 附錄段切分問題，非 caption、repair_catalog_metadata 不涵蓋（先前理由誤植已更正）。實況：in-body 附錄(2A/3A/5A/5B/9A/9B)未切附錄段=cosmetic（內容於 ch body 可讀）；Index(p702)吞進 ch10 已由 commit d36bea2 back-matter cap 止住；Glossary 殘留須 audit 補 bibliography_start_page。皆 per-book/cosmetic，非通用引擎缺口故關。
+- 處置：per-book extract_rules 補 bibliography_start_page≈679；in-body interleaved 附錄同 aitchison 類 n=1，不建通用引擎。
 - 證據：本書 Appendix 2A/3A/5A/5B/9A/9B 分散插在各章末、位於 bibliography/problems 前；現行 appendices[] 只會從 appendix anchor 連切到下一 appendix 或書尾，無法避免把後續章節吞進 appendix.body，或與章 body 重複。
 - 提議：讓 chapter schema 能宣告 chapter-scoped appendices，或讓 parser 可在 chapter body 中對 appendix anchor 開新 chunk 並於 problems/bibliography 前收束。
+
+### P-2026-06-19-chaikin-lubensky-condensed-matte-5 — catalog audit 無法處理多 image block 共用一個圖說
+- superseded | type=tooling-gap | source=agent
+- 決議：subfigure 多 image block 共用圖說（前塊空 caption 或僅 (a)/(b)、末塊帶 Fig X.Y）已涵蓋於 in-tick repair_catalog_metadata（鄰近 caption 綁定 + sibling/captionless exclude）；live crit=0、smoke H7=0。同 caption 群。
+- 處置：修正：先前此案 disposition 誤植了 chaikin-4 的附錄分析；本案實為 caption-shard，已由 repair 收斂。
+- 證據：本書大量 figure 被 MinerU 拆成多個 image block；常見型態是前幾塊 caption 空白或僅有 (a)/(b)，最後一塊才帶 Fig. X.Y 主 caption。現行 parser/build_catalogs 會把每個 image block 各自進 catalog，導致 smoke H7 empty_captions=77。
+- 提議：增加 schema/engine 支援 subfigure grouping 或 per-figure exclude reason，允許多個 image block 共享一個 semantic figure id/caption，未承載主 caption 的子圖可標記為從 catalog 排除。
 
 ### P-2026-06-19-coddington-levinson-ode — Catalog parser cannot merge shared caption across sibling figures
 - superseded | type=tooling-gap | source=agent

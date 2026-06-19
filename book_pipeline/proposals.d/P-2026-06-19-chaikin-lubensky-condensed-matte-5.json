@@ -2,15 +2,15 @@
   "id": "P-2026-06-19-chaikin-lubensky-condensed-matte-5",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "superseded",
   "title": "catalog audit 無法處理多 image block 共用一個圖說",
   "detect": [],
   "source": "agent",
-  "resolution": "",
+  "resolution": "subfigure 多 image block 共用圖說（前塊空 caption 或僅 (a)/(b)、末塊帶 Fig X.Y）已涵蓋於 in-tick repair_catalog_metadata（鄰近 caption 綁定 + sibling/captionless exclude）；live crit=0、smoke H7=0。同 caption 群。",
   "created": "2026-06-19T04:24:48+00:00",
-  "updated": "2026-06-19T11:13:55+00:00",
+  "updated": "2026-06-19T12:18:30+00:00",
   "evidence": "本書大量 figure 被 MinerU 拆成多個 image block；常見型態是前幾塊 caption 空白或僅有 (a)/(b)，最後一塊才帶 Fig. X.Y 主 caption。現行 parser/build_catalogs 會把每個 image block 各自進 catalog，導致 smoke H7 empty_captions=77。",
   "proposal": "增加 schema/engine 支援 subfigure grouping 或 per-figure exclude reason，允許多個 image block 共享一個 semantic figure id/caption，未承載主 caption 的子圖可標記為從 catalog 排除。",
   "risk": "",
-  "disposition": "驗證 genuine 兩缺陷：(1) in-body 附錄(2A/3A/5A/5B/9A/9B)未切為附錄段——cosmetic，內容在 ch body 可讀;(2) Glossary/Index 吞進 ch10 最後一題——其 Index 部分(p702)已由 commit d36bea2 back-matter cap 止住(實測 -1289 block)，Glossary(p679<index p702)殘留需 audit 補 bibliography_start_page≈679。interleaved 附錄段切分待 follow-up。"
+  "disposition": "修正：先前此案 disposition 誤植了 chaikin-4 的附錄分析；本案實為 caption-shard，已由 repair 收斂。"
 }

@@ -2,15 +2,15 @@
   "id": "P-2026-06-19-aitchison-hey-gauge-theories",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "rejected",
   "title": "Support multi-volume slugs with mid-book appendices and references/index",
   "detect": [],
   "source": "agent",
-  "resolution": "",
+  "resolution": "single-book",
   "created": "2026-06-19T04:55:43+00:00",
-  "updated": "2026-06-19T11:13:55+00:00",
+  "updated": "2026-06-19T12:18:30+00:00",
   "evidence": "aitchison_hey_gauge_theories unified/content_list.json contains Volume 1 chapters 1-11 (e.g. block 223/page_idx 18, 595/56, 4874/344), then Volume 1 appendices A-L (e.g. 5882/416, 6202/434), then References at 6244/page_idx 438 and Index at 6339/page_idx 444, then Volume 2 chapters 12-22 restart at 7517/page_idx 473 and continue to chapter 22 at 12482/page_idx 841, followed by Volume 2 appendices M-Q at 13637/page_idx 927 and 13920/page_idx 947. Current extract_rules schema only supports a single tail sequence chapters -> appendices -> bibliography/index via appendices_start_page, bibliography_start_page, index_start_page. Any yaml would either truncate volume 2 or silently swallow volume 1 appendices/references/index into chapter 11/12 body ranges.",
   "proposal": "Extend extract_rules/parser to support ordered content segments across a slug, not just one tail appendices block. A workable design is an explicit ordered range list that can emit chapter -> appendix -> references -> index -> chapter transitions deterministically, or ingest-time support to split one OCR artifact into multiple book slugs before audit. Until then, audit-book cannot safely generate extract_rules.yaml for this slug.",
   "risk": "",
-  "disposition": "驗證 genuine：combined 2-volume，extract_rules appendices:[] → 兩卷全部附錄/references 整段未輸出（Vol1 A-L 在 ch11/ch12 之間 mid-book、Vol2 N/Q 在書末，現 parser 單一末段附錄模型無法表達非連續多區附錄）。章節本身切分正確、內容無損。n=1 高複雜度，不為單書建通用 interleaved-appendix 引擎；待 content_segments 專案或 per-book 處理。"
+  "disposition": "genuine：combined 2-volume，appendices:[] → 兩卷附錄/references 整段未輸出（Vol1 A-L 在 ch11/ch12 間 mid-book、Vol2 N/Q 書末）；現單末段附錄模型無法表達非連續多區附錄。章節切分正確、內容無損。n=1 高複雜度，不為單書建通用 interleaved-appendix 引擎；待 content_segments 專案或 per-book catalog_overrides 處理。"
 }
