@@ -184,6 +184,35 @@ def book_qc_review(slug: str, state: dict | None = None) -> dict | None:
     return s.get(slug, {}).get('book_qc')
 
 
+def mark_audit_blocked(slug: str, reasons: list[str]) -> None:
+    """標記 audit 結構性卡關：agent 跑完(rc==0)卻產不出 extract_rules.yaml 且已開 engine 提案
+    （schema 表達不了，如 aitchison combined 2-volume 非連續多區附錄）。→ 終止跨 tick 重派空轉，
+    待架構師裁決（改 booklists/手寫 yaml/降規格繞過）。與 book_qc 同層：另一種「需人工、非自動可推進」。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        s.setdefault(slug, {})['audit_blocked'] = {
+            'review': True, 'reasons': list(reasons),
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        _save_state(s)
+
+
+def clear_audit_blocked(slug: str) -> None:
+    """audit 已產出 yaml / 架構師已處理 → 清標記（恢復可推進）。"""
+    with _state_lock():
+        s = _load_state()
+        if s.get(slug, {}).pop('audit_blocked', None) is not None:
+            if not s.get(slug):
+                s.pop(slug, None)
+            _save_state(s)
+
+
+def audit_blocked_review(slug: str, state: dict | None = None) -> dict | None:
+    """讀 audit 卡關 review 標記（None=未標/已解）。"""
+    s = state if state is not None else _load_state()
+    return s.get(slug, {}).get('audit_blocked')
+
+
 def catalog_llm_done(slug: str, state: dict | None = None) -> bool:
     """該書是否已派過 LLM catalog 修復（避免每 tick 重派；殘留則終局 accept）。"""
     s = state if state is not None else _load_state()

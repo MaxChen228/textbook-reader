@@ -279,6 +279,10 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
             return {'slug': slug, 'stage': '0 待ingest', 'todo': 'ingest', 'sol_book': has_sol_book}
         return {'slug': slug, 'stage': 'X 未ingest', 'todo': 'ingest', 'sol_book': has_sol_book}
     if not _exists(slug, 'extract_rules.yaml'):
+        # audit 結構性卡關（agent 跑完卻產不出 yaml + 已開 engine 提案）→ 終止跨 tick 重派空轉，
+        # 轉 review 終態待人工裁決（aitchison 曾因此空轉 8 次重推同一 blocker）。
+        if (_pstate().get(slug) or {}).get('audit_blocked'):
+            return {'slug': slug, 'stage': 'R audit-blocked', 'todo': '—', 'sol_book': has_sol_book}
         return {'slug': slug, 'stage': '1 待audit', 'todo': 'audit', 'sol_book': has_sol_book}
     if not _exists(slug, 'parsed', 'book.json'):
         return {'slug': slug, 'stage': '2 待parse', 'todo': 'parse', 'sol_book': has_sol_book}
@@ -318,6 +322,8 @@ def _stuck_reason(slug: str, r: dict, e: dict) -> tuple[str, str] | None:
         return ('qc-reject', qc.get('note', '')[:72])
     if e.get('book_qc'):
         return ('book_qc', '；'.join((e['book_qc'] or {}).get('reasons', []))[:72])
+    if e.get('audit_blocked'):
+        return ('audit-blocked', '；'.join((e['audit_blocked'] or {}).get('reasons', []))[:72])
     if r['stage'].startswith(('0', 'X')):
         return (r['stage'], r['todo'])
     return None

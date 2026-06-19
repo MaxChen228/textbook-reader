@@ -1441,6 +1441,23 @@ def _escalate_sol(slug: str) -> None:
         log(f'sol_extract {slug}：標 escalated（proposal 開立失敗、不影響收斂：{e}）')
 
 
+def _has_open_engine_proposal(slug: str) -> bool:
+    """該 slug 是否有 status==proposed 的 engine 提案（audit agent 判 blocked 時會開）。
+    id 內嵌 _slugify(slug)；截斷碰撞極罕見且此處僅用於「是否標 review」（可逆、低風險），故簡單前綴比對即可。"""
+    try:
+        from book_pipeline import proposals as pr
+        key = pr._slugify(slug)
+        for d in pr.load_all():
+            if d.get('status') != 'proposed' or d.get('domain') != 'engine':
+                continue
+            body = re.sub(r'^P-\d{4}-\d\d-\d\d-', '', d.get('id', ''))
+            if body == key or body.startswith(key + '-'):
+                return True
+    except Exception:
+        return False
+    return False
+
+
 def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:
     """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
@@ -1525,6 +1542,15 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
             rc = dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
             if rc == -2:  # Claude session 限額 → defer 本書，等下個 tick reset（非「停滯」）
                 return
+            # audit 跑完(rc==0)卻仍無 extract_rules.yaml 且已開 engine 提案 → 結構性卡關（schema 表達
+            # 不了，如 aitchison combined 2-volume）。標記 review、終止跨 tick 重派空轉（曾空轉 8 次重推
+            # 同一 blocker）；有 yaml 產出則清舊標記（恢復可推進）。一次定生死，不賭 LLM 隨機重試。
+            if verb == 'audit' and rc == 0:
+                if not st._exists(slug, 'extract_rules.yaml') and _has_open_engine_proposal(slug):
+                    q.mark_audit_blocked(slug, ['agent 跑完未產 extract_rules.yaml 且已開 engine 提案（schema 表達不了）'])
+                    log(f'advance {slug}：audit 結構性卡關（已開提案、無 yaml）→ 標記 review、停止重派空轉')
+                    return
+                q.clear_audit_blocked(slug)
         else:
             log(f'advance {slug} skip：未知確定性 todo={todo}')
             return
