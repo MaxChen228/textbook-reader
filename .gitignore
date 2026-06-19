@@ -22,6 +22,8 @@ tmp/
 
 # dev 監控快照（devctl snapshot 定時重生，不入 git；dev/index.html 才追蹤）
 /dev/status.json
+# proposals 側欄 feed（devctl write_proposals 隨 snapshot 重生，可重生；proposals.d/ 才是真相）
+/dev/proposals.json
 # live 階段快訊（controller 轉換瞬間直寫，可重生）— gitignore 不支援行內註解，須獨立行
 /dev/stages.json
 # live 下載快訊（買書員逐本 下載中→✓/✗ 直寫，可重生）

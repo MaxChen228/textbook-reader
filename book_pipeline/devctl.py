@@ -45,6 +45,7 @@ STDOUT_LOG = os.path.join(REPORTS, 'daemon.stdout.log')
 ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
+PROPOSALS_PATH = os.path.join(ROOT, 'dev', 'proposals.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
 # 反應式架構：daemon 走 launchd StartInterval（非固定時刻）。一個 controller 跑有界 observe→
 # 派工→harvest→sleep 迴圈，排空或達牆鐘即退；launchd 每 TICK_INTERVAL_S 重拉（flock 序列化）。
@@ -592,7 +593,69 @@ def write_snapshot(write_timeline: bool = False) -> str:
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(snap, f, ensure_ascii=False, indent=2)
     os.replace(tmp, SNAPSHOT_PATH)  # 原子寫，避免網頁讀到半截
+    try:
+        write_proposals()  # 順手寫 proposals 側欄 feed（獨立檔；隨 8s 事件驅動 + 60s 心跳自動刷新）
+    except Exception:
+        pass  # fail-safe：proposals 出錯絕不擋 status.json 寫出
     return SNAPSHOT_PATH
+
+
+# ── proposals 側欄 feed（/dev 即時看 agent 提出的提案）─────────────────────────
+def proposals_feed(resolved_limit: int = 30) -> dict:
+    """當前 proposals（book_pipeline/proposals.d/）→ /dev proposals 側欄資料源。
+    proposed（待決議）帶完整散文欄位（evidence/proposal/risk/disposition/detect）供展開；
+    已決議（accepted/rejected/superseded）僅摘要、近 resolved_limit 筆 → 避免長 diff 體積膨脹。
+    proposed 排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals resolve CLI）。"""
+    from book_pipeline import proposals as pr
+
+    def _clip(s: str, n: int = 6000) -> str:  # 防極端長 diff 撐爆 feed；完整見 CLI proposals show <id>
+        s = s or ''
+        return s if len(s) <= n else s[:n] + f'\n…（截斷 {len(s) - n} 字元，完整見 proposals show）'
+
+    recs = pr.load_all()
+    counts = {s: 0 for s in ('proposed', 'accepted', 'rejected', 'superseded')}
+    by_domain: dict[str, int] = {}
+    proposed, resolved = [], []
+    for r in recs:
+        stt = r.get('status') or 'proposed'
+        counts[stt] = counts.get(stt, 0) + 1
+        dom = r.get('domain') or '?'
+        by_domain[dom] = by_domain.get(dom, 0) + 1
+        item = {
+            'id': r.get('id'), 'domain': dom, 'type': r.get('type'),
+            'status': stt, 'title': r.get('title') or r.get('id'),
+            'slug': r.get('slug') or None, 'source': r.get('source') or '',
+            'created': r.get('created'), 'updated': r.get('updated'),
+            'resolution': r.get('resolution') or '',
+        }
+        if stt == 'proposed':
+            item.update({
+                'evidence': _clip(r.get('evidence')), 'proposal': _clip(r.get('proposal')),
+                'risk': _clip(r.get('risk')), 'disposition': _clip(r.get('disposition')),
+                'detect': r.get('detect') or [],
+            })
+            proposed.append(item)
+        else:
+            resolved.append(item)
+    proposed.sort(key=lambda x: x.get('created') or '', reverse=True)
+    resolved.sort(key=lambda x: x.get('updated') or x.get('created') or '', reverse=True)
+    return {
+        'generated_at_utc': _now_utc().isoformat(),
+        'total': len(recs),
+        'counts': counts,
+        'by_domain': by_domain,
+        'items': proposed + resolved[:resolved_limit],
+    }
+
+
+def write_proposals() -> str:
+    feed = proposals_feed()
+    os.makedirs(os.path.dirname(PROPOSALS_PATH), exist_ok=True)
+    tmp = PROPOSALS_PATH + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(feed, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, PROPOSALS_PATH)  # 原子寫，避免網頁讀到半截
+    return PROPOSALS_PATH
 
 
 # ── 人讀輸出 ─────────────────────────────────────────────────────────────────
@@ -669,6 +732,8 @@ def main(argv: list[str] | None = None) -> int:
     p_st = sub.add_parser('status', help='完整快照')
     p_st.add_argument('--json', action='store_true')
     sub.add_parser('snapshot', help='寫 dev/status.json')
+    p_pr = sub.add_parser('proposals', help='當前 proposals feed（/dev 側欄資料源）')
+    p_pr.add_argument('--json', action='store_true')
     p_er = sub.add_parser('errors', help='只看錯誤')
     p_er.add_argument('--since-min', type=int, default=180)
     p_er.add_argument('--json', action='store_true')
@@ -753,6 +818,19 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == 'snapshot':
         path = write_snapshot(write_timeline=True)  # 60s 心跳 plist = 時間軸唯一寫手（永遠最新碼）
         print(f'wrote {path}')
+        return 0
+
+    if args.cmd == 'proposals':
+        feed = proposals_feed()
+        if args.json:
+            print(json.dumps(feed, ensure_ascii=False, indent=2))
+            return 0
+        c = feed['counts']
+        print(f"提案 {feed['total']}：proposed {c['proposed']} · accepted {c['accepted']} · "
+              f"rejected {c['rejected']} · superseded {c['superseded']}　by-domain {feed['by_domain']}")
+        for it in feed['items']:
+            mark = '🟡待決' if it['status'] == 'proposed' else f"·{it['status']}"
+            print(f"   {mark}  {it['id']}  [{it['domain']}/{it['type']}] {(it['title'] or '')[:54]}")
         return 0
 
     if args.cmd == 'errors':
