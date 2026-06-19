@@ -817,6 +817,7 @@
 
   // ── 抽屜：完整可滾 tool-use ──
   function _openDrawerEl() {
+    document.getElementById('dr-cv').__coverKey = null  // 換抽屜 → 清封面護欄（其他抽屜會 clobber dr-cv，下次 book render 須重建）
     document.getElementById('dr-mask').classList.add('open')
     document.getElementById('drawer').classList.add('open')
     document.getElementById('drawer').setAttribute('aria-hidden', 'false')
@@ -1006,15 +1007,23 @@
     const el = document.getElementById('dr-hist'); if (!el) return
     const lv = mathLive
     if (!lv || lv.schema !== 2) {
+      el.__msCard = null  // 重置外殼引用：下次 running 再乾淨重建
       el.innerHTML = `<div class="dr-empty" style="text-align:left;padding:6px 2px">尚未啟動 batch（待 daemon 派工）</div>`
       return
     }
     const running = lv.state === 'running'
     const pct = lv.total ? Math.round(lv.done / lv.total * 100) : 0
     const eta = lv.eta_s == null ? '—' : fmtDur(lv.eta_s)
-    el.innerHTML =
-      `<div class="ms-card ${running ? 'live' : ''}">`
-      + `<div class="ms-top"><span>${running ? '🟢' : '⚪'}</span>`
+    // 外殼 .ms-card 一次性建、留存：mrpulse 動畫綁外殼，每 1.2s 全重建會讓它從 0 重啟成閃爍。
+    // 只重建內層 .ms-body 數值（無動畫）；.live 冪等 toggle（running 不變即不重啟動畫）。
+    let card = el.__msCard
+    if (!card || card.parentNode !== el) {
+      el.innerHTML = `<div class="ms-card"><div class="ms-body"></div></div>`
+      card = el.querySelector('.ms-card'); el.__msCard = card
+    }
+    card.classList.toggle('live', running)
+    card.querySelector('.ms-body').innerHTML =
+      `<div class="ms-top"><span>${running ? '🟢' : '⚪'}</span>`
       + `<span class="ms-state">${running ? `${lv.active}/${lv.workers} worker 並發處理中` : '待命 · 最近一批已完成'}</span></div>`
       + `<div class="ms-rate"><b>${lv.rate_per_min}</b><span>條/分</span></div>`
       + `<div class="ms-bar"><div class="ms-fill" style="width:${pct}%"></div></div>`
@@ -1023,7 +1032,6 @@
       + `<span class="ms-un">⊘ ${lv.unrecoverable} 源毀</span>`
       + `<span class="ms-rt">↻ ${lv.retry_pending} 重試</span>`
       + (lv.hard_residual ? `<span class="ms-hd">✗ ${lv.hard_residual} 硬殘</span>` : '')
-      + `</div></div>`
   }
   // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
   function renderWorkerDrawer() {
@@ -1060,7 +1068,9 @@
     if (!openSlug || !last) return
     const b = last.books.find(x => x.slug === openSlug); if (!b) return
     const w = workerOf(openSlug)
-    document.getElementById('dr-cv').innerHTML = coverHtml(b, true)
+    // 封面是 <img>：每 1s 重建會 re-decode 閃爍。只在換書時重建（靜態，不隨 worker poll 變）。
+    const cvEl = document.getElementById('dr-cv'), ck = 'b:' + b.slug
+    if (cvEl.__coverKey !== ck) { cvEl.innerHTML = coverHtml(b, true); cvEl.__coverKey = ck }
     document.getElementById('dr-title').textContent = b.title || b.slug
     document.getElementById('dr-sub').textContent = b.slug
     const stName = STATIONS[stationOf(b)].name
