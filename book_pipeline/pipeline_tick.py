@@ -40,6 +40,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
+from book_pipeline import status as st
 from book_pipeline import mineru_budget as mb
 from book_pipeline import worker_registry as wr
 from book_pipeline import agent_history as hist
@@ -1518,11 +1519,34 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
                 return
             do_submit(slug, dry)
             return
+        if verb == 'sol_ingest':
+            # 解答本綁母書：母書驅動把自己的解答本 PDF 送 MinerU，**走與母書完全相同的 ingest 管線**
+            # （do_submit/harvest 全 slug-agnostic，經 _raw_slug_map 解析 <slug>_sol.pdf）。async 斷點同
+            # ingest：submit 後本書停，harvest 階段收割所有在飛 batch（含此解答本）→ 組好 unified 後
+            # 下個 cycle assess 見 has_sol_book 轉出 sol_extract。do_submit 自帶 occupied 去重，冪等。
+            do_submit(f'{slug}_sol', dry)
+            return
         if verb == 'deploy':
             do_deploy(slug, dry, no_deploy)
             return  # pipeline 終點
         if verb == 'parse':
             do_parse(slug, dry)
+        elif verb == 'sol_extract':
+            # 解答本已 ingest → LLM 對齊 merge 進母書 problems[].solution。每次完成計一次嘗試
+            # （收斂 backstop：達 SOL_MAX_ATTEMPTS 仍 sol==0 → assess 的 _sol_exhausted 令 todo 消除）。
+            # merge 成功（sol>0）→ inline 重烤把解答送上站（母書多已 deployed、assess 不會再出 deploy
+            # todo，故比照 math sweep 自行 rebake；data/ 從此帶解答）。
+            rc = dispatch_llm('sol_extract', slug, dry)
+            if rc != 0:  # -2 session 限額 / provider 不可用 → defer，不計次，下個 tick 重試
+                return
+            sol_after = st.sol_stats(slug)[1]
+            q.mark_sol_attempt(slug, sol_after)
+            if sol_after > 0:
+                log(f'sol_extract {slug} ✓：merge {sol_after} 題 → 重烤上站')
+                do_deploy(slug, dry, no_deploy)
+            else:
+                log(f'sol_extract {slug}：本次未 merge（嘗試 {q.sol_attempts(slug)}/{st.SOL_MAX_ATTEMPTS}）')
+            return
         elif verb == 'catalog_audit':
             rc = do_catalog_resolve(slug, dry)
             if rc == -2:  # LLM 撞 session 限額 → defer 本書，下個 tick 重試

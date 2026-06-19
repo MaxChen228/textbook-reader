@@ -57,8 +57,8 @@ def _state_lock():
 # pipeline 已搬進 textbook-reader 本體，READER_ROOT == ROOT；env 僅供特例覆寫。
 READER_ROOT = os.environ.get('TEXTBOOK_READER_ROOT', ROOT)
 
-# todo 動詞 → (是否需 LLM)
-LLM_TODOS = {'qc', 'audit', 'crawl'}
+# todo 動詞 → (是否需 LLM)。sol_extract 是 LLM（對齊 merge）；sol_ingest 是確定性（送 MinerU）故不列。
+LLM_TODOS = {'qc', 'audit', 'crawl', 'sol_extract'}
 
 
 def _load_state() -> dict:
@@ -211,6 +211,28 @@ def mark_catalog_accepted(slug: str, residual: int) -> None:
         s.setdefault(slug, {})['catalog_accepted'] = {
             'residual': residual,
             'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+        _save_state(s)
+
+
+# ── sol_extract 嘗試計數（解答本綁母書後，post-deploy 非可選階段的收斂 backstop）─────────
+# 解答本永遠由母書驅動（status.assess 出 sol_ingest→sol_extract todo）。sol_extract 達
+# status.SOL_MAX_ATTEMPTS 次仍 sol==0 → status._sol_exhausted 令 todo 消除、收斂，杜絕
+# 「解答本就是 merge 不上」的 post-deploy busy-loop。源頭變化（架構師換更完整的解答本）→
+# clear state[slug].sol_attempt 即重試。與 catalog_accepted/math 同構（state 持久、idempotent）。
+def sol_attempts(slug: str, state: dict | None = None) -> int:
+    s = state if state is not None else _load_state()
+    return int(((s.get(slug) or {}).get('sol_attempt') or {}).get('count', 0))
+
+
+def mark_sol_attempt(slug: str, sol_after: int = 0) -> None:
+    """記一次 sol_extract 嘗試：count++、戳記、記嘗試後 solution 數（forensics）。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        a = s.setdefault(slug, {}).setdefault('sol_attempt', {})
+        a['count'] = int(a.get('count', 0)) + 1
+        a['at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        a['sol_after'] = int(sol_after)
         _save_state(s)
 
 
@@ -476,15 +498,12 @@ def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
             if bq and bq.get('review'):
                 return {'slug': slug, 'stage': 'R 書況', 'todo': '—', 'llm': False,
                         'note': '；'.join(bq.get('reasons', []))}
-            # 解答/翻譯為可選；只要 parsed 就可部署，但 sol 未 merge 先提示
-            non_opt = [t for t in todo.split() if t != '—' and not t.startswith('translate')]
-            # catalog 已 accept（det+LLM 修完仍殘留、源頭缺不可修）→ 不再 gate deploy
-            if catalog_accepted(slug, state):
-                non_opt = [t for t in non_opt if not t.startswith('catalog_audit')]
-            if non_opt and any(t.startswith('sol_extract') or t.startswith('catalog_audit') for t in non_opt):
-                # 仍有非可選上游待辦，先做那個
-                return {'slug': slug, 'stage': stage, 'todo': non_opt[0],
-                        'llm': non_opt[0].startswith('audit'),
+            # 只有 catalog_audit gate 首次 deploy（上站前 catalog 須對）。**sol 不擋首次上站**
+            # （option B）：母書照秒上站、解答本作為 post-deploy 非可選階段由 advance 在背景補 merge、
+            # 重烤即時生效——避免「注定 merge 不上的爛解答本（boas）反過來卡死好母書上站」。
+            cat = [t for t in todo.split() if t.startswith('catalog_audit')]
+            if cat and not catalog_accepted(slug, state):
+                return {'slug': slug, 'stage': stage, 'todo': cat[0], 'llm': False,
                         'prob': base.get('prob'), 'sol': base.get('sol')}
             return {'slug': slug, 'stage': stage, 'todo': 'deploy', 'llm': False,
                     'prob': base.get('prob'), 'sol': base.get('sol')}
