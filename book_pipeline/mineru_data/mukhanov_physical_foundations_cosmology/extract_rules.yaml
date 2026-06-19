@@ -1,0 +1,120 @@
+slug: mukhanov_physical_foundations_cosmology
+title: Physical Foundations of Cosmology
+author: Viatcheslav Mukhanov
+edition: null
+subject: Cosmology
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 430
+bibliography_start_page: 430
+index_start_page: 439
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Kinematics and dynamics of an expanding universe
+    page_start: 23
+    page_end: 56
+    chapter_title_block_idx: 225
+    chapter_title_block_idx_secondary: 226
+    problems_block_idx: null
+    next_chapter_block_idx: 674
+  - num: 2
+    title: Propagation of light and horizons
+    page_start: 57
+    page_end: 88
+    chapter_title_block_idx: 674
+    chapter_title_block_idx_secondary: 675
+    problems_block_idx: null
+    next_chapter_block_idx: 1059
+  - num: 3
+    title: The hot universe
+    page_start: 89
+    page_end: 150
+    chapter_title_block_idx: 1059
+    chapter_title_block_idx_secondary: 1060
+    problems_block_idx: null
+    next_chapter_block_idx: 1853
+  - num: 4
+    title: The very early universe
+    page_start: 151
+    page_end: 245
+    chapter_title_block_idx: 1853
+    chapter_title_block_idx_secondary: 1854
+    problems_block_idx: null
+    next_chapter_block_idx: 3007
+  - num: 5
+    title: "Inflation I: homogeneous limit"
+    page_start: 246
+    page_end: 284
+    chapter_title_block_idx: 3007
+    chapter_title_block_idx_secondary: 3008
+    problems_block_idx: null
+    next_chapter_block_idx: 3479
+  - num: 6
+    title: Gravitational instability in Newtonian theory
+    page_start: 285
+    page_end: 308
+    chapter_title_block_idx: 3479
+    chapter_title_block_idx_secondary: 3480
+    problems_block_idx: null
+    next_chapter_block_idx: 3839
+  - num: 7
+    title: Gravitational instability in General Relativity
+    page_start: 309
+    page_end: 341
+    chapter_title_block_idx: 3839
+    chapter_title_block_idx_secondary: 3840
+    problems_block_idx: null
+    next_chapter_block_idx: 4324
+  - num: 8
+    title: "Inflation II: origin of the primordial inhomogeneities"
+    page_start: 342
+    page_end: 375
+    chapter_title_block_idx: 4324
+    chapter_title_block_idx_secondary: 4325
+    problems_block_idx: null
+    next_chapter_block_idx: 4772
+  - num: 9
+    title: Cosmic microwave background anisotropies
+    page_start: 376
+    page_end: 429
+    chapter_title_block_idx: 4772
+    chapter_title_block_idx_secondary: 4773
+    problems_block_idx: null
+    next_chapter_block_idx: 5457
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?(?:[A-Za-z][A-Za-z -]*\s+)?Fig\.\s+\d+(?:\.\d+)+(?:[A-Za-z](?![A-Za-z]))?\.?$'
+
+known_missing_problems: []

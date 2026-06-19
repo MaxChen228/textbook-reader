@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-specify-volume-for-kobayashi-nom",
+  "domain": "crawl",
+  "type": "booklist-fix",
+  "status": "proposed",
+  "title": "Specify volume for kobayashi_nomizu_differential_geometry",
+  "detect": [],
+  "source": "crawl",
+  "resolution": "",
+  "created": "2026-06-19T04:33:41+00:00",
+  "updated": "2026-06-19T04:33:41+00:00",
+  "evidence": "slug kobayashi_nomizu_differential_geometry maps to 'Foundations of Differential Geometry', but inspect 1267482 says it is a two-volume work; search also returns explicit Volume I (840569) and Volume II (a70b60). Current target/slug lacks volume disambiguation.",
+  "proposal": "Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.",
+  "risk": "Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.",
+  "disposition": ""
+}

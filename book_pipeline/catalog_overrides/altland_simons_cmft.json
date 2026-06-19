@@ -1,0 +1,27 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "altland-figure-5.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:Using this result, show that the scattering rate is given by:solution[0]",
+      "position": "after",
+      "page": 252,
+      "clip": [
+        0.06,
+        0.242,
+        0.94,
+        0.375
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-5.11",
+        "kind": "line",
+        "caption": "Figure 5.11: Diagrammatic series expansion of the impurity averaged Green function (for a discussion, see the main text)."
+      },
+      "reason": "The raw PDF page 252 contains Figure 5.11, but MinerU split it into an equation block plus a stray problem title instead of emitting a figure block."
+    }
+  ]
+}

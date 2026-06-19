@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "kreyszig-fix-fig-344-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch14",
+      "selector": "body[144]",
+      "field": "md",
+      "old": "C the straight-line segment from 0 to , Fig. 344.1 \u0005 i",
+      "new": "C the straight-line segment from 0 to 1 + i, Fig. 344.",
+      "reason": "Raw PDF page 677 prints 'C the straight-line segment from 0 to 1 + i, Fig. 344.' The parsed text dropped '1 + i' and fused the trailing punctuation into a bogus 'Fig. 344.1' reference, which created a false missing-figure audit finding."
+    }
+  ]
+}

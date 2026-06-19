@@ -1,0 +1,24 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "coleman-fig-8.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[14]",
+      "expect": {
+        "id": "fig-ch08-14",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-8.1",
+        "caption": "Figure 8.1: At zero temperature, the properties of a system are determined by the ground state. At finite temperature, we must average the properties of the system over an ensemble of states, weighted with the Boltzmann probability weight e^{-beta E_lambda}/Z.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 254 shows Fig. 8.1 spanning the split visual blocks body[13]/body[14].正文 body[1] explicitly cites Figure 8.1, but only Figure 8.2 had been backfilled. Promote body[14] to the semantic Figure 8.1 anchor and keep body[13] excluded as the companion panel."
+    }
+  ]
+}

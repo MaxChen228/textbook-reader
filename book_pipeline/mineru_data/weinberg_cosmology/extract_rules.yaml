@@ -1,0 +1,163 @@
+slug: weinberg_cosmology
+title: Cosmology
+author: Steven Weinberg
+edition: null
+subject: Cosmology
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 527
+bibliography_start_page: null
+index_start_page: 593
+
+chapters:
+  - num: 1
+    title: The Expansion of the Universe
+    page_start: 19
+    page_end: 118
+    chapter_title_block_idx: 224
+    chapter_title_block_idx_secondary: 225
+    problems_block_idx: null
+    next_chapter_block_idx: 1439
+  - num: 2
+    title: The Cosmic Microwave Radiation Background
+    page_start: 119
+    page_end: 166
+    chapter_title_block_idx: 1439
+    chapter_title_block_idx_secondary: 1440
+    problems_block_idx: null
+    next_chapter_block_idx: 1978
+  - num: 3
+    title: The Early Universe
+    page_start: 167
+    page_end: 218
+    chapter_title_block_idx: 1978
+    chapter_title_block_idx_secondary: 1979
+    problems_block_idx: null
+    next_chapter_block_idx: 2553
+  - num: 4
+    title: Inflation
+    page_start: 219
+    page_end: 236
+    chapter_title_block_idx: 2553
+    problems_block_idx: null
+    next_chapter_block_idx: 2751
+  - num: 5
+    title: General Theory of Small Fluctuations
+    page_start: 237
+    page_end: 274
+    chapter_title_block_idx: 2751
+    chapter_title_block_idx_secondary: 2752
+    problems_block_idx: null
+    next_chapter_block_idx: 3284
+  - num: 6
+    title: Evolution of Cosmological Fluctuations
+    page_start: 275
+    page_end: 346
+    chapter_title_block_idx: 3284
+    chapter_title_block_idx_secondary: 3285
+    problems_block_idx: null
+    next_chapter_block_idx: 4212
+  - num: 7
+    title: Anisotropies in the Microwave Sky
+    page_start: 347
+    page_end: 420
+    chapter_title_block_idx: 4212
+    chapter_title_block_idx_secondary: 4213
+    problems_block_idx: null
+    next_chapter_block_idx: 5067
+  - num: 8
+    title: The Growth of Structure
+    page_start: 421
+    page_end: 450
+    chapter_title_block_idx: 5067
+    chapter_title_block_idx_secondary: 5068
+    problems_block_idx: null
+    next_chapter_block_idx: 5430
+  - num: 9
+    title: Gravitational Lenses
+    page_start: 451
+    page_end: 486
+    chapter_title_block_idx: 5430
+    chapter_title_block_idx_secondary: 5431
+    problems_block_idx: null
+    next_chapter_block_idx: 5941
+  - num: 10
+    title: Inflation as the Origin of Cosmological Fluctuations
+    page_start: 487
+    page_end: 526
+    chapter_title_block_idx: 5941
+    chapter_title_block_idx_secondary: 5942
+    problems_block_idx: null
+    next_chapter_block_idx: 6489
+
+appendices:
+  - id: A
+    title: Some Useful Numbers
+    page_start: 527
+    chapter_title_block_idx: 6489
+  - id: B
+    title: Review of General Relativity
+    page_start: 529
+    chapter_title_block_idx: 6508
+  - id: C
+    title: Energy Transfer between Radiation and Electrons
+    page_start: 549
+    chapter_title_block_idx: 6779
+  - id: D
+    title: The Ergodic Theorem
+    page_start: 555
+    chapter_title_block_idx: 6853
+  - id: E
+    title: Gaussian Distributions
+    page_start: 559
+    chapter_title_block_idx: 6883
+  - id: F
+    title: Newtonian Cosmology
+    page_start: 561
+    chapter_title_block_idx: 6903
+  - id: G
+    title: Photon Polarization
+    page_start: 565
+    chapter_title_block_idx: 6951
+  - id: H
+    title: The Relativistic Boltzmann Equation
+    page_start: 569
+    chapter_title_block_idx: 6998
+  - id: I
+    title: Glossary of Symbols
+    page_start: 583
+    chapter_title_block_idx: 7167
+  - id: J
+    title: Assorted Problems
+    page_start: 587
+    chapter_title_block_idx: 7221
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:[A-Z])|(?:\d+))\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?:Consider|Suppose|What|Define|Derive|Re-do|Find|Give|Calculate|Show)\b'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.)?\d+(?:\.\d+)*[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-marder-condensed-matter-physics-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法將相鄰 text/prose 圖說綁到 figure/table shard",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T05:04:13+00:00",
+  "updated": "2026-06-19T05:04:13+00:00",
+  "evidence": "parser/validate 已綠（27 chapters, 3 appendices），smoke 第二輪仍 H6 unresolved Figure refs=1 與 H7 empty_captions=86。parsed/_catalog_audit.md 顯示大量視覺塊本身沒有 semantic caption/id，真正圖說在相鄰 text/prose 或連續 sibling shard 的最後一塊，例如 ch01 body[56-58] Figure 1.5 / Figures 1.7(A)(B)、ch02 body[19-23] Figure 2.2、ch04 body[32] Figure 4.6、ch27 等；開啟 extract_rules 的 figure_caption_merge + main regex 完全無改善，證明現有 schema 只能處理有限的 fig-caption merge，不能把鄰接 text caption donor 綁回前面 visual。",
+  "proposal": "擴充 deterministic catalog repair/schema：1) 允許 per-book 將鄰近 text/prose block 宣告為 figure/table caption donor；2) 或允許把連續 captionless sibling visual shard 併入後續帶正式 Figure N.M caption 的塊；3) 允許對沒有正式 caption 的 visual 給 reviewable exclude/nonindexable reason。否則像 marder_condensed_matter_physics 這類結構上 parser-green 的教材，會長期卡在 smoke H6/H7。",
+  "risk": "",
+  "disposition": ""
+}

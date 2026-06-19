@@ -1,0 +1,156 @@
+{
+  "slug": "mukhanov_physical_foundations_cosmology",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mukhanov-exclude-ch04-body32",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[32]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-32"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (a) for numbered Figure 4.1; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch04-body33",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[33]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-33"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (b) for numbered Figure 4.1; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch04-body34",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[34]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-34"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (c) for numbered Figure 4.1; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch04-body338",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[338]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-338"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Uncaptioned companion visual immediately preceding numbered Figure 4.12; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch04-body388",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[388]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-388"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Uncaptioned companion visual immediately preceding numbered Figure 4.14; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch05-body140",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[140]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-140"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (a) for numbered Figure 5.6; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch05-prob517-body10",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.17:body[10]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-prob16-10"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (a) for numbered Figure 5.7; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch05-prob517-body11",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.17:body[11]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-prob16-11"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion subfigure (b) for numbered Figure 5.7; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch09-body169",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[169]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-169"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Uncaptioned companion visual immediately preceding numbered Figure 9.1; exclude from numbered catalog."
+    },
+    {
+      "id": "mukhanov-exclude-ch09-prob922-body5",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.22:body[5]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-prob21-5"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion E-polarization panel for numbered Figure 9.6; exclude from numbered catalog."
+    }
+  ]
+}
