@@ -1,0 +1,16 @@
+# west_graph_theory_sol
+# 主書 west_graph_theory 目前 parsed/chNN.json 的 `problem['num']` 雖然是三段式 `章.節.題`，
+# 但語義抽樣顯示它抓到的是正文內的 Definitions / Examples / Theorems，不是解答書對應的 exercises：
+#   - ch01 1.1.1：主書是 "Königsberg Bridge Problem" 範例；sol 是 "Complete bipartite graphs..."
+#   - ch06 6.1.1：主書是 "Gas-water-electricity" 範例；sol 是平面圖判斷題
+#   - ch08 8.1.1：主書是 perfect graph 定義；sol 是 odd-cycle complement 的 clique/chromatic 題
+# 因此即使題號字串可對上，也會系統性錯配，不可 merge。
+#
+# 解答書本身還有第二個缺口：現行 sol_extract 只接受 `text_level==1` 的章 anchor，
+# 但這份 unified 只有 `6.PLANAR GRAPHS` 是 lvl1；其餘章標（如 `1. FUNDAMENTAL CONCEPTS`,
+# `2.TREES AND DISTANCE`, `7.EDGES AND CYCLES`, `8.ADDITIONAL TOPICS`）都落在 lvl2。
+# 下面 regex 保留作未來重做主書 audit/parser、且 sol 章標品質修正後的校準起點。
+chapter_re: '^(\d+)\.(?!\d)\s*[A-Z].*$'
+problem_re: '^(\d+\.\d+\.\d+)\.'
+multi_per_block: false
+_pending: true
