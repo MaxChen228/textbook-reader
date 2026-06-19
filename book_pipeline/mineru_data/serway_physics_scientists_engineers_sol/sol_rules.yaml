@@ -1,0 +1,25 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前無法安全併入 serway_physics_scientists_engineers，原因如下：
+#
+# 1. 主書與解答書明確版次不符，已屬 edition mismatch。
+#    主書 `parsed/book.json` 是 `Physics for Scientists and Engineers with Modern Physics`, 9th ed；
+#    解答書封面 OCR 則明確出現 `INSTRUCTOR'S SOLUTIONS MANUAL` 與 `SIXTH EDITION`。
+#
+# 2. 語義抽樣已證明同章同題號會錯配，不是單純 regex 可修。
+#    - 主書 ch1 p1 題幹是「用 endpapers 資訊估算地球平均密度」；
+#      解答書 P1.1 卻是晶體對角平面間距問題。
+#    - 主書 ch5 p1 題幹是「120 lb 女性的重量與質量換算」；
+#      解答書 P5.1 卻是「同一外力作用在不同質量上」的牛頓第二定律敘述。
+#    - 主書 ch21 p1 題幹是「氦氣球中的原子數 / 平均動能 / rms speed」；
+#      解答書 P21.1 卻是冰雹撞窗平均力問題。
+#
+# 3. 現有 sol_extract harness 也無法乾淨切章。
+#    sol_extract 只接受 `text_level==1` 的 chapter anchor；但這本解答書的章號主要落在
+#    `text_level==2` 的純數字 block，而非可直接匹配的 `Chapter N` level-1 text。
+#    2026-06-19 實測預設 dry-run：抽出 0 章、0 題。
+#
+# 結論：維持 _pending，等待與主書同版次的解答來源。即使未來擴充 sol_extract 支援非 lvl1
+# chapter anchor，這份 6th-ed manual 仍不應直接 merge 到 9th-ed 主書。
+chapter_re: '^(\d+)$'
+problem_re: '^P(?:\d+)\.(\d+[a-z]?)\b'
+multi_per_block: false
+_pending: true
