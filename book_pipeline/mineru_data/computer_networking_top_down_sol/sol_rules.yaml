@@ -1,0 +1,17 @@
+# ⚠ PENDING — 不要 merge。
+# 2026-06-20 audit 結論：
+# 1. 主書 `computer_networking_top_down` 的 problem['num'] 採每章 reset 的 `P1`, `P2`, ...。
+# 2. 解答書 unified 內真正的章標是 `text_level==2` 的 `Chapter N Problems` / `Chapter 5. Problems.`；
+#    現行 sol_extract.py 章 anchor 寫死只吃 `type=text && text_level==1`，因此官方 dry-run 只能得到
+#    「抽出 0 章、0 題解答」。
+# 3. 題號本體也有第二個 harness gap：解答書題號是 `Problem 1`, `Problem 2`, ...，但現行
+#    problem_re 的 group(1) 必須逐字等於主書 key。regex 只能抓出 `1/2/3`，無法在不改引擎的前提下
+#    轉成主書要求的 `P1/P2/P3`。
+# 4. 這不是錯版或 source-quality：一次性 lvl=2 章標 + `Problem N -> P<N>` 分析可抽出 8 章，
+#    對主書達 216/233 題 key 命中；語義抽樣 ch01/ch04/ch08 各前 3 題皆同題。
+# 5. 因正式 merge 需要 sol_extract 支援「自訂章 anchor level」與「題號 key 轉換」，當前先標記
+#    `_pending`，並已另開 `harness-gap` proposal。
+chapter_re: '^Chapter\s+(\d+)\.?\s+Problems\.?$'
+problem_re: '^Problem\s+(\d+)\b'
+multi_per_block: false
+_pending: true
