@@ -40,6 +40,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
+from book_pipeline import status as st
 from book_pipeline import mineru_budget as mb
 from book_pipeline import worker_registry as wr
 from book_pipeline import agent_history as hist
@@ -1445,6 +1446,25 @@ def do_catalog_resolve(slug: str, dry: bool) -> int:
     return 0
 
 
+def _escalate_sol(slug: str) -> None:
+    """sol_extract 跑完未達終態（agent 紀律異常）→ 一次即升級架構師、停止再派（非靜默放棄）：
+    ① 標 state.sol_escalated → status._sol_escalated 令 todo 消除、收斂；
+    ② 開 sol/unresolved proposal 攤進申訴佇列（與 agent 主動申訴同管道）。proposal 開立失敗
+    絕不影響收斂（已標旗標）。架構師修 skill/源頭後 clear state[slug].sol_escalated 重試。"""
+    q.mark_sol_escalated(slug, 'agent 跑完未給結論（未 merge 亦未標 _pending）')
+    try:
+        from book_pipeline import proposals
+        proposals.propose(
+            domain='sol', type_='unresolved', slug=f'{slug}_sol', source='daemon',
+            title=f'sol_extract {slug} 跑完未收斂',
+            evidence='dispatch rc=0 但 sol==0 且 _sol_pending=False（agent 未達終態）',
+            proposal='查 audit-sol agent 為何未達終態（merge 或 _pending 二擇一）；'
+                     '修源頭/skill 後 clear state[slug].sol_escalated 重試')
+        log(f'sol_extract {slug}：⚠ agent 未收斂 → 標 escalated + 開 sol proposal 升級架構師')
+    except Exception as e:
+        log(f'sol_extract {slug}：標 escalated（proposal 開立失敗、不影響收斂：{e}）')
+
+
 def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:
     """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
@@ -1483,11 +1503,43 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
                 return
             do_submit(slug, dry)
             return
+        if verb == 'sol_ingest':
+            # 解答本綁母書：母書驅動把自己的解答本 PDF 送 MinerU，**走與母書完全相同的 ingest 管線**
+            # （do_submit/harvest 全 slug-agnostic，經 _raw_slug_map 解析 <slug>_sol.pdf）。async 斷點同
+            # ingest：submit 後本書停，harvest 階段收割所有在飛 batch（含此解答本）→ 組好 unified 後
+            # 下個 cycle assess 見 has_sol_book 轉出 sol_extract。do_submit 自帶 occupied 去重，冪等。
+            do_submit(f'{slug}_sol', dry)
+            return
         if verb == 'deploy':
             do_deploy(slug, dry, no_deploy)
             return  # pipeline 終點
         if verb == 'parse':
             do_parse(slug, dry)
+        elif verb == 'sol_extract':
+            # 解答本已 ingest → LLM 對齊 merge 進母書 problems[].solution。**一次定生死**：agent 在
+            # 單次 dispatch 內就迭代收斂（audit-sol.md Step 6「至多 3 輪」），終態二擇一——merge 或
+            # _pending+proposal。**不跨 tick 重派同一本**（那只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱）。
+            rc = dispatch_llm('sol_extract', slug, dry)
+            if rc != 0:
+                # rc≠0 ＝ LLM 根本沒跑成（-2 session 限額／-1 timeout／其他任務失敗）＝基礎設施層暫時
+                # 不可用，**非結論**：defer 下個 tick 重跑（provider 多會恢復）。這與「一次定生死」治的是
+                # 兩種病——後者治「rc==0 跑完卻沒結論」（agent 紀律，見下 _escalate_sol）；rc≠0 的暫時失敗
+                # defer 重跑是對的。**已知邊界**：若某 provider chain 對某本書「穩定」rc≠0（四層 failover
+                # 全持續掛），會每 tick 重派——但這對齊既有全 stage 行為（catalog_audit/audit 同樣只特判
+                # -2、其餘 rc 無限 defer），非本機制回歸；真解＝stage-agnostic circuit breaker（連續失敗計數
+                # 才升級，與「賭 LLM 隨機」的 retry 語意不同），屬跨 stage 層級、不在此單 stage 打補丁。
+                return
+            sol_after = st.sol_stats(slug)[1]
+            if sol_after > 0:
+                log(f'sol_extract {slug} ✓：merge {sol_after} 題 → 重烤上站')
+                do_deploy(slug, dry, no_deploy)  # 母書多已 deployed、assess 不再出 deploy todo → 比照 math sweep 自 rebake
+            elif st._sol_pending(slug):
+                log(f'sol_extract {slug}：agent 判源頭不可 merge（_pending）→ 已申訴、收斂')
+            else:
+                # 異常：agent 跑完（rc=0）卻沒給結論（既沒 merge 也沒標 _pending）= skill 違規。
+                # **一次即升級，不賭骰子重試**：標 escalated 停再派 + 開 sol/unresolved proposal 攤給架構師。
+                _escalate_sol(slug)
+            return
         elif verb == 'catalog_audit':
             rc = do_catalog_resolve(slug, dry)
             if rc == -2:  # LLM 撞 session 限額 → defer 本書，下個 tick 重試

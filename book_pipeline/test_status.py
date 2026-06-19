@@ -103,9 +103,9 @@ def _catalog_token(todo: str) -> str:
 
 
 def _sol_token(todo: str) -> str:
-    """從 todo 字串挑出 sol_extract 那個 token（同 _catalog_token 之理）。"""
+    """從 todo 字串挑出 sol token（sol_ingest／sol_extract，解答本綁母書的兩步）。"""
     for tok in todo.split():
-        if tok.startswith('sol_extract'):
+        if tok.startswith('sol_ingest') or tok.startswith('sol_extract'):
             return tok
     return ''
 
@@ -239,42 +239,65 @@ def test_assess_catalog_gate_pre_vs_post_deploy():
                 f"catalog_accepted 未設（僅有無關 flag）時仍須是 gate，證降級確由該 flag 觸發：{r}"
 
 
-# ── test 3：sol gate — 與 catalog 同構的 post-deploy 降級 ──────────────────────────
-def test_assess_sol_gate_post_deploy_optional():
-    """has_sol_book 且 sol==0 且非 _pending 時，sol_extract todo 的『(可選)』後綴開關。
+# ── test 3：sol 綁母書 — 解答本 owned 即由母書驅動，與母書是否上站無關 ──────────────────
+def test_assess_sol_bound_to_parent():
+    """解答本綁母書（單一驅動者＝母書）：解答本 owned 即由母書出 sol todo，**與母書是否已上站無關**。
 
-    與 catalog_audit 同構：解答本存在但主書一題都沒 merge 到 solution（sol==0）→
-      - 未 deploy → 'sol_extract(<slug>_sol)' gate（解答併入主書才完整，上站前該修）。
-      - 已 deploy → 'sol_extract(<slug>_sol)(可選)'。否則一本「已部署、解答書卻 merge 不成」的書
-        （如 griffiths_qm3）會讓 advance loop 每輪重派昂貴 sol_extract LLM、reactive loop 永不 idle。
+    這是修掉舊「_deployed 降可選 → 已部署母書永遠不 merge 解答」的核心。兩步＋一次定生死收斂：
+      - 解答本 owned 但未 ingest（raw_pdfs 有 PDF／在飛 OCR）→ sol_ingest（確定性，母書送 MinerU）。
+      - 解答本已 ingest、sol==0、非 pending/escalated → sol_extract（LLM 對齊）。
+      - **已 deploy 後仍非可選**（不再降『(可選)』）→ main() 待辦不清空 → 已部署母書照樣被喚醒補 merge。
+      - 收斂改靠終態自然消除 todo：sol>0 ∪ _sol_pending ∪ _sol_escalated（皆開 proposal 申訴、非靜默）。
     """
+    # A. 解答本 owned 但未 ingest（在 raw map）→ sol_ingest，且**不論 deploy 與否皆非可選**
     with _sandbox(catalog_critical=0) as (root, data):
         _mk_unified(data, 'bk')
         _mk_rules(data, 'bk')
         _mk_book(data, 'bk')
         _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])  # 有題、sol==0
-        _mk_sol_book(data, 'bk')  # 有解答本 → has_sol_book=True
+        # 解答本 PDF 已下載（raw map 有 bk_sol）但尚未 ingest（無 bk_sol/unified）
+        r = st.assess('bk', raw={'bk_sol': 'bk_sol.pdf'})
+        assert _sol_token(r['todo']) == 'sol_ingest(bk_sol)', f"owned 未 ingest → sol_ingest：{r}"
+        assert _non_optional(r['todo']) == 'sol_ingest(bk_sol)', f"sol_ingest 須非可選進待辦：{r}"
+        # 已 deploy 後仍非可選（核心：不再以 _deployed 降可選 → 晚到解答本能喚醒已部署母書）
+        _mk_deployed(root, 'bk')
+        r = st.assess('bk', raw={'bk_sol': 'bk_sol.pdf'})
+        assert _non_optional(r['todo']) == 'sol_ingest(bk_sol)', \
+            f"已部署母書仍須出非可選 sol_ingest（晚到解答本喚醒）：{r}"
 
-        # 未 deploy → sol_extract token 是 gate（無『(可選)』後綴）。同 catalog，須對 token 本身斷言
-        # （todo 含 'translate(可選)'），不能用整串 '(可選)' not in。
+    # A2. 解答本在飛 OCR（pending）也算 owned → 仍 sol_ingest（do_submit 冪等、harvest 自動收割）
+    with _sandbox(catalog_critical=0) as (root, data):
+        _mk_unified(data, 'bk')
+        _mk_rules(data, 'bk')
+        _mk_book(data, 'bk')
+        _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])
+        r = st.assess('bk', pending={'bk_sol'})
+        assert _sol_token(r['todo']) == 'sol_ingest(bk_sol)', f"在飛 OCR 也算 owned：{r}"
+
+    # B. 解答本已 ingest、sol==0 → sol_extract，且**已 deploy 後仍非可選**（修掉舊 busy-loop 降級漏 merge）
+    with _sandbox(catalog_critical=0) as (root, data):
+        _mk_unified(data, 'bk')
+        _mk_rules(data, 'bk')
+        _mk_book(data, 'bk')
+        _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])  # sol==0
+        _mk_sol_book(data, 'bk')  # has_sol_book=True（已 ingest）
         r = st.assess('bk')
-        assert _sol_token(r['todo']) == 'sol_extract(bk_sol)', f"上站前 sol_extract 必須是強制 gate：{r}"
-        # 真正後果：sol gate token 穿過 main() 過濾 → 進待辦派工（catalog_critical=0 → 唯一非可選殘餘）。
-        assert _non_optional(r['todo']) == 'sol_extract(bk_sol)', \
-            f"上站前 sol gate 必須進 main() 待辦：{r}"
-
-        # 已 deploy → sol token 降可選
+        assert _sol_token(r['todo']) == 'sol_extract(bk_sol)', f"已 ingest 未 merge → sol_extract：{r}"
         _mk_deployed(root, 'bk')
         r = st.assess('bk')
-        assert _sol_token(r['todo']) == 'sol_extract(bk_sol)(可選)', f"已上站後 sol_extract 應降可選：{r}"
-        # 真正後果：降可選後 main() 待辦清空 → griffiths_qm3 那種「已部署、解答 merge 不成」的書
-        # 不再每輪重派昂貴 sol_extract（reactive loop 得以 idle）。這條 == '' 才是 busy-loop 守衛的硬證。
-        assert _non_optional(r['todo']) == '', \
-            f"已上站後 sol 降可選須讓 main() 待辦清空（不每輪重派 sol_extract）：{r}"
+        assert _non_optional(r['todo']) == 'sol_extract(bk_sol)', \
+            f"已部署母書仍須出非可選 sol_extract（晚到/漏做的解答本喚醒補 merge）：{r}"
 
-    # 反證一：_sol_pending（sol_rules.yaml 標 _pending: true，主書品質不足、不該 merge）→
-    # 即便 has_sol_book 且 sol==0 也**完全不提示 sol_extract**（連可選都不該有）。
-    # 漏這條 = 對品質不足、刻意不 merge 的書硬派 sol_extract = 浪費且違背 pending 語義。
+    # C. 反證：解答本**未 owned**（raw/pending/ingest 皆無）→ 完全不出 sol token（不空轉）。
+    with _sandbox(catalog_critical=0) as (root, data):
+        _mk_unified(data, 'bk')
+        _mk_rules(data, 'bk')
+        _mk_book(data, 'bk')
+        _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])  # sol==0、無解答本
+        r = st.assess('bk')
+        assert _sol_token(r['todo']) == '', f"解答本未 owned → 不出任何 sol token：{r}"
+
+    # D. 反證：_sol_pending（agent 判主書品質不足、不該 merge）→ 即便已 ingest 也完全不出 sol token。
     with _sandbox(catalog_critical=0) as (root, data):
         _mk_unified(data, 'bk')
         _mk_rules(data, 'bk')
@@ -283,10 +306,9 @@ def test_assess_sol_gate_post_deploy_optional():
         _mk_sol_book(data, 'bk')
         _write(os.path.join(data, 'bk_sol', 'sol_rules.yaml'), '_pending: true')
         r = st.assess('bk')
-        assert _sol_token(r['todo']) == '', f"_sol_pending 時不該出現任何 sol_extract token：{r}"
+        assert _sol_token(r['todo']) == '', f"_sol_pending 時不該出現任何 sol token：{r}"
 
-    # 反證二：sol>0（解答已 merge 進主書）→ 不再提示 sol_extract（gate 條件是 sol==0）。
-    # 漏這條 = 對已完成 merge 的書重派 sol_extract。
+    # E. 反證：sol>0（解答已 merge 進主書）→ 不再提示（終態之一）。
     with _sandbox(catalog_critical=0) as (root, data):
         _mk_unified(data, 'bk')
         _mk_rules(data, 'bk')
@@ -294,7 +316,22 @@ def test_assess_sol_gate_post_deploy_optional():
         _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1', 'solution': ['ans']}])  # sol==1
         _mk_sol_book(data, 'bk')
         r = st.assess('bk')
-        assert _sol_token(r['todo']) == '', f"sol>0（已 merge）不該再提示 sol_extract：{r}"
+        assert _sol_token(r['todo']) == '', f"sol>0（已 merge）不該再提示 sol token：{r}"
+
+    # F. 反證（收斂閘，非次數）：state.sol_escalated（agent 跑完未達終態、daemon 一次升級）→
+    #    _sol_escalated 令 todo 消除、停再派。**非靜默放棄**：升級同時開 sol proposal 攤給架構師
+    #    （見 pipeline_tick._escalate_sol）；架構師 clear 旗標即重試。
+    with _sandbox(catalog_critical=0) as (root, data):
+        _mk_unified(data, 'bk')
+        _mk_rules(data, 'bk')
+        _mk_book(data, 'bk')
+        _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])  # sol==0
+        _mk_sol_book(data, 'bk')
+        _write(os.path.join(root, 'book_pipeline', 'pipeline_state.json'),
+               {'bk': {'sol_escalated': {'reason': 'agent 未收斂', 'at': 'x'}}})
+        r = st.assess('bk')
+        assert _sol_token(r['todo']) == '', \
+            f"sol_escalated（已升級架構師）→ 停派 sol_extract、收斂：{r}"
 
 
 # ── test 4：sol_stats 壞檔不連坐 + solution 三態語義 ─────────────────────────────────
@@ -356,8 +393,8 @@ if __name__ == '__main__':
     print('✓ stage 轉移矩陣（X/0/0.5 待ingest → 1 待audit → 2 待parse → 3 parsed → 4 sol已merge）')
     test_assess_catalog_gate_pre_vs_post_deploy()
     print('✓ catalog gate：上站前強制 / 已deploy|已accept 降可選（防 post-deploy busy-loop）')
-    test_assess_sol_gate_post_deploy_optional()
-    print('✓ sol gate：上站前強制 / 已deploy 降可選（與 catalog 同構）')
+    test_assess_sol_bound_to_parent()
+    print('✓ sol 綁母書：owned 即由母書驅動 sol_ingest/sol_extract（非可選、與母書是否上站無關）；收斂三終態 merge / _pending / _escalated 自然消 todo')
     test_sol_stats_corrupt_json_and_solution_tristate()
     print('✓ sol_stats：壞檔不連坐靜默跳過 + solution 三態（缺/空/null=無，非空list=有）+ .zh 不重計')
     test_entry_ts_priority_and_fallback()

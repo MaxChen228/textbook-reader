@@ -118,7 +118,11 @@ def test_assess_full_deploy_gate_catalog_and_sol():
       (b) state 有 catalog_accepted 標記（det+LLM 修完仍殘、MinerU 源頭缺不可修）
           → catalog_audit 從 gate 移除 → 放行 deploy。這是「終局 accept」逃生閥，
           否則源頭缺的書會永遠卡著 deploy 不了。
-      (c) 有 sol_extract 待 merge（解答書併入主書才完整）→ todo=sol_extract，**先 merge 再 deploy**。
+      (c) 只有 sol（sol_ingest/sol_extract）待辦、無 catalog → **放行 deploy**（option B：解答本綁母書、
+          異步晚到，**不擋母書首次上站**；母書秒上站後，sol 作為 post-deploy 非可選階段在背景補 merge、
+          重烤即時生效。避免「注定 merge 不上的爛解答本反過來卡死好母書上站」）。
+      (f) 已部署母書仍有非可選 sol 待辦 → assess_full 落 fallthrough、原樣回傳 sol todo（llm=True）→
+          advance 撿來補 merge。這是「晚到/漏做的解答本喚醒已部署母書」的關鍵通路。
 
     為避免真實 _catalog_critical 跑昂貴的 audit_catalog，直接 monkeypatch st.assess 回構造好的 base。
     """
@@ -147,14 +151,14 @@ def test_assess_full_deploy_gate_catalog_and_sol():
                 f"catalog_accepted 後應放行 deploy，實得 todo={rb['todo']!r}"
             assert rb['stage'].startswith('3')
 
-            # (c) sol_extract 待 merge（無 catalog 待辦）→ 先 merge 再 deploy
-            st.assess = lambda s, p, r: {
-                'slug': s, 'stage': '3 parsed', 'todo': 'sol_extract(parsed_book_sol)',
-                'prob': 10, 'sol': 0, 'sol_book': True}
-            rc = pq.assess_full(slug, set(), {}, {})
-            assert rc['todo'] == 'sol_extract(parsed_book_sol)', \
-                f"sol 未 merge 必先 merge、不 deploy，實得 todo={rc['todo']!r}"
-            assert rc['todo'] != 'deploy', "解答未併入主書絕不可放行 deploy"
+            # (c) 只有 sol（sol_ingest/sol_extract）、無 catalog → 放行 deploy（sol 不擋首次上站，option B）
+            for sol_todo in ('sol_extract(parsed_book_sol)', 'sol_ingest(parsed_book_sol)'):
+                st.assess = lambda s, p, r, _t=sol_todo: {
+                    'slug': s, 'stage': '3 parsed', 'todo': _t,
+                    'prob': 10, 'sol': 0, 'sol_book': True}
+                rc = pq.assess_full(slug, set(), {}, {})  # 未 deployed
+                assert rc['todo'] == 'deploy', \
+                    f"sol 不擋母書首次上站（背景補 merge）：todo={_t!r} 應放行 deploy，實得 {rc['todo']!r}"
 
             # (d) 對照：純可選待辦（translate）→ 不 gate，放行 deploy（證明 gate 只擋 catalog/sol）
             st.assess = lambda s, p, r: {
@@ -178,6 +182,16 @@ def test_assess_full_deploy_gate_catalog_and_sol():
                 f"translate 須被剔出非可選清單，gate 待辦不可被 translate 頂替，實得 todo={re_['todo']!r}"
             assert not re_['todo'].startswith('translate'), \
                 "絕不可把可選 translate 當成該先做的強制待辦回傳"
+
+            # (f) 已部署母書仍有非可選 sol_extract → fallthrough 原樣回傳（llm=True），不被 deploy gate 吞掉。
+            #     這是「晚到/漏做的解答本喚醒已部署母書補 merge」的關鍵通路（state.deployed_at → _deployed True）。
+            st.assess = lambda s, p, r: {
+                'slug': s, 'stage': '3 parsed', 'todo': 'sol_extract(parsed_book_sol)',
+                'prob': 10, 'sol': 0, 'sol_book': True}
+            rf = pq.assess_full(slug, set(), {}, {slug: {'deployed_at': 'x'}})
+            assert rf['todo'] == 'sol_extract(parsed_book_sol)', \
+                f"已部署母書的非可選 sol todo 須原樣回傳供 advance 補 merge，實得 todo={rf['todo']!r}"
+            assert rf['llm'] is True, "sol_extract 屬 LLM_TODOS → llm 旗標須為 True"
         finally:
             st.DATA, pq.READER_ROOT, st.assess = orig_data, orig_reader, orig_assess
 

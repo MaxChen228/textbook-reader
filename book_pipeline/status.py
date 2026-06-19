@@ -156,6 +156,16 @@ def _sol_pending(slug: str) -> bool:
         return False
 
 
+def _sol_escalated(slug: str, state: dict | None = None) -> bool:
+    """sol_extract 已升級給架構師、暫停再派（杜絕 busy-loop）。**非次數門檻**：sol_extract 一次
+    dispatch 內 agent 就會迭代收斂到終態（merge 或 _pending，見 audit-sol.md），跨 tick 重派同一本
+    只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱。唯一會卡的是 agent 跑完卻沒給結論（skill 違規）→
+    daemon 偵測後一次即標此旗標 + 開 sol proposal 升級（見 pipeline_tick._escalate_sol）。源頭/skill
+    修好後架構師 clear state[slug].sol_escalated 重試。與 _sol_pending〔agent 主動判不可 merge，亦開
+    proposal 申訴〕互補：兩者皆「非靜默放棄」，差別在誰判定（agent 自判 vs daemon 偵測異常）。"""
+    return bool(((state or _pstate()).get(slug) or {}).get('sol_escalated'))
+
+
 # catalog critical 計數快取：audit_catalog 是重活（全文 regex + 逐圖存在性檢查，~0.23s/書），
 # 但輸入（catalogs.json / content_list.json / catalog_overrides）多數 observe 間不變。以這三者
 # 的 (mtime_ns, size) 為指紋，磁碟持久化 slug→(指紋,critical)：長駐 controller 重觀測與 60s
@@ -281,12 +291,16 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
         # （殘留多為 C2 空 caption / C7 缺 id 等 OCR 源頭缺，重審也補不出 → churn 無收益。）
         opt = '(可選)' if (_deployed(slug) or _catalog_accepted(slug)) else ''
         todo.append(f'catalog_audit({catalog_critical}){opt}')
-    if has_sol_book and sol == 0 and not _sol_pending(slug):
-        # sol_extract 同 catalog_audit：上站前是 gate（解答併入主書才完整），但**已上站**後降可選。
-        # 否則一本「已部署、解答書卻 merge 不成」的書（如 griffiths_qm3）會讓 advance loop 每輪重派
-        # 昂貴的 sol_extract LLM、reactive loop 永不 idle——與 catalog 同構的 post-deploy busy-loop。
-        sol_opt = '(可選)' if _deployed(slug) else ''
-        todo.append(f'sol_extract({slug}_sol){sol_opt}')
+    # 解答本綁母書（單一驅動者＝母書）：只要解答本 owned（raw_pdfs 有 PDF／在飛 OCR／已 ingest）
+    # 且尚未 merge，就由母書負責推進，**與母書是否已上站無關**——晚到的解答本照樣喚醒已部署母書。
+    # 兩步：未 ingest → sol_ingest（確定性，母書驅動把解答本送 MinerU，與母書走同一 ingest 管線）；
+    # 已 ingest → sol_extract（LLM 對齊 merge）。**非可選**（不再以 _deployed 降可選，那把「漏做」
+    # 誤當「空轉」）；**一次定生死**，改靠終態自然消除 todo 收斂：merge 成功（sol>0）／_sol_pending
+    # （agent 判不可 merge、開 proposal 申訴）／_sol_escalated（agent 未達終態 → daemon 一次升級、開 proposal）。
+    sol_slug = f'{slug}_sol'
+    sol_owned = has_sol_book or (sol_slug in raw) or (sol_slug in pending)
+    if sol_owned and sol == 0 and not _sol_pending(slug) and not _sol_escalated(slug):
+        todo.append(f'sol_extract({sol_slug})' if has_sol_book else f'sol_ingest({sol_slug})')
     if not has_zh:
         todo.append('translate(可選)')
     stage = '4 sol已merge' if (tot and sol) else '3 parsed'

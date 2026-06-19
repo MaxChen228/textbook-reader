@@ -74,14 +74,31 @@ rules = S.load_sol_rules(SOL); sol = S.extract_sol_chapters(SOL, rules)
 - **主書 body 本身不是題幹**（如 OCR 把答案數字串當題目）→ 主書品質不足
 
 ### Step 6 — 決策門檻（自主定，不要問）
+
+**一次定生死**：你這一趟 dispatch 內就要收斂到**終態**，二擇一——**merge** 或 **`_pending` ＋ 開 proposal 申訴**。
+別把問題留給「下次重跑」（同一本書、同樣輸入重跑只是賭隨機性）。系統性錯位就在本次內 iterate（至多 3 輪）修到好。
+
 | 情況 | 動作 |
 |---|---|
 | 語義抽樣多數對齊（≥~80%）、配對率合理 | 正式 merge（去 --dry-run） |
 | 對齊正確但配對率低（OCR 漏題 / 原書缺某章解答） | merge，接受殘缺，_audit 記原因 |
-| 系統性錯位 | 回 Step 3 iterate（至多 3 輪） |
-| 主書 body 本身是 OCR 垃圾 | 設 `_pending: true` + 註解原因，**不 merge** |
+| 系統性錯位 | 回 Step 3 iterate（**本次 dispatch 內**，至多 3 輪） |
+| 主書 body 是 OCR 垃圾 / 解答本缺章 anchor，**無法產出品質 merge** | 設 `_pending: true` + 註解原因，**不 merge**，並**開 proposal 申訴**（見下） |
+| 解答本根本是別本書 / 版次不符 | **不 merge**，開 proposal（`edition-mismatch`），設 `_pending` |
+| 對齊需要 sol_extract 引擎沒有的能力 | 盡力 merge 能 merge 的，開 proposal（`harness-gap`）記缺口 |
 
 **禁 cheat**：不准為衝高配對率放鬆 problem_re 而塞錯解答。配對率是參考，語義對齊才是真相。
+
+**申訴管道（拒絕 merge 時必開，別默默 `_pending` 埋掉）**：你判「這本現在產不出品質 merge」是對的決定（爛 merge 比沒答案更糟），但**源頭問題只有架構師能修**（換更完整的解答本/母書、修 parser）——所以要攤給他，而非靜默放棄：
+```bash
+uv run python -m book_pipeline.proposals propose --domain sol \
+  --type source-quality \   # 或 edition-mismatch / harness-gap
+  --slug <main>_sol --source sol_extract \
+  --title "<main> 解答本無法 merge：<一句話原因>" \
+  --evidence "配對率 X%；語義抽樣：第N章題M 主書 body 是『…』非題幹（OCR 垃圾）" \
+  --proposal "換更完整的解答本/母書版次，或修 parser 章邊界後重 ingest"
+```
+type 選擇：`source-quality`（OCR 垃圾/缺 anchor）｜`edition-mismatch`（配錯書/版次）｜`harness-gap`（引擎能力不足）。
 
 ### Step 7 — 正式 merge（非 pending 時）
 ```bash
@@ -89,10 +106,10 @@ uv run --with pyyaml python -m book_pipeline.sol_extract <MAIN> <SOL>
 ```
 寫進 gitignored `parsed/`，靠 sol_rules.yaml + sol unified 重跑重現（parser 重跑會清 solution，sol_extract 必須在 parser 之後）。
 
-## 4. 產出
+## 4. 產出（終態二擇一，不留待重跑）
 1. `book_pipeline/mineru_data/<sol>/sol_rules.yaml`（入 git）
-2. merge 結果（parsed/，不入 git）或 `_pending` 標記
-3. 回報：配對率、語義抽樣對齊判定、merge / pending 決策與理由
+2. **merge 結果**（parsed/，不入 git）**或** `_pending` 標記 ＋ **sol proposal**（拒絕時必開，見 Step 6）
+3. 回報：配對率、語義抽樣對齊判定、merge / `_pending`+proposal 決策與理由
 
 ## 5. 主對話收尾
 - agent 回報後跑 `uv run --with pyyaml python -m book_pipeline.status <main>` 確認階段（`4 sol已merge` 或 pending 不誤報）
@@ -100,4 +117,4 @@ uv run --with pyyaml python -m book_pipeline.sol_extract <MAIN> <SOL>
 - 重跑前提：sol 本 unified 須在本機（剛 ingest 即在；換機後可 `drive_queue.py restore <sol>` 或重跑 ingest 重生）才能重跑 sol_extract
 
 ## 6. 派發流程
-由 `/book-pipeline` dashboard 對 `待辦=sol_extract(<sol>)` 的書派發：主對話派 general-purpose agent（prompt 含本檔 §2+§3 + main_slug + sol_slug），agent 跑到 merge 或 pending，回報；主對話 §5 收尾。
+由 `/book-pipeline` dashboard 對 `待辦=sol_extract(<sol>)` 的書派發：主對話派 general-purpose agent（prompt 含本檔 §2+§3 + main_slug + sol_slug），agent **本次 dispatch 內收斂到終態**（merge 或 `_pending`+proposal），回報；主對話 §5 收尾。**不跨 tick 重派同一本**——daemon 只在「merge 成功重烤」或「升級」後就不再出此 todo。

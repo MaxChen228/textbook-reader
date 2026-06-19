@@ -79,6 +79,14 @@ DOMAINS: dict[str, dict[str, Any]] = {
     # diff 捕成 engine/patch 提案、還原核心碼。patch=worker 實際改動（improvement 不流失，
     # 架構師事後收編或駁回）；tooling-gap=工具不夠力逼得 worker 想繞過（該補工具，見 harness-gap 之於 crawl）。
     "engine": {"types": {"patch", "tooling-gap"}, "checker": None},
+    # sol_extract agent 的申訴管道：解答本綁母書、由母書驅動 merge，但 agent 撞到「無法產出
+    # 品質 merge」時**不該默默 _pending 埋掉**——開提案攤給架構師。source-quality=母書/解答本源頭
+    # 品質不足（OCR 垃圾題幹、缺章 anchor，如 boas/karlin）→ 架構師換更完整源/修 parser；
+    # edition-mismatch=解答本與母書版次不符或根本是別本書 → 架構師重解析（crawl 換源）；
+    # harness-gap=sol_extract 引擎/工具不夠力（對齊需引擎缺的能力）；unresolved=agent 跑完未達終態
+    # （既沒 merge 也沒標 _pending）的異常，daemon 偵測後自動開立（skill/agent 紀律 bug 信號）。
+    "sol": {"types": {"source-quality", "edition-mismatch", "harness-gap", "unresolved"},
+            "checker": None},
 }
 
 FIELDS = ("evidence", "proposal", "risk", "disposition")  # 散文欄位
