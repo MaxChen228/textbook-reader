@@ -55,10 +55,12 @@ SESSIONS_PER_BOOK = 40
 # daemon.log 時間戳為 UTC（datetime.now(timezone.utc)），格式 [YYYY-MM-DD HH:MM:SS]
 TS_RE = re.compile(r'^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]')
 ERROR_RE = re.compile(r'未設定|Traceback|Exception|Error|ERROR|錯誤|failed|FAILED|❌|拒絕|denied', re.I)
-# 成功摘要常含 `errors=0`/`unmatched=N`，其中 "errors" 子字串會誤觸 ERROR_RE。這類
-# 計數行只要無強錯誤標記（Traceback/❌/FAILED…）就非真錯誤，排除以免 false positive。
-BENIGN_RE = re.compile(r'\berrors?=0\b', re.I)
-STRONG_ERR_RE = re.compile(r'Traceback|Exception|❌|FAILED|未設定|拒絕|denied', re.I)
+# 成功摘要常含 `errors=0`/`0 failed`（convert_images 冪等轉檔摘要），其中 "errors"/"failed"
+# 子字串會誤觸 ERROR_RE。這類計數行只要無強錯誤標記（Traceback/❌/FAILED…）就非真錯誤，
+# 排除以免 false positive。真失敗會是 `N failed`（N>0），故 `\b0 failed\b` 是精確良性標記。
+BENIGN_RE = re.compile(r'\berrors?=0\b|\b0 failed\b', re.I)
+# FAILED 用 (?-i:) 局部關閉忽略大小寫：只抓大寫吼叫式標記，不吃成功摘要的小寫 `0 failed`。
+STRONG_ERR_RE = re.compile(r'Traceback|Exception|❌|(?-i:FAILED)|未設定|拒絕|denied', re.I)
 
 
 def _now_utc() -> datetime:
