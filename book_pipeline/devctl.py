@@ -34,6 +34,7 @@ from book_pipeline import worker_registry as wr
 from book_pipeline import agent_history as hist
 from book_pipeline import book_timeline as tl
 from book_pipeline import pipeline_queue as q
+from book_pipeline import trace
 
 ROOT = st.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -684,17 +685,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == 'history':
-        if args.session:
-            evs = hist.load_session(args.session)
-            if args.json:
-                print(json.dumps(evs, ensure_ascii=False, indent=2))
-                return 0
-            print(f"\n🧵 session {args.session} — {len(evs)} 事件")
-            for e in evs:
-                icon = '🔧' if e.get('kind') == 'tool' else '💬'
-                at = (e.get('t') or '').replace('T', ' ').replace('+00:00', '')
-                print(f"   {at}  {icon} {e.get('label', '')}")
-            return 0
+        if args.session:  # 完整對話回放 → 單一實作在 trace（devctl/trace 共用）
+            return trace.render_session(args.session, as_json=args.json)
         sess = hist.sessions_for(args.slug)
         if args.json:
             print(json.dumps(sess, ensure_ascii=False, indent=2))
@@ -710,6 +702,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"   {at} UTC  {r.get('verb')}{corp} · {r.get('model') or '—'}({r.get('harness') or '—'}) · "
                   f"{dur_s} · {r.get('total_calls', 0)}call · {mark}")
             print(f"        id={r.get('id')}")
+        print("   → 階段⊕session 合併時間線：trace book " + args.slug)
         return 0
 
     if args.cmd == 'status':

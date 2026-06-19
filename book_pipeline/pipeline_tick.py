@@ -1445,6 +1445,7 @@ def _sorted_rows() -> list:
         return order.get(parts[0] if parts else '', 9)
     rows.sort(key=_ord)
     _publish_stages([(r.get('slug', ''), r.get('stage', '') or '') for r in rows])  # 每 observe 全書階段快訊
+    q.ensure_first_seen([r.get('slug', '') for r in rows if r.get('slug')])  # 每 observe 補新書入庫戳（idempotent，零缺口）
     return rows
 
 

@@ -334,6 +334,23 @@ def test_sol_stats_corrupt_json_and_solution_tristate():
         assert tot == 1 and sol == 1, f".zh.json 不該重複計入：{(tot, sol)}"
 
 
+def test_entry_ts_priority_and_fallback():
+    """入庫時間戳：first_seen_at 為單一真相、優先於 deployed_at；缺 first_seen 時退階段戳最早值。"""
+    from datetime import timezone
+    with _sandbox() as (root, _data):
+        sp = os.path.join(root, 'book_pipeline', 'pipeline_state.json')
+        _write(sp, {
+            'a': {'first_seen_at': '2026-06-19T01:00:00+00:00',
+                  'deployed_at': '2026-06-19T09:00:00+00:00'},  # first_seen 勝 deployed
+            'b': {'deployed_at': '2026-06-18T05:00:00+00:00',
+                  'catalog_llm_at': '2026-06-18T03:00:00+00:00'},  # 無 first_seen → 退最早(03:00)
+            'c': {'qc': {'verdict': 'reject'}},  # 只有 qc（無時間戳）→ None
+        })
+        assert st._entry_ts('a').astimezone(timezone.utc).isoformat() == '2026-06-19T01:00:00+00:00'
+        assert st._entry_ts('b').astimezone(timezone.utc).isoformat() == '2026-06-18T03:00:00+00:00'
+        assert st._entry_ts('c') is None, 'qc-only 無 durable 戳 → None（待 backfill）'
+
+
 if __name__ == '__main__':
     test_assess_stage_transitions_by_disk_state()
     print('✓ stage 轉移矩陣（X/0/0.5 待ingest → 1 待audit → 2 待parse → 3 parsed → 4 sol已merge）')
@@ -343,4 +360,6 @@ if __name__ == '__main__':
     print('✓ sol gate：上站前強制 / 已deploy 降可選（與 catalog 同構）')
     test_sol_stats_corrupt_json_and_solution_tristate()
     print('✓ sol_stats：壞檔不連坐靜默跳過 + solution 三態（缺/空/null=無，非空list=有）+ .zh 不重計')
+    test_entry_ts_priority_and_fallback()
+    print('✓ 入庫時間戳：first_seen_at 優先 / 缺則退階段戳最早 / qc-only=None')
     print('\n全部通過 ✅')

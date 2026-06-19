@@ -87,6 +87,75 @@ def mark_deployed(slug: str) -> None:
         _save_state(s)
 
 
+# ── first_seen：每本書的 durable 入庫時間（觀測缺口的根治）─────────────────────────
+# 為何要它：deployed_at 是 do_deploy 才寫的「完成」戳、且後加機制 → 歷史書/卡關書全無戳，
+# cohort 查詢出現黑洞。first_seen 在「書首次被 pipeline 看到」就 idempotent 蓋一次、永不覆寫，
+# 保證每本書恆有一個入庫時間 → 任何「某時間段入庫了哪些書」的問題都答得出，零缺口。
+def first_seen(slug: str, state: dict | None = None) -> str | None:
+    s = state if state is not None else _load_state()
+    return (s.get(slug) or {}).get('first_seen_at')
+
+
+def _infer_first_seen(slug: str, entry: dict) -> str:
+    """歷史/補登用：從現有 state 階段戳 ∪ 檔案系統 mtime 取『最早可信』近似入庫時間。"""
+    from datetime import datetime, timezone
+    cands: list[datetime] = []
+    for k in ('deployed_at', 'catalog_llm_at'):
+        v = entry.get(k)
+        if isinstance(v, str):
+            try:
+                cands.append(datetime.fromisoformat(v))
+            except ValueError:
+                pass
+    for sub in (entry.get('math'), entry.get('book_qc')):
+        if isinstance(sub, dict) and isinstance(sub.get('at'), str):
+            try:
+                cands.append(datetime.fromisoformat(sub['at']))
+            except ValueError:
+                pass
+    # 檔案系統證據：mineru_data/<slug> 目錄、raw_pdfs 內該書 PDF 的 mtime
+    for p in (os.path.join(BP, 'mineru_data', slug),
+              os.path.join(BP, 'mineru_data', slug, 'unified', 'content_list.json')):
+        try:
+            cands.append(datetime.fromtimestamp(os.stat(p).st_mtime, timezone.utc))
+        except OSError:
+            pass
+    cands = [d if d.tzinfo else d.replace(tzinfo=timezone.utc) for d in cands]
+    when = min(cands) if cands else datetime.now(timezone.utc)
+    return when.astimezone(timezone.utc).isoformat(timespec='seconds')
+
+
+def stamp_first_seen(slug: str, when: str | None = None) -> None:
+    """idempotent：僅在 first_seen_at 缺席時寫入（已存在絕不覆寫）。when=None → 現在。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        e = s.setdefault(slug, {})
+        if e.get('first_seen_at'):
+            return
+        e['first_seen_at'] = when or datetime.now(timezone.utc).isoformat(timespec='seconds')
+        _save_state(s)
+
+
+def ensure_first_seen(slugs, infer: bool = True) -> int:
+    """為缺 first_seen 的 slug 一次補齊（backfill + 每 tick forward 共用，單次鎖內批寫）。
+    infer=True：從歷史證據推最早時間（補登歷史書用，較『現在』準）。回傳新蓋的本數。"""
+    from datetime import datetime, timezone
+    with _state_lock():
+        s = _load_state()
+        now = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        n = 0
+        for slug in slugs:
+            e = s.setdefault(slug, {})
+            if e.get('first_seen_at'):
+                continue
+            e['first_seen_at'] = _infer_first_seen(slug, e) if infer else now
+            n += 1
+        if n:
+            _save_state(s)
+    return n
+
+
 def mark_book_qc(slug: str, reasons: list[str]) -> None:
     """標記書況不合格（book_qc 部署前 gate 命中硬缺陷）→ 終止部署，待架構師裁決。
     與視覺 QC（set_qc）分屬不同檢查：qc=PDF 可不可讀、book_qc=parse 後書對不對/完不完整。"""
@@ -458,7 +527,18 @@ def main() -> int:
     ap = argparse.ArgumentParser(description='跨書全 stage 單一真相')
     ap.add_argument('--next', action='store_true', help='只印下一個可動項')
     ap.add_argument('--json', action='store_true')
+    ap.add_argument('--backfill-first-seen', action='store_true',
+                    help='一次性補登所有缺 first_seen_at 的書（從歷史證據推最早入庫時間）')
     args = ap.parse_args()
+
+    if args.backfill_first_seen:
+        pending = st._load_pending()
+        raw = st._raw_slug_map()
+        state_books = {k for k in _load_state() if not k.startswith('__') and not k.endswith('_sol')}
+        slugs = sorted(set(st.all_slugs(pending, raw)) | state_books)
+        n = ensure_first_seen(slugs, infer=True)
+        print(f'first_seen 補登：{n} 本新蓋 / {len(slugs)} 本掃描')
+        return 0
 
     rows = build_queue()
     if args.next:

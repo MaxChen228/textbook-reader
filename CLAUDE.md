@@ -12,14 +12,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 uv run python -m build.build_all [slug ...]              # 烤靜態站（不帶 slug = 全部書）
-uv run python -m book_pipeline.status                    # 全書 stage 儀表板
+uv run python -m book_pipeline.status                    # 全書 stage 儀表板（當下 frontier）
 uv run python -m book_pipeline.book_audit [slug ...]     # 新進書唯讀體檢（書本身對不對/完不完整）
+uv run python -m book_pipeline.trace cohort --since 12h  # 某時間段入庫 cohort 溯源漏斗（每本為何沒上架）
+uv run python -m book_pipeline.trace book <slug>         # 單書時間線 ⊕ 每階段 LLM session（→ trace session <id> 看全對話）
 uv run python -m book_pipeline.pipeline_tick --dry-run   # daemon 單 tick 計畫（不執行）
 uv run python -m book_pipeline.pipeline_queue            # 跨書全 stage work-queue
 uv run python -m http.server 8001                        # 本機預覽
 ```
 
 一律 `uv run`(專案 python 規範禁裸 `python3`)。`pyproject.toml` 宣告依賴,免 `--with` sprawl。
+
+### 觀測面四分（關注點不重疊、各一入口，改前先認準）
+
+- **`status`** — 當下階段 frontier 儀表板（現在每本卡哪）。
+- **`trace`**(`book_pipeline/trace.py`) — 回溯「一本/一批書發生什麼」的統一 forensic 入口：`book`(階段⊕session 時間線)/`session <id>`(全對話)/`cohort --since`(批次溯源漏斗,✅上站+⏳處理中+⚠卡關==入庫,零缺口)/`stuck`(待人工裁決)。**只組合既有資料 API**(`book_timeline`/`agent_history`/`status.assess`/`pipeline_state`),不持新真相;`devctl history/--session` delegate 至此。
+- **`devctl`** — daemon 即時控制/健康(kick/reload/incident/snapshot,見下「監控」)。
+- **`pipeline_queue`** — work-queue 機制 + `first_seen_at` 入庫戳資料層(`--backfill-first-seen` 補登歷史)。入庫時間單一真相 = `pipeline_state.json` 的 `first_seen_at`,每 observe idempotent 蓋、零缺口。
 
 ## Pipeline 架構（book_pipeline/）
 

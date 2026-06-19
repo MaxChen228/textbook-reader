@@ -19,13 +19,18 @@ todo 欄是「中性動詞」（ingest/audit/parse/sol_extract/translate），
 用法：
   uv run python -m book_pipeline.status            # 全表 + 待辦（pipeline dashboard）
   uv run python -m book_pipeline.status <slug>     # 單本細節
+
+時間段 cohort / 卡關清單 / 單書時間線 / session 全對話 → 統一走 `book_pipeline.trace`
+（本檔只管「當下階段 frontier」；trace 組合本檔的 _entry_ts/_stuck_reason/assess 做回溯）。
 """
 from __future__ import annotations
 
+import argparse
 import glob
 import json
 import os
 import sys
+from datetime import datetime, timezone
 
 from book_pipeline.catalog_audit import audit_catalog
 
@@ -42,13 +47,46 @@ def _deployed(slug: str) -> bool:
     return os.path.exists(os.path.join(ROOT, 'data', slug, 'book.json'))
 
 
+def _pstate() -> dict:
+    """讀 pipeline_state.json（不快取：長駐 daemon 內 state 會被 mark_* 改寫，快取會讀到舊值
+    → 自看不見剛寫的 catalog_accepted/qc，重新 churn。cohort 路徑一次載入後往下傳，不逐 slug 重讀）。"""
+    try:
+        return json.load(open(os.path.join(ROOT, 'book_pipeline', 'pipeline_state.json'))) or {}
+    except Exception:
+        return {}
+
+
+# 入庫時間戳：first_seen_at 是 durable 單一真相（每 observe idempotent 蓋、見 pipeline_queue），
+# 補登後每書恆有 → 零缺口。舊戳（deployed_at/階段戳）僅作 first_seen 尚未補上時的 fallback。
+_TS_FALLBACK = ('first_seen_at', 'deployed_at', 'catalog_llm_at')
+
+
+def _entry_ts(slug: str, state: dict | None = None) -> datetime | None:
+    """回傳該書入庫時間（aware UTC datetime）：first_seen_at 優先，無則退階段戳最早值。"""
+    e = (state or _pstate()).get(slug) or {}
+    if isinstance(e.get('first_seen_at'), str):
+        try:
+            d = datetime.fromisoformat(e['first_seen_at'])
+            return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+        except ValueError:
+            pass
+    cands = [e[k] for k in _TS_FALLBACK[1:] if isinstance(e.get(k), str)]
+    m = e.get('math')
+    if isinstance(m, dict) and isinstance(m.get('at'), str):
+        cands.append(m['at'])
+    out = []
+    for s in cands:
+        try:
+            d = datetime.fromisoformat(s)
+            out.append(d if d.tzinfo else d.replace(tzinfo=timezone.utc))
+        except ValueError:
+            pass
+    return min(out) if out else None
+
+
 def _catalog_accepted(slug: str) -> bool:
     """catalog 殘留已 accept（det+LLM 修完仍殘、源頭缺不可修）→ 不再當強制待辦。"""
-    try:
-        st = json.load(open(os.path.join(ROOT, 'book_pipeline', 'pipeline_state.json')))
-        return bool((st.get(slug) or {}).get('catalog_accepted'))
-    except Exception:
-        return False
+    return bool((_pstate().get(slug) or {}).get('catalog_accepted'))
 
 
 def sol_stats(slug: str) -> tuple[int, int]:
@@ -221,13 +259,28 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
             'math_bad': _math_residual(slug)}
 
 
+def _stuck_reason(slug: str, r: dict, e: dict) -> tuple[str, str] | None:
+    """卡關偵測（需人工裁決，非自動可推進）：qc-reject / 書況 review / 仍未 ingest。回 (原因, note)。"""
+    qc = e.get('qc') or {}
+    if qc.get('verdict') == 'reject':
+        return ('qc-reject', qc.get('note', '')[:72])
+    if e.get('book_qc'):
+        return ('book_qc', '；'.join((e['book_qc'] or {}).get('reasons', []))[:72])
+    if r['stage'].startswith(('0', 'X')):
+        return (r['stage'], r['todo'])
+    return None
+
+
 def main() -> int:
+    ap = argparse.ArgumentParser(prog='book_pipeline.status',
+                                 description='每本書在 pipeline 的真實階段（單一真相）。')
+    ap.add_argument('slug', nargs='?', help='單本細節（省略=全表）')
+    args = ap.parse_args()
+
     pending = _load_pending()
     raw = _raw_slug_map()
     # 全 slug = mineru_data 既有 ∪ raw_pdfs 待上傳 ∪ pending 中（皆去 _sol）
-    slugs = all_slugs(pending, raw)
-    if len(sys.argv) > 1:
-        slugs = [sys.argv[1]]
+    slugs = [args.slug] if args.slug else all_slugs(pending, raw)
     rows = [assess(s, pending, raw) for s in slugs]
     print(f"{'slug':20} {'階段':<16} {'題/解':>10} {'_sol':>5}  待辦")
     todos = []
