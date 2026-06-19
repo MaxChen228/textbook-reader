@@ -156,16 +156,14 @@ def _sol_pending(slug: str) -> bool:
         return False
 
 
-# sol_extract 嘗試上限：解答本綁母書後，sol_extract 是「部署後仍必做」的非可選階段。為防一本
-# 「解答本就是 merge 不上」（如 boas OCR 垃圾）讓 reactive loop 每輪重派昂貴 LLM 空轉，達此次數
-# 仍 sol==0 → _sol_exhausted 令 todo 消除、收斂（與 _sol_pending〔agent 語義判不可 merge〕互補，
-# 此為達次數上限的自動放棄）。源頭變化〔架構師換更完整的解答本〕→ clear state[slug].sol_attempt 重試。
-SOL_MAX_ATTEMPTS = 2
-
-
-def _sol_exhausted(slug: str, state: dict | None = None) -> bool:
-    a = ((state or _pstate()).get(slug) or {}).get('sol_attempt') or {}
-    return int(a.get('count', 0)) >= SOL_MAX_ATTEMPTS
+def _sol_escalated(slug: str, state: dict | None = None) -> bool:
+    """sol_extract 已升級給架構師、暫停再派（杜絕 busy-loop）。**非次數門檻**：sol_extract 一次
+    dispatch 內 agent 就會迭代收斂到終態（merge 或 _pending，見 audit-sol.md），跨 tick 重派同一本
+    只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱。唯一會卡的是 agent 跑完卻沒給結論（skill 違規）→
+    daemon 偵測後一次即標此旗標 + 開 sol proposal 升級（見 pipeline_tick._escalate_sol）。源頭/skill
+    修好後架構師 clear state[slug].sol_escalated 重試。與 _sol_pending〔agent 主動判不可 merge，亦開
+    proposal 申訴〕互補：兩者皆「非靜默放棄」，差別在誰判定（agent 自判 vs daemon 偵測異常）。"""
+    return bool(((state or _pstate()).get(slug) or {}).get('sol_escalated'))
 
 
 # catalog critical 計數快取：audit_catalog 是重活（全文 regex + 逐圖存在性檢查，~0.23s/書），
@@ -297,10 +295,11 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
     # 且尚未 merge，就由母書負責推進，**與母書是否已上站無關**——晚到的解答本照樣喚醒已部署母書。
     # 兩步：未 ingest → sol_ingest（確定性，母書驅動把解答本送 MinerU，與母書走同一 ingest 管線）；
     # 已 ingest → sol_extract（LLM 對齊 merge）。**非可選**（不再以 _deployed 降可選，那把「漏做」
-    # 誤當「空轉」）；改靠終態自然消除 todo 收斂：merge 成功（sol>0）／_sol_pending／_sol_exhausted。
+    # 誤當「空轉」）；**一次定生死**，改靠終態自然消除 todo 收斂：merge 成功（sol>0）／_sol_pending
+    # （agent 判不可 merge、開 proposal 申訴）／_sol_escalated（agent 未達終態 → daemon 一次升級、開 proposal）。
     sol_slug = f'{slug}_sol'
     sol_owned = has_sol_book or (sol_slug in raw) or (sol_slug in pending)
-    if sol_owned and sol == 0 and not _sol_pending(slug) and not _sol_exhausted(slug):
+    if sol_owned and sol == 0 and not _sol_pending(slug) and not _sol_escalated(slug):
         todo.append(f'sol_extract({sol_slug})' if has_sol_book else f'sol_ingest({sol_slug})')
     if not has_zh:
         todo.append('translate(可選)')

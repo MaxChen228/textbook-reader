@@ -1480,6 +1480,25 @@ def do_catalog_resolve(slug: str, dry: bool) -> int:
     return 0
 
 
+def _escalate_sol(slug: str) -> None:
+    """sol_extract 跑完未達終態（agent 紀律異常）→ 一次即升級架構師、停止再派（非靜默放棄）：
+    ① 標 state.sol_escalated → status._sol_escalated 令 todo 消除、收斂；
+    ② 開 sol/unresolved proposal 攤進申訴佇列（與 agent 主動申訴同管道）。proposal 開立失敗
+    絕不影響收斂（已標旗標）。架構師修 skill/源頭後 clear state[slug].sol_escalated 重試。"""
+    q.mark_sol_escalated(slug, 'agent 跑完未給結論（未 merge 亦未標 _pending）')
+    try:
+        from book_pipeline import proposals
+        proposals.propose(
+            domain='sol', type_='unresolved', slug=f'{slug}_sol', source='daemon',
+            title=f'sol_extract {slug} 跑完未收斂',
+            evidence='dispatch rc=0 但 sol==0 且 _sol_pending=False（agent 未達終態）',
+            proposal='查 audit-sol agent 為何未達終態（merge 或 _pending 二擇一）；'
+                     '修源頭/skill 後 clear state[slug].sol_escalated 重試')
+        log(f'sol_extract {slug}：⚠ agent 未收斂 → 標 escalated + 開 sol proposal 升級架構師')
+    except Exception as e:
+        log(f'sol_extract {slug}：標 escalated（proposal 開立失敗、不影響收斂：{e}）')
+
+
 def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:
     """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
@@ -1532,20 +1551,22 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         if verb == 'parse':
             do_parse(slug, dry)
         elif verb == 'sol_extract':
-            # 解答本已 ingest → LLM 對齊 merge 進母書 problems[].solution。每次完成計一次嘗試
-            # （收斂 backstop：達 SOL_MAX_ATTEMPTS 仍 sol==0 → assess 的 _sol_exhausted 令 todo 消除）。
-            # merge 成功（sol>0）→ inline 重烤把解答送上站（母書多已 deployed、assess 不會再出 deploy
-            # todo，故比照 math sweep 自行 rebake；data/ 從此帶解答）。
+            # 解答本已 ingest → LLM 對齊 merge 進母書 problems[].solution。**一次定生死**：agent 在
+            # 單次 dispatch 內就迭代收斂（audit-sol.md Step 6「至多 3 輪」），終態二擇一——merge 或
+            # _pending+proposal。**不跨 tick 重派同一本**（那只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱）。
             rc = dispatch_llm('sol_extract', slug, dry)
-            if rc != 0:  # -2 session 限額 / provider 不可用 → defer，不計次，下個 tick 重試
+            if rc != 0:  # 沒真的跑成（session 限額/provider 不可用）→ 非結論，defer 下個 tick 重跑
                 return
             sol_after = st.sol_stats(slug)[1]
-            q.mark_sol_attempt(slug, sol_after)
             if sol_after > 0:
                 log(f'sol_extract {slug} ✓：merge {sol_after} 題 → 重烤上站')
-                do_deploy(slug, dry, no_deploy)
+                do_deploy(slug, dry, no_deploy)  # 母書多已 deployed、assess 不再出 deploy todo → 比照 math sweep 自 rebake
+            elif st._sol_pending(slug):
+                log(f'sol_extract {slug}：agent 判源頭不可 merge（_pending）→ 已申訴、收斂')
             else:
-                log(f'sol_extract {slug}：本次未 merge（嘗試 {q.sol_attempts(slug)}/{st.SOL_MAX_ATTEMPTS}）')
+                # 異常：agent 跑完（rc=0）卻沒給結論（既沒 merge 也沒標 _pending）= skill 違規。
+                # **一次即升級，不賭骰子重試**：標 escalated 停再派 + 開 sol/unresolved proposal 攤給架構師。
+                _escalate_sol(slug)
             return
         elif verb == 'catalog_audit':
             rc = do_catalog_resolve(slug, dry)

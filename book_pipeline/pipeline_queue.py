@@ -214,25 +214,18 @@ def mark_catalog_accepted(slug: str, residual: int) -> None:
         _save_state(s)
 
 
-# ── sol_extract 嘗試計數（解答本綁母書後，post-deploy 非可選階段的收斂 backstop）─────────
-# 解答本永遠由母書驅動（status.assess 出 sol_ingest→sol_extract todo）。sol_extract 達
-# status.SOL_MAX_ATTEMPTS 次仍 sol==0 → status._sol_exhausted 令 todo 消除、收斂，杜絕
-# 「解答本就是 merge 不上」的 post-deploy busy-loop。源頭變化（架構師換更完整的解答本）→
-# clear state[slug].sol_attempt 即重試。與 catalog_accepted/math 同構（state 持久、idempotent）。
-def sol_attempts(slug: str, state: dict | None = None) -> int:
-    s = state if state is not None else _load_state()
-    return int(((s.get(slug) or {}).get('sol_attempt') or {}).get('count', 0))
-
-
-def mark_sol_attempt(slug: str, sol_after: int = 0) -> None:
-    """記一次 sol_extract 嘗試：count++、戳記、記嘗試後 solution 數（forensics）。"""
+# ── sol_extract 升級旗標（解答本綁母書、一次定生死的收斂閘，**非次數**）────────────────
+# sol_extract 一次 dispatch 內 agent 即迭代收斂到終態（merge 或 _pending+proposal，見 audit-sol.md）。
+# 唯一異常＝agent 跑完卻沒給結論 → daemon 一次即標此旗標（停再派、杜絕 busy-loop）+ 開 sol/unresolved
+# proposal 升級架構師（見 pipeline_tick._escalate_sol）。status._sol_escalated 讀此令 todo 消除。
+# 源頭/skill 修好後架構師 clear state[slug].sol_escalated 重試。「非靜默放棄」——攤在 proposal 佇列。
+def mark_sol_escalated(slug: str, reason: str) -> None:
     from datetime import datetime, timezone
     with _state_lock():
         s = _load_state()
-        a = s.setdefault(slug, {}).setdefault('sol_attempt', {})
-        a['count'] = int(a.get('count', 0)) + 1
-        a['at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
-        a['sol_after'] = int(sol_after)
+        s.setdefault(slug, {})['sol_escalated'] = {
+            'reason': reason,
+            'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
         _save_state(s)
 
 

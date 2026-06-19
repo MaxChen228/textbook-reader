@@ -243,11 +243,11 @@ def test_assess_catalog_gate_pre_vs_post_deploy():
 def test_assess_sol_bound_to_parent():
     """解答本綁母書（單一驅動者＝母書）：解答本 owned 即由母書出 sol todo，**與母書是否已上站無關**。
 
-    這是修掉舊「_deployed 降可選 → 已部署母書永遠不 merge 解答」的核心。兩步＋兩條收斂：
+    這是修掉舊「_deployed 降可選 → 已部署母書永遠不 merge 解答」的核心。兩步＋一次定生死收斂：
       - 解答本 owned 但未 ingest（raw_pdfs 有 PDF／在飛 OCR）→ sol_ingest（確定性，母書送 MinerU）。
-      - 解答本已 ingest、sol==0、非 pending/exhausted → sol_extract（LLM 對齊）。
+      - 解答本已 ingest、sol==0、非 pending/escalated → sol_extract（LLM 對齊）。
       - **已 deploy 後仍非可選**（不再降『(可選)』）→ main() 待辦不清空 → 已部署母書照樣被喚醒補 merge。
-      - 收斂改靠終態自然消除 todo：sol>0 ∪ _sol_pending ∪ _sol_exhausted（達 SOL_MAX_ATTEMPTS）。
+      - 收斂改靠終態自然消除 todo：sol>0 ∪ _sol_pending ∪ _sol_escalated（皆開 proposal 申訴、非靜默）。
     """
     # A. 解答本 owned 但未 ingest（在 raw map）→ sol_ingest，且**不論 deploy 與否皆非可選**
     with _sandbox(catalog_critical=0) as (root, data):
@@ -318,8 +318,9 @@ def test_assess_sol_bound_to_parent():
         r = st.assess('bk')
         assert _sol_token(r['todo']) == '', f"sol>0（已 merge）不該再提示 sol token：{r}"
 
-    # F. 反證（收斂 backstop）：sol_attempt 達 SOL_MAX_ATTEMPTS 仍 sol==0 → _sol_exhausted 令 todo 消除，
-    #    杜絕「解答本就是 merge 不上」的 post-deploy busy-loop（每輪重派昂貴 sol_extract LLM）。
+    # F. 反證（收斂閘，非次數）：state.sol_escalated（agent 跑完未達終態、daemon 一次升級）→
+    #    _sol_escalated 令 todo 消除、停再派。**非靜默放棄**：升級同時開 sol proposal 攤給架構師
+    #    （見 pipeline_tick._escalate_sol）；架構師 clear 旗標即重試。
     with _sandbox(catalog_critical=0) as (root, data):
         _mk_unified(data, 'bk')
         _mk_rules(data, 'bk')
@@ -327,10 +328,10 @@ def test_assess_sol_bound_to_parent():
         _mk_ch(data, 'bk', 'ch01.json', [{'num': '1.1'}])  # sol==0
         _mk_sol_book(data, 'bk')
         _write(os.path.join(root, 'book_pipeline', 'pipeline_state.json'),
-               {'bk': {'sol_attempt': {'count': st.SOL_MAX_ATTEMPTS}}})
+               {'bk': {'sol_escalated': {'reason': 'agent 未收斂', 'at': 'x'}}})
         r = st.assess('bk')
         assert _sol_token(r['todo']) == '', \
-            f"sol_attempt 達 SOL_MAX_ATTEMPTS → _sol_exhausted 收斂、停派 sol_extract：{r}"
+            f"sol_escalated（已升級架構師）→ 停派 sol_extract、收斂：{r}"
 
 
 # ── test 4：sol_stats 壞檔不連坐 + solution 三態語義 ─────────────────────────────────
