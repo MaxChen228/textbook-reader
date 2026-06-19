@@ -1555,7 +1555,14 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
             # 單次 dispatch 內就迭代收斂（audit-sol.md Step 6「至多 3 輪」），終態二擇一——merge 或
             # _pending+proposal。**不跨 tick 重派同一本**（那只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱）。
             rc = dispatch_llm('sol_extract', slug, dry)
-            if rc != 0:  # 沒真的跑成（session 限額/provider 不可用）→ 非結論，defer 下個 tick 重跑
+            if rc != 0:
+                # rc≠0 ＝ LLM 根本沒跑成（-2 session 限額／-1 timeout／其他任務失敗）＝基礎設施層暫時
+                # 不可用，**非結論**：defer 下個 tick 重跑（provider 多會恢復）。這與「一次定生死」治的是
+                # 兩種病——後者治「rc==0 跑完卻沒結論」（agent 紀律，見下 _escalate_sol）；rc≠0 的暫時失敗
+                # defer 重跑是對的。**已知邊界**：若某 provider chain 對某本書「穩定」rc≠0（四層 failover
+                # 全持續掛），會每 tick 重派——但這對齊既有全 stage 行為（catalog_audit/audit 同樣只特判
+                # -2、其餘 rc 無限 defer），非本機制回歸；真解＝stage-agnostic circuit breaker（連續失敗計數
+                # 才升級，與「賭 LLM 隨機」的 retry 語意不同），屬跨 stage 層級、不在此單 stage 打補丁。
                 return
             sol_after = st.sol_stats(slug)[1]
             if sol_after > 0:
