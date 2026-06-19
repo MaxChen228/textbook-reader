@@ -1333,12 +1333,10 @@
     catch { crawlLive = null }
     reconcileCrawl()
   }
+  // 自動 1s 輪詢用：靜默，不碰按鈕（spin 回饋只屬手動點擊；每秒重建 spin 會閃）。
   async function load() {
-    const btn = document.getElementById('btn-refresh')
-    btn.innerHTML = '<span class="spin">↻</span> refresh'
     try { render(await fetchJson('status.json')) }
     catch (e) { document.getElementById('foot').textContent = '讀取 status.json 失敗：' + (e.message || e) }
-    finally { btn.innerHTML = '↻ refresh' }
   }
 
   // 系統健康（errors/recent_log/corpus_sessions）：逐出核 status.json → dev/system.json，~8s 慢輪詢。
@@ -1368,7 +1366,13 @@
     if (!systemTimer) systemTimer = setInterval(loadSystem, SYSTEM_MS)
   }
   function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(crawlLiveTimer); clearInterval(proposalsTimer); clearInterval(systemTimer); timer = clockTimer = workersTimer = crawlLiveTimer = proposalsTimer = systemTimer = null; stopMathRaw() }
-  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadCrawlLive(); loadProposals(); loadSystem() })
+  // 手動點擊才顯 spin 回饋（自動輪詢靜默）：全 feed 一起刷、結束收回。
+  document.getElementById('btn-refresh').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-refresh')
+    btn.innerHTML = '<span class="spin">↻</span> refresh'
+    try { await Promise.all([load(), loadWorkers(), loadCrawlLive(), loadProposals(), loadSystem()]) }
+    finally { btn.innerHTML = '↻ refresh' }
+  })
   document.getElementById('btn-proposals').addEventListener('click', openProposalsDrawer)
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); loadProposals(); loadSystem(); start()
