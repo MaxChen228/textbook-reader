@@ -364,7 +364,7 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200, STAGES_MS = 1500, CRAWLLIVE_MS = 2000, PROPOSALS_MS = 12000
+  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, STAGES_MS = 1000, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null, proposalsTimer = null
   let last = null, lastWorkers = [], lastStageGen = ''
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；2s 直撿 dev/crawl_live.json，繞 status.json 8s）
@@ -839,7 +839,7 @@
   // math sweep 即時串流 + 歷史批次：只在數學抽屜開著時輪詢（live 1.2s 跟得上模型逐字生成）
   async function loadMathRaw() {
     // 只抓聚合 live（panel 已不顯逐批歷史 → 省一次 fetch；歷史保留檔案供 `sweep raw` CLI 取證）
-    try { mathLive = await fetchJson('math_live.json?_=' + Date.now()) } catch (e) { mathLive = null }
+    try { mathLive = await fetchJson('math_live.json') } catch (e) { mathLive = null }
     if (openMath) renderMathStream()
   }
   function startMathRaw() {
@@ -884,7 +884,7 @@
     const b = document.getElementById('btn-proposals'); if (b) b.classList.toggle('has-pending', n > 0)
   }
   async function loadProposals() {
-    try { proposalsFeed = await fetchJson('proposals.json?_=' + Date.now()) } catch { proposalsFeed = null }
+    try { proposalsFeed = await fetchJson('proposals.json') } catch { proposalsFeed = null }
     updateProposalsBadge()
     if (openProposals) renderProposalsDrawer()
     else if (openProposalId) renderProposalDrawer()
@@ -1100,7 +1100,7 @@
   // 回事件陣列（200，含真正空檔回 []）；fetch 失敗 / 404（已被 prune）回 null → 呼叫端區分且不快取
   async function fetchSessionEvents(id) {
     try {
-      const res = await fetch('agent_history/sessions/' + encodeURIComponent(id) + '.jsonl?_=' + Date.now())
+      const res = await fetch('agent_history/sessions/' + encodeURIComponent(id) + '.jsonl')
       if (!res.ok) return null
       const txt = await res.text()
       return txt.split('\n').filter(Boolean).map(l => { try { return JSON.parse(l) } catch (e) { return null } }).filter(Boolean)
@@ -1303,7 +1303,7 @@
   }
 
   async function loadWorkers() {
-    try { const data = await fetchJson('workers.json?_=' + Date.now()); lastWorkers = (data && data.workers) || [] }
+    try { const data = await fetchJson('workers.json'); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
     reconcileCrawl()  // 爬書站走 2s cadence（≤2s 反映 worker 起/止，非 8s）
     reconcileMath()   // 數學 sweep agent 同走 2s cadence（slug=null，本站直接渲染）
@@ -1316,7 +1316,7 @@
   async function loadStages() {
     if (!last || !last.books) return
     let s
-    try { s = await fetchJson('stages.json?_=' + Date.now()) } catch { return }  // 尚無檔 / controller 未起
+    try { s = await fetchJson('stages.json') } catch { return }  // 尚無檔 / controller 未起
     if (!s || !s.stages || !s.generated_at_utc) return
     if (s.generated_at_utc === lastStageGen) return                                  // 無新版 → 不動
     if (last.generated_at_utc && s.generated_at_utc < last.generated_at_utc) return  // 比剛撿的 status 還舊 → 跳過
@@ -1336,14 +1336,14 @@
   // live 下載快訊：2s 直撿 dev/crawl_live.json（買書員逐本 下載中→✓/✗），不等 8s status.json。
   // 無下載時檔不存在 → fetch 404 → crawlLive=null → 表頭退回常態 reason。
   async function loadCrawlLive() {
-    try { crawlLive = await fetchJson('crawl_live.json?_=' + Date.now()) }
+    try { crawlLive = await fetchJson('crawl_live.json') }
     catch { crawlLive = null }
     reconcileCrawl()
   }
   async function load() {
     const btn = document.getElementById('btn-refresh')
     btn.innerHTML = '<span class="spin">↻</span> refresh'
-    try { render(await fetchJson('status.json?_=' + Date.now())) }
+    try { render(await fetchJson('status.json')) }
     catch (e) { document.getElementById('foot').textContent = '讀取 status.json 失敗：' + (e.message || e) }
     finally { btn.innerHTML = '↻ refresh' }
   }
