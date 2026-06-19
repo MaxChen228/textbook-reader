@@ -1,0 +1,10 @@
+# Pending: cannot safely merge into stewart_calculus.
+# Evidence:
+# 1. `book_pipeline/mineru_data/stewart_calculus/parsed/ch01.json` body is already a solution:
+#    "The functions f(x)=... so f and g are equal."
+# 2. Main parsed chapter files are compressed (`ch06` carries `7.*`, `ch10` carries `12.*`,
+#    `ch11` carries `17.*`), but sol_extract routes strictly by `chNN.json`, so even a chapter
+#    regex against the solution manual's real chapter numbers would misroute chapters.
+# 3. `book_pipeline/mineru_data/stewart_calculus/_audit.md` explicitly records that the current
+#    `stewart_calculus` corpus is "明顯是解答型內容".
+_pending: true

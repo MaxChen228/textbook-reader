@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-stewart-calculus-sol",
+  "domain": "sol",
+  "type": "edition-mismatch",
+  "status": "proposed",
+  "title": "stewart_calculus 解答本無法 merge：主書 corpus 實為 solutions 手冊",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:53:07+00:00",
+  "updated": "2026-06-19T11:53:07+00:00",
+  "evidence": "主書 parsed/ch01 body 即為『The functions f(x)=... so f and g are equal.』這類解答句；_audit.md 亦明記 stewart_calculus 現有 corpus 明顯是解答型內容；另主書 ch06/ch10/ch11 分別承載 7.* / 12.* / 17.* 題號，與 sol_extract 依 chNN 路由的假設衝突。",
+  "proposal": "先替換 stewart_calculus 主書來源為真正 textbook 並重跑 ingest/audit-book；在主書恢復為題幹書前，不應對 stewart_calculus_sol 執行 sol merge。",
+  "risk": "",
+  "disposition": ""
+}
