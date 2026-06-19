@@ -1,0 +1,18 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前無法靠 sol_rules 安全對齊，原因如下：
+#
+# 1. sol_extract 只接受 text_level==1 的章 anchor，但此 unified 完全沒有 level-1 text；
+#    章標 "CHAPTER N" 只出現在 text_level=None/2。用目前引擎正式 dry-run 會抽出 0 章、0 題。
+#
+# 2. 即使用臨時探針忽略 text_level，來源仍只找到 10 個章標，對不上主書 16 章：
+#    可辨識者僅 ch1,2,3,4,6,7,11,12,13,15。缺 5/8/9/10/14?/16；其中 ch14 還被 OCR 成
+#    "CHAPTER .14"。章邊界不可靠，無法交給正式 harness 安全 merge。
+#
+# 3. 忽略 level 的探針顯示跨章污染明顯：ch04 區段混入 5.x、ch07 混入 10.x、ch13 混入 14.x、
+#    ch15 混入 16.x。這代表缺失章標時，後續題目整段被吞進前一章；若硬 merge，會把錯章解答
+#    寫進主書。
+#
+# 本次校準保留的 regex 僅作後續修源/升級 harness 的起點，不可直接解除 pending。
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^(\d+\.\d+)'
+multi_per_block: false
+_pending: true
