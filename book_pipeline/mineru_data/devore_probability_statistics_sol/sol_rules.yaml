@@ -1,0 +1,22 @@
+# ⚠ PENDING — 不要 merge。這本目前卡在主書 parse / 規則層，非 sol 書 regex 微調可解，原因如下：
+#
+# 1. 主書 `devore_probability_statistics/parsed/ch*.json` 全 16 章 `problems[]` 都是空陣列，
+#    但章 body 明明已含 exercise 區與題號段落。
+#    例：ch01 有 `EXERCISES Section 1.2 (10–32)`，後面 body 直接出現 `17.`、`19.`；
+#    ch08/ch16 也一樣。也就是 parser 把題目留在 body，沒有產出可供 sol_extract 對齊的 key。
+#
+# 2. 主書現行 `extract_rules.yaml` 把 `problem_num_namespace_by_section` 設成 true，
+#    但 Devore 題號在單章內其實是全章連號（如 ch1: 1..83、ch2: 1..75），不是每節重置。
+#    若直接沿用這規則重跑 parser，主書 key 會變成 `1.2.17` 這類 section-namespaced 形式；
+#    但解答書在 `Section 1.2` 下的答案題號只寫裸整數 `17.`，sol_extract 無法正確對齊。
+#
+# 3. 解答書本身的章 anchor 與題號樣式是穩定的：
+#    `CHAPTER N` → `Section N.M` / `Supplementary Exercises` → `17.` 這種裸整數題號。
+#    也就是說，阻塞點在母書 parse / 規則，不在解答書來源。
+#
+# 正確收斂：先維持 pending，待主書重新 audit/parse（至少修正題目抽取，並重新檢討
+# `problem_num_namespace_by_section` 應為 false）後，再以本檔規則重跑 sol_extract。
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true
