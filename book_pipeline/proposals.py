@@ -209,6 +209,62 @@ def resolve_many(ids: list[str], *, status: str, resolution: str,
     return staged, []
 
 
+# ── 護欄：自動 supersede 已被 repair 涵蓋的假 catalog 缺口 ────────────────────────
+# 今日 forensic：audit agent 在 audit stage 跑 smoke 看到 repair 前的 H6/H7，誤判成永久引擎缺陷
+# 而提案；下游 catalog_audit stage 的確定性 repair_catalog_metadata 一跑就把 critical 清零 → 提案成
+# 假缺口。此護欄自動偵測「caption/catalog tooling-gap 提案 + 其書 catalog critical 已歸零」→ superseded，
+# 把架構師手動裁決（今日手動 supersede 112 條）自動化，且用真實 critical 數當裁判、不靠讀提案文字。
+_CATALOG_GAP_KW = (
+    'caption', '圖說', 'figure', 'table', 'catalog', 'empty_caption', 'fallback',
+    'unresolved_visual', 'subfigure', 'image block', 'shard', '圖檔', '圖表目錄', 'h6', 'h7',
+)
+
+
+def _is_catalog_gap(rec: dict) -> bool:
+    """proposed 的 catalog/caption 引擎缺口提案（domain engine|catalog + 標題/證據含 caption 類關鍵字）。
+    刻意只認 caption 類：conway/poole 等『章節/題號切分』缺口不含這些字 → 不誤觸（critical=0 也不動）。"""
+    if rec.get('status') != 'proposed' or rec.get('domain') not in ('engine', 'catalog'):
+        return False
+    blob = ' '.join((rec.get(k) or '') for k in ('title', 'evidence', 'proposal')).lower()
+    return any(k in blob for k in _CATALOG_GAP_KW)
+
+
+def catalog_resolved_candidates(recs: list[dict], slug_of, critical_fn) -> list[tuple[dict, str]]:
+    """回 [(rec, slug)]：caption/catalog tooling-gap 提案中，其書 catalog critical 已歸零者
+    （＝repair_catalog_metadata 已涵蓋＝假缺口，可 superseded）。純函式、依注入解耦：
+    slug_of(rec)->str|None（截斷碰撞無法歸戶 → None，跳過、絕不臆測歸錯書）；critical_fn(slug)->int。"""
+    out = []
+    for rec in recs:
+        if not _is_catalog_gap(rec):
+            continue
+        slug = slug_of(rec)
+        if slug and critical_fn(slug) == 0:
+            out.append((rec, slug))
+    return out
+
+
+def _slug_resolver(universe):
+    """universe: 書 slug 可疊代。回 slug_of(rec)：由 id 內嵌的 _slugify(slug) 反推 full slug。
+    取 slugify 最長且為 id-body 前綴者；若該 key 去 _sol 後 base ≥2（真跨書截斷碰撞）→ None（不歸戶）。"""
+    import re as _re
+    uni = list(universe)
+    by_key: dict[str, set] = {}
+    for s in uni:
+        by_key.setdefault(_slugify(s), set()).add(_re.sub(r'(_sol)+$', '', s))
+
+    def slug_of(rec):
+        body = _re.sub(r'^P-\d{4}-\d\d-\d\d-', '', rec.get('id', ''))
+        best = None
+        for s in uni:
+            k = _slugify(s)
+            if (body == k or body.startswith(k + '-')) and (best is None or len(k) > len(_slugify(best))):
+                best = s
+        if best is None or len(by_key.get(_slugify(best), set())) > 1:
+            return None
+        return best
+    return slug_of
+
+
 def lint(recs: list[dict[str, Any]]) -> list[str]:
     errs: list[str] = []
     seen: set[str] = set()
@@ -351,6 +407,42 @@ def cmd_resolve(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_supersede_resolved(a: argparse.Namespace) -> int:
+    """護欄：自動 supersede「已被 repair 涵蓋」的假 catalog 缺口提案（dry-run 預設）。
+    universe = mineru_data 下實存書目錄；critical = audit_catalog(write_report=False)，純讀不寫報告。"""
+    data_dir = ROOT / 'book_pipeline' / 'mineru_data'
+    universe = sorted(p.name for p in data_dir.iterdir() if p.is_dir()) if data_dir.is_dir() else []
+    slug_of = _slug_resolver(universe)
+    from book_pipeline.catalog_audit import audit_catalog
+    _cache: dict[str, int] = {}
+
+    def critical_fn(slug):
+        if slug not in _cache:
+            try:
+                _cache[slug] = len(audit_catalog(slug, write_report=False).get('critical') or [])
+            except Exception:
+                _cache[slug] = -1  # 無法判定 → 不視為已解（不誤 supersede）
+        return _cache[slug]
+
+    cands = catalog_resolved_candidates(load_all(), slug_of, critical_fn)
+    if not cands:
+        print("（無已被 repair 涵蓋的假 catalog 缺口提案）")
+        return 0
+    ids = [rec['id'] for rec, _ in cands]
+    res = "repair_catalog_metadata 已涵蓋（live catalog critical=0）—— audit stage 看到的是 repair 前暫態"
+    staged, errs = resolve_many(ids, status='superseded', resolution=res, apply=not a.dry_run)
+    if errs:
+        print("❌ 決策後 schema 不合（全批未寫入）：", file=sys.stderr)
+        for e in errs:
+            print(f"  {e}", file=sys.stderr)
+        return 2
+    head = f"[dry-run] 將 supersede {len(staged)} 條" if a.dry_run else f"✓ 已 supersede {len(staged)} 條"
+    print(f"{head}（其書 catalog critical 已歸零）：")
+    for rec, slug in cands:
+        print(f"  {rec['id']}  ←  {slug}")
+    return 0
+
+
 def cmd_lint(a: argparse.Namespace) -> int:
     errs = lint(load_all())
     # 順帶驗 _index.md 與 store 同步（生成檔不得手改漂移）
@@ -461,6 +553,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--disposition", help="補充去向（如 per-slug override）")
     p.add_argument("--dry-run", action="store_true", help="只印將裁決的 id，不寫入")
     p.set_defaults(fn=cmd_resolve)
+
+    p = sub.add_parser("supersede-resolved",
+                       help="護欄：自動 supersede 已被 repair 涵蓋的假 catalog 缺口提案")
+    p.add_argument("--dry-run", action="store_true", help="只列候選、不寫入（建議先跑）")
+    p.set_defaults(fn=cmd_supersede_resolved)
 
     sub.add_parser("lint", help="schema 驗證").set_defaults(fn=cmd_lint)
     sub.add_parser("render", help="重生 _index.md").set_defaults(fn=cmd_render)
