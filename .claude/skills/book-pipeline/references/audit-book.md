@@ -416,6 +416,9 @@ uv run python -m book_pipeline.extract_cover $SLUG
   讓自己這本過（那會污染所有書、且被 scope_guard 自動還原成一筆提案）。改下指令記一筆，回報架構師收編：
   **⚠ 圖說 / catalog（H6/H7）不是合法提案理由**——那由下游 `catalog_audit` 的 `repair_catalog_metadata`
   處理（見 §5 smoke 表）；為 caption/empty-figure 開 tooling-gap 是已知的假缺口源，絕對不要。
+  **⚠ 語義契約**：開 engine tooling-gap 提案＝**宣告「本書 audit 無法產出 yaml」**（daemon 見『有 engine 提案
+  且仍無 extract_rules.yaml』會標 `R audit-blocked`、停止重派待人工裁決）。故**只在你真的要放棄寫 yaml 時才提案**；
+  若章節/題號還沒切完、本該繼續迭代，**先寫出 yaml**，別「順手提個案」就收尾——那會害本書被誤判卡關。
   ```bash
   uv run python -m book_pipeline.proposals propose --domain engine --type tooling-gap \
     --slug <slug> --title "<一句話：哪個引擎缺哪種能力（限章節/題號切分）>" \

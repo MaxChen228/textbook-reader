@@ -257,7 +257,10 @@ def _slug_resolver(universe):
         best = None
         for s in uni:
             k = _slugify(s)
-            if (body == k or body.startswith(k + '-')) and (best is None or len(k) > len(_slugify(best))):
+            # 只認 exact 或同書第 N 案後綴 `-<digits>`；**不**認 `-sol`／任意 `-word`
+            # （否則 'xxx-sol' 會誤前綴匹配母書 'xxx' → _sol 提案被當母書、拿母書 critical 誤判）。
+            if (body == k or _re.fullmatch(_re.escape(k) + r'-\d+', body)) \
+                    and (best is None or len(k) > len(_slugify(best))):
                 best = s
         if best is None or len(by_key.get(_slugify(best), set())) > 1:
             return None
@@ -411,8 +414,11 @@ def cmd_supersede_resolved(a: argparse.Namespace) -> int:
     """護欄：自動 supersede「已被 repair 涵蓋」的假 catalog 缺口提案（dry-run 預設）。
     universe = mineru_data 下實存書目錄；critical = audit_catalog(write_report=False)，純讀不寫報告。"""
     data_dir = ROOT / 'book_pipeline' / 'mineru_data'
-    universe = sorted(p.name for p in data_dir.iterdir() if p.is_dir()) if data_dir.is_dir() else []
-    slug_of = _slug_resolver(universe)
+    # 排除 _sol 目錄（對齊 all_slugs「解答本隱形」原則）：_sol 無獨立 catalog，其 caption 提案
+    # 不由母書 critical 代判、不在此自動 supersede（保守留 proposed、架構師處理）。
+    universe = ([p.name for p in data_dir.iterdir() if p.is_dir() and not p.name.endswith('_sol')]
+                if data_dir.is_dir() else [])
+    slug_of = _slug_resolver(sorted(universe))
     from book_pipeline.catalog_audit import audit_catalog
     _cache: dict[str, int] = {}
 

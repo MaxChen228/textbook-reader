@@ -136,6 +136,16 @@ def test_has_open_engine_proposal_matches_suffixed_id(monkeypatch):
     assert pt._has_open_engine_proposal('conway_functional_analysis') is True
 
 
+def test_has_open_engine_proposal_rejects_sol_suffix(monkeypatch):
+    """_sol 提案（id 帶 -sol）不可讓母書被誤標 audit_blocked（後綴只認 -<digits>）。"""
+    from book_pipeline import pipeline_tick as pt
+    from book_pipeline import proposals as pr
+    monkeypatch.setattr(pr, 'load_all',
+                        lambda: [{'id': 'P-2026-06-19-foo-book-sol',
+                                  'status': 'proposed', 'domain': 'engine'}])
+    assert pt._has_open_engine_proposal('foo_book') is False
+
+
 if __name__ == '__main__':
     import sys
     import pytest

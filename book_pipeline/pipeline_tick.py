@@ -1451,7 +1451,8 @@ def _has_open_engine_proposal(slug: str) -> bool:
             if d.get('status') != 'proposed' or d.get('domain') != 'engine':
                 continue
             body = re.sub(r'^P-\d{4}-\d\d-\d\d-', '', d.get('id', ''))
-            if body == key or body.startswith(key + '-'):
+            # 只認 exact 或同書第 N 案 `-<digits>`；拒 `-sol`（避免母書因解答本的提案被誤標 blocked）。
+            if body == key or re.fullmatch(re.escape(key) + r'-\d+', body):
                 return True
     except Exception:
         return False

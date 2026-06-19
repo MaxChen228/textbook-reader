@@ -83,6 +83,15 @@ def test_slug_resolver_none_when_no_match():
     assert slug_of(_rec('P-2026-06-19-some-other-book')) is None
 
 
+def test_slug_resolver_rejects_sol_suffix():
+    """_sol 提案不可前綴誤歸母書：guardrail universe 已排除 _sol，且後綴只認 `-<digits>`（拒 `-sol`）
+    → _sol 提案回 None、不會被當母書、不會拿母書 critical 誤 supersede。"""
+    slug_of = P._slug_resolver(['lee_smooth_manifolds'])  # 比照 guardrail：universe 不含 _sol
+    assert slug_of(_rec('P-2026-06-19-lee-smooth-manifolds-sol')) is None
+    # 同書第 N 案的 -N 後綴仍正確歸戶（不被誤殺）
+    assert slug_of(_rec('P-2026-06-19-lee-smooth-manifolds-2')) == 'lee_smooth_manifolds'
+
+
 if __name__ == '__main__':
     import sys
     import pytest

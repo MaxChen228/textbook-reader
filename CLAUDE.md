@@ -32,7 +32,7 @@ uv run python -m http.server 8001                        # 本機預覽
 
 上四者觀測 live pipeline;另一軸是**決策日誌**——
 
-- **`proposals`**(`book_pipeline/proposals.py`,`proposals.d/<id>.json` 一案一檔 + `_index.md` 視圖) — 各 agent 跑到一半發現「值得跨書泛化、但 autonomous 不該擅改核心碼」就一行 `propose` 落案;**這是 provenance/稽核軌跡,不是等人核准的佇列**。架構師裁決 SOP:**先查真相層再裁,絕不照提案文字拍腦袋**——engine/patch(scope_guard 捕獲,多是 worker 越界改進已被主線收編的殘留)`grep` working-tree 對應函式是否已存在(已落地→`superseded`)、math/normalize-rule 跑 `proposals check` 看 live aggregate occ(0→`rejected/already-resolved`,逐條 override 已清則全域規則多餘)。**批次事務工具**:`resolve` 收多 id 或 `--where-domain/-type/-source` 過濾 proposed(刻意只命中 proposed)→ 全批先套用、一次 lint、全過才落盤、結尾只 render 一次(all-or-nothing,`--dry-run` 先看圈中誰);成批同去向別再外部迴圈硬湊。
+- **`proposals`**(`book_pipeline/proposals.py`,`proposals.d/<id>.json` 一案一檔 + `_index.md` 視圖) — 各 agent 跑到一半發現「值得跨書泛化、但 autonomous 不該擅改核心碼」就一行 `propose` 落案;**這是 provenance/稽核軌跡,不是等人核准的佇列**。架構師裁決 SOP:**先查真相層再裁,絕不照提案文字拍腦袋**——engine/patch(scope_guard 捕獲,多是 worker 越界改進已被主線收編的殘留)`grep` working-tree 對應函式是否已存在(已落地→`superseded`)、math/normalize-rule 跑 `proposals check` 看 live aggregate occ(0→`rejected/already-resolved`,逐條 override 已清則全域規則多餘)。**批次事務工具**:`resolve` 收多 id 或 `--where-domain/-type/-source` 過濾 proposed(刻意只命中 proposed)→ 全批先套用、一次 lint、全過才落盤、結尾只 render 一次(all-or-nothing,`--dry-run` 先看圈中誰);成批同去向別再外部迴圈硬湊。**caption 假缺口自動護欄**:`proposals supersede-resolved [--dry-run]`——掃 proposed 的 caption/catalog tooling-gap,凡其書 `audit_catalog` live critical=0(=已被下游 `repair_catalog_metadata` 涵蓋)即自動 superseded,用真實 critical 數當裁判、非讀提案文字(只認 caption 類關鍵字故不誤觸 conway/poole 章節題號缺口;critical>0 真殘留/-1 無法判定皆保守留 proposed;`_sol` 排除不自動裁)。把「audit agent 撞 repair 前 H6/H7 誤判成引擎缺口」這類假提案的人工裁決自動化(根因見 audit-book.md §5 smoke 表 H6/H7 列)。
 
 ## Pipeline 架構（book_pipeline/）
 
@@ -53,6 +53,7 @@ uv run python -m http.server 8001                        # 本機預覽
 - **路徑根基**:`ROOT = dirname(dirname(__file__))`(`status.py`/`corpus.py`/`pipeline_queue.ROOT`),所有狀態檔/`mineru_data`/`raw_pdfs` 都 repo-root 相對 → 模組原名擺 repo 根下即全自動正確。
 - **deploy 已本地化**:`do_deploy()` 只跑 `uv run python -m build.build_all <slug>` 烤出 data/img(nginx 直讀工作目錄即時上站),**無 git push**。
 - **部署前書況 gate**(`book_qc.py`,parse 後/build 前):確定性零 LLM 驗「書對不對/完不完整」,攔 crawl 配錯書(`companion`/`title_mismatch`)與殘卷(`partial_source`/`chapter_gap`)——這類源頭缺陷下游 stage 無從補。命中硬缺陷 → `q.mark_book_qc` 標 review、**不上站**,`assess_full` 後續 tick 見標記回 `R 書況` 終止排程(不再耗 build/LLM)。**fail-open**(gate 自身出錯絕不擋好書)。**架構師職責**:`book_audit` 看旗標 → 修 booklists 重解/找完整版 → 重 parse 後 `do_deploy` 自動 `clear_book_qc` 放行。worker 無此職責(屬 crawl/架構師域,故無 skill reference)。
+- **audit 結構性卡關終態 `R audit-blocked`**(與 `R 書況` 平行的「需人工裁決」終態):audit agent 跑完(rc==0)卻產不出 `extract_rules.yaml` 且已開 engine 提案(=schema 表達不了,如 aitchison combined 2-volume 非連續多區附錄)→ `advance_book` 一次 `q.mark_audit_blocked` 標 review、**停止跨 tick 重派空轉**(此前曾空轉 8 次重推同一 blocker);`assess` 見標記回 `R audit-blocked`、進 `trace stuck`/cohort ⚠。**架構師職責**:改 booklists/手寫 yaml/降規格繞過(如末章 `next_chapter_block_idx` 留 gap 跳過中段附錄);產出 yaml 後 advance 自動 `clear_audit_blocked` 放行。一次定生死、不賭 LLM 隨機重試。
 
 ## Build self-contained（build/）
 
