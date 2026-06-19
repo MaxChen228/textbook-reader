@@ -1,0 +1,14 @@
+# Tipler/Mosca 解答書的題號是章內純整數 reset，對齊主書 parsed/chNN.json 的 problem.num。
+# 現行 sol_extract 只接受 lvl=1 text 作為 chapter anchor；此 unified 裡 42 個 chapter-like block
+# 只有 12 個是 lvl=1，導致 ch03/ch08/ch11/ch18/ch25/ch30/ch37/ch41 等抽取會吞掉後續多章內容。
+# 語義抽樣亦顯示主書 parsed 章邊界已錯位，例如：
+# - main ch17 的非空題幹落在 standing waves / beats（實為前章內容）
+# - main ch29 的非空題幹仍在 magnetic induction（實為前章內容）
+# 在主書章邊界與 sol 章 anchor 都不可靠的情況下，不能產出品質 merge。
+chapter_re: '^Chapter\s+(\d+)(?:\s+.*)?$'
+
+# 題目 block 以整數開頭，後面接空白/標點/提示標記；
+# 加上 (?![.-]\d) 以排除正文內像 1.00 GW、0.250-kg 這類數值開頭段落。
+problem_re: '^(\d+)(?![.-]\d)(?=\s*(?:[•.,]?\s*)?(?:\[|["''“”]|[A-Z(]))'
+multi_per_block: false
+_pending: true

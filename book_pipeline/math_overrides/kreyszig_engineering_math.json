@@ -1,0 +1,138 @@
+{
+  "overrides": [
+    {
+      "id": "kreyszig_engineering_math-app2-body-42-d4b3e9",
+      "action": "fix_inline_math",
+      "chunk": "app2",
+      "selector": "body[42]",
+      "field": "md",
+      "all": true,
+      "old": "$y' + py = u'y^{*} + uy^{*}' + puy^{*} = u'y^{*} + u(y^{*}' + py^{*}) = u'y^{*} + u \\cdot 0 = r$",
+      "new": "$y' + py = u'y^{*} + uy^{*}{}' + puy^{*} = u'y^{*} + u(y^{*}{}' + py^{*}) = u'y^{*} + u \\cdot 0 = r$",
+      "anchor": "87dccf3f"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch07-body-446-4a3aa8",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[446]",
+      "expect": "\\left[ \\begin{array}{c c c c c} 3 & 2 & 1 & | & 3 \\\\ 0 & - \\frac {1}{3} & \\frac {1}{3} & | & - 2 \\\\ 0 & - 2 & 2 & | & 0 \\end{array} \\right] \\quad \\begin{array}{l l} & 3 x _ {1} + 2 x _ {2} + x _ {3} = 3 \\\\ \\text {Row 2 - \\frac {2}{3} Row 1} & \\boxed {- \\frac {1}{3} x _ {2}} + \\frac {1}{3} x _ {3} = - 2 \\\\ \\text {Row 3 - 2 Row 1} & \\boxed {- 2 x _ {2}} + 2 x _ {3} = 0. \\end{array}",
+      "new": "\\left[ \\begin{array}{c c c c c} 3 & 2 & 1 & | & 3 \\\\ 0 & - \\frac {1}{3} & \\frac {1}{3} & | & - 2 \\\\ 0 & - 2 & 2 & | & 0 \\end{array} \\right] \\quad \\begin{array}{l l} & 3 x _ {1} + 2 x _ {2} + x _ {3} = 3 \\\\ \\text {Row 2 - } \\frac {2}{3} \\text { Row 1} & \\boxed {- \\frac {1}{3} x _ {2}} + \\frac {1}{3} x _ {3} = - 2 \\\\ \\text {Row 3 - 2 Row 1} & \\boxed {- 2 x _ {2}} + 2 x _ {3} = 0. \\end{array}"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch21-body-48-4feabb",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[48]",
+      "expect": "\\begin{array}{l} \\text {For n = 0,1,\\cdots,N - 1 do:} \\\\ \\left| \\begin{array}{c} x _ {n + 1} = x _ {n} + h \\\\ k _ {1} = h f (x _ {n}, y _ {n}) \\\\ k _ {2} = h f (x _ {n + 1}, y _ {n} + k _ {1}) \\\\ y _ {n + 1} = y _ {n} + \\frac {1}{2} (k _ {1} + k _ {2}) \\\\ \\text {OUTPUT x_{n + 1} ,y_{n + 1}} \\\\ \\end{array} \\right. \\\\ \\text {End} \\\\ \\text {Stop} \\\\ \\text {ER} \\end{array}",
+      "new": "\\begin{array}{l} \\text {For } n = 0,1,\\cdots,N - 1 \\text { do:} \\\\ \\left\\{ \\begin{array}{c} x _ {n + 1} = x _ {n} + h \\\\ k _ {1} = h f (x _ {n}, y _ {n}) \\\\ k _ {2} = h f (x _ {n + 1}, y _ {n} + k _ {1}) \\\\ y _ {n + 1} = y _ {n} + \\frac {1}{2} (k _ {1} + k _ {2}) \\\\ \\text {OUTPUT } x_{n + 1} ,y_{n + 1} \\\\ \\end{array} \\right. \\\\ \\text {End} \\\\ \\text {Stop} \\\\ \\text {ER} \\end{array}"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch23-body-186-47360e",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[186]",
+      "expect": "\\text {(PL) a permanent label = length L_{v} of a shortest path 1\\to v}",
+      "new": "\\text {(PL) a permanent label = length } L_{v} \\text { of a shortest path } 1\\to v"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch04-body-325-9fc7bf",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[325]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r l } { \\mathbf { x } ^ { ( 2 ) } = \\left[ 1 } & { { } - 1 \\right] ^ { \\mathsf { T } } } \\end{array}$",
+      "new": "$\\begin{array} { r l } \\mathbf { x } ^ { ( 2 ) } = \\left[ 1 , - 1 \\right] ^ { \\mathsf { T } } \\end{array}$",
+      "anchor": "9142da5a"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch12-problem-24-body-0-afd965",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:24:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\begin{array} { l } { { \\frac { 1 } { 2 } } \\pi \\mathrm { ~ - ~ } } | x - { \\frac { 1 } { 2 } } \\pi | } \\end{array} $",
+      "new": "$\\begin{array} { l } \\frac { 1 } { 2 } \\pi \\mathrm { ~ - ~ } | x - \\frac { 1 } { 2 } \\pi | \\end{array} $",
+      "anchor": "47dfb488"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch18-body-302-c442e6",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "body[302]",
+      "field": "md",
+      "all": true,
+      "old": "$F _ { 1 } = V _ { 1 } , F _ { 2 } = V _ { 2 } , F _ { 3 } = 0 \\mathrm   _  \\it$",
+      "new": "$F _ { 1 } = V _ { 1 } , F _ { 2 } = V _ { 2 } , F _ { 3 } = 0$",
+      "anchor": "a2db8fbb"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch07-body-618-070249",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[618]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\begin{array} { l l l l l } { \\mathbf { 1 7 . } } & { { \\bigl [ } 3 } & { 4 } & { 0 } & { 2 { \\bigr ] } , } & { { \\bigl [ } 2 } & { - 1 } & { 3 } & { { \\bigr 7 ] } , } \\\\ & { { \\bigl [ } 1 } & { 1 6 } & { - 1 2 } & { - 2 2 { \\bigr ] } } \\end{array} }$",
+      "new": "$\\begin{array} { l l l l l } \\mathbf { 1 7 . } & \\bigl [ 3 & 4 & 0 & 2 \\bigr ] , & \\bigl [ 2 & - 1 & 3 & 7 \\bigr ] , \\\\ & \\bigl [ 1 & 1 6 & - 1 2 & - 2 2 \\bigr ] \\end{array}$",
+      "anchor": "3566f2bb"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch09-body-430-ea324f",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[430]",
+      "field": "md",
+      "all": true,
+      "old": "$1 \\middle / r ^ { 2 }$",
+      "new": "$1 / r ^ { 2 }$",
+      "anchor": "406a8aeb"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch14-body-116-4b94a8",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[116]",
+      "field": "md",
+      "all": true,
+      "old": "$\\rho ^ { m + 1 } = 1 \\medspace$",
+      "new": "$\\rho ^ { m + 1 } = 1$",
+      "anchor": "e0f1b00d"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch14-body-411-1e6769",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[411]",
+      "field": "md",
+      "all": true,
+      "old": "$| f ( z ) | \\leqeq K$",
+      "new": "$| f ( z ) | \\leq K$",
+      "anchor": "9c60f845"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch17-body-322-e0d8c0",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[322]",
+      "field": "md",
+      "all": true,
+      "old": "$2 \\lessapprox | z | \\lessapproxeq 3$",
+      "new": "$2 \\lessapprox | z | \\lessapprox 3$",
+      "anchor": "08bf8093"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch08-body-324-368be0",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[324]",
+      "field": "md",
+      "all": true,
+      "old": "$1 0 . { \\left[ \\begin{array} { l l l l } { { \\begin{array} { l } { 4 } \\\\ { { \\overline { { 9 } } } \\end{array} } } } & { } & { { \\begin{array} { l } { 8 } \\\\ { 9 } \\end{array} } } & { } & { { \\begin{array} { l } { 1 } \\\\ { { \\overline { { 9 } } } } \\\\ { - { \\overline { { 9 } } } } \\end{array} } } \\\\ { - { \\frac { 4 } { 9 } } } & { } & { { \\begin{array} { l } { 4 } \\\\ { 9 } \\end{array} } } & { } & { - { \\frac { 4 } { 9 } } } \\\\ { } & { } & { { \\begin{array} { l } { 1 } \\\\ { 9 } \\end{array} } } & { } & { { \\begin{array} { l } { 8 } \\\\ { 9 } \\end{array} } } \\end{array} \\right] } $",
+      "new": "$1 0 . \\left[ \\begin{array} { l l l l l } { \\begin{array} { l } 4 \\\\ \\overline {9} \\end{array} } & { } & { \\begin{array} { l } 8 \\\\ 9 \\end{array} } & { } & { \\begin{array} { l } 1 \\\\ \\overline {9} \\\\ - \\overline {9} \\end{array} } \\\\ - \\frac { 4 } { 9 } & { } & { \\begin{array} { l } 4 \\\\ 9 \\end{array} } & { } & - \\frac { 4 } { 9 } \\\\ { } & { } & { \\begin{array} { l } 1 \\\\ 9 \\end{array} } & { } & { \\begin{array} { l } 8 \\\\ 9 \\end{array} } \\end{array} \\right] $",
+      "anchor": "809a37b5"
+    }
+  ]
+}

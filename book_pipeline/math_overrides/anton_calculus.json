@@ -26,6 +26,17 @@
       "selector": "body[958]",
       "expect": "\\begin{array}{l} W = \\oint_ {C} \\mathbf {F} \\cdot d \\mathbf {r} = \\oint_ {C} \\left(e ^ {x} - y ^ {3}\\right) d x + (\\cos y + x ^ {3}) d y \\\\ = \\iint_ {R} \\left[ \\frac {\\partial}{\\partial x} (\\cos y + x ^ {3}) - \\frac {\\partial}{\\partial y} (e ^ {x} - y ^ {3}) \\right] d A  s T h e o r e m$} \\\\ = \\iint_ {R} (3 x ^ {2} + 3 y ^ {2}) d A = 3 \\iint_ {R} (x ^ {2} + y ^ {2}) d A \\\\ = 3 \\int_ {0} ^ {2 \\pi} \\int_ {0} ^ {1} (r ^ {2}) r d r d \\theta = \\frac {3}{4} \\int_ {0} ^ {2 \\pi} d \\theta = \\frac {3 \\pi}{2} \\\\ \\end{array}",
       "new": "\\begin{array}{l} W = \\oint_{C} \\mathbf{F} \\cdot d\\mathbf{r} = \\oint_{C} \\left(e^{x} - y^{3}\\right) dx + (\\cos y + x^{3}) dy \\\\ = \\iint_{R} \\left[ \\frac{\\partial}{\\partial x}(\\cos y + x^{3}) - \\frac{\\partial}{\\partial y}(e^{x} - y^{3}) \\right] dA \\\\ = \\iint_{R} (3x^{2} + 3y^{2}) dA = 3 \\iint_{R} (x^{2} + y^{2}) dA \\\\ = 3 \\int_{0}^{2\\pi} \\int_{0}^{1} (r^{2}) r\\,dr\\,d\\theta = \\frac{3}{4} \\int_{0}^{2\\pi} d\\theta = \\frac{3\\pi}{2} \\\\ \\end{array}"
+    },
+    {
+      "id": "anton_calculus-ch01-body-731-55f86e",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[731]",
+      "field": "md",
+      "all": true,
+      "old": "$\\operatorname* { l i m } _ { x \\to + \\infty } { \\sqrt [ { 3 { \\sqrt { 5 + f ( x ) } } } }$",
+      "new": "$\\operatorname*{lim}_{x \\to +\\infty} \\sqrt[3]{\\sqrt{5 + f(x)}}$",
+      "anchor": "b135a4f2"
     }
   ]
 }

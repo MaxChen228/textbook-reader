@@ -1,0 +1,71 @@
+{
+  "overrides": [
+    {
+      "id": "lee_riemannian_manifolds-appA-body-90-d574b3",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[90]",
+      "expect": "M \\cap \\widetilde {U} = \\left\\{ \\begin{array}{l l} \\{x \\in \\widetilde {U}: x ^ {n + 1} = \\dots = x ^ {m} = 0 \\} & \\text {if p\\notin\\partial M}, \\\\ \\{x \\in \\widetilde {U}: x ^ {n + 1} = \\dots = x ^ {m} = 0 \\text {and} x ^ {n} \\geq 0 \\} & \\text {if p\\in\\partial M}. \\end{array} \\right.",
+      "new": "M \\cap \\widetilde {U} = \\left\\{ \\begin{array}{l l} \\{x \\in \\widetilde {U}: x ^ {n + 1} = \\dots = x ^ {m} = 0 \\} & \\text {if } p\\notin\\partial M, \\\\ \\{x \\in \\widetilde {U}: x ^ {n + 1} = \\dots = x ^ {m} = 0 \\text {and} x ^ {n} \\geq 0 \\} & \\text {if } p\\in\\partial M. \\end{array} \\right."
+    },
+    {
+      "id": "lee_riemannian_manifolds-appB-body-34-ad9eb0",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[34]",
+      "field": "md",
+      "all": true,
+      "old": "$T ^ { ( k + \\^ { \\cdot } p , l + q ) } ( V )$",
+      "new": "$T ^ { ( k + {}^{\\cdot} p , l + q ) } ( V )$",
+      "anchor": "79ac8455"
+    },
+    {
+      "id": "lee_riemannian_manifolds-ch12-body-118-8b8cfe",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[118]",
+      "expect": "\\begin{array}{l} d \\pi_ {\\widetilde {\\gamma} (1)} \\big (\\widetilde {\\gamma} _ {0} ^ {\\prime} (0) \\big) = d \\pi_ {\\widetilde {\\gamma} (1)} \\circ d \\varphi_ {\\widetilde {\\gamma} (0)} \\big (\\widetilde {\\gamma} ^ {\\prime} (0) \\big) \\quad \\text {(definition of \\widetilde {\\gamma} _{0})} \\\\ = d \\pi_ {\\widetilde {\\gamma} (0)} \\left(\\widetilde {\\gamma} ^ {\\prime} (0)\\right) \\quad (\\text { because } \\pi \\circ \\varphi = \\pi) \\\\ = \\gamma^ {\\prime} (0) \\quad (\\text { because } \\pi \\circ \\widetilde {\\gamma} = \\gamma) \\\\ = \\gamma^ {\\prime} (1) \\quad (\\gamma \\text {   is   a   closed   geodesic }) \\\\ = d \\pi_ {\\widetilde {\\gamma} (1)} \\left(\\widetilde {\\gamma} ^ {\\prime} (1)\\right) \\quad (\\pi \\circ \\widetilde {\\gamma} = \\gamma \\text {   again }) \\\\ = d \\pi_ {\\widetilde {\\gamma} (1)} \\left(\\widetilde {\\gamma} _ {1} ^ {\\prime} (0)\\right) \\quad (\\text { definition   of } \\widetilde {\\gamma} _ {1}). \\\\ \\end{array}",
+      "new": "\\begin{array}{l} d \\pi_ {\\widetilde {\\gamma} (1)} \\big (\\widetilde {\\gamma} _ {0} ^ {\\prime} (0) \\big) = d \\pi_ {\\widetilde {\\gamma} (1)} \\circ d \\varphi_ {\\widetilde {\\gamma} (0)} \\big (\\widetilde {\\gamma} ^ {\\prime} (0) \\big) \\quad \\text {(definition of } \\widetilde {\\gamma} _{0}\\text{)} \\\\ = d \\pi_ {\\widetilde {\\gamma} (0)} \\left(\\widetilde {\\gamma} ^ {\\prime} (0)\\right) \\quad (\\text { because } \\pi \\circ \\varphi = \\pi) \\\\ = \\gamma^ {\\prime} (0) \\quad (\\text { because } \\pi \\circ \\widetilde {\\gamma} = \\gamma) \\\\ = \\gamma^ {\\prime} (1) \\quad (\\gamma \\text { is a closed geodesic }) \\\\ = d \\pi_ {\\widetilde {\\gamma} (1)} \\left(\\widetilde {\\gamma} ^ {\\prime} (1)\\right) \\quad (\\pi \\circ \\widetilde {\\gamma} = \\gamma \\text { again }) \\\\ = d \\pi_ {\\widetilde {\\gamma} (1)} \\left(\\widetilde {\\gamma} _ {1} ^ {\\prime} (0)\\right) \\quad (\\text { definition of } \\widetilde {\\gamma} _ {1}). \\\\ \\end{array}"
+    },
+    {
+      "id": "lee_riemannian_manifolds-ch02-body-229-c953e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[229]",
+      "expect": "A = A _ {i} ^ {j} _ {k} \\varepsilon^ {i} \\otimes E _ {j} \\otimes \\varepsilon^ {k}",
+      "new": "A = A_{i}{}^{j}{}_{k} \\varepsilon^{i} \\otimes E_{j} \\otimes \\varepsilon^{k}"
+    },
+    {
+      "id": "lee_riemannian_manifolds-ch02-body-231-37c2b8",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[231]",
+      "expect": "A _ {i j k} = g _ {j l} A _ {i} ^ {l} _ {k}.",
+      "new": "A_{ijk} = g_{jl} A_{i}{}^{l}{}_{k}."
+    },
+    {
+      "id": "lee_riemannian_manifolds-ch07-body-201-dea4f4",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[201]",
+      "expect": "R _ {i j} = R _ {k i j} ^ {k} = R _ {i k} ^ {k} _ {j} = - R _ {k i} ^ {k} _ {j} = - R _ {i k j} ^ {k}.",
+      "new": "R_{ij} = R_{kij}{}^{k} = R_{ik}{}^{k}{}_{j} = -R_{ki}{}^{k}{}_{j} = -R_{ikj}{}^{k}."
+    },
+    {
+      "id": "lee_riemannian_manifolds-appB-body-45-6a7c5b",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[45]",
+      "expect": "A = A _ {i} ^ {j} _ {k} \\beta^ {i} \\otimes b _ {j} \\otimes \\beta^ {k},",
+      "new": "A = A_{i}{}^{j}{}_{k} \\beta^{i} \\otimes b_{j} \\otimes \\beta^{k},"
+    },
+    {
+      "id": "lee_riemannian_manifolds-appB-body-47-601107",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[47]",
+      "expect": "A _ {i} ^ {j} _ {k} = A \\left(b _ {i}, \\beta^ {j}, b _ {k}\\right). \\tag {B.6}",
+      "new": "A_{i}{}^{j}{}_{k} = A \\left(b_{i}, \\beta^{j}, b_{k}\\right). \\tag{B.6}"
+    }
+  ]
+}

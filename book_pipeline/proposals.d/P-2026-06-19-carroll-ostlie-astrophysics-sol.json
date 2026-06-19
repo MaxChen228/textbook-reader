@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-carroll-ostlie-astrophysics-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "carroll_ostlie_astrophysics 解答書僅能部分 merge：章標落在 header/text_level=2",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:01:54+00:00",
+  "updated": "2026-06-19T11:01:54+00:00",
+  "evidence": "dry-run：609 題主書中可安全配對 407 題；缺 12 章（1,2,4,6,7,12,13,17,19,20,21,23）。語義抽樣 ch03/ch10/ch24 前 3 題皆對齊。缺章對應解答本章標多為 header『Chapter N ...』或 text_level=2『CHAPTER N』，現行 sol_extract 僅吃 type=text 且 text_level==1 章標。",
+  "proposal": "擴充 sol_extract 章 anchor 偵測，允許 header 與 text_level=2 的 CHAPTER block，或支援 title-only 章標搭配前序章號推斷；之後重跑即可補齊其餘章解答。",
+  "risk": "",
+  "disposition": ""
+}

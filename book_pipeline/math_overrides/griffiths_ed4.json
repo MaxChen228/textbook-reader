@@ -35,6 +35,128 @@
       "old": "$\\right. + \\left. = 0 )$",
       "new": "$\\left. + \\right. = 0$",
       "anchor": "4e29a3f4"
+    },
+    {
+      "id": "griffiths_ed4-ch12-problem-12-68-solution-0-bc1207",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:12.68:solution[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { F } _ { \\perp } = \\overset { \\mathbf { \\bar { \\mathbf { \\rho } } } _ { 1 } } { \\underset { \\gamma } { \\mathbf { F } } _ { \\perp } } , \\ F _ { \\parallel } = \\bar { F } _ { \\parallel }$",
+      "new": "$\\mathbf{F}_{\\perp}=\\overset{\\mathbf{\\bar{\\rho}}_{1}}{\\underset{\\gamma}{\\mathbf{F}_{\\perp}}},\\ F_{\\parallel}=\\bar{F}_{\\parallel}$",
+      "anchor": "29e25021"
+    },
+    {
+      "id": "griffiths_ed4-ch03-problem-3-18-solution-21-909fa7",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.18:solution[21]",
+      "expect": "\\boxed {V (r, \\theta) = \\left\\{ \\begin{array}{l l} \\frac {R \\sigma_ {0}}{\\epsilon_ {0}}, & \\text {for r\\leq R} \\\\ \\frac {R ^ {2} \\sigma_ {0}}{\\epsilon_ {0}} \\frac {1}{r}, & \\text {for r\\geq R} \\end{array} \\right..}",
+      "new": "\\boxed{V(r,\\theta)=\\left\\{\\begin{array}{ll}\\frac{R\\sigma_{0}}{\\epsilon_{0}},&\\text{for }r\\leq R\\\\\\frac{R^{2}\\sigma_{0}}{\\epsilon_{0}}\\frac{1}{r},&\\text{for }r\\geq R\\end{array}\\right.}."
+    },
+    {
+      "id": "griffiths_ed4-ch05-problem-5-52-solution-4-b57fc3",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.52:solution[4]",
+      "expect": "\\nabla \\cdot \\left(\\frac {\\hat {\\pmb {\\nu}}}{\\mathcal {r} ^ {2}}\\right) = - \\nabla^ {\\prime} \\cdot \\left(\\frac {\\hat {\\pmb {\\nu}}}{\\mathcal {r} ^ {2}}\\right) = 4 \\pi \\delta^ {3} (\\textbf {\\mu} = 4 \\pi \\delta^ {3} (\\textbf {r} - \\textbf {r} ^ {\\prime}),",
+      "new": "\\nabla\\cdot\\left(\\frac{\\hat{\\pmb{\\nu}}}{\\mathcal{r}^{2}}\\right)=-\\nabla^{\\prime}\\cdot\\left(\\frac{\\hat{\\pmb{\\nu}}}{\\mathcal{r}^{2}}\\right)=4\\pi\\delta^{3}(\\textbf{r}-\\textbf{r}^{\\prime}),"
+    },
+    {
+      "id": "griffiths_ed4-ch10-problem-10-30-solution-5-a4dd72",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.30:solution[5]",
+      "expect": "\\text {(In the limit L\\to 0, t_{r} = t_{1} = t_{2}.)} \\quad \\text {So V = \\frac {q}{4\\pi\\epsilon_{0}} \\left(\\frac {1}{vt}\\right).} \\quad \\checkmark",
+      "new": "\\text{(In the limit }L\\to 0,\\ t_{r}=t_{1}=t_{2}.\\text{)}\\quad \\text{So }V=\\frac{q}{4\\pi\\epsilon_{0}}\\left(\\frac{1}{vt}\\right).\\quad \\checkmark"
+    },
+    {
+      "id": "griffiths_ed4-ch01-problem-1-41-solution-0-71edeb",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:1.41:solution[0]",
+      "field": "md",
+      "all": true,
+      "old": "$ \\begin{array} { r } { { \\boxed { \\mathbf { V } t = ( \\cos \\theta + \\sin \\theta \\cos \\phi ) { \\hat { \\mathbf { r } } } + ( - \\sin \\theta + \\cos \\theta \\cos \\phi ) { \\hat { \\boldsymbol { \\theta } } } + { \\frac { 1 } { \\sin ^ { \\beta } \\theta } } ( - \\sin \\theta \\sin \\phi ) { \\hat { \\boldsymbol { \\phi } } } } } \\end{array} }$",
+      "new": "$ \\boxed{\\mathbf{V}t=(\\cos\\theta+\\sin\\theta\\cos\\phi)\\hat{\\mathbf{r}}+(-\\sin\\theta+\\cos\\theta\\cos\\phi)\\hat{\\boldsymbol{\\theta}}+\\frac{1}{\\sin^{\\beta}\\theta}(-\\sin\\theta\\sin\\phi)\\hat{\\boldsymbol{\\phi}}}$",
+      "anchor": "f1198793"
+    },
+    {
+      "id": "griffiths_ed4-ch11-problem-11-32-solution-18-a86c81",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.32:solution[18]",
+      "expect": "\\boxed { \\begin{array}{l l} a (t) = \\frac {U _ {0}}{m \\tau v _ {f}} e ^ {(t - T) / \\tau}; \\\\ v (t) = v _ {f} + \\frac {U _ {0}}{m v _ {f}} \\left[ e ^ {(t - T) / \\tau} - 1 \\right]; \\\\ x (t) = L + v _ {f} (t - T) + \\frac {U _ {0}}{m v _ {f}} \\left[ \\tau e ^ {(t - T) / \\tau} - t + T - \\tau \\right]; \\end{array} } & (0 <   t <   T).",
+      "new": "\\boxed{\\begin{array}{l}a(t)=\\frac{U_{0}}{m\\tau v_{f}}e^{(t-T)/\\tau};\\\\v(t)=v_{f}+\\frac{U_{0}}{m v_{f}}\\left[e^{(t-T)/\\tau}-1\\right];\\\\x(t)=L+v_{f}(t-T)+\\frac{U_{0}}{m v_{f}}\\left[\\tau e^{(t-T)/\\tau}-t+T-\\tau\\right];\\end{array}}\\qquad (0<t<T)."
+    },
+    {
+      "id": "griffiths_ed4-ch12-problem-12-34-solution-1-ffb242",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:12.34:solution[1]",
+      "field": "md",
+      "all": true,
+      "old": "$ \\begin{array} { l } { { \\frac { 5 } { 4 } } m c ^ { 2 } = E _ { A } + E _ { B } } \\\\ { { \\frac { 3 } { 4 } } m c = p _ { A } + p _ { B } = { \\frac { E _ { A } } { c } } - { \\frac { E _ { B } } { c } } \\Rightarrow { \\frac { 3 } { 4 } } m c ^ { 2 } = E _ { A } - E _ { B } { \\end{array} } } { \\Biggr \\} } 2 E _ { A } = 2 m c ^ { 2 }$",
+      "new": "$ \\left.\\begin{array}{l}\\frac{5}{4}mc^{2}=E_{A}+E_{B}\\\\\\frac{3}{4}mc=p_{A}+p_{B}=\\frac{E_{A}}{c}-\\frac{E_{B}}{c}\\Rightarrow \\frac{3}{4}mc^{2}=E_{A}-E_{B}\\end{array}\\right\\}\\ 2E_{A}=2mc^{2}$",
+      "anchor": "16f130e5"
+    },
+    {
+      "id": "griffiths_ed4-ch12-problem-12-69-solution-5-7576c1",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:12.69:solution[5]",
+      "field": "md",
+      "all": true,
+      "old": "$ { E _ { 0 } } - v B _ { 0 } = 0 ; \\mathrm { i . e . } \\ \\middle | v =  { E _ { 0 } } /  { B _ { 0 } }$",
+      "new": "$ E_{0}-vB_{0}=0;\\ \\mathrm{i.e.}\\ \\mid v=\\frac{E_{0}}{B_{0}}$",
+      "anchor": "4b52c35d"
+    },
+    {
+      "id": "griffiths_ed4-ch03-problem-3-31-solution-2-30ac8f",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.31:solution[2]",
+      "field": "md",
+      "all": true,
+      "old": "$\\raisebox { \\depth } { \\ ( \\iota \\ ) } - ,$",
+      "new": "$(\\iota)-,$",
+      "anchor": "69813e73"
+    },
+    {
+      "id": "griffiths_ed4-ch05-problem-5-45-solution-0-e02175",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.45:solution[0]",
+      "expect": "\\begin{array}{l} \\text {(a)} \\mathbf {F} = m \\mathbf {a} = q _ {e} (\\mathbf {v} \\times \\mathbf {B}) = \\frac {\\mu_ {0}}{4 \\pi} \\frac {q _ {e} q _ {m}}{r ^ {2}} (\\mathbf {v} \\times \\hat {\\mathbf {r}}); \\boxed {\\mathbf {a} = \\frac {\\mu_ {0}}{4 \\pi} \\frac {q _ {e} q _ {m}}{m r ^ {3}} (\\mathbf {v} \\times \\mathbf {r}).} \\\\ \\text {(b) Because \\mathbf {a} \\perp \\mathbf {v} , \\mathbf {a} \\cdot \\mathbf {v} = 0 . But \\mathbf {a} \\cdot \\mathbf {v} = \\frac {1}{2} \\frac {d}{dt} (\\mathbf {v} \\cdot \\mathbf {v}) = \\frac {1}{2} \\frac {d}{dt} (v ^ {2}) = v \\frac {d v}{dt} . So \\frac {d v}{dt} = 0 . qed} \\\\ \\mathrm{(c)} \\frac {d \\mathbf {Q}}{d t} = m (\\mathbf {v} \\times \\mathbf {v}) + m (\\mathbf {r} \\times \\mathbf {a}) - \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi} \\frac {d}{d t} \\left(\\frac {\\mathbf {r}}{r}\\right) = 0 + \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi r ^ {3}} [ \\mathbf {r} \\times (\\mathbf {v} \\times \\mathbf {r} ] - \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi} \\left(\\frac {\\mathbf {v}}{r} - \\frac {\\mathbf {r}}{r ^ {2}} \\frac {d r}{d t}\\right) \\\\ = \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi} \\left\\{\\frac {1}{r ^ {3}} [ r ^ {2} \\mathbf {v} - (\\mathbf {r} \\cdot \\mathbf {v}) \\mathbf {r} ] - \\frac {\\mathbf {v}}{r} + \\frac {\\mathbf {r}}{r ^ {2}} \\frac {d}{d t} (\\sqrt {\\mathbf {r} \\cdot \\mathbf {r}}) \\right\\} = \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi} \\left[ \\frac {\\mathbf {v}}{r} - \\frac {(\\hat {\\mathbf {r}} \\cdot \\mathbf {v})}{r} \\hat {\\mathbf {r}} - \\frac {\\mathbf {v}}{r} + \\frac {\\hat {\\mathbf {r}}}{2 r} \\frac {2 (\\mathbf {r} \\cdot \\mathbf {v})}{r} \\right] = \\mathbf {0}. √ \\\\ \\mathrm{(d)(i)} \\mathbf {Q} \\cdot \\hat {\\phi} = Q (\\hat {\\mathbf {z}} \\cdot \\hat {\\phi}) = m (\\mathbf {r} \\times \\mathbf {v}) \\cdot \\hat {\\phi} - \\frac {\\mu_ {0} q _ {e} q _ {m}}{4 \\pi} (\\hat {\\mathbf {r}} \\cdot \\hat {\\phi}). \\mathrm{But} \\hat {\\mathbf {z}} \\cdot \\hat {\\phi} = \\hat {\\mathbf {r}} \\cdot \\hat {\\phi} = 0, \\mathrm{so} (\\mathbf {r} \\times \\mathbf {v}) \\cdot \\hat {\\phi} = 0. \\mathrm{But} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\text{(a) } \\mathbf{F}=m\\mathbf{a}=q_{e}(\\mathbf{v}\\times\\mathbf{B})=\\frac{\\mu_{0}}{4\\pi}\\frac{q_{e}q_{m}}{r^{2}}(\\mathbf{v}\\times\\hat{\\mathbf{r}});\\ \\boxed{\\mathbf{a}=\\frac{\\mu_{0}}{4\\pi}\\frac{q_{e}q_{m}}{mr^{3}}(\\mathbf{v}\\times\\mathbf{r}).} \\\\ \\text{(b) Because } \\mathbf{a}\\perp\\mathbf{v},\\ \\mathbf{a}\\cdot\\mathbf{v}=0\\text{. But } \\mathbf{a}\\cdot\\mathbf{v}=\\frac{1}{2}\\frac{d}{dt}(\\mathbf{v}\\cdot\\mathbf{v})=\\frac{1}{2}\\frac{d}{dt}(v^{2})=v\\frac{dv}{dt}\\text{. So } \\frac{dv}{dt}=0\\text{. qed} \\\\ \\mathrm{(c)}\\ \\frac{d\\mathbf{Q}}{dt}=m(\\mathbf{v}\\times\\mathbf{v})+m(\\mathbf{r}\\times\\mathbf{a})-\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi}\\frac{d}{dt}\\left(\\frac{\\mathbf{r}}{r}\\right)=0+\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi r^{3}}[\\mathbf{r}\\times(\\mathbf{v}\\times\\mathbf{r})]-\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi}\\left(\\frac{\\mathbf{v}}{r}-\\frac{\\mathbf{r}}{r^{2}}\\frac{dr}{dt}\\right) \\\\ =\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi}\\left\\{\\frac{1}{r^{3}}[r^{2}\\mathbf{v}-(\\mathbf{r}\\cdot\\mathbf{v})\\mathbf{r}]-\\frac{\\mathbf{v}}{r}+\\frac{\\mathbf{r}}{r^{2}}\\frac{d}{dt}(\\sqrt{\\mathbf{r}\\cdot\\mathbf{r}})\\right\\}=\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi}\\left[\\frac{\\mathbf{v}}{r}-\\frac{(\\hat{\\mathbf{r}}\\cdot\\mathbf{v})}{r}\\hat{\\mathbf{r}}-\\frac{\\mathbf{v}}{r}+\\frac{\\hat{\\mathbf{r}}}{2r}\\frac{2(\\mathbf{r}\\cdot\\mathbf{v})}{r}\\right]=\\mathbf{0}.\\ \\sqrt{} \\\\ \\mathrm{(d)(i)}\\ \\mathbf{Q}\\cdot\\hat{\\phi}=Q(\\hat{\\mathbf{z}}\\cdot\\hat{\\phi})=m(\\mathbf{r}\\times\\mathbf{v})\\cdot\\hat{\\phi}-\\frac{\\mu_{0}q_{e}q_{m}}{4\\pi}(\\hat{\\mathbf{r}}\\cdot\\hat{\\phi}).\\ \\mathrm{But}\\ \\hat{\\mathbf{z}}\\cdot\\hat{\\phi}=\\hat{\\mathbf{r}}\\cdot\\hat{\\phi}=0,\\ \\mathrm{so}\\ (\\mathbf{r}\\times\\mathbf{v})\\cdot\\hat{\\phi}=0.\\ \\mathrm{But} \\\\ \\end{array}"
+    },
+    {
+      "id": "griffiths_ed4-ch11-problem-11-31-solution-2-67ef30",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.31:solution[2]",
+      "expect": "\\begin{array}{l} \\text {When t <   0 , a = \\tau\\dot {a} \\Rightarrow a(t) = Ae^{t / \\tau} ; when t > 0 , a = \\tau\\dot {a} \\Rightarrow a(t) = Be^{t / \\tau} ; \\Delta a = B - A = - \\frac {k}{m\\tau}} \\\\ \\Rightarrow B = A - \\frac {k}{m \\tau}, \\text {so the general solution is} \\boxed {a (t) = \\left\\{ \\begin{array}{l l} A e ^ {t / \\tau}, & (t <   0); \\\\ [ A - (k / m \\tau) ] e ^ {t / \\tau}, & (t > 0). \\end{array} \\right.} \\end{array}",
+      "new": "\\begin{array}{l} \\text{When } t<0,\\ a=\\tau\\dot{a}\\Rightarrow a(t)=Ae^{t/\\tau};\\ \\text{when } t>0,\\ a=\\tau\\dot{a}\\Rightarrow a(t)=Be^{t/\\tau};\\ \\Delta a=B-A=-\\frac{k}{m\\tau} \\\\ \\Rightarrow B=A-\\frac{k}{m\\tau},\\ \\text{so the general solution is } \\boxed{a(t)=\\left\\{ \\begin{array}{ll} Ae^{t/\\tau}, & (t<0); \\\\ \\left[A-(k/m\\tau)\\right]e^{t/\\tau}, & (t>0). \\end{array} \\right.} \\end{array}"
+    },
+    {
+      "id": "griffiths_ed4-ch12-problem-12-28-solution-0-0665c3",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.28:solution[0]",
+      "expect": "\\begin{array}{l} \\text {(a) From Prob. 11.34 we have \\gamma = \\frac {1}{b} \\sqrt {b ^ {2} + c ^ {2} t ^ {2}} . \\therefore \\tau = \\int \\frac {1}{\\gamma} dt = b \\int \\frac {dt}{\\sqrt {b ^ {2} + c ^ {2} t ^ {2}}} = \\frac {b}{c} \\ln(ct+ \\sqrt {b ^ {2} + c ^ {2} t ^ {2}}) + k ; a t} \\\\ t = 0 \\text { we want \\tau = 0: } 0 = \\frac {b}{c} \\ln b + k, \\text { so } k = - \\frac {b}{c} \\ln b; \\boxed {\\tau = \\frac {b}{c} \\ln \\left[ \\frac {1}{b} (c t + \\sqrt {b ^ {2} + c ^ {2} t ^ {2}}) \\right]} \\end{array}",
+      "new": "\\begin{array}{l} \\text{(a) From Prob. 11.34 we have } \\gamma=\\frac{1}{b}\\sqrt{b^{2}+c^{2}t^{2}}\\text{. } \\therefore\\ \\tau=\\int \\frac{1}{\\gamma}\\,dt=b\\int \\frac{dt}{\\sqrt{b^{2}+c^{2}t^{2}}}=\\frac{b}{c}\\ln(ct+\\sqrt{b^{2}+c^{2}t^{2}})+k;\\ \\text{at } t=0\\text{ we want } \\tau=0:\\ 0=\\frac{b}{c}\\ln b+k,\\ \\text{so } k=-\\frac{b}{c}\\ln b;\\ \\boxed{\\tau=\\frac{b}{c}\\ln\\left[\\frac{1}{b}(ct+\\sqrt{b^{2}+c^{2}t^{2}})\\right]} \\end{array}"
+    },
+    {
+      "id": "griffiths_ed4-ch06-problem-6-21-solution-7-4bd4a8",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6.21:solution[7]",
+      "field": "md",
+      "all": true,
+      "old": "$\\theta _ { 1 } \\cos \\theta _ { 2 } = \\sin \\theta _ { 2 } \\cos \\theta _ { 1 } = 0 . \\cdot \\left\\{ \\begin{array} { c c c c c } { { \\mathrm { E i t h e r } } } & { { \\sin \\theta _ { 1 } = \\sin \\theta _ { 2 } = 0 : } } & { { \\longrightarrow } } & { { \\mathrm { o r } } } & { { \\longrightarrow } } \\\\ { { \\mathrm { o r } } } & { { \\cos \\theta _ { 1 } = \\cos \\theta _ { 2 } = 0 : } } & { { \\uparrow \\uparrow } } & { { \\mathrm { o r } } } & { { \\uparrow \\downarrow } } \\\\ { { } } & { { } } & { { \\otimes } } & { {  } } & { {  \\textcircledast } } \\end{array} \\right.$",
+      "new": "$\\theta_{1}\\cos\\theta_{2}=\\sin\\theta_{2}\\cos\\theta_{1}=0.\\cdot\\left\\{\\begin{array}{ccccc} {{\\mathrm{Either}}} & {{\\sin\\theta_{1}=\\sin\\theta_{2}=0:}} & {{\\longrightarrow}} & {{\\mathrm{or}}} & {{\\longrightarrow}} \\\\ {{\\mathrm{or}}} & {{\\cos\\theta_{1}=\\cos\\theta_{2}=0:}} & {{\\uparrow\\uparrow}} & {{\\mathrm{or}}} & {{\\uparrow\\downarrow}} \\\\ {{}} & {{}} & {{\\otimes}} & {{}} & {{\\circledast}} \\end{array}\\right.$",
+      "anchor": "4364b4af"
     }
   ]
 }

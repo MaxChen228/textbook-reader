@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-tipler-mosca-physics-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "tipler_mosca_physics 解答書無法 merge：sol 章 anchor 與主書章邊界皆不可靠",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:57:07+00:00",
+  "updated": "2026-06-19T11:57:07+00:00",
+  "evidence": "sol unified 有 42 個 chapter-like block，但只有 12 個是 sol_extract 可用的 lvl=1；dry-run 僅抽出 12 章 654 題，配對成功 588/1032（56%）。語義抽樣：main ch03 Q1 對到 chapter 7 能量題；main ch11 Q1 對到 chapter 16 波題；main ch18 Q1 對到 capacitance 題。另 main ch17/ch29 的非空題幹本身也落在前章主題，顯示 parser 章邊界錯位。",
+  "proposal": "需要升級 sol_extract/前處理以接受 header 或 lvl2 chapter anchor，並修主書 parser 章邊界後再重跑 audit-sol。現階段只靠 sol_rules.yaml 無法產出品質 merge。",
+  "risk": "",
+  "disposition": ""
+}

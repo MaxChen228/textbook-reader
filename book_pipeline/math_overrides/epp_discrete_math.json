@@ -8,8 +8,7 @@
       "field": "md",
       "all": true,
       "old": "$N _ { 6 } _ { } ^ { } = p _ { 1 } \\cdot p _ { 2 } \\cdot p _ { 3 } \\cdot p _ { 4 } \\cdot p _ { 5 } \\cdot p _ { 6 } .$",
-      "new": "$N _ { 6 } = p _ { 1 } \\cdot p _ { 2 } \\cdot p _ { 3 } \\cdot p _ { 4 } \\cdot p _ { 5 } \\cdot p _ { 6 } .$",
-      "anchor": "18458d43"
+      "new": "$N_{6} = p_{1} \\cdot p_{2} \\cdot p_{3} \\cdot p_{4} \\cdot p_{5} \\cdot p_{6}.$"
     },
     {
       "id": "epp_discrete_math-ch02-problem-2-2-3-body-0-2387fc",
@@ -27,7 +26,7 @@
       "chunk": "ch11",
       "selector": "body[430]",
       "expect": "E _ {k} = E _ {k - 1} + \\left[ \\begin{array}{l} \\text { the   expected   number   of   comparisons } \\\\ \\text { used   to   place   a[k]   into   position } \\\\ \\text { relative   to   a[1],   a[2],   \\ldots,   a[k - 1]} \\end{array} \\right].",
-      "new": "E _ {k} = E _ {k - 1} + \\left[ \\begin{array}{l} \\text { the   expected   number   of   comparisons } \\\\ \\text { used   to   place   } a[k] \\text {   into   position } \\\\ \\text { relative   to   } a[1], a[2], \\ldots, a[k - 1] \\end{array} \\right]."
+      "new": "E_{k} = E_{k - 1} + \\left[ \\begin{array}{l} \\text{the expected number of comparisons} \\\\ \\text{used to place } a[k] \\text{ into position} \\\\ \\text{relative to } a[1], a[2], \\ldots, a[k - 1] \\end{array} \\right]."
     },
     {
       "id": "epp_discrete_math-ch12-body-363-b74e80",
@@ -35,7 +34,7 @@
       "chunk": "ch12",
       "selector": "body[363]",
       "expect": "L _ {i, j} ^ {k} = \\left\\{x \\in I ^ {*} \\left| \\begin{array}{l} \\text {when the symbols of x are input to A in sequence,} \\\\ A \\text {goes from state s_{i} to state s_{j} without traveling} \\\\ \\text {through an intermediate state s_{h} for which h > k} \\end{array} \\right. \\right\\}.",
-      "new": "L _ {i, j} ^ {k} = \\left\\{x \\in I ^ {*} \\mid \\begin{array}{l} \\text {when the symbols of } x \\text { are input to } A \\text { in sequence,} \\\\ A \\text { goes from state } s_{i} \\text { to state } s_{j} \\text { without traveling} \\\\ \\text {through an intermediate state } s_{h} \\text { for which } h > k \\end{array} \\right\\}."
+      "new": "L_{i, j}^{k} = \\left\\{x \\in I^{*} \\left| \\begin{array}{l} \\text{when the symbols of } x \\text{ are input to } A \\text{ in sequence,} \\\\ A \\text{ goes from state } s_{i} \\text{ to state } s_{j} \\text{ without traveling} \\\\ \\text{through an intermediate state } s_{h} \\text{ for which } h > k \\end{array} \\right. \\right\\}."
     },
     {
       "id": "epp_discrete_math-ch12-body-242-762886",
@@ -45,8 +44,7 @@
       "field": "md",
       "all": true,
       "old": "$s _ { 0 } { \\big { J } } .$",
-      "new": "$s _ { 0 } { \\bigl( J \\bigr) } .$",
-      "anchor": "1d99ce6b"
+      "new": "$s_{0} \\bigl\\{ J \\bigr\\}.$"
     },
     {
       "id": "epp_discrete_math-ch09-problem-9-3-28-body-0-ffb33a",
@@ -55,9 +53,8 @@
       "selector": "problem:9.3.28:body[0]",
       "field": "md",
       "all": true,
-      "old": "$ 2 let\\* $",
-      "new": "$ 2\\ \\mathrm{let}* $",
-      "anchor": "bdab89b8"
+      "old": "$2 let\\*$",
+      "new": "$2\\ \\mathrm{let}*$"
     },
     {
       "id": "epp_discrete_math-ch10-body-250-8133b4",
@@ -67,8 +64,7 @@
       "field": "md",
       "all": true,
       "old": "$\\nu _ { 2 } \\tmspace + 2 \\nu _ { 3 } ,$",
-      "new": "$\\nu _ { 2 } + 2 \\nu _ { 3 } ,$",
-      "anchor": "b25cd735"
+      "new": "$\\nu_{2} + 2\\nu_{3},$"
     },
     {
       "id": "epp_discrete_math-ch10-body-400-40f9a4",
@@ -78,8 +74,26 @@
       "field": "md",
       "all": true,
       "old": "$\\nu _ { 2 } \\tmspace + \\Delta _ { i } \\nu _ { i }$",
-      "new": "$\\nu _ { 2 } + \\Delta _ { i } \\nu _ { i }$",
-      "anchor": "0d3f492e"
+      "new": "$\\nu_{2} + \\Delta_{i} \\nu_{i}$"
+    },
+    {
+      "id": "epp_discrete_math-ch10-body-318-35d292",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[318]",
+      "expect": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} a _ {1 1} & a _ {1 2} & \\dots & a _ {1 k} \\\\ a _ {2 1} & a _ {2 2} & \\dots & a _ {2 k} \\\\ \\vdots & \\vdots & & \\vdots \\\\ \\framebox {a _ {i 1}} & a _ {i 2} & \\dots & a _ {i k} \\\\ \\vdots & \\vdots & & \\vdots \\\\ a _ {m 1} & a _ {m 2} & \\dots & a _ {m k} \\end{array} \\right] \\left[ \\begin{array}{c c c c c c} b _ {1 1} & b _ {1 2} & \\dots & b _ {1 j} & \\dots & b _ {1 n} \\\\ b _ {2 1} & b _ {2 2} & \\dots & b _ {2 j} & \\dots & b _ {2 n} \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ b _ {k 1} & b _ {k 2} & \\dots & b _ {k j} & \\dots & b _ {k n} \\end{array} \\right] \\\\ = \\left[ \\begin{array}{c c c c c c} c _ {1 1} & c _ {1 2} & \\dots & c _ {1 j} & \\dots & c _ {1 n} \\\\ c _ {2 1} & c _ {2 2} & \\dots & c _ {2 j} & \\dots & c _ {2 n} \\\\ \\vdots & \\vdots & & \\vdots & & \\vdots \\\\ c _ {i 1} & c _ {i 2} & \\dots & \\boxed {c _ {i j}} & \\dots & c _ {i n} \\\\ \\vdots & \\vdots & & \\vdots & & \\vdots \\\\ c _ {m 1} & c _ {m 2} & \\dots & c _ {m j} & \\dots & c _ {m n} \\end{array} \\right] \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} a _ {1 1} & a _ {1 2} & \\dots & a _ {1 k} \\\\ a _ {2 1} & a _ {2 2} & \\dots & a _ {2 k} \\\\ \\vdots & \\vdots & & \\vdots \\\\ \\framebox{$a _ {i 1}$} & a _ {i 2} & \\dots & a _ {i k} \\\\ \\vdots & \\vdots & & \\vdots \\\\ a _ {m 1} & a _ {m 2} & \\dots & a _ {m k} \\end{array} \\right] \\left[ \\begin{array}{c c c c c c} b _ {1 1} & b _ {1 2} & \\dots & b _ {1 j} & \\dots & b _ {1 n} \\\\ b _ {2 1} & b _ {2 2} & \\dots & b _ {2 j} & \\dots & b _ {2 n} \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ & \\cdot & & \\cdot & & \\cdot \\\\ b _ {k 1} & b _ {k 2} & \\dots & b _ {k j} & \\dots & b _ {k n} \\end{array} \\right] \\\\ = \\left[ \\begin{array}{c c c c c c} c _ {1 1} & c _ {1 2} & \\dots & c _ {1 j} & \\dots & c _ {1 n} \\\\ c _ {2 1} & c _ {2 2} & \\dots & c _ {2 j} & \\dots & c _ {2 n} \\\\ \\vdots & \\vdots & & \\vdots & & \\vdots \\\\ c _ {i 1} & c _ {i 2} & \\dots & \\boxed {c _ {i j}} & \\dots & c _ {i n} \\\\ \\vdots & \\vdots & & \\vdots & & \\vdots \\\\ c _ {m 1} & c _ {m 2} & \\dots & c _ {m j} & \\dots & c _ {m n} \\end{array} \\right] \\\\ \\end{array}"
+    },
+    {
+      "id": "epp_discrete_math-ch12-body-94-b7e64f",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[94]",
+      "field": "md",
+      "all": true,
+      "old": "\\( and the backslash itself would be written as \\\\.",
+      "new": "\\text{and the backslash itself would be written as }\\\\.",
+      "anchor": "c44dbe53"
     }
   ]
 }

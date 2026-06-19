@@ -1,0 +1,11 @@
+# walpole_probability_statistics_sol
+# 主書題號是嚴格 "N.M"；解答書解答段落也直接以 "N.M" 起頭，故以純題號逐字對齊。
+#
+# 這本 source 的章 anchor 不完整：sol_extract 目前只收 text_level==1 的章標，
+# 而本解答書只有 ch4/5/6/7/10/13/15/16/17/18 具備可用的 lvl1 "Chapter N"。
+# 缺失章（1/2/3/8/9/11/12/14）後續內容會被吸進前一個章桶，但因 problem_re 嚴格抓
+# 帶章號的 "N.M"，外溢 key 只會留在 unmatched，不會誤寫進主書別章。
+# 這屬 harness-gap，另開 proposal 記錄；當前先安全 merge 可對齊的章。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+\.\d+)\b'
+multi_per_block: false

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "rybicki_lightman_radiative_processes-ch04-body-231-c3dfb0",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[231]",
+      "expect": "T ^ {\\prime} _ {\\nu} ^ {\\mu \\nu} = \\Lambda_ {\\alpha} ^ {\\mu} T _ {\\beta} ^ {\\alpha \\beta},",
+      "new": "T'_{\\nu}{}^{\\mu\\nu}=\\Lambda_{\\alpha}^{\\mu}T_{\\beta}^{\\alpha\\beta},"
+    }
+  ]
+}

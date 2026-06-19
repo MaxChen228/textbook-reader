@@ -17,6 +17,14 @@
       "selector": "body[34]",
       "expect": "\\begin{array}{l} \\text {In[6]:= inversemetric = Simplify[Inverse[metric]]} \\\\ \\text {cut[6] = \\left\\{\\left\\{1 - \\frac {2r}{r}, 0, 0, 0 \\right\\}, \\left\\{0, \\frac {1}{r^ {2}}, , 0 \\right\\}, \\left\\{0, 0, \\frac {\\mathrm{Csc} - ^ {2}}{r}, 0 \\right\\}, \\left\\{0, 0, 0, \\frac {r}{2m - r} \\right\\} \\right\\}} \\end{array}",
       "new": "\\begin{array}{l} \\text {In[6]:= inversemetric = Simplify[Inverse[metric]]} \\\\ \\text {cut[6] = } \\left\\{\\left\\{1 - \\frac {2r}{r}, 0, 0, 0 \\right\\}, \\left\\{0, \\frac {1}{r^ {2}}, , 0 \\right\\}, \\left\\{0, 0, \\frac { \\mathrm{Csc} - ^ {2}}{r}, 0 \\right\\}, \\left\\{0, 0, 0, \\frac {r}{2m - r} \\right\\} \\right\\} \\end{array}"
+    },
+    {
+      "id": "hartle_gr-ch20-problem-9-solution-2-65a8c3",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:9:solution[2]",
+      "expect": "t _ {\\alpha \\beta} ^ {\\prime} ^ {\\gamma} = \\frac {\\partial x ^ {\\delta}}{\\partial x ^ {\\prime a}} \\frac {\\partial x ^ {\\epsilon}}{\\partial x ^ {\\prime \\beta}} \\frac {\\partial x ^ {\\prime \\gamma}}{\\partial x ^ {\\zeta}} t _ {\\delta \\epsilon} ^ {\\zeta} \\tag {1}",
+      "new": "t _ {\\alpha \\beta} ^ {\\prime\\gamma} = \\frac {\\partial x ^ {\\delta}}{\\partial x ^ {\\prime a}} \\frac {\\partial x ^ {\\epsilon}}{\\partial x ^ {\\prime \\beta}} \\frac {\\partial x ^ {\\prime \\gamma}}{\\partial x ^ {\\zeta}} t _ {\\delta \\epsilon} ^ {\\zeta} \\tag {1}"
     }
   ]
 }

@@ -1,0 +1,38 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前無法安全併入 petrucci_general_chemistry，原因如下：
+#
+# 1. 主書與解答書的章序/章名不一致，已屬 edition/source mismatch，而非單純 regex 可修。
+#    主書（parsed/book.json）：
+#      ch15 Principles of Chemical Equilibrium
+#      ch16 Acids and Bases
+#      ch17 Additional Aspects of Acid-Base Equilibria
+#      ch18 Solubility and Complex-Ion Equilibria
+#      ch19 Electrochemistry
+#      ch20 Chemical Kinetics
+#      ch27 Reactions of Organic Compounds
+#    解答書（unified/content_list.json）：
+#      ch15 Principles of Chemical Equilibrium
+#      ch16 Thermodynamics and Chemistry
+#      ch17 Acids and Bases
+#      ch18 Additional Aspects of Acid-Base Equilibria
+#      ch19 Solubility and Complex Ion Equilibria
+#      ch20 Oxidation-Reduction and Electrochemistry
+#      ch27 Chemistry of the Living State
+#
+# 2. 語義抽樣已證明會錯配。
+#    - 主書 ch16 problem 1 題幹是「依 Brønsted-Lowry 理論判斷 acid/base」；
+#      以解答書題號規則抓到的 key=1 卻是「determine x / percent ionization」。
+#    - 主書 ch19 problem 1 題幹是估計半電池 E°；
+#      抓到的 key=1 卻是配平氧化還原半反應並判斷 E_cell°。
+#    這表示直接 merge 會把錯解寫進主書。
+#
+# 3. 現有 sol_extract harness 也無法乾淨切章。
+#    sol_extract 只接受 text_level==1 的 chapter anchor；但此解答書的
+#    CHAPTER 15/17/20/27（以及更早多章）都在 text_level==2。
+#    用唯一可行的規則 dry-run，對主書 ch15-27 只得到 87/773 = 11.25% 配對，
+#    且 ch16/ch19 已被後續章節污染，不是可接受殘缺。
+#
+# 結論：維持 _pending，等待更匹配的解答來源或架構師重解；在現有來源下不可 merge。
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^(?:\d+)-(\d+[a-z]?)\.'
+multi_per_block: false
+_pending: true

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "cover_thomas_information_theory-ch13-problem-5-solution-1-ba8825",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "problem:5:solution[1]",
+      "expect": "d (x, \\dot {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x = \\dot {x}}, \\\\ 1 & \\text {if x\\neq\\dot {x}}. \\end{array} \\right.",
+      "new": "d(x,\\dot{x})=\\left\\{\\begin{array}{ll}0&\\text{if }x=\\dot{x},\\\\1&\\text{if }x\\neq\\dot{x}.\\end{array}\\right."
+    },
+    {
+      "id": "cover_thomas_information_theory-ch13-problem-5-solution-3-960c79",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "problem:5:solution[3]",
+      "expect": "d (x, \\dot {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x = \\dot {x}} \\\\ 1 & \\text {if x\\neq\\dot {x}} \\end{array} \\right.",
+      "new": "d(x,\\dot{x})=\\left\\{\\begin{array}{ll}0&\\text{if }x=\\dot{x}\\\\1&\\text{if }x\\neq\\dot{x}\\end{array}\\right."
+    }
+  ]
+}

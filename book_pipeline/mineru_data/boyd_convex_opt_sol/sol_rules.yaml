@@ -1,0 +1,14 @@
+# ⚠ PENDING — 不要 merge。
+# 2026-06-19 驗證結果：
+# 1. 主書 boyd_convex_opt 的 problem['num'] 為 "N.M"；解答書題號 block 亦直接以 "N.M" 起頭。
+# 2. 以一次性腳本按 unified 內 lvl=2 text "Chapter N" 切章，可抽出 ch2–ch11 共 337 題，
+#    與主書 337 題可 100% key 對齊；語義抽樣 ch2/ch5/ch9 各前 3 題皆同題。
+# 3. 但現行 sol_extract.py 章 anchor 寫死為 type=text 且 text_level==1；本書 unified 的
+#    "Chapter N" 全在 text_level==2，且整本完全沒有任何 lvl=1 text block，故引擎 dry-run
+#    只能得到「抽出 0 章、0 題」，無法正式 merge。
+# 結論：這是 sol_extract 的 harness gap，不是 source-quality；待引擎支援自訂章 anchor level
+# 或允許直接由 N.M 題號前綴推導章號後再重跑。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+\.\d+)\s'
+multi_per_block: false
+_pending: true

@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "aitchison_hey_gauge_theories-ch05-body-376-87ffeb",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[376]",
+      "field": "md",
+      "all": true,
+      "old": "$\\cdot \\hat { a } ^ { \\dagger } \\hat { a } ^ { \\dagger } ^ { } \\cdot$",
+      "new": "$\\cdot \\hat{a}^{\\dagger} \\hat{a}^{\\dagger} \\cdot$",
+      "anchor": "bc08e7ed"
+    },
+    {
+      "id": "aitchison_hey_gauge_theories-ch15-body-64-35baa3",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[64]",
+      "field": "md",
+      "all": true,
+      "old": "$m _ { \\mathrm { e } } \\to \\mu \\to \\mu ^ { \\prime } \\to . . . _ $",
+      "new": "$m_{\\mathrm{e}} \\to \\mu \\to \\mu^{\\prime} \\to \\dots $",
+      "anchor": "e3afef1c"
+    },
+    {
+      "id": "aitchison_hey_gauge_theories-ch11-body-222-6c4441",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[222]",
+      "expect": "\\begin{array}{l} - \\mathrm{i} e \\bar {u} (p ^ {\\prime}) \\Gamma_ {\\mu} ^ {[ 2 ]} (p, p ^ {\\prime}) u (p) = \\bar {u} (p ^ {\\prime}) \\int (- \\mathrm{i} e \\gamma^ {\\nu}) \\frac {- \\mathrm{i} g _ {\\lambda \\nu}}{k ^ {2}} \\frac {\\mathrm{i}}{\\slashed {p} ^ {\\prime} - \\slashed {k} - m} \\\\ \\times (- \\mathrm{i} e \\gamma_ {\\mu}) \\frac {\\mathrm{i}}{p / - k / - m} (- \\mathrm{i} e \\gamma^ {\\lambda}) \\frac {\\mathrm{d} ^ {4} k}{(2 \\pi) ^ {4}} u (p)  \\\\ \\end{array}",
+      "new": "\\begin{array}{l} - \\mathrm{i} e \\bar {u} (p ^ {\\prime}) \\Gamma_ {\\mu} ^ {[ 2 ]} (p, p ^ {\\prime}) u (p) = \\bar {u} (p ^ {\\prime}) \\int (- \\mathrm{i} e \\gamma^ {\\nu}) \\frac {- \\mathrm{i} g _ {\\lambda \\nu}}{k ^ {2}} \\frac {\\mathrm{i}}{\\not{p} ^ {\\prime} - \\not{k} - m} \\\\ \\times (- \\mathrm{i} e \\gamma_ {\\mu}) \\frac {\\mathrm{i}}{\\not{p} - \\not{k} - m} (- \\mathrm{i} e \\gamma^ {\\lambda}) \\frac {\\mathrm{d} ^ {4} k}{(2 \\pi) ^ {4}} u (p)  \\\\ \\end{array}"
+    }
+  ]
+}

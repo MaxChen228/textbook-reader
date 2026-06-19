@@ -2959,7 +2959,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （33 條；proposed=33）
+## domain: sol  （36 條；proposed=36）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
@@ -3066,6 +3066,11 @@ index 2c80077..8104e5a 100644
 - 證據：解答書共有 286 個 Exercise 起點，但 sol_extract 只接受 text_level==1 的 chapter anchor。expand_list_blocks 後僅有 lvl1: Chapter 4/5/9；其餘章號在 lvl2（如 Chapter 1/2/3/6/7/8/10/11）或僅剩無數字章名。用 chapter='^Chapter\s+(\d+)\s*$' + problem='^Exercise\s+(\d+\.\d+)' 測試時只抽出 ch4=26、ch5=104(一路吃到 8.31)、ch9=81(一路吃到 11.18)，屬系統性錯位。
 - 提議：增強 sol_extract 章 anchor 能力：允許 text_level>=1、或支援將 lvl2 'Chapter N' 與緊隨的 lvl1 章名合併成同一章起點；完成後重跑 rudin_analysis_sol merge。
 
+### P-2026-06-19-serway-physics-scientists-engine — serway_physics_scientists_engineers 解答書無法 merge：6th ed manual 與主書 9th ed 不對齊
+- proposed | type=edition-mismatch | source=sol_extract
+- 證據：主書 parsed/book.json 顯示 title='Physics for Scientists and Engineers with Modern Physics'、edition='9th'；解答書 unified 開頭 OCR 明確有 'INSTRUCTOR'S SOLUTIONS MANUAL' 與 'SIXTH EDITION'。語義抽樣：主書 ch1 p1 是估算地球平均密度，但 sol P1.1 是晶體平面間距；主書 ch5 p1 是 120 lb 女性的重量/質量換算，但 sol P5.1 是同力作用不同質量；主書 ch21 p1 是氦氣球原子數/平均動能/rms speed，但 sol P21.1 是冰雹撞窗平均力。另以預設規則 dry-run，sol_extract 對此來源抽出 0 章 0 題，因章號主要落在 text_level=2 純數字 block。
+- 提議：換與 serway_physics_scientists_engineers 主書同版次（9th ed）的完整解答書；若保留此來源，仍需擴充 sol_extract 支援非 lvl1 chapter anchor，但在版次不符未解前不應 merge。
+
 ### P-2026-06-19-sethna-statistical-mechanics-sol — sethna_statistical_mechanics 解答書無法 merge：sol_extract 缺 chapterless solution-book 對齊能力
 - proposed | type=harness-gap | source=sol_extract
 - 證據：sethna_statistical_mechanics_sol unified 正文沒有任何 text_level==1 章 anchor；預設 dry-run 抽出 0 章 0 題。另一方面，ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有外來題號；語義抽樣 1.1/5.4/10.1 分別對上 Quantum Dice、Black Hole Thermodynamics、Cosmic Microwave Background Radiation，證明來源書正確且 key 對齊可行。阻塞點是 sol_extract 目前只能先按 lvl1 chapter_re 切章，無法在 chapterless 版型下直接按完整 N.M 題號切題與 merge。
@@ -3105,6 +3110,16 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：dry-run：抽出 6 章 279 題；對主書 317 題配對成功 164 題（51%），未配對 sol 115 題。語義抽樣 3.1.1 / 6.1.1 / 10.4.3 / 11.1.1 / 12.1.1 題幹與解答主題一致。阻塞點是解答書章 2/4/5/7/9 的章號為 text_level=2 純數字行，現行 sol_extract 只收 text_level==1 章 anchor。
 - 提議：升級 sol_extract：支援自訂 chapter anchor text_level 或直接由 problem key N.M.K 導出 chapter；升級後可重跑 strogatz_chaos_sol 以補回目前漏掉的章 2/4/5/7/9。
+
+### P-2026-06-19-thomas-calculus-sol — thomas_calculus 解答書無法 merge：主書題號失真且需 section-aware 對齊
+- proposed | type=source-quality | source=sol_extract
+- 證據：主書 thomas_calculus 仍有 11 個 H2 duplicate（book_pipeline/mineru_data/thomas_calculus/_audit.md）。語義抽樣：主書 1.1.4 是 g(x)=sqrt(x^2-3x)，但解答書 1.1 第 4 題是 NT/NNT 不等式；主書 2.1.1 是 secant slope 概念敘述，但解答書 2.1 第 1 題是單側極限圖形判讀；主書 ch01 不存在任何 1.2.* key，但解答書 1.2 有完整逐題解答。另解答書採 section heading + 裸題序（如 2.1 heading 下 1. 2. 3.），現行 sol_extract 無法組裝回主書 key。
+- 提議：先重做 thomas_calculus 主書 audit/parser，消除 inline false-positive 與 section namespace 漂移；再升級 sol_extract 支援 section heading + 裸題序組 key，之後重跑 thomas_calculus_sol merge。
+
+### P-2026-06-19-tipler-mosca-physics-sol — tipler_mosca_physics 解答書無法 merge：sol 章 anchor 與主書章邊界皆不可靠
+- proposed | type=harness-gap | source=sol_extract
+- 證據：sol unified 有 42 個 chapter-like block，但只有 12 個是 sol_extract 可用的 lvl=1；dry-run 僅抽出 12 章 654 題，配對成功 588/1032（56%）。語義抽樣：main ch03 Q1 對到 chapter 7 能量題；main ch11 Q1 對到 chapter 16 波題；main ch18 Q1 對到 capacitance 題。另 main ch17/ch29 的非空題幹本身也落在前章主題，顯示 parser 章邊界錯位。
+- 提議：需要升級 sol_extract/前處理以接受 header 或 lvl2 chapter anchor，並修主書 parser 章邊界後再重跑 audit-sol。現階段只靠 sol_rules.yaml 無法產出品質 merge。
 
 ### P-2026-06-19-walpole-probability-statistics-s — walpole_probability_statistics 解答本缺少可用章 anchor，僅能部分 merge
 - proposed | type=harness-gap | source=sol_extract

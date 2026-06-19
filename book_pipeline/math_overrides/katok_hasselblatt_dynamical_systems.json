@@ -1,0 +1,149 @@
+{
+  "overrides": [
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch04-body-398-c1e3f9",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[398]",
+      "field": "md",
+      "all": true,
+      "old": "$0 \\leq \\overline{\\lim}_{n \\to \\infty} -(1/n) \\log(\\sup_{c \\in \\xi^{-n}^T} \\mu(C)) \\leq h(T, \\xi) \\leq H(\\xi)$",
+      "new": "$0 \\leq \\overline{\\lim}_{n \\to \\infty} -\\frac{1}{n} \\log\\bigl(\\sup_{C \\in \\xi^{-n}_{T}} \\mu(C)\\bigr) \\leq h(T, \\xi) \\leq H(\\xi)$",
+      "anchor": "fb7aac80"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch12-body-504-7c24fe",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[504]",
+      "field": "md",
+      "all": true,
+      "old": "$C_4(|s_{m+1} - s'_m_{m+1}| + |s_l - s'_l|) < C_5(|s_{m+1} - s'_m_{m+1}| + |s_{l-1} - s'_l_{l-1}|)$",
+      "new": "$C_{4}(|s_{m+1} - s'_{m+1}| + |s_{l} - s'_{l}|) < C_{5}(|s_{m+1} - s'_{m+1}| + |s_{l-1} - s'_{l-1}|)$",
+      "anchor": "eb14ad70"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch12-body-527-4f496a",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[527]",
+      "field": "md",
+      "all": true,
+      "old": "$\\sum_{i=0}^{q-1}(s'_i^n - s_i^n) < 1$",
+      "new": "$\\sum_{i=0}^{q-1}(s'_i{}^n - s_i^n) < 1$",
+      "anchor": "41154edc"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-67-a21c43",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$\\sigma_A_{\\upharpoonright h^{-1}(C)}$",
+      "new": "$\\sigma_{A_{\\upharpoonright h^{-1}(C)}}$",
+      "anchor": "e383a23a"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-67-5fee84",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$h_{\\mathrm{top}}(\\sigma_A_{\\upharpoonright h^{-1}(C)}) < h_{\\mathrm{top}}(\\sigma_A)$",
+      "new": "$h_{\\mathrm{top}}(\\sigma_{A\\upharpoonright h^{-1}(C)}) < h_{\\mathrm{top}}(\\sigma_A)$",
+      "anchor": "70cf6a01"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-67-fcae38",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$p(\\sigma_A_{\\upharpoonright h^{-1}(C)}) \\leq h_{\\mathrm{top}}(\\sigma_A_{\\upharpoonright h^{-1}(C)}) < h_{\\mathrm{top}}(\\sigma_A)$",
+      "new": "$p(\\sigma_{A|_{h^{-1}(C)}}) \\leq h_{\\mathrm{top}}(\\sigma_{A|_{h^{-1}(C)}}) < h_{\\mathrm{top}}(\\sigma_{A})$",
+      "anchor": "9d99e7a6"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-67-04b3fe",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$|P_n(\\sigma_A_{\\upharpoonright h^{-1}(\\Lambda \\setminus C)}) - P_n(\\sigma_A)| < K\\lambda^n$",
+      "new": "$|P_n(\\sigma_{A_{\\upharpoonright h^{-1}(\\Lambda \\setminus C)}}) - P_n(\\sigma_A)| < K\\lambda^n$",
+      "anchor": "0f5ae091"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-399-c67585",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[399]",
+      "field": "md",
+      "all": true,
+      "old": "$\\widehat{\\varphi^t^*}\\mathfrak{m} = \\mathfrak{m}$",
+      "new": "$\\widehat{\\varphi^{t^*}}\\mathfrak{m} = \\mathfrak{m}$",
+      "anchor": "0affd357"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch19-body-401-2fce8b",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[401]",
+      "expect": "\\begin{array}{l} \\varphi^ {t _ {1}} ^ {*} F _ {t _ {2}} (f) = F _ {t _ {2}} \\left(f \\circ \\varphi^ {- t _ {1}}\\right) = \\int \\left(f \\circ \\varphi^ {- t _ {1}}\\right) \\circ \\varphi^ {- t _ {2}} d \\lambda^ {0 u} \\geq \\lambda^ {- t _ {1}} \\int f \\circ \\varphi^ {- t _ {2}} d \\lambda^ {0 u} \\\\ = \\lambda^ {- t _ {1}} F _ {t _ {2}} (f), \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\varphi^{t_{1}{}^{*}} F_{t_{2}}(f) = F_{t_{2}} \\left(f \\circ \\varphi^{- t_{1}}\\right) = \\int \\left(f \\circ \\varphi^{- t_{1}}\\right) \\circ \\varphi^{- t_{2}} d \\lambda^{0u} \\geq \\lambda^{- t_{1}} \\int f \\circ \\varphi^{- t_{2}} d \\lambda^{0u} \\\\ = \\lambda^{- t_{1}} F_{t_{2}} (f), \\\\ \\end{array}"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch12-body-483-284d46",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[483]",
+      "expect": "t _ {k} ^ {n} := \\left\\{ \\begin{array}{l l} s _ {k - \\rho_ {n}} ^ {n} + \\sigma_ {n} & \\text {if k- \\rho_{n} is in a left A_{n} -segment}, \\\\ s _ {k + \\rho_ {n}} ^ {n} - \\sigma_ {n} & \\text {if k is in a right A_{n} -segment}, \\\\ s _ {k} ^ {n} & \\text {otherwise}. \\end{array} \\right.",
+      "new": "t _ {k} ^ {n} := \\left\\{ \\begin{array}{l l} s _ {k - \\rho_ {n}} ^ {n} + \\sigma_ {n} & \\text {if } k- \\rho_{n} \\text { is in a left } A_{n} \\text { -segment}, \\\\ s _ {k + \\rho_ {n}} ^ {n} - \\sigma_ {n} & \\text {if } k \\text { is in a right } A_{n} \\text { -segment}, \\\\ s _ {k} ^ {n} & \\text {otherwise}. \\end{array} \\right."
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch14-body-202-a8ccda",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[202]",
+      "expect": "(\\alpha_ {2} \\omega) _ {i} = \\left\\{ \\begin{array}{l l} 1 - \\omega_ {i} & \\text {if \\omega_{i} = 1 for all j <   i}, \\\\ \\omega_ {i} & \\text {otherwise} \\end{array} \\right.",
+      "new": "(\\alpha_ {2} \\omega) _ {i} = \\left\\{ \\begin{array}{l l} 1 - \\omega_ {i} & \\text {if } \\omega_{i} = 1 \\text { for all } j < i, \\\\ \\omega_ {i} & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch05-body-336-2670a5",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[336]",
+      "field": "md",
+      "all": true,
+      "old": "$\\partialD$",
+      "new": "$\\partial D$",
+      "anchor": "c7b0b5e8"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch11-body-106-6f71df",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[106]",
+      "field": "md",
+      "all": true,
+      "old": "$\\tau\\in R\\setminusQ$",
+      "new": "$\\tau\\in R\\setminus Q$",
+      "anchor": "c19f7706"
+    },
+    {
+      "id": "katok_hasselblatt_dynamical_systems-ch03-body-45-fa8cfa",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[45]",
+      "field": "md",
+      "all": true,
+      "old": "$d'_{n}^{f}$",
+      "new": "$d'_{n}{}^{f}$",
+      "anchor": "365f4ccb"
+    }
+  ]
+}

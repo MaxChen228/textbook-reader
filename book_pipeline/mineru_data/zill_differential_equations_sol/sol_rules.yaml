@@ -1,0 +1,39 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不能靠現行 sol_extract 安全對齊主書，原因如下：
+#
+# 1. 現行 sol_extract 只會把 `type=text && text_level==1` 的 block 當作章 anchor。
+#    但 zill_differential_equations_sol 的第一本書（對應主書 ch01–ch09）章號實際在
+#    `text_level=2` 的 `Chapter N` block：
+#      - 49  -> `Chapter 1`
+#      - 694 -> `Chapter 2`
+#      - 1857 -> `Chapter 3`
+#      - ...
+#      - 11157 -> `Chapter 9`
+#    同位置的 lvl=1 block 只有章名（如 `Introduction to Differential Equations`、
+#    `Numerical Solutions of Ordinary Differential Equations`），本身不含可抽的數字章號。
+#    因此不是調 chapter_re 就能讓現行引擎吃到前 1–9 章。
+#
+# 2. 解答書題號是「section 內裸題序」，而主書 problem.num 是 section-aware key。
+#    實際觀察：
+#      - 解答書在 `1.1 Definitions and Terminology` 之後直接出現 `8.`、`9.`、`10.` ...
+#      - 主書對應 key 則是 `exercises1.1.8`、`exercises1.1.9`、`exercises1.1.10`
+#      - 其他章還會出現 `2.1.1.2`、`4.1.1.1` 這類混合 namespace
+#    現行 sol_extract 的 problem_re 只能抓單一字串做 key，無法用
+#    「當前 section heading + 裸題序」重建主書 key，所以就算章 anchor 問題不存在，
+#    也仍會系統性錯配。
+#
+# 3. 預設 dry-run（2026-06-19）穩定結果為：
+#      `抽出 3 章、0 題解答`
+#    只抓到第二本書的少數 lvl=1 `Chapter 10/13/15`，而主書 parsed 也只有 ch01–ch09。
+#    這代表目前阻塞點在 harness，不在單次抽樣或 OCR 噪音。
+#
+# 結論：這是 harness gap，不是單靠 sol_rules 可解。
+# 需要 sol_extract 支援：
+#   - 自訂 chapter anchor 的 text_level / block 類型
+#   - 用 section heading + 裸題序組裝主書 problem key
+#   - 必要時區分本書與同冊附帶的另一本文本
+#
+# 在引擎補齊前維持 pending，避免把錯解答 merge 進主書 parsed/。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true

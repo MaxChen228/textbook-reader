@@ -1,0 +1,53 @@
+{
+  "overrides": [
+    {
+      "id": "padmanabhan_gravitation-ch04-body-177-c871d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[177]",
+      "expect": "\\frac {d ^ {2} x ^ {a}}{d \\lambda^ {2}} + \\Gamma_ {b c} ^ {a} ^ {\\prime} \\frac {d x ^ {b}}{d \\lambda} \\frac {d x ^ {c}}{d \\lambda} = \\frac {d ^ {2} x ^ {a}}{d \\lambda^ {2}} + \\Gamma_ {b c} ^ {a} \\frac {d x ^ {b}}{d \\lambda} \\frac {d x ^ {c}}{d \\lambda} + 2 \\frac {d x ^ {a}}{d \\lambda} \\frac {d \\ln \\Omega}{d \\lambda} = 0.",
+      "new": "\\frac{d^{2}x^{a}}{d\\lambda^{2}}+\\Gamma_{bc}^{{a}^{\\prime}}\\frac{dx^{b}}{d\\lambda}\\frac{dx^{c}}{d\\lambda}=\\frac{d^{2}x^{a}}{d\\lambda^{2}}+\\Gamma_{bc}^{a}\\frac{dx^{b}}{d\\lambda}\\frac{dx^{c}}{d\\lambda}+2\\frac{dx^{a}}{d\\lambda}\\frac{d\\ln\\Omega}{d\\lambda}=0."
+    },
+    {
+      "id": "padmanabhan_gravitation-ch08-problem-exercise-8-13-body-2-6199ec",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:Exercise 8.13:body[2]",
+      "expect": "\\left(\\xi_ {[ r} \\nabla_ {s ]} \\xi_ {n}\\right) (\\nabla^ {n} \\xi^ {m}) = \\kappa \\xi_ {[ r} \\nabla_ {s ]} \\xi^ {m} \\quad \\text {(on \\mathcal {H})}.",
+      "new": "\\left(\\xi_{[r}\\nabla_{s]}\\xi_{n}\\right)(\\nabla^{n}\\xi^{m})=\\kappa\\xi_{[r}\\nabla_{s]}\\xi^{m}\\quad \\text{(on }\\mathcal{H}\\text{)}."
+    },
+    {
+      "id": "padmanabhan_gravitation-ch15-problem-exercise-15-3-body-26-b75985",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "problem:Exercise 15.3:body[26]",
+      "field": "md",
+      "all": true,
+      "old": "$g ^ { a b } . \\hfill $",
+      "new": "$g^{ab}. $",
+      "anchor": "5b1aef24"
+    },
+    {
+      "id": "padmanabhan_gravitation-ch13-problem-project-13-1-body-3-f38471",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "problem:Project 13.1:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bar { T _ { a b } ^ { c o r r } } = \\wdot { \\kappa } ^ { - 1 } ( G _ { a b } [ \\langle g \\rangle ] - \\langle G _ { a b } [ g ] \\rangle )$",
+      "new": "$\\bar{T_{ab}^{corr}}=\\dot{\\kappa}^{-1}(G_{ab}[\\langle g\\rangle]-\\langle G_{ab}[g]\\rangle)$",
+      "anchor": "7bcd803a"
+    },
+    {
+      "id": "padmanabhan_gravitation-ch05-body-367-76eb4d",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[367]",
+      "field": "md",
+      "all": true,
+      "old": "$\\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\mathit { \\mathbf { \\Pi } } } } } } } \\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\Pi } } } } } \\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\Lambda } } } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { \\mathbf { \\Lambda } } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm  $",
+      "new": "$\\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\mathit { \\mathbf { \\Pi } } } } } } } \\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\Pi } } } } } \\boldsymbol { { \\mathbf { \\mathit { \\mathbf { \\Lambda } } } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { { \\mathbf { \\Lambda } } } \\boldsymbol { \\mathbf { \\Lambda } } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\boldsymbol { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda } \\mathrm { \\Lambda }  $",
+      "anchor": "ca56f8c2"
+    }
+  ]
+}

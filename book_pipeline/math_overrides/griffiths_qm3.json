@@ -33,6 +33,119 @@
       "selector": "body[66]",
       "expect": "\\rho_ {i j} = \\left\\langle \\right. e _ {i} \\left. \\right| \\hat {\\rho} \\left| \\right. e _ {j} \\left. \\right\\rangle = \\left\\langle \\right. e _ {i} \\left. \\right| \\Psi \\left\\rangle \\left\\langle \\right. \\Psi \\left. \\right| e _ {j} \\left. \\right\\rangle .",
       "new": "\\rho_{i j} = \\langle e_{i} | \\hat{\\rho} | e_{j} \\rangle = \\langle e_{i} | \\Psi \\rangle \\langle \\Psi | e_{j} \\rangle ."
+    },
+    {
+      "id": "griffiths_qm3-ch05-problem-5-37-solution-7-a80b30",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.37:solution[7]",
+      "expect": "= \\boxed \\frac {m}{\\pi \\hbar^ {2} k} \\frac {| 1 + \\frac {m \\alpha}{\\hbar^ {2} k} \\left[ \\frac {1}{k a} - \\cot (k a) \\right] |}{\\sqrt {1 - \\frac {2 m \\alpha}{\\hbar^ {2} k} \\cot (k a) - \\left(\\frac {m \\alpha}{\\hbar^ {2} k}\\right) ^ {2}}}.",
+      "new": "= \\boxed{\\frac {m}{\\pi \\hbar^ {2} k} \\frac {| 1 + \\frac {m \\alpha}{\\hbar^ {2} k} \\left[ \\frac {1}{k a} - \\cot (k a) \\right] |}{\\sqrt {1 - \\frac {2 m \\alpha}{\\hbar^ {2} k} \\cot (k a) - \\left(\\frac {m \\alpha}{\\hbar^ {2} k}\\right) ^ {2}}}}."
+    },
+    {
+      "id": "griffiths_qm3-ch03-problem-3-4-solution-1-bf6c25",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.4:solution[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\boxed{\\alpha$",
+      "new": "$\\boxed{\\alpha}$",
+      "anchor": "55ffe0c8"
+    },
+    {
+      "id": "griffiths_qm3-ch04-problem-4-33-solution-7-fcb101",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.33:solution[7]",
+      "field": "md",
+      "all": true,
+      "old": "$\\boxed{\\chi_{-}^{(r)} = \\binom{e^{-i\\phi}\\sin (\\theta /2)}{-\\cos (\\theta /2)}.$",
+      "new": "$\\boxed{\\chi_{-}^{(r)} = \\binom{e^{-i\\phi}\\sin (\\theta /2)}{-\\cos (\\theta /2)}}.$",
+      "anchor": "809428bf"
+    },
+    {
+      "id": "griffiths_qm3-ch05-problem-5-7-solution-3-1ce8e9",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.7:solution[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\psi_{\\pm}(x_1,x_2) = \\frac{1}{\\sqrt{2}} [\\psi_0(x_1)\\psi_1(x_2)\\pm \\psi_1(x_1)\\psi_0(x_2)] = \\boxed{\\sqrt{\\frac{1}{\\pi}}\\frac{m\\omega}{\\hbar} (x_1\\pm x_2)e^{-\\frac{m\\omega}{2\\hbar}(x_1^2 +x_2^2)}.$",
+      "new": "$\\psi_{\\pm}(x_1,x_2) = \\frac{1}{\\sqrt{2}} [\\psi_0(x_1)\\psi_1(x_2)\\pm \\psi_1(x_1)\\psi_0(x_2)] = \\boxed{\\sqrt{\\frac{1}{\\pi}}\\frac{m\\omega}{\\hbar} (x_1\\pm x_2)e^{-\\frac{m\\omega}{2\\hbar}(x_1^2 +x_2^2)}}.$",
+      "anchor": "2406af79"
+    },
+    {
+      "id": "griffiths_qm3-ch06-problem-6-24-solution-30-011465",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.24:solution[30]",
+      "expect": "B _ {\\ell} ^ {m}   C _ {m - 1 0 m ^ {\\prime}} ^ {\\ell}   ^ {1 \\ell^ {\\prime}} + B _ {1} ^ {0}   C _ {m - 1 m ^ {\\prime}} ^ {\\ell}   ^ {1}   ^ {\\ell^ {\\prime}} \\stackrel {?} {=} B _ {\\ell} ^ {m}   C _ {m - 1 0 m ^ {\\prime}} ^ {\\ell}   ^ {1 \\ell^ {\\prime}} + \\sqrt {2}   \\hbar   C _ {m - 1 m ^ {\\prime}} ^ {\\ell}   ^ {1}   ^ {\\ell^ {\\prime}}  .",
+      "new": "B_{\\ell}^{m}C_{m-10m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+B_{1}^{0}C_{m-1m^{\\prime}}^{{\\ell}{1}{\\ell^{\\prime}}}\\stackrel{?}{=}B_{\\ell}^{m}C_{m-10m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+\\sqrt{2}\\hbar C_{m-1m^{\\prime}}^{{\\ell}{1}{\\ell^{\\prime}}}."
+    },
+    {
+      "id": "griffiths_qm3-ch06-problem-6-24-solution-35-8c66d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.24:solution[35]",
+      "expect": "A _ {\\ell} ^ {m} C _ {m + 1 - 1 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}} + A _ {1} ^ {- 1} C _ {m 0 m ^ {\\prime}} ^ {\\ell 1 \\ell^ {\\prime}} \\stackrel {?} {=} A _ {\\ell} ^ {m} C _ {m + 1 - 1 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}} + \\sqrt {2} \\hbar C _ {m 0 m ^ {\\prime}} ^ {\\ell 1 \\ell^ {\\prime}}.",
+      "new": "A_{\\ell}^{m}C_{m+1-1m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+A_{1}^{-1}C_{m0m^{\\prime}}^{\\ell 1\\ell^{\\prime}}\\stackrel{?}{=}A_{\\ell}^{m}C_{m+1-1m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+\\sqrt{2}\\hbar C_{m0m^{\\prime}}^{\\ell 1\\ell^{\\prime}}."
+    },
+    {
+      "id": "griffiths_qm3-ch06-problem-6-24-solution-40-988352",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.24:solution[40]",
+      "expect": "B _ {\\ell} ^ {m} C _ {m - 1 1 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}} + B _ {1} ^ {1} C _ {m 0 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}} \\stackrel {?} {=} B _ {\\ell} ^ {m} C _ {m - 1 1 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}} + \\sqrt {2} \\hbar C _ {m 0 m ^ {\\prime}} ^ {\\ell} ^ {1 \\ell^ {\\prime}}.",
+      "new": "B_{\\ell}^{m}C_{m-11m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+B_{1}^{1}C_{m0m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}\\stackrel{?}{=}B_{\\ell}^{m}C_{m-11m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}+\\sqrt{2}\\hbar C_{m0m^{\\prime}}^{{\\ell}{1\\ell^{\\prime}}}."
+    },
+    {
+      "id": "griffiths_qm3-ch04-problem-4-11-solution-3-1724b6",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.11:solution[3]",
+      "expect": "\\left. \\begin{array}{l} \\text {Continuity of u at} r = a: A \\sin (k a) = D e ^ {- \\kappa a} \\\\ \\text {Continuity of u ^ {\\prime} at} r = a: A k \\cos (k a) = - D \\kappa e ^ {- \\kappa a} \\end{array} \\right\\} \\text {divide:} \\frac {1}{k} \\tan (k a) = - \\frac {1}{\\kappa}, \\text {or} - \\cot k a = \\frac {\\kappa}{k}.",
+      "new": "\\left.\\begin{array}{l}\\text{Continuity of }u\\text{ at }r=a: A\\sin(ka)=De^{-\\kappa a}\\\\\\text{Continuity of }u^{\\prime}\\text{ at }r=a: Ak\\cos(ka)=-D\\kappa e^{-\\kappa a}\\end{array}\\right\\}\\ \\text{divide:}\\ \\frac{1}{k}\\tan(ka)=-\\frac{1}{\\kappa},\\ \\text{or }-\\cot ka=\\frac{\\kappa}{k}."
+    },
+    {
+      "id": "griffiths_qm3-ch11-problem-11-24-solution-9-a0c583",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.24:solution[9]",
+      "expect": "\\dot {c} _ {N} = - \\frac {i}{\\hbar} H _ {N N} ^ {\\prime}, \\quad \\text {or} \\quad \\boxed {c _ {N} (t) = 1 - \\frac {i}{\\hbar} \\int_ {0} ^ {t} H _ {N N} ^ {\\prime} (t ^ {\\prime}) d t ^ {\\prime}, \\text {whereas for m\\neq N :}}",
+      "new": "\\dot{c}_{N}=-\\frac{i}{\\hbar}H_{NN}^{\\prime},\\quad \\text{or} \\quad \\boxed{c_{N}(t)=1-\\frac{i}{\\hbar}\\int_{0}^{t}H_{NN}^{\\prime}(t^{\\prime})\\,dt^{\\prime},\\ \\text{whereas for }m\\neq N:}"
+    },
+    {
+      "id": "griffiths_qm3-ch12-problem-12-8-solution-320-49dc85",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.8:solution[320]",
+      "expect": "(e ^ {i \\mathsf {H}}) ^ {\\dagger} (e ^ {i \\mathsf {H}}) = e ^ {- i \\mathsf {H}} e ^ {i \\mathsf {H}} = e ^ {i (\\mathsf {H} - \\mathsf {H})} = \\mathsf {I}, \\text {using (c). So e^{iH} is unitary.}",
+      "new": "(e^{i\\mathsf{H}})^{\\dagger}(e^{i\\mathsf{H}})=e^{-i\\mathsf{H}}e^{i\\mathsf{H}}=e^{i(\\mathsf{H}-\\mathsf{H})}=\\mathsf{I},\\ \\text{using (c). So }e^{iH}\\text{ is unitary.}"
+    },
+    {
+      "id": "griffiths_qm3-ch07-problem-7-25-solution-1-7b0681",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.25:solution[1]",
+      "expect": "\\langle n ^ {\\prime} \\ell^ {\\prime} m ^ {\\prime} | \\mathbf {V} | n \\ell m \\rangle = \\left\\{ \\begin{array}{c} \\frac {1}{\\sqrt {2}} C _ {m - 1} ^ {\\ell} _ {m ^ {\\prime}} ^ {1} _ {\\ell^ {\\prime}} - \\frac {1}{\\sqrt {2}} C _ {m} ^ {\\ell} _ {0} ^ {1} _ {m ^ {\\prime}} ^ {\\ell^ {\\prime}} \\\\ \\frac {i}{\\sqrt {2}} C _ {m - 1} ^ {\\ell} _ {m ^ {\\prime}} ^ {1} _ {\\ell^ {\\prime}} + \\frac {i}{\\sqrt {2}} C _ {m} ^ {\\ell} _ {1} ^ {1} _ {m ^ {\\prime}} ^ {\\ell^ {\\prime}} \\\\ C _ {m} ^ {\\ell} _ {0} ^ {1} _ {m ^ {\\prime}} ^ {\\ell^ {\\prime}} \\end{array} \\right\\} \\langle n ^ {\\prime} \\ell^ {\\prime} | | V | | n \\ell \\rangle = \\mathbf {M} \\langle n ^ {\\prime} \\ell^ {\\prime} | | V | | n \\ell \\rangle ,",
+      "new": "\\langle n^{\\prime} \\ell^{\\prime} m^{\\prime} | \\mathbf{V} | n \\ell m \\rangle = \\left\\{ \\begin{array}{c} \\frac{1}{\\sqrt{2}} C_{m-1,m^{\\prime}}^{\\ell,1,\\ell^{\\prime}} - \\frac{1}{\\sqrt{2}} C_{m,0,m^{\\prime}}^{\\ell,1,\\ell^{\\prime}} \\\\ \\frac{i}{\\sqrt{2}} C_{m-1,m^{\\prime}}^{\\ell,1,\\ell^{\\prime}} + \\frac{i}{\\sqrt{2}} C_{m,1,m^{\\prime}}^{\\ell,1,\\ell^{\\prime}} \\\\ C_{m,0,m^{\\prime}}^{\\ell,1,\\ell^{\\prime}} \\end{array} \\right\\} \\langle n^{\\prime} \\ell^{\\prime} || V || n \\ell \\rangle = \\mathbf{M} \\langle n^{\\prime} \\ell^{\\prime} || V || n \\ell \\rangle ,"
+    },
+    {
+      "id": "griffiths_qm3-ch07-problem-7-37-solution-13-326b97",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.37:solution[13]",
+      "expect": "\\begin{array}{l} E _ {0} ^ {2} = \\sum_ {n = 1} ^ {\\infty} \\frac {| \\langle \\psi_ {n} | H ^ {\\prime} | \\psi_ {0} \\rangle | ^ {2}}{E _ {0} - E _ {n}}. \\quad \\text {Here} \\quad | \\psi_ {0} \\rangle = | 0 \\rangle | 0 \\rangle , \\quad | \\psi_ {n} \\rangle = | n _ {1} \\rangle | n _ {2} \\rangle , \\quad \\text {so} \\\\ = \\left(\\frac {e ^ {2}}{2 \\pi \\epsilon_ {0} R ^ {3}}\\right) ^ {2} \\sum_ {n _ {1} = 1} ^ {\\infty} \\sum_ {n _ {2} = 1} ^ {\\infty} \\frac {| \\langle n _ {1} | x _ {1} | 0 \\rangle | ^ {2} | \\langle n _ {2} | x _ {2} | 0 \\rangle | ^ {2}}{E _ {0 , 0} - E _ {n _ {1} , n _ {2}}} [ \\text {use Problem 3.39} ] \\\\ = \\left(\\frac {e ^ {2}}{2 \\pi \\epsilon_ {0} R ^ {3}}\\right) ^ {2} \\frac {| \\langle 1 | x | 0 \\rangle | ^ {2} | \\langle 1 | x | 0 \\rangle | ^ {2}}{\\left(\\frac {1}{2} \\hbar \\omega_ {0} + \\frac {1}{2} \\hbar \\omega_ {0}\\right) - \\left(\\frac {3}{2} \\hbar \\omega_ {0} + \\frac {3}{2} \\hbar \\omega_ {0}\\right)} [ \\text {zero unless n_{1} = n_{2} = 1} ] \\\\ = \\left(\\frac {e ^ {2}}{2 \\pi \\epsilon_ {0} R ^ {3}}\\right) ^ {2} \\left(- \\frac {1}{2 \\hbar \\omega_ {0}}\\right) \\left(\\frac {\\hbar}{2 m \\omega_ {0}}\\right) ^ {2} = - \\frac {\\hbar}{8 m ^ {2} \\omega_ {0} ^ {3}} \\left(\\frac {e ^ {2}}{2 \\pi \\epsilon_ {0}}\\right) ^ {2} \\frac {1}{R ^ {6}}. \\quad \\checkmark \\\\ \\end{array}",
+      "new": "\\begin{array}{l} E_{0}^{2} = \\sum_{n=1}^{\\infty} \\frac{| \\langle \\psi_{n} | H^{\\prime} | \\psi_{0} \\rangle |^{2}}{E_{0} - E_{n}}. \\quad \\text{Here} \\quad | \\psi_{0} \\rangle = | 0 \\rangle | 0 \\rangle , \\quad | \\psi_{n} \\rangle = | n_{1} \\rangle | n_{2} \\rangle , \\quad \\text{so} \\\\ = \\left(\\frac{e^{2}}{2 \\pi \\epsilon_{0} R^{3}}\\right)^{2} \\sum_{n_{1}=1}^{\\infty} \\sum_{n_{2}=1}^{\\infty} \\frac{| \\langle n_{1} | x_{1} | 0 \\rangle |^{2} | \\langle n_{2} | x_{2} | 0 \\rangle |^{2}}{E_{0,0} - E_{n_{1},n_{2}}} [ \\text{use Problem 3.39} ] \\\\ = \\left(\\frac{e^{2}}{2 \\pi \\epsilon_{0} R^{3}}\\right)^{2} \\frac{| \\langle 1 | x | 0 \\rangle |^{2} | \\langle 1 | x | 0 \\rangle |^{2}}{\\left(\\frac{1}{2} \\hbar \\omega_{0} + \\frac{1}{2} \\hbar \\omega_{0}\\right) - \\left(\\frac{3}{2} \\hbar \\omega_{0} + \\frac{3}{2} \\hbar \\omega_{0}\\right)} [ \\text{zero unless } n_{1} = n_{2} = 1 ] \\\\ = \\left(\\frac{e^{2}}{2 \\pi \\epsilon_{0} R^{3}}\\right)^{2} \\left(- \\frac{1}{2 \\hbar \\omega_{0}}\\right) \\left(\\frac{\\hbar}{2 m \\omega_{0}}\\right)^{2} = - \\frac{\\hbar}{8 m^{2} \\omega_{0}^{3}} \\left(\\frac{e^{2}}{2 \\pi \\epsilon_{0}}\\right)^{2} \\frac{1}{R^{6}}. \\quad \\checkmark \\\\ \\end{array}"
+    },
+    {
+      "id": "griffiths_qm3-ch11-problem-11-18-solution-1-7cecc7",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.18:solution[1]",
+      "expect": "\\begin{array}{l} c _ {n} = \\frac {\\sqrt {2}}{a} \\int_ {0} ^ {a} \\sin \\left(\\frac {\\pi}{a} x\\right) \\sin \\left(\\frac {n \\pi}{2 a} x\\right) d x = \\frac {\\sqrt {2}}{2 a} \\int_ {0} ^ {a} \\left\\{\\cos \\left[ \\left(\\frac {n}{2} - 1\\right) \\frac {\\pi x}{a} \\right] - \\cos \\left[ \\left(\\frac {n}{2} + 1\\right) \\frac {\\pi x}{a} \\right] \\right\\} d x \\\\ = \\frac {1}{\\sqrt {2} a} \\left. \\left\\{\\frac {\\sin \\left[ \\left(\\frac {n}{2} - 1\\right) \\frac {\\pi x}{a} \\right]}{\\left(\\frac {n}{2} - 1\\right) \\frac {\\pi}{a}} - \\frac {\\sin \\left[ \\left(\\frac {n}{2} + 1\\right) \\frac {\\pi x}{a} \\right]}{\\left(\\frac {n}{2} + 1\\right) \\frac {\\pi}{a}} \\right\\} \\right| _ {0} ^ {a} \\quad (\\text {for n\\neq 2}) \\\\ = \\frac {1}{\\sqrt {2} \\pi} \\left\\{\\frac {\\sin [ (\\frac {n}{2} - 1) \\pi ]}{(\\frac {n}{2} - 1)} - \\frac {\\sin [ (\\frac {n}{2} + 1) \\pi ]}{(\\frac {n}{2} + 1)} \\right\\} = \\frac {\\sin [ (\\frac {n}{2} + 1) \\pi ]}{\\sqrt {2} \\pi} \\left[ \\frac {1}{(\\frac {n}{2} - 1)} - \\frac {1}{(\\frac {n}{2} + 1)} \\right] \\\\ = \\frac {4 \\sqrt {2}}{\\pi} \\frac {\\sin \\left[ \\left(\\frac {n}{2} + 1\\right) \\pi \\right]}{(n ^ {2} - 4)} = \\left\\{ \\begin{array}{l l} 0, & \\text {if n is even} \\\\ \\pm \\frac {4 \\sqrt {2}}{\\pi (n ^ {2} - 4)}, & \\text {if n is odd} \\end{array} \\right.. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} c_{n} = \\frac{\\sqrt{2}}{a} \\int_{0}^{a} \\sin \\left(\\frac{\\pi}{a} x\\right) \\sin \\left(\\frac{n \\pi}{2 a} x\\right) d x = \\frac{\\sqrt{2}}{2 a} \\int_{0}^{a} \\left\\{\\cos \\left[ \\left(\\frac{n}{2} - 1\\right) \\frac{\\pi x}{a} \\right] - \\cos \\left[ \\left(\\frac{n}{2} + 1\\right) \\frac{\\pi x}{a} \\right] \\right\\} d x \\\\ = \\frac{1}{\\sqrt{2} a} \\left. \\left\\{\\frac{\\sin \\left[ \\left(\\frac{n}{2} - 1\\right) \\frac{\\pi x}{a} \\right]}{\\left(\\frac{n}{2} - 1\\right) \\frac{\\pi}{a}} - \\frac{\\sin \\left[ \\left(\\frac{n}{2} + 1\\right) \\frac{\\pi x}{a} \\right]}{\\left(\\frac{n}{2} + 1\\right) \\frac{\\pi}{a}} \\right\\} \\right|_{0}^{a} \\quad (\\text{for } n\\neq 2) \\\\ = \\frac{1}{\\sqrt{2} \\pi} \\left\\{\\frac{\\sin [ (\\frac{n}{2} - 1) \\pi ]}{(\\frac{n}{2} - 1)} - \\frac{\\sin [ (\\frac{n}{2} + 1) \\pi ]}{(\\frac{n}{2} + 1)} \\right\\} = \\frac{\\sin [ (\\frac{n}{2} + 1) \\pi ]}{\\sqrt{2} \\pi} \\left[ \\frac{1}{(\\frac{n}{2} - 1)} - \\frac{1}{(\\frac{n}{2} + 1)} \\right] \\\\ = \\frac{4 \\sqrt{2}}{\\pi} \\frac{\\sin \\left[ \\left(\\frac{n}{2} + 1\\right) \\pi \\right]}{(n^{2} - 4)} = \\left\\{ \\begin{array}{l l} 0, & \\text{if n is even} \\\\ \\pm \\frac{4 \\sqrt{2}}{\\pi (n^{2} - 4)}, & \\text{if n is odd} \\end{array} \\right.. \\\\ \\end{array}"
     }
   ]
 }
