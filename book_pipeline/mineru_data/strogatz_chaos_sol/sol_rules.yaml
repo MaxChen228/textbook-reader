@@ -1,0 +1,13 @@
+# strogatz_chaos_sol
+# 主書題號是嚴格 `章.節.題`；解答書題號也直接以同樣 key 開頭，因此只要題號命中就能逐字對齊。
+#
+# 這本解答書的章 anchor 有結構性缺口：現行 sol_extract 只收 `text_level==1` 的 text block，
+# 但章 2/4/5/7/9 的章號都是獨立數字行且落在 `text_level=2`；可用的 lvl1 純章號只有
+# 3/6/8/10/11/12。用 `chapter_re='^(\\d+)$'` 時，缺 anchor 的後續章內容會暫時吸進前一章桶，
+# 但因 problem_re 嚴格抓完整 `章.節.題` key，外溢解答只會留在 unmatched，不會錯寫進主書別章。
+#
+# 實測 dry-run 可安全 merge 章 3/6/8/10/11/12，共 164 題；抽樣 3.1.1 / 6.1.1 / 10.4.3 /
+# 11.1.1 / 12.1.1 題幹與解答主題一致。缺口屬 harness-gap，另開 proposal 記錄。
+chapter_re: '^(\d+)$'
+problem_re: '^(\d+\.\d+\.\d+)\b'
+multi_per_block: false

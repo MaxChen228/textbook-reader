@@ -2959,7 +2959,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （32 條；proposed=32）
+## domain: sol  （33 條；proposed=33）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
@@ -3120,3 +3120,8 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：dry-run 使用 chapter_re='^Chapter\s+(\d+)\s*$'、problem_re='^(\d+\.\d+)\.' 時抽出 0 章 0 題。unified 正文在 idx 107 直接從 21.1 開始；跨章只出現在 header/page_number（idx 479 後接 22.3、idx 4759 後接 44.3）。語義抽樣：主書/sol 的 21.1、22.3、44.3 主題一致，非 edition mismatch。
 - 提議：升級 sol_extract/sol_rules schema：支援從題號 N.M 自動推章，或允許 header/page_number 參與章 anchor 偵測；升級後可直接對這本重跑 merge。
+
+### P-2026-06-19-zill-differential-equations-sol — zill_differential_equations 解答書無法 merge：sol_extract 缺少 lvl2 章 anchor 與 section-aware key 組裝
+- proposed | type=harness-gap | source=sol_extract
+- 證據：zill_differential_equations_sol/unified/content_list.json 的主書對應章號 1-9 出現在 text_level=2 的 'Chapter N'（如 idx 49, 694, 1857, 11157）；同位置 lvl=1 只有章名無數字。解答正文在 section heading（如 1.1 Definitions and Terminology）後只用裸題序 8. 9. 10.，但主書 parsed key 為 exercises1.1.8、2.1.1.2、4.1.1.1 等 section-aware 混合 key。預設 dry-run 穩定為『抽出 3 章、0 題解答』，且只誤抓第二本書的 Chapter 10/13/15。
+- 提議：擴充 sol_extract：允許自訂 chapter anchor 的 text_level/type，並支援以 section heading + 裸題序組裝主書 problem key；必要時加上同冊多書切分能力。完成後再重跑 zill_differential_equations_sol merge。

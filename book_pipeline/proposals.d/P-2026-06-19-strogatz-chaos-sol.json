@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-strogatz-chaos-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "strogatz_chaos 解答書僅能部分 merge：章 anchor 受限於 lvl1",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:54:03+00:00",
+  "updated": "2026-06-19T11:54:03+00:00",
+  "evidence": "dry-run：抽出 6 章 279 題；對主書 317 題配對成功 164 題（51%），未配對 sol 115 題。語義抽樣 3.1.1 / 6.1.1 / 10.4.3 / 11.1.1 / 12.1.1 題幹與解答主題一致。阻塞點是解答書章 2/4/5/7/9 的章號為 text_level=2 純數字行，現行 sol_extract 只收 text_level==1 章 anchor。",
+  "proposal": "升級 sol_extract：支援自訂 chapter anchor text_level 或直接由 problem key N.M.K 導出 chapter；升級後可重跑 strogatz_chaos_sol 以補回目前漏掉的章 2/4/5/7/9。",
+  "risk": "",
+  "disposition": ""
+}
