@@ -99,6 +99,44 @@ def test_propose_rejects_unknown_domain_and_type():
     _with_tmp_store(body)
 
 
+def test_select_and_resolve_many_batch():
+    def body():
+        a = P.propose(domain="engine", type_="patch", title="p1", slug="p1", source="scope_guard")
+        b = P.propose(domain="engine", type_="patch", title="p2", slug="p2", source="scope_guard")
+        c = P.propose(domain="math", type_="macro", title="m1", slug="m1", source="agent")
+        # select_proposed 對稱於 list 的過濾，且只命中 proposed
+        assert set(P.select_proposed(domain="engine", type_="patch", source="scope_guard")) == {a, b}
+        staged, errs = P.resolve_many([a, b], status="superseded", resolution="已落地主線")
+        assert not errs and len(staged) == 2
+        st = {r["id"]: r["status"] for r in P.load_all()}
+        assert st[a] == st[b] == "superseded" and st[c] == "proposed", "只動目標、不碰 c"
+        assert P.select_proposed(domain="engine", type_="patch") == [], "已決議者不再入選"
+        assert not P.lint(P.load_all())
+    _with_tmp_store(body)
+
+
+def test_resolve_many_is_transactional():
+    def body():
+        a = P.propose(domain="math", type_="macro", title="m1", slug="m1")
+        b = P.propose(domain="math", type_="macro", title="m2", slug="m2")
+        # 含不存在 id → 全批不寫（a 不得被改）
+        _, errs = P.resolve_many([a, "P-2026-01-01-ghost"], status="superseded", resolution="x")
+        assert errs and any("找不到" in e for e in errs)
+        assert all(r["status"] == "proposed" for r in P.load_all()), "事務失敗不得落盤任何一條"
+        # 非法 rejected code → 全批不寫
+        _, errs2 = P.resolve_many([a, b], status="rejected", resolution="made-up-code")
+        assert errs2 and any("理由代碼" in e for e in errs2)
+        assert all(r["status"] == "proposed" for r in P.load_all())
+        # dry-run（apply=False）只驗不寫
+        staged, errs3 = P.resolve_many([a, b], status="rejected", resolution="out-of-scope", apply=False)
+        assert not errs3 and len(staged) == 2
+        assert all(r["status"] == "proposed" for r in P.load_all()), "dry-run 不得落盤"
+        # 真正落盤
+        _, errs4 = P.resolve_many([a, b], status="rejected", resolution="out-of-scope")
+        assert not errs4 and all(r["status"] == "rejected" for r in P.load_all())
+    _with_tmp_store(body)
+
+
 if __name__ == "__main__":
     test_real_store_lints_clean();              print("✓ 真實 store lint 乾淨")
     test_real_index_in_sync();                  print("✓ _index.md 與 store 同步")
@@ -107,4 +145,6 @@ if __name__ == "__main__":
     test_propose_resolve_roundtrip();           print("✓ propose/resolve round-trip + 時戳")
     test_id_collision_bumps_suffix();           print("✓ id O_EXCL 去重（-2 後綴）")
     test_propose_rejects_unknown_domain_and_type(); print("✓ 未知 domain/type 拒收")
+    test_select_and_resolve_many_batch();       print("✓ 批次選取 + resolve_many（只動目標、不碰已決議）")
+    test_resolve_many_is_transactional();       print("✓ resolve_many 事務性 all-or-nothing + dry-run")
     print("\n全部通過 ✅")
