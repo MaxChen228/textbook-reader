@@ -97,4 +97,4 @@ def math_sweep_model() -> str:
     m = os.environ.get('BOOK_PIPELINE_MATH_MODEL')
     if m:
         return m
-    return resolve_dispatch('math_sweep').codex_model or 'gpt-5.4'
+    return resolve_dispatch('math_sweep').codex_model or DEFAULT_DISPATCH.codex_model

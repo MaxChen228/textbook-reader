@@ -1186,9 +1186,12 @@ def do_math_sweep(dry: bool) -> int:
     q.set_math_batch_running(total)         # 持久 flag → /dev 顯「batch 處理中」（獨立 devsnapshot 進程讀得到）
     # math sweep 走 ccNexus HTTP batch（執行路徑非 CLI），但仍納入統一觀測層：controller 端註冊單例
     # worker（'__math_sweep__'）+ agent_history corpus session，讓 /dev「工人 N」數得到、trace session
-    # 看得到其歷程。do_math_sweep 在所有 _advance_parallel 區塊之後序列跑 → 其窗口內無其他在飛
-    # worker，controller 端註冊安全（worker_registry 本身亦 thread-safe）。細粒度每批進度另存
-    # math_live/math_history（並存，互補）。stderr tee 回本進程 → launchd.err.log 即時可見不被吞。
+    # 看得到其歷程。⚠ 在 reactive loop（daemon 預設路徑）do_math_sweep 被提交進 LOOP_CONCURRENCY
+    # 執行緒池，**與 advance:*/harvest:*/__crawl_drain__/__crawl_resolve__ 等 worker 並發**（非序列）；
+    # controller 端同進程註冊仍安全——worker_registry 與 agent_history 全程 threading.Lock 保護，且
+    # '__math_sweep__' 為唯一 math_sweep key（_last_by_verb 以 verb 為鍵不互踩）→ 無資料競爭。若日後
+    # 要在此加共享狀態，務必沿用既有 Lock，勿假設序列執行。細粒度每批進度另存 math_live/math_history
+    # （並存，互補）。stderr tee 回本進程 → launchd.err.log 即時可見不被吞。
     wkey = '__math_sweep__'
     model = math_sweep_model()
     out_parts: list[str] = []
