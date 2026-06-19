@@ -147,16 +147,31 @@ def render_book(slug: str) -> int:
     props = _proposals_for(slug)
     if props:
         print(f"   {'':3}└─ proposals（{len(props)}）：")
-        for pr in props:
-            print(f"   {'':9}{pr.get('status', '?'):11} {pr.get('type', '?'):12} {pr.get('id', '')}")
+        for prop in props:
+            print(f"   {'':9}{prop.get('status', '?'):11} {prop.get('type', '?'):12} {prop.get('id', '')}")
     return 0
 
 
 def _proposals_for(slug: str) -> list[dict]:
-    """該 slug 名下的 proposals（id 內嵌 _slugify(slug)）。用鑄 id 的同一 _slugify 比前綴 → 截斷一致、可靠。"""
+    """該 slug 名下的 proposals（id 內嵌 _slugify(slug)，propose 不另存 slug 欄位故只能由 id 反推）。
+
+    ⚠ `_slugify` 截斷 [:32]：書單全集（booklists.targets，含 `_sol` 衍生）中有 2 組**真跨書**截斷
+    碰撞（carey_…_organic_a vs _b、kobayashi_…_geometry vs _vol2）。**碰撞時無法由 id 區分 → 不臆測
+    歸戶（回 []），絕不把他書提案混入本書 footer。** 偵測：以「去 _sol 後綴的 base」計，同 key 映到
+    ≥2 個 base 才算碰撞。母書 vs 自己 `_sol`（base 相同）**不**觸發——`_sol` 提案以前綴落入母書 footer
+    是 sol-bound-to-parent 的刻意行為（母書視角看得到解答本提案），非 bug。"""
     try:
         from book_pipeline import proposals as pr
+        from book_pipeline import booklists as bl
         key = pr._slugify(slug)
+        universe = set()
+        for t in bl.targets():
+            s = t.get('slug')
+            if s:
+                universe.update((s, s + '_sol'))
+        bases = {re.sub(r'(_sol)+$', '', s) for s in universe if pr._slugify(s) == key}
+        if len(bases) > 1:  # 真跨書截斷碰撞 → 無法歸戶
+            return []
     except Exception:
         return []
     out = []
