@@ -36,7 +36,6 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 
 from book_pipeline import pipeline_queue as q
@@ -47,6 +46,7 @@ from book_pipeline import leases
 from book_pipeline import extract_cover
 from book_pipeline import booklists
 from book_pipeline import scope_guard
+from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -59,8 +59,8 @@ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 #   codex      = 原生 OAuth（~/.codex/auth.json，codex login ChatGPT 訂閱）
 #   codex-pool = ccNexus 池子（codex -p nexus + CCNEXUS_API_KEY；maxn970228 token 輪換、
 #                與原生 codex 不同帳號＝獨立額度）。profile 在兩機 ~/.codex/nexus.config.toml。
-# 模型/effort/chain/timeout 全收斂進「派工配置層」（DispatchSpec + DEFAULT_DISPATCH/
-# STAGE_DISPATCH + _resolve_dispatch，見下），非散落於此。
+# 模型/effort/chain/timeout 全收斂進「派工配置層」book_pipeline.llm_policy
+# （DispatchSpec + DEFAULT_DISPATCH/STAGE_DISPATCH + resolve_dispatch），非散落於此。
 CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
 # headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
 # audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
@@ -272,77 +272,12 @@ def _is_codex(provider: str) -> bool:
 
 
 # ── 派工配置層（單一真相源）────────────────────────────────────────────────
-# 每個 LLM stage「怎麼派」收斂成一個 DispatchSpec：provider failover 優先序、各家模型、
-# codex reasoning effort、timeout。三層合併（_resolve_dispatch）：
-#   DEFAULT_DISPATCH ← STAGE_DISPATCH[verb]（per-stage 覆寫）← env（運維臨時拉桿，最高）。
-# 新增可操縱維度＝擴 DispatchSpec 一個欄 + _build_llm_cmd 消費它，無第三處散落。
-KNOWN_PROVIDERS = ('codex-pool', 'codex', 'kimi', 'claude')
-
-
-@dataclass(frozen=True)
-class DispatchSpec:
-    """單一 stage 的派工配置。欄位 None＝繼承上層 / 不帶該旗標。"""
-    chain: tuple[str, ...] | None = None   # provider failover 優先序
-    codex_model: str | None = None         # codex 家族模型（gpt-5.x；池子白名單見下）
-    codex_effort: str | None = None        # codex reasoning effort（low/medium/high）
-    claude_model: str | None = None        # claude 模型（kimi 由 _llm_env 寫死，不適用）
-    timeout: int | None = None             # 派工 wall-clock 上限（秒）
-
-
-# 全域底：chain＝優先榨池子（maxn970228 獨立額度）→ 原生 codex → kimi → Claude Max 保底。
-# codex 家族預設 gpt-5.4（池子白名單 gpt-5.5/5.4/5.4-mini/5.3-codex-spark 內，需 ccNexus
-# fork 透傳修復在線才切得動非 5.5）。timeout 1h：正常 audit ~25min，留卡死護欄餘裕。
-DEFAULT_DISPATCH = DispatchSpec(
-    chain=('codex-pool', 'codex', 'kimi', 'claude'),
-    codex_model='gpt-5.4',
-    timeout=3600,
-)
-# per-stage 覆寫（只列偏離預設者；未列 stage 全走 DEFAULT_DISPATCH）。reasoning effort 分層：
-# 重判斷（audit/catalog_audit/sol_extract）high、解析（crawl）medium、視覺 qc low。
-# 註：math_sweep 已純 API 化（do_math_sweep 直跑 batch、不派 LLM）→ 不入此表。
-STAGE_DISPATCH: dict[str, DispatchSpec] = {
-    'audit':         DispatchSpec(codex_effort='high'),
-    'catalog_audit': DispatchSpec(codex_effort='high'),
-    'sol_extract':   DispatchSpec(codex_effort='high'),
-    'crawl':         DispatchSpec(codex_effort='medium'),
-    'qc':            DispatchSpec(codex_effort='low'),
-}
-
-
-def _merge(base: DispatchSpec, over: DispatchSpec | None) -> DispatchSpec:
-    """over 的非 None 欄覆寫 base。"""
-    if over is None:
-        return base
-    return replace(base, **{k: v for k, v in vars(over).items() if v is not None})
-
-
-def _env_override(spec: DispatchSpec) -> DispatchSpec:
-    """env 運維臨時拉桿凌駕（最高優先）。未設的 env 不動該欄。"""
-    ch = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
-    if ch:
-        parsed = tuple(p.strip().lower() for p in ch.split(',') if p.strip())
-        if parsed:
-            spec = replace(spec, chain=parsed)
-    for env_key, field in (('BOOK_PIPELINE_CODEX_MODEL', 'codex_model'),
-                           ('BOOK_PIPELINE_CODEX_EFFORT', 'codex_effort'),
-                           ('BOOK_PIPELINE_CLAUDE_MODEL', 'claude_model')):
-        v = os.environ.get(env_key)
-        if v:
-            spec = replace(spec, **{field: v})
-    to = os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT')
-    if to:
-        spec = replace(spec, timeout=int(to))
-    return spec
-
-
+# 配置定義（DispatchSpec / DEFAULT_DISPATCH / STAGE_DISPATCH / 三層合併）已抽至
+# book_pipeline.llm_policy（單一真相源，跨 pipeline_tick 與 math_sweep 共用）。此處只留
+# 本地包裝 _resolve_dispatch（注入本模組 log 當警告通道），及下游 CLI-cmd 消費（_build_llm_cmd）。
 def _resolve_dispatch(verb: str) -> DispatchSpec:
-    """三層合併 → fully-resolved spec：DEFAULT ← STAGE_DISPATCH[verb] ← env。"""
-    spec = _env_override(_merge(DEFAULT_DISPATCH, STAGE_DISPATCH.get(verb)))
-    unknown = [p for p in (spec.chain or ()) if p not in KNOWN_PROVIDERS]
-    if unknown:
-        log(f'⚠ provider chain 含未知 provider {unknown}（合法：{KNOWN_PROVIDERS}）'
-            f' → 將走 claude CLI 預設分支，恐非預期')
-    return spec
+    """llm_policy.resolve_dispatch 的本地包裝：注入 pipeline_tick 的 log 當未知 provider 警告通道。"""
+    return resolve_dispatch(verb, log=log)
 
 
 def _llm_env(provider: str) -> dict | None:
