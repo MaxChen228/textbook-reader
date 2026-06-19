@@ -1,0 +1,27 @@
+# ⚠ PENDING — 不要 merge。這本解答書的題號本身可與主書對齊，但現行 sol_extract 無法只靠
+# sol_rules.yaml 安全切章，原因如下：
+#
+# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當作章 anchor。
+#    但 simon_solid_state_sol/unified/content_list.json 的章號是獨立數字行
+#    （如 idx 17='1', idx 20='2', idx 287='3', idx 679='5'），text_level 混雜 None / 2，
+#    真正的 `text_level==1` 區塊是章標題文字（如 "Specific Heat of Solids: ..."），不含可轉成 int 的章號。
+#    因此預設 dry-run 穩定抽出 0 章、0 題：
+#      [sol] extract simon_solid_state_sol config=預設(Griffiths)
+#      抽出 0 章、0 題解答
+#
+# 2. 用臨時探針改以「純數字章號行 + ^\((N.M)\) 題號」抽取，能恢復出與主書一致的 key namespace：
+#    ch2 取到 2.1..2.8、ch3 取到 3.1..3.3、ch15 取到 15.1..15.6，且語義抽樣對齊：
+#      - 2.1 Einstein Solid：主書題幹與 sol 解答都從三維 harmonic oscillator 開始
+#      - 3.1 Drude Theory of Transport in Metals：主書/sol 同題
+#      - 15.1 Nearly Free Electron Model：主書/sol 同題
+#    也就是源資料不是版次錯書；阻塞點在章 anchor 能力，而非 problem_re。
+#
+# 3. 要正式 merge，sol_extract 需支援「非 lvl1 章 anchor」或等價能力，
+#    例如允許指定 chapter anchor 的 text_level / 任意 text block，或支援「章標題後下一個純數字 block = 章號」。
+#    在此能力缺口補上前，清掉 `_pending` 只會讓引擎繼續抽 0 章，不能產出品質 merge。
+#
+# 若未來引擎支援非 lvl1 章 anchor，下列 regex 即是正確對齊起點：
+chapter_re: '^(\d+)$'
+problem_re: '^\((\d+\.\d+)\)'
+multi_per_block: false
+_pending: true
