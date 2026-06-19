@@ -1,0 +1,24 @@
+# ⚠ PENDING — 不要 merge。這本目前無法安全併入 ogata_control，原因如下：
+#
+# 1. 主書 parsed 結構已失真，不存在可對齊的 problem key。
+#    ogata_control/parsed/ch02.json ~ ch10.json 各章都只剩 1 題，題號分別是 "2" ~ "10"；
+#    但每題 body 內又混入整串 B-<ch>-<n> 題目，例如 ch02 的唯一題目 body 直接包含
+#    "B-2-2. ... B-2-3. ..."。這代表 parser 把整章習題糊成單一 problem card。
+#
+# 2. 解答書是逐題結構，與主書現況不是 regex 可修的偏差。
+#    ogata_control_sol/unified/content_list.json 在 CHAPTER 2/3/4... 下是
+#    "B-2-1."、"B-3-1."、"B-4-1." 這類逐題 anchor。若為了配對率把 key 放鬆成章號，
+#    只會把多題解答覆寫成每章最後一題，屬系統性錯配。
+#
+# 3. 語義抽樣也支持「主書品質不足」而非「sol_rules 未校準」：
+#    - 主書 ch03 唯一題目 body 開頭是 "Obtain a state-space representation ... Figure 3-32"
+#      但同一 body 隨後接著 "B-3-4. Consider the spring-loaded pendulum system ..."，明顯是多題串接。
+#    - 主書 ch06 唯一題目 body 開頭是 "Plot the root loci ..."，下一句立刻接 "B-6-2. Plot ..."
+#      ，不是單題題幹。
+#
+# 結論：當前正確終態是 _pending + proposal。需先重做主書 audit/parser（或換更乾淨來源），
+# 讓 parsed/chNN.json 重新得到逐題 problem['num']，之後再按下列 regex 重新評估解答 merge。
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^B[\-–](\d+[\-–]\d+)\.'
+multi_per_block: false
+_pending: true
