@@ -1,0 +1,23 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前無法僅靠 sol_rules 安全對齊，原因如下：
+#
+# 1. sol_extract 只接受 text_level==1 的章 anchor。
+# 2. 此解答書在 unified/content_list.json 中，只有 chapter 1 與 chapter 8 的章標
+#    被 MinerU 標成 text_level=1；chapter 2-7、9-12 都只有 text_level=2。
+# 3. dry-run 用預設規則時抽出 0 章、0 題解答；若硬放寬 problem_re 也無法補救，
+#    因為章切分在引擎入口就已失敗。
+#
+# 具體證據：
+#   - 可見的 level-1 章標只有：
+#       "Historical Introduction to the Elementary Particles"
+#       "Electrodynamics and Chromodynamics of Quarks"
+#   - 其餘章在各章第一題前僅出現：
+#       text_level=2 "2" / "Elementary Particle Dynamics"
+#       text_level=2 "3" / "Relativistic Kinematics"
+#       ...
+#       text_level=2 "12" / "What’s Next"
+#
+# 這屬於 source-quality：解答本缺可供現有引擎使用的章 anchor。維持 pending，避免把
+# 錯章解答 merge 進主書 parsed/。
+problem_re: '^Problem\s+(\d+\.\d+[a-z]?)'
+multi_per_block: false
+_pending: true
