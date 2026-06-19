@@ -27,7 +27,7 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （120 條；proposed=83）
+## domain: engine  （123 條；proposed=86）
 
 ### P-2026-06-18-artin-algebra — catalog 無法把相鄰 text 圖說綁回 image/table
 - proposed | type=tooling-gap | source=agent
@@ -543,6 +543,11 @@ index 764d7c2..701078a 100644
 - 證據：smoke H6/H7: unresolved Figure 9.2.6=1, empty figure/table captions=35。parsed 內常見模式是連續多個 fig block，只有最後一個帶 FIGURE X.Y.Z caption，例如 ch07 body[93,94,95]、ch09 body[44,45]、appA body[257]；其餘 fig 只剩 fig-chXX-NN fallback id，無法建立 catalog semantic id。
 - 提議：在 parser/catalog 階段支援將連續無 caption 的 fig/table block 與其後第一個主 caption 合併成單一 semantic figure，或允許將前置無 caption block 標記為 subfigure/excluded，避免 H6/H7 將此類 OCR 切裂視為 critical。
 
+### P-2026-06-19-katznelson-harmonic-analysis — parser 缺 section-local exercises 抽題能力
+- proposed | type=tooling-gap | source=agent
+- 證據：本書採 Roman chapter + Arabic section。每個 section 結尾有 EXERCISES heading，題號在各 section 內從 1. 重置；用 inline_problems=true、problem_num_namespace_by_section=true、並讓 subsection_re 吃 EXERCISES 後，parser 仍把如 idx 217『1. Compute the Fourier coefficients...』與後續題目全部留在 body，ch01-ch08 problem_count 皆為 0。
+- 提議：在 parser 增加 section-local problems 模型：允許 chapter 內多個 exercises/probs anchors，或讓 inline walker 在遇到 exercises heading 後切入 problem mode，並正確處理各 section 題號 reset。
+
 ### P-2026-06-19-kolb-turner-early-universe-2 — catalog audit cannot resolve fragmented figures and unlabeled tables
 - proposed | type=tooling-gap | source=agent
 - 證據：smoke H7 remains after schema iteration: 16 unresolved visual semantics. Repeated pattern: multiple consecutive image/chart blocks become separate fig nodes with only the last node carrying caption (e.g. ch06 Fig. 6.1 appears as fig-ch06-30/31/32 plus fig-6.1 at block 33). Appendix tables also surface without table_caption or exclude reason (e.g. appA body block 11, appB body block 32). Current figure_caption_merge only handles prior subcaption '(a)' cases, not shared main captions across consecutive visual blocks.
@@ -609,6 +614,11 @@ index 764d7c2..701078a 100644
 - 證據：ryder_qft 的 chapter/problem 結構已穩定：validate_rules 通過，parser 產 11 chapters + 1 appendix，smoke 最佳規則集僅殘 H7 empty_captions=23。parsed/_catalog_audit.md 顯示多數 captionless figure 的語義不在 media caption，而在鄰近 bare text 或 sibling panel，例如 ch06 §6.3 body[178] 後方文字才有 'Fig. 6.3 ...'；ch06 §6.5 body[354-355] 與 ch09 §9.1 body[26-27] 為 (a)/(b)/(c) 多 panel，只有最後 sibling 帶主圖說。嘗試 extract_rules 的 figure_caption_merge + main regex 後，smoke 反而惡化成 H6 unresolved Figure refs=5 與 H7 empty_captions=29，證明現有 schema 只能處理有限的 subcaption→main-caption 合併，無法穩定處理這本書的 prose-bound caption 與 captionless sibling shards。
 - 提議：擴充 catalog/figure extraction，使 image/table 能 declaratively 關聯鄰近 bare text 或後續 sibling visual 的 caption/id，並允許把無正式 caption 的 visual shard 標記為 non-indexable。現有 extract_rules 的 figure_caption_merge / figure_caption_main_re 對 ryder_qft 不足。
 
+### P-2026-06-19-sedgewick-wayne-algorithms — catalog audit 無法表達大量未編號圖表的 semantic-id / exclude reason
+- proposed | type=tooling-gap | source=agent
+- 證據：本書 parser+smoke 後僅剩 catalog 類 critical：smoke H6 unresolved Table refs=6、H7 empty_captions=507；parsed/_catalog_audit.md 大量為有 caption 但缺 semantic id/exclude reason 的 figure/table。依 extract_rules schema 只能設 figure_caption_merge/figure_caption_main_re，無法對未編號但有效的圖表批量標記 semantic id 或 exclude reason，且 table caption 常落在 footer，被 filter_types 規則要求過濾。
+- 提議：在 catalog/build 階段新增對未編號圖表的可審核分類機制（例如 auto-exclude heuristics 或 extract_rules 層級的 visual semantic policy），並處理 caption 落在 footer/header 的常見版型。
+
 ### P-2026-06-19-serre-linear-representations-fin — catalog audit cannot resolve captionless tables/figures in Serre
 - proposed | type=tooling-gap | source=agent
 - 證據：smoke H7 reports 22 unresolved visual semantics in parsed/_catalog_audit.md; offenders are captionless tables/figures inferred from surrounding prose (e.g. character tables, commutative-triangle diagram) and extract_rules.yaml has no per-item figure/table exclude or semantic-id controls
@@ -633,6 +643,11 @@ index 764d7c2..701078a 100644
 - proposed | type=tooling-gap | source=agent
 - 證據：parser/validate are green (18 chapters, 2 appendices), but smoke remains H7 with empty_captions=298 and unresolved visual semantics=453. parsed/_catalog_audit.md shows many visual/table blocks are legitimate inline data tables or figure shards without their own semantic caption, especially exercises and Appendix B answers tables, plus sibling panels where only a nearby text block carries the full Figure N.M caption such as '(c) Figure 1.8: ...' or standalone 'Figure 5.1: ...'. Current extract_rules fields (figure_caption_merge/figure_caption_main_re) cannot mark unlabeled tables as nonindexable or bind adjacent text/panel captions to the relevant figure/table blocks.
 - 提議：Extend deterministic catalog extraction with reviewable per-visual exclude/nonindexable annotations for captionless exercise tables and answer-key tables, plus an adjacent caption-donor / sibling-figure merge mechanism that can attach nearby 'Figure/Table N.M ...' text to image/chart/table blocks without changing parser code per book.
+
+### P-2026-06-19-walters-ergodic-theory — catalog gate 無法 declaratively 處理無 caption 的內嵌圖表
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/validate 已綠（11 chapters, 0 appendices），smoke 僅殘 H7 empty_captions=19。parsed/_catalog_audit.md 顯示多個 figure/table block 本身無 caption 與 semantic id，例如 ch00 body[97]、ch01 body[164]、ch04 body[50]/[374]、ch05 多個 diagram、ch10 body[589]；其語義只存在鄰近正文（如 'the angle shown in the diagram'、'shape shown in the diagram'）或根本沒有 Figure/Table 編號，因此 extract_rules 既無法把相鄰 prose 綁成 caption，也無法把這類非可索引 inline visual 宣告 exclude reason。
+- 提議：擴充 catalog/extract_rules schema，至少支援：1) 將鄰近 prose/text 指定為 figure/table caption donor；2) 對無正式 Figure/Table 編號且僅作說明插圖的 visual/table 宣告 non-indexable/exclude reason。否則 walters_ergodic_theory 這類書能 parser 綠，但無法靠現有 audit-book schema 清掉 smoke H7。
 
 ### P-2026-06-19-weinberg-cosmology — catalog 無法 declaratively 綁定鄰近圖表 caption 與非編號 back-matter 表格
 - proposed | type=tooling-gap | source=agent
@@ -2959,7 +2974,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （36 條；proposed=36）
+## domain: sol  （39 條；proposed=39）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
@@ -2991,6 +3006,11 @@ index 2c80077..8104e5a 100644
 - 證據：2026-06-19 預設 dry-run 抽出 0 章、0 題。來源章資訊拆成 header=Chapter N 與 lvl1 title=Probability Theory 等；現行 sol_extract 只看 text_level==1 的 text block，且 chapter_re group(1) 直接 int()，因此既吃不到 header，也無法從純章名導出章號。旁路分析若改用 header: Chapter N 切章、^N.M 切題，可抽出 12 章 461 題解答，對主書配到 422/625 題；抽樣 ch1/ch2/ch7 前 3 題語義對齊，顯示主要是 harness gap 而非版次錯位。
 - 提議：擴充 sol_extract 的 chapter anchor 能力：至少支援 type=header 的 Chapter N，或支援 title→chapter 映射/自訂 chapter text_level；能力補齊後以 chapter_re=^Chapter\s+(\d+)\s*$、problem_re=^(\d+\.\d+)\b 重跑 casella_berger_statistical_inference_sol。
 
+### P-2026-06-19-computer-networking-top-down-sol — computer_networking_top_down 解答書無法 merge：sol_extract 不支援 lvl2 章標與 P-prefix 題號映射
+- proposed | type=harness-gap | source=sol_extract
+- 證據：官方 dry-run=0 章 0 題；解答書真正章標為 text_level==2 的 'Chapter N Problems'/'Chapter 5. Problems.'。主書題號為 P1/P2/...，解答書題號為 Problem 1/2/...；現行 problem_re 的 group(1) 必須逐字等於主書 key，無法把 1 轉成 P1。一次性 lvl2 章標 + Problem N->P<N> 分析可抽出 8 章，對主書命中 216/233；語義抽樣 ch01/ch04/ch08 各前 3 題皆同題。
+- 提議：擴充 sol_extract：章 anchor 可配置 text_level/type，並支援 problem key transform（例如 prefix/sprintf 或 regex replace）後重跑 merge。
+
 ### P-2026-06-19-cover-thomas-it-sol — cover_thomas_information_theory 解答書僅能部分 merge：缺 lvl1 數字章 anchor
 - proposed | type=harness-gap | source=sol_extract
 - 證據：dry-run 配對成功 104/107（可抽 12 章內 97%）；主書總題數 171，但解答書第 2、5、15 章只有章標題（'Entropy, Relative Entropy and Mutual Information' / 'Source coding' / 'Information Theory and the Stock Market'），無可被現有 sol_extract 接受的 text_level==1 數字章 anchor。現行引擎 chapter_re 僅能用單一 capture group 轉 int，且只掃 lvl1，因此無法配置出這三章。
@@ -3021,6 +3041,11 @@ index 2c80077..8104e5a 100644
 - 證據：hecht_optics_sol/unified/content_list.json 中 Chapter 11/12/13 Solutions 出現在 index 1355/1449/1490，皆為 type=text 但 text_level=2；sol_extract 目前只掃 text_level==1 章 anchor，因此第11-13章無法進 extract。另第5章在 unified 中未見實際章 anchor。
 - 提議：擴充 sol_extract 章 anchor 偵測，允許 text_level>=1 或可配置 anchor level；完成後重跑 hecht_optics_sol 以補第11-13章。
 
+### P-2026-06-19-hennessy-patterson-caqa-sol — hennessy_patterson_caqa 解答書無法 merge：章 anchor 受限於 text_level==1
+- proposed | type=harness-gap | source=sol_extract
+- 證據：正式 dry-run（預設規則）穩定抽出 0 章、0 題。unified/content_list.json 內可辨識章標僅 idx 0/228/349/429/769 的 'Chapter 1/3/4/5/6 Solutions'，全部為 text_level=2，且 chapter 2/7 章標缺失。以 problem-only 探針可抽出 166 題 keyed answers（1.1..7.12）；語義抽樣 1.1/2.1/3.1/5.1/6.1 與主書題幹一致，排除版次錯配。source 本身另有缺題（未見 4.1、4.3 等），但若引擎能吃 non-lvl1 章標或依題號前綴 fallback，仍可做部分高品質 merge。
+- 提議：擴充 sol_extract 章 anchor 能力：允許 chapter_re 命中任意 text block 或可配置 text_level，並支援 chapterless / problem-key-prefix fallback。能力補上後可用已落盤的 chapter_re=^Chapter\s+(\d+)\s+Solutions$、problem_re=^(\d+\.\d+[a-z]?)\b 重跑 hennessy_patterson_caqa_sol merge。
+
 ### P-2026-06-19-jackson-electrodynamics-sol — jackson_electrodynamics 解答書缺可靠章錨，無法安全 merge
 - proposed | type=source-quality | source=sol_extract
 - 證據：正式 dry-run=0 章 0 題；unified text_level==1 的 text block 為 0。忽略 level 的探針只找到 10 個 CHAPTER 錨（主書有 16 章），且 ch04 混入 5.x、ch07 混入 10.x、ch13 混入 14.x、ch15 混入 16.x，顯示缺章錨後跨章污染。
@@ -3030,6 +3055,11 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：2026-06-19 dry-run（預設規則）結果：抽出 0 章、0 題。content_list.json 的章標只出現在 text_level=2 block：idx 11/397/826/1396/1811/2704，文字為 'Problems for Chapter I/II/III/IV/V/VII - ...'；現行 sol_extract 只掃 text_level==1 且對 chapter_re.group(1) 直接 int()。另外 unified/full.md 第 6209 行仍有 'Problems for Chapter VI - Quantum Statistical Mechanics'，但 content_list.json 在 Chapter V 結尾後直接跳到 idx 2303 '1. One dimensional chain...'，缺失 Chapter VI heading block。主書題號為章內重置純整數，無可靠章界時跨章同號題會錯配。
 - 提議：擴充 sol_extract schema/引擎：允許設定 chapter anchor 的 text_level，並支援羅馬數字章號映射；或在 ingest/unified 階段保留/修復 Chapter VI heading block。完成任一路徑後，再重跑 kardar_statistical_physics_sol 的 audit-sol。
+
+### P-2026-06-19-kleinberg-algorithm-design-sol — kleinberg_algorithm_design 解答本無法 merge：解答正文無顯式章號/題號，現行 sol_extract 缺序列式對位能力
+- proposed | type=harness-gap | source=sol_extract
+- 證據：2026-06-20 dry-run: uv run --with pyyaml python -m book_pipeline.sol_extract kleinberg_algorithm_design kleinberg_algorithm_design_sol --dry-run -> 抽出 0 章、0 題。主書 problem[num] 為章內 reset 的裸整數；sol unified 幾乎全是無題號正文，text_level==1 條目數量為 0，僅 6 個 text_level==2 小標（如 Schedule G:, Independent Set <=_P Resource Reservation），不足以切章。抽樣語義仍顯示是正確解答本：ch01 p1/p2/p3 對應 two men and two women / rank the other first / Network A,D ratings 20 and 40；ch10 p1/p2/p3 對應 Hitting Set / 3-SAT / Hamiltonian Path；ch13 p1/p2/p3 對應 cannister-3-Coloring / 100,000 voters / described protocol conflict free。
+- 提議：擴充 sol_extract 支援『無顯式題號的連續解答書』：至少提供序列式對位或人工章切分映射能力；能力補齊前維持 kleinberg_algorithm_design_sol/_pending，避免錯配解答寫入 parsed/。
 
 ### P-2026-06-19-lay-linear-algebra-sol — lay_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware anchor
 - proposed | type=harness-gap | source=sol_extract

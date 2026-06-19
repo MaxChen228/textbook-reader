@@ -1,0 +1,31 @@
+# ⚠ PENDING — 不要 merge。這本解答書內容看起來是對的，但現行 sol_extract 無法僅靠
+# YAML regex 安全對齊，原因如下：
+#
+# 1. 主書 kleinberg_algorithm_design 的 problem['num'] 是章內 reset 的裸整數
+#    （ch01/ch02/ch03... 都是 "1","2","3"...）。
+# 2. 解答書 unified/content_list.json 幾乎全是沒有題號的解答正文：
+#    - `type=text && text_level==1` 的條目數量是 0
+#    - 只有 6 個 `text_level==2`，且內容是段內小標（如 "Schedule G:"、
+#      "Independent Set <=_P Resource Reservation"），不是章 anchor
+#    - 抽樣頁面可見正文直接以答案句子起頭，例如 page 1
+#      "This is false. Consider ...", page 2 "This is true. Indeed ...",
+#      page 3 "There is not always a stable pair of schedules ..."
+#      ，頁面上沒有可供 regex 抓取的章號/題號。
+# 3. 官方 dry-run：
+#      `uv run --with pyyaml python -m book_pipeline.sol_extract
+#         kleinberg_algorithm_design kleinberg_algorithm_design_sol --dry-run`
+#    結果是「抽出 0 章、0 題解答」。
+#
+# 語義抽樣顯示這不是錯版，而是「正確內容但缺 deterministic key」：
+# - ch01 p1/p2/p3：分別對應 "two men and two women"、
+#   "rank the other first"、"Network A/D ... ratings 20 and 40"
+# - ch10 p1/p2/p3：對應 "Hitting Set"、"3-SAT"、"Hamiltonian Path"
+# - ch13 p1/p2/p3：對應 "cannister / 3-Coloring"、"100,000 voters"、
+#   "described protocol ... conflict free"
+#
+# 結論：這是 harness-gap。要安全 merge，sol_extract 需要超出 YAML regex 的能力，
+# 例如序列式對位、人工章切分映射，或其他能處理「無顯式題號的連續解答書」的模式。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+)\.?\s'
+multi_per_block: false
+_pending: true
