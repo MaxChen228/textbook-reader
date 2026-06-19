@@ -47,6 +47,7 @@ from book_pipeline.math_validate import (
     validate_book,
     write_report,
 )
+from book_pipeline.llm_policy import math_sweep_model
 
 
 def _log(msg: str) -> None:
@@ -304,9 +305,10 @@ def cmd_fix(a: argparse.Namespace) -> int:
 # 模型選 5.4（與 qc/audit 派工的 codex 家族家規一致、池子白名單內）：實測對「信心型幻覺」遠
 # 穩於 5.3-codex-spark——spark 把化學 N₂ 的 OCR 殘體 `\Nu_2` 修成物理頻率 `\nu_2`（小寫、能
 # render、語意全錯，閘攔不到），5.4/5.5 正確還原 `N_2`；5.4 延遲較 5.5 省 ~35%、品質追平，故定
-# 為預設。env BOOK_PIPELINE_MATH_MODEL 可運維臨時凌駕。
+# 為預設。模型收斂於 llm_policy.math_sweep_model（BOOK_PIPELINE_MATH_MODEL 專屬覆寫優先，
+# 否則沿用派工配置層 codex_model 同源預設 gpt-5.4，同受 BOOK_PIPELINE_CODEX_MODEL 全域覆寫）。
 
-DEFAULT_MODEL = os.environ.get("BOOK_PIPELINE_MATH_MODEL", "gpt-5.4")
+DEFAULT_MODEL = math_sweep_model()
 # 強約束 + few-shot：render gate 只能擋確定性空殼/原語，攔不到「信心型幻覺」（把噪音編成
 # \mathrm{width} 這種看似合法卻無中生有的內容）。源頭治理在 prompt——明令禁止臆造/空殼/中和，
 # 並給「源文已毀」一個誠實出口 unrecoverable（→ 系統標 math-accept 終態），取代「假修蒙混」。
