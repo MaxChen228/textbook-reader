@@ -1,0 +1,27 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全完成 merge，主因是
+# `sol_extract` 的章 anchor 假設與實際來源結構不相容：
+#
+# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當章 anchor。
+#    但 blundell_thermal_sol/unified/content_list.json 只有 2 個 lvl=1 text，且都是封面雜訊：
+#      - "StuDocu.com"
+#      - "Blundel Blundel - Concepts in Thermal Physics Solutions Manual (2009 )"
+#    2026-06-19 以預設規則 dry-run 穩定得到「抽出 0 章、0 題」。
+#
+# 2. 解答書實際結構是「題號本身兼任章資訊」：大量 text block 直接以 `N.M` 起頭，
+#    例如 1.2 / 2.1 / 10.1 / 27.1。手工以前綴 `^N.M` 掃描可抓到約 170 個題號 block，
+#    對主書 224 題可對上 161 題；語義抽樣 ch10/ch17/ch27 對齊正確，說明不是版次整體錯位。
+#
+# 3. 仍有局部 OCR 漏讀，但那不是不能 merge 的主因：
+#    - ch06 全章未抓到任何 `6.x`
+#    - 9.2 被吃進段內（不是獨立行首）
+#    - 22.5 被 OCR 成 `2.5`
+#    - 多章僅部分題目有解答
+#    這些屬「可接受的殘缺」，若引擎能以題號前綴直接切題/導章，仍可安全 merge 大部分題目。
+#
+# 待 sol_extract 支援以下其一後可重跑：
+#   - 章 anchor 自訂 text_level；或
+#   - 無章標頭模式：直接由 `N.M` 題號前綴推導 chapter=num.split('.')[0] 並切題。
+chapter_re: '^(\d+)\.\d+[a-z]?\b'
+problem_re: '^(\d+\.\d+[a-z]?)\b'
+multi_per_block: false
+_pending: true
