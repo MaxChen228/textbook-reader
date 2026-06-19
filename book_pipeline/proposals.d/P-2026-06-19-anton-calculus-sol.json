@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-anton-calculus-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:06:15+00:00",
+  "updated": "2026-06-19T11:06:15+00:00",
+  "evidence": "dry-run（2026-06-19）穩定抽出 0 章、0 題。anton_calculus_sol 的 text_level==1 章標多為純章名（如 'Limits and Continuity'、'Topics in Differentiation'），不含章號；真正帶章號的是 header 'Chapter N' 與 lvl=2 的 'Exercise Set N.M'。若硬用少數含數字的 lvl1（如 Chapter 10/14 Making Connections）作 anchor，會跨章吞併並系統性錯位。",
+  "proposal": "擴充 sol_extract：允許 header 或可設定 text_level 的章 anchor，或新增以 Exercise Set N.M 直接映射主書章號的模式；完成後再對 anton_calculus_sol 重跑 audit-sol。",
+  "risk": "",
+  "disposition": ""
+}

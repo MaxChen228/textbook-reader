@@ -1,0 +1,25 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不能靠現行 sol_extract 安全對齊主書，原因如下：
+#
+# 1. 主書 problem.num 是 section-aware key，格式為 C.S.N（例如 4.3.17），
+#    但解答書正文裡的題頭多半只有裸題序（例如 "35."、"44."）。
+#    要安全 merge，必須先從 section 標題重建 C.S 前綴，不能只靠章號或裸數字。
+#
+# 2. 解答書穩定的結構訊號主要是 text_level=2 的
+#    - "Chapter N ..."
+#    - "C.S - Section Title"
+#    現行 sol_extract 章 anchor 只看 text_level=1，因此抓不到這本真正可用的章/節邊界。
+#
+# 3. unified/content_list.json 只有 8 個 text_level=1 text block，其中多數甚至沒有章號：
+#    "1 Linear Equations in Linear Algebra"、"2"、"Matrix Algebra"、
+#    "Eigenvalues and Eigenvectors"、"Symmetric Matrices and Quadratic Forms"、
+#    "Optimization"。以預設規則 dry-run 的結果是 0 章、0 題。
+#
+# 因此這不是 regex 微調問題，而是 harness gap：
+# 需要 sol_extract 支援 level-2 chapter/section anchors，並能以
+# "section key + 裸題序" 組裝出主書的 C.S.N key，否則會不是全空，就是系統性錯配。
+#
+# 下列 regex 只保留作未來引擎升級後的校準起點；目前由 _pending 阻止 merge。
+chapter_re: '^Chapter\s+(\d+)\b'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true

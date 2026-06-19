@@ -1,0 +1,21 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當作章 anchor，
+#    且 chapter_re 的 group(1) 必須直接抓出數字章號。
+#
+# 2. anton_calculus_sol/unified/content_list.json 的 lvl=1 text 幾乎都只有章名
+#    （如 "Limits and Continuity"、"Topics in Differentiation"），不含章號；
+#    真正帶章號的是 `header` block（"Chapter N"）或 lvl=2 的
+#    "Exercise Set N.M"。因此不是調 regex 就能讓現行引擎吃到正確章邊界。
+#
+# 3. 預設 dry-run（2026-06-19）穩定抽出 0 章、0 題。若硬去匹配少數含數字的
+#    lvl=1 text（如 "Chapter 10 Making Connections" / "Chapter 14 Making Connections"），
+#    只會造成跨章吞併與系統性錯位。
+#
+# 待 sol_extract 支援：
+#   - 允許 `header` / 非 lvl=1 text 作章 anchor；或
+#   - 直接以 "Exercise Set N.M" 映射主書 chapter namespace。
+chapter_re: '^Exercise Set\s+(\d+)\.\d+$'
+problem_re: '^(\d+)\.'
+multi_per_block: false
+_pending: true

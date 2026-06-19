@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-lay-linear-algebra-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "lay_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware anchor",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:00:43+00:00",
+  "updated": "2026-06-19T11:00:43+00:00",
+  "evidence": "主書 key 為 C.S.N（如 4.3.17），解答書正文題頭多為裸題序如 35.；可用結構主要是 text_level=2 的 'C.S - ...' 與 'Chapter N ...'。但現行 sol_extract 只接受 text_level=1 chapter anchor。此 unified 僅有 8 個 text_level=1 text blocks，且多數不含章號；以預設規則 dry-run 結果為 0 章 0 題。",
+  "proposal": "升級 sol_extract schema/引擎：支援 level-2 chapter/section anchors，並允許以 section key + 裸題序組裝主書 C.S.N key；否則 lay_linear_algebra_sol 無法產出品質 merge。",
+  "risk": "",
+  "disposition": ""
+}
