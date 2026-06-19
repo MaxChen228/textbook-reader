@@ -1,0 +1,10 @@
+# Main book problem numbers are chapter-local integers.
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^(?:\d+)\.(\d+[a-z]?)(?=[\s(])'
+multi_per_block: false
+
+# Pending because semantic audit found main parsed numbering drift:
+# - ch01 main problem 1 aligns to sol 1.2, not 1.1
+# - ch02 main problem 2 aligns to sol 2.1, not 2.2
+# - ch04 main parsed starts at problem 5 while sol has 4.1-4.11
+_pending: true

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-srednicki-qft-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "srednicki_qft 解答本無法 merge：章 anchor 受限於 text_level==1",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:00:39+00:00",
+  "updated": "2026-06-19T11:00:39+00:00",
+  "evidence": "正式 dry-run（預設規則）穩定抽出 0 章、0 題。檢查 unified/content_list.json：1..40 章共有 40 個章標樣式 block，但只有 2 個是 text_level=1；其餘 35 個是 level=2、3 個是 None。語義抽樣：1.1/2.1/7.1 的主書題幹與解答書 1.1)/2.1)/7.1) 主題一致，排除版次錯配。若忽略 text_level 限制、以 ^\\d+\\s+.+$ 作章標，可抽出 40 章、213 題，對回主書 88/255 題。",
+  "proposal": "sol_extract 應支援可配置的 chapter anchor text_level，或改為 text 命中 chapter_re 即可切章；完成後可直接用已落盤的 sol_rules.yaml 重跑 merge。",
+  "risk": "",
+  "disposition": ""
+}

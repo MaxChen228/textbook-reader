@@ -1,0 +1,23 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全落地，原因如下：
+#
+# 1. 現行 sol_extract 只把 `text_level==1` 的 text block 視為章 anchor。
+#    但 srednicki_qft_sol/unified/content_list.json 內，1..40 章共 40 個章標中，
+#    只有第 7 章與第 30 章是 lvl=1；其餘 35 章是 lvl=2、3 章是 None。
+#    因此用正式引擎 dry-run 會穩定抽出 0 章、0 題（預設規則），或只吃到極少章（若放寬 chapter_re）。
+#
+# 2. 題號 regex 與語義其實是對的，不是版次不符。
+#    以自訂抽樣驗證：主書 1.1/2.1/7.1 的題幹，與解答書對應 1.1)/2.1)/7.1) 的解答主題一致；
+#    若忽略 text_level 限制、把 `^\\d+\\s+...` 視為章標，理論上可抽出 40 章、213 題，
+#    其中 88/255 題能對回主書（其餘多為解答書本來未收錄，屬可接受殘缺）。
+#
+# 3. 但在「不可改 sol_extract、只能產配置」前提下，schema 無法表達
+#    「接受 lvl=2/None 的章標」這個需求。若硬 merge，只會把少數 lvl=1 章寫入，
+#    其餘章全部漏掉，屬品質不合格 merge。
+#
+# 待 sol_extract 支援：
+#   - 自訂 chapter anchor 的 text_level；或
+#   - 不限制 text_level，只要 text 命中 chapter_re 即可切章。
+chapter_re: '^(\d+)\s+.+$'
+problem_re: '^(\d+\.\d+[a-z]?)\)'
+multi_per_block: false
+_pending: true

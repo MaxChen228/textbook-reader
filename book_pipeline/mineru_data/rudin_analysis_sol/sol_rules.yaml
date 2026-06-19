@@ -1,0 +1,11 @@
+# rudin_analysis_sol — pending
+# This solution manual uses mixed chapter markers:
+# - many numeric chapter lines are `text_level=2` ("Chapter N")
+# - many `text_level=1` lines are chapter titles only, without digits
+# `book_pipeline.sol_extract` currently accepts only `text_level==1` chapter anchors
+# and requires chapter_re group(1) to be the integer chapter number.
+# Result: YAML-only configuration cannot safely recover chapters 1-11.
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^Exercise\s+(\d+\.\d+)'
+multi_per_block: false
+_pending: true
