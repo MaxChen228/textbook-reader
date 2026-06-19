@@ -287,6 +287,25 @@ def test_last_chapter_backmatter_cap():
     cap = parser._last_chapter_backmatter_cap(chapters, [], 12, 18, blocks)
     assert cap == 12, f'E：bib_start 應優先，cap 應為 12，實得 {cap!r}'
 
+    # F：cap == nci 邊界（嚴格 cap < nci）→ None。末章 nci=15、切口頁=15（first_block_idx_after_page
+    #    回首個 page_idx>=15 的 block=15）→ cap=15==nci → 不該 cap（capping 到原章尾是 no-op，
+    #    也涵蓋切口落在書尾外 first_block_idx_after_page 回 len(blocks) 的 fail-safe）。
+    last15 = {'num': 9, 'chapter_title_block_idx': 8, 'problems_block_idx': 10,
+              'next_chapter_block_idx': 15}
+    ch15 = [{'num': 8, 'chapter_title_block_idx': 0, 'next_chapter_block_idx': 8}, last15]
+    assert parser._last_chapter_backmatter_cap(ch15, [], None, 15, blocks) is None, \
+        'F：cap==nci 邊界必須回 None（< nci 嚴格）'
+
+    # G：problems_block_idx 缺省 → lo 退回 chapter_title_block_idx。切口=15 落 (cti=8, nci=20)
+    #    之間 → lo=8 < 15 < 20 → cap=15（inline 模式書，pbi 為 None 的分支）。
+    last_nopbi = {'num': 9, 'chapter_title_block_idx': 8, 'next_chapter_block_idx': 20}
+    ch_nopbi = [{'num': 8, 'chapter_title_block_idx': 0, 'next_chapter_block_idx': 8}, last_nopbi]
+    cap = parser._last_chapter_backmatter_cap(ch_nopbi, [], None, 15, blocks)
+    assert cap == 15, f'G：pbi 缺省應以 title 為 lo，cap 應為 15，實得 {cap!r}'
+    # G 反例：切口落在 title(8) 之上（lo=cti=8）→ cap=8==lo → 拒（lo<cap 嚴格）
+    assert parser._last_chapter_backmatter_cap(ch_nopbi, [], None, 8, blocks) is None, \
+        'G：pbi 缺省時切口==title 必須回 None（lo<cap 嚴格）'
+
 
 def test_expand_list_blocks_normal_passthrough():
     """[lock] expand_list_blocks 正常路徑：list_items 全字串時逐項攤平成 text block。
