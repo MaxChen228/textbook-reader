@@ -1,0 +1,173 @@
+slug: coleman_many_body_physics
+title: Introduction to Many-Body Physics
+author: Piers Coleman
+edition: null
+subject: Theoretical Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 800
+bibliography_start_page: 807
+index_start_page: 808
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Scales and complexity
+    page_start: 23
+    page_end: 27
+    chapter_title_block_idx: 320
+    problems_block_idx: null
+    next_chapter_block_idx: 373
+  - num: 2
+    title: Quantum fields
+    page_start: 28
+    page_end: 59
+    chapter_title_block_idx: 373
+    problems_block_idx: 846
+    next_chapter_block_idx: 907
+  - num: 3
+    title: Conserved particles
+    page_start: 60
+    page_end: 88
+    chapter_title_block_idx: 907
+    problems_block_idx: 1385
+    next_chapter_block_idx: 1435
+  - num: 4
+    title: Simple examples of second quantization
+    page_start: 89
+    page_end: 112
+    chapter_title_block_idx: 1435
+    problems_block_idx: 1739
+    next_chapter_block_idx: 1811
+  - num: 5
+    title: Green's functions
+    page_start: 113
+    page_end: 144
+    chapter_title_block_idx: 1811
+    problems_block_idx: 2321
+    next_chapter_block_idx: 2359
+  - num: 6
+    title: Landau Fermi-liquid theory
+    page_start: 145
+    page_end: 193
+    chapter_title_block_idx: 2359
+    problems_block_idx: 3037
+    next_chapter_block_idx: 3086
+  - num: 7
+    title: Zero-temperature Feynman diagrams
+    page_start: 194
+    page_end: 251
+    chapter_title_block_idx: 3086
+    problems_block_idx: 3921
+    next_chapter_block_idx: 3971
+  - num: 8
+    title: Finite-temperature many-body physics
+    page_start: 252
+    page_end: 309
+    chapter_title_block_idx: 3971
+    problems_block_idx: 4828
+    next_chapter_block_idx: 4864
+  - num: 9
+    title: Fluctuation-dissipation theorem and linear response theory
+    page_start: 310
+    page_end: 349
+    chapter_title_block_idx: 4864
+    problems_block_idx: 5481
+    next_chapter_block_idx: 5518
+  - num: 10
+    title: Electron transport theory
+    page_start: 350
+    page_end: 374
+    chapter_title_block_idx: 5518
+    problems_block_idx: 5871
+    next_chapter_block_idx: 5906
+  - num: 11
+    title: Phase transitions and broken symmetry
+    page_start: 375
+    page_end: 433
+    chapter_title_block_idx: 5906
+    problems_block_idx: 6829
+    next_chapter_block_idx: 6884
+  - num: 12
+    title: Path integrals
+    page_start: 434
+    page_end: 481
+    chapter_title_block_idx: 6884
+    problems_block_idx: 7686
+    next_chapter_block_idx: 7735
+  - num: 13
+    title: Path integrals and itinerant magnetism
+    page_start: 482
+    page_end: 503
+    chapter_title_block_idx: 7735
+    problems_block_idx: 8029
+    next_chapter_block_idx: 8061
+  - num: 14
+    title: Superconductivity and BCS theory
+    page_start: 504
+    page_end: 559
+    chapter_title_block_idx: 8061
+    problems_block_idx: 8916
+    next_chapter_block_idx: 8951
+  - num: 15
+    title: Retardation and anisotropic pairing
+    page_start: 560
+    page_end: 599
+    chapter_title_block_idx: 8951
+    problems_block_idx: 9554
+    next_chapter_block_idx: 9581
+  - num: 16
+    title: Local moments and the Kondo effect
+    page_start: 600
+    page_end: 673
+    chapter_title_block_idx: 9581
+    problems_block_idx: 10557
+    next_chapter_block_idx: 10633
+  - num: 17
+    title: Heavy electrons
+    page_start: 674
+    page_end: 738
+    chapter_title_block_idx: 10633
+    problems_block_idx: 11464
+    next_chapter_block_idx: 11481
+  - num: 18
+    title: Mixed valence, fluctuations, and topology
+    page_start: 739
+    page_end: 799
+    chapter_title_block_idx: 11481
+    problems_block_idx: 12410
+    next_chapter_block_idx: 12450
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+
+figure_caption_merge: false
+
+known_missing_problems: []

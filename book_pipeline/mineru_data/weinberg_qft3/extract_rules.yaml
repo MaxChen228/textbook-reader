@@ -1,0 +1,114 @@
+slug: weinberg_qft3
+title: "The Quantum Theory of Fields, Volume III: Supersymmetry"
+author: Steven Weinberg
+edition: 1st
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 433
+bibliography_start_page: null
+index_start_page: 433
+
+inline_problems: false
+
+chapters:
+  - num: 24
+    title: Historical Introduction
+    page_start: 23
+    page_end: 46
+    chapter_title_block_idx: 312
+    problems_block_idx: 569
+    next_chapter_block_idx: 582
+  - num: 25
+    title: Supersymmetry Algebras
+    page_start: 47
+    page_end: 76
+    chapter_title_block_idx: 582
+    chapter_title_block_idx_secondary: 583
+    problems_block_idx: 1006
+    next_chapter_block_idx: 1018
+  - num: 26
+    title: Supersymmetric Field Theories
+    page_start: 77
+    page_end: 134
+    chapter_title_block_idx: 1018
+    chapter_title_block_idx_secondary: 1019
+    problems_block_idx: 1867
+    next_chapter_block_idx: 1884
+  - num: 27
+    title: Supersymmetric Gauge Theories
+    page_start: 135
+    page_end: 200
+    chapter_title_block_idx: 1884
+    chapter_title_block_idx_secondary: 1885
+    problems_block_idx: 2702
+    next_chapter_block_idx: 2717
+  - num: 28
+    title: Supersymmetric Versions of the Standard Model
+    page_start: 201
+    page_end: 269
+    chapter_title_block_idx: 2717
+    chapter_title_block_idx_secondary: 2718
+    problems_block_idx: 3363
+    next_chapter_block_idx: 3395
+  - num: 29
+    title: Beyond Perturbation Theory
+    page_start: 270
+    page_end: 328
+    chapter_title_block_idx: 3395
+    chapter_title_block_idx_secondary: 3396
+    problems_block_idx: 4141
+    next_chapter_block_idx: 4150
+  - num: 30
+    title: Supergraphs
+    page_start: 329
+    page_end: 339
+    chapter_title_block_idx: 4150
+    chapter_title_block_idx_secondary: 4151
+    problems_block_idx: 4275
+    next_chapter_block_idx: 4288
+  - num: 31
+    title: Supergravity
+    page_start: 340
+    page_end: 403
+    chapter_title_block_idx: 4288
+    chapter_title_block_idx_secondary: 4289
+    problems_block_idx: 5171
+    next_chapter_block_idx: 5186
+  - num: 32
+    title: Supersymmetry Algebras in Higher Dimensions
+    page_start: 404
+    page_end: 432
+    chapter_title_block_idx: 5186
+    chapter_title_block_idx_secondary: 5187
+    problems_block_idx: 5544
+    next_chapter_block_idx: 5556
+
+section_re: '^((?:\d+\.\d+)|(?:Appendix(?: [A-Z])?))\s+(.+)$'
+subsection_re: '^()((?:Spin(?: 1/2| 0| 1)(?: Masses)?)|(?:Flavor Changing Processes)|(?:CF violation)|(?:First Version(?: .*)?)|(?:Second Version(?: .*)?)|(?:Even Dimensions(?:: .+)?)|(?:Odd Dimensionality)|(?:Odd Dimensions(?:: .+)?))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^References$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9A-Z]+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

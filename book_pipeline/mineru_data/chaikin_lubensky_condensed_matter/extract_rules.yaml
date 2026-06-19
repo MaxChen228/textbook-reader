@@ -1,0 +1,120 @@
+slug: chaikin_lubensky_condensed_matter
+title: Principles of Condensed Matter Physics
+author: Paul M. Chaikin; T. C. Lubensky
+edition: null
+subject: Condensed Matter Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 702
+bibliography_start_page: null
+index_start_page: 702
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Overview
+    page_start: 18
+    page_end: 45
+    chapter_title_block_idx: 307
+    problems_block_idx: null
+    next_chapter_block_idx: 538
+  - num: 2
+    title: Structure and scattering
+    page_start: 46
+    page_end: 124
+    chapter_title_block_idx: 538
+    problems_block_idx: 1206
+    next_chapter_block_idx: 1282
+  - num: 3
+    title: Thermodynamics and statistical mechanics
+    page_start: 125
+    page_end: 160
+    chapter_title_block_idx: 1282
+    problems_block_idx: 1748
+    next_chapter_block_idx: 1757
+  - num: 4
+    title: Mean-field theory
+    page_start: 161
+    page_end: 229
+    chapter_title_block_idx: 1757
+    problems_block_idx: 2535
+    next_chapter_block_idx: 2587
+  - num: 5
+    title: Field theories, critical phenomena, and the renormalization group
+    page_start: 230
+    page_end: 304
+    chapter_title_block_idx: 2587
+    problems_block_idx: 3537
+    next_chapter_block_idx: 3606
+  - num: 6
+    title: Generalized elasticity
+    page_start: 305
+    page_end: 369
+    chapter_title_block_idx: 3606
+    problems_block_idx: 4339
+    next_chapter_block_idx: 4416
+  - num: 7
+    title: "Dynamics: correlation and response"
+    page_start: 370
+    page_end: 433
+    chapter_title_block_idx: 4416
+    problems_block_idx: 5285
+    next_chapter_block_idx: 5386
+  - num: 8
+    title: Hydrodynamics
+    page_start: 434
+    page_end: 511
+    chapter_title_block_idx: 5386
+    problems_block_idx: 6515
+    next_chapter_block_idx: 6564
+  - num: 9
+    title: Topological defects
+    page_start: 512
+    page_end: 606
+    chapter_title_block_idx: 6564
+    problems_block_idx: 7689
+    next_chapter_block_idx: 7766
+  - num: 10
+    title: Walls, kinks and solitons
+    page_start: 607
+    page_end: 701
+    chapter_title_block_idx: 7766
+    problems_block_idx: 8547
+    next_chapter_block_idx: 10327
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:[A-ZP])?(?:\.[0-9]+)+(?:[a-z])?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

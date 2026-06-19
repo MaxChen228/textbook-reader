@@ -1,0 +1,147 @@
+slug: tinkham_superconductivity
+title: Introduction to Superconductivity
+author: Michael Tinkham
+edition: 2nd
+subject: Solid State Physics
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 450
+bibliography_start_page: 459
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Historical Overview
+    page_start: 18
+    page_end: 33
+    chapter_title_block_idx: 214
+    chapter_title_block_idx_secondary: 215
+    problems_block_idx: null
+    next_chapter_block_idx: 383
+  - num: 2
+    title: Introduction to Electrodynamics of Superconductors
+    page_start: 34
+    page_end: 59
+    chapter_title_block_idx: 383
+    chapter_title_block_idx_secondary: 385
+    problems_block_idx: null
+    next_chapter_block_idx: 671
+  - num: 3
+    title: The BCS Theory
+    page_start: 60
+    page_end: 126
+    chapter_title_block_idx: 671
+    chapter_title_block_idx_secondary: 674
+    problems_block_idx: null
+    next_chapter_block_idx: 1511
+  - num: 4
+    title: Ginzburg-Landau Theory
+    page_start: 127
+    page_end: 164
+    chapter_title_block_idx: 1511
+    problems_block_idx: null
+    next_chapter_block_idx: 1987
+  - num: 5
+    title: Magnetic Properties of Classic Type II Superconductors
+    page_start: 165
+    page_end: 212
+    chapter_title_block_idx: 1987
+    chapter_title_block_idx_secondary: 1993
+    problems_block_idx: null
+    next_chapter_block_idx: 2598
+  - num: 6
+    title: "Josephson Effect I: Basic Phenomena and Applications"
+    page_start: 213
+    page_end: 264
+    chapter_title_block_idx: 2598
+    chapter_title_block_idx_secondary: 2603
+    problems_block_idx: null
+    next_chapter_block_idx: 3176
+  - num: 7
+    title: "Josephson Effect II: Phenomena Unique to Small Junctions"
+    page_start: 265
+    page_end: 303
+    chapter_title_block_idx: 3176
+    chapter_title_block_idx_secondary: 3183
+    problems_block_idx: null
+    next_chapter_block_idx: 3586
+  - num: 8
+    title: Fluctuation Effects in Classic Superconductors
+    page_start: 304
+    page_end: 332
+    chapter_title_block_idx: 3586
+    chapter_title_block_idx_secondary: 3589
+    problems_block_idx: null
+    next_chapter_block_idx: 3922
+  - num: 9
+    title: The High-Temperature Superconductors
+    page_start: 333
+    page_end: 400
+    chapter_title_block_idx: 3922
+    problems_block_idx: null
+    next_chapter_block_idx: 4585
+  - num: 10
+    title: Special Topics
+    page_start: 401
+    page_end: 419
+    chapter_title_block_idx: 4585
+    chapter_title_block_idx_secondary: 4588
+    problems_block_idx: null
+    next_chapter_block_idx: 4784
+  - num: 11
+    title: Nonequilibrium Superconductivity
+    page_start: 420
+    page_end: 449
+    chapter_title_block_idx: 4784
+    chapter_title_block_idx_secondary: 4786
+    problems_block_idx: null
+    next_chapter_block_idx: 5086
+
+appendices:
+  - id: A
+    title: Units
+    page_start: 450
+    chapter_title_block_idx: 5086
+  - id: B
+    title: Notation and Conventions
+    page_start: 452
+    chapter_title_block_idx: 5096
+  - id: C
+    title: Exact Solution for Penetration Depth by Fourier Analysis
+    page_start: 454
+    chapter_title_block_idx: 5112
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

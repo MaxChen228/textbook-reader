@@ -1,0 +1,166 @@
+slug: devore_probability_statistics
+title: Probability and Statistics for Engineering and the Sciences
+author: Jay L. Devore
+edition: 9th
+subject: Probability
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 733
+bibliography_start_page: null
+index_start_page: 785
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Overview and Descriptive Statistics
+    page_start: 17
+    page_end: 67
+    chapter_title_block_idx: 218
+    problems_block_idx: null
+    next_chapter_block_idx: 977
+  - num: 2
+    title: Probability
+    page_start: 68
+    page_end: 110
+    chapter_title_block_idx: 977
+    problems_block_idx: null
+    next_chapter_block_idx: 1766
+  - num: 3
+    title: Discrete Random Variables and Probability Distributions
+    page_start: 111
+    page_end: 156
+    chapter_title_block_idx: 1766
+    problems_block_idx: null
+    next_chapter_block_idx: 2682
+  - num: 4
+    title: Continuous Random Variables and Probability Distributions
+    page_start: 157
+    page_end: 213
+    chapter_title_block_idx: 2682
+    problems_block_idx: null
+    next_chapter_block_idx: 3697
+  - num: 5
+    title: Joint Probability Distributions and Random Samples
+    page_start: 214
+    page_end: 262
+    chapter_title_block_idx: 3697
+    problems_block_idx: null
+    next_chapter_block_idx: 4509
+  - num: 6
+    title: Point Estimation
+    page_start: 263
+    page_end: 291
+    chapter_title_block_idx: 4509
+    problems_block_idx: null
+    next_chapter_block_idx: 5037
+  - num: 7
+    title: Statistical Intervals Based on a Single Sample
+    page_start: 292
+    page_end: 325
+    chapter_title_block_idx: 5037
+    problems_block_idx: null
+    next_chapter_block_idx: 5622
+  - num: 8
+    title: Tests of Hypotheses Based on a Single Sample
+    page_start: 326
+    page_end: 376
+    chapter_title_block_idx: 5622
+    problems_block_idx: null
+    next_chapter_block_idx: 6360
+  - num: 9
+    title: Inferences Based on Two Samples
+    page_start: 377
+    page_end: 424
+    chapter_title_block_idx: 6360
+    problems_block_idx: null
+    next_chapter_block_idx: 7156
+  - num: 10
+    title: The Analysis of Variance
+    page_start: 425
+    page_end: 452
+    chapter_title_block_idx: 7156
+    problems_block_idx: null
+    next_chapter_block_idx: 7618
+  - num: 11
+    title: Multifactor Analysis of Variance
+    page_start: 453
+    page_end: 502
+    chapter_title_block_idx: 7618
+    problems_block_idx: null
+    next_chapter_block_idx: 8370
+  - num: 12
+    title: Simple Linear Regression and Correlation
+    page_start: 503
+    page_end: 557
+    chapter_title_block_idx: 8370
+    problems_block_idx: null
+    next_chapter_block_idx: 9254
+  - num: 13
+    title: Nonlinear and Multiple Regression
+    page_start: 558
+    page_end: 634
+    chapter_title_block_idx: 9254
+    problems_block_idx: null
+    next_chapter_block_idx: 10453
+  - num: 14
+    title: Goodness-of-Fit Tests and Categorical Data Analysis
+    page_start: 635
+    page_end: 667
+    chapter_title_block_idx: 10453
+    problems_block_idx: null
+    next_chapter_block_idx: 10988
+  - num: 15
+    title: Distribution-Free Procedures
+    page_start: 668
+    page_end: 693
+    chapter_title_block_idx: 10988
+    problems_block_idx: null
+    next_chapter_block_idx: 11405
+  - num: 16
+    title: Quality Control Methods
+    page_start: 694
+    page_end: 732
+    chapter_title_block_idx: 11405
+    problems_block_idx: null
+    next_chapter_block_idx: 12002
+
+appendices:
+  - id: A
+    title: Appendix Tables
+    page_start: 733
+    chapter_title_block_idx: 12002
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()((?:[Ii]\s*[Nn]\s*[Tt]\s*[Rr]\s*[Oo]\s*[Dd]\s*[Uu]\s*[Cc]\s*[Tt]\s*[Ii]\s*[Oo]\s*[Nn])|(?:[Ee]\s*[Xx]\s*[Ee]\s*[Rr]\s*[Cc]\s*[Ii]\s*[Ss]\s*[Ee]\s*[Ss]\s+[Ss]ection\s+\d+\.\d+.*)|(?:[Ss]\s*[Uu]\s*[Pp]\s*[Pp]\s*[Ll]\s*[Ee]\s*[Mm]\s*[Ee]\s*[Nn]\s*[Tt]\s*[Aa]\s*[Rr]\s*[Yy]\s+[Ee]\s*[Xx]\s*[Ee]\s*[Rr]\s*[Cc]\s*[Ii]\s*[Ss]\s*[Ee]\s*[Ss].*)|(?:[Bb]\s*[Ii]\s*[Bb]\s*[Ll]\s*[Ii]\s*[Oo]\s*[Gg]\s*[Rr]\s*[Aa]\s*[Pp]\s*[Hh]\s*[Yy]))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\\d+)\\.\\s+(?!(?:Multiply through|Subtract\\b|Substituting\\b|Since P-value|Because P\\s*-?value|The \\? inequality in|Table A\\.9 gives|For comparing levels of factor A|Compute\\s*$|Arrange the sample means)).+$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^[Ee][Xx][Aa][Mm][Pp][Ll][Ee]\s+(\d+(?:[.,]\d+)?)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

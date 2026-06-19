@@ -1,0 +1,160 @@
+slug: weinberg_gravitation_cosmology
+title: "Gravitation and Cosmology: Principles and Applications of the General Theory of Relativity"
+author: Steven Weinberg
+edition: null
+subject: General Relativity
+publisher: John Wiley & Sons, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 30
+appendices_start_page: 662
+bibliography_start_page: null
+index_start_page: 668
+
+chapters:
+  - num: 1
+    title: Historical Introduction
+    page_start: 30
+    page_end: 51
+    chapter_title_block_idx: 390
+    problems_block_idx: null
+    next_chapter_block_idx: 563
+  - num: 2
+    title: Special Relativity
+    page_start: 52
+    page_end: 93
+    chapter_title_block_idx: 563
+    problems_block_idx: null
+    next_chapter_block_idx: 1279
+  - num: 3
+    title: The Principle of Equivalence
+    page_start: 94
+    page_end: 117
+    chapter_title_block_idx: 1279
+    problems_block_idx: null
+    next_chapter_block_idx: 1577
+  - num: 4
+    title: Tensor Analysis
+    page_start: 118
+    page_end: 147
+    chapter_title_block_idx: 1577
+    problems_block_idx: null
+    next_chapter_block_idx: 2043
+  - num: 5
+    title: Effects of Gravitation
+    page_start: 148
+    page_end: 157
+    chapter_title_block_idx: 2043
+    problems_block_idx: null
+    next_chapter_block_idx: 2187
+  - num: 6
+    title: Curvature
+    page_start: 158
+    page_end: 177
+    chapter_title_block_idx: 2187
+    problems_block_idx: null
+    next_chapter_block_idx: 2478
+  - num: 7
+    title: Einstein's Field Equations
+    page_start: 178
+    page_end: 201
+    chapter_title_block_idx: 2478
+    problems_block_idx: null
+    next_chapter_block_idx: 2832
+  - num: 8
+    title: Classic Tests of Einstein's Theory
+    page_start: 202
+    page_end: 237
+    chapter_title_block_idx: 2832
+    problems_block_idx: null
+    next_chapter_block_idx: 3337
+  - num: 9
+    title: Post-Newtonian Celestial Mechanics
+    page_start: 238
+    page_end: 277
+    chapter_title_block_idx: 3337
+    problems_block_idx: null
+    next_chapter_block_idx: 3986
+  - num: 10
+    title: Gravitational Radiation
+    page_start: 278
+    page_end: 323
+    chapter_title_block_idx: 3986
+    problems_block_idx: null
+    next_chapter_block_idx: 4687
+  - num: 11
+    title: Stellar Equilibrium and Collapse
+    page_start: 324
+    page_end: 383
+    chapter_title_block_idx: 4687
+    problems_block_idx: null
+    next_chapter_block_idx: 5558
+  - num: 12
+    title: The Action Principle
+    page_start: 384
+    page_end: 401
+    chapter_title_block_idx: 5558
+    problems_block_idx: null
+    next_chapter_block_idx: 5849
+  - num: 13
+    title: Symmetric Spaces
+    page_start: 402
+    page_end: 433
+    chapter_title_block_idx: 5849
+    problems_block_idx: null
+    next_chapter_block_idx: 6374
+  - num: 14
+    title: Cosmography
+    page_start: 434
+    page_end: 495
+    chapter_title_block_idx: 6374
+    problems_block_idx: null
+    next_chapter_block_idx: 7101
+  - num: 15
+    title: "Cosmology: The Standard Model"
+    page_start: 496
+    page_end: 637
+    chapter_title_block_idx: 7101
+    problems_block_idx: null
+    next_chapter_block_idx: 8878
+  - num: 16
+    title: "Cosmology: Other Models"
+    page_start: 638
+    page_end: 661
+    chapter_title_block_idx: 8878
+    problems_block_idx: null
+    next_chapter_block_idx: 9172
+
+appendices:
+  - id: A
+    title: Some Useful Numbers
+    page_start: 662
+    chapter_title_block_idx: 9172
+
+section_re: '^(\d{1,2})\s+(.+[a-z].*)$'
+subsection_re: '^(?!)()(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?!)((?:.+))$'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+(?:\.[0-9]+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

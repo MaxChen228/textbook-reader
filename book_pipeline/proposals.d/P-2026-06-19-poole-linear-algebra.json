@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-poole-linear-algebra",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog builder needs multi-block figure/table caption association",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T03:12:47+00:00",
+  "updated": "2026-06-19T03:12:47+00:00",
+  "evidence": "poole_linear_algebra parser succeeds structurally, but smoke still reports H6/H7 with 562 empty figure/table captions and 6 unresolved refs. Many captions are split across adjacent image/text blocks, embedded inline in prose, or distributed across sibling figure blocks (for example ch1 Figure 1.5/1.7/1.10 and multiple table references in ch8). Current schema fields cannot express these patterns book-wide without overfitting regexes.",
+  "proposal": "Augment catalog extraction so figures/tables can inherit captions from nearby caption-like text blocks or inline 'Figure X.Y ...' sentences using adjacency heuristics, multi-block merge windows, and provenance markers. This should happen in the engine rather than per-book YAML.",
+  "risk": "",
+  "disposition": ""
+}

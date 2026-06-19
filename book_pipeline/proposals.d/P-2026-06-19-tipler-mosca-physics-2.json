@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-tipler-mosca-physics-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog builder 無法從散落 text block 的 spaced figure caption 萃取可索引圖號",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T03:16:17+00:00",
+  "updated": "2026-06-19T03:16:17+00:00",
+  "evidence": "smoke H6/H7: unresolved Figure refs=1095, empty figure/table captions=804。_catalog_audit.md 顯示大量 caption 以普通 text block 形式出現，例如 'F I G U R E 1 - 1 ...'、'(a)'/'(b)' 子圖文字、以及與正文混排的 caption 句，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把這類 text block 轉成 catalogable figure entries。",
+  "proposal": "在 parser/build_catalogs 增加 text-block figure caption lifting：允許規則提供 figure_text_caption_re / spaced_figure_label_re，將命中的普通 text block 轉成 fig，並支援多塊 caption 合併與子圖 (a)(b) 關聯。",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,133 @@
+slug: altland_simons_cmft
+title: Condensed Matter Field Theory
+author: Alexander Altland; Ben D. Simons
+edition: 2nd
+subject: Solid State Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 781
+bibliography_start_page: null
+index_start_page: 781
+
+chapters:
+  - num: 1
+    title: From particles to fields
+    page_start: 16
+    page_end: 53
+    chapter_title_block_idx: 91
+    chapter_title_block_idx_secondary: 92
+    problems_block_idx: 511
+    next_chapter_block_idx: 564
+  - num: 2
+    title: Second quantization
+    page_start: 54
+    page_end: 109
+    chapter_title_block_idx: 564
+    chapter_title_block_idx_secondary: 565
+    problems_block_idx: 1097
+    next_chapter_block_idx: 1248
+  - num: 3
+    title: Feynman path integral
+    page_start: 110
+    page_end: 170
+    chapter_title_block_idx: 1248
+    chapter_title_block_idx_secondary: 1249
+    problems_block_idx: 1893
+    next_chapter_block_idx: 2044
+  - num: 4
+    title: Functional field integral
+    page_start: 171
+    page_end: 207
+    chapter_title_block_idx: 2044
+    chapter_title_block_idx_secondary: 2045
+    problems_block_idx: 2375
+    next_chapter_block_idx: 2545
+  - num: 5
+    title: Perturbation theory
+    page_start: 208
+    page_end: 256
+    chapter_title_block_idx: 2545
+    chapter_title_block_idx_secondary: 2546
+    problems_block_idx: 3050
+    next_chapter_block_idx: 3164
+  - num: 6
+    title: Broken symmetry and collective phenomena
+    page_start: 257
+    page_end: 374
+    chapter_title_block_idx: 3164
+    chapter_title_block_idx_secondary: 3165
+    problems_block_idx: 4197
+    next_chapter_block_idx: 4581
+  - num: 7
+    title: Response functions
+    page_start: 375
+    page_end: 423
+    chapter_title_block_idx: 4581
+    chapter_title_block_idx_secondary: 4582
+    problems_block_idx: 5074
+    next_chapter_block_idx: 5184
+  - num: 8
+    title: The renormalization group
+    page_start: 424
+    page_end: 510
+    chapter_title_block_idx: 5184
+    chapter_title_block_idx_secondary: 5185
+    problems_block_idx: 5950
+    next_chapter_block_idx: 6203
+  - num: 9
+    title: Topology
+    page_start: 511
+    page_end: 616
+    chapter_title_block_idx: 6203
+    chapter_title_block_idx_secondary: 6204
+    problems_block_idx: 7325
+    next_chapter_block_idx: 7478
+  - num: 10
+    title: Nonequilibrium (classical)
+    page_start: 617
+    page_end: 707
+    chapter_title_block_idx: 7478
+    chapter_title_block_idx_secondary: 7479
+    problems_block_idx: 8619
+    next_chapter_block_idx: 8748
+  - num: 11
+    title: Nonequilibrium (quantum)
+    page_start: 708
+    page_end: 780
+    chapter_title_block_idx: 8748
+    chapter_title_block_idx_secondary: 8749
+    problems_block_idx: 9606
+    next_chapter_block_idx: 10368
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?!(?:1\.8|2\.4|3\.5|4\.5|5\.5|6\.7|7\.6|8\.8|9\.7|10\.9|11\.9)\.)\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?!Answer:$)(?!\d+\.\d+\s+Problems$)(?!.*\d{4}\s*[–-]\s*\d{2,4}$)((?:\d+\.\d+\.\d+)(?=\s+.+)|(?:[A-Z][^\n]*))(?:\s+.+)?$'
+problem_chapter_must_match: false
+problems_end_re: '^Index$'
+solution_start_re: '^Answer:$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

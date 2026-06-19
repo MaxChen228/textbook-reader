@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-weinberg-gravitation-cosmology",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "audit-book 無法 declaratively 合併 captionless sibling figures / appendix captioned tables",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T03:11:40+00:00",
+  "updated": "2026-06-19T03:11:40+00:00",
+  "evidence": "parser/smoke 在章節結構已綠，但 H7 殘留 empty_captions=8。catalog_audit 顯示多個案例是連續多個 fig block 中，前幾個 image block 無 caption，只有最後一個 sibling fig 帶 Figure 3.1 / 14.10 / 14.11 主圖說（例如 ch03 body[223..226]、ch14 body[293..296]）；另有 appendix table block 已有 caption 但無編號 id（appA body[60..63]）。現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，實測開啟後 smoke 無變化，無法把 captionless sibling 視覺塊 declaratively 併入後續主圖說，也無法為無編號但有 caption 的表格提供 reviewable semantic id/exclude reason。",
+  "proposal": "擴充 deterministic catalog/parser repair 能力：1) 允許 per-book 將連續 captionless sibling figures/table shards 宣告併入後續帶主 caption 的視覺塊；2) 允許對有 caption 但無正式 Figure/Table 編號的視覺塊給 declarative semantic id 或 exclude reason。否則像 Weinberg 這種多 panel OCR 只能 parser 綠，無法清掉 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}

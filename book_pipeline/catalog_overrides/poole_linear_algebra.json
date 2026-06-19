@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "poole-fig-5.5-idfix",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[192]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.0",
+        "caption": "Figure 5.0"
+      },
+      "set": {
+        "id": "fig-5.5",
+        "caption": "Figure 5.5",
+        "catalog_repair_source": "agent-id-fix",
+        "catalog_aliases": [
+          "5.5"
+        ]
+      },
+      "reason": "ch05 body[199] 的正文明寫 “Figure 5.5 illustrates this situation.”；附近唯一圖塊 body[192] 是帶 W、l、v、w 的正交補空間示意圖，顯然是同一張圖。MinerU 將其誤標成 fig-5.0 / Figure 5.0，故改回語意編號 5.5。"
+    }
+  ]
+}

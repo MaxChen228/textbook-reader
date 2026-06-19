@@ -1,0 +1,126 @@
+slug: poole_linear_algebra
+title: "Linear Algebra: A Modern Introduction"
+author: David Poole
+edition: 4th
+subject: Linear Algebra
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 673
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Vectors
+    page_start: 24
+    page_end: 79
+    chapter_title_block_idx: 351
+    problems_block_idx: null
+    next_chapter_block_idx: 1374
+  - num: 2
+    title: Systems of Linear Equations
+    page_start: 80
+    page_end: 158
+    chapter_title_block_idx: 1374
+    problems_block_idx: null
+    next_chapter_block_idx: 3064
+  - num: 3
+    title: Matrices
+    page_start: 159
+    page_end: 275
+    chapter_title_block_idx: 3064
+    problems_block_idx: null
+    next_chapter_block_idx: 5416
+  - num: 4
+    title: Eigenvalues and Eigenvectors
+    page_start: 276
+    page_end: 388
+    chapter_title_block_idx: 5416
+    problems_block_idx: null
+    next_chapter_block_idx: 7643
+  - num: 5
+    title: Orthogonality
+    page_start: 389
+    page_end: 449
+    chapter_title_block_idx: 7643
+    problems_block_idx: null
+    next_chapter_block_idx: 8916
+  - num: 6
+    title: Vector Spaces
+    page_start: 450
+    page_end: 551
+    chapter_title_block_idx: 8916
+    problems_block_idx: null
+    next_chapter_block_idx: 11109
+  - num: 7
+    title: Distance and Approximation
+    page_start: 552
+    page_end: 642
+    chapter_title_block_idx: 11109
+    problems_block_idx: null
+    next_chapter_block_idx: 12898
+  - num: 8
+    title: Codes
+    page_start: 643
+    page_end: 672
+    chapter_title_block_idx: 12898
+    problems_block_idx: null
+    next_chapter_block_idx: 13463
+
+appendices:
+  - id: A
+    title: Mathematical Notation and Methods of Proof
+    page_start: 673
+    chapter_title_block_idx: 13463
+  - id: B
+    title: Mathematical Induction
+    page_start: 682
+    chapter_title_block_idx: 13654
+  - id: C
+    title: Complex Numbers
+    page_start: 689
+    chapter_title_block_idx: 13801
+  - id: D
+    title: Polynomials
+    page_start: 700
+    chapter_title_block_idx: 14037
+  - id: E
+    title: Technology Bytes
+    page_start: 710
+    chapter_title_block_idx: 14243
+
+section_re: '^(?=((?:\d+\.\d+\s+.+|[A-Za-z].+))$)(.*)$'
+subsection_re: '^(?=((?:Example|Theorem|Exercises?|Definition|Remarks?|Note|Solution|Exploration|Writing Project|Review Questions|Key Definitions and Concepts|Vignette).*)$)(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:(?=(?:Problem\s+)?(\d+)(?:\.(?!\d)\s+|\s+))(?:(?:Problem\s+\1\s+)|(?:\1\.(?!\d)\s+)))'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: '^Example\s+([A-Z]?\d+(?:\.\d+)*)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

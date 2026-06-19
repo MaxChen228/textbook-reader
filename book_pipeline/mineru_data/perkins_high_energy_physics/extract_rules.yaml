@@ -1,0 +1,152 @@
+slug: perkins_high_energy_physics
+title: Introduction to High Energy Physics
+author: Donald H. Perkins
+edition: 4th
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 388
+bibliography_start_page: 423
+index_start_page: 432
+
+chapters:
+  - num: 1
+    title: Quarks and leptons
+    page_start: 12
+    page_end: 45
+    chapter_title_block_idx: 215
+    chapter_title_block_idx_secondary: 216
+    problems_block_idx: 520
+    next_chapter_block_idx: 540
+  - num: 2
+    title: Interactions and fields
+    page_start: 46
+    page_end: 73
+    chapter_title_block_idx: 540
+    chapter_title_block_idx_secondary: 541
+    problems_block_idx: 811
+    next_chapter_block_idx: 828
+  - num: 3
+    title: Invariance principles and conservation laws
+    page_start: 74
+    page_end: 105
+    chapter_title_block_idx: 828
+    chapter_title_block_idx_secondary: 829
+    problems_block_idx: 1178
+    next_chapter_block_idx: 1202
+  - num: 4
+    title: Quarks in hadrons
+    page_start: 106
+    page_end: 150
+    chapter_title_block_idx: 1202
+    chapter_title_block_idx_secondary: 1203
+    problems_block_idx: 1616
+    next_chapter_block_idx: 1628
+  - num: 5
+    title: Lepton and quark scattering
+    page_start: 151
+    page_end: 181
+    chapter_title_block_idx: 1628
+    chapter_title_block_idx_secondary: 1629
+    problems_block_idx: 1932
+    next_chapter_block_idx: 1962
+  - num: 6
+    title: Quark interactions and QCD
+    page_start: 182
+    page_end: 204
+    chapter_title_block_idx: 1962
+    chapter_title_block_idx_secondary: 1963
+    problems_block_idx: 2147
+    next_chapter_block_idx: 2166
+  - num: 7
+    title: Weak interactions
+    page_start: 205
+    page_end: 252
+    chapter_title_block_idx: 2166
+    chapter_title_block_idx_secondary: 2167
+    problems_block_idx: 2682
+    next_chapter_block_idx: 2711
+  - num: 8
+    title: Electroweak interactions and the Standard Model
+    page_start: 253
+    page_end: 286
+    chapter_title_block_idx: 2711
+    chapter_title_block_idx_secondary: 2712
+    problems_block_idx: 3072
+    next_chapter_block_idx: 3086
+  - num: 9
+    title: Physics beyond the Standard Model
+    page_start: 287
+    page_end: 313
+    chapter_title_block_idx: 3086
+    chapter_title_block_idx_secondary: 3087
+    problems_block_idx: 3319
+    next_chapter_block_idx: 3328
+  - num: 10
+    title: Particle physics and cosmology
+    page_start: 314
+    page_end: 348
+    chapter_title_block_idx: 3328
+    chapter_title_block_idx_secondary: 3329
+    problems_block_idx: 3677
+    next_chapter_block_idx: 3692
+  - num: 11
+    title: Experimental methods
+    page_start: 349
+    page_end: 387
+    chapter_title_block_idx: 3692
+    chapter_title_block_idx_secondary: 3693
+    problems_block_idx: 3994
+    next_chapter_block_idx: 4009
+
+appendices:
+  - id: A
+    title: Table of elementary particles
+    page_start: 388
+    chapter_title_block_idx: 4009
+  - id: B
+    title: Milestones in particle physics
+    page_start: 390
+    chapter_title_block_idx: 4014
+  - id: C
+    title: Clebsch-Gordan coefficients and d-functions
+    page_start: 397
+    chapter_title_block_idx: 4083
+  - id: D
+    title: Spherical harmonics, d-functions and Clebsch-Gordan coefficients
+    page_start: 404
+    chapter_title_block_idx: 4221
+  - id: E
+    title: Relativistic normalisation of cross-sections and decay rates
+    page_start: 407
+    chapter_title_block_idx: 4256
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

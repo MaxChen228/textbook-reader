@@ -1,0 +1,134 @@
+slug: zill_differential_equations
+title: A First Course in Differential Equations with Modeling Applications
+author: Dennis G. Zill
+edition: 11th
+subject: Differential Equations
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 405
+bibliography_start_page: null
+index_start_page: 436
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Introduction to Differential Equations
+    page_start: 17
+    page_end: 50
+    chapter_title_block_idx: 261
+    chapter_title_block_idx_secondary: 267
+    problems_block_idx: null
+    next_chapter_block_idx: 985
+  - num: 2
+    title: First-Order Differential Equations
+    page_start: 51
+    page_end: 98
+    chapter_title_block_idx: 985
+    chapter_title_block_idx_secondary: 989
+    problems_block_idx: null
+    next_chapter_block_idx: 2180
+  - num: 3
+    title: Modeling with First-Order Differential Equations
+    page_start: 99
+    page_end: 132
+    chapter_title_block_idx: 2180
+    chapter_title_block_idx_secondary: 2184
+    problems_block_idx: null
+    next_chapter_block_idx: 2906
+  - num: 4
+    title: Higher-Order Differential Equations
+    page_start: 133
+    page_end: 210
+    chapter_title_block_idx: 2906
+    chapter_title_block_idx_secondary: 2910
+    problems_block_idx: null
+    next_chapter_block_idx: 4903
+  - num: 5
+    title: Modeling with Higher-Order Differential Equations
+    page_start: 211
+    page_end: 250
+    chapter_title_block_idx: 4903
+    chapter_title_block_idx_secondary: 4907
+    problems_block_idx: null
+    next_chapter_block_idx: 5809
+  - num: 6
+    title: Series Solutions of Linear Equations
+    page_start: 251
+    page_end: 292
+    chapter_title_block_idx: 5809
+    chapter_title_block_idx_secondary: 5816
+    problems_block_idx: null
+    next_chapter_block_idx: 6803
+  - num: 7
+    title: The Laplace Transform
+    page_start: 293
+    page_end: 346
+    chapter_title_block_idx: 6803
+    chapter_title_block_idx_secondary: 6807
+    problems_block_idx: null
+    next_chapter_block_idx: 8288
+  - num: 8
+    title: Systems of Linear First-Order Differential Equations
+    page_start: 347
+    page_end: 382
+    chapter_title_block_idx: 8288
+    chapter_title_block_idx_secondary: 8292
+    problems_block_idx: null
+    next_chapter_block_idx: 9171
+  - num: 9
+    title: Numerical Solutions of Ordinary Differential Equations
+    page_start: 383
+    page_end: 404
+    chapter_title_block_idx: 9171
+    chapter_title_block_idx_secondary: 9174
+    problems_block_idx: null
+    next_chapter_block_idx: 9678
+
+appendices:
+  - id: A
+    title: Integral-Defined Functions
+    page_start: 406
+    chapter_title_block_idx: 9678
+  - id: B
+    title: Matrices
+    page_start: 414
+    chapter_title_block_idx: 9915
+  - id: C
+    title: Laplace Transforms
+    page_start: 432
+    chapter_title_block_idx: 10382
+
+section_re: '^(?:Chapter\s+)?(\d+(?:\.\d+){0,1}|[A-Z]\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+|(?i:e\s*x\s*e\s*r\s*c\s*i\s*s\s*e\s*s?\s+\d+\.\d+))\s*(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\$\s*(?:\\\s*)?(?:(?:\\mathbf|\\bf)\s*\{?\s*)?)?((?:\d\s*)+)\s*\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '(?i)^e\s*x\s*a\s*m\s*p\s*l\s*e\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,172 @@
+slug: rosen_discrete_math
+title: "Student's Solutions Guide to accompany Discrete Mathematics and Its Applications"
+author: Kenneth H. Rosen
+edition: 7th
+subject: Combinatorics
+publisher: McGraw-Hill Higher Education
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 9
+appendices_start_page: 497
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: "The Foundations: Logic and Proofs"
+    page_start: 9
+    page_end: 57
+    chapter_title_block_idx: 189
+    problems_block_idx: null
+    next_chapter_block_idx: 780
+  - num: 2
+    title: "Basic Structures: Sets, Functions, Sequences, Sums, and Matrices"
+    page_start: 58
+    page_end: 95
+    chapter_title_block_idx: 780
+    problems_block_idx: null
+    next_chapter_block_idx: 1342
+  - num: 3
+    title: Algorithms
+    page_start: 96
+    page_end: 120
+    chapter_title_block_idx: 1342
+    problems_block_idx: null
+    next_chapter_block_idx: 1609
+  - num: 4
+    title: "Number Theory and Cryptography"
+    page_start: 121
+    page_end: 156
+    chapter_title_block_idx: 1609
+    problems_block_idx: null
+    next_chapter_block_idx: 2066
+  - num: 5
+    title: Induction and Recursion
+    page_start: 157
+    page_end: 204
+    chapter_title_block_idx: 2066
+    problems_block_idx: null
+    next_chapter_block_idx: 2640
+  - num: 6
+    title: Counting
+    page_start: 205
+    page_end: 246
+    chapter_title_block_idx: 2640
+    problems_block_idx: null
+    next_chapter_block_idx: 3111
+  - num: 7
+    title: "Discrete Probability"
+    page_start: 247
+    page_end: 269
+    chapter_title_block_idx: 3111
+    problems_block_idx: null
+    next_chapter_block_idx: 3419
+  - num: 8
+    title: "Advanced Counting Techniques"
+    page_start: 270
+    page_end: 319
+    chapter_title_block_idx: 3419
+    problems_block_idx: null
+    next_chapter_block_idx: 4112
+  - num: 9
+    title: Relations
+    page_start: 320
+    page_end: 359
+    chapter_title_block_idx: 4112
+    problems_block_idx: null
+    next_chapter_block_idx: 4554
+  - num: 10
+    title: Graphs
+    page_start: 360
+    page_end: 410
+    chapter_title_block_idx: 4554
+    problems_block_idx: null
+    next_chapter_block_idx: 5156
+  - num: 11
+    title: Trees
+    page_start: 411
+    page_end: 443
+    chapter_title_block_idx: 5156
+    problems_block_idx: null
+    next_chapter_block_idx: 5476
+  - num: 12
+    title: Boolean Algebra
+    page_start: 444
+    page_end: 464
+    chapter_title_block_idx: 5476
+    chapter_title_block_idx_secondary: 5477
+    problems_block_idx: null
+    next_chapter_block_idx: 5750
+  - num: 13
+    title: "Modeling Computation"
+    page_start: 465
+    page_end: 496
+    chapter_title_block_idx: 5750
+    problems_block_idx: null
+    next_chapter_block_idx: 6065
+
+appendices:
+  - id: 1
+    title: "Axioms for the Real Numbers and the Positive Integers"
+    page_start: 497
+    chapter_title_block_idx: 6065
+  - id: 2
+    title: "Exponential and Logarithmic Functions"
+    page_start: 499
+    chapter_title_block_idx: 6083
+  - id: 3
+    title: Pseudocode
+    page_start: 499
+    chapter_title_block_idx: 6093
+  - id: 4
+    title: "A Guide to Proof-Writing"
+    page_start: 500
+    chapter_title_block_idx: 6103
+  - id: 5
+    title: "General Advice on the Writing Projects"
+    page_start: 511
+    chapter_title_block_idx: 6310
+  - id: 6
+    title: Sample Tests
+    page_start: 519
+    chapter_title_block_idx: 6349
+  - id: 7
+    title: "Common Mistakes in Discrete Mathematics"
+    page_start: 548
+    chapter_title_block_idx: 6662
+  - id: 8
+    title: "Crib Sheet for Chapter 1"
+    page_start: 559
+    chapter_title_block_idx: 6745
+
+section_re: '^((?:SECTION\s+\d+\.\d+(?=[\s ]+\S))|(?:\d+(?:\.\d+)?\.?(?=[\s ]+\S))|(?:GUIDE TO REVIEW QUESTIONS FOR CHAPTER \d+)|(?:SUPPLEMENTARY EXERCISES FOR CHAPTER \d+)|(?:WRITING PROJECTS FOR CHAPTER \d+)|(?:APPENDIX \d+(?=[\s ]+\S))|(?:A Guide to Proof-Writing)|(?:General Advice on the Writing Projects)|(?:List of References for the Writing Projects)|(?:Sample Tests)|(?:Sample Test for Chapter \d+)|(?:Solutions for Chapter \d+ Sample Test)|(?:Common Mistakes in Discrete Mathematics)|(?:Solving Problems in Discrete Mathematics)|(?:List of Common Mistakes)|(?:Crib Sheet for Chapter \d+))\s*(.*)$'
+subsection_re: '^((?:\d+\.\d+\.\d+\.?(?=[\s ]+\S)))\s*(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)[\.,]\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?|[a-z])\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

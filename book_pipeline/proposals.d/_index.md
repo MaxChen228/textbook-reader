@@ -12,7 +12,7 @@
 - 提議：把 cohen_tannoudji_qm 明確改成 Volume 1（或改成新的 vol1 slug），避免與 2nd ed 三卷本/全套合集混淆。
 - 風險：若維持現狀，crawl agent 可能把同一 canonical 書誤落到 vol1 或 1-3 合集，造成 SoT 與實際 PDF 不一致。
 
-## domain: engine  （53 條；proposed=53）
+## domain: engine  （82 條；proposed=82）
 
 ### P-2026-06-18-artin-algebra — catalog 無法把相鄰 text 圖說綁回 image/table
 - proposed | type=tooling-gap | source=agent
@@ -1872,6 +1872,665 @@ index 764d7c2..701078a 100644
 - proposed | type=tooling-gap | source=agent
 - 證據：smoke remains critical after valid chapter/problem parse: H6 unresolved Figure refs=1 and H7 empty_captions=32. Unified blocks show one logical figure split across multiple image blocks with only the last block carrying the caption (Fig. 2.7 at idx 602-605), subfigure runs where only the last block carries the main caption after (a)/(b)/(c) markers (Fig. 15.2 at idx 5274-5276, Fig. 23.3 at idx 7970-7972), and one image caption containing multiple figure numbers so Figure 4.4 is referenced but only Fig. 4.3 is indexable.
 - 提議：Extend parser/catalog audit to support figure groups: allow multiple consecutive image blocks to share one trailing caption, preserve subfigure semantics, and split one caption into multiple catalog ids when it names multiple figures (for example Fig. 4.3 and Fig. 4.4 in one image). This should be expressed in engine logic or new schema fields, not by distorting chapter audit rules.
+
+### P-2026-06-19-anton-calculus — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc anton_calculus）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc anton_calculus] session=anton_calculus:55718 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+index 7dba0a3..d0298ba 100644
+--- a/book_pipeline/pipeline_tick.py
++++ b/book_pipeline/pipeline_tick.py
+@@ -53,6 +53,7 @@ BP = os.path.join(ROOT, 'book_pipeline')
+ LOCK = os.path.join(BP, '.tick.lock')
+ LOG = os.path.join(BP, 'reports', 'daemon.log')
+ STAGES_PATH = os.path.join(ROOT, 'dev', 'stages.json')  # live 階段快訊（單卡即時，繞 status.json 8s 節流）
++CRAWL_LIVE_PATH = os.path.join(ROOT, 'dev', 'crawl_live.json')  # live 下載快訊（買書員逐本 下載中→✓/✗，繞 status.json）
+ READER_ROOT = q.READER_ROOT
+ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
+ # codex 派工後端：headless `codex exec --json`。兩條 codex provider：
+@@ -241,6 +242,92 @@ def emit_stage(slug: str, stage: str) -> None:
+     _publish_stages([(slug, stage)])
+ 
+ 
++# ── live 下載快訊（dev/crawl_live.json）──────────────────────────────────────────
++# 買書員是同步 burst（一批並行 subprocess 下載 5–120s），刻意不註冊 worker_registry（非 LLM agent），
++# 故 status.json 的 workers[] 全程空、crawl.queue 只是「下輪要抓的」→ /dev 完全看不出「正在下載」。
++# 此檔補上唯一缺口：本批每本 下載中→✓/✗ 的逐本 live 狀態，前端以 ~2s cadence 直撿（繞 status.json 8s）。
++# controller 是唯一寫手；前端＋devctl crawl_status 用 updated_at 守新鮮（dead tick 的殘檔自動視為過期）。
++_crawl_live: dict = {}
++_crawl_live_lock = threading.Lock()
++
++
++def _write_crawl_live() -> None:
++    """把 in-memory live 下載狀態原子寫出（持鎖內組 snapshot、鎖外寫檔，前端永不讀到半截）。"""
++    with _crawl_live_lock:
++        if not _crawl_live:
++            return
++        snap = dict(_crawl_live)
++        snap['updated_at'] = time.time()
++        snap['books'] = [dict(b) for b in _crawl_live.get('books', [])]
++        snap['active'] = any(b.get('state') == 'downloading' for b in snap['books'])
++    try:
++        os.makedirs(os.path.dirname(CRAWL_LIVE_PATH), exist_ok=True)
++        tmp = CRAWL_LIVE_PATH + '.tmp'
++        with open(tmp, 'w', encoding='utf-8') as f:
++            json.dump(snap, f, ensure_ascii=False)
++        os.replace(tmp, CRAWL_LIVE_PATH)
++    except Exception:
++        pass
++
++
++def publish_crawl_live(batch: list[dict]) -> None:
++    """買書員開抓一批時發佈：全本標 downloading，title/cover 由 resolution sidecar enrich。"""
++    try:
++        res = booklists.load_resolution()
++    except Exception:
++        res = {}
++    with _crawl_live_lock:
++        _crawl_live.clear()
++        _crawl_live.update({
++            'started_at': time.time(),
++            'accounts': sorted({b.get('account') for b in batch if b.get('account') is not None}),
++            'books': [{
++                'slug': b['slug'],
++                'title': res.get(b['slug'], {}).get('title') or b.get('title') or b['slug'],
++                'cover': res.get(b['slug'], {}).get('cover', ''),
++                'is_sol': b['slug'].endswith('_sol'),
++                'account': b.get('account'),
++                'state': 'downloading',
++                'mb': None,
++            } for b in batch],
++        })
++    _write_crawl_live()
++
++
++def update_crawl_live(slug: str, state: str, mb: float | None = None) -> None:
++    """單本下載落地：標 done/failed（+MB），原子重寫。前端 ≤2s 撿出 → 卡牌脈動轉 ✓/✗。"""
++    with _crawl_live_lock:
++        for b in _crawl_live.get('books', []):
++            if b['slug'] == slug:
++                b['state'] = state
++                if mb is not None:
++                    b['mb'] = round(mb, 1)
++                break
++        else:
++            return
++    _write_crawl_live()
++
++
++def end_crawl_live() -> None:
++    """整批收尾：標 ended_at（active 轉 false）。read_crawl_live 用它做 tail 寬限後自動隱藏。"""
++    with _crawl_live_lock:
++        if not _crawl_live:
++            return
++        _crawl_live['ended_at'] = time.time()
++    _write_crawl_live()
++
++
++def read_crawl_live() -> dict | None:
++    """讀 dev/crawl_live.json（devctl snapshot 用，跨進程）。dead tick 殘檔（updated_at > 10min）視為過期回 None。"""
++    try:
++        d = json.load(open(CRAWL_LIVE_PATH, encoding='utf-8'))
++    except Exception:
++        return None
++    if time.time() - (d.get('updated_at') or 0) > 600:
++        return None
++    return d
++
++
+ def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
+          env: dict | None = None, timeout: int | None = None) -> int:
+     log(('DRY ' if dry else 'RUN ') + ' '.join(shlex.quote(c) for c in cmd))
+@@ -819,8 +906,15 @@ def _fetch_book(b: dict) -> str | None:
+            'book_pipeline.crawl_zlib', 'fetch', bid, bhash, '--slug', slug]
+     if b.get('account') is not None:
+         cmd += ['--account', str(b['account'])]
+-    rc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).returncode
++    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
++    rc = proc.returncode
+     if rc == 0 and os.path.isfile(os.path.join(ROOT, 'raw_pdfs', f'{slug}.pdf')):
++        m = re.search(r'完成 ([\d.]+) MB', proc.stdout or '')  # crawl_zlib cmd_fetch 印「完成 X.X MB」
++        if m:
++            try:
++                b['_mb'] = float(m.group(1))
++            except ValueError:
++                pass
+         log(f'crawl ok：已補書 slug={slug}（acct {b.get("account")}）')
+         return slug
+     log(f'❌ crawl fetch 失敗 slug={slug} rc={rc}')
+@@ -890,6 +984,7 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
+     for i, b in enumerate(batch):
+         b['account'] = slots[i]
+     log(f'crawl 買書員：解析池取 {len(batch)} 本下載（額度槽 {len(slots)}、pipeline 餘裕 {room}）')
++    publish_crawl_live(batch)                            # /dev 即時看板：全本標下載中（前端 ~2s 撿）
+     ok, crawled = set(), []
+     with ThreadPoolExecutor(max_workers=min(CRAWL_PARALLEL, len(batch))) as ex:
+         futs = {ex.submit(_fetch_book, b): b for b in batch}
+@@ -903,10 +998,13 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
+             if s:
+                 ok.add(b['slug']); crawled.append(s)
+                 q.clear_crawl_fail(b['slug'])           # 抓成功 → 清失敗計數
++                update_crawl_live(b['slug'], 'done', b.get('_mb'))
+             else:
++                update_crawl_live(b['slug'], 'failed')
+                 fails = q.bump_crawl_fail(b['slug'])     # 失敗 +1，達上限後 select_next 自動排除
+                 if fails >= MAX_FETCH_FAILS:
+                     log(f'crawl drop：{b["slug"]} 連 {fails} 次 fetch 失敗 → 排除出下載候選（架構師可重解後重試）')
++    end_crawl_live()                                     # 整批收尾 → 看板進「剛完成」tail 寬限後自動隱藏
+     log(f'crawl 買書員 done：抓到 {len(ok)}/{len(batch)}')
+     if crawled:
+         hist.set_touched('crawl_plan', crawled)  # 帶進的書 → 各書抽屜查得此爬書歷程
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-anton-calculus-2 — worker 越界改核心碼：book_pipeline/devctl.py（qc anton_calculus）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc anton_calculus] session=anton_calculus:55718 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+index 64c85cd..a64e18d 100644
+--- a/book_pipeline/devctl.py
++++ b/book_pipeline/devctl.py
+@@ -463,8 +463,17 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
+               'url': res.get(b['slug'], {}).get('href', ''),
+               'cover': res.get(b['slug'], {}).get('cover', ''),
+               'fails': q.crawl_fail_count(b['slug'])} for b in show]
++    # live 下載看板（買書員逐本 下載中→✓/✗，跨進程讀 dev/crawl_live.json）：正在抓時覆寫 state/reason，
++    # 讓 status.json 自身也誠實反映「正在下載」（前端另有 2s 直撿 crawl_live.json 做即時卡牌）。
++    live = pt.read_crawl_live()
++    if live and live.get('active'):
++        n_dl = sum(1 for b in live['books'] if b.get('state') == 'downloading')
++        n_ok = sum(1 for b in live['books'] if b.get('state') == 'done')
++        acct = '+'.join(str(a) for a in (live.get('accounts') or []))
++        state = 'downloading'
++        reason = f'⬇ 正在下載 {n_dl} 本' + (f' · ✓{n_ok} 已落地' if n_ok else '') + (f' · 帳號 {acct}' if acct else '')
+     return {'queue': qview, 'count': n_ready, 'backlog': backlog, 'room': room,
+-            'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason}
++            'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason, 'live': live}
+ 
+ 
+ def math_health() -> dict:
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-anton-calculus-3 — catalog 無法綁定鄰接圖說與練習圖 shard
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke 第二輪僅殘 H6/H7：unresolved Figure refs=20、Table refs=1、empty_captions=1032。parsed/_catalog_audit.md 顯示大量 case 為 image/table block 本身無 caption，而語義在鄰近 bare text，例如 ch00 body[51] 周邊文字含 'Figure 0.1.4 Figure 0.1.5 ...'、多個 exercise 圖塊只有 '(a)/(b)' 或題目敘述，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把鄰接 text 綁到 visual，也無法 declaratively exclude 非可索引 exercise 圖 shard。
+- 提議：擴充 deterministic catalog repair：允許 per-book 將鄰接 text/prose 指定為 figure/table caption donor，並支援對 captionless exercise/inline 圖塊標記 exclude reason 或 shard merge。否則像 anton_calculus 這種大量課本插圖即使章節/題目切分正確，仍會長期卡在 smoke H6/H7。
+
+### P-2026-06-19-chaikin-lubensky-condensed-matte — worker 越界改核心碼：book_pipeline/parser.py（qc chaikin_lubensky_condensed_matter）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc chaikin_lubensky_condensed_matter] session=chaikin_lubensky_condensed_matter:73059 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 2c80077..db672a4 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -26,6 +26,8 @@ from typing import Any
+ 
+ import yaml
+ 
++from book_pipeline.cpu_gate import cpu_bound
++
+ try:
+     from book_pipeline import build_catalogs
+     from book_pipeline.math_normalize import normalize_chunk_math, normalize_tex
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-chaikin-lubensky-condensed-matte-2 — worker 越界改核心碼：book_pipeline/cpu_gate.py（qc chaikin_lubensky_condensed_matter）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc chaikin_lubensky_condensed_matter] session=chaikin_lubensky_condensed_matter:73059 存活期間，受保護程式碼面 book_pipeline/cpu_gate.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：+++ book_pipeline/cpu_gate.py (untracked 新檔)
+"""跨進程 CPU 工具併發閘（flock N 槽 semaphore）。
+
+第一性原理：LLM agent 是子進程、牆鐘 90% 卡在等 API（≈0 CPU），可放心放大併發；真正吃
+CPU 的是它們**內部**呼叫的確定性工具——`parser.parse_book`（大書 30–50MB content_list 的
+regex 規則化）與 `pdf_contactsheet.contactsheet`（PDF 渲圖）。把這兩類重活的「同時執行數」
+封頂在 ≈核數，與 agent 併發**解耦**：可放幾十個 agent 在飛，CPU 活仍不 thrashing。
+
+為何 flock 而非 O_CREAT|O_EXCL 鎖檔：flock 在持有進程死亡時由 OS **自動釋放** → crash-safe，
+絕不留死鎖（O_EXCL 鎖檔在 SIGKILL/kick -k 後會殘留，永久堵死一個槽）。
+
+fail-open 鐵則：閘自身任何異常都直接放行——絕不因「節流器壞了」擋住整條產線。
+"""
+from __future__ import annotations
+
+import contextlib
+import fcntl
+import functools
+import os
+import time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_SLOT_DIR = os.path.join(ROOT, 'book_pipeline', '.cpu_slots')
+_POLL_S = 0.2  # 全槽滿時的重試間隔（重活以秒計，0.2s 輪詢延遲可忽略）
+
+
+def slots() -> int:
+    """同時可跑的 CPU 重活上限。env 覆寫，否則 = 核數 - 1（留一核給系統/IO/daemon 本身）。"""
+    env = os.environ.get('BOOK_PIPELINE_CPU_TOOL_CONCURRENCY')
+    if env and env.isdigit() and int(env) > 0:
+        return int(env)
+    return max(1, (os.cpu_count() or 4) - 1)
+
+
+@contextlib.contextmanager
+def cpu_slot(label: str = ''):
+    """阻塞取得一個 CPU 槽（最多 slots() 個並發），離開即釋放。全滿則短睡輪詢等任一釋放。"""
+    n = slots()
+    held = None
+    try:
+        os.makedirs(_SLOT_DIR, exist_ok=True)
+        while held is None:
+            for i in range(n):
+                fd = os.open(os.path.join(_SLOT_DIR, f's{i}'), os.O_CREAT | os.O_WRONLY, 0o644)
+                try:
+                    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    held = fd
+                    break
+                except OSError:
+                    os.close(fd)
+            if held is None:
+                time.sleep(_POLL_S)
+    except Exception:
+        # fail-open：取槽過程任何異常 → 直接放行，不節流也不報錯
+        yield
+        return
+    try:
+        yield
+    finally:
+        try:
+            fcntl.flock(held, fcntl.LOCK_UN)
+            os.close(held)
+        except OSError:
+            pass
+
+
+def cpu_bound(label: str = ''):
+    """裝飾 CPU 重活函式：執行期間佔一個 CPU 槽。多進程/多 agent 並發呼叫時自動封頂在 slots()。"""
+    def deco(fn):
+        @functools.wraps(fn)
+        def wrap(*a, **k):
+            with cpu_slot(label):
+                return fn(*a, **k)
+        return wrap
+    return deco
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-chaikin-lubensky-condensed-matte-3 — worker 越界改核心碼：book_pipeline/pdf_contactsheet.py（qc chaikin_lubensky_condensed_matter）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc chaikin_lubensky_condensed_matter] session=chaikin_lubensky_condensed_matter:73059 存活期間，受保護程式碼面 book_pipeline/pdf_contactsheet.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/pdf_contactsheet.py b/book_pipeline/pdf_contactsheet.py
+index bcd23d0..14da154 100644
+--- a/book_pipeline/pdf_contactsheet.py
++++ b/book_pipeline/pdf_contactsheet.py
+@@ -20,6 +20,8 @@ import sys
+ import fitz
+ from PIL import Image, ImageDraw
+ 
++from book_pipeline.cpu_gate import cpu_bound
++
+ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ RAW = os.path.join(ROOT, 'raw_pdfs')
+ SLUG_MAP = os.path.join(ROOT, 'book_pipeline', 'slug_map.json')
+@@ -55,6 +57,7 @@ def _pick_pages(n: int, k: int) -> list[int]:
+     return [min(n - 1, int((lo + (hi - lo) * i / (k - 1)) * n)) for i in range(k)]
+ 
+ 
++@cpu_bound('contactsheet')
+ def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
+     doc = fitz.open(path)
+     n = doc.page_count
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-chaikin-lubensky-condensed-matte-4 — parser 無法獨立切 interleaved appendices
+- proposed | type=tooling-gap | source=agent
+- 證據：本書 Appendix 2A/3A/5A/5B/9A/9B 分散插在各章末、位於 bibliography/problems 前；現行 appendices[] 只會從 appendix anchor 連切到下一 appendix 或書尾，無法避免把後續章節吞進 appendix.body，或與章 body 重複。
+- 提議：讓 chapter schema 能宣告 chapter-scoped appendices，或讓 parser 可在 chapter body 中對 appendix anchor 開新 chunk 並於 problems/bibliography 前收束。
+
+### P-2026-06-19-crawl-resolve — worker 越界改核心碼：book_pipeline/booklists/biology.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/biology.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/biology.json b/book_pipeline/booklists/biology.json
+index 6d0609e..4cb843a 100644
+Binary files a/book_pipeline/booklists/biology.json and b/book_pipeline/booklists/biology.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-2 — worker 越界改核心碼：book_pipeline/booklists/materials.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/materials.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/materials.json b/book_pipeline/booklists/materials.json
+index ce76e26..eddc11e 100644
+Binary files a/book_pipeline/booklists/materials.json and b/book_pipeline/booklists/materials.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-3 — worker 越界改核心碼：book_pipeline/booklists/cs.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/cs.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/cs.json b/book_pipeline/booklists/cs.json
+index 79863b2..b7bd1dc 100644
+Binary files a/book_pipeline/booklists/cs.json and b/book_pipeline/booklists/cs.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-4 — worker 越界改核心碼：book_pipeline/booklists/ee.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/ee.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/ee.json b/book_pipeline/booklists/ee.json
+index 6df0b36..3575716 100644
+Binary files a/book_pipeline/booklists/ee.json and b/book_pipeline/booklists/ee.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-5 — worker 越界改核心碼：book_pipeline/booklists/math.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/math.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/math.json b/book_pipeline/booklists/math.json
+index 405f1c4..92b8064 100644
+Binary files a/book_pipeline/booklists/math.json and b/book_pipeline/booklists/math.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-6 — worker 越界改核心碼：book_pipeline/booklists/ml_stats_econ.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/ml_stats_econ.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/ml_stats_econ.json b/book_pipeline/booklists/ml_stats_econ.json
+index aba92b7..a3e51bd 100644
+Binary files a/book_pipeline/booklists/ml_stats_econ.json and b/book_pipeline/booklists/ml_stats_econ.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-7 — worker 越界改核心碼：book_pipeline/booklists/physics.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/physics.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/physics.json b/book_pipeline/booklists/physics.json
+index f4e4c3f..cd8a414 100644
+Binary files a/book_pipeline/booklists/physics.json and b/book_pipeline/booklists/physics.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-8 — worker 越界改核心碼：book_pipeline/booklists/undergrad_foundations.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/undergrad_foundations.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/undergrad_foundations.json b/book_pipeline/booklists/undergrad_foundations.json
+index c540848..14a95b4 100644
+Binary files a/book_pipeline/booklists/undergrad_foundations.json and b/book_pipeline/booklists/undergrad_foundations.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-crawl-resolve-9 — worker 越界改核心碼：book_pipeline/booklists/chemistry.json（crawl __crawl_resolve__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/chemistry.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/booklists/chemistry.json b/book_pipeline/booklists/chemistry.json
+index bb4ad31..790f87a 100644
+Binary files a/book_pipeline/booklists/chemistry.json and b/book_pipeline/booklists/chemistry.json differ
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-deitel-java-how-to-program — catalog gate 無法只靠 audit-book schema 綁定相鄰圖說與排除 captionless visual
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/validate 已綠（25 chapters, 5 appendices），smoke 只剩 H6 unresolved Figure refs=2 與 H7 empty_captions=2212。parsed/_catalog_audit.md 顯示大量 figure/table block 本身沒有 caption/id，語義落在相鄰 text block，例如 ch01 body[188] 前文引用 Fig. 1.6、後鄰 text='Fig. 1.6'；ch01 body[201]/[212] 的真正 caption 在後鄰 prose 'Typical Java development environment—compilation phase.' / '...loading phase.'；另有大量 Common Programming / Good Programming / code screenshot / inline visual 只剩鄰接 prose，現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法 declaratively 將相鄰 bare text 綁成 caption，也無法將無正式 caption 的 visual 標成 non-indexable。
+- 提議：擴充 deterministic catalog repair 能力：1) 允許 per-book 將相鄰 text block 指定為 figure/table caption donor；2) 允許 reviewable per-visual exclude/nonindexable reason，用於 code screenshot、inline illustration、captionless fragments。否則像 Deitel 這種大量 captions 落在鄰接 prose 的教材只能 parser-green，無法通過 smoke H6/H7。
+
+### P-2026-06-19-marder-condensed-matter-physics — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc marder_condensed_matter_physics）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [qc marder_condensed_matter_physics] session=marder_condensed_matter_physics:22683 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+index d0298ba..f506ed8 100644
+--- a/book_pipeline/pipeline_tick.py
++++ b/book_pipeline/pipeline_tick.py
+@@ -25,6 +25,7 @@ from __future__ import annotations
+ 
+ import argparse
+ import concurrent.futures as cf
++import contextlib
+ import fcntl
+ import glob
+ import json
+@@ -63,10 +64,11 @@ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
+ # 模型/effort/chain/timeout 全收斂進「派工配置層」book_pipeline.llm_policy
+ # （DispatchSpec + DEFAULT_DISPATCH/STAGE_DISPATCH + resolve_dispatch），非散落於此。
+ CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
+-# headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
+-# audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
+-# 正常 audit ~25min；1h 留足餘裕（重書 smoke 迭代偶逼近 40min），只在真卡死時觸發。env 可覆寫。
+-LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '3600'))
++# headless LLM 派工的 wall-clock 上限（秒）。**預設 0 = 無限**（agent 跑多久就跑多久）。
++# 當年設此上限是因主力曾是 kimi+claude-cli，會卡死自我空轉（重讀 content_list 卡 6.5h、燒
++# token）；改用 codex 為主力後該病理消失，硬切上限只會誤殺真複雜的書。env 可重設一個正整數
++# 臨時重新加上限（運維拉桿）；0/未設＝無限（→ timeout=None，p.wait 等到自然結束）。
++LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '0'))
+ # ingest async upload 的並行度：upload 是 IO bound（切片+PUT MinerU，~8min/本），多本
+ # 並行打滿上傳頻寬。manifest RMW 由 mineru_ingest 的 fcntl 鎖保護，並行安全。
+ INGEST_PARALLEL = int(os.environ.get('BOOK_PIPELINE_INGEST_PARALLEL', '4'))
+@@ -81,7 +83,7 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
+ # 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 tick 直接 select_next 取解析池待下載書、
+ # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
+ CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
+-                                        os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')))
++                                        os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '30')))
+ # 解析池水位（已確認 z-lib 連結、未 owned = READY）：低於此就派 crawl agent 解析更多 unresolved，
+ # 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
+ CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
+@@ -122,7 +124,7 @@ LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))
+ LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
+ LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
+ LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
+-DRAIN_BOUND = int(os.environ.get('BOOK_PIPELINE_DRAIN_BOUND', '120'))           # 退出排空在飛 worker 的上限秒數，逾時快殺+強退（防無上限 drain 凍結/孤兒鎖）
++DRAIN_BOUND = int(os.environ.get('BOOK_PIPELINE_DRAIN_BOUND', '600'))           # **只對純 thread worker（math sweep/det subprocess）**的排空上限秒，逾時 os._exit 逃生（防純 API thread 凍結/孤兒鎖）。可殺的子進程 agent 不受此限、無限等其自然收尾
+ # live reactive controller 的 statefile（JSON {pid, sha, started}）：loop 起頭寫、退出即刪。
+ #   pid → 外部送 SIGUSR1 喚醒（reload）；sha → 此 controller 載入的 git 版本，供
+ #   「daemon 跑的是哪版碼、離 HEAD 多遠」即時觀測（免上線後做 forensics）。per-machine、gitignore。
+@@ -626,7 +628,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
+     hist.start(wkey, slug, todo_verb, p.pid, provider,
+                _display_model(provider, spec))
+     result_rc = -1  # finally 用：timeout 路徑直接 return -1 不設 rc，故先給地板值
+-    timeout = spec.timeout or LLM_TIMEOUT
++    timeout = spec.timeout or LLM_TIMEOUT or None  # None ⇒ p.wait 無限等、不殺（預設）
+     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
+     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
+     leases.acquire(todo_verb, slug, p.pid, timeout)
+@@ -1086,9 +1088,35 @@ def do_harvest(slug: str, dry: bool) -> int:
+     return rc
+ 
+ 
++@contextlib.contextmanager
++def _live_det_worker(verb: str, slug: str | None):
++    """確定性 advance 步驟（parse / deploy build / catalog repair）的 live-worker 登記。
++    這些步驟跑在 controller 進程內（非 LLM 子進程），過去**不註冊 worker_registry** → /dev 面板
++    只看得到 LLM agent + math_sweep，正在 build/repair 的書顯示「待 X（暫無工人）」誤判成卡關
++    （實則 build_all 的 cwebp 轉圖、catalog repair 三件套正跑得火熱）。此 CM 讓它們現形為
++    「🔧 verb 處理中」。pid=controller 自身（活著、不被 reap）；provider='det'（非 LLM，無 model）。
++    fail-open：登記失敗絕不擋實際工作。"""
++    wkey = f'{verb}:{slug or "-"}:det:{os.getpid()}'
++    try:
++        wr.register(wkey, slug, verb, os.getpid(), 'det')
++    except Exception:
++        pass
++    try:
++        yield
++    finally:
++        try:
++            wr.unregister(wkey)
++        except Exception:
++            pass
++
++
+ def do_parse(slug: str, dry: bool) -> int:
+-    return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
+-                 'book_pipeline.parser', slug], dry=dry)
++    if dry:
++        return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
++                     'book_pipeline.parser', slug], dry=dry)
++    with _live_det_worker('parse', slug):
++        return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
++                     'book_pipeline.parser', slug], dry=dry)
+ 
+ 
+ def _book_qc_block(slug: str) -> list[str]:
+@@ -1201,7 +1229,8 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
+     log(('DRY ' if dry else 'RUN ') + 'build_all ' + slug)
+     if dry:
+         return 0
+-    rc = subprocess.run(build, cwd=READER_ROOT).returncode
++    with _live_det_worker('deploy', slug):  # build_all 上百張圖 cwebp 轉檔 → 數分鐘，面板顯示「🔧 deploy 處理中」
++        rc = subprocess.run(build, cwd=READER_ROOT).returncode
+     # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 tick 重試（不誤標 done）。
+     book_json = os.path.join(READER_ROOT, 'data', slug, 'book.json')
+     if rc == 0 and os.path.isfile(book_json):
+@@ -1397,9 +1426,10 @@ def do_catalog_repair(slug: str, dry: bool) -> int:
+     log(f'catalog_repair {slug}：critical={before} → 跑確定性 repair 三件套')
+     if dry:
+         return 0
+-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_metadata', '--slug', slug])
+-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_from_unified', slug])
+-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_aliases', slug])
++    with _live_det_worker('catalog_audit', slug):  # 三件套 repair 數分鐘 → 面板顯示「🔧 catalog_audit 處理中」
++        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_metadata', '--slug', slug])
++        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_from_unified', slug])
++        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_aliases', slug])
+     after = audit_catalog(slug, write_report=False).get('critical') or 0
+     if after == 0:
+         log(f'catalog_repair {slug} ✓：critical {before}→0，catalog 過關')
+@@ -1755,39 +1785,45 @@ def tick_reactive(no_deploy: bool) -> int:
+             wake.clear()
+     finally:
+         _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
+-        # bounded drain：給在飛 worker 有限時間（DRAIN_BOUND）自然收尾，逾時升級「快殺子工 + 強制
+-        # 退出」。取代舊 ex.shutdown(wait=True) 的無上限等待——它會卡在長在飛批次（math sweep 是純
+-        # API thread，連 _kill_inflight_children 都殺不掉）→ reload/walltime 退出時 24min 凍結 +
+-        # 舊實例不死續持 .tick.lock 的孤兒鎖（見 orphan-lock memory）。被棄 worker 的產物全可從 disk
+-        # 重導、下個 controller 冪等重派，故強退安全（符合「狀態皆 disk 真相重導」架構）。
+-        log(f'reactive loop：排空在飛 worker（上限 {DRAIN_BOUND}s）…')
++        # 分流排空（取代舊「一律 120s 上限、逾時快殺」——那正是 rc=-9 集體死亡的源頭：reload 時
++        # 把跑了 10–40min 的 audit 在 120s 攔腰 SIGKILL）：
++        #   ① 可殺的子進程 agent（_inflight_children 非空）→ **無限等其自然收尾、永不砍**。codex 主力
++        #      無「自我空轉迴圈」病理、必然收斂；reload/walltime 退出對真 agent 完全無害。
++        #   ② 無任何子進程、只剩純 thread worker（math sweep HTTP / det subprocess，killpg 殺不掉）→
++        #      套 DRAIN_BOUND 逃生，逾時 os._exit。純 API thread 會凍結 controller + 續持 .tick.lock
++        #      成孤兒鎖（見 orphan-lock memory），故唯此情形需強退。被棄 thread 產物可 disk 重導、
++        #      下個 controller 冪等重派，強退安全。
++        log(f'reactive loop：排空在飛 worker（子進程 agent 無限等、純 thread 上限 {DRAIN_BOUND}s）…')
+         ex.shutdown(wait=False)  # 不再接新、不阻塞
+-        _drain_deadline = time.monotonic() + DRAIN_BOUND
+-        while time.monotonic() < _drain_deadline:
++        _bound_started = None  # 只在「無子進程、只剩純 thread」期間計時；有子進程即 reset
++        while True:
+             with ifl_lock:
+-                if not inflight:
+-                    break
++                n_ifl = len(inflight)
++            if n_ifl == 0:
++                break
++            with _inflight_lock:
++                n_child = len(_inflight_children)
++            if n_child > 0:
++                _bound_started = None  # 有可殺子工在跑 → 無限等
++                time.sleep(0.5)
++                continue
++            now_m = time.monotonic()  # 只剩純 thread → 起算 DRAIN_BOUND
++            if _bound_started is None:
++                _bound_started = now_m
++            if now_m - _bound_started >= DRAIN_BOUND:
++                break
+             time.sleep(0.5)
+         with ifl_lock:
+             _stuck = len(inflight)
+         if _stuck == 0:
+             log('reactive loop：在飛 worker 已排空，優雅退出')
+         else:
+-            _killed = _kill_inflight_children()  # 快殺可殺的 LLM 子工 → 解開卡在 p.wait 的 worker thread
+-            log(f'reactive loop：drain 逾時 {DRAIN_BOUND}s → 快殺 {_killed} 在飛子工、棄置 {_stuck} worker'
+-                '（產物 disk 重導、下個 controller 重派），強制退出')
+-            _grace = time.monotonic() + 5  # 極短 grace 讓被快殺的 worker 收尾（hist.finish/leases.release）
+-            while time.monotonic() < _grace:
+-                with ifl_lock:
+-                    if not inflight:
+-                        break
+-                time.sleep(0.2)
+-            with ifl_lock:
+-                _residual = len(inflight)
+-            if _residual:
+-                log(f'reactive loop：仍有 {_residual} 個非子進程型卡死 worker（純 API）→ os._exit 強退（respawn/launchd 重拉）')
+-                sys.stdout.flush()
+-                os._exit(0)  # 唯一能停掉卡死 thread 的手段；flock 隨進程死釋放、respawn 小弟接手
++            # 走到這 = 只剩純 thread worker 卡 DRAIN_BOUND（子進程 agent 已全部自然收尾）→ os._exit 逃生
++            _killed = _kill_inflight_children()  # 通常 0（純 thread 無子進程可殺）；保險一擊
++            log(f'reactive loop：純 thread worker 排空逾時 {DRAIN_BOUND}s → 棄置 {_stuck} 個（殺 {_killed} 子工）'
++                '，os._exit 強退（產物 disk 重導、下個 controller 重派）')
++            sys.stdout.flush()
++            os._exit(0)  # 唯一能停掉卡死純 API thread 的手段；flock 隨進程死釋放、respawn 小弟接手
+     # 在飛 worker 已排空（上面 drain 完成）→ 此處 main thread 獨佔，安全做貴重成果 auto-commit。
+     # 唯 os._exit 硬退路徑跳過（卡死 worker 可能正寫 override → 不冒半寫風險，下個 controller 退出時補）。
+     if not no_deploy:
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-perkins-high-energy-physics — catalog 無法吸收相鄰文字圖說與多 panel sibling 圖
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke 第二輪仍 H7 empty_captions=43。代表案例：unified idx 359(image) 後鄰 360 為正文敘述，圖說語義不在 media caption；idx 452-453 為連續 image，圖說只在後續正文提到 Figure 1.7；多 panel case 如 ch02 body[35..42] 只有最後 caption 含 '(f) Fig. 2.1 ...'，前面 sibling 仍各自成 captionless figures。figure_caption_merge + figure_caption_main_re 已嘗試，smoke 無改善。
+- 提議：擴充 deterministic catalog repair：1) 允許將相鄰 text/prose block declaratively 綁定為前後 image/line/chart 的 caption donor；2) 允許把連續 captionless sibling panels 合併到後續帶主 caption 的圖，而不是各自產生獨立 catalog 項。否則本書 parser 結構已綠但無法清除 H7。
+
+### P-2026-06-19-poole-linear-algebra — Catalog builder needs multi-block figure/table caption association
+- proposed | type=tooling-gap | source=agent
+- 證據：poole_linear_algebra parser succeeds structurally, but smoke still reports H6/H7 with 562 empty figure/table captions and 6 unresolved refs. Many captions are split across adjacent image/text blocks, embedded inline in prose, or distributed across sibling figure blocks (for example ch1 Figure 1.5/1.7/1.10 and multiple table references in ch8). Current schema fields cannot express these patterns book-wide without overfitting regexes.
+- 提議：Augment catalog extraction so figures/tables can inherit captions from nearby caption-like text blocks or inline 'Figure X.Y ...' sentences using adjacency heuristics, multi-block merge windows, and provenance markers. This should happen in the engine rather than per-book YAML.
+
+### P-2026-06-19-poole-linear-algebra-2 — Inline problem detector needs context-aware numeric-list filtering
+- proposed | type=tooling-gap | source=agent
+- 證據：poole_linear_algebra mixes true inline problems ('Problem N ...'), chapter-review questions ('N. ...'), and non-problem numbered lists inside intros/definitions. Current single regex problem_start_re cannot distinguish ch1 racetrack rules or ch2/ch7 definition property lists from real problems, leaving final smoke H2 duplicates (1.1/1.2/1.3, Definition.1/2/3, intro Problem 5 repeat).
+- 提議：Let inline walker consult the active heading kind or nearby cue text before accepting bare numeric starts. For example: accept plain 'N. ...' only inside exercise/review sections, or allow per-book context maps such as numeric_problem_headings=[Exercises, Review Questions] while keeping 'Problem N' global.
+
+### P-2026-06-19-rosen-discrete-math — worker 越界改核心碼：book_pipeline/parser.py（audit rosen_discrete_math）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit rosen_discrete_math] session=rosen_discrete_math:62521 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 2c80077..8104e5a 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -26,6 +26,8 @@ from typing import Any
+ 
+ import yaml
+ 
++from book_pipeline.cpu_gate import cpu_bound
++
+ try:
+     from book_pipeline import build_catalogs
+     from book_pipeline.math_normalize import normalize_chunk_math, normalize_tex
+@@ -685,6 +687,7 @@ def parse_appendix(app: dict, next_start_idx: int, all_blocks: list[dict],
+ 
+ # ── 主流程 ────────────────────────────────────────────────────────────────────
+ 
++@cpu_bound('parse')
+ def parse_book(slug: str) -> dict:
+     rules = load_rules(slug)
+     all_blocks = load_unified(slug)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-tipler-mosca-physics — extract_rules schema 無法表達插入式非整數章號 Chapter R
+- proposed | type=tooling-gap | source=agent
+- 證據：Tipler/Mosca Physics 在 Chapter 10 與 Chapter 11 之間插入 Chapter R: Special Relativity。validate_rules 目前強制 chapters[].num 為連續整數序列，無法忠實表示 1..10,R,11..41。若省略 R，Chapter 10 的 problems 區會吞入整個 R 章；若保留 R，現 schema 無合法 num。
+- 提議：允許 chapters[].id 為字串主鍵（例如 10,R,11），num 改為可選排序欄；或允許 num 為 int|string 並移除連續整數硬限制，由 next_chapter_block_idx 決定順序。
+
+### P-2026-06-19-tipler-mosca-physics-2 — catalog builder 無法從散落 text block 的 spaced figure caption 萃取可索引圖號
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke H6/H7: unresolved Figure refs=1095, empty figure/table captions=804。_catalog_audit.md 顯示大量 caption 以普通 text block 形式出現，例如 'F I G U R E 1 - 1 ...'、'(a)'/'(b)' 子圖文字、以及與正文混排的 caption 句，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把這類 text block 轉成 catalogable figure entries。
+- 提議：在 parser/build_catalogs 增加 text-block figure caption lifting：允許規則提供 figure_text_caption_re / spaced_figure_label_re，將命中的普通 text block 轉成 fig，並支援多塊 caption 合併與子圖 (a)(b) 關聯。
+
+### P-2026-06-19-weinberg-gravitation-cosmology — audit-book 無法 declaratively 合併 captionless sibling figures / appendix captioned tables
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/smoke 在章節結構已綠，但 H7 殘留 empty_captions=8。catalog_audit 顯示多個案例是連續多個 fig block 中，前幾個 image block 無 caption，只有最後一個 sibling fig 帶 Figure 3.1 / 14.10 / 14.11 主圖說（例如 ch03 body[223..226]、ch14 body[293..296]）；另有 appendix table block 已有 caption 但無編號 id（appA body[60..63]）。現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，實測開啟後 smoke 無變化，無法把 captionless sibling 視覺塊 declaratively 併入後續主圖說，也無法為無編號但有 caption 的表格提供 reviewable semantic id/exclude reason。
+- 提議：擴充 deterministic catalog/parser repair 能力：1) 允許 per-book 將連續 captionless sibling figures/table shards 宣告併入後續帶主 caption 的視覺塊；2) 允許對有 caption 但無正式 Figure/Table 編號的視覺塊給 declarative semantic id 或 exclude reason。否則像 Weinberg 這種多 panel OCR 只能 parser 綠，無法清掉 smoke H7。
+
+### P-2026-06-19-zelle-python-programming — catalog audit cannot exclude captionless code listings or bind neighboring visual captions
+- proposed | type=tooling-gap | source=agent
+- 證據：parser/validate are green (13 chapters, 2 appendices) but smoke remains critical only at catalog stage: H6 unresolved Table refs=1 and H7 empty_captions=631. parsed/_catalog_audit.md shows the dominant residual is MinerU code blocks emitted as table entries without semantic captions (686 tables total, 631 empty captions), plus a smaller set of inline figures/tables whose visible semantics live in neighboring prose rather than media caption fields. Current extract_rules schema only offers figure_caption_merge/figure_caption_main_re and cannot mark code-derived table blocks non-indexable or bind adjacent text/prose captions to image/table/code blocks.
+- 提議：Extend catalog extraction/build so audit-book can declaratively exclude non-catalog code listings/captionless structural tables, and optionally bind adjacent text/prose captions to neighboring image/table/code blocks. Without that, books like zelle_python_programming can parse chapters/problems cleanly but remain stuck on H6/H7 for catalog semantics.
+
+### P-2026-06-19-zill-differential-equations — catalog extraction 無法綁定鄰近 prose figure captions 或排除 captionless visual shards
+- proposed | type=tooling-gap | source=agent
+- 證據：smoke 收斂後只剩 H6/H7：catalog unresolved refs=40 (Figure=36, Table=4), empty_captions=48。parsed/_catalog_audit.md 顯示大量視覺塊本身無 caption，但鄰近 prose 含 Figure 1.1.1 / Figure 1.3.4(a) / Figure 2.1.3 等語義，或同一語義被拆成多個 image shard；現行 extract_rules 只有 figure_caption_merge + main regex，無法把相鄰 text 綁到前後 image/table，也無法將 chapter-opener photo / captionless shards 標記 non-indexable。
+- 提議：擴充 audit-book/catalog schema，支援 per-visual caption donor / adjacent text binding，以及 reviewable exclude reason。至少要能：1) 將鄰近 text/prose block 指定為 figure/table caption donor；2) 對無正式 caption 的 decorative or shard visuals 標記 non-indexable；3) 視需要支援 multi-image figure shard merge，而不必改 parser 通用邏輯來硬編這一本到過。
+
+### P-2026-06-19-zill-differential-equations-2 — worker 越界改核心碼：book_pipeline/parser.py（audit zill_differential_equations）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit zill_differential_equations] session=zill_differential_equations:62520 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/parser.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-19-zill-differential-equations-3 — worker 越界改核心碼：book_pipeline/pdf_contactsheet.py（audit zill_differential_equations）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit zill_differential_equations] session=zill_differential_equations:62520 存活期間，受保護程式碼面 book_pipeline/pdf_contactsheet.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/pdf_contactsheet.py modified)
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
 
 ## domain: math  （8 條；proposed=4）
 

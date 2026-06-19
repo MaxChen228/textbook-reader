@@ -1,0 +1,154 @@
+slug: epp_discrete_math
+title: Discrete Mathematics with Applications
+author: Susanna S. Epp
+edition: 5th
+subject: Discrete Mathematics
+publisher: Cengage
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 894
+bibliography_start_page: null
+index_start_page: 1035
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Speaking Mathematically
+    page_start: 23
+    page_end: 58
+    chapter_title_block_idx: 322
+    chapter_title_block_idx_secondary: 323
+    problems_block_idx: null
+    next_chapter_block_idx: 1064
+  - num: 2
+    title: The Logic of Compound Statements
+    page_start: 59
+    page_end: 129
+    chapter_title_block_idx: 1064
+    chapter_title_block_idx_secondary: 1065
+    problems_block_idx: null
+    next_chapter_block_idx: 2689
+  - num: 3
+    title: The Logic of Quantified Statements
+    page_start: 130
+    page_end: 181
+    chapter_title_block_idx: 2689
+    chapter_title_block_idx_secondary: 2690
+    problems_block_idx: null
+    next_chapter_block_idx: 4075
+  - num: 4
+    title: Elementary Number Theory and Methods of Proof
+    page_start: 182
+    page_end: 279
+    chapter_title_block_idx: 4075
+    chapter_title_block_idx_secondary: 4076
+    problems_block_idx: null
+    next_chapter_block_idx: 6459
+  - num: 5
+    title: Sequences, Mathematical Induction, and Recursion
+    page_start: 280
+    page_end: 398
+    chapter_title_block_idx: 6459
+    chapter_title_block_idx_secondary: 6460
+    problems_block_idx: null
+    next_chapter_block_idx: 9557
+  - num: 6
+    title: Set Theory
+    page_start: 399
+    page_end: 446
+    chapter_title_block_idx: 9557
+    chapter_title_block_idx_secondary: 9558
+    problems_block_idx: null
+    next_chapter_block_idx: 10882
+  - num: 7
+    title: Properties of Functions
+    page_start: 447
+    page_end: 508
+    chapter_title_block_idx: 10882
+    chapter_title_block_idx_secondary: 10883
+    problems_block_idx: null
+    next_chapter_block_idx: 12363
+  - num: 8
+    title: Properties of Relations
+    page_start: 509
+    page_end: 585
+    chapter_title_block_idx: 12363
+    chapter_title_block_idx_secondary: 12364
+    problems_block_idx: null
+    next_chapter_block_idx: 14305
+  - num: 9
+    title: Counting and Probability
+    page_start: 586
+    page_end: 698
+    chapter_title_block_idx: 14305
+    chapter_title_block_idx_secondary: 14306
+    problems_block_idx: null
+    next_chapter_block_idx: 16687
+  - num: 10
+    title: Theory of Graphs and Trees
+    page_start: 699
+    page_end: 781
+    chapter_title_block_idx: 16687
+    chapter_title_block_idx_secondary: 16688
+    problems_block_idx: null
+    next_chapter_block_idx: 18318
+  - num: 11
+    title: Analysis of Algorithm Efficiency
+    page_start: 782
+    page_end: 849
+    chapter_title_block_idx: 18318
+    chapter_title_block_idx_secondary: 18319
+    problems_block_idx: null
+    next_chapter_block_idx: 19698
+  - num: 12
+    title: Regular Expressions and Finite-State Automata
+    page_start: 850
+    page_end: 893
+    chapter_title_block_idx: 19698
+    chapter_title_block_idx_secondary: 19699
+    problems_block_idx: null
+    next_chapter_block_idx: 20540
+
+appendices:
+  - id: A
+    title: Properties of the Real Numbers
+    page_start: 894
+    chapter_title_block_idx: 20540
+  - id: B
+    title: Solutions and Hints to Selected Exercises
+    page_start: 897
+    chapter_title_block_idx: 20614
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Za-z][A-Za-z0-9 ,:&()./\-]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)*(?:[a-z])?|[a-z])\}'
+
+example_start_re: '(?i)^Example\s+(\d+\.\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

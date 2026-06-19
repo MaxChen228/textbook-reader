@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-chaikin-lubensky-condensed-matte-2",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/cpu_gate.py（qc chaikin_lubensky_condensed_matter）",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-19T03:03:09+00:00",
+  "updated": "2026-06-19T03:03:09+00:00",
+  "evidence": "scope_guard bracket：worker [qc chaikin_lubensky_condensed_matter] session=chaikin_lubensky_condensed_matter:73059 存活期間，受保護程式碼面 book_pipeline/cpu_gate.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "+++ book_pipeline/cpu_gate.py (untracked 新檔)\n\"\"\"跨進程 CPU 工具併發閘（flock N 槽 semaphore）。\n\n第一性原理：LLM agent 是子進程、牆鐘 90% 卡在等 API（≈0 CPU），可放心放大併發；真正吃\nCPU 的是它們**內部**呼叫的確定性工具——`parser.parse_book`（大書 30–50MB content_list 的\nregex 規則化）與 `pdf_contactsheet.contactsheet`（PDF 渲圖）。把這兩類重活的「同時執行數」\n封頂在 ≈核數，與 agent 併發**解耦**：可放幾十個 agent 在飛，CPU 活仍不 thrashing。\n\n為何 flock 而非 O_CREAT|O_EXCL 鎖檔：flock 在持有進程死亡時由 OS **自動釋放** → crash-safe，\n絕不留死鎖（O_EXCL 鎖檔在 SIGKILL/kick -k 後會殘留，永久堵死一個槽）。\n\nfail-open 鐵則：閘自身任何異常都直接放行——絕不因「節流器壞了」擋住整條產線。\n\"\"\"\nfrom __future__ import annotations\n\nimport contextlib\nimport fcntl\nimport functools\nimport os\nimport time\n\nROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n_SLOT_DIR = os.path.join(ROOT, 'book_pipeline', '.cpu_slots')\n_POLL_S = 0.2  # 全槽滿時的重試間隔（重活以秒計，0.2s 輪詢延遲可忽略）\n\n\ndef slots() -> int:\n    \"\"\"同時可跑的 CPU 重活上限。env 覆寫，否則 = 核數 - 1（留一核給系統/IO/daemon 本身）。\"\"\"\n    env = os.environ.get('BOOK_PIPELINE_CPU_TOOL_CONCURRENCY')\n    if env and env.isdigit() and int(env) > 0:\n        return int(env)\n    return max(1, (os.cpu_count() or 4) - 1)\n\n\n@contextlib.contextmanager\ndef cpu_slot(label: str = ''):\n    \"\"\"阻塞取得一個 CPU 槽（最多 slots() 個並發），離開即釋放。全滿則短睡輪詢等任一釋放。\"\"\"\n    n = slots()\n    held = None\n    try:\n        os.makedirs(_SLOT_DIR, exist_ok=True)\n        while held is None:\n            for i in range(n):\n                fd = os.open(os.path.join(_SLOT_DIR, f's{i}'), os.O_CREAT | os.O_WRONLY, 0o644)\n                try:\n                    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)\n                    held = fd\n                    break\n                except OSError:\n                    os.close(fd)\n            if held is None:\n                time.sleep(_POLL_S)\n    except Exception:\n        # fail-open：取槽過程任何異常 → 直接放行，不節流也不報錯\n        yield\n        return\n    try:\n        yield\n    finally:\n        try:\n            fcntl.flock(held, fcntl.LOCK_UN)\n            os.close(held)\n        except OSError:\n            pass\n\n\ndef cpu_bound(label: str = ''):\n    \"\"\"裝飾 CPU 重活函式：執行期間佔一個 CPU 槽。多進程/多 agent 並發呼叫時自動封頂在 slots()。\"\"\"\n    def deco(fn):\n        @functools.wraps(fn)\n        def wrap(*a, **k):\n            with cpu_slot(label):\n                return fn(*a, **k)\n        return wrap\n    return deco",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

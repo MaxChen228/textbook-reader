@@ -1,0 +1,78 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "zill-fig-6.4.3-idfix",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[432]",
+      "expect": {
+        "id": "fig-ch06-432",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-6.4.3",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[432] caption 為 'Figure 6.4.3 Modified Bessel functions of the first kind...'，但因 OCR 空格成 'Figur e' 未被 parser 抽出語意編號，先前又被錯標 unnumbered_body_fig。補語意 id 並移除 exclude，供應正文對 Figure 6.4.3 的引用。"
+    },
+    {
+      "id": "zill-fig-6.4.4-idfix",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[433]",
+      "expect": {
+        "id": "fig-ch06-433",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-6.4.4",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[433] caption 為 'Figure 6.4.4 Modified Bessel functions of the second kind...'，同樣因 OCR 斷字未抽出語意編號並被錯排除。補 id=fig-6.4.4 後即可覆蓋正文對 Figure 6.4.4 的引用。"
+    },
+    {
+      "id": "zill-fig-7.5.3-idfix",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[673]",
+      "expect": {
+        "id": "fig-ch07-673",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-7.5.3",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Example 1 的第一張圖 caption 明確是 'Figure 7.5.3 Mass is struck at t=2π in part (a)...'；先前被誤當無編號圖排除。補上 fig-7.5.3，讓正文 body[679] 的 Figure 7.5.3 有正確供應。"
+    },
+    {
+      "id": "zill-fig-7.5.4-idfix",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[674]",
+      "expect": {
+        "id": "fig-ch07-674",
+        "catalog_exclude_reason": "catalog_alias_anchor"
+      },
+      "set": {
+        "id": "fig-7.5.4",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason",
+        "catalog_aliases"
+      ],
+      "reason": "第二張圖 caption 明確是 'Figure 7.5.4 No motion until mass is struck at t=2π in part (b)...'。先前把這塊當作 fig-7.5.3 的 alias anchor，導致 7.5.4 缺圖且 7.5.3 錨錯。改為 fig-7.5.4 並移除錯 alias。"
+    }
+  ]
+}

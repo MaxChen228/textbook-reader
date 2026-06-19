@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-chaikin-lubensky-condensed-matte-4",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "parser 無法獨立切 interleaved appendices",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T04:20:00+00:00",
+  "updated": "2026-06-19T04:20:00+00:00",
+  "evidence": "本書 Appendix 2A/3A/5A/5B/9A/9B 分散插在各章末、位於 bibliography/problems 前；現行 appendices[] 只會從 appendix anchor 連切到下一 appendix 或書尾，無法避免把後續章節吞進 appendix.body，或與章 body 重複。",
+  "proposal": "讓 chapter schema 能宣告 chapter-scoped appendices，或讓 parser 可在 chapter body 中對 appendix anchor 開新 chunk 並於 problems/bibliography 前收束。",
+  "risk": "",
+  "disposition": ""
+}

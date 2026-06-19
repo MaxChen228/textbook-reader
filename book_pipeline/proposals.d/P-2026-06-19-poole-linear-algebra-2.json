@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-poole-linear-algebra-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Inline problem detector needs context-aware numeric-list filtering",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T03:12:50+00:00",
+  "updated": "2026-06-19T03:12:50+00:00",
+  "evidence": "poole_linear_algebra mixes true inline problems ('Problem N ...'), chapter-review questions ('N. ...'), and non-problem numbered lists inside intros/definitions. Current single regex problem_start_re cannot distinguish ch1 racetrack rules or ch2/ch7 definition property lists from real problems, leaving final smoke H2 duplicates (1.1/1.2/1.3, Definition.1/2/3, intro Problem 5 repeat).",
+  "proposal": "Let inline walker consult the active heading kind or nearby cue text before accepting bare numeric starts. For example: accept plain 'N. ...' only inside exercise/review sections, or allow per-book context maps such as numeric_problem_headings=[Exercises, Review Questions] while keeping 'Problem N' global.",
+  "risk": "",
+  "disposition": ""
+}

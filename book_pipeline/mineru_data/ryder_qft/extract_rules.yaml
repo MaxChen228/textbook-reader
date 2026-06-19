@@ -1,0 +1,136 @@
+slug: ryder_qft
+title: Quantum Field Theory
+author: Lewis H. Ryder
+edition: 2nd
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 494
+bibliography_start_page: 497
+index_start_page: 503
+
+chapters:
+  - num: 1
+    title: "Introduction: synopsis of particle physics"
+    page_start: 22
+    page_end: 45
+    chapter_title_block_idx: 204
+    chapter_title_block_idx_secondary: 205
+    problems_block_idx: null
+    next_chapter_block_idx: 469
+  - num: 2
+    title: Single-particle relativistic wave equations
+    page_start: 46
+    page_end: 99
+    chapter_title_block_idx: 469
+    chapter_title_block_idx_secondary: 470
+    problems_block_idx: null
+    next_chapter_block_idx: 1403
+  - num: 3
+    title: Lagrangian formulation, symmetries and gauge fields
+    page_start: 100
+    page_end: 146
+    chapter_title_block_idx: 1403
+    chapter_title_block_idx_secondary: 1404
+    problems_block_idx: null
+    next_chapter_block_idx: 2140
+  - num: 4
+    title: Canonical quantisation and particle interpretation
+    page_start: 147
+    page_end: 174
+    chapter_title_block_idx: 2140
+    chapter_title_block_idx_secondary: 2141
+    problems_block_idx: null
+    next_chapter_block_idx: 2577
+  - num: 5
+    title: Path integrals and quantum mechanics
+    page_start: 175
+    page_end: 202
+    chapter_title_block_idx: 2577
+    chapter_title_block_idx_secondary: 2578
+    problems_block_idx: null
+    next_chapter_block_idx: 2976
+  - num: 6
+    title: "Path-integral quantisation and Feynman rules: scalar and spinor fields"
+    page_start: 203
+    page_end: 260
+    chapter_title_block_idx: 2976
+    chapter_title_block_idx_secondary: 2977
+    problems_block_idx: null
+    next_chapter_block_idx: 3928
+  - num: 7
+    title: "Path-integral quantisation: gauge fields"
+    page_start: 261
+    page_end: 302
+    chapter_title_block_idx: 3928
+    chapter_title_block_idx_secondary: 3929
+    problems_block_idx: null
+    next_chapter_block_idx: 4600
+  - num: 8
+    title: Spontaneous symmetry breaking and the Weinberg-Salam model
+    page_start: 303
+    page_end: 328
+    chapter_title_block_idx: 4600
+    chapter_title_block_idx_secondary: 4601
+    problems_block_idx: null
+    next_chapter_block_idx: 4984
+  - num: 9
+    title: Renormalisation
+    page_start: 329
+    page_end: 410
+    chapter_title_block_idx: 4984
+    chapter_title_block_idx_secondary: 4985
+    problems_block_idx: null
+    next_chapter_block_idx: 6260
+  - num: 10
+    title: Topological objects in field theory
+    page_start: 411
+    page_end: 446
+    chapter_title_block_idx: 6260
+    chapter_title_block_idx_secondary: 6261
+    problems_block_idx: null
+    next_chapter_block_idx: 6768
+  - num: 11
+    title: Supersymmetry
+    page_start: 447
+    page_end: 493
+    chapter_title_block_idx: 6768
+    chapter_title_block_idx_secondary: 6769
+    problems_block_idx: null
+    next_chapter_block_idx: 7659
+
+appendices:
+  - id: A
+    title: some 2-spinor conventions
+    page_start: 494
+    chapter_title_block_idx: 7659
+
+section_re: '^(\d+\.\d+)\.?\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: '^(?:FIGURE|Figure|Fig\.|TABLE|Table)\s+[A-Z]?\d+(?:[.\-–—]\d+)+(?:[A-Za-z])?[.:]'
+
+known_missing_problems: []

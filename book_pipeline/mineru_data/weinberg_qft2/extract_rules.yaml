@@ -1,0 +1,116 @@
+slug: weinberg_qft2
+title: The Quantum Theory of Fields Volume II Modern Applications
+author: Steven Weinberg
+edition: null
+subject: Particle Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 500
+bibliography_start_page: null
+index_start_page: 500
+
+chapters:
+  - num: 15
+    title: Non-Abelian Gauge Theories
+    page_start: 23
+    page_end: 84
+    chapter_title_block_idx: 284
+    chapter_title_block_idx_secondary: 285
+    problems_block_idx: 1160
+    next_chapter_block_idx: 1194
+  - num: 16
+    title: External Field Methods
+    page_start: 85
+    page_end: 101
+    chapter_title_block_idx: 1194
+    chapter_title_block_idx_secondary: 1195
+    problems_block_idx: 1412
+    next_chapter_block_idx: 1421
+  - num: 17
+    title: Renormalization of Gauge Theories
+    page_start: 102
+    page_end: 132
+    chapter_title_block_idx: 1421
+    chapter_title_block_idx_secondary: 1422
+    problems_block_idx: 1894
+    next_chapter_block_idx: 1902
+  - num: 18
+    title: Renormalization Group Methods
+    page_start: 133
+    page_end: 184
+    chapter_title_block_idx: 1902
+    chapter_title_block_idx_secondary: 1903
+    problems_block_idx: 2519
+    next_chapter_block_idx: 2538
+  - num: 19
+    title: Spontaneously Broken Global Symmetries
+    page_start: 185
+    page_end: 273
+    chapter_title_block_idx: 2538
+    chapter_title_block_idx_secondary: 2539
+    problems_block_idx: 3667
+    next_chapter_block_idx: 3690
+  - num: 20
+    title: Operator Product Expansions
+    page_start: 274
+    page_end: 316
+    chapter_title_block_idx: 3690
+    chapter_title_block_idx_secondary: 3691
+    problems_block_idx: 4228
+    next_chapter_block_idx: 4242
+  - num: 21
+    title: Spontaneously Broken Gauge Symmetries
+    page_start: 317
+    page_end: 380
+    chapter_title_block_idx: 4242
+    chapter_title_block_idx_secondary: 4243
+    problems_block_idx: 5035
+    next_chapter_block_idx: 5057
+  - num: 22
+    title: Anomalies
+    page_start: 381
+    page_end: 442
+    chapter_title_block_idx: 5057
+    problems_block_idx: 5831
+    next_chapter_block_idx: 5849
+  - num: 23
+    title: Extended Field Configurations
+    page_start: 443
+    page_end: 499
+    chapter_title_block_idx: 5849
+    chapter_title_block_idx_secondary: 5850
+    problems_block_idx: 6526
+    next_chapter_block_idx: 7439
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^References$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+(?:\.[0-9A-Z]+)+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

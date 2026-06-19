@@ -1,0 +1,174 @@
+slug: padmanabhan_gravitation
+title: "Gravitation: Foundations and Frontiers"
+author: "T. Padmanabhan"
+edition: null
+subject: "General Relativity"
+publisher: "Cambridge University Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 30
+appendices_start_page: 724
+bibliography_start_page: null
+index_start_page: 724
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Special relativity"
+    page_start: 30
+    page_end: 82
+    chapter_title_block_idx: 533
+    chapter_title_block_idx_secondary: 534
+    problems_block_idx: null
+    next_chapter_block_idx: 1179
+  - num: 2
+    title: "Scalar and electromagnetic fields in special relativity"
+    page_start: 83
+    page_end: 135
+    chapter_title_block_idx: 1179
+    chapter_title_block_idx_secondary: 1180
+    problems_block_idx: null
+    next_chapter_block_idx: 1912
+  - num: 3
+    title: "Gravity and spacetime geometry: the inescapable connection"
+    page_start: 136
+    page_end: 164
+    chapter_title_block_idx: 1912
+    chapter_title_block_idx_secondary: 1913
+    problems_block_idx: null
+    next_chapter_block_idx: 2266
+  - num: 4
+    title: "Metric tensor, geodesics and covariant derivative"
+    page_start: 165
+    page_end: 217
+    chapter_title_block_idx: 2266
+    chapter_title_block_idx_secondary: 2267
+    problems_block_idx: null
+    next_chapter_block_idx: 2943
+  - num: 5
+    title: "Curvature of spacetime"
+    page_start: 218
+    page_end: 267
+    chapter_title_block_idx: 2943
+    chapter_title_block_idx_secondary: 2944
+    problems_block_idx: null
+    next_chapter_block_idx: 3652
+  - num: 6
+    title: "Einstein’s field equations and gravitational dynamics"
+    page_start: 268
+    page_end: 321
+    chapter_title_block_idx: 3652
+    chapter_title_block_idx_secondary: 3653
+    problems_block_idx: null
+    next_chapter_block_idx: 4446
+  - num: 7
+    title: "Spherically symmetric geometry"
+    page_start: 322
+    page_end: 368
+    chapter_title_block_idx: 4446
+    chapter_title_block_idx_secondary: 4447
+    problems_block_idx: null
+    next_chapter_block_idx: 5166
+  - num: 8
+    title: "Black holes"
+    page_start: 369
+    page_end: 427
+    chapter_title_block_idx: 5166
+    chapter_title_block_idx_secondary: 5167
+    problems_block_idx: null
+    next_chapter_block_idx: 5897
+  - num: 9
+    title: "Gravitational waves"
+    page_start: 428
+    page_end: 480
+    chapter_title_block_idx: 5897
+    chapter_title_block_idx_secondary: 5898
+    problems_block_idx: null
+    next_chapter_block_idx: 6639
+  - num: 10
+    title: "Relativistic cosmology"
+    page_start: 481
+    page_end: 530
+    chapter_title_block_idx: 6639
+    chapter_title_block_idx_secondary: 6640
+    problems_block_idx: null
+    next_chapter_block_idx: 7339
+  - num: 11
+    title: "Differential forms and exterior calculus"
+    page_start: 531
+    page_end: 558
+    chapter_title_block_idx: 7339
+    chapter_title_block_idx_secondary: 7340
+    problems_block_idx: null
+    next_chapter_block_idx: 7754
+  - num: 12
+    title: "Hamiltonian structure of general relativity"
+    page_start: 559
+    page_end: 588
+    chapter_title_block_idx: 7754
+    chapter_title_block_idx_secondary: 7755
+    problems_block_idx: null
+    next_chapter_block_idx: 8193
+  - num: 13
+    title: "Evolution of cosmological perturbations"
+    page_start: 589
+    page_end: 619
+    chapter_title_block_idx: 8193
+    chapter_title_block_idx_secondary: 8194
+    problems_block_idx: null
+    next_chapter_block_idx: 8609
+  - num: 14
+    title: "Quantum field theory in curved spacetime"
+    page_start: 620
+    page_end: 671
+    chapter_title_block_idx: 8609
+    chapter_title_block_idx_secondary: 8610
+    problems_block_idx: null
+    next_chapter_block_idx: 9333
+  - num: 15
+    title: "Gravity in higher and lower dimensions"
+    page_start: 672
+    page_end: 698
+    chapter_title_block_idx: 9333
+    chapter_title_block_idx_secondary: 9334
+    problems_block_idx: null
+    next_chapter_block_idx: 9693
+  - num: 16
+    title: "Gravity as an emergent phenomenon"
+    page_start: 699
+    page_end: 723
+    chapter_title_block_idx: 9693
+    chapter_title_block_idx_secondary: 9694
+    problems_block_idx: null
+    next_chapter_block_idx: 10550
+
+section_re: '^((?:\d+\.\d+(?=[\s ]+\S))|(?:PROJECTS?))[\s ]*(.*)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:Exercise|Project)\s+\d+\.\d+)(?:\s+.+)?$'
+problem_chapter_must_match: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
