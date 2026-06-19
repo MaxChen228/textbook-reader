@@ -1,0 +1,17 @@
+# riley_hobson_bence_mp_sol — pending
+# Source is the correct Student Solutions Manual, but YAML-only config cannot
+# recover chapter numbers safely with the current harness.
+# Evidence:
+# - text_level=1 chapter anchors are bare titles such as "Preliminary algebra"
+#   and "Complex numbers and hyperbolic functions", with no numeric capture.
+# - numeric chapter markers exist only at text_level=2 "N.M Hints and answers"
+#   headings, e.g. "1.9 Hints and answers", "2.4 Hints and answers".
+# - content is otherwise aligned by problem number, e.g. 3.1 question at idx
+#   2358 and solution at idx 2461 in unified/content_list.json.
+# Current sol_extract accepts chapter anchors only from text_level==1 text, so
+# this book needs harness support for level-2 chapter anchors or chapter
+# derivation from problem numbers before a safe merge is possible.
+_pending: true
+chapter_re: '^(\d+)\.\d+\s+Hints and answers$'
+problem_re: '^(\d+\.\d+)\b'
+multi_per_block: false
