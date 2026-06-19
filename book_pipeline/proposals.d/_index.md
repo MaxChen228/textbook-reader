@@ -2958,3 +2958,10 @@ index 2c80077..8104e5a 100644
 - 證據：cluster: \] occ=3 books=3; \( occ=3 books=1; all are in already-math payloads where mode delimiters become undefined residuals
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
+
+## domain: sol  （1 條；proposed=1）
+
+### P-2026-06-19-strang-linalg-sol — strang_linalg 解答書無法 merge：sol_extract 不支援 lvl=2 Problem Set anchor
+- proposed | type=harness-gap | source=sol_extract
+- 證據：strang_linalg_sol/unified/content_list.json 的 text block 統計為 lvl=2:60、lvl=1:0；現行 sol_extract 只掃 text_level==1 當 chapter anchor。dry-run（2026-06-19）結果為抽出 0 章、0 題，無法開始配對。解答書實際以 'Problem Set N.M, page P' 當段落標頭，題號再嵌在後續 text/equation block 開頭。
+- 提議：擴充 sol_extract schema/引擎：允許設定章 anchor 的 text_level，或新增以 Problem Set N.M 直接映射主書 chapter + ProblemSetN.M.K namespace 的模式；完成後再重跑 strang_linalg_sol。

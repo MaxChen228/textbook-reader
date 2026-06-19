@@ -1,0 +1,21 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當作章 anchor。
+#    但 strang_linalg_sol/unified/content_list.json 完全沒有任何 lvl=1 text；
+#    dry-run 在預設規則下穩定抽出 0 章、0 題。
+#
+# 2. 解答書的實際結構是 `text_level=2` 的 "Problem Set N.M, page P" 段落，
+#    題號則直接嵌在後續 text / equation block 開頭（如 "1 ...", "\\textbf{1} ..."）。
+#    這需要引擎支援「非 lvl=1 章節 anchor」或「Problem Set → 主書章號/section」映射，
+#    不是單靠 regex 可補。
+#
+# 3. 主書題號 namespace 也不是純 `N.M`，大量題目鍵為 `ProblemSetN.M.K`。
+#    即使硬放寬 problem_re，也仍先卡死在「無章 anchor → 無法切章」這一層。
+#
+# 待 sol_extract 支援：
+#   - 自訂章 anchor text_level；或
+#   - 以 section header（Problem Set N.M）直接導出主書 chapter/problem namespace。
+chapter_re: '^Problem Set\\s+(\\d+)\\.\\d+,\\s+page\\s+\\d+$'
+problem_re: '^(?:\\\\textbf\\s*\\{)?(\\d+)(?:\\})?[\\s\\.]'
+multi_per_block: false
+_pending: true
