@@ -311,7 +311,7 @@
 ### P-2026-06-18-brown-lemay-central-science — figure catalog cannot index split/bare captions in chemistry text
 - superseded | type=tooling-gap | source=agent
 - 決議：caption 綁定/exclude 能力已存在於 repair_catalog_metadata（非引擎缺口）；本書 live 仍 crit>0，屬 repair 尚未/未完全收斂，待 daemon repair pass + per-book catalog_override 收尾。
-- 處置：brown_lemay 4272（repair 未跑、0 markers）／young_freedman 759／tipler 40。
+- 處置：repair 曾跑（2 個 _manual_repair_backups dir）但 current parsed 0 markers——後續 re-parse 抹掉 repair 輸出且未再跑（stale），故 crit=4272；待 daemon 下個 repair pass 重跑，殘留多為無編號 body 圖（鄰塊無 Figure N.M anchor），重跑後仍殘者需 per-book catalog_override / 換源。非引擎缺口。
 - 證據：Final smoke on brown_lemay_central_science stays at H6 unresolved Figure refs=30 and H7 empty_captions=1817 after extract_rules iteration. Parser now cleanly yields chapter-end problems (24 chapters, 63-88 problems/chapter), so remaining failure is catalog-only. Catalog audit shows many MinerU image fragments with no own caption while the visible figure id/caption lives in later bare text like '▲ Figure 1.25 ...' or prose refs like 'Figure 1.9 summarizes ...'. Enabling figure_caption_merge plus a main-caption regex worsened metrics (H6 36, H7 1827), so current schema cannot express these cases safely.
 - 提議：Extend catalog extraction to associate nearby bare text or sibling image fragments with a figure id/caption, and allow captionless figure shards to be marked non-indexable/excluded without poisoning H6/H7. Current figure_caption_merge only handles subcaption-to-main-caption merges and is insufficient for this OCR pattern.
 
@@ -1942,7 +1942,7 @@ index cfa9359..e83e7ad 100644
 ### P-2026-06-18-young-freedman-university-physic — build_catalogs 離散圖說(detached caption)回收能力 — young_freedman audit worker 越界版
 - superseded | type=tooling-gap | source=scope_guard-retroactive
 - 決議：caption 綁定/exclude 能力已存在於 repair_catalog_metadata（非引擎缺口）；本書 live 仍 crit>0，屬 repair 尚未/未完全收斂，待 daemon repair pass + per-book catalog_override 收尾。
-- 處置：brown_lemay 4272（repair 未跑、0 markers）／young_freedman 759／tipler 40。
+- 處置：repair 已跑（3251 repair + 1626 exclude markers）；殘 crit=759 為無 numbered anchor 的 captionless body 圖，repair 無 anchor 可綁 → 需 per-book catalog_override / 換更完整源。非引擎缺口。
 - 證據：young_freedman audit worker (session 20260617T221215Z, 57min/236ev) 撞到「圖說是獨立 text block 緊鄰 image、非 image 內」，build_catalogs 抓不到 → smoke H6/H7 fail。worker 擅改 build_catalogs.py 約70行(FIG_BARE_CAPTION_RE/SUBFIG_PARENT_CAPTION_RE/_find_nearby_visual_anchor)讓自己過。但它看不到跨模組不變式：此改動打破 test_catalog_id_parity（corpus 衍生 fig-1.2--1 vs build_catalogs fig-1.2 → reader 點目錄跳不到）。
 - 提議：idea 本身合理（離散 caption 回收是真缺口），但須由架構師正式重做：與 corpus 的 anchor id 衍生保持 parity（test_catalog_id_parity 當閘）、且 bare-caption regex 要夠嚴避免把章首 "1.1 What a physical theory is" 摘要誤當圖說。worker 原始 patch 全文如下：
 
@@ -3114,7 +3114,7 @@ index 2c80077..8104e5a 100644
 ### P-2026-06-19-tipler-mosca-physics-2 — catalog builder 無法從散落 text block 的 spaced figure caption 萃取可索引圖號
 - superseded | type=tooling-gap | source=agent
 - 決議：caption 綁定/exclude 能力已存在於 repair_catalog_metadata（非引擎缺口）；本書 live 仍 crit>0，屬 repair 尚未/未完全收斂，待 daemon repair pass + per-book catalog_override 收尾。
-- 處置：brown_lemay 4272（repair 未跑、0 markers）／young_freedman 759／tipler 40。
+- 處置：repair 已跑（2821 repair + 1656 exclude markers）；殘 crit=40（missing figure refs）為散落 spaced-caption / 無 anchor 圖，需 per-book override 收尾。非引擎缺口。
 - 證據：smoke H6/H7: unresolved Figure refs=1095, empty figure/table captions=804。_catalog_audit.md 顯示大量 caption 以普通 text block 形式出現，例如 'F I G U R E 1 - 1 ...'、'(a)'/'(b)' 子圖文字、以及與正文混排的 caption 句，現有 extract_rules 只有 figure_caption_merge/figure_caption_main_re，無法把這類 text block 轉成 catalogable figure entries。
 - 提議：在 parser/build_catalogs 增加 text-block figure caption lifting：允許規則提供 figure_text_caption_re / spaced_figure_label_re，將命中的普通 text block 轉成 fig，並支援多塊 caption 合併與子圖 (a)(b) 關聯。
 
