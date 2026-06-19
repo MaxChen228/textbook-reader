@@ -1,0 +1,129 @@
+slug: stein_singular_integrals
+title: Singular Integrals and Differentiability Properties of Functions
+author: Elias M. Stein
+edition: null
+subject: Real Analysis
+publisher: Princeton University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 284
+bibliography_start_page: 293
+index_start_page: 302
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Some Fundamental Notions of Real-Variable Theory
+    page_start: 16
+    page_end: 38
+    chapter_title_block_idx: 153
+    chapter_title_block_idx_secondary: 154
+    problems_block_idx: null
+    next_chapter_block_idx: 483
+  - num: 2
+    title: Singular Integrals
+    page_start: 39
+    page_end: 66
+    chapter_title_block_idx: 483
+    chapter_title_block_idx_secondary: 484
+    problems_block_idx: null
+    next_chapter_block_idx: 905
+  - num: 3
+    title: Riesz Transforms, Poisson Integrals, and Spherical Harmonics
+    page_start: 67
+    page_end: 93
+    chapter_title_block_idx: 905
+    chapter_title_block_idx_secondary: 906
+    problems_block_idx: null
+    next_chapter_block_idx: 1309
+  - num: 4
+    title: The Littlewood-Paley Theory and Multipliers
+    page_start: 94
+    page_end: 128
+    chapter_title_block_idx: 1309
+    chapter_title_block_idx_secondary: 1310
+    problems_block_idx: null
+    next_chapter_block_idx: 1903
+  - num: 5
+    title: Differentiability Properties in Terms of Function Spaces
+    page_start: 129
+    page_end: 178
+    chapter_title_block_idx: 1903
+    chapter_title_block_idx_secondary: 1904
+    problems_block_idx: null
+    next_chapter_block_idx: 2766
+  - num: 6
+    title: Extensions and Restrictions
+    page_start: 179
+    page_end: 208
+    chapter_title_block_idx: 2766
+    chapter_title_block_idx_secondary: 2767
+    problems_block_idx: null
+    next_chapter_block_idx: 3196
+  - num: 7
+    title: Return to the Theory of Harmonic Functions
+    page_start: 209
+    page_end: 252
+    chapter_title_block_idx: 3196
+    chapter_title_block_idx_secondary: 3198
+    problems_block_idx: null
+    next_chapter_block_idx: 3884
+  - num: 8
+    title: Differentiation of Functions
+    page_start: 253
+    page_end: 283
+    chapter_title_block_idx: 3884
+    chapter_title_block_idx_secondary: 3885
+    problems_block_idx: null
+    next_chapter_block_idx: 4369
+
+appendices:
+  - id: A
+    title: Some inequalities
+    page_start: 284
+    chapter_title_block_idx: 4369
+  - id: B
+    title: The Marcinkiewicz interpolation theorem
+    page_start: 285
+    chapter_title_block_idx: 4388
+  - id: C
+    title: Some elementary properties of harmonic functions*
+    page_start: 287
+    chapter_title_block_idx: 4430
+  - id: D
+    title: Inequalities for Rademacher functions
+    page_start: 289
+    chapter_title_block_idx: 4463
+
+section_re: '^((?:\d+)(?:\s*[\*∗])?)\.\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)(?:\s*[\*∗])?)\s+([A-Z][a-z]+(?: [A-Za-z][A-Za-z''’‘"()-]*)*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

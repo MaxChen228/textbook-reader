@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-katznelson-harmonic-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "parser 缺 section-local exercises 抽題能力",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:44:35+00:00",
+  "updated": "2026-06-19T21:44:35+00:00",
+  "evidence": "本書採 Roman chapter + Arabic section。每個 section 結尾有 EXERCISES heading，題號在各 section 內從 1. 重置；用 inline_problems=true、problem_num_namespace_by_section=true、並讓 subsection_re 吃 EXERCISES 後，parser 仍把如 idx 217『1. Compute the Fourier coefficients...』與後續題目全部留在 body，ch01-ch08 problem_count 皆為 0。",
+  "proposal": "在 parser 增加 section-local problems 模型：允許 chapter 內多個 exercises/probs anchors，或讓 inline walker 在遇到 exercises heading 後切入 problem mode，並正確處理各 section 題號 reset。",
+  "risk": "",
+  "disposition": ""
+}

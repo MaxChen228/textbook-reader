@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-gilbarg-trudinger-elliptic-pde",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Allow audit yaml to exclude isolated OCR fake image blocks",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:53:46+00:00",
+  "updated": "2026-06-19T21:53:46+00:00",
+  "evidence": "Smoke H7 remains after two yaml iterations: parsed/catalogs.json has ch09 figure anchor fig-ch09-120 with caption='' for src 0ba71b03044ce2d74064504e56236ad2d90d695884be06fde9f9b4fd7774bb69.jpg. parser figure_caption_merge only handles subcaption->main caption replacement and cannot mark a single unlabeled OCR fake image as excluded without affecting real unlabeled figures in ch03/ch14.",
+  "proposal": "Add a schema-level way to exclude specific figure/table blocks by chapter+section+anchor/index or by media src hash, mapping to catalog_exclude_reason in parsed output before smoke/catalog audit.",
+  "risk": "",
+  "disposition": ""
+}

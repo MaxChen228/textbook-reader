@@ -1,0 +1,121 @@
+slug: katznelson_harmonic_analysis
+title: An Introduction to Harmonic Analysis
+author: Yitzhak Katznelson
+edition: 3rd
+subject: Harmonic Analysis
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 283
+bibliography_start_page: 294
+index_start_page: 296
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Fourier Series on T
+    page_start: 12
+    page_end: 65
+    chapter_title_block_idx: 122
+    chapter_title_block_idx_secondary: 121
+    problems_block_idx: null
+    next_chapter_block_idx: 1056
+  - num: 2
+    title: The Convergence of Fourier Series
+    page_start: 66
+    page_end: 81
+    chapter_title_block_idx: 1056
+    chapter_title_block_idx_secondary: 1055
+    problems_block_idx: null
+    next_chapter_block_idx: 1307
+  - num: 3
+    title: The Conjugate Function and Functions Analytic in the Unit Disc
+    page_start: 82
+    page_end: 115
+    chapter_title_block_idx: 1307
+    chapter_title_block_idx_secondary: 1306
+    problems_block_idx: null
+    next_chapter_block_idx: 1838
+  - num: 4
+    title: Interpolation of Linear Operators and the Theorem of Hausdorff-Young
+    page_start: 116
+    page_end: 127
+    chapter_title_block_idx: 1838
+    chapter_title_block_idx_secondary: 1837
+    problems_block_idx: null
+    next_chapter_block_idx: 1997
+  - num: 5
+    title: Lacunary Series and Quasi-analytic Classes
+    page_start: 128
+    page_end: 142
+    chapter_title_block_idx: 1997
+    chapter_title_block_idx_secondary: 1996
+    problems_block_idx: null
+    next_chapter_block_idx: 2211
+  - num: 6
+    title: Fourier Transforms on the Line
+    page_start: 143
+    page_end: 211
+    chapter_title_block_idx: 2211
+    chapter_title_block_idx_secondary: 2210
+    problems_block_idx: null
+    next_chapter_block_idx: 3261
+  - num: 7
+    title: Fourier Analysis on Locally Compact Abelian Groups
+    page_start: 212
+    page_end: 219
+    chapter_title_block_idx: 3261
+    chapter_title_block_idx_secondary: 3260
+    problems_block_idx: null
+    next_chapter_block_idx: 3352
+  - num: 8
+    title: Commutative Banach Algebras
+    page_start: 220
+    page_end: 282
+    chapter_title_block_idx: 3352
+    chapter_title_block_idx_secondary: 3351
+    problems_block_idx: null
+    next_chapter_block_idx: 4174
+
+appendices:
+  - id: A
+    title: Vector-Valued Functions
+    page_start: 283
+    chapter_title_block_idx: 4174
+  - id: B
+    title: Elementary Probabilistic Methods
+    page_start: 286
+    chapter_title_block_idx: 4213
+
+section_re: '^\\??(\\d+)\\s+(.+)$'
+subsection_re: '^((?:\\d+\\.\\d+)(?=\\s+\\S)|(?:EXERCISE(?:S)?(?: FOR SECTION [0-9IVX]+)?))(?:\\s+)?(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\\d+)\\.\\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\s*\\{\\s*([0-9]+(?:\\.[0-9]+){0,2}[a-z]?)\\s*\\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

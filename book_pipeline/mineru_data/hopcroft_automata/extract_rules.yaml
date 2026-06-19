@@ -1,0 +1,132 @@
+slug: hopcroft_automata
+title: Introduction to Automata Theory, Languages, and Computation
+author: John E. Hopcroft; Rajeev Motwani; Jeffrey D. Ullman
+edition: 3rd
+subject: Theory of Computation
+publisher: Pearson Addison Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 542
+bibliography_start_page: null
+index_start_page: 542
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Automata: The Methods and the Madness"
+    page_start: 17
+    page_end: 52
+    chapter_title_block_idx: 248
+    chapter_title_block_idx_secondary: 249
+    problems_block_idx: null
+    next_chapter_block_idx: 665
+  - num: 2
+    title: Finite Automata
+    page_start: 53
+    page_end: 100
+    chapter_title_block_idx: 665
+    chapter_title_block_idx_secondary: 666
+    problems_block_idx: null
+    next_chapter_block_idx: 1182
+  - num: 3
+    title: Regular Expressions and Languages
+    page_start: 101
+    page_end: 142
+    chapter_title_block_idx: 1182
+    chapter_title_block_idx_secondary: 1183
+    problems_block_idx: null
+    next_chapter_block_idx: 1610
+  - num: 4
+    title: Properties of Regular Languages
+    page_start: 143
+    page_end: 186
+    chapter_title_block_idx: 1610
+    chapter_title_block_idx_secondary: 1611
+    problems_block_idx: null
+    next_chapter_block_idx: 2094
+  - num: 5
+    title: Context-Free Grammars and Languages
+    page_start: 187
+    page_end: 240
+    chapter_title_block_idx: 2094
+    chapter_title_block_idx_secondary: 2095
+    problems_block_idx: null
+    next_chapter_block_idx: 2767
+  - num: 6
+    title: Pushdown Automata
+    page_start: 241
+    page_end: 276
+    chapter_title_block_idx: 2767
+    chapter_title_block_idx_secondary: 2768
+    problems_block_idx: null
+    next_chapter_block_idx: 3222
+  - num: 7
+    title: Properties of Context-Free Languages
+    page_start: 277
+    page_end: 330
+    chapter_title_block_idx: 3222
+    chapter_title_block_idx_secondary: 3223
+    problems_block_idx: null
+    next_chapter_block_idx: 3868
+  - num: 8
+    title: Introduction to Turing Machines
+    page_start: 331
+    page_end: 392
+    chapter_title_block_idx: 3868
+    chapter_title_block_idx_secondary: 3869
+    problems_block_idx: null
+    next_chapter_block_idx: 4465
+  - num: 9
+    title: Undecidability
+    page_start: 393
+    page_end: 440
+    chapter_title_block_idx: 4465
+    chapter_title_block_idx_secondary: 4466
+    problems_block_idx: null
+    next_chapter_block_idx: 5011
+  - num: 10
+    title: Intractable Problems
+    page_start: 441
+    page_end: 498
+    chapter_title_block_idx: 5011
+    chapter_title_block_idx_secondary: 5012
+    problems_block_idx: null
+    next_chapter_block_idx: 5642
+  - num: 11
+    title: Additional Classes of Problems
+    page_start: 499
+    page_end: 541
+    chapter_title_block_idx: 5642
+    chapter_title_block_idx_secondary: 5643
+    problems_block_idx: null
+    next_chapter_block_idx: 6650
+
+section_re: '^(\d+\.\d+)\.?\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:[^A-Za-z0-9\n]{0,6}\s*)?(?:Problem|Exercise)\s+(\d+\.\d+(?:\.\d+)?):\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+):'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)?(?:Figure|Table)\s+\d+\.\d+:\s+.+$'
+
+known_missing_problems: []

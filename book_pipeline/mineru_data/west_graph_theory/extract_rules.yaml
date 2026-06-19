@@ -1,0 +1,133 @@
+slug: west_graph_theory
+title: Introduction to Graph Theory
+author: Douglas B. West
+edition: 2nd
+subject: Combinatorics
+publisher: Pearson Education
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 492
+bibliography_start_page: 558
+index_start_page: 590
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Fundamental Concepts
+    page_start: 22
+    page_end: 87
+    chapter_title_block_idx: 251
+    chapter_title_block_idx_secondary: 252
+    problems_block_idx: null
+    next_chapter_block_idx: 1182
+  - num: 2
+    title: Trees and Distance
+    page_start: 88
+    page_end: 127
+    chapter_title_block_idx: 1182
+    chapter_title_block_idx_secondary: 1183
+    problems_block_idx: null
+    next_chapter_block_idx: 1746
+  - num: 3
+    title: Matchings and Factors
+    page_start: 128
+    page_end: 169
+    chapter_title_block_idx: 1746
+    chapter_title_block_idx_secondary: 1747
+    problems_block_idx: null
+    next_chapter_block_idx: 2286
+  - num: 4
+    title: Connectivity and Paths
+    page_start: 170
+    page_end: 211
+    chapter_title_block_idx: 2286
+    chapter_title_block_idx_secondary: 2287
+    problems_block_idx: null
+    next_chapter_block_idx: 2865
+  - num: 5
+    title: Coloring of Graphs
+    page_start: 212
+    page_end: 253
+    chapter_title_block_idx: 2865
+    chapter_title_block_idx_secondary: 2866
+    problems_block_idx: null
+    next_chapter_block_idx: 3434
+  - num: 6
+    title: Planar Graphs
+    page_start: 254
+    page_end: 293
+    chapter_title_block_idx: 3434
+    chapter_title_block_idx_secondary: 3435
+    problems_block_idx: null
+    next_chapter_block_idx: 3964
+  - num: 7
+    title: Edges and Cycles
+    page_start: 294
+    page_end: 339
+    chapter_title_block_idx: 3964
+    chapter_title_block_idx_secondary: 3965
+    problems_block_idx: null
+    next_chapter_block_idx: 4590
+  - num: 8
+    title: Additional Topics
+    page_start: 340
+    page_end: 491
+    chapter_title_block_idx: 4590
+    chapter_title_block_idx_secondary: 4591
+    problems_block_idx: null
+    next_chapter_block_idx: 6589
+
+appendices:
+  - id: A
+    title: Mathematical Background
+    page_start: 492
+    chapter_title_block_idx: 6589
+  - id: B
+    title: Optimization and Complexity
+    page_start: 514
+    chapter_title_block_idx: 6874
+  - id: C
+    title: Hints for Selected Exercises
+    page_start: 528
+    chapter_title_block_idx: 7039
+  - id: D
+    title: Glossary of Terms
+    page_start: 536
+    chapter_title_block_idx: 7154
+  - id: E
+    title: Supplemental Reading
+    page_start: 554
+    chapter_title_block_idx: 7636
+
+section_re: '^(\d+\.\d+)\.\s*(.+)$'
+subsection_re: '^()(EXERCISES)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

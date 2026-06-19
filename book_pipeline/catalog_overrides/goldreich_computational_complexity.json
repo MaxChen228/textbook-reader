@@ -1,0 +1,262 @@
+{
+  "slug": "goldreich_computational_complexity",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "goldreich-exclude-ch01-body3",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[3]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-3"
+      },
+      "set": {
+        "catalog_exclude_reason": "decorative_uncaptioned_visual",
+        "catalog_repair_source": "agent-decorative-exclude"
+      },
+      "reason": "Chapter-opening illustration with no figure number/caption and no internal references."
+    },
+    {
+      "id": "goldreich-fix-ch01-body300-fig13",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[300]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-300"
+      },
+      "set": {
+        "id": "fig-1.3",
+        "caption": "Figure 1.3: A circuit computing $f ( x _ { 1 } , x _ { 2 } , x _ { 3 } , x _ { 4 } ) = ( x _ { 1 } \\oplus x _ { 2 } , x _ { 1 } \\land \\lnot x _ { 2 } \\land x _ { 4 } ) .$",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "reason": "OCR spaced out 'Figure 1.3' into math-styled text, so semantic figure id was not extracted."
+    },
+    {
+      "id": "goldreich-exclude-ch02-body282",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[282]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-282"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion panel immediately preceding numbered Figure 2.2."
+    },
+    {
+      "id": "goldreich-exclude-ch02-body316",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[316]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-316"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion panel immediately preceding numbered Figure 2.3."
+    },
+    {
+      "id": "goldreich-exclude-ch02-body322",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[322]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-322"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Companion panel immediately preceding numbered Figure 2.4."
+    },
+    {
+      "id": "goldreich-exclude-ch05-body28",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[28]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-28"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Left companion panel for numbered Figure 5.1."
+    },
+    {
+      "id": "goldreich-exclude-ch05-body29",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[29]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-29"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Middle companion panel for numbered Figure 5.1."
+    },
+    {
+      "id": "goldreich-exclude-ch07-body237",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[237]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-237"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-uncaptioned-exclude"
+      },
+      "reason": "Uncaptioned standalone visual with no numbered figure reference nearby."
+    },
+    {
+      "id": "goldreich-exclude-ch07-body238",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[238]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-238"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-uncaptioned-exclude"
+      },
+      "reason": "Uncaptioned standalone visual with no numbered figure reference nearby."
+    },
+    {
+      "id": "goldreich-exclude-appD-body179",
+      "action": "set_fields",
+      "chunk": "appD",
+      "selector": "body[179]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-appD-179"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_summary_table",
+        "catalog_repair_source": "agent-unnumbered-exclude"
+      },
+      "reason": "Extractor comparison table has descriptive caption but no formal Table number and no internal table references."
+    },
+    {
+      "id": "goldreich-exclude-appE-body163",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[163]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appE-163"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-uncaptioned-exclude"
+      },
+      "reason": "Uncaptioned geometric helper visual with no formal figure number."
+    },
+    {
+      "id": "goldreich-exclude-appE-body167",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[167]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appE-167"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_uncaptioned_figure",
+        "catalog_repair_source": "agent-uncaptioned-exclude"
+      },
+      "reason": "Uncaptioned geometric helper visual with no formal figure number."
+    },
+    {
+      "id": "goldreich-fix-appE-body183-figE1",
+      "action": "set_fields",
+      "chunk": "appE",
+      "selector": "body[183]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appE-183"
+      },
+      "set": {
+        "id": "fig-E.1",
+        "catalog_repair_source": "agent-semantic-id"
+      },
+      "reason": "Caption clearly identifies numbered Figure E.1 but parser left a fallback anchor id."
+    },
+    {
+      "id": "goldreich-exclude-appF-body111",
+      "action": "set_fields",
+      "chunk": "appF",
+      "selector": "body[111]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appF-111"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Original-game panel immediately preceding numbered Figure F.1."
+    },
+    {
+      "id": "goldreich-fix-appF-body113-figF1",
+      "action": "set_fields",
+      "chunk": "appF",
+      "selector": "body[113]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appF-113"
+      },
+      "set": {
+        "id": "fig-F.1",
+        "catalog_repair_source": "agent-semantic-id"
+      },
+      "reason": "Caption clearly identifies numbered Figure F.1 but parser left a fallback anchor id."
+    },
+    {
+      "id": "goldreich-exclude-appF-body131",
+      "action": "set_fields",
+      "chunk": "appF",
+      "selector": "body[131]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appF-131"
+      },
+      "set": {
+        "catalog_exclude_reason": "unnumbered_companion_subfigure",
+        "catalog_repair_source": "agent-companion-exclude"
+      },
+      "reason": "Original-game panel immediately preceding numbered Figure F.2."
+    },
+    {
+      "id": "goldreich-fix-appF-body133-figF2",
+      "action": "set_fields",
+      "chunk": "appF",
+      "selector": "body[133]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-appF-133"
+      },
+      "set": {
+        "id": "fig-F.2",
+        "catalog_repair_source": "agent-semantic-id"
+      },
+      "reason": "Caption clearly identifies numbered Figure F.2 but parser left a fallback anchor id."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-goldreich-computational-complexi",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Catalog audit lacks override path for captionless/subfigure visuals",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:57:29+00:00",
+  "updated": "2026-06-19T21:57:29+00:00",
+  "evidence": "audit-book parser/smoke iteration reaches parser-green, but smoke stays critical at H6/H7: parsed/_catalog_audit.md reports unresolved Figure refs=1 (Figure 1.3) and empty_captions=10. Cases include OCR-spaced caption text on ch01 body[300] ('F i g u r e 1 . 3') and captionless subfigures / split composites in ch05 body[28:30], ch07 body[237:238], appE body[163,167], appF body[111,131]. Existing extract_rules fields cannot bind adjacent prose captions or mark non-catalog subfigure shards.",
+  "proposal": "Add a reviewable catalog override path (or deterministic nearby-caption promotion/exclude-reason mechanism) so audit-book can clear catalog smoke without changing parser/build_catalogs engine code for each book.",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,156 @@
+slug: goldreich_computational_complexity
+title: "Computational Complexity: A Conceptual Perspective"
+author: Oded Goldreich
+edition: null
+subject: Theory of Computation
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+  - 1
+  - 2
+
+body_start_page: 26
+appendices_start_page: 488
+bibliography_start_page: 615
+index_start_page: 626
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction and Preliminaries
+    page_start: 26
+    page_end: 68
+    chapter_title_block_idx: 317
+    problems_block_idx: null
+    next_chapter_block_idx: 751
+  - num: 2
+    title: P, NP, and NP-Completeness
+    page_start: 69
+    page_end: 132
+    chapter_title_block_idx: 751
+    chapter_title_block_idx_secondary: 752
+    problems_block_idx: 1339
+    next_chapter_block_idx: 1471
+  - num: 3
+    title: Variations on P and NP
+    page_start: 133
+    page_end: 151
+    chapter_title_block_idx: 1471
+    chapter_title_block_idx_secondary: 1472
+    problems_block_idx: 1625
+    next_chapter_block_idx: 1690
+  - num: 4
+    title: More Resources, More Power?
+    page_start: 152
+    page_end: 167
+    chapter_title_block_idx: 1690
+    chapter_title_block_idx_secondary: 1691
+    problems_block_idx: 1823
+    next_chapter_block_idx: 1860
+  - num: 5
+    title: Space Complexity
+    page_start: 168
+    page_end: 208
+    chapter_title_block_idx: 1860
+    chapter_title_block_idx_secondary: 1861
+    problems_block_idx: 2223
+    next_chapter_block_idx: 2329
+  - num: 6
+    title: Randomness and Counting
+    page_start: 209
+    page_end: 265
+    chapter_title_block_idx: 2329
+    chapter_title_block_idx_secondary: 2330
+    problems_block_idx: 2828
+    next_chapter_block_idx: 2972
+  - num: 7
+    title: The Bright Side of Hardness
+    page_start: 266
+    page_end: 308
+    chapter_title_block_idx: 2972
+    chapter_title_block_idx_secondary: 2973
+    problems_block_idx: 3390
+    next_chapter_block_idx: 3471
+  - num: 8
+    title: Pseudorandom Generators
+    page_start: 309
+    page_end: 373
+    chapter_title_block_idx: 3471
+    chapter_title_block_idx_secondary: 3472
+    problems_block_idx: 4036
+    next_chapter_block_idx: 4194
+  - num: 9
+    title: Probabilistic Proof Systems
+    page_start: 374
+    page_end: 440
+    chapter_title_block_idx: 4194
+    chapter_title_block_idx_secondary: 4195
+    problems_block_idx: 4782
+    next_chapter_block_idx: 4910
+  - num: 10
+    title: Relaxing the Requirements
+    page_start: 441
+    page_end: 487
+    chapter_title_block_idx: 4910
+    chapter_title_block_idx_secondary: 4911
+    problems_block_idx: 5304
+    next_chapter_block_idx: 5406
+
+appendices:
+  - id: A
+    title: Glossary of Complexity Classes
+    page_start: 488
+    chapter_title_block_idx: 5407
+  - id: B
+    title: On the Quest for Lower Bounds
+    page_start: 494
+    chapter_title_block_idx: 5479
+  - id: C
+    title: On the Foundations of Modern Cryptography
+    page_start: 507
+    chapter_title_block_idx: 5622
+  - id: D
+    title: Probabilistic Preliminaries and Advanced Topics in Randomization
+    page_start: 548
+    chapter_title_block_idx: 6052
+  - id: E
+    title: Explicit Constructions
+    page_start: 570
+    chapter_title_block_idx: 6305
+  - id: F
+    title: Some Omitted Proofs
+    page_start: 591
+    chapter_title_block_idx: 6558
+  - id: G
+    title: Some Computational Problems
+    page_start: 608
+    chapter_title_block_idx: 6734
+
+section_re: '^((?:[A-Z]|\d+)\.\d+)\.\s+(.+)$'
+subsection_re: '^((?:[A-Z]|\d+)\.\d+\.\d+(?:\.\d+)*)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.)?[0-9]+(?:\.[0-9]+)*[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

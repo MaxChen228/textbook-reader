@@ -1,0 +1,85 @@
+slug: stanley_enumerative_combinatorics_1
+title: Enumerative Combinatorics, Volume 1
+author: Richard P. Stanley
+edition: 2nd
+subject: Combinatorics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 586
+bibliography_start_page: null
+index_start_page: 610
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: What Is Enumerative Combinatorics?
+    page_start: 16
+    page_end: 209
+    chapter_title_block_idx: 123
+    chapter_title_block_idx_secondary: 124
+    problems_block_idx: 1516
+    next_chapter_block_idx: 3222
+  - num: 2
+    title: Sieve Methods
+    page_start: 210
+    page_end: 255
+    chapter_title_block_idx: 3222
+    chapter_title_block_idx_secondary: 3223
+    problems_block_idx: 3600
+    next_chapter_block_idx: 3985
+  - num: 3
+    title: Partially Ordered Sets
+    page_start: 256
+    page_end: 478
+    chapter_title_block_idx: 3985
+    chapter_title_block_idx_secondary: 3986
+    problems_block_idx: 5629
+    next_chapter_block_idx: 7592
+  - num: 4
+    title: Rational Generating Functions
+    page_start: 479
+    page_end: 585
+    chapter_title_block_idx: 7592
+    chapter_title_block_idx_secondary: 7593
+    problems_block_idx: 8523
+    next_chapter_block_idx: 9360
+
+appendices:
+  - id: A
+    title: Graph Theory Terminology
+    page_start: 586
+    chapter_title_block_idx: 9360
+
+section_re: '^((?:\d+\.\d+(?=[\s ]+\S))|(?:Notes)|(?:Bibliography)|(?:A Note About the Exercises)|(?:Exercises for Chapter \d+)|(?:Solutions to Exercises))[\s ]*(.*)$'
+subsection_re: '^((?=a)b)(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^Solutions to Exercises\s*$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^(\d+\.\d+\.\d+)\s+Example\.'
+
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+\d+\.\d+\b'
+
+known_missing_problems: []

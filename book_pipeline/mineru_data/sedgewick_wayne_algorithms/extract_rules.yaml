@@ -1,0 +1,85 @@
+slug: sedgewick_wayne_algorithms
+title: Algorithms
+author: Robert Sedgewick; Kevin Wayne
+edition: 4th
+subject: Algorithms
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 944
+bibliography_start_page: null
+index_start_page: 944
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Fundamentals
+    page_start: 14
+    page_end: 253
+    chapter_title_block_idx: 96
+    problems_block_idx: null
+    next_chapter_block_idx: 2076
+  - num: 2
+    title: Sorting
+    page_start: 254
+    page_end: 371
+    chapter_title_block_idx: 2076
+    problems_block_idx: null
+    next_chapter_block_idx: 2928
+  - num: 3
+    title: Searching
+    page_start: 372
+    page_end: 525
+    chapter_title_block_idx: 2928
+    problems_block_idx: null
+    next_chapter_block_idx: 4048
+  - num: 4
+    title: Graphs
+    page_start: 526
+    page_end: 705
+    chapter_title_block_idx: 4048
+    problems_block_idx: null
+    next_chapter_block_idx: 5413
+  - num: 5
+    title: Strings
+    page_start: 706
+    page_end: 863
+    chapter_title_block_idx: 5413
+    problems_block_idx: null
+    next_chapter_block_idx: 6662
+  - num: 6
+    title: Context
+    page_start: 864
+    page_end: 943
+    chapter_title_block_idx: 6662
+    problems_block_idx: null
+    next_chapter_block_idx: 9412
+
+section_re: '^(\d+\.\d+)\s+([A-Z][A-Z0-9][A-Z0-9 /&(),''.-]*)$'
+subsection_re: '^()([A-Z][A-Za-z0-9&/.,:;()'' -]*[A-Za-z0-9.)])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+(?:\.\d+)?)(?=\s+.*[a-z])\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

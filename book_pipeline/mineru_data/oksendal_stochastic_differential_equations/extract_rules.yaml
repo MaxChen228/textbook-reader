@@ -1,0 +1,148 @@
+slug: oksendal_stochastic_differential_equations
+title: "Stochastic Differential Equations: An Introduction with Applications"
+author: Bernt Oksendal
+edition: 6th
+subject: Probability
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 30
+appendices_start_page: 334
+bibliography_start_page: 378
+index_start_page: 390
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 30
+    page_end: 35
+    chapter_title_block_idx: 202
+    chapter_title_block_idx_secondary: 203
+    problems_block_idx: null
+    next_chapter_block_idx: 266
+  - num: 2
+    title: Some Mathematical Preliminaries
+    page_start: 36
+    page_end: 49
+    chapter_title_block_idx: 266
+    problems_block_idx: 428
+    next_chapter_block_idx: 552
+  - num: 3
+    title: Itô Integrals
+    page_start: 50
+    page_end: 71
+    chapter_title_block_idx: 552
+    problems_block_idx: 831
+    next_chapter_block_idx: 946
+  - num: 4
+    title: The Itô Formula and the Martingale Representation Theorem
+    page_start: 72
+    page_end: 91
+    chapter_title_block_idx: 946
+    problems_block_idx: 1163
+    next_chapter_block_idx: 1329
+  - num: 5
+    title: Stochastic Differential Equations
+    page_start: 92
+    page_end: 111
+    chapter_title_block_idx: 1329
+    problems_block_idx: 1558
+    next_chapter_block_idx: 1728
+  - num: 6
+    title: The Filtering Problem
+    page_start: 112
+    page_end: 141
+    chapter_title_block_idx: 1728
+    problems_block_idx: 2207
+    next_chapter_block_idx: 2356
+  - num: 7
+    title: "Diffusions: Basic Properties"
+    page_start: 142
+    page_end: 167
+    chapter_title_block_idx: 2356
+    problems_block_idx: 2655
+    next_chapter_block_idx: 2865
+  - num: 8
+    title: Other Topics in Diffusion Theory
+    page_start: 168
+    page_end: 203
+    chapter_title_block_idx: 2865
+    problems_block_idx: 3448
+    next_chapter_block_idx: 3603
+  - num: 9
+    title: Applications to Boundary Value Problems
+    page_start: 204
+    page_end: 233
+    chapter_title_block_idx: 3603
+    problems_block_idx: 4038
+    next_chapter_block_idx: 4187
+  - num: 10
+    title: Application to Optimal Stopping
+    page_start: 234
+    page_end: 263
+    chapter_title_block_idx: 4187
+    problems_block_idx: 4702
+    next_chapter_block_idx: 4843
+  - num: 11
+    title: Application to Stochastic Control
+    page_start: 264
+    page_end: 289
+    chapter_title_block_idx: 4843
+    problems_block_idx: 5171
+    next_chapter_block_idx: 5391
+  - num: 12
+    title: Application to Mathematical Finance
+    page_start: 290
+    page_end: 333
+    chapter_title_block_idx: 5391
+    problems_block_idx: 6148
+    next_chapter_block_idx: 6272
+
+appendices:
+  - id: A
+    title: Normal Random Variables
+    page_start: 334
+    chapter_title_block_idx: 6272
+  - id: B
+    title: Conditional Expectation
+    page_start: 338
+    chapter_title_block_idx: 6334
+  - id: C
+    title: Uniform Integrability and Martingale Convergence
+    page_start: 340
+    chapter_title_block_idx: 6375
+  - id: D
+    title: An Approximation Result
+    page_start: 344
+    chapter_title_block_idx: 6434
+
+section_re: '^(\d+\.\d+)\.?\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Problem\s+)?(\d+(?:\.\d+)*)(?:\.\*?|\s+\()\s*'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Za-z0-9.]+)\}'
+
+example_start_re: '^Example\s+(\d+(?:\.\d+)*)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

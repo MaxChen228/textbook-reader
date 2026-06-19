@@ -1,0 +1,187 @@
+slug: gilbarg_trudinger_elliptic_pde
+title: Elliptic Partial Differential Equations of Second Order
+author: David Gilbarg; Neil S. Trudinger
+edition: null
+subject: Differential Equations
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 505
+bibliography_start_page: 505
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 24
+    chapter_title_block_idx: 166
+    chapter_title_block_idx_secondary: 167
+    problems_block_idx: null
+    next_chapter_block_idx: 271
+  - num: 2
+    title: Laplace's Equation
+    page_start: 25
+    page_end: 42
+    chapter_title_block_idx: 271
+    chapter_title_block_idx_secondary: 272
+    problems_block_idx: 499
+    next_chapter_block_idx: 538
+  - num: 3
+    title: The Classical Maximum Principle
+    page_start: 43
+    page_end: 62
+    chapter_title_block_idx: 538
+    chapter_title_block_idx_secondary: 539
+    problems_block_idx: 798
+    next_chapter_block_idx: 851
+  - num: 4
+    title: Poisson's Equation and the Newtonian Potential
+    page_start: 63
+    page_end: 84
+    chapter_title_block_idx: 851
+    chapter_title_block_idx_secondary: 852
+    problems_block_idx: 1184
+    next_chapter_block_idx: 1221
+  - num: 5
+    title: Banach and Hilbert Spaces
+    page_start: 85
+    page_end: 98
+    chapter_title_block_idx: 1221
+    chapter_title_block_idx_secondary: 1222
+    problems_block_idx: 1420
+    next_chapter_block_idx: 1431
+  - num: 6
+    title: Classical Solutions; the Schauder Approach
+    page_start: 99
+    page_end: 155
+    chapter_title_block_idx: 1431
+    chapter_title_block_idx_secondary: 1432
+    problems_block_idx: 2317
+    next_chapter_block_idx: 2357
+  - num: 7
+    title: Sobolev Spaces
+    page_start: 156
+    page_end: 188
+    chapter_title_block_idx: 2357
+    chapter_title_block_idx_secondary: 2358
+    problems_block_idx: 2832
+    next_chapter_block_idx: 2889
+  - num: 8
+    title: Generalized Solutions and Regularity
+    page_start: 189
+    page_end: 230
+    chapter_title_block_idx: 2889
+    chapter_title_block_idx_secondary: 2890
+    problems_block_idx: 3527
+    next_chapter_block_idx: 3568
+  - num: 9
+    title: Strong Solutions
+    page_start: 231
+    page_end: 272
+    chapter_title_block_idx: 3568
+    chapter_title_block_idx_secondary: 3569
+    problems_block_idx: 4156
+    next_chapter_block_idx: 4192
+  - num: 10
+    title: Maximum and Comparison Principles
+    page_start: 273
+    page_end: 292
+    chapter_title_block_idx: 4192
+    chapter_title_block_idx_secondary: 4193
+    problems_block_idx: 4513
+    next_chapter_block_idx: 4539
+  - num: 11
+    title: Topological Fixed Point Theorems and Their Application
+    page_start: 293
+    page_end: 307
+    chapter_title_block_idx: 4539
+    chapter_title_block_idx_secondary: 4540
+    problems_block_idx: null
+    next_chapter_block_idx: 4763
+  - num: 12
+    title: Equations in Two Variables
+    page_start: 308
+    page_end: 332
+    chapter_title_block_idx: 4763
+    chapter_title_block_idx_secondary: 4764
+    problems_block_idx: 5114
+    next_chapter_block_idx: 5134
+  - num: 13
+    title: Hölder Estimates for the Gradient
+    page_start: 333
+    page_end: 346
+    chapter_title_block_idx: 5134
+    chapter_title_block_idx_secondary: 5135
+    problems_block_idx: null
+    next_chapter_block_idx: 5372
+  - num: 14
+    title: Boundary Gradient Estimates
+    page_start: 347
+    page_end: 372
+    chapter_title_block_idx: 5372
+    chapter_title_block_idx_secondary: 5373
+    problems_block_idx: 5794
+    next_chapter_block_idx: 5805
+  - num: 15
+    title: Global and Interior Gradient Bounds
+    page_start: 373
+    page_end: 401
+    chapter_title_block_idx: 5805
+    chapter_title_block_idx_secondary: 5806
+    problems_block_idx: 6273
+    next_chapter_block_idx: 6295
+  - num: 16
+    title: Equations of Mean Curvature Type
+    page_start: 402
+    page_end: 454
+    chapter_title_block_idx: 6295
+    chapter_title_block_idx_secondary: 6296
+    problems_block_idx: 7135
+    next_chapter_block_idx: 7164
+  - num: 17
+    title: Fully Nonlinear Equations
+    page_start: 455
+    page_end: 504
+    chapter_title_block_idx: 7164
+    chapter_title_block_idx_secondary: 7165
+    problems_block_idx: 7956
+    next_chapter_block_idx: 8835
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+(?!(?:The\s+Schauder\s+Fixed\s+Point\s+Theorem|The\s+Leray-Schauder\s+Theorem(?::\s+a\s+Special\s+Case)?|The\s+Leray-Schauder\s+Fixed\s+Point\s+Theorem|An\s+Application|Variational\s+Problems|Equations\s+of\s+Divergence\s+Form|Equations\s+in\s+Two\s+Variables|Equations\s+of\s+General\s+Form;\s+the\s+(?:Interior|Boundary)\s+Estimate|Application\s+to\s+the\s+Dirichlet\s+Problem)$).+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

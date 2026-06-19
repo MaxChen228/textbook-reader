@@ -1,0 +1,137 @@
+slug: walters_ergodic_theory
+title: An Introduction to Ergodic Theory
+author: Peter Walters
+edition: null
+subject: Dynamical Systems
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 247
+bibliography_start_page: 247
+index_start_page: 254
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Preliminaries
+    page_start: 8
+    page_end: 25
+    chapter_title_block_idx: 151
+    problems_block_idx: null
+    next_chapter_block_idx: 391
+
+  - num: 1
+    title: Measure-Preserving Transformations
+    page_start: 26
+    page_end: 59
+    chapter_title_block_idx: 391
+    chapter_title_block_idx_secondary: 392
+    problems_block_idx: null
+    next_chapter_block_idx: 891
+
+  - num: 2
+    title: Isomorphism, Conjugacy, and Spectral Isomorphism
+    page_start: 60
+    page_end: 74
+    chapter_title_block_idx: 891
+    problems_block_idx: null
+    next_chapter_block_idx: 1085
+
+  - num: 3
+    title: Measure-Preserving Transformations with Discrete Spectrum
+    page_start: 75
+    page_end: 81
+    chapter_title_block_idx: 1085
+    problems_block_idx: null
+    next_chapter_block_idx: 1177
+
+  - num: 4
+    title: Entropy
+    page_start: 82
+    page_end: 124
+    chapter_title_block_idx: 1177
+    problems_block_idx: null
+    next_chapter_block_idx: 1835
+
+  - num: 5
+    title: Topological Dynamics
+    page_start: 125
+    page_end: 152
+    chapter_title_block_idx: 1835
+    problems_block_idx: null
+    next_chapter_block_idx: 2238
+
+  - num: 6
+    title: Invariant Measures for Continuous Transformations
+    page_start: 153
+    page_end: 170
+    chapter_title_block_idx: 2238
+    problems_block_idx: null
+    next_chapter_block_idx: 2528
+
+  - num: 7
+    title: Topological Entropy
+    page_start: 171
+    page_end: 188
+    chapter_title_block_idx: 2528
+    problems_block_idx: null
+    next_chapter_block_idx: 2824
+
+  - num: 8
+    title: Relationship Between Topological Entropy and Measure-Theoretic Entropy
+    page_start: 189
+    page_end: 213
+    chapter_title_block_idx: 2824
+    problems_block_idx: null
+    next_chapter_block_idx: 3239
+
+  - num: 9
+    title: Topological Pressure and Its Relationship with Invariant Measures
+    page_start: 214
+    page_end: 235
+    chapter_title_block_idx: 3239
+    problems_block_idx: null
+    next_chapter_block_idx: 3613
+
+  - num: 10
+    title: Applications and Other Topics
+    page_start: 236
+    page_end: 246
+    chapter_title_block_idx: 3613
+    problems_block_idx: null
+    next_chapter_block_idx: 4307
+
+appendices: []
+
+section_re: '^§(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(__NO_PROBLEMS__)$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

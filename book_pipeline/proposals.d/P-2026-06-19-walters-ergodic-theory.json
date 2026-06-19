@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-walters-ergodic-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog gate 無法 declaratively 處理無 caption 的內嵌圖表",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:37:51+00:00",
+  "updated": "2026-06-19T21:37:51+00:00",
+  "evidence": "parser/validate 已綠（11 chapters, 0 appendices），smoke 僅殘 H7 empty_captions=19。parsed/_catalog_audit.md 顯示多個 figure/table block 本身無 caption 與 semantic id，例如 ch00 body[97]、ch01 body[164]、ch04 body[50]/[374]、ch05 多個 diagram、ch10 body[589]；其語義只存在鄰近正文（如 'the angle shown in the diagram'、'shape shown in the diagram'）或根本沒有 Figure/Table 編號，因此 extract_rules 既無法把相鄰 prose 綁成 caption，也無法把這類非可索引 inline visual 宣告 exclude reason。",
+  "proposal": "擴充 catalog/extract_rules schema，至少支援：1) 將鄰近 prose/text 指定為 figure/table caption donor；2) 對無正式 Figure/Table 編號且僅作說明插圖的 visual/table 宣告 non-indexable/exclude reason。否則 walters_ergodic_theory 這類書能 parser 綠，但無法靠現有 audit-book schema 清掉 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,78 @@
+slug: shafarevich_basic_algebraic_geometry
+title: Basic Algebraic Geometry 1
+author: Igor R. Shafarevich
+edition: 3rd
+subject: Algebraic Geometry
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 298
+bibliography_start_page: 312
+index_start_page: 316
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Basic Notions
+    page_start: 19
+    page_end: 97
+    chapter_title_block_idx: 242
+    problems_block_idx: null
+    next_chapter_block_idx: 1208
+  - num: 2
+    title: Local Properties
+    page_start: 98
+    page_end: 161
+    chapter_title_block_idx: 1208
+    chapter_title_block_idx_secondary: 1209
+    problems_block_idx: null
+    next_chapter_block_idx: 2052
+  - num: 3
+    title: Divisors and Differential Forms
+    page_start: 162
+    page_end: 247
+    chapter_title_block_idx: 2052
+    problems_block_idx: null
+    next_chapter_block_idx: 3254
+  - num: 4
+    title: Intersection Numbers
+    page_start: 248
+    page_end: 297
+    chapter_title_block_idx: 3254
+    problems_block_idx: null
+    next_chapter_block_idx: 3929
+
+appendices:
+  - id: A
+    title: Algebraic Appendix
+    page_start: 298
+    chapter_title_block_idx: 3929
+
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([^}]+?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

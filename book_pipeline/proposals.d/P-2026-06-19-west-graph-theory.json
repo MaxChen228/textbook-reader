@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-west-graph-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog gate 無法 declaratively 排除 captionless inline graph figures",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:55:20+00:00",
+  "updated": "2026-06-19T21:55:20+00:00",
+  "evidence": "validate_rules 與 parser 均通過，但 smoke 唯一 critical 為 H7：fallback_ids=0、empty_captions=489、unresolved visual semantics=537。抽樣 parsed/_catalog_audit.md 與 ch01.json 顯示大量圖是正文或 exercises 內的 inline graph drawings，前後只有題目敘述如 'graph below'、'graphs below'，沒有 Figure/Table caption 或可穩定抽取的 semantic id；例如 ch01 body[18]/[21]/[25]/[27] 等皆為 captionless visual。現有 extract_rules 只有 figure_caption_merge 與 figure_caption_main_re，無法把這類無正式 caption 且無交叉引用需求的圖 declaratively 標成 non-indexable。",
+  "proposal": "擴充 catalog/audit schema，允許 per-book 或 per-visual 將 captionless inline graph figures 標記為 non-indexable/exclude with reviewable reason；若未來需要，也可再支援把鄰近 bare problem text 綁成 caption donor，但 west_graph_theory 主要缺的是 exclusion 能力。",
+  "risk": "",
+  "disposition": ""
+}

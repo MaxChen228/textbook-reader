@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-stanley-enumerative-combinatoric",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "merge multi-image figure groups with trailing main caption",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:52:55+00:00",
+  "updated": "2026-06-19T21:52:55+00:00",
+  "evidence": "Smoke H7 persists after schema iteration: parsed/_catalog_audit.md reports fallback_ids=0 empty_captions=67. Raw unified blocks show patterns like 668(image caption=[]), 669(image caption=['Figure 1.4 ...']); 3553-3555 and 4014-4018 show the same trailing-main-caption pattern, plus subfigure labels like '(a)'/'(b)' or short captions ('5', '$'). Existing schema knobs cannot assign a shared semantic caption/id to leading images in these groups.",
+  "proposal": "Extend parser/catalog figure grouping so consecutive image blocks can be coalesced when a later sibling carries the main 'Figure N.M ...' caption, propagating the figure id/caption across the group and preserving subfigure labels.",
+  "risk": "",
+  "disposition": ""
+}

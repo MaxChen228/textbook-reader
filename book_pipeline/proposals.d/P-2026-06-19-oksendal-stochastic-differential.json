@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-oksendal-stochastic-differential",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 無法 declaratively 排除無 caption 視覺塊",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T21:51:50+00:00",
+  "updated": "2026-06-19T21:51:50+00:00",
+  "evidence": "validate/parser 已綠（12 chapters, 4 appendices），但 smoke 卡在 H7 empty_captions=7。parsed/_catalog_audit.md 顯示殘留皆為 captionless visual/table：ch04 problem 4.10 body[4] 是 kind=line 的 fig-ch04-prob8-4；ch09 problem 9.7 body[8] 是 kind=photo；ch09 problem 9.11 body[10]、ch11 body[67]/[240]、appD body[19] 皆是 kind=line；appA body[56] 還有一個 hallucinated table。這些 block 的 caption 皆空白，且沒有 Figure/Table 編號或可綁定 caption；現行 extract_rules 只有 figure_caption_merge / figure_caption_main_re，build_catalogs 只接受 caption 內正式 label 或既有 catalog_exclude_reason，audit-book schema 無欄位可對這類非可索引視覺塊 declaratively 標記 exclude/nonindexable。",
+  "proposal": "擴充 audit-book / parser / catalog repair 的 declarative 載體，至少允許 per-book 對 captionless fig/table 指定 catalog_exclude_reason 或 nonindexable policy；可進一步支援依 kind=line/photo 或特定 parsed path 標記。否則像本書這類章節結構已正確的案例，仍會因少量無 caption 插圖永久卡在 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}
