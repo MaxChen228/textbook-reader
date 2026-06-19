@@ -364,8 +364,8 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, STAGES_MS = 1000, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000
-  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null, proposalsTimer = null
+  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, STAGES_MS = 1000, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
+  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
   let last = null, lastWorkers = [], lastStageGen = ''
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
@@ -1291,12 +1291,6 @@
         <span class="dev-bar"><span style="width:${pct}%"></span></span><span class="num">${numTxt}</span></div>`
     }).join('') || '<div class="dev-label">查詢中…</div>')
 
-    const errs = d.errors || []
-    setHtml('err-head', errs.length ? `🔴 錯誤 (${errs.length})` : `🟢 錯誤`)
-    setHtml('errors', errs.length
-      ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
-      : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
-
     const bl = d.booklists || {}, blo = bl.overall || {}
     const blPct = blo.total ? Math.round(blo.owned / blo.total * 100) : 0
     setText('bl-overall', blo.total
@@ -1310,12 +1304,6 @@
         <span class="num">${c.owned}/${c.total}</span></div>`
     }).join('') || '<div class="dev-label">（無書單）</div>')
 
-    const cs = d.corpus_sessions || []
-    indexSessions(cs)
-    document.getElementById('p-corpus').hidden = !cs.length
-    if (cs.length) setHtml('corpus', `<div class="dev-label" style="margin-bottom:6px">${cs.length} 場（新→舊）</div>` + cs.map(sessRowHtml).join(''))
-
-    setText('log', (d.recent_log || []).join('\n'))
     setText('foot', `snapshot ${d.generated_at_local}（撿檔每 ${REFRESH_MS/1000}s · 工人每 ${WORKERS_MS/1000}s · 時鐘每秒）`)
     tickClocks()
   }
@@ -1366,6 +1354,24 @@
     finally { btn.innerHTML = '↻ refresh' }
   }
 
+  // 系統健康（errors/recent_log/corpus_sessions）：逐出核 status.json → dev/system.json，~8s 慢輪詢。
+  function renderSystem(s) {
+    const errs = (s && s.errors) || []
+    setHtml('err-head', errs.length ? `🔴 錯誤 (${errs.length})` : `🟢 錯誤`)
+    setHtml('errors', errs.length
+      ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
+      : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
+    const cs = (s && s.corpus_sessions) || []
+    indexSessions(cs)
+    document.getElementById('p-corpus').hidden = !cs.length
+    if (cs.length) setHtml('corpus', `<div class="dev-label" style="margin-bottom:6px">${cs.length} 場（新→舊）</div>` + cs.map(sessRowHtml).join(''))
+    setText('log', ((s && s.recent_log) || []).join('\n'))
+  }
+  async function loadSystem() {
+    let s = null
+    try { s = await fetchJson('system.json') } catch { s = null }  // 尚無檔→保留上次（不誤清）
+    if (s) renderSystem(s)
+  }
   function start() {
     if (!timer) timer = setInterval(load, REFRESH_MS)
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
@@ -1373,13 +1379,14 @@
     if (!stagesTimer) stagesTimer = setInterval(loadStages, STAGES_MS)
     if (!crawlLiveTimer) crawlLiveTimer = setInterval(loadCrawlLive, CRAWLLIVE_MS)
     if (!proposalsTimer) proposalsTimer = setInterval(loadProposals, PROPOSALS_MS)
+    if (!systemTimer) systemTimer = setInterval(loadSystem, SYSTEM_MS)
   }
-  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); clearInterval(crawlLiveTimer); clearInterval(proposalsTimer); timer = clockTimer = workersTimer = stagesTimer = crawlLiveTimer = proposalsTimer = null; stopMathRaw() }
-  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages(); loadCrawlLive(); loadProposals() })
+  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); clearInterval(crawlLiveTimer); clearInterval(proposalsTimer); clearInterval(systemTimer); timer = clockTimer = workersTimer = stagesTimer = crawlLiveTimer = proposalsTimer = systemTimer = null; stopMathRaw() }
+  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages(); loadCrawlLive(); loadProposals(); loadSystem() })
   document.getElementById('btn-proposals').addEventListener('click', openProposalsDrawer)
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
-  load(); loadWorkers(); loadProposals(); start()
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); loadProposals(); start(); if (openMath) startMathRaw() } })
+  load(); loadWorkers(); loadProposals(); loadSystem(); start()
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); loadProposals(); loadSystem(); start(); if (openMath) startMathRaw() } })
   </script>
 </body>
 </html>

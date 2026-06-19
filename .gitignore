@@ -24,6 +24,8 @@ tmp/
 /dev/status.json
 # per-book 抽屜詳情（timeline+sessions，60s devsnapshot 重生，可重生）
 /dev/detail/
+# 系統健康（errors/recent_log/corpus_sessions，devctl snapshot 重生，可重生）
+/dev/system.json
 # proposals 側欄 feed（devctl write_proposals 隨 snapshot 重生，可重生；proposals.d/ 才是真相）
 /dev/proposals.json
 # live 階段快訊（controller 轉換瞬間直寫，可重生）— gitignore 不支援行內註解，須獨立行

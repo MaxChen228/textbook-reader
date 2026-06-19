@@ -46,6 +46,7 @@ ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
 DETAIL_DIR = os.path.join(ROOT, 'dev', 'detail')  # per-book {timeline,sessions}：抽屜 on-demand 撿，逐出 status.json 核（僅抽屜用、佔 books[] ~82%）
+SYSTEM_PATH = os.path.join(ROOT, 'dev', 'system.json')  # 系統健康（errors/recent_log/corpus_sessions）：逐出核、系統面板 ~8s 慢輪詢
 PROPOSALS_PATH = os.path.join(ROOT, 'dev', 'proposals.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
 # 反應式架構：daemon 走 launchd StartInterval（非固定時刻）。一個 controller 跑有界 observe→
@@ -380,6 +381,19 @@ def _write_detail(slug: str, timeline: list, sessions: list) -> None:
     os.replace(tmp, path)
 
 
+def _prune_detail(keep: set) -> None:
+    """清 dev/detail/ 內不再屬 SoT 的孤兒（書從 booklists 移除後殘留）。只 60s detail 寫手呼叫。"""
+    try:
+        for fn in os.listdir(DETAIL_DIR):
+            if fn.endswith('.json') and fn[:-5] not in keep:
+                try:
+                    os.remove(os.path.join(DETAIL_DIR, fn))
+                except OSError:
+                    pass
+    except OSError:
+        pass  # DETAIL_DIR 尚未建立 → 無孤兒可清
+
+
 def books_status(write_timeline: bool = False) -> dict:
     pending = st._load_pending()
     raw = st._raw_slug_map()
@@ -420,6 +434,8 @@ def books_status(write_timeline: bool = False) -> dict:
         non_opt = [p for p in r['todo'].split() if p != '—' and not p.endswith('(可選)')]
         if non_opt:
             todos.append({'slug': s, 'todo': ' '.join(non_opt)})
+    if write_timeline:  # detail 唯一寫手順手清孤兒：SoT 移除的書其 detail 檔不再覆寫 → 刪（防磁碟殘渣，P3 review nit）
+        _prune_detail(set(slugs))
     return {'books': rows, 'actionable': todos, 'total': len(rows)}
 
 
@@ -599,16 +615,29 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     }
 
 
+def _atomic_write_json(path: str, obj) -> None:
+    """原子寫 JSON（tmp+os.replace），避免網頁讀到半截。pid 後綴防多寫手 tmp 撞名。"""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + f'.tmp{os.getpid()}'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+
+
 def write_snapshot(write_timeline: bool = False) -> str:
     hist.reconcile()  # 順手清死孤兒 JSONL（finish 前被 SIGKILL 的殘檔）；低頻心跳即可
     # write_timeline 預設 False：controller 的事件式刷新（記憶體舊碼）只更新 live status.json、不碰歷史；
-    # 只有 60s devsnapshot CLI 傳 True 寫時間軸 → 單一寫手、版本一致，杜絕歷史 churn。
+    # 只有 60s devsnapshot CLI 傳 True 寫時間軸 + per-book detail → 單一寫手、版本一致，杜絕歷史 churn。
     snap = build_snapshot(write_timeline=write_timeline)
-    os.makedirs(os.path.dirname(SNAPSHOT_PATH), exist_ok=True)
-    tmp = SNAPSHOT_PATH + '.tmp'
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(snap, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, SNAPSHOT_PATH)  # 原子寫，避免網頁讀到半截
+    # 系統健康欄（errors/recent_log/corpus_sessions，非 live book 資料）逐出核 → system.json：
+    # 讓核 status.json 純 live、可 1s 輪詢；system.json 前端 ~8s 慢輪詢。純讀、無單寫手不變量（不像
+    # timeline append），故 controller 每事件寫亦安全 → 系統健康 ≤8s 新鮮，不必等 60s。
+    system = {'generated_at_utc': snap.get('generated_at_utc'),
+              'generated_at_local': snap.get('generated_at_local')}
+    for k in ('errors', 'recent_log', 'corpus_sessions'):
+        system[k] = snap.pop(k, None)
+    _atomic_write_json(SNAPSHOT_PATH, snap)   # 核（已逐出 system 欄）
+    _atomic_write_json(SYSTEM_PATH, system)
     try:
         write_proposals()  # 順手寫 proposals 側欄 feed（獨立檔；隨 8s 事件驅動 + 60s 心跳自動刷新）
     except Exception:
