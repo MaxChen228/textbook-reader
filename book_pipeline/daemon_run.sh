@@ -21,11 +21,13 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 # 反應式控制迴圈（取代 daily 單次 tick）：一個 controller 進程跑有界 observe→非阻塞派工→
 # reap→harvest→sleep 迴圈，三條件齊備（產物就緒 ∧ 資源可用 ∧ 無人在做）的 transition 立即
 # 派 thread worker，OCR 一就緒即收割（延遲塌縮到一 poll cycle，免人工 kick）。launchd
-# StartInterval 重拉、flock 序列化。LOOP_POLL=150：observe(build_queue 掃全書)~16s，故 poll
-# 拉到 150s 把 observe 攤提到 ~10% duty（預設 75 對 16s observe 太密）。要回滾單次 tick 模型：
-# 設 BOOK_PIPELINE_REACTIVE=0（程式碼預設即 0，行為退回 tick_once）。
+# StartInterval 重拉、flock 序列化。LOOP_POLL=20：observe(build_queue) 自 sol_stats 指紋快取
+# (e6478c7) 後暖路徑 ~0.037s（非舊註解臆測的 ~16s），duty 可忽略；20s 是「無本地事件的外部變更
+# (OCR 就緒/額度重置) 偵測上限」——本地階段接力本就 event-driven(wake.set)、不受 LOOP_POLL 影響，
+# harvestable() 是純本地讀 _pending_batches.json（不打 MinerU API），故降頻不打爆外部。
+# 要回滾單次 tick 模型：設 BOOK_PIPELINE_REACTIVE=0（程式碼預設即 0，行為退回 tick_once）。
 export BOOK_PIPELINE_REACTIVE=1
-export BOOK_PIPELINE_LOOP_POLL=150
+export BOOK_PIPELINE_LOOP_POLL=20
 # IO/CPU 併發分離（第一性原理：LLM agent 子進程牆鐘 90% 等 API＝0 CPU，可放大；真正吃 CPU 的是
 # 它們內部呼叫的 parser/contactsheet，由 cpu_gate flock 閘獨立封頂）。故拉高在飛 agent 數、
 # 同時把本地 CPU 重活限在 ≈核數，解耦兩者 → 多 agent 在飛但不 thrashing。felix=8 核：
