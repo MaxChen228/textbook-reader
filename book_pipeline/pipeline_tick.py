@@ -53,7 +53,6 @@ ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
 LOCK = os.path.join(BP, '.tick.lock')
 LOG = os.path.join(BP, 'reports', 'daemon.log')
-STAGES_PATH = os.path.join(ROOT, 'dev', 'stages.json')  # live 階段快訊（單卡即時，繞 status.json 8s 節流）
 CRAWL_LIVE_PATH = os.path.join(ROOT, 'dev', 'crawl_live.json')  # live 下載快訊（買書員逐本 下載中→✓/✗，繞 status.json）
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
@@ -170,14 +169,17 @@ _snap_lock = threading.Lock()
 
 
 def _refresh_snapshot() -> None:
-    """事件驅動刷新 dev 監控快照：每個 log 事件順手重生 dev/status.json，節流 ~8s。
+    """事件驅動刷新 dev 監控快照：每個 log 事件順手重生 dev/status.json，節流 ~1s。
     **絕不在 _log_lock 內呼叫**：build_snapshot 重（評估全書 + 讀 pending/state）且會碰
     其他鎖 → 若持 _log_lock 跑它，會與『持他鎖又要 log』的 thread 反轉死鎖（並行下必現）。
-    自帶 non-blocking _snap_lock：已有 thread 在刷就跳過，避免 N thread 同時 build_snapshot。"""
+    自帶 non-blocking _snap_lock：已有 thread 在刷就跳過，避免 N thread 同時 build_snapshot。
+    節流 8s→1s：status.json 拆分後核已輕（逐出 per-book timeline/sessions + system 欄，
+    write_snapshot 端到端 ~0.17s）→ 1s 重寫 duty ~17% 單核可接受，且核 1s 直驅看板（取代已退役
+    的 stages.json fast-lane）→ 階段轉換 ≤1s 反映、不再需要繞道小檔。"""
     global _last_snap
     import time
     now = time.monotonic()
-    if now - _last_snap < 8:
+    if now - _last_snap < 1:
         return
     if not _snap_lock.acquire(blocking=False):
         return  # 別的 thread 正在刷 → 跳過本次（best-effort）
@@ -206,42 +208,6 @@ def log(msg: str) -> None:
         with open(LOG, 'a') as f:
             f.write(line + '\n')
     _refresh_snapshot()
-
-
-# ── live 階段快訊（dev/stages.json）────────────────────────────────────────────
-# 書一轉換階段就把 {slug: stage} 寫進極小檔（不走 status.json 的 8s 全量節流），供 /dev 以
-# ~1.5s cadence 即時撿出單卡階段變化 + 閃示。**只寫 live 階段、不碰 timeline 歷史**（歷史單一
-# 寫手仍是 60s devsnapshot，見 devctl）→ controller 舊碼寫此檔不引入版本歪斜（與它本就在寫的
-# status.json live books[].stage 同性質）。controller 是此檔唯一寫手；前端用 generated_at_utc 守新舊。
-_stage_map: dict[str, str] = {}
-_stage_lock = threading.Lock()
-
-
-def _publish_stages(pairs) -> None:
-    """更新 in-memory 階段表，有變動才原子寫出 dev/stages.json。pairs = [(slug, stage), …]，冪等。"""
-    with _stage_lock:
-        changed = False
-        for slug, stage in pairs:
-            if stage and _stage_map.get(slug) != stage:
-                _stage_map[slug] = stage
-                changed = True
-        if not changed:
-            return
-        snap = {'generated_at_utc': datetime.now(timezone.utc).isoformat(),
-                'stages': dict(_stage_map)}
-    try:
-        os.makedirs(os.path.dirname(STAGES_PATH), exist_ok=True)
-        tmp = STAGES_PATH + '.tmp'
-        with open(tmp, 'w') as f:
-            json.dump(snap, f, ensure_ascii=False)
-        os.replace(tmp, STAGES_PATH)  # 原子替換，前端永不讀到半截
-    except Exception:
-        pass
-
-
-def emit_stage(slug: str, stage: str) -> None:
-    """單書階段轉換的最早可知點即時發佈（advance_book 每步呼叫；同階段不重寫）。"""
-    _publish_stages([(slug, stage)])
 
 
 # ── live 下載快訊（dev/crawl_live.json）──────────────────────────────────────────
@@ -1180,7 +1146,7 @@ def _artifact_commit_msg(files: list[str]) -> tuple[str, str]:
 
 def commit_artifacts() -> None:
     """貴重成果 curated auto-commit（controller 退出時呼叫，main thread → 無 git index race）。
-    鐵律：**只 stage 白名單路徑、絕不 `git add -A`**——盲加會把 gitignore 的漏（stages.json /
+    鐵律：**只 stage 白名單路徑、絕不 `git add -A`**——盲加會把 gitignore 的漏（status.json /
     隔離書 unified symlink 之類）每次靜默 commit 進去。fail-open：git 任何錯都不擋 pipeline。
     commit-only 不 push。無 staged 變更 → 靜默 no-op。身份用 global config（Max0228）。"""
     if not AUTOCOMMIT:
@@ -1492,7 +1458,6 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     for _ in range(max_steps):
         row = q.assess_one(slug)
         stage = row.get('stage', '') or ''
-        emit_stage(slug, stage)  # live 階段快訊：轉換最早可知點即時發佈（冪等）
         todo = row.get('todo', '—')
         # todo 可能多項空白分隔，含 (可選) 非阻塞項（已部署/已 accept 的 catalog、已部署的 sol、translate）。
         # 取第一個「非可選」項當下一步動作；全可選/無 → 本書收工。**不可**用 todo.split('(')[0]：
@@ -1547,7 +1512,6 @@ def _sorted_rows() -> list:
         parts = (r.get('stage') or '').split()
         return order.get(parts[0] if parts else '', 9)
     rows.sort(key=_ord)
-    _publish_stages([(r.get('slug', ''), r.get('stage', '') or '') for r in rows])  # 每 observe 全書階段快訊
     q.ensure_first_seen([r.get('slug', '') for r in rows if r.get('slug')])  # 每 observe 補新書入庫戳（idempotent，零缺口）
     return rows
 
@@ -1780,7 +1744,8 @@ def tick_reactive(no_deploy: bool) -> int:
             else:
                 idle = 0
             # 事件驅動：工人一完成即被喚醒重觀測（transition 延遲從「滿一個 poll」塌到一次
-            # observe，~16s）；無事件則睡滿 LOOP_POLL 當 OCR 輪詢/外部變更的上限節奏。
+            # observe，~0.04s；observe 自 sol_stats 快取後已廉價）；無事件則睡滿 LOOP_POLL
+            # 當 OCR 輪詢/外部變更的上限節奏。
             wake.wait(LOOP_POLL)
             wake.clear()
     finally:

@@ -364,9 +364,9 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, STAGES_MS = 1000, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
-  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
-  let last = null, lastWorkers = [], lastStageGen = ''
+  const REFRESH_MS = 1000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
+  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
+  let last = null, lastWorkers = []
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
@@ -1267,10 +1267,14 @@
   function setText(id, txt) { const el = document.getElementById(id); if (el && el.textContent !== txt) el.textContent = txt }
 
   function render(d) {
+    const prevStage = {}
+    if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
     last = d
     renderHealth(d)
     updateLineSub()
     reconcileBooks(d)
+    // 階段剛變的卡閃示（核 status.json 1s 直驅，取代退役的 stages.json fast-lane；首次載入 prevStage 空→不閃）
+    if (d.books) d.books.forEach(b => { if (b.slug in prevStage && prevStage[b.slug] !== b.stage) flashStage(b.slug) })
     reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 1s loadWorkers 管）
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
@@ -1317,27 +1321,10 @@
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
     if (openSlug || openWkey) renderDrawer()
   }
-  // live 階段快訊：~1s 撿 dev/stages.json（極小 {slug:stage}），單卡階段一變就地移 lane + 閃示，
-  // 不必等 8s 全量 status.json。stages.json 由 controller 在轉換瞬間寫（繞過 status 的 8s 節流）。
-  async function loadStages() {
-    if (!last || !last.books) return
-    let s
-    try { s = await fetchJson('stages.json') } catch { return }  // 尚無檔 / controller 未起
-    if (!s || !s.stages || !s.generated_at_utc) return
-    if (s.generated_at_utc === lastStageGen) return                                  // 無新版 → 不動
-    if (last.generated_at_utc && s.generated_at_utc < last.generated_at_utc) return  // 比剛撿的 status 還舊 → 跳過
-    lastStageGen = s.generated_at_utc
-    const flash = []
-    last.books.forEach(b => {
-      const ns = s.stages[b.slug]
-      if (ns != null && ns !== b.stage) { b.stage = ns; flash.push(b.slug) }
-    })
-    if (!flash.length) return
-    reconcileBooks(last)  // 複用既有 lane 移動 / 卡片更新邏輯（stationOf 純由 stage 驅動）
-    flash.forEach(sl => {
-      const el = document.querySelector('.book[data-slug="' + (window.CSS ? CSS.escape(sl) : sl) + '"]')
-      if (el) { el.classList.remove('stage-flash'); void el.offsetWidth; el.classList.add('stage-flash') }
-    })
+  // 階段剛變的卡閃示（核 status.json 1s 直驅 → 退役 stages.json fast-lane；render() reconcile 後呼叫）。
+  function flashStage(slug) {
+    const el = document.querySelector('.book[data-slug="' + (window.CSS ? CSS.escape(slug) : slug) + '"]')
+    if (el) { el.classList.remove('stage-flash'); void el.offsetWidth; el.classList.add('stage-flash') }
   }
   // live 下載快訊：1s 直撿 dev/crawl_live.json（買書員逐本 下載中→✓/✗），不等 8s status.json。
   // 無下載時檔不存在 → fetch 404 → crawlLive=null → 表頭退回常態 reason。
@@ -1376,13 +1363,12 @@
     if (!timer) timer = setInterval(load, REFRESH_MS)
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
     if (!workersTimer) workersTimer = setInterval(loadWorkers, WORKERS_MS)
-    if (!stagesTimer) stagesTimer = setInterval(loadStages, STAGES_MS)
     if (!crawlLiveTimer) crawlLiveTimer = setInterval(loadCrawlLive, CRAWLLIVE_MS)
     if (!proposalsTimer) proposalsTimer = setInterval(loadProposals, PROPOSALS_MS)
     if (!systemTimer) systemTimer = setInterval(loadSystem, SYSTEM_MS)
   }
-  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); clearInterval(crawlLiveTimer); clearInterval(proposalsTimer); clearInterval(systemTimer); timer = clockTimer = workersTimer = stagesTimer = crawlLiveTimer = proposalsTimer = systemTimer = null; stopMathRaw() }
-  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages(); loadCrawlLive(); loadProposals(); loadSystem() })
+  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(crawlLiveTimer); clearInterval(proposalsTimer); clearInterval(systemTimer); timer = clockTimer = workersTimer = crawlLiveTimer = proposalsTimer = systemTimer = null; stopMathRaw() }
+  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadCrawlLive(); loadProposals(); loadSystem() })
   document.getElementById('btn-proposals').addEventListener('click', openProposalsDrawer)
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); loadProposals(); loadSystem(); start()
