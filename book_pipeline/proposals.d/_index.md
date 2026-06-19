@@ -2959,7 +2959,12 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （16 條；proposed=16）
+## domain: sol  （20 條；proposed=20）
+
+### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run（2026-06-19）穩定抽出 0 章、0 題。anton_calculus_sol 的 text_level==1 章標多為純章名（如 'Limits and Continuity'、'Topics in Differentiation'），不含章號；真正帶章號的是 header 'Chapter N' 與 lvl=2 的 'Exercise Set N.M'。若硬用少數含數字的 lvl1（如 Chapter 10/14 Making Connections）作 anchor，會跨章吞併並系統性錯位。
+- 提議：擴充 sol_extract：允許 header 或可設定 text_level 的章 anchor，或新增以 Exercise Set N.M 直接映射主書章號的模式；完成後再對 anton_calculus_sol 重跑 audit-sol。
 
 ### P-2026-06-19-blundell-thermal-sol — blundell_thermal 解答書無法 merge：sol_extract 不支援以 N.M 題號前綴直接導章
 - proposed | type=harness-gap | source=sol_extract
@@ -3016,6 +3021,11 @@ index 2c80077..8104e5a 100644
 - 證據：ogata_control/parsed/ch02.json~ch10.json 各章僅 1 題，problem.num 分別為 2~10；但題幹內直接串入多題 anchor，例如 ch02 唯一題目 body 含 'B-2-2.'、'B-2-3.'，ch06 唯一題目 body 含 'B-6-2.'。解答書 ogata_control_sol 則是逐題 'B-2-1.'/'B-3-1.' 結構；若將 key 放鬆成章號，只會把多題解答覆寫成每章最後一題，屬系統性錯配。
 - 提議：先重做 ogata_control 主書 audit/parser（或換更乾淨母書來源），恢復 parsed/chNN.json 的逐題 problem key；之後再以 chapter_re='^CHAPTER\s+(\d+)\s*$'、problem_re='^B[\-–](\d+[\-–]\d+)\.' 重新評估 ogata_control_sol merge。
 
+### P-2026-06-19-rudin-analysis-sol — rudin_analysis 解答本無法 merge：章 anchor 分裂於 lvl1/lvl2
+- proposed | type=harness-gap | source=sol_extract
+- 證據：解答書共有 286 個 Exercise 起點，但 sol_extract 只接受 text_level==1 的 chapter anchor。expand_list_blocks 後僅有 lvl1: Chapter 4/5/9；其餘章號在 lvl2（如 Chapter 1/2/3/6/7/8/10/11）或僅剩無數字章名。用 chapter='^Chapter\s+(\d+)\s*$' + problem='^Exercise\s+(\d+\.\d+)' 測試時只抽出 ch4=26、ch5=104(一路吃到 8.31)、ch9=81(一路吃到 11.18)，屬系統性錯位。
+- 提議：增強 sol_extract 章 anchor 能力：允許 text_level>=1、或支援將 lvl2 'Chapter N' 與緊隨的 lvl1 章名合併成同一章起點；完成後重跑 rudin_analysis_sol merge。
+
 ### P-2026-06-19-sethna-statistical-mechanics-sol — sethna_statistical_mechanics 解答書無法 merge：sol_extract 缺 chapterless solution-book 對齊能力
 - proposed | type=harness-gap | source=sol_extract
 - 證據：sethna_statistical_mechanics_sol unified 正文沒有任何 text_level==1 章 anchor；預設 dry-run 抽出 0 章 0 題。另一方面，ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有外來題號；語義抽樣 1.1/5.4/10.1 分別對上 Quantum Dice、Black Hole Thermodynamics、Cosmic Microwave Background Radiation，證明來源書正確且 key 對齊可行。阻塞點是 sol_extract 目前只能先按 lvl1 chapter_re 切章，無法在 chapterless 版型下直接按完整 N.M 題號切題與 merge。
@@ -3040,3 +3050,13 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：strang_linalg_sol/unified/content_list.json 的 text block 統計為 lvl=2:60、lvl=1:0；現行 sol_extract 只掃 text_level==1 當 chapter anchor。dry-run（2026-06-19）結果為抽出 0 章、0 題，無法開始配對。解答書實際以 'Problem Set N.M, page P' 當段落標頭，題號再嵌在後續 text/equation block 開頭。
 - 提議：擴充 sol_extract schema/引擎：允許設定章 anchor 的 text_level，或新增以 Problem Set N.M 直接映射主書 chapter + ProblemSetN.M.K namespace 的模式；完成後再重跑 strang_linalg_sol。
+
+### P-2026-06-19-walpole-probability-statistics-s — walpole_probability_statistics 解答本缺少可用章 anchor，僅能部分 merge
+- proposed | type=harness-gap | source=sol_extract
+- 證據：sol unified 僅 ch4/5/6/7/10/13/15/16/17/18 具 text_level==1 的 'Chapter N'；ch1/2/3/8/9/11/12/14 缺顯式 lvl1 章標。dry-run 抽出 10 章 783 題，嚴格 problem_re='^(\d+\.\d+)\b' 下可安全對齊 451/569；語義抽樣 ch4/ch10/ch16 與 ch7/ch13/ch18 前 3 題皆同題。
+- 提議：升級 sol_extract 章 anchor 能力：至少支援非 lvl1 章標，或支援以書名/章標題映射章號，才能覆蓋這本缺失章節。當前以嚴格 N.M 題號先 merge 可安全章，其餘保留 unmatched。
+
+### P-2026-06-19-wooldridge-introductory-economet — wooldridge_introductory_econometrics 解答本無法 merge：主書 parsed 題號語義錯位
+- proposed | type=source-quality | source=sol_extract
+- 證據：dry-run 137/196；語義抽樣顯示 ch01 main#1 對應 sol 1.2、ch02 main#2 對應 sol 2.1、ch04 主書從題號 5 開始但 sol 有 4.1-4.11，無法用單一 problem_re 安全對齊。
+- 提議：先修主書 parser/題號切分品質，或換更可靠主書來源；待主書 parsed 題號與題幹語義一致後，再重跑 audit-sol。
