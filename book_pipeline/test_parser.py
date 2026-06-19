@@ -245,6 +245,49 @@ def test_split_problems_increasing_guard_walk_inline():
     )
 
 
+def test_last_chapter_backmatter_cap():
+    """[lock·silent-corruption] 無附錄時 bibliography/index_start_page 也須 cap 末章。
+
+    invariant：bib/index_start_page 是「全書 back-matter 切口」。原本只在附錄迴圈當末附錄
+    cutoff 用——當 appendices:[] 時該迴圈不跑，切口整個失效，末章把 Glossary/Index/
+    References 全吞進最後一題（18 本書實證：riley 3212、chaikin 1325、weinberg_qft 877…）。
+    _last_chapter_backmatter_cap 在無附錄時補回末章 cap。本鎖驗五條 invariant：
+
+      A. 無附錄 + index_start_page 落在末章內 → 回該 block idx（cap 生效）。
+      B. 有附錄 → None（原路徑、零行為改變；附錄迴圈自有 cutoff）。
+      C. 無 bib/index_start_page → None。
+      D. stale 設定：切口落在末章 title 之前（ross index_start_page=65 型）→ None，
+         fail-safe 絕不誤切好書。
+      E. bib_start 優先於 index_start（與附錄迴圈 cutoff 同序）。
+    """
+    # page_idx 對齊 block idx：第 i 個 block 在 page i（簡化；first_block_idx_after_page
+    # 回首個 page_idx>=cutoff 的 block）。末章 title@8、problems 區、back-matter@15、章尾@20。
+    blocks = [{'page_idx': i} for i in range(20)]
+    last = {'num': 9, 'chapter_title_block_idx': 8, 'problems_block_idx': 10,
+            'next_chapter_block_idx': 20}
+    chapters = [{'num': 8, 'chapter_title_block_idx': 0, 'next_chapter_block_idx': 8}, last]
+
+    # A：無附錄、index_start_page=15（落在 problems(10) 與章尾(20) 之間）→ cap=15
+    cap = parser._last_chapter_backmatter_cap(chapters, [], None, 15, blocks)
+    assert cap == 15, f'A：應 cap 到 back-matter 起點 15，實得 {cap!r}'
+
+    # B：有附錄 → 不 cap（附錄迴圈自理）
+    cap = parser._last_chapter_backmatter_cap(
+        chapters, [{'id': 'A', 'chapter_title_block_idx': 16}], None, 15, blocks)
+    assert cap is None, f'B：有附錄應回 None（原路徑），實得 {cap!r}'
+
+    # C：無切口設定 → None
+    assert parser._last_chapter_backmatter_cap(chapters, [], None, None, blocks) is None
+
+    # D：stale 切口落在末章 title(8) 之前（page 5）→ None，絕不誤切
+    assert parser._last_chapter_backmatter_cap(chapters, [], None, 5, blocks) is None, \
+        'D：切口在章前的 stale 設定必須回 None（fail-safe）'
+
+    # E：bib_start 優先於 index_start（bib=12 落章內 → cap=12，不取 index=18）
+    cap = parser._last_chapter_backmatter_cap(chapters, [], 12, 18, blocks)
+    assert cap == 12, f'E：bib_start 應優先，cap 應為 12，實得 {cap!r}'
+
+
 def test_expand_list_blocks_normal_passthrough():
     """[lock] expand_list_blocks 正常路徑：list_items 全字串時逐項攤平成 text block。
 
@@ -291,6 +334,8 @@ if __name__ == '__main__':
     print('✓ lock：split_problems 遞增守則擋正文 numbered list 偽命中（5 題、回退行併入 body）')
     test_split_problems_increasing_guard_walk_inline()
     print('✓ lock：walk_inline 整數 tuple 遞增守則同擋回退偽命中（3 題）')
+    test_last_chapter_backmatter_cap()
+    print('✓ lock：無附錄時 bib/index_start_page 仍 cap 末章（擋 Glossary/Index 吞噬，stale 設定 fail-safe）')
     test_expand_list_blocks_normal_passthrough()
     print('✓ lock：expand_list_blocks 正常逐項攤平（不漏子題、不繼承 text_level）')
     test_block_to_struct_table_str_body_ok()

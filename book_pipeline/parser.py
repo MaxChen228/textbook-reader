@@ -696,10 +696,26 @@ def parse_book(slug: str) -> dict:
     out_dir = DATA_DIR / slug / 'parsed'
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    appendices = rules.get('appendices', [])
+    bib_start = rules.get('bibliography_start_page')
+    index_start = rules.get('index_start_page')
+
+    # 末章 back-matter 切口（修：appendices:[] 時 bibliography/index_start_page 整個失效）。
+    # 這兩個 page 切口原本只在「附錄迴圈」當末附錄 cutoff 用（見下方）。當書沒有任何附錄時
+    # 附錄迴圈不跑 → 切口從未生效 → 末章把 Glossary/Index/References 全吞進最後一題/章尾
+    # （18 本書實證：riley/bott_tu/chaikin/weinberg_qft… 末章尾巴吞數百~數千 block）。
+    # 對策：無附錄時，把末章尾端 cap 到 back-matter 起點。守則——切口須落在末章「內容區之內」
+    # （problems_idx 或 title 之後、章尾之前）才套；落在章前的 stale 設定（如 ross
+    # index_start_page=65）一律不動，fail-safe 絕不誤切好書。有附錄者走原路徑、零行為改變。
+    chapters_rules = rules.get('chapters', [])
+    last_ch_cap = _last_chapter_backmatter_cap(
+        chapters_rules, appendices, bib_start, index_start, all_blocks)
+
     # 章節
     chapter_files: list[dict] = []
-    chapters_rules = rules.get('chapters', [])
-    for ch in chapters_rules:
+    for i, ch in enumerate(chapters_rules):
+        if last_ch_cap is not None and i == len(chapters_rules) - 1:
+            ch = {**ch, 'next_chapter_block_idx': last_ch_cap}
         data = parse_chapter(ch, all_blocks, rules, regexes)
         fname = f"ch{ch['num']:02d}.json"
         assign_catalog_ids(data, fname.removesuffix('.json'))
@@ -715,9 +731,6 @@ def parse_book(slug: str) -> dict:
 
     # 附錄
     appendix_files: list[dict] = []
-    appendices = rules.get('appendices', [])
-    bib_start = rules.get('bibliography_start_page')
-    index_start = rules.get('index_start_page')
     # 附錄末尾用下一個附錄起點 / 或 bibliography_start_page 對應的 block 起點
     for i, app in enumerate(appendices):
         if i + 1 < len(appendices):
@@ -771,6 +784,36 @@ def first_block_idx_after_page(blocks: list[dict], page_idx: int) -> int:
         if b.get('page_idx', 0) >= page_idx:
             return i
     return len(blocks)
+
+
+def _last_chapter_backmatter_cap(chapters_rules: list[dict], appendices: list[dict],
+                                 bib_start: int | None, index_start: int | None,
+                                 all_blocks: list[dict]) -> int | None:
+    """無附錄時末章的 back-matter cap（block idx）；不該 cap 回 None。
+
+    bibliography/index_start_page 原本只在附錄迴圈當末附錄 cutoff。當 appendices:[] 時
+    該迴圈不跑、切口完全失效，末章遂吞掉 Glossary/Index/References（18 本書實證）。
+    這裡在無附錄時補回末章 cap。守則（缺一不可，全為 fail-safe）：
+      - 有附錄 → None（原路徑，零行為改變）。
+      - 無 bib/index_start_page → None。
+      - cap 須嚴格落在末章「內容區之內」：lo(=problems_idx 或 title) < cap < 章尾。
+        落在章前的 stale 設定（如 ross index_start_page=65 → block 在 ch10 title 之前）
+        一律回 None，絕不誤切好書。
+    """
+    if appendices or not chapters_rules:
+        return None
+    cutoff_page = bib_start if bib_start is not None else index_start
+    if cutoff_page is None:
+        return None
+    last = chapters_rules[-1]
+    cti = last.get('chapter_title_block_idx')
+    nci = last.get('next_chapter_block_idx')
+    pbi = last.get('problems_block_idx')
+    lo = pbi if pbi is not None else cti
+    if cti is None or nci is None or lo is None:
+        return None
+    cap = first_block_idx_after_page(all_blocks, cutoff_page)
+    return cap if lo < cap < nci else None
 
 
 def check_problem_gaps(slug: str, chapter_files: list[dict], out_dir: Path,
