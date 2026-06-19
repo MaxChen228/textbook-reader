@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-crawl-resolve",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/booklists/biology.json（crawl __crawl_resolve__）",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-19T01:21:04+00:00",
+  "updated": "2026-06-19T01:21:04+00:00",
+  "evidence": "scope_guard bracket：worker [crawl __crawl_resolve__] session=__crawl_resolve__:23101 存活期間，受保護程式碼面 book_pipeline/booklists/biology.json（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/booklists/biology.json b/book_pipeline/booklists/biology.json\nindex 6d0609e..4cb843a 100644\nBinary files a/book_pipeline/booklists/biology.json and b/book_pipeline/booklists/biology.json differ",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

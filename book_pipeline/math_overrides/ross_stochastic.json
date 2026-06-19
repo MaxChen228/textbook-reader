@@ -26,6 +26,28 @@
       "selector": "body[481]",
       "expect": "\\begin{array}{l} 1 = \\sum_ {n = 0} ^ {\\infty} P \\{n \\text {   in   system } \\} \\\\ = P (0) \\lim _ {s \\rightarrow 1} \\frac {(1 - s) \\tilde {G} (\\lambda (1 - s))}{\\tilde {G} (\\lambda (1 - s)) - s} \\\\ = P (0) \\frac {\\lim _ {s \\rightarrow 1} \\frac {d}{d s} (1 - s)}{\\lim _ {s \\rightarrow 1} \\frac {d}{d s} [ \\tilde {G} (\\lambda (1 - s)) - s ]} \\quad \\text {(by L'hopital's rule since \\tilde {G} (0) = 1)} \\\\ = \\frac {P (0)}{1 - \\lambda E [ S ]} \\\\ \\end{array}",
       "new": "\\begin{array}{l} 1 = \\sum_{n=0}^{\\infty} P\\{n \\text{ in system }\\} \\\\ = P(0) \\lim_{s\\rightarrow 1} \\frac{(1-s)\\tilde{G}(\\lambda(1-s))}{\\tilde{G}(\\lambda(1-s))-s} \\\\ = P(0) \\frac{\\lim_{s\\rightarrow 1} \\frac{d}{ds}(1-s)}{\\lim_{s\\rightarrow 1} \\frac{d}{ds}[\\tilde{G}(\\lambda(1-s))-s]} \\quad \\text{(by L'hopital's rule since } \\tilde{G}(0)=1\\text{)} \\\\ = \\frac{P(0)}{1-\\lambda E[S]} \\\\ \\end{array}"
+    },
+    {
+      "id": "ross_stochastic-ch09-body-655-febe15",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[655]",
+      "field": "md",
+      "all": true,
+      "old": "$X_1 = F_1^{-1}_{X_0}(U_1)$",
+      "new": "$X_1=F_1^{-1}(U_1)_{X_0}$",
+      "anchor": "2cf84250"
+    },
+    {
+      "id": "ross_stochastic-ch09-body-655-a4cda9",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[655]",
+      "field": "md",
+      "all": true,
+      "old": "$X_2 = F_2^{-1}_{X_1}(U_2)$",
+      "new": "$X_{2}=F_{X_{1}}^{-1}(U_{2})$",
+      "anchor": "33b39aa9"
     }
   ]
 }

@@ -6,7 +6,7 @@
       "chunk": "ch11",
       "selector": "body[232]",
       "expect": "\\int_ {\\widetilde {\\gamma}} \\omega = \\left\\{ \\begin{array}{l l} \\int_ {\\gamma} \\omega & \\text {if \\widetilde {\\gamma} is a forward reparametrization}, \\\\ - \\int_ {\\gamma} \\omega & \\text {if \\widetilde {\\gamma} is a backward reparametrization}. \\end{array} \\right.",
-      "new": "\\int_{\\widetilde{\\gamma}} \\omega = \\left\\{ \\begin{array}{ll} \\int_{\\gamma} \\omega & \\text{if } \\widetilde{\\gamma} \\text{ is a forward reparametrization}, \\\\ -\\int_{\\gamma} \\omega & \\text{if } \\widetilde{\\gamma} \\text{ is a backward reparametrization}. \\end{array} \\right."
+      "new": "\\int_{\\widetilde{\\gamma}}\\omega=\\left\\{\\begin{array}{ll}\\int_{\\gamma}\\omega&\\text{if }\\widetilde{\\gamma}\\text{ is a forward reparametrization},\\\\-\\int_{\\gamma}\\omega&\\text{if }\\widetilde{\\gamma}\\text{ is a backward reparametrization}.\\end{array}\\right."
     },
     {
       "id": "lee_smooth_manifolds-ch14-body-45-9db6a0",
@@ -14,7 +14,7 @@
       "chunk": "ch14",
       "selector": "body[45]",
       "expect": "\\delta_ {J} ^ {I} = \\left\\{ \\begin{array}{l l} \\operatorname{sgn} \\sigma & \\text { if   neither   I   nor   J   has   a   repeated   index   and   J   =   I_{\\sigma }   for   some   \\sigma\\in S_{k}}, \\\\ 0 & \\text { if   I   or   J   has   a   repeated   index   or   J   is   not   a   permutation   of   I }. \\end{array} \\right.",
-      "new": "\\delta_{J}^{I} = \\left\\{ \\begin{array}{ll} \\operatorname{sgn} \\sigma & \\text{if neither } I \\text{ nor } J \\text{ has a repeated index and } J = I_{\\sigma} \\text{ for some } \\sigma\\in S_{k}, \\\\ 0 & \\text{if } I \\text{ or } J \\text{ has a repeated index or } J \\text{ is not a permutation of } I. \\end{array} \\right."
+      "new": "\\delta_{J}^{I}=\\left\\{\\begin{array}{ll}\\operatorname{sgn}\\sigma&\\text{if neither }I\\text{ nor }J\\text{ has a repeated index and }J=I_{\\sigma}\\text{ for some }\\sigma\\in S_{k},\\\\0&\\text{if }I\\text{ or }J\\text{ has a repeated index or }J\\text{ is not a permutation of }I.\\end{array}\\right."
     },
     {
       "id": "lee_smooth_manifolds-ch22-body-314-0d0380",
@@ -24,8 +24,7 @@
       "field": "md",
       "all": true,
       "old": "$S _ { \\textrm { \\tiny { \\cdot } } }$",
-      "new": "$S_{\\textrm{\\tiny $\\cdot$}}$",
-      "anchor": "738a3e8e"
+      "new": "$S_{\\textrm{\\tiny $\\cdot$}}$"
     },
     {
       "id": "lee_smooth_manifolds-ch09-body-257-e9229d",
@@ -37,6 +36,72 @@
       "old": "$J { \\left. {  } }\\right.$",
       "new": "$J\\left.\\right.$",
       "anchor": "f7ac9e4c"
+    },
+    {
+      "id": "lee_smooth_manifolds-appB-body-29-5b963a",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[29]",
+      "field": "md",
+      "all": true,
+      "old": "$w _ { i } \\textrm { \\textmu { } }$",
+      "new": "$w_{i}\\textrm{$\\textmu$}$",
+      "anchor": "45355d8a"
+    },
+    {
+      "id": "lee_smooth_manifolds-appA-body-118-75106e",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[118]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { \\iota _ { \\alpha } \\colon X _ { \\alpha } \\to \\big \\mathrm { { L } } _ { \\alpha \\in A } X _ { \\alpha } } \\end{array}$",
+      "new": "$\\begin{array}{r}{\\iota_{\\alpha}\\colon X_{\\alpha}\\to \\bigl\\{L\\bigr\\}_{\\alpha\\in A}X_{\\alpha}}\\end{array}$",
+      "anchor": "c016312d"
+    },
+    {
+      "id": "lee_smooth_manifolds-appA-body-126-75106e",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[126]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { \\iota _ { \\alpha } \\colon X _ { \\alpha } \\to \\big \\mathrm { { L } } _ { \\alpha \\in A } X _ { \\alpha } } \\end{array}$",
+      "new": "$\\begin{array}{r}{\\iota_{\\alpha}\\colon X_{\\alpha}\\to \\bigl\\{L\\bigr\\}_{\\alpha\\in A}X_{\\alpha}}\\end{array}$",
+      "anchor": "938d0655"
+    },
+    {
+      "id": "lee_smooth_manifolds-ch22-body-314-ec8e3f",
+      "action": "fix_inline_math",
+      "chunk": "ch22",
+      "selector": "body[314]",
+      "field": "md",
+      "all": true,
+      "old": "$S_{\\textrm{\\tiny $",
+      "new": "$S_{\\textrm{\\tiny}} $",
+      "anchor": "25f982b1"
+    },
+    {
+      "id": "lee_smooth_manifolds-appB-body-29-00c213",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[29]",
+      "field": "md",
+      "all": true,
+      "old": "$w_{i}\\textrm{$",
+      "new": "$w_{i}\\textrm{}$",
+      "anchor": "97e245ca"
+    },
+    {
+      "id": "lee_smooth_manifolds-ch12-body-157-6c94e9",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[157]",
+      "field": "md",
+      "all": true,
+      "old": "$( k + l ) \\dash$",
+      "new": "$(k+l)-$",
+      "anchor": "bb8955eb"
     }
   ]
 }

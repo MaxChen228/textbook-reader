@@ -263,6 +263,35 @@
       "selector": "body[334]",
       "expect": "\\begin{array}{l} T (x (U)) \\xrightarrow {\\simeq} (T \\mathbb {R} ^ {n}) | x (U) \\xrightarrow {l ^ {n} | x (U)} \\varepsilon^ {n} (\\mathbb {R} ^ {n}) | x (U) \\\\ (3) \\quad (T M) | U \\xleftarrow {\\simeq} T U \\Bigg \\downarrow \\begin{array}{l l} x _ {*} / & \\left| \\begin{array}{l l} & \\\\ (y \\circ x ^ {- 1}) _ {*} & \\text {old} (y \\circ x ^ {- 1}) _ {*} \\end{array} \\right| \\\\ y _ {*} / & \\\\ T (y (U)) \\xrightarrow {\\simeq} (T \\mathbb {R} ^ {n}) | y (U) \\xrightarrow {t ^ {n} | y (U)} \\varepsilon^ {n} (\\mathbb {R} ^ {n}) | y (U) \\end{array}",
       "new": "\\begin{array}{l} T(x(U)) \\xrightarrow{\\simeq} (T\\mathbb{R}^{n})|x(U) \\xrightarrow{l^{n}|x(U)} \\varepsilon^{n}(\\mathbb{R}^{n})|x(U) \\\\ (3) \\quad (TM)|U \\xleftarrow{\\simeq} TU \\Bigg\\downarrow \\begin{array}{ll} x_{*}/ & \\left| \\begin{array}{ll} & \\\\ (y\\circ x^{-1})_{*} & \\text{old } (y\\circ x^{-1})_{*} \\end{array} \\right| \\\\ y_{*}/ & \\\\ T(y(U)) \\xrightarrow{\\simeq} (T\\mathbb{R}^{n})|y(U) \\xrightarrow{t^{n}|y(U)} \\varepsilon^{n}(\\mathbb{R}^{n})|y(U) \\end{array} \\end{array}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-2095-35ad23",
+      "action": "fix_inline_math",
+      "chunk": "ch30",
+      "selector": "body[2095]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nabla_X'_{p}\\xi$",
+      "new": "$\\nabla_{X'_{p}}\\xi$"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-403-96572e",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[403]",
+      "expect": "\\left\\{ \\begin{array}{l} \\text {a section \\psi of Hom(TM\\times TM,Nor M),} \\\\ \\text {a vector X_{p} \\in M_{p}}, \\end{array} \\right.",
+      "new": "\\left\\{\\begin{array}{l}\\text{a section }\\psi\\text{ of Hom}(TM\\times TM,\\operatorname{Nor} M),\\\\\\text{a vector }X_{p}\\in M_{p},\\end{array}\\right."
+    },
+    {
+      "id": "spivak_differential_geometry-ch21-body-261-6a3e0f",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[261]",
+      "field": "md",
+      "all": true,
+      "old": "\\( [,\\] ) satisfies the Jacobi identity). ✦",
+      "new": "([,])\\text{ satisfies the Jacobi identity). ✦}",
+      "anchor": "6ad0a22a"
     }
   ]
 }
