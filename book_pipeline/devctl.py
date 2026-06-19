@@ -332,8 +332,8 @@ def workers() -> list:
         if isinstance(pid, int) and not _pid_alive(pid):
             continue
         started = _parse_ts_iso(w.get('started'))
-        if started and (now - started).total_seconds() > 3600:
-            continue  # 超 1h 必為殘留（LLM_TIMEOUT 40min）
+        if started and (now - started).total_seconds() > 21600:
+            continue  # 起 >6h = pid-reuse 殘留兜底。agent 時間上限已取消（可長跑），故不再用 1h；6h 無真 agent 觸及，純孤兒防護（pid 存活已在上一行擋過大宗）
         out.append(w)
     return out
 

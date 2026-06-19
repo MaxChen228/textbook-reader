@@ -32,8 +32,10 @@ import time
 _BP = os.path.dirname(os.path.abspath(__file__))
 LEASE_DIR = os.path.join(_BP, '.leases')
 
-# 預設 TTL 對齊 dispatch_llm 的 LLM_TIMEOUT（1h）；呼叫端可覆寫。
-DEFAULT_TTL = int(os.environ.get('BOOK_PIPELINE_LEASE_TTL', '3600'))
+# 預設 TTL **0 = 無限**（對齊 dispatch_llm 的 LLM_TIMEOUT 取消上限）：runaway 殺由 codex 主力
+# 後已無病理，TTL 殺只會從另一條路誤殺真複雜的長 agent。crash 恢復不靠 TTL——pid 已死的孤兒租約
+# 仍即時釋放（見 active() 上方分支）。env 可重設正整數臨時重新加上限（與 LLM_TIMEOUT 同步重設）。
+DEFAULT_TTL = int(os.environ.get('BOOK_PIPELINE_LEASE_TTL', '0'))
 # runaway SIGTERM 後給多久自清，逾此 active() 才補 SIGKILL（對齊 pipeline_tick 既有 5s 寬限，
 # 但兩段式跨 scan、非阻塞 sleep）。
 KILL_GRACE = int(os.environ.get('BOOK_PIPELINE_LEASE_KILL_GRACE', '5'))
@@ -149,7 +151,7 @@ def _active_locked(now: float, log) -> list[dict]:
             continue
         age = now - float(rec.get('started_at', now))
         ttl = float(rec.get('ttl', DEFAULT_TTL))
-        if age <= ttl:
+        if ttl <= 0 or age <= ttl:  # ttl<=0 ⇒ 無限（不按時殺），只剩 pid-死回收兜底
             out.append(rec)  # 健康、真正在跑
             continue
         # age > ttl → runaway，兩段式殺（非阻塞、跨 scan 給寬限）

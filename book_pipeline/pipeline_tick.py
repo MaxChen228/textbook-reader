@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as cf
+import contextlib
 import fcntl
 import glob
 import json
@@ -63,10 +64,11 @@ CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 # 模型/effort/chain/timeout 全收斂進「派工配置層」book_pipeline.llm_policy
 # （DispatchSpec + DEFAULT_DISPATCH/STAGE_DISPATCH + resolve_dispatch），非散落於此。
 CODEX_BIN = os.environ.get('CODEX_BIN', 'codex')
-# headless LLM 派工的 wall-clock 上限（秒）。逾時殺整個子工 process group，避免單一
-# audit 的子 agent 陷入迴圈時拖死整個 daemon（曾見 kimi audit 重讀 content_list 卡 6.5h）。
-# 正常 audit ~25min；1h 留足餘裕（重書 smoke 迭代偶逼近 40min），只在真卡死時觸發。env 可覆寫。
-LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '3600'))
+# headless LLM 派工的 wall-clock 上限（秒）。**預設 0 = 無限**（agent 跑多久就跑多久）。
+# 當年設此上限是因主力曾是 kimi+claude-cli，會卡死自我空轉（重讀 content_list 卡 6.5h、燒
+# token）；改用 codex 為主力後該病理消失，硬切上限只會誤殺真複雜的書。env 可重設一個正整數
+# 臨時重新加上限（運維拉桿）；0/未設＝無限（→ timeout=None，p.wait 等到自然結束）。
+LLM_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_LLM_TIMEOUT', '0'))
 # ingest async upload 的並行度：upload 是 IO bound（切片+PUT MinerU，~8min/本），多本
 # 並行打滿上傳頻寬。manifest RMW 由 mineru_ingest 的 fcntl 鎖保護，並行安全。
 INGEST_PARALLEL = int(os.environ.get('BOOK_PIPELINE_INGEST_PARALLEL', '4'))
@@ -81,7 +83,7 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 tick 直接 select_next 取解析池待下載書、
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
 CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
-                                        os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '20')))
+                                        os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '30')))
 # 解析池水位（已確認 z-lib 連結、未 owned = READY）：低於此就派 crawl agent 解析更多 unresolved，
 # 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
@@ -122,7 +124,7 @@ LOOP_WALLTIME = int(os.environ.get('BOOK_PIPELINE_LOOP_WALLTIME', '3000'))      
 LOOP_POLL = int(os.environ.get('BOOK_PIPELINE_LOOP_POLL', '75'))               # cycle 間隔（秒）
 LOOP_IDLE_ROUNDS = int(os.environ.get('BOOK_PIPELINE_LOOP_IDLE_ROUNDS', '3'))  # 連續幾輪全無工作即收工退出
 LOOP_CONCURRENCY = int(os.environ.get('BOOK_PIPELINE_LOOP_CONCURRENCY', '32')) # controller 內並行 worker 上限
-DRAIN_BOUND = int(os.environ.get('BOOK_PIPELINE_DRAIN_BOUND', '120'))           # 退出排空在飛 worker 的上限秒數，逾時快殺+強退（防無上限 drain 凍結/孤兒鎖）
+DRAIN_BOUND = int(os.environ.get('BOOK_PIPELINE_DRAIN_BOUND', '600'))           # **只對純 thread worker（math sweep/det subprocess）**的排空上限秒，逾時 os._exit 逃生（防純 API thread 凍結/孤兒鎖）。可殺的子進程 agent 不受此限、無限等其自然收尾
 # live reactive controller 的 statefile（JSON {pid, sha, started}）：loop 起頭寫、退出即刪。
 #   pid → 外部送 SIGUSR1 喚醒（reload）；sha → 此 controller 載入的 git 版本，供
 #   「daemon 跑的是哪版碼、離 HEAD 多遠」即時觀測（免上線後做 forensics）。per-machine、gitignore。
@@ -626,7 +628,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     hist.start(wkey, slug, todo_verb, p.pid, provider,
                _display_model(provider, spec))
     result_rc = -1  # finally 用：timeout 路徑直接 return -1 不設 rc，故先給地板值
-    timeout = spec.timeout or LLM_TIMEOUT
+    timeout = spec.timeout or LLM_TIMEOUT or None  # None ⇒ p.wait 無限等、不殺（預設）
     # 租約包住實際 LLM 子進程：reactive loop 用它防「跨 controller crash 的 orphan 子進程」
     # 被重派/續殺（pid=真子進程、killable）。one-shot 模式下亦無害（tick 內 acquire→release）。
     leases.acquire(todo_verb, slug, p.pid, timeout)
@@ -1086,9 +1088,35 @@ def do_harvest(slug: str, dry: bool) -> int:
     return rc
 
 
+@contextlib.contextmanager
+def _live_det_worker(verb: str, slug: str | None):
+    """確定性 advance 步驟（parse / deploy build / catalog repair）的 live-worker 登記。
+    這些步驟跑在 controller 進程內（非 LLM 子進程），過去**不註冊 worker_registry** → /dev 面板
+    只看得到 LLM agent + math_sweep，正在 build/repair 的書顯示「待 X（暫無工人）」誤判成卡關
+    （實則 build_all 的 cwebp 轉圖、catalog repair 三件套正跑得火熱）。此 CM 讓它們現形為
+    「🔧 verb 處理中」。pid=controller 自身（活著、不被 reap）；provider='det'（非 LLM，無 model）。
+    fail-open：登記失敗絕不擋實際工作。"""
+    wkey = f'{verb}:{slug or "-"}:det:{os.getpid()}'
+    try:
+        wr.register(wkey, slug, verb, os.getpid(), 'det')
+    except Exception:
+        pass
+    try:
+        yield
+    finally:
+        try:
+            wr.unregister(wkey)
+        except Exception:
+            pass
+
+
 def do_parse(slug: str, dry: bool) -> int:
-    return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
-                 'book_pipeline.parser', slug], dry=dry)
+    if dry:
+        return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
+                     'book_pipeline.parser', slug], dry=dry)
+    with _live_det_worker('parse', slug):
+        return _run(['uv', 'run', '--with', 'pyyaml', 'python', '-m',
+                     'book_pipeline.parser', slug], dry=dry)
 
 
 def _book_qc_block(slug: str) -> list[str]:
@@ -1201,7 +1229,8 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     log(('DRY ' if dry else 'RUN ') + 'build_all ' + slug)
     if dry:
         return 0
-    rc = subprocess.run(build, cwd=READER_ROOT).returncode
+    with _live_det_worker('deploy', slug):  # build_all 上百張圖 cwebp 轉檔 → 數分鐘，面板顯示「🔧 deploy 處理中」
+        rc = subprocess.run(build, cwd=READER_ROOT).returncode
     # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 tick 重試（不誤標 done）。
     book_json = os.path.join(READER_ROOT, 'data', slug, 'book.json')
     if rc == 0 and os.path.isfile(book_json):
@@ -1397,9 +1426,10 @@ def do_catalog_repair(slug: str, dry: bool) -> int:
     log(f'catalog_repair {slug}：critical={before} → 跑確定性 repair 三件套')
     if dry:
         return 0
-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_metadata', '--slug', slug])
-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_from_unified', slug])
-    _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_aliases', slug])
+    with _live_det_worker('catalog_audit', slug):  # 三件套 repair 數分鐘 → 面板顯示「🔧 catalog_audit 處理中」
+        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_metadata', '--slug', slug])
+        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_from_unified', slug])
+        _run(['uv', 'run', 'python', '-m', 'book_pipeline.repair_catalog_aliases', slug])
     after = audit_catalog(slug, write_report=False).get('critical') or 0
     if after == 0:
         log(f'catalog_repair {slug} ✓：critical {before}→0，catalog 過關')
@@ -1755,39 +1785,45 @@ def tick_reactive(no_deploy: bool) -> int:
             wake.clear()
     finally:
         _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
-        # bounded drain：給在飛 worker 有限時間（DRAIN_BOUND）自然收尾，逾時升級「快殺子工 + 強制
-        # 退出」。取代舊 ex.shutdown(wait=True) 的無上限等待——它會卡在長在飛批次（math sweep 是純
-        # API thread，連 _kill_inflight_children 都殺不掉）→ reload/walltime 退出時 24min 凍結 +
-        # 舊實例不死續持 .tick.lock 的孤兒鎖（見 orphan-lock memory）。被棄 worker 的產物全可從 disk
-        # 重導、下個 controller 冪等重派，故強退安全（符合「狀態皆 disk 真相重導」架構）。
-        log(f'reactive loop：排空在飛 worker（上限 {DRAIN_BOUND}s）…')
+        # 分流排空（取代舊「一律 120s 上限、逾時快殺」——那正是 rc=-9 集體死亡的源頭：reload 時
+        # 把跑了 10–40min 的 audit 在 120s 攔腰 SIGKILL）：
+        #   ① 可殺的子進程 agent（_inflight_children 非空）→ **無限等其自然收尾、永不砍**。codex 主力
+        #      無「自我空轉迴圈」病理、必然收斂；reload/walltime 退出對真 agent 完全無害。
+        #   ② 無任何子進程、只剩純 thread worker（math sweep HTTP / det subprocess，killpg 殺不掉）→
+        #      套 DRAIN_BOUND 逃生，逾時 os._exit。純 API thread 會凍結 controller + 續持 .tick.lock
+        #      成孤兒鎖（見 orphan-lock memory），故唯此情形需強退。被棄 thread 產物可 disk 重導、
+        #      下個 controller 冪等重派，強退安全。
+        log(f'reactive loop：排空在飛 worker（子進程 agent 無限等、純 thread 上限 {DRAIN_BOUND}s）…')
         ex.shutdown(wait=False)  # 不再接新、不阻塞
-        _drain_deadline = time.monotonic() + DRAIN_BOUND
-        while time.monotonic() < _drain_deadline:
+        _bound_started = None  # 只在「無子進程、只剩純 thread」期間計時；有子進程即 reset
+        while True:
             with ifl_lock:
-                if not inflight:
-                    break
+                n_ifl = len(inflight)
+            if n_ifl == 0:
+                break
+            with _inflight_lock:
+                n_child = len(_inflight_children)
+            if n_child > 0:
+                _bound_started = None  # 有可殺子工在跑 → 無限等
+                time.sleep(0.5)
+                continue
+            now_m = time.monotonic()  # 只剩純 thread → 起算 DRAIN_BOUND
+            if _bound_started is None:
+                _bound_started = now_m
+            if now_m - _bound_started >= DRAIN_BOUND:
+                break
             time.sleep(0.5)
         with ifl_lock:
             _stuck = len(inflight)
         if _stuck == 0:
             log('reactive loop：在飛 worker 已排空，優雅退出')
         else:
-            _killed = _kill_inflight_children()  # 快殺可殺的 LLM 子工 → 解開卡在 p.wait 的 worker thread
-            log(f'reactive loop：drain 逾時 {DRAIN_BOUND}s → 快殺 {_killed} 在飛子工、棄置 {_stuck} worker'
-                '（產物 disk 重導、下個 controller 重派），強制退出')
-            _grace = time.monotonic() + 5  # 極短 grace 讓被快殺的 worker 收尾（hist.finish/leases.release）
-            while time.monotonic() < _grace:
-                with ifl_lock:
-                    if not inflight:
-                        break
-                time.sleep(0.2)
-            with ifl_lock:
-                _residual = len(inflight)
-            if _residual:
-                log(f'reactive loop：仍有 {_residual} 個非子進程型卡死 worker（純 API）→ os._exit 強退（respawn/launchd 重拉）')
-                sys.stdout.flush()
-                os._exit(0)  # 唯一能停掉卡死 thread 的手段；flock 隨進程死釋放、respawn 小弟接手
+            # 走到這 = 只剩純 thread worker 卡 DRAIN_BOUND（子進程 agent 已全部自然收尾）→ os._exit 逃生
+            _killed = _kill_inflight_children()  # 通常 0（純 thread 無子進程可殺）；保險一擊
+            log(f'reactive loop：純 thread worker 排空逾時 {DRAIN_BOUND}s → 棄置 {_stuck} 個（殺 {_killed} 子工）'
+                '，os._exit 強退（產物 disk 重導、下個 controller 重派）')
+            sys.stdout.flush()
+            os._exit(0)  # 唯一能停掉卡死純 API thread 的手段；flock 隨進程死釋放、respawn 小弟接手
     # 在飛 worker 已排空（上面 drain 完成）→ 此處 main thread 獨佔，安全做貴重成果 auto-commit。
     # 唯 os._exit 硬退路徑跳過（卡死 worker 可能正寫 override → 不冒半寫風險，下個 controller 退出時補）。
     if not no_deploy:

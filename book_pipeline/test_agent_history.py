@@ -132,6 +132,16 @@ def test_sidecar_provider_recovery():
     print('✓ start sidecar → 被殺後 reconcile 重建仍補回 provider（非 null，回歸防護）')
 
 
+def test_codex_pool_harness():
+    """codex-pool（預設主力 provider，codex CLI 走 ccNexus 池）的 harness 須標 codex-cli 而非 claude-cli。"""
+    assert hist._harness_of('codex-pool') == 'codex-cli'
+    assert hist._harness_of('codex') == 'codex-cli'
+    assert hist._harness_of('kimi') == 'claude-cli'
+    assert hist._harness_of('claude') == 'claude-cli'
+    assert hist._harness_of('ccnexus') == 'ccnexus-http'
+    print('✓ codex-pool harness 標 codex-cli（對齊 _is_codex，不再誤標 claude-cli）')
+
+
 def test_finish_removes_sidecar():
     """正常 finish → 權威 row 落 index、冗餘 sidecar 清掉；正常 row 仍帶 provider。"""
     _setup()
@@ -174,6 +184,7 @@ if __name__ == '__main__':
     test_stale_alive_reconstructed()
     test_finish_replaces_reconstructed()
     test_sidecar_provider_recovery()
+    test_codex_pool_harness()
     test_finish_removes_sidecar()
     test_reconstruct_without_sidecar_null()
     test_corpus_slug_none()

@@ -417,7 +417,8 @@
   // ── 工人：slug → worker（live workers.json） ──
   function workerOf(slug) { return lastWorkers.find(w => w.slug === slug) }
   function liveWorkers() {
-    return lastWorkers.filter(w => { const t = w.started ? Date.parse(w.started) : 0; return !t || (Date.now() - t) < 3600e3 })
+    // 起 <6h 才當 live：agent 時間上限已取消（可長跑），舊 1h 上限會讓長 agent 1h 後從面板蒸發。6h 純孤兒兜底。
+    return lastWorkers.filter(w => { const t = w.started ? Date.parse(w.started) : 0; return !t || (Date.now() - t) < 21600e3 })
   }
 
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
