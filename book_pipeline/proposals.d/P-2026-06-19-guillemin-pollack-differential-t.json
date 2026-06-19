@@ -8,9 +8,9 @@
   "source": "agent",
   "resolution": "",
   "created": "2026-06-19T06:44:57+00:00",
-  "updated": "2026-06-19T06:44:57+00:00",
+  "updated": "2026-06-19T11:13:55+00:00",
   "evidence": "This book uses repeated section-local EXERCISES blocks, but the same sections also contain numbered theorem properties or post-exercise hint lists outside the exercise block. After audit-book iteration with inline_problems=true and problem_num_namespace_by_section=true, smoke still reports H2 duplicates such as ch02 5.1..5.12 (actual exercises plus 'Hints (listed by exercise number)' items at unified/full.md lines 2784-2830), ch03 duplicate 3.1 after line 3763, and ch04 duplicate 5.1/5.2/5.3 from theorem property lists at lines 5686-5700 plus real EXERCISES at line 5864. Current extract_rules schema has only one problems_block_idx per chapter and no way to mark multiple per-section exercise ranges or terminate inline problems on non-heading cues.",
   "proposal": "Extend extract_rules/parser to support repeated per-section exercise blocks explicitly, for example a heading regex that marks problem-mode entry plus a complementary exit cue, or a chapter-local list of exercise subranges. This would let inline parsing ignore numbered prose and hint lists outside true EXERCISES regions without distorting problem_start_re.",
   "risk": "",
-  "disposition": ""
+  "disposition": "驗證 genuine 但根因=OCR 漏掉習題編號（source defect，非 parser 邏輯）：ch1 §2 EXERCISES 源僅前 2 題帶編號，3+ 題編號被 OCR 丟失 → 無 anchor 可切、靜默併入前一題。屬 source-quality 域，parser 無從補；待換更完整 OCR 源後自然解。"
 }
