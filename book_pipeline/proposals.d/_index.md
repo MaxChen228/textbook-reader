@@ -31,7 +31,7 @@
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine（真相層）：6/11 章 problem.num 碰撞，根因=spurious/重複 section heading 在習題串中途觸發、namespace 中途重置（walk_inline_chapter §1 習題 5-11 被誤標 2.5-2.11）。修復須動 core walk_inline_chapter（影響全 inline 書）→ 逾本次 bounded scope（精準收尾、不碰核心），待專屬 follow-up。
+- 處置：驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。
 - 證據：多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
 
@@ -178,7 +178,7 @@
 
 ### P-2026-06-19-poole-linear-algebra-2 — Inline problem detector needs context-aware numeric-list filtering
 - proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine：2092 'problems' 中 817（39%）為散文 numbered list 誤判（intro/definition/vignette，ch8 全 62 題皆假）。根因=namespace 模式關閉遞增守則（parser.py:568）+ 寬鬆 subsection_re。修復須 context-aware numeric filter（core walk_inline_chapter）→ 逾 bounded scope，待 follow-up。
+- 處置：驗證 genuine 且嘗試修但回退：gated problem_zone_re(^Exercises) 移除 803 散文偽題、0 碰撞，但驗證發現它同時丟掉 legit 習題——poole 真習題散落多種 heading（Exercises N.M / Review Questions / Exploration 如 The Cross Product、Force Vectors、Example 1.25 proofs），窄 zone 只收 Exercises 會誤丟 Review Questions/Exploration；且 Exploration 內又混 citation 清單（如 Origins…非題）。即 proposal 所述 context-aware numeric-list filter 之難題，zone regex 無法淨分 真題 vs 散文。引擎嘗試已回退，需專屬 classifier。
 - 證據：poole_linear_algebra mixes true inline problems ('Problem N ...'), chapter-review questions ('N. ...'), and non-problem numbered lists inside intros/definitions. Current single regex problem_start_re cannot distinguish ch1 racetrack rules or ch2/ch7 definition property lists from real problems, leaving final smoke H2 duplicates (1.1/1.2/1.3, Definition.1/2/3, intro Problem 5 repeat).
 - 提議：Let inline walker consult the active heading kind or nearby cue text before accepting bare numeric starts. For example: accept plain 'N. ...' only inside exercise/review sections, or allow per-book context maps such as numeric_problem_headings=[Exercises, Review Questions] while keeping 'Problem N' global.
 
