@@ -374,6 +374,7 @@
   let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
   let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
   let openSession = null, openSessionFrom = null  // 歷史 session 重播 + 返回來源書
+  let drawerDetail = null, drawerDetailSlug = null, drawerDetailAt = 0  // 書本 detail/<slug>.json（timeline+sessions）on-demand 快取 + 8s 節流戳
   let openProposals = false       // 抽屜顯示 proposals 列表（點 topbar 📋）
   let openProposalId = null       // 抽屜顯示單一 proposal 詳情（從列表點進；返回鈕回列表）
   let proposalsFeed = null        // dev/proposals.json（proposed 完整 + 已決議摘要；PROPOSALS_MS 輪詢）
@@ -822,8 +823,9 @@
   }
   function openDrawer(slug) {
     openSlug = slug; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    if (slug !== drawerDetailSlug) drawerDetail = null  // 換書 → 清舊詳情快取（不顯示上一本 timeline/sessions）
     document.getElementById('dr-back').hidden = true
-    _openDrawerEl(); renderDrawer()  // 書本分支會渲 dr-hist（隨 1s/8s poll 保持 live）
+    _openDrawerEl(); renderDrawer()  // 書本分支 on-demand 撿 detail/<slug>.json（隨 1s poll 保持 live）
   }
   function openWorkerDrawer(wkey) {
     openWkey = wkey; openSlug = null; openMath = false; openSession = null
@@ -1084,8 +1086,24 @@
     } else {
       evs.innerHTML = `<div class="dr-empty">${w ? '（工人尚無事件…）' : '此書目前無進行中工人'}</div>`
     }
-    // 階段時間軸
-    const tline = b.timeline || []
+    // 階段時間軸 + Agent 歷程：核 status.json 已逐出（佔 books[] ~82%）→ per-book detail/<slug>.json on-demand。
+    renderDrawerDetail()      // 先用快取同步繪（無閃爍）
+    loadDrawerDetail(b.slug)  // 背景刷新（節流；404/尚無→空 graceful）→ 新 session 仍會冒出、不凍結
+  }
+  // 抽屜書本 detail（timeline+sessions）on-demand：核已逐出，只取所看那本（~0.7KB）。404/尚無→空。
+  async function loadDrawerDetail(slug) {
+    if (slug === drawerDetailSlug && drawerDetail && (Date.now() - drawerDetailAt) < 8000) return  // 節流：8s 內已新鮮、不重撿
+    drawerDetailAt = Date.now()
+    let d = null
+    try { d = await fetchJson('detail/' + encodeURIComponent(slug) + '.json') } catch { d = null }  // 404/尚無 detail → 空 graceful（同 fetchSessionEvents）
+    if (openSlug !== slug) return  // 抽屜已切走 → 丟棄
+    drawerDetail = d || { slug, timeline: [], sessions: [] }
+    drawerDetailSlug = slug
+    renderDrawerDetail()
+  }
+  function renderDrawerDetail() {
+    const loading = drawerDetail === null
+    const tline = (drawerDetail && drawerDetail.timeline) || []
     document.getElementById('dr-tl').innerHTML = tline.length
       ? `<div class="h">階段時間軸</div>` + tline.map((e, j) => {
           const nx = tline[j + 1], dur = nx ? fmtSpan(Date.parse(nx.at) - Date.parse(e.at)) : ''
@@ -1094,7 +1112,7 @@
             + `<span class="du">${dur ? '▸ ' + dur : ''}</span></div>`
         }).join('')
       : ''
-    renderDrawerHistory(b)  // dr-hist 隨書本分支重繪 → 開抽屜後新 session 也會冒出、舊 row 不會凍結
+    renderDrawerHistory(drawerDetail, loading)
   }
   // ── 歷史 agent session（完整逐事件，懶載 JSONL） ──
   // 回事件陣列（200，含真正空檔回 []）；fetch 失敗 / 404（已被 prune）回 null → 呼叫端區分且不快取
@@ -1127,12 +1145,12 @@
       + `<span class="st">${escapeHtml(s.started ? relTime(s.started) : '')}</span>`
       + `<span class="sk ${okCls}">${okTxt}</span></div>`
   }
-  function renderDrawerHistory(b) {
-    const ss = (b && b.sessions) || []
+  function renderDrawerHistory(d, loading) {
+    const ss = (d && d.sessions) || []
     indexSessions(ss)
     document.getElementById('dr-hist').innerHTML = ss.length
       ? `<div class="h">Agent 歷程 (${ss.length})</div>` + ss.map(sessRowHtml).join('')
-      : `<div class="h">Agent 歷程</div><div class="dr-empty">尚無歷史 agent session</div>`
+      : `<div class="h">Agent 歷程</div><div class="dr-empty">${loading ? '載入中…' : '尚無歷史 agent session'}</div>`
   }
   // 點擊解析：用 render 當下建檔的 sessById（不受 last 的 prune/窗口 churn 影響）
   function findSession(id) { return sessById.get(id) || null }

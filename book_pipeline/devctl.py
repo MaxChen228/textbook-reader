@@ -45,6 +45,7 @@ STDOUT_LOG = os.path.join(REPORTS, 'daemon.stdout.log')
 ERR_LOG = os.path.join(REPORTS, 'launchd.err.log')
 PENDING_PATH = os.path.join(BP, '_pending_batches.json')
 SNAPSHOT_PATH = os.path.join(ROOT, 'dev', 'status.json')
+DETAIL_DIR = os.path.join(ROOT, 'dev', 'detail')  # per-book {timeline,sessions}：抽屜 on-demand 撿，逐出 status.json 核（僅抽屜用、佔 books[] ~82%）
 PROPOSALS_PATH = os.path.join(ROOT, 'dev', 'proposals.json')
 PLIST_LABEL = 'com.textbookreader.bookpipeline'
 # 反應式架構：daemon 走 launchd StartInterval（非固定時刻）。一個 controller 跑有界 observe→
@@ -361,13 +362,31 @@ def _cover_url(slug: str, res_cover: str | None = None) -> str | None:
     return res_cover or None  # pre-ingest：退而求 z-lib CDN 封面（絕對 URL，瀏覽器直載）
 
 
+def _write_detail(slug: str, timeline: list, sessions: list) -> None:
+    """寫 per-book dev/detail/<slug>.json（抽屜 on-demand 撿）。內容未變則不重寫 → 保 mtime、條件式
+    GET 續回 304、多數書每 60s 心跳零寫。只由時間軸唯一寫手（60s devsnapshot）呼叫，合單寫手不變量。"""
+    payload = json.dumps({'slug': slug, 'timeline': timeline, 'sessions': sessions}, ensure_ascii=False)
+    path = os.path.join(DETAIL_DIR, f'{slug}.json')
+    try:
+        with open(path, encoding='utf-8') as f:
+            if f.read() == payload:
+                return  # 內容相同 → 不動檔（mtime 不變、續回 304）
+    except OSError:
+        pass
+    os.makedirs(DETAIL_DIR, exist_ok=True)
+    tmp = path + f'.tmp{os.getpid()}'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        f.write(payload)
+    os.replace(tmp, path)
+
+
 def books_status(write_timeline: bool = False) -> dict:
     pending = st._load_pending()
     raw = st._raw_slug_map()
     slugs = st.all_slugs(pending, raw)
     state = q._load_state()
     math_by_book = mv.residual_by_book()  # 每書數學殘餘（reports 真相）→ 書本抽屜顯示
-    sess_by_slug = hist.sessions_grouped(limit=SESSIONS_PER_BOOK)  # 讀 index 一次，迴圈外分發
+    sess_by_slug = hist.sessions_grouped(limit=SESSIONS_PER_BOOK) if write_timeline else {}  # 僅 detail 寫手(60s)需；讀 index 一次迴圈外分發
     from book_pipeline import booklists
     res_cov = booklists.load_resolution()  # 迴圈外讀一次：pre-ingest 書封面退而求 sidecar z-lib 封面
     rows = []
@@ -381,25 +400,22 @@ def books_status(write_timeline: bool = False) -> dict:
         r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')
         r['title'] = _pretty_title(s)
         r['cover'] = _cover_url(s, (res_cov.get(s) or {}).get('cover'))
-        # 觀測式時間軸：deployed-aware label（已部署 → 'deployed'，否則用 stage）→
-        # observe 冪等 append-on-change，建出每書階段轉換史。既有書回填 deployed_at（唯一
-        # 留存的歷史時戳），否則它們只會從此刻起顯示 deployed、丟失過去。
         deployed = os.path.exists(os.path.join(ROOT, 'data', s, 'book.json'))
-        dep_at = (state.get(s) or {}).get('deployed_at')
-        label = 'deployed' if deployed else r.get('stage', '')
-        # 時間軸 = append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠跑最新碼）寫。
-        # 常駐 controller 的事件式刷新用記憶體舊碼，若也 observe→與 devsnapshot 新碼版本歪斜時
-        # 兩者對同一書算出不同 stage、輪流蓋寫 → 歷史無限亂跳（billingsley churn 根因）。讀(get)一律可。
-        if write_timeline:
-            if deployed and dep_at:
-                tl.seed(s, 'deployed', dep_at)
-            tl.observe(s, label)
-        r['timeline'] = tl.get(s)
-        # 歷史 agent session 摘要（slug 命中 OR ∈ corpus sweep 的 touched）；完整逐事件由網頁
-        # 點開時直接 fetch sessions/<id>.jsonl，故此處只掛輕量摘要（封頂避免 status.json 爆量）。
-        r['sessions'] = sess_by_slug.get(s, [])
         r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
         r['math_bad'] = math_by_book.get(s)  # 數學殘餘 occ（None=未驗/缺）→ 抽屜顯示，不 gate
+        # 時間軸 + agent session 摘要逐出 status.json 核（佔 books[] ~82%、僅抽屜用）→ per-book
+        # dev/detail/<slug>.json，抽屜 on-demand 撿。觀測式時間軸 = deployed-aware label（已部署→
+        # 'deployed'，否則 stage）的 append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠
+        # 跑最新碼）寫：controller 事件式刷新用記憶體舊碼，若也 observe→版本歪斜輪流蓋寫、歷史無限
+        # 亂跳（billingsley churn 根因）。故 controller(write_timeline=False) 只產輕量核、不碰 detail；
+        # 唯 60s 心跳 observe + 寫 detail。既有書回填 deployed_at（唯一留存歷史時戳）。完整逐事件仍由
+        # 網頁點開時 fetch sessions/<id>.jsonl，故 detail 只掛輕量摘要（封頂避免爆量）。
+        if write_timeline:
+            dep_at = (state.get(s) or {}).get('deployed_at')
+            if deployed and dep_at:
+                tl.seed(s, 'deployed', dep_at)
+            tl.observe(s, 'deployed' if deployed else r.get('stage', ''))
+            _write_detail(s, tl.get(s), sess_by_slug.get(s, []))
         rows.append(r)
         non_opt = [p for p in r['todo'].split() if p != '—' and not p.endswith('(可選)')]
         if non_opt:
