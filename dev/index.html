@@ -91,7 +91,7 @@
     .dl-mb { position: absolute; bottom: 3px; left: 3px; font-size: 10px; font-weight: 700; color: #fff;
       background: rgba(0,0,0,.55); padding: 1px 4px; border-radius: 5px; }
     .dl-mb:empty { display: none; }
-    /* 數學 sweep reactor（站 7，error-centric，非書卡）：焦點=待解 occ 數、batch 處理中時脈動。主題中性 */
+    /* 數學 sweep reactor（站 8，error-centric，非書卡）：焦點=待解 occ 數、batch 處理中時脈動。主題中性 */
     .math-reactor { padding: 12px 8px; border-radius: 12px; cursor: pointer; text-align: center;
       display: flex; flex-direction: column; gap: 7px; align-items: center;
       background: rgba(123,92,214,.10); border: 1px solid rgba(123,92,214,.32); }
@@ -353,31 +353,33 @@
   if (darkMQ) darkMQ.addEventListener('change', applyTheme)
   applyTheme()
 
-  // ── 產線站台定義（依 stage 前導碼 + deployed 映射） ──
+  // ── 產線站台定義（里程碑語意：書卡位置 = 它「已完成」的動作，左→右=做越多）──
+  // 欄名用過去式（「已X」），非 todo。worker 徽章疊上去 = 正在推它往下一格的 walker。
   const STATIONS = [
     { ico: '📥', name: '爬書 crawl', crawl: true },
-    { ico: '📨', name: '待 OCR' },
-    { ico: '🛰️', name: 'OCR 雲端' },
-    { ico: '🔍', name: '稽核 audit' },
-    { ico: '🧩', name: '解析 parse' },
-    { ico: '📚', name: '編目 catalog' },
-    { ico: '✅', name: '上站完成' },
-    { ico: '🧮', name: '數學 sweep', math: true },  // 隊尾 corpus 收尾 agent（對稱隊頭 crawl）；不放書、放跨書 agent + 殘餘
-    { ico: '🚫', name: '淘汰', reject: true },  // 終端死路（qc/triage 拒、無源）；不在前進車道、不灌水「待 OCR」
+    { ico: '📦', name: '已入庫' },     // owned raw pdf、待 QC（stage 0.2）
+    { ico: '👁️', name: '已過 QC' },    // QC pass、待/正 OCR（stage 0.3 / 0.5）
+    { ico: '🛰️', name: '已 OCR' },     // content_list 已生、待 audit（stage 1）
+    { ico: '🔍', name: '已稽核' },     // extract_rules 已生、待 parse（stage 2）
+    { ico: '🧩', name: '已解析' },     // book.json 已生、catalog/sol 待辦（stage 3/4 非 deploy）
+    { ico: '📚', name: '已編目' },     // 強制待辦清空、待部署（stage 3/4 todo=deploy）
+    { ico: '✅', name: '上站完成' },   // 已部署
+    { ico: '🧮', name: '數學 sweep', math: true },  // 隊尾 corpus 收尾（非書、非 walker）；對稱隊頭 crawl
+    { ico: '🚫', name: '淘汰', reject: true },  // 終端死路（qc/triage 拒、書況 review、無源）；不在前進車道
   ]
-  const DONE_ST = 6
-  const MATH_ST = 7
-  const REJECT_ST = 8
-  function stationOf(b) {  // 書本落在 1..6（前進）/ 6 上站 / 8 淘汰；站 0 爬書、7 數學 sweep 不放書
-    if (b.deployed) return DONE_ST
+  const DONE_ST = 7
+  const MATH_ST = 8
+  const REJECT_ST = 9
+  function stationOf(b) {  // 位置 = 已完成里程碑（非 todo）。前進欄 1..6、上站 7、淘汰 9；站 0 爬書、8 數學不放書
+    if (b.deployed) return DONE_ST                 // 7 上站
     const c = (b.stage || '').trim().split(' ')[0]
-    if (c === 'R' || c === 'X') return REJECT_ST  // 拒/無源 = 死路，移出前進車道（不再混進「待 OCR」騙人）
-    if (c === '4') return DONE_ST
-    if (c === '3') return 5
-    if (c === '2') return 4
-    if (c === '1') return 3
-    if (c === '0.5') return 2
-    return 1  // 0 待 ingest
+    if (c === 'R' || c === 'X') return REJECT_ST   // 9 淘汰（書況/qc拒/triage拒、無源）
+    const todo = (b.todo || '').trim()
+    if (c === '3' || c === '4') return todo === 'deploy' ? 6 : 5  // 已編目（待部署）/ 已解析（catalog/sol 待辦）
+    if (c === '2') return 4                         // 已稽核
+    if (c === '1') return 3                         // 已 OCR
+    if (c === '0.5' || c === '0.3') return 2        // 已過 QC（OCR 中 / 待 OCR）
+    return 1  // 已入庫（0.2 待qc 及其餘 pre-QC fallback）
   }
   // crawl 已全確定性化（refill 自書單 SoT + 買書員 + resolver，零 LLM agent）→ 通常無 live worker。
   // 保留 'crawl' verb 過濾以相容歷史 session 顯示（crawl_plan 是舊 LLM planner 的歷史 verb）。
@@ -637,12 +639,12 @@
     return ((last && last.crawl && last.crawl.reason) || '閒置 · 清單空') + quota
   }
 
-  // 書 lane（站 1..6）就地 reconcile —— 8s status cadence
+  // 書 lane（站 1..6 里程碑前進欄）就地 reconcile —— 8s status cadence
   function reconcileBooks(d) {
     const buckets = STATIONS.map(() => [])
     d.books.forEach(b => buckets[stationOf(b)].push(b))
     for (let i = 0; i < STATIONS.length; i++) {
-      if (STATIONS[i].crawl || STATIONS[i].math) continue  // 站 0 爬書 / 站 7 數學 sweep = agent 站，不放書
+      if (STATIONS[i].crawl || STATIONS[i].math) continue  // 站 0 爬書 / 站 8 數學 sweep = agent 站，不放書
       const done = i === DONE_ST, bs = buckets[i]
       reconcileLane(laneEls[i], bs, b => b.slug,
         b => makeBookEl(b, done), (el, b) => updateBookEl(el, b, done),
@@ -667,7 +669,7 @@
     stationEls[0].classList.toggle('st-active', items.length > 0 || downloading)
   }
 
-  // ── 數學 sweep lane（站 7）：**非以書為單位、非 agent**。邏輯 = corpus 有多少壞式（occ），daemon 直跑
+  // ── 數學 sweep lane（站 8）：**非以書為單位、非 agent**。邏輯 = corpus 有多少壞式（occ），daemon 直跑
   // math_sweep batch（純自架 LLM API）解掉。本站渲染一個 error-centric「reactor」：焦點 = 待解 occ 數、
   // 狀態 = batch 處理中/待解/fixpoint/全淨、底下一行 = 上次 batch 戰績。count badge = 壞式數（非書數）──
   let mathReactorEl = null
@@ -732,7 +734,7 @@
   }
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
-  const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl_plan:'📥' }
+  const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥' }
   function applyWalkers() {
     const bySlug = new Map(liveWorkers().map(w => [w.slug, w]))
     document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
