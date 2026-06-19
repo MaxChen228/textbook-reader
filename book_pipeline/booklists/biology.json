@@ -4,6 +4,18 @@
   "order": 70,
   "sublists": [
     {
+      "name": "普通生物學",
+      "books": [
+        {
+          "slug": "sadava_life_science_biology",
+          "title": "Life: The Science of Biology",
+          "author": "David E. Sadava, David M. Hillis, H. Craig Heller, Sally D. Hacker",
+          "edition_pref": "12th",
+          "solution": false
+        }
+      ]
+    },
+    {
       "name": "細胞與分子生物",
       "books": [
         {
@@ -19,6 +31,56 @@
           "author": "Harvey Lodish, Arnold Berk, Chris A. Kaiser, Monty Krieger, Anthony Bretscher, Hidde Ploegh, Kelsey C. Martin, Michael Yaffe, Angelika Amon",
           "edition_pref": "9th",
           "solution": false
+        },
+        {
+          "slug": "cooper_the_cell_molecular_approach",
+          "title": "The Cell: A Molecular Approach",
+          "author": "Geoffrey M. Cooper",
+          "edition_pref": "8th",
+          "solution": false
+        },
+        {
+          "slug": "karp_cell_molecular_biology",
+          "title": "Karp's Cell and Molecular Biology: Concepts and Experiments",
+          "author": "Gerald Karp, Janet Iwasa, Wallace Marshall",
+          "edition_pref": "9th",
+          "solution": false
+        },
+        {
+          "slug": "pollard_cell_biology",
+          "title": "Cell Biology",
+          "author": "Thomas D. Pollard, William C. Earnshaw, Jennifer Lippincott-Schwartz, Graham T. Johnson",
+          "edition_pref": "3rd",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "結構生物學",
+      "books": [
+        {
+          "slug": "branden_tooze_protein_structure",
+          "title": "Introduction to Protein Structure",
+          "author": "Carl-Ivar Branden, John Tooze",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "petsko_ringe_protein_structure_function",
+          "title": "Protein Structure and Function",
+          "author": "Gregory A. Petsko, Dagmar Ringe",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "生物物理",
+      "books": [
+        {
+          "slug": "nelson_biological_physics",
+          "title": "Biological Physics: Energy, Information, Life",
+          "author": "Philip Nelson",
+          "solution": false
         }
       ]
     },
@@ -30,6 +92,13 @@
           "title": "Molecular Biology of the Gene",
           "author": "James D. Watson, Tania A. Baker, Stephen P. Bell, Alexander Gann, Michael Levine, Richard Losick",
           "edition_pref": "7th",
+          "solution": false
+        },
+        {
+          "slug": "krebs_lewins_genes",
+          "title": "Lewin's Genes XII",
+          "author": "Jocelyn E. Krebs, Elliott S. Goldstein, Stephen T. Kilpatrick",
+          "edition_pref": "12th",
           "solution": false
         }
       ]
@@ -43,6 +112,20 @@
           "author": "Eric R. Kandel, John D. Koester, Sarah H. Mack, Steven A. Siegelbaum",
           "edition_pref": "6th",
           "solution": false
+        },
+        {
+          "slug": "purves_neuroscience",
+          "title": "Neuroscience",
+          "author": "Dale Purves, George J. Augustine, David Fitzpatrick, William C. Hall, Anthony-Samuel LaMantia, Leonard E. White",
+          "edition_pref": "6th",
+          "solution": false
+        },
+        {
+          "slug": "bear_neuroscience_exploring_brain",
+          "title": "Neuroscience: Exploring the Brain",
+          "author": "Mark F. Bear, Barry W. Connors, Michael A. Paradiso",
+          "edition_pref": "4th",
+          "solution": false
         }
       ]
     },
@@ -53,6 +136,13 @@
           "slug": "murphy_janeways_immunobiology",
           "title": "Janeway's Immunobiology",
           "author": "Kenneth Murphy, Casey Weaver, Leslie J. Berg",
+          "edition_pref": "10th",
+          "solution": false
+        },
+        {
+          "slug": "abbas_cellular_molecular_immunology",
+          "title": "Cellular and Molecular Immunology",
+          "author": "Abul K. Abbas, Andrew H. Lichtman, Shiv Pillai",
           "edition_pref": "10th",
           "solution": false
         }
@@ -66,6 +156,126 @@
           "title": "Brock Biology of Microorganisms",
           "author": "Michael T. Madigan, Kelly S. Bender, Daniel H. Buckley, W. Matthew Sattley, David A. Stahl",
           "edition_pref": "16th",
+          "solution": false
+        },
+        {
+          "slug": "willey_prescotts_microbiology",
+          "title": "Prescott's Microbiology",
+          "author": "Joanne M. Willey, Kathleen M. Sandman, Dorothy H. Wood",
+          "edition_pref": "11th",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "遺傳學",
+      "books": [
+        {
+          "slug": "griffiths_introduction_genetic_analysis",
+          "title": "Introduction to Genetic Analysis",
+          "author": "Anthony J. F. Griffiths, John Doebley, Catherine Peichel, David A. Wassarman",
+          "edition_pref": "12th",
+          "solution": false
+        },
+        {
+          "slug": "hartwell_genetics",
+          "title": "Genetics: From Genes to Genomes",
+          "author": "Leland H. Hartwell, Michael L. Goldberg, Janice A. Fischer, Leroy Hood",
+          "edition_pref": "6th",
+          "solution": false
+        },
+        {
+          "slug": "klug_concepts_of_genetics",
+          "title": "Concepts of Genetics",
+          "author": "William S. Klug, Michael R. Cummings, Charlotte A. Spencer, Michael A. Palladino, Darrell J. Killian",
+          "edition_pref": "12th",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "生態與演化",
+      "books": [
+        {
+          "slug": "begon_ecology",
+          "title": "Ecology: From Individuals to Ecosystems",
+          "author": "Michael Begon, Colin R. Townsend, John L. Harper",
+          "edition_pref": "4th",
+          "solution": false
+        },
+        {
+          "slug": "futuyma_evolution",
+          "title": "Evolution",
+          "author": "Douglas J. Futuyma, Mark Kirkpatrick",
+          "edition_pref": "4th",
+          "solution": false
+        },
+        {
+          "slug": "hartl_clark_population_genetics",
+          "title": "Principles of Population Genetics",
+          "author": "Daniel L. Hartl, Andrew G. Clark",
+          "edition_pref": "4th",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "發育生物學",
+      "books": [
+        {
+          "slug": "gilbert_developmental_biology",
+          "title": "Developmental Biology",
+          "author": "Scott F. Gilbert, Michael J. F. Barresi",
+          "edition_pref": "12th",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "植物生物學",
+      "books": [
+        {
+          "slug": "taiz_zeiger_plant_physiology",
+          "title": "Plant Physiology and Development",
+          "author": "Lincoln Taiz, Eduardo Zeiger, Ian Max Møller, Angus Murphy",
+          "edition_pref": "6th",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "生理學",
+      "books": [
+        {
+          "slug": "guyton_hall_physiology",
+          "title": "Guyton and Hall Textbook of Medical Physiology",
+          "author": "John E. Hall, Michael E. Hall",
+          "edition_pref": "14th",
+          "solution": false
+        },
+        {
+          "slug": "boron_boulpaep_medical_physiology",
+          "title": "Medical Physiology",
+          "author": "Walter F. Boron, Emile L. Boulpaep",
+          "edition_pref": "3rd",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "生物資訊",
+      "books": [
+        {
+          "slug": "durbin_biological_sequence_analysis",
+          "title": "Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids",
+          "author": "Richard Durbin, Sean R. Eddy, Anders Krogh, Graeme Mitchison",
+          "solution": false
+        },
+        {
+          "slug": "mount_bioinformatics",
+          "title": "Bioinformatics: Sequence and Genome Analysis",
+          "author": "David W. Mount",
+          "edition_pref": "2nd",
           "solution": false
         }
       ]

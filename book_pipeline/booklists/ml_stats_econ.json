@@ -30,6 +30,30 @@
           "title": "Probabilistic Machine Learning: An Introduction",
           "author": "Kevin P. Murphy",
           "solution": false
+        },
+        {
+          "slug": "murphy_probabilistic_ml_advanced",
+          "title": "Probabilistic Machine Learning: Advanced Topics",
+          "author": "Kevin P. Murphy",
+          "solution": false
+        },
+        {
+          "slug": "barber_bayesian_reasoning_ml",
+          "title": "Bayesian Reasoning and Machine Learning",
+          "author": "David Barber",
+          "solution": false
+        },
+        {
+          "slug": "rasmussen_williams_gaussian_processes",
+          "title": "Gaussian Processes for Machine Learning",
+          "author": "Carl Edward Rasmussen, Christopher K. I. Williams",
+          "solution": false
+        },
+        {
+          "slug": "scholkopf_smola_kernels",
+          "title": "Learning with Kernels: Support Vector Machines, Regularization, Optimization, and Beyond",
+          "author": "Bernhard Schölkopf, Alexander J. Smola",
+          "solution": false
         }
       ]
     },
@@ -40,6 +64,43 @@
           "slug": "goodfellow_dl",
           "title": "Deep Learning",
           "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+          "solution": false
+        },
+        {
+          "slug": "prince_understanding_deep_learning",
+          "title": "Understanding Deep Learning",
+          "author": "Simon J. D. Prince",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "機器學習理論",
+      "books": [
+        {
+          "slug": "shalev_shwartz_ben_david_understanding_ml",
+          "title": "Understanding Machine Learning: From Theory to Algorithms",
+          "author": "Shai Shalev-Shwartz, Shai Ben-David",
+          "solution": false
+        },
+        {
+          "slug": "mohri_foundations_machine_learning",
+          "title": "Foundations of Machine Learning",
+          "author": "Mehryar Mohri, Afshin Rostamizadeh, Ameet Talwalkar",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "vapnik_statistical_learning_theory",
+          "title": "The Nature of Statistical Learning Theory",
+          "author": "Vladimir N. Vapnik",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "devroye_probabilistic_pattern_recognition",
+          "title": "A Probabilistic Theory of Pattern Recognition",
+          "author": "Luc Devroye, László Györfi, Gábor Lugosi",
           "solution": false
         }
       ]
@@ -52,6 +113,13 @@
           "title": "Reinforcement Learning: An Introduction",
           "author": "Richard S. Sutton, Andrew G. Barto",
           "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "bertsekas_dynamic_programming_optimal_control",
+          "title": "Dynamic Programming and Optimal Control",
+          "author": "Dimitri P. Bertsekas",
+          "edition_pref": "4th",
           "solution": false
         }
       ]
@@ -124,6 +192,13 @@
           "solution": false
         },
         {
+          "slug": "wackerly_mathematical_statistics",
+          "title": "Mathematical Statistics with Applications",
+          "author": "Dennis D. Wackerly, William Mendenhall, Richard L. Scheaffer",
+          "edition_pref": "7th",
+          "solution": false
+        },
+        {
           "slug": "kachiashvili_testing_hypotheses",
           "title": "Testing Statistical Hypotheses with Given Reliability",
           "author": "Kartlos Joseph Kachiashvili"
@@ -138,6 +213,96 @@
           "title": "Bayesian Data Analysis",
           "author": "Andrew Gelman, John B. Carlin, Hal S. Stern, David B. Dunson, Aki Vehtari, Donald B. Rubin",
           "edition_pref": "3rd",
+          "solution": false
+        },
+        {
+          "slug": "robert_bayesian_choice",
+          "title": "The Bayesian Choice: From Decision-Theoretic Foundations to Computational Implementation",
+          "author": "Christian P. Robert",
+          "edition_pref": "2nd",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "蒙地卡羅與抽樣方法",
+      "books": [
+        {
+          "slug": "robert_casella_monte_carlo",
+          "title": "Monte Carlo Statistical Methods",
+          "author": "Christian P. Robert, George Casella",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "brooks_handbook_mcmc",
+          "title": "Handbook of Markov Chain Monte Carlo",
+          "author": "Steve Brooks, Andrew Gelman, Galin L. Jones, Xiao-Li Meng",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "高維統計",
+      "books": [
+        {
+          "slug": "wainwright_high_dimensional_statistics",
+          "title": "High-Dimensional Statistics: A Non-Asymptotic Viewpoint",
+          "author": "Martin J. Wainwright",
+          "solution": false
+        },
+        {
+          "slug": "vershynin_high_dimensional_probability",
+          "title": "High-Dimensional Probability: An Introduction with Applications in Data Science",
+          "author": "Roman Vershynin",
+          "solution": false
+        },
+        {
+          "slug": "hastie_tibshirani_wainwright_sparsity",
+          "title": "Statistical Learning with Sparsity: The Lasso and Generalizations",
+          "author": "Trevor Hastie, Robert Tibshirani, Martin Wainwright",
+          "solution": false
+        },
+        {
+          "slug": "boucheron_concentration_inequalities",
+          "title": "Concentration Inequalities: A Nonasymptotic Theory of Independence",
+          "author": "Stéphane Boucheron, Gábor Lugosi, Pascal Massart",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "因果推論",
+      "books": [
+        {
+          "slug": "pearl_causality",
+          "title": "Causality: Models, Reasoning, and Inference",
+          "author": "Judea Pearl",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "imbens_rubin_causal_inference",
+          "title": "Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction",
+          "author": "Guido W. Imbens, Donald B. Rubin",
+          "solution": false
+        },
+        {
+          "slug": "peters_elements_causal_inference",
+          "title": "Elements of Causal Inference: Foundations and Learning Algorithms",
+          "author": "Jonas Peters, Dominik Janzing, Bernhard Schölkopf",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "實驗設計",
+      "books": [
+        {
+          "slug": "montgomery_design_analysis_experiments",
+          "title": "Design and Analysis of Experiments",
+          "author": "Douglas C. Montgomery",
+          "edition_pref": "10th",
           "solution": false
         }
       ]
@@ -156,6 +321,13 @@
           "title": "Time Series Analysis: Forecasting and Control",
           "author": "George E. P. Box, Gwilym M. Jenkins, Gregory C. Reinsel, Greta M. Ljung",
           "edition_pref": "5th",
+          "solution": false
+        },
+        {
+          "slug": "brockwell_davis_time_series",
+          "title": "Time Series: Theory and Methods",
+          "author": "Peter J. Brockwell, Richard A. Davis",
+          "edition_pref": "2nd",
           "solution": false
         }
       ]
@@ -179,6 +351,19 @@
           "title": "Econometric Analysis",
           "author": "William H. Greene",
           "edition_pref": "8th",
+          "solution": false
+        },
+        {
+          "slug": "wooldridge_cross_section_panel",
+          "title": "Econometric Analysis of Cross Section and Panel Data",
+          "author": "Jeffrey M. Wooldridge",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "angrist_pischke_mostly_harmless",
+          "title": "Mostly Harmless Econometrics: An Empiricist's Companion",
+          "author": "Joshua D. Angrist, Jörn-Steffen Pischke",
           "solution": false
         }
       ]
@@ -231,6 +416,73 @@
           "title": "Asset Pricing",
           "author": "John H. Cochrane",
           "edition_pref": "Revised",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "應用迴歸與廣義線性模型",
+      "books": [
+        {
+          "slug": "kutner_applied_linear_statistical_models",
+          "title": "Applied Linear Statistical Models",
+          "author": "Michael H. Kutner, Christopher J. Nachtsheim, John Neter, William Li",
+          "edition_pref": "5th",
+          "solution": false
+        },
+        {
+          "slug": "mccullagh_nelder_glm",
+          "title": "Generalized Linear Models",
+          "author": "P. McCullagh, John A. Nelder",
+          "edition_pref": "2nd",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "凸分析與大規模最佳化",
+      "books": [
+        {
+          "slug": "bertsekas_nonlinear_programming",
+          "title": "Nonlinear Programming",
+          "author": "Dimitri P. Bertsekas",
+          "edition_pref": "3rd",
+          "solution": false
+        },
+        {
+          "slug": "rockafellar_convex_analysis",
+          "title": "Convex Analysis",
+          "author": "R. Tyrrell Rockafellar",
+          "solution": false
+        },
+        {
+          "slug": "nesterov_convex_optimization",
+          "title": "Lectures on Convex Optimization",
+          "author": "Yurii Nesterov",
+          "edition_pref": "2nd",
+          "solution": false
+        },
+        {
+          "slug": "bertsimas_tsitsiklis_linear_optimization",
+          "title": "Introduction to Linear Optimization",
+          "author": "Dimitris Bertsimas, John N. Tsitsiklis",
+          "solution": false
+        }
+      ]
+    },
+    {
+      "name": "隨機過程",
+      "books": [
+        {
+          "slug": "norris_markov_chains",
+          "title": "Markov Chains",
+          "author": "J. R. Norris",
+          "solution": false
+        },
+        {
+          "slug": "asmussen_glynn_stochastic_simulation",
+          "title": "Stochastic Simulation: Algorithms and Analysis",
+          "author": "Søren Asmussen, Peter W. Glynn",
           "solution": false
         }
       ]
