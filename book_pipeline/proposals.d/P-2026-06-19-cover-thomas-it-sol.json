@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-cover-thomas-it-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "cover_thomas_information_theory 解答書僅能部分 merge：缺 lvl1 數字章 anchor",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:09:05+00:00",
+  "updated": "2026-06-19T11:09:05+00:00",
+  "evidence": "dry-run 配對成功 104/107（可抽 12 章內 97%）；主書總題數 171，但解答書第 2、5、15 章只有章標題（'Entropy, Relative Entropy and Mutual Information' / 'Source coding' / 'Information Theory and the Stock Market'），無可被現有 sol_extract 接受的 text_level==1 數字章 anchor。現行引擎 chapter_re 僅能用單一 capture group 轉 int，且只掃 lvl1，因此無法配置出這三章。",
+  "proposal": "維持嚴格 problem_re='^(\\d+)\\.' 的部分 merge；後續擴充 sol_extract 支援自訂章 anchor level，或允許以顯式 chapter title→number map 定章，再重跑補進第 2、5、15 章。",
+  "risk": "",
+  "disposition": ""
+}
