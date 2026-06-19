@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-sethna-statistical-mechanics-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "sethna_statistical_mechanics 解答書無法 merge：sol_extract 缺 chapterless solution-book 對齊能力",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T10:50:15+00:00",
+  "updated": "2026-06-19T10:50:15+00:00",
+  "evidence": "sethna_statistical_mechanics_sol unified 正文沒有任何 text_level==1 章 anchor；預設 dry-run 抽出 0 章 0 題。另一方面，ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有外來題號；語義抽樣 1.1/5.4/10.1 分別對上 Quantum Dice、Black Hole Thermodynamics、Cosmic Microwave Background Radiation，證明來源書正確且 key 對齊可行。阻塞點是 sol_extract 目前只能先按 lvl1 chapter_re 切章，無法在 chapterless 版型下直接按完整 N.M 題號切題與 merge。",
+  "proposal": "為 sol_extract 增加 chapterless / non-lvl1 anchor 模式：允許在缺少 text_level==1 章標時，直接掃描全書題目 heading（如 level-2 的 ^N.M）建立 solution map，或允許章 anchor 來源不受 lvl1 限制。完成後可用 problem_re=^(\\d+\\.\\d+[a-z]?)\\b 重跑這本書，預期可安全 merge 其 97 題選題解答。",
+  "risk": "",
+  "disposition": ""
+}

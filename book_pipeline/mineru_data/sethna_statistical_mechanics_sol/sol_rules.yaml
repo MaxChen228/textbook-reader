@@ -1,0 +1,26 @@
+# ⚠ PENDING — 不要 merge。這本解答書與主書語義一致，但目前不是單靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. sol_extract 現行引擎強制先用「text_level==1 的章 anchor」切章；本書正文完全沒有這種 anchor。
+#    `unified/content_list.json` 的標題層級只有 level 2 / None：
+#      - TOC 與題目標頭都在 level 2
+#      - 正文題目如 "1.1 Quantum Dice."、"5.4 Black Hole Thermodynamics." 也是 level 2
+#      - `Chapter N` / `CHAPTER N` / 其他可供 chapter_re 命中的 level-1 text = 0
+#    因此預設 dry-run 直接抽出 0 章、0 題；不是 regex 沒校準，而是引擎缺少「無章 anchor、直接按題號切」能力。
+#
+# 2. 題號與語義抽樣都證明來源書是對的，不是版次錯配。
+#    ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有任何外來題號；
+#    抽樣如 1.1 / 5.4 / 10.1 的主書題幹與 sol body 主題一致（Quantum Dice / Black Hole Thermodynamics /
+#    Cosmic Microwave Background Radiation）。
+#
+# 3. 這本解答書本來就只覆蓋選題，不是全題解；缺題本身不是問題。
+#    真正阻塞點只有 chapterless solution-book 版型：現有 sol_extract 無法在沒有 level-1 章標的情況下，
+#    直接用完整 problem key（N.M）做全書配對 merge。
+#
+# dry-run（現行引擎）：
+#   - 預設規則：抽出 0 章、0 題；無法進入配對
+#
+# 待架構師補上 sol_extract 的 chapterless / non-lvl1 anchor 模式後，再用下列 problem_re 重跑評估。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+\.\d+[a-z]?)\b'
+multi_per_block: false
+_pending: true

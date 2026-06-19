@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-spivak-calculus-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "spivak_calculus 解答書無法 merge：章 anchor 只落在非 lvl1 block",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T10:53:41+00:00",
+  "updated": "2026-06-19T10:53:41+00:00",
+  "evidence": "dry-run 穩定抽出 0 章、0 題。content_list 可見 29 個 CHAPTER N，但 sol_extract 只認 text_level==1 的 text；其中只有 CHAPTER 27、30 符合。臨時以 chapter_re=^CHAPTER\\s+(\\d+)\\s*$ 驗證時也只會抽到 chapters=[27,30]，ch27 區段將吞掉 ch28/ch29，會系統性錯位。",
+  "proposal": "讓 sol_extract 支援非 text_level==1 / header 的章 anchor，之後再對 spivak_calculus_sol 重跑 audit-sol。",
+  "risk": "",
+  "disposition": ""
+}

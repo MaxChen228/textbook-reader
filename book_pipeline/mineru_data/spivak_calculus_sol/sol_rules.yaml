@@ -1,0 +1,19 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. `spivak_calculus_sol/unified/content_list.json` 內可見 29 個 `CHAPTER N` 標記，
+#    但 `sol_extract.py` 只把 `text_level==1` 且 `type=text` 的 block 當章 anchor。
+#    其中只有 `CHAPTER 27` 與 `CHAPTER 30` 符合；預設 dry-run 因此穩定抽出 0 章、0 題。
+#
+# 2. 即使把 chapter regex 校成 `^CHAPTER\s+(\d+)\s*$`，引擎仍只會抓到 27 / 30 兩章。
+#    這會讓 ch27 區段一路吞掉 ch28 與 ch29 的內容，形成系統性錯位，不能拿來做局部 merge。
+#
+# 3. 問題不在題號 regex：章內題號是純整數 `1.` `2.` `3.`，可作為主書章內 reset 的 key；
+#    真正卡住的是「章界只接受 lvl=1 text」這個引擎限制。
+#
+# 待 sol_extract 支援：
+#   - 非 `text_level==1` 的 text block 當章 anchor；或
+#   - `header` / `text_level=2` 的 `CHAPTER N` 章標。
+chapter_re: '^CHAPTER\s+(\d+)\s*$'
+problem_re: '^(\d+)\.\s'
+multi_per_block: false
+_pending: true
