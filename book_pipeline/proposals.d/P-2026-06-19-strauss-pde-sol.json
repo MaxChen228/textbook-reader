@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-strauss-pde-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "strauss_pde 解答書無法 merge：sol_extract 無法處理 lvl2 章 anchor 與重複 running header",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T11:07:59+00:00",
+  "updated": "2026-06-19T11:07:59+00:00",
+  "evidence": "預設 dry-run=0 章/0 題；解答書 Chapter N 全在 text_level=2，且同章 Chapter N 會作為 running header 重複出現。ad hoc 以 ^\\d+\\.\\d+\\.\\d+\\. 抽題可得 275 key，其中 274/651 對上主書；語義抽樣 1.1.2、5.1.2、10.1.2 皆對齊。",
+  "proposal": "升級 sol_extract：支援自訂 chapter anchor text_level，且同章多段需累積不能覆蓋；或直接由題號 N.M.K 導出 chapter，避免依賴章 anchor 切段。",
+  "risk": "",
+  "disposition": ""
+}
