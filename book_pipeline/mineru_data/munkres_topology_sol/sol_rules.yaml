@@ -1,0 +1,12 @@
+# Munkres Topology solutions manual uses titled chapter headers, so chapter_re
+# must accept trailing chapter names after the numeric chapter id.
+#
+# Current source/harness gap:
+# - Chapter 1 is a lvl1 block: "Chapter 1 Set Theory and Logic"
+# - Chapter 2 appears as lvl2:   "Chapter 2 Topological Spaces and Continuous Functions"
+# sol_extract only accepts lvl1 chapter anchors, so this config can merge only
+# chapter 1 today. We keep strict problem matching and file a harness-gap
+# proposal rather than loosening rules and risking cross-chapter mismerge.
+chapter_re: '^Chapter\s+(\d+)\b'
+problem_re: '^Exercise\s+((?:WO|Supplementary|\d+)\.\d+)\s*$'
+multi_per_block: false

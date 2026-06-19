@@ -2959,12 +2959,27 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （10 條；proposed=10）
+## domain: sol  （16 條；proposed=16）
 
 ### P-2026-06-19-blundell-thermal-sol — blundell_thermal 解答書無法 merge：sol_extract 不支援以 N.M 題號前綴直接導章
 - proposed | type=harness-gap | source=sol_extract
 - 證據：2026-06-19 dry-run（預設規則）結果為抽出 0 章、0 題；blundell_thermal_sol/unified/content_list.json 僅 2 個 lvl=1 text，且皆為封面雜訊，不存在可用章 anchor。手工以前綴 ^N.M 掃描可抓到約 170 個題號 block，對主書 224 題可配到 161 題；語義抽樣 ch10/ch17/ch27 對齊正確。局部 OCR 漏讀仍存在（如 ch06 全缺、9.2 併入段內、22.5→2.5），但不足以解釋 dry-run 0 題。
 - 提議：擴充 sol_extract schema/引擎：允許無章標頭模式，直接由 problem_re 抽出的 N.M key 推導 chapter=num.split('.')[0] 並切題；或至少允許章 anchor 自訂 text_level/來源，不再硬綁 text_level==1。完成後可重跑 blundell_thermal_sol，預期可安全 merge 大部分題目。
+
+### P-2026-06-19-boyd-convex-opt-sol — boyd_convex_opt 解答書無法 merge：sol_extract 章 anchor 硬綁 lvl=1
+- proposed | type=harness-gap | source=sol_extract
+- 證據：2026-06-19 dry-run with sol_rules.yaml: 抽出 0 章、0 題；boyd_convex_opt_sol/unified/content_list.json 的 'Chapter N' 全在 text_level==2，且整本 lvl=1 text block 數量為 0。手工按 lvl=2 'Chapter N' + 題號前綴 ^N.M\s 切章，可抽出 ch2-ch11 共 337 題，與主書 337 題可 100% key 對齊；語義抽樣 ch2/ch5/ch9 各前 3 題皆同題。
+- 提議：擴充 sol_extract schema/引擎：允許設定章 anchor 的 text_level，或新增無章標頭模式，直接由 problem_re 抽出的 N.M key 推導 chapter=num.split('.')[0]；完成後即可安全重跑 boyd_convex_opt_sol。
+
+### P-2026-06-19-carroll-ostlie-astrophysics-sol — carroll_ostlie_astrophysics 解答書僅能部分 merge：章標落在 header/text_level=2
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run：609 題主書中可安全配對 407 題；缺 12 章（1,2,4,6,7,12,13,17,19,20,21,23）。語義抽樣 ch03/ch10/ch24 前 3 題皆對齊。缺章對應解答本章標多為 header『Chapter N ...』或 text_level=2『CHAPTER N』，現行 sol_extract 僅吃 type=text 且 text_level==1 章標。
+- 提議：擴充 sol_extract 章 anchor 偵測，允許 header 與 text_level=2 的 CHAPTER block，或支援 title-only 章標搭配前序章號推斷；之後重跑即可補齊其餘章解答。
+
+### P-2026-06-19-cover-thomas-information-theory- — cover_thomas_information_theory 解答書僅能部分 merge：缺 lvl1 數字章 anchor
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run 配對成功 104/107（可抽 12 章內 97%）；主書總題數 171，但解答書第 2、5、15 章只有章標題（'Entropy, Relative Entropy and Mutual Information' / 'Source coding' / 'Information Theory and the Stock Market'），無可被現有 sol_extract 接受的 text_level==1 數字章 anchor。現行引擎 chapter_re 僅能用單一 capture group 轉 int，且只掃 lvl1，因此無法配置出這三章。
+- 提議：維持嚴格 problem_re='^(\d+)\.' 的部分 merge；後續擴充 sol_extract 支援自訂章 anchor level，或允許以顯式 chapter title→number map 定章，再重跑補進第 2、5、15 章。
 
 ### P-2026-06-19-goldstein-cm3-sol — goldstein_cm3 解答書無法 merge：2nd ed selective solutions 與主書 3rd ed 不對齊
 - proposed | type=edition-mismatch | source=sol_extract
@@ -2976,10 +2991,20 @@ index 2c80077..8104e5a 100644
 - 證據：dry-run：抽出 0 章、0 題解答。sol_extract 只掃 text_level==1 章 anchor；本書只有 ch1『Historical Introduction to the Elementary Particles』與 ch8『Electrodynamics and Chromodynamics of Quarks』是 level-1。ch2-7、9-12 在各章首僅出現 text_level=2 的數字+章名，例如『2 / Elementary Particle Dynamics』、『12 / What’s Next』。
 - 提議：換更穩定的解答本/重新 ingest 取得正確 chapter level，或升級 sol_extract 支援以 text_level=2 章標切章後再重試。
 
+### P-2026-06-19-hecht-optics-sol — hecht_optics 解答書第11-13章 anchor 非 text_level=1，sol_extract 無法抽出
+- proposed | type=harness-gap | source=sol_extract
+- 證據：hecht_optics_sol/unified/content_list.json 中 Chapter 11/12/13 Solutions 出現在 index 1355/1449/1490，皆為 type=text 但 text_level=2；sol_extract 目前只掃 text_level==1 章 anchor，因此第11-13章無法進 extract。另第5章在 unified 中未見實際章 anchor。
+- 提議：擴充 sol_extract 章 anchor 偵測，允許 text_level>=1 或可配置 anchor level；完成後重跑 hecht_optics_sol 以補第11-13章。
+
 ### P-2026-06-19-kardar-statistical-physics-sol — kardar_statistical_physics 解答書無法 merge：sol_extract 不支援 lvl=2 羅馬章標且 unified 缺 Chapter VI anchor
 - proposed | type=harness-gap | source=sol_extract
 - 證據：2026-06-19 dry-run（預設規則）結果：抽出 0 章、0 題。content_list.json 的章標只出現在 text_level=2 block：idx 11/397/826/1396/1811/2704，文字為 'Problems for Chapter I/II/III/IV/V/VII - ...'；現行 sol_extract 只掃 text_level==1 且對 chapter_re.group(1) 直接 int()。另外 unified/full.md 第 6209 行仍有 'Problems for Chapter VI - Quantum Statistical Mechanics'，但 content_list.json 在 Chapter V 結尾後直接跳到 idx 2303 '1. One dimensional chain...'，缺失 Chapter VI heading block。主書題號為章內重置純整數，無可靠章界時跨章同號題會錯配。
 - 提議：擴充 sol_extract schema/引擎：允許設定 chapter anchor 的 text_level，並支援羅馬數字章號映射；或在 ingest/unified 階段保留/修復 Chapter VI heading block。完成任一路徑後，再重跑 kardar_statistical_physics_sol 的 audit-sol。
+
+### P-2026-06-19-lay-linear-algebra-sol — lay_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware anchor
+- proposed | type=harness-gap | source=sol_extract
+- 證據：主書 key 為 C.S.N（如 4.3.17），解答書正文題頭多為裸題序如 35.；可用結構主要是 text_level=2 的 'C.S - ...' 與 'Chapter N ...'。但現行 sol_extract 只接受 text_level=1 chapter anchor。此 unified 僅有 8 個 text_level=1 text blocks，且多數不含章號；以預設規則 dry-run 結果為 0 章 0 題。
+- 提議：升級 sol_extract schema/引擎：支援 level-2 chapter/section anchors，並允許以 section key + 裸題序組裝主書 C.S.N key；否則 lay_linear_algebra_sol 無法產出品質 merge。
 
 ### P-2026-06-19-munkres-topology-sol — munkres_topology 解答書只能部分 merge：Chapter 2 anchor 是 lvl2
 - proposed | type=harness-gap | source=sol_extract
@@ -3005,6 +3030,11 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：dry-run 穩定抽出 0 章、0 題。content_list 可見 29 個 CHAPTER N，但 sol_extract 只認 text_level==1 的 text；其中只有 CHAPTER 27、30 符合。臨時以 chapter_re=^CHAPTER\s+(\d+)\s*$ 驗證時也只會抽到 chapters=[27,30]，ch27 區段將吞掉 ch28/ch29，會系統性錯位。
 - 提議：讓 sol_extract 支援非 text_level==1 / header 的章 anchor，之後再對 spivak_calculus_sol 重跑 audit-sol。
+
+### P-2026-06-19-srednicki-qft-sol — srednicki_qft 解答本無法 merge：章 anchor 受限於 text_level==1
+- proposed | type=harness-gap | source=sol_extract
+- 證據：正式 dry-run（預設規則）穩定抽出 0 章、0 題。檢查 unified/content_list.json：1..40 章共有 40 個章標樣式 block，但只有 2 個是 text_level=1；其餘 35 個是 level=2、3 個是 None。語義抽樣：1.1/2.1/7.1 的主書題幹與解答書 1.1)/2.1)/7.1) 主題一致，排除版次錯配。若忽略 text_level 限制、以 ^\d+\s+.+$ 作章標，可抽出 40 章、213 題，對回主書 88/255 題。
+- 提議：sol_extract 應支援可配置的 chapter anchor text_level，或改為 text 命中 chapter_re 即可切章；完成後可直接用已落盤的 sol_rules.yaml 重跑 merge。
 
 ### P-2026-06-19-strang-linalg-sol — strang_linalg 解答書無法 merge：sol_extract 不支援 lvl=2 Problem Set anchor
 - proposed | type=harness-gap | source=sol_extract
