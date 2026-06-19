@@ -1,0 +1,27 @@
+# ⚠ PENDING — 不要 merge。這本解答書目前無法安全併入 goldstein_cm3，原因如下：
+#
+# 1. 版次不符，而且只覆蓋部分章節。
+#    主書是 Goldstein/Poole/Safko《Classical Mechanics》3rd ed；
+#    解答書首頁明寫 "Solutions to Problems in Goldstein, Classical Mechanics, Second Edition"。
+#    content_list 只含 Chapter 1 / 3 / 7 / 9 / 10，並非完整對應主書 13 章。
+#
+# 2. 語義抽樣顯示不是單純 regex 校準問題，而是系統性跨版次錯位。
+#    - 主書 ch1 problem 11 題幹是 conservative force；sol ch1 key 11 卻是
+#      "Show that Lagrange's equations ..."。
+#    - 主書 ch3 problem 13 題幹是 inverse-fifth-power circular orbit；sol ch3 key 13
+#      卻是 "A uniform distribution of dust in the solar system ..."。
+#    - 雖然 ch10 problem 6/7/8 與 sol ch10 key 6/7/8 可語義對齊，但局部命中不足以
+#      推翻整體 edition mismatch；若直接 merge，會把大量錯解寫進主書。
+#
+# 3. 現有 sol_extract harness 也無法可靠抽章。
+#    sol_extract 只接受 text_level==1 的 chapter anchor；但這本解答書的
+#    "Chapter 1" / "Chapter 3" / "Chapter 9" / "Chapter 10" 都是 text_level==2，
+#    只有 "Chapter 7" 是 text_level==1。放寬 regex 無法解決，反而會把後續章節內容
+#    吞進同一章，造成跨章污染。
+#
+# 結論：目前正確終態是 _pending + proposal，等待更匹配的 3rd-ed 解答來源，
+# 或未來擴充 sol_extract 支援非 lvl1 chapter anchor / 顯式章映射。
+chapter_re: '^Chapter\s+(\d+)\b'
+problem_re: '^Problem\s+\d+\.(\d+[a-z]?)\b'
+multi_per_block: false
+_pending: true

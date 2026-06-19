@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-goldstein-cm3-sol",
+  "domain": "sol",
+  "type": "edition-mismatch",
+  "status": "proposed",
+  "title": "goldstein_cm3 解答書無法 merge：2nd ed selective solutions 與主書 3rd ed 不對齊",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-19T10:53:40+00:00",
+  "updated": "2026-06-19T10:53:40+00:00",
+  "evidence": "解答書首頁明寫 'Solutions to Problems in Goldstein, Classical Mechanics, Second Edition'；content_list 僅含 Chapter 1/3/7/9/10。語義抽樣：主書 ch1 p11 是 conservative force，但 sol ch1 key11 是 Lagrange equations；主書 ch3 p13 是 inverse-fifth-power orbit，但 sol ch3 key13 是 dust-in-solar-system。僅局部如 ch10 p6/7/8 對齊，不足以否定整體跨版次錯位。另 sol_extract 只吃 text_level==1 chapter anchor，而本書除 Chapter 7 外章首多為 text_level==2。",
+  "proposal": "換與 goldstein_cm3 同版次的完整解答來源（優先 3rd ed），或重新 crawl/ingest 可對齊的母書-解答書組合；若保留此來源，需擴充 sol_extract 支援非 lvl1 chapter anchor / 顯式章映射，但在版次不符未解前仍不應 merge。",
+  "risk": "",
+  "disposition": ""
+}
