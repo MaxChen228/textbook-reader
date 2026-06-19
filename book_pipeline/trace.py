@@ -70,7 +70,12 @@ def _iso(s: str | None) -> datetime | None:
 
 
 def _hist_by_slug() -> dict:
-    """讀 agent_history/index.json 一次，聚合每書 LLM 派工量：{slug:{sess,fail,secs}}。"""
+    """讀 agent_history/index.json 一次，聚合每書 LLM 派工量：{slug:{sess,fail,recon,secs}}。
+
+    fail = 真失敗（ok is False，即 finish() 收到 rc!=0：timeout/撞額度/真錯）。
+    recon = rc 未回收（ok is None，reconstructed：finish() 被 SIGKILL 繞過、rc 無從還原）——
+            agent_history 本意「中性呈現」（不謊報成功亦不謊報失敗），故**不計入失敗**。
+            舊版 `0 if ok else 1` 把 None 當失敗，造成 cohort 失敗數嚴重灌水。"""
     try:
         idx = json.load(open(os.path.join(ROOT, 'dev', 'agent_history', 'index.json'))) or []
     except Exception:
@@ -80,9 +85,12 @@ def _hist_by_slug() -> dict:
         s = r.get('slug')
         if not s:
             continue
-        d = out.setdefault(s, {'sess': 0, 'fail': 0, 'secs': 0})
+        d = out.setdefault(s, {'sess': 0, 'fail': 0, 'recon': 0, 'secs': 0})
         d['sess'] += 1
-        d['fail'] += 0 if r.get('ok') else 1
+        if r.get('ok') is False:
+            d['fail'] += 1
+        elif r.get('ok') is None:
+            d['recon'] += 1
         d['secs'] += int(r.get('duration_s') or 0)
     return out
 
@@ -116,12 +124,47 @@ def render_book(slug: str) -> int:
             seed = ' (回填)' if e.get('seeded') else ''
             print(f"   {ts}  ● {e.get('stage', '')}{seed}")
         else:
-            ok = '✓' if e.get('ok') else f"✗rc={e.get('rc')}"
+            if e.get('ok') is True:
+                ok = '✓'
+            elif e.get('ok') is False:
+                ok = f"✗rc={e.get('rc')}"
+            else:
+                ok = '⊙rc未回收'  # reconstructed：finish() 未跑完、rc 未知 → 中性，非失敗
             dur = _fmt_span(e.get('duration_s') or 0)
             prov = f"{e.get('provider', '?')}·{e.get('model', '?')}"
             print(f"   {ts}  ▶ {e.get('verb', '?'):14} {prov} · {dur} · {e.get('total_calls', 0)}call {ok}")
             print(f"   {'':17}    └ session id={e.get('id')}  → trace session <id> 看全對話")
+
+    # 結果摘要（read-only）：verdict / 上站 / 該書 proposals——forensic 一站到底，免另跳 pstate/proposals.d
+    qc = (state.get('qc') or {})
+    tags = []
+    if qc.get('verdict'):
+        tags.append(f"qc={qc['verdict']}")
+    if st._deployed(slug):
+        tags.append('已上站')
+    if tags:
+        print(f"   {'':3}└─ {' · '.join(tags)}")
+    props = _proposals_for(slug)
+    if props:
+        print(f"   {'':3}└─ proposals（{len(props)}）：")
+        for pr in props:
+            print(f"   {'':9}{pr.get('status', '?'):11} {pr.get('type', '?'):12} {pr.get('id', '')}")
     return 0
+
+
+def _proposals_for(slug: str) -> list[dict]:
+    """該 slug 名下的 proposals（id 內嵌 _slugify(slug)）。用鑄 id 的同一 _slugify 比前綴 → 截斷一致、可靠。"""
+    try:
+        from book_pipeline import proposals as pr
+        key = pr._slugify(slug)
+    except Exception:
+        return []
+    out = []
+    for d in pr.load_all():
+        body = re.sub(r'^P-\d{4}-\d\d-\d\d-', '', d.get('id', ''))
+        if body == key or body.startswith(key + '-'):
+            out.append(d)
+    return out
 
 
 def render_session(sid: str, as_json: bool = False) -> int:
@@ -167,7 +210,7 @@ def cohort_report(since: str) -> int:
     print(f"{'入庫':<12} {'slug':36} {'終態':8} {'入庫→上站':>9} {'LLM(場/敗/時)':>14}  原因/階段")
     buckets = {'deployed': 0, 'inflight': 0, 'stuck': 0}
     stuck_by_reason: dict = {}
-    tot_sess = tot_fail = tot_secs = 0
+    tot_sess = tot_fail = tot_recon = tot_secs = 0
     for ts, s in cohort:
         r = st.assess(s, pending, raw)
         e = state.get(s) or {}
@@ -179,7 +222,8 @@ def cohort_report(since: str) -> int:
         dep = _iso(e.get('deployed_at'))
         span = _fmt_span((dep - ts).total_seconds()) if (dep and bucket == 'deployed') else '—'
         h = agg.get(s, {})
-        tot_sess += h.get('sess', 0); tot_fail += h.get('fail', 0); tot_secs += h.get('secs', 0)
+        tot_sess += h.get('sess', 0); tot_fail += h.get('fail', 0)
+        tot_recon += h.get('recon', 0); tot_secs += h.get('secs', 0)
         llm = f"{h.get('sess',0)}/{h.get('fail',0)}/{_fmt_span(h.get('secs',0))}" if h else '—'
         icon = {'deployed': '✅', 'inflight': '⏳', 'stuck': '⚠'}[bucket]
         print(f"{ts.astimezone().strftime('%m-%d %H:%M'):<12} {s:36} {icon}{bucket:7} "
@@ -189,7 +233,8 @@ def cohort_report(since: str) -> int:
     print(f"  ✅ 已上站 {buckets['deployed']} · ⏳ 處理中 {buckets['inflight']} · ⚠ 卡關 {buckets['stuck']}")
     if stuck_by_reason:
         print("  卡關拆解：" + "，".join(f"{k}×{v}" for k, v in sorted(stuck_by_reason.items())))
-    print(f"  LLM 總計：{tot_sess} 場 · {tot_fail} 失敗重試 · {_fmt_span(tot_secs)} 累計派工")
+    print(f"  LLM 總計：{tot_sess} 場 · {tot_fail} 真失敗(rc≠0) · {tot_recon} rc未回收(中性,非失敗) "
+          f"· {_fmt_span(tot_secs)} 累計派工")
     if undated:  # backfill 後恆空；殘留即觀測缺口 → 硬提示
         print(f"\n⚠ {len(undated)} 本無 first_seen 時間戳（pipeline_queue --backfill-first-seen）："
               + ', '.join(s for _, s in undated[:8]))
