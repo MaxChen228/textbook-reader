@@ -367,7 +367,7 @@
   const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, STAGES_MS = 1000, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null, proposalsTimer = null
   let last = null, lastWorkers = [], lastStageGen = ''
-  let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；2s 直撿 dev/crawl_live.json，繞 status.json 8s）
+  let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
   let openSlug = null   // 抽屜當前綁定的書
@@ -464,7 +464,7 @@
   }
 
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
-  // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 2s worker cadence。
+  // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 1s worker cadence。
   const stationEls = [], laneEls = [], cntEls = []
   let crawlReasonEl = null, mathReasonEl = null
   function buildScaffold() {
@@ -701,7 +701,7 @@
     applyWalkers()
   }
 
-  // 爬書 lane（站 0）就地 reconcile —— 2s cadence。顯示解析池下一輪待下載書（select_next 推導，額度0也在）+
+  // 爬書 lane（站 0）就地 reconcile —— 1s cadence。顯示解析池下一輪待下載書（select_next 推導，額度0也在）+
   // crawl agent 卡（解析中）。count = 解析池可下載總數（非 agent 數）→ 額度耗盡時 badge 仍顯真實可下載書數。
   function reconcileCrawl() {
     const items = crawlItems()
@@ -823,7 +823,7 @@
   function openDrawer(slug) {
     openSlug = slug; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
     document.getElementById('dr-back').hidden = true
-    _openDrawerEl(); renderDrawer()  // 書本分支會渲 dr-hist（隨 2s/8s poll 保持 live）
+    _openDrawerEl(); renderDrawer()  // 書本分支會渲 dr-hist（隨 1s/8s poll 保持 live）
   }
   function openWorkerDrawer(wkey) {
     openWkey = wkey; openSlug = null; openMath = false; openSession = null
@@ -1253,7 +1253,7 @@
     renderHealth(d)
     updateLineSub()
     reconcileBooks(d)
-    reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 2s loadWorkers 管）
+    reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 1s loadWorkers 管）
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
     setText('budget-date', `(${d.budget.date_utc} UTC · 無上限)`)
@@ -1305,13 +1305,13 @@
   async function loadWorkers() {
     try { const data = await fetchJson('workers.json'); lastWorkers = (data && data.workers) || [] }
     catch { lastWorkers = [] }
-    reconcileCrawl()  // 爬書站走 2s cadence（≤2s 反映 worker 起/止，非 8s）
-    reconcileMath()   // 數學 sweep agent 同走 2s cadence（slug=null，本站直接渲染）
+    reconcileCrawl()  // 爬書站走 1s cadence（≤1s 反映 worker 起/止，非 8s）
+    reconcileMath()   // 數學 sweep agent 同走 1s cadence（slug=null，本站直接渲染）
     applyWalkers()
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
     if (openSlug || openWkey) renderDrawer()
   }
-  // live 階段快訊：~1.5s 撿 dev/stages.json（極小 {slug:stage}），單卡階段一變就地移 lane + 閃示，
+  // live 階段快訊：~1s 撿 dev/stages.json（極小 {slug:stage}），單卡階段一變就地移 lane + 閃示，
   // 不必等 8s 全量 status.json。stages.json 由 controller 在轉換瞬間寫（繞過 status 的 8s 節流）。
   async function loadStages() {
     if (!last || !last.books) return
@@ -1333,7 +1333,7 @@
       if (el) { el.classList.remove('stage-flash'); void el.offsetWidth; el.classList.add('stage-flash') }
     })
   }
-  // live 下載快訊：2s 直撿 dev/crawl_live.json（買書員逐本 下載中→✓/✗），不等 8s status.json。
+  // live 下載快訊：1s 直撿 dev/crawl_live.json（買書員逐本 下載中→✓/✗），不等 8s status.json。
   // 無下載時檔不存在 → fetch 404 → crawlLive=null → 表頭退回常態 reason。
   async function loadCrawlLive() {
     try { crawlLive = await fetchJson('crawl_live.json') }
