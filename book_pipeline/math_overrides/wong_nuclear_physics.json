@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "wong_nuclear_physics-ch08-body-264-7bdb49",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[264]",
+      "expect": "U _ {\\mathrm{C}} (r) = \\left\\{ \\begin{array}{l l} \\left[ \\frac {1}{4 \\pi \\epsilon_ {0}} \\right] \\frac {z Z e ^ {2}}{2 R _ {c}} \\left(3 - \\frac {r ^ {2}}{R _ {c} ^ {2}}\\right) & \\text {for r <   R_{c}} \\\\ \\left[ \\frac {1}{4 \\pi \\epsilon_ {0}} \\right] \\frac {z Z e ^ {2}}{r} & \\text {for r\\geq R_{c}} \\end{array} \\right.",
+      "new": "U_{\\mathrm{C}}(r) = \\left\\{ \\begin{array}{ll} \\left[ \\frac{1}{4 \\pi \\epsilon_{0}} \\right] \\frac{z Z e^{2}}{2 R_{c}} \\left(3 - \\frac{r^{2}}{R_{c}^{2}}\\right) & \\text{for } r < R_{c} \\\\ \\left[ \\frac{1}{4 \\pi \\epsilon_{0}} \\right] \\frac{z Z e^{2}}{r} & \\text{for } r\\geq R_{c} \\end{array} \\right."
+    }
+  ]
+}
