@@ -53,6 +53,7 @@ BP = os.path.join(ROOT, 'book_pipeline')
 LOCK = os.path.join(BP, '.tick.lock')
 LOG = os.path.join(BP, 'reports', 'daemon.log')
 STAGES_PATH = os.path.join(ROOT, 'dev', 'stages.json')  # live 階段快訊（單卡即時，繞 status.json 8s 節流）
+CRAWL_LIVE_PATH = os.path.join(ROOT, 'dev', 'crawl_live.json')  # live 下載快訊（買書員逐本 下載中→✓/✗，繞 status.json）
 READER_ROOT = q.READER_ROOT
 CLAUDE_BIN = os.environ.get('CLAUDE_BIN', 'claude')
 # codex 派工後端：headless `codex exec --json`。兩條 codex provider：
@@ -239,6 +240,92 @@ def _publish_stages(pairs) -> None:
 def emit_stage(slug: str, stage: str) -> None:
     """單書階段轉換的最早可知點即時發佈（advance_book 每步呼叫；同階段不重寫）。"""
     _publish_stages([(slug, stage)])
+
+
+# ── live 下載快訊（dev/crawl_live.json）──────────────────────────────────────────
+# 買書員是同步 burst（一批並行 subprocess 下載 5–120s），刻意不註冊 worker_registry（非 LLM agent），
+# 故 status.json 的 workers[] 全程空、crawl.queue 只是「下輪要抓的」→ /dev 完全看不出「正在下載」。
+# 此檔補上唯一缺口：本批每本 下載中→✓/✗ 的逐本 live 狀態，前端以 ~2s cadence 直撿（繞 status.json 8s）。
+# controller 是唯一寫手；前端＋devctl crawl_status 用 updated_at 守新鮮（dead tick 的殘檔自動視為過期）。
+_crawl_live: dict = {}
+_crawl_live_lock = threading.Lock()
+
+
+def _write_crawl_live() -> None:
+    """把 in-memory live 下載狀態原子寫出（持鎖內組 snapshot、鎖外寫檔，前端永不讀到半截）。"""
+    with _crawl_live_lock:
+        if not _crawl_live:
+            return
+        snap = dict(_crawl_live)
+        snap['updated_at'] = time.time()
+        snap['books'] = [dict(b) for b in _crawl_live.get('books', [])]
+        snap['active'] = any(b.get('state') == 'downloading' for b in snap['books'])
+    try:
+        os.makedirs(os.path.dirname(CRAWL_LIVE_PATH), exist_ok=True)
+        tmp = CRAWL_LIVE_PATH + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(snap, f, ensure_ascii=False)
+        os.replace(tmp, CRAWL_LIVE_PATH)
+    except Exception:
+        pass
+
+
+def publish_crawl_live(batch: list[dict]) -> None:
+    """買書員開抓一批時發佈：全本標 downloading，title/cover 由 resolution sidecar enrich。"""
+    try:
+        res = booklists.load_resolution()
+    except Exception:
+        res = {}
+    with _crawl_live_lock:
+        _crawl_live.clear()
+        _crawl_live.update({
+            'started_at': time.time(),
+            'accounts': sorted({b.get('account') for b in batch if b.get('account') is not None}),
+            'books': [{
+                'slug': b['slug'],
+                'title': res.get(b['slug'], {}).get('title') or b.get('title') or b['slug'],
+                'cover': res.get(b['slug'], {}).get('cover', ''),
+                'is_sol': b['slug'].endswith('_sol'),
+                'account': b.get('account'),
+                'state': 'downloading',
+                'mb': None,
+            } for b in batch],
+        })
+    _write_crawl_live()
+
+
+def update_crawl_live(slug: str, state: str, mb: float | None = None) -> None:
+    """單本下載落地：標 done/failed（+MB），原子重寫。前端 ≤2s 撿出 → 卡牌脈動轉 ✓/✗。"""
+    with _crawl_live_lock:
+        for b in _crawl_live.get('books', []):
+            if b['slug'] == slug:
+                b['state'] = state
+                if mb is not None:
+                    b['mb'] = round(mb, 1)
+                break
+        else:
+            return
+    _write_crawl_live()
+
+
+def end_crawl_live() -> None:
+    """整批收尾：標 ended_at（active 轉 false）。read_crawl_live 用它做 tail 寬限後自動隱藏。"""
+    with _crawl_live_lock:
+        if not _crawl_live:
+            return
+        _crawl_live['ended_at'] = time.time()
+    _write_crawl_live()
+
+
+def read_crawl_live() -> dict | None:
+    """讀 dev/crawl_live.json（devctl snapshot 用，跨進程）。dead tick 殘檔（updated_at > 10min）視為過期回 None。"""
+    try:
+        d = json.load(open(CRAWL_LIVE_PATH, encoding='utf-8'))
+    except Exception:
+        return None
+    if time.time() - (d.get('updated_at') or 0) > 600:
+        return None
+    return d
 
 
 def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
@@ -819,8 +906,15 @@ def _fetch_book(b: dict) -> str | None:
            'book_pipeline.crawl_zlib', 'fetch', bid, bhash, '--slug', slug]
     if b.get('account') is not None:
         cmd += ['--account', str(b['account'])]
-    rc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).returncode
+    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+    rc = proc.returncode
     if rc == 0 and os.path.isfile(os.path.join(ROOT, 'raw_pdfs', f'{slug}.pdf')):
+        m = re.search(r'完成 ([\d.]+) MB', proc.stdout or '')  # crawl_zlib cmd_fetch 印「完成 X.X MB」
+        if m:
+            try:
+                b['_mb'] = float(m.group(1))
+            except ValueError:
+                pass
         log(f'crawl ok：已補書 slug={slug}（acct {b.get("account")}）')
         return slug
     log(f'❌ crawl fetch 失敗 slug={slug} rc={rc}')
@@ -890,6 +984,7 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
     for i, b in enumerate(batch):
         b['account'] = slots[i]
     log(f'crawl 買書員：解析池取 {len(batch)} 本下載（額度槽 {len(slots)}、pipeline 餘裕 {room}）')
+    publish_crawl_live(batch)                            # /dev 即時看板：全本標下載中（前端 ~2s 撿）
     ok, crawled = set(), []
     with ThreadPoolExecutor(max_workers=min(CRAWL_PARALLEL, len(batch))) as ex:
         futs = {ex.submit(_fetch_book, b): b for b in batch}
@@ -903,10 +998,13 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
             if s:
                 ok.add(b['slug']); crawled.append(s)
                 q.clear_crawl_fail(b['slug'])           # 抓成功 → 清失敗計數
+                update_crawl_live(b['slug'], 'done', b.get('_mb'))
             else:
+                update_crawl_live(b['slug'], 'failed')
                 fails = q.bump_crawl_fail(b['slug'])     # 失敗 +1，達上限後 select_next 自動排除
                 if fails >= MAX_FETCH_FAILS:
                     log(f'crawl drop：{b["slug"]} 連 {fails} 次 fetch 失敗 → 排除出下載候選（架構師可重解後重試）')
+    end_crawl_live()                                     # 整批收尾 → 看板進「剛完成」tail 寬限後自動隱藏
     log(f'crawl 買書員 done：抓到 {len(ok)}/{len(batch)}')
     if crawled:
         hist.set_touched('crawl_plan', crawled)  # 帶進的書 → 各書抽屜查得此爬書歷程

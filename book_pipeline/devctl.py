@@ -463,8 +463,17 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
               'url': res.get(b['slug'], {}).get('href', ''),
               'cover': res.get(b['slug'], {}).get('cover', ''),
               'fails': q.crawl_fail_count(b['slug'])} for b in show]
+    # live 下載看板（買書員逐本 下載中→✓/✗，跨進程讀 dev/crawl_live.json）：正在抓時覆寫 state/reason，
+    # 讓 status.json 自身也誠實反映「正在下載」（前端另有 2s 直撿 crawl_live.json 做即時卡牌）。
+    live = pt.read_crawl_live()
+    if live and live.get('active'):
+        n_dl = sum(1 for b in live['books'] if b.get('state') == 'downloading')
+        n_ok = sum(1 for b in live['books'] if b.get('state') == 'done')
+        acct = '+'.join(str(a) for a in (live.get('accounts') or []))
+        state = 'downloading'
+        reason = f'⬇ 正在下載 {n_dl} 本' + (f' · ✓{n_ok} 已落地' if n_ok else '') + (f' · 帳號 {acct}' if acct else '')
     return {'queue': qview, 'count': n_ready, 'backlog': backlog, 'room': room,
-            'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason}
+            'high': pt.CRAWL_INFLIGHT_CAP, 'state': state, 'reason': reason, 'live': live}
 
 
 def math_health() -> dict:

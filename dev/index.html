@@ -75,6 +75,22 @@
     a.crawl-card.queued.linked:hover { transform: translateY(-2px); transition: transform .12s; }
     .crawl-card.queued .cv { opacity: .8; }
     .queue-ph { background: linear-gradient(135deg, #5a6b8c, #38434f) !important; font-size: 26px !important; }
+    /* live 下載卡（買書員正在抓）：下載中＝藍光暈脈動；落地＝綠框 ✓；失敗＝紅框淡化。角標即時狀態 */
+    .crawl-card.dl { cursor: default; }
+    .crawl-card.dl .cv { border-color: rgba(58,123,213,.55); }
+    .crawl-card.dl.downloading .cv { animation: dlpulse 1.15s ease-in-out infinite; }
+    .crawl-card.dl.done .cv { border-color: rgba(46,160,67,.75); }
+    .crawl-card.dl.failed .cv { border-color: rgba(218,54,51,.75); opacity: .6; }
+    @keyframes dlpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(58,123,213,0); }
+                         50% { box-shadow: 0 0 0 5px rgba(58,123,213,.36); } }
+    .dl-badge { position: absolute; top: 3px; right: 3px; font-size: 11px; line-height: 1; font-weight: 700;
+      padding: 3px 5px; border-radius: 6px; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+    .dl-badge.downloading { background: #3a7bd5; animation: pulse 1.15s ease-in-out infinite; }
+    .dl-badge.done { background: #2ea043; }
+    .dl-badge.failed { background: #da3633; }
+    .dl-mb { position: absolute; bottom: 3px; left: 3px; font-size: 10px; font-weight: 700; color: #fff;
+      background: rgba(0,0,0,.55); padding: 1px 4px; border-radius: 5px; }
+    .dl-mb:empty { display: none; }
     /* 數學 sweep reactor（站 7，error-centric，非書卡）：焦點=待解 occ 數、batch 處理中時脈動。主題中性 */
     .math-reactor { padding: 12px 8px; border-radius: 12px; cursor: pointer; text-align: center;
       display: flex; flex-direction: column; gap: 7px; align-items: center;
@@ -310,9 +326,11 @@
 
   <script>
   const { fetchJson, relTime, escapeHtml } = QBankShared
-  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200, STAGES_MS = 1500
-  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null
+  const REFRESH_MS = 8000, CLOCK_MS = 1000, WORKERS_MS = 2000, MATHRAW_MS = 1200, STAGES_MS = 1500, CRAWLLIVE_MS = 2000
+  let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, stagesTimer = null, crawlLiveTimer = null
   let last = null, lastWorkers = [], lastStageGen = ''
+  let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；2s 直撿 dev/crawl_live.json，繞 status.json 8s）
+  const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
   let openSlug = null   // 抽屜當前綁定的書
   let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
@@ -524,12 +542,35 @@
 
   // ── 爬書站（站 0）= 解析池下一輪待下載書（select_next 即時推導，無 buffer）：crawl agent 卡（解析中）
   //    + 待下載書卡（額度0也照列）──
+  // live 下載卡：active 時全顯；整批收尾後保留 DL_TAIL_S 秒「剛完成」tail 再隱藏（讓人看到 ✓/✗ 結果）
+  function crawlLiveItems() {
+    if (!crawlLive || !crawlLive.books) return []
+    const ended = crawlLive.ended_at
+    if (ended && (Date.now() / 1000 - ended) > DL_TAIL_S) return []
+    return crawlLive.books.map(b => ({ kind: 'dl', key: 'd:' + b.slug, b }))
+  }
   function crawlItems() {
+    const dl = crawlLiveItems()
+    const dlSlugs = new Set(dl.map(it => it.b.slug))
     const agents = crawlWorkers().map(w => ({ kind: 'agent', key: 'a:' + w.key, w }))
-    const q = ((last && last.crawl && last.crawl.queue) || []).map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
-    return agents.concat(q)  // agent 卡在前、待下載書在後
+    const q = ((last && last.crawl && last.crawl.queue) || [])
+      .filter(b => !dlSlugs.has(b.slug))  // 正在抓/剛抓到的不再列入「待下載」（已 owned）
+      .map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
+    return dl.concat(agents, q)  // 下載中卡最前、agent、待下載書最後
   }
   function makeCrawlEl(it) {
+    if (it.kind === 'dl') {
+      const b = it.b
+      const el = document.createElement('div')
+      el.className = 'book crawl-card dl ' + b.state; el.dataset.dl = b.slug
+      el.title = (b.title || b.slug) + ' · ' + (b.state === 'done' ? '已落地' : b.state === 'failed' ? '下載失敗' : '下載中')
+      const cv = b.cover
+        ? `<img src="${escapeHtml(b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${b.is_sol ? '📑' : '📘'}'}))">`
+        : `<div class="ph crawl-ph queue-ph">${b.is_sol ? '📑' : '📘'}</div>`
+      el.innerHTML = `<div class="cv">${cv}<span class="dl-badge ${b.state}"></span><span class="dl-mb"></span></div><div class="ttl"></div>`
+      updateCrawlEl(el, it)
+      return el
+    }
     if (it.kind === 'agent') {
       const el = document.createElement('div')
       el.className = 'book crawl-card working'; el.dataset.wkey = it.w.key; el.title = '爬書 planner agent'
@@ -551,9 +592,49 @@
     return el
   }
   function updateCrawlEl(el, it) {
+    if (it.kind === 'dl') {
+      const b = it.b
+      const cls = 'book crawl-card dl ' + b.state
+      if (el.className !== cls) el.className = cls
+      const badge = el.querySelector('.dl-badge')
+      if (badge) {
+        const bcls = 'dl-badge ' + b.state
+        if (badge.className !== bcls) badge.className = bcls
+        const sym = b.state === 'done' ? '✓' : b.state === 'failed' ? '✗' : '⬇'
+        if (badge.textContent !== sym) badge.textContent = sym
+      }
+      const mb = el.querySelector('.dl-mb')
+      if (mb) { const t = b.mb ? b.mb + ' MB' : ''; if (mb.textContent !== t) mb.textContent = t }
+      const ttl = el.querySelector('.ttl')
+      if (ttl && ttl.textContent !== (b.title || b.slug)) ttl.textContent = b.title || b.slug
+      return
+    }
     const ttl = el.querySelector('.ttl')
     const txt = it.kind === 'agent' ? `規劃選書 ·${it.w.total_calls || 0}` : (it.b.title || it.b.slug)
     if (ttl.textContent !== txt) ttl.textContent = txt
+  }
+  // 爬書表頭：下載中顯 live 進度（下載中/✓/✗ + 帳號），否則退回 status reason；末尾恆掛當日 zlib 額度心跳
+  function crawlHeader() {
+    const z = last && last.zlib
+    let quota = ''
+    if (z && z.accounts && z.accounts.length) {
+      const used = z.accounts.reduce((a, x) => a + (x.used || 0), 0)
+      quota = ` · 今日已抓 ${used}/${z.total_limit} 本`
+    }
+    const bs = (crawlLive && crawlLive.books) || []
+    if (crawlLive && crawlLive.active) {
+      const ndl = bs.filter(b => b.state === 'downloading').length
+      const nok = bs.filter(b => b.state === 'done').length
+      const nf = bs.filter(b => b.state === 'failed').length
+      const acct = (crawlLive.accounts || []).join('+')
+      return `⬇ 正在下載 ${ndl} 本` + (nok ? ` · ✓${nok}` : '') + (nf ? ` · ✗${nf}` : '') + (acct ? ` · 帳號 ${acct}` : '') + quota
+    }
+    const ended = crawlLive && crawlLive.ended_at
+    if (ended && (Date.now() / 1000 - ended) < DL_TAIL_S) {
+      const nok = bs.filter(b => b.state === 'done').length, nf = bs.filter(b => b.state === 'failed').length
+      return `✓ 剛完成下載 ${nok} 本` + (nf ? ` · ✗${nf} 失敗` : '') + quota
+    }
+    return ((last && last.crawl && last.crawl.reason) || '閒置 · 清單空') + quota
   }
 
   // 書 lane（站 1..6）就地 reconcile —— 8s status cadence
@@ -576,13 +657,14 @@
   // crawl agent 卡（解析中）。count = 解析池可下載總數（非 agent 數）→ 額度耗盡時 badge 仍顯真實可下載書數。
   function reconcileCrawl() {
     const items = crawlItems()
-    const reason = (last && last.crawl && last.crawl.reason) || '閒置 · 清單空'
+    const reason = crawlHeader()
     if (crawlReasonEl && crawlReasonEl.textContent !== reason) crawlReasonEl.textContent = reason
     reconcileLane(laneEls[0], items, it => it.key, makeCrawlEl, updateCrawlEl,
       '<div class="dev-label lane-empty" style="padding:6px 2px">—</div>')
     const cnt = (last && last.crawl && last.crawl.count) || 0
     if (cntEls[0].textContent !== String(cnt)) cntEls[0].textContent = cnt
-    stationEls[0].classList.toggle('st-active', items.length > 0)
+    const downloading = !!(crawlLive && crawlLive.active)
+    stationEls[0].classList.toggle('st-active', items.length > 0 || downloading)
   }
 
   // ── 數學 sweep lane（站 7）：**非以書為單位、非 agent**。邏輯 = corpus 有多少壞式（occ），daemon 直跑
@@ -1090,6 +1172,13 @@
       if (el) { el.classList.remove('stage-flash'); void el.offsetWidth; el.classList.add('stage-flash') }
     })
   }
+  // live 下載快訊：2s 直撿 dev/crawl_live.json（買書員逐本 下載中→✓/✗），不等 8s status.json。
+  // 無下載時檔不存在 → fetch 404 → crawlLive=null → 表頭退回常態 reason。
+  async function loadCrawlLive() {
+    try { crawlLive = await fetchJson('crawl_live.json?_=' + Date.now()) }
+    catch { crawlLive = null }
+    reconcileCrawl()
+  }
   async function load() {
     const btn = document.getElementById('btn-refresh')
     btn.innerHTML = '<span class="spin">↻</span> refresh'
@@ -1103,9 +1192,10 @@
     if (!clockTimer) clockTimer = setInterval(tickClocks, CLOCK_MS)
     if (!workersTimer) workersTimer = setInterval(loadWorkers, WORKERS_MS)
     if (!stagesTimer) stagesTimer = setInterval(loadStages, STAGES_MS)
+    if (!crawlLiveTimer) crawlLiveTimer = setInterval(loadCrawlLive, CRAWLLIVE_MS)
   }
-  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); timer = clockTimer = workersTimer = stagesTimer = null; stopMathRaw() }
-  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages() })
+  function stop() { clearInterval(timer); clearInterval(clockTimer); clearInterval(workersTimer); clearInterval(stagesTimer); clearInterval(crawlLiveTimer); timer = clockTimer = workersTimer = stagesTimer = crawlLiveTimer = null; stopMathRaw() }
+  document.getElementById('btn-refresh').addEventListener('click', () => { load(); loadWorkers(); loadStages(); loadCrawlLive() })
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); start()
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); start(); if (openMath) startMathRaw() } })

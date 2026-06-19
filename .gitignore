@@ -24,6 +24,8 @@ tmp/
 /dev/status.json
 # live 階段快訊（controller 轉換瞬間直寫，可重生）— gitignore 不支援行內註解，須獨立行
 /dev/stages.json
+# live 下載快訊（買書員逐本 下載中→✓/✗ 直寫，可重生）
+/dev/crawl_live.json
 # math sweep 可觀測性：即時串流快照 + 歷史批次回溯（math_sweep batch 直寫，可重生）
 /dev/math_live.json
 /dev/math_history.jsonl
