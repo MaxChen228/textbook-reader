@@ -1,0 +1,22 @@
+# ⚠ PENDING — 不要 merge。這本目前不是靠 sol_rules 可安全對齊，原因如下：
+#
+# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當 chapter anchor，且
+#    chapter_re 的 group(1) 會直接 `int(...)` 轉章號。
+#    但 kardar_statistical_physics_sol 的章標實際落在 `text_level=2`，格式為
+#    "Problems for Chapter I/II/III/..."（羅馬數字，非阿拉伯數字）。
+#    2026-06-19 實測 dry-run（預設規則）穩定抽出 0 章、0 題。
+#
+# 2. 第 VI 章邊界在 unified source 內就已破損：
+#    `unified/full.md` 仍有 "Problems for Chapter VI - Quantum Statistical Mechanics"，
+#    但 `unified/content_list.json` 在 Chapter V 結尾後直接跳到
+#    "1. One dimensional chain..."，沒有對應的 chapter heading block。
+#    即使引擎支援 lvl=2 / 羅馬數字，也仍缺第 VI 章 anchor。
+#
+# 3. 主書 `kardar_statistical_physics` 的 problem['num'] 是章內重置的純整數
+#    （ch1=1..12, ch2=1..12, ...）。沒有可靠章邊界時，同號題會跨章覆寫；
+#    放鬆 problem_re 只會把錯解寫進主書，不能為了配對率硬 merge。
+#
+# 待以下任一條件成立後再重跑：
+# - sol_extract 支援自訂 chapter anchor 的 text_level，並能把羅馬數字章號映成 int；或
+# - 重新 ingest / 修 unified block segmentation，保留 Chapter VI heading block。
+_pending: true

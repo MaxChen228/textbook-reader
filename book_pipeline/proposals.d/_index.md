@@ -2959,7 +2959,52 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （1 條；proposed=1）
+## domain: sol  （10 條；proposed=10）
+
+### P-2026-06-19-blundell-thermal-sol — blundell_thermal 解答書無法 merge：sol_extract 不支援以 N.M 題號前綴直接導章
+- proposed | type=harness-gap | source=sol_extract
+- 證據：2026-06-19 dry-run（預設規則）結果為抽出 0 章、0 題；blundell_thermal_sol/unified/content_list.json 僅 2 個 lvl=1 text，且皆為封面雜訊，不存在可用章 anchor。手工以前綴 ^N.M 掃描可抓到約 170 個題號 block，對主書 224 題可配到 161 題；語義抽樣 ch10/ch17/ch27 對齊正確。局部 OCR 漏讀仍存在（如 ch06 全缺、9.2 併入段內、22.5→2.5），但不足以解釋 dry-run 0 題。
+- 提議：擴充 sol_extract schema/引擎：允許無章標頭模式，直接由 problem_re 抽出的 N.M key 推導 chapter=num.split('.')[0] 並切題；或至少允許章 anchor 自訂 text_level/來源，不再硬綁 text_level==1。完成後可重跑 blundell_thermal_sol，預期可安全 merge 大部分題目。
+
+### P-2026-06-19-goldstein-cm3-sol — goldstein_cm3 解答書無法 merge：2nd ed selective solutions 與主書 3rd ed 不對齊
+- proposed | type=edition-mismatch | source=sol_extract
+- 證據：解答書首頁明寫 'Solutions to Problems in Goldstein, Classical Mechanics, Second Edition'；content_list 僅含 Chapter 1/3/7/9/10。語義抽樣：主書 ch1 p11 是 conservative force，但 sol ch1 key11 是 Lagrange equations；主書 ch3 p13 是 inverse-fifth-power orbit，但 sol ch3 key13 是 dust-in-solar-system。僅局部如 ch10 p6/7/8 對齊，不足以否定整體跨版次錯位。另 sol_extract 只吃 text_level==1 chapter anchor，而本書除 Chapter 7 外章首多為 text_level==2。
+- 提議：換與 goldstein_cm3 同版次的完整解答來源（優先 3rd ed），或重新 crawl/ingest 可對齊的母書-解答書組合；若保留此來源，需擴充 sol_extract 支援非 lvl1 chapter anchor / 顯式章映射，但在版次不符未解前仍不應 merge。
+
+### P-2026-06-19-griffiths-particles-sol — griffiths_particles 解答書無法 merge：缺可用章 anchor
+- proposed | type=source-quality | source=sol_extract
+- 證據：dry-run：抽出 0 章、0 題解答。sol_extract 只掃 text_level==1 章 anchor；本書只有 ch1『Historical Introduction to the Elementary Particles』與 ch8『Electrodynamics and Chromodynamics of Quarks』是 level-1。ch2-7、9-12 在各章首僅出現 text_level=2 的數字+章名，例如『2 / Elementary Particle Dynamics』、『12 / What’s Next』。
+- 提議：換更穩定的解答本/重新 ingest 取得正確 chapter level，或升級 sol_extract 支援以 text_level=2 章標切章後再重試。
+
+### P-2026-06-19-kardar-statistical-physics-sol — kardar_statistical_physics 解答書無法 merge：sol_extract 不支援 lvl=2 羅馬章標且 unified 缺 Chapter VI anchor
+- proposed | type=harness-gap | source=sol_extract
+- 證據：2026-06-19 dry-run（預設規則）結果：抽出 0 章、0 題。content_list.json 的章標只出現在 text_level=2 block：idx 11/397/826/1396/1811/2704，文字為 'Problems for Chapter I/II/III/IV/V/VII - ...'；現行 sol_extract 只掃 text_level==1 且對 chapter_re.group(1) 直接 int()。另外 unified/full.md 第 6209 行仍有 'Problems for Chapter VI - Quantum Statistical Mechanics'，但 content_list.json 在 Chapter V 結尾後直接跳到 idx 2303 '1. One dimensional chain...'，缺失 Chapter VI heading block。主書題號為章內重置純整數，無可靠章界時跨章同號題會錯配。
+- 提議：擴充 sol_extract schema/引擎：允許設定 chapter anchor 的 text_level，並支援羅馬數字章號映射；或在 ingest/unified 階段保留/修復 Chapter VI heading block。完成任一路徑後，再重跑 kardar_statistical_physics_sol 的 audit-sol。
+
+### P-2026-06-19-munkres-topology-sol — munkres_topology 解答書只能部分 merge：Chapter 2 anchor 是 lvl2
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run：抽出 1 章 145 題；ch01 配對 76/105，未配樣本自 13.1 起。語義抽樣：1.1/1.2/1.3、4.1/4.2/4.3、10.1/10.2/10.3 與主書同題；13.1/13.2/13.3 在解答書內也對應主書第二章，但 unified idx 2103 的 'Chapter 2 Topological Spaces and Continuous Functions' 為 text_level=2，sol_extract 只吃 lvl1 anchor。
+- 提議：擴充 sol_extract 章 anchor 偵測以支援可配置 heading level，或在 ingest/parser 階段修正解答書章標層級；修完後可重跑以補 merge 第 2 章。
+
+### P-2026-06-19-ogata-control-sol — ogata_control 解答書無法 merge：主書 parsed 只剩章級單題
+- proposed | type=source-quality | source=sol_extract
+- 證據：ogata_control/parsed/ch02.json~ch10.json 各章僅 1 題，problem.num 分別為 2~10；但題幹內直接串入多題 anchor，例如 ch02 唯一題目 body 含 'B-2-2.'、'B-2-3.'，ch06 唯一題目 body 含 'B-6-2.'。解答書 ogata_control_sol 則是逐題 'B-2-1.'/'B-3-1.' 結構；若將 key 放鬆成章號，只會把多題解答覆寫成每章最後一題，屬系統性錯配。
+- 提議：先重做 ogata_control 主書 audit/parser（或換更乾淨母書來源），恢復 parsed/chNN.json 的逐題 problem key；之後再以 chapter_re='^CHAPTER\s+(\d+)\s*$'、problem_re='^B[\-–](\d+[\-–]\d+)\.' 重新評估 ogata_control_sol merge。
+
+### P-2026-06-19-sethna-statistical-mechanics-sol — sethna_statistical_mechanics 解答書無法 merge：sol_extract 缺 chapterless solution-book 對齊能力
+- proposed | type=harness-gap | source=sol_extract
+- 證據：sethna_statistical_mechanics_sol unified 正文沒有任何 text_level==1 章 anchor；預設 dry-run 抽出 0 章 0 題。另一方面，ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有外來題號；語義抽樣 1.1/5.4/10.1 分別對上 Quantum Dice、Black Hole Thermodynamics、Cosmic Microwave Background Radiation，證明來源書正確且 key 對齊可行。阻塞點是 sol_extract 目前只能先按 lvl1 chapter_re 切章，無法在 chapterless 版型下直接按完整 N.M 題號切題與 merge。
+- 提議：為 sol_extract 增加 chapterless / non-lvl1 anchor 模式：允許在缺少 text_level==1 章標時，直接掃描全書題目 heading（如 level-2 的 ^N.M）建立 solution map，或允許章 anchor 來源不受 lvl1 限制。完成後可用 problem_re=^(\d+\.\d+[a-z]?)\b 重跑這本書，預期可安全 merge 其 97 題選題解答。
+
+### P-2026-06-19-simon-solid-state-sol — simon_solid_state 解答書無法 merge：章 anchor 不在 sol_extract 支援位置
+- proposed | type=harness-gap | source=sol_extract
+- 證據：預設 dry-run：抽出 0 章、0 題。content_list.json 的章號是獨立純數字行（如 idx 17='1'、20='2'、287='3'、679='5'），text_level 為 None/2；現行 sol_extract 只讀 text_level==1，而 lvl1 block 是純章標題文字、無可轉 int 的章號。臨時探針改用『純數字章號行 + ^\((N.M)\)』可恢復 ch2=2.1..2.8、ch3=3.1..3.3、ch15=15.1..15.6，且 2.1/3.1/15.1 題幹與 sol 語義對齊。
+- 提議：擴充 sol_extract 章 anchor 能力：允許指定 chapter anchor 的 text_level/任意 text block，或支援『章標題後下一個純數字 block = 章號』。能力補上後可用 chapter_re=^(\d+)$、problem_re=^\((\d+\.\d+)\) 重新跑 merge。
+
+### P-2026-06-19-spivak-calculus-sol — spivak_calculus 解答書無法 merge：章 anchor 只落在非 lvl1 block
+- proposed | type=harness-gap | source=sol_extract
+- 證據：dry-run 穩定抽出 0 章、0 題。content_list 可見 29 個 CHAPTER N，但 sol_extract 只認 text_level==1 的 text；其中只有 CHAPTER 27、30 符合。臨時以 chapter_re=^CHAPTER\s+(\d+)\s*$ 驗證時也只會抽到 chapters=[27,30]，ch27 區段將吞掉 ch28/ch29，會系統性錯位。
+- 提議：讓 sol_extract 支援非 text_level==1 / header 的章 anchor，之後再對 spivak_calculus_sol 重跑 audit-sol。
 
 ### P-2026-06-19-strang-linalg-sol — strang_linalg 解答書無法 merge：sol_extract 不支援 lvl=2 Problem Set anchor
 - proposed | type=harness-gap | source=sol_extract
