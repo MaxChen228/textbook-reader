@@ -17,7 +17,7 @@ import os
 from dataclasses import dataclass, replace
 from typing import Callable
 
-KNOWN_PROVIDERS = ('codex-pool', 'codex', 'kimi', 'claude')
+KNOWN_PROVIDERS = ('codex-pool', 'codex', 'claude')
 
 
 @dataclass(frozen=True)
@@ -26,15 +26,16 @@ class DispatchSpec:
     chain: tuple[str, ...] | None = None   # provider failover 優先序
     codex_model: str | None = None         # codex 家族模型（gpt-5.x；池子白名單見下）
     codex_effort: str | None = None        # codex reasoning effort（low/medium/high）
-    claude_model: str | None = None        # claude 模型（kimi 由 _llm_env 寫死，不適用）
+    claude_model: str | None = None        # claude 模型（Claude Max；codex 家族不適用）
     timeout: int | None = None             # 派工 wall-clock 上限（秒）
 
 
-# 全域底：chain＝優先榨池子（maxn970228 獨立額度）→ 原生 codex → kimi → Claude Max 保底。
+# 全域底：chain＝優先榨池子（maxn970228 獨立額度）→ 原生 codex → Claude Max 保底。
+# （kimi 已於 2026-06-20 全面下架：斷線窗 fallback 產出品質不可靠，寧落 Claude Max 高品質保底。）
 # codex 家族預設 gpt-5.4（池子白名單 gpt-5.5/5.4/5.4-mini/5.3-codex-spark 內，需 ccNexus
 # fork 透傳修復在線才切得動非 5.5）。timeout 1h：正常 audit ~25min，留卡死護欄餘裕。
 DEFAULT_DISPATCH = DispatchSpec(
-    chain=('codex-pool', 'codex', 'kimi', 'claude'),
+    chain=('codex-pool', 'codex', 'claude'),
     codex_model='gpt-5.4',
     timeout=3600,
 )

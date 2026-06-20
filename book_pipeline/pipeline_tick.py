@@ -337,44 +337,21 @@ def _resolve_dispatch(verb: str) -> DispatchSpec:
 
 
 def _llm_env(provider: str) -> dict | None:
-    """指定 provider 的派工環境。kimi → 把同一個 claude CLI（harness 不變）導到 Kimi Code
-    端點（key 讀 ~/.secrets/kimi.env，不進全域 env）。codex-pool → 注入 dummy CCNEXUS_API_KEY
-    （codex 要求 env_key 非空才肯走 nexus profile）。claude/codex → None（claude 沿用 Claude
-    Max 訂閱；codex 用自己的 ~/.codex/auth.json）。"""
+    """指定 provider 的派工環境。codex-pool → 注入 dummy CCNEXUS_API_KEY（codex 要求 env_key
+    非空才肯走 nexus profile）。claude/codex → None（claude 沿用 Claude Max 訂閱；codex 用
+    自己的 ~/.codex/auth.json）。"""
     if provider == 'codex-pool':
         env = dict(os.environ)
         env.setdefault('CCNEXUS_API_KEY', 'unused')
         return env
-    if provider != 'kimi':
-        return None
-    key_path = os.path.expanduser('~/.secrets/kimi.env')
-    try:
-        with open(key_path) as f:
-            key = f.read().strip()
-    except OSError:
-        log(f'⚠ provider=kimi 但讀不到 {key_path} → 退回預設供應商')
-        return None
-    if not key:
-        log(f'⚠ {key_path} 為空 → 退回預設供應商')
-        return None
-    env = dict(os.environ)
-    env.update({
-        'ANTHROPIC_BASE_URL': 'https://api.kimi.com/coding',
-        'ANTHROPIC_AUTH_TOKEN': key,
-        'ANTHROPIC_MODEL': 'kimi-for-coding',
-        'ANTHROPIC_DEFAULT_OPUS_MODEL': 'kimi-for-coding',
-        'ANTHROPIC_DEFAULT_SONNET_MODEL': 'kimi-for-coding',
-        'ANTHROPIC_DEFAULT_HAIKU_MODEL': 'kimi-for-coding',
-        'ANTHROPIC_SMALL_FAST_MODEL': 'kimi-for-coding',
-    })
-    return env
+    return None
 
 
 # 撞額度的 provider（本 tick 內標記，跨並行子工共享 → 不再重複撞同一耗盡的 provider）。
 # 每 tick 開頭清空重試。
 _exhausted_providers: set[str] = set()
 _exhausted_lock = threading.Lock()
-# claude/kimi 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
+# claude 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
 SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
 CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests',
                        'insufficient_quota', 'exceeded your current',
@@ -419,7 +396,7 @@ def _event_error_text(provider: str, ev: dict) -> str:
             if item.get('type') == 'error':
                 return str(item.get('message') or item.get('text') or json.dumps(item, ensure_ascii=False))
         return ''
-    # claude/kimi stream-json：終端 result 事件帶 is_error / 非 success subtype 才算錯誤面
+    # claude stream-json：終端 result 事件帶 is_error / 非 success subtype 才算錯誤面
     if t == 'result' and (ev.get('is_error') or ev.get('subtype') not in (None, 'success')):
         return str(ev.get('result') or ev.get('error') or json.dumps(ev, ensure_ascii=False))
     return ''
@@ -445,8 +422,7 @@ def _codex_model(spec: DispatchSpec) -> str:
 
 def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
     """依 provider + 解析後的 DispatchSpec 組 headless 派工命令。
-    claude/kimi：同一個 claude CLI（kimi 僅由 _llm_env 換後端），走 stream-json；claude 可由
-    spec.claude_model 帶 --model（kimi 不帶，靠 _llm_env 的 ANTHROPIC_MODEL）。
+    claude：claude CLI 走 stream-json，可由 spec.claude_model 帶 --model（Claude Max 訂閱）。
     codex/codex-pool：`codex exec --json`，沙箱 danger-full-access 對齊 claude -p 的全權（daemon
     信任環境，audit/repair 要寫 mineru_data、跑 uv），--model 取 spec.codex_model；spec.codex_effort
     非空帶 -c model_reasoning_effort；codex-pool 額外帶 `-p nexus`（走 ccNexus 池子 profile）。
@@ -495,7 +471,7 @@ def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
             if txt:
                 _emit(wkey, 'text', txt, tag)
         return
-    # claude/kimi stream-json
+    # claude stream-json
     if ev.get('type') != 'assistant':
         return
     for blk in (ev.get('message', {}).get('content') or []):
@@ -563,7 +539,7 @@ def _install_term_handlers(wake, terminating) -> bool:
 
 def _display_model(provider: str, spec: DispatchSpec) -> str:
     """歷程/面板顯示的模型 label：codex 家族＝實際模型（附 effort），claude＝自訂模型，
-    kimi＝provider 名（後端固定 kimi-for-coding）。"""
+    其餘＝provider 名（防禦性 fallthrough）。"""
     if _is_codex(provider):
         m = _codex_model(spec)
         return f'{m}/{spec.codex_effort}' if spec.codex_effort else m

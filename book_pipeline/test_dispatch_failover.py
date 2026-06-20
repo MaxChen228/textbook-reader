@@ -22,7 +22,7 @@ def _patch(results):
 
 
 def test_outage_fails_over():
-    # codex-pool 中斷 → 落 codex（OAuth），回 codex 的 rc=0、不再試 kimi/claude
+    # codex-pool 中斷 → 落 codex（OAuth），回 codex 的 rc=0、不再試 claude
     calls, restore = _patch({'codex-pool': (1, 'outage'), 'codex': (0, None)})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
@@ -35,11 +35,11 @@ def test_outage_fails_over():
 
 def test_limit_fails_over():
     calls, restore = _patch({'codex-pool': (1, 'limit'), 'codex': (1, 'limit'),
-                             'kimi': (0, None)})
+                             'claude': (0, None)})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
-        assert rc == 0 and calls == ['codex-pool', 'codex', 'kimi'], (rc, calls)
-        print('✓ limit：逐個撞額度 → 一路 failover 到 kimi')
+        assert rc == 0 and calls == ['codex-pool', 'codex', 'claude'], (rc, calls)
+        print('✓ limit：逐個撞額度 → 一路 failover 到 claude(Max 保底)')
     finally:
         restore()
 
@@ -57,11 +57,11 @@ def test_task_failure_does_not_fail_over():
 
 def test_all_unavailable_defers():
     calls, restore = _patch({'codex-pool': (1, 'outage'), 'codex': (1, 'outage'),
-                             'kimi': (1, 'limit'), 'claude': (1, 'outage')})
+                             'claude': (1, 'outage')})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
         assert rc == -2, rc                               # 全鏈耗盡 → defer
-        assert calls == ['codex-pool', 'codex', 'kimi', 'claude'], calls
+        assert calls == ['codex-pool', 'codex', 'claude'], calls
         print('✓ 全鏈不可用 → -2 defer（下個 tick 重試）')
     finally:
         restore()
