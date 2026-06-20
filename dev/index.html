@@ -1366,7 +1366,10 @@
     el.dataset.paused = paused ? '1' : '0'
   }
   // 暫停/啟動：寫回 devcontrol sidecar（CF Access 把關）。樂觀更新；daemon ≤20s 輪詢 pipeline_run_state 生效。
+  let pauseBusy = false  // 重入防護：連點期間擋併發 POST（後端 set_running 冪等、純省冗餘請求）
   async function togglePause(toPaused) {
+    if (pauseBusy) return
+    pauseBusy = true
     pausePending = toPaused
     if (last) renderPauseBtn(last)
     try {
@@ -1378,6 +1381,8 @@
       pausePending = null
       if (last) renderPauseBtn(last)
       alert('系統' + (toPaused ? '暫停' : '啟動') + '失敗：' + (e && e.message || e))
+    } finally {
+      pauseBusy = false
     }
   }
 
