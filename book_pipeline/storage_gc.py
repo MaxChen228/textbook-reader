@@ -23,9 +23,12 @@ data/<slug>/book.json 已烤出 ⇒ 該書全鏈完成、daemon 在 post-deploy 
   uv run python -m book_pipeline.storage_gc prune --apply     # 真的刪
   uv run python -m book_pipeline.storage_gc archive           # 列要搬冷藏的（dry-run）
   uv run python -m book_pipeline.storage_gc archive --apply   # 真的搬 → ARCHIVE_ROOT
-  uv run python -m book_pipeline.storage_gc restore <slug>    # 從冷藏拉回某書 raw（要重組裝時）
+  uv run python -m book_pipeline.storage_gc restore           # 列冷藏可還原清單
+  uv run python -m book_pipeline.storage_gc restore <slug>    # 從冷藏拉回某書 raw 並解壓
+  uv run python -m book_pipeline.storage_gc restore <name> --kind raw_pdfs  # 拉回源 PDF
+  uv run python -m book_pipeline.storage_gc reassemble <slug> # 從 raw 重生 unified（自包含）
 
-預設一律 dry-run；加 --apply 才真的動檔案。
+預設一律 dry-run；加 --apply 才真的動檔案。冷藏為 copy（原件留作 backup）。
 """
 from __future__ import annotations
 
@@ -36,6 +39,7 @@ import os
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 
 from book_pipeline import jsonio
 from book_pipeline import mineru_budget as mb
@@ -69,7 +73,13 @@ def _tick_lock():
 def _in_flight() -> set:
     """daemon 正 ingest/in-flight 的 slug 集（含 _sol）。MinerU async batch 可能跨 tick
     存活（提交的 tick 已退、無 tick 在跑、_tick_lock 也擋不住）→ 必須獨立查 _pending_batches。
-    失敗不靜默吞：寧可整條命令爆出來，也不在無法確認安全時誤刪。"""
+
+    刻意用 in_flight()（_pending 全集）而非 occupied()（濾掉 stale 上傳）：stale-uploading
+    的書 daemon 會「重新提交」，而 resubmit 讀的正是 chunks/p{s}-{e}.pdf（🟡 prune 目標）
+    → 連 stale 的書也要保護其 chunks/，故取最廣集最保守。
+    註：mb.in_flight() 底層 _pending_entries 對讀檔例外是 fail-open（損毀→空集），即 in-flight
+    集可能漏判；但有 .tick.lock 序列化 + _deployed 閘兜底，最壞只多刪一本「已上站且 batch 仍掛」
+    書的可重生解壓檔（非未上站書、非源 PDF），可接受。"""
     return mb.in_flight()
 
 
@@ -274,6 +284,51 @@ def collect_archive(only: list[str] | None = None
     return {'raw_zips': zips, 'raw_pdfs': pdfs, 'quarantine': quar}, held
 
 
+# ── 冷藏索引（manifest）：HDD 易手自帶清單，restore/observability 不靠人腦記憶 ────
+def _now() -> str:
+    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
+def _manifest_path() -> str:
+    return os.path.join(ARCHIVE_ROOT, 'manifest.json')
+
+
+def _load_manifest() -> dict:
+    """冷藏索引：{'raw_zips':{slug:{files,bytes,moved_at}}, 'raw_pdfs':{name:{...}},
+    'quarantine':{name:{...}}}。不存在/壞 → 空骨架。"""
+    m = jsonio.read_json(_manifest_path(), None)
+    if not isinstance(m, dict):
+        m = {}
+    for k in ('raw_zips', 'raw_pdfs', 'quarantine'):
+        m.setdefault(k, {})
+    return m
+
+
+def _save_manifest(m: dict) -> None:
+    os.makedirs(ARCHIVE_ROOT, exist_ok=True)
+    jsonio.atomic_write_json(_manifest_path(), m, indent=2)
+
+
+def _offline_books() -> list[tuple[str, bool]]:
+    """已上站書中 raw 已全外移者（unified 在、raw zip+解壓檔本地皆空）。回 (slug, 可還原?)。
+    可還原 = 冷藏 manifest 有該 slug 或 ARCHIVE_ROOT/raw_zips/<slug>/ 在。把「raw 還能不能
+    叫回」做成可觀測欄位，而非人腦記憶——prune+archive+HDD 離線的退化態一眼可辨。"""
+    man = _load_manifest()
+    cold = man.get('raw_zips', {})
+    out = []
+    for slug in _slugs():
+        if not _deployed(slug):
+            continue
+        if not os.path.exists(os.path.join(DATA, slug, 'unified', 'content_list.json')):
+            continue
+        if _raw_zips(slug) or _raw_extracted_dirs(slug):
+            continue  # raw 仍在本地，非離線
+        recoverable = (slug in cold
+                       or os.path.isdir(os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)))
+        out.append((slug, recoverable))
+    return out
+
+
 # ── 指令 ─────────────────────────────────────────────────────────────────────
 def cmd_report(_args) -> None:
     slugs = _slugs()
@@ -312,6 +367,26 @@ def cmd_report(_args) -> None:
     print(f'  ▸ HDD 到再搬冷藏（🔵）：約 {_human(raw_zip + rpdfs + quar)}')
     print(f'  冷藏目的地 ARCHIVE_ROOT = {ARCHIVE_ROOT}'
           f'{"  ⚠尚未存在（HDD 未掛則為同碟暫代）" if not os.path.isdir(ARCHIVE_ROOT) else ""}')
+
+    # 🔵 冷藏現況（讀 manifest）
+    man = _load_manifest()
+    cz, cp, cq = (len(man.get('raw_zips', {})), len(man.get('raw_pdfs', {})),
+                  len(man.get('quarantine', {})))
+    if cz or cp or cq or os.path.isdir(ARCHIVE_ROOT):
+        print('  ' + '─' * 64)
+        print(f'  🔵 冷藏現況：raw_zips {cz} 書 · raw_pdfs {cp} · quarantine {cq}'
+              + ('   （詳列 → restore）' if (cz or cp or cq) else '   （空）'))
+
+    # 離線書（raw 已外移）：把「還能否叫回」做成可觀測欄位
+    offline = _offline_books()
+    if offline:
+        danger = [s for s, ok in offline if not ok]
+        print(f'  ⚠ 離線書（raw 已外移本地無）：{len(offline)} 本'
+              f'，其中冷藏可還原 {len(offline) - len(danger)}、'
+              f'不可還原(需重 OCR) {len(danger)}')
+        if danger:
+            print(f'     ⛔ 不可還原：{", ".join(danger[:6])}'
+                  + (' …' if len(danger) > 6 else ''))
     print()
 
 
@@ -408,7 +483,9 @@ def cmd_archive(args) -> None:
     with _tick_lock():
         groups, _ = collect_archive(only)  # 取鎖後重新列舉（TOCTOU）
         os.makedirs(ARCHIVE_ROOT, exist_ok=True)
+        man = _load_manifest()
         moved = 0
+        seen_slugs: set[str] = set()
         for key in ('raw_zips', 'raw_pdfs', 'quarantine'):
             for p in groups[key]:
                 if key == 'raw_zips':
@@ -416,30 +493,77 @@ def cmd_archive(args) -> None:
                     slug = os.path.basename(os.path.dirname(os.path.dirname(p)))
                     dest_dir = os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)
                 else:
+                    slug = None
                     dest_dir = os.path.join(ARCHIVE_ROOT, key)
                 os.makedirs(dest_dir, exist_ok=True)
+                # P2.2 冷藏自帶組裝說明書：搬某書第一個 zip 時連帶複製 unified/chunks.json
+                # → _assembly.json，使「只剩冷藏」也能 reassemble（不靠本地 gitignore 檔）。
+                if slug and slug not in seen_slugs:
+                    seen_slugs.add(slug)
+                    ck = os.path.join(DATA, slug, 'unified', 'chunks.json')
+                    if os.path.exists(ck):
+                        try:
+                            shutil.copy2(ck, os.path.join(dest_dir, '_assembly.json'))
+                        except Exception as e:
+                            print(f'    ⚠ _assembly.json 複製失敗 {slug}: {e}')
                 try:
                     sz = _du_bytes(p)
                     shutil.move(p, os.path.join(dest_dir, os.path.basename(p)))
                     moved += sz
+                    rec = man[key].setdefault(slug if slug else os.path.basename(p),
+                                              {'files': [], 'bytes': 0})
+                    if slug:
+                        rec['files'].append(os.path.basename(p))
+                    rec['bytes'] = rec.get('bytes', 0) + sz
+                    rec['moved_at'] = _now()
                 except Exception as e:
                     print(f'    ⚠ 跳過 {p}: {e}')
-    print(f'  ✅ 已冷藏 {_human(moved)}；工作碟剩餘 {_human(_free_bytes())}\n')
+        _save_manifest(man)
+    print(f'  ✅ 已冷藏 {_human(moved)}；工作碟剩餘 {_human(_free_bytes())}'
+          f'\n  冷藏索引：{_manifest_path()}\n')
 
 
-def cmd_restore(args) -> None:
-    """從冷藏拉回某書 raw zip 並**解壓**重建 raw/chunk_i/（reassemble 的前提）。
+def _cold_inventory() -> None:
+    """restore 無參數時：列冷藏可還原清單（讀 manifest，無則掃 ARCHIVE_ROOT 兜底）。
+    取代「要先知道 slug 才能 restore」——冷藏自帶可發現性。"""
+    print(f'\n  🔵 冷藏現況 ARCHIVE_ROOT = {ARCHIVE_ROOT}')
+    if not os.path.isdir(ARCHIVE_ROOT):
+        print('  （目的地尚未存在——HDD 未掛或未曾 archive）\n')
+        return
+    man = _load_manifest()
+    for key, label in (('raw_zips', '📦 raw_zips（書 OCR 回包，可 reassemble）'),
+                       ('raw_pdfs', '📄 raw_pdfs（來源 PDF）'),
+                       ('quarantine', '🗃 quarantine（退貨書）')):
+        items = dict(man.get(key, {}))
+        if not items:  # manifest 缺 → 掃實際目錄（手動搬入/前 manifest 時代資料）
+            d = os.path.join(ARCHIVE_ROOT, key)
+            if os.path.isdir(d):
+                items = {n: None for n in sorted(os.listdir(d))}
+        print(f'  {label}：{len(items)} 項')
+        for name, meta in list(items.items())[:12]:
+            extra = ''
+            if isinstance(meta, dict):
+                extra = f'  {_human(meta.get("bytes", 0))}  {meta.get("moved_at", "")}'
+            print(f'      · {name}{extra}')
+        if len(items) > 12:
+            print(f'      …… 共 {len(items)} 項')
+    print('  還原：restore <名> [--kind raw_zips|raw_pdfs|quarantine] --apply\n')
 
-    關鍵：mineru_ingest._chunk_done 認的是解壓資料夾（含 *_content_list.json），
-    不是 zip，故拷回後必須解壓，否則重組裝看不到 chunk。"""
-    slug = args.slug
+
+def _restore_raw_zips(slug: str, apply: bool) -> None:
+    """拉回某書 raw zip 並**解壓**重建 raw/chunk_i/（reassemble 前提），連帶拉回
+    _assembly.json（供 reassemble fallback）。mineru_ingest._chunk_done 認解壓資料夾
+    （含 *_content_list.json）非 zip，故拷回必解壓，否則重組裝看不到 chunk。冷藏為 copy
+    （非 move），原件留作 durable backup。"""
     src = os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)
     dst = os.path.join(DATA, slug, 'raw')
     if not os.path.isdir(src):
         sys.exit(f'冷藏無此書 raw：{src}')
     zips = [f for f in os.listdir(src) if f.endswith('.zip')]
-    print(f'\n  restore {slug}：{len(zips)} 個 zip → {dst}（拷回並解壓）')
-    if not args.apply:
+    asm = os.path.join(src, '_assembly.json')
+    print(f'\n  restore {slug}（raw_zips）：{len(zips)} 個 zip → {dst}（拷回並解壓）'
+          + ('  + _assembly.json' if os.path.exists(asm) else ''))
+    if not apply:
         print('  DRY-RUN（加 --apply 執行）。完成後接：'
               f'\n    uv run python -m book_pipeline.storage_gc reassemble {slug} --apply'
               f'\n    uv run python -m build.build_all {slug}\n')
@@ -452,28 +576,123 @@ def cmd_restore(args) -> None:
             zp = os.path.join(dst, z)
             shutil.copy2(os.path.join(src, z), zp)
             extract_zip(Path(zp), Path(dst) / z[:-4])  # chunk_N.zip → chunk_N/
+        if os.path.exists(asm):  # reassemble fallback #3 讀 DATA/<slug>/_assembly.json
+            shutil.copy2(asm, os.path.join(DATA, slug, '_assembly.json'))
     print(f'  ✅ 已拉回並解壓 {len(zips)} chunk → {dst}'
           f'\n    下一步：reassemble {slug} --apply → build.build_all {slug}\n')
 
 
-def cmd_reassemble(args) -> None:
-    """讀 _run.json 的 ranges/overlap，直呼 mineru_ingest.assemble 重生 unified/。
+def _restore_flat(name: str, kind: str, apply: bool) -> None:
+    """拉回 raw_pdfs/quarantine 的單一檔/目錄（冷藏 copy 回工作碟原位）。raw_pdfs 必須
+    可還原，否則重 OCR 時源 PDF 半永久流放冷藏。"""
+    src = os.path.join(ARCHIVE_ROOT, kind, name)
+    dst_root = RAW_PDFS if kind == 'raw_pdfs' else QUARANTINE
+    dst = os.path.join(dst_root, name)
+    if not os.path.exists(src):
+        sys.exit(f'冷藏無此項：{src}')
+    print(f'\n  restore {name}（{kind}）→ {dst}')
+    if not apply:
+        print('  DRY-RUN（加 --apply 執行）\n')
+        return
+    with _tick_lock():
+        os.makedirs(dst_root, exist_ok=True)
+        if os.path.isdir(src):
+            shutil.copytree(src, dst, dirs_exist_ok=True)
+        else:
+            shutil.copy2(src, dst)
+    print(f'  ✅ 已拉回 → {dst}\n')
 
-    自包含：不碰 MinerU、不需 _pending_batches（完成書早被移除）。前提：raw/chunk_i/
-    已存在（restore 後）。--out 可導向 temp 目錄供保真度驗證（不覆蓋線上 unified）。"""
+
+def cmd_restore(args) -> None:
+    """從冷藏拉回。無 slug → 列冷藏清單；有 slug → 按 --kind 還原（預設 raw_zips）。"""
+    if not args.slug:
+        _cold_inventory()
+        return
+    if args.kind == 'raw_zips':
+        _restore_raw_zips(args.slug, args.apply)
+    else:
+        _restore_flat(args.slug, args.kind, args.apply)
+
+
+def _count_chunk_dirs(raw_dir: str) -> int:
+    if not os.path.isdir(raw_dir):
+        return 0
+    return len([d for d in os.listdir(raw_dir)
+                if d.startswith('chunk_') and os.path.isdir(os.path.join(raw_dir, d))])
+
+
+def _reconstruct_ranges_from_chunks(raw_dir: str, overlap: int
+                                    ) -> list[tuple[int, int]] | None:
+    """最深 fallback：純憑已解壓 raw/chunk_i/ 反推 ranges——讀每個 chunk 的 *_origin.pdf
+    頁數，逆 plan_chunks（s0=1；s_{i+1}=e_i-overlap+1）。不需任何 sidecar/cold 檔，只要
+    chunk dir 在即可。overlap 取不到時用 1（plan_chunks/submit 全域預設）。"""
+    n = _count_chunk_dirs(raw_dir)
+    if n == 0:
+        return None
+    try:
+        import fitz  # pymupdf（pyproject 已宣告）
+    except Exception:
+        return None
+    ranges: list[tuple[int, int]] = []
+    s = 1
+    for i in range(n):
+        cdir = os.path.join(raw_dir, f'chunk_{i}')
+        pdfs = [f for f in os.listdir(cdir) if f.endswith('_origin.pdf')]
+        if not pdfs:
+            return None  # 缺 origin.pdf 無法定頁數 → 放棄此 fallback（不靜默猜）
+        try:
+            doc = fitz.open(os.path.join(cdir, pdfs[0]))
+            pc = doc.page_count
+            doc.close()
+        except Exception:
+            return None
+        e = s + pc - 1
+        ranges.append((s, e))
+        s = e - overlap + 1
+    return ranges
+
+
+def _resolve_ranges_overlap(book: str, raw_dir: str
+                            ) -> tuple[list[tuple[int, int]], int, str]:
+    """reassemble 的 ranges/overlap 來源 fallback 鏈，徹底斷除對 gitignore 單檔的單點依賴：
+      1. _run.json（本地，主來源）
+      2. unified/chunks.json（assemble 另存 {ranges,overlap}；驗證或 unified 尚在時）
+      3. _assembly.json（archive 連帶冷藏、restore 拉回的 chunks.json 副本；只憑冷藏也能重組）
+      4. 反推自 raw/chunk_i/*_origin.pdf 頁數（最深，只需解壓檔本身）
+    回 (ranges, overlap, 來源說明)。全鏈皆無 → sys.exit。"""
+    # 1. _run.json
+    run = jsonio.read_json(os.path.join(book, '_run.json'), None)
+    if run and run.get('ranges'):
+        return [tuple(r) for r in run['ranges']], run.get('overlap', 1), '_run.json'
+    # 2. unified/chunks.json
+    ck = jsonio.read_json(os.path.join(book, 'unified', 'chunks.json'), None)
+    if ck and ck.get('ranges'):
+        return [tuple(r) for r in ck['ranges']], ck.get('overlap', 1), 'unified/chunks.json'
+    # 3. _assembly.json（冷藏帶回）
+    asm = jsonio.read_json(os.path.join(book, '_assembly.json'), None)
+    if asm and asm.get('ranges'):
+        return [tuple(r) for r in asm['ranges']], asm.get('overlap', 1), '_assembly.json(冷藏)'
+    # 4. 反推自 origin.pdf 頁數（overlap 取不到 → 預設 1）
+    rec = _reconstruct_ranges_from_chunks(raw_dir, 1)
+    if rec:
+        return rec, 1, 'origin.pdf 頁數反推(overlap=1)'
+    sys.exit(f'缺 ranges 全部來源（_run.json/unified·chunks.json/_assembly.json/origin.pdf），'
+             f'無法自包含重組裝：{os.path.basename(book)}')
+
+
+def cmd_reassemble(args) -> None:
+    """從已解壓 raw/chunk_i/ 重生 unified/，直呼 mineru_ingest.assemble。自包含：不碰
+    MinerU、不需 _pending_batches。ranges/overlap 走 fallback 鏈（去 _run.json 單點依賴）。
+    --out 可導向 temp 目錄供保真度驗證（不覆蓋線上 unified）。"""
     from pathlib import Path
     slug = args.slug
     book = os.path.join(DATA, slug)
-    run = jsonio.read_json(os.path.join(book, '_run.json'), None)
-    if not run or not run.get('ranges'):
-        sys.exit(f'缺 _run.json 或無 ranges，無法自包含重組裝：{slug}')
     raw_dir = os.path.join(book, 'raw')
-    ranges = [tuple(r) for r in run['ranges']]
-    overlap = run.get('overlap', 1)
+    ranges, overlap, src = _resolve_ranges_overlap(book, raw_dir)
     out = args.out or os.path.join(book, 'unified')
-    ndir = len([d for d in (os.listdir(raw_dir) if os.path.isdir(raw_dir) else [])
-                if d.startswith('chunk_') and os.path.isdir(os.path.join(raw_dir, d))])
+    ndir = _count_chunk_dirs(raw_dir)
     print(f'\n  reassemble {slug}：{len(ranges)} chunks（已解壓 {ndir} 個）→ {out}')
+    print(f'  ranges 來源：{src}（overlap={overlap}）')
     if ndir < len(ranges):
         print(f'  ⚠ 解壓資料夾不足（需 {len(ranges)}）。先 restore {slug} --apply')
     if not args.apply:
@@ -497,8 +716,11 @@ def main() -> None:
     a.add_argument('--slug', nargs='+', help='只作用這些書的 raw_zips')
     a.add_argument('--apply', action='store_true', help='真的搬（預設 dry-run）')
     a.set_defaults(func=cmd_archive)
-    r = sub.add_parser('restore', help='從冷藏拉回某書 raw 並解壓')
-    r.add_argument('slug')
+    r = sub.add_parser('restore', help='從冷藏拉回（無參數=列冷藏清單）')
+    r.add_argument('slug', nargs='?',
+                   help='書 slug（raw_zips）或檔名（raw_pdfs/quarantine）；省略=列清單')
+    r.add_argument('--kind', choices=['raw_zips', 'raw_pdfs', 'quarantine'],
+                   default='raw_zips', help='還原類別（預設 raw_zips）')
     r.add_argument('--apply', action='store_true')
     r.set_defaults(func=cmd_restore)
     rs = sub.add_parser('reassemble', help='從已解壓 raw 重生 unified（自包含）')
