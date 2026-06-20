@@ -27,6 +27,7 @@ data/<slug>/book.json 已烤出 ⇒ 該書全鏈完成、daemon 在 post-deploy 
   uv run python -m book_pipeline.storage_gc restore <slug>    # 從冷藏拉回某書 raw 並解壓
   uv run python -m book_pipeline.storage_gc restore <name> --kind raw_pdfs  # 拉回源 PDF
   uv run python -m book_pipeline.storage_gc reassemble <slug> # 從 raw 重生 unified（自包含）
+  uv run python -m book_pipeline.storage_gc migrate <new_root> # 冷藏整批搬新根（暫代→HDD）
 
 預設一律 dry-run；加 --apply 才真的動檔案。冷藏為 copy（原件留作 backup）。
 """
@@ -313,7 +314,8 @@ def _save_manifest(m: dict) -> None:
 # ── 事務式搬移 + 掛載身分校驗（HDD 上線前必補：搬到錯卷／半截皆致命）───────────────
 def _logical_size(path: str) -> int:
     """遞迴邏輯位元組（os.path.getsize 加總，非 du 的配置區塊）——跨檔系統校驗用，
-    同內容跨碟邏輯大小一致（du 因 block 對齊會差，不可靠）。"""
+    同內容跨碟邏輯大小一致（du 因 block 對齊會差，不可靠）。os.walk 不跟 symlink；
+    呼叫端（冷藏 raw_zips/raw_pdfs/quarantine）保證無 symlink 目錄，故不漏算。"""
     if os.path.isfile(path):
         return os.path.getsize(path)
     total = 0
@@ -331,7 +333,8 @@ def _safe_move(src: str, dst: str) -> int:
     目的地已存在 → FileExistsError（拒絕覆蓋，杜絕靜默蓋寫）；校驗不符 → 刪半截目的、留源、
     IOError。如此中斷後永遠可對賬（源在＝沒搬成、源失＝已驗證搬成），無「源已刪目的半截」態。"""
     if os.path.exists(dst):
-        raise FileExistsError(f'目的地已存在，拒絕覆蓋：{dst}')
+        raise FileExistsError(f'目的地已存在，拒絕覆蓋：{dst}'
+                              f'（人工驗 dst 完整後刪 dst 再重跑）')
     src_sz = _logical_size(src)
     if os.path.isdir(src):
         shutil.copytree(src, dst)
@@ -368,15 +371,19 @@ def _ensure_sentinel(for_write: bool) -> None:
     expected = cfg.get('archive_id')
     sp = _sentinel_path()
     if os.path.exists(sp):
-        actual = ''
+        # sentinel 在 → 必須讀得到且非空才驗；讀失敗/空＝身分損毀 → 拒絕（不靜默放行，否則
+        # 可能寫入無法驗證身分的卷）。
         try:
             actual = open(sp, encoding='utf-8').read().strip()
-        except OSError:
-            pass
-        if expected and actual and actual != expected:
+        except OSError as e:
+            sys.exit(f'  ⛔ 冷藏 sentinel 讀取失敗（{sp}：{e}）：無法驗掛載身分，拒絕動作。')
+        if not actual:
+            sys.exit(f'  ⛔ 冷藏 sentinel 為空（{sp}）：身分損毀，拒絕動作'
+                     f'（人工確認卷後重寫 .cold_archive_id）。')
+        if expected and actual != expected:
             sys.exit(f'  ⛔ 冷藏掛載身分不符（卷上 {actual} ≠ 設定 {expected}）：恐錯誤/空掛載點，'
                      f'拒絕動作。確認 sidecar(.storage_gc.json) archive_root 指向正確卷。')
-        if not expected and actual:
+        if not expected:
             cfg['archive_id'] = actual
             _save_sidecar(cfg)
         return
@@ -465,9 +472,9 @@ def cmd_report(_args) -> None:
     offline = _offline_books()
     if offline:
         danger = [s for s, ok in offline if not ok]
-        print(f'  ⚠ 離線書（raw 已外移本地無）：{len(offline)} 本'
+        print(f'  ⚠ raw 不在本地（未 archive 或從未 rsync 過來）：{len(offline)} 本'
               f'，其中冷藏可還原 {len(offline) - len(danger)}、'
-              f'不可還原(需重 OCR) {len(danger)}')
+              f'不可還原(失 parsed 須重 OCR) {len(danger)}')
         if danger:
             print(f'     ⛔ 不可還原：{", ".join(danger[:6])}'
                   + (' …' if len(danger) > 6 else ''))
@@ -604,8 +611,8 @@ def cmd_archive(args) -> None:
                 except Exception as e:
                     failures.append((os.path.relpath(p, ROOT), str(e)))
         _save_manifest(man)
-    print(f'  ✅ 已冷藏 {_human(moved)}；工作碟剩餘 {_human(_free_bytes())}'
-          f'\n  冷藏索引：{_manifest_path()}')
+    print(f'  ✅ 已冷藏 {_human(moved)}（邏輯位元組，非 du 配置大小）；'
+          f'工作碟剩餘 {_human(_free_bytes())}\n  冷藏索引：{_manifest_path()}')
     if failures:
         print(f'  ⚠ {len(failures)} 項未搬（源完好保留、可對賬重試）：')
         for name, err in failures[:8]:
@@ -717,6 +724,7 @@ def cmd_migrate(args) -> None:
         sys.exit(f'  來源冷藏不存在：{old}')
     if os.path.abspath(old) == os.path.abspath(new):
         sys.exit('  新根與舊根相同，無需遷移。')
+    _ensure_sentinel(for_write=False)  # 驗舊根身分（id 不符即拒，防搬走非冷藏目錄）
     entries = sorted(os.listdir(old))
     print(f'\n  migrate 冷藏：{old}\n              → {new}（{len(entries)} 個頂層項）')
     for e in entries[:12]:
@@ -740,7 +748,7 @@ def cmd_migrate(args) -> None:
                 print(f'      · {e} — {err}')
             sys.exit('  遷移未完整 → sidecar 不更新（對賬後重跑剩餘項）。')
         cfg = _read_sidecar()
-        cfg['archive_root'] = args.new_root
+        cfg['archive_root'] = new  # 存展開後絕對路徑（grep sidecar 即知實際卷，免再 expanduser）
         _save_sidecar(cfg)
     print(f'  ✅ 已遷移 {_human(moved)} → {new}；sidecar archive_root 已更新（舊根已清空）\n')
 
@@ -762,7 +770,8 @@ def _reconstruct_ranges_from_chunks(raw_dir: str, overlap: int
         return None
     try:
         import fitz  # pymupdf（pyproject 已宣告）
-    except Exception:
+    except Exception as e:
+        print(f'  ⚠ pymupdf 不可用（{e}）→ 跳過 origin.pdf 頁數反推 fallback')
         return None
     ranges: list[tuple[int, int]] = []
     s = 1
