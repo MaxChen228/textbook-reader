@@ -423,7 +423,7 @@ uv run python -m book_pipeline.extract_cover $SLUG
   讓自己這本過（那會污染所有書、且被 scope_guard 自動還原成一筆提案）。改下指令記一筆，回報架構師收編：
   **⚠ 圖說 / catalog（H6/H7）整層都不是你的職責——不提案、也不調查**：caption 綁定、figure/table
   semantic id、空 caption、unresolved ref 全由下游 `catalog_audit` 的 `repair_catalog_metadata` 處理
-  （見 §5 smoke 表）。**不要** `import catalog_audit` / 跑 `audit_catalog` / 讀 `catalogs.json` 去鑽圖說
+  （見 §3 Step 7.5 smoke 表）。**不要** `import catalog_audit` / 跑 `audit_catalog` / 讀 `catalogs.json` 去鑽圖說
   ——那是已知會吞掉整場（單場曾燒 130+ 次呼叫）的兔子洞，且結論幾乎必是假缺口。你 audit 階段看到的
   H6/H7 是 repair 前暫態，下一階段歸零。為 caption/empty-figure 開 tooling-gap 是假缺口源，絕對不要。
   **⚠ 語義契約**：開 engine tooling-gap 提案＝**宣告「本書 audit 無法產出 yaml」**（daemon 見『有 engine 提案
