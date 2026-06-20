@@ -4,7 +4,7 @@
 worker_registry 是「此刻誰在跑」的 live 面板（記憶體、recent 砍到 200 條、label 砍到 240 字）；
 本模組是「跑過哪些 session、完整做了什麼」的持久史，兩者互補。三維度都在 pipeline_tick
 的 _run_one() 收斂後才進來，故此處 schema 統一：
-  verb    = audit / catalog_audit / math_sweep / qc / sol_extract / crawl_plan（6 種 LLM 任務）
+  verb    = audit / catalog_audit / math_sweep / qc / sol_extract / crawl（書單查證；舊歸檔或記 crawl_plan）（6 種 LLM 任務）
   harness = claude-cli（claude；舊歸檔的 kimi 記錄亦歸此）/ codex-cli（codex 與 codex-pool 同一 CLI）/ ccnexus-http（math_sweep 走 HTTP batch）
   model   = claude / gpt-5.4（由 provider 推導，caller 傳入；kimi 已下架，僅存於舊歸檔）
 

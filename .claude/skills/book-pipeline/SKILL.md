@@ -90,14 +90,14 @@ uv run python -m book_pipeline.status
 | `pdf_contactsheet.py` | 抽樣頁拼單張 PNG，供 qc 一次 vision 驗證。 |
 | `pipeline_queue.py` | **跨書全 stage 單一真相**（status.py 超集）：crawl→triage→qc→ingest→audit→parse→sol→deploy。`--next` 給下一可動項，每項標 `[LLM]`/`[det]`。 |
 | `mineru_budget.py` | MinerU 每日頁數預算輕量排程（per-account，UTC 重置）。超 quota 不硬拒、靠引擎 resubmit 自癒，故只決定「今天開不開新書」。 |
-| `pipeline_tick.py` | 單次 tick：resume in-flight → 自書單 SoT 確定性補爬 → 走 actionable。det 直跑，LLM（**crawl 解析**/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。crawl 選書/買書員確定性，但**解析（書名→id/hash）是 LLM agent**。**`--dry-run` 印計劃**。 |
+| `pipeline_tick.py` | 單次 tick：resume in-flight → 自書單 SoT 確定性補爬 → 走 actionable。det 直跑，LLM（**crawl 查證**/qc/audit/sol）派 headless `claude -p`（每 tick `--max-llm` 上限）。crawl 選書/買書員確定性，但**解析（書名→id/hash+版本）是 LLM agent（多源查證 skill）**。**`--dry-run` 印計劃**。 |
 | `daemon_run.sh` + `com.textbookreader.bookpipeline.plist` | launchd 每 45 min（`StartInterval` 2700s）觸發 wrapper，standby 24hr 常駐。安裝需使用者授權（建立持久背景排程）。MinerU token 由 wrapper `source ~/.secrets/mineru.env` 注入，不入 plist/git。 |
 | `booklists/*.json` | **書單 SoT**（整個 project 唯一真相）：領域檔內含具名子單 → 主書（書名+作者）。買書員 `select_next` 自此確定性選書下載，零 LLM。題本不手列（主書 `solution!=false` → 系統自衍生 `<slug>_sol` target）。 |
-| `resolve.py` + `crawl_resolution.json` | **crawl agent 的 harness**：queue/target/search（候選+advisory 信心分，只 search）/inspect/commit（resolved\|absent\|review）。解析交 LLM agent 判斷（規則會假陽性）；`auto` 只自動採用零歧義 exact 主書。決定寫 sidecar 永久 cache。 |
+| `resolve.py` + `crawl_resolution.json` + `editions.py` + `editions/` | **書單管理 agent 的 harness**：queue/target/search（候選+advisory 信心分，只 search）/inspect/commit（resolved\|not_found\|version_unavailable\|review）+ `editions set/show`（LLM 親查版本結論，git 追蹤貴重成果）。解析交 LLM agent 多源判斷（規則會假陽性）；`auto` 只自動採用零歧義 exact 主書。連結態寫 crawl_resolution（cache）、版本寫 editions（貴重）。 |
 | `math_sweep.py` | corpus 數學 sweep CLI（**daemon 直跑、非 agent**）：`list`（讀全 corpus render 殘餘）/`batch`（批量打自架 LLM API 逐條改寫 + render 守門；do_math_sweep 每 tick 直接跑這個——「有多少壞式就 batch 解多少」，非以書為單位派 agent）/`fix --gid --new`（架構師單條手改，render 驗證即落地）。取代舊「規則+全 corpus gate」死結 + 舊「派無頭 sweep agent」。 |
 | `math_validate.py` + `render_check.js` | 數學式 MathJax ground-truth 驗證（移除 noerrors/noundefined 讓壞式現形）。`<slug>`/`--all`/`--aggregate`/`--cluster`（結構骨架＋診斷 token 聚類）。post-deploy 由 daemon track，殘餘記入 state；sweep 經 `math_sweep list` 讀 report。 |
 | `apply_math_overrides.py` + `math_overrides/` | corpus 數學 sweep 的 reviewable 修復載體（比照 catalog_overrides）：`fix_eq_tex`/`fix_inline_math`，git 追蹤、可重播。`math_sweep fix/batch` 自動產製併入，不必手寫。 |
-| `references/{crawl,qc,math-sweep}.md` | 流程指引：**crawl 解析**（書名→z-lib id/hash 判斷，headless agent）/ 視覺 QC（headless agent）/ 數學 sweep（**架構師手動參考**——daemon 已直跑 batch，僅難條 `fix` 或寫規則時讀）。 |
+| `references/{booklist-manager,qc,math-sweep}.md` | 流程指引：**書單管理/crawl 查證**（書名→z-lib id/hash+版本，多 haiku 多源，headless agent；`crawl.md` 已退役、由 booklist-manager 取代）/ 視覺 QC（headless agent）/ 數學 sweep（**架構師手動參考**——daemon 已直跑 batch，僅難條 `fix` 或寫規則時讀）。 |
 
 **新 stage**（pipeline_queue 在 status 前後補的）：`0.2 待qc`（triage 判 needs_llm）、`0.3 待ingest`（triage 過）、`deploy`（parse 完 → 本地 `build.build_all` 烤 data/img，nginx 直讀即時上站，**無 git push**）。`R *拒` = triage/qc 判不可用。
 

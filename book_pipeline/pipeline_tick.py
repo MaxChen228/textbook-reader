@@ -135,16 +135,19 @@ CONTROLLER_STATE = os.path.join(BP, '.controller.json')
 RELOAD_REQUEST = os.path.join(BP, 'reload_request')
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）。
-# 註：crawl **選書**仍確定性（書單 SoT + select_next），但 crawl **解析**（書名→z-lib id/hash）需判斷
-# → 改回 LLM agent（'crawl' 條目，見 do_crawl_resolve / references/crawl.md）；買書員 drain 仍確定性。
-# 曾試圖把解析也確定性化（信心門檻自動配），假陽性太多（Chemistry→Food Chemistry、Gallian 題解→Dummit）。
+# 註：crawl **選書**仍確定性（書單 SoT + select_next），但 crawl **解析**（書名→z-lib id/hash + 版本）需判斷
+# → LLM agent。2026-06 查證左移：'crawl' 條目升級為「書單管理 agent / 多源查證」（多 haiku fan-out 交叉
+# 查連結+版本，落 resolve commit + editions set，見 do_crawl_resolve / references/booklist-manager.md）；
+# 買書員 drain 仍確定性。曾試圖把解析確定性化（信心門檻自動配），假陽性太多（Chemistry→Food Chemistry）。
 LLM_PROMPTS = {
     'crawl': (
-        "你是 book_pipeline 的 **crawl 解析 agent**：替書單 target 在 z-library 找出『正是這本書』的 "
-        "id/hash，或判定 absent/review。**嚴格遵照 .claude/skills/book-pipeline/references/crawl.md**"
-        "（工具、判準、proposal 管道、硬邊界全在那）。**只 search、不下載、不選書、不碰額度。** "
-        "本批要解的 target slug（逗號分隔）：{slug}。逐本：target → search →（歧義時 inspect）→ 判斷 → commit。"
-        "advisory_conf 只是提示、非裁決；寧缺勿錯——可疑就 absent/review，別 commit 錯的。"),
+        "你是 book_pipeline 的 **書單管理 agent（多源查證）**：替書單 target 在 z-library 找出『正是這本書』的 "
+        "id/hash + 親查版本，或判定 not_found/version_unavailable/review。**嚴格遵照 "
+        ".claude/skills/book-pipeline/references/booklist-manager.md**（多 haiku fan-out 多源查證、判準、"
+        "落 resolve commit + editions set、proposal 管道、硬邊界全在那）。**只查不下載、不選書、不碰額度。** "
+        "本批要查的 target slug（逗號分隔）：{slug}。逐本：target → fan-out 多 haiku（z-lib + web 版次）→ "
+        "收斂共識 → commit（態+連結）+ editions set（版本）。寧缺勿錯：只有別版落 version_unavailable（可重查、"
+        "非 not_found）；可疑就 review，別 commit 錯的。"),
     'qc': (
         "對 slug={slug} 跑 `pdf_contactsheet {slug}`，看產出的 PNG，判斷書是否正確/清晰/完整/"
         "可供 MinerU OCR。結論呼叫 `python -m book_pipeline.pipeline_queue` 的 set_qc："
@@ -972,18 +975,20 @@ def _crawl_resolve_due() -> tuple[bool, dict]:
 
 
 def do_crawl_resolve(dry: bool) -> int:
-    """解析池低於水位 → 派一隻 **crawl agent** 解析一批 unresolved target（書名→z-lib id/hash 判斷）。
-    agent 用 resolve.py 的 target/search/inspect/commit 工具親自查/挑（確定性配對會假陽性：Chemistry→
-    Food Chemistry、Gallian 題解→Dummit，故交 LLM 判斷）。單隻在飛——reactive loop 的 __crawl_resolve__
-    key 自動序列化：本批 commit 後、下個 cycle 池仍低才派下一批，不並發撞同批。回 dispatch_llm rc（dry→0）。"""
+    """解析池低於水位 → 派一隻 **書單管理 agent（多源查證）** 查一批 unresolved target（書名→z-lib
+    id/hash + 親查版本）。agent 用 resolve.py（target/search/inspect/commit）+ editions（set）+ 多 haiku
+    fan-out 交叉查連結與版本（確定性配對假陽性高：Chemistry→Food Chemistry，故交 LLM 多源判斷）。
+    unresolved_targets 已含「過期待重查的 version_unavailable」（status_of 到期回 UNRESOLVED）→ 自動回收。
+    單隻在飛——reactive loop 的 __crawl_resolve__ key 自動序列化：本批落盤後、下個 cycle 池仍低才派下一批，
+    不並發撞同批。回 dispatch_llm rc（dry→0）。verb 仍 'crawl'（升級內容、不改 verb 名 → 路由/歷程不動）。"""
     due, pc = _crawl_resolve_due()
     if not due:
         return 0
     batch = [t['slug'] for t in booklists.unresolved_targets()[:CRAWL_RESOLVE_BATCH]]
     if not batch:
         return 0
-    log(f'crawl 解析：解析池 {pc["confirmed"]}/{CRAWL_POOL_LOW}'
-        f'（unresolved {pc["unresolved"]}，含被降級的 legacy）→ 派 crawl agent 解析 {len(batch)} 本')
+    log(f'書單查證：解析池 {pc["confirmed"]}/{CRAWL_POOL_LOW}'
+        f'（unresolved {pc["unresolved"]}，含過期待重查 + 被降級的 legacy）→ 派書單管理 agent 多源查證 {len(batch)} 本')
     # label 固定 '__crawl_resolve__'：當 lease/registry/hist 的穩定 singleton key（真正的 batch slug
     # 列表只進 prompt）→ lease 不再用整批 slug 串成超長檔名、/dev 不顯示怪 slug、跨 crash 同一穩定鍵。
     return dispatch_llm('crawl', ','.join(batch), dry, label='__crawl_resolve__')

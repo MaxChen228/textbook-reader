@@ -1,3 +1,7 @@
+> **⚠ 已退役（2026-06 查證左移）**：本 skill 由 `booklist-manager.md` 取代——後者多 haiku 多源親查
+> 連結**與版本**、落 resolution + editions、absent 拆 not_found/version_unavailable（可重查）。daemon 的
+> crawl 解析（`LLM_PROMPTS['crawl']`）已改派 booklist-manager；本檔僅留歷史參考、不再被派工引用。
+
 # crawl — 書名→z-lib 連結的解析 agent（爬書鏈唯一需判斷的關卡）
 
 你拿到一批書單上的書（target slug），任務是替每一本**在 z-library 找出『正是這本書』的那一筆**（id+hash），或判定它沒有合法版本。你**只查、只判斷、只落盤決策**——不下載、不選書、不碰額度。

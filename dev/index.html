@@ -1322,8 +1322,10 @@
   function setHtml(id, html) { const el = document.getElementById(id); if (el && el.__h !== html) { el.__h = html; el.innerHTML = html } }
   function setText(id, txt) { const el = document.getElementById(id); if (el && el.textContent !== txt) el.textContent = txt }
 
-  // 書單欄（漏斗源頭）：待收 backlog = un-owned 可收（待解析+ready+待裁；不含 owned/無法收錄）。
-  // 資料 = status.json 的 d.booklists.overall（booklist_progress 五態 owned/ready/absent/review/unresolved）。
+  // 書單欄（漏斗源頭）：待收 backlog = un-owned 可收（待解析+ready+待裁；不含 owned/無法收錄/待重查）。
+  // 資料 = status.json 的 d.booklists.overall（booklist_progress 六態 owned/ready/version_unavailable/
+  // review/unresolved/not_found，另含向後相容 absent=not_found）。version_unavailable=有書但無對應版次、
+  // 可重查（不算當前 backlog，過期 status_of 自動回 unresolved 才算）。
   function renderBooklist(d) {
     const o = (d.booklists && d.booklists.overall) || {}
     if (!o.total) { setText('bl-cnt', '—'); setHtml('bl-body', '<div class="lane-empty dev-label">（無書單）</div>'); return }
@@ -1334,6 +1336,7 @@
       `<div class="blf-row"><span>待解析</span><b>${o.unresolved || 0}</b></div>`
       + `<div class="blf-row"><span>ready 待下載</span><b>${o.ready || 0}</b></div>`
       + (o.review ? `<div class="blf-row"><span>待裁</span><b>${o.review}</b></div>` : '')
+      + (o.version_unavailable ? `<div class="blf-row"><span>待重查(版次)</span><b>${o.version_unavailable}</b></div>` : '')
       + `<div class="blf-own">已收 ${o.owned || 0}/${o.total} · ${pct}%</div>`
       + (o.absent ? `<div class="blf-abs">無法收錄 ${o.absent}</div>` : ''))
   }
@@ -1430,7 +1433,9 @@
     const blPct = blo.total ? Math.round(blo.owned / blo.total * 100) : 0
     setText('bl-overall', blo.total
       ? `(${blo.owned}/${blo.total} · ${blPct}% · ready ${blo.ready} · 待解析 ${blo.unresolved}`
-        + (blo.review ? ` · 待裁 ${blo.review}` : '') + ` · 無法收錄 ${blo.absent})`
+        + (blo.review ? ` · 待裁 ${blo.review}` : '')
+        + (blo.version_unavailable ? ` · 待重查 ${blo.version_unavailable}` : '')
+        + ` · 無法收錄 ${blo.absent})`
       : '')
     setHtml('booklists', Object.entries(bl.by_field || {}).map(([f, c]) => {
       const p = c.total ? Math.round(c.owned / c.total * 100) : 0

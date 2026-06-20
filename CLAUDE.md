@@ -37,18 +37,18 @@ uv run python -m http.server 8001                        # 本機預覽
 ## Pipeline 架構（book_pipeline/）
 
 `pipeline_tick.py` 是 launchd 每 ~45min 觸發的 daemon 單 tick,推進整條鏈:
-- **crawl**(z-library 爬書,**全確定性、零 LLM**:見下「書單 SoT」)→ **triage**(pdf_triage)→ **qc**(視覺驗證,LLM)→ **ingest**(`mineru_ingest`+`mineru_budget` 多帳號預算,MinerU 雲端 API)→ **parse**(`parser.py`→`mineru_data/<slug>/parsed/*.json`)→ **audit**(LLM,產 extract_rules.yaml)→ **catalog**(`build_catalogs`)→ **sol_extract**(LLM 合併解答書)→ **deploy**。
+- **crawl**(z-library 爬書:選書/下載確定性、解析查證走 LLM,見下「書單 SoT」)→ **triage**(pdf_triage)→ **qc**(視覺驗證,LLM)→ **ingest**(`mineru_ingest`+`mineru_budget` 多帳號預算,MinerU 雲端 API)→ **parse**(`parser.py`→`mineru_data/<slug>/parsed/*.json`)→ **audit**(LLM,產 extract_rules.yaml)→ **catalog**(`build_catalogs`)→ **sol_extract**(LLM 合併解答書)→ **deploy**。
 - 確定性階段 daemon 直跑;需判斷的階段(qc/audit/sol_extract)派 headless LLM 跑 `.claude/skills/book-pipeline/references/*.md`。**派工策略單一真相源 = `book_pipeline/llm_policy.py`**(`DispatchSpec` + `DEFAULT_DISPATCH`/`STAGE_DISPATCH` + `resolve_dispatch`/`math_sweep_model`,三層合併 DEFAULT←per-stage←env):per-stage 可宣告 provider chain/model/reasoning effort/timeout。三 provider failover **codex-pool**(codex CLI 走 ccNexus 池子)/**codex**(原生 OAuth)/**claude**(Max 保底),預設 `codex-pool→codex→claude`(kimi 已於 2026-06-20 下架:斷線窗 fallback 品質不可靠,寧落 Claude Max);effort 分層(重判斷 high/解析 medium/qc low,僅 codex 家族)。math sweep 走 ccNexus HTTP batch(執行路徑非 CLI)但**模型同源於此配置層**(`math_sweep_model`)。env(`BOOK_PIPELINE_PROVIDER_CHAIN`/`_CODEX_MODEL`/`_CODEX_EFFORT`/`_CLAUDE_MODEL`/`_LLM_TIMEOUT`/`_MATH_MODEL`)僅運維臨時凌駕(`_MATH_MODEL` 為 math sweep 專屬覆寫;未設時 `_CODEX_MODEL` 亦連動 math sweep)。
 
 ### 書單 SoT 驅動的 crawl(整套爬書系統的分母,2026-06 重構)
 
 - **`book_pipeline/booklists/*.json` = 整個 project 唯一 SoT**:兩層(領域檔 → 具名子單 → 主書`{slug,title,author}`),人工維護、git 追蹤。**owned 狀態絕不存檔**(由 mineru_data/raw_pdfs 即時推導)。題本不手列:主書 `solution!=false`(預設 true)→ 系統自衍生 `<slug>_sol` target。邏輯層 `booklists.py`(targets/status_of/select_next/catalog/progress/validate/reconcile)。
 - **crawl 兩段:解析需判斷(LLM)、選書+下載全確定性**(取代舊「每次補貨把全 wishlist+inventory 丟 LLM 從零重推」的土炮):
-  1. **resolver**(`resolve.py` → `crawl_resolution.json` sidecar,gitignore):書單 target(書名,作者)→ z-lib 具體 id/hash 的**唯一需判斷步驟**,交 crawl agent。信心不足:**題本標 absent(永不再查,殺空轉)、主書標 review(待架構師人工裁決,不自動重試)**。一次性 cache。**只 search 不 fetch**,不耗下載額度。解析池(status==ready)< `CRAWL_POOL_LOW`(100)且有 unresolved → 派 agent 解析一批。
+  1. **書單管理 agent(多源查證,2026-06 查證左移)**(`resolve.py`+`editions.py` → `crawl_resolution.json` 連結態 sidecar〔gitignore〕 + `editions/<slug>.json` 版本結論〔git 追蹤貴重成果〕):書單 target(書名,作者)→ z-lib 具體 id/hash **+ 親查版本**,**唯一需判斷步驟**,交書單管理 agent(skill `booklist-manager.md`,每本 fan-out 多 haiku 交叉查 z-lib+web 版次;走 claude-only 因需 subagent)。查無:**真無標 not_found(永不再查,殺空轉)、有書但無對應版次標 version_unavailable(可重查,recheck_after 到期自動回工作母體)、歧義標 review(待架構師裁決)**。一次性 cache。**只 search 不 fetch**,不耗下載額度。解析池(status==ready)< `CRAWL_POOL_LOW`(100)且有 unresolved(含過期待重查) → 派 agent 查一批。
      - **下載前書況閘**(`resolution_qc`,共用 `book_qc` detector,零額度純書名比對):`cmd_search` 每筆候選帶 `book_qc` 標註、`cmd_commit` 落盤 resolved 時硬擋鐵定配錯書——**companion(主書抓到 Study Guide/Manual 等週邊,只套 main、解答本豁免)** + **title_mismatch(0%)(候選書名與 SoT 零重疊)**。逼 agent 改挑或 `--review`(`--force` 可繞)。與**部署後 gate**(`book_qc` 部署前,抓 parse 後才知的 `partial_source`/殘卷)兩道分工:上游擋「配錯書」省整條鏈,下游擋「對的書但源殘缺」。校準:全現存 resolved 零假陽(test_resolve_qc 護欄)。
   2. **買書員**(`drain_crawl_queue`,確定性,唯一消費額度處):每 tick 直接 `booklists.select_next(n)` 取解析池 ready 並行下載、落 raw_pdfs(隨即成 owned)。**無購物清單 buffer**(2026-06 簡化:buffer 唯一不可推導的下載失敗計數移 `pipeline_state.json` 的 `q.crawl_fail_*`,達 `MAX_FETCH_FAILS` 即 exclude 出候選)。下載量綁 `CRAWL_INFLIGHT_CAP`(pipeline 在飛上限,backpressure)×額度,非每日固定本數。
-- **架構師職責**:resolver 標 review 的主書 → 看 `crawl_resolution.json` 候選、`resolve --force --slug <x>` 重解或人工改 booklists。**重解 review 標記書**是架構師任務(非 worker);worker 的 crawl skill(`references/crawl.md`)只負責解析「未決 target」,且須尊重 `resolution_qc` 的 `book_qc.block`(下載前書況閘,見下「下載前書況閘」)。
-- **收錄表 UI**:build 烤 `data/catalog.json`(書單 SoT × 五態:owned/ready/absent/review/unresolved)→ reader library 渲染完整收錄表(三態:已收錄/待收錄/無法收錄)。`data/books.json`(已收錄可讀書)餵內容、`catalog.json` 餵收錄表,並存。
+- **架構師職責**:標 review 的主書 → 看 `crawl_resolution.json` 候選、`resolve --force --slug <x>` 重解或人工改 booklists。**重解 review 標記書**是架構師任務(非 worker);worker 的書單管理 skill(`references/booklist-manager.md`,取代退役的 `crawl.md`)只負責查證「未決 target」,且須尊重 `resolution_qc` 的 `book_qc.block`(下載前書況閘,見下「下載前書況閘」)。
+- **收錄表 UI**:build 烤 `data/catalog.json`(書單 SoT × 六態:owned/ready/version_unavailable/review/unresolved/not_found,經 `_public_status` 摺疊回前端舊三態字串 → reader 零改)→ reader library 渲染完整收錄表(三態:已收錄/待收錄/無法收錄)。`data/books.json`(已收錄可讀書)餵內容、`catalog.json` 餵收錄表,並存。
 - `status.py` 從**實際資料**判斷每書階段(非檔名臆測);`pipeline_queue.py` 在其前後補 crawl/qc/deploy 組成完整 queue;`pipeline_state.json` 持久化 qc verdict + deploy 狀態避免重複 LLM/部署。
 - **路徑根基**:`ROOT = dirname(dirname(__file__))`(`status.py`/`corpus.py`/`pipeline_queue.ROOT`),所有狀態檔/`mineru_data`/`raw_pdfs` 都 repo-root 相對 → 模組原名擺 repo 根下即全自動正確。
 - **deploy 已本地化**:`do_deploy()` 只跑 `uv run python -m build.build_all <slug>` 烤出 data/img(nginx 直讀工作目錄即時上站),**無 git push**。
@@ -64,7 +64,7 @@ uv run python -m http.server 8001                        # 本機預覽
 
 ## 資料模型
 
-`textbooks/corpus.py` 是 `mineru_data/<slug>/parsed/` 的唯讀層。書 = chapters(`ch`)+ appendices(`app`)。chunk 有 `body`(block 陣列)+ 可選 `problems`。block 用 `t`:`section`/`subsection`、`p`(markdown)、`eq`(LaTeX)、`fig`、`table`、`example`。語言三態 en(預設)/zh/bi(雙語),由 `parsed/*.zh.json` overlay 稀疏合併(防漂移用 anchor hash)。`book_pipeline/booklists/*.json`(書單 SoT)+ `*.zh.json` + `extract_rules.yaml` + `catalog_overrides/` 是 git 唯一追蹤的「貴重成果」(機器產物如 `crawl_resolution.json`/`data/`/`img/` 全 ignore)。
+`textbooks/corpus.py` 是 `mineru_data/<slug>/parsed/` 的唯讀層。書 = chapters(`ch`)+ appendices(`app`)。chunk 有 `body`(block 陣列)+ 可選 `problems`。block 用 `t`:`section`/`subsection`、`p`(markdown)、`eq`(LaTeX)、`fig`、`table`、`example`。語言三態 en(預設)/zh/bi(雙語),由 `parsed/*.zh.json` overlay 稀疏合併(防漂移用 anchor hash)。`book_pipeline/booklists/*.json`(書單 SoT)+ `*.zh.json` + `extract_rules.yaml` + `catalog_overrides/` + `editions/`(LLM 親查版本結論,查證左移) 是 git 唯一追蹤的「貴重成果」(機器產物如 `crawl_resolution.json`〔連結態快取〕/`data/`/`img/` 全 ignore)。
 
 ## 前端 reader（index.html）
 
