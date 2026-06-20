@@ -120,9 +120,34 @@ uv run python -m book_pipeline.proposals propose --domain crawl --source booklis
 - `availability`：某書多源確認 z-lib 查無合法 pdf（記錄共識，免重撞）。
 - `harness-gap`：search/inspect/查證工具不夠力。
 
+## Discovery mode：找夠格新書（書單自我生長，dispatch 指定才做）
+
+當 dispatch prompt 要你做 **discovery**（而非查證現有 target）時，替指定領域找**夠格的新書**補進候選層，
+讓書單自己長；否則略過本節。
+
+**夠格鑑別（嚴格、寧缺勿濫）**：收＝大學級教科書／研究專著／講義／參考書（理工優先、不限主題）；
+排除＝小說／大眾科普／考試用書／操作手冊／已被取代的舊版。
+
+**書源（fan-out haiku 並行找）**：
+- haiku「參考文獻輻射」：對已收的同領域經典，找它常被併列/引用的同級教科書。
+- haiku「課程書目種子」：權威大學該領域課程的指定教科書清單。
+
+**收斂 + 落候選**（去重交給工具，你只管夠格判斷）：
+
+```bash
+# 每本夠格新書（去重 vs 人工正典+inventory+既有候選由工具處理，撞了 skip/rc=1）：
+uv run python -m book_pipeline.discovered add <field_id> --field "<領域中文名>" \
+    --slug <new_slug> --title "<書名>" --author "<作者>" --subject "<科目>" \
+    --note "<來源：如 griffiths_qm 參考文獻 / MIT 8.04 指定書>"
+```
+
+候選**自動流入查證**（下次查證 tick 同等對待、走多源查證 + book_qc gate）；架構師在 git diff 抽查、
+可 `discovered remove <field_id> <slug>` 否決，或晉升進 booklists。找不到夠格的就少加，別湊數塞次級書。
+
 ## 這不是你的事（硬邊界）
 
 - **絕不下載**：不跑 `crawl_zlib fetch`、不碰 `/dl/`。下載是買書員的事、咬真實額度。你只 search。
-- **絕不選書/改書單**：要查哪些由書單與 dispatch 決定；不自己加書、不寫 `booklists/*.json`。
+- **絕不改人工正典 booklists**：不自己加書到 `booklists/*.json`、不改既有 target;查哪些由書單與 dispatch
+  決定。（**discovery mode 例外**：可寫 `discovered/` 機器候選層補新書——那是機器層、仍**絕不碰 booklists**。）
 - **絕不碰額度/帳號**。
-- 你的產出**只有**：`resolve commit` 的態+連結、`editions set` 的版本判斷、與 proposal。
+- 你的產出**只有**：`resolve commit` 態+連結、`editions set` 版本判斷、（discovery）`discovered add` 候選、與 proposal。

@@ -130,11 +130,14 @@ def _iter_books(files: list[dict]):
                 yield f, si, sl, bi, b
 
 
-def targets(files: list[dict] | None = None) -> list[dict]:
+def targets(files: list[dict] | None = None, include_discovered: bool = True) -> list[dict]:
     """攤平 SoT → 有序 target 清單（含衍生的解答本目標）。
     每個主書 → 一個 main target；主書 solution!=False → 緊接一個 <slug>_sol solution target。
-    回傳每筆：{slug,title,author,edition_pref,field,field_id,subject,kind,of,order}，已按 order 排序。
-    order=(field_order, sublist_idx, book_idx, kind_rank)——主書(0) 緊鄰其解答本(1)，跨書按書單序。"""
+    回傳每筆：{slug,title,author,edition_pref,field,field_id,subject,kind,of,order,source}，按 order 排序。
+    order=(field_order, sublist_idx, book_idx, kind_rank)——主書(0) 緊鄰其解答本(1)，跨書按書單序。
+    include_discovered（預設 True）：合併 discovery 機器候選層（`discovered/`）——排在所有人工正典之後
+    （order 首碼 10000）、撞人工 slug 則跳（人工優先），標 source='discovered'，與人工 target 同等走查證
+    流程（status_of/select_next/unresolved_targets 自動納入）。discovered 為空時行為與舊完全等價。"""
     files = load_files() if files is None else files
     out = []
     for f, si, sl, bi, b in _iter_books(files):
@@ -144,7 +147,7 @@ def targets(files: list[dict] | None = None) -> list[dict]:
             'slug': slug, 'title': b.get('title', ''), 'author': b.get('author', ''),
             'edition_pref': b.get('edition_pref', ''), 'field': f.get('field', ''),
             'field_id': f.get('field_id', ''), 'subject': sl.get('name', ''),
-            'kind': 'main', 'of': None, 'order': base + (0,),
+            'kind': 'main', 'of': None, 'order': base + (0,), 'source': 'booklist',
         })
         if b.get('solution', True):
             out.append({
@@ -152,9 +155,39 @@ def targets(files: list[dict] | None = None) -> list[dict]:
                 'author': b.get('author', ''), 'edition_pref': b.get('edition_pref', ''),
                 'field': f.get('field', ''), 'field_id': f.get('field_id', ''),
                 'subject': sl.get('name', ''), 'kind': 'solution', 'of': slug,
-                'order': base + (1,),
+                'order': base + (1,), 'source': 'booklist',
             })
+    if include_discovered:
+        out += _discovered_targets({t['slug'] for t in out})
     out.sort(key=lambda t: t['order'])
+    return out
+
+
+def _discovered_targets(manual_slugs: set) -> list[dict]:
+    """discovery 機器候選 → target（排在人工正典後 order 首碼 10000、撞人工/彼此 slug 跳、標 source）。
+    discovered 為空（無目錄/無檔）→ 回 []，targets 行為與舊等價。"""
+    from book_pipeline import discovered
+    out = []
+    for ci, c in enumerate(discovered.iter_candidates()):
+        slug = c.get('slug', '')
+        if not slug or slug in manual_slugs:
+            continue
+        manual_slugs.add(slug)                  # discovered 內部也去重（同 slug 跨領域檔只取首見）
+        base = (10000, ci, 0)
+        out.append({
+            'slug': slug, 'title': c.get('title', ''), 'author': c.get('author', ''),
+            'edition_pref': c.get('edition_pref', ''), 'field': c.get('field', ''),
+            'field_id': c.get('field_id', ''), 'subject': c.get('subject', ''),
+            'kind': 'main', 'of': None, 'order': base + (0,), 'source': 'discovered',
+        })
+        if c.get('solution', True):
+            out.append({
+                'slug': f'{slug}{SOL_SUFFIX}', 'title': f"{c.get('title', '')} — Solutions",
+                'author': c.get('author', ''), 'edition_pref': c.get('edition_pref', ''),
+                'field': c.get('field', ''), 'field_id': c.get('field_id', ''),
+                'subject': c.get('subject', ''), 'kind': 'solution', 'of': slug,
+                'order': base + (1,), 'source': 'discovered',
+            })
     return out
 
 
