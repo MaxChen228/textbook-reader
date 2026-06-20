@@ -85,7 +85,16 @@ def test_cmd_set_and_merge():
     e2 = ed.load('griffiths_qm')
     assert e2['version']['label'] == '3rd' and e2['version']['year'] == 2018  # 整組版本保留
     assert e2['confidence'] == 'medium'                                       # confidence 更新
-    print('✓ editions CLI：cmd_set 組裝/append/自動戳 + version 子 dict merge（部分更新不丟舊欄）')
+    assert e2['evidence'] == ['multi-source consensus']                       # 沒給 evidence → 前次保留
+    # 第三次帶新 evidence/source → 真 append（累積查證軌跡、不丟前次）
+    ns3 = argparse.Namespace(slug='griffiths_qm', label=None, year=None, publisher=None, isbn=None,
+                             matches_pref=None, confidence=None, evidence=['second pass'],
+                             source=['web:reconfirm'], by='booklist-manager')
+    ed.cmd_set(ns3)
+    e3 = ed.load('griffiths_qm')
+    assert e3['evidence'] == ['multi-source consensus', 'second pass'], e3['evidence']
+    assert e3['sources'] == [{'note': 'zlib_detail:x/y'}, {'note': 'web:reconfirm'}], e3['sources']
+    print('✓ editions CLI：cmd_set version merge + evidence/source 真 append（多次查證不丟前次）+ 自動戳')
 
 
 if __name__ == '__main__':
