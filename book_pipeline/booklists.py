@@ -264,13 +264,14 @@ def status_of(slug: str, have: set, resolution: dict, now: datetime | None = Non
 
 # ── 下游 API：annotate / select_next / progress ───────────────────────────
 def annotate(files: list[dict] | None = None, have: set | None = None,
-             resolution: dict | None = None) -> list[dict]:
-    """每個 target 附 status（build catalog / devctl 用）。參數可注入（測試）。"""
+             resolution: dict | None = None, include_discovered: bool = True) -> list[dict]:
+    """每個 target 附 status（build catalog / devctl 用）。參數可注入（測試）。
+    include_discovered：公開收錄表計數傳 False（只認人工正典）；/dev 水位傳 True（含機器候選）。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
     rows = []
-    for t in targets(files):
+    for t in targets(files, include_discovered=include_discovered):
         r = dict(t)
         r['status'] = status_of(t['slug'], have, resolution)
         rows.append(r)
@@ -346,9 +347,10 @@ def pool_counts(files: list[dict] | None = None, have: set | None = None,
 
 
 def progress(files: list[dict] | None = None, have: set | None = None,
-             resolution: dict | None = None) -> dict:
-    """各領域 + 整體的狀態統計（dev 頁收錄進度）。"""
-    rows = annotate(files, have, resolution)
+             resolution: dict | None = None, include_discovered: bool = True) -> dict:
+    """各領域 + 整體的狀態統計。include_discovered：公開 catalog 計數傳 False（只人工正典）、
+    /dev pool_counts 傳 True（含 discovered 機器候選，驅動 dispatch 水位）。"""
+    rows = annotate(files, have, resolution, include_discovered=include_discovered)
 
     def tally(rs: list[dict]) -> dict:
         c = {s: 0 for s in STATUSES}
@@ -376,7 +378,7 @@ def catalog(files: list[dict] | None = None, have: set | None = None,
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
-    pr = progress(files, have, resolution)
+    pr = progress(files, have, resolution, include_discovered=False)  # 公開收錄表計數只認人工正典（discovered 不列入公開檔）
     fields = []
     for f in files:
         subs = []
@@ -465,7 +467,8 @@ def main() -> int:
             for e in errs:
                 print(f'  - {e}')
             return 1
-        print(f'✓ 書單通過（{len(targets())} targets，{len([t for t in targets() if t["kind"]=="main"])} 主書）')
+        ts0 = targets(include_discovered=False)  # validate 是人工正典 schema 驗證 → 計數只認人工正典
+        print(f'✓ 書單通過（{len(ts0)} targets，{len([t for t in ts0 if t["kind"]=="main"])} 主書）')
         return 0
     if args.cmd == 'reconcile':
         r = reconcile_owned()
