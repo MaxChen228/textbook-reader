@@ -22,9 +22,11 @@ RUN_STATE_PATH = os.path.join(CONTROL_DIR, 'pipeline_run_state.json')
 def is_paused() -> bool:
     """系統是否暫停。預設暫停：只有顯式 {"running": true} 才回 False（運行）。"""
     try:
-        d = json.load(open(RUN_STATE_PATH))
+        with open(RUN_STATE_PATH) as f:
+            d = json.load(f)
         return d.get('running') is not True
     except Exception:
+        # 壞檔/缺檔皆 fail-safe 回暫停（非靜默：結果＝面板可見的暫停態，下次 resume 覆寫自癒）。
         return True
 
 

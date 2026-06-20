@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """book_pipeline.dev_control — /dev 面板的最小寫回控制服務（docker sidecar，不暴露 host）。
 
-唯一職責：把 /dev 面板對 zlib 帳號的「停用/啟用」點擊落成停用態狀態檔，讓流量控制可從面板
-互動（面板本身是 nginx 唯讀靜態、無寫回路徑）。停用 N 帳號 → 該帳號 remaining 歸 0 →
-買書員（drain_crawl_queue，每 tick 權威 live 查停用態）自然跳過 → 當日上限 10×(10−N)/日。
+職責：把 /dev 面板的控制點擊落成 `.control/` 狀態檔，讓運維可從面板互動（面板本身是 nginx
+唯讀靜態、無寫回路徑）。兩類控制：
+  ① zlib 帳號停用/啟用（流量控制）：停 N 帳號 → remaining 歸 0 → 買書員自然跳過 → 上限 10×(10−N)/日。
+  ② 系統暫停/啟動：暫停 → daemon reactive loop 停派一切新工（pipeline_run_state，≤LOOP_POLL 生效）。
+狀態 I/O 全走 dep-light 共用模組（zlib_control_state / pipeline_run_state），與 host 端單一真相。
 
 安全邊界（縱深三層）：
   1. CF Access 信箱閘（app textbook-dev，只給 max970228）= 邊界第一道。
@@ -18,6 +20,7 @@ requests＋讀憑證檔）；email 合法性改用 dev/zlib_quota.json 的 accou
 端點：
   GET  /health                       → {"ok":true}
   POST /account {email,enabled:bool} → 改寫停用集、回 {"ok":true,"disabled":[...],"daily_cap":N}
+  POST /pause   {paused:bool}         → 改寫運行/暫停態、回 {"ok":true,"paused":bool}
 絕不 echo 任何憑證/email body 到 log。
 """
 from __future__ import annotations
@@ -28,6 +31,7 @@ import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from book_pipeline import zlib_control_state as st
+from book_pipeline import pipeline_run_state as prs
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ZLIB_QUOTA = os.path.join(ROOT, 'dev', 'zlib_quota.json')  # 唯讀：取 account email 清單（無密碼）驗證
@@ -78,15 +82,26 @@ class Handler(BaseHTTPRequestHandler):
         # 縱深防禦：nginx 已擋空 header，這裡復驗精確 email（單一身分）
         if self.headers.get(CF_HEADER) != ALLOWED_EMAIL:
             return self._json(403, {'ok': False, 'error': 'forbidden'})
-        if self.path != '/account':
-            return self._json(404, {'ok': False, 'error': 'not found'})
+        body = self._read_json_body()
+        if body is None:
+            return self._json(400, {'ok': False, 'error': 'bad body'})
+        if self.path == '/account':
+            return self._post_account(body)
+        if self.path == '/pause':
+            return self._post_pause(body)
+        return self._json(404, {'ok': False, 'error': 'not found'})
+
+    def _read_json_body(self) -> dict | None:
+        """讀 body（Content-Length 上限 4096）→ dict；長度非法/壞 json → None。"""
         try:
             n = int(self.headers.get('Content-Length') or 0)
             if n <= 0 or n > 4096:
-                return self._json(400, {'ok': False, 'error': 'bad length'})
-            body = json.loads(self.rfile.read(n) or b'{}')
+                return None
+            return json.loads(self.rfile.read(n) or b'{}')
         except Exception:
-            return self._json(400, {'ok': False, 'error': 'bad json'})
+            return None
+
+    def _post_account(self, body: dict):
         email = body.get('email')
         enabled = body.get('enabled')
         # email 須在帳號清單內（無憑證驗證，擋 typo/任意值寫入停用集）；enabled 須 bool
@@ -96,6 +111,15 @@ class Handler(BaseHTTPRequestHandler):
         dis.discard(email) if enabled else dis.add(email)
         st.write_disabled(dis)
         return self._json(200, {'ok': True, **_summary()})
+
+    def _post_pause(self, body: dict):
+        # 系統暫停/啟動。sidecar 無法 signal host controller（跨容器）→ 靠 daemon 每 cycle（≤LOOP_POLL,
+        # ~20s）輪詢 pipeline_run_state 生效；面板以樂觀更新填這 ≤20s 窗。
+        paused = body.get('paused')
+        if not isinstance(paused, bool):
+            return self._json(400, {'ok': False, 'error': 'bad params'})
+        prs.set_running(not paused)
+        return self._json(200, {'ok': True, 'paused': prs.is_paused()})
 
 
 def main() -> int:

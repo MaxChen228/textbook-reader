@@ -261,6 +261,9 @@
       border: 1px solid var(--border); border-radius: 5px; cursor: pointer; transition: all .15s; }
     .zlib-toggle:hover { color: var(--text); border-color: var(--accent); }
     .dev-bar-row.zlib-off .zlib-toggle { opacity: 1; }   /* 灰列中鈕仍清晰可點 */
+    /* 系統暫停/啟動鈕：暫停中＝醒目琥珀（系統停產要一眼可見）；運行中＝低調 */
+    #btn-pause.paused { background: var(--status-warn, #d9a441); color: #1c1a14; border-color: var(--status-warn, #d9a441); font-weight: 700; }
+    #btn-pause.running { color: var(--sub); }
     .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0; font-family: var(--mono);
       font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
     .dev-err .src { color: var(--sub); margin-right: 8px; }
@@ -316,6 +319,7 @@
     </div>
     <div class="topbar-spacer"></div>
     <span class="meta qbk-result-count" id="updated"></span>
+    <button class="qbk-control-btn compact" id="btn-pause" type="button" title="暫停／啟動製書系統（暫停＝停派一切新工，在飛工作自然收尾）">⏸ —</button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
     <div class="qbk-segmented" id="seg-theme" style="margin-left:4px">
@@ -391,6 +395,7 @@
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
   let last = null, lastWorkers = []
   const zlibPending = {}  // zlib 帳號 toggle 樂觀態 email→期望 disabled bool（authoritative ≤300s 追上即清；見 renderZlib）
+  let pausePending = null  // 系統暫停 toggle 樂觀態：期望 paused bool（authoritative ≤20s 追上即清；null=無 pending）
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
@@ -1264,6 +1269,10 @@
     const btn = e.target.closest('.zlib-toggle'); if (!btn) return
     toggleZlibAccount(btn.dataset.email, btn.dataset.enable === '1')
   })
+  // 系統暫停/啟動鈕（當前暫停 → 點擊啟動；當前運行 → 點擊暫停）
+  document.getElementById('btn-pause').addEventListener('click', () => {
+    togglePause(document.getElementById('btn-pause').dataset.paused !== '1')
+  })
 
   // ── 工具：跨度格式 ──
   function fmtDur(s) { return s == null ? '—' : (s < 90 ? `${s}s` : `${Math.round(s/60)}m`) }
@@ -1346,11 +1355,38 @@
     }
   }
 
+  // 系統暫停/啟動鈕：state 來自 d.paused（樂觀 pausePending 覆蓋，authoritative ≤20s 追上即清）。
+  function renderPauseBtn(d) {
+    const el = document.getElementById('btn-pause'); if (!el) return
+    const auth = !!d.paused
+    if (pausePending !== null && pausePending === auth) pausePending = null  // authoritative 追上即清
+    const paused = pausePending !== null ? pausePending : auth
+    el.className = 'qbk-control-btn compact ' + (paused ? 'paused' : 'running')
+    el.textContent = paused ? '▶ 啟動系統' : '⏸ 暫停'
+    el.dataset.paused = paused ? '1' : '0'
+  }
+  // 暫停/啟動：寫回 devcontrol sidecar（CF Access 把關）。樂觀更新；daemon ≤20s 輪詢 pipeline_run_state 生效。
+  async function togglePause(toPaused) {
+    pausePending = toPaused
+    if (last) renderPauseBtn(last)
+    try {
+      const r = await fetch('api/pause', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paused: toPaused }) })
+      if (!r.ok) throw new Error('HTTP ' + r.status)
+    } catch (e) {
+      pausePending = null
+      if (last) renderPauseBtn(last)
+      alert('系統' + (toPaused ? '暫停' : '啟動') + '失敗：' + (e && e.message || e))
+    }
+  }
+
   function render(d) {
     const prevStage = {}
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
     last = d
     renderHealth(d)
+    renderPauseBtn(d)
     updateLineSub()
     renderBooklist(d)
     reconcileBooks(d)
