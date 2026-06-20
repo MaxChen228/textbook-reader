@@ -818,7 +818,7 @@
   }
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
-  const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥' }
+  const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥', gc:'🧹' }
   // 兩種徽章疊書卡：① 本地 LLM walker（workers.json：金 + bob + verb·call 數）② 外部 OCR worker
   //（MinerU 雲端，無本地進程 → 從 stage 0.3/0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
   function applyWalkers() {

@@ -262,6 +262,55 @@ def test_safe_move_and_sentinel():
     print('✓ _safe_move 事務+拒覆蓋；sentinel 初始化/不符/空 全擋')
 
 
+# ── daemon glue：_gc_candidates 穩定期窗口（P5 新引入、非鏡像 collect_prune 的安全邏輯）──
+def test_gc_candidates_stability_window():
+    import book_pipeline.mineru_budget as mb
+    import book_pipeline.pipeline_tick as t
+    from datetime import datetime, timedelta, timezone
+    with _env() as (_tmp, flying):
+        saved_occ = mb.occupied
+        mb.occupied = lambda: set()
+        try:
+            for s in ('fresh', 'old', 'nostamp', 'badstamp', 'flying'):
+                _book_with_chunks(s, [3])
+                _deploy(s)
+            flying.add('flying')  # in_flight（_env 的 mb.in_flight 回 flying）
+            now = datetime.now(timezone.utc)
+
+            def at(mins):
+                return (now - timedelta(minutes=mins)).isoformat(timespec='seconds')
+            state = {
+                'fresh': {'deployed_at': at(10)},        # < 120min 穩定期 → 擋
+                'old': {'deployed_at': at(200)},         # ≥ 120min → 選
+                'badstamp': {'deployed_at': 'not-a-date'},  # 壞戳保守視老 → 選
+                'flying': {'deployed_at': at(200)},      # 在飛 → 擋
+                # nostamp 無 deployed_at → 歷史書 eligible
+            }
+            cands = set(t._gc_candidates(state))
+            assert 'fresh' not in cands, 'deployed 10min < 穩定期 → 不該入選'
+            assert 'old' in cands, 'deployed 200min ≥ 穩定期 → 應入選'
+            assert 'nostamp' in cands, '無戳=歷史書 → 應入選'
+            assert 'badstamp' in cands, '壞戳保守視老 → 應入選'
+            assert 'flying' not in cands, '在飛 → 不該入選'
+        finally:
+            mb.occupied = saved_occ
+    print('✓ _gc_candidates 穩定期：fresh擋/old選/無戳選/壞戳選/在飛擋')
+
+
+def test_gc_due_throttle():
+    import time
+    import book_pipeline.pipeline_tick as t
+    saved = dict(t._gc_throttle)
+    try:
+        t._gc_throttle['last'] = time.monotonic()
+        assert t._gc_due() is False, '剛掃過 → 未到節流間隔'
+        t._gc_throttle['last'] = time.monotonic() - t.GC_INTERVAL_SEC - 1
+        assert t._gc_due() is True, '超過 GC_INTERVAL → due'
+    finally:
+        t._gc_throttle.update(saved)
+    print('✓ _gc_due 節流：間隔內 False、超過 True')
+
+
 _TESTS = [
     test_collect_prune_safety_gate,
     test_can_archive_raw_pdf_boundaries,
@@ -269,6 +318,8 @@ _TESTS = [
     test_deployed_hardened,
     test_gc_book_preserves_hot,
     test_safe_move_and_sentinel,
+    test_gc_candidates_stability_window,
+    test_gc_due_throttle,
 ]
 
 

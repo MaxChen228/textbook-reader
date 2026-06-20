@@ -1614,7 +1614,13 @@ def _gc_due() -> bool:
 def _gc_candidates(state: dict) -> list[str]:
     """可自動 GC 的書：確有 🟡 可重生產物 ∧ 已上站(完整 book.json) ∧ 非在飛 ∧ deployed_at
     距今 ≥ GC_STABILITY_MIN 分（無戳＝歷史書，必非剛 deploy → eligible）。先 cheap listdir
-    篩有東西可清的（多數書已清→跳過），才對少數讀 book.json，避免每次掃讀 320 個大檔。"""
+    篩有東西可清的（多數書已清→跳過），才對少數讀 book.json，避免每次掃讀 320 個大檔。
+
+    ⚠ 不額外排除 leased_slugs（正被 advance worker 跑 sol/catalog/audit 的已上站書）：那些
+    post-deploy 階段只讀 parsed/+unified/、**永不碰 raw/chunk_*/或 chunks/**（GC 的刪除集），
+    目錄不相交 → 並行零競爭，故容忍重疊。唯一讀 raw/chunks 的 ingest/harvest/assemble 必在
+    in_flight/occupied → 已排除。**此不變量是 GC 安全的根基**：日後若新增「已上站書回讀 raw」
+    的階段，必須同步在此排除其 slug，否則靜默破壞此前提。"""
     from book_pipeline import storage_gc as sgc
     flying = mb.in_flight() | mb.occupied()
     out = []
