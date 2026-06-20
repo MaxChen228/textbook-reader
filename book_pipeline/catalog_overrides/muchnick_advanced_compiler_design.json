@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "muchnick-fig-15.4-normalize",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[13]",
+      "expect": {
+        "id": "tbl-ch15-13"
+      },
+      "set": {
+        "id": "fig-15.4",
+        "caption": "FIG. 15.4 ICAN code to perform tail-recursion elimination on a MIR procedure.",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "MinerU misclassified the ICAN listing for Figure 15.4 as a generic table and gave it a fallback caption. The preceding paragraph explicitly refers to it as Figure 15.4."
+    }
+  ]
+}
