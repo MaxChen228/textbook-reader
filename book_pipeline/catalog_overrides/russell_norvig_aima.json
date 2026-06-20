@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "russell_norvig_aima-ch10-fig-10.6.6-misocr",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[202]",
+      "field": "md",
+      "old": "Figure 10.6.6",
+      "new": "Figure 10.6.",
+      "reason": "OCR duplicated the figure number: raw text should read 'Figure 10.6. For example...' The catalog already has fig-10.6 (a table block with the CLASSIC syntax caption)."
+    }
+  ]
+}
