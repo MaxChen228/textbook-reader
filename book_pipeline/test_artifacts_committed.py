@@ -203,11 +203,14 @@ def test_validate_rules_stub_isolation_self_check():
 # standby merge 解答時若 group 違約 → 整個 daemon process 被殺、連坐當前 tick。故此檔把
 # live 本（須順利載入）與 _pending 本（須被擋）兩種「正當 exit」嚴格區分，避免把後者的
 # 「正確跳過」誤當成 group 違約、或反之放掉真正的 group drift。
-_PENDING_SOL = {'boas_mp_sol', 'kittel_ssp_sol'}   # 主書品質不足、標 _pending、不該 merge
+#
+# ⚠ pending 集合**從 artifact 自衍生**（yaml 頂層 `_pending` marker，= load_sol_rules:47 讀的同一鍵）
+# 而非寫死——daemon 每標一本 _pending（已 36 本且持續增）寫死清單必腐爛假紅。self-maintaining。
 
 
 def test_all_live_sol_rules_load_without_sysexit():
-    """4 本 live sol_rules 須無 SystemExit 載入；2 本 _pending 須確實 SystemExit（訊息含 _pending）。
+    """live sol_rules 須無 SystemExit 載入；標 `_pending` 者須確實 SystemExit（訊息含 _pending）。
+    pending 集合由 yaml `_pending` marker 自衍生（非寫死），隨 daemon 標記自動跟進。
 
     為何高含金量：load_sol_rules 用 sys.exit 硬退 → sol agent 多包/少包 group 時整個
     daemon tick 被殺（crash 連坐）。此測釘住「live 本載得進、_pending 本被擋、且兩者的
@@ -226,7 +229,7 @@ def test_all_live_sol_rules_load_without_sysexit():
     for p in paths:
         slug = Path(p).parent.name
         raw = yaml.safe_load(Path(p).read_text()) or {}
-        if slug in _PENDING_SOL:
+        if raw.get('_pending'):
             # _pending 本必須被 sys.exit 擋下，且理由含 _pending（而非 group 違約等其他原因）
             try:
                 SE.load_sol_rules(slug)
@@ -264,7 +267,7 @@ def test_all_live_sol_rules_load_without_sysexit():
 
     assert not failures, 'sol_rules 契約違規：\n' + '\n'.join(f'  - {x}' for x in failures)
     assert n_live >= 4, f'live sol 本數異常（{n_live}）'
-    assert n_pending == len(_PENDING_SOL), f'_pending 本數異常（{n_pending}）'
+    assert n_pending >= 2, f'_pending 本數異常（{n_pending}）'  # 自衍生：至少元老 boas/kittel
     print(f'✓ sol_rules × {len(paths)}：{n_live} live 本無 SystemExit 且 raw group 合契約、'
           f'{n_pending} _pending 本正確被擋')
 
