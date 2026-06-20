@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import multiprocessing as mp
 import os
 import sys
 
@@ -31,6 +32,12 @@ CELL_W = 760  # 每格寬（px），兼顧清晰與整體尺寸
 COLS = 2
 PAD = 8
 LABEL_H = 22
+
+# 硬 wall-clock 上限：width-bounded zoom 已治 per-page 巨圖解碼，但 `fitz.open` 與 C 層
+# 解碼在「損壞 xref / 67MB 掃描 / 嵌入巨圖」時仍會卡死整場（CPU 低、無輸出）——qc agent 親撞
+# 過、燒滿 60min timeout 才放棄、產不出 verdict。SIGALRM 攔不住 C 層卡死，唯一穩的是把 render
+# 丟子進程、逾時硬 kill。預設 90s（合法大書 width-bounded 後 ≤幾秒、永遠用不到；只封頂災難）。
+RENDER_TIMEOUT = int(os.environ.get('BOOK_PIPELINE_CONTACTSHEET_TIMEOUT', '90'))
 
 
 def _resolve(arg: str) -> str | None:
@@ -57,8 +64,8 @@ def _pick_pages(n: int, k: int) -> list[int]:
     return [min(n - 1, int((lo + (hi - lo) * i / (k - 1)) * n)) for i in range(k)]
 
 
-@cpu_bound('contactsheet')
-def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
+def _render(path: str, out: str, k: int, zoom: float) -> str:
+    """純渲染工作（在子進程跑，受 RENDER_TIMEOUT 硬封頂）。不持 cpu_slot——由外層 contactsheet 持。"""
     doc = fitz.open(path)
     n = doc.page_count
     idxs = _pick_pages(n, k)
@@ -101,6 +108,42 @@ def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3) -> str:
     return out
 
 
+def _render_proc(path: str, out: str, k: int, zoom: float, q) -> None:
+    """子進程入口：成功把 out 路徑放進 queue；任何例外把訊息放進 queue（不靠 exitcode 傳因）。"""
+    try:
+        q.put(('ok', _render(path, out, k, zoom)))
+    except BaseException as e:  # noqa: BLE001 — 連 C 層 abort 外的都回報，不讓子進程靜默死
+        q.put(('err', f'{type(e).__name__}: {e}'))
+
+
+@cpu_bound('contactsheet')
+def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3,
+                 timeout_s: int = RENDER_TIMEOUT) -> str:
+    """渲染 contact sheet，硬封頂 timeout_s 秒。逾時 → 子進程硬 kill + TimeoutError（含明確訊息），
+    讓 qc agent 秒級得知「此 PDF 無法在有界時間內渲染」→ 直接判 reject，不再卡滿 60min daemon 上限。
+
+    為何子進程：fitz C 層在損壞/超大 PDF 上會卡死且不理會 Python signal（SIGALRM 無效）；唯有
+    把工作丟可硬 kill 的子進程才能保證 wall-clock 有界。spawn context（daemon 內有 thread，fork 不安全）。"""
+    ctx = mp.get_context('spawn')
+    q = ctx.Queue()
+    p = ctx.Process(target=_render_proc, args=(path, out, k, zoom, q))
+    p.start()
+    p.join(timeout_s)
+    if p.is_alive():
+        p.terminate(); p.join(5)
+        if p.is_alive():
+            p.kill(); p.join()
+        raise TimeoutError(
+            f'contactsheet 渲染逾 {timeout_s}s 仍未完成（PDF 可能損壞/超大掃描/嵌入巨圖），已硬中止')
+    try:
+        kind, payload = q.get_nowait()
+    except Exception:
+        raise RuntimeError(f'contactsheet 子進程異常結束（exitcode={p.exitcode}）、無結果回傳')
+    if kind == 'err':
+        raise RuntimeError(f'contactsheet 渲染失敗：{payload}')
+    return payload
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description='PDF 抽樣頁 contact sheet')
     ap.add_argument('target', help='slug 或 PDF 路徑')
@@ -114,7 +157,13 @@ def main() -> int:
         ap.error(f'找不到：{args.target}')
     stem = os.path.splitext(os.path.basename(path))[0]
     out = args.out or os.path.join(OUT_DIR, f'{stem}.png')
-    print(contactsheet(path, out, k=args.pages, zoom=args.zoom))
+    try:
+        print(contactsheet(path, out, k=args.pages, zoom=args.zoom))
+    except (TimeoutError, RuntimeError) as e:
+        # 渲染無法在有界時間內完成 = 此 PDF 不可用於視覺 QC。明確非零退出，qc agent 據此直接 reject，
+        # 不必自行跟卡死的渲染器搏鬥（過去那是燒滿 60min daemon 上限、產不出 verdict 的根因）。
+        print(f'CONTACTSHEET_UNRENDERABLE: {e}', file=sys.stderr)
+        return 3
     return 0
 
 

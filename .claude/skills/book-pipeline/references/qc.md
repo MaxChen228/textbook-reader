@@ -15,6 +15,10 @@ uv run python -m book_pipeline.pdf_contactsheet <slug> --pages 6
 #    （pymupdf/pillow 已在 pyproject 依賴，勿加 --with：那會每次強制 ephemeral env 冷解析、render 變慢）
 ```
 
+> ⚠ **渲染已硬封頂（~90s）**。若此命令**非零退出且 stderr 含 `CONTACTSHEET_UNRENDERABLE`**，代表此 PDF
+> 損壞/超大掃描，渲染器無法在有界時間內出圖——**直接 `reject`（reason 引用該訊息）**，**不要**自己改寫
+> inline `fitz`/`sips`/單頁渲染去跟它搏鬥（那正是過去燒滿 daemon 60min 上限、產不出 verdict 的根因）。
+
 2. **Read 那張 PNG**（一次 vision 呼叫），判斷：
    - **書對嗎**：書名/作者/版次符合預期（版次 SoT = `book_pipeline/booklists/*.json` 該 slug，含 `edition_pref`；勿用已退役的 `crawl_manifest.json`）。
    - **清晰嗎**：文字與公式可辨識？掃描是否過淡/歪斜/污損到 OCR 會大量出錯。
