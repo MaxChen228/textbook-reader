@@ -40,7 +40,13 @@
     .live { animation: pulse 2.2s ease-in-out infinite; }
 
     /* ── 產線 ── */
-    .line { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; align-items: stretch; }
+    .line { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; align-items: stretch;
+      scrollbar-width: thin; scrollbar-color: var(--border) var(--border-l); }  /* Firefox：常駐細捲軸 */
+    /* WebKit/Chrome：macOS overlay 捲軸靜止會自動隱藏 → 明確 style 即切成常駐可見橫向捲軸 */
+    .line::-webkit-scrollbar { height: 11px; }
+    .line::-webkit-scrollbar-track { background: var(--border-l); border-radius: 6px; }
+    .line::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; border: 2px solid var(--bg); }
+    .line::-webkit-scrollbar-thumb:hover { background: var(--accent); }
     .station {
       flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column;
       background: var(--bg); border: 1px solid var(--border-l); border-radius: 10px; overflow: hidden;
