@@ -51,19 +51,23 @@ def test_targets_solution_expansion_and_order():
     print('✓ targets：solution!=false 衍生 <slug>_sol 緊鄰主書、false 不衍生、跨領域按 order')
 
 
-def test_status_five_states():
+def test_status_six_states():
     have = {'jackson'}
-    resolution = {'jackson_sol': {'id': '1', 'hash': 'a', 'by': 'agent'},  # ready（現役演算法）
-                  'rudin': {'id': '2', 'hash': 'b', 'by': 'agent'},        # ready
-                  'griffiths_em': {'absent': True},             # absent
-                  'rudin_sol': {'review': True}}                # review（待架構師裁決）
+    resolution = {'jackson_sol': {'status': 'resolved', 'id': '1', 'hash': 'a', 'by': 'agent'},  # 顯式 resolved
+                  'rudin': {'id': '2', 'hash': 'b', 'by': 'agent'},        # legacy 無 status 但 id/hash → ready
+                  'griffiths_em': {'absent': True},             # legacy absent → not_found（向後相容）
+                  'rudin_sol': {'review': True}}                # legacy review
     assert bl.status_of('jackson', have, resolution) == bl.OWNED
-    assert bl.status_of('rudin', have, resolution) == bl.READY
-    assert bl.status_of('jackson_sol', have, resolution) == bl.READY
-    assert bl.status_of('griffiths_em', have, resolution) == bl.ABSENT
+    assert bl.status_of('rudin', have, resolution) == bl.READY            # legacy id/hash 向後相容
+    assert bl.status_of('jackson_sol', have, resolution) == bl.READY      # 顯式 status:'resolved'
+    assert bl.status_of('griffiths_em', have, resolution) == bl.NOT_FOUND # legacy absent → not_found
     assert bl.status_of('rudin_sol', have, resolution) == bl.REVIEW   # ≠ UNRESOLVED
     assert bl.REVIEW != bl.UNRESOLVED and bl.REVIEW in bl.STATUSES
     assert not hasattr(bl, 'QUEUED')                            # queued 態已廢（無 runtime buffer）
+    assert not hasattr(bl, 'ABSENT')                            # 舊單一 ABSENT 常數已拆成 NOT_FOUND/VERSION_UNAVAILABLE
+    # 顯式 status 欄
+    assert bl.status_of('x', set(), {'x': {'status': 'not_found'}}) == bl.NOT_FOUND
+    assert bl.status_of('x', set(), {'x': {'status': 'review'}}) == bl.REVIEW
     # 真未解析（resolution 無此筆）才 UNRESOLVED
     assert bl.status_of('rudin_sol', have, {}) == bl.UNRESOLVED
     # owned 優先於 resolution（即使有解析，已 owned 就 owned）
@@ -72,7 +76,32 @@ def test_status_five_states():
     # 交 resolver 重解、drain 不下載）。但 owned 仍優先、legacy 已 owned 不重解。
     assert bl.status_of('rudin', set(), {'rudin': {'id': '2', 'hash': 'b'}}) == bl.UNRESOLVED
     assert bl.status_of('rudin', {'rudin'}, {'rudin': {'id': '2', 'hash': 'b'}}) == bl.OWNED
-    print('✓ status：owned>ready/absent/review/unresolved + owned 優先 + review≠unresolved + legacy 無by→unresolved')
+    print('✓ status：六態 + 顯式status/legacy向後相容 + owned 優先 + review≠unresolved + legacy無by→unresolved')
+
+
+def test_version_unavailable_recheck():
+    """version_unavailable：未到期→暫不排（不回工作母體、公開層歸待收錄）；到期→回 UNRESOLVED 重查。
+    殺掉舊 absent「只有別版→永久放棄」的僵化。"""
+    from datetime import datetime, timezone, timedelta
+    now = datetime(2026, 6, 20, tzinfo=timezone.utc)
+    future = (now + timedelta(days=30)).isoformat()
+    past = (now - timedelta(days=1)).isoformat()
+    assert bl.status_of('x', set(), {'x': {'status': 'version_unavailable', 'recheck_after': future}},
+                        now=now) == bl.VERSION_UNAVAILABLE
+    assert bl.status_of('x', set(), {'x': {'status': 'version_unavailable', 'recheck_after': past}},
+                        now=now) == bl.UNRESOLVED            # 到期 → 回工作母體重查
+    assert bl.status_of('x', set(), {'x': {'status': 'version_unavailable'}},
+                        now=now) == bl.VERSION_UNAVAILABLE   # 無時戳 → 保守不回流（不空轉）
+    # 到期者自動回 unresolved_targets 工作母體；未到期者不在（用絕對時戳，不依賴真實時鐘）
+    files = _fixture()
+    res_due = {'rudin': {'status': 'version_unavailable', 'recheck_after': '2020-01-01T00:00:00+00:00'}}
+    res_pending = {'rudin': {'status': 'version_unavailable', 'recheck_after': '2099-01-01T00:00:00+00:00'}}
+    assert 'rudin' in [t['slug'] for t in bl.unresolved_targets(files, set(), res_due)]
+    assert 'rudin' not in [t['slug'] for t in bl.unresolved_targets(files, set(), res_pending)]
+    # public 摺疊：version_unavailable→unresolved（待收錄）、not_found→absent（無法收錄）
+    assert bl._public_status(bl.VERSION_UNAVAILABLE) == bl.UNRESOLVED
+    assert bl._public_status(bl.NOT_FOUND) == bl.PUBLIC_ABSENT
+    print('✓ version_unavailable：到期回工作母體、未到暫不排、無時戳不回流；public 摺疊正確')
 
 
 def test_review_excluded_from_worklist_and_pool():
@@ -142,11 +171,12 @@ def test_progress_tally():
     resolution = {'rudin': {'id': '1', 'hash': 'a', 'by': 'agent'}, 'griffiths_em': {'absent': True}}
     pr = bl.progress(files, have, resolution=resolution)
     o = pr['overall']
-    # targets: jackson(owned) jackson_sol(unresolved) griffiths_em(absent) rudin(ready) rudin_sol(unresolved)
+    # targets: jackson(owned) jackson_sol(unresolved) griffiths_em(not_found) rudin(ready) rudin_sol(unresolved)
     assert o['total'] == 5 and o['main'] == 3
-    assert o[bl.OWNED] == 1 and o[bl.READY] == 1 and o[bl.ABSENT] == 1 and o[bl.UNRESOLVED] == 2
+    assert o[bl.OWNED] == 1 and o[bl.READY] == 1 and o[bl.NOT_FOUND] == 1 and o[bl.UNRESOLVED] == 2
+    assert o['absent'] == 1 and o[bl.VERSION_UNAVAILABLE] == 0  # absent 向後相容公開桶 = not_found
     assert pr['by_field']['physics'][bl.OWNED] == 1
-    print('✓ progress：整體 + 各領域五態統計正確')
+    print('✓ progress：六態統計 + absent 向後相容桶（=not_found）正確')
 
 
 def test_validate_catches_problems():
@@ -189,7 +219,8 @@ def test_load_files_orders_by_order():
 
 if __name__ == '__main__':
     test_targets_solution_expansion_and_order()
-    test_status_five_states()
+    test_status_six_states()
+    test_version_unavailable_recheck()
     test_review_excluded_from_worklist_and_pool()
     test_select_next_deterministic_ready_only_in_order()
     test_select_next_skips_owned_and_excludes()

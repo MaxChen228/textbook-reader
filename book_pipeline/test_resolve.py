@@ -119,24 +119,42 @@ def test_exact_match_rejects_ambiguous_dup():
 
 
 # ── commit 守門 ────────────────────────────────────────────────────────────
+_COMMIT_BASE = dict(id=None, hash=None, title=None, author=None, mb=None,
+                    absent=False, review=False, force=False, note=None,
+                    status=None, recheck_after=None)
+
+
 def test_commit_rejects_ghost():
-    args = argparse.Namespace(slug='definitely_not_a_real_target_zzz', id=None, hash=None,
-                              title=None, author=None, mb=None, absent=False, review=False, note=None)
+    args = argparse.Namespace(slug='definitely_not_a_real_target_zzz', **_COMMIT_BASE)
     assert rs.cmd_commit(args) == 2          # 非書單 target → 拒絕落盤（杜絕 ghost）
     print('✓ cmd_commit：拒寫非書單 target')
 
 
 def test_commit_rejects_conflicting_modes():
-    # --absent 同時帶 --id → 模式衝突拒絕（不靜默讓 absent 蓋掉 id）。用**真** target 過 ghost 守門，
-    # 才真的踩到衝突分支（否則 ghost 先擋＝測不到衝突）。
+    # --absent（=not_found）同時帶 --id → 模式衝突拒絕（不靜默讓 status 蓋掉 id）。用**真** target 過
+    # ghost 守門，才真的踩到衝突分支（否則 ghost 先擋＝測不到衝突）。
     from book_pipeline import booklists as bl
     real = next((t['slug'] for t in bl.targets()), None)
     if real is None:
         print('⚠ 無書單 target，跳過衝突測試'); return
-    args = argparse.Namespace(slug=real, id='1', hash='h', title=None, author=None,
-                              mb=None, absent=True, review=False, note=None)
+    args = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'id': '1', 'hash': 'h', 'absent': True})
     assert rs.cmd_commit(args) == 2          # 真 target 過守門 → 命中衝突分支 → 2（且不寫盤）
     print('✓ cmd_commit：--absent + --id 衝突 → 拒絕（不靜默）')
+
+
+def test_commit_status_conflicts_and_validation():
+    """新 --status 語彙守門（不寫盤）：與 resolved 並用衝突、非法 status 值皆拒。"""
+    from book_pipeline import booklists as bl
+    real = next((t['slug'] for t in bl.targets()), None)
+    if real is None:
+        print('⚠ 無書單 target，跳過'); return
+    # --status 與 (--id+--hash) 並用 → 衝突（在寫盤/網路前 return 2）
+    a = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'id': '1', 'hash': 'h', 'status': 'not_found'})
+    assert rs.cmd_commit(a) == 2
+    # 非法 status 值 → cmd_commit 防禦性拒（不靠 argparse choices）
+    a2 = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'status': 'bogus'})
+    assert rs.cmd_commit(a2) == 2
+    print('✓ cmd_commit：--status 與 resolved 並用衝突、非法 status 值皆拒（不寫盤）')
 
 
 if __name__ == '__main__':
@@ -153,4 +171,5 @@ if __name__ == '__main__':
     test_exact_match_rejects_ambiguous_dup()
     test_commit_rejects_ghost()
     test_commit_rejects_conflicting_modes()
+    test_commit_status_conflicts_and_validation()
     print('\n全部通過 ✅')

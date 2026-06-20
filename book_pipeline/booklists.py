@@ -20,12 +20,18 @@
 緊接其主書排序。其狀態同樣由 inventory + resolution 衍生（resolver 查無正版即標 absent → 永不再排，
 殺掉舊系統「每 tick 重新確認 Peskin 沒解答」的空轉）。
 
-狀態五態（衍生，純 join inventory + resolution sidecar，無任何 runtime buffer）：
-  owned      已在 mineru_data/ 或 raw_pdfs/（不再爬）
-  ready      已確認 zlib id/hash、未 owned → 買書員直接下載的候選（= 解析池）
-  absent     crawl agent 查證 z-lib 無此書 → 永不再排（catalog 顯示「無法收錄」）
-  review     crawl agent 信心不足、待**架構師**人工裁決 → **不自動重試**（不回 crawl agent 工作母體）
-  unresolved 尚未解析（crawl agent 的工作母體：select_next 的上游、解析池的 State 1）
+狀態六態（衍生，純 join inventory + resolution sidecar，無任何 runtime buffer。2026-06 查證左移把
+舊單一 absent 拆成 not_found/version_unavailable）：
+  owned                已在 mineru_data/ 或 raw_pdfs/（不再爬）
+  ready                已確認 zlib id/hash、未 owned → 買書員直接下載的候選（= 解析池）
+  version_unavailable  書在 z-lib 但無對應版次 → 待重查（recheck_after 到期自動回工作母體；
+                       公開層歸「待收錄」非「無法收錄」——殺掉「只有別版→永久放棄」的僵化）
+  review               agent 信心不足、待**架構師**人工裁決 → **不自動重試**（不回 agent 工作母體）
+  unresolved           尚未解析（agent 工作母體：select_next 的上游、解析池的 State 1）
+  not_found            z-lib 真無此書/解答 → 永不再排（catalog 顯示「無法收錄」；含 legacy {absent:true}）
+
+公開層（reader 收錄表 / pool_counts 的 absent 桶）只認舊五態字串，內部六態經 _public_status 摺疊
+（not_found→absent、version_unavailable→unresolved）→ 前端零改、行為等價；UI 細分留下游 surface 階段。
 
 review 與 unresolved 必須分立：unresolved=agent 還沒看、review=agent 看過不敢判。混為一談會讓
 review 書每 cycle 被重派、燒 token、且解析池永遠補不滿（review 不算 confirmed）→ daemon 不收斂。
@@ -44,6 +50,7 @@ import argparse
 import glob
 import os
 import re
+from datetime import datetime, timezone
 
 from book_pipeline import jsonio
 
@@ -58,13 +65,44 @@ SLUG_MAP = os.path.join(BP, 'slug_map.json')
 SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
 SOL_SUFFIX = '_sol'
 
-# 衍生狀態（見模組 docstring）
+# 衍生狀態（見模組 docstring）。2026-06 查證左移：舊單一 ABSENT 拆成 NOT_FOUND（永久查無）+
+# VERSION_UNAVAILABLE（這次沒查到對的版、可重查）——殺掉「只有別版→永久放棄」的僵化。
 OWNED = 'owned'
 READY = 'ready'
-ABSENT = 'absent'
+VERSION_UNAVAILABLE = 'version_unavailable'  # 書在 z-lib 但無對應版次 → 待重查（recheck_after 到期回工作母體）
 REVIEW = 'review'          # crawl agent 信心不足 → 待架構師人工裁決，不自動重試（見模組 docstring）
 UNRESOLVED = 'unresolved'
-STATUSES = (OWNED, READY, ABSENT, REVIEW, UNRESOLVED)
+NOT_FOUND = 'not_found'    # z-lib 真無此書/解答 → 永不再查（含 legacy {absent:true} 無 status 者）
+STATUSES = (OWNED, READY, VERSION_UNAVAILABLE, REVIEW, UNRESOLVED, NOT_FOUND)
+
+# 公開層（reader 收錄表 / pool_counts）只認舊五態字串，新內部六態經此摺疊 → 前端零改、行為等價；
+# UI 細分（version_unavailable 顯「可重查」）留到下游 surface 同步那階段。
+PUBLIC_ABSENT = 'absent'  # 對外「無法收錄」字串（內部 NOT_FOUND 的公開名）
+
+
+def _public_status(s: str) -> str:
+    """內部六態 → reader 收錄表公開字串：not_found→absent（無法收錄）、
+    version_unavailable→unresolved（待收錄，可重查；UI 細分留下游階段），其餘同名。"""
+    if s == NOT_FOUND:
+        return PUBLIC_ABSENT
+    if s == VERSION_UNAVAILABLE:
+        return UNRESOLVED
+    return s
+
+
+def _recheck_due(recheck_after: str | None, now: datetime | None = None) -> bool:
+    """version_unavailable 的 recheck_after 是否到期（到期→回工作母體重查）。
+    壞/缺時戳 → 保守回 False（維持 version_unavailable、不空轉）。"""
+    if not recheck_after:
+        return False
+    now = now or datetime.now(timezone.utc)
+    try:
+        ra = datetime.fromisoformat(recheck_after)
+    except (ValueError, TypeError):
+        return False
+    if ra.tzinfo is None:
+        ra = ra.replace(tzinfo=timezone.utc)
+    return now >= ra
 
 
 # ── 載入 SoT ──────────────────────────────────────────────────────────────
@@ -141,7 +179,14 @@ def have_slugs() -> set:
 
 
 def load_resolution() -> dict:
-    """resolver 寫的解析 sidecar：{slug: {id,hash,title,at} | {absent:true,at,note} | {review:true,...}}。"""
+    """resolver 寫的解析 sidecar（連結+狀態，高頻 enrich、gitignore）。顯式 `status` 欄為主，
+    向後相容 legacy 旗標（無 status 的舊 entry）。entry 形態：
+      {status:'resolved', id,hash,title,at}            已確認 z-lib 連結（READY）
+      {status:'version_unavailable', recheck_after,at}  書在但無對的版、可重查
+      {status:'not_found', at}                          z-lib 真無 → 永不再查
+      {status:'review', note,at}                        歧義 → 架構師裁決
+      legacy（無 status）：{id,hash} / {absent:true} / {review:true} 由 status_of 向後相容判讀。
+    版本判斷（edition/sol_alignment/evidence）不在此——在 git 追蹤的 editions/<slug>.json（見 editions.py）。"""
     return jsonio.read_json(RESOLUTION, {}) or {}
 
 
@@ -159,15 +204,22 @@ def save_resolution(updates: dict) -> dict:
         return cur
 
 
-def status_of(slug: str, have: set, resolution: dict) -> str:
+def status_of(slug: str, have: set, resolution: dict, now: datetime | None = None) -> str:
+    """衍生六態。認顯式 `status` 欄為主，向後相容 legacy 旗標（無 status 的舊 entry）。
+    version_unavailable 的 recheck_after 到期 → 回 UNRESOLVED（自動回工作母體重查）。"""
     if slug in have:
         return OWNED
     r = resolution.get(slug) or {}
-    if r.get('absent'):
-        return ABSENT
-    if r.get('review'):
+    st = r.get('status')
+    if st == NOT_FOUND or (r.get('absent') and not st):
+        return NOT_FOUND       # 永久查無（顯式 not_found 或 legacy {absent:true}）：絕不回工作母體
+    if st == VERSION_UNAVAILABLE:
+        # 這次沒對的版（可重查）：recheck_after 到期 → 回 UNRESOLVED 重查；未到 → 暫不排
+        # （既不算工作母體 State 1、公開層也歸「待收錄」而非「無法收錄」）。
+        return UNRESOLVED if _recheck_due(r.get('recheck_after'), now) else VERSION_UNAVAILABLE
+    if st == REVIEW or r.get('review'):
         return REVIEW          # 待架構師裁決：絕不落 UNRESOLVED（否則回 crawl agent 工作母體被重派）
-    if r.get('id') and r.get('hash'):
+    if st == 'resolved' or (r.get('id') and r.get('hash')):
         # provenance gate：只有現役（agent-judged）演算法解出的才算 READY。舊確定性 resolver 的
         # legacy entry（無 by 戳記、~9% 假陽性）→ 視為**未解析**，回 unresolved_targets 交 agent 重解、
         # 且永不進 select_next 下載候選（杜絕 stale 誤配書被 drain 下載）。換演算法時 stale cache 經此
@@ -254,7 +306,9 @@ def pool_counts(files: list[dict] | None = None, have: set | None = None,
     pr = progress(files, have, resolution)
     o = pr['overall']
     return {'confirmed': o[READY], 'ready': o[READY],
-            'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED], 'absent': o[ABSENT]}
+            'unresolved': o[UNRESOLVED], 'review': o[REVIEW], 'owned': o[OWNED],
+            'absent': o[PUBLIC_ABSENT],  # 向後相容（下游 devctl/dev 讀此鍵；= not_found）
+            'not_found': o[NOT_FOUND], 'version_unavailable': o[VERSION_UNAVAILABLE]}
 
 
 def progress(files: list[dict] | None = None, have: set | None = None,
@@ -268,6 +322,7 @@ def progress(files: list[dict] | None = None, have: set | None = None,
             c[r['status']] += 1
         c['total'] = len(rs)
         c['main'] = sum(1 for r in rs if r['kind'] == 'main')
+        c[PUBLIC_ABSENT] = c[NOT_FOUND]  # 向後相容公開桶（=無法收錄）；version_unavailable 另計、屬待收錄
         return c
 
     by_field: dict[str, list] = {}
@@ -280,9 +335,10 @@ def progress(files: list[dict] | None = None, have: set | None = None,
 def catalog(files: list[dict] | None = None, have: set | None = None,
             resolution: dict | None = None) -> dict:
     """UI 收錄表結構：field → sublist → 主書（status + 解答本 sol_status）+ 各層統計。
-    build 烤成 data/catalog.json 供 reader library 渲染收錄表；status 對應 UI 三態：
-    owned/ready→已收錄或排隊中、absent→無法收錄、review/unresolved→待收錄（公開 UI 不分
-    待裁/待解析，皆「待收錄」；review 的架構師待裁細節只在 /dev 面板顯示）。"""
+    build 烤成 data/catalog.json 供 reader library 渲染收錄表。status 經 _public_status 摺疊成 UI 三態：
+    owned/ready→已收錄或排隊中、absent（含內部 not_found）→無法收錄、review/unresolved（含內部
+    version_unavailable 可重查）→待收錄（公開 UI 不分待裁/待解析/可重查，皆「待收錄」；細節只在
+    /dev 面板顯示）。前端只見舊五態字串 → reader 零改。"""
     files = load_files() if files is None else files
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
@@ -295,11 +351,11 @@ def catalog(files: list[dict] | None = None, have: set | None = None,
             for b in (sl.get('books') or []):
                 slug = b.get('slug', '')
                 e = {'slug': slug, 'title': b.get('title', ''), 'author': b.get('author', ''),
-                     'status': status_of(slug, have, resolution)}
+                     'status': _public_status(status_of(slug, have, resolution))}
                 if b.get('edition_pref'):
                     e['edition_pref'] = b['edition_pref']
                 if b.get('solution', True):
-                    e['sol_status'] = status_of(f'{slug}{SOL_SUFFIX}', have, resolution)
+                    e['sol_status'] = _public_status(status_of(f'{slug}{SOL_SUFFIX}', have, resolution))
                 books.append(e)
             subs.append({'name': sl.get('name', ''), 'books': books})
         fields.append({'field': f.get('field', ''), 'field_id': f.get('field_id', ''),
@@ -388,10 +444,11 @@ def main() -> int:
         pr = progress()
         o = pr['overall']
         print(f'整體：{o[OWNED]}/{o["total"]} 收錄 · ready {o[READY]} · '
-              f'absent {o[ABSENT]} · review {o[REVIEW]} · unresolved {o[UNRESOLVED]}（主書 {o["main"]}）')
+              f'not_found {o[NOT_FOUND]} · recheck {o[VERSION_UNAVAILABLE]} · '
+              f'review {o[REVIEW]} · unresolved {o[UNRESOLVED]}（主書 {o["main"]}）')
         for fld, c in pr['by_field'].items():
             print(f'  {fld:18} {c[OWNED]:>3}/{c["total"]:<3} 收錄  '
-                  f'(ready {c[READY]} · unresolved {c[UNRESOLVED]} · absent {c[ABSENT]})')
+                  f'(ready {c[READY]} · unresolved {c[UNRESOLVED]} · not_found {c[NOT_FOUND]})')
         return 0
     if args.cmd == 'next':
         for b in select_next(args.n):
