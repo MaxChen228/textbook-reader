@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -196,9 +197,14 @@ def _rewrite_catalogs(cat: dict) -> dict:
 
 
 def dump(path: Path, data) -> None:
+    """原子寫：同目錄 tmp（帶 pid 避免並行烤者互踩）寫完 os.replace 到正檔。
+    非原子寫一旦 build 被殺（launchd walltime/SIGKILL）會留半截 book.json——nginx 直讀
+    抓到半截 JSON、storage_gc._deployed 又據此誤判可刪。原子化同時封掉這兩個風險。"""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')),
-                    encoding='utf-8')
+    tmp = path.with_name(f'{path.name}.tmp{os.getpid()}')
+    tmp.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')),
+                   encoding='utf-8')
+    os.replace(tmp, path)
 
 
 def bake_book(slug: str, has_zh: bool) -> None:
