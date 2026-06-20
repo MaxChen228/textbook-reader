@@ -67,6 +67,30 @@ uv run python -m book_pipeline.resolve commit <slug> --status review \
 
 **resolved 後務必補 `editions set`**——版本判斷是你的核心產出，缺了下游無從對齊解答題號。
 
+## 解答本（_sol）：版次要對齊母書（題號防護）
+
+解答本的題號**綁母書版次**——11th 的解答配 10th 的母書，題號全錯位、答非所問。所以查解答本（slug 結尾 `_sol`）時，除了找對的解答本，還要**親判它與母書確認的版次是否同版**，把結論寫進 editions：
+
+```bash
+# resolve target <sol_slug> 會回母書身份（of / main_status / main_owned）。先看母書已查的版次：
+uv run python -m book_pipeline.editions show <main_slug>     # 母書 version.label（書單管理查過的話）
+
+# A. 找到與母書同版的解答本 → resolved（連結）+ editions 記對齊
+uv run python -m book_pipeline.resolve commit <sol_slug> --id <id> --hash <hash> \
+    --title "<候選>" --by booklist-manager
+uv run python -m book_pipeline.editions set <sol_slug> --label "11th" --confidence high \
+    --sol-aligned --parent-version "11th" --sol-version "11th" \
+    --basis "解答本書名標 11th、與母書 11th 同版" --by booklist-manager
+
+# B. 只找得到別版解答（母書版次的解答查無）→ version_unavailable（可重查），別硬塞別版
+uv run python -m book_pipeline.resolve commit <sol_slug> --status version_unavailable \
+    --recheck-after 2026-09-20T00:00:00+00:00 --note "只有 10th 解答、母書 11th" --by booklist-manager
+uv run python -m book_pipeline.editions set <sol_slug> --no-sol-aligned \
+    --parent-version "11th" --sol-version "10th" --basis "只有別版解答" --by booklist-manager
+```
+
+**為何認真寫 `sol_alignment`**：下游 merge 引擎會讀它——你親判 `--no-sol-aligned` 時引擎**自動擋下 merge**（防題號錯位污染母書）、改開申訴給架構師。你不判（留空）則引擎放行（fail-open）。**寧可 `--no-sol-aligned` 擋住，也別讓錯版解答靜默 merge**。母書版次還沒查（editions show 為空）時，先查母書定版、或先標 version_unavailable 待母書定版後再對齊。
+
 ## 判準速記
 
 | 多源查證結果 | 判決 |

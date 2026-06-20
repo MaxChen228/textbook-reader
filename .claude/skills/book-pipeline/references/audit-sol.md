@@ -50,6 +50,11 @@ type==text` 的章錨**——
   60min daemon 上限才放棄）。scout 標 ⚠ 即足以下 _pending 決定，仍想確認就跑一次 Step 4 dry-run，
   看到大量章 `0/N 全空` 即坐實。
 
+**版本對齊閘（入口已判時自動生效）**：若書單管理 agent 在入口已親判此解答本與母書版次不對齊
+（`editions/<sol>.json` 的 `sol_alignment.aligned=False`），正式 merge（Step 7）會被引擎**自動擋下
+（rc=3）並開 `edition-mismatch` proposal**——這是預期的題號錯位防護，**你直接收斂、不要 iterate
+regex**（regex 救不了版次錯配）。`editions show <sol>` 可先確認；未判（留空）則閘放行（fail-open）。
+
 ### Step 1 — 讀主書 num 格式（scout 已附概況；要細節才手跑）
 ```python
 import json, glob

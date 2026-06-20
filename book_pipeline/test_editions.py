@@ -97,10 +97,33 @@ def test_cmd_set_and_merge():
     print('✓ editions CLI：cmd_set version merge + evidence/source 真 append（多次查證不丟前次）+ 自動戳')
 
 
+def test_cmd_set_sol_alignment():
+    """解答本版本對齊（sol_alignment）寫入 + 子 dict merge（aligned 改判不丟 parent/sol_version）。"""
+    import argparse
+    _isolate()
+    ns = argparse.Namespace(slug='halliday_sol', label=None, year=None, publisher=None, isbn=None,
+                            matches_pref=None, confidence='high', sol_aligned=False,
+                            parent_version='11th', sol_version='10th', basis='LLM 親判題號錯位',
+                            evidence=None, source=None, by='booklist-manager')
+    ed.cmd_set(ns)
+    e = ed.load('halliday_sol')
+    assert e['sol_alignment'] == {'aligned': False, 'parent_version': '11th',
+                                  'sol_version': '10th', 'basis': 'LLM 親判題號錯位'}
+    ns2 = argparse.Namespace(slug='halliday_sol', label=None, year=None, publisher=None, isbn=None,
+                             matches_pref=None, confidence=None, sol_aligned=True,
+                             parent_version=None, sol_version=None, basis=None,
+                             evidence=None, source=None, by='booklist-manager')
+    ed.cmd_set(ns2)                                                # 找到對版後改判 aligned=True
+    e2 = ed.load('halliday_sol')
+    assert e2['sol_alignment']['aligned'] is True and e2['sol_alignment']['parent_version'] == '11th'
+    print('✓ editions CLI：sol_alignment 寫入 + 子 dict merge（aligned 改判不丟 parent/sol_version）')
+
+
 if __name__ == '__main__':
     test_save_and_load()
     test_save_merges()
     test_ensure_idempotent()
     test_load_all()
     test_cmd_set_and_merge()
+    test_cmd_set_sol_alignment()
     print('\n全部通過 ✅')

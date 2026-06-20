@@ -117,6 +117,17 @@ def cmd_set(args) -> int:
         fields['version'] = merged
     if args.confidence:
         fields['confidence'] = args.confidence
+    sa = {}                                       # 解答本與母書版次對齊（LLM 親判；僅 <slug>_sol 用）
+    if getattr(args, 'sol_aligned', None) is not None:
+        sa['aligned'] = args.sol_aligned
+    for k in ('parent_version', 'sol_version', 'basis'):
+        v = getattr(args, k, None)
+        if v is not None:
+            sa[k] = v
+    if sa:
+        merged = dict(cur.get('sol_alignment') or {})
+        merged.update(sa)                         # sol_alignment 子 dict 也 merge（保留未給的舊欄）
+        fields['sol_alignment'] = merged
     if args.evidence:
         fields['evidence'] = (cur.get('evidence') or []) + args.evidence              # 真 append（不蓋前次）
     if args.source:
@@ -145,6 +156,11 @@ def main() -> int:
     p.add_argument('--matches-pref', dest='matches_pref', action=argparse.BooleanOptionalAction,
                    default=None, help='LLM 判定此版是否符合 booklists.edition_pref')
     p.add_argument('--confidence', choices=('high', 'medium', 'low'))
+    p.add_argument('--sol-aligned', dest='sol_aligned', action=argparse.BooleanOptionalAction,
+                   default=None, help='（解答本）LLM 親判解答本版次是否對齊母書')
+    p.add_argument('--parent-version', dest='parent_version', help='（解答本）母書版次')
+    p.add_argument('--sol-version', dest='sol_version', help='（解答本）解答本版次')
+    p.add_argument('--basis', help='（解答本）對齊判斷依據')
     p.add_argument('--evidence', action='append', help='共識理由（可重複；重量級全文另落 .verify_log/）')
     p.add_argument('--source', action='append', help='查證來源（可重複，自由文字）')
     p.add_argument('--by', default='booklist-manager')

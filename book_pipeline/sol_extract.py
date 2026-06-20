@@ -28,6 +28,7 @@ from pathlib import Path
 
 import yaml
 
+from . import editions
 from . import parser
 
 DATA_DIR = Path('book_pipeline/mineru_data')
@@ -161,7 +162,42 @@ def merge_into_main(main_slug: str, sol_data: dict[int, dict[str, list]],
     return stats
 
 
-def main(main_slug: str, sol_slug: str, dry_run: bool = False) -> None:
+def edition_block_reason(sol_slug: str) -> str | None:
+    """merge 前版本防護：讀 sol 的 editions.sol_alignment（書單管理 skill 由 LLM 親判寫入）。
+    aligned 明確 False → 回拒絕原因（題號恐錯位）；對齊或未判（None/缺檔）→ None（fail-open 放行）。
+    **不自己比對版本字串**（鐵律：版本對齊由 LLM 親判，本函式只讀其結論、不重判）。"""
+    align = (editions.load(sol_slug) or {}).get('sol_alignment') or {}
+    if align.get('aligned') is False:
+        pv = align.get('parent_version') or '?'
+        sv = align.get('sol_version') or '?'
+        return f'解答本版次({sv}) ≠ 母書版次({pv})，題號恐錯位（LLM 親判不對齊）'
+    return None
+
+
+def _open_edition_mismatch_proposal(main_slug: str, sol_slug: str, reason: str) -> None:
+    """版本不對齊 → 開 sol/edition-mismatch proposal（架構師換源/重解）。best-effort、不影響擋 merge。"""
+    try:
+        from . import proposals
+        pid = proposals.propose(
+            domain='sol', type_='edition-mismatch', source='sol_extract', slug=sol_slug,
+            title=f'{sol_slug} 解答本版次與母書 {main_slug} 不對齊',
+            evidence=reason,
+            proposal='換源找對應母書版次的解答本，或調 booklists edition_pref 後重解析母子書',
+            risk='不修則該書解答題號錯位、答非所問')
+        print(f'  → 已開 proposal {pid}（sol/edition-mismatch）')
+    except Exception as e:
+        print(f'  （proposal 開立失敗、不影響擋 merge：{e}）')
+
+
+def main(main_slug: str, sol_slug: str, dry_run: bool = False) -> int:
+    # 版本對齊閘（純防護、淨安全）：LLM 親判母子版次不對齊 → 拒 merge、開 proposal。dry_run（校準
+    # 配對率）不擋。fail-open：未判/對齊一律放行（不擋好書）。
+    reason = edition_block_reason(sol_slug)
+    if reason and not dry_run:
+        print(f'[sol] ⚠ 版本對齊閘擋下 merge：{reason}')
+        _open_edition_mismatch_proposal(main_slug, sol_slug, reason)
+        print('  → 不 merge（題號錯位防護；交架構師換源/重解後再跑）')
+        return 3
     rules = load_sol_rules(sol_slug)
     cfg = 'sol_rules.yaml' if (DATA_DIR / sol_slug / 'sol_rules.yaml').exists() else '預設(Griffiths)'
     print(f'[sol] extract {sol_slug}  config={cfg}  multi_per_block={rules["multi_per_block"]}')
@@ -181,6 +217,7 @@ def main(main_slug: str, sol_slug: str, dry_run: bool = False) -> None:
         for ch, hit, tot, un in stats['per_ch']:
             mark = '' if hit else '  ⚠ 全空'
             print(f'    ch{ch:02d}: {hit}/{tot}{mark}  un={un}')
+    return 0
 
 
 if __name__ == '__main__':
@@ -190,4 +227,4 @@ if __name__ == '__main__':
     ap.add_argument('--dry-run', action='store_true',
                     help='不寫主書，只印 per-chapter 配對率（校準 sol_rules.yaml 用）')
     a = ap.parse_args()
-    main(a.main_slug, a.sol_slug, dry_run=a.dry_run)
+    raise SystemExit(main(a.main_slug, a.sol_slug, dry_run=a.dry_run))
