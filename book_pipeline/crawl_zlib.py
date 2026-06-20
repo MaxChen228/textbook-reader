@@ -46,6 +46,7 @@ CRAWL_MANIFEST = os.path.join(BP, 'crawl_manifest.json')
 ENV_PATH = os.path.expanduser('~/.secrets/zlib.env')
 SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')  # legacy 帳號0 快取
 ACCOUNTS_PATH = os.path.expanduser('~/.secrets/zlib_accounts.json')
+ACCOUNT_STATE_PATH = os.path.join(BP, 'zlib_account_state.json')  # 停用態（流量控制，per-machine runtime，不入 git）
 UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
@@ -88,6 +89,40 @@ def _accounts() -> list[dict]:
 
 def n_accounts() -> int:
     return len(_accounts())
+
+
+# ── 停用態（流量控制）─────────────────────────────────────────────────────
+# disable N 帳號 → 該帳號 remaining 歸 0、買書員自然跳過 → 當日上限 10×(N_total−N_disabled)/日。
+# 鍵用 email（穩定、面板可讀）；狀態檔 per-machine 不入 git（比照憑證/runtime 態）。
+
+def disabled_emails() -> set:
+    """停用帳號 email 集。狀態檔 zlib_account_state.json {"disabled":[email,...]}；
+    不存在/壞檔 → 空集（fail-open，絕不因狀態檔壞而誤擋好帳號）。"""
+    try:
+        d = json.load(open(ACCOUNT_STATE_PATH))
+        return set(d.get('disabled') or [])
+    except Exception:
+        return set()
+
+
+def _write_disabled(emails: set) -> None:
+    """原子寫停用集（email 排序穩定 diff）。"""
+    tmp = f'{ACCOUNT_STATE_PATH}.tmp{os.getpid()}'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump({'disabled': sorted(emails)}, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, ACCOUNT_STATE_PATH)
+
+
+def _resolve_email(token: str) -> str | None:
+    """把 'acctN' 或 email 解析成 email（停用集鍵）。須在帳號清單內才認（防 typo 寫入無效 email）；
+    查不到回 None。"""
+    accts = _accounts()
+    m = re.fullmatch(r'acct(\d+)', token or '')
+    if m:
+        i = int(m.group(1))
+        return accts[i].get('email') if 0 <= i < len(accts) else None
+    emails = {a.get('email') for a in accts}
+    return token if token in emails else None
 
 
 def _session_path(account: int) -> str:
@@ -333,16 +368,21 @@ def _annotate(b: dict, known_md5: set) -> dict:
 # ── CLI ───────────────────────────────────────────────────────────────────
 
 def account_remaining_live(account: int) -> dict:
-    """即時查單帳號額度。回 {account,email,used,limit,remaining,premium}；登入失敗 remaining=None。"""
+    """即時查單帳號額度。回 {account,email,disabled,used,limit,remaining,premium}；登入失敗 remaining=None。
+    停用帳號（email ∈ disabled）短路回 remaining=0、limit=0、**不 login**（流量控制＋省查詢時間）。"""
+    email = _accounts()[account].get('email') if account < n_accounts() else None
+    if email in disabled_emails():
+        return {'account': account, 'email': email, 'disabled': True,
+                'used': None, 'limit': 0, 'remaining': 0, 'premium': False}
     try:
         u = Client(account).profile()
         used, lim = u.get('downloads_today'), u.get('downloads_limit')
         rem = (lim - used) if (lim is not None and used is not None) else None
-        return {'account': account, 'email': _accounts()[account].get('email'),
+        return {'account': account, 'email': email, 'disabled': False,
                 'used': used, 'limit': lim, 'remaining': rem,
                 'premium': bool(u.get('isPremium'))}
     except SystemExit as e:
-        return {'account': account, 'email': _accounts()[account].get('email'),
+        return {'account': account, 'email': email, 'disabled': False,
                 'used': None, 'limit': None, 'remaining': None, 'error': str(e)}
 
 
@@ -359,8 +399,9 @@ def all_remaining() -> list[dict]:
 
 def pick_account() -> int | None:
     """挑一個今日仍有額度的帳號（remaining 最多者）做輪換。全耗盡回 None。
-    remaining 查不到（登入失敗）的帳號跳過、不誤選。"""
-    cand = [a for a in all_remaining() if (a.get('remaining') or 0) > 0]
+    停用帳號（disabled）remaining 已 0 故本就不選，加顯式護欄；remaining 查不到（登入失敗）跳過、不誤選。"""
+    cand = [a for a in all_remaining()
+            if not a.get('disabled') and (a.get('remaining') or 0) > 0]
     if not cand:
         return None
     return max(cand, key=lambda a: a['remaining'])['account']
@@ -369,9 +410,63 @@ def pick_account() -> int | None:
 def cmd_limits(args) -> int:
     accts = all_remaining()
     total = sum(a['remaining'] for a in accts if a.get('remaining') is not None)
-    # accounts=各帳號餘額（daemon 並行 crawl 依此預先指派 account）；total/remaining=總額（10×N 帳號/日）。
-    out = {'accounts': accts, 'total_remaining': total, 'remaining': total}
+    # 停用帳號 limit=0 故 total_limit 自動排除 → 停 4 帳號後 total_limit=60（面板當日上限即時反映）。
+    total_limit = sum(a['limit'] for a in accts if a.get('limit') is not None)
+    # accounts=各帳號餘額（daemon 並行 crawl 依此預先指派 account）；total/remaining=今日總剩；total_limit=當日上限。
+    out = {'accounts': accts, 'total_remaining': total, 'remaining': total,
+           'total_limit': total_limit}
     print(json.dumps(out, ensure_ascii=False))
+    return 0
+
+
+def _toggle(tokens: list[str], disable: bool) -> int:
+    """停用/啟用一批帳號（token = email 或 acctN）。原子改寫狀態檔並失效 zlib 快取。
+    任一 token 無法解析 → 全不寫、rc=2（all-or-nothing，避免半套）。"""
+    resolved, bad = [], []
+    for t in tokens:
+        em = _resolve_email(t)
+        (resolved if em else bad).append(em or t)
+    if bad:
+        print(f'✗ 無法解析（須 email 或 acctN，且在帳號清單內）：{" ".join(bad)}', file=sys.stderr)
+        return 2
+    cur = disabled_emails()
+    for em in resolved:
+        cur.add(em) if disable else cur.discard(em)
+    _write_disabled(cur)
+    # 停用態改動即失效 zlib 快取 → 下次 snapshot/gate 立即反映新額度（免等 300s TTL 滯後）。
+    try:
+        from book_pipeline import devctl
+        devctl.invalidate_zlib_cache()
+    except Exception:
+        pass
+    cap = 10 * (n_accounts() - len(cur))
+    print(f'✓ {"停用" if disable else "啟用"} {len(tokens)} 帳號；'
+          f'現停用 {len(cur)}/{n_accounts()} → 當日上限 {cap}/日')
+    return 0
+
+
+def cmd_disable(args) -> int:
+    return _toggle(args.tokens, disable=True)
+
+
+def cmd_enable(args) -> int:
+    return _toggle(args.tokens, disable=False)
+
+
+def cmd_accounts(args) -> int:
+    dis = disabled_emails()
+    accts = _accounts()
+    rows = [{'account': i, 'email': a.get('email'), 'disabled': a.get('email') in dis}
+            for i, a in enumerate(accts)]
+    cap = 10 * (len(accts) - len(dis))
+    if getattr(args, 'json', False):
+        print(json.dumps({'accounts': rows, 'disabled': sorted(dis), 'daily_cap': cap},
+                         ensure_ascii=False))
+        return 0
+    print(f'帳號 {len(accts)}（停用 {len(dis)} → 當日上限 {cap}/日）：')
+    for r in rows:
+        tag = '⛔停用' if r['disabled'] else '✓啟用'
+        print(f"  acct{r['account']:<2} {tag}  {r['email']}")
     return 0
 
 
@@ -497,6 +592,18 @@ def main() -> int:
     sub = ap.add_subparsers(dest='cmd', required=True)
 
     sub.add_parser('limits').set_defaults(func=cmd_limits)
+
+    p_dis = sub.add_parser('disable', help='停用帳號（流量控制；email 或 acctN）')
+    p_dis.add_argument('tokens', nargs='+', metavar='email|acctN')
+    p_dis.set_defaults(func=cmd_disable)
+
+    p_en = sub.add_parser('enable', help='啟用帳號（解除停用）')
+    p_en.add_argument('tokens', nargs='+', metavar='email|acctN')
+    p_en.set_defaults(func=cmd_enable)
+
+    p_acc = sub.add_parser('accounts', help='列各帳號啟用/停用態 + 當日上限')
+    p_acc.add_argument('--json', action='store_true')
+    p_acc.set_defaults(func=cmd_accounts)
 
     p_inv = sub.add_parser('inventory')
     p_inv.add_argument('--json', action='store_true')

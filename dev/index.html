@@ -252,6 +252,9 @@
     .dev-bar { flex: 1; height: 8px; background: var(--border-l); border-radius: 4px; overflow: hidden; }
     .dev-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width .4s ease; }
     .dev-bar-row .num { font-family: var(--mono); font-size: 11px; color: var(--sub); width: 96px; text-align: right; flex-shrink: 0; }
+    /* zlib 帳號停用態（流量控制）：灰化整列、額度條置空、num 標「停用」 */
+    .dev-bar-row.zlib-off { opacity: .42; }
+    .dev-bar-row.zlib-off .num { color: var(--sub); }
     .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0; font-family: var(--mono);
       font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
     .dev-err .src { color: var(--sub); margin-right: 8px; }
@@ -1339,9 +1342,9 @@
     setHtml('zlib', (z.accounts || []).map(a => {
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
-      const numTxt = rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`
-      return `<div class="dev-bar-row"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
-        <span class="dev-bar"><span style="width:${pct}%"></span></span><span class="num">${numTxt}</span></div>`
+      const numTxt = a.disabled ? '停用' : (rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`)
+      return `<div class="dev-bar-row${a.disabled ? ' zlib-off' : ''}"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
+        <span class="dev-bar"><span style="width:${a.disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span></div>`
     }).join('') || '<div class="dev-label">查詢中…</div>')
 
     const bl = d.booklists || {}, blo = bl.overall || {}
