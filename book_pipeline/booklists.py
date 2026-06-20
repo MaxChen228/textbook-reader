@@ -17,7 +17,8 @@
   否則會隨「收到沒」漂移。slug 全域唯一、即 pipeline 主鍵（owned 書用既有 slug、逐字對齊 inventory）。
 
 解答本（題本）不手列：凡主書 `solution != false`（預設 true）即**系統衍生**一個 `<slug>_sol` 目標，
-緊接其主書排序。其狀態同樣由 inventory + resolution 衍生（resolver 查無正版即標 absent → 永不再排，
+緊接其主書排序。其狀態同樣由 inventory + resolution 衍生（查證左移後由書單管理 skill 入口親查：
+z-lib 真無正版即標 not_found 永不再排、有書但無對應版次標 version_unavailable 可重查，
 殺掉舊系統「每 tick 重新確認 Peskin 沒解答」的空轉）。
 
 狀態六態（衍生，純 join inventory + resolution sidecar，無任何 runtime buffer。2026-06 查證左移把

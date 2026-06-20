@@ -17,8 +17,11 @@ editions/<slug>.json 並**入 git**（比照 catalog_overrides/：daemon LLM 寫
 """
 from __future__ import annotations
 
+import argparse
 import glob
+import json
 import os
+from datetime import datetime, timezone
 
 from book_pipeline import jsonio
 
@@ -93,3 +96,67 @@ def ensure(slug: str, defaults: dict | None = None) -> dict:
         if changed:
             jsonio.atomic_write_json(p, cur, indent=1)
         return cur
+
+
+# ── CLI（書單管理 skill 落盤版本判斷用；版本/解答對齊一律 LLM 親查後寫入，本 CLI 不做判斷）────────
+def cmd_set(args) -> int:
+    """寫單本版本結論。version 子欄（label/year/publisher/isbn/matches_pref）merge 既有（不蓋未給者）。
+    evidence/source 為 append 清單。by 預設 booklist-manager、checked_at 自動戳。"""
+    ver = {}
+    for k in ('label', 'year', 'publisher', 'isbn'):
+        v = getattr(args, k, None)
+        if v is not None:
+            ver[k] = v
+    if args.matches_pref is not None:
+        ver['matches_pref'] = args.matches_pref
+    fields = {'by': args.by, 'checked_at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
+    if ver:
+        cur = load(args.slug) or {}
+        merged = dict(cur.get('version') or {})
+        merged.update(ver)                       # version 子 dict 也 merge（保留未給的舊欄）
+        fields['version'] = merged
+    if args.confidence:
+        fields['confidence'] = args.confidence
+    if args.evidence:
+        fields['evidence'] = args.evidence
+    if args.source:
+        fields['sources'] = [{'note': s} for s in args.source]
+    e = save(args.slug, fields)
+    print(json.dumps({'ok': True, 'slug': args.slug, 'edition': e}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_show(args) -> int:
+    e = load(args.slug)
+    print(json.dumps({'slug': args.slug, 'edition': e}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description='editions：LLM 親查版本結論的讀寫（書單管理 skill 用）')
+    sub = ap.add_subparsers(dest='cmd', required=True)
+
+    p = sub.add_parser('set', help='寫版本結論（version 子欄 merge、evidence/source append）')
+    p.add_argument('slug')
+    p.add_argument('--label', help="版次字串原樣（'3rd'/'Revised'/'10th Anniversary'…，不正規化）")
+    p.add_argument('--year', type=int)
+    p.add_argument('--publisher')
+    p.add_argument('--isbn')
+    p.add_argument('--matches-pref', dest='matches_pref', action=argparse.BooleanOptionalAction,
+                   default=None, help='LLM 判定此版是否符合 booklists.edition_pref')
+    p.add_argument('--confidence', choices=('high', 'medium', 'low'))
+    p.add_argument('--evidence', action='append', help='共識理由（可重複；重量級全文另落 .verify_log/）')
+    p.add_argument('--source', action='append', help='查證來源（可重複，自由文字）')
+    p.add_argument('--by', default='booklist-manager')
+    p.set_defaults(fn=cmd_set)
+
+    p = sub.add_parser('show', help='看單本版本結論')
+    p.add_argument('slug')
+    p.set_defaults(fn=cmd_show)
+
+    args = ap.parse_args()
+    return args.fn(args)
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

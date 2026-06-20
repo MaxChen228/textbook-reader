@@ -63,9 +63,35 @@ def test_load_all():
     print('✓ editions：load_all 全表')
 
 
+def test_cmd_set_and_merge():
+    """CLI cmd_set：組裝 version + append evidence/source + 自動戳 + version 子 dict merge。"""
+    import argparse
+    _isolate()
+    ns = argparse.Namespace(slug='griffiths_qm', label='3rd', year=2018, publisher='Cambridge',
+                            isbn='9781107189638', matches_pref=True, confidence='high',
+                            evidence=['multi-source consensus'], source=['zlib_detail:x/y'],
+                            by='booklist-manager')
+    ed.cmd_set(ns)
+    e = ed.load('griffiths_qm')
+    assert e['version'] == {'label': '3rd', 'year': 2018, 'publisher': 'Cambridge',
+                            'isbn': '9781107189638', 'matches_pref': True}
+    assert e['confidence'] == 'high' and e['evidence'] == ['multi-source consensus']
+    assert e['sources'] == [{'note': 'zlib_detail:x/y'}] and e['by'] == 'booklist-manager' and e['checked_at']
+    # 第二次只給 confidence → version 子 dict 整組保留、confidence 更新
+    ns2 = argparse.Namespace(slug='griffiths_qm', label=None, year=None, publisher=None, isbn=None,
+                             matches_pref=None, confidence='medium', evidence=None, source=None,
+                             by='booklist-manager')
+    ed.cmd_set(ns2)
+    e2 = ed.load('griffiths_qm')
+    assert e2['version']['label'] == '3rd' and e2['version']['year'] == 2018  # 整組版本保留
+    assert e2['confidence'] == 'medium'                                       # confidence 更新
+    print('✓ editions CLI：cmd_set 組裝/append/自動戳 + version 子 dict merge（部分更新不丟舊欄）')
+
+
 if __name__ == '__main__':
     test_save_and_load()
     test_save_merges()
     test_ensure_idempotent()
     test_load_all()
+    test_cmd_set_and_merge()
     print('\n全部通過 ✅')

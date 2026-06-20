@@ -296,6 +296,7 @@ def cmd_commit(args) -> int:
         return _emit({'error': f'--status 須為 {valid} 之一（resolved 用 --id+--hash）'}) or 2
 
     now = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    by = getattr(args, 'by', None) or 'agent'   # provenance：書單管理 skill 傳 'booklist-manager'
     if resolved:
         if not (args.id and args.hash):
             return _emit({'error': 'resolved 須同時給 --id 與 --hash'}) or 2
@@ -308,12 +309,12 @@ def cmd_commit(args) -> int:
                           'block': qcres['block'], 'advisory': qcres['advisory']}) or 2
         entry = {'status': 'resolved', 'id': str(args.id), 'hash': str(args.hash),
                  'title': args.title or '', 'author': args.author or '', 'mb': args.mb,
-                 'by': 'agent', 'at': now}
+                 'by': by, 'at': now}
         entry.update(enrich_links(str(args.id), str(args.hash)))   # 補 href/cover（公開 book 頁 + 封面）
         if args.note:
             entry['note'] = args.note
     elif status:
-        entry = {'status': status, 'note': args.note or '', 'by': 'agent', 'at': now}
+        entry = {'status': status, 'note': args.note or '', 'by': by, 'at': now}
         if status == 'version_unavailable' and getattr(args, 'recheck_after', None):
             entry['recheck_after'] = args.recheck_after
     else:
@@ -401,6 +402,7 @@ def main() -> int:
     p.add_argument('--review', action='store_true', help='[legacy] = --status review')
     p.add_argument('--force', action='store_true', help='繞過書況閘（確認候選無誤時才用）')
     p.add_argument('--note', default=None)
+    p.add_argument('--by', default='agent', help="provenance 戳記（書單管理 skill 傳 'booklist-manager'）")
     p.set_defaults(fn=cmd_commit)
 
     p = sub.add_parser('auto', help='確定性快速路徑：只自動採用 exact 主書（其餘留 agent）')
