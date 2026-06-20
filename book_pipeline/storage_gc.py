@@ -14,8 +14,11 @@ data/<slug>/book.json 已烤出 ⇒ 該書全鏈完成、daemon 在 post-deploy 
 故 prune 對「已上站書的中間產物」與 daemon 並行零衝突。未上站的書一律不碰
 （可能正在 ingest，raw 解壓檔是 assemble 的真相來源）。
 
-冷藏目的地 = ARCHIVE_ROOT，預設本地暫代資料夾，HDD 插上後改一個 env 即切換：
-  export BOOK_STORAGE_ARCHIVE_ROOT=/Volumes/<你的HDD>/textbook-reader-cold
+冷藏目的地 = ARCHIVE_ROOT = felix 常駐外接卷（TOSHIBA EXT 2TB exFAT，掛 /Volumes/TOSHIBA EXT）。
+解析序 env > sidecar(.storage_gc.json) > 防禦兜底；正典在 sidecar.archive_root（已指該卷）。
+臨時凌駕（換機/驗證）：export BOOK_STORAGE_ARCHIVE_ROOT=/Volumes/<卷>/textbook-reader-cold
+※ felix 上由 launchd 拉起的 cmux tmux server 才有 FDA 能讀寫此卷；經 sshd/普通 shell 跑會
+  Operation not permitted（管家記憶 tmux-fda-cold-drive）。手動操作前用 `s` 進 cmux。
 
 用法：
   uv run python -m book_pipeline.storage_gc report            # 分層盤點（隨時可重跑）
@@ -27,9 +30,11 @@ data/<slug>/book.json 已烤出 ⇒ 該書全鏈完成、daemon 在 post-deploy 
   uv run python -m book_pipeline.storage_gc restore <slug>    # 從冷藏拉回某書 raw 並解壓
   uv run python -m book_pipeline.storage_gc restore <name> --kind raw_pdfs  # 拉回源 PDF
   uv run python -m book_pipeline.storage_gc reassemble <slug> # 從 raw 重生 unified（自包含）
-  uv run python -m book_pipeline.storage_gc migrate <new_root> # 冷藏整批搬新根（暫代→HDD）
+  uv run python -m book_pipeline.storage_gc migrate <new_root> # 冷藏整批搬新卷 + 更新 sidecar
 
-預設一律 dry-run；加 --apply 才真的動檔案。冷藏為 copy（原件留作 backup）。
+預設一律 dry-run；加 --apply 才真的動檔案。
+  archive = 事務式 move（copy→校驗邏輯大小→刪源，釋放工作碟空間）⇒ 冷藏卷即唯一副本／durable backup。
+  restore = copy（從冷藏拷回工作碟，冷藏端保留）。
 """
 from __future__ import annotations
 
@@ -86,14 +91,17 @@ def _in_flight() -> set:
 
 
 def _resolve_archive_root() -> str:
-    """冷藏目的地解析序：env > sidecar(.storage_gc.json) > 預設。
-    HDD 到貨只需改 sidecar 一行（archive_root），免改碼、免記得 source env。"""
+    """冷藏目的地解析序：env > sidecar(.storage_gc.json) > 防禦兜底。
+    正典 = sidecar.archive_root（已指 felix 常駐卷 /Volumes/TOSHIBA EXT/textbook-reader-cold）；
+    換卷只改 sidecar 一行，免改碼。env 供換機/驗證臨時凌駕。"""
     env = os.environ.get('BOOK_STORAGE_ARCHIVE_ROOT', '').strip()
     if env:
         return os.path.expanduser(env)
     root = (jsonio.read_json(SIDECAR, {}) or {}).get('archive_root')
     if root:
         return os.path.expanduser(root)
+    # 防禦兜底：sidecar 被刪/未設時才走到。落同開機碟、非外接卷 → archive 的 sentinel
+    # 閘(for_write)會擋下不搬入空殼；僅讓 report/dry-run 不致 crash，非正常路徑。
     return os.path.expanduser('~/cold-archive/textbook-reader')
 
 
@@ -455,9 +463,9 @@ def cmd_report(_args) -> None:
     row('  ', 'chunks/（切割 PDF）', chunks)
     print('  ' + '─' * 64)
     print(f'  ▸ 立刻可免費回收（🟡，已上站書）：約 {_human(raw_ext + chunks)}')
-    print(f'  ▸ HDD 到再搬冷藏（🔵）：約 {_human(raw_zip + rpdfs + quar)}')
+    print(f'  ▸ 可搬冷藏（🔵，felix HDD 已常駐）：約 {_human(raw_zip + rpdfs + quar)}')
     print(f'  冷藏目的地 ARCHIVE_ROOT = {ARCHIVE_ROOT}'
-          f'{"  ⚠尚未存在（HDD 未掛則為同碟暫代）" if not os.path.isdir(ARCHIVE_ROOT) else ""}')
+          f'{"  ⚠ 不存在——冷藏卷未掛載或路徑錯誤（archive 會被 sentinel 閘擋）" if not os.path.isdir(ARCHIVE_ROOT) else ""}')
 
     # 🔵 冷藏現況（讀 manifest）
     man = _load_manifest()
@@ -549,10 +557,11 @@ def cmd_archive(args) -> None:
           + (f'  · 範圍：{", ".join(only)}（僅 raw_zips）' if only else ''))
     print(f'  目的地 ARCHIVE_ROOT = {ARCHIVE_ROOT}')
     if not os.path.isdir(ARCHIVE_ROOT):
-        print('  ⚠ 目的地尚未存在（HDD 未掛）。--apply 會在同碟建暫代資料夾，'
-              '\n    此時搬移「不會」釋放工作碟空間，僅供測試機制；HDD 掛上改 sidecar 再搬。')
+        print('  ⚠ 目的地不存在——冷藏卷（felix 常駐 HDD）未掛載或 sidecar 路徑錯誤。'
+              '\n    --apply 會被 sentinel 閘擋下（曾 archive 過即拒，不搬進開機碟空殼）。'
+              '\n    先確認 /Volumes/TOSHIBA EXT 已掛、sidecar(.storage_gc.json) archive_root 正確。')
     elif same_disk:
-        print('  ⚠ 目的地與工作碟同一顆實體碟 → 搬移不釋放空間（暫代測試用）。')
+        print('  ⚠ 目的地與工作碟同一顆實體碟 → 搬移不釋放空間（恐冷藏卷未掛、落到開機碟）。')
     total = 0
     for key in ('raw_zips', 'raw_pdfs', 'quarantine'):
         paths = groups[key]
@@ -569,7 +578,7 @@ def cmd_archive(args) -> None:
     print('  ' + '─' * 64)
     print(f'  合計可冷藏：{_human(total)}')
     if not args.apply:
-        print('  → HDD 掛好、設好 sidecar(.storage_gc.json)/env 後加 --apply\n')
+        print('  → 確認冷藏卷已掛（/Volumes/TOSHIBA EXT）後加 --apply 執行搬移\n')
         return
     with _tick_lock():
         _ensure_sentinel(for_write=True)  # 掛載身分校驗：錯卷/空殼即拒，不搬進開機碟
@@ -627,7 +636,7 @@ def _cold_inventory() -> None:
     取代「要先知道 slug 才能 restore」——冷藏自帶可發現性。"""
     print(f'\n  🔵 冷藏現況 ARCHIVE_ROOT = {ARCHIVE_ROOT}')
     if not os.path.isdir(ARCHIVE_ROOT):
-        print('  （目的地尚未存在——HDD 未掛或未曾 archive）\n')
+        print('  （目的地不存在——冷藏卷未掛載 或 從未 archive 過）\n')
         return
     man = _load_manifest()
     for key, label in (('raw_zips', '📦 raw_zips（書 OCR 回包，可 reassemble）'),
@@ -652,8 +661,8 @@ def _cold_inventory() -> None:
 def _restore_raw_zips(slug: str, apply: bool) -> None:
     """拉回某書 raw zip 並**解壓**重建 raw/chunk_i/（reassemble 前提），連帶拉回
     _assembly.json（供 reassemble fallback）。mineru_ingest._chunk_done 認解壓資料夾
-    （含 *_content_list.json）非 zip，故拷回必解壓，否則重組裝看不到 chunk。冷藏為 copy
-    （非 move），原件留作 durable backup。"""
+    （含 *_content_list.json）非 zip，故拷回必解壓，否則重組裝看不到 chunk。restore 是 copy
+    （冷藏端保留）；archive 已 move 走源，故冷藏卷本身即唯一副本／durable backup。"""
     src = os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)
     dst = os.path.join(DATA, slug, 'raw')
     if not os.path.isdir(src):
@@ -716,7 +725,7 @@ def cmd_restore(args) -> None:
 
 def cmd_migrate(args) -> None:
     """把整個冷藏（manifest + sentinel + 各 kind）搬到新根 + 更新 sidecar archive_root。
-    解決「改 sidecar 一行後舊冷藏不自動跟遷、分散兩地」——暫代→HDD 一鍵收束。逐頂層項
+    解決「改 sidecar 一行後舊冷藏不自動跟遷、分散兩地」——換卷一鍵收束。逐頂層項
     事務式搬移（_safe_move：copy→驗→刪），任一失敗即停手不更新 sidecar，可對賬重跑。"""
     old = ARCHIVE_ROOT
     new = os.path.expanduser(args.new_root)
@@ -868,7 +877,7 @@ def main() -> None:
     rs.add_argument('--out', help='輸出 unified 目錄（預設書內 unified/；驗證可指 temp）')
     rs.add_argument('--apply', action='store_true')
     rs.set_defaults(func=cmd_reassemble)
-    mg = sub.add_parser('migrate', help='把冷藏整批搬到新根 + 更新 sidecar（暫代→HDD）')
+    mg = sub.add_parser('migrate', help='把冷藏整批搬到新卷根 + 更新 sidecar（換卷）')
     mg.add_argument('new_root', help='新冷藏根（如 /Volumes/<HDD>/textbook-reader-cold）')
     mg.add_argument('--apply', action='store_true')
     mg.set_defaults(func=cmd_migrate)
