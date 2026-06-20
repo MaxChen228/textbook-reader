@@ -1,0 +1,144 @@
+slug: grama_introduction_parallel_computing
+title: Introduction to Parallel Computing
+author: Ananth Grama; Anshul Gupta; George Karypis; Vipin Kumar
+edition: 2nd
+subject: Computer Science
+publisher: Addison Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 514
+bibliography_start_page: 519
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Parallel Computing
+    page_start: 11
+    page_end: 20
+    chapter_title_block_idx: 226
+    problems_block_idx: 304
+    next_chapter_block_idx: 313
+  - num: 2
+    title: Parallel Programming Platforms
+    page_start: 21
+    page_end: 79
+    chapter_title_block_idx: 313
+    problems_block_idx: 852
+    next_chapter_block_idx: 917
+  - num: 3
+    title: Principles of Parallel Algorithm Design
+    page_start: 80
+    page_end: 127
+    chapter_title_block_idx: 917
+    problems_block_idx: 1385
+    next_chapter_block_idx: 1427
+  - num: 4
+    title: Basic Communication Operations
+    page_start: 131
+    page_end: 172
+    chapter_title_block_idx: 1427
+    problems_block_idx: 1800
+    next_chapter_block_idx: 1848
+  - num: 5
+    title: Analytical Modeling of Parallel Programs
+    page_start: 177
+    page_end: 212
+    chapter_title_block_idx: 1848
+    problems_block_idx: 2256
+    next_chapter_block_idx: 2291
+  - num: 6
+    title: Programming Using the Message-Passing Paradigm
+    page_start: 216
+    page_end: 258
+    chapter_title_block_idx: 2291
+    problems_block_idx: 2659
+    next_chapter_block_idx: 2666
+  - num: 7
+    title: Programming Shared Address Space Platforms
+    page_start: 260
+    page_end: 306
+    chapter_title_block_idx: 2666
+    problems_block_idx: 3140
+    next_chapter_block_idx: 3152
+  - num: 8
+    title: Dense Matrix Algorithms
+    page_start: 309
+    page_end: 345
+    chapter_title_block_idx: 3152
+    problems_block_idx: 3522
+    next_chapter_block_idx: 3572
+  - num: 9
+    title: Sorting
+    page_start: 346
+    page_end: 386
+    chapter_title_block_idx: 3572
+    problems_block_idx: 3922
+    next_chapter_block_idx: 4002
+  - num: 10
+    title: Graph Algorithms
+    page_start: 387
+    page_end: 424
+    chapter_title_block_idx: 4002
+    problems_block_idx: 4342
+    next_chapter_block_idx: 4367
+  - num: 11
+    title: Search Algorithms for Discrete Optimization Problems
+    page_start: 425
+    page_end: 461
+    chapter_title_block_idx: 4367
+    problems_block_idx: 4738
+    next_chapter_block_idx: 4775
+  - num: 12
+    title: Dynamic Programming
+    page_start: 465
+    page_end: 485
+    chapter_title_block_idx: 4775
+    problems_block_idx: 4972
+    next_chapter_block_idx: 5004
+  - num: 13
+    title: Fast Fourier Transform
+    page_start: 489
+    page_end: 513
+    chapter_title_block_idx: 5004
+    problems_block_idx: 5290
+    next_chapter_block_idx: 5309
+
+appendices:
+  - id: A
+    title: Complexity of Functions and Order Analysis
+    page_start: 514
+    chapter_title_block_idx: 5309
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+(?:[\.\s]\d+)+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\s+'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
