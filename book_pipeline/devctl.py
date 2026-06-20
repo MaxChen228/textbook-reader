@@ -35,6 +35,7 @@ from book_pipeline import worker_registry as wr
 from book_pipeline import agent_history as hist
 from book_pipeline import book_timeline as tl
 from book_pipeline import pipeline_queue as q
+from book_pipeline import pipeline_run_state as prs
 from book_pipeline import trace
 
 ROOT = st.ROOT
@@ -599,6 +600,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     return {
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
+        'paused': prs.is_paused(),  # 系統暫停態（pause flag）→ /dev 暫停/啟動鈕 + daemon 是否派工
         'daemon': daemon_health(),
         'code': code_status(),
         'budget': budget_status(),
@@ -707,6 +709,8 @@ def write_proposals() -> str:
 def _print_human(snap: dict) -> None:
     d = snap['daemon']
     print(f"⏱  generated {snap['generated_at_local']} (local)")
+    if snap.get('paused'):
+        print("⏸  系統暫停中（pause flag）→ 不派任何新工；devctl resume 啟動")
     light = '🟢' if d['installed'] and d['last_exit_code'] in (0, None) else '🔴'
     print(f"{light} daemon installed={d['installed']} last_exit={d['last_exit_code']} "
           f"running_now={d['tick_running']}")
@@ -785,6 +789,8 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
     sub.add_parser('kick', help='硬殺重啟（棄在飛工作；緊急用）')
     sub.add_parser('reload', help='優雅載入新碼：排空在飛 worker 後退出（零浪費）')
+    sub.add_parser('pause', help='暫停系統：停派一切新工（在飛 worker 自然收尾）；預設暫停')
+    sub.add_parser('resume', help='啟動系統：恢復派工（解除暫停）')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -929,6 +935,22 @@ def main(argv: list[str] | None = None) -> int:
         print('kicked（已安全：在飛 worker 被快殺收尾、記錄保全）' if r.returncode == 0
               else f'failed rc={r.returncode}')
         return r.returncode
+
+    if args.cmd in ('pause', 'resume'):
+        # 寫運行/暫停旗標（.control/，與 sidecar/pipeline_tick 共用單一真相）；暫停＝停派新工、
+        # 在飛 worker 自然收尾（同 reload 不殺）。送 SIGUSR1 喚醒 live controller → 立即 re-observe
+        # 重判暫停閘（暫停即停下個 cycle 派工、resume 即恢復），秒級生效；無 live controller（閒置/
+        # 停機）→ 旗標已落盤，下次 controller 起來自然遵守。
+        from book_pipeline import pipeline_tick as pt
+        prs.set_running(args.cmd == 'resume')
+        woke = pt.wake_controller()
+        if args.cmd == 'pause':
+            print('⏸  系統已暫停：停派一切新工（在飛 worker 自然收尾）。'
+                  + ('已喚醒 controller 立即生效。' if woke else '無 live controller → 下次起來即遵守。'))
+        else:
+            print('▶️  系統已啟動：恢復派工。'
+                  + ('已喚醒 controller 立即恢復。' if woke else '無 live controller（閒置/停機）→ 下次重拉即派工。'))
+        return 0
 
     return 1
 

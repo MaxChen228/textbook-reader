@@ -48,6 +48,7 @@ from book_pipeline import leases
 from book_pipeline import extract_cover
 from book_pipeline import booklists
 from book_pipeline import scope_guard
+from book_pipeline.pipeline_run_state import is_paused
 from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch, math_sweep_model
 
 ROOT = q.ROOT
@@ -1606,6 +1607,10 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
 
 
 def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
+    # 暫停閘（真執行才擋；dry-run 仍印計畫供檢視，暫停只攔執行非規劃）。
+    if not dry and is_paused():
+        log('系統暫停（pause flag）→ 本 tick 不執行任何工作（resume 後恢復）')
+        return 0
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
     with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
@@ -1715,6 +1720,7 @@ def tick_reactive(no_deploy: bool) -> int:
 
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
+    paused_logged = False  # 暫停閘只 log 一次（per controller instance），避免每 poll 刷 log
     try:
         while time.monotonic() < deadline:
             # 終止信號（SIGTERM/SIGINT）：handler 已快殺在飛子工 → 直接排空退出。不 _schedule_respawn
@@ -1729,6 +1735,20 @@ def tick_reactive(no_deploy: bool) -> int:
                 log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
                 _schedule_respawn()  # 排程 detached re-kick：本進程排空退出即刻拉新碼（零空檔）
                 break
+            # 暫停閘：系統暫停時停派一切新工（crawl + 全階段），在飛 worker 自然收尾（同 reload 語意、
+            # 不殺）。loop **保活輪詢旗標、不進 idle 收斂退出**（暫停是常態非「無事做」）→ 進程存活，
+            # resume ≤LOOP_POLL 生效（devctl resume 另送 SIGUSR1 即時喚醒 → 秒級恢復）。reload/walltime/
+            # 終止信號仍在上方先判 → 暫停中照樣能換碼、被 launchd 重拉。
+            if is_paused():
+                if not paused_logged:
+                    log('reactive loop：系統暫停（pause flag）→ 停派新工、保活輪詢；resume 即恢復')
+                    paused_logged = True
+                wake.wait(LOOP_POLL)
+                wake.clear()
+                continue
+            if paused_logged:
+                log('reactive loop：resume → 恢復 observe/派工')
+                paused_logged = False
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
             leased_slugs = {r.get('slug') for r in leases.active(log=log)}
             dispatched = 0
