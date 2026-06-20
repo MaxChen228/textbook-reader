@@ -60,6 +60,14 @@
     .st-cnt { font-family: var(--mono); font-size: 11px; color: var(--sub);
       background: var(--border-l); border-radius: 10px; padding: 1px 8px; min-width: 22px; text-align: center; }
     .st-active .st-name { color: var(--accent); }
+    /* 書單欄（漏斗源頭）：待收計數，非書卡 */
+    .st-booklist { border-color: var(--border); }
+    .st-booklist .st-cnt { background: var(--accent); color: var(--bg); font-weight: 700; }
+    .bl-body { font-family: var(--mono); font-size: 11px; line-height: 1.55; color: var(--sub); }
+    .bl-body .blf-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; }
+    .bl-body .blf-row b { color: var(--text); font-size: 13px; }
+    .bl-body .blf-own { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border-l); color: var(--text); }
+    .bl-body .blf-abs { margin-top: 2px; opacity: .65; }
     .lane { display: flex; flex-direction: column; gap: 9px; padding: 11px 9px; overflow-y: auto;
       max-height: 560px; min-height: 60px; }
     .lane.done { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px,1fr)); gap: 7px; }
@@ -477,6 +485,14 @@
   function buildScaffold() {
     const lineEl = document.getElementById('line')
     lineEl.innerHTML = ''
+    // 漏斗源頭：書單 SoT 待收 backlog（un-owned 可收 = 待解析+ready+待裁；不含 owned/無法收錄）。
+    // 刻意獨立於 STATIONS/stationOf（純加法、零 reindex）——書卡不進此欄，只顯計數，renderBooklist 專渲。
+    const blSt = document.createElement('div')
+    blSt.className = 'station st-booklist'
+    blSt.innerHTML = '<div class="st-head"><span class="st-ico">📋</span>'
+      + '<span class="st-name">書單</span><span class="st-cnt" id="bl-cnt">—</span></div>'
+      + '<div class="lane"><div class="bl-body" id="bl-body">—</div></div>'
+    lineEl.appendChild(blSt)
     STATIONS.forEach((st, i) => {
       const done = i === DONE_ST
       const station = document.createElement('div')
@@ -1282,12 +1298,29 @@
   function setHtml(id, html) { const el = document.getElementById(id); if (el && el.__h !== html) { el.__h = html; el.innerHTML = html } }
   function setText(id, txt) { const el = document.getElementById(id); if (el && el.textContent !== txt) el.textContent = txt }
 
+  // 書單欄（漏斗源頭）：待收 backlog = un-owned 可收（待解析+ready+待裁；不含 owned/無法收錄）。
+  // 資料 = status.json 的 d.booklists.overall（booklist_progress 五態 owned/ready/absent/review/unresolved）。
+  function renderBooklist(d) {
+    const o = (d.booklists && d.booklists.overall) || {}
+    if (!o.total) { setText('bl-cnt', '—'); setHtml('bl-body', '<div class="lane-empty dev-label">（無書單）</div>'); return }
+    const backlog = (o.unresolved || 0) + (o.ready || 0) + (o.review || 0)
+    const pct = Math.round((o.owned || 0) / o.total * 100)
+    setText('bl-cnt', String(backlog))
+    setHtml('bl-body',
+      `<div class="blf-row"><span>待解析</span><b>${o.unresolved || 0}</b></div>`
+      + `<div class="blf-row"><span>ready 待下載</span><b>${o.ready || 0}</b></div>`
+      + (o.review ? `<div class="blf-row"><span>待裁</span><b>${o.review}</b></div>` : '')
+      + `<div class="blf-own">已收 ${o.owned || 0}/${o.total} · ${pct}%</div>`
+      + (o.absent ? `<div class="blf-abs">無法收錄 ${o.absent}</div>` : ''))
+  }
+
   function render(d) {
     const prevStage = {}
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
     last = d
     renderHealth(d)
     updateLineSub()
+    renderBooklist(d)
     reconcileBooks(d)
     // 階段剛變的卡閃示（核 status.json 1s 直驅，取代退役的 stages.json fast-lane；首次載入 prevStage 空→不閃）
     if (d.books) d.books.forEach(b => { if (b.slug in prevStage && prevStage[b.slug] !== b.stage) flashStage(b.slug) })
