@@ -25,9 +25,12 @@ from pathlib import Path
 
 DATA_DIR = Path('book_pipeline/mineru_data')
 
-# 章號＝裸整數（後不接 '.數字'，排除 'N.M …' section 被誤當章）、或 'Chapter N'、'N Title'。
+# 章號＝整數章標：'Chapter N'、'N Title'、'N.'、'10.'（kittel 式裸章號帶句點）。負前瞻只擋 'N.數字'
+# （= 'N.M' section 被誤當章），故 `1.`/`Chapter 1.` 放行、`1.2 Section` 排除。
+# 註：用 `int(group)` 不了的羅馬/字母章號（Chapter I/ONE）刻意不收——引擎 extract_sol_chapters 也 int()
+# 不了它們，那種書本就該 _pending，scout 不收=判讀正確、非 false _pending。
 _CH_NUMBERED = re.compile(
-    r'^(?:Chapter\s+|CHAPTER\s+|Ch\.?\s+|第)?(\d+)(?![.\d])(?:[\s:章.\-].*)?$|^(\d+)\s+[A-Z]')
+    r'^(?:Chapter\s+|CHAPTER\s+|Ch\.?\s+|第)?(\d+)(?!\.\d)(?:[\s:章.\-].*)?$')
 _NONCHAP = ('contents', 'preface', 'foreword', 'introduction', 'acknowledg',
             'about the', 'index', 'bibliography', 'references', 'appendix', 'solutions to')
 # 題號 prefix 偵測（供寫 problem_re）：'1.2 '、'1. '、'Problem 1.2'、'P.2-1'、'2-1.'…

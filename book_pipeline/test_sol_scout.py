@@ -27,8 +27,13 @@ def test_ch_numbered_matches_and_rejects():
     assert m('7 The Path Integral')
     assert m('30 Spontaneous Symmetry Breaking')
     assert m('4 Specific Heat of Solids')
+    # 帶句點裸章號（kittel 式）必須命中——負前瞻只擋 N.M、不擋 N.（review block 回歸守門）
+    assert m('Chapter 1.')
+    assert m('1.')
+    assert m('10.')
     # 排除：N.M section（非章）、純標題無號
     assert not m('1.2 Review of Compiler Structure')
+    assert not m('1.5 Apple')
     assert not m('Limits and Continuity')
     assert not m('Before Calculus')
 
