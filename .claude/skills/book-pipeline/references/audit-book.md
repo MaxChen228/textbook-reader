@@ -158,6 +158,13 @@ uv run python -m book_pipeline.audit_scout <slug>
 真要查 schema 看本檔 §2）。scout 每節標「→ 你判斷什麼」：候選是起點、最終決定由你下。下面 Step 1–8
 是各步的判準細節（scout 不確定/標 ⚠ 時回來查），不需逐步再手跑一遍 scout 已做的統計。
 
+> 💸 **呼叫預算（效率硬指標）**：scout 已把 type 統計／heading level／章節錨點／邊界／regex 樣本一次算好——
+> **scout 的數字即權威，不要手動逐項再驗一遍**。正常一本 audit 全程 **≤15 個工具呼叫**（scout 1 + 讀
+> scout 輸出 + 寫 yaml + validate + parser + smoke 迭代 ≤3 輪 + cover）。若你已在用 `sed`/inline-python
+> 一頁頁翻 `content_list`、或反覆 import 引擎來 introspect——**你正在燒掉本階段最大宗的浪費（實測單場曾
+> 達 130+ 次手動探測），立刻停手回到 scout 報告**。Step 1–8 的 python 片段是「scout 標 ⚠ 時的 fallback
+> 判準」，**不是**要你預設整套手跑一遍。
+
 ### Step 1 — 載入並建索引（scout 已做；僅 scout 漏標的細節才手查）
 
 ```python
@@ -414,8 +421,11 @@ uv run python -m book_pipeline.extract_cover $SLUG
 - **引擎表達不了你這本書時：停手 + 提案，絕不擅改引擎**。parser / smoke 若無法正確切你這本的
   **章節 / 題號**（那才是 extract_rules 真正負責的維度），那是「工具不夠力」——不要去改 `parser.py`
   讓自己這本過（那會污染所有書、且被 scope_guard 自動還原成一筆提案）。改下指令記一筆，回報架構師收編：
-  **⚠ 圖說 / catalog（H6/H7）不是合法提案理由**——那由下游 `catalog_audit` 的 `repair_catalog_metadata`
-  處理（見 §5 smoke 表）；為 caption/empty-figure 開 tooling-gap 是已知的假缺口源，絕對不要。
+  **⚠ 圖說 / catalog（H6/H7）整層都不是你的職責——不提案、也不調查**：caption 綁定、figure/table
+  semantic id、空 caption、unresolved ref 全由下游 `catalog_audit` 的 `repair_catalog_metadata` 處理
+  （見 §5 smoke 表）。**不要** `import catalog_audit` / 跑 `audit_catalog` / 讀 `catalogs.json` 去鑽圖說
+  ——那是已知會吞掉整場（單場曾燒 130+ 次呼叫）的兔子洞，且結論幾乎必是假缺口。你 audit 階段看到的
+  H6/H7 是 repair 前暫態，下一階段歸零。為 caption/empty-figure 開 tooling-gap 是假缺口源，絕對不要。
   **⚠ 語義契約**：開 engine tooling-gap 提案＝**宣告「本書 audit 無法產出 yaml」**（daemon 見『有 engine 提案
   且仍無 extract_rules.yaml』會標 `R audit-blocked`、停止重派待人工裁決）。故**只在你真的要放棄寫 yaml 時才提案**；
   若章節/題號還沒切完、本該繼續迭代，**先寫出 yaml**，別「順手提個案」就收尾——那會害本書被誤判卡關。
