@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "oksendal_stochastic_differential_equations-ch10-body-453-7ba128",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[453]",
+      "expect": "\\widehat {\\tau} (y, \\omega) = \\left\\{ \\begin{array}{l l} 0 & \\text {for y\\notin D} \\\\ \\tau_ {D} & \\text {for y\\in D} \\end{array} \\right.",
+      "new": "\\widehat {\\tau} (y, \\omega) = \\left\\{ \\begin{array}{l l} 0 & \\text {for } y\\notin D \\\\ \\tau_ {D} & \\text {for } y\\in D \\end{array} \\right."
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+slug: skiena_algorithm_design_manual
+title: The Algorithm Design Manual
+author: Steven S. Skiena
+edition: 2nd
+subject: Algorithms
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 684
+bibliography_start_page: 684
+index_start_page: 728
+
+chapters:
+  - num: 1
+    title: Introduction to Algorithm Design
+    page_start: 22
+    page_end: 49
+    chapter_title_block_idx: 234
+    problems_block_idx: 535
+    next_chapter_block_idx: 587
+  - num: 2
+    title: Algorithm Analysis
+    page_start: 50
+    page_end: 83
+    chapter_title_block_idx: 587
+    problems_block_idx: 914
+    next_chapter_block_idx: 1021
+  - num: 3
+    title: Data Structures
+    page_start: 84
+    page_end: 121
+    chapter_title_block_idx: 1021
+    problems_block_idx: 1373
+    next_chapter_block_idx: 1417
+  - num: 4
+    title: Sorting and Searching
+    page_start: 122
+    page_end: 163
+    chapter_title_block_idx: 1417
+    problems_block_idx: 1780
+    next_chapter_block_idx: 1850
+  - num: 5
+    title: Graph Traversal
+    page_start: 164
+    page_end: 209
+    chapter_title_block_idx: 1850
+    problems_block_idx: 2193
+    next_chapter_block_idx: 2269
+  - num: 6
+    title: Weighted Graph Algorithms
+    page_start: 210
+    page_end: 248
+    chapter_title_block_idx: 2269
+    problems_block_idx: 2606
+    next_chapter_block_idx: 2653
+  - num: 7
+    title: Combinatorial Search and Heuristic Methods
+    page_start: 249
+    page_end: 291
+    chapter_title_block_idx: 2653
+    problems_block_idx: 3038
+    next_chapter_block_idx: 3057
+  - num: 8
+    title: Dynamic Programming
+    page_start: 292
+    page_end: 334
+    chapter_title_block_idx: 3057
+    problems_block_idx: 3454
+    next_chapter_block_idx: 3528
+  - num: 9
+    title: Intractable Problems and Approximation Algorithms
+    page_start: 335
+    page_end: 374
+    chapter_title_block_idx: 3528
+    problems_block_idx: 3995
+    next_chapter_block_idx: 4093
+  - num: 10
+    title: How to Design Algorithms
+    page_start: 375
+    page_end: 381
+    chapter_title_block_idx: 4093
+    problems_block_idx: null
+    next_chapter_block_idx: 4144
+  - num: 11
+    title: A Catalog of Algorithmic Problems
+    page_start: 382
+    page_end: 384
+    chapter_title_block_idx: 4144
+    problems_block_idx: null
+    next_chapter_block_idx: 4163
+  - num: 12
+    title: Data Structures
+    page_start: 385
+    page_end: 411
+    chapter_title_block_idx: 4163
+    problems_block_idx: null
+    next_chapter_block_idx: 4420
+  - num: 13
+    title: Numerical Problems
+    page_start: 412
+    page_end: 452
+    chapter_title_block_idx: 4420
+    problems_block_idx: null
+    next_chapter_block_idx: 4839
+  - num: 14
+    title: Combinatorial Problems
+    page_start: 453
+    page_end: 493
+    chapter_title_block_idx: 4839
+    problems_block_idx: null
+    next_chapter_block_idx: 5261
+  - num: 15
+    title: "Graph Problems: Polynomial-Time"
+    page_start: 494
+    page_end: 541
+    chapter_title_block_idx: 5261
+    problems_block_idx: null
+    next_chapter_block_idx: 5716
+  - num: 16
+    title: "Graph Problems: Hard Problems"
+    page_start: 542
+    page_end: 580
+    chapter_title_block_idx: 5716
+    problems_block_idx: null
+    next_chapter_block_idx: 6080
+  - num: 17
+    title: Computational Geometry
+    page_start: 581
+    page_end: 638
+    chapter_title_block_idx: 6080
+    problems_block_idx: null
+    next_chapter_block_idx: 6631
+  - num: 18
+    title: Set and String Problems
+    page_start: 639
+    page_end: 675
+    chapter_title_block_idx: 6631
+    problems_block_idx: null
+    next_chapter_block_idx: 7003
+  - num: 19
+    title: Algorithmic Resources
+    page_start: 676
+    page_end: 683
+    chapter_title_block_idx: 7003
+    problems_block_idx: null
+    next_chapter_block_idx: 7088
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^Programming Challenges\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null

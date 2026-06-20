@@ -1,0 +1,106 @@
+slug: peterson_davie_computer_networks
+title: "Computer Networks: A Systems Approach"
+author: "Larry L. Peterson; Bruce S. Davie"
+edition: "5th"
+subject: "Computer Networks"
+publisher: "Morgan Kaufmann"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 33
+appendices_start_page: 833
+bibliography_start_page: 869
+index_start_page: 883
+
+chapters:
+  - num: 1
+    title: "Foundation"
+    page_start: 33
+    page_end: 102
+    chapter_title_block_idx: 377
+    problems_block_idx: 812
+    next_chapter_block_idx: 903
+  - num: 2
+    title: "Getting Connected"
+    page_start: 103
+    page_end: 200
+    chapter_title_block_idx: 903
+    problems_block_idx: 1512
+    next_chapter_block_idx: 1654
+  - num: 3
+    title: "Internetworking"
+    page_start: 201
+    page_end: 338
+    chapter_title_block_idx: 1654
+    problems_block_idx: 2511
+    next_chapter_block_idx: 2708
+  - num: 4
+    title: "Advanced Internetworking"
+    page_start: 339
+    page_end: 422
+    chapter_title_block_idx: 2708
+    problems_block_idx: 3267
+    next_chapter_block_idx: 3338
+  - num: 5
+    title: "End-to-End Protocols"
+    page_start: 423
+    page_end: 510
+    chapter_title_block_idx: 3338
+    problems_block_idx: 3896
+    next_chapter_block_idx: 4022
+  - num: 6
+    title: "Congestion Control and Resource Allocation"
+    page_start: 511
+    page_end: 610
+    chapter_title_block_idx: 4022
+    problems_block_idx: 4646
+    next_chapter_block_idx: 4777
+  - num: 7
+    title: "End-to-End Data"
+    page_start: 611
+    page_end: 664
+    chapter_title_block_idx: 4777
+    problems_block_idx: 5145
+    next_chapter_block_idx: 5204
+  - num: 8
+    title: "Network Security"
+    page_start: 665
+    page_end: 728
+    chapter_title_block_idx: 5204
+    problems_block_idx: 5638
+    next_chapter_block_idx: 5685
+  - num: 9
+    title: "Applications"
+    page_start: 729
+    page_end: 832
+    chapter_title_block_idx: 5685
+    problems_block_idx: 6390
+    next_chapter_block_idx: 6438
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

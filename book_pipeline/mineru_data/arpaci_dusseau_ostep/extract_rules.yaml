@@ -1,0 +1,481 @@
+slug: arpaci_dusseau_ostep
+title: "Operating Systems: Three Easy Pieces"
+author: Remzi H. Arpaci-Dusseau; Andrea C. Arpaci-Dusseau
+edition: null
+subject: Operating Systems
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 784
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "A Dialogue on the Book"
+    page_start: 24
+    page_end: 25
+    chapter_title_block_idx: 585
+    problems_block_idx: null
+    next_chapter_block_idx: 616
+  - num: 2
+    title: "Introduction to Operating Systems"
+    page_start: 26
+    page_end: 46
+    chapter_title_block_idx: 616
+    problems_block_idx: null
+    next_chapter_block_idx: 853
+  - num: 3
+    title: "A Dialogue on Virtualization"
+    page_start: 47
+    page_end: 48
+    chapter_title_block_idx: 853
+    problems_block_idx: null
+    next_chapter_block_idx: 880
+  - num: 4
+    title: "The Abstraction: The Process"
+    page_start: 49
+    page_end: 61
+    chapter_title_block_idx: 880
+    problems_block_idx: 1006
+    next_chapter_block_idx: 1027
+  - num: 5
+    title: "Interlude: Process API"
+    page_start: 62
+    page_end: 76
+    chapter_title_block_idx: 1027
+    problems_block_idx: 1172
+    next_chapter_block_idx: 1210
+  - num: 6
+    title: "Mechanism: Limited Direct Execution"
+    page_start: 77
+    page_end: 92
+    chapter_title_block_idx: 1210
+    problems_block_idx: null
+    next_chapter_block_idx: 1405
+  - num: 7
+    title: "Scheduling: Introduction"
+    page_start: 93
+    page_end: 105
+    chapter_title_block_idx: 1405
+    problems_block_idx: 1573
+    next_chapter_block_idx: 1581
+  - num: 8
+    title: "Scheduling: The Multi-Level Feedback Queue"
+    page_start: 106
+    page_end: 117
+    chapter_title_block_idx: 1581
+    problems_block_idx: 1736
+    next_chapter_block_idx: 1750
+  - num: 9
+    title: "Scheduling: Proportional Share"
+    page_start: 118
+    page_end: 131
+    chapter_title_block_idx: 1750
+    problems_block_idx: 1929
+    next_chapter_block_idx: 1941
+  - num: 10
+    title: "Multiprocessor Scheduling (Advanced)"
+    page_start: 132
+    page_end: 144
+    chapter_title_block_idx: 1941
+    problems_block_idx: 2091
+    next_chapter_block_idx: 2114
+  - num: 11
+    title: "Summary Dialogue on CPU Virtualization"
+    page_start: 145
+    page_end: 146
+    chapter_title_block_idx: 2114
+    problems_block_idx: null
+    next_chapter_block_idx: 2148
+  - num: 12
+    title: "A Dialogue on Memory Virtualization"
+    page_start: 147
+    page_end: 148
+    chapter_title_block_idx: 2148
+    problems_block_idx: null
+    next_chapter_block_idx: 2176
+  - num: 13
+    title: "The Abstraction: Address Spaces"
+    page_start: 149
+    page_end: 157
+    chapter_title_block_idx: 2176
+    problems_block_idx: 2273
+    next_chapter_block_idx: 2281
+  - num: 14
+    title: "Interlude: Memory API"
+    page_start: 158
+    page_end: 169
+    chapter_title_block_idx: 2281
+    problems_block_idx: 2423
+    next_chapter_block_idx: 2439
+  - num: 15
+    title: "Mechanism: Address Translation"
+    page_start: 170
+    page_end: 184
+    chapter_title_block_idx: 2439
+    problems_block_idx: 2606
+    next_chapter_block_idx: 2618
+  - num: 16
+    title: "Segmentation"
+    page_start: 185
+    page_end: 196
+    chapter_title_block_idx: 2618
+    problems_block_idx: 2753
+    next_chapter_block_idx: 2767
+  - num: 17
+    title: "Free-Space Management"
+    page_start: 197
+    page_end: 214
+    chapter_title_block_idx: 2767
+    problems_block_idx: 2988
+    next_chapter_block_idx: 3002
+  - num: 18
+    title: "Paging: Introduction"
+    page_start: 215
+    page_end: 229
+    chapter_title_block_idx: 3002
+    problems_block_idx: 3165
+    next_chapter_block_idx: 3190
+  - num: 19
+    title: "Paging: Faster Translations (TLBs)"
+    page_start: 230
+    page_end: 245
+    chapter_title_block_idx: 3190
+    problems_block_idx: 3374
+    next_chapter_block_idx: 3388
+  - num: 20
+    title: "Paging: Smaller Tables"
+    page_start: 246
+    page_end: 260
+    chapter_title_block_idx: 3388
+    problems_block_idx: 3571
+    next_chapter_block_idx: 3577
+  - num: 21
+    title: "Beyond Physical Memory: Mechanisms"
+    page_start: 261
+    page_end: 271
+    chapter_title_block_idx: 3577
+    problems_block_idx: 3688
+    next_chapter_block_idx: 3707
+  - num: 22
+    title: "Beyond Physical Memory: Policies"
+    page_start: 272
+    page_end: 289
+    chapter_title_block_idx: 3707
+    problems_block_idx: 3920
+    next_chapter_block_idx: 3928
+  - num: 23
+    title: "Complete Virtual Memory Systems"
+    page_start: 290
+    page_end: 308
+    chapter_title_block_idx: 3928
+    problems_block_idx: null
+    next_chapter_block_idx: 4170
+  - num: 24
+    title: "Summary Dialogue on Memory Virtualization"
+    page_start: 309
+    page_end: 313
+    chapter_title_block_idx: 4170
+    problems_block_idx: null
+    next_chapter_block_idx: 4220
+  - num: 25
+    title: "A Dialogue on Concurrency"
+    page_start: 314
+    page_end: 315
+    chapter_title_block_idx: 4220
+    problems_block_idx: null
+    next_chapter_block_idx: 4252
+  - num: 26
+    title: "Concurrency: An Introduction"
+    page_start: 316
+    page_end: 331
+    chapter_title_block_idx: 4252
+    problems_block_idx: 4426
+    next_chapter_block_idx: 4449
+  - num: 27
+    title: "Interlude: Thread API"
+    page_start: 332
+    page_end: 343
+    chapter_title_block_idx: 4449
+    problems_block_idx: 4597
+    next_chapter_block_idx: 4613
+  - num: 28
+    title: "Locks"
+    page_start: 344
+    page_end: 365
+    chapter_title_block_idx: 4613
+    problems_block_idx: 4888
+    next_chapter_block_idx: 4909
+  - num: 29
+    title: "Lock-based Concurrent Data Structures"
+    page_start: 366
+    page_end: 381
+    chapter_title_block_idx: 4909
+    problems_block_idx: 5071
+    next_chapter_block_idx: 5084
+  - num: 30
+    title: "Condition Variables"
+    page_start: 382
+    page_end: 400
+    chapter_title_block_idx: 5084
+    problems_block_idx: 5284
+    next_chapter_block_idx: 5306
+  - num: 31
+    title: "Semaphores"
+    page_start: 401
+    page_end: 420
+    chapter_title_block_idx: 5306
+    problems_block_idx: 5540
+    next_chapter_block_idx: 5555
+  - num: 32
+    title: "Common Concurrency Problems"
+    page_start: 421
+    page_end: 436
+    chapter_title_block_idx: 5555
+    problems_block_idx: 5757
+    next_chapter_block_idx: 5776
+  - num: 33
+    title: "Event-based Concurrency (Advanced)"
+    page_start: 437
+    page_end: 448
+    chapter_title_block_idx: 5776
+    problems_block_idx: 5921
+    next_chapter_block_idx: 5934
+  - num: 34
+    title: "Summary Dialogue on Concurrency"
+    page_start: 449
+    page_end: 452
+    chapter_title_block_idx: 5934
+    problems_block_idx: null
+    next_chapter_block_idx: 5963
+  - num: 35
+    title: "A Dialogue on Persistence"
+    page_start: 453
+    page_end: 454
+    chapter_title_block_idx: 5963
+    problems_block_idx: null
+    next_chapter_block_idx: 5989
+  - num: 36
+    title: "I/O Devices"
+    page_start: 455
+    page_end: 468
+    chapter_title_block_idx: 5989
+    problems_block_idx: null
+    next_chapter_block_idx: 6157
+  - num: 37
+    title: "Hard Disk Drives"
+    page_start: 469
+    page_end: 484
+    chapter_title_block_idx: 6157
+    problems_block_idx: 6361
+    next_chapter_block_idx: 6379
+  - num: 38
+    title: "Redundant Arrays of Inexpensive Disks (RAIDs)"
+    page_start: 485
+    page_end: 502
+    chapter_title_block_idx: 6379
+    problems_block_idx: 6625
+    next_chapter_block_idx: 6640
+  - num: 39
+    title: "Interlude: Files and Directories"
+    page_start: 503
+    page_end: 531
+    chapter_title_block_idx: 6640
+    problems_block_idx: 7021
+    next_chapter_block_idx: 7032
+  - num: 40
+    title: "File System Implementation"
+    page_start: 532
+    page_end: 549
+    chapter_title_block_idx: 7032
+    problems_block_idx: 7256
+    next_chapter_block_idx: 7267
+  - num: 41
+    title: "Locality and The Fast File System"
+    page_start: 550
+    page_end: 563
+    chapter_title_block_idx: 7267
+    problems_block_idx: 7438
+    next_chapter_block_idx: 7454
+  - num: 42
+    title: "Crash Consistency: FSCK and Journaling"
+    page_start: 564
+    page_end: 584
+    chapter_title_block_idx: 7454
+    problems_block_idx: 7716
+    next_chapter_block_idx: 7724
+  - num: 43
+    title: "Log-structured File Systems"
+    page_start: 585
+    page_end: 600
+    chapter_title_block_idx: 7724
+    problems_block_idx: 7930
+    next_chapter_block_idx: 7957
+  - num: 44
+    title: "Flash-based SSDs"
+    page_start: 601
+    page_end: 624
+    chapter_title_block_idx: 7957
+    problems_block_idx: 8244
+    next_chapter_block_idx: 8263
+  - num: 45
+    title: "Data Integrity and Protection"
+    page_start: 625
+    page_end: 638
+    chapter_title_block_idx: 8263
+    problems_block_idx: 8437
+    next_chapter_block_idx: 8465
+  - num: 46
+    title: "Summary Dialogue on Persistence"
+    page_start: 639
+    page_end: 640
+    chapter_title_block_idx: 8465
+    problems_block_idx: null
+    next_chapter_block_idx: 8490
+  - num: 47
+    title: "A Dialogue on Distribution"
+    page_start: 641
+    page_end: 642
+    chapter_title_block_idx: 8490
+    problems_block_idx: null
+    next_chapter_block_idx: 8514
+  - num: 48
+    title: "Distributed Systems"
+    page_start: 643
+    page_end: 659
+    chapter_title_block_idx: 8514
+    problems_block_idx: 8699
+    next_chapter_block_idx: 8720
+  - num: 49
+    title: "Sun's Network File System (NFS)"
+    page_start: 660
+    page_end: 677
+    chapter_title_block_idx: 8720
+    problems_block_idx: 8934
+    next_chapter_block_idx: 8949
+  - num: 50
+    title: "The Andrew File System (AFS)"
+    page_start: 678
+    page_end: 691
+    chapter_title_block_idx: 8949
+    problems_block_idx: 9104
+    next_chapter_block_idx: 9117
+  - num: 51
+    title: "Summary Dialogue on Distribution"
+    page_start: 692
+    page_end: 693
+    chapter_title_block_idx: 9117
+    problems_block_idx: null
+    next_chapter_block_idx: 9152
+  - num: 52
+    title: "A Dialogue on Security"
+    page_start: 694
+    page_end: 695
+    chapter_title_block_idx: 9152
+    problems_block_idx: null
+    next_chapter_block_idx: 9183
+  - num: 53
+    title: "Introduction to Operating System Security"
+    page_start: 696
+    page_end: 707
+    chapter_title_block_idx: 9183
+    problems_block_idx: 9320
+    next_chapter_block_idx: 9328
+  - num: 54
+    title: "Authentication"
+    page_start: 708
+    page_end: 727
+    chapter_title_block_idx: 9328
+    problems_block_idx: 9554
+    next_chapter_block_idx: 9563
+  - num: 55
+    title: "Access Control"
+    page_start: 728
+    page_end: 745
+    chapter_title_block_idx: 9563
+    problems_block_idx: null
+    next_chapter_block_idx: 9778
+  - num: 56
+    title: "Protecting Information With Cryptography"
+    page_start: 746
+    page_end: 765
+    chapter_title_block_idx: 9778
+    problems_block_idx: null
+    next_chapter_block_idx: 10039
+  - num: 57
+    title: "Distributed System Security"
+    page_start: 766
+    page_end: 783
+    chapter_title_block_idx: 10039
+    problems_block_idx: null
+    next_chapter_block_idx: 10243
+
+appendices:
+  - id: A
+    title: "A Dialogue on Virtual Machine Monitors"
+    page_start: 784
+    chapter_title_block_idx: 10243
+  - id: B
+    title: "Virtual Machine Monitors"
+    page_start: 785
+    chapter_title_block_idx: 10255
+  - id: C
+    title: "A Dialogue on Monitors"
+    page_start: 798
+    chapter_title_block_idx: 10403
+  - id: D
+    title: "Monitors (Deprecated)"
+    page_start: 799
+    chapter_title_block_idx: 10421
+  - id: E
+    title: "A Dialogue on Labs"
+    page_start: 812
+    chapter_title_block_idx: 10597
+  - id: F
+    title: "Laboratory: Tutorial"
+    page_start: 814
+    chapter_title_block_idx: 10624
+  - id: G
+    title: "Laboratory: Systems Projects"
+    page_start: 827
+    chapter_title_block_idx: 10813
+  - id: H
+    title: "Laboratory: xv6 Projects"
+    page_start: 831
+    chapter_title_block_idx: 10858
+
+section_re: '^((?:\d+|[A-H])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-H])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{((?:[A-Z]\.)?\d+(?:\.\d+)*[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

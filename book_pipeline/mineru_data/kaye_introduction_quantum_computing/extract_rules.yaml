@@ -1,0 +1,117 @@
+slug: kaye_introduction_quantum_computing
+title: An Introduction to Quantum Computing
+author: Phillip Kaye; Raymond Laflamme; Michele Mosca
+edition: 1st
+subject: Quantum Information
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 253
+bibliography_start_page: 281
+index_start_page: 282
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction and Background
+    page_start: 13
+    page_end: 32
+    chapter_title_block_idx: 150
+    problems_block_idx: null
+    next_chapter_block_idx: 371
+  - num: 2
+    title: Linear Algebra and the Dirac Notation
+    page_start: 33
+    page_end: 49
+    chapter_title_block_idx: 371
+    problems_block_idx: null
+    next_chapter_block_idx: 672
+  - num: 3
+    title: Qubits and the Framework of Quantum Mechanics
+    page_start: 50
+    page_end: 72
+    chapter_title_block_idx: 672
+    problems_block_idx: null
+    next_chapter_block_idx: 1004
+  - num: 4
+    title: A Quantum Model of Computation
+    page_start: 73
+    page_end: 89
+    chapter_title_block_idx: 1004
+    problems_block_idx: null
+    next_chapter_block_idx: 1237
+  - num: 5
+    title: Superdense Coding and Quantum Teleportation
+    page_start: 90
+    page_end: 97
+    chapter_title_block_idx: 1237
+    problems_block_idx: null
+    next_chapter_block_idx: 1326
+  - num: 6
+    title: Introductory Quantum Algorithms
+    page_start: 98
+    page_end: 121
+    chapter_title_block_idx: 1326
+    problems_block_idx: null
+    next_chapter_block_idx: 1664
+  - num: 7
+    title: Algorithms with Superpolynomial Speed-Up
+    page_start: 122
+    page_end: 163
+    chapter_title_block_idx: 1664
+    problems_block_idx: null
+    next_chapter_block_idx: 2276
+  - num: 8
+    title: Algorithms Based on Amplitude Amplification
+    page_start: 164
+    page_end: 190
+    chapter_title_block_idx: 2276
+    problems_block_idx: null
+    next_chapter_block_idx: 2684
+  - num: 9
+    title: Quantum Computational Complexity Theory and Lower Bounds
+    page_start: 191
+    page_end: 215
+    chapter_title_block_idx: 2684
+    problems_block_idx: null
+    next_chapter_block_idx: 3021
+  - num: 10
+    title: Quantum Error Correction
+    page_start: 216
+    page_end: 252
+    chapter_title_block_idx: 3021
+    problems_block_idx: null
+    next_chapter_block_idx: 3496
+
+appendices:
+  - id: A
+    title: Tools for Analysing Probabilistic Algorithms
+    page_start: 253
+    chapter_title_block_idx: 3496
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)(?:\s*$|\s+(?:[A-Z(]))'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)(?:\s*$|\s+(?:[A-Z(]))'
+
+known_missing_problems: []

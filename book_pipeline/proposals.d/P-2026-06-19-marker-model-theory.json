@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-marker-model-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "audit-book 無法 declaratively 處理 captionless diagrams / table",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T22:48:30+00:00",
+  "updated": "2026-06-19T22:48:30+00:00",
+  "evidence": "marker_model_theory parser 結構已綠，但 smoke 僅剩 H7。parsed/_catalog_audit.md 顯示 ch01 §1.3 有 3 個 diagram figures、ch07 §7.5 有 1 個 diagram figure、ch02 §2.4 有 1 個 table，皆只有前後文描述（如 'We represent the group configuration by the following diagram.'），沒有 Figure/Table 編號或可抽 caption。現有 extract_rules 僅有 figure_caption_merge / figure_caption_main_re，無法把鄰近 prose 綁成語意 caption，也無法 declaratively 將這類純示意 visual 標成 non-indexable/exclude。",
+  "proposal": "擴充 deterministic catalog/audit 能力：1) 允許 per-book 將鄰近 prose 綁到 image/table 作 caption/id；或 2) 允許對無正式 caption 的示意圖/表給 declarative exclude reason / non-indexable 標記。否則此類書只能 parser 綠，無法清掉 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,88 @@
+slug: goldreich_foundations_cryptography_1
+title: "Foundations of Cryptography, Volume 1: Basic Tools"
+author: Oded Goldreich
+edition: null
+subject: Cryptography
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 351
+bibliography_start_page: 377
+index_start_page: 388
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 21
+    page_end: 49
+    chapter_title_block_idx: 212
+    chapter_title_block_idx_secondary: 213
+    problems_block_idx: 499
+    next_chapter_block_idx: 519
+  - num: 2
+    title: Computational Difficulty
+    page_start: 50
+    page_end: 120
+    chapter_title_block_idx: 519
+    chapter_title_block_idx_secondary: 520
+    problems_block_idx: 1267
+    next_chapter_block_idx: 1378
+  - num: 3
+    title: Pseudorandom Generators
+    page_start: 121
+    page_end: 203
+    chapter_title_block_idx: 1378
+    chapter_title_block_idx_secondary: 1379
+    problems_block_idx: 2285
+    next_chapter_block_idx: 2468
+  - num: 4
+    title: Zero-Knowledge Proof Systems
+    page_start: 204
+    page_end: 350
+    chapter_title_block_idx: 2468
+    problems_block_idx: 4025
+    next_chapter_block_idx: 4136
+
+appendices:
+  - id: A
+    title: Background in Computational Number Theory
+    page_start: 351
+    chapter_title_block_idx: 4137
+  - id: B
+    title: Brief Outline of Volume 2
+    page_start: 358
+    chapter_title_block_idx: 4216
+
+section_re: '^((?:[A-Z]|\d+)\.\d+(?:\.[∗*])?)\.?\s+(\S.*[a-z].*)$'
+subsection_re: '^((?:[A-Z]|\d+)\.\d+\.\d+(?:\.\d+)*)\.?\s+(\S.*[a-z].*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+)\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.)?[0-9]+(?:\.[0-9]+)*[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

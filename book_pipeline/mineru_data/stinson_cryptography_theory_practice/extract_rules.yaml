@@ -1,0 +1,146 @@
+slug: stinson_cryptography_theory_practice
+title: "Cryptography: Theory and Practice"
+author: "Douglas R. Stinson; Maura B. Paterson"
+edition: 4th
+subject: Cryptography
+publisher: "CRC Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 545
+bibliography_start_page: 569
+index_start_page: 585
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction to Cryptography"
+    page_start: 19
+    page_end: 32
+    chapter_title_block_idx: 267
+    problems_block_idx: null
+    next_chapter_block_idx: 392
+  - num: 2
+    title: "Classical Cryptography"
+    page_start: 33
+    page_end: 78
+    chapter_title_block_idx: 392
+    problems_block_idx: 986
+    next_chapter_block_idx: 1127
+  - num: 3
+    title: "Shannon's Theory, Perfect Secrecy, and the One-Time Pad"
+    page_start: 79
+    page_end: 100
+    chapter_title_block_idx: 1127
+    problems_block_idx: 1403
+    next_chapter_block_idx: 1447
+  - num: 4
+    title: "Block Ciphers and Stream Ciphers"
+    page_start: 101
+    page_end: 154
+    chapter_title_block_idx: 1447
+    problems_block_idx: 2038
+    next_chapter_block_idx: 2112
+  - num: 5
+    title: "Hash Functions and Message Authentication"
+    page_start: 155
+    page_end: 202
+    chapter_title_block_idx: 2112
+    problems_block_idx: 2697
+    next_chapter_block_idx: 2826
+  - num: 6
+    title: "The RSA Cryptosystem and Factoring Integers"
+    page_start: 203
+    page_end: 272
+    chapter_title_block_idx: 2826
+    problems_block_idx: 3722
+    next_chapter_block_idx: 3843
+  - num: 7
+    title: "Public-Key Cryptography and Discrete Logarithms"
+    page_start: 273
+    page_end: 326
+    chapter_title_block_idx: 3843
+    problems_block_idx: 4609
+    next_chapter_block_idx: 4694
+  - num: 8
+    title: "Signature Schemes"
+    page_start: 327
+    page_end: 358
+    chapter_title_block_idx: 4694
+    problems_block_idx: 5125
+    next_chapter_block_idx: 5207
+  - num: 9
+    title: "Post-Quantum Cryptography"
+    page_start: 359
+    page_end: 396
+    chapter_title_block_idx: 5207
+    problems_block_idx: 5755
+    next_chapter_block_idx: 5790
+  - num: 10
+    title: "Identification Schemes and Entity Authentication"
+    page_start: 397
+    page_end: 432
+    chapter_title_block_idx: 5790
+    problems_block_idx: 6202
+    next_chapter_block_idx: 6232
+  - num: 11
+    title: "Key Distribution"
+    page_start: 433
+    page_end: 478
+    chapter_title_block_idx: 6232
+    problems_block_idx: 6800
+    next_chapter_block_idx: 6886
+  - num: 12
+    title: "Key Agreement Schemes"
+    page_start: 479
+    page_end: 508
+    chapter_title_block_idx: 6886
+    problems_block_idx: 7294
+    next_chapter_block_idx: 7332
+  - num: 13
+    title: "Miscellaneous Topics"
+    page_start: 509
+    page_end: 544
+    chapter_title_block_idx: 7332
+    problems_block_idx: 7837
+    next_chapter_block_idx: 7876
+
+appendices:
+  - id: A
+    title: "Number Theory and Algebraic Concepts for Cryptography"
+    page_start: 545
+    chapter_title_block_idx: 7876
+  - id: B
+    title: "Pseudorandom Bit Generation for Cryptography"
+    page_start: 561
+    chapter_title_block_idx: 8128
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+(?:(?:\([^)]*\)\s+)?(?:Evaluate|Suppose|Prove|Use|If|Determine|List|Referring|Let|Compute|Describe|Discuss|Show|Below|Consider|Analyze|Devise|Redo|Decrypt|Find|Construct|Give|Here|Throughout|Exploit|Using|Write|Define|As|In|We|For|There|A|An|Solve|How|Two|This|Implement)\b|Message\s+authentication\b|The\s+(?:integer|purpose|ciphertext|security|ElGamal|Geffe|field)\b)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]\.\d+|\d+(?:\.\d+)?)[a-z]?)\}'
+
+example_start_re: '^Example\s+([A-Z]?\d+(?:\.\d+)*)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

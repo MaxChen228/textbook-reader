@@ -1,0 +1,137 @@
+slug: kleppmann_data_intensive
+title: Designing Data-Intensive Applications
+author: Martin Kleppmann; Chris Riccomini
+edition: "2nd"
+subject: Distributed Systems
+publisher: O'Reilly Media
+language: en
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 24
+appendices_start_page: 626
+bibliography_start_page: null
+index_start_page: 632
+inline_problems: false
+chapters:
+  - num: 1
+    title: Trade-Offs in Data Systems Architecture
+    page_start: 24
+    page_end: 55
+    chapter_title_block_idx: 389
+    problems_block_idx: null
+    next_chapter_block_idx: 641
+  - num: 2
+    title: Defining Nonfunctional Requirements
+    page_start: 56
+    page_end: 87
+    chapter_title_block_idx: 641
+    problems_block_idx: null
+    next_chapter_block_idx: 900
+  - num: 3
+    title: Data Models and Query Languages
+    page_start: 88
+    page_end: 137
+    chapter_title_block_idx: 900
+    problems_block_idx: null
+    next_chapter_block_idx: 1357
+  - num: 4
+    title: Storage and Retrieval
+    page_start: 138
+    page_end: 183
+    chapter_title_block_idx: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 1740
+  - num: 5
+    title: Encoding and Evolution
+    page_start: 184
+    page_end: 220
+    chapter_title_block_idx: 1740
+    problems_block_idx: null
+    next_chapter_block_idx: 2080
+  - num: 6
+    title: Replication
+    page_start: 221
+    page_end: 274
+    chapter_title_block_idx: 2080
+    problems_block_idx: null
+    next_chapter_block_idx: 2579
+  - num: 7
+    title: Sharding
+    page_start: 275
+    page_end: 300
+    chapter_title_block_idx: 2579
+    problems_block_idx: null
+    next_chapter_block_idx: 2839
+  - num: 8
+    title: Transactions
+    page_start: 301
+    page_end: 367
+    chapter_title_block_idx: 2839
+    problems_block_idx: null
+    next_chapter_block_idx: 3472
+  - num: 9
+    title: The Trouble with Distributed Systems
+    page_start: 368
+    page_end: 423
+    chapter_title_block_idx: 3472
+    problems_block_idx: null
+    next_chapter_block_idx: 3943
+  - num: 10
+    title: Consistency and Consensus
+    page_start: 424
+    page_end: 474
+    chapter_title_block_idx: 3943
+    problems_block_idx: null
+    next_chapter_block_idx: 4434
+  - num: 11
+    title: Batch Processing
+    page_start: 475
+    page_end: 509
+    chapter_title_block_idx: 4434
+    problems_block_idx: null
+    next_chapter_block_idx: 4744
+  - num: 12
+    title: Stream Processing
+    page_start: 510
+    page_end: 561
+    chapter_title_block_idx: 4744
+    problems_block_idx: null
+    next_chapter_block_idx: 5217
+  - num: 13
+    title: A Philosophy of Streaming Systems
+    page_start: 562
+    page_end: 607
+    chapter_title_block_idx: 5217
+    problems_block_idx: null
+    next_chapter_block_idx: 5666
+  - num: 14
+    title: Doing the Right Thing
+    page_start: 608
+    page_end: 625
+    chapter_title_block_idx: 5666
+    problems_block_idx: null
+    next_chapter_block_idx: 5809
+appendices: []
+section_re: '^()(.+)$'
+subsection_re: '^()()$'
+heading_priority:
+  - '^()()$'
+  - '^()(.+)$'
+problem_start_re: '^()$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '^()$'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

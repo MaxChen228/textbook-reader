@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-papadimitriou-computational-comp",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Parser/catalog 無法把獨立圖說段落回掛到前一個 figure",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T22:59:17+00:00",
+  "updated": "2026-06-19T22:59:17+00:00",
+  "evidence": "本書多個 figure 的 caption 被 MinerU/OCR 吐成後續純文字段落而非 image_caption；例如 ch09 body[101] 是無 caption 的 figure，下一段 body[102] 才是 'Figure 9-7. The reduction from 3SAT to HAMILTON PATH.'；另外 Figure 9-5、14-1、19-5 等多圖板塊有 (a)(b)(c)(d) 子圖 caption 與主 caption 分離，導致 smoke H7 empty_captions=14。",
+  "proposal": "在 parser/build_catalogs 增加 caption 回掛規則：若 figure 後緊接純 caption 段落（如 '^Figure [0-9-]+'、'^\\([a-z]\\) Figure [0-9-]+'），把該段轉成前一個或一組子圖的 caption/id，而不是留成普通 paragraph。",
+  "risk": "",
+  "disposition": ""
+}

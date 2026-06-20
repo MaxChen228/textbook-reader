@@ -1,0 +1,96 @@
+slug: karatzas_shreve_brownian_motion
+title: Brownian Motion and Stochastic Calculus
+author: Ioannis Karatzas; Steven E. Shreve
+edition: 1st
+subject: Probability
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 467
+bibliography_start_page: 467
+index_start_page: 479
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Martingales, Stopping Times, and Filtrations
+    page_start: 21
+    page_end: 66
+    chapter_title_block_idx: 201
+    chapter_title_block_idx_secondary: 202
+    problems_block_idx: null
+    next_chapter_block_idx: 932
+  - num: 2
+    title: Brownian Motion
+    page_start: 67
+    page_end: 147
+    chapter_title_block_idx: 932
+    chapter_title_block_idx_secondary: 933
+    problems_block_idx: null
+    next_chapter_block_idx: 2322
+  - num: 3
+    title: Stochastic Integration
+    page_start: 148
+    page_end: 258
+    chapter_title_block_idx: 2322
+    chapter_title_block_idx_secondary: 2323
+    problems_block_idx: null
+    next_chapter_block_idx: 4263
+  - num: 4
+    title: Brownian Motion and Partial Differential Equations
+    page_start: 259
+    page_end: 300
+    chapter_title_block_idx: 4263
+    chapter_title_block_idx_secondary: 4264
+    problems_block_idx: null
+    next_chapter_block_idx: 4958
+  - num: 5
+    title: Stochastic Differential Equations
+    page_start: 301
+    page_end: 418
+    chapter_title_block_idx: 4958
+    chapter_title_block_idx_secondary: 4959
+    problems_block_idx: null
+    next_chapter_block_idx: 7017
+  - num: 6
+    title: P. Lévy's Theory of Brownian Local Time
+    page_start: 419
+    page_end: 466
+    chapter_title_block_idx: 7017
+    chapter_title_block_idx_secondary: 7018
+    problems_block_idx: null
+    next_chapter_block_idx: 8739
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^([A-Z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+(?:Problem|Exercise)\.'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

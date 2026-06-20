@@ -1,0 +1,358 @@
+# ── 書本 metadata ──
+slug: hughes_graphics
+title: "Computer Graphics: Principles and Practice"
+author: John F. Hughes; Andries Van Dam; Morgan McGuire; David F. Sklar; James D. Foley; Steven K. Feiner; Kurt Akeley
+edition: 3rd
+subject: Computer Graphics
+publisher: Addison-Wesley
+language: en
+
+# ── block 過濾 ──
+filter_types: [page_number, header, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 50
+appendices_start_page: 1198
+bibliography_start_page: 1198
+index_start_page: 1232
+
+# ── inline-problem 模式 ──
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 50
+    page_end: 83
+    chapter_title_block_idx: 811
+    problems_block_idx: null
+    next_chapter_block_idx: 1121
+  - num: 2
+    title: Introduction to 2D Graphics Using WPF
+    page_start: 84
+    page_end: 109
+    chapter_title_block_idx: 1121
+    chapter_title_block_idx_secondary: 1122
+    problems_block_idx: null
+    next_chapter_block_idx: 1404
+  - num: 3
+    title: An Ancient Renderer Made Modern
+    page_start: 110
+    page_end: 129
+    chapter_title_block_idx: 1404
+    chapter_title_block_idx_secondary: 1405
+    problems_block_idx: null
+    next_chapter_block_idx: 1572
+  - num: 4
+    title: A 2D Graphics Test Bed
+    page_start: 130
+    page_end: 149
+    chapter_title_block_idx: 1572
+    chapter_title_block_idx_secondary: 1573
+    problems_block_idx: null
+    next_chapter_block_idx: 1756
+  - num: 5
+    title: An Introduction to Human Visual Perception
+    page_start: 150
+    page_end: 165
+    chapter_title_block_idx: 1756
+    chapter_title_block_idx_secondary: 1757
+    problems_block_idx: null
+    next_chapter_block_idx: 1896
+  - num: 6
+    title: Introduction to Fixed-Function 3D Graphics and Hierarchical Modeling
+    page_start: 166
+    page_end: 197
+    chapter_title_block_idx: 1896
+    chapter_title_block_idx_secondary: 1897
+    problems_block_idx: null
+    next_chapter_block_idx: 2291
+  - num: 7
+    title: Essential Mathematics and the Geometry of 2-Space and 3-Space
+    page_start: 198
+    page_end: 235
+    chapter_title_block_idx: 2291
+    chapter_title_block_idx_secondary: 2292
+    problems_block_idx: null
+    next_chapter_block_idx: 2892
+  - num: 8
+    title: A Simple Way to Describe Shape in 2D and 3D
+    page_start: 236
+    page_end: 249
+    chapter_title_block_idx: 2892
+    chapter_title_block_idx_secondary: 2893
+    problems_block_idx: null
+    next_chapter_block_idx: 3051
+  - num: 9
+    title: Functions on Meshes
+    page_start: 250
+    page_end: 269
+    chapter_title_block_idx: 3051
+    chapter_title_block_idx_secondary: 3052
+    problems_block_idx: null
+    next_chapter_block_idx: 3309
+  - num: 10
+    title: Transformations in Two Dimensions
+    page_start: 270
+    page_end: 311
+    chapter_title_block_idx: 3309
+    chapter_title_block_idx_secondary: 3310
+    problems_block_idx: null
+    next_chapter_block_idx: 3934
+  - num: 11
+    title: Transformations in Three Dimensions
+    page_start: 312
+    page_end: 335
+    chapter_title_block_idx: 3934
+    chapter_title_block_idx_secondary: 3935
+    problems_block_idx: null
+    next_chapter_block_idx: 4242
+  - num: 12
+    title: A 2D and 3D Transformation Library for Graphics
+    page_start: 336
+    page_end: 347
+    chapter_title_block_idx: 4242
+    chapter_title_block_idx_secondary: 4243
+    problems_block_idx: null
+    next_chapter_block_idx: 4385
+  - num: 13
+    title: Camera Specifications and Transformations
+    page_start: 348
+    page_end: 369
+    chapter_title_block_idx: 4385
+    chapter_title_block_idx_secondary: 4386
+    problems_block_idx: null
+    next_chapter_block_idx: 4609
+  - num: 14
+    title: Standard Approximations and Representations
+    page_start: 370
+    page_end: 435
+    chapter_title_block_idx: 4609
+    chapter_title_block_idx_secondary: 4610
+    problems_block_idx: null
+    next_chapter_block_idx: 5288
+  - num: 15
+    title: Ray Casting and Rasterization
+    page_start: 436
+    page_end: 499
+    chapter_title_block_idx: 5288
+    chapter_title_block_idx_secondary: 5289
+    problems_block_idx: null
+    next_chapter_block_idx: 5896
+  - num: 16
+    title: Survey of Real-Time 3D Graphics Platforms
+    page_start: 500
+    page_end: 529
+    chapter_title_block_idx: 5896
+    chapter_title_block_idx_secondary: 5897
+    problems_block_idx: null
+    next_chapter_block_idx: 6233
+  - num: 17
+    title: Image Representation and Manipulation
+    page_start: 530
+    page_end: 543
+    chapter_title_block_idx: 6233
+    chapter_title_block_idx_secondary: 6234
+    problems_block_idx: null
+    next_chapter_block_idx: 6374
+  - num: 18
+    title: Images and Signal Processing
+    page_start: 544
+    page_end: 581
+    chapter_title_block_idx: 6374
+    chapter_title_block_idx_secondary: 6375
+    problems_block_idx: null
+    next_chapter_block_idx: 6940
+  - num: 19
+    title: Enlarging and Shrinking Images
+    page_start: 582
+    page_end: 595
+    chapter_title_block_idx: 6940
+    chapter_title_block_idx_secondary: 6941
+    problems_block_idx: null
+    next_chapter_block_idx: 7116
+  - num: 20
+    title: Textures and Texture Mapping
+    page_start: 596
+    page_end: 615
+    chapter_title_block_idx: 7116
+    chapter_title_block_idx_secondary: 7117
+    problems_block_idx: null
+    next_chapter_block_idx: 7364
+  - num: 21
+    title: Interaction Techniques
+    page_start: 616
+    page_end: 643
+    chapter_title_block_idx: 7364
+    chapter_title_block_idx_secondary: 7365
+    problems_block_idx: null
+    next_chapter_block_idx: 7652
+  - num: 22
+    title: Splines and Subdivision Curves
+    page_start: 644
+    page_end: 655
+    chapter_title_block_idx: 7652
+    chapter_title_block_idx_secondary: 7653
+    problems_block_idx: null
+    next_chapter_block_idx: 7818
+  - num: 23
+    title: Splines and Subdivision Surfaces
+    page_start: 656
+    page_end: 663
+    chapter_title_block_idx: 7818
+    chapter_title_block_idx_secondary: 7819
+    problems_block_idx: null
+    next_chapter_block_idx: 7916
+  - num: 24
+    title: Implicit Representations of Shape
+    page_start: 664
+    page_end: 683
+    chapter_title_block_idx: 7916
+    chapter_title_block_idx_secondary: 7917
+    problems_block_idx: null
+    next_chapter_block_idx: 8127
+  - num: 25
+    title: Meshes
+    page_start: 684
+    page_end: 717
+    chapter_title_block_idx: 8127
+    chapter_title_block_idx_secondary: 8128
+    problems_block_idx: null
+    next_chapter_block_idx: 8553
+  - num: 26
+    title: Light
+    page_start: 718
+    page_end: 759
+    chapter_title_block_idx: 8553
+    chapter_title_block_idx_secondary: 8554
+    problems_block_idx: null
+    next_chapter_block_idx: 9085
+  - num: 27
+    title: Materials and Scattering
+    page_start: 760
+    page_end: 793
+    chapter_title_block_idx: 9085
+    chapter_title_block_idx_secondary: 9086
+    problems_block_idx: null
+    next_chapter_block_idx: 9489
+  - num: 28
+    title: Color
+    page_start: 794
+    page_end: 831
+    chapter_title_block_idx: 9489
+    chapter_title_block_idx_secondary: 9490
+    problems_block_idx: null
+    next_chapter_block_idx: 9912
+  - num: 29
+    title: Light Transport
+    page_start: 832
+    page_end: 849
+    chapter_title_block_idx: 9912
+    chapter_title_block_idx_secondary: 9913
+    problems_block_idx: null
+    next_chapter_block_idx: 10129
+  - num: 30
+    title: Probability and Monte Carlo Integration
+    page_start: 850
+    page_end: 873
+    chapter_title_block_idx: 10129
+    chapter_title_block_idx_secondary: 10130
+    problems_block_idx: null
+    next_chapter_block_idx: 10478
+  - num: 31
+    title: "Computing Solutions to the Rendering Equation: Theoretical Approaches"
+    page_start: 874
+    page_end: 929
+    chapter_title_block_idx: 10478
+    chapter_title_block_idx_secondary: 10479
+    problems_block_idx: null
+    next_chapter_block_idx: 11187
+  - num: 32
+    title: Rendering in Practice
+    page_start: 930
+    page_end: 975
+    chapter_title_block_idx: 11187
+    chapter_title_block_idx_secondary: 11188
+    problems_block_idx: null
+    next_chapter_block_idx: 11611
+  - num: 33
+    title: Shaders
+    page_start: 976
+    page_end: 993
+    chapter_title_block_idx: 11611
+    chapter_title_block_idx_secondary: 11612
+    problems_block_idx: null
+    next_chapter_block_idx: 11768
+  - num: 34
+    title: Expressive Rendering
+    page_start: 994
+    page_end: 1011
+    chapter_title_block_idx: 11768
+    chapter_title_block_idx_secondary: 11769
+    problems_block_idx: null
+    next_chapter_block_idx: 11938
+  - num: 35
+    title: Motion
+    page_start: 1012
+    page_end: 1071
+    chapter_title_block_idx: 11938
+    chapter_title_block_idx_secondary: 11939
+    problems_block_idx: null
+    next_chapter_block_idx: 12608
+  - num: 36
+    title: Visibility Determination
+    page_start: 1072
+    page_end: 1113
+    chapter_title_block_idx: 12608
+    chapter_title_block_idx_secondary: 12609
+    problems_block_idx: null
+    next_chapter_block_idx: 12990
+  - num: 37
+    title: Spatial Data Structures
+    page_start: 1114
+    page_end: 1151
+    chapter_title_block_idx: 12990
+    chapter_title_block_idx_secondary: 12991
+    problems_block_idx: null
+    next_chapter_block_idx: 13322
+  - num: 38
+    title: Modern Graphics Hardware
+    page_start: 1152
+    page_end: 1197
+    chapter_title_block_idx: 13322
+    chapter_title_block_idx_secondary: 13323
+    problems_block_idx: null
+    next_chapter_block_idx: 13728
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(?:Inline\s+)?Exercise\s+\d+\.(\d+)\s*:'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+)\s*:'
+
+# ── figure ──
+figure_caption_merge: true
+figure_caption_main_re: '^(?:\([a-z]\)\s*)*(?:Figure|Fig(?:ure|\.)?|Table)\s+\d+(?:\.\d+)+(?:[A-Za-z])?[.:]'
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

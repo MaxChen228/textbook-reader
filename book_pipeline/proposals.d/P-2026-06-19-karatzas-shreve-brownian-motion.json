@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-karatzas-shreve-brownian-motion",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot classify unlabeled in-text figures",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T22:48:29+00:00",
+  "updated": "2026-06-19T22:48:29+00:00",
+  "evidence": "smoke H7 reports 16 image blocks with empty captions; sampled images are inline illustrations without adjacent Figure/Table labels, and extract_rules has no field to mark them decorative or excluded from catalog semantics",
+  "proposal": "Add a per-book mechanism for unlabeled illustration exclusion/classification in catalog audit so smoke does not fail books whose images have no machine-detectable captions.",
+  "risk": "",
+  "disposition": ""
+}

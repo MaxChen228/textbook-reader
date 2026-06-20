@@ -1,0 +1,173 @@
+slug: motwani_raghavan_randomized_algorithms
+title: Randomized Algorithms
+author: Rajeev Motwani; Prabhakar Raghavan
+edition: null
+subject: Algorithms
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 437
+bibliography_start_page: 455
+index_start_page: 481
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 37
+    chapter_title_block_idx: 126
+    problems_block_idx: 365
+    next_chapter_block_idx: 405
+  - num: 2
+    title: Game-Theoretic Techniques
+    page_start: 38
+    page_end: 52
+    chapter_title_block_idx: 405
+    chapter_title_block_idx_secondary: 406
+    problems_block_idx: 539
+    next_chapter_block_idx: 555
+  - num: 3
+    title: Moments and Deviations
+    page_start: 53
+    page_end: 76
+    chapter_title_block_idx: 555
+    chapter_title_block_idx_secondary: 556
+    problems_block_idx: 845
+    next_chapter_block_idx: 886
+  - num: 4
+    title: Tail Inequalities
+    page_start: 77
+    page_end: 110
+    chapter_title_block_idx: 886
+    chapter_title_block_idx_secondary: 887
+    problems_block_idx: 1275
+    next_chapter_block_idx: 1325
+  - num: 5
+    title: The Probabilistic Method
+    page_start: 111
+    page_end: 136
+    chapter_title_block_idx: 1325
+    chapter_title_block_idx_secondary: 1326
+    problems_block_idx: 1578
+    next_chapter_block_idx: 1628
+  - num: 6
+    title: Markov Chains and Random Walks
+    page_start: 137
+    page_end: 170
+    chapter_title_block_idx: 1628
+    chapter_title_block_idx_secondary: 1629
+    problems_block_idx: 1974
+    next_chapter_block_idx: 2040
+  - num: 7
+    title: Algebraic Techniques
+    page_start: 171
+    page_end: 204
+    chapter_title_block_idx: 2040
+    chapter_title_block_idx_secondary: 2041
+    problems_block_idx: 2332
+    next_chapter_block_idx: 2420
+  - num: 8
+    title: Data Structures
+    page_start: 205
+    page_end: 241
+    chapter_title_block_idx: 2420
+    chapter_title_block_idx_secondary: 2421
+    problems_block_idx: 2771
+    next_chapter_block_idx: 2822
+  - num: 9
+    title: Geometric Algorithms and Linear Programming
+    page_start: 242
+    page_end: 285
+    chapter_title_block_idx: 2822
+    chapter_title_block_idx_secondary: 2823
+    problems_block_idx: 3246
+    next_chapter_block_idx: 3278
+  - num: 10
+    title: Graph Algorithms
+    page_start: 286
+    page_end: 313
+    chapter_title_block_idx: 3278
+    chapter_title_block_idx_secondary: 3279
+    problems_block_idx: 3581
+    next_chapter_block_idx: 3591
+  - num: 11
+    title: Approximate Counting
+    page_start: 314
+    page_end: 342
+    chapter_title_block_idx: 3591
+    chapter_title_block_idx_secondary: 3592
+    problems_block_idx: 3881
+    next_chapter_block_idx: 3907
+  - num: 12
+    title: Parallel and Distributed Algorithms
+    page_start: 343
+    page_end: 375
+    chapter_title_block_idx: 3907
+    chapter_title_block_idx_secondary: 3908
+    problems_block_idx: 4217
+    next_chapter_block_idx: 4262
+  - num: 13
+    title: Online Algorithms
+    page_start: 376
+    page_end: 399
+    chapter_title_block_idx: 4262
+    chapter_title_block_idx_secondary: 4263
+    problems_block_idx: 4497
+    next_chapter_block_idx: 4522
+  - num: 14
+    title: Number Theory and Algebra
+    page_start: 400
+    page_end: 436
+    chapter_title_block_idx: 4522
+    chapter_title_block_idx_secondary: 4523
+    problems_block_idx: 4969
+    next_chapter_block_idx: 4992
+
+appendices:
+  - id: A
+    title: Notational Index
+    page_start: 437
+    chapter_title_block_idx: 4992
+  - id: B
+    title: Mathematical Background
+    page_start: 441
+    chapter_title_block_idx: 5052
+  - id: C
+    title: Basic Probability Theory
+    page_start: 446
+    chapter_title_block_idx: 5137
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

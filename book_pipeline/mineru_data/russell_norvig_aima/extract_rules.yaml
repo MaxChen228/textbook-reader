@@ -1,0 +1,262 @@
+# extract_rules.yaml — russell_norvig_aima
+# Stuart Russell & Peter Norvig, Artificial Intelligence: A Modern Approach (4th ed.).
+# 由 audit-book deterministic 流程產出；本書章末 exercises 已移到線上，正文僅保留 Exercise 6.NARY 之類引用。
+
+slug: russell_norvig_aima
+title: "Artificial Intelligence: A Modern Approach"
+author: Stuart Russell; Peter Norvig
+edition: 4th
+subject: Computer Science
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 1035
+bibliography_start_page: 1045
+index_start_page: 1080
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 47
+    chapter_title_block_idx: 243
+    problems_block_idx: null
+    next_chapter_block_idx: 664
+  - num: 2
+    title: Intelligent Agents
+    page_start: 48
+    page_end: 74
+    chapter_title_block_idx: 664
+    problems_block_idx: null
+    next_chapter_block_idx: 976
+  - num: 3
+    title: Solving Problems by Searching
+    page_start: 75
+    page_end: 121
+    chapter_title_block_idx: 976
+    problems_block_idx: null
+    next_chapter_block_idx: 1557
+  - num: 4
+    title: Search in Complex Environments
+    page_start: 122
+    page_end: 157
+    chapter_title_block_idx: 1557
+    problems_block_idx: null
+    next_chapter_block_idx: 1981
+  - num: 5
+    title: Adversarial Search and Games
+    page_start: 158
+    page_end: 191
+    chapter_title_block_idx: 1981
+    problems_block_idx: null
+    next_chapter_block_idx: 2358
+  - num: 6
+    title: Constraint Satisfaction Problems
+    page_start: 192
+    page_end: 219
+    chapter_title_block_idx: 2358
+    problems_block_idx: null
+    next_chapter_block_idx: 2720
+  - num: 7
+    title: Logical Agents
+    page_start: 220
+    page_end: 262
+    chapter_title_block_idx: 2720
+    problems_block_idx: null
+    next_chapter_block_idx: 3315
+  - num: 8
+    title: First-Order Logic
+    page_start: 263
+    page_end: 291
+    chapter_title_block_idx: 3315
+    problems_block_idx: null
+    next_chapter_block_idx: 3806
+  - num: 9
+    title: Inference in First-Order Logic
+    page_start: 292
+    page_end: 325
+    chapter_title_block_idx: 3806
+    problems_block_idx: null
+    next_chapter_block_idx: 4320
+  - num: 10
+    title: Knowledge Representation
+    page_start: 326
+    page_end: 355
+    chapter_title_block_idx: 4320
+    chapter_title_block_idx_secondary: 4321
+    problems_block_idx: null
+    next_chapter_block_idx: 4727
+  - num: 11
+    title: Automated Planning
+    page_start: 356
+    page_end: 396
+    chapter_title_block_idx: 4727
+    chapter_title_block_idx_secondary: 4728
+    problems_block_idx: null
+    next_chapter_block_idx: 5205
+  - num: 12
+    title: Quantifying Uncertainty
+    page_start: 397
+    page_end: 423
+    chapter_title_block_idx: 5205
+    problems_block_idx: null
+    next_chapter_block_idx: 5602
+  - num: 13
+    title: Probabilistic Reasoning
+    page_start: 424
+    page_end: 472
+    chapter_title_block_idx: 5602
+    problems_block_idx: null
+    next_chapter_block_idx: 6246
+  - num: 14
+    title: Probabilistic Reasoning over Time
+    page_start: 473
+    page_end: 511
+    chapter_title_block_idx: 6246
+    problems_block_idx: null
+    next_chapter_block_idx: 6716
+  - num: 15
+    title: Probabilistic Programming
+    page_start: 512
+    page_end: 539
+    chapter_title_block_idx: 6716
+    problems_block_idx: null
+    next_chapter_block_idx: 7030
+  - num: 16
+    title: Making Simple Decisions
+    page_start: 540
+    page_end: 573
+    chapter_title_block_idx: 7030
+    problems_block_idx: null
+    next_chapter_block_idx: 7497
+  - num: 17
+    title: Making Complex Decisions
+    page_start: 574
+    page_end: 610
+    chapter_title_block_idx: 7497
+    problems_block_idx: null
+    next_chapter_block_idx: 7963
+  - num: 18
+    title: Multiagent Decision Making
+    page_start: 611
+    page_end: 662
+    chapter_title_block_idx: 7963
+    problems_block_idx: null
+    next_chapter_block_idx: 8687
+  - num: 19
+    title: Learning from Examples
+    page_start: 663
+    page_end: 732
+    chapter_title_block_idx: 8687
+    problems_block_idx: null
+    next_chapter_block_idx: 9632
+  - num: 20
+    title: Learning Probabilistic Models
+    page_start: 733
+    page_end: 761
+    chapter_title_block_idx: 9632
+    problems_block_idx: null
+    next_chapter_block_idx: 9982
+  - num: 21
+    title: Deep Learning
+    page_start: 762
+    page_end: 800
+    chapter_title_block_idx: 9982
+    chapter_title_block_idx_secondary: 9983
+    problems_block_idx: null
+    next_chapter_block_idx: 10473
+  - num: 22
+    title: Reinforcement Learning
+    page_start: 801
+    page_end: 834
+    chapter_title_block_idx: 10473
+    problems_block_idx: null
+    next_chapter_block_idx: 10906
+  - num: 23
+    title: Natural Language Processing
+    page_start: 835
+    page_end: 867
+    chapter_title_block_idx: 10906
+    problems_block_idx: null
+    next_chapter_block_idx: 11324
+  - num: 24
+    title: Deep Learning for Natural Language Processing
+    page_start: 868
+    page_end: 892
+    chapter_title_block_idx: 11324
+    chapter_title_block_idx_secondary: 11325
+    problems_block_idx: null
+    next_chapter_block_idx: 11613
+  - num: 25
+    title: Computer Vision
+    page_start: 893
+    page_end: 936
+    chapter_title_block_idx: 11613
+    problems_block_idx: null
+    next_chapter_block_idx: 12080
+  - num: 26
+    title: Robotics
+    page_start: 937
+    page_end: 992
+    chapter_title_block_idx: 12080
+    problems_block_idx: null
+    next_chapter_block_idx: 12792
+  - num: 27
+    title: Philosophy, Ethics, and Safety of AI
+    page_start: 993
+    page_end: 1023
+    chapter_title_block_idx: 12792
+    chapter_title_block_idx_secondary: 12793
+    problems_block_idx: null
+    next_chapter_block_idx: 13120
+  - num: 28
+    title: The Future of AI
+    page_start: 1024
+    page_end: 1034
+    chapter_title_block_idx: 13120
+    problems_block_idx: null
+    next_chapter_block_idx: 13241
+
+appendices:
+  - id: A
+    title: Mathematical Background
+    page_start: 1035
+    chapter_title_block_idx: 13241
+  - id: B
+    title: Notes on Languages and Algorithms
+    page_start: 1042
+    chapter_title_block_idx: 13363
+
+section_re: '^((?:\\d+|[A-Z])\\.\\d+)\\s+(.+)$'
+subsection_re: '^((?:\\d+|[A-Z])\\.\\d+\\.\\d+)\\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# 本書沒有書內 problems block；保留極保守的 online-exercise 參照 regex，避免把正文引用誤切成題目。
+problem_start_re: '^Exercise\\s+(\\d+\\.[A-Z0-9]+)\\s*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\s*\\{([0-9]+\\.[0-9]+[a-z]?)\\}'
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

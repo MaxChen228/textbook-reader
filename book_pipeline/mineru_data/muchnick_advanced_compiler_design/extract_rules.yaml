@@ -1,0 +1,206 @@
+slug: muchnick_advanced_compiler_design
+title: Advanced Compiler Design and Implementation
+author: Steven S. Muchnick
+edition: null
+subject: Compilers
+publisher: Morgan Kaufmann Publishers
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 33
+appendices_start_page: 778
+bibliography_start_page: 832
+index_start_page: 852
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Advanced Topics
+    page_start: 33
+    page_end: 49
+    chapter_title_block_idx: 352
+    problems_block_idx: 496
+    next_chapter_block_idx: 501
+  - num: 2
+    title: Informal Compiler Algorithm Notation (ICAN)
+    page_start: 50
+    page_end: 73
+    chapter_title_block_idx: 501
+    problems_block_idx: 802
+    next_chapter_block_idx: 814
+  - num: 3
+    title: Symbol-Table Structure
+    page_start: 74
+    page_end: 97
+    chapter_title_block_idx: 814
+    problems_block_idx: 1000
+    next_chapter_block_idx: 1013
+  - num: 4
+    title: Intermediate Representations
+    page_start: 98
+    page_end: 135
+    chapter_title_block_idx: 1013
+    problems_block_idx: 1319
+    next_chapter_block_idx: 1337
+  - num: 5
+    title: Run-Time Support
+    page_start: 136
+    page_end: 167
+    chapter_title_block_idx: 1337
+    problems_block_idx: 1611
+    next_chapter_block_idx: 1619
+  - num: 6
+    title: Producing Code Generators Automatically
+    page_start: 168
+    page_end: 199
+    chapter_title_block_idx: 1619
+    problems_block_idx: 1889
+    next_chapter_block_idx: 1907
+  - num: 7
+    title: Control-Flow Analysis
+    page_start: 200
+    page_end: 247
+    chapter_title_block_idx: 1907
+    problems_block_idx: 2237
+    next_chapter_block_idx: 2245
+  - num: 8
+    title: Data-Flow Analysis
+    page_start: 248
+    page_end: 297
+    chapter_title_block_idx: 2245
+    problems_block_idx: 2787
+    next_chapter_block_idx: 2801
+  - num: 9
+    title: Dependence Analysis and Dependence Graphs
+    page_start: 298
+    page_end: 323
+    chapter_title_block_idx: 2801
+    problems_block_idx: 3076
+    next_chapter_block_idx: 3097
+  - num: 10
+    title: Alias Analysis
+    page_start: 324
+    page_end: 349
+    chapter_title_block_idx: 3097
+    problems_block_idx: 3382
+    next_chapter_block_idx: 3397
+  - num: 11
+    title: Introduction to Optimization
+    page_start: 350
+    page_end: 359
+    chapter_title_block_idx: 3397
+    problems_block_idx: 3476
+    next_chapter_block_idx: 3481
+  - num: 12
+    title: Early Optimizations
+    page_start: 360
+    page_end: 407
+    chapter_title_block_idx: 3481
+    problems_block_idx: 3834
+    next_chapter_block_idx: 3865
+  - num: 13
+    title: Redundancy Elimination
+    page_start: 408
+    page_end: 455
+    chapter_title_block_idx: 3865
+    problems_block_idx: 4246
+    next_chapter_block_idx: 4253
+  - num: 14
+    title: Loop Optimizations
+    page_start: 456
+    page_end: 491
+    chapter_title_block_idx: 4253
+    problems_block_idx: 4593
+    next_chapter_block_idx: 4600
+  - num: 15
+    title: Procedure Optimizations
+    page_start: 492
+    page_end: 511
+    chapter_title_block_idx: 4600
+    problems_block_idx: 4739
+    next_chapter_block_idx: 4747
+  - num: 16
+    title: Register Allocation
+    page_start: 512
+    page_end: 561
+    chapter_title_block_idx: 4747
+    problems_block_idx: 5111
+    next_chapter_block_idx: 5120
+  - num: 17
+    title: Code Scheduling
+    page_start: 562
+    page_end: 609
+    chapter_title_block_idx: 5120
+    problems_block_idx: 5495
+    next_chapter_block_idx: 5506
+  - num: 18
+    title: Control-Flow and Low-Level Optimizations
+    page_start: 610
+    page_end: 637
+    chapter_title_block_idx: 5506
+    problems_block_idx: 5737
+    next_chapter_block_idx: 5741
+  - num: 19
+    title: Interprocedural Analysis and Optimization
+    page_start: 638
+    page_end: 699
+    chapter_title_block_idx: 5741
+    problems_block_idx: 6224
+    next_chapter_block_idx: 6236
+  - num: 20
+    title: Optimization for the Memory Hierarchy
+    page_start: 700
+    page_end: 735
+    chapter_title_block_idx: 6236
+    problems_block_idx: 6545
+    next_chapter_block_idx: 6549
+  - num: 21
+    title: Case Studies of Compilers and Future Trends
+    page_start: 736
+    page_end: 777
+    chapter_title_block_idx: 6549
+    problems_block_idx: 6859
+    next_chapter_block_idx: 6860
+
+appendices:
+  - id: A
+    title: Guide to Assembly Languages Used in This Book
+    page_start: 778
+    chapter_title_block_idx: 6860
+  - id: B
+    title: Representation of Sets, Sequences, Trees, DAGs, and Functions
+    page_start: 788
+    chapter_title_block_idx: 6922
+  - id: C
+    title: Software Resources
+    page_start: 798
+    chapter_title_block_idx: 7011
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:(?:RSCH|ADV)\s+)?(\d+\.\d+)\s+(?=\S)'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

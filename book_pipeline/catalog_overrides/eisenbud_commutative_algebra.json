@@ -1,0 +1,48 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "eisenbud-a3.12-recrop",
+      "action": "pdf_crop_insert",
+      "chunk": "appC",
+      "selector": "body[530]",
+      "page": 672,
+      "clip": [
+        0.1,
+        0.43,
+        0.95,
+        0.665
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-A3.12",
+        "kind": "line",
+        "caption": "FIGURE A3.12."
+      },
+      "reason": "Raw PDF page 672 contains Figure A3.11 and Figure A3.12 stacked in one MinerU image block; recrop the existing fig-A3.12 entry to the lower half only."
+    },
+    {
+      "id": "eisenbud-a3.11-insert",
+      "action": "pdf_crop_insert",
+      "chunk": "appC",
+      "selector": "body[530]",
+      "position": "before",
+      "page": 672,
+      "clip": [
+        0.1,
+        0.06,
+        0.93,
+        0.43
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-A3.11",
+        "kind": "line",
+        "caption": "FIGURE A3.11."
+      },
+      "reason": "Raw PDF page 672 shows Figure A3.11 above Figure A3.12, but MinerU merged both into a single image and only emitted fig-A3.12. Insert a dedicated Figure A3.11 block before the existing Figure A3.12 block."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+slug: winskel_formal_semantics
+title: "The Formal Semantics of Programming Languages: An Introduction"
+author: Glynn Winskel
+edition: 1st
+subject: Computer Science
+publisher: The MIT Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 357
+bibliography_start_page: null
+index_start_page: 377
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Basic set theory
+    page_start: 21
+    page_end: 30
+    chapter_title_block_idx: 124
+    problems_block_idx: null
+    next_chapter_block_idx: 302
+  - num: 2
+    title: Introduction to operational semantics
+    page_start: 31
+    page_end: 46
+    chapter_title_block_idx: 302
+    problems_block_idx: null
+    next_chapter_block_idx: 550
+  - num: 3
+    title: Some principles of induction
+    page_start: 47
+    page_end: 60
+    chapter_title_block_idx: 550
+    problems_block_idx: null
+    next_chapter_block_idx: 766
+  - num: 4
+    title: Inductive definitions
+    page_start: 61
+    page_end: 74
+    chapter_title_block_idx: 766
+    problems_block_idx: null
+    next_chapter_block_idx: 976
+  - num: 5
+    title: The denotational semantics of IMP
+    page_start: 75
+    page_end: 96
+    chapter_title_block_idx: 976
+    problems_block_idx: null
+    next_chapter_block_idx: 1338
+  - num: 6
+    title: The axiomatic semantics of IMP
+    page_start: 97
+    page_end: 118
+    chapter_title_block_idx: 1338
+    problems_block_idx: null
+    next_chapter_block_idx: 1672
+  - num: 7
+    title: Completeness of the Hoare rules
+    page_start: 119
+    page_end: 138
+    chapter_title_block_idx: 1672
+    problems_block_idx: null
+    next_chapter_block_idx: 2003
+  - num: 8
+    title: Introduction to domain theory
+    page_start: 139
+    page_end: 160
+    chapter_title_block_idx: 2003
+    problems_block_idx: null
+    next_chapter_block_idx: 2340
+  - num: 9
+    title: Recursion equations
+    page_start: 161
+    page_end: 182
+    chapter_title_block_idx: 2340
+    problems_block_idx: null
+    next_chapter_block_idx: 2749
+  - num: 10
+    title: Techniques for recursion
+    page_start: 183
+    page_end: 202
+    chapter_title_block_idx: 2749
+    chapter_title_block_idx_secondary: 2750
+    problems_block_idx: null
+    next_chapter_block_idx: 3091
+  - num: 11
+    title: Languages with higher types
+    page_start: 203
+    page_end: 242
+    chapter_title_block_idx: 3091
+    chapter_title_block_idx_secondary: 3092
+    problems_block_idx: null
+    next_chapter_block_idx: 3783
+  - num: 12
+    title: Information systems
+    page_start: 243
+    page_end: 270
+    chapter_title_block_idx: 3783
+    problems_block_idx: null
+    next_chapter_block_idx: 4190
+  - num: 13
+    title: Recursive types
+    page_start: 271
+    page_end: 316
+    chapter_title_block_idx: 4190
+    chapter_title_block_idx_secondary: 4191
+    problems_block_idx: null
+    next_chapter_block_idx: 5076
+  - num: 14
+    title: Nondeterminism and parallelism
+    page_start: 317
+    page_end: 356
+    chapter_title_block_idx: 5076
+    problems_block_idx: null
+    next_chapter_block_idx: 5675
+
+appendices:
+  - id: A
+    title: Incompleteness and undecidability
+    page_start: 357
+    chapter_title_block_idx: 5675
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+([A-Z]?\d+\.\d+)\b[:.)]?\s*'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([^}]+?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-appel-modern-compiler-implementa",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog builder 無法穩定從本書抽出 figure/table caption",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:43:34+00:00",
+  "updated": "2026-06-19T23:43:34+00:00",
+  "evidence": "第三輪 audit 後 parser 題號已正常，但 smoke 仍固定為 H6 unresolved refs=4（Figure=2/Table=2）與 H7 empty_captions=401；加入 figure_caption_main_re 與 figure_caption_merge 也無改善。parsed/_catalog_audit.md 顯示大量圖說文字存在於正文 text block（如 FIGURE 1.4 / 3.4 / 7.1），另有 table caption 缺失超出現行 extract_rules schema 可表達範圍。",
+  "proposal": "擴充 catalog builder/override 流程，支援從相鄰 text block 穩定抽取 Figure/Table caption 與 companion visual 排除，或將 H6/H7 降為可透過 reviewable catalog override 解決的後處理。",
+  "risk": "",
+  "disposition": ""
+}

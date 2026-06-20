@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "bondy_murty_graph_theory-ch21-body-54-0db3c0",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[54]",
+      "expect": "F (G, \\Gamma) = F (G \\mathord {\\left/ {G / e, \\Gamma} \\left. \\right.}) - F (G \\setminus e, \\Gamma)",
+      "new": "F(G,\\Gamma)=F(G/e,\\Gamma)-F(G\\setminus e,\\Gamma)"
+    },
+    {
+      "id": "bondy_murty_graph_theory-ch19-body-93-1231fb",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[93]",
+      "expect": "n _ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if v_{i} is the tail of a_{j}} \\\\ 0 & \\text {otherwise} \\end{array} \\right.",
+      "new": "n_{ij}=\\left\\{\\begin{array}{ll}1&\\text{if }v_{i}\\text{ is the tail of }a_{j}\\\\0&\\text{otherwise}\\end{array}\\right."
+    },
+    {
+      "id": "bondy_murty_graph_theory-ch19-body-96-232c59",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{l} b _ {i} := \\left\\{ \\begin{array}{l l} 0 & \\text { if } 1 \\leq i \\leq n \\\\ 1 & \\text { otherwise } \\end{array} \\right. \\\\ c _ {j} := \\left\\{ \\begin{array}{l l} 1 & \\text { if   a_{j } is a reverse arc} \\\\ 0 & \\text { otherwise} \\end{array} \\right. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} b_{i}:=\\left\\{\\begin{array}{ll}0&\\text{ if }1\\leq i\\leq n\\\\1&\\text{ otherwise }\\end{array}\\right. \\\\ c_{j}:=\\left\\{\\begin{array}{ll}1&\\text{ if }a_{j}\\text{ is a reverse arc}\\\\0&\\text{ otherwise}\\end{array}\\right. \\\\ \\end{array}"
+    }
+  ]
+}

@@ -91,7 +91,8 @@ book_pipeline/mineru_data/*/page*.png
 # proposals 原子寫暫存（atomic_write_json 的 tmp 殘檔）
 book_pipeline/proposals.d/*.tmp*
 
-# triage 結果快取（按檔內容；可重生）
+# triage 結果快取（按檔內容；可重生）＋ atomic_write 暫存（.triage_<rand>.json）
 /book_pipeline/.triage_cache.json
+/book_pipeline/.triage_*.json
 # CPU 工具併發閘的 flock 槽（runtime，可重生）
 /book_pipeline/.cpu_slots/

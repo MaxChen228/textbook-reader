@@ -1,0 +1,314 @@
+{
+  "overrides": [
+    {
+      "id": "pierce_tapl-ch05-body-42-424a21",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[42]",
+      "expect": "\\begin{array}{l} \\underline {{\\text {id (id (\\lambda z. id z))}}} \\\\ \\underline {{\\text {id ((id (\\lambda z. id z)))}}} \\\\ \\underline {{\\text {id (id (\\lambda z. id z))}}} \\end{array}",
+      "new": "\\begin{array}{l} \\underline {\\text {id (id (} \\lambda z.\\ \\text {id z))}} \\\\ \\underline {\\text {id ((id (} \\lambda z.\\ \\text {id z)))}} \\\\ \\underline {\\text {id (id (} \\lambda z.\\ \\text {id z))}} \\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch05-body-44-fd047d",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[44]",
+      "expect": "\\begin{array}{l l}&\\text {id (id (\\lambda z. \\underline {{id z}}))}\\\\\\rightarrow&\\text {id (id (\\lambda z.z))}\\\\\\rightarrow&\\text {id (\\lambda z.z)}\\\\\\rightarrow&\\lambda z. z\\\\\\nearrow&\\end{array}",
+      "new": "\\begin{array}{l l}&\\text {id (id (} \\lambda z.\\ \\underline {\\text {id z}}\\text {))}\\\\\\rightarrow&\\text {id (id (} \\lambda z.z\\text {))}\\\\\\rightarrow&\\text {id (} \\lambda z.z\\text {)}\\\\\\rightarrow&\\lambda z. z\\\\\\nearrow&\\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch05-body-46-c8c9b6",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[46]",
+      "expect": "\\begin{array}{l l}&\\text {id (id (\\lambda z. id z))}\\\\\\rightarrow&\\text {id (\\lambda z. id z)}\\\\\\rightarrow&\\text {\\lambda z. \\underline {{id z}}}\\\\\\rightarrow&\\text {\\lambda z.z}\\\\\\dashv&\\end{array}",
+      "new": "\\begin{array}{l l}&\\text {id (id (} \\lambda z.\\ \\text {id z))}\\\\\\rightarrow&\\text {id (} \\lambda z.\\ \\text {id z)}\\\\\\rightarrow&\\lambda z.\\ \\underline {\\text {id z}}\\\\\\rightarrow&\\lambda z.z\\\\\\dashv&\\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch11-problem-11-12-2-body-11-777f5c",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.12.2:body[11]",
+      "expect": "\\text {   head[S]   (cons[T]   v_{1}   v_{2})   \\longrightarrow   v_{1}  }",
+      "new": "\\text {   head[S]   (cons[T]   v }_{1}\\text {   v }_{2}\\text {)   }\\longrightarrow\\text {   v }_{1}"
+    },
+    {
+      "id": "pierce_tapl-ch14-body-50-db414e",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[50]",
+      "expect": "\\begin{array}{c} \\mathsf {t _ {1}} \\longrightarrow \\mathsf {t _ {1} ^ {\\prime}} \\\\ \\hline \\text {try t_{1} with t_{2}} \\\\ \\longrightarrow \\text {try t_{1} ^{\\prime} with t_{2}} \\end{array}",
+      "new": "\\begin{array}{c} \\mathsf {t _ {1}} \\longrightarrow \\mathsf {t _ {1} ^ {\\prime}} \\\\ \\hline \\text {try t}_{1}\\text { with t}_{2} \\\\ \\longrightarrow \\text {try t}_{1} ^{\\prime}\\text { with t}_{2} \\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch14-body-110-4c6398",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[110]",
+      "expect": "\\begin{array}{r c l} \\text {try t with l(x) \\to h} & \\stackrel {{\\text {def}}} {{=}} & \\text {try t with} \\\\ & & \\lambda e: T _ {e x n}. \\text {case e of} \\\\ & & <   l = x > \\Rightarrow h \\\\ & & | \\_ \\Rightarrow \\text {raise e} \\end{array}",
+      "new": "\\begin{array}{r c l} \\text {try t with l(x) } \\to \\text { h} & \\stackrel {{\\text {def}}} {{=}} & \\text {try t with} \\\\ & & \\lambda e: T _ {e x n}. \\text {case e of} \\\\ & & <   l = x > \\Rightarrow h \\\\ & & | \\_ \\Rightarrow \\text {raise e} \\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch21-body-74-fe1aed",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{l c l} g f p ^ {a} (A, X) & = & \\text {if support(X)\\uparrow , then false} \\\\ & & \\text {else if X = \\emptyset , then true} \\\\ & & \\text {else gfp^{a} (A\\cup X,support(X)\\setminus(A\\cup X)).} \\end{array}",
+      "new": "\\begin{array}{l c l} g f p ^ {a} (A, X) & = & \\text {if support(X)}\\uparrow\\text {, then false} \\\\ & & \\text {else if X = }\\emptyset\\text {, then true} \\\\ & & \\text {else } gfp^{a} (A\\cup X,support(X)\\setminus(A\\cup X))\\text {.} \\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch22-problem-22-3-3-body-38-4f7871",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "problem:22.3.3:body[38]",
+      "expect": "\\sigma^ {\\prime} = \\left[ \\begin{array}{l l} Y \\mapsto U & \\text {if Y\\notin X and (Y\\mapsto U)\\in\\sigma ,} \\\\ Y _ {1} \\mapsto U _ {1} & \\text {if Y_{1} \\in\\mathcal {X} _{1} and (Y_{1}\\mapsto U_{1})\\in\\sigma_{1} ,} \\\\ Y _ {2} \\mapsto U _ {2} & \\text {if Y_{2} \\in\\mathcal {X} _{2} and (Y_{2}\\mapsto U_{2})\\in\\sigma_{2} ,} \\\\ X \\mapsto T & \\end{array} \\right]",
+      "new": "\\sigma^ {\\prime} = \\left[ \\begin{array}{l l} Y \\mapsto U & \\text {if } Y\\notin X \\text { and } (Y\\mapsto U)\\in\\sigma \\text {,} \\\\ Y _ {1} \\mapsto U _ {1} & \\text {if } Y_{1} \\in\\mathcal {X} _{1} \\text { and } (Y_{1}\\mapsto U_{1})\\in\\sigma_{1} \\text {,} \\\\ Y _ {2} \\mapsto U _ {2} & \\text {if } Y_{2} \\in\\mathcal {X} _{2} \\text { and } (Y_{2}\\mapsto U_{2})\\in\\sigma_{2} \\text {,} \\\\ X \\mapsto T & \\end{array} \\right]"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-52-55042c",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[52]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\texttt { t : M w i t h \\Gamma \\vdash M < S }$",
+      "new": "$\\Gamma \\vdash \\texttt { t : M with }\\Gamma \\vdash M < S$",
+      "anchor": "d0f47054"
+    },
+    {
+      "id": "pierce_tapl-appA-body-254-cc45b7",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[254]",
+      "expect": "\\begin{array}{l l} \\text {Case T - IF:} & \\mathbf {t} = \\text {if t_{1} then t_{2} else t_{3}} \\Gamma \\vdash \\mathbf {t _ {1}}: \\text {Bool} \\\\ & \\Gamma \\vdash \\mathbf {t _ {2}}: \\mathsf {T} \\qquad \\qquad \\qquad \\qquad \\qquad \\Gamma \\vdash \\mathbf {t _ {3}}: \\mathsf {T} \\\\ & \\text {where} \\Gamma = \\mathbf {x _ {1}}: \\mathsf {T _ {1}}, \\ldots , \\mathbf {x _ {n}}: \\mathsf {T _ {n}} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {Case T - IF:} & \\mathbf {t} = \\text {if t}_{1}\\text { then t}_{2}\\text { else t}_{3}\\ \\Gamma \\vdash \\mathbf {t _ {1}}: \\text {Bool} \\\\ & \\Gamma \\vdash \\mathbf {t _ {2}}: \\mathsf {T} \\qquad \\qquad \\qquad \\qquad \\qquad \\Gamma \\vdash \\mathbf {t _ {3}}: \\mathsf {T} \\\\ & \\text {where} \\Gamma = \\mathbf {x _ {1}}: \\mathsf {T _ {1}}, \\ldots , \\mathbf {x _ {n}}: \\mathsf {T _ {n}} \\end{array}"
+    },
+    {
+      "id": "pierce_tapl-ch08-body-80-4275bb",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[80]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\begin{array} { l } { C a s e \\mathrm { ~ T - I F : } \\quad \\mathrm { ~ t = ~ i ~ f ~ t _ 1 ~ t h e n ~ t _ 2 ~ e ~ l ~ s e ~ t _ 3 ~ } \\quad \\mathrm { t _ 1 : B o o l ~ \\omega ~ t _ 2 : \\nabla ~ t _ 3 : ~ T ~ } } } \\end{array} $",
+      "new": "$\\begin{array} { l } { C a s e \\mathrm { ~ T - I F : } \\quad \\mathrm { ~ t = ~ i ~ f ~ t _ 1 ~ t h e n ~ t _ 2 ~ e ~ l ~ s e ~ t _ 3 ~ } \\quad \\mathrm { t _ 1 : B o o l ~ \\omega ~ t _ 2 : \\nabla ~ t _ 3 : ~ T ~ } } \\end{array} $",
+      "anchor": "41ed270b"
+    },
+    {
+      "id": "pierce_tapl-appA-body-232-f7190b",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[232]",
+      "expect": "\\frac {\\forall {} ^ {i \\in 1 . . n} . \\exists {} ^ {j \\in 1 . . m} . \\mathsf {l} _ {i} = \\mathrm{k} _ {j} \\text {and} \\vdash \\mathrm{p} _ {i} : \\mathrm{T} _ {j} \\Rightarrow \\Delta_ {i}}{\\vdash \\{\\mathsf {l} _ {i} = \\mathrm{p} _ {i} {} ^ {i \\in 1 . . n} \\} \\in \\{\\mathrm{k} _ {j} : \\mathrm{T} _ {j} {} ^ {j \\in 1 . . m} \\} \\Rightarrow \\Delta_ {1} , \\dots , \\Delta_ {n}} $}",
+      "new": "\\frac {\\forall {} ^ {i \\in 1 . . n} . \\exists {} ^ {j \\in 1 . . m} . \\mathsf {l} _ {i} = \\mathrm{k} _ {j} \\text {and} \\vdash \\mathrm{p} _ {i} : \\mathrm{T} _ {j} \\Rightarrow \\Delta_ {i}}{\\vdash \\{\\mathsf {l} _ {i} = \\mathrm{p} _ {i} {} ^ {i \\in 1 . . n} \\} \\in \\{\\mathrm{k} _ {j} : \\mathrm{T} _ {j} {} ^ {j \\in 1 . . m} \\} \\Rightarrow \\Delta_ {1} , \\dots , \\Delta_ {n}}"
+    },
+    {
+      "id": "pierce_tapl-ch19-body-127-1e22cb",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { D } \\nlessgtr \\mathsf { C } .$",
+      "new": "$\\mathsf { D } \\lessgtr \\mathsf { C } .$",
+      "anchor": "d4cc9104"
+    },
+    {
+      "id": "pierce_tapl-ch19-problem-19-4-6-body-1-0e78d1",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19.4.6:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ t _ { 1 } : \\tplus \\ t _ { 2 } : \\ t _ { 3 }$",
+      "new": "$\\ t _ { 1 } : + \\ t _ { 2 } : \\ t _ { 3 }$",
+      "anchor": "dbac1976"
+    },
+    {
+      "id": "pierce_tapl-ch21-body-167-c34a9a",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[167]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Chi { < } : \\Upsilon$",
+      "new": "$X { < } : \\Upsilon$",
+      "anchor": "bd7cc71e"
+    },
+    {
+      "id": "pierce_tapl-ch26-body-107-c766bc",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { S } \\ldot { \\mathbf { \\mathsf { \\Omega } } } { < } \\bar { \\mathbf { \\Omega } } \\mathsf { T }$",
+      "new": "$\\Gamma \\vdash \\mathsf { S } \\cdot { \\mathbf { \\mathsf { \\Omega } } } { < } \\bar { \\mathbf { \\Omega } } \\mathsf { T }$",
+      "anchor": "91333003"
+    },
+    {
+      "id": "pierce_tapl-ch26-body-190-edbfac",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[190]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { x } : \\mathsf { U } \\vdash \\mathsf { S } \\ldot { \\mathsf { z } } : \\mathsf { T } .$",
+      "new": "$\\mathsf { x } : \\mathsf { U } \\vdash \\mathsf { S } \\cdot { \\mathsf { z } } : \\mathsf { T } .$",
+      "anchor": "3410e5fa"
+    },
+    {
+      "id": "pierce_tapl-ch26-problem-26-4-3-body-32-74ae58",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "problem:26.4.3:body[32]",
+      "field": "md",
+      "all": true,
+      "old": "$\\forall \\mathsf { X } \\mathsf { < } : \\mathsf { U } _ { 1 } \\ldotsmathsf { S } _ { 2 }$",
+      "new": "$\\forall \\mathsf { X } \\mathsf { < } : \\mathsf { U } _ { 1 } \\ldots \\mathsf { S } _ { 2 }$",
+      "anchor": "54a3b813"
+    },
+    {
+      "id": "pierce_tapl-ch26-problem-26-4-11-body-1-cc30bc",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "problem:26.4.11:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\ldot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } \\ldot { \\mathbf { \\dot { \\mathbf { \\textsf { S } } } } } _ { 1 }$",
+      "new": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\cdot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } \\cdot { \\mathbf { \\dot { \\mathbf { \\textsf { S } } } } } _ { 1 }$",
+      "anchor": "6936cd93"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-60-6730f1",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[60]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash Z \\ldot { \\ l } < : \\ \\mathsf { W }$",
+      "new": "$\\Gamma \\vdash Z \\cdot { \\ l } < : \\ \\mathsf { W }$",
+      "anchor": "365df222"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-117-332142",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[117]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { S } \\ldot { } \\ l { } < : \\ 0$",
+      "new": "$\\Gamma \\vdash \\mathsf { S } \\cdot \\ l < : \\ 0$",
+      "anchor": "e8f3c419"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-153-4a9ed9",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[153]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { T } \\ldot { \\mathbf { \\dot { \\mathbf { \\theta } } } } < : \\ \\mathsf { \\exists }$",
+      "new": "$\\Gamma \\vdash \\mathsf { T } \\cdot { \\mathbf { \\dot { \\mathbf { \\theta } } } } < : \\ \\mathsf { \\exists }$",
+      "anchor": "3bae822f"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-157-3d0dd5",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[157]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { S } \\ldot { \\mathbf { : } } \\ \\mathsf { V }$",
+      "new": "$\\Gamma \\vdash \\mathsf { S } \\cdot { \\mathbf { : } } \\ \\mathsf { V }$",
+      "anchor": "76684dbc"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-158-5bb4e3",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[158]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { L } \\ldot < : \\mathsf { M } .$",
+      "new": "$\\Gamma \\vdash \\mathsf { L } \\cdot < : \\mathsf { M } .$",
+      "anchor": "5aa828b6"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-164-ecc796",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[164]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { V } _ { 1 } \\ldot { \\ l } \\leqslant \\mathsf { M } _ { 1 }$",
+      "new": "$\\Gamma \\vdash \\mathsf { V } _ { 1 } \\cdot { \\ l } \\leqslant \\mathsf { M } _ { 1 }$",
+      "anchor": "925f1891"
+    },
+    {
+      "id": "pierce_tapl-ch28-body-164-ff7831",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[164]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { M } _ { 1 }  \\mathsf { J } _ { 2 } \\lleftarrow \\lor _ { 1 } \\lrightarrow \\lor _ { 2 }$",
+      "new": "$\\Gamma \\vdash \\mathsf { M } _ { 1 }  \\mathsf { J } _ { 2 } \\leftarrow \\lor _ { 1 } \\rightarrow \\lor _ { 2 }$",
+      "anchor": "925f1891"
+    },
+    {
+      "id": "pierce_tapl-appA-body-671-3864fd",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[671]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\ldot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } \\vdash \\mathsf { U } _ { 1 }$",
+      "new": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\cdot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } \\vdash \\mathsf { U } _ { 1 }$",
+      "anchor": "39b067bb"
+    },
+    {
+      "id": "pierce_tapl-appA-body-671-2ff220",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[671]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\ldot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } < : \\mathsf { S } _ { 1 }$",
+      "new": "$\\Gamma \\vdash \\mathsf { T } _ { 1 } \\cdot { \\mathbf { \\dot { \\mathbf { \\textsf { 1 } } } } } < : \\mathsf { S } _ { 1 }$",
+      "anchor": "39b067bb"
+    },
+    {
+      "id": "pierce_tapl-ch21-problem-21-8-5-body-2-74a3a6",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "problem:21.8.5:body[2]",
+      "expect": "s u p p o r t _ {S _ {m}} (S, T) = \\left\\{ \\begin{array}{l l} \\emptyset & \\text {if T = Top} \\\\ \\{(S _ {1}, T _ {1}), (S _ {2}, T _ {2}) \\} & \\text {if S = S_{1} \\times S_{2} and} \\\\ & T = T _ {1} \\times T _ {2} \\\\ \\{(T _ {1}, S _ {1}), (S _ {2}, T _ {2}) \\} & \\text {if S = S_{1} \\to S_{2} and} \\\\ & T = T _ {1} \\to T _ {2} \\\\ \\{(S, [ X \\mapsto \\mu X. T _ {1} ] T _ {1}) \\} & \\text {if T = \\mu X.T_{1}} \\\\ \\{([ X \\mapsto \\mu X. S _ {1} ] S _ {1}, T) \\} & \\text {if S = \\mu X.S_{1} and} \\\\ & T \\neq \\mu X. T _ {1}, T \\neq \\text {Top} \\\\ \\uparrow & \\text {otherwise.} \\end{array} \\right.",
+      "new": "support_{S_{m}}(S,T)=\\left\\{\\begin{array}{ll}\\emptyset&\\text{if }T=\\text{Top}\\\\\\{(S_{1},T_{1}),(S_{2},T_{2})\\}&\\text{if }S=S_{1}\\times S_{2}\\text{ and}\\\\&T=T_{1}\\times T_{2}\\\\\\{(T_{1},S_{1}),(S_{2},T_{2})\\}&\\text{if }S=S_{1}\\to S_{2}\\text{ and}\\\\&T=T_{1}\\to T_{2}\\\\\\{(S,[X\\mapsto \\mu X.T_{1}]T_{1})\\}&\\text{if }T=\\mu X.T_{1}\\\\\\{([X\\mapsto \\mu X.S_{1}]S_{1},T)\\}&\\text{if }S=\\mu X.S_{1}\\text{ and}\\\\&T\\neq \\mu X.T_{1},T\\neq \\text{Top}\\\\\\uparrow&\\text{otherwise.}\\end{array}\\right."
+    },
+    {
+      "id": "pierce_tapl-appA-body-375-f43419",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[375]",
+      "expect": "\\begin{array}{l c l} \\mathsf {S} \\lor \\mathsf {T} & = & \\left\\{ \\begin{array}{l l} \\mathsf {B o o l} & \\text {if} \\mathsf {S} = \\mathsf {T} = \\mathsf {B o o l} \\\\ \\mathsf {M} _ {1} \\to \\mathsf {J} _ {2} & \\text {if} \\mathsf {S} = \\mathsf {S} _ {1} \\to \\mathsf {S} _ {2} \\qquad \\mathsf {T} = \\mathsf {T} _ {1} \\to \\mathsf {T} _ {2} \\\\ & \\mathsf {S} _ {1} \\wedge \\mathsf {T} _ {1} = \\mathsf {M} _ {1} \\qquad \\mathsf {S} _ {2} \\vee \\mathsf {T} _ {2} = \\mathsf {J} _ {2} \\\\ \\{\\mathsf {j} _ {l}: \\mathsf {J} _ {l} ^ {l \\in 1.. q} \\} & \\text {if} \\mathsf {S} = \\{\\mathsf {k} _ {j}: \\mathsf {S} _ {j} ^ {j \\in 1.. m} \\} \\\\ & \\mathsf {T} = \\{\\mathsf {l} _ {i}: \\mathsf {T} _ {i} ^ {i \\in 1.. n} \\} \\\\ & \\{\\mathsf {j} _ {l} ^ {l \\in 1.. q} \\} = \\{\\mathsf {k} _ {j} ^ {j \\in 1.. m} \\} \\cap \\{\\mathsf {l} _ {i} ^ {i \\in 1.. n} \\} \\\\ & \\mathsf {S} _ {j} \\lor \\mathsf {T} _ {i} = \\mathsf {J} _ {l} \\quad \\text {for each j_{l}} = \\mathsf {k} _ {j} = \\mathsf {l} _ {i} \\\\ \\text {Top} & \\text {otherwise} \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{lcl}\\mathsf{S}\\lor\\mathsf{T}&=&\\left\\{\\begin{array}{ll}\\mathsf{Bool}&\\text{if }\\mathsf{S}=\\mathsf{T}=\\mathsf{Bool}\\\\\\mathsf{M}_{1}\\to\\mathsf{J}_{2}&\\text{if }\\mathsf{S}=\\mathsf{S}_{1}\\to\\mathsf{S}_{2}\\qquad \\mathsf{T}=\\mathsf{T}_{1}\\to\\mathsf{T}_{2}\\\\&\\mathsf{S}_{1}\\wedge\\mathsf{T}_{1}=\\mathsf{M}_{1}\\qquad \\mathsf{S}_{2}\\vee\\mathsf{T}_{2}=\\mathsf{J}_{2}\\\\\\{\\mathsf{j}_{l}:\\mathsf{J}_{l}^{l\\in 1..q}\\}&\\text{if }\\mathsf{S}=\\{\\mathsf{k}_{j}:\\mathsf{S}_{j}^{j\\in 1..m}\\}\\\\&\\mathsf{T}=\\{\\mathsf{l}_{i}:\\mathsf{T}_{i}^{i\\in 1..n}\\}\\\\&\\{\\mathsf{j}_{l}^{l\\in 1..q}\\}=\\{\\mathsf{k}_{j}^{j\\in 1..m}\\}\\cap\\{\\mathsf{l}_{i}^{i\\in 1..n}\\}\\\\&\\mathsf{S}_{j}\\lor\\mathsf{T}_{i}=\\mathsf{J}_{l}\\quad \\text{for each }j_{l}=\\mathsf{k}_{j}=\\mathsf{l}_{i}\\\\\\text{Top}&\\text{otherwise}\\end{array}\\right.\\end{array}"
+    },
+    {
+      "id": "pierce_tapl-appA-body-376-a5bc61",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[376]",
+      "expect": "\\begin{array}{l l} \\mathsf {S} \\wedge \\mathsf {T} & = \\\\ \\hline \\end{array} \\left\\{ \\begin{array}{l l} \\mathsf {S} & \\text {if T = Top} \\\\ \\mathsf {T} & \\text {if S = Top} \\\\ \\mathsf {B o o l} & \\text {if S = T = B o o l} \\\\ \\mathsf {J _ {1} \\to M _ {2}} & \\text {if S = S_{1} \\to S_{2}} \\qquad \\mathsf {T = T _ {1} \\to T _ {2}} \\\\ & \\mathsf {S _ {1} \\vee T _ {1} = J _ {1}} \\qquad \\mathsf {S _ {2} \\wedge T _ {2} = M _ {2}} \\\\ \\{\\mathsf {m} _ {l}: \\mathsf {M} _ {l} ^ {l \\in I.. q} \\} & \\text {if S = \\{k_{j}:S_{j} ^{j\\in I..m}\\}} \\\\ & \\mathsf {T = \\{\\mathsf {l} _ {i} : \\mathsf {T} _ {i} ^ {i \\in I.. n} \\}} \\\\ & \\{\\mathsf {m} _ {l} ^ {l \\in I.. q} \\} = \\{\\mathsf {k} _ {j} ^ {j \\in I.. m} \\} \\cup \\{\\mathsf {l} _ {i} ^ {i \\in I.. n} \\} \\\\ & \\mathsf {S _ {j} \\wedge T _ {i} = M _ {l}} \\quad \\text {for each m_{l} = k_{j} = l_{i}} \\\\ & \\mathsf {M _ {l} = S _ {j}} \\qquad \\text {if m_{l} = k_{j} occurs only in S} \\\\ & \\mathsf {M _ {l} = T _ {i}} \\qquad \\text {if m_{l} = l_{i} occurs only in T} \\\\ f a i l & \\text {otherwise} \\end{array} \\right.",
+      "new": "\\begin{array}{ll}\\mathsf{S}\\wedge\\mathsf{T}&=\\left\\{\\begin{array}{ll}\\mathsf{S}&\\text{if }T=\\text{Top}\\\\\\mathsf{T}&\\text{if }S=\\text{Top}\\\\\\mathsf{Bool}&\\text{if }S=T=\\text{Bool}\\\\\\mathsf{J}_{1}\\to\\mathsf{M}_{2}&\\text{if }S=S_{1}\\to S_{2}\\qquad \\mathsf{T}=T_{1}\\to T_{2}\\\\&\\mathsf{S}_{1}\\vee T_{1}=\\mathsf{J}_{1}\\qquad \\mathsf{S}_{2}\\wedge T_{2}=\\mathsf{M}_{2}\\\\\\{\\mathsf{m}_{l}:\\mathsf{M}_{l}^{l\\in I..q}\\}&\\text{if }S=\\{k_{j}:S_{j}^{j\\in I..m}\\}\\\\&\\mathsf{T}=\\{\\mathsf{l}_{i}:\\mathsf{T}_{i}^{i\\in I..n}\\}\\\\&\\{\\mathsf{m}_{l}^{l\\in I..q}\\}=\\{\\mathsf{k}_{j}^{j\\in I..m}\\}\\cup\\{\\mathsf{l}_{i}^{i\\in I..n}\\}\\\\&\\mathsf{S}_{j}\\wedge T_{i}=\\mathsf{M}_{l}\\quad \\text{for each }m_{l}=k_{j}=l_{i}\\\\&\\mathsf{M}_{l}=S_{j}\\qquad \\text{if }m_{l}=k_{j}\\text{ occurs only in }S\\\\&\\mathsf{M}_{l}=T_{i}\\qquad \\text{if }m_{l}=l_{i}\\text{ occurs only in }T\\\\fail&\\text{otherwise}\\end{array}\\right.\\end{array}"
+    },
+    {
+      "id": "pierce_tapl-appA-body-704-2f5c55",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[704]",
+      "expect": "\\begin{array}{l l l l l} R (\\forall Y <  : S. T) & = & \\left\\{ \\begin{array}{c c} \\forall Y <  : S. R (T) \\\\ \\text {if X\\notin FVS} \\\\ \\text {Top} \\\\ \\text {if X\\in FV(S)} \\end{array} \\right. & L (\\forall Y <  : S. T) & = & \\left\\{ \\begin{array}{c} \\forall Y <  : S. L (T) \\\\ \\text {if L(T)\\neq fail} \\\\ \\text {and X\\notin FV(S)} \\\\ \\text {fail otherwise} \\end{array} \\right. \\\\ R (\\{\\exists Y <  : S. T \\}) & = & \\left\\{ \\begin{array}{c c} \\{\\exists Y <  : S, R (T) \\} \\\\ \\text {if X\\notin FV(S)} \\\\ \\text {Top} \\\\ \\text {if X\\in FV(S)} \\end{array} \\right. & L (\\{\\exists Y <  : S. T \\}) & = & \\left\\{ \\begin{array}{c} \\{\\exists Y <  : S. L (T) \\} \\\\ \\text {if L(T)\\neq fail} \\\\ \\text {and X\\notin FV(S)} \\\\ \\text {fail otherwise} \\end{array} \\right. \\\\ R (S \\to T) & = & \\left\\{ \\begin{array}{c c} L (S) \\to R (T) \\\\ \\text {if L(S)\\neq fail} \\\\ \\text {Top} \\\\ \\text {if L(S) = fail} \\end{array} \\right. & L (S \\to T) & = & \\left\\{ \\begin{array}{c} R (S) \\to L (T) \\\\ \\text {if L(T)\\neq fail} \\\\ \\text {fail} \\\\ \\text {if L(T) = fail} \\end{array} \\right. \\\\ R (X) & = & T \\quad \\text {where X <  : T\\in\\Gamma} & L (X) & = f a i l \\\\ R (Y) & = & Y \\quad \\text {when Y\\neq X} & L (Y) & = Y \\quad \\text {when Y\\neq X} \\\\ R (\\text {Top}) & = & T o p & L (\\text {Top}) & = T o p \\end{array}",
+      "new": "\\begin{array}{lllll}R(\\forall Y<:S.T)&=&\\left\\{\\begin{array}{cc}\\forall Y<:S.R(T)\\\\\\text{if }X\\notin FVS\\\\\\text{Top}\\\\\\text{if }X\\in FV(S)\\end{array}\\right.&L(\\forall Y<:S.T)&=\\left\\{\\begin{array}{c}\\forall Y<:S.L(T)\\\\\\text{if }L(T)\\neq fail\\\\\\text{and }X\\notin FV(S)\\\\\\text{fail otherwise}\\end{array}\\right.\\\\R(\\{\\exists Y<:S.T\\})&=&\\left\\{\\begin{array}{cc}\\{\\exists Y<:S,R(T)\\}\\\\\\text{if }X\\notin FV(S)\\\\\\text{Top}\\\\\\text{if }X\\in FV(S)\\end{array}\\right.&L(\\{\\exists Y<:S.T\\})&=\\left\\{\\begin{array}{c}\\{\\exists Y<:S.L(T)\\}\\\\\\text{if }L(T)\\neq fail\\\\\\text{and }X\\notin FV(S)\\\\\\text{fail otherwise}\\end{array}\\right.\\\\R(S\\to T)&=&\\left\\{\\begin{array}{cc}L(S)\\to R(T)\\\\\\text{if }L(S)\\neq fail\\\\\\text{Top}\\\\\\text{if }L(S)=fail\\end{array}\\right.&L(S\\to T)&=\\left\\{\\begin{array}{c}R(S)\\to L(T)\\\\\\text{if }L(T)\\neq fail\\\\\\text{fail}\\\\\\text{if }L(T)=fail\\end{array}\\right.\\\\R(X)&=&T\\quad \\text{where }X<:T\\in\\Gamma&L(X)&=fail\\\\R(Y)&=&Y\\quad \\text{when }Y\\neq X&L(Y)&=Y\\quad \\text{when }Y\\neq X\\\\R(\\text{Top})&=&Top&L(\\text{Top})&=Top\\end{array}"
+    }
+  ]
+}

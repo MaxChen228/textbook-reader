@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-kunen-set-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog gate 無法處理無 caption 的 inline diagram",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-19T22:54:46+00:00",
+  "updated": "2026-06-19T22:54:46+00:00",
+  "evidence": "kunen_set_theory parser/smoke 第 2 輪後僅殘 H7：parsed/_catalog_audit.md 只剩 ch01 body[128] 與 ch08 body[287] 兩個 line diagram。它們在 parsed 中分別是 fig-ch01-128 / fig-ch08-287，image block 本身無 caption，前後正文也沒有 Figure/Table 編號或可穩定抽取的 semantic id。現行 extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法對這類 captionless inline diagram 指定 semantic id 或 catalog_exclude_reason。",
+  "proposal": "擴充 deterministic catalog/audit schema，允許 per-visual 對 captionless inline diagram 宣告 non-indexable exclude reason，或顯式綁定鄰近正文為 semantic label。否則此類書雖可 parser-green，仍會長期卡在 smoke H7。",
+  "risk": "",
+  "disposition": ""
+}

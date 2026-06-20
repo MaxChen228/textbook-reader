@@ -1,0 +1,125 @@
+slug: pierce_attapl
+title: "Advanced Topics in Types and Programming Languages"
+author: "Benjamin C. Pierce"
+edition: null
+subject: Computer Science
+publisher: "The MIT Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 505
+bibliography_start_page: 549
+index_start_page: 581
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Substructural Type Systems
+    page_start: 17
+    page_end: 58
+    chapter_title_block_idx: 130
+    problems_block_idx: null
+    next_chapter_block_idx: 550
+  - num: 2
+    title: Dependent Types
+    page_start: 59
+    page_end: 100
+    chapter_title_block_idx: 550
+    problems_block_idx: null
+    next_chapter_block_idx: 1255
+  - num: 3
+    title: Effect Types and Region-Based Memory Management
+    page_start: 101
+    page_end: 154
+    chapter_title_block_idx: 1255
+    problems_block_idx: null
+    next_chapter_block_idx: 1836
+  - num: 4
+    title: Typed Assembly Language
+    page_start: 155
+    page_end: 190
+    chapter_title_block_idx: 1836
+    chapter_title_block_idx_secondary: 1837
+    problems_block_idx: null
+    next_chapter_block_idx: 2194
+  - num: 5
+    title: Proof-Carrying Code
+    page_start: 191
+    page_end: 236
+    chapter_title_block_idx: 2194
+    problems_block_idx: null
+    next_chapter_block_idx: 2688
+  - num: 6
+    title: Logical Relations and a Case Study in Equivalence Checking
+    page_start: 237
+    page_end: 258
+    chapter_title_block_idx: 2688
+    problems_block_idx: null
+    next_chapter_block_idx: 3040
+  - num: 7
+    title: Typed Operational Reasoning
+    page_start: 259
+    page_end: 306
+    chapter_title_block_idx: 3040
+    problems_block_idx: null
+    next_chapter_block_idx: 3684
+  - num: 8
+    title: Design Considerations for ML-Style Module Systems
+    page_start: 307
+    page_end: 360
+    chapter_title_block_idx: 3684
+    problems_block_idx: null
+    next_chapter_block_idx: 4169
+  - num: 9
+    title: Type Definitions
+    page_start: 361
+    page_end: 402
+    chapter_title_block_idx: 4169
+    problems_block_idx: null
+    next_chapter_block_idx: 4857
+  - num: 10
+    title: The Essence of ML Type Inference
+    page_start: 403
+    page_end: 504
+    chapter_title_block_idx: 4857
+    chapter_title_block_idx_secondary: 4858
+    problems_block_idx: null
+    next_chapter_block_idx: 5742
+
+appendices:
+  - id: A
+    title: Solutions to Selected Exercises
+    page_start: 505
+    chapter_title_block_idx: 5742
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(?!P a r t\b)(?!\d+\s)(?!\d+\.\d+\.\d+\s+)([A-Z][^\n]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+\.\d+)\s+Exercise\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([^}]+?)\s*\}'
+
+example_start_re: '^(\d+\.\d+\.\d+)\s+Example\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,36 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "3.28b",
+      "classification": "source_mismatch",
+      "reason": "raw PDF 第 64 頁正文確實寫成 \"Figure 3.28b\"，但供給端只有下一頁的 `TABLE 3.28`（含 (a) LR(1) 與 (b) LALR(1) 兩個 parsing table），不存在任何 `FIGURE 3.28b` 可對齊。",
+      "where": "ch03.json body[291]",
+      "evidence": "raw_pdfs/appel_modern_compiler_implementation.pdf p64 文字為 \"...gives the LALR(1) parsing table shown in Figure 3.28b.\"；p65 只出現 `(a) LR(1)`, `(b) LALR(1) TABLE 3.28. LR(1) and LALR(1) parsing tables for Grammar 3.26.`，parsed/catalogs 亦僅有 `tbl-3.28` 與 `tbl-3.28--1`。"
+    },
+    {
+      "type": "figure",
+      "ref": "9.3",
+      "classification": "source_mismatch",
+      "reason": "raw PDF 第 196 頁正文引用 \"Figure 9.3\"，但全書既無 `FIGURE 9.3` caption，也無對應 chapter figure；最近似的供給端其實是 `PROGRAM 9.3`，因此這是來源編號不符，不應硬造 `fig-9.3`。",
+      "where": "ch09.json body[79]",
+      "evidence": "raw_pdfs/appel_modern_compiler_implementation.pdf p196 文字為 \"...pattern-matches such as the one shown in Figure 9.3.\"；全文搜尋只找到 `PROGRAM 9.3`（p190/p191/p200/p203），未找到任何 `FIGURE 9.3` caption；parsed/ch09.json 只有 `tbl-ch09-39` caption=`PROGRAM 9.3. Maximal Munch as ML pattern-matching.` 與 problem-local `Problem 9.3 figure/table`。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "appel-modern-compiler-implementation-exclude-table-17.1-figure-shard",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[39]",
+      "expect": {
+        "id": "fig-ch17-39"
+      },
+      "set": {
+        "catalog_exclude_reason": "table_17_1_captioned_figure_shard",
+        "catalog_repair_source": "agent-table-shard-exclude"
+      },
+      "reason": "raw PDF p380 可見此 block 只是 Table 17.1 右下角子圖與整張表 caption 被一併掛到 `fig-ch17-39`；它不是獨立 figure，排除後可消除 C7，且不影響 Table 17.1 既有供給。"
+    }
+  ]
+}

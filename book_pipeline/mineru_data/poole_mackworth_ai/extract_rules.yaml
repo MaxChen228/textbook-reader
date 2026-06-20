@@ -1,0 +1,185 @@
+slug: poole_mackworth_ai
+title: "Artificial Intelligence: Foundations of Computational Agents"
+author: David L. Poole; Alan K. Mackworth
+edition: 3rd
+subject: Artificial Intelligence
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 35
+appendices_start_page: 829
+bibliography_start_page: 839
+index_start_page: 879
+
+chapters:
+  - num: 1
+    title: Artificial Intelligence and Agents
+    page_start: 35
+    page_end: 82
+    chapter_title_block_idx: 435
+    problems_block_idx: 931
+    next_chapter_block_idx: 951
+  - num: 2
+    title: Agent Architectures and Hierarchical Control
+    page_start: 83
+    page_end: 108
+    chapter_title_block_idx: 951
+    problems_block_idx: 1186
+    next_chapter_block_idx: 1215
+  - num: 3
+    title: Searching for Solutions
+    page_start: 111
+    page_end: 158
+    chapter_title_block_idx: 1218
+    problems_block_idx: 1708
+    next_chapter_block_idx: 1750
+  - num: 4
+    title: Reasoning with Constraints
+    page_start: 159
+    page_end: 208
+    chapter_title_block_idx: 1750
+    problems_block_idx: 2247
+    next_chapter_block_idx: 2302
+  - num: 5
+    title: Propositions and Inference
+    page_start: 209
+    page_end: 262
+    chapter_title_block_idx: 2302
+    problems_block_idx: 2928
+    next_chapter_block_idx: 3034
+  - num: 6
+    title: Deterministic Planning
+    page_start: 263
+    page_end: 290
+    chapter_title_block_idx: 3034
+    problems_block_idx: 3349
+    next_chapter_block_idx: 3392
+  - num: 7
+    title: Supervised Machine Learning
+    page_start: 293
+    page_end: 358
+    chapter_title_block_idx: 3395
+    problems_block_idx: 4094
+    next_chapter_block_idx: 4156
+  - num: 8
+    title: Neural Networks and Deep Learning
+    page_start: 359
+    page_end: 406
+    chapter_title_block_idx: 4156
+    problems_block_idx: 4690
+    next_chapter_block_idx: 4712
+  - num: 9
+    title: Reasoning with Uncertainty
+    page_start: 407
+    page_end: 490
+    chapter_title_block_idx: 4712
+    problems_block_idx: 5631
+    next_chapter_block_idx: 5708
+  - num: 10
+    title: Learning with Uncertainty
+    page_start: 491
+    page_end: 522
+    chapter_title_block_idx: 5708
+    problems_block_idx: 6069
+    next_chapter_block_idx: 6091
+  - num: 11
+    title: Causality
+    page_start: 523
+    page_end: 546
+    chapter_title_block_idx: 6091
+    problems_block_idx: 6352
+    next_chapter_block_idx: 6381
+  - num: 12
+    title: Planning with Uncertainty
+    page_start: 549
+    page_end: 614
+    chapter_title_block_idx: 6384
+    problems_block_idx: 7045
+    next_chapter_block_idx: 7154
+  - num: 13
+    title: Reinforcement Learning
+    page_start: 615
+    page_end: 640
+    chapter_title_block_idx: 7154
+    problems_block_idx: 7385
+    next_chapter_block_idx: 7413
+  - num: 14
+    title: Multiagent Systems
+    page_start: 641
+    page_end: 674
+    chapter_title_block_idx: 7413
+    problems_block_idx: 7755
+    next_chapter_block_idx: 7794
+  - num: 15
+    title: Individuals and Relations
+    page_start: 677
+    page_end: 732
+    chapter_title_block_idx: 7797
+    problems_block_idx: 8526
+    next_chapter_block_idx: 8620
+  - num: 16
+    title: Knowledge Graphs and Ontologies
+    page_start: 733
+    page_end: 762
+    chapter_title_block_idx: 8620
+    problems_block_idx: 8946
+    next_chapter_block_idx: 8984
+  - num: 17
+    title: Relational Learning and Probabilistic Reasoning
+    page_start: 763
+    page_end: 796
+    chapter_title_block_idx: 8984
+    problems_block_idx: 9291
+    next_chapter_block_idx: 9320
+  - num: 18
+    title: The Social Impact of Artificial Intelligence
+    page_start: 799
+    page_end: 816
+    chapter_title_block_idx: 9323
+    problems_block_idx: 9472
+    next_chapter_block_idx: 9482
+  - num: 19
+    title: Retrospect and Prospect
+    page_start: 817
+    page_end: 828
+    chapter_title_block_idx: 9482
+    problems_block_idx: 9570
+    next_chapter_block_idx: 9585
+
+appendices:
+  - id: A
+    title: Mathematical Preliminaries and Notation
+    page_start: 829
+    chapter_title_block_idx: 9585
+  - id: B
+    title: Mapping to Open-Source Packages
+    page_start: 835
+    chapter_title_block_idx: 9671
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{((?:[A-Z]\.)?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

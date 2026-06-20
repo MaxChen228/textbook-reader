@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-pierce-tapl",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog needs exclusion semantics for unlabeled visual blocks",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:31:37+00:00",
+  "updated": "2026-06-19T23:31:37+00:00",
+  "evidence": "smoke H7 reports 573 empty figure/table captions and catalog audit shows many unlabeled visual blocks embedded between prose or exercises (for example ch03 problem 3.2.5, ch04 body[30], ch20 body[8]). extract_rules.yaml can only tune figure_caption_merge/main_re; it cannot mark non-captioned visuals as excluded or assign semantic ids selectively.",
+  "proposal": "Add a schema-level way to classify unlabeled image/table blocks as non-catalog visuals or excluded, or teach catalog/build step to auto-suppress unlabeled visuals without explicit Figure/Table captions. This would let audit-book reach smoke green without per-book engine edits.",
+  "risk": "",
+  "disposition": ""
+}

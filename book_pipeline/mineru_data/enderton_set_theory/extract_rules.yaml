@@ -1,0 +1,116 @@
+slug: enderton_set_theory
+title: Elements of Set Theory
+author: Herbert B. Enderton
+edition: null
+subject: Set Theory
+publisher: Academic Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 277
+bibliography_start_page: 283
+index_start_page: 287
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: INTRODUCTION
+    page_start: 15
+    page_end: 30
+    chapter_title_block_idx: 142
+    problems_block_idx: null
+    next_chapter_block_idx: 328
+  - num: 2
+    title: AXIOMS AND OPERATIONS
+    page_start: 31
+    page_end: 48
+    chapter_title_block_idx: 328
+    problems_block_idx: null
+    next_chapter_block_idx: 683
+  - num: 3
+    title: RELATIONS AND FUNCTIONS
+    page_start: 49
+    page_end: 79
+    chapter_title_block_idx: 683
+    problems_block_idx: null
+    next_chapter_block_idx: 1219
+  - num: 4
+    title: NATURAL NUMBERS
+    page_start: 80
+    page_end: 103
+    chapter_title_block_idx: 1219
+    problems_block_idx: null
+    next_chapter_block_idx: 1660
+  - num: 5
+    title: CONSTRUCTION OF THE REAL NUMBERS
+    page_start: 104
+    page_end: 141
+    chapter_title_block_idx: 1660
+    problems_block_idx: null
+    next_chapter_block_idx: 2338
+  - num: 6
+    title: CARDINAL NUMBERS AND THE AXIOM OF CHOICE
+    page_start: 142
+    page_end: 180
+    chapter_title_block_idx: 2338
+    problems_block_idx: null
+    next_chapter_block_idx: 2927
+  - num: 7
+    title: ORDERINGS AND ORDINALS
+    page_start: 181
+    page_end: 222
+    chapter_title_block_idx: 2927
+    problems_block_idx: null
+    next_chapter_block_idx: 3615
+  - num: 8
+    title: ORDINALS AND ORDER TYPES
+    page_start: 223
+    page_end: 254
+    chapter_title_block_idx: 3615
+    problems_block_idx: null
+    next_chapter_block_idx: 4201
+  - num: 9
+    title: SPECIAL TOPICS
+    page_start: 255
+    page_end: 276
+    chapter_title_block_idx: 4201
+    problems_block_idx: null
+    next_chapter_block_idx: 4575
+
+appendices:
+  - id: A
+    title: NOTATION, LOGIC, AND PROOFS
+    page_start: 277
+    chapter_title_block_idx: 4575
+
+section_re: '^(((?!(?:Exercise|Exercises|Review Exercises)$).+))$'
+subsection_re: '^((__NO_SUBSECTION_MATCH__))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?:\([a-z]\)\s+)?(?:Answer|Are|Assume|Calculate|Can|Complete|Consider|Construct|Define|Discuss|Evaluate|Find|For|Formulate|Give|In|Is|Let(?!\s+Us\b)|Need|Prove|Rewrite|Show|Simplify|State|Suppose|Theorem|Verify|What|Which)\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

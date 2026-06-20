@@ -1,0 +1,98 @@
+slug: neukirch_algebraic_number_theory
+title: Algebraic Number Theory
+author: Jürgen Neukirch
+edition: 1st
+subject: Number Theory
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 560
+bibliography_start_page: 560
+index_start_page: 568
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Algebraic Integers
+    page_start: 16
+    page_end: 112
+    chapter_title_block_idx: 129
+    problems_block_idx: null
+    next_chapter_block_idx: 1770
+  - num: 2
+    title: The Theory of Valuations
+    page_start: 113
+    page_end: 195
+    chapter_title_block_idx: 1770
+    problems_block_idx: null
+    next_chapter_block_idx: 3220
+  - num: 3
+    title: Riemann-Roch Theory
+    page_start: 196
+    page_end: 273
+    chapter_title_block_idx: 3220
+    problems_block_idx: null
+    next_chapter_block_idx: 4690
+  - num: 4
+    title: Abstract Class Field Theory
+    page_start: 274
+    page_end: 328
+    chapter_title_block_idx: 4690
+    chapter_title_block_idx_secondary: 4691
+    problems_block_idx: null
+    next_chapter_block_idx: 5659
+  - num: 5
+    title: Local Class Field Theory
+    page_start: 329
+    page_end: 367
+    chapter_title_block_idx: 5659
+    chapter_title_block_idx_secondary: 5660
+    problems_block_idx: null
+    next_chapter_block_idx: 6346
+  - num: 6
+    title: Global Class Field Theory
+    page_start: 368
+    page_end: 428
+    chapter_title_block_idx: 6346
+    problems_block_idx: null
+    next_chapter_block_idx: 7362
+  - num: 7
+    title: Zeta Functions and L-series
+    page_start: 429
+    page_end: 559
+    chapter_title_block_idx: 7362
+    chapter_title_block_idx_secondary: 7363
+    problems_block_idx: null
+    next_chapter_block_idx: 9666
+
+section_re: '^§\s+(\d+)\.\s+(.+)$'
+subsection_re: '^(?!)()(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?|[a-z]+|\*+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-neukirch-algebraic-number-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "Inline exercises after running section header cannot be disambiguated",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T22:50:35+00:00",
+  "updated": "2026-06-19T22:50:35+00:00",
+  "evidence": "Chapter I page_idx=80 has a carried-over running header text block '§ 11. Localization' (idx 1254) before exercises 2-5 of the previous section, followed by the real section opening '§ 11. Localization' (idx 1260). With inline_problems + problem_num_namespace_by_section, parser namespaces both exercise groups as 11.x and smoke keeps H2 duplicates ['11.2','11.3','11.4','11.5'] even after tightening section_re to require a space after §. The two blocks are both type=text text_level=2, so extract_rules.yaml cannot distinguish them declaratively.",
+  "proposal": "Extend parser inline heading handling with an option to suppress duplicated section headings that appear as running headers before carried-over exercises, for example by ignoring a heading when the immediately following blocks are Exercise-start lines and the same heading text reappears shortly after on the same page, or by adding a per-slug declarative rule for duplicate-running-header collapse.",
+  "risk": "",
+  "disposition": ""
+}

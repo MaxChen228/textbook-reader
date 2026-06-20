@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "shafarevich_basic_algebraic_geometry-ch03-body-699-4291a7",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[699]",
+      "expect": "f ^ {- 1} (\\xi) = \\left\\{ \\begin{array}{l l} \\{z ^ {\\prime}, z ^ {\\prime \\prime} \\} & \\text {if F(\\alpha)\\neq 0 ;} \\\\ z & \\text {if F(\\alpha) = 0 .} \\end{array} \\right.",
+      "new": "f ^ {- 1} (\\xi) = \\left\\{ \\begin{array}{l l} \\{z ^ {\\prime}, z ^ {\\prime \\prime} \\} & \\text {if } F(\\alpha)\\neq 0 ; \\\\ z & \\text {if } F(\\alpha) = 0 . \\end{array} \\right."
+    },
+    {
+      "id": "shafarevich_basic_algebraic_geometry-ch03-body-374-5b432b",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[374]",
+      "expect": "| N - p - 1 | \\leq 2 \\sqrt {p}, $}",
+      "new": "| N - p - 1 | \\leq 2 \\sqrt {p}"
+    },
+    {
+      "id": "shafarevich_basic_algebraic_geometry-ch01-body-609-6662f9",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[609]",
+      "field": "md",
+      "all": true,
+      "old": "$Y _ { n } \\detneq \\varnothing$",
+      "new": "$Y _ { n } \\neq \\varnothing$",
+      "anchor": "9a7b4517"
+    }
+  ]
+}

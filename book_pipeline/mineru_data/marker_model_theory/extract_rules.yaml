@@ -1,0 +1,116 @@
+slug: marker_model_theory
+title: "Model Theory: An Introduction"
+author: "David Marker"
+edition: null
+subject: "Model Theory"
+publisher: "Springer"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 326
+bibliography_start_page: 340
+index_start_page: 348
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Structures and Theories"
+    page_start: 18
+    page_end: 43
+    chapter_title_block_idx: 155
+    problems_block_idx: null
+    next_chapter_block_idx: 642
+  - num: 2
+    title: "Basic Techniques"
+    page_start: 44
+    page_end: 81
+    chapter_title_block_idx: 642
+    chapter_title_block_idx_secondary: 643
+    problems_block_idx: null
+    next_chapter_block_idx: 1248
+  - num: 3
+    title: "Algebraic Examples"
+    page_start: 82
+    page_end: 125
+    chapter_title_block_idx: 1248
+    chapter_title_block_idx_secondary: 1249
+    problems_block_idx: null
+    next_chapter_block_idx: 1977
+  - num: 4
+    title: "Realizing and Omitting Types"
+    page_start: 126
+    page_end: 185
+    chapter_title_block_idx: 1977
+    problems_block_idx: null
+    next_chapter_block_idx: 3040
+  - num: 5
+    title: "Indiscernibles"
+    page_start: 186
+    page_end: 217
+    chapter_title_block_idx: 3040
+    problems_block_idx: null
+    next_chapter_block_idx: 3540
+  - num: 6
+    title: "omega-Stable Theories"
+    page_start: 218
+    page_end: 261
+    chapter_title_block_idx: 3540
+    chapter_title_block_idx_secondary: 3541
+    problems_block_idx: null
+    next_chapter_block_idx: 4260
+  - num: 7
+    title: "omega-Stable Groups"
+    page_start: 262
+    page_end: 299
+    chapter_title_block_idx: 4260
+    problems_block_idx: null
+    next_chapter_block_idx: 4875
+  - num: 8
+    title: "Geometry of Strongly Minimal Sets"
+    page_start: 300
+    page_end: 325
+    chapter_title_block_idx: 4875
+    chapter_title_block_idx_secondary: 4876
+    problems_block_idx: null
+    next_chapter_block_idx: 5277
+
+appendices:
+  - id: A
+    title: "Set Theory"
+    page_start: 326
+    chapter_title_block_idx: 5277
+  - id: B
+    title: "Real Algebra"
+    page_start: 334
+    chapter_title_block_idx: 5399
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(?!\d+\.\d+\s)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

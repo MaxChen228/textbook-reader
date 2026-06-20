@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-skiena-algorithm-design-manual",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog extractor cannot bind adjacent text captions for legacy figures",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:04:00+00:00",
+  "updated": "2026-06-19T23:04:00+00:00",
+  "evidence": "After extract_rules iterate, parser/smoke is structurally green except catalog H6/H7: unresolved Table refs=1 and empty figure/table captions=200. parsed/_catalog_audit.md shows many visuals whose semantic caption/id lives in neighboring text blocks or split panel text, e.g. ch01 body[40] around Figure 1.4, ch05 body[40] around Figure 5.4, ch06 body[14-15] around Figure 6.1. Current extract_rules schema can stop Programming Challenges and fix chapter anchors, but cannot attach adjacent bare text captions to image/table blocks or merge captionless sibling shards into one semantic figure/table entry.",
+  "proposal": "Extend deterministic catalog extraction so audit-book can declaratively bind adjacent text caption donors to nearby image/table blocks and merge captionless sibling media shards into the following semantic figure/table. Without this, legacy OCR books like The Algorithm Design Manual can parse chapters/problems correctly but cannot clear smoke H6/H7 through extract_rules alone.",
+  "risk": "",
+  "disposition": ""
+}

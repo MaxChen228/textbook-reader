@@ -1,0 +1,217 @@
+slug: appel_modern_compiler_implementation
+title: Modern Compiler Implementation in ML
+author: Andrew W. Appel
+edition: 1st
+subject: Compilers
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 4
+appendices_start_page: 524
+bibliography_start_page: 534
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 4
+    page_end: 15
+    chapter_title_block_idx: 40
+    problems_block_idx: 145
+    next_chapter_block_idx: 159
+  - num: 2
+    title: Lexical Analysis
+    page_start: 16
+    page_end: 39
+    chapter_title_block_idx: 159
+    chapter_title_block_idx_secondary: 160
+    problems_block_idx: 416
+    next_chapter_block_idx: 455
+  - num: 3
+    title: Parsing
+    page_start: 40
+    page_end: 89
+    chapter_title_block_idx: 455
+    chapter_title_block_idx_secondary: 456
+    problems_block_idx: 1227
+    next_chapter_block_idx: 1291
+  - num: 4
+    title: Abstract Syntax
+    page_start: 90
+    page_end: 105
+    chapter_title_block_idx: 1291
+    chapter_title_block_idx_secondary: 1292
+    problems_block_idx: 1440
+    next_chapter_block_idx: 1455
+  - num: 5
+    title: Semantic Analysis
+    page_start: 106
+    page_end: 127
+    chapter_title_block_idx: 1455
+    chapter_title_block_idx_secondary: 1456
+    problems_block_idx: 1689
+    next_chapter_block_idx: 1707
+  - num: 6
+    title: Activation Records
+    page_start: 128
+    page_end: 151
+    chapter_title_block_idx: 1707
+    chapter_title_block_idx_secondary: 1708
+    problems_block_idx: 1939
+    next_chapter_block_idx: 1980
+  - num: 7
+    title: Translation to Intermediate Code
+    page_start: 152
+    page_end: 177
+    chapter_title_block_idx: 1980
+    chapter_title_block_idx_secondary: 1981
+    problems_block_idx: 2297
+    next_chapter_block_idx: 2330
+  - num: 8
+    title: Basic Blocks and Traces
+    page_start: 178
+    page_end: 191
+    chapter_title_block_idx: 2330
+    chapter_title_block_idx_secondary: 2331
+    problems_block_idx: 2489
+    next_chapter_block_idx: 2512
+  - num: 9
+    title: Instruction Selection
+    page_start: 192
+    page_end: 217
+    chapter_title_block_idx: 2512
+    chapter_title_block_idx_secondary: 2513
+    problems_block_idx: 2794
+    next_chapter_block_idx: 2810
+  - num: 10
+    title: Liveness Analysis
+    page_start: 218
+    page_end: 235
+    chapter_title_block_idx: 2810
+    chapter_title_block_idx_secondary: 2811
+    problems_block_idx: 3001
+    next_chapter_block_idx: 3019
+  - num: 11
+    title: Register Allocation
+    page_start: 236
+    page_end: 265
+    chapter_title_block_idx: 3019
+    chapter_title_block_idx_secondary: 3020
+    problems_block_idx: 3352
+    next_chapter_block_idx: 3381
+  - num: 12
+    title: Putting It All Together
+    page_start: 266
+    page_end: 273
+    chapter_title_block_idx: 3381
+    chapter_title_block_idx_secondary: 3382
+    problems_block_idx: null
+    next_chapter_block_idx: 3440
+  - num: 13
+    title: Garbage Collection
+    page_start: 274
+    page_end: 299
+    chapter_title_block_idx: 3440
+    chapter_title_block_idx_secondary: 3441
+    problems_block_idx: 3718
+    next_chapter_block_idx: 3734
+  - num: 14
+    title: Object-Oriented Languages
+    page_start: 300
+    page_end: 315
+    chapter_title_block_idx: 3734
+    chapter_title_block_idx_secondary: 3735
+    problems_block_idx: 3925
+    next_chapter_block_idx: 3944
+  - num: 15
+    title: Functional Programming Languages
+    page_start: 316
+    page_end: 351
+    chapter_title_block_idx: 3944
+    chapter_title_block_idx_secondary: 3945
+    problems_block_idx: 4331
+    next_chapter_block_idx: 4342
+  - num: 16
+    title: Polymorphic Types
+    page_start: 352
+    page_end: 385
+    chapter_title_block_idx: 4342
+    chapter_title_block_idx_secondary: 4343
+    problems_block_idx: 4664
+    next_chapter_block_idx: 4694
+  - num: 17
+    title: Dataflow Analysis
+    page_start: 386
+    page_end: 413
+    chapter_title_block_idx: 4694
+    chapter_title_block_idx_secondary: 4695
+    problems_block_idx: 5038
+    next_chapter_block_idx: 5056
+  - num: 18
+    title: Loop Optimizations
+    page_start: 414
+    page_end: 437
+    chapter_title_block_idx: 5056
+    chapter_title_block_idx_secondary: 5057
+    problems_block_idx: 5324
+    next_chapter_block_idx: 5348
+  - num: 19
+    title: Static Single-Assignment Form
+    page_start: 438
+    page_end: 479
+    chapter_title_block_idx: 5348
+    chapter_title_block_idx_secondary: 5349
+    problems_block_idx: 5817
+    next_chapter_block_idx: 5854
+  - num: 20
+    title: Pipelining and Scheduling
+    page_start: 480
+    page_end: 503
+    chapter_title_block_idx: 5854
+    chapter_title_block_idx_secondary: 5855
+    problems_block_idx: 6095
+    next_chapter_block_idx: 6128
+  - num: 21
+    title: The Memory Hierarchy
+    page_start: 504
+    page_end: 523
+    chapter_title_block_idx: 6128
+    chapter_title_block_idx_secondary: 6129
+    problems_block_idx: 6336
+    next_chapter_block_idx: 6347
+
+appendices:
+  - id: A
+    title: Tiger Language Reference Manual
+    page_start: 524
+    chapter_title_block_idx: 6347
+
+section_re: '^((?:[0-9]+\.[0-9]+\.?)|(?:[A-Z]\.[0-9]+))\s+(.+)$'
+subsection_re: '^()(?!EXERCISES$|PROGRAM$|FURTHER READING$|APPENDIX$|BIBLIOGRAPHY$|FIGURE\b|TABLE\b|GRAMMAR\b)([A-Z][A-Z0-9]*(?:[ \-/:,&''().][A-Z0-9]+)*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\?\*+\s*)?(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:FIGURE|Figure)\s+([0-9]+(?:\.[0-9]+)?)\.\s*(.+)$'

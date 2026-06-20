@@ -1,0 +1,117 @@
+slug: smith_invitation_algebraic_geometry
+title: An Invitation to Algebraic Geometry
+author: Karen E. Smith; Lauri Kahanpaa; Pekka Kekalainen; William Traves
+edition: null
+subject: Algebraic Geometry
+publisher: Springer-Verlag New York
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 7
+appendices_start_page: 76
+bibliography_start_page: 80
+index_start_page: 82
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Affine Algebraic Varieties
+    page_start: 7
+    page_end: 13
+    chapter_title_block_idx: 230
+    chapter_title_block_idx_secondary: 231
+    problems_block_idx: null
+    next_chapter_block_idx: 367
+  - num: 2
+    title: Algebraic Foundations
+    page_start: 13
+    page_end: 22
+    chapter_title_block_idx: 367
+    chapter_title_block_idx_secondary: 368
+    problems_block_idx: null
+    next_chapter_block_idx: 616
+  - num: 3
+    title: Projective Varieties
+    page_start: 22
+    page_end: 30
+    chapter_title_block_idx: 616
+    chapter_title_block_idx_secondary: 617
+    problems_block_idx: null
+    next_chapter_block_idx: 834
+  - num: 4
+    title: Quasi-Projective Varieties
+    page_start: 31
+    page_end: 36
+    chapter_title_block_idx: 834
+    chapter_title_block_idx_secondary: 835
+    problems_block_idx: null
+    next_chapter_block_idx: 952
+  - num: 5
+    title: Classical Constructions
+    page_start: 36
+    page_end: 46
+    chapter_title_block_idx: 952
+    chapter_title_block_idx_secondary: 953
+    problems_block_idx: null
+    next_chapter_block_idx: 1218
+  - num: 6
+    title: Smoothness
+    page_start: 47
+    page_end: 56
+    chapter_title_block_idx: 1218
+    chapter_title_block_idx_secondary: 1219
+    problems_block_idx: null
+    next_chapter_block_idx: 1414
+  - num: 7
+    title: Birational Geometry
+    page_start: 56
+    page_end: 65
+    chapter_title_block_idx: 1414
+    chapter_title_block_idx_secondary: 1415
+    problems_block_idx: null
+    next_chapter_block_idx: 1623
+  - num: 8
+    title: Maps to Projective Space
+    page_start: 65
+    page_end: 76
+    chapter_title_block_idx: 1623
+    problems_block_idx: null
+    next_chapter_block_idx: 1873
+
+appendices:
+  - id: A
+    title: Sheaves and Abstract Algebraic Varieties
+    page_start: 76
+    chapter_title_block_idx: 1873
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

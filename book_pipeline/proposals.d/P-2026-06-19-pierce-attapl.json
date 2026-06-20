@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-pierce-attapl",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog 對 captionless syntax figures / rule tables 缺 declarative 排除或語義綁定能力",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:30:15+00:00",
+  "updated": "2026-06-19T23:30:15+00:00",
+  "evidence": "pierce_attapl parser 與 inline exercise 規則已穩定，smoke 僅剩 H6 unresolved Figure refs=1 與 H7 empty_captions=337。_catalog_audit.md 顯示大量 figure/table 是語法圖、推導規則表或 proof tree，caption 常不存在、或語義落在鄰接 prose（例如 Figure 1-5 / 2-1 / 3-7 / 4-7 / 5-7 / 9-1 / 10-12）。現有 extract_rules.yaml 只有 figure_caption_merge/main_re，無法 declaratively 指定 caption donor、non-indexable 視覺排除、或將 syntax/rule tables 視為非 catalog target。",
+  "proposal": "在 catalog pipeline 加 per-book overrides/schema：可把指定 visual block 標成 nonindexable、從鄰近 text donor 綁 caption/semantic id、或對 syntax-figure/rule-table 類型做 declarative exclusion；否則這類書無法靠 extract_rules 讓 H6/H7 收斂。",
+  "risk": "",
+  "disposition": ""
+}

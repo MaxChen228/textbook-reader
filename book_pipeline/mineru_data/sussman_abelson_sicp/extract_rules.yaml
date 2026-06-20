@@ -1,0 +1,88 @@
+slug: sussman_abelson_sicp
+title: "Structure and Interpretation of Computer Programs"
+author: "Harold Abelson; Gerald Jay Sussman; Julie Sussman"
+edition: 2nd
+subject: Computer Science
+publisher: "The MIT Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 631
+bibliography_start_page: 631
+index_start_page: 640
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: "Building Abstractions with Procedures"
+    page_start: 22
+    page_end: 99
+    chapter_title_block_idx: 227
+    problems_block_idx: null
+    next_chapter_block_idx: 1177
+  - num: 2
+    title: "Building Abstractions with Data"
+    page_start: 100
+    page_end: 237
+    chapter_title_block_idx: 1177
+    chapter_title_block_idx_secondary: 1178
+    problems_block_idx: null
+    next_chapter_block_idx: 2709
+  - num: 3
+    title: "Modularity, Objects, and State"
+    page_start: 238
+    page_end: 378
+    chapter_title_block_idx: 2709
+    chapter_title_block_idx_secondary: 2710
+    problems_block_idx: null
+    next_chapter_block_idx: 4263
+  - num: 4
+    title: "Metalinguistic Abstraction"
+    page_start: 379
+    page_end: 510
+    chapter_title_block_idx: 4263
+    chapter_title_block_idx_secondary: 4264
+    problems_block_idx: null
+    next_chapter_block_idx: 5745
+  - num: 5
+    title: "Computing with Register Machines"
+    page_start: 511
+    page_end: 630
+    chapter_title_block_idx: 5745
+    chapter_title_block_idx_secondary: 5746
+    problems_block_idx: null
+    next_chapter_block_idx: 6822
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)?)\s*((?!(?:Exercise|Exercises|References|Index)\b)[A-Z].+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\s*$'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-sussman-abelson-sicp",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit 無法從鄰接 prose 與 captionless visual/table 恢復 SICP 視覺語義",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:35:45+00:00",
+  "updated": "2026-06-19T23:35:45+00:00",
+  "evidence": "smoke 唯一 critical 為 H7: empty_captions=940。parsed/_catalog_audit.md 顯示 figures/tables 多為 box-and-pointer 圖、抽象機框圖、語法/流程表，常見形態是 (1) media/table block 本身 caption 空白；(2) 真正 Figure N.M 說明出現在相鄰 text block，如 ch02 body[103-104]、ch03 body[180]、ch04 body[191]、ch05 body[227]；(3) 大量 table-like semantic blocks 根本沒有正式 caption，但現行 catalog 仍把它們當需索引 visual，導致 empty_captions 爆量。extract_rules 只有 figure_caption_merge / figure_caption_main_re，無法 declaratively 處理 table caption 綁定、鄰接 prose 提升、或將這類無正式 caption 的結構圖標成 non-indexable。",
+  "proposal": "擴充 catalog/build pipeline：支援從鄰接 text block 綁定 figure/table caption 與 semantic id，並提供 reviewable 的 non-indexable/exclude 機制給沒有正式 caption 的結構圖或表格；否則像 SICP 這種以 prose 說圖、混合圖表/表格/程式框的書，audit-book 可以 parser-green，但永遠卡在 H7。",
+  "risk": "",
+  "disposition": ""
+}

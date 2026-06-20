@@ -1,0 +1,90 @@
+slug: enderton_mathematical_logic
+title: A Mathematical Introduction to Logic
+author: Herbert B. Enderton
+edition: 2nd
+subject: Mathematical Logic
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 318
+bibliography_start_page: null
+index_start_page: 322
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Useful Facts about Sets
+    page_start: 12
+    page_end: 21
+    chapter_title_block_idx: 96
+    chapter_title_block_idx_secondary: 97
+    problems_block_idx: null
+    next_chapter_block_idx: 243
+  - num: 1
+    title: Sentential Logic
+    page_start: 22
+    page_end: 77
+    chapter_title_block_idx: 243
+    chapter_title_block_idx_secondary: 244
+    problems_block_idx: null
+    next_chapter_block_idx: 1076
+  - num: 2
+    title: First-Order Logic
+    page_start: 78
+    page_end: 192
+    chapter_title_block_idx: 1076
+    chapter_title_block_idx_secondary: 1077
+    problems_block_idx: null
+    next_chapter_block_idx: 3075
+  - num: 3
+    title: Undecidability
+    page_start: 193
+    page_end: 292
+    chapter_title_block_idx: 3075
+    chapter_title_block_idx_secondary: 3076
+    problems_block_idx: null
+    next_chapter_block_idx: 4885
+  - num: 4
+    title: Second-Order Logic
+    page_start: 293
+    page_end: 317
+    chapter_title_block_idx: 4885
+    chapter_title_block_idx_secondary: 4886
+    problems_block_idx: null
+    next_chapter_block_idx: 5268
+
+appendices: []
+
+section_re: '^SECTION\s+((\d+\.\d+))$'
+subsection_re: '^()(Cardinal Numbers|Informal Remarks on Formal Languages|The Language of Sentential Logic|Truth Assignments|A Parsing Algorithm(?: \$\^\{1\}\$)?|Induction and Recursion \$\^\{1\}\$|Sentential Connectives|Switching Circuits \$\^\{1\}\$|Compactness and Effectiveness|Preliminary Remarks|First-Order Languages|Truth and Models|A Deductive Calculus|Soundness and Completeness Theorems|Models of Theories|Interpretations Between Theories \$\^\{1\}\$|Nonstandard Analysis \$\^\{1\}\$|Number Theory|Natural Numbers with Successor|Other Reducts of Number Theory \$\^\{1\}\$|A Subtheory of Number Theory|Arithmetization of Syntax|Preview|Incompleteness and Undecidability|Recursive Functions|Reduction of Decision Problems \$\^\{1\}\$|Second Incompleteness Theorem|Representing Exponentiation \$\^\{1\}\$|Second-Order Languages|Skolem Functions|Many-Sorted Logic|General Structures)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?:\([^)]{1,40}\)\s+)?(?!There must be exact instructions\b)(?!There is a representable (?:function|relation)\b)(?!Assume that the language has(?: equality)? and\b)(?!Assume that the language has = and\b)(?!Say that \$b\$ is a sequence number iff\b)(?!With a \$\(k \+ 1\)\$ -place function\b)(?!Define the concatenation of \$a\$ and \$b\b)(?!Say that \$a\$ and \$b\$ are in registers\b)(?!Let \$a \\div b =\b)(?!Program to\b)(?!PN is the absolute model\b)(?!For a class \$\\mathcal\{A\} \\subseteq \\mathcal\{PN\}\$\b)(?:Show|Let|Assume|Give|Define|Repeat|Prove|Determine|Complete|Extend|State|Consider|Find|Establish|Translate|Rewrite|Carry out|Say|Suppose|With|An|You|There|Is|Does|What|Which|The English language|We have given)\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-stinson-cryptography-theory-prac",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog extraction cannot recover split or adjacent figure/table captions",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-19T23:44:58+00:00",
+  "updated": "2026-06-19T23:44:58+00:00",
+  "evidence": "smoke critical remains H6/H7 after parser-clean audit: parsed/_catalog_audit.md reports unresolved Figure refs=1, empty figure/table captions=86, unresolved visual semantics=124. Raw OCR often emits caption semantics as adjacent text or split image_caption fragments across multiple image blocks, e.g. unified idx 303-306 produce FIGURE 1.1 + empty image + 'or' + FIGURE 1.2, while parsed ch01 body[26:29] becomes fig-1.1 / fig-ch01-27(empty) / fig-ch01-28('or') / fig-1.2. Other cases are captionless visual blocks immediately before a new subsection or prose paragraph, so extract_rules.yaml cannot assign semantic ids or safe excludes with current schema.",
+  "proposal": "Extend deterministic catalog extraction so per-book audit can bind split/adjacent caption text to nearby image or table blocks, merge multi-block OCR figures into one semantic visual when appropriate, and/or allow reviewable per-visual exclude annotations when a visual is intentionally non-indexable. Without that, parser/audit can be chapter-green but books like stinson_cryptography_theory_practice remain blocked on catalog H6/H7 despite correct extract_rules.yaml.",
+  "risk": "",
+  "disposition": ""
+}

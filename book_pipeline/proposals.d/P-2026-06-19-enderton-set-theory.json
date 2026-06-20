@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-enderton-set-theory",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "inline Exercises 題號 namespace 無法避免跨節重複",
+  "detect": [],
+  "source": "codex",
+  "resolution": "",
+  "created": "2026-06-19T22:58:08+00:00",
+  "updated": "2026-06-19T22:58:08+00:00",
+  "evidence": "enderton_set_theory 為未編號章內 section-exercise 書型；即使在 extract_rules.yaml 設 inline_problems=true、problem_num_namespace_by_section=true，並多輪調整 section/subsection regex，parser 仍將 ch05 兩組題號都命名為 Exercises.9，smoke 持續報 H2。parsed/ch05.json 可見題號前綴固定為 Exercises.N，無法用現有 schema 綁到前一個真正 section（如 INTEGERS / RATIONAL NUMBERS）。",
+  "proposal": "為 inline_problems + problem_num_namespace_by_section 模式新增可配置 namespace 來源，例如使用最近一個非-exercise heading、父 section id，或提供 rules.problem_namespace_heading_re / problem_namespace_use_parent_section。",
+  "risk": "目前此類主書會留下 smoke critical，無法在不改引擎的前提下完成乾淨 audit。",
+  "disposition": ""
+}

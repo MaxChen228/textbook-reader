@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-arpaci-dusseau-ostep",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "support prose-bound visual semantics in audit-book",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:09:11+00:00",
+  "updated": "2026-06-19T23:09:11+00:00",
+  "evidence": "parser/validate are green for 57 chapters and 8 appendices, but smoke remains red only at catalog stage: parsed/_catalog_audit.md reports unresolved Figure refs=2 and empty figure/table captions=296. Representative cases include ch10 CPU schedule diagrams, ch16/ch17 memory-layout diagrams, ch37 disk geometry diagrams, and ch49 NFS figures/tables where the visual block has empty caption while the usable semantics live in neighboring prose such as 'Figure 37.1', 'Figure 49.5', or explanatory paragraphs before/after the media block. Current extract_rules only exposes figure_caption_merge/figure_caption_main_re and cannot bind adjacent prose captions or mark such inline diagrams/tables non-indexable.",
+  "proposal": "Extend deterministic catalog repair so per-book audit can attach neighboring prose/text figure-table semantics to adjacent media blocks, or allow reviewable per-visual nonindexable/exclude annotations. Without this, books like OSTEP can parse chapters/problems correctly but remain stuck on smoke H6/H7.",
+  "risk": "",
+  "disposition": ""
+}

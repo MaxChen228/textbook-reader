@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-19-eisenbud-commutative-algebra",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog audit cannot express captionless diagrams or adjacent figure refs",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-19T23:07:04+00:00",
+  "updated": "2026-06-19T23:07:04+00:00",
+  "evidence": "parser/validate are green for eisenbud_commutative_algebra, but smoke remains critical only at catalog semantics: H6 unresolved Figure refs=2 and H7 empty_captions=81. parsed/_catalog_audit.md shows many visuals are pedagogical diagrams with no intrinsic Figure/Table caption or id (for example ch00 §0.3 body[65], ch01 §1.6 body[137], ch03 §3.8 body[178]/[181]/[185]/[188]), plus exercise/body prose that references a figure number without any indexable captioned media entry, e.g. ch06 problem 6.8 text '(see Figure 6.7)'. Current extract_rules fields only offer figure_caption_merge and figure_caption_main_re; they cannot bind adjacent prose/bare text to a media block, nor mark captionless semantic-free diagrams as nonindexable with a reviewable reason.",
+  "proposal": "Extend deterministic catalog repair with declarative per-book media overrides: 1) allow binding adjacent prose/text as caption/id donor for a target visual; 2) allow marking captionless pedagogical diagrams as nonindexable/excluded with reviewable metadata; 3) optionally allow aliasing prose-only internal refs like Figure 6.7 when the semantic figure is split across nearby blocks. Without this, books like Eisenbud can parse chapters/problems correctly but cannot clear smoke H6/H7 through extract_rules alone.",
+  "risk": "",
+  "disposition": ""
+}

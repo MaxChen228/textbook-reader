@@ -1,0 +1,44 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "peterson-davie-fix-fig-7.4",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[35]",
+      "expect": {
+        "id": "tbl-ch07-35",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-7.4",
+        "caption": "Figure 7.4: A 32-bit integer encoded in a tagged message.",
+        "catalog_repair_source": "agent-manual-semantic-id"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The visual block immediately before the caption sentence is the actual Figure 7.4 payload; it was incorrectly excluded as an unnumbered table."
+    },
+    {
+      "id": "peterson-davie-fix-fig-2.25.6-ref",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[245]",
+      "field": "md",
+      "old": "Figure 2.25.6 The 64-bit",
+      "new": "Figure 2.25. The 64-bit",
+      "reason": "The source paragraph refers to the Ethernet frame-format figure in the immediately following block; OCR dropped the sentence period and fused it into a fake Figure 2.25.6 reference."
+    },
+    {
+      "id": "peterson-davie-fix-table-171.69-false-ref",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[285]",
+      "field": "md",
+      "old": "routing table 171.69 would be the longest match.",
+      "new": "routing table, 171.69 would be the longest match.",
+      "reason": "The audit regex misreads the unpunctuated phrase 'routing table 171.69' as a table reference; restoring the missing comma preserves meaning and removes the false Table 171.69 demand."
+    }
+  ]
+}

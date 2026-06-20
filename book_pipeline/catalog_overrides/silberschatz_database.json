@@ -1,0 +1,34 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "silberschatz-database-fix-ch02-body82-fig-2-10-block",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[82]",
+      "expect": {
+        "id": "tbl-ch02-82",
+        "caption": "$\\mathsf { F i g u r e \\ 2 . 1 0 } \\quad \\mathsf { R e s u l t \\ o f \\ } \\sigma _ { d e p t . n a m e = ^ { \\infty } \\mathsf { P h y s i c s } ^ { \\infty } } ( i n s t r u c t o r ) .$"
+      },
+      "set": {
+        "id": "fig-2.10",
+        "caption": "Figure 2.10 Result of σ_{dept_name = \"Physics\"}(instructor).",
+        "catalog_repair_source": "agent-caption-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw content_list page_idx 77 shows this visual is labeled Figure 2.10, but MinerU preserved the caption in spaced LaTeX form and the parsed block was left as an excluded table fallback. Normalizing the caption and id lets build_catalogs expose it as figure fig-2.10."
+    },
+    {
+      "id": "silberschatz-database-fix-ch05-body122-fig-5-6-ref",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[122]",
+      "field": "md",
+      "old": "Figure 5.6.4",
+      "new": "Figure 5.6",
+      "reason": "The same page already contains the captioned code block Figure 5.6, and later text on the chapter refers back to Figure 5.6 as well. The 5.6.4 mention in this paragraph is a parsed/OCR reference error, not a real catalog target."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+slug: kunen_set_theory
+title: "Set Theory: An Introduction to Independence Proofs"
+author: Kenneth Kunen
+edition: null
+subject: Set Theory
+publisher: North-Holland Publishing Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 324
+bibliography_start_page: 324
+index_start_page: 328
+
+chapters:
+  - num: 1
+    title: The foundations of set theory
+    page_start: 20
+    page_end: 65
+    chapter_title_block_idx: 163
+    chapter_title_block_idx_secondary: 164
+    problems_block_idx: 874
+    next_chapter_block_idx: 952
+  - num: 2
+    title: Infinitary combinatorics
+    page_start: 66
+    page_end: 112
+    chapter_title_block_idx: 952
+    chapter_title_block_idx_secondary: 953
+    problems_block_idx: 1604
+    next_chapter_block_idx: 1722
+  - num: 3
+    title: The well-founded sets
+    page_start: 113
+    page_end: 128
+    chapter_title_block_idx: 1722
+    chapter_title_block_idx_secondary: 1723
+    problems_block_idx: 1945
+    next_chapter_block_idx: 1992
+  - num: 4
+    title: Easy consistency proofs
+    page_start: 129
+    page_end: 170
+    chapter_title_block_idx: 1992
+    chapter_title_block_idx_secondary: 1993
+    problems_block_idx: 2653
+    next_chapter_block_idx: 2742
+  - num: 5
+    title: Defining definability
+    page_start: 171
+    page_end: 183
+    chapter_title_block_idx: 2742
+    chapter_title_block_idx_secondary: 2743
+    problems_block_idx: 2928
+    next_chapter_block_idx: 2953
+  - num: 6
+    title: The constructible sets
+    page_start: 184
+    page_end: 202
+    chapter_title_block_idx: 2953
+    chapter_title_block_idx_secondary: 2954
+    problems_block_idx: 3215
+    next_chapter_block_idx: 3272
+  - num: 7
+    title: Forcing
+    page_start: 203
+    page_end: 269
+    chapter_title_block_idx: 3272
+    chapter_title_block_idx_secondary: 3273
+    problems_block_idx: 4141
+    next_chapter_block_idx: 4374
+  - num: 8
+    title: Iterated forcing
+    page_start: 270
+    page_end: 323
+    chapter_title_block_idx: 4374
+    chapter_title_block_idx_secondary: 4375
+    problems_block_idx: 5016
+    next_chapter_block_idx: 5272
+
+appendices: []
+
+section_re: '^(?:§\s*)?(\d+)\.(?!\d)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^\*?\(([A-Z]?\d+)\)\s+'
+problem_chapter_must_match: false
+problems_end_re: '^BIBLIOGRAPHY$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?|\*)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

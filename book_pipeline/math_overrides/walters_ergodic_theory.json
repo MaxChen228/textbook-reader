@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "walters_ergodic_theory-ch10-body-10-973a0a",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[10]",
+      "field": "md",
+      "all": true,
+      "old": "$\\tau_x T = \\tau T|_{\\tau_x M}: \\tau_x M \\to \\tau_T_x M$",
+      "new": "$\\tau_x T = \\tau T|_{\\tau_x M}: \\tau_x M \\to \\tau_{T_x} M$",
+      "anchor": "d6aa28d3"
+    },
+    {
+      "id": "walters_ergodic_theory-ch05-body-304-3eebf9",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[304]",
+      "field": "md",
+      "all": true,
+      "old": "$x \\to (a_n)^_\\infty_{-\\infty}$",
+      "new": "$x \\to (a_n)^{\\infty}_{-\\infty}$",
+      "anchor": "bd37871b"
+    }
+  ]
+}

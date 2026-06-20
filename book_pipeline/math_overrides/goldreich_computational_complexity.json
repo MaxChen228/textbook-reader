@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "goldreich_computational_complexity-ch04-body-71-4fd844",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[71]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} A _ {M} (x + 1) & \\text {if x\\in[\\alpha_{M} ,\\beta_{M} -1]} \\\\ 1 - A _ {M} (\\alpha_ {M}) & \\text {if x = \\beta_{M}} \\end{array} \\right.",
+      "new": "f(x)=\\left\\{\\begin{array}{ll}A_{M}(x+1)&\\text{if }x\\in[\\alpha_{M},\\beta_{M}-1]\\\\1-A_{M}(\\alpha_{M})&\\text{if }x=\\beta_{M}\\end{array}\\right."
+    },
+    {
+      "id": "goldreich_computational_complexity-ch02-body-411-bc9d49",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[411]",
+      "field": "md",
+      "all": true,
+      "old": "$A ^ { \\prime }  \\mathrm  $",
+      "new": "$A^{\\prime}  $",
+      "anchor": "94766218"
+    },
+    {
+      "id": "goldreich_computational_complexity-ch09-body-127-9056a6",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\begin{array} { r } { { \\mathcal { T P } } ( M ) \\stackrel { \\mathrm { d e f } } { = } } \\bigcup _ { m \\in M } { \\mathcal { T P } } ( m ) } \\end{array}$",
+      "new": "$\\begin{array}{r} {\\mathcal{TP}}(M)\\stackrel{\\mathrm{def}}{=}\\bigcup_{m\\in M}{\\mathcal{TP}}(m) \\end{array}$",
+      "anchor": "cffa89cf"
+    },
+    {
+      "id": "goldreich_computational_complexity-ch05-body-167-d96286",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[167]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu \\mathrm { s p a c E } _ { \\mathrm { o n - l i n e } } ( s ) \\subseteq \\tt { D T I M E } ( 2 ^ { s } )$",
+      "new": "$\\mathrm{NSPACE}_{\\mathrm{on-line}}(s)\\subseteq \\mathtt{DTIME}(2^{s})$",
+      "anchor": "2192bb3e"
+    }
+  ]
+}
