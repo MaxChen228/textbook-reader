@@ -255,6 +255,12 @@
     /* zlib 帳號停用態（流量控制）：灰化整列、額度條置空、num 標「停用」 */
     .dev-bar-row.zlib-off { opacity: .42; }
     .dev-bar-row.zlib-off .num { color: var(--sub); }
+    /* toggle 鈕：點擊停用/啟用帳號（寫回 devcontrol） */
+    .zlib-toggle { flex-shrink: 0; margin-left: 8px; padding: 2px 9px; font-size: 11px;
+      font-family: var(--mono); color: var(--sub); background: var(--border-l);
+      border: 1px solid var(--border); border-radius: 5px; cursor: pointer; transition: all .15s; }
+    .zlib-toggle:hover { color: var(--text); border-color: var(--accent); }
+    .dev-bar-row.zlib-off .zlib-toggle { opacity: 1; }   /* 灰列中鈕仍清晰可點 */
     .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0; font-family: var(--mono);
       font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
     .dev-err .src { color: var(--sub); margin-right: 8px; }
@@ -384,6 +390,7 @@
   const REFRESH_MS = 1000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
   let last = null, lastWorkers = []
+  const zlibPending = {}  // zlib 帳號 toggle 樂觀態 email→期望 disabled bool（authoritative ≤300s 追上即清；見 renderZlib）
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
@@ -1252,6 +1259,11 @@
     const row = e.target.closest('.sess'); if (!row) return
     openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), null)
   })
+  // zlib 帳號額度條的 toggle 鈕（委派：#zlib 容器恆在，setHtml 只換子節點，監聽器存活）
+  document.getElementById('zlib').addEventListener('click', e => {
+    const btn = e.target.closest('.zlib-toggle'); if (!btn) return
+    toggleZlibAccount(btn.dataset.email, btn.dataset.enable === '1')
+  })
 
   // ── 工具：跨度格式 ──
   function fmtDur(s) { return s == null ? '—' : (s < 90 ? `${s}s` : `${Math.round(s/60)}m`) }
@@ -1317,6 +1329,23 @@
       + (o.absent ? `<div class="blf-abs">無法收錄 ${o.absent}</div>` : ''))
   }
 
+  // zlib 帳號停用/啟用：寫回 devcontrol sidecar（CF Access 已把關，header 由 nginx 轉發復驗）。
+  // 樂觀更新（不等 8s poll）；買書員每 tick 權威 live 查停用態故流量即時生效，面板數字 ≤300s 追上。
+  async function toggleZlibAccount(email, enable) {
+    zlibPending[email] = !enable          // 期望 disabled = !enable
+    if (last) render(last)                // 立即樂觀重繪
+    try {
+      const r = await fetch('api/account', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, enabled: enable }) })
+      if (!r.ok) throw new Error('HTTP ' + r.status)
+    } catch (e) {
+      delete zlibPending[email]           // 失敗回滾 + 提示
+      if (last) render(last)
+      alert('帳號' + (enable ? '啟用' : '停用') + '失敗：' + (e && e.message || e))
+    }
+  }
+
   function render(d) {
     const prevStage = {}
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
@@ -1339,12 +1368,21 @@
     const zage = z.fetched_at_utc ? ' · ' + relTime(z.fetched_at_utc) : ''
     const zcap = z.total_limit || (z.accounts || []).reduce((s, a) => s + (a.limit || 0), 0) || '?'
     setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/${zcap}${z.stale ? ' · STALE' : ''}${zage})`)
+    // pending 樂觀態：toggle 後 authoritative（zlib_quota.json）≤300s 才追上，期間以 pending 維持使用者意圖；追上即清。
+    ;(z.accounts || []).forEach(a => {
+      if (a.email && a.email in zlibPending && !!a.disabled === zlibPending[a.email]) delete zlibPending[a.email]
+    })
     setHtml('zlib', (z.accounts || []).map(a => {
+      const disabled = (a.email && a.email in zlibPending) ? zlibPending[a.email] : !!a.disabled
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
-      const numTxt = a.disabled ? '停用' : (rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`)
-      return `<div class="dev-bar-row${a.disabled ? ' zlib-off' : ''}"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
-        <span class="dev-bar"><span style="width:${a.disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span></div>`
+      const numTxt = disabled ? '停用' : (rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`)
+      // toggle 鈕：data-enable = 點擊後要送的 enabled（停用中→點「啟用」送 1；啟用中→點「停用」送 0）。
+      const btn = a.email
+        ? `<button class="zlib-toggle" data-email="${escapeHtml(a.email)}" data-enable="${disabled ? '1' : '0'}">${disabled ? '啟用' : '停用'}</button>`
+        : ''
+      return `<div class="dev-bar-row${disabled ? ' zlib-off' : ''}"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
+        <span class="dev-bar"><span style="width:${disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span>${btn}</div>`
     }).join('') || '<div class="dev-label">查詢中…</div>')
 
     const bl = d.booklists || {}, blo = bl.overall || {}

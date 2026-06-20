@@ -20,6 +20,10 @@ mineru_ingest → audit → parse → deploy。設計鐵則：
   uv run --with requests python -m book_pipeline.crawl_zlib search "<query>" \
       [--ext pdf] [--lang english] [--year-from N] [--limit 20] [--json]
   uv run --with requests python -m book_pipeline.crawl_zlib fetch <id> <hash> --slug <slug>
+  # 流量控制（架構師面，停用 N 帳號 → 當日上限 10×(10−N)/日；狀態存 .control/，per-machine）：
+  uv run python -m book_pipeline.crawl_zlib accounts            # 列各帳號啟用/停用態 + 當日上限
+  uv run python -m book_pipeline.crawl_zlib disable <email|acctN>...  # 停用
+  uv run python -m book_pipeline.crawl_zlib enable  <email|acctN>...  # 啟用
 """
 from __future__ import annotations
 
@@ -35,6 +39,8 @@ from datetime import datetime, timezone
 import requests
 
 from book_pipeline import jsonio
+from book_pipeline.zlib_control_state import (  # 停用態 I/O：dep-light，與 sidecar dev_control 共用單一真相
+    ACCOUNT_STATE_PATH, disabled_emails, write_disabled as _write_disabled)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -46,7 +52,6 @@ CRAWL_MANIFEST = os.path.join(BP, 'crawl_manifest.json')
 ENV_PATH = os.path.expanduser('~/.secrets/zlib.env')
 SESSION_PATH = os.path.expanduser('~/.secrets/zlib_session.json')  # legacy 帳號0 快取
 ACCOUNTS_PATH = os.path.expanduser('~/.secrets/zlib_accounts.json')
-ACCOUNT_STATE_PATH = os.path.join(BP, 'zlib_account_state.json')  # 停用態（流量控制，per-machine runtime，不入 git）
 UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
 
@@ -93,25 +98,9 @@ def n_accounts() -> int:
 
 # ── 停用態（流量控制）─────────────────────────────────────────────────────
 # disable N 帳號 → 該帳號 remaining 歸 0、買書員自然跳過 → 當日上限 10×(N_total−N_disabled)/日。
-# 鍵用 email（穩定、面板可讀）；狀態檔 per-machine 不入 git（比照憑證/runtime 態）。
-
-def disabled_emails() -> set:
-    """停用帳號 email 集。狀態檔 zlib_account_state.json {"disabled":[email,...]}；
-    不存在/壞檔 → 空集（fail-open，絕不因狀態檔壞而誤擋好帳號）。"""
-    try:
-        d = json.load(open(ACCOUNT_STATE_PATH))
-        return set(d.get('disabled') or [])
-    except Exception:
-        return set()
-
-
-def _write_disabled(emails: set) -> None:
-    """原子寫停用集（email 排序穩定 diff）。"""
-    tmp = f'{ACCOUNT_STATE_PATH}.tmp{os.getpid()}'
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump({'disabled': sorted(emails)}, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, ACCOUNT_STATE_PATH)
-
+# 鍵用 email（穩定、面板可讀）。狀態 I/O（disabled_emails/_write_disabled）已抽至
+# zlib_control_state（dep-light、零憑證，與 docker sidecar dev_control 共用單一真相）；
+# 此處只留需 ~/.secrets 憑證檔的帳號解析（email↔acctN，host-only）。
 
 def _resolve_email(token: str) -> str | None:
     """把 'acctN' 或 email 解析成 email（停用集鍵）。須在帳號清單內才認（防 typo 寫入無效 email）；
