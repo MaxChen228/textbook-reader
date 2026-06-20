@@ -1599,6 +1599,70 @@ def _harvest_parallel(slugs: list[str], dry: bool) -> None:
                 log(f'❌ harvest {futs[f]} 異常：{f.exception()}')
 
 
+# ── post-deploy 自動 GC（讓可重生中間產物自己排水，免人工定期 prune）────────────────
+# deployed_at 後須過穩定期才 GC：避免剛 deploy 又被 sol/catalog/math 重烤時誤刪中途產物。
+GC_STABILITY_MIN = int(os.environ.get('BOOK_PIPELINE_GC_STABILITY_MIN', '120'))
+# GC 全書掃描節流（per-controller monotonic）：免每 observe cycle 掃 320 書讀 book.json。
+GC_INTERVAL_SEC = int(os.environ.get('BOOK_PIPELINE_GC_INTERVAL_SEC', '1800'))
+_gc_throttle = {'last': 0.0}  # 本 controller 上次 GC 掃描戳；loop 起頭重置 → 首掃於 ~INTERVAL 後
+
+
+def _gc_due() -> bool:
+    return (time.monotonic() - _gc_throttle['last']) >= GC_INTERVAL_SEC
+
+
+def _gc_candidates(state: dict) -> list[str]:
+    """可自動 GC 的書：確有 🟡 可重生產物 ∧ 已上站(完整 book.json) ∧ 非在飛 ∧ deployed_at
+    距今 ≥ GC_STABILITY_MIN 分（無戳＝歷史書，必非剛 deploy → eligible）。先 cheap listdir
+    篩有東西可清的（多數書已清→跳過），才對少數讀 book.json，避免每次掃讀 320 個大檔。"""
+    from book_pipeline import storage_gc as sgc
+    flying = mb.in_flight() | mb.occupied()
+    out = []
+    for slug in sgc._slugs():
+        if not sgc._book_prune_targets(slug):       # cheap：無可清即跳
+            continue
+        if not sgc._deployed(slug):                 # 只對有東西可清的讀 book.json 驗完整
+            continue
+        if slug in flying or f'{slug}_sol' in flying:
+            continue
+        dat = state.get(slug, {}).get('deployed_at')
+        if dat:
+            try:
+                age_min = (datetime.now(timezone.utc)
+                           - datetime.fromisoformat(dat)).total_seconds() / 60
+                if age_min < GC_STABILITY_MIN:
+                    continue                        # 剛 deploy，未過穩定期 → 暫不清
+            except Exception:
+                pass                                # 壞戳 → 視為老（保守不擋，書已上站久）
+        out.append(slug)
+    return out
+
+
+def do_post_deploy_gc(dry: bool) -> int:
+    """post-deploy 自動 GC：清『已穩定上站 ∧ 非在飛』書的 🟡 可免費重生產物（raw/chunk_*/ +
+    chunks/），讓中間產物自己排水、免人工定期 prune。呼叫處（tick_once 序列尾 / reactive det
+    worker）皆在 controller 進程內、已持 .tick.lock → 直呼 storage_gc.gc_book 不重取鎖（與手動
+    prune 共用同一刪除核心）。安全閘全在 _gc_candidates（鏡像 prune：只動已上站、跳在飛）。"""
+    from book_pipeline import storage_gc as sgc
+    _gc_throttle['last'] = time.monotonic()  # 不論有無候選都重置節流戳（下次 ~INTERVAL 後再掃）
+    cands = _gc_candidates(q._load_state())
+    if not cands:
+        return 0
+    if dry:
+        log(f'post-deploy GC（DRY）：{len(cands)} 本可清可重生產物 → '
+            f'{", ".join(cands[:8])}' + (' …' if len(cands) > 8 else ''))
+        return 0
+    freed = 0
+    for slug in cands:
+        with _live_det_worker('gc', slug):  # /dev 面板顯「🔧 gc 處理中」
+            f, warns = sgc.gc_book(slug)
+        freed += f
+        for w in warns:
+            log(f'  ⚠ gc {slug}: {w}')
+    log(f'post-deploy GC：回收 {freed / 1e9:.2f}GB（清 {len(cands)} 本已穩定上站書的可重生產物）')
+    return 0
+
+
 def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
     """派工入口：REACTIVE=1 且真跑 → 反應式控制迴圈；否則 → 現行單次 tick（行為不變）。"""
     if REACTIVE and not dry:
@@ -1665,6 +1729,10 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     # F. corpus-level 數學 sweep（track-only reduce job，殘餘過門檻才派一隻跨書 agent）。
     do_math_sweep(dry)
 
+    # F2. post-deploy 自動 GC：清已穩定上站書的 🟡 可重生中間產物（raw 解壓檔+chunks），
+    #     免人工定期 prune。tick_once 已持 .tick.lock → gc_book 直跑不重取鎖。
+    do_post_deploy_gc(dry)
+
     # G. crawl 解析 agent（解析池 < 水位 ∧ 有 unresolved → 派一隻解析一批書名→id/hash）。
     do_crawl_resolve(dry)
 
@@ -1681,6 +1749,7 @@ def tick_reactive(no_deploy: bool) -> int:
     wr.reset()
     with _exhausted_lock:  # 本 controller 起頭重置額度旗標（下個 invocation 再重探恢復）
         _exhausted_providers.clear()
+    _gc_throttle['last'] = time.monotonic()  # GC 節流戳重置 → 首掃於 ~GC_INTERVAL 後（系統穩定才掃）
 
     inflight: set[str] = set()
     ifl_lock = threading.Lock()
@@ -1797,6 +1866,12 @@ def tick_reactive(no_deploy: bool) -> int:
             # False → loop 能收斂 idle。
             due, _resid = _math_sweep_due()
             if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
+                dispatched += 1
+
+            # C3.5 post-deploy 自動 GC（det-step）：節流到位才掃（免每 cycle 掃全書）。清已穩定
+            # 上站書的 🟡 可重生中間產物，讓中間產物自己排水。__post_deploy_gc__ key 序列化、
+            # gc_book 在 controller 進程內已持 .tick.lock。candidates 空 → 一次掃即收斂、不空轉。
+            if _gc_due() and _start('__post_deploy_gc__', lambda: do_post_deploy_gc(False)):
                 dispatched += 1
 
             # C4. crawl 解析 agent：解析池（已確認連結未 owned）< 水位 ∧ 有 unresolved → 派一隻 crawl
