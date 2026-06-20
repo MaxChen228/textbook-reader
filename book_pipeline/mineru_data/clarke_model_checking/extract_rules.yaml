@@ -1,0 +1,206 @@
+slug: clarke_model_checking
+title: Model Checking
+author: Edmund M. Clarke Jr.; Orna Grumberg; Daniel Kroening; Doron Peled; Helmut Veith
+edition: 2nd
+subject: Computer Science
+publisher: The MIT Press
+language: en
+
+filter_types:
+  - header
+  - footer
+
+ignore_image_content: true
+ignore_chart_content: true
+
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 497
+bibliography_start_page: 497
+index_start_page: 529
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction to the Second Edition
+    page_start: 21
+    page_end: 22
+    chapter_title_block_idx: 144
+    problems_block_idx: null
+    next_chapter_block_idx: 151
+  - num: 2
+    title: Introduction to the First Edition
+    page_start: 23
+    page_end: 36
+    chapter_title_block_idx: 151
+    chapter_title_block_idx_secondary: 152
+    problems_block_idx: null
+    next_chapter_block_idx: 214
+  - num: 3
+    title: Modeling Systems
+    page_start: 37
+    page_end: 64
+    chapter_title_block_idx: 214
+    chapter_title_block_idx_secondary: 215
+    problems_block_idx: 441
+    next_chapter_block_idx: 454
+  - num: 4
+    title: Temporal Logic
+    page_start: 65
+    page_end: 85
+    chapter_title_block_idx: 454
+    chapter_title_block_idx_secondary: 455
+    problems_block_idx: 630
+    next_chapter_block_idx: 643
+  - num: 5
+    title: CTL Model Checking
+    page_start: 86
+    page_end: 110
+    chapter_title_block_idx: 643
+    chapter_title_block_idx_secondary: 644
+    problems_block_idx: 853
+    next_chapter_block_idx: 855
+  - num: 6
+    title: LTL and CTL* Model Checking
+    page_start: 111
+    page_end: 129
+    chapter_title_block_idx: 855
+    chapter_title_block_idx_secondary: 856
+    problems_block_idx: 985
+    next_chapter_block_idx: 987
+  - num: 7
+    title: Automata on Infinite Words and LTL Model Checking
+    page_start: 130
+    page_end: 165
+    chapter_title_block_idx: 987
+    chapter_title_block_idx_secondary: 988
+    problems_block_idx: 1221
+    next_chapter_block_idx: 1228
+  - num: 8
+    title: Binary Decision Diagrams and Symbolic Model Checking
+    page_start: 166
+    page_end: 197
+    chapter_title_block_idx: 1228
+    chapter_title_block_idx_secondary: 1229
+    problems_block_idx: 1444
+    next_chapter_block_idx: 1448
+  - num: 9
+    title: Propositional Satisfiability
+    page_start: 198
+    page_end: 218
+    chapter_title_block_idx: 1448
+    chapter_title_block_idx_secondary: 1449
+    problems_block_idx: null
+    next_chapter_block_idx: 1600
+  - num: 10
+    title: SAT-Based Model Checking
+    page_start: 219
+    page_end: 250
+    chapter_title_block_idx: 1600
+    chapter_title_block_idx_secondary: 1601
+    problems_block_idx: 1849
+    next_chapter_block_idx: 1853
+  - num: 11
+    title: Equivalences and Preorders between Structures
+    page_start: 251
+    page_end: 266
+    chapter_title_block_idx: 1853
+    problems_block_idx: 1972
+    next_chapter_block_idx: 1975
+  - num: 12
+    title: Partial Order Reduction
+    page_start: 267
+    page_end: 305
+    chapter_title_block_idx: 1975
+    chapter_title_block_idx_secondary: 1976
+    problems_block_idx: null
+    next_chapter_block_idx: 2224
+  - num: 13
+    title: Abstraction
+    page_start: 306
+    page_end: 335
+    chapter_title_block_idx: 2224
+    chapter_title_block_idx_secondary: 2225
+    problems_block_idx: null
+    next_chapter_block_idx: 2468
+  - num: 14
+    title: Software Model Checking
+    page_start: 336
+    page_end: 356
+    chapter_title_block_idx: 2468
+    chapter_title_block_idx_secondary: 2469
+    problems_block_idx: null
+    next_chapter_block_idx: 2603
+  - num: 15
+    title: Verification with Automata Learning
+    page_start: 357
+    page_end: 385
+    chapter_title_block_idx: 2603
+    problems_block_idx: null
+    next_chapter_block_idx: 2775
+  - num: 16
+    title: Model Checking for the μ-Calculus
+    page_start: 386
+    page_end: 402
+    chapter_title_block_idx: 2775
+    chapter_title_block_idx_secondary: 2776
+    problems_block_idx: null
+    next_chapter_block_idx: 2892
+  - num: 17
+    title: Symmetry
+    page_start: 403
+    page_end: 422
+    chapter_title_block_idx: 2892
+    problems_block_idx: null
+    next_chapter_block_idx: 3070
+  - num: 18
+    title: Infinite Families of Finite-State Systems
+    page_start: 423
+    page_end: 448
+    chapter_title_block_idx: 3070
+    chapter_title_block_idx_secondary: 3071
+    problems_block_idx: null
+    next_chapter_block_idx: 3239
+  - num: 19
+    title: Discrete Real-Time and Quantitative Temporal Analysis
+    page_start: 449
+    page_end: 463
+    chapter_title_block_idx: 3239
+    chapter_title_block_idx_secondary: 3240
+    problems_block_idx: null
+    next_chapter_block_idx: 3309
+  - num: 20
+    title: Continuous Real Time
+    page_start: 464
+    page_end: 495
+    chapter_title_block_idx: 3309
+    chapter_title_block_idx_secondary: 3310
+    problems_block_idx: null
+    next_chapter_block_idx: 3898
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
