@@ -39,6 +39,7 @@ import os
 import shutil
 import subprocess
 import sys
+import uuid
 from datetime import datetime, timezone
 
 from book_pipeline import jsonio
@@ -309,6 +310,89 @@ def _save_manifest(m: dict) -> None:
     jsonio.atomic_write_json(_manifest_path(), m, indent=2)
 
 
+# ── 事務式搬移 + 掛載身分校驗（HDD 上線前必補：搬到錯卷／半截皆致命）───────────────
+def _logical_size(path: str) -> int:
+    """遞迴邏輯位元組（os.path.getsize 加總，非 du 的配置區塊）——跨檔系統校驗用，
+    同內容跨碟邏輯大小一致（du 因 block 對齊會差，不可靠）。"""
+    if os.path.isfile(path):
+        return os.path.getsize(path)
+    total = 0
+    for r, _, fs in os.walk(path):
+        for f in fs:
+            try:
+                total += os.path.getsize(os.path.join(r, f))
+            except OSError:
+                pass
+    return total
+
+
+def _safe_move(src: str, dst: str) -> int:
+    """事務式搬移：copy → 校驗邏輯大小 → 刪源。回搬移位元組。
+    目的地已存在 → FileExistsError（拒絕覆蓋，杜絕靜默蓋寫）；校驗不符 → 刪半截目的、留源、
+    IOError。如此中斷後永遠可對賬（源在＝沒搬成、源失＝已驗證搬成），無「源已刪目的半截」態。"""
+    if os.path.exists(dst):
+        raise FileExistsError(f'目的地已存在，拒絕覆蓋：{dst}')
+    src_sz = _logical_size(src)
+    if os.path.isdir(src):
+        shutil.copytree(src, dst)
+    else:
+        shutil.copy2(src, dst)
+    dst_sz = _logical_size(dst)
+    if dst_sz != src_sz:
+        shutil.rmtree(dst) if os.path.isdir(dst) else os.remove(dst)
+        raise IOError(f'校驗失敗：邏輯大小 {src_sz}→{dst_sz}（已刪半截目的、保留源）')
+    shutil.rmtree(src) if os.path.isdir(src) else os.remove(src)
+    return src_sz
+
+
+def _read_sidecar() -> dict:
+    return jsonio.read_json(SIDECAR, {}) or {}
+
+
+def _save_sidecar(cfg: dict) -> None:
+    jsonio.atomic_write_json(SIDECAR, cfg, indent=2)
+
+
+def _sentinel_path() -> str:
+    return os.path.join(ARCHIVE_ROOT, '.cold_archive_id')
+
+
+def _ensure_sentinel(for_write: bool) -> None:
+    """掛載身分校驗：防 ARCHIVE_ROOT 漂移/空掛載點時把資料搬進開機碟空殼。
+      · sentinel 在且與 sidecar.archive_id 不符 → 拒絕（錯誤卷）。
+      · sentinel 在、sidecar 無 id → 採信卷上 id（HDD 易手後 adopt）。
+      · sentinel 缺 + for_write：sidecar 已有 id（曾 archive 過）→ 拒絕（恐 HDD 未掛/空卷）；
+        無 id（首次）→ 初始化 sentinel + 寫回 sidecar.archive_id。
+      · sentinel 缺 + 唯讀 → 放行（restore 找不到資料自會報錯，不額外擋）。"""
+    cfg = _read_sidecar()
+    expected = cfg.get('archive_id')
+    sp = _sentinel_path()
+    if os.path.exists(sp):
+        actual = ''
+        try:
+            actual = open(sp, encoding='utf-8').read().strip()
+        except OSError:
+            pass
+        if expected and actual and actual != expected:
+            sys.exit(f'  ⛔ 冷藏掛載身分不符（卷上 {actual} ≠ 設定 {expected}）：恐錯誤/空掛載點，'
+                     f'拒絕動作。確認 sidecar(.storage_gc.json) archive_root 指向正確卷。')
+        if not expected and actual:
+            cfg['archive_id'] = actual
+            _save_sidecar(cfg)
+        return
+    if not for_write:
+        return
+    if expected:
+        sys.exit(f'  ⛔ 設定期望冷藏身分 {expected} 但 {ARCHIVE_ROOT} 無 sentinel：'
+                 f'恐 HDD 未掛載或指向錯誤空卷，拒絕搬入。掛回正確卷再試。')
+    os.makedirs(ARCHIVE_ROOT, exist_ok=True)
+    new = uuid.uuid4().hex[:12]
+    with open(sp, 'w', encoding='utf-8') as f:
+        f.write(new + '\n')
+    cfg['archive_id'] = new
+    _save_sidecar(cfg)
+
+
 def _offline_books() -> list[tuple[str, bool]]:
     """已上站書中 raw 已全外移者（unified 在、raw zip+解壓檔本地皆空）。回 (slug, 可還原?)。
     可還原 = 冷藏 manifest 有該 slug 或 ARCHIVE_ROOT/raw_zips/<slug>/ 在。把「raw 還能不能
@@ -481,10 +565,11 @@ def cmd_archive(args) -> None:
         print('  → HDD 掛好、設好 sidecar(.storage_gc.json)/env 後加 --apply\n')
         return
     with _tick_lock():
+        _ensure_sentinel(for_write=True)  # 掛載身分校驗：錯卷/空殼即拒，不搬進開機碟
         groups, _ = collect_archive(only)  # 取鎖後重新列舉（TOCTOU）
-        os.makedirs(ARCHIVE_ROOT, exist_ok=True)
         man = _load_manifest()
         moved = 0
+        failures: list[tuple[str, str]] = []
         seen_slugs: set[str] = set()
         for key in ('raw_zips', 'raw_pdfs', 'quarantine'):
             for p in groups[key]:
@@ -501,14 +586,14 @@ def cmd_archive(args) -> None:
                 if slug and slug not in seen_slugs:
                     seen_slugs.add(slug)
                     ck = os.path.join(DATA, slug, 'unified', 'chunks.json')
-                    if os.path.exists(ck):
+                    asm = os.path.join(dest_dir, '_assembly.json')
+                    if os.path.exists(ck) and not os.path.exists(asm):
                         try:
-                            shutil.copy2(ck, os.path.join(dest_dir, '_assembly.json'))
+                            shutil.copy2(ck, asm)
                         except Exception as e:
-                            print(f'    ⚠ _assembly.json 複製失敗 {slug}: {e}')
+                            failures.append((f'{slug}/_assembly.json', str(e)))
                 try:
-                    sz = _du_bytes(p)
-                    shutil.move(p, os.path.join(dest_dir, os.path.basename(p)))
+                    sz = _safe_move(p, os.path.join(dest_dir, os.path.basename(p)))
                     moved += sz
                     rec = man[key].setdefault(slug if slug else os.path.basename(p),
                                               {'files': [], 'bytes': 0})
@@ -517,10 +602,17 @@ def cmd_archive(args) -> None:
                     rec['bytes'] = rec.get('bytes', 0) + sz
                     rec['moved_at'] = _now()
                 except Exception as e:
-                    print(f'    ⚠ 跳過 {p}: {e}')
+                    failures.append((os.path.relpath(p, ROOT), str(e)))
         _save_manifest(man)
     print(f'  ✅ 已冷藏 {_human(moved)}；工作碟剩餘 {_human(_free_bytes())}'
-          f'\n  冷藏索引：{_manifest_path()}\n')
+          f'\n  冷藏索引：{_manifest_path()}')
+    if failures:
+        print(f'  ⚠ {len(failures)} 項未搬（源完好保留、可對賬重試）：')
+        for name, err in failures[:8]:
+            print(f'      · {name} — {err}')
+        if len(failures) > 8:
+            print(f'      …… 共 {len(failures)} 項失敗')
+    print()
 
 
 def _cold_inventory() -> None:
@@ -608,10 +700,49 @@ def cmd_restore(args) -> None:
     if not args.slug:
         _cold_inventory()
         return
+    _ensure_sentinel(for_write=False)  # 拉回前驗掛載身分（錯卷即拒）
     if args.kind == 'raw_zips':
         _restore_raw_zips(args.slug, args.apply)
     else:
         _restore_flat(args.slug, args.kind, args.apply)
+
+
+def cmd_migrate(args) -> None:
+    """把整個冷藏（manifest + sentinel + 各 kind）搬到新根 + 更新 sidecar archive_root。
+    解決「改 sidecar 一行後舊冷藏不自動跟遷、分散兩地」——暫代→HDD 一鍵收束。逐頂層項
+    事務式搬移（_safe_move：copy→驗→刪），任一失敗即停手不更新 sidecar，可對賬重跑。"""
+    old = ARCHIVE_ROOT
+    new = os.path.expanduser(args.new_root)
+    if not os.path.isdir(old):
+        sys.exit(f'  來源冷藏不存在：{old}')
+    if os.path.abspath(old) == os.path.abspath(new):
+        sys.exit('  新根與舊根相同，無需遷移。')
+    entries = sorted(os.listdir(old))
+    print(f'\n  migrate 冷藏：{old}\n              → {new}（{len(entries)} 個頂層項）')
+    for e in entries[:12]:
+        print(f'      · {e}')
+    if len(entries) > 12:
+        print(f'      …… 共 {len(entries)} 項')
+    if not args.apply:
+        print('  DRY-RUN（加 --apply 執行）。完成後 sidecar archive_root 自動更新\n')
+        return
+    with _tick_lock():
+        os.makedirs(new, exist_ok=True)
+        moved, failures = 0, []
+        for e in entries:
+            try:
+                moved += _safe_move(os.path.join(old, e), os.path.join(new, e))
+            except Exception as ex:
+                failures.append((e, str(ex)))
+        if failures:
+            print(f'  ⚠ {len(failures)} 項遷移失敗（源保留、可重試）：')
+            for e, err in failures:
+                print(f'      · {e} — {err}')
+            sys.exit('  遷移未完整 → sidecar 不更新（對賬後重跑剩餘項）。')
+        cfg = _read_sidecar()
+        cfg['archive_root'] = args.new_root
+        _save_sidecar(cfg)
+    print(f'  ✅ 已遷移 {_human(moved)} → {new}；sidecar archive_root 已更新（舊根已清空）\n')
 
 
 def _count_chunk_dirs(raw_dir: str) -> int:
@@ -728,6 +859,10 @@ def main() -> None:
     rs.add_argument('--out', help='輸出 unified 目錄（預設書內 unified/；驗證可指 temp）')
     rs.add_argument('--apply', action='store_true')
     rs.set_defaults(func=cmd_reassemble)
+    mg = sub.add_parser('migrate', help='把冷藏整批搬到新根 + 更新 sidecar（暫代→HDD）')
+    mg.add_argument('new_root', help='新冷藏根（如 /Volumes/<HDD>/textbook-reader-cold）')
+    mg.add_argument('--apply', action='store_true')
+    mg.set_defaults(func=cmd_migrate)
     args = ap.parse_args()
     args.func(args)
 
