@@ -136,7 +136,9 @@ def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3,
         raise TimeoutError(
             f'contactsheet 渲染逾 {timeout_s}s 仍未完成（PDF 可能損壞/超大掃描/嵌入巨圖），已硬中止')
     try:
-        kind, payload = q.get_nowait()
+        # 用 get(timeout) 而非 get_nowait：子進程正常結束時 Queue feeder thread 可能尚未把小 payload
+        # flush 進 pipe，get_nowait 會誤撲空。小 payload + 5s 餘裕足以覆蓋該競態。
+        kind, payload = q.get(timeout=5)
     except Exception:
         raise RuntimeError(f'contactsheet 子進程異常結束（exitcode={p.exitcode}）、無結果回傳')
     if kind == 'err':
