@@ -1,0 +1,124 @@
+# ── 書本 metadata ── (cite book_pipeline/metadata_schema.yaml as SoT)
+slug: hayes_statistical_dsp
+title: Statistical Digital Signal Processing and Modeling
+author: Monson H. Hayes
+edition: 1st
+subject: Signal Processing
+publisher: John Wiley & Sons
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 18
+appendices_start_page: 588
+bibliography_start_page: null
+index_start_page: 616
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 23
+    chapter_title_block_idx: 165
+    problems_block_idx: null
+    next_chapter_block_idx: 212
+  - num: 2
+    title: Background
+    page_start: 24
+    page_end: 73
+    chapter_title_block_idx: 212
+    problems_block_idx: 1043
+    next_chapter_block_idx: 1126
+  - num: 3
+    title: Discrete-Time Random Processes
+    page_start: 74
+    page_end: 145
+    chapter_title_block_idx: 1126
+    problems_block_idx: 2245
+    next_chapter_block_idx: 2430
+  - num: 4
+    title: Signal Modeling
+    page_start: 146
+    page_end: 231
+    chapter_title_block_idx: 2430
+    problems_block_idx: 3708
+    next_chapter_block_idx: 3933
+  - num: 5
+    title: The Levinson Recursion
+    page_start: 232
+    page_end: 305
+    chapter_title_block_idx: 3933
+    problems_block_idx: 4995
+    next_chapter_block_idx: 5162
+  - num: 6
+    title: Lattice Filters
+    page_start: 306
+    page_end: 351
+    chapter_title_block_idx: 5162
+    problems_block_idx: 5814
+    next_chapter_block_idx: 5901
+  - num: 7
+    title: Optimum Filters
+    page_start: 352
+    page_end: 407
+    chapter_title_block_idx: 5901
+    problems_block_idx: 6745
+    next_chapter_block_idx: 6986
+  - num: 8
+    title: Spectrum Estimation
+    page_start: 408
+    page_end: 509
+    chapter_title_block_idx: 6986
+    problems_block_idx: 8216
+    next_chapter_block_idx: 8542
+  - num: 9
+    title: Adaptive Filtering
+    page_start: 510
+    page_end: 587
+    chapter_title_block_idx: 8542
+    problems_block_idx: 9424
+    next_chapter_block_idx: 9750
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: MATLAB Programs
+    page_start: 588
+    chapter_title_block_idx: 9750
+
+# ── heading regex ──
+# section heading: 'N.M TITLE' (lvl2, e.g. '2.1 INTRODUCTION'); title 強制非空
+# subsection heading: 'N.M.K Title' (lvl2, e.g. '2.2.1 Discrete-Time Signals')
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ── 'N.M. ...' (trailing period), e.g. '2.1. The DFT...'
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ── \tag{N.M} / \tag{N.Ma}
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example ── 'Example N.M.K Title' (lvl2)
+example_start_re: '^Example\s+(\d+\.\d+(?:\.\d+)?)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
