@@ -1,0 +1,62 @@
+{
+  "overrides": [
+    {
+      "id": "fig-10.6-id-fix",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[110]",
+      "expect": { "id": "fig-6.5" },
+      "set": {
+        "id": "fig-10.6",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "情境(A) 圖塊存在但 id 被 MinerU 錯標。此 table 的 HTML 為 Figure 10.6 的 GRANT 步驟序列(Step/By/Action: GRANT p TO B WITH GRANT OPTION...REVOKE p FROM C CASCADE),其 caption 內嵌真圖說 'Figure 10.6: Sequence of actions for Exercise 10.1.4'(raw PDF 物理頁 478 caption-form 確認)。MinerU 從鄰近習題文字誤抓 id=fig-6.5(該 id 真圖在 ch6 'Intersecting female movie stars',獨立存在不受影響)。改 id→fig-10.6 使 canonical num==ref;不動 caption 以保留嵌於其中的習題 10.1.x 正文(無他處可承載)。"
+    },
+    {
+      "id": "fig-13.13-id-fix",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[230]",
+      "expect": { "id": "fig-13.10--1" },
+      "set": {
+        "id": "fig-13.13",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "情境(A)。此 table 的 HTML 為 7 顆磁碟內容(disk 2、5 = ?????? 失效),caption 內嵌真圖說 'Figure 13.13: Situation after disks 2 and 5 fail'(raw PDF 物理頁 628 caption-form 確認)。原 id=fig-13.10--1 之 canonical num 13.10 與 primary fig-13.10 重複,釋放不丟覆蓋。改 id→fig-13.13。"
+    },
+    {
+      "id": "fig-18.20-id-fix",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[214]",
+      "expect": { "id": "fig-18.18--1" },
+      "set": {
+        "id": "fig-18.20",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "情境(A)。此 table 的 HTML 為 T1/T2 update-lock 排程(ul1(A);r1(A); | ul2(A) Denied...),caption 內嵌真圖說 'Figure 18.20: Correct execution using update locks'(raw PDF 物理頁 952 caption-form 確認)。原 id=fig-18.18--1 之 canonical num 18.18 與 primary fig-18.18 重複,釋放不丟覆蓋。改 id→fig-18.20。"
+    },
+    {
+      "id": "fig-4.27-id-fix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[256]",
+      "expect": { "id": "fig-4.26--1" },
+      "set": {
+        "id": "fig-4.27",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "情境(A)。此 table 的 HTML 為 Movies 關聯(Star Wars 三列重複示冗餘),caption 內嵌真圖說 'Figure 4.27: The relation Movies with star information'(raw PDF 物理頁 203 caption-form 確認)。原 id=fig-4.26--1 之 canonical num 4.26 與 primary fig-4.26 重複,釋放不丟覆蓋。改 id→fig-4.27。"
+    },
+    {
+      "id": "fix-misocr-ref-7.13-to-7.5",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[201]",
+      "field": "md",
+      "old": "In Fig. 7.13 is a SQL trigger",
+      "new": "In Fig. 7.5 is a SQL trigger",
+      "reason": "情境(C) misOCR。Example 7.13 引文寫 'In Fig. 7.13 is a SQL trigger',但該 trigger 真圖說為 'Figure 7.5: A SQL trigger'(body[204]),後續 body[210] 'Line (2) of Fig. 7.5' 亦指同一圖;ch7 全章圖號最高僅 7.7、raw PDF 全書無 'Figure 7.13' caption(1256 頁確認)→ 'Fig. 7.13' 係 'Fig. 7.5' 的 OCR 誤讀(受鄰近 Example 7.13 干擾)。改正引文即移除對不存在 fig-7.13 的需求,fig-7.5 已覆蓋。"
+    }
+  ]
+}
