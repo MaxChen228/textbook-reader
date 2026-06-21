@@ -1,0 +1,243 @@
+# extract_rules.yaml — sommerville_software_engineering
+# 由 audit sub-agent 依 audit-book.md §3 deterministic 8 步產出。
+# metadata cite book_pipeline/metadata_schema.yaml（Software Engineering 已 append 至 subjects）。
+
+slug: sommerville_software_engineering
+title: Software Engineering
+author: Ian Sommerville
+edition: 10th
+subject: Software Engineering
+publisher: Pearson
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text          # count=25 > 5 → 進
+ignore_image_content: true
+ignore_chart_content: true
+
+# heading_text_level: section/subsection 落在 lvl2（scout: lvl2=271 vs lvl1=4）
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 17            # ch1 Introduction
+appendices_start_page: 777     # 無 Appendix → 末章(ch25 pe=776)+1，= index 起點
+bibliography_start_page: null  # 無獨立 Bibliography（references 為各章末）
+index_start_page: 777          # tl=1 'Subject Index' @ idx=7391, page 777
+
+# ── inline-problem 模式 ──
+# 每章皆有獨立 Exercises heading → 二分模式，非 inline
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 42
+    chapter_title_block_idx: 239
+    problems_block_idx: 461
+    next_chapter_block_idx: 472
+  - num: 2
+    title: Software processes
+    page_start: 43
+    page_end: 71
+    chapter_title_block_idx: 472
+    problems_block_idx: 719
+    next_chapter_block_idx: 742
+  - num: 3
+    title: Agile software development
+    page_start: 72
+    page_end: 100
+    chapter_title_block_idx: 742
+    problems_block_idx: 995
+    next_chapter_block_idx: 1008
+  - num: 4
+    title: Requirements engineering
+    page_start: 101
+    page_end: 137
+    chapter_title_block_idx: 1008
+    problems_block_idx: 1361
+    next_chapter_block_idx: 1372
+  - num: 5
+    title: System modeling
+    page_start: 138
+    page_end: 166
+    chapter_title_block_idx: 1372
+    problems_block_idx: 1595
+    next_chapter_block_idx: 1609
+  - num: 6
+    title: Architectural design
+    page_start: 167
+    page_end: 195
+    chapter_title_block_idx: 1609
+    problems_block_idx: 1845
+    next_chapter_block_idx: 1863
+  - num: 7
+    title: Design and implementation
+    page_start: 196
+    page_end: 225
+    chapter_title_block_idx: 1863
+    problems_block_idx: 2121
+    next_chapter_block_idx: 2147
+  - num: 8
+    title: Software testing
+    page_start: 226
+    page_end: 254
+    chapter_title_block_idx: 2147
+    problems_block_idx: 2416
+    next_chapter_block_idx: 2426
+  - num: 9
+    title: Software evolution
+    page_start: 255
+    page_end: 284
+    chapter_title_block_idx: 2426
+    problems_block_idx: 2642
+    next_chapter_block_idx: 2664
+  - num: 10
+    title: Dependable systems
+    page_start: 285
+    page_end: 305
+    chapter_title_block_idx: 2664
+    problems_block_idx: 2834
+    next_chapter_block_idx: 2848
+  - num: 11
+    title: Reliability engineering
+    page_start: 306
+    page_end: 338
+    chapter_title_block_idx: 2848
+    problems_block_idx: 3144
+    next_chapter_block_idx: 3161
+  - num: 12
+    title: Safety engineering
+    page_start: 339
+    page_end: 372
+    chapter_title_block_idx: 3161
+    problems_block_idx: 3450
+    next_chapter_block_idx: 3479
+  - num: 13
+    title: Security engineering
+    page_start: 373
+    page_end: 407
+    chapter_title_block_idx: 3479
+    problems_block_idx: 3804
+    next_chapter_block_idx: 3819
+  - num: 14
+    title: Resilience engineering
+    page_start: 408
+    page_end: 436
+    chapter_title_block_idx: 3819
+    problems_block_idx: 4044
+    next_chapter_block_idx: 4065
+  - num: 15
+    title: Software reuse
+    page_start: 437
+    page_end: 463
+    chapter_title_block_idx: 4065
+    problems_block_idx: 4301
+    next_chapter_block_idx: 4314
+  - num: 16
+    title: Component-based software engineering
+    page_start: 464
+    page_end: 489
+    chapter_title_block_idx: 4314
+    problems_block_idx: 4552
+    next_chapter_block_idx: 4563
+  - num: 17
+    title: Distributed software engineering
+    page_start: 490
+    page_end: 519
+    chapter_title_block_idx: 4563
+    problems_block_idx: 4818
+    next_chapter_block_idx: 4828
+  - num: 18
+    title: Service-oriented software engineering
+    page_start: 520
+    page_end: 550
+    chapter_title_block_idx: 4828
+    problems_block_idx: 5098
+    next_chapter_block_idx: 5116
+  - num: 19
+    title: Systems engineering
+    page_start: 551
+    page_end: 579
+    chapter_title_block_idx: 5116
+    problems_block_idx: 5358
+    next_chapter_block_idx: 5369
+  - num: 20
+    title: Systems of systems
+    page_start: 580
+    page_end: 609
+    chapter_title_block_idx: 5369
+    problems_block_idx: 5612
+    next_chapter_block_idx: 5636
+  - num: 21
+    title: Real-time software engineering
+    page_start: 610
+    page_end: 640
+    chapter_title_block_idx: 5636
+    problems_block_idx: 5849
+    next_chapter_block_idx: 5877
+  - num: 22
+    title: Project management
+    page_start: 641
+    page_end: 666
+    chapter_title_block_idx: 5877
+    problems_block_idx: 6096
+    next_chapter_block_idx: 6107
+  - num: 23
+    title: Project planning
+    page_start: 667
+    page_end: 699
+    chapter_title_block_idx: 6107
+    problems_block_idx: 6417
+    next_chapter_block_idx: 6433
+  - num: 24
+    title: Quality management
+    page_start: 700
+    page_end: 729
+    chapter_title_block_idx: 6433
+    problems_block_idx: 6683
+    next_chapter_block_idx: 6700
+  - num: 25
+    title: Configuration management
+    page_start: 730
+    page_end: 776
+    chapter_title_block_idx: 6700
+    problems_block_idx: 6931
+    next_chapter_block_idx: 10140
+
+# ── 附錄 ──（本書無 Appendix）
+appendices: []
+
+# ── heading regex ──（編號型 N.M / N.M.M，title 強制至少 1 非空白字元）
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──（Exercises 格式 "N.M. ..."，題號首段 = 章號）
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──（display $$ 包裹、無 \tag 標籤 → label_re 無命中為正常）
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（本書內文無 Example 段落） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──（無；見 _audit.md OCR 空洞段為 cosmetic）
+known_missing_problems: []
