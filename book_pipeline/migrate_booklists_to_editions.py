@@ -39,6 +39,29 @@ def _owned_or_linked(slug: str, have: set, resolution: dict) -> bool:
     return bool(has_link) and bl.is_trustworthy(r)
 
 
+def _legacy_targets(files: list[dict]) -> list[dict]:
+    """由 booklist 封存結構（_archive/*.json）攤平 target——遷移**自成一體**，**不**用 booklists.targets()
+    （那已切 editions universe、會循環）。沿用舊兩層攤平邏輯：主書 + solution!=false 衍生 _sol。
+    order=(field_order, sublist_idx, book_idx, kind_rank) 供 plan 落 classification.order。"""
+    out = []
+    for f in files:
+        for si, sl in enumerate(f.get('sublists') or []):
+            for bi, b in enumerate(sl.get('books') or []):
+                slug = b.get('slug', '')
+                base = (f.get('order', 9999), si, bi)
+                out.append({'slug': slug, 'title': b.get('title', ''), 'author': b.get('author', ''),
+                            'edition_pref': b.get('edition_pref', ''), 'field': f.get('field', ''),
+                            'field_id': f.get('field_id', ''), 'subject': sl.get('name', ''),
+                            'kind': 'main', 'of': None, 'order': base + (0,)})
+                if b.get('solution', True):
+                    out.append({'slug': f'{slug}{bl.SOL_SUFFIX}',
+                                'title': f"{b.get('title', '')} — Solutions", 'author': b.get('author', ''),
+                                'edition_pref': b.get('edition_pref', ''), 'field': f.get('field', ''),
+                                'field_id': f.get('field_id', ''), 'subject': sl.get('name', ''),
+                                'kind': 'solution', 'of': slug, 'order': base + (1,)})
+    return out
+
+
 def plan(targets_: list[dict], have: set, resolution: dict) -> dict:
     """純核心（無 I/O，可測）：targets × (have, resolution) → {slug: editions defaults}。
     只收 owned ∪ 有可信連結；其餘略過。has_solution 由「該主書是否衍生 _sol target」判定。"""
@@ -67,8 +90,8 @@ def plan(targets_: list[dict], have: set, resolution: dict) -> dict:
 
 def migrate(dry_run: bool = False) -> dict:
     """讀真實 SoT/inventory/resolution → plan → editions.ensure（冪等補骨架）。回統計報告。"""
-    files = bl.load_files()
-    ts = bl.targets(files, include_discovered=True)
+    files = bl.load_files()                               # 讀 booklists/_archive/（BOOKLISTS_DIR 已指封存）
+    ts = _legacy_targets(files)                           # 自成一體攤平（不用已切 editions 的 bl.targets）
     have = bl.have_slugs()
     resolution = bl.load_resolution()
     todo = plan(ts, have, resolution)

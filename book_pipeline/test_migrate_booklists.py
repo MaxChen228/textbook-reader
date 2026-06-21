@@ -51,7 +51,7 @@ def test_migrate_idempotent_and_owned_safe(monkeypatch):
     have = {'owned_book', 'owned_book_sol'}
     res = {'ready_book': {'status': 'resolved', 'id': '1', 'hash': 'h', 'by': 'agent'}}
     monkeypatch.setattr(bl, 'load_files', lambda *a, **k: [])
-    monkeypatch.setattr(bl, 'targets', lambda *a, **k: ts)
+    monkeypatch.setattr(mig, '_legacy_targets', lambda files: ts)   # migrate 由封存結構攤平（非 bl.targets）
     monkeypatch.setattr(bl, 'have_slugs', lambda *a, **k: have)
     monkeypatch.setattr(bl, 'load_resolution', lambda *a, **k: res)
 

@@ -16,7 +16,7 @@
 ## 兩條鐵律（不可違反）
 
 1. **四維一律 LLM 親查、禁硬編碼**：不准書名正則抽版次、不准字串比對當裁決。版次事實要有來源佐證（z-lib detail 的 edition/isbn、web 查到的版次史）。
-2. **`booklists/*.json` 是人工正典，絕不寫入**。產出只落機器域：`resolve commit`（維②連結）、`editions set`（維①③④）、`discovered add`（新書候選）、`proposals propose`（owned mismatch／系統性問題）。
+2. **絕不手改書目正典**（舊 `booklists/*.json` 已退役封存 `booklists/_archive/`，universe 改 editions）。產出只落機器域：`resolve commit`（維②連結）、`editions set`（維①③④）、`discovered add`（新書候選）、`proposals propose`（owned mismatch／系統性問題）。
 
 ## 三層落盤心智模型（合格存在）
 
