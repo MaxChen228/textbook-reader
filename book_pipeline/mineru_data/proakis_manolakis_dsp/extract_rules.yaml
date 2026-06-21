@@ -1,0 +1,160 @@
+# ── 書本 metadata（cite book_pipeline/metadata_schema.yaml 為 SoT）──
+slug: proakis_manolakis_dsp
+title: "Digital Signal Processing: Principles, Algorithms, and Applications"
+author: "John G. Proakis; Dimitris G. Manolakis"
+edition: "4th"
+subject: "Signal Processing"
+publisher: "Pearson Prentice Hall"
+language: "en"
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+# MinerU 把 section/subsection/Example heading 全標成 lvl2（scout: secish 424 命中全在 lvl2）；
+# lvl1 僅 chapter/appendix title。必須設 2，否則 detect_heading 認不到 heading、body 全 flat。
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+body_start_page: 20            # ch1 "Introduction" 章首 page
+appendices_start_page: 1060   # Appendix A "Random Number Generators"
+bibliography_start_page: 1072 # "References and Bibliography"
+index_start_page: 1096        # "Index"
+
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 20
+    page_end: 59
+    chapter_title_block_idx: 286
+    problems_block_idx: 702
+    next_chapter_block_idx: 760
+  - num: 2
+    title: "Discrete-Time Signals and Systems"
+    page_start: 60
+    page_end: 165
+    chapter_title_block_idx: 760
+    problems_block_idx: 2086
+    next_chapter_block_idx: 2385
+  - num: 3
+    title: "The z-Transform and Its Application to the Analysis of LTI Systems"
+    page_start: 166
+    page_end: 242
+    chapter_title_block_idx: 2385
+    problems_block_idx: 3557
+    next_chapter_block_idx: 3711
+  - num: 4
+    title: "Frequency Analysis of Signals"
+    page_start: 243
+    page_end: 318
+    chapter_title_block_idx: 3711
+    problems_block_idx: 4679
+    next_chapter_block_idx: 4800
+  - num: 5
+    title: "Frequency-Domain Analysis of LTI Systems"
+    page_start: 319
+    page_end: 402
+    chapter_title_block_idx: 4800
+    problems_block_idx: 5767
+    next_chapter_block_idx: 6149
+  - num: 6
+    title: "Sampling and Reconstruction of Signals"
+    page_start: 403
+    page_end: 467
+    chapter_title_block_idx: 6149
+    problems_block_idx: 6867
+    next_chapter_block_idx: 6976
+  - num: 7
+    title: "The Discrete Fourier Transform: Its Properties and Applications"
+    page_start: 468
+    page_end: 529
+    chapter_title_block_idx: 6976
+    problems_block_idx: 7781
+    next_chapter_block_idx: 7953
+  - num: 8
+    title: "Efficient Computation of the DFT: Fast Fourier Transform Algorithms"
+    page_start: 530
+    page_end: 581
+    chapter_title_block_idx: 7953
+    problems_block_idx: 8544
+    next_chapter_block_idx: 8652
+  - num: 9
+    title: "Implementation of Discrete-Time Systems"
+    page_start: 582
+    page_end: 672
+    chapter_title_block_idx: 8652
+    problems_block_idx: 9720
+    next_chapter_block_idx: 9885
+  - num: 10
+    title: "Design of Digital Filters"
+    page_start: 673
+    page_end: 768
+    chapter_title_block_idx: 9885
+    problems_block_idx: 10939
+    next_chapter_block_idx: 11128
+  - num: 11
+    title: "Multirate Digital Signal Processing"
+    page_start: 769
+    page_end: 841
+    chapter_title_block_idx: 11128
+    problems_block_idx: 11950
+    next_chapter_block_idx: 12098
+  - num: 12
+    title: "Linear Prediction and Optimum Linear Filters"
+    page_start: 842
+    page_end: 898
+    chapter_title_block_idx: 12098
+    problems_block_idx: 12935
+    next_chapter_block_idx: 13040
+  - num: 13
+    title: "Adaptive Filters"
+    page_start: 899
+    page_end: 978
+    chapter_title_block_idx: 13040
+    problems_block_idx: 14007
+    next_chapter_block_idx: 14083
+  - num: 14
+    title: "Power Spectrum Estimation"
+    page_start: 979
+    page_end: 1059
+    chapter_title_block_idx: 14083
+    problems_block_idx: 15030
+    next_chapter_block_idx: 15226
+
+# ── 附錄 ──
+appendices:
+  - id: "A"
+    title: "Random Number Generators"
+    page_start: 1060
+    chapter_title_block_idx: 15226
+  - id: "B"
+    title: "Tables of Transition Coefficients for the Design of Linear-Phase FIR Filters"
+    page_start: 1066
+    chapter_title_block_idx: 15296
+
+# ── heading regex（N.M 編號型，section/subsection 皆 lvl2）──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（N.M 型，N=章號）──
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+# ── equation（\tag{N.M.K} 型）──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題 EXAMPLE N.M.K，lvl2）──
+example_start_re: '^EXAMPLE\s+(\d+\.\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
