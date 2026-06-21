@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd Edition",
+  "year": 2026,
+  "publisher": "Chapman and Hall/CRC",
+  "isbn": "9781032591575",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=124748013/003435: edition=2, year=2026, pages=698, publisher=Chapman and Hall/CRC; web (routledge.com/Amazon/MAA): 1st ed 2011 ISBN 9781420079418, 2nd ed 2026 ISBN 9781032591575 by Craiu/Vats/Jones/Brooks/Gelman/Meng; edition_pref empty so newest standard ed qualifies"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:124748013/003435"
+  },
+  {
+   "note": "web:https://www.routledge.com/Handbook-of-Markov-Chain-Monte-Carlo/Craiu-Vats-Jones-Brooks-Gelman-Meng/p/book/9781032591575"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:50:06+00:00",
  "identity": {
   "title": "Handbook of Markov Chain Monte Carlo",
   "author": "Steve Brooks, Andrew Gelman, Galin L. Jones, Xiao-Li Meng",

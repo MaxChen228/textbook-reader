@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "3rd",
+  "year": 2003,
+  "publisher": "McGraw-Hill",
+  "isbn": "9780072320251",
+  "matches_pref": false
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect: id=125380006 edition='3rd ed.' year=2003 publisher='Boston: McGraw-Hill'; web: 4th ed. ISBN 9780073529585 2012 confirmed but absent from z-lib; only 3rd available on z-lib"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:125380006/392fca"
+  },
+  {
+   "note": "web:vitalsource.com/products/semiconductor-physics-and-devices-neamen-donald-v0077418840"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:42:35+00:00",
  "identity": {
   "title": "Semiconductor Physics and Devices: Basic Principles",
   "author": "Donald A. Neamen",

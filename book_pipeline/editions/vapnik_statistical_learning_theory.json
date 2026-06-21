@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd",
+  "year": 2000,
+  "publisher": "Springer",
+  "isbn": "9780387987804",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=126645939 description明確寫'This second edition contains three new chapters'; web多源(Springer link/Amazon/sciepub)一致確認2nd ed=Springer 2000 ISBN 9780387987804 314pp"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:126645939/a456fd"
+  },
+  {
+   "note": "web:https://link.springer.com/book/10.1007/978-1-4757-3264-1"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:49:15+00:00",
  "identity": {
   "title": "The Nature of Statistical Learning Theory",
   "author": "Vladimir N. Vapnik",

@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st ed. (1998)",
+  "year": 1998,
+  "publisher": "Prentice Hall PTR",
+  "isbn": "0135041352",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=11136600 title/author exact match; web多源(Amazon/AbeBooks/Biblio/BooksRun)確認唯一版 1st ed. 1998 Prentice Hall PTR ISBN 0135041352; edition_pref 空=任一版符合"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:11136600/e08ed9"
+  },
+  {
+   "note": "web:https://www.amazon.com/Fundamentals-Statistical-Signal-Processing-Detection/dp/013504135X"
+  },
+  {
+   "note": "web:https://www.biblio.com/9780135041352"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:43:00+00:00",
  "identity": {
   "title": "Fundamentals of Statistical Signal Processing, Volume II: Detection Theory",
   "author": "Steven M. Kay",

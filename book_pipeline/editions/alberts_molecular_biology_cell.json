@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "7th",
+  "year": 2022,
+  "publisher": "W.W. Norton",
+  "isbn": "9780393884821",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=29840060: Seventh Edition, 2022, Norton, 1555pp; Amazon/Norton 官網 ISBN 978-0393884821 同版次同出版商雙源一致",
+  "z-lib id29840060 標 Seventh Edition 2022 W.W. Norton 作者含 Heald/Morgan，符合 pref 7th"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:29840060/97a404"
+  },
+  {
+   "note": "web:amazon.com/dp/0393884821"
+  },
+  {
+   "note": "zlib_detail:29840060/97a404"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:28:05+00:00",
  "identity": {
   "title": "Molecular Biology of the Cell",
   "author": "Bruce Alberts, Rebecca Heald, Alexander Johnson, David Morgan, Martin Raff, Keith Roberts, Peter Walter",

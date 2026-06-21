@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition",
+  "year": 2009,
+  "publisher": "MIT Press",
+  "isbn": "9780262013192",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect: year=2009, publisher=MIT Press, series=Adaptive computation and machine learning, 1231pp, 79.4MB; web multi-source (Amazon/AbeBooks/ACM DL): ISBN 9780262013192, 1st and only edition 2009; edition_pref empty so first/only edition qualifies"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:124673200/ebb8a4"
+  },
+  {
+   "note": "web:https://www.amazon.com/Probabilistic-Graphical-Models-Principles-Computation/dp/0262013193"
+  },
+  {
+   "note": "web:https://dl.acm.org/doi/10.5555/1795555"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:47:42+00:00",
  "identity": {
   "title": "Probabilistic Graphical Models: Principles and Techniques",
   "author": "Daphne Koller, Nir Friedman",

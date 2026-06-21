@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "8th",
+  "year": 2021,
+  "publisher": "W.H. Freeman",
+  "isbn": "9781319228002",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=21149655/78ea53: title+author+year+publisher exact match 8th ed 2021; web: Macmillan Learning + VitalSource + Amazon confirm 8th ed 2021 ISBN 9781319228002 W.H. Freeman",
+  "z-lib id21149655 inspect 8th 2021 含新作者 Hoskins，符合 pref 8th"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:21149655/78ea53"
+  },
+  {
+   "note": "web:macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003"
+  },
+  {
+   "note": "zlib_detail:21149655/78ea53"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:28:01+00:00",
  "identity": {
   "title": "Lehninger Principles of Biochemistry",
   "author": "David L. Nelson, Michael M. Cox",

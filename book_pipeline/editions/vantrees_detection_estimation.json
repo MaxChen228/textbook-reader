@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st ed (2001 reprint)",
+  "year": 2001,
+  "publisher": "Wiley-Interscience",
+  "isbn": "9780471095170",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=961789/e48efc: edition=1, year=2001, Wiley-Interscience, 720pp; web: 1st ed 1968 Wiley, reprinted 2001 paperback ISBN 9780471095170; 2nd ed 2013 (Bell+Tian) not on z-lib; edition_pref empty so 1st ed qualifies"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:961789/e48efc"
+  },
+  {
+   "note": "web:amazon.com/dp/0471095176"
+  },
+  {
+   "note": "web:wiley.com Detection Estimation Modulation Theory Part I"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:43:09+00:00",
  "identity": {
   "title": "Detection, Estimation, and Modulation Theory, Part I",
   "author": "Harry L. Van Trees",

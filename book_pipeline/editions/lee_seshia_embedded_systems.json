@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd edition",
+  "year": 2017,
+  "publisher": "MIT Press",
+  "isbn": "978-0-262-53381-2",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=3364617: edition=2nd, year=2017, publisher=MIT Press, advisory_conf=1.0; web confirms ISBN 978-0-262-53381-2, MIT Press 2017, two independent sources agree"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:3364617/6961a0"
+  },
+  {
+   "note": "web:https://mitpress.mit.edu/books/introduction-embedded-systems-second-edition"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:45:48+00:00",
  "identity": {
   "title": "Introduction to Embedded Systems: A Cyber-Physical Systems Approach",
   "author": "Edward A. Lee, Sanjit A. Seshia",

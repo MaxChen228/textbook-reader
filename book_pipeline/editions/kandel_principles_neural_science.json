@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "6th",
+  "year": 2021,
+  "publisher": "McGraw-Hill",
+  "isbn": "9781259642234",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=17557076: title=Principles of Neural Science, Sixth Edition, author=Kandel/Koester/Mack/Siegelbaum, year=2021, publisher=McGraw Hill Professional, 1698pp, 212MB; web (amazon/mheducation) confirms 6th ed 2021 ISBN 9781259642234 same author quartet",
+  "z-lib id17557076 inspect edition=6/2021/McGraw-Hill/1698pp；web 確認 6th=2021 ISBN 9781259642234，符合 pref 6th"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:17557076/33629c"
+  },
+  {
+   "note": "web:https://www.amazon.com/Principles-Neural-Science-Sixth-Kandel/dp/1259642232"
+  },
+  {
+   "note": "zlib_detail:17557076/33629c"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:39:29+00:00",
  "identity": {
   "title": "Principles of Neural Science",
   "author": "Eric R. Kandel, John D. Koester, Sarah H. Mack, Steven A. Siegelbaum",

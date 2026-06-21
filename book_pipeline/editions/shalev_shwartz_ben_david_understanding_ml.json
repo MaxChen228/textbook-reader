@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition",
+  "year": 2014,
+  "publisher": "Cambridge University Press",
+  "isbn": "9781107057135",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=115363872: edition=1, year=2014, publisher=Cambridge University Press, 439pp, exact title+author match; web search confirms only one edition exists (1st, 2014), ISBN 9781107057135, Cambridge University Press (cambridge.org)"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:115363872/da355c"
+  },
+  {
+   "note": "web:https://www.cambridge.org/9781107057135"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:46:51+00:00",
  "identity": {
   "title": "Understanding Machine Learning: From Theory to Algorithms",
   "author": "Shai Shalev-Shwartz, Shai Ben-David",

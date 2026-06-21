@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd edition",
+  "year": 2018,
+  "publisher": "MIT Press",
+  "isbn": "9780262039406",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=119253378: edition=2, year=2018, MIT Press, 505pp; web多源確認 ISBN 9780262039406, MIT Press 2018, 504pp一致"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:119253378/8accaf"
+  },
+  {
+   "note": "web:https://www.researchgate.net/publication/334447419"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:46:49+00:00",
  "identity": {
   "title": "Foundations of Machine Learning",
   "author": "Mehryar Mohri, Afshin Rostamizadeh, Ameet Talwalkar",

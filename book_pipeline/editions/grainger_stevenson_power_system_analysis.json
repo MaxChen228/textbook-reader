@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition (1994)",
+  "year": 1994,
+  "publisher": "McGraw-Hill",
+  "isbn": "9780070612938",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=29689828: Grainger 1994 McGraw-Hill 814p, description confirms update of Stevenson classic. Web: ISBN 9780070612938 1st/only edition 1994, no 2nd edition exists. Two sources agree."
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:29689828/7a2bf4"
+  },
+  {
+   "note": "web:https://www.amazon.com/Analysis-Grainger-Professor-Electrical-Engineering/dp/0070612935"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:44:44+00:00",
  "identity": {
   "title": "Power System Analysis",
   "author": "John J. Grainger, William D. Stevenson",

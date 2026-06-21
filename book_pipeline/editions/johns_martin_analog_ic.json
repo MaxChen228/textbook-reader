@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd edition",
+  "year": 2011,
+  "publisher": "John Wiley & Sons",
+  "isbn": "9780470770108",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=25508253/dc4870: edition=2, year=2011, publisher=John Wiley & Sons, 822pp, author=Carusone/Johns/Martin exact match; web (Amazon/Wiley/AbeBooks): ISBN 9780470770108, 2nd ed 2011 Wiley — two sources fully converge"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:25508253/dc4870"
+  },
+  {
+   "note": "web:amazon.com/dp/0470770104"
+  },
+  {
+   "note": "web:wiley.com/en-us/Analog+Integrated+Circuit+Design,+2nd+Edition-p-9781118213735R150"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:40:58+00:00",
  "identity": {
   "title": "Analog Integrated Circuit Design",
   "author": "Tony Chan Carusone, David Johns, Kenneth Martin",

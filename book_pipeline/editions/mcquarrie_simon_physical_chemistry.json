@@ -1,11 +1,33 @@
 {
- "version": null,
+ "version": {
+  "label": "1st",
+  "year": 1997,
+  "publisher": "University Science Books",
+  "isbn": "9780935702996",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=124735146/cd0086: author=McQuarrie & Simon, year=1997, publisher=University Science Books, 65.6MB; web: only one edition exists (1997 hardcover ISBN 9780935702996, 2023 paperback reprint ISBN 9781940380216 same content), no 2nd edition",
+  "z-lib id124735146 inspect 1997 1st ed University Science Books ISBN 0935702996/1270pp；此書 1997 後未再版，edition_pref 空無限制故接受"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:124735146/cd0086"
+  },
+  {
+   "note": "web:amazon.com/dp/0935702997"
+  },
+  {
+   "note": "web:uscibooks.aip.org/books/physical-chemistry-a-molecular-approach/"
+  },
+  {
+   "note": "zlib_detail:124735146/cd0086"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:27:26+00:00",
  "identity": {
   "title": "Physical Chemistry: A Molecular Approach",
   "author": "Donald A. McQuarrie, John D. Simon",

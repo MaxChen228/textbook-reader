@@ -1,11 +1,33 @@
 {
- "version": null,
+ "version": {
+  "label": "3rd",
+  "year": 2014,
+  "publisher": "Pearson Education",
+  "isbn": "978-0201610918",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=5148778/da3eda: edition=Third, author=B.D. Cullity & S.R. Stock, publisher=Pearson Education Limited; web (Pearson, Amazon, Biblio) 全確認第3版 ISBN 0201610918, Pearson 2001 出版",
+  "z-lib id5148778 為 3rd(2014 Pearson 重印,654pp)，版次符合 pref 3rd；另有 2001 Prentice Hall 原版 3rd(id127257312/6db342,714pp)可日後升級更完整版"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:5148778/da3eda"
+  },
+  {
+   "note": "web:https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003272/9780201610918"
+  },
+  {
+   "note": "web:https://www.amazon.com/Elements-X-Ray-Diffraction-3rd-Cullity/dp/0201610914"
+  },
+  {
+   "note": "zlib_detail:5148778/da3eda"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:39:50+00:00",
  "identity": {
   "title": "Elements of X-Ray Diffraction",
   "author": "B. D. Cullity, S. R. Stock",

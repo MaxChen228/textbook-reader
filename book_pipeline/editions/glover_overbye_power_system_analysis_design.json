@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "6th edition",
+  "year": 2016,
+  "publisher": "Cengage Learning",
+  "isbn": "9781305632134",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=2850672: edition=6, year=2017(copyright), publisher=Cengage Learning, 942pp, authors exact match; web (Cengage/AbeBooks) confirms ISBN 9781305632134, pub date 2016-01-07, copyright 2017, 942pp — both sources converge on 6th ed"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:2850672/1722af"
+  },
+  {
+   "note": "web:https://www.cengage.com/c/power-system-analysis-and-design-6e-glover-overbye-sarma/9781305632134/"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:45:08+00:00",
  "identity": {
   "title": "Power System Analysis and Design",
   "author": "J. Duncan Glover, Thomas J. Overbye, Mulukutla S. Sarma",

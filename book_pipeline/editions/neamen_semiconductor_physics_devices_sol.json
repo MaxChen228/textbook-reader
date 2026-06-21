@@ -1,11 +1,31 @@
 {
- "version": null,
- "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "version": {
+  "label": "4th",
+  "matches_pref": true
+ },
+ "sol_alignment": {
+  "aligned": false,
+  "parent_version": "3rd",
+  "sol_version": "4th",
+  "basis": "z-lib id21449597 detail edition=4/2012/257pp（sol 確為 4th）；但母書現連結為 3rd(2003) 不符 pref 4th，sol 4th 暫無法對齊母書實際版本，待母書定 4th 後可重查對齊"
+ },
+ "confidence": "high",
+ "evidence": [
+  "zlib inspect id=17194580: edition=4, year=2012, publisher=McGraw-Hill, description='Solutions to Semiconductor Physics And Devices (4th Ed) by Donald Neamen'; web: Scribd/Quizlet/pdfcoffee 多源確認 4th ed 解答本存在；無 3rd ed 解答本在 z-lib"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:17194580/6c37cd"
+  },
+  {
+   "note": "web:scribd.com/document/648567052"
+  },
+  {
+   "note": "web:quizlet.com/explanations/textbook-solutions/semiconductor-physics-and-devices-4th-edition-9780077418847"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:01:30+00:00",
  "identity": {
   "title": "Semiconductor Physics and Devices: Basic Principles — Solutions",
   "author": "Donald A. Neamen",

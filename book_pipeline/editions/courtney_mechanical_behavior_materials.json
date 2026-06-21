@@ -1,11 +1,33 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd",
+  "year": 2005,
+  "publisher": "Waveland Press",
+  "isbn": "9781577664253",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=3339838 edition=2, 752pp, 152.7MB, description explicitly states 'second edition'; web confirms ISBN 9781577664253 Waveland Press 2005; original McGraw-Hill 2nd ed 2000 reissued by Waveland 2005",
+  "z-lib id3339838 inspect 2nd 2005 Waveland 重印(原 2000 McGraw-Hill)/752pp Courtney 著，符合 pref 2nd"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:3339838/83dbd8"
+  },
+  {
+   "note": "web:https://www.waveland.com/browse.php?t=394"
+  },
+  {
+   "note": "web:https://www.vitalsource.com/products/mechanical-behavior-of-materials-thomas-h-courtney-v9781478607182"
+  },
+  {
+   "note": "zlib_detail:3339838/83dbd8"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:39:44+00:00",
  "identity": {
   "title": "Mechanical Behavior of Materials",
   "author": "Thomas H. Courtney",

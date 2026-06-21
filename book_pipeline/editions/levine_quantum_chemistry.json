@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "6th",
+  "year": 2009,
+  "publisher": "Pearson Prentice Hall",
+  "isbn": "9780136131069",
+  "matches_pref": false
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=119075922 確認 6th ed. 2009, Levine Ira N.; web 多源確認 7th ed.(ISBN 978-0321803450, Pearson 2013)存在但 z-lib 無上架；pref=7th 不符",
+  "z-lib id119075922 為 6th(2009)；pref 7th(2013 Pearson ISBN 9780321803450)；z-lib search 無 7th 正書（僅解答本/舊版），別版 PENDING"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:119075922/d340c6"
+  },
+  {
+   "note": "web:https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000007022/9780321918185"
+  },
+  {
+   "note": "zlib_detail:119075922/d340c6"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:27:31+00:00",
  "identity": {
   "title": "Quantum Chemistry",
   "author": "Ira N. Levine",

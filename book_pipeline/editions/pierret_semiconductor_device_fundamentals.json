@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd",
+  "year": 1996,
+  "publisher": "Addison Wesley",
+  "isbn": "0201543933",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=3311669/hash=37aee4: edition=2nd, year=1996, publisher=Addison Wesley, 792p, author=Robert F. Pierret. Web (Amazon ISBN 0201543933, BooksRun): same title/author/publisher/year, labelled 2nd edition. Only one standard edition exists; z-lib and web two-source consistent."
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:3311669/37aee4"
+  },
+  {
+   "note": "web:https://www.amazon.com/Semiconductor-Device-Fundamentals-Robert-Pierret/dp/0201543931"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:41:51+00:00",
  "identity": {
   "title": "Semiconductor Device Fundamentals",
   "author": "Robert F. Pierret",

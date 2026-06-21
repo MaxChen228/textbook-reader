@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "7th edition",
+  "year": 2008,
+  "publisher": "Cengage Learning (Brooks/Cole)",
+  "isbn": "9780495110811",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=1163021: edition=7, year=2008, publisher=Cengage Learning, 939pp; z-lib inspect id=2350699: edition=7th ed, year=2008, publisher=Thomson Brooks/Cole, 940pp; web: Cengage ISBN 9780495110811 7th ed confirmed"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:1163021/fd4e5a"
+  },
+  {
+   "note": "zlib_detail:2350699/0133fb"
+  },
+  {
+   "note": "web:https://www.cengage.com/c/mathematical-statistics-with-applications-7e-wackerly-mendenhall-scheaffer/9780495110811/"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:49:22+00:00",
  "identity": {
   "title": "Mathematical Statistics with Applications",
   "author": "Dennis D. Wackerly, William Mendenhall, Richard L. Scheaffer",

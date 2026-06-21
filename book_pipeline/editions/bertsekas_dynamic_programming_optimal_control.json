@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "3rd",
+  "year": 2005,
+  "publisher": "Athena Scientific",
+  "isbn": "9781886529083",
+  "matches_pref": false
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect: id=538346 edition=3rd year=2005 Athena Scientific; web: 4th ed Vol I ISBN 9781886529434 (2017) exists but absent from z-lib search; only 3rd available on z-lib"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:538346/9c03fb"
+  },
+  {
+   "note": "web:http://athenasc.com/dpbook.html"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:47:54+00:00",
  "identity": {
   "title": "Dynamic Programming and Optimal Control",
   "author": "Dimitri P. Bertsekas",

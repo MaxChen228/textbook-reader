@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition (2006)",
+  "year": 2006,
+  "publisher": "MIT Press",
+  "isbn": "9780262182539",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=28318329/bd31aa: title/author exact, year=2006, MIT Press, ISBN 9780262182539; web confirms only one edition exists (MIT Press 2006, ISBN 0-262-18253-X); edition_pref empty so any clear standard edition qualifies"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:28318329/bd31aa"
+  },
+  {
+   "note": "web:gaussianprocess.org/gpml"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:46:55+00:00",
  "identity": {
   "title": "Gaussian Processes for Machine Learning",
   "author": "Carl Edward Rasmussen, Christopher K. I. Williams",

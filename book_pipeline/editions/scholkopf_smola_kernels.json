@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition (2002)",
+  "year": 2002,
+  "publisher": "MIT Press",
+  "isbn": "9780262194754",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib id 2078511 exactEnd marker: exact title+author+MIT Press+2002+640pp; web confirms single edition only, ISBN 9780262194754 hardcover 2001/2002, no 2nd edition exists"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:2078511/c6b2c0"
+  },
+  {
+   "note": "web:https://mitpress.mit.edu/9780262536578/learning-with-kernels/"
+  },
+  {
+   "note": "web:https://www.amazon.com/Learning-Kernels-Regularization-Optimization-Computation/dp/0262194759"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:46:34+00:00",
  "identity": {
   "title": "Learning with Kernels: Support Vector Machines, Regularization, Optimization, and Beyond",
   "author": "Bernhard Schölkopf, Alexander J. Smola",

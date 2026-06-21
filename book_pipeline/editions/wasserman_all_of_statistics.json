@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "1st Edition (2003)",
+  "year": 2003,
+  "publisher": "Springer",
+  "isbn": "9780387402727",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=5226667: edition=1, Springer Texts in Statistics, 2004 printing of 2003 1st ed; web confirms single-edition book, ISBN 9780387402727 hardcover / 9781441923226 softcover reprint, no 2nd edition exists"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:5226667/beaa4d"
+  },
+  {
+   "note": "web:link.springer.com/book/10.1007/978-0-387-21736-9"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:49:03+00:00",
  "identity": {
   "title": "All of Statistics: A Concise Course in Statistical Inference",
   "author": "Larry Wasserman",

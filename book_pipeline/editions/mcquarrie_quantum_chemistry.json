@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "2nd",
+  "year": 2008,
+  "publisher": "University Science Books",
+  "isbn": "9781891389504",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect: id=119322958 author=McQuarrie Donald A. edition=2nd ed. year=2008 publisher=Sausalito Calif. University Science Books; web: ISBN 978-1891389504 confirmed 2nd ed. 2007/2008 University Science Books",
+  "z-lib id119322958 inspect 2nd 2008 University Science Books；web 確認 2nd 即 2007/2008，符合 pref 2nd"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:119322958/234a28"
+  },
+  {
+   "note": "web:https://www.amazon.com/Quantum-Chemistry-Donald-McQuarrie/dp/1891389505"
+  },
+  {
+   "note": "zlib_detail:119322958/234a28"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:27:36+00:00",
  "identity": {
   "title": "Quantum Chemistry",
   "author": "Donald A. McQuarrie",

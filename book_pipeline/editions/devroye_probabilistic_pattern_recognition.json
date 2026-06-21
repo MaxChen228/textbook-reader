@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition (1996)",
+  "year": 1996,
+  "publisher": "Springer",
+  "isbn": "9780387946184",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=23953550: Springer Science & Business Media, 1997 reprint of 1996 1st ed, author Devroye/Györfi/Lugosi exact match. Web: Amazon ISBN 9780387946184 = 1st edition 1996; Springer link confirms single edition only—no 2nd edition exists."
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:23953550/fcee13"
+  },
+  {
+   "note": "web:https://link.springer.com/book/10.1007/978-1-4612-0711-5"
+  },
+  {
+   "note": "web:https://www.amazon.com/dp/0387946187"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:47:42+00:00",
  "identity": {
   "title": "A Probabilistic Theory of Pattern Recognition",
   "author": "Luc Devroye, László Györfi, Gábor Lugosi",

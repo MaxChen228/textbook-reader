@@ -1,11 +1,30 @@
 {
- "version": null,
+ "version": {
+  "label": "10th",
+  "year": 2022,
+  "publisher": "W.W. Norton",
+  "isbn": "9780393884890",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=28813559/e26489: 10th ed 2022 Norton Murphy/Weaver/Berg 2396pp; web多源(wwnorton/amazon/vitalsource)確認ISBN 9780393884890 10th edition 2022",
+  "z-lib id28813559 標 Tenth Edition edition=10/2022 作者含 Berg；web 確認 10th=2022 ISBN 9780393884890，符合 pref 10th"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:28813559/e26489"
+  },
+  {
+   "note": "web:https://wwnorton.com/books/9780393884890"
+  },
+  {
+   "note": "zlib_detail:28813559/e26489"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T07:39:34+00:00",
  "identity": {
   "title": "Janeway's Immunobiology",
   "author": "Kenneth Murphy, Casey Weaver, Leslie J. Berg",

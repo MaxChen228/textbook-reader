@@ -1,11 +1,26 @@
 {
- "version": null,
+ "version": {
+  "label": "1st edition",
+  "year": 1993,
+  "publisher": "Prentice Hall",
+  "isbn": "9780133457117",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=2859642/65ca9e: edition=1, year=1993, Prentice Hall, 603pp, advisory_conf=1.0; web (Amazon/BooksRun/BetterWorldBooks): ISBN 9780133457117, 1st ed 1993, Prentice Hall—唯一版本，無 2nd edition"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:2859642/65ca9e"
+  },
+  {
+   "note": "web:https://www.amazon.com/Fundamentals-Statistical-Signal-Processing-Estimation/dp/0133457117"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:42:04+00:00",
  "identity": {
   "title": "Fundamentals of Statistical Signal Processing, Volume I: Estimation Theory",
   "author": "Steven M. Kay",

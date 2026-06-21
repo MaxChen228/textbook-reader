@@ -1,11 +1,29 @@
 {
- "version": null,
+ "version": {
+  "label": "1st Edition (1994)",
+  "year": 1994,
+  "publisher": "Princeton University Press",
+  "isbn": "9780691042893",
+  "matches_pref": true
+ },
  "sol_alignment": null,
- "confidence": null,
- "evidence": [],
- "sources": [],
- "by": "migration",
- "checked_at": null,
+ "confidence": "high",
+ "evidence": [
+  "z-lib inspect id=5485312/c3add5: 815p/58.8MB/1994/Princeton University Press; web confirms single edition only — ISBN 9780691042893 (print), 9780691218632 = ebook reissue of same 1st ed; no 2nd edition exists"
+ ],
+ "sources": [
+  {
+   "note": "zlib_detail:5485312/c3add5"
+  },
+  {
+   "note": "web:press.princeton.edu/books/hardcover/9780691042893/time-series-analysis"
+  },
+  {
+   "note": "web:dokumen.pub/time-series-analysis-9780691218632.html"
+  }
+ ],
+ "by": "restock",
+ "checked_at": "2026-06-21T06:50:22+00:00",
  "identity": {
   "title": "Time Series Analysis",
   "author": "James D. Hamilton",
