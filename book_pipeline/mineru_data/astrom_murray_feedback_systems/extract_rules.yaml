@@ -1,0 +1,158 @@
+# ── 書本 metadata ──
+slug: astrom_murray_feedback_systems
+title: "Feedback Systems: An Introduction for Scientists and Engineers"
+author: "Karl Johan Åström; Richard M. Murray"
+edition: "2nd"
+subject: Control Systems
+publisher: Princeton University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 13
+appendices_start_page: 546
+bibliography_start_page: 546
+index_start_page: 564
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 40
+    chapter_title_block_idx: 157
+    problems_block_idx: 388
+    next_chapter_block_idx: 397
+  - num: 2
+    title: Feedback Principles
+    page_start: 41
+    page_end: 72
+    chapter_title_block_idx: 397
+    problems_block_idx: 766
+    next_chapter_block_idx: 823
+  - num: 3
+    title: System Modeling
+    page_start: 73
+    page_end: 120
+    chapter_title_block_idx: 823
+    problems_block_idx: 1361
+    next_chapter_block_idx: 1435
+  - num: 4
+    title: Examples
+    page_start: 121
+    page_end: 152
+    chapter_title_block_idx: 1435
+    problems_block_idx: 1739
+    next_chapter_block_idx: 1800
+  - num: 5
+    title: Dynamic Behavior
+    page_start: 153
+    page_end: 192
+    chapter_title_block_idx: 1800
+    problems_block_idx: 2319
+    next_chapter_block_idx: 2395
+  - num: 6
+    title: Linear Systems
+    page_start: 193
+    page_end: 230
+    chapter_title_block_idx: 2395
+    problems_block_idx: 2946
+    next_chapter_block_idx: 3005
+  - num: 7
+    title: State Feedback
+    page_start: 231
+    page_end: 268
+    chapter_title_block_idx: 3005
+    problems_block_idx: 3514
+    next_chapter_block_idx: 3594
+  - num: 8
+    title: Output Feedback
+    page_start: 269
+    page_end: 304
+    chapter_title_block_idx: 3594
+    problems_block_idx: 4064
+    next_chapter_block_idx: 4129
+  - num: 9
+    title: Transfer Functions
+    page_start: 305
+    page_end: 348
+    chapter_title_block_idx: 4129
+    problems_block_idx: 4725
+    next_chapter_block_idx: 4802
+  - num: 10
+    title: Frequency Domain Analysis
+    page_start: 349
+    page_end: 378
+    chapter_title_block_idx: 4802
+    problems_block_idx: 5146
+    next_chapter_block_idx: 5200
+  - num: 11
+    title: PID Control
+    page_start: 379
+    page_end: 404
+    chapter_title_block_idx: 5200
+    problems_block_idx: 5482
+    next_chapter_block_idx: 5524
+  - num: 12
+    title: Frequency Domain Design
+    page_start: 405
+    page_end: 438
+    chapter_title_block_idx: 5524
+    problems_block_idx: 5876
+    next_chapter_block_idx: 5943
+  - num: 13
+    title: Robust Performance
+    page_start: 439
+    page_end: 470
+    chapter_title_block_idx: 5943
+    problems_block_idx: 6312
+    next_chapter_block_idx: 6352
+  - num: 14
+    title: Fundamental Limits
+    page_start: 471
+    page_end: 504
+    chapter_title_block_idx: 6352
+    problems_block_idx: 6762
+    next_chapter_block_idx: 6832
+  - num: 15
+    title: Architecture and System Design
+    page_start: 505
+    page_end: 545
+    chapter_title_block_idx: 6832
+    problems_block_idx: null
+    next_chapter_block_idx: 7267
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z].+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\s+(?![A-Z0-9\s\-&/.,:;''’()]+$)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
