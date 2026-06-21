@@ -1,0 +1,215 @@
+slug: garcia_molina_database_systems
+title: "Database Systems: The Complete Book"
+author: "Hector Garcia-Molina; Jeffrey D. Ullman; Jennifer Widom"
+edition: "2nd"
+subject: Database Systems
+publisher: Pearson
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # section/subsection (N.M / N.M.K) headings MinerU 標在 lvl2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 42            # ch1 'The Worlds of Database Systems' (page_idx 42)
+appendices_start_page: 1224    # 無 Appendix → 用 Index 起頁封頂正文
+bibliography_start_page: null  # 無全書 Bibliography（per-chapter 'References for Chapter N'）
+index_start_page: 1224         # 'Index' heading (idx 13935, page_idx 1224)
+
+# ── inline-problem 模式 ──
+# 習題以 'Exercise N.M.K: ...' 散落於 'N.M.K Exercises for Section N.M' 子節下，
+# 無章末獨立 Problems/Exercises heading → 全本 inline。
+inline_problems: true
+
+# ── 章節（23 章，無附錄） ──
+chapters:
+  - num: 1
+    title: "The Worlds of Database Systems"
+    page_start: 42
+    page_end: 57
+    chapter_title_block_idx: 870
+    problems_block_idx: null
+    next_chapter_block_idx: 1000
+  - num: 2
+    title: "The Relational Model of Data"
+    page_start: 58
+    page_end: 107
+    chapter_title_block_idx: 1000
+    problems_block_idx: null
+    next_chapter_block_idx: 1522
+  - num: 3
+    title: "Design Theory for Relational Databases"
+    page_start: 108
+    page_end: 165
+    chapter_title_block_idx: 1522
+    problems_block_idx: null
+    next_chapter_block_idx: 2260
+  - num: 4
+    title: "High-Level Database Models"
+    page_start: 166
+    page_end: 245
+    chapter_title_block_idx: 2260
+    problems_block_idx: null
+    next_chapter_block_idx: 3081
+  - num: 5
+    title: "Algebraic and Logical Query Languages"
+    page_start: 246
+    page_end: 283
+    chapter_title_block_idx: 3081
+    problems_block_idx: null
+    next_chapter_block_idx: 3564
+  - num: 6
+    title: "The Database Language SQL"
+    page_start: 284
+    page_end: 351
+    chapter_title_block_idx: 3564
+    problems_block_idx: null
+    next_chapter_block_idx: 4413
+  - num: 7
+    title: "Constraints and Triggers"
+    page_start: 352
+    page_end: 381
+    chapter_title_block_idx: 4413
+    problems_block_idx: null
+    next_chapter_block_idx: 4766
+  - num: 8
+    title: "Views and Indexes"
+    page_start: 382
+    page_end: 409
+    chapter_title_block_idx: 4766
+    problems_block_idx: null
+    next_chapter_block_idx: 5110
+  - num: 9
+    title: "SQL in a Server Environment"
+    page_start: 410
+    page_end: 465
+    chapter_title_block_idx: 5110
+    problems_block_idx: null
+    next_chapter_block_idx: 5818
+  - num: 10
+    title: "Advanced Topics in Relational Databases"
+    page_start: 466
+    page_end: 523
+    chapter_title_block_idx: 5818
+    problems_block_idx: null
+    next_chapter_block_idx: 6441
+  - num: 11
+    title: "The Semistructured-Data Model"
+    page_start: 524
+    page_end: 557
+    chapter_title_block_idx: 6441
+    problems_block_idx: null
+    next_chapter_block_idx: 6757
+  - num: 12
+    title: "Programming Languages for XML"
+    page_start: 558
+    page_end: 597
+    chapter_title_block_idx: 6757
+    problems_block_idx: null
+    next_chapter_block_idx: 7358
+  - num: 13
+    title: "Secondary Storage Management"
+    page_start: 598
+    page_end: 659
+    chapter_title_block_idx: 7358
+    problems_block_idx: null
+    next_chapter_block_idx: 7978
+  - num: 14
+    title: "Index Structures"
+    page_start: 660
+    page_end: 741
+    chapter_title_block_idx: 7978
+    problems_block_idx: null
+    next_chapter_block_idx: 8761
+  - num: 15
+    title: "Query Execution"
+    page_start: 742
+    page_end: 799
+    chapter_title_block_idx: 8761
+    problems_block_idx: null
+    next_chapter_block_idx: 9361
+  - num: 16
+    title: "The Query Compiler"
+    page_start: 800
+    page_end: 883
+    chapter_title_block_idx: 9361
+    problems_block_idx: null
+    next_chapter_block_idx: 10325
+  - num: 17
+    title: "Coping With System Failures"
+    page_start: 884
+    page_end: 923
+    chapter_title_block_idx: 10325
+    problems_block_idx: null
+    next_chapter_block_idx: 10747
+  - num: 18
+    title: "Concurrency Control"
+    page_start: 924
+    page_end: 993
+    chapter_title_block_idx: 10747
+    problems_block_idx: null
+    next_chapter_block_idx: 11493
+  - num: 19
+    title: "More About Transaction Management"
+    page_start: 994
+    page_end: 1025
+    chapter_title_block_idx: 11493
+    problems_block_idx: null
+    next_chapter_block_idx: 11835
+  - num: 20
+    title: "Parallel and Distributed Databases"
+    page_start: 1026
+    page_end: 1077
+    chapter_title_block_idx: 11835
+    problems_block_idx: null
+    next_chapter_block_idx: 12353
+  - num: 21
+    title: "Information Integration"
+    page_start: 1078
+    page_end: 1133
+    chapter_title_block_idx: 12353
+    problems_block_idx: null
+    next_chapter_block_idx: 13001
+  - num: 22
+    title: "Data Mining"
+    page_start: 1134
+    page_end: 1181
+    chapter_title_block_idx: 13001
+    problems_block_idx: null
+    next_chapter_block_idx: 13509
+  - num: 23
+    title: "Database Systems and the Internet"
+    page_start: 1182
+    page_end: 1223
+    chapter_title_block_idx: 13509
+    problems_block_idx: null
+    next_chapter_block_idx: 13935
+
+# ── 附錄（無） ──
+appendices: []
+
+# ── heading regex（N.M section / N.M.K subsection，皆 lvl2）──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（Exercise N.M.K，含可選 !/!! 難度前綴）──
+problem_start_re: '^!*\s*Exercise\s+(\d+\.\d+\.\d+)'
+problem_chapter_must_match: true       # split('.')[0]=章號（int-able）
+problem_num_namespace_by_section: false  # N.M.K 全章唯一、無 per-section reset
+
+# ── equation（\tag{N.M} 型）──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文無獨立 Example 編號段）──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
