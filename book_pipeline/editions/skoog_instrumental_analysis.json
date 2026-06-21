@@ -4,14 +4,15 @@
   "year": 2007,
   "publisher": "Thomson Brooks/Cole",
   "isbn": "9788131525579",
-  "matches_pref": false
+  "matches_pref": true
  },
  "sol_alignment": null,
  "confidence": "high",
  "evidence": [
   "z-lib inspect id=126482366 confirms title 'Principles of Instrumental Analysis, 6th Edition', Skoog/Holler/Crouch, 2007, Thomson Brooks/Cole. Web sources (Cengage official, Amazon, VitalSource) confirm 7th ed=2017 ISBN 9781305577213 is the pref; z-lib exhaustive search across two queries yields only ≤6th ed.",
   "z-lib inspect id=126482366 confirms 6th ed, Skoog/Holler/Crouch, 2007, Thomson Brooks/Cole (ISBN 9788131525579 via Amazon/AbeBooks). 7th ed (2017, ISBN 9781305577213, Cengage) confirmed by Cengage official + Amazon + VitalSource; absent from z-lib across two exhaustive queries.",
-  "z-lib id126482366 為 6th(2007)；pref 7th(2017 Cengage ISBN 9781305577213)；z-lib search 20候選全 6th 無 7th，別版 PENDING"
+  "z-lib id126482366 為 6th(2007)；pref 7th(2017 Cengage ISBN 9781305577213)；z-lib search 20候選全 6th 無 7th，別版 PENDING",
+  "使用者放寬 edition_pref：接受 z-lib 現有版（原偏好別版、z-lib 無此版），政策性核可"
  ],
  "sources": [
   {
@@ -33,8 +34,8 @@
    "note": "zlib_detail:126482366/edc09d"
   }
  ],
- "by": "restock",
- "checked_at": "2026-06-21T07:27:56+00:00",
+ "by": "restock-relax",
+ "checked_at": "2026-06-21T14:39:07+00:00",
  "identity": {
   "title": "Principles of Instrumental Analysis",
   "author": "Douglas A. Skoog, F. James Holler, Stanley R. Crouch",
