@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.2",
+      "classification": "source_mismatch",
+      "reason": "原書印刷 typo / 編號跳號：Chapter 4 開頭引用的 Figure 1.2 在本書不存在（Chapter 1 只有 Figure 1.1，圖號從 1.1 直接跳到 2.1）。所述內容對應 Figure 1.1，非 OCR 錯，無圖可裁，故歸類為 source_mismatch。",
+      "where": "ch04.json body[4]",
+      "evidence": "raw PDF page 144（Chapter 4 第一段）逐字印出『...a mobile communicates with the base-station(s) close to it. (See Figure 1.2.)』——MinerU 忠實轉錄、非 OCR 錯。但掃全書 figure captions：Chapter 1（Introduction）只有 Figure 1.1『Cells and base-stations for a cellular network』，圖號從 1.1 直接跳到 Chapter 2 的 2.1，全書無 Figure 1.2。正文描述（cellular network、fixed base-stations、coverage 分成 cells）正是 Figure 1.1 的內容，故此為原書印刷 typo（應指 1.1），目標圖原書不存在、無從 pdf_crop。"
+    }
+  ],
+  "overrides": []
+}
