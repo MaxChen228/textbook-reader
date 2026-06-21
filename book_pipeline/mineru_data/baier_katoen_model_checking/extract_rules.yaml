@@ -1,0 +1,133 @@
+slug: baier_katoen_model_checking
+title: Principles of Model Checking
+author: Christel Baier; Joost-Pieter Katoen
+edition: null
+subject: Theory of Computation
+publisher: MIT Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 927
+bibliography_start_page: 949
+index_start_page: 983
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: System Verification
+    page_start: 19
+    page_end: 36
+    chapter_title_block_idx: 195
+    chapter_title_block_idx_secondary: 194
+    problems_block_idx: null
+    next_chapter_block_idx: 329
+  - num: 2
+    title: Modelling Concurrent Systems
+    page_start: 37
+    page_end: 106
+    chapter_title_block_idx: 329
+    chapter_title_block_idx_secondary: 328
+    problems_block_idx: 1031
+    next_chapter_block_idx: 1106
+  - num: 3
+    title: Linear-Time Properties
+    page_start: 107
+    page_end: 168
+    chapter_title_block_idx: 1106
+    chapter_title_block_idx_secondary: 1105
+    problems_block_idx: 1793
+    next_chapter_block_idx: 1883
+  - num: 4
+    title: Regular Properties
+    page_start: 169
+    page_end: 246
+    chapter_title_block_idx: 1883
+    chapter_title_block_idx_secondary: 1882
+    problems_block_idx: 2690
+    next_chapter_block_idx: 2802
+  - num: 5
+    title: Linear Temporal Logic
+    page_start: 247
+    page_end: 330
+    chapter_title_block_idx: 2802
+    chapter_title_block_idx_secondary: 2801
+    problems_block_idx: 3736
+    next_chapter_block_idx: 3900
+  - num: 6
+    title: Computation Tree Logic
+    page_start: 331
+    page_end: 466
+    chapter_title_block_idx: 3900
+    chapter_title_block_idx_secondary: 3899
+    problems_block_idx: 5338
+    next_chapter_block_idx: 5544
+  - num: 7
+    title: Equivalences and Abstraction
+    page_start: 467
+    page_end: 612
+    chapter_title_block_idx: 5544
+    chapter_title_block_idx_secondary: 5543
+    problems_block_idx: 7202
+    next_chapter_block_idx: 7331
+  - num: 8
+    title: Partial Order Reduction
+    page_start: 613
+    page_end: 690
+    chapter_title_block_idx: 7331
+    chapter_title_block_idx_secondary: 7330
+    problems_block_idx: 8142
+    next_chapter_block_idx: 8241
+  - num: 9
+    title: Timed Automata
+    page_start: 691
+    page_end: 762
+    chapter_title_block_idx: 8241
+    chapter_title_block_idx_secondary: 8240
+    problems_block_idx: 9100
+    next_chapter_block_idx: 9143
+  - num: 10
+    title: Probabilistic Systems
+    page_start: 763
+    page_end: 926
+    chapter_title_block_idx: 9143
+    chapter_title_block_idx_secondary: 9142
+    problems_block_idx: 11125
+    next_chapter_block_idx: 11238
+
+appendices:
+  - id: A
+    title: "Appendix: Preliminaries"
+    page_start: 927
+    chapter_title_block_idx: 11239
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\.'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
