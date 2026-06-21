@@ -1,0 +1,184 @@
+# ── 書本 metadata ──
+slug: lyons_understanding_dsp
+title: Understanding Digital Signal Processing
+author: Richard G. Lyons
+edition: 3rd
+subject: Signal Processing
+publisher: Prentice Hall
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # section/subsection 落在 lvl2（scout: ^N.M 全在 tl2）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 25            # ch1 'Chapter One.' page_idx=25
+appendices_start_page: 737     # Appendix A page_idx=737
+bibliography_start_page: null  # 無單一 Bibliography（References 是 per-chapter 章末段）
+index_start_page: 811          # 'Index' idx=7811 page_idx=811
+
+# ── inline-problem 模式 ──
+# ch1-12 章末散落 'N.M' 編號習題（type=text, text_level=None），無獨立 Problems heading → inline。
+# ch13 為說明性章節、零習題（P4，pbi=null）。問題編號每章 N.M 單調遞增、不重置 → 不需 namespace。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Discrete Sequences and Systems
+    page_start: 25
+    page_end: 50
+    chapter_title_block_idx: 245
+    problems_block_idx: null
+    next_chapter_block_idx: 522
+  - num: 2
+    title: Periodic Sampling
+    page_start: 51
+    page_end: 72
+    chapter_title_block_idx: 522
+    problems_block_idx: null
+    next_chapter_block_idx: 699
+  - num: 3
+    title: The Discrete Fourier Transform
+    page_start: 73
+    page_end: 136
+    chapter_title_block_idx: 699
+    problems_block_idx: null
+    next_chapter_block_idx: 1282
+  - num: 4
+    title: The Fast Fourier Transform
+    page_start: 137
+    page_end: 165
+    chapter_title_block_idx: 1282
+    problems_block_idx: null
+    next_chapter_block_idx: 1551
+  - num: 5
+    title: Finite Impulse Response Filters
+    page_start: 166
+    page_end: 235
+    chapter_title_block_idx: 1551
+    problems_block_idx: null
+    next_chapter_block_idx: 2088
+  - num: 6
+    title: Infinite Impulse Response Filters
+    page_start: 236
+    page_end: 326
+    chapter_title_block_idx: 2088
+    problems_block_idx: null
+    next_chapter_block_idx: 3028
+  - num: 7
+    title: Specialized Digital Networks and Filters
+    page_start: 327
+    page_end: 394
+    chapter_title_block_idx: 3028
+    problems_block_idx: null
+    next_chapter_block_idx: 3689
+  - num: 8
+    title: Quadrature Signals
+    page_start: 395
+    page_end: 427
+    chapter_title_block_idx: 3689
+    problems_block_idx: null
+    next_chapter_block_idx: 3987
+  - num: 9
+    title: The Discrete Hilbert Transform
+    page_start: 428
+    page_end: 451
+    chapter_title_block_idx: 3987
+    problems_block_idx: null
+    next_chapter_block_idx: 4211
+  - num: 10
+    title: Sample Rate Conversion
+    page_start: 452
+    page_end: 521
+    chapter_title_block_idx: 4211
+    problems_block_idx: null
+    next_chapter_block_idx: 4826
+  - num: 11
+    title: Signal Averaging
+    page_start: 522
+    page_end: 548
+    chapter_title_block_idx: 4826
+    problems_block_idx: null
+    next_chapter_block_idx: 5117
+  - num: 12
+    title: Digital Data Formats and Their Effects
+    page_start: 549
+    page_end: 587
+    chapter_title_block_idx: 5117
+    problems_block_idx: null
+    next_chapter_block_idx: 5479
+  - num: 13
+    title: Digital Signal Processing Tricks
+    page_start: 588
+    page_end: 736
+    chapter_title_block_idx: 5479
+    problems_block_idx: null
+    next_chapter_block_idx: 7000
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: The Arithmetic of Complex Numbers
+    page_start: 737
+    chapter_title_block_idx: 7000
+  - id: B
+    title: Closed Form of a Geometric Series
+    page_start: 747
+    chapter_title_block_idx: 7192
+  - id: C
+    title: Time Reversal and the DFT
+    page_start: 750
+    chapter_title_block_idx: 7224
+  - id: D
+    title: Mean, Variance, and Standard Deviation
+    page_start: 754
+    chapter_title_block_idx: 7274
+  - id: E
+    title: Decibels (dB and dBm)
+    page_start: 769
+    chapter_title_block_idx: 7432
+  - id: F
+    title: Digital Filter Terminology
+    page_start: 777
+    chapter_title_block_idx: 7487
+  - id: G
+    title: Frequency Sampling Filter Derivations
+    page_start: 786
+    chapter_title_block_idx: 7581
+  - id: H
+    title: Frequency Sampling Filter Design Tables
+    page_start: 796
+    chapter_title_block_idx: 7758
+  - id: I
+    title: Computing Chebyshev Window Sequences
+    page_start: 807
+    chapter_title_block_idx: 7781
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+-[0-9]+[a-z]?)\}'   # hyphen 型 N-M（樣本 5-9, 10-2, 12-31, 13-107）
+
+# ── example（內文題） ──
+example_start_re: null         # 全本無 'Example N' 段落（Example 是 N.M.K subsection 標題、非編號內文題）
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

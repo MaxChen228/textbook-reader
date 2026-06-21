@@ -1,0 +1,134 @@
+# ── 書本 metadata ──
+slug: haykin_comm
+title: Communication Systems
+author: Simon Haykin; Michael Moher
+edition: null
+subject: Digital Communications
+publisher: John Wiley & Sons
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 14
+appendices_start_page: 411
+bibliography_start_page: 422
+index_start_page: 426
+
+# ── inline-problem 模式 ──
+# ch10 的 "PROBLEMS" 標題被 MinerU OCR 成 header type（已 filter 掉），章內無可用的
+# text_level=2 Problems 錨點 → 改走 inline（pbi=null）；其餘 9 章皆有 lvl2 "PROBLEMS"
+# 標題、走二分。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: PROLOGUE
+    page_start: 14
+    page_end: 20
+    chapter_title_block_idx: 144
+    problems_block_idx: null   # P4：本章無習題
+    next_chapter_block_idx: 201
+  - num: 2
+    title: FOURIER THEORY AND COMMUNICATION SIGNALS
+    page_start: 21
+    page_end: 86
+    chapter_title_block_idx: 201
+    problems_block_idx: 1128
+    next_chapter_block_idx: 1255
+  - num: 3
+    title: AMPLITUDE MODULATION
+    page_start: 87
+    page_end: 114
+    chapter_title_block_idx: 1255
+    problems_block_idx: 1529
+    next_chapter_block_idx: 1661
+  - num: 4
+    title: ANGLE MODULATION
+    page_start: 115
+    page_end: 158
+    chapter_title_block_idx: 1661
+    problems_block_idx: 2189
+    next_chapter_block_idx: 2338
+  - num: 5
+    title: PROBABILITY THEORY AND RANDOM PROCESSES
+    page_start: 159
+    page_end: 219
+    chapter_title_block_idx: 2338
+    problems_block_idx: 3214
+    next_chapter_block_idx: 3357
+  - num: 6
+    title: NOISE IN CW MODULATION SYSTEMS
+    page_start: 220
+    page_end: 250
+    chapter_title_block_idx: 3357
+    problems_block_idx: 3766
+    next_chapter_block_idx: 3831
+  - num: 7
+    title: THE TRANSITION FROM ANALOG TO DIGITAL
+    page_start: 251
+    page_end: 291
+    chapter_title_block_idx: 3831
+    problems_block_idx: 4276
+    next_chapter_block_idx: 4366
+  - num: 8
+    title: BASEBAND TRANSMISSION OF DIGITAL SIGNALS
+    page_start: 292
+    page_end: 325
+    chapter_title_block_idx: 4366
+    problems_block_idx: 4785
+    next_chapter_block_idx: 4923
+  - num: 9
+    title: BAND-PASS TRANSMISSION OF DIGITAL SIGNALS
+    page_start: 326
+    page_end: 354
+    chapter_title_block_idx: 4923
+    problems_block_idx: 5249
+    next_chapter_block_idx: 5323
+  - num: 10
+    title: INFORMATION AND FORWARD ERROR CORRECTION
+    page_start: 355
+    page_end: 410
+    chapter_title_block_idx: 5323
+    problems_block_idx: null   # ch10 PROBLEMS 標題被 OCR 成 header → 走 inline
+    next_chapter_block_idx: 6158
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: MATHEMATICAL TABLES
+    page_start: 411
+    chapter_title_block_idx: 6158
+
+# ── heading regex ──
+# section = lvl2 'N.M TITLE'（ALL CAPS）；subsection = lvl2 具名 ALL-CAPS 小節
+# （'CONTINUOUS SPECTRUM' / 'PROPERTIES OF MATCHED FILTERS'），無數字、不與 N.M 衝突。
+section_re: '^(\d+\.\d+)(?=[\s ]+\S)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Z0-9](?:[A-Z0-9\- ’‘''.,&/():]*[A-Z0-9.)])?)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
