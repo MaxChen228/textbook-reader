@@ -1,0 +1,137 @@
+slug: haykin_digital_comm
+title: Digital Communication Systems
+author: Simon Haykin
+edition: null
+subject: Digital Communications
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 720
+bibliography_start_page: 784
+index_start_page: 790
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 31
+    chapter_title_block_idx: 195
+    problems_block_idx: null
+    next_chapter_block_idx: 309
+  - num: 2
+    title: Fourier Analysis of Signals and Systems
+    page_start: 32
+    page_end: 105
+    chapter_title_block_idx: 309
+    problems_block_idx: 1188
+    next_chapter_block_idx: 1331
+  - num: 3
+    title: Probability Theory and Bayesian Inference
+    page_start: 106
+    page_end: 163
+    chapter_title_block_idx: 1331
+    problems_block_idx: 2138
+    next_chapter_block_idx: 2303
+  - num: 4
+    title: Stochastic Processes
+    page_start: 164
+    page_end: 225
+    chapter_title_block_idx: 2303
+    problems_block_idx: 3127
+    next_chapter_block_idx: 3276
+  - num: 5
+    title: Information Theory
+    page_start: 226
+    page_end: 285
+    chapter_title_block_idx: 3276
+    problems_block_idx: 4046
+    next_chapter_block_idx: 4204
+  - num: 6
+    title: Conversion of Analog Waveforms into Coded Pulses
+    page_start: 286
+    page_end: 341
+    chapter_title_block_idx: 4204
+    problems_block_idx: 4800
+    next_chapter_block_idx: 4966
+  - num: 7
+    title: Signaling over AWGN Channels
+    page_start: 342
+    page_end: 463
+    chapter_title_block_idx: 4966
+    problems_block_idx: 6440
+    next_chapter_block_idx: 6656
+  - num: 8
+    title: Signaling over Band-Limited Channels
+    page_start: 464
+    page_end: 519
+    chapter_title_block_idx: 6656
+    problems_block_idx: 7280
+    next_chapter_block_idx: 7362
+  - num: 9
+    title: Signaling over Fading Channels
+    page_start: 520
+    page_end: 595
+    chapter_title_block_idx: 7362
+    problems_block_idx: 8226
+    next_chapter_block_idx: 8379
+  - num: 10
+    title: Error-Control Coding
+    page_start: 596
+    page_end: 719
+    chapter_title_block_idx: 8379
+    problems_block_idx: 9965
+    next_chapter_block_idx: 10148
+
+appendices:
+  - id: A
+    title: Advanced Probabilistic Models
+    page_start: 720
+    chapter_title_block_idx: 10148
+  - id: B
+    title: Bounds on the Q-Function
+    page_start: 730
+    chapter_title_block_idx: 10291
+  - id: E
+    title: Information Capacity of MIMO Channels
+    page_start: 740
+    chapter_title_block_idx: 10448
+  - id: G
+    title: The Peak-Power Reduction Problem in OFDM
+    page_start: 754
+    chapter_title_block_idx: 10622
+  - id: H
+    title: Nonlinear Solid-State Power Amplifiers
+    page_start: 758
+    chapter_title_block_idx: 10682
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Za-z].{2,60})$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+.*?\s(?!(?:the|of|and|into|over|for|on|in|to|a|an|with|or|by|from|at|as)\b)[a-z]'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
