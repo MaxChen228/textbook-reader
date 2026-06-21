@@ -4,7 +4,13 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （3 條；proposed=0）
+## domain: crawl  （4 條；proposed=1）
+
+### P-2026-06-21-neamen-semiconductor-physics-dev — neamen_semiconductor_physics_devices 母書連 3rd 但 pref+sol 皆 4th
+- proposed | type=edition-mismatch | source=restock
+- 證據：母書 editions 現 version=3rd(2003) matches_pref=False；但 edition_pref=4th，且其解答本 neamen_semiconductor_physics_devices_sol 經多源查證為 4th(2012, z-lib id21449597/17194580)。母書 status=pending（缺 4th 連結），z-lib 確有 4th 母書與 4th 解答本。sol 已落 --no-sol-aligned 暫擋 merge。
+- 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
+- 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
 - accepted | type=booklist-fix | source=crawl
@@ -27,7 +33,7 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （157 條；proposed=39）
+## domain: engine  （160 條；proposed=42）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
@@ -227,6 +233,272 @@
 - proposed | type=tooling-gap | source=agent
 - 證據：validate/parser 已綠（28 chapters, 2 appendices, all problems=0），但 smoke 基線仍為 H6 unresolved Figure refs=3、H7 empty_captions=172。parsed/_catalog_audit.md 顯示大量 case 為多 panel figure shards 或 captionless visual blocks，局部 caption 只有 '(a)' '(b)' 'Start State' 等，真正 Figure N.M 主圖說落在後續 sibling figure 或相鄰 prose，例如 ch04 body[150]='(a)'、body[151]='(b) Figure 4.13 ...'；ch03 body[59]='Start State'、後續 prose 提及 Figure 3.3；另嘗試 figure_caption_merge=true + generic figure_caption_main_re 後，smoke 反而惡化到 H6=7 / H7=270，證明現有 schema 不能安全處理這類 caption donor / panel shard 關係。
 - 提議：擴充 catalog extraction 的 declarative repair：允許把 sibling figure 或 adjacent prose/text 綁為 visual 的 semantic-id/caption donor，並允許將僅有 panel marker 或 purely decorative shard 的 visual 標為 non-indexable；否則像 AIMA 這類大量教科書式 panel figures 無法僅靠 extract_rules 清除 H6/H7。
+
+### P-2026-06-21-garcia-molina-database-systems — worker 越界改核心碼：book_pipeline/parser.py（catalog_audit garcia_molina_database_systems）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit garcia_molina_database_systems] session=garcia_molina_database_systems:18718 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 8d43b81..8ca3ed6 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -368,12 +368,18 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                    section_re: re.Pattern | None = None,
+                    subsection_re: re.Pattern | None = None,
+                    problems_end_re: re.Pattern | None = None,
+-                   solution_start_re: re.Pattern | None = None) -> list[dict]:
++                   solution_start_re: re.Pattern | None = None,
++                   namespace_by_section: bool = False) -> list[dict]:
+     """problems 區 blocks → problems[]。每題 num 從 text 起頭剝掉。
+     section_re/subsection_re：lvl=1 text 匹配時 close 當前題目（救 inline-problem 書本
+     把章節 heading 誤吞進 problem.body 的問題）。對章末 Problems 區型書無副作用。
+     problems_end_re：lvl=1 text 命中 → 提早結束 problems 區、丟棄其後所有 block（救 brookshear
+-    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
++    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。
++
++    namespace_by_section=True（二分模式的 per-section reset，鏡像 walk_inline_chapter）：
++      章末單一 Exercises 區下分多個子集（Huth&Ryan「N.x Exercises」→「Exercises N.M」），各子集
++      題號從 1 重編。walker 在每個 section/subsection heading 處記 current_section_id 並把題號基準
++      歸零，題目 num 串成 'sectionId.rawNum' 避免跨子集撞號；遞增守則仍逐節生效（擋題身內 sub-list）。"""
+     ignore_image_content = rules.get('ignore_image_content', False)
+     ignore_chart_content = rules.get('ignore_chart_content', False)
+     heading_level = rules.get('heading_text_level', 1)
+@@ -381,7 +387,9 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+     problems: list[dict] = []
+     current: dict | None = None
+     in_solution = False  # solution_start_re 命中後：後續 block 收進 current['solution']
++    current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
+     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
++                         # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
+ 
+     for b in expand_list_blocks(blocks):
+         t = b.get('type')
+@@ -402,14 +410,20 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+             in_solution = True
+             continue
+ 
+-        # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
+-        if (current is not None and b.get('text_level') == heading_level and t == 'text'
+-                and ((section_re and section_re.match(text))
+-                     or (subsection_re and subsection_re.match(text)))):
+-            problems.append(current)
+-            current = None
+-            in_solution = False
+-            continue
++        # heading-terminator：heading-lvl text 命中 section/subsection → close current。
++        # namespace 模式另記 current_section_id（走 detect_heading 正規化 id，與 inline walker /
++        # catalog 一致：'Exercises 1.1'→'Exercises1.1'）+ 重置題號基準（每子集題號 reset）。
++        if t == 'text' and section_re and subsection_re:
++            h = detect_heading(text, b.get('text_level'), section_re, subsection_re, None, heading_level)
++            if h and h['t'] in ('section', 'subsection'):
++                if current is not None:
++                    problems.append(current)
++                    current = None
++                    in_solution = False
++                if namespace_by_section and h.get('id'):
++                    current_section_id = h['id']
++                    max_num_seen = 0
++                continue
+ 
+         # 偵測新題起點：text 型 + 行首 N.M 開頭（含 lvl=1 短句如 "1.2 Prove"）
+         if t in ('text', 'list') and text:
+@@ -435,9 +449,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                     # close 上一題
+                     if current:
+                         problems.append(current)
+-                    # 剝題號
++                    # 剝題號（namespace 模式串 section_id 避免跨子集撞號）
+                     tail = text[m.end():].strip()
+-                    current = {'num': num, 'body': []}
++                    current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
++                               'body': []}
+                     in_solution = False
+                     try:
+                         max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
+@@ -661,6 +676,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
+         subsection_re=regexes['subsection'],
+         problems_end_re=regexes['problems_end'],
+         solution_start_re=regexes['solution_start'],
++        namespace_by_section=rules.get('problem_num_namespace_by_section', False),
+     )
+ 
+     return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-21-restock — worker 越界改核心碼：book_pipeline/parser.py（crawl __restock__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __restock__] session=__restock__:1024 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 8d43b81..323d37d 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -368,12 +368,18 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                    section_re: re.Pattern | None = None,
+                    subsection_re: re.Pattern | None = None,
+                    problems_end_re: re.Pattern | None = None,
+-                   solution_start_re: re.Pattern | None = None) -> list[dict]:
++                   solution_start_re: re.Pattern | None = None,
++                   namespace_by_section: bool = False) -> list[dict]:
+     """problems 區 blocks → problems[]。每題 num 從 text 起頭剝掉。
+     section_re/subsection_re：lvl=1 text 匹配時 close 當前題目（救 inline-problem 書本
+     把章節 heading 誤吞進 problem.body 的問題）。對章末 Problems 區型書無副作用。
+     problems_end_re：lvl=1 text 命中 → 提早結束 problems 區、丟棄其後所有 block（救 brookshear
+-    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
++    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。
++
++    namespace_by_section=True（二分模式的 per-section reset，鏡像 walk_inline_chapter）：
++      章末單一 Exercises 區下分多個子集（Huth&Ryan「N.x Exercises」→「Exercises N.M」），各子集
++      題號從 1 重編。walker 在每個 section/subsection heading 處記 current_section_id 並把題號基準
++      歸零，題目 num 串成 'sectionId.rawNum' 避免跨子集撞號；遞增守則仍逐節生效（擋題身內 sub-list）。"""
+     ignore_image_content = rules.get('ignore_image_content', False)
+     ignore_chart_content = rules.get('ignore_chart_content', False)
+     heading_level = rules.get('heading_text_level', 1)
+@@ -381,7 +387,9 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+     problems: list[dict] = []
+     current: dict | None = None
+     in_solution = False  # solution_start_re 命中後：後續 block 收進 current['solution']
++    current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
+     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
++                         # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
+ 
+     for b in expand_list_blocks(blocks):
+         t = b.get('type')
+@@ -402,6 +410,22 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+             in_solution = True
+             continue
+ 
++        # namespace 模式專屬：在 section/subsection heading 處更新 current_section_id（走
++        # detect_heading 正規化 id，與 inline walker / catalog 一致：'Exercises 1.1'→'Exercises1.1'）
++        # + 重置題號基準（每子集題號 reset）。即使尚無 current 也更新，才能在第一題前先記子集 id。
++        # 非 namespace 書完全不進此塊 → 下方原 heading-terminator 行為 byte-identical。
++        if namespace_by_section and t == 'text' and section_re and subsection_re:
++            h = detect_heading(text, b.get('text_level'), section_re, subsection_re, None, heading_level)
++            if h and h['t'] in ('section', 'subsection'):
++                if current is not None:
++                    problems.append(current)
++                    current = None
++                    in_solution = False
++                if h.get('id'):
++                    current_section_id = h['id']
++                max_num_seen = 0
++                continue
++
+         # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
+         if (current is not None and b.get('text_level') == heading_level and t == 'text'
+                 and ((section_re and section_re.match(text))
+@@ -435,9 +459,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                     # close 上一題
+                     if current:
+                         problems.append(current)
+-                    # 剝題號
++                    # 剝題號（namespace 模式串 section_id 避免跨子集撞號）
+                     tail = text[m.end():].strip()
+-                    current = {'num': num, 'body': []}
++                    current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
++                               'body': []}
+                     in_solution = False
+                     try:
+                         max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
+@@ -661,6 +686,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
+         subsection_re=regexes['subsection'],
+         problems_end_re=regexes['problems_end'],
+         solution_start_re=regexes['solution_start'],
++        namespace_by_section=rules.get('problem_num_namespace_by_section', False),
+     )
+ 
+     return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-21-sklar-digital-communications — worker 越界改核心碼：book_pipeline/parser.py（catalog_audit sklar_digital_communications）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [catalog_audit sklar_digital_communications] session=sklar_digital_communications:18177 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 8d43b81..7fff83b 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -368,12 +368,18 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                    section_re: re.Pattern | None = None,
+                    subsection_re: re.Pattern | None = None,
+                    problems_end_re: re.Pattern | None = None,
+-                   solution_start_re: re.Pattern | None = None) -> list[dict]:
++                   solution_start_re: re.Pattern | None = None,
++                   namespace_by_section: bool = False) -> list[dict]:
+     """problems 區 blocks → problems[]。每題 num 從 text 起頭剝掉。
+     section_re/subsection_re：lvl=1 text 匹配時 close 當前題目（救 inline-problem 書本
+     把章節 heading 誤吞進 problem.body 的問題）。對章末 Problems 區型書無副作用。
+     problems_end_re：lvl=1 text 命中 → 提早結束 problems 區、丟棄其後所有 block（救 brookshear
+-    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
++    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。
++
++    namespace_by_section=True（二分模式的 per-section reset，鏡像 walk_inline_chapter）：
++      章末單一 Exercises 區下分多個子集（Huth&Ryan「N.x Exercises」→「Exercises N.M」），各子集
++      題號從 1 重編。walker 在每個 section/subsection heading 處記 current_section_id 並把題號基準
++      歸零，題目 num 串成 'sectionId.rawNum' 避免跨子集撞號；遞增守則仍逐節生效（擋題身內 sub-list）。"""
+     ignore_image_content = rules.get('ignore_image_content', False)
+     ignore_chart_content = rules.get('ignore_chart_content', False)
+     heading_level = rules.get('heading_text_level', 1)
+@@ -381,7 +387,9 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+     problems: list[dict] = []
+     current: dict | None = None
+     in_solution = False  # solution_start_re 命中後：後續 block 收進 current['solution']
++    current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
+     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
++                         # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
+ 
+     for b in expand_list_blocks(blocks):
+         t = b.get('type')
+@@ -402,14 +410,22 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+             in_solution = True
+             continue
+ 
+-        # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
+-        if (current is not None and b.get('text_level') == heading_level and t == 'text'
+-                and ((section_re and section_re.match(text))
+-                     or (subsection_re and subsection_re.match(text)))):
+-            problems.append(current)
+-            current = None
+-            in_solution = False
+-            continue
++        # heading-terminator：heading-lvl text 命中 section/subsection regex → close current。
++        # namespace 模式另記 current_section_id + 重置題號基準（每子集題號 reset）。
++        if b.get('text_level') == heading_level and t == 'text':
++            hsub = subsection_re.match(text) if subsection_re else None
++            hsec = section_re.match(text) if section_re else None
++            if hsub or hsec:
++                if current is not None:
++                    problems.append(current)
++                    current = None
++                    in_solution = False
++                if namespace_by_section:
++                    hid = ((hsub.group(1) if hsub else hsec.group(1)) or '').strip()
++                    if hid:
++                        current_section_id = hid
++                    max_num_seen = 0
++                continue
+ 
+         # 偵測新題起點：text 型 + 行首 N.M 開頭（含 lvl=1 短句如 "1.2 Prove"）
+         if t in ('text', 'list') and text:
+@@ -435,9 +451,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                     # close 上一題
+                     if current:
+                         problems.append(current)
+-                    # 剝題號
++                    # 剝題號（namespace 模式串 section_id 避免跨子集撞號）
+                     tail = text[m.end():].strip()
+-                    current = {'num': num, 'body': []}
++                    current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
++                               'body': []}
+                     in_solution = False
+                     try:
+                         max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
+@@ -661,6 +678,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
+         subsection_re=regexes['subsection'],
+         problems_end_re=regexes['problems_end'],
+         solution_start_re=regexes['solution_start'],
++        namespace_by_section=rules.get('problem_num_namespace_by_section', False),
+     )
+ 
+     return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
 - rejected | type=patch | source=scope_guard
@@ -3237,7 +3509,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （41 條；proposed=41）
+## domain: sol  （42 條；proposed=42）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
@@ -3438,6 +3710,11 @@ index 2c80077..8104e5a 100644
 - proposed | type=harness-gap | source=sol_extract
 - 證據：zill_differential_equations_sol/unified/content_list.json 的主書對應章號 1-9 出現在 text_level=2 的 'Chapter N'（如 idx 49, 694, 1857, 11157）；同位置 lvl=1 只有章名無數字。解答正文在 section heading（如 1.1 Definitions and Terminology）後只用裸題序 8. 9. 10.，但主書 parsed key 為 exercises1.1.8、2.1.1.2、4.1.1.1 等 section-aware 混合 key。預設 dry-run 穩定為『抽出 3 章、0 題解答』，且只誤抓第二本書的 Chapter 10/13/15。
 - 提議：擴充 sol_extract：允許自訂 chapter anchor 的 text_level/type，並支援以 section heading + 裸題序組裝主書 problem key；必要時加上同冊多書切分能力。完成後再重跑 zill_differential_equations_sol merge。
+
+### P-2026-06-21-cheng-em-sol — cheng_em 解答本無法 merge：47 個 Chapter 章標全在 text_level==2，引擎只認 lvl1
+- proposed | type=harness-gap | source=sol_extract
+- 證據：sol_scout：lvl1 帶數字章標=0，lvl2/header=47（樣本 'Chapter 2'..'Chapter 8'）。dry-run（去 _pending）：抽出 0 章 0 題、配對 0%。副因 source-quality：題號 prefix 樣本大量 OCR 垃圾（'8) Equation for lives everywhere'、'6) VIX(1=4, make sixty'、'20. N°THA, 2016'）。主書 num=N-M、sol 題號=C.S-K（如 8.2-1）格式亦不對齊。
+- 提議：讓 extract_sol_chapters 也認 text_level==2 的章錨（或可配置 chapter_level），或換更乾淨的 Cheng F&W EM 2nd 解答本重 ingest。現行限制在 level 不在 regex，任何 chapter_re 都救不了。
 
 ### P-2026-06-21-oppenheim-signals-sol — oppenheim_signals 解答本無法 merge：章 anchor 在 lvl2/header（引擎只認 lvl1）
 - proposed | type=harness-gap | source=sol_extract | 偵測=extract_sol_chapters text_level==1

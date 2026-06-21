@@ -1,0 +1,13 @@
+# cheng_em_sol — sol_extract 配置（_pending，無法 merge，見下）
+#
+# 決策：_pending（拒絕 merge）。根因 = harness-gap。
+# sol_scout 判讀：解答書 47 個 `Chapter N` 章標全落在 text_level==2，
+# 引擎 extract_sol_chapters 只認 text_level==1 且 type==text 的章錨，
+# lvl1 帶數字章標數 = 0 → 任何 chapter_re 都搆不到（限制在 level 不在 regex）。
+# 兼有 source-quality 副因：題號 prefix 樣本大量 OCR 垃圾
+# （'8) Equation for lives everywhere', '6) VIX(1=4, make sixty', '20. N°THA, 2016'…）。
+# 已開 sol proposal（harness-gap）申訴，待架構師裁決（引擎支援 lvl2 章錨 / 換更乾淨解答本）。
+chapter_re: '^Chapter\s+(\d+)\s*$'
+problem_re: '^(\d+\.\d+-\d+[a-z]?)'
+multi_per_block: false
+_pending: true
