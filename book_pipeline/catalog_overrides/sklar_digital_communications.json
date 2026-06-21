@@ -1,0 +1,12 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "15.2",
+      "classification": "source_mismatch",
+      "reason": "原書編號錯植：Problem 15.7 引用 'Table 15.2'，但第 15 章（OFDM）只有唯一一張表 Table 15.1（OFDM in LTE: Bandwidth Configurations，跨 p.1132–1133）。Problem 15.7 (a) 要 'examining occupied subcarriers'、(b) 'examining resource blocks'——這兩欄（Nc Occupied subcarriers、Number of RBs）正是 Table 15.1 的內容；Example 15.5（p.1135）即用 Table 15.1 數據（100 RBs → 8400 REs → 16.8 Msym/s × 6 bits → 100.8 Mbits/s）算出同一 64-QAM/20MHz/7-symbol-slot 峰值率。題幹的 'Table 15.2' 應為 Table 15.1，原書誤植。raw PDF 內嵌文字本身即印 'Table 15.2'（非 MinerU OCR 失誤），故不以 replace_text 改寫正文（會使 parsed 偏離源書），改登記為 source_mismatch：目標表在原書根本不存在。",
+      "where": "ch15.json problem:15.7:body[0]",
+      "evidence": "全書 1552 頁掃描 'Table 15.x'：'Table 15.1' 出現於 p.1131/1132/1135（含 caption 'Table 15.1 OFDM in LTE: Bandwidth Configurations'），'Table 15.2' 全書唯一一次出現於 p.1145 的 Problem 15.7 題幹 'Using Table 15.2, show that for the case of uncoded 64-QAM modulation and a 7-symbol LTE slot, the maximum data rate ... is about 100 Mbits/s. a. examining occupied subcarriers. b. examining resource blocks.'。無任何 'Table 15.2' caption 存在。Example 15.5 (p.1135) 'LTE Theoretical Peak Data Rates' 用 Table 15.1 的 100 RBs / occupied subcarriers 做與 Problem 15.7 完全相同的計算。"
+    }
+  ]
+}
