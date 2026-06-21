@@ -26,15 +26,27 @@ from book_pipeline import booklists as bl
 from book_pipeline import editions as ed
 
 
+def _owned_or_linked(slug: str, have: set, resolution: dict) -> bool:
+    """凍結判據：owned ∪ 有可信 z-lib 連結（與 booklists.status_of 的五態演進**解耦**——本遷移是一次性
+    歷史產物，須穩定可重跑）。涵蓋新 status:'found' 與舊 'resolved'/legacy id+hash（皆須 by 戳記可信）；
+    not_found/absent 排除。"""
+    if slug in have:
+        return True
+    r = resolution.get(slug) or {}
+    if r.get('status') in ('not_found',) or r.get('absent'):
+        return False
+    has_link = r.get('status') in ('found', 'resolved') or (r.get('id') and r.get('hash'))
+    return bool(has_link) and bl.is_trustworthy(r)
+
+
 def plan(targets_: list[dict], have: set, resolution: dict) -> dict:
     """純核心（無 I/O，可測）：targets × (have, resolution) → {slug: editions defaults}。
-    只收 owned ∪ ready；其餘略過。has_solution 由「該主書是否衍生 _sol target」判定。"""
+    只收 owned ∪ 有可信連結；其餘略過。has_solution 由「該主書是否衍生 _sol target」判定。"""
     sol_parents = {t['of'] for t in targets_ if t['kind'] == 'solution' and t.get('of')}
     todo: dict[str, dict] = {}
     for t in targets_:
         slug = t['slug']
-        st = bl.status_of(slug, have, resolution)
-        if st not in (bl.OWNED, bl.READY):
+        if not _owned_or_linked(slug, have, resolution):
             continue
         is_sol = t['kind'] == 'solution'
         todo[slug] = {
