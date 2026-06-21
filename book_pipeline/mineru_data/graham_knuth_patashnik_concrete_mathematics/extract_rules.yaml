@@ -1,0 +1,143 @@
+# Auto-audited extract rules for Concrete Mathematics (Graham/Knuth/Patashnik).
+# metadata SoT = book_pipeline/metadata_schema.yaml
+slug: graham_knuth_patashnik_concrete_mathematics
+title: Concrete Mathematics
+author: Ronald L. Graham; Donald E. Knuth; Oren Patashnik
+edition: 2nd
+subject: Discrete Mathematics
+publisher: Addison-Wesley
+language: en
+
+# ── block filtering ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── content range (global 0-based page_idx) ──
+body_start_page: 13
+appendices_start_page: 509
+bibliography_start_page: 616
+index_start_page: 649
+
+# ── problems ──
+# Problem numbering is a single per-chapter running counter (1,2,3,...) with NO
+# chapter prefix; numbers restart each chapter. Each chapter has one "Exercises"
+# heading (lvl2) that opens the problem block (Warmups/Basics/Homework/Exam/Bonus
+# are sub-category labels inside that block).
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Recurrent Problems
+    page_start: 13
+    page_end: 28
+    chapter_title_block_idx: 173
+    problems_block_idx: 452
+    next_chapter_block_idx: 510
+  - num: 2
+    title: Sums
+    page_start: 33
+    page_end: 78
+    chapter_title_block_idx: 510
+    problems_block_idx: 1224
+    next_chapter_block_idx: 1321
+  - num: 3
+    title: Integer Functions
+    page_start: 79
+    page_end: 113
+    chapter_title_block_idx: 1321
+    problems_block_idx: 1753
+    next_chapter_block_idx: 1881
+  - num: 4
+    title: Number Theory
+    page_start: 114
+    page_end: 164
+    chapter_title_block_idx: 1881
+    problems_block_idx: 2572
+    next_chapter_block_idx: 2704
+  - num: 5
+    title: Binomial Coefficients
+    page_start: 165
+    page_end: 268
+    chapter_title_block_idx: 2704
+    problems_block_idx: 4124
+    next_chapter_block_idx: 4403
+  - num: 6
+    title: Special Numbers
+    page_start: 269
+    page_end: 331
+    chapter_title_block_idx: 4403
+    problems_block_idx: 5227
+    next_chapter_block_idx: 5412
+  - num: 7
+    title: Generating Functions
+    page_start: 332
+    page_end: 392
+    chapter_title_block_idx: 5412
+    problems_block_idx: 6220
+    next_chapter_block_idx: 6397
+  - num: 8
+    title: Discrete Probability
+    page_start: 393
+    page_end: 450
+    chapter_title_block_idx: 6397
+    problems_block_idx: 7135
+    next_chapter_block_idx: 7313
+  - num: 9
+    title: Asymptotics
+    page_start: 451
+    page_end: 508
+    chapter_title_block_idx: 7313
+    problems_block_idx: 8174
+    next_chapter_block_idx: 8297
+
+# ── appendices ──
+appendices:
+  - id: A
+    title: Answers to Exercises
+    page_start: 509
+    chapter_title_block_idx: 8297
+
+# ── heading regex (each exactly 2 capture groups: id, title) ──
+# Sections are "N.M  UPPERCASE TITLE" (lvl2). No N.M.K subsections exist in this
+# book; subsection_re kept valid-but-never-matching.
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── problem numbering ──
+# Pure running integer per chapter, no chapter prefix -> must_match false.
+# Negative lookahead excludes leaked left-page running headers that MinerU emits
+# as lvl2 text blocks inside the problems region: "<printed-page#> <CHAPTER NAME
+# IN CAPS>" e.g. "152 NUMBER THEORY" / "318 SPECIAL NUMBERS". Their page number
+# (152/318) would otherwise open a bogus high-numbered problem and poison the
+# walker's monotonic max_num_seen guard, swallowing every real exercise after it
+# (ch4 lost 73-74, ch6 lost 80-95). Real exercises are prose (contain lowercase);
+# the header tail is all-caps to EOL, so (?![A-Z\s]+$) rejects only the headers.
+problem_start_re: '^(\d+)\s+(?![A-Z\s]+$)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equations ──
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── examples (in-text) ──
+# "Example N: Title." headings (lvl2) appear in ch7.
+example_start_re: '^Example\s+(\d+)\s*[:.]'
+
+# ── figures ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR missing problems (human-verified only) ──
+known_missing_problems: []

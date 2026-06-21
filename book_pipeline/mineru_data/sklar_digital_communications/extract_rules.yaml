@@ -1,0 +1,213 @@
+# Sklar & Harris — Digital Communications: Fundamentals and Applications, 3rd ed.
+# metadata SoT: book_pipeline/metadata_schema.yaml
+
+slug: sklar_digital_communications
+title: "Digital Communications: Fundamentals and Applications"
+author: "Bernard Sklar; Fred Harris"
+edition: "3rd"
+subject: Digital Communications
+publisher: Pearson
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+# section-like (^N.M…) heading text_level 分布 = {2: 886, 1: 2} → 必須 2
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+# body 自 ch1 "Chapter 1" anchor (pg44)；ch1-16 至 pg1217；Index pg1218；
+# ch17(online) + Appendices A-G 為 index 之後的 back-matter。
+body_start_page: 44
+appendices_start_page: 1384      # 倒數第一個 "Appendix A" (idx 11819)
+bibliography_start_page: null    # 無全域 Bibliography（僅每章 References）
+index_start_page: 1218           # text=="Index" (idx 9034)
+
+# ── inline-problem 模式 ──
+# 全 17 章皆有章末 "Problems" heading → 全二分；pbi 皆非 null
+inline_problems: false
+
+# ── 章節 ──
+# anchor = "Chapter N" lvl=2 block；ch1/3/5 標題塊無 text_level，title 取自書 TOC。
+# Index(pg1218-1325) 落在 ch16(≤1217) 與 ch17(≥1326) 頁區之外、自然排除。
+chapters:
+  - num: 1
+    title: "Signals and Spectra"
+    page_start: 44
+    page_end: 104
+    chapter_title_block_idx: 404
+    problems_block_idx: 824
+    next_chapter_block_idx: 869
+  - num: 2
+    title: "Formatting and Baseband Modulation"
+    page_start: 105
+    page_end: 166
+    chapter_title_block_idx: 869
+    problems_block_idx: 1215
+    next_chapter_block_idx: 1265
+  - num: 3
+    title: "Baseband Demodulation/Detection"
+    page_start: 167
+    page_end: 230
+    chapter_title_block_idx: 1265
+    problems_block_idx: 1766
+    next_chapter_block_idx: 1807
+  - num: 4
+    title: "Bandpass Modulation and Demodulation/Detection"
+    page_start: 231
+    page_end: 311
+    chapter_title_block_idx: 1807
+    problems_block_idx: 2350
+    next_chapter_block_idx: 2407
+  - num: 5
+    title: "Communications Link Analysis"
+    page_start: 312
+    page_end: 390
+    chapter_title_block_idx: 2407
+    problems_block_idx: 2896
+    next_chapter_block_idx: 2951
+  - num: 6
+    title: "Channel Coding: Part 1: Waveform Codes and Block Codes"
+    page_start: 391
+    page_end: 468
+    chapter_title_block_idx: 2951
+    problems_block_idx: 3648
+    next_chapter_block_idx: 3716
+  - num: 7
+    title: "Channel Coding: Part 2: Convolutional Codes and Reed–Solomon Codes"
+    page_start: 469
+    page_end: 569
+    chapter_title_block_idx: 3716
+    problems_block_idx: 4319
+    next_chapter_block_idx: 4381
+  - num: 8
+    title: "Channel Coding: Part 3: Turbo Codes and Low-Density Parity Check (LDPC) Codes"
+    page_start: 570
+    page_end: 655
+    chapter_title_block_idx: 4381
+    problems_block_idx: 5154
+    next_chapter_block_idx: 5205
+  - num: 9
+    title: "Modulation and Coding Trade-Offs"
+    page_start: 656
+    page_end: 730
+    chapter_title_block_idx: 5205
+    problems_block_idx: 5672
+    next_chapter_block_idx: 5720
+  - num: 10
+    title: "Synchronization"
+    page_start: 731
+    page_end: 786
+    chapter_title_block_idx: 5720
+    problems_block_idx: 6065
+    next_chapter_block_idx: 6122
+  - num: 11
+    title: "Multiplexing and Multiple Access"
+    page_start: 787
+    page_end: 861
+    chapter_title_block_idx: 6122
+    problems_block_idx: 6484
+    next_chapter_block_idx: 6517
+  - num: 12
+    title: "Spread-Spectrum Techniques"
+    page_start: 862
+    page_end: 943
+    chapter_title_block_idx: 6517
+    problems_block_idx: 7030
+    next_chapter_block_idx: 7069
+  - num: 13
+    title: "Source Coding"
+    page_start: 944
+    page_end: 1037
+    chapter_title_block_idx: 7069
+    problems_block_idx: 7690
+    next_chapter_block_idx: 7740
+  - num: 14
+    title: "Fading Channels"
+    page_start: 1038
+    page_end: 1098
+    chapter_title_block_idx: 7740
+    problems_block_idx: 8094
+    next_chapter_block_idx: 8160
+  - num: 15
+    title: "The ABCs of OFDM (Orthogonal Frequency-Division Multiplexing)"
+    page_start: 1099
+    page_end: 1145
+    chapter_title_block_idx: 8160
+    problems_block_idx: 8453
+    next_chapter_block_idx: 8484
+  - num: 16
+    title: "The Magic of MIMO (Multiple Input/Multiple Output)"
+    page_start: 1146
+    page_end: 1217
+    chapter_title_block_idx: 8484
+    problems_block_idx: 9006
+    next_chapter_block_idx: 11315
+  - num: 17
+    title: "Encryption and Decryption"
+    page_start: 1326
+    page_end: 1383
+    chapter_title_block_idx: 11315
+    problems_block_idx: 11794
+    next_chapter_block_idx: 11819
+
+# ── 附錄（index 之後的 back-matter）──
+appendices:
+  - id: A
+    title: "A Review of Fourier Techniques"
+    page_start: 1384
+    chapter_title_block_idx: 11819
+  - id: B
+    title: "Fundamentals of Statistical Decision Theory"
+    page_start: 1408
+    chapter_title_block_idx: 12058
+  - id: C
+    title: "Response of Correlators to White Noise"
+    page_start: 1423
+    chapter_title_block_idx: 12187
+  - id: D
+    title: "Often-Used Identities"
+    page_start: 1426
+    chapter_title_block_idx: 12213
+  - id: E
+    title: "s-Domain, z-Domain, and Digital Filtering"
+    page_start: 1428
+    chapter_title_block_idx: 12235
+  - id: F
+    title: "OFDM Symbol Formation with an N-Point Inverse Discrete Fourier Transform"
+    page_start: 1448
+    chapter_title_block_idx: 12429
+  - id: G
+    title: "List of Symbols"
+    page_start: 1452
+    chapter_title_block_idx: 12451
+
+# ── heading regex ──（N.M 編號型）
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Problems region 內題號格式 "N.M. ..." → capture N.M、首段==章 num
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+# Problems heading 後緊接 "Questions"（章末複習題）→ 提早結束，丟棄 Questions 後內容
+problems_end_re: '^Questions\s*$'
+# 解答附於 Example 段落（worked examples），非 Problems 區 → null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example ──
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

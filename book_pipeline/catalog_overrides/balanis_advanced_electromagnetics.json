@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "P13.29",
+      "classification": "source_mismatch",
+      "reason": "原書 Ch13 多媒體/程式說明段（程式 g. Aperture_GP）寫『...the monopole is replaced by an aperture, as shown in Figure P13-29.』引用一個原書不存在的習題圖。Problem 13.29 是純 Fresnel 積分截斷 Taylor 級數推導題、無附圖；有圖的習題從 P13-26 直接跳到 P13-32（P13-27～P13-31 全無圖）。屬原書本身的編號/排版錯誤，非 MinerU 漏抓、非 OCR 雜訊，無法 pdf_crop（圖根本不在任何頁）。",
+      "where": "ch13.json body[1004]",
+      "evidence": "raw PDF 全書搜尋『Figure P13-29』僅出現 1 次於物理頁 854（多媒體段），習題區 p858–870 不存在；該頁原文：'...based on UTD and Figure 13-31, where the monopole is replaced by an aperture, as shown in Figure P13-29.' Problem 13.29 原文（p862）為『By approximating the integrand of the Fresnel integral of (13-63c) with a truncated Taylor series ... derive the small argument approximation of (13-74a)』，無任何圖。"
+    }
+  ],
+  "overrides": []
+}

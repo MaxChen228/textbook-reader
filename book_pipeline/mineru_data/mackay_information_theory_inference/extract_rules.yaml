@@ -1,0 +1,433 @@
+# ── 書本 metadata ──
+slug: mackay_information_theory_inference
+title: "Information Theory, Inference, and Learning Algorithms"
+author: "David J. C. MacKay"
+edition: null
+subject: "Information Theory"
+publisher: "Cambridge University Press"
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+# MinerU 把 N.M section heading 全標成 text_level=2（320 個 section-like 全在 lvl2）。
+# 章標題塊則散落 lvl1/lvl2（由 chapter_title_block_idx 手動指定，不受此欄影響）。
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 14
+appendices_start_page: 609
+bibliography_start_page: 624
+index_start_page: 631
+
+# ── inline-problem 模式 ──
+# 全本 inline：習題以 'Exercise N.M.[難度] ...' 散落於各 section 中，
+# 全書無任何 'Problems'/'Exercises' heading。所有章 problems_block_idx=null。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Introduction to Information Theory"
+    page_start: 14
+    page_end: 32
+    chapter_title_block_idx: 253
+    problems_block_idx: null
+    next_chapter_block_idx: 564
+  - num: 2
+    title: "Probability, Entropy, and Inference"
+    page_start: 33
+    page_end: 57
+    chapter_title_block_idx: 564
+    problems_block_idx: null
+    next_chapter_block_idx: 1066
+  - num: 3
+    title: "More about Inference"
+    # anchor 落 'About Chapter 3' 前導頁(idx 1066)：該頁含 ch3 習題 Ex 3.1-3.4，置於主標題前。
+    page_start: 58
+    page_end: 76
+    chapter_title_block_idx: 1066
+    problems_block_idx: null
+    next_chapter_block_idx: 1357
+  - num: 4
+    title: "The Source Coding Theorem"
+    # anchor 落 'About Chapter 4' 前導頁(idx 1357)：含 ch4 習題 Ex 4.1。
+    page_start: 77
+    page_end: 101
+    chapter_title_block_idx: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 1733
+  - num: 5
+    title: "Symbol Codes"
+    page_start: 102
+    page_end: 120
+    chapter_title_block_idx: 1733
+    problems_block_idx: null
+    next_chapter_block_idx: 2054
+  - num: 6
+    title: "Stream Codes"
+    page_start: 121
+    page_end: 142
+    chapter_title_block_idx: 2054
+    problems_block_idx: null
+    next_chapter_block_idx: 2376
+  - num: 7
+    title: "Codes for Integers"
+    page_start: 143
+    page_end: 148
+    chapter_title_block_idx: 2376
+    problems_block_idx: null
+    next_chapter_block_idx: 2455
+  - num: 8
+    title: "Correlated Random Variables"
+    page_start: 149
+    page_end: 156
+    chapter_title_block_idx: 2455
+    problems_block_idx: null
+    next_chapter_block_idx: 2585
+  - num: 9
+    title: "Communication over a Noisy Channel"
+    page_start: 157
+    page_end: 172
+    chapter_title_block_idx: 2585
+    problems_block_idx: null
+    next_chapter_block_idx: 2854
+  - num: 10
+    title: "The Noisy-Channel Coding Theorem"
+    page_start: 173
+    page_end: 187
+    chapter_title_block_idx: 2854
+    problems_block_idx: null
+    next_chapter_block_idx: 3110
+  - num: 11
+    title: "Error-Correcting Codes and Real Channels"
+    page_start: 188
+    page_end: 203
+    chapter_title_block_idx: 3110
+    problems_block_idx: null
+    next_chapter_block_idx: 3376
+  - num: 12
+    title: "Hash Codes: Codes for Efficient Information Retrieval"
+    page_start: 204
+    page_end: 216
+    chapter_title_block_idx: 3376
+    problems_block_idx: null
+    next_chapter_block_idx: 3544
+  - num: 13
+    title: "Binary Codes"
+    page_start: 217
+    page_end: 239
+    chapter_title_block_idx: 3544
+    problems_block_idx: null
+    next_chapter_block_idx: 3946
+  - num: 14
+    title: "Very Good Linear Codes Exist"
+    page_start: 240
+    page_end: 243
+    chapter_title_block_idx: 3946
+    problems_block_idx: null
+    next_chapter_block_idx: 4006
+  - num: 15
+    title: "Further Exercises on Information Theory"
+    page_start: 244
+    page_end: 251
+    chapter_title_block_idx: 4006
+    problems_block_idx: null
+    next_chapter_block_idx: 4124
+  - num: 16
+    title: "Message Passing"
+    page_start: 252
+    page_end: 258
+    chapter_title_block_idx: 4124
+    problems_block_idx: null
+    next_chapter_block_idx: 4217
+  - num: 17
+    title: "Communication over Constrained Noiseless Channels"
+    page_start: 259
+    page_end: 270
+    chapter_title_block_idx: 4217
+    problems_block_idx: null
+    next_chapter_block_idx: 4431
+  - num: 18
+    title: "Crosswords and Codebreaking"
+    page_start: 271
+    page_end: 279
+    chapter_title_block_idx: 4431
+    problems_block_idx: null
+    next_chapter_block_idx: 4567
+  - num: 19
+    title: "Why have Sex? Information Acquisition and Evolution"
+    page_start: 280
+    page_end: 294
+    chapter_title_block_idx: 4567
+    problems_block_idx: null
+    next_chapter_block_idx: 4758
+  - num: 20
+    title: "An Example Inference Task: Clustering"
+    page_start: 295
+    page_end: 303
+    chapter_title_block_idx: 4758
+    problems_block_idx: null
+    next_chapter_block_idx: 4892
+  - num: 21
+    title: "Exact Inference by Complete Enumeration"
+    page_start: 304
+    page_end: 310
+    chapter_title_block_idx: 4892
+    problems_block_idx: null
+    next_chapter_block_idx: 4976
+  - num: 22
+    title: "Maximum Likelihood and Clustering"
+    page_start: 311
+    page_end: 321
+    chapter_title_block_idx: 4976
+    problems_block_idx: null
+    next_chapter_block_idx: 5177
+  - num: 23
+    title: "Useful Probability Distributions"
+    page_start: 322
+    page_end: 329
+    chapter_title_block_idx: 5177
+    problems_block_idx: null
+    next_chapter_block_idx: 5335
+  - num: 24
+    title: "Exact Marginalization"
+    page_start: 330
+    page_end: 334
+    chapter_title_block_idx: 5335
+    problems_block_idx: null
+    next_chapter_block_idx: 5411
+  - num: 25
+    title: "Exact Marginalization in Trellises"
+    page_start: 335
+    page_end: 344
+    chapter_title_block_idx: 5411
+    problems_block_idx: null
+    next_chapter_block_idx: 5568
+  - num: 26
+    title: "Exact Marginalization in Graphs"
+    page_start: 345
+    page_end: 351
+    chapter_title_block_idx: 5568
+    problems_block_idx: null
+    next_chapter_block_idx: 5695
+  - num: 27
+    title: "Laplace's Method"
+    page_start: 352
+    page_end: 353
+    chapter_title_block_idx: 5695
+    problems_block_idx: null
+    next_chapter_block_idx: 5743
+  - num: 28
+    title: "Model Comparison and Occam's Razor"
+    page_start: 354
+    page_end: 367
+    chapter_title_block_idx: 5743
+    problems_block_idx: null
+    next_chapter_block_idx: 5924
+  - num: 29
+    title: "Monte Carlo Methods"
+    page_start: 368
+    page_end: 397
+    chapter_title_block_idx: 5924
+    problems_block_idx: null
+    next_chapter_block_idx: 6370
+  - num: 30
+    title: "Efficient Monte Carlo Methods"
+    page_start: 398
+    page_end: 410
+    chapter_title_block_idx: 6370
+    problems_block_idx: null
+    next_chapter_block_idx: 6532
+  - num: 31
+    title: "Ising Models"
+    page_start: 411
+    page_end: 423
+    chapter_title_block_idx: 6532
+    problems_block_idx: null
+    next_chapter_block_idx: 6713
+  - num: 32
+    title: "Exact Monte Carlo Sampling"
+    page_start: 424
+    page_end: 432
+    chapter_title_block_idx: 6713
+    problems_block_idx: null
+    next_chapter_block_idx: 6792
+  - num: 33
+    title: "Variational Methods"
+    page_start: 433
+    page_end: 447
+    chapter_title_block_idx: 6792
+    problems_block_idx: null
+    next_chapter_block_idx: 7060
+  - num: 34
+    title: "Independent Component Analysis and Latent Variable Modelling"
+    page_start: 448
+    page_end: 455
+    chapter_title_block_idx: 7060
+    problems_block_idx: null
+    next_chapter_block_idx: 7202
+  - num: 35
+    title: "Random Inference Topics"
+    page_start: 456
+    page_end: 461
+    chapter_title_block_idx: 7202
+    problems_block_idx: null
+    next_chapter_block_idx: 7298
+  - num: 36
+    title: "Decision Theory"
+    page_start: 462
+    page_end: 467
+    chapter_title_block_idx: 7298
+    problems_block_idx: null
+    next_chapter_block_idx: 7407
+  - num: 37
+    title: "Bayesian Inference and Sampling Theory"
+    page_start: 468
+    page_end: 478
+    chapter_title_block_idx: 7407
+    problems_block_idx: null
+    next_chapter_block_idx: 7571
+  - num: 38
+    title: "Introduction to Neural Networks"
+    page_start: 479
+    page_end: 481
+    chapter_title_block_idx: 7571
+    problems_block_idx: null
+    next_chapter_block_idx: 7608
+  - num: 39
+    title: "The Single Neuron as a Classifier"
+    page_start: 482
+    page_end: 492
+    chapter_title_block_idx: 7608
+    problems_block_idx: null
+    next_chapter_block_idx: 7776
+  - num: 40
+    title: "Capacity of a Single Neuron"
+    # anchor 落 'Problems to look at before Chapter 40' 前導頁(idx 7776)：含 ch40 習題 Ex 40.1-40.3。
+    page_start: 493
+    page_end: 502
+    chapter_title_block_idx: 7776
+    problems_block_idx: null
+    next_chapter_block_idx: 7902
+  - num: 41
+    title: "Learning as Inference"
+    page_start: 503
+    page_end: 515
+    chapter_title_block_idx: 7902
+    problems_block_idx: null
+    next_chapter_block_idx: 8063
+  - num: 42
+    title: "Hopfield Networks"
+    page_start: 516
+    page_end: 532
+    chapter_title_block_idx: 8063
+    problems_block_idx: null
+    next_chapter_block_idx: 8353
+  - num: 43
+    title: "Boltzmann Machines"
+    page_start: 533
+    page_end: 537
+    chapter_title_block_idx: 8353
+    problems_block_idx: null
+    next_chapter_block_idx: 8435
+  - num: 44
+    title: "Supervised Learning in Multilayer Networks"
+    page_start: 538
+    page_end: 545
+    chapter_title_block_idx: 8435
+    problems_block_idx: null
+    next_chapter_block_idx: 8555
+  - num: 45
+    title: "Gaussian Processes"
+    page_start: 546
+    page_end: 559
+    chapter_title_block_idx: 8555
+    problems_block_idx: null
+    next_chapter_block_idx: 8784
+  - num: 46
+    title: "Deconvolution"
+    page_start: 560
+    page_end: 567
+    chapter_title_block_idx: 8784
+    problems_block_idx: null
+    next_chapter_block_idx: 8870
+  - num: 47
+    title: "Low-Density Parity-Check Codes"
+    page_start: 568
+    page_end: 584
+    chapter_title_block_idx: 8870
+    problems_block_idx: null
+    next_chapter_block_idx: 9124
+  - num: 48
+    title: "Convolutional Codes and Turbo Codes"
+    page_start: 585
+    page_end: 592
+    chapter_title_block_idx: 9124
+    problems_block_idx: null
+    next_chapter_block_idx: 9212
+  - num: 49
+    title: "Repeat-Accumulate Codes"
+    page_start: 593
+    page_end: 598
+    chapter_title_block_idx: 9212
+    problems_block_idx: null
+    next_chapter_block_idx: 9304
+  - num: 50
+    title: "Digital Fountain Codes"
+    # anchor 落 'About Chapter 50' 前導頁(idx 9304)：含 ch50 習題 Ex 50.1。
+    page_start: 599
+    page_end: 608
+    chapter_title_block_idx: 9304
+    problems_block_idx: null
+    next_chapter_block_idx: 9421
+
+# ── 附錄 ── A Notation / B Some Physics / C Some Mathematics（D 不存在於本 OCR，Bib 直接接 C）
+appendices:
+  - id: A
+    title: "Notation"
+    page_start: 609
+    chapter_title_block_idx: 9421
+  - id: B
+    title: "Some Physics"
+    page_start: 612
+    chapter_title_block_idx: 9474
+  - id: C
+    title: "Some Mathematics"
+    page_start: 616
+    chapter_title_block_idx: 9537
+
+# ── heading regex ──
+# section：'N.M Title'（lvl2，297 個）。subsection：非編號 Title Case 標題（lvl2，356 個，
+# 如 'Repetition codes'/'The physical solution'）。subsection_re 用 (?!\d) 排除編號 section，
+# heading_priority 先試 subsection 不會誤吞 section（實測 overlap=0）。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(?!\d)()([A-Z][^\n]{1,75})$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ── 'Exercise N.M.[難度] ...'，部分前綴帶 margin glyph '. '（OCR 把 ▷ 轉成 '. '）。
+# MinerU 常把帶上標難度標記的題號渲染成 LaTeX 空格化數學：'Exercise $2 . 2 . ^{[1]}$'、
+# 多位數拆 digit 'Exercise $2 . 1 4 .'（=2.14）。故 capture 容忍 $、digit 間與點周圍空格、
+# 多 digit token（parser 會 strip 空格正規化成 '2.14'）。恰 1 capture group（N.M 章節題號）。
+# 題號首段=章號 → must_match true；無 namespace reset（每章 N.M 單調遞增）。
+problem_start_re: '^[^A-Za-z]{0,4}Exercise\s+\$?\s*(\d+(?:\s+\d+)*\s*\.\s*\d+(?:\s+\d+)*)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ── tag 為 'N.M' 形式（1298 個）+ 附錄 'A.1' 等；strip dollar（MinerU v4 $$...$$）。
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?[0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題）── 'Example N.M.' 散落內文（如 'Example 1.1. A bent coin...'），
+# 同 Exercise 容忍 LaTeX 空格化數字。恰 1 capture group。
+example_start_re: '^[^A-Za-z]{0,4}Example\s+\$?\s*(\d+(?:\s+\d+)*\s*\.\s*\d+(?:\s+\d+)*)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ── 問題區零空洞（13 個空 list 全在 Bibliography 區、非習題）→ []
+known_missing_problems: []

@@ -1,0 +1,110 @@
+slug: huth_ryan_logic_cs
+title: Logic in Computer Science
+author: Michael Huth; Mark Ryan
+edition: 2nd
+subject: Mathematical Logic
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 16
+appendices_start_page: 429    # 無附錄 → Bibliography 起點（idx 5018, page 429）
+bibliography_start_page: 429
+index_start_page: 433
+
+# ── problem 模式 ──
+# 二分模式 + per-section namespace。每章末有單一 "N.x Exercises" section（problems_block_idx），
+# 其下分多個 "Exercises N.M" 子集，各子集題號從 1. 重新編號（純流水）。pbi 把章末 Exercises 區
+# 與 body 散文切開（body 的證明 case-analysis "1. 2. 3." 不再被誤當題目），namespace_by_section
+# 把各子集 id 串到題號前（'Exercises1.1.1'）避免跨子集撞號。
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Propositional logic
+    page_start: 16
+    page_end: 107
+    chapter_title_block_idx: 196
+    problems_block_idx: 962      # "1.7 Exercises"
+    next_chapter_block_idx: 1271
+  - num: 2
+    title: Predicate logic
+    page_start: 108
+    page_end: 186
+    chapter_title_block_idx: 1271
+    problems_block_idx: 1953     # "2.8 Exercises"
+    next_chapter_block_idx: 2249
+  - num: 3
+    title: Verification by model checking
+    page_start: 187
+    page_end: 270
+    chapter_title_block_idx: 2249
+    problems_block_idx: 2957     # "3.8 Exercises"
+    next_chapter_block_idx: 3114
+  - num: 4
+    title: Program verification
+    page_start: 271
+    page_end: 320
+    chapter_title_block_idx: 3114
+    problems_block_idx: 3624     # "4.6 Exercises"
+    next_chapter_block_idx: 3742
+  - num: 5
+    title: Modal logics and agents
+    page_start: 321
+    page_end: 372
+    chapter_title_block_idx: 3742
+    problems_block_idx: 4231     # "5.6 Exercises"
+    next_chapter_block_idx: 4380
+  - num: 6
+    title: Binary decision diagrams
+    page_start: 373
+    page_end: 428
+    chapter_title_block_idx: 4380
+    problems_block_idx: 4780     # "6.5 Exercises"
+    next_chapter_block_idx: 5018
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+# 主體 section = N.M Title、subsection = N.M.K Title（皆 lvl-2）。
+# "Exercises N.M" 練習子集 heading 併入 subsection_re（最深 namespace 層），其 id 唯一 →
+# split_problems 在每個 "Exercises N.M" 處記 current_section_id + 重置題號基準，
+# namespace_by_section 串成 'Exercises N.M.題號' 避免跨子集撞號。
+section_re: '^(\d+\.\d+)(?=[\s ]+\S)\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)|(?:Exercises?\s+\d+\.\d+))\s*(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+# Exercises 子集內題號 = 純流水 "1. 2. ..."，每子集 reset → namespace_by_section。
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

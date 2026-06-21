@@ -1,0 +1,42 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "haykin-fig-6.11-blank-stray-caption-1",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[176]",
+      "field": "md",
+      "old": "Illustrating the partitioning of the dynamic range",
+      "new": "",
+      "reason": "MinerU 把 Figure 6.11 圖說切成兩段散文(body[176]+[177])卻漏抓圖塊。清空此段,改由下方插入的 fig-6.11 block.caption 承載,避免重複顯示。"
+    },
+    {
+      "id": "haykin-fig-6.11-blank-stray-caption-2",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[177]",
+      "field": "md",
+      "old": "$- A \\leq m \\leq A$ of a message signal m(t) into a set of L cells.",
+      "new": "",
+      "reason": "同上:Figure 6.11 圖說第二段散文,清空併入 fig block caption。"
+    },
+    {
+      "id": "haykin-fig-6.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[176]",
+      "position": "before",
+      "page": 302,
+      "clip": [0.47, 0.845, 0.995, 0.95],
+      "zoom": 3.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.11",
+        "kind": "line",
+        "caption": "Figure 6.11 Illustrating the partitioning of the dynamic range $-A \\leq m \\leq A$ of a message signal $m(t)$ into a set of $L$ cells."
+      },
+      "reason": "C4: 正文 body[171] 寫 'as depicted in Figure 6.11',但 catalog 從 fig-6.10 直跳 fig-6.12 缺 fig-6.11。raw PDF 實體頁 302(page_idx 301)底部確有此數線分割圖(m_1=-A … m_{L+1}=+A,跨距 2A),MinerU 整塊漏抓 = 情境(B)。從原頁裁出插入。clip=右下數線圖(已目視驗證框完整含留白)。"
+    }
+  ]
+}

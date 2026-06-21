@@ -1,0 +1,293 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "lathi-fig-1.6-id",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[64]",
+      "expect": { "id": "fig-ch01-64" },
+      "set": {
+        "id": "fig-1.6",
+        "caption": "Figure 1.6 Modulation: (a) carrier; (b) modulating (baseband) signal; (c) amplitude-modulated wave; (d) frequency-modulated wave.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Fig 1.6 (modulation, 4 panels a-d) 的 (a) panel block 為 fallback id 未進 catalog；caption 無 label 故改 id 即覆蓋 ref 1.6（raw PDF 物理頁 35 確認）"
+    },
+    {
+      "id": "lathi-fig-4.7-caption",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[101]",
+      "field": "caption",
+      "old": "Figure 4.7a",
+      "new": "Figure 4.7",
+      "reason": "caption 'Figure 4.7a' 使 build_catalogs 抽出 4.7a（caption 優先於 id）；正文 ref 為 Figure 4.7（無 panel 字母），去掉 OCR 尾 'a' 後 catalog num=4.7 覆蓋 ref"
+    },
+    {
+      "id": "lathi-fig-4.41-caption",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[553]",
+      "field": "caption",
+      "old": "Figure 4.4 1 Frequency",
+      "new": "Figure 4.41 Frequency",
+      "reason": "OCR 把 'Figure 4.41' 拆成 'Figure 4.4 1'，caption label 抽成 4.4；修正空格後 num=4.41 覆蓋 ref"
+    },
+    {
+      "id": "lathi-fig-5.14-id",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[433]",
+      "expect": { "id": "fig-ch05-433" },
+      "set": { "id": "fig-5.14", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fi ure 5. 1 4 Effect of interference...' OCR 破壞 label；fallback id 未進 catalog，改 semantic id 覆蓋 ref 5.14"
+    },
+    {
+      "id": "lathi-fig-5.16-id",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[445]",
+      "expect": { "id": "fig-ch05-445" },
+      "set": { "id": "fig-5.16", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fi ure 5. 1 6 (a) Preemphasis filter...' OCR 破壞 label；改 semantic id 覆蓋 ref 5.16"
+    },
+    {
+      "id": "lathi-fig-5.17-id",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[474]",
+      "expect": { "id": "fig-ch05-474" },
+      "set": { "id": "fig-5.17", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Figure 5. 1 7 Superheterodyne receiver.' 數字間空格使 label 抽不出；改 semantic id 覆蓋 ref 5.17"
+    },
+    {
+      "id": "lathi-fig-6.1-id",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[6]",
+      "expect": { "id": "fig-ch06-6" },
+      "set": { "id": "fig-6.1", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Figure 6. 1 Sampled signal...' 空格破壞 label；改 semantic id 覆蓋 ref 6.1（並經 parent 覆蓋 6.1e）"
+    },
+    {
+      "id": "lathi-fig-6.10-id",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[139]",
+      "expect": { "id": "fig-ch06-139" },
+      "set": { "id": "fig-6.10", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Figure 6. 1 0 Illustration of practical sampling' 空格破壞 label；改 semantic id 覆蓋 ref 6.10"
+    },
+    {
+      "id": "lathi-fig-6.18-id",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[261]",
+      "expect": { "id": "fig-ch06-261" },
+      "set": { "id": "fig-6.18", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fi ure 6. 1 8 Ratio of signal to quantization...' OCR 破壞 label；改 semantic id 覆蓋 ref 6.18"
+    },
+    {
+      "id": "lathi-fig-6.30-id",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[414]",
+      "expect": { "id": "fig-ch06-414" },
+      "set": { "id": "fig-6.30", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Fi ure 6.30 Delta modulation...' OCR 'Fi ure' 破壞 Figure 關鍵字；改 semantic id 覆蓋 ref 6.30"
+    },
+    {
+      "id": "lathi-fig-6.41-caption",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[551]",
+      "field": "caption",
+      "old": "Figure 6.4 1 Reconstructed",
+      "new": "Figure 6.41 Reconstructed",
+      "reason": "OCR 把 'Figure 6.41' 拆成 'Figure 6.4 1'，label 抽成 6.4；修正空格後 num=6.41 覆蓋 ref"
+    },
+    {
+      "id": "lathi-fig-7.2-id",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[7]",
+      "expect": { "id": "fig-7.2a" },
+      "set": { "id": "fig-7.2", "catalog_repair_source": "agent-id-fix" },
+      "reason": "caption 'Fi ure 7.2 gLine code examples (a)-(e)' OCR 'Fi ure' 無 label；id fig-7.2a→fig-7.2 使 num=7.2 覆蓋 ref 7.2 及子圖 7.2b/c/d/e（parent）"
+    },
+    {
+      "id": "lathi-fig-14.10-id",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[369]",
+      "expect": { "id": "fig-ch14-369" },
+      "set": { "id": "fig-14.10", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Figure 1 4. 1 0 Continued' 空格破壞 label；改 semantic id 使 num=14.10 覆蓋 ref 14.10 及 14.10a/14.10b（parent）"
+    },
+    {
+      "id": "lathi-fig-P3.3.2-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.3-2:body[4]",
+      "expect": { "id": "fig-P3.3.2c" },
+      "set": { "id": "fig-P3.3.2", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.3.3-2 的 (a) panel id 為 fig-P3.3.2c；改 parent fig-P3.3.2 使 num=P3.3.2 覆蓋 ref P3.3.2b/P3.3.2d（parent）"
+    },
+    {
+      "id": "lathi-fig-P3.6.2-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.6-2:body[3]",
+      "expect": { "id": "fig-3.3" },
+      "set": { "id": "fig-P3.6.2", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.3.6-2 被誤標 id fig-3.3（與正文 fig-3.3 衝突）；改 fig-P3.6.2 覆蓋 ref P3.6.2"
+    },
+    {
+      "id": "lathi-fig-P4.2.6-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.2-6:body[5]",
+      "expect": { "id": "fig-2.20a" },
+      "set": { "id": "fig-P4.2.6", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.4.2-6 被誤標 id fig-2.20a；改 fig-P4.2.6 配合下方正文 ref 修復覆蓋 P4.2-6"
+    },
+    {
+      "id": "lathi-ref-P4.2.6-textfix",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.2-6:body[0]",
+      "field": "md",
+      "old": "P4.2- $^ { 6 , }$",
+      "new": "P4.2-6,",
+      "reason": "OCR 把 'P4.2-6,' 變成 'P4.2- $^{6,}$' 上標，FIG_REF_RE 只抽到 'P4.2'；修正後 ref=P4.2.6 由 fig-P4.2.6 覆蓋"
+    },
+    {
+      "id": "lathi-fig-P4.2.8-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.2-9:body[3]",
+      "expect": { "id": "fig-P4.2.9" },
+      "set": { "id": "fig-P4.2.8", "catalog_repair_source": "agent-id-fix" },
+      "reason": "caption 'Figure P.4.2-8' 卻被誤標 id fig-P4.2.9（錯位一格）；改 fig-P4.2.8 覆蓋 ref P4.2.8"
+    },
+    {
+      "id": "lathi-fig-P4.2.9-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.2-9:body[5]",
+      "expect": { "id": "fig-ch04-prob8-5" },
+      "set": { "id": "fig-P4.2.9", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "真正的 Figure P.4.2-9 在此 block（fallback id 未進 catalog）；前一條把錯標的 fig-P4.2.9 正名為 fig-P4.2.8 後需在此補回 P4.2.9 覆蓋 ref"
+    },
+    {
+      "id": "lathi-fig-P4.5.1-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.5-1:body[1]",
+      "expect": { "id": "fig-4.21" },
+      "set": { "id": "fig-P4.5.1", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.4.5-1 被誤標 id fig-4.21（與正文 Figure 4.21 衝突）；改 fig-P4.5.1 配合正文 ref 修復覆蓋 P4.5-1"
+    },
+    {
+      "id": "lathi-ref-P4.5.1-textfix",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.5-1:body[0]",
+      "field": "md",
+      "old": "P4.5- 1 .",
+      "new": "P4.5-1 .",
+      "reason": "OCR 在 'P4.5-1' 的 dash 後插空格使 FIG_REF_RE 只抽到 'P4.5'；修正後 ref=P4.5.1 由 fig-P4.5.1 覆蓋"
+    },
+    {
+      "id": "lathi-fig-P8.6.1-id",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.6-1:body[2]",
+      "expect": { "id": "fig-P8.6.1b" },
+      "set": { "id": "fig-P8.6.1", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.8.6-1 的 panel id 為 fig-P8.6.1b；改 parent fig-P8.6.1 使 num=P8.6.1 覆蓋 ref P8.6.1a（parent）"
+    },
+    {
+      "id": "lathi-fig-P9.4.1-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.4-1:body[3]",
+      "expect": { "id": "fig-P9.4.1c" },
+      "set": { "id": "fig-P9.4.1", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.9.4-1 的 (a) panel id 為 fig-P9.4.1c；改 parent fig-P9.4.1 使 num=P9.4.1 覆蓋 ref P9.4.1a/P9.4.1b（parent）"
+    },
+    {
+      "id": "lathi-fig-P9.4.3-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.4-3:body[6]",
+      "expect": { "id": "fig-ch09-prob24-6" },
+      "set": { "id": "fig-P9.4.3", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'Figure P.9.4-3' 為 fallback id 未進 catalog；改 semantic id 覆蓋 ref P9.4.3"
+    },
+    {
+      "id": "lathi-fig-P9.8.3-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.8-3:body[1]",
+      "expect": { "id": "fig-P9.8.3a" },
+      "set": { "id": "fig-P9.8.3", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure P.9.8-3 的 (a) panel id 為 fig-P9.8.3a；改 parent fig-P9.8.3 使 num=P9.8.3 覆蓋 ref P9.8.3b（parent，同時 P9.8.3a 仍由 parent 覆蓋）"
+    },
+    {
+      "id": "lathi-tbl-3.1-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[174]",
+      "expect": { "id": "tbl-ch03-174" },
+      "set": { "id": "tbl-3.1", "catalog_repair_source": "agent-id-fix" },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "caption 'TABLE 3. 1 Short Table of Fourier Transforms' 空格破壞 label，fallback id 未進 catalog；改 semantic id 覆蓋 ref Table 3.1"
+    },
+    {
+      "id": "lathi-fig-1.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[35]",
+      "position": "after",
+      "page": 31,
+      "clip": [0.19, 0.075, 0.765, 0.515],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-1.5",
+        "kind": "line",
+        "caption": "Figure 1.5 Example of PCM encoding."
+      },
+      "reason": "Figure 1.5（PCM encoding 含波形繪圖）被 MinerU 誤抓成純 HTML table（body[35] tbl-1.1，丟失 waveform 欄）；raw PDF 物理頁 31 確有此圖，pdf_crop 插入帶 fig-1.5 的圖塊覆蓋 ref 1.5"
+    },
+    {
+      "id": "lathi-fig-6.39-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[536]",
+      "position": "after",
+      "page": 334,
+      "clip": [0.085, 0.055, 0.90, 0.49],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.39",
+        "kind": "line",
+        "caption": "Figure 6.39 The relationship between the original signal and the ideal uniformly sampled signal in the time (a) and frequency (b, c) domains."
+      },
+      "reason": "Figure 6.39（MATLAB 三聯圖）被 MinerU 漏抓，body[536] 只剩孤兒 caption 'Fi ure 6.39'；raw PDF 物理頁 334 確有此圖，pdf_crop 插入 fig-6.39 覆蓋 ref 6.39"
+    }
+  ]
+}

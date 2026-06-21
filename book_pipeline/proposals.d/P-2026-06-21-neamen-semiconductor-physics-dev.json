@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-21-neamen-semiconductor-physics-dev",
+  "domain": "crawl",
+  "type": "edition-mismatch",
+  "status": "proposed",
+  "title": "neamen_semiconductor_physics_devices 母書連 3rd 但 pref+sol 皆 4th",
+  "detect": [],
+  "source": "restock",
+  "resolution": "",
+  "created": "2026-06-21T07:08:21+00:00",
+  "updated": "2026-06-21T07:08:21+00:00",
+  "evidence": "母書 editions 現 version=3rd(2003) matches_pref=False；但 edition_pref=4th，且其解答本 neamen_semiconductor_physics_devices_sol 經多源查證為 4th(2012, z-lib id21449597/17194580)。母書 status=pending（缺 4th 連結），z-lib 確有 4th 母書與 4th 解答本。sol 已落 --no-sol-aligned 暫擋 merge。",
+  "proposal": "母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。",
+  "risk": "母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。",
+  "disposition": ""
+}

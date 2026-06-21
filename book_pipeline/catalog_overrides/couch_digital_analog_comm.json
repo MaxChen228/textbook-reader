@@ -1,0 +1,45 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.9",
+      "classification": "source_mismatch",
+      "reason": "原書 Chapter 1 只有 Figure 1-1 ~ 1-8；被 ch5 modem 標準表引用的 'Fig. 1-9' 在原書不存在（懸空引用），無圖可裁、不可真修。",
+      "where": "ch05.json body[508] / body[509]（modem 標準表 'see Fig. 1-9, where n = 3 and m - k = 2'）",
+      "evidence": "目視 raw PDF：書頁27/PDF p.52 的 Figure 1-8 'Performance of digital systems—with and without coding' 是 ch1 最後一張編號圖；其後 Sec 1-11 'Coding' 的 Trellis-Coded Modulation 段（書頁28-29/PDF p.53-54）僅有正文 + Table 1-4，無任何 Figure 1-9 圖或 caption。MinerU 解析 ch1 亦只得 fig-1.1~1.8（之後僅 fig-ch01-197 unnumbered_body_fig 在範例區）。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "couch-fig-7.12-panel-a-relabel",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[311]",
+      "expect": { "id": "fig-7.14" },
+      "set": { "id": "fig-7.12", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure 7-12 (Demodulation of DPSK) 之 panel (a) 'A Suboptimum Demodulator Using an Integrate and Dump Filter'，MinerU 誤標 fig-7.14。校正為 fig-7.12 使 canonical==7.12，覆蓋 ch07 正文 'Fig. 7-12' ref。"
+    },
+    {
+      "id": "couch-fig-7.12-panel-b-relabel",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[312]",
+      "expect": { "id": "fig-7.14" },
+      "set": { "id": "fig-7.12", "catalog_repair_source": "agent-id-fix" },
+      "reason": "Figure 7-12 之 panel (b) 'An Optimum Demodulator Using a Bandpass Matched Filter'，caption 內含主標題 'Figure 7-12 Demodulation of DPSK'（OCR 成 'Fi ure'，故 build_catalogs 抽不出 label、退回 raw id）。MinerU 誤標 fig-7.14；校正為 fig-7.12。真正的 Figure 7-14（Comparison of probability of bit error）是 body[324]，不動。"
+    },
+    {
+      "id": "couch-tbl-8.6-relabel",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[388]",
+      "expect": { "id": "tbl-8.7" },
+      "set": {
+        "id": "tbl-8.6",
+        "caption": "TABLE 8–6 TYPICAL SPECIFICATIONS FOR A LIGHTWAVE SYSTEM",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Table 8-6 'TYPICAL SPECIFICATIONS FOR A LIGHTWAVE SYSTEM'，caption OCR 成 'TABLE 86'（漏連字號 → build_catalogs 抽不出 label、退回 raw id），MinerU 又誤標 tbl-8.7（與真正的 Table 8-7 body[389] 撞號）。校正 id+caption 為 8-6，覆蓋 ch08 正文 'Table 8-6' ref；真正的 Table 8-7（LINK BUDGET ANALYSIS）body[389] 不動。"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+# Tse & Viswanath — Fundamentals of Wireless Communication
+# Anchors derived from unified/content_list.json (text_level==1 chapter heads; TOC lvl2 noise ignored).
+
+slug: tse_viswanath_wireless
+title: Fundamentals of Wireless Communication
+author: David Tse; Pramod Viswanath
+edition: null
+subject: Digital Communications
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 518
+bibliography_start_page: 568
+index_start_page: 576
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 23
+    page_end: 31
+    chapter_title_block_idx: 373
+    problems_block_idx: null
+    next_chapter_block_idx: 431
+  - num: 2
+    title: The wireless channel
+    page_start: 32
+    page_end: 70
+    chapter_title_block_idx: 431
+    problems_block_idx: 791
+    next_chapter_block_idx: 879
+  - num: 3
+    title: "Point-to-point communication: detection, diversity, and channel uncertainty"
+    page_start: 71
+    page_end: 141
+    chapter_title_block_idx: 879
+    problems_block_idx: 1616
+    next_chapter_block_idx: 1727
+  - num: 4
+    title: "Cellular systems: multiple access and interference management"
+    page_start: 142
+    page_end: 187
+    chapter_title_block_idx: 1727
+    problems_block_idx: 2046
+    next_chapter_block_idx: 2173
+  - num: 5
+    title: Capacity of wireless channels
+    page_start: 188
+    page_end: 249
+    chapter_title_block_idx: 2173
+    problems_block_idx: 2768
+    next_chapter_block_idx: 2917
+  - num: 6
+    title: Multiuser capacity and opportunistic communication
+    page_start: 250
+    page_end: 311
+    chapter_title_block_idx: 2917
+    problems_block_idx: 3425
+    next_chapter_block_idx: 3584
+  - num: 7
+    title: "MIMO I: spatial multiplexing and channel modeling"
+    page_start: 312
+    page_end: 353
+    chapter_title_block_idx: 3584
+    problems_block_idx: 4035
+    next_chapter_block_idx: 4065
+  - num: 8
+    title: "MIMO II: capacity and multiplexing architectures"
+    page_start: 354
+    page_end: 404
+    chapter_title_block_idx: 4065
+    problems_block_idx: 4562
+    next_chapter_block_idx: 4696
+  - num: 9
+    title: "MIMO III: diversity-multiplexing tradeoff and universal space-time codes"
+    page_start: 405
+    page_end: 446
+    chapter_title_block_idx: 4696
+    problems_block_idx: 5100
+    next_chapter_block_idx: 5235
+  - num: 10
+    title: "MIMO IV: multiuser communication"
+    page_start: 447
+    page_end: 517
+    chapter_title_block_idx: 5235
+    problems_block_idx: 5869
+    next_chapter_block_idx: 6051
+
+appendices:
+  - id: A
+    title: Detection and estimation in additive Gaussian noise
+    page_start: 518
+    chapter_title_block_idx: 6051
+  - id: B
+    title: Information theory from first principles
+    page_start: 538
+    chapter_title_block_idx: 6356
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Exercise\s+([0-9A-Z]+\.\d+)\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
