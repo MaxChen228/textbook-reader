@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.4.4",
+      "classification": "source_missing_pages",
+      "reason": "源頭缺頁：raw PDF 物理頁 44、45（= 印刷書頁 24、25）整頁空白（content_bytes=0、0 圖 0 文字、rect 異常 1072x1443）。書頁序 23→(空白24)(空白25)→26，Example 1.4.1 的 (c) 小題直接接到書頁 26。Figure 1.4.4（與未被正文 demand 的 1.4.5）原書即落在這兩張缺頁上，catalog 因此自 fig-1.4.3 直跳 fig-1.4.6。圖根本不在本 PDF 任何頁，pdf_crop_insert 無從裁、別名/replace_text 皆不適用 → 源頭真缺，正當歸零。",
+      "where": "ch01.json body[272]",
+      "evidence": "正文 body[272]: 'The same result can be obtained using Fig. 1.4.4. Indeed, since Fs = 5 kHz, the folding frequency is Fs/2 = 2.5 kHz...'。查證 raw_pdfs/proakis_manolakis_dsp.pdf：doc[43].read_contents()==0 bytes 且 get_text()=='' 且 get_images()==[]（PDF 頁44=書頁24）；doc[44] 同樣全空（PDF 頁45=書頁25）；doc[42] 末為書頁23（Example 1.4.1 a/b + Table 1.1），doc[45] 首為書頁26（Example 1.4.1 c）。Figure 1.4.3 caption 在 doc[40]（書頁22-23 區），Figure 1.4.6 caption 在 doc[47]（書頁28），其間 Figure 1.4.4/1.4.5 應在缺失的書頁24-25。"
+    }
+  ],
+  "overrides": []
+}
