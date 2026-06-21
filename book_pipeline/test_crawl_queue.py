@@ -11,6 +11,27 @@ import tempfile
 from book_pipeline import pipeline_tick as pt
 from book_pipeline import pipeline_queue as q
 
+# 這些測試直接改共享模組全域（非 monkeypatch fixture）——teardown 還原，避免污染其他測試檔（pytest 同
+# process）。最關鍵是 booklists.select_next：被換成回傳假 'a'/'b' 的 stub，若不還原會讓後續任何呼叫真
+# select_next 的測試（如 test_restock_workflow）拿到假資料而誤判。
+_ORIG = {
+    'select_next': pt.booklists.select_next,
+    'log': pt.log,
+    'set_touched': pt.hist.set_touched,
+    '_crawl_backlog': pt._crawl_backlog,
+    '_zlib_accounts_remaining': pt._zlib_accounts_remaining,
+    '_fetch_book': pt._fetch_book,
+}
+
+
+def teardown_function(function):
+    pt.booklists.select_next = _ORIG['select_next']
+    pt.log = _ORIG['log']
+    pt.hist.set_touched = _ORIG['set_touched']
+    pt._crawl_backlog = _ORIG['_crawl_backlog']
+    pt._zlib_accounts_remaining = _ORIG['_zlib_accounts_remaining']
+    pt._fetch_book = _ORIG['_fetch_book']
+
 
 def _setup():
     d = tempfile.mkdtemp(prefix='crawlq_')

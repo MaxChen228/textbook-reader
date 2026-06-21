@@ -118,10 +118,9 @@ def test_exact_match_rejects_ambiguous_dup():
     print('✓ exact_match：同名多筆歧義 → 交 agent')
 
 
-# ── commit 守門 ────────────────────────────────────────────────────────────
+# ── commit 守門（合格存在：純連結 found/not_found）─────────────────────────────
 _COMMIT_BASE = dict(id=None, hash=None, title=None, author=None, mb=None,
-                    absent=False, review=False, force=False, note=None,
-                    status=None, recheck_after=None)
+                    absent=False, force=False, note=None, status=None, by='restock')
 
 
 def test_commit_rejects_ghost():
@@ -142,19 +141,41 @@ def test_commit_rejects_conflicting_modes():
     print('✓ cmd_commit：--absent + --id 衝突 → 拒絕（不靜默）')
 
 
-def test_commit_status_conflicts_and_validation():
-    """新 --status 語彙守門（不寫盤）：與 resolved 並用衝突、非法 status 值皆拒。"""
+def test_commit_status_validation():
+    """新二態 --status 守門（不寫盤）：與 found(--id+--hash) 並用衝突、非法 status（含舊 version_unavailable/
+    review）皆拒——確保舊六態語彙不再被靜默接受。"""
     from book_pipeline import booklists as bl
     real = next((t['slug'] for t in bl.targets()), None)
     if real is None:
         print('⚠ 無書單 target，跳過'); return
-    # --status 與 (--id+--hash) 並用 → 衝突（在寫盤/網路前 return 2）
     a = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'id': '1', 'hash': 'h', 'status': 'not_found'})
-    assert rs.cmd_commit(a) == 2
-    # 非法 status 值 → cmd_commit 防禦性拒（不靠 argparse choices）
-    a2 = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'status': 'bogus'})
-    assert rs.cmd_commit(a2) == 2
-    print('✓ cmd_commit：--status 與 resolved 並用衝突、非法 status 值皆拒（不寫盤）')
+    assert rs.cmd_commit(a) == 2            # found 與 status 並用 → 衝突
+    for bad in ('version_unavailable', 'review', 'bogus'):  # 舊六態值今須一律拒
+        a2 = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'status': bad})
+        assert rs.cmd_commit(a2) == 2, bad
+    print('✓ cmd_commit：found+status 衝突 + 舊六態值(version_unavailable/review)今一律拒（不寫盤）')
+
+
+def test_commit_found_and_not_found(monkeypatch, tmp_path):
+    """found（--id+--hash → status:found）/ not_found 正常落盤；隔離 resolution 檔 + 擋網路 enrich。"""
+    from book_pipeline import booklists as bl
+    real = next((t['slug'] for t in bl.targets() if t['kind'] == 'main'), None)
+    if real is None:
+        print('⚠ 無書單 target，跳過'); return
+    path = tmp_path / 'res.json'
+    monkeypatch.setattr(bl, 'RESOLUTION', str(path))
+    monkeypatch.setattr(rs, 'enrich_links', lambda *a, **k: {})       # 不打網路
+    monkeypatch.setattr(rs, 'resolution_qc', lambda *a, **k: {'advisory': [], 'block': []})  # 不打網路
+    # found：寫 status:'found'（非舊 'resolved'）
+    a = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'id': '42', 'hash': 'abc', 'title': 'T'})
+    assert rs.cmd_commit(a) == 0
+    e = bl.load_resolution()[real]
+    assert e['status'] == 'found' and e['id'] == '42' and e['by'] == 'restock'
+    # not_found
+    a2 = argparse.Namespace(slug=real, **{**_COMMIT_BASE, 'status': 'not_found', 'note': '真無'})
+    assert rs.cmd_commit(a2) == 0
+    assert bl.load_resolution()[real]['status'] == 'not_found'
+    print("✓ cmd_commit：found 寫 status:'found'（非 resolved）+ not_found 落盤")
 
 
 if __name__ == '__main__':
@@ -171,5 +192,6 @@ if __name__ == '__main__':
     test_exact_match_rejects_ambiguous_dup()
     test_commit_rejects_ghost()
     test_commit_rejects_conflicting_modes()
-    test_commit_status_conflicts_and_validation()
-    print('\n全部通過 ✅')
+    test_commit_status_validation()
+    import pytest
+    raise SystemExit(pytest.main([__file__, '-q']))
