@@ -1,0 +1,166 @@
+slug: khalil_nonlinear
+title: Nonlinear Systems
+author: Hassan K. Khalil
+edition: "3rd"
+subject: Control Systems
+publisher: Prentice Hall
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 662
+bibliography_start_page: 734
+index_start_page: 757
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 16
+    page_end: 49
+    chapter_title_block_idx: 126
+    chapter_title_block_idx_secondary: 127
+    problems_block_idx: 425
+    next_chapter_block_idx: 561
+  - num: 2
+    title: Second-Order Systems
+    page_start: 50
+    page_end: 101
+    chapter_title_block_idx: 561
+    chapter_title_block_idx_secondary: 562
+    problems_block_idx: 1068
+    next_chapter_block_idx: 1238
+  - num: 3
+    title: Fundamental Properties
+    page_start: 102
+    page_end: 125
+    chapter_title_block_idx: 1238
+    chapter_title_block_idx_secondary: 1239
+    problems_block_idx: 1513
+    next_chapter_block_idx: 1624
+  - num: 4
+    title: Lyapunov Stability
+    page_start: 126
+    page_end: 209
+    chapter_title_block_idx: 1624
+    chapter_title_block_idx_secondary: 1625
+    problems_block_idx: 2790
+    next_chapter_block_idx: 3075
+  - num: 5
+    title: Input-Output Stability
+    page_start: 210
+    page_end: 241
+    chapter_title_block_idx: 3075
+    chapter_title_block_idx_secondary: 3076
+    problems_block_idx: 3556
+    next_chapter_block_idx: 3659
+  - num: 6
+    title: Passivity
+    page_start: 242
+    page_end: 276
+    chapter_title_block_idx: 3659
+    chapter_title_block_idx_secondary: 3660
+    problems_block_idx: 4163
+    next_chapter_block_idx: 4243
+  - num: 7
+    title: Frequency Domain Analysis of Feedback Systems
+    page_start: 277
+    page_end: 317
+    chapter_title_block_idx: 4243
+    problems_block_idx: 4792
+    next_chapter_block_idx: 4876
+  - num: 8
+    title: Advanced Stability Analysis
+    page_start: 318
+    page_end: 353
+    chapter_title_block_idx: 4876
+    chapter_title_block_idx_secondary: 4877
+    problems_block_idx: 5384
+    next_chapter_block_idx: 5485
+  - num: 9
+    title: Stability of Perturbed Systems
+    page_start: 354
+    page_end: 395
+    chapter_title_block_idx: 5485
+    chapter_title_block_idx_secondary: 5486
+    problems_block_idx: 6060
+    next_chapter_block_idx: 6219
+  - num: 10
+    title: Perturbation Theory and Averaging
+    page_start: 396
+    page_end: 437
+    chapter_title_block_idx: 6219
+    chapter_title_block_idx_secondary: 6220
+    problems_block_idx: 6836
+    next_chapter_block_idx: 6922
+  - num: 11
+    title: Singular Perturbations
+    page_start: 438
+    page_end: 483
+    chapter_title_block_idx: 6922
+    chapter_title_block_idx_secondary: 6923
+    problems_block_idx: 7490
+    next_chapter_block_idx: 7647
+  - num: 12
+    title: Feedback Control
+    page_start: 484
+    page_end: 519
+    chapter_title_block_idx: 7647
+    chapter_title_block_idx_secondary: 7648
+    problems_block_idx: 8128
+    next_chapter_block_idx: 8209
+  - num: 13
+    title: Feedback Linearization
+    page_start: 520
+    page_end: 565
+    chapter_title_block_idx: 8209
+    chapter_title_block_idx_secondary: 8210
+    problems_block_idx: 8931
+    next_chapter_block_idx: 9027
+  - num: 14
+    title: Nonlinear Design Tools
+    page_start: 566
+    page_end: 661
+    chapter_title_block_idx: 9027
+    chapter_title_block_idx_secondary: 9028
+    problems_block_idx: 10264
+    next_chapter_block_idx: 10636
+
+appendices:
+  - id: A
+    title: Mathematical Review
+    page_start: 662
+    chapter_title_block_idx: 10636
+  - id: B
+    title: Contraction Mapping
+    page_start: 668
+    chapter_title_block_idx: 10735
+  - id: C
+    title: Proofs
+    page_start: 672
+    chapter_title_block_idx: 10785
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
