@@ -1,0 +1,42 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "P6.43",
+      "classification": "source_missing",
+      "reason": "Problem 6.43 引用 Fig. P6.43（四對磁耦合線圈圖）並註明「(See page 211.)」，但此 PDF 印刷頁 211（page_idx 234）只有習題文字、無此圖；ch6 習題圖到 P6.42 為止（page_idx 232-233），P6.43 圖在本掃描檔缺失。屬源頭缺，非配置可補。",
+      "where": "ch06.json problem 6.43 body[0]",
+      "evidence": "raw PDF: 'Figure P6.43' caption 全本不可抽取文字；'P6.43' 純文字僅出現於 page_idx 233 的習題敘述。鄰號圖 fig-P6.40/P6.41/P6.42 皆在 catalog。印刷頁碼=page_idx-23，故『page 211』=page_idx 234，渲染確認該頁只有習題 6.47-6.53 文字（drawings=2），page_idx 235 已是 Chapter 7 開頭。四對線圈圖不在印刷頁 209-213 任一頁。"
+    },
+    {
+      "type": "figure",
+      "ref": "P9.19",
+      "classification": "source_missing",
+      "reason": "Problem 9.19 引用 Fig. P9.19(a)(b)（串聯 R1-L1 ⇄ 並聯 R2-L2 等效圖），但此 PDF page_idx 370 只有 Figure P9.14 與 Figure P9.18 兩圖，無 P9.19 圖；catalog ch9 習題圖在 P9.18 與 P9.20 之間缺 P9.19。P9.18 與 P9.19 是互反問題、各有獨立圖，不可拿 P9.18 圖冒充。屬源頭缺。",
+      "where": "ch09.json problem 9.19 body[0]",
+      "evidence": "raw PDF page_idx 370：caption 文字僅 'Figure P9.14'(bbox 101,602) 與 'Figure P9.18'(bbox 371,565，已放大確認字樣為 P9.18)，向量繪圖叢集只對應這兩處；'P9.19' 純文字僅作習題敘述 ref。fig-P9.18(a)/(b) 對應 problem 9.18（catalog 已有 fig-P9.18、fig-P9.18--1）。fig-P9.20 起在 page_idx 371。P9.19 圖在本掃描檔缺失。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "nrec-appH-fig2.41-to-P2.41",
+      "action": "replace_text",
+      "chunk": "appH",
+      "selector": "body[29]",
+      "field": "md",
+      "old": "circuit in Fig. 2.41",
+      "new": "circuit in Fig. P2.41",
+      "reason": "appendix H（習題答案）對 problem 2.42 的答案以簡寫『Fig. 2.41』指 problem 2.41 的圖；目標圖實為 Figure P2.41（catalog 有 fig-P2.41，且 ch2 主文圖只到 2.28、不存在主文 2.41）。補回 P 前綴使 ref canonical 變 P2.41、命中既有圖，C4 消失且指向正解。"
+    },
+    {
+      "id": "nrec-ch02-fig2.7.8-misocr",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[77]",
+      "field": "md",
+      "old": "for an resistor is shown in Fig. 2.7.8 Æ",
+      "new": "for an 8 Æ resistor is shown in Fig. 2.7",
+      "reason": "raw PDF 原文為『The circuit diagram symbol for an [8 Ω] resistor is shown in Fig. 2.7.』，電阻值 8 Ω（OCR 成 8 Æ）為圖形、漂到句尾黏成『Fig. 2.7.8 Æ』；還原 8 Æ 至 resistor 前、ref 收尾於 2.7（catalog 有 fig-2.7）。C4 消失。"
+    }
+  ]
+}
