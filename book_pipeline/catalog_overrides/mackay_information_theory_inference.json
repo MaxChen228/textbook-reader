@@ -1,0 +1,33 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mackay-fig-2.4-cox-box-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[58]",
+      "position": "before",
+      "page": 38,
+      "clip": [0.678, 0.063, 0.928, 0.230],
+      "zoom": 3.0,
+      "image_id": "manual_fig_2_4_cox",
+      "block": {
+        "t": "fig",
+        "id": "fig-2.4",
+        "kind": "line",
+        "caption": "Figure 2.4. The Cox axioms. If a set of beliefs satisfy these axioms then they can be mapped onto probabilities satisfying P(false)=0, P(true)=1, 0<=P(x)<=1, and the rules of probability."
+      },
+      "reason": "C4: 正文 ch02 body[55] 提 '(figure 2.4)'，但該元素在書中是右上 margin 文字框 'Box 2.4. The Cox axioms'（page 38 物理頁，bbox~426,61,556,171/612x792）。MinerU 把框內容抽成散落正文(body 58-60)、未 emit 成 figure，故 catalog 無 fig-2.4。情境(B) raw PDF 有圖、MinerU 漏抓 → 裁此框補 fig-2.4。"
+    },
+    {
+      "id": "mackay-ref-4.10-table-to-figure",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[110]",
+      "field": "md",
+      "old": "Table 4.10 shows fifteen samples",
+      "new": "figure 4.10 shows fifteen samples",
+      "reason": "C5: 正文 ch04 body[110] 寫 'Table 4.10'，但該元素自身 caption 是 'Figure 4.10. The top 15 strings are samples from X^100'（page 90，已在 catalog 為 fig-4.10）。MacKay 圖表共用單一編號序列，4.10 唯一指此 figure；正文口語稱 table 與 float 標號不符。對齊到 float 自身標號 'figure 4.10' → 既有 fig-4.10 即覆蓋此 ref。"
+    }
+  ]
+}
