@@ -1,0 +1,182 @@
+slug: lin_costello_error_control_coding
+title: Error Control Coding
+author: Shu Lin; Daniel J. Costello
+edition: 1st
+subject: Information Theory
+publisher: Prentice-Hall
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 579
+bibliography_start_page: null
+index_start_page: 617
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Coding for Reliable Digital Transmission and Storage
+    page_start: 19
+    page_end: 32
+    chapter_title_block_idx: 222
+    problems_block_idx: null
+    next_chapter_block_idx: 349
+  - num: 2
+    title: Introduction to Algebra
+    page_start: 33
+    page_end: 68
+    chapter_title_block_idx: 349
+    problems_block_idx: 1008
+    next_chapter_block_idx: 1056
+  - num: 3
+    title: Linear Block Codes
+    page_start: 69
+    page_end: 102
+    chapter_title_block_idx: 1056
+    problems_block_idx: 1497
+    next_chapter_block_idx: 1556
+  - num: 4
+    title: Cyclic Codes
+    page_start: 103
+    page_end: 142
+    chapter_title_block_idx: 1556
+    problems_block_idx: 2002
+    next_chapter_block_idx: 2062
+  - num: 5
+    title: Error-Trapping Decoding for Cyclic Codes
+    page_start: 143
+    page_end: 158
+    chapter_title_block_idx: 2062
+    problems_block_idx: 2212
+    next_chapter_block_idx: 2236
+  - num: 6
+    title: BCH Codes
+    page_start: 159
+    page_end: 201
+    chapter_title_block_idx: 2236
+    problems_block_idx: 2755
+    next_chapter_block_idx: 2800
+  - num: 7
+    title: Majority-Logic Decoding for Cyclic Codes
+    page_start: 202
+    page_end: 240
+    chapter_title_block_idx: 2800
+    problems_block_idx: 3263
+    next_chapter_block_idx: 3320
+  - num: 8
+    title: Finite Geometry Codes
+    page_start: 241
+    page_end: 274
+    chapter_title_block_idx: 3320
+    problems_block_idx: 3824
+    next_chapter_block_idx: 3853
+  - num: 9
+    title: Burst-Error-Correcting Codes
+    page_start: 275
+    page_end: 304
+    chapter_title_block_idx: 3853
+    problems_block_idx: 4139
+    next_chapter_block_idx: 4161
+  - num: 10
+    title: Convolutional Codes
+    page_start: 305
+    page_end: 332
+    chapter_title_block_idx: 4161
+    problems_block_idx: 4560
+    next_chapter_block_idx: 4618
+  - num: 11
+    title: Maximum Likelihood Decoding and Viterbi Decoding of Convolutional Codes
+    page_start: 333
+    page_end: 367
+    chapter_title_block_idx: 4618
+    problems_block_idx: 4952
+    next_chapter_block_idx: 4982
+  - num: 12
+    title: Sequential Decoding of Convolutional Codes
+    page_start: 368
+    page_end: 405
+    chapter_title_block_idx: 4982
+    problems_block_idx: 5269
+    next_chapter_block_idx: 5339
+  - num: 13
+    title: Majority-Logic Decoding of Convolutional Codes
+    page_start: 406
+    page_end: 446
+    chapter_title_block_idx: 5339
+    problems_block_idx: 5760
+    next_chapter_block_idx: 5794
+  - num: 14
+    title: Burst-Error-Correcting Convolutional Codes
+    page_start: 447
+    page_end: 475
+    chapter_title_block_idx: 5794
+    problems_block_idx: 6070
+    next_chapter_block_idx: 6109
+  - num: 15
+    title: Automatic-Repeat-Request Strategies
+    page_start: 476
+    page_end: 515
+    chapter_title_block_idx: 6109
+    problems_block_idx: 6444
+    next_chapter_block_idx: 6471
+  - num: 16
+    title: Applications of Block Codes for Error Control in Data Storage Systems
+    page_start: 516
+    page_end: 550
+    chapter_title_block_idx: 6471
+    problems_block_idx: 6910
+    next_chapter_block_idx: 6919
+  - num: 17
+    title: Practical Applications of Convolutional Codes
+    page_start: 551
+    page_end: 578
+    chapter_title_block_idx: 6919
+    problems_block_idx: 7126
+    next_chapter_block_idx: 7162
+
+appendices:
+  - id: A
+    title: Tables of Galois Fields
+    page_start: 579
+    chapter_title_block_idx: 7162
+  - id: B
+    title: Minimal Polynomials of Elements in GF(2^m)
+    page_start: 597
+    chapter_title_block_idx: 7225
+  - id: C
+    title: Generator Polynomials of Binary Primitive BCH Codes
+    page_start: 601
+    chapter_title_block_idx: 7256
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
