@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "irwin-fix-ref-E13.18-typo",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[434]",
+      "field": "md",
+      "old": "in Fig. E3.18, the switch",
+      "new": "in Fig. E13.18, the switch",
+      "reason": "原書印刷 typo：習題 E13.18 正文寫 'Fig. E3.18'（漏 1），但同頁(raw PDF p582)圖即 'Figure E13.18'、catalog fig-E13.18 存在。修正 ref 指向真實存在的圖，C4 消失且 reader 交叉引用可點。非 MinerU OCR 誤判（raw PDF 文字層即為 E3.18）。"
+    }
+  ]
+}
