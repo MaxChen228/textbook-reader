@@ -586,9 +586,9 @@ def _math_recent_batches(n: int = 5) -> list:
 
 
 def booklist_progress() -> dict:
-    """書單 SoT 收錄進度（/dev 收錄表分母）：整體 + 各領域六態統計（owned/ready/version_unavailable/
-    review/unresolved/not_found，另含向後相容 absent 桶=not_found）。答『目標正典共幾本、收了幾 %、
-    各領域進度、還有多少待解析/待重查/無法收錄』。"""
+    """書目收錄進度（/dev 收錄表分母，合格存在五態）：整體 + 各領域 owned/qualified/pending/candidate/
+    rejected 統計（另含向後相容鍵 ready=qualified、unresolved=candidate、absent=rejected）。答『universe
+    （editions）共幾本、收了幾 %、各領域進度、還有多少待查連結/待驗證/合格待下載/無法收錄』。"""
     from book_pipeline import booklists
     return booklists.progress()
 

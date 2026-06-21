@@ -241,8 +241,8 @@ def bake_catalog() -> None:
     dump(OUT / 'catalog.json', cat)
     o = cat['overall']
     print(f"baked catalog.json：{o['owned']}/{o['total']} 收錄 · {o['main']} 主書 · "
-          f"ready {o['ready']} · unresolved {o['unresolved']} · 待重查 {o.get('version_unavailable', 0)} · "
-          f"無法收錄 {o['absent']}")
+          f"合格 {o.get('qualified', o['ready'])} · 待驗證 {o.get('pending', 0)} · "
+          f"待查連結 {o.get('candidate', o['unresolved'])} · 無法收錄 {o['absent']}")
 
 
 def main(argv: list[str]) -> None:

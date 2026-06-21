@@ -1322,23 +1322,25 @@
   function setHtml(id, html) { const el = document.getElementById(id); if (el && el.__h !== html) { el.__h = html; el.innerHTML = html } }
   function setText(id, txt) { const el = document.getElementById(id); if (el && el.textContent !== txt) el.textContent = txt }
 
-  // 書單欄（漏斗源頭）：待收 backlog = un-owned 可收（待解析+ready+待裁；不含 owned/無法收錄/待重查）。
-  // 資料 = status.json 的 d.booklists.overall（booklist_progress 六態 owned/ready/version_unavailable/
-  // review/unresolved/not_found，另含向後相容 absent=not_found）。version_unavailable=有書但無對應版次、
-  // 可重查（不算當前 backlog，過期 status_of 自動回 unresolved 才算）。
+  // 書單欄（漏斗源頭，合格存在五態）：backlog = un-owned 但「存在於 universe」的待處理書 = 待查連結
+  // (candidate 無 z-lib 連結) + 待驗證 (pending 有連結但版本/解答/夠格未全驗) + 合格待下載 (qualified 四維
+  // 全過、買書員待抓)。資料 = status.json 的 d.booklists.overall（progress 五態 owned/qualified/pending/
+  // candidate/rejected，另含向後相容鍵 ready=qualified/unresolved=candidate/absent=rejected）。沒 editions
+  // 的書（無連結）不在 universe → 不顯示（落實「沒連結＝不存在」）。
   function renderBooklist(d) {
     const o = (d.booklists && d.booklists.overall) || {}
-    if (!o.total) { setText('bl-cnt', '—'); setHtml('bl-body', '<div class="lane-empty dev-label">（無書單）</div>'); return }
-    const backlog = (o.unresolved || 0) + (o.ready || 0) + (o.review || 0)
+    if (!o.total) { setText('bl-cnt', '—'); setHtml('bl-body', '<div class="lane-empty dev-label">（無書目）</div>'); return }
+    const cand = o.candidate ?? o.unresolved ?? 0, pend = o.pending || 0
+    const qual = o.qualified ?? o.ready ?? 0, rej = o.rejected ?? o.absent ?? 0
+    const backlog = cand + pend + qual
     const pct = Math.round((o.owned || 0) / o.total * 100)
     setText('bl-cnt', String(backlog))
     setHtml('bl-body',
-      `<div class="blf-row"><span>待解析</span><b>${o.unresolved || 0}</b></div>`
-      + `<div class="blf-row"><span>ready 待下載</span><b>${o.ready || 0}</b></div>`
-      + (o.review ? `<div class="blf-row"><span>待裁</span><b>${o.review}</b></div>` : '')
-      + (o.version_unavailable ? `<div class="blf-row"><span>待重查(版次)</span><b>${o.version_unavailable}</b></div>` : '')
+      `<div class="blf-row"><span>待查連結</span><b>${cand}</b></div>`
+      + `<div class="blf-row"><span>待驗證(四維)</span><b>${pend}</b></div>`
+      + `<div class="blf-row"><span>合格待下載</span><b>${qual}</b></div>`
       + `<div class="blf-own">已收 ${o.owned || 0}/${o.total} · ${pct}%</div>`
-      + (o.absent ? `<div class="blf-abs">無法收錄 ${o.absent}</div>` : ''))
+      + (rej ? `<div class="blf-abs">無法收錄 ${rej}</div>` : ''))
   }
 
   // zlib 帳號停用/啟用：寫回 devcontrol sidecar（CF Access 已把關，header 由 nginx 轉發復驗）。
@@ -1432,10 +1434,9 @@
     const bl = d.booklists || {}, blo = bl.overall || {}
     const blPct = blo.total ? Math.round(blo.owned / blo.total * 100) : 0
     setText('bl-overall', blo.total
-      ? `(${blo.owned}/${blo.total} · ${blPct}% · ready ${blo.ready} · 待解析 ${blo.unresolved}`
-        + (blo.review ? ` · 待裁 ${blo.review}` : '')
-        + (blo.version_unavailable ? ` · 待重查 ${blo.version_unavailable}` : '')
-        + ` · 無法收錄 ${blo.absent})`
+      ? `(${blo.owned}/${blo.total} · ${blPct}% · 合格 ${blo.qualified ?? blo.ready ?? 0}`
+        + ` · 待驗證 ${blo.pending || 0} · 待查連結 ${blo.candidate ?? blo.unresolved ?? 0}`
+        + ` · 無法收錄 ${blo.rejected ?? blo.absent ?? 0})`
       : '')
     setHtml('booklists', Object.entries(bl.by_field || {}).map(([f, c]) => {
       const p = c.total ? Math.round(c.owned / c.total * 100) : 0

@@ -62,22 +62,28 @@ def test_four_dim_main_book_and_or(monkeypatch, tmp_path):
     _set('algo', label='3rd', matches_pref=True, confidence='high')  # 維③
     assert _state('algo') == bl.QUALIFIED                      # 四維全過（主書 ④N/A）
     # select_next 此時取得 algo（合格才下載）
-    picks = [p['slug'] for p in bl.select_next(5, [], set(), bl.load_resolution(), all_eds=ed.load_all())]
+    picks = [p['slug'] for p in bl.select_next(5, ed.load_all(), set(), bl.load_resolution())]
     assert picks == ['algo'], picks
     print('✓ 主書：CANDIDATE→PENDING→QUALIFIED（維②①③ AND）、select_next 只取合格')
 
 
 def test_four_dim_version_mismatch_stays_pending(monkeypatch, tmp_path):
-    """只有別版（--no-matches-pref）→ 維③不過 → 留 PENDING、不被 select_next 下載。"""
+    """只有別版（--no-matches-pref）→ 維③不過 → 留 PENDING、不被 select_next 下載；recheck cooldown 後回母體。"""
+    import datetime as dt
     _setup(monkeypatch, tmp_path)
     _commit_found('algo')
     _set('algo', eligible=True, label='2nd', matches_pref=False, confidence='high')
     assert _state('algo') == bl.PENDING
-    assert bl.select_next(5, [], set(), bl.load_resolution(), all_eds=ed.load_all()) == []  # 不下載別版
-    # pending_targets 把它列為存量回查母體
-    pend = [t['slug'] for t in bl.pending_targets([], set(), bl.load_resolution(), all_eds=ed.load_all())]
-    assert 'algo' in pend
-    print('✓ 別版：維③ no-matches-pref → PENDING、不下載、列入 pending 回查母體')
+    assert bl.select_next(5, ed.load_all(), set(), bl.load_resolution()) == []  # 不下載別版
+    # 剛親查（checked_at=now）→ resting、暫不在回查母體（防 busy-loop）
+    now0 = dt.datetime.now(dt.timezone.utc)
+    pend_now = [t['slug'] for t in bl.pending_targets(ed.load_all(), set(), bl.load_resolution(), now=now0)]
+    assert 'algo' not in pend_now, pend_now
+    # cooldown 窗到期 → 回母體重查
+    later = now0 + dt.timedelta(days=bl.RECHECK_COOLDOWN_DAYS + 1)
+    pend_later = [t['slug'] for t in bl.pending_targets(ed.load_all(), set(), bl.load_resolution(), now=later)]
+    assert 'algo' in pend_later, pend_later
+    print('✓ 別版：維③ no-matches-pref → PENDING 不下載；剛查 resting、cooldown 到期回母體')
 
 
 def test_solution_dim_four(monkeypatch, tmp_path):
@@ -102,7 +108,7 @@ def test_rejected_paths(monkeypatch, tmp_path):
     _commit_found('newbook')
     _set('newbook', eligible=False, evidence=['大眾科普'])      # --evidence 是 append list
     assert _state('newbook') == bl.REJECTED
-    assert bl.select_next(5, [], set(), bl.load_resolution(), all_eds=ed.load_all()) == []  # REJECTED 不下載
+    assert bl.select_next(5, ed.load_all(), set(), bl.load_resolution()) == []  # REJECTED 不下載
     print('✓ REJECTED：not_found + 判不夠格（有連結仍 REJECTED）皆不下載')
 
 
@@ -120,10 +126,10 @@ def test_owned_preservation(monkeypatch, tmp_path):
 def test_net_gain_termination_metric(monkeypatch, tmp_path):
     """自我終止判據＝qualified 淨增：progress overall 的 qualified 計數隨四維補齊單調上升。"""
     _setup(monkeypatch, tmp_path)
-    base = bl.progress([], set(), bl.load_resolution(), all_eds=ed.load_all())['overall'][bl.QUALIFIED]
+    base = bl.progress(ed.load_all(), set(), bl.load_resolution())['overall'][bl.QUALIFIED]
     assert base == 0
     _commit_found('algo'); _set('algo', eligible=True, label='3rd', matches_pref=True)
-    after = bl.progress([], set(), bl.load_resolution(), all_eds=ed.load_all())['overall'][bl.QUALIFIED]
+    after = bl.progress(ed.load_all(), set(), bl.load_resolution())['overall'][bl.QUALIFIED]
     assert after == base + 1                                    # 淨增 1（/restock 據此累計到 +100 終止）
     print('✓ 終止判據：progress qualified 計數隨四維補齊上升（/restock 累計淨增到 100）')
 

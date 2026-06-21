@@ -49,26 +49,32 @@ def test_iter_and_remove():
     print('✓ discovered：iter_candidates 附 field + remove 否決')
 
 
+def _ed(field_id, subject, order, title='T', author='Au'):
+    return {'identity': {'title': title, 'author': author, 'edition_pref': '',
+                         'has_solution': False, 'promoted_from': 'migration'},
+            'classification': {'field_id': field_id, 'subject': subject, 'order': list(order)},
+            'qualification': {'eligible': True}, 'version': None, 'sol_alignment': None, 'checked_at': None}
+
+
 def test_targets_merges_discovered():
-    """booklists.targets 合併 discovered：排人工後、標 source、衍生 _sol、撞人工 slug 跳、可關閉。"""
+    """booklists.targets 合併 discovered（universe=editions）：排 editions 後、標 source、衍生 _sol、撞 slug 跳、可關閉。"""
     _isolate()
-    files = [{'field': '物理', 'field_id': 'physics', 'order': 10,
-              'sublists': [{'name': '力學', 'books': [{'slug': 'taylor_mech', 'title': 'Mechanics', 'author': 'Taylor'}]}]}]
+    all_eds = {'taylor_mech': _ed('physics', '力學', (10, 0, 0, 0))}   # editions universe（人工正典遷入）
     dc.add('physics', '物理', [
         {'slug': 'sakurai_qm', 'title': 'Modern QM', 'author': 'Sakurai'},   # 新 main + 衍生 _sol
-        {'slug': 'taylor_mech', 'title': 'dup', 'author': 'X'},              # 撞人工 → 跳
+        {'slug': 'taylor_mech', 'title': 'dup', 'author': 'X'},              # 撞 editions → 跳
     ], {'taylor_mech'})
-    ts = bl.targets(files)
+    ts = bl.targets(all_eds)
     slugs = [t['slug'] for t in ts]
     assert 'sakurai_qm' in slugs and 'sakurai_qm_sol' in slugs
-    assert slugs.index('taylor_mech') < slugs.index('sakurai_qm')   # 人工優先（排前）
+    assert slugs.index('taylor_mech') < slugs.index('sakurai_qm')   # editions 優先（排前、order<10000）
     sk = next(t for t in ts if t['slug'] == 'sakurai_qm')
     assert sk['source'] == 'discovered' and sk['kind'] == 'main'
-    assert next(t for t in ts if t['slug'] == 'taylor_mech')['source'] == 'booklist'
-    assert slugs.count('taylor_mech') == 1                          # 撞人工被跳、不重複
-    base = [t['slug'] for t in bl.targets(files, include_discovered=False)]
-    assert 'sakurai_qm' not in base and 'taylor_mech' in base       # 可關閉 → 純人工正典
-    print('✓ targets：合併 discovered（人工優先、排其後、標 source、衍生 _sol、撞人工跳、可關閉）')
+    assert next(t for t in ts if t['slug'] == 'taylor_mech')['source'] != 'discovered'  # editions 書
+    assert slugs.count('taylor_mech') == 1                          # 撞 editions 被跳、不重複
+    base = [t['slug'] for t in bl.targets(all_eds, include_discovered=False)]
+    assert 'sakurai_qm' not in base and 'taylor_mech' in base       # 可關閉 → 純 editions universe
+    print('✓ targets：合併 discovered（editions 優先、排其後、標 source、衍生 _sol、撞 slug 跳、可關閉）')
 
 
 def test_cmd_add_rc(monkeypatch):

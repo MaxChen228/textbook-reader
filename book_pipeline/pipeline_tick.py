@@ -85,10 +85,9 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
 CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
                                         os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '30')))
-# 解析池水位（已確認 z-lib 連結、未 owned = READY）：低於此就派 crawl agent 解析更多 unresolved，
-# 讓「已確認連結可抽」的書常住 ≥ 此數，買書員永遠有貨。解析由 LLM agent 判斷（規則會假陽性）。
+# 合格解析池水位（四維全過、未 owned = QUALIFIED）：低於此就派庫存查證 agent 把庫存（candidate∪
+# actionable pending）查成合格，讓買書員永遠有合格貨。查證由 LLM agent 四維判斷（規則會假陽性）。
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
-CRAWL_RESOLVE_BATCH = int(os.environ.get('BOOK_PIPELINE_CRAWL_RESOLVE_BATCH', '20'))  # 每隻 crawl agent 單批解析本數
 # 數學 sweep 每 tick 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
 # --rounds 1`。8 worker 並發各打一批 LLM（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
 # 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
@@ -970,13 +969,18 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
 
 def _crawl_resolve_due() -> tuple[bool, dict]:
     """**庫存查證 agent** 是否該派：合格解析池 qualified_ready（四維全過、未 owned）< CRAWL_POOL_LOW
-    ∧ 仍有庫存工作母體（candidate 無連結 ∪ pending 有連結未驗）可查。回 (due, pool_counts)。
-    **discovery 預算 latch（防無限燒 token）**：daemon 模式不 discovery，故工作母體 = candidate + pending
-    （有限、會枯竭）；兩者皆 0 → due False → loop idle 收斂、不 busy-loop。要再長書目須使用者親打 /restock
-    （含 discovery）。水位改 qualified_ready（合格存在的真分母）取代舊 confirmed/unresolved 二態判。"""
-    pc = booklists.pool_counts()
-    stock = pc['candidate'] + pc['pending']        # daemon 工作母體（無 discovery → 有限、會枯竭＝天然 latch）
-    return (pc['qualified_ready'] < CRAWL_POOL_LOW and stock > 0), pc
+    ∧ 仍有 **actionable** 庫存工作母體（candidate 無連結 ∪ actionable pending）可查。回 (due, pool_counts)。
+    **收斂 latch（防無限燒 token）**：daemon 不 discovery，工作母體 = candidate + actionable pending。pending
+    的 busy-loop 由 recheck cooldown 阻斷——親查過仍 PENDING（偏好版暫無）的書 resting、不重派（見
+    booklists.crawl_work_remaining / _pending_resting），窗到期才回母體 → 週期性重查、有界。母體枯竭 →
+    due False → loop idle 收斂。要再長書目須使用者親打 /restock（含 discovery）。"""
+    all_eds = booklists.ed.load_all()              # 一次載入供水位 + 母體共用（免多次掃 editions）
+    have = booklists.have_slugs()
+    res = booklists.load_resolution()
+    pc = booklists.pool_counts(all_eds, have, res)
+    if pc['qualified_ready'] >= CRAWL_POOL_LOW:
+        return False, pc
+    return booklists.crawl_work_remaining(all_eds, have, res) > 0, pc
 
 
 def do_crawl_resolve(dry: bool) -> int:
