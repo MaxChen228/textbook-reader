@@ -1,0 +1,128 @@
+# Couch — Digital and Analog Communication Systems
+slug: couch_digital_analog_comm
+title: Digital and Analog Communication Systems
+author: Leon W. Couch II
+edition: 8th
+subject: Digital Communications
+publisher: Pearson
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 25
+appendices_start_page: 693
+bibliography_start_page: null
+index_start_page: 771
+
+# ── inline-problem 模式 ──
+# 每章末有獨立 "PROBLEMS" lvl2 heading → 全本二分模式
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 25
+    page_end: 57
+    chapter_title_block_idx: 417
+    problems_block_idx: 728
+    next_chapter_block_idx: 761
+  - num: 2
+    title: Signals and Spectra
+    page_start: 58
+    page_end: 155
+    chapter_title_block_idx: 761
+    problems_block_idx: 2019
+    next_chapter_block_idx: 2279
+  - num: 3
+    title: Baseband Pulse and Digital Signaling
+    page_start: 156
+    page_end: 260
+    chapter_title_block_idx: 2279
+    problems_block_idx: 3264
+    next_chapter_block_idx: 3405
+  - num: 4
+    title: Bandpass Signaling Principles and Circuits
+    page_start: 261
+    page_end: 336
+    chapter_title_block_idx: 3405
+    problems_block_idx: 4247
+    next_chapter_block_idx: 4370
+  - num: 5
+    title: AM, FM, and Digital Modulated Systems
+    page_start: 337
+    page_end: 437
+    chapter_title_block_idx: 4370
+    problems_block_idx: 5371
+    next_chapter_block_idx: 5568
+  - num: 6
+    title: Random Processes and Spectral Analysis
+    page_start: 438
+    page_end: 515
+    chapter_title_block_idx: 5568
+    problems_block_idx: 6717
+    next_chapter_block_idx: 6912
+  - num: 7
+    title: Performance of Communication Systems Corrupted by Noise
+    page_start: 516
+    page_end: 592
+    chapter_title_block_idx: 6912
+    problems_block_idx: 7829
+    next_chapter_block_idx: 7973
+  - num: 8
+    title: Wire and Wireless Communication Applications
+    page_start: 593
+    page_end: 692
+    chapter_title_block_idx: 7973
+    problems_block_idx: 8863
+    next_chapter_block_idx: 8955
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Mathematical Techniques, Identities, and Tables
+    page_start: 693
+    chapter_title_block_idx: 8955
+  - id: B
+    title: Probability and Random Variables
+    page_start: 704
+    chapter_title_block_idx: 9117
+  - id: C
+    title: Using MATLAB
+    page_start: 747
+    chapter_title_block_idx: 9804
+
+# ── heading regex ──
+# section: en-dash 編號 ALLCAPS, e.g. '1–1 HISTORICAL PERSPECTIVE'（U+2013）
+# subsection: 無編號 Title Case, e.g. 'Block Codes'（排除 Example/EXAMPLE 與 ALLCAPS section）
+section_re: '^(\d+–\d+)\s+(.+)$'
+subsection_re: '^()((?!Example\s|EXAMPLE\s)[A-Z][a-z][A-Za-zÀ-ÿ’''’ \-,.&/:()†]*)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# problems: en-dash N–M, 可選 ★ 前綴, e.g. '1–1 Assume…' / '★ 1–3 Using…'
+# en-dash 分隔 → split('.')[0]=='1–1' int() ValueError → must_match=false
+problem_start_re: '^(?:★\s*)?(\d+–\d+)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+# ── equation ──
+# \tag 用 ASCII hyphen, 有時帶空白: '4-47' / '2 - 195' / '5-5a'
+equation_strip_dollar: true
+equation_label_re: '\\tag\{(\d+\s*-\s*\d+[a-z]?)\}'
+
+# ── example（內文題） ──
+# 'Example N–M TITLE' / 'EXAMPLE N–M TITLE'（en-dash）
+example_start_re: '^(?:Example|EXAMPLE)\s+(\d+–\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
