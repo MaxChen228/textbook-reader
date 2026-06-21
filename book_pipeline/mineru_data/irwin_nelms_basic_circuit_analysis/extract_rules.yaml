@@ -1,0 +1,170 @@
+# ── 書本 metadata ──
+# subject cite book_pipeline/metadata_schema.yaml SoT: "Electric Circuits" ∈ schema.subjects
+# edition "11th" 符 schema.edition_format.pattern
+slug: irwin_nelms_basic_circuit_analysis
+title: Basic Engineering Circuit Analysis
+author: J. David Irwin; R. Mark Nelms
+edition: 11th
+subject: Electric Circuits
+publisher: Wiley
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2   # MinerU 把 section/章標題標在 lvl2（text_level==1 幾乎無內容）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 18
+appendices_start_page: 676
+bibliography_start_page: null
+index_start_page: 683
+
+# 全本二分模式（每章一個 PROBLEMS heading）
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Basic Concepts
+    page_start: 18
+    page_end: 40
+    chapter_title_block_idx: 316
+    problems_block_idx: 616
+    next_chapter_block_idx: 711
+  - num: 2
+    title: Resistive Circuits
+    page_start: 41
+    page_end: 105
+    chapter_title_block_idx: 711
+    problems_block_idx: 1722
+    next_chapter_block_idx: 2076
+  - num: 3
+    title: Nodal and Loop Analysis Techniques
+    page_start: 106
+    page_end: 163
+    chapter_title_block_idx: 2076
+    problems_block_idx: 2893
+    next_chapter_block_idx: 3216
+  - num: 4
+    title: Operational Amplifiers
+    page_start: 164
+    page_end: 187
+    chapter_title_block_idx: 3216
+    problems_block_idx: 3525
+    next_chapter_block_idx: 3665
+  - num: 5
+    title: Additional Analysis Techniques
+    page_start: 188
+    page_end: 235
+    chapter_title_block_idx: 3665
+    problems_block_idx: 4256
+    next_chapter_block_idx: 4581
+  - num: 6
+    title: Capacitance and Inductance
+    page_start: 236
+    page_end: 268
+    chapter_title_block_idx: 4581
+    problems_block_idx: 5016
+    next_chapter_block_idx: 5213
+  - num: 7
+    title: First- and Second-Order Transient Circuits
+    page_start: 269
+    page_end: 321
+    chapter_title_block_idx: 5213
+    problems_block_idx: 5990
+    next_chapter_block_idx: 6310
+  - num: 8
+    title: AC Steady-State Analysis
+    page_start: 322
+    page_end: 378
+    chapter_title_block_idx: 6310
+    problems_block_idx: 7217
+    next_chapter_block_idx: 7592
+  - num: 9
+    title: Steady-State Power Analysis
+    page_start: 379
+    page_end: 427
+    chapter_title_block_idx: 7592
+    problems_block_idx: 8386
+    next_chapter_block_idx: 8652
+  - num: 10
+    title: Magnetically Coupled Networks
+    page_start: 428
+    page_end: 466
+    chapter_title_block_idx: 8652
+    problems_block_idx: 9173
+    next_chapter_block_idx: 9380
+  - num: 11
+    title: Polyphase Circuits
+    page_start: 467
+    page_end: 498
+    chapter_title_block_idx: 9380
+    problems_block_idx: 9947
+    next_chapter_block_idx: 10088
+  - num: 12
+    title: Variable-Frequency Network Performance
+    page_start: 499
+    page_end: 559
+    chapter_title_block_idx: 10088
+    problems_block_idx: 11080
+    next_chapter_block_idx: 11267
+  - num: 13
+    title: The Laplace Transform
+    page_start: 560
+    page_end: 585
+    chapter_title_block_idx: 11267
+    problems_block_idx: 11768
+    next_chapter_block_idx: 11911
+  - num: 14
+    title: Application of the Laplace Transform to Circuit Analysis
+    page_start: 586
+    page_end: 633
+    chapter_title_block_idx: 11911
+    problems_block_idx: 12659
+    next_chapter_block_idx: 12877
+  - num: 15
+    title: Fourier Analysis Techniques
+    page_start: 634
+    page_end: 675
+    chapter_title_block_idx: 12877
+    problems_block_idx: 13591
+    next_chapter_block_idx: 13773
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Complex Numbers
+    page_start: 676
+    chapter_title_block_idx: 13773
+
+# ── heading regex ──
+# section heading = 編號型 N.M（lvl2）。MinerU 把多數 section 號與標題拆兩 block（'1.2' + 'System of Units'），
+# 故 N.M Title 同 block 命中率低；regex 仍強制 title 非空以免誤抓頁眉/footer 數字（thomas_calculus 教訓）。
+# 本書無 N.M.K 三層 subsection（掃描 count=0），subsection_re 設更深一層 N.M.K（不會誤匹配）。
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Problems 區題號 = 'N.M ...'（如 '1.9 The current...'），首段=章號 → must_match true
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+# ── equation ──
+# 本書 equation block 無 \tag{...}（掃描 0 命中）；保留標準 N.M label regex 作 default（不誤匹配無害）
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題）──
+# 'EXAMPLE N.M'（169 個 lvl2 block）
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
