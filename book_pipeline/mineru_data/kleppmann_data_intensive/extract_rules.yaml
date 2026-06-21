@@ -1,0 +1,152 @@
+# ── 書本 metadata ──
+slug: kleppmann_data_intensive
+title: Designing Data-Intensive Applications
+author: Martin Kleppmann; Chris Riccomini
+edition: "2nd"
+subject: Database Systems
+publisher: "O'Reilly Media"
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 24
+appendices_start_page: 626
+bibliography_start_page: null
+index_start_page: 632
+
+# ── inline-problem 模式 ──
+# 純散文 CS 教科書，全本無 end-of-chapter exercises / problems。
+inline_problems: false
+
+# ── 章節 ──
+# 注意：ch6 Replication / ch7 Sharding / ch8 Transactions / ch11 Batch Processing 的
+# 章標題 heading block 被 MinerU 丟棄（章首無 text_level 標題塊）→ 改以該章首個內容塊
+# （章首 epigraph 引文塊）當 chapter_title_block_idx；title 欄持真實章名（見 _audit.md）。
+chapters:
+  - num: 1
+    title: Trade-Offs in Data Systems Architecture
+    page_start: 24
+    page_end: 55
+    chapter_title_block_idx: 389
+    problems_block_idx: null
+    next_chapter_block_idx: 641
+  - num: 2
+    title: Defining Nonfunctional Requirements
+    page_start: 56
+    page_end: 87
+    chapter_title_block_idx: 641
+    problems_block_idx: null
+    next_chapter_block_idx: 900
+  - num: 3
+    title: Data Models and Query Languages
+    page_start: 88
+    page_end: 137
+    chapter_title_block_idx: 900
+    problems_block_idx: null
+    next_chapter_block_idx: 1357
+  - num: 4
+    title: Storage and Retrieval
+    page_start: 138
+    page_end: 183
+    chapter_title_block_idx: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 1740
+  - num: 5
+    title: Encoding and Evolution
+    page_start: 184
+    page_end: 219
+    chapter_title_block_idx: 1740
+    problems_block_idx: null
+    next_chapter_block_idx: 2070
+  - num: 6
+    title: Replication
+    page_start: 220
+    page_end: 273
+    chapter_title_block_idx: 2070
+    problems_block_idx: null
+    next_chapter_block_idx: 2568
+  - num: 7
+    title: Sharding
+    page_start: 274
+    page_end: 299
+    chapter_title_block_idx: 2568
+    problems_block_idx: null
+    next_chapter_block_idx: 2829
+  - num: 8
+    title: Transactions
+    page_start: 300
+    page_end: 367
+    chapter_title_block_idx: 2829
+    problems_block_idx: null
+    next_chapter_block_idx: 3472
+  - num: 9
+    title: The Trouble with Distributed Systems
+    page_start: 368
+    page_end: 423
+    chapter_title_block_idx: 3472
+    problems_block_idx: null
+    next_chapter_block_idx: 3943
+  - num: 10
+    title: Consistency and Consensus
+    page_start: 424
+    page_end: 473
+    chapter_title_block_idx: 3943
+    problems_block_idx: null
+    next_chapter_block_idx: 4425
+  - num: 11
+    title: Batch Processing
+    page_start: 474
+    page_end: 509
+    chapter_title_block_idx: 4425
+    problems_block_idx: null
+    next_chapter_block_idx: 4744
+  - num: 12
+    title: Stream Processing
+    page_start: 510
+    page_end: 607
+    chapter_title_block_idx: 4744
+    problems_block_idx: null
+    next_chapter_block_idx: 5666
+  - num: 13
+    title: Doing the Right Thing
+    page_start: 608
+    page_end: 625
+    chapter_title_block_idx: 5666
+    problems_block_idx: null
+    next_chapter_block_idx: 5808
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+# 純標題型（Title Case，無編號）→ id group 用空 group '()'。
+section_re: '^()([A-Z][A-Za-z0-9].{2,79})$'
+subsection_re: '^()([A-Z][a-z].{2,79})$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 全本無習題；problem_start_re 不會命中任何 block（所有 pbi=null）。
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
