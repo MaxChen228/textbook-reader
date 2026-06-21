@@ -119,6 +119,96 @@ def test_cmd_set_sol_alignment():
     print('✓ editions CLI：sol_alignment 寫入 + 子 dict merge（aligned 改判不丟 parent/sol_version）')
 
 
+def test_new_groups_blank_and_ensure():
+    """identity/classification/qualification 3 group：blank 初始 None、ensure 補進舊檔不蓋已有。"""
+    _isolate()
+    b = ed.blank()
+    assert b['identity'] is None and b['classification'] is None and b['qualification'] is None
+    # 舊格式檔（只有版本欄）→ ensure 補進 3 新 group
+    ed.save('legacy', {'version': {'label': '2nd', 'matches_pref': True}})
+    e0 = ed.load('legacy')
+    assert e0['classification'] is None and e0['qualification'] is None  # save 也經 blank 骨架補齊
+    ed.save('legacy2', {'confidence': 'high'})
+    # 模擬真·舊檔（手寫缺新欄）：直接寫一個沒有新 group 的檔，再 ensure
+    import os
+    from book_pipeline import jsonio
+    p = os.path.join(ed.EDITIONS_DIR, 'truly_old.json')
+    jsonio.atomic_write_json(p, {'version': {'label': '1st'}, 'confidence': 'low'}, indent=1)
+    ed.ensure('truly_old')
+    e = ed.load('truly_old')
+    assert e['version']['label'] == '1st'                       # 原值不動
+    assert 'identity' in e and 'classification' in e and 'qualification' in e  # 缺欄補上 None
+    assert e['identity'] is None and e['qualification'] is None
+    print('✓ editions：3 新 group blank=None + ensure 補進真·舊檔不蓋已有值')
+
+
+def test_dims_four_dimensions():
+    """dims 四維純判定：eligible/link/version/sol_alignment 各自獨立、解答本維④專屬。"""
+    _isolate()
+    # 全空 → 四維皆 False（解答本 N/A 維除外）
+    d = ed.dims('x', None, {})
+    assert d == {'eligible': False, 'link': False, 'version': False, 'sol_alignment': True}
+    # 維① eligible：qualification.eligible 須恰為 True（None/False 不算）
+    assert ed.dims('x', {'qualification': {'eligible': True}}, {})['eligible'] is True
+    assert ed.dims('x', {'qualification': {'eligible': False}}, {})['eligible'] is False
+    assert ed.dims('x', {'qualification': {'eligible': None}}, {})['eligible'] is False
+    # 維② link：resolution found 或 owned（have）
+    assert ed.dims('x', {}, {'x': {'status': 'found'}})['link'] is True
+    assert ed.dims('x', {}, {'x': {'status': 'not_found'}})['link'] is False
+    assert ed.dims('x', {}, {}, have={'x'})['link'] is True      # owned → 實體在手視同有連結
+    # 維③ version：須親查完成 AND matches_pref True
+    assert ed.dims('x', {'version': {'label': '3rd', 'matches_pref': True}}, {})['version'] is True
+    assert ed.dims('x', {'version': {'label': '2nd', 'matches_pref': False}}, {})['version'] is False
+    assert ed.dims('x', {'version': {'label': '2nd'}}, {})['version'] is False  # 沒 matches_pref → 未確認
+    # 維④ sol_alignment：僅 _sol slug；母書 N/A=True、解答本須 aligned True
+    assert ed.dims('foo_sol', {'sol_alignment': {'aligned': True}}, {})['sol_alignment'] is True
+    assert ed.dims('foo_sol', {'sol_alignment': {'aligned': False}}, {})['sol_alignment'] is False
+    assert ed.dims('foo_sol', {}, {})['sol_alignment'] is False  # 解答本未查 → False
+    assert ed.dims('foo', {}, {})['sol_alignment'] is True       # 非解答本 → N/A 通過
+    print('✓ editions：dims 四維獨立判定（owned 視同有連結、version 須 matches_pref、解答本維④專屬）')
+
+
+def test_qualifies_all_four():
+    """qualifies = 四維 AND。主書三維全過即合格；解答本需四維全過。"""
+    _isolate()
+    main_ok = {'qualification': {'eligible': True}, 'version': {'label': '3rd', 'matches_pref': True}}
+    res = {'m': {'status': 'found'}}
+    assert ed.qualifies('m', main_ok, res) is True              # 主書：①②③ 全過、④N/A
+    assert ed.qualifies('m', main_ok, {}) is False              # 缺連結 → 不合格
+    # 解答本：再缺維④ → 不合格；補上 aligned 才合格
+    sol = dict(main_ok)
+    assert ed.qualifies('m_sol', sol, {'m_sol': {'status': 'found'}}) is False
+    sol = {**main_ok, 'sol_alignment': {'aligned': True}}
+    assert ed.qualifies('m_sol', sol, {'m_sol': {'status': 'found'}}) is True
+    print('✓ editions：qualifies 四維 AND（主書三維、解答本四維全過才合格）')
+
+
+def test_cmd_set_classification_and_eligible():
+    """CLI set 新增 --field-id/--subject/--eligible：寫 classification + qualification（含 verified_at 戳）。"""
+    import argparse
+    _isolate()
+    ns = argparse.Namespace(slug='m', label=None, year=None, publisher=None, isbn=None,
+                            matches_pref=None, confidence=None, sol_aligned=None,
+                            parent_version=None, sol_version=None, basis=None,
+                            field_id='cs', subject='演算法', eligible=True,
+                            evidence=None, source=None, by='restock')
+    ed.cmd_set(ns)
+    e = ed.load('m')
+    assert e['classification'] == {'field_id': 'cs', 'subject': '演算法'}
+    assert e['qualification']['eligible'] is True and e['qualification']['verified_at']
+    # 二次只給 subject → classification 子 dict merge（field_id 保留）
+    ns2 = argparse.Namespace(slug='m', label=None, year=None, publisher=None, isbn=None,
+                             matches_pref=None, confidence=None, sol_aligned=None,
+                             parent_version=None, sol_version=None, basis=None,
+                             field_id=None, subject='圖論', eligible=None,
+                             evidence=None, source=None, by='restock')
+    ed.cmd_set(ns2)
+    e2 = ed.load('m')
+    assert e2['classification'] == {'field_id': 'cs', 'subject': '圖論'}      # field_id 保留、subject 更新
+    assert e2['qualification']['eligible'] is True                            # 沒給 eligible → 前次保留
+    print('✓ editions CLI：--field-id/--subject merge + --eligible 寫 qualification + verified_at 戳')
+
+
 if __name__ == '__main__':
     test_save_and_load()
     test_save_merges()
@@ -126,4 +216,8 @@ if __name__ == '__main__':
     test_load_all()
     test_cmd_set_and_merge()
     test_cmd_set_sol_alignment()
+    test_new_groups_blank_and_ensure()
+    test_dims_four_dimensions()
+    test_qualifies_all_four()
+    test_cmd_set_classification_and_eligible()
     print('\n全部通過 ✅')
