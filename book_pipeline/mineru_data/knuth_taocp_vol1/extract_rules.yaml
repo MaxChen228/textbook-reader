@@ -1,0 +1,97 @@
+# ── 書本 metadata ──（subject ∈ metadata_schema.yaml subjects）
+slug: knuth_taocp_vol1
+title: "The Art of Computer Programming, Volume 1: Fundamental Algorithms"
+author: "Donald E. Knuth"
+edition: "3rd"
+subject: Algorithms
+publisher: "Addison-Wesley"
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+# MinerU 把 §-heading（含 chapter title）全標 lvl2 → 必須設 2
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 29
+# "Answers to Exercises"（page 725, idx 6065）起為書末解答/附錄區，非正文章
+appendices_start_page: 725
+bibliography_start_page: null
+index_start_page: 1016
+
+# ── inline-problem 模式 ──
+# 每節末有 lvl2 'Exercises' heading + 純流水題（N. [marker] ...），無單一 per-chapter
+# Problems heading → inline walker：整章單流水，遇 problem_start_re 切題、遇 §/§§ heading 結束。
+inline_problems: true
+# 每節 exercises 題號各自從 1 重置（1.2.1 末 3,4,5,6,…；1.2.2 又從 1 起）→ namespace
+problem_num_namespace_by_section: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Basic Concepts"
+    page_start: 29
+    page_end: 375
+    chapter_title_block_idx: 217          # '1.1. Algorithms'（body 無獨立 Chapter title block）
+    problems_block_idx: null              # inline
+    next_chapter_block_idx: 3421          # '2.1. Introduction'
+  - num: 2
+    title: "Information Structures"
+    page_start: 376
+    page_end: 724
+    chapter_title_block_idx: 3421         # '2.1. Introduction'
+    problems_block_idx: null              # inline
+    next_chapter_block_idx: 6065          # 'Answers to Exercises'（書末解答區起點）
+
+# ── 附錄 ──（lvl2 heading，以 idx 手動錨定）
+appendices:
+  - id: "A"
+    title: "Tables of Numerical Quantities"
+    page_start: 993
+    chapter_title_block_idx: 8123
+  - id: "B"
+    title: "Index to Notations"
+    page_start: 1001
+    chapter_title_block_idx: 8150
+  - id: "C"
+    title: "Index to Algorithms and Theorems"
+    page_start: 1011
+    chapter_title_block_idx: 8162
+
+# ── heading regex ──（各 2 capture group；TAOCP heading 編號後帶句點 'N.M. Title'；
+#   starred 進階節前綴 '\*'（如 '\*1.2.11.2. ...'），regex 容忍可選 '\*' 前綴、capture 只取編號）
+section_re: '^\\?\*?(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^\\?\*?(\d+\.\d+\.\d+(?:\.\d+)*)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──（'N. [marker] text'，純流水、各節重置）
+# TAOCP 真題開頭恆為難度標記 [NN]/[MNN]/[HMNN]（OCR 偶 mangle 成 '$[ M I O ]$'/'$\lceil...$'
+# 皆以 '$' 起）；節內正文的編號散文清單（§1.3.2 Program P 註解 10 條、MIXAL 定義規則 13 條）
+# 開頭為字母。namespace 模式關閉了 parser 的遞增守則（擋正文 numbered list 偽命中），故用
+# lookahead 要求題號後緊跟 '[' 或 '$'（難度標記簽名）以精準排除散文、保留全部真題。
+problem_start_re: '^(\d+)\.\s+(?=[\[$])'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──（\tag{N} 純整數、各節重置）
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題）──（TAOCP 無 'Example N' 段落型）
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
