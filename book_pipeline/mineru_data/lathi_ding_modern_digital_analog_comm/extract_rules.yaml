@@ -1,0 +1,169 @@
+slug: lathi_ding_modern_digital_analog_comm
+title: Modern Digital and Analog Communication Systems
+author: B. P. Lathi; Zhi Ding
+edition: 4th International
+subject: Digital Communications
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 895
+bibliography_start_page: null
+index_start_page: 911
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 23
+    page_end: 41
+    chapter_title_block_idx: 316
+    problems_block_idx: null
+    next_chapter_block_idx: 469
+  - num: 2
+    title: Signals and Signal Space
+    page_start: 42
+    page_end: 83
+    chapter_title_block_idx: 469
+    problems_block_idx: 947
+    next_chapter_block_idx: 1067
+  - num: 3
+    title: Analysis and Transmission of Signals
+    page_start: 84
+    page_end: 161
+    chapter_title_block_idx: 1067
+    problems_block_idx: 2043
+    next_chapter_block_idx: 2208
+  - num: 4
+    title: Amplitude Modulations and Demodulations
+    page_start: 162
+    page_end: 223
+    chapter_title_block_idx: 2208
+    problems_block_idx: 2907
+    next_chapter_block_idx: 2979
+  - num: 5
+    title: Angle Modulation and Demodulation
+    page_start: 224
+    page_end: 272
+    chapter_title_block_idx: 2979
+    problems_block_idx: 3606
+    next_chapter_block_idx: 3647
+  - num: 6
+    title: Sampling and Analog-to-Digital Conversion
+    page_start: 273
+    page_end: 347
+    chapter_title_block_idx: 3647
+    problems_block_idx: 4400
+    next_chapter_block_idx: 4457
+  - num: 7
+    title: Principles of Digital Data Transmission
+    page_start: 348
+    page_end: 414
+    chapter_title_block_idx: 4457
+    problems_block_idx: 5233
+    next_chapter_block_idx: 5314
+  - num: 8
+    title: Fundamentals of Probability Theory
+    page_start: 415
+    page_end: 477
+    chapter_title_block_idx: 5314
+    problems_block_idx: 6234
+    next_chapter_block_idx: 6348
+  - num: 9
+    title: Random Processes and Spectral Analysis
+    page_start: 478
+    page_end: 527
+    chapter_title_block_idx: 6348
+    chapter_title_block_idx_secondary: 6349
+    problems_block_idx: 7083
+    next_chapter_block_idx: 7192
+  - num: 10
+    title: Performance Analysis of Digital Communication Systems
+    page_start: 528
+    page_end: 635
+    chapter_title_block_idx: 7192
+    problems_block_idx: 8559
+    next_chapter_block_idx: 8743
+  - num: 11
+    title: Spread Spectrum Communications
+    page_start: 636
+    page_end: 687
+    chapter_title_block_idx: 8743
+    problems_block_idx: 9331
+    next_chapter_block_idx: 9357
+  - num: 12
+    title: Digital Communications Under Linearly Distortive Channels
+    page_start: 688
+    page_end: 755
+    chapter_title_block_idx: 9357
+    problems_block_idx: 10183
+    next_chapter_block_idx: 10242
+  - num: 13
+    title: Introduction to Information Theory
+    page_start: 756
+    page_end: 823
+    chapter_title_block_idx: 10242
+    problems_block_idx: 11141
+    next_chapter_block_idx: 11206
+  - num: 14
+    title: Error Correcting Codes
+    page_start: 824
+    page_end: 894
+    chapter_title_block_idx: 11206
+    problems_block_idx: 12059
+    next_chapter_block_idx: 12159
+
+appendices:
+  - id: A
+    title: Orthogonality of Some Signal Sets
+    page_start: 895
+    chapter_title_block_idx: 12159
+  - id: B
+    title: Cauchy-Schwarz Inequality
+    page_start: 897
+    chapter_title_block_idx: 12185
+  - id: C
+    title: Gram-Schmidt Orthogonalization of a Vector Set
+    page_start: 899
+    chapter_title_block_idx: 12206
+  - id: D
+    title: Basic Matrix Properties and Operations
+    page_start: 902
+    chapter_title_block_idx: 12257
+  - id: E
+    title: Miscellaneous
+    page_start: 907
+    chapter_title_block_idx: 12362
+
+section_re: '^(\d+\s*\.\s*\d+)\s+(\S.*)$'
+subsection_re: '^(\d+\s*\.\s*\d+\s*\.\s*\d+)\s+(\S.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+-\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
