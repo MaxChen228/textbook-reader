@@ -323,14 +323,15 @@ def cmd_commit(args) -> int:
 
 
 def cmd_auto(args) -> int:
-    """確定性快速路徑：對 unresolved **主書**搜尋，只把 exact_match（零歧義）自動採用，其餘留
-    unresolved 交 agent。供 daemon 派 agent 前先撿掉零歧義者、省 token。**絕不碰解答本、絕不下載**。"""
+    """確定性快速路徑：對 candidate（無連結）**主書**搜尋，只把 exact_match（零歧義）自動採用、落維②連結
+    （status:'found'）→ 該書升 PENDING（連結到位、維③版本仍待 agent 親查），其餘留 candidate 交 agent。
+    供 daemon/agent 先撿掉零歧義連結、省 token。**絕不碰解答本、絕不下載、不寫維③版本**（版本一律 LLM 親查）。"""
     todo = [t for t in bl.unresolved_targets() if t['kind'] == 'main']
     if args.field:
         todo = [t for t in todo if t.get('field_id') == args.field]
     todo = todo[:args.limit]
     if not todo:
-        print('auto：無 unresolved 主書')
+        print('auto：無 candidate 主書')
         return 0
     if args.dry:
         for t in todo:
@@ -346,7 +347,7 @@ def cmd_auto(args) -> int:
             continue
         m = exact_match(t, books)
         if m:
-            updates[t['slug']] = {'id': str(m.get('id')), 'hash': m.get('hash'),
+            updates[t['slug']] = {'status': 'found', 'id': str(m.get('id')), 'hash': m.get('hash'),
                                   'title': m.get('title'), 'author': m.get('author'),
                                   'mb': round((m.get('filesize') or 0) / 1e6, 1),
                                   'by': 'auto-exact', 'at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
@@ -354,7 +355,7 @@ def cmd_auto(args) -> int:
             print(f'  ✓ exact {t["slug"]:42} id={m.get("id")}')
     if updates:
         bl.save_resolution(updates)
-    print(f'\nauto done：exact 自動採用 {n}/{len(todo)}（其餘 {len(todo) - n} 本留 unresolved 交 agent）')
+    print(f'\nauto done：exact 自動採用 {n}/{len(todo)}（其餘 {len(todo) - n} 本留 candidate 交 agent）')
     return 0
 
 

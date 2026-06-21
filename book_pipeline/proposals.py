@@ -69,11 +69,13 @@ ID_RE = re.compile(r"^P-\d{4}-\d{2}-\d{2}-[a-z0-9][a-z0-9_-]*$")
 DOMAINS: dict[str, dict[str, Any]] = {
     "math": {"types": {"macro", "normalize-rule", "override"}, "checker": "math"},
     "catalog": {"types": {"override", "rule"}, "checker": None},
-    # crawl agent 的 feedback 管道：撞到系統性問題回報架構師，別默默 workaround。
+    # crawl/restock agent 的 feedback 管道：撞到系統性問題回報架構師，別默默 workaround。
     # booklist-fix=書單 SoT 標題/作者/slug 有誤或歧義；edition-pref=版次偏好該設/該改；
     # availability=正典書 z-lib 查無合法 PDF（記錄共識，免每隻 agent 重撞）；
-    # harness-gap=search/inspect 工具不夠力（查不到、metadata 缺）。
-    "crawl": {"types": {"booklist-fix", "edition-pref", "availability", "harness-gap"},
+    # harness-gap=search/inspect 工具不夠力（查不到、metadata 缺）；
+    # edition-mismatch=**owned 書**（已 OCR 實體資產）回查發現版本不對/不夠格 → 架構師裁決換版重 ingest /
+    # 改 edition_pref / 維持（owned 保命：agent 絕不下架，只開此案；異於 edition-pref 的「設偏好」）。
+    "crawl": {"types": {"booklist-fix", "edition-pref", "availability", "harness-gap", "edition-mismatch"},
               "checker": None},
     # scope_guard 的捕獲口：worker 越界改受保護程式碼面（book_pipeline/*.py…）→ 守衛把那份
     # diff 捕成 engine/patch 提案、還原核心碼。patch=worker 實際改動（improvement 不流失，
