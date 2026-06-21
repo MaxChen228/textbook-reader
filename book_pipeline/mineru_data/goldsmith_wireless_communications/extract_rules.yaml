@@ -1,0 +1,183 @@
+# ── 書本 metadata ──
+slug: goldsmith_wireless_communications
+title: Wireless Communications
+author: Andrea Goldsmith
+edition: null
+subject: Digital Communications
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+body_start_page: 32
+appendices_start_page: 604
+bibliography_start_page: 636
+index_start_page: 664
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Overview of Wireless Communications
+    page_start: 32
+    page_end: 57
+    chapter_title_block_idx: 432
+    problems_block_idx: 595
+    next_chapter_block_idx: 619
+  - num: 2
+    title: Path Loss and Shadowing
+    page_start: 58
+    page_end: 94
+    chapter_title_block_idx: 619
+    problems_block_idx: 951
+    next_chapter_block_idx: 997
+  - num: 3
+    title: Statistical Multipath Channel Models
+    page_start: 95
+    page_end: 129
+    chapter_title_block_idx: 997
+    problems_block_idx: 1350
+    next_chapter_block_idx: 1405
+  - num: 4
+    title: Capacity of Wireless Channels
+    page_start: 130
+    page_end: 156
+    chapter_title_block_idx: 1405
+    problems_block_idx: 1638
+    next_chapter_block_idx: 1681
+  - num: 5
+    title: Digital Modulation and Detection
+    page_start: 157
+    page_end: 202
+    chapter_title_block_idx: 1681
+    problems_block_idx: 2153
+    next_chapter_block_idx: 2209
+  - num: 6
+    title: Performance of Digital Modulation over Wireless Channels
+    page_start: 203
+    page_end: 234
+    chapter_title_block_idx: 2209
+    problems_block_idx: 2569
+    next_chapter_block_idx: 2649
+  - num: 7
+    title: Diversity
+    page_start: 235
+    page_end: 258
+    chapter_title_block_idx: 2649
+    problems_block_idx: 2914
+    next_chapter_block_idx: 2946
+  - num: 8
+    title: Coding for Wireless Channels
+    page_start: 259
+    page_end: 313
+    chapter_title_block_idx: 2946
+    problems_block_idx: 3443
+    next_chapter_block_idx: 3506
+  - num: 9
+    title: Adaptive Modulation and Coding
+    page_start: 314
+    page_end: 351
+    chapter_title_block_idx: 3506
+    problems_block_idx: 3902
+    next_chapter_block_idx: 3961
+  - num: 10
+    title: Multiple Antennas and Space-Time Communications
+    page_start: 352
+    page_end: 381
+    chapter_title_block_idx: 3961
+    problems_block_idx: 4204
+    next_chapter_block_idx: 4272
+  - num: 11
+    title: Equalization
+    page_start: 382
+    page_end: 404
+    chapter_title_block_idx: 4272
+    problems_block_idx: 4489
+    next_chapter_block_idx: 4559
+  - num: 12
+    title: Multicarrier Modulation
+    page_start: 405
+    page_end: 433
+    chapter_title_block_idx: 4559
+    problems_block_idx: 4827
+    next_chapter_block_idx: 4870
+  - num: 13
+    title: Spread Spectrum
+    page_start: 434
+    page_end: 482
+    chapter_title_block_idx: 4870
+    problems_block_idx: 5247
+    next_chapter_block_idx: 5329
+  - num: 14
+    title: Multiuser Systems
+    page_start: 483
+    page_end: 535
+    chapter_title_block_idx: 5329
+    problems_block_idx: 5763
+    next_chapter_block_idx: 5826
+  - num: 15
+    title: Cellular Systems and Infrastructure-Based Wireless Networks
+    page_start: 536
+    page_end: 565
+    chapter_title_block_idx: 5826
+    problems_block_idx: 6028
+    next_chapter_block_idx: 6075
+  - num: 16
+    title: Ad Hoc Wireless Networks
+    page_start: 566
+    page_end: 603
+    chapter_title_block_idx: 6075
+    problems_block_idx: 6298
+    next_chapter_block_idx: 6346
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: "Representation of Bandpass Signals and Channels"
+    page_start: 604
+    chapter_title_block_idx: 6346
+  - id: B
+    title: "Probability Theory, Random Variables, and Random Processes"
+    page_start: 608
+    chapter_title_block_idx: 6405
+  - id: C
+    title: "Matrix Definitions, Operations, and Properties"
+    page_start: 619
+    chapter_title_block_idx: 6551
+  - id: D
+    title: "Summary of Wireless Standards"
+    page_start: 626
+    chapter_title_block_idx: 6626
+
+# ── heading regex（各須恰好 2 capture group: id, title）──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+-\d+)\.\s'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^REFERENCES$'
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9A-Z]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題）──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
