@@ -1,0 +1,18 @@
+{
+  "id": "P-2026-06-21-oppenheim-signals-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "oppenheim_signals 解答本無法 merge：章 anchor 在 lvl2/header（引擎只認 lvl1）",
+  "detect": [
+    "extract_sol_chapters text_level==1"
+  ],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-21T06:51:21+00:00",
+  "updated": "2026-06-21T06:51:21+00:00",
+  "evidence": "sol_scout：lvl1 帶數字章標=0；真正章標 'Chapter N Answers' 落 text_level==2（10 個）+ header（1 個 Chapter 6），恰對應主書 11 章。引擎 sol_extract.py:78 章 anchor 僅收 text_level==1 且 type==text，故任何 chapter_re 都 0 章 0 題。題號/章號 regex 本身正確（problem_re group(1) 抓 N.M 對齊主書 num）。結構同 anton_calculus_sol。",
+  "proposal": "sol_extract.extract_sol_chapters 放寬章 anchor：允許 text_level==2 / header 的 text block 命中 chapter_re 即收（非僅 lvl1）。一改泛化解鎖本書 + anton_calculus_sol 等同類 harness-gap。",
+  "risk": "",
+  "disposition": ""
+}

@@ -1,0 +1,21 @@
+# ⚠ PENDING — 不要 merge。harness-gap：章 anchor 在引擎搆不到的 level。
+#
+# 1. 現行 sol_extract.extract_sol_chapters（sol_extract.py:78）只把
+#    `text_level==1 且 type==text` 的 block 當章 anchor。
+#
+# 2. oppenheim_signals_sol/unified/content_list.json 的真正章標
+#    "Chapter N Answers" 全落在 `text_level==2`（10 個）+ `header`（1 個，Chapter 6），
+#    恰對應主書 11 章；lvl1 帶數字章標 = 0。sol_scout 判 ⚠。
+#
+# 3. 限制在 level 過濾、不在 regex——任何 chapter_re 都救不了（下方 regex 本身正確：
+#    章標 group(1) 抓章號、題號 group(1) 抓主書 num 格式 "N.M"，一旦引擎支援
+#    lvl2/header 作章 anchor 即可直接 merge，無須改 regex）。
+#
+# 4. 結構與 anton_calculus_sol 同型（同一 harness-gap class）。
+#
+# 待 sol_extract 支援：允許 `header` / `text_level==2` 的 text block 作章 anchor
+# （命中 chapter_re 即收），即可放行本書與同類解答本。見 sol harness-gap proposal。
+chapter_re: '^Chapter\s+(\d+)\s+Answers\s*$'
+problem_re: '^(\d+\.\d+)\.?'
+multi_per_block: false
+_pending: true
