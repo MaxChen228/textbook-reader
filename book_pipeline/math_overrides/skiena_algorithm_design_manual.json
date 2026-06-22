@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "skiena_algorithm_design_manual-ch12-body-83-611a5f",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[83]",
+      "expect": "\\begin{array}{c}\n\\text{XYZ} \\text{YZ} \\\\\n\\text{YZXYZ} \\\\\n\\text{ZXYZ} \\\\\n\\text{XYZ} \\\\\n\\text{YZ} \\\\\n\\text{Z} \\\\\n\\text{$}\n\\end{array}",
+      "new": "\\begin{array}{c}\n\\text{XYZ} \\text{YZ} \\\\\n\\text{YZXYZ} \\\\\n\\text{ZXYZ} \\\\\n\\text{XYZ} \\\\\n\\text{YZ} \\\\\n\\text{Z}\n\\end{array}"
+    }
+  ]
+}

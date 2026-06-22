@@ -1,0 +1,75 @@
+{
+  "overrides": [
+    {
+      "id": "pierce_attapl-ch09-body-145-cd2f29",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[145]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma _ { 1 } , [ { \\sf X } \\stackrel { \\left. } { \\right. }$",
+      "new": "$\\Gamma_{1}, [ {\\sf X} ]$",
+      "anchor": "1815223d"
+    },
+    {
+      "id": "pierce_attapl-ch09-body-370-cd2f29",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[370]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma _ { 1 } , [ { \\sf X } \\stackrel { \\left. } { \\right. }$",
+      "new": "$\\Gamma_{1}, [ {\\sf X} ]$",
+      "anchor": "1815223d"
+    },
+    {
+      "id": "pierce_attapl-ch07-problem-7-6-14-body-23-3a584d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.6.14:body[23]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\mathsf { c } _ { i } ^ { \\phantom { } } ^ { i \\in I . . n } )$",
+      "new": "$( \\mathsf{c}_{i}^{\\phantom{}{}^{i \\in I . . n}} )$",
+      "anchor": "3953a7d6"
+    },
+    {
+      "id": "pierce_attapl-ch06-body-187-e158ca",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[187]",
+      "field": "md",
+      "all": true,
+      "old": "$6 . 6 . 2 ) , \\Gamma ^ { \\prime } \\vdash \\textsf { p } \\left. \\textsf { q } : \\mathsf { T } _ { 1 } { \\right. } \\mathsf { T } _ { 2 }$",
+      "new": "$6 . 6 . 2 ), \\Gamma^{\\prime} \\vdash \\textsf{p} \\, \\textsf{q} : \\mathsf{T}_{1} \\mathsf{T}_{2}$",
+      "anchor": "0ecdbebb"
+    },
+    {
+      "id": "pierce_attapl-appA-body-209-948e89",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[209]",
+      "field": "md",
+      "all": true,
+      "old": "$\\emptyset \\vdash \\mathsf { F } _ { n + 1 } \\mathsf { v } _ { 1 } = _ { \\mathrm { c t x } } \\left[ \\mathsf { f } \\mapsto \\mathsf { \\right. }$",
+      "new": "$\\emptyset \\vdash \\mathsf{F}_{n+1} \\mathsf{v}_{1} =_{\\mathrm{ctx}} [\\mathsf{f} \\mapsto \\mathsf{}$",
+      "anchor": "209dcc80"
+    },
+    {
+      "id": "pierce_attapl-ch10-problem-10-8-14-body-3-c9e0c8",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.8.14:body[3]",
+      "expect": "\\begin{array}{r c l} (\\ell_ {1}: \\mathsf {T} _ {1}  ;   \\mathsf {T} _ {1} ^ {\\prime}) = (\\ell_ {2}: \\mathsf {T} _ {2}  ;   \\mathsf {T} _ {2} ^ {\\prime}) & \\equiv & \\exists \\mathsf {X}. (\\mathsf {T} _ {1} ^ {\\prime} = (\\ell_ {2}: \\mathsf {T} _ {2}  ;   \\mathsf {X}) \\land \\mathsf {T} _ {2} ^ {\\prime} = (\\ell_ {1}: \\mathsf {T} _ {1}  ;   \\mathsf {X})) \\\\ & & \\text {if X\\#ft\\nu(T_{1} , T_{1} ^{\\prime} , T_{2} , T_{2} ^{\\prime})\\land\\ell_{1}\\neq\\ell_{2}} \\end{array}",
+      "new": "\\begin{array}{r c l} (\\ell_ {1}: \\mathsf {T} _ {1}  ;   \\mathsf {T} _ {1} ^ {\\prime}) = (\\ell_ {2}: \\mathsf {T} _ {2}  ;   \\mathsf {T} _ {2} ^ {\\prime}) & \\equiv & \\exists \\mathsf {X}. (\\mathsf {T} _ {1} ^ {\\prime} = (\\ell_ {2}: \\mathsf {T} _ {2}  ;   \\mathsf {X}) \\land \\mathsf {T} _ {2} ^ {\\prime} = (\\ell_ {1}: \\mathsf {T} _ {1}  ;   \\mathsf {X})) \\\\ & & \\text {if } X\\#ft\\nu(T_{1} , T_{1} ^{\\prime} , T_{2} , T_{2} ^{\\prime})\\land\\ell_{1}\\neq\\ell_{2} \\end{array}"
+    },
+    {
+      "id": "pierce_attapl-ch10-problem-10-8-14-body-5-aae33c",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.8.14:body[5]",
+      "expect": "\\begin{array}{r c l} G   \\mathsf {T} _ {1}   \\ldots   \\mathsf {T} _ {n} = \\partial \\mathsf {T} & \\equiv & \\exists \\mathsf {X} _ {1} \\ldots \\mathsf {X} _ {n}. (G   \\mathsf {X} _ {1}   \\ldots   \\mathsf {X} _ {n} = \\mathsf {T} \\land \\bigwedge_ {i = 1} ^ {n} (\\mathsf {T} _ {i} = \\partial \\mathsf {X} _ {i})) \\\\ & & \\text {if X_{1}\\ldots X_{n} \\# ft\\nu(T_{1},\\ldots,T_{n},T)} \\end{array} \\quad \\text {(C - MUTATE - GD)}",
+      "new": "\\begin{array}{r c l} G   \\mathsf {T} _ {1}   \\ldots   \\mathsf {T} _ {n} = \\partial \\mathsf {T} & \\equiv & \\exists \\mathsf {X} _ {1} \\ldots \\mathsf {X} _ {n}. (G   \\mathsf {X} _ {1}   \\ldots   \\mathsf {X} _ {n} = \\mathsf {T} \\land \\bigwedge_ {i = 1} ^ {n} (\\mathsf {T} _ {i} = \\partial \\mathsf {X} _ {i})) \\\\ & & \\text {if } X_{1}\\ldots X_{n} \\# ft\\nu(T_{1},\\ldots,T_{n},T) \\end{array} \\quad \\text {(C - MUTATE - GD)}"
+    }
+  ]
+}

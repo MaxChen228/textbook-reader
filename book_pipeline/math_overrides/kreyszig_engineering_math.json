@@ -144,6 +144,14 @@
       "old": "${ \\textbf { \\times b } } = { \\textbf { a } } \\times { \\textbf { c } }$",
       "new": "$\\mathbf{\\times b}=\\mathbf{a}\\times \\mathbf{c}$",
       "anchor": "7c379e6b"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch20-body-322-8a8c61",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[322]",
+      "expect": "\\mathbf {x} ^ {(m + 1)} = \\mathbf {b} - \\mathbf {L x} ^ {(m + 1)} - \\mathbf {U x} ^ {(m)} \\quad \\text {(a_{jj} = 1)}",
+      "new": "\\mathbf{x}^{(m + 1)} = \\mathbf{b} - \\mathbf{L x}^{(m + 1)} - \\mathbf{U x}^{(m)} \\quad \\text{(}a_{jj} = 1\\text{)}"
     }
   ]
 }

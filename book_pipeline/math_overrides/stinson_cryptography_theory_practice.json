@@ -1,0 +1,69 @@
+{
+  "overrides": [
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-532-eeaecb",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[532]",
+      "field": "md",
+      "all": true,
+      "old": "$2 ^ { i + 1 } \\nvee 2 ^ { i }$",
+      "new": "$2 ^ { i + 1 } \\vee 2 ^ { i }$",
+      "anchor": "c42524ac"
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-41-2fa826",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[41]",
+      "expect": "t _ {j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if j = 0} \\\\ 1 & \\text {if j = 1} \\\\ t _ {j - 2} - q _ {j - 1} t _ {j - 1} & \\text {if j\\geq 2} \\end{array} \\right.",
+      "new": "t_{j} = \\left\\{ \\begin{array}{l l} 0 & \\text{if } j = 0 \\\\ 1 & \\text{if } j = 1 \\\\ t_{j - 2} - q_{j - 1} t_{j - 1} & \\text{if } j\\geq 2 \\end{array} \\right."
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-43-10b76d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[43]",
+      "expect": "s _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if j = 0} \\\\ 0 & \\text {if j = 1} \\\\ s _ {j - 2} - q _ {j - 1} s _ {j - 1} & \\text {if j\\geq 2}. \\end{array} \\right.",
+      "new": "s_{j} = \\left\\{ \\begin{array}{l l} 1 & \\text{if } j = 0 \\\\ 0 & \\text{if } j = 1 \\\\ s_{j - 2} - q_{j - 1} s_{j - 1} & \\text{if } j\\geq 2. \\end{array} \\right."
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-564-04511b",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[564]",
+      "expect": "c _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if j = 0} \\\\ q _ {1} & \\text {if j = 1} \\\\ q _ {j} c _ {j - 1} + c _ {j - 2} & \\text {if j\\geq 2} \\end{array} \\right.",
+      "new": "c_{j} = \\left\\{ \\begin{array}{l l} 1 & \\text{if } j = 0 \\\\ q_{1} & \\text{if } j = 1 \\\\ q_{j} c_{j - 1} + c_{j - 2} & \\text{if } j\\geq 2 \\end{array} \\right."
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch07-body-80-d3ae1c",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[80]",
+      "expect": "(x _ {i}, a _ {i}, b _ {i}) = \\left\\{ \\begin{array}{l l} (1, 0, 0) & \\text {if i = 0} \\\\ f (x _ {i - 1}, a _ {i - 1}, b _ {i - 1}) & \\text {if i\\geq 1}. \\end{array} \\right.",
+      "new": "(x_{i}, a_{i}, b_{i}) = \\left\\{ \\begin{array}{l l} (1, 0, 0) & \\text{if } i = 0 \\\\ f(x_{i - 1}, a_{i - 1}, b_{i - 1}) & \\text{if } i\\geq 1. \\end{array} \\right."
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-134-945ecd",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[134]",
+      "field": "md",
+      "all": true,
+      "old": "$\\stackrel { \\cdot } { \\alpha } { \\stackrel { \\left( p - 1 \\right) } { \\left. \\kern - delimiterspace \\right.} 2 }  \\not \\equiv 1$",
+      "new": "$\\stackrel { \\cdot } { \\alpha } { \\stackrel { \\left( p - 1 \\right) } { 2 } } \\not\\equiv 1$",
+      "anchor": "07ec23db"
+    },
+    {
+      "id": "stinson_cryptography_theory_practice-ch06-body-126-7a62b4",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[126]",
+      "field": "md",
+      "all": true,
+      "old": "$0 \\leq i \\leq p - 2 \\relax$",
+      "new": "$0 \\leq i \\leq p - 2$",
+      "anchor": "f484d4df"
+    }
+  ]
+}

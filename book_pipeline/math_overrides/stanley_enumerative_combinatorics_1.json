@@ -8,8 +8,7 @@
       "field": "md",
       "all": true,
       "old": "$( a _ { i } _ { j } , a _ { i } _ { j + 1 } )$",
-      "new": "$( a _ { i j } , a _ { i , j + 1 } )$",
-      "anchor": "300837e8"
+      "new": "$( a_{ij} , a_{i,j+1} )$"
     },
     {
       "id": "stanley_enumerative_combinatorics_1-ch03-body-834-29e02b",
@@ -17,7 +16,7 @@
       "chunk": "ch03",
       "selector": "body[834]",
       "expect": "\\sigma (t) = \\left\\{ \\begin{array}{c l} 1 + \\delta (t), & \\text {if t\\not\\leq t_{k + 1}}, \\\\ 1 + \\max (\\delta (t), \\delta (t _ {k + 1}) + \\lambda (t, t _ {k + 1}) + 1), & \\text {if t\\leq t_{k + 1}}, \\end{array} \\right.",
-      "new": "\\sigma (t) = \\left\\{ \\begin{array}{c l} 1 + \\delta (t), & \\text {if } t\\not\\leq t_{k + 1}, \\\\ 1 + \\max (\\delta (t), \\delta (t _ {k + 1}) + \\lambda (t, t _ {k + 1}) + 1), & \\text {if } t\\leq t_{k + 1}, \\end{array} \\right."
+      "new": "\\sigma(t) = \\left\\{ \\begin{array}{c l} 1 + \\delta(t), & \\text{if } t\\not\\leq t_{k + 1}, \\\\ 1 + \\max(\\delta(t), \\delta(t_{k + 1}) + \\lambda(t, t_{k + 1}) + 1), & \\text{if } t\\leq t_{k + 1}, \\end{array} \\right."
     },
     {
       "id": "stanley_enumerative_combinatorics_1-ch01-body-1089-2aee3b",
@@ -27,8 +26,7 @@
       "field": "md",
       "all": true,
       "old": "$( n , q ) \\stackrel { \\psi }  \\mathcal { F } ( n , q ) \\stackrel { \\varphi }  \\mathfrak { S } _ { n }$",
-      "new": "$( n , q ) \\stackrel { \\psi } {\\longrightarrow} \\mathcal { F } ( n , q ) \\stackrel { \\varphi } {\\longrightarrow} \\mathfrak { S } _ { n }$",
-      "anchor": "17f4ee0b"
+      "new": "$( n , q ) \\stackrel { \\psi } {\\to} \\mathcal { F } ( n , q ) \\stackrel { \\varphi } {\\to} \\mathfrak { S } _ { n }$"
     },
     {
       "id": "stanley_enumerative_combinatorics_1-ch03-body-179-4dfdea",
@@ -38,8 +36,7 @@
       "field": "md",
       "all": true,
       "old": "$C _ { 1 } = \\{ ( 2 , j ) : j \\inpmb { n } \\} , C _ { 2 } = \\{ ( 1 , j ) : j \\in \\pmb { n } \\}$",
-      "new": "$C _ { 1 } = \\{ ( 2 , j ) : j \\in \\pmb { n } \\} , C _ { 2 } = \\{ ( 1 , j ) : j \\in \\pmb { n } \\}$",
-      "anchor": "1f0be1e5"
+      "new": "$C_{1} = \\{ ( 2 , j ) : j \\in \\pmb{n} \\} , C_{2} = \\{ ( 1 , j ) : j \\in \\pmb{n} \\}$"
     },
     {
       "id": "stanley_enumerative_combinatorics_1-ch01-body-782-e2cf78",
@@ -47,7 +44,7 @@
       "chunk": "ch01",
       "selector": "body[782]",
       "expect": "\\begin{array}{c} p (1 0 ^ {4}) = 3 6 1 6 7 2 5 1 3 2 5 6 3 6 2 9 3 9 8 8 8 2 0 4 7 1 8 9 0 9 5 3 6 9 5 4 9 5 0 1 6 0 3 0 3 3 9 3 1 5 6 5 0 4 2 2 0 \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
-      "new": "\\begin{array}{c} p(10^{4})=361672513256362939888204718909536954950160303393156504220 \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+      "new": "\\begin{array}{c}p(10^{4})=361672513256362939888204718909536954950160303393156504220\\\\ \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\\\ \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\end{array}"
     },
     {
       "id": "stanley_enumerative_combinatorics_1-ch04-body-735-3a66ce",
@@ -55,7 +52,18 @@
       "chunk": "ch04",
       "selector": "body[735]",
       "expect": "(A _ {k}) _ {v v ^ {\\prime}} = \\left\\{ \\begin{array}{l l} 0, & \\text {if for some 1\\leq i\\leq k - 2 , we have \\varepsilon_{i + 1} = 1 ,} \\\\ & \\text {and \\varepsilon^{\\prime}_{i} = 0 ,} \\\\ F _ {i _ {1}} * \\dots * F _ {i _ {r}}, & \\text {otherwise, where \\{i_{1},\\ldots,i_{r} \\} = \\{i: \\varepsilon_{k - i + 1} = 0 and} \\\\ & \\varepsilon_ {k - i} ^ {\\prime} = 1 \\}, \\text {and where we set \\varepsilon_{k} = 0 , \\varepsilon^{\\prime}_{0} = 1 , and an} \\\\ & \\text {empty Hadamard product equal to J = x / (1 - x) .} \\end{array} \\right.",
-      "new": "(A_{k})_{v v^{\\prime}} = \\left\\{ \\begin{array}{ll} 0, & \\text{if for some } 1\\leq i\\leq k-2, \\text{ we have } \\varepsilon_{i+1}=1, \\\\ & \\text{and } \\varepsilon^{\\prime}_{i}=0, \\\\ F_{i_{1}} * \\dots * F_{i_{r}}, & \\text{otherwise, where } \\{i_{1},\\ldots,i_{r}\\} = \\{i: \\varepsilon_{k-i+1}=0 \\text{ and} \\\\ & \\varepsilon_{k-i}^{\\prime}=1\\}, \\text{ and where we set } \\varepsilon_{k}=0, \\varepsilon^{\\prime}_{0}=1, \\text{ and an} \\\\ & \\text{empty Hadamard product equal to } J=x/(1-x). \\end{array} \\right."
+      "new": "(A_{k})_{v v^{\\prime}}=\\left\\{\\begin{array}{ll}0,& \\text{if for some }1\\leq i\\leq k-2\\text{, we have }\\varepsilon_{i+1}=1,\\\\ & \\text{and }\\varepsilon^{\\prime}_{i}=0,\\\\ F_{i_{1}}*\\dots *F_{i_{r}},& \\text{otherwise, where }\\{i_{1},\\ldots,i_{r}\\}=\\{i:\\varepsilon_{k-i+1}=0\\text{ and}\\\\ & \\varepsilon_{k-i}^{\\prime}=1\\}, \\text{ and where we set }\\varepsilon_{k}=0,\\ \\varepsilon_{0}^{\\prime}=1,\\ \\text{and an}\\\\ & \\text{empty Hadamard product equal to }J=x/(1-x).\\end{array}\\right."
+    },
+    {
+      "id": "stanley_enumerative_combinatorics_1-ch01-problem-2-body-5-deb679",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:2:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$S ( 6 , 3 ) \\time$",
+      "new": "$S ( 6 , 3 ) \\times$",
+      "anchor": "97142925"
     }
   ]
 }

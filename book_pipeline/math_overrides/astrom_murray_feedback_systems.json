@@ -1,0 +1,55 @@
+{
+  "overrides": [
+    {
+      "id": "astrom_murray_feedback_systems-ch06-body-356-387175",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[356]",
+      "expect": "u _ {\\mathrm{p}} (t) = \\left\\{ \\begin{array}{l l} u (t) & \\text {if 0\\leq t <   T / 2}, \\\\ 0 & \\text {if T / 2\\leq t <   T}, \\end{array} \\right.",
+      "new": "u_{\\mathrm{p}}(t)=\\left\\{\\begin{array}{ll}u(t)&\\text{if }0\\leq t<T/2,\\\\0&\\text{if }T/2\\leq t<T,\\end{array}\\right."
+    },
+    {
+      "id": "astrom_murray_feedback_systems-ch10-problem-10-15-body-1-23eef3",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.15:body[1]",
+      "expect": "y = \\operatorname{sat} (x) = \\left\\{ \\begin{array}{l l} - 1 & \\text {if x\\leq 1}, \\\\ x & \\text {if -1 <   x\\leq 1}, \\\\ 1 & \\text {if x > 1}. \\end{array} \\right.",
+      "new": "y=\\operatorname{sat}(x)=\\left\\{\\begin{array}{ll}-1&\\text{if }x\\leq -1,\\\\x&\\text{if }-1<x\\leq 1,\\\\1&\\text{if }x>1.\\end{array}\\right."
+    },
+    {
+      "id": "astrom_murray_feedback_systems-ch10-problem-10-15-body-3-9fd565",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.15:body[3]",
+      "expect": "N (a) = \\left\\{ \\begin{array}{l l} x & \\text {if |x|\\leq 1 ,} \\\\ \\frac {2}{\\pi} \\left(\\arcsin \\frac {1}{x} + \\frac {1}{x} \\sqrt {1 - \\frac {1}{x ^ {2}}}\\right) & \\text {if |x| > 1 .} \\end{array} \\right.",
+      "new": "N(a)=\\left\\{\\begin{array}{ll}x&\\text{if }|x|\\leq 1,\\\\\\frac{2}{\\pi}\\left(\\arcsin \\frac{1}{x}+\\frac{1}{x}\\sqrt{1-\\frac{1}{x^{2}}}\\right)&\\text{if }|x|>1.\\end{array}\\right."
+    },
+    {
+      "id": "astrom_murray_feedback_systems-ch13-body-88-494cb7",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[88]",
+      "expect": "\\delta_ {\\nu} (P _ {1}, P _ {2}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if k\\leq 1 ,} \\\\ \\frac {2 k}{1 + k ^ {2}} & \\text {if k > 1 .} \\end{array} \\right.",
+      "new": "\\delta_{\\nu}(P_{1},P_{2})=\\left\\{\\begin{array}{ll}1&\\text{if }k\\leq 1,\\\\\\frac{2k}{1+k^{2}}&\\text{if }k>1.\\end{array}\\right."
+    },
+    {
+      "id": "astrom_murray_feedback_systems-ch10-body-186-d1c48c",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[186]",
+      "field": "md",
+      "all": true,
+      "old": "$| G ( s ) | = | { \\bigl - } G ( s ) |$",
+      "new": "$|G(s)|=|\\{-G(s)\\}|$",
+      "anchor": "4ee831e5"
+    },
+    {
+      "id": "astrom_murray_feedback_systems-ch09-body-33-d5772f",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[33]",
+      "expect": "\\begin{array}{l} y (t) = C x (t) + D u (t) \\\\ = \\underbrace {C e ^ {A t} x (0)} _ {\\text { initial   state   response }} + \\underbrace {\\left(C (s I - A) ^ {- 1} B + D\\right) e ^ {s t} - C e ^ {A t} (s I - A) ^ {- 1} B} _ {\\text { input   response }}  \\\\ = \\underbrace {C e ^ {A t} \\Big (x (0) - (s I - A) ^ {- 1} B \\Big)} _ {\\text {transient response}} + \\underbrace {\\Big (C (s I - A) ^ {- 1} B + D \\Big) e ^ {s t}} _ {\\text {pure exponential response y_{p}}}, \\\\ \\end{array}",
+      "new": "\\begin{array}{l} y (t) = C x (t) + D u (t) \\\\ = \\underbrace {C e ^ {A t} x (0)} _ {\\text { initial   state   response }} + \\underbrace {\\left(C (s I - A) ^ {- 1} B + D\\right) e ^ {s t} - C e ^ {A t} (s I - A) ^ {- 1} B} _ {\\text { input   response }}  \\\\ = \\underbrace {C e ^ {A t} \\Big (x (0) - (s I - A) ^ {- 1} B \\Big)} _ {\\text {transient response}} + \\underbrace {\\Big (C (s I - A) ^ {- 1} B + D \\Big) e ^ {s t}} _ {\\text {pure exponential response } y_{p}}, \\\\ \\end{array}"
+    }
+  ]
+}

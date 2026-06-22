@@ -1,0 +1,108 @@
+{
+  "overrides": [
+    {
+      "id": "sklar_digital_communications-ch06-body-495-c004aa",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[495]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathsf { p } } ( X )$",
+      "new": "${\\pmb{\\mathsf{p}}}(X)$",
+      "anchor": "eeee43df"
+    },
+    {
+      "id": "sklar_digital_communications-ch07-body-368-c004aa",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[368]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathsf { p } } ( X )$",
+      "new": "${\\pmb{\\mathsf{p}}}(X)$",
+      "anchor": "7a61ac7e"
+    },
+    {
+      "id": "sklar_digital_communications-ch07-body-411-504791",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[411]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathfrak { e } } ( X )$",
+      "new": "${\\pmb{\\mathfrak{e}}}(X)$",
+      "anchor": "072bb392"
+    },
+    {
+      "id": "sklar_digital_communications-ch07-body-437-504791",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[437]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathfrak { e } } ( X )$",
+      "new": "${\\pmb{\\mathfrak{e}}}(X)$",
+      "anchor": "d01f5c47"
+    },
+    {
+      "id": "sklar_digital_communications-ch10-body-223-59ea49",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[223]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textbf { \\times } \\ s ( t )$",
+      "new": "$\\mathbf{\\times}\\ s(t)$",
+      "anchor": "9952d72e"
+    },
+    {
+      "id": "sklar_digital_communications-ch07-body-370-202ebc",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[370]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathsf { p } } ( X \\mid$",
+      "new": "${\\pmb{\\mathsf{p}}}(X\\mid$",
+      "anchor": "c35459fd"
+    },
+    {
+      "id": "sklar_digital_communications-ch01-body-108-078348",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[108]",
+      "expect": "\\left. \\begin{array}{l l} c _ {1} = C _ {- 1} = \\frac {A}{2} \\\\ c _ {n} = 0 \\text {for} n = 0, \\pm 2, \\pm 3, \\end{array} \\right\\} & \\text {(see Appendix A at informit.com / title/} \\\\ & 9 7 8 0 1 3 4 5 8 8 5 6 8)",
+      "new": "\\left. \\begin{array}{l l} c_{1} = C_{-1} = \\frac{A}{2} \\\\ c_{n} = 0 \\text{ for } n = 0, \\pm 2, \\pm 3, \\end{array} \\right\\}"
+    },
+    {
+      "id": "sklar_digital_communications-ch13-body-265-026181",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[265]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathtt { \\^ { a 0 0 t } }$",
+      "new": "$\\mathtt{\\hat{a00t}}$",
+      "anchor": "718b0afa"
+    },
+    {
+      "id": "sklar_digital_communications-ch13-body-269-60f901",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[269]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathtt { \\^ { a 0 0 } } ^ { \\mathtt { t } }$",
+      "new": "$\\mathtt{\\hat{a00}}^{\\mathtt{t}}$",
+      "anchor": "8025e84f"
+    },
+    {
+      "id": "sklar_digital_communications-ch16-body-30-b0edb0",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[30]",
+      "expect": "\\mathbf {r} = \\begin{array}{c} \\left[ \\begin{array}{c} r _ {1} \\\\ r _ {2} \\end{array} \\right] \\\\ \\vdots \\\\ \\left[ \\begin{array}{c} r _ {N} \\end{array} \\right] \\end{array} = \\begin{array}{c c c c c c c c} \\left[ \\begin{array}{c} h _ {1 1} \\\\ h _ {2 1} \\end{array} \\right. & h _ {1 2} & \\dots & h _ {1 M} \\\\ \\vdots & h _ {2 2} & \\dots & h _ {2 M} \\end{array} & \\left[ \\begin{array}{c} s _ {1} \\\\ s _ {2} \\end{array} \\right] & \\left[ \\begin{array}{c} n _ {1} \\\\ n _ {2} \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} h _ {N 1} \\\\ h _ {N 2} \\end{array} \\right. & \\dots & h _ {N M} \\end{array} + \\begin{array}{c} \\vdots \\\\ \\vdots \\\\ \\left[ \\begin{array}{c} s _ {M} \\end{array} \\right] \\end{array} + \\begin{array}{c} \\vdots \\\\ \\left[ \\begin{array}{c} n _ {M} \\end{array} \\right] \\end{array} \\tag {16.6}",
+      "new": "\\mathbf{r}=\\begin{array}{c}\\left[\\begin{array}{c}r_{1}\\\\ r_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}r_{N}\\end{array}\\right]\\end{array}=\\begin{array}{ccc}\\begin{array}{cccc}\\left[\\begin{array}{c}h_{11}\\\\ h_{21}\\end{array}\\right.& h_{12}& \\dots& h_{1M}\\\\ \\vdots& h_{22}& \\dots& h_{2M}\\\\ \\left[\\begin{array}{c}h_{N1}\\\\ h_{N2}\\end{array}\\right.& \\dots& h_{NM}\\end{array}& \\begin{array}{c}\\left[\\begin{array}{c}s_{1}\\\\ s_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}s_{M}\\end{array}\\right]\\end{array}& \\begin{array}{c}\\left[\\begin{array}{c}n_{1}\\\\ n_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}n_{M}\\end{array}\\right]\\end{array}\\end{array}\\tag{16.6}"
+    }
+  ]
+}

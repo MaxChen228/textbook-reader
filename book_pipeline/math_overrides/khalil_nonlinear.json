@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "khalil_nonlinear-appC-body-915-1bdf14",
+      "action": "fix_inline_math",
+      "chunk": "appC",
+      "selector": "body[915]",
+      "field": "md",
+      "all": true,
+      "old": "$L_{ad_f^{n-1}}_g h(x) \\neq 0$",
+      "new": "$L_{ad_{f}^{n-1}g} h(x) \\neq 0$",
+      "anchor": "cfb8be76"
+    },
+    {
+      "id": "khalil_nonlinear-ch07-problem-7-10-body-5-3ee3be",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.10:body[5]",
+      "expect": "\\Psi (a) = \\left\\{ \\begin{array}{c l} 0, & \\text {for a\\leq A} \\\\ (4 B / \\pi a) [ 1 - (A / a) ^ {2} ] ^ {1 / 2}, & \\text {for a\\geq A} \\end{array} \\right.",
+      "new": "\\Psi(a) = \\left\\{ \\begin{array}{c l} 0, & \\text{for } a\\leq A \\\\ (4 B / \\pi a) [ 1 - (A / a) ^ {2} ] ^ {1 / 2}, & \\text{for } a\\geq A \\end{array} \\right."
+    },
+    {
+      "id": "khalil_nonlinear-ch09-body-374-ad9af6",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[374]",
+      "expect": "s _ {i j} = \\left\\{ \\begin{array}{l l} \\delta_ {i} + 1 / R _ {i}, & \\text {for i = j} \\\\ - | T _ {i j} | k _ {j 2} & \\text {for i\\neq j} \\end{array} \\right.",
+      "new": "s_{i j} = \\left\\{ \\begin{array}{l l} \\delta_{i} + 1 / R_{i}, & \\text{for } i = j \\\\ - | T_{i j} | k_{j 2} & \\text{for } i\\neq j \\end{array} \\right."
+    },
+    {
+      "id": "khalil_nonlinear-appC-body-491-58b1dc",
+      "action": "fix_eq_tex",
+      "chunk": "appC",
+      "selector": "body[491]",
+      "expect": "\\begin{array}{l} \\left\\| T y ^ {(2)} - T y ^ {(1)} \\right\\| ^ {2} = 2 \\sum_ {\\textit {k o d d ; | k | \\neq 1}} \\left| \\frac {G (j k \\omega)}{1 + [ (\\beta + \\alpha) / 2 ] G (j k \\omega)} \\right| ^ {2} | e _ {k} | ^ {2} \\\\ \\leq \\left\\{\\sup _ {k \\text {odd}; | k | \\neq 1} \\left| \\frac {G (j k \\omega)}{1 + [ (\\beta + \\alpha) / 2 ] G (j k \\omega)} \\right| \\right\\} ^ {2} \\\\ \\times \\left\\| \\psi_ {T} (y _ {1} + y ^ {(2)}) - \\psi_ {T} (y _ {1} + y ^ {(1)}) \\right\\| ^ {2} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left\\| T y ^ {(2)} - T y ^ {(1)} \\right\\| ^ {2} = 2 \\sum_{\\textit{k odd}; | k | \\neq 1} \\left| \\frac {G (j k \\omega)}{1 + [ (\\beta + \\alpha) / 2 ] G (j k \\omega)} \\right| ^ {2} | e _ {k} | ^ {2} \\\\ \\leq \\left\\{\\sup _ {k \\text {odd}; | k | \\neq 1} \\left| \\frac {G (j k \\omega)}{1 + [ (\\beta + \\alpha) / 2 ] G (j k \\omega)} \\right| \\right\\} ^ {2} \\\\ \\times \\left\\| \\psi_ {T} (y _ {1} + y ^ {(2)}) - \\psi_ {T} (y _ {1} + y ^ {(1)}) \\right\\| ^ {2} \\\\ \\end{array}"
+    }
+  ]
+}

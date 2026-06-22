@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "lathi_ding_modern_digital_analog_comm-ch10-body-102-3993bc",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[102]",
+      "expect": "\\mathrm{m} = \\left\\{ \\begin{array}{l l} \\mathbf {0} & \\text { if   r <   a_{o }} \\\\ \\mathbf {1} & \\text { if   r > a_{o }} \\end{array} \\right.",
+      "new": "\\mathrm{m} = \\left\\{ \\begin{array}{l l} \\mathbf{0} & \\text{ if } r < a_{o} \\\\ \\mathbf{1} & \\text{ if } r > a_{o} \\end{array} \\right."
+    },
+    {
+      "id": "lathi_ding_modern_digital_analog_comm-ch10-body-549-c67c93",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[549]",
+      "expect": "\\text {Decision} (\\boldsymbol {q}) = \\left\\{ \\begin{array}{l l} m _ {1} & \\text {if d_{1} ^{2} -d_{2} ^{2} <   c} \\\\ m _ {2} & \\text {if d_{1} ^{2} -d_{2} ^{2} >c} \\\\ \\text {randomly m_{1} or m_{2}} & \\text {if d_{1} ^{2} -d_{2} ^{2} = c} \\end{array} \\right.",
+      "new": "\\text{Decision}(\\boldsymbol{q}) = \\left\\{ \\begin{array}{l l} m_{1} & \\text{if } d_{1}^{2} - d_{2}^{2} < c \\\\ m_{2} & \\text{if } d_{1}^{2} - d_{2}^{2} > c \\\\ \\text{randomly } m_{1} \\text{ or } m_{2} & \\text{if } d_{1}^{2} - d_{2}^{2} = c \\end{array} \\right."
+    }
+  ]
+}

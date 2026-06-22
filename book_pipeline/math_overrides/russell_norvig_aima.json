@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "russell_norvig_aima-ch18-body-394-b59c0d",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "body[394]",
+      "field": "md",
+      "all": true,
+      "old": "$\\omega _ { 2 }  _ { i } \\omega _ { 3 }  _ { i } \\omega _ { 1 }$",
+      "new": "$\\omega_{2i} \\omega_{3i} \\omega_{1}$",
+      "anchor": "00c2e468"
+    },
+    {
+      "id": "russell_norvig_aima-ch19-body-512-3aec03",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[512]",
+      "expect": "\\mathbf {x} _ {1} = \\text { Yes,   No,   No,   Yes,   Some,   \\S\\S\\S,   No,   Yes,   French,   0 - 10; y _ {1 } = Yes}",
+      "new": "\\mathbf{x}_{1}=\\text{Yes, No, No, Yes, Some, \\S\\S\\S, No, Yes, French, 0 - 10; } y_{1}=\\text{Yes}"
+    },
+    {
+      "id": "russell_norvig_aima-ch23-body-189-fa08d3",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[189]",
+      "expect": "\\begin{array}{l} \\text {Name(Ali)} \\to \\text {Ali} \\\\ \\text {Name(Bo)} \\to \\text {Bo} \\\\ \\text {Verb(\\lambda y \\lambda x Loves(x,y))} \\to \\text {loves} \\end{array}",
+      "new": "\\begin{array}{l} \\text{Name(Ali)} \\to \\text{Ali} \\\\ \\text{Name(Bo)} \\to \\text{Bo} \\\\ \\text{Verb}(\\lambda y\\, \\lambda x\\, Loves(x,y)) \\to \\text{loves} \\end{array}"
+    },
+    {
+      "id": "russell_norvig_aima-ch09-body-181-e60413",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[181]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bf { \\^ { 6 6 } X \\ i s \\ 4 + 3 ^ { 3 } }$",
+      "new": "$\\mathbf{\\hat{66}X\\ is\\ 4+3^{3}}$",
+      "anchor": "54d85951"
+    },
+    {
+      "id": "russell_norvig_aima-ch14-body-49-c094c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[49]",
+      "expect": "\\begin{array}{l} \\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1: t + 1}) = \\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1: t}, \\mathbf {e} _ {t + 1}) \\quad (d i v i d i n g u p t h e e v i d e n c e) \\\\ = \\alpha \\mathbf {P} (\\mathbf {e} _ {t + 1} | \\mathbf {X} _ {t + 1}, \\mathbf {e} _ {1: t}) \\mathbf {P} (\\mathbf {X} _ {t + 1} | \\mathbf {e} _ {1: t}) \\quad \\text {(using Bayes' rule, given \\mathbf {e} _{1:t})} \\\\ = \\alpha \\underbrace {\\mathbf {P} (\\mathbf {e} _ {t + 1} \\mid \\mathbf {X} _ {t + 1})} _ {\\text { update }} \\underbrace {\\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1 : t})} _ {\\text { prediction }} \\quad \\text {(by the sensor Markov assumption).} \\tag {14.4} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1: t + 1}) = \\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1: t}, \\mathbf {e} _ {t + 1}) \\quad (d i v i d i n g u p t h e e v i d e n c e) \\\\ = \\alpha \\mathbf {P} (\\mathbf {e} _ {t + 1} | \\mathbf {X} _ {t + 1}, \\mathbf {e} _ {1: t}) \\mathbf {P} (\\mathbf {X} _ {t + 1} | \\mathbf {e} _ {1: t}) \\quad \\text {(using Bayes' rule, given } \\mathbf {e} _{1:t}\\text{)} \\\\ = \\alpha \\underbrace {\\mathbf {P} (\\mathbf {e} _ {t + 1} \\mid \\mathbf {X} _ {t + 1})} _ {\\text { update }} \\underbrace {\\mathbf {P} (\\mathbf {X} _ {t + 1} \\mid \\mathbf {e} _ {1 : t})} _ {\\text { prediction }} \\quad \\text {(by the sensor Markov assumption).} \\tag {14.4} \\\\ \\end{array}"
+    },
+    {
+      "id": "russell_norvig_aima-ch14-body-77-e29c7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[77]",
+      "expect": "\\begin{array}{l} \\mathbf {P} \\left(\\mathbf {X} _ {k} \\mid \\mathbf {e} _ {1: t}\\right) = \\mathbf {P} \\left(\\mathbf {X} _ {k} \\mid \\mathbf {e} _ {1: k}, \\mathbf {e} _ {k + 1: t}\\right) \\\\ = \\alpha \\mathbf {P} (\\mathbf {X} _ {k} | \\mathbf {e} _ {1: k}) \\mathbf {P} (\\mathbf {e} _ {k + 1: t} | \\mathbf {X} _ {k}, \\mathbf {e} _ {1: k}) \\quad \\text {(using Bayes' rule, given \\mathbf {e} _{1:k})} \\\\ = \\alpha \\mathbf {P} (\\mathbf {X} _ {k} | \\mathbf {e} _ {1: k}) \\mathbf {P} (\\mathbf {e} _ {k + 1: t} | \\mathbf {X} _ {k}) \\quad (u s i n g c o n d i t i o n a l i n d e p e n d e n c e) \\\\ = \\alpha \\mathbf {f} _ {1: k} \\times \\mathbf {b} _ {k + 1: t}. \\tag {14.8} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\mathbf {P} \\left(\\mathbf {X} _ {k} \\mid \\mathbf {e} _ {1: t}\\right) = \\mathbf {P} \\left(\\mathbf {X} _ {k} \\mid \\mathbf {e} _ {1: k}, \\mathbf {e} _ {k + 1: t}\\right) \\\\ = \\alpha \\mathbf {P} (\\mathbf {X} _ {k} | \\mathbf {e} _ {1: k}) \\mathbf {P} (\\mathbf {e} _ {k + 1: t} | \\mathbf {X} _ {k}, \\mathbf {e} _ {1: k}) \\quad \\text {(using Bayes' rule, given } \\mathbf {e} _{1:k}\\text{)} \\\\ = \\alpha \\mathbf {P} (\\mathbf {X} _ {k} | \\mathbf {e} _ {1: k}) \\mathbf {P} (\\mathbf {e} _ {k + 1: t} | \\mathbf {X} _ {k}) \\quad (u s i n g c o n d i t i o n a l i n d e p e n d e n c e) \\\\ = \\alpha \\mathbf {f} _ {1: k} \\times \\mathbf {b} _ {k + 1: t}. \\tag {14.8} \\\\ \\end{array}"
+    }
+  ]
+}

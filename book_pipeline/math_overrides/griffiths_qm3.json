@@ -154,6 +154,30 @@
       "selector": "problem:4.69:solution[49]",
       "expect": "\\left) / \\left(x + 0. 0 0 0 0 0 1\\right)\\left. \\right).",
       "new": "\\left) / \\left(x + 0.0000001\\right)\\right."
+    },
+    {
+      "id": "griffiths_qm3-ch04-problem-4-69-solution-3-6743ab",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.69:solution[3]",
+      "expect": "\\begin{array}{l}\\text { Plot[Evaluate[u[x] /. NDSolve[\\{u^{\\prime\\prime}[x]- (1 - (2*1.0001)}\\\\\\quad) / (x + 0.000001)) u[x] = 0, u[0] = 0, u^{\\prime}[0] = 1\\}, u[x], \\{x, 10^{\\wedge}(-8), 10\\},\\\\\\text { MaxSteps } \\rightarrow 10000\\big] , \\{x, 0.01, 10\\} , \\text { PlotRange } \\rightarrow \\{-0.1, 0.5\\} \\big]\\end{array}",
+      "new": "\\begin{array}{l}\\text{ Plot[Evaluate[u[x] /. NDSolve[\\{u''[x]- (1 - (2*1.0001)}\\\\\\quad\\text{) / (x + 0.000001)) u[x] = 0, u[0] = 0, u'}[0] = 1\\}, u[x], \\{x, 10\\wedge(-8), 10\\},\\\\\\text{ MaxSteps } \\rightarrow 10000\\big] , \\{x, 0.01, 10\\} , \\text{ PlotRange } \\rightarrow \\{-0.1, 0.5\\} \\big]\\end{array}"
+    },
+    {
+      "id": "griffiths_qm3-ch04-problem-4-69-solution-6-427bd9",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.69:solution[6]",
+      "expect": "\\begin{array}{l}\\text { Plot[Evaluate[u[x] /. NDSolve[\\{u^{\\prime\\prime}[x]- (1 - (2*2.0001)}\\\\\\quad) / (x + 0.000001)\\} u[x] = 0, u[0] = 0, u^{\\prime}[0] = 1\\}, u[x], \\{x, 10^{\\wedge}(-8), 15\\},\\\\\\text { MaxSteps } \\rightarrow 10000\\big]\\big], \\{x, 0.01, 15\\}, \\text { PlotRange } \\rightarrow \\{-0.4, 0.2\\} \\big]\\end{array}",
+      "new": "\\begin{array}{l}\\text{ Plot[Evaluate[u[x] /. NDSolve[\\{u''[x]- (1 - (2*2.0001)}\\\\\\quad\\text{) / (x + 0.000001)\\} u[x] = 0, u[0] = 0, u'}[0] = 1\\}, u[x], \\{x, 10\\wedge(-8), 15\\},\\\\\\text{ MaxSteps } \\rightarrow 10000\\big]\\big], \\{x, 0.01, 15\\}, \\text{ PlotRange } \\rightarrow \\{-0.4, 0.2\\} \\big]\\end{array}"
+    },
+    {
+      "id": "griffiths_qm3-ch06-problem-6-14-solution-5-d4e188",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.14:solution[5]",
+      "expect": "\\binom{a - \\varphi / N b}{\\hline} = \\binom{a \\pm i \\varphi / N a}{\\hline}",
+      "new": "\\binom{a - \\varphi / N b}{-} = \\binom{a \\pm i \\varphi / N a}{-}"
     }
   ]
 }

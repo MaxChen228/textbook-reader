@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "winskel_formal_semantics-ch03-body-134-53a105",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[134]",
+      "expect": "\\operatorname{length} (a) = \\left\\{ \\begin{array}{l l} 1 & \\text {if a\\equiv n , a number} \\\\ \\operatorname{length} (a _ {0}) + \\operatorname{length} (a _ {1}) & \\text {if a\\equiv (a_{0} + a_{1}) ,} \\\\ \\vdots & \\end{array} \\right.",
+      "new": "\\operatorname{length} (a) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } a\\equiv n \\text {, a number} \\\\ \\operatorname{length} (a _ {0}) + \\operatorname{length} (a _ {1}) & \\text {if } a\\equiv (a_{0} + a_{1}) \\text {,} \\\\ \\vdots & \\end{array} \\right."
+    },
+    {
+      "id": "winskel_formal_semantics-ch05-problem-5-5-body-44-09f9ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.5:body[44]",
+      "expect": "\\mathcal {C} [ \\textbf {[ w h i l e b d o c _ {0} ]} = f i x (\\Gamma)",
+      "new": "\\mathcal {C} [ \\textbf {[ w h i l e b d o c } _ {0} \\textbf { ]} ] = f i x (\\Gamma)"
+    },
+    {
+      "id": "winskel_formal_semantics-ch13-body-316-91f314",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[316]",
+      "expect": "\\mathcal {V} [ \\mathbf {0} ] \\chi = (\\emptyset , \\{\\emptyset \\}, \\emptyset) \\quad \\text {(also called \\mathbf {0})}",
+      "new": "\\mathcal {V} [ \\mathbf {0} ] \\chi = (\\emptyset , \\{\\emptyset \\}, \\emptyset) \\quad \\text {(also called } \\mathbf {0} \\text {)}"
+    },
+    {
+      "id": "winskel_formal_semantics-ch14-body-197-d0d1a7",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[197]",
+      "expect": "\\begin{array}{l} \\text { terminal } (\\mathbf {n i l}) = \\text { true } \\\\ \\text { terminal } (\\lambda . p) = \\text { false } \\\\ t e r m i n a l (\\sum_ {i \\in I} p _ {i}) = \\left\\{ \\begin{array}{l l} \\mathbf {t r u e} & \\text {if terminal(p_{i}) = true for all i\\in I}, \\\\ \\mathbf {f a l s e} & \\text {otherwise} \\end{array} \\right. \\\\ \\text { terminal } (p _ {0} \\parallel p _ {1}) = \\text { terminal } (p _ {0}) \\wedge_ {T} \\text { terminal } (p _ {1}) \\\\ \\text { terminal } (p \\backslash L) = \\text { terminal } (p) \\\\ \\text { terminal } (p [ f ]) = \\text { terminal } (p) \\\\ \\text { terminal } (P) = \\text { false } \\\\ \\text { terminal } (\\operatorname{rec} (P = p)) = \\text { terminal } (p) \\\\ \\end{array}",
+      "new": "\\begin{array}{l}\\text{terminal}(\\mathbf{nil})=\\text{true}\\\\ \\text{terminal}(\\lambda.p)=\\text{false}\\\\ \\mathrm{terminal}(\\sum_{i\\in I}p_{i})=\\left\\{\\begin{array}{ll}\\mathbf{true}& \\text{if terminal}(p_{i})=\\text{true for all }i\\in I,\\\\ \\mathbf{false}& \\text{otherwise}\\end{array}\\right.\\\\ \\text{terminal}(p_{0}\\parallel p_{1})=\\text{terminal}(p_{0})\\wedge_{T}\\text{terminal}(p_{1})\\\\ \\text{terminal}(p\\backslash L)=\\text{terminal}(p)\\\\ \\text{terminal}(p[f])=\\text{terminal}(p)\\\\ \\text{terminal}(P)=\\text{false}\\\\ \\text{terminal}(\\operatorname{rec}(P=p))=\\text{terminal}(p)\\\\ \\end{array}"
+    }
+  ]
+}

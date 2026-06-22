@@ -1,0 +1,69 @@
+{
+  "overrides": [
+    {
+      "id": "neukirch_algebraic_number_theory-ch01-body-790-7f0e0d",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[790]",
+      "field": "md",
+      "all": true,
+      "old": "$P_Z = P^e'$",
+      "new": "$P_Z = P^{e'}$",
+      "anchor": "4fb27048"
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch03-body-923-6ff430",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[923]",
+      "field": "md",
+      "all": true,
+      "old": "$E''_{\\mathbb{C}}^{\\perp} \\subseteq E_{\\mathbb{C}}^{\\perp}$",
+      "new": "$E_{\\mathbb{C}}^{\\prime\\prime\\perp} \\subseteq E_{\\mathbb{C}}^{\\perp}$",
+      "anchor": "61a32d72"
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch04-body-461-0e9e0d",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[461]",
+      "field": "md",
+      "all": true,
+      "old": "$N_{\\Sigma_i|K}(\\pi_i) = N(\\pi_i^{\\varphi_n_i})$",
+      "new": "$N_{\\Sigma_i|K}(\\pi_i) = N(\\pi_i^{\\varphi_{n_i}})$",
+      "anchor": "7929c2d4"
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch07-body-528-aa2b07",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[528]",
+      "expect": "\\Gamma_ {\\mathfrak {p}} (\\mathbf {s} _ {\\mathfrak {p}}) = \\left\\{ \\begin{array}{l l} \\Gamma (\\mathbf {s} _ {\\mathfrak {p}}), & \\text {if \\mathfrak {p} real}, \\\\ 2 ^ {1 - T r (\\mathbf {s} _ {\\mathfrak {p}})} \\Gamma (T r (\\mathbf {s} _ {\\mathfrak {p}})), & \\text {if \\mathfrak {p} complex}, \\end{array} \\right.",
+      "new": "\\Gamma_{\\mathfrak{p}}(\\mathbf{s}_{\\mathfrak{p}}) = \\left\\{ \\begin{array}{ll} \\Gamma(\\mathbf{s}_{\\mathfrak{p}}), & \\text{if } \\mathfrak{p}\\ \\text{real}, \\\\ 2^{1-Tr(\\mathbf{s}_{\\mathfrak{p}})} \\Gamma(Tr(\\mathbf{s}_{\\mathfrak{p}})), & \\text{if } \\mathfrak{p}\\ \\text{complex}, \\end{array} \\right."
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch07-body-777-6e20d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[777]",
+      "expect": "\\sum_ {\\chi} \\chi (a ^ {- 1} b) = \\left\\{ \\begin{array}{l l} 0, & \\text {if a\\neq b ,} \\\\ \\varphi (m) = \\# (\\mathbb {Z} / m \\mathbb {Z}) ^ {*}, & \\text {if a = b .} \\end{array} \\right.",
+      "new": "\\sum_{\\chi} \\chi(a^{-1} b) = \\left\\{ \\begin{array}{ll} 0, & \\text{if } a\\neq b, \\\\ \\varphi(m) = \\#(\\mathbb{Z} / m \\mathbb{Z})^{*}, & \\text{if } a = b. \\end{array} \\right."
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch07-body-841-1bba7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[841]",
+      "expect": "\\mu (\\mathfrak {a}) = \\left\\{ \\begin{array}{l l} 1, & \\text {if r = 0 , i.e., a = (1) ,} \\\\ (- 1) ^ {r}, & \\text {if \\nu_{1} = \\cdots = \\nu_{r} = 1 ,} \\\\ 0, & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\mu(\\mathfrak{a}) = \\left\\{ \\begin{array}{ll} 1, & \\text{if } r = 0, \\text{ i.e., } a = (1), \\\\ (-1)^{r}, & \\text{if } \\nu_{1} = \\cdots = \\nu_{r} = 1, \\\\ 0, & \\text{otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "neukirch_algebraic_number_theory-ch07-body-1779-911ad2",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[1779]",
+      "expect": "\\mathcal {L} _ {\\mathfrak {p}} (L | K, \\chi , s) = \\left\\{ \\begin{array}{l l} L _ {\\mathbb {C}} (s) ^ {\\chi (1)}, & \\text {if \\mathfrak {p} is complex}, \\\\ L _ {\\mathbb {R}} (s) ^ {n ^ {+}} L _ {\\mathbb {R}} (s + 1) ^ {n ^ {-}}, & \\text {if \\mathfrak {p} is real}, \\end{array} \\right.",
+      "new": "\\mathcal{L}_{\\mathfrak{p}}(L | K, \\chi, s) = \\left\\{ \\begin{array}{ll} L_{\\mathbb{C}}(s)^{\\chi(1)}, & \\text{if } \\mathfrak{p}\\ \\text{is complex}, \\\\ L_{\\mathbb{R}}(s)^{n^{+}} L_{\\mathbb{R}}(s + 1)^{n^{-}}, & \\text{if } \\mathfrak{p}\\ \\text{is real}, \\end{array} \\right."
+    }
+  ]
+}

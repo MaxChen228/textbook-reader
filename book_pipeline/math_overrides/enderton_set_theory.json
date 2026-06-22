@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "enderton_set_theory-ch02-body-91-325801",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[91]",
+      "expect": "\\forall x, \\exists x, \\neg , \\ & , \\text { or, } \\Rightarrow , \\Leftrightarrow ,",
+      "new": "\\forall x, \\exists x, \\neg, \\&, \\text{or, } \\Rightarrow, \\Leftrightarrow,"
+    }
+  ]
+}

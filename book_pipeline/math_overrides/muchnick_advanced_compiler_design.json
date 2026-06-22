@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "muchnick_advanced_compiler_design-ch19-body-106-48d0db",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[106]",
+      "expect": "\\begin{array}{l} \\text {P = \\{main,f,g,h,n,m\\}} \\\\ \\text {N = \\{x,b,a,c,d,k,l,w,z,j\\}} \\\\ \\text {E = \\{x\\to b, a\\to c, b\\to d, b\\to k, b\\to l, d\\to b, d\\to k, d\\to l, k\\to j_{3},} \\\\ \\text {d\\to j_{3} , b\\to j_{3} , w\\to k, w\\to j_{3} , x\\to d, x\\to k, x\\to j_{3} , x\\to l\\}} \\end{array}",
+      "new": "\\begin{array}{l} \\text{P = }\\{\\text{main,f,g,h,n,m}\\} \\\\ \\text{N = }\\{\\text{x,b,a,c,d,k,l,w,z,j}\\} \\\\ \\text{E = }\\{x\\to b, a\\to c, b\\to d, b\\to k, b\\to l, d\\to b, d\\to k, d\\to l, k\\to j_{3}, \\\\ d\\to j_{3}, b\\to j_{3}, w\\to k, w\\to j_{3}, x\\to d, x\\to k, x\\to j_{3}, x\\to l\\} \\end{array}"
+    },
+    {
+      "id": "muchnick_advanced_compiler_design-ch19-body-210-a8c404",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[210]",
+      "expect": "\\begin{array}{r l} \\text {ExtFormals(Envt(p) \\downarrow i)} & = \\text {Formals(Envt(p) \\downarrow i)} \\\\ \\cup (\\text {ExtFormals(Envt(p) \\downarrow (i - 1)) - Vars(Envt(p) \\downarrow i)}) \\\\ & \\text {for 2\\leq i\\leq |Envt(p)|} \\end{array}",
+      "new": "\\begin{array}{r l} \\text{ExtFormals}(\\text{Envt}(p) \\downarrow i) & = \\text{Formals}(\\text{Envt}(p) \\downarrow i) \\\\ & \\cup (\\text{ExtFormals}(\\text{Envt}(p) \\downarrow (i - 1)) - \\text{Vars}(\\text{Envt}(p) \\downarrow i)) \\\\ & \\text{for } 2\\leq i\\leq |\\text{Envt}(p)| \\end{array}"
+    },
+    {
+      "id": "muchnick_advanced_compiler_design-ch10-body-99-5eabb9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[99]",
+      "expect": "p t r _ {P} (p 1) = p t r _ {P} (p 2) = \\left\\{ \\begin{array}{l l} m e m _ {\\text {entry + }} (* p 2) & \\text {if P^{\\prime} = entry +} \\\\ p t r _ {P ^ {\\prime}} (p 2) & \\text {otherwise} \\end{array} \\right.",
+      "new": "p t r_{P} (p 1) = p t r_{P} (p 2) = \\left\\{ \\begin{array}{l l} m e m_{\\text{entry + }} (* p 2) & \\text{if } P^{\\prime} = entry + \\\\ p t r_{P^{\\prime}} (p 2) & \\text{otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "muchnick_advanced_compiler_design-ch12-body-217-8e8a68",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[217]",
+      "expect": "\\langle \\text { kind:phiasgn,left:VarName0,vars:[VarName1,\\ldots,VarNamen]} \\rangle",
+      "new": "\\langle \\text{ kind:phiasgn,left:VarName0,vars:[VarName1,} \\ldots \\text{,VarNamen]} \\rangle"
+    },
+    {
+      "id": "muchnick_advanced_compiler_design-ch17-body-195-882873",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[195]",
+      "expect": "\\begin{array}{c} \\text {AvailRegs = Regs - (RegsUsed(i) \\cup RegsLiveEntry(i)} \\\\ \\cup \\text {RegsLiveExit(i))} \\end{array}",
+      "new": "\\begin{array}{c} \\text{AvailRegs = Regs - (RegsUsed(i) } \\cup \\text{ RegsLiveEntry(i)} \\\\ \\cup \\text{RegsLiveExit(i))} \\end{array}"
+    }
+  ]
+}

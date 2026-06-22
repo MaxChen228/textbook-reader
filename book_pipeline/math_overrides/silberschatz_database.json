@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "silberschatz_database-ch06-body-290-0755e2",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[290]",
+      "expect": "\\begin{array}{l} \\text {person (\\underline {{ID}} , name, street, city)} \\\\ \\text {employee (\\underline {{ID}} , salary)} \\\\ \\text {student (\\underline {{ID}} , tot\\_cred)} \\end{array}",
+      "new": "\\begin{array}{l} \\text{person }(\\underline{\\text{ID}}, \\text{name}, \\text{street}, \\text{city}) \\\\ \\text{employee }(\\underline{\\text{ID}}, \\text{salary}) \\\\ \\text{student }(\\underline{\\text{ID}}, \\text{tot\\_cred}) \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "poole_mackworth_ai-ch15-body-104-22baac",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[104]",
+      "field": "md",
+      "all": true,
+      "old": "$^ { \\prime \\prime }  ^ { \\prime \\prime }$",
+      "new": "$^{\\prime\\prime\\prime\\prime}$",
+      "anchor": "8cbe9bee"
+    },
+    {
+      "id": "poole_mackworth_ai-ch05-body-66-4933ab",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[66]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lnot x _ { 1 } \\lor \\ldot { \\cdot } \\cdot \\cdot \\lor \\lnot x _ { k }$",
+      "new": "$\\lnot x_{1} \\lor \\cdots \\lor \\lnot x_{k}$",
+      "anchor": "6728339a"
+    }
+  ]
+}

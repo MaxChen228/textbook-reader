@@ -1,0 +1,245 @@
+{
+  "overrides": [
+    {
+      "id": "baier_katoen_model_checking-ch03-body-109-bfaddf",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[109]",
+      "field": "md",
+      "all": true,
+      "old": "$A P ^ { \\prime } ^ { ( \\pi ) }$",
+      "new": "$AP^{\\prime(\\pi)}$",
+      "anchor": "e9764fe1"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch04-body-302-ebeb3e",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[302]",
+      "field": "md",
+      "all": true,
+      "old": "$q _ { i _ { k } } \\in \\delta ^ { \\prime } ^ { * } ( q _ { i _ { k - 1 } } , w _ { k } )$",
+      "new": "$q_{i_{k}}\\in \\delta^{\\prime *}(q_{i_{k-1}},w_{k})$",
+      "anchor": "aecad702"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch08-problem-8-5-body-16-d8dc83",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "problem:8.5:body[16]",
+      "field": "md",
+      "all": true,
+      "old": "$\\widetilde { \\alpha } _ { i }  _ { p e r m } \\omega$",
+      "new": "$\\widetilde{\\alpha}_{i_{\\mathrm{perm}}}\\omega$",
+      "anchor": "60789243"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch07-body-983-a5234e",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[983]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{ \\begin{array} { l }  s _ { 3 } \\right\\} \\end{array}$",
+      "new": "$\\left\\{\\begin{array}{l}s_{3}\\end{array}\\right\\}$",
+      "anchor": "baf2d603"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-325-4527bc",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[325]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{ \\begin{array} { l }  s _ { 8 } \\right\\} \\end{array}$",
+      "new": "$\\left\\{\\begin{array}{l}s_{8}\\end{array}\\right\\}$",
+      "anchor": "b7866711"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-325-1cafe5",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[325]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{ \\begin{array} { l }  s _ { 6 } \\right\\} \\end{array}$",
+      "new": "$\\left\\{\\begin{array}{l}s_{6}\\end{array}\\right\\}$",
+      "anchor": "b7866711"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch06-body-467-731a1f",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[467]",
+      "expect": "\\operatorname{Sat} (\\Psi (v _ {i _ {1}}, \\ldots , v _ {i _ {n}})) = \\left\\{ \\begin{array}{l l} \\{v _ {i _ {1}} \\} & \\text {if v_{i_{1}},\\ldots,v_{i_{n}} is a Hamiltonian path in G} \\\\ \\varnothing & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\operatorname{Sat}(\\Psi(v_{i_{1}},\\ldots,v_{i_{n}}))=\\left\\{\\begin{array}{ll}\\{v_{i_{1}}\\}&\\text{if }v_{i_{1}},\\ldots,v_{i_{n}}\\text{ is a Hamiltonian path in }G\\\\\\varnothing&\\text{otherwise.}\\end{array}\\right."
+    },
+    {
+      "id": "baier_katoen_model_checking-ch06-body-831-38f64b",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[831]",
+      "expect": "\\mathfrak {B} = (V, V _ {I}, V _ {T}, s u c c _ {0}, s u c c _ {1}, \\text {var, val, v_{0}})",
+      "new": "\\mathfrak{B}=(V,V_{I},V_{T},succ_{0},succ_{1},\\text{var, val, }v_{0})"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch06-body-967-a355cc",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[967]",
+      "expect": "v | _ {z = b}   =   \\left\\{ \\begin{array}{l l} s u c c _ {b} (v) & \\text {if var(v) = z} \\\\ u & \\text {if z<  _{\\wp} var(v),} \\end{array} \\right.",
+      "new": "v|_{z=b}=\\left\\{\\begin{array}{ll}succ_{b}(v)&\\text{if }var(v)=z\\\\u&\\text{if }z<_{\\wp}var(v),\\end{array}\\right."
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-844-edbf62",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[844]",
+      "expect": "x _ {s} = \\left\\{ \\begin{array}{l l} 0 & \\text {if s\\in B} \\\\ r e w (s) + \\sum_ {u \\in P o s t (s)} \\mathbf {P} (s, u) \\cdot x _ {u} & \\text {if s\\in S_{= 1} \\setminus B}. \\end{array} \\right.",
+      "new": "x_{s}=\\left\\{\\begin{array}{ll}0&\\text{if }s\\in B\\\\rew(s)+\\sum_{u\\in Post(s)}\\mathbf{P}(s,u)\\cdot x_{u}&\\text{if }s\\in S_{=1}\\setminus B.\\end{array}\\right."
+    },
+    {
+      "id": "baier_katoen_model_checking-ch09-body-103-596a80",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[103]",
+      "field": "md",
+      "all": true,
+      "old": "$\\langle \\ell , \\eta \\rangle \\stackrel { d . }$",
+      "new": "$\\langle \\ell,\\eta\\rangle \\stackrel{d}{.}$",
+      "anchor": "6babe952"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch05-body-94-81c1f1",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[94]",
+      "field": "md",
+      "all": true,
+      "old": "$T S \\not \\vdash \\big O ( a \\wedge b )$",
+      "new": "$TS\\not\\vdash \\bigcirc(a\\wedge b)$",
+      "anchor": "d0d2da21"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch06-problem-6-26-body-1-b4d071",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6.26:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\forall \\bigcirc \\forall \\bigcirc \\ \\equiv \\ \\forall \\bigcirc \\ \\bigcirc \\ \\exists \\big \\Phi$",
+      "new": "$\\forall\\bigcirc\\forall\\bigcirc\\equiv\\forall\\bigcirc\\bigcirc\\exists\\Phi$",
+      "anchor": "937131e2"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch09-body-650-afe611",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[650]",
+      "field": "md",
+      "all": true,
+      "old": "$T S \\left. = _ { c T L } \\right. \\exists \\big \\diamondsuit \\left( ( z \\leqslant 1 ) \\wedge o n \\right)$",
+      "new": "$TS\\left.=_{CTL}\\right.\\exists\\diamondsuit\\left((z\\leqslant 1)\\wedge on\\right)$",
+      "anchor": "d5ad3a6a"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch03-body-415-8d2927",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[415]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bigwedges ~ j$",
+      "new": "$\\bigwedge_{j}$",
+      "anchor": "540c7dc3"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch05-body-74-3b6f70",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[74]",
+      "field": "md",
+      "all": true,
+      "old": "$\\raisebox { \\depth } { \\ ( \\Lambda \\ ) } _ { \\forall } \\ j$",
+      "new": "${(\\Lambda)}_{\\forall j}$",
+      "anchor": "7ceb54fc"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch06-body-433-428f63",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[433]",
+      "field": "md",
+      "all": true,
+      "old": "$s \\Vdash \\exists \\fboxed { \\cdot } \\Phi \\ i f f s \\vdash \\Phi$",
+      "new": "$s\\Vdash \\exists\\boxed{\\cdot}\\Phi\\ iff\\ s\\vdash \\Phi$",
+      "anchor": "a0d2f87a"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch07-body-770-bf7dd5",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[770]",
+      "field": "md",
+      "all": true,
+      "old": "$s _ { 1 } ~ \\Zt _ { T S } ~ s _ { 2 }$",
+      "new": "$s_{1}\\sim_{TS}s_{2}$",
+      "anchor": "8fe8fda7"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-391-bce5e5",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[391]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Phi _ { 1 } \\cup \\Lt ^ { \\leq n } \\Phi _ { 2 }$",
+      "new": "$\\Phi_{1}\\cup^{\\leq n}\\Phi_{2}$",
+      "anchor": "3d941f13"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-452-84cb31",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[452]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Psi _ { 1 } \\cup \\Lt ^ { \\leqslant n } \\Psi _ { 2 }$",
+      "new": "$\\Psi_{1}\\cup^{\\leqslant n}\\Psi_{2}$",
+      "anchor": "62f193fb"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-545-fbec30",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[545]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbb { P } _ { = 1 } \\big ( \\bigsqcup \\mathbb { P } _ { = 1 } ( \\bigdiamondsuit a ) \\big )$",
+      "new": "$\\mathbb{P}_{=1}\\big(\\bigsqcup \\mathbb{P}_{=1}(\\diamondsuit a)\\big)$",
+      "anchor": "b25922b0"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-1168-09c73f",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[1168]",
+      "field": "md",
+      "all": true,
+      "old": "$t \\models \\exists \\diamonds \\boldsymbol B$",
+      "new": "$t \\models \\exists \\Diamond \\boldsymbol B$",
+      "anchor": "ac005474"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch10-body-1590-6e54eb",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[1590]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm { e . g . , } \\ s \\ \\vline { = } _ { f a i r } \\ \\mathbb { P } _ { \\geqslant p } ( \\varphi )$",
+      "new": "$\\mathrm{e.g.,}\\ s\\ \\mid\\!={}_{fair}\\ \\mathbb{P}_{\\geqslant p}(\\varphi)$",
+      "anchor": "aa920f0c"
+    }
+  ]
+}

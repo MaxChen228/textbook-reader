@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "enderton_mathematical_logic-ch03-body-499-1b0d4f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[499]",
+      "expect": "\\begin{array}{l} \\forall v _ {2} [ \\theta (\\mathbf {S} ^ {a} \\mathbf {0}, v _ {2}) \\wedge \\forall z (z <   v _ {2} \\rightarrow \\neg \\theta (\\mathbf {S} ^ {a} \\mathbf {0}, z)) \\\\ \\rightarrow v _ {2} = \\mathbf {S} ^ {f (a)} \\mathbf {0} ]. $} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\forall v_{2} [ \\theta (\\mathbf{S}^{a} \\mathbf{0}, v_{2}) \\wedge \\forall z (z < v_{2} \\rightarrow \\neg \\theta (\\mathbf{S}^{a} \\mathbf{0}, z)) \\\\ \\rightarrow v_{2} = \\mathbf{S}^{f(a)} \\mathbf{0} ]. \\\\ \\end{array}"
+    },
+    {
+      "id": "enderton_mathematical_logic-ch01-problem-1-5-7-body-1-1b4be5",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:1.5.7:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\{\\top,\\bot,\\wedge,+\\^{3}\\}$",
+      "new": "$\\{\\top,\\bot,\\wedge,+,\\hat{\\ }^{3}\\}$",
+      "anchor": "cfd9a2ed"
+    }
+  ]
+}

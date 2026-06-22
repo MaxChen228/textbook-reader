@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "motwani_raghavan_randomized_algorithms-ch09-problem-9-4-body-1-736ea7",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.4:body[1]",
+      "expect": "X _ {j} (p) = \\left\\{ \\begin{array}{l l} 1 & \\text { if   p^{\\prime} s   pointer   is   updated   at   the   jth   step;} \\\\ 0 & \\text { otherwise } \\end{array} \\right.",
+      "new": "X_{j}(p) = \\left\\{ \\begin{array}{l l} 1 & \\text{ if } p^{\\prime}\\text{ s pointer is updated at the jth step;} \\\\ 0 & \\text{ otherwise } \\end{array} \\right."
+    }
+  ]
+}

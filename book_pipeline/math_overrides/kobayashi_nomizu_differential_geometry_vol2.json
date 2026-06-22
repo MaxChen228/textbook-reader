@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "kobayashi_nomizu_differential_geometry_vol2-ch11-body-730-ecf7e2",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[730]",
+      "expect": "\\begin{array}{l} I _ {p} - ^ {t} \\bar {Z} Z = I _ {p} - ^ {t} \\bar {Z} _ {0} ^ {- 1} ^ {t} \\bar {Z} _ {1} Z _ {1} Z _ {0} ^ {- 1} \\\\ = ^ {t} \\bar {Z} _ {0} ^ {- 1} (^ {t} \\bar {Z} _ {0} Z _ {0} - ^ {t} \\bar {Z} _ {1} Z _ {1}) Z _ {0} ^ {- 1} \\\\ = ^ {t} \\bar {Z} _ {0} ^ {- 1} Z _ {0} ^ {- 1} > 0. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} I_{p} - {}^{t} \\bar{Z} Z = I_{p} - ({}^{t} \\bar{Z}_{0})^{-1} {}^{t} \\bar{Z}_{1} Z_{1} Z_{0}^{-1} \\\\ = ({}^{t} \\bar{Z}_{0})^{-1} ({}^{t} \\bar{Z}_{0} Z_{0} - {}^{t} \\bar{Z}_{1} Z_{1}) Z_{0}^{-1} \\\\ = ({}^{t} \\bar{Z}_{0})^{-1} Z_{0}^{-1} > 0. \\\\ \\end{array}"
+    }
+  ]
+}

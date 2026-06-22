@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "irwin_nelms_basic_circuit_analysis-ch08-body-204-4d33e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[204]",
+      "expect": "\\mathbf {I} = \\frac {\\mathbf {V}}{R + j \\omega L} = I _ {M} / \\underline {{\\phi}} = \\frac {V _ {M}}{\\sqrt {R ^ {2} + \\omega^ {2} L ^ {2}}} \\left/ - \\tan^ {- 1} \\frac {\\omega L}{R} \\left. \\right.",
+      "new": "\\mathbf{I} = \\frac{\\mathbf{V}}{R + j \\omega L} = I_{M}/\\underline{\\phi} = \\frac{V_{M}}{\\sqrt{R^{2} + \\omega^{2} L^{2}}} \\left/ -\\tan^{-1} \\frac{\\omega L}{R} \\right."
+    },
+    {
+      "id": "irwin_nelms_basic_circuit_analysis-ch09-body-22-f5b59e",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[22]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { Z } = 2 \\middle / 3 0 ^ { \\circ } \\Omega$",
+      "new": "$\\mathbf{Z} = 2 / 30^{\\circ} \\Omega$",
+      "anchor": "91e3ffe8"
+    },
+    {
+      "id": "irwin_nelms_basic_circuit_analysis-ch09-problem-9-79-body-3-527d1a",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.79:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { V } = 2 0 0 \\Lt + 3 5 ^ { \\circ } \\mathbf { V }$",
+      "new": "$\\mathbf{V} = 200 \\angle 35^{\\circ} \\mathbf{V}$",
+      "anchor": "f4c2a48a"
+    },
+    {
+      "id": "irwin_nelms_basic_circuit_analysis-ch12-problem-12-51-body-0-04a38e",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "problem:12.51:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$C = 10 \\, \\muF$",
+      "new": "$C = 10 \\, \\mu F$",
+      "anchor": "768fa1c4"
+    }
+  ]
+}

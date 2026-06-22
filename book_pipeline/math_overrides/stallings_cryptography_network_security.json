@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "stallings_cryptography_network_security-ch16-body-190-d09805",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[190]",
+      "field": "md",
+      "all": true,
+      "old": "$5 \\mathrm { . ~ K D C } \\right. \\mathrm { B } \\mathrm { : ~ } \\mathrm { ~ E } ( P R _ { \\mathrm { a u t h } } , [ I D _ { A } \\left. P U _ { a } \\right. ) \\left. \\mathrm { E } ( P U _ { b } , \\mathrm { E } ( P R _ { \\mathrm { a u t h } } , [ N _ { a } \\left. K _ { s } \\left. I D _ { A } \\right. I D _ { B } ] ) ) \\right.$",
+      "new": "$5 \\mathrm{.~KDC}\\mathrm{B}\\mathrm{:~}\\mathrm{~E}(PR_{\\mathrm{auth}}, [ID_{A} PU_{a}) \\mathrm{E}(PU_{b}, \\mathrm{E}(PR_{\\mathrm{auth}}, [N_{a} K_{s} ID_{A} ID_{B}]))$",
+      "anchor": "ca0b8ec0"
+    },
+    {
+      "id": "stallings_cryptography_network_security-ch02-body-207-5a9337",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[207]",
+      "expect": "\\begin{array}{l} \\text { The   integer   12   is   represented   by   \\{a_{2} = 2,a_{3} = 1\\} .} \\\\ \\text { The   integer   18   is   represented   by   \\{a_{2} = 1,a_{3} = 2\\} .} \\\\ \\text { The   integer   91   is   represented   by   \\{a_{7} = 1,a_{13} = 1\\} .} \\end{array}",
+      "new": "\\begin{array}{l} \\text{The integer 12 is represented by } \\{a_{2} = 2,a_{3} = 1\\}\\text{.} \\\\ \\text{The integer 18 is represented by } \\{a_{2} = 1,a_{3} = 2\\}\\text{.} \\\\ \\text{The integer 91 is represented by } \\{a_{7} = 1,a_{13} = 1\\}\\text{.} \\end{array}"
+    },
+    {
+      "id": "stallings_cryptography_network_security-ch05-body-43-2ac4ee",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[43]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { n }$",
+      "new": "$N_{n}$",
+      "anchor": "4f2936ec"
+    },
+    {
+      "id": "stallings_cryptography_network_security-ch15-body-137-6215f4",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[137]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\Chi } _ { 2 } { \\ ' } _ { \\bf { S } }$",
+      "new": "${X}_{2}{'}_{\\mathbf{S}}$",
+      "anchor": "16df2691"
+    }
+  ]
+}

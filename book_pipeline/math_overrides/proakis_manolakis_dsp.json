@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "proakis_manolakis_dsp-ch13-body-254-4ccfb3",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[254]",
+      "expect": "\\operatorname{csgn} [ x ] = \\left\\{ \\begin{array}{l l} 1 + j, & \\text {if \\mathbf {R e} (x) > 0 and \\operatorname{Im} (x) > 0} \\\\ 1 - j, & \\text {if \\mathbf {R e} (x) > 0 and \\operatorname{Im} (x) <   0} \\\\ - 1 + j, & \\text {if \\mathbf {R e} (x) <   0 and \\operatorname{Im} (x) > 0} \\\\ - 1 - j, & \\text {if \\mathbf {R e} (x) <   0 and \\operatorname{Im} (x) <   0} \\end{array} \\right.",
+      "new": "\\operatorname{csgn}[x]=\\left\\{\\begin{array}{l l} 1+j, & \\text{if } \\mathrm{Re}(x)>0 \\text{ and } \\operatorname{Im}(x)>0 \\\\ 1-j, & \\text{if } \\mathrm{Re}(x)>0 \\text{ and } \\operatorname{Im}(x)<0 \\\\ -1+j, & \\text{if } \\mathrm{Re}(x)<0 \\text{ and } \\operatorname{Im}(x)>0 \\\\ -1-j, & \\text{if } \\mathrm{Re}(x)<0 \\text{ and } \\operatorname{Im}(x)<0 \\end{array}\\right."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "harper_practical_foundations_programming_languages-ch44-body-26-071923",
+      "action": "fix_inline_math",
+      "chunk": "ch44",
+      "selector": "body[26]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbb { [ \\mathinner { t \\mathopen { : : }  } \\tau \\mathgroup } ; \\tau _ { \\mathrm { d i c t } } ^ { X } ] $",
+      "new": "$\\mathbb{[\\mathinner{t\\mathopen{: :}}\\tau];\\tau_{\\mathrm{dict}}^{X}} $",
+      "anchor": "89d4c514"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch29-body-33-91107f",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[33]",
+      "field": "md",
+      "all": true,
+      "old": "$k \\textbf { \\em { \\alpha } } ^ { \\prime \\prime } e$",
+      "new": "$k \\textbf{\\em{\\(\\alpha\\)}}^{\\prime\\prime} e$",
+      "anchor": "9b14b681"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch31-body-38-15fb8a",
+      "action": "fix_eq_tex",
+      "chunk": "ch31",
+      "selector": "body[38]",
+      "expect": "\\begin{array}{l c l c l c l} \\text {Typ} & \\tau & : := & \\text {sym} (\\tau) & \\tau \\text {sym} & & \\text {symbols} \\\\ \\text {Exp} & e & & \\text {quote} [ a ] & ^ \\prime a & & \\text {reference} \\\\ & & & \\text {is} [ a ] \\{t. \\tau \\} (e; e _ {1}; e _ {2}) & \\text {if e is a then e_{1} ow e_{2}} & & \\text {comparison} \\end{array}",
+      "new": "\\begin{array}{l c l c l c l} \\text{Typ} & \\tau & : := & \\text{sym}(\\tau) & \\tau\\ \\text{sym} & & \\text{symbols} \\\\ \\text{Exp} & e & & \\text{quote}[a] & {}^{\\prime} a & & \\text{reference} \\\\ & & & \\text{is}[a]\\{t.\\tau\\}(e; e_{1}; e_{2}) & \\text{if e is a then } e_{1} \\text{ ow } e_{2} & & \\text{comparison} \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "knuth_taocp_vol1-ch01-problem-1-2-4-33-body-1-e10571",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "problem:1.2.4.33:body[1]",
+      "expect": "\\left. \\left\\lceil \\frac {1}{2} (n + m) \\right] + \\left\\lceil \\frac {1}{2} (n - m + 1) \\right\\rceil ; \\left. \\right. \\tag {b}",
+      "new": "\\left. \\left\\lceil \\frac{1}{2} (n + m) \\right\\rceil + \\left\\lceil \\frac{1}{2} (n - m + 1) \\right\\rceil ; \\right. \\tag{b}"
+    },
+    {
+      "id": "knuth_taocp_vol1-ch01-body-1966-e9ef5d",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1966]",
+      "expect": "\\left. \\begin{array}{l} \\text {Calling sequence: JMP MAXIMUM.} \\\\ \\text {Entry conditions: rI1 = n; assume that n\\geq 1.} \\\\ \\text {Exit conditions: rA = max _ {1\\leq k\\leq n} CONTENTS (X + k) = CONTENTS (X + rI2);} \\\\ \\text {rI3 = 0; rJ and CI are also affected.} \\end{array} \\right\\}",
+      "new": "\\left. \\begin{array}{l} \\text{Calling sequence: JMP MAXIMUM.} \\\\ \\text{Entry conditions: rI1 = n; assume that } n\\geq 1. \\\\ \\text{Exit conditions: } rA = \\max_{1\\leq k\\leq n} \\text{ CONTENTS } (X + k) = \\text{ CONTENTS } (X + rI2); \\\\ \\text{rI3 = 0; rJ and CI are also affected.} \\end{array} \\right\\}"
+    },
+    {
+      "id": "knuth_taocp_vol1-ch01-problem-1-2-3-24-body-1-8c8eea",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "problem:1.2.3.24:body[1]",
+      "expect": "\\prod_ {R (j)} a _ {j} = \\sum_ {R (j)} (\\log_ {b} a _ {j}) _ {\\text {, assuming that all a_{j} >0}}.",
+      "new": "\\prod_{R(j)} a_{j} = \\sum_{R(j)} (\\log_{b} a_{j})_{\\text{, assuming that all } a_{j} >0}."
+    }
+  ]
+}

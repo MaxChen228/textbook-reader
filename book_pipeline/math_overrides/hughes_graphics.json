@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "hughes_graphics-ch28-body-93-38d697",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[93]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\mathbf { \\partial } ^ { \\left. } S ^ { \\mathbf { \\alpha } , \\right. }$",
+      "new": "$\\mathbf{\\partial}^{\\left. S^{\\mathbf{\\alpha}}\\right.}$",
+      "anchor": "26785c3a"
+    },
+    {
+      "id": "hughes_graphics-ch28-body-94-38d697",
+      "action": "fix_inline_math",
+      "chunk": "ch28",
+      "selector": "body[94]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\mathbf { \\partial } ^ { \\left. } S ^ { \\mathbf { \\alpha } , \\right. }$",
+      "new": "$\\mathbf{\\partial}^{\\left. S^{\\mathbf{\\alpha}}\\right.}$",
+      "anchor": "0fea0349"
+    },
+    {
+      "id": "hughes_graphics-ch27-body-54-df58f2",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "body[54]",
+      "field": "caption",
+      "all": true,
+      "old": "${ \\bf \\dot { \\omega } } _ { \\bf { \\omega } } _ { \\bf { \\omega } } ( \\mathbf { \\omega } _ { \\bf { \\omega } } _ { \\bf { \\omega } } ( \\mathbf { \\omega } _ { \\bf { \\omega } } )$",
+      "new": "${\\bf \\dot{\\omega}}_{{\\bf{\\omega}}_{{\\bf{\\omega}}}}(\\mathbf{\\omega}_{{\\bf{\\omega}}_{{\\bf{\\omega}}}}(\\mathbf{\\omega}_{\\bf{\\omega}}))$",
+      "anchor": "aef14a60"
+    },
+    {
+      "id": "hughes_graphics-ch11-body-3-4dab13",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[3]",
+      "expect": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} 1 & 0 & 0 & a \\\\ 0 & 1 & 0 & b \\\\ 0 & 0 & 1 & c \\\\ 0 & 0 & 0 & 1 \\end{array} \\right], \\text {when restricted to E^{3} , acts as a translation by [a\\quad b\\quad c] ^{\\mathbf{T}}} \\\\ \\text {on E^{3} .} \\end{array}",
+      "new": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} 1 & 0 & 0 & a \\\\ 0 & 1 & 0 & b \\\\ 0 & 0 & 1 & c \\\\ 0 & 0 & 0 & 1 \\end{array} \\right], \\text{when restricted to } E^{3}\\text{, acts as a translation by } [a\\quad b\\quad c]^{\\mathbf{T}} \\\\ \\text{on } E^{3}\\text{.} \\end{array}"
+    }
+  ]
+}
