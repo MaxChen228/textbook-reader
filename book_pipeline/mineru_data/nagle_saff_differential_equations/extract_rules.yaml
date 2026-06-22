@@ -1,0 +1,148 @@
+slug: nagle_saff_differential_equations
+title: Fundamentals of Differential Equations
+author: R. Kent Nagle; Edward B. Saff; Arthur David Snider
+edition: 9th
+subject: Differential Equations
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 27
+appendices_start_page: 667
+bibliography_start_page: null
+index_start_page: 712
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 27
+    page_end: 63
+    chapter_title_block_idx: 274
+    problems_block_idx: null
+    next_chapter_block_idx: 948
+  - num: 2
+    title: First-Order Differential Equations
+    page_start: 64
+    page_end: 115
+    chapter_title_block_idx: 948
+    problems_block_idx: null
+    next_chapter_block_idx: 2129
+  - num: 3
+    title: Mathematical Models and Numerical Methods Involving First-Order Equations
+    page_start: 116
+    page_end: 177
+    chapter_title_block_idx: 2129
+    problems_block_idx: null
+    next_chapter_block_idx: 3220
+  - num: 4
+    title: Linear Second-Order Equations
+    page_start: 178
+    page_end: 266
+    chapter_title_block_idx: 3220
+    problems_block_idx: null
+    next_chapter_block_idx: 5177
+  - num: 5
+    title: Introduction to Systems and Phase Plane Analysis
+    page_start: 267
+    page_end: 344
+    chapter_title_block_idx: 5177
+    problems_block_idx: null
+    next_chapter_block_idx: 6722
+  - num: 6
+    title: Theory of Higher-Order Linear Differential Equations
+    page_start: 345
+    page_end: 375
+    chapter_title_block_idx: 6722
+    problems_block_idx: null
+    next_chapter_block_idx: 7501
+  - num: 7
+    title: Laplace Transforms
+    page_start: 376
+    page_end: 446
+    chapter_title_block_idx: 7501
+    problems_block_idx: null
+    next_chapter_block_idx: 9181
+  - num: 8
+    title: Series Solutions of Differential Equations
+    page_start: 447
+    page_end: 521
+    chapter_title_block_idx: 9181
+    problems_block_idx: null
+    next_chapter_block_idx: 10812
+  - num: 9
+    title: Matrix Methods for Linear Systems
+    page_start: 522
+    page_end: 585
+    chapter_title_block_idx: 10812
+    problems_block_idx: null
+    next_chapter_block_idx: 12322
+  - num: 10
+    title: Partial Differential Equations
+    page_start: 586
+    page_end: 666
+    chapter_title_block_idx: 12322
+    problems_block_idx: null
+    next_chapter_block_idx: 14078
+
+appendices:
+  - id: "A"
+    title: Review of Integration Techniques
+    page_start: 667
+    chapter_title_block_idx: 14078
+  - id: "B"
+    title: Newton's Method
+    page_start: 675
+    chapter_title_block_idx: 14277
+  - id: "C"
+    title: Simpson's Rule
+    page_start: 677
+    chapter_title_block_idx: 14317
+  - id: "D"
+    title: Cramer's Rule
+    page_start: 679
+    chapter_title_block_idx: 14346
+  - id: "E"
+    title: Method of Least Squares
+    page_start: 680
+    chapter_title_block_idx: 14373
+  - id: "F"
+    title: Runge-Kutta Procedure for n Equations
+    page_start: 682
+    chapter_title_block_idx: 14398
+  - id: "G"
+    title: Software for Analyzing Differential Equations
+    page_start: 683
+    chapter_title_block_idx: 14426
+
+section_re: '^(\d+\.\d+)\s+(?=\S)(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(?=\S)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^Chapter \d+ Summary'
+solution_start_re: null
+problems_start_re: '(?i)^\d+\.\d+\s+EXERCISES\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

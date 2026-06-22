@@ -513,6 +513,7 @@ def compile_regexes(rules: dict) -> dict[str, re.Pattern]:
         'fig_main_caption': re.compile(rules['figure_caption_main_re']) if rules.get('figure_caption_main_re') else None,
         'problems_end': re.compile(rules['problems_end_re']) if rules.get('problems_end_re') else None,
         'solution_start': re.compile(rules['solution_start_re']) if rules.get('solution_start_re') else None,
+        'problems_start': re.compile(rules['problems_start_re']) if rules.get('problems_start_re') else None,
     }
 
 
@@ -523,7 +524,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                         problem_chapter_must_match: bool,
                         namespace_by_section: bool = False,
                         problems_end_re: re.Pattern | None = None,
-                        solution_start_re: re.Pattern | None = None) -> tuple[list[dict], list[dict]]:
+                        solution_start_re: re.Pattern | None = None,
+                        problems_start_re: re.Pattern | None = None) -> tuple[list[dict], list[dict]]:
     """Inline-mode 章節 walker：題目散落正文中（Griffiths 風格）。
     單流水掃整章 [cti+1, nci-1]，無 problems_block_idx 二分。
     - text + lvl=1 命中 section/subsection/example → close current problem，heading 進 chapter body
@@ -533,6 +535,14 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     namespace_by_section=True（Strang per-section Problem Set 風格）：
       每節題號從 1 重置，walker 把當前 section_id 串到 num 前避免同章重複。
       e.g. §1.2 題 1 → num='1.2.1'。fallback：未遇 section 前用 ch_num。
+
+    problems_start_re（exercises-gate，僅 namespace 模式有意義）：
+      namespace 模式停用了「正文編號清單遞增守則」（各節題號重置故無法靠遞增擋偽命中），
+      導致 EXERCISES 之前 section body 的正文編號散文（物理定律 / 程序步驟 / 分類清單）被
+      誤切成題、與真題撞號（H2 dup，如 Nagle/Saff §3.4 牛頓三定律 vs 真落體題）。
+      設此 re 後，題目只在「問題區」內收集：區起點＝heading 命中 problems_start_re
+      （如 '^N.M EXERCISES$'）、區終點＝下一個 section/subsection heading。null＝不 gate（預設、
+      與既有行為 byte-identical，所有未設此欄的書零影響）。
     """
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
@@ -547,6 +557,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                               # 皆單調遞增（1.2.1>1.1.9），故 section 重起不誤殺；純末段比較會。
     problems_ended = False  # problems_end_re 命中後：題目起點失效、後續歸 body
     in_solution = False     # solution_start_re 命中後：後續 block 收進 current['solution']
+    in_problems_region = problems_start_re is None  # exercises-gate：None=不 gate（永遠 True、行為不變）；
+                                                    # 設定時起始 False，待 heading 命中 problems_start_re 才開
 
     for b in expand_list_blocks(blocks):
         t = b.get('type')
@@ -578,11 +590,15 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                     in_solution = False
                 if h['t'] in ('section', 'subsection') and h.get('id'):
                     current_section_id = h['id']
+                    # exercises-gate：問題區隨 section heading 開關。命中 problems_start_re
+                    # （如 'N.M EXERCISES'）→ 進區；其餘 section/subsection heading → 離區。
+                    if problems_start_re is not None:
+                        in_problems_region = bool(problems_start_re.search(text))
                 body.append(h)
                 continue
 
-        # 偵測新題起點（problems_end 後不再開新題）
-        if not problems_ended and t in ('text', 'list') and text:
+        # 偵測新題起點（problems_end 後不再開新題；exercises-gate 限定問題區內）
+        if not problems_ended and in_problems_region and t in ('text', 'list') and text:
             m = problem_start_re.match(text)
             if m:
                 # 題號去內部空白：同上（OCR LaTeX 空格化數字 `2 . 1 4`→`2.14`），clean 書 no-op
@@ -656,6 +672,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
             namespace_by_section=rules.get('problem_num_namespace_by_section', False),
             problems_end_re=regexes['problems_end'],
             solution_start_re=regexes['solution_start'],
+            problems_start_re=regexes['problems_start'],
         )
         return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
 

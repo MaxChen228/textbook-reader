@@ -121,6 +121,15 @@ solution_start_re: <regex str | null>   # optional, default null
                                         # 其後 block 收進 problem.solution（同 sol_extract merge 欄位、
                                         # 不混進 problem.body），至下一題/heading。二分與 inline 皆適用。
                                         # e.g. '^Solution\s*$'
+problems_start_re: <regex str | null>   # optional, default null（僅 inline + namespace 模式有意義）
+                                        # namespace 模式停用了「正文編號清單遞增守則」（各節題號重置故
+                                        # 無法靠遞增擋偽命中）→ EXERCISES 之前 section body 的正文編號散文
+                                        # （物理定律/程序步驟/分類清單）被誤切成題、與真題撞號（H2 dup，
+                                        # 如 Nagle/Saff §3.4 牛頓三定律 vs 真落體題）。設此 re 後題目只在
+                                        # 「問題區」內收：區起點＝heading 命中此 re（如 'N.M EXERCISES'）、
+                                        # 區終點＝下一個 section/subsection heading。**heading 大小寫不一**
+                                        # （'3.4 EXERCISES' vs '3.7 Exercises'）務必用 '(?i)'。
+                                        # e.g. '(?i)^\d+\.\d+\s+EXERCISES\s*$'
 
 # ── equation ──
 equation_strip_dollar: <bool>           # required, 99% 為 true
@@ -344,7 +353,7 @@ uv run python -m book_pipeline.smoke $SLUG   # 啟發式 anomaly 檢測
 | 啟發式 | 含意 | 修 yaml |
 |---|---|---|
 | **H1** ch body < 20 + problems > 30 | inline 模式漏設 | 該章 `problems_block_idx: null`、top-level `inline_problems: true` |
-| **H2** ch 內 problem.num 重複 | 每節題號 reset | top-level `problem_num_namespace_by_section: true`（僅 inline + 純流水） |
+| **H2** ch 內 problem.num 重複 | 每節題號 reset | top-level `problem_num_namespace_by_section: true`（僅 inline + 純流水）。**已設 namespace 仍殘 H2** 且殘留＝EXERCISES 之前的正文編號散文（定律/程序/分類清單）撞真題 → 設 `problems_start_re`（見 §2，gate 題目只在 EXERCISES heading 後收）；**先查真相層**（讀撞號兩份 problem body 辨散文 vs 真題），別當「固有極限」accept |
 | **H3** ch 全部 problem body=[] | OCR 大量漏 / parser 沒讀 list_items | 通常非 audit 可修；列進 `_audit.md` |
 | **H4** appendix body > 1500 | 吞 Index/Bib | 補 `index_start_page` 或 `bibliography_start_page` |
 | **H5** 鄰章 body 比 > 5x | anchor 飄移可疑 | 檢查可疑章的 `chapter_title_block_idx` |

@@ -28,6 +28,7 @@ SCHEMA_KEYS = {
     'section_re', 'subsection_re', 'heading_priority',
     'problem_start_re', 'problem_chapter_must_match',
     'problem_num_namespace_by_section', 'problems_end_re', 'solution_start_re',
+    'problems_start_re',
     'equation_strip_dollar', 'equation_label_re',
     'example_start_re', 'figure_caption_merge', 'figure_caption_main_re',
     'known_missing_problems', 'heading_text_level',
@@ -72,7 +73,8 @@ def validate(slug: str) -> int:
                 re.compile(R[k])
             except Exception as e:
                 errs.append(f'{k} 編譯失敗: {e}')
-    for k in ('example_start_re', 'figure_caption_main_re', 'problems_end_re', 'solution_start_re'):
+    for k in ('example_start_re', 'figure_caption_main_re', 'problems_end_re', 'solution_start_re',
+              'problems_start_re'):
         if R.get(k):
             try:
                 re.compile(R[k])
