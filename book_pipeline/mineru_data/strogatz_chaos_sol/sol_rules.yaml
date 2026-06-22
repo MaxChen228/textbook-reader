@@ -1,13 +1,23 @@
 # strogatz_chaos_sol
-# 主書題號是嚴格 `章.節.題`；解答書題號也直接以同樣 key 開頭，因此只要題號命中就能逐字對齊。
+# 合訂本：教科書全文（含習題本身）+ Student Solutions Manual（ANSWERS TO SELECTED
+# EXERCISES，只給奇數題解答）合在同一 content_list。解答區從中段起，每章章標是獨立
+# 數字行 '2'..'12'（lvl1 或 lvl2 不一），緊跟章名行。題號是嚴格 `章.節.題`（N.M.K），
+# 與主書 parsed/chNN.json 的 problem['num'] 逐字對齊。
 #
-# 這本解答書的章 anchor 有結構性缺口：現行 sol_extract 只收 `text_level==1` 的 text block，
-# 但章 2/4/5/7/9 的章號都是獨立數字行且落在 `text_level=2`；可用的 lvl1 純章號只有
-# 3/6/8/10/11/12。用 `chapter_re='^(\\d+)$'` 時，缺 anchor 的後續章內容會暫時吸進前一章桶，
-# 但因 problem_re 嚴格抓完整 `章.節.題` key，外溢解答只會留在 unmatched，不會錯寫進主書別章。
+# 章錨關鍵坑：PREFACE 區有年份獨立行 2014 / 1994（4 位數），舊 `^(\d+)$` 把它們當章號
+# 1994/2014，讓 1994 桶從 block 204 一路吞到第一個真章標（685 個 N.M.K，全是教科書區的
+# 習題原文、非解答），製造假章。修法：chapter_re 限 1-2 位數 `^([1-9]\d?)$`（章號實際
+# 2..12），年份 4 位數天然被排除。expand_list_blocks 已把頁碼純數字行併進段落，剩的 13 個
+# 候選只有 2014/1994 兩個假錨需排除，排除後抽章=[2..12] 乾淨。
+# （引擎已支援任意 text_level 章錨，commit 50fdc37；故 lvl1/lvl2 混合章標無須 chapter_level。）
 #
-# 實測 dry-run 可安全 merge 章 3/6/8/10/11/12，共 164 題；抽樣 3.1.1 / 6.1.1 / 10.4.3 /
-# 11.1.1 / 12.1.1 題幹與解答主題一致。缺口屬 harness-gap，另開 proposal 記錄。
-chapter_re: '^(\d+)$'
+# 配對率 51%（284/549）是 by-design 殘缺：解答書只給「selected exercises」（奇數題）解答，
+# 非全題。sol 抽出的題幾乎全對到主書（未對到僅 26，多為 ch10 主書 parse 從 10.4.x 起算的
+# 章內 section 漏切，屬主書側殘缺）。
+#
+# 語義抽樣（5 章 ×2 題全對齊）：2.1.1 ẋ=sin(x) fixed points、2.4.1 ẋ=x(1-x)、
+# 4.3.1 bottleneck integral、4.5.1 triangle-wave firefly、6.1.1 (0,0)、6.3.1 (±2,±2)、
+# 12.1.1 uncoupled linear map、12.2.1 product mapping T'''T''T' —— 主書題幹與 sol body 同題。
+chapter_re: '^([1-9]\d?)$'
 problem_re: '^(\d+\.\d+\.\d+)\b'
 multi_per_block: false

@@ -16,7 +16,24 @@
 #
 # 因此這不是 regex 微調問題，而是 harness gap：
 # 需要 sol_extract 支援 level-2 chapter/section anchors，並能以
-# "section key + 裸題序" 組裝出主書的 C.S.N key，否則會不是全空，就是系統性錯配。
+# "section key + 裸題序" 組裝出主書的 C.S.N key（= 上面的「阻塞 A」）。
+#
+# ── 阻塞 B（比 A 更致命、且 A 補了也無解，2026-06-22 三角補充）──────────────────
+# 即使引擎補上 section-aware key 組裝（阻塞 A 假設已解），仍無法產出品質 merge，因為
+# **主書 problem.num namespace 本身崩壞**：parser 把同一 section 的多個習題子集（Practice
+# Exercises / Concept review / 真習題集 / Supplementary）全塞進同一 C.S.N namespace，且
+# 各子集題序「各自從 1 重置」。實證（全書 8 章 1983 題）：
+#   - unique num 只有 1623，**221 個 num key 重複**（同 num 對到 2-4 個不同題）。
+#   - 例 ch1 section 1.1：主書 1.1.1 出現 3 次、1.1.2 出現 4 次、1.1.3/1.1.4 各 3 次
+#     （分屬 4 個獨立題群：'1,2' | '1,2,3,4' | '1..34'(真習題) | '2,3,4'）。
+#   - 理想化模擬（手動補上 section-aware 抽取 + 從 'C.S - ' heading 重建前綴）：
+#     真實配對率上限只有 **574/1983 ≈ 28%**，且其中 **62 個 sol key 同時命中主書 >1 題**
+#     → merge_into_main 的 sol_problems.get(p['num']) 會把同一 sol body 系統性寫進多個錯題。
+# 結論：**任何 problem_re 都無法唯一對齊**——主書 num 不是唯一鍵。這已超出「補 section-aware
+# anchor」能解的範圍，真正缺的引擎能力是：① section-aware key namespace（阻塞 A）＋
+# ② **subset-aware/序列式對位**（在同一 section 內按題群順序對位，而非靠 num 當鍵；阻塞 B）。
+# 在引擎具備 ② 之前，本書維持 _pending，絕不 merge（爛 merge 比沒答案更糟）。
+# 對應 proposal：P-2026-06-19-lay-linear-algebra-sol（現僅記阻塞 A；阻塞 B 證據見此註解）。
 #
 # 下列 regex 只保留作未來引擎升級後的校準起點；目前由 _pending 阻止 merge。
 chapter_re: '^Chapter\s+(\d+)\b'

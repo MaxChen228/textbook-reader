@@ -1,38 +1,45 @@
-# ⚠ PENDING — 不要 merge。這本解答書目前不能靠現行 sol_extract 安全對齊主書，原因如下：
+# ⚠ PENDING（ENGINE-GAP）— 不要 merge。章錨已可用，但 key 表示法不可橋接。
+# 重審 2026-06-22（commit 50fdc37 章錨層級可配後）：
 #
-# 1. 主書 problem.num 是 section-aware 混合 key，而不是單純章內題序。例如：
-#    - chapter intro：`4.0Introduction:ADynamicalSystemonGraphs.1`
-#    - section exercises：`Exercises4.1.1`
-#    - chapter review：`ReviewQuestions.16`
-#    解答書正文則是在各 section 標題（如 `3.1 Matrix Operations`、`4.1 Introduction ...`）
-#    之後，用裸題序 `1.`、`2.`、`3.` 開題。現行 sol_extract 的 problem_re 只能抓單一字串
-#    當作 key，無法用「section key + 裸題序」重建主書 key。
+# 章錨已解：chapter_re='^Chapter\s+(\d+)\b' + chapter_level:null（任意層級）
+# 已成功抓 7 章（ch1-6,8；sol scout 報 2436 個數字章標可錨）。**故先前註解第 2、3 點
+# 「章 anchor 寫死 lvl1、只抓到 Chapter 3」已過時、不再是阻塞**。
 #
-# 2. 解答書真正穩定的章/節訊號主要在 text_level=2：
-#    - `Chapter 1`、`Chapter 2`、`Chapter 8`
-#    - `3.1 Matrix Operations`、`4.1 Introduction to Eigenvalues and Eigenvectors`
-#      `8.1 Code Vectors`
-#    但現行 sol_extract 的章 anchor 寫死為 `type=text && text_level==1`。本書僅有 7 個
-#    lvl=1 text block，且多數不是可用章號：`Systems of Linear Equations`、
-#    `Eigenvalues and Eigenvectors`、`Orthogonality`、
-#    `Exploration: Approximating Eigenvalues with the QR Algorithm`、
-#    `Distance and Approximation` 等。
+# 真正且唯一的阻塞 = section-namespace key 無法重建（harness-gap），實測坐實：
 #
-# 3. 以預設規則 dry-run，sol_extract 只會誤抓到 `Chapter 3` 這一個章 anchor，結果是
-#    `抽出 1 章、0 題解答`，`ch03: 0/372`。這不是配對率差，而是引擎入口就切不出題目。
+# 1. 主書 problem.num 95%+ 帶 section namespace 前綴（全書 2092 題分布）：
+#      1275  Exercises{ch}.{sec}.{seq}   如 `Exercises1.1.7`、`Exercises3.1.1`
+#       593  NamedSection.N              如 `TheCrossProduct.1`、`ForceVectors.3`、`CodeVectors.11`
+#       133  ReviewQuestions.N
+#        28  Example{...}.N
+#     僅 63  裸 N.M / digit-leading
+#    解答書正文則在各 section 標題（如 `3.1 Matrix Operations`）後，用**節內 reset 的裸
+#    題序** `1.` `2.` `3.` 開題。problem_re 只能抓行首整數，組不出主書的 namespaced key。
 #
-# 4. 語義面也不能靠「章號 + 裸題序」硬配。例：主書 `ch03` 的 `3.1` 題幹是
-#    `Compute Fx for the following vectors x`，但解答書 `Chapter 3` 第一個 section
-#    `3.1 Matrix Operations` 的第 1 題是在做 `A + 2D`。若硬把裸題序套到主書前綴，
-#    會把 chapter-intro 題與 section-exercise 解答系統性錯配。
+# 2. 即使章錨成功，extract_sol_chapters 每章把題目扁平成單一 dict{key→body}，裸整數題序
+#    跨 section reset → 後一節的 `7.` 覆蓋前一節的 `7.`（實測 ch1 175 題只剩 74 個 unique
+#    整數 key）。純整數題序在節間不唯一，無法決定該配 Exercises1.1.7 還是 Exercises1.2.7。
 #
-# 結論：這是 harness gap，不是單純 source-quality 或 regex 問題。
-# 需要 sol_extract 支援：
-# - 自訂 chapter/section anchor 的 text_level
-# - 以 section heading + 裸題序組裝主書 key
-# - 必要時略過 chapter-intro / review 類 key 空洞
-# 在此之前維持 pending，避免把錯解答 merge 進 parsed/。
+# 3. dry-run 實測（in-process 繞過本 _pending；problem_re='^(\d+)\.'、chapter_level:null）：
+#    抽出 7 章，**配對 0/1786 (0%)，每章全空**。0% 非配對率差、非章錨問題，而是
+#    sol_problems.get('Exercises1.1.7') 永遠拿不到純整數 key '7'。
+#
+# 4. 語義抽樣（鐵律，已並排確認**同書同版同題**，排除 edition-mismatch/OCR 垃圾）：
+#    sol 封面 = "Linear Algebra A Modern Introduction, FOURTH EDITION, David Poole"，與主書同版。
+#    主書 Exercises3.1.1=`A+2D`(A,D 同形可加) / .3=`B-C`(2×3 vs 3×2 不可減) / .5=`AB`(可乘)；
+#    sol 節 3.1 後 1.="A and D same shape, makes sense" / 3.="B is 2×3 and C is 3×2" /
+#    5.="A has two columns and B has two rows, product makes sense"——逐題吻合、確為同題。
+#    問題純粹是 key 表示法（裸整數 vs section-namespace）不可橋接，非配錯書。
+#
+# ENGINE-GAP 結論：sol_extract 缺 **section-aware key 重建**能力——
+#   需追蹤 sol 當前 section heading（如 `3.1 Matrix Operations`、running header `1.1. THE
+#   GEOMETRY...`），把裸題序組裝成主書 namespaced key（Exercises{ch}.{sec}.{seq}），並對
+#   NamedSection.N / ReviewQuestions.N / Example.N 類提供對應 anchor→namespace 映射。
+#   這是主書 namespace_by_section 模式在 sol_extract 側缺的鏡像能力。
+#   已有 proposal P-2026-06-19-poole-linear-algebra-sol（domain=sol/type=harness-gap，proposed）覆蓋此缺口。
+# 在引擎補上之前維持 _pending，避免把錯位/被覆蓋的解答 merge 進 parsed/。
 chapter_re: '^Chapter\s+(\d+)\b'
 problem_re: '^(\d+)\.'
 multi_per_block: false
+chapter_level: null
 _pending: true

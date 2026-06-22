@@ -1,21 +1,25 @@
-# ⚠ PENDING — 不要 merge。這本解答書目前不是 `sol_rules.yaml` 可單獨表達的 case，屬
-# `sol_extract` harness gap，不是 source mismatch。
+# ⚠ PENDING — 不要 merge。確認屬 `sol_extract` ENGINE-GAP（非 source/edition mismatch）。
+# 提案 P-2026-06-19-strauss-pde-sol（domain=sol, type=harness-gap, proposed）。
 #
-# 1. 解答書真正的章 anchor（`Chapter N`）全部落在 `text_level=2`，但現行 `sol_extract`
-#    只接受 `text_level==1` 的章 anchor。以預設規則 dry-run 穩定得到 `0 章 / 0 題`。
+# === 2026-06-22 重驗（chapter_level:null commit 50fdc37 之後）===
+# chapter_re/problem_re 本身已正確（主書 num 為三層 N.M.K，本 problem_re group(1) 逐字對齊）。
 #
-# 2. `Chapter N` 還被當成 running header 重複灌進正文；同一章會在多個頁面反覆出現
-#    `Chapter 1`、`Chapter 2`...。就算引擎放寬成接受 lvl2，現行實作仍會把同章後段
-#    覆蓋前段，無法安全累積整章題解。
+# 1.（已失效的舊紅鯡）章 anchor 落 text_level=2/header——chapter_level:null 後引擎已認任意層級，
+#    此點不再是阻塞。
 #
-# 3. 題號與語義其實是對的：ad hoc 以 `^\\d+\\.\\d+\\.\\d+\\.` 抽題，可得 275 個解答 key，
-#    其中 274 個能逐字對上主書 `strauss_pde` 的 `problem['num']`（651 題中的 42.1%，
-#    符合 solutions manual 僅覆蓋約半數題的特性）。抽樣 `1.1.2`、`5.1.2`、`10.1.2`
-#    題幹與解答主題皆一致，因此 source 可用，卡點在 harness。
+# 2.（唯一現存阻塞）`Chapter N` 被當 running header 重複灌入：同章 anchor 重複多次
+#    （實測 ch3×15 / ch5×16 / ch9×21 …，14 章共 133 個 anchor）。引擎 `out[ch_num]=problems`
+#    對同章後段「覆蓋」前段（非累積），每章只保留「最後一個 running-header 視窗」那一小段，
+#    故全引擎流程 dry-run 僅 24/651（3.7%，集中在末章 ch14 因末視窗較長）。
 #
-# 若未來升級引擎，這份配置可作為起點；需要至少其一：
-# - 支援自訂 chapter anchor `text_level`，且同章多段要累積不能覆蓋；或
-# - 直接由題號 key `N.M.K` 導出 chapter，無須依賴章 anchor 切段。
+# 3. source 其實是好的：若改由題號 key `N.M.K` 前綴導出 chapter（繞過 anchor 切段），
+#    可得 280 distinct key、279/651（42.9%）逐字對上主書 num（僅 1 個 5.4.1 例外），
+#    分布 14 章均勻。語義抽樣 1.1.2 / 1.2.1 / 5.1.2 / 5.2.1 / 10.1.2 題幹與解答完全同題
+#    （10.2.1 source 無解＝solutions manual 部分覆蓋，正常）。卡點純在 harness，非 source。
+#
+# 升級引擎二擇一即解（以本配置為起點）：
+# - 同章多 anchor 視窗「累積不覆蓋」（`out.setdefault(ch).update(...)`）；或
+# - 直接由題號 key `N.M.K` 導出 chapter，無須依賴 running-header anchor 切段（推薦，更穩）。
 chapter_re: '^Chapter\s+(\d+)\s*$'
 problem_re: '^(\d+\.\d+\.\d+)\.'
 multi_per_block: false

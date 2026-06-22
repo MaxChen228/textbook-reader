@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-22-blundell-thermal-sol",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "blundell_thermal_sol 章標頭與題號合一：引擎缺『題號前綴推導章、無章標頭』模式，系統性丟每章首題",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-22T15:58:53+00:00",
+  "updated": "2026-06-22T15:58:53+00:00",
+  "evidence": "解答書無任何獨立 'Chapter N' block，題號 N.M 自成 block 兼任章資訊、題與題相鄰無分隔。引擎章錨模型要求章標頭 block→區間切題且章錨 block 被 range(start+1) 跳過。只能用每章首題 N.1 當章錨繞過→N.1 全被吞，系統性丟 37 個主書首題（chapter_re='^(\\d+)\\.1(?![0-9])'）。dry-run 配對 123/224(54.9%)，語義抽樣 ch3/5/7/10/13/17/20/28 共20題全對齊正確、非版次錯位。",
+  "proposal": "引擎增『無章標頭模式』：當 sol_rules 宣告 chapterless（或 problem_re group(1) 自帶 N.M）時，由 num.split('.')[0] 直接推導 chapter、不靠章錨 block→可救回 37 首題且免章錨跨缺章誤吞（現 ch22 收 23.x、ch30 收 31.5、ch32 全空）。",
+  "risk": "不修則 blundell_thermal 每章首題永無解答（37題），且缺章處章錨跨界誤抓鄰章題號",
+  "disposition": ""
+}

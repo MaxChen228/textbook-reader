@@ -1,38 +1,32 @@
-# ⚠ PENDING — 不要 merge。這本解答書目前不能靠現行 sol_extract 安全對齊主書，原因如下：
+# ⚠ PENDING — 不要 merge。終態：harness-gap（section-aware key namespace）。
+# 申訴案 = P-2026-06-19-zill-differential-equations-sol（domain=sol, type=harness-gap, proposed）。
 #
-# 1. 現行 sol_extract 只會把 `type=text && text_level==1` 的 block 當作章 anchor。
-#    但 zill_differential_equations_sol 的第一本書（對應主書 ch01–ch09）章號實際在
-#    `text_level=2` 的 `Chapter N` block：
-#      - 49  -> `Chapter 1`
-#      - 694 -> `Chapter 2`
-#      - 1857 -> `Chapter 3`
-#      - ...
-#      - 11157 -> `Chapter 9`
-#    同位置的 lvl=1 block 只有章名（如 `Introduction to Differential Equations`、
-#    `Numerical Solutions of Ordinary Differential Equations`），本身不含可抽的數字章號。
-#    因此不是調 chapter_re 就能讓現行引擎吃到前 1–9 章。
+# 唯一阻塞點（2026-06-22 重審，已隨引擎 commit 50fdc37 chapter_level:null 更新）：
 #
-# 2. 解答書題號是「section 內裸題序」，而主書 problem.num 是 section-aware key。
-#    實際觀察：
-#      - 解答書在 `1.1 Definitions and Terminology` 之後直接出現 `8.`、`9.`、`10.` ...
-#      - 主書對應 key 則是 `exercises1.1.8`、`exercises1.1.9`、`exercises1.1.10`
-#      - 其他章還會出現 `2.1.1.2`、`4.1.1.1` 這類混合 namespace
-#    現行 sol_extract 的 problem_re 只能抓單一字串做 key，無法用
-#    「當前 section heading + 裸題序」重建主書 key，所以就算章 anchor 問題不存在，
-#    也仍會系統性錯配。
+#   解答書題號是「section 內裸題序」，每個 section 邊界 reset；section 號只存在於獨立
+#   lvl2 標題 block（`1.1 Definitions and Terminology` → `8. 9. 10.`，section 1.2 又從
+#   `7.` 重啟、1.3 從 `6.` 重啟）。但主書 problem.num 是 section-aware key
+#   （`exercises1.1.8` / `2.1.1.2` / `4.1.1.1`，混合 namespace）。
+#   `sol_extract.extract_sol_chapters` 把整章當 flat namespace（problems[current_num]），
+#   無法用「當前 section heading + 裸題序」組裝出主書 key，所以：
+#     - 章內各 section 的同號題互相覆蓋（ch1 ~140 題塌成 37 key）
+#     - 即使配上號碼也配到不同 section 的題 → 系統性錯位
 #
-# 3. 預設 dry-run（2026-06-19）穩定結果為：
-#      `抽出 3 章、0 題解答`
-#    只抓到第二本書的少數 lvl=1 `Chapter 10/13/15`，而主書 parsed 也只有 ch01–ch09。
-#    這代表目前阻塞點在 harness，不在單次抽樣或 OCR 噪音。
+# 以下用 chapter_re='^Chapter\s+(\d+)' + problem_re='^(\d+)\.' in-process 量到的真相：
+#   - 章 anchor OK：抽出 ch1–ch15（含解答本第二冊 ch10–15；主書只有 ch01–09）。
+#     ↳ 舊註解「只認 lvl1、抽出 3 章」已過時，50fdc37 後 chapter_level:null 解鎖任意層級。
+#   - 配對率 0/1858（0%）。
+#   - 語義抽樣（3 章 × 各前 3 題，無一對齊，坐實系統性錯位、非 OCR 噪音/版次錯配）：
+#       ch1 seq=1: 主書「判定 (1-x)y''-4xy'+5y=cos x 階數/線性」 vs sol「d/dx(c₁e^10x)=10y 驗證解」
+#       ch2 seq=2: 主書「方向場 dy/dx=e^(-0.01xy²) 含初值 a–d」 vs sol「分離變數積分」
+#       ch4 seq=1: 主書「驗證 y=c₁eˣ+c₂e⁻ˣ 為解、定義區間」 vs sol「Theorem 4.1.1 True/False 概念題」
 #
-# 結論：這是 harness gap，不是單靠 sol_rules 可解。
-# 需要 sol_extract 支援：
-#   - 自訂 chapter anchor 的 text_level / block 類型
-#   - 用 section heading + 裸題序組裝主書 problem key
-#   - 必要時區分本書與同冊附帶的另一本文本
+# 版本相符（main 與 sol 同為 Zill ODE）→ 非 edition-mismatch、非 source-quality。
+# 根因純屬引擎能力缺口（記憶 [[namespace-mode-disables-prose-guard]] 提及的 section-aware
+# key namespace），架構師補齊 sol_extract 後（section heading + 裸題序組裝主書 key、
+# 必要時同冊多書切分）再移除 _pending 重 merge。
 #
-# 在引擎補齊前維持 pending，避免把錯解答 merge 進主書 parsed/。
+# 以下 regex 僅為「能讓 in-process 量出 0% 真相」的探針，merge 仍被 _pending 抑制。
 chapter_re: '^Chapter\s+(\d+)\s*$'
 problem_re: '^(\d+)\.'
 multi_per_block: false

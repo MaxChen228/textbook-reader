@@ -1,27 +1,23 @@
-# ⚠ PENDING — 不要 merge。這本解答書目前不是靠 sol_rules 可安全完成 merge，主因是
-# `sol_extract` 的章 anchor 假設與實際來源結構不相容：
+# blundell_thermal_sol — 章標頭與題號合一的解答書（無獨立 "Chapter N" block）。
 #
-# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當章 anchor。
-#    但 blundell_thermal_sol/unified/content_list.json 只有 2 個 lvl=1 text，且都是封面雜訊：
-#      - "StuDocu.com"
-#      - "Blundel Blundel - Concepts in Thermal Physics Solutions Manual (2009 )"
-#    2026-06-19 以預設規則 dry-run 穩定得到「抽出 0 章、0 題」。
+# 結構真相（2026-06-22 重驗，drop sol_scout + 讀 content_list 生肉）：
+#   - 解答書**沒有任何獨立章標頭 block**。題號 `N.M` 自成一個 text block（lv=None），
+#     其中 N 兼任章資訊；題目解答 body 跟在後面的 block。章與章之間無分隔（`1.6`→`2.1` 相鄰）。
+#   - 僅 2 個粗粒度分隔 "Solutions to Part I–VI" / "Part VII–IX"，無法對應 37 章。
+#   （舊註解「引擎只認 lvl1 章錨」已過時：50fdc37 後章錨認任意層級；真阻塞是無章標頭、章題合一。）
 #
-# 2. 解答書實際結構是「題號本身兼任章資訊」：大量 text block 直接以 `N.M` 起頭，
-#    例如 1.2 / 2.1 / 10.1 / 27.1。手工以前綴 `^N.M` 掃描可抓到約 170 個題號 block，
-#    對主書 224 題可對上 161 題；語義抽樣 ch10/ch17/ch27 對齊正確，說明不是版次整體錯位。
+# 引擎適配（不改引擎碼，鐵律）：
+#   sol_extract 的章錨模型要求「章標頭 block → 區間內 problem_re 切題」，章錨 block 自身被
+#   `range(start+1, end)` 跳過。本書章標頭＝題號 → 用**每章首題 `N.1` 當章錨**（chapter_re 抓 N）：
+#   區間 `[N.1 之後, (N+1).1)` 內由 problem_re 切出 `N.2, N.3 ...`。
+#   **代價：每章首題 `N.1` 被當章錨吞掉**（系統性丟 37 個主書首題）——此為引擎缺「題號前綴
+#   推導章、無章標頭」模式的結構限制，已開 harness-gap proposal 申訴。其餘題正確 merge。
 #
-# 3. 仍有局部 OCR 漏讀，但那不是不能 merge 的主因：
-#    - ch06 全章未抓到任何 `6.x`
-#    - 9.2 被吃進段內（不是獨立行首）
-#    - 22.5 被 OCR 成 `2.5`
-#    - 多章僅部分題目有解答
-#    這些屬「可接受的殘缺」，若引擎能以題號前綴直接切題/導章，仍可安全 merge 大部分題目。
-#
-# 待 sol_extract 支援以下其一後可重跑：
-#   - 章 anchor 自訂 text_level；或
-#   - 無章標頭模式：直接由 `N.M` 題號前綴推導 chapter=num.split('.')[0] 並切題。
-chapter_re: '^(\d+)\.\d+[a-z]?\b'
-problem_re: '^(\d+\.\d+[a-z]?)\b'
+# 語義抽樣（ch3/5/10/17 各 3 題並排主書題幹 vs sol body）：全部同題對齊、非版次錯位
+#   （ch10.3 主書問「90% of the way」↔ sol 算 =0.1；ch17.3 主書 rubber chain N± ↔ sol 解 N±；
+#    ch3.3 Poisson distribution ↔ sol 用 e^m 展開解 Poisson）。
+#   配對 123/224(54.9%)：首題吞 37、其餘 64 為 OCR 漏題/sol 缺章（ch6 全缺、ch25/31/33/35/36 缺）。
+#   接受殘缺 merge（123 正確題 ≫ _pending 的 0 解答；SOP「盡力 merge 能 merge 的」）。
+chapter_re: '^(\d+)\.1(?![0-9])'      # 每章首題 N.1 當章錨（N.10.. 排除）；group(1)=章號 int
+problem_re: '^(\d+\.\d+[a-z]?)'       # group(1) 對齊主書 problem['num'] = "N.M"
 multi_per_block: false
-_pending: true

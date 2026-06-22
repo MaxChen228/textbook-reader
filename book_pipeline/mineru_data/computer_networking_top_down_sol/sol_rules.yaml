@@ -1,17 +1,41 @@
-# ⚠ PENDING — 不要 merge。
-# 2026-06-20 audit 結論：
-# 1. 主書 `computer_networking_top_down` 的 problem['num'] 採每章 reset 的 `P1`, `P2`, ...。
-# 2. 解答書 unified 內真正的章標是 `text_level==2` 的 `Chapter N Problems` / `Chapter 5. Problems.`；
-#    現行 sol_extract.py 章 anchor 寫死只吃 `type=text && text_level==1`，因此官方 dry-run 只能得到
-#    「抽出 0 章、0 題解答」。
-# 3. 題號本體也有第二個 harness gap：解答書題號是 `Problem 1`, `Problem 2`, ...，但現行
-#    problem_re 的 group(1) 必須逐字等於主書 key。regex 只能抓出 `1/2/3`，無法在不改引擎的前提下
-#    轉成主書要求的 `P1/P2/P3`。
-# 4. 這不是錯版或 source-quality：一次性 lvl=2 章標 + `Problem N -> P<N>` 分析可抽出 8 章，
-#    對主書達 216/233 題 key 命中；語義抽樣 ch01/ch04/ch08 各前 3 題皆同題。
-# 5. 因正式 merge 需要 sol_extract 支援「自訂章 anchor level」與「題號 key 轉換」，當前先標記
-#    `_pending`，並已另開 `harness-gap` proposal。
-chapter_re: '^Chapter\s+(\d+)\.?\s+Problems\.?$'
+# ⚠ PENDING — 不要 merge。ENGINE-GAP（引擎缺「key prefix 模板」能力）+ 部分章版次錯位。
+#
+# 章錨完全成功（chapter_level:2 認 lvl2 `Chapter N Problems`，抽出 7 章 211 題；
+# `Chapter N Review Questions` 段因同章號被後出現的 Problems 段覆蓋而自然丟棄，正確）。
+# 問題不在章錨，在「題號 key 無法對齊」與「部分章題目版次錯位」兩層：
+#
+# 1.【ENGINE-GAP，硬性阻塞】sol 題標是裸整數 `Problem 1`/`Problem 2`…，主書 problem.num
+#    卻帶固定前綴 `P1`/`P2`…（本書只收 Problems、無 Review Questions，全 P 前綴）。
+#    sol_extract 用 `current_num = mt.group(1)`，group(1) 只能擷取 sol 既有連續子串——
+#    `Problem 1` 中不存在連續子串等於 `P1`，regex 無法把固定前綴 `P` 拼進 capture。
+#    官方 dry-run（problem_re='^Problem\s+(\d+)\b'）= 0/211 配對，坐實此鴻溝。
+#    in-process 模擬「把 sol key 加 P 前綴後比對」= 201/211 = 95%（證明除前綴外題號完全對齊）。
+#    引擎需新增「key 模板」能力（如 num_template: 'P{1}'，把 group(1) 套進模板再當主書 key），
+#    與 thomas/hartle 的「section heading + 裸題序組裝」同類缺口。現行 schema 無此表達。
+#
+# 2.【部分章版次錯位，即便有 prefix 能力仍不可全 merge】8th edition 主書與本 sol 在 ch4/ch7
+#    章內題目編排不同版本，同題號配到不同題：
+#    - ch7【整章錯位，無一對齊】：主書 P1 "Wireless technology speeds" ↔ sol Problem 1 是 CDMA
+#      `d1=[-1,1,...]` 輸出；P5 "CSMA/CA" ↔ sol "two APs ... different SSIDs"；P6 "RTS/CTS" ↔
+#      sol "H1 has 1000 long frames"；P7 "ACKs in WiFi" ↔ sol "frame ... 32 bytes long"；
+#      P11 "4G 5G Edge" ↔ sol datagram routing。整章 13 配對題主題系統性不符。
+#    - ch4【約半錯位】：主書 P2 "two packets arrive to two input ports" ↔ sol distance-vector
+#      `x to z: z to u`；P4 "switch ... slotted synchronous" ↔ sol `Cost to`（DV 表）。
+#      （P5 WFQ ↔ sol `112311231123` 對；混雜，不可整章信任。）
+#    - 對齊正確的章（語義抽樣確認）：ch1（P1-P3 ATM/端到端延遲/circuit-switched 全對）、
+#      ch2（True/false、SMS、HTTP client 全對）、ch6（2D parity、CRC G=10011、checksum 全對）、
+#      ch8（monoalphabetic/polyalphabetic/block cipher 全對）。ch3 大致對（P1 殘段是 OCR 截斷非錯位，
+#      P2 port values / P3 1's complement / P5 checksum / P6 rdt2.1 皆對）。
+#    缺 ch5（sol 無 `Chapter 5 Problems` 章錨 → 主書 ch05 22 題必 0%）。
+#
+# 結論：正確終態 = _pending（爛 merge 比沒答案更糟）。架構師需：
+#   (a) 升級 sol_extract 支援 key prefix 模板（解 ENGINE-GAP，讓 ch1/2/3/6/8 可安全 merge）；
+#   (b) merge 時排除版次錯位的 ch4/ch7（或換版次對齊的 ch4/ch7 解答來源）；
+#   (c)（可選）補 ch5 解答來源。
+# 下列 regex 為章錨校準成果（章錨層級已對、題號 group 已抓對裸整數），供升級後重跑起點；
+# 升級前不可解除 _pending（否則 0-match 假成功或塞錯章解答）。
+chapter_re: '^Chapter\s+(\d+)\s+Problems'
 problem_re: '^Problem\s+(\d+)\b'
 multi_per_block: false
+chapter_level: 2
 _pending: true

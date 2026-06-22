@@ -1,12 +1,27 @@
-# Munkres Topology solutions manual uses titled chapter headers, so chapter_re
-# must accept trailing chapter names after the numeric chapter id.
+# Munkres Topology solutions manual.
 #
-# Current source/harness gap:
-# - Chapter 1 is a lvl1 block: "Chapter 1 Set Theory and Logic"
-# - Chapter 2 appears as lvl2:   "Chapter 2 Topological Spaces and Continuous Functions"
-# sol_extract only accepts lvl1 chapter anchors, so this config can merge only
-# chapter 1 today. We keep strict problem matching and file a harness-gap
-# proposal rather than loosening rules and risking cross-chapter mismerge.
+# Numbering: main book uses GLOBAL section-based problem nums (`<section>.<problem>`,
+# e.g. 1.1, 13.2, 17.3) — section ids are unique across the whole book, so a single
+# `Exercise <sec>.<prob>` problem_re aligns directly to main `problem['num']` without
+# needing a chapter prefix. The chapter anchor is only a container.
+#
+# Chapter anchors (chapter_re matches both, any text_level — engine default
+# chapter_level=null since commit 50fdc37):
+#   - "Chapter 1 Set Theory and Logic"                     (lvl1)
+#   - "Chapter 2 Topological Spaces and Continuous Functions" (lvl2)
+# ch1 container holds §1-11 (+ Well-Ordering supplementary), ch2 container holds §13-19.
+#
+# Coverage note: this is a PARTIAL solutions manual — it only solves up to §19
+# (main ch1 fully-ish + ch2 first half). Main §20-82 (rest of ch2 + ch3-13) have
+# no solutions in this source. Match rate is therefore capped by real coverage,
+# not by misalignment. Semantic sampling (ch1 §1, ch2 §13) verified verbatim
+# problem-for-problem alignment, so merge proceeds.
+#
+# WO.N vs Supplementary.N: the manual labels the *-Well-Ordering supplementary
+# exercises "WO.N" while the main book labels them "Supplementary.N". These are
+# verbatim the same problems, but regex cannot rewrite the captured key, so those
+# ~7 supplementary solutions stay unmatched (cosmetic/marginal; not worth a forced
+# substitution that the engine does not support).
 chapter_re: '^Chapter\s+(\d+)\b'
 problem_re: '^Exercise\s+((?:WO|Supplementary|\d+)\.\d+)\s*$'
 multi_per_block: false
