@@ -10,6 +10,10 @@ sol_rules.yaml schema：
   problem_re:      '^Problem\\s+(\\d+\\.\\d+[a-z]?)'  # group(1) = 對主書 p['num'] 的 key
   multi_per_block: false   # true：一個 text block 內擠多答案（Boas 風格），用 finditer 切
   equation_label_re: '\\\\tag\\s*\\{([0-9]+\\.[0-9]+[a-z]?)\\}'  # 可選
+  chapter_level:   null    # 章錨可接受的 block text_level。null（預設）=任意層級（由 anchored
+                           #   chapter_re＋嚴格 problem_re 當濾網，外溢解答只留 unmatched、不錯寫）；
+                           #   設 int（如 1）=只認該層級，給 chapter_re 太鬆需限定層級的書用。
+                           #   解鎖 harness-gap：章標落在 text_level==2/header 的解答書（lvl2 章標）。
 
 key 對齊原則：problem_re 的 group(1) 必須等於主書 parsed/chNN.json 內 problem['num'] 字串。
   - Griffiths/Boas：主書 num 為 "N.M" → problem_re group(1) 抓 "N.M"
@@ -38,6 +42,7 @@ DEFAULTS = {
     'problem_re': r'^Problem\s+(\d+\.\d+[a-z]?)',
     'multi_per_block': False,
     'equation_label_re': r'\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}',
+    'chapter_level': None,   # 章錨可接受的 text_level；None=任意層級（解鎖 lvl2 章標解答書）
 }
 
 
@@ -54,11 +59,15 @@ def load_sol_rules(sol_slug: str) -> dict:
         sys.exit(f'sol_rules.chapter_re 須恰好 1 capture group（章號），現有 {chap.groups}')
     if prob.groups < 1:
         sys.exit('sol_rules.problem_re 須至少 1 capture group（group(1)=對主書 key）')
+    clvl = r['chapter_level']
+    if clvl is not None and not isinstance(clvl, int):
+        sys.exit(f'sol_rules.chapter_level 須為 int（限定 text_level）或省略/null（任意層級），現有 {clvl!r}')
     return {
         'chapter_re': chap,
         'problem_re': prob,
         'multi_per_block': bool(r['multi_per_block']),
         'eq_label_re': re.compile(r['equation_label_re']),
+        'chapter_level': clvl,
     }
 
 
@@ -72,13 +81,24 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
     multi = rules['multi_per_block']
     eq_re = rules['eq_label_re']
 
-    # 章 anchor：lvl=1 text 命中 chapter_re
+    # 章 anchor：text block 命中 chapter_re。text_level 由 rules['chapter_level'] 控制
+    # （None=任意層級，解鎖章標落在 lvl2/header 的解答書；設 int 則只認該層級）。
+    # int() 防護：放鬆層級後若 anchored chapter_re 偶誤抓非數字章號（如散文殘塊）→ 跳過、不崩。
+    chap_level = rules['chapter_level']
     chapters: list[tuple[int, int]] = []
     for i, b in enumerate(blocks):
-        if b.get('text_level') == 1 and b.get('type') == 'text':
-            m = chap_re.match((b.get('text') or '').strip())
-            if m:
-                chapters.append((int(m.group(1)), i))
+        if b.get('type') != 'text':
+            continue
+        if chap_level is not None and b.get('text_level') != chap_level:
+            continue
+        m = chap_re.match((b.get('text') or '').strip())
+        if not m:
+            continue
+        try:
+            ch_num = int(m.group(1))
+        except ValueError:
+            continue
+        chapters.append((ch_num, i))
 
     out: dict[int, dict[str, list]] = {}
     for k, (ch_num, start) in enumerate(chapters):
