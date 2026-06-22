@@ -99,6 +99,96 @@ def test_chapter_level_invalid_rejected(tmp_path, monkeypatch):
     print('✓ chapter_level 非 int/null → 拒收')
 
 
+# ── Phase2 五能力：accumulate / header-scan / roman / num_template / chapterless ──────
+def _mk(tmp_path, monkeypatch, slug, blocks, yaml_text=''):
+    d = tmp_path / slug / 'unified'
+    d.mkdir(parents=True)
+    (d / 'content_list.json').write_text(json.dumps(blocks))
+    if yaml_text:
+        (tmp_path / slug / 'sol_rules.yaml').write_text(yaml_text)
+    monkeypatch.setattr(sx, 'DATA_DIR', tmp_path)
+    return sx.load_sol_rules(slug)
+
+
+def test_roman_to_int_unit():
+    assert sx._roman_to_int('I') == 1 and sx._roman_to_int('IV') == 4
+    assert sx._roman_to_int('VII') == 7 and sx._roman_to_int('xiv'.upper()) == 14
+    assert sx._roman_to_int('') is None and sx._roman_to_int('12') is None and sx._roman_to_int('IZ') is None
+    assert sx._num_prefix_int('3.2') == 3 and sx._num_prefix_int('12-4') == 12 and sx._num_prefix_int('x.1') is None
+    print('✓ _roman_to_int / _num_prefix_int 單元')
+
+
+def test_accumulate_duplicate_chapter_anchors(tmp_path, monkeypatch):
+    """running header 把 'Chapter 1' 重印 → 同章多區間應累積（strauss 根因），非覆蓋成只剩末段。"""
+    blocks = [
+        {'type': 'text', 'text': 'Chapter 1'},
+        {'type': 'text', 'text': 'Problem 1.1'}, {'type': 'text', 'text': 'ans a'},
+        {'type': 'text', 'text': 'Chapter 1'},                      # running header 重印
+        {'type': 'text', 'text': 'Problem 1.2'}, {'type': 'text', 'text': 'ans b'},
+    ]
+    rules = _mk(tmp_path, monkeypatch, 'foo_sol', blocks)
+    got = sx.extract_sol_chapters('foo_sol', rules)
+    assert set(got) == {1} and set(got[1]) == {'1.1', '1.2'}, '重複章錨須累積兩題，非覆蓋成只剩 1.2'
+    print('✓ accumulate：重複章錨累積不覆蓋')
+
+
+def test_chapter_in_header(tmp_path, monkeypatch):
+    """章標落 type=='header'（casella 12 章全在 header）：預設不掃→0 章；chapter_in_header:true→收。"""
+    blocks = [
+        {'type': 'header', 'text': 'Chapter 1'},
+        {'type': 'text', 'text': 'Problem 1.1'}, {'type': 'text', 'text': 'a'},
+        {'type': 'header', 'text': 'Chapter 2'},
+        {'type': 'text', 'text': 'Problem 2.1'}, {'type': 'text', 'text': 'b'},
+    ]
+    rules_off = _mk(tmp_path, monkeypatch, 'off_sol', blocks)
+    assert sx.extract_sol_chapters('off_sol', rules_off) == {}, '預設不掃 header → 0 章（byte-identical）'
+    rules_on = _mk(tmp_path, monkeypatch, 'on_sol', blocks, 'chapter_in_header: true\n')
+    assert set(sx.extract_sol_chapters('on_sol', rules_on)) == {1, 2}
+    print('✓ chapter_in_header：header 型章標可錨（預設關）')
+
+
+def test_chapter_roman(tmp_path, monkeypatch):
+    """羅馬數字章號（kardar 'Chapter I/II'）：chapter_roman:true 轉 int；預設 int() 失敗→跳過。"""
+    blocks = [
+        {'type': 'text', 'text': 'Chapter II'},
+        {'type': 'text', 'text': 'Problem 2.1'}, {'type': 'text', 'text': 'a'},
+    ]
+    y = "chapter_re: '^Chapter\\s+([IVXLC]+)\\s*$'\nproblem_re: '^Problem\\s+(\\d+\\.\\d+)'\n"
+    assert sx.extract_sol_chapters('off_sol', _mk(tmp_path, monkeypatch, 'off_sol', blocks, y)) == {}, '無 chapter_roman → 羅馬章號跳過'
+    assert set(sx.extract_sol_chapters('on_sol', _mk(tmp_path, monkeypatch, 'on_sol', blocks, y + 'chapter_roman: true\n'))) == {2}
+    print('✓ chapter_roman：羅馬章號轉 int（預設關）')
+
+
+def test_num_template(tmp_path, monkeypatch):
+    """num_template 'P{}'：sol 裸題號 '1' → key 'P1' 對齊主書帶前綴 num（computer_networking）。"""
+    blocks = [{'type': 'text', 'text': 'Chapter 1'},
+              {'type': 'text', 'text': 'Problem 1'}, {'type': 'text', 'text': 'a'}]
+    y = "problem_re: '^Problem\\s+(\\d+)'\nnum_template: 'P{}'\n"
+    got = sx.extract_sol_chapters('t_sol', _mk(tmp_path, monkeypatch, 't_sol', blocks, y))
+    assert set(got[1]) == {'P1'}, 'num_template 應把 group(1) 套成 P1'
+    # 無 {} 佔位 → load_sol_rules 拒收
+    try:
+        _mk(tmp_path, monkeypatch, 'bad_sol', blocks, "num_template: 'Pxx'\n")
+        assert False, '應 SystemExit'
+    except SystemExit:
+        pass
+    print('✓ num_template：key 套模板 + 缺佔位拒收')
+
+
+def test_derive_chapter_from_num(tmp_path, monkeypatch):
+    """無章標解答書：由 num 首段推章（blundell/sethna）。chapter_re 不命中亦無妨。"""
+    blocks = [
+        {'type': 'text', 'text': '3.1 first'}, {'type': 'text', 'text': 'body a'},
+        {'type': 'text', 'text': '3.2 second'},
+        {'type': 'text', 'text': '5.1 third'},
+    ]
+    y = ("chapter_re: '^Chapter\\s+(\\d+)$'\nproblem_re: '^(\\d+\\.\\d+)'\n"
+         "derive_chapter_from_num: true\n")
+    got = sx.extract_sol_chapters('d_sol', _mk(tmp_path, monkeypatch, 'd_sol', blocks, y))
+    assert set(got) == {3, 5} and set(got[3]) == {'3.1', '3.2'} and set(got[5]) == {'5.1'}
+    print('✓ derive_chapter_from_num：由 num 首段推章')
+
+
 if __name__ == '__main__':
     test_block_when_llm_judged_misaligned()
     test_passes_when_aligned()

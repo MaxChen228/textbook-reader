@@ -43,7 +43,43 @@ DEFAULTS = {
     'multi_per_block': False,
     'equation_label_re': r'\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}',
     'chapter_level': None,   # 章錨可接受的 text_level；None=任意層級（解鎖 lvl2 章標解答書）
+    # ── 以下皆 opt-in（未設＝預設值＝行為 byte-identical，未用此欄的書零影響）──
+    'chapter_in_header': False,    # 章錨也掃 type=='header' block（章標落 header 的解答書，如 casella 12 章全在 header）
+    'chapter_roman': False,        # chapter_re group(1) 為羅馬數字 → 轉 int（kardar 'Problems for Chapter I/II/III'）
+    'num_template': None,          # key 模板：problem_re group(1) 套入，如 'P{}'→sol 'Problem 1' 對齊主書 num 'P1'（computer_networking）
+    'derive_chapter_from_num': False,  # 無章標解答書：由 problem num 首段（split on . / -）推章（chapterless：blundell/sethna）
 }
+
+
+def _roman_to_int(s: str) -> int | None:
+    """'IV'→4；非合法羅馬數字（含空字串/雜字元）→ None。"""
+    vals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    s = (s or '').strip().upper()
+    if not s or any(c not in vals for c in s):
+        return None
+    total = prev = 0
+    for c in reversed(s):
+        v = vals[c]
+        total += -v if v < prev else v
+        prev = max(prev, v)
+    return total or None
+
+
+def _chapter_num(raw: str, roman: bool) -> int | None:
+    """chapter_re group(1) → int 章號；roman=True 時 int 失敗再試羅馬數字。皆失敗→None（跳過該錨）。"""
+    try:
+        return int(raw)
+    except ValueError:
+        return _roman_to_int(raw) if roman else None
+
+
+def _num_prefix_int(raw: str) -> int | None:
+    """problem num 首段（'.'或'-'前）→ int，供 derive_chapter_from_num 推章。'3.2'→3、'12-4'→12。"""
+    head = re.split(r'[.\-]', raw, maxsplit=1)[0]
+    try:
+        return int(head)
+    except ValueError:
+        return None
 
 
 def load_sol_rules(sol_slug: str) -> dict:
@@ -62,17 +98,32 @@ def load_sol_rules(sol_slug: str) -> dict:
     clvl = r['chapter_level']
     if clvl is not None and not isinstance(clvl, int):
         sys.exit(f'sol_rules.chapter_level 須為 int（限定 text_level）或省略/null（任意層級），現有 {clvl!r}')
+    tmpl = r['num_template']
+    if tmpl is not None and (not isinstance(tmpl, str) or '{}' not in tmpl):
+        sys.exit(f"sol_rules.num_template 須為含 '{{}}' 佔位的字串（如 'P{{}}'）或省略，現有 {tmpl!r}")
     return {
         'chapter_re': chap,
         'problem_re': prob,
         'multi_per_block': bool(r['multi_per_block']),
         'eq_label_re': re.compile(r['equation_label_re']),
         'chapter_level': clvl,
+        'chapter_in_header': bool(r['chapter_in_header']),
+        'chapter_roman': bool(r['chapter_roman']),
+        'num_template': tmpl,
+        'derive_chapter_from_num': bool(r['derive_chapter_from_num']),
     }
 
 
 def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list]]:
-    """sol 書 → {ch_num: {problem_key: body[]}}"""
+    """sol 書 → {ch_num: {problem_key: body[]}}
+
+    兩種抽法（互斥）：
+    - **章錨法**（預設）：text/header block 命中 chapter_re → 切章區間，區內 problem_re 切題。
+      章錨可重複（running-header 把 'Chapter N' 重印多次）→ 同章多區間 **accumulate 累積、不覆蓋**。
+    - **derive_chapter_from_num**：解答書無章標 block → 由每題 num 首段推章（blundell/sethna）。
+    旗標：chapter_level（限 text_level）/ chapter_in_header（章標在 header type）/ chapter_roman（羅馬章號）/
+    num_template（key 套模板對齊主書帶前綴 num，如 'P{}'）。
+    """
     blocks = parser.expand_list_blocks(json.loads(
         (DATA_DIR / sol_slug / 'unified' / 'content_list.json').read_text()
     ))
@@ -80,69 +131,87 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
     prob_re = rules['problem_re']
     multi = rules['multi_per_block']
     eq_re = rules['eq_label_re']
-
-    # 章 anchor：text block 命中 chapter_re。text_level 由 rules['chapter_level'] 控制
-    # （None=任意層級，解鎖章標落在 lvl2/header 的解答書；設 int 則只認該層級）。
-    # int() 防護：放鬆層級後若 anchored chapter_re 偶誤抓非數字章號（如散文殘塊）→ 跳過、不崩。
     chap_level = rules['chapter_level']
-    chapters: list[tuple[int, int]] = []
-    for i, b in enumerate(blocks):
-        if b.get('type') != 'text':
-            continue
-        if chap_level is not None and b.get('text_level') != chap_level:
-            continue
-        m = chap_re.match((b.get('text') or '').strip())
-        if not m:
-            continue
-        try:
-            ch_num = int(m.group(1))
-        except ValueError:
-            continue
-        chapters.append((ch_num, i))
+    in_header = rules['chapter_in_header']
+    roman = rules['chapter_roman']
+    tmpl = rules['num_template']
+    derive = rules['derive_chapter_from_num']
+
+    def mk_key(raw: str) -> str:
+        return tmpl.format(raw) if tmpl else raw
 
     out: dict[int, dict[str, list]] = {}
-    for k, (ch_num, start) in enumerate(chapters):
-        end = chapters[k + 1][1] if k + 1 < len(chapters) else len(blocks)
-        problems: dict[str, list] = {}
-        current_num: str | None = None
-        current_body: list = []
+
+    # 共用掃描器：掃 blocks[lo:hi]，切題；每題經 route(raw_num)→(target_dict, key) 路由 body。
+    # route 回 None＝該題無法路由（derive 推不出章）→ 丟棄該題 body。同 key 後者覆蓋（與原行為一致）。
+    def walk(lo: int, hi: int, route):
+        current: tuple[dict, str] | None = None
+        body: list = []
 
         def flush():
-            nonlocal current_num, current_body
-            if current_num is not None:
-                problems[current_num] = current_body
+            if current is not None:
+                current[0][current[1]] = body
 
-        for j in range(start + 1, end):
+        for j in range(lo, hi):
             b = blocks[j]
             text = (b.get('text') or '').strip()
             if b.get('type') == 'text':
                 # multi：block 內所有命中；非 multi：僅行首一個
-                if multi:
-                    matches = list(prob_re.finditer(text))
-                else:
-                    m0 = prob_re.match(text)
-                    matches = [m0] if m0 else []
+                matches = list(prob_re.finditer(text)) if multi else (
+                    [m0] if (m0 := prob_re.match(text)) else [])
                 if matches:
                     # 第一個命中前的殘文補給前一題
                     pre = text[:matches[0].start()].strip()
-                    if current_num is not None and pre:
-                        current_body.append({'t': 'p', 'md': pre})
+                    if current is not None and pre:
+                        body.append({'t': 'p', 'md': pre})
                     for idx, mt in enumerate(matches):
                         flush()
-                        current_num = mt.group(1)
-                        current_body = []
+                        current = route(mt.group(1))
+                        body = []
                         seg_end = matches[idx + 1].start() if idx + 1 < len(matches) else len(text)
                         seg = text[mt.end():seg_end].strip()
-                        if seg:
-                            current_body.append({'t': 'p', 'md': seg})
+                        if seg and current is not None:
+                            body.append({'t': 'p', 'md': seg})
                     continue
-            if current_num is None:
+            if current is None:
                 continue
             struct = parser.block_to_struct(b, eq_re, False, False)
             if struct:
-                current_body.append(struct)
+                body.append(struct)
         flush()
-        out[ch_num] = problems
+
+    if derive:
+        # chapterless：每題由 num 首段推章；推不出→丟棄（避免塞進錯章）
+        def route(raw: str):
+            ch = _num_prefix_int(raw)
+            return (out.setdefault(ch, {}), mk_key(raw)) if ch is not None else None
+        walk(0, len(blocks), route)
+        return out
+
+    # 章錨法：掃 text（受 chapter_level 限）+ 選擇性 header（chapter_in_header）block。
+    # _chapter_num 防護：roman=True 試羅馬；非數字/非羅馬章號（散文殘塊）→ 跳過、不崩。
+    chapters: list[tuple[int, int]] = []
+    for i, b in enumerate(blocks):
+        typ = b.get('type')
+        if typ == 'text':
+            if chap_level is not None and b.get('text_level') != chap_level:
+                continue
+        elif typ == 'header' and in_header:
+            pass            # header 無 text_level，靠 chapter_re + _chapter_num 過濾
+        else:
+            continue
+        m = chap_re.match((b.get('text') or '').strip())
+        if not m:
+            continue
+        ch_num = _chapter_num(m.group(1), roman)
+        if ch_num is None:
+            continue
+        chapters.append((ch_num, i))
+
+    for k, (ch_num, start) in enumerate(chapters):
+        end = chapters[k + 1][1] if k + 1 < len(chapters) else len(blocks)
+        bucket = out.setdefault(ch_num, {})   # 重複章錨（running header）→ 累積進同一 bucket
+        walk(start + 1, end, lambda raw, _b=bucket: (_b, mk_key(raw)))
     return out
 
 
