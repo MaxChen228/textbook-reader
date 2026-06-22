@@ -105,18 +105,10 @@
     .dl-mb { position: absolute; bottom: 3px; left: 3px; font-size: 10px; font-weight: 700; color: #fff;
       background: rgba(0,0,0,.55); padding: 1px 4px; border-radius: 5px; }
     .dl-mb:empty { display: none; }
-    /* 數學 sweep reactor（站 8，error-centric，非書卡）：焦點=待解 occ 數、batch 處理中時脈動。主題中性 */
-    .math-reactor { padding: 12px 8px; border-radius: 12px; cursor: pointer; text-align: center;
-      display: flex; flex-direction: column; gap: 7px; align-items: center;
-      background: rgba(123,92,214,.10); border: 1px solid rgba(123,92,214,.32); }
-    .math-reactor.running { animation: mrpulse 1.25s ease-in-out infinite; border-color: rgba(123,92,214,.7); }
+    /* 數學 sweep batch 處理中脈動（用於抽屜內聚合進度卡 .ms-card.live）。主題中性紫 */
     @keyframes mrpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(123,92,214,0); }
                          50% { box-shadow: 0 0 0 5px rgba(123,92,214,.32); } }
-    .mr-state { font-size: 13px; font-weight: 700; }
-    .mr-occ b { font-size: 36px; font-weight: 800; line-height: 1; color: #7b5cd6; display: block; }
-    .mr-occ span { font-size: 11px; opacity: .55; }
-    .mr-last { font-size: 11px; opacity: .68; line-height: 1.45; white-space: pre-line; }
-    .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位 / 數學 sweep 殘餘原因行 */
+    .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位原因行 */
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
     .math-row:hover .lbl { color: var(--accent); }
@@ -136,9 +128,6 @@
     .ms-cnts { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 12px; font-weight: 600; }
     .ms-cnts .ms-ac { color: #6fcf97; } .ms-cnts .ms-un { color: #c9a36b; }
     .ms-cnts .ms-rt { color: #6fa8dc; } .ms-cnts .ms-hd { color: #d76b6b; }
-    /* 數學 sweep 尾站可點（開 corpus 抽屜）→ 整站 hover 提示 */
-    .station.st-clickable { cursor: pointer; }
-    .station.st-clickable:hover .st-name { color: var(--accent); }
     /* 已上站但 catalog/sol 仍待精修的書：done 卡右上角 🔧（上站完成≠全部完美） */
     .refine-badge { position: absolute; top: -5px; right: -5px; z-index: 3; font-size: 11px;
       line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
@@ -277,6 +266,15 @@
     .spin { display: inline-block; animation: sp 1s linear infinite; }
     @keyframes sp { to { transform: rotate(360deg); } }
 
+    /* ── 數學 sweep 徽章（topbar 入口；占用 occ + 狀態色，reactor 移走後保留「現在多少壞式」一瞥）── */
+    #btn-math.mt-due { border-color: var(--status-bad, #d9534f); }
+    #btn-math.mt-due #mt-count { color: var(--status-bad, #d9534f); font-weight: 700; }
+    #btn-math.mt-stuck { border-color: var(--status-warn, #d9a441); }
+    #btn-math.mt-stuck #mt-count { color: var(--status-warn, #d9a441); font-weight: 700; }
+    #btn-math.mt-run { border-color: var(--accent); }
+    #btn-math.mt-run #mt-count { color: var(--accent); font-weight: 700; }
+    /* mt-clean（全淨真 0）：預設樣式、不搶眼 */
+
     /* ── proposals 側欄（復用右側 drawer；topbar 入口 + 列表 + 單條詳情） ── */
     #btn-proposals.has-pending { border-color: var(--accent); }
     #btn-proposals.has-pending #pp-count { color: var(--accent); font-weight: 700; }
@@ -320,6 +318,7 @@
     <div class="topbar-spacer"></div>
     <span class="meta qbk-result-count" id="updated"></span>
     <button class="qbk-control-btn compact" id="btn-pause" type="button" title="暫停／啟動製書系統（暫停＝停派一切新工，在飛工作自然收尾）">⏸ —</button>
+    <button class="qbk-control-btn compact" id="btn-math" type="button" title="數學 sweep · 跨書渲染殘餘">🧮 <span id="mt-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
     <div class="qbk-segmented" id="seg-theme" style="margin-left:4px">
@@ -355,12 +354,6 @@
     <div class="dev-panel">
       <h2>收錄進度 <span class="dev-label" id="bl-overall"></span></h2>
       <div id="booklists"></div>
-    </div>
-
-    <!-- corpus 作業（非單書 agent：math_sweep 等）-->
-    <div class="dev-panel" id="p-corpus" hidden>
-      <h2>Corpus 作業 <span class="dev-label">非單書 agent（math_sweep 等）· 點開看完整歷程</span></h2>
-      <div id="corpus"></div>
     </div>
 
     <!-- log -->
@@ -399,6 +392,7 @@
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
+  let corpusSessions = []  // corpus 級 agent 作業歷程（math_sweep 等，slug=null）；system.json 餵 → math 抽屜渲
   let openSlug = null   // 抽屜當前綁定的書
   let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
   let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
@@ -436,16 +430,15 @@
     { ico: '🧩', name: '已解析' },     // book.json 已生、catalog/sol 待辦（stage 3/4 非 deploy）
     { ico: '📚', name: '已編目' },     // 強制待辦清空、待部署（stage 3/4 todo=deploy）
     { ico: '✅', name: '上站完成' },   // 已部署
-    { ico: '🧮', name: '數學 sweep', math: true },  // 隊尾 corpus 收尾（非書、非 walker）；對稱隊頭 crawl
     { ico: '🚫', name: '淘汰', reject: true },  // 終端死路（qc/triage 拒、書況 review、無源）；不在前進車道
   ]
+  // 數學 sweep 已移出流水線（非書本階段、corpus 級聚合）→ 收進 topbar 🧮 抽屜（見 openMathDrawer）。
   const DONE_ST = 7
-  const MATH_ST = 8
-  const REJECT_ST = 9
-  function stationOf(b) {  // 位置 = 已完成里程碑（非 todo）。前進欄 1..6、上站 7、淘汰 9；站 0 爬書、8 數學不放書
+  const REJECT_ST = 8
+  function stationOf(b) {  // 位置 = 已完成里程碑（非 todo）。前進欄 1..6、上站 7、淘汰 8；站 0 爬書不放書
     if (b.deployed) return DONE_ST                 // 7 上站
     const c = (b.stage || '').trim().split(' ')[0]
-    if (c === 'R' || c === 'X') return REJECT_ST   // 9 淘汰（書況/qc拒/triage拒、無源）
+    if (c === 'R' || c === 'X') return REJECT_ST   // 8 淘汰（書況/qc拒/triage拒、無源）
     const todo = (b.todo || '').trim()
     if (c === '3' || c === '4') return todo === 'deploy' ? 6 : 5  // 已編目（待部署）/ 已解析（catalog/sol 待辦）
     if (c === '2') return 4                         // 已稽核
@@ -496,7 +489,7 @@
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
   // 之後只動 lane 內卡片 + st-cnt + st-active。書 lane 走 8s status cadence、爬書 lane 走 1s worker cadence。
   const stationEls = [], laneEls = [], cntEls = []
-  let crawlReasonEl = null, mathReasonEl = null
+  let crawlReasonEl = null
   function buildScaffold() {
     const lineEl = document.getElementById('line')
     lineEl.innerHTML = ''
@@ -511,17 +504,16 @@
     STATIONS.forEach((st, i) => {
       const done = i === DONE_ST
       const station = document.createElement('div')
-      station.className = 'station' + (st.math ? ' st-clickable' : '')  // 尾站點開 corpus 數學抽屜
+      station.className = 'station'
       station.innerHTML = `<div class="st-head"><span class="st-ico">${st.ico}</span>`
         + `<span class="st-name">${escapeHtml(st.name)}</span><span class="st-cnt">0</span></div>`
-        + ((st.crawl || st.math) ? '<div class="cn-reason dev-label"></div>' : '')
+        + (st.crawl ? '<div class="cn-reason dev-label"></div>' : '')
         + `<div class="lane${done ? ' done' : ''}"></div>`
       lineEl.appendChild(station)
       stationEls[i] = station
       laneEls[i] = station.querySelector('.lane')
       cntEls[i] = station.querySelector('.st-cnt')
       if (st.crawl) crawlReasonEl = station.querySelector('.cn-reason')
-      if (st.math) mathReasonEl = station.querySelector('.cn-reason')
     })
   }
 
@@ -728,7 +720,7 @@
     const buckets = STATIONS.map(() => [])
     d.books.forEach(b => buckets[stationOf(b)].push(b))
     for (let i = 0; i < STATIONS.length; i++) {
-      if (STATIONS[i].crawl || STATIONS[i].math) continue  // 站 0 爬書 / 站 8 數學 sweep = agent 站，不放書
+      if (STATIONS[i].crawl) continue  // 站 0 爬書 = agent 站，不放書（數學 sweep 已移出流水線）
       const done = i === DONE_ST, bs = buckets[i]
       reconcileLane(laneEls[i], bs, b => b.slug,
         b => makeBookEl(b, done), (el, b) => updateBookEl(el, b, done),
@@ -753,47 +745,9 @@
     stationEls[0].classList.toggle('st-active', items.length > 0 || downloading)
   }
 
-  // ── 數學 sweep lane（站 8）：**非以書為單位、非 agent**。邏輯 = corpus 有多少壞式（occ），daemon 直跑
-  // math_sweep batch（純自架 LLM API）解掉。本站渲染一個 error-centric「reactor」：焦點 = 待解 occ 數、
-  // 狀態 = batch 處理中/待解/fixpoint/全淨、底下一行 = 上次 batch 戰績。count badge = 壞式數（非書數）──
-  let mathReactorEl = null
-  function renderMathReactor(m) {
-    const lane = laneEls[MATH_ST]
-    if (!mathReactorEl || mathReactorEl.parentNode !== lane) {
-      lane.innerHTML = ''
-      mathReactorEl = document.createElement('div')
-      mathReactorEl.className = 'math-reactor'
-      mathReactorEl.innerHTML =
-        '<div class="mr-state"></div><div class="mr-occ"><b></b><span>occ 待解</span></div><div class="mr-last"></div>'
-      lane.appendChild(mathReactorEl)
-    }
-    const sEl = mathReactorEl.querySelector('.mr-state'), bEl = mathReactorEl.querySelector('.mr-occ b'),
-          lEl = mathReactorEl.querySelector('.mr-last')
-    if (!m) { if (sEl.textContent !== '—') sEl.textContent = '—'; mathReactorEl.classList.remove('running'); return }
-    const occ = m.residual_unaccepted ?? m.corpus_bad_occ ?? 0
-    let icon, label
-    if (!m.node_available) { icon = '⚠️'; label = 'node 缺 · 未驗證' }
-    else if (m.running) { icon = '🔵'; label = 'batch 處理中…' }
-    else if (m.due) { icon = '🔴'; label = '待 batch 解' }
-    else if (occ > 0) { icon = '🟠'; label = 'fixpoint · 卡住' }
-    else { icon = '🟢'; label = '全淨 · 真 0' }
-    mathReactorEl.classList.toggle('running', !!m.running)
-    const st = `${icon} ${label}`; if (sEl.textContent !== st) sEl.textContent = st
-    if (bEl.textContent !== String(occ)) bEl.textContent = occ
-    const lb = m.last_batch
-    // running 時不顯「尚未 batch」（自相矛盾）：改顯本批起算經過時間（relTime 客端每 render 重算 → 看得出在跑）
-    // + 上一批戰績（若有）。非 running 才顯上次 batch 結果；真的從沒跑過才「尚未 batch」。
-    let lbTxt
-    if (m.running) {
-      lbTxt = `本批處理中 · 起 ${relTime(m.running.at)}`
-        + (lb ? `\n上批 解 ${lb.accepted || 0} · 剩 ${lb.still_failing || 0} 硬殘` : '\n首批尚未完成')
-    } else if (lb) {
-      lbTxt = `上次 batch ${relTime(lb.at)}\n解 ${lb.accepted || 0} 條 · 觸 ${lb.books_touched || 0} 書 · 殘 ${lb.before}→${lb.after}`
-    } else {
-      lbTxt = '尚未 batch'
-    }
-    if (lEl.textContent !== lbTxt) lEl.textContent = lbTxt
-  }
+  // ── 數學 sweep：**非書本階段、corpus 級聚合**（有多少壞式 occ，daemon 直跑 math_sweep batch 解掉）。
+  // 已移出流水線、收進 topbar 🧮 抽屜（renderMathDrawer = reactor＋跨書殘餘總覽＋corpus 歷程）。本函式
+  // 只更新 topbar 徽章：占用數 occ + 狀態色（待解紅 / fixpoint 卡橙 / 處理中 accent / 全淨綠），title 帶詳情。
   function mathReason() {
     const m = last && last.math
     if (!m) return '—'
@@ -805,16 +759,22 @@
     const un = m.residual_unaccepted ?? m.corpus_bad_occ
     const health = m.due ? '🔴待 batch' : (un > 0 ? '🟠fixpoint(卡)' : '🟢全淨')
     const acc = m.accepted_total ? `（已 accept ${m.accepted_total}）` : ''
-    return `未解 ${un}${acc} occ · ${health}${lbTxt}`
+    return `數學 sweep · 未解 ${un}${acc} occ · ${health}${lbTxt}`
   }
   function reconcileMath() {
     const m = last && last.math
-    const reason = mathReason()
-    if (mathReasonEl && mathReasonEl.textContent !== reason) mathReasonEl.textContent = reason
-    renderMathReactor(m)
-    const occ = m ? (m.residual_unaccepted ?? m.corpus_bad_occ ?? 0) : 0  // count = 壞式數（errors），非書數
-    if (cntEls[MATH_ST].textContent !== String(occ)) cntEls[MATH_ST].textContent = occ
-    stationEls[MATH_ST].classList.toggle('st-active', !!(m && (m.running || m.due)))
+    const occ = m ? (m.residual_unaccepted ?? m.corpus_bad_occ ?? 0) : 0
+    const c = document.getElementById('mt-count'); if (c && c.textContent !== String(occ)) c.textContent = occ
+    const b = document.getElementById('btn-math'); if (!b) return
+    // 狀態色：running(accent) / due 待解(red) / occ>0 fixpoint 卡(amber) / 全淨(無強調)
+    const cls = !m ? '' : (m.running ? 'mt-run' : (m.due ? 'mt-due' : (occ > 0 ? 'mt-stuck' : 'mt-clean')))
+    if (b.dataset.cls !== cls) {
+      b.classList.remove('mt-run', 'mt-due', 'mt-stuck', 'mt-clean')
+      if (cls) b.classList.add(cls)
+      b.dataset.cls = cls
+    }
+    b.title = mathReason()
+    if (openMath) renderMathDrawer()  // 抽屜開著時隨 status tick 保持 live（meta/top_books/last_sweep）
   }
 
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
@@ -1036,6 +996,11 @@
             + `<span class="ico">🔧</span><span class="lbl">${escapeHtml(s)}</span><span class="n">已微調</span></div>`).join('')
         : `<div class="dr-empty" style="text-align:left;padding:4px 2px">本輪無書可改（殘餘皆硬殘）</div>`
     } else swHtml += `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`
+    // corpus 作業歷程（math_sweep 等 slug=null 場次）：原 #p-corpus 面板已退役，折進本抽屜。
+    const cs = corpusSessions || []
+    indexSessions(cs)  // 點擊解析靠 sessById（不依賴 last churn）
+    if (cs.length) swHtml += `<div class="h" style="margin-top:12px">Corpus 作業歷程 (${cs.length})</div>`
+      + cs.map(sessRowHtml).join('')
     document.getElementById('dr-tl').innerHTML = swHtml
     renderMathStream()  // dr-hist 放即時 LLM 串流 + 歷史批次回溯
   }
@@ -1245,7 +1210,6 @@
       else if (card.dataset.slug) openDrawer(card.dataset.slug)
       return
     }
-    if (e.target.closest('.station') === stationEls[MATH_ST]) openMathDrawer()  // 點尾站空白 → corpus 數學總覽
   })
   // corpus 抽屜內 top 髒書 → 點開該書抽屜
   document.getElementById('dr-evs').addEventListener('click', e => {
@@ -1260,9 +1224,11 @@
     const row = e.target.closest('.sess'); if (!row) return
     openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), openSlug)
   })
-  document.getElementById('corpus').addEventListener('click', e => {
-    const row = e.target.closest('.sess'); if (!row) return
-    openSessionDrawer(findSession(decodeURIComponent(row.dataset.sid)), null)
+  // math 抽屜 dr-tl：corpus 作業歷程 sess（→ 回放，無 fromSlug）＋ 上次 sweep 改動書 math-row（→ 開該書）
+  document.getElementById('dr-tl').addEventListener('click', e => {
+    const sess = e.target.closest('.sess')
+    if (sess) { openSessionDrawer(findSession(decodeURIComponent(sess.dataset.sid)), null); return }
+    const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
   })
   // zlib 帳號額度條的 toggle 鈕（委派：#zlib 容器恆在，setHtml 只換子節點，監聽器存活）
   document.getElementById('zlib').addEventListener('click', e => {
@@ -1483,10 +1449,9 @@
     setHtml('errors', errs.length
       ? errs.slice(-12).map(e => `<div class="dev-err"><span class="src">[${escapeHtml(e.src)}]</span>${escapeHtml(e.line)}</div>`).join('')
       : `<div class="dev-ok-msg">✓ 無錯誤</div>`)
-    const cs = (s && s.corpus_sessions) || []
-    indexSessions(cs)
-    document.getElementById('p-corpus').hidden = !cs.length
-    if (cs.length) setHtml('corpus', `<div class="dev-label" style="margin-bottom:6px">${cs.length} 場（新→舊）</div>` + cs.map(sessRowHtml).join(''))
+    corpusSessions = (s && s.corpus_sessions) || []  // 餵 math 抽屜 corpus 歷程節（原 #p-corpus 面板已退役）
+    indexSessions(corpusSessions)
+    if (openMath) renderMathDrawer()  // 抽屜開著 → 隨 8s system tick 刷新 corpus 歷程
     setText('log', ((s && s.recent_log) || []).join('\n'))
   }
   async function loadSystem() {
@@ -1511,6 +1476,7 @@
     finally { btn.innerHTML = '↻ refresh' }
   })
   document.getElementById('btn-proposals').addEventListener('click', openProposalsDrawer)
+  document.getElementById('btn-math').addEventListener('click', openMathDrawer)
   buildScaffold()  // 站台骨架一次建好（之後只 reconcile lane 內卡片）
   load(); loadWorkers(); loadProposals(); loadSystem(); start()
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else { load(); loadWorkers(); loadProposals(); loadSystem(); start(); if (openMath) startMathRaw() } })

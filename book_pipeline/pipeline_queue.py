@@ -377,6 +377,18 @@ def mark_math_swept(macros_version: str, residual_before: int, residual_after: i
         _save_state(s)
 
 
+def clear_math_sweep_state() -> None:
+    """清掉 last_sweep latch（一次性解鎖）。last_sweep 只是 _sweep_decision 判 fixpoint 的衍生快取，
+    殘餘 ground-truth 在各書 _math_report.json；清掉它 → _sweep_decision 回 due → 下個 tick 重掃。
+    用途：infra 斷線窗汙染過 last_sweep（殘餘沒降被 latch 成假 fixpoint）後手動解鎖（CLI
+    `math_sweep reset-latch`）。A1/A2 防未來、本函式解既存。"""
+    with _state_lock():
+        s = _load_state()
+        if s.get(MATH_STATE_KEY):
+            s[MATH_STATE_KEY].pop('last_sweep', None)
+            _save_state(s)
+
+
 def math_batch_running(state: dict | None = None) -> dict | None:
     """batch 是否正在跑（持久化：do_math_sweep 在 worker thread 設，獨立 devsnapshot 進程要讀得到）。
     回 {at, before} 或 None。crash/SIGKILL 留下的殘 flag 由下次 do_math_sweep 起頭覆蓋、結束清除。"""

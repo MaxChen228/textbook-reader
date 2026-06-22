@@ -370,10 +370,23 @@ def _ccnexus_auth() -> str:
     return base64.b64encode(f"{u}:{pw}".encode()).decode()
 
 
+def _err_text(e: Any) -> str:
+    """從 ccnexus error 物件（dict/str）抽最具診斷力的訊息。"""
+    if isinstance(e, dict):
+        return str(e.get("message") or e.get("type") or e)
+    return str(e)
+
+
 def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str,
               timeout: int = 300, on_delta: Callable[[str], None] | None = None) -> str:
     """送一批 payload（[{i,err,tex}]）打 /v1/chat/completions（stream），回拼接後的全文。
-    on_delta(full_text_so_far)：每收一段 SSE delta 回呼（給即時串流可觀測性，呼叫端自 throttle）。"""
+    on_delta(full_text_so_far)：每收一段 SSE delta 回呼（給即時串流可觀測性，呼叫端自 throttle）。
+
+    **infra 失敗誠實拋錯（非靜默回空）**：ccnexus 池斷線窗會把錯誤當 HTTP 200 串回——或是 SSE
+    內嵌 `{"error":{…}}` 幀、或是非串流的純 JSON error body（如 `tokenization failed`）。兩者皆拋
+    RuntimeError；另外「零 content delta」（整串拿不到任何模型輸出）一律視為 infra 異常拋錯。如此
+    _run_one_batch 既有 except 把整批標 state="error" → cmd_batch 聚合成 ok:false → do_math_sweep
+    不記狀態、下個 tick 重試，**斷線雜訊永遠無法偽裝成「掃完沒東西修」的假 fixpoint**。"""
     body = {
         "model": model, "stream": True,
         "messages": [
@@ -385,10 +398,18 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
         base + "/v1/chat/completions", data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json", "Authorization": f"Basic {auth}"})
     out: list[str] = []
+    err_body: str | None = None                        # 非串流 error body（池斷線常見：HTTP 200 + {"error":…}）
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         for raw in resp:
             s = raw.decode("utf-8", "ignore").strip()
             if not s.startswith("data:"):
+                if s.startswith("{"):                   # 非 SSE 純 JSON body（疑似 error）→ 記下供拋錯診斷
+                    try:
+                        eo = json.loads(s)
+                    except ValueError:
+                        eo = None
+                    if isinstance(eo, dict) and eo.get("error"):
+                        err_body = _err_text(eo["error"])
                 continue
             s = s[5:].strip()
             if s == "[DONE]":
@@ -397,6 +418,8 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
                 o = json.loads(s)
             except ValueError:
                 continue
+            if isinstance(o, dict) and o.get("error"):  # SSE 內嵌錯誤幀（tokenization failed 等）→ 立即拋
+                raise RuntimeError(f"ccnexus 串流錯誤：{_err_text(o['error'])}")
             ch = o.get("choices") or []                # usage-only / keepalive chunk 無 choices
             if ch:
                 piece = ch[0].get("delta", {}).get("content") or ""
@@ -404,6 +427,8 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
                     out.append(piece)
                     if on_delta is not None:
                         on_delta("".join(out))
+    if not out:                                        # 零 content delta = infra 異常（非模型真回空）→ 拋錯
+        raise RuntimeError(f"空 LLM 回應（疑似 ccnexus 池斷線/infra）：{err_body or '無 error body'}")
     return "".join(out)
 
 
@@ -566,6 +591,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
     total = len(work)
     cnt = {"done": 0, "accepted": 0, "unrec": 0, "locate": 0}
     seq = 0  # 全域批次序號（history 定址）
+    infra_batches = 0  # state=="error" 的批數（連線/逾時/空回應）→ 收尾判 infra-only 假 fixpoint
 
     # 派工：每池每輪把 batch 攤平給 ThreadPoolExecutor(workers) 並發跑純 worker；as_completed 在**主
     # 線程序列**合併結果（accepted/gid_new/unrec/history/live 全在此寫 → 零競態、原子）。
@@ -587,6 +613,8 @@ def cmd_batch(a: argparse.Namespace) -> int:
                 pending = len(futs)
                 for fut in as_completed(futs):
                     res = fut.result()
+                    if res.get("state") == "error":
+                        infra_batches += 1
                     for slug, gid, new, ovs in res["accepts"]:
                         accepted[slug].extend(ovs)
                         gid_new[gid] = new
@@ -640,10 +668,16 @@ def cmd_batch(a: argparse.Namespace) -> int:
                 pass
 
     el = max(time.monotonic() - started, 1e-6)
-    out = {"ok": True, "accepted": len(gid_new), "unrecoverable": marked,
+    # infra 誠實浮現：整輪一條都沒從模型拿到真 verdict（零 accept、零 unrec）卻有 infra 批失敗 → ok:false。
+    # do_math_sweep 既有 `not res.get('ok')` 逃生口 → 不記 last_sweep → 不 latch fixpoint → 下個 tick 重試
+    # （斷線窗無法偽裝成假 fixpoint）。真正掃完、剩下全 unrec/render_fail 仍回 ok:true（合法 fixpoint）。
+    infra_only = (len(gid_new) == 0 and marked == 0 and infra_batches > 0)
+    out = {"ok": not infra_only, "accepted": len(gid_new), "unrecoverable": marked,
            "still_failing": len(still), "books_touched": len(set(accepted) | set(unrec)),
            "workers": workers, "elapsed_s": round(el, 1), "rate_per_min": round(total / el * 60.0, 1),
            "remaining_by_book": remaining}
+    if infra_only:
+        out["error"] = f"ccnexus 全批空回應/錯誤（疑似池斷線）：{infra_batches}/{seq} 批 infra fail，零落地"
     print(json.dumps(out, ensure_ascii=False, indent=2))
     return 0
 
@@ -754,6 +788,17 @@ def cmd_purge(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_reset_latch(a: argparse.Namespace) -> int:
+    """清 math sweep 的 fixpoint latch（pipeline_state.json 的 last_sweep）→ 下個 tick 強制重掃。
+    用於 infra 斷線窗汙染 last_sweep（殘餘沒降被 latch 成假 fixpoint）後手動解鎖。"""
+    from book_pipeline import pipeline_queue as q
+    before = q.math_sweep_state()
+    q.clear_math_sweep_state()
+    print(json.dumps({"ok": True, "cleared": bool(before), "was": before},
+                     ensure_ascii=False, indent=2))
+    return 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="python -m book_pipeline.math_sweep")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -799,6 +844,10 @@ def _build_parser() -> argparse.ArgumentParser:
     p_purge.add_argument("--book", help="只清某書 slug（預設全 corpus）")
     p_purge.add_argument("--dry-run", action="store_true", help="只報要剔哪些，不改檔/不重 parse")
     p_purge.set_defaults(func=cmd_purge)
+
+    p_reset = sub.add_parser(
+        "reset-latch", help="清 fixpoint latch（last_sweep）→ 下個 tick 強制重掃（infra 斷線汙染後解鎖）")
+    p_reset.set_defaults(func=cmd_reset_latch)
 
     return ap
 
