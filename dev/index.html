@@ -394,7 +394,6 @@
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
   let corpusSessions = []  // corpus 級 agent 作業歷程（math_sweep 等，slug=null）；system.json 餵 → math 抽屜渲
   let openSlug = null   // 抽屜當前綁定的書
-  let openWkey = null   // 抽屜綁定的 worker（爬書 / 數學 sweep agent，無書本實體時用）
   let openMath = false  // 抽屜顯示 corpus 數學殘餘總覽（點數學 sweep 尾站）
   let openSession = null, openSessionFrom = null  // 歷史 session 重播 + 返回來源書
   let drawerDetail = null, drawerDetailSlug = null, drawerDetailAt = 0  // 書本 detail/<slug>.json（timeline+sessions）on-demand 快取 + 8s 節流戳
@@ -812,18 +811,13 @@
     document.getElementById('drawer').setAttribute('aria-hidden', 'false')
   }
   function openDrawer(slug) {
-    openSlug = slug; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    openSlug = slug; openMath = false; openSession = null; openSessionFrom = null
     if (slug !== drawerDetailSlug) drawerDetail = null  // 換書 → 清舊詳情快取（不顯示上一本 timeline/sessions）
     document.getElementById('dr-back').hidden = true
     _openDrawerEl(); renderDrawer()  // 書本分支 on-demand 撿 detail/<slug>.json（隨 1s poll 保持 live）
   }
-  function openWorkerDrawer(wkey) {
-    openWkey = wkey; openSlug = null; openMath = false; openSession = null
-    document.getElementById('dr-back').hidden = true
-    _openDrawerEl(); renderDrawer()
-  }
   function openMathDrawer() {
-    openMath = true; openSlug = null; openWkey = null; openSession = null
+    openMath = true; openSlug = null; openSession = null
     document.getElementById('dr-back').hidden = true
     _openDrawerEl(); renderDrawer()
     startMathRaw()  // 開抽屜才輪詢 live 串流 + 歷史（省 idle 時的閒置請求）
@@ -843,13 +837,13 @@
   function openSessionDrawer(summary, fromSlug) {
     if (!summary) return
     openSession = summary; openSessionFrom = fromSlug || null
-    openSlug = null; openWkey = null; openMath = false
+    openSlug = null; openMath = false
     document.getElementById('dr-back').hidden = !fromSlug
     _openDrawerEl(); renderDrawer()
   }
   function closeDrawer() {
     stopMathRaw()
-    openSlug = null; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    openSlug = null; openMath = false; openSession = null; openSessionFrom = null
     openProposals = false; openProposalId = null
     document.getElementById('dr-back').hidden = true
     document.getElementById('dr-mask').classList.remove('open')
@@ -859,14 +853,14 @@
   // ── proposals（復用右側 drawer）：列表 + 單條詳情。純唯讀 — 裁決走 `proposals resolve` CLI ──
   function openProposalsDrawer() {
     openProposals = true; openProposalId = null
-    openSlug = null; openWkey = null; openMath = false; openSession = null; openSessionFrom = null
+    openSlug = null; openMath = false; openSession = null; openSessionFrom = null
     document.getElementById('dr-back').hidden = true
     _openDrawerEl()
     if (proposalsFeed) renderProposalsDrawer(); else loadProposals()
   }
   function openProposalDrawer(id) {
     openProposalId = id; openProposals = false
-    openSlug = null; openWkey = null; openMath = false; openSession = null
+    openSlug = null; openMath = false; openSession = null
     document.getElementById('dr-back').hidden = false  // 返回 → proposals 列表
     _openDrawerEl(); renderProposalDrawer()
   }
@@ -1027,38 +1021,12 @@
       + `<span class="ms-rt">↻ ${lv.retry_pending} 重試</span>`
       + (lv.hard_residual ? `<span class="ms-hd">✗ ${lv.hard_residual} 硬殘</span>` : '')
   }
-  // 爬書 / 數學 sweep agent 抽屜：無書本實體，只呈現 agent 的完整 tool-use（回答「它在做什麼」）
-  function renderWorkerDrawer() {
-    const w = lastWorkers.find(x => x.key === openWkey)
-    const isMath = w && w.verb === 'math_sweep'
-    document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph${isMath ? ' math-ph' : ''}">${isMath ? '🧮' : '🤖'}</div>`
-    document.getElementById('dr-title').textContent = isMath ? '數學 sweep agent' : '爬書 agent'
-    document.getElementById('dr-sub').textContent = w ? `${w.verb} · ${w.provider} · pid ${w.pid}` : '本輪已結束'
-    const st = w ? { cls: 'work', txt: isMath ? '🔧 跨書清殘 / 寫 override…' : '🔧 處理中…' }
-                 : { cls: 'ready', txt: isMath ? '☑ 本輪數學 sweep 已結束' : '☑ 本輪已結束' }
-    document.getElementById('dr-meta').innerHTML =
-      `<span class="dr-status dr-st-${st.cls}">${st.txt}</span>`
-      + (w ? `<span><b>${w.total_calls || 0}</b> 次工具調用</span><span>${escapeHtml(w.provider || '')}</span>` : '')
-    const evs = document.getElementById('dr-evs')
-    if (w && (w.recent || []).length) {
-      evs.innerHTML = w.recent.map(r => {
-        const ico = r.kind === 'tool' ? '🔧' : '💬'
-        return `<div class="ev ${r.kind}"><span class="ico">${ico}</span><span class="n">${escapeHtml(r.t ? relTime(r.t) : '')}</span>`
-          + `<span class="lbl">${escapeHtml(r.label || '')}</span></div>`
-      }).join('')
-    } else {
-      evs.innerHTML = `<div class="dr-empty">${w ? '（agent 尚無事件…）' : '本輪 agent 已結束'}</div>`
-    }
-    document.getElementById('dr-tl').innerHTML = ''
-    document.getElementById('dr-hist').innerHTML = ''
-  }
   function renderDrawer() {
     document.getElementById('drawer').classList.remove('math-mode')  // 預設關閉；math 抽屜自行開啟
     if (openProposals) return renderProposalsDrawer()
     if (openProposalId) return renderProposalDrawer()
     if (openMath) return renderMathDrawer()
     if (openSession) return renderSessionDrawer()
-    if (openWkey) return renderWorkerDrawer()
     if (!openSlug || !last) return
     const b = last.books.find(x => x.slug === openSlug); if (!b) return
     const w = workerOf(openSlug)
@@ -1198,8 +1166,7 @@
   document.getElementById('line').addEventListener('click', e => {
     const card = e.target.closest('.book')
     if (card) {
-      if (card.dataset.wkey) openWorkerDrawer(card.dataset.wkey)
-      else if (card.dataset.slug) openDrawer(card.dataset.slug)
+      if (card.dataset.slug) openDrawer(card.dataset.slug)
       return
     }
   })
@@ -1414,7 +1381,7 @@
     reconcileMath()   // 數學 sweep agent 同走 1s cadence（slug=null，本站直接渲染）
     applyWalkers()
     if (last) { updateLineSub(); tickClocks() }  // 工人 poll：刷 live 工人數 + 時鐘
-    if (openSlug || openWkey) renderDrawer()
+    if (openSlug) renderDrawer()
   }
   // 階段剛變的卡閃示（核 status.json 1s 直驅 → 退役 stages.json fast-lane；render() reconcile 後呼叫）。
   function flashStage(slug) {

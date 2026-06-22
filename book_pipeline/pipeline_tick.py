@@ -962,9 +962,10 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
 
 
 def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
-    """oneshot tick 的 crawl 編排：**買書員 drain**（確定性，直接從解析池取 ready 下載）。
-    無 buffer、無 refill 步驟——下載候選即時從解析池推導。reactive loop **不**走此函數——它把
-    drain / crawl 解析當獨立 due-gated 步驟分派（C1 買書員每 cycle、C4 解析 agent）。回 drain 抓到的 slug。"""
+    """oneshot tick 的 crawl 編排：**買書員 drain**（確定性，直接從解析池取 QUALIFIED 下載）。
+    無 buffer、無 refill——下載候選即時從合格池推導。reactive loop **不**走此函數——它把買書員
+    drain 當獨立 due-gated 步驟分派（C1，每 cycle）。daemon 不再自主填書單（resolver 已移除，改人工
+    /restock）。回 drain 抓到的 slug。"""
     return drain_crawl_queue(rows, dry)
 
 
@@ -1677,13 +1678,13 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     for s in ingest_slugs:
         do_submit(s, dry)  # detached upload，立刻返回；早寫 manifest 防跨 tick 重提
 
-    # B+C 並發：advance 既有書（LLM/audit/qc/sol_extract）與 crawl 補新書（zlib 下載 + 確定性 refill）
-    # 是**獨立資源池**，不該互等 → 同時跑。否則 crawl 卡在 audit barrier 後面 = 額度遲遲不消耗、
-    # audit 慢就整批新書都不爬。各書 LLM 任務獨立無依賴 → advance 內部本就全並行。
+    # B+C 並發：advance 既有書（LLM/audit/qc/sol_extract）與買書員下載合格書（zlib 下載，確定性）
+    # 是**獨立資源池**，不該互等 → 同時跑。否則買書員卡在 audit barrier 後面 = 額度遲遲不消耗、
+    # audit 慢就整批新書都不下載。各書 LLM 任務獨立無依賴 → advance 內部本就全並行。
     adv_slugs = [r['slug'] for r in rows if r['slug'] not in skip]
     if dry:
         _advance_parallel(adv_slugs, dry, no_deploy)
-        crawled = do_crawl_tick(dry, rows)  # 買書員 drain（劃掉）+ 低水位才 refill（確定性、零 LLM）
+        crawled = do_crawl_tick(dry, rows)  # 買書員 drain（確定性、零 LLM，只下載既有 QUALIFIED）
     else:
         with ThreadPoolExecutor(max_workers=2) as bc:
             fb = bc.submit(_advance_parallel, adv_slugs, dry, no_deploy)
