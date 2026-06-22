@@ -1,0 +1,162 @@
+slug: mitzenmacher_upfal_probability_computing
+title: "Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis"
+author: "Michael Mitzenmacher; Eli Upfal"
+edition: "2nd"
+subject: Probability
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 485
+bibliography_start_page: null
+index_start_page: 485
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Events and Probability
+    page_start: 22
+    page_end: 43
+    chapter_title_block_idx: 248
+    problems_block_idx: null
+    next_chapter_block_idx: 557
+  - num: 2
+    title: Discrete Random Variables and Expectation
+    page_start: 44
+    page_end: 67
+    chapter_title_block_idx: 557
+    problems_block_idx: null
+    next_chapter_block_idx: 904
+  - num: 3
+    title: Moments and Deviations
+    page_start: 68
+    page_end: 86
+    chapter_title_block_idx: 904
+    problems_block_idx: null
+    next_chapter_block_idx: 1209
+  - num: 4
+    title: Chernoff and Hoeffding Bounds
+    page_start: 87
+    page_end: 117
+    chapter_title_block_idx: 1209
+    problems_block_idx: null
+    next_chapter_block_idx: 1702
+  - num: 5
+    title: Balls, Bins, and Random Graphs
+    page_start: 118
+    page_end: 155
+    chapter_title_block_idx: 1702
+    problems_block_idx: null
+    next_chapter_block_idx: 2258
+  - num: 6
+    title: The Probabilistic Method
+    page_start: 156
+    page_end: 188
+    chapter_title_block_idx: 2258
+    problems_block_idx: null
+    next_chapter_block_idx: 2765
+  - num: 7
+    title: Markov Chains and Random Walks
+    page_start: 189
+    page_end: 225
+    chapter_title_block_idx: 2765
+    problems_block_idx: null
+    next_chapter_block_idx: 3310
+  - num: 8
+    title: Continuous Distributions and the Poisson Process
+    page_start: 226
+    page_end: 262
+    chapter_title_block_idx: 3310
+    problems_block_idx: null
+    next_chapter_block_idx: 3878
+  - num: 9
+    title: The Normal Distribution
+    page_start: 263
+    page_end: 289
+    chapter_title_block_idx: 3878
+    problems_block_idx: null
+    next_chapter_block_idx: 4322
+  - num: 10
+    title: Entropy, Randomness, and Information
+    page_start: 290
+    page_end: 317
+    chapter_title_block_idx: 4322
+    problems_block_idx: null
+    next_chapter_block_idx: 4714
+  - num: 11
+    title: The Monte Carlo Method
+    page_start: 318
+    page_end: 337
+    chapter_title_block_idx: 4714
+    problems_block_idx: null
+    next_chapter_block_idx: 4998
+  - num: 12
+    title: Coupling of Markov Chains
+    page_start: 338
+    page_end: 361
+    chapter_title_block_idx: 4998
+    problems_block_idx: null
+    next_chapter_block_idx: 5343
+  - num: 13
+    title: Martingales
+    page_start: 362
+    page_end: 381
+    chapter_title_block_idx: 5343
+    problems_block_idx: null
+    next_chapter_block_idx: 5688
+  - num: 14
+    title: Sample Complexity, VC Dimension, and Rademacher Complexity
+    page_start: 382
+    page_end: 412
+    chapter_title_block_idx: 5688
+    problems_block_idx: null
+    next_chapter_block_idx: 6159
+  - num: 15
+    title: Pairwise Independence and Universal Hash Functions
+    page_start: 413
+    page_end: 435
+    chapter_title_block_idx: 6159
+    problems_block_idx: null
+    next_chapter_block_idx: 6502
+  - num: 16
+    title: Power Laws and Related Distributions
+    page_start: 436
+    page_end: 453
+    chapter_title_block_idx: 6502
+    problems_block_idx: null
+    next_chapter_block_idx: 6740
+  - num: 17
+    title: Balanced Allocations and Cuckoo Hashing
+    page_start: 454
+    page_end: 484
+    chapter_title_block_idx: 6740
+    problems_block_idx: null
+    next_chapter_block_idx: 7483
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Exercise\s+(\d+\.\d+):'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
