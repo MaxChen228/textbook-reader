@@ -1,0 +1,144 @@
+# Modern Graph Theory — Béla Bollobás (GTM 184, Springer 1998)
+# Roman-numeral chapters (I–X), Roman.Arabic sections (I.1, II.3 …),
+# per-chapter "Exercises" section holds pure-sequential problems (1. 2. 3. …).
+
+# ── 書本 metadata ──
+slug: bollobas_modern_graph_theory
+title: Modern Graph Theory
+author: Béla Bollobás
+edition: 1st
+subject: Combinatorics            # graph theory ⊂ combinatorics; no dedicated subject in schema
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2             # body section headings (I.1, II.3 …) live at text_level=2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15               # chapter I "Fundamentals" (idx 178)
+appendices_start_page: 390        # no appendix → back-matter (Symbol Index) page
+bibliography_start_page: null     # no standalone Bibliography/References (refs live in per-chapter Notes)
+index_start_page: 390             # Symbol Index (idx 5272, pg 390)
+
+# ── inline-problem 模式 ──
+inline_problems: false            # every chapter has a dedicated "Exercises" section
+
+# ── 章節 ──
+# chapter anchor = standalone Roman-numeral block; title = next block (secondary).
+# next_chapter_block_idx of last chapter = Symbol Index heading idx (excludes index from ch X body).
+chapters:
+  - num: 1
+    title: Fundamentals
+    page_start: 15
+    page_end: 51
+    chapter_title_block_idx: 178
+    chapter_title_block_idx_secondary: 179
+    problems_block_idx: 474
+    next_chapter_block_idx: 625
+  - num: 2
+    title: Electrical Networks
+    page_start: 52
+    page_end: 79
+    chapter_title_block_idx: 625
+    chapter_title_block_idx_secondary: 626
+    problems_block_idx: 865
+    next_chapter_block_idx: 944
+  - num: 3
+    title: Flows, Connectivity and Matching
+    page_start: 80
+    page_end: 115
+    chapter_title_block_idx: 944
+    chapter_title_block_idx_secondary: 945
+    problems_block_idx: 1244
+    next_chapter_block_idx: 1393
+  - num: 4
+    title: Extremal Problems
+    page_start: 116
+    page_end: 157
+    chapter_title_block_idx: 1393
+    chapter_title_block_idx_secondary: 1394
+    problems_block_idx: 1905
+    next_chapter_block_idx: 2036
+  - num: 5
+    title: Colouring
+    page_start: 158
+    page_end: 192
+    chapter_title_block_idx: 2036
+    chapter_title_block_idx_secondary: 2037
+    problems_block_idx: 2359
+    next_chapter_block_idx: 2481
+  - num: 6
+    title: Ramsey Theory
+    page_start: 193
+    page_end: 226
+    chapter_title_block_idx: 2481
+    chapter_title_block_idx_secondary: 2482
+    problems_block_idx: 2862
+    next_chapter_block_idx: 2944
+  - num: 7
+    title: Random Graphs
+    page_start: 227
+    page_end: 264
+    chapter_title_block_idx: 2944
+    chapter_title_block_idx_secondary: 2945
+    problems_block_idx: 3441
+    next_chapter_block_idx: 3523
+  - num: 8
+    title: Graphs, Groups and Matrices
+    page_start: 265
+    page_end: 305
+    chapter_title_block_idx: 3523
+    chapter_title_block_idx_secondary: 3524
+    problems_block_idx: 3936
+    next_chapter_block_idx: 4073
+  - num: 9
+    title: Random Walks on Graphs
+    page_start: 306
+    page_end: 345
+    chapter_title_block_idx: 4073
+    chapter_title_block_idx_secondary: 4074
+    problems_block_idx: 4585
+    next_chapter_block_idx: 4677
+  - num: 10
+    title: The Tutte Polynomial
+    page_start: 346
+    page_end: 389
+    chapter_title_block_idx: 4677
+    chapter_title_block_idx_secondary: 4678
+    problems_block_idx: 5187
+    next_chapter_block_idx: 5272
+
+# ── 附錄 ──
+appendices: []                    # no appendices
+
+# ── heading regex ──
+# sections: Roman.Arabic + title, e.g. "I.1 Definitions", "III.4 Tutte's 1-Factor Theorem".
+# no subsections exist; subsection_re targets the (absent) Roman.N.N form so it never fires.
+section_re: '^((?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.\d+)\s+(.+)$'
+subsection_re: '^((?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# Exercises are pure sequential per chapter: "1. ...", "2. ...", "11. ...".
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null            # no "Example N.M" environment
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
