@@ -277,7 +277,7 @@ def detect_heading(text: str, lvl: int | None,
     if example_re:
         m = example_re.match(t)
         if m:
-            return {'t': 'example', 'id': m.group(1)}
+            return {'t': 'example', 'id': re.sub(r'\s+', '', m.group(1))}  # 同 section id 去內部空白（OCR 拆字）
     return None
 
 
@@ -368,12 +368,18 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
                    section_re: re.Pattern | None = None,
                    subsection_re: re.Pattern | None = None,
                    problems_end_re: re.Pattern | None = None,
-                   solution_start_re: re.Pattern | None = None) -> list[dict]:
+                   solution_start_re: re.Pattern | None = None,
+                   namespace_by_section: bool = False) -> list[dict]:
     """problems 區 blocks → problems[]。每題 num 從 text 起頭剝掉。
     section_re/subsection_re：lvl=1 text 匹配時 close 當前題目（救 inline-problem 書本
     把章節 heading 誤吞進 problem.body 的問題）。對章末 Problems 區型書無副作用。
     problems_end_re：lvl=1 text 命中 → 提早結束 problems 區、丟棄其後所有 block（救 brookshear
-    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
+    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。
+
+    namespace_by_section=True（二分模式的 per-section reset，鏡像 walk_inline_chapter）：
+      章末單一 Exercises 區下分多個子集（Huth&Ryan「N.x Exercises」→「Exercises N.M」），各子集
+      題號從 1 重編。walker 在每個 section/subsection heading 處記 current_section_id 並把題號基準
+      歸零，題目 num 串成 'sectionId.rawNum' 避免跨子集撞號；遞增守則仍逐節生效（擋題身內 sub-list）。"""
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
     heading_level = rules.get('heading_text_level', 1)
@@ -381,7 +387,9 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
     problems: list[dict] = []
     current: dict | None = None
     in_solution = False  # solution_start_re 命中後：後續 block 收進 current['solution']
+    current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
+                         # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
 
     for b in expand_list_blocks(blocks):
         t = b.get('type')
@@ -402,6 +410,22 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
             in_solution = True
             continue
 
+        # namespace 模式專屬：在 section/subsection heading 處更新 current_section_id（走
+        # detect_heading 正規化 id，與 inline walker / catalog 一致：'Exercises 1.1'→'Exercises1.1'）
+        # + 重置題號基準（每子集題號 reset）。即使尚無 current 也更新，才能在第一題前先記子集 id。
+        # 非 namespace 書完全不進此塊 → 下方原 heading-terminator 行為 byte-identical。
+        if namespace_by_section and t == 'text' and section_re and subsection_re:
+            h = detect_heading(text, b.get('text_level'), section_re, subsection_re, None, heading_level)
+            if h and h['t'] in ('section', 'subsection'):
+                if current is not None:
+                    problems.append(current)
+                    current = None
+                    in_solution = False
+                if h.get('id'):
+                    current_section_id = h['id']
+                max_num_seen = 0
+                continue
+
         # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
         if (current is not None and b.get('text_level') == heading_level and t == 'text'
                 and ((section_re and section_re.match(text))
@@ -415,7 +439,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
         if t in ('text', 'list') and text:
             m = problem_start_re.match(text)
             if m:
-                num = m.group(1)
+                # 題號去內部空白：救 OCR 把帶上標難度標記的題號渲染成 LaTeX 空格化數學
+                # （MacKay `Exercise $2 . 1 4 .`→`2.14`）。clean 書本題號無空白 → no-op，
+                # 對其他書無影響；同 section id（block_to_struct）既有處理。
+                num = re.sub(r'\s+', '', m.group(1))
                 # 章號 prefix 比對
                 if problem_chapter_must_match:
                     try:
@@ -435,9 +462,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
                     # close 上一題
                     if current:
                         problems.append(current)
-                    # 剝題號
+                    # 剝題號（namespace 模式串 section_id 避免跨子集撞號）
                     tail = text[m.end():].strip()
-                    current = {'num': num, 'body': []}
+                    current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
+                               'body': []}
                     in_solution = False
                     try:
                         max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
@@ -557,7 +585,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
         if not problems_ended and t in ('text', 'list') and text:
             m = problem_start_re.match(text)
             if m:
-                raw_num = m.group(1)
+                # 題號去內部空白：同上（OCR LaTeX 空格化數字 `2 . 1 4`→`2.14`），clean 書 no-op
+                raw_num = re.sub(r'\s+', '', m.group(1))
                 if problem_chapter_must_match:
                     try:
                         if int(raw_num.split('.')[0]) != ch_num:
@@ -661,6 +690,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
         subsection_re=regexes['subsection'],
         problems_end_re=regexes['problems_end'],
         solution_start_re=regexes['solution_start'],
+        namespace_by_section=rules.get('problem_num_namespace_by_section', False),
     )
 
     return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
