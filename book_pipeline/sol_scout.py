@@ -2,13 +2,14 @@
 """book_pipeline/sol_scout.py — audit-sol 的確定性勘查工具（一次吐章錨可行性 + 題號樣本）。
 
 存在理由（給 agent 足夠好的工具、殺 60min flail）：sol worker 過去得手刻 inline python 反覆翻
-解答書 content_list 試 chapter_re，但 `sol_extract.extract_sol_chapters` 的章 anchor **硬綁
-`text_level==1 且 type=='text'`**——章標落在 lvl2/header 的書（munkres 1 lvl1 vs 338 lvl2、
-srednicki 3 vs 336 header）或純標題無章號的書（simon「Limits and Continuity」），**任何
-chapter_re 都救不了**（限制在 level 不在 regex）。worker 卻常迭代到撞 60min daemon 上限才 _pending。
+解答書 content_list 試 chapter_re。`sol_extract.extract_sol_chapters` 的章 anchor **2026-06 起
+章錨層級可配（`chapter_level` 預設 null=任意 text_level）**——章標落在 lvl2/header 的書（munkres、
+srednicki header 章標）現在**照樣可錨**（由 anchored chapter_re 當濾網），不再是阻塞。真阻塞只剩
+「無 int 數字章號」：純標題章（simon「Limits and Continuity」）、羅馬數字章標（kardar Chapter I/II），
+那些 `int(group)` 不了，才該 _pending。
 
-本工具把「章標到底有沒有落在引擎認得的位置」一次確定性算清，附判讀：引擎可錨 → 照常 merge；
-章標在他處/無章號 → 直接 _pending + harness-gap proposal，**不要**耗時迭代 chapter_re。
+本工具把「有沒有帶數字章號的章標可錨」一次確定性算清（跨所有 text_level），附判讀：有數字章標 →
+照常 merge（不分層級）；全無數字章號 → _pending + proposal（羅馬→harness-gap／純標題→source-quality）。
 
 定位同 audit_scout：給【候選 + 樣本 + 判讀】，最終決定（merge / _pending）仍由 LLM 下。
 
@@ -104,20 +105,18 @@ def scout(sol_slug: str) -> None:
     main_ch = _main_chapter_count(main_slug)
     buckets = _bucket(blocks)
 
-    lvl1 = buckets.get('text_level==1', {'total': 0, 'numbered': 0, 'num_samples': [], 'plain_samples': []})
-    eng_anchors = lvl1['numbered']                       # 引擎只認這個
-    off = sum(v['numbered'] for k, v in buckets.items() if k != 'text_level==1')  # 引擎搆不到的
+    eng_anchors = sum(v['numbered'] for v in buckets.values())   # 引擎現認任意層級的數字章標（chapter_level 預設 null）
+    text_total = sum(v['total'] for v in buckets.values())       # 全文字 block 數（判「有 block 但無數字章號」）
 
     P = print
     P(f'# sol scout — {sol_slug}（N={N} blocks）')
     P(f'主書={main_slug}'
       + (f'，parsed 章數={main_ch}' if main_ch is not None else '，parsed 章數=（主書未 parse / 無 book.json）'))
     P('')
-    P('## 章錨候選分布（⚠ 引擎 `extract_sol_chapters` 只認 `text_level==1 且 type==text`）')
+    P('## 章錨候選分布（引擎 `extract_sol_chapters` 預設認任意 `text_level` 的 text block；chapter_re 當濾網）')
     for key in sorted(buckets, key=lambda k: (k != 'text_level==1', k)):
         v = buckets[key]
-        tag = '  ← 引擎唯一認的位置' if key == 'text_level==1' else (
-            '  ← 引擎搆不到' if v['numbered'] else '')
+        tag = '  ← 可錨（帶數字章號）' if v['numbered'] else ''
         P(f'  {key:18} 總={v["total"]:<4} 帶數字章號={v["numbered"]:<3}{tag}')
         if v['num_samples']:
             P(f'      數字章標樣本 = {v["num_samples"]}')
@@ -126,28 +125,24 @@ def scout(sol_slug: str) -> None:
     P(f'  {_prob_samples(blocks) or "（未偵測到明顯題號 prefix）"}')
     P('')
     P('## 判讀（→ 你二擇一：merge 或 _pending+proposal）')
-    for line in _verdict(eng_anchors, off, lvl1['total'], main_ch):
+    for line in _verdict(eng_anchors, text_total, main_ch):
         P(f'  {line}')
 
 
-def _verdict(eng_anchors: int, off: int, lvl1_total: int, main_ch: int | None) -> list[str]:
-    """確定性判讀。核心：引擎只認 lvl1 章錨——eng_anchors≈0 而章標在他處/無章號 = 現行引擎救不了。"""
-    shortfall = (main_ch is not None and main_ch >= 3 and eng_anchors < max(2, main_ch // 2))
-    if eng_anchors == 0 and off > 0:
-        return ['⚠ lvl1 找到 0 個數字章標，但 lvl2/header 有 %d 個——章標落在引擎搆不到的位置。' % off,
-                '→ 現行 `extract_sol_chapters` 只認 lvl1，**任何 chapter_re 都救不了（限制在 level 不在 regex）**。',
-                '→ 直接 `_pending: true` + 開 `--type harness-gap` proposal（章 anchor 不在 lvl1）。**勿耗時迭代 chapter_re。**']
-    if eng_anchors == 0 and lvl1_total > 0:
-        return ['⚠ lvl1 有 %d 個文字 block 但 0 個帶數字章號（多為純標題章，如「Limits and Continuity」）。' % lvl1_total,
-                '→ numeric chapter_re（group(1)=int 章號）無法匹配無號標題。現行引擎無題名→章號映射能力。',
-                '→ 直接 `_pending: true` + 開 proposal（章標無數字章號）。**勿迭代 chapter_re。**']
+def _verdict(eng_anchors: int, text_total: int, main_ch: int | None) -> list[str]:
+    """確定性判讀。章錨現認任意 text_level（chapter_level 預設 null）→ 只要有「帶數字章號」的 text
+    block 即可錨；eng_anchors==0 才是真阻塞（純標題章/羅馬數字無 int 章號／源頭缺 anchor）。"""
+    if eng_anchors == 0 and text_total > 0:
+        return ['⚠ 有 %d 個文字 block 但 0 個帶數字章號（純標題章如「Limits and Continuity」，或羅馬數字章標）。' % text_total,
+                '→ numeric chapter_re（group(1)=int 章號）無法匹配無號/羅馬標題；引擎缺題名/羅馬→章號映射。',
+                '→ `_pending: true` + 開 proposal：羅馬數字→`harness-gap`（引擎缺 int 映射）；純標題無號→`source-quality`。**勿迭代 chapter_re。**']
     if eng_anchors == 0:
-        return ['⚠ 無 lvl1 文字 block 可當章錨 → 引擎無錨可用。',
-                '→ `_pending: true` + 開 proposal。']
-    base = ['✓ lvl1 有 %d 個數字章標、引擎可錨——依題號樣本寫 chapter_re/problem_re、dry-run 量配對率、語義抽樣後 merge。' % eng_anchors]
-    if shortfall:
-        base.append('⚠ 但引擎可錨數(%d) 遠少於主書章數(%s)：多數章標可能在 lvl2/header（見上分布）。'
-                    '先 dry-run，若大量章 0/N 全空 → 屬章錨不在 lvl1，轉 _pending+proposal、勿硬迭代。' % (eng_anchors, main_ch))
+        return ['⚠ 無任何文字 block 可當章錨 → 源頭缺 chapter heading。',
+                '→ `_pending: true` + 開 `source-quality` proposal。']
+    base = ['✓ 有 %d 個數字章標、引擎可錨（任意層級皆可，含 lvl2/header）——依題號樣本寫 chapter_re/problem_re、dry-run 量配對率、語義抽樣後 merge。' % eng_anchors]
+    if main_ch is not None and main_ch >= 3 and eng_anchors < max(2, main_ch // 2):
+        base.append('⚠ 但可錨數(%d) 遠少於主書章數(%s)：部分章標可能無數字章號或源頭漏章。'
+                    '先 dry-run，若大量章 0/N 全空 → 查該章無號/缺解答，判 merge 殘缺 vs _pending。' % (eng_anchors, main_ch))
     return base
 
 

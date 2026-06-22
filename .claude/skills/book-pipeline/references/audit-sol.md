@@ -23,6 +23,8 @@ chapter_re: '^Chapter\s+(\d+)\s*$'          # required；恰好 1 capture group 
 problem_re: '^Problem\s+(\d+\.\d+[a-z]?)'   # required；group(1) 必須等於主書 problem['num'] 字串
 multi_per_block: false                       # 一個 text block 內擠多答案(Boas 風) → true，用 finditer 切
 equation_label_re: '\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'  # optional
+chapter_level: null                          # optional；章錨可接受的 text_level。null(預設)=任意層級
+                                             #   (解鎖章標落在 lvl2/header 的解答書)；設 int 限定該層級
 _pending: true                               # 設此 → 引擎拒絕 merge（主書品質不足時用）
 ```
 
@@ -40,15 +42,16 @@ uv run python -m book_pipeline.sol_scout <SOL>
 ```
 
 它一次確定性算出**章錨可行性**：解答書的「章標」到底落在哪個 `text_level`、各有幾個帶數字章號，
-附題號 prefix 樣本與**判讀**。⚠ 關鍵事實：引擎 `extract_sol_chapters` **只認 `text_level==1 且
-type==text` 的章錨**——
+附題號 prefix 樣本與**判讀**。引擎 `extract_sol_chapters` 章錨**預設認任意 `text_level` 的 text block**
+（`chapter_level: null`，由 anchored `chapter_re` 當濾網）——**章標落在 lvl2/header 不再是阻塞**（2026-06
+章錨層級可配後解鎖；舊 references 說「只認 lvl1」已過時）。
 
-- scout 判 **✓ 可錨**（lvl1 帶數字章標數 ≈ 主書章數）→ 照 Step 1–7 寫 rules、dry-run、merge。
-- scout 判 **⚠ 章標在 lvl2/header 或無數字章號**（lvl1 可錨數 ≈ 0 或遠少於主書章數）→ **現行引擎搆不到、
-  任何 chapter_re 都救不了（限制在 level 不在 regex）**。**直接到 Step 6 設 `_pending` + 開
-  `harness-gap` proposal，不要耗時迭代 chapter_re**（那是 sol 階段最大宗的浪費——實測單場曾迭代到撞
-  60min daemon 上限才放棄）。scout 標 ⚠ 即足以下 _pending 決定，仍想確認就跑一次 Step 4 dry-run，
-  看到大量章 `0/N 全空` 即坐實。
+- scout 判 **✓ 可錨**（任一層級帶數字章標數 ≈ 主書章數）→ 照 Step 1–7 寫 rules、dry-run、merge。
+  **章標在 lvl2/header（scout 顯示 lvl1≈0 但 lvl2 有數字章標）→ 照樣 merge**，sol_rules 省略 `chapter_level`
+  即可（預設 null=任意層級）；只有當 chapter_re 在某層級會誤抓散文時，才設 `chapter_level: 1` 限定。
+- scout 判 **⚠ 真無可用章號**（任何層級都沒有可轉 int 的數字章標——如純羅馬數字章標需 int 映射、或源頭
+  根本缺 chapter heading block）→ chapter_re 救不了 → Step 6 設 `_pending` + 開 `harness-gap`（引擎缺 int
+  映射）或 `source-quality`（源頭缺 anchor）proposal。先跑一次 Step 4 dry-run、看到大量章 `0/N 全空` 坐實再下。
 
 **版本對齊閘（入口已判時自動生效）**：若書單管理 agent 在入口已親判此解答本與母書版次不對齊
 （`editions/<sol>.json` 的 `sol_alignment.aligned=False`），正式 merge（Step 7）會被引擎**自動擋下
@@ -67,10 +70,11 @@ for cf in sorted(glob.glob(f'book_pipeline/mineru_data/{MAIN}/parsed/ch*.json'))
 
 ### Step 2 — 章 anchor 與題號格式（scout 已給；僅補細節）
 
-scout 的「章錨候選分布」已列出 `text_level==1` 帶數字章標數與樣本、題號 prefix 樣本——**讀它即可定
-chapter_re/problem_re**，不必再開 content_list 生肉手翻。⚠ 章錨**只有 `text_level==1` 算數**（scout 已標
-明哪些章標在引擎搆不到的 lvl2/header）。寫 chapter_re 時注意大小寫（kittel `CHAPTER` 全大寫）、hyphen
-題號（hartle `2-1.`）、一行多答案（boas `1.1 .. 1.2 ..` → multi_per_block）。
+scout 的「章錨候選分布」已列出各 `text_level` 帶數字章標數與樣本、題號 prefix 樣本——**讀它即可定
+chapter_re/problem_re**，不必再開 content_list 生肉手翻。章錨**預設認任意層級**（chapter_re 當濾網）；
+章標落在 lvl2/header 照樣可錨（sol_rules 省略 `chapter_level` 即 null=任意層級，無須特別處理）。寫
+chapter_re 時注意大小寫（kittel `CHAPTER` 全大寫）、hyphen 題號（hartle `2-1.`）、一行多答案
+（boas `1.1 .. 1.2 ..` → multi_per_block）。
 
 ### Step 3 — 寫 sol_rules.yaml
 依 §2 schema。chapter_re 恰好 1 group，problem_re group(1) 對齊主書 num。
