@@ -33,7 +33,7 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （166 條；proposed=7）
+## domain: engine  （166 條；proposed=6）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
@@ -66,11 +66,6 @@
 - proposed | type=tooling-gap | source=agent
 - 證據：muchnick_advanced_compiler_design parser/structure 已綠（21 chapters, 3 appendices, chapter-end exercises 正常），但 smoke 仍固定 H6 unresolved Figure refs=9、H7 empty_captions=214。parsed/_catalog_audit.md 顯示大量 image/table block 的語義不在 media caption，而在相鄰正文或拆成多個 caption shard，例如 ch07 body[141-142] 只有 '(a)/(b)' 與後續 'FIG. 7.27 ... FIG. 7.28 ...'；ch13 body[186-187] 的 FIG. 13.26/13.27 語義分散在相鄰 prose/text；appB body[29-31] 的 FIG. B.3 caption 跨多個 sibling block。現有 extract_rules 只有 figure_caption_merge / figure_caption_main_re，僅能處理前一個 fig 帶 (a)/(b) 且下一個 fig 自帶主 caption 的情形，不能把 prose text 綁成 caption donor、不能把多個 sibling media shard 合併成單一 semantic figure，也不能對空 caption inline diagrams 宣告 non-indexable/exclude reason。
 - 提議：擴充 deterministic catalog extraction / audit schema：1) 允許 per-book 將鄰近 text/prose block 指定為 figure/table caption donor；2) 允許將連續 captionless sibling media shard 綁到後續正式 Figure/Table caption；3) 允許對無正式 caption 的 inline diagram / table 宣告 reviewable exclude reason。否則像 Muchnick 這類 legacy OCR 書即使 chapter/problem 解析正確，仍無法僅靠 extract_rules 清除 smoke H6/H7。
-
-### P-2026-06-22-ben-ari-concurrency — parser 無法保留同塊單行習題題幹
-- proposed | type=tooling-gap | source=agent
-- 證據：ben_ari_concurrency parser+smoke：ch01/ch04/ch06/ch13 的 exercises 都成功切成 problem num，但每題 body=[]。原始 unified block 並非 OCR 空洞：ch01 題目在單一 text block（357/358），ch04/ch06 多題在單一 list block 的 list_items，ch13 題目在單一 text block（1640/1641）。現行 problem_start_re 命中後只保留後續 block，會把同一 block/list_item 內的剩餘題幹整段丟掉。
-- 提議：在 parser 的 split_problems/list-item 消費路徑上，當 problem_start_re 於 text block 或 list_item 命中且同一 payload 尚有剩餘文字時，將剩餘題幹轉成 problem.body 的首塊，而不是只把該 payload 當 delimiter。這樣單行 exercises 與單 list_item exercises 才不會全變 body=[]。
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
 - rejected | type=patch | source=scope_guard
@@ -3613,6 +3608,12 @@ index 2c80077..8104e5a 100644
 - 決議：repair_catalog_metadata 已涵蓋（live catalog critical=0）—— audit stage 看到的是 repair 前暫態
 - 證據：validate/parser 已綠（28 chapters, 2 appendices, all problems=0），但 smoke 基線仍為 H6 unresolved Figure refs=3、H7 empty_captions=172。parsed/_catalog_audit.md 顯示大量 case 為多 panel figure shards 或 captionless visual blocks，局部 caption 只有 '(a)' '(b)' 'Start State' 等，真正 Figure N.M 主圖說落在後續 sibling figure 或相鄰 prose，例如 ch04 body[150]='(a)'、body[151]='(b) Figure 4.13 ...'；ch03 body[59]='Start State'、後續 prose 提及 Figure 3.3；另嘗試 figure_caption_merge=true + generic figure_caption_main_re 後，smoke 反而惡化到 H6=7 / H7=270，證明現有 schema 不能安全處理這類 caption donor / panel shard 關係。
 - 提議：擴充 catalog extraction 的 declarative repair：允許把 sibling figure 或 adjacent prose/text 綁為 visual 的 semantic-id/caption donor，並允許將僅有 panel marker 或 purely decorative shard 的 visual 標為 non-indexable；否則像 AIMA 這類大量教科書式 panel figures 無法僅靠 extract_rules 清除 H6/H7。
+
+### P-2026-06-22-ben-ari-concurrency — parser 無法保留同塊單行習題題幹
+- superseded | type=tooling-gap | source=agent
+- 決議：假引擎缺口：problem_start_re 結尾  過度匹配吃掉題幹（m.end()=整行長→tail空→body=[]）。移除  後題幹落進 body，ch01/04/06/13 全部題目 body 復原、smoke H3 清。屬 rules 過度匹配非引擎缺能力，未動引擎碼。
+- 證據：ben_ari_concurrency parser+smoke：ch01/ch04/ch06/ch13 的 exercises 都成功切成 problem num，但每題 body=[]。原始 unified block 並非 OCR 空洞：ch01 題目在單一 text block（357/358），ch04/ch06 多題在單一 list block 的 list_items，ch13 題目在單一 text block（1640/1641）。現行 problem_start_re 命中後只保留後續 block，會把同一 block/list_item 內的剩餘題幹整段丟掉。
+- 提議：在 parser 的 split_problems/list-item 消費路徑上，當 problem_start_re 於 text block 或 list_item 命中且同一 payload 尚有剩餘文字時，將剩餘題幹轉成 problem.body 的首塊，而不是只把該 payload 當 delimiter。這樣單行 exercises 與單 list_item exercises 才不會全變 body=[]。
 
 ### P-2026-06-22-nagle-saff-differential-equation — worker 越界改核心碼：book_pipeline/parser.py（audit nagle_saff_differential_equations）
 - superseded | type=patch | source=scope_guard
