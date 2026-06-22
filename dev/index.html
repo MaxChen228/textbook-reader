@@ -446,9 +446,9 @@
     if (c === '0.5' || c === '0.3') return 2        // 已過 QC（OCR 中 / 待 OCR）
     return 1  // 已入庫（0.2 待qc 及其餘 pre-QC fallback）
   }
-  // crawl 已全確定性化（refill 自書單 SoT + 買書員 + resolver，零 LLM agent）→ 通常無 live worker。
-  // 保留 'crawl' verb 過濾以相容歷史 session 顯示（crawl_plan 是舊 LLM planner 的歷史 verb）。
-  function crawlWorkers() { return liveWorkers().filter(w => w.verb === 'crawl_plan' || w.verb === 'crawl') }
+  // crawl 在 daemon 已全確定性化（買書員 select_next 取 QUALIFIED 下載，零 LLM agent）→ daemon 永無 crawl
+  // live worker（填書單改人工 /restock，不在 daemon 跑）。故 crawl lane 只渲下載中/待下載卡，無 agent 卡。
+  // 歷史 crawl/crawl_plan session 的顯示由 WFACE emoji map + trace 負責（見下）。
   // 一句話講清楚「這本書此刻到底在幹嘛 / 卡不卡」——產線最常被問的問題
   function statusText(b, w) {
     if (w) return { cls: 'work', txt: `🔧 工人處理中 · ${w.verb || ''}` }
@@ -630,11 +630,10 @@
     const dl = crawlLiveItems()
     // 排除集含 done（status.json queue 有 8s 滯後，剛抓到的書可能短暫仍列「待下載」→ 防回流閃爍）
     const allDlSlugs = new Set(((crawlLive && crawlLive.books) || []).map(b => b.slug))
-    const agents = crawlWorkers().map(w => ({ kind: 'agent', key: 'a:' + w.key, w }))
     const q = ((last && last.crawl && last.crawl.queue) || [])
       .filter(b => !allDlSlugs.has(b.slug))  // 正在抓/剛抓到的（含 done 已 owned）不再列入「待下載」
       .map(b => ({ kind: 'item', key: 'q:' + b.slug, b }))
-    return dl.concat(agents, q)  // 下載中卡最前、agent、待下載書最後
+    return dl.concat(q)  // 下載中卡最前、待下載書最後（daemon 無 crawl agent 卡）
   }
   function makeCrawlEl(it) {
     if (it.kind === 'dl') {
@@ -646,13 +645,6 @@
         ? `<img src="${escapeHtml(b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${b.is_sol ? '📑' : '📘'}'}))">`
         : `<div class="ph crawl-ph queue-ph">${b.is_sol ? '📑' : '📘'}</div>`
       el.innerHTML = `<div class="cv">${cv}<span class="dl-badge ${b.state}"></span><span class="dl-mb"></span></div><div class="ttl"></div>`
-      updateCrawlEl(el, it)
-      return el
-    }
-    if (it.kind === 'agent') {
-      const el = document.createElement('div')
-      el.className = 'book crawl-card working'; el.dataset.wkey = it.w.key; el.title = '爬書 planner agent'
-      el.innerHTML = '<div class="cv"><div class="ph crawl-ph">🤖</div><div class="work-ring"></div></div><div class="ttl"></div>'
       updateCrawlEl(el, it)
       return el
     }
@@ -688,7 +680,7 @@
       return
     }
     const ttl = el.querySelector('.ttl')
-    const txt = it.kind === 'agent' ? `規劃選書 ·${it.w.total_calls || 0}` : (it.b.title || it.b.slug)
+    const txt = it.b.title || it.b.slug
     if (ttl.textContent !== txt) ttl.textContent = txt
   }
   // 爬書表頭：下載中顯 live 進度（下載中/✓/✗ + 帳號），否則退回 status reason；末尾恆掛當日 zlib 額度心跳
@@ -1042,8 +1034,8 @@
     document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph${isMath ? ' math-ph' : ''}">${isMath ? '🧮' : '🤖'}</div>`
     document.getElementById('dr-title').textContent = isMath ? '數學 sweep agent' : '爬書 agent'
     document.getElementById('dr-sub').textContent = w ? `${w.verb} · ${w.provider} · pid ${w.pid}` : '本輪已結束'
-    const st = w ? { cls: 'work', txt: isMath ? '🔧 跨書清殘 / 寫 override…' : '🔧 規劃選書 / 下載中…' }
-                 : { cls: 'ready', txt: isMath ? '☑ 本輪數學 sweep 已結束' : '☑ 本輪爬書已結束' }
+    const st = w ? { cls: 'work', txt: isMath ? '🔧 跨書清殘 / 寫 override…' : '🔧 處理中…' }
+                 : { cls: 'ready', txt: isMath ? '☑ 本輪數學 sweep 已結束' : '☑ 本輪已結束' }
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status dr-st-${st.cls}">${st.txt}</span>`
       + (w ? `<span><b>${w.total_calls || 0}</b> 次工具調用</span><span>${escapeHtml(w.provider || '')}</span>` : '')

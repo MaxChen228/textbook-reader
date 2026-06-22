@@ -512,7 +512,7 @@ def crawl_status(books_snap: dict, zlib_snap: dict) -> dict:
     if isinstance(R, int):
         cap = min(cap, R)
     if n_ready == 0:
-        state, reason = 'idle', '解析池無 ready · 待 crawl agent 解析或書單加新書'
+        state, reason = 'idle', '解析池無 ready · 待人工 /restock 補合格書'
     elif R == 0:
         state, reason = 'quota_empty', f'解析池 {n_ready} 本可下載 · 今日額度0 · 重置後自動抓'
     elif room <= 0:
