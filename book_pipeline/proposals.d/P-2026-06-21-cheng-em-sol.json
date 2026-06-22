@@ -8,9 +8,9 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-21T09:05:12+00:00",
-  "updated": "2026-06-21T09:05:12+00:00",
+  "updated": "2026-06-23T00:00:00+00:00",
   "evidence": "sol_scout：lvl1 帶數字章標=0，lvl2/header=47（樣本 'Chapter 2'..'Chapter 8'）。dry-run（去 _pending）：抽出 0 章 0 題、配對 0%。副因 source-quality：題號 prefix 樣本大量 OCR 垃圾（'8) Equation for lives everywhere'、'6) VIX(1=4, make sixty'、'20. N°THA, 2016'）。主書 num=N-M、sol 題號=C.S-K（如 8.2-1）格式亦不對齊。",
   "proposal": "讓 extract_sol_chapters 也認 text_level==2 的章錨（或可配置 chapter_level），或換更乾淨的 Cheng F&W EM 2nd 解答本重 ingest。現行限制在 level 不在 regex，任何 chapter_re 都救不了。",
   "risk": "",
-  "disposition": ""
+  "disposition": "[2026-06-23 truth-layer 復核] 主阻塞「lvl2 章標引擎只認 lvl1」已過時——chapter_level 預設 null（50fdc37）已收任意層級。重查真因＝source-quality（selective solutions manual）：整本 sol 全文僅 ~14 個行首題號（'8.2-1' 型）、任意位置含題號 block 24 個，對主書 515 題覆蓋 ≤5%；且 'Chapter N' 標題亂序出現（2,4,5,4,2,8,9,12,11，非單調）→ 章 bucket 不可靠。即便加 derive_chapter_from_num 也只能配 ~3% 且高錯置風險。續 proposed＝source-quality（解答本身殘缺），引擎無解、待 re-source 完整解答本。"
 }

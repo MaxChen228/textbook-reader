@@ -8,9 +8,9 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:06:15+00:00",
-  "updated": "2026-06-22T00:00:00+00:00",
+  "updated": "2026-06-23T00:00:00+00:00",
   "evidence": "dry-run（2026-06-19）穩定抽出 0 章、0 題。anton_calculus_sol 的 text_level==1 章標多為純章名（如 'Limits and Continuity'、'Topics in Differentiation'），不含章號；真正帶章號的是 header 'Chapter N' 與 lvl=2 的 'Exercise Set N.M'。若硬用少數含數字的 lvl1（如 Chapter 10/14 Making Connections）作 anchor，會跨章吞併並系統性錯位。\n\n【2026-06-22 章錨fix(50fdc37)後複驗】本提案提議的「可設定 text_level 章錨」已實作。複跑 dry-run：現抽 16 章、配對 572/631(90%)——章錨已解，但語義抽樣系統性錯位（ch15「what is a vector field?」配到多項式除法答案），90% 為題號巧合非真對齊。真阻塞＝sol↔主書 章/題號 namespace 不對應（非 lvl 層級），續 _pending；待 Exercise Set N.M→章號映射或換源。",
   "proposal": "擴充 sol_extract：允許 header 或可設定 text_level 的章 anchor，或新增以 Exercise Set N.M 直接映射主書章號的模式；完成後再對 anton_calculus_sol 重跑 audit-sol。",
   "risk": "",
-  "disposition": ""
+  "disposition": "[2026-06-23 truth-layer 復核] 「lvl1 only」已過時（chapter_level 預設 null 收 lvl2 'Exercise Set N.M'）。真殘留＝高%假象/語義錯位：以正確 chapter_re 可抽出高配對率（~90%），但語義抽樣確認題號 namespace 巧合對齊、實際答非所問（經典假象，見記憶 sol-proposal-triage-sop）。憑%解鎖會塞錯解答（違鐵律「%高≠配對對」）。續 proposed＝高%語義錯位，引擎無解（非缺能力，是配對語義本質不對）。"
 }

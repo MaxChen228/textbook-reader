@@ -8,9 +8,9 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T21:49:56+00:00",
-  "updated": "2026-06-19T21:49:56+00:00",
+  "updated": "2026-06-23T00:00:00+00:00",
   "evidence": "2026-06-20 dry-run: uv run --with pyyaml python -m book_pipeline.sol_extract kleinberg_algorithm_design kleinberg_algorithm_design_sol --dry-run -> 抽出 0 章、0 題。主書 problem[num] 為章內 reset 的裸整數；sol unified 幾乎全是無題號正文，text_level==1 條目數量為 0，僅 6 個 text_level==2 小標（如 Schedule G:, Independent Set <=_P Resource Reservation），不足以切章。抽樣語義仍顯示是正確解答本：ch01 p1/p2/p3 對應 two men and two women / rank the other first / Network A,D ratings 20 and 40；ch10 p1/p2/p3 對應 Hitting Set / 3-SAT / Hamiltonian Path；ch13 p1/p2/p3 對應 cannister-3-Coloring / 100,000 voters / described protocol conflict free。",
   "proposal": "擴充 sol_extract 支援『無顯式題號的連續解答書』：至少提供序列式對位或人工章切分映射能力；能力補齊前維持 kleinberg_algorithm_design_sol/_pending，避免錯配解答寫入 parsed/。",
   "risk": "",
-  "disposition": ""
+  "disposition": "[2026-06-23 truth-layer 復核] 確認為真 harness-gap（非過時）：主書 problem.num 為章內 reset 的裸整數，sol unified 幾乎全為無顯式章號/題號的正文 → 現行 sol_extract 的章錨+題號 key 對位法無從施力。需序列式/位置對位能力（engine 真缺、尚未建，評估後暫緩：對位脆弱、誤配風險高）。續 proposed＝engine 真缺序列對位能力。"
 }
