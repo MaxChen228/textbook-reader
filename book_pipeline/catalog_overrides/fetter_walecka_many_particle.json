@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "fetter-walecka-fig-61.11-misocr",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[830]",
+      "field": "md",
+      "old": "(see Fig. 61.11)",
+      "new": "(see Fig. 61.1)",
+      "reason": "C4 misOCR：原書句尾為 '(see Fig. 61.1).'，右括號 ')' 被 OCR 成 '1' → 變 '61.11'；同段另有真實 Eq. (61.11) 加重混淆。section 61 僅圖 61.1/61.2/61.3，無 61.11；語境 'excitation to a higher shell' 正指 Fig. 61.1（殼層結構圖）。已對 raw PDF 實體頁 577 目視確認原文為 61.1。修正後 ref 命中既有 fig-61.1。"
+    },
+    {
+      "id": "fetter-walecka-fig-61.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "body[896]",
+      "position": "after",
+      "page": 577,
+      "clip": [0.45, 0.245, 0.99, 0.307],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-61.4",
+        "kind": "line",
+        "caption": "Fig. 61.4 The effective interaction of Kuo and Brown."
+      },
+      "reason": "C4 情境(B)：MinerU 漏抓 Fig. 61.4（整頁為掃描 raster，圖與 caption 同列偏右、未被 emit）。raw PDF 實體頁 577 確有此 Feynman 圖（V_eff = V + V_core-polarization 圈圖）；正文 body[896] 與習題 15.20 兩處引用。自原頁右側裁出插入於引用段之後，命中 ref 61.4。"
+    }
+  ]
+}

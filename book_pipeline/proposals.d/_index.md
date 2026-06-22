@@ -33,7 +33,7 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （160 條；proposed=42）
+## domain: engine  （163 條；proposed=45）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
@@ -324,6 +324,121 @@ index 8d43b81..8ca3ed6 100644
      return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
+### P-2026-06-21-mackay-information-theory-infere — worker 越界改核心碼：book_pipeline/parser.py（audit mackay_information_theory_inference）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [audit mackay_information_theory_inference] session=mackay_information_theory_inference:88510 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+index 8d43b81..6bc87b0 100644
+--- a/book_pipeline/parser.py
++++ b/book_pipeline/parser.py
+@@ -277,7 +277,7 @@ def detect_heading(text: str, lvl: int | None,
+     if example_re:
+         m = example_re.match(t)
+         if m:
+-            return {'t': 'example', 'id': m.group(1)}
++            return {'t': 'example', 'id': re.sub(r'\s+', '', m.group(1))}  # 同 section id 去內部空白（OCR 拆字）
+     return None
+ 
+ 
+@@ -368,12 +368,18 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                    section_re: re.Pattern | None = None,
+                    subsection_re: re.Pattern | None = None,
+                    problems_end_re: re.Pattern | None = None,
+-                   solution_start_re: re.Pattern | None = None) -> list[dict]:
++                   solution_start_re: re.Pattern | None = None,
++                   namespace_by_section: bool = False) -> list[dict]:
+     """problems 區 blocks → problems[]。每題 num 從 text 起頭剝掉。
+     section_re/subsection_re：lvl=1 text 匹配時 close 當前題目（救 inline-problem 書本
+     把章節 heading 誤吞進 problem.body 的問題）。對章末 Problems 區型書無副作用。
+     problems_end_re：lvl=1 text 命中 → 提早結束 problems 區、丟棄其後所有 block（救 brookshear
+-    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。"""
++    章末 CHAPTER REVIEW PROBLEMS 後緊接的 SOCIAL ISSUES/ADDITIONAL READING 用相同 N. 編號被吸入）。
++
++    namespace_by_section=True（二分模式的 per-section reset，鏡像 walk_inline_chapter）：
++      章末單一 Exercises 區下分多個子集（Huth&Ryan「N.x Exercises」→「Exercises N.M」），各子集
++      題號從 1 重編。walker 在每個 section/subsection heading 處記 current_section_id 並把題號基準
++      歸零，題目 num 串成 'sectionId.rawNum' 避免跨子集撞號；遞增守則仍逐節生效（擋題身內 sub-list）。"""
+     ignore_image_content = rules.get('ignore_image_content', False)
+     ignore_chart_content = rules.get('ignore_chart_content', False)
+     heading_level = rules.get('heading_text_level', 1)
+@@ -381,7 +387,9 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+     problems: list[dict] = []
+     current: dict | None = None
+     in_solution = False  # solution_start_re 命中後：後續 block 收進 current['solution']
++    current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
+     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
++                         # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
+ 
+     for b in expand_list_blocks(blocks):
+         t = b.get('type')
+@@ -402,6 +410,22 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+             in_solution = True
+             continue
+ 
++        # namespace 模式專屬：在 section/subsection heading 處更新 current_section_id（走
++        # detect_heading 正規化 id，與 inline walker / catalog 一致：'Exercises 1.1'→'Exercises1.1'）
++        # + 重置題號基準（每子集題號 reset）。即使尚無 current 也更新，才能在第一題前先記子集 id。
++        # 非 namespace 書完全不進此塊 → 下方原 heading-terminator 行為 byte-identical。
++        if namespace_by_section and t == 'text' and section_re and subsection_re:
++            h = detect_heading(text, b.get('text_level'), section_re, subsection_re, None, heading_level)
++            if h and h['t'] in ('section', 'subsection'):
++                if current is not None:
++                    problems.append(current)
++                    current = None
++                    in_solution = False
++                if h.get('id'):
++                    current_section_id = h['id']
++                max_num_seen = 0
++                continue
++
+         # heading-terminator：heading-lvl text 命中 section/subsection regex → close current
+         if (current is not None and b.get('text_level') == heading_level and t == 'text'
+                 and ((section_re and section_re.match(text))
+@@ -415,7 +439,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+         if t in ('text', 'list') and text:
+             m = problem_start_re.match(text)
+             if m:
+-                num = m.group(1)
++                # 題號去內部空白：救 OCR 把帶上標難度標記的題號渲染成 LaTeX 空格化數學
++                # （MacKay `Exercise $2 . 1 4 .`→`2.14`）。clean 書本題號無空白 → no-op，
++                # 對其他書無影響；同 section id（block_to_struct）既有處理。
++                num = re.sub(r'\s+', '', m.group(1))
+                 # 章號 prefix 比對
+                 if problem_chapter_must_match:
+                     try:
+@@ -435,9 +462,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
+                     # close 上一題
+                     if current:
+                         problems.append(current)
+-                    # 剝題號
++                    # 剝題號（namespace 模式串 section_id 避免跨子集撞號）
+                     tail = text[m.end():].strip()
+-                    current = {'num': num, 'body': []}
++                    current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
++                               'body': []}
+                     in_solution = False
+                     try:
+                         max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
+@@ -557,7 +585,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
+         if not problems_ended and t in ('text', 'list') and text:
+             m = problem_start_re.match(text)
+             if m:
+-                raw_num = m.group(1)
++                # 題號去內部空白：同上（OCR LaTeX 空格化數字 `2 . 1 4`→`2.14`），clean 書 no-op
++                raw_num = re.sub(r'\s+', '', m.group(1))
+                 if problem_chapter_must_match:
+                     try:
+                         if int(raw_num.split('.')[0]) != ch_num:
+@@ -661,6 +690,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
+         subsection_re=regexes['subsection'],
+         problems_end_re=regexes['problems_end'],
+         solution_start_re=regexes['solution_start'],
++        namespace_by_section=rules.get('problem_num_namespace_by_section', False),
+     )
+ 
+     return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-21-restock — worker 越界改核心碼：book_pipeline/parser.py（crawl __restock__）
 - proposed | type=patch | source=scope_guard
 - 證據：scope_guard bracket：worker [crawl __restock__] session=__restock__:1024 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
@@ -498,6 +613,17 @@ index 8d43b81..7fff83b 100644
      )
  
      return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
+- 風險：observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-22-ben-ari-concurrency — parser 無法保留同塊單行習題題幹
+- proposed | type=tooling-gap | source=agent
+- 證據：ben_ari_concurrency parser+smoke：ch01/ch04/ch06/ch13 的 exercises 都成功切成 problem num，但每題 body=[]。原始 unified block 並非 OCR 空洞：ch01 題目在單一 text block（357/358），ch04/ch06 多題在單一 list block 的 list_items，ch13 題目在單一 text block（1640/1641）。現行 problem_start_re 命中後只保留後續 block，會把同一 block/list_item 內的剩餘題幹整段丟掉。
+- 提議：在 parser 的 split_problems/list-item 消費路徑上，當 problem_start_re 於 text block 或 list_item 命中且同一 payload 尚有剩餘文字時，將剩餘題幹轉成 problem.body 的首塊，而不是只把該 payload 當 delimiter。這樣單行 exercises 與單 list_item exercises 才不會全變 body=[]。
+
+### P-2026-06-22-restock — worker 越界改核心碼：book_pipeline/pipeline_queue.py（crawl __restock__）
+- proposed | type=patch | source=scope_guard
+- 證據：scope_guard bracket：worker [crawl __restock__] session=__restock__:56487 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：(無 diff 文本，book_pipeline/pipeline_queue.py modified)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）

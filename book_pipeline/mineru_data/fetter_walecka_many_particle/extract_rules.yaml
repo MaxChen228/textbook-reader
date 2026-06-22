@@ -1,0 +1,162 @@
+slug: fetter_walecka_many_particle
+title: Quantum Theory of Many-Particle Systems
+author: Alexander L. Fetter; John Dirk Walecka
+edition: null
+subject: Theoretical Physics
+publisher: McGraw-Hill, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 579
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Second Quantization
+    page_start: 10
+    page_end: 39
+    chapter_title_block_idx: 209
+    problems_block_idx: 597
+    next_chapter_block_idx: 633
+  - num: 2
+    title: Statistical Mechanics
+    page_start: 40
+    page_end: 58
+    chapter_title_block_idx: 633
+    problems_block_idx: 898
+    next_chapter_block_idx: 930
+  - num: 3
+    title: Green's Functions and Field Theory (Fermions)
+    page_start: 59
+    page_end: 125
+    chapter_title_block_idx: 930
+    problems_block_idx: 1851
+    next_chapter_block_idx: 1917
+  - num: 4
+    title: Fermi Systems
+    page_start: 126
+    page_end: 178
+    chapter_title_block_idx: 1917
+    problems_block_idx: 2626
+    next_chapter_block_idx: 2670
+  - num: 5
+    title: Linear Response and Collective Modes
+    page_start: 179
+    page_end: 205
+    chapter_title_block_idx: 2670
+    problems_block_idx: 3051
+    next_chapter_block_idx: 3097
+  - num: 6
+    title: Bose Systems
+    page_start: 206
+    page_end: 232
+    chapter_title_block_idx: 3097
+    problems_block_idx: 3503
+    next_chapter_block_idx: 3516
+  - num: 7
+    title: Field Theory at Finite Temperature
+    page_start: 233
+    page_end: 260
+    chapter_title_block_idx: 3516
+    problems_block_idx: 3910
+    next_chapter_block_idx: 3942
+  - num: 8
+    title: Physical Systems at Finite Temperature
+    page_start: 261
+    page_end: 296
+    chapter_title_block_idx: 3942
+    problems_block_idx: 4470
+    next_chapter_block_idx: 4492
+  - num: 9
+    title: Real-time Green's Functions and Linear Response
+    page_start: 297
+    page_end: 317
+    chapter_title_block_idx: 4492
+    problems_block_idx: 4766
+    next_chapter_block_idx: 4809
+  - num: 10
+    title: Canonical Transformations
+    page_start: 318
+    page_end: 343
+    chapter_title_block_idx: 4809
+    problems_block_idx: 5182
+    next_chapter_block_idx: 5202
+  - num: 11
+    title: Nuclear Matter
+    page_start: 344
+    page_end: 391
+    chapter_title_block_idx: 5202
+    problems_block_idx: 5832
+    next_chapter_block_idx: 5867
+  - num: 12
+    title: Phonons and Electrons
+    page_start: 392
+    page_end: 415
+    chapter_title_block_idx: 5867
+    problems_block_idx: 6158
+    next_chapter_block_idx: 6194
+  - num: 13
+    title: Superconductivity
+    page_start: 416
+    page_end: 481
+    chapter_title_block_idx: 6194
+    problems_block_idx: 7157
+    next_chapter_block_idx: 7224
+  - num: 14
+    title: Superfluid Helium
+    page_start: 482
+    page_end: 505
+    chapter_title_block_idx: 7224
+    problems_block_idx: 7534
+    next_chapter_block_idx: 7580
+  - num: 15
+    title: "Applications to Finite Systems: The Atomic Nucleus"
+    page_start: 506
+    page_end: 578
+    chapter_title_block_idx: 7580
+    problems_block_idx: 8682
+    next_chapter_block_idx: 8731
+
+appendices:
+  - id: A
+    title: DEFINITE INTEGRALS
+    page_start: 579
+    chapter_title_block_idx: 8731
+  - id: B
+    title: REVIEW OF THE THEORY OF ANGULAR MOMENTUM
+    page_start: 581
+    chapter_title_block_idx: 8767
+
+section_re: '^(\d+)[□☐]\s*(.+)$'
+subsection_re: '^()([A-Z][A-Z0-9 $\\{}^_,:;''"./()&-]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.(?:[^\w\s]\s*|\s+)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

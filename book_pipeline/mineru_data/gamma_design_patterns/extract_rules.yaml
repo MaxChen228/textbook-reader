@@ -1,0 +1,107 @@
+slug: gamma_design_patterns
+title: "Design Patterns: Elements of Reusable Object-Oriented Software"
+author: "Erich Gamma; Richard Helm; Ralph Johnson; John Vlissides"
+edition: null
+subject: "Software Engineering"
+publisher: "Addison-Wesley"
+language: en
+
+filter_types:
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 357
+bibliography_start_page: 372
+index_start_page: 382
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 18
+    page_end: 50
+    chapter_title_block_idx: 179
+    chapter_title_block_idx_secondary: 180
+    problems_block_idx: null
+    next_chapter_block_idx: 454
+  - num: 2
+    title: "A Case Study: Designing a Document Editor"
+    page_start: 51
+    page_end: 94
+    chapter_title_block_idx: 454
+    chapter_title_block_idx_secondary: 455
+    problems_block_idx: null
+    next_chapter_block_idx: 764
+  - num: 3
+    title: Creational Patterns
+    page_start: 95
+    page_end: 146
+    chapter_title_block_idx: 764
+    chapter_title_block_idx_secondary: 765
+    problems_block_idx: null
+    next_chapter_block_idx: 1199
+  - num: 4
+    title: Structural Patterns
+    page_start: 147
+    page_end: 224
+    chapter_title_block_idx: 1199
+    chapter_title_block_idx_secondary: 1200
+    problems_block_idx: null
+    next_chapter_block_idx: 1861
+  - num: 5
+    title: Behavioral Patterns
+    page_start: 225
+    page_end: 347
+    chapter_title_block_idx: 1861
+    chapter_title_block_idx_secondary: 1862
+    problems_block_idx: null
+    next_chapter_block_idx: 2874
+  - num: 6
+    title: Conclusion
+    page_start: 348
+    page_end: 356
+    chapter_title_block_idx: 2874
+    chapter_title_block_idx_secondary: 2875
+    problems_block_idx: null
+    next_chapter_block_idx: 2938
+
+appendices:
+  - id: A
+    title: Glossary
+    page_start: 357
+    chapter_title_block_idx: 2938
+  - id: B
+    title: Guide to Notation
+    page_start: 361
+    chapter_title_block_idx: 2989
+  - id: C
+    title: Foundation Classes
+    page_start: 366
+    chapter_title_block_idx: 3020
+
+section_re: "^((?:\\d+\\.\\d+|[A-Z]\\.\\d+)?)\\s*((?!(?:Figure|Table)\\b)(?:Class, Object Structural: .+|Object Behavioral: .+|[A-Z][A-Za-z0-9,&()/'’ .:-]*[A-Za-z0-9?.)]))$"
+subsection_re: "^()(Intent|Also Known As|Motivation|Applicability|Structure|Participants|Collaborations|Consequences|Implementation|Sample Code|Known Uses|Related Patterns|Accessing|Adding|Removing|Stack Interface|Construction, Destruction, Initialization, and Assignment)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^Problem\\s+(\\d+\\.\\d+)\\s+"
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

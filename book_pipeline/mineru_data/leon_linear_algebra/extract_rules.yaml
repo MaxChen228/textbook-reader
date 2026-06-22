@@ -1,0 +1,101 @@
+slug: leon_linear_algebra
+title: Linear Algebra with Applications
+author: Steven J. Leon
+edition: 9th Global
+subject: Linear Algebra
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 487
+bibliography_start_page: 499
+index_start_page: null
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Matrices and Systems of Equations
+    page_start: 17
+    page_end: 102
+    chapter_title_block_idx: 185
+    problems_block_idx: null
+    next_chapter_block_idx: 2039
+  - num: 2
+    title: Determinants
+    page_start: 103
+    page_end: 127
+    chapter_title_block_idx: 2039
+    problems_block_idx: null
+    next_chapter_block_idx: 2603
+  - num: 3
+    title: Vector Spaces
+    page_start: 128
+    page_end: 184
+    chapter_title_block_idx: 2603
+    problems_block_idx: null
+    next_chapter_block_idx: 3827
+  - num: 4
+    title: Linear Transformations
+    page_start: 185
+    page_end: 216
+    chapter_title_block_idx: 3827
+    problems_block_idx: null
+    next_chapter_block_idx: 4566
+  - num: 5
+    title: Orthogonality
+    page_start: 217
+    page_end: 302
+    chapter_title_block_idx: 4566
+    problems_block_idx: null
+    next_chapter_block_idx: 6434
+  - num: 6
+    title: Eigenvalues
+    page_start: 303
+    page_end: 410
+    chapter_title_block_idx: 6434
+    problems_block_idx: null
+    next_chapter_block_idx: 8651
+  - num: 7
+    title: Numerical Linear Algebra
+    page_start: 411
+    page_end: 486
+    chapter_title_block_idx: 8651
+    problems_block_idx: null
+    next_chapter_block_idx: 10320
+
+appendices:
+  - id: A
+    title: MATLAB
+    page_start: 487
+    chapter_title_block_idx: 10320
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(((?=.*[A-Za-z])(?!(?:\d+\.\d+)\s).+\S.*))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^(CHAPTER TEST A(?:\s+True or False)?|CHAPTER TEST B)\s*$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

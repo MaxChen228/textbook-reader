@@ -1,0 +1,191 @@
+slug: morin_classical_mechanics
+title: Introduction to Classical Mechanics
+author: David Morin
+edition: 1st
+subject: Classical Mechanics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 588
+bibliography_start_page: null
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Statics
+    page_start: 13
+    page_end: 44
+    chapter_title_block_idx: 139
+    chapter_title_block_idx_secondary: 140
+    problems_block_idx: 309
+    next_chapter_block_idx: 687
+  - num: 2
+    title: "Using $F = m a$"
+    page_start: 45
+    page_end: 88
+    chapter_title_block_idx: 687
+    chapter_title_block_idx_secondary: 688
+    problems_block_idx: 1090
+    next_chapter_block_idx: 1491
+  - num: 3
+    title: Oscillations
+    page_start: 89
+    page_end: 120
+    chapter_title_block_idx: 1491
+    chapter_title_block_idx_secondary: 1492
+    problems_block_idx: 1841
+    next_chapter_block_idx: 2027
+  - num: 4
+    title: Conservation of Energy and Momentum
+    page_start: 121
+    page_end: 188
+    chapter_title_block_idx: 2027
+    chapter_title_block_idx_secondary: 2028
+    problems_block_idx: 2687
+    next_chapter_block_idx: 3197
+  - num: 5
+    title: The Lagrangian Method
+    page_start: 189
+    page_end: 248
+    chapter_title_block_idx: 3197
+    chapter_title_block_idx_secondary: 3198
+    problems_block_idx: 3660
+    next_chapter_block_idx: 4309
+  - num: 6
+    title: Central Forces
+    page_start: 249
+    page_end: 277
+    chapter_title_block_idx: 4309
+    chapter_title_block_idx_secondary: 4310
+    problems_block_idx: 4598
+    next_chapter_block_idx: 4792
+  - num: 7
+    title: "Angular Momentum, Part I (Constant Lˆ)"
+    page_start: 278
+    page_end: 331
+    chapter_title_block_idx: 4792
+    chapter_title_block_idx_secondary: 4793
+    problems_block_idx: 5233
+    next_chapter_block_idx: 5714
+  - num: 8
+    title: "Angular Momentum, Part II (General Lˆ)"
+    page_start: 332
+    page_end: 402
+    chapter_title_block_idx: 5714
+    chapter_title_block_idx_secondary: 5715
+    problems_block_idx: 6297
+    next_chapter_block_idx: 6924
+  - num: 9
+    title: Accelerated Frames of Reference
+    page_start: 403
+    page_end: 425
+    chapter_title_block_idx: 6924
+    chapter_title_block_idx_secondary: 6925
+    problems_block_idx: 7129
+    next_chapter_block_idx: 7261
+  - num: 10
+    title: Relativity (Kinematics)
+    page_start: 426
+    page_end: 497
+    chapter_title_block_idx: 7261
+    chapter_title_block_idx_secondary: 7262
+    problems_block_idx: 7961
+    next_chapter_block_idx: 8438
+  - num: 11
+    title: Relativity (Dynamics)
+    page_start: 498
+    page_end: 545
+    chapter_title_block_idx: 8438
+    chapter_title_block_idx_secondary: 8439
+    problems_block_idx: 8914
+    next_chapter_block_idx: 9260
+  - num: 12
+    title: 4-vectors
+    page_start: 546
+    page_end: 561
+    chapter_title_block_idx: 9260
+    chapter_title_block_idx_secondary: 9261
+    problems_block_idx: 9467
+    next_chapter_block_idx: 9536
+  - num: 13
+    title: General Relativity
+    page_start: 562
+    page_end: 587
+    chapter_title_block_idx: 9536
+    chapter_title_block_idx_secondary: 9537
+    problems_block_idx: 9721
+    next_chapter_block_idx: 9922
+
+appendices:
+  - id: A
+    title: Useful formulas
+    page_start: 588
+    chapter_title_block_idx: 9922
+  - id: B
+    title: Units, dimensional analysis
+    page_start: 591
+    chapter_title_block_idx: 9967
+  - id: C
+    title: Approximations, limiting cases
+    page_start: 598
+    chapter_title_block_idx: 10087
+  - id: D
+    title: Solving differential equations numerically
+    page_start: 602
+    chapter_title_block_idx: 10140
+  - id: E
+    title: '$F = m a \ \mathbf { v } \mathbf { s } . \ F = d p / d t$'
+    page_start: 604
+    chapter_title_block_idx: 10162
+  - id: F
+    title: Existence of principal axes
+    page_start: 606
+    chapter_title_block_idx: 10183
+  - id: G
+    title: Diagonalizing matrices
+    page_start: 609
+    chapter_title_block_idx: 10229
+  - id: H
+    title: Qualitative relativity questions
+    page_start: 611
+    chapter_title_block_idx: 10254
+  - id: I
+    title: Lorentz transformations
+    page_start: 616
+    chapter_title_block_idx: 10311
+  - id: J
+    title: Resolutions to the twin paradox
+    page_start: 619
+    chapter_title_block_idx: 10362
+  - id: K
+    title: Physical constants and data
+    page_start: 621
+    chapter_title_block_idx: 10378
+
+section_re: '^(?:Section\s+)?(\d+\.\d+):?\s+(.+)$'
+subsection_re: '^(?:Section\s+)?(\d+\.\d+\.\d+):?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^\d+\.\d+(?:\.\d+)?\s+Solutions$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -70,6 +70,225 @@
       "selector": "problem:10.8.14:body[5]",
       "expect": "\\begin{array}{r c l} G   \\mathsf {T} _ {1}   \\ldots   \\mathsf {T} _ {n} = \\partial \\mathsf {T} & \\equiv & \\exists \\mathsf {X} _ {1} \\ldots \\mathsf {X} _ {n}. (G   \\mathsf {X} _ {1}   \\ldots   \\mathsf {X} _ {n} = \\mathsf {T} \\land \\bigwedge_ {i = 1} ^ {n} (\\mathsf {T} _ {i} = \\partial \\mathsf {X} _ {i})) \\\\ & & \\text {if X_{1}\\ldots X_{n} \\# ft\\nu(T_{1},\\ldots,T_{n},T)} \\end{array} \\quad \\text {(C - MUTATE - GD)}",
       "new": "\\begin{array}{r c l} G   \\mathsf {T} _ {1}   \\ldots   \\mathsf {T} _ {n} = \\partial \\mathsf {T} & \\equiv & \\exists \\mathsf {X} _ {1} \\ldots \\mathsf {X} _ {n}. (G   \\mathsf {X} _ {1}   \\ldots   \\mathsf {X} _ {n} = \\mathsf {T} \\land \\bigwedge_ {i = 1} ^ {n} (\\mathsf {T} _ {i} = \\partial \\mathsf {X} _ {i})) \\\\ & & \\text {if } X_{1}\\ldots X_{n} \\# ft\\nu(T_{1},\\ldots,T_{n},T) \\end{array} \\quad \\text {(C - MUTATE - GD)}"
+    },
+    {
+      "id": "pierce_attapl-ch05-body-288-dacdd5",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[288]",
+      "expect": "\\begin{array}{l} * _ {3} \\equiv p f ^ {\\prime} F ^ {\\intercal} \\\\ u: \\mathsf {p f} ^ {\\lceil F \\rceil} \\vdash \\quad \\text { and } i * _ {4} * _ {5} u u \\quad : \\quad \\mathsf {p f} (\\text { and } ^ {\\lceil F \\rceil} ^ {\\lceil F \\rceil}) \\\\ \\end{array}",
+      "new": "\\begin{array}{l}*_3\\equiv pf^{\\prime}F^{\\intercal}\\\\u:\\mathsf{pf}^{\\lceil F\\rceil}\\vdash\\quad\\text{and }i*_4*_5uu\\quad:\\quad\\mathsf{pf}(\\text{and}^{\\lceil F\\rceil\\lceil F\\rceil})\\\\\\end{array}"
+    },
+    {
+      "id": "pierce_attapl-ch05-problem-5-5-1-body-7-589d6f",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.5.1:body[7]",
+      "expect": "\\begin{array}{l} M = \\text { impi } ^ {\\lceil} F ^ {\\lceil} (\\text { and } ^ {\\lceil} F ^ {\\lceil} ^ {\\lceil} F ^ {\\lceil}) \\\\ (\\lambda x: \\mathsf {p f} ^ {\\lceil F \\rceil}. \\text { and } \\mathsf {i} ^ {\\lceil F \\rceil} ^ {\\lceil F \\rceil} x x) \\\\ \\end{array}",
+      "new": "\\begin{array}{l}M=\\text{impi}^{\\lceil F\\rceil}(\\text{and}^{\\lceil F\\rceil}(\\text{and}^{\\lceil F\\rceil\\lceil F\\rceil}))\\\\(\\lambda x:\\mathsf{pf}^{\\lceil F\\rceil}.\\ \\text{and}\\ \\mathsf{i}^{\\lceil F\\rceil\\lceil F\\rceil}xx)\\\\\\end{array}"
+    },
+    {
+      "id": "pierce_attapl-ch10-body-186-80aab0",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[186]",
+      "expect": "\\frac {D , \\Gamma \\vdash \\mathsf {t} : \\mathsf {T} \\quad \\bar {\\mathsf {X}} \\# f t v (\\Gamma)}{\\exists \\bar {\\mathsf {X}} . D , \\Gamma \\vdash \\mathsf {t} : \\forall \\bar {\\mathsf {X}} [ D ] . \\mathsf {T}} $}",
+      "new": "\\frac{D,\\Gamma\\vdash\\mathsf{t}:\\mathsf{T}\\quad\\bar{\\mathsf{X}}\\#ftv(\\Gamma)}{\\exists\\bar{\\mathsf{X}}.D,\\Gamma\\vdash\\mathsf{t}:\\forall\\bar{\\mathsf{X}}[D].\\mathsf{T}}"
+    },
+    {
+      "id": "pierce_attapl-ch10-problem-10-3-2-body-1-c2bc6a",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.3.2:body[1]",
+      "expect": "\\frac {C , \\Gamma \\vdash \\mathsf {t} : \\forall \\bar {\\mathsf {X}} [ D ] . \\mathsf {T} \\quad C \\Vdash [ \\vec {\\mathsf {X}} \\mapsto \\vec {\\mathsf {T}} ] D}{C , \\Gamma \\vdash \\mathsf {t} : [ \\vec {\\mathsf {X}} \\mapsto \\vec {\\mathsf {T}} ] \\mathsf {T}} $}",
+      "new": "\\frac{C,\\Gamma\\vdash\\mathsf{t}:\\forall\\bar{\\mathsf{X}}[D].\\mathsf{T}\\quad C\\Vdash[\\vec{\\mathsf{X}}\\mapsto\\vec{\\mathsf{T}}]D}{C,\\Gamma\\vdash\\mathsf{t}:[\\vec{\\mathsf{X}}\\mapsto\\vec{\\mathsf{T}}]\\mathsf{T}}"
+    },
+    {
+      "id": "pierce_attapl-ch09-body-132-39d07f",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[132]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Gamma \\stackrel { \\mathrm { d e f } } { = } \\big X : : \\mathrel { \\cdots } = \\mathsf { N a t }$",
+      "new": "$\\Gamma\\stackrel{\\mathrm{d e f}}{=}X::\\mathrel{\\cdots}=\\mathsf{N a t}$",
+      "anchor": "32c3de78"
+    },
+    {
+      "id": "pierce_attapl-ch03-body-45-58ab54",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[45]",
+      "field": "md",
+      "all": true,
+      "old": "$\\^ { \\mathrm { ~ t ~ } \\stackrel { \\mathrm { ~ T ~ } ^ { * } } { \\longrightarrow } ~ } \\ t ^ { \\prime }$",
+      "new": "$\\hat{\\mathrm{~ t ~}\\stackrel{\\mathrm{~ T ~}^{*}}{\\longrightarrow}~}\\ t^{\\prime}$",
+      "anchor": "81b05f42"
+    },
+    {
+      "id": "pierce_attapl-ch03-body-96-d2442a",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[96]",
+      "field": "md",
+      "all": true,
+      "old": "$\\langle \\tplus \\rangle _ { \\rho _ { 0 } } ~ ! ~ \\rho _ { 0 }$",
+      "new": "$\\langle +\\rangle_{\\rho_{0}}~!~\\rho_{0}$",
+      "anchor": "b54b06f4"
+    },
+    {
+      "id": "pierce_attapl-ch07-body-63-e12340",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[63]",
+      "field": "md",
+      "all": true,
+      "old": "$( { \\mathsf { s } } _ { 2 } \\ldots { \\mathsf { r e a d } } ) \\tplus _ { 2 }$",
+      "new": "$({\\mathsf{s}}_{2}\\ldots{\\mathsf{r e a d}})+_{2}$",
+      "anchor": "5711c0ba"
+    },
+    {
+      "id": "pierce_attapl-ch07-body-185-e03ac1",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[185]",
+      "field": "md",
+      "all": true,
+      "old": "$\\emptyset \\vdash \\tplus \\ t^ { \\prime }$",
+      "new": "$\\emptyset\\vdash +\\ t^{\\prime}$",
+      "anchor": "5fa18e11"
+    },
+    {
+      "id": "pierce_attapl-ch07-body-241-513f26",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[241]",
+      "field": "md",
+      "all": true,
+      "old": "$\\smash { \\emptyset \\vdash S : \\mathsf { T } \\preccirc \\mathsf { T } ^ { \\prime } }$",
+      "new": "$\\smash{\\emptyset\\vdash S:\\mathsf{T}\\prec\\circ\\mathsf{T}^{\\prime}}$",
+      "anchor": "295a8560"
+    },
+    {
+      "id": "pierce_attapl-ch07-body-297-364cfb",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[297]",
+      "field": "md",
+      "all": true,
+      "old": "$\\emptyset \\vdash \\{ \\^ { * } \\mathsf { N } , \\mathsf { G } \\} \\mathtt { a } \\mathtt { s } \\ Q = _ { \\mathrm { c t x } } \\{ ^ { * } \\mathsf { B } \\mathsf { o } 0 \\rceil , \\mathsf { G } ^ { \\prime } \\} \\mathtt { a } \\mathtt { s } \\ Q : \\mathbb { Q } .$",
+      "new": "$\\emptyset\\vdash\\{\\hat{*}\\mathsf{N},\\mathsf{G}\\}\\mathtt{a}\\mathtt{s}\\ Q=_{\\mathrm{c t x}}\\{^{*}\\mathsf{B}\\mathsf{o}0\\rceil,\\mathsf{G}^{\\prime}\\}\\mathtt{a}\\mathtt{s}\\ Q:\\mathbb{Q}.$",
+      "anchor": "4bc698d8"
+    },
+    {
+      "id": "pierce_attapl-ch07-problem-7-4-2-body-3-1c7d7b",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.4.2:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bullet \\ \\langle S , \\tmid _ { \\ L } \\rangle \\longrightarrow \\langle S , \\tplus \\rangle , \\ i \\mathbf { f } \\ t _ { 1 } \\sim \\mathbf { t } _ { 2 } .$",
+      "new": "$\\bullet\\ \\langle S,\\mid_{L}\\rangle\\longrightarrow\\langle S,+\\rangle,\\ i\\mathbf{f}\\ t_{1}\\sim\\mathbf{t}_{2}.$",
+      "anchor": "989b0154"
+    },
+    {
+      "id": "pierce_attapl-ch09-body-383-ca1452",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[383]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\mathsf { K } \\ldot { < } \\colon \\lfloor$",
+      "new": "$\\Gamma\\vdash\\mathsf{K}\\cdot<\\colon\\lfloor$",
+      "anchor": "db04989c"
+    },
+    {
+      "id": "pierce_attapl-ch09-problem-9-3-11-body-15-c14f97",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.3.11:body[15]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { \\vert \\Gamma \\vert , \\Upsilon ; : : \\left( \\Sigma { \\Chi } _ { \\mathfrak { n } } : : \\vert \\mathtt { I } _ { 1 } \\vert _ { s } , \\vert \\mathtt { I } _ { 2 } \\vert _ { s } \\right) \\vdash ^ { S } \\vert \\Sigma \\mathfrak { n } : \\mathtt { I } _ { 1 } . \\mathtt { I } _ { 2 } \\vert _ { d } ( \\Upsilon ) : :  { * } . } \\end{array}$",
+      "new": "$\\begin{array}{r}{\\vert\\Gamma\\vert,\\Upsilon;::\\left(\\Sigma\\chi_{\\mathfrak{n}}::\\vert\\mathtt{I}_{1}\\vert_{s},\\vert\\mathtt{I}_{2}\\vert_{s}\\right)\\vdash^{S}\\vert\\Sigma\\mathfrak{n}:\\mathtt{I}_{1}.\\mathtt{I}_{2}\\vert_{d}(\\Upsilon)::{*}.}\\end{array}$",
+      "anchor": "12dc0a00"
+    },
+    {
+      "id": "pierce_attapl-ch10-body-146-913ae6",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[146]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Zint ,$",
+      "new": "$\\mathbb{Z},$",
+      "anchor": "ab40462c"
+    },
+    {
+      "id": "pierce_attapl-ch10-body-446-372236",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[446]",
+      "field": "md",
+      "all": true,
+      "old": "$\\curlyeqcirc { \\mathsf { p r e } }$",
+      "new": "$\\circ={\\mathsf{p r e}}$",
+      "anchor": "e3ac9213"
+    },
+    {
+      "id": "pierce_attapl-appA-body-131-c90dc7",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[131]",
+      "field": "md",
+      "all": true,
+      "old": "$\\delta ( \\tagger ) : \\mathsf { T } _ { 1 } \\to \\mathsf { T } _ { 2 }$",
+      "new": "$\\delta(\\dagger):\\mathsf{T}_{1}\\to\\mathsf{T}_{2}$",
+      "anchor": "13df2f41"
+    },
+    {
+      "id": "pierce_attapl-appA-body-151-68c370",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[151]",
+      "field": "md",
+      "all": true,
+      "old": "$\\gamma ( \\tplus )$",
+      "new": "$\\gamma(+)$",
+      "anchor": "155a403a"
+    },
+    {
+      "id": "pierce_attapl-appA-body-222-e4e370",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[222]",
+      "field": "md",
+      "all": true,
+      "old": "$( ( r _ { 1 } ) ^ { \\nu s } ) ^ { t } = r _ { 1 } , \\mathrm { i f } ( \\tplus _ { 1 } , \\tplus _ { 1 } ^ { \\prime } ) \\in r _ { 1 }$",
+      "new": "$((r_{1})^{\\nu s})^{t}=r_{1},\\mathrm{i f}(+_{1},+_{1}^{\\prime})\\in r_{1}$",
+      "anchor": "50c67b81"
+    },
+    {
+      "id": "pierce_attapl-appA-body-313-56869b",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[313]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { M } : \\left( \\curlyeq { \\mathsf { \\cdots } } \\mathsf { = N a t } \\right)$",
+      "new": "$\\mathsf{M}:\\left(\\circleddash{\\mathsf{\\cdots}}\\mathsf{= N a t}\\right)$",
+      "anchor": "adac8cc5"
+    },
+    {
+      "id": "pierce_attapl-appA-body-324-717a4c",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[324]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash S ( \\mathsf { S } ) \\ldotplus \\ldotplus $",
+      "new": "$\\Gamma\\vdash S(\\mathsf{S})\\cdot+\\cdot+ $",
+      "anchor": "f3b93aae"
     }
   ]
 }

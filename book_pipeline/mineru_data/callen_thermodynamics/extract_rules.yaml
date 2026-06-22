@@ -1,0 +1,202 @@
+slug: callen_thermodynamics
+title: Thermodynamics and an Introduction to Thermostatistics
+author: Herbert B. Callen
+edition: 2nd
+subject: Thermal Physics
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 492
+bibliography_start_page: 504
+index_start_page: 506
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: The Problem and the Postulates
+    page_start: 24
+    page_end: 53
+    chapter_title_block_idx: 200
+    problems_block_idx: null
+    next_chapter_block_idx: 535
+  - num: 2
+    title: The Conditions of Equilibrium
+    page_start: 54
+    page_end: 77
+    chapter_title_block_idx: 535
+    problems_block_idx: null
+    next_chapter_block_idx: 895
+  - num: 3
+    title: Some Formal Relationships, and Sample Systems
+    page_start: 78
+    page_end: 109
+    chapter_title_block_idx: 895
+    problems_block_idx: null
+    next_chapter_block_idx: 1390
+  - num: 4
+    title: Reversible Processes and the Maximum Work Theorem
+    page_start: 110
+    page_end: 149
+    chapter_title_block_idx: 1390
+    problems_block_idx: null
+    next_chapter_block_idx: 1906
+  - num: 5
+    title: Alternative Formulations and Legendre Transformations
+    page_start: 150
+    page_end: 171
+    chapter_title_block_idx: 1906
+    problems_block_idx: null
+    next_chapter_block_idx: 2204
+  - num: 6
+    title: The Extremum Principle in the Legendre Transformed Representations
+    page_start: 172
+    page_end: 199
+    chapter_title_block_idx: 2204
+    problems_block_idx: null
+    next_chapter_block_idx: 2584
+  - num: 7
+    title: Maxwell Relations
+    page_start: 200
+    page_end: 221
+    chapter_title_block_idx: 2584
+    problems_block_idx: null
+    next_chapter_block_idx: 2930
+  - num: 8
+    title: Stability of Thermodynamic Systems
+    page_start: 222
+    page_end: 233
+    chapter_title_block_idx: 2930
+    problems_block_idx: null
+    next_chapter_block_idx: 3104
+  - num: 9
+    title: First-Order Phase Transitions
+    page_start: 234
+    page_end: 273
+    chapter_title_block_idx: 3104
+    problems_block_idx: null
+    next_chapter_block_idx: 3503
+  - num: 10
+    title: Critical Phenomena
+    page_start: 274
+    page_end: 295
+    chapter_title_block_idx: 3503
+    problems_block_idx: null
+    next_chapter_block_idx: 3744
+  - num: 11
+    title: The Nernst Postulate
+    page_start: 296
+    page_end: 301
+    chapter_title_block_idx: 3744
+    problems_block_idx: null
+    next_chapter_block_idx: 3801
+  - num: 12
+    title: Summary of Principles for General Systems
+    page_start: 302
+    page_end: 307
+    chapter_title_block_idx: 3801
+    problems_block_idx: null
+    next_chapter_block_idx: 3878
+  - num: 13
+    title: Properties of Materials
+    page_start: 308
+    page_end: 325
+    chapter_title_block_idx: 3878
+    problems_block_idx: null
+    next_chapter_block_idx: 4105
+  - num: 14
+    title: Irreversible Thermodynamics
+    page_start: 326
+    page_end: 347
+    chapter_title_block_idx: 4105
+    problems_block_idx: null
+    next_chapter_block_idx: 4384
+  - num: 15
+    title: "Statistical Mechanics in the Entropy Representation: The Microcanonical Formalism"
+    page_start: 348
+    page_end: 367
+    chapter_title_block_idx: 4384
+    problems_block_idx: null
+    next_chapter_block_idx: 4628
+  - num: 16
+    title: "The Canonical Formalism: Statistical Mechanics in Helmholtz Representation"
+    page_start: 368
+    page_end: 397
+    chapter_title_block_idx: 4628
+    problems_block_idx: null
+    next_chapter_block_idx: 5058
+  - num: 17
+    title: "Entropy and Disorder: Generalized Canonical Formulations"
+    page_start: 398
+    page_end: 411
+    chapter_title_block_idx: 5058
+    problems_block_idx: null
+    next_chapter_block_idx: 5293
+  - num: 18
+    title: Quantum Fluids
+    page_start: 412
+    page_end: 441
+    chapter_title_block_idx: 5293
+    problems_block_idx: null
+    next_chapter_block_idx: 5693
+  - num: 19
+    title: Fluctuations
+    page_start: 442
+    page_end: 451
+    chapter_title_block_idx: 5693
+    problems_block_idx: null
+    next_chapter_block_idx: 5827
+  - num: 20
+    title: "Variational Properties, Perturbation Expansions, and Mean Field Theory"
+    page_start: 452
+    page_end: 473
+    chapter_title_block_idx: 5827
+    problems_block_idx: null
+    next_chapter_block_idx: 6148
+  - num: 21
+    title: "Postlude: Symmetry and the Conceptual Foundations of Thermostatistics"
+    page_start: 474
+    page_end: 491
+    chapter_title_block_idx: 6148
+    problems_block_idx: null
+    next_chapter_block_idx: 6310
+
+appendices:
+  - id: A
+    title: Partial Derivatives
+    page_start: 492
+    chapter_title_block_idx: 6310
+  - id: B
+    title: Magnetic Systems
+    page_start: 498
+    chapter_title_block_idx: 6405
+
+section_re: '^((?:[A-Z]|\d+)-\d+)\s+(.+)$'
+subsection_re: '^((?:[A-Z]|\d+)-\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+-\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]|\d+)\.\d+[a-z]?)\}'
+
+example_start_re: '^(Example(?:\s+\d+)?(?:[: ].*)?)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

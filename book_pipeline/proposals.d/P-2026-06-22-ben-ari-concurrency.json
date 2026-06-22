@@ -1,0 +1,16 @@
+{
+  "id": "P-2026-06-22-ben-ari-concurrency",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "parser 無法保留同塊單行習題題幹",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-22T05:39:22+00:00",
+  "updated": "2026-06-22T05:39:22+00:00",
+  "evidence": "ben_ari_concurrency parser+smoke：ch01/ch04/ch06/ch13 的 exercises 都成功切成 problem num，但每題 body=[]。原始 unified block 並非 OCR 空洞：ch01 題目在單一 text block（357/358），ch04/ch06 多題在單一 list block 的 list_items，ch13 題目在單一 text block（1640/1641）。現行 problem_start_re 命中後只保留後續 block，會把同一 block/list_item 內的剩餘題幹整段丟掉。",
+  "proposal": "在 parser 的 split_problems/list-item 消費路徑上，當 problem_start_re 於 text block 或 list_item 命中且同一 payload 尚有剩餘文字時，將剩餘題幹轉成 problem.body 的首塊，而不是只把該 payload 當 delimiter。這樣單行 exercises 與單 list_item exercises 才不會全變 body=[]。",
+  "risk": "",
+  "disposition": ""
+}

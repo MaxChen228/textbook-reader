@@ -1,0 +1,102 @@
+slug: garey_johnson_intractability
+title: "Computers and Intractability: A Guide to the Theory of NP-Completeness"
+author: "Michael R. Garey; David S. Johnson"
+edition: "1st"
+subject: Theory of Computation
+publisher: W. H. Freeman
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 194
+bibliography_start_page: 297
+index_start_page: 296
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Computers, Complexity, and Intractability"
+    page_start: 11
+    page_end: 25
+    chapter_title_block_idx: 111
+    problems_block_idx: null
+    next_chapter_block_idx: 231
+  - num: 2
+    title: "The Theory of NP-Completeness"
+    page_start: 26
+    page_end: 53
+    chapter_title_block_idx: 231
+    problems_block_idx: null
+    next_chapter_block_idx: 493
+  - num: 3
+    title: "Proving NP-Completeness Results"
+    page_start: 54
+    page_end: 85
+    chapter_title_block_idx: 493
+    problems_block_idx: null
+    next_chapter_block_idx: 921
+  - num: 4
+    title: "Using NP-Completeness to Analyze Problems"
+    page_start: 86
+    page_end: 116
+    chapter_title_block_idx: 921
+    problems_block_idx: null
+    next_chapter_block_idx: 1196
+  - num: 5
+    title: "NP-Hardness"
+    page_start: 117
+    page_end: 128
+    chapter_title_block_idx: 1196
+    problems_block_idx: null
+    next_chapter_block_idx: 1293
+  - num: 6
+    title: "Coping with NP-Complete Problems"
+    page_start: 129
+    page_end: 159
+    chapter_title_block_idx: 1293
+    problems_block_idx: null
+    next_chapter_block_idx: 1599
+  - num: 7
+    title: "Beyond NP-Completeness"
+    page_start: 160
+    page_end: 193
+    chapter_title_block_idx: 1599
+    problems_block_idx: null
+    next_chapter_block_idx: 1916
+
+appendices:
+  - id: A
+    title: "A List of NP-Complete Problems"
+    page_start: 194
+    chapter_title_block_idx: 1916
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

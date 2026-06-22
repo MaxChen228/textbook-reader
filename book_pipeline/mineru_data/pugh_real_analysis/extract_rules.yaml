@@ -1,0 +1,92 @@
+slug: pugh_real_analysis
+title: Real Mathematical Analysis
+author: Charles C. Pugh
+edition: 2nd
+subject: Real Analysis
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 477
+bibliography_start_page: 477
+index_start_page: 479
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Real Numbers
+    page_start: 12
+    page_end: 66
+    chapter_title_block_idx: 124
+    chapter_title_block_idx_secondary: 123
+    problems_block_idx: 691
+    next_chapter_block_idx: 912
+  - num: 2
+    title: A Taste of Topology
+    page_start: 67
+    page_end: 158
+    chapter_title_block_idx: 912
+    chapter_title_block_idx_secondary: 911
+    problems_block_idx: 1857
+    next_chapter_block_idx: 2343
+  - num: 3
+    title: Functions of a Real Variable
+    page_start: 159
+    page_end: 220
+    chapter_title_block_idx: 2343
+    chapter_title_block_idx_secondary: 2342
+    problems_block_idx: 3096
+    next_chapter_block_idx: 3336
+  - num: 4
+    title: Function Spaces
+    page_start: 221
+    page_end: 286
+    chapter_title_block_idx: 3336
+    chapter_title_block_idx_secondary: 3335
+    problems_block_idx: 4075
+    next_chapter_block_idx: 4363
+  - num: 5
+    title: Multivariable Calculus
+    page_start: 287
+    page_end: 392
+    chapter_title_block_idx: 4363
+    chapter_title_block_idx_secondary: 4362
+    problems_block_idx: 5744
+    next_chapter_block_idx: 6062
+  - num: 6
+    title: Lebesgue Theory
+    page_start: 393
+    page_end: 476
+    chapter_title_block_idx: 6062
+    chapter_title_block_idx_secondary: 6061
+    problems_block_idx: 7012
+    next_chapter_block_idx: 7802
+
+section_re: '^((?:Appendix\s+[A-Z])|(?:1[01]|[1-9]))\s+(.+)$'
+subsection_re: '^()((?!Exercises$)[A-Z][^\n]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\?\*\s*)*(\d+)\.'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

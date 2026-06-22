@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "callen-fix-prob-18.1-5-figref",
+      "action": "replace_text",
+      "chunk": "ch18",
+      "selector": "problem:18.1-5:body[0]",
+      "field": "md",
+      "old": "Fig. 17.2 [of",
+      "new": "Fig. 18.1 [of",
+      "reason": "Callen 2nd ed erratum: Problem 18.1-5 prints 'Fig. 17.2' but the figure of f(e,T) vs e (symmetric about e=mu, f=1/2) is FIGURE 18.1 (p.416, 'probability of occupation by a fermion of an orbital state of energy e'). Chapter 17 has no Fermi-function figure (its only fig 17.1 = grand-canonical mnemonic squares). Sibling problem 18.1-4 references the same figure correctly as 'Fig. 18.1'. fig-18.1 exists in catalog -> real fix per catalog-audit.md C4 case (C); clears the missing_figure_refs critical."
+    }
+  ]
+}

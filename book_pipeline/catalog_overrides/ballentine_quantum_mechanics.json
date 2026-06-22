@@ -1,0 +1,35 @@
+{
+  "overrides": [
+    {
+      "id": "ballentine-fig-16.1-relabel",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[4]",
+      "expect": { "id": "fig-ch16-4" },
+      "set": {
+        "id": "fig-16.1",
+        "caption": "Figure 16.1: Defining the differential cross section [Eq. (16.1)].",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "C4 ref 16.1：圖塊已存在(body[4]，src 真檔)且 caption「Defining the differential cross section」正是正文『Fig. 16.1 ... define the differential cross section (16.1)』所指。前任 agent 誤判 unnumbered_body_fig 排除→ref 失覆蓋。情境(A)：圖在、id 非語意，改 id=fig-16.1 並解除排除即覆蓋。"
+    },
+    {
+      "id": "ballentine-fig-10.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[396]",
+      "position": "before",
+      "page": 310,
+      "clip": [0.335, 0.44, 0.695, 0.593],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.5",
+        "kind": "line",
+        "caption": "Figure 10.5: Interleaving of the approximate eigenvalues for trial functions consisting of a linear combination of N basis functions."
+      },
+      "reason": "C4 ref 10.5：MinerU 漏抓圖塊(parsed 10.4--1 與 10.6 間無 fig)。raw PDF 物理頁 310 確有此圖(Im0, CCITTFax line art，放置 bbox normalized≈[0.349,0.444,0.681,0.590])，位於段落『...N→∞ limits.』與 caption『Fig. 10.5 Interleaving...』之間。情境(B) pdf_crop_insert 重裁，插在 caption 段(body[396])前。"
+    }
+  ]
+}

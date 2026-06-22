@@ -1,0 +1,191 @@
+slug: ben_ari_concurrency
+title: Principles of Concurrent and Distributed Programming
+author: M. Ben-Ari
+edition: null
+subject: Concurrent Programming
+publisher: Prentice Hall International
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 187
+bibliography_start_page: 229
+index_start_page: 234
+
+chapters:
+  - num: 1
+    title: What is Concurrent Programming?
+    page_start: 14
+    page_end: 23
+    chapter_title_block_idx: 255
+    chapter_title_block_idx_secondary: 256
+    problems_block_idx: 356
+    next_chapter_block_idx: 361
+  - num: 2
+    title: The Concurrent Programming Abstraction
+    page_start: 24
+    page_end: 37
+    chapter_title_block_idx: 361
+    chapter_title_block_idx_secondary: 362
+    problems_block_idx: 517
+    next_chapter_block_idx: 533
+  - num: 3
+    title: The Mutual Exclusion Problem
+    page_start: 38
+    page_end: 57
+    chapter_title_block_idx: 533
+    chapter_title_block_idx_secondary: 534
+    problems_block_idx: 724
+    next_chapter_block_idx: 733
+  - num: 4
+    title: Semaphores
+    page_start: 58
+    page_end: 71
+    chapter_title_block_idx: 733
+    chapter_title_block_idx_secondary: 734
+    problems_block_idx: 874
+    next_chapter_block_idx: 881
+  - num: 5
+    title: Monitors
+    page_start: 72
+    page_end: 84
+    chapter_title_block_idx: 881
+    chapter_title_block_idx_secondary: 882
+    problems_block_idx: 1022
+    next_chapter_block_idx: 1033
+  - num: 6
+    title: The Problem of the Dining Philosophers
+    page_start: 85
+    page_end: 93
+    chapter_title_block_idx: 1033
+    chapter_title_block_idx_secondary: 1034
+    problems_block_idx: 1093
+    next_chapter_block_idx: 1100
+  - num: 7
+    title: Distributed Programming Models
+    page_start: 94
+    page_end: 98
+    chapter_title_block_idx: 1100
+    chapter_title_block_idx_secondary: 1101
+    problems_block_idx: null
+    next_chapter_block_idx: 1149
+  - num: 8
+    title: Ada
+    page_start: 99
+    page_end: 113
+    chapter_title_block_idx: 1149
+    chapter_title_block_idx_secondary: 1150
+    problems_block_idx: null
+    next_chapter_block_idx: 1283
+  - num: 9
+    title: occam
+    page_start: 114
+    page_end: 120
+    chapter_title_block_idx: 1283
+    chapter_title_block_idx_secondary: 1284
+    problems_block_idx: null
+    next_chapter_block_idx: 1332
+  - num: 10
+    title: Linda
+    page_start: 121
+    page_end: 126
+    chapter_title_block_idx: 1332
+    chapter_title_block_idx_secondary: 1333
+    problems_block_idx: null
+    next_chapter_block_idx: 1390
+  - num: 11
+    title: Distributed Mutual Exclusion
+    page_start: 127
+    page_end: 135
+    chapter_title_block_idx: 1390
+    chapter_title_block_idx_secondary: 1391
+    problems_block_idx: 1467
+    next_chapter_block_idx: 1477
+  - num: 12
+    title: Distributed Termination
+    page_start: 136
+    page_end: 149
+    chapter_title_block_idx: 1477
+    chapter_title_block_idx_secondary: 1478
+    problems_block_idx: 1578
+    next_chapter_block_idx: 1590
+  - num: 13
+    title: The Byzantine Generals Problem
+    page_start: 150
+    page_end: 157
+    chapter_title_block_idx: 1590
+    chapter_title_block_idx_secondary: 1591
+    problems_block_idx: 1637
+    next_chapter_block_idx: 1657
+  - num: 14
+    title: Single Processor Implementation
+    page_start: 158
+    page_end: 166
+    chapter_title_block_idx: 1657
+    chapter_title_block_idx_secondary: 1658
+    problems_block_idx: null
+    next_chapter_block_idx: 1741
+  - num: 15
+    title: Multi-processor Implementation
+    page_start: 167
+    page_end: 174
+    chapter_title_block_idx: 1741
+    chapter_title_block_idx_secondary: 1742
+    problems_block_idx: null
+    next_chapter_block_idx: 1810
+  - num: 16
+    title: Real-Time Programming
+    page_start: 175
+    page_end: 186
+    chapter_title_block_idx: 1810
+    chapter_title_block_idx_secondary: 1811
+    problems_block_idx: null
+    next_chapter_block_idx: 1919
+
+appendices:
+  - id: A
+    title: Ada Overview
+    page_start: 187
+    chapter_title_block_idx: 1919
+  - id: B
+    title: Concurrent Programs in Ada
+    page_start: 193
+    chapter_title_block_idx: 1985
+  - id: C
+    title: Implementation of the Ada Emulations
+    page_start: 202
+    chapter_title_block_idx: 2046
+  - id: D
+    title: Distributed Algorithms in Ada
+    page_start: 219
+    chapter_title_block_idx: 2131
+
+section_re: '^((?:\d+|[A-D])\.\d+)\s+(.+)$'
+subsection_re: '^()(__SUBSECTION_NEVER_MATCH__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?!(?:The calling task passes|The accepting task executes|The out parameters are passed back|The rendezvous is now complete|The guards are evaluated|If there are calling tasks waiting on entry queues for open alternatives|If all queues for open alternatives are empty|The in parameters are passed from the calling task|The calling task is suspended|The accepting task executes the statements in the accept body|The out parameters are passed from the accepting task|The calling task is released from suspension|Upon completion of the rendezvous|select with else alternative|select with delay alternative|select with terminate alternative|Get a vector element from North|Pass it to South|Get a partial sum from East|Perform the multiplication and update the partial sum|Transfer the new result to West|A string identifying this tuple as a job request|An integer identifying the job to be done|A name identifying the process ID|A string containing the name of the remote procedure|The name of the calling process|Two input parameters|Transfer all critical sections from the software processes|Use non-blocking producer-consumer schemes)).+'
+problem_chapter_must_match: false
+problems_end_re: '^(PART\s+[IVX]+|Distributed Programming|Implementation Principles)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

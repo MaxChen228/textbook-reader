@@ -1,0 +1,136 @@
+slug: boyce_diprima_differential_equations
+title: Elementary Differential Equations and Boundary Value Problems
+author: William E. Boyce; Richard C. DiPrima; Douglas B. Meade
+edition: 11th
+subject: Differential Equations
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 533
+bibliography_start_page: 540
+index_start_page: 618
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 12
+    page_end: 34
+    chapter_title_block_idx: 184
+    problems_block_idx: null
+    next_chapter_block_idx: 585
+  - num: 2
+    title: First-Order Differential Equations
+    page_start: 35
+    page_end: 113
+    chapter_title_block_idx: 585
+    problems_block_idx: null
+    next_chapter_block_idx: 2325
+  - num: 3
+    title: Second-Order Linear Differential Equations
+    page_start: 114
+    page_end: 179
+    chapter_title_block_idx: 2325
+    problems_block_idx: null
+    next_chapter_block_idx: 3922
+  - num: 4
+    title: Higher-Order Linear Differential Equations
+    page_start: 180
+    page_end: 199
+    chapter_title_block_idx: 3922
+    problems_block_idx: null
+    next_chapter_block_idx: 4434
+  - num: 5
+    title: Series Solutions of Second-Order Linear Equations
+    page_start: 200
+    page_end: 251
+    chapter_title_block_idx: 4434
+    problems_block_idx: null
+    next_chapter_block_idx: 5623
+  - num: 6
+    title: The Laplace Transform
+    page_start: 252
+    page_end: 291
+    chapter_title_block_idx: 5623
+    problems_block_idx: null
+    next_chapter_block_idx: 6596
+  - num: 7
+    title: Systems of First-Order Linear Equations
+    page_start: 292
+    page_end: 364
+    chapter_title_block_idx: 6596
+    problems_block_idx: null
+    next_chapter_block_idx: 8205
+  - num: 8
+    title: Numerical Methods
+    page_start: 365
+    page_end: 398
+    chapter_title_block_idx: 8205
+    problems_block_idx: null
+    next_chapter_block_idx: 8945
+  - num: 9
+    title: Nonlinear Differential Equations and Stability
+    page_start: 399
+    page_end: 473
+    chapter_title_block_idx: 8945
+    problems_block_idx: null
+    next_chapter_block_idx: 10414
+  - num: 10
+    title: Partial Differential Equations and Fourier Series
+    page_start: 474
+    page_end: 532
+    chapter_title_block_idx: 10414
+    problems_block_idx: null
+    next_chapter_block_idx: 11790
+  - num: 11
+    title: Boundary Value Problems and Sturm-Liouville Theory
+    page_start: 540
+    page_end: 583
+    chapter_title_block_idx: 11911
+    problems_block_idx: null
+    next_chapter_block_idx: 13080
+
+appendices:
+  - id: A
+    title: Derivation of the Heat Conduction Equation
+    page_start: 533
+    chapter_title_block_idx: 11790
+  - id: B
+    title: Derivation of the Wave Equation
+    page_start: 537
+    chapter_title_block_idx: 11866
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^References$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '(?i)^e\s*x\s*a\s*m\s*p\s*l\s*e\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -103,6 +103,17 @@
       "selector": "body[30]",
       "expect": "\\mathbf {r} = \\begin{array}{c} \\left[ \\begin{array}{c} r _ {1} \\\\ r _ {2} \\end{array} \\right] \\\\ \\vdots \\\\ \\left[ \\begin{array}{c} r _ {N} \\end{array} \\right] \\end{array} = \\begin{array}{c c c c c c c c} \\left[ \\begin{array}{c} h _ {1 1} \\\\ h _ {2 1} \\end{array} \\right. & h _ {1 2} & \\dots & h _ {1 M} \\\\ \\vdots & h _ {2 2} & \\dots & h _ {2 M} \\end{array} & \\left[ \\begin{array}{c} s _ {1} \\\\ s _ {2} \\end{array} \\right] & \\left[ \\begin{array}{c} n _ {1} \\\\ n _ {2} \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} h _ {N 1} \\\\ h _ {N 2} \\end{array} \\right. & \\dots & h _ {N M} \\end{array} + \\begin{array}{c} \\vdots \\\\ \\vdots \\\\ \\left[ \\begin{array}{c} s _ {M} \\end{array} \\right] \\end{array} + \\begin{array}{c} \\vdots \\\\ \\left[ \\begin{array}{c} n _ {M} \\end{array} \\right] \\end{array} \\tag {16.6}",
       "new": "\\mathbf{r}=\\begin{array}{c}\\left[\\begin{array}{c}r_{1}\\\\ r_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}r_{N}\\end{array}\\right]\\end{array}=\\begin{array}{ccc}\\begin{array}{cccc}\\left[\\begin{array}{c}h_{11}\\\\ h_{21}\\end{array}\\right.& h_{12}& \\dots& h_{1M}\\\\ \\vdots& h_{22}& \\dots& h_{2M}\\\\ \\left[\\begin{array}{c}h_{N1}\\\\ h_{N2}\\end{array}\\right.& \\dots& h_{NM}\\end{array}& \\begin{array}{c}\\left[\\begin{array}{c}s_{1}\\\\ s_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}s_{M}\\end{array}\\right]\\end{array}& \\begin{array}{c}\\left[\\begin{array}{c}n_{1}\\\\ n_{2}\\end{array}\\right]\\\\ \\vdots\\\\ \\left[\\begin{array}{c}n_{M}\\end{array}\\right]\\end{array}\\end{array}\\tag{16.6}"
+    },
+    {
+      "id": "sklar_digital_communications-appE-body-63-8b3a9e",
+      "action": "fix_inline_math",
+      "chunk": "appE",
+      "selector": "body[63]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\sigma } = { \\rho } + { \\bar { \\up/ \\zeta } }$",
+      "new": "${\\sigma}={\\rho}+{\\bar{/\\zeta}}$",
+      "anchor": "75aa8783"
     }
   ]
 }
