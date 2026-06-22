@@ -1,0 +1,44 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "2.5",
+      "classification": "external",
+      "reason": "正文明寫 '(for a visualization see von Stengel, 2002, Fig. 2.5)' — 引用 von Stengel 2002 那篇外部論文/survey 的圖，非本書 figure；ch03 本身只有 fig-3.1/3.2/3.3，ch02 只到 fig-2.4，本書無 fig-2.5。",
+      "where": "ch03.json body[55]",
+      "evidence": "raw 原文：These bijections are not linear, but are known as “projective transformations” (for a visualization see von Stengel, 2002, Fig. 2.5)."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "nisan-ch11-fig-ref-typo-11.5.2-to-11.2",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "body[176]",
+      "field": "md",
+      "old": "Figure 11.5.2 lists state-of-the-art results",
+      "new": "Figure 11.2 lists state-of-the-art results",
+      "reason": "書本身編號筆誤（raw PDF p306 印 'Figure 11.5.2'），但其指向的『lists state-of-the-art results』之表在 p307 真實 caption 為 'Figure 11.2. It describes the best algorithmic results... for different classes of combinatorial auction valuations'，描述吻合且 fig-11.2 已存在於 catalog；本章僅 fig-11.1~11.4、無 11.5.x 編號。校正正文 ref → 指向真圖 fig-11.2。"
+    },
+    {
+      "id": "nisan-ch11-fig-ref-typo-11.5.2-to-11.2-b202-see",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "body[202]",
+      "field": "md",
+      "old": "approximation (see Figure 11.5.2)",
+      "new": "approximation (see Figure 11.2)",
+      "reason": "同筆誤第二處（raw PDF p310）：'(see Figure 11.5.2)' 指同一張結果/下界表，實為 Figure 11.2。校正為真圖 fig-11.2。"
+    },
+    {
+      "id": "nisan-ch11-fig-ref-typo-11.5.2-to-11.2-b202-described",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "body[202]",
+      "field": "md",
+      "old": "lower bounds described in Figure 11.5.2 are",
+      "new": "lower bounds described in Figure 11.2 are",
+      "reason": "同筆誤第三處（raw PDF p310，body[202] 內第二個 Figure 11.5.2）：'most of the lower bounds described in Figure 11.5.2' 仍指同一張表 Figure 11.2。replace_text 只改首現故獨立一筆，old 取足夠長以唯一定位此處。body[85] 的 'Section 11.5.2' 是合法的節參照、非 figure，不動。"
+    }
+  ]
+}
