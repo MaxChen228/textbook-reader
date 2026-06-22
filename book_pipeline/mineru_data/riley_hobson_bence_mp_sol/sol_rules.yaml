@@ -11,7 +11,10 @@
 # Current sol_extract accepts chapter anchors only from text_level==1 text, so
 # this book needs harness support for level-2 chapter anchors or chapter
 # derivation from problem numbers before a safe merge is possible.
-_pending: true
 chapter_re: '^(\d+)\.\d+\s+Hints and answers$'
 problem_re: '^(\d+\.\d+)\b'
 multi_per_block: false
+# ── 2026-06-22 章錨層級可配（chapter_level，commit 50fdc37）解鎖 ──────────────
+# 原 _pending 因「sol_extract 章錨硬綁 text_level==1」而設，該 harness gap 已關閉。
+# 複驗：dry-run 配對 49% (405/817)；語義抽樣 僅收錄奇數題解答，語義對齊（power series/pendulum）。
+# → 移除 _pending，放行 daemon merge（proposal 已 superseded）。

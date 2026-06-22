@@ -8,4 +8,7 @@
 chapter_re: '^Chapter\s+(\d+)\s*$'
 problem_re: '^Exercise\s+(\d+\.\d+)'
 multi_per_block: false
-_pending: true
+# ── 2026-06-22 章錨層級可配（chapter_level，commit 50fdc37）解鎖 ──────────────
+# 原 _pending 因「sol_extract 章錨硬綁 text_level==1」而設，該 harness gap 已關閉。
+# 複驗：dry-run 配對 99% (282/283)；語義抽樣 逐題復述題幹+Solution，完美對齊。
+# → 移除 _pending，放行 daemon merge（proposal 已 superseded）。

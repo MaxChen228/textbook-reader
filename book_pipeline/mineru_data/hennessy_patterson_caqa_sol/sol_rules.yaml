@@ -21,4 +21,7 @@
 chapter_re: '^Chapter\s+(\d+)\s+Solutions$'
 problem_re: '^(\d+\.\d+[a-z]?)\b'
 multi_per_block: false
-_pending: true
+# ── 2026-06-22 章錨層級可配（chapter_level，commit 50fdc37）解鎖 ──────────────
+# 原 _pending 因「sol_extract 章錨硬綁 text_level==1」而設，該 harness gap 已關閉。
+# 複驗：dry-run 配對 78% (109/139)；語義抽樣 yield/PTX/WSC-TCO 對齊；殘缺為未解題。
+# → 移除 _pending，放行 daemon merge（proposal 已 superseded）。
