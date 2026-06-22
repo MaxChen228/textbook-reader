@@ -1,23 +1,37 @@
 {
  "version": {
-  "label": "6th ed",
+  "label": "6th",
   "year": 2013,
   "publisher": "Pearson",
-  "matches_pref": true
+  "matches_pref": true,
+  "isbn": "9780132916523"
  },
  "sol_alignment": null,
  "confidence": "high",
  "evidence": [
-  "z-lib: Tanenbaum+Austin 6th ed 2013 Pearson, 801pp, exact title+author match; latest edition, top interest score"
+  "z-lib: Tanenbaum+Austin 6th ed 2013 Pearson, 801pp, exact title+author match; latest edition, top interest score",
+  "z-lib 2291679 與 web 一致：Tanenbaum/Austin Structured Computer Organization 6th 2013 Pearson, 801pp；計算機組織標準教科書"
  ],
  "sources": [
   {
    "note": "zlib:2291679/a9c9aa"
+  },
+  {
+   "note": "zlib_detail:2291679/a9c9aa"
+  },
+  {
+   "note": "web:editions"
   }
  ],
  "by": "restock",
- "checked_at": "2026-06-22T01:01:24+00:00",
+ "checked_at": "2026-06-22T01:23:27+00:00",
  "identity": null,
- "classification": null,
- "qualification": null
+ "classification": {
+  "field_id": "cs",
+  "subject": "計算機組織"
+ },
+ "qualification": {
+  "eligible": true,
+  "verified_at": "2026-06-22T01:23:27+00:00"
+ }
 }
