@@ -225,7 +225,7 @@ def test_ccnexus_base_env_and_host(monkeypatch):
 
 
 def _one(grp, monkeypatch):
-    return math_sweep._run_one_batch(grp, 0, model="m", base="b", auth="a", pool_name="short", rnd=0)
+    return math_sweep._run_one_batch(grp, 0, model="m", base="http://x", auth="a", pool_name="short", rnd=0)
 
 
 def test_run_one_batch_gates_and_retries(monkeypatch):
@@ -391,6 +391,87 @@ def test_run_one_batch_render_exception_retries(monkeypatch):
     monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": "x"}])
     res = _one(grp, monkeypatch)
     assert {x[0] for x in res["retry"]} == {"g0"} and not res["accepts"]
+
+
+# ── infra 失敗誠實浮現（假 fixpoint 根治）：_call_llm 拋錯 → cmd_batch ok:false ─────────
+class _FakeResp:
+    """假 SSE response：iter 出預設 bytes 行；支援 with 語法（mock urlopen 回傳）。"""
+    def __init__(self, lines): self._lines = lines
+    def __enter__(self): return self
+    def __exit__(self, *a): return False
+    def __iter__(self): return iter(self._lines)
+
+
+def _sse(content):
+    return ("data: " + _json.dumps({"choices": [{"delta": {"content": content}}]}) + "\n").encode()
+
+
+def test_call_llm_raises_on_empty_stream(monkeypatch):
+    # 池斷線：HTTP 200 但零 content delta（只 keepalive/usage 幀）→ 必須拋錯，不靜默回空字串
+    lines = [("data: " + _json.dumps({"choices": [{"delta": {}}]}) + "\n").encode(), b"data: [DONE]\n"]
+    monkeypatch.setattr(math_sweep.urllib.request, "urlopen", lambda req, timeout=0: _FakeResp(lines))
+    try:
+        math_sweep._call_llm([{"i": 0, "err": "e", "tex": "x"}], model="m", base="http://x", auth="a")
+        assert False, "空串流必須拋錯（否則被誤判成 missing → 假 fixpoint）"
+    except RuntimeError as e:
+        assert "空 LLM 回應" in str(e)
+
+
+def test_call_llm_raises_on_error_frame(monkeypatch):
+    # SSE 內嵌 error 幀（tokenization failed）→ 立即拋，帶 message（最具診斷力）
+    lines = [("data: " + _json.dumps({"error": {"message": "tokenization failed"}}) + "\n").encode()]
+    monkeypatch.setattr(math_sweep.urllib.request, "urlopen", lambda req, timeout=0: _FakeResp(lines))
+    try:
+        math_sweep._call_llm([{"i": 0, "err": "e", "tex": "x"}], model="m", base="http://x", auth="a")
+        assert False, "error 幀必須拋錯"
+    except RuntimeError as e:
+        assert "tokenization failed" in str(e)
+
+
+def test_call_llm_passes_on_real_content(monkeypatch):
+    # 有真 content → 正常回拼接全文（不誤殺合法回應）
+    lines = [_sse('{"i":0,'), _sse('"tex":"a"}'), b"data: [DONE]\n"]
+    monkeypatch.setattr(math_sweep.urllib.request, "urlopen", lambda req, timeout=0: _FakeResp(lines))
+    assert math_sweep._call_llm([{"i": 0}], model="m", base="http://x", auth="a") == '{"i":0,"tex":"a"}'
+
+
+def test_cmd_batch_infra_failure_marks_not_ok(monkeypatch):
+    # 整輪 infra 全失敗（_call_llm 拋）→ 零 accept/unrec + infra 批 → ok:false（do_math_sweep 不 latch）
+    todo = [("bookA", _finding_t("A")), ("bookB", _finding_t("B"))]
+    monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter(todo))
+    monkeypatch.setattr(math_sweep, "node_available", lambda: True)
+    monkeypatch.setattr(math_sweep, "_ccnexus_base", lambda: "http://x")
+    monkeypatch.setattr(math_sweep, "_ccnexus_auth", lambda: "auth")
+    def boom(*a, **k):
+        raise RuntimeError("空 LLM 回應（疑似 ccnexus 池斷線/infra）：無 error body")
+    monkeypatch.setattr(math_sweep, "_call_llm", boom)
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = math_sweep.cmd_batch(_batch_ns())
+    out = _json.loads(buf.getvalue())
+    assert out["ok"] is False and out["accepted"] == 0 and "error" in out  # 不偽裝成「掃完沒東西修」
+
+
+def test_cmd_batch_partial_accept_stays_ok(monkeypatch):
+    # 有真 accepts（縱使另有 missing/retry）→ ok:true（infra-only 判定只在「零 verdict」才觸發）
+    todo = [("bookA", _finding_t("A"))]
+    monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter(todo))
+    monkeypatch.setattr(math_sweep, "node_available", lambda: True)
+    monkeypatch.setattr(math_sweep, "_ccnexus_base", lambda: "http://x")
+    monkeypatch.setattr(math_sweep, "_ccnexus_auth", lambda: "auth")
+    monkeypatch.setattr(math_sweep, "_call_llm", lambda payload, **k: '{"i":0,"tex":"NEW"}')
+    monkeypatch.setattr(math_sweep, "run_render", lambda items: {it["i"]: {"ok": True} for it in items})
+    monkeypatch.setattr(math_sweep, "finding_to_overrides", lambda s, f, n: [{"id": s}])
+    monkeypatch.setattr(math_sweep, "merge_overrides", lambda s, ovs: {"added": len(ovs), "replaced": 0})
+    monkeypatch.setattr(math_sweep, "apply_overrides", lambda s: {})
+    monkeypatch.setattr(math_sweep, "validate_book",
+                        lambda s: {"status": "pass", "findings": [], "stats": {"bad_unique": 0}})
+    monkeypatch.setattr(math_sweep, "write_report", lambda s, r: None)
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = math_sweep.cmd_batch(_batch_ns())
+    out = _json.loads(buf.getvalue())
+    assert rc == 0 and out["ok"] is True and out["accepted"] == 1 and "error" not in out
 
 
 # ── minimal pytest-less runner（對齊 book_pipeline 其他 test 的 __main__ 慣例）──
