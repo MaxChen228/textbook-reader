@@ -312,6 +312,24 @@ def test_walk_inline_suppress_running_header():
     assert [p['num'] for p in problems_off] == ['5.1', '5.2', '6.3'], \
         f'C：預設不抑制應重現撞號（6.3），實得 {[p["num"] for p in problems_off]}'
 
+    # D：判別性（block-1 修補）——真 §6 緊接其首題（題號=1、非溢出）→ 不抑制、正常推進 namespace。
+    #    『>1 才抑制』排除「section 後緊接首題」的合法書（Strang per-section 風格），不誤殺真章節成 H2。
+    blocks_first = [
+        {'type': 'text', 'text': '§5. Weak Topologies', 'text_level': 1},
+        {'type': 'text', 'text': '1. First problem of section 5'},
+        {'type': 'text', 'text': '§6. Genuine Next Section', 'text_level': 1},
+        {'type': 'text', 'text': '1. First problem of section 6'},
+    ]
+    _b, problems_first = parser.walk_inline_chapter(
+        blocks_first, rules={}, ch_num=5, label_re=LABEL_RE,
+        problem_start_re=problem_start_re, section_re=section_re,
+        subsection_re=subsection_re, example_re=None,
+        problem_chapter_must_match=False, namespace_by_section=True,
+        suppress_running_header=True,
+    )
+    assert [p['num'] for p in problems_first] == ['5.1', '6.1'], \
+        f'D：真 section 緊接首題(=1)不應被抑制（否則反製造 H2），實得 {[p["num"] for p in problems_first]}'
+
 
 def test_walk_inline_nonheading_exercises_marker():
     """[lock·wrong-output] 無 id 的獨立 Exercises 標記開問題區、保留 section namespace。
@@ -343,7 +361,7 @@ def test_walk_inline_nonheading_exercises_marker():
         {'type': 'text', 'text': '1. First real exercise of section 1.1'},
         {'type': 'text', 'text': '2. Second real exercise of section 1.1'},
     ]
-    _b, problems = parser.walk_inline_chapter(
+    body, problems = parser.walk_inline_chapter(
         blocks, rules={}, ch_num=5, label_re=LABEL_RE,
         problem_start_re=problem_start_re, section_re=section_re,
         subsection_re=subsection_re, example_re=None,
@@ -357,6 +375,10 @@ def test_walk_inline_nonheading_exercises_marker():
     bodies = ' '.join(blk.get('md', '') for p in problems for blk in p['body'])
     assert 'numbered definition' not in bodies, \
         f'C：gate 前正文散文不應進任何題 body，實得 {bodies!r}'
+    # D：marker block 鍵名鎖——用 'title'（非 'text'）。下游 bake_json/corpus 一律讀 'title'，
+    #    'text' 鍵會讓 'Exercises' 標籤靜默丟成空標題 subsection（dead key）。
+    markers = [blk for blk in body if blk.get('t') == 'subsection' and blk.get('title') == 'Exercises']
+    assert markers, f"D：Exercises marker 須以 'title' 鍵存進 body（非 'text'），實得 body={body!r}"
 
 
 def test_last_chapter_backmatter_cap():

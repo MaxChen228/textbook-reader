@@ -548,6 +548,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     ignore_image_content = rules.get('ignore_image_content', False)
     ignore_chart_content = rules.get('ignore_chart_content', False)
     heading_level = rules.get('heading_text_level', 1)
+    heading_levels = (heading_level if isinstance(heading_level, (list, tuple, set, frozenset))
+                      else (heading_level,))  # marker 分支 level 比對（與 detect_heading 同義，支援 list）
 
     body: list[dict] = []
     problems: list[dict] = []
@@ -563,16 +565,24 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
 
     exp = expand_list_blocks(blocks)
 
-    def _peek_problem_start(j: int) -> bool:
-        """running-header 簽名：j 之後第一個有內容 text/list block 是否為 problem 起點。
-        真 section heading 後接 prose/subsection；頁頂跑馬燈假標題後緊接前節溢出習題。"""
+    def _peek_carried_problem(j: int) -> int | None:
+        """running-header 簽名：j 之後第一個有內容 text/list block 若為 problem 起點，回其題號首段 int；
+        否則 None。判別關鍵——真 section heading 後接 prose（→None）或其首題編號為 1（section 起始題、
+        非溢出）；頁頂跑馬燈假標題後緊接前節【跨頁溢出題】（題號首段 >1、續前節序列）。回傳題號供呼叫端
+        以『>1=溢出』判別，避免把『section 後緊接首題(=1)』的合法書（Strang per-section 風格）誤殺成跑馬燈。"""
         for k in range(j + 1, len(exp)):
             nb = exp[k]
             if nb.get('type') in ('text', 'list'):
                 nt = (nb.get('text') or '').strip()
                 if nt:
-                    return bool(problem_start_re.match(nt))
-        return False
+                    m = problem_start_re.match(nt)
+                    if not m:
+                        return None
+                    try:
+                        return int(re.sub(r'\s+', '', m.group(1)).split('.')[0])
+                    except ValueError:
+                        return None
+        return None
 
     for i, b in enumerate(exp):
         t = b.get('type')
@@ -598,11 +608,14 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
         if t == 'text':
             h = detect_heading(text, lvl, section_re, subsection_re, example_re, heading_level)
             if h:
-                # running-header 抑制（opt-in）：section/subsection heading 緊接題號塊 → 視為頁頂跑馬燈
-                # 假標題（MinerU 把跨頁 carried-over 習題前的頁眉 §N+1 誤標 lvl2）。不關題、不推進
-                # current_section_id、不切區，整塊略過，使前節溢出習題續掛正確 namespace（conway/neukirch）。
+                # running-header 抑制（opt-in）：section/subsection heading 後緊接【跨頁溢出題】（題號首段
+                # >1、續前節序列）→ 視為頁頂跑馬燈假標題（MinerU 把 carried-over 習題前的頁眉 §N+1 誤標
+                # lvl2）。不關題、不推進 current_section_id、不切區，整塊略過，使溢出習題續掛正確 namespace
+                # （conway/neukirch）。『>1』排除「section 後緊接首題(=1)」的合法章節結構，不誤殺真 section。
+                _carried = _peek_carried_problem(i) if suppress_running_header else None
                 if (suppress_running_header and h['t'] in ('section', 'subsection')
-                        and in_problems_region and current is not None and _peek_problem_start(i)):
+                        and in_problems_region and current is not None
+                        and _carried is not None and _carried > 1):
                     continue
                 if current:
                     problems.append(current)
@@ -620,14 +633,14 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
             # 開問題區、**保留 current_section_id**（救把 SECTION id 與 Exercises 標記拆成兩塊的書 Enderton）。
             # 加性：僅 problems_start_re 在 heading-lvl 命中時觸發；既有書（problems_start_re 命中的是
             # id-bearing section heading，走上方 h 分支）零影響。
-            if (problems_start_re is not None and lvl == heading_level
+            if (problems_start_re is not None and lvl in heading_levels
                     and problems_start_re.search(text)):
                 if current:
                     problems.append(current)
                     current = None
                     in_solution = False
                 in_problems_region = True
-                body.append({'t': 'subsection', 'id': '', 'text': text})
+                body.append({'t': 'subsection', 'id': '', 'title': text})
                 continue
 
         # 偵測新題起點（problems_end 後不再開新題；exercises-gate 限定問題區內）

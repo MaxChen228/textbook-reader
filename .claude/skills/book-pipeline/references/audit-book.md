@@ -130,6 +130,20 @@ problems_start_re: <regex str | null>   # optional, default null（僅 inline + 
                                         # 區終點＝下一個 section/subsection heading。**heading 大小寫不一**
                                         # （'3.4 EXERCISES' vs '3.7 Exercises'）務必用 '(?i)'。
                                         # e.g. '(?i)^\d+\.\d+\s+EXERCISES\s*$'
+                                        # **變體：SECTION id 與 Exercises 標記被 OCR 拆成兩塊**（Enderton：
+                                        # 'SECTION 1.1 …'帶 id 供 namespace、'Exercises'另成無 id 塊）→ 此 re
+                                        # 命中「heading-lvl 但非 detected section」的純標記時，引擎照樣開區
+                                        # 且**保留** current_section_id（題續掛 §1.1.N）。故設 '^Exercises$'
+                                        # 即可，不必硬把 Exercises 塞進 section_re。
+suppress_running_header_sections: <bool> # optional, default false（僅 inline + namespace 模式有意義）
+                                        # **已設 namespace 仍殘 H2、且撞號來自「跨頁溢出題」而非正文散文**時用。
+                                        # 病灶：MinerU 把跨頁 carried-over 習題前的頁頂跑馬燈 §N+1 標題誤標成
+                                        # heading-lvl → walker 提早推進 current_section_id，後續溢出題改掛錯
+                                        # namespace 與真 §N+1 題撞號（conway/neukirch）。設 true → section/
+                                        # subsection heading 後若【緊接題號首段 >1 的溢出題】則視為跑馬燈、整塊
+                                        # 略過不推進 namespace（首題=1 的真 section 不受影響、不誤殺）。
+                                        # **與 problems_start_re 二選一辨症**：撞號是「正文散文」→ problems_start_re；
+                                        # 是「跨頁溢出真題」→ suppress_running_header_sections。先讀撞號 body 辨明。
 
 # ── equation ──
 equation_strip_dollar: <bool>           # required, 99% 為 true
@@ -353,7 +367,7 @@ uv run python -m book_pipeline.smoke $SLUG   # 啟發式 anomaly 檢測
 | 啟發式 | 含意 | 修 yaml |
 |---|---|---|
 | **H1** ch body < 20 + problems > 30 | inline 模式漏設 | 該章 `problems_block_idx: null`、top-level `inline_problems: true` |
-| **H2** ch 內 problem.num 重複 | 每節題號 reset | top-level `problem_num_namespace_by_section: true`（僅 inline + 純流水）。**已設 namespace 仍殘 H2** 且殘留＝EXERCISES 之前的正文編號散文（定律/程序/分類清單）撞真題 → 設 `problems_start_re`（見 §2，gate 題目只在 EXERCISES heading 後收）；**先查真相層**（讀撞號兩份 problem body 辨散文 vs 真題），別當「固有極限」accept |
+| **H2** ch 內 problem.num 重複 | 每節題號 reset | top-level `problem_num_namespace_by_section: true`（僅 inline + 純流水）。**已設 namespace 仍殘 H2** → **先讀撞號兩份 problem body 辨症**，三條分支別當「固有極限」accept：① 撞號＝EXERCISES 之前的正文編號散文（定律/程序/分類清單）→ `problems_start_re`（gate 題目只在 EXERCISES heading 後收；含 SECTION-id 與 Exercises 標記被拆兩塊的無 id marker 變體，見 §2）；② 撞號＝跨頁溢出真題（頁頂跑馬燈 §N+1 假 heading 提早切 section）→ `suppress_running_header_sections: true`（見 §2，conway/neukirch）；③ 真結構性殘留（如單章兩組 EXERCISES）→ 開 engine proposal |
 | **H3** ch 全部 problem body=[] | OCR 大量漏 / parser 沒讀 list_items | 通常非 audit 可修；列進 `_audit.md` |
 | **H4** appendix body > 1500 | 吞 Index/Bib | 補 `index_start_page` 或 `bibliography_start_page` |
 | **H5** 鄰章 body 比 > 5x | anchor 飄移可疑 | 檢查可疑章的 `chapter_title_block_idx` |
