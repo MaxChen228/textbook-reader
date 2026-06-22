@@ -1,26 +1,11 @@
-# ⚠ PENDING — 不要 merge。確認屬 `sol_extract` ENGINE-GAP（非 source/edition mismatch）。
-# 提案 P-2026-06-19-strauss-pde-sol（domain=sol, type=harness-gap, proposed）。
+# Strauss PDE solutions manual。主書 num 為三層 N.M.K，problem_re group(1) 逐字對齊。
 #
-# === 2026-06-22 重驗（chapter_level:null commit 50fdc37 之後）===
-# chapter_re/problem_re 本身已正確（主書 num 為三層 N.M.K，本 problem_re group(1) 逐字對齊）。
-#
-# 1.（已失效的舊紅鯡）章 anchor 落 text_level=2/header——chapter_level:null 後引擎已認任意層級，
-#    此點不再是阻塞。
-#
-# 2.（唯一現存阻塞）`Chapter N` 被當 running header 重複灌入：同章 anchor 重複多次
-#    （實測 ch3×15 / ch5×16 / ch9×21 …，14 章共 133 個 anchor）。引擎 `out[ch_num]=problems`
-#    對同章後段「覆蓋」前段（非累積），每章只保留「最後一個 running-header 視窗」那一小段，
-#    故全引擎流程 dry-run 僅 24/651（3.7%，集中在末章 ch14 因末視窗較長）。
-#
-# 3. source 其實是好的：若改由題號 key `N.M.K` 前綴導出 chapter（繞過 anchor 切段），
-#    可得 280 distinct key、279/651（42.9%）逐字對上主書 num（僅 1 個 5.4.1 例外），
-#    分布 14 章均勻。語義抽樣 1.1.2 / 1.2.1 / 5.1.2 / 5.2.1 / 10.1.2 題幹與解答完全同題
-#    （10.2.1 source 無解＝solutions manual 部分覆蓋，正常）。卡點純在 harness，非 source。
-#
-# 升級引擎二擇一即解（以本配置為起點）：
-# - 同章多 anchor 視窗「累積不覆蓋」（`out.setdefault(ch).update(...)`）；或
-# - 直接由題號 key `N.M.K` 導出 chapter，無須依賴 running-header anchor 切段（推薦，更穩）。
+# === 2026-06-23 解鎖（accumulate 重複章錨，commit c1368d8）===
+# 原阻塞：`Chapter N` 被當 running header 重複灌入（ch3×15 / ch5×16 / ch9×21…，14 章 133 anchor），
+# 舊引擎 `out[ch_num]=problems` 覆蓋非累積，每章只留最後一個 running-header 視窗 → dry-run 僅 24/651。
+# 修法：extract_sol_chapters 改 `out.setdefault(ch).update()` 累積同章多區間 → dry-run 279/651（42.9%）。
+# 殘缺 = solutions manual 部分覆蓋（source 真實上限，非錯位）。語義抽樣 1.1.2/1.2.1/5.1.2/5.2.1/10.1.2
+# 題幹與解答逐字同題。提案 P-2026-06-19-strauss-pde-sol → superseded。
 chapter_re: '^Chapter\s+(\d+)\s*$'
 problem_re: '^(\d+\.\d+\.\d+)\.'
 multi_per_block: false
-_pending: true

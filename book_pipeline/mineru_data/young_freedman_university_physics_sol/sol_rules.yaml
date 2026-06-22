@@ -1,17 +1,8 @@
-# ⚠ PENDING — 不要 merge。這份解答書的主要障礙是現行 sol_extract harness 不會切章，不是 regex 可校準完的問題：
-#
-# 1. unified/content_list.json 沒有任何 text_level==1 的正文章 anchor；extract_sol_chapters 只掃這種 block。
-#    官方 dry-run（chapter_re='^Chapter\s+(\d+)\s*$' / problem_re='^(\d+\.\d+)\.'）結果：抽出 0 章、0 題。
-#
-# 2. 正文在前言後直接從 `21.1.` 開始（idx 107）；跨章只出現在 header/page_number，而非引擎可用章標。
-#    例：idx 479 header='Electric Charge and Electric Field' 後面直接是 `22.3.`；
-#        idx 4759 header='Nuclear Physics' 後面直接是 `44.3.`。
-#
-# 3. 語義抽樣顯示這不是版次錯書：主書與解答書的 21.1、22.3、44.3 主題一致。
-#    缺的是「由題號 N.M 自動推章」或「允許 header/page_number 作章 anchor」能力。
-#
-# 待 sol_extract 升級後可直接重跑 merge；在此之前保持 _pending，避免留下假成功的 0-match merge。
-chapter_re: '^Chapter\s+(\d+)\s*$'
+# young_freedman 解答書 = 電磁學~現代物理冊（涵蓋主書 ch21-44，24 章）。
+# 章標 'Chapter NN' 是 per-page running header（type=='header'），位置落在頁面內容「之後」
+# → 章錨法系統性偏移一章：每章前 ~1 頁題目漏進前一章 bucket、ch21 首頁題目無章可歸被丟。
+# 改用 derive_chapter_from_num：題號 N.M 的 N 即章號（_num_prefix_int），不需章錨、零偏移。
+# 主書 num 為 'N.M'（21.5→ch21）完全對齊。題號 N.M.，group(1) 抓 'N.M'。
+derive_chapter_from_num: true
 problem_re: '^(\d+\.\d+)\.'
 multi_per_block: false
-_pending: true

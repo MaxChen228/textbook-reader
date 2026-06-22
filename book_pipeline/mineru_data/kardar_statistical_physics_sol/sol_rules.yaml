@@ -1,22 +1,34 @@
-# ⚠ PENDING — 不要 merge。這本目前不是靠 sol_rules 可安全對齊，原因如下：
+# ⚠ PENDING — 不要 merge。源頭 OCR 缺第 VI 章 anchor，硬 merge 會把第 VI 章的解答錯寫進第 V 章。
 #
-# 1. 現行 sol_extract 只會把 `text_level==1` 的 text block 當 chapter anchor，且
-#    chapter_re 的 group(1) 會直接 `int(...)` 轉章號。
-#    但 kardar_statistical_physics_sol 的章標實際落在 `text_level=2`，格式為
-#    "Problems for Chapter I/II/III/..."（羅馬數字，非阿拉伯數字）。
-#    2026-06-19 實測 dry-run（預設規則）穩定抽出 0 章、0 題。
+# 進度（2026-06-23 重新體檢）：
+# 引擎升級 c1368d8（chapter_roman / chapter_in_header / num_template）已解掉「章標落 lvl2 +
+# 羅馬數字章號」這個 harness-gap——下方 regex 已可正確錨到 6 章（I/II/III/IV/V/VII）、
+# dry-run 表面 100%（79/79）。但這是假象，真正的阻塞在源頭 OCR：
 #
-# 2. 第 VI 章邊界在 unified source 內就已破損：
-#    `unified/full.md` 仍有 "Problems for Chapter VI - Quantum Statistical Mechanics"，
-#    但 `unified/content_list.json` 在 Chapter V 結尾後直接跳到
-#    "1. One dimensional chain..."，沒有對應的 chapter heading block。
-#    即使引擎支援 lvl=2 / 羅馬數字，也仍缺第 VI 章 anchor。
+# 第 VI 章 anchor 在 unified/content_list.json 內**完全不存在**：
+#   - full.md 其餘 6 章標都是 markdown H2 "## Problems for Chapter X …"（→ content_list text_level==2）。
+#   - 唯獨第 VI 章 full.md:6209 是裸行 "Problems for Chapter VI - Quantum Statistical Mechanics"
+#     （**沒有 `##`**），MinerU 沒認成 heading → content_list.json 內這段文字整個遺失，
+#     連 plain text block 都查不到（grep 'Chapter VI'/'Quantum Statistical' 在 content_list 0 命中）。
+#   - 故引擎只錨到 I/II/III/IV/V/VII；第 VI 章的題（content_list idx 2303–2652，題號 reset 成 1–9，
+#     主書 ch6=Quantum stat mech）落在 V anchor(1811) 與 VII anchor(2704) 之間，被歸進**第 V 章**。
 #
-# 3. 主書 `kardar_statistical_physics` 的 problem['num'] 是章內重置的純整數
-#    （ch1=1..12, ch2=1..12, ...）。沒有可靠章邊界時，同號題會跨章覆寫；
-#    放鬆 problem_re 只會把錯解寫進主書，不能為了配對率硬 merge。
+# 後果（語義抽樣坐實，2026-06-23）：第 V 章同題號被第 VI 章覆寫（last-writer-wins），
+#   ch5 p1 主書「Debye–Hückel」← 寫成 VI「One dimensional chain」
+#   ch5 p2 主書「Virial coefficients」← 寫成 VI「Black hole thermodynamics」
+#   ch5 p3 主書「Dieterici's equation」← 寫成 VI「Quantum harmonic oscillator」
+#   → 第 V 章 1–9 題解答全錯位，且第 VI 章自身 0 題（無 anchor 不成章）。
+#   dry-run 報 ch5 10/10、總 100% 純屬假象（題號 namespace 巧合）。
 #
-# 待以下任一條件成立後再重跑：
-# - sol_extract 支援自訂 chapter anchor 的 text_level，並能把羅馬數字章號映成 int；或
-# - 重新 ingest / 修 unified block segmentation，保留 Chapter VI heading block。
+# 這不是 regex 救得了的（content_list 根本沒第 VI 章 anchor 文字可錨），是 source-quality 缺陷，
+# 須架構師處理（已有 proposal P-2026-06-19-kardar-statistical-physics-sol 在案）：
+#   - 重 ingest / 修 unified segmentation 讓 "Problems for Chapter VI" 還原成 heading block；或
+#   - 手補一個 Chapter VI anchor block 到 content_list.json 第 V 章末（idx ~2302 後）後重跑。
+# 源頭補回 Ch VI anchor 後，移除本 _pending 即可直接 merge（下方 regex 已驗證可用）。
+#
+# ── 已驗證可用的 regex（待源頭修好 Ch VI anchor 後解封）──
+chapter_re: '^Problems for Chapter\s+([IVXLC]+)\b'   # group(1) 羅馬數字章號（I/II/III/IV/V/VI/VII）
+chapter_roman: true                                  # 羅馬→int（引擎 c1368d8 支援）
+problem_re: '^(\d+)\.\s'                              # group(1)=章內整數題序，對齊主書純整數 num
+multi_per_block: false
 _pending: true
