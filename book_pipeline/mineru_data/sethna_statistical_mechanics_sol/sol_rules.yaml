@@ -1,26 +1,10 @@
-# ⚠ PENDING — 不要 merge。這本解答書與主書語義一致，但目前不是單靠 sol_rules 可安全對齊，原因如下：
-#
-# 1. sol_extract 現行引擎強制先用「text_level==1 的章 anchor」切章；本書正文完全沒有這種 anchor。
-#    `unified/content_list.json` 的標題層級只有 level 2 / None：
-#      - TOC 與題目標頭都在 level 2
-#      - 正文題目如 "1.1 Quantum Dice."、"5.4 Black Hole Thermodynamics." 也是 level 2
-#      - `Chapter N` / `CHAPTER N` / 其他可供 chapter_re 命中的 level-1 text = 0
-#    因此預設 dry-run 直接抽出 0 章、0 題；不是 regex 沒校準，而是引擎缺少「無章 anchor、直接按題號切」能力。
-#
-# 2. 題號與語義抽樣都證明來源書是對的，不是版次錯配。
-#    ad-hoc 掃描 level-2 題目標頭可抽出 97 個唯一題號，全部都在主書 parsed/problems 內，沒有任何外來題號；
-#    抽樣如 1.1 / 5.4 / 10.1 的主書題幹與 sol body 主題一致（Quantum Dice / Black Hole Thermodynamics /
-#    Cosmic Microwave Background Radiation）。
-#
-# 3. 這本解答書本來就只覆蓋選題，不是全題解；缺題本身不是問題。
-#    真正阻塞點只有 chapterless solution-book 版型：現有 sol_extract 無法在沒有 level-1 章標的情況下，
-#    直接用完整 problem key（N.M）做全書配對 merge。
-#
-# dry-run（現行引擎）：
-#   - 預設規則：抽出 0 章、0 題；無法進入配對
-#
-# 待架構師補上 sol_extract 的 chapterless / non-lvl1 anchor 模式後，再用下列 problem_re 重跑評估。
-chapter_re: '^Chapter\s+(\d+)\s*$'
+# sethna_statistical_mechanics 解答書：無章標（chapterless）版型。
+# sol 正文完全沒有 'Chapter N' / 數字章 anchor（sol_scout 各 text_level 帶數字章號=0），
+# 但每題標頭是 'N.M Title …' 格式（如 '1.1 Quantum Dice'）。章資訊隱含在題號首段。
+# 引擎 c1368d8 起支援 derive_chapter_from_num：由每題 num 首段 split('.') 推章號 → 直接 bucket，
+# 不需章 anchor。problem_re group(1) 抓 'N.M' 對齊主書 parsed/chNN.json 的 problem['num']。
+# 本書只覆蓋選題（非全題解），配對率不滿不是版次錯配。
+chapter_re: '^Chapter\s+(\d+)'   # derive 模式下不用，僅為通過 schema 驗證（須合法 1-group regex）
 problem_re: '^(\d+\.\d+[a-z]?)\b'
+derive_chapter_from_num: true
 multi_per_block: false
-_pending: true
