@@ -4,13 +4,7 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （4 條；proposed=1）
-
-### P-2026-06-21-neamen-semiconductor-physics-dev — neamen_semiconductor_physics_devices 母書連 3rd 但 pref+sol 皆 4th
-- proposed | type=edition-mismatch | source=restock
-- 證據：母書 editions 現 version=3rd(2003) matches_pref=False；但 edition_pref=4th，且其解答本 neamen_semiconductor_physics_devices_sol 經多源查證為 4th(2012, z-lib id21449597/17194580)。母書 status=pending（缺 4th 連結），z-lib 確有 4th 母書與 4th 解答本。sol 已落 --no-sol-aligned 暫擋 merge。
-- 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
-- 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
+## domain: crawl  （4 條；proposed=0）
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
 - accepted | type=booklist-fix | source=crawl
@@ -33,7 +27,14 @@
 - 提議：Amend SoT to specify Volume I, Volume II, or an explicit two-volume target; if both are needed, split into separate slugs.
 - 風險：Without disambiguation, crawl agents may commit only one volume and silently underfetch the intended reference.
 
-## domain: engine  （166 條；proposed=6）
+### P-2026-06-21-neamen-semiconductor-physics-dev — neamen_semiconductor_physics_devices 母書連 3rd 但 pref+sol 皆 4th
+- superseded | type=edition-mismatch | source=restock
+- 決議：使用者政策核可母書 3rd（4th 不在 z-lib，edition_pref 已放寬、editions matches_pref=true）；提案建議的重查 4th 被此政策決定取代。其 4th sol 因母書定 3rd 續擋 merge（版次不對齊，正確、不下架 owned）。
+- 證據：母書 editions 現 version=3rd(2003) matches_pref=False；但 edition_pref=4th，且其解答本 neamen_semiconductor_physics_devices_sol 經多源查證為 4th(2012, z-lib id21449597/17194580)。母書 status=pending（缺 4th 連結），z-lib 確有 4th 母書與 4th 解答本。sol 已落 --no-sol-aligned 暫擋 merge。
+- 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
+- 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
+
+## domain: engine  （166 條；proposed=4）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
@@ -45,17 +46,6 @@
 - proposed | type=tooling-gap | source=agent
 - 證據：This book places exercises at the end of each section, but the whole chapter remains a single inline stream. Current inline walker only has problem_start_re and section/subsection headings; it cannot express 'problem_start_re is active only after an Exercises heading'. Loose regex over-matches numbered expository lists in body; restrictive regex drops legitimate exercise starts.
 - 提議：Add a schema field for inline mode such as exercise_heading_re / problem_gate_heading_re, so walker enters problem-detection mode only after matching that heading and exits on next section/subsection heading.
-
-### P-2026-06-19-enderton-set-theory — inline Exercises 題號 namespace 無法避免跨節重複
-- proposed | type=tooling-gap | source=codex
-- 證據：enderton_set_theory 為未編號章內 section-exercise 書型；即使在 extract_rules.yaml 設 inline_problems=true、problem_num_namespace_by_section=true，並多輪調整 section/subsection regex，parser 仍將 ch05 兩組題號都命名為 Exercises.9，smoke 持續報 H2。parsed/ch05.json 可見題號前綴固定為 Exercises.N，無法用現有 schema 綁到前一個真正 section（如 INTEGERS / RATIONAL NUMBERS）。
-- 提議：為 inline_problems + problem_num_namespace_by_section 模式新增可配置 namespace 來源，例如使用最近一個非-exercise heading、父 section id，或提供 rules.problem_namespace_heading_re / problem_namespace_use_parent_section。
-- 風險：目前此類主書會留下 smoke critical，無法在不改引擎的前提下完成乾淨 audit。
-
-### P-2026-06-19-katznelson-harmonic-analysis — parser 缺 section-local exercises 抽題能力
-- proposed | type=tooling-gap | source=agent
-- 證據：本書採 Roman chapter + Arabic section。每個 section 結尾有 EXERCISES heading，題號在各 section 內從 1. 重置；用 inline_problems=true、problem_num_namespace_by_section=true、並讓 subsection_re 吃 EXERCISES 後，parser 仍把如 idx 217『1. Compute the Fourier coefficients...』與後續題目全部留在 body，ch01-ch08 problem_count 皆為 0。
-- 提議：在 parser 增加 section-local problems 模型：允許 chapter 內多個 exercises/probs anchors，或讓 inline walker 在遇到 exercises heading 後切入 problem mode，並正確處理各 section 題號 reset。
 
 ### P-2026-06-19-neukirch-algebraic-number-theory — Inline exercises after running section header cannot be disambiguated
 - proposed | type=tooling-gap | source=agent
@@ -3032,6 +3022,13 @@ Binary files a/book_pipeline/booklists/chemistry.json and b/book_pipeline/bookli
 - 證據：parser/validate are green for eisenbud_commutative_algebra, but smoke remains critical only at catalog semantics: H6 unresolved Figure refs=2 and H7 empty_captions=81. parsed/_catalog_audit.md shows many visuals are pedagogical diagrams with no intrinsic Figure/Table caption or id (for example ch00 §0.3 body[65], ch01 §1.6 body[137], ch03 §3.8 body[178]/[181]/[185]/[188]), plus exercise/body prose that references a figure number without any indexable captioned media entry, e.g. ch06 problem 6.8 text '(see Figure 6.7)'. Current extract_rules fields only offer figure_caption_merge and figure_caption_main_re; they cannot bind adjacent prose/bare text to a media block, nor mark captionless semantic-free diagrams as nonindexable with a reviewable reason.
 - 提議：Extend deterministic catalog repair with declarative per-book media overrides: 1) allow binding adjacent prose/text as caption/id donor for a target visual; 2) allow marking captionless pedagogical diagrams as nonindexable/excluded with reviewable metadata; 3) optionally allow aliasing prose-only internal refs like Figure 6.7 when the semantic figure is split across nearby blocks. Without this, books like Eisenbud can parse chapters/problems correctly but cannot clear smoke H6/H7 through extract_rules alone.
 
+### P-2026-06-19-enderton-set-theory — inline Exercises 題號 namespace 無法避免跨節重複
+- superseded | type=tooling-gap | source=codex
+- 決議：假引擎缺口：H2 撞號根因是 section 正文編號散文範例在真 Exercises heading 前被誤切（非 namespace 衝突）。拔掉誤設的 namespace_by_section + 加 problems_start_re exercises-gate 關掉散文誤命中→ch07 40→37、9章零dup、231題。現有 schema 解決、未動引擎碼。
+- 證據：enderton_set_theory 為未編號章內 section-exercise 書型；即使在 extract_rules.yaml 設 inline_problems=true、problem_num_namespace_by_section=true，並多輪調整 section/subsection regex，parser 仍將 ch05 兩組題號都命名為 Exercises.9，smoke 持續報 H2。parsed/ch05.json 可見題號前綴固定為 Exercises.N，無法用現有 schema 綁到前一個真正 section（如 INTEGERS / RATIONAL NUMBERS）。
+- 提議：為 inline_problems + problem_num_namespace_by_section 模式新增可配置 namespace 來源，例如使用最近一個非-exercise heading、父 section id，或提供 rules.problem_namespace_heading_re / problem_namespace_use_parent_section。
+- 風險：目前此類主書會留下 smoke critical，無法在不改引擎的前提下完成乾淨 audit。
+
 ### P-2026-06-19-foot-atomic-physics — catalog engine misses inline figure captions in OCR text blocks
 - superseded | type=tooling-gap | source=agent
 - 決議：已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。
@@ -3085,6 +3082,12 @@ Binary files a/book_pipeline/booklists/chemistry.json and b/book_pipeline/bookli
 - 決議：已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。
 - 證據：smoke H6/H7: unresolved Figure 9.2.6=1, empty figure/table captions=35。parsed 內常見模式是連續多個 fig block，只有最後一個帶 FIGURE X.Y.Z caption，例如 ch07 body[93,94,95]、ch09 body[44,45]、appA body[257]；其餘 fig 只剩 fig-chXX-NN fallback id，無法建立 catalog semantic id。
 - 提議：在 parser/catalog 階段支援將連續無 caption 的 fig/table block 與其後第一個主 caption 合併成單一 semantic figure，或允許將前置無 caption block 標記為 subfigure/excluded，避免 H6/H7 將此類 OCR 切裂視為 critical。
+
+### P-2026-06-19-katznelson-harmonic-analysis — parser 缺 section-local exercises 抽題能力
+- superseded | type=tooling-gap | source=agent
+- 決議：假引擎缺口：extract_rules regex 在單引號 YAML 寫成雙反斜線致字面化→配不到任何題→全章0題。還原單反斜線→263題、零dup、per-section reset 正確。現有 schema（inline+namespace_by_section+EXERCISES subsection_re）完全表達、零引擎缺口、未動引擎碼。
+- 證據：本書採 Roman chapter + Arabic section。每個 section 結尾有 EXERCISES heading，題號在各 section 內從 1. 重置；用 inline_problems=true、problem_num_namespace_by_section=true、並讓 subsection_re 吃 EXERCISES 後，parser 仍把如 idx 217『1. Compute the Fourier coefficients...』與後續題目全部留在 body，ch01-ch08 problem_count 皆為 0。
+- 提議：在 parser 增加 section-local problems 模型：允許 chapter 內多個 exercises/probs anchors，或讓 inline walker 在遇到 exercises heading 後切入 problem mode，並正確處理各 section 題號 reset。
 
 ### P-2026-06-19-kolb-turner-early-universe — worker 越界改核心碼：book_pipeline/status.py（qc kolb_turner_early_universe）
 - superseded | type=patch | source=scope_guard

@@ -93,7 +93,7 @@ appendices:
     page_start: 277
     chapter_title_block_idx: 4575
 
-section_re: '^(((?!(?:Exercise|Exercises|Review Exercises)$).+))$'
+section_re: '^((.+))$'
 subsection_re: '^((__NO_SUBSECTION_MATCH__))$'
 heading_priority:
   - subsection_re
@@ -101,8 +101,9 @@ heading_priority:
 
 problem_start_re: '^(\d+)\.\s+(?:\([a-z]\)\s+)?(?:Answer|Are|Assume|Calculate|Can|Complete|Consider|Construct|Define|Discuss|Evaluate|Find|For|Formulate|Give|In|Is|Let(?!\s+Us\b)|Need|Prove|Rewrite|Show|Simplify|State|Suppose|Theorem|Verify|What|Which)\b'
 problem_chapter_must_match: false
-problem_num_namespace_by_section: true
+problem_num_namespace_by_section: false
 problems_end_re: null
+problems_start_re: '^Exercises$'
 solution_start_re: null
 
 equation_strip_dollar: true

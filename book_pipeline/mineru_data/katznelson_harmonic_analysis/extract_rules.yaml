@@ -99,19 +99,19 @@ appendices:
     page_start: 286
     chapter_title_block_idx: 4213
 
-section_re: '^\\??(\\d+)\\s+(.+)$'
-subsection_re: '^((?:\\d+\\.\\d+)(?=\\s+\\S)|(?:EXERCISE(?:S)?(?: FOR SECTION [0-9IVX]+)?))(?:\\s+)?(.*)$'
+section_re: '^\??(\d+)\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+)(?=\s+\S)|(?:EXERCISE(?:S)?(?: FOR SECTION [0-9IVX]+)?))(?:\s+)?(.*)$'
 heading_priority:
   - subsection_re
   - section_re
 
-problem_start_re: '^(\\d+)\\.\\s+'
+problem_start_re: '^(\d+)\.\s+'
 problem_chapter_must_match: false
 problems_end_re: null
 solution_start_re: null
 
 equation_strip_dollar: true
-equation_label_re: '\\tag\\s*\\{\\s*([0-9]+(?:\\.[0-9]+){0,2}[a-z]?)\\s*\\}'
+equation_label_re: '\tag\s*\{\s*([0-9]+(?:\.[0-9]+){0,2}[a-z]?)\s*\}'
 
 example_start_re: null
 
