@@ -1,4 +1,14 @@
 {
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "18.22",
+      "classification": "source_missing",
+      "reason": "ch18 §18.12（Machine Idioms and Instruction Combining）正文提到 Figure 18.22（instruction-combining 範例圖），但此圖在本掃描檔被 OCR 整張漏抽：catalog ch18 圖序 18.20→18.21→(缺18.22)→18.23，18.21 與 18.23 之間無任何 image block。屬源頭缺圖、非配置可補（無 image 可綁、無 caption shard 可合）。",
+      "where": "ch18.json §18.12 instruction-combining 正文 ref",
+      "evidence": "unified/content_list.json：fig-18.21 caption 在 idx 5652、fig-18.23 在 idx 5717，掃 [5652,5717] 區間 type=image 的 block 數=0（全為 §18.11 Branch Prediction／§18.12 Machine Idioms 正文）。'18.22' 純文字僅出現於 §18.12 'An instruction combiner may increase…' 的敘述性 ref，無對應 media。鄰號 fig-18.20/18.21/18.23 皆在 catalog。"
+    }
+  ],
   "overrides": [
     {
       "id": "muchnick-fig-15.4-normalize",
