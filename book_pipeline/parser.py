@@ -525,7 +525,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                         namespace_by_section: bool = False,
                         problems_end_re: re.Pattern | None = None,
                         solution_start_re: re.Pattern | None = None,
-                        problems_start_re: re.Pattern | None = None) -> tuple[list[dict], list[dict]]:
+                        problems_start_re: re.Pattern | None = None,
+                        suppress_running_header: bool = False) -> tuple[list[dict], list[dict]]:
     """Inline-mode 章節 walker：題目散落正文中（Griffiths 風格）。
     單流水掃整章 [cti+1, nci-1]，無 problems_block_idx 二分。
     - text + lvl=1 命中 section/subsection/example → close current problem，heading 進 chapter body
@@ -560,7 +561,20 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     in_problems_region = problems_start_re is None  # exercises-gate：None=不 gate（永遠 True、行為不變）；
                                                     # 設定時起始 False，待 heading 命中 problems_start_re 才開
 
-    for b in expand_list_blocks(blocks):
+    exp = expand_list_blocks(blocks)
+
+    def _peek_problem_start(j: int) -> bool:
+        """running-header 簽名：j 之後第一個有內容 text/list block 是否為 problem 起點。
+        真 section heading 後接 prose/subsection；頁頂跑馬燈假標題後緊接前節溢出習題。"""
+        for k in range(j + 1, len(exp)):
+            nb = exp[k]
+            if nb.get('type') in ('text', 'list'):
+                nt = (nb.get('text') or '').strip()
+                if nt:
+                    return bool(problem_start_re.match(nt))
+        return False
+
+    for i, b in enumerate(exp):
         t = b.get('type')
         text = (b.get('text') or '').strip()
         lvl = b.get('text_level')
@@ -584,6 +598,12 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
         if t == 'text':
             h = detect_heading(text, lvl, section_re, subsection_re, example_re, heading_level)
             if h:
+                # running-header 抑制（opt-in）：section/subsection heading 緊接題號塊 → 視為頁頂跑馬燈
+                # 假標題（MinerU 把跨頁 carried-over 習題前的頁眉 §N+1 誤標 lvl2）。不關題、不推進
+                # current_section_id、不切區，整塊略過，使前節溢出習題續掛正確 namespace（conway/neukirch）。
+                if (suppress_running_header and h['t'] in ('section', 'subsection')
+                        and in_problems_region and current is not None and _peek_problem_start(i)):
+                    continue
                 if current:
                     problems.append(current)
                     current = None
@@ -595,6 +615,19 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                     if problems_start_re is not None:
                         in_problems_region = bool(problems_start_re.search(text))
                 body.append(h)
+                continue
+            # 無 id 的獨立 Exercises 標記（heading-lvl text 命中 problems_start_re 但非 detected heading）→
+            # 開問題區、**保留 current_section_id**（救把 SECTION id 與 Exercises 標記拆成兩塊的書 Enderton）。
+            # 加性：僅 problems_start_re 在 heading-lvl 命中時觸發；既有書（problems_start_re 命中的是
+            # id-bearing section heading，走上方 h 分支）零影響。
+            if (problems_start_re is not None and lvl == heading_level
+                    and problems_start_re.search(text)):
+                if current:
+                    problems.append(current)
+                    current = None
+                    in_solution = False
+                in_problems_region = True
+                body.append({'t': 'subsection', 'id': '', 'text': text})
                 continue
 
         # 偵測新題起點（problems_end 後不再開新題；exercises-gate 限定問題區內）
@@ -673,6 +706,7 @@ def parse_chapter(ch: dict, all_blocks: list[dict], rules: dict,
             problems_end_re=regexes['problems_end'],
             solution_start_re=regexes['solution_start'],
             problems_start_re=regexes['problems_start'],
+            suppress_running_header=rules.get('suppress_running_header_sections', False),
         )
         return {'num': ch['num'], 'title': ch['title'], 'body': body, 'problems': problems}
 

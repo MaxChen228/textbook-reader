@@ -28,7 +28,7 @@ SCHEMA_KEYS = {
     'section_re', 'subsection_re', 'heading_priority',
     'problem_start_re', 'problem_chapter_must_match',
     'problem_num_namespace_by_section', 'problems_end_re', 'solution_start_re',
-    'problems_start_re',
+    'problems_start_re', 'suppress_running_header_sections',
     'equation_strip_dollar', 'equation_label_re',
     'example_start_re', 'figure_caption_merge', 'figure_caption_main_re',
     'known_missing_problems', 'heading_text_level',
@@ -124,6 +124,11 @@ def validate(slug: str) -> int:
         hl_list = hl if isinstance(hl, list) else [hl]
         if not hl_list or not all(isinstance(x, int) and not isinstance(x, bool) and x >= 1 for x in hl_list):
             errs.append(f'heading_text_level 須為 ≥1 的整數或其 list（得到 {hl!r}）')
+
+    # suppress_running_header_sections：選填 bool（opt-in；inline 模式抑制頁頂跑馬燈假 section
+    # heading 推進 namespace）。非 bool 會靜默落 truthy/falsy → 明確擋下。
+    if 'suppress_running_header_sections' in R and not isinstance(R['suppress_running_header_sections'], bool):
+        errs.append(f'suppress_running_header_sections 須為 bool（得到 {R["suppress_running_header_sections"]!r}）')
 
     # known_missing_problems schema: list of {chapter:int, nums:[str]}
     for i, kp in enumerate(R.get('known_missing_problems') or []):

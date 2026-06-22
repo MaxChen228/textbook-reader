@@ -245,6 +245,120 @@ def test_split_problems_increasing_guard_walk_inline():
     )
 
 
+def test_walk_inline_suppress_running_header():
+    """[lock·wrong-output] running-header 抑制：頁頂跑馬燈假 section heading 不推進 namespace。
+
+    invariant：namespace_by_section 模式下，題號帶 current_section_id 前綴避免同章撞號
+    （§5 題 1→'5.1'）。MinerU 偶把「跨頁 carried-over 習題」前的頁頂跑馬燈 §N+1 標題誤標成
+    lvl=heading，落在前節溢出習題之間。沒抑制 → 假標題推進 current_section_id，後續溢出題
+    改掛錯 namespace（'6.3'）與真 §6 題撞號（H2 dup，conway/neukirch 實證）。
+
+    suppress_running_header 用「下一個有內容 block 是否為 problem 起點」當判別：真 section
+    後接 prose/subsection、跑馬燈後緊接前節溢出習題。本鎖三條 invariant（缺一退化假綠）：
+      A. 假標題（後緊接題號塊）被略過、current_section_id 不推進 → 溢出題續掛 §5（'5.3'）。
+      B. 判別性：真 section heading（後接 prose、非題）即使 suppress=True 仍正常推進（'7.1'）
+         → 證明抑制只對「後接題目」的假標題生效，不誤殺真章節結構。
+      C. suppress=False（預設）對照：假標題照常推進 → 溢出題變 '6.3'（鎖 opt-in 加性、零誤觸）。
+    """
+    section_re = re.compile(r'^§(\d+)\.\s+(.+)$')
+    subsection_re = re.compile(r'^(\d+\.\d+)\.\s+(.+)$')
+    problem_start_re = re.compile(r'^(\d+)\.\s+')
+
+    # A：§5 兩題後，跑馬燈假 §6（後緊接前節溢出題 3.）→ 抑制 → 三題全掛 §5
+    blocks = [
+        {'type': 'text', 'text': '§5. Weak Topologies', 'text_level': 1},
+        {'type': 'text', 'text': '1. First problem of section 5'},
+        {'type': 'text', 'text': '2. Second problem of section 5'},
+        # 頁頂跑馬燈假標題（MinerU 誤標 lvl1），後緊接前節跨頁溢出題 3.
+        {'type': 'text', 'text': '§6. Linear Operators', 'text_level': 1},
+        {'type': 'text', 'text': '3. Third problem carried over from section 5'},
+    ]
+    _b, problems = parser.walk_inline_chapter(
+        blocks, rules={}, ch_num=5, label_re=LABEL_RE,
+        problem_start_re=problem_start_re, section_re=section_re,
+        subsection_re=subsection_re, example_re=None,
+        problem_chapter_must_match=False, namespace_by_section=True,
+        suppress_running_header=True,
+    )
+    assert [p['num'] for p in problems] == ['5.1', '5.2', '5.3'], \
+        f'A：跑馬燈假標題應被抑制、溢出題續掛 §5，實得 {[p["num"] for p in problems]}'
+
+    # B：判別性——真 §7 heading 後接 prose（非題）→ 即使 suppress=True 仍推進 namespace
+    blocks_real = [
+        {'type': 'text', 'text': '§5. Weak Topologies', 'text_level': 1},
+        {'type': 'text', 'text': '1. First problem of section 5'},
+        {'type': 'text', 'text': '§7. Genuine New Section', 'text_level': 1},
+        {'type': 'text', 'text': 'This section introduces a new topic in prose form.'},
+        {'type': 'text', 'text': '1. First problem of section 7'},
+    ]
+    _b, problems_real = parser.walk_inline_chapter(
+        blocks_real, rules={}, ch_num=5, label_re=LABEL_RE,
+        problem_start_re=problem_start_re, section_re=section_re,
+        subsection_re=subsection_re, example_re=None,
+        problem_chapter_must_match=False, namespace_by_section=True,
+        suppress_running_header=True,
+    )
+    assert [p['num'] for p in problems_real] == ['5.1', '7.1'], \
+        f'B：真 section（後接 prose）即使 suppress=True 仍推進，實得 {[p["num"] for p in problems_real]}'
+
+    # C：suppress=False（預設）對照——假標題照常推進 → 溢出題撞 §6（H2 根因），鎖 opt-in 加性
+    _b, problems_off = parser.walk_inline_chapter(
+        blocks, rules={}, ch_num=5, label_re=LABEL_RE,
+        problem_start_re=problem_start_re, section_re=section_re,
+        subsection_re=subsection_re, example_re=None,
+        problem_chapter_must_match=False, namespace_by_section=True,
+        suppress_running_header=False,
+    )
+    assert [p['num'] for p in problems_off] == ['5.1', '5.2', '6.3'], \
+        f'C：預設不抑制應重現撞號（6.3），實得 {[p["num"] for p in problems_off]}'
+
+
+def test_walk_inline_nonheading_exercises_marker():
+    """[lock·wrong-output] 無 id 的獨立 Exercises 標記開問題區、保留 section namespace。
+
+    invariant：有些書（Enderton 數理邏輯）把「SECTION N.M」標題（帶 id 供 namespace）與章末
+    「Exercises」標記（無 id、不在 section/subsection 白名單）OCR 成兩個獨立 block。exercises-gate
+    （problems_start_re）原僅在 id-bearing section heading 命中時開區——但本書 Exercises 標記無 id、
+    非 detected heading → 區永不開（題全收不到）；若乾脆不 gate，section body 的正文編號散文（逐條
+    定義）又被誤切成題、與真題撞號（H2 dup）。
+
+    引擎 marker 路徑：heading-lvl text 命中 problems_start_re 但非 detected heading → 開問題區且
+    **保留 current_section_id**（不重置成章號）。本鎖三條 invariant（缺一退化假綠）：
+      A. Exercises 標記後的真習題被收（題數正確）。
+      B. 命名空間沿用前面 SECTION 的 id（'1.1.1' 而非掉回章號 '5.1'）→ 證明「保留 section_id」。
+      C. Exercises 之前 section body 的正文編號散文（'1. 定義…'）被 gate 擋在區外、不誤切成題
+         → 證明 gate 仍生效（marker 只是另一種開區入口、非拆掉 gate）。
+    """
+    section_re = re.compile(r'^SECTION\s+(\d+\.\d+)\s+(.+)$')
+    subsection_re = re.compile(r'(?!)')  # 永不匹配（本書 subsection 用白名單，測試簡化為 never）
+    problem_start_re = re.compile(r'^(\d+)\.\s+')
+    problems_start_re = re.compile(r'^Exercises$')
+
+    blocks = [
+        {'type': 'text', 'text': 'SECTION 1.1 Sentential Logic', 'text_level': 1},
+        # section body 正文編號散文：gate 關閉時不可被誤切成題
+        {'type': 'text', 'text': '1. A numbered definition in the section prose, not an exercise.'},
+        # 無 id 的獨立 Exercises 標記（heading-lvl、非 detected heading）
+        {'type': 'text', 'text': 'Exercises', 'text_level': 1},
+        {'type': 'text', 'text': '1. First real exercise of section 1.1'},
+        {'type': 'text', 'text': '2. Second real exercise of section 1.1'},
+    ]
+    _b, problems = parser.walk_inline_chapter(
+        blocks, rules={}, ch_num=5, label_re=LABEL_RE,
+        problem_start_re=problem_start_re, section_re=section_re,
+        subsection_re=subsection_re, example_re=None,
+        problem_chapter_must_match=False, namespace_by_section=True,
+        problems_start_re=problems_start_re,
+    )
+    # A + B：兩題真習題、namespace 沿用 SECTION 1.1（非掉回章號 5）
+    assert [p['num'] for p in problems] == ['1.1.1', '1.1.2'], \
+        f'A/B：Exercises 後真習題應收齊且沿用 §1.1 namespace，實得 {[p["num"] for p in problems]}'
+    # C：Exercises 之前的正文編號散文被 gate 擋在區外（未誤切成任何題 body）
+    bodies = ' '.join(blk.get('md', '') for p in problems for blk in p['body'])
+    assert 'numbered definition' not in bodies, \
+        f'C：gate 前正文散文不應進任何題 body，實得 {bodies!r}'
+
+
 def test_last_chapter_backmatter_cap():
     """[lock·silent-corruption] 無附錄時 bibliography/index_start_page 也須 cap 末章。
 
@@ -353,6 +467,10 @@ if __name__ == '__main__':
     print('✓ lock：split_problems 遞增守則擋正文 numbered list 偽命中（5 題、回退行併入 body）')
     test_split_problems_increasing_guard_walk_inline()
     print('✓ lock：walk_inline 整數 tuple 遞增守則同擋回退偽命中（3 題）')
+    test_walk_inline_suppress_running_header()
+    print('✓ lock：walk_inline 抑制頁頂跑馬燈假 section heading（溢出題續掛前節 namespace、真章節不誤殺）')
+    test_walk_inline_nonheading_exercises_marker()
+    print('✓ lock：walk_inline 無 id Exercises 標記開區並保留 section namespace（gate 仍擋正文散文）')
     test_last_chapter_backmatter_cap()
     print('✓ lock：無附錄時 bib/index_start_page 仍 cap 末章（擋 Glossary/Index 吞噬，stale 設定 fail-safe）')
     test_expand_list_blocks_normal_passthrough()
