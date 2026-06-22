@@ -223,9 +223,13 @@ _CATALOG_GAP_KW = (
 
 
 def _is_catalog_gap(rec: dict) -> bool:
-    """proposed 的 catalog/caption 引擎缺口提案（domain engine|catalog + 標題/證據含 caption 類關鍵字）。
-    刻意只認 caption 類：conway/poole 等『章節/題號切分』缺口不含這些字 → 不誤觸（critical=0 也不動）。"""
+    """proposed 的 catalog/caption 引擎缺口提案（domain engine|catalog + type=tooling-gap + 標題/證據含 caption 類關鍵字）。
+    刻意只認 caption tooling-gap：conway/poole 等『章節/題號切分』缺口不含這些字 → 不誤觸（critical=0 也不動）。
+    **type 必須 tooling-gap**：scope_guard 的 patch 記錄（type=patch）標題常帶階段名『catalog_audit』含子字串 catalog →
+    若不濾 type 會把『worker 越界改 parser.py』誤判成 caption 假缺口、蓋上錯誤的 repair-covered 理由。"""
     if rec.get('status') != 'proposed' or rec.get('domain') not in ('engine', 'catalog'):
+        return False
+    if rec.get('type') != 'tooling-gap':
         return False
     blob = ' '.join((rec.get(k) or '') for k in ('title', 'evidence', 'proposal')).lower()
     return any(k in blob for k in _CATALOG_GAP_KW)

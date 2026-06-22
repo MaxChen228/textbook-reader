@@ -2,15 +2,15 @@
   "id": "P-2026-06-22-nagle-saff-differential-equation",
   "domain": "engine",
   "type": "patch",
-  "status": "proposed",
+  "status": "superseded",
   "title": "worker 越界改核心碼：book_pipeline/parser.py（audit nagle_saff_differential_equations）",
   "detect": [],
   "source": "scope_guard",
-  "resolution": "",
+  "resolution": "6494f50",
   "created": "2026-06-22T06:17:17+00:00",
-  "updated": "2026-06-22T06:17:17+00:00",
+  "updated": "2026-06-22T08:16:59+00:00",
   "evidence": "scope_guard bracket：worker [audit nagle_saff_differential_equations] session=nagle_saff_differential_equations:79138 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
   "proposal": "(無 diff 文本，book_pipeline/parser.py modified)",
   "risk": "observe 模式未還原——待架構師裁決收編/還原。",
-  "disposition": ""
+  "disposition": "worker 在 audit nagle_saff 期間發現的 parser.py/validate_rules.py/audit-book.md 改動，已由架構師正式收編為 commit 6494f50（引擎 problems_start_re exercises-gate）→ superseded"
 }

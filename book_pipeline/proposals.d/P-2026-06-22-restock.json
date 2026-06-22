@@ -2,15 +2,15 @@
   "id": "P-2026-06-22-restock",
   "domain": "engine",
   "type": "patch",
-  "status": "proposed",
+  "status": "rejected",
   "title": "worker 越界改核心碼：book_pipeline/pipeline_queue.py（crawl __restock__）",
   "detect": [],
   "source": "scope_guard",
-  "resolution": "",
+  "resolution": "out-of-scope",
   "created": "2026-06-22T01:48:55+00:00",
-  "updated": "2026-06-22T01:48:55+00:00",
+  "updated": "2026-06-22T08:17:06+00:00",
   "evidence": "scope_guard bracket：worker [crawl __restock__] session=__restock__:56487 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
   "proposal": "(無 diff 文本，book_pipeline/pipeline_queue.py modified)",
   "risk": "observe 模式未還原——待架構師裁決收編/還原。",
-  "disposition": ""
+  "disposition": "scope_guard 越界改 parser.py/pipeline_queue.py；working-tree 已乾淨、無對應收編 commit（唯一近期 parser.py commit 6494f50 屬 nagle_saff）→ 改動已棄。catalog_audit 書（garcia/mackay/sklar）crit 經 overrides 歸零非靠此改動；restock subagent 不該碰 parser/queue。"
 }

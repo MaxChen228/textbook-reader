@@ -9,8 +9,8 @@ from __future__ import annotations
 from book_pipeline import proposals as P
 
 
-def _rec(pid, status='proposed', domain='engine', title='', evidence='', proposal=''):
-    return {'id': pid, 'status': status, 'domain': domain,
+def _rec(pid, status='proposed', domain='engine', type='tooling-gap', title='', evidence='', proposal=''):
+    return {'id': pid, 'status': status, 'domain': domain, 'type': type,
             'title': title, 'evidence': evidence, 'proposal': proposal}
 
 
@@ -18,6 +18,15 @@ def _rec(pid, status='proposed', domain='engine', title='', evidence='', proposa
 def test_is_catalog_gap_matches_caption():
     assert P._is_catalog_gap(_rec('P-2026-06-19-x', title='catalog 無法把相鄰 text 圖說綁回 image'))
     assert P._is_catalog_gap(_rec('P-2026-06-19-x', evidence='empty_captions=77 多 image block 共用圖說'))
+
+
+def test_is_catalog_gap_excludes_scope_guard_patch():
+    """scope_guard patch 記錄（type=patch）標題常帶階段名 'catalog_audit'（含子字串 catalog）→
+    不得被當 caption 缺口、不得被 supersede-resolved 蓋上錯誤的 repair-covered 理由。"""
+    assert not P._is_catalog_gap(_rec(
+        'P-2026-06-21-x', type='patch',
+        title='worker 越界改核心碼：book_pipeline/parser.py（catalog_audit x）',
+        evidence='scope_guard bracket ... parser.py modified'))
 
 
 def test_is_catalog_gap_excludes_structural():
