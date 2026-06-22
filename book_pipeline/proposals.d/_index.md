@@ -34,23 +34,13 @@
 - 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
 - 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （166 條；proposed=4）
+## domain: engine  （166 條；proposed=2）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
-- 處置：驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。
+- 處置：驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。 [2026-06-23 partial 修復] commit 5f7f596 的 suppress_running_header_sections（跑馬燈假 §heading 後緊接題號塊則不推進 namespace）已收掉「下一節 heading 提早切 section」這一類碰撞：重 parse+smoke 從 5 章 H2 降到僅 ch11 殘留（critical 2 中 1 為 H7 catalog caption、與本提案無關）。ch11 'Fredholm Theory' 仍 H2 ['2.1'..'2.4']——非跑馬燈型，而是單章內兩組 §2 EXERCISES（double-EXERCISES + 4.3.X subsection namespace-leak），exercises-gate 嘗試無效已回退。續 proposed：ch11 需 section-aware namespace 分類（OCR 結構修復），非 bounded 引擎能力。
 - 證據：多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
-
-### P-2026-06-19-enderton-mathematical-logic — inline exercises need heading-gated problem starts
-- proposed | type=tooling-gap | source=agent
-- 證據：This book places exercises at the end of each section, but the whole chapter remains a single inline stream. Current inline walker only has problem_start_re and section/subsection headings; it cannot express 'problem_start_re is active only after an Exercises heading'. Loose regex over-matches numbered expository lists in body; restrictive regex drops legitimate exercise starts.
-- 提議：Add a schema field for inline mode such as exercise_heading_re / problem_gate_heading_re, so walker enters problem-detection mode only after matching that heading and exits on next section/subsection heading.
-
-### P-2026-06-19-neukirch-algebraic-number-theory — Inline exercises after running section header cannot be disambiguated
-- proposed | type=tooling-gap | source=agent
-- 證據：Chapter I page_idx=80 has a carried-over running header text block '§ 11. Localization' (idx 1254) before exercises 2-5 of the previous section, followed by the real section opening '§ 11. Localization' (idx 1260). With inline_problems + problem_num_namespace_by_section, parser namespaces both exercise groups as 11.x and smoke keeps H2 duplicates ['11.2','11.3','11.4','11.5'] even after tightening section_re to require a space after §. The two blocks are both type=text text_level=2, so extract_rules.yaml cannot distinguish them declaratively.
-- 提議：Extend parser inline heading handling with an option to suppress duplicated section headings that appear as running headers before carried-over exercises, for example by ignoring a heading when the immediately following blocks are Exercise-start lines and the same heading text reappears shortly after on the same page, or by adding a per-slug declarative rule for duplicate-running-header collapse.
 
 ### P-2026-06-20-muchnick-advanced-compiler-desig — catalog 無法綁定 prose-bound 與 multi-shard 圖表語義
 - proposed | type=tooling-gap | source=agent
@@ -3022,6 +3012,12 @@ Binary files a/book_pipeline/booklists/chemistry.json and b/book_pipeline/bookli
 - 證據：parser/validate are green for eisenbud_commutative_algebra, but smoke remains critical only at catalog semantics: H6 unresolved Figure refs=2 and H7 empty_captions=81. parsed/_catalog_audit.md shows many visuals are pedagogical diagrams with no intrinsic Figure/Table caption or id (for example ch00 §0.3 body[65], ch01 §1.6 body[137], ch03 §3.8 body[178]/[181]/[185]/[188]), plus exercise/body prose that references a figure number without any indexable captioned media entry, e.g. ch06 problem 6.8 text '(see Figure 6.7)'. Current extract_rules fields only offer figure_caption_merge and figure_caption_main_re; they cannot bind adjacent prose/bare text to a media block, nor mark captionless semantic-free diagrams as nonindexable with a reviewable reason.
 - 提議：Extend deterministic catalog repair with declarative per-book media overrides: 1) allow binding adjacent prose/text as caption/id donor for a target visual; 2) allow marking captionless pedagogical diagrams as nonindexable/excluded with reviewable metadata; 3) optionally allow aliasing prose-only internal refs like Figure 6.7 when the semantic figure is split across nearby blocks. Without this, books like Eisenbud can parse chapters/problems correctly but cannot clear smoke H6/H7 through extract_rules alone.
 
+### P-2026-06-19-enderton-mathematical-logic — inline exercises need heading-gated problem starts
+- superseded | type=tooling-gap | source=agent
+- 決議：引擎根因已修（commit 5f7f596）：walk_inline_chapter 兩個 opt-in 能力——neukirch 用 suppress_running_header_sections 抑制頁頂跑馬燈假 section heading 推進 namespace；enderton 用無 id Exercises 標記開區+保留 section namespace。重 parse+smoke 驗 H2 全清（兩書 critical 僅剩 H7 catalog caption，屬下游 repair 域、非本提案的 inline-exercise 引擎缺口）。
+- 證據：This book places exercises at the end of each section, but the whole chapter remains a single inline stream. Current inline walker only has problem_start_re and section/subsection headings; it cannot express 'problem_start_re is active only after an Exercises heading'. Loose regex over-matches numbered expository lists in body; restrictive regex drops legitimate exercise starts.
+- 提議：Add a schema field for inline mode such as exercise_heading_re / problem_gate_heading_re, so walker enters problem-detection mode only after matching that heading and exits on next section/subsection heading.
+
 ### P-2026-06-19-enderton-set-theory — inline Exercises 題號 namespace 無法避免跨節重複
 - superseded | type=tooling-gap | source=codex
 - 決議：假引擎缺口：H2 撞號根因是 section 正文編號散文範例在真 Exercises heading 前被誤切（非 namespace 衝突）。拔掉誤設的 namespace_by_section + 加 problems_start_re exercises-gate 關掉散文誤命中→ch07 40→37、9章零dup、231題。現有 schema 解決、未動引擎碼。
@@ -3344,6 +3340,12 @@ index d0298ba..f506ed8 100644
 - 決議：已涵蓋於 in-tick repair_catalog_metadata（確定性鄰近 caption 綁定 + captionless/code/diagram exclude）；提案 audit agent 不在其視野故誤報引擎缺口。本書 live crit=0、圖表目錄已收斂。
 - 證據：Milnor Topology has 8 image blocks with empty source image_caption (e.g. idx 85, 87, 112, 114, 121, 123, 158, 225 in unified/content_list.json). parser/build_catalogs only index captions from image_caption and figure_caption_merge only reattaches an existing main caption to a prior subcaptioned figure; it cannot synthesize or exclude truly uncaptioned diagrams. smoke therefore stays critical with H7 empty_captions=8 after valid extract_rules, parser, and metadata normalization.
 - 提議：Add a schema-level or engine-level path for uncaptioned figures: either allow rules to mark specific figure blocks as exclude_from_catalog, or let catalog audit accept deterministic synthetic captions/ids derived from page+local sequence when source image_caption is empty but the figure is still semantically useful.
+
+### P-2026-06-19-neukirch-algebraic-number-theory — Inline exercises after running section header cannot be disambiguated
+- superseded | type=tooling-gap | source=agent
+- 決議：引擎根因已修（commit 5f7f596）：walk_inline_chapter 兩個 opt-in 能力——neukirch 用 suppress_running_header_sections 抑制頁頂跑馬燈假 section heading 推進 namespace；enderton 用無 id Exercises 標記開區+保留 section namespace。重 parse+smoke 驗 H2 全清（兩書 critical 僅剩 H7 catalog caption，屬下游 repair 域、非本提案的 inline-exercise 引擎缺口）。
+- 證據：Chapter I page_idx=80 has a carried-over running header text block '§ 11. Localization' (idx 1254) before exercises 2-5 of the previous section, followed by the real section opening '§ 11. Localization' (idx 1260). With inline_problems + problem_num_namespace_by_section, parser namespaces both exercise groups as 11.x and smoke keeps H2 duplicates ['11.2','11.3','11.4','11.5'] even after tightening section_re to require a space after §. The two blocks are both type=text text_level=2, so extract_rules.yaml cannot distinguish them declaratively.
+- 提議：Extend parser inline heading handling with an option to suppress duplicated section headings that appear as running headers before carried-over exercises, for example by ignoring a heading when the immediately following blocks are Exercise-start lines and the same heading text reappears shortly after on the same page, or by adding a per-slug declarative rule for duplicate-running-header collapse.
 
 ### P-2026-06-19-oksendal-stochastic-differential — catalog 無法 declaratively 排除無 caption 視覺塊
 - superseded | type=tooling-gap | source=agent
