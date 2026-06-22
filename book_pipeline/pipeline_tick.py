@@ -96,9 +96,6 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
 CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
                                         os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '30')))
-# 合格解析池水位（四維全過、未 owned = QUALIFIED）：低於此就派庫存查證 agent 把庫存（candidate∪
-# actionable pending）查成合格，讓買書員永遠有合格貨。查證由 LLM agent 四維判斷（規則會假陽性）。
-CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
 # 數學 sweep 每 cycle 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
 # --rounds 1`。8 worker 並發各打一批 LLM（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 cycle
 # 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
@@ -145,22 +142,10 @@ CONTROLLER_STATE = os.path.join(BP, '.controller.json')
 RELOAD_REQUEST = os.path.join(BP, 'reload_request')
 
 # LLM 階段 → headless claude 任務描述（指向既有 skill/reference）。
-# 註：crawl **選書**仍確定性（書單 SoT + select_next 只取 QUALIFIED），但 crawl **查證**（夠格∧連結∧版本∧
-# 解答對齊四維）需判斷 → LLM agent。合格存在重構：'crawl' 條目＝「/restock 引擎的 daemon 庫存查證模式」
-# （多 haiku fan-out 把 candidate 查出連結、把 pending 補齊四維 → QUALIFIED；見 do_crawl_resolve /
-# references/booklist-manager.md）。**daemon 模式不做 discovery**（自動 discovery 預設關閉、先人工驗夠格率；
-# 找新書由使用者親自打 /restock）。買書員 drain 仍確定性、只下載 QUALIFIED。
+# 註：crawl **不再派 LLM**——daemon 已降級為純收錄引擎（買書員 select_next 只取 QUALIFIED 確定性下載 →
+# ingest→deploy→owned）。「填書單」（discovery + 四維查證 + 找連結 + 寫 QUALIFIED）改由使用者親打 /restock
+# 在互動 session 親自 fan-out 驅動，daemon 不自主 resolve。故本表只剩 qc/audit/sol_extract 三個判斷階段。
 LLM_PROMPTS = {
-    'crawl': (
-        "你是 book_pipeline 的 **庫存查證 agent**（/restock 的 daemon 模式）：把現有書目查成『合格存在』"
-        "（四維：夠格∧z-lib 連結∧版本∧解答對齊）。**嚴格遵照 "
-        ".claude/skills/book-pipeline/references/booklist-manager.md**（多 haiku fan-out、四維落盤、判準、"
-        "proposal 管道、硬邊界全在那）。**只查不下載、不碰額度。本模式不做 discovery（不找新書、不寫 "
-        "discovered/）。** 工作母體自查：`resolve queue --state candidate`（無連結→查連結 found/not_found）+ "
-        "`resolve queue --state pending`（有連結未驗→補維③版本/維④解答對齊）。逐本：target → fan-out 多 "
-        "haiku（z-lib + web 版次）→ 收斂共識 → resolve commit（維②連結）+ editions set（維①③④）。寧缺勿錯："
-        "只有別版 commit found 連結 + editions --no-matches-pref（→PENDING 可重查）；可疑開 proposal 留空、"
-        "別 commit 錯的。owned 書 mismatch 只標 + proposal、絕不下架。"),
     'qc': (
         "對 slug={slug} 跑 `pdf_contactsheet {slug}`，看產出的 PNG，判斷書是否正確/清晰/完整/"
         "可供 MinerU OCR。結論呼叫 `python -m book_pipeline.pipeline_queue` 的 set_qc："
@@ -648,18 +633,16 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
             log(f'scope_guard 異常（不影響派工）：{e}')
 
 
-def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, label: str | None = None) -> int:
+def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈不可用 → 呼叫端 defer。
     派工策略（chain/model/effort/timeout）由 _resolve_dispatch(verb) 解析（DEFAULT←STAGE←env）。
     **failover 觸發二類**（_run_one 回 reason）：① 撞額度（limit）② 服務中斷（outage：provider 零事件
     /5xx/連線錯——外部掛了，非任務失敗）。兩者皆標記 provider 本 tick exhausted（並行子工不再重撞死池）、
     換下一個 provider **重跑同一任務**（不浪費派工）；全鏈耗盡才 -2。**「有事件但 rc≠0」= agent 真跑了卻
     任務失敗 → 不 failover**（換 provider 無益且恐雙寫），rc 交回呼叫端。
-    label：lease/registry/hist 的顯示鍵（預設 = slug）；庫存查證傳 '__restock__' 當穩定 singleton
-    鍵，真正 batch slug 只進 prompt（見 do_crawl_resolve）。
-    （crawl 選書已不派 LLM——改書單 SoT + 確定性 resolver；本函式服務 qc/audit/sol_extract/crawl 解析。）"""
+    （本函式服務 qc/audit/sol_extract；crawl 不再派 LLM——買書員確定性下載 + 填書單改人工 /restock。）"""
     prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
-    key = label or slug  # lease/registry/hist 身分鍵；prompt 已由真 slug 建好，key 只管識別/序列化
+    key = slug  # lease/registry/hist 身分鍵 = slug
     spec = _resolve_dispatch(todo_verb)
     chain = list(spec.chain or ())
     if dry:
@@ -978,38 +961,6 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
     return crawled
 
 
-def _crawl_resolve_due() -> tuple[bool, dict]:
-    """**庫存查證 agent** 是否該派：合格解析池 qualified_ready（四維全過、未 owned）< CRAWL_POOL_LOW
-    ∧ 仍有 **actionable** 庫存工作母體（candidate 無連結 ∪ actionable pending）可查。回 (due, pool_counts)。
-    **收斂 latch（防無限燒 token）**：daemon 不 discovery，工作母體 = candidate + actionable pending。pending
-    的 busy-loop 由 recheck cooldown 阻斷——親查過仍 PENDING（偏好版暫無）的書 resting、不重派（見
-    booklists.crawl_work_remaining / _pending_resting），窗到期才回母體 → 週期性重查、有界。母體枯竭 →
-    due False → loop idle 收斂。要再長書目須使用者親打 /restock（含 discovery）。"""
-    all_eds = booklists.ed.load_all()              # 一次載入供水位 + 母體共用（免多次掃 editions）
-    have = booklists.have_slugs()
-    res = booklists.load_resolution()
-    pc = booklists.pool_counts(all_eds, have, res)
-    if pc['qualified_ready'] >= CRAWL_POOL_LOW:
-        return False, pc
-    return booklists.crawl_work_remaining(all_eds, have, res) > 0, pc
-
-
-def do_crawl_resolve(dry: bool) -> int:
-    """合格解析池低於水位 → 派一隻 **庫存查證 agent（/restock daemon 模式）** 把庫存查成合格存在
-    （candidate 查連結 found/not_found、pending 補四維 → QUALIFIED）。agent 自查工作母體
-    （`resolve queue --state candidate/pending`）、多 haiku fan-out 四維查證、落 resolve commit（維②）+
-    editions set（維①③④）。**不 discovery**（自動 discovery 預設關閉）。單隻在飛——reactive loop 的
-    __restock__ key 自動序列化：本輪落盤後、下個 cycle 池仍低才派下一隻。回 dispatch_llm rc（dry→0）。
-    verb 仍 'crawl'（升級內容、不改 verb 名 → 路由/歷程不動）。"""
-    due, pc = _crawl_resolve_due()
-    if not due:
-        return 0
-    log(f'庫存查證：合格池 {pc["qualified_ready"]}/{CRAWL_POOL_LOW}'
-        f'（candidate {pc["candidate"]} 待查連結 + pending {pc["pending"]} 待補四維）→ 派庫存查證 agent')
-    # label 固定 '__restock__'：lease/registry/hist 的穩定 singleton key（自查工作母體、無 batch slug 串檔名）。
-    return dispatch_llm('crawl', '', dry, label='__restock__')
-
-
 def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
     """oneshot tick 的 crawl 編排：**買書員 drain**（確定性，直接從解析池取 ready 下載）。
     無 buffer、無 refill 步驟——下載候選即時從解析池推導。reactive loop **不**走此函數——它把
@@ -1279,7 +1230,7 @@ def do_math_sweep(dry: bool) -> int:
     # math sweep 走 ccNexus HTTP batch（執行路徑非 CLI），但仍納入統一觀測層：controller 端註冊單例
     # worker（'__math_sweep__'）+ agent_history corpus session，讓 /dev「工人 N」數得到、trace session
     # 看得到其歷程。⚠ 在 reactive loop（daemon 預設路徑）do_math_sweep 被提交進 LOOP_CONCURRENCY
-    # 執行緒池，**與 advance:*/harvest:*/__crawl_drain__/__restock__ 等 worker 並發**（非序列）；
+    # 執行緒池，**與 advance:*/harvest:*/__crawl_drain__ 等 worker 並發**（非序列）；
     # controller 端同進程註冊仍安全——worker_registry 與 agent_history 全程 threading.Lock 保護，且
     # '__math_sweep__' 為唯一 math_sweep key（_last_by_verb 以 verb 為鍵不互踩）→ 無資料競爭。若日後
     # 要在此加共享狀態，務必沿用既有 Lock，勿假設序列執行。細粒度每批進度另存 math_live/math_history
@@ -1760,9 +1711,6 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     #     免人工定期 prune。tick_once 已持 .tick.lock → gc_book 直跑不重取鎖。
     do_post_deploy_gc(dry)
 
-    # G. crawl 解析 agent（解析池 < 水位 ∧ 有 unresolved → 派一隻解析一批書名→id/hash）。
-    do_crawl_resolve(dry)
-
     log('=== tick end ===')
     return 0
 
@@ -1899,13 +1847,6 @@ def tick_reactive(no_deploy: bool) -> int:
             # 上站書的 🟡 可重生中間產物，讓中間產物自己排水。__post_deploy_gc__ key 序列化、
             # gc_book 在 controller 進程內已持 .tick.lock。candidates 空 → 一次掃即收斂、不空轉。
             if _gc_due() and _start('__post_deploy_gc__', lambda: do_post_deploy_gc(False)):
-                dispatched += 1
-
-            # C4. 庫存查證 agent：合格池 qualified_ready < 水位 ∧ 有庫存母體（candidate ∪ pending）→ 派一隻
-            # 把庫存查成合格存在（四維）。__restock__ key 自動序列化（單隻在飛，本輪落盤後下個 cycle 池仍低
-            # 才派下一隻）。合格池夠滿 / 庫存母體枯竭（discovery 預設關閉）→ due False → loop 收斂。
-            cr_due, _pc = _crawl_resolve_due()
-            if cr_due and _start('__restock__', lambda: do_crawl_resolve(False)):
                 dispatched += 1
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。

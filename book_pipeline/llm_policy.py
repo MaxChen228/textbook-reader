@@ -40,18 +40,15 @@ DEFAULT_DISPATCH = DispatchSpec(
     timeout=3600,
 )
 # per-stage 覆寫（只列偏離預設者；未列 stage 全走 DEFAULT_DISPATCH）。reasoning effort 分層：
-# 重判斷（audit/catalog_audit/sol_extract）high、視覺 qc low。crawl 查證＝「合格存在四維查證」
-# （/restock 庫存模式 + booklist-manager skill：每本書 fan-out 多 haiku subagent 交叉查夠格∧連結∧版本∧
-# 解答對齊）→ 鎖 claude-only——subagent fan-out 是 claude code 獨有，codex headless 無法 spawn claude
-# haiku（故不走 codex 家族、不適用 effort）。env BOOK_PIPELINE_PROVIDER_CHAIN 仍可臨時凌駕（但設非
-# claude → skill 的 fan-out 失效）。
+# 重判斷（audit/catalog_audit/sol_extract）high、視覺 qc low。
+# 註：crawl 已不在此——daemon 降級為純收錄引擎（買書員確定性下載 + ingest→deploy），不再派 crawl LLM；
+# 填書單（四維查證）改由使用者親打 /restock 在互動 session fan-out 驅動，不經本派工層。
 # math_sweep 走 ccNexus HTTP（執行路徑與 CLI 不同）但模型仍收斂於此：只取 codex_model
 # （ccNexus 後端模型同 codex 家族白名單），chain/effort/timeout 由 HTTP 端各自適配，不消費。
 STAGE_DISPATCH: dict[str, DispatchSpec] = {
     'audit':         DispatchSpec(codex_effort='high'),
     'catalog_audit': DispatchSpec(codex_effort='high'),
     'sol_extract':   DispatchSpec(codex_effort='high'),
-    'crawl':         DispatchSpec(chain=('claude',)),     # 多源查證需 subagent fan-out（見上）
     'qc':            DispatchSpec(codex_effort='low'),
 }
 

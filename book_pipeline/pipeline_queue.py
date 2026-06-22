@@ -58,7 +58,8 @@ def _state_lock():
 READER_ROOT = os.environ.get('TEXTBOOK_READER_ROOT', ROOT)
 
 # todo 動詞 → (是否需 LLM)。sol_extract 是 LLM（對齊 merge）；sol_ingest 是確定性（送 MinerU）故不列。
-LLM_TODOS = {'qc', 'audit', 'crawl', 'sol_extract'}
+# crawl 不列：daemon 不再派 crawl LLM（買書員確定性下載；填書單改人工 /restock，不經 per-book todo）。
+LLM_TODOS = {'qc', 'audit', 'sol_extract'}
 
 
 def _load_state() -> dict:

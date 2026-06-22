@@ -306,9 +306,9 @@ def pending_targets(all_eds=None, have=None, resolution=None, now=None) -> list[
 
 
 def crawl_work_remaining(all_eds=None, have=None, resolution=None) -> int:
-    """daemon 庫存查證工作母體大小 = CANDIDATE（無連結）+ actionable PENDING（排除 cooldown resting）。
-    _crawl_resolve_due 的收斂 latch 依據：=0 即 due False、loop 收斂（不 busy-loop）；resting 的 PENDING
-    窗到期後自動回母體 → 週期性重查（有界、非每 cycle）。"""
+    """庫存查證工作母體大小 = CANDIDATE（無連結）+ actionable PENDING（排除 cooldown resting）。
+    供互動 /restock（使用者親自 fan-out 填書單）與 `resolve queue` / devctl 面板讀取——**非 daemon**
+    （daemon 已不自主 resolve）。resting 的 PENDING 窗到期後自動回母體 → 週期性可重查（有界）。"""
     all_eds = ed.load_all() if all_eds is None else all_eds
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
