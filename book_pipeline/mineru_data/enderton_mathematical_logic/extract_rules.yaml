@@ -76,6 +76,10 @@ heading_priority:
 problem_start_re: '^(\d+)\.\s+(?:\([^)]{1,40}\)\s+)?(?!There must be exact instructions\b)(?!There is a representable (?:function|relation)\b)(?!Assume that the language has(?: equality)? and\b)(?!Assume that the language has = and\b)(?!Say that \$b\$ is a sequence number iff\b)(?!With a \$\(k \+ 1\)\$ -place function\b)(?!Define the concatenation of \$a\$ and \$b\b)(?!Say that \$a\$ and \$b\$ are in registers\b)(?!Let \$a \\div b =\b)(?!Program to\b)(?!PN is the absolute model\b)(?!For a class \$\\mathcal\{A\} \\subseteq \\mathcal\{PN\}\$\b)(?:Show|Let|Assume|Give|Define|Repeat|Prove|Determine|Complete|Extend|State|Consider|Find|Establish|Translate|Rewrite|Carry out|Say|Suppose|With|An|You|There|Is|Does|What|Which|The English language|We have given)\b'
 problem_chapter_must_match: false
 problem_num_namespace_by_section: true
+# exercises-gate：題目只在章末 'Exercises' heading 後的問題區收集。本書把 SECTION id（SECTION N.M，
+# 帶 id 供 namespace）與 Exercises 標記（無 id、不在 subsection 白名單）拆成兩塊；引擎 marker 路徑
+# 讓無 id 的 Exercises 開區且保留 current_section_id → 正文編號散文（落區外）不再誤切撞號（H2 根因）。
+problems_start_re: '^Exercises$'
 problems_end_re: null
 solution_start_re: null
 

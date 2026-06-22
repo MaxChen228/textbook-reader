@@ -23,6 +23,8 @@ index_start_page: 568
 
 inline_problems: true
 problem_num_namespace_by_section: true
+# 頁頂跑馬燈 §N 標題（bbox 貼頁頂、MinerU 誤標 lvl2）落在跨頁 carried-over 習題串中途 → 抑制推進
+suppress_running_header_sections: true
 
 chapters:
   - num: 1

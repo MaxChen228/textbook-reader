@@ -22,6 +22,8 @@ index_start_page: 412
 
 inline_problems: true
 problem_num_namespace_by_section: true
+# 頁頂跑馬燈 §N+1 標題（MinerU 誤標 lvl2）落在前節跨頁溢出習題之前 → 抑制其推進 section_id（撞號）
+suppress_running_header_sections: true
 
 chapters:
   - num: 1
