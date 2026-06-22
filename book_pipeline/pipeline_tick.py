@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
-"""book_pipeline.pipeline_tick — 自動化迴圈的單次 tick（launchd 每 30–60min 觸發）。
+"""book_pipeline.pipeline_tick — pipeline 自動化派工驅動。
+
+術語（全 repo 統一，改碼前先認準 → tick ≠ cycle）：
+  • tick  = 一次 controller invocation（粗粒度外圈）：launchd 觸發 → 跑到 walltime(≤50min)/
+    idle 收斂/reload 才退 → launchd 重拉。`.tick.lock` 序列化單例、flock 防重入、起頭
+    `wr.reset()`/清額度旗標、跨 tick 存活（in-flight OCR/manifest/lease）、snapshot
+    `last_tick_*`/`next_tick_eta_s`/`in_tick_now` 皆以此「進程界」為單位。
+  • cycle = reactive controller 內 observe→非阻塞派工→reap→sleep 一輪（細粒度內圈）：
+    間隔 LOOP_POLL(75s) 或 worker 完成即時喚醒，一個 tick 內跑成百上千 cycle。
+    **「下個 cycle 重試/再收/重派」＝下次 observe（≤75s）**，非等 controller 退出重拉。
+  模型：reactive（生產預設 REACTIVE=1，長命 controller 跑 cycles）｜ one-shot
+  （tick_once，dry-run/REACTIVE=0，一個 tick＝一趟線性掃完即退）。
 
 職責：讀 pipeline_queue 全 stage 真相 → 推進。確定性階段 daemon 直跑，需判斷的
 階段（crawl / qc / audit）派 headless `claude -p` 跑對應 skill/reference。
 
-一個 tick：
+一個 tick（one-shot）／一輪 cycle（reactive）的骨架：
   1. flock 防重入（launchd 可能在前一 tick 未結束時又觸發）
   2. resume 所有 in-flight ingest（_pending_batches.json 有）— 無視預算，冪等續完
   3. 依 pipeline 上游優先走 actionable：
@@ -81,17 +92,17 @@ LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
 # 40MB/本）。帳號由 daemon 依各帳號餘額預先指派（--account），不靠 agent 自選 → 零碰撞。
 CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # pipeline 在飛上限（backpressure）：pipeline 內待消化（in-flight OCR + 未上站待辦）≥ 此就不再下載新書，
-# 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 tick 直接 select_next 取解析池待下載書、
+# 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 cycle 直接 select_next 取解析池待下載書、
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
 CRAWL_INFLIGHT_CAP = int(os.environ.get('BOOK_PIPELINE_CRAWL_INFLIGHT_CAP',
                                         os.environ.get('BOOK_PIPELINE_CRAWL_HIGH', '30')))
 # 合格解析池水位（四維全過、未 owned = QUALIFIED）：低於此就派庫存查證 agent 把庫存（candidate∪
 # actionable pending）查成合格，讓買書員永遠有合格貨。查證由 LLM agent 四維判斷（規則會假陽性）。
 CRAWL_POOL_LOW = int(os.environ.get('BOOK_PIPELINE_CRAWL_POOL_LOW', '100'))
-# 數學 sweep 每 tick 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
-# --rounds 1`。8 worker 並發各打一批 LLM（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 tick
+# 數學 sweep 每 cycle 上限 + 輪數 + 並發 worker：do_math_sweep 跑 `math_sweep batch --limit L --workers W
+# --rounds 1`。8 worker 並發各打一批 LLM（每批 ≈3-5 分），limit=workers×n 餵滿全部 worker → 一 cycle
 # 牆鐘 ≈ 單批時間就清掉 ~W×n 條（過去序列要 W 倍時間）。**完成即記 last_batch、occ 階梯下降、上站**。
-# rounds=1 不在 tick 內重試——失敗條下個 tick re-list 自然重試。walltime 安全（並發不拉長單 tick 牆鐘）。
+# rounds=1 不在 cycle 內重試——失敗條下個 cycle re-list 自然重試。walltime 安全（並發不拉長單 cycle 牆鐘）。
 MATH_BATCH_WORKERS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_WORKERS', '8'))
 MATH_BATCH_N = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_N', '40'))
 MATH_BATCH_LIMIT = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_LIMIT',
@@ -100,7 +111,7 @@ MATH_BATCH_ROUNDS = int(os.environ.get('BOOK_PIPELINE_MATH_BATCH_ROUNDS', '1'))
 DATA_DIR = os.path.join(BP, 'mineru_data')
 MAX_FETCH_FAILS = int(os.environ.get('BOOK_PIPELINE_MAX_FETCH_FAILS', '3'))  # 同本連續 fetch 失敗達此 → 排除出下載候選
 # harvest poll 上限（秒）：OCR 全好的書第一次 poll 就秒收；沒好的書等到此上限就放棄、留
-# in-flight 下個 tick 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 tick）。OCR 是 async、
+# in-flight 下個 cycle 再收。**短**值＝非阻塞（不等 OCR 跑完凍住 cycle）。OCR 是 async、
 # 在 MinerU 雲端並行跑，daemon 只負責「收已就緒的」，不該在此空等。
 HARVEST_MAX_WAIT = int(os.environ.get('BOOK_PIPELINE_HARVEST_MAX_WAIT', '90'))
 
@@ -318,7 +329,7 @@ def _run(cmd: list[str], cwd: str = ROOT, dry: bool = False,
     try:
         return p.wait(timeout=timeout)
     except subprocess.TimeoutExpired:
-        log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 tick 將自動重派')
+        log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 cycle 將自動重派')
         try:
             os.killpg(os.getpgid(p.pid), signal.SIGTERM)
             time.sleep(5)
@@ -559,7 +570,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
     """用單一 provider + 解析後 spec 跑一次派工。回 (rc, failover_reason)。reason ∈ {None, 'limit',
     'outage'}：None=成功或「agent 真跑了卻任務失敗」（不換 provider）；'limit'=撞額度；'outage'=服務中斷
     （零事件 / 5xx / 連線錯——外部掛了）。後二者呼叫端換鏈上下一 provider 重跑同一任務。timeout→(-1, None)
-    （逾時自有 kill+下個 tick 重派處理，不在此 failover）。slug 此處即 dispatch_llm 傳入的識別/lease 鍵。"""
+    （逾時自有 kill+下個 cycle 重派處理，不在此 failover）。slug 此處即 dispatch_llm 傳入的識別/lease 鍵。"""
     import signal
     import time
     cmd = _build_llm_cmd(provider, prompt, spec)
@@ -605,7 +616,7 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
         try:
             rc = p.wait(timeout=timeout)
         except subprocess.TimeoutExpired:
-            log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 tick 重派')
+            log(f'⏱ TIMEOUT {timeout}s → 殺子工 process group（pid={p.pid}）；下個 cycle 重派')
             try:
                 os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                 time.sleep(5)
@@ -670,7 +681,7 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool, label: str | None 
         why = '撞額度' if reason == 'limit' else '服務中斷'
         log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
             + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
-    log(f'❌ 全 provider 不可用 {chain}（試過 {tried}）→ defer {todo_verb} {key or ""}，下個 tick 重試')
+    log(f'❌ 全 provider 不可用 {chain}（試過 {tried}）→ defer {todo_verb} {key or ""}，下個 cycle 重試')
     return -2
 
 
@@ -897,7 +908,7 @@ def _drain_due(rows: list[dict]) -> bool:
 
 
 def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
-    """**買書員（確定性，非 agent）**：每 tick **直接 select_next 取解析池 ready 書**並行抓、抓到落
+    """**買書員（確定性，非 agent）**：每 cycle **直接 select_next 取解析池 ready 書**並行抓、抓到落
     raw_pdfs（隨即成 owned，下個 observe 自然接手 ingest）。無購物清單 buffer——下載候選即時從
     (解析池 ∖ owned ∖ 失敗達上限) 推導。**額度只在這裡咬**，與 LLM 無關、無退避。連 MAX_FETCH_FAILS
     次失敗的書記進 pipeline_state（q.bump_crawl_fail），select_next 以 exclude 排除、不卡隊頭。
@@ -1025,7 +1036,7 @@ def do_submit(slug: str, dry: bool) -> int:
 def do_harvest(slug: str, dry: bool) -> int:
     """poll 收割 in-flight 書的 OCR → download+assemble→unified。**非阻塞**：用短 max_wait
     （HARVEST_MAX_WAIT），OCR 全好的書第一次 poll 就秒收，沒好的書幾十秒就放棄、留 in-flight
-    下個 tick 再收——**絕不等 OCR 跑完而凍住整 tick**（曾因預設 30min 等待把整條鏈卡死，
+    下個 cycle 再收——**絕不等 OCR 跑完而凍住整 cycle**（曾因預設 30min 等待把整條鏈卡死，
     害下游 audit/crawl 全停）。rc 0=組好可 parse / 2=poll 逾時(OCR 未完) / 3=部分 chunk 缺
     （2、3 皆留 in-flight 重收，非錯誤）/ 1=無 manifest。"""
     if dry:
@@ -1036,7 +1047,7 @@ def do_harvest(slug: str, dry: bool) -> int:
     if rc == 0:
         log(f'ingest harvest {slug} ✓：unified 組好，可 parse')
     elif rc in (2, 3):
-        log(f'ingest harvest {slug}：OCR 尚未全完成（rc={rc}）→ 留 in-flight，下個 tick 再收')
+        log(f'ingest harvest {slug}：OCR 尚未全完成（rc={rc}）→ 留 in-flight，下個 cycle 再收')
     else:
         log(f'❌ ingest harvest {slug}：rc={rc}')
     return rc
@@ -1185,14 +1196,14 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
         return 0
     with _live_det_worker('deploy', slug):  # build_all 上百張圖 cwebp 轉檔 → 數分鐘，面板顯示「🔧 deploy 處理中」
         rc = subprocess.run(build, cwd=READER_ROOT).returncode
-    # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 tick 重試（不誤標 done）。
+    # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 cycle 重試（不誤標 done）。
     book_json = os.path.join(READER_ROOT, 'data', slug, 'book.json')
     if rc == 0 and os.path.isfile(book_json):
         q.mark_deployed(slug)
         log(f'deploy {slug} ✓：book.json 已烤出，上站')
         do_math_track(slug)  # 上站即量數學殘餘（track-only，best-effort，不影響 deploy rc）
     else:
-        log(f'❌ deploy {slug}：build rc={rc}，book.json={"有" if os.path.isfile(book_json) else "無"} → 不標 deployed，下個 tick 重試')
+        log(f'❌ deploy {slug}：build rc={rc}，book.json={"有" if os.path.isfile(book_json) else "無"} → 不標 deployed，下個 cycle 重試')
     return rc
 
 
@@ -1252,7 +1263,7 @@ def do_math_sweep(dry: bool) -> int:
     fixpoint → daemon **直接 det-step 跑 `math_sweep batch`**（純自架 LLM API：list→分批 LLM→render
     守門→per-book apply+重驗；**無無頭 agent 層**——邏輯就是「有多少壞式、batch 打 API 解掉」，非以書為
     單位派 agent）→ daemon 把殘餘變動的書重烤上站 → 重量殘餘、記錄 sweep/batch 狀態（供 fixpoint 判定）。
-    回 0=完成/跳過、1=batch 基礎設施失敗（node/ccnexus，不記狀態 → 下個 tick 重試）。"""
+    回 0=完成/跳過、1=batch 基礎設施失敗（node/ccnexus，不記狀態 → 下個 cycle 重試）。"""
     from book_pipeline import math_validate as mv
     due, total = _math_sweep_due()
     if not due:
@@ -1319,7 +1330,7 @@ def do_math_sweep(dry: bool) -> int:
         pass
     if rc != 0 or not res.get('ok'):
         err = res.get('error') or f'rc={rc}（進度/錯誤詳見 launchd.err.log）'
-        log(f'❌ math sweep batch 失敗（{err}）→ 不記狀態，下個 tick 重試')
+        log(f'❌ math sweep batch 失敗（{err}）→ 不記狀態，下個 cycle 重試')
         return 1
     log(f"math sweep batch：解 {res.get('accepted', 0)} 條 · 觸 {res.get('books_touched', 0)} 書 · "
         f"剩 {res.get('still_failing', 0)} 條硬殘")
@@ -1371,7 +1382,7 @@ def do_catalog_repair(slug: str, dry: bool) -> int:
     """catalog_audit 殘漏的確定性修復閉環（無 LLM）：repair 三件套 → re-audit。
     三個 repair 各自確定性、自帶 _manual_repair_backups（可回滾）；metadata 補 caption/id、
     from_unified 從 MinerU 原文找回缺塊、aliases 連結 ref→既有塊。critical 清零 → catalog
-    過關，下個 tick 自然推進（sol/deploy）；殘餘 critical → surface ❌（少數書需 LLM/人工）。
+    過關，下個 cycle 自然推進（sol/deploy）；殘餘 critical → surface ❌（少數書需 LLM/人工）。
     repair 改的是 parsed/*.json，status 判定『有 book.json 即不重 parse』故結果持久。"""
     from book_pipeline.catalog_audit import audit_catalog
     before = audit_catalog(slug, write_report=False).get('critical') or 0
@@ -1404,7 +1415,7 @@ def do_catalog_resolve(slug: str, dry: bool) -> int:
          / alias / 修 ref），apply 後重審。清 0 → 過關。
       3) LLM 已派過仍殘留（多為 MinerU 源頭缺、無法憑空生）→ mark_catalog_accepted →
          assess 不再 gate，書照常 deploy（殘留 surface 不阻塞）。
-    回 0=已收斂（過關或 accept，可續 deploy）/ -2=LLM 撞 session 限額（defer 下個 tick）。"""
+    回 0=已收斂（過關或 accept，可續 deploy）/ -2=LLM 撞 session 限額（defer 下個 cycle）。"""
     residual = do_catalog_repair(slug, dry)
     if residual == 0:
         return 0
@@ -1412,7 +1423,7 @@ def do_catalog_resolve(slug: str, dry: bool) -> int:
         log(f'DRY catalog {slug}：殘留 {residual} → 真跑時派 LLM / accept')
         return 0
     if q.catalog_llm_done(slug):
-        # 上個 tick 已派過 LLM、本 tick 確定性後仍殘留 → 終局 accept（不可修者）
+        # 上個 cycle 已派過 LLM、本 cycle 確定性後仍殘留 → 終局 accept（不可修者）
         q.mark_catalog_accepted(slug, residual)
         log(f'catalog {slug}：LLM 修復後仍殘 {residual}（源頭缺不可修）→ accept，照常 deploy')
         return 0
@@ -1420,7 +1431,7 @@ def do_catalog_resolve(slug: str, dry: bool) -> int:
     rc = dispatch_llm('catalog_audit', slug, dry)
     if rc != 0:
         # session 限額(-2) 或 claude 出錯/timeout → defer 重試，不 mark_llm_done、不誤 accept
-        log(f'catalog {slug}：LLM rc={rc} → defer，下個 tick 重派（不誤 accept）')
+        log(f'catalog {slug}：LLM rc={rc} → defer，下個 cycle 重派（不誤 accept）')
         return -2
     q.mark_catalog_llm_done(slug)
     after = _catalog_critical(slug)
@@ -1475,8 +1486,8 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
 
     ingest 是 async 斷點：走到 ingest 只 submit（不等 OCR），書進 in-flight 後停；OCR
-    並行於雲端排隊跑，由 tick 的 harvest 階段統一收割 → 組好 unified 後（同 tick 收割階段
-    後的 advance，或下個 tick）才續 parse→…→deploy。其餘停點：deploy=終點；done／可選
+    並行於雲端排隊跑，由每 cycle 的 harvest 步驟統一收割 → 組好 unified 後（同 cycle 收割
+    後的 advance，或下個 cycle）才續 parse→…→deploy。其餘停點：deploy=終點；done／可選
     translate／triage·qc 拒（R/X）→ 收工；同一 stage 連兩步沒前進 → 停（防失敗空轉）。
     """
     last_key = None
@@ -1495,7 +1506,7 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         # 算前進、不誤判停滯；唯有同階段同動作連兩步沒變（修復沒清掉）才真停。
         key = (stage, verb)
         if key == last_key:
-            log(f'advance {slug} 停滯於「{stage}/{verb}」（未前進）→ 停，待下個 tick 重試')
+            log(f'advance {slug} 停滯於「{stage}/{verb}」（未前進）→ 停，待下個 cycle 重試')
             return
         last_key = key
 
@@ -1523,14 +1534,14 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         elif verb == 'sol_extract':
             # 解答本已 ingest → LLM 對齊 merge 進母書 problems[].solution。**一次定生死**：agent 在
             # 單次 dispatch 內就迭代收斂（audit-sol.md Step 6「至多 3 輪」），終態二擇一——merge 或
-            # _pending+proposal。**不跨 tick 重派同一本**（那只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱）。
+            # _pending+proposal。**不跨 cycle 重派同一本**（那只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱）。
             rc = dispatch_llm('sol_extract', slug, dry)
             if rc != 0:
                 # rc≠0 ＝ LLM 根本沒跑成（-2 session 限額／-1 timeout／其他任務失敗）＝基礎設施層暫時
-                # 不可用，**非結論**：defer 下個 tick 重跑（provider 多會恢復）。這與「一次定生死」治的是
+                # 不可用，**非結論**：defer 下個 cycle 重跑（provider 多會恢復）。這與「一次定生死」治的是
                 # 兩種病——後者治「rc==0 跑完卻沒結論」（agent 紀律，見下 _escalate_sol）；rc≠0 的暫時失敗
                 # defer 重跑是對的。**已知邊界**：若某 provider chain 對某本書「穩定」rc≠0（四層 failover
-                # 全持續掛），會每 tick 重派——但這對齊既有全 stage 行為（catalog_audit/audit 同樣只特判
+                # 全持續掛），會每 cycle 重派——但這對齊既有全 stage 行為（catalog_audit/audit 同樣只特判
                 # -2、其餘 rc 無限 defer），非本機制回歸；真解＝stage-agnostic circuit breaker（連續失敗計數
                 # 才升級，與「賭 LLM 隨機」的 retry 語意不同），屬跨 stage 層級、不在此單 stage 打補丁。
                 return
@@ -1547,15 +1558,15 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
             return
         elif verb == 'catalog_audit':
             rc = do_catalog_resolve(slug, dry)
-            if rc == -2:  # LLM 撞 session 限額 → defer 本書，下個 tick 重試
+            if rc == -2:  # LLM 撞 session 限額 → defer 本書，下個 cycle 重試
                 return
         elif row.get('llm') or verb in LLM_PROMPTS:
             log(f'advance {slug} → LLM {verb}')
             rc = dispatch_llm(verb if verb in LLM_PROMPTS else 'audit', slug, dry)
-            if rc == -2:  # Claude session 限額 → defer 本書，等下個 tick reset（非「停滯」）
+            if rc == -2:  # Claude session 限額 → defer 本書，等下個 cycle reset（非「停滯」）
                 return
             # audit 跑完(rc==0)卻仍無 extract_rules.yaml 且已開 engine 提案 → 結構性卡關（schema 表達
-            # 不了，如 aitchison combined 2-volume）。標記 review、終止跨 tick 重派空轉（曾空轉 8 次重推
+            # 不了，如 aitchison combined 2-volume）。標記 review、終止跨 cycle 重派空轉（曾空轉 8 次重推
             # 同一 blocker）；有 yaml 產出則清舊標記（恢復可推進）。一次定生死，不賭 LLM 隨機重試。
             if verb == 'audit' and rc == 0:
                 if not st._exists(slug, 'extract_rules.yaml') and _has_open_engine_proposal(slug):

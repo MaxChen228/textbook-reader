@@ -1,7 +1,7 @@
 """audit_blocked 持久化標記測試（Phase 3-B）：
 
 殺 aitchison 式空轉——audit agent 跑完(rc==0)卻產不出 extract_rules.yaml 且已開 engine 提案
-（schema 表達不了）→ 標 audit_blocked → assess 回 review 終態、不再每 tick 重派。
+（schema 表達不了）→ 標 audit_blocked → assess 回 review 終態、不再每 cycle 重派。
 
 涵蓋四面：① pipeline_queue mark/read/clear roundtrip ② status.assess 見標記轉 'R audit-blocked'
 ③ status._stuck_reason 認 audit_blocked（→ cohort/stuck 可見）④ pipeline_tick._has_open_engine_proposal。

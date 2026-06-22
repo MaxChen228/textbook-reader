@@ -158,7 +158,7 @@ def _sol_pending(slug: str) -> bool:
 
 def _sol_escalated(slug: str, state: dict | None = None) -> bool:
     """sol_extract 已升級給架構師、暫停再派（杜絕 busy-loop）。**非次數門檻**：sol_extract 一次
-    dispatch 內 agent 就會迭代收斂到終態（merge 或 _pending，見 audit-sol.md），跨 tick 重派同一本
+    dispatch 內 agent 就會迭代收斂到終態（merge 或 _pending，見 audit-sol.md），跨 cycle 重派同一本
     只是賭 LLM 隨機性、正是 LLM 該消滅的脆弱。唯一會卡的是 agent 跑完卻沒給結論（skill 違規）→
     daemon 偵測後一次即標此旗標 + 開 sol proposal 升級（見 pipeline_tick._escalate_sol）。源頭/skill
     修好後架構師 clear state[slug].sol_escalated 重試。與 _sol_pending〔agent 主動判不可 merge，亦開
@@ -279,7 +279,7 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
             return {'slug': slug, 'stage': '0 待ingest', 'todo': 'ingest', 'sol_book': has_sol_book}
         return {'slug': slug, 'stage': 'X 未ingest', 'todo': 'ingest', 'sol_book': has_sol_book}
     if not _exists(slug, 'extract_rules.yaml'):
-        # audit 結構性卡關（agent 跑完卻產不出 yaml + 已開 engine 提案）→ 終止跨 tick 重派空轉，
+        # audit 結構性卡關（agent 跑完卻產不出 yaml + 已開 engine 提案）→ 終止跨 cycle 重派空轉，
         # 轉 review 終態待人工裁決（aitchison 曾因此空轉 8 次重推同一 blocker）。
         if (_pstate().get(slug) or {}).get('audit_blocked'):
             return {'slug': slug, 'stage': 'R audit-blocked', 'todo': '—', 'sol_book': has_sol_book}

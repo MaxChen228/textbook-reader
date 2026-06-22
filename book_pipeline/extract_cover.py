@@ -24,7 +24,7 @@ DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 
 # pymupdf/MuPDF 對某些病態 JPEG2000(JPX) 圖會「無限慢解」≈死循環（實測曾凍住 daemon 主迴圈
 # 28 分鐘 96% CPU）。故 daemon 鉤子 ensure_covers 一律把 render 隔離進子進程 + 硬 timeout +
-# killpg：逾時殺整組、寫 cover.skip marker，下個 tick 不再重試卡死。CLI 直跑 extract_one 不受影響。
+# killpg：逾時殺整組、寫 cover.skip marker，下個 cycle 不再重試卡死。CLI 直跑 extract_one 不受影響。
 COVER_TIMEOUT_S = int(os.environ.get('BOOK_PIPELINE_COVER_TIMEOUT', '45'))
 
 # 只放「無法從 slug 直推檔名」的 alias overrides（z-library 雜訊檔名等）。
@@ -124,7 +124,7 @@ def ensure_covers(slugs) -> int:
     探到對應 PDF 者，抽第一頁補上。冪等（已有則跳過），回實際新抽的張數。
 
     **render 一律隔離進子進程 + 硬 timeout**：pymupdf 對病態 JPX 圖會無限卡死，絕不可 inline
-    凍住 daemon 主迴圈。逾時/失敗 → 寫 cover.skip marker，下個 tick 不再重試（防反覆卡死）。
+    凍住 daemon 主迴圈。逾時/失敗 → 寫 cover.skip marker，下個 cycle 不再重試（防反覆卡死）。
     封面源頭 = raw PDF 第一頁，triage 完成即可生；解答本（_sol）跳過；任何單本失敗不連坐。"""
     made = 0
     for slug in slugs:

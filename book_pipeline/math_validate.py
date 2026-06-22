@@ -89,7 +89,7 @@ def collect_formulas(slug: str) -> dict[tuple[str, bool], dict[str, Any]]:
             else:
                 rec["occ"] += 1
                 # locators/hits → finding.targets → 每 target 一條 override。cap 太低 = 高 occ
-                # finding 一輪只蓋 cap 個位置、其餘 occ 仍殘餘 → 每 tick 重打 LLM 磨 ≤cap 個，龜速
+                # finding 一輪只蓋 cap 個位置、其餘 occ 仍殘餘 → 每 cycle 重打 LLM 磨 ≤cap 個，龜速
                 # （實證：N₂ 的 `\Nu_2` occ=100、舊 cap=12 → 要 ~9 輪才清）。拉到 1000：真實教科書
                 # 單一符號頻率（N₂/H₂O 約百次）一輪全蓋；保留高上限防 OCR 噪音式 occ 爆量撐爆報告。
                 # 不影響 LLM payload（list/batch 只送 targets 的「數量」與 tex/err，不送 target 清單）。

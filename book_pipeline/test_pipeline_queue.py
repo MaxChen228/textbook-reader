@@ -2,7 +2,7 @@
 
 跑：uv run python -m book_pipeline.test_pipeline_queue
 
-這兩個純函式是 daemon「每 tick 派哪本書哪個 stage」的真相。判錯的後果都是不可逆的損害：
+這兩個純函式是 daemon「每 cycle 派哪本書哪個 stage」的真相。判錯的後果都是不可逆的損害：
   · qc reject 漏 gate → 燒 MinerU 付費 OCR 把糊書 ingest 進來（silent-corruption）
   · 被 SIGKILL 截斷沒寫回 qc 卻 fall-through 成「待ingest」→ 未經視覺驗證直接 ingest（wrong-output）
   · deploy gate 三態判錯 → 殘缺書上正式站 books.wordnexus.lol，或書永遠卡著 deploy 不了

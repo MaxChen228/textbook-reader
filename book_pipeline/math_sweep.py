@@ -386,7 +386,7 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
     內嵌 `{"error":{…}}` 幀、或是非串流的純 JSON error body（如 `tokenization failed`）。兩者皆拋
     RuntimeError；另外「零 content delta」（整串拿不到任何模型輸出）一律視為 infra 異常拋錯。如此
     _run_one_batch 既有 except 把整批標 state="error" → cmd_batch 聚合成 ok:false → do_math_sweep
-    不記狀態、下個 tick 重試，**斷線雜訊永遠無法偽裝成「掃完沒東西修」的假 fixpoint**。"""
+    不記狀態、下個 cycle 重試，**斷線雜訊永遠無法偽裝成「掃完沒東西修」的假 fixpoint**。"""
     body = {
         "model": model, "stream": True,
         "messages": [
@@ -669,7 +669,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
 
     el = max(time.monotonic() - started, 1e-6)
     # infra 誠實浮現：整輪一條都沒從模型拿到真 verdict（零 accept、零 unrec）卻有 infra 批失敗 → ok:false。
-    # do_math_sweep 既有 `not res.get('ok')` 逃生口 → 不記 last_sweep → 不 latch fixpoint → 下個 tick 重試
+    # do_math_sweep 既有 `not res.get('ok')` 逃生口 → 不記 last_sweep → 不 latch fixpoint → 下個 cycle 重試
     # （斷線窗無法偽裝成假 fixpoint）。真正掃完、剩下全 unrec/render_fail 仍回 ok:true（合法 fixpoint）。
     infra_only = (len(gid_new) == 0 and marked == 0 and infra_batches > 0)
     out = {"ok": not infra_only, "accepted": len(gid_new), "unrecoverable": marked,
@@ -789,7 +789,7 @@ def cmd_purge(a: argparse.Namespace) -> int:
 
 
 def cmd_reset_latch(a: argparse.Namespace) -> int:
-    """清 math sweep 的 fixpoint latch（pipeline_state.json 的 last_sweep）→ 下個 tick 強制重掃。
+    """清 math sweep 的 fixpoint latch（pipeline_state.json 的 last_sweep）→ 下個 cycle 強制重掃。
     用於 infra 斷線窗汙染 last_sweep（殘餘沒降被 latch 成假 fixpoint）後手動解鎖。"""
     from book_pipeline import pipeline_queue as q
     before = q.math_sweep_state()
@@ -846,7 +846,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_purge.set_defaults(func=cmd_purge)
 
     p_reset = sub.add_parser(
-        "reset-latch", help="清 fixpoint latch（last_sweep）→ 下個 tick 強制重掃（infra 斷線汙染後解鎖）")
+        "reset-latch", help="清 fixpoint latch（last_sweep）→ 下個 cycle 強制重掃（infra 斷線汙染後解鎖）")
     p_reset.set_defaults(func=cmd_reset_latch)
 
     return ap

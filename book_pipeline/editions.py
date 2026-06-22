@@ -7,7 +7,7 @@
 得出——這是燒 token 換來的判斷，必須持久化、換機/重建 resolution 時不該丟。故落
 editions/<slug>.json 並**入 git**（比照 catalog_overrides/：daemon LLM 寫的 git 追蹤貴重成果，
 由定期「data artifacts 快照」commit 帶上跨機）。與機器連結快取按「寫入頻率 × 持久化需求」分層：
-  crawl_resolution.json（gitignore，高頻 enrich：href/cover/at 每 tick 變）= 態 + z-lib 連結，可重生。
+  crawl_resolution.json（gitignore，高頻 enrich：href/cover/at 每 cycle 變）= 態 + z-lib 連結，可重生。
   editions/<slug>.json（git 追蹤，低頻穩定）                              = 版本判斷，貴重不可重生。
 （resolution 高頻寫、若入 git 會讓 daemon working-tree 永遠 dirty + 跨機 merge 衝突，故維持 gitignore。）
 

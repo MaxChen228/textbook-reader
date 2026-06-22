@@ -138,7 +138,7 @@ def stamp_first_seen(slug: str, when: str | None = None) -> None:
 
 
 def ensure_first_seen(slugs, infer: bool = True) -> int:
-    """為缺 first_seen 的 slug 一次補齊（backfill + 每 tick forward 共用，單次鎖內批寫）。
+    """為缺 first_seen 的 slug 一次補齊（backfill + 每 cycle forward 共用，單次鎖內批寫）。
     infer=True：從歷史證據推最早時間（補登歷史書用，較『現在』準）。回傳新蓋的本數。"""
     from datetime import datetime, timezone
     with _state_lock():
@@ -186,7 +186,7 @@ def book_qc_review(slug: str, state: dict | None = None) -> dict | None:
 
 def mark_audit_blocked(slug: str, reasons: list[str]) -> None:
     """標記 audit 結構性卡關：agent 跑完(rc==0)卻產不出 extract_rules.yaml 且已開 engine 提案
-    （schema 表達不了，如 aitchison combined 2-volume 非連續多區附錄）。→ 終止跨 tick 重派空轉，
+    （schema 表達不了，如 aitchison combined 2-volume 非連續多區附錄）。→ 終止跨 cycle 重派空轉，
     待架構師裁決（改 booklists/手寫 yaml/降規格繞過）。與 book_qc 同層：另一種「需人工、非自動可推進」。"""
     from datetime import datetime, timezone
     with _state_lock():
@@ -214,7 +214,7 @@ def audit_blocked_review(slug: str, state: dict | None = None) -> dict | None:
 
 
 def catalog_llm_done(slug: str, state: dict | None = None) -> bool:
-    """該書是否已派過 LLM catalog 修復（避免每 tick 重派；殘留則終局 accept）。"""
+    """該書是否已派過 LLM catalog 修復（避免每 cycle 重派；殘留則終局 accept）。"""
     s = state if state is not None else _load_state()
     return bool(s.get(slug, {}).get('catalog_llm_at'))
 
@@ -259,7 +259,7 @@ def mark_sol_escalated(slug: str, reason: str) -> None:
 
 
 # ── crawl 下載失敗計數（買書員直讀解析池下載，唯一需持久的下載態）─────────────
-# 買書員不再有購物清單 buffer：每 tick 直接 select_next 取解析池待下載書。一本連 MAX_FETCH_FAILS
+# 買書員不再有購物清單 buffer：每 cycle 直接 select_next 取解析池待下載書。一本連 MAX_FETCH_FAILS
 # 次 fetch 失敗 → 記此計數，select_next 的 caller 把它排除（不再無限重試卡住隊頭）。源頭變化
 # （resolution 重解 / 換 id-hash）時架構師可 clear。存 state[slug]['crawl_fails']（int）。
 def crawl_fail_count(slug: str, state: dict | None = None) -> int:
@@ -379,7 +379,7 @@ def mark_math_swept(macros_version: str, residual_before: int, residual_after: i
 
 def clear_math_sweep_state() -> None:
     """清掉 last_sweep latch（一次性解鎖）。last_sweep 只是 _sweep_decision 判 fixpoint 的衍生快取，
-    殘餘 ground-truth 在各書 _math_report.json；清掉它 → _sweep_decision 回 due → 下個 tick 重掃。
+    殘餘 ground-truth 在各書 _math_report.json；清掉它 → _sweep_decision 回 due → 下個 cycle 重掃。
     用途：infra 斷線窗汙染過 last_sweep（殘餘沒降被 latch 成假 fixpoint）後手動解鎖（CLI
     `math_sweep reset-latch`）。A1/A2 防未來、本函式解既存。"""
     with _state_lock():

@@ -1,6 +1,6 @@
 """crawl 買書員（無 buffer，直讀解析池）單元測試：uv run python -m book_pipeline.test_crawl_queue
 
-涵蓋 2026-06 簡化後的下載路徑：買書員 drain 每 tick 直接 booklists.select_next 取解析池 ready 並行抓，
+涵蓋 2026-06 簡化後的下載路徑：買書員 drain 每 cycle 直接 booklists.select_next 取解析池 ready 並行抓，
 下載失敗計數持久在 pipeline_state（q.crawl_fail_*）、達上限即 exclude 出候選（不卡隊頭）。額度0/pipeline
 滿/無 ready → 不抓。另含 controller-state / reload-marker / wake 信號的端到端。無購物清單 buffer、無 refill。"""
 

@@ -62,7 +62,7 @@ def test_all_unavailable_defers():
         rc = pt.dispatch_llm('audit', 'x', dry=False)
         assert rc == -2, rc                               # 全鏈耗盡 → defer
         assert calls == ['codex-pool', 'codex', 'claude'], calls
-        print('✓ 全鏈不可用 → -2 defer（下個 tick 重試）')
+        print('✓ 全鏈不可用 → -2 defer（下個 cycle 重試）')
     finally:
         restore()
 

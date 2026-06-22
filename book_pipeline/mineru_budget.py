@@ -11,7 +11,7 @@
   - pick_account：挑今日 used 最少帳號做負載均衡（**不闸门**，一律返回一個帳號全提交）
   - account_used 僅供負載均衡 + dashboard 顯示「今日已送頁數」（無 cap 概念，避免誤導）
 
-真相仍在引擎：in-flight（_pending_batches.json 有）每 tick 無條件 harvest，chunk 級
+真相仍在引擎：in-flight（_pending_batches.json 有）每 cycle 無條件 harvest，chunk 級
 冪等 + failed 自動補傳會自癒。不修改 mineru_ingest.py；透過 subprocess 呼叫它的
 --upload（submit）/ --resume（harvest）模式。
 """
@@ -127,7 +127,7 @@ def in_flight() -> set:
 
 def occupied() -> set:
     """正被 MinerU 佔用、不該重新提交的 slug：就緒（uploading falsy）或上傳中且未 stale。
-    上傳中但超過 STALE_UPLOAD_SECS（崩潰殘留）→ 排除 → tick 會重新提交覆寫（自癒）。"""
+    上傳中但超過 STALE_UPLOAD_SECS（崩潰殘留）→ 排除 → 下個 cycle 重新提交覆寫（自癒）。"""
     out = set()
     for e in _pending_entries():
         s = e.get('slug')
@@ -175,7 +175,7 @@ def _raw_pdf(slug: str) -> str | None:
 
 def submit_ingest(slug: str, account: str) -> int:
     """async submit：**detached 背景**切片+上傳 MinerU（不等 PUT 完成、不 poll OCR）→
-    立刻返回，tick 不被慢上傳堵住。對應 mineru_ingest --upload；子程序自寫 manifest
+    立刻返回，cycle 不被慢上傳堵住。對應 mineru_ingest --upload；子程序自寫 manifest
     （早寫 uploading=True，PUT 完翻 False），start_new_session 使其 outlive 本 tick。
     輸出導 uploads.log。回 0=已 spawn / 1=無 PDF。呼叫端須先 mark_submitting 佔位。"""
     pdf = _raw_pdf(slug)
@@ -197,7 +197,7 @@ def submit_ingest(slug: str, account: str) -> int:
 def harvest_ingest(slug: str, max_wait: int = 1800) -> int:
     """poll 收割 in-flight 書的 OCR batch → download+assemble→unified。對應 mineru_ingest
     --resume（從 manifest 撈該 slug 全部 batch，chunk 級冪等 + failed 自動補傳）。
-    回 rc（0=完成組好 unified / 3=部分仍缺，下個 tick 再收 / 1=無 manifest）。"""
+    回 rc（0=完成組好 unified / 3=部分仍缺，下個 cycle 再收 / 1=無 manifest）。"""
     entry = _pending_entry(slug)
     if not entry:
         return 1
