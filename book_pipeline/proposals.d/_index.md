@@ -3707,6 +3707,8 @@ index 2c80077..8104e5a 100644
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
 - 證據：dry-run（2026-06-19）穩定抽出 0 章、0 題。anton_calculus_sol 的 text_level==1 章標多為純章名（如 'Limits and Continuity'、'Topics in Differentiation'），不含章號；真正帶章號的是 header 'Chapter N' 與 lvl=2 的 'Exercise Set N.M'。若硬用少數含數字的 lvl1（如 Chapter 10/14 Making Connections）作 anchor，會跨章吞併並系統性錯位。
+
+【2026-06-22 章錨fix(50fdc37)後複驗】本提案提議的「可設定 text_level 章錨」已實作。複跑 dry-run：現抽 16 章、配對 572/631(90%)——章錨已解，但語義抽樣系統性錯位（ch15「what is a vector field?」配到多項式除法答案），90% 為題號巧合非真對齊。真阻塞＝sol↔主書 章/題號 namespace 不對應（非 lvl 層級），續 _pending；待 Exercise Set N.M→章號映射或換源。
 - 提議：擴充 sol_extract：允許 header 或可設定 text_level 的章 anchor，或新增以 Exercise Set N.M 直接映射主書章號的模式；完成後再對 anton_calculus_sol 重跑 audit-sol。
 
 ### P-2026-06-19-blundell-thermal-sol — blundell_thermal 解答書無法 merge：sol_extract 不支援以 N.M 題號前綴直接導章
@@ -3872,6 +3874,8 @@ index 2c80077..8104e5a 100644
 ### P-2026-06-21-oppenheim-signals-sol — oppenheim_signals 解答本無法 merge：章 anchor 在 lvl2/header（引擎只認 lvl1）
 - proposed | type=harness-gap | source=sol_extract | 偵測=extract_sol_chapters text_level==1
 - 證據：sol_scout：lvl1 帶數字章標=0；真正章標 'Chapter N Answers' 落 text_level==2（10 個）+ header（1 個 Chapter 6），恰對應主書 11 章。引擎 sol_extract.py:78 章 anchor 僅收 text_level==1 且 type==text，故任何 chapter_re 都 0 章 0 題。題號/章號 regex 本身正確（problem_re group(1) 抓 N.M 對齊主書 num）。結構同 anton_calculus_sol。
+
+【2026-06-22 章錨fix(50fdc37)後複驗】本提案提議的「放寬 lvl2/header 章錨」已實作。複跑 dry-run：現抽 10 章、配對 295/322(91%)——章錨已解，但語義抽樣 ch07 錯位（主書「正弦調變」題配到 Nyquist 取樣解答），疑章序 offset（sol ch7=取樣 vs 主書 ch7=調變）。章錨 gap 已關閉但本書仍不可乾淨 merge，續 _pending；真阻塞＝章序/源頭對應，非 lvl。
 - 提議：sol_extract.extract_sol_chapters 放寬章 anchor：允許 text_level==2 / header 的 text block 命中 chapter_re 即收（非僅 lvl1）。一改泛化解鎖本書 + anton_calculus_sol 等同類 harness-gap。
 
 ### P-2026-06-19-boyd-convex-opt-sol — boyd_convex_opt 解答書無法 merge：sol_extract 章 anchor 硬綁 lvl=1
