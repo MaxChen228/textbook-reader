@@ -6,9 +6,10 @@
 首輪踩過 PYTHONPATH/額度槽分配/scratchpad hack）。本工具一鍵完成、確定性、可觀測、低 token：
 
   pick   = booklists.select_next(N)（合格池 QUALIFIED 確定性前 N 本，排除已失敗達上限）
-  gates  = default=hold + 這 N 本 allow '*' + '*' math_sweep（原子取代舊規則）→ SIGUSR1 喚醒 controller
-  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs
-  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（只放行這 N 本，其餘 held）。
+  gates  = default=allow + 只 hold crawl lane → SIGUSR1 喚醒 controller（放行本批 + 全 corpus owned
+           收尾工作；只擋自動 crawl 新書 → intake 直接 fetch 是唯一新書來源＝節奏控制）
+  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs（繞過 crawl 閘）
+  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（本批 + 既有 backlog 齊跑，只擋 crawl）。
 
 設計選擇：直接 fetch（非開 crawl lane）因 lane all-or-nothing 會超抓（room 可達 CAP=30）；直接
 fetch 精準 N 本、零多餘 PDF（避免多餘書躺 ingest 成日後 OCR 風暴）。--dry-run 只預覽不動。
@@ -39,18 +40,16 @@ def pick(n: int, exclude: set[str] | None = None) -> list[dict]:
 
 
 def set_gates_for(slugs: list[str]) -> int | None:
-    """ADDITIVE：保留現有規則（在飛書 allow + math_sweep）+ 加這批新書 allow '*'（dedup）→ default=hold
-    → SIGUSR1 喚醒。回 controller pid。為何 additive 非原子取代：backfill/跨輪 top-up 不可洗掉前批仍
-    在飛的書（會把它們 hold 在閘）。已 deploy 書的 allow 規則殘留無害（no-op），campaign 末可 gates clear。"""
-    cur = pg.load_gates()
-    rules = list(cur.get("rules") or [])
-    have = {(r.get("slug"), r.get("stage")) for r in rules}
-    if ("*", "math_sweep") not in have:
-        rules.append({"slug": "*", "stage": "math_sweep", "action": "allow"})
-    for s in slugs:
-        if (s, "*") not in have:
-            rules.append({"slug": s, "stage": "*", "action": "allow"})
-    pg.set_gates("hold", rules)
+    """設閘門 = **default=allow + 只 hold crawl lane** → SIGUSR1 喚醒。回 controller pid。
+    為何非舊「default=hold + 逐本 allow」（該設計有兩個致命缺陷，2026-06-23 改）：
+      ① sol_ingest/sol_extract **派工在母書**——fetch 的是 `<x>_sol` 子書，逐本只 allow 子書 slug，
+         母書（既有 owned）沒 allow → 被 default=hold 擋死，子書永遠 merge 不進母書（R3 實際卡住 3 本）。
+      ② default=hold **連帶凍結全 corpus 既有 sol backlog**（~12 本 deployed 書的 sol 收尾工作），
+         daemon 閒置、合法工作卡住、看板工人 0。
+    intake 直接 `_fetch_book` 繞過 crawl 閘 → hold crawl **不影響本批入庫**，卻保留『只有 intake 是
+    新書來源』的節奏控制（campaign 一輪 5 本）。default=allow 讓本批 + 全 corpus owned 收尾工作齊跑。
+    slugs 參數保留供呼叫端 log；閘門本身不再 per-slug（idempotent，backfill 多輪 fetch 重設無副作用）。"""
+    pg.set_gates("allow", [{"slug": "*", "stage": "crawl", "action": "hold"}])
     pid = pt.controller_pid()
     if pid:
         try:
@@ -93,8 +92,8 @@ def run(n: int, dry: bool) -> int:
         batch = pick(n)
         print(f"選中 {len(batch)} 本：{[b['slug'] for b in batch]}", flush=True)
         rem = pt._zlib_remaining_cached()
-        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=hold + 落地者 allow + "
-              f"math_sweep)；zlib 額度(快取) {rem}", flush=True)
+        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=allow + hold crawl)；"
+              f"zlib 額度(快取) {rem}", flush=True)
         return 0
     # backfill 迴圈：fetch 失敗（死連結/額度）即補選替補，直到湊滿 n 本或合格池耗盡。
     success: list[str] = []
@@ -111,7 +110,7 @@ def run(n: int, dry: bool) -> int:
     if not success:
         print("本輪零入庫", flush=True)
         return 0
-    pid = set_gates_for(success)  # 只 gate 真正落地的書（取代「先 gate 再 fetch」→ 死連結不會掛空 allow 規則）
+    pid = set_gates_for(success)  # 設 default=allow + hold crawl（放行本批 + 全 backlog，只擋自動爬新書）
     print(f"\n入庫 {len(success)}/{n}：{success}", flush=True)
     # 主書 vs _sol 解答書分類（_sol 不自己上架、merge 進母書）；母書未 deployed 的 _sol 會 block（無處 merge）。
     mains = [s for s in success if not s.endswith('_sol')]
@@ -123,8 +122,8 @@ def run(n: int, dry: bool) -> int:
             ok = os.path.exists(os.path.join(_ROOT, 'data', parent, 'book.json'))
             print(f"    {'✓' if ok else '⚠'} {s} → 母書 {parent}"
                   + ('' if ok else '（母書未上架 → sol 將 block、需先處理母書）'), flush=True)
-    print(f"gates：default=hold + 這 {len(success)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
-          flush=True)
+    print(f"gates：default=allow + hold crawl（本批 + 全 corpus owned 收尾齊跑、只擋自動爬新書；"
+          f"controller pid={pid} 已喚醒）", flush=True)
     print("daemon 自動推進；觀測：uv run python -m book_pipeline.watch " + ' '.join(success)
           + "（_sol 經母書解析）/ devctl status / /dev", flush=True)
     return 0
