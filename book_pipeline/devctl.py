@@ -660,6 +660,25 @@ def _cmd_gates(args) -> int:
             if args.a1 != '*' and args.a1 not in set(st.all_slugs()):
                 print(f'⚠ slug {args.a1!r} 不在已知書單（仍寫入；crawl 候選書可能尚未 owned）')
             g = pg.add_rule(args.a1, args.a2, action, index=getattr(args, 'at', None))
+        elif action == 'release':
+            # 分波放閘：取 N 本緩衝在 <stage> 閘的書，逐本插 allow --at 0（繞 catch-all hold 的
+            # silent no-op）。dogfood 主迴圈用：一指令放一波，免手動列舉+逐本 allow。
+            stage = args.a1
+            n = int(args.a2) if args.a2 else 1
+            if not stage:
+                print('用法：devctl gates release <stage> <N>（放閘 N 本緩衝在該 stage 的書）')
+                return 2
+            if stage not in pg.KNOWN_STAGES:
+                print(f'❌ 未知 stage {stage!r}（防 typo silent no-op）；合法：{sorted(pg.KNOWN_STAGES)}')
+                return 2
+            from book_pipeline import pipeline_queue as pq
+            buf = pq.buffered_at(stage)
+            pick = buf[:n]
+            for s in pick:
+                pg.add_rule(s, stage, 'allow', index=0)   # 插最前 → first-match 命中 allow
+            g = pg.load_gates()
+            print(f'放閘 {len(pick)}/{len(buf)} 本（{stage}）：{pick or "（無緩衝可放）"}')
+            print(f'剩餘緩衝 {max(0, len(buf) - len(pick))} 本（{stage}）')
         elif action == 'rm':
             g = pg.rm_rule(int(args.a1))
         elif action == 'clear':
@@ -1039,8 +1058,9 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser('resume', help='啟動系統：gates default=allow + 清 rules（全面恢復）')
     p_g = sub.add_parser('gates', help='閘門控制（per-book × per-stage，first-match）；無參數=顯示現況')
     p_g.add_argument('action', nargs='?',
-                     choices=['default', 'allow', 'hold', 'rm', 'clear'],
-                     help='省略=show；default <hold|allow>；allow/hold <slug|*> <stage|*>；rm <idx>；clear')
+                     choices=['default', 'allow', 'hold', 'rm', 'clear', 'release'],
+                     help='省略=show；default <hold|allow>；allow/hold <slug|*> <stage|*>；rm <idx>；'
+                          'clear；release <stage> <N>（放閘 N 本緩衝在該 stage 的書，自動 --at 0）')
     p_g.add_argument('a1', nargs='?', help='default: hold|allow ｜ allow/hold: slug（* = 全部）｜ rm: idx')
     p_g.add_argument('a2', nargs='?', help='allow/hold: stage（* = 全部；見 KNOWN_STAGES）')
     p_g.add_argument('--at', type=int, default=None,

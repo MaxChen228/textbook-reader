@@ -630,6 +630,21 @@ def stage_depth(rows: list[dict] | None = None, gates: dict | None = None,
     return {'total': total, 'held': held}
 
 
+def buffered_at(verb: str, rows: list[dict] | None = None, gates: dict | None = None,
+                state: dict | None = None) -> list[str]:
+    """回「下一個 gate-verb == verb 且被閘門 hold」的 slug（＝緩衝在該閘、可放閘的書），依 build_queue
+    順序（確定性、上游優先）。供分波放閘 dogfood：release wave 取前 N 本插 allow --at 0。"""
+    rows = rows if rows is not None else build_queue()
+    gates = gates if gates is not None else pg.load_gates()
+    state = state if state is not None else _load_state()
+    out = []
+    for r in rows:
+        _b, v = _depth_bucket(r, _deployed(r['slug'], state))
+        if v == verb and not pg.gate_allows(r['slug'], v, gates):
+            out.append(r['slug'])
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description='跨書全 stage 單一真相')
     ap.add_argument('--next', action='store_true', help='只印下一個可動項')

@@ -258,6 +258,50 @@ def test_next_actionable_upstream_priority_and_skip():
     assert pq.next_actionable([]) is None, "空 rows 回 None"
 
 
+def test_stage_depth_and_buffered_at():
+    """stage_depth/buffered_at 是『先 bulk OCR、再分波放閘 audit』解耦流的觀測+放閘核心，守：
+
+      · 桶歸類忠於 build_queue stage：0.2→待qc / 0.5→OCR處理中 / 1→待audit（＝audit 緩衝桶）/
+        3parsed+deploy→待deploy / 3parsed+deployed(state)→已上架 / R→卡關。
+      · held = gate_allows(slug,verb)==False＝緩衝在閘（非卡關）：hold '*' audit 下待audit 全 held。
+      · deployed 由 state.deployed_at 決定（假 slug 不在 disk）→ 已 deploy 但 sol 未 merge 的書歸已上架、
+        不混進上游緩衝（呼應 dimension① deployed-sol 誤算）。
+      · buffered_at('audit') 確定性回 held-在-audit 的 slug；放閘一本（allow --at 0）後它即退出緩衝。
+    """
+    rows = [
+        {'slug': 'a', 'stage': '0.2 待qc', 'todo': 'qc'},
+        {'slug': 'b', 'stage': '0.5 OCR處理中', 'todo': 'ingest'},
+        {'slug': 'c', 'stage': '1 待audit', 'todo': 'audit'},
+        {'slug': 'd', 'stage': '1 待audit', 'todo': 'audit'},
+        {'slug': 'e', 'stage': '3 parsed', 'todo': 'deploy'},
+        {'slug': 'f', 'stage': '3 parsed', 'todo': 'sol_extract(f_sol)'},  # 已 deploy、sol 未 merge
+        {'slug': 'g', 'stage': 'R qc拒', 'todo': '—'},
+    ]
+    gates = {'default': 'allow', 'rules': [{'slug': '*', 'stage': 'audit', 'action': 'hold'}]}
+    state = {'f': {'deployed_at': '2026-01-01T00:00:00'}}   # 僅 f 已部署
+    d = pq.stage_depth(rows=rows, gates=gates, state=state)
+    assert d['total']['待qc'] == 1 and d['total']['OCR處理中'] == 1, d['total']
+    assert d['total']['待audit'] == 2, d['total']
+    assert d['total']['待deploy'] == 1, d['total']            # e（未 deployed）
+    assert d['total']['已上架'] == 1, d['total']               # f（deployed via state，sol 背景）
+    assert d['total']['卡關'] == 1, d['total']                 # g（R 前綴）
+    assert d['held']['待audit'] == 2, d['held']               # c,d 被 hold '*' audit 擋＝緩衝
+    assert d['held']['待deploy'] == 0, d['held']              # deploy 不在 hold rules → 不 held
+
+    assert pq.buffered_at('audit', rows=rows, gates=gates, state=state) == ['c', 'd']
+    # 放閘 c（allow c audit --at 0，插在 catch-all 前）→ c 退出緩衝、only d 留
+    gates2 = {'default': 'allow', 'rules': [
+        {'slug': 'c', 'stage': 'audit', 'action': 'allow'},
+        {'slug': '*', 'stage': 'audit', 'action': 'hold'}]}
+    assert pq.buffered_at('audit', rows=rows, gates=gates2, state=state) == ['d']
+    # 對照：若 allow 在 catch-all 之後（append，非 --at 0）→ silent no-op、c 仍 held（dimension⑤ 坑）
+    gates3 = {'default': 'allow', 'rules': [
+        {'slug': '*', 'stage': 'audit', 'action': 'hold'},
+        {'slug': 'c', 'stage': 'audit', 'action': 'allow'}]}
+    assert pq.buffered_at('audit', rows=rows, gates=gates3, state=state) == ['c', 'd'], \
+        'append（非 --at 0）的 allow 被 catch-all 遮蔽＝silent no-op，c 仍應緩衝'
+
+
 if __name__ == '__main__':
     test_assess_full_qc_reject_short_circuits()
     print('✓ qc verdict gate：reject 短路擋付費 OCR、pass 放行 ingest')
@@ -267,4 +311,6 @@ if __name__ == '__main__':
     print('✓ deploy gate 三態：catalog_audit gate / catalog_accepted 放行 / sol_extract 先 merge')
     test_next_actionable_upstream_priority_and_skip()
     print('✓ next_actionable：上游優先、R/—跳過、未知前綴排尾、全不可動回 None')
+    test_stage_depth_and_buffered_at()
+    print('✓ stage_depth/buffered_at：桶歸類+held緩衝+deployed分流+放閘退出緩衝（--at 0 vs append no-op）')
     print('\n全部通過 ✅')
