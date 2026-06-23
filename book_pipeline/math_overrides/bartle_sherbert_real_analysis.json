@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "bartle_sherbert_real_analysis-ch02-body-125-d4ddcd",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[125]",
+      "expect": "a \\leq b \\iff a ^ {2} \\leq b ^ {2} \\iff \\sqrt {a} \\leq \\sqrt {b}\\tag{( (1') \\}",
+      "new": "a \\leq b \\iff a^{2} \\leq b^{2} \\iff \\sqrt{a} \\leq \\sqrt{b}\\tag{( (1') \\}}"
+    },
+    {
+      "id": "bartle_sherbert_real_analysis-ch10-body-517-26341a",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[517]",
+      "expect": "\\left| f _ {k} (x) \\right| \\leq \\varphi (x) \\quad \\text {   for   almost   every   } \\quad x \\in I.\\tag{( (7') \\}",
+      "new": "\\left| f_{k}(x) \\right| \\leq \\varphi(x) \\quad \\text{   for   almost   every   } \\quad x \\in I.\\tag{( (7') \\}}"
+    },
+    {
+      "id": "bartle_sherbert_real_analysis-ch11-problem-11-1-9-body-4-24d492",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "problem:11.1.9:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\romannumeral 2$",
+      "new": "$\\mathrm{ii}$",
+      "anchor": "01080d18"
+    }
+  ]
+}

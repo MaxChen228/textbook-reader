@@ -1,0 +1,82 @@
+{
+  "overrides": [
+    {
+      "id": "williamson_shmoys_approximation-ch08-body-198-d2adea",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[198]",
+      "field": "md",
+      "all": true,
+      "old": "$O ( \\log n ) \\dash$",
+      "new": "$O ( \\log n ) \\text{-}$",
+      "anchor": "9a526b16"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch15-body-136-d2adea",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[136]",
+      "field": "md",
+      "all": true,
+      "old": "$O ( \\log n ) \\dash$",
+      "new": "$O ( \\log n ) \\text{-}$",
+      "anchor": "93d5fbd5"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch13-body-31-2793f8",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[31]",
+      "expect": "y _ {i} = \\left\\{ \\begin{array}{c l} z _ {i} & \\text {if |z_{i}| \\leq 1} \\\\ - 1 & \\text {if z_{i} <   - 1} \\\\ 1 & \\text {if z_{i} >1.} \\end{array} \\right.",
+      "new": "y _ {i} = \\left\\{ \\begin{array}{c l} z _ {i} & \\text {if } |z_{i}| \\leq 1 \\\\ - 1 & \\text {if } z_{i} <   - 1 \\\\ 1 & \\text {if } z_{i} >1. \\end{array} \\right."
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch13-body-98-c43c93",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[98]",
+      "expect": "\\begin{array}{l} \\text {Solve vector program (13.5), get vectors v_{i}} \\\\ \\text {Draw random vector r} \\\\ \\epsilon \\leftarrow \\sqrt {\\frac {2}{3} \\ln \\Delta} \\\\ S (\\epsilon) \\leftarrow \\{i \\in V: v _ {i} \\cdot r \\geq \\epsilon \\} \\\\ S ^ {\\prime} (\\epsilon) \\leftarrow \\{i \\in S (\\epsilon): \\forall (i, j) \\in E, j \\notin S (\\epsilon) \\} \\\\ \\text {return S^{\\prime} (\\epsilon)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Solve vector program (13.5), get vectors } v_{i} \\\\ \\text {Draw random vector r} \\\\ \\epsilon \\leftarrow \\sqrt {\\frac {2}{3} \\ln \\Delta} \\\\ S (\\epsilon) \\leftarrow \\{i \\in V: v _ {i} \\cdot r \\geq \\epsilon \\} \\\\ S ^ {\\prime} (\\epsilon) \\leftarrow \\{i \\in S (\\epsilon): \\forall (i, j) \\in E, j \\notin S (\\epsilon) \\} \\\\ \\text {return } S^{\\prime} (\\epsilon) \\end{array}"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch11-body-223-71ee6c",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[223]",
+      "expect": "\\begin{array}{c} x (\\delta (S) \\cap (E - F _ {1})) = x (\\delta (S)) - x (\\delta (S) \\cap F _ {1}) \\geq f _ {1} (S) - x (\\delta (S) \\cap F _ {1}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} x (\\delta (S) \\cap (E - F _ {1})) = x (\\delta (S)) - x (\\delta (S) \\cap F _ {1}) \\geq f _ {1} (S) - x (\\delta (S) \\cap F _ {1}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch15-body-57-fdc98e",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[57]",
+      "expect": "\\begin{array}{l} \\| f (s _ {i}) - f (t _ {i}) \\| _ {1} \\geq \\sum_ {t = 1} ^ {\\hat {t}} \\sum_ {\\ell = 1} ^ {L} | d (s _ {i}, A _ {t \\ell}) - d (t _ {i}, A _ {t \\ell}) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\| f (s _ {i}) - f (t _ {i}) \\| _ {1} \\geq \\sum_ {t = 1} ^ {\\hat {t}} \\sum_ {\\ell = 1} ^ {L} | d (s _ {i}, A _ {t \\ell}) - d (t _ {i}, A _ {t \\ell}) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch15-body-97-51f983",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[97]",
+      "expect": "\\begin{array}{l} \\frac {\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} D _ {i} (x , y)}{c _ {u v}} \\leq \\alpha \\frac {\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} D _ {i} (x , y)}{\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} C _ {i} (x , y)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\frac {\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} D _ {i} (x , y)}{c _ {u v}} \\leq \\alpha \\frac {\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} D _ {i} (x , y)}{\\sum_ {i} \\lambda_ {i} \\sum_ {(x , y) \\in T _ {i} : (u , v) \\in P _ {i} (x , y)} C _ {i} (x , y)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch15-body-286-1d558b",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[286]",
+      "expect": "\\begin{array}{l} \\frac {\\delta}{2} | H _ {k} | \\leq \\sum_ {\\ell \\in \\Gamma^ {+} (H _ {k})} p (\\ell) = \\sum_ {\\ell \\in \\Gamma^ {+} (H _ {k}) - H _ {k + 1}} p (\\ell) + \\sum_ {\\ell \\in H _ {k + 1}} p (\\ell) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\frac {\\delta}{2} | H _ {k} | \\leq \\sum_ {\\ell \\in \\Gamma^ {+} (H _ {k})} p (\\ell) = \\sum_ {\\ell \\in \\Gamma^ {+} (H _ {k}) - H _ {k + 1}} p (\\ell) + \\sum_ {\\ell \\in H _ {k + 1}} p (\\ell) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "williamson_shmoys_approximation-ch15-body-364-538d0f",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[364]",
+      "expect": "\\begin{array}{l} \\operatorname * {P r} \\left[ X \\geq P - \\frac {a}{1 6} \\binom {n} {2} \\right] \\leq \\frac {E [ X ]}{P - \\frac {a}{1 6} \\binom {n} {2}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\operatorname * {P r} \\left[ X \\geq P - \\frac {a}{1 6} \\binom {n} {2} \\right] \\leq \\frac {E [ X ]}{P - \\frac {a}{1 6} \\binom {n} {2}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

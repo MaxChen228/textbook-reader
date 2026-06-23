@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "tanenbaum_structured_computer_organization-ch04-body-175-700650",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[175]",
+      "expect": "\\begin{array}{l} \\text {DEST = H} \\\\ \\text {DEST = SOURCE} \\\\ \\text {DEST = \\overline {{H}}} \\\\ \\text {DEST = \\overline {{SOURCE}}} \\\\ \\text {DEST = H + SOURCE} \\\\ \\text {DEST = H + SOURCE + 1} \\\\ \\text {DEST = H + 1} \\\\ \\text {DEST = SOURCE + 1} \\\\ \\text {DEST = SOURCE - H} \\\\ \\text {DEST = SOURCE - 1} \\\\ \\text {DEST = -H} \\\\ \\text {DEST = H AND SOURCE} \\\\ \\text {DEST = H OR SOURCE} \\\\ \\text {DEST = 0} \\\\ \\text {DEST = 1} \\\\ \\text {DEST = -1} \\end{array}",
+      "new": "\\begin{array}{l} \\text {DEST = H} \\\\ \\text {DEST = SOURCE} \\\\ \\text {DEST = }\\overline{H} \\\\ \\text {DEST = }\\overline{SOURCE} \\\\ \\text {DEST = H + SOURCE} \\\\ \\text {DEST = H + SOURCE + 1} \\\\ \\text {DEST = H + 1} \\\\ \\text {DEST = SOURCE + 1} \\\\ \\text {DEST = SOURCE - H} \\\\ \\text {DEST = SOURCE - 1} \\\\ \\text {DEST = -H} \\\\ \\text {DEST = H AND SOURCE} \\\\ \\text {DEST = H OR SOURCE} \\\\ \\text {DEST = 0} \\\\ \\text {DEST = 1} \\\\ \\text {DEST = -1} \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "shoham_leyton_brown_multiagent-ch05-body-164-665f18",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[164]",
+      "expect": "\\begin{array}{l l} \\text { minimize } & v _ {0} \\\\ \\text { subject   to } & v _ {\\mathcal {I} _ {1} (\\sigma_ {1})} - \\sum_ {I ^ {\\prime} \\in \\mathcal {I} _ {1} (\\mathrm{Ext} _ {1} (\\sigma_ {1}))} v _ {I ^ {\\prime}} \\geq \\sum_ {\\sigma_ {2} \\in \\Sigma_ {2}} g _ {1} (\\sigma_ {1}, \\sigma_ {2}) r _ {2} (\\sigma_ {2}) \\quad \\forall \\sigma_ {1} \\in \\Sigma_ {1} \\end{array} \\tag {5.8}\\tag{5.9}",
+      "new": "\\begin{array}{l l} \\text { minimize } & v _ {0} \\\\ \\text { subject   to } & v _ {\\mathcal {I} _ {1} (\\sigma_ {1})} - \\sum_ {I ^ {\\prime} \\in \\mathcal {I} _ {1} (\\mathrm{Ext} _ {1} (\\sigma_ {1}))} v _ {I ^ {\\prime}} \\geq \\sum_ {\\sigma_ {2} \\in \\Sigma_ {2}} g _ {1} (\\sigma_ {1}, \\sigma_ {2}) r _ {2} (\\sigma_ {2}) \\quad \\forall \\sigma_ {1} \\in \\Sigma_ {1} \\end{array} \\tag {5.8,5.9}"
+    },
+    {
+      "id": "shoham_leyton_brown_multiagent-appC-body-4-1f4e6e",
+      "action": "fix_inline_math",
+      "chunk": "appC",
+      "selector": "body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ v _ { T = 1 } ^ { \\infty } \\frac { \\sum _ { t = 1 } ^ { T } \\ v _ { R } _ { t } } { T }$",
+      "new": "$\\ v_{T = 1}^{\\infty} \\frac{\\sum_{t = 1}^{T} \\ v_{R,t}}{T}$",
+      "anchor": "9b378594"
+    },
+    {
+      "id": "shoham_leyton_brown_multiagent-ch07-body-99-ed18f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[99]",
+      "expect": "P _ {i} (g _ {T} | h _ {t}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if T\\leq t ;} \\\\ \\frac {P _ {i} (g _ {T})}{\\sum_ {k = t + 1} ^ {\\infty} P _ {i} (g _ {k})} & \\text {if T > t .} \\end{array} \\right.",
+      "new": "P_{i}(g_{T} | h_{t}) = \\left\\{ \\begin{array}{l l} 0 & \\text{if } T\\leq t ; \\\\ \\frac{P_{i}(g_{T})}{\\sum_{k = t + 1}^{\\infty} P_{i}(g_{k})} & \\text{if } T > t . \\end{array} \\right."
+    },
+    {
+      "id": "shoham_leyton_brown_multiagent-ch04-body-205-eb6c43",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[205]",
+      "expect": "\\begin{array}{l l} \\text { maximize } & \\sum_ {a _ {- i} \\in A _ {- i}} \\left[ \\left(\\sum_ {j \\in A _ {i}} p _ {j} \\cdot u _ {i} (a _ {j}, a _ {- i})\\right) - u _ {i} (s _ {i}, a _ {- i}) \\right] \\\\ \\text { subject   to } & \\sum_ {j \\in A _ {i}} p _ {j} u _ {i} (a _ {j}, a _ {- i}) \\geq u _ {i} (s _ {i}, a _ {- i}) \\quad \\forall a _ {- i} \\in A _ {- i} \\end{array} \\tag {4.4}\\tag{4.48}",
+      "new": "\\begin{array}{l l} \\text{ maximize } & \\sum_{a_{- i} \\in A_{- i}} \\left[ \\left(\\sum_{j \\in A_{i}} p_{j} \\cdot u_{i}(a_{j}, a_{- i})\\right) - u_{i}(s_{i}, a_{- i}) \\right] \\\\ \\text{ subject   to } & \\sum_{j \\in A_{i}} p_{j} u_{i}(a_{j}, a_{- i}) \\geq u_{i}(s_{i}, a_{- i}) \\quad \\forall a_{- i} \\in A_{- i} \\end{array} \\quad \\text{(4.4)}\\tag{4.48}"
+    },
+    {
+      "id": "shoham_leyton_brown_multiagent-ch14-body-241-c8c09b",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[241]",
+      "expect": "\\begin{array}{l} \\text {Definition 14.4.2 Always(\\varphi) \\stackrel {\\mathrm{def}} {=} \\forall a(AboutToHappen(a)\\to AboutToHappen(a;\\varphi?))} \\\\ \\text {Eventually(\\varphi) \\stackrel {\\mathrm{def}} {=} \\negAlways(\\neg\\varphi)} \\\\ \\text {Later(\\varphi) \\stackrel {\\mathrm{def}} {=} (\\neg\\varphi)\\land(Eventually(\\varphi))} \\\\ \\text {Before(\\varphi,\\psi) \\stackrel {\\mathrm{def}} {=} \\forall c(AboutToHappen(c;\\psi?))\\to\\exists a((a\\leq c)\\landAboutToHappen(a;\\varphi?))} \\\\ \\text {JustDid_{i} (a) \\stackrel {\\mathrm{def}} {=} JustHappened(a)\\land Agent(a)=i} \\\\ \\text {AboutToDo_{i} (a) \\stackrel {\\mathrm{def}} {=} AboutToHappen(a)\\land Agent(a)=i} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Definition 14.4.2 } Always(\\varphi) \\stackrel {\\mathrm{def}} {=} \\forall a(AboutToHappen(a)\\to AboutToHappen(a;\\varphi?)) \\\\ Eventually(\\varphi) \\stackrel {\\mathrm{def}} {=} \\neg Always(\\neg\\varphi) \\\\ Later(\\varphi) \\stackrel {\\mathrm{def}} {=} (\\neg\\varphi)\\land(Eventually(\\varphi)) \\\\ Before(\\varphi,\\psi) \\stackrel {\\mathrm{def}} {=} \\forall c(AboutToHappen(c;\\psi?))\\to\\exists a((a\\leq c)\\land AboutToHappen(a;\\varphi?)) \\\\ JustDid_{i} (a) \\stackrel {\\mathrm{def}} {=} JustHappened(a)\\land Agent(a)=i \\\\ AboutToDo_{i} (a) \\stackrel {\\mathrm{def}} {=} AboutToHappen(a)\\land Agent(a)=i \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+slug: gray_meyer_analog_ic
+title: Analysis and Design of Analog Integrated Circuits
+author: Paul R. Gray; Paul J. Hurst; Stephen H. Lewis; Robert G. Meyer
+edition: 5th
+subject: Microelectronics
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 886
+bibliography_start_page: null
+index_start_page: 886
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Models for Integrated-Circuit Active Devices
+    page_start: 16
+    page_end: 92
+    chapter_title_block_idx: 219
+    problems_block_idx: 1305
+    next_chapter_block_idx: 1394
+  - num: 2
+    title: Bipolar, MOS, and BiCMOS Integrated-Circuit Technology
+    page_start: 93
+    page_end: 183
+    chapter_title_block_idx: 1394
+    problems_block_idx: 2154
+    next_chapter_block_idx: 2249
+  - num: 3
+    title: Single-Transistor and Multiple-Transistor Amplifiers
+    page_start: 184
+    page_end: 265
+    chapter_title_block_idx: 2249
+    problems_block_idx: 3305
+    next_chapter_block_idx: 3374
+  - num: 4
+    title: Current Mirrors, Active Loads, and References
+    page_start: 266
+    page_end: 355
+    chapter_title_block_idx: 3374
+    problems_block_idx: 4568
+    next_chapter_block_idx: 4696
+  - num: 5
+    title: Output Stages
+    page_start: 356
+    page_end: 414
+    chapter_title_block_idx: 4696
+    problems_block_idx: 5457
+    next_chapter_block_idx: 5569
+  - num: 6
+    title: Operational Amplifiers with Single-Ended Outputs
+    page_start: 415
+    page_end: 504
+    chapter_title_block_idx: 5569
+    problems_block_idx: 6558
+    next_chapter_block_idx: 6660
+  - num: 7
+    title: Frequency Response of Integrated Circuits
+    page_start: 505
+    page_end: 567
+    chapter_title_block_idx: 6660
+    problems_block_idx: 7475
+    next_chapter_block_idx: 7600
+  - num: 8
+    title: Feedback
+    page_start: 568
+    page_end: 638
+    chapter_title_block_idx: 7600
+    problems_block_idx: 8541
+    next_chapter_block_idx: 8676
+  - num: 9
+    title: Frequency Response and Stability of Feedback Amplifiers
+    page_start: 639
+    page_end: 718
+    chapter_title_block_idx: 8676
+    problems_block_idx: 9632
+    next_chapter_block_idx: 9759
+  - num: 10
+    title: Nonlinear Analog Circuits
+    page_start: 719
+    page_end: 750
+    chapter_title_block_idx: 9759
+    problems_block_idx: 10090
+    next_chapter_block_idx: 10128
+  - num: 11
+    title: Noise in Integrated Circuits
+    page_start: 751
+    page_end: 810
+    chapter_title_block_idx: 10128
+    problems_block_idx: 10865
+    next_chapter_block_idx: 10963
+  - num: 12
+    title: Fully Differential Operational Amplifiers
+    page_start: 811
+    page_end: 885
+    chapter_title_block_idx: 10963
+    problems_block_idx: 11777
+    next_chapter_block_idx: 11906
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)(?![.A-Za-z])'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

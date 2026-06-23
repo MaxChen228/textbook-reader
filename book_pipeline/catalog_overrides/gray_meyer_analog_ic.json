@@ -1,0 +1,73 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "gray_meyer-fig-4.57-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "problem:4.9:body[0]",
+      "position": "before",
+      "page": 352,
+      "clip": [0.04, 0.045, 0.49, 0.33],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.57",
+        "kind": "line",
+        "caption": "Figure 4.57 Circuit for Problem 4.9."
+      },
+      "reason": "MinerU 漏抓此圖（raw PDF p.352 為向量電路圖、無 raster image）；Fig. 4.57 在 Problem 4.9 引用，物理頁左上電路 + 置中 caption，clip 含圖與自身 caption、x1<0.519 避開右側 Figure 4.58。"
+    },
+    {
+      "id": "gray_meyer-fig-8.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "body[84]",
+      "position": "before",
+      "page": 575,
+      "clip": [0.05, 0.78, 0.655, 0.99],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.7",
+        "kind": "line",
+        "caption": "Figure 8.7 Circuit for the calculation of the output impedance of the series-shunt feedback configuration."
+      },
+      "reason": "MinerU 漏抓此圖（raw PDF p.575 向量電路、無 raster）；body[84] 文中引用 Fig. 8.7，圖在頁底左側電路，caption 在右 x0=0.667，clip x1=0.655 避開 caption。"
+    },
+    {
+      "id": "gray_meyer-fig-9.64-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:9.42:body[0]",
+      "position": "before",
+      "page": 717,
+      "clip": [0.02, 0.354, 0.64, 0.525],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-9.64",
+        "kind": "line",
+        "caption": "Figure 9.64 Circuit for Problem 9.42."
+      },
+      "reason": "MinerU 漏抓此圖（raw PDF p.717 向量電路、無 raster）；Problem 9.42 引用 Fig. 9.64，為頁面三疊電路（9.62/9.63/9.64）最下一個，caption 在右 x0=0.651，clip x1=0.64 避開 caption 並只含第三個電路。"
+    },
+    {
+      "id": "gray_meyer-fig-11.10-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[74]",
+      "position": "before",
+      "page": 759,
+      "clip": [0.05, 0.075, 0.63, 0.30],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.10",
+        "kind": "line",
+        "caption": "Figure 11.10 Spectral density of combined multiple burst noise sources and flicker noise."
+      },
+      "reason": "MinerU 漏抓此圖（raw PDF p.759 向量折線圖、無 raster）；body[74] 引用 Fig. 11.10，圖在頁左上（burst noise 譜密度折線圖），caption 在右 x0=0.656，clip x1=0.63 避開 caption。"
+    }
+  ]
+}
