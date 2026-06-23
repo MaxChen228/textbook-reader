@@ -468,8 +468,10 @@
   // ── 工人：slug → worker（live workers.json） ──
   function workerOf(slug) { return lastWorkers.find(w => w.slug === slug) }
   function liveWorkers() {
-    // 起 <6h 才當 live：agent 時間上限已取消（可長跑），舊 1h 上限會讓長 agent 1h 後從面板蒸發。6h 純孤兒兜底。
-    return lastWorkers.filter(w => { const t = w.started ? Date.parse(w.started) : 0; return !t || (Date.now() - t) < 21600e3 })
+    // liveness 認 updated（每次工具/發言刷新的活躍心跳）非 started（出生年齡）：agent 時間上限已取消、
+    // 可長跑（audit 曾 40h+），用出生年齡會讓長 active agent 6h 後從面板蒸發。改判「6h 無任何活動」＝孤兒
+    // 兜底（真 live worker 呼叫工具/發言遠比每 6h 頻繁、不誤殺；死進程未 unregister 殘留才會中標）。
+    return lastWorkers.filter(w => { const ts = w.updated || w.started; const t = ts ? Date.parse(ts) : 0; return !t || (Date.now() - t) < 21600e3 })
   }
 
   // ── 站台骨架：一次建好、永不重生（root-cause 1 修：停止每 8s 全 innerHTML 重建）──
@@ -787,13 +789,15 @@
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
   const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥', gc:'🧹' }
   // 兩種徽章疊書卡：① 本地 LLM walker（workers.json：金 + bob + verb·call 數）② 外部 OCR worker
-  //（MinerU 雲端，無本地進程 → 從 stage 0.3/0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
+  //（MinerU 雲端，無本地進程 → 從 stage 0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
   function applyWalkers() {
     const bySlug = new Map(liveWorkers().map(w => [w.slug, w]))
     document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
       const w = bySlug.get(el.dataset.slug)
       const sc = (el.dataset.stage || '').trim().split(' ')[0]
-      const ocr = !w && (sc === '0.3' || sc === '0.5')  // OCR 段、無本地 worker = 外部雲端進行中
+      // 僅 0.5=已 PUT 雲端、OCR 真的在跑 → 畫進行中藍環；0.3=待 ingest（QC 過、尚未送雲端、下個
+      // cycle 才提交）非進行中，無 worker 就不畫（與抽屜 statusText「待提交 OCR」一致，免假轉圈）。
+      const ocr = !w && sc === '0.5'
       let walker = el.querySelector('.walker')
       if (!w && !ocr) {  // 無任何 worker → 移除疊加（僅在 transition 時改 DOM）
         if (walker) { walker.remove(); el.querySelector('.cv .work-ring')?.remove() }
@@ -897,14 +901,13 @@
     document.getElementById('dr-title').textContent = 'Proposals'
     const f = proposalsFeed
     const c = (f && f.counts) || { proposed: 0, parked: 0, accepted: 0, rejected: 0, superseded: 0 }
-    const fr = (f && f.frontier && f.frontier.counts) || {}
     document.getElementById('dr-sub').textContent = `提案 · 待分類 ${c.proposed} · 等外部 ${c.parked || 0}`
     const bd = f && f.by_domain ? Object.entries(f.by_domain).map(([k, v]) => `${k} ${v}`).join(' · ') : ''
     document.getElementById('dr-meta').innerHTML =
       `<span class="dr-status dr-st-wait">🟡 待分類 <b>${c.proposed}</b></span>`
       + ` <span class="dr-status dr-st-ready">⏸ 等外部 <b>${c.parked || 0}</b></span>`
       + ` <small style="opacity:.6">accepted ${c.accepted} · rejected ${c.rejected}`
-      + `${c.superseded ? ' · superseded ' + c.superseded : ''}${fr.stale ? ' · ⏳stale ' + fr.stale : ''}</small>`
+      + `${c.superseded ? ' · superseded ' + c.superseded : ''}</small>`
       + (bd ? `<span>${escapeHtml(bd)}</span>` : '')
       + `<div class="pp-filter">`
       + `<button data-f="proposed" class="${ppFilter === 'proposed' ? 'on' : ''}">待分類</button>`
@@ -919,12 +922,11 @@
       const st = bk === 'terminal' ? `<span class="pp-st">${escapeHtml(p.status)}</span>`
                : bk === 'parked' ? `<span class="pp-st" style="color:var(--info)">⏸ 等外部</span>`
                                  : `<span class="pp-st proposed">待分類</span>`
-      const stale = p.stale ? `<span class="pp-src" title="需重驗">⏳</span>` : ''
       return `<div class="pp-row ${bk === 'terminal' ? 'resolved' : ''}" data-pid="${encodeURIComponent(p.id)}">`
         + `<span class="pp-tt">${escapeHtml(p.title || p.id)}</span>`
         + ppDomBadge(p) + `<span class="pp-type">${escapeHtml(p.type || '')}</span>`
         + (p.source ? `<span class="pp-src">${escapeHtml(p.source)}</span>` : '')
-        + stale + st + `<span class="pp-at">${escapeHtml(p.created ? relTime(p.created) : '')}</span></div>`
+        + st + `<span class="pp-at">${escapeHtml(p.created ? relTime(p.created) : '')}</span></div>`
     }).join('') : `<div class="dr-empty">${ppFilter === 'all' ? '無提案' : (ppFilter === 'parked' ? '無等外部提案' : '無待分類提案 🎉')}</div>`
     document.getElementById('dr-tl').innerHTML = ''
     document.getElementById('dr-hist').innerHTML = ''
@@ -957,7 +959,6 @@
       + (p.slug ? `<span>書 <b>${escapeHtml(p.slug)}</b></span>` : '')
       + (ub.kind ? `<span>解鎖 <b>${escapeHtml(ub.kind)}${ub.target ? '→' + escapeHtml(ub.target) : ''}</b></span>` : '')
       + (va.sha ? `<span title="${escapeAttr(va.date || '')}">已驗 <b>@${escapeHtml(va.sha)}</b></span>` : '')
-      + (p.stale ? `<span class="dr-status dr-st-wait">⏳ 需重驗</span>` : '')
       + (p.created ? `<span>${escapeHtml(p.created.replace('T', ' ').replace('+00:00', ''))} UTC</span>` : '')
     const sec = (h, body, pre) => body
       ? `<div class="pp-sec"><div class="h">${h}</div>${pre ? `<pre class="pp-pre">${escapeHtml(body)}</pre>` : `<div class="bd">${escapeHtml(body)}</div>`}</div>`
@@ -1033,6 +1034,9 @@
     const running = lv.state === 'running'
     const pct = lv.total ? Math.round(lv.done / lv.total * 100) : 0
     const eta = lv.eta_s == null ? '—' : fmtDur(lv.eta_s)
+    // rate 在 elapsed≈0（剛起步／idle 剛收尾）會被 done/elapsed 除爆成天文數字（真檔見過 107103/分）
+    // → 只在 running 且已跑 ≥1s 才顯實數，待命卡不報無意義吞吐。
+    const rateTxt = (running && lv.elapsed_s >= 1) ? lv.rate_per_min : '—'
     // 外殼 .ms-card 一次性建、留存：mrpulse 動畫綁外殼，每 1.2s 全重建會讓它從 0 重啟成閃爍。
     // 只重建內層 .ms-body 數值（無動畫）；.live 冪等 toggle（running 不變即不重啟動畫）。
     let card = el.__msCard
@@ -1044,7 +1048,7 @@
     card.querySelector('.ms-body').innerHTML =
       `<div class="ms-top"><span>${running ? '🟢' : '⚪'}</span>`
       + `<span class="ms-state">${running ? `${lv.active}/${lv.workers} worker 並發處理中` : '待命 · 最近一批已完成'}</span></div>`
-      + `<div class="ms-rate"><b>${lv.rate_per_min}</b><span>條/分</span></div>`
+      + `<div class="ms-rate"><b>${rateTxt}</b><span>條/分</span></div>`
       + `<div class="ms-bar"><div class="ms-fill" style="width:${pct}%"></div></div>`
       + `<div class="ms-prog">${lv.done}/${lv.total} 條 · ${pct}%${running ? ` · ETA ${eta}` : ''} · 已跑 ${fmtDur(lv.elapsed_s)}</div>`
       + `<div class="ms-cnts"><span class="ms-ac">✓ ${lv.accepted} 落地</span>`
@@ -1260,8 +1264,19 @@
     else if (dm.in_tick_now) { dot = 'dot-ok live'; word = 'controller 運轉中' }
     else if (healthy) { dot = 'dot-ok'; word = '待命' }
     else { dot = 'dot-bad'; word = `異常 exit=${dm.last_exit_code}` }
+    // 現役碼落後 HEAD 時標注（code.behind>0 ⇒ live controller 跑舊碼，下次優雅退出／respawn
+    // 自動跟上、毋須 kick）：把 CLI `devctl status` 才有的「落後 N commit」搬上 /dev，改演算法
+    // 上線後一眼知 daemon 是否已換到新碼。behind 為 null（無 live controller／不可比）時不標。
+    if (code.behind > 0) word += ` · ⚠碼落後 ${code.behind}`
     const de = document.getElementById('dm-dot'); if (de) de.className = 'dev-dot ' + dot
-    const we = document.getElementById('dm-word'); if (we) we.textContent = word
+    const we = document.getElementById('dm-word')
+    if (we) {
+      we.textContent = word
+      we.title = code.behind > 0
+        ? `現役碼 @${code.running} · HEAD @${code.head} · 落後 ${code.behind} commit（下次優雅退出／respawn 自動跟上）`
+        : code.behind === 0 ? `現役碼 @${code.running}（= HEAD）`     // 唯確證相等才說「= HEAD」
+        : code.running ? `現役碼 @${code.running}` : ''               // behind=null（git 無法比對）→ 只報 sha、不妄稱相等
+    }
   }
   // 強制待辦（非 — 非 可選）：區分「待製(未上站)」與「精修(已上站仍有 catalog/sol)」
   function hasMand(b) { return (b.todo || '').split(/\s+/).some(t => t && t !== '—' && !t.endsWith('(可選)')) }
@@ -1327,8 +1342,9 @@
     reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 1s loadWorkers 管）
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
-    setText('budget-date', `(${d.budget.date_utc} UTC · 無上限)`)
-    setHtml('budget', Object.entries(d.budget.accounts).map(([name, v]) =>
+    const bg = d.budget || { date_utc: '?', accounts: {} }  // budget 缺鍵不該炸掉整片 render（與 d.zlib 一致防禦）
+    setText('budget-date', `(${bg.date_utc || '?'} UTC · 無上限)`)
+    setHtml('budget', Object.entries(bg.accounts || {}).map(([name, v]) =>
       `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
         <span class="num">${v.used} 頁</span></div>`).join(''))
 
