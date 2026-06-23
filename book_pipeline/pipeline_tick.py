@@ -686,19 +686,27 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
         log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt, spec)))
         return 0
     tried = []
+    # **單一 provider 鏈不套 exhaustion**（multi 才套）：exhaust 標記的唯二作用＝① 同 cycle 並發子工 fast-skip
+    # 死池 ② 跨 cycle TTL 內換下一 provider——兩者都**前提是有「下一個」可切**。sole provider 鏈沒有 next，標
+    # exhausted 零失效益、只剩跨 cycle 300s 全停的純害：一個間歇 outage 就把唯一 provider 黑名單 5 分鐘、期間所有
+    # 派工 -2 defer（dogfood 實證：codex-pool-only 下 catalog_audit backlog 被間歇 400 卡死成 ~5min/blip 循環）。
+    # 故 len==1 時每 cycle 照常重試（暫態靠 defer-retry 自然化解、不黑名單）。多 provider 維持原 fast-failover 語意。
+    multi = len(chain) > 1
     for provider in chain:
-        with _exhausted_lock:
-            skip = _is_exhausted(provider, time.monotonic())
-        if skip:
-            continue
+        if multi:
+            with _exhausted_lock:
+                if _is_exhausted(provider, time.monotonic()):
+                    continue
         tried.append(provider)
         rc, reason = _run_one(provider, todo_verb, key, prompt, spec)
         if not reason:
             return rc  # 成功，或 agent 真跑了卻任務失敗 → 交回呼叫端，不換 provider
-        with _exhausted_lock:
-            _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
-            nxt = next((q for q in chain if q != provider
-                        and not _is_exhausted(q, time.monotonic())), None)
+        nxt = None
+        if multi:
+            with _exhausted_lock:
+                _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
+                nxt = next((q for q in chain if q != provider
+                            and not _is_exhausted(q, time.monotonic())), None)
         why = '撞額度' if reason == 'limit' else '服務中斷'
         log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
             + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))

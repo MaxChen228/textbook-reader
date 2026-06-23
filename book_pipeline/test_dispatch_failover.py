@@ -11,25 +11,27 @@ from book_pipeline import llm_policy as lp
 from book_pipeline import pipeline_tick as pt
 
 
+# 測試用**固定** failover 鏈（hermetic）：絕不讀 live `resolve_dispatch` 生效鏈——runtime override
+# （devctl chain set，如使用者「只用 codex-pool」會使生效鏈剩 1 段）會讓 failover 測試假紅。_patch 把
+# `_resolve_dispatch` pin 成此鏈，故測試永遠驗的是 failover **語意**、與當下營運鏈無關（2026-06-24 定）。
+_HCHAIN = ('codex', 'codex-pool', 'claude')
+
+
 def _chain():
-    """dispatch_llm 實際遵循的 provider 順序（= resolve_dispatch 的生效鏈）。長度**不寫死**——碼層常態
-    3 段（codex/codex-pool/claude），但 runtime override（devctl chain set，如禁 claude 只留
-    codex,codex-pool）可使其 2 段。測試驗 failover **語意**而非特定鏈長 → 對 ≥2 段皆成立、不隨營運
-    換鏈而假紅（2026-06-24：禁 claude 後鏈剩 2 段，舊 len==3 硬斷言誤殺 4 測）。"""
-    chain = list(lp.resolve_dispatch('audit').chain)
-    assert len(chain) >= 2, f'failover 測試需 ≥2-provider 鏈，得到 {chain}'
-    return chain
+    """failover 測試用的固定 3-provider 鏈（hermetic，見 _HCHAIN）。"""
+    return list(_HCHAIN)
 
 
-def _patch(results):
-    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。每次重置 exhausted 共享集；
-    並把 LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』『❌ 全 provider 不可用
-    audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status / /dev）冒假 🔴 cry-wolf
-    （2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。"""
+def _patch(results, chain=_HCHAIN):
+    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。
+    - pin `_resolve_dispatch` → 固定 chain（hermetic，不受 runtime provider_chain.json override 影響）。
+    - 重置 exhausted 共享集；LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』
+      『❌ 全 provider 不可用 audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status /
+      /dev）冒假 🔴 cry-wolf（2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。"""
     calls = []
-    orig = pt._run_one
-    orig_log = pt.LOG
+    orig_run, orig_resolve, orig_log = pt._run_one, pt._resolve_dispatch, pt.LOG
     pt.LOG = os.devnull
+    pt._resolve_dispatch = lambda verb: lp.DispatchSpec(chain=tuple(chain), codex_model='gpt-5.4')
     with pt._exhausted_lock:
         pt._exhausted_at.clear()
 
@@ -39,8 +41,9 @@ def _patch(results):
     pt._run_one = fake
 
     def restore():
-        pt._run_one = orig
-        pt.LOG = orig_log
+        pt._run_one, pt._resolve_dispatch, pt.LOG = orig_run, orig_resolve, orig_log
+        with pt._exhausted_lock:
+            pt._exhausted_at.clear()
     return calls, restore
 
 
@@ -148,6 +151,39 @@ def test_codex_pool_pins_endpoint():
     print('✓ codex-pool pin @codex-pool/ + 原生 codex 裸名（兩向鎖死）+ math/CLI 同 pin')
 
 
+def test_single_provider_chain_no_exhaust():
+    """**單一 provider 鏈不套 exhaustion**：outage 不標 exhausted、連兩次 dispatch 都真試該 provider。
+    根因＝sole provider 沒有 next 可 failover，標 exhausted 零失效益、只剩跨 cycle 300s 全停的純害（一個
+    間歇 blip 黑名單唯一 provider 5 分鐘）。2026-06-24 dogfood：codex-pool-only 下間歇 400→outage→codex-pool
+    被標 exhausted→catalog_audit backlog 卡死 ~5min/blip。對比 multi-provider 仍標 exhausted（既有測試涵蓋）。"""
+    calls, restore = _patch({'codex-pool': (1, 'outage')}, chain=('codex-pool',))
+    try:
+        rc1 = pt.dispatch_llm('audit', 'x', dry=False)
+        rc2 = pt.dispatch_llm('audit', 'x', dry=False)
+        assert rc1 == -2 and rc2 == -2, (rc1, rc2)               # 無 fallback → 兩次皆 -2 defer
+        assert calls == ['codex-pool', 'codex-pool'], \
+            f'單一 provider 須每 cycle 都真試、不因 exhaust 跳過：{calls}'
+        with pt._exhausted_lock:
+            assert 'codex-pool' not in pt._exhausted_at, '單一 provider 鏈不該標 exhausted（否則暫態 blip 黑名單 300s）'
+        print('✓ 單一 provider 鏈：outage 不標 exhausted、每 cycle 重試（暫態靠 defer-retry 化解，不全停 300s）')
+    finally:
+        restore()
+
+
+def test_multi_provider_still_exhausts():
+    """回歸守衛：multi-provider 鏈**仍**標 exhausted（fast-failover 語意不被單一 provider 修法波及）。
+    鏈首 outage → 標 exhausted + 串接下一個；確認 _exhausted_at 留下鏈首戳記。"""
+    calls, restore = _patch({'codex': (1, 'outage'), 'codex-pool': (0, None)})
+    try:
+        rc = pt.dispatch_llm('audit', 'x', dry=False)
+        assert rc == 0 and calls == ['codex', 'codex-pool'], (rc, calls)
+        with pt._exhausted_lock:
+            assert 'codex' in pt._exhausted_at, 'multi-provider 鏈首 outage 須標 exhausted（fast-failover）'
+        print('✓ multi-provider 仍標 exhausted（單一 provider 修法未波及 failover 語意）')
+    finally:
+        restore()
+
+
 if __name__ == '__main__':
     test_outage_fails_over()
     test_limit_fails_over()
@@ -156,4 +192,6 @@ if __name__ == '__main__':
     test_outage_classification()
     test_exhaustion_ttl_expires()
     test_codex_pool_pins_endpoint()
+    test_single_provider_chain_no_exhaust()
+    test_multi_provider_still_exhausts()
     print('\n全部通過 ✅')
