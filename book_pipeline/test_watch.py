@@ -55,6 +55,18 @@ def test_is_terminal():
         assert w._is_terminal(label) is want, (label, want)
 
 
+def test_staleness_msg_crosschecks_workers():
+    """status.json 滯後時用 workers.json 分級，避免 walltime 排空期間 cry-wolf（誤報 daemon 死）。"""
+    assert w._staleness_msg(10, 5) is None                    # status 夠新 → 無警示
+    assert w._staleness_msg(10, None) is None                 # status 夠新即使 workers 缺
+    m_alive = w._staleness_msg(200, 3)                        # status 舊但 workers 新 → 活著、非死
+    assert m_alive and '仍活' in m_alive and '非死' in m_alive
+    m_dead = w._staleness_msg(200, 400)                       # 兩者皆舊 → 真警示
+    assert m_dead and '可能停了' in m_dead
+    m_nofile = w._staleness_msg(200, None)                    # workers 缺 → 保守真警示
+    assert m_nofile and '可能停了' in m_nofile and '缺' in m_nofile
+
+
 def test_icon():
     assert w._icon('deployed') == '✅' and w._icon('sol·已merge') == '✅'
     assert w._icon('X 無源') == '⚠' and w._icon('sol·母書X 無源') == '⚠'

@@ -13,7 +13,8 @@ dev/status.json（單一真相、零重算、與 /dev 字字一致），diff 各
 
 終止：被盯的書全達終態 → 印總結後 exit 0（Monitor 收到乾淨結尾）。--persistent 則永不自退（TaskStop 收）。
 robust（silence ≠ success）：①終態涵蓋 deploy∧stuck∧blocked，不只 happy path ②status.json 逾 STALE_SEC
-未刷新 → 吐 ⏳ 警示（daemon 死了不會靜默假裝沒事）③半截/缺檔該輪跳過 ④controller phase 翻轉（reload/排空）也報。
+未刷新 → **交叉 workers.json**（高頻寫的存活信號）分級：workers 仍新=daemon 活只是大快照滯後（walltime 排空/
+重負載，資訊性非死、不 cry-wolf）／workers 也舊=可能真停了（真警示）③半截/缺檔該輪跳過 ④controller phase 翻轉也報。
 
 用法：uv run python -m book_pipeline.watch [slug ...] [--kinds all|done] [--interval 20] [--persistent]
 """
@@ -27,7 +28,8 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAPSHOT = os.path.join(ROOT, 'dev', 'status.json')
-STALE_SEC = 180  # status.json 逾此未刷新 → daemon 可能死了，吐警示不靜默
+WORKERS = os.path.join(ROOT, 'dev', 'workers.json')  # controller 高頻寫，比大快照靈敏的存活信號
+STALE_SEC = 180  # status.json 逾此未刷新 → 疑似 daemon 死；但需交叉 workers.json 排除「健康但快照滯後」
 
 
 def _slug_label(rows: dict, slug: str) -> str:
@@ -96,6 +98,28 @@ def _read_snapshot() -> tuple[dict | None, float]:
         return None, 0.0
 
 
+def _workers_age() -> float | None:
+    """dev/workers.json 落後秒數（controller 高頻寫 → 比 200KB status.json 靈敏的存活信號）；缺檔→None。"""
+    try:
+        return time.time() - os.path.getmtime(WORKERS)
+    except OSError:
+        return None
+
+
+def _staleness_msg(status_age: float, workers_age: float | None) -> str | None:
+    """status.json 逾 STALE_SEC 未刷新時的分級警示（避免 cry-wolf）：
+    workers.json 仍新鮮 → daemon 活著、只是大快照滯後（walltime 排空 / build_snapshot 重負載）→ 資訊性、非死；
+    workers.json 也舊或缺 → daemon 可能真停了 → 真警示叫人查。回 None＝status.json 夠新、無需警示。"""
+    if status_age <= STALE_SEC:
+        return None
+    if workers_age is not None and workers_age <= STALE_SEC:
+        return (f"⏳ status.json 滯後 {int(status_age)}s，但 daemon 仍活"
+                f"（workers.json {int(workers_age)}s 前更新）— 多半 walltime 排空/重負載快照延遲、非死")
+    wa = '缺' if workers_age is None else f'{int(workers_age)}s'
+    return (f"⏳ status.json {int(status_age)}s ∧ workers.json {wa} 均未更新 — "
+            f"daemon 可能停了（devctl status 查）")
+
+
 def _emit(line: str) -> None:
     print(line, flush=True)  # 每行一個 Monitor 事件 → 必須 line-flush
 
@@ -124,9 +148,10 @@ def run(slugs: list[str], kinds: str, interval: float, persistent: bool) -> int:
         snap, age = _read_snapshot()
         if snap is None:
             continue
-        if age > STALE_SEC:
+        msg = _staleness_msg(age, _workers_age())
+        if msg:
             if not stale_warned:
-                _emit(f"⏳ status.json 已 {int(age)}s 未刷新 — daemon 是否在跑？（devctl status 查）")
+                _emit(msg)
                 stale_warned = True
             continue
         stale_warned = False
