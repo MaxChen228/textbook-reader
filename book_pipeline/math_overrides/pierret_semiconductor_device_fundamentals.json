@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "pierret_semiconductor_device_fundamentals-ch16-body-236-7a1870",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[236]",
+      "expect": "C = \\left\\{ \\begin{array}{c l} C _ {\\mathrm{o}} & \\text {acc} \\\\ \\frac {C _ {\\mathrm{o}}}{1 + \\frac {K _ {\\mathrm{o}} W}{K _ {\\mathrm{s}} x _ {\\mathrm{o}}}} & \\text {depl} \\\\ C _ {\\mathrm{o}} & \\text {inv (\\omega\\to 0)} \\\\ \\frac {C _ {\\mathrm{o}}}{1 + \\frac {K _ {\\mathrm{o}} W _ {\\mathrm{T}}}{K _ {\\mathrm{s}} x _ {\\mathrm{o}}}} & \\text {inv (\\omega\\to\\infty)} \\end{array} \\right.",
+      "new": "C = \\left\\{ \\begin{array}{c l} C _ {\\mathrm{o}} & \\text {acc} \\\\ \\frac {C _ {\\mathrm{o}}}{1 + \\frac {K _ {\\mathrm{o}} W}{K _ {\\mathrm{s}} x _ {\\mathrm{o}}}} & \\text {depl} \\\\ C _ {\\mathrm{o}} & \\text {inv }(\\omega\\to 0) \\\\ \\frac {C _ {\\mathrm{o}}}{1 + \\frac {K _ {\\mathrm{o}} W _ {\\mathrm{T}}}{K _ {\\mathrm{s}} x _ {\\mathrm{o}}}} & \\text {inv }(\\omega\\to\\infty) \\end{array} \\right."
+    }
+  ]
+}

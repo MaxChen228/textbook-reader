@@ -1,0 +1,122 @@
+{
+  "overrides": [
+    {
+      "id": "sze_semiconductor-ch05-body-260-c01843",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[260]",
+      "field": "md",
+      "all": true,
+      "old": "$s_{22} = \\frac{b_2}{a_2}\\Bigg|_{a_1 = 0} = \\text{Output reflection coefficient with input terminated by a matched load (Z_s = Z_0 sets a_1 = 0).}$",
+      "new": "$s_{22} = \\frac{b_2}{a_2}\\Bigg|_{a_1 = 0} = \\text{Output reflection coefficient with input terminated by a matched load }(Z_s = Z_0\\text{ sets }a_1 = 0)\\text{.}$",
+      "anchor": "51a9aad9"
+    },
+    {
+      "id": "sze_semiconductor-ch01-body-159-165b2a",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[159]",
+      "field": "md",
+      "all": true,
+      "old": "$N_D \\gg \\nicefrac{1}{2} N_C \\exp[-(E_C - E_D) / kT] \\gg N_A$",
+      "new": "$N_D \\gg \\frac{1}{2} N_C \\exp[-(E_C - E_D) / kT] \\gg N_A$",
+      "anchor": "d6e6cbed"
+    },
+    {
+      "id": "sze_semiconductor-ch06-problem-15-body-0-24ecd4",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:15:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$x_{s}=0.3~\\mum$",
+      "new": "$x_{s}=0.3~\\mu\\mathrm{m}$",
+      "anchor": "eeae1c9f"
+    },
+    {
+      "id": "sze_semiconductor-ch07-problem-8-body-0-796d48",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$L = 1.5 \\, \\mum$",
+      "new": "$L = 1.5 \\, \\mu\\mathrm{m}$",
+      "anchor": "dbd0cdf8"
+    },
+    {
+      "id": "sze_semiconductor-ch07-problem-8-body-0-9a38cf",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$a = 0.3 \\, \\mum$",
+      "new": "$a = 0.3 \\, \\mu\\mathrm{m}$",
+      "anchor": "dbd0cdf8"
+    },
+    {
+      "id": "sze_semiconductor-ch07-problem-8-body-0-a7ea15",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$Z = 75 \\, \\mum$",
+      "new": "$Z = 75 \\, \\mu\\mathrm{m}$",
+      "anchor": "dbd0cdf8"
+    },
+    {
+      "id": "sze_semiconductor-ch09-body-256-352c49",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[256]",
+      "field": "md",
+      "all": true,
+      "old": "$W_{D}=5~\\mum$",
+      "new": "$W_{D}=5~\\mu\\mathrm{m}$",
+      "anchor": "d2b8c51f"
+    },
+    {
+      "id": "sze_semiconductor-ch09-body-256-6d6a2d",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[256]",
+      "field": "md",
+      "all": true,
+      "old": "$x_{A}=1~\\mum$",
+      "new": "$x_{A}=1~\\mu\\mathrm{m}$",
+      "anchor": "d2b8c51f"
+    },
+    {
+      "id": "sze_semiconductor-ch12-body-35-bd2f69",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[35]",
+      "field": "md",
+      "all": true,
+      "old": "$(E_{\\mathrm{g}} + \\nicefrac{1}{2}kT)$",
+      "new": "$(E_{\\mathrm{g}} + \\frac{1}{2}kT)$",
+      "anchor": "a3589a6b"
+    },
+    {
+      "id": "sze_semiconductor-ch13-body-131-655987",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[131]",
+      "field": "md",
+      "all": true,
+      "old": "$1/\\alpha = 1,000 \\, \\mum$",
+      "new": "$1/\\alpha = 1,000 \\, \\mu\\mathrm{m}$",
+      "anchor": "057317a7"
+    },
+    {
+      "id": "sze_semiconductor-ch13-body-506-ebeed3",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[506]",
+      "expect": "\\begin{array}{l} p _ {n} - p _ {n o} = \\left[ \\alpha \\phi (1 - R) \\tau_ {p} / \\left(\\alpha^ {2} L _ {p} ^ {2} - 1\\right) \\right] \\\\ \\times \\left[ \\frac {\\left(\\frac {S _ {p} L _ {p}}{D _ {p}} + \\alpha L _ {p}\\right) \\sinh \\frac {x _ {j} - x}{L _ {p}} + \\exp (- \\alpha x _ {j}) \\left(\\frac {S _ {p} L _ {p}}{D _ {p}} \\sinh \\frac {x}{L _ {p}} + \\cosh \\frac {x}{L _ {p}}\\right)}{\\left(S _ {p} L _ {p} / D _ {p}\\right) \\sinh \\left(x _ {j} / L _ {p}\\right) + \\cosh \\left(x _ {j} / L _ {p}\\right)} - \\exp (- \\alpha x) \\right] \\end{array}\\tag{(\\rfloor (124)\\}",
+      "new": "\\begin{array}{l} p _ {n} - p _ {n o} = \\left[ \\alpha \\phi (1 - R) \\tau_ {p} / \\left(\\alpha^ {2} L _ {p} ^ {2} - 1\\right) \\right] \\\\ \\times \\left[ \\frac {\\left(\\frac {S _ {p} L _ {p}}{D _ {p}} + \\alpha L _ {p}\\right) \\sinh \\frac {x _ {j} - x}{L _ {p}} + \\exp (- \\alpha x _ {j}) \\left(\\frac {S _ {p} L _ {p}}{D _ {p}} \\sinh \\frac {x}{L _ {p}} + \\cosh \\frac {x}{L _ {p}}\\right)}{\\left(S _ {p} L _ {p} / D _ {p}\\right) \\sinh \\left(x _ {j} / L _ {p}\\right) + \\cosh \\left(x _ {j} / L _ {p}\\right)} - \\exp (- \\alpha x) \\right] \\end{array}\\tag{(\\rfloor (124)\\}}"
+    }
+  ]
+}

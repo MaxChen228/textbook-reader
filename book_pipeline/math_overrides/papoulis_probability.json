@@ -1,0 +1,270 @@
+{
+  "overrides": [
+    {
+      "id": "papoulis_probability-ch03-problem-3-7-solution-2-0ac170",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3-7:solution[2]",
+      "field": "md",
+      "all": true,
+      "old": "$P(\\text{net gain does not exceed $",
+      "new": "$P(\\text{net gain does not exceed} $",
+      "anchor": "aa8ed733"
+    },
+    {
+      "id": "papoulis_probability-ch03-problem-3-7-solution-6-0ac170",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3-7:solution[6]",
+      "field": "md",
+      "all": true,
+      "old": "$P(\\text{net gain does not exceed $",
+      "new": "$P(\\text{net gain does not exceed} $",
+      "anchor": "7d169b28"
+    },
+    {
+      "id": "papoulis_probability-ch05-problem-5-22-solution-4-420085",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5-22:solution[4]",
+      "expect": "\\underset {\\sim} {y} = \\frac {\\underset {\\sim} {x - \\eta} _ {x}}{\\sigma_ {x}}",
+      "new": "\\underset {\\sim} {y} = \\frac {{\\underset {\\sim} {x - \\eta}} _ {x}}{\\sigma_ {x}}"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-4-solution-0-60463d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7-4:solution[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\underset{\\sim}{\\mathbf{x}} = \\underset{\\sim}{\\mathbf{x}}_{1} + \\underset{\\sim}{\\mathbf{x}}_{2} + \\underset{\\sim}{\\mathbf{x}}_{3}$",
+      "new": "$\\underset{\\sim}{\\mathbf{x}} = {\\underset{\\sim}{\\mathbf{x}}}_{1} + {\\underset{\\sim}{\\mathbf{x}}}_{2} + {\\underset{\\sim}{\\mathbf{x}}}_{3}$",
+      "anchor": "59671230"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-17-solution-5-45d926",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7-17:solution[5]",
+      "expect": "\\operatorname{E} \\left\\{\\left(\\underset {\\sim} {x} _ {i} - \\underset {\\sim} {\\bar {x}}\\right) \\underset {\\sim} {\\bar {x}} \\right\\} = 0",
+      "new": "\\operatorname{E} \\left\\{\\left({\\underset {\\sim} {x}} _ {i} - \\underset {\\sim} {\\bar {x}}\\right) \\underset {\\sim} {\\bar {x}} \\right\\} = 0"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-19-solution-8-2204a3",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7-19:solution[8]",
+      "expect": "\\hat {\\mathbf {E}} \\{\\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | _ {\\underset {\\sim} {\\mathbf {x}} _ {1}}, \\underset {\\sim} {\\mathbf {x}} _ {2} \\} | _ {\\underset {\\sim} {\\mathbf {x}} _ {1}} \\} = \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | _ {\\underset {\\sim} {\\mathbf {x}} _ {1}} \\}",
+      "new": "\\hat {\\mathbf {E}} \\{\\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | _ {{\\underset {\\sim} {\\mathbf {x}}} _ {1}}, {\\underset {\\sim} {\\mathbf {x}}} _ {2} \\} | _ {{\\underset {\\sim} {\\mathbf {x}}} _ {1}} \\} = \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | _ {{\\underset {\\sim} {\\mathbf {x}}} _ {1}} \\}"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-21-solution-6-cedb3f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7-21:solution[6]",
+      "expect": "E \\{\\underset {\\sim} {x} ^ {2} \\underset {\\sim} {x} _ {j} ^ {2} \\} = \\frac {1}{n ^ {2}} E \\left(\\sum_ {i = 1} ^ {n} \\underset {\\sim} {x} _ {i}\\right) ^ {2} \\underset {\\sim} {x} _ {j} ^ {2} = \\frac {1}{n ^ {2}} [ u _ {4} + (n - 1) \\sigma^ {4} ]",
+      "new": "E \\{\\underset {\\sim} {x} ^ {2} {\\underset {\\sim} {x}} _ {j} ^ {2} \\} = \\frac {1}{n ^ {2}} E \\left(\\sum_ {i = 1} ^ {n} {\\underset {\\sim} {x}} _ {i}\\right) ^ {2} {\\underset {\\sim} {x}} _ {j} ^ {2} = \\frac {1}{n ^ {2}} [ u _ {4} + (n - 1) \\sigma^ {4} ]"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-21-solution-10-340a3f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7-21:solution[10]",
+      "expect": "E \\{\\underset {\\sim} {x} _ {i} \\underset {\\sim} {x} _ {j} \\underset {\\sim} {x} _ {k} \\underset {\\sim} {x} _ {r} \\} = \\left\\{ \\begin{array}{l l} \\mu_ {4} & i = j = k = r \\\\ \\sigma^ {4} & i = j \\neq k = r \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\quad [ n \\text { such   terms } ] \\quad [ 3 n (n - 1) \\text { such   terms } ]",
+      "new": "E \\{{\\underset {\\sim} {x}} _ {i} {\\underset {\\sim} {x}} _ {j} {\\underset {\\sim} {x}} _ {k} {\\underset {\\sim} {x}} _ {r} \\} = \\left\\{ \\begin{array}{l l} \\mu_ {4} & i = j = k = r \\\\ \\sigma^ {4} & i = j \\neq k = r \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\quad [ n \\text { such   terms } ] \\quad [ 3 n (n - 1) \\text { such   terms } ]"
+    },
+    {
+      "id": "papoulis_probability-ch08-problem-8-36-solution-4-71755a",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8-36:solution[4]",
+      "expect": "\\underset {\\sim} {p} _ {5} = 6 \\underset {\\sim} {p ^ {2}} (1 - \\underset {\\sim} {p ^ {2}})",
+      "new": "{\\underset {\\sim} {p}} _ {5} = 6 \\underset {\\sim} {p ^ {2}} (1 - \\underset {\\sim} {p ^ {2}})"
+    },
+    {
+      "id": "papoulis_probability-ch09-problem-9-1-solution-15-3cafcd",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9-1:solution[15]",
+      "expect": "\\underset {\\sim} {a} - \\underset {\\sim} {b} t = 0 \\quad \\text {   iff   } \\quad t = \\underset {\\sim} {t} _ {1} = \\underset {\\sim} {a} / \\underset {\\sim} {b}. \\quad \\text { Setting   } \\sigma_ {1} = \\sigma_ {2} = \\sigma \\text {   and   } r = 0",
+      "new": "\\underset {\\sim} {a} - \\underset {\\sim} {b} t = 0 \\quad \\text {   iff   } \\quad t = {\\underset {\\sim} {t}} _ {1} = \\underset {\\sim} {a} / \\underset {\\sim} {b}. \\quad \\text { Setting   } \\sigma_ {1} = \\sigma_ {2} = \\sigma \\text {   and   } r = 0"
+    },
+    {
+      "id": "papoulis_probability-ch09-problem-9-10-solution-3-a45b3b",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9-10:solution[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\underset{\\sim}{\\mathbf{x}}_1 = \\underset{\\sim}{\\mathbf{x}}_2 = \\underset{\\sim}{\\mathbf{x}}(t + \\tau)$",
+      "new": "${\\underset{\\sim}{\\mathbf{x}}}_1 = {\\underset{\\sim}{\\mathbf{x}}}_2 = \\underset{\\sim}{\\mathbf{x}}(t + \\tau)$",
+      "anchor": "8a2d1da0"
+    },
+    {
+      "id": "papoulis_probability-ch09-problem-9-10-solution-3-adf4ba",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9-10:solution[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\underset{\\sim}{\\mathbf{x}}_3 = \\underset{\\sim}{\\mathbf{x}}_4 = \\underset{\\sim}{\\mathbf{x}}(t)$",
+      "new": "${\\underset{\\sim}{\\mathbf{x}}}_3 = {\\underset{\\sim}{\\mathbf{x}}}_4 = \\underset{\\sim}{\\mathbf{x}}(t)$",
+      "anchor": "8a2d1da0"
+    },
+    {
+      "id": "papoulis_probability-ch10-problem-10-12-solution-19-b96075",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10-12:solution[19]",
+      "expect": "\\mathrm{E} \\{\\underset {\\sim} {e} _ {N} ^ {2} (\\tau) \\} = \\mathrm{E} \\{\\underset {\\sim} {y} ^ {2} (0) \\} = \\frac {1}{2 \\pi} \\int_ {\\infty} ^ {\\infty} S (\\omega) | H _ {N} (\\omega) | ^ {2} d \\omega\\tag{i}",
+      "new": "\\mathrm{E} \\{{\\underset {\\sim} {e}} _ {N} ^ {2} (\\tau) \\} = \\mathrm{E} \\{\\underset {\\sim} {y} ^ {2} (0) \\} = \\frac {1}{2 \\pi} \\int_ {\\infty} ^ {\\infty} S (\\omega) | H _ {N} (\\omega) | ^ {2} d \\omega\\tag{i}"
+    },
+    {
+      "id": "papoulis_probability-ch10-problem-10-21-solution-1-b643c9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10-21:solution[1]",
+      "expect": "\\underset {\\sim} {X} _ {c} (\\omega) = \\frac {1}{\\lambda} \\sum_ {| t _ {i} | <   c} \\underset {\\sim} {x} (t _ {i}) e ^ {- j \\omega t _ {i}} = \\frac {1}{\\lambda} \\int_ {- a} ^ {a} \\underset {\\sim} {x} (t) z (t) e ^ {- j \\omega t} d t",
+      "new": "{\\underset {\\sim} {X}} _ {c} (\\omega) = \\frac {1}{\\lambda} \\sum_ {| t _ {i} | <   c} \\underset {\\sim} {x} (t _ {i}) e ^ {- j \\omega t _ {i}} = \\frac {1}{\\lambda} \\int_ {- a} ^ {a} \\underset {\\sim} {x} (t) z (t) e ^ {- j \\omega t} d t"
+    },
+    {
+      "id": "papoulis_probability-ch10-problem-10-21-solution-3-b3a718",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10-21:solution[3]",
+      "expect": "\\mathrm{E} \\{| \\underset {\\sim} {X} _ {c} (\\omega) | ^ {2} \\} \\simeq 2 c S _ {x} (\\omega) + \\frac {2 c}{\\lambda} R _ {x} (0)",
+      "new": "\\mathrm{E} \\{| {\\underset {\\sim} {X}} _ {c} (\\omega) | ^ {2} \\} \\simeq 2 c S _ {x} (\\omega) + \\frac {2 c}{\\lambda} R _ {x} (0)"
+    },
+    {
+      "id": "papoulis_probability-ch10-problem-10-25-solution-9-c4ca9e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10-25:solution[9]",
+      "expect": "V = E \\left\\{\\underset {\\sim} {y} _ {\\nu} ^ {2} (t) \\right\\} = \\sum_ {n = 0} ^ {m} a _ {n} \\sum_ {i = 0} ^ {m} a _ {i} R (n T - i T)\\tag{ii}",
+      "new": "V = E \\left\\{{\\underset {\\sim} {y}} _ {\\nu} ^ {2} (t) \\right\\} = \\sum_ {n = 0} ^ {m} a _ {n} \\sum_ {i = 0} ^ {m} a _ {i} R (n T - i T)\\tag{ii}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-8-solution-8-a9af9f",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-8:solution[8]",
+      "expect": "\\frac {\\partial \\mathrm{E} \\{\\left| \\underset {\\sim} {X} _ {T} (\\omega) \\right| ^ {2} \\}}{\\partial T} = \\int_ {- T} ^ {T} R (\\tau) e ^ {- j \\omega \\tau} d \\tau = E \\left\\{\\frac {\\partial}{\\partial T} \\mid \\underset {\\sim} {X} _ {T} (\\omega) \\right| ^ {2} \\}",
+      "new": "\\frac {\\partial \\mathrm{E} \\{\\left| {\\underset {\\sim} {X}} _ {T} (\\omega) \\right| ^ {2} \\}}{\\partial T} = \\int_ {- T} ^ {T} R (\\tau) e ^ {- j \\omega \\tau} d \\tau = E \\left\\{\\frac {\\partial}{\\partial T} \\mid {\\underset {\\sim} {X}} _ {T} (\\omega) \\right| ^ {2} \\}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-11-solution-1-7436cb",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-11:solution[1]",
+      "expect": "\\underset {\\sim} {c} _ {n} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\underset {\\sim} {x} (t) e ^ {- j n \\omega_ {0} t} d t \\quad \\beta_ {n} (\\alpha) = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} R (\\tau - \\alpha) e ^ {- j n \\omega_ {0} \\tau} d \\tau",
+      "new": "{\\underset {\\sim} {c}} _ {n} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\underset {\\sim} {x} (t) e ^ {- j n \\omega_ {0} t} d t \\quad \\beta_ {n} (\\alpha) = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} R (\\tau - \\alpha) e ^ {- j n \\omega_ {0} \\tau} d \\tau"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-11-solution-3-bb8e6d",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-11:solution[3]",
+      "expect": "\\underset {\\sim} {\\hat {x}} (t) = \\sum_ {n = - \\infty} ^ {\\infty} \\underset {\\sim} {c} _ {n} e ^ {j n \\omega_ {0} t} \\text { then } E \\{| x (t) - \\underset {\\sim} {\\hat {x}} (t) | ^ {2} \\} = 0 \\text { for } | t | <   T / 2\\tag{i}",
+      "new": "\\underset {\\sim} {\\hat {x}} (t) = \\sum_ {n = - \\infty} ^ {\\infty} {\\underset {\\sim} {c}} _ {n} e ^ {j n \\omega_ {0} t} \\text { then } E \\{| x (t) - \\underset {\\sim} {\\hat {x}} (t) | ^ {2} \\} = 0 \\text { for } | t | <   T / 2\\tag{i}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-11-solution-5-e68312",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-11:solution[5]",
+      "expect": "\\mathrm{E} \\{\\underset {\\sim} {c} _ {n} x ^ {*} (\\alpha) \\} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\mathrm{E} \\{\\underset {\\sim} {x} (t) x ^ {*} (\\alpha) \\} e ^ {- j n \\omega_ {o} t} d t = \\beta_ {n} (\\alpha)",
+      "new": "\\mathrm{E} \\{{\\underset {\\sim} {c}} _ {n} x ^ {*} (\\alpha) \\} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\mathrm{E} \\{\\underset {\\sim} {x} (t) x ^ {*} (\\alpha) \\} e ^ {- j n \\omega_ {o} t} d t = \\beta_ {n} (\\alpha)"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-11-solution-9-23dd2c",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-11:solution[9]",
+      "expect": "\\mathrm{E} \\{\\underset {\\sim} {x} (t) \\underset {\\sim} {x} ^ {*} (t) \\} = \\sum_ {n = - \\infty} ^ {\\infty} \\mathrm{E} \\{\\underset {\\sim} {c} _ {n} \\underset {\\sim} {x} ^ {*} (t)) ^ {j n \\omega_ {0} t} = \\sum_ {n = - \\infty} ^ {\\infty} \\beta_ {n} (t) e ^ {j n \\omega_ {0} t}",
+      "new": "\\mathrm{E} \\{\\underset {\\sim} {x} (t) \\underset {\\sim} {x} ^ {*} (t) \\} = \\sum_ {n = - \\infty} ^ {\\infty} \\mathrm{E} \\{{\\underset {\\sim} {c}} _ {n} \\underset {\\sim} {x} ^ {*} (t)) ^ {j n \\omega_ {0} t} = \\sum_ {n = - \\infty} ^ {\\infty} \\beta_ {n} (t) e ^ {j n \\omega_ {0} t}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-11-solution-11-c9d5f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-11:solution[11]",
+      "expect": "\\mathrm{E} \\{\\underset {\\sim} {c} _ {n} \\underset {\\sim} {c} _ {m} ^ {*} \\} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\mathrm{E} \\{\\underset {\\sim} {c} _ {n} x ^ {*} (t) \\} e ^ {j n \\omega_ {0} t} d t = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\beta_ {n} (t) e ^ {j n \\omega_ {0} t} d t\\tag{b}",
+      "new": "\\mathrm{E} \\{{\\underset {\\sim} {c}} _ {n} {\\underset {\\sim} {c}} _ {m} ^ {*} \\} = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\mathrm{E} \\{{\\underset {\\sim} {c}} _ {n} x ^ {*} (t) \\} e ^ {j n \\omega_ {0} t} d t = \\frac {1}{T} \\int_ {- T / 2} ^ {T / 2} \\beta_ {n} (t) e ^ {j n \\omega_ {0} t} d t\\tag{b}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-13-solution-8-bf4670",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-13:solution[8]",
+      "expect": "\\mathrm{E} \\{\\underset {\\sim} {\\mathrm{v}} (\\mathrm{t}) \\} = 0 \\quad \\mathrm{E} \\{\\underset {\\sim} {\\mathrm{X}} _ {\\mathrm{T}} (\\omega) \\} = \\int_ {- \\mathrm{T}} ^ {\\mathrm{T}} f (\\mathrm{t}) e ^ {- \\mathrm{j} \\omega \\mathrm{t}} \\mathrm{dt}",
+      "new": "\\mathrm{E} \\{\\underset {\\sim} {\\mathrm{v}} (\\mathrm{t}) \\} = 0 \\quad \\mathrm{E} \\{{\\underset {\\sim} {\\mathrm{X}}} _ {\\mathrm{T}} (\\omega) \\} = \\int_ {- \\mathrm{T}} ^ {\\mathrm{T}} f (\\mathrm{t}) e ^ {- \\mathrm{j} \\omega \\mathrm{t}} \\mathrm{dt}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-13-solution-10-b7a20e",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-13:solution[10]",
+      "expect": "\\operatorname{Var} \\underset {\\sim} {X} _ {T} (\\omega) = E \\left\\{\\left| \\int_ {- T} ^ {T} \\nu (t) e ^ {- j \\omega t} d t \\right| ^ {2} \\right\\}",
+      "new": "\\operatorname{Var} {\\underset {\\sim} {X}} _ {T} (\\omega) = E \\left\\{\\left| \\int_ {- T} ^ {T} \\nu (t) e ^ {- j \\omega t} d t \\right| ^ {2} \\right\\}"
+    },
+    {
+      "id": "papoulis_probability-ch11-problem-11-13-solution-12-599d41",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11-13:solution[12]",
+      "expect": "\\operatorname{Var} \\underset {\\sim} {X} _ {T} (\\omega) = Q (0) = \\int_ {- T} ^ {T} q d t = 2 q T",
+      "new": "\\operatorname{Var} {\\underset {\\sim} {X}} _ {T} (\\omega) = Q (0) = \\int_ {- T} ^ {T} q d t = 2 q T"
+    },
+    {
+      "id": "papoulis_probability-ch05-problem-5-36-solution-3-25f8bd",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5-36:solution[3]",
+      "expect": "\\begin{array}{l} \\text {(b)} \\quad \\text {If f(x) = \\frac {\\alpha}{2} e^{-\\alpha|x|}, then [see (5 - 94)]} \\\\ \\Phi (\\omega) = \\frac {\\alpha}{2} \\int_ {- \\infty} ^ {\\infty} e ^ {- \\alpha | x |} e ^ {- j \\omega x} d x = \\alpha \\int_ {0} ^ {\\infty} e ^ {- \\alpha x} \\cos \\omega x d x = \\frac {\\alpha^ {2}}{\\alpha^ {2} + \\omega^ {2}} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(b)} \\quad \\text {If } f(x) = \\frac {\\alpha}{2} e^{-\\alpha|x|}, \\text { then [see (5 - 94)]} \\\\ \\Phi (\\omega) = \\frac {\\alpha}{2} \\int_ {- \\infty} ^ {\\infty} e ^ {- \\alpha | x |} e ^ {- j \\omega x} d x = \\alpha \\int_ {0} ^ {\\infty} e ^ {- \\alpha x} \\cos \\omega x d x = \\frac {\\alpha^ {2}}{\\alpha^ {2} + \\omega^ {2}} \\end{array}"
+    },
+    {
+      "id": "papoulis_probability-ch09-problem-9-1-solution-1-bae817",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9-1:solution[1]",
+      "expect": "\\begin{array}{l} \\underset {\\sim} {x} (t) = e ^ {a t} \\\\ n (t) = \\int_ {- \\infty} ^ {\\infty} e ^ {a t} f _ {a} (a) d a \\\\ R (t _ {1}, t _ {2}) = \\int_ {- \\infty} ^ {\\infty} e ^ {a t _ {1}} e ^ {a t _ {2}} f _ {a} (a) d a \\\\ \\text {From (5 - 16) with x = g(a) = e^ta g'(a) = t e^ta = tx} \\end{array}",
+      "new": "\\begin{array}{l} \\underset {\\sim} {x} (t) = e ^ {a t} \\\\ n (t) = \\int_ {- \\infty} ^ {\\infty} e ^ {a t} f _ {a} (a) d a \\\\ R (t _ {1}, t _ {2}) = \\int_ {- \\infty} ^ {\\infty} e ^ {a t _ {1}} e ^ {a t _ {2}} f _ {a} (a) d a \\\\ \\text {From (5 - 16) with } x = g(a) = e^{ta} \\quad g'(a) = t e^{ta} = tx \\end{array}"
+    },
+    {
+      "id": "papoulis_probability-ch07-body-427-701c6d",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[427]",
+      "field": "md",
+      "all": true,
+      "old": "$\\varphi(x) = E[y|x}$",
+      "new": "$\\varphi(x) = E[y|x]$",
+      "anchor": "929c64d3"
+    },
+    {
+      "id": "papoulis_probability-ch07-problem-7-8-solution-5-c61f29",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7-8:solution[5]",
+      "expect": "\\begin{array}{r l} \\text {But} & \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} \\nmid \\underset {\\sim} {\\mathbf {x}} _ {1} \\} = \\underset {\\sim} {\\mathbf {A}} \\underset {\\sim} {\\mathbf {x}} _ {1} \\quad \\mathrm{A} = \\mathrm{R} _ {0 1} / \\mathrm{R} _ {1 1} = \\mathrm{a} _ {1} + \\mathrm{a} _ {2} \\mathrm{R} _ {1 2} / \\mathrm{R} _ {1 1} \\\\ & \\hat {\\mathbf {E}} \\{\\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | \\underset {\\sim} {\\mathbf {x}} _ {1}, \\underset {\\sim} {\\mathbf {x}} _ {2} \\} | \\underset {\\sim} {\\mathbf {x}} _ {1} \\} = \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {a}} _ {1} \\underset {\\sim} {\\mathbf {x}} _ {1} + \\underset {\\sim} {\\mathbf {a}} _ {2} \\underset {\\sim} {\\mathbf {x}} _ {2} | \\underset {\\sim} {\\mathbf {x}} _ {1} \\} \\\\ & = \\underset {\\sim} {\\mathbf {a}} _ {1} \\underset {\\sim} {\\mathbf {x}} _ {1} + \\underset {\\sim} {\\mathbf {a}} _ {2} \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {x}} _ {2} | \\underset {\\sim} {\\mathbf {x}} _ {1} \\} = (\\underset {\\sim} {\\mathbf {a}} _ {1} + \\underset {\\sim} {\\mathbf {a}} _ {2} \\frac {\\mathrm{R} _ {1 2}}{\\mathrm{R} _ {1 1}}) \\underset {\\sim} {\\mathbf {x}} _ {1} = \\mathrm{A} \\underset {\\sim} {\\mathbf {x}} _ {1} \\end{array}",
+      "new": "\\begin{array}{r l} \\text {But} & \\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} \\nmid {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\} = \\underset {\\sim} {\\mathbf {A}} {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\quad \\mathrm{A} = \\mathrm{R} _ {0 1} / \\mathrm{R} _ {1 1} = \\mathrm{a} _ {1} + \\mathrm{a} _ {2} \\mathrm{R} _ {1 2} / \\mathrm{R} _ {1 1} \\\\ & \\hat {\\mathbf {E}} \\{\\hat {\\mathbf {E}} \\{\\underset {\\sim} {\\mathbf {y}} | {\\underset {\\sim} {\\mathbf {x}}} _ {1}, {\\underset {\\sim} {\\mathbf {x}}} _ {2} \\} | {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\} = \\hat {\\mathbf {E}} \\{{\\underset {\\sim} {\\mathbf {a}}} _ {1} {\\underset {\\sim} {\\mathbf {x}}} _ {1} + {\\underset {\\sim} {\\mathbf {a}}} _ {2} {\\underset {\\sim} {\\mathbf {x}}} _ {2} | {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\} \\\\ & = {\\underset {\\sim} {\\mathbf {a}}} _ {1} {\\underset {\\sim} {\\mathbf {x}}} _ {1} + {\\underset {\\sim} {\\mathbf {a}}} _ {2} \\hat {\\mathbf {E}} \\{{\\underset {\\sim} {\\mathbf {x}}} _ {2} | {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\} = ({\\underset {\\sim} {\\mathbf {a}}} _ {1} + {\\underset {\\sim} {\\mathbf {a}}} _ {2} \\frac {\\mathrm{R} _ {1 2}}{\\mathrm{R} _ {1 1}}) {\\underset {\\sim} {\\mathbf {x}}} _ {1} = \\mathrm{A} {\\underset {\\sim} {\\mathbf {x}}} _ {1} \\end{array}"
+    },
+    {
+      "id": "papoulis_probability-ch09-problem-9-10-solution-2-771523",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9-10:solution[2]",
+      "expect": "\\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {1} \\underset {\\sim} {x} _ {2} \\underset {\\sim} {x} _ {3} \\underset {\\sim} {x} _ {4} \\right\\} = \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {1} \\underset {\\sim} {x} _ {2} \\right\\} \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {3} \\underset {\\sim} {x} _ {4} \\right\\} + \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {1} \\underset {\\sim} {x} _ {3} \\right\\} \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {2} \\underset {\\sim} {x} _ {4} \\right\\} + \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {1} \\underset {\\sim} {x} _ {4}\\right) \\mathrm{E} \\left\\{\\underset {\\sim} {x} _ {2} \\underset {\\sim} {x} _ {3} \\right\\}",
+      "new": "\\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {1} {\\underset {\\sim} {x}} _ {2} {\\underset {\\sim} {x}} _ {3} {\\underset {\\sim} {x}} _ {4} \\right\\} = \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {1} {\\underset {\\sim} {x}} _ {2} \\right\\} \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {3} {\\underset {\\sim} {x}} _ {4} \\right\\} + \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {1} {\\underset {\\sim} {x}} _ {3} \\right\\} \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {2} {\\underset {\\sim} {x}} _ {4} \\right\\} + \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {1} {\\underset {\\sim} {x}} _ {4}\\right\\} \\mathrm{E} \\left\\{{\\underset {\\sim} {x}} _ {2} {\\underset {\\sim} {x}} _ {3} \\right\\}"
+    },
+    {
+      "id": "papoulis_probability-ch10-problem-10-10-solution-1-80e03c",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10-10:solution[1]",
+      "expect": "\\begin{array}{r l} \\underset {\\sim} {x} (t) & = \\underset {\\sim} {R e} [ w (t) e ^ {j \\omega_ {0} t} ] \\\\ \\underset {\\sim} {x} (t - \\tau) & = \\underset {\\sim} {R e} [ w _ {\\tau} (t) e ^ {j \\omega_ {0} t} ] = \\underset {\\sim} {R e} [ w (t - \\tau) e ^ {j \\omega_ {0} (t - \\tau)} ] \\\\ \\underset {\\sim} {w} _ {\\tau} (t) & = \\underset {\\sim} {w} (t - \\tau) e ^ {- j \\omega_ {0} \\tau} \\end{array}\\tag{10-11}",
+      "new": "\\begin{array}{r l} \\underset {\\sim} {x} (t) & = \\underset {\\sim} {R e} [ w (t) e ^ {j \\omega_ {0} t} ] \\\\ \\underset {\\sim} {x} (t - \\tau) & = \\underset {\\sim} {R e} [ w _ {\\tau} (t) e ^ {j \\omega_ {0} t} ] = \\underset {\\sim} {R e} [ w (t - \\tau) e ^ {j \\omega_ {0} (t - \\tau)} ] \\\\ {\\underset {\\sim} {w}} _ {\\tau} (t) & = \\underset {\\sim} {w} (t - \\tau) e ^ {- j \\omega_ {0} \\tau} \\end{array}\\tag{10-11}"
+    }
+  ]
+}
