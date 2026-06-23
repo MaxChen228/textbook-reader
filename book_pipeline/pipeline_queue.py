@@ -33,7 +33,10 @@ import os
 import sys
 from contextlib import contextmanager
 
+from collections import OrderedDict
+
 from book_pipeline import jsonio
+from book_pipeline import pipeline_gates as pg
 from book_pipeline import status as st
 
 ROOT = st.ROOT
@@ -577,9 +580,61 @@ def next_actionable(rows: list[dict]) -> dict | None:
     return sorted(actionable, key=key)[0]
 
 
+# pipeline 深度桶序（上游→下游）。crawl 待下載（QUALIFIED 未抓）不在此——本視圖只涵蓋已 owned 的在管書。
+DEPTH_ORDER = ['待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+
+
+def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
+    """把一筆 build_queue row 歸入深度桶。回 (桶, 該本下一個 gate verb 或 None)。
+    verb 供 held 判定（gate_allows(slug, verb)）：held = 被閘門擋＝緩衝在閘（非卡關）。"""
+    stage = r.get('stage', '') or ''
+    pre = stage.split()[0] if stage else ''
+    todo = r.get('todo', '—')
+    verb = todo.split()[0].split('(')[0] if todo not in ('—', '') else None
+    if stage.startswith('R') or pre == 'X':   # R triage拒/qc拒/書況/audit-blocked、X 無源 → 需人工
+        return ('卡關', None)
+    if pre == '0.2':
+        return ('待qc', 'qc')
+    if pre == '0.3':                          # 過 qc、待 det ingest 提交 MinerU
+        return ('待ingest', 'ingest')
+    if pre == '0.5':                          # 已提交、MinerU OCR 處理中（雲端 async、慢）
+        return ('OCR處理中', 'ingest')
+    if pre == '1':                            # OCR 好、待 audit（hold audit 時這桶＝緩衝池）
+        return ('待audit', 'audit')
+    if pre == '2':
+        return ('待parse', 'parse')
+    if pre in ('3', '4'):
+        if deployed:                          # 已上站（可能還有 sol/translate 背景收尾）
+            return ('已上架', verb)
+        if 'catalog_audit' in todo:           # 上站前 catalog gate
+            return ('待catalog', 'catalog_audit')
+        return ('待deploy', 'deploy')
+    return ('卡關', verb)                      # 未知前綴 → 保守歸卡關
+
+
+def stage_depth(rows: list[dict] | None = None, gates: dict | None = None,
+                state: dict | None = None) -> dict:
+    """pipeline 深度直方圖（單一真相＝build_queue）：owned 書在管線各階段各幾本，及其中幾本被閘門
+    hold（＝緩衝在閘、非卡關）。供「先 bulk OCR、再分波放閘 audit」解耦流的波次管理與盲區根治
+    （『你在等什麼』＝缺此視圖）。crawl 待下載另見 booklists.pool_counts。回 {total, held}（OrderedDict）。"""
+    rows = rows if rows is not None else build_queue()
+    gates = gates if gates is not None else pg.load_gates()
+    state = state if state is not None else _load_state()
+    total = OrderedDict((k, 0) for k in DEPTH_ORDER)
+    held = OrderedDict((k, 0) for k in DEPTH_ORDER)
+    for r in rows:
+        b, verb = _depth_bucket(r, _deployed(r['slug'], state))
+        total[b] = total.get(b, 0) + 1
+        if verb and not pg.gate_allows(r['slug'], verb, gates):
+            held[b] = held.get(b, 0) + 1
+    return {'total': total, 'held': held}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description='跨書全 stage 單一真相')
     ap.add_argument('--next', action='store_true', help='只印下一個可動項')
+    ap.add_argument('--depth', action='store_true',
+                    help='pipeline 深度直方圖（每階段幾本 + 閘門 hold 緩衝數）')
     ap.add_argument('--json', action='store_true')
     ap.add_argument('--backfill-first-seen', action='store_true',
                     help='一次性補登所有缺 first_seen_at 的書（從歷史證據推最早入庫時間）')
@@ -606,6 +661,20 @@ def main() -> int:
                 print(f"  {nx['note']}")
         else:
             print('無可動項（全部 done 或待人工/外部）')
+        return 0
+
+    if args.depth:
+        d = stage_depth(rows)
+        if args.json:
+            print(json.dumps(d, ensure_ascii=False))
+            return 0
+        print('pipeline 深度（owned 在管線；crawl 待下載見 booklists.pool_counts）：')
+        for k in DEPTH_ORDER:
+            n = d['total'].get(k, 0)
+            h = d['held'].get(k, 0)
+            bar = '█' * min(n, 48)
+            htag = f'  ⏸{h} held' if h else ''
+            print(f"  {k:<8} {n:>4}{htag}  {bar}")
         return 0
 
     if args.json:

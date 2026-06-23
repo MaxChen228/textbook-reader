@@ -659,7 +659,7 @@ def _cmd_gates(args) -> int:
                 return 2
             if args.a1 != '*' and args.a1 not in set(st.all_slugs()):
                 print(f'⚠ slug {args.a1!r} 不在已知書單（仍寫入；crawl 候選書可能尚未 owned）')
-            g = pg.add_rule(args.a1, args.a2, action)
+            g = pg.add_rule(args.a1, args.a2, action, index=getattr(args, 'at', None))
         elif action == 'rm':
             g = pg.rm_rule(int(args.a1))
         elif action == 'clear':
@@ -1043,6 +1043,9 @@ def main(argv: list[str] | None = None) -> int:
                      help='省略=show；default <hold|allow>；allow/hold <slug|*> <stage|*>；rm <idx>；clear')
     p_g.add_argument('a1', nargs='?', help='default: hold|allow ｜ allow/hold: slug（* = 全部）｜ rm: idx')
     p_g.add_argument('a2', nargs='?', help='allow/hold: stage（* = 全部；見 KNOWN_STAGES）')
+    p_g.add_argument('--at', type=int, default=None,
+                     help='allow/hold 規則插入位置（first-match-wins）；放閘須 --at 0 插在 catch-all '
+                          'hold 之前，否則 per-book allow 被前面的 hold * 遮蔽＝silent no-op')
     p_g.add_argument('--json', action='store_true')
     p_c = sub.add_parser('chain', help='LLM provider failover 順序（runtime override；無參數=顯示現況）')
     p_c.add_argument('action', nargs='?', choices=['set', 'reset'],
