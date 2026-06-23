@@ -822,6 +822,20 @@ def provider_health(wks: list) -> dict:
     return {'status': status, 'primary': primary, 'chain': list(eff), 'live': live, 'on_fallback': on_fallback}
 
 
+def _depth_histogram(books: list) -> dict:
+    """pipeline 深度直方圖（複用 books_status 已算的 stage/deployed/gated，免再跑一次 build_queue）。
+    桶歸類用 pipeline_queue._depth_bucket（單一真相）；held = r['gated']（下一閘被擋＝緩衝在閘、非卡關）。
+    供 /dev 純觀測：一眼看每階段幾本、audit 緩衝多深（根治『你在等什麼』盲區）。"""
+    total = {k: 0 for k in q.DEPTH_ORDER}
+    held = {k: 0 for k in q.DEPTH_ORDER}
+    for r in books:
+        b, _v = q._depth_bucket(r, r.get('deployed', False))
+        total[b] = total.get(b, 0) + 1
+        if r.get('gated'):
+            held[b] = held.get(b, 0) + 1
+    return {'total': total, 'held': held, 'order': list(q.DEPTH_ORDER)}
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -831,6 +845,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
+        'depth': _depth_histogram(bs['books']),  # pipeline 深度直方圖（每階段幾本 + audit 緩衝深度）→ /dev 盲區根治
         'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
         'provider_health': provider_health(wks),  # 在飛 worker 落哪層 → 落保底頂層醒目告警（2026-06-23 坑）
         'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
@@ -989,6 +1004,12 @@ def _print_human(snap: dict) -> None:
               f" — codex/codex-pool 失敗？查 daemon.log 或 `devctl probe --real-effort`")
     elif ph.get('status') == 'degraded':
         print(f"   🟠 派工部分落次級：[{_live}]（主力 {ph.get('primary')} 仍有在用）")
+    dep = snap.get('depth') or {}
+    _dt, _dh = dep.get('total') or {}, dep.get('held') or {}
+    _parts = [f"{k} {_dt[k]}{'⏸'+str(_dh.get(k,0)) if _dh.get(k) else ''}"
+              for k in dep.get('order', []) if _dt.get(k)]
+    if _parts:
+        print(f"\n🌊 pipeline 深度：{' · '.join(_parts)}（⏸=閘門緩衝）")
     wk = snap.get('workers') or []
     if wk:
         _primary = ph.get('primary')
