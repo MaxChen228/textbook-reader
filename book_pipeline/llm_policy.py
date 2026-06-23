@@ -17,7 +17,11 @@ import os
 from dataclasses import dataclass, replace
 from typing import Callable
 
-KNOWN_PROVIDERS = ('codex-pool', 'codex', 'claude')
+from book_pipeline import provider_chain as pc
+
+# provider 合法名單與 runtime override 的家在 provider_chain（單一真相、dep-light、不反向 import 本模組
+# → 無循環）。此處 reexport 保 API 相容（resolve_dispatch 的 unknown-provider warning 等沿用）。
+KNOWN_PROVIDERS = pc.KNOWN_PROVIDERS
 
 
 @dataclass(frozen=True)
@@ -30,12 +34,14 @@ class DispatchSpec:
     timeout: int | None = None             # 派工 wall-clock 上限（秒）
 
 
-# 全域底：chain＝優先榨池子（maxn970228 獨立額度）→ 原生 codex → Claude Max 保底。
+# 全域底：chain＝原生 codex（OAuth 直連，最穩）→ codex-pool（ccNexus 池子備援額度）→ Claude Max 保底。
 # （kimi 已於 2026-06-20 全面下架：斷線窗 fallback 產出品質不可靠，寧落 Claude Max 高品質保底。）
+# 此為**碼層常態順序**（git 跨機、設計意圖）；runtime 臨時換主力 provider 走 `devctl chain set …`
+# （寫 .control/provider_chain.json override，凌駕本預設、低於 env）→ 免改碼/免 commit/免重部署。
 # codex 家族預設 gpt-5.4（池子白名單 gpt-5.5/5.4/5.4-mini/5.3-codex-spark 內，需 ccNexus
 # fork 透傳修復在線才切得動非 5.5）。timeout 1h：正常 audit ~25min，留卡死護欄餘裕。
 DEFAULT_DISPATCH = DispatchSpec(
-    chain=('codex-pool', 'codex', 'claude'),
+    chain=('codex', 'codex-pool', 'claude'),
     codex_model='gpt-5.4',
     timeout=3600,
 )
@@ -60,6 +66,16 @@ def _merge(base: DispatchSpec, over: DispatchSpec | None) -> DispatchSpec:
     return replace(base, **{k: v for k, v in vars(over).items() if v is not None})
 
 
+def _chain_override(spec: DispatchSpec) -> DispatchSpec:
+    """runtime 控制檔 override chain（.control/provider_chain.json）→ 凌駕碼層 DEFAULT、低於 env。
+    fail-open：壞檔/無檔 → load_override 回 None → 不動 chain（沿用 DEFAULT），派工絕不因壞檔癱瘓
+    （與 pipeline_gates fail-safe hold 刻意相反，見 provider_chain 模組 docstring）。"""
+    ov = pc.load_override()
+    if ov:
+        spec = replace(spec, chain=ov)
+    return spec
+
+
 def _env_override(spec: DispatchSpec) -> DispatchSpec:
     """env 運維臨時拉桿凌駕（最高優先）。未設的 env 不動該欄。"""
     ch = os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip()
@@ -80,14 +96,24 @@ def _env_override(spec: DispatchSpec) -> DispatchSpec:
 
 
 def resolve_dispatch(verb: str, log: Callable[[str], None] | None = None) -> DispatchSpec:
-    """三層合併 → fully-resolved spec：DEFAULT ← STAGE_DISPATCH[verb] ← env。
+    """四層合併 → fully-resolved spec：DEFAULT ← STAGE_DISPATCH[verb] ← 控制檔 chain override ← env。
+    chain override（runtime、.control/provider_chain.json）凌駕碼層常態、低於 env 逃生口。
     log：選用警告通道（呼叫端注入，預設靜默）→ 本模組不依賴任何執行層 logger。"""
-    spec = _env_override(_merge(DEFAULT_DISPATCH, STAGE_DISPATCH.get(verb)))
+    spec = _merge(DEFAULT_DISPATCH, STAGE_DISPATCH.get(verb))
+    spec = _chain_override(spec)  # runtime 控制檔 override（凌駕碼層常態）
+    spec = _env_override(spec)    # env 最高（運維單次逃生口）
     unknown = [p for p in (spec.chain or ()) if p not in KNOWN_PROVIDERS]
     if unknown and log is not None:
         log(f'⚠ provider chain 含未知 provider {unknown}（合法：{KNOWN_PROVIDERS}）'
             f' → 將走 claude CLI 預設分支，恐非預期')
     return spec
+
+
+def effective_chain() -> tuple[str, ...]:
+    """最終生效的 provider failover 順序（DEFAULT ← runtime override ← env）。chain 不被 STAGE_DISPATCH
+    覆寫（STAGE 只覆寫 effort）→ 任一 verb 解出的 chain 皆同；用一個不在 STAGE_DISPATCH 的 probe verb
+    取全域 chain。供 devctl chain / snapshot 顯示「現在實際用哪條鏈」。"""
+    return resolve_dispatch('_chain_probe').chain or DEFAULT_DISPATCH.chain
 
 
 def math_sweep_model() -> str:

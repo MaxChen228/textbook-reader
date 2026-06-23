@@ -36,6 +36,8 @@ from book_pipeline import agent_history as hist
 from book_pipeline import book_timeline as tl
 from book_pipeline import pipeline_queue as q
 from book_pipeline import pipeline_gates as pg
+from book_pipeline import provider_chain as pc
+from book_pipeline import llm_policy as lp
 from book_pipeline import trace
 
 ROOT = st.ROOT
@@ -661,6 +663,64 @@ def _cmd_gates(args) -> int:
     return 0
 
 
+def chain_status() -> dict:
+    """LLM provider failover 順序快照（純讀，餵 /dev 觀測）：{effective, override, default, source}。
+    effective=實際生效鏈（DEFAULT←override←env）；source∈env/override/default 指出當前由哪層決定。"""
+    override = pc.load_override()
+    env_set = bool(os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN', '').strip())
+    source = 'env' if env_set else ('override' if override else 'default')
+    return {
+        'effective': list(lp.effective_chain()),
+        'override': list(override) if override else None,
+        'default': list(lp.DEFAULT_DISPATCH.chain),
+        'source': source,
+    }
+
+
+def _print_chain(cs: dict) -> None:
+    print(f'provider chain（生效）：{" → ".join(cs["effective"])}   [來源：{cs["source"]}]')
+    print(f'  碼層常態（DEFAULT）：{" → ".join(cs["default"])}')
+    if cs['override']:
+        print(f'  runtime override：{" → ".join(cs["override"])}（.control/provider_chain.json）')
+    else:
+        print('  runtime override：（無 → 用碼層常態）')
+    if cs['source'] == 'env':
+        print('  ⚠ env BOOK_PIPELINE_PROVIDER_CHAIN 凌駕中（最高優先；僅當前進程環境）')
+
+
+def _cmd_chain(args) -> int:
+    """provider failover 順序控制 CLI（架構師操作面）。無 action=show；set/reset 寫 runtime override
+    + SIGUSR1 喚醒 controller。set 凌駕碼層常態、低於 env；reset 清 override 回碼層常態。"""
+    action = getattr(args, 'action', None)
+    if not action:
+        if getattr(args, 'json', False):
+            print(json.dumps(chain_status(), ensure_ascii=False, indent=2))
+        else:
+            _print_chain(chain_status())
+        return 0
+    try:
+        if action == 'set':
+            provs = list(args.providers or [])
+            if len(provs) == 1 and ',' in provs[0]:  # 容忍逗號分隔：set codex,codex-pool,claude
+                provs = [p.strip() for p in provs[0].split(',') if p.strip()]
+            if not provs:
+                print(f'用法：devctl chain set <p1> [p2 …]（合法：{list(pc.KNOWN_PROVIDERS)}）')
+                return 2
+            pc.set_chain(provs)
+        elif action == 'reset':
+            pc.clear()
+        else:
+            return 1
+    except ValueError as e:
+        print(f'❌ {e}')
+        return 2
+    from book_pipeline import pipeline_tick as pt
+    woke = pt.wake_controller()
+    _print_chain(chain_status())
+    print('已喚醒 controller，下次派工起生效。' if woke else '無 live controller → 下次起來即遵守。')
+    return 0
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -670,6 +730,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
+        'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
         'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
         'daemon': daemon_health(),
         'code': code_status(),
@@ -874,6 +935,11 @@ def main(argv: list[str] | None = None) -> int:
     p_g.add_argument('a1', nargs='?', help='default: hold|allow ｜ allow/hold: slug（* = 全部）｜ rm: idx')
     p_g.add_argument('a2', nargs='?', help='allow/hold: stage（* = 全部；見 KNOWN_STAGES）')
     p_g.add_argument('--json', action='store_true')
+    p_c = sub.add_parser('chain', help='LLM provider failover 順序（runtime override；無參數=顯示現況）')
+    p_c.add_argument('action', nargs='?', choices=['set', 'reset'],
+                     help='省略=show；set <p1> [p2 …]（逗號亦可）；reset=清 override 回碼層常態')
+    p_c.add_argument('providers', nargs='*', help=f'set 的 provider 序（合法：{list(pc.KNOWN_PROVIDERS)}）')
+    p_c.add_argument('--json', action='store_true')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -1041,6 +1107,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == 'gates':
         return _cmd_gates(args)
+    if args.cmd == 'chain':
+        return _cmd_chain(args)
 
     return 1
 
