@@ -45,7 +45,14 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （190 條；proposed=0 parked=1）
+## domain: engine  （200 條；proposed=1 parked=1）
+### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
+- proposed | type=tooling-gap | source=agent
+- 證據：
+> comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。
+- 提議：
+> 在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。
+
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
 - 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
@@ -539,6 +546,18 @@
 > scope_guard bracket：worker [crawl __restock__] session=__restock__:56487 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：
 > (無 diff 文本，book_pipeline/pipeline_queue.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-aluffi-algebra-chapter-0 — worker 越界改核心碼：book_pipeline/devctl.py（audit aluffi_algebra_chapter_0）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit aluffi_algebra_chapter_0] session=aluffi_algebra_chapter_0:97958 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/devctl.py modified)
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
@@ -1068,6 +1087,588 @@
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
+### P-2026-06-23-shirley-marschner-graphics — worker 越界改核心碼：book_pipeline/test_scope_guard.py（catalog_audit shirley_marschner_graphics）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（c93c5f6/d948d90）撞 shirley audit bracket；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [catalog_audit shirley_marschner_graphics] session=shirley_marschner_graphics:44860 存活期間，受保護程式碼面 book_pipeline/test_scope_guard.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/test_scope_guard.py b/book_pipeline/test_scope_guard.py
+> index 6a419fc..75de2c1 100644
+> --- a/book_pipeline/test_scope_guard.py
+> +++ b/book_pipeline/test_scope_guard.py
+> @@ -104,6 +104,47 @@ def test_bracket_ignores_preexisting_architect_edit(monkeypatch):
+>      print('✓ check_worker：架構師既有改動（pre==post）永不旗標、永不還原')
+>
+>
+> +def test_bracket_exonerates_architect_commit_during_window(monkeypatch):
+> +    """核心降噪：架構師在 worker 窗內 commit 受保護檔（hash 變但工作樹乾淨）→ 免責、不旗標；
+> +    同窗 worker 留未提交髒檔 → 照舊捕。鑑別子＝git 乾淨(commit) vs 髒(worker Edit/Write)。"""
+> +    d = _repo()
+> +    cap = []
+> +    monkeypatch.setattr(sg.proposals, 'propose', lambda **kw: cap.append(kw) or 'P-x')
+> +    monkeypatch.setattr(sg, 'SEEN_PATH', os.path.join(d, '.seen.json'))
+> +    monkeypatch.setattr(sg, '_mode', lambda: 'observe')
+> +
+> +    pre = sg.snapshot(root=d)
+> +    eng = os.path.join(d, 'book_pipeline', 'engine.py')
+> +    with open(eng, 'w') as f:                                   # 架構師窗內改引擎 + commit
+> +        f.write('ORIGINAL = 1\nARCHITECT_FEATURE = 1\n')
+> +    _git(d, 'add', 'book_pipeline/engine.py')
+> +    _git(d, 'commit', '-qm', 'architect feature')
+> +    other = os.path.join(d, 'book_pipeline', 'worker_hack.py')  # 同窗 worker 越界（未提交髒檔）
+> +    with open(other, 'w') as f:
+> +        f.write('HACK = 1\n')
+> +
+> +    handled = sg.check_worker(pre, root=d, verb='audit', slug='s')
+> +    paths = {h['path'] for h in handled}
+> +    assert 'book_pipeline/engine.py' not in paths              # 架構師 commit → 免責
+> +    assert 'book_pipeline/worker_hack.py' in paths             # worker 未提交 → 仍捕
+> +    assert 'ARCHITECT_FEATURE = 1' in open(eng).read()         # commit 原封不動
+> +    print('✓ check_worker：架構師窗內 commit 免責、同窗 worker 未提交越界仍捕')
+> +
+> +
+> +def test_committed_clean_discriminator(monkeypatch):
+> +    """_committed_clean：已 commit→True(免責)、未提交修改→False、untracked→False、git 出錯→False(保守)。"""
+> +    d = _repo()
+> +    assert sg._committed_clean('book_pipeline/engine.py', d) is True        # 已 commit、乾淨
+> +    with open(os.path.join(d, 'book_pipeline', 'engine.py'), 'a') as f:
+> +        f.write('DIRTY = 1\n')
+> +    assert sg._committed_clean('book_pipeline/engine.py', d) is False       # 未提交修改
+> +    with open(os.path.join(d, 'book_pipeline', 'new.py'), 'w') as f:
+> +        f.write('x = 1\n')
+> +    assert sg._committed_clean('book_pipeline/new.py', d) is False          # untracked
+> +    assert sg._committed_clean('book_pipeline/engine.py', '/no/such/repo') is False  # git 出錯→保守
+> +    print('✓ _committed_clean：commit/dirty/untracked/git-err 四態判定正確')
+> +
+> +
+>  def test_bracket_observe_no_revert(monkeypatch):
+>      d = _repo()
+>      cap = []
+> @@ -135,6 +176,8 @@ if __name__ == '__main__':
+>      test_parse_porcelain()
+>      for fn in (test_bracket_enforce_reverts_and_captures,
+>                 test_bracket_ignores_preexisting_architect_edit,
+> +               test_bracket_exonerates_architect_commit_during_window,
+> +               test_committed_clean_discriminator,
+>                 test_bracket_observe_no_revert):
+>          mp = _MP()
+>          try:
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-shirley-marschner-graphics-2 — worker 越界改核心碼：book_pipeline/scope_guard.py（catalog_audit shirley_marschner_graphics）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（c93c5f6/d948d90）撞 shirley audit bracket；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [catalog_audit shirley_marschner_graphics] session=shirley_marschner_graphics:44860 存活期間，受保護程式碼面 book_pipeline/scope_guard.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/scope_guard.py b/book_pipeline/scope_guard.py
+> index 6ed84cd..a2bef1c 100644
+> --- a/book_pipeline/scope_guard.py
+> +++ b/book_pipeline/scope_guard.py
+> @@ -15,9 +15,15 @@
+>  `check_worker()` 再拍、取差集 → **只有「此 worker 存活期間新變動的受保護檔」才歸給它**。架構師
+>  平時（不在任何 worker 視窗內）的開發 pre==post，永不旗標。
+>
+> +── 免責：架構師窗內 commit 不算越界（felix dev=daemon 機核心降噪）──
+> +bracket 比的是內容 hash，故架構師在某 worker 存活期間 commit 受保護檔（HEAD 移動）→ hash 變了 →
+> +舊版會誤判越界（每輪產一批假提案）。鑑別子：post 時該檔若 `git status --porcelain` **乾淨**＝變更
+> +來自 commit（架構師/daemon）；worker 用 Edit/Write **必留未提交髒檔**（無 commit 步驟）→ `_committed_clean`
+> +免責已提交檔。git 出錯保守不免責、照舊旗標，**絕不因 git 故障漏掉真越界**（additive 收斂、單向安全）。
+> +
+>  ── 安全：先捕後還，還原永不失資料 ──
+> -殘餘風險僅「架構師恰在某 worker 跑時改引擎」→ 該 diff 完整保存在提案裡，一鍵貼回。故即使誤判
+> -也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：
+> +殘餘風險僅「架構師恰在某 worker 跑時改引擎**且尚未 commit**」→ 該 diff 完整保存在提案裡，一鍵貼回
+> +（已 commit 者由上述免責濾掉）。故即使誤判也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：
+>    off     — 全關。
+>    observe — 捕提案 + 大聲 surface，**不還原**（預設；永不與架構師互踩）。
+>    enforce — 捕提案 + 還原核心（架構師信任後 opt-in）。
+> @@ -98,6 +104,14 @@ def snapshot(root: str = ROOT) -> dict[str, str]:
+>      return {os.path.relpath(p, root): _hash_file(p) for p in _protected_files(root)}
+>
+>
+> +def _committed_clean(rel: str, root: str) -> bool:
+> +    """rel 在工作樹是否乾淨（無未提交改動）→ hash 變動來自 commit（架構師/daemon），非 worker 越界。
+> +    worker 用 Edit/Write 必留未提交髒檔（M/??/D），故『git 乾淨』可安全免責；含 new(已 commit→空)/
+> +    deleted(已 commit 刪→空)。git 出錯回 False（保守不免責、照舊旗標）→ 絕不因故障漏掉真越界。"""
+> +    rc, out = _git(['status', '--porcelain', '--', rel], root)
+> +    return rc == 0 and out.strip() == ''
+> +
+> +
+>  def _diff_text(rel: str, code: str, root: str) -> str:
+>      if code == 'new':
+>          full = os.path.join(root, rel)
+> @@ -132,6 +146,19 @@ def check_worker(pre: dict[str, str], root: str = ROOT, *, verb: str = '?',
+>                  continue
+>              code = 'new' if a is None else ('deleted' if b is None else 'modified')
+>              changed.append((rel, code))
+> +        if not changed:
+> +            return []
+> +        # 免責架構師窗內 commit：hash 變了但工作樹乾淨 = commit 造成（HEAD 移動），非 worker（worker 無
+> +        # commit、必留髒檔）。濾掉後才捕提案 → 根治「felix dev=daemon 機，架構師 commit 撞 worker bracket」
+> +        # 每輪一批假提案。git 出錯保守保留（_committed_clean 回 False）。
+> +        kept = []
+> +        for rel, code in changed:
+> +            if _committed_clean(rel, root):
+> +                if log:
+> +                    log(f'✓ scope_guard：{rel}（{code}）已提交、工作樹乾淨 → 架構師窗內 commit、免責')
+> +                continue
+> +            kept.append((rel, code))
+> +        changed = kept
+>          if not changed:
+>              return []
+>          seen = _seen()
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-shoham-leyton-brown-multiagent — worker 越界改核心碼：book_pipeline/watch.py（audit shoham_leyton_brown_multiagent）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit shoham_leyton_brown_multiagent] session=shoham_leyton_brown_multiagent:36266 存活期間，受保護程式碼面 book_pipeline/watch.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/watch.py (untracked 新檔)
+> #!/usr/bin/env python3
+> """book_pipeline/watch.py — live 階段轉移事件流（push 式觀測，餵 `Monitor` 工具）。
+>
+> 觀測面第五軸。前四軸都是「拉」：status=當下 frontier 快照、trace=事後 forensic、devctl=控制、
+> pipeline_queue=work-queue。本工具補唯一缺的「推」——**狀態一推進就吐一行**。每輪讀 daemon 自己維護的
+> dev/status.json（單一真相、零重算、與 /dev 字字一致），diff 各書 stage，**只在變化時** print 一行；
+> 接到 harness 的 `Monitor` 工具即成被動通知流（agent 零輪詢、notification 自動進對話）。
+>
+> 選擇接收哪類事件（--kinds，即「我要哪種資訊」）：
+>   all   每次階段轉移都報（預設；等於 live trace）
+>   done  只報終態（✅上架 / ⚠卡關X / 🔴裁決R），中間階段靜默（「跑完叫我」模式）
+> 範圍：位置參數 slug… = 只盯這幾本（campaign cohort）；無參數 = 盯所有在飛（未上架且非終態）書。
+>
+> 終止：被盯的書全達終態 → 印總結後 exit 0（Monitor 收到乾淨結尾）。--persistent 則永不自退（TaskStop 收）。
+> robust（silence ≠ success）：①終態涵蓋 deploy∧stuck∧blocked，不只 happy path ②status.json 逾 STALE_SEC
+> 未刷新 → 吐 ⏳ 警示（daemon 死了不會靜默假裝沒事）③半截/缺檔該輪跳過 ④controller phase 翻轉（reload/排空）也報。
+>
+> 用法：uv run python -m book_pipeline.watch [slug ...] [--kinds all|done] [--interval 20] [--persistent]
+> """
+> from __future__ import annotations
+>
+> import argparse
+> import json
+> import os
+> import sys
+> import time
+>
+> ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+> SNAPSHOT = os.path.join(ROOT, 'dev', 'status.json')
+> STALE_SEC = 180  # status.json 逾此未刷新 → daemon 可能死了，吐警示不靜默
+>
+>
+> def _label(r: dict) -> str:
+>     """單書當前里程碑標籤：上站完成 → 'deployed'，否則用 stage 字串（'0.5 OCR處理中'…）。"""
+>     return 'deployed' if r.get('deployed') else (r.get('stage') or '?')
+>
+>
+> def _is_terminal(label: str) -> bool:
+>     """終態 = 已上架 ∨ 卡關(X 無源/未ingest) ∨ 需人工裁決(R 書況/audit-blocked/qc拒)。"""
+>     return label == 'deployed' or label[:1] in ('R', 'X')
+>
+>
+> def _icon(label: str) -> str:
+>     if label == 'deployed':
+>         return '✅'
+>     if label[:1] == 'X':
+>         return '⚠'
+>     if label[:1] == 'R':
+>         return '🔴'
+>     return '▸'
+>
+>
+> def _read_snapshot() -> tuple[dict | None, float]:
+>     """回 (snapshot, 落後秒數)；缺檔/半截 → (None, 0)。"""
+>     try:
+>         age = time.time() - os.path.getmtime(SNAPSHOT)
+>         with open(SNAPSHOT, encoding='utf-8') as f:
+>             return json.load(f), age
+>     except (OSError, ValueError):
+>         return None, 0.0
+>
+>
+> def _emit(line: str) -> None:
+>     print(line, flush=True)  # 每行一個 Monitor 事件 → 必須 line-flush
+>
+>
+> def run(slugs: list[str], kinds: str, interval: float, persistent: bool) -> int:
+>     snap, _ = _read_snapshot()
+>     while snap is None:  # 開機等 daemon 寫出第一份快照
+>         time.sleep(interval)
+>         snap, _ = _read_snapshot()
+>     rows = {r['slug']: r for r in snap.get('books', [])}
+>
+>     if slugs:
+>         watch = list(slugs)
+>     else:  # 無參數：盯所有在飛（未終態）書
+>         watch = [s for s, r in rows.items() if not _is_terminal(_label(r))]
+>     prev = {s: _label(rows[s]) for s in watch if s in rows}
+>     prev_phase = ((snap.get('code') or {}).get('phase'))
+>
+>     _emit(f"▶ 監看 {len(watch)} 本 [kinds={kinds}]：" + '、'.join(watch))
+>     for s in watch:  # 開場各報一次目前位置（建立基線，之後只報變化）
+>         if s in prev:
+>             _emit(f"  · {s}  {prev[s]}")
+>
+>     stale_warned = False
+>     while True:
+>         time.sleep(interval)
+>         snap, age = _read_snapshot()
+>         if snap is None:
+>             continue
+>         if age > STALE_SEC:
+>             if not stale_warned:
+>                 _emit(f"⏳ status.json 已 {int(age)}s 未刷新 — daemon 是否在跑？（devctl status 查）")
+>                 stale_warned = True
+>             continue
+>         stale_warned = False
+>         rows = {r['slug']: r for r in snap.get('books', [])}
+>
+>         # controller phase 翻轉（running↔draining）= reload/排空，也是值得知道的狀態推進
+>         phase = (snap.get('code') or {}).get('phase')
+>         if phase and phase != prev_phase:
+>             _emit(f"🔄 controller → {phase}")
+>             prev_phase = phase
+>
+>         for s in watch:
+>             r = rows.get(s)
+>             if not r:
+>                 continue
+>             cur = _label(r)
+>             if cur == prev.get(s):
+>                 continue
+>             prev[s] = cur
+>             if kinds == 'done' and not _is_terminal(cur):
+>                 continue  # done 模式：中間階段不吵
+>             verb = (f"（{r.get('gate_verb')} 閘）" if r.get('gated') else '')
+>             _emit(f"{_icon(cur)} {s}  → {cur}{verb}")
+>
+>         if not persistent and all(_is_terminal(prev.get(s, '')) for s in watch):
+>             up = sum(1 for s in watch if prev.get(s) == 'deployed')
+>             bad = len(watch) - up
+>             _emit(f"✓ 全部終態：{up} 上架 / {bad} 待裁決")
+>             return 0
+>
+>
+> def main(argv: list[str] | None = None) -> int:
+>     ap = argparse.ArgumentParser(
+>         prog='python -m book_pipeline.watch',
+>         description='live 階段轉移事件流（push 觀測，餵 Monitor 工具）')
+>     ap.add_argument('slugs', nargs='*', help='只盯這幾本；省略=所有在飛書')
+>     ap.add_argument('--kinds', choices=('all', 'done'), default='all',
+>                     help='all=每次轉移都報（預設）；done=只報終態')
+>     ap.add_argument('--interval', type=float, default=20.0, help='輪詢秒數（預設 20，本地讀檔便宜）')
+>     ap.add_argument('--persistent', action='store_true', help='永不自退（全終態也續盯，TaskStop 收）')
+>     a = ap.parse_args(argv)
+>     return run(a.slugs, a.kinds, a.interval, a.persistent)
+>
+>
+> if __name__ == '__main__':
+>     raise SystemExit(main())
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-shoham-leyton-brown-multiagent-2 — worker 越界改核心碼：book_pipeline/test_contactsheet.py（audit shoham_leyton_brown_multiagent）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit shoham_leyton_brown_multiagent] session=shoham_leyton_brown_multiagent:36266 存活期間，受保護程式碼面 book_pipeline/test_contactsheet.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_contactsheet.py (untracked 新檔)
+> """pdf_contactsheet 漸進式 + 部分容錯測試（#30 false-kill 硬化）。
+>
+> 核心不變量：好書中夾 1 頁病態圖不該被誤殺——逾時/異常時用「已渲好的頁」拼部分 sheet 照常回傳，
+> 只有「連一頁都出不來」才 raise（→ qc agent 才判 reject）。全 hermetic：用 fitz 合成 PDF，不碰 raw_pdfs。
+> """
+> from __future__ import annotations
+>
+> import os
+> import tempfile
+>
+> import fitz
+> from PIL import Image
+>
+> from book_pipeline import pdf_contactsheet as cs
+>
+>
+> def _make_pdf(path: str, pages: int = 4) -> None:
+>     doc = fitz.open()
+>     for i in range(pages):
+>         page = doc.new_page(width=400, height=600)
+>         page.insert_text((50, 80), f'PAGE {i + 1}', fontsize=40)
+>     doc.save(path)
+>     doc.close()
+>
+>
+> # ── _assemble 純函式：部分頁也出有效圖、按頁碼排序 ──────────────────────────────
+> def test_assemble_partial_pages_valid_png():
+>     """殘存 2 頁（非滿 6）仍拼出可開啟的 PNG（部分 sheet 不該壞）。"""
+>     with tempfile.TemporaryDirectory() as d:
+>         out = os.path.join(d, 's.png')
+>         cells = [(2, Image.new('RGB', (cs.CELL_W, 1000), 'white')),
+>                  (4, Image.new('RGB', (cs.CELL_W, 900), 'gray'))]
+>         r = cs._assemble(cells, out)
+>         im = Image.open(r); im.load()
+>         assert im.width == cs.COLS * cs.CELL_W + (cs.COLS + 1) * cs.PAD
+>
+>
+> def test_assemble_handles_out_of_order_pages():
+>     """亂序抵達的頁（漸進式收集不保證順序）拼圖不崩潰、照常出圖（內部按頁碼排序）。"""
+>     with tempfile.TemporaryDirectory() as d:
+>         out = os.path.join(d, 's.png')
+>         cells = [(5, Image.new('RGB', (cs.CELL_W, 800), 'white')),
+>                  (1, Image.new('RGB', (cs.CELL_W, 800), 'white'))]
+>         r = cs._assemble(cells, out)
+>         assert os.path.exists(r)
+>
+>
+> # ── contactsheet 端到端：全頁、零頁逾時、壞檔 ─────────────────────────────────
+> def test_full_render_synthetic_pdf():
+>     """合成 4 頁 PDF → 完整渲染出有效 sheet。"""
+>     with tempfile.TemporaryDirectory() as d:
+>         pdf = os.path.join(d, 'b.pdf'); _make_pdf(pdf, 4)
+>         out = os.path.join(d, 's.png')
+>         r = cs.contactsheet(pdf, out, k=4, timeout_s=60)
+>         im = Image.open(r); im.load()
+>         assert im.width > 0 and im.height > 0
+>
+>
+> def test_zero_page_timeout_raises():
+>     """timeout_s=0 → 一頁都來不及收 → TimeoutError（→ qc reject 的唯一正當路徑）。"""
+>     with tempfile.TemporaryDirectory() as d:
+>         pdf = os.path.join(d, 'b.pdf'); _make_pdf(pdf, 4)
+>         try:
+>             cs.contactsheet(pdf, os.path.join(d, 's.png'), k=4, timeout_s=0)
+>             assert False, '應 raise TimeoutError'
+>         except TimeoutError as e:
+>             assert '連一頁都出不來' in str(e)
+>
+>
+> def test_corrupt_pdf_raises_runtime():
+>     """非 PDF 檔 → 子進程 fitz.open 拋 → 零頁+err → RuntimeError（不靜默回空）。"""
+>     with tempfile.TemporaryDirectory() as d:
+>         bad = os.path.join(d, 'bad.pdf')
+>         with open(bad, 'w') as f:
+>             f.write('not a pdf')
+>         try:
+>             cs.contactsheet(bad, os.path.join(d, 's.png'), k=4, timeout_s=30)
+>             assert False, '應 raise'
+>         except (RuntimeError, TimeoutError):
+>             pass  # 兩者皆可（視 fitz 何時失敗）；關鍵是不靜默成功
+>
+>
+> if __name__ == '__main__':
+>     import sys
+>     import pytest
+>     sys.exit(pytest.main([__file__, '-q']))
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-shoham-leyton-brown-multiagent-3 — worker 越界改核心碼：book_pipeline/pdf_contactsheet.py（audit shoham_leyton_brown_multiagent）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit shoham_leyton_brown_multiagent] session=shoham_leyton_brown_multiagent:36266 存活期間，受保護程式碼面 book_pipeline/pdf_contactsheet.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pdf_contactsheet.py b/book_pipeline/pdf_contactsheet.py
+> index 97cc070..e283052 100644
+> --- a/book_pipeline/pdf_contactsheet.py
+> +++ b/book_pipeline/pdf_contactsheet.py
+> @@ -16,7 +16,9 @@ import json
+>  import math
+>  import multiprocessing as mp
+>  import os
+> +import queue as _queue
+>  import sys
+> +import time
+>
+>  import fitz
+>  from PIL import Image, ImageDraw
+> @@ -64,41 +66,34 @@ def _pick_pages(n: int, k: int) -> list[int]:
+>      return [min(n - 1, int((lo + (hi - lo) * i / (k - 1)) * n)) for i in range(k)]
+>
+>
+> -def _render(path: str, out: str, k: int, zoom: float) -> str:
+> -    """純渲染工作（在子進程跑，受 RENDER_TIMEOUT 硬封頂）。不持 cpu_slot——由外層 contactsheet 持。"""
+> -    doc = fitz.open(path)
+> -    n = doc.page_count
+> -    idxs = _pick_pages(n, k)
+> -
+> -    cells = []
+> -    for i in idxs:
+> -        page = doc[i]
+> -        # width-bounded zoom：最終只需 CELL_W 寬，渲染解析度就綁在「略大於 CELL_W」即可，
+> -        # 與頁面實體尺寸脫鉤。掃描書 mediabox/嵌圖巨大時，固定 zoom 會全解析度解碼再 downscale
+> -        # 丟掉（>30s 像卡死，正是 qc agent 燒掉 10–30 工具調用跟渲染器搏鬥的根因）。封頂後 ≤幾秒。
+> -        pw = page.rect.width or CELL_W
+> -        eff_zoom = min(zoom, (CELL_W * 1.1) / pw)
+> -        pix = page.get_pixmap(matrix=fitz.Matrix(eff_zoom, eff_zoom))
+> -        img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+> -        scale = CELL_W / img.width
+> -        img = img.resize((CELL_W, int(img.height * scale)))
+> -        cells.append((i + 1, img))
+> -    doc.close()
+> +def _render_one(doc, i: int, zoom: float) -> Image.Image:
+> +    """單頁 → CELL_W 寬的 PIL 影像。width-bounded zoom：渲染解析度綁「略大於 CELL_W」、與頁面實體尺寸
+> +    脫鉤——掃描書 mediabox/嵌圖巨大時，固定 zoom 會全解析度解碼再 downscale 丟掉（>30s 像卡死，正是
+> +    qc agent 燒 10–30 工具調用跟渲染器搏鬥的根因）。封頂後 ≤幾秒。"""
+> +    page = doc[i]
+> +    pw = page.rect.width or CELL_W
+> +    eff_zoom = min(zoom, (CELL_W * 1.1) / pw)
+> +    pix = page.get_pixmap(matrix=fitz.Matrix(eff_zoom, eff_zoom))
+> +    img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+> +    scale = CELL_W / img.width
+> +    return img.resize((CELL_W, int(img.height * scale)))
+>
+> +
+> +def _assemble(cells: list[tuple[int, Image.Image]], out: str) -> str:
+> +    """把 (頁碼, 影像) 拼成 contact sheet、原子寫出。cells 可為部分頁（逾時殘存）——只要 ≥1 頁就出圖。"""
+> +    cells = sorted(cells, key=lambda c: c[0])
+>      cell_h = max(im.height for _, im in cells)
+>      rows = math.ceil(len(cells) / COLS)
+>      W = COLS * CELL_W + (COLS + 1) * PAD
+>      H = rows * (cell_h + LABEL_H) + (rows + 1) * PAD
+>      sheet = Image.new('RGB', (W, H), 'white')
+>      draw = ImageDraw.Draw(sheet)
+> -
+>      for idx, (pno, im) in enumerate(cells):
+>          r, c = divmod(idx, COLS)
+>          x = PAD + c * (CELL_W + PAD)
+>          y = PAD + r * (cell_h + LABEL_H + PAD)
+>          draw.text((x, y), f'p.{pno}', fill='black')
+>          sheet.paste(im, (x, y + LABEL_H))
+> -
+>      os.makedirs(os.path.dirname(out), exist_ok=True)
+>      # 原子寫：先寫 .tmp 再 rename。渲染慢/中途被 SIGKILL（daemon kick -k）時，絕不留半寫入壞檔
+>      # ——qc agent 曾親撞「contactsheet PNG 是半寫入壞檔」、再燒一輪工具調用繞它。
+> @@ -108,10 +103,17 @@ def _render(path: str, out: str, k: int, zoom: float) -> str:
+>      return out
+>
+>
+> -def _render_proc(path: str, out: str, k: int, zoom: float, q) -> None:
+> -    """子進程入口：成功把 out 路徑放進 queue；任何例外把訊息放進 queue（不靠 exitcode 傳因）。"""
+> +def _render_proc(path: str, k: int, zoom: float, q) -> None:
+> +    """子進程入口：**逐頁漸進式**把渲好的 cell 餵回 queue（('cell',頁碼,raw_rgb,w,h)），全部完成放 ('done',)，
+> +    例外放 ('err',msg)。漸進式是關鍵——父進程逾時硬 kill 時仍能用「已抵達的頁」拼部分 sheet，
+> +    不再因「6 頁中某 1 頁病態卡 fitz C 層」連累整張被殺、誤殺好書（#30 false-kill 向量）。"""
+>      try:
+> -        q.put(('ok', _render(path, out, k, zoom)))
+> +        doc = fitz.open(path)
+> +        for i in _pick_pages(doc.page_count, k):
+> +            img = _render_one(doc, i, zoom)
+> +            q.put(('cell', i + 1, img.tobytes(), img.width, img.height))
+> +        doc.close()
+> +        q.put(('done',))
+>      except BaseException as e:  # noqa: BLE001 — 連 C 層 abort 外的都回報，不讓子進程靜默死
+>          q.put(('err', f'{type(e).__name__}: {e}'))
+>
+> @@ -119,31 +121,47 @@ def _render_proc(path: str, out: str, k: int, zoom: float, q) -> None:
+>  @cpu_bound('contactsheet')
+>  def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3,
+>                   timeout_s: int = RENDER_TIMEOUT) -> str:
+> -    """渲染 contact sheet，硬封頂 timeout_s 秒。逾時 → 子進程硬 kill + TimeoutError（含明確訊息），
+> -    讓 qc agent 秒級得知「此 PDF 無法在有界時間內渲染」→ 直接判 reject，不再卡滿 60min daemon 上限。
+> +    """渲染 contact sheet，硬封頂 timeout_s 秒。**漸進式 + 部分容錯**：子進程逐頁餵回，父進程在 deadline
+> +    前盡量收；逾時則用「已收到的頁」拼出部分 sheet 照常回傳——只有「連一頁都出不來」（PDF 損壞/首頁就
+> +    卡 C 層）才 raise TimeoutError → qc agent 才判 reject。如此好書中夾 1 頁病態圖不會被誤殺（#30）。
+>
+> -    為何子進程：fitz C 層在損壞/超大 PDF 上會卡死且不理會 Python signal（SIGALRM 無效）；唯有
+> -    把工作丟可硬 kill 的子進程才能保證 wall-clock 有界。spawn context（daemon 內有 thread，fork 不安全）。"""
+> +    為何子進程：fitz C 層在損壞/超大 PDF 上會卡死且不理會 Python signal（SIGALRM 無效）；唯有把工作丟
+> +    可硬 kill 的子進程才能保證 wall-clock 有界。spawn context（daemon 內有 thread，fork 不安全）。"""
+>      ctx = mp.get_context('spawn')
+>      q = ctx.Queue()
+> -    p = ctx.Process(target=_render_proc, args=(path, out, k, zoom, q))
+> +    p = ctx.Process(target=_render_proc, args=(path, k, zoom, q))
+>      p.start()
+> -    p.join(timeout_s)
+> +    cells: list[tuple[int, Image.Image]] = []
+> +    err: str | None = None
+> +    start = time.monotonic()
+> +    while True:
+> +        left = timeout_s - (time.monotonic() - start)
+> +        if left <= 0:
+> +            break  # deadline 到：用已收到的頁（可能 0）
+> +        try:
+> +            msg = q.get(timeout=left)
+> +        except _queue.Empty:
+> +            break
+> +        if msg[0] == 'cell':
+> +            _, pno, raw, w, h = msg
+> +            cells.append((pno, Image.frombytes('RGB', (w, h), raw)))
+> +        elif msg[0] == 'done':
+> +            break
+> +        elif msg[0] == 'err':
+> +            err = msg[1]; break
+>      if p.is_alive():
+>          p.terminate(); p.join(5)
+>          if p.is_alive():
+>              p.kill(); p.join()
+> -        raise TimeoutError(
+> -            f'contactsheet 渲染逾 {timeout_s}s 仍未完成（PDF 可能損壞/超大掃描/嵌入巨圖），已硬中止')
+> -    try:
+> -        # 用 get(timeout) 而非 get_nowait：子進程正常結束時 Queue feeder thread 可能尚未把小 payload
+> -        # flush 進 pipe，get_nowait 會誤撲空。小 payload + 5s 餘裕足以覆蓋該競態。
+> -        kind, payload = q.get(timeout=5)
+> -    except Exception:
+> -        raise RuntimeError(f'contactsheet 子進程異常結束（exitcode={p.exitcode}）、無結果回傳')
+> -    if kind == 'err':
+> -        raise RuntimeError(f'contactsheet 渲染失敗：{payload}')
+> -    return payload
+> +    if cells:  # 至少一頁 → 出圖（部分亦可，讓 agent 依可見內容判斷，不因 tooling 逾時誤殺好書）
+> +        if len(cells) < k:
+> +            print(f'⚠ contactsheet 部分渲染：{len(cells)}/{k} 頁（其餘逾 {timeout_s}s/異常，已用殘存頁出圖）',
+> +                  file=sys.stderr, flush=True)
+> +        return _assemble(cells, out)
+> +    if err:  # 連一頁都沒出且子進程報錯
+> +        raise RuntimeError(f'contactsheet 渲染失敗：{err}')
+> +    raise TimeoutError(
+> +        f'contactsheet 渲染逾 {timeout_s}s 連一頁都出不來（PDF 可能損壞/首頁卡 C 層/嵌入巨圖），已硬中止')
+>
+>
+>  def main() -> int:
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-tanenbaum-structured-computer-or — worker 越界改核心碼：.claude/skills/book-pipeline/references/qc.md（audit tanenbaum_structured_computer_organization）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit tanenbaum_structured_computer_organization] session=tanenbaum_structured_computer_organization:36621 存活期間，受保護程式碼面 .claude/skills/book-pipeline/references/qc.md（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，.claude/skills/book-pipeline/references/qc.md modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-tanenbaum-structured-computer-or-2 — worker 越界改核心碼：book_pipeline/pdf_contactsheet.py（audit tanenbaum_structured_computer_organization）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit tanenbaum_structured_computer_organization] session=tanenbaum_structured_computer_organization:36621 存活期間，受保護程式碼面 book_pipeline/pdf_contactsheet.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/pdf_contactsheet.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-23-thorne-blandford-modern-classica — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit thorne_blandford_modern_classical）
 - rejected | type=patch | source=scope_guard
 - 決議：already-resolved
@@ -1190,6 +1791,36 @@
 >          b = c.get('behind')
 >          tag = ('✅ 最新' if b == 0 else
 >                 (f'⏳ 落後 HEAD {b} commit（下次 reload/respawn 自動跟上，毋須 kick）' if b
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-williamson-shmoys-approximation — worker 越界改核心碼：.claude/skills/book-pipeline/references/qc.md（audit williamson_shmoys_approximation）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push
+- 證據：
+> scope_guard bracket：worker [audit williamson_shmoys_approximation] session=williamson_shmoys_approximation:36623 存活期間，受保護程式碼面 .claude/skills/book-pipeline/references/qc.md（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/.claude/skills/book-pipeline/references/qc.md b/.claude/skills/book-pipeline/references/qc.md
+> index 0dd319e..841ac2a 100644
+> --- a/.claude/skills/book-pipeline/references/qc.md
+> +++ b/.claude/skills/book-pipeline/references/qc.md
+> @@ -15,9 +15,11 @@ uv run python -m book_pipeline.pdf_contactsheet <slug> --pages 6
+>  #    （pymupdf/pillow 已在 pyproject 依賴，勿加 --with：那會每次強制 ephemeral env 冷解析、render 變慢）
+>  ```
+>
+> -> ⚠ **渲染已硬封頂（~90s）**。若此命令**非零退出且 stderr 含 `CONTACTSHEET_UNRENDERABLE`**，代表此 PDF
+> -> 損壞/超大掃描，渲染器無法在有界時間內出圖——**直接 `reject`（reason 引用該訊息）**，**不要**自己改寫
+> -> inline `fitz`/`sips`/單頁渲染去跟它搏鬥（那正是過去燒滿 daemon 60min 上限、產不出 verdict 的根因）。
+> +> ⚠ **渲染已硬封頂（~90s）+ 部分容錯**。逐頁漸進渲染：個別頁病態（卡 fitz C 層）只會少那一頁，**其餘頁照常
+> +> 拼出 sheet**（stderr 會印 `⚠ contactsheet 部分渲染：N/6 頁`）——這屬正常，**依可見頁判斷 pass/reject、不要因少
+> +> 一兩頁就判不完整**。只有命令**非零退出且 stderr 含 `CONTACTSHEET_UNRENDERABLE`**（=連一頁都出不來、整本不可
+> +> 渲染）才代表 PDF 損壞/超大掃描——**此時才 `reject`（reason 引用該訊息）**，**不要**自己改寫 inline
+> +> `fitz`/`sips`/單頁渲染去跟它搏鬥（那正是過去燒滿 daemon 60min 上限、產不出 verdict 的根因）。
+>
+>  2. **Read 那張 PNG**（一次 vision 呼叫），判斷：
+>     - **書對嗎**：書名/作者/版次符合預期（版次 SoT = `book_pipeline/booklists/*.json` 該 slug，含 `edition_pref`；勿用已退役的 `crawl_manifest.json`）。
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 

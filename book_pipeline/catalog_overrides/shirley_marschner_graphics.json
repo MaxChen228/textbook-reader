@@ -1,0 +1,60 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "5.11",
+      "classification": "source_mismatch",
+      "reason": "raw PDF 在 p.169 / file page 184 的正文確實寫 \"Figure 5.11\"，但本書 chapter 5 的 figure 供給端只到 5.8；parsed/catalog 無 fig-5.11，raw chapter 5 對應頁也沒有此圖，屬來源錯引而非 MinerU 漏抓。",
+      "where": "ch08.json body[83]",
+      "evidence": "raw PDF page 184 shows \"invert the transform shown in Figure 5.11\" in §8.1.4; parsed/catalog chapter 5 has fig-5.1..fig-5.8 only, with no fig-5.11 anywhere in the corpus."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "shirley-marschner-fig-20.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "body[12]",
+      "position": "before",
+      "page": 531,
+      "clip": [
+        0.07,
+        0.36,
+        0.28,
+        0.53
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-20.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-20.1",
+        "kind": "line",
+        "caption": "Figure 20.1. The nature of light makes vision a powerful sense."
+      },
+      "reason": "raw PDF page 531 contains Figure 20.1 in the left margin beside the start of §20.1, but MinerU emitted no figure block for it."
+    },
+    {
+      "id": "shirley-marschner-fig-26.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch24",
+      "selector": "body[148]",
+      "position": "before",
+      "page": 709,
+      "clip": [
+        0.07,
+        0.17,
+        0.28,
+        0.36
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-26.22.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-26.22",
+        "kind": "line",
+        "caption": "Figure 26.22. Graph layout aesthetic criteria. Top: Edge crossings should be minimized. Middle: Angular resolution should be maximized. Bottom: Symmetry is maximized on the left, whereas crossings are minimized on the right, showing the conflict between the individually NP-hard criteria."
+      },
+      "reason": "raw PDF page 709 clearly contains Figure 26.22 in the left column, but MinerU skipped the figure block entirely."
+    }
+  ]
+}

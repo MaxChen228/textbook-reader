@@ -1,0 +1,167 @@
+slug: shoham_leyton_brown_multiagent
+title: "Multiagent Systems"
+author: "Yoav Shoham; Kevin Leyton-Brown"
+edition: null
+subject: "Multiagent Systems"
+publisher: "Cambridge University Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 483
+bibliography_start_page: 499
+index_start_page: 521
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Distributed Constraint Satisfaction"
+    page_start: 19
+    page_end: 36
+    chapter_title_block_idx: 105
+    problems_block_idx: null
+    next_chapter_block_idx: 273
+  - num: 2
+    title: "Distributed Optimization"
+    page_start: 37
+    page_end: 64
+    chapter_title_block_idx: 273
+    problems_block_idx: null
+    next_chapter_block_idx: 622
+  - num: 3
+    title: "Introduction to Noncooperative Game Theory: Games in Normal Form"
+    page_start: 65
+    page_end: 106
+    chapter_title_block_idx: 622
+    problems_block_idx: null
+    next_chapter_block_idx: 1161
+  - num: 4
+    title: "Computing Solution Concepts of Normal-Form Games"
+    page_start: 107
+    page_end: 134
+    chapter_title_block_idx: 1161
+    problems_block_idx: null
+    next_chapter_block_idx: 1521
+  - num: 5
+    title: "Games with Sequential Actions: Reasoning and Computing with the Extensive Form"
+    page_start: 135
+    page_end: 164
+    chapter_title_block_idx: 1521
+    problems_block_idx: null
+    next_chapter_block_idx: 1872
+  - num: 6
+    title: "Richer Representations: Beyond the Normal and Extensive Forms"
+    page_start: 165
+    page_end: 216
+    chapter_title_block_idx: 1872
+    problems_block_idx: null
+    next_chapter_block_idx: 2549
+  - num: 7
+    title: "Learning and Teaching"
+    page_start: 217
+    page_end: 252
+    chapter_title_block_idx: 2549
+    problems_block_idx: null
+    next_chapter_block_idx: 3034
+  - num: 8
+    title: "Communication"
+    page_start: 253
+    page_end: 270
+    chapter_title_block_idx: 3034
+    problems_block_idx: null
+    next_chapter_block_idx: 3253
+  - num: 9
+    title: "Aggregating Preferences: Social Choice"
+    page_start: 271
+    page_end: 290
+    chapter_title_block_idx: 3253
+    problems_block_idx: null
+    next_chapter_block_idx: 3534
+  - num: 10
+    title: "Protocols for Strategic Agents: Mechanism Design"
+    page_start: 291
+    page_end: 346
+    chapter_title_block_idx: 3534
+    problems_block_idx: null
+    next_chapter_block_idx: 4256
+  - num: 11
+    title: "Protocols for Multiagent Resource Allocation: Auctions"
+    page_start: 347
+    page_end: 400
+    chapter_title_block_idx: 4256
+    problems_block_idx: null
+    next_chapter_block_idx: 4914
+  - num: 12
+    title: "Teams of Selfish Agents: An Introduction to Coalitional Game Theory"
+    page_start: 401
+    page_end: 426
+    chapter_title_block_idx: 4914
+    problems_block_idx: null
+    next_chapter_block_idx: 5301
+  - num: 13
+    title: "Logics of Knowledge and Belief"
+    page_start: 427
+    page_end: 454
+    chapter_title_block_idx: 5301
+    problems_block_idx: null
+    next_chapter_block_idx: 5645
+  - num: 14
+    title: "Beyond Belief: Probability, Dynamics and Intention"
+    page_start: 455
+    page_end: 482
+    chapter_title_block_idx: 5645
+    problems_block_idx: null
+    next_chapter_block_idx: 6066
+
+appendices:
+  - id: A
+    title: "Probability Theory"
+    page_start: 485
+    chapter_title_block_idx: 6068
+  - id: B
+    title: "Linear and Integer Programming"
+    page_start: 487
+    chapter_title_block_idx: 6101
+  - id: C
+    title: "Markov Decision Problems (MDPs)"
+    page_start: 493
+    chapter_title_block_idx: 6164
+  - id: D
+    title: "Classical Logic"
+    page_start: 495
+    chapter_title_block_idx: 6190
+
+section_re: '^((?:\\d+\\.\\d+)|(?:[A-D]\\.\\d+))\\s+(.+)$'
+subsection_re: '^(\\d+\\.\\d+\\.\\d+)\\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\\s+(\\d+\\.\\d+)\\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\\\tag\\s*\\{([0-9]+\\.[0-9]+[a-z]?)\\}'
+
+example_start_re: '^Example\\s+(\\d+\\.\\d+\\.\\d+)\\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

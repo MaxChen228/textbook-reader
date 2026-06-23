@@ -1,0 +1,117 @@
+slug: tanenbaum_structured_computer_organization
+title: Structured Computer Organization
+author: Andrew S. Tanenbaum; Todd Austin
+edition: 6th
+subject: Computer Architecture
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 693
+bibliography_start_page: null
+index_start_page: 790
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: INTRODUCTION
+    page_start: 25
+    page_end: 78
+    chapter_title_block_idx: 110
+    problems_block_idx: 618
+    next_chapter_block_idx: 650
+  - num: 2
+    title: COMPUTER SYSTEMS ORGANIZATION
+    page_start: 79
+    page_end: 170
+    chapter_title_block_idx: 650
+    problems_block_idx: 1497
+    next_chapter_block_idx: 1547
+  - num: 3
+    title: THE DIGITAL LOGIC LEVEL
+    page_start: 171
+    page_end: 266
+    chapter_title_block_idx: 1547
+    problems_block_idx: 2418
+    next_chapter_block_idx: 2492
+  - num: 4
+    title: THE MICROARCHITECTURE LEVEL
+    page_start: 267
+    page_end: 366
+    chapter_title_block_idx: 2492
+    problems_block_idx: 3455
+    next_chapter_block_idx: 3516
+  - num: 5
+    title: THE INSTRUCTION SET ARCHITECTURE LEVEL
+    page_start: 367
+    page_end: 460
+    chapter_title_block_idx: 3516
+    problems_block_idx: 4451
+    next_chapter_block_idx: 4536
+  - num: 6
+    title: THE OPERATING SYSTEMMACHINE LEVEL
+    page_start: 461
+    page_end: 540
+    chapter_title_block_idx: 4536
+    problems_block_idx: 5264
+    next_chapter_block_idx: 5345
+  - num: 7
+    title: THE ASSEMBLY LANGUAGE LEVEL
+    page_start: 541
+    page_end: 576
+    chapter_title_block_idx: 5345
+    problems_block_idx: 5691
+    next_chapter_block_idx: 5732
+  - num: 8
+    title: PARALLEL COMPUTER ARCHITECTURES
+    page_start: 577
+    page_end: 682
+    chapter_title_block_idx: 5732
+    problems_block_idx: 6780
+    next_chapter_block_idx: 7002
+
+appendices:
+  - id: A
+    title: BINARY NUMBERS
+    page_start: 693
+    chapter_title_block_idx: 7002
+  - id: B
+    title: FLOATING-POINT NUMBERS
+    page_start: 705
+    chapter_title_block_idx: 7128
+  - id: C
+    title: ASSEMBLY LANGUAGE PROGRAMMING
+    page_start: 715
+    chapter_title_block_idx: 7219
+
+section_re: '^((?:\d+\.\d+)|(?:[A-C]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)|(?:[A-C]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^(BIBLIOGRAPHY|INDEX)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?|[a-z])\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

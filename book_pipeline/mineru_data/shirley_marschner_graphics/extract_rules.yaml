@@ -1,0 +1,220 @@
+slug: shirley_marschner_graphics
+title: Fundamentals of Computer Graphics
+author: Steve Marschner; Peter Shirley
+edition: 4th
+subject: Computer Graphics
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 715
+bibliography_start_page: 715
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 15
+    page_end: 26
+    chapter_title_block_idx: 82
+    problems_block_idx: 219
+    next_chapter_block_idx: 229
+  - num: 2
+    title: Miscellaneous Math
+    page_start: 27
+    page_end: 66
+    chapter_title_block_idx: 229
+    problems_block_idx: 852
+    next_chapter_block_idx: 876
+  - num: 3
+    title: Raster Images
+    page_start: 67
+    page_end: 82
+    chapter_title_block_idx: 876
+    problems_block_idx: 1072
+    next_chapter_block_idx: 1078
+  - num: 4
+    title: Ray Tracing
+    page_start: 83
+    page_end: 102
+    chapter_title_block_idx: 1078
+    problems_block_idx: 1346
+    next_chapter_block_idx: 1354
+  - num: 5
+    title: Linear Algebra
+    page_start: 103
+    page_end: 122
+    chapter_title_block_idx: 1354
+    problems_block_idx: 1620
+    next_chapter_block_idx: 1641
+  - num: 6
+    title: Transformation Matrices
+    page_start: 123
+    page_end: 152
+    chapter_title_block_idx: 1641
+    problems_block_idx: 2008
+    next_chapter_block_idx: 2029
+  - num: 7
+    title: Viewing
+    page_start: 153
+    page_end: 172
+    chapter_title_block_idx: 2029
+    problems_block_idx: 2267
+    next_chapter_block_idx: 2287
+  - num: 8
+    title: The Graphics Pipeline
+    page_start: 173
+    page_end: 196
+    chapter_title_block_idx: 2287
+    problems_block_idx: 2558
+    next_chapter_block_idx: 2570
+  - num: 9
+    title: Signal Processing
+    page_start: 197
+    page_end: 246
+    chapter_title_block_idx: 2570
+    problems_block_idx: 3119
+    next_chapter_block_idx: 3134
+  - num: 10
+    title: Surface Shading
+    page_start: 247
+    page_end: 256
+    chapter_title_block_idx: 3134
+    problems_block_idx: 3247
+    next_chapter_block_idx: 3257
+  - num: 11
+    title: Texture Mapping
+    page_start: 257
+    page_end: 294
+    chapter_title_block_idx: 3257
+    problems_block_idx: 3651
+    next_chapter_block_idx: 3659
+  - num: 12
+    title: Data Structures for Graphics
+    page_start: 295
+    page_end: 336
+    chapter_title_block_idx: 3659
+    problems_block_idx: 4130
+    next_chapter_block_idx: 4140
+  - num: 13
+    title: More Ray Tracing
+    page_start: 337
+    page_end: 350
+    chapter_title_block_idx: 4140
+    problems_block_idx: 4299
+    next_chapter_block_idx: 4310
+  - num: 14
+    title: Sampling
+    page_start: 351
+    page_end: 372
+    chapter_title_block_idx: 4310
+    problems_block_idx: 4617
+    next_chapter_block_idx: 4630
+  - num: 15
+    title: Curves
+    page_start: 373
+    page_end: 418
+    chapter_title_block_idx: 4630
+    problems_block_idx: 5223
+    next_chapter_block_idx: 5241
+  - num: 16
+    title: Computer Animation
+    page_start: 419
+    page_end: 450
+    chapter_title_block_idx: 5241
+    problems_block_idx: 5517
+    next_chapter_block_idx: 5530
+  - num: 17
+    title: Using Graphics Hardware
+    page_start: 451
+    page_end: 528
+    chapter_title_block_idx: 5530
+    problems_block_idx: 5928
+    next_chapter_block_idx: 6342
+  - num: 18
+    title: Visual Perception
+    page_start: 529
+    page_end: 572
+    chapter_title_block_idx: 6342
+    problems_block_idx: null
+    next_chapter_block_idx: 6715
+  - num: 19
+    title: Tone Reproduction
+    page_start: 573
+    page_end: 598
+    chapter_title_block_idx: 6715
+    problems_block_idx: null
+    next_chapter_block_idx: 6969
+  - num: 20
+    title: Implicit Modeling
+    page_start: 599
+    page_end: 626
+    chapter_title_block_idx: 6969
+    problems_block_idx: 7269
+    next_chapter_block_idx: 7280
+  - num: 21
+    title: Global Illumination
+    page_start: 627
+    page_end: 640
+    chapter_title_block_idx: 7280
+    problems_block_idx: 7445
+    next_chapter_block_idx: 7455
+  - num: 22
+    title: Reflection Models
+    page_start: 641
+    page_end: 656
+    chapter_title_block_idx: 7455
+    problems_block_idx: 7642
+    next_chapter_block_idx: 7650
+  - num: 23
+    title: Computer Graphics in Games
+    page_start: 657
+    page_end: 678
+    chapter_title_block_idx: 7650
+    problems_block_idx: 7813
+    next_chapter_block_idx: 7819
+  - num: 24
+    title: Visualization
+    page_start: 679
+    page_end: 714
+    chapter_title_block_idx: 7819
+    problems_block_idx: null
+    next_chapter_block_idx: 8096
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.?\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

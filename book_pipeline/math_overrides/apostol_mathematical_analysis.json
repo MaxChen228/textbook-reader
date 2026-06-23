@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "apostol_mathematical_analysis-ch01-body-333-d3cadc",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[333]",
+      "expect": "\\begin{array}{l l} z ^ {0} = 1, \\qquad z ^ {n + 1} = z ^ {n} z, & \\text {if n\\geq 0}, \\\\ z ^ {- n} = (z ^ {- 1}) ^ {n}, & \\text {if z\\neq 0 and n > 0 .} \\end{array}",
+      "new": "\\begin{array}{l l} z ^ {0} = 1, \\qquad z ^ {n + 1} = z ^ {n} z, & \\text {if } n\\geq 0, \\\\ z ^ {- n} = (z ^ {- 1}) ^ {n}, & \\text {if } z\\neq 0 \\text { and } n > 0 . \\end{array}"
+    },
+    {
+      "id": "apostol_mathematical_analysis-ch05-problem-5-2-body-1-18fcd4",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.2:body[1]",
+      "expect": "\\begin{array}{l l} \\text {a) f(x) = x^3 + ax + b,} & x \\in \\mathbf {R}. \\\\ \\text {b) f(x) = \\log (x^2 - 9),} & | x | > 3. \\\\ \\text {c) f(x) = x^{2 / 3} (x - 1)^4,} & 0 \\leq x \\leq 1. \\\\ \\text {d) f(x) = (\\sin x) / x if x\\neq 0,f(0) = 1,} & 0 \\leq x \\leq \\pi / 2. \\end{array}",
+      "new": "\\begin{array}{l l} \\text {a) } f(x) = x^3 + ax + b, & x \\in \\mathbf {R}. \\\\ \\text {b) } f(x) = \\log (x^2 - 9), & | x | > 3. \\\\ \\text {c) } f(x) = x^{2 / 3} (x - 1)^4, & 0 \\leq x \\leq 1. \\\\ \\text {d) } f(x) = (\\sin x) / x \\text { if } x\\neq 0, f(0) = 1, & 0 \\leq x \\leq \\pi / 2. \\end{array}"
+    },
+    {
+      "id": "apostol_mathematical_analysis-ch08-body-171-196699",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[171]",
+      "expect": "a _ {n} = O (b _ {n}) \\quad \\text {(read: ``a_{n} is big oh of b_{n} '')},",
+      "new": "a _ {n} = O (b _ {n}) \\quad \\text {(read: ``} a_{n} \\text { is big oh of } b_{n} \\text { '')},"
+    },
+    {
+      "id": "apostol_mathematical_analysis-ch16-body-536-65f907",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[536]",
+      "field": "md",
+      "all": true,
+      "old": "$e^{\\piiaz^{2}/n}$",
+      "new": "$e^{\\pi i a z^{2}/n}$",
+      "anchor": "6819eda4"
+    },
+    {
+      "id": "apostol_mathematical_analysis-ch05-problem-5-5-body-1-1c7843",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.5:body[1]",
+      "expect": "\\begin{array}{l l} \\text {a) f^{\\prime} (x) = -1 / x^{2} cos(1 / x), if x\\neq 0 ;} & f ^ {\\prime} (0) \\text {does not exist.} \\\\ \\text {b) g^{\\prime} (x) = sin(1 / x) - 1 / xcos(1 / x), if x\\neq 0 ;} & g ^ {\\prime} (0) \\text {does not exist.} \\\\ \\text {c) h^{\\prime} (x) = 2xsin(1 / x) - cos(1 / x), if x\\neq 0 ;} & h ^ {\\prime} (0) = 0; \\\\ & \\lim _ {x \\to 0} h ^ {\\prime} (x) \\text {does not exist.} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {a) } f^{\\prime} (x) = -1 / x^{2} cos(1 / x), \\text { if } x\\neq 0 ; & f ^ {\\prime} (0) \\text { does not exist.} \\\\ \\text {b) } g^{\\prime} (x) = sin(1 / x) - 1 / xcos(1 / x), \\text { if } x\\neq 0 ; & g ^ {\\prime} (0) \\text { does not exist.} \\\\ \\text {c) } h^{\\prime} (x) = 2xsin(1 / x) - cos(1 / x), \\text { if } x\\neq 0 ; & h ^ {\\prime} (0) = 0; \\\\ & \\lim _ {x \\to 0} h ^ {\\prime} (x) \\text { does not exist.} \\end{array}"
+    }
+  ]
+}

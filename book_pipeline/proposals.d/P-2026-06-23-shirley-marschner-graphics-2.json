@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-shirley-marschner-graphics-2",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/scope_guard.py（catalog_audit shirley_marschner_graphics）",
+  "slug": "shirley_marschner_graphics",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T10:13:11+00:00",
+  "updated": "2026-06-23T10:16:17+00:00",
+  "evidence": "scope_guard bracket：worker [catalog_audit shirley_marschner_graphics] session=shirley_marschner_graphics:44860 存活期間，受保護程式碼面 book_pipeline/scope_guard.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/scope_guard.py b/book_pipeline/scope_guard.py\nindex 6ed84cd..a2bef1c 100644\n--- a/book_pipeline/scope_guard.py\n+++ b/book_pipeline/scope_guard.py\n@@ -15,9 +15,15 @@\n `check_worker()` 再拍、取差集 → **只有「此 worker 存活期間新變動的受保護檔」才歸給它**。架構師\n 平時（不在任何 worker 視窗內）的開發 pre==post，永不旗標。\n \n+── 免責：架構師窗內 commit 不算越界（felix dev=daemon 機核心降噪）──\n+bracket 比的是內容 hash，故架構師在某 worker 存活期間 commit 受保護檔（HEAD 移動）→ hash 變了 →\n+舊版會誤判越界（每輪產一批假提案）。鑑別子：post 時該檔若 `git status --porcelain` **乾淨**＝變更\n+來自 commit（架構師/daemon）；worker 用 Edit/Write **必留未提交髒檔**（無 commit 步驟）→ `_committed_clean`\n+免責已提交檔。git 出錯保守不免責、照舊旗標，**絕不因 git 故障漏掉真越界**（additive 收斂、單向安全）。\n+\n ── 安全：先捕後還，還原永不失資料 ──\n-殘餘風險僅「架構師恰在某 worker 跑時改引擎」→ 該 diff 完整保存在提案裡，一鍵貼回。故即使誤判\n-也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：\n+殘餘風險僅「架構師恰在某 worker 跑時改引擎**且尚未 commit**」→ 該 diff 完整保存在提案裡，一鍵貼回\n+（已 commit 者由上述免責濾掉）。故即使誤判也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：\n   off     — 全關。\n   observe — 捕提案 + 大聲 surface，**不還原**（預設；永不與架構師互踩）。\n   enforce — 捕提案 + 還原核心（架構師信任後 opt-in）。\n@@ -98,6 +104,14 @@ def snapshot(root: str = ROOT) -> dict[str, str]:\n     return {os.path.relpath(p, root): _hash_file(p) for p in _protected_files(root)}\n \n \n+def _committed_clean(rel: str, root: str) -> bool:\n+    \"\"\"rel 在工作樹是否乾淨（無未提交改動）→ hash 變動來自 commit（架構師/daemon），非 worker 越界。\n+    worker 用 Edit/Write 必留未提交髒檔（M/??/D），故『git 乾淨』可安全免責；含 new(已 commit→空)/\n+    deleted(已 commit 刪→空)。git 出錯回 False（保守不免責、照舊旗標）→ 絕不因故障漏掉真越界。\"\"\"\n+    rc, out = _git(['status', '--porcelain', '--', rel], root)\n+    return rc == 0 and out.strip() == ''\n+\n+\n def _diff_text(rel: str, code: str, root: str) -> str:\n     if code == 'new':\n         full = os.path.join(root, rel)\n@@ -132,6 +146,19 @@ def check_worker(pre: dict[str, str], root: str = ROOT, *, verb: str = '?',\n                 continue\n             code = 'new' if a is None else ('deleted' if b is None else 'modified')\n             changed.append((rel, code))\n+        if not changed:\n+            return []\n+        # 免責架構師窗內 commit：hash 變了但工作樹乾淨 = commit 造成（HEAD 移動），非 worker（worker 無\n+        # commit、必留髒檔）。濾掉後才捕提案 → 根治「felix dev=daemon 機，架構師 commit 撞 worker bracket」\n+        # 每輪一批假提案。git 出錯保守保留（_committed_clean 回 False）。\n+        kept = []\n+        for rel, code in changed:\n+            if _committed_clean(rel, root):\n+                if log:\n+                    log(f'✓ scope_guard：{rel}（{code}）已提交、工作樹乾淨 → 架構師窗內 commit、免責')\n+                continue\n+            kept.append((rel, code))\n+        changed = kept\n         if not changed:\n             return []\n         seen = _seen()",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "架構師親自 commit（c93c5f6/d948d90）撞 shirley audit bracket；變更已落地 push"
+}

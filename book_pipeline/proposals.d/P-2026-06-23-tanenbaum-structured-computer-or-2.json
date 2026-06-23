@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-tanenbaum-structured-computer-or-2",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/pdf_contactsheet.py（audit tanenbaum_structured_computer_organization）",
+  "slug": "tanenbaum_structured_computer_organization",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T10:07:30+00:00",
+  "updated": "2026-06-23T10:08:10+00:00",
+  "evidence": "scope_guard bracket：worker [audit tanenbaum_structured_computer_organization] session=tanenbaum_structured_computer_organization:36621 存活期間，受保護程式碼面 book_pipeline/pdf_contactsheet.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "(無 diff 文本，book_pipeline/pdf_contactsheet.py modified)",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "架構師親自 commit（felix dev=daemon 機，scope_guard 無法區分 architect commit vs worker 越界）；變更已落地 push"
+}

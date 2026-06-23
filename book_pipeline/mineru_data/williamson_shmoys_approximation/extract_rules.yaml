@@ -1,0 +1,171 @@
+slug: williamson_shmoys_approximation
+title: The Design of Approximation Algorithms
+author: David P. Williamson; David B. Shmoys
+edition: 1st
+subject: Algorithms
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 471
+bibliography_start_page: 481
+index_start_page: 497
+
+chapters:
+  - num: 1
+    title: An Introduction to Approximation Algorithms
+    page_start: 15
+    page_end: 38
+    chapter_title_block_idx: 71
+    problems_block_idx: 291
+    next_chapter_block_idx: 341
+  - num: 2
+    title: Greedy Algorithms and Local Search
+    page_start: 39
+    page_end: 68
+    chapter_title_block_idx: 341
+    problems_block_idx: 592
+    next_chapter_block_idx: 654
+  - num: 3
+    title: Rounding Data and Dynamic Programming
+    page_start: 69
+    page_end: 84
+    chapter_title_block_idx: 654
+    problems_block_idx: 782
+    next_chapter_block_idx: 805
+  - num: 4
+    title: Deterministic Rounding of Linear Programs
+    page_start: 85
+    page_end: 110
+    chapter_title_block_idx: 805
+    problems_block_idx: 1035
+    next_chapter_block_idx: 1076
+  - num: 5
+    title: Random Sampling and Randomized Rounding of Linear Programs
+    page_start: 111
+    page_end: 148
+    chapter_title_block_idx: 1076
+    problems_block_idx: 1505
+    next_chapter_block_idx: 1566
+  - num: 6
+    title: Randomized Rounding of Semidefinite Programs
+    page_start: 149
+    page_end: 168
+    chapter_title_block_idx: 1566
+    problems_block_idx: 1774
+    next_chapter_block_idx: 1826
+  - num: 7
+    title: The Primal-Dual Method
+    page_start: 169
+    page_end: 204
+    chapter_title_block_idx: 1826
+    problems_block_idx: 2175
+    next_chapter_block_idx: 2229
+  - num: 8
+    title: Cuts and Metrics
+    page_start: 205
+    page_end: 242
+    chapter_title_block_idx: 2229
+    problems_block_idx: 2575
+    next_chapter_block_idx: 2629
+  - num: 9
+    title: Further Uses of Greedy and Local Search Algorithms
+    page_start: 243
+    page_end: 266
+    chapter_title_block_idx: 2629
+    problems_block_idx: 2858
+    next_chapter_block_idx: 2895
+  - num: 10
+    title: Further Uses of Rounding Data and Dynamic Programming
+    page_start: 267
+    page_end: 290
+    chapter_title_block_idx: 2895
+    problems_block_idx: 3085
+    next_chapter_block_idx: 3105
+  - num: 11
+    title: Further Uses of Deterministic Rounding of Linear Programs
+    page_start: 291
+    page_end: 320
+    chapter_title_block_idx: 3105
+    problems_block_idx: 3418
+    next_chapter_block_idx: 3481
+  - num: 12
+    title: Further Uses of Random Sampling and Randomized Rounding of Linear Programs
+    page_start: 321
+    page_end: 344
+    chapter_title_block_idx: 3481
+    problems_block_idx: 3716
+    next_chapter_block_idx: 3757
+  - num: 13
+    title: Further Uses of Randomized Rounding of Semidefinite Programs
+    page_start: 345
+    page_end: 366
+    chapter_title_block_idx: 3757
+    problems_block_idx: 4010
+    next_chapter_block_idx: 4044
+  - num: 14
+    title: Further Uses of the Primal-Dual Method
+    page_start: 367
+    page_end: 380
+    chapter_title_block_idx: 4044
+    problems_block_idx: 4186
+    next_chapter_block_idx: 4222
+  - num: 15
+    title: Further Uses of Cuts and Metrics
+    page_start: 381
+    page_end: 420
+    chapter_title_block_idx: 4222
+    problems_block_idx: 4679
+    next_chapter_block_idx: 4707
+  - num: 16
+    title: Techniques in Proving the Hardness of Approximation
+    page_start: 421
+    page_end: 464
+    chapter_title_block_idx: 4707
+    problems_block_idx: 5104
+    next_chapter_block_idx: 5119
+  - num: 17
+    title: Open Problems
+    page_start: 465
+    page_end: 470
+    chapter_title_block_idx: 5119
+    problems_block_idx: null
+    next_chapter_block_idx: 5151
+
+appendices:
+  - id: A
+    title: Linear Programming
+    page_start: 471
+    chapter_title_block_idx: 5151
+  - id: B
+    title: NP-Completeness
+    page_start: 477
+    chapter_title_block_idx: 5201
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^Chapter Notes\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\.?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,124 @@
+{
+  "overrides": [
+    {
+      "id": "bredon_topology_geometry-ch85-body-70-b23825",
+      "action": "fix_eq_tex",
+      "chunk": "ch85",
+      "selector": "body[70]",
+      "expect": "\\begin{array}{c c c}\\underset {\\rightarrow} {\\lim} _ {W} H _ {p} (W, W - (A \\cap W))&\\xrightarrow {\\approx}&H _ {p} (M, M - A)\\\\\\Big \\downarrow \\approx&&\\Big \\downarrow\\\\\\underset {\\rightarrow} {\\lim} _ {W} \\Gamma_ {c} (A \\cap W, \\Theta \\otimes G)&\\xrightarrow {\\approx}&\\Gamma_ {c} (A, \\Theta \\otimes G).\\end{array}",
+      "new": "\\begin{array}{c c c}{\\underset {\\rightarrow} {\\lim}} _ {W} H _ {p} (W, W - (A \\cap W))&\\xrightarrow {\\approx}&H _ {p} (M, M - A)\\\\\\Big \\downarrow \\approx&&\\Big \\downarrow\\\\{\\underset {\\rightarrow} {\\lim}} _ {W} \\Gamma_ {c} (A \\cap W, \\Theta \\otimes G)&\\xrightarrow {\\approx}&\\Gamma_ {c} (A, \\Theta \\otimes G).\\end{array}"
+    },
+    {
+      "id": "bredon_topology_geometry-ch66-body-23-3b1ec8",
+      "action": "fix_eq_tex",
+      "chunk": "ch66",
+      "selector": "body[23]",
+      "expect": "\\begin{array}{l l} L (f) = \\sum (- 1) ^ {i} \\operatorname{tr} _ {i} (g _ {*}) & \\text {(since g_{*} = f_{*})} \\\\ = \\sum (- 1) ^ {i} \\operatorname{tr} _ {i} (g _ {\\Delta}) & \\text {(by Hopf)} \\\\ = 0 & \\text {(since all terms are 0).} \\end{array}",
+      "new": "\\begin{array}{l l} L (f) = \\sum (- 1) ^ {i} \\operatorname{tr} _ {i} (g _ {*}) & \\text {(since } g_{*} = f_{*} \\text {)} \\\\ = \\sum (- 1) ^ {i} \\operatorname{tr} _ {i} (g _ {\\Delta}) & \\text {(by Hopf)} \\\\ = 0 & \\text {(since all terms are 0).} \\end{array}"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-706c80",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A) \\xrightarrow{\\delta^{\\*}} H^{n+1}(CA, A) \\xleftarrow{\\approx} H^{n+1}(SA, \\*)$",
+      "new": "$H^{n}(A) \\xrightarrow{\\delta^{*}} H^{n+1}(CA, A) \\xleftarrow{\\approx} H^{n+1}(SA, *)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-7024fd",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\cup \\*, \\*) \\xrightarrow{\\delta^{\\*}} H^{n+1}(CA, A \\cup \\*) \\xleftarrow{\\approx} H^{n+1}(SA, \\*)$",
+      "new": "$H^{n}(A \\cup *, *) \\xrightarrow{\\delta^{*}} H^{n+1}(CA, A \\cup *) \\xleftarrow{\\approx} H^{n+1}(SA, *)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-cd139c",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\times \\partial I, A \\times \\{1\\}) \\xrightarrow{\\delta^{\\*}} H^{n+1}(A \\times I, A \\times \\partial I) \\xleftarrow{\\approx} H^{n+1}(SA, \\*)$",
+      "new": "$H^{n}(A \\times \\partial I, A \\times \\{1\\}) \\xrightarrow{\\delta^{*}} H^{n+1}(A \\times I, A \\times \\partial I) \\xleftarrow{\\approx} H^{n+1}(SA, *)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-e764eb",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\times \\partial I, A \\times \\{0\\}) \\xrightarrow{\\delta^{\\*}} H^{n+1}(A \\times I, A \\times \\partial I) \\xleftarrow{\\approx} H^{n+1}(SA, \\*)$",
+      "new": "$H^{n}(A \\times \\partial I, A \\times \\{0\\}) \\xrightarrow{\\delta^{*}} H^{n+1}(A \\times I, A \\times \\partial I) \\xleftarrow{\\approx} H^{n+1}(SA, *)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-eee06e",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\times \\{1\\} \\cup X \\times \\{0\\}, X \\times \\{0\\}) \\xrightarrow{\\delta^{\\*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times \\{1\\} \\cup X \\times \\{0\\}) \\xleftarrow{\\approx} H^{n+1}(S \\cup CA, X)$",
+      "new": "$H^{n}(A \\times \\{1\\} \\cup X \\times \\{0\\}, X \\times \\{0\\}) \\xrightarrow{\\delta^{*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times \\{1\\} \\cup X \\times \\{0\\}) \\xleftarrow{\\approx} H^{n+1}(S \\cup CA, X)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-eba1c2",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\times \\{1\\}) \\xrightarrow{\\delta^{\\*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times \\{1\\}) \\xleftarrow{\\approx} H^{n+1}(X \\cup CA, \\*)$",
+      "new": "$H^{n}(A \\times \\{1\\}) \\xrightarrow{\\delta^{*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times \\{1\\}) \\xleftarrow{\\approx} H^{n+1}(X \\cup CA, *)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-c781cf",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$H^{n}(A \\times I) \\xrightarrow{\\delta^{\\*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times I) \\xleftarrow{\\approx} H^{n+1}(X \\cup CA, CA)$",
+      "new": "$H^{n}(A \\times I) \\xrightarrow{\\delta^{*}} H^{n+1}(A \\times I \\cup X \\times \\{0\\}, A \\times I) \\xleftarrow{\\approx} H^{n+1}(X \\cup CA, CA)$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch108-body-107-9db016",
+      "action": "fix_inline_math",
+      "chunk": "ch108",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$\\( H^{n}(A) \\xrightarrow{\\delta^{\\*}} H^{n+1}(X, A) \\xleftarrow{\\approx} H^{n+1}(X, A).$",
+      "new": "$H^{n}(A) \\xrightarrow{\\delta^{*}} H^{n+1}(X, A) \\xleftarrow{\\approx} H^{n+1}(X, A).$"
+    },
+    {
+      "id": "bredon_topology_geometry-ch42-body-20-11b4eb",
+      "action": "fix_eq_tex",
+      "chunk": "ch42",
+      "selector": "body[20]",
+      "expect": "\\begin{array}{l l} [ f ] _ {U} [ g ] _ {V} [ g ^ {\\prime} ] _ {V} = [ h k ] _ {U} [ k ^ {- 1} l m ] _ {V} [ m ^ {- 1} l ^ {\\prime} ] _ {V} \\\\ = [ h k ] _ {U} [ k ^ {- 1} l l ^ {\\prime} ] _ {V} & \\text {(multiplication in \\pi_ {1} (V))} \\\\ = ([ h ] _ {U} [ k ] _ {U}) [ k ^ {- 1} l l ^ {\\prime} ] _ {V} \\\\ = [ h ] _ {U} ([ k ] _ {V} [ k ^ {- 1} l l ^ {\\prime} ] _ {V}) & \\text {(by amalgamation of [k] \\in \\pi_ {1} (U \\cap V))} \\\\ = [ h ] _ {U} [ l l ^ {\\prime} ] _ {V} & \\text {(multiplication in \\pi_ {1} (V)).} \\end{array}",
+      "new": "\\begin{array}{l l} [ f ] _ {U} [ g ] _ {V} [ g ^ {\\prime} ] _ {V} = [ h k ] _ {U} [ k ^ {- 1} l m ] _ {V} [ m ^ {- 1} l ^ {\\prime} ] _ {V} \\\\ = [ h k ] _ {U} [ k ^ {- 1} l l ^ {\\prime} ] _ {V} & \\text {(multiplication in } \\pi_ {1} (V) \\text {)} \\\\ = ([ h ] _ {U} [ k ] _ {U}) [ k ^ {- 1} l l ^ {\\prime} ] _ {V} \\\\ = [ h ] _ {U} ([ k ] _ {V} [ k ^ {- 1} l l ^ {\\prime} ] _ {V}) & \\text {(by amalgamation of } [k] \\in \\pi_ {1} (U \\cap V) \\text {)} \\\\ = [ h ] _ {U} [ l l ^ {\\prime} ] _ {V} & \\text {(multiplication in } \\pi_ {1} (V) \\text {).} \\end{array}"
+    },
+    {
+      "id": "bredon_topology_geometry-ch60-body-39-46d54b",
+      "action": "fix_eq_tex",
+      "chunk": "ch60",
+      "selector": "body[39]",
+      "expect": "\\begin{array}{r l} \\Upsilon \\partial \\sigma = \\Upsilon (\\partial (\\sigma_ {\\Delta} (\\iota_ {p}))) & \\\\ = \\Upsilon (\\sigma_ {\\Delta} (\\partial \\iota_ {p})) & \\text {(since \\sigma_ {\\Delta} is a chain map)} \\\\ = \\sigma_ {\\Delta} (\\Upsilon (\\partial \\iota_ {p})) & \\text {(naturality)} \\\\ = \\sigma_ {\\Delta} (\\partial (\\Upsilon \\iota_ {p})) & \\text {(since \\iota_ {p} is affine)} \\\\ = \\partial (\\sigma_ {\\Delta} (\\Upsilon \\iota_ {p})) & \\text {(since \\sigma_ {\\Delta} is a chain map)} \\\\ = \\partial (\\Upsilon \\sigma) & \\text {(by definition).} \\end{array}",
+      "new": "\\begin{array}{r l} \\Upsilon \\partial \\sigma = \\Upsilon (\\partial (\\sigma_ {\\Delta} (\\iota_ {p}))) & \\\\ = \\Upsilon (\\sigma_ {\\Delta} (\\partial \\iota_ {p})) & \\text {(since } \\sigma_ {\\Delta} \\text { is a chain map)} \\\\ = \\sigma_ {\\Delta} (\\Upsilon (\\partial \\iota_ {p})) & \\text {(naturality)} \\\\ = \\sigma_ {\\Delta} (\\partial (\\Upsilon \\iota_ {p})) & \\text {(since } \\iota_ {p} \\text { is affine)} \\\\ = \\partial (\\sigma_ {\\Delta} (\\Upsilon \\iota_ {p})) & \\text {(since } \\sigma_ {\\Delta} \\text { is a chain map)} \\\\ = \\partial (\\Upsilon \\sigma) & \\text {(by definition).} \\end{array}"
+    },
+    {
+      "id": "bredon_topology_geometry-ch89-body-40-29d72d",
+      "action": "fix_eq_tex",
+      "chunk": "ch89",
+      "selector": "body[40]",
+      "expect": "\\begin{array}{r l} i ^ {!} (\\beta) & = D _ {W} i _ {*} D _ {N} ^ {- 1} (\\beta) \\\\ & = D _ {W} i _ {*} (i ^ {*} (\\alpha) \\cap [ N ]) \\\\ & = D _ {W} (\\alpha \\cap i _ {*} [ N ]) \\quad \\text {(by Theorem 5.2)} \\\\ & = D _ {W} (\\alpha \\cap (\\tau \\cap [ W ])) \\quad \\text {(by definition of \\tau)} \\\\ & = D _ {W} ((\\alpha \\cup \\tau) \\cap [ W ]) \\quad \\text {(by Theorem 5.2)} \\\\ & = \\alpha \\cup \\tau = \\pi^ {*} (\\beta) \\cup \\tau . \\end{array}",
+      "new": "\\begin{array}{r l} i ^ {!} (\\beta) & = D _ {W} i _ {*} D _ {N} ^ {- 1} (\\beta) \\\\ & = D _ {W} i _ {*} (i ^ {*} (\\alpha) \\cap [ N ]) \\\\ & = D _ {W} (\\alpha \\cap i _ {*} [ N ]) \\quad \\text {(by Theorem 5.2)} \\\\ & = D _ {W} (\\alpha \\cap (\\tau \\cap [ W ])) \\quad \\text {(by definition of } \\tau \\text {)} \\\\ & = D _ {W} ((\\alpha \\cup \\tau) \\cap [ W ]) \\quad \\text {(by Theorem 5.2)} \\\\ & = \\alpha \\cup \\tau = \\pi^ {*} (\\beta) \\cup \\tau . \\end{array}"
+    }
+  ]
+}

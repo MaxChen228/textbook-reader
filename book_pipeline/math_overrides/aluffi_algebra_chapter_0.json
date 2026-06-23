@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "aluffi_algebra_chapter_0-ch09-body-812-db7344",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[812]",
+      "field": "md",
+      "all": true,
+      "old": "$\\alpha ^ { \\prime } ^ { \\bullet }$",
+      "new": "$\\alpha^{\\prime\\bullet}$",
+      "anchor": "719c548b"
+    },
+    {
+      "id": "aluffi_algebra_chapter_0-ch02-problem-6-14-body-6-148d9b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:6.14:body[6]",
+      "expect": "\\begin{array}{l} \\text {(For example, \\phi(1) + \\phi(2) + \\phi(3) + \\phi(4) + \\phi(6) + \\phi(12) = 1 + 1 + 2 + 2 + 2 + 4 = 12.)} \\\\ \\text {[4.14, \\S6.4, 8.15, V.6.8, \\SVII.5.2]} \\end{array}",
+      "new": "\\begin{array}{l} \\text{(For example, } \\phi(1) + \\phi(2) + \\phi(3) + \\phi(4) + \\phi(6) + \\phi(12) = 1 + 1 + 2 + 2 + 2 + 4 = 12.\\text{)} \\\\ \\text{[4.14, \\S6.4, 8.15, V.6.8, \\S VII.5.2]} \\end{array}"
+    },
+    {
+      "id": "aluffi_algebra_chapter_0-ch07-body-562-1c4753",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[562]",
+      "field": "md",
+      "all": true,
+      "old": "$k , \\textit { \\iota }$",
+      "new": "$k , \\iota$",
+      "anchor": "83afa391"
+    },
+    {
+      "id": "aluffi_algebra_chapter_0-ch03-body-821-97c51a",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[821]",
+      "expect": "0 \\dots\\dotsg \\xrightarrow {\\alpha_ {1}} (c ^ {\\prime} - c) \\xrightarrow {\\beta_ {1}} 0 \\dots\\dots0.",
+      "new": "0 \\dots\\dots \\xrightarrow {\\alpha_ {1}} (c ^ {\\prime} - c) \\xrightarrow {\\beta_ {1}} 0 \\dots\\dots0."
+    },
+    {
+      "id": "aluffi_algebra_chapter_0-ch03-body-823-8df889",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[823]",
+      "expect": "\\begin{array}{c} 0 \\dots \\dotsg \\xrightarrow {\\alpha_ {1}} (c ^ {\\prime} - c) \\xrightarrow {\\beta_ {1}} 0 \\dots \\dots 0 \\\\ \\lambda \\Biggl \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\mu \\\\ 0 \\dots \\dotsg \\lambda (g) \\dots \\dots \\\\ \\Biggl \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad 0 \\dots \\dots \\\\ \\hline \\end{array}",
+      "new": "\\begin{array}{c} 0 \\dots \\dots \\xrightarrow {\\alpha_ {1}} (c ^ {\\prime} - c) \\xrightarrow {\\beta_ {1}} 0 \\dots \\dots 0 \\\\ \\lambda \\Biggl \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\mu \\\\ 0 \\dots \\dots \\lambda (g) \\dots \\dots \\\\ \\Biggl \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad 0 \\dots \\dots \\\\ \\hline \\end{array}"
+    }
+  ]
+}
