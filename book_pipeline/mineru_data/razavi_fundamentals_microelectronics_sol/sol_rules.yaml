@@ -1,0 +1,16 @@
+# ⚠ PENDING — 不要 merge。這本解答書 live 證據顯示是 1st edition，
+# 但主書 `razavi_fundamentals_microelectronics` 是 2nd edition。
+#
+# 直接證據：
+# 1) unified/content_list.json 首行：
+#    "Solutions Manual to Accompany Fundamentals of Microelectronics, 1st Edition"
+# 2) 同頁 ISBN：
+#    978-0-471-47846-1（1st edition）
+# 3) 主書 parsed/book.json：
+#    edition = 2nd
+# 4) 保守 dry-run（只吃 N.M 題號、避免整數噪音誤配）僅 97/828 = 11.71%，
+#    ch13/ch15/ch16/ch17 全 0 命中；這不是小修 regex 可救的狀況。
+#
+# 結論：edition-mismatch。需換到 2nd edition 解答本後重 ingest / 重跑 audit-sol，
+# 並回頭修正 editions/<sol>.json 目前誤標 aligned=true 的書目判定。
+_pending: true

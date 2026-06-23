@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-wakerly-digital-design",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc wakerly_digital_design）",
+  "slug": "wakerly_digital_design",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-23T16:10:35+00:00",
+  "updated": "2026-06-23T16:10:35+00:00",
+  "evidence": "scope_guard bracket：worker [qc wakerly_digital_design] session=wakerly_digital_design:57632 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/pipeline_queue.py b/book_pipeline/pipeline_queue.py\nindex cc6923e..fce0bbf 100644\n--- a/book_pipeline/pipeline_queue.py\n+++ b/book_pipeline/pipeline_queue.py\n@@ -33,7 +33,10 @@ import os\n import sys\n from contextlib import contextmanager\n \n+from collections import OrderedDict\n+\n from book_pipeline import jsonio\n+from book_pipeline import pipeline_gates as pg\n from book_pipeline import status as st\n \n ROOT = st.ROOT",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

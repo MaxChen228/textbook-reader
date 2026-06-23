@@ -1,0 +1,81 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "papoulis-fig-4.8-relabel",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[183]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.9",
+        "caption": "Figure 4.9"
+      },
+      "set": {
+        "id": "fig-4.8",
+        "caption": "FIGURE 4-8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 ref 4.8：raw PDF 物理頁 91 底部確有 FIGURE 4-8，且現存 body[183] 的 src 就是該階梯函數圖；MinerU/repair 將它誤標成 Figure 4.9。情境(A)：圖已存在，校正語意 id 與 caption 即可覆蓋正文 ref。"
+    },
+    {
+      "id": "papoulis-fig-4.33-promote",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[778]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-778",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-4.33",
+        "caption": "FIGURE 4-33",
+        "catalog_repair_source": "agent-caption-promote"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 ref 4.33：raw PDF 物理頁 127 底部明示 FIGURE 4-33，現存 body[778] 的 src 正是該兩區間示意圖，只是先前被誤判成 unnumbered_body_fig 排除。解除排除並賦予語意 id 後即可覆蓋。"
+    },
+    {
+      "id": "papoulis-fig-6.13-relabel",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[295]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-6.14",
+        "caption": "Figure 6.14"
+      },
+      "set": {
+        "id": "fig-6.13",
+        "caption": "FIGURE 6-13",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 ref 6.13：raw PDF 物理頁 195 底部確有 FIGURE 6-13；body[295] 的 src 就是該單圖陰影區域示意，但被誤標成 Figure 6.14。情境(A)：直接校正 id/caption，後續兩個 6.14 圖塊仍保留給下一頁的 FIGURE 6-14。"
+    },
+    {
+      "id": "papoulis-fig-14.15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[640]",
+      "position": "after",
+      "page": 674,
+      "clip": [
+        0.08,
+        0.84,
+        0.44,
+        0.97
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-14.15",
+        "kind": "line",
+        "caption": "FIGURE 14-15"
+      },
+      "reason": "C4 ref 14.15：raw PDF 物理頁 674 底部有小型方塊圖 FIGURE 14-15，但 parsed/ch14.json 在該段附近沒有任何 fig block，屬 MinerU 漏抓。依正文引用段 body[640] 後插入 pdf_crop 重裁的圖塊。"
+    }
+  ]
+}

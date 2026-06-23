@@ -42,7 +42,7 @@
       "all": true,
       "old": "$v_{SD} &amp;lt; v_{SD}$",
       "new": "$v_{SD} < v_{SD}$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-6d586a",
@@ -53,7 +53,7 @@
       "all": true,
       "old": "$v_{DS} &amp;gt; v_{DS}$",
       "new": "$v_{DS} > v_{DS}$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-697669",
@@ -64,7 +64,7 @@
       "all": true,
       "old": "$v_{SD} &amp;gt; v_{SD}$",
       "new": "$v_{SD} > v_{SD}$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-5ac5ad",
@@ -75,7 +75,7 @@
       "all": true,
       "old": "$V_{TN} &amp;gt; 0$",
       "new": "$V_{TN} > 0$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-86485f",
@@ -86,7 +86,7 @@
       "all": true,
       "old": "$V_{TP} &amp;lt; 0$",
       "new": "$V_{TP} < 0$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-35588c",
@@ -97,7 +97,7 @@
       "all": true,
       "old": "$V_{TN} &amp;lt; 0$",
       "new": "$V_{TN} < 0$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch03-body-175-b9b27a",
@@ -108,7 +108,7 @@
       "all": true,
       "old": "$V_{TP} &amp;gt; 0$",
       "new": "$V_{TP} > 0$",
-      "anchor": "742a3695"
+      "anchor": "c0ddd937"
     },
     {
       "id": "neamen_microelectronics-ch17-body-182-9e5f5f",
@@ -130,7 +130,7 @@
       "all": true,
       "old": "$\\Nu { \\bf M } _ { L } = 0 . 2 3 \\ : \\mathrm { V }$",
       "new": "$\\mathrm{N} { \\bf M } _ { L } = 0 . 2 3 \\ : \\mathrm { V }$",
-      "anchor": "75bebec4"
+      "anchor": "497ca9f9"
     },
     {
       "id": "neamen_microelectronics-ch10-body-280-c8478f",
@@ -170,8 +170,96 @@
       "field": "md",
       "all": true,
       "old": "$t _ { \\mathrm { o x } } = 1 2 0 \\mathring \\mathrm { A } . \\mathrm { ( i ) }$",
-      "new": "$t_{\\mathrm{ox}} = 120\\,\\mathring{\\mathrm{A}}. \\mathrm{(i)}$",
-      "anchor": "303fc2e4"
+      "new": "$t_{\\mathrm{o x}} = 1 2 0 \\mathring{\\mathrm{A}} . \\mathrm{( i )}$",
+      "anchor": "9c88af88"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-57-solution-22-b865de",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.57:solution[22]",
+      "expect": "V _ {S} (1 9. 3 9) = V _ {e 1} (3 0. 6 4) - V _ {e 3} (1. 2 5)\\tag{( (2') \\}",
+      "new": "V _ {S} (1 9. 3 9) = V _ {e 1} (3 0. 6 4) - V _ {e 3} (1. 2 5)\\tag{( (2') }"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-58-solution-15-efd635",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.58:solution[15]",
+      "expect": "(1 9. 2 3) V _ {\\pi 2} + (0. 8 2 3 0) V _ {\\pi 3} + (0. 0 5 3 7 6) V _ {S} = 0\\tag{( (3') \\}",
+      "new": "(1 9. 2 3) V _ {\\pi 2} + (0. 8 2 3 0) V _ {\\pi 3} + (0. 0 5 3 7 6) V _ {S} = 0\\tag{( (3') }"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-69-solution-15-9a0d34",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.69:solution[15]",
+      "expect": "g _ {m 2} V _ {t} + V _ {\\pi 3} \\left(\\frac {1}{R _ {C 2}} + \\frac {1}{r _ {\\pi 3}}\\right) + \\frac {V _ {\\pi 3} \\left(\\frac {1}{r _ {\\pi 3}} + g _ {m 3}\\right) - \\frac {V _ {\\pi 1}}{R _ {F}}}{R _ {C 2} \\cdot \\left(\\frac {1}{R _ {E 3}} + \\frac {1}{R _ {F}}\\right)} = 0\\tag{( (3') \\}",
+      "new": "g _ {m 2} V _ {t} + V _ {\\pi 3} \\left(\\frac {1}{R _ {C 2}} + \\frac {1}{r _ {\\pi 3}}\\right) + \\frac {V _ {\\pi 3} \\left(\\frac {1}{r _ {\\pi 3}} + g _ {m 3}\\right) - \\frac {V _ {\\pi 1}}{R _ {F}}}{R _ {C 2} \\cdot \\left(\\frac {1}{R _ {E 3}} + \\frac {1}{R _ {F}}\\right)} = 0\\tag{( (3') }"
+    },
+    {
+      "id": "neamen_microelectronics-ch09-problem-9-27-solution-4-0ac2bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.27:solution[4]",
+      "expect": "A _ {v} = (- 1) \\cdot \\frac {1}{\\left[ 1 + \\frac {1}{2 \\times 1 0 ^ {2}} (2) \\right]} = - 0. 9 9 0 0 9 9 \\tag {b}\\tag{i}",
+      "new": "A_{v} = (- 1) \\cdot \\frac{1}{\\left[ 1 + \\frac{1}{2 \\times 1 0^{2}} (2) \\right]} = - 0. 9 9 0 0 9 9 \\tag{b,i}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-36-solution-28-540fc1",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.36:solution[28]",
+      "expect": "[ V _ {i} + V _ {\\pi 2} (2. 1 9 2) ] (0. 1 2 0) - V _ {0} (0. 0 2 0) + V _ {\\pi 2} (0. 1 9 2 3) = 0\\tag{( (5') \\}",
+      "new": "[ V_{i} + V_{\\pi 2} (2. 1 9 2) ] (0. 1 2 0) - V_{0} (0. 0 2 0) + V_{\\pi 2} (0. 1 9 2 3) = 0\\tag{((5')}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-49-solution-32-9ff342",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.49:solution[32]",
+      "expect": "I _ {s} = (0. 2 6 7 2) (- V _ {\\pi 2}) (0. 2 3 1 0) - V _ {\\pi 2} (4. 8 3 9)\\tag{( (2') \\}",
+      "new": "I_{s} = (0. 2 6 7 2) (- V_{\\pi 2}) (0. 2 3 1 0) - V_{\\pi 2} (4. 8 3 9)\\tag{((2')}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-51-solution-31-383ae0",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.51:solution[31]",
+      "expect": "V _ {\\pi 2} (1 9. 3 9) = (0. 9 5 6 8) \\left[ V _ {\\pi 1} (4. 8 1 3) - V _ {S} (2. 0 0) \\right] - V _ {\\pi 1} (0. 8 3 3 3)\\tag{( (2') \\}",
+      "new": "V_{\\pi 2} (1 9. 3 9) = (0. 9 5 6 8) \\left[ V_{\\pi 1} (4. 8 1 3) - V_{S} (2. 0 0) \\right] - V_{\\pi 1} (0. 8 3 3 3)\\tag{((2')}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-51-solution-35-c99db6",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.51:solution[35]",
+      "expect": "V _ {\\pi 1} = V _ {S} (0. 0 0 9 6 7 3) - V _ {\\pi 2} (0. 0 0 7 1 6 3)\\tag{( (3') \\}",
+      "new": "V_{\\pi 1} = V_{S} (0. 0 0 9 6 7 3) - V_{\\pi 2} (0. 0 0 7 1 6 3)\\tag{((3')}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-53-solution-34-b6f2a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.53:solution[34]",
+      "expect": "V _ {\\pi 2} (1 2 5. 5) = V _ {1} (2. 2 0) - V _ {\\pi 1} (0. 2 0)\\tag{( (3') \\}",
+      "new": "V_{\\pi 2} (1 2 5. 5) = V_{1} (2. 2 0) - V_{\\pi 1} (0. 2 0)\\tag{((3')}"
+    },
+    {
+      "id": "neamen_microelectronics-ch07-problem-7-40-solution-7-e63ff2",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.40:solution[7]",
+      "expect": "\\begin{array}{l} A _ {v} = - g _ {m} \\left(R _ {D} \\left\\| R _ {L} \\right\\| \\frac {1}{s C _ {L}}\\right) = - g _ {m} \\left[ \\frac {\\left(R _ {D} \\left\\| R _ {L}\\right) \\cdot \\frac {1}{s C _ {L}} \\right.}{\\left(R _ {D} \\left\\| R _ {L}\\right) + \\frac {1}{s C _ {L}} \\right.} \\right] \\\\ A _ {v} = - g _ {m} \\left(R _ {D} \\left\\| R _ {L}\\right) \\left[ \\frac {1}{1 + s \\left(R _ {D} \\left\\| R _ {L}\\right) C _ {L}} \\right. \\right. \\right. \\\\ \\tau = \\left(R _ {D} \\left\\| R _ {L}\\right) C _ {L} \\right. \\end{array}\\tag{b}",
+      "new": "\\begin{array}{l} A _ {v} = - g _ {m} \\left(R _ {D} \\| R _ {L} \\| \\frac {1}{s C _ {L}}\\right) = - g _ {m} \\left[ \\frac {\\left(R _ {D} \\| R _ {L}\\right) \\cdot \\frac {1}{s C _ {L}}}{\\left(R _ {D} \\| R _ {L}\\right) + \\frac {1}{s C _ {L}}} \\right] \\\\ A _ {v} = - g _ {m} \\left(R _ {D} \\| R _ {L}\\right) \\left[ \\frac {1}{1 + s \\left(R _ {D} \\| R _ {L}\\right) C _ {L}} \\right] \\\\ \\tau = \\left(R _ {D} \\| R _ {L}\\right) C _ {L} \\end{array}\\tag{b}"
+    },
+    {
+      "id": "neamen_microelectronics-ch12-problem-12-36-solution-25-9aa6c3",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.36:solution[25]",
+      "expect": "\\begin{array}{l} V _ {i} = - V _ {\\pi 2} \\left(2 + \\frac {1}{5 . 2}\\right) + V _ {b 2} \\\\ V _ {i} = - V _ {\\pi 2} (2. 1 9 2) + V _ {b 2} \\\\ V _ {0 2} \\left(\\frac {1}{2 2 . 6} + \\frac {1}{1 . 3}\\right) + (1 9. 2 3) V _ {\\pi 2} - V _ {0} \\left(\\frac {1}{1 . 3}\\right) = 0 \\\\ V _ {0 2} (0. 8 1 3 5) + (1 9. 2 3) V _ {\\pi 2} - (0. 7 6 9 2) V _ {0} = 0 \\\\ V _ {0 2} \\left(\\frac {1 0 1}{1 . 3}\\right) = V _ {0} \\left(\\frac {1 0 1}{1 . 3} + \\frac {1}{4} + \\frac {1}{5 0}\\right) - V _ {b 2} \\left(\\frac {1}{5 0}\\right) \\\\ V _ {0 2} (7 7. 6 9) = V _ {0} (7 7. 9 6) - V _ {b 2} (0. 0 2) \\\\ V _ {b 2} \\left(\\frac {1}{5 0} + \\frac {1}{1 0}\\right) - V _ {0} \\left(\\frac {1}{5 0}\\right) + V _ {\\pi 2} \\left(\\frac {1}{5 . 2}\\right) = 0 \\\\ V _ {b 2} (0. 1 2 0) - V _ {0} (0. 0 2 0) + V _ {\\pi 2} (0. 1 9 2 3) = 0 \\end{array} \\tag {5}\\tag{3}",
+      "new": "\\begin{array}{l} V _ {i} = - V _ {\\pi 2} \\left(2 + \\frac {1}{5 . 2}\\right) + V _ {b 2} \\\\ V _ {i} = - V _ {\\pi 2} (2. 1 9 2) + V _ {b 2} \\\\ V _ {0 2} \\left(\\frac {1}{2 2 . 6} + \\frac {1}{1 . 3}\\right) + (1 9. 2 3) V _ {\\pi 2} - V _ {0} \\left(\\frac {1}{1 . 3}\\right) = 0 \\\\ V _ {0 2} (0. 8 1 3 5) + (1 9. 2 3) V _ {\\pi 2} - (0. 7 6 9 2) V _ {0} = 0 \\\\ V _ {0 2} \\left(\\frac {1 0 1}{1 . 3}\\right) = V _ {0} \\left(\\frac {1 0 1}{1 . 3} + \\frac {1}{4} + \\frac {1}{5 0}\\right) - V _ {b 2} \\left(\\frac {1}{5 0}\\right) \\\\ V _ {0 2} (7 7. 6 9) = V _ {0} (7 7. 9 6) - V _ {b 2} (0. 0 2) \\\\ V _ {b 2} \\left(\\frac {1}{5 0} + \\frac {1}{1 0}\\right) - V _ {0} \\left(\\frac {1}{5 0}\\right) + V _ {\\pi 2} \\left(\\frac {1}{5 . 2}\\right) = 0 \\\\ V _ {b 2} (0. 1 2 0) - V _ {0} (0. 0 2 0) + V _ {\\pi 2} (0. 1 9 2 3) = 0 \\end{array} \\tag {5\\,3}"
     }
   ]
 }

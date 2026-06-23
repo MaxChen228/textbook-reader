@@ -1,0 +1,176 @@
+slug: sze_semiconductor
+title: Physics of Semiconductor Devices
+author: Simon M. Sze; Kwok K. Ng
+edition: 3rd
+subject: Microelectronics
+publisher: Wiley-Interscience
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 773
+bibliography_start_page: null
+index_start_page: 791
+
+chapters:
+  - num: 1
+    title: Physics and Properties of Semiconductors—A Review
+    page_start: 14
+    page_end: 83
+    chapter_title_block_idx: 98
+    problems_block_idx: 912
+    next_chapter_block_idx: 979
+  - num: 2
+    title: p-n Junctions
+    page_start: 84
+    page_end: 138
+    chapter_title_block_idx: 979
+    problems_block_idx: 1631
+    next_chapter_block_idx: 1668
+  - num: 3
+    title: Metal-Semiconductor Contacts
+    page_start: 139
+    page_end: 201
+    chapter_title_block_idx: 1668
+    problems_block_idx: 2368
+    next_chapter_block_idx: 2389
+  - num: 4
+    title: Metal-Insulator-Semiconductor Capacitors
+    page_start: 202
+    page_end: 246
+    chapter_title_block_idx: 2389
+    problems_block_idx: 2810
+    next_chapter_block_idx: 2848
+  - num: 5
+    title: Bipolar Transistors
+    page_start: 247
+    page_end: 296
+    chapter_title_block_idx: 2848
+    problems_block_idx: 3450
+    next_chapter_block_idx: 3468
+  - num: 6
+    title: MOSFETs
+    page_start: 297
+    page_end: 377
+    chapter_title_block_idx: 3468
+    problems_block_idx: 4325
+    next_chapter_block_idx: 4370
+  - num: 7
+    title: JFETs, MESFETs, and MODFETs
+    page_start: 378
+    page_end: 418
+    chapter_title_block_idx: 4370
+    problems_block_idx: 4825
+    next_chapter_block_idx: 4856
+  - num: 8
+    title: Tunnel Devices
+    page_start: 419
+    page_end: 467
+    chapter_title_block_idx: 4856
+    problems_block_idx: 5374
+    next_chapter_block_idx: 5396
+  - num: 9
+    title: IMPATT Diodes
+    page_start: 468
+    page_end: 511
+    chapter_title_block_idx: 5396
+    problems_block_idx: 5917
+    next_chapter_block_idx: 5942
+  - num: 10
+    title: Transferred-Electron and Real-Space-Transfer Devices
+    page_start: 512
+    page_end: 549
+    chapter_title_block_idx: 5942
+    problems_block_idx: 6344
+    next_chapter_block_idx: 6375
+  - num: 11
+    title: Thyristors and Power Devices
+    page_start: 550
+    page_end: 601
+    chapter_title_block_idx: 6375
+    problems_block_idx: 6932
+    next_chapter_block_idx: 6955
+  - num: 12
+    title: LEDs and Lasers
+    page_start: 602
+    page_end: 663
+    chapter_title_block_idx: 6955
+    problems_block_idx: 7586
+    next_chapter_block_idx: 7605
+  - num: 13
+    title: Photodetectors and Solar Cells
+    page_start: 664
+    page_end: 743
+    chapter_title_block_idx: 7605
+    problems_block_idx: 8462
+    next_chapter_block_idx: 8483
+  - num: 14
+    title: Sensors
+    page_start: 744
+    page_end: 772
+    chapter_title_block_idx: 8483
+    problems_block_idx: 8785
+    next_chapter_block_idx: 8820
+
+appendices:
+  - id: A
+    title: List of Symbols
+    page_start: 774
+    chapter_title_block_idx: 8820
+  - id: B
+    title: International System of Units
+    page_start: 784
+    chapter_title_block_idx: 8854
+  - id: C
+    title: Unit Prefixes
+    page_start: 785
+    chapter_title_block_idx: 8859
+  - id: D
+    title: Greek Alphabet
+    page_start: 786
+    chapter_title_block_idx: 8865
+  - id: E
+    title: Physical Constants
+    page_start: 787
+    chapter_title_block_idx: 8870
+  - id: F
+    title: Properties of Important Semiconductors
+    page_start: 788
+    chapter_title_block_idx: 8874
+  - id: G
+    title: Properties of Si and GaAs
+    page_start: 789
+    chapter_title_block_idx: 8878
+  - id: H
+    title: Properties of SiO2 and Si3N4
+    page_start: 790
+    chapter_title_block_idx: 8884
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

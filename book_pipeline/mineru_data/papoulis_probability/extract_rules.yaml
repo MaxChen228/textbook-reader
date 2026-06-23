@@ -1,0 +1,167 @@
+# ── 書本 metadata ──
+slug: papoulis_probability
+title: Probability, Random Variables, and Stochastic Processes
+author: Athanasios Papoulis; S. Unnikrishna Pillai
+edition: 4th
+subject: Probability
+publisher: McGraw-Hill Higher Education
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 12
+appendices_start_page: 844
+bibliography_start_page: 844
+index_start_page: 845
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: The Meaning of Probability
+    page_start: 12
+    page_end: 23
+    chapter_title_block_idx: 60
+    problems_block_idx: null
+    next_chapter_block_idx: 230
+  - num: 2
+    title: The Axioms of Probability
+    page_start: 24
+    page_end: 54
+    chapter_title_block_idx: 230
+    problems_block_idx: 884
+    next_chapter_block_idx: 920
+  - num: 3
+    title: Repeated Trials
+    page_start: 55
+    page_end: 80
+    chapter_title_block_idx: 920
+    problems_block_idx: 1374
+    next_chapter_block_idx: 1392
+  - num: 4
+    title: The Concept of a Random Variable
+    page_start: 81
+    page_end: 131
+    chapter_title_block_idx: 1392
+    problems_block_idx: 2315
+    next_chapter_block_idx: 2377
+  - num: 5
+    title: Functions of One Random Variable
+    page_start: 132
+    page_end: 177
+    chapter_title_block_idx: 2377
+    problems_block_idx: 3265
+    next_chapter_block_idx: 3370
+  - num: 6
+    title: Two Random Variables
+    page_start: 178
+    page_end: 251
+    chapter_title_block_idx: 3370
+    problems_block_idx: 4744
+    next_chapter_block_idx: 4921
+  - num: 7
+    title: Sequences of Random Variables
+    page_start: 252
+    page_end: 311
+    chapter_title_block_idx: 4921
+    problems_block_idx: 6086
+    next_chapter_block_idx: 6163
+  - num: 8
+    title: Statistics
+    page_start: 312
+    page_end: 381
+    chapter_title_block_idx: 6163
+    problems_block_idx: 7358
+    next_chapter_block_idx: 7428
+  - num: 9
+    title: General Concepts
+    page_start: 382
+    page_end: 444
+    chapter_title_block_idx: 7428
+    problems_block_idx: 8709
+    next_chapter_block_idx: 8838
+  - num: 10
+    title: Random Walks and Other Applications
+    page_start: 445
+    page_end: 508
+    chapter_title_block_idx: 8838
+    problems_block_idx: 9998
+    next_chapter_block_idx: 10104
+  - num: 11
+    title: Spectral Representation
+    page_start: 509
+    page_end: 532
+    chapter_title_block_idx: 10104
+    problems_block_idx: 10572
+    next_chapter_block_idx: 10614
+  - num: 12
+    title: Spectrum Estimation
+    page_start: 533
+    page_end: 589
+    chapter_title_block_idx: 10614
+    problems_block_idx: 11606
+    next_chapter_block_idx: 11686
+  - num: 13
+    title: Mean Square Estimation
+    page_start: 590
+    page_end: 638
+    chapter_title_block_idx: 11686
+    problems_block_idx: 12639
+    next_chapter_block_idx: 12724
+  - num: 14
+    title: Entropy
+    page_start: 639
+    page_end: 704
+    chapter_title_block_idx: 12724
+    problems_block_idx: 13968
+    next_chapter_block_idx: 14035
+  - num: 15
+    title: Markov Chains
+    page_start: 705
+    page_end: 782
+    chapter_title_block_idx: 14035
+    problems_block_idx: 15344
+    next_chapter_block_idx: 15404
+  - num: 16
+    title: Markov Processes and Queueing Theory
+    page_start: 783
+    page_end: 843
+    chapter_title_block_idx: 15404
+    problems_block_idx: 16343
+    next_chapter_block_idx: 16600
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^(?!(?:\d+-\d+\s|PROBLEMS$|APPENDIX\b|CHAPTER\b|PART\b|FIGURE\b))()([A-Z][A-Za-z0-9$][A-Za-z0-9$ .,''’‘:/()\-–,&{}\[\]=]*[A-Za-z0-9$)\]}])$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+-\d+)\s+(?![A-Z0-9\s''’‘:;,\-()/.&]+$)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:[A-Z])?(?:-[0-9]+)?[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^EXAMPLE\s+(\d+-\d+)\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []

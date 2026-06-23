@@ -1,0 +1,38 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "pierret-ch06-drop-misocr-fig-25.4-ref",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[406]",
+      "field": "md",
+      "old": "$V_{bi}$ was read from Fig. 25.4 in Socciences 31-47. ",
+      "new": "",
+      "reason": "raw PDF p.312 顯示此段應直接以 \"Inspecting Fig. 6.11...\" 起頭；`Fig. 25.4 in Socciences 31-47` 是 OCR 幽靈前綴，不是本書內部圖號。"
+    },
+    {
+      "id": "pierret-fig-E7.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[46]",
+      "position": "after",
+      "page": 332,
+      "clip": [
+        0.22,
+        0.50,
+        0.88,
+        0.97
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-E7.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-E7.1",
+        "kind": "line",
+        "caption": "Figure E7.1"
+      },
+      "reason": "raw PDF p.332 清楚含有 Example 7.1 的輸出曲線與 `Figure E7.1` caption；MinerU 只抽出上方 MATLAB script/table block，漏掉圖塊本身。"
+    }
+  ]
+}

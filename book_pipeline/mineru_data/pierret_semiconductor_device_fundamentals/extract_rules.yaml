@@ -1,0 +1,210 @@
+slug: pierret_semiconductor_device_fundamentals
+title: Semiconductor Device Fundamentals
+author: Robert F. Pierret
+edition: null
+subject: Microelectronics
+publisher: Addison-Wesley Publishing Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 28
+appendices_start_page: 758
+bibliography_start_page: null
+index_start_page: 806
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Semiconductors: A General Introduction"
+    page_start: 28
+    page_end: 47
+    chapter_title_block_idx: 96
+    problems_block_idx: 225
+    next_chapter_block_idx: 284
+  - num: 2
+    title: Carrier Modeling
+    page_start: 48
+    page_end: 97
+    chapter_title_block_idx: 284
+    problems_block_idx: 745
+    next_chapter_block_idx: 829
+  - num: 3
+    title: Carrier Action
+    page_start: 98
+    page_end: 171
+    chapter_title_block_idx: 829
+    problems_block_idx: 1486
+    next_chapter_block_idx: 1632
+  - num: 4
+    title: Basics of Device Fabrication
+    page_start: 172
+    page_end: 197
+    chapter_title_block_idx: 1632
+    problems_block_idx: 1810
+    next_chapter_block_idx: 1812
+  - num: 5
+    title: pn Junction Electrostatics
+    page_start: 218
+    page_end: 257
+    chapter_title_block_idx: 2180
+    problems_block_idx: 2510
+    next_chapter_block_idx: 2624
+  - num: 6
+    title: "pn Junction Diode: I-V Characteristics"
+    page_start: 258
+    page_end: 323
+    chapter_title_block_idx: 2624
+    problems_block_idx: 3171
+    next_chapter_block_idx: 3292
+  - num: 7
+    title: "pn Junction Diode: Small-Signal Admittance"
+    page_start: 324
+    page_end: 349
+    chapter_title_block_idx: 3292
+    problems_block_idx: 3507
+    next_chapter_block_idx: 3538
+  - num: 8
+    title: "pn Junction Diode: Transient Response"
+    page_start: 350
+    page_end: 369
+    chapter_title_block_idx: 3538
+    problems_block_idx: 3683
+    next_chapter_block_idx: 3729
+  - num: 9
+    title: Optoelectronic Diodes
+    page_start: 370
+    page_end: 391
+    chapter_title_block_idx: 3729
+    problems_block_idx: 3906
+    next_chapter_block_idx: 3907
+  - num: 10
+    title: BJT Fundamentals
+    page_start: 394
+    page_end: 411
+    chapter_title_block_idx: 3909
+    problems_block_idx: 4048
+    next_chapter_block_idx: 4112
+  - num: 11
+    title: BJT Static Characteristics
+    page_start: 412
+    page_end: 465
+    chapter_title_block_idx: 4112
+    problems_block_idx: 4608
+    next_chapter_block_idx: 4731
+  - num: 12
+    title: BJT Dynamic Response Modeling
+    page_start: 466
+    page_end: 485
+    chapter_title_block_idx: 4731
+    problems_block_idx: 4907
+    next_chapter_block_idx: 4950
+  - num: 13
+    title: PNPN Devices
+    page_start: 486
+    page_end: 499
+    chapter_title_block_idx: 4950
+    problems_block_idx: 5065
+    next_chapter_block_idx: 5067
+  - num: 14
+    title: MS Contacts and Schottky Diodes
+    page_start: 500
+    page_end: 527
+    chapter_title_block_idx: 5067
+    problems_block_idx: 5310
+    next_chapter_block_idx: 5371
+  - num: 15
+    title: Field Effect Introduction—The J-FET and MESFET
+    page_start: 548
+    page_end: 585
+    chapter_title_block_idx: 5685
+    problems_block_idx: 5969
+    next_chapter_block_idx: 6038
+  - num: 16
+    title: MOS Fundamentals
+    page_start: 586
+    page_end: 635
+    chapter_title_block_idx: 6038
+    problems_block_idx: 6417
+    next_chapter_block_idx: 6550
+  - num: 17
+    title: MOSFETs—The Essentials
+    page_start: 636
+    page_end: 669
+    chapter_title_block_idx: 6550
+    problems_block_idx: 6800
+    next_chapter_block_idx: 6887
+  - num: 18
+    title: Nonideal MOS
+    page_start: 670
+    page_end: 715
+    chapter_title_block_idx: 6887
+    problems_block_idx: 7257
+    next_chapter_block_idx: 7336
+  - num: 19
+    title: Modern FET Structures
+    page_start: 716
+    page_end: 737
+    chapter_title_block_idx: 7336
+    problems_block_idx: 7496
+    next_chapter_block_idx: 7539
+
+appendices:
+  - id: A
+    title: ELEMENTS OF QUANTUM MECHANICS
+    page_start: 758
+    chapter_title_block_idx: 7798
+  - id: B
+    title: MOS SEMICONDUCTOR ELECTROSTATICS—EXACT SOLUTION
+    page_start: 774
+    chapter_title_block_idx: 7940
+  - id: C
+    title: MOS C-V SUPPLEMENT
+    page_start: 778
+    chapter_title_block_idx: 7992
+  - id: D
+    title: MOS I-V SUPPLEMENT
+    page_start: 780
+    chapter_title_block_idx: 8015
+  - id: E
+    title: LIST OF SYMBOLS
+    page_start: 782
+    chapter_title_block_idx: 8038
+  - id: M
+    title: MATLAB Program Script
+    page_start: 796
+    chapter_title_block_idx: 8076
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:[^0-9A-Za-z]+)?(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^(?:\(C\)\s+)?Exercise\s+(\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
