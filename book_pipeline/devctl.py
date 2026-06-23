@@ -783,10 +783,13 @@ def provider_health(wks: list) -> dict:
     provider 欄、沒被注意。status: idle(無worker)/ok(全主力)/degraded(主力+次級混用)/fallback(主力全沒在用)。"""
     eff = (chain_status().get('effective') or ['codex'])
     primary = eff[0]
+    chain_set = set(eff)  # {codex, codex-pool, claude}
     live: dict[str, int] = {}
     for w in wks:
         p = w.get('provider')
-        if p:
+        # 只看走「標準派工鏈」的 per-book LLM worker；math_sweep(ccnexus)/det worker 有自己的後端、
+        # 非 codex 鏈，計入會誤報落保底（2026-06-23 dogfood：respawn 後只剩 math_sweep→ccnexus 假紅字）。
+        if p and p in chain_set:
             live[p] = live.get(p, 0) + 1
     on_fallback = sum(v for k, v in live.items() if k != primary)
     if not live:
@@ -797,7 +800,7 @@ def provider_health(wks: list) -> dict:
         status = 'degraded'
     else:
         status = 'ok'
-    return {'status': status, 'primary': primary, 'live': live, 'on_fallback': on_fallback}
+    return {'status': status, 'primary': primary, 'chain': list(eff), 'live': live, 'on_fallback': on_fallback}
 
 
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
@@ -970,10 +973,11 @@ def _print_human(snap: dict) -> None:
     wk = snap.get('workers') or []
     if wk:
         _primary = ph.get('primary')
+        _chain = set(ph.get('chain') or [])  # 只對「標準鏈次級」標記；ccnexus(math_sweep)/det 非鏈、不標
         print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
         for w in wk:
             _p = w.get('provider')
-            _mark = '' if _p == _primary or not _primary else ' ⚠非主力'
+            _mark = ' ⚠非主力' if _p in _chain and _p != _primary else ''
             print(f"   · {w.get('slug') or w.get('verb')} [{w.get('verb')}] "
                   f"pid {w.get('pid')} · {_p}{_mark} · 共 {w.get('total_calls', 0)} 次調用")
             for r in (w.get('recent') or [])[-5:]:

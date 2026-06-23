@@ -29,7 +29,19 @@ def test_provider_health_fields():
     assert devctl.provider_health([{'slug': 'x'}])['status'] == 'idle'
 
 
+def test_provider_health_excludes_non_chain_workers():
+    """math_sweep(ccnexus)/det worker 非 codex 鏈、有自己的後端 → 不計入落保底判定（2026-06-23 dogfood 假紅字）。"""
+    # 只剩 math_sweep 走 ccnexus → idle（非 fallback）
+    assert devctl.provider_health([{'provider': 'ccnexus', 'verb': 'math_sweep'}])['status'] == 'idle'
+    # det worker 同理排除
+    assert devctl.provider_health([{'provider': 'det'}, {'provider': 'ccnexus'}])['status'] == 'idle'
+    # 真 per-book worker 落 claude + 同時有 math_sweep ccnexus → 仍判 fallback（ccnexus 不稀釋）
+    h = devctl.provider_health([{'provider': 'claude'}, {'provider': 'ccnexus', 'verb': 'math_sweep'}])
+    assert h['status'] == 'fallback' and h['live'] == {'claude': 1}
+
+
 if __name__ == '__main__':
     test_provider_health_classifies()
     test_provider_health_fields()
+    test_provider_health_excludes_non_chain_workers()
     print('\n全部通過 ✅')
