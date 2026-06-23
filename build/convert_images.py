@@ -64,10 +64,12 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
 
 def main(argv: list[str]) -> None:
     if argv:
-        invalid = [slug for slug in argv if not _valid_slug(slug)]
-        if invalid:
-            sys.exit(f'✗ invalid slug(s): {", ".join(invalid)}')
-        slugs = argv
+        slugs = [slug for slug in argv if _valid_slug(slug)]
+        for slug in argv:
+            if not _valid_slug(slug):
+                print(f'  ✗ {slug}: invalid slug（跳過）')   # 與 build_all._ensure_covers 一致：壞 token 不連坐合法書
+        if not slugs:
+            sys.exit(f'✗ no valid slug(s): {", ".join(argv)}')
     else:
         slugs = sorted(p.parent.parent.name
                        for p in DATA_DIR.glob('*/parsed/book.json')

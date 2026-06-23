@@ -1066,37 +1066,6 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
             pass
     return crawled
 
-def _crawl_resolve_due() -> tuple[bool, dict]:
-    """**庫存查證 agent** 是否該派：合格解析池 qualified_ready（四維全過、未 owned）< CRAWL_POOL_LOW
-    ∧ 仍有 **actionable** 庫存工作母體（candidate 無連結 ∪ actionable pending）可查。回 (due, pool_counts)。
-    **收斂 latch（防無限燒 token）**：daemon 不 discovery，工作母體 = candidate + actionable pending。pending
-    的 busy-loop 由 recheck cooldown 阻斷——親查過仍 PENDING（偏好版暫無）的書 resting、不重派（見
-    booklists.crawl_work_remaining / _pending_resting），窗到期才回母體 → 週期性重查、有界。母體枯竭 →
-    due False → loop idle 收斂。要再長書目須使用者親打 /restock（含 discovery）。"""
-    all_eds = booklists.ed.load_all()              # 一次載入供水位 + 母體共用（免多次掃 editions）
-    have = booklists.have_slugs()
-    res = booklists.load_resolution()
-    pc = booklists.pool_counts(all_eds, have, res, include_discovered=True)
-    if pc['qualified_ready'] >= CRAWL_POOL_LOW:
-        return False, pc
-    return booklists.crawl_work_remaining(all_eds, have, res, include_discovered=True) > 0, pc
-
-
-def do_crawl_resolve(dry: bool) -> int:
-    """合格解析池低於水位 → 派一隻 **庫存查證 agent（/restock daemon 模式）** 把庫存查成合格存在
-    （candidate 查連結 found/not_found、pending 補四維 → QUALIFIED）。agent 自查工作母體
-    （`resolve queue --state candidate/pending`）、多 haiku fan-out 四維查證、落 resolve commit（維②）+
-    editions set（維①③④）。**不 discovery**（自動 discovery 預設關閉）。單隻在飛——reactive loop 的
-    __restock__ key 自動序列化：本輪落盤後、下個 cycle 池仍低才派下一隻。回 dispatch_llm rc（dry→0）。
-    verb 仍 'crawl'（升級內容、不改 verb 名 → 路由/歷程不動）。"""
-    due, pc = _crawl_resolve_due()
-    if not due:
-        return 0
-    log(f'庫存查證：合格池 {pc["qualified_ready"]}/{CRAWL_POOL_LOW}'
-        f'（candidate {pc["candidate"]} 待查連結 + pending {pc["pending"]} 待補四維）→ 派庫存查證 agent')
-    # label 固定 '__restock__'：lease/registry/hist 的穩定 singleton key（自查工作母體、無 batch slug 串檔名）。
-    return dispatch_llm('crawl', '', dry, label='__restock__')
-
 
 def do_crawl_tick(dry: bool, rows: list[dict]) -> list[str]:
     """oneshot tick 的 crawl 編排：**買書員 drain**（確定性，直接從解析池取 QUALIFIED 下載）。

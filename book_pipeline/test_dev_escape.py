@@ -29,4 +29,3 @@ def test_dynamic_attributes_use_attr_escape():
             html,
         )
         assert unsafe == [], (page, unsafe)
-    assert unsafe == []
