@@ -37,9 +37,17 @@ def pick(n: int, exclude: set[str] | None = None) -> list[dict]:
 
 
 def set_gates_for(slugs: list[str]) -> int | None:
-    """default=hold + 這批 allow '*' + '*' math_sweep（原子取代）→ SIGUSR1 喚醒。回 controller pid。"""
-    rules = [{"slug": "*", "stage": "math_sweep", "action": "allow"}]
-    rules += [{"slug": s, "stage": "*", "action": "allow"} for s in slugs]
+    """ADDITIVE：保留現有規則（在飛書 allow + math_sweep）+ 加這批新書 allow '*'（dedup）→ default=hold
+    → SIGUSR1 喚醒。回 controller pid。為何 additive 非原子取代：backfill/跨輪 top-up 不可洗掉前批仍
+    在飛的書（會把它們 hold 在閘）。已 deploy 書的 allow 規則殘留無害（no-op），campaign 末可 gates clear。"""
+    cur = pg.load_gates()
+    rules = list(cur.get("rules") or [])
+    have = {(r.get("slug"), r.get("stage")) for r in rules}
+    if ("*", "math_sweep") not in have:
+        rules.append({"slug": "*", "stage": "math_sweep", "action": "allow"})
+    for s in slugs:
+        if (s, "*") not in have:
+            rules.append({"slug": s, "stage": "*", "action": "allow"})
     pg.set_gates("hold", rules)
     pid = pt.controller_pid()
     if pid:
@@ -51,7 +59,8 @@ def set_gates_for(slugs: list[str]) -> int | None:
 
 
 def fetch_all(batch: list[dict]) -> list[str]:
-    """並行下載（複用買書員 _fetch_book + 額度槽分配）。回成功 slug 清單。"""
+    """並行下載（複用買書員 _fetch_book + 額度槽分配）。失敗者 bump_crawl_fail（達上限後 select_next
+    自動排除死連結，不再每輪重選浪費 slot）→ _fetch_book 失敗 log 已含真實原因。回成功 slug 清單。"""
     accts = pt._zlib_accounts_remaining()
     slots = [a["account"] for a in (accts or []) for _ in range(max(0, a.get("remaining") or 0))]
     for i, b in enumerate(batch):
@@ -69,30 +78,42 @@ def fetch_all(batch: list[dict]) -> list[str]:
                 print(f"❌ {b.get('slug')} 異常：{e}", flush=True)
             if s:
                 ok.append(s)
+                q.clear_crawl_fail(s)
                 print(f"✅ {s}（{b.get('_mb', '?')} MB）", flush=True)
             else:
-                print(f"❌ {b.get('slug')} fetch 失敗", flush=True)
+                fails = q.bump_crawl_fail(b.get("slug"))  # 死連結計數 → 達上限自動排除（見 daemon.log 原因）
+                print(f"❌ {b.get('slug')} fetch 失敗（累計 {fails} 次，原因見 daemon.log）", flush=True)
     return ok
 
 
 def run(n: int, dry: bool) -> int:
-    batch = pick(n)
-    slugs = [b["slug"] for b in batch]
-    print(f"選中 {len(slugs)} 本：{slugs}", flush=True)
-    if not batch:
-        print("合格池空（全 owned/pending/rejected 或失敗達上限）→ 該跑 /restock 填書單", flush=True)
-        return 0
     if dry:
+        batch = pick(n)
+        print(f"選中 {len(batch)} 本：{[b['slug'] for b in batch]}", flush=True)
         rem = pt._zlib_remaining_cached()
-        print(f"DRY：將設 gates（default=hold + 這 {len(slugs)} 本 allow + math_sweep）"
-              f"並 fetch；zlib 額度(快取) {rem}", flush=True)
+        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=hold + 落地者 allow + "
+              f"math_sweep)；zlib 額度(快取) {rem}", flush=True)
         return 0
-    pid = set_gates_for(slugs)
-    print(f"gates：default=hold + {len(slugs)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
+    # backfill 迴圈：fetch 失敗（死連結/額度）即補選替補，直到湊滿 n 本或合格池耗盡。
+    success: list[str] = []
+    tried: set[str] = set()
+    while len(success) < n:
+        cand = pick(n - len(success), exclude=tried | set(success))
+        if not cand:
+            print("合格池耗盡（剩餘全 owned/pending/rejected/失敗達上限）→ 餘額靠 /restock 填", flush=True)
+            break
+        for b in cand:
+            tried.add(b["slug"])
+        print(f"嘗試 {len(cand)} 本：{[b['slug'] for b in cand]}", flush=True)
+        success += fetch_all(cand)
+    if not success:
+        print("本輪零入庫", flush=True)
+        return 0
+    pid = set_gates_for(success)  # 只 gate 真正落地的書（取代「先 gate 再 fetch」→ 死連結不會掛空 allow 規則）
+    print(f"\n入庫 {len(success)}/{n}：{success}", flush=True)
+    print(f"gates：default=hold + 這 {len(success)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
           flush=True)
-    ok = fetch_all(batch)
-    print(f"\n入庫 {len(ok)}/{len(slugs)}：{ok}", flush=True)
-    print("daemon 將自動推進到上架（uv run python -m book_pipeline.devctl status / /dev 觀測）", flush=True)
+    print("daemon 自動推進到上架（uv run python -m book_pipeline.devctl status / /dev 觀測）", flush=True)
     return 0
 
 

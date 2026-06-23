@@ -976,7 +976,10 @@ def _fetch_book(b: dict) -> str | None:
                 pass
         log(f'crawl ok：已補書 slug={slug}（acct {b.get("account")}）')
         return slug
-    log(f'❌ crawl fetch 失敗 slug={slug} rc={rc}')
+    # 失敗原因浮現（觀測：原本只印 rc，丟棄 crawl_zlib 真實錯誤 → 「無 dl 路徑/額度0/連結失效」全看不到）。
+    _tail = [ln for ln in ((proc.stderr or '') + '\n' + (proc.stdout or '')).splitlines() if ln.strip()]
+    reason = _tail[-1].strip()[:120] if _tail else '無輸出'
+    log(f'❌ crawl fetch 失敗 slug={slug} rc={rc}：{reason}')
     return None
 
 
