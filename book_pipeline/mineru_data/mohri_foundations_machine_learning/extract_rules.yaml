@@ -1,0 +1,183 @@
+slug: mohri_foundations_machine_learning
+title: Foundations of Machine Learning
+author: Mehryar Mohri; Afshin Rostamizadeh; Ameet Talwalkar
+edition: 2nd
+subject: Machine Learning
+publisher: MIT Press
+language: en
+filter_types:
+- header
+- page_number
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 13
+appendices_start_page: 421
+bibliography_start_page: 473
+index_start_page: 487
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 13
+  page_end: 20
+  chapter_title_block_idx: 41
+  problems_block_idx: 115
+  next_chapter_block_idx: 116
+- num: 2
+  title: The PAC Learning Framework
+  page_start: 21
+  page_end: 41
+  chapter_title_block_idx: 116
+  problems_block_idx: 292
+  next_chapter_block_idx: 355
+- num: 3
+  title: Rademacher Complexity and VC-Dimension
+  page_start: 42
+  page_end: 72
+  chapter_title_block_idx: 355
+  problems_block_idx: 610
+  next_chapter_block_idx: 749
+- num: 4
+  title: Model Selection
+  page_start: 73
+  page_end: 90
+  chapter_title_block_idx: 749
+  problems_block_idx: 929
+  next_chapter_block_idx: 944
+- num: 5
+  title: Support Vector Machines
+  page_start: 91
+  page_end: 116
+  chapter_title_block_idx: 944
+  problems_block_idx: 1200
+  next_chapter_block_idx: 1261
+- num: 6
+  title: Kernel Methods
+  page_start: 117
+  page_end: 156
+  chapter_title_block_idx: 1261
+  problems_block_idx: 1625
+  next_chapter_block_idx: 1744
+- num: 7
+  title: Ensemble Methods
+  page_start: 157
+  page_end: 189
+  chapter_title_block_idx: 1744
+  problems_block_idx: 2020
+  next_chapter_block_idx: 2111
+- num: 8
+  title: Multi-Class Classification
+  page_start: 190
+  page_end: 224
+  chapter_title_block_idx: 2111
+  problems_block_idx: 2433
+  next_chapter_block_idx: 2521
+- num: 9
+  title: Ranking
+  page_start: 225
+  page_end: 250
+  chapter_title_block_idx: 2521
+  problems_block_idx: 2778
+  next_chapter_block_idx: 2800
+- num: 10
+  title: Ranking
+  page_start: 251
+  page_end: 278
+  chapter_title_block_idx: 2800
+  problems_block_idx: 3073
+  next_chapter_block_idx: 3089
+- num: 11
+  title: Regression
+  page_start: 279
+  page_end: 306
+  chapter_title_block_idx: 3089
+  problems_block_idx: 3382
+  next_chapter_block_idx: 3424
+- num: 12
+  title: Maximum Entropy Models
+  page_start: 307
+  page_end: 326
+  chapter_title_block_idx: 3424
+  problems_block_idx: 3640
+  next_chapter_block_idx: 3655
+- num: 13
+  title: Conditional Maximum Entropy Models
+  page_start: 327
+  page_end: 344
+  chapter_title_block_idx: 3655
+  problems_block_idx: 3843
+  next_chapter_block_idx: 3864
+- num: 14
+  title: Stability
+  page_start: 345
+  page_end: 358
+  chapter_title_block_idx: 3864
+  problems_block_idx: 3995
+  next_chapter_block_idx: 4029
+- num: 15
+  title: Dimensionality Reduction
+  page_start: 359
+  page_end: 370
+  chapter_title_block_idx: 4029
+  problems_block_idx: 4141
+  next_chapter_block_idx: 4179
+- num: 16
+  title: Automata
+  page_start: 371
+  page_end: 390
+  chapter_title_block_idx: 4179
+  problems_block_idx: 4343
+  next_chapter_block_idx: 4365
+- num: 17
+  title: Reinforcement Learning
+  page_start: 391
+  page_end: 420
+  chapter_title_block_idx: 4365
+  problems_block_idx: 4724
+  next_chapter_block_idx: 4725
+appendices:
+- id: A
+  title: Linear Algebra Review
+  page_start: 421
+  chapter_title_block_idx: 4725
+- id: B
+  title: Convex Optimization
+  page_start: 435
+  chapter_title_block_idx: 5009
+- id: C
+  title: Probability Review
+  page_start: 441
+  chapter_title_block_idx: 5084
+- id: D
+  title: Concentration Bounds
+  page_start: 449
+  chapter_title_block_idx: 5224
+- id: E
+  title: Notions of Information Theory
+  page_start: 461
+  chapter_title_block_idx: 5449
+- id: F
+  title: Notation
+  page_start: 471
+  chapter_title_block_idx: 5605
+section_re: ^([0-9]+\.[0-9]+)\s+(.+)$
+subsection_re: ^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 1
+problem_start_re: ^([0-9]+\.[0-9]+)\s+(?!(?:Exercises)\b)
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^(Example\s+[0-9]+\.[0-9]+)\b
+figure_caption_merge: false
+figure_caption_main_re: ^(Figure|Fig\.)\s+([0-9]+\.[0-9]+)\b
+known_missing_problems: []

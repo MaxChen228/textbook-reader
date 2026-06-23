@@ -1,0 +1,157 @@
+slug: rappaport_wireless
+title: 'Wireless Communications: Principles and Practice'
+author: Theodore S. Rappaport
+edition: 2nd
+subject: Digital Communications
+publisher: Prentice Hall
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+- aside_text
+ignore_image_content: false
+ignore_chart_content: false
+body_start_page: 2
+appendices_start_page: 602
+bibliography_start_page: 664
+index_start_page: 680
+inline_problems: false
+heading_text_level: 2
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: ^(?:References|Index)$
+equation_strip_dollar: true
+equation_label_re: \((\d+\.\d+[a-z]?)\)
+example_start_re: ^Example\s+([A-Z]?\d+\.\d+)\b
+figure_caption_merge: true
+figure_caption_main_re: ^Figure\s+([A-Z]?\d+\.\d+[a-z]?)\b
+known_missing_problems: []
+chapters:
+- num: 1
+  title: Introduction to Wireless Communication Systems
+  page_start: 3
+  page_end: 26
+  chapter_title_block_idx: 9
+  problems_block_idx: 177
+  next_chapter_block_idx: 211
+- num: 2
+  title: The Cellular Concept — System Design Fundamentals
+  page_start: 75
+  page_end: 117
+  chapter_title_block_idx: 973
+  problems_block_idx: 1365
+  next_chapter_block_idx: 1426
+- num: 3
+  title: 'Mobile Radio Propagation: Large-Scale Path Loss'
+  page_start: 118
+  page_end: 187
+  chapter_title_block_idx: 1426
+  problems_block_idx: 2270
+  next_chapter_block_idx: 2354
+- num: 4
+  title: 'Mobile Radio Propagation: Small-Scale Fading and Multipath'
+  page_start: 188
+  page_end: 245
+  chapter_title_block_idx: 2354
+  problems_block_idx: 3047
+  next_chapter_block_idx: 3118
+- num: 5
+  title: Modulation Techniques for Mobile Radio
+  page_start: 246
+  page_end: 347
+  chapter_title_block_idx: 3118
+  problems_block_idx: 4332
+  next_chapter_block_idx: 4389
+- num: 6
+  title: Equalization, Diversity, and Channel Coding
+  page_start: 348
+  page_end: 409
+  chapter_title_block_idx: 4389
+  problems_block_idx: 5238
+  next_chapter_block_idx: 5298
+- num: 7
+  title: Speech Coding
+  page_start: 410
+  page_end: 443
+  chapter_title_block_idx: 5298
+  problems_block_idx: 5626
+  next_chapter_block_idx: 5668
+- num: 8
+  title: Multiple Access Techniques for Wireless Communications
+  page_start: 444
+  page_end: 487
+  chapter_title_block_idx: 5668
+  problems_block_idx: 6174
+  next_chapter_block_idx: 6207
+- num: 9
+  title: Wireless Networking
+  page_start: 488
+  page_end: 531
+  chapter_title_block_idx: 6207
+  problems_block_idx: 6638
+  next_chapter_block_idx: 6649
+- num: 10
+  title: Wireless Systems and Standards
+  page_start: 532
+  page_end: 602
+  chapter_title_block_idx: 6649
+  problems_block_idx: 7339
+  next_chapter_block_idx: 7411
+appendices:
+- num: A
+  title: Trunking Theory
+  page_start: 603
+  page_end: 613
+  chapter_title_block_idx: 7411
+  next_chapter_block_idx: 7576
+  id: A
+- num: B
+  title: Noise Figure Calculations for Link Budgets
+  page_start: 613
+  page_end: 616
+  chapter_title_block_idx: 7576
+  next_chapter_block_idx: 7642
+  id: B
+- num: C
+  title: Gaussian Approximations for Spread Spectrum CDMA
+  page_start: 617
+  page_end: 640
+  chapter_title_block_idx: 7642
+  next_chapter_block_idx: 7968
+  id: C
+- num: D
+  title: Q, erf & erfc Functions
+  page_start: 641
+  page_end: 646
+  chapter_title_block_idx: 7968
+  next_chapter_block_idx: 8031
+  id: D
+- num: E
+  title: Mathematical Tables
+  page_start: 647
+  page_end: 654
+  chapter_title_block_idx: 8031
+  next_chapter_block_idx: 8157
+  id: E
+- num: F
+  title: Abbreviations and Acronyms
+  page_start: 655
+  page_end: 664
+  chapter_title_block_idx: 8157
+  next_chapter_block_idx: 8254
+  id: F
+- num: G
+  title: References
+  page_start: 665
+  page_end: 680
+  chapter_title_block_idx: 8254
+  next_chapter_block_idx: 8609
+  id: G

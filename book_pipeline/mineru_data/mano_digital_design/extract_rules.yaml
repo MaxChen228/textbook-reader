@@ -1,0 +1,124 @@
+slug: mano_digital_design
+title: "Digital Design: With an Introduction to the Verilog HDL, VHDL, and SystemVerilog"
+author: M. Morris Mano; Michael D. Ciletti
+edition: 6th Global
+subject: Digital Logic
+publisher: Pearson
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 640
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+problem_num_namespace_by_section: false
+
+chapters:
+  - num: 1
+    title: Digital Systems and Binary Numbers
+    page_start: 17
+    page_end: 56
+    chapter_title_block_idx: 131
+    problems_block_idx: null
+    next_chapter_block_idx: 577
+  - num: 2
+    title: Boolean Algebra and Logic Gates
+    page_start: 57
+    page_end: 97
+    chapter_title_block_idx: 577
+    chapter_title_block_idx_secondary: 578
+    problems_block_idx: null
+    next_chapter_block_idx: 1169
+  - num: 3
+    title: Gate-Level Minimization
+    page_start: 98
+    page_end: 162
+    chapter_title_block_idx: 1169
+    chapter_title_block_idx_secondary: 1170
+    problems_block_idx: null
+    next_chapter_block_idx: 2016
+  - num: 4
+    title: Combinational Logic
+    page_start: 163
+    page_end: 260
+    chapter_title_block_idx: 2016
+    problems_block_idx: null
+    next_chapter_block_idx: 3021
+  - num: 5
+    title: Synchronous Sequential Logic
+    page_start: 261
+    page_end: 341
+    chapter_title_block_idx: 3021
+    chapter_title_block_idx_secondary: 3022
+    problems_block_idx: null
+    next_chapter_block_idx: 3797
+  - num: 6
+    title: Registers and Counters
+    page_start: 342
+    page_end: 392
+    chapter_title_block_idx: 3797
+    chapter_title_block_idx_secondary: 3798
+    problems_block_idx: 4151
+    next_chapter_block_idx: 4316
+  - num: 7
+    title: Memory and Programmable Logic
+    page_start: 393
+    page_end: 444
+    chapter_title_block_idx: 4316
+    problems_block_idx: null
+    next_chapter_block_idx: 4814
+  - num: 8
+    title: Design at the Register Transfer Level
+    page_start: 445
+    page_end: 570
+    chapter_title_block_idx: 4814
+    chapter_title_block_idx_secondary: 4815
+    problems_block_idx: null
+    next_chapter_block_idx: 5809
+  - num: 9
+    title: Laboratory Experiments with Standard ICs and FPGAs
+    page_start: 571
+    page_end: 620
+    chapter_title_block_idx: 5809
+    problems_block_idx: null
+    next_chapter_block_idx: 6363
+  - num: 10
+    title: Standard Graphic Symbols
+    page_start: 621
+    page_end: 639
+    chapter_title_block_idx: 6363
+    problems_block_idx: null
+    next_chapter_block_idx: 6571
+
+appendices:
+  - id: A
+    title: Semiconductors and CMOS Integrated Circuits
+    page_start: 640
+    chapter_title_block_idx: 6571
+
+section_re: '^(\d+\s*\.\s*\d+)\s+(.+)$'
+subsection_re: '^(\d+\s*\.\s*\d+\s*\.\s*\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\\?\*?\s+\S.*$'
+problem_chapter_must_match: true
+problems_end_re: '^(R\s*EF\s*(?:R|N)\s*ENC\s*S|REF\s*N\s*C\s*ES|WEB\s*SEA?R\s*CH\s*TOP\s*ICS|WEB\s*SEAR\s*CH\s*TOPI\s*CS)$'
+solution_start_re: null
+problems_start_re: null
+
+equation_label_re: '^$'
+equation_strip_dollar: true

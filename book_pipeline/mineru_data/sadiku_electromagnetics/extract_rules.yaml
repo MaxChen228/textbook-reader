@@ -1,0 +1,149 @@
+slug: sadiku_electromagnetics
+title: Elements of Electromagnetics
+author: Matthew N. O. Sadiku
+edition: 7th
+subject: Electromagnetism
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - footer
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 11
+appendices_start_page: 731
+index_start_page: 766
+
+heading_text_level: [1, 2]
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: '^(APPENDIX\b|Appendix\b|INDEX\b|Index\b|BIBLIOGRAPHY\b|Bibliography\b)'
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)\b'
+figure_caption_merge: true
+figure_caption_main_re: '^(Figure|FIGURE)\s+(\d+\.\d+)\b'
+
+chapters:
+  - num: 1
+    title: Vector Analysis
+    page_start: 11
+    page_end: 36
+    chapter_title_block_idx: 97
+    problems_block_idx: 513
+    next_chapter_block_idx: 584
+  - num: 2
+    title: Coordinate Systems and Transformation
+    page_start: 37
+    page_end: 61
+    chapter_title_block_idx: 584
+    problems_block_idx: 978
+    next_chapter_block_idx: 1082
+  - num: 3
+    title: Vector Calculus
+    page_start: 62
+    page_end: 109
+    chapter_title_block_idx: 1082
+    problems_block_idx: 1790
+    next_chapter_block_idx: 1954
+  - num: 4
+    title: Electrostatic Fields
+    page_start: 110
+    page_end: 167
+    chapter_title_block_idx: 1954
+    problems_block_idx: 2910
+    next_chapter_block_idx: 3041
+  - num: 5
+    title: Electric Fields in Material Space
+    page_start: 168
+    page_end: 205
+    chapter_title_block_idx: 3041
+    problems_block_idx: 3652
+    next_chapter_block_idx: 3726
+  - num: 6
+    title: Electrostatic Boundary-Value Problems
+    page_start: 206
+    page_end: 264
+    chapter_title_block_idx: 3726
+    problems_block_idx: 4638
+    next_chapter_block_idx: 4760
+  - num: 7
+    title: Magnetostatic Fields
+    page_start: 266
+    page_end: 308
+    chapter_title_block_idx: 4760
+    problems_block_idx: 5378
+    next_chapter_block_idx: 5501
+  - num: 8
+    title: Magnetic Forces, Materials, and Devices
+    page_start: 309
+    page_end: 372
+    chapter_title_block_idx: 5501
+    problems_block_idx: 6498
+    next_chapter_block_idx: 6627
+  - num: 9
+    title: Maxwell's Equations
+    page_start: 373
+    page_end: 413
+    chapter_title_block_idx: 6627
+    problems_block_idx: 7291
+    next_chapter_block_idx: 7386
+  - num: 10
+    title: Electromagnetic Wave Propagation
+    page_start: 414
+    page_end: 476
+    chapter_title_block_idx: 7386
+    problems_block_idx: 8464
+    next_chapter_block_idx: 8627
+  - num: 11
+    title: Transmission Lines
+    page_start: 477
+    page_end: 545
+    chapter_title_block_idx: 8627
+    problems_block_idx: 9528
+    next_chapter_block_idx: 9658
+  - num: 12
+    title: Waveguides
+    page_start: 546
+    page_end: 591
+    chapter_title_block_idx: 9658
+    problems_block_idx: 10410
+    next_chapter_block_idx: 10496
+  - num: 13
+    title: Antennas
+    page_start: 592
+    page_end: 641
+    chapter_title_block_idx: 10496
+    problems_block_idx: 11194
+    next_chapter_block_idx: 11304
+  - num: 14
+    title: Modern Topics
+    page_start: 642
+    page_end: 663
+    chapter_title_block_idx: 11304
+    problems_block_idx: 11587
+    next_chapter_block_idx: 11626
+  - num: 15
+    title: Numerical Methods
+    page_start: 664
+    page_end: 730
+    chapter_title_block_idx: 11626
+    problems_block_idx: 12311
+    next_chapter_block_idx: 12469
+
+appendices:
+  - id: A
+    title: Mathematical Formulas
+    chapter_title_block_idx: 12469
+  - id: B
+    title: Material Constants
+    chapter_title_block_idx: 12665
+  - id: C
+    title: Answers to Odd-Numbered Problems
+    chapter_title_block_idx: 12695

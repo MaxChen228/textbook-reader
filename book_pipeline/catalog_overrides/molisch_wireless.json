@@ -1,0 +1,109 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "22.11",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Figure 22.11，但來源 PDF 該頁只有文字引用，無 Figure 22.11 圖塊或 caption；相鄰後頁只有 massive MIMO antenna 實作圖，非此 countermeasure 圖。",
+      "where": "ch22.json body[449]",
+      "evidence": "Raw PDF physical page 628 / printed p.588 contains the sentence 'see Figure 22.11' in the Time-Delayed Pilot Sequences section, but the page has no figure; page 629 starts Section 22.10 and contains later antenna figures. MinerU content_list around page_idx 627 likewise has only text items for this section."
+    },
+    {
+      "type": "table",
+      "ref": "15.3",
+      "classification": "external",
+      "reason": "正文在第 34 章引用 IEEE 802.15.4 2020 標準中的 Table 15.3，非本書表格。",
+      "where": "ch34.json body[172]",
+      "evidence": "Parsed text says 'see Table 15.3 in [IEEE 802.15.4 2020] for a complete listing'; this is an external standard reference, not a Wireless Communications book table."
+    },
+    {
+      "type": "table",
+      "ref": "7.2.4",
+      "classification": "mis_ocr",
+      "reason": "Table 7.1 HTML 公式中的 Pr_LOS,subsce(d_2D) 被 regex 橫跨 LaTeX 片段誤讀成 Table 7.2.4；正文並沒有引用 Table 7.2.4。",
+      "where": "ch07.json body[81]",
+      "evidence": "The only occurrence is inside the Table 7.1 LOS probability formula '$Pr_{LOS,subsce}(d_{2D})=...'; parsed prose immediately before says the models are shown in Table 7.1."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "molisch-ch08-fig-825-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[340]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.24",
+        "caption": "<sup>Figure</sup> <sup>8.25</sup> Pattern of antenna distortion by human body in talk and data-browsing position. Reproduced with permission from [Harryson et al. 2010] © IEEE."
+      },
+      "set": {
+        "id": "fig-8.25",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 明確是 Figure 8.25；Figure 8.24 已由 body[339] 正確供給，body[340] 是錯位重複 id。"
+    },
+    {
+      "id": "molisch-ch08-fig-826-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[346]",
+      "expect": {
+        "t": "fig",
+        "caption": "(d) <sup>Figure</sup> <sup>8.26</sup> (a) A typical UE design with multiple subarrays (top and long edges) in Landscape mode. Received gain as a function of azimuth and elevation angles for the UE design at 28 GHz in (b) freespace mode, and with hand blocking in (c) landscape and (d) portrait modes. Color version available at wiley.com/go/molisch/wireless3e. Reproduced with permission from [Raghavan et al. 2018] © IEEE."
+      },
+      "set": {
+        "id": "fig-8.26",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 明確是 Figure 8.26，但 parser 使用 fallback id；設為正式語義 id 以覆蓋正文引用。",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "molisch-ch12-fig-127-id-fix",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[82]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-12.6",
+        "caption": "<sup>Figure</sup> <sup>12.7</sup> Angle/pattern diversity for closely spaced antennas."
+      },
+      "set": {
+        "id": "fig-12.7",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption 明確是 Figure 12.7；Figure 12.6 的多子圖已由 body[77]–body[81] 供給，body[82] 是下一張圖。"
+    },
+    {
+      "id": "molisch-ch19-fig-198-caption-normalize",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[159]",
+      "field": "md",
+      "old": "<sup>Figure</sup> <sup>19.8</sup> Code tree of orthogonal-variable-spreading-factor codes.",
+      "new": "Figure 19.8 Code tree of orthogonal-variable-spreading-factor codes.",
+      "reason": "Figure 19.8 是前一個 equation block 的圖說；把 sup 分裂格式正規化為 leading caption，讓 build_catalogs 產生 fig-19.8 text catalog entry。"
+    },
+    {
+      "id": "molisch-ch34-fig-3413-table-as-figure",
+      "action": "set_fields",
+      "chunk": "ch34",
+      "selector": "body[145]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch34-145",
+        "caption": "<sup>Figure</sup> <sup>34.13</sup> General MAC frame format for 802.15.4. MHR: MAC Header, MFR: MAC Footer, IE: Information Element, FCS: Frame Check Sequence. Reproduced with permission from [IEEE 802.15.4] © IEEE."
+      },
+      "set": {
+        "id": "fig-34.13",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "此 block 雖由 MinerU 表格抽出，但印刷 caption 明確標為 Figure 34.13；移除舊 exclude 並設為 fig-34.13，讓 figure catalog 覆蓋正文引用。"
+    }
+  ]
+}

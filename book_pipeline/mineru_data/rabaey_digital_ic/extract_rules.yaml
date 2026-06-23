@@ -1,0 +1,96 @@
+slug: rabaey_digital_ic
+title: "Digital Integrated Circuits: A Design Perspective"
+author: Jan M. Rabaey
+edition: null
+subject: Microelectronics
+publisher: Prentice Hall
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 334
+bibliography_start_page: 40
+index_start_page: 10
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 11
+    page_end: 42
+    chapter_title_block_idx: 130
+    chapter_title_block_idx_secondary: 132
+    problems_block_idx: null
+    next_chapter_block_idx: 731
+  - num: 2
+    title: The Manufacturing Process
+    page_start: 43
+    page_end: 72
+    chapter_title_block_idx: 731
+    chapter_title_block_idx_secondary: 733
+    problems_block_idx: null
+    next_chapter_block_idx: 1248
+  - num: 3
+    title: The Devices
+    page_start: 73
+    page_end: 128
+    chapter_title_block_idx: 1248
+    chapter_title_block_idx_secondary: 1250
+    problems_block_idx: null
+    next_chapter_block_idx: 2299
+  - num: 4
+    title: The Wire
+    page_start: 129
+    page_end: 169
+    chapter_title_block_idx: 2299
+    chapter_title_block_idx_secondary: 2301
+    problems_block_idx: null
+    next_chapter_block_idx: 3081
+  - num: 5
+    title: The CMOS Inverter
+    page_start: 170
+    page_end: 222
+    chapter_title_block_idx: 3081
+    chapter_title_block_idx_secondary: 3083
+    problems_block_idx: null
+    next_chapter_block_idx: 4090
+  - num: 6
+    title: Designing Combinational Logic Gates in CMOS
+    page_start: 223
+    page_end: 289
+    chapter_title_block_idx: 4090
+    chapter_title_block_idx_secondary: 4091
+    problems_block_idx: null
+    next_chapter_block_idx: 4802
+  - num: 7
+    title: Designing Sequential Logic Circuits
+    page_start: 290
+    page_end: 333
+    chapter_title_block_idx: 4802
+    chapter_title_block_idx_secondary: 4804
+    problems_block_idx: null
+    next_chapter_block_idx: 5568
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+((?:\d+\.\d+|\d+))\b.*$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+equation_label_re: '^\(?((?:\d+|[A-Z])\.\d+)\)?$'
+equation_strip_dollar: true

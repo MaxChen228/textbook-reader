@@ -1,0 +1,112 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "10.10",
+      "classification": "source_mismatch",
+      "reason": "The parsed source contains only the end-of-chapter problem section for chapter 10; the referenced in-chapter Figure 10.10 is not present as an indexable figure block or caption.",
+      "where": "ch10.json problem 10.45 body[0]",
+      "evidence": "full.md has problem text referring to Figure 10.10(b), but chapter 10 parsed catalog only contains problem figures P10.1-P10.8 and no Figure 10.10 caption or image block."
+    },
+    {
+      "type": "figure",
+      "ref": "10.47",
+      "classification": "mis_ocr",
+      "reason": "The text is a malformed OCR merge around problem 10.46/10.47 and does not correspond to a catalogable internal figure target in the parsed source.",
+      "where": "ch10.json problem 10.46 body[5]",
+      "evidence": "Parsed block reads 'part b is fed to an interpolator operating at the Nyquist filter. Fig. 10.47. In order to design...' while problem 10.47 is listed as missing in _gaps.md; no Figure 10.47 caption or image block exists in parsed chapter 10/catalogs.json."
+    },
+    {
+      "type": "figure",
+      "ref": "10.6",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 10.6 is not present in this parsed source; the only nearby catalog entry is the distinct problem figure P10.6.",
+      "where": "ch10.json problem 10.92 body[0]",
+      "evidence": "catalogs.json has fig-P10.6 with caption 'FIGURE P10.6' for problem 10.40, but no fig-10.6/Figure 10.6 supply. The problem text explicitly says 'the ideal lowpass filter in Figure 10.6'."
+    },
+    {
+      "type": "figure",
+      "ref": "11.20",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 11.20 is absent from the parsed source/catalog; chapter 11 catalog only exposes Figure 11.22 among body figures.",
+      "where": "ch11.json problem 11.71 body[0]",
+      "evidence": "Problem 11.71 refers to Figure 11.20(b), while catalogs.json for chapter 11 contains fig-11.22/fig-11.22--1 and no Figure 11.20 caption or block."
+    },
+    {
+      "type": "figure",
+      "ref": "11.6",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 11.6 is not present as a catalogable figure in this parsed source.",
+      "where": "ch11.json problem 11.72 body[0]",
+      "evidence": "Problem 11.72 refers to Fig. 11.6(b), but parsed chapter 11/catalogs.json has no fig-11.6 entry; visible chapter 11 catalog supply is Figure 11.22 plus problem figure P11.1."
+    },
+    {
+      "type": "figure",
+      "ref": "12.14",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 12.14 is absent from the parsed source/catalog.",
+      "where": "ch12.json problem 12.34 body[0]",
+      "evidence": "Problems 12.34 and 12.35 both reference Fig./Figure 12.14(b), but chapter 12 catalog supply only has problem figures P12.x and no Figure 12.14 entry."
+    },
+    {
+      "type": "figure",
+      "ref": "2.18",
+      "classification": "mis_ocr",
+      "reason": "The block is an OCR merge across missing/fragmented problems around 2.114; the supposed Figure 2.18 reference is not supported by any caption/image supply in parsed chapter 2.",
+      "where": "ch02.json problem 2.114 body[13]",
+      "evidence": "full.md shows corrupted text around lines 805-815 before Section 2.8, while catalogs.json has only problem figures P2.1-P2.4 and no Figure 2.18 entry."
+    },
+    {
+      "type": "figure",
+      "ref": "4.26",
+      "classification": "mis_ocr",
+      "reason": "The reference occurs in a corrupted OCR merge at problem 4.161 and no corresponding Figure 4.26 is present in the parsed source/catalog.",
+      "where": "ch04.json problem 4.161 body[0]",
+      "evidence": "full.md around problem 4.161 has duplicated/misaligned problem text, and chapter 4 catalog contains only P4.1-P4.4 problem figures plus an excluded unnumbered body figure; no Figure 4.26 supply exists."
+    },
+    {
+      "type": "figure",
+      "ref": "7.16",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 7.16 is not present in this parsed source/catalog.",
+      "where": "ch07.json problem 7.69 body[0]",
+      "evidence": "Problem 7.69 asks to compare FFT results to Fig. 7.16, but parsed chapter 7 catalog has no fig-7.16 entry and only nonmatching problem tables."
+    },
+    {
+      "type": "figure",
+      "ref": "7.17",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Figure 7.17 is not present in this parsed source/catalog.",
+      "where": "ch07.json problem 7.73 body[0]",
+      "evidence": "Problem 7.73 asks to compare to Fig. 7.17, but parsed chapter 7/catalogs.json contains no fig-7.17 supply."
+    },
+    {
+      "type": "table",
+      "ref": "3.1",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Table 3.1 is absent from the parsed source/catalog.",
+      "where": "ch04.json problem 4.115 body[0]",
+      "evidence": "Problem 4.115 references Table 3.1 for a negative binomial pgf, but catalogs.json has no tbl-3.1 entry and chapter 3 parsed body has no table supply."
+    },
+    {
+      "type": "table",
+      "ref": "4.1",
+      "classification": "source_mismatch",
+      "reason": "The referenced in-chapter Table 4.1 is absent from the parsed source/catalog.",
+      "where": "ch04.json problem 4.105 body[0]",
+      "evidence": "Problems 4.105 and 12.40 reference Table 4.1, but catalogs.json has no tbl-4.1 entry and parsed chapter 4 body has no corresponding table supply."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "fix-problem-4-55-figure-ref",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.55:body[0]",
+      "field": "md",
+      "old": "A limiter with center-level clipping is shown in Fig. 14.5.",
+      "new": "A limiter with center-level clipping is shown in Fig. P4.3.",
+      "reason": "The problem's adjacent figure block is FIGURE P4.3; '14.5' is OCR/source text corruption, not a chapter-14 figure reference."
+    }
+  ]
+}

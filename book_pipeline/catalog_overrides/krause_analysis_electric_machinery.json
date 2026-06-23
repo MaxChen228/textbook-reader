@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "12.11.1",
+      "classification": "source_mismatch",
+      "reason": "原書正文在第 13 章引用 Fig. 12.11-1，但本書 Chapter 12 catalog 與 unified content_list 全文皆無 Figure 12.11-1 caption；Chapter 12 的圖號只到 12.4 系列，屬原書來源跳號/外部未收錄引用，無可對應圖塊可真修。",
+      "where": "ch13.json body[202]",
+      "evidence": "unified/content_list only contains 'Fig. 12.11-1' in the reference sentence on page_idx 394; no image_caption/text entry for Figure 12.11-1 exists. catalogs.json contains Chapter 12 figures 12.2.x, 12.3.x, 12.4.x, but no fig-12.11.1."
+    },
+    {
+      "type": "table",
+      "ref": "6.10.1",
+      "classification": "source_mismatch",
+      "reason": "原書 Problem 10.11 引用 Table 6.10-1，但 Chapter 6 parsed/catalog/unified content_list 均無該表 caption；全文只有 Problem 10.11 這一處引用，屬源書未收錄/跳號引用，無可對應 table block 可真修。",
+      "where": "ch10.json problem:10.11:body[0]",
+      "evidence": "unified/content_list only contains 'Table 6.10-1' in Problem 10.11 on page_idx 322; no table_caption/text entry for Table 6.10-1 exists. catalogs.json has no tbl-6.10.1 and Chapter 6 contains no table block/caption for Table 6.10-1."
+    }
+  ],
+  "overrides": []
+}

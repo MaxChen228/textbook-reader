@@ -1,0 +1,165 @@
+slug: rashid_power_electronics
+title: 'Power Electronics: Devices, Circuits, and Applications'
+author: Muhammad H. Rashid
+edition: 4th ed.
+subject: Electrical Engineering
+publisher: Pearson
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 25
+appendices_start_page: null
+bibliography_start_page: 996
+index_start_page: 1014
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 25
+  page_end: 59
+  chapter_title_block_idx: 147
+  problems_block_idx: 467
+  next_chapter_block_idx: 481
+- num: 2
+  title: Power Diodes and Switched RLC Circuits
+  page_start: 59
+  page_end: 102
+  chapter_title_block_idx: 481
+  problems_block_idx: 1065
+  next_chapter_block_idx: 1134
+- num: 3
+  title: Diode Rectifiers
+  page_start: 103
+  page_end: 158
+  chapter_title_block_idx: 1134
+  problems_block_idx: 1911
+  next_chapter_block_idx: 1958
+- num: 4
+  title: Power Transistors
+  page_start: 158
+  page_end: 233
+  chapter_title_block_idx: 1958
+  problems_block_idx: 2833
+  next_chapter_block_idx: 2858
+- num: 5
+  title: DC–DC Converters
+  page_start: 234
+  page_end: 306
+  chapter_title_block_idx: 2858
+  problems_block_idx: 3886
+  next_chapter_block_idx: 3916
+- num: 6
+  title: DC–AC Converters
+  page_start: 306
+  page_end: 384
+  chapter_title_block_idx: 3916
+  problems_block_idx: 4878
+  next_chapter_block_idx: 4934
+- num: 7
+  title: Resonant Pulse Inverters
+  page_start: 385
+  page_end: 440
+  chapter_title_block_idx: 4934
+  problems_block_idx: 5612
+  next_chapter_block_idx: 5632
+- num: 8
+  title: Multilevel Inverters
+  page_start: 441
+  page_end: 467
+  chapter_title_block_idx: 5632
+  problems_block_idx: 5952
+  next_chapter_block_idx: 5973
+- num: 9
+  title: Thyristors
+  page_start: 467
+  page_end: 526
+  chapter_title_block_idx: 5973
+  problems_block_idx: 6635
+  next_chapter_block_idx: 6659
+- num: 10
+  title: Controlled Rectifiers
+  page_start: 527
+  page_end: 575
+  chapter_title_block_idx: 6659
+  problems_block_idx: 7230
+  next_chapter_block_idx: 7292
+- num: 11
+  title: AC Voltage Controllers
+  page_start: 576
+  page_end: 626
+  chapter_title_block_idx: 7292
+  problems_block_idx: 7887
+  next_chapter_block_idx: 7932
+- num: 12
+  title: Flexible AC Transmission Systems
+  page_start: 626
+  page_end: 657
+  chapter_title_block_idx: 7932
+  problems_block_idx: 8302
+  next_chapter_block_idx: 8316
+- num: 13
+  title: Power Supplies
+  page_start: 658
+  page_end: 698
+  chapter_title_block_idx: 8316
+  problems_block_idx: 8773
+  next_chapter_block_idx: 8811
+- num: 14
+  title: Dc Drives
+  page_start: 699
+  page_end: 763
+  chapter_title_block_idx: 8811
+  problems_block_idx: 9719
+  next_chapter_block_idx: 9767
+- num: 15
+  title: Ac Drives
+  page_start: 764
+  page_end: 863
+  chapter_title_block_idx: 9767
+  problems_block_idx: 11167
+  next_chapter_block_idx: 11212
+- num: 16
+  title: Introduction to Renewable Energy
+  page_start: 864
+  page_end: 930
+  chapter_title_block_idx: 11212
+  problems_block_idx: 12061
+  next_chapter_block_idx: 12118
+- num: 17
+  title: Protections of Devices and Circuits
+  page_start: 931
+  page_end: 1002
+  chapter_title_block_idx: 12118
+  problems_block_idx: 12612
+  next_chapter_block_idx: 13080
+appendices: []
+section_re: ^(\d{1,2}\.\d{1,2})\s+(.+)$
+subsection_re: ^(\d{1,2}\.\d{1,2}\.\d{1,2})\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 2
+problem_start_re: ^(\d{1,2}\.\d{1,3})\s+
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \((\d{1,2}\.\d{1,3})\)
+example_start_re: ^Example\s+(\d{1,2}\.\d{1,3})\s+.*$
+figure_caption_merge: false
+known_missing_problems:
+- chapter: 15
+  nums:
+  - '15.7'
+  - '15.20'
+- chapter: 16
+  nums:
+  - '16.11'
+  - '16.19'

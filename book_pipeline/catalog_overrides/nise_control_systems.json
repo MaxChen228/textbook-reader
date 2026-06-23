@@ -1,0 +1,130 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "2.25",
+      "classification": "mis_ocr",
+      "reason": "問題文字漏 OCR 了 P；同段對應本書問題圖是 Figure P2.25，catalog 已有 fig-P2.25。",
+      "where": "ch02.json body[608]",
+      "evidence": "Parsed problem 39 contains the same system and catalog entry fig-P2.25 with caption FIGURE P2.25; no chapter body Figure 2.25 exists around this problem prompt."
+    },
+    {
+      "type": "figure",
+      "ref": "6.20",
+      "classification": "external",
+      "reason": "Appendix D reference credit cites Robot Modeling and Control, not this book's Figure 6.20. 本書同號是別的 UFSS/healthcare drug-delivery 圖，非該引用目標。",
+      "where": "appD.json body[489]",
+      "evidence": "Text says: Reproduced by permission of M. Spong et al., Robot Modeling and Control. John Wiley & Sons. Hoboken, NJ, 2006. Fig. 6.20, p. 221."
+    },
+    {
+      "type": "figure",
+      "ref": "6.22",
+      "classification": "external",
+      "reason": "Appendix D reference credit cites Robot Modeling and Control, not this book's Figure 6.22. 本書同號不是該外部來源圖。",
+      "where": "appD.json body[489]",
+      "evidence": "Text says: Reproduced by permission of M. Spong et al., Robot Modeling and Control. John Wiley & Sons. Hoboken, NJ, 2006. Fig 6.22, pg 223."
+    },
+    {
+      "type": "figure",
+      "ref": "P6.2",
+      "classification": "mis_ocr",
+      "reason": "原 PDF/parsed 此題的可視內容是開迴路方塊圖，被 MinerU 表成 equation block；用 alias 無法讓 audit 覆蓋 equations catalog，分類為 OCR 型態錯置。",
+      "where": "ch06.json problem 6 body[0]",
+      "evidence": "Problem 6 body[1] is an eq block containing R(s) -> boxed transfer function -> C(s), exactly the diagram referred to as Figure P6.2; no separate bitmap figure exists in parsed."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "nise-fig-5.20-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[188]",
+      "position": "before",
+      "page": 271,
+      "clip": [
+        0.4,
+        0.59,
+        0.97,
+        0.8
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-5.20.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-5.20",
+        "kind": "line",
+        "caption": "FIGURE 5.20 Signal-flow graph for demonstrating Mason’s rule"
+      },
+      "reason": "raw PDF page 271 contains Figure 5.20 in right column; MinerU parsed diagram as equation/text and did not create a figure catalog entry. Clip includes full graph and caption."
+    },
+    {
+      "id": "nise-fig-P4.13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "problem:56:body[0]",
+      "position": "after",
+      "page": 242,
+      "clip": [
+        0.09,
+        0.585,
+        0.63,
+        0.92
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-P4.13.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P4.13",
+        "kind": "line",
+        "caption": "FIGURE P4.13"
+      },
+      "reason": "raw PDF page 242 bottom-left has Figure P4.13; MinerU omitted it from problem 56."
+    },
+    {
+      "id": "nise-fig-P5.47-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:70:body[2]",
+      "position": "after",
+      "page": 313,
+      "clip": [
+        0.47,
+        0.68,
+        0.98,
+        0.94
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-P5.47.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P5.47",
+        "kind": "line",
+        "caption": "FIGURE P5.47"
+      },
+      "reason": "raw PDF page 313 bottom-right has Figure P5.47; MinerU omitted it from problem 70. Clip widened to include full signal-flow graph."
+    },
+    {
+      "id": "nise-fig-P12.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:10:body[0]",
+      "position": "before",
+      "page": 732,
+      "clip": [
+        0.18,
+        0.07,
+        0.82,
+        0.37
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-P12.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P12.1",
+        "kind": "line",
+        "caption": "FIGURE P12.1"
+      },
+      "reason": "raw PDF page 732 top-center has Figure P12.1; MinerU omitted it from problem 10. Clip includes full graph and caption."
+    }
+  ]
+}

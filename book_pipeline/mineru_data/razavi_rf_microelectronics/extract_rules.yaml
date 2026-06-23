@@ -1,0 +1,105 @@
+slug: razavi_rf_microelectronics
+title: RF Microelectronics
+author: Behzad Razavi
+edition: null
+subject: Microelectronics
+publisher: Prentice Hall PTR
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 336
+bibliography_start_page: null
+index_start_page: 336
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction To RF And Wireless Technology
+    page_start: 10
+    page_end: 19
+    chapter_title_block_idx: 56
+    problems_block_idx: null
+    next_chapter_block_idx: 131
+  - num: 2
+    title: Basic Concepts In RF Design
+    page_start: 20
+    page_end: 62
+    chapter_title_block_idx: 131
+    problems_block_idx: null
+    next_chapter_block_idx: 661
+  - num: 3
+    title: Modulation And Detection
+    page_start: 63
+    page_end: 106
+    chapter_title_block_idx: 661
+    problems_block_idx: null
+    next_chapter_block_idx: 1097
+  - num: 4
+    title: Multiple Access Techniques And Wireless Standards
+    page_start: 107
+    page_end: 126
+    chapter_title_block_idx: 1097
+    problems_block_idx: null
+    next_chapter_block_idx: 1280
+  - num: 5
+    title: Transceiver Architectures
+    page_start: 127
+    page_end: 174
+    chapter_title_block_idx: 1280
+    problems_block_idx: null
+    next_chapter_block_idx: 1694
+  - num: 6
+    title: Low-noise Amplifiers And Mixers
+    page_start: 175
+    page_end: 215
+    chapter_title_block_idx: 1694
+    problems_block_idx: null
+    next_chapter_block_idx: 2077
+  - num: 7
+    title: Oscillators
+    page_start: 216
+    page_end: 256
+    chapter_title_block_idx: 2077
+    problems_block_idx: null
+    next_chapter_block_idx: 2479
+  - num: 8
+    title: Frequency Synthesizers
+    page_start: 257
+    page_end: 307
+    chapter_title_block_idx: 2479
+    problems_block_idx: null
+    next_chapter_block_idx: 2948
+  - num: 9
+    title: Power Amplifiers
+    page_start: 308
+    page_end: 335
+    chapter_title_block_idx: 2948
+    problems_block_idx: null
+    next_chapter_block_idx: 3263
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+example_start_re: '^(?:Example|EXAMPLE)\s+(\d+\.\d+)\b.*$'
+equation_strip_dollar: true
+equation_label_re: '^\(?((?:\d+\.)?\d+)\)?$'
+figure_caption_merge: false
+figure_caption_main_re: null
+problem_start_re: '^PROBLEM\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null

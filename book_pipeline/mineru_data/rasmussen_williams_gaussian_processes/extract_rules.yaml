@@ -1,0 +1,127 @@
+slug: rasmussen_williams_gaussian_processes
+title: Gaussian Processes for Machine Learning
+author: Carl Edward Rasmussen; Christopher K. I. Williams
+edition: null
+subject: Machine Learning
+publisher: MIT Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: [1, 2]
+
+body_start_page: 19
+appendices_start_page: 217
+bibliography_start_page: 241
+index_start_page: 257
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 19
+    page_end: 24
+    chapter_title_block_idx: 112
+    chapter_title_block_idx_secondary: 113
+    problems_block_idx: null
+    next_chapter_block_idx: 187
+  - num: 2
+    title: Regression
+    page_start: 25
+    page_end: 50
+    chapter_title_block_idx: 187
+    chapter_title_block_idx_secondary: 188
+    problems_block_idx: 519
+    next_chapter_block_idx: 534
+  - num: 3
+    title: Classification
+    page_start: 51
+    page_end: 96
+    chapter_title_block_idx: 534
+    chapter_title_block_idx_secondary: 535
+    problems_block_idx: 1074
+    next_chapter_block_idx: 1100
+  - num: 4
+    title: Covariance functions
+    page_start: 97
+    page_end: 122
+    chapter_title_block_idx: 1100
+    chapter_title_block_idx_secondary: 1101
+    problems_block_idx: 1441
+    next_chapter_block_idx: 1472
+  - num: 5
+    title: Model Selection and Adaptation of Hyperparameters
+    page_start: 123
+    page_end: 146
+    chapter_title_block_idx: 1473
+    problems_block_idx: 1743
+    next_chapter_block_idx: 1751
+  - num: 6
+    title: Relationships between GPs and Other Models
+    page_start: 147
+    page_end: 168
+    chapter_title_block_idx: 1751
+    problems_block_idx: 2043
+    next_chapter_block_idx: 2049
+  - num: 7
+    title: Theoretical Perspectives
+    page_start: 169
+    page_end: 188
+    chapter_title_block_idx: 2050
+    problems_block_idx: 2300
+    next_chapter_block_idx: 2313
+  - num: 8
+    title: Approximation Methods for Large Datasets
+    page_start: 189
+    page_end: 206
+    chapter_title_block_idx: 2314
+    problems_block_idx: 2518
+    next_chapter_block_idx: 2525
+  - num: 9
+    title: Further Issues and Conclusions
+    page_start: 207
+    page_end: 216
+    chapter_title_block_idx: 2525
+    problems_block_idx: null
+    next_chapter_block_idx: 2626
+
+appendices:
+  - id: A
+    title: Mathematical Background
+    page_start: 217
+    chapter_title_block_idx: 2626
+    chapter_title_block_idx_secondary: 2627
+  - id: B
+    title: Gaussian Markov Processes
+    page_start: 225
+    chapter_title_block_idx: 2776
+    chapter_title_block_idx_secondary: 2777
+  - id: C
+    title: Datasets and Code
+    page_start: 239
+    chapter_title_block_idx: 2976
+    chapter_title_block_idx_secondary: 2977
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+known_missing_problems: []

@@ -1,0 +1,151 @@
+slug: nise_control_systems
+title: Control Systems Engineering
+author: Norman S. Nise
+edition: 6th
+subject: Control Systems
+publisher: Wiley
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+body_start_page: 20
+appendices_start_page: 802
+bibliography_start_page: null
+index_start_page: 928
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 21
+  page_end: 51
+  chapter_title_block_idx: 309
+  problems_block_idx: 583
+  next_chapter_block_idx: 738
+- num: 2
+  title: Modeling in the Frequency Domain
+  page_start: 52
+  page_end: 135
+  chapter_title_block_idx: 738
+  problems_block_idx: 1864
+  next_chapter_block_idx: 2293
+- num: 3
+  title: Modeling in the Time Domain
+  page_start: 136
+  page_end: 179
+  chapter_title_block_idx: 2293
+  problems_block_idx: 2901
+  next_chapter_block_idx: 3145
+- num: 4
+  title: Time Response
+  page_start: 180
+  page_end: 254
+  chapter_title_block_idx: 3145
+  problems_block_idx: 4035
+  next_chapter_block_idx: 4498
+- num: 5
+  title: Reduction of Multiple Subsystems
+  page_start: 255
+  page_end: 320
+  chapter_title_block_idx: 4498
+  problems_block_idx: 5280
+  next_chapter_block_idx: 5761
+- num: 6
+  title: Stability
+  page_start: 321
+  page_end: 357
+  chapter_title_block_idx: 5761
+  problems_block_idx: 6166
+  next_chapter_block_idx: 6474
+- num: 7
+  title: Steady-State Errors
+  page_start: 358
+  page_end: 406
+  chapter_title_block_idx: 6474
+  problems_block_idx: 7123
+  next_chapter_block_idx: 7515
+- num: 8
+  title: Root Locus Techniques
+  page_start: 407
+  page_end: 474
+  chapter_title_block_idx: 7515
+  problems_block_idx: 8196
+  next_chapter_block_idx: 8774
+- num: 9
+  title: Design via Root Locus
+  page_start: 475
+  page_end: 552
+  chapter_title_block_idx: 8774
+  problems_block_idx: 9493
+  next_chapter_block_idx: 9966
+- num: 10
+  title: Frequency Response Techniques
+  page_start: 553
+  page_end: 644
+  chapter_title_block_idx: 9966
+  problems_block_idx: 10985
+  next_chapter_block_idx: 11324
+- num: 11
+  title: Design via Frequency Response
+  page_start: 645
+  page_end: 682
+  chapter_title_block_idx: 11324
+  problems_block_idx: 11709
+  next_chapter_block_idx: 11980
+- num: 12
+  title: Design via State Space
+  page_start: 683
+  page_end: 742
+  chapter_title_block_idx: 11980
+  problems_block_idx: 12771
+  next_chapter_block_idx: 13069
+- num: 13
+  title: Digital Control Systems
+  page_start: 743
+  page_end: 801
+  chapter_title_block_idx: 13069
+  problems_block_idx: 13828
+  next_chapter_block_idx: 14102
+appendices:
+- id: A
+  title: List of Symbols
+  page_start: 802
+  chapter_title_block_idx: 14102
+- id: B
+  title: MATLAB Tutorial
+  page_start: 806
+  chapter_title_block_idx: 14144
+- id: C
+  title: MATLAB’s Simulink Tutorial
+  page_start: 856
+  chapter_title_block_idx: 14470
+- id: D
+  title: LabVIEW Tutorial
+  page_start: 878
+  chapter_title_block_idx: 14620
+section_re: ^(\d{1,2}\.\d{1,2})\s+(.+)$
+subsection_re: ^(Example\s+\d{1,2}\.\d+|TryIt\s+\d{1,2}\.\d+|Skill-Assessment Exercise\s+\d{1,2}\.\d+|Case
+  Study|Summary|Review Questions)\s*(.*)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 2
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: ^(PROGRESSIVE ANALYSIS AND DESIGN PROBLEMS|Cyber Exploration Laboratory|Bibliography|Summary|Review
+  Questions)\b
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+equation_strip_dollar: false
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d{1,2}\.\d+)\b
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

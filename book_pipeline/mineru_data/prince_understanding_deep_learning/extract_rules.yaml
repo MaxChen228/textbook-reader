@@ -1,0 +1,192 @@
+slug: prince_understanding_deep_learning
+title: Understanding Deep Learning
+author: Simon J.D. Prince
+edition: 1st ed.
+subject: computer_science
+publisher: MIT Press
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 15
+appendices_start_page: null
+bibliography_start_page: 526
+index_start_page: 526
+inline_problems: true
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 15
+  chapter_title_block_idx: 55
+  page_end: 30
+  problems_block_idx: null
+  next_chapter_block_idx: 196
+- num: 2
+  title: Supervised learning
+  page_start: 31
+  chapter_title_block_idx: 196
+  page_end: 38
+  problems_block_idx: null
+  next_chapter_block_idx: 283
+- num: 3
+  title: Shallow neural networks
+  page_start: 39
+  chapter_title_block_idx: 283
+  page_end: 54
+  problems_block_idx: null
+  next_chapter_block_idx: 475
+- num: 4
+  title: Deep neural networks
+  page_start: 55
+  chapter_title_block_idx: 475
+  page_end: 69
+  problems_block_idx: null
+  next_chapter_block_idx: 662
+- num: 5
+  title: Loss functions
+  page_start: 70
+  chapter_title_block_idx: 662
+  page_end: 90
+  problems_block_idx: null
+  next_chapter_block_idx: 935
+- num: 6
+  title: Fitting models
+  page_start: 91
+  chapter_title_block_idx: 935
+  page_end: 109
+  problems_block_idx: null
+  next_chapter_block_idx: 1162
+- num: 7
+  title: Gradients and initialization
+  page_start: 110
+  chapter_title_block_idx: 1162
+  page_end: 131
+  problems_block_idx: null
+  next_chapter_block_idx: 1454
+- num: 8
+  title: Measuring performance
+  page_start: 132
+  chapter_title_block_idx: 1454
+  page_end: 151
+  problems_block_idx: null
+  next_chapter_block_idx: 1683
+- num: 9
+  title: Regularization
+  page_start: 152
+  chapter_title_block_idx: 1683
+  page_end: 174
+  problems_block_idx: null
+  next_chapter_block_idx: 1963
+- num: 10
+  title: Convolutional networks
+  page_start: 175
+  chapter_title_block_idx: 1963
+  page_end: 199
+  problems_block_idx: null
+  next_chapter_block_idx: 2220
+- num: 11
+  title: Residual networks
+  page_start: 200
+  chapter_title_block_idx: 2220
+  page_end: 220
+  problems_block_idx: null
+  next_chapter_block_idx: 2439
+- num: 12
+  title: Transformers
+  page_start: 221
+  chapter_title_block_idx: 2439
+  page_end: 253
+  problems_block_idx: null
+  next_chapter_block_idx: 2809
+- num: 13
+  title: Graph neural networks
+  page_start: 254
+  chapter_title_block_idx: 2809
+  page_end: 281
+  problems_block_idx: null
+  next_chapter_block_idx: 3149
+- num: 14
+  title: Unsupervised learning
+  page_start: 282
+  chapter_title_block_idx: 3149
+  page_end: 288
+  problems_block_idx: null
+  next_chapter_block_idx: 3225
+- num: 15
+  title: Generative Adversarial Networks
+  page_start: 289
+  chapter_title_block_idx: 3225
+  page_end: 316
+  problems_block_idx: null
+  next_chapter_block_idx: 3520
+- num: 16
+  title: Normalizing flows
+  page_start: 317
+  chapter_title_block_idx: 3520
+  page_end: 339
+  problems_block_idx: null
+  next_chapter_block_idx: 3820
+- num: 17
+  title: Variational autoencoders
+  page_start: 340
+  chapter_title_block_idx: 3820
+  page_end: 361
+  problems_block_idx: null
+  next_chapter_block_idx: 4097
+- num: 18
+  title: Difusion models
+  page_start: 362
+  chapter_title_block_idx: 4097
+  page_end: 386
+  problems_block_idx: null
+  next_chapter_block_idx: 4433
+- num: 19
+  title: Reinforcement learning
+  page_start: 387
+  chapter_title_block_idx: 4433
+  page_end: 414
+  problems_block_idx: null
+  next_chapter_block_idx: 4795
+- num: 20
+  title: Why does deep learning work?
+  page_start: 415
+  chapter_title_block_idx: 4795
+  page_end: 433
+  problems_block_idx: null
+  next_chapter_block_idx: 5003
+- num: 21
+  title: Deep learning and ethics
+  page_start: 434
+  chapter_title_block_idx: 5003
+  page_end: 525
+  problems_block_idx: null
+  next_chapter_block_idx: 6940
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level:
+- 1
+- 2
+problem_start_re: ^Problem\s+(?:\$\s*)?(?:\{?\s*\\(?:pmb|bf|mathbf|mathfrak)\s*\{?\s*)?(\d(?:\s*\d)*(?:\s*\.\s*\d(?:\s*\d)*)?(?:[a-z])?)(?:\s*\}*\s*(?:\^\s*\{\s*\*\s*\}|[∗*]))?\s*\}*\s*\$?
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: ^(?:References|Index)\b
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+(?:\.\d+)*)\b
+figure_caption_merge: true
+figure_caption_main_re: ^Figure\s+(\d+(?:\.\d+)*)\b
+suppress_running_header_sections: true
+known_missing_problems:
+- chapter: 9
+  nums:
+  - '9.3'
+problems_start_re: ^Problems$

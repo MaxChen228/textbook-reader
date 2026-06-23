@@ -1,0 +1,24 @@
+{
+  "slug": "rappaport_wireless",
+  "overrides": [
+    {
+      "id": "rappaport-wireless-fig-7-6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[123]",
+      "position": "after",
+      "page": 429,
+      "clip": [0.23, 0.22, 0.95, 0.9],
+      "zoom": 2.5,
+      "src": "manual_fig-7.6.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-7.6",
+        "kind": "line",
+        "caption": "Figure 7.6 Block diagram of a LPC coding system."
+      },
+      "reason": "C4:正文引用 Figure 7.6；raw PDF 第 429 頁確有圖與 caption，但 MinerU 只保留分離 aside_text，parser 未產生 catalog figure。"
+    }
+  ],
+  "ref_classifications": []
+}

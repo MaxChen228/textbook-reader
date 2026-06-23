@@ -1,0 +1,193 @@
+slug: murphy_probabilistic_ml
+title: 'Probabilistic Machine Learning: An Introduction'
+author: Kevin P. Murphy
+edition: 1st
+subject: Machine Learning
+publisher: The MIT Press
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 31
+appendices_start_page: 807
+bibliography_start_page: 825
+index_start_page: 807
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 31
+  page_end: 62
+  chapter_title_block_idx: 172
+  problems_block_idx: null
+  next_chapter_block_idx: 565
+- num: 2
+  title: 'Probability: Univariate Models'
+  page_start: 63
+  page_end: 106
+  chapter_title_block_idx: 565
+  problems_block_idx: 1275
+  next_chapter_block_idx: 1347
+- num: 3
+  title: 'Probability: Multivariate Models'
+  page_start: 107
+  page_end: 134
+  chapter_title_block_idx: 1347
+  problems_block_idx: 1770
+  next_chapter_block_idx: 1810
+- num: 4
+  title: Statistics
+  page_start: 135
+  page_end: 194
+  chapter_title_block_idx: 1810
+  problems_block_idx: 2780
+  next_chapter_block_idx: 2849
+- num: 5
+  title: Decision Theory
+  page_start: 195
+  page_end: 232
+  chapter_title_block_idx: 2849
+  problems_block_idx: 3409
+  next_chapter_block_idx: 3432
+- num: 6
+  title: Information Theory
+  page_start: 233
+  page_end: 254
+  chapter_title_block_idx: 3432
+  problems_block_idx: 3769
+  next_chapter_block_idx: 3815
+- num: 7
+  title: Linear Algebra
+  page_start: 255
+  page_end: 300
+  chapter_title_block_idx: 3815
+  problems_block_idx: 4724
+  next_chapter_block_idx: 4737
+- num: 8
+  title: Optimization
+  page_start: 301
+  page_end: 348
+  chapter_title_block_idx: 4737
+  problems_block_idx: 5489
+  next_chapter_block_idx: 5501
+- num: 9
+  title: Linear Discriminant Analysis
+  page_start: 349
+  page_end: 364
+  chapter_title_block_idx: 5501
+  problems_block_idx: 5758
+  next_chapter_block_idx: 5765
+- num: 10
+  title: Logistic Regression
+  page_start: 365
+  page_end: 396
+  chapter_title_block_idx: 5765
+  problems_block_idx: 6227
+  next_chapter_block_idx: 6279
+- num: 11
+  title: Linear Regression
+  page_start: 397
+  page_end: 440
+  chapter_title_block_idx: 6279
+  problems_block_idx: 6905
+  next_chapter_block_idx: 6962
+- num: 12
+  title: Generalized Linear Models *
+  page_start: 441
+  page_end: 450
+  chapter_title_block_idx: 6962
+  problems_block_idx: null
+  next_chapter_block_idx: 7092
+- num: 13
+  title: Neural Networks for Tabular Data
+  page_start: 451
+  page_end: 492
+  chapter_title_block_idx: 7092
+  problems_block_idx: 7638
+  next_chapter_block_idx: 7668
+- num: 14
+  title: Neural Networks for Images
+  page_start: 493
+  page_end: 528
+  chapter_title_block_idx: 7668
+  problems_block_idx: null
+  next_chapter_block_idx: 8077
+- num: 15
+  title: Neural Networks for Sequences
+  page_start: 529
+  page_end: 572
+  chapter_title_block_idx: 8077
+  problems_block_idx: null
+  next_chapter_block_idx: 8620
+- num: 16
+  title: Exemplar-based Methods
+  page_start: 573
+  page_end: 592
+  chapter_title_block_idx: 8620
+  problems_block_idx: null
+  next_chapter_block_idx: 8897
+- num: 17
+  title: Kernel Methods
+  page_start: 593
+  page_end: 628
+  chapter_title_block_idx: 8897
+  problems_block_idx: 9418
+  next_chapter_block_idx: 9436
+- num: 18
+  title: Trees, Forests, Bagging, and Boosting
+  page_start: 629
+  page_end: 652
+  chapter_title_block_idx: 9436
+  problems_block_idx: null
+  next_chapter_block_idx: 9741
+- num: 19
+  title: Learning with Fewer Labeled Examples
+  page_start: 653
+  page_end: 682
+  chapter_title_block_idx: 9741
+  problems_block_idx: 10094
+  next_chapter_block_idx: 10104
+- num: 20
+  title: Dimensionality Reduction
+  page_start: 683
+  page_end: 740
+  chapter_title_block_idx: 10104
+  problems_block_idx: 10929
+  next_chapter_block_idx: 10983
+- num: 21
+  title: Clustering
+  page_start: 741
+  page_end: 766
+  chapter_title_block_idx: 10983
+  problems_block_idx: null
+  next_chapter_block_idx: 11333
+- num: 22
+  title: Recommender Systems
+  page_start: 767
+  page_end: 778
+  chapter_title_block_idx: 11333
+  problems_block_idx: null
+  next_chapter_block_idx: 11473
+- num: 23
+  title: Graph Embeddings *
+  page_start: 779
+  page_end: 806
+  chapter_title_block_idx: 11473
+  problems_block_idx: null
+  next_chapter_block_idx: 11843
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+(?:\.\d+)?)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^Exercise\s+(\d+\.\d+)\b
+problem_chapter_must_match: true
+equation_strip_dollar: true
+equation_label_re: \\tag\{([0-9]+\.[0-9]+[a-z]?)\}

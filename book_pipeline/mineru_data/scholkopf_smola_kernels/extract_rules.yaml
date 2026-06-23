@@ -1,0 +1,178 @@
+slug: scholkopf_smola_kernels
+title: "Learning with Kernels: Support Vector Machines, Regularization, Optimization, and Beyond"
+author: "Bernhard Schölkopf; Alexander J. Smola"
+edition: null
+subject: Machine Learning
+publisher: The MIT Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 582
+bibliography_start_page: 604
+index_start_page: 630
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: A Tutorial Introduction
+    page_start: 15
+    page_end: 38
+    chapter_title_block_idx: 74
+    problems_block_idx: null
+    next_chapter_block_idx: 404
+  - num: 2
+    title: Kernels
+    page_start: 39
+    page_end: 74
+    chapter_title_block_idx: 404
+    chapter_title_block_idx_secondary: 405
+    problems_block_idx: 899
+    next_chapter_block_idx: 999
+  - num: 3
+    title: Risk and Loss Functions
+    page_start: 75
+    page_end: 100
+    chapter_title_block_idx: 999
+    problems_block_idx: 1364
+    next_chapter_block_idx: 1404
+  - num: 4
+    title: Regularization
+    page_start: 101
+    page_end: 138
+    chapter_title_block_idx: 1404
+    problems_block_idx: 1989
+    next_chapter_block_idx: 2029
+  - num: 5
+    title: Elements of Statistical Learning Theory
+    page_start: 139
+    page_end: 162
+    chapter_title_block_idx: 2029
+    problems_block_idx: 2346
+    next_chapter_block_idx: 2384
+  - num: 6
+    title: Optimization
+    page_start: 163
+    page_end: 200
+    chapter_title_block_idx: 2384
+    problems_block_idx: 2935
+    next_chapter_block_idx: 2994
+  - num: 7
+    title: Pattern Recognition
+    page_start: 203
+    page_end: 240
+    chapter_title_block_idx: 2994
+    problems_block_idx: 3434
+    next_chapter_block_idx: 3507
+  - num: 8
+    title: "Single-Class Problems: Quantile Estimation and Novelty Detection"
+    page_start: 241
+    page_end: 264
+    chapter_title_block_idx: 3507
+    problems_block_idx: 3772
+    next_chapter_block_idx: 3815
+  - num: 9
+    title: Regression Estimation
+    page_start: 265
+    page_end: 291
+    chapter_title_block_idx: 3815
+    problems_block_idx: 4096
+    next_chapter_block_idx: 4153
+  - num: 10
+    title: Implementation
+    page_start: 292
+    page_end: 345
+    chapter_title_block_idx: 4153
+    problems_block_idx: 4861
+    next_chapter_block_idx: 4932
+  - num: 11
+    title: Incorporating Invariances
+    page_start: 346
+    page_end: 371
+    chapter_title_block_idx: 4932
+    problems_block_idx: 5206
+    next_chapter_block_idx: 5224
+  - num: 12
+    title: Learning Theory Revisited
+    page_start: 372
+    page_end: 419
+    chapter_title_block_idx: 5224
+    problems_block_idx: 5941
+    next_chapter_block_idx: 5966
+  - num: 13
+    title: Designing Kernels
+    page_start: 420
+    page_end: 439
+    chapter_title_block_idx: 5966
+    problems_block_idx: 6217
+    next_chapter_block_idx: 6273
+  - num: 14
+    title: Kernel Feature Extraction
+    page_start: 440
+    page_end: 469
+    chapter_title_block_idx: 6273
+    problems_block_idx: 6610
+    next_chapter_block_idx: 6676
+  - num: 15
+    title: Kernel Fisher Discriminant
+    page_start: 470
+    page_end: 481
+    chapter_title_block_idx: 6676
+    problems_block_idx: 6818
+    next_chapter_block_idx: 6833
+  - num: 16
+    title: Bayesian Kernel Methods
+    page_start: 482
+    page_end: 529
+    chapter_title_block_idx: 6833
+    problems_block_idx: 7510
+    next_chapter_block_idx: 7565
+  - num: 17
+    title: Regularized Principal Manifolds
+    page_start: 530
+    page_end: 555
+    chapter_title_block_idx: 7565
+    problems_block_idx: 7910
+    next_chapter_block_idx: 7937
+  - num: 18
+    title: Pre-Images and Reduced Set Methods
+    page_start: 556
+    page_end: 581
+    chapter_title_block_idx: 7937
+    problems_block_idx: 8258
+    next_chapter_block_idx: 8288
+
+appendices:
+  - id: A
+    title: Addenda
+    page_start: 582
+    chapter_title_block_idx: 8288
+  - id: B
+    title: Mathematical Prerequisites
+    page_start: 588
+    chapter_title_block_idx: 8359
+
+section_re: '^(\d+\.\d+)\s+(?!Problems$|\()(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+\('
+problem_chapter_must_match: true
+problems_end_re: '^(?:[IVX]+\s+[A-Z].*|References|Index|Notation and Symbols)$'
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'

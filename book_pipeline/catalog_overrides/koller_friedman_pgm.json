@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "koller-ch11-fig-11-11a-ocr-ref",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "body[397]",
+      "field": "md",
+      "old": "see figure ll.lla.",
+      "new": "see figure 11.11a.",
+      "reason": "正文 OCR 將 Figure 11.11a 誤讀為 ll.lla；catalog 已有 Figure 11.11。"
+    },
+    {
+      "id": "koller-ch11-fig-11-11bc-ocr-ref",
+      "action": "replace_text",
+      "chunk": "ch11",
+      "selector": "body[399]",
+      "field": "md",
+      "old": "illustrated in figure 1l.11b,c:",
+      "new": "illustrated in figure 11.11b,c:",
+      "reason": "正文 OCR 將 Figure 11.11b,c 的第二個 1 誤讀為 l；catalog 已有 Figure 11.11。"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+slug: robert_bayesian_choice
+title: "The Bayesian Choice: From Decision-Theoretic Foundations to Computational Implementation"
+author: "Christian P. Robert"
+edition: "2nd"
+subject: "Statistics"
+publisher: "Springer"
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 28
+appendices_start_page: 546
+bibliography_start_page: 558
+index_start_page: 608
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 28
+    page_end: 77
+    chapter_title_block_idx: 154
+    problems_block_idx: 555
+    next_chapter_block_idx: 934
+  - num: 2
+    title: "Decision-Theoretic Foundations"
+    page_start: 78
+    page_end: 131
+    chapter_title_block_idx: 934
+    problems_block_idx: 1439
+    next_chapter_block_idx: 1810
+  - num: 3
+    title: "From Prior Information to Prior Distributions"
+    page_start: 132
+    page_end: 191
+    chapter_title_block_idx: 1810
+    problems_block_idx: 2365
+    next_chapter_block_idx: 2813
+  - num: 4
+    title: "Bayesian Point Estimation"
+    page_start: 192
+    page_end: 249
+    chapter_title_block_idx: 2813
+    problems_block_idx: 3383
+    next_chapter_block_idx: 3828
+  - num: 5
+    title: "Tests and Confidence Regions"
+    page_start: 250
+    page_end: 311
+    chapter_title_block_idx: 3828
+    problems_block_idx: 4504
+    next_chapter_block_idx: 4902
+  - num: 6
+    title: "Bayesian Calculations"
+    page_start: 312
+    page_end: 369
+    chapter_title_block_idx: 4902
+    problems_block_idx: 5439
+    next_chapter_block_idx: 5871
+  - num: 7
+    title: "Model Choice"
+    page_start: 370
+    page_end: 417
+    chapter_title_block_idx: 5871
+    problems_block_idx: 6354
+    next_chapter_block_idx: 6667
+  - num: 8
+    title: "Admissibility and Complete Classes"
+    page_start: 418
+    page_end: 453
+    chapter_title_block_idx: 6667
+    problems_block_idx: 7117
+    next_chapter_block_idx: 7395
+  - num: 9
+    title: "Invariance, Haar Measures, and Equivariant Estimators"
+    page_start: 454
+    page_end: 483
+    chapter_title_block_idx: 7395
+    problems_block_idx: 7743
+    next_chapter_block_idx: 7967
+  - num: 10
+    title: "Hierarchical and Empirical Bayes Extensions"
+    page_start: 484
+    page_end: 533
+    chapter_title_block_idx: 7967
+    problems_block_idx: 8524
+    next_chapter_block_idx: 8881
+  - num: 11
+    title: "A Defense of the Bayesian Choice"
+    page_start: 534
+    page_end: 545
+    chapter_title_block_idx: 8881
+    problems_block_idx: null
+    next_chapter_block_idx: 8990
+
+appendices:
+  - id: A
+    title: "Probability Distributions"
+    page_start: 546
+    chapter_title_block_idx: 8990
+  - id: B
+    title: "Usual Pseudo-random Generators"
+    page_start: 550
+    chapter_title_block_idx: 9069
+  - id: C
+    title: "Notations"
+    page_start: 554
+    chapter_title_block_idx: 9116
+
+section_re: '^((?:\d+\.\d+|[A-C]\.\d+)(?=[\s ]+\S))[\s ]+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-C]\.\d+\.\d+)(?=[\s ]+\S))[\s ]+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+(?:\.[0-9]+)?[a-z]?)\}'

@@ -1,0 +1,189 @@
+slug: stutzman_thiele_antenna_theory_design
+title: Antenna Theory and Design
+author: Warren L. Stutzman; Gary A. Thiele
+edition: 3rd
+subject: Electromagnetism
+publisher: John Wiley & Sons
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 801
+bibliography_start_page: null
+index_start_page: 829
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 41
+    chapter_title_block_idx: 93
+    problems_block_idx: 318
+    next_chapter_block_idx: 324
+  - num: 2
+    title: Antenna Fundamentals
+    page_start: 42
+    page_end: 88
+    chapter_title_block_idx: 324
+    problems_block_idx: 987
+    next_chapter_block_idx: 1057
+  - num: 3
+    title: Simple Radiating Systems
+    page_start: 89
+    page_end: 118
+    chapter_title_block_idx: 1057
+    problems_block_idx: 1378
+    next_chapter_block_idx: 1427
+  - num: 4
+    title: System Applications for Antennas
+    page_start: 119
+    page_end: 146
+    chapter_title_block_idx: 1427
+    problems_block_idx: 1788
+    next_chapter_block_idx: 1834
+  - num: 5
+    title: Line Sources
+    page_start: 147
+    page_end: 169
+    chapter_title_block_idx: 1834
+    problems_block_idx: 2065
+    next_chapter_block_idx: 2121
+  - num: 6
+    title: Wire Antennas
+    page_start: 170
+    page_end: 236
+    chapter_title_block_idx: 2121
+    problems_block_idx: 2750
+    next_chapter_block_idx: 2846
+  - num: 7
+    title: Broadband Antennas
+    page_start: 237
+    page_end: 289
+    chapter_title_block_idx: 2846
+    problems_block_idx: 3443
+    next_chapter_block_idx: 3522
+  - num: 8
+    title: Array Antennas
+    page_start: 290
+    page_end: 362
+    chapter_title_block_idx: 3522
+    problems_block_idx: 4266
+    next_chapter_block_idx: 4399
+  - num: 9
+    title: Aperture Antennas
+    page_start: 363
+    page_end: 451
+    chapter_title_block_idx: 4399
+    problems_block_idx: 5537
+    next_chapter_block_idx: 5679
+  - num: 10
+    title: Antenna Synthesis
+    page_start: 452
+    page_end: 483
+    chapter_title_block_idx: 5679
+    problems_block_idx: 6101
+    next_chapter_block_idx: 6174
+  - num: 11
+    title: Low-Profile Antennas and Personal Communication Antennas
+    page_start: 484
+    page_end: 554
+    chapter_title_block_idx: 6174
+    problems_block_idx: 6816
+    next_chapter_block_idx: 6854
+  - num: 12
+    title: Terminal and Base Station Antennas for Wireless Applications
+    page_start: 555
+    page_end: 577
+    chapter_title_block_idx: 6854
+    problems_block_idx: 7029
+    next_chapter_block_idx: 7042
+  - num: 13
+    title: Antenna Measurements
+    page_start: 578
+    page_end: 605
+    chapter_title_block_idx: 7042
+    problems_block_idx: 7327
+    next_chapter_block_idx: 7361
+  - num: 14
+    title: "CEM for Antennas: The Method of Moments"
+    page_start: 606
+    page_end: 670
+    chapter_title_block_idx: 7361
+    problems_block_idx: 8131
+    next_chapter_block_idx: 8226
+  - num: 15
+    title: "CEM for Antennas: Finite Difference Time Domain Method"
+    page_start: 671
+    page_end: 718
+    chapter_title_block_idx: 8226
+    problems_block_idx: 8755
+    next_chapter_block_idx: 8799
+  - num: 16
+    title: "CEM for Antennas: High-Frequency Methods"
+    page_start: 719
+    page_end: 800
+    chapter_title_block_idx: 8799
+    problems_block_idx: 9784
+    next_chapter_block_idx: 9957
+
+appendices:
+  - id: A
+    title: Frequency Bands
+    page_start: 801
+    chapter_title_block_idx: 9957
+  - id: B
+    title: Material Data and Constants
+    page_start: 803
+    chapter_title_block_idx: 9978
+  - id: C
+    title: Coordinate Systems and Vectors
+    page_start: 805
+    chapter_title_block_idx: 10009
+  - id: D
+    title: Trigonometric Relations
+    page_start: 809
+    chapter_title_block_idx: 10065
+  - id: E
+    title: Hyperbolic Relations
+    page_start: 810
+    chapter_title_block_idx: 10066
+  - id: F
+    title: Mathematical Relations
+    page_start: 811
+    chapter_title_block_idx: 10077
+  - id: G
+    title: Computing Tools for Antennas
+    page_start: 813
+    chapter_title_block_idx: 10112
+  - id: H
+    title: Book List
+    page_start: 815
+    chapter_title_block_idx: 10153
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+-\d+)\b(?!\s+A tuned transmit antenna\.)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+-\d+)\b'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:Figure|Fig\.)\s+(\d+-\d+)\b'
+
+known_missing_problems:
+  - chapter: 2
+    nums: ["2.6-2"]

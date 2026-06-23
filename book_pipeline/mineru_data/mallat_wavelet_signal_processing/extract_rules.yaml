@@ -1,0 +1,136 @@
+slug: mallat_wavelet_signal_processing
+title: A Wavelet Tour of Signal Processing
+author: Stéphane Mallat
+edition: 2nd
+subject: Signal Processing
+publisher: Academic Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 612
+bibliography_start_page: 633
+index_start_page: 650
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: INTRODUCTION TO A TRANSIENT WORLD
+    page_start: 22
+    page_end: 40
+    chapter_title_block_idx: 182
+    problems_block_idx: null
+    next_chapter_block_idx: 406
+  - num: 2
+    title: FOURIER KINGDOM
+    page_start: 41
+    page_end: 62
+    chapter_title_block_idx: 406
+    problems_block_idx: 777
+    next_chapter_block_idx: 823
+  - num: 3
+    title: DISCRETE REVOLUTION
+    page_start: 63
+    page_end: 87
+    chapter_title_block_idx: 823
+    problems_block_idx: 1192
+    next_chapter_block_idx: 1241
+  - num: 4
+    title: TIME MEETS FREQUENCY
+    page_start: 88
+    page_end: 145
+    chapter_title_block_idx: 1241
+    problems_block_idx: 2087
+    next_chapter_block_idx: 2138
+  - num: 5
+    title: FRAMES
+    page_start: 146
+    page_end: 183
+    chapter_title_block_idx: 2138
+    problems_block_idx: 2721
+    next_chapter_block_idx: 2768
+  - num: 6
+    title: WAVELET ZOOM
+    page_start: 184
+    page_end: 240
+    chapter_title_block_idx: 2768
+    problems_block_idx: 3566
+    next_chapter_block_idx: 3613
+  - num: 7
+    title: WAVELET BASES
+    page_start: 241
+    page_end: 341
+    chapter_title_block_idx: 3613
+    problems_block_idx: 5032
+    next_chapter_block_idx: 5155
+  - num: 8
+    title: WAVELET PACKET AND LOCAL COSINE BASES
+    page_start: 342
+    page_end: 396
+    chapter_title_block_idx: 5155
+    problems_block_idx: 5945
+    next_chapter_block_idx: 5973
+  - num: 9
+    title: AN APPROXIMATION TOUR
+    page_start: 397
+    page_end: 454
+    chapter_title_block_idx: 5973
+    problems_block_idx: 6787
+    next_chapter_block_idx: 6846
+  - num: 10
+    title: ESTIMATIONS ARE APPROXIMATIONS
+    page_start: 455
+    page_end: 545
+    chapter_title_block_idx: 6846
+    problems_block_idx: 8164
+    next_chapter_block_idx: 8254
+  - num: 11
+    title: TRANSFORM CODING
+    page_start: 546
+    page_end: 611
+    chapter_title_block_idx: 8254
+    problems_block_idx: 9063
+    next_chapter_block_idx: 9116
+
+appendices:
+  - id: A
+    title: MATHEMATICAL COMPLEMENTS
+    page_start: 612
+    chapter_title_block_idx: 9116
+  - id: B
+    title: SOFTWARE TOOLBOXES
+    page_start: 624
+    chapter_title_block_idx: 9343
+
+section_re: '^(\d+\.\d+|I\.I)\s+(.+?)\s*$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+?)\s*$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\b.*$'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(Figure|FIGURE)\s+(\d+\.\d+)\b.*$'
+
+known_missing_problems: []

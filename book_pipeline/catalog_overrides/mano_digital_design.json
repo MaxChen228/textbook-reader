@@ -1,0 +1,27 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mano-digital-design-fig-8.13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "body[348]",
+      "position": "before",
+      "page": 495,
+      "clip": [
+        0.1,
+        0.515,
+        0.9,
+        0.91
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.13",
+        "kind": "line",
+        "caption": "Figure 8.13: Simulation results for Design_Example_RTL"
+      },
+      "reason": "Raw PDF page 495 contains FIGURE 8.13, but MinerU emitted the waveform as a table block without a figure id, causing the internal Fig. 8.13 references to be unresolved."
+    }
+  ]
+}

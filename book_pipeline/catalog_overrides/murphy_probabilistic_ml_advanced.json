@@ -1,0 +1,127 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.9",
+      "classification": "external",
+      "reason": "正文命中的 1.9 不是本書 Figure 1.9，而是 Figure 3.13 caption 內的外部來源引用：Adapted from Figure 1.9 of [MKL11]。不應硬造本書 fig-1.9。",
+      "where": "ch03.json body[679]",
+      "evidence": "ch03 body[679] is fig-3.13 and its caption says: 'Adapted from Figure 1.9 of [MKL11]'."
+    },
+    {
+      "type": "figure",
+      "ref": "19.14",
+      "classification": "source_mismatch",
+      "reason": "原書此處正文引用 Figure 19.14，但 parsed/catalog 供應端在該段由 Figure 19.13 直接跳到 Figure 19.15，沒有可對齊的 19.14 圖塊或 caption。",
+      "where": "ch19.json body[197]",
+      "evidence": "ch19 body[188] is fig-19.13; body[197] says 'See Figure 19.14 for an illustration'; the next catalogued figure is body[210] fig-19.15."
+    },
+    {
+      "type": "figure",
+      "ref": "29.14",
+      "classification": "source_mismatch",
+      "reason": "原書此處正文引用 Figure 29.14，但 chapter 29 的圖供應端在 casino HMM 段落由 Figure 29.13 直接跳到 Figure 29.15；沒有可對齊的 29.14 圖塊。",
+      "where": "ch29.json body[185]",
+      "evidence": "ch29 body[164] is fig-29.13; body[185] says learning curves are in Figure 29.14; the next catalogued figure is body[222] fig-29.15."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "murphy-advanced-tbl-3.1-promote-footnote-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[1051]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch03-1051",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-3.1",
+        "caption": "Table 3.1: Jefreys scale of evidence for interpreting Bayes factors.",
+        "catalog_repair_source": "agent-table-footnote-caption"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "table block footnote already contains the true caption 'Table 3.1'; promote from excluded fallback id to semantic catalog id so body refs to Table 3.1 resolve."
+    },
+    {
+      "id": "murphy-advanced-tbl-3.2-promote-footnote-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[1099]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch03-1099",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-3.2",
+        "caption": "Table 3.2: Many common statistical tests are equivalent to performing inference for the parameters of simple linear models.",
+        "catalog_repair_source": "agent-table-footnote-caption"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "table block footnote already contains the true caption 'Table 3.2'; promote from excluded fallback id to semantic catalog id so body refs to Table 3.2 resolve."
+    },
+    {
+      "id": "murphy-advanced-fig-4.39-idfix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[656]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.38",
+        "src": "95a6ab34fb88f793f96b8ff6f18bc1ef31d2c64305a907613a7f7d8c91614757.jpg"
+      },
+      "set": {
+        "id": "fig-4.39",
+        "caption": "Figure 4.39: A directed graphical model obtained by adding a dummy observed child node to represent a UPGM potential.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "image block visually contains the Figure 4.39 dummy-node graph referenced by body[659], but MinerU carried forward fig-4.38 and OCR mixed nearby Figure 4.40 text into the caption."
+    },
+    {
+      "id": "murphy-advanced-fig-7.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[15]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-15",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-7.1",
+        "caption": "Figure 7.1: Three inference patterns: (a) global hidden variables for Bayesian supervised/discriminative models; (b) local hidden variables for generative models; (c) local and global hidden variables.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "single multi-panel image contains panels (a), (b), and (c), and body[23]/[29]/[37] reference Figure 7.1a/b/c. A parent semantic id fig-7.1 covers these lowercase-suffix refs."
+    },
+    {
+      "id": "murphy-advanced-fig-34.18-idfix",
+      "action": "set_fields",
+      "chunk": "ch34",
+      "selector": "body[464]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch34-464",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-34.18",
+        "caption": "Figure 34.18: (a) Random forest classifier applied to a 2-dimensional, 3-class dataset. (b) Accuracy vs number of query points for margin sampling vs random sampling.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "caption text in the block contains 'Figure 34.18' but OCR noise ('12Figure', subscript artifacts) made parser mark it as an unnumbered fallback figure. Promote to semantic id."
+    }
+  ]
+}

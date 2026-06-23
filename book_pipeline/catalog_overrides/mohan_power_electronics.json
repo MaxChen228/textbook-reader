@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "22.19",
+      "classification": "source_mismatch",
+      "reason": "原書正文引用 Fig. 22-19，但 Chapter 22 raw PDF 只有 Figure 22-18（SOA of an n-channel enhancement mode MOSFET），且 PDF 文字層全文搜尋只有該引用處出現 22-19，沒有 Figure 22-19 caption 或對應圖可裁；屬原書編號/交叉參照跳號，非 catalog 可真修。",
+      "where": "ch25.json body[73]",
+      "evidence": "raw_pdfs/mohan_power_electronics.pdf page 643 text cites 'FBSOA of the power MOSFET shown in Fig. 22-19'; pages 596/598 contain Section 22-6-5 and Figure 22-18 for the MOSFET SOA, and no Figure 22-19 exists in the PDF text/catalog."
+    }
+  ],
+  "overrides": []
+}

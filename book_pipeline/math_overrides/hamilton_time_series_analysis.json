@@ -1,0 +1,180 @@
+{
+  "overrides": [
+    {
+      "id": "hamilton_time_series_analysis-ch03-body-424-f9a84c",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[424]",
+      "expect": "E (\\varepsilon_ {t} \\varepsilon_ {\\tau}) = \\left\\{ \\begin{array}{l l} \\sigma^ {2} & \\quad \\text {for t = \\tau} \\\\ 0 & \\quad \\text {otherwise.} \\end{array} \\right.",
+      "new": "E (\\varepsilon_ {t} \\varepsilon_ {\\tau}) = \\left\\{ \\begin{array}{l l} \\sigma^ {2} & \\quad \\text {for } t = \\tau \\\\ 0 & \\quad \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch03-body-440-243357",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[440]",
+      "expect": "E (\\tilde {\\varepsilon} _ {t} \\tilde {\\varepsilon} _ {\\tau}) = \\left\\{ \\begin{array}{l l} \\tilde {\\sigma} ^ {2} & \\quad \\text {for t = \\tau} \\\\ 0 & \\quad \\text {otherwise.} \\end{array} \\right.",
+      "new": "E (\\tilde {\\varepsilon} _ {t} \\tilde {\\varepsilon} _ {\\tau}) = \\left\\{ \\begin{array}{l l} \\tilde {\\sigma} ^ {2} & \\quad \\text {for } t = \\tau \\\\ 0 & \\quad \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch03-body-494-35004f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[494]",
+      "expect": "\\begin{array}{l l} \\left| \\lambda_ {i} \\right| <   1 & \\text {for i = 1,2,\\ldots,n} \\\\ \\left| \\lambda_ {i} \\right| > 1 & \\text {for i = n + 1,n + 2,\\ldots,q} \\end{array}",
+      "new": "\\begin{array}{l l} \\left| \\lambda_ {i} \\right| <   1 & \\text {for } i = 1,2,\\ldots,n \\\\ \\left| \\lambda_ {i} \\right| > 1 & \\text {for } i = n + 1,n + 2,\\ldots,q \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch04-body-115-c3b322",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[115]",
+      "expect": "\\begin{array}{l l} \\sigma^ {2} & \\text {for s = 1} \\\\ (1 + \\theta_ {1} ^ {2} + \\theta_ {2} ^ {2} + \\dots + \\theta_ {s - 1} ^ {2}) \\sigma^ {2} & \\text {for s = 2,3,\\ldots,q} \\\\ (1 + \\theta_ {1} ^ {2} + \\theta_ {2} ^ {2} + \\dots + \\theta_ {q} ^ {2}) \\sigma^ {2} & \\text {for s = q + 1,q + 2,\\ldots .} \\end{array}",
+      "new": "\\begin{array}{l l} \\sigma^ {2} & \\text {for } s = 1 \\\\ (1 + \\theta_ {1} ^ {2} + \\theta_ {2} ^ {2} + \\dots + \\theta_ {s - 1} ^ {2}) \\sigma^ {2} & \\text {for } s = 2,3,\\ldots,q \\\\ (1 + \\theta_ {1} ^ {2} + \\theta_ {2} ^ {2} + \\dots + \\theta_ {q} ^ {2}) \\sigma^ {2} & \\text {for } s = q + 1,q + 2,\\ldots . \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch05-body-247-ac04d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[247]",
+      "expect": "\\gamma_ {k} = \\left\\{ \\begin{array}{l l} \\sigma^ {2} (\\theta_ {k} + \\theta_ {k + 1} \\theta_ {1} + \\theta_ {k + 2} \\theta_ {2} + \\dots + \\theta_ {q} \\theta_ {q - k}) & \\quad \\text {for k = 0, 1, \\ldots , q} \\\\ 0 & \\quad \\text {for k > q}, \\end{array} \\right.",
+      "new": "\\gamma_ {k} = \\left\\{ \\begin{array}{l l} \\sigma^ {2} (\\theta_ {k} + \\theta_ {k + 1} \\theta_ {1} + \\theta_ {k + 2} \\theta_ {2} + \\dots + \\theta_ {q} \\theta_ {q - k}) & \\quad \\text {for } k = 0, 1, \\ldots , q \\\\ 0 & \\quad \\text {for } k > q, \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch05-body-492-f65f48",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[492]",
+      "expect": "\\begin{array}{l} p _ {i} = \\lambda_ {i} ^ {2} / (1 + \\lambda_ {1} ^ {2} + \\lambda_ {2} ^ {2} + \\dots + \\lambda_ {K - 1} ^ {2}) \\qquad \\text {for i = 1,2,\\ldots,K - 1} \\\\ p _ {K} = 1 / (1 + \\lambda_ {1} ^ {2} + \\lambda_ {2} ^ {2} + \\dots + \\lambda_ {K - 1} ^ {2}). \\end{array}",
+      "new": "\\begin{array}{l} p _ {i} = \\lambda_ {i} ^ {2} / (1 + \\lambda_ {1} ^ {2} + \\lambda_ {2} ^ {2} + \\dots + \\lambda_ {K - 1} ^ {2}) \\qquad \\text {for } i = 1,2,\\ldots,K - 1 \\\\ p _ {K} = 1 / (1 + \\lambda_ {1} ^ {2} + \\lambda_ {2} ^ {2} + \\dots + \\lambda_ {K - 1} ^ {2}). \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch06-body-79-e2b2cb",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[79]",
+      "expect": "\\begin{array}{l} E (\\alpha_ {j} \\alpha_ {k}) = \\left\\{ \\begin{array}{l l} \\sigma_ {j} ^ {2} & \\text {for j = k} \\\\ 0 & \\text {for j\\neq k} \\end{array} \\right. \\\\ E (\\delta_ {j} \\delta_ {k}) = \\left\\{ \\begin{array}{l l} \\sigma_ {j} ^ {2} & \\text {for j = k} \\\\ 0 & \\text {for j\\neq k} \\end{array} \\right. \\\\ E (\\alpha_ {j} \\delta_ {k}) = 0 \\quad \\text {for all j and k}. \\end{array}",
+      "new": "\\begin{array}{l} E (\\alpha_ {j} \\alpha_ {k}) = \\left\\{ \\begin{array}{l l} \\sigma_ {j} ^ {2} & \\text {for } j = k \\\\ 0 & \\text {for } j\\neq k \\end{array} \\right. \\\\ E (\\delta_ {j} \\delta_ {k}) = \\left\\{ \\begin{array}{l l} \\sigma_ {j} ^ {2} & \\text {for } j = k \\\\ 0 & \\text {for } j\\neq k \\end{array} \\right. \\\\ E (\\alpha_ {j} \\delta_ {k}) = 0 \\quad \\text {for all } j \\text { and } k. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch13-body-17-302735",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[17]",
+      "expect": "\\begin{array}{c} \\boldsymbol {\\xi} _ {t} = \\mathbf {v} _ {t} + \\mathbf {F v} _ {t - 1} + \\mathbf {F} ^ {2} \\mathbf {v} _ {t - 2} + \\dots + \\mathbf {F} ^ {t - 2} \\mathbf {v} _ {2} + \\mathbf {F} ^ {t - 1} \\boldsymbol {\\xi} _ {1} \\\\ \\text {for t = 2,3,\\ldots,T.} \\end{array}",
+      "new": "\\begin{array}{c} \\boldsymbol {\\xi} _ {t} = \\mathbf {v} _ {t} + \\mathbf {F v} _ {t - 1} + \\mathbf {F} ^ {2} \\mathbf {v} _ {t - 2} + \\dots + \\mathbf {F} ^ {t - 2} \\mathbf {v} _ {2} + \\mathbf {F} ^ {t - 1} \\boldsymbol {\\xi} _ {1} \\\\ \\text {for } t = 2,3,\\ldots,T. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch16-body-168-e9d93b",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[168]",
+      "expect": "\\begin{array}{l} \\alpha^ {*} \\equiv [ \\alpha (1 + \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p}) - \\delta (\\phi_ {1} + 2 \\phi_ {2} + \\dots + p \\phi_ {p}) ] \\\\ \\delta^ {*} \\equiv \\delta (1 + \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p}) \\\\ \\phi_ {j} ^ {*} \\equiv \\phi_ {j} \\qquad \\text {for j = 1,2,\\ldots,p} \\end{array}",
+      "new": "\\begin{array}{l} \\alpha^ {*} \\equiv [ \\alpha (1 + \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p}) - \\delta (\\phi_ {1} + 2 \\phi_ {2} + \\dots + p \\phi_ {p}) ] \\\\ \\delta^ {*} \\equiv \\delta (1 + \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p}) \\\\ \\phi_ {j} ^ {*} \\equiv \\phi_ {j} \\qquad \\text {for } j = 1,2,\\ldots,p \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch17-body-641-61c3e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[641]",
+      "expect": "\\begin{array}{l} \\rho \\equiv \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p} \\\\ \\zeta_ {j} \\equiv - [ \\phi_ {j + 1} + \\phi_ {j + 2} + \\dots + \\phi_ {p} ] \\quad \\text {for j = 1,2,\\ldots,p- 1.} \\end{array}",
+      "new": "\\begin{array}{l} \\rho \\equiv \\phi_ {1} + \\phi_ {2} + \\dots + \\phi_ {p} \\\\ \\zeta_ {j} \\equiv - [ \\phi_ {j + 1} + \\phi_ {j + 2} + \\dots + \\phi_ {p} ] \\quad \\text {for } j = 1,2,\\ldots,p- 1. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch17-body-782-4db1f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[782]",
+      "expect": "\\begin{array}{l} \\hat {\\phi} _ {p} = - \\hat {\\zeta} _ {p - 1} \\\\ \\hat {\\phi} _ {j} = \\hat {\\zeta} _ {j} - \\hat {\\zeta} _ {j - 1} \\quad \\text {for j = 2,3,\\ldots,p - 1} \\\\ \\hat {\\phi} _ {1} = \\hat {\\rho} + \\hat {\\zeta} _ {1}. \\end{array}",
+      "new": "\\begin{array}{l} \\hat {\\phi} _ {p} = - \\hat {\\zeta} _ {p - 1} \\\\ \\hat {\\phi} _ {j} = \\hat {\\zeta} _ {j} - \\hat {\\zeta} _ {j - 1} \\quad \\text {for } j = 2,3,\\ldots,p - 1 \\\\ \\hat {\\phi} _ {1} = \\hat {\\rho} + \\hat {\\zeta} _ {1}. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch18-body-48-f4f1b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[48]",
+      "expect": "\\boldsymbol {\\xi} _ {t} ^ {*} \\equiv \\left\\{ \\begin{array}{l l} \\mathbf {v} _ {1} + \\mathbf {v} _ {2} + \\dots + \\mathbf {v} _ {t} & \\text {for t = 1, 2, \\ldots , T} \\\\ \\mathbf {0} & \\text {for t = 0 ;} \\end{array} \\right.",
+      "new": "\\boldsymbol {\\xi} _ {t} ^ {*} \\equiv \\left\\{ \\begin{array}{l l} \\mathbf {v} _ {1} + \\mathbf {v} _ {2} + \\dots + \\mathbf {v} _ {t} & \\text {for } t = 1, 2, \\ldots , T \\\\ \\mathbf {0} & \\text {for } t = 0 ; \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch18-body-168-2fda7c",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[168]",
+      "expect": "\\begin{array}{l} \\hat {\\Phi} _ {p} = - \\hat {\\zeta} _ {p - 1} \\\\ \\hat {\\Phi} _ {s} = \\hat {\\zeta} _ {s} - \\hat {\\zeta} _ {s - 1} \\quad \\text {for s = 2,3,\\ldots,p - 1} \\\\ \\hat {\\Phi} _ {1} = \\hat {\\boldsymbol {\\rho}} + \\hat {\\zeta} _ {1}. \\end{array}",
+      "new": "\\begin{array}{l} \\hat {\\Phi} _ {p} = - \\hat {\\zeta} _ {p - 1} \\\\ \\hat {\\Phi} _ {s} = \\hat {\\zeta} _ {s} - \\hat {\\zeta} _ {s - 1} \\quad \\text {for } s = 2,3,\\ldots,p - 1 \\\\ \\hat {\\Phi} _ {1} = \\hat {\\boldsymbol {\\rho}} + \\hat {\\zeta} _ {1}. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch22-body-25-04e730",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[25]",
+      "expect": "\\boldsymbol {\\xi} _ {t} = \\left\\{ \\begin{array}{c c} (1, 0, 0, \\ldots , 0) ^ {\\prime} & \\text {when s_{t} = 1} \\\\ (0, 1, 0, \\ldots , 0) ^ {\\prime} & \\text {when s_{t} = 2} \\\\ \\vdots & \\vdots \\\\ (0, 0, 0, \\ldots , 1) ^ {\\prime} & \\text {when s_{t} = N}. \\end{array} \\right.",
+      "new": "\\boldsymbol {\\xi} _ {t} = \\left\\{ \\begin{array}{c c} (1, 0, 0, \\ldots , 0) ^ {\\prime} & \\text {when } s_{t} = 1 \\\\ (0, 1, 0, \\ldots , 0) ^ {\\prime} & \\text {when } s_{t} = 2 \\\\ \\vdots & \\vdots \\\\ (0, 0, 0, \\ldots , 1) ^ {\\prime} & \\text {when } s_{t} = N. \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-appA-body-38-aec494",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[38]",
+      "expect": "\\begin{array}{l} \\psi_ {0} = 1 \\\\ \\psi_ {1} = \\phi_ {1} \\\\ \\psi_ {2} = \\phi_ {1} ^ {2} + \\phi_ {2} \\\\ \\vdots \\\\ \\psi_ {j} = \\phi_ {1} \\psi_ {j - 1} + \\phi_ {2} \\psi_ {j - 2} + \\dots + \\phi_ {p} \\psi_ {j - p} \\quad \\text {for j = p,p+ 1,\\ldots .} \\end{array}",
+      "new": "\\begin{array}{l} \\psi_ {0} = 1 \\\\ \\psi_ {1} = \\phi_ {1} \\\\ \\psi_ {2} = \\phi_ {1} ^ {2} + \\phi_ {2} \\\\ \\vdots \\\\ \\psi_ {j} = \\phi_ {1} \\psi_ {j - 1} + \\phi_ {2} \\psi_ {j - 2} + \\dots + \\phi_ {p} \\psi_ {j - p} \\quad \\text {for } j = p,p+ 1,\\ldots . \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch20-body-104-e96f2d",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[104]",
+      "expect": "\\begin{array}{l} \\mathcal {L} (\\boldsymbol {\\Omega}, \\zeta_ {1}, \\zeta_ {2}, \\dots , \\zeta_ {p - 1}, \\boldsymbol {\\alpha}, \\zeta_ {0}) \\\\ = (- T n / 2) \\log (2 \\pi) - (T / 2) \\log | \\boldsymbol {\\Omega} | \\\\ \\qquad - (1 / 2) \\sum_ {t = 1} ^ {T} \\left[ (\\Delta \\mathbf {y} _ {t} - \\zeta_ {1} \\Delta \\mathbf {y} _ {t - 1} - \\zeta_ {2} \\Delta \\mathbf {y} _ {t - 2} - \\dots - \\zeta_ {p - 1} \\Delta \\mathbf {y} _ {t - p + 1} - \\boldsymbol {\\alpha} - \\zeta_ {0} \\mathbf {y} _ {t - 1}) ^ {\\prime} \\right. \\\\ \\qquad \\times \\boldsymbol {\\Omega} ^ {- 1} (\\Delta \\mathbf {y} _ {t} - \\zeta_ {1} \\Delta \\mathbf {y} _ {t - 1} - \\zeta_ {2} \\Delta \\mathbf {y} _ {t - 2} - \\dots - \\zeta_ {p - 1} \\Delta \\mathbf {y} _ {t - p + 1} - \\boldsymbol {\\alpha} - \\zet_ {0} \\mathbf {y} _ {t - 1}) \\Bigg ]. \\end{array}",
+      "new": "\\begin{array}{l} \\mathcal {L} (\\boldsymbol {\\Omega}, \\zeta_ {1}, \\zeta_ {2}, \\dots , \\zeta_ {p - 1}, \\boldsymbol {\\alpha}, \\zeta_ {0}) \\\\ = (- T n / 2) \\log (2 \\pi) - (T / 2) \\log | \\boldsymbol {\\Omega} | \\\\ \\qquad - (1 / 2) \\sum_ {t = 1} ^ {T} \\left[ (\\Delta \\mathbf {y} _ {t} - \\zeta_ {1} \\Delta \\mathbf {y} _ {t - 1} - \\zeta_ {2} \\Delta \\mathbf {y} _ {t - 2} - \\dots - \\zeta_ {p - 1} \\Delta \\mathbf {y} _ {t - p + 1} - \\boldsymbol {\\alpha} - \\zeta_ {0} \\mathbf {y} _ {t - 1}) ^ {\\prime} \\right. \\\\ \\qquad \\times \\boldsymbol {\\Omega} ^ {- 1} (\\Delta \\mathbf {y} _ {t} - \\zeta_ {1} \\Delta \\mathbf {y} _ {t - 1} - \\zeta_ {2} \\Delta \\mathbf {y} _ {t - 2} - \\dots - \\zeta_ {p - 1} \\Delta \\mathbf {y} _ {t - p + 1} - \\boldsymbol {\\alpha} - \\zeta_ {0} \\mathbf {y} _ {t - 1}) \\Bigg ]. \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-appA-body-288-037992",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[288]",
+      "expect": "\\begin{array}{r l} & \\left[ \\begin{array}{c} T ^ {1 / 2} (\\hat {\\boldsymbol {\\beta}} _ {T} - \\boldsymbol {\\beta}) \\\\ T ^ {1 / 2} (\\hat {\\alpha} _ {T} - \\alpha) \\\\ T (\\hat {\\gamma} _ {T} - \\gamma) \\end{array} \\right] = \\left[ \\begin{array}{c c c} T ^ {- 1} \\Sigma \\mathbf {w} _ {t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 1} \\Sigma \\mathbf {w} _ {t} & T ^ {- 3 / 2} \\Sigma \\mathbf {w} _ {t} \\mathbf {y} _ {2 t} ^ {\\prime} \\\\ T ^ {- 1} \\Sigma \\mathbf {w} _ {t} ^ {\\prime} & 1 & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} ^ {\\prime} \\\\ T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} & T ^ {- 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {y} _ {2 t} ^ {\\prime} \\end{array} \\right] ^ {- 1} \\left[ \\begin{array}{c} T ^ {- 1 / 2} \\Sigma \\mathbf {w} _ {t} \\tilde {z} _ {t} \\\\ T ^ {- 1 / 2} \\Sigma \\tilde {z} _ {t} \\\\ T ^ {- 1} \\Sigma \\mathbf {y} _ {2 t} \\tilde {z} _ {t} \\end{array} \\right] \\\\ & \\xrightarrow {L} \\left[ \\begin{array}{c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c} \\mathbf {Q} & & \\mathbf {0} & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & \\\\ \\mathbf {0} ^ {\\prime} & & 1 & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & \\\\ \\mathbf {0} & & \\bar {\\Lambda} _ {2 2} \\int \\mathbf {W} _ {2} (r) d r & & \\bar {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] ^ {\\prime} d r \\Biggr \\} \\tilde {\\Lambda} _ {2 2} ^ {\\prime} \\\\ & & & & & & & & & & & & & & & & & & & & & & & \\\\ \\times \\left[ \\begin{array}{c} \\mathbf {h} _ {1} \\\\ \\tilde {\\lambda} _ {1 1} \\cdot W _ {1} (1) \\\\ \\tilde {\\Lambda} _ {2 2} \\cdot \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] d W _ {1} (r) \\Biggr \\} \\cdot \\tilde {\\lambda} _ {1 1} \\\\ \\end{array} \\right], \\end{array}",
+      "new": "\\begin{array}{r l} & \\left[ \\begin{array}{c} T ^ {1 / 2} (\\hat {\\boldsymbol {\\beta}} _ {T} - \\boldsymbol {\\beta}) \\\\ T ^ {1 / 2} (\\hat {\\alpha} _ {T} - \\alpha) \\\\ T (\\hat {\\gamma} _ {T} - \\gamma) \\end{array} \\right] = \\left[ \\begin{array}{c c c} T ^ {- 1} \\Sigma \\mathbf {w} _ {t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 1} \\Sigma \\mathbf {w} _ {t} & T ^ {- 3 / 2} \\Sigma \\mathbf {w} _ {t} \\mathbf {y} _ {2 t} ^ {\\prime} \\\\ T ^ {- 1} \\Sigma \\mathbf {w} _ {t} ^ {\\prime} & 1 & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} ^ {\\prime} \\\\ T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} & T ^ {- 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {y} _ {2 t} ^ {\\prime} \\end{array} \\right] ^ {- 1} \\left[ \\begin{array}{c} T ^ {- 1 / 2} \\Sigma \\mathbf {w} _ {t} \\tilde {z} _ {t} \\\\ T ^ {- 1 / 2} \\Sigma \\tilde {z} _ {t} \\\\ T ^ {- 1} \\Sigma \\mathbf {y} _ {2 t} \\tilde {z} _ {t} \\end{array} \\right] \\\\ & \\xrightarrow {L} \\left[ \\begin{array}{c c c c} \\mathbf {Q} & \\mathbf {0} & & \\\\ \\mathbf {0} ^ {\\prime} & 1 & & \\\\ \\mathbf {0} & \\bar {\\Lambda} _ {2 2} \\int \\mathbf {W} _ {2} (r) d r & \\bar {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] ^ {\\prime} d r \\Biggr \\} \\tilde {\\Lambda} _ {2 2} ^ {\\prime} & \\\\ & & & \\\\ \\times \\left[ \\begin{array}{c} \\mathbf {h} _ {1} \\\\ \\tilde {\\lambda} _ {1 1} \\cdot W _ {1} (1) \\\\ \\tilde {\\Lambda} _ {2 2} \\cdot \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] d W _ {1} (r) \\Biggr \\} \\cdot \\tilde {\\lambda} _ {1 1} \\\\ \\end{array} \\right], & & & \\end{array} \\right] \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-appA-body-294-9483c4",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[294]",
+      "expect": "\\begin{array}{l} \\left[ \\begin{array}{c} T ^ {1 / 2} (\\hat {\\boldsymbol {\\beta}} _ {T} - \\boldsymbol {\\beta}) \\\\ T ^ {1 / 2} (\\hat {\\alpha} _ {T} - \\alpha) \\\\ T (\\hat {\\gamma} _ {T} - \\gamma) \\\\ T ^ {3 / 2} (\\hat {\\delta} _ {T} - \\delta) \\end{array} \\right] = \\left[ \\begin{array}{c c c c} T ^ {- 1} \\Sigma \\mathbf {w} _ {t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 1} \\Sigma \\mathbf {w} _ {t} & T ^ {- 3 / 2} \\Sigma \\mathbf {w} _ {t} \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 2} \\Sigma \\mathbf {w} _ {t} t \\\\ T ^ {- 1} \\Sigma \\mathbf {w} _ {t} ^ {\\prime} & 1 & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 2} \\Sigma t \\\\ T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} & T ^ {- 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 5 / 2} \\Sigma \\mathbf {y} _ {2 t} t \\\\ T ^ {- 2} \\Sigma t \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 2} \\Sigma t & T ^ {- 5 / 2} \\Sigma t \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 3} \\Sigma t ^ {2} \\end{array} \\right] ^ {- 1} \\\\ \\times \\left[ \\begin{array}{c} T ^ {- 1 / 2} \\Sigma \\mathbf {w} _ {t} u _ {t} \\\\ T ^ {- 1 / 2} \\Sigma u _ {t} \\\\ T ^ {- 1} \\Sigma \\mathbf {y} _ {2 t} u _ {t} \\\\ T ^ {- 3 / 2} \\Sigma t u _ {t} \\end{array} \\right] \\\\ \\xrightarrow [ ]{\\quad L} \\left[ \\begin{array}{c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c } \\\\ \\mathbf {Q} & \\mathbf {0} & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & & \\\\ \\mathbf {0} ^ {\\prime} & 1 & & & & & & & & & & & & & & & & & & & & & & & & & & & & & \\\\ \\mathbf {0} & \\tilde {\\Lambda} _ {2 2} \\int \\mathbf {W} _ {2} (r) d r & & \\tilde {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] \\cdot [ \\mathbf {W} _ {2} (r) ] ^ {\\prime} d r \\Biggr \\} \\tilde {\\Lambda} _ {2 2} ^ {\\prime} & & & & & & & & \\\\ \\mathbf {0} ^ {\\prime} & 1 / 2 & & & & & & & & & & & & & & & & & \\\\ \\times \\left[ \\begin{array}{c} h _ {1} \\\\ \\tilde {\\lambda} _ {1 1} W _ {1} (1) \\\\ \\tilde {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] d W _ {1} (r) \\Biggr \\} \\tilde {\\lambda} _ {1 1} \\\\ \\tilde {\\lambda} _ {1 1} \\Biggl \\{W _ {1} (1) - \\int W _ {1} (r) d r \\Biggr \\}, \\\\ \\end{array} \\right] \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left[ \\begin{array}{c} T ^ {1 / 2} (\\hat {\\boldsymbol {\\beta}} _ {T} - \\boldsymbol {\\beta}) \\\\ T ^ {1 / 2} (\\hat {\\alpha} _ {T} - \\alpha) \\\\ T (\\hat {\\gamma} _ {T} - \\gamma) \\\\ T ^ {3 / 2} (\\hat {\\delta} _ {T} - \\delta) \\end{array} \\right] = \\left[ \\begin{array}{c c c c} T ^ {- 1} \\Sigma \\mathbf {w} _ {t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 1} \\Sigma \\mathbf {w} _ {t} & T ^ {- 3 / 2} \\Sigma \\mathbf {w} _ {t} \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 2} \\Sigma \\mathbf {w} _ {t} t \\\\ T ^ {- 1} \\Sigma \\mathbf {w} _ {t} ^ {\\prime} & 1 & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 2} \\Sigma t \\\\ T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 3 / 2} \\Sigma \\mathbf {y} _ {2 t} & T ^ {- 2} \\Sigma \\mathbf {y} _ {2 t} \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 5 / 2} \\Sigma \\mathbf {y} _ {2 t} t \\\\ T ^ {- 2} \\Sigma t \\mathbf {w} _ {t} ^ {\\prime} & T ^ {- 2} \\Sigma t & T ^ {- 5 / 2} \\Sigma t \\mathbf {y} _ {2 t} ^ {\\prime} & T ^ {- 3} \\Sigma t ^ {2} \\end{array} \\right] ^ {- 1} \\\\ \\times \\left[ \\begin{array}{c} T ^ {- 1 / 2} \\Sigma \\mathbf {w} _ {t} u _ {t} \\\\ T ^ {- 1 / 2} \\Sigma u _ {t} \\\\ T ^ {- 1} \\Sigma \\mathbf {y} _ {2 t} u _ {t} \\\\ T ^ {- 3 / 2} \\Sigma t u _ {t} \\end{array} \\right] \\\\ \\xrightarrow [ ]{\\quad L} \\left[ \\begin{array}{c c c c} \\mathbf {Q} & \\mathbf {0} & & \\\\ \\mathbf {0} ^ {\\prime} & 1 & & \\\\ \\mathbf {0} & \\tilde {\\Lambda} _ {2 2} \\int \\mathbf {W} _ {2} (r) d r & \\tilde {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] \\cdot [ \\mathbf {W} _ {2} (r) ] ^ {\\prime} d r \\Biggr \\} \\tilde {\\Lambda} _ {2 2} ^ {\\prime} & \\\\ \\mathbf {0} ^ {\\prime} & 1 / 2 & & \\\\ \\times \\left[ \\begin{array}{c} h _ {1} \\\\ \\tilde {\\lambda} _ {1 1} W _ {1} (1) \\\\ \\tilde {\\Lambda} _ {2 2} \\Biggl \\{\\int [ \\mathbf {W} _ {2} (r) ] d W _ {1} (r) \\Biggr \\} \\tilde {\\lambda} _ {1 1} \\\\ \\tilde {\\lambda} _ {1 1} \\Biggl \\{W _ {1} (1) - \\int W _ {1} (r) d r \\Biggr \\}, \\\\ \\end{array} \\right] & & & \\end{array} \\right] \\\\ \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch10-body-111-5d6ca4",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[111]",
+      "expect": "\\Gamma_ {j} = \\left\\{ \\begin{array}{l l} \\Theta_ {j} \\Omega + \\Theta_ {j + 1} \\Omega \\Theta_ {1} ^ {\\prime} + \\Theta_ {j + 2} \\Omega \\Theta_ {2} ^ {\\prime} + \\dots + \\Theta_ {q} \\Omega \\Theta_ {q - j} ^ {\\prime} & \\text {for j = 1,2,\\ldots,q} \\\\ \\Omega \\Theta_ {- j} ^ {\\prime} + \\Theta_ {1} \\Omega \\Theta_ {- j + 1} ^ {\\prime} + \\Theta_ {2} \\Omega \\Theta_ {- j + 2} ^ {\\prime} + \\dots + \\Theta_ {q + j} \\Omega \\Theta_ {q} ^ {\\prime} & \\text {for j = -1,-2,\\ldots,-q} \\\\ \\mathbf {0} & \\text {for |j| > q ,} \\end{array} \\right.",
+      "new": "\\Gamma_ {j} = \\left\\{ \\begin{array}{l l} \\Theta_ {j} \\Omega + \\Theta_ {j + 1} \\Omega \\Theta_ {1} ^ {\\prime} + \\Theta_ {j + 2} \\Omega \\Theta_ {2} ^ {\\prime} + \\dots + \\Theta_ {q} \\Omega \\Theta_ {q - j} ^ {\\prime} & \\text {for } j = 1,2,\\ldots,q \\\\ \\Omega \\Theta_ {- j} ^ {\\prime} + \\Theta_ {1} \\Omega \\Theta_ {- j + 1} ^ {\\prime} + \\Theta_ {2} \\Omega \\Theta_ {- j + 2} ^ {\\prime} + \\dots + \\Theta_ {q + j} \\Omega \\Theta_ {q} ^ {\\prime} & \\text {for } j = -1,-2,\\ldots,-q \\\\ \\mathbf {0} & \\text {for } |j| > q , \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch21-body-164-8014bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[164]",
+      "expect": "\\hat {u} _ {t + s \\mid t} ^ {2} - \\sigma^ {2} = \\left\\{ \\begin{array}{l l} (\\delta_ {1} + \\alpha_ {1}) (\\hat {u} _ {t + s - 1 \\mid t} ^ {2} - \\sigma^ {2}) + (\\delta_ {2} + \\alpha_ {2}) (\\hat {u} _ {t + s - 2 \\mid t} ^ {2} - \\sigma^ {2}) \\\\ + \\dots + (\\delta_ {p} + \\alpha_ {p}) (\\hat {u} _ {t + s - p \\mid t} ^ {2} - \\sigma^ {2}) - \\delta_ {s} \\hat {w} _ {t} - \\delta_ {s + 1} \\hat {w} _ {t - 1} \\\\ - \\dots - \\delta_ {r} \\hat {w} _ {t + s - r} & \\text {for s = 1,2,\\ldots,r} \\\\ (\\delta_ {1} + \\alpha_ {1}) (\\hat {u} _ {t + s - 1 \\mid t} ^ {2} - \\sigma^ {2}) + (\\delta_ {2} + \\alpha_ {2}) (\\hat {u} _ {t + s - 2 \\mid t} ^ {2} - \\sigma^ {2}) \\\\ + \\dots + (\\delta_ {p} + \\alpha_ {P}) (\\hat {u} _ {t + s - p \\mid t} ^ {2} - \\sigma^ {2}) & \\text {for s = r+ 1,r+ 2,\\ldots ,} \\end{array} \\right.",
+      "new": "\\hat {u} _ {t + s \\mid t} ^ {2} - \\sigma^ {2} = \\left\\{ \\begin{array}{l l} (\\delta_ {1} + \\alpha_ {1}) (\\hat {u} _ {t + s - 1 \\mid t} ^ {2} - \\sigma^ {2}) + (\\delta_ {2} + \\alpha_ {2}) (\\hat {u} _ {t + s - 2 \\mid t} ^ {2} - \\sigma^ {2}) \\\\ + \\dots + (\\delta_ {p} + \\alpha_ {p}) (\\hat {u} _ {t + s - p \\mid t} ^ {2} - \\sigma^ {2}) - \\delta_ {s} \\hat {w} _ {t} - \\delta_ {s + 1} \\hat {w} _ {t - 1} \\\\ - \\dots - \\delta_ {r} \\hat {w} _ {t + s - r} & \\text {for } s = 1,2,\\ldots,r \\\\ (\\delta_ {1} + \\alpha_ {1}) (\\hat {u} _ {t + s - 1 \\mid t} ^ {2} - \\sigma^ {2}) + (\\delta_ {2} + \\alpha_ {2}) (\\hat {u} _ {t + s - 2 \\mid t} ^ {2} - \\sigma^ {2}) \\\\ + \\dots + (\\delta_ {p} + \\alpha_ {P}) (\\hat {u} _ {t + s - p \\mid t} ^ {2} - \\sigma^ {2}) & \\text {for } s = r+ 1,r+ 2,\\ldots , \\end{array} \\right."
+    },
+    {
+      "id": "hamilton_time_series_analysis-appA-body-36-d2302e",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[36]",
+      "expect": "\\begin{array}{r l} L ^ {0} & \\text {gives} \\psi_ {0} = 1 \\\\ L ^ {1} & \\text {gives} - \\phi_ {1} \\psi_ {0} + \\psi_ {1} = 0 \\\\ L ^ {2} & \\text {gives} - \\phi_ {2} \\psi_ {0} - \\phi_ {1} \\psi_ {1} + \\psi_ {2} = 0 \\\\ & \\vdots \\\\ L ^ {j} & \\text {gives} - \\phi_ {p} \\psi_ {j - p} - \\phi_ {p - 1} \\psi_ {j - p + 1} - \\dots - \\phi_ {1} \\psi_ {j - 1} + \\psi_ {j} = 0, \\\\ & \\text {for j = p,p+ 1,\\ldots .} \\end{array}",
+      "new": "\\begin{array}{r l} L ^ {0} & \\text {gives} \\psi_ {0} = 1 \\\\ L ^ {1} & \\text {gives} - \\phi_ {1} \\psi_ {0} + \\psi_ {1} = 0 \\\\ L ^ {2} & \\text {gives} - \\phi_ {2} \\psi_ {0} - \\phi_ {1} \\psi_ {1} + \\psi_ {2} = 0 \\\\ & \\vdots \\\\ L ^ {j} & \\text {gives} - \\phi_ {p} \\psi_ {j - p} - \\phi_ {p - 1} \\psi_ {j - p + 1} - \\dots - \\phi_ {1} \\psi_ {j - 1} + \\psi_ {j} = 0, \\\\ & \\text {for } j = p,p+ 1,\\ldots . \\end{array}"
+    },
+    {
+      "id": "hamilton_time_series_analysis-ch11-body-869-6a75a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[869]",
+      "expect": "\\begin{array}{r l} \\left[ \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , 1}} \\quad & \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , 2}} \\quad \\dots \\quad \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , n _ {B}}} \\right] \\\\ & = [ - 2 \\mathbf {D} _ {n} ^ {+} (\\boldsymbol {\\Omega} \\otimes \\mathbf {B} _ {0} ^ {- 1}) \\mathbf {S} _ {B} ] [ \\mathbf {e} _ {1} \\quad \\mathbf {e} _ {2} \\quad \\dots \\quad \\mathbf {e} _ {n _ {B}} ]. \\end{array}",
+      "new": "\\begin{array}{r l} & \\left[ \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , 1}} \\quad \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , 2}} \\quad \\dots \\quad \\frac {\\partial \\operatorname{vech} (\\boldsymbol {\\Omega})}{\\partial \\theta_ {B , n _ {B}}} \\right] \\\\ & = [ - 2 \\mathbf {D} _ {n} ^ {+} (\\boldsymbol {\\Omega} \\otimes \\mathbf {B} _ {0} ^ {- 1}) \\mathbf {S} _ {B} ] [ \\mathbf {e} _ {1} \\quad \\mathbf {e} _ {2} \\quad \\dots \\quad \\mathbf {e} _ {n _ {B}} ]. \\end{array}"
+    }
+  ]
+}

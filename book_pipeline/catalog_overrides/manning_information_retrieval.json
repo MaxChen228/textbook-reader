@@ -1,0 +1,48 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "manning-ir-fig-4.7-algorithm-block",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[58]",
+      "expect": {
+        "id": "tbl-ch04-58",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-4.7",
+        "caption": "Figure 4.7 Logarithmic merging. Each token (termID,docID) is initially added to in-memory index Z0 by LMERGEADDTOKEN. LOGARITHMICMERGE initializes Z0 and indexes.",
+        "kind": "text",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4: Figure 4.7 is present in ch04 body[58] as an algorithm table block; expose it as a text figure catalog entry."
+    },
+    {
+      "id": "manning-ir-fig-7.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[7]",
+      "position": "before",
+      "page": 149,
+      "clip": [
+        0.085,
+        0.055,
+        0.575,
+        0.335
+      ],
+      "zoom": 3,
+      "src": "manual_fig-7.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-7.1",
+        "kind": "line",
+        "caption": "Figure 7.1 A faster algorithm for vector space scores."
+      },
+      "reason": "C4: raw PDF page 149 contains Figure 7.1, but MinerU emitted it as plain paragraph text; crop and insert the figure block."
+    }
+  ]
+}

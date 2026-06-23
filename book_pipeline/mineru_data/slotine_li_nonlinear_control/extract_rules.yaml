@@ -1,0 +1,112 @@
+slug: slotine_li_nonlinear_control
+title: Applied Nonlinear Control
+author: Jean-Jacques E. Slotine; Weiping Li
+edition: null
+subject: Control Systems
+publisher: Prentice Hall
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 450
+bibliography_start_page: 450
+index_start_page: 472
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 29
+    chapter_title_block_idx: 63
+    problems_block_idx: null
+    next_chapter_block_idx: 226
+  - num: 2
+    title: Phase Plane Analysis
+    page_start: 30
+    page_end: 52
+    chapter_title_block_idx: 226
+    problems_block_idx: 553
+    next_chapter_block_idx: 573
+  - num: 3
+    title: Fundamentals of Lyapunov Theory
+    page_start: 53
+    page_end: 112
+    chapter_title_block_idx: 573
+    problems_block_idx: 1443
+    next_chapter_block_idx: 1505
+  - num: 4
+    title: Advanced Stability Theory
+    page_start: 113
+    page_end: 169
+    chapter_title_block_idx: 1505
+    problems_block_idx: 2439
+    next_chapter_block_idx: 2485
+  - num: 5
+    title: Describing Function Analysis
+    page_start: 170
+    page_end: 203
+    chapter_title_block_idx: 2485
+    problems_block_idx: 2855
+    next_chapter_block_idx: 3110
+  - num: 6
+    title: Feedback Linearization
+    page_start: 220
+    page_end: 288
+    chapter_title_block_idx: 3110
+    problems_block_idx: 4242
+    next_chapter_block_idx: 4334
+  - num: 7
+    title: Sliding Control
+    page_start: 289
+    page_end: 323
+    chapter_title_block_idx: 4334
+    problems_block_idx: 4777
+    next_chapter_block_idx: 4828
+  - num: 8
+    title: Adaptive Control
+    page_start: 324
+    page_end: 404
+    chapter_title_block_idx: 4828
+    problems_block_idx: 6004
+    next_chapter_block_idx: 6041
+  - num: 9
+    title: Control of Multi-Input Physical Systems
+    page_start: 405
+    page_end: 449
+    chapter_title_block_idx: 6041
+    problems_block_idx: 6644
+    next_chapter_block_idx: 6690
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(?!(?:Consider|Design|For|Globally|In|Show|Simulate|This|Use)\b)(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+(?!(?:Why|Nonlinear|An|Notes)\b)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^Example\s+(\d+\.\d+)\s*:'
+figure_caption_merge: false
+figure_caption_main_re: '^Fig(?:ure)?\.\s*(\d+\.\d+)\b.*$'
+known_missing_problems: []

@@ -1,0 +1,195 @@
+slug: manning_information_retrieval
+title: Introduction to Information Retrieval
+author: Christopher D. Manning; Prabhakar Raghavan; Hinrich Schütze
+edition: null
+subject: Computer Science
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+
+body_start_page: 24
+appendices_start_page: 469
+bibliography_start_page: 464
+index_start_page: 498
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Boolean retrieval
+    page_start: 24
+    page_end: 40
+    chapter_title_block_idx: 111
+    problems_block_idx: null
+    next_chapter_block_idx: 307
+  - num: 2
+    title: The term vocabulary and postings lists
+    page_start: 41
+    page_end: 67
+    chapter_title_block_idx: 307
+    problems_block_idx: null
+    next_chapter_block_idx: 603
+  - num: 3
+    title: Dictionaries and tolerant retrieval
+    page_start: 68
+    page_end: 83
+    chapter_title_block_idx: 603
+    problems_block_idx: null
+    next_chapter_block_idx: 753
+  - num: 4
+    title: Index construction
+    page_start: 84
+    page_end: 100
+    chapter_title_block_idx: 753
+    problems_block_idx: null
+    next_chapter_block_idx: 898
+  - num: 5
+    title: Index compression
+    page_start: 101
+    page_end: 122
+    chapter_title_block_idx: 898
+    problems_block_idx: null
+    next_chapter_block_idx: 1111
+  - num: 6
+    title: Scoring, term weighting, and the vector space model
+    page_start: 123
+    page_end: 146
+    chapter_title_block_idx: 1111
+    problems_block_idx: null
+    next_chapter_block_idx: 1366
+  - num: 7
+    title: Computing scores in a complete search system
+    page_start: 147
+    page_end: 161
+    chapter_title_block_idx: 1366
+    problems_block_idx: null
+    next_chapter_block_idx: 1492
+  - num: 8
+    title: Evaluation in information retrieval
+    page_start: 162
+    page_end: 184
+    chapter_title_block_idx: 1492
+    problems_block_idx: null
+    next_chapter_block_idx: 1730
+  - num: 9
+    title: Relevance feedback and query expansion
+    page_start: 185
+    page_end: 200
+    chapter_title_block_idx: 1730
+    problems_block_idx: null
+    next_chapter_block_idx: 1897
+  - num: 10
+    title: XML retrieval
+    page_start: 201
+    page_end: 223
+    chapter_title_block_idx: 1897
+    problems_block_idx: null
+    next_chapter_block_idx: 2105
+  - num: 11
+    title: Probabilistic information retrieval
+    page_start: 224
+    page_end: 240
+    chapter_title_block_idx: 2105
+    problems_block_idx: null
+    next_chapter_block_idx: 2298
+  - num: 12
+    title: Language models for information retrieval
+    page_start: 241
+    page_end: 256
+    chapter_title_block_idx: 2298
+    problems_block_idx: null
+    next_chapter_block_idx: 2462
+  - num: 13
+    title: Text classification and Naive Bayes
+    page_start: 257
+    page_end: 288
+    chapter_title_block_idx: 2462
+    problems_block_idx: null
+    next_chapter_block_idx: 2817
+  - num: 14
+    title: Vector space classification
+    page_start: 289
+    page_end: 315
+    chapter_title_block_idx: 2817
+    problems_block_idx: null
+    next_chapter_block_idx: 3104
+  - num: 15
+    title: Support vector machines and machine learning on documents
+    page_start: 316
+    page_end: 343
+    chapter_title_block_idx: 3104
+    problems_block_idx: null
+    next_chapter_block_idx: 3381
+  - num: 16
+    title: Flat clustering
+    page_start: 344
+    page_end: 368
+    chapter_title_block_idx: 3381
+    problems_block_idx: null
+    next_chapter_block_idx: 3655
+  - num: 17
+    title: Hierarchical clustering
+    page_start: 369
+    page_end: 391
+    chapter_title_block_idx: 3655
+    problems_block_idx: null
+    next_chapter_block_idx: 3889
+  - num: 18
+    title: Matrix decompositions and latent semantic indexing
+    page_start: 392
+    page_end: 407
+    chapter_title_block_idx: 3889
+    problems_block_idx: null
+    next_chapter_block_idx: 4082
+  - num: 19
+    title: Web search basics
+    page_start: 408
+    page_end: 427
+    chapter_title_block_idx: 4082
+    problems_block_idx: null
+    next_chapter_block_idx: 4255
+  - num: 20
+    title: Web crawling and indexes
+    page_start: 428
+    page_end: 443
+    chapter_title_block_idx: 4255
+    problems_block_idx: null
+    next_chapter_block_idx: 4411
+  - num: 21
+    title: Link analysis
+    page_start: 444
+    page_end: 468
+    chapter_title_block_idx: 4411
+    problems_block_idx: null
+    next_chapter_block_idx: 4618
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+example_start_re: '^Example\s+(\d+(?:\.\d+)*)'
+
+problem_start_re: '^(?:\d+\s+|\?\s*)?Exercise\s+(\d+\.\d+)\s*(?:\[[^\]]*\])?\s*'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+problems_start_re: null
+solution_start_re: null
+suppress_running_header_sections: true
+
+equation_label_re: '^\(?([0-9]+\.[0-9]+)\)?$'
+equation_strip_dollar: true
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []
