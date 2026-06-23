@@ -150,6 +150,12 @@
        不必開抽屜。資訊性、不擋服務；sweep 修好後 occ 歸 0、角標自動消失。 */
     .math-badge { position: absolute; right: 4px; bottom: 4px; z-index: 3; font-family: var(--mono); font-size: 9px;
       background: color-mix(in srgb, var(--sweep) 92%, transparent); color: var(--on-solid); padding: 0 5px; border-radius: var(--radius-sm); letter-spacing: -.3px; }
+    /* qc 過關來路（只在「已過 QC」里程碑顯示）：⚡triage=pdf_triage 高信心直放、跳過 LLM QC；QC✓=LLM 視覺驗過。
+       修「已過 QC」語意坑——過去兩條路都只顯里程碑、看不出有沒有真燒 LLM。 */
+    .qc-badge { position: absolute; right: 4px; top: 4px; z-index: 3; font-family: var(--mono); font-size: 9px;
+      padding: 1px 5px; border-radius: var(--radius-sm); font-weight: 700; letter-spacing: -.2px; }
+    .qc-badge.skip { background: color-mix(in srgb, var(--sub) 20%, transparent); color: var(--sub); }
+    .qc-badge.llm { background: color-mix(in srgb, var(--status-known) 88%, transparent); color: var(--on-solid); }
 
     /* 匠人（worker）疊在書卡 — 綁 slug */
     .walker { position: absolute; top: -7px; right: -7px; z-index: 3; display: flex; align-items: center; gap: 4px;
@@ -404,7 +410,7 @@
   const STATIONS = [
     { ico: '📥', name: '爬書 crawl', crawl: true },
     { ico: '📦', name: '已入庫' },     // owned raw pdf、待 QC（stage 0.2）
-    { ico: '👁️', name: '已過 QC' },    // QC pass、待/正 OCR（stage 0.3 / 0.5）
+    { ico: '👁️', name: '已過 QC' },    // 過 QC 關、待/正 OCR（stage 0.3/0.5）；卡片 ⚡triage 直放 vs QC✓ LLM 驗過
     { ico: '🛰️', name: '已 OCR' },     // content_list 已生、待 audit（stage 1）
     { ico: '🔍', name: '已稽核' },     // extract_rules 已生、待 parse（stage 2）
     { ico: '🧩', name: '已解析' },     // book.json 已生、catalog/sol 待辦（stage 3/4 非 deploy）
@@ -557,7 +563,7 @@
     el.dataset.stage = (b.stage || '').trim()  // applyWalkers 據此判外部 OCR worker（stage 0.3/0.5）
     const cv = el.querySelector('.cv')
     setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
-    setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b); setGateBadge(cv, b)
+    setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b); setGateBadge(cv, b); setQcBadge(cv, b)
     el.classList.toggle('rejected', !b.deployed && /^[RX]/.test((b.stage || '').trim()))
   }
   // 已上站書的數學殘餘角標：讓「數學 sweep 在微調哪些上架書」直接顯示在書牆上（不必開抽屜）。
@@ -591,6 +597,24 @@
       if (g.textContent !== txt) g.textContent = txt
       g.title = `閘門 hold：停在「${b.gate_verb}」閘（架構師閘控；放行走 CLI devctl gates）`
     } else if (g) g.remove()
+  }
+  // qc 過關來路角標（只在「已過 QC」里程碑 stage 0.3/0.5 顯示，離開即移除，不長期佔版面）：
+  // ⚡triage=pdf_triage 高信心直放、跳過 LLM QC、直送 OCR（沒燒 LLM）；QC✓=LLM 視覺驗過。
+  // 修「已過 QC」語意坑——過去兩條路都只顯里程碑、看不出有沒有真跑 LLM QC（born-digital 好書幾乎都直放）。
+  function setQcBadge(cvEl, b) {
+    const code = (b.stage || '').trim().split(/\s+/)[0]
+    let q = cvEl.querySelector('.qc-badge')
+    if ((code === '0.3' || code === '0.5') && b.qcv) {
+      const skip = b.qcv === 'skip'
+      const txt = skip ? '⚡triage' : 'QC✓'
+      if (!q) { q = document.createElement('span'); q.className = 'qc-badge'; cvEl.appendChild(q) }
+      const cls = 'qc-badge ' + (skip ? 'skip' : 'llm')
+      if (q.className !== cls) q.className = cls
+      if (q.textContent !== txt) q.textContent = txt
+      q.title = skip
+        ? 'pdf_triage 判 born-digital／高品質、高信心 → 跳過 LLM QC、直送 OCR（沒燒 LLM）'
+        : 'LLM 視覺 QC 驗過'
+    } else if (q) q.remove()
   }
   // 已上站但仍有強制待辦（catalog_audit/sol_extract）→ 角標 🔧，標示「服務中、品檢精修中」
   function setRefine(cvEl, b) {

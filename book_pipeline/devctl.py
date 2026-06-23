@@ -426,6 +426,16 @@ def books_status(write_timeline: bool = False) -> dict:
                       if t and t != '—' and not t.endswith('(可選)')), None)
         r['gated'] = pg.next_gate_status(s, nverb, gates)  # True=下一閘被閘控擋住（中性停，非拒絕/停滯）
         r['gate_verb'] = nverb if r['gated'] else None     # 被擋在哪個 verb（UI 顯示「⏸ 停在 X 閘」）
+        # qc 過關來路（觀測，修「已過 QC」語意坑）：'llm'=LLM 視覺 QC 驗過（state.qc 有 verdict）；
+        # 'skip'=pdf_triage 高信心（born-digital/好品質）直放、跳過 LLM QC、直送 OCR（state.qc 空但已過 QC 關）；
+        # None=尚未過 QC（0.2 待qc 或更前）。過去兩條路都只顯里程碑「已過 QC」→ 看不出有沒有真的燒 LLM。
+        _qc_v = ((state.get(s) or {}).get('qc') or {}).get('verdict')
+        if _qc_v in ('accept', 'reject'):
+            r['qcv'] = 'llm'
+        else:
+            _code = (r.get('stage') or '').split(' ', 1)[0]
+            r['qcv'] = 'skip' if (deployed or _code in ('0.3', '0.5')
+                                  or _code[:1] in ('1', '2', '3', '4')) else None
         # 時間軸 + agent session 摘要逐出 status.json 核（佔 books[] ~82%、僅抽屜用）→ per-book
         # dev/detail/<slug>.json，抽屜 on-demand 撿。觀測式時間軸 = deployed-aware label（已部署→
         # 'deployed'，否則 stage）的 append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠
