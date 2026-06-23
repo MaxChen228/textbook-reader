@@ -42,8 +42,10 @@ KNOWN_STAGES = frozenset({
 _DEFAULTS = frozenset({'allow', 'hold'})
 _ACTIONS = frozenset({'allow', 'hold'})
 
-# fail-safe 哨兵：缺檔/壞檔/結構違規皆視為此（全 hold）。每次回 dict 副本，呼叫端可安全 mutate。
-_FAIL_SAFE = {'default': 'hold', 'rules': []}
+def _fail_safe() -> dict:
+    """fail-safe 結果（全 hold）：每次回**全新字面量**（含新 rules list）→ 呼叫端 mutate 不污染他人。
+    缺檔/壞檔/結構違規皆回此。命脈級保命路徑，絕不共享可變物件（避免污染最高保命路徑）。"""
+    return {'default': 'hold', 'rules': []}
 
 
 def _normalize(raw) -> dict | None:
@@ -83,12 +85,11 @@ def load_gates() -> dict:
     try:
         with open(GATES_PATH) as f:
             raw = json.load(f)
-    except FileNotFoundError:
-        return dict(_FAIL_SAFE)
     except Exception:
-        return dict(_FAIL_SAFE)
+        # 缺檔（FileNotFoundError）/壞 json/讀取錯 → 一律 fail-safe hold。
+        return _fail_safe()
     norm = _normalize(raw)
-    return norm if norm is not None else dict(_FAIL_SAFE)
+    return norm if norm is not None else _fail_safe()
 
 
 def _matches(rule: dict, slug: str | None, stage: str) -> bool:
@@ -146,9 +147,14 @@ def _locked():
 def _atomic_write(data: dict) -> None:
     os.makedirs(CONTROL_DIR, exist_ok=True)
     tmp = f'{GATES_PATH}.tmp{os.getpid()}'
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, GATES_PATH)
+    try:
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, GATES_PATH)
+    except Exception:
+        with contextlib.suppress(OSError):
+            os.remove(tmp)  # 寫/replace 失敗 → 清殘留 tmp，不留垃圾
+        raise
 
 
 def set_gates(default: str, rules: list[dict]) -> dict:

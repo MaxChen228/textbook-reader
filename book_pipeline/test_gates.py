@@ -74,9 +74,37 @@ def test_fail_safe_bad_structure():
         # rule 缺欄/型別錯 → hold
         _write_raw({'default': 'allow', 'rules': [{'slug': '*', 'action': 'allow'}]})
         assert pg.gate_allows('x', 'audit') is False
+        # rules 非 list → hold
+        _write_raw({'default': 'allow', 'rules': 'foo'})
+        assert pg.gate_allows('x', 'audit') is False
+        # 整份 top-level 非 dict → hold
+        _write_raw('[1, 2, 3]')
+        assert pg.gate_allows('x', 'audit') is False
+        # rule 非 dict → hold
+        _write_raw({'default': 'allow', 'rules': [123]})
+        assert pg.gate_allows('x', 'audit') is False
+        # slug 非 str / 空 slug → hold
+        _write_raw({'default': 'allow', 'rules': [{'slug': 5, 'stage': 'audit', 'action': 'allow'}]})
+        assert pg.gate_allows('x', 'audit') is False
+        _write_raw({'default': 'allow', 'rules': [{'slug': '', 'stage': 'audit', 'action': 'allow'}]})
+        assert pg.gate_allows('x', 'audit') is False
     finally:
         restore()
-    print('✓ gates：缺鍵/值非法/未知 stage/壞 rule → 整份 fail-safe hold（嚴格、可見）')
+    print('✓ gates：缺鍵/值非法/未知 stage/壞 rule/rules非list/非dict/slug型別 → 整份 fail-safe hold')
+
+
+def test_fail_safe_returns_fresh_literal():
+    """fail-safe 回傳必為全新字面量：mutate 一次的 rules 不污染下次 fail-safe（命脈級保命路徑）。"""
+    restore = _redirect(tempfile.mkdtemp())
+    try:
+        g1 = pg.load_gates()  # 缺檔 → fail-safe
+        g1['rules'].append({'slug': '*', 'stage': 'audit', 'action': 'allow'})  # 惡意/意外 mutate
+        g2 = pg.load_gates()
+        assert g2 == {'default': 'hold', 'rules': []}, 'fail-safe 不被前次 mutate 污染'
+        assert g1 is not g2 and g1['rules'] is not g2['rules']
+    finally:
+        restore()
+    print('✓ gates：fail-safe 回全新字面量（mutate 不污染命脈保命路徑）')
 
 
 def test_first_match_wins():
@@ -224,14 +252,27 @@ def test_mutators_validation_and_atomic():
         pg.add_rule('b', 'parse', 'allow')
         g = pg.rm_rule(0)
         assert g['rules'] == [{'slug': 'b', 'stage': 'parse', 'action': 'allow'}]
+        # 空 slug → ValueError
+        try:
+            pg.add_rule('', 'audit', 'hold')
+            assert False, '空 slug 應 ValueError'
+        except ValueError:
+            pass
+        # index insert（插隊前面 → first-match 優先）
+        pg.clear_rules()
+        pg.add_rule('z', 'deploy', 'hold')
+        g = pg.add_rule('z', 'deploy', 'allow', index=0)
+        assert g['rules'][0] == {'slug': 'z', 'stage': 'deploy', 'action': 'allow'}, 'index=0 插最前'
+        assert pg.gate_allows('z', 'deploy') is True, '插前的 allow first-match 勝'
     finally:
         restore()
-    print('✓ gates：mutator 驗證（未知 stage/action/越界）+ 原子落盤 + pause/resume subsume')
+    print('✓ gates：mutator 驗證（未知 stage/action/越界/空 slug）+ index insert + 原子落盤 + pause/resume subsume')
 
 
 if __name__ == '__main__':
     test_fail_safe_missing_broken()
     test_fail_safe_bad_structure()
+    test_fail_safe_returns_fresh_literal()
     test_first_match_wins()
     test_corpus_lane_none_matches_only_star()
     test_gates_active_is_default_hold_only()
