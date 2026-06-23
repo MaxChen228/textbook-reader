@@ -15,9 +15,11 @@ uv run python -m book_pipeline.pdf_contactsheet <slug> --pages 6
 #    （pymupdf/pillow 已在 pyproject 依賴，勿加 --with：那會每次強制 ephemeral env 冷解析、render 變慢）
 ```
 
-> ⚠ **渲染已硬封頂（~90s）**。若此命令**非零退出且 stderr 含 `CONTACTSHEET_UNRENDERABLE`**，代表此 PDF
-> 損壞/超大掃描，渲染器無法在有界時間內出圖——**直接 `reject`（reason 引用該訊息）**，**不要**自己改寫
-> inline `fitz`/`sips`/單頁渲染去跟它搏鬥（那正是過去燒滿 daemon 60min 上限、產不出 verdict 的根因）。
+> ⚠ **渲染已硬封頂（~90s）+ 部分容錯**。逐頁漸進渲染：個別頁病態（卡 fitz C 層）只會少那一頁，**其餘頁照常
+> 拼出 sheet**（stderr 會印 `⚠ contactsheet 部分渲染：N/6 頁`）——這屬正常，**依可見頁判斷 pass/reject、不要因少
+> 一兩頁就判不完整**。只有命令**非零退出且 stderr 含 `CONTACTSHEET_UNRENDERABLE`**（=連一頁都出不來、整本不可
+> 渲染）才代表 PDF 損壞/超大掃描——**此時才 `reject`（reason 引用該訊息）**，**不要**自己改寫 inline
+> `fitz`/`sips`/單頁渲染去跟它搏鬥（那正是過去燒滿 daemon 60min 上限、產不出 verdict 的根因）。
 
 2. **Read 那張 PNG**（一次 vision 呼叫），判斷：
    - **書對嗎**：書名/作者/版次符合預期（版次 SoT = `book_pipeline/booklists/*.json` 該 slug，含 `edition_pref`；勿用已退役的 `crawl_manifest.json`）。

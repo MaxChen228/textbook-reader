@@ -16,7 +16,9 @@ import json
 import math
 import multiprocessing as mp
 import os
+import queue as _queue
 import sys
+import time
 
 import fitz
 from PIL import Image, ImageDraw
@@ -64,41 +66,34 @@ def _pick_pages(n: int, k: int) -> list[int]:
     return [min(n - 1, int((lo + (hi - lo) * i / (k - 1)) * n)) for i in range(k)]
 
 
-def _render(path: str, out: str, k: int, zoom: float) -> str:
-    """純渲染工作（在子進程跑，受 RENDER_TIMEOUT 硬封頂）。不持 cpu_slot——由外層 contactsheet 持。"""
-    doc = fitz.open(path)
-    n = doc.page_count
-    idxs = _pick_pages(n, k)
+def _render_one(doc, i: int, zoom: float) -> Image.Image:
+    """單頁 → CELL_W 寬的 PIL 影像。width-bounded zoom：渲染解析度綁「略大於 CELL_W」、與頁面實體尺寸
+    脫鉤——掃描書 mediabox/嵌圖巨大時，固定 zoom 會全解析度解碼再 downscale 丟掉（>30s 像卡死，正是
+    qc agent 燒 10–30 工具調用跟渲染器搏鬥的根因）。封頂後 ≤幾秒。"""
+    page = doc[i]
+    pw = page.rect.width or CELL_W
+    eff_zoom = min(zoom, (CELL_W * 1.1) / pw)
+    pix = page.get_pixmap(matrix=fitz.Matrix(eff_zoom, eff_zoom))
+    img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+    scale = CELL_W / img.width
+    return img.resize((CELL_W, int(img.height * scale)))
 
-    cells = []
-    for i in idxs:
-        page = doc[i]
-        # width-bounded zoom：最終只需 CELL_W 寬，渲染解析度就綁在「略大於 CELL_W」即可，
-        # 與頁面實體尺寸脫鉤。掃描書 mediabox/嵌圖巨大時，固定 zoom 會全解析度解碼再 downscale
-        # 丟掉（>30s 像卡死，正是 qc agent 燒掉 10–30 工具調用跟渲染器搏鬥的根因）。封頂後 ≤幾秒。
-        pw = page.rect.width or CELL_W
-        eff_zoom = min(zoom, (CELL_W * 1.1) / pw)
-        pix = page.get_pixmap(matrix=fitz.Matrix(eff_zoom, eff_zoom))
-        img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
-        scale = CELL_W / img.width
-        img = img.resize((CELL_W, int(img.height * scale)))
-        cells.append((i + 1, img))
-    doc.close()
 
+def _assemble(cells: list[tuple[int, Image.Image]], out: str) -> str:
+    """把 (頁碼, 影像) 拼成 contact sheet、原子寫出。cells 可為部分頁（逾時殘存）——只要 ≥1 頁就出圖。"""
+    cells = sorted(cells, key=lambda c: c[0])
     cell_h = max(im.height for _, im in cells)
     rows = math.ceil(len(cells) / COLS)
     W = COLS * CELL_W + (COLS + 1) * PAD
     H = rows * (cell_h + LABEL_H) + (rows + 1) * PAD
     sheet = Image.new('RGB', (W, H), 'white')
     draw = ImageDraw.Draw(sheet)
-
     for idx, (pno, im) in enumerate(cells):
         r, c = divmod(idx, COLS)
         x = PAD + c * (CELL_W + PAD)
         y = PAD + r * (cell_h + LABEL_H + PAD)
         draw.text((x, y), f'p.{pno}', fill='black')
         sheet.paste(im, (x, y + LABEL_H))
-
     os.makedirs(os.path.dirname(out), exist_ok=True)
     # 原子寫：先寫 .tmp 再 rename。渲染慢/中途被 SIGKILL（daemon kick -k）時，絕不留半寫入壞檔
     # ——qc agent 曾親撞「contactsheet PNG 是半寫入壞檔」、再燒一輪工具調用繞它。
@@ -108,10 +103,17 @@ def _render(path: str, out: str, k: int, zoom: float) -> str:
     return out
 
 
-def _render_proc(path: str, out: str, k: int, zoom: float, q) -> None:
-    """子進程入口：成功把 out 路徑放進 queue；任何例外把訊息放進 queue（不靠 exitcode 傳因）。"""
+def _render_proc(path: str, k: int, zoom: float, q) -> None:
+    """子進程入口：**逐頁漸進式**把渲好的 cell 餵回 queue（('cell',頁碼,raw_rgb,w,h)），全部完成放 ('done',)，
+    例外放 ('err',msg)。漸進式是關鍵——父進程逾時硬 kill 時仍能用「已抵達的頁」拼部分 sheet，
+    不再因「6 頁中某 1 頁病態卡 fitz C 層」連累整張被殺、誤殺好書（#30 false-kill 向量）。"""
     try:
-        q.put(('ok', _render(path, out, k, zoom)))
+        doc = fitz.open(path)
+        for i in _pick_pages(doc.page_count, k):
+            img = _render_one(doc, i, zoom)
+            q.put(('cell', i + 1, img.tobytes(), img.width, img.height))
+        doc.close()
+        q.put(('done',))
     except BaseException as e:  # noqa: BLE001 — 連 C 層 abort 外的都回報，不讓子進程靜默死
         q.put(('err', f'{type(e).__name__}: {e}'))
 
@@ -119,31 +121,47 @@ def _render_proc(path: str, out: str, k: int, zoom: float, q) -> None:
 @cpu_bound('contactsheet')
 def contactsheet(path: str, out: str, k: int = 6, zoom: float = 1.3,
                  timeout_s: int = RENDER_TIMEOUT) -> str:
-    """渲染 contact sheet，硬封頂 timeout_s 秒。逾時 → 子進程硬 kill + TimeoutError（含明確訊息），
-    讓 qc agent 秒級得知「此 PDF 無法在有界時間內渲染」→ 直接判 reject，不再卡滿 60min daemon 上限。
+    """渲染 contact sheet，硬封頂 timeout_s 秒。**漸進式 + 部分容錯**：子進程逐頁餵回，父進程在 deadline
+    前盡量收；逾時則用「已收到的頁」拼出部分 sheet 照常回傳——只有「連一頁都出不來」（PDF 損壞/首頁就
+    卡 C 層）才 raise TimeoutError → qc agent 才判 reject。如此好書中夾 1 頁病態圖不會被誤殺（#30）。
 
-    為何子進程：fitz C 層在損壞/超大 PDF 上會卡死且不理會 Python signal（SIGALRM 無效）；唯有
-    把工作丟可硬 kill 的子進程才能保證 wall-clock 有界。spawn context（daemon 內有 thread，fork 不安全）。"""
+    為何子進程：fitz C 層在損壞/超大 PDF 上會卡死且不理會 Python signal（SIGALRM 無效）；唯有把工作丟
+    可硬 kill 的子進程才能保證 wall-clock 有界。spawn context（daemon 內有 thread，fork 不安全）。"""
     ctx = mp.get_context('spawn')
     q = ctx.Queue()
-    p = ctx.Process(target=_render_proc, args=(path, out, k, zoom, q))
+    p = ctx.Process(target=_render_proc, args=(path, k, zoom, q))
     p.start()
-    p.join(timeout_s)
+    cells: list[tuple[int, Image.Image]] = []
+    err: str | None = None
+    start = time.monotonic()
+    while True:
+        left = timeout_s - (time.monotonic() - start)
+        if left <= 0:
+            break  # deadline 到：用已收到的頁（可能 0）
+        try:
+            msg = q.get(timeout=left)
+        except _queue.Empty:
+            break
+        if msg[0] == 'cell':
+            _, pno, raw, w, h = msg
+            cells.append((pno, Image.frombytes('RGB', (w, h), raw)))
+        elif msg[0] == 'done':
+            break
+        elif msg[0] == 'err':
+            err = msg[1]; break
     if p.is_alive():
         p.terminate(); p.join(5)
         if p.is_alive():
             p.kill(); p.join()
-        raise TimeoutError(
-            f'contactsheet 渲染逾 {timeout_s}s 仍未完成（PDF 可能損壞/超大掃描/嵌入巨圖），已硬中止')
-    try:
-        # 用 get(timeout) 而非 get_nowait：子進程正常結束時 Queue feeder thread 可能尚未把小 payload
-        # flush 進 pipe，get_nowait 會誤撲空。小 payload + 5s 餘裕足以覆蓋該競態。
-        kind, payload = q.get(timeout=5)
-    except Exception:
-        raise RuntimeError(f'contactsheet 子進程異常結束（exitcode={p.exitcode}）、無結果回傳')
-    if kind == 'err':
-        raise RuntimeError(f'contactsheet 渲染失敗：{payload}')
-    return payload
+    if cells:  # 至少一頁 → 出圖（部分亦可，讓 agent 依可見內容判斷，不因 tooling 逾時誤殺好書）
+        if len(cells) < k:
+            print(f'⚠ contactsheet 部分渲染：{len(cells)}/{k} 頁（其餘逾 {timeout_s}s/異常，已用殘存頁出圖）',
+                  file=sys.stderr, flush=True)
+        return _assemble(cells, out)
+    if err:  # 連一頁都沒出且子進程報錯
+        raise RuntimeError(f'contactsheet 渲染失敗：{err}')
+    raise TimeoutError(
+        f'contactsheet 渲染逾 {timeout_s}s 連一頁都出不來（PDF 可能損壞/首頁卡 C 層/嵌入巨圖），已硬中止')
 
 
 def main() -> int:
