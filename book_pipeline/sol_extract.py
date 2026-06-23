@@ -48,6 +48,7 @@ DEFAULTS = {
     'chapter_roman': False,        # chapter_re group(1) 為羅馬數字 → 轉 int（kardar 'Problems for Chapter I/II/III'）
     'num_template': None,          # key 模板：problem_re group(1) 套入，如 'P{}'→sol 'Problem 1' 對齊主書 num 'P1'（computer_networking）
     'derive_chapter_from_num': False,  # 無章標解答書：由 problem num 首段（split on . / -）推章（chapterless：blundell/sethna）
+    'normalize_num_sep': False,    # key 比對前把 '.'/'-' 統一成 '-'（解答書混用 '2-6'/'2.16'、主書 '2-16'：papoulis）
 }
 
 
@@ -80,6 +81,13 @@ def _num_prefix_int(raw: str) -> int | None:
         return int(head)
     except ValueError:
         return None
+
+
+def _canon_num_sep(s: str) -> str:
+    """題號分隔符正規化：'.'/'-' 統一成 '-'。供 normalize_num_sep 旗標——解答書混用
+    '2-6' 與 '2.16'、主書統一 '2-16' 時，sol key 與主書 num 兩側皆 canon 後字面相等才配得上
+    （papoulis：dot 形佔 ~24%、canon 後 63/64 命中主書真實題號，否則靜默漏掉）。"""
+    return re.sub(r'[.\-]', '-', s)
 
 
 def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
@@ -117,6 +125,7 @@ def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
         'chapter_roman': bool(r['chapter_roman']),
         'num_template': tmpl,
         'derive_chapter_from_num': bool(r['derive_chapter_from_num']),
+        'normalize_num_sep': bool(r['normalize_num_sep']),
     }, None
 
 
@@ -149,9 +158,11 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
     roman = rules['chapter_roman']
     tmpl = rules['num_template']
     derive = rules['derive_chapter_from_num']
+    canon = rules['normalize_num_sep']
 
     def mk_key(raw: str) -> str:
-        return tmpl.format(raw) if tmpl else raw
+        k = tmpl.format(raw) if tmpl else raw
+        return _canon_num_sep(k) if canon else k
 
     out: dict[int, dict[str, list]] = {}
 
@@ -229,9 +240,14 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
 
 
 def merge_into_main(main_slug: str, sol_data: dict[int, dict[str, list]],
-                    dry_run: bool = False) -> dict:
-    """讀主書 parsed/chNN.json，把 problem.solution 注入（dry_run 不寫檔）。回傳統計。"""
+                    dry_run: bool = False, normalize_num_sep: bool = False) -> dict:
+    """讀主書 parsed/chNN.json，把 problem.solution 注入（dry_run 不寫檔）。回傳統計。
+
+    normalize_num_sep=True 時主書 num 與 sol key 兩側皆經 _canon_num_sep 才比對（sol key 已在
+    extract 階段 canon，此處 canon 主書 num；lookup 與 used 集合用同一 canonical key，統計才正確）。
+    """
     main_dir = DATA_DIR / main_slug / 'parsed'
+    key_of = _canon_num_sep if normalize_num_sep else (lambda n: n)
     stats = {'chapters': 0, 'problems_total': 0, 'problems_with_sol': 0,
              'sol_unmatched': 0, 'per_ch': []}
     for ch_num, sol_problems in sorted(sol_data.items()):
@@ -246,13 +262,14 @@ def merge_into_main(main_slug: str, sol_data: dict[int, dict[str, list]],
         ch_hit = 0
         for p in data['problems']:
             stats['problems_total'] += 1
-            sol_body = sol_problems.get(p['num'])
+            mkey = key_of(p['num'])
+            sol_body = sol_problems.get(mkey)
             if sol_body is not None:
                 if not dry_run:
                     p['solution'] = sol_body
                 stats['problems_with_sol'] += 1
                 ch_hit += 1
-                used.add(p['num'])
+                used.add(mkey)
             elif 'solution' in p and not dry_run:
                 # 主書這題不在 sol（可能 sol 重 ingest 後少了）→ 移除舊 solution
                 del p['solution']
@@ -308,7 +325,8 @@ def main(main_slug: str, sol_slug: str, dry_run: bool = False) -> int:
     print(f'  抽出 {len(sol_data)} 章、{total_sol} 題解答')
 
     print(f'[sol] {"DRY-RUN " if dry_run else ""}merge → {main_slug}/parsed/chNN.json')
-    stats = merge_into_main(main_slug, sol_data, dry_run=dry_run)
+    stats = merge_into_main(main_slug, sol_data, dry_run=dry_run,
+                            normalize_num_sep=rules['normalize_num_sep'])
     pct = 100 * stats['problems_with_sol'] // max(stats['problems_total'], 1)
     print(f'  章={stats["chapters"]}'
           f' 題總={stats["problems_total"]}'
