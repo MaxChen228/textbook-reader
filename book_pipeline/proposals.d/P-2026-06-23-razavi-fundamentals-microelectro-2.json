@@ -1,0 +1,21 @@
+{
+  "id": "P-2026-06-23-razavi-fundamentals-microelectro-2",
+  "domain": "sol",
+  "type": "edition-mismatch",
+  "status": "parked",
+  "title": "razavi_fundamentals_microelectronics 解答本無法 merge：sol 實為 1st edition，主書為 2nd",
+  "slug": "razavi_fundamentals_microelectronics_sol",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-23T15:27:31+00:00",
+  "updated": "2026-06-23T15:31:17+00:00",
+  "evidence": "sol unified 首行明示 'Solutions Manual to Accompany Fundamentals of Microelectronics, 1st Edition'，同頁 ISBN 978-0-471-47846-1；主書 parsed/book.json edition=2nd。保守 dry-run 僅 97/828=11.71%，ch13/ch15/ch16/ch17 全 0。",
+  "proposal": "換到 2nd edition 解答本後重 ingest 並重跑 audit-sol；同時修正 editions/razavi_fundamentals_microelectronics_sol.json 目前誤標 sol_alignment.aligned=true 的書目判定。",
+  "risk": "",
+  "disposition": "live 真相確認 edition-mismatch：sol unified 首行明示 1st edition，主書 2nd；保守 dry-run 11.71%(97/828)、ch13/15/16/17 全 0。母書 razavi(2nd) owned 照常上架，sol 等 2nd 版外部 re-source；同步修正 editions sol_alignment.aligned 誤標。",
+  "unblock": {
+    "kind": "re-edition",
+    "target": "2nd-edition Razavi Fundamentals of Microelectronics 解答本（現下載檔 z-lib id5261253 實為 1st/ISBN 978-0-471-47846-1；需 /restock 重 source 2nd 版 → 移除 yaml _pending → daemon 重 ingest/sol_extract）"
+  }
+}

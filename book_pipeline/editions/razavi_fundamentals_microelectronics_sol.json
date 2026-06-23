@@ -1,13 +1,13 @@
 {
  "version": {
-  "label": "2nd",
-  "matches_pref": true
+  "label": "1st",
+  "matches_pref": false
  },
  "sol_alignment": {
-  "aligned": true,
+  "aligned": false,
   "parent_version": "2nd",
-  "sol_version": "2nd",
-  "basis": "web 多源確認 2nd(2013) 解答本/1115pp；z-lib id5261253 無 edition 欄但規模一致，母書 2nd 對齊"
+  "sol_version": "1st",
+  "basis": "sol_extract live PDF 證實下載檔 z-lib id5261253 為 1st edition（unified 首行 'Solutions Manual to Accompany Fundamentals of Microelectronics, 1st Edition'、ISBN 978-0-471-47846-1），與主書 2nd 不對齊；保守 dry-run 僅 11.71%(97/828)、ch13/15/16/17 全 0。原 restock 誤判（line 14 evidence 自身已記 1st 卻標 aligned=true）。待 /restock 重 source 2nd 版解答本，見 proposal P-2026-06-23-razavi-fundamentals-microelectro-2（parked re-edition）"
  },
  "confidence": "high",
  "evidence": [
