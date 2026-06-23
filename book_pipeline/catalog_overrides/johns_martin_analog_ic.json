@@ -1,0 +1,86 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "johns-7.4-tech-node-glue-fig7.6",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "problem:7.4:body[0]",
+      "field": "md",
+      "old": "Fig. 7.60.35",
+      "new": "Fig. 7.6 0.35",
+      "reason": "OCR 黏連：'Fig. 7.6' 與技術節點 '0.35-μm' 黏成 'Fig. 7.60.35'，被 ref 正規器吃成 7.60.35。catalog 有 fig-7.6；插空格斷開（CAT_NUM_PATTERN 不容忍空格）→ ref 還原為 7.6"
+    },
+    {
+      "id": "johns-7.9-tech-node-glue-tbl1.5",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "problem:7.9:body[0]",
+      "field": "md",
+      "old": "Table 1.5.0.35",
+      "new": "Table 1.5 0.35",
+      "reason": "OCR 黏連：'Table 1.5' 與 '0.35-μm' 黏成 'Table 1.5.0.35'。catalog 有 tbl-1.5；插空格斷開 → ref 還原為 1.5"
+    },
+    {
+      "id": "johns-1.13-tech-node-glue-tbl1.5",
+      "action": "replace_text",
+      "chunk": "ch01",
+      "selector": "problem:1.13:body[0]",
+      "field": "md",
+      "old": "Table 1.5.0.18",
+      "new": "Table 1.5 0.18",
+      "reason": "OCR 黏連：'Table 1.5' 與 '0.18-μm' 黏成 'Table 1.5.0.18'。catalog 有 tbl-1.5；插空格斷開 → ref 還原為 1.5"
+    },
+    {
+      "id": "johns-fig-P7.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.2:body[0]",
+      "position": "after",
+      "page": 352,
+      "clip": [0.74, 0.685, 0.96, 0.90],
+      "zoom": 3.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P7.2",
+        "kind": "line",
+        "caption": "Fig. P7.2"
+      },
+      "reason": "MinerU 漏抓此 vector 電路圖（get_images=0, get_drawings=316）。raw PDF book page 328（物理頁 352）右欄底確有 Q2-R-Q1 串接電路 + 'Fig. P7.2' 圖說。整本 PDF 由 chunks 重組（相鄰共享邊界頁，物理頁==book page）"
+    },
+    {
+      "id": "johns-fig-P7.17-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.17:body[0]",
+      "position": "after",
+      "page": 353,
+      "clip": [0.46, 0.54, 0.94, 0.82],
+      "zoom": 3.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P7.17",
+        "kind": "line",
+        "caption": "Fig. P7.17"
+      },
+      "reason": "MinerU 漏抓此 vector 電路圖（get_drawings=475）。raw PDF book page 329（物理頁 353）右側確有 1:1:1 電流鏡 + Q1/Q2/Q3 + R1/R2 + Vout 電路 + 'Fig. P7.17' 圖說"
+    },
+    {
+      "id": "johns-fig-P8.13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.13:body[0]",
+      "position": "after",
+      "page": 386,
+      "clip": [0.60, 0.445, 0.96, 0.628],
+      "zoom": 3.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P8.13",
+        "kind": "line",
+        "caption": "Fig. P8.13"
+      },
+      "reason": "MinerU 漏抓此 vector 電路圖（get_drawings=489；同頁上方另有已抓的 P8.12）。raw PDF book page 362（物理頁 386）確有 Vbias-Q1-Re-Rout 電路 + 'Fig. P8.13' 圖說"
+    }
+  ]
+}
