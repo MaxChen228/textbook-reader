@@ -16,7 +16,7 @@
 
     .dev-panel {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 16px; margin-bottom: 14px;
+      border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 14px;
     }
     .dev-panel > h2 {
       font-family: var(--mono); font-size: 11px; font-weight: 700;
@@ -46,7 +46,7 @@
     .line::-webkit-scrollbar-thumb:hover { background: var(--accent); }
     .station {
       flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column;
-      background: var(--bg); border: 1px solid var(--border-l); border-radius: 10px; overflow: hidden;
+      background: var(--bg); border: 1px solid var(--border-l); border-radius: var(--radius); overflow: hidden;
     }
     .st-head {
       display: flex; align-items: center; gap: 7px; padding: 9px 11px;
@@ -59,7 +59,7 @@
     .st-active .st-name { color: var(--accent); }
     /* 書單欄（漏斗源頭）：待收計數，非書卡 */
     .st-booklist { border-color: var(--border); }
-    .st-booklist .st-cnt { background: var(--accent); color: var(--bg); font-weight: 700; }
+    .st-booklist .st-cnt { background: var(--accent); color: var(--on-accent); font-weight: 700; }
     .bl-body { font-family: var(--mono); font-size: 11px; line-height: 1.55; color: var(--sub); }
     .bl-body .blf-row { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; }
     .bl-body .blf-row b { color: var(--text); font-size: 13px; }
@@ -71,13 +71,13 @@
 
     /* 書卡 */
     .book { position: relative; cursor: pointer; border-radius: 7px; transition: transform .55s cubic-bezier(.22,1,.36,1); }
-    .book .cv { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 6px; overflow: hidden;
-      border: 1px solid var(--border); background: var(--border-l); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+    .book .cv { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-sm); overflow: hidden;
+      border: 1px solid var(--border); background: var(--border-l); box-shadow: var(--shadow-seg); }
     .book .cv img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .book .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif, Georgia, serif); font-size: 20px; font-weight: 700; color: #fff; text-align: center; padding: 4px; }
-    .crawl-ph { background: linear-gradient(135deg, #3a7bd5, #2b5876); font-size: 30px !important; }
-    .math-ph { background: linear-gradient(135deg, #7b5cd6, #4a2b87) !important; }  /* 數學 sweep agent */
+      font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--on-solid); text-align: center; padding: 4px; }
+    .crawl-ph { background: linear-gradient(135deg, var(--info), color-mix(in srgb, var(--info) 55%, #000)); font-size: 30px !important; }
+    .math-ph { background: linear-gradient(135deg, var(--sweep), color-mix(in srgb, var(--sweep) 55%, #000)) !important; }  /* 數學 sweep agent */
     /* 待下載書卡（非 agent，靜態待命）：暗藍灰、無 spinner。有 z-lib url → 可點開該書頁 */
     .crawl-card.queued { cursor: default; }
     .crawl-card.queued.linked { cursor: pointer; }
@@ -85,52 +85,52 @@
     a.crawl-card.queued.linked:hover .cv { opacity: 1; }
     a.crawl-card.queued.linked:hover { transform: translateY(-2px); transition: transform .12s; }
     .crawl-card.queued .cv { opacity: .8; }
-    .queue-ph { background: linear-gradient(135deg, #5a6b8c, #38434f) !important; font-size: 26px !important; }
+    .queue-ph { background: linear-gradient(135deg, var(--ink-light), color-mix(in srgb, var(--ink-light) 55%, #000)) !important; font-size: 26px !important; }
     /* live 下載卡（買書員正在抓）：下載中＝藍光暈脈動；落地＝綠框 ✓；失敗＝紅框淡化。角標即時狀態 */
     .crawl-card.dl { cursor: default; }
-    .crawl-card.dl .cv { border-color: rgba(58,123,213,.55); }
+    .crawl-card.dl .cv { border-color: color-mix(in srgb, var(--info) 55%, transparent); }
     .crawl-card.dl.downloading .cv { animation: dlpulse 1.15s ease-in-out infinite; }
-    .crawl-card.dl.done .cv { border-color: rgba(46,160,67,.75); }
-    .crawl-card.dl.failed .cv { border-color: rgba(218,54,51,.75); opacity: .6; }
-    @keyframes dlpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(58,123,213,0); }
-                         50% { box-shadow: 0 0 0 5px rgba(58,123,213,.36); } }
+    .crawl-card.dl.done .cv { border-color: color-mix(in srgb, var(--status-known) 75%, transparent); }
+    .crawl-card.dl.failed .cv { border-color: color-mix(in srgb, var(--status-danger) 75%, transparent); opacity: .6; }
+    @keyframes dlpulse { 0%,100% { box-shadow: 0 0 0 0 transparent; }
+                         50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--info) 36%, transparent); } }
     .dl-badge { position: absolute; top: 3px; right: 3px; font-size: 11px; line-height: 1; font-weight: 700;
-      padding: 3px 5px; border-radius: 6px; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.35); }
-    .dl-badge.downloading { background: #3a7bd5; animation: pulse 1.15s ease-in-out infinite; }
-    .dl-badge.done { background: #2ea043; }
-    .dl-badge.failed { background: #da3633; }
+      padding: 3px 5px; border-radius: var(--radius-sm); color: var(--on-solid); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+    .dl-badge.downloading { background: var(--info); animation: pulse 1.15s ease-in-out infinite; }
+    .dl-badge.done { background: var(--status-known); }
+    .dl-badge.failed { background: var(--status-danger); }
     .dl-mb { position: absolute; bottom: 3px; left: 3px; font-size: 10px; font-weight: 700; color: #fff;
       background: rgba(0,0,0,.55); padding: 1px 4px; border-radius: 5px; }
     .dl-mb:empty { display: none; }
     /* 數學 sweep batch 處理中脈動（用於抽屜內聚合進度卡 .ms-card.live）。主題中性紫 */
-    @keyframes mrpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(123,92,214,0); }
-                         50% { box-shadow: 0 0 0 5px rgba(123,92,214,.32); } }
+    @keyframes mrpulse { 0%,100% { box-shadow: 0 0 0 0 transparent; }
+                         50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--sweep) 32%, transparent); } }
     .cn-reason { padding: 2px 4px 6px; }  /* 爬書站水位原因行 */
     /* 數學 sweep 抽屜：殘餘最多書清單（可點進該書）*/
     .math-row { cursor: pointer; }
     .math-row:hover .lbl { color: var(--accent); }
     .ev.math-row .n { width: auto; white-space: nowrap; padding-left: 8px; }  /* 「已微調」/殘餘數不折成兩行 */
     /* 數學 sweep 抽屜：聚合進度卡（8 worker 並發 · 只顯「工作中 + 多快」） */
-    .ms-card { border: 1px solid rgba(123,92,214,.28); border-radius: 12px; padding: 14px 16px;
-      background: rgba(123,92,214,.06); }
-    .ms-card.live { border-color: rgba(123,92,214,.6); animation: mrpulse 1.6s ease-in-out infinite; }
+    .ms-card { border: 1px solid color-mix(in srgb, var(--sweep) 28%, transparent); border-radius: var(--radius); padding: 14px 16px;
+      background: color-mix(in srgb, var(--sweep) 6%, transparent); }
+    .ms-card.live { border-color: color-mix(in srgb, var(--sweep) 60%, transparent); animation: mrpulse 1.6s ease-in-out infinite; }
     .ms-top { display: flex; align-items: center; gap: 7px; font-size: 13px; }
     .ms-state { font-weight: 700; }
     .ms-rate { margin: 8px 0 2px; display: flex; align-items: baseline; gap: 6px; }
     .ms-rate b { font-size: 30px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
     .ms-rate span { font-size: 12px; opacity: .6; }
-    .ms-bar { height: 8px; border-radius: 5px; background: rgba(255,255,255,.08); overflow: hidden; margin: 8px 0 5px; }
-    .ms-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #7b5cd6, #9b7bf0); transition: width .5s ease; }
+    .ms-bar { height: 8px; border-radius: var(--radius-sm); background: var(--border-l); overflow: hidden; margin: 8px 0 5px; }
+    .ms-fill { height: 100%; border-radius: var(--radius-sm); background: linear-gradient(90deg, var(--sweep), color-mix(in srgb, var(--sweep) 60%, #fff)); transition: width .5s ease; }
     .ms-prog { font-size: 11px; opacity: .65; font-variant-numeric: tabular-nums; }
     .ms-cnts { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 12px; font-weight: 600; }
-    .ms-cnts .ms-ac { color: #6fcf97; } .ms-cnts .ms-un { color: #c9a36b; }
-    .ms-cnts .ms-rt { color: #6fa8dc; } .ms-cnts .ms-hd { color: #d76b6b; }
+    .ms-cnts .ms-ac { color: var(--status-known); } .ms-cnts .ms-un { color: var(--status-unknown); }
+    .ms-cnts .ms-rt { color: var(--info); } .ms-cnts .ms-hd { color: var(--status-danger); }
     /* 已上站但 catalog/sol 仍待精修的書：done 卡右上角 🔧（上站完成≠全部完美） */
     .refine-badge { position: absolute; top: -5px; right: -5px; z-index: 3; font-size: 11px;
       line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
     /* qc/triage 拒、無源 = 已淘汰：紅角標 + 卡片淡化，視覺區別於「待處理」 */
     .reject-badge { position: absolute; left: 4px; top: 4px; z-index: 3; font-family: var(--mono);
-      font-size: 9px; background: rgba(176,42,42,.88); color: #fff; padding: 1px 5px; border-radius: 4px; }
+      font-size: 9px; background: color-mix(in srgb, var(--status-danger) 88%, transparent); color: var(--on-solid); padding: 1px 5px; border-radius: var(--radius-sm); }
     .book.rejected .cv { opacity: .5; filter: grayscale(.5); }
     @keyframes stageflash { 0% { box-shadow: 0 0 0 3px var(--accent), 0 0 16px 3px var(--accent); }
                             100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
@@ -145,15 +145,15 @@
 
     /* 題/解小章 */
     .ps-badge { position: absolute; left: 4px; bottom: 4px; font-family: var(--mono); font-size: 9px;
-      background: rgba(0,0,0,.62); color: #f1ead9; padding: 0 5px; border-radius: 4px; backdrop-filter: blur(2px); }
+      background: rgba(0,0,0,.62); color: #fff; padding: 0 5px; border-radius: var(--radius-sm); backdrop-filter: blur(2px); }  /* bg 半透黑＝疊封面圖 backing 例外（不隨主題） */
     /* 已上站書的數學殘餘角標（紫，bottom-right）：把「數學 sweep 在修哪些上架書」直接畫在書牆上，
        不必開抽屜。資訊性、不擋服務；sweep 修好後 occ 歸 0、角標自動消失。 */
     .math-badge { position: absolute; right: 4px; bottom: 4px; z-index: 3; font-family: var(--mono); font-size: 9px;
-      background: rgba(123,92,214,.92); color: #fff; padding: 0 5px; border-radius: 4px; letter-spacing: -.3px; }
+      background: color-mix(in srgb, var(--sweep) 92%, transparent); color: var(--on-solid); padding: 0 5px; border-radius: var(--radius-sm); letter-spacing: -.3px; }
 
     /* 匠人（worker）疊在書卡 — 綁 slug */
     .walker { position: absolute; top: -7px; right: -7px; z-index: 3; display: flex; align-items: center; gap: 4px;
-      background: var(--accent); color: #1c1a14; border-radius: 12px; padding: 2px 7px 2px 4px;
+      background: var(--accent); color: var(--on-accent); border-radius: 12px; padding: 2px 7px 2px 4px;
       font-family: var(--mono); font-size: 9.5px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.35);
       white-space: nowrap; animation: bob 2.2s ease-in-out infinite; }
     @keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-3px) rotate(2deg)} }
@@ -163,10 +163,10 @@
       opacity: 0; animation: ring 1.8s ease-out infinite; pointer-events: none; }
     @keyframes ring { 0%{opacity:.7; transform:scale(.97)} 100%{opacity:0; transform:scale(1.06)} }
     /* 外部 OCR worker（MinerU 雲端，無本地算力）：冷色藍 + 等待感 breathe，一眼別於本地匠人金+bob */
-    .walker.external { background: #3d7fd6; color: #fff; animation: breathe 2.4s ease-in-out infinite; }
+    .walker.external { background: var(--info); color: var(--on-solid); animation: breathe 2.4s ease-in-out infinite; }
     @keyframes breathe { 0%,100%{opacity:.78} 50%{opacity:1} }
-    .book.external-work .cv { border-color: #3d7fd6; box-shadow: 0 0 0 2px #3d7fd6, 0 2px 10px rgba(0,0,0,.3); }
-    .book.external-work .work-ring { border-color: #3d7fd6; }
+    .book.external-work .cv { border-color: var(--info); box-shadow: 0 0 0 2px var(--info), 0 2px 10px rgba(0,0,0,.3); }
+    .book.external-work .work-ring { border-color: var(--info); }
 
     /* ── 工人抽屜（完整 tool-use 可滾） ── */
     .drawer-mask { position: fixed; inset: 0; background: rgba(0,0,0,.5); opacity: 0; pointer-events: none;
@@ -180,7 +180,7 @@
     .dr-head { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
     .dr-cv { width: 52px; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); background: var(--border-l); }
     .dr-cv img { width: 100%; height: 100%; object-fit: cover; }
-    .dr-cv .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: var(--serif,serif); }
+    .dr-cv .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--on-solid); font-weight: 700; font-family: var(--font-display); }
     .dr-tt { flex: 1; min-width: 0; }
     .dr-tt b { font-size: 15px; color: var(--text); display: block; line-height: 1.3; }
     .dr-tt .sub { font-family: var(--mono); font-size: 11px; color: var(--sub); margin-top: 3px; }
@@ -192,8 +192,8 @@
     .dr-status { flex-basis: 100%; font-size: 12.5px; font-weight: 600; padding: 5px 9px; border-radius: 6px;
       border: 1px solid var(--border); }
     .dr-st-work { color: var(--accent); border-color: var(--accent); }
-    .dr-st-done { color: var(--status-ok, #4caf50); }
-    .dr-st-wait { color: var(--status-warn, #d9a441); }
+    .dr-st-done { color: var(--status-known); }
+    .dr-st-wait { color: var(--status-unknown); }
     .dr-st-ready { color: var(--sub); }
     /* 抽屜身體單一捲動容器：dr-evs/dr-tl/dr-hist 一起捲，杜絕舊版只有 dr-evs 內捲、dr-tl/dr-hist
        溢出被裁切且整體無法捲（→ 即時 LLM 串流被擠到看不到也捲不到）。flex column 供 order 重排。 */
@@ -226,9 +226,9 @@
     .sess .sm { color: var(--sub); }
     .sess .st { color: var(--sub); margin-left: auto; }
     .sess .sd { color: var(--ink-light); }
-    .sess .sk-ok { color: var(--status-ok, #4caf50); font-weight: 700; }
-    .sess .sk-bad { color: var(--status-danger, #d9534f); font-weight: 700; }
-    .sess .sk-recon { color: var(--status-warn, #d9a441); font-weight: 700; }
+    .sess .sk-ok { color: var(--status-known); font-weight: 700; }
+    .sess .sk-bad { color: var(--status-danger); font-weight: 700; }
+    .sess .sk-recon { color: var(--status-unknown); font-weight: 700; }
     .sess .corp { color: var(--accent); }
     #corpus .sess { font-size: 12px; }
 
@@ -244,18 +244,18 @@
     /* 閘門狀態徽章（唯讀；操作走 CLI devctl gates/pause/resume）：暫停＝醒目琥珀（停產一眼可見）、
        部分閘控＝黃、運轉＝低調。/dev 已純觀測，無任何寫回 UI。 */
     #gate-badge { cursor: default; }
-    #gate-badge.gate-paused { color: #1c1a14; background: var(--status-warn, #d9a441); border-color: var(--status-warn, #d9a441); font-weight: 700; padding: 2px 8px; border-radius: 6px; }
-    #gate-badge.gate-partial { color: var(--status-warn, #d9a441); font-weight: 600; }
+    #gate-badge.gate-paused { color: var(--on-accent); background: var(--status-unknown); border-color: var(--status-unknown); font-weight: 700; padding: 2px 8px; border-radius: var(--radius-sm); }
+    #gate-badge.gate-partial { color: var(--status-unknown); font-weight: 600; }
     #gate-badge.gate-running { color: var(--sub); }
     /* 書卡閘門角標（架構師把該書停在某閘）：中性琥珀、左上，與紅色拒絕角標視覺區別＝純觀測非淘汰 */
     .gate-badge { position: absolute; left: 4px; top: 4px; z-index: 3; font-family: var(--mono);
-      font-size: 9px; background: rgba(190,150,40,.94); color: #1a1407; padding: 1px 5px; border-radius: 4px; }
+      font-size: 9px; background: color-mix(in srgb, var(--status-unknown) 94%, transparent); color: var(--on-accent); padding: 1px 5px; border-radius: var(--radius-sm); }
     .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0; font-family: var(--mono);
       font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
     .dev-err .src { color: var(--sub); margin-right: 8px; }
     .dev-ok-msg { color: var(--status-known); font-family: var(--mono); font-size: 13px; }
     .dev-log { font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--ink-light); background: var(--bg);
-      border: 1px solid var(--border-l); border-radius: 6px; padding: 10px 12px; max-height: 300px; overflow: auto;
+      border: 1px solid var(--border-l); border-radius: var(--radius-sm); padding: 10px 12px; max-height: 300px; overflow: auto;
       white-space: pre-wrap; word-break: break-word; }
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
@@ -264,10 +264,10 @@
     @keyframes sp { to { transform: rotate(360deg); } }
 
     /* ── 數學 sweep 徽章（topbar 入口；占用 occ + 狀態色，reactor 移走後保留「現在多少壞式」一瞥）── */
-    #btn-math.mt-due { border-color: var(--status-bad, #d9534f); }
-    #btn-math.mt-due #mt-count { color: var(--status-bad, #d9534f); font-weight: 700; }
-    #btn-math.mt-stuck { border-color: var(--status-warn, #d9a441); }
-    #btn-math.mt-stuck #mt-count { color: var(--status-warn, #d9a441); font-weight: 700; }
+    #btn-math.mt-due { border-color: var(--status-danger); }
+    #btn-math.mt-due #mt-count { color: var(--status-danger); font-weight: 700; }
+    #btn-math.mt-stuck { border-color: var(--status-unknown); }
+    #btn-math.mt-stuck #mt-count { color: var(--status-unknown); font-weight: 700; }
     #btn-math.mt-run { border-color: var(--accent); }
     #btn-math.mt-run #mt-count { color: var(--accent); font-weight: 700; }
     /* mt-clean（全淨真 0）：預設樣式、不搶眼 */
@@ -286,12 +286,12 @@
     .pp-dom { font-size: 10px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border);
       color: var(--sub); text-transform: uppercase; letter-spacing: .03em; flex-shrink: 0; }
     .pp-dom[data-d="engine"] { color: var(--accent); border-color: var(--accent); }
-    .pp-dom[data-d="math"] { color: var(--status-warn, #d9a441); border-color: var(--status-warn, #d9a441); }
-    .pp-dom[data-d="crawl"] { color: var(--status-known, #27ae60); border-color: var(--status-known, #27ae60); }
-    .pp-dom[data-d="catalog"] { color: #8e7cc3; border-color: #8e7cc3; }
+    .pp-dom[data-d="math"] { color: var(--status-unknown); border-color: var(--status-unknown); }
+    .pp-dom[data-d="crawl"] { color: var(--status-known); border-color: var(--status-known); }
+    .pp-dom[data-d="catalog"] { color: var(--sweep); border-color: var(--sweep); }
     .pp-type { color: var(--ink-light); }
     .pp-st { font-size: 10px; flex-shrink: 0; }
-    .pp-st.proposed { color: var(--status-warn, #d9a441); font-weight: 700; }
+    .pp-st.proposed { color: var(--status-unknown); font-weight: 700; }
     .pp-filter { display: flex; gap: 6px; flex-basis: 100%; margin-top: 4px; }
     .pp-filter button { font-family: var(--mono); font-size: 11px; padding: 2px 9px; cursor: pointer;
       background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--sub); }
@@ -896,7 +896,7 @@
     evs.innerHTML = items.length ? items.map(p => {
       const bk = p.bucket || (p.status === 'proposed' ? 'actionable' : 'terminal')
       const st = bk === 'terminal' ? `<span class="pp-st">${escapeHtml(p.status)}</span>`
-               : bk === 'parked' ? `<span class="pp-st" style="color:var(--status-ready,#5aa)">⏸ 等外部</span>`
+               : bk === 'parked' ? `<span class="pp-st" style="color:var(--info)">⏸ 等外部</span>`
                                  : `<span class="pp-st proposed">待分類</span>`
       const stale = p.stale ? `<span class="pp-src" title="需重驗">⏳</span>` : ''
       return `<div class="pp-row ${bk === 'terminal' ? 'resolved' : ''}" data-pid="${encodeURIComponent(p.id)}">`

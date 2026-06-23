@@ -76,6 +76,13 @@ body[data-skin="cohere"] {
   --shadow-pop: 0 1px 2px rgba(0,0,0,.05), 0 12px 32px rgba(0,0,0,.10);
   --shadow-seg: 0 1px 2px rgba(0,0,0,.05);
   --focus-ring: 0 0 0 3px color-mix(in srgb, #4c6ee6 35%, transparent);  /* Cohere focus blue */
+  /* 功能性領域 token（pipeline 狀態語意，/dev 儀表板消費；隨 skin 換 → /dev 亦可換皮）。
+     local worker = coral(--accent)；cloud/OCR/下載 = action blue；math sweep = violet。
+     疊字：on-accent = 淺色實心填色(coral/amber)上的深字；on-solid = 飽和填色(藍/紫/綠/紅)上的白字。 */
+  --info: #1863dc;        /* Cohere action blue：外部雲端 OCR / 下載中 / 等外部 */
+  --sweep: #6a4cd6;       /* math sweep violet（Cohere 無紫，調低彩度與整體相容） */
+  --on-accent: #17171c;   /* 淺色實心填色(coral/amber)上的深字（兩 mode 皆深） */
+  --on-solid: #ffffff;    /* 飽和填色(info/sweep/status-*)上的字（恆白） */
 }
 body[data-theme="dark"],
 body[data-skin="cohere"][data-theme="dark"] {
@@ -95,4 +102,8 @@ body[data-skin="cohere"][data-theme="dark"] {
   --shadow-pop: 0 12px 32px rgba(0,0,0,.6);
   --shadow-seg: 0 1px 3px rgba(0,0,0,.5);
   --focus-ring: 0 0 0 3px color-mix(in srgb, #4c6ee6 45%, transparent);
+  --info: #5a8df0;        /* dark：提亮 action blue */
+  --sweep: #9b7bf0;       /* dark：提亮 violet */
+  --on-accent: #17171c;   /* 淺色填色(coral/amber)恆深字 */
+  --on-solid: #ffffff;
 }
