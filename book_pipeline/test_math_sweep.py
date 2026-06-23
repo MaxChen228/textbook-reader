@@ -414,7 +414,8 @@ def test_call_llm_raises_on_empty_stream(monkeypatch):
         math_sweep._call_llm([{"i": 0, "err": "e", "tex": "x"}], model="m", base="http://x", auth="a")
         assert False, "空串流必須拋錯（否則被誤判成 missing → 假 fixpoint）"
     except RuntimeError as e:
-        assert "空 LLM 回應" in str(e)
+        # 訊息報「觀察」（HTTP200 零 content delta）非「推論」（池斷線）：urlopen 成功故非真·連線斷（G5）
+        assert "零 content delta" in str(e)
 
 
 def test_call_llm_raises_on_error_frame(monkeypatch):

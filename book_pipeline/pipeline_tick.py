@@ -679,6 +679,61 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     return -2
 
 
+def probe_provider(provider: str, spec: DispatchSpec, timeout: int = 90) -> dict:
+    """主動探一個 provider 能否跑：用**真實派工命令**（_build_llm_cmd + _llm_env，同沙箱/profile）發一個
+    trivial 任務，回 {provider, up, latency_s, detail}。鏡像 _run_one 的成功/失敗分類（rc==0 且有 agent
+    訊息=up；limit/outage/零事件/timeout=down），但**不碰 worker_registry/leases/scope_guard/hist**
+    （純探針、零副作用、不寫任何狀態），亦**忽略 _exhausted_providers**（探真實當下，非 tick-local 標記）。
+    供 devctl probe 按需診斷 provider 健康，取代「派真工看它 defer」的事後被動驗證（G1）。
+    **有成本**（一次 trivial LLM 調用，~10–40s），勿放 status 熱路徑。"""
+    import time
+    prompt = '回覆一個字：pong。不要使用任何工具。'
+    cmd = _build_llm_cmd(provider, prompt, spec)
+    t0 = time.monotonic()
+    try:
+        p = subprocess.run(cmd, cwd=ROOT, env=_llm_env(provider), text=True,
+                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return {'provider': provider, 'up': False,
+                'latency_s': round(time.monotonic() - t0, 1), 'detail': f'timeout >{timeout}s'}
+    el = round(time.monotonic() - t0, 1)
+    n_events, got_msg, err_parts = 0, False, []  # type: ignore[var-annotated]
+    for line in (p.stdout or '').splitlines():
+        s = line.strip()
+        if not s:
+            continue
+        try:
+            ev = json.loads(s)
+        except Exception:
+            err_parts.append(s)            # 非 JSON = CLI/stderr 原生錯誤（額度/認證/crash）
+            continue
+        n_events += 1
+        if et := _event_error_text(provider, ev):
+            err_parts.append(et)
+        if _is_codex(provider):
+            if ev.get('type') == 'item.completed' and (ev.get('item') or {}).get('type') == 'agent_message':
+                got_msg = True
+        elif ev.get('type') == 'assistant':
+            got_msg = True
+    err = '\n'.join(err_parts).lower()
+    if p.returncode == 0 and got_msg:
+        return {'provider': provider, 'up': True, 'latency_s': el, 'detail': 'ok'}
+    if _hit_limit(provider, err):
+        return {'provider': provider, 'up': False, 'latency_s': el, 'detail': '撞額度（limit）'}
+    if n_events == 0 or _hit_outage(err):
+        tail = err.replace('\n', ' ')[-120:] or '零事件（provider 從未接上）'
+        return {'provider': provider, 'up': False, 'latency_s': el, 'detail': f'服務中斷（outage）：{tail}'}
+    return {'provider': provider, 'up': False, 'latency_s': el,
+            'detail': f'rc={p.returncode}（有事件卻失敗）'}
+
+
+def probe_chain(timeout: int = 90) -> list[dict]:
+    """對**生效 chain**（resolve_dispatch 解出，含 runtime override / env）每個 provider 依序探針。
+    回 [{provider, up, latency_s, detail}]，順序＝failover 順序 → 一眼看出「派工會先打誰、它活著嗎」。"""
+    spec = _resolve_dispatch('_probe')
+    return [probe_provider(pv, spec, timeout) for pv in (spec.chain or ())]
+
+
 def _zlib_accounts_remaining() -> list[dict] | None:
     """各帳號今日剩餘額度 [{account, remaining}]；查不到回 None。**權威 live 查**（繞快取）。
     查到即回寫 dev/zlib_quota.json → gate 與 /dev 顯示即時反映恢復（免等 300s TTL）；確認 0 時

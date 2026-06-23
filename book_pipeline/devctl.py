@@ -721,6 +721,29 @@ def _cmd_chain(args) -> int:
     return 0
 
 
+def _cmd_probe(args) -> int:
+    """主動探生效 chain 上每個 provider 能否跑（鏡像真實派工命令，一次 trivial 調用/provider，**有成本**）。
+    取代「派真工看它 defer」的事後被動驗證（G1）。順序＝failover 順序：一眼看出「派工先打誰、它活著嗎」。"""
+    from book_pipeline import pipeline_tick as pt
+    timeout = getattr(args, 'timeout', None) or 90
+    cs = chain_status()
+    as_json = getattr(args, 'json', False)
+    if not as_json:
+        print(f'🔬 探針生效 chain {" → ".join(cs["effective"])}'
+              f'（每 provider 一次 trivial 調用，timeout {timeout}s，請稍候）…')
+    results = pt.probe_chain(timeout=timeout)
+    if as_json:
+        print(json.dumps({'chain': cs['effective'], 'probes': results}, ensure_ascii=False, indent=2))
+        return 0
+    for i, r in enumerate(results):
+        print(f'  [{i}] {r["provider"]:<11} {"🟢 up  " if r["up"] else "🔴 down"}  '
+              f'{r["latency_s"]:>5}s  · {r["detail"]}')
+    up = [r['provider'] for r in results if r['up']]
+    print(f'✅ 派工首選活著的 provider：{up[0]}' if up
+          else '❌ 全 chain 不可用 → 派工會 defer；查 ccNexus 容器 / codex auth / claude 額度')
+    return 0
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -846,8 +869,18 @@ def write_proposals() -> str:
 def _print_human(snap: dict) -> None:
     d = snap['daemon']
     print(f"⏱  generated {snap['generated_at_local']} (local)")
-    if snap.get('paused'):
-        print("⏸  系統暫停中（pause flag）→ 不派任何新工；devctl resume 啟動")
+    # 頂部閘門狀態：讀完整 gates 三態，不再用舊二元 paused（default=hold + allow 例外是「只推這幾本」
+    # 的正常運轉態，非暫停；舊邏輯誤報「不派任何新工」，與實況矛盾，誤導級觀測 bug，G3）。
+    g = snap.get('gates') or {}
+    rules = g.get('rules') or []
+    if g.get('default') == 'hold' and not rules:
+        print("⏸  系統全停（gates default=hold、無例外）→ 不派任何新工；devctl resume 啟動")
+    elif g.get('default') == 'hold':
+        n_allow = sum(1 for r in rules if r.get('action') == 'allow')
+        print(f"🔶 部分閘控（default=hold + {n_allow} 條 allow 例外）→ 只推被放行者；devctl gates 看細則")
+    elif rules:
+        n_hold = sum(1 for r in rules if r.get('action') == 'hold')
+        print(f"🔶 部分閘控（default=allow + {n_hold} 條 hold 例外）→ 除被擋者外全推；devctl gates 看細則")
     light = '🟢' if d['installed'] and d['last_exit_code'] in (0, None) else '🔴'
     print(f"{light} daemon installed={d['installed']} last_exit={d['last_exit_code']} "
           f"running_now={d['tick_running']}")
@@ -940,6 +973,9 @@ def main(argv: list[str] | None = None) -> int:
                      help='省略=show；set <p1> [p2 …]（逗號亦可）；reset=清 override 回碼層常態')
     p_c.add_argument('providers', nargs='*', help=f'set 的 provider 序（合法：{list(pc.KNOWN_PROVIDERS)}）')
     p_c.add_argument('--json', action='store_true')
+    p_pb = sub.add_parser('probe', help='主動探 provider 健康：對生效 chain 每個發 trivial 調用（有成本，按需用）')
+    p_pb.add_argument('--timeout', type=int, default=90, help='每 provider 探針上限秒（預設 90）')
+    p_pb.add_argument('--json', action='store_true')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -1109,6 +1145,8 @@ def main(argv: list[str] | None = None) -> int:
         return _cmd_gates(args)
     if args.cmd == 'chain':
         return _cmd_chain(args)
+    if args.cmd == 'probe':
+        return _cmd_probe(args)
 
     return 1
 

@@ -28,7 +28,7 @@ import tempfile
 import threading
 import time
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Callable, Iterator
@@ -428,7 +428,9 @@ def _call_llm(payload: list[dict[str, Any]], *, model: str, base: str, auth: str
                     if on_delta is not None:
                         on_delta("".join(out))
     if not out:                                        # 零 content delta = infra 異常（非模型真回空）→ 拋錯
-        raise RuntimeError(f"空 LLM 回應（疑似 ccnexus 池斷線/infra）：{err_body or '無 error body'}")
+        # 報「觀察」非「推論」：urlopen 成功（HTTP 200，故非真·連線斷）但零 content delta → 多半是
+        # 輪詢撞壞後端 / endpoint 回空殼。是否「斷線」由架構師從聚合分布判（見 cmd_batch 收尾 infra_reasons）。
+        raise RuntimeError(f"HTTP200 零 content delta（{err_body or '無 error body'}）")
     return "".join(out)
 
 
@@ -592,6 +594,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
     cnt = {"done": 0, "accepted": 0, "unrec": 0, "locate": 0}
     seq = 0  # 全域批次序號（history 定址）
     infra_batches = 0  # state=="error" 的批數（連線/逾時/空回應）→ 收尾判 infra-only 假 fixpoint
+    infra_reasons: Counter = Counter()  # infra 失敗的真實原因分布 → 聚合 error 報「觀察」，取代硬編「疑似池斷線」（G5）
 
     # 派工：每池每輪把 batch 攤平給 ThreadPoolExecutor(workers) 並發跑純 worker；as_completed 在**主
     # 線程序列**合併結果（accepted/gid_new/unrec/history/live 全在此寫 → 零競態、原子）。
@@ -615,6 +618,7 @@ def cmd_batch(a: argparse.Namespace) -> int:
                     res = fut.result()
                     if res.get("state") == "error":
                         infra_batches += 1
+                        infra_reasons[_clip(res.get("error") or "未知", 80)] += 1
                     for slug, gid, new, ovs in res["accepts"]:
                         accepted[slug].extend(ovs)
                         gid_new[gid] = new
@@ -677,7 +681,11 @@ def cmd_batch(a: argparse.Namespace) -> int:
            "workers": workers, "elapsed_s": round(el, 1), "rate_per_min": round(total / el * 60.0, 1),
            "remaining_by_book": remaining}
     if infra_only:
-        out["error"] = f"ccnexus 全批空回應/錯誤（疑似池斷線）：{infra_batches}/{seq} 批 infra fail，零落地"
+        # 報原因分布（觀察）而非硬編「疑似池斷線」（推論）：HTTP200-零delta=輪詢/後端空殼、
+        # URLError=真斷線、SSE/JSON error=後端報錯。架構師據此分布判根因，不再被「斷線」誤導（G5）。
+        top = "；".join(f"{n}×{r}" for r, n in infra_reasons.most_common(3))
+        out["error"] = f"ccnexus {infra_batches}/{seq} 批 infra fail，零落地 → {top or '無原因'}"
+        out["infra_reasons"] = dict(infra_reasons)
     print(json.dumps(out, ensure_ascii=False, indent=2))
     return 0
 
