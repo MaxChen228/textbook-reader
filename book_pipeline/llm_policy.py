@@ -120,9 +120,13 @@ def math_sweep_model() -> str:
     """math sweep（ccNexus HTTP batch）的模型。執行路徑與 CLI 派工不同（HTTP vs codex exec），
     但**模型收斂於本配置層**：BOOK_PIPELINE_MATH_MODEL 專屬覆寫優先（math 特需時可單獨換），
     否則沿用 'math_sweep' stage 的 codex_model（預設 gpt-5.4，與 CLI 派工同源、同受全域
-    BOOK_PIPELINE_CODEX_MODEL 覆寫 → 「model 只有一處可改」）。ccNexus 後端模型同 codex 家族白名單。
-    chain/effort/timeout 由 HTTP 端各自適配，不在此消費。"""
-    m = os.environ.get('BOOK_PIPELINE_MATH_MODEL')
-    if m:
-        return m
-    return resolve_dispatch('math_sweep').codex_model or DEFAULT_DISPATCH.codex_model
+    BOOK_PIPELINE_CODEX_MODEL 覆寫 → 「model 只有一處可改」）。chain/effort/timeout 由 HTTP 端各自適配。
+
+    **必須顯式釘 `@codex-pool` endpoint**（2026-06-23 ccNexus 輪詢故障調查定論）：ccNexus 閘道
+    不做 model→endpoint 匹配，裸 model 名會落入「默認輪詢」在所有 enabled endpoint 間亂打 → 撞到
+    已下架/額度爆的 kimi、或 codex-pool 輪詢路徑的 transform bug → 整批空回應、零落地（誤判成「池斷線」）。
+    顯式 `@codex-pool/<model>` 前綴繞過輪詢、直釘 codex 池（實證顯式路徑穩定成功）。已帶 @ 前綴者尊重原值
+    （運維可用 BOOK_PIPELINE_MATH_MODEL=@其他endpoint/model 改釘別池）。"""
+    base = (os.environ.get('BOOK_PIPELINE_MATH_MODEL')
+            or resolve_dispatch('math_sweep').codex_model or DEFAULT_DISPATCH.codex_model)
+    return base if base.startswith('@') else f'@codex-pool/{base}'
