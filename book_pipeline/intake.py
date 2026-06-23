@@ -29,6 +29,8 @@ from book_pipeline import pipeline_gates as pg
 from book_pipeline import pipeline_queue as q
 from book_pipeline import pipeline_tick as pt
 
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 def pick(n: int, exclude: set[str] | None = None) -> list[dict]:
     """合格池確定性前 n 本（排除已失敗達上限者 + 呼叫端指定）。"""
@@ -111,9 +113,20 @@ def run(n: int, dry: bool) -> int:
         return 0
     pid = set_gates_for(success)  # 只 gate 真正落地的書（取代「先 gate 再 fetch」→ 死連結不會掛空 allow 規則）
     print(f"\n入庫 {len(success)}/{n}：{success}", flush=True)
+    # 主書 vs _sol 解答書分類（_sol 不自己上架、merge 進母書）；母書未 deployed 的 _sol 會 block（無處 merge）。
+    mains = [s for s in success if not s.endswith('_sol')]
+    sols = [s for s in success if s.endswith('_sol')]
+    if sols:
+        print(f"  主書 {len(mains)}（→上架）｜解答書 {len(sols)}（→merge 進母書，不自己上架）：", flush=True)
+        for s in sols:
+            parent = s[:-4]
+            ok = os.path.exists(os.path.join(_ROOT, 'data', parent, 'book.json'))
+            print(f"    {'✓' if ok else '⚠'} {s} → 母書 {parent}"
+                  + ('' if ok else '（母書未上架 → sol 將 block、需先處理母書）'), flush=True)
     print(f"gates：default=hold + 這 {len(success)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
           flush=True)
-    print("daemon 自動推進到上架（uv run python -m book_pipeline.devctl status / /dev 觀測）", flush=True)
+    print("daemon 自動推進；觀測：uv run python -m book_pipeline.watch " + ' '.join(success)
+          + "（_sol 經母書解析）/ devctl status / /dev", flush=True)
     return 0
 
 

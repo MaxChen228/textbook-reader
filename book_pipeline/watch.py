@@ -30,22 +30,52 @@ SNAPSHOT = os.path.join(ROOT, 'dev', 'status.json')
 STALE_SEC = 180  # status.json 逾此未刷新 → daemon 可能死了，吐警示不靜默
 
 
-def _label(r: dict) -> str:
-    """單書當前里程碑標籤：上站完成 → 'deployed'，否則用 stage 字串（'0.5 OCR處理中'…）。"""
+def _slug_label(rows: dict, slug: str) -> str:
+    """slug 的當前里程碑標籤。主書：上站→'deployed'、否則 stage 字串。
+    `_sol` 解答書對 snapshot **隱形**（綁母書）→ 解析到母書、回 **sol 進度**（母書驅動 merge，
+    記憶 sol-bound-to-parent）：母書 stage『4 sol已merge』=成功、todo 帶 sol_ingest/sol_extract=處理中、
+    母書卡關(R/X)或還在前置(0/1/2)=sol 動不了、無 sol todo 且未 merge=_pending/_escalated 已開 proposal。"""
+    if slug.endswith('_sol'):
+        return _sol_label(rows.get(slug[:-4]))
+    r = rows.get(slug)
+    if not r:
+        return '?'
     return 'deployed' if r.get('deployed') else (r.get('stage') or '?')
 
 
+def _sol_label(pr: dict | None) -> str:
+    if not pr:
+        return 'sol·母書缺'                       # 母書不在 snapshot（未 owned/ingest）→ 待裁決
+    stage = pr.get('stage') or '?'
+    if stage[:1] in ('R', 'X'):
+        return f'sol·母書{stage}'                 # 母書卡關 → 無法 merge（終態·待裁決）
+    if 'sol已merge' in stage:
+        return 'sol·已merge'                      # 終態·成功
+    todo = pr.get('todo') or ''
+    if 'sol_ingest' in todo:
+        return 'sol·ingest中'
+    if 'sol_extract' in todo:
+        return 'sol·extract中'
+    if stage[:1] in ('0', '1', '2'):
+        return f'sol·母書{stage}'                 # 母書仍前置（OCR/audit/parse）→ sol 尚不能動
+    return 'sol·待裁決'                           # 無 sol todo 且未 merge = _pending/_escalated（終態·proposal）
+
+
 def _is_terminal(label: str) -> bool:
-    """終態 = 已上架 ∨ 卡關(X 無源/未ingest) ∨ 需人工裁決(R 書況/audit-blocked/qc拒)。"""
-    return label == 'deployed' or label[:1] in ('R', 'X')
+    """終態 = 主書已上架 ∨ sol 已merge ∨ 卡關(X) ∨ 需人工裁決(R / sol·母書R·X / sol·待裁決 / sol·母書缺)。"""
+    if label in ('deployed', 'sol·已merge', 'sol·待裁決', 'sol·母書缺'):
+        return True
+    if label[:1] in ('R', 'X'):
+        return True
+    return label.startswith('sol·母書R') or label.startswith('sol·母書X')
 
 
 def _icon(label: str) -> str:
-    if label == 'deployed':
+    if label in ('deployed', 'sol·已merge'):
         return '✅'
-    if label[:1] == 'X':
+    if label[:1] == 'X' or label.startswith('sol·母書X'):
         return '⚠'
-    if label[:1] == 'R':
+    if label[:1] == 'R' or label.startswith('sol·母書R') or label in ('sol·待裁決', 'sol·母書缺'):
         return '🔴'
     return '▸'
 
@@ -74,14 +104,13 @@ def run(slugs: list[str], kinds: str, interval: float, persistent: bool) -> int:
     if slugs:
         watch = list(slugs)
     else:  # 無參數：盯所有在飛（未終態）書
-        watch = [s for s, r in rows.items() if not _is_terminal(_label(r))]
-    prev = {s: _label(rows[s]) for s in watch if s in rows}
+        watch = [s for s in rows if not _is_terminal(_slug_label(rows, s))]
+    prev = {s: _slug_label(rows, s) for s in watch}  # _sol 經母書解析，不再因隱形被丟
     prev_phase = ((snap.get('code') or {}).get('phase'))
 
     _emit(f"▶ 監看 {len(watch)} 本 [kinds={kinds}]：" + '、'.join(watch))
     for s in watch:  # 開場各報一次目前位置（建立基線，之後只報變化）
-        if s in prev:
-            _emit(f"  · {s}  {prev[s]}")
+        _emit(f"  · {s}  {prev[s]}")
 
     stale_warned = False
     while True:
@@ -104,22 +133,20 @@ def run(slugs: list[str], kinds: str, interval: float, persistent: bool) -> int:
             prev_phase = phase
 
         for s in watch:
-            r = rows.get(s)
-            if not r:
-                continue
-            cur = _label(r)
+            cur = _slug_label(rows, s)
             if cur == prev.get(s):
                 continue
             prev[s] = cur
             if kinds == 'done' and not _is_terminal(cur):
                 continue  # done 模式：中間階段不吵
-            verb = (f"（{r.get('gate_verb')} 閘）" if r.get('gated') else '')
+            r = rows.get(s)  # _sol 不在 rows（gate 觀測只對主書）
+            verb = (f"（{r.get('gate_verb')} 閘）" if r and r.get('gated') else '')
             _emit(f"{_icon(cur)} {s}  → {cur}{verb}")
 
         if not persistent and all(_is_terminal(prev.get(s, '')) for s in watch):
-            up = sum(1 for s in watch if prev.get(s) == 'deployed')
-            bad = len(watch) - up
-            _emit(f"✓ 全部終態：{up} 上架 / {bad} 待裁決")
+            done = sum(1 for s in watch if prev.get(s) in ('deployed', 'sol·已merge'))
+            bad = len(watch) - done
+            _emit(f"✓ 全部終態：{done} 完成（上架/已merge） / {bad} 待裁決")
             return 0
 
 
