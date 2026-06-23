@@ -1,0 +1,13 @@
+# Nilsson & Riedel — Electric Circuits 10e solutions manual
+#
+# 章標在 header type（'CHAPTER N. Title'）→ chapter_in_header: true。
+# 解答題以 'P N.M' 前綴（如 'P 1.1'）；題號乾淨無空格化。
+# problem_re 消費 'P ' 前綴、group(1) 只抓 'N.M[a-z]?' 對齊主書 num。
+# 章標亦現於 running-header（'<sub>N–M</sub> CHAPTER N.' 或 'N–M CHAPTER N.'）。
+# 必須一併認 running-header 形式：每章首題（如 P 6.1）常落在「乾淨段首章標」之前、
+# 只在 running-header 後出現 → 不認 running-header 會把首題漏進前一章 bucket。
+# 重複章錨由引擎 accumulate 進同章 bucket，故多認無害、反而修邊界漏題。
+chapter_re: '^(?:<sub>[\d–-]+</sub>\s*)?(?:[\d–-]+\s+)?CHAPTER\s+(\d+)\.'
+problem_re: '^P\s+(\d+\.\d+[a-z]?)'
+multi_per_block: false
+chapter_in_header: true
