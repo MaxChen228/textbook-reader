@@ -1,0 +1,189 @@
+# Pozar — Microwave Engineering, 4th edition
+# metadata cite: book_pipeline/metadata_schema.yaml
+slug: pozar_microwave
+title: Microwave Engineering
+author: David M. Pozar
+edition: 4th
+subject: Electromagnetism
+publisher: Wiley
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+# section/subsection/Example heading 落在 lvl=2（章標題在 lvl=1，不受此欄影響）
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx）──
+body_start_page: 20
+appendices_start_page: 731
+bibliography_start_page: null
+index_start_page: 744
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──（14 章，章標題為 lvl=1 text block）
+chapters:
+  - num: 1
+    title: Electromagnetic Theory
+    page_start: 20
+    page_end: 66
+    chapter_title_block_idx: 79
+    problems_block_idx: 893
+    next_chapter_block_idx: 934
+  - num: 2
+    title: Transmission Line Theory
+    page_start: 67
+    page_end: 113
+    chapter_title_block_idx: 934
+    problems_block_idx: 1633
+    next_chapter_block_idx: 1707
+  - num: 3
+    title: Transmission Lines and Waveguides
+    page_start: 114
+    page_end: 183
+    chapter_title_block_idx: 1707
+    problems_block_idx: 2803
+    next_chapter_block_idx: 2849
+  - num: 4
+    title: Microwave Network Analysis
+    page_start: 184
+    page_end: 246
+    chapter_title_block_idx: 2849
+    problems_block_idx: 3760
+    next_chapter_block_idx: 3839
+  - num: 5
+    title: Impedance Matching and Tuning
+    page_start: 247
+    page_end: 290
+    chapter_title_block_idx: 3839
+    problems_block_idx: 4461
+    next_chapter_block_idx: 4494
+  - num: 6
+    title: Microwave Resonators
+    page_start: 291
+    page_end: 335
+    chapter_title_block_idx: 4494
+    problems_block_idx: 5193
+    next_chapter_block_idx: 5246
+  - num: 7
+    title: Power Dividers and Directional Couplers
+    page_start: 336
+    page_end: 398
+    chapter_title_block_idx: 5246
+    problems_block_idx: 6119
+    next_chapter_block_idx: 6172
+  - num: 8
+    title: Microwave Filters
+    page_start: 399
+    page_end: 469
+    chapter_title_block_idx: 6172
+    problems_block_idx: 7162
+    next_chapter_block_idx: 7198
+  - num: 9
+    title: Theory and Design of Ferrimagnetic Components
+    page_start: 470
+    page_end: 514
+    chapter_title_block_idx: 7198
+    problems_block_idx: 7865
+    next_chapter_block_idx: 7899
+  - num: 10
+    title: Noise and Nonlinear Distortion
+    page_start: 515
+    page_end: 542
+    chapter_title_block_idx: 7899
+    problems_block_idx: 8303
+    next_chapter_block_idx: 8338
+  - num: 11
+    title: Active RF and Microwave Devices
+    page_start: 543
+    page_end: 576
+    chapter_title_block_idx: 8338
+    problems_block_idx: 8674
+    next_chapter_block_idx: 8690
+  - num: 12
+    title: Microwave Amplifier Design
+    page_start: 577
+    page_end: 622
+    chapter_title_block_idx: 8690
+    problems_block_idx: 9358
+    next_chapter_block_idx: 9388
+  - num: 13
+    title: Oscillators and Mixers
+    page_start: 623
+    page_end: 676
+    chapter_title_block_idx: 9388
+    problems_block_idx: 10118
+    next_chapter_block_idx: 10155
+  - num: 14
+    title: Introduction to Microwave Systems
+    page_start: 677
+    page_end: 730
+    chapter_title_block_idx: 10155
+    problems_block_idx: 10781
+    next_chapter_block_idx: 10817
+
+# ── 附錄 ──（A–H，APPENDIX X 標於 lvl=2）
+appendices:
+  - id: A
+    title: Prefixes
+    page_start: 732
+    chapter_title_block_idx: 10830
+  - id: B
+    title: Vector Analysis
+    page_start: 732
+    chapter_title_block_idx: 10832
+  - id: C
+    title: Bessel Functions
+    page_start: 734
+    chapter_title_block_idx: 10884
+  - id: D
+    title: Other Mathematical Results
+    page_start: 737
+    chapter_title_block_idx: 10922
+  - id: E
+    title: Physical Constants
+    page_start: 737
+    chapter_title_block_idx: 10939
+  - id: F
+    title: Conductivities for Some Materials
+    page_start: 738
+    chapter_title_block_idx: 10951
+  - id: G
+    title: Dielectric Constants and Loss Tangents for Some Materials
+    page_start: 738
+    chapter_title_block_idx: 10953
+  - id: H
+    title: Properties of Some Microwave Ferrite Materials
+    page_start: 739
+    chapter_title_block_idx: 10957
+
+# ── heading regex ──（各恰好 2 capture group）
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──（N.M，章前綴須等於當章 num）
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題）──
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
