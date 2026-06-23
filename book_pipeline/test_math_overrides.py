@@ -162,6 +162,16 @@ def test_apply_overrides_build_catalogs_gate():
         amo.build_catalogs = orig
 
 
+def test_chunk_re_accepts_3digit():
+    """≥100 章書（如 bredon_topology_geometry 110 chunk）chunk 名為 3 位 → 不可被 CHUNK_RE 拒。
+    回歸：舊 `ch\\d{2}` 恰好 2 位 → math sweep 對 ch100+ override 套用時 `_chunk_path` 拋 invalid chunk、整批崩。"""
+    from book_pipeline.apply_catalog_overrides import _valid_chunk
+    assert _valid_chunk("ch01") and _valid_chunk("ch99")          # 2 位（parser :02d 最少）
+    assert _valid_chunk("ch100") and _valid_chunk("ch108") and _valid_chunk("ch110")  # 3 位（≥100 章）
+    assert _valid_chunk("appA") and _valid_chunk("appB1")          # 附錄
+    assert not _valid_chunk("ch1") and not _valid_chunk("ch") and not _valid_chunk("chapter01")
+
+
 def test_locator_to_target():
     assert locator_to_target("ch03:body[7]") == {"chunk": "ch03", "selector": "body[7]"}
     assert locator_to_target("ch03:problem[5].body[2]") == {"chunk": "ch03", "selector": "problem:5:body[2]"}

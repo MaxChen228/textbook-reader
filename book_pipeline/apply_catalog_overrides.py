@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 OVERRIDE_DIR = ROOT / 'book_pipeline' / 'catalog_overrides'
 SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
-CHUNK_RE = re.compile(r'^(?:ch\d{2}|app[A-Za-z0-9_]{1,16})$')
+CHUNK_RE = re.compile(r'^(?:ch\d{2,}|app[A-Za-z0-9_]{1,16})$')  # ≥100 章書 chunk 為 3 位（parser `:02d`=最少 2 位）
 
 
 def _valid_slug(slug: str) -> bool:
