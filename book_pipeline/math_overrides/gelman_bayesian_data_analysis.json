@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "gelman_bayesian_data_analysis-ch18-body-65-166651",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[65]",
+      "expect": "y _ {i j} ^ {\\text {old}} = \\left\\{ \\begin{array}{l l} y _ {i j} & \\text {if y_{ij} is observed} \\\\ \\mathrm{E} (y _ {i j} | y _ {\\text {obs}}, \\theta^ {\\text {old}}) & \\text {if y_{ij} is missing,} \\end{array} \\right.",
+      "new": "y _ {i j} ^ {\\text {old}} = \\left\\{ \\begin{array}{l l} y _ {i j} & \\text {if } y_{ij} \\text { is observed} \\\\ \\mathrm{E} (y _ {i j} | y _ {\\text {obs}}, \\theta^ {\\text {old}}) & \\text {if } y_{ij} \\text { is missing,} \\end{array} \\right."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "overrides": [
+    {
+      "id": "barber_bayesian_reasoning_ml-ch04-body-210-1a3d8c",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[210]",
+      "field": "md",
+      "all": true,
+      "old": "$x \\right. z \\left. y$",
+      "new": "$x z y$",
+      "anchor": "7100a6a7"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch09-body-298-1a3d8c",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[298]",
+      "field": "md",
+      "all": true,
+      "old": "$x \\right. z \\left. y$",
+      "new": "$x z y$",
+      "anchor": "3d26f27d"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch03-body-171-64b348",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[171]",
+      "field": "md",
+      "all": true,
+      "old": "$a \\right. c \\left. b$",
+      "new": "$a c b$",
+      "anchor": "64da61fb"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch03-body-187-04da77",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[187]",
+      "field": "md",
+      "all": true,
+      "old": "$A \\right. B \\left. C$",
+      "new": "$A B C$",
+      "anchor": "191a5dc6"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch03-body-225-eb2a9b",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[225]",
+      "field": "md",
+      "all": true,
+      "old": "$a \\right. c \\left. b .$",
+      "new": "$a c b .$",
+      "anchor": "c149b670"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch17-body-199-19486e",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[199]",
+      "expect": "\\left(c ^ {n} - \\sigma^ {n}\\right) \\mathbf {w} ^ {\\intercal} \\mathbf {x} ^ {n} \\left\\{ \\begin{array}{l l} \\geq 0 & \\text {if c^{n} = 1} \\\\ \\geq 0 & \\text {if c^{n} = 0}. \\end{array} \\right.\\tag{17.4.26}",
+      "new": "\\left(c ^ {n} - \\sigma^ {n}\\right) \\mathbf {w} ^ {\\intercal} \\mathbf {x} ^ {n} \\left\\{ \\begin{array}{l l} \\geq 0 & \\text {if } c^{n} = 1 \\\\ \\geq 0 & \\text {if } c^{n} = 0. \\end{array} \\right.\\tag{17.4.26}"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch20-problem-20-7-body-5-c9f605",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20.7:body[5]",
+      "expect": "[ \\mathbf {Z} _ {*} ] _ {i j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if Z_{ij} = 0} \\\\ \\theta_ {i j} & \\text {if Z_{ij} = 1} \\end{array} \\right.\\tag{20.9.7}",
+      "new": "[ \\mathbf {Z} _ {*} ] _ {i j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } Z_{ij} = 0 \\\\ \\theta_ {i j} & \\text {if } Z_{ij} = 1 \\end{array} \\right.\\tag{20.9.7}"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-appA-body-267-ae2731",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[267]",
+      "expect": "\\mathbf {p} _ {i} ^ {\\intercal} \\mathbf {A} \\mathbf {g} _ {k + 1} = (\\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {i + 1} - \\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {i}) / \\alpha_ {i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if 1\\leq i <   k} \\\\ \\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {k + 1} / \\alpha_ {k} & \\text {if i = k} \\end{array} \\right..\\tag{A.5.20}",
+      "new": "\\mathbf {p} _ {i} ^ {\\intercal} \\mathbf {A} \\mathbf {g} _ {k + 1} = (\\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {i + 1} - \\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {i}) / \\alpha_ {i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } 1\\leq i < k \\\\ \\mathbf {g} _ {k + 1} ^ {\\intercal} \\mathbf {g} _ {k + 1} / \\alpha_ {k} & \\text {if } i = k \\end{array} \\right..\\tag{A.5.20}"
+    },
+    {
+      "id": "barber_bayesian_reasoning_ml-ch01-body-143-0aed4a",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[143]",
+      "expect": "\\begin{array}{r l} p (A = 1, C = 0) & = \\sum_ {B} p (A = 1, B, C = 0) = \\sum_ {B} p (C = 0 | A = 1, B) p (A = 1) p (B) \\\\ & = p (A = 1) (p (C = 0 | A = 1, B = 0) p (B = 0) \\\\ & + p (C = 0 | A = 1, B = 1) p (B = 1)) \\\\ & = 0. 6 5 \\times (0. 2 \\times 0. 2 3 + 0. 7 5 \\times 0. 7 7) = 0. 4 0 5   2 7 5. \\end{array} \\tag {1}\\tag{1.2.18}",
+      "new": "\\begin{array}{r l} p (A = 1, C = 0) & = \\sum_ {B} p (A = 1, B, C = 0) = \\sum_ {B} p (C = 0 | A = 1, B) p (A = 1) p (B) \\\\ & = p (A = 1) (p (C = 0 | A = 1, B = 0) p (B = 0) \\\\ & + p (C = 0 | A = 1, B = 1) p (B = 1)) \\\\ & = 0. 6 5 \\times (0. 2 \\times 0. 2 3 + 0. 7 5 \\times 0. 7 7) = 0. 4 0 5 2 7 5. \\end{array} \\tag{1.2.18}"
+    }
+  ]
+}

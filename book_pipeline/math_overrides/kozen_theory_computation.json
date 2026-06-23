@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "kozen_theory_computation-ch29-body-0-0302e9",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$STA(*, 2^{2^n^{O(1)}}, n)$",
+      "new": "$STA(*, 2^{2^{n^{O(1)}}}, n)$",
+      "anchor": "0d622e5d"
+    },
+    {
+      "id": "kozen_theory_computation-ch29-body-3-d343dd",
+      "action": "fix_inline_math",
+      "chunk": "ch29",
+      "selector": "body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$0 \\leq x < 2^{2^2^n}$",
+      "new": "$0 \\leq x < 2^{2^{2^n}}$",
+      "anchor": "7e5037c4"
+    },
+    {
+      "id": "kozen_theory_computation-ch67-problem-111-body-1-ec55ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch67",
+      "selector": "problem:111:body[1]",
+      "expect": "\\varphi_ {\\mathrm{cond} (i, j)} (x, y) = \\left\\{ \\begin{array}{l l} \\varphi_ {i} (y), & \\text {if x = 0 ,} \\\\ \\varphi_ {j} (y), & \\text {if x\\neq 0 .} \\end{array} \\right.",
+      "new": "\\varphi_{\\mathrm{cond}(i,j)}(x,y)=\\left\\{\\begin{array}{ll}\\varphi_i(y),&\\text{if }x=0\\text{,}\\\\\\varphi_j(y),&\\text{if }x\\neq0\\text{.}\\end{array}\\right."
+    },
+    {
+      "id": "kozen_theory_computation-apphints-body-290-dccd61",
+      "action": "fix_eq_tex",
+      "chunk": "apphints",
+      "selector": "body[290]",
+      "expect": "\\begin{array}{r c l} v _ {n} (A, B, y) & = & \\sigma_ {n} (A, 0, B, y) \\wedge \\chi_ {n} (A) \\\\ & = & \\text {\"A \\subseteq \\{0,1,\\ldots , n - 1\\} and the n - blocks of} \\\\ & & A \\text {   starting at   0   and   } B \\text {   starting at   } y \\text {   are   the } \\\\ & & \\text { same\"} \\end{array}",
+      "new": "\\begin{array}{rcl}v_n(A,B,y)&=&\\sigma_n(A,0,B,y)\\wedge\\chi_n(A)\\\\&=&\\text{\"}A\\subseteq\\{0,1,\\ldots,n-1\\}\\text{ and the n-blocks of}\\\\&&A\\text{ starting at 0 and }B\\text{ starting at }y\\text{ are the}\\\\&&\\text{ same\"}\\end{array}"
+    },
+    {
+      "id": "kozen_theory_computation-apphints-body-293-710212",
+      "action": "fix_eq_tex",
+      "chunk": "apphints",
+      "selector": "body[293]",
+      "expect": "\\begin{array}{r c l} \\varphi_ {n 2 ^ {n}} (x, y) & = & \\varphi_ {n} (x, y) \\wedge \\exists B   \\psi_ {n} (B) \\wedge \\tau_ {n} (x, y, B) \\\\ & = & \\text { ``the n - blocks of x and y in B_{n} are the same,} \\\\ & & \\text { and x and y are in the same position in the } \\\\ & & \\text { block; that is, x\\equiv y (mod n)\" } \\\\ & = & x \\equiv y (\\text { mod n2^{n }}). \\end{array}",
+      "new": "\\begin{array}{rcl}\\varphi_{n2^n}(x,y)&=&\\varphi_n(x,y)\\wedge\\exists B\\ \\psi_n(B)\\wedge\\tau_n(x,y,B)\\\\&=&\\text{``the n-blocks of x and y in }B_n\\text{ are the same,}\\\\&&\\text{ and x and y are in the same position in the}\\\\&&\\text{ block; that is, }x\\equiv y\\ (\\text{mod }n)\\text{\"}\\\\&=&x\\equiv y\\ (\\text{mod }n2^n).\\end{array}"
+    },
+    {
+      "id": "kozen_theory_computation-ch43-body-9-fb3e47",
+      "action": "fix_eq_tex",
+      "chunk": "ch43",
+      "selector": "body[9]",
+      "expect": "\\begin{array}{l} x = ^ {\\prime} y = ^ {\\prime} e c h o. | t r. \\text {\\\"47\\\"}; e c h o\" x = y x y; x\" \\\\ y = ^ {\\prime} e c h o. | t r. \\text {\\\"47\\\"}; e c h o\" x = y x y; x\" \\end{array}",
+      "new": "\\begin{array}{l}\\text{x = ' y = ' e c h o. | t r. \"47\"; e c h o\" x = y x y; x\"}\\\\\\text{y = ' e c h o. | t r. \"47\"; e c h o\" x = y x y; x\"}\\end{array}"
+    }
+  ]
+}

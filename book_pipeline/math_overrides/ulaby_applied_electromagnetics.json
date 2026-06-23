@@ -1,0 +1,119 @@
+{
+  "overrides": [
+    {
+      "id": "ulaby_applied_electromagnetics-ch02-body-584-d81ba0",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[584]",
+      "expect": "\\begin{array}{l} P ^ {\\mathrm{i}} (d, t) = \\frac {| V _ {0} ^ {+} | ^ {2}}{2 Z _ {0}} [ 1 + \\cos (2 \\omega t + 2 \\beta d + 2 \\phi^ {+}) ], \\\\ P ^ {\\mathrm{r}} (d, t) = - | \\Gamma | ^ {2} \\frac {| V _ {0} ^ {+} | ^ {2}}{2 Z _ {0}} [ 1 + \\cos (2 \\omega t - 2 \\beta d + 2 \\phi^ {+} + 2 \\theta_ {\\mathrm{r}}) ]. \\end{array} \\tag {2.102a}\\tag{2.102b}",
+      "new": "\\begin{array}{l} P ^ {\\mathrm{i}} (d, t) = \\frac {| V _ {0} ^ {+} | ^ {2}}{2 Z _ {0}} [ 1 + \\cos (2 \\omega t + 2 \\beta d + 2 \\phi^ {+}) ], \\\\ P ^ {\\mathrm{r}} (d, t) = - | \\Gamma | ^ {2} \\frac {| V _ {0} ^ {+} | ^ {2}}{2 Z _ {0}} [ 1 + \\cos (2 \\omega t - 2 \\beta d + 2 \\phi^ {+} + 2 \\theta_ {\\mathrm{r}}) ]. \\end{array} \\tag{2.102b}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch02-body-939-00e653",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[939]",
+      "expect": "\\begin{array}{c} V (z, 5 T / 2) = V _ {1} ^ {+} + V _ {1} ^ {-} + V _ {2} ^ {+} = \\left(1 + \\Gamma_ {\\mathrm{L}} + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}}\\right) V _ {1} ^ {+} \\\\ (0 \\leq z <   l / 2), \\end{array} \\tag {2}\\tag{2.150}",
+      "new": "\\begin{array}{c} V (z, 5 T / 2) = V _ {1} ^ {+} + V _ {1} ^ {-} + V _ {2} ^ {+} = \\left(1 + \\Gamma_ {\\mathrm{L}} + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}}\\right) V _ {1} ^ {+} \\\\ (0 \\leq z <   l / 2), \\end{array} \\tag{2.150}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch03-body-385-19b3f9",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[385]",
+      "expect": "\\nabla = \\hat {\\mathbf {R}} \\frac {\\partial}{\\partial R} + \\hat {\\boldsymbol {\\theta}} \\frac {1}{R} \\frac {\\partial}{\\partial \\theta} + \\hat {\\boldsymbol {\\phi}} \\frac {1}{R \\sin \\theta} \\frac {\\partial}{\\partial \\phi}. \\tag {spherical}\\tag{3.83}",
+      "new": "\\nabla = \\hat {\\mathbf {R}} \\frac {\\partial}{\\partial R} + \\hat {\\boldsymbol {\\theta}} \\frac {1}{R} \\frac {\\partial}{\\partial \\theta} + \\hat {\\boldsymbol {\\phi}} \\frac {1}{R \\sin \\theta} \\frac {\\partial}{\\partial \\phi}. \\tag{3.83}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch03-body-388-b5c8c0",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[388]",
+      "expect": "\\nabla (U + V) = \\nabla U + \\nabla V, \\tag {1}\\tag{3.84a}",
+      "new": "\\nabla (U + V) = \\nabla U + \\nabla V, \\tag{3.84a}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch03-body-389-6da7dd",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[389]",
+      "expect": "\\nabla (U V) = U \\nabla V + V \\nabla U, \\tag {2}\\tag{3.84b}",
+      "new": "\\nabla (U V) = U \\nabla V + V \\nabla U, \\tag{3.84b}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch04-body-671-86075e",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[671]",
+      "expect": "\\begin{array}{l} \\mathbf {F} _ {\\mathrm{e}} = - \\hat {\\mathbf {z}} \\frac {1}{2} \\varepsilon A \\frac {V ^ {2}}{d ^ {2}} \\\\ (\\text { parallel - plate   capacitor }) \\end{array} \\tag {N}\\tag{4.141b}",
+      "new": "\\begin{array}{l} \\mathbf {F} _ {\\mathrm{e}} = - \\hat {\\mathbf {z}} \\frac {1}{2} \\varepsilon A \\frac {V ^ {2}}{d ^ {2}} \\\\ (\\text { parallel - plate   capacitor }) \\end{array} \\tag{4.141b}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch05-body-10-ede49b",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[10]",
+      "field": "caption",
+      "all": true,
+      "old": "$( \\mathbf { F } _ { \\mathrm { m } } = I { \\big \\mathbf { \\ell } } \\times \\mathbf { B } )$",
+      "new": "$( \\mathbf { F } _ { \\mathrm { m } } = I { \\mathbf { \\ell } } \\times \\mathbf { B } )$",
+      "anchor": "b31fa295"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch06-body-173-c1e5ab",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[173]",
+      "expect": "\\Phi = \\int_ {S} \\mathbf {B} \\cdot d \\mathbf {s} = \\int_ {S} \\hat {\\mathbf {z}} B _ {0} \\cdot \\hat {\\mathbf {n}} d s = B _ {0} A \\cos \\alpha = B _ {0} A \\cos (\\omega t + C _ {0}), \\tag {6.27}\\tag{6.37}",
+      "new": "\\Phi = \\int_ {S} \\mathbf {B} \\cdot d \\mathbf {s} = \\int_ {S} \\hat {\\mathbf {z}} B _ {0} \\cdot \\hat {\\mathbf {n}} d s = B _ {0} A \\cos \\alpha = B _ {0} A \\cos (\\omega t + C _ {0}), \\tag{6.37}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch07-body-124-ad82b6",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[124]",
+      "expect": "\\begin{array}{r l} | \\mathbf {E} (z, t) | & = [ E _ {x} ^ {2} (z, t) + E _ {y} ^ {2} (z, t) ] ^ {1 / 2} \\\\ & = [ a _ {x} ^ {2} \\cos^ {2} (\\omega t - k z) + a _ {y} ^ {2} \\cos^ {2} (\\omega t - k z + \\delta) ] ^ {1 / 2}. \\end{array} \\tag {7}\\tag{7.51}",
+      "new": "\\begin{array}{r l} | \\mathbf {E} (z, t) | & = [ E _ {x} ^ {2} (z, t) + E _ {y} ^ {2} (z, t) ] ^ {1 / 2} \\\\ & = [ a _ {x} ^ {2} \\cos^ {2} (\\omega t - k z) + a _ {y} ^ {2} \\cos^ {2} (\\omega t - k z + \\delta) ] ^ {1 / 2}. \\end{array} \\tag{7.51}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch07-body-149-3bbc44",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[149]",
+      "expect": "\\begin{array}{r l} \\left| \\mathbf {E} (z, t) \\right| & = \\left[ E _ {x} ^ {2} (z, t) + E _ {y} ^ {2} (z, t) \\right] ^ {1 / 2} \\\\ & = \\left[ a ^ {2} \\cos^ {2} (\\omega t - k z) + a ^ {2} \\sin^ {2} (\\omega t - k z) \\right] ^ {1 / 2} = a \\end{array} \\tag {7.5}\\tag{7.56a}",
+      "new": "\\begin{array}{r l} \\left| \\mathbf {E} (z, t) \\right| & = \\left[ E _ {x} ^ {2} (z, t) + E _ {y} ^ {2} (z, t) \\right] ^ {1 / 2} \\\\ & = \\left[ a ^ {2} \\cos^ {2} (\\omega t - k z) + a ^ {2} \\sin^ {2} (\\omega t - k z) \\right] ^ {1 / 2} = a \\end{array} \\tag{7.56a}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch07-body-334-f6f268",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[334]",
+      "expect": "\\begin{array}{r l} \\mathbf {H} (z, t) = & \\hat {\\mathbf {y}} 1 0 0 e ^ {- 0. 1 2 6 z} \\cos (2 \\pi \\times 1 0 ^ {3} t - 0. 1 2 6 z + 1 5 ^ {\\circ}) \\\\ & (\\mathrm{mA/m}). \\end{array} \\tag {7.}\\tag{7.82b}",
+      "new": "\\begin{array}{r l} \\mathbf {H} (z, t) = & \\hat {\\mathbf {y}} 1 0 0 e ^ {- 0. 1 2 6 z} \\cos (2 \\pi \\times 1 0 ^ {3} t - 0. 1 2 6 z + 1 5 ^ {\\circ}) \\\\ & (\\mathrm{mA/m}). \\end{array} \\tag{7.82b}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch08-body-524-eb7620",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[524]",
+      "expect": "f _ {m n} = \\frac {u _ {\\mathrm{p} _ {0}}}{2} \\sqrt {\\left(\\frac {m}{a}\\right) ^ {2} + \\left(\\frac {n}{b}\\right) ^ {2}}, \\tag {TEandTM}\\tag{8.106}",
+      "new": "f _ {m n} = \\frac {u _ {\\mathrm{p} _ {0}}}{2} \\sqrt {\\left(\\frac {m}{a}\\right) ^ {2} + \\left(\\frac {n}{b}\\right) ^ {2}}, \\tag{8.106}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch03-body-485-50dfbd",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[485]",
+      "expect": "\\begin{array}{l} \\text {(a) E = \\hat {x} 3 x ^ {2} + \\hat {y} 2 z + \\hat {z} x ^ {2} z at (2, - 2, 0);} \\\\ \\text {(b) E = \\hat {\\mathbf {R}} (a ^ {3} \\cos \\theta / R ^ {2}) - \\hat {\\boldsymbol {\\theta}} (a ^ {3} \\sin \\theta / R ^ {2}) at (a / 2, 0, \\pi).} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(a) } E = \\hat {x} 3 x ^ {2} + \\hat {y} 2 z + \\hat {z} x ^ {2} z \\text { at } (2, - 2, 0); \\\\ \\text {(b) } E = \\hat {\\mathbf {R}} (a ^ {3} \\cos \\theta / R ^ {2}) - \\hat {\\boldsymbol {\\theta}} (a ^ {3} \\sin \\theta / R ^ {2}) \\text { at } (a / 2, 0, \\pi). \\end{array}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch01-body-623-4115be",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[623]",
+      "expect": "\\begin{array}{r l} \\upsilon_ {\\mathrm{s}} (t) & = 5 \\sin (4 \\times 1 0 ^ {4} t - 3 0 ^ {\\circ}) \\\\ & = 5 \\cos (4 \\times 1 0 ^ {4} t - 1 2 0 ^ {\\circ}) \\end{array} \\tag {V}\\tag{1.72}",
+      "new": "\\begin{array}{r l} \\upsilon_ {\\mathrm{s}} (t) & = 5 \\sin (4 \\times 1 0 ^ {4} t - 3 0 ^ {\\circ}) \\\\ & = 5 \\cos (4 \\times 1 0 ^ {4} t - 1 2 0 ^ {\\circ}) \\end{array} \\tag {V, 1.72}"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "overrides": [
+    {
+      "id": "murphy_probabilistic_ml-ch15-body-46-addb5e",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[46]",
+      "field": "md",
+      "all": true,
+      "old": "$h _ { t } = [ h _ { t } ^ { \\right. } , h _ { t } ^ { \\left. } ]$",
+      "new": "$h _ { t } = [ h _ { t } ^ { \\rightarrow } , h _ { t } ^ { \\leftarrow } ]$",
+      "anchor": "4d9bbae9"
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch15-body-367-2c3a11",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[367]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb r } _ { t } = [ { \\pmb e } _ { t } , { \\pmb h } _ { t , 1 : L } ^ { \\right. } , { \\pmb h } _ { t , 1 : L } ^ { \\left. } ]$",
+      "new": "${ \\pmb r } _ { t } = [ { \\pmb e } _ { t } , { \\pmb h } _ { t , 1 : L } ^ { \\rightarrow } , { \\pmb h } _ { t , 1 : L } ^ { \\leftarrow } ]$",
+      "anchor": "39e58f70"
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch02-body-417-b51fda",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[417]",
+      "expect": "\\delta_ {y} (x) = \\left\\{ \\begin{array}{l l} + \\infty & \\text {if x = y} \\\\ 0 & \\text {if x\\neq y} \\end{array} \\right.",
+      "new": "\\delta_ {y} (x) = \\left\\{ \\begin{array}{l l} + \\infty & \\text {if } x = y \\\\ 0 & \\text {if } x\\neq y \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch04-body-755-f0dc65",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[755]",
+      "expect": "p (y | \\theta) = \\left\\{ \\begin{array}{l l} 0. 5 & \\text {if y = \\theta} \\\\ 0. 5 & \\text {if y = \\theta + 1} \\\\ 0 & \\text {otherwise} \\end{array} \\right.",
+      "new": "p (y | \\theta) = \\left\\{ \\begin{array}{l l} 0. 5 & \\text {if } y = \\theta \\\\ 0. 5 & \\text {if } y = \\theta + 1 \\\\ 0 & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch11-body-271-c54ec8",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[271]",
+      "expect": "\\hat {w} _ {d} (c _ {d}) = \\left\\{ \\begin{array}{c l} (c _ {d} + \\lambda) / a _ {d} & \\text {if c_{d} <   - \\lambda} \\\\ 0 & \\text {if c_{d} \\in[-\\lambda,\\lambda]} \\\\ (c _ {d} - \\lambda) / a _ {d} & \\text {if c_{d} >\\lambda} \\end{array} \\right.",
+      "new": "\\hat {w} _ {d} (c _ {d}) = \\left\\{ \\begin{array}{c l} (c _ {d} + \\lambda) / a _ {d} & \\text {if } c_{d} < - \\lambda \\\\ 0 & \\text {if } c_{d} \\in[-\\lambda,\\lambda] \\\\ (c _ {d} - \\lambda) / a _ {d} & \\text {if } c_{d} >\\lambda \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch11-body-304-74a02c",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[304]",
+      "expect": "\\hat {w} _ {d} ^ {\\mathrm{ss}} = \\left\\{ \\begin{array}{c c} \\hat {w} _ {d} ^ {\\mathrm{mle}} & \\text {if \\operatorname{rank} (|\\hat {w} _{d} ^{\\mathrm{mle}}|) \\leq K} \\\\ 0 & \\text {otherwise} \\end{array} \\right.",
+      "new": "\\hat {w} _ {d} ^ {\\mathrm{ss}} = \\left\\{ \\begin{array}{c c} \\hat {w} _ {d} ^ {\\mathrm{mle}} & \\text {if } \\operatorname{rank} (|\\hat {w} _{d} ^{\\mathrm{mle}}|) \\leq K \\\\ 0 & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch20-body-517-fcc47e",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[517]",
+      "expect": "L _ {i j} = \\left\\{ \\begin{array}{l l} d _ {i} & \\text {if i = j} \\\\ - w _ {i j} & \\text {if i\\neq j and w_{ij} \\neq 0} \\\\ 0 & \\text {otherwise} \\end{array} \\right.",
+      "new": "L _ {i j} = \\left\\{ \\begin{array}{l l} d _ {i} & \\text {if } i = j \\\\ - w _ {i j} & \\text {if } i\\neq j \\text { and } w_{ij} \\neq 0 \\\\ 0 & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch20-problem-20-5-body-2-02881f",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20.5:body[2]",
+      "expect": "\\boldsymbol {v} _ {j} ^ {T} \\boldsymbol {v} _ {k} = \\left\\{ \\begin{array}{l l} 0 & \\text {if j\\neq k} \\\\ 1 & \\text {if j = k} \\end{array} \\right.",
+      "new": "\\boldsymbol {v} _ {j} ^ {T} \\boldsymbol {v} _ {k} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } j\\neq k \\\\ 1 & \\text {if } j = k \\end{array} \\right."
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch02-body-226-0967b5",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[226]",
+      "expect": "\\left| \\begin{array}{c c c} P (H _ {1} | Y = 3) & = & \\frac {1}{3} \\end{array} \\right| P (H _ {2} | Y = 3) & = & \\frac {2}{3} \\left| \\begin{array}{c c c} P (H _ {3} | Y = 3) & = & 0. \\end{array} \\right|",
+      "new": "\\left| \\begin{array}{c c c} P (H _ {1} | Y = 3) & = & \\frac {1}{3} \\end{array} \\right| P (H _ {2} | Y = 3) = \\frac {2}{3} \\left| \\begin{array}{c c c} P (H _ {3} | Y = 3) & = & 0. \\end{array} \\right|"
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch04-problem-4-2-body-5-6eddb9",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.2:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$s ^ { 2 } \\big ?$",
+      "new": "$s ^ { 2 } ?$",
+      "anchor": "551724e6"
+    },
+    {
+      "id": "murphy_probabilistic_ml-ch17-body-207-6140bf",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[207]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm { a } \\ \\mathrm { \\textprime b o t t l e n e c k } ^ { \\mathrm { \\prime \\prime } } \\left( \\mathbf { Z } , \\mathbf { \\it f } _ { Z } \\right)$",
+      "new": "$\\mathrm { a } \\ \\mathrm { \\prime b o t t l e n e c k } ^ { \\mathrm { \\prime \\prime } } \\left( \\mathbf { Z } , \\mathbf { \\it f } _ { Z } \\right)$",
+      "anchor": "d2aa8b88"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "scholkopf_smola_kernels-ch10-body-476-b7bd4f",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[476]",
+      "expect": "(\\alpha_ {i}, \\alpha_ {t}, \\rho) \\longleftarrow \\left\\{ \\begin{array}{l l} ((1 - \\Lambda) \\alpha_ {i}, \\Lambda , \\rho + \\Lambda (1 - \\nu)) & \\text {if f(x) <   \\rho} \\\\ ((1 - \\Lambda) \\alpha_ {i}, 0, \\rho - \\Lambda \\nu) & \\text {otherwise.} \\end{array} \\right.",
+      "new": "(\\alpha_ {i}, \\alpha_ {t}, \\rho) \\longleftarrow \\left\\{ \\begin{array}{l l} ((1 - \\Lambda) \\alpha_ {i}, \\Lambda , \\rho + \\Lambda (1 - \\nu)) & \\text {if } f(x) < \\rho \\\\ ((1 - \\Lambda) \\alpha_ {i}, 0, \\rho - \\Lambda \\nu) & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "scholkopf_smola_kernels-ch02-body-90-d7a72f",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[90]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\bf \\widehat { \\mathbf { \\xi } } } _  f . \\mathbf  $",
+      "new": "${ \\bf \\widehat { \\mathbf { \\xi } } } _  f .  $",
+      "anchor": "03c3f81f"
+    },
+    {
+      "id": "scholkopf_smola_kernels-ch07-body-51-a79f0a",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[51]",
+      "field": "md",
+      "all": true,
+      "old": "$f _ { \\mathbf { w } , b } ( { \\boldsymbol \\mathbf { x } } ) = \\mathrm { s g n } \\left( \\left. \\mathbf { w } , { \\boldsymbol \\mathbf { x } } \\right. + b \\right)$",
+      "new": "$f _ { \\mathbf { w } , b } ( { \\boldsymbol { \\mathbf { x } } } ) = \\mathrm { s g n } \\left( \\left. \\mathbf { w } , { \\boldsymbol { \\mathbf { x } } } \\right. + b \\right)$",
+      "anchor": "5388b65f"
+    }
+  ]
+}

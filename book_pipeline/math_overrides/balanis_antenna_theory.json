@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "balanis_antenna_theory-ch02-problem-2-7-body-1-277955",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.7:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left. \\begin{array} { l }  { U = B _ { o } \\cos ^ { 2 } \\theta \\nonumber \\right\\} \\quad \\mathrm { ( w a t t s / u n i t ~ s o l i d ~ a n g l e ) } } \\\\ { { U = B _ { o } \\cos ^ { 3 } \\theta \\nonumber \\int \\quad ( 0 \\leq \\theta \\leq \\pi / 2 , 0 \\leq \\phi \\leq 2 \\pi ) } } \\end{array}$",
+      "new": "$\\left. \\begin{array} { l } { U = B _ { o } \\cos ^ { 2 } \\theta \\nonumber \\quad \\mathrm { ( w a t t s / u n i t ~ s o l i d ~ a n g l e ) } } \\\\ { { U = B _ { o } \\cos ^ { 3 } \\theta \\nonumber \\int \\quad ( 0 \\leq \\theta \\leq \\pi / 2 , 0 \\leq \\phi \\leq 2 \\pi ) } } \\end{array} \\right\\}$",
+      "anchor": "6dd8c5a8"
+    },
+    {
+      "id": "balanis_antenna_theory-ch03-problem-3-1-body-0-125587",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.1:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\bf { H } } _ { e } = j \\omega \\varepsilon \\textbf { \\nabla } \\times { \\bf { I I } } _ { e }$",
+      "new": "${ \\bf { H } } _ { e } = j \\omega \\varepsilon \\mathbf { \\nabla } \\times { \\bf { I I } } _ { e }$",
+      "anchor": "bc152285"
+    }
+  ]
+}

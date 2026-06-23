@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "grainger_stevenson_power_system_analysis-ch13-body-446-ce31d0",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[446]",
+      "expect": "\\lambda = 10.090 \\text{ $/MWh}",
+      "new": "\\lambda = 10.090 \\text{ \\$/MWh}"
+    },
+    {
+      "id": "grainger_stevenson_power_system_analysis-ch06-body-197-1684a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[197]",
+      "expect": "\\begin{array}{r l}\\gamma l&= \\sqrt {y z} l = 2 3 0 \\sqrt {0 . 8 4 3 1 \\times 5 . 1 0 5 \\times 1 0 ^ {- 6}} \\left/ \\frac {7 9 . 0 4 ^ {\\circ} + 9 0 ^ {\\circ}}{2} \\left. \\right.\\\\&= 0. 4 7 7 2 \\left/ 8 4. 5 2 ^ {\\circ} \\left. \\right. = 0. 0 4 5 6 + j 0. 4 7 5 0\\end{array}",
+      "new": "\\begin{array}{r l}\\gamma l&= \\sqrt {y z} l = 2 3 0 \\sqrt {0 . 8 4 3 1 \\times 5 . 1 0 5 \\times 1 0 ^ {- 6}} \\left/ \\frac {7 9 . 0 4 ^ {\\circ} + 9 0 ^ {\\circ}}{2} \\right.\\\\&= 0. 4 7 7 2 \\left/ 8 4. 5 2 ^ {\\circ} \\right. = 0. 0 4 5 6 + j 0. 4 7 5 0\\end{array}"
+    }
+  ]
+}

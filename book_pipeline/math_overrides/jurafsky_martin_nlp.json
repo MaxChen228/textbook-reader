@@ -26,6 +26,17 @@
       "selector": "body[61]",
       "expect": "\\begin{array}{l} x _ {1} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``Case(w_{i}) = Lower'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {2} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``w_{i} \\in AcronymDict'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {3} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``w_{i} = St.~\\&~Case(w_{i-1}) = Upper''} \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\end{array}",
       "new": "\\begin{array}{l} x _ {1} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``Case(} w_{i} \\text {) = Lower'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {2} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``} w_{i} \\in \\mathrm{AcronymDict} \\text {'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {3} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``} w_{i} = \\mathrm{St.}\\ \\&\\ \\mathrm{Case}(w_{i-1}) = \\mathrm{Upper} \\text {''} \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "jurafsky_martin_nlp-ch02-body-15-f879ec",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[15]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ ' _ { n } '$",
+      "new": "${}' _ { n } {}'$",
+      "anchor": "75e1a5dd"
     }
   ]
 }

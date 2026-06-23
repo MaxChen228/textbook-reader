@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "brooks_handbook_mcmc-ch09-body-301-7d5a62",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[301]",
+      "field": "md",
+      "all": true,
+      "old": "$\\overrightharpoon { f } _ { Y ^ { 2 } | X } ( \\cdot | \\ \\overr { x ^ { \\prime } } )$",
+      "new": "$\\overrightharpoon { f } _ { Y ^ { 2 } | X } ( \\cdot | \\ \\overrightharpoon { x ^ { \\prime } } )$",
+      "anchor": "8748113d"
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch19-body-156-c06d6e",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[156]",
+      "expect": "t _ {\\mathrm{TV}} (\\epsilon , \\mu) \\leq \\left\\lceil (- \\log \\alpha) ^ {- 1} \\left\\{\\log \\left[ \\frac {\\alpha}{\\sqrt {(2 \\pi) (1 - \\alpha^ {2})}} \\left(\\int_ {\\mathbb {R} ^ {p}} \\| x \\|   \\mu (\\mathrm{d} x) + \\sqrt {p}\\right)\\right] - \\log \\epsilon \\right\\}\\left. \\right]",
+      "new": "t _ {\\mathrm{TV}} (\\epsilon , \\mu) \\leq \\left\\lceil (- \\log \\alpha) ^ {- 1} \\left\\{\\log \\left[ \\frac {\\alpha}{\\sqrt {(2 \\pi) (1 - \\alpha^ {2})}} \\left(\\int_ {\\mathbb {R} ^ {p}} \\| x \\| \\mu (\\mathrm{d} x) + \\sqrt {p}\\right)\\right] - \\log \\epsilon \\right\\}\\right\\rceil"
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch01-body-345-51a44b",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[345]",
+      "expect": "\\text { sigmasq } <   - \\text { foo[6:10] } - \\text { foo[1:5]^2 }",
+      "new": "\\text { sigmasq } < - \\text { foo[6:10] } - \\text { foo[1:5] }^2"
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch02-body-363-876def",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[363]",
+      "expect": "U (q) = U _ {*} (q) + C _ {r} (q _ {i}, u _ {i}), \\text {where} C _ {r} (q _ {i}, u _ {i}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if q_{i} \\leq u_{i}} \\\\ r ^ {r + 1} (q _ {i} - u _ {i}) ^ {r} & \\text {if q_{i} >u_{i}} \\end{array} \\right.",
+      "new": "U (q) = U _ {*} (q) + C _ {r} (q _ {i}, u _ {i}), \\text {where } C _ {r} (q _ {i}, u _ {i}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } q_{i} \\leq u_{i} \\\\ r ^ {r + 1} (q _ {i} - u _ {i}) ^ {r} & \\text {if } q_{i} > u_{i} \\end{array} \\right."
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch08-body-64-da4d36",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[64]",
+      "expect": "\\Psi (Y _ {t}, \\xi) = \\left\\{ \\begin{array}{c c} Y _ {t}, & \\text {if \\xi = 1 and Y_{t} = \\{0.25,0.5\\} ;} \\\\ \\{0. 2 5, 0. 5 \\} & \\text {if \\xi = 1 and Y_{t} = \\{0.5,2\\} ;} \\\\ \\{0. 5, 2 \\}, & \\text {if \\xi = 0 and Y_{t} = \\{0.25,0.5\\} ;} \\\\ \\{2 \\}, & \\text {if \\xi = 0 and Y_{t} = \\{0.5,2\\} ;} \\\\ \\phi (X _ {t}, \\xi), & \\text {if Y_{t} = \\{X_{t}\\} .} \\end{array} \\right.",
+      "new": "\\Psi (Y _ {t}, \\xi) = \\left\\{ \\begin{array}{c c} Y _ {t}, & \\text {if } \\xi = 1 \\text { and } Y_{t} = \\{0.25,0.5\\} ; \\\\ \\{0. 2 5, 0. 5 \\} & \\text {if } \\xi = 1 \\text { and } Y_{t} = \\{0.5,2\\} ; \\\\ \\{0. 5, 2 \\}, & \\text {if } \\xi = 0 \\text { and } Y_{t} = \\{0.25,0.5\\} ; \\\\ \\{2 \\}, & \\text {if } \\xi = 0 \\text { and } Y_{t} = \\{0.5,2\\} ; \\\\ \\phi (X _ {t}, \\xi), & \\text {if } Y_{t} = \\{X_{t}\\} . \\end{array} \\right."
+    }
+  ]
+}

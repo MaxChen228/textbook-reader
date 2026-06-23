@@ -1,0 +1,76 @@
+{
+  "overrides": [
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch05-body-472-bb15dd",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[472]",
+      "expect": "\\sqrt {n} \\bar {w} \\left/ \\sqrt {\\frac {1}{n - 1} \\sum (w _ {i} - \\bar {w}) ^ {2}} > C. \\left. \\right.\\tag{5.58}",
+      "new": "\\sqrt{n}\\bar{w}/\\sqrt{\\frac{1}{n-1}\\sum(w_i-\\bar{w})^2}>C.\\tag{5.58}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch09-body-348-82471b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[348]",
+      "expect": "\\begin{array}{r c l} \\alpha (\\mu_ {1}, \\ldots , \\mu_ {s}) & \\leq & P \\text {(rejecting at least one H^{\\prime} _{i}}) \\\\ & = & 1 - P \\text {(accepting all the H^{\\prime} _{i}}) \\\\ & = & 1 - \\prod_ {i = 1} ^ {r} (1 - \\alpha_ {v _ {i}}), \\end{array}",
+      "new": "\\begin{array}{rcl}\\alpha(\\mu_1,\\ldots,\\mu_s)&\\leq&P\\text{(rejecting at least one }H'_i\\text{)}\\\\&=&1-P\\text{(accepting all the }H'_i\\text{)}\\\\&=&1-\\prod_{i=1}^r(1-\\alpha_{v_i}),\\end{array}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch10-body-138-bbcf1c",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[138]",
+      "expect": "B = \\left( \\begin{array}{c c} B _ {1 1} & 0 \\\\ B _ {2 1} & B _ {2 2} \\end{array} \\right) _ {p _ {1}} ^ {p _ {1}}. \\tag {p_{1}}",
+      "new": "B=\\left(\\begin{array}{cc}B_{11}&0\\\\B_{21}&B_{22}\\end{array}\\right)_{p_1}^{p_1}.\\tag{$p_1$}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch05-body-524-b32b37",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[524]",
+      "expect": "\\begin{array}{l} \\frac {1}{(\\sqrt {2 \\pi} \\sigma) ^ {N}} \\\\ \\times \\exp \\left[ - \\frac {1}{2 \\sigma^ {2}} \\sum_ {i = 1} ^ {c} \\left(\\sum_ {j = 1} ^ {m _ {i}} (z _ {i j} - u _ {i} - \\xi) ^ {2} + \\sum_ {j = m _ {i} + 1} ^ {N _ {i}} (z _ {i j} - u _ {i} - \\eta) ^ {2}\\right) \\right]. \\end{array} \\tag {5.6}\\tag{5.68}",
+      "new": "\\begin{array}{l}\\frac{1}{(\\sqrt{2\\pi}\\sigma)^N}\\\\\\times\\exp\\left[-\\frac{1}{2\\sigma^2}\\sum_{i=1}^c\\left(\\sum_{j=1}^{m_i}(z_{ij}-u_i-\\xi)^2+\\sum_{j=m_i+1}^{N_i}(z_{ij}-u_i-\\eta)^2\\right)\\right].\\end{array}\\tag{5.68}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch05-body-556-ac514f",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[556]",
+      "expect": "\\begin{array}{r l} \\frac {1}{(2 \\pi \\sigma \\tau \\sqrt {1 - \\rho^ {2}}) ^ {n}} \\exp \\left[ - \\frac {1}{2 (1 - \\rho^ {2})} \\left(\\frac {1}{\\sigma^ {2}} \\sum (x _ {i} - \\xi) ^ {2} \\right. \\right. & \\\\ \\left. \\left. - \\frac {2 \\rho}{\\sigma \\tau} \\sum (x _ {i} - \\xi) (y _ {i} - \\eta) + \\frac {1}{\\tau^ {2}} \\sum (y _ {i} - \\eta) ^ {2}\\right) \\right]. & \\end{array} \\tag {5.7}\\tag{5.73}",
+      "new": "\\begin{array}{rl}\\frac{1}{(2\\pi\\sigma\\tau\\sqrt{1-\\rho^2})^n}\\exp\\left[-\\frac{1}{2(1-\\rho^2)}\\left(\\frac{1}{\\sigma^2}\\sum(x_i-\\xi)^2\\right.\\right.&\\\\\\left.\\left.-\\frac{2\\rho}{\\sigma\\tau}\\sum(x_i-\\xi)(y_i-\\eta)+\\frac{1}{\\tau^2}\\sum(y_i-\\eta)^2\\right)\\right].&\\end{array}\\tag{5.73}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch09-body-549-bcc7f0",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[549]",
+      "expect": "\\sum v _ {i} \\hat {\\xi} _ {i} - c S \\sqrt {\\frac {\\operatorname{Var} \\left(\\sum v _ {i} \\hat {\\xi} _ {i}\\right)}{\\sigma^ {2}}} \\leq \\sum_ {\\text { for   all }} v _ {i} \\xi_ {i} \\leq \\sum v _ {i} \\hat {\\xi} _ {i} + c S \\sqrt {\\frac {\\operatorname{Var} \\left(\\sum v _ {i} \\hat {\\xi} _ {i}\\right)}{\\sigma^ {2}}} \\tag {9.9}\\tag{9.92}",
+      "new": "\\sum v_i\\hat{\\xi}_i-cS\\sqrt{\\frac{\\operatorname{Var}\\left(\\sum v_i\\hat{\\xi}_i\\right)}{\\sigma^2}}\\leq\\sum_{\\text{ for all }}v_i\\xi_i\\leq\\sum v_i\\hat{\\xi}_i+cS\\sqrt{\\frac{\\operatorname{Var}\\left(\\sum v_i\\hat{\\xi}_i\\right)}{\\sigma^2}}\\tag{9.92}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch09-body-574-ead13b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[574]",
+      "expect": "\\begin{array}{r c l} \\sum w _ {i} X _ {i.} - c S \\sqrt {\\frac {\\sum w _ {i} ^ {2}}{n _ {i}}} & \\leq & \\sum w _ {i} \\xi_ {i} \\leq \\sum w _ {i} X _ {i.} + c S \\sqrt {\\frac {\\sum w _ {i} ^ {2}}{n _ {i}}} \\\\ & & \\text { for   all } (w _ {1}, \\dots , w _ {s}) \\text { satisfying } \\sum w _ {i} = 0, \\end{array} \\tag {9}\\tag{9.96}",
+      "new": "\\begin{array}{rcl}\\sum w_iX_{i.}-cS\\sqrt{\\frac{\\sum w_i^2}{n_i}}&\\leq&\\sum w_i\\xi_i\\leq\\sum w_iX_{i.}+cS\\sqrt{\\frac{\\sum w_i^2}{n_i}}\\\\&&\\text{ for all }(w_1,\\dots,w_s)\\text{ satisfying }\\sum w_i=0,\\end{array}\\tag{9.96}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch09-body-589-1d70a4",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[589]",
+      "expect": "\\begin{array}{r l} \\hat {\\alpha} + \\hat {\\beta} t - c S \\left[ \\frac {1}{n} + \\frac {(t - \\bar {t}) ^ {2}}{\\sum (t _ {i} - \\bar {t}) ^ {2}} \\right] ^ {1 / 2} & \\leq \\alpha + \\beta t \\\\ & \\leq \\hat {\\alpha} + \\hat {\\beta} t + c S \\left[ \\frac {1}{n} + \\frac {(t - \\bar {t}) ^ {2}}{\\sum (t _ {i} - \\bar {t}) ^ {2}} \\right] ^ {1 / 2}. \\end{array} \\tag {9.9}\\tag{9.97}",
+      "new": "\\begin{array}{rl}\\hat{\\alpha}+\\hat{\\beta}t-cS\\left[\\frac{1}{n}+\\frac{(t-\\bar{t})^2}{\\sum(t_i-\\bar{t})^2}\\right]^{1/2}&\\leq\\alpha+\\beta t\\\\&\\leq\\hat{\\alpha}+\\hat{\\beta}t+cS\\left[\\frac{1}{n}+\\frac{(t-\\bar{t})^2}{\\sum(t_i-\\bar{t})^2}\\right]^{1/2}.\\end{array}\\tag{9.97}"
+    },
+    {
+      "id": "lehmann_testing_statistical_hypotheses-ch12-body-526-825184",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[526]",
+      "expect": "\\begin{array}{l} 2 \\log (R _ {1}) = - \\inf _ {\\theta \\in \\mathbb {I R} ^ {k}} (X - \\theta) ^ {T} \\Sigma^ {- 1} (X - \\theta) + \\inf _ {\\theta \\in \\Omega_ {0}} (X - \\theta) ^ {T} \\Sigma^ {- 1} (X - \\theta) \\\\ = \\inf _ {\\theta \\in \\Omega_ {0}} (X - \\theta) ^ {T} \\Sigma^ {- 1} (X - \\theta). \\end{array} \\tag {1}\\tag{12.80}",
+      "new": "\\begin{array}{l}2\\log(R_1)=-\\inf_{\\theta\\in\\mathbb{I R}^k}(X-\\theta)^T\\Sigma^{-1}(X-\\theta)+\\inf_{\\theta\\in\\Omega_0}(X-\\theta)^T\\Sigma^{-1}(X-\\theta)\\\\=\\inf_{\\theta\\in\\Omega_0}(X-\\theta)^T\\Sigma^{-1}(X-\\theta).\\end{array}\\tag{12.80}"
+    }
+  ]
+}

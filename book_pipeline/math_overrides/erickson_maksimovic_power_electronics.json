@@ -1,0 +1,89 @@
+{
+  "overrides": [
+    {
+      "id": "erickson_maksimovic_power_electronics-ch12-body-167-2088fe",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[167]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\hat { \\nu } } _ { \\parallel } _ { \\parallel }$",
+      "new": "${ \\hat { \\nu } } _ { \\parallel \\parallel }$",
+      "anchor": "1b4389dc"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-appC-body-128-bb73e5",
+      "action": "fix_inline_math",
+      "chunk": "appC",
+      "selector": "body[128]",
+      "field": "md",
+      "all": true,
+      "old": "$\\| Z \\| \\gg \\| Z _ { t } _ { t }$",
+      "new": "$\\| Z \\| \\gg \\| Z _ { t t } \\|$",
+      "anchor": "5f6b10f3"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch19-body-258-853fe6",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[258]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textmd { + 9 0 \\textdegree }$",
+      "new": "$+ 9 0 ^\\circ$",
+      "anchor": "77c03101"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch19-body-372-355456",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[372]",
+      "field": "caption",
+      "all": true,
+      "old": "${ \\pmb k } = { \\pmb 0 } \\operatorname { c c } { \\pmb \\mathrm { M } }$",
+      "new": "${ \\pmb k } = { \\pmb 0 } \\operatorname { c c } { \\pmb { \\mathrm { M } } }$",
+      "anchor": "f5a8a7b3"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch20-body-211-556392",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[211]",
+      "field": "md",
+      "all": true,
+      "old": "$I _ { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf \\mathbf { \\mathbf { \\mathbf \\mathbf { \\Lambda } } } } } } } } } \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\Lambda } } } } } } } \\geq 2 I _ { 2 } .$",
+      "new": "$I _ { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\Lambda } } } } } } } } } } } \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\mathbf { \\Lambda } } } } } } } \\geq 2 I _ { 2 } .$",
+      "anchor": "ad64ffb5"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch14-body-281-34258b",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[281]",
+      "expect": "\\begin{array}{l l} A _ {W 1} \\leq \\frac {\\alpha_ {1} K _ {u} W _ {A}}{n _ {1}} = 1. 0 9 \\cdot 1 0 ^ {- 3} \\mathrm{cm} ^ {2} & - \\text {use #28 AWG} \\\\ A _ {W 2} \\leq \\frac {\\alpha_ {2} K _ {u} W _ {A}}{n _ {2}} = 8. 8 8 \\cdot 1 0 ^ {- 3} \\mathrm{cm} ^ {2} & - \\text {use #19 AWG} \\end{array}",
+      "new": "\\begin{array}{l l} A _ {W 1} \\leq \\frac {\\alpha_ {1} K _ {u} W _ {A}}{n _ {1}} = 1. 0 9 \\cdot 1 0 ^ {- 3} \\mathrm{cm} ^ {2} & - \\text {use \\#28 AWG} \\\\ A _ {W 2} \\leq \\frac {\\alpha_ {2} K _ {u} W _ {A}}{n _ {2}} = 8. 8 8 \\cdot 1 0 ^ {- 3} \\mathrm{cm} ^ {2} & - \\text {use \\#19 AWG} \\end{array}"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch08-body-571-3c4573",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[571]",
+      "field": "caption",
+      "all": true,
+      "old": "$G _ { \\nu d } ( s ) \\harpoonright$",
+      "new": "$G _ { \\nu d } ( s ) \\rightharpoonup$",
+      "anchor": "f090521f"
+    },
+    {
+      "id": "erickson_maksimovic_power_electronics-ch19-body-253-4e1cf7",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[253]",
+      "field": "caption",
+      "all": true,
+      "old": "$Z _ { i \\textl { ‰} }$",
+      "new": "$Z _ { i \\text { ‰} }$",
+      "anchor": "1605280d"
+    }
+  ]
+}

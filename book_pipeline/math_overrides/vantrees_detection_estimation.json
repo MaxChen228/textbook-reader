@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "vantrees_detection_estimation-ch02-body-255-993db4",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[255]",
+      "expect": "P _ {D} = (P _ {F}) ^ {\\sigma_ {0} ^ {2 / \\sigma_ {1}} ^ {2}}.\\tag{80}",
+      "new": "P _ {D} = (P _ {F}) ^ {{\\sigma_ {0} ^ {2 / \\sigma_ {1}}} ^ {2}}.\\tag{80}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch02-body-324-09d1d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[324]",
+      "expect": "\\begin{array}{l} \\text {if I_{0} (\\mathbf {R}) <   I_{1} (\\mathbf {R}) and I_{2} (\\mathbf {R}), choose H_{0},} \\\\ \\text {if I_{1} (\\mathbf {R}) <   I_{0} (\\mathbf {R}) and I_{2} (\\mathbf {R}), choose H_{1},} \\\\ \\text {if I_{2} (\\mathbf {R}) <   I_{0} (\\mathbf {R}) and I_{1} (\\mathbf {R}), choose H_{2}.} \\end{array}\\tag{101}",
+      "new": "\\begin{array}{l} \\text {if } I_{0} (\\mathbf {R}) <   I_{1} (\\mathbf {R}) \\text { and } I_{2} (\\mathbf {R})\\text {, choose } H_{0}\\text{,} \\\\ \\text {if } I_{1} (\\mathbf {R}) <   I_{0} (\\mathbf {R}) \\text { and } I_{2} (\\mathbf {R})\\text {, choose } H_{1}\\text{,} \\\\ \\text {if } I_{2} (\\mathbf {R}) <   I_{0} (\\mathbf {R}) \\text { and } I_{1} (\\mathbf {R})\\text {, choose } H_{2}\\text{.} \\end{array}\\tag{101}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch02-problem-2-4-6-body-12-0dd914",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:2.4.6:body[12]",
+      "expect": "\\Delta \\mathcal {R} = \\mathcal {R} (\\hat {a} | \\mathbf {R}) - \\mathcal {R} (\\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) = \\int_ {0} ^ {\\infty} C (Z) [ p _ {z | \\mathbf {r}} (Z + \\hat {a} - \\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) p _ {z | \\mathbf {r}} (Z - \\hat {a} + \\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) - 2 p _ {z | \\mathbf {r}} (Z | \\mathbf {R}) ] d Z. \\tag {P}\\tag{P.5}",
+      "new": "\\Delta \\mathcal {R} = \\mathcal {R} (\\hat {a} | \\mathbf {R}) - \\mathcal {R} (\\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) = \\int_ {0} ^ {\\infty} C (Z) [ p _ {z | \\mathbf {r}} (Z + \\hat {a} - \\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) p _ {z | \\mathbf {r}} (Z - \\hat {a} + \\hat {a} _ {\\mathrm{ms}} | \\mathbf {R}) - 2 p _ {z | \\mathbf {r}} (Z | \\mathbf {R}) ] d Z. \\tag{P.5}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch04-body-564-ee184a",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[564]",
+      "expect": "\\begin{array}{l} \\ln \\Lambda [ r (t) ] = \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) r (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v \\\\ - \\frac {1}{2} \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) \\sqrt {E} s (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v. \\end{array} \\tag {1.5}\\tag{151}",
+      "new": "\\begin{array}{l} \\ln \\Lambda [ r (t) ] = \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) r (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v \\\\ - \\frac {1}{2} \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) \\sqrt {E} s (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v. \\end{array} \\tag{151}"
+    }
+  ]
+}

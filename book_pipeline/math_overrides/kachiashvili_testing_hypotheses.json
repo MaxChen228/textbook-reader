@@ -1,0 +1,103 @@
+{
+  "overrides": [
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-741-60151d",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[741]",
+      "field": "md",
+      "all": true,
+      "old": "$X _ { i } _ { \\mathrm { \\Delta ~ } ( } i = 1 , . . . , m _ { \\mathrm { \\Delta ) } }$",
+      "new": "$X _ { i \\mathrm { \\Delta ~ } ( } i = 1 , . . . , m _ { \\mathrm { \\Delta ) } }$",
+      "anchor": "38a19ea7"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-9-c425d3",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[9]",
+      "expect": "\\begin{array}{l} \\Gamma_ {j} = \\Bigg \\{x: \\sum_ {i = 1} ^ {S} p (H _ {i}) L _ {1} (H _ {i}, H _ {j}) p (x \\mid H _ {i}) <  \\\\ \\qquad <   \\lambda \\sum_ {i = 1} ^ {S} p (H _ {i}) L _ {2} (H _ {i}, H _ {k}) p (x \\mid H _ {i}); \\\\ \\qquad \\forall k: k \\in \\big (1,..., j - 1, j + 1,..., S \\big) \\big), j = 1,..., S; \\end{array} )}",
+      "new": "\\begin{array}{l} \\Gamma_ {j} = \\Bigg \\{x: \\sum_ {i = 1} ^ {S} p (H _ {i}) L _ {1} (H _ {i}, H _ {j}) p (x \\mid H _ {i}) <  \\\\ \\qquad <   \\lambda \\sum_ {i = 1} ^ {S} p (H _ {i}) L _ {2} (H _ {i}, H _ {k}) p (x \\mid H _ {i}); \\\\ \\qquad \\forall k: k \\in \\big (1,..., j - 1, j + 1,..., S \\big) \\big), j = 1,..., S; \\end{array}"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-11-6619ba",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[11]",
+      "expect": "\\begin{array}{r l} \\Gamma_ {j} = & \\left\\{x: \\sum_ {i = 1} ^ {S} L _ {1} (H _ {i}, H _ {j}) p (H _ {i} \\mid x) <   \\lambda \\sum_ {i = 1} ^ {S} L _ {2} (H _ {i}, H _ {k}) p (H _ {i} \\mid x); \\right. \\\\ & \\quad \\forall k: k \\in (1,..., j - 1, j + 1,..., S) \\}, j = 1,..., S; \\end{array} \\tag {2} )}",
+      "new": "\\begin{array}{r l} \\Gamma_ {j} = & \\left\\{x: \\sum_ {i = 1} ^ {S} L _ {1} (H _ {i}, H _ {j}) p (H _ {i} \\mid x) <   \\lambda \\sum_ {i = 1} ^ {S} L _ {2} (H _ {i}, H _ {k}) p (H _ {i} \\mid x); \\right. \\\\ & \\quad \\forall k: k \\in (1,..., j - 1, j + 1,..., S) \\}, j = 1,..., S; \\end{array} \\tag {2}"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-519-fb6719",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[519]",
+      "expect": "\\text { b) } H _ {0} \\equiv \\bigcap_ {i = 1} ^ {S _ {0}} H _ {0 i} \\text { and } H _ {1} \\equiv n o H _ {0}. )}",
+      "new": "\\text { b) } H _ {0} \\equiv \\bigcap_ {i = 1} ^ {S _ {0}} H _ {0 i} \\text { and } H _ {1} \\equiv n o H _ {0}."
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-524-58b014",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[524]",
+      "expect": "\\text { c) } H _ {0} \\equiv \\bigcap_ {i = 1} ^ {S _ {0}} H _ {0 i} \\text { vs. } H _ {1} \\equiv \\bigcup_ {i = 1} ^ {S _ {1}} H _ {1 i} ; )}",
+      "new": "\\text { c) } H _ {0} \\equiv \\bigcap_ {i = 1} ^ {S _ {0}} H _ {0 i} \\text { vs. } H _ {1} \\equiv \\bigcup_ {i = 1} ^ {S _ {1}} H _ {1 i} ;"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-815-0990a9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[815]",
+      "expect": "H _ {0}: p (x \\mid H _ {0}) = \\frac {1}{\\sqrt {2 \\pi \\theta_ {0}}} e ^ {- \\frac {(x - \\theta_ {0}) ^ {2}}{2 \\theta_ {0}}}, )}",
+      "new": "H _ {0}: p (x \\mid H _ {0}) = \\frac {1}{\\sqrt {2 \\pi \\theta_ {0}}} e ^ {- \\frac {(x - \\theta_ {0}) ^ {2}}{2 \\theta_ {0}}},"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-817-898f75",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[817]",
+      "expect": "= \\frac {1}{\\theta_ {0} \\sqrt {2 \\pi}} \\int_ {0} ^ {\\theta_ {0}} \\theta^ {- \\frac {1}{2}} e ^ {- \\frac {(x - \\theta) ^ {2}}{2 \\theta}} d \\theta , )}",
+      "new": "= \\frac {1}{\\theta_ {0} \\sqrt {2 \\pi}} \\int_ {0} ^ {\\theta_ {0}} \\theta^ {- \\frac {1}{2}} e ^ {- \\frac {(x - \\theta) ^ {2}}{2 \\theta}} d \\theta ,"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-821-6e55c8",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[821]",
+      "expect": "= \\frac {1}{(k - 1) \\theta_ {0} \\sqrt {2 \\pi}} \\int_ {\\theta_ {0}} ^ {k \\theta_ {0}} \\theta^ {- \\frac {1}{2}} e ^ {- \\frac {(x - \\theta) ^ {2}}{2 \\theta}} d \\theta . )}",
+      "new": "= \\frac {1}{(k - 1) \\theta_ {0} \\sqrt {2 \\pi}} \\int_ {\\theta_ {0}} ^ {k \\theta_ {0}} \\theta^ {- \\frac {1}{2}} e ^ {- \\frac {(x - \\theta) ^ {2}}{2 \\theta}} d \\theta ."
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch02-body-930-68ce7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[930]",
+      "expect": "H _ {0}: \\rho = \\rho_ {0}, \\text { vs. } H _ {1}: \\rho <   (>) \\rho_ {0}, )}",
+      "new": "H _ {0}: \\rho = \\rho_ {0}, \\text { vs. } H _ {1}: \\rho <   (>) \\rho_ {0},"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch03-body-74-e11513",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[74]",
+      "expect": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = 1 - \\Phi (2); )}",
+      "new": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = 1 - \\Phi (2);"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch03-body-76-dfa9db",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[76]",
+      "expect": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = 1 - \\Phi \\left(\\frac {\\ln \\lambda}{4} + 2\\right); )}",
+      "new": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = 1 - \\Phi \\left(\\frac {\\ln \\lambda}{4} + 2\\right);"
+    },
+    {
+      "id": "kachiashvili_testing_hypotheses-ch03-body-78-85f323",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[78]",
+      "expect": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = \\Phi \\left(\\frac {\\ln \\lambda}{4} - 2\\right). )}",
+      "new": "\\alpha_ {0} = \\alpha_ {A} = \\beta_ {0} = \\beta_ {A} = \\Phi \\left(\\frac {\\ln \\lambda}{4} - 2\\right)."
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "wakerly_digital_design-ch07-body-465-7c0024",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[465]",
+      "field": "md",
+      "all": true,
+      "old": "$V^{*}'$",
+      "new": "$V^{*\\prime}$",
+      "anchor": "2b7ab810"
+    },
+    {
+      "id": "wakerly_digital_design-ch07-body-465-0e1adb",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[465]",
+      "field": "md",
+      "all": true,
+      "old": "$Q2^{*}'$",
+      "new": "$Q2^{*\\prime}$",
+      "anchor": "2b7ab810"
+    },
+    {
+      "id": "wakerly_digital_design-ch04-body-21-34d51c",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[21]",
+      "expect": "\\text {(A1)} \\quad X = 0 \\quad \\text {if} X \\neq 1 \\quad \\text {(A1^ {\\prime})} \\quad X = 1 \\quad \\text {if} X \\neq 0",
+      "new": "\\text {(A1)} \\quad X = 0 \\quad \\text {if } X \\neq 1 \\quad \\text {(A1}^{\\prime}\\text{)} \\quad X = 1 \\quad \\text {if } X \\neq 0"
+    },
+    {
+      "id": "wakerly_digital_design-ch04-body-67-919e42",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[67]",
+      "expect": "\\begin{array}{r l} \\mathrm{X} + \\mathrm{X} \\cdot \\mathrm{Y} & = \\mathrm{X} \\cdot 1 + \\mathrm{X} \\cdot \\mathrm{Y} \\quad (\\text {according to T1^{\\prime}}) \\\\ & = \\mathrm{X} \\cdot (1 + \\mathrm{Y}) \\quad (\\text {according to T8}) \\\\ & = \\mathrm{X} \\cdot 1 \\quad (\\text {according to T2}) \\\\ & = \\mathrm{X} \\quad (\\text {according to T1^{\\prime}}) \\end{array}",
+      "new": "\\begin{array}{r l} \\mathrm{X} + \\mathrm{X} \\cdot \\mathrm{Y} & = \\mathrm{X} \\cdot 1 + \\mathrm{X} \\cdot \\mathrm{Y} \\quad (\\text {according to T1}^{\\prime}) \\\\ & = \\mathrm{X} \\cdot (1 + \\mathrm{Y}) \\quad (\\text {according to T8}) \\\\ & = \\mathrm{X} \\cdot 1 \\quad (\\text {according to T2}) \\\\ & = \\mathrm{X} \\quad (\\text {according to T1}^{\\prime}) \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch04-body-115-af9d34",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[115]",
+      "expect": "\\begin{array}{r l} \\mathsf {X} + \\mathsf {X} \\cdot \\mathsf {Y} = \\mathsf {X} & (\\text { theorem   T9 }) \\\\ \\mathsf {X} \\cdot \\mathsf {X} + \\mathsf {Y} = \\mathsf {X} & (\\text { after   applying   the   principle   of   duality }) \\\\ \\mathsf {X} + \\mathsf {Y} = \\mathsf {X} & (\\text { after   applying   theorem   T3^ {\\prime }}) \\end{array}",
+      "new": "\\begin{array}{r l} \\mathsf {X} + \\mathsf {X} \\cdot \\mathsf {Y} = \\mathsf {X} & (\\text { theorem   T9 }) \\\\ \\mathsf {X} \\cdot \\mathsf {X} + \\mathsf {Y} = \\mathsf {X} & (\\text { after   applying   the   principle   of   duality }) \\\\ \\mathsf {X} + \\mathsf {Y} = \\mathsf {X} & (\\text { after   applying   theorem   T3}^{\\prime}) \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch07-body-354-68d54f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[354]",
+      "expect": "\\begin{array}{l l} \\text {D1} = & \\text {Q1+ Q2^{\\prime} \\cdot Q3^ {\\prime}} \\\\ \\text {D2} = & \\text {Q1\\cdot Q3^{\\prime} \\cdot A^{\\prime} + Q1\\cdot Q3\\cdot A+ Q1\\cdot Q2\\cdot B} \\\\ \\text {D3} = & \\text {Q1\\cdot A+ Q2^{\\prime} \\cdot Q3^{\\prime} \\cdot A} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {D1} = & Q1+ Q2^{\\prime} \\cdot Q3^ {\\prime} \\\\ \\text {D2} = & Q1\\cdot Q3^{\\prime} \\cdot A^{\\prime} + Q1\\cdot Q3\\cdot A+ Q1\\cdot Q2\\cdot B \\\\ \\text {D3} = & Q1\\cdot A+ Q2^{\\prime} \\cdot Q3^{\\prime} \\cdot A \\end{array}"
+    }
+  ]
+}

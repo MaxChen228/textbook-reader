@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "vapnik_statistical_learning_theory-ch02-body-130-14ff93",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[130]",
+      "expect": "\\lim _ {\\ell \\rightarrow \\infty} P \\left\\{\\left[ \\sup _ {\\alpha} (R (\\alpha) - R _ {\\mathrm{emp}} (\\alpha)) > \\varepsilon \\right] \\text { or } \\left[ \\sup _ {\\alpha} (R _ {\\mathrm{emp}} (\\alpha) - R (\\alpha)) > \\varepsilon \\right]\\right\\} = 0. \\tag {2.11}\\tag{2.11}",
+      "new": "\\lim _ {\\ell \\rightarrow \\infty} P \\left\\{\\left[ \\sup _ {\\alpha} (R (\\alpha) - R _ {\\mathrm{emp}} (\\alpha)) > \\varepsilon \\right] \\text { or } \\left[ \\sup _ {\\alpha} (R _ {\\mathrm{emp}} (\\alpha) - R (\\alpha)) > \\varepsilon \\right]\\right\\} = 0. \\tag{2.11}"
+    },
+    {
+      "id": "vapnik_statistical_learning_theory-ch07-body-268-202831",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[268]",
+      "expect": "\\begin{array}{c} W _ {T} (f) \\\\ = \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {x} f (t) d t - F _ {\\ell} (x)\\right) ^ {2} d x + \\gamma_ {\\ell} \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {\\infty} R (z - x) f (x) d x\\right) ^ {2} d z. \\end{array} \\tag {7-35}\\tag{7.27}",
+      "new": "\\begin{array}{c} W _ {T} (f) \\\\ = \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {x} f (t) d t - F _ {\\ell} (x)\\right) ^ {2} d x + \\gamma_ {\\ell} \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {\\infty} R (z - x) f (x) d x\\right) ^ {2} d z. \\end{array} \\tag{7.27}"
+    }
+  ]
+}

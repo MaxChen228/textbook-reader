@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "nise_control_systems-ch11-body-99-90b041",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[99]",
+      "expect": "\\begin{array}{l} \\text {pos = 20} \\\\ \\text {Ts = 0.2} \\\\ \\text {z = (-log(pos / 100)) / (sqrt(pi^2 + log(pos / 100)^2))} \\\\ \\text {Pm = atan(2*z / sqrt(-2*z^2 + sqrt(l + 4*z^4)))*(180 / pi)} \\\\ \\text {Wbw = (4 / (Ts*z))*sqrt((1 - 2*z^2) + sqrt(4*z^4 - 4*z^2 + 2))} \\\\ \\text {K = 1942000} \\\\ \\text {G = zpk([ ], [0, -50, -120], K)} \\\\ \\text {sisotool(G,1)} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {pos} = 20 \\\\ \\mathrm {Ts} = 0.2 \\\\ \\mathrm {z} = (-\\log(\\mathrm {pos} / 100)) / (\\sqrt{\\pi^2 + \\log(\\mathrm {pos} / 100)^2}) \\\\ \\mathrm {Pm} = \\arctan(2*z / \\sqrt{-2*z^2 + \\sqrt{l + 4*z^4}})*(180 / \\pi) \\\\ \\mathrm {Wbw} = (4 / (\\mathrm {Ts}*z))*\\sqrt{(1 - 2*z^2) + \\sqrt{4*z^4 - 4*z^2 + 2}} \\\\ \\mathrm {K} = 1942000 \\\\ \\mathrm {G} = \\mathrm {zpk}([ ], [0, -50, -120], K) \\\\ \\mathrm {sisotool}(G,1) \\end{array}"
+    },
+    {
+      "id": "nise_control_systems-ch12-body-361-d5a407",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[361]",
+      "expect": "\\begin{array}{l} \\text {r = roots([1,2^{*} z^{*} wn,\\ldots}\\\\ \\text {wn^{\\wedge} 2]);} \\end{array}",
+      "new": "\\begin{array}{l} r = \\mathrm {roots}([1,2^{*} z^{*} wn,\\ldots \\\\ wn^{\\wedge} 2]); \\end{array}"
+    },
+    {
+      "id": "nise_control_systems-ch12-body-363-38b929",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[363]",
+      "expect": "\\begin{array}{l} \\text {poles = 10* [ r ^ {\\prime} 10*...} \\\\ \\text {real(r(1))]} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {poles} = 10* [ r ^ {\\prime} 10*... \\\\ \\mathrm {real}(r(1))] \\end{array}"
+    },
+    {
+      "id": "nise_control_systems-ch02-body-485-36f113",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[485]",
+      "field": "footnote",
+      "all": true,
+      "old": "$f _ { \\nu } = \\Nu { - } \\mathbf { s } / \\mathbf { m }$",
+      "new": "$f _ { \\nu } = N { - } \\mathbf { s } / \\mathbf { m }$",
+      "anchor": "b92b36e2"
+    }
+  ]
+}

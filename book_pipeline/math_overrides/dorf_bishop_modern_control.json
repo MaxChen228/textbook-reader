@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "dorf_bishop_modern_control-ch03-body-557-205adb",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[557]",
+      "expect": "\\begin{array}{l} \\% \\text {Convert G(s) = (2s^{\\wedge} 2 + 8s + 6) / (s^{\\wedge} 3 + 8s^{\\wedge} 2 + 16s + 6)} \\\\ \\% \\text {to a state - space representation} \\\\ \\% \\\\ \\text {num = [2 8 6]; den = [1 8 16 6]; sys\\_tf = tf(num,den);} \\\\ \\text {sys\\_ss = ss(sys\\_tf);} \\end{array}\\tag{a}",
+      "new": "\\begin{array}{l} \\% \\text {Convert } G(s) = (2s^{2} + 8s + 6) / (s^{3} + 8s^{2} + 16s + 6) \\\\ \\% \\text {to a state - space representation} \\\\ \\% \\\\ \\text {num = [2 8 6]; den = [1 8 16 6]; sys\\_tf = tf(num,den);} \\\\ \\text {sys\\_ss = ss(sys\\_tf);} \\end{array}\\tag{a}"
+    }
+  ]
+}

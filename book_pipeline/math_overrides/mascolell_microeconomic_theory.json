@@ -1,0 +1,144 @@
+{
+  "overrides": [
+    {
+      "id": "mascolell_microeconomic_theory-ch12-body-92-ed2d42",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[92]",
+      "field": "md",
+      "all": true,
+      "old": "$J  \\nolinebreak \\mathcal { x }$",
+      "new": "$J \\mathcal { x }$",
+      "anchor": "e5241f76"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-appM-body-151-61c247",
+      "action": "fix_inline_math",
+      "chunk": "appM",
+      "selector": "body[151]",
+      "field": "md",
+      "all": true,
+      "old": "$\\{ 1 , \\ldots , \\Nu \\}$",
+      "new": "$\\{ 1 , \\ldots , N \\}$",
+      "anchor": "30d00b9b"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch06-body-40-df1aec",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[40]",
+      "field": "md",
+      "all": true,
+      "old": "$L \\succap L ^ { \\prime }$",
+      "new": "$L\\succapprox L^{\\prime}$",
+      "anchor": "a96a11a4"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch06-body-124-df1aec",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[124]",
+      "field": "md",
+      "all": true,
+      "old": "$L \\succap L ^ { \\prime }$",
+      "new": "$L\\succapprox L^{\\prime}$",
+      "anchor": "7623f332"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch06-body-172-df1aec",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[172]",
+      "field": "md",
+      "all": true,
+      "old": "$L \\succap L ^ { \\prime }$",
+      "new": "$L\\succapprox L^{\\prime}$",
+      "anchor": "45978904"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch23-body-192-ebf0d4",
+      "action": "fix_inline_math",
+      "chunk": "ch23",
+      "selector": "body[192]",
+      "field": "md",
+      "all": true,
+      "old": "$L _ { I } ( f ( \\theta _ { 1 } ^ { \\prime \\prime } , \\dots , \\theta _ { I } ^ { \\prime \\prime } _ { - 1 } , \\theta _ { I } ^ { \\prime } ) , \\theta _ { I } ^ { \\prime } )$",
+      "new": "$L_I(f(\\theta_1^{\\prime\\prime},\\dots,{\\theta_I^{\\prime\\prime}}_{-1},\\theta_I^{\\prime}),\\theta_I^{\\prime})$",
+      "anchor": "04527cc4"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch16-body-19-d1d0ef",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[19]",
+      "field": "md",
+      "all": true,
+      "old": "$( x , y ) = ( x _ { 1 } , \\textrm { \\ldots } , x _ { I } , y _ { 1 } , \\textrm { \\ldots } , y _ { J } )$",
+      "new": "$(x,y)=(x_1,\\ldots,x_I,y_1,\\ldots,y_J)$",
+      "anchor": "a7f3f880"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch19-problem-19-d-l-body-41-7377b3",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19.D.l:body[41]",
+      "field": "md",
+      "all": true,
+      "old": "$x _ { i } ^ { \\sigma ^ { \\prime } ( \\textit { \\textbf { \\prime } } ) } ,$",
+      "new": "$x_i^{\\sigma^{\\prime}(\\boldsymbol{\\prime})},$",
+      "anchor": "2a647bc8"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch23-body-335-a607f8",
+      "action": "fix_inline_math",
+      "chunk": "ch23",
+      "selector": "body[335]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { f } ( \\cdot ) = ( k ( \\cdot ) , t _ { 1 } ( \\cdot ) , \\textrm { \\hdots , } t _ { I } ( \\cdot ) )$",
+      "new": "$\\pmb{f}(\\cdot)=(k(\\cdot),t_1(\\cdot),\\hdots,t_I(\\cdot))$",
+      "anchor": "bfbfb9fc"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch23-body-543-4ad5c2",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[543]",
+      "expect": "\\begin{array}{l l} \\text {Max} & t _ {L} - 2 0 \\\\ (t _ {L} \\in [ 0,   1 ], y _ {H}, t _ {H} \\in [ 0,   1 ]) & \\text {s.t. (ii^{\\prime})} t _ {L} - 2 0 = t _ {H} - 2 0 y _ {H}. \\\\ & \\text {(iii)} t _ {H} - 4 0 y _ {H} \\geq \\bar {u} _ {1 H}. \\\\ & \\text {(iv)}. 2 (5 0 y _ {H} - t _ {H}) +. 8 (3 0 - t _ {L}) \\geq \\bar {u} _ {2}. \\end{array}",
+      "new": "\\begin{array}{ll}\\text{Max}&t_L-20\\\\(t_L\\in[0,1],y_H,t_H\\in[0,1])&\\text{s.t. }(ii')\\ t_L-20=t_H-20y_H.\\\\&\\text{(iii) }t_H-40y_H\\geq\\bar{u}_{1H}.\\\\&\\text{(iv). }2(50y_H-t_H)+.8(30-t_L)\\geq\\bar{u}_2.\\end{array}"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch12-body-353-9d79f9",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[353]",
+      "field": "md",
+      "all": true,
+      "old": "$\\smash { \\bigl \\delta < 1 }$",
+      "new": "$\\smash{\\bigl(\\delta<1}$",
+      "anchor": "ecb9d53c"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch06-body-70-8538bf",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[70]",
+      "field": "md",
+      "all": true,
+      "old": "$\\overline { { L } } \\succap L \\succap L$",
+      "new": "$\\overline{{L}}\\succapprox L\\succapprox L$",
+      "anchor": "47d7e6ec"
+    },
+    {
+      "id": "mascolell_microeconomic_theory-ch06-body-337-077d3a",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[337]",
+      "field": "md",
+      "all": true,
+      "old": "$\\romannumeral 9$",
+      "new": "$\\mathrm{ix}$",
+      "anchor": "1e58ba94"
+    }
+  ]
+}

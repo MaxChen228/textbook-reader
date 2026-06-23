@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "lynch_distributed_algorithms-ch24-body-72-068f4c",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[72]",
+      "expect": "4. u. s t a t u s = \\left\\{ \\begin{array}{l l} s t a r t & \\text {if s.turn = 0 or \\exists i:s.pc_{i} \\in\\{crit,reset\\}}, \\\\ s e i z e d & \\text {if s.turn\\neq 0, \\not\\exists i:s.pc_{i} \\in\\{crit,reset\\}, and \\exists i:s.pc_{i} = set}, \\\\ s t a b & \\text {if s.turn\\neq 0 and \\not\\exists i:s.pc_{i} \\in\\{crit,reset,set\\}}. \\end{array} \\right.",
+      "new": "4.\\ u.status=\\left\\{\\begin{array}{ll}start&\\text{if }s.turn=0\\text{ or }\\exists i:s.pc_i\\in\\{crit,reset\\},\\\\seized&\\text{if }s.turn\\neq0,\\ \\not\\exists i:s.pc_i\\in\\{crit,reset\\},\\text{ and }\\exists i:s.pc_i=set,\\\\stab&\\text{if }s.turn\\neq0\\text{ and }\\not\\exists i:s.pc_i\\in\\{crit,reset,set\\}.\\end{array}\\right."
+    },
+    {
+      "id": "lynch_distributed_algorithms-ch24-body-75-406272",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[75]",
+      "expect": "g (i) = \\left\\{ \\begin{array}{l l} s. l a s t (c h e c k _ {i}) + 2 \\ell_ {2} & \\text {if s.pc_{i} = check}, \\\\ s. l a s t (m a i n _ {i}) + \\ell_ {2} & \\text {if s.pc_{i} = test}, \\\\ s. l a s t (m a i n _ {i}) & \\text {if s.pc_{i} = set}, \\\\ \\infty & \\text {otherwise}. \\end{array} \\right.",
+      "new": "g(i)=\\left\\{\\begin{array}{ll}s.last(check_i)+2\\ell_2&\\text{if }s.pc_i=check,\\\\s.last(main_i)+\\ell_2&\\text{if }s.pc_i=test,\\\\s.last(main_i)&\\text{if }s.pc_i=set,\\\\\\infty&\\text{otherwise}.\\end{array}\\right."
+    },
+    {
+      "id": "lynch_distributed_algorithms-ch16-body-165-1372f8",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[165]",
+      "expect": "O (p k)\\tag{(O(pd)\\}",
+      "new": "O(pk)\\tag{(O(pd)}"
+    },
+    {
+      "id": "lynch_distributed_algorithms-ch16-body-167-31fd2c",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[167]",
+      "expect": "O (p k)\\tag{(O(d)\\}",
+      "new": "O(pk)\\tag{(O(d)}"
+    }
+  ]
+}
