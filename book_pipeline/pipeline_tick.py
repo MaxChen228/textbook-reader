@@ -1612,6 +1612,27 @@ def _has_open_engine_proposal(slug: str) -> bool:
     return False
 
 
+def _yaml_parse_error(text: str) -> str | None:
+    """yaml 文本可解析→None；否則回精簡錯因（單行、截 160）。純函式、易測。"""
+    import yaml
+    try:
+        yaml.safe_load(text)
+        return None
+    except yaml.YAMLError as e:
+        return ' '.join(str(e).split())[:160]
+
+
+def _malformed_rules_reason(slug: str) -> str | None:
+    """extract_rules.yaml 存在但非合法 YAML → 回錯因（供 audit 接受時擋下、免進 parser 靜默 crash-loop）；
+    合法／不存在 → None。2026-06-24 dogfood：glover_overbye 章標「Transmission Lines: Steady-State」含
+    未引號冒號 → parser.load_rules 的 yaml.safe_load 拋 ScannerError、書卡 待parse 每 cycle 崩、無 R 狀態。"""
+    path = os.path.join(DATA_DIR, slug, 'extract_rules.yaml')
+    if not os.path.isfile(path):
+        return None
+    with open(path, encoding='utf-8') as fh:
+        return _yaml_parse_error(fh.read())
+
+
 def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:
     """縱向推進**一本書**：沿自己的 pipeline 盡可能往下跑（triage→qc→ingest→parse→
     audit→catalog→sol→deploy），**不等其他書**。每步後重新 assess（磁碟狀態會變）。
@@ -1708,6 +1729,13 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
                 if not st._exists(slug, 'extract_rules.yaml') and _has_open_engine_proposal(slug):
                     q.mark_audit_blocked(slug, ['agent 跑完未產 extract_rules.yaml 且已開 engine 提案（schema 表達不了）'])
                     log(f'advance {slug}：audit 結構性卡關（已開提案、無 yaml）→ 標記 review、停止重派空轉')
+                    return
+                # 防 audit 產出語法壞的 yaml（值含未引號冒號等）→ parser.load_rules 載入即崩、書靜默卡 待parse
+                # crash-loop（無 R 狀態、無提案，2026-06-24 dogfood：glover_overbye）。驗 yaml 可解析，壞→標
+                # review（actionable）、不放它進 parser 無限崩；架構師重 audit 或修引號後清標記放行。
+                if bad := _malformed_rules_reason(slug):
+                    q.mark_audit_blocked(slug, [f'extract_rules.yaml 非合法 YAML（{bad}）→ parser 載入即崩，需重 audit 修正（常見：值含未引號冒號）'])
+                    log(f'advance {slug}：audit 產出壞 yaml（{bad}）→ 標 review、不進 parser crash-loop')
                     return
                 q.clear_audit_blocked(slug)
         else:

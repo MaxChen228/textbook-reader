@@ -71,9 +71,14 @@ index_start_page: <int | null>          # optional
 inline_problems: <bool>                 # optional, default false
 
 # ── 章節 ──
+# ⚠ **YAML 引號鐵律**：任何字串值含「冒號+空格」`: `（如章標 `Transmission Lines: Steady-State Operation`）、
+#   開頭是特殊字元（`[`/`{`/`*`/`&`/`#`/`@`/`?`/`-`）、或純數字想當字串 → **必須加雙引號**，否則 YAML 把
+#   內部 `: ` 當 nested mapping → parser.load_rules 的 yaml.safe_load 拋 ScannerError、整本卡 待parse 崩。
+#   **收尾前自驗**：`python -c "import yaml;yaml.safe_load(open('…/extract_rules.yaml').read())"` 必須無例外
+#   （否則 daemon 端 _malformed_rules_reason 會把書標 audit-blocked 退回重做）。
 chapters:                               # required, non-empty list
   - num: <int>                          # 章號（流水正整數）
-    title: <str>                        # 章名（不含編號前綴）
+    title: <str>                        # 章名（不含編號前綴；含冒號/特殊字元必加雙引號，見上鐵律）
     page_start: <int>                   # 該章 page_idx 起點
     page_end: <int>                     # 該章 page_idx 終點（含）
     chapter_title_block_idx: <int>      # primary anchor：章首 text_level=1 block 的 idx
