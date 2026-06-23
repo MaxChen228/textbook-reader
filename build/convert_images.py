@@ -52,10 +52,14 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
     book_dir = DATA_DIR / slug
     out_dir = OUT / slug
     jobs: list[tuple[str, str]] = []
-    img_dir = book_dir / 'unified' / 'images'
-    if img_dir.is_dir():
-        for jpg in img_dir.glob('*.jpg'):
-            jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
+    # 主書影像 + 解答書影像：merged solution 的 fig 引用解答書(<slug>_sol)的影像，但 reader
+    # 從 img/<main_slug>/ 載解答圖，故一併轉進主書 out_dir。hash 為內容定址 → 同名即同內容、
+    # 重複者覆寫等價，mtime 冪等跳過；解答書無 _sol 目錄則 no-op。
+    for img_dir in (book_dir / 'unified' / 'images',
+                    DATA_DIR / f'{slug}_sol' / 'unified' / 'images'):
+        if img_dir.is_dir():
+            for jpg in img_dir.glob('*.jpg'):
+                jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
     cover = book_dir / 'cover.jpg'
     if cover.is_file():
         jobs.append((str(cover), str(out_dir / 'cover.webp')))
