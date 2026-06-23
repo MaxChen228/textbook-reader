@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.42.6.43",
+      "classification": "mis_ocr",
+      "reason": "正文引用的是 Figure 6.42–6.43 的範圍，audit 將 dash range 正規化成單一編號 6.42.6.43；catalog 端已有 fig-6.42 與 fig-6.43，沒有也不應有單一 fig-6.42.6.43。",
+      "where": "ch13.json body[272]",
+      "evidence": "Parsed/MinerU text on source page_idx 684 says: 'Section 6.4.5 (Figure 6.42–6.43)'; parsed catalogs contain fig-6.42 captioned 'OpenPose real-time multi-person 2D pose estimation' and fig-6.43 captioned 'Dense pose estimation...'."
+    },
+    {
+      "type": "table",
+      "ref": "4.1",
+      "classification": "external",
+      "reason": "正文的 Table 4.1 明確屬於 Simoncelli and Adelson (1990b) 參考文獻，不是本書內部表格；本書 chapter 4 無 Table 4.1 可修。",
+      "where": "ch03.json body[497]",
+      "evidence": "Parsed/MinerU text on source page_idx 149 says: 'Simoncelli and Adelson (1990b) show (in Table 4.1) some good odd-length quadrature mirror filter (QMF) coefficients...'; this is an external paper citation, while parsed catalogs have no tbl-4.1 and nearby in-book table ids are tbl-3.1/3.2/3.3 then tbl-6.1+."
+    }
+  ],
+  "overrides": []
+}

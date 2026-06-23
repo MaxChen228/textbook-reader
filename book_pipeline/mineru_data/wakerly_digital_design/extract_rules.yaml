@@ -1,0 +1,125 @@
+slug: wakerly_digital_design
+title: Digital Design Principles and Practices
+author: John F. Wakerly
+edition: 4th
+subject: Digital Logic
+publisher: Pearson Prentice Hall
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - aside_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 887
+bibliography_start_page: null
+index_start_page: 887
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 25
+    page_end: 48
+    chapter_title_block_idx: 222
+    problems_block_idx: 489
+    next_chapter_block_idx: 503
+  - num: 2
+    title: Number Systems and Codes
+    page_start: 49
+    page_end: 102
+    chapter_title_block_idx: 503
+    problems_block_idx: 1098
+    next_chapter_block_idx: 1198
+  - num: 3
+    title: Digital Circuits
+    page_start: 103
+    page_end: 206
+    chapter_title_block_idx: 1198
+    problems_block_idx: 2333
+    next_chapter_block_idx: 2475
+  - num: 4
+    title: Combinational Logic Design Principles
+    page_start: 207
+    page_end: 260
+    chapter_title_block_idx: 2475
+    problems_block_idx: 3080
+    next_chapter_block_idx: 3221
+  - num: 5
+    title: Hardware Description Languages
+    page_start: 261
+    page_end: 364
+    chapter_title_block_idx: 3221
+    problems_block_idx: 4500
+    next_chapter_block_idx: 4555
+  - num: 6
+    title: Combinational Logic Design Practices
+    page_start: 365
+    page_end: 544
+    chapter_title_block_idx: 4555
+    problems_block_idx: 6163
+    next_chapter_block_idx: 6330
+  - num: 7
+    title: Sequential Logic Design Principles
+    page_start: 545
+    page_end: 702
+    chapter_title_block_idx: 6330
+    problems_block_idx: 7877
+    next_chapter_block_idx: 8050
+  - num: 8
+    title: Sequential Logic Design Practices
+    page_start: 703
+    page_end: 822
+    chapter_title_block_idx: 8050
+    problems_block_idx: 9105
+    next_chapter_block_idx: 9222
+  - num: 9
+    title: Memory, CPLDs, and FPGAs
+    page_start: 823
+    page_end: 886
+    chapter_title_block_idx: 9222
+    problems_block_idx: 9842
+    next_chapter_block_idx: 9890
+
+appendices: []
+
+section_re: '^\*?(\d+\.\d+)\s+(.+)$'
+subsection_re: '^\*?(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\(([^)]+)\)'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+  - chapter: 1
+    nums: ["1.2", "1.4", "1.5"]
+  - chapter: 2
+    nums: ["2.5"]
+  - chapter: 3
+    nums: ["3.44"]
+  - chapter: 4
+    nums: ["4.8"]
+  - chapter: 5
+    nums: ["5.13"]
+  - chapter: 6
+    nums: ["6.42"]
+  - chapter: 7
+    nums: ["7.55", "7.65", "7.66", "7.90", "7.91", "7.92", "7.93"]
+  - chapter: 8
+    nums: ["8.40"]

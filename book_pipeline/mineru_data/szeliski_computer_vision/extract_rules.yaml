@@ -1,0 +1,171 @@
+slug: szeliski_computer_vision
+title: 'Computer Vision: Algorithms and Applications'
+author: Richard Szeliski
+edition: 2nd
+subject: Computer Science
+publisher: Springer
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 23
+appendices_start_page: 741
+bibliography_start_page: 782
+index_start_page: 917
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 20
+  page_end: 46
+  chapter_title_block_idx: 119
+  chapter_title_block_idx_secondary: 120
+  problems_block_idx: null
+  next_chapter_block_idx: 399
+- num: 2
+  title: Image formation
+  page_start: 46
+  page_end: 107
+  chapter_title_block_idx: 399
+  chapter_title_block_idx_secondary: 400
+  problems_block_idx: 1127
+  next_chapter_block_idx: 1195
+- num: 3
+  title: Image processing
+  page_start: 107
+  page_end: 170
+  chapter_title_block_idx: 1195
+  chapter_title_block_idx_secondary: 1196
+  problems_block_idx: 1944
+  next_chapter_block_idx: 2056
+- num: 4
+  title: Model fitting and optimization
+  page_start: 170
+  page_end: 204
+  chapter_title_block_idx: 2056
+  chapter_title_block_idx_secondary: 2057
+  problems_block_idx: 2463
+  next_chapter_block_idx: 2476
+- num: 5
+  title: Deep learning
+  page_start: 204
+  page_end: 290
+  chapter_title_block_idx: 2476
+  chapter_title_block_idx_secondary: 2477
+  problems_block_idx: 3395
+  next_chapter_block_idx: 3460
+- num: 6
+  title: Recognition
+  page_start: 291
+  page_end: 349
+  chapter_title_block_idx: 3460
+  chapter_title_block_idx_secondary: 3461
+  problems_block_idx: 4027
+  next_chapter_block_idx: 4062
+- num: 7
+  title: Feature detection and matching
+  page_start: 349
+  page_end: 416
+  chapter_title_block_idx: 4062
+  chapter_title_block_idx_secondary: 4063
+  problems_block_idx: 4728
+  next_chapter_block_idx: 4826
+- num: 8
+  title: Image alignment and stitching
+  page_start: 417
+  page_end: 457
+  chapter_title_block_idx: 4826
+  chapter_title_block_idx_secondary: 4827
+  problems_block_idx: 5302
+  next_chapter_block_idx: 5360
+- num: 9
+  title: Motion estimation
+  page_start: 457
+  page_end: 498
+  chapter_title_block_idx: 5360
+  chapter_title_block_idx_secondary: 5361
+  problems_block_idx: 5809
+  next_chapter_block_idx: 5882
+- num: 10
+  title: Computational photography
+  page_start: 498
+  page_end: 558
+  chapter_title_block_idx: 5882
+  chapter_title_block_idx_secondary: 5883
+  problems_block_idx: 6525
+  next_chapter_block_idx: 6613
+- num: 11
+  title: Structure from motion and SLAM
+  page_start: 559
+  page_end: 611
+  chapter_title_block_idx: 6613
+  chapter_title_block_idx_secondary: 6614
+  problems_block_idx: 7190
+  next_chapter_block_idx: 7288
+- num: 12
+  title: Depth estimation
+  page_start: 612
+  page_end: 653
+  chapter_title_block_idx: 7288
+  chapter_title_block_idx_secondary: 7289
+  problems_block_idx: 7713
+  next_chapter_block_idx: 7781
+- num: 13
+  title: 3D reconstruction
+  page_start: 653
+  page_end: 696
+  chapter_title_block_idx: 7781
+  chapter_title_block_idx_secondary: 7782
+  problems_block_idx: 8230
+  next_chapter_block_idx: 8265
+- num: 14
+  title: Image-based rendering
+  page_start: 696
+  page_end: 737
+  chapter_title_block_idx: 8265
+  chapter_title_block_idx_secondary: 8266
+  problems_block_idx: 8663
+  next_chapter_block_idx: 8741
+- num: 15
+  title: Conclusion
+  page_start: 738
+  page_end: 740
+  chapter_title_block_idx: 8741
+  chapter_title_block_idx_secondary: 8742
+  problems_block_idx: null
+  next_chapter_block_idx: 8767
+appendices:
+- id: A
+  title: Linear algebra and numerical techniques
+  page_start: 741
+  chapter_title_block_idx: 8767
+  chapter_title_block_idx_secondary: 8768
+- id: B
+  title: Bayesian modeling and inference
+  page_start: 756
+  chapter_title_block_idx: 9013
+  chapter_title_block_idx_secondary: 9014
+- id: C
+  title: Color image processing
+  page_start: 768
+  chapter_title_block_idx: 9157
+  chapter_title_block_idx_secondary: 9158
+section_re: ^(\d+\.\d+)\s+(.+?)\s*$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+?)\s*$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^Ex\s+(\d+\.\d+):\s*.*$
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+equation_label_re: \\tag\{([^}]+)\}
+equation_strip_dollar: true

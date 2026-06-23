@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "koller_friedman_pgm-ch07-body-24-40498d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[24]",
+      "expect": "p (\\boldsymbol {X}, \\boldsymbol {Y}) = \\mathcal {N} \\left(\\binom{\\boldsymbol {\\mu} _ {\\boldsymbol {X}}}{\\boldsymbol {\\mu} _ {\\boldsymbol {Y}}} \\middle ; \\left[ \\begin{array}{c c} \\Sigma_ {\\boldsymbol {X} \\boldsymbol {X}} & \\Sigma_ {\\boldsymbol {X} \\boldsymbol {Y}} \\\\ \\Sigma_ {\\boldsymbol {Y} \\boldsymbol {X}} & \\Sigma_ {\\boldsymbol {Y} \\boldsymbol {Y}} \\end{array} \\right]\\right)",
+      "new": "p (\\boldsymbol {X}, \\boldsymbol {Y}) = \\mathcal {N} \\left(\\binom{\\boldsymbol {\\mu} _ {\\boldsymbol {X}}}{\\boldsymbol {\\mu} _ {\\boldsymbol {Y}}} ; \\left[ \\begin{array}{c c} \\Sigma_ {\\boldsymbol {X} \\boldsymbol {X}} & \\Sigma_ {\\boldsymbol {X} \\boldsymbol {Y}} \\\\ \\Sigma_ {\\boldsymbol {Y} \\boldsymbol {X}} & \\Sigma_ {\\boldsymbol {Y} \\boldsymbol {Y}} \\end{array} \\right]\\right)"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+slug: ulaby_applied_electromagnetics
+title: Fundamentals of Applied Electromagnetics
+author: Fawwaz T. Ulaby; Umberto Ravaioli
+edition: 8th
+subject: Electromagnetism
+publisher: Pearson
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 15
+appendices_start_page: 464
+bibliography_start_page: 479
+index_start_page: 481
+chapters:
+- num: 1
+  title: 'Introduction: Waves and Phasors'
+  page_start: 15
+  chapter_title_block_idx: 172
+  next_chapter_block_idx: 1140
+  page_end: 60
+  problems_block_idx: 951
+- num: 2
+  title: Transmission Lines
+  page_start: 61
+  chapter_title_block_idx: 1140
+  next_chapter_block_idx: 2674
+  page_end: 144
+  problems_block_idx: 2400
+- num: 3
+  title: Vector Analysis
+  page_start: 145
+  chapter_title_block_idx: 2674
+  next_chapter_block_idx: 3692
+  page_end: 186
+  problems_block_idx: 3382
+- num: 4
+  title: Electrostatics
+  page_start: 187
+  chapter_title_block_idx: 3692
+  next_chapter_block_idx: 4823
+  page_end: 242
+  problems_block_idx: 4560
+- num: 5
+  title: Magnetostatics
+  page_start: 243
+  chapter_title_block_idx: 4823
+  next_chapter_block_idx: 5634
+  page_end: 286
+  problems_block_idx: 5468
+- num: 6
+  title: Maxwell’s Equations for Time-Varying Fields
+  page_start: 287
+  chapter_title_block_idx: 5634
+  next_chapter_block_idx: 6299
+  page_end: 316
+  problems_block_idx: 6102
+- num: 7
+  title: Plane-Wave Propagation
+  page_start: 317
+  chapter_title_block_idx: 6299
+  next_chapter_block_idx: 7132
+  page_end: 352
+  problems_block_idx: 6915
+- num: 8
+  title: Wave Reflection and Transmission
+  page_start: 353
+  chapter_title_block_idx: 7132
+  next_chapter_block_idx: 8132
+  page_end: 398
+  problems_block_idx: 7936
+- num: 9
+  title: Radiation and Antennas
+  page_start: 399
+  chapter_title_block_idx: 8132
+  next_chapter_block_idx: 9099
+  page_end: 448
+  problems_block_idx: 8916
+- num: 10
+  title: Satellite Communication Systems and Radar Sensors
+  page_start: 449
+  chapter_title_block_idx: 9099
+  next_chapter_block_idx: 9310
+  page_end: 463
+  problems_block_idx: 9296
+appendices:
+- id: A
+  title: Symbols, Quantities, and Units
+  page_start: 464
+  chapter_title_block_idx: 9310
+- id: B
+  title: Material Constants of Some Common Materials
+  page_start: 467
+  chapter_title_block_idx: 9321
+- id: C
+  title: Mathematical Formulas
+  page_start: 471
+  chapter_title_block_idx: 9387
+- id: D
+  title: Fundamental Constants and Units
+  page_start: 473
+  chapter_title_block_idx: 9396
+- id: E
+  title: Answers to Selected Problems
+  page_start: 475
+  chapter_title_block_idx: 9406
+section_re: ^(\d+-\d+)\s+(.+)$
+subsection_re: ^(\d+-\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(?:(?:<sup>∗</sup>)|\\[A-Za-z]+|[^0-9A-Za-z]){0,50}(\d+\s*\.\s*\d+(?:\s*\d+)*)\b
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: false
+equation_label_re: \((\d+\.\d+[a-z]?)\)
+example_start_re: ^(Example\s+\d+-\d+)\b
+figure_caption_merge: false
+known_missing_problems:
+- chapter: 1
+  nums:
+  - '1.1'
+- chapter: 2
+  nums:
+  - '2.4'
+  - '2.73'
+- chapter: 4
+  nums:
+  - '4.1'
+- chapter: 5
+  nums:
+  - '5.1'
+- chapter: 8
+  nums:
+  - '8.1'
+- chapter: 9
+  nums:
+  - '9.1'
+- chapter: 10
+  nums:
+  - '10.1'

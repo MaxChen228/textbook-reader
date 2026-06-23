@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "greene_econometric_analysis-appB-body-307-526c1a",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[307]",
+      "expect": "J = \\mathrm{abs} \\left| \\begin{array}{c c} \\frac {\\partial x _ {1}}{\\partial y _ {1}} & \\frac {\\partial x _ {1}}{\\partial y _ {2}} \\\\ 0 & 1 \\end{array} \\right| = \\mathrm{abs} \\left| \\binom {\\frac {\\partial x _ {1}}{\\partial y _ {1}}} \\right|.",
+      "new": "J = \\mathrm{abs} \\left| \\begin{array}{c c} \\frac {\\partial x _ {1}}{\\partial y _ {1}} & \\frac {\\partial x _ {1}}{\\partial y _ {2}} \\\\ 0 & 1 \\end{array} \\right| = \\mathrm{abs} \\left| \\frac {\\partial x _ {1}}{\\partial y _ {1}} \\right|."
+    },
+    {
+      "id": "greene_econometric_analysis-appB-body-14-5e7f69",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[14]",
+      "expect": "\\int_ {- \\infty} ^ {+ \\infty} f (x) d x = 1. \\tag {2.}\\tag{B-5}",
+      "new": "\\int_ {- \\infty} ^ {+ \\infty} f (x) d x = 1. \\tag{B-5}"
+    },
+    {
+      "id": "greene_econometric_analysis-ch15-body-269-9bd5ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[269]",
+      "expect": "\\begin{array}{l} \\ln \\hat {L} _ {S} ^ {(k - 1)} \\\\ = \\sum_ {i = 1} ^ {n} \\ln \\left\\{\\frac {1}{R} \\sum_ {r = 1} ^ {R} \\prod_ {t = 1} ^ {T _ {i}} \\frac {\\exp \\left[ - \\exp \\left(\\mathbf {x} _ {i t} ^ {\\prime} \\hat {\\boldsymbol {\\beta}} ^ {(k - 1)} + \\hat {\\sigma} ^ {(k - 1)} w _ {i r}\\right) \\right] \\left[ \\exp \\left(\\mathbf {x} _ {i t} ^ {\\prime} \\hat {\\boldsymbol {\\beta}} ^ {(k - 1)} + \\hat {\\sigma} ^ {(k - 1)} w _ {i r}\\right) \\right] ^ {y _ {i t}} \\right]}{y _ {i t} !} \\end{array} .",
+      "new": "\\begin{array}{l} \\ln \\hat {L} _ {S} ^ {(k - 1)} \\\\ = \\sum_ {i = 1} ^ {n} \\ln \\left\\{\\frac {1}{R} \\sum_ {r = 1} ^ {R} \\prod_ {t = 1} ^ {T _ {i}} \\frac {\\exp \\left[ - \\exp \\left(\\mathbf {x} _ {i t} ^ {\\prime} \\hat {\\boldsymbol {\\beta}} ^ {(k - 1)} + \\hat {\\sigma} ^ {(k - 1)} w _ {i r}\\right) \\right] \\left[ \\exp \\left(\\mathbf {x} _ {i t} ^ {\\prime} \\hat {\\boldsymbol {\\beta}} ^ {(k - 1)} + \\hat {\\sigma} ^ {(k - 1)} w _ {i r}\\right) \\right] ^ {y _ {i t}}}{y _ {i t} !}\\right\\} \\end{array} ."
+    },
+    {
+      "id": "greene_econometric_analysis-ch03-body-153-7918c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[153]",
+      "expect": "\\frac {t _ {z} ^ {2}}{t _ {z} ^ {2} + D F} = \\frac {\\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) ^ {2} / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)}{\\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) ^ {2} / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) + \\left(\\mathbf {u} ^ {\\prime} \\mathbf {u}\\right) \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)} = \\frac {r _ {y z} ^ {* 2}}{r _ {y z} ^ {* 2} + \\left(\\mathbf {u} ^ {\\prime} \\mathbf {u}\\right) / \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)}. \\tag {3.1}\\tag{3-23}",
+      "new": "\\frac {t _ {z} ^ {2}}{t _ {z} ^ {2} + D F} = \\frac {\\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) ^ {2} / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)}{\\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) ^ {2} / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right) + \\left(\\mathbf {u} ^ {\\prime} \\mathbf {u}\\right) \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) / \\left(\\mathbf {z} _ {*} ^ {\\prime} \\mathbf {z} _ {*}\\right) \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)} = \\frac {r _ {y z} ^ {* 2}}{r _ {y z} ^ {* 2} + \\left(\\mathbf {u} ^ {\\prime} \\mathbf {u}\\right) / \\left(\\mathbf {y} _ {*} ^ {\\prime} \\mathbf {y} _ {*}\\right)}. \\tag{3-23}"
+    },
+    {
+      "id": "greene_econometric_analysis-ch10-body-258-76342d",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[258]",
+      "expect": "\\begin{array}{l} \\mathbf {y} = \\left[ \\begin{array}{c} \\mathsf {s} _ {\\mathsf {K}} \\\\ \\mathsf {s} _ {\\mathsf {L}} \\\\ \\mathsf {s} _ {\\mathsf {E}} \\end{array} \\right], \\\\ \\mathbf {X} = \\left[ \\begin{array}{c c c c c c c c c} \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} & 0 & 0 & 0 \\\\ 0 & \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & 0 & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} & 0 \\\\ 0 & 0 & \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & 0 & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} \\end{array} \\right], \\\\ \\beta^ {\\prime} = (\\beta_ {K}, \\beta_ {L}, \\beta_ {E}, \\delta_ {K K}, \\delta_ {K L}, \\delta_ {K E}, \\delta_ {L L}, \\delta_ {L E}, \\delta_ {E E}). \\end{array} \\tag {10}\\tag{10-40}",
+      "new": "\\begin{array}{l} \\mathbf {y} = \\left[ \\begin{array}{c} \\mathsf {s} _ {\\mathsf {K}} \\\\ \\mathsf {s} _ {\\mathsf {L}} \\\\ \\mathsf {s} _ {\\mathsf {E}} \\end{array} \\right], \\\\ \\mathbf {X} = \\left[ \\begin{array}{c c c c c c c c c} \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} & 0 & 0 & 0 \\\\ 0 & \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & 0 & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} & 0 \\\\ 0 & 0 & \\mathrm{i} & 0 & 0 & \\ln P _ {K} / P _ {M} & 0 & \\ln P _ {L} / P _ {M} & \\ln P _ {E} / P _ {M} \\end{array} \\right], \\\\ \\beta^ {\\prime} = (\\beta_ {K}, \\beta_ {L}, \\beta_ {E}, \\delta_ {K K}, \\delta_ {K L}, \\delta_ {K E}, \\delta_ {L L}, \\delta_ {L E}, \\delta_ {E E}). \\end{array} \\tag{10-40}"
+    },
+    {
+      "id": "greene_econometric_analysis-ch20-body-348-4625d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[348]",
+      "expect": "\\frac {\\partial l _ {t}}{\\partial \\boldsymbol {\\gamma}} = - \\frac {1}{2} \\left[ \\frac {1}{\\sigma_ {t} ^ {2}} - \\frac {\\varepsilon_ {t} ^ {2}}{\\left(\\sigma_ {t} ^ {2}\\right) ^ {2}} \\right] \\frac {\\partial \\sigma_ {t} ^ {2}}{\\partial \\boldsymbol {\\gamma}} = \\frac {1}{2} \\left(\\frac {1}{\\sigma_ {t} ^ {2}}\\right) \\frac {\\partial \\sigma_ {t} ^ {2}}{\\partial \\boldsymbol {\\gamma}} \\left(\\frac {\\varepsilon_ {t} ^ {2}}{\\sigma_ {t} ^ {2}} - 1\\right) = \\frac {1}{2} \\left(\\frac {1}{\\sigma_ {t} ^ {2}}\\right) \\mathbf {g} _ {t} v _ {t} = \\mathbf {b} _ {t} v _ {t}. \\tag {20-}\\tag{20-37}",
+      "new": "\\frac {\\partial l _ {t}}{\\partial \\boldsymbol {\\gamma}} = - \\frac {1}{2} \\left[ \\frac {1}{\\sigma_ {t} ^ {2}} - \\frac {\\varepsilon_ {t} ^ {2}}{\\left(\\sigma_ {t} ^ {2}\\right) ^ {2}} \\right] \\frac {\\partial \\sigma_ {t} ^ {2}}{\\partial \\boldsymbol {\\gamma}} = \\frac {1}{2} \\left(\\frac {1}{\\sigma_ {t} ^ {2}}\\right) \\frac {\\partial \\sigma_ {t} ^ {2}}{\\partial \\boldsymbol {\\gamma}} \\left(\\frac {\\varepsilon_ {t} ^ {2}}{\\sigma_ {t} ^ {2}} - 1\\right) = \\frac {1}{2} \\left(\\frac {1}{\\sigma_ {t} ^ {2}}\\right) \\mathbf {g} _ {t} v _ {t} = \\mathbf {b} _ {t} v _ {t}. \\tag{20-37}"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "overrides": [
+    {
+      "id": "mohri_foundations_machine_learning-ch06-body-95-e609bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[95]",
+      "expect": "\\langle \\Psi (x _ {i}), \\Psi (x _ {j}) \\rangle = (\\mathbf {K} ^ {\\dagger} ^ {\\frac {1}{2}} \\mathbf {K e} _ {i}) ^ {\\top} (\\mathbf {K} ^ {\\dagger} ^ {\\frac {1}{2}} \\mathbf {K e} _ {j}) = \\mathbf {e} _ {i} ^ {\\top} \\mathbf {K K} ^ {\\dagger} \\mathbf {K e} _ {j} = \\mathbf {e} _ {i} ^ {\\top} \\mathbf {K e} _ {j}.",
+      "new": "\\langle \\Psi (x _ {i}), \\Psi (x _ {j}) \\rangle = ({\\mathbf {K} ^ {\\dagger}} ^ {\\frac {1}{2}} \\mathbf {K e} _ {i}) ^ {\\top} ({\\mathbf {K} ^ {\\dagger}} ^ {\\frac {1}{2}} \\mathbf {K e} _ {j}) = \\mathbf {e} _ {i} ^ {\\top} \\mathbf {K K} ^ {\\dagger} \\mathbf {K e} _ {j} = \\mathbf {e} _ {i} ^ {\\top} \\mathbf {K e} _ {j}."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch08-body-151-f8d8b6",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[151]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\mathrm { \\bf \\hat { \\alpha } } } _ { \\bf \\Delta } _ { \\bf \\hat { \\alpha } } { \\geq } 0 \\ G _ { m } ( \\alpha )$",
+      "new": "${ { \\mathrm { \\bf \\hat { \\alpha } } } _ { \\bf \\Delta } } _ { \\bf \\hat { \\alpha } } { \\geq } 0 \\ G _ { m } ( \\alpha )$",
+      "anchor": "720c9fbd"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch04-body-74-e464a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[74]",
+      "expect": "\\widehat {R} _ {\\mathrm{CV}} (\\pmb {\\theta}) = \\frac {1}{n} \\sum_ {i = 1} ^ {n} \\underbrace {\\frac {1}{m _ {i}} \\sum_ {j = 1} ^ {m _ {i}} L (h _ {i} (x _ {i j}) , y _ {i j})} _ {\\text {error of h_{i} on the ith fold}}.",
+      "new": "\\widehat {R} _ {\\mathrm{CV}} (\\pmb {\\theta}) = \\frac {1}{n} \\sum_ {i = 1} ^ {n} \\underbrace {\\frac {1}{m _ {i}} \\sum_ {j = 1} ^ {m _ {i}} L (h _ {i} (x _ {i j}) , y _ {i j})} _ {\\text {error of } h_{i} \\text { on the ith fold}}."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch04-body-92-c7392a",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[92]",
+      "expect": "f _ {h} (x) = \\left\\{ \\begin{array}{l l} + 1 & \\text {if h(x)\\geq 0} \\\\ - 1 & \\text {if h(x)<   0.} \\end{array} \\right.",
+      "new": "f _ {h} (x) = \\left\\{ \\begin{array}{l l} + 1 & \\text {if } h(x)\\geq 0 \\\\ - 1 & \\text {if } h(x)<   0. \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch05-problem-5-4-body-14-7e7452",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.4:body[14]",
+      "expect": "\\alpha_ {2} ^ {c l i p} = \\left\\{ \\begin{array}{l l} \\alpha_ {2} & \\text {if L <   \\alpha_{2} <  H} \\\\ L & \\text {if \\alpha_{2} \\leq L} \\\\ H & \\text {if \\alpha_{2} \\geq H} \\end{array} \\right.",
+      "new": "\\alpha_ {2} ^ {c l i p} = \\left\\{ \\begin{array}{l l} \\alpha_ {2} & \\text {if } L <   \\alpha_{2} <  H \\\\ L & \\text {if } \\alpha_{2} \\leq L \\\\ H & \\text {if } \\alpha_{2} \\geq H \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch07-problem-7-7-body-3-4cf118",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.7:body[3]",
+      "expect": "G (x) = \\left\\{ \\begin{array}{l l} e ^ {x} & \\text {if x\\leq 0} \\\\ x + 1 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "G (x) = \\left\\{ \\begin{array}{l l} e ^ {x} & \\text {if } x\\leq 0 \\\\ x + 1 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch11-body-90-cf4e2d",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[90]",
+      "expect": "\\mathbf {W} = \\left\\{ \\begin{array}{l l} (\\mathbf {X X} ^ {\\top}) ^ {- 1} \\mathbf {X Y} & \\text {if \\mathbf {X X} ^{\\top} is invertible}, \\\\ (\\mathbf {X X} ^ {\\top}) ^ {\\dagger} \\mathbf {X Y} & \\text {otherwise}. \\end{array} \\right.",
+      "new": "\\mathbf {W} = \\left\\{ \\begin{array}{l l} (\\mathbf {X X} ^ {\\top}) ^ {- 1} \\mathbf {X Y} & \\text {if } \\mathbf {X X} ^{\\top} \\text { is invertible}, \\\\ (\\mathbf {X X} ^ {\\top}) ^ {\\dagger} \\mathbf {X Y} & \\text {otherwise}. \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch11-problem-11-5-body-1-91940d",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.5:body[1]",
+      "expect": "L _ {c} (\\xi_ {i}) = \\left\\{ \\begin{array}{l l} \\frac {1}{2} \\xi_ {i} ^ {2}, & \\text {if | \\xi_{i}| \\leq c} \\\\ c \\xi_ {i} - \\frac {1}{2} c ^ {2}, & \\text {otherwise} \\end{array} \\right.,",
+      "new": "L _ {c} (\\xi_ {i}) = \\left\\{ \\begin{array}{l l} \\frac {1}{2} \\xi_ {i} ^ {2}, & \\text {if } | \\xi_{i}| \\leq c \\\\ c \\xi_ {i} - \\frac {1}{2} c ^ {2}, & \\text {otherwise} \\end{array} \\right.,"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch12-body-97-f3e76b",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[97]",
+      "expect": "\\delta J (\\mathbf {w} _ {t - 1}, \\mathbf {e} _ {j}) = \\left\\{ \\begin{array}{l l} \\lambda \\operatorname{sgn} (w _ {t - 1, j}) + \\epsilon_ {t - 1, j} & \\text {if (w_{t - 1,j} \\neq 0)} \\\\ 0 & \\text {else if | \\epsilon_{t - 1,j}| \\leq\\lambda} \\\\ - \\lambda \\operatorname{sgn} (\\epsilon_ {t - 1, j}) + \\epsilon_ {t - 1, j} & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\delta J (\\mathbf {w} _ {t - 1}, \\mathbf {e} _ {j}) = \\left\\{ \\begin{array}{l l} \\lambda \\operatorname{sgn} (w _ {t - 1, j}) + \\epsilon_ {t - 1, j} & \\text {if } (w_{t - 1,j} \\neq 0) \\\\ 0 & \\text {else if } | \\epsilon_{t - 1,j}| \\leq\\lambda \\\\ - \\lambda \\operatorname{sgn} (\\epsilon_ {t - 1, j}) + \\epsilon_ {t - 1, j} & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch14-body-70-22d1ab",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[70]",
+      "expect": "L _ {\\epsilon} (y ^ {\\prime}, y) = \\left\\{ \\begin{array}{l l} 0 & \\text {if |y^{\\prime} -y|\\leq\\epsilon ;} \\\\ | y ^ {\\prime} - y | - \\epsilon & \\text {otherwise.} \\end{array} \\right.",
+      "new": "L _ {\\epsilon} (y ^ {\\prime}, y) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } |y^{\\prime} -y|\\leq\\epsilon ; \\\\ | y ^ {\\prime} - y | - \\epsilon & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch02-body-37-7a660f",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[37]",
+      "expect": "\\begin{array}{l l} \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ R (\\mathsf {R} _ {\\mathsf {S}}) > \\epsilon ] \\leq \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ \\cup_ {i = 1} ^ {4} \\{\\mathsf {R} _ {\\mathsf {S}} \\cap r _ {i} = \\emptyset \\} ] \\\\ \\leq \\sum_ {i = 1} ^ {4} \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ \\{\\mathsf {R} _ {\\mathsf {S}} \\cap r _ {i} = \\emptyset \\} ] & \\text {(by the union bound)} \\\\ \\leq 4 (1 - \\epsilon / 4) ^ {m} & \\text {(since \\mathbb {P} [r_{i} ]\\geq\\epsilon / 4)} \\\\ \\leq 4 \\exp (- m \\epsilon / 4), \\end{array}",
+      "new": "\\begin{array}{l l} \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ R (\\mathsf {R} _ {\\mathsf {S}}) > \\epsilon ] \\leq \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ \\cup_ {i = 1} ^ {4} \\{\\mathsf {R} _ {\\mathsf {S}} \\cap r _ {i} = \\emptyset \\} ] \\\\ \\leq \\sum_ {i = 1} ^ {4} \\underset {S \\sim \\mathcal {D} ^ {m}} {\\mathbb {P}} [ \\{\\mathsf {R} _ {\\mathsf {S}} \\cap r _ {i} = \\emptyset \\} ] & \\text {(by the union bound)} \\\\ \\leq 4 (1 - \\epsilon / 4) ^ {m} & \\text {(since } \\mathbb {P} [r_{i} ]\\geq\\epsilon / 4\\text {)} \\\\ \\leq 4 \\exp (- m \\epsilon / 4), \\end{array}"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch10-body-26-2be5c6",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[26]",
+      "expect": "\\begin{array}{r l r} \\mathfrak {R} _ {m} (\\widetilde {\\mathcal {H}}) = \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} y _ {i} (h (x _ {i} ^ {\\prime}) - h (x _ {i})) \\right] \\\\ & = \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} (h (x _ {i} ^ {\\prime}) - h (x _ {i})) \\right] & (y _ {i} \\sigma_ {i} \\text {and} \\sigma_ {i}: \\text {same distrib.}) \\\\ & \\leq \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} h (x _ {i} ^ {\\prime}) + \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} h (x _ {i}) \\right] & (\\text {by sub - additivity of sup}) \\\\ & = \\underset {S} {\\mathbb {E}} \\left[ \\mathfrak {R} _ {S _ {2}} (\\mathcal {H}) + \\mathfrak {R} _ {S _ {1}} (\\mathcal {H}) \\right] & (\\text {definition of S_{1} and S_{2}}) \\\\ & = \\mathfrak {R} _ {m} ^ {\\mathcal {D} _ {2}} (\\mathcal {H}) + \\mathfrak {R} _ {m} ^ {\\mathcal {D} _ {1}} (\\mathcal {H}), \\end{array}",
+      "new": "\\begin{array}{r l r} \\mathfrak {R} _ {m} (\\widetilde {\\mathcal {H}}) = \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} y _ {i} (h (x _ {i} ^ {\\prime}) - h (x _ {i})) \\right] \\\\ & = \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} (h (x _ {i} ^ {\\prime}) - h (x _ {i})) \\right] & (y _ {i} \\sigma_ {i} \\text {and} \\sigma_ {i}: \\text {same distrib.}) \\\\ & \\leq \\frac {1}{m} \\underset {S, \\sigma} {\\mathbb {E}} \\left[ \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} h (x _ {i} ^ {\\prime}) + \\sup _ {h \\in \\mathcal {H}} \\sum_ {i = 1} ^ {m} \\sigma_ {i} h (x _ {i}) \\right] & (\\text {by sub - additivity of sup}) \\\\ & = \\underset {S} {\\mathbb {E}} \\left[ \\mathfrak {R} _ {S _ {2}} (\\mathcal {H}) + \\mathfrak {R} _ {S _ {1}} (\\mathcal {H}) \\right] & (\\text {definition of } S_{1} \\text { and } S_{2}\\text {)} \\\\ & = \\mathfrak {R} _ {m} ^ {\\mathcal {D} _ {2}} (\\mathcal {H}) + \\mathfrak {R} _ {m} ^ {\\mathcal {D} _ {1}} (\\mathcal {H}), \\end{array}"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-appA-body-232-cc0c3c",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[232]",
+      "expect": "\\begin{array}{l l} f (\\mathbf {x}) - f (\\overline {{\\mathbf {x}}}) \\geq \\nabla_ {\\mathbf {x}} f (\\overline {{\\mathbf {x}}}) \\cdot (\\mathbf {x} - \\overline {{\\mathbf {x}}}) & \\text {(convexity of f)} \\\\ = - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} \\nabla_ {\\mathbf {x}} g _ {i} (\\overline {{\\mathbf {x}}}) \\cdot (\\mathbf {x} - \\overline {{\\mathbf {x}}}) & \\text {(first condition)} \\\\ \\geq - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} [ g _ {i} (\\mathbf {x}) - g _ {i} (\\overline {{\\mathbf {x}}}) ] & \\text {(convexity of g_{i}s)} \\\\ = - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} g _ {i} (\\mathbf {x}) \\geq 0, & \\text {(third condition)} \\end{array}",
+      "new": "\\begin{array}{l l} f (\\mathbf {x}) - f (\\overline {{\\mathbf {x}}}) \\geq \\nabla_ {\\mathbf {x}} f (\\overline {{\\mathbf {x}}}) \\cdot (\\mathbf {x} - \\overline {{\\mathbf {x}}}) & \\text {(convexity of f)} \\\\ = - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} \\nabla_ {\\mathbf {x}} g _ {i} (\\overline {{\\mathbf {x}}}) \\cdot (\\mathbf {x} - \\overline {{\\mathbf {x}}}) & \\text {(first condition)} \\\\ \\geq - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} [ g _ {i} (\\mathbf {x}) - g _ {i} (\\overline {{\\mathbf {x}}}) ] & \\text {(convexity of } g_{i}\\text {s)} \\\\ = - \\sum_ {i = 1} ^ {m} \\overline {{\\boldsymbol {\\alpha}}} _ {i} g _ {i} (\\mathbf {x}) \\geq 0, & \\text {(third condition)} \\end{array}"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch08-body-57-9625df",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[57]",
+      "expect": "\\begin{array}{l} W _ {t + 1} = \\sum_ {i: l _ {t, i} = 0} w _ {t, i} + \\beta \\sum_ {i: l _ {t, i} = 1} w _ {t, i} = W _ {t} + (\\beta - 1) \\sum_ {i: l _ {t, i} = 1} w _ {t, i} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} W _ {t + 1} = \\sum_ {i: l _ {t, i} = 0} w _ {t, i} + \\beta \\sum_ {i: l _ {t, i} = 1} w _ {t, i} = W _ {t} + (\\beta - 1) \\sum_ {i: l _ {t, i} = 1} w _ {t, i} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch08-body-231-295bad",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[231]",
+      "expect": "\\begin{array}{l} R \\bigg (\\frac {1}{T} \\sum_ {t = 1} ^ {T} h _ {t} \\bigg) \\leq \\frac {1}{T} \\sum_ {t = 1} ^ {T} L (h ^ {*} (x _ {t}), y _ {t}) + \\frac {R _ {T}}{T} + M \\sqrt {\\frac {2 \\log \\frac {2}{\\delta}}{T}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} R \\bigg (\\frac {1}{T} \\sum_ {t = 1} ^ {T} h _ {t} \\bigg) \\leq \\frac {1}{T} \\sum_ {t = 1} ^ {T} L (h ^ {*} (x _ {t}), y _ {t}) + \\frac {R _ {T}}{T} + M \\sqrt {\\frac {2 \\log \\frac {2}{\\delta}}{T}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "mohri_foundations_machine_learning-ch10-body-67-01c213",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[67]",
+      "expect": "\\begin{array}{l} \\widehat {R} _ {S} (h) = \\frac {1}{m} \\sum_ {i = 1} ^ {m} 1 _ {y _ {i} (f (x _ {i} ^ {\\prime}) - f (x _ {i})) \\leq 0} \\leq \\frac {1}{m} \\sum_ {i = 1} ^ {m} e ^ {- y _ {i} (f (x _ {i} ^ {\\prime}) - f (x _ {i}))} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\widehat {R} _ {S} (h) = \\frac {1}{m} \\sum_ {i = 1} ^ {m} 1 _ {y _ {i} (f (x _ {i} ^ {\\prime}) - f (x _ {i})) \\leq 0} \\leq \\frac {1}{m} \\sum_ {i = 1} ^ {m} e ^ {- y _ {i} (f (x _ {i} ^ {\\prime}) - f (x _ {i}))} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

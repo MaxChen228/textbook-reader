@@ -1,0 +1,29 @@
+{
+  "slug": "stutzman_thiele_antenna_theory_design",
+  "overrides": [
+    {
+      "id": "stutzman-thiele-table-3-2-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[209]",
+      "expect": {
+        "id": "tbl-ch03-209",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-3.2",
+        "caption": "Table 3-2 Summary of Characteristics of Some Common Antenna Elements",
+        "catalog_aliases": [
+          "3.2",
+          "3-2"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C5 missing Table 3-2 is a real table already present at ch03 body[209]; MinerU OCR split caption characters and build_catalogs treated it as an unnumbered excluded table. The surrounding text at body[205] and earlier refs at body[31], body[76], and body[78] all point to Table 3-2. Restore semantic id/caption and remove the erroneous exclusion."
+    }
+  ],
+  "ref_classifications": []
+}

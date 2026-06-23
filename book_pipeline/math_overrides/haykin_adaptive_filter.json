@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "haykin_adaptive_filter-ch02-problem-18-body-2-3321ab",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:18:body[2]",
+      "expect": "\\begin{array}{l l} \\text {hypothesis H_{1} :} & u (n) = s (n) + \\nu (n), n = 1, 2, \\ldots , M; \\\\ \\text {hypothesis H_{0} :} & u (n) = \\nu (n), n = 1, 2, \\ldots , M. \\end{array}",
+      "new": "\\begin{array}{l l} \\text {hypothesis } H_{1} \\text {:} & u (n) = s (n) + \\nu (n), n = 1, 2, \\ldots , M; \\\\ \\text {hypothesis } H_{0} \\text {:} & u (n) = \\nu (n), n = 1, 2, \\ldots , M. \\end{array}"
+    }
+  ]
+}

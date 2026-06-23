@@ -1,0 +1,29 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "van-valkenburg-network-analysis-table-11-1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[131]",
+      "position": "before",
+      "page": 258,
+      "clip": [
+        0.34,
+        0.55,
+        0.65,
+        0.675
+      ],
+      "zoom": 3,
+      "image_id": "tbl-11.1",
+      "src": "manual_tbl-11.1.png",
+      "block": {
+        "t": "table",
+        "id": "tbl-11.1",
+        "kind": "text",
+        "caption": "Table 11-1: Values of G(j\\omega) for the RC network in Example 1."
+      },
+      "reason": "C5:正文引用 Table 11-1；raw PDF p.258 確有該表，但 MinerU 將其 OCR 成 eq-ch11-130，未進 table catalog。插入可重播 table catalog block 覆蓋內部引用。"
+    }
+  ]
+}

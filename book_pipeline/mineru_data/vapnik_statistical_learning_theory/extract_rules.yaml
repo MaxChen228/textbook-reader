@@ -1,0 +1,96 @@
+slug: vapnik_statistical_learning_theory
+title: The Nature of Statistical Learning Theory
+author: Vladimir N. Vapnik
+edition: 2nd
+subject: Machine Learning
+publisher: Springer
+language: en
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 38
+appendices_start_page: null
+bibliography_start_page: 322
+index_start_page: 332
+inline_problems: false
+chapters:
+  - num: 1
+    title: Setting of the Learning Problem
+    page_start: 38
+    page_end: 55
+    chapter_title_block_idx: 314
+    problems_block_idx: null
+    next_chapter_block_idx: 564
+  - num: 2
+    title: Consistency of Learning Processes
+    page_start: 56
+    page_end: 89
+    chapter_title_block_idx: 564
+    problems_block_idx: null
+    next_chapter_block_idx: 1024
+  - num: 3
+    title: Bounds on the Rate of Convergence of Learning Processes
+    page_start: 90
+    page_end: 113
+    chapter_title_block_idx: 1024
+    problems_block_idx: null
+    next_chapter_block_idx: 1350
+  - num: 4
+    title: Controlling the Generalization Ability of Learning Processes
+    page_start: 114
+    page_end: 143
+    chapter_title_block_idx: 1350
+    problems_block_idx: null
+    next_chapter_block_idx: 1802
+  - num: 5
+    title: Methods of Pattern Recognition
+    page_start: 144
+    page_end: 201
+    chapter_title_block_idx: 1802
+    problems_block_idx: null
+    next_chapter_block_idx: 2691
+  - num: 6
+    title: Methods of Function Estimation
+    page_start: 202
+    page_end: 245
+    chapter_title_block_idx: 2691
+    problems_block_idx: null
+    next_chapter_block_idx: 3325
+  - num: 7
+    title: Direct Methods in Statistical Learning Theory
+    page_start: 246
+    page_end: 287
+    chapter_title_block_idx: 3325
+    problems_block_idx: null
+    next_chapter_block_idx: 4016
+  - num: 8
+    title: The Vicinal Risk Minimization Principle and the SVMs
+    page_start: 288
+    page_end: 311
+    chapter_title_block_idx: 4016
+    problems_block_idx: null
+    next_chapter_block_idx: 4431
+  - num: 9
+    title: "Conclusion: What Is Important in Learning Theory?"
+    page_start: 312
+    page_end: 321
+    chapter_title_block_idx: 4431
+    chapter_title_block_idx_secondary: 4432
+    problems_block_idx: null
+    next_chapter_block_idx: 4545
+appendices: []
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^Problem\s+([0-9]+(?:\.[0-9]+)*)\b'
+problem_chapter_must_match: true
+equation_strip_dollar: true
+equation_label_re: '^\(([0-9]+(?:\.[0-9]+)*)\)'

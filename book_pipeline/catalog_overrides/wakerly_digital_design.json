@@ -1,0 +1,281 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "7.90",
+      "classification": "source_mismatch",
+      "reason": "Exercise 7.84 says Table 7-90, but this source has no Table 7-90 catalog/caption; nearby pulse-catching material is numbered as figures (Figure 7-86 through Figure 7-90), and the raw exercise pages show no table caption for 7-90.",
+      "where": "ch07.json problem 7.84 body[0]",
+      "evidence": "Parsed text: 'transition table shown in Table 7-90.' Unified/raw search finds only the exercise reference and a page margin '7.90'; chapter catalog has Figure 7-90 but no Table 7-90. Raw PDF pages 701-703 show exercises and Figure/Table X7.92, not Table 7-90."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "wakerly-fig-X3-21-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "problem:3.21:body[0]",
+      "position": "after",
+      "page": 201,
+      "clip": [
+        0.35,
+        0.74,
+        0.78,
+        0.97
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X3.21",
+        "kind": "line",
+        "caption": "Figure X3.21"
+      },
+      "reason": "Exercise 3.21 references Figure X3.21; raw PDF page 201 contains the transfer-characteristic plot below the problem text."
+    },
+    {
+      "id": "wakerly-fig-4-44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[433]",
+      "position": "before",
+      "page": 254,
+      "clip": [
+        0.22,
+        0.735,
+        0.56,
+        0.89
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.44",
+        "kind": "line",
+        "caption": "Figure 4-44 A 4-variable Veitch diagram or Marquand chart."
+      },
+      "reason": "MinerU parsed the referenced Veitch diagram as an unnumbered table; raw PDF page 254 contains Figure 4-44 beside the reference entry."
+    },
+    {
+      "id": "wakerly-fig-X4-42-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "problem:4.42:body[0]",
+      "position": "after",
+      "page": 258,
+      "clip": [
+        0.66,
+        0.7,
+        0.95,
+        0.92
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X4.42",
+        "kind": "line",
+        "caption": "Figure X4.42"
+      },
+      "reason": "Exercise 4.42 references Figure X4.42; raw PDF page 258 contains the BUT-gate symbol next to the problem."
+    },
+    {
+      "id": "wakerly-table-as-fig-6-26",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[266]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch06-266"
+      },
+      "set": {
+        "id": "fig-6.26",
+        "caption": "Figure 6-26 Pinout of the PAL16L8.",
+        "catalog_repair_source": "agent-table-to-figure-id"
+      },
+      "reason": "The PAL16L8 pinout drawing is referenced as Figure 6-26; MinerU represented it as a table with a fallback id."
+    },
+    {
+      "id": "wakerly-tables-as-fig-6-91a",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[958]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-6.70",
+        "caption": "(a)"
+      },
+      "set": {
+        "id": "fig-6.91",
+        "caption": "Figure 6-91 Logic symbols for 4-bit ALUs: (a) 74x381; (b) 74x382.",
+        "catalog_repair_source": "agent-table-to-figure-id"
+      },
+      "reason": "The two symbol drawings for Figure 6-91 were parsed as tables; give the first one the referenced figure id."
+    },
+    {
+      "id": "wakerly-tables-as-fig-6-91b",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[959]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-6.70",
+        "caption": "(b)"
+      },
+      "set": {
+        "id": "fig-6.91--1",
+        "caption": "Figure 6-91 Logic symbols for 4-bit ALUs: (b) 74x382.",
+        "catalog_repair_source": "agent-table-to-figure-id"
+      },
+      "reason": "Second part of the parsed Figure 6-91 symbol drawings; use a duplicate-safe suffix while preserving Figure 6-91 coverage."
+    },
+    {
+      "id": "wakerly-fig-6-31-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[325]",
+      "position": "after",
+      "page": 409,
+      "clip": [
+        0.5,
+        0.74,
+        0.88,
+        0.97
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.31",
+        "kind": "line",
+        "caption": "Figure 6-31 Decoder circuit structure."
+      },
+      "reason": "MinerU omitted the decoder circuit image block; raw PDF page 409 contains Figure 6-31 in the lower-right area."
+    },
+    {
+      "id": "wakerly-fig-6-38-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[362]",
+      "position": "after",
+      "page": 415,
+      "clip": [
+        0.1,
+        0.08,
+        0.91,
+        0.39
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.38",
+        "kind": "line",
+        "caption": "Figure 6-38 Logic symbols for the 74x138: (a) preferred symbol; (b) correct but to be avoided; (c) incorrect because of double negations."
+      },
+      "reason": "Raw PDF page 415 contains Figure 6-38, but the parsed chapter jumps from Figure 6-37 to 6-39."
+    },
+    {
+      "id": "wakerly-fig-X6-62-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.62:body[0]",
+      "position": "after",
+      "page": 540,
+      "clip": [
+        0.06,
+        0.7,
+        0.63,
+        0.95
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X6.62",
+        "kind": "line",
+        "caption": "Figure X6.62"
+      },
+      "reason": "Exercise 6.62 references Figure X6.62; raw PDF page 540 contains the open-collector circuit below the problem."
+    },
+    {
+      "id": "wakerly-fig-X6-70-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.70:body[0]",
+      "position": "after",
+      "page": 542,
+      "clip": [
+        0.18,
+        0.06,
+        0.82,
+        0.34
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X6.70",
+        "kind": "line",
+        "caption": "Figure X6.70"
+      },
+      "reason": "Exercise 6.70 references Figure X6.70; raw PDF page 542 begins with the referenced circuit."
+    },
+    {
+      "id": "wakerly-fig-X7-20-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.20:body[0]",
+      "position": "after",
+      "page": 692,
+      "clip": [
+        0.03,
+        0.2,
+        0.96,
+        0.345
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X7.20",
+        "kind": "line",
+        "caption": "Figure X7.20"
+      },
+      "reason": "Exercise 7.20 references the state-machine diagram labeled Figure X7.20 on raw PDF page 692; crop the exact middle diagram while preserving the separate Figure X7.19."
+    },
+    {
+      "id": "wakerly-fig-X7-59-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.59:body[0]",
+      "position": "after",
+      "page": 697,
+      "clip": [
+        0.12,
+        0.05,
+        0.86,
+        0.32
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-X7.59",
+        "kind": "line",
+        "caption": "Figure X7.59"
+      },
+      "reason": "Exercise 7.59 references Figure X7.59; raw PDF page 697 contains the finite-memory machine diagram."
+    },
+    {
+      "id": "wakerly-table-as-fig-9-15",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[106]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch09-106"
+      },
+      "set": {
+        "id": "fig-9.15",
+        "caption": "Figure 9-15 Format of a μ-law PCM byte.",
+        "catalog_repair_source": "agent-table-to-figure-id"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The bit-field diagram is referenced and captioned as Figure 9-15, but MinerU represented it as an excluded unnumbered table."
+    }
+  ]
+}

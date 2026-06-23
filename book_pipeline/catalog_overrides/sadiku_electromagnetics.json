@@ -1,0 +1,150 @@
+{
+  "slug": "sadiku_electromagnetics",
+  "overrides": [
+    {
+      "id": "sadiku-fig-5.20-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:5.30:body[0]",
+      "position": "after",
+      "page": 206,
+      "clip": [0.18, 0.34, 0.60, 0.51],
+      "zoom": 2.8,
+      "src": "manual_fig-5.20.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-5.20",
+        "kind": "line",
+        "caption": "Figure 5.20 For Problem 5.30."
+      },
+      "reason": "C4: raw PDF p206 contains Figure 5.20 for Problem 5.30; MinerU captured the text reference but omitted the figure block."
+    },
+    {
+      "id": "sadiku-fig-6.29-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.18:body[0]",
+      "position": "after",
+      "page": 260,
+      "clip": [0.17, 0.07, 0.63, 0.31],
+      "zoom": 2.8,
+      "src": "manual_fig-6.29.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-6.29",
+        "kind": "line",
+        "caption": "Figure 6.29 For Problem 6.18."
+      },
+      "reason": "C4: raw PDF p260 contains Figure 6.29 for Problem 6.18; MinerU emitted caption text but no cataloged figure block."
+    },
+    {
+      "id": "sadiku-fig-6.31-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.18:body[2]",
+      "position": "after",
+      "page": 260,
+      "clip": [0.15, 0.55, 0.68, 0.93],
+      "zoom": 2.8,
+      "src": "manual_fig-6.31.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-6.31",
+        "kind": "line",
+        "caption": "Figure 6.31 For Problem 6.20."
+      },
+      "reason": "C4: raw PDF p260 contains Figure 6.31 for Problem 6.20; problem text references it but parser has no figure entry."
+    },
+    {
+      "id": "sadiku-fig-6.32-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.23:body[2]",
+      "position": "after",
+      "page": 261,
+      "clip": [0.19, 0.58, 0.57, 0.86],
+      "zoom": 2.8,
+      "src": "manual_fig-6.32.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-6.32",
+        "kind": "line",
+        "caption": "Figure 6.32 For Problem 6.24."
+      },
+      "reason": "C4: raw PDF p261 contains Figure 6.32 for Problem 6.24; MinerU emitted caption text but missed the figure block."
+    },
+    {
+      "id": "sadiku-fig-6.37-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.40:body[0]",
+      "position": "after",
+      "page": 264,
+      "clip": [0.18, 0.08, 0.64, 0.26],
+      "zoom": 2.8,
+      "src": "manual_fig-6.37.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-6.37",
+        "kind": "line",
+        "caption": "Figure 6.37 For Problem 6.40."
+      },
+      "reason": "C4: raw PDF p264 contains Figure 6.37 for Problem 6.40; catalog lacks the referenced figure."
+    },
+    {
+      "id": "sadiku-fig-9.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:9.12:body[0]",
+      "position": "after",
+      "page": 412,
+      "clip": [0.12, 0.65, 0.60, 0.95],
+      "zoom": 2.8,
+      "src": "manual_fig-9.22.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-9.22",
+        "kind": "line",
+        "caption": "Figure 9.22 For Problem 9.12."
+      },
+      "reason": "C4: raw PDF p412 contains Figure 9.22 for Problem 9.12; MinerU omitted it from parsed problem visuals."
+    },
+    {
+      "id": "sadiku-fig-10.20-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.40:body[0]",
+      "position": "after",
+      "page": 476,
+      "clip": [0.17, 0.70, 0.63, 0.94],
+      "zoom": 2.8,
+      "src": "manual_fig-10.20.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-10.20",
+        "kind": "line",
+        "caption": "Figure 10.20 For Problem 10.40."
+      },
+      "reason": "C4: raw PDF p476 contains Figure 10.20 for Problem 10.40; problem ref was present but no figure catalog entry existed."
+    },
+    {
+      "id": "sadiku-fig-15.43-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "problem:15.17:body[0]",
+      "position": "after",
+      "page": 726,
+      "clip": [0.18, 0.04, 0.72, 0.22],
+      "zoom": 2.8,
+      "src": "manual_fig-15.43.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-15.43",
+        "kind": "line",
+        "caption": "Figure 15.43 For Problem 15.17."
+      },
+      "reason": "C4: raw PDF p726 contains Figure 15.43 for Problem 15.17; MinerU captured nearby text/caption fragments but missed the figure block."
+    }
+  ],
+  "ref_classifications": []
+}

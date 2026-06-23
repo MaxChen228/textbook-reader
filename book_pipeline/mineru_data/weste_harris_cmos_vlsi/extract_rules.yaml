@@ -1,0 +1,147 @@
+slug: weste_harris_cmos_vlsi
+title: 'CMOS VLSI Design: A Circuits and Systems Perspective'
+author: Neil H. E. Weste; David Money Harris
+edition: 4th
+subject: Microelectronics
+publisher: Addison-Wesley
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 27
+appendices_start_page: 725
+bibliography_start_page: 811
+index_start_page: 817
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 27
+  page_end: 86
+  chapter_title_block_idx: 116
+  problems_block_idx: 666
+  next_chapter_block_idx: 710
+- num: 2
+  title: MOS Transistor Theory
+  page_start: 87
+  page_end: 124
+  chapter_title_block_idx: 710
+  problems_block_idx: 1156
+  next_chapter_block_idx: 1201
+- num: 3
+  title: CMOS Processing Technology
+  page_start: 125
+  page_end: 166
+  chapter_title_block_idx: 1201
+  problems_block_idx: 1673
+  next_chapter_block_idx: 1691
+- num: 4
+  title: Delay
+  page_start: 167
+  page_end: 206
+  chapter_title_block_idx: 1691
+  problems_block_idx: 2190
+  next_chapter_block_idx: 2241
+- num: 5
+  title: Power
+  page_start: 207
+  page_end: 236
+  chapter_title_block_idx: 2241
+  problems_block_idx: 2625
+  next_chapter_block_idx: 2643
+- num: 6
+  title: Interconnect
+  page_start: 237
+  page_end: 266
+  chapter_title_block_idx: 2643
+  problems_block_idx: 3004
+  next_chapter_block_idx: 3018
+- num: 7
+  title: Robustness
+  page_start: 267
+  page_end: 312
+  chapter_title_block_idx: 3018
+  problems_block_idx: 3527
+  next_chapter_block_idx: 3543
+- num: 8
+  title: Circuit Simulation
+  page_start: 313
+  page_end: 352
+  chapter_title_block_idx: 3543
+  problems_block_idx: 3947
+  next_chapter_block_idx: 3965
+- num: 9
+  title: Combinational Circuit Design
+  page_start: 353
+  page_end: 400
+  chapter_title_block_idx: 3965
+  problems_block_idx: 4514
+  next_chapter_block_idx: 4581
+- num: 10
+  title: Sequential Circuit Design
+  page_start: 401
+  page_end: 454
+  chapter_title_block_idx: 4581
+  problems_block_idx: 5099
+  next_chapter_block_idx: 5154
+- num: 11
+  title: Datapath Subsystems
+  page_start: 455
+  page_end: 522
+  chapter_title_block_idx: 5154
+  problems_block_idx: 5835
+  next_chapter_block_idx: 5866
+- num: 12
+  title: Array Subsystems
+  page_start: 523
+  page_end: 574
+  chapter_title_block_idx: 5866
+  problems_block_idx: 6393
+  next_chapter_block_idx: 6413
+- num: 13
+  title: Special-Purpose Subsystems
+  page_start: 575
+  page_end: 640
+  chapter_title_block_idx: 6413
+  problems_block_idx: 7189
+  next_chapter_block_idx: 7195
+- num: 14
+  title: Design Methodology and Tools
+  page_start: 641
+  page_end: 684
+  chapter_title_block_idx: 7195
+  problems_block_idx: 7677
+  next_chapter_block_idx: 7688
+- num: 15
+  title: Testing, Debugging, and Verification
+  page_start: 685
+  page_end: 724
+  chapter_title_block_idx: 7688
+  problems_block_idx: 8145
+  next_chapter_block_idx: 8165
+appendices:
+- id: A
+  title: Hardware Description Languages
+  page_start: 725
+  chapter_title_block_idx: 8165
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+(?:\.\d+)?)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 2
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+\.\d+)\b
+figure_caption_merge: false
+figure_caption_main_re: ^FIGURE\s+([A-Z]?\d+(?:\.\d+)*)\s+(.+)$
+known_missing_problems: []

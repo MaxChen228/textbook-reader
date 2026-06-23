@@ -1,0 +1,143 @@
+slug: van_valkenburg_network_analysis
+title: Network Analysis
+author: M. E. Van Valkenburg
+edition: null
+subject: Electric Circuits
+publisher: Prentice-Hall
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 9
+appendices_start_page: 446
+bibliography_start_page: null
+index_start_page: 446
+inline_problems: false
+chapters:
+- num: 1
+  title: Development Of The Circuit Concept
+  page_start: 9
+  page_end: 34
+  chapter_title_block_idx: 52
+  problems_block_idx: 406
+  next_chapter_block_idx: 444
+- num: 2
+  title: Conventions For Describing Networks
+  page_start: 35
+  page_end: 45
+  chapter_title_block_idx: 444
+  problems_block_idx: 589
+  next_chapter_block_idx: 598
+- num: 3
+  title: Network Equations
+  page_start: 46
+  page_end: 79
+  chapter_title_block_idx: 598
+  problems_block_idx: 989
+  next_chapter_block_idx: 1087
+- num: 4
+  title: First-Order Differential Equations
+  page_start: 80
+  page_end: 91
+  chapter_title_block_idx: 1087
+  problems_block_idx: 1240
+  next_chapter_block_idx: 1272
+- num: 5
+  title: Initial Conditions In Networks
+  page_start: 92
+  page_end: 104
+  chapter_title_block_idx: 1272
+  problems_block_idx: 1406
+  next_chapter_block_idx: 1469
+- num: 6
+  title: Differential Equations, Continued
+  page_start: 105
+  page_end: 132
+  chapter_title_block_idx: 1469
+  problems_block_idx: 1932
+  next_chapter_block_idx: 2009
+- num: 7
+  title: The Laplace Transformation
+  page_start: 133
+  page_end: 160
+  chapter_title_block_idx: 2009
+  problems_block_idx: 2463
+  next_chapter_block_idx: 2539
+- num: 8
+  title: Topics In The Time Domain And The Frequency Domain
+  page_start: 161
+  page_end: 201
+  chapter_title_block_idx: 2539
+  problems_block_idx: 3115
+  next_chapter_block_idx: 3172
+- num: 9
+  title: Impedance And Admittance Functions
+  page_start: 202
+  page_end: 221
+  chapter_title_block_idx: 3172
+  problems_block_idx: 3460
+  next_chapter_block_idx: 3502
+- num: 10
+  title: Network Functions
+  page_start: 222
+  page_end: 247
+  chapter_title_block_idx: 3502
+  problems_block_idx: 3833
+  next_chapter_block_idx: 3896
+- num: 11
+  title: Sinusoidal Steady-State Analysis From Pole-Zero Configurations
+  page_start: 248
+  page_end: 281
+  chapter_title_block_idx: 3896
+  problems_block_idx: 4371
+  next_chapter_block_idx: 4447
+- num: 12
+  title: One-Terminal-Pair Reactive Networks
+  page_start: 282
+  page_end: 317
+  chapter_title_block_idx: 4447
+  problems_block_idx: 4950
+  next_chapter_block_idx: 5011
+- num: 13
+  title: Two-Terminal-Pair Reactive Networks (Filters)
+  page_start: 318
+  page_end: 370
+  chapter_title_block_idx: 5011
+  problems_block_idx: 5744
+  next_chapter_block_idx: 5806
+- num: 14
+  title: Amplifier Networks
+  page_start: 371
+  page_end: 401
+  chapter_title_block_idx: 5806
+  problems_block_idx: 6211
+  next_chapter_block_idx: 6271
+- num: 15
+  title: Block Diagrams
+  page_start: 402
+  page_end: 417
+  chapter_title_block_idx: 6271
+  problems_block_idx: 6470
+  next_chapter_block_idx: 6499
+- num: 16
+  title: Stability In Feedback Systems
+  page_start: 418
+  page_end: 445
+  chapter_title_block_idx: 6499
+  problems_block_idx: 6795
+  next_chapter_block_idx: 6866
+section_re: ^(\d+-\d+)\.\s+(.+)$
+subsection_re: ^(\d+-\d+[a-z])\.\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+-\d+)\.\s+.+$
+problem_chapter_must_match: false
+equation_label_re: \\tag\{(\d+-\d+)\}
+equation_strip_dollar: true

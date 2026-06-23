@@ -1,0 +1,51 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "wasserman-all-statistics-fig-18.10-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "problem:3:body[0]",
+      "position": "before",
+      "page": 293,
+      "clip": [
+        0.32,
+        0.11,
+        0.76,
+        0.305
+      ],
+      "zoom": 3,
+      "src": "manual_fig-18.10.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-18.10",
+        "kind": "line",
+        "caption": "Figure 18.10."
+      },
+      "reason": "C4 ref 18.10：raw PDF 物理頁 293（印刷頁 287）Exercise 18.6 題 3 上方明確有 Figure 18.10 線圖與 caption，但 parsed/catalog 只保留 Figure 18.11，未產生 fig-18.10。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "wasserman-all-statistics-fig-18.12-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "problem:3:body[0]",
+      "position": "after",
+      "page": 294,
+      "clip": [
+        0.25,
+        0.095,
+        0.76,
+        0.305
+      ],
+      "zoom": 3,
+      "src": "manual_fig-18.12.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-18.12",
+        "kind": "line",
+        "caption": "Figure 18.12."
+      },
+      "reason": "C4 ref 18.12：raw PDF 物理頁 294（印刷頁 288）頁首明確有 Figure 18.12 線圖與 caption，但 parsed/catalog 只保留 Figure 18.13，未產生 fig-18.12。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "wackerly-fig-10-13-caption-paragraph-cleanup",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[415]",
+      "set": {
+        "id": null,
+        "catalog_repair_source": "agent-existing-image-caption-fix"
+      },
+      "reason": "Keep the OCR caption paragraph from owning the same DOM id; the actual Figure 10.13 catalog entry is the following fig block."
+    },
+    {
+      "id": "wackerly-fig-10-13-visual-anchor",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[416]",
+      "set": {
+        "id": "fig-10.13",
+        "caption": "Figure 10.13: A typical power curve for the test of $H _ { 0 } : \\theta = \\theta _ { 0 }$ against the alternative $\\boldsymbol { H } _ { a } : \\boldsymbol { \\theta } \\ne \\boldsymbol { \\theta } _ { 0 }$",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-existing-image-caption-fix"
+      },
+      "reason": "MinerU emitted the Figure 10.13 image but lost the caption on the fig block; content_list page_idx 565 confirms the adjacent caption and image, so set the fig block caption/id directly."
+    },
+    {
+      "id": "wackerly-fig-10-14-table-as-figure",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[429]",
+      "expect": {
+        "id": "tbl-ch10-429",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-10.14",
+        "caption": "Figure 10.14: Ideal power curve for the test of $H _ { 0 } : \\theta = \\theta _ { 0 }$ versus $\\boldsymbol { H } _ { a } : \\boldsymbol { \\theta } \\ne \\boldsymbol { \\theta } _ { 0 }$",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-table-visual-retyped"
+      },
+      "reason": "MinerU classified the Figure 10.14 curve as a table block, but the raw content_list pairs this visual with a Figure 10.14 caption on the same page; set_fields can expose it as a figure catalog entry without recropping."
+    },
+    {
+      "id": "wackerly-fig-2-10-existing-venn",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[311]",
+      "expect": {
+        "id": "fig-ch02-311",
+        "caption": "A B",
+        "src": "e95779313a240e325b377050b9c3cd0d120f8586e45843fd21202cbeb4a723ab.jpg"
+      },
+      "set": {
+        "id": "fig-2.10",
+        "caption": "Figure 2.10: Venn diagram for the additive law of probability",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-near-ref-id-fix"
+      },
+      "reason": "The existing Venn diagram immediately follows the Figure 2.10 reference; it was excluded only because OCR lost the figure caption."
+    },
+    {
+      "id": "wackerly-table-a2-1-appendix-alias",
+      "action": "set_fields",
+      "chunk": "appA2",
+      "selector": "body[0]",
+      "expect": {
+        "id": "tbl-appA2-0",
+        "caption": "Table 1 Discrete Distributions"
+      },
+      "set": {
+        "id": "tbl-A2.1",
+        "caption": "Table A2.1: Discrete Distributions",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-appendix-table-id-fix"
+      },
+      "reason": "Chapter 3 references Table A2.1 in Appendix 2; the appendix table is present but parsed as local Table 1 and excluded as unnumbered."
+    }
+  ]
+}

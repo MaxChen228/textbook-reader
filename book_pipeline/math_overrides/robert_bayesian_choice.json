@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "robert_bayesian_choice-ch02-problem-2-43-body-1-96397f",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:2.43:body[1]",
+      "expect": "\\mathrm{L} (\\theta , \\delta) = e ^ {3 \\theta^ {2}}   ^ {2} (\\theta - \\delta) ^ {2}.",
+      "new": "\\mathrm{L} (\\theta , \\delta) = {e ^ {3 \\theta^ {2}}} ^ {2} (\\theta - \\delta) ^ {2}."
+    },
+    {
+      "id": "robert_bayesian_choice-ch05-body-198-da606a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[198]",
+      "expect": "\\begin{array}{l} B _ {1 0} ^ {F} = \\frac {\\int e ^ {- n (1 - b) (x - \\theta) ^ {2}}   ^ {2} \\sqrt {b} e ^ {- n b (| x - \\theta | ^ {2}}   ^ {2} d \\theta}{\\sqrt {2 \\pi} e ^ {- n (1 - b) x ^ {2}}   ^ {2}} \\\\ = \\sqrt {b} e ^ {n (1 - b) \\bar {x} ^ {2} / 2}, \\end{array}",
+      "new": "\\begin{array}{l} B _ {1 0} ^ {F} = \\frac {\\int {e ^ {- n (1 - b) (x - \\theta) ^ {2}}} ^ {2} \\sqrt {b} {e ^ {- n b (| x - \\theta | ^ {2})}} ^ {2} d \\theta}{\\sqrt {2 \\pi} {e ^ {- n (1 - b) x ^ {2}}} ^ {2}} \\\\ = \\sqrt {b} e ^ {n (1 - b) \\bar {x} ^ {2} / 2}, \\end{array}"
+    },
+    {
+      "id": "robert_bayesian_choice-ch08-body-42-82c7d9",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[42]",
+      "field": "md",
+      "all": true,
+      "old": "$\\theta\\inIR$",
+      "new": "$\\theta\\in \\mathbb{R}$",
+      "anchor": "1c0ae5ed"
+    },
+    {
+      "id": "robert_bayesian_choice-ch01-body-210-f2cec1",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[210]",
+      "expect": "\\begin{array}{l} \\pi (\\xi_ {2}) \\propto \\int_ {\\mathbb {R}} \\exp \\left\\{- (x - \\xi_ {1}) ^ {2} / 2 \\right\\} 2 \\pi_ {1} (2 \\xi_ {1}) 2 \\pi_ {2} (2 \\xi_ {2}) d \\xi_ {1} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\pi (\\xi_ {2}) \\propto \\int_ {\\mathbb {R}} \\exp \\left\\{- (x - \\xi_ {1}) ^ {2} / 2 \\right\\} 2 \\pi_ {1} (2 \\xi_ {1}) 2 \\pi_ {2} (2 \\xi_ {2}) d \\xi_ {1} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "robert_bayesian_choice-ch10-body-114-95fc33",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[114]",
+      "expect": "\\begin{array}{c} \\pi (\\theta_ {i} | x, \\theta , \\theta_ {1}, \\ldots , \\theta_ {n}) \\propto f (x | \\theta) \\pi_ {1} (\\theta | \\theta_ {1}) \\dots \\pi_ {n + 1} (\\theta_ {n + 1}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\pi (\\theta_ {i} | x, \\theta , \\theta_ {1}, \\ldots , \\theta_ {n}) \\propto f (x | \\theta) \\pi_ {1} (\\theta | \\theta_ {1}) \\dots \\pi_ {n + 1} (\\theta_ {n + 1}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

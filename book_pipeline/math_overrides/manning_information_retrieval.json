@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "manning_information_retrieval-ch18-problem-18-10-body-0-af63f8",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "problem:18.10:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\boldsymbol { V ^ { \\prime } } _ { k } ^ { T }$",
+      "new": "${\\boldsymbol { V ^ { \\prime } }} _ { k } ^ { T }$",
+      "anchor": "35424b28"
+    },
+    {
+      "id": "manning_information_retrieval-ch15-problem-15-4-body-1-b9dd29",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "problem:15.4:body[1]",
+      "expect": "\\begin{array}{l l l l} \\text {Rep1icaRolex} & \\text {bonmus} & \\text {Viiiaaaagra} & \\text {pi11z} \\\\ \\text {PHARlbdMACY} & [ \\text {LEV} ] \\text {i[IT]l[RA]} & \\text {se^xual} & \\text {ClAfLlS} \\end{array}",
+      "new": "\\begin{array}{l l l l} \\text {Rep1icaRolex} & \\text {bonmus} & \\text {Viiiaaaagra} & \\text {pi11z} \\\\ \\text {PHARlbdMACY} & [ \\text {LEV} ] \\text {i[IT]l[RA]} & \\text {se\\^{}xual} & \\text {ClAfLlS} \\end{array}"
+    },
+    {
+      "id": "manning_information_retrieval-ch03-body-23-5fd2df",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[23]",
+      "field": "md",
+      "all": true,
+      "old": "$m\\* . Next, we look up this string in the permuterm index, where seeking n\\$",
+      "new": "$\\text{m* . Next, we look up this string in the permuterm index, where seeking n}\\backslash$",
+      "anchor": "951526bf"
+    }
+  ]
+}

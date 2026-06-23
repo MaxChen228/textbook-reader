@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "slug": "weste_harris_cmos_vlsi",
+  "overrides": [
+    {
+      "id": "weste-harris-fig-8-11-code-listing",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[63]",
+      "expect": {
+        "id": "tbl-ch08-63",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-8.11",
+        "caption": "FIGURE 8.11 FO4OPT SPICE deck",
+        "catalog_repair_source": "agent-catalog-audit-code-listing"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 324 shows the code listing is Figure 8.11 FO4OPT SPICE deck; MinerU represented it as a table and prior repair excluded it as unnumbered."
+    },
+    {
+      "id": "weste-harris-fig-8-15-code-listing",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[120]",
+      "expect": {
+        "id": "tbl-ch08-120",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-8.15",
+        "caption": "FIGURE 8.15 OPCONDITIONS library",
+        "catalog_repair_source": "agent-catalog-audit-code-listing"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 330 shows the code listing is Figure 8.15 OPCONDITIONS library; it was incorrectly excluded as an unnumbered table."
+    },
+    {
+      "id": "weste-harris-fig-8-31-id-caption",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[251]",
+      "expect": {
+        "id": "fig-8.3",
+        "caption": "Modeling mismatch"
+      },
+      "set": {
+        "id": "fig-8.31",
+        "caption": "FIGURE 8.31 Modeling mismatch",
+        "catalog_repair_source": "agent-catalog-audit-ocr-id-fix"
+      },
+      "reason": "Raw PDF page 346 shows this visual caption is FIGURE 8.31 Modeling mismatch; OCR dropped the final digit and made it fig-8.3."
+    },
+    {
+      "id": "weste-harris-fig-13-77-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[567]",
+      "position": "before",
+      "page": 637,
+      "clip": [
+        0.055,
+        0.835,
+        0.322,
+        0.965
+      ],
+      "zoom": 3,
+      "src": "manual_fig-13.77.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-13.77",
+        "kind": "line",
+        "caption": "FIGURE 13.77 Thermal noise-based TRNG",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Raw PDF page 637 contains Figure 13.77 at lower-left; MinerU did not emit a figure block for it, so crop the complete diagram and caption from the source page."
+    }
+  ]
+}

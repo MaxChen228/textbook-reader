@@ -1,0 +1,27 @@
+{
+  "overrides": [
+    {
+      "id": "vapnik-fig-0.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[32]",
+      "position": "before",
+      "page": 34,
+      "clip": [
+        0.09,
+        0.13,
+        0.98,
+        0.5
+      ],
+      "zoom": 3,
+      "image_id": "fig-0.3",
+      "block": {
+        "t": "fig",
+        "id": "fig-0.3",
+        "kind": "line",
+        "caption": "FIGURE 0.3. The discontinuous function $\\operatorname{sign}(u) = \\pm 1$ is approximated by the smooth function $S(u)$ ."
+      },
+      "reason": "正文 ch05 body[32] 交叉引用 Fig. 0.3；raw PDF page 34 確有 introduction 圖與 caption，但 parsed/catalog 未保留，故從 raw PDF 裁圖補入。"
+    }
+  ]
+}

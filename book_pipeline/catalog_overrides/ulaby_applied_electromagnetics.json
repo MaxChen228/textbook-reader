@@ -1,0 +1,51 @@
+{
+    "slug": "ulaby_applied_electromagnetics",
+    "overrides": [
+        {
+            "id": "ulaby-p6-8-pdf-crop",
+            "action": "pdf_crop_insert",
+            "chunk": "ch06",
+            "selector": "problem:6.8:body[0]",
+            "position": "after",
+            "page": 312,
+            "clip": [
+                0.05,
+                0.13,
+                0.46,
+                0.39
+            ],
+            "zoom": 2.5,
+            "src": "manual_fig-P6.8.png",
+            "block": {
+                "t": "fig",
+                "id": "fig-P6.8",
+                "kind": "line",
+                "caption": "Figure P6.8 Problem 6.8."
+            },
+            "reason": "C4: raw PDF page 312 contains Figure P6.8, but MinerU emitted only the problem text and skipped the figure block."
+        },
+        {
+            "id": "ulaby-table-5-1-reinsert",
+            "action": "pdf_crop_insert",
+            "chunk": "ch04",
+            "selector": "problem:4.63:body[23]",
+            "position": "after",
+            "page": 243,
+            "clip": [
+                0.105,
+                0.13,
+                0.895,
+                0.51
+            ],
+            "zoom": 2.5,
+            "src": "manual_tbl-5.1.png",
+            "block": {
+                "t": "table",
+                "id": "tbl-5.1",
+                "caption": "Table 5-1 Attributes of electrostatics and magnetostatics.",
+                "html": "<table><tr><td>Attribute</td><td>Electrostatics</td><td>Magnetostatics</td></tr><tr><td>Sources</td><td>Stationary charges  $\\rho_v$ </td><td>Steady currents J</td></tr><tr><td>Fields and Fluxes</td><td>E and D</td><td>H and B</td></tr><tr><td>Constitutive parameter(s)</td><td> $\\varepsilon$  and  $\\sigma$ </td><td> $\\mu$ </td></tr><tr><td colspan=\"3\">Governing equations</td></tr><tr><td>\u2022 Differential form</td><td> $\\nabla \\cdot \\mathbf{D} = \\rho_v$  $\\nabla \\times \\mathbf{E} = 0$ </td><td> $\\nabla \\cdot \\mathbf{B} = 0$  $\\nabla \\times \\mathbf{H} = \\mathbf{J}$ </td></tr><tr><td rowspan=\"2\">\u2022 Integral form</td><td> $\\oint_S \\mathbf{D} \\cdot d\\mathbf{s} = Q$ </td><td> $\\oint_S \\mathbf{B} \\cdot d\\mathbf{s} = 0$ </td></tr><tr><td> $\\oint_C \\mathbf{E} \\cdot d\\mathbf{l} = 0$ </td><td> $\\oint_C \\mathbf{H} \\cdot d\\mathbf{l} = I$ </td></tr><tr><td>Potential</td><td>Scalar V, with E = - $\\nabla V$ </td><td>Vector A, with B =  $\\nabla \\times \\mathbf{A}$ </td></tr><tr><td>Energy density</td><td> $w_e = \\frac{1}{2} \\varepsilon E^2$ </td><td> $w_m = \\frac{1}{2} \\mu H^2$ </td></tr><tr><td>Force on charge q</td><td> $\\mathbf{F_e} = q\\mathbf{E}$ </td><td> $\\mathbf{F_m} = q\\mathbf{u} \\times \\mathbf{B}$ </td></tr><tr><td>Circuit element(s)</td><td>C and R</td><td>L</td></tr></table>"
+            },
+            "reason": "C5: unified content and raw PDF page 243 contain Table 5-1, but the parsed chapter stream omitted the table block; reinsert the exact MinerU table HTML after the paragraph that references it."
+        }
+    ]
+}
