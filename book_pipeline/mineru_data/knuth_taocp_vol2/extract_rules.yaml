@@ -1,0 +1,65 @@
+slug: knuth_taocp_vol2
+title: "The Art of Computer Programming, Volume 2: Seminumerical Algorithms"
+author: "Donald E. Knuth"
+edition: "3rd"
+subject: "Algorithms"
+publisher: "Addison-Wesley"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 549
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 3
+    title: "Random Numbers"
+    page_start: 12
+    page_end: 204
+    chapter_title_block_idx: 74
+    problems_block_idx: null
+    next_chapter_block_idx: 3100
+  - num: 4
+    title: "Arithmetic"
+    page_start: 205
+    page_end: 548
+    chapter_title_block_idx: 3100
+    problems_block_idx: null
+    next_chapter_block_idx: 8380
+
+appendices: []
+
+section_re: '^(\*?\d+\.\d+(?:\.\d+(?:\.\d+)?)?)\.\s+(.+)$'
+subsection_re: '^(\*?\d+\.\d+\.\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:▶\s*)?(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-schutz-first-course-gr",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/devctl.py（audit schutz_first_course_gr）",
+  "slug": "schutz_first_course_gr",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T08:19:35+00:00",
+  "updated": "2026-06-23T08:38:46+00:00",
+  "evidence": "scope_guard bracket：worker [audit schutz_first_course_gr] session=schutz_first_course_gr:53011 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py\nindex ca93150..4f40e75 100644\n--- a/book_pipeline/devctl.py\n+++ b/book_pipeline/devctl.py\n@@ -426,6 +426,16 @@ def books_status(write_timeline: bool = False) -> dict:\n                       if t and t != '—' and not t.endswith('(可選)')), None)\n         r['gated'] = pg.next_gate_status(s, nverb, gates)  # True=下一閘被閘控擋住（中性停，非拒絕/停滯）\n         r['gate_verb'] = nverb if r['gated'] else None     # 被擋在哪個 verb（UI 顯示「⏸ 停在 X 閘」）\n+        # qc 過關來路（觀測，修「已過 QC」語意坑）：'llm'=LLM 視覺 QC 驗過（state.qc 有 verdict）；\n+        # 'skip'=pdf_triage 高信心（born-digital/好品質）直放、跳過 LLM QC、直送 OCR（state.qc 空但已過 QC 關）；\n+        # None=尚未過 QC（0.2 待qc 或更前）。過去兩條路都只顯里程碑「已過 QC」→ 看不出有沒有真的燒 LLM。\n+        _qc_v = ((state.get(s) or {}).get('qc') or {}).get('verdict')\n+        if _qc_v in ('accept', 'reject'):\n+            r['qcv'] = 'llm'\n+        else:\n+            _code = (r.get('stage') or '').split(' ', 1)[0]\n+            r['qcv'] = 'skip' if (deployed or _code in ('0.3', '0.5')\n+                                  or _code[:1] in ('1', '2', '3', '4')) else None\n         # 時間軸 + agent session 摘要逐出 status.json 核（佔 books[] ~82%、僅抽屜用）→ per-book\n         # dev/detail/<slug>.json，抽屜 on-demand 撿。觀測式時間軸 = deployed-aware label（已部署→\n         # 'deployed'，否則 stage）的 append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。"
+}

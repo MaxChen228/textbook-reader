@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-schutz-first-course-gr-7",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/test_dev_escape.py（catalog_audit schutz_first_course_gr）",
+  "slug": "schutz_first_course_gr",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T08:25:42+00:00",
+  "updated": "2026-06-23T08:38:46+00:00",
+  "evidence": "scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_dev_escape.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "+++ book_pipeline/test_dev_escape.py (untracked 新檔)\n\"\"\"Frontend escaping guardrails.\"\"\"\n\nimport re\nfrom pathlib import Path\n\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef test_dynamic_attributes_use_attr_escape():\n    shared = (ROOT / 'assets' / 'qbank-shared.js').read_text(encoding='utf-8')\n    assert 'function escapeAttr' in shared\n    assert re.search(r'window\\.QBankShared = \\{[\\s\\S]*escapeAttr,', shared)\n    pages = [\n        ROOT / 'dev' / 'index.html',\n        ROOT / 'index.html',\n        ROOT / 'problems.html',\n    ]\n    for page in pages:\n        html = page.read_text(encoding='utf-8')\n        assert (\n            'QBankShared.escapeAttr' in html\n            or 'S.escapeAttr' in html\n            or 'escapeAttr } = QBankShared' in html\n        ), page\n        assert 'const escapeAttr = v =>' not in html\n        unsafe = re.findall(\n            r'(?:src|href|data-[\\w-]+|title|id|alt)=\"[^\"`\\n]*\\$\\{(?:escapeHtml|esc)\\(',\n            html,\n        )\n        assert unsafe == [], (page, unsafe)",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。"
+}

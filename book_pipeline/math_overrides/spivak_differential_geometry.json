@@ -308,6 +308,22 @@
       "selector": "body[725]",
       "expect": "\\tilde {A} Y _ {i} \\tilde {A} ^ {- 1} = \\left( \\begin{array}{c c c} \\framebox {A} & 0 \\\\ 0 & \\ldots & 0 \\\\ 0 & \\ldots & 0 \\end{array} \\right) \\left( \\begin{array}{c c c} \\framebox {0} & 0 \\\\ 0 & \\vdots \\\\ 0 & 1 \\\\ 0 & \\vdots \\\\ 0 & - 1 & \\ldots \\\\ 0 & 0 \\end{array} \\right) \\left( \\begin{array}{c c c} \\framebox {A ^ {\\mathbf {t}}} & 0 \\\\ 0 & \\vdots \\\\ 0 & 0 \\\\ 0 & \\ldots & 1 \\end{array} \\right)",
       "new": "\\tilde{A}Y_{i}\\tilde{A}^{-1}=\\left(\\begin{array}{ccc}\\framebox{$A$}&0&\\\\0&\\ldots&0\\\\0&\\ldots&0\\end{array}\\right)\\left(\\begin{array}{ccc}\\framebox{$0$}&0&\\\\0&\\vdots&\\\\0&1&\\\\0&\\vdots&\\\\0&-1&\\ldots\\\\0&0&\\end{array}\\right)\\left(\\begin{array}{ccc}\\framebox{$A^{\\mathbf{t}}$}&0&\\\\0&\\vdots&\\\\0&0&\\\\0&\\ldots&1\\end{array}\\right)"
+    },
+    {
+      "id": "spivak_differential_geometry-ch30-body-204-b20eee",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[204]",
+      "expect": "\\frac {D ^ {\\prime} \\mathbf {v} _ {1} (s)}{d s} = \\kappa_ {1} (s) \\mathbf {v} _ {2} (s). \\tag {F_{1}}",
+      "new": "\\frac {D ^ {\\prime} \\mathbf {v} _ {1} (s)}{d s} = \\kappa_ {1} (s) \\mathbf {v} _ {2} (s). \\tag {\\(F_{1}\\)}"
+    },
+    {
+      "id": "spivak_differential_geometry-ch33-body-1642-b9ef9f",
+      "action": "fix_eq_tex",
+      "chunk": "ch33",
+      "selector": "body[1642]",
+      "expect": "\\begin{array}{c c c c c c c} & q & Y _ {1} & Y _ {2} & Y _ {3} & \\ldots & Y _ {k + 1} \\\\ c _ {1} \\left\\{ \\begin{array}{c c c c c c c} & \\boxed {A _ {1}} & 0 & 0 & \\ldots & 0 \\\\ c _ {2} \\left\\{ \\begin{array}{c c c c c c c} & & \\boxed {A _ {2}} & 0 & \\ldots & 0 \\\\ & & & \\boxed {A _ {3}} & & \\vdots \\\\ & & & & \\ddots & 0 \\\\ c _ {k + 1} \\left\\{ \\begin{array}{c c c c c c c} & & & & \\boxed {A _ {k + 1}} \\\\ & & & & \\end{array} \\right. \\end{array} \\right) & \\text {at (0, e_ {1} ,\\ldots,e_{k+ 1}).} \\end{array}",
+      "new": "\\begin{array}{c c c c c c c} & q & Y _ {1} & Y _ {2} & Y _ {3} & \\ldots & Y _ {k + 1} \\\\ c _ {1} \\left\\{ \\begin{array}{c c c c c c c} & \\boxed {A _ {1}} & 0 & 0 & \\ldots & 0 \\\\ c _ {2} \\left\\{ \\begin{array}{c c c c c c c} & & \\boxed {A _ {2}} & 0 & \\ldots & 0 \\\\ & & & \\boxed {A _ {3}} & & \\vdots \\\\ & & & & \\ddots & 0 \\\\ c _ {k + 1} \\left\\{ \\begin{array}{c c c c c c c} & & & & \\boxed {A _ {k + 1}} \\\\ & & & & \\end{array} \\right. \\end{array} \\right) \\end{array} \\right. & \\text {at }(0, e_ {1} ,\\ldots,e_{k+ 1}). \\end{array}"
     }
   ]
 }

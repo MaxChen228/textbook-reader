@@ -63,8 +63,8 @@
       "field": "md",
       "all": true,
       "old": "$\\left\\{ \\begin{array} { l }  s _ { 6 } \\right\\} \\end{array}$",
-      "new": "$\\left\\{\\begin{array}{l}s_{6}\\end{array}\\right\\}$",
-      "anchor": "b7866711"
+      "new": "$\\left\\{ \\begin{array} { l }  s _ { 6 } \\end{array} \\right\\}$",
+      "anchor": "12149ef5"
     },
     {
       "id": "baier_katoen_model_checking-ch06-body-467-731a1f",
@@ -240,6 +240,44 @@
       "old": "$\\mathrm { e . g . , } \\ s \\ \\vline { = } _ { f a i r } \\ \\mathbb { P } _ { \\geqslant p } ( \\varphi )$",
       "new": "$\\mathrm{e.g.,}\\ s\\ \\mid\\!={}_{fair}\\ \\mathbb{P}_{\\geqslant p}(\\varphi)$",
       "anchor": "aa920f0c"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch08-body-344-c90498",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[344]",
+      "field": "md",
+      "all": true,
+      "old": "$P G _ { 1 } \\left| \\left| \\textsf { \\dots } \\right| \\left| \\textsf { I } G _ { n } \\right. \\right.$",
+      "new": "$P G _ { 1 } \\left| \\left| \\mathsf { \\dots } \\right| \\left| \\mathsf { I } G _ { n } \\right. \\right.$",
+      "anchor": "26500fdc"
+    },
+    {
+      "id": "baier_katoen_model_checking-ch09-body-333-a2a907",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[333]",
+      "expect": "1. s \\models_ {T C T L} \\exists (\\Phi \\cup^ {J} \\Psi) \\quad i f f \\underbrace {s \\{z : = 0 \\}} _ {\\text {state in TS(TA\\oplus z)}} \\models_ {T C T L} \\exists \\Big ((\\Phi \\lor \\Psi) \\cup ((z \\in J) \\land \\Psi) \\Big).",
+      "new": "1. s \\models_ {T C T L} \\exists (\\Phi \\cup^ {J} \\Psi) \\quad i f f \\underbrace {s \\{z : = 0 \\}} _ {\\text {state in } TS(TA\\oplus z)} \\models_ {T C T L} \\exists \\Big ((\\Phi \\lor \\Psi) \\cup ((z \\in J) \\land \\Psi) \\Big)."
+    },
+    {
+      "id": "baier_katoen_model_checking-ch09-body-334-ebdb0f",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[334]",
+      "expect": "2. s \\models_ {T C T L} \\forall (\\Phi \\cup^ {J} \\Psi) \\quad i f f \\underbrace {s \\{z : = 0 \\}} _ {\\text {state in TS(TA\\oplus z)}} \\models_ {T C T L} \\forall \\Big ((\\Phi \\lor \\Psi) \\cup ((z \\in J) \\land \\Psi) \\Big).",
+      "new": "2. s \\models_ {T C T L} \\forall (\\Phi \\cup^ {J} \\Psi) \\quad i f f \\underbrace {s \\{z : = 0 \\}} _ {\\text {state in } TS(TA\\oplus z)} \\models_ {T C T L} \\forall \\Big ((\\Phi \\lor \\Psi) \\cup ((z \\in J) \\land \\Psi) \\Big)."
+    },
+    {
+      "id": "baier_katoen_model_checking-ch08-body-514-5c9155",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[514]",
+      "field": "md",
+      "all": true,
+      "old": "$\\operatorname* { \\napprox } { \\mathit { d i v } } \\ { \\hat { T } } S .$",
+      "new": "$\\not\\approx { \\mathit { d i v } } \\ { \\hat { T } } S .$",
+      "anchor": "a605b931"
     }
   ]
 }

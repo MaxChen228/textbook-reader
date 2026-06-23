@@ -1,0 +1,44 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "8.4",
+      "classification": "external",
+      "reason": "正文明指 Yariv and Yeh (2007) 的 Table 8.4，是外部書目引用，不是本書 internal table。",
+      "where": "ch10.json body[317]",
+      "evidence": "Text says: see, e.g., Table 8.4 of Yariv and Yeh, 2007."
+    },
+    {
+      "type": "table",
+      "ref": "8.8",
+      "classification": "external",
+      "reason": "tbl-10.1 的 footnote 明指資料改編自 Yariv and Yeh (2007, Table 8.8)，不是在 demand 本書的 tbl-8.8。",
+      "where": "ch10.json body[395]",
+      "evidence": "Footnote says: Adapted from Yariv and Yeh (2007, Table 8.8), whose chi_1111 is 1 / epsilon_0 times ours."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "thorne-fig-21.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch21",
+      "selector": "body[253]",
+      "position": "before",
+      "page": 1097,
+      "clip": [
+        0.24,
+        0.07,
+        0.86,
+        0.40
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-21.4",
+        "kind": "line",
+        "caption": "FIGURE 21.4 Gyration of electrons and ions in a very-low-frequency Alfven wave."
+      },
+      "reason": "raw PDF page 1097 and unified/content_list.json page_idx=1096 both contain Figure 21.4, but parsed/ch21.json has no fig block between the referencing paragraph body[252] and the follow-up body[253]. Insert a cropped figure block at the correct location."
+    }
+  ]
+}

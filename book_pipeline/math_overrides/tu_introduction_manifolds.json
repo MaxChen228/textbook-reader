@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "tu_introduction_manifolds-ch20-body-80-1466df",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[80]",
+      "expect": "\\begin{array}{l} \\left(\\mathcal {L} _ {X} f\\right) _ {p} = \\frac {d}{d t} \\Bigg | _ {t = 0} \\left(\\varphi_ {t} ^ {*} f\\right) _ {p} \\quad \\text {(definition of \\mathcal {L} _{X} f)} \\\\ = \\left. \\frac {d}{d t} \\right| _ {t = 0} (f \\circ \\varphi_ {t}) (p) \\quad (\\text { definition   of } \\varphi_ {t} ^ {*} f) \\\\ = X _ {p} f \\quad (\\text { Proposition   8.17 }), \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\left(\\mathcal {L} _ {X} f\\right) _ {p} = \\frac {d}{d t} \\Bigg | _ {t = 0} \\left(\\varphi_ {t} ^ {*} f\\right) _ {p} \\quad \\text {(definition of } \\mathcal {L} _{X} f\\text{)} \\\\ = \\left. \\frac {d}{d t} \\right| _ {t = 0} (f \\circ \\varphi_ {t}) (p) \\quad (\\text { definition   of } \\varphi_ {t} ^ {*} f) \\\\ = X _ {p} f \\quad (\\text { Proposition   8.17 }), \\end{array}"
+    },
+    {
+      "id": "tu_introduction_manifolds-ch23-body-132-8026f0",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[132]",
+      "expect": "\\begin{array}{l} \\int_ {\\partial M} \\omega = \\int_ {\\partial M} \\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\quad \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} = 1\\right) \\\\ = \\sum_ {\\alpha} \\int_ {\\partial M} \\rho_ {\\alpha} \\omega \\quad \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\text {   is   a   finite   sum   by   Problem   18.6 }\\right) \\\\ = \\sum_ {\\alpha} \\int_ {\\partial U _ {\\alpha}} \\rho_ {\\alpha} \\omega \\quad (\\operatorname{supp} \\rho_ {\\alpha} \\omega \\subset U _ {\\alpha}) \\\\ = \\sum_ {\\alpha} \\int_ {U _ {\\alpha}} d (\\rho_ {\\alpha} \\omega) \\quad \\text {(Stokes's theorem for U_{\\alpha})} \\\\ = \\sum_ {\\alpha} \\int_ {M} d (\\rho_ {\\alpha} \\omega) \\quad (\\operatorname{supp} d (\\rho_ {\\alpha} \\omega) \\subset U _ {\\alpha}) \\\\ = \\int_ {M} d (\\sum \\rho_ {\\alpha} \\omega) \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\text {   is   a   finite   sum }\\right) \\\\ = \\int_ {M} d \\omega . \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\int_ {\\partial M} \\omega = \\int_ {\\partial M} \\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\quad \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} = 1\\right) \\\\ = \\sum_ {\\alpha} \\int_ {\\partial M} \\rho_ {\\alpha} \\omega \\quad \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\text {   is   a   finite   sum   by   Problem   18.6 }\\right) \\\\ = \\sum_ {\\alpha} \\int_ {\\partial U _ {\\alpha}} \\rho_ {\\alpha} \\omega \\quad (\\operatorname{supp} \\rho_ {\\alpha} \\omega \\subset U _ {\\alpha}) \\\\ = \\sum_ {\\alpha} \\int_ {U _ {\\alpha}} d (\\rho_ {\\alpha} \\omega) \\quad \\text{(Stokes's theorem for }U_{\\alpha}\\text{)} \\\\ = \\sum_ {\\alpha} \\int_ {M} d (\\rho_ {\\alpha} \\omega) \\quad (\\operatorname{supp} d (\\rho_ {\\alpha} \\omega) \\subset U _ {\\alpha}) \\\\ = \\int_ {M} d (\\sum \\rho_ {\\alpha} \\omega) \\left(\\sum_ {\\alpha} \\rho_ {\\alpha} \\omega \\text {   is   a   finite   sum }\\right) \\\\ = \\int_ {M} d \\omega . \\\\ \\end{array}"
+    },
+    {
+      "id": "tu_introduction_manifolds-ch26-body-44-7c255c",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[44]",
+      "expect": "\\begin{array}{c c} \\Omega^ {k + 1} (M) \\xrightarrow {i} \\Omega^ {k + 1} (U) \\oplus \\Omega^ {k + 1} (V) & \\alpha \\xrightarrow [ (3) ]{i} (- d \\zeta_ {U}, d \\zeta_ {V}) \\xmapsto [ ] {j} 0 \\\\ \\underset {d} {\\overset {d} {\\biguplus}} & \\underset {d} {\\overset {d} {\\biguplus}} _ {(2)} \\underset {d} {\\overset {d} {\\biguplus}} \\\\ \\Omega^ {k} (U) \\oplus \\Omega^ {k} (V) \\xrightarrow {j} \\Omega^ {k} (U \\cap V), & (- \\zeta_ {U}, \\zeta_ {V}) \\xmapsto [ ] {j} _ {(1)} \\zeta . \\end{array}",
+      "new": "\\begin{array}{c c} \\Omega^ {k + 1} (M) \\xrightarrow {i} \\Omega^ {k + 1} (U) \\oplus \\Omega^ {k + 1} (V) & \\alpha \\xrightarrow [ (3) ]{i} (- d \\zeta_ {U}, d \\zeta_ {V}) \\xmapsto [ ] {j} 0 \\\\ \\underset {d} {\\overset {d} {\\biguplus}} & {\\underset {d} {\\overset {d} {\\biguplus}}} _ {(2)} \\underset {d} {\\overset {d} {\\biguplus}} \\\\ \\Omega^ {k} (U) \\oplus \\Omega^ {k} (V) \\xrightarrow {j} \\Omega^ {k} (U \\cap V), & (- \\zeta_ {U}, \\zeta_ {V}) {\\xmapsto [ ] {j}} _ {(1)} \\zeta . \\end{array}"
+    }
+  ]
+}

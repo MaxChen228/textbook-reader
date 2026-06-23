@@ -289,6 +289,33 @@
       "old": "$\\Gamma \\vdash S ( \\mathsf { S } ) \\ldotplus \\ldotplus $",
       "new": "$\\Gamma\\vdash S(\\mathsf{S})\\cdot+\\cdot+ $",
       "anchor": "f3b93aae"
+    },
+    {
+      "id": "pierce_attapl-ch06-body-64-a518f4",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[64]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\vdash \\textsf { x s \\ l _ { 1 } \\ldots s _ { m } } \\stackrel { ? } { = } \\ y \\_ { 1 } \\ \\ldots \\ \\vdash \\ \\mathtt { t } _ { n } : \\ \\mathtt { b } \\mathrm { ( w h e r e \\ } \\times \\ \\ne \\ y \\mathrm { ) }$",
+      "new": "$\\Gamma \\vdash \\mathsf { x s \\ l _ { 1 } \\ldots s _ { m } } \\stackrel { ? } { = }\\ y _ { 1 } \\ \\ldots \\ \\vdash \\ \\mathtt { t } _ { n } : \\ \\mathtt { b } \\mathrm { ( w h e r e \\ } x \\ \\ne \\ y \\mathrm { ) }$",
+      "anchor": "4606af20"
+    },
+    {
+      "id": "pierce_attapl-ch07-body-94-5911f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[94]",
+      "expect": "\\begin{array}{l l} & \\text { let   fun   f(x:T_{1}) = t:T_{2}   in   f   end} \\\\ \\text { or } & \\text { let   rec   f(x:T_{1}) = t:T_{2}   in   f} \\end{array} \\quad \\text { in   Standard   ML } \\quad \\text { in   Ocaml. }",
+      "new": "\\begin{array}{l l} & \\mathrm { let\\ fun\\ } f(x:T_{1}) = t:T_{2} \\mathrm {\\ in\\ f\\ end} \\\\ \\text { or } & \\mathrm { let\\ rec\\ } f(x:T_{1}) = t:T_{2} \\mathrm {\\ in\\ f} \\end{array} \\quad \\text { in   Standard   ML } \\quad \\text { in   Ocaml. }"
+    },
+    {
+      "id": "pierce_attapl-ch03-problem-3-6-1-body-3-c68b45",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.6.1:body[3]",
+      "expect": "\\begin{array}{l} \\text {letrec m(f) = if f(0) then 0 else m(\\lambdax.f(x + 1)) + 1} \\\\ \\text {in m(\\lambdax.x = 10)} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {letrec\\ } m(f) = \\mathrm {if\\ } f(0) \\mathrm {\\ then\\ } 0 \\mathrm {\\ else\\ } m(\\lambda x.f(x + 1)) + 1 \\\\ \\mathrm {in\\ } m(\\lambda x.x = 10) \\end{array}"
     }
   ]
 }

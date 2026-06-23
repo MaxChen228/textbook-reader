@@ -152,6 +152,30 @@
       "selector": "body[322]",
       "expect": "\\mathbf {x} ^ {(m + 1)} = \\mathbf {b} - \\mathbf {L x} ^ {(m + 1)} - \\mathbf {U x} ^ {(m)} \\quad \\text {(a_{jj} = 1)}",
       "new": "\\mathbf{x}^{(m + 1)} = \\mathbf{b} - \\mathbf{L x}^{(m + 1)} - \\mathbf{U x}^{(m)} \\quad \\text{(}a_{jj} = 1\\text{)}"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch04-body-115-7cbcc9",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[115]",
+      "expect": "y _ {1} ^ {\\prime} = \\text { Inflow } / \\min - \\text { Outflow } / \\min = \\frac {2}{1 0 0} y _ {2} - \\frac {2}{1 0 0} y _ {1} \\tag {TankT_{1}}",
+      "new": "y _ {1} ^ {\\prime} = \\text { Inflow } / \\min - \\text { Outflow } / \\min = \\frac {2}{1 0 0} y _ {2} - \\frac {2}{1 0 0} y _ {1} \\tag {TankT\\_1}"
+    },
+    {
+      "id": "kreyszig_engineering_math-ch04-body-116-d5d8ba",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[116]",
+      "expect": "y _ {2} ^ {\\prime} = \\text { Inflow } / \\min - \\text { Outflow } / \\min = \\frac {2}{1 0 0} y _ {1} - \\frac {2}{1 0 0} y _ {2} \\tag {TankT_{2}}.",
+      "new": "y _ {2} ^ {\\prime} = \\text { Inflow } / \\min - \\text { Outflow } / \\min = \\frac {2}{1 0 0} y _ {1} - \\frac {2}{1 0 0} y _ {2} \\tag {TankT\\_2}."
+    },
+    {
+      "id": "kreyszig_engineering_math-ch04-body-118-36e4a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[118]",
+      "expect": "y _ {1} ^ {\\prime} = - 0. 0 2 y _ {1} + 0. 0 2 y _ {2} \\tag {TankT_{1}}",
+      "new": "y _ {1} ^ {\\prime} = - 0. 0 2 y _ {1} + 0. 0 2 y _ {2} \\tag {TankT\\_1}"
     }
   ]
 }

@@ -7,6 +7,17 @@
       "selector": "body[290]",
       "expect": "\\begin{array}{l} \\text {person (\\underline {{ID}} , name, street, city)} \\\\ \\text {employee (\\underline {{ID}} , salary)} \\\\ \\text {student (\\underline {{ID}} , tot\\_cred)} \\end{array}",
       "new": "\\begin{array}{l} \\text{person }(\\underline{\\text{ID}}, \\text{name}, \\text{street}, \\text{city}) \\\\ \\text{employee }(\\underline{\\text{ID}}, \\text{salary}) \\\\ \\text{student }(\\underline{\\text{ID}}, \\text{tot\\_cred}) \\end{array}"
+    },
+    {
+      "id": "silberschatz_database-ch15-body-252-c37af6",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[252]",
+      "field": "md",
+      "all": true,
+      "old": "$r \\mathbb { \\infty } _ { \\textrm { \\tiny { \\Theta } } ^ { r } }$",
+      "new": "$r \\mathbb { \\infty } _ { \\Theta ^ { r } }$",
+      "anchor": "ce3e3a19"
     }
   ]
 }

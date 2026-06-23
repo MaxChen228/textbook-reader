@@ -1,0 +1,161 @@
+slug: simmons_topology
+title: Introduction to Topology and Modern Analysis
+author: George F. Simmons
+edition: null
+subject: Topology
+publisher: Krieger Publishing
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 348
+bibliography_start_page: 366
+index_start_page: 370
+
+inline_problems: true
+problem_num_namespace_by_section: true
+problems_start_re: '^Problems$'
+
+chapters:
+  - num: 1
+    title: Sets and Functions
+    page_start: 14
+    page_end: 59
+    chapter_title_block_idx: 113
+    problems_block_idx: null
+    next_chapter_block_idx: 614
+  - num: 2
+    title: Metric Spaces
+    page_start: 60
+    page_end: 101
+    chapter_title_block_idx: 614
+    problems_block_idx: null
+    next_chapter_block_idx: 1138
+  - num: 3
+    title: Topological Spaces
+    page_start: 102
+    page_end: 120
+    chapter_title_block_idx: 1138
+    problems_block_idx: null
+    next_chapter_block_idx: 1349
+  - num: 4
+    title: Compactness
+    page_start: 121
+    page_end: 139
+    chapter_title_block_idx: 1349
+    problems_block_idx: null
+    next_chapter_block_idx: 1538
+  - num: 5
+    title: Separation
+    page_start: 140
+    page_end: 152
+    chapter_title_block_idx: 1538
+    problems_block_idx: null
+    next_chapter_block_idx: 1675
+  - num: 6
+    title: Connectedness
+    page_start: 153
+    page_end: 163
+    chapter_title_block_idx: 1675
+    problems_block_idx: null
+    next_chapter_block_idx: 1800
+  - num: 7
+    title: Approximation
+    page_start: 164
+    page_end: 181
+    chapter_title_block_idx: 1800
+    problems_block_idx: null
+    next_chapter_block_idx: 1970
+  - num: 8
+    title: Algebraic Systems
+    page_start: 182
+    page_end: 221
+    chapter_title_block_idx: 1970
+    problems_block_idx: null
+    next_chapter_block_idx: 2515
+  - num: 9
+    title: Banach Spaces
+    page_start: 222
+    page_end: 253
+    chapter_title_block_idx: 2515
+    problems_block_idx: null
+    next_chapter_block_idx: 2966
+  - num: 10
+    title: Hilbert Spaces
+    page_start: 254
+    page_end: 288
+    chapter_title_block_idx: 2966
+    problems_block_idx: null
+    next_chapter_block_idx: 3526
+  - num: 11
+    title: Finite-dimensional Spectral Theory
+    page_start: 289
+    page_end: 311
+    chapter_title_block_idx: 3526
+    problems_block_idx: null
+    next_chapter_block_idx: 3827
+  - num: 12
+    title: Preliminaries on Banach Algebras
+    page_start: 312
+    page_end: 328
+    chapter_title_block_idx: 3827
+    problems_block_idx: null
+    next_chapter_block_idx: 4058
+  - num: 13
+    title: The Structure of Commutative Banach Algebras
+    page_start: 329
+    page_end: 337
+    chapter_title_block_idx: 4058
+    problems_block_idx: null
+    next_chapter_block_idx: 4189
+  - num: 14
+    title: Some Special Commutative Banach Algebras
+    page_start: 338
+    page_end: 347
+    chapter_title_block_idx: 4189
+    problems_block_idx: null
+    next_chapter_block_idx: 4270
+
+appendices:
+  - id: A
+    title: Fixed Point Theorems and Some Applications to Analysis
+    page_start: 348
+    chapter_title_block_idx: 4270
+  - id: B
+    title: Continuous Curves and the Hahn-Mazurkiewicz Theorem
+    page_start: 352
+    chapter_title_block_idx: 4325
+  - id: C
+    title: Boolean Algebras, Boolean Rings, and Stone's Theorem
+    page_start: 355
+    chapter_title_block_idx: 4363
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTION_MATCH__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

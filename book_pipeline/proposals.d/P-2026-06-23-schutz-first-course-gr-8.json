@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-schutz-first-course-gr-8",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/build_catalogs.py（catalog_audit schutz_first_course_gr）",
+  "slug": "schutz_first_course_gr",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T08:25:45+00:00",
+  "updated": "2026-06-23T08:38:46+00:00",
+  "evidence": "scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/build_catalogs.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "(無 diff 文本，book_pipeline/build_catalogs.py modified)",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。"
+}

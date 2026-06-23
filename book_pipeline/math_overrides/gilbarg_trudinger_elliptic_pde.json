@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "gilbarg_trudinger_elliptic_pde-ch07-body-278-5fecf6",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[278]",
+      "expect": "\\begin{array}{l} \\left| u (x) - u (y) \\right| \\leqslant \\left| u (x) - u _ {B} \\right| + \\left| u (y) - u _ {B} \\right| \\\\ \\leqslant 2 C (n, p) R ^ {\\gamma} \\| D u \\| _ {p} \\quad \\text { a.e. } (\\Omega \\cap B). \\tag * {\\square} \\\\ \\end{array}",
+      "new": "\\begin{array}{l}\\left|u(x)-u(y)\\right|\\leqslant \\left|u(x)-u_{B}\\right|+\\left|u(y)-u_{B}\\right|\\\\\\leqslant 2C(n,p)R^{\\gamma}\\|Du\\|_{p}\\quad \\text{ a.e. }(\\Omega\\cap B).\\tag*{□}\\\\\\end{array}"
+    },
+    {
+      "id": "gilbarg_trudinger_elliptic_pde-ch07-body-297-2dae91",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[297]",
+      "expect": "\\begin{array}{l} | V _ {\\mu} f (x) | \\leqslant \\int_ {\\Omega} \\rho^ {n (\\mu - 1)} | f (y) | d y, \\quad \\rho = | x - y | \\\\ = \\int_ {0} ^ {d} \\rho^ {n (\\mu - 1)} v ^ {\\prime} (\\rho) d \\rho , \\quad d = \\mathrm{diam} \\Omega \\\\ = d ^ {n (\\mu - 1)} v (d) + n (1 - \\mu) \\int_ {0} ^ {d} \\rho^ {n (\\mu - 1) - 1} v (\\rho) d \\rho \\\\ \\leqslant \\frac {1 - \\delta}{\\mu - \\delta} d ^ {n (\\mu - \\delta)} K \\quad \\text { by   (7.46). } \\tag * {\\square} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} | V _ {\\mu} f (x) | \\leqslant \\int_ {\\Omega} \\rho^ {n (\\mu - 1)} | f (y) | d y, \\quad \\rho = | x - y | \\\\ = \\int_ {0} ^ {d} \\rho^ {n (\\mu - 1)} v ^ {\\prime} (\\rho) d \\rho , \\quad d = \\mathrm{diam} \\Omega \\\\ = d ^ {n (\\mu - 1)} v (d) + n (1 - \\mu) \\int_ {0} ^ {d} \\rho^ {n (\\mu - 1) - 1} v (\\rho) d \\rho \\\\ \\leqslant \\frac {1 - \\delta}{\\mu - \\delta} d ^ {n (\\mu - \\delta)} K \\quad \\text { by   (7.46). } \\tag * {□} \\\\ \\end{array}"
+    }
+  ]
+}

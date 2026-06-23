@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "bollobas_modern_graph_theory-ch02-body-135-c79edf",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[135]",
+      "expect": "\\mathbf {u} _ {P} (e _ {i}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if e_{i} goes from V_{1} to V_{2}}, \\\\ - 1 & \\text {if e_{i} goes from V_{2} to V_{1}}, \\\\ 0 & \\text {if e_{i} \\notin E(V_{1} ,V_{2}).} \\end{array} \\right.",
+      "new": "\\mathbf{u}_{P}(e_{i})=\\left\\{\\begin{array}{ll}1&\\text{if } e_{i}\\text{ goes from } V_{1}\\text{ to } V_{2},\\\\-1&\\text{if } e_{i}\\text{ goes from } V_{2}\\text{ to } V_{1},\\\\0&\\text{if } e_{i}\\notin E(V_{1},V_{2}).\\end{array}\\right."
+    },
+    {
+      "id": "bollobas_modern_graph_theory-ch09-body-331-3190f9",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[331]",
+      "expect": "n - 1 = \\frac {1}{2 m} \\sum_ {s t \\in E (G)} C (s, t) = \\frac {1}{2 m} \\sum_ {s t \\in E (G)} 2 m R _ {\\text { eff }} (s, t) = \\sum_ {s t \\in E (G)} R _ {\\text { eff }} (s, t). \\tag * {\\square}",
+      "new": "n-1=\\frac{1}{2m}\\sum_{st\\in E(G)} C(s,t)=\\frac{1}{2m}\\sum_{st\\in E(G)} 2m R_{\\text{eff}}(s,t)=\\sum_{st\\in E(G)} R_{\\text{eff}}(s,t).\\tag*{□}"
+    },
+    {
+      "id": "bollobas_modern_graph_theory-ch10-body-350-e6eb50",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[350]",
+      "expect": "\\begin{array}{l} \\langle \\text {D} \\rangle = A \\langle \\check {\\text {X}} \\rangle + B \\langle \\text {X} \\rangle \\\\ = A \\left\\{ \\right.A \\left\\langle \\underset {\\sim} {\\right\\rangle} + B \\left\\langle \\underset {\\sim} \\right\\rangle\\left. \\right\\rangle\\left. \\right\\} + B \\left\\{ \\right.A \\left\\langle\\right\\rangle\\left\\langle\\right\\rangle + B \\left\\langle \\underset {\\sim} \\right\\rangle\\left. \\right\\rangle \\Bigg \\} \\\\ = \\left\\{A ^ {2} + A B d + B ^ {2} \\right\\} \\left\\langle \\stackrel {\\smile} {\\smile} \\right\\rangle + A B \\left\\langle \\right\\rangle \\left\\langle \\right\\rangle . \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\langle \\text {D} \\rangle = A \\langle \\check {\\text {X}} \\rangle + B \\langle \\text {X} \\rangle \\\\ = A \\left\\{ A \\left\\langle \\underset {\\sim} {} \\right\\rangle + B \\left\\langle \\underset {\\sim} {} \\right\\rangle\\left. \\right\\rangle \\right\\} + B \\left\\{ A \\left\\langle\\right\\rangle\\left\\langle\\right\\rangle + B \\left\\langle \\underset {\\sim} {} \\right\\rangle\\left. \\right\\rangle \\right\\} \\\\ = \\left\\{A ^ {2} + A B d + B ^ {2} \\right\\} \\left\\langle \\stackrel {\\smile} {\\smile} \\right\\rangle + A B \\left\\langle \\right\\rangle \\left\\langle \\right\\rangle . \\\\ \\end{array}"
+    }
+  ]
+}

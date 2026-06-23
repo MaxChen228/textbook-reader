@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "garey_johnson_intractability-ch02-body-18-349b55",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[18]",
+      "expect": "L [ \\Pi , e ] = \\left\\{x \\in \\Sigma^ {*}: \\begin{array}{l} \\Sigma \\text {is the alphabet used by e, and x is the} \\\\ \\text {encoding under e of an instance I\\in Y_{\\Pi}} \\end{array} \\right\\}",
+      "new": "L[\\Pi,e]=\\left\\{x\\in\\Sigma^{*}:\\begin{array}{l}\\Sigma\\text{ is the alphabet used by } e,\\text{ and } x\\text{ is the}\\\\\\text{encoding under } e\\text{ of an instance } I\\in Y_{\\Pi}\\end{array}\\right\\}"
+    }
+  ]
+}

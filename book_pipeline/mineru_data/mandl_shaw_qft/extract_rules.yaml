@@ -1,0 +1,192 @@
+slug: mandl_shaw_qft
+title: Quantum Field Theory
+author: Franz Mandl; Graham Shaw
+edition: 2nd
+subject: Quantum Field Theory
+publisher: John Wiley & Sons, Ltd
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 465
+bibliography_start_page: null
+index_start_page: 487
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Photons and the Electromagnetic Field
+    page_start: 15
+    page_end: 38
+    chapter_title_block_idx: 64
+    problems_block_idx: 451
+    next_chapter_block_idx: 490
+  - num: 2
+    title: Lagrangian Field Theory
+    page_start: 39
+    page_end: 52
+    chapter_title_block_idx: 490
+    problems_block_idx: 714
+    next_chapter_block_idx: 751
+  - num: 3
+    title: The Klein-Gordon Field
+    page_start: 53
+    page_end: 68
+    chapter_title_block_idx: 751
+    problems_block_idx: 968
+    next_chapter_block_idx: 1008
+  - num: 4
+    title: The Dirac Field
+    page_start: 69
+    page_end: 86
+    chapter_title_block_idx: 1008
+    problems_block_idx: 1284
+    next_chapter_block_idx: 1311
+  - num: 5
+    title: "Photons: Covariant Theory"
+    page_start: 87
+    page_end: 100
+    chapter_title_block_idx: 1311
+    problems_block_idx: 1502
+    next_chapter_block_idx: 1536
+  - num: 6
+    title: The S-Matrix Expansion
+    page_start: 101
+    page_end: 112
+    chapter_title_block_idx: 1536
+    problems_block_idx: null
+    next_chapter_block_idx: 1697
+  - num: 7
+    title: Feynman Diagrams and Rules in QED
+    page_start: 113
+    page_end: 140
+    chapter_title_block_idx: 1697
+    problems_block_idx: 2038
+    next_chapter_block_idx: 2078
+  - num: 8
+    title: QED Processes in Lowest Order
+    page_start: 141
+    page_end: 174
+    chapter_title_block_idx: 2078
+    problems_block_idx: 2578
+    next_chapter_block_idx: 2613
+  - num: 9
+    title: Radiative Corrections
+    page_start: 175
+    page_end: 216
+    chapter_title_block_idx: 2613
+    problems_block_idx: 3158
+    next_chapter_block_idx: 3170
+  - num: 10
+    title: Regularization
+    page_start: 217
+    page_end: 232
+    chapter_title_block_idx: 3170
+    problems_block_idx: 3406
+    next_chapter_block_idx: 3430
+  - num: 11
+    title: Gauge Theories
+    page_start: 233
+    page_end: 254
+    chapter_title_block_idx: 3430
+    problems_block_idx: 3741
+    next_chapter_block_idx: 3773
+  - num: 12
+    title: Field Theory Methods
+    page_start: 255
+    page_end: 288
+    chapter_title_block_idx: 3773
+    problems_block_idx: 4314
+    next_chapter_block_idx: 4344
+  - num: 13
+    title: Path Integrals
+    page_start: 289
+    page_end: 312
+    chapter_title_block_idx: 4344
+    problems_block_idx: 4785
+    next_chapter_block_idx: 4802
+  - num: 14
+    title: Quantum Chromodynamics
+    page_start: 313
+    page_end: 338
+    chapter_title_block_idx: 4802
+    problems_block_idx: 5214
+    next_chapter_block_idx: 5233
+  - num: 15
+    title: Asymptotic Freedom
+    page_start: 339
+    page_end: 376
+    chapter_title_block_idx: 5233
+    problems_block_idx: 5810
+    next_chapter_block_idx: 5816
+  - num: 16
+    title: Weak Interactions
+    page_start: 377
+    page_end: 402
+    chapter_title_block_idx: 5816
+    problems_block_idx: 6193
+    next_chapter_block_idx: 6217
+  - num: 17
+    title: A Gauge Theory of Weak Interactions
+    page_start: 403
+    page_end: 416
+    chapter_title_block_idx: 6217
+    problems_block_idx: null
+    next_chapter_block_idx: 6439
+  - num: 18
+    title: Spontaneous Symmetry Breaking
+    page_start: 417
+    page_end: 432
+    chapter_title_block_idx: 6439
+    problems_block_idx: null
+    next_chapter_block_idx: 6658
+  - num: 19
+    title: The Standard Electroweak Theory
+    page_start: 433
+    page_end: 464
+    chapter_title_block_idx: 6658
+    chapter_title_block_idx_secondary: 6659
+    problems_block_idx: 7064
+    next_chapter_block_idx: 7098
+
+appendices:
+  - id: A
+    title: The Dirac Equation
+    page_start: 465
+    chapter_title_block_idx: 7098
+  - id: B
+    title: Feynman Rules and Formulae for Perturbation Theory
+    page_start: 477
+    chapter_title_block_idx: 7350
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{((?:[0-9]+\.[0-9]+|[A-Z]\.\d+)[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

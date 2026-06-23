@@ -114,6 +114,22 @@
       "selector": "body[86]",
       "expect": "\\begin{array}{c} \\left[ \\begin{array}{c}  \\\\  \\end{array} \\right]  \\\\ \\left[ \\begin{array}{c}  \\\\  \\end{array} \\right]  \\\\ \\left[ \\begin{array}{c}  \\\\  \\end{array} \\right]  \\\\ \\left[ \\begin{array}{c}  \\\\  \\end{array} \\right]  \\\\ \\left[ \\begin{array}{c}  \\\\  \\end{array} \\right]  \\\\ \\left[ \\begin{array} {cc}  &  \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & x \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & y \\\\  & z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\\\ z\\end{array}",
       "new": "\\begin{array}{c} \\left[ \\begin{array}{c} \\\\ \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} \\\\ \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} \\\\ \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} \\\\ \\end{array} \\right] \\\\ \\left[ \\begin{array}{c} \\\\ \\end{array} \\right] \\\\ \\left[ \\begin{array}{cc} & \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & x \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & y \\\\ & z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\\\ z \\end{array} \\right] \\end{array}"
+    },
+    {
+      "id": "arora_complexity-ch13-body-101-96e60f",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[101]",
+      "expect": "\\mathcal{E}(f) = \\underset {D}{\\text{E}}_{\\substack{(k,n)\\text{cube}}}\\left[\\prod_{\\mathbf{a}\\in D}f(\\mathbf{a})\\right]",
+      "new": "\\mathcal{E}(f) = {\\underset {D}{\\text{E}}}_{\\substack{(k,n)\\text{cube}}}\\left[\\prod_{\\mathbf{a}\\in D}f(\\mathbf{a})\\right]"
+    },
+    {
+      "id": "arora_complexity-ch13-body-117-547d98",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[117]",
+      "expect": "\\mathcal{E}(GIP_{k,1}) = \\underset {C}{\\operatorname{E}}\\limits_{(k,1)\\text{cube}}[\\prod_{\\mathbf{a}\\in C}GIP_{k,1}(\\mathbf{a})]\\leq 2^{-k}\\cdot -1 + (1 - 2^{-k})\\cdot 1\\leq 1 - 2^{-k}",
+      "new": "\\mathcal{E}(GIP_{k,1}) = {\\underset {C}{\\operatorname{E}}}_{(k,1)\\text{cube}}[\\prod_{\\mathbf{a}\\in C}GIP_{k,1}(\\mathbf{a})]\\leq 2^{-k}\\cdot -1 + (1 - 2^{-k})\\cdot 1\\leq 1 - 2^{-k}"
     }
   ]
 }

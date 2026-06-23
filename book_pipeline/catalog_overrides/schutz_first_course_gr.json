@@ -1,0 +1,41 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "schutz-fig-11.18-idfix",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[398]",
+      "expect": {
+        "id": "fig-11.19"
+      },
+      "set": {
+        "id": "fig-11.18",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "raw PDF 物理頁 358 明確標示 Figure 11.18，caption 正是 'This diagram shows the masses of all the black holes and neutron stars...'; MinerU/parsed 把這塊錯位成 fig-11.19，造成正文 body[393] 的 Figure 11.18 缺供應。改 id 對齊真實 caption，且 ch11 另一塊 body[400] 已供應真正的 fig-11.19。"
+    },
+    {
+      "id": "schutz-fig-11.21-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.15:body[0]",
+      "position": "before",
+      "page": 372,
+      "clip": [
+        0.30,
+        0.07,
+        0.86,
+        0.24
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.21",
+        "kind": "line",
+        "caption": "The deflection of light by the Sun."
+      },
+      "reason": "raw PDF 物理頁 372 頁首確有 Figure 11.21 線圖與 caption，但 parsed/ch11 問題區只保留正文引用，未產生 fig block。依 catalog-audit §4.C4 情境(B) 用 pdf_crop_insert 重裁，插在緊接其後的 Exercise 11.15 前，供 Problem 11.17 對 Figure 11.21 的正文引用覆蓋。"
+    }
+  ]
+}

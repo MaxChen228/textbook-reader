@@ -40,6 +40,28 @@
       "selector": "body[3]",
       "expect": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} 1 & 0 & 0 & a \\\\ 0 & 1 & 0 & b \\\\ 0 & 0 & 1 & c \\\\ 0 & 0 & 0 & 1 \\end{array} \\right], \\text {when restricted to E^{3} , acts as a translation by [a\\quad b\\quad c] ^{\\mathbf{T}}} \\\\ \\text {on E^{3} .} \\end{array}",
       "new": "\\begin{array}{l} \\left[ \\begin{array}{c c c c} 1 & 0 & 0 & a \\\\ 0 & 1 & 0 & b \\\\ 0 & 0 & 1 & c \\\\ 0 & 0 & 0 & 1 \\end{array} \\right], \\text{when restricted to } E^{3}\\text{, acts as a translation by } [a\\quad b\\quad c]^{\\mathbf{T}} \\\\ \\text{on } E^{3}\\text{.} \\end{array}"
+    },
+    {
+      "id": "hughes_graphics-ch07-body-307-22a8a0",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[307]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r l } { \\left[ A } & { { } B \\right] ^ { \\mathbf { \\hat { I } } } } \\end{array}$",
+      "new": "$\\begin{array} { r l } { \\left[ A \\right. } & { \\left. B \\right] ^ { \\mathbf { \\hat { I } } } } \\end{array}$",
+      "anchor": "e98b7403"
+    },
+    {
+      "id": "hughes_graphics-ch20-problem-20-11-4-body-3-92b13c",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "problem:20.11.4:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r l } { \\left[ \\pm 1 } & { { } 0 \\right] ^ { \\mathbf { T } } } \\end{array}$",
+      "new": "$\\begin{array} { r l } { \\left[ \\pm 1 \\right. } & { \\left. 0 \\right] ^ { \\mathbf { T } } } \\end{array}$",
+      "anchor": "faaf52a2"
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-thorne-blandford-modern-classica-2",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/devctl.py（audit thorne_blandford_modern_classical）",
+  "slug": "thorne_blandford_modern_classical",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T08:31:05+00:00",
+  "updated": "2026-06-23T08:38:46+00:00",
+  "evidence": "scope_guard bracket：worker [audit thorne_blandford_modern_classical] session=thorne_blandford_modern_classical:59943 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py\nindex 4f40e75..c38041e 100644\n--- a/book_pipeline/devctl.py\n+++ b/book_pipeline/devctl.py\n@@ -131,7 +131,10 @@ def code_status() -> dict:\n             c = _git(['rev-list', '--count', f'{running}..HEAD'])\n             behind = int(c) if c.isdigit() else None\n     return {'running': running, 'head': head, 'behind': behind,\n-            'started': (info or {}).get('started')}\n+            'started': (info or {}).get('started'),\n+            'phase': (info or {}).get('phase'),           # running / draining（排空中，消除舊『閒置』盲點）\n+            'reason': (info or {}).get('reason'),          # draining 的退出原因：reload/walltime/idle/terminate\n+            'drain_started': (info or {}).get('drain_started')}\n \n \n # ── daemon 健康 ──────────────────────────────────────────────────────────────\n@@ -919,7 +922,12 @@ def _print_human(snap: dict) -> None:\n         print(f\"   last tick start {d['last_tick_start_utc']} \"\n               f\"dur={dur_s}  next≈{d['next_tick_eta_s']}s\")\n     c = snap.get('code') or {}\n-    if c.get('running'):\n+    if c.get('phase') == 'draining' and c.get('running'):\n+        ds = c.get('drain_started')\n+        el = f'已 {int(time.time() - ds)}s' if ds else '排空中'\n+        print(f\"   🔄 排空中（{c.get('reason') or '?'}，{el}）· code={c['running']} → 退出後 respawn 載新碼\"\n+              f\"（非『閒置』：controller 仍活著在排空在飛 worker）\")\n+    elif c.get('running'):\n         b = c.get('behind')\n         tag = ('✅ 最新' if b == 0 else\n                (f'⏳ 落後 HEAD {b} commit（下次 reload/respawn 自動跟上，毋須 kick）' if b",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。"
+}

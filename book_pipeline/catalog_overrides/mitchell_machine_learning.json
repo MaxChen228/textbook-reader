@@ -1,0 +1,55 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mitchell-table-10.5-anchor",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[167]",
+      "expect": {
+        "t": "p",
+        "id": null
+      },
+      "set": {
+        "id": "tbl-10.5",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "reason": "Table 10.5 was OCRed as a plain paragraph plus equations instead of a table block. Assign a stable anchor so build_catalogs can emit a catalog entry from the restored leading caption."
+    },
+    {
+      "id": "mitchell-table-10.5-caption-restore",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[167]",
+      "field": "md",
+      "old": "1. Given initial clauses $C_1$ and $C_2$ , find a literal $L$ from clause $C_1$ such that $\\neg L$ occurs in clause $C_2$ .\n2. Form the resolvent $C$ by including all literals from $C_1$ and $C_2$ , except for $L$ and $\\neg L$ . More precisely, the set of literals occurring in the conclusion $C$ is",
+      "new": "Table 10.5: The general form of the propositional resolution operator.\n1. Given initial clauses $C_1$ and $C_2$ , find a literal $L$ from clause $C_1$ such that $\\neg L$ occurs in clause $C_2$ .\n2. Form the resolvent $C$ by including all literals from $C_1$ and $C_2$ , except for $L$ and $\\neg L$ . More precisely, the set of literals occurring in the conclusion $C$ is",
+      "reason": "The surrounding prose explicitly says the resolution procedure is shown in Table 10.5, and the numbered steps immediately below are the table body. Prefixing the true caption lets build_catalogs recover tbl-10.5 via _leading_caption."
+    },
+    {
+      "id": "mitchell-table-10.6-anchor",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[177]",
+      "expect": {
+        "t": "p",
+        "id": null
+      },
+      "set": {
+        "id": "tbl-10.6",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "reason": "Table 10.6 was likewise flattened into prose and equations. Give the paragraph block a deterministic anchor so the recovered leading caption yields a stable table catalog entry."
+    },
+    {
+      "id": "mitchell-table-10.6-caption-restore",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[177]",
+      "field": "md",
+      "old": "1. Given initial clauses $C_1$ and $C$ , find a literal $L$ that occurs in clause $C_2$ , but not in clause $C_3$ .\n2. Form the second clause $C_2$ by including the following literals",
+      "new": "Table 10.6: The general statement of the inverse resolution procedure.\n1. Given initial clauses $C_1$ and $C$ , find a literal $L$ that occurs in clause $C_2$ , but not in clause $C_3$ .\n2. Form the second clause $C_2$ by including the following literals",
+      "reason": "The preceding paragraph names Table 10.6 and the following numbered steps are the missing table content. Restoring the caption on the leading paragraph creates tbl-10.6 without fabricating any new data."
+    }
+  ]
+}

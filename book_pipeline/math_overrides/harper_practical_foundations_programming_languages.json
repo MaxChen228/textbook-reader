@@ -29,6 +29,46 @@
       "selector": "body[38]",
       "expect": "\\begin{array}{l c l c l c l} \\text {Typ} & \\tau & : := & \\text {sym} (\\tau) & \\tau \\text {sym} & & \\text {symbols} \\\\ \\text {Exp} & e & & \\text {quote} [ a ] & ^ \\prime a & & \\text {reference} \\\\ & & & \\text {is} [ a ] \\{t. \\tau \\} (e; e _ {1}; e _ {2}) & \\text {if e is a then e_{1} ow e_{2}} & & \\text {comparison} \\end{array}",
       "new": "\\begin{array}{l c l c l c l} \\text{Typ} & \\tau & : := & \\text{sym}(\\tau) & \\tau\\ \\text{sym} & & \\text{symbols} \\\\ \\text{Exp} & e & & \\text{quote}[a] & {}^{\\prime} a & & \\text{reference} \\\\ & & & \\text{is}[a]\\{t.\\tau\\}(e; e_{1}; e_{2}) & \\text{if e is a then } e_{1} \\text{ ow } e_{2} & & \\text{comparison} \\end{array}"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch25-body-105-9e5923",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[105]",
+      "expect": "\\text { ifofcl[num](e; x _ {0 } . e _ {0} ; e _ {1}),}",
+      "new": "\\operatorname{ifofcl[num]}(e; x_{0}. e_{0}; e_{1}),"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch31-body-51-f19086",
+      "action": "fix_eq_tex",
+      "chunk": "ch31",
+      "selector": "body[51]",
+      "expect": "\\frac {e \\xmapsto [ \\Sigma , a \\sim \\rho ] e ^ {\\prime}}{\\text { is } [ a ] \\{t . \\tau \\} (e ; e _ {1} ; e _ {2}) \\xmapsto [ \\Sigma , a \\sim \\rho ] \\text { is } [ a ] \\{t . \\tau \\} (e ^ {\\prime} ; e _ {1} ; e _ {2})}",
+      "new": "\\frac {e \\xmapsto { \\Sigma , a \\sim \\rho } e ^ {\\prime}}{\\text { is } [ a ] \\{t . \\tau \\} (e ; e _ {1} ; e _ {2}) \\xmapsto { \\Sigma , a \\sim \\rho } \\text { is } [ a ] \\{t . \\tau \\} (e ^ {\\prime} ; e _ {1} ; e _ {2})}"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch35-body-24-466c03",
+      "action": "fix_eq_tex",
+      "chunk": "ch35",
+      "selector": "body[24]",
+      "expect": "\\overline {{\\operatorname{getref} (\\operatorname{ref} [ a ]) \\| \\mu \\xmapsto_ {\\Sigma , a \\sim \\tau} \\operatorname{get} [ a ] \\| \\mu}}",
+      "new": "\\overline {{\\operatorname{getref} (\\operatorname{ref} [ a ]) \\| \\mu \\xmapsto {\\Sigma , a \\sim \\tau} \\operatorname{get} [ a ] \\| \\mu}}"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch35-body-26-f9870c",
+      "action": "fix_eq_tex",
+      "chunk": "ch35",
+      "selector": "body[26]",
+      "expect": "\\overline {{\\operatorname{setref} (\\operatorname{ref} [ a ] ; e) \\| \\mu \\xmapsto_ {\\Sigma , a \\sim \\tau} \\operatorname{set} [ a ] (e) \\| \\mu}}",
+      "new": "\\overline {{\\operatorname{setref} (\\operatorname{ref} [ a ] ; e) \\| \\mu \\xmapsto {\\Sigma , a \\sim \\tau} \\operatorname{set} [ a ] (e) \\| \\mu}}"
+    },
+    {
+      "id": "harper_practical_foundations_programming_languages-ch25-body-9-8b20a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[9]",
+      "expect": "\\begin{array}{l l l l l}\\text {Ref}&\\phi&:= =&\\text {true} \\{\\tau \\}&T _ {\\tau}&\\text {truth}\\\\&&&\\text {and} \\{\\tau \\} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\wedge_ {\\tau} \\phi_ {2}&\\text {conjunction}\\\\&&&\\text {new[num](\\phi)}&\\text {num!} \\phi&\\text {dynamic number}\\\\&&&\\text {new[fun](\\phi)}&\\text {fun!} \\phi&\\text {dynamic function}\\\\&&&\\text {prod} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\times \\phi_ {2}&\\text {product}\\\\&&&\\text {sum} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} + \\phi_ {2}&\\text {sum}\\\\&&&\\text {parr} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\rightharpoonup \\phi_ {2}&\\text {function}\\end{array}",
+      "new": "\\begin{array}{l l l l l l}\\text {Ref}&\\phi&:= =&\\text {true} \\{\\tau \\}&T _ {\\tau}&\\text {truth}\\\\&&&\\text {and} \\{\\tau \\} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\wedge_ {\\tau} \\phi_ {2}&\\text {conjunction}\\\\&&&\\text {new[num]}(\\phi)&\\text {num!} \\phi&\\text {dynamic number}\\\\&&&\\text {new[fun]}(\\phi)&\\text {fun!} \\phi&\\text {dynamic function}\\\\&&&\\text {prod} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\times \\phi_ {2}&\\text {product}\\\\&&&\\text {sum} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} + \\phi_ {2}&\\text {sum}\\\\&&&\\text {parr} (\\phi_ {1}; \\phi_ {2})&\\phi_ {1} \\rightharpoonup \\phi_ {2}&\\text {function}\\end{array}"
     }
   ]
 }

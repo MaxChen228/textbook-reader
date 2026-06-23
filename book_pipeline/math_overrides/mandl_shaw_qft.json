@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "mandl_shaw_qft-ch11-body-94-1b50cb",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[94]",
+      "expect": "\\hat {F} _ {i} \\equiv \\int \\mathrm{d} ^ {3} \\mathrm{x} S _ {i} ^ {0} (x) = \\frac {1}{2} \\int \\mathrm{d} ^ {3} \\mathrm{x} \\Psi^ {f} ^ {\\dagger} (x) \\lambda_ {i} \\Psi^ {f} (x) \\quad (i = 1, 2, \\dots , 8)",
+      "new": "\\hat {F} _ {i} \\equiv \\int \\mathrm{d} ^ {3} \\mathrm{x} S _ {i} ^ {0} (x) = \\frac {1}{2} \\int \\mathrm{d} ^ {3} \\mathrm{x} \\Psi^ {f\\dagger} (x) \\lambda_ {i} \\Psi^ {f} (x) \\quad (i = 1, 2, \\dots , 8)"
+    },
+    {
+      "id": "mandl_shaw_qft-ch12-body-374-a9dffb",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[374]",
+      "expect": "\\left<   0 \\left. \\right| \\mathrm{T} \\left\\{S _ {0} ^ {\\prime} A ^ {\\mu} (x) \\right\\} | 0 \\rangle = _ {\\mathrm{H}} \\left<   0 \\left. \\right| A ^ {\\mu \\mathrm{H}} (x) | 0 \\rangle_ {\\mathrm{H}} \\left<   0 \\left. \\right| S _ {0} ^ {\\prime} | 0 \\rangle ,",
+      "new": "\\langle 0 | \\mathrm{T} \\left\\{S _ {0} ^ {\\prime} A ^ {\\mu} (x) \\right\\} | 0 \\rangle = _ {\\mathrm{H}} \\langle 0 | A ^ {\\mu \\mathrm{H}} (x) | 0 \\rangle_ {\\mathrm{H}} \\langle 0 | S _ {0} ^ {\\prime} | 0 \\rangle ,"
+    },
+    {
+      "id": "mandl_shaw_qft-ch02-body-119-39b666",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[119]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL=0$",
+      "new": "$\\delta L=0$",
+      "anchor": "52ca9415"
+    },
+    {
+      "id": "mandl_shaw_qft-ch09-body-103-956748",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[103]",
+      "expect": "\\frac {\\mathrm{i}}{\\slashed {p} - m _ {0} + \\mathrm{i} \\varepsilon} \\rightarrow \\frac {\\mathrm{i}}{\\slashed {p} - m _ {0} + e _ {0} ^ {2} \\sum (p) + \\mathrm{i} \\varepsilon} + \\mathrm{O} \\big (e _ {0} ^ {4} \\big).",
+      "new": "\\frac {\\mathrm{i}}{\\not {p} - m _ {0} + \\mathrm{i} \\varepsilon} \\rightarrow \\frac {\\mathrm{i}}{\\not {p} - m _ {0} + e _ {0} ^ {2} \\sum (p) + \\mathrm{i} \\varepsilon} + \\mathrm{O} \\big (e _ {0} ^ {4} \\big)."
+    },
+    {
+      "id": "mandl_shaw_qft-ch13-body-326-c6b635",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[326]",
+      "field": "md",
+      "all": true,
+      "old": "$\\langle ABCD \\ldotsWXYZ\\rangle_{0}$",
+      "new": "$\\langle ABCD \\ldots WXYZ\\rangle_{0}$",
+      "anchor": "a1b59d00"
+    },
+    {
+      "id": "mandl_shaw_qft-ch08-body-373-fa4e88",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[373]",
+      "expect": "{ = } { - \\mathrm{i} e ^ { 2 } \\bar { u } ( \\mathbf { p } ^ { \\prime } ) \\left[ \\slashed { \\varepsilon } ( \\mathbf { k } ) \\frac { \\slashed { p } ^ { \\prime } + \\slashed { k } + m } { 2 p ^ { \\prime } k } A _ { \\mathrm{e} } ( \\mathbf { q } ) + A _ { \\mathrm{e} } ( \\mathbf { q } ) \\frac { \\slashed { p } - \\slashed { k } + m } { - 2 p k } \\slashed { \\varepsilon } ( \\mathbf { k } ) \\right] u ( \\mathbf { p } ) }",
+      "new": "{ = } { - \\mathrm{i} e ^ { 2 } \\bar { u } ( \\mathbf { p } ^ { \\prime } ) \\left[ \\not{\\varepsilon} ( \\mathbf { k } ) \\frac { \\not{p} ^ { \\prime } + \\not{k} + m } { 2 p ^ { \\prime } k } A _ { \\mathrm{e} } ( \\mathbf { q } ) + A _ { \\mathrm{e} } ( \\mathbf { q } ) \\frac { \\not{p} - \\not{k} + m } { - 2 p k } \\not{\\varepsilon} ( \\mathbf { k } ) \\right] u ( \\mathbf { p } ) }"
+    }
+  ]
+}

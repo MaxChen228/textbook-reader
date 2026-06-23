@@ -1,0 +1,144 @@
+slug: schutz_first_course_gr
+title: A First Course in General Relativity
+author: Bernard Schutz
+edition: 3rd
+subject: General Relativity
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 485
+bibliography_start_page: 489
+index_start_page: 508
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Special relativity
+    page_start: 18
+    page_end: 49
+    chapter_title_block_idx: 97
+    problems_block_idx: 394
+    next_chapter_block_idx: 514
+  - num: 2
+    title: Vector analysis in special relativity
+    page_start: 50
+    page_end: 72
+    chapter_title_block_idx: 514
+    problems_block_idx: 788
+    next_chapter_block_idx: 911
+  - num: 3
+    title: Tensor analysis in special relativity
+    page_start: 73
+    page_end: 100
+    chapter_title_block_idx: 911
+    problems_block_idx: 1226
+    next_chapter_block_idx: 1406
+  - num: 4
+    title: Perfect fluids in special relativity
+    page_start: 101
+    page_end: 127
+    chapter_title_block_idx: 1406
+    problems_block_idx: 1689
+    next_chapter_block_idx: 1768
+  - num: 5
+    title: Preface to curvature
+    page_start: 128
+    page_end: 157
+    chapter_title_block_idx: 1768
+    problems_block_idx: 2189
+    next_chapter_block_idx: 2232
+  - num: 6
+    title: Curved manifolds
+    page_start: 158
+    page_end: 186
+    chapter_title_block_idx: 2232
+    problems_block_idx: 2597
+    next_chapter_block_idx: 2707
+  - num: 7
+    title: Physics in a curved spacetime
+    page_start: 187
+    page_end: 199
+    chapter_title_block_idx: 2707
+    problems_block_idx: 2857
+    next_chapter_block_idx: 2917
+  - num: 8
+    title: The Einstein field equations
+    page_start: 200
+    page_end: 218
+    chapter_title_block_idx: 2917
+    problems_block_idx: 3118
+    next_chapter_block_idx: 3202
+  - num: 9
+    title: Fundamentals of gravitational radiation
+    page_start: 219
+    page_end: 283
+    chapter_title_block_idx: 3202
+    problems_block_idx: 3910
+    next_chapter_block_idx: 4123
+  - num: 10
+    title: Spherical solutions for stars
+    page_start: 284
+    page_end: 312
+    chapter_title_block_idx: 4123
+    problems_block_idx: 4476
+    next_chapter_block_idx: 4542
+  - num: 11
+    title: Schwarzschild geometry and black holes
+    page_start: 313
+    page_end: 376
+    chapter_title_block_idx: 4542
+    problems_block_idx: 5178
+    next_chapter_block_idx: 5330
+  - num: 12
+    title: Gravitational wave astronomy
+    page_start: 377
+    page_end: 431
+    chapter_title_block_idx: 5330
+    problems_block_idx: 5765
+    next_chapter_block_idx: 5867
+  - num: 13
+    title: Cosmology
+    page_start: 432
+    page_end: 484
+    chapter_title_block_idx: 5867
+    problems_block_idx: 6352
+    next_chapter_block_idx: 6428
+
+appendices:
+  - id: A
+    title: Summary of linear algebra
+    page_start: 485
+    chapter_title_block_idx: 6428
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z].+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

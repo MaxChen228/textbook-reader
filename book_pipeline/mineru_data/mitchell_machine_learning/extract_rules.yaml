@@ -1,0 +1,143 @@
+slug: mitchell_machine_learning
+title: "Machine Learning"
+author: Tom M. Mitchell
+edition: null
+subject: Machine Learning
+publisher: McGraw-Hill Education
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 410
+bibliography_start_page: null
+index_start_page: 412
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 38
+    chapter_title_block_idx: 308
+    problems_block_idx: 462
+    next_chapter_block_idx: 474
+  - num: 2
+    title: Concept Learning and the General-to-Specific Ordering
+    page_start: 39
+    page_end: 70
+    chapter_title_block_idx: 474
+    problems_block_idx: 781
+    next_chapter_block_idx: 828
+  - num: 3
+    title: Decision Tree Learning
+    page_start: 71
+    page_end: 99
+    chapter_title_block_idx: 828
+    problems_block_idx: 1080
+    next_chapter_block_idx: 1111
+  - num: 4
+    title: Artificial Neural Networks
+    page_start: 100
+    page_end: 146
+    chapter_title_block_idx: 1111
+    problems_block_idx: 1543
+    next_chapter_block_idx: 1575
+  - num: 5
+    title: Evaluating Hypotheses
+    page_start: 147
+    page_end: 172
+    chapter_title_block_idx: 1575
+    problems_block_idx: 1877
+    next_chapter_block_idx: 1886
+  - num: 6
+    title: Bayesian Learning
+    page_start: 173
+    page_end: 219
+    chapter_title_block_idx: 1886
+    problems_block_idx: 2378
+    next_chapter_block_idx: 2435
+  - num: 7
+    title: Computational Learning Theory
+    page_start: 220
+    page_end: 248
+    chapter_title_block_idx: 2435
+    problems_block_idx: 2716
+    next_chapter_block_idx: 2766
+  - num: 8
+    title: Instance-Based Learning
+    page_start: 249
+    page_end: 267
+    chapter_title_block_idx: 2766
+    problems_block_idx: 2939
+    next_chapter_block_idx: 2983
+  - num: 9
+    title: Genetic Algorithms
+    page_start: 268
+    page_end: 292
+    chapter_title_block_idx: 2983
+    problems_block_idx: 3189
+    next_chapter_block_idx: 3255
+  - num: 10
+    title: Learning Sets of Rules
+    page_start: 293
+    page_end: 325
+    chapter_title_block_idx: 3255
+    problems_block_idx: 3573
+    next_chapter_block_idx: 3648
+  - num: 11
+    title: Analytical Learning
+    page_start: 326
+    page_end: 352
+    chapter_title_block_idx: 3648
+    problems_block_idx: 3849
+    next_chapter_block_idx: 3914
+  - num: 12
+    title: Combining Inductive and Analytical Learning
+    page_start: 353
+    page_end: 385
+    chapter_title_block_idx: 3914
+    problems_block_idx: 4178
+    next_chapter_block_idx: 4240
+  - num: 13
+    title: Reinforcement Learning
+    page_start: 386
+    page_end: 409
+    chapter_title_block_idx: 4240
+    problems_block_idx: 4450
+    next_chapter_block_idx: 4512
+
+appendices:
+  - id: A
+    title: Notation
+    page_start: 410
+    chapter_title_block_idx: 4512
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,53 @@
+{
+  "overrides": [
+    {
+      "id": "nisan_algorithmic_game_theory-ch12-body-228-0074f9",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[228]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { \\Phi } _ { G R E E D Y } _ { j } , s ^ { j + 1 } ) \\cap s _ { i } ^ { j }$",
+      "new": "$\\mathbf { \\Phi } _ { G R E E D Y , j } , s ^ { j + 1 } ) \\cap s _ { i } ^ { j }$",
+      "anchor": "c762bd81"
+    },
+    {
+      "id": "nisan_algorithmic_game_theory-ch04-body-114-148a23",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[114]",
+      "expect": "\\operatorname{switch} _ {i} (x _ {1}, b _ {1}, b _ {2}) = \\left\\{ \\begin{array}{l l} b _ {2} & \\text {if x_{1} = b_{1}} \\\\ x _ {1} & \\text {otherwise} \\end{array} \\right.",
+      "new": "\\operatorname{switch} _ {i} (x _ {1}, b _ {1}, b _ {2}) = \\left\\{ \\begin{array}{l l} b _ {2} & \\text {if } x_{1} = b_{1} \\\\ x _ {1} & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "nisan_algorithmic_game_theory-ch26-body-45-74e45a",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[45]",
+      "field": "md",
+      "all": true,
+      "old": "$ of base events, and furthermore, suppose that these events are linearly independent in the sense that the value (true or false) of any event cannot be determined with certainty even if the value of all other events is known. Then, the state space \u0001 is of size $",
+      "new": "$ \\text{of base events, and furthermore, suppose that these events are linearly independent in the sense that the value (true or false) of any event cannot be determined with certainty even if the value of all other events is known. Then, the state space } \\Omega \\text{ is of size} $",
+      "anchor": "4bb58225"
+    },
+    {
+      "id": "nisan_algorithmic_game_theory-ch09-body-47-9b87ec",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[47]",
+      "field": "md",
+      "all": true,
+      "old": "$\\prec \\warrow$",
+      "new": "$\\prec \\leftarrow$",
+      "anchor": "fb3682e7"
+    },
+    {
+      "id": "nisan_algorithmic_game_theory-ch22-body-122-4a93ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[122]",
+      "expect": "p _ {i} ^ {\\mathrm{OE}} = \\left\\{ \\begin{array}{l l} x _ {i} ^ {\\mathrm{OE}} l _ {i} ^ {\\prime} (x _ {i} ^ {\\mathrm{OE}}), & \\text {if l_{j} ^{\\prime} (x_{j} ^{\\mathrm{OE}}) = 0 for some j\\notin\\mathcal {I} _{s}}, \\\\ \\min \\left\\{R - l _ {i} (x _ {i} ^ {\\mathrm{OE}})    ,    x _ {i} ^ {\\mathrm{OE}} l _ {i} ^ {\\prime} (x _ {i} ^ {\\mathrm{OE}}) + \\frac {\\sum_ {j \\in \\mathcal {I} _ {s}} x _ {j} ^ {\\mathrm{OE}}}{\\sum_ {j \\notin \\mathcal {I} _ {s}} \\frac {1}{l _ {j} ^ {\\prime} (x _ {j} ^ {\\mathrm{OE}})}} \\right\\}, & \\text {otherwise}. \\end{array} \\right.",
+      "new": "p _ {i} ^ {\\mathrm{OE}} = \\left\\{ \\begin{array}{l l} x _ {i} ^ {\\mathrm{OE}} l _ {i} ^ {\\prime} (x _ {i} ^ {\\mathrm{OE}}), & \\text{if } l_{j} ^{\\prime} (x_{j} ^{\\mathrm{OE}}) = 0 \\text{ for some } j\\notin\\mathcal {I} _{s}, \\\\ \\min \\left\\{R - l _ {i} (x _ {i} ^ {\\mathrm{OE}})    ,    x _ {i} ^ {\\mathrm{OE}} l _ {i} ^ {\\prime} (x _ {i} ^ {\\mathrm{OE}}) + \\frac {\\sum_ {j \\in \\mathcal {I} _ {s}} x _ {j} ^ {\\mathrm{OE}}}{\\sum_ {j \\notin \\mathcal {I} _ {s}} \\frac {1}{l _ {j} ^ {\\prime} (x _ {j} ^ {\\mathrm{OE}})}} \\right\\}, & \\text{otherwise}. \\end{array} \\right."
+    }
+  ]
+}

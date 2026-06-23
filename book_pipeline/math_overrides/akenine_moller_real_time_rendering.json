@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "akenine_moller_real_time_rendering-ch18-body-110-4a41df",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[110]",
+      "expect": "\\begin{array}{l} { b } { = } { d \\times Z _ { r } + o ( d ) \\times ( Z _ { w } + C _ { w } + m \\times T _ { r } ) } \\\\ = \\underbrace {d \\times Z _ {r} + o (d) \\times Z _ {w}} _ {\\text {depth buffer, B_{z}}} + \\underbrace {o (d) \\times C _ {w}} _ {\\text {color buffer, B_{c}}} + \\underbrace {o (d) \\times m \\times T _ {r}} _ {\\text {texture read, B_{t}}} \\\\ = B _ {d} + B _ {c} + B _ {t}. \\tag {18.8} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} { b } { = } { d \\times Z _ { r } + o ( d ) \\times ( Z _ { w } + C _ { w } + m \\times T _ { r } ) } \\\\ = \\underbrace {d \\times Z _ {r} + o (d) \\times Z _ {w}} _ {\\text {depth buffer, } B_{z}} + \\underbrace {o (d) \\times C _ {w}} _ {\\text {color buffer, } B_{c}} + \\underbrace {o (d) \\times m \\times T _ {r}} _ {\\text {texture read, } B_{t}} \\\\ = B _ {d} + B _ {c} + B _ {t}. \\tag {18.8} \\\\ \\end{array}"
+    }
+  ]
+}

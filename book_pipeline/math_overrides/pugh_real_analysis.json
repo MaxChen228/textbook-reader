@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "pugh_real_analysis-ch02-body-259-fe1c7c",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[259]",
+      "expect": "\\bigcap_ {n = 1} ^ {\\infty} A _ {n} = \\{p: \\text {for each n we have p\\in A_{n}} \\}.",
+      "new": "\\bigcap_ {n = 1} ^ {\\infty} A _ {n} = \\{p: \\text {for each } n \\text { we have } p\\in A_{n} \\}."
+    },
+    {
+      "id": "pugh_real_analysis-ch03-body-433-6abc09",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[433]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x\\leq 0} \\\\ \\sin \\frac {\\pi}{x} & \\text {if x > 0} \\end{array} \\right.",
+      "new": "f (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } x\\leq 0 \\\\ \\sin \\frac {\\pi}{x} & \\text {if } x > 0 \\end{array} \\right."
+    },
+    {
+      "id": "pugh_real_analysis-ch06-body-317-0cb5d6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[317]",
+      "expect": "g (x) = \\left\\{ \\begin{array}{l l} h & \\text {if x\\in I} \\\\ 0 & \\text {otherwise} \\end{array} \\right.",
+      "new": "g (x) = \\left\\{ \\begin{array}{l l} h & \\text {if } x\\in I \\\\ 0 & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "pugh_real_analysis-ch06-problem-45-body-14-e62c06",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:45:body[14]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} \\frac {\\pi}{x} \\sin \\frac {\\pi}{x} & \\text {if x\\neq 0} \\\\ 0 & \\text {if x = 0} \\end{array} \\right.",
+      "new": "f (x) = \\left\\{ \\begin{array}{l l} \\frac {\\pi}{x} \\sin \\frac {\\pi}{x} & \\text {if } x\\neq 0 \\\\ 0 & \\text {if } x = 0 \\end{array} \\right."
+    },
+    {
+      "id": "pugh_real_analysis-ch05-body-1000-33ede4",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[1000]",
+      "expect": "\\begin{array}{l} \\int_ {\\varphi} d \\alpha = \\int_ {\\partial \\varphi} \\alpha \\quad \\text {by Stokes^{\\prime} Theorem on a cell} \\\\ = \\int_ {\\partial \\varphi} T ^ {*} \\alpha \\quad \\text { by   Equation(27) } \\\\ = \\int_ {\\varphi} d T ^ {*} \\alpha \\quad \\text { by   Stokes'   Theorem   on   a   cell } \\\\ = \\int_ {\\varphi} T ^ {*} d \\alpha \\quad \\text { by   (d)   in   Theorem   43 } \\\\ = 0 \\qquad \\mathrm{byStep2.} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\int_ {\\varphi} d \\alpha = \\int_ {\\partial \\varphi} \\alpha \\quad \\text {by Stokes' Theorem on a cell} \\\\ = \\int_ {\\partial \\varphi} T ^ {*} \\alpha \\quad \\text { by   Equation(27) } \\\\ = \\int_ {\\varphi} d T ^ {*} \\alpha \\quad \\text { by   Stokes'   Theorem   on   a   cell } \\\\ = \\int_ {\\varphi} T ^ {*} d \\alpha \\quad \\text { by   (d)   in   Theorem   43 } \\\\ = 0 \\qquad \\mathrm{byStep2.} \\\\ \\end{array}"
+    }
+  ]
+}

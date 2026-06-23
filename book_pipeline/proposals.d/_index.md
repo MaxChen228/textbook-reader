@@ -45,7 +45,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （166 條；proposed=0 parked=1）
+## domain: engine  （190 條；proposed=0 parked=1）
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
 - 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
@@ -539,6 +539,657 @@
 > scope_guard bracket：worker [crawl __restock__] session=__restock__:56487 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：
 > (無 diff 文本，book_pipeline/pipeline_queue.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-merzbacher-quantum-mechanics — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit merzbacher_quantum_mechanics）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [audit merzbacher_quantum_mechanics] session=merzbacher_quantum_mechanics:66452 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/pipeline_tick.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr — worker 越界改核心碼：book_pipeline/devctl.py（audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [audit schutz_first_course_gr] session=schutz_first_course_gr:53011 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+> index ca93150..4f40e75 100644
+> --- a/book_pipeline/devctl.py
+> +++ b/book_pipeline/devctl.py
+> @@ -426,6 +426,16 @@ def books_status(write_timeline: bool = False) -> dict:
+>                        if t and t != '—' and not t.endswith('(可選)')), None)
+>          r['gated'] = pg.next_gate_status(s, nverb, gates)  # True=下一閘被閘控擋住（中性停，非拒絕/停滯）
+>          r['gate_verb'] = nverb if r['gated'] else None     # 被擋在哪個 verb（UI 顯示「⏸ 停在 X 閘」）
+> +        # qc 過關來路（觀測，修「已過 QC」語意坑）：'llm'=LLM 視覺 QC 驗過（state.qc 有 verdict）；
+> +        # 'skip'=pdf_triage 高信心（born-digital/好品質）直放、跳過 LLM QC、直送 OCR（state.qc 空但已過 QC 關）；
+> +        # None=尚未過 QC（0.2 待qc 或更前）。過去兩條路都只顯里程碑「已過 QC」→ 看不出有沒有真的燒 LLM。
+> +        _qc_v = ((state.get(s) or {}).get('qc') or {}).get('verdict')
+> +        if _qc_v in ('accept', 'reject'):
+> +            r['qcv'] = 'llm'
+> +        else:
+> +            _code = (r.get('stage') or '').split(' ', 1)[0]
+> +            r['qcv'] = 'skip' if (deployed or _code in ('0.3', '0.5')
+> +                                  or _code[:1] in ('1', '2', '3', '4')) else None
+>          # 時間軸 + agent session 摘要逐出 status.json 核（佔 books[] ~82%、僅抽屜用）→ per-book
+>          # dev/detail/<slug>.json，抽屜 on-demand 撿。觀測式時間軸 = deployed-aware label（已部署→
+>          # 'deployed'，否則 stage）的 append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-10 — worker 越界改核心碼：book_pipeline/backfill_math.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/backfill_math.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/backfill_math.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-11 — worker 越界改核心碼：book_pipeline/test_frontend_route_guard.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_frontend_route_guard.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_frontend_route_guard.py (untracked 新檔)
+> """Static guardrails for reader hash routing."""
+>
+> from pathlib import Path
+>
+>
+> ROOT = Path(__file__).resolve().parents[1]
+>
+>
+> def test_reader_hash_route_validates_chunk_before_fetch():
+>     html = (ROOT / 'index.html').read_text(encoding='utf-8')
+>     assert 'function validChunkRef(kind, key)' in html
+>     parse_hash = html.split('async function parseHash', 1)[1].split('window.addEventListener', 1)[0]
+>     assert 'if (!validChunkRef(kind, key))' in parse_hash
+>     assert parse_hash.index('if (!validChunkRef(kind, key))') < parse_hash.index('await showChunk(kind, key)')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-12 — worker 越界改核心碼：book_pipeline/extract_cover.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/extract_cover.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/extract_cover.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-13 — worker 越界改核心碼：build/build_all.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 build/build_all.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，build/build_all.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-14 — worker 越界改核心碼：book_pipeline/test_catalog_id_parity.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_catalog_id_parity.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/test_catalog_id_parity.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-15 — worker 越界改核心碼：book_pipeline/booklists.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/booklists.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/booklists.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-16 — worker 越界改核心碼：textbooks/corpus.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 textbooks/corpus.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，textbooks/corpus.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-17 — worker 越界改核心碼：book_pipeline/smoke.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/smoke.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/smoke.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-18 — worker 越界改核心碼：book_pipeline/test_editions.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_editions.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/test_editions.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-19 — worker 越界改核心碼：book_pipeline/test_artifacts_committed.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_artifacts_committed.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/test_artifacts_committed.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-2 — worker 越界改核心碼：book_pipeline/test_cli_help.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_cli_help.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_cli_help.py (untracked 新檔)
+> """CLI help should be side-effect free."""
+>
+> import subprocess
+> import sys
+>
+>
+> HELP_MODULES = [
+>     'book_pipeline.backfill_math',
+>     'book_pipeline.extract_cover',
+>     'book_pipeline.smoke',
+>     'book_pipeline.validate_rules',
+>     'build.bake_json',
+> ]
+>
+>
+> def test_cli_help_exits_cleanly():
+>     for mod in HELP_MODULES:
+>         proc = subprocess.run(
+>             [sys.executable, '-m', mod, '--help'],
+>             stdout=subprocess.PIPE,
+>             stderr=subprocess.PIPE,
+>             text=True,
+>             timeout=5,
+>         )
+>         assert proc.returncode == 0, (mod, proc.returncode, proc.stdout, proc.stderr)
+>         assert 'usage:' in proc.stdout.lower()
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-20 — worker 越界改核心碼：book_pipeline/editions.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/editions.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/editions.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-21 — worker 越界改核心碼：build/convert_images.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 build/convert_images.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，build/convert_images.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-3 — worker 越界改核心碼：book_pipeline/test_corpus_path_guard.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_corpus_path_guard.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_corpus_path_guard.py (untracked 新檔)
+> """Path-boundary guardrails for textbooks.corpus."""
+>
+> import json
+> from pathlib import Path
+>
+> from textbooks import corpus
+>
+>
+> def _write_book(root: Path, dirname: str, slug: str) -> None:
+>     parsed = root / dirname / 'parsed'
+>     parsed.mkdir(parents=True)
+>     (parsed / 'book.json').write_text(json.dumps({
+>         'slug': slug,
+>         'title': f'Title {slug}',
+>         'chapters': [{'num': 1, 'title': 'One'}],
+>         'appendices': [],
+>     }), encoding='utf-8')
+>     (parsed / 'ch01.json').write_text(json.dumps({
+>         'num': 1,
+>         'title': 'One',
+>         'body': [],
+>         'problems': [],
+>     }), encoding='utf-8')
+>
+>
+> def test_corpus_rejects_invalid_or_mismatched_slugs(tmp_path):
+>     orig_dir = corpus.DATA_DIR
+>     orig_books = corpus._books_cache
+>     orig_book_cache = dict(corpus._book_cache)
+>     orig_chunk_cache = dict(corpus._chunk_cache)
+>     try:
+>         corpus.DATA_DIR = tmp_path
+>         corpus._books_cache = None
+>         corpus._book_cache.clear()
+>         corpus._chunk_cache.clear()
+>         _write_book(tmp_path, 'good_slug', 'good_slug')
+>         _write_book(tmp_path, 'bad-dir', 'bad-dir')
+>         _write_book(tmp_path, 'mismatch', 'other_slug')
+>
+>         books = corpus.list_books()
+>         assert [b['slug'] for b in books] == ['good_slug']
+>         assert corpus.load_book('../escape') is None
+>         assert corpus.load_chapter('../escape', 1) is None
+>         assert corpus.load_appendix('good_slug', '../escape') is None
+>         assert corpus.load_catalogs('../escape') is None
+>         assert corpus.has_image('../escape', 'x.jpg') is False
+>         assert corpus.has_image('good_slug', '../x.jpg') is False
+>         assert '__invalid_slug__' in corpus.cover_path('../escape').parts
+>     finally:
+>         corpus.DATA_DIR = orig_dir
+>         corpus._books_cache = orig_books
+>         corpus._book_cache.clear(); corpus._book_cache.update(orig_book_cache)
+>         corpus._chunk_cache.clear(); corpus._chunk_cache.update(orig_chunk_cache)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-4 — worker 越界改核心碼：book_pipeline/test_discovered.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_discovered.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/test_discovered.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-5 — worker 越界改核心碼：book_pipeline/test_build_path_guard.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_build_path_guard.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_build_path_guard.py (untracked 新檔)
+> from pathlib import Path
+>
+> import pytest
+>
+> from build import build_all, convert_images
+> from book_pipeline import apply_catalog_overrides, build_catalogs, extract_cover, parser, smoke, validate_rules
+>
+>
+> def test_convert_images_rejects_invalid_slug(tmp_path):
+>     orig_data = convert_images.DATA_DIR
+>     orig_out = convert_images.OUT
+>     try:
+>         convert_images.DATA_DIR = tmp_path / 'mineru_data'
+>         convert_images.OUT = tmp_path / 'img'
+>         assert convert_images._jobs_for('../escape') == []
+>         with pytest.raises(SystemExit):
+>             convert_images.main(['../escape'])
+>         assert not (tmp_path.parent / 'img').exists()
+>     finally:
+>         convert_images.DATA_DIR = orig_data
+>         convert_images.OUT = orig_out
+>
+>
+> def test_extract_cover_rejects_invalid_slug(tmp_path):
+>     orig_data = extract_cover.DATA_DIR
+>     try:
+>         extract_cover.DATA_DIR = tmp_path / 'mineru_data'
+>         assert extract_cover.find_pdf_for_slug('../escape') is None
+>         assert extract_cover.extract_one('../escape', tmp_path / 'missing.pdf') is None
+>         assert not (tmp_path / 'cover.jpg').exists()
+>     finally:
+>         extract_cover.DATA_DIR = orig_data
+>
+>
+> def test_extract_cover_audited_slugs_filters_invalid_dirs(tmp_path):
+>     orig_data = extract_cover.DATA_DIR
+>     try:
+>         extract_cover.DATA_DIR = tmp_path
+>         good = tmp_path / 'good_slug' / 'unified'
+>         bad = tmp_path / 'bad-slug' / 'unified'
+>         good.mkdir(parents=True)
+>         bad.mkdir(parents=True)
+>         (good / 'content_list.json').write_text('[]', encoding='utf-8')
+>         (bad / 'content_list.json').write_text('[]', encoding='utf-8')
+>         assert extract_cover._audited_slugs() == ['good_slug']
+>     finally:
+>         extract_cover.DATA_DIR = orig_data
+>
+>
+> def test_build_all_skips_invalid_slug_before_cover_path(monkeypatch):
+>     seen: list[str] = []
+>     monkeypatch.setattr(build_all.ec, '_valid_slug', lambda slug: slug == 'good_slug')
+>     monkeypatch.setattr(build_all.ec, 'find_pdf_for_slug', lambda slug: seen.append(slug) or None)
+>     build_all._ensure_covers(['../escape', 'good_slug'])
+>     assert seen == ['good_slug']
+>
+>
+> def test_parser_rejects_invalid_slug_before_writing(tmp_path):
+>     orig_data = parser.DATA_DIR
+>     try:
+>         parser.DATA_DIR = tmp_path / 'mineru_data'
+>         with pytest.raises(SystemExit):
+>             parser.parse_book('../escape')
+>         assert not (tmp_path / 'escape').exists()
+>     finally:
+>         parser.DATA_DIR = orig_data
+>
+>
+> def test_validate_rules_rejects_invalid_slug_before_loading(monkeypatch, tmp_path):
+>     orig_data = validate_rules.DATA_DIR
+>     try:
+>         validate_rules.DATA_DIR = tmp_path / 'mineru_data'
+>         monkeypatch.setattr(validate_rules, 'load_unified', lambda slug: pytest.fail('should not load unified'))
+>         assert validate_rules.validate('../escape') == 1
+>     finally:
+>         validate_rules.DATA_DIR = orig_data
+>
+>
+> def test_smoke_rejects_invalid_slug_before_writing(tmp_path):
+>     orig_data = smoke.DATA_DIR
+>     try:
+>         smoke.DATA_DIR = tmp_path / 'mineru_data'
+>         assert smoke.smoke('../escape') == 1
+>         assert not (tmp_path / 'escape').exists()
+>     finally:
+>         smoke.DATA_DIR = orig_data
+>
+>
+> def test_build_catalogs_rejects_invalid_slug_before_writing(tmp_path):
+>     orig_data = build_catalogs.DATA_DIR
+>     try:
+>         build_catalogs.DATA_DIR = tmp_path / 'mineru_data'
+>         with pytest.raises(ValueError):
+>             build_catalogs.build_catalogs('../escape')
+>         assert not (tmp_path / 'escape').exists()
+>         assert build_catalogs._scan_chunk('good_slug', '../escape') == []
+>     finally:
+>         build_catalogs.DATA_DIR = orig_data
+>
+>
+> def test_apply_catalog_overrides_rejects_path_escape_inputs(tmp_path):
+>     orig_data = apply_catalog_overrides.DATA_DIR
+>     orig_override = apply_catalog_overrides.OVERRIDE_DIR
+>     try:
+>         apply_catalog_overrides.DATA_DIR = tmp_path / 'mineru_data'
+>         apply_catalog_overrides.OVERRIDE_DIR = tmp_path / 'catalog_overrides'
+>         with pytest.raises(ValueError):
+>             apply_catalog_overrides.apply_overrides('../escape')
+>         with pytest.raises(ValueError):
+>             apply_catalog_overrides._chunk_path('good_slug', '../escape')
+>         with pytest.raises(ValueError):
+>             apply_catalog_overrides._safe_image_filename('../escape.png')
+>         with pytest.raises(ValueError):
+>             apply_catalog_overrides._copy_solution_images('good_slug', {'from_slug': '../escape'})
+>         assert not (tmp_path / 'escape').exists()
+>     finally:
+>         apply_catalog_overrides.DATA_DIR = orig_data
+>         apply_catalog_overrides.OVERRIDE_DIR = orig_override
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-6 — worker 越界改核心碼：book_pipeline/proposals.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/proposals.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/proposals.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-7 — worker 越界改核心碼：book_pipeline/test_dev_escape.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/test_dev_escape.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_dev_escape.py (untracked 新檔)
+> """Frontend escaping guardrails."""
+>
+> import re
+> from pathlib import Path
+>
+>
+> ROOT = Path(__file__).resolve().parents[1]
+>
+>
+> def test_dynamic_attributes_use_attr_escape():
+>     shared = (ROOT / 'assets' / 'qbank-shared.js').read_text(encoding='utf-8')
+>     assert 'function escapeAttr' in shared
+>     assert re.search(r'window\.QBankShared = \{[\s\S]*escapeAttr,', shared)
+>     pages = [
+>         ROOT / 'dev' / 'index.html',
+>         ROOT / 'index.html',
+>         ROOT / 'problems.html',
+>     ]
+>     for page in pages:
+>         html = page.read_text(encoding='utf-8')
+>         assert (
+>             'QBankShared.escapeAttr' in html
+>             or 'S.escapeAttr' in html
+>             or 'escapeAttr } = QBankShared' in html
+>         ), page
+>         assert 'const escapeAttr = v =>' not in html
+>         unsafe = re.findall(
+>             r'(?:src|href|data-[\w-]+|title|id|alt)="[^"`\n]*\$\{(?:escapeHtml|esc)\(',
+>             html,
+>         )
+>         assert unsafe == [], (page, unsafe)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-8 — worker 越界改核心碼：book_pipeline/build_catalogs.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/build_catalogs.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/build_catalogs.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-schutz-first-course-gr-9 — worker 越界改核心碼：book_pipeline/apply_catalog_overrides.py（catalog_audit schutz_first_course_gr）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [catalog_audit schutz_first_course_gr] session=schutz_first_course_gr:57624 存活期間，受保護程式碼面 book_pipeline/apply_catalog_overrides.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/apply_catalog_overrides.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-thorne-blandford-modern-classica — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit thorne_blandford_modern_classical）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [audit thorne_blandford_modern_classical] session=thorne_blandford_modern_classical:59943 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index 42c7ff6..8278d7b 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -815,14 +815,25 @@ def _code_version() -> str:
+>          return '?'
+>
+>
+> -def _write_controller_state() -> None:
+> +def _write_controller_state(phase: str = 'running', **extra) -> None:
+>      try:
+> +        st = {'pid': os.getpid(), 'sha': _code_version(), 'started': time.time(), 'phase': phase}
+> +        st.update(extra)
+>          with open(CONTROLLER_STATE, 'w') as f:
+> -            json.dump({'pid': os.getpid(), 'sha': _code_version(), 'started': time.time()}, f)
+> +            json.dump(st, f)
+>      except OSError:
+>          pass
+>
+>
+> +def _mark_controller_draining(reason: str) -> None:
+> +    """進入排空（drain）→ 改寫 controller state phase='draining'（保留 pid/sha 供探活＋觀測），
+> +    取代舊『drain 一開始就刪檔』。刪檔會讓 devctl status 在整個排空期（math sweep 純 thread 最壞
+> +    DRAIN_BOUND 秒）誤顯『閒置（無 live controller）』，無法區分 daemon 真死掉 vs 正在 reload 排空
+> +    —— 開場我自己就被這盲點誤導。改寫後 status 顯『🔄 排空中（reason，已 Ns）』。進程死後 controller_info
+> +    探活回 None（檔留 stale 無害），reload 的 respawn 會覆寫成新 controller。"""
+> +    _write_controller_state(phase='draining', reason=reason, drain_started=time.time())
+> +
+> +
+>  def _clear_controller_state() -> None:
+>      try:
+>          os.remove(CONTROLLER_STATE)
+> @@ -1890,12 +1901,14 @@ def tick_reactive(no_deploy: bool) -> int:
+>      deadline = time.monotonic() + LOOP_WALLTIME
+>      idle = 0
+>      paused_logged = False  # 暫停閘只 log 一次（per controller instance），避免每 poll 刷 log
+> +    exit_reason = 'walltime'  # 退出原因（finally 排空時標進 controller state 供觀測）：walltime/reload/idle/terminate
+>      try:
+>          while time.monotonic() < deadline:
+>              # 終止信號（SIGTERM/SIGINT）：handler 已快殺在飛子工 → 直接排空退出。不 _schedule_respawn
+>              # （kickstart -k 由 launchd 自帶重拉；純 kill 由 StartInterval 兜底），避免雙重重拉。
+>              if _terminating.is_set():
+>                  log('reactive loop：終止信號 → 在飛 LLM 子工已快殺、排空退出')
+> +                exit_reason = 'terminate'
+>                  break
+>              # 優雅 reload：收到請求即停派新工、跳出迴圈 → finally 的 ex.shutdown(wait=True) 排空在飛
+>              # worker（audit/advance 跑完才退）→ 進程退出，launchd 載入新碼。零浪費（對比 kick -k 硬殺）。
+> @@ -1903,6 +1916,7 @@ def tick_reactive(no_deploy: bool) -> int:
+>                  _clear_reload()
+>                  log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
+>                  _schedule_respawn()  # 排程 detached re-kick：本進程排空退出即刻拉新碼（零空檔）
+> +                exit_reason = 'reload'
+>                  break
+>              # 閘門快照：每 cycle observe 起頭讀一次（單寫手=本執行緒），各 dispatch 點 + worker 的
+>              # advance_book 共享同一份 → 一個 cycle 內判定一致、且 advance_book per-verb 讀到 ≤上 cycle 新鮮度。
+> @@ -2000,6 +2014,7 @@ def tick_reactive(no_deploy: bool) -> int:
+>                      idle += 1
+>                      if idle >= LOOP_IDLE_ROUNDS:
+>                          log(f'reactive loop：連 {idle} 輪無工作且無 in-flight OCR → 排空收工（launchd 下次重拉）')
+> +                        exit_reason = 'idle'
+>                          break
+>              else:
+>                  idle = 0
+> @@ -2009,7 +2024,8 @@ def tick_reactive(no_deploy: bool) -> int:
+>              wake.wait(LOOP_POLL)
+>              wake.clear()
+>      finally:
+> -        _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
+> +        _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
+> +        # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）
+>          # 分流排空（取代舊「一律 120s 上限、逾時快殺」——那正是 rc=-9 集體死亡的源頭：reload 時
+>          # 把跑了 10–40min 的 audit 在 120s 攔腰 SIGKILL）：
+>          #   ① 可殺的子進程 agent（_inflight_children 非空）→ **無限等其自然收尾、永不砍**。codex 主力
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-thorne-blandford-modern-classica-2 — worker 越界改核心碼：book_pipeline/devctl.py（audit thorne_blandford_modern_classical）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> scope_guard 假陽性：架構師在 daemon 機 commit/rebase/autostash 期間 git 操作改動工作樹，被並行 agent 的 scope_guard bracket 誤判為 worker 越界改核心碼（felix=dev=daemon 機已知坑）。真改動皆合法 commit（qc fix 19a58fd、drain 生命週期 9998ea1），非 worker 越界。
+- 證據：
+> scope_guard bracket：worker [audit thorne_blandford_modern_classical] session=thorne_blandford_modern_classical:59943 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+> index 4f40e75..c38041e 100644
+> --- a/book_pipeline/devctl.py
+> +++ b/book_pipeline/devctl.py
+> @@ -131,7 +131,10 @@ def code_status() -> dict:
+>              c = _git(['rev-list', '--count', f'{running}..HEAD'])
+>              behind = int(c) if c.isdigit() else None
+>      return {'running': running, 'head': head, 'behind': behind,
+> -            'started': (info or {}).get('started')}
+> +            'started': (info or {}).get('started'),
+> +            'phase': (info or {}).get('phase'),           # running / draining（排空中，消除舊『閒置』盲點）
+> +            'reason': (info or {}).get('reason'),          # draining 的退出原因：reload/walltime/idle/terminate
+> +            'drain_started': (info or {}).get('drain_started')}
+>
+>
+>  # ── daemon 健康 ──────────────────────────────────────────────────────────────
+> @@ -919,7 +922,12 @@ def _print_human(snap: dict) -> None:
+>          print(f"   last tick start {d['last_tick_start_utc']} "
+>                f"dur={dur_s}  next≈{d['next_tick_eta_s']}s")
+>      c = snap.get('code') or {}
+> -    if c.get('running'):
+> +    if c.get('phase') == 'draining' and c.get('running'):
+> +        ds = c.get('drain_started')
+> +        el = f'已 {int(time.time() - ds)}s' if ds else '排空中'
+> +        print(f"   🔄 排空中（{c.get('reason') or '?'}，{el}）· code={c['running']} → 退出後 respawn 載新碼"
+> +              f"（非『閒置』：controller 仍活著在排空在飛 worker）")
+> +    elif c.get('running'):
+>          b = c.get('behind')
+>          tag = ('✅ 最新' if b == 0 else
+>                 (f'⏳ 落後 HEAD {b} commit（下次 reload/respawn 自動跟上，毋須 kick）' if b
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 

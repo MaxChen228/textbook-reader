@@ -10,6 +10,22 @@
       "old": "$t^{\\rho_k} e^{q_{k'}}^{(t)}$",
       "new": "$t^{\\rho_k} e^{q_{k'}^{(t)}}$",
       "anchor": "e936a1d5"
+    },
+    {
+      "id": "coddington_levinson_ode-ch01-body-320-0c6838",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[320]",
+      "expect": "x ^ {(n)} = f (t, x, x ^ {\\prime}, \\dots , x ^ {(n - 1)}) \\quad \\left(^ {(k)} = \\frac {d ^ {k}}{d t ^ {k}}\\right). \\tag {E_{n}}",
+      "new": "x^{(n)}=f(t,x,x^{\\prime},\\dots,x^{(n-1)})\\quad \\left(^{(k)}=\\frac{d^{k}}{dt^{k}}\\right).\\tag{E\\_n}"
+    },
+    {
+      "id": "coddington_levinson_ode-ch01-body-522-25d800",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[522]",
+      "expect": "\\boldsymbol {w} ^ {\\prime} = f (z, w) \\tag {E_{2}}",
+      "new": "\\boldsymbol{w}^{\\prime}=f(z,w)\\tag{E\\_2}"
     }
   ]
 }

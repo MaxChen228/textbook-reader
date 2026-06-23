@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "garcia_molina_database_systems-ch09-body-476-f95fab",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[476]",
+      "expect": "\\mathbb {S} y = \\text {\"   \\mathbb {S} foo\"} \\cdot \\text {'bar};",
+      "new": "\\mathbb{S}y=\\text{\"   }\\mathbb{S}\\text{ foo\"}\\cdot\\text{'bar};"
+    }
+  ]
+}

@@ -23,6 +23,14 @@
       "selector": "problem:1.2.3.24:body[1]",
       "expect": "\\prod_ {R (j)} a _ {j} = \\sum_ {R (j)} (\\log_ {b} a _ {j}) _ {\\text {, assuming that all a_{j} >0}}.",
       "new": "\\prod_{R(j)} a_{j} = \\sum_{R(j)} (\\log_{b} a_{j})_{\\text{, assuming that all } a_{j} >0}."
+    },
+    {
+      "id": "knuth_taocp_vol1-ch02-body-110-087f2b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[110]",
+      "expect": "\\begin{array}{l} \\mathrm{Y} \\Leftarrow \\mathrm{X} (\\text { delete   from   stack }): \\left\\{ \\begin{array}{l} \\text { if   T = 0,then   UNDERFLOW;} \\\\ \\mathrm{Y} \\leftarrow \\mathrm{X} [ \\mathrm{T} ]; \\\\ \\mathrm{T} \\leftarrow \\mathrm{T} - 1. \\end{array} \\right. (3a) \\\\ \\mathrm{X} \\Leftarrow \\mathrm{Y} (\\text {insert into queue}): \\left\\{ \\begin{array}{l l} \\text {if R = M, then R\\leftarrow 1, otherwise R\\leftarrow R + 1;} \\\\ \\text {if R = F, then OVERFLOW;} \\\\ \\mathrm{X[R] \\leftarrow Y.} \\end{array} \\right. (6a) \\\\ \\mathrm{Y} \\Leftarrow \\mathrm{X} (\\text {delete from queue}): \\left\\{ \\begin{array}{l} \\text {if F = R, then UNDERFLOW;} \\\\ \\text {if F = M, then F\\leftarrow 1, otherwise F\\leftarrow F + 1;} \\\\ \\mathrm{Y} \\leftarrow \\mathrm{X} [ \\mathrm{F} ]. \\end{array} \\right. (7 a \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{Y} \\Leftarrow \\mathrm{X} (\\text { delete   from   stack }): \\left\\{ \\begin{array}{l} \\text { if   T = 0,then   UNDERFLOW;} \\\\ \\mathrm{Y} \\leftarrow \\mathrm{X} [ \\mathrm{T} ]; \\\\ \\mathrm{T} \\leftarrow \\mathrm{T} - 1. \\end{array} \\right. (3a) \\\\ \\mathrm{X} \\Leftarrow \\mathrm{Y} (\\text {insert into queue}): \\left\\{ \\begin{array}{l l} \\text {if } R = M, \\text { then } R\\leftarrow 1, \\text { otherwise } R\\leftarrow R + 1; \\\\ \\text {if R = F, then OVERFLOW;} \\\\ \\mathrm{X}[\\mathrm{R}] \\leftarrow \\mathrm{Y}. \\end{array} \\right. (6a) \\\\ \\mathrm{Y} \\Leftarrow \\mathrm{X} (\\text {delete from queue}): \\left\\{ \\begin{array}{l} \\text {if F = R, then UNDERFLOW;} \\\\ \\text {if } F = M, \\text { then } F\\leftarrow 1, \\text { otherwise } F\\leftarrow F + 1; \\\\ \\mathrm{Y} \\leftarrow \\mathrm{X} [ \\mathrm{F} ]. \\end{array} \\right. (7 a) \\\\ \\end{array}"
     }
   ]
 }

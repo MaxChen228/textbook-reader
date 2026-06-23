@@ -105,6 +105,14 @@
       "old": "$G _ { \\cdot } ^ { \\textit { \\textbf { \\xi } } }$",
       "new": "$G_{\\cdot}^{\\xi}$",
       "anchor": "4dbd63c4"
+    },
+    {
+      "id": "epp_discrete_math-ch11-body-537-a37f1a",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[537]",
+      "expect": "\\begin{array}{l l} \\left. \\begin{array}{c c} a _ {1} = 1 & 1 = 2 ^ {0} \\\\ \\left. \\begin{array}{c} a _ {2} = 2 a _ {\\lfloor 2 / 2 \\rfloor} = 2 a _ {1} = 2 \\cdot 1 = 2 \\\\ a _ {3} = 2 a _ {\\lfloor 3 / 2 \\rfloor} = 2 a _ {1} = 2 \\cdot 1 = 2 \\end{array} \\right\\} & 2 = 2 ^ {1} \\\\ \\left. \\begin{array}{c} a _ {4} = 2 a _ {\\lfloor 4 / 2 \\rfloor} = 2 a _ {2} = 2 \\cdot 2 = 4 \\\\ a _ {5} = 2 a _ {\\lfloor 5 / 2 \\rfloor} = 2 a _ {2} = 2 \\cdot 2 = 4 \\\\ a _ {6} = 2 a _ {\\lfloor 6 / 2 \\rfloor} = 2 a _ {3} = 2 \\cdot 2 = 4 \\\\ a _ {7} = 2 a _ {\\lfloor 7 / 2 \\rfloor} = 2 a _ {3} = 2 \\cdot 2 = 4 \\end{array} \\right\\} & 4 = 2 ^ {2} \\\\ \\left. \\begin{array}{c c} a _ {8} = 2 a _ {\\lfloor 8 / 2 \\rfloor} = 2 a _ {4} = 2 \\cdot 4 = 8 \\\\ a _ {9} = 2 a _ {\\lfloor 9 / 2 \\rfloor} = 2 a _ {4} = 2 \\cdot 4 = 8 \\\\ \\vdots & \\vdots \\\\ a _ {1 5} = 2 a _ {\\lfloor 1 5 / 2 \\rfloor} = 2 a _ {7} = 2 \\cdot 4 = 8 \\end{array} \\right\\} & 8 = 2 ^ {3} \\\\ \\left. \\begin{array}{c c} a _ {1 6} = 2 a _ {\\lfloor 1 6 / 2 \\rfloor} = 2 a _ {8} = 2 \\cdot 8 = 1 6 \\\\ \\vdots & \\vdots \\end{array} \\right\\} & 1 6 = 2 ^ {4} \\end{array}",
+      "new": "\\begin{array}{l l} \\left. \\begin{array}{c c} a _ {1} = 1 & 1 = 2 ^ {0} \\\\ \\left. \\begin{array}{c} a _ {2} = 2 a _ {\\lfloor 2 / 2 \\rfloor} = 2 a _ {1} = 2 \\cdot 1 = 2 \\\\ a _ {3} = 2 a _ {\\lfloor 3 / 2 \\rfloor} = 2 a _ {1} = 2 \\cdot 1 = 2 \\end{array} \\right\\} & 2 = 2 ^ {1} \\\\ \\left. \\begin{array}{c} a _ {4} = 2 a _ {\\lfloor 4 / 2 \\rfloor} = 2 a _ {2} = 2 \\cdot 2 = 4 \\\\ a _ {5} = 2 a _ {\\lfloor 5 / 2 \\rfloor} = 2 a _ {2} = 2 \\cdot 2 = 4 \\\\ a _ {6} = 2 a _ {\\lfloor 6 / 2 \\rfloor} = 2 a _ {3} = 2 \\cdot 2 = 4 \\\\ a _ {7} = 2 a _ {\\lfloor 7 / 2 \\rfloor} = 2 a _ {3} = 2 \\cdot 2 = 4 \\end{array} \\right\\} & 4 = 2 ^ {2} \\\\ \\left. \\begin{array}{c c} a _ {8} = 2 a _ {\\lfloor 8 / 2 \\rfloor} = 2 a _ {4} = 2 \\cdot 4 = 8 \\\\ a _ {9} = 2 a _ {\\lfloor 9 / 2 \\rfloor} = 2 a _ {4} = 2 \\cdot 4 = 8 \\\\ \\vdots & \\vdots \\\\ a _ {1 5} = 2 a _ {\\lfloor 1 5 / 2 \\rfloor} = 2 a _ {7} = 2 \\cdot 4 = 8 \\end{array} \\right\\} & 8 = 2 ^ {3} \\\\ \\left. \\begin{array}{c c} a _ {1 6} = 2 a _ {\\lfloor 1 6 / 2 \\rfloor} = 2 a _ {8} = 2 \\cdot 8 = 1 6 \\\\ \\vdots & \\vdots \\end{array} \\right\\} & 1 6 = 2 ^ {4} \\end{array} \\right. \\end{array}"
     }
   ]
 }

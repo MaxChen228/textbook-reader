@@ -1,0 +1,99 @@
+{
+  "overrides": [
+    {
+      "id": "leon_linear_algebra-ch02-body-346-81de33",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[346]",
+      "field": "md",
+      "all": true,
+      "old": "$A ^ { - 1 } \\big :$",
+      "new": "$A ^ { - 1 } :$",
+      "anchor": "c7e0478b"
+    },
+    {
+      "id": "leon_linear_algebra-ch07-problem-section7-2exercises-10-body-0-81de33",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:SECTION7.2EXERCISES.10:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$A ^ { - 1 } \\big :$",
+      "new": "$A ^ { - 1 } :$",
+      "anchor": "af5d6513"
+    },
+    {
+      "id": "leon_linear_algebra-ch01-body-162-1b272c",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[162]",
+      "expect": "\\text {(pivot a_{11} = 1)} \\quad \\left( \\begin{array}{c c c c c} \\mathbf {1} & \\mathbf {1} & \\mathbf {1} & \\mathbf {1} & \\mathbf {6} \\\\ 0 & - 1 & - 1 & 1 & 0 \\\\ 2 & 4 & 1 & - 2 & - 1 \\\\ 3 & 1 & - 2 & 2 & 3 \\end{array} \\right) \\leftarrow \\text { pivotal   row }",
+      "new": "\\text {(pivot }a_{11}\\text { = 1)} \\quad \\left( \\begin{array}{c c c c c} \\mathbf {1} & \\mathbf {1} & \\mathbf {1} & \\mathbf {1} & \\mathbf {6} \\\\ 0 & - 1 & - 1 & 1 & 0 \\\\ 2 & 4 & 1 & - 2 & - 1 \\\\ 3 & 1 & - 2 & 2 & 3 \\end{array} \\right) \\leftarrow \\text { pivotal   row }"
+    },
+    {
+      "id": "leon_linear_algebra-ch05-body-12-d533d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[12]",
+      "expect": "\\| \\mathbf {x} \\| = (\\mathbf {x} ^ {T} \\mathbf {x}) ^ {1 / 2} = \\left\\{ \\begin{array}{l l} \\sqrt {x _ {1} ^ {2} + x _ {2} ^ {2}} & \\text {if \\mathbf {x} \\in \\mathbb {R} ^{2}} \\\\ \\sqrt {x _ {1} ^ {2} + x _ {2} ^ {2} + x _ {3} ^ {2}} & \\text {if \\mathbf {x} \\in \\mathbb {R} ^{3}} \\end{array} \\right.",
+      "new": "\\| \\mathbf {x} \\| = (\\mathbf {x} ^ {T} \\mathbf {x}) ^ {1 / 2} = \\left\\{ \\begin{array}{l l} \\sqrt {x _ {1} ^ {2} + x _ {2} ^ {2}} & \\text {if }\\mathbf {x} \\in \\mathbb {R} ^{2} \\\\ \\sqrt {x _ {1} ^ {2} + x _ {2} ^ {2} + x _ {3} ^ {2}} & \\text {if }\\mathbf {x} \\in \\mathbb {R} ^{3} \\end{array} \\right."
+    },
+    {
+      "id": "leon_linear_algebra-ch01-problem-section1-2exercises-20-body-0-3b2c6b",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:SECTION1.2EXERCISES.20:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { 0 } _ { 2 }$",
+      "new": "$\\mathrm { Nu } { 0 } _ { 2 }$",
+      "anchor": "baaff4a2"
+    },
+    {
+      "id": "leon_linear_algebra-ch05-body-1082-4dd245",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[1082]",
+      "expect": "\\begin{array}{l} \\text {For k = 1,2,\\ldots,n set} \\\\ \\qquad r _ {k k} = \\| \\mathbf {a} _ {k} \\| \\\\ \\qquad \\mathbf {q} _ {k} = \\frac {1}{r _ {k k}} \\mathbf {a} _ {k} \\\\ \\text {For j = k + 1,k + 2,\\ldots,n,set} \\\\ \\qquad r _ {k j} = \\mathbf {q} _ {k} ^ {T} \\mathbf {a} _ {j} \\\\ \\qquad \\mathbf {a} _ {j} = \\mathbf {a} _ {j} - r _ {k j} \\mathbf {q} _ {k} \\\\ \\text {End for loop} \\\\ \\text {End for loop} \\end{array}",
+      "new": "\\begin{array}{l} \\text{For } k = 1,2,\\ldots,n \\text{ set} \\\\ \\qquad r _ {k k} = \\| \\mathbf {a} _ {k} \\| \\\\ \\qquad \\mathbf {q} _ {k} = \\frac {1}{r _ {k k}} \\mathbf {a} _ {k} \\\\ \\text{For } j = k + 1,k + 2,\\ldots,n, \\text{ set} \\\\ \\qquad r _ {k j} = \\mathbf {q} _ {k} ^ {T} \\mathbf {a} _ {j} \\\\ \\qquad \\mathbf {a} _ {j} = \\mathbf {a} _ {j} - r _ {k j} \\mathbf {q} _ {k} \\\\ \\text {End for loop} \\\\ \\text {End for loop} \\end{array}"
+    },
+    {
+      "id": "leon_linear_algebra-ch01-body-174-909639",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[174]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array}{c} { \\begin{array} { r l } { \\operatorname { S t e p } 3 } & { { \\Bigg ( } { ( \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } & { x } & { x } & { x } \\\\ { 0 } & { 0 } { [ \\begin{array} { l l l } { x } & { x } & { x } \\\\ { x } & { x } & { x } \\end{array} ] } ) x } \\\\ { 0 } & { 0 } & { x } \\end{array} ) } \\end{array} \\} { \\to } \\ { ( \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } & { x } & { x } & { x } \\\\ { 0 } & { 0 } & { x } & { x } \\\\ { 0 } & { 0 } & { 0 } & { x } \\end{array} ) } \\ x } \\\\ & { { \\Bigg ( } { ( \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } & { 0 } & { x } & { x } \\end{array} ) } \\ x } \\end{array} ) $",
+      "new": "$\\begin{array}{c} \\begin{array}{rl} \\operatorname { S t e p } 3 & \\Bigg( \\left( \\begin{array}{llll} x & x & x & x \\\\ 0 & x & x & x \\\\ 0 & 0 & \\left[ \\begin{array}{lll} x & x & x \\\\ x & x & x \\end{array} \\right] & x \\\\ 0 & 0 & x & x \\end{array} \\right) \\to \\left( \\begin{array}{llll} x & x & x & x \\\\ 0 & x & x & x \\\\ 0 & 0 & x & x \\\\ 0 & 0 & 0 & x \\end{array} \\right) x \\\\ & \\Bigg( \\left( \\begin{array}{llll} x & x & x & x \\\\ 0 & 0 & x & x \\end{array} \\right) x \\end{array} \\end{array} $",
+      "anchor": "fa64da8a"
+    },
+    {
+      "id": "leon_linear_algebra-ch05-body-128-b73171",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[128]",
+      "expect": "Q = \\left( \\begin{array}{l l l l l l l l} 0. 0 0 0 & 0. 5 9 4 & 0. 3 2 7 & 0. 0 0 0 & 0. 1 0 0 & 0. 0 0 0 & 0. 1 4 7 & 0. 1 5 4 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 5 0 0 & 0. 4 4 2 & 0. 3 0 9 \\\\ 0. 5 3 9 & 0. 3 9 6 & 0. 4 3 6 & 0. 5 7 4 & 0. 4 0 0 & 0. 0 0 0 & 0. 4 4 2 & 0. 4 6 3 \\\\ 0. 6 4 7 & 0. 4 9 5 & 0. 3 2 7 & 0. 3 4 4 & 0. 4 0 0 & 0. 4 0 0 & 0. 4 4 2 & 0. 3 0 9 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 3 0 0 & 0. 0 0 0 & 0. 5 9 0 & 0. 4 6 3 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. {4} {0} {0} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6}. \\\\ \\text {, x =} \\left( \\begin{array}{l} \\mathbf {x}. \\\\ \\mathbf {x}. \\end{array} \\right)",
+      "new": "Q = \\left( \\begin{array}{l l l l l l l l} 0. 0 0 0 & 0. 5 9 4 & 0. 3 2 7 & 0. 0 0 0 & 0. 1 0 0 & 0. 0 0 0 & 0. 1 4 7 & 0. 1 5 4 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 5 0 0 & 0. 4 4 2 & 0. 3 0 9 \\\\ 0. 5 3 9 & 0. 3 9 6 & 0. 4 3 6 & 0. 5 7 4 & 0. 4 0 0 & 0. 0 0 0 & 0. 4 4 2 & 0. 4 6 3 \\\\ 0. 6 4 7 & 0. 4 9 5 & 0. 3 2 7 & 0. 3 4 4 & 0. 4 0 0 & 0. 4 0 0 & 0. 4 4 2 & 0. 3 0 9 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 3 0 0 & 0. 0 0 0 & 0. 5 9 0 & 0. 4 6 3 \\\\ 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. 0 0 0 & 0. {4} {0} {0} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6} {6}. \\end{array} \\right), x = \\left( \\begin{array}{l} \\mathbf {x}. \\\\ \\mathbf {x}. \\end{array} \\right)"
+    },
+    {
+      "id": "leon_linear_algebra-ch07-body-203-cba720",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[203]",
+      "expect": "\\begin{array}{l}\\text {For i = 1,\\ldots,n}\\\\\\text {(1) Choose a pivot element a_{p(j)i} from the elements}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(Strategies for doing this will be discussed later in this section.)}\\\\\\text {(2) Switch the ith and jth entries of p.}\\\\\\text {(3) For k = i + 1,\\ldots,n}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {Set l_{p(k)i} = a_{p(k)i}/a_{p(i)i}}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {For j = i + 1,\\ldots,n}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {Set a_{p(k)j} = a_{p(k)j} - l_{p(k)i}a_{p(i)j}}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\text {End for loop}\\\\\\qquad \\qquad \\qquad \\qquad \\text {End for loop}\\\\\\rightarrow E n d f o r l o o p\\\\\\rightarrow E n d f o r l o o p\\\\\\end{array}",
+      "new": "\\begin{array}{l}\\text{For } i = 1,\\ldots,n\\\\\\text{(1) Choose a pivot element } a_{p(j)i} \\text{ from the elements}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text{(Strategies for doing this will be discussed later in this section.)}\\\\\\text{(2) Switch the ith and jth entries of } p\\text{.}\\\\\\text{(3) For } k = i + 1,\\ldots,n\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text{Set } l_{p(k)i} = a_{p(k)i}/a_{p(i)i}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text{For } j = i + 1,\\ldots,n\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text{Set } a_{p(k)j} = a_{p(k)j} - l_{p(k)i}a_{p(i)j}\\\\\\qquad \\qquad \\qquad \\qquad \\qquad \\text{End for loop}\\\\\\qquad \\qquad \\qquad \\qquad \\text{End for loop}\\\\\\rightarrow E n d f o r l o o p\\\\\\rightarrow E n d f o r l o o p\\\\\\end{array}"
+    },
+    {
+      "id": "leon_linear_algebra-ch01-body-173-0c90ff",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[173]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array}{c} { \\begin{array} { r l } { \\operatorname { S t e p } 2 \\quad } & { { \\left( \\left. { \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } { \\end{array} } } { \\left[ \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } { \\end{array} } \\right]} { \\begin{array} { l l l l } { x } & { x } & { x } \\\\ { x } & { x } & { x } \\\\ { x } & { x } & { x } \\\\ { x } & { x } & { x } \\end{array} }   \\right\\right)}) } \\end{array} }   \\to \\ \\ { \\left( \\begin{array} { l l l l } { x } & { x } & { x } & { x } \\\\ { 0 } & { x } & { x } & { x } \\\\ { 0 } & { 0 } & { x } & { x } \\\\ { 0 } & { 0 } & { x } & { x } \\end{array} \\right) } \\ x  \\\\ & { \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad } \\end{array} $",
+      "new": "$\\begin{array}{rl}{\\operatorname{Step} 2\\quad}&{{\\left(\\begin{array}{llll}{x}&{x}&{x}&{x}\\\\{0}\\end{array}\\left[\\begin{array}{llll}{x}&{x}&{x}&{x}\\\\{0}\\end{array}\\right]{\\begin{array}{lll}{x}&{x}&{x}\\\\{x}&{x}&{x}\\\\{x}&{x}&{x}\\\\{x}&{x}&{x}\\end{array}}\\right)}}\\to\\ {\\left(\\begin{array}{llll}{x}&{x}&{x}&{x}\\\\{0}&{x}&{x}&{x}\\\\{0}&{0}&{x}&{x}\\\\{0}&{0}&{x}&{x}\\end{array}\\right)}\\ x\\\\&{\\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad}\\end{array} $",
+      "anchor": "3578fa2a"
+    }
+  ]
+}

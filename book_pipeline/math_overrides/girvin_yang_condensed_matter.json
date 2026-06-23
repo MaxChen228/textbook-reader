@@ -1,0 +1,89 @@
+{
+  "overrides": [
+    {
+      "id": "girvin_yang_condensed_matter-ch20-body-293-5159c3",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[293]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { \\mathrm { d } _ { 2 - x } } \\bf { C e } _ { x } \\bf { C u O } _ { 4 }$",
+      "new": "$\\mathrm{Nd}_{2-x}\\mathbf{Ce}_{x}\\mathbf{CuO}_{4}$",
+      "anchor": "cf27e0f5"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch20-body-298-5159c3",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[298]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu { \\mathrm { d } _ { 2 - x } } \\bf { C e } _ { x } \\bf { C u O } _ { 4 }$",
+      "new": "$\\mathrm{Nd}_{2-x}\\mathbf{Ce}_{x}\\mathbf{CuO}_{4}$",
+      "anchor": "7d524f9a"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch02-body-44-d95ba9",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[44]",
+      "field": "md",
+      "all": true,
+      "old": "$k \\sim 1 \\mathring \\mathrm { A } ^ { - 1 }$",
+      "new": "$k\\sim 1\\mathring{\\mathrm{A}}^{-1}$",
+      "anchor": "de908aa0"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch02-body-44-7f0697",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[44]",
+      "field": "md",
+      "all": true,
+      "old": "$k \\ll 1 \\mathring \\mathrm { A } ^ { - 1 }$",
+      "new": "$k \\ll 1 \\mathring{\\mathrm{A}}^{-1}$",
+      "anchor": "4e32d7af"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch09-body-65-a3b1a3",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[65]",
+      "field": "md",
+      "all": true,
+      "old": "$a _ { \\mathrm { B } } = \\hbar ^ { 2 } / ( m _ { \\mathrm { e } } e ^ { 2 } ) \\approx 0 . 5 3 \\mathring \\mathrm { A }$",
+      "new": "$a_{\\mathrm{B}}=\\hbar^{2}/(m_{\\mathrm{e}}e^{2})\\approx 0.53\\mathring{\\mathrm{A}}$",
+      "anchor": "57a9e8ee"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch12-body-186-cc4d8e",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[186]",
+      "field": "md",
+      "all": true,
+      "old": "$n = 0 , \\pm 1 , \\pm 2 , . . . _ $",
+      "new": "$n=0,\\pm 1,\\pm 2, ... $",
+      "anchor": "5b3b2b7c"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch20-body-282-276ff8",
+      "action": "fix_inline_math",
+      "chunk": "ch20",
+      "selector": "body[282]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu { \\mathrm { d } _ { 2 - x } } \\sp { \\mathrm { C e } _ { x } } \\sp { \\mathrm { C u O } _ { 4 } }$",
+      "new": "$\\mathrm{Nd}_{2-x}\\mathrm{Ce}_{x}\\mathrm{CuO}_{4}$",
+      "anchor": "7623fd00"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch19-body-130-6ee457",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[130]",
+      "expect": "\\begin{array}{l} - c \\frac {\\delta}{\\delta A _ {\\mu} (\\vec {r})} \\left<   \\Psi \\left. \\right| \\frac {1}{2 m} \\left(\\vec {p} + \\frac {e}{c} \\vec {A}\\right) ^ {2} + V | \\Psi \\rangle \\\\ = \\frac {- e}{2 m} \\int d ^ {3} \\vec {R} \\Psi^ {*} (\\vec {R}) \\left\\{\\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\delta^ {3} (\\vec {r} - \\vec {R}) \\right. \\\\ \\left. + \\delta^ {3} (\\vec {r} - \\vec {R}) \\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\right\\} \\Psi (\\vec {R}) (19.40) \\\\ = \\left\\langle \\Psi | J ^ {\\mu} (\\vec {r}) | \\Psi \\right\\rangle (19.41) \\\\ \\end{array}",
+      "new": "\\begin{array}{l} - c \\frac {\\delta}{\\delta A _ {\\mu} (\\vec {r})} \\left\\langle   \\Psi \\left| \\frac {1}{2 m} \\left(\\vec {p} + \\frac {e}{c} \\vec {A}\\right) ^ {2} + V \\right| \\Psi \\right\\rangle \\\\ = \\frac {- e}{2 m} \\int d ^ {3} \\vec {R} \\Psi^ {*} (\\vec {R}) \\left\\{\\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\delta^ {3} (\\vec {r} - \\vec {R}) \\right. \\\\ \\left. + \\delta^ {3} (\\vec {r} - \\vec {R}) \\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\right\\} \\Psi (\\vec {R}) (19.40) \\\\ = \\left\\langle \\Psi | J ^ {\\mu} (\\vec {r}) | \\Psi \\right\\rangle (19.41) \\\\ \\end{array}"
+    }
+  ]
+}

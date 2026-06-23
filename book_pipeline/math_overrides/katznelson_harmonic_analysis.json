@@ -10,6 +10,22 @@
       "old": "$\\{ G _ { \\alpha } \\} , \\quad \\alpha \\in I _  $",
       "new": "$\\{ G _ { \\alpha } \\} , \\quad \\alpha \\in I  $",
       "anchor": "f1fbea77"
+    },
+    {
+      "id": "katznelson_harmonic_analysis-ch06-body-880-512e1d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[880]",
+      "expect": "\\sup _ {x} \\left| \\sum a _ {j} e ^ {i \\lambda_ {j} x} \\right| \\geq \\left(1 - \\frac {1}{N + 1}\\right) \\sum | a _ {j} |. \\tag {9.4_{N}}",
+      "new": "\\sup _ {x} \\left| \\sum a _ {j} e ^ {i \\lambda_ {j} x} \\right| \\geq \\left(1 - \\frac {1}{N + 1}\\right) \\sum | a _ {j} |. \\tag {9.4\\(_{N}\\)}"
+    },
+    {
+      "id": "katznelson_harmonic_analysis-ch06-body-766-512e1d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[766]",
+      "expect": "\\sup _ {x} \\left| \\sum a _ {j} e ^ {i \\lambda_ {j} x} \\right| \\geq \\left(1 - \\frac {1}{N + 1}\\right) \\sum | a _ {j} |. \\tag {9.4_{N}}",
+      "new": "\\sup_{x} \\left| \\sum a_{j} e^{i \\lambda_{j} x} \\right| \\geq \\left(1 - \\frac{1}{N + 1}\\right) \\sum | a_{j} |. \\tag{9.4\\_N}"
     }
   ]
 }

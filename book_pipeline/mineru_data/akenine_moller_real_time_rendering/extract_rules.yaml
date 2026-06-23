@@ -1,0 +1,198 @@
+slug: akenine_moller_real_time_rendering
+title: Real-Time Rendering
+author: Tomas Akenine-Moller; Eric Haines; Naty Hoffman
+edition: 3rd
+subject: Computer Graphics
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 907
+bibliography_start_page: 939
+index_start_page: 1021
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 19
+    page_end: 28
+    chapter_title_block_idx: 191
+    problems_block_idx: null
+    next_chapter_block_idx: 276
+  - num: 2
+    title: The Graphics Rendering Pipeline
+    page_start: 29
+    page_end: 46
+    chapter_title_block_idx: 276
+    problems_block_idx: null
+    next_chapter_block_idx: 411
+  - num: 3
+    title: The Graphics Processing Unit
+    page_start: 47
+    page_end: 70
+    chapter_title_block_idx: 411
+    problems_block_idx: null
+    next_chapter_block_idx: 582
+  - num: 4
+    title: Transforms
+    page_start: 71
+    page_end: 116
+    chapter_title_block_idx: 582
+    problems_block_idx: null
+    next_chapter_block_idx: 1055
+  - num: 5
+    title: Visual Appearance
+    page_start: 117
+    page_end: 164
+    chapter_title_block_idx: 1055
+    problems_block_idx: null
+    next_chapter_block_idx: 1456
+  - num: 6
+    title: Texturing
+    page_start: 165
+    page_end: 218
+    chapter_title_block_idx: 1456
+    problems_block_idx: null
+    next_chapter_block_idx: 1874
+  - num: 7
+    title: Advanced Shading
+    page_start: 219
+    page_end: 302
+    chapter_title_block_idx: 1874
+    problems_block_idx: null
+    next_chapter_block_idx: 2567
+  - num: 8
+    title: Area and Environmental Lighting
+    page_start: 303
+    page_end: 344
+    chapter_title_block_idx: 2567
+    chapter_title_block_idx_secondary: 2568
+    problems_block_idx: null
+    next_chapter_block_idx: 2928
+  - num: 9
+    title: Global Illumination
+    page_start: 345
+    page_end: 456
+    chapter_title_block_idx: 2928
+    chapter_title_block_idx_secondary: 2929
+    problems_block_idx: null
+    next_chapter_block_idx: 3803
+  - num: 10
+    title: Image-Based Effects
+    page_start: 457
+    page_end: 524
+    chapter_title_block_idx: 3803
+    problems_block_idx: null
+    next_chapter_block_idx: 4305
+  - num: 11
+    title: Non-Photorealistic Rendering
+    page_start: 525
+    page_end: 548
+    chapter_title_block_idx: 4305
+    chapter_title_block_idx_secondary: 4306
+    problems_block_idx: null
+    next_chapter_block_idx: 4489
+  - num: 12
+    title: Polygonal Techniques
+    page_start: 549
+    page_end: 592
+    chapter_title_block_idx: 4489
+    chapter_title_block_idx_secondary: 4490
+    problems_block_idx: null
+    next_chapter_block_idx: 4870
+  - num: 13
+    title: Curves and Curved Surfaces
+    page_start: 593
+    page_end: 662
+    chapter_title_block_idx: 4870
+    chapter_title_block_idx_secondary: 4871
+    problems_block_idx: null
+    next_chapter_block_idx: 5505
+  - num: 14
+    title: Acceleration Algorithms
+    page_start: 663
+    page_end: 714
+    chapter_title_block_idx: 5505
+    chapter_title_block_idx_secondary: 5506
+    problems_block_idx: null
+    next_chapter_block_idx: 5889
+  - num: 15
+    title: Pipeline Optimization
+    page_start: 715
+    page_end: 742
+    chapter_title_block_idx: 5889
+    chapter_title_block_idx_secondary: 5890
+    problems_block_idx: null
+    next_chapter_block_idx: 6107
+  - num: 16
+    title: Intersection Test Methods
+    page_start: 743
+    page_end: 810
+    chapter_title_block_idx: 6107
+    problems_block_idx: null
+    next_chapter_block_idx: 6776
+  - num: 17
+    title: Collision Detection
+    page_start: 811
+    page_end: 846
+    chapter_title_block_idx: 6776
+    problems_block_idx: null
+    next_chapter_block_idx: 7055
+  - num: 18
+    title: Graphics Hardware
+    page_start: 847
+    page_end: 896
+    chapter_title_block_idx: 7055
+    problems_block_idx: null
+    next_chapter_block_idx: 7417
+  - num: 19
+    title: The Future
+    page_start: 897
+    page_end: 906
+    chapter_title_block_idx: 7417
+    problems_block_idx: null
+    next_chapter_block_idx: 7484
+
+appendices:
+  - id: A
+    title: Some Linear Algebra
+    page_start: 907
+    chapter_title_block_idx: 7484
+  - id: B
+    title: Trigonometry
+    page_start: 931
+    chapter_title_block_idx: 7795
+
+section_re: '^((?:\\d+\\.\\d+|[A-B]\\.\\d+))\\.?\\s+(.+)$'
+subsection_re: '^((?:\\d+\\.\\d+\\.\\d+|[A-B]\\.\\d+\\.\\d+))\\.?\\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Problem|Exercise)\\s+(\\d+\\.\\d+)\\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\s*\\{(([A-B]\\.)?[0-9]+(?:\\.[0-9]+)?[a-z]?)\\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

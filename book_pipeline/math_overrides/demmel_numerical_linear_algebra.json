@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "demmel_numerical_linear_algebra-ch02-body-387-011a92",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[387]",
+      "expect": "\\begin{array}{l} \\text {Partition A = \\left[ \\begin{array}{cc}A_{11} & A_{12}\\\\ A_{21} & A_{22} \\end{array} \\right] and B = \\left[ \\begin{array}{cc}B_{11} & B_{12}\\\\ B_{21} & B_{22} \\end{array} \\right]} \\\\ \\text {where the subblocks A_{ij} and B_{ij} are n / 2 - by - n / 2} \\end{array}",
+      "new": "\\begin{array}{l}\\text{Partition } A=\\left[\\begin{array}{cc}A_{11}&A_{12}\\\\A_{21}&A_{22}\\end{array}\\right]\\text{ and } B=\\left[\\begin{array}{cc}B_{11}&B_{12}\\\\B_{21}&B_{22}\\end{array}\\right]\\\\\\text{where the subblocks } A_{ij}\\text{ and } B_{ij}\\text{ are } n/2\\text{-by-}n/2\\end{array}"
+    },
+    {
+      "id": "demmel_numerical_linear_algebra-ch04-body-172-5779f4",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[172]",
+      "expect": "\\begin{array}{l} i = 0 \\\\ \\text {repeat} \\\\ Y _ {i + 1} = A Z _ {i} \\\\ \\text {Factor} Y _ {i + 1} = Z _ {i + 1} R _ {i + 1} \\quad \\begin{array}{l} \\text {using Algorithm 3.2 (QR decomposition)} \\\\ \\text {(Z_{i + 1} spans an approximate} \\\\ \\text {invariant subspace)} \\end{array} \\\\ i = i + 1 \\\\ \\text {until convergence} \\end{array}",
+      "new": "\\begin{array}{l}i=0\\\\\\text{repeat}\\\\Y_{i+1}=A Z_{i}\\\\\\text{Factor } Y_{i+1}=Z_{i+1}R_{i+1}\\quad \\begin{array}{l}\\text{using Algorithm 3.2 (QR decomposition)}\\\\\\text{(}Z_{i+1}\\text{ spans an approximate}\\\\\\text{invariant subspace)}\\end{array}\\\\i=i+1\\\\\\text{until convergence}\\end{array}"
+    },
+    {
+      "id": "demmel_numerical_linear_algebra-ch06-body-946-df5900",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[946]",
+      "expect": "x _ {i + \\frac {1}{2}, \\Omega_ {1}} = x _ {i, \\Omega_ {1}} + A _ {\\Omega_ {1}, \\Omega_ {1}} ^ {- 1} \\cdot r _ {\\Omega_ {1}} / * u p d a t e s o l u t i o n o n \\Omega_ {1} * /\\tag{( (2') \\}",
+      "new": "x_{i+\\frac{1}{2},\\Omega_{1}}=x_{i,\\Omega_{1}}+A_{\\Omega_{1},\\Omega_{1}}^{-1}\\cdot r_{\\Omega_{1}}/*updatesolutionon\\Omega_{1}*/\\tag{((2')}"
+    },
+    {
+      "id": "demmel_numerical_linear_algebra-ch06-body-949-f03d6d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[949]",
+      "expect": "x _ {i + 1, \\Omega_ {2}} = x _ {i + \\frac {1}{2}, \\Omega_ {2}} + A _ {\\Omega_ {2}, \\Omega_ {2}} ^ {- 1} \\cdot r _ {\\Omega_ {2}} / ^ {*} u p d a t e s o l u t i o n o n \\Omega_ {2} ^ {*} /\\tag{( (4') \\}",
+      "new": "x_{i+1,\\Omega_{2}}=x_{i+\\frac{1}{2},\\Omega_{2}}+A_{\\Omega_{2},\\Omega_{2}}^{-1}\\cdot r_{\\Omega_{2}}/^{*}updatesolutionon\\Omega_{2}^{*}/\\tag{((4')}"
+    },
+    {
+      "id": "demmel_numerical_linear_algebra-ch05-body-98-3e3d11",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[98]",
+      "expect": "\\begin{array}{l l l} \\tan \\theta & = & \\| d \\| _ {2} \\\\ & = & \\left\\| \\sum_ {j \\neq i} \\frac {\\zeta_ {j}}{\\alpha_ {j} - \\alpha_ {i}} q _ {j} \\right\\| _ {2} \\\\ & = & \\left(\\sum_ {j \\neq i} \\left(\\frac {\\zeta_ {j}}{\\alpha_ {j} - \\alpha_ {i}}\\right) ^ {2}\\right) ^ {1 / 2} \\quad \\text {since the q_{j} are orthonormal} \\\\ & \\leq & \\frac {1}{\\operatorname{gap} (i , A)} \\left(\\sum_ {j \\neq i} \\zeta_ {j} ^ {2}\\right) ^ {1 / 2} \\quad \\text {since gap(i,A) is the smallest denominator} \\\\ & = & \\frac {\\| z \\| _ {2}}{\\operatorname{gap} (i , A)}. \\end{array}",
+      "new": "\\begin{array}{l l l} \\tan \\theta & = & \\| d \\| _ {2} \\\\ & = & \\left\\| \\sum_ {j \\neq i} \\frac {\\zeta_ {j}}{\\alpha_ {j} - \\alpha_ {i}} q _ {j} \\right\\| _ {2} \\\\ & = & \\left(\\sum_ {j \\neq i} \\left(\\frac {\\zeta_ {j}}{\\alpha_ {j} - \\alpha_ {i}}\\right) ^ {2}\\right) ^ {1 / 2} \\quad \\text {since the } q_{j} \\text { are orthonormal} \\\\ & \\leq & \\frac {1}{\\operatorname{gap} (i , A)} \\left(\\sum_ {j \\neq i} \\zeta_ {j} ^ {2}\\right) ^ {1 / 2} \\quad \\text {since } \\operatorname{gap}(i,A) \\text { is the smallest denominator} \\\\ & = & \\frac {\\| z \\| _ {2}}{\\operatorname{gap} (i , A)}. \\end{array}"
+    },
+    {
+      "id": "demmel_numerical_linear_algebra-ch06-body-678-30f79e",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[678]",
+      "expect": "\\begin{array}{l l} \\hline \\text {Fourier transform} & (f * g) (x) \\equiv \\int_ {- \\infty} ^ {\\infty} f (x - y) g (y) d y \\\\ \\text {Fourier series} & (f * g) (x) \\equiv \\int_ {0} ^ {1} f (x - y) g (y) d y \\\\ \\text {DFT} & \\text {If a = [a_{0},\\ldots,a_{N - 1},0,\\ldots,0]^{T} and} \\\\ & b = [ b _ {0}, \\ldots , b _ {N - 1}, 0, \\ldots , 0 ] ^ {T} \\text {are 2N - vectors,} \\\\ & \\text {then a*b\\equiv c=[c_{0},\\ldots,c_{2N - 1}]^{T} , where} \\\\ & c _ {k} = \\sum_ {j = 0} ^ {k} a _ {j} b _ {k - j} \\\\ \\hline \\end{array}",
+      "new": "\\begin{array}{l l} \\hline \\text {Fourier transform} & (f * g) (x) \\equiv \\int_ {- \\infty} ^ {\\infty} f (x - y) g (y) d y \\\\ \\text {Fourier series} & (f * g) (x) \\equiv \\int_ {0} ^ {1} f (x - y) g (y) d y \\\\ \\text {DFT} & \\text {If } a = [a_{0},\\ldots,a_{N - 1},0,\\ldots,0]^{T} \\text { and} \\\\ & b = [ b _ {0}, \\ldots , b _ {N - 1}, 0, \\ldots , 0 ] ^ {T} \\text { are } 2N \\text {-vectors,} \\\\ & \\text {then } a*b\\equiv c=[c_{0},\\ldots,c_{2N - 1}]^{T} \\text {, where} \\\\ & c _ {k} = \\sum_ {j = 0} ^ {k} a _ {j} b _ {k - j} \\\\ \\hline \\end{array}"
+    }
+  ]
+}

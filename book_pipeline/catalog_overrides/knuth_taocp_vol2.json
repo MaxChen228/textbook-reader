@@ -1,0 +1,60 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "2.3",
+      "classification": "external",
+      "reason": "正文明示引用 Handbook of Mathematical Functions 的表 2.3，不屬於本書 catalog。",
+      "where": "ch04.json body[438]",
+      "evidence": "Source text says \"Handbook of Mathematical Functions ... Table 2.3\" while discussing physical constants from a standard reference."
+    },
+    {
+      "type": "table",
+      "ref": "26.8",
+      "classification": "external",
+      "reason": "此表號出現在外部手冊的 footnote 引用，不是本書內部 table。",
+      "where": "ch03.json body[221]",
+      "evidence": "Table block footnote says \"For further values, see Handbook of Mathematical Functions ... Table 26.8.\""
+    }
+  ],
+  "overrides": [
+    {
+      "id": "knuth-vol2-table-3.2.1.1.1",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "problem:3.2.1.5#0:body[23]",
+      "expect": {
+        "id": "tbl-ch03-prob27-23",
+        "caption": "Table 1 PRIME FACTORIZATIONS OF $w \\pm 1$",
+        "catalog_exclude_reason": "problem_inline_unlabeled_table"
+      },
+      "set": {
+        "id": "tbl-3.2.1.1.1",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Exercise 3.2.1.5 references this internal table as Table 3.2.1.1-1; the block already contains the table but only had a local fallback id."
+    },
+    {
+      "id": "knuth-vol2-table-4.5.4.2",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4.5.4.3#0:body[180]",
+      "expect": {
+        "id": "tbl-ch04-prob308-180",
+        "caption": "Table 2 USEFUL PRIME NUMBERS",
+        "catalog_exclude_reason": "problem_inline_unlabeled_table"
+      },
+      "set": {
+        "id": "tbl-4.5.4.2",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Section 3.2.1.1 points to the table of suitably large primes in Section 4.5.4; this block is the matching internal table and should carry the semantic id tbl-4.5.4.2."
+    }
+  ]
+}
