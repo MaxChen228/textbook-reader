@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
-CHUNK_RE = re.compile(r'^(?:ch\d{2}|app[A-Za-z0-9_]{1,16})$')
+CHUNK_RE = re.compile(r'^(?:ch\d{2,}|app[A-Za-z0-9_]{1,16})$')  # ≥100 章書 chunk 為 3 位（parser `:02d`=最少 2 位）
 
 
 def _valid_slug(slug: str) -> bool:
@@ -44,7 +44,7 @@ FIG_NUM_RE = re.compile(rf'Fig(?:ure|\.)?\s*({CAT_NUM_PATTERN})', re.IGNORECASE)
 TBL_NUM_RE = re.compile(rf'(?:Table|Tab\.)\s*({CAT_NUM_PATTERN})', re.IGNORECASE)
 FIG_CAPTION_RE = re.compile(rf'^\s*(?:Fig(?:ure|\.)?)\s*({CAT_NUM_PATTERN})\s*[.:：-]?\s*(.*)', re.IGNORECASE | re.DOTALL)
 TBL_CAPTION_RE = re.compile(rf'^\s*(?:Table|Tab\.?)\s*({CAT_NUM_PATTERN})\s*[.:：-]?\s*(.*)', re.IGNORECASE | re.DOTALL)
-FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl|eq)-(?:ch\d{2}|app[^-]+)(?:-|$)')
+FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl|eq)-(?:ch\d{2,}|app[^-]+)(?:-|$)')
 EQ_TAG_RE = re.compile(r'\\tag\s*\{([^}]+)\}')
 
 

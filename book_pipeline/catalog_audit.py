@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 OVERRIDE_DIR = ROOT / 'book_pipeline' / 'catalog_overrides'
 
-FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl)-(?:ch\d{2}|app[^-]+)(?:-|$)')
+FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl)-(?:ch\d{2,}|app[^-]+)(?:-|$)')
 CAT_NUM_PATTERN = r'[A-Z]?\d+[A-Z]?(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?'
 FIG_REF_RE = re.compile(rf'\b(?:Fig\.?|Figure)\s+({CAT_NUM_PATTERN})', re.IGNORECASE)
 TBL_REF_RE = re.compile(rf'\b(?:Tab\.?|Table)\s+({CAT_NUM_PATTERN})', re.IGNORECASE)

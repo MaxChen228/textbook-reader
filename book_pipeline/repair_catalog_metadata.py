@@ -29,7 +29,7 @@ CAT_NUM_PATTERN = r'[A-Z]?\d+[A-Z]?(?:[.\-–—]\d+)+(?:[A-Za-z](?![A-Za-z]))?'
 FIG_REF_RE = re.compile(rf'\b(?:Figure|Fig\.?|FIGURE)\s+({CAT_NUM_PATTERN})', re.IGNORECASE)
 TBL_REF_RE = re.compile(rf'\b(?:Table|Tbl\.?|TABLE|Tab\.?)\s+({CAT_NUM_PATTERN})', re.IGNORECASE)
 LEADING_NUM_RE = re.compile(rf'^\s*({CAT_NUM_PATTERN})\s*[.:\-–—]\s+(.+)$')
-FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl)-(?:ch\d{2}|app[^-]+)(?:-|$)')
+FALLBACK_ID_RE = re.compile(r'^(?:fig|tbl)-(?:ch\d{2,}|app[^-]+)(?:-|$)')
 GENERIC_LOCAL_CAPTION_RE = re.compile(
     r'^(?:Problem\s+.+|Solution to Problem\s+.+)\s+(?:figure|table)(?:\s+\d+)?$',
     re.IGNORECASE,

@@ -191,8 +191,31 @@ def test_catalog_aliases_type_prefix_consistency():
     print('✓ _catalog_aliases：type/前綴一致性 + 非 list/缺 id 守衛 + default_type 接管')
 
 
+def test_chunk_id_re_accepts_3digit_across_modules():
+    """≥100 章書（bredon_topology_geometry 110 chunk）chunk 名為 3 位（ch100..ch110）。
+    跨模組 pin：4 處平行的 chunk-id regex 複本必須一致接受 3 位章號，否則 ≥100 章書會出現
+    『catalog 靜默丟整章圖表』（build_catalogs._scan_chunk 驗證失敗→return []）與 math sweep
+    套 override 崩潰（apply_catalog_overrides._chunk_path 拋 invalid chunk）。防各複本日後漂移。"""
+    from book_pipeline.apply_catalog_overrides import CHUNK_RE as ACO_CHUNK
+    from book_pipeline.build_catalogs import CHUNK_RE as BC_CHUNK
+    from book_pipeline.build_catalogs import FALLBACK_ID_RE as BC_FB
+    from book_pipeline.catalog_audit import FALLBACK_ID_RE as CA_FB
+    from book_pipeline.repair_catalog_metadata import FALLBACK_ID_RE as RCM_FB
+
+    for name, re_ in (('apply_catalog_overrides.CHUNK_RE', ACO_CHUNK), ('build_catalogs.CHUNK_RE', BC_CHUNK)):
+        assert re_.fullmatch('ch01') and re_.fullmatch('ch99'), name          # 2 位（parser :02d 最少）
+        assert re_.fullmatch('ch100') and re_.fullmatch('ch110'), name        # 3 位（≥100 章）
+        assert re_.fullmatch('appB'), name
+        assert not re_.fullmatch('ch1'), name                                  # 單位數不存在（防過鬆）
+    for name, re_ in (('build_catalogs.FB', BC_FB), ('catalog_audit.FB', CA_FB), ('repair_catalog_metadata.FB', RCM_FB)):
+        assert re_.search('fig-ch108-0'), name                                 # ch100+ fallback id 須可辨識
+        assert re_.search('tbl-ch08-2') and re_.search('fig-appA-1'), name
+    print('✓ chunk-id regex 跨 4 模組一致接受 ≥100 章 3 位 chunk')
+
+
 if __name__ == '__main__':
     test_caption_labels_leading_anchor_only()
     test_canonical_catalog_id_dash_to_dot()
     test_catalog_aliases_type_prefix_consistency()
+    test_chunk_id_re_accepts_3digit_across_modules()
     print('\n全部通過 ✅')
