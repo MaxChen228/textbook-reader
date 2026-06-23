@@ -8,11 +8,11 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T10:34:19+00:00",
-  "updated": "2026-06-23T02:39:16+00:00",
+  "updated": "2026-06-23T02:50:21+00:00",
   "evidence": "strang_linalg_sol/unified/content_list.json 的 text block 統計為 lvl=2:60、lvl=1:0；現行 sol_extract 只掃 text_level==1 當 chapter anchor。dry-run（2026-06-19）結果為抽出 0 章、0 題，無法開始配對。解答書實際以 'Problem Set N.M, page P' 當段落標頭，題號再嵌在後續 text/equation block 開頭。",
   "proposal": "擴充 sol_extract schema/引擎：允許設定章 anchor 的 text_level，或新增以 Problem Set N.M 直接映射主書 chapter + ProblemSetN.M.K namespace 的模式；完成後再重跑 strang_linalg_sol。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor 不支援」已過時（chapter_level 預設 null）。sol 確有 section 結構（'Problem Set N.M, page P'，chapter_re 可抓）。真殘留＝複合：①主書 parsed key 本身 OCR section 退化（樣本 'ProblemSet1.2.1'、dup '1.1'/'1.2'＝section_id 被 'Problem Set 1.2' 污染、部分節 fallback 章號 → 主書自身有 H2/污染 key）；②sol_extract 缺 section-aware key 重建（'Problem Set 1.2' → key '1.2.N' 對齊主書 namespace）。需先 re-audit 主書 section_re 產乾淨 'N.M.problem' key，再建 sol section-aware；在退化主書上強行 merge 會塞錯解答（違鐵律）。續 proposed＝主書 OCR section 退化 + sol section-aware gap 複合。",
+  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor 不支援」已過時（chapter_level 預設 null）。sol 確有 section 結構（'Problem Set N.M, page P'，chapter_re 可抓）。真殘留＝複合：①主書 parsed key 本身 OCR section 退化（樣本 'ProblemSet1.2.1'、dup '1.1'/'1.2'＝section_id 被 'Problem Set 1.2' 污染、部分節 fallback 章號 → 主書自身有 H2/污染 key）；②sol_extract 缺 section-aware key 重建（'Problem Set 1.2' → key '1.2.N' 對齊主書 namespace）。需先 re-audit 主書 section_re 產乾淨 'N.M.problem' key，再建 sol section-aware；在退化主書上強行 merge 會塞錯解答（違鐵律）。park（main-reaudit）＝主書 OCR section 退化 + sol section-aware gap 複合。",
   "verified_at": {
     "sha": "ff636f4",
     "date": "2026-06-23T02:38:44+00:00"

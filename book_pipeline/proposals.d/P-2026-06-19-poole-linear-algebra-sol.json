@@ -8,11 +8,11 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:12:34+00:00",
-  "updated": "2026-06-23T02:39:16+00:00",
+  "updated": "2026-06-23T02:50:21+00:00",
   "evidence": "主書 problem.num 為 section-aware 混合 key，如 4.0Introduction:ADynamicalSystemonGraphs.1、Exercises4.1.1、ReviewQuestions.16；解答書正文則在 3.1/4.1/8.1 等 section 標題後，以裸題序 1. 2. 3. 開題。現行 sol_extract 只接受 text_level=1 的 chapter anchor，且 problem_re 只能回單一 key。此 unified 僅有 7 個 lvl1 text blocks，包含 Systems of Linear Equations、Eigenvalues and Eigenvectors、Orthogonality、Exploration: Approximating Eigenvalues with the QR Algorithm、Chapter $\\mathord 7$、Distance and Approximation；預設 dry-run 結果為抽出 1 章 0 題，ch03 0/372。語義抽樣亦顯示主書 ch03 的 3.1 題幹是 Compute Fx for the following vectors x，但解答書 Chapter 3 的 3.1 Matrix Operations 第 1 題是在做 A + 2D，不能用章號加裸題序硬配。",
   "proposal": "升級 sol_extract schema/引擎：支援自訂 chapter/section anchor level，允許以 section heading + 裸題序組裝主書 key，並能略過 chapter-intro/review 類 key 空洞；否則 poole_linear_algebra_sol 無法產出品質 merge。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。sol 確暴露 section 子標題（unified 有 '1.1 The Geometry…'、'1.2 Length…' lvl2）。真殘留同 strang 之複合：主書 parsed key OCR 退化（'2.0Introduction:Triviality.1'、dup '1.1'＝section_re 未匹配早期節、fallback 章號）+ sol_extract 缺 section-aware key 重建。須先修主書 section 結構再建 sol 能力，否則 merge 錯位。續 proposed＝主書 OCR section 退化 + sol section-aware gap 複合。",
+  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。sol 確暴露 section 子標題（unified 有 '1.1 The Geometry…'、'1.2 Length…' lvl2）。真殘留同 strang 之複合：主書 parsed key OCR 退化（'2.0Introduction:Triviality.1'、dup '1.1'＝section_re 未匹配早期節、fallback 章號）+ sol_extract 缺 section-aware key 重建。須先修主書 section 結構再建 sol 能力，否則 merge 錯位。park（main-reaudit）＝主書 OCR section 退化 + sol section-aware gap 複合。",
   "verified_at": {
     "sha": "ff636f4",
     "date": "2026-06-23T02:38:44+00:00"
