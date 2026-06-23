@@ -433,7 +433,7 @@ def books_status(write_timeline: bool = False) -> dict:
         # 'skip'=pdf_triage 高信心（born-digital/好品質）直放、跳過 LLM QC、直送 OCR（state.qc 空但已過 QC 關）；
         # None=尚未過 QC（0.2 待qc 或更前）。過去兩條路都只顯里程碑「已過 QC」→ 看不出有沒有真的燒 LLM。
         _qc_v = ((state.get(s) or {}).get('qc') or {}).get('verdict')
-        if _qc_v in ('accept', 'reject'):
+        if _qc_v:  # 任何 qc verdict（pass/reject/…）＝真跑過 LLM QC。詞彙是 'pass' 非 'accept'（dogfood 抓到）
             r['qcv'] = 'llm'
         else:
             _code = (r.get('stage') or '').split(' ', 1)[0]
