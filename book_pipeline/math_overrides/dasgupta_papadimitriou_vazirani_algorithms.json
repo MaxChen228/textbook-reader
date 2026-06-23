@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "dasgupta_papadimitriou_vazirani_algorithms-ch05-body-96-774fa3",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{l} \\text {function find} (x) \\\\ \\text {if x\\neq\\pi(x): \\pi(x) = find(\\pi(x))} \\\\ \\text {return \\pi(x)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {function find} (x) \\\\ \\text {if } x\\neq\\pi(x): \\pi(x) = \\text{find}(\\pi(x)) \\\\ \\text {return }\\pi(x) \\end{array}"
+    },
+    {
+      "id": "dasgupta_papadimitriou_vazirani_algorithms-ch08-body-153-588a58",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[153]",
+      "expect": "\\left\\{ \\begin{array}{c} (a _ {1} \\vee a _ {2} \\vee \\dots \\vee a _ {k}) \\\\ \\text {is satisfied} \\end{array} \\right\\} \\Longleftrightarrow \\left\\{ \\begin{array}{c} \\text {there is a setting of the y_{i} 's for which} \\\\ (a _ {1} \\vee a _ {2} \\vee y _ {1}) (\\overline {{y}} _ {1} \\vee a _ {3} \\vee y _ {2}) \\dots (\\overline {{y}} _ {k - 3} \\vee a _ {k - 1} \\vee a _ {k}) \\\\ \\text {are all satisfied} \\end{array} \\right\\}.",
+      "new": "\\left\\{ \\begin{array}{c} (a _ {1} \\vee a _ {2} \\vee \\dots \\vee a _ {k}) \\\\ \\text {is satisfied} \\end{array} \\right\\} \\Longleftrightarrow \\left\\{ \\begin{array}{c} \\text {there is a setting of the } y_{i} \\text {'s for which} \\\\ (a _ {1} \\vee a _ {2} \\vee y _ {1}) (\\overline {{y}} _ {1} \\vee a _ {3} \\vee y _ {2}) \\dots (\\overline {{y}} _ {k - 3} \\vee a _ {k - 1} \\vee a _ {k}) \\\\ \\text {are all satisfied} \\end{array} \\right\\}."
+    }
+  ]
+}

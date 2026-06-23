@@ -1,0 +1,60 @@
+{
+  "overrides": [
+    {
+      "id": "chapman_electric_machinery-ch06-body-174-fed06f",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[174]",
+      "expect": "\\begin{array}{r l} P _ {\\text {out}} & = P _ {\\text {conv}} - P _ {\\mathrm{F&W}} - P _ {\\text {misc}} \\\\ & = 3 7. 9 \\mathrm{kW} - 6 0 0 \\mathrm{W} - 0 \\mathrm{W} = 3 7. 3 \\mathrm{kW} \\end{array}",
+      "new": "\\begin{array}{r l} P _ {\\text {out}} & = P _ {\\text {conv}} - P _ {\\mathrm{F\\&W}} - P _ {\\text {misc}} \\\\ & = 3 7. 9 \\mathrm{kW} - 6 0 0 \\mathrm{W} - 0 \\mathrm{W} = 3 7. 3 \\mathrm{kW} \\end{array}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-body-206-aef090",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[206]",
+      "expect": "\\boxed {P _ {\\text { out }} = P _ {\\text { conv }} - P _ {\\text { F\\ & W }} - P _ {\\text { misc }}}",
+      "new": "\\boxed {P _ {\\text { out }} = P _ {\\text { conv }} - P _ {\\text { F\\& W }} - P _ {\\text { misc }}}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-body-667-8e84b9",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[667]",
+      "expect": "\\begin{array}{r l} P _ {\\text { in }} & = P _ {\\mathrm{SCL}} + P _ {\\text { core }} + P _ {\\mathrm{F&W}} + P _ {\\text { misc }} \\\\ & = 3 I _ {1} ^ {2} R _ {1} + P _ {\\text { rot }} \\end{array}",
+      "new": "\\begin{array}{r l} P _ {\\text { in }} & = P _ {\\mathrm{SCL}} + P _ {\\text { core }} + P _ {\\mathrm{F\\&W}} + P _ {\\text { misc }} \\\\ & = 3 I _ {1} ^ {2} R _ {1} + P _ {\\text { rot }} \\end{array}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-body-669-808a62",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[669]",
+      "expect": "P _ {\\text { rot }} = P _ {\\text { core }} + P _ {\\text { F\\ & W }} + P _ {\\text { misc }}",
+      "new": "P _ {\\text { rot }} = P _ {\\text { core }} + P _ {\\text { F\\& W }} + P _ {\\text { misc }}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-problem-6-15-body-6-b778c6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6-15:body[6]",
+      "expect": "P _ {\\mathrm{F&W}} = 4 0 0 \\mathrm{W}",
+      "new": "P _ {\\mathrm{F\\&W}} = 4 0 0 \\mathrm{W}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-problem-6-21-body-6-0aab60",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6-21:body[6]",
+      "expect": "P _ {\\mathrm{F&W}} = 1 5 0 \\mathrm{W}",
+      "new": "P _ {\\mathrm{F\\&W}} = 1 5 0 \\mathrm{W}"
+    },
+    {
+      "id": "chapman_electric_machinery-ch06-problem-6-32-body-1-350a33",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6-32:body[1]",
+      "expect": "\\begin{array}{r} R _ {1} = 0. 5 4 \\Omega \\\\ P _ {\\mathrm{F&W}} = 1 5 0 \\mathrm{W} \\end{array}",
+      "new": "\\begin{array}{r} R _ {1} = 0. 5 4 \\Omega \\\\ P _ {\\mathrm{F\\&W}} = 1 5 0 \\mathrm{W} \\end{array}"
+    }
+  ]
+}

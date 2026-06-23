@@ -1,0 +1,159 @@
+slug: kay_estimation_theory
+title: 'Fundamentals of Statistical Signal Processing: Estimation Theory'
+author: Steven M. Kay
+edition: 1st ed.
+subject: signal processing
+publisher: Prentice Hall
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 1
+appendices_start_page: 574
+bibliography_start_page: null
+index_start_page: 596
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 8
+  page_end: 14
+  chapter_title_block_idx: 45
+  problems_block_idx: 175
+  next_chapter_block_idx: 191
+  chapter_title_block_idx_secondary: 45
+- num: 2
+  title: Minimum Variance Unbiased Estimation
+  page_start: 15
+  page_end: 26
+  chapter_title_block_idx: 191
+  problems_block_idx: 302
+  next_chapter_block_idx: 338
+- num: 3
+  title: Cramer-Rao Lower Bound
+  page_start: 27
+  page_end: 82
+  chapter_title_block_idx: 338
+  problems_block_idx: 891
+  next_chapter_block_idx: 1172
+- num: 4
+  title: Linear Models
+  page_start: 83
+  page_end: 100
+  chapter_title_block_idx: 1172
+  problems_block_idx: 1410
+  next_chapter_block_idx: 1462
+- num: 5
+  title: General Minimum Variance Unbiased Estimation
+  page_start: 101
+  page_end: 132
+  chapter_title_block_idx: 1462
+  problems_block_idx: 1770
+  next_chapter_block_idx: 1915
+  chapter_title_block_idx_secondary: 1467
+- num: 6
+  title: Best Linear Unbiased Estimators
+  page_start: 133
+  page_end: 156
+  chapter_title_block_idx: 1915
+  problems_block_idx: 2113
+  next_chapter_block_idx: 2265
+- num: 7
+  title: Maximum Likelihood Estimation
+  page_start: 157
+  page_end: 218
+  chapter_title_block_idx: 2265
+  problems_block_idx: 2898
+  next_chapter_block_idx: 3134
+- num: 8
+  title: Least Squares
+  page_start: 219
+  page_end: 288
+  chapter_title_block_idx: 3134
+  problems_block_idx: 3919
+  next_chapter_block_idx: 4114
+- num: 9
+  title: Method of Moments
+  page_start: 289
+  page_end: 308
+  chapter_title_block_idx: 4114
+  problems_block_idx: 4347
+  next_chapter_block_idx: 4402
+- num: 10
+  title: The Bayesian Philosophy
+  page_start: 309
+  page_end: 340
+  chapter_title_block_idx: 4402
+  problems_block_idx: 4692
+  next_chapter_block_idx: 4800
+- num: 11
+  title: General Bayesian Estimators
+  page_start: 341
+  page_end: 378
+  chapter_title_block_idx: 4800
+  problems_block_idx: 5228
+  next_chapter_block_idx: 5348
+- num: 12
+  title: Linear Bayesian Estimators
+  page_start: 379
+  page_end: 418
+  chapter_title_block_idx: 5348
+  problems_block_idx: 5830
+  next_chapter_block_idx: 5972
+- num: 13
+  title: Kalman Filters
+  page_start: 419
+  page_end: 478
+  chapter_title_block_idx: 5972
+  problems_block_idx: 6550
+  next_chapter_block_idx: 6736
+- num: 14
+  title: Summary of Estimators
+  page_start: 479
+  page_end: 492
+  chapter_title_block_idx: 6736
+  problems_block_idx: 6977
+  next_chapter_block_idx: 6978
+- num: 15
+  title: Extensions for Complex Data and Parameters
+  page_start: 493
+  page_end: 573
+  chapter_title_block_idx: 6978
+  problems_block_idx: 7814
+  next_chapter_block_idx: 8052
+  chapter_title_block_idx_secondary: 6983
+appendices:
+- id: '1'
+  title: Review of Important Concepts
+  page_start: 574
+  page_end: 589
+  chapter_title_block_idx: 8052
+- id: '2'
+  title: Glossary of Symbols and Abbreviations
+  page_start: 590
+  page_end: 595
+  chapter_title_block_idx: 8321
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level:
+- 1
+- 2
+problem_start_re: ^(\d+(?:\.\d+)?)(?:[.)])?\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+\.\d+)\b.*$
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

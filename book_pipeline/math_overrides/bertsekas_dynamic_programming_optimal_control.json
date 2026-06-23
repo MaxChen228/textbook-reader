@@ -1,0 +1,119 @@
+{
+  "overrides": [
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch06-body-500-f483d6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[500]",
+      "expect": "q _ {x} ^ {m} _ {x} ^ {m} = 1, \\quad \\mathrm{forall} m,",
+      "new": "{q_{x}^{m}}_{x}^{m} = 1, \\quad \\mathrm{forall} m,"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch02-body-180-0ca508",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[180]",
+      "expect": "d _ {i} = \\left\\{ \\begin{array}{l l} \\text {Length of portion of path P from s to i} & \\text {if i\\in P}, \\\\ \\infty & \\text {if i\\notin P}, \\end{array} \\right.",
+      "new": "d_{i} = \\left\\{ \\begin{array}{l l} \\text{Length of portion of path P from s to i} & \\text{if } i\\in P, \\\\ \\infty & \\text{if } i\\notin P, \\end{array} \\right."
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch04-body-426-01fc4e",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[426]",
+      "expect": "\\begin{array}{l l} \\text {accept the offer x_{k}} & \\text {if x_{k} > \\overline {{\\alpha}} ,} \\\\ \\text {reject the offer x_{k}} & \\text {if x_{k} <   \\overline {{\\alpha}} .} \\end{array}",
+      "new": "\\begin{array}{l l} \\text{accept the offer } x_{k} & \\text{if } x_{k} > \\overline{{\\alpha}}, \\\\ \\text{reject the offer } x_{k} & \\text{if } x_{k} < \\overline{{\\alpha}}. \\end{array}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch04-problem-4-17-body-8-f68b03",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.17:body[8]",
+      "expect": "J _ {k} (x _ {k}) = \\left\\{ \\begin{array}{l l} (N - k) \\alpha e ^ {- 1} & \\text {if x_{k} \\geq N - k}, \\\\ \\sum_ {i = k} ^ {N - x _ {k}} \\alpha e ^ {- \\mu_ {i} ^ {*} (x _ {k})} + x _ {k} \\alpha e ^ {- 1} & \\text {if 0 <   x_{k} <  N - k}, \\\\ 0 & \\text {if x_{k} = 0}. \\end{array} \\right.",
+      "new": "J_{k}(x_{k}) = \\left\\{ \\begin{array}{l l} (N - k) \\alpha e^{- 1} & \\text{if } x_{k} \\geq N - k, \\\\ \\sum_{i = k}^{N - x_{k}} \\alpha e^{- \\mu_{i}^{*}(x_{k})} + x_{k} \\alpha e^{- 1} & \\text{if } 0 < x_{k} < N - k, \\\\ 0 & \\text{if } x_{k} = 0. \\end{array} \\right."
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch05-body-732-977586",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[732]",
+      "expect": "\\begin{array}{l} x ^ {0}: \\text {true distribution is f_{0}}, \\\\ x ^ {1}: \\text {true distribution is f_{1}}. \\end{array}",
+      "new": "\\begin{array}{l} x^{0}: \\text{true distribution is } f_{0}, \\\\ x^{1}: \\text{true distribution is } f_{1}. \\end{array}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch05-body-750-472ee4",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[750]",
+      "expect": "\\begin{array}{l l} \\text {accept f_{0}} & \\text {if p_{N - 1} \\geq\\gamma ,} \\\\ \\text {accept f_{1}} & \\text {if p_{N - 1} <  \\gamma ,} \\end{array}",
+      "new": "\\begin{array}{l l} \\text{accept } f_{0} & \\text{if } p_{N - 1} \\geq\\gamma, \\\\ \\text{accept } f_{1} & \\text{if } p_{N - 1} < \\gamma, \\end{array}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch06-body-179-43cc9c",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[179]",
+      "expect": "u _ {k} = \\tilde {\\mu} _ {k} (I _ {k}) = \\left\\{ \\begin{array}{l l} - \\frac {x _ {k}}{2} & \\text {if V_{k} (1,1) <   V_{k} (0, - 1)}, \\\\ 0 & \\text {if V_{k} (1,1) > V_{k} (0, - 1)}. \\end{array} \\right.",
+      "new": "u_{k} = \\tilde{\\mu}_{k}(I_{k}) = \\left\\{ \\begin{array}{l l} - \\frac{x_{k}}{2} & \\text{if } V_{k}(1,1) < V_{k}(0, - 1), \\\\ 0 & \\text{if } V_{k}(1,1) > V_{k}(0, - 1). \\end{array} \\right."
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch06-problem-6-3-body-8-ba371a",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.3:body[8]",
+      "expect": "\\overline {{\\mu}} _ {0} (x _ {0}) = - 1, \\qquad \\overline {{\\mu}} _ {1} (x _ {1}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x_{1} = \\pm 1,2}, \\\\ - 1 & \\text {if x_{1} = 0}, \\end{array} \\right.",
+      "new": "\\overline{{\\mu}}_{0}(x_{0}) = - 1, \\qquad \\overline{{\\mu}}_{1}(x_{1}) = \\left\\{ \\begin{array}{l l} 0 & \\text{if } x_{1} = \\pm 1,2, \\\\ - 1 & \\text{if } x_{1} = 0, \\end{array} \\right."
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch04-body-161-515faa",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[161]",
+      "expect": "\\begin{array}{r l} K _ {k} & = E \\left\\{A _ {k} ^ {\\prime} K _ {k + 1} A _ {k} \\right\\} \\\\ & - E \\left\\{A _ {k} ^ {\\prime} K _ {k + 1} B _ {k} \\right\\} \\left(R _ {k} + E \\left\\{B _ {k} ^ {\\prime} K _ {k + 1} B _ {k} \\right\\}\\right) ^ {- 1} E \\left\\{B _ {k} ^ {\\prime} K _ {k + 1} A _ {k} \\right\\} + Q _ {k}. \\end{array} \\tag {4.20}\\tag{4.20}",
+      "new": "\\begin{array}{r l} K_{k} & = E \\left\\{A_{k}^{\\prime} K_{k + 1} A_{k} \\right\\} \\\\ & - E \\left\\{A_{k}^{\\prime} K_{k + 1} B_{k} \\right\\} \\left(R_{k} + E \\left\\{B_{k}^{\\prime} K_{k + 1} B_{k} \\right\\}\\right)^{- 1} E \\left\\{B_{k}^{\\prime} K_{k + 1} A_{k} \\right\\} + Q_{k}. \\end{array} \\tag{4.20}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch05-body-592-a55cdb",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[592]",
+      "expect": "\\begin{array}{l} \\overline {{{J}}} _ {N - 1} (P _ {x _ {N - 1} | I _ {N - 1}}) \\\\ = \\min _ {u _ {N - 1} \\in U _ {N - 1}} \\left[ \\underset {x _ {N - 1}, w _ {N - 1}} {E} \\left\\{g _ {N} \\big (f _ {N - 1} (x _ {N - 1}, u _ {N - 1}, w _ {N - 1}) \\big) + g _ {N - 1} (x _ {N - 1}, u _ {N - 1}, w _ {N - 1}) \\mid I _ {N - 1}, u _ {N - 1} \\right\\} \\right]. \\end{array} \\tag {5.4}\\tag{5.41}",
+      "new": "\\begin{array}{l} \\overline{{{J}}}_{N - 1}(P_{x_{N - 1} | I_{N - 1}}) \\\\ = \\min_{u_{N - 1} \\in U_{N - 1}} \\left[ \\underset{x_{N - 1}, w_{N - 1}}{E} \\left\\{g_{N} \\big(f_{N - 1}(x_{N - 1}, u_{N - 1}, w_{N - 1})\\big) + g_{N - 1}(x_{N - 1}, u_{N - 1}, w_{N - 1}) \\mid I_{N - 1}, u_{N - 1} \\right\\} \\right]. \\end{array} \\tag{5.41}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch07-body-219-462afc",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[219]",
+      "expect": "J ^ {*} (i) = \\min \\left[ K + \\alpha (1 - p) J ^ {*} (0) + \\alpha p J ^ {*} (1), c i + \\alpha (1 - p) J ^ {*} (i) + \\alpha p J ^ {*} (i + 1) \\right], \\tag {7.24}\\tag{7.24}",
+      "new": "J^{*}(i) = \\min \\left[ K + \\alpha (1 - p) J^{*}(0) + \\alpha p J^{*}(1), c i + \\alpha (1 - p) J^{*}(i) + \\alpha p J^{*}(i + 1) \\right], \\tag{7.24}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-appE-body-142-9a9007",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[142]",
+      "expect": "\\underset {x, y, z} {E} \\left\\{\\left(x - \\hat {x} (y, z)\\right) \\left(x - \\hat {x} (y, z)\\right) ^ {\\prime} \\right\\} = \\Sigma_ {x x} - \\Sigma_ {x y} \\Sigma_ {y y} ^ {- 1} \\Sigma_ {y x} - \\Sigma_ {x z} \\Sigma_ {z z} ^ {- 1} \\Sigma_ {z x}, \\tag {F.23}\\tag{E.26}",
+      "new": "\\underset{x, y, z}{E} \\left\\{\\left(x - \\hat{x}(y, z)\\right) \\left(x - \\hat{x}(y, z)\\right)^{\\prime} \\right\\} = \\Sigma_{x x} - \\Sigma_{x y} \\Sigma_{y y}^{- 1} \\Sigma_{y x} - \\Sigma_{x z} \\Sigma_{z z}^{- 1} \\Sigma_{z x}, \\tag{E.26}"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-appG-body-107-bf294f",
+      "action": "fix_inline_math",
+      "chunk": "appG",
+      "selector": "body[107]",
+      "field": "md",
+      "all": true,
+      "old": "$O_1 = \\text{receive $",
+      "new": "$O_1 = \\text{receive} $",
+      "anchor": "9005ab5a"
+    },
+    {
+      "id": "bertsekas_dynamic_programming_optimal_control-ch05-body-159-0f78f2",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[159]",
+      "expect": "\\begin{array}{l} J _ {N - 1} (I _ {N - 1}) = \\underset {x _ {N - 1}} {E} \\left\\{x _ {N - 1} ^ {\\prime} (A _ {N - 1} ^ {\\prime} Q _ {N} A _ {N - 1} + Q _ {N - 1}) x _ {N - 1} \\mid I _ {N - 1} \\right\\} \\\\ \\quad + \\underset {w _ {N - 1}} {E} \\left\\{w _ {N - 1} ^ {\\prime} Q _ {N} w _ {N - 1} \\right\\} \\\\ \\quad + \\underset {u _ {N - 1}} {\\min} \\Big [ u _ {N - 1} ^ {\\prime} (B _ {N - 1} ^ {\\prime} Q _ {N} B _ {N - 1} + R _ {N - 1}) u _ {N - 1} \\\\ \\quad \\quad \\quad + 2 E \\{x _ {N - 1} \\mid I _ {N - 1} \\} ^ {\\prime} A _ {N - 1} ^ {\\prime} Q _ {N} B _ {N - 1} u _ {N - 1} \\Big ]. \\end{array} \\tag {5.}\\tag{5.6}",
+      "new": "\\begin{array}{l} J _ {N - 1} (I _ {N - 1}) = \\underset {x _ {N - 1}} {E} \\left\\{x _ {N - 1} ^ {\\prime} (A _ {N - 1} ^ {\\prime} Q _ {N} A _ {N - 1} + Q _ {N - 1}) x _ {N - 1} \\mid I _ {N - 1} \\right\\} \\\\ \\quad + \\underset {w _ {N - 1}} {E} \\left\\{w _ {N - 1} ^ {\\prime} Q _ {N} w _ {N - 1} \\right\\} \\\\ \\quad + \\underset {u _ {N - 1}} {\\min} \\Big [ u _ {N - 1} ^ {\\prime} (B _ {N - 1} ^ {\\prime} Q _ {N} B _ {N - 1} + R _ {N - 1}) u _ {N - 1} \\\\ \\quad \\quad \\quad + 2 E \\{x _ {N - 1} \\mid I _ {N - 1} \\} ^ {\\prime} A _ {N - 1} ^ {\\prime} Q _ {N} B _ {N - 1} u _ {N - 1} \\Big ]. \\end{array} \\tag{5.6}"
+    }
+  ]
+}

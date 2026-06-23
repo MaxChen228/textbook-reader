@@ -1,0 +1,149 @@
+slug: lehmann_testing_statistical_hypotheses
+title: Testing Statistical Hypotheses
+author: E. L. Lehmann; Joseph P. Romano
+edition: 3rd
+subject: Probability
+publisher: Springer
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 709
+bibliography_start_page: null
+index_start_page: 774
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: 'The General Decision Problem'
+    page_start: 20
+    page_end: 44
+    chapter_title_block_idx: 84
+    problems_block_idx: 290
+    next_chapter_block_idx: 377
+  - num: 2
+    title: 'The Probability Background'
+    page_start: 45
+    page_end: 72
+    chapter_title_block_idx: 377
+    problems_block_idx: 748
+    next_chapter_block_idx: 838
+  - num: 3
+    title: 'Uniformly Most Powerful Tests'
+    page_start: 73
+    page_end: 126
+    chapter_title_block_idx: 838
+    problems_block_idx: 1417
+    next_chapter_block_idx: 1711
+  - num: 4
+    title: 'Unbiasedness: Theory and First Applications'
+    page_start: 127
+    page_end: 166
+    chapter_title_block_idx: 1711
+    problems_block_idx: 2138
+    next_chapter_block_idx: 2343
+  - num: 5
+    title: 'Unbiasedness: Applications to Normal Distributions: Confidence Intervals'
+    page_start: 167
+    page_end: 228
+    chapter_title_block_idx: 2343
+    problems_block_idx: 3038
+    next_chapter_block_idx: 3356
+  - num: 6
+    title: 'Invariance'
+    page_start: 229
+    page_end: 293
+    chapter_title_block_idx: 3356
+    problems_block_idx: 4080
+    next_chapter_block_idx: 4435
+  - num: 7
+    title: 'Linear Hypotheses'
+    page_start: 294
+    page_end: 335
+    chapter_title_block_idx: 4435
+    problems_block_idx: 4895
+    next_chapter_block_idx: 5102
+  - num: 8
+    title: 'Theories with Guaranteed Power'
+    page_start: 336
+    page_end: 364
+    chapter_title_block_idx: 5102
+    problems_block_idx: 5405
+    next_chapter_block_idx: 5549
+  - num: 9
+    title: 'Multiple Testing and Simultaneous Inference'
+    page_start: 365
+    page_end: 408
+    chapter_title_block_idx: 5549
+    problems_block_idx: 6226
+    next_chapter_block_idx: 6338
+  - num: 10
+    title: 'Conditional Inference'
+    page_start: 409
+    page_end: 435
+    chapter_title_block_idx: 6338
+    problems_block_idx: 6612
+    next_chapter_block_idx: 6738
+  - num: 11
+    title: 'Basic Large Sample Theory'
+    page_start: 436
+    page_end: 498
+    chapter_title_block_idx: 6738
+    problems_block_idx: 7644
+    next_chapter_block_idx: 7857
+  - num: 12
+    title: 'Quadratic Mean Differentiable Families'
+    page_start: 499
+    page_end: 543
+    chapter_title_block_idx: 7857
+    problems_block_idx: 8525
+    next_chapter_block_idx: 8678
+  - num: 13
+    title: 'Large Sample Optimality'
+    page_start: 544
+    page_end: 599
+    chapter_title_block_idx: 8678
+    problems_block_idx: 9515
+    next_chapter_block_idx: 9650
+  - num: 14
+    title: 'Testing Goodness of Fit'
+    page_start: 600
+    page_end: 647
+    chapter_title_block_idx: 9650
+    problems_block_idx: 10409
+    next_chapter_block_idx: 10548
+  - num: 15
+    title: 'General Large Sample Methods'
+    page_start: 648
+    page_end: 708
+    chapter_title_block_idx: 10548
+    problems_block_idx: 11340
+    next_chapter_block_idx: 11491
+
+appendices:
+  - id: A
+    title: Auxiliary Results
+    page_start: 709
+    chapter_title_block_idx: 11491
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^Problem\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^\d+\.\d+\s+Notes\b'
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: true
+
+equation_strip_dollar: true
+equation_label_re: '\((\d+\.\d+)\)'
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\b'
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+(\d+\.\d+)\b'
+known_missing_problems: []

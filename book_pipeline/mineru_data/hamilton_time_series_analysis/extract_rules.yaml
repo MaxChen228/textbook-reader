@@ -1,0 +1,202 @@
+slug: hamilton_time_series_analysis
+title: Time Series Analysis
+author: James D. Hamilton
+edition: null
+subject: Econometrics
+publisher: Princeton University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 764
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Difference Equations
+    page_start: 15
+    page_end: 38
+    chapter_title_block_idx: 95
+    problems_block_idx: 513
+    next_chapter_block_idx: 519
+  - num: 2
+    title: Lag Operators
+    page_start: 39
+    page_end: 56
+    chapter_title_block_idx: 519
+    problems_block_idx: 918
+    next_chapter_block_idx: 922
+  - num: 3
+    title: Stationary ARMA Processes
+    page_start: 57
+    page_end: 85
+    chapter_title_block_idx: 922
+    problems_block_idx: 1521
+    next_chapter_block_idx: 1564
+  - num: 4
+    title: Forecasting
+    page_start: 86
+    page_end: 130
+    chapter_title_block_idx: 1564
+    problems_block_idx: 2435
+    next_chapter_block_idx: 2461
+  - num: 5
+    title: Maximum Likelihood Estimation
+    page_start: 131
+    page_end: 164
+    chapter_title_block_idx: 2461
+    problems_block_idx: 3063
+    next_chapter_block_idx: 3096
+  - num: 6
+    title: Spectral Analysis
+    page_start: 166
+    page_end: 193
+    chapter_title_block_idx: 3096
+    problems_block_idx: 3541
+    next_chapter_block_idx: 3553
+  - num: 7
+    title: Asymptotic Distribution Theory
+    page_start: 194
+    page_end: 213
+    chapter_title_block_idx: 3553
+    problems_block_idx: 3926
+    next_chapter_block_idx: 3954
+  - num: 8
+    title: Linear Regression Models
+    page_start: 214
+    page_end: 245
+    chapter_title_block_idx: 3954
+    problems_block_idx: 4529
+    next_chapter_block_idx: 4578
+  - num: 9
+    title: Linear Systems of Simultaneous Equations
+    page_start: 247
+    page_end: 270
+    chapter_title_block_idx: 4578
+    problems_block_idx: 4956
+    next_chapter_block_idx: 4970
+  - num: 10
+    title: Covariance-Stationary Vector Processes
+    page_start: 271
+    page_end: 304
+    chapter_title_block_idx: 4970
+    problems_block_idx: 5608
+    next_chapter_block_idx: 5633
+  - num: 11
+    title: Vector Autoregressions
+    page_start: 305
+    page_end: 364
+    chapter_title_block_idx: 5633
+    problems_block_idx: 6678
+    next_chapter_block_idx: 6759
+  - num: 12
+    title: Bayesian Analysis
+    page_start: 365
+    page_end: 384
+    chapter_title_block_idx: 6759
+    problems_block_idx: 7089
+    next_chapter_block_idx: 7117
+  - num: 13
+    title: The Kalman Filter
+    page_start: 386
+    page_end: 421
+    chapter_title_block_idx: 7117
+    problems_block_idx: 7898
+    next_chapter_block_idx: 7960
+  - num: 14
+    title: Generalized Method of Moments
+    page_start: 423
+    page_end: 447
+    chapter_title_block_idx: 7960
+    problems_block_idx: 8431
+    next_chapter_block_idx: 8493
+  - num: 15
+    title: Models of Nonstationary Time Series
+    page_start: 449
+    page_end: 467
+    chapter_title_block_idx: 8493
+    problems_block_idx: 8789
+    next_chapter_block_idx: 8825
+  - num: 16
+    title: Processes with Deterministic Time Trends
+    page_start: 468
+    page_end: 488
+    chapter_title_block_idx: 8825
+    problems_block_idx: 9185
+    next_chapter_block_idx: 9196
+  - num: 17
+    title: Univariate Processes with Unit Roots
+    page_start: 489
+    page_end: 557
+    chapter_title_block_idx: 9196
+    problems_block_idx: 10292
+    next_chapter_block_idx: 10437
+  - num: 18
+    title: Unit Roots in Multivariate Time Series
+    page_start: 558
+    page_end: 583
+    chapter_title_block_idx: 10437
+    chapter_title_block_idx_secondary: 10438
+    problems_block_idx: 10901
+    next_chapter_block_idx: 10950
+  - num: 19
+    title: Cointegration
+    page_start: 585
+    page_end: 643
+    chapter_title_block_idx: 10950
+    problems_block_idx: 11905
+    next_chapter_block_idx: 11999
+  - num: 20
+    title: Full-Information Maximum Likelihood Analysis of Cointegrated Systems
+    page_start: 644
+    page_end: 670
+    chapter_title_block_idx: 11999
+    chapter_title_block_idx_secondary: 12000
+    problems_block_idx: 12467
+    next_chapter_block_idx: 12503
+  - num: 21
+    title: Time Series Models of Heteroskedasticity
+    page_start: 671
+    page_end: 688
+    chapter_title_block_idx: 12503
+    problems_block_idx: 12819
+    next_chapter_block_idx: 12878
+  - num: 22
+    title: Modeling Time Series with Changes in Regime
+    page_start: 691
+    page_end: 716
+    chapter_title_block_idx: 12878
+    problems_block_idx: 13289
+    next_chapter_block_idx: 14334
+
+appendices:
+  - id: A
+    title: References
+    page_start: 764
+    chapter_title_block_idx: 14334
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+equation_label_re: '\\tag\{\[([^\]]+)\]\}'
+equation_strip_dollar: true
+known_missing_problems:
+  - chapter: 4
+    nums: ["4.2"]
+  - chapter: 6
+    nums: ["6.1"]

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "slug": "harris_harris_digital_design_computer_arch",
+  "overrides": [
+    {
+      "id": "harris-ddca-fig-2.22-table-block",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[150]",
+      "expect": {
+        "id": "tbl-2.3",
+        "caption": "Table 2.3"
+      },
+      "set": {
+        "id": "fig-2.22",
+        "caption": "Figure 2.22 Truth table proving T11",
+        "kind": "text",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "reason": "Raw PDF p.90 labels this truth table as Figure 2.22; MinerU block captured the table but inherited the following Table 2.3 label."
+    },
+    {
+      "id": "harris-ddca-fig-5.23-composite-table",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[166]",
+      "expect": {
+        "id": "tbl-ch05-166"
+      },
+      "set": {
+        "id": "fig-5.23",
+        "caption": "Figure 5.23 Fixed-point two’s complement conversion",
+        "kind": "text",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF p.281 shows this composite table begins with Figure 5.23; parsed block already contains its rows but was excluded as an unnumbered table."
+    },
+    {
+      "id": "harris-ddca-fig-5.25-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[168]",
+      "position": "before",
+      "page": 281,
+      "clip": [
+        0.06,
+        0.36,
+        0.30,
+        0.51
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-5.25.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-5.25",
+        "kind": "line",
+        "caption": "Figure 5.25 Floating-point numbers"
+      },
+      "reason": "Raw PDF p.281 has Figure 5.25 in the left margin; MinerU kept only the paragraph reference and omitted the visual block."
+    }
+  ],
+  "ref_classifications": []
+}

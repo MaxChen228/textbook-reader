@@ -1,0 +1,14 @@
+{
+  "slug": "greene_econometric_analysis",
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "12.2",
+      "classification": "source_mismatch",
+      "reason": "原書第 205 頁正文寫 see Table 12.2，但第 12 章實際 kernel 清單表為 Table 12.1；PDF 全文無 Table 12.2 表題，屬來源錯引而非 MinerU 漏抓。",
+      "where": "ch07.json body[294]",
+      "evidence": "raw_pdfs/greene_econometric_analysis.pdf page 245 shows 'the logit kernel (see Table 12.2)'; parsed ch12 body[141] is Table 12.1 'Kernels for Density Estimation' containing the Logit row; PDF text search finds no TABLE/Table 12.2 caption."
+    }
+  ],
+  "overrides": []
+}

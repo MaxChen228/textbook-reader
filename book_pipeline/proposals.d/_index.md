@@ -45,49 +45,13 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （212 條；proposed=3 parked=2）
+## domain: engine  （215 條；proposed=1 parked=3）
 ### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
 - proposed | type=tooling-gap | source=agent
 - 證據：
 > comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。
 - 提議：
 > 在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。
-
-### P-2026-06-23-contactsheet-ia-mrc-jbig2-layer — contactsheet 對 IA JPX-MRC 掃描可渲 JBIG2 SMask 文字層，取代 UNRENDERABLE 盲過
-- proposed | type=tooling-gap | source=claude (qc haykin_adaptive_filter)
-- 處置：
-> proposed：待架構師排程落地 contactsheet MRC 分支。當前 haykin 已人工驗訖內容 set_qc pass。
-- 證據：
-> haykin_adaptive_filter: mupdf 對 IA MRC 三層(背景JPX+前景JPX+JBIG2 SMask)合成單頁 render 即 hang>45s→CONTACTSHEET_UNRENDERABLE；但該頁 JBIG2 SMask(高解析 1-bit 文字遮罩)經 pymupdf.Pixmap(doc, smask_xref) 秒解、razor-sharp 全可讀(前/中/後段+公式+插圖驗訖)。同編碼(Internet Archive Scribe + JPXDecode + JBIG2 SMask)已有 12 本經 MinerU 成功 parse(pozar/horn_johnson/hayes_dsp...)。
-- 提議：
-> QC 對 triage=IA-MRC 掃描(producer 含 Internet Archive/Scribe ∧ 頁影像 JPXDecode ∧ 帶 JBIG2 SMask)時，contactsheet 改抽各抽樣頁帶 SMask 影像的 JBIG2 遮罩 xref、用 Pixmap(doc, xref) 直渲拼圖(繞過會 hang 的 JPX 色層合成)。把現行『UNRENDERABLE→盲 pass-through 給 MinerU、靠 book_qc 下游把關』升級為『QC 能實際看見內容→驗書名/版次/清晰/完整』。IA 是主流源、此類書會持續撞同失敗，值得泛化。
-- 風險：
-> low：純 QC 觀測強化，不改 ingest/parse；fail-open(抽不到 SMask 退回現行 pass-through)。
-
-### P-2026-06-23-rappaport-wireless — worker 越界改核心碼：book_pipeline/sol_extract.py（qc rappaport_wireless）
-- proposed | type=patch | source=scope_guard
-- 證據：
-> scope_guard bracket：worker [qc rappaport_wireless] session=rappaport_wireless:86185 存活期間，受保護程式碼面 book_pipeline/sol_extract.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
-- 提議：
-> diff --git a/book_pipeline/sol_extract.py b/book_pipeline/sol_extract.py
-> index 50e2bfc..2d7b786 100644
-> --- a/book_pipeline/sol_extract.py
-> +++ b/book_pipeline/sol_extract.py
-> @@ -82,6 +82,13 @@ def _num_prefix_int(raw: str) -> int | None:
->          return None
->
->
-> +def _canon_num_sep(s: str) -> str:
-> +    """題號分隔符正規化：'.'/'-' 統一成 '-'。供 normalize_num_sep 旗標——解答書混用
-> +    '2-6' 與 '2.16'、主書統一 '2-16' 時，sol key 與主書 num 兩側皆 canon 後字面相等才配得上
-> +    （papoulis：dot 形佔 ~24%、canon 後 63/64 命中主書真實題號，否則靜默漏掉）。"""
-> +    return re.sub(r'[.\-]', '-', s)
-> +
-> +
->  def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
->      """不 exit 的 rules 載入內核：成功 →(rules, None)；_pending/schema 錯 →(None, reason)。
-- 風險：
-> observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
@@ -99,6 +63,18 @@
 > 多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：
 > inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
+
+### P-2026-06-23-contactsheet-ia-mrc-jbig2-layer — contactsheet 對 IA JPX-MRC 掃描可渲 JBIG2 SMask 文字層，取代 UNRENDERABLE 盲過
+- parked | type=tooling-gap | source=claude (qc haykin_adaptive_filter)
+- 解鎖條件：engine-capability → pdf_contactsheet 加 JBIG2 SMask 層渲染 fallback（Pixmap(doc,smask_xref)），取代 UNRENDERABLE 盲過讓 qc 真看見 IA 掃描內容
+- 處置：
+> proposed：待架構師排程落地 contactsheet MRC 分支。當前 haykin 已人工驗訖內容 set_qc pass。
+- 證據：
+> haykin_adaptive_filter: mupdf 對 IA MRC 三層(背景JPX+前景JPX+JBIG2 SMask)合成單頁 render 即 hang>45s→CONTACTSHEET_UNRENDERABLE；但該頁 JBIG2 SMask(高解析 1-bit 文字遮罩)經 pymupdf.Pixmap(doc, smask_xref) 秒解、razor-sharp 全可讀(前/中/後段+公式+插圖驗訖)。同編碼(Internet Archive Scribe + JPXDecode + JBIG2 SMask)已有 12 本經 MinerU 成功 parse(pozar/horn_johnson/hayes_dsp...)。
+- 提議：
+> QC 對 triage=IA-MRC 掃描(producer 含 Internet Archive/Scribe ∧ 頁影像 JPXDecode ∧ 帶 JBIG2 SMask)時，contactsheet 改抽各抽樣頁帶 SMask 影像的 JBIG2 遮罩 xref、用 Pixmap(doc, xref) 直渲拼圖(繞過會 hang 的 JPX 色層合成)。把現行『UNRENDERABLE→盲 pass-through 給 MinerU、靠 book_qc 下游把關』升級為『QC 能實際看見內容→驗書名/版次/清晰/完整』。IA 是主流源、此類書會持續撞同失敗，值得泛化。
+- 風險：
+> low：純 QC 觀測強化，不改 ingest/parse；fail-open(抽不到 SMask 退回現行 pass-through)。
 
 ### P-2026-06-23-horn-johnson-matrix-analysis — namespace-by-section 對 MinerU heading-level 噪訊脆弱：同節多組 Problems 撞號 + 真 heading 丟 text_level 不推進 namespace
 - parked | type=tooling-gap | source=agent
@@ -5835,6 +5811,222 @@
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
+### P-2026-06-23-gelman-bayesian-data-analysis — worker 越界改核心碼：book_pipeline/test_dispatch_failover.py（catalog_audit gelman_bayesian_data_analysis）
+- superseded | type=patch | source=scope_guard
+- 決議：scope_guard 假陽：架構師並發編輯 test_dispatch_failover.py / pipeline_tick.py（單一 provider exhaustion 修法 + hermetic 測試），已 commit 7f8cc09 落地、git-clean，非 worker 越界
+- 證據：
+> scope_guard bracket：worker [catalog_audit gelman_bayesian_data_analysis] session=gelman_bayesian_data_analysis:8082 存活期間，受保護程式碼面 book_pipeline/test_dispatch_failover.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/test_dispatch_failover.py b/book_pipeline/test_dispatch_failover.py
+> index f566c7a..db1c043 100644
+> --- a/book_pipeline/test_dispatch_failover.py
+> +++ b/book_pipeline/test_dispatch_failover.py
+> @@ -11,25 +11,27 @@ from book_pipeline import llm_policy as lp
+>  from book_pipeline import pipeline_tick as pt
+>
+>
+> +# 測試用**固定** failover 鏈（hermetic）：絕不讀 live `resolve_dispatch` 生效鏈——runtime override
+> +# （devctl chain set，如使用者「只用 codex-pool」會使生效鏈剩 1 段）會讓 failover 測試假紅。_patch 把
+> +# `_resolve_dispatch` pin 成此鏈，故測試永遠驗的是 failover **語意**、與當下營運鏈無關（2026-06-24 定）。
+> +_HCHAIN = ('codex', 'codex-pool', 'claude')
+> +
+> +
+>  def _chain():
+> -    """dispatch_llm 實際遵循的 provider 順序（= resolve_dispatch 的生效鏈）。長度**不寫死**——碼層常態
+> -    3 段（codex/codex-pool/claude），但 runtime override（devctl chain set，如禁 claude 只留
+> -    codex,codex-pool）可使其 2 段。測試驗 failover **語意**而非特定鏈長 → 對 ≥2 段皆成立、不隨營運
+> -    換鏈而假紅（2026-06-24：禁 claude 後鏈剩 2 段，舊 len==3 硬斷言誤殺 4 測）。"""
+> -    chain = list(lp.resolve_dispatch('audit').chain)
+> -    assert len(chain) >= 2, f'failover 測試需 ≥2-provider 鏈，得到 {chain}'
+> -    return chain
+> -
+> -
+> -def _patch(results):
+> -    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。每次重置 exhausted 共享集；
+> -    並把 LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』『❌ 全 provider 不可用
+> -    audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status / /dev）冒假 🔴 cry-wolf
+> -    （2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。"""
+> +    """failover 測試用的固定 3-provider 鏈（hermetic，見 _HCHAIN）。"""
+> +    return list(_HCHAIN)
+> +
+> +
+> +def _patch(results, chain=_HCHAIN):
+> +    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。
+> +    - pin `_resolve_dispatch` → 固定 chain（hermetic，不受 runtime provider_chain.json override 影響）。
+> +    - 重置 exhausted 共享集；LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』
+> +      『❌ 全 provider 不可用 audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status /
+> +      /dev）冒假 🔴 cry-wolf（2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。"""
+>      calls = []
+> -    orig = pt._run_one
+> -    orig_log = pt.LOG
+> +    orig_run, orig_resolve, orig_log = pt._run_one, pt._resolve_dispatch, pt.LOG
+>      pt.LOG = os.devnull
+> +    pt._resolve_dispatch = lambda verb: lp.DispatchSpec(chain=tuple(chain), codex_model='gpt-5.4')
+>      with pt._exhausted_lock:
+>          pt._exhausted_at.clear()
+>
+> @@ -39,8 +41,9 @@ def _patch(results):
+>      pt._run_one = fake
+>
+>      def restore():
+> -        pt._run_one = orig
+> -        pt.LOG = orig_log
+> +        pt._run_one, pt._resolve_dispatch, pt.LOG = orig_run, orig_resolve, orig_log
+> +        with pt._exhausted_lock:
+> +            pt._exhausted_at.clear()
+>      return calls, restore
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-gelman-bayesian-data-analysis-2 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（catalog_audit gelman_bayesian_data_analysis）
+- superseded | type=patch | source=scope_guard
+- 決議：scope_guard 假陽：架構師並發編輯 test_dispatch_failover.py / pipeline_tick.py（單一 provider exhaustion 修法 + hermetic 測試），已 commit 7f8cc09 落地、git-clean，非 worker 越界
+- 證據：
+> scope_guard bracket：worker [catalog_audit gelman_bayesian_data_analysis] session=gelman_bayesian_data_analysis:8082 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index 1d280d0..495fa87 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -686,19 +686,27 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
+>          log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt, spec)))
+>          return 0
+>      tried = []
+> +    # **單一 provider 鏈不套 exhaustion**（multi 才套）：exhaust 標記的唯二作用＝① 同 cycle 並發子工 fast-skip
+> +    # 死池 ② 跨 cycle TTL 內換下一 provider——兩者都**前提是有「下一個」可切**。sole provider 鏈沒有 next，標
+> +    # exhausted 零失效益、只剩跨 cycle 300s 全停的純害：一個間歇 outage 就把唯一 provider 黑名單 5 分鐘、期間所有
+> +    # 派工 -2 defer（dogfood 實證：codex-pool-only 下 catalog_audit backlog 被間歇 400 卡死成 ~5min/blip 循環）。
+> +    # 故 len==1 時每 cycle 照常重試（暫態靠 defer-retry 自然化解、不黑名單）。多 provider 維持原 fast-failover 語意。
+> +    multi = len(chain) > 1
+>      for provider in chain:
+> -        with _exhausted_lock:
+> -            skip = _is_exhausted(provider, time.monotonic())
+> -        if skip:
+> -            continue
+> +        if multi:
+> +            with _exhausted_lock:
+> +                if _is_exhausted(provider, time.monotonic()):
+> +                    continue
+>          tried.append(provider)
+>          rc, reason = _run_one(provider, todo_verb, key, prompt, spec)
+>          if not reason:
+>              return rc  # 成功，或 agent 真跑了卻任務失敗 → 交回呼叫端，不換 provider
+> -        with _exhausted_lock:
+> -            _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
+> -            nxt = next((q for q in chain if q != provider
+> -                        and not _is_exhausted(q, time.monotonic())), None)
+> +        nxt = None
+> +        if multi:
+> +            with _exhausted_lock:
+> +                _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
+> +                nxt = next((q for q in chain if q != provider
+> +                            and not _is_exhausted(q, time.monotonic())), None)
+>          why = '撞額度' if reason == 'limit' else '服務中斷'
+>          log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
+>              + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-haykin-adaptive-filter — worker 越界改核心碼：book_pipeline/sol_extract.py（qc haykin_adaptive_filter）
+- superseded | type=patch | source=scope_guard
+- 決議：scope_guard 假陽：sol_extract.py 在 qc bracket 期間的變動來自合法 commit 3529b5f（papoulis sol merge + normalize_num_sep），非 qc worker 越界；sol_extract.py 現 git-clean
+- 證據：
+> scope_guard bracket：worker [qc haykin_adaptive_filter] session=haykin_adaptive_filter:86030 存活期間，受保護程式碼面 book_pipeline/sol_extract.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/sol_extract.py b/book_pipeline/sol_extract.py
+> index 50e2bfc..882672f 100644
+> --- a/book_pipeline/sol_extract.py
+> +++ b/book_pipeline/sol_extract.py
+> @@ -48,6 +48,7 @@ DEFAULTS = {
+>      'chapter_roman': False,        # chapter_re group(1) 為羅馬數字 → 轉 int（kardar 'Problems for Chapter I/II/III'）
+>      'num_template': None,          # key 模板：problem_re group(1) 套入，如 'P{}'→sol 'Problem 1' 對齊主書 num 'P1'（computer_networking）
+>      'derive_chapter_from_num': False,  # 無章標解答書：由 problem num 首段（split on . / -）推章（chapterless：blundell/sethna）
+> +    'normalize_num_sep': False,    # key 比對前把 '.'/'-' 統一成 '-'（解答書混用 '2-6'/'2.16'、主書 '2-16'：papoulis）
+>  }
+>
+>
+> @@ -82,6 +83,13 @@ def _num_prefix_int(raw: str) -> int | None:
+>          return None
+>
+>
+> +def _canon_num_sep(s: str) -> str:
+> +    """題號分隔符正規化：'.'/'-' 統一成 '-'。供 normalize_num_sep 旗標——解答書混用
+> +    '2-6' 與 '2.16'、主書統一 '2-16' 時，sol key 與主書 num 兩側皆 canon 後字面相等才配得上
+> +    （papoulis：dot 形佔 ~24%、canon 後 63/64 命中主書真實題號，否則靜默漏掉）。"""
+> +    return re.sub(r'[.\-]', '-', s)
+> +
+> +
+>  def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
+>      """不 exit 的 rules 載入內核：成功 →(rules, None)；_pending/schema 錯 →(None, reason)。
+>
+> @@ -117,6 +125,7 @@ def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
+>          'chapter_roman': bool(r['chapter_roman']),
+>          'num_template': tmpl,
+>          'derive_chapter_from_num': bool(r['derive_chapter_from_num']),
+> +        'normalize_num_sep': bool(r['normalize_num_sep']),
+>      }, None
+>
+>
+> @@ -149,9 +158,11 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
+>      roman = rules['chapter_roman']
+>      tmpl = rules['num_template']
+>      derive = rules['derive_chapter_from_num']
+> +    canon = rules['normalize_num_sep']
+>
+>      def mk_key(raw: str) -> str:
+> -        return tmpl.format(raw) if tmpl else raw
+> +        k = tmpl.format(raw) if tmpl else raw
+> +        return _canon_num_sep(k) if canon else k
+>
+>      out: dict[int, dict[str, list]] = {}
+>
+> @@ -229,9 +240,14 @@ def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list
+>
+>
+>  def merge_into_main(main_slug: str, sol_data: dict[int, dict[str, list]],
+> -                    dry_run: bool = False) -> dict:
+> -    """讀主書 parsed/chNN.json，把 problem.solution 注入（dry_run 不寫檔）。回傳統計。"""
+> +                    dry_run: bool = False, normalize_num_sep: bool = False) -> dict:
+> +    """讀主書 parsed/chNN.json，把 problem.solution 注入（dry_run 不寫檔）。回傳統計。
+> +
+> +    normalize_num_sep=True 時主書 num 與 sol key 兩側皆經 _canon_num_sep 才比對（sol key 已在
+> +    extract 階段 canon，此處 canon 主書 num；lookup 與 used 集合用同一 canonical key，統計才正確）。
+> +    """
+>      main_dir = DATA_DIR / main_slug / 'parsed'
+> +    key_of = _canon_num_sep if normalize_num_sep else (lambda n: n)
+>      stats = {'chapters': 0, 'problems_total': 0, 'problems_with_sol': 0,
+>               'sol_unmatched': 0, 'per_ch': []}
+>      for ch_num, sol_problems in sorted(sol_data.items()):
+> @@ -246,13 +262,14 @@ def merge_into_main(main_slug: str, sol_data: dict[int, dict[str, list]],
+>          ch_hit = 0
+>          for p in data['problems']:
+>              stats['problems_total'] += 1
+> -            sol_body = sol_problems.get(p['num'])
+> +            mkey = key_of(p['num'])
+> +            sol_body = sol_problems.get(mkey)
+>              if sol_body is not None:
+>                  if not dry_run:
+>                      p['solution'] = sol_body
+>                  stats['problems_with_sol'] += 1
+>                  ch_hit += 1
+> -                used.add(p['num'])
+> +                used.add(mkey)
+>              elif 'solution' in p and not dry_run:
+>                  # 主書這題不在 sol（可能 sol 重 ingest 後少了）→ 移除舊 solution
+>                  del p['solution']
+> @@ -308,7 +325,8 @@ def main(main_slug: str, sol_slug: str, dry_run: bool = False) -> int:
+>      print(f'  抽出 {len(sol_data)} 章、{total_sol} 題解答')
+>
+>      print(f'[sol] {"DRY-RUN " if dry_run else ""}merge → {main_slug}/parsed/chNN.json')
+> -    stats = merge_into_main(main_slug, sol_data, dry_run=dry_run)
+> +    stats = merge_into_main(main_slug, sol_data, dry_run=dry_run,
+> +                            normalize_num_sep=rules['normalize_num_sep'])
+>      pct = 100 * stats['problems_with_sol'] // max(stats['problems_total'], 1)
+>      print(f'  章={stats["chapters"]}'
+>            f' 題總={stats["problems_total"]}'
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-23-khalil-nonlinear — worker 越界改核心碼：book_pipeline/devctl.py（sol_extract khalil_nonlinear）
 - superseded | type=patch | source=scope_guard
 - 決議：architect-concurrent-edit-committed
@@ -5998,6 +6190,32 @@
 >      ap.add_argument('--json', action='store_true')
 >      ap.add_argument('--backfill-first-seen', action='store_true',
 >                      help='一次性補登所有缺 first_seen_at 的書（從歷史證據推最早入庫時間）')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-rappaport-wireless — worker 越界改核心碼：book_pipeline/sol_extract.py（qc rappaport_wireless）
+- superseded | type=patch | source=scope_guard
+- 決議：scope_guard 假陽：sol_extract.py 在 qc bracket 期間的變動來自合法 commit 3529b5f（papoulis sol merge + normalize_num_sep），非 qc worker 越界；sol_extract.py 現 git-clean
+- 證據：
+> scope_guard bracket：worker [qc rappaport_wireless] session=rappaport_wireless:86185 存活期間，受保護程式碼面 book_pipeline/sol_extract.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/sol_extract.py b/book_pipeline/sol_extract.py
+> index 50e2bfc..2d7b786 100644
+> --- a/book_pipeline/sol_extract.py
+> +++ b/book_pipeline/sol_extract.py
+> @@ -82,6 +82,13 @@ def _num_prefix_int(raw: str) -> int | None:
+>          return None
+>
+>
+> +def _canon_num_sep(s: str) -> str:
+> +    """題號分隔符正規化：'.'/'-' 統一成 '-'。供 normalize_num_sep 旗標——解答書混用
+> +    '2-6' 與 '2.16'、主書統一 '2-16' 時，sol key 與主書 num 兩側皆 canon 後字面相等才配得上
+> +    （papoulis：dot 形佔 ~24%、canon 後 63/64 命中主書真實題號，否則靜默漏掉）。"""
+> +    return re.sub(r'[.\-]', '-', s)
+> +
+> +
+>  def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
+>      """不 exit 的 rules 載入內核：成功 →(rules, None)；_pending/schema 錯 →(None, reason)。
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 

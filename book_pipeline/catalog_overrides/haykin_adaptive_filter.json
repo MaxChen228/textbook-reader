@@ -1,0 +1,22 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "haykin-adaptive-filter-fig-P3.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "problem:5:body[0]",
+      "position": "after",
+      "page": 213,
+      "clip": [0.175, 0.056, 0.943, 0.288],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-P3.1",
+        "kind": "line",
+        "caption": "FIGURE P3.1"
+      },
+      "reason": "C4 missing figure ref: problem 5 references Fig. P3.1. Raw PDF physical page 213 contains the diagram and caption at the top of the Problems page, but MinerU emitted no figure block/catalog entry for P3.1; crop restores the source figure."
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hayt-engineering-electromagnetics-fig-6.19-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:6.16:body[0]",
+      "position": "before",
+      "page": 209,
+      "clip": [
+        0.1,
+        0.08,
+        0.75,
+        0.43
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-6.19.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-6.19",
+        "kind": "line",
+        "caption": "Figure 6.19 See Prob. 16."
+      },
+      "reason": "Raw PDF physical page 209 contains Figure 6.19 above Problem 6.16, but parsed problem body has only the text reference and no figure block."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-8.11a-alias",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[153]",
+      "expect": {
+        "id": "fig-8.12"
+      },
+      "set": {
+        "id": "fig-8.11",
+        "caption": "Figure 8.11 (a) An ideal solenoid of infinite length with a circular current sheet K = K_a a_phi. (b) An N-turn solenoid of finite length d.",
+        "catalog_aliases": [
+          {
+            "id": "fig-8.11a",
+            "type": "figure",
+            "caption": "Figure 8.11a",
+            "source": "agent-composite-subfigure-alias",
+            "evidence": "Raw PDF physical page 253 shows composite Figure 8.11 with subfigures (a) and (b); body[144] references Fig. 8.11a."
+          },
+          {
+            "id": "fig-8.11b",
+            "type": "figure",
+            "caption": "Figure 8.11b",
+            "source": "agent-composite-subfigure-alias",
+            "evidence": "Raw PDF physical page 253 shows composite Figure 8.11 with subfigures (a) and (b); body[147] references Fig. 8.11b."
+          }
+        ],
+        "catalog_repair_source": "agent-composite-ref-fix"
+      },
+      "reason": "MinerU split/captioned the composite solenoid figure as Figure 8.12, but raw page 253 identifies it as Figure 8.11 with subfigures a/b. Promote to fig-8.11 and expose subfigure aliases."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-8.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.12:body[0]",
+      "position": "before",
+      "page": 285,
+      "clip": [
+        0.12,
+        0.66,
+        0.78,
+        0.94
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-8.22.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-8.22",
+        "kind": "line",
+        "caption": "Figure 8.22 See Prob. 8.12."
+      },
+      "reason": "Raw PDF physical page 285 contains Figure 8.22 below Problem 8.12, but parsed problem body lacks the figure block."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-8.23-clear-table-alias",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.23:body[1]",
+      "expect": {
+        "id": "tbl-ch08-prob22-1"
+      },
+      "set": {
+        "catalog_aliases": null,
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "reason": "Raw PDF labels the combined table+diagram as Figure 8.23, but the table block has no image src; keep it local/noncatalog and promote the adjacent figure image block instead."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-8.23-image-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:8.23:body[2]",
+      "expect": {
+        "id": "fig-ch08-prob22-2"
+      },
+      "set": {
+        "id": "fig-8.23",
+        "caption": "Figure 8.23 See Prob. 8.21.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF physical page 286 labels the adjacent point table and coordinate diagram as FIGURE 8.23; promote the existing coordinate-diagram image block to fig-8.23 so the figure ref has a valid image src."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-10.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.5:body[0]",
+      "position": "before",
+      "page": 359,
+      "clip": [
+        0.11,
+        0.48,
+        0.76,
+        0.74
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-10.5.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-10.5",
+        "kind": "line",
+        "caption": "Figure 10.5 See Prob. 10.5."
+      },
+      "reason": "Raw PDF physical page 359 contains Figure 10.5 below Problem 10.7 text, but parsed Problem 10.5 has only the text reference."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-10.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.6:body[0]",
+      "position": "before",
+      "page": 359,
+      "clip": [
+        0.12,
+        0.73,
+        0.7,
+        0.95
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-10.6.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-10.6",
+        "kind": "line",
+        "caption": "Figure 10.6 See Prob. 10.6."
+      },
+      "reason": "Raw PDF physical page 359 contains Figure 10.6 at the page bottom, but parsed Problem 10.6 has only the text reference."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-12.19-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:12.24:body[0]",
+      "position": "before",
+      "page": 448,
+      "clip": [
+        0.16,
+        0.78,
+        0.74,
+        0.96
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-12.19.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-12.19",
+        "kind": "line",
+        "caption": "Figure 12.19 See Problems 12.24 and 12.25."
+      },
+      "reason": "Raw PDF physical page 448 contains Figure 12.19 below Problems 12.24/12.25, but parsed problem bodies lack the figure block."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-13.26-id-fix",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "problem:13.19:body[1]",
+      "expect": {
+        "id": "fig-13.28"
+      },
+      "set": {
+        "id": "fig-13.26",
+        "caption": "Figure 13.26 See Problem 13.15.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Raw PDF/content_list page 493 identifies this image as FIGURE 13.26, but parsed block was shifted to Problem 13.19 and labeled fig-13.28."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-13.27-id-fix",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "problem:13.19:body[2]",
+      "expect": {
+        "id": "fig-13.29"
+      },
+      "set": {
+        "id": "fig-13.27",
+        "caption": "Figure 13.27 See Problem 13.17.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Raw PDF/content_list page 493 identifies this image as FIGURE 13.27, but parsed block was shifted to Problem 13.19 and labeled fig-13.29."
+    },
+    {
+      "id": "hayt-engineering-electromagnetics-fig-14.24-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "problem:14.19:body[0]",
+      "position": "before",
+      "page": 542,
+      "clip": [
+        0.12,
+        0.75,
+        0.76,
+        0.95
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-14.24.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-14.24",
+        "kind": "line",
+        "caption": "Figure 14.24 See Problem 14.19."
+      },
+      "reason": "Raw PDF physical page 542 contains Figure 14.24 below Problem 14.25 text, but parsed Problem 14.19 has only the text reference."
+    }
+  ]
+}

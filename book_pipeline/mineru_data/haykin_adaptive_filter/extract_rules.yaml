@@ -1,0 +1,191 @@
+slug: haykin_adaptive_filter
+title: Adaptive Filter Theory
+author: Simon Haykin
+edition: 5th
+subject: Signal Processing
+publisher: Pearson
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 51
+appendices_start_page: 773
+bibliography_start_page: 867
+index_start_page: null
+inline_problems: false
+chapters:
+- num: 1
+  title: Stochastic Processes and Models
+  page_start: 51
+  page_end: 110
+  chapter_title_block_idx: 532
+  problems_block_idx: 1342
+  next_chapter_block_idx: 1437
+- num: 2
+  title: Wiener Filters
+  page_start: 111
+  page_end: 152
+  chapter_title_block_idx: 1437
+  problems_block_idx: 1955
+  next_chapter_block_idx: 2118
+- num: 3
+  title: Linear Prediction
+  page_start: 153
+  page_end: 219
+  chapter_title_block_idx: 2118
+  problems_block_idx: 2967
+  next_chapter_block_idx: 3146
+- num: 4
+  title: Method of Steepest Descent
+  page_start: 220
+  page_end: 248
+  chapter_title_block_idx: 3146
+  problems_block_idx: 3424
+  next_chapter_block_idx: 3505
+- num: 5
+  title: Method of Stochastic Gradient Descent
+  page_start: 249
+  page_end: 268
+  chapter_title_block_idx: 3505
+  problems_block_idx: 3719
+  next_chapter_block_idx: 3754
+- num: 6
+  title: The Least-Mean-Square (LMS) Algorithm
+  page_start: 269
+  page_end: 335
+  chapter_title_block_idx: 3754
+  problems_block_idx: 4520
+  next_chapter_block_idx: 4660
+- num: 7
+  title: Normalized Least-Mean-Square (LMS) Algorithm and Its Generalization
+  page_start: 336
+  page_end: 359
+  chapter_title_block_idx: 4660
+  problems_block_idx: 4959
+  next_chapter_block_idx: 5028
+- num: 8
+  title: Block-Adaptive Filters
+  page_start: 360
+  page_end: 400
+  chapter_title_block_idx: 5028
+  problems_block_idx: 5474
+  next_chapter_block_idx: 5536
+- num: 9
+  title: Method of Least Squares
+  page_start: 401
+  page_end: 451
+  chapter_title_block_idx: 5536
+  problems_block_idx: 6253
+  next_chapter_block_idx: 6357
+- num: 10
+  title: The Recursive Least-Squares (RLS) Algorithm
+  page_start: 452
+  page_end: 476
+  chapter_title_block_idx: 6357
+  problems_block_idx: 6701
+  next_chapter_block_idx: 6742
+- num: 11
+  title: Robustness
+  page_start: 477
+  page_end: 499
+  chapter_title_block_idx: 6742
+  problems_block_idx: 7052
+  next_chapter_block_idx: 7140
+- num: 12
+  title: Finite-Precision Effects
+  page_start: 500
+  page_end: 520
+  chapter_title_block_idx: 7140
+  problems_block_idx: 7403
+  next_chapter_block_idx: 7430
+- num: 13
+  title: Adaptation in Nonstationary Environments
+  page_start: 521
+  page_end: 560
+  chapter_title_block_idx: 7430
+  problems_block_idx: 7960
+  next_chapter_block_idx: 8054
+- num: 14
+  title: Kalman Filters
+  page_start: 561
+  page_end: 596
+  chapter_title_block_idx: 8054
+  problems_block_idx: 8570
+  next_chapter_block_idx: 8649
+- num: 15
+  title: Square-Root Adaptive Filtering Algorithms
+  page_start: 597
+  page_end: 627
+  chapter_title_block_idx: 8649
+  problems_block_idx: 9058
+  next_chapter_block_idx: 9120
+- num: 16
+  title: Order-Recursive Adaptive Filtering Algorithm
+  page_start: 628
+  page_end: 696
+  chapter_title_block_idx: 9120
+  problems_block_idx: 9954
+  next_chapter_block_idx: 10092
+- num: 17
+  title: Blind Deconvolution
+  page_start: 697
+  page_end: 752
+  chapter_title_block_idx: 10092
+  problems_block_idx: 10915
+  next_chapter_block_idx: 10985
+appendices:
+- id: A
+  title: Theory of Complex Variables
+  page_start: 773
+  chapter_title_block_idx: 11285
+- id: B
+  title: Wirtinger Calculus for Computing Complex Gradients
+  page_start: 788
+  chapter_title_block_idx: 11491
+- id: C
+  title: Method of Lagrange Multipliers
+  page_start: 795
+  chapter_title_block_idx: 11627
+- id: D
+  title: Estimation Theory
+  page_start: 798
+  chapter_title_block_idx: 11684
+- id: E
+  title: Eigenanalysis
+  page_start: 803
+  chapter_title_block_idx: 11755
+- id: F
+  title: Langevin Equation of Nonequilibrium Thermodynamics
+  page_start: 828
+  chapter_title_block_idx: 12190
+- id: G
+  title: Rotations and Reflections
+  page_start: 830
+  chapter_title_block_idx: 12219
+- id: H
+  title: Complex Wishart Distribution
+  page_start: 851
+  chapter_title_block_idx: 12601
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+(?:\.\d+)?)\s*
+figure_caption_merge: true
+figure_caption_main_re: ^Figure\s+(\d+(?:\.\d+)?)\s+
+known_missing_problems: []

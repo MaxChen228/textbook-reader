@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hamilton-time-series-analysis-table-19.1-caption",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[441]",
+      "field": "md",
+      "old": "Case 1:",
+      "new": "TABLE 19.1\nSummary of Phillips-Ouliaris-Hansen Tests for Cointegration\n\nCase 1:",
+      "reason": "Raw PDF page 614 has TABLE 19.1 immediately above the Case 1 rows, but MinerU parsed only the table body starting at Case 1. Restore the leading table caption so build_catalogs emits tbl-19.1 for the chapter references."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+slug: krause_analysis_electric_machinery
+title: Analysis of Electric Machinery and Drive Systems
+author: Paul C. Krause; Oleg Wasynczuk; Scott D. Sudhoff; Steven D. Pekarek
+edition: 4th
+subject: Electric Machinery
+publisher: Wiley-IEEE Press
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+
+body_start_page: 20
+appendices_start_page: 452
+bibliography_start_page: null
+index_start_page: 460
+inline_problems: false
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+example_start_re: '^Example\s+([0-9A-Za-z.\-]+)'
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+chapters:
+  - num: 1
+    title: Introductory Concepts
+    page_start: 20
+    page_end: 55
+    chapter_title_block_idx: 101
+    problems_block_idx: 508
+    next_chapter_block_idx: 552
+  - num: 2
+    title: Symmetrical Three-Phase Stator
+    page_start: 56
+    page_end: 83
+    chapter_title_block_idx: 552
+    problems_block_idx: 847
+    next_chapter_block_idx: 871
+  - num: 3
+    title: Symmetrical Induction Machine
+    page_start: 84
+    page_end: 127
+    chapter_title_block_idx: 871
+    problems_block_idx: 1295
+    next_chapter_block_idx: 1324
+  - num: 4
+    title: Brushless DC Machine
+    page_start: 128
+    page_end: 145
+    chapter_title_block_idx: 1324
+    problems_block_idx: 1540
+    next_chapter_block_idx: 1550
+  - num: 5
+    title: Synchronous Machines
+    page_start: 146
+    page_end: 181
+    chapter_title_block_idx: 1550
+    problems_block_idx: 1870
+    next_chapter_block_idx: 1911
+  - num: 6
+    title: Machine Equations in Operational Form
+    page_start: 182
+    page_end: 195
+    chapter_title_block_idx: 1911
+    problems_block_idx: 2020
+    next_chapter_block_idx: 2029
+  - num: 7
+    title: Machine Equations in Operational Impedances and Time Constants
+    page_start: 196
+    page_end: 225
+    chapter_title_block_idx: 2029
+    problems_block_idx: 2389
+    next_chapter_block_idx: 2415
+  - num: 8
+    title: Eigenvalues and Voltage-Behind-Reactance Machine Equations
+    page_start: 226
+    page_end: 251
+    chapter_title_block_idx: 2415
+    problems_block_idx: 2686
+    next_chapter_block_idx: 2697
+  - num: 9
+    title: Reduced-Order Machine Equations
+    page_start: 252
+    page_end: 277
+    chapter_title_block_idx: 2697
+    problems_block_idx: 2990
+    next_chapter_block_idx: 3004
+  - num: 10
+    title: Power Electronic Converter Control
+    page_start: 278
+    page_end: 323
+    chapter_title_block_idx: 3004
+    problems_block_idx: 3429
+    next_chapter_block_idx: 3458
+  - num: 11
+    title: Direct-Current Machine and Drive
+    page_start: 324
+    page_end: 339
+    chapter_title_block_idx: 3458
+    problems_block_idx: 3592
+    next_chapter_block_idx: 3601
+  - num: 12
+    title: Torque Control of Permanent-Magnet and Synchronous Reluctance Machines
+    page_start: 340
+    page_end: 369
+    chapter_title_block_idx: 3601
+    problems_block_idx: 3798
+    next_chapter_block_idx: 3814
+  - num: 13
+    title: Induction Motor Drives
+    page_start: 370
+    page_end: 407
+    chapter_title_block_idx: 3814
+    problems_block_idx: 4189
+    next_chapter_block_idx: 4206
+  - num: 14
+    title: Permanent-Magnet AC Motor Drives
+    page_start: 408
+    page_end: 451
+    chapter_title_block_idx: 4206
+    problems_block_idx: 4599
+    next_chapter_block_idx: 4614
+
+appendices:
+  - id: A
+    title: Abbreviations, Constants, Conversions, and Identities
+    page_start: 452
+    page_end: 455
+    chapter_title_block_idx: 4614
+  - id: B
+    title: Phasors and Phasor Diagrams
+    page_start: 456
+    page_end: 459
+    chapter_title_block_idx: 4676

@@ -1,0 +1,170 @@
+slug: kay_detection_theory
+title: "Fundamentals of Statistical Signal Processing: Estimation Theory"
+author: "Steven M. Kay"
+edition: null
+subject: "Signal Processing"
+publisher: "Prentice Hall PTR"
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+heading_text_level: 2
+ignore_image_content: false
+ignore_chart_content: false
+
+body_start_page: 5
+appendices_start_page: 289
+bibliography_start_page: null
+index_start_page: 300
+
+inline_problems: false
+
+section_re: '^(?!(?:7\.18|7\.19|7\.22|9\.6|9\.7|11\.3|12\.2)\s)(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+example_start_re: '^Example\s+(\d+\.\d+)\b'
+problem_start_re: '^((?:\d+\.\d+)|(?:\d+)(?=\.))\.?\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^Appendix\s+\d+[A-Z]\b'
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\((\d+\.\d+)\)'
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 5
+    page_end: 11
+    chapter_title_block_idx: 39
+    chapter_title_block_idx_secondary: 40
+    problems_block_idx: 167
+    next_chapter_block_idx: 181
+  - num: 2
+    title: "Minimum Variance Unbiased Estimation"
+    page_start: 12
+    page_end: 17
+    chapter_title_block_idx: 182
+    problems_block_idx: 293
+    next_chapter_block_idx: 331
+  - num: 3
+    title: "Cramer-Rao Lower Bound"
+    page_start: 18
+    page_end: 45
+    chapter_title_block_idx: 332
+    chapter_title_block_idx_secondary: 331
+    problems_block_idx: 876
+    next_chapter_block_idx: 1159
+  - num: 4
+    title: "Linear Models"
+    page_start: 46
+    page_end: 54
+    chapter_title_block_idx: 1160
+    chapter_title_block_idx_secondary: 1159
+    problems_block_idx: 1394
+    next_chapter_block_idx: 1446
+  - num: 5
+    title: "General Minimum Variance Unbiased Estimation"
+    page_start: 55
+    page_end: 70
+    chapter_title_block_idx: 1447
+    problems_block_idx: 1757
+    next_chapter_block_idx: 1901
+  - num: 6
+    title: "Best Linear Unbiased Estimators"
+    page_start: 71
+    page_end: 82
+    chapter_title_block_idx: 1902
+    chapter_title_block_idx_secondary: 1901
+    problems_block_idx: 2099
+    next_chapter_block_idx: 2252
+  - num: 7
+    title: "Maximum Likelihood Estimation"
+    page_start: 83
+    page_end: 113
+    chapter_title_block_idx: 2253
+    chapter_title_block_idx_secondary: 2252
+    problems_block_idx: 2884
+    next_chapter_block_idx: 3129
+  - num: 8
+    title: "Least Squares"
+    page_start: 114
+    page_end: 148
+    chapter_title_block_idx: 3130
+    chapter_title_block_idx_secondary: 3129
+    problems_block_idx: 3915
+    next_chapter_block_idx: 4108
+  - num: 9
+    title: "Method of Moments"
+    page_start: 149
+    page_end: 158
+    chapter_title_block_idx: 4109
+    chapter_title_block_idx_secondary: 4108
+    problems_block_idx: 4343
+    next_chapter_block_idx: 4397
+  - num: 10
+    title: "The Bayesian Philosophy"
+    page_start: 159
+    page_end: 174
+    chapter_title_block_idx: 4398
+    chapter_title_block_idx_secondary: 4397
+    problems_block_idx: 4691
+    next_chapter_block_idx: 4798
+  - num: 11
+    title: "General Bayesian Estimators"
+    page_start: 175
+    page_end: 193
+    chapter_title_block_idx: 4799
+    chapter_title_block_idx_secondary: 4798
+    problems_block_idx: 5222
+    next_chapter_block_idx: 5340
+  - num: 12
+    title: "Linear Bayesian Estimators"
+    page_start: 194
+    page_end: 214
+    chapter_title_block_idx: 5341
+    chapter_title_block_idx_secondary: 5340
+    problems_block_idx: 5848
+    next_chapter_block_idx: 5986
+  - num: 13
+    title: "Kalman Filters"
+    page_start: 215
+    page_end: 244
+    chapter_title_block_idx: 5987
+    chapter_title_block_idx_secondary: 5986
+    problems_block_idx: 6566
+    next_chapter_block_idx: 6748
+  - num: 14
+    title: "Summary of Estimators"
+    page_start: 245
+    page_end: 251
+    chapter_title_block_idx: 6749
+    chapter_title_block_idx_secondary: 6748
+    problems_block_idx: 6996
+    next_chapter_block_idx: 6997
+  - num: 15
+    title: "Extensions for Complex Data and Parameters"
+    page_start: 252
+    page_end: 288
+    chapter_title_block_idx: 6998
+    chapter_title_block_idx_secondary: 6997
+    problems_block_idx: 7842
+    next_chapter_block_idx: 8082
+
+appendices:
+  - id: "1"
+    title: "Review of Important Concepts"
+    page_start: 289
+    page_end: 296
+    chapter_title_block_idx: 8083
+  - id: "2"
+    title: "Glossary of Symbols and Abbreviations"
+    page_start: 297
+    page_end: 299
+    chapter_title_block_idx: 8349
+
+known_missing_problems:
+  - chapter: 11
+    nums: ["11.16"]

@@ -1,0 +1,72 @@
+slug: kachiashvili_testing_hypotheses
+title: Testing Statistical Hypotheses with Given Reliability
+author:
+  - Kartlos Joseph Kachiashvili
+  - Sadia Hashmi
+edition: 1st ed.
+subject: Probability
+publisher: Cambridge Scholars Publishing
+language: en
+
+filter_types:
+  - header
+  - page_number
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 16
+appendices_start_page: 318
+bibliography_start_page: 323
+index_start_page: null
+
+inline_problems: false
+heading_text_level: 2
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)?)\.\s+(.+)$'
+problem_start_re: '(?!)^(\d+)\.'
+problem_chapter_must_match: false
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^Example\s+([^\.]+)\.'
+
+chapters:
+  - num: 1
+    title: Hypotheses Testing Methods
+    page_start: 16
+    page_end: 32
+    chapter_title_block_idx: 56
+    problems_block_idx: null
+    next_chapter_block_idx: 221
+  - num: 2
+    title: Constrained Bayesian Method for Testing Different Type of Hypotheses
+    page_start: 33
+    page_end: 147
+    chapter_title_block_idx: 221
+    chapter_title_block_idx_secondary: 222
+    problems_block_idx: null
+    next_chapter_block_idx: 1526
+  - num: 3
+    title: Comparison Analysis of Hypotheses Testing Methods
+    page_start: 148
+    page_end: 204
+    chapter_title_block_idx: 1526
+    problems_block_idx: null
+    next_chapter_block_idx: 1948
+  - num: 4
+    title: Experimental Investigations
+    page_start: 205
+    page_end: 317
+    chapter_title_block_idx: 1948
+    problems_block_idx: null
+    next_chapter_block_idx: 2536
+
+appendices:
+  - id: A1
+    title: An Algorithm of Computation of (2.251) Distribution Function
+    chapter_title_block_idx: 2536
+  - id: A2
+    title: The Kullback-Leibler Divergence Between the Distributions Corresponding to the Basic and Alternative Hypotheses
+    chapter_title_block_idx: 2554

@@ -1,0 +1,170 @@
+slug: grainger_stevenson_power_system_analysis
+title: Power System Analysis
+author: John J. Grainger; William D. Stevenson, Jr.
+edition: 1st
+subject: Power Systems
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 22
+appendices_start_page: 769
+bibliography_start_page: null
+index_start_page: 798
+inline_problems: false
+heading_text_level: 2
+
+chapters:
+  - num: 1
+    title: Basic Concepts
+    page_start: 22
+    page_end: 61
+    chapter_title_block_idx: 108
+    problems_block_idx: 540
+    next_chapter_block_idx: 583
+  - num: 2
+    title: Transformers
+    page_start: 62
+    page_end: 107
+    chapter_title_block_idx: 583
+    problems_block_idx: 1060
+    next_chapter_block_idx: 1143
+  - num: 3
+    title: The Synchronous Machine
+    page_start: 108
+    page_end: 161
+    chapter_title_block_idx: 1143
+    problems_block_idx: 1684
+    next_chapter_block_idx: 1769
+  - num: 4
+    title: Series Impedance of Transmission Lines
+    page_start: 162
+    page_end: 190
+    chapter_title_block_idx: 1769
+    problems_block_idx: 2118
+    next_chapter_block_idx: 2160
+  - num: 5
+    title: Capacitance of Transmission Lines
+    page_start: 191
+    page_end: 213
+    chapter_title_block_idx: 2160
+    problems_block_idx: 2436
+    next_chapter_block_idx: 2453
+  - num: 6
+    title: Current and Voltage Relations on a Transmission Line
+    page_start: 214
+    page_end: 258
+    chapter_title_block_idx: 2453
+    problems_block_idx: 3013
+    next_chapter_block_idx: 3103
+  - num: 7
+    title: The Admittance Model and Network Calculations
+    page_start: 259
+    page_end: 303
+    chapter_title_block_idx: 3103
+    problems_block_idx: 3589
+    next_chapter_block_idx: 3623
+  - num: 8
+    title: The Impedance Model and Network Calculations
+    page_start: 304
+    page_end: 349
+    chapter_title_block_idx: 3623
+    problems_block_idx: 4136
+    next_chapter_block_idx: 4198
+  - num: 9
+    title: Power-Flow Solutions
+    page_start: 350
+    page_end: 400
+    chapter_title_block_idx: 4198
+    problems_block_idx: 4754
+    next_chapter_block_idx: 4800
+  - num: 10
+    title: Symmetrical Faults
+    page_start: 401
+    page_end: 436
+    chapter_title_block_idx: 4800
+    problems_block_idx: 5186
+    next_chapter_block_idx: 5225
+  - num: 11
+    title: Symmetrical Components and Sequence Networks
+    page_start: 437
+    page_end: 490
+    chapter_title_block_idx: 5225
+    problems_block_idx: 5852
+    next_chapter_block_idx: 5891
+  - num: 12
+    title: Unsymmetrical Faults
+    page_start: 491
+    page_end: 551
+    chapter_title_block_idx: 5891
+    problems_block_idx: 6584
+    next_chapter_block_idx: 6629
+  - num: 13
+    title: Economic Operation of Power Systems
+    page_start: 552
+    page_end: 611
+    chapter_title_block_idx: 6629
+    problems_block_idx: 7255
+    next_chapter_block_idx: 7299
+  - num: 14
+    title: Zbus Methods in Contingency Analysis
+    page_start: 612
+    page_end: 661
+    chapter_title_block_idx: 7299
+    problems_block_idx: 7780
+    next_chapter_block_idx: 7817
+  - num: 15
+    title: State Estimation of Power Systems
+    page_start: 662
+    page_end: 715
+    chapter_title_block_idx: 7817
+    problems_block_idx: 8338
+    next_chapter_block_idx: 8428
+  - num: 16
+    title: Power System Stability
+    page_start: 716
+    page_end: 768
+    chapter_title_block_idx: 8428
+    problems_block_idx: 9074
+    next_chapter_block_idx: 9096
+
+appendices:
+  - id: A
+    title: The General Equations of the Synchronous Machine
+    page_start: 769
+    page_end: 786
+    chapter_title_block_idx: 9096
+  - id: B
+    title: Matrix Algebra and Network Matrices
+    page_start: 787
+    page_end: 797
+    chapter_title_block_idx: 9253
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^(\d+\.\d+)\.?\s+'
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,141 @@
+slug: glover_overbye_power_system_analysis_design
+title: Power System Analysis and Design
+author: J. Duncan Glover; Thomas J. Overbye; Mulukutla S. Sarma
+edition: 6th
+subject: Power Systems
+publisher: Cengage Learning
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 940
+bibliography_start_page: null
+index_start_page: 944
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 49
+    chapter_title_block_idx: 356
+    problems_block_idx: null
+    next_chapter_block_idx: 667
+  - num: 2
+    title: Fundamentals
+    page_start: 50
+    page_end: 105
+    chapter_title_block_idx: 667
+    problems_block_idx: 1294
+    next_chapter_block_idx: 1481
+  - num: 3
+    title: Power Transformers
+    page_start: 106
+    page_end: 179
+    chapter_title_block_idx: 1481
+    problems_block_idx: 2334
+    next_chapter_block_idx: 2580
+  - num: 4
+    title: Transmission Line Parameters
+    page_start: 180
+    page_end: 255
+    chapter_title_block_idx: 2580
+    problems_block_idx: 3588
+    next_chapter_block_idx: 3784
+  - num: 5
+    title: Transmission Lines: Steady-State Operation
+    page_start: 256
+    page_end: 327
+    chapter_title_block_idx: 3784
+    problems_block_idx: 4661
+    next_chapter_block_idx: 4850
+  - num: 6
+    title: Power Flows
+    page_start: 328
+    page_end: 433
+    chapter_title_block_idx: 4850
+    problems_block_idx: 6014
+    next_chapter_block_idx: 6348
+  - num: 7
+    title: Symmetrical Faults
+    page_start: 434
+    page_end: 507
+    chapter_title_block_idx: 6348
+    problems_block_idx: 6975
+    next_chapter_block_idx: 8056
+  - num: 8
+    title: Symmetrical Components
+    page_start: 508
+    page_end: 565
+    chapter_title_block_idx: 8056
+    problems_block_idx: 7901
+    next_chapter_block_idx: 8146
+  - num: 9
+    title: Unsymmetrical Faults
+    page_start: 566
+    page_end: 611
+    chapter_title_block_idx: 8146
+    problems_block_idx: 8594
+    next_chapter_block_idx: 8877
+  - num: 10
+    title: System Protection
+    page_start: 612
+    page_end: 687
+    chapter_title_block_idx: 8877
+    problems_block_idx: 9675
+    next_chapter_block_idx: 9813
+  - num: 11
+    title: Transient Stability
+    page_start: 688
+    page_end: 757
+    chapter_title_block_idx: 9813
+    problems_block_idx: 10678
+    next_chapter_block_idx: 10761
+  - num: 12
+    title: Power System Controls
+    page_start: 758
+    page_end: 797
+    chapter_title_block_idx: 10761
+    problems_block_idx: 11150
+    next_chapter_block_idx: 11220
+  - num: 13
+    title: Transmission Lines: Transient Operation
+    page_start: 798
+    page_end: 877
+    chapter_title_block_idx: 11220
+    problems_block_idx: 12194
+    next_chapter_block_idx: 12290
+  - num: 14
+    title: Power Distribution
+    page_start: 878
+    page_end: 939
+    chapter_title_block_idx: 12290
+    problems_block_idx: 13001
+    next_chapter_block_idx: 13099
+
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 940
+    chapter_title_block_idx: 13099
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^(CASE STUDY QUESTIONS|REFERENCES|References)$'

@@ -1,0 +1,20 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "kachiashvili-testing-hypotheses-fix-table-4-19-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[278]",
+      "expect": {
+        "id": "tbl-4.21"
+      },
+      "set": {
+        "id": "tbl-4.19",
+        "caption": "Table 4.19. CBM using ML estimate.",
+        "catalog_repair_source": "catalog-audit-c5-table-4-19"
+      },
+      "reason": "C5: raw PDF page 280 shows this table is Table 4.19 (CBM using ML estimate), but MinerU/OCR assigned tbl-4.21; body[268] references Table 4.19."
+    }
+  ]
+}

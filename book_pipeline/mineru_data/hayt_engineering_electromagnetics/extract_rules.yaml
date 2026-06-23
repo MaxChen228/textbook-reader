@@ -1,0 +1,171 @@
+slug: hayt_engineering_electromagnetics
+title: Engineering Electromagnetics
+author: William H. Hayt Jr.; John A. Buck
+edition: 6th
+subject: Electromagnetism
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: [1, 2]
+
+body_start_page: 15
+appendices_start_page: 543
+bibliography_start_page: null
+index_start_page: 565
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Vector Analysis
+    page_start: 15
+    page_end: 40
+    chapter_title_block_idx: 171
+    problems_block_idx: 444
+    next_chapter_block_idx: 482
+  - num: 2
+    title: Coulomb's Law and Electric Field Intensity
+    page_start: 41
+    page_end: 66
+    chapter_title_block_idx: 482
+    problems_block_idx: 780
+    next_chapter_block_idx: 819
+  - num: 3
+    title: Electric Flux Density, Gauss's Law, and Divergence
+    page_start: 67
+    page_end: 96
+    chapter_title_block_idx: 819
+    problems_block_idx: 1236
+    next_chapter_block_idx: 1278
+  - num: 4
+    title: Energy and Potential
+    page_start: 97
+    page_end: 132
+    chapter_title_block_idx: 1278
+    chapter_title_block_idx_secondary: 1279
+    problems_block_idx: 1748
+    next_chapter_block_idx: 1794
+  - num: 5
+    title: Conductors, Dielectrics, and Capacitance
+    page_start: 133
+    page_end: 182
+    chapter_title_block_idx: 1794
+    problems_block_idx: 2457
+    next_chapter_block_idx: 2523
+  - num: 6
+    title: Experimental Mapping Methods
+    page_start: 183
+    page_end: 208
+    chapter_title_block_idx: 2523
+    chapter_title_block_idx_secondary: 2524
+    problems_block_idx: 2738
+    next_chapter_block_idx: 2783
+  - num: 7
+    title: Poisson's and Laplace's Equations
+    page_start: 209
+    page_end: 237
+    chapter_title_block_idx: 2783
+    chapter_title_block_idx_secondary: 2784
+    problems_block_idx: 3185
+    next_chapter_block_idx: 3221
+  - num: 8
+    title: The Steady Magnetic Field
+    page_start: 238
+    page_end: 287
+    chapter_title_block_idx: 3221
+    chapter_title_block_idx_secondary: 3222
+    problems_block_idx: 3891
+    next_chapter_block_idx: 3951
+  - num: 9
+    title: Magnetic Forces, Materials, and Inductance
+    page_start: 288
+    page_end: 335
+    chapter_title_block_idx: 3951
+    chapter_title_block_idx_secondary: 3952
+    problems_block_idx: 4569
+    next_chapter_block_idx: 4635
+  - num: 10
+    title: Time-Varying Fields and Maxwell's Equations
+    page_start: 336
+    page_end: 361
+    chapter_title_block_idx: 4635
+    chapter_title_block_idx_secondary: 4636
+    problems_block_idx: 4982
+    next_chapter_block_idx: 5027
+  - num: 11
+    title: The Uniform Plane Wave
+    page_start: 362
+    page_end: 400
+    chapter_title_block_idx: 5027
+    problems_block_idx: 5587
+    next_chapter_block_idx: 5635
+  - num: 12
+    title: Plane Waves at Boundaries and in Dispersive Media
+    page_start: 401
+    page_end: 448
+    chapter_title_block_idx: 5635
+    problems_block_idx: 6266
+    next_chapter_block_idx: 6314
+  - num: 13
+    title: Transmission Lines
+    page_start: 449
+    page_end: 497
+    chapter_title_block_idx: 6314
+    problems_block_idx: 6833
+    next_chapter_block_idx: 6904
+  - num: 14
+    title: Waveguide and Antenna Fundamentals
+    page_start: 498
+    page_end: 542
+    chapter_title_block_idx: 6904
+    problems_block_idx: 7398
+    next_chapter_block_idx: 7443
+
+appendices:
+  - id: A
+    title: Vector Analysis
+    page_start: 543
+    chapter_title_block_idx: 7443
+  - id: B
+    title: Units
+    page_start: 548
+    chapter_title_block_idx: 7526
+  - id: C
+    title: Material Constants
+    page_start: 554
+    chapter_title_block_idx: 7569
+  - id: D
+    title: Origins of the Complex Permittivity
+    page_start: 558
+    chapter_title_block_idx: 7591
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^Example\s+(\d+\.\d+)\s*$'
+figure_caption_merge: true
+figure_caption_main_re: '^(FIGURE\s+\d+\.\d+)(.*)$'
+known_missing_problems:
+  - chapter: 5
+    nums: ['5.9']
+  - chapter: 7
+    nums: ['7.3', '7.15']
+  - chapter: 11
+    nums: ['11.1', '11.2', '11.3', '11.4', '11.5', '11.6', '11.7', '11.8', '11.9', '11.10', '11.11']

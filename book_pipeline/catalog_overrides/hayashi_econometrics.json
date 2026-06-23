@@ -1,0 +1,40 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "8.5.1",
+      "classification": "external",
+      "reason": "This reference occurs in a source note for Hayashi Table 9.1 and points to Fuller (1976), not to a table within Hayashi.",
+      "where": "ch09.json body[186] footnote",
+      "evidence": "The table footnote reads: SOURCE: Fuller (1976, Table 8.5.1), corrected in Fuller (1996, Table 10.A.1). Hayashi's internal table is Table 9.1."
+    },
+    {
+      "type": "table",
+      "ref": "8.5.2",
+      "classification": "external",
+      "reason": "This reference occurs in a source note for Hayashi Table 9.2 and points to Fuller (1976), not to a table within Hayashi.",
+      "where": "ch09.json body[193] footnote",
+      "evidence": "The table footnote reads: SOURCE: Fuller (1976, Table 8.5.2), corrected in Fuller (1996, Table 10.A.2). Hayashi's internal table is Table 9.2."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "hayashi_econometrics-table-7-2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[529]",
+      "position": "before",
+      "page": 512,
+      "clip": [0.16, 0.22, 0.77, 0.86],
+      "zoom": 2.5,
+      "src": "manual_tbl-7.2.png",
+      "block": {
+        "t": "table",
+        "id": "tbl-7.2",
+        "caption": "Table 7.2: Trinity",
+        "kind": "image"
+      },
+      "reason": "Raw PDF page 512 contains a rotated full-page Table 7.2: Trinity; MinerU did not emit a table block, leaving internal references unresolved."
+    }
+  ]
+}

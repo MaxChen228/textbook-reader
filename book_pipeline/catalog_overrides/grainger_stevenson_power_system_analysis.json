@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "id": "grainger-ch02-fig-2.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[182]",
+      "position": "before",
+      "page": 81,
+      "clip": [0.045, 0.065, 0.96, 0.16],
+      "zoom": 3,
+      "src": "manual_fig-2.11.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-2.11",
+        "kind": "line",
+        "caption": "FIGURE 2.11 Impedance diagram for Example 2.6. Impedances are marked in per unit."
+      },
+      "reason": "MinerU emitted the impedance diagram on PDF page 81 as an equation block without a catalog figure; raw PDF shows Figure 2.11 immediately before the reference paragraph."
+    }
+  ]
+}

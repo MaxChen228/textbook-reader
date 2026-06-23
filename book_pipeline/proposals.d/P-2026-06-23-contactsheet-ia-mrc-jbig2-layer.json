@@ -2,16 +2,20 @@
   "id": "P-2026-06-23-contactsheet-ia-mrc-jbig2-layer",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "contactsheet 對 IA JPX-MRC 掃描可渲 JBIG2 SMask 文字層，取代 UNRENDERABLE 盲過",
   "slug": "contactsheet-ia-mrc-jbig2-layer",
   "detect": [],
   "source": "claude (qc haykin_adaptive_filter)",
   "resolution": "",
   "created": "2026-06-23T17:24:50+00:00",
-  "updated": "2026-06-23T17:24:50+00:00",
+  "updated": "2026-06-23T19:33:59+00:00",
   "evidence": "haykin_adaptive_filter: mupdf 對 IA MRC 三層(背景JPX+前景JPX+JBIG2 SMask)合成單頁 render 即 hang>45s→CONTACTSHEET_UNRENDERABLE；但該頁 JBIG2 SMask(高解析 1-bit 文字遮罩)經 pymupdf.Pixmap(doc, smask_xref) 秒解、razor-sharp 全可讀(前/中/後段+公式+插圖驗訖)。同編碼(Internet Archive Scribe + JPXDecode + JBIG2 SMask)已有 12 本經 MinerU 成功 parse(pozar/horn_johnson/hayes_dsp...)。",
   "proposal": "QC 對 triage=IA-MRC 掃描(producer 含 Internet Archive/Scribe ∧ 頁影像 JPXDecode ∧ 帶 JBIG2 SMask)時，contactsheet 改抽各抽樣頁帶 SMask 影像的 JBIG2 遮罩 xref、用 Pixmap(doc, xref) 直渲拼圖(繞過會 hang 的 JPX 色層合成)。把現行『UNRENDERABLE→盲 pass-through 給 MinerU、靠 book_qc 下游把關』升級為『QC 能實際看見內容→驗書名/版次/清晰/完整』。IA 是主流源、此類書會持續撞同失敗，值得泛化。",
   "risk": "low：純 QC 觀測強化，不改 ingest/parse；fail-open(抽不到 SMask 退回現行 pass-through)。",
-  "disposition": "proposed：待架構師排程落地 contactsheet MRC 分支。當前 haykin 已人工驗訖內容 set_qc pass。"
+  "disposition": "proposed：待架構師排程落地 contactsheet MRC 分支。當前 haykin 已人工驗訖內容 set_qc pass。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "pdf_contactsheet 加 JBIG2 SMask 層渲染 fallback（Pixmap(doc,smask_xref)），取代 UNRENDERABLE 盲過讓 qc 真看見 IA 掃描內容"
+  }
 }

@@ -1,0 +1,109 @@
+slug: harris_harris_digital_design_computer_arch
+title: Digital Design and Computer Architecture
+author: David Money Harris; Sarah L. Harris
+edition: 2nd
+subject: Computer Architecture
+publisher: Morgan Kaufmann
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 27
+appendices_start_page: 607
+bibliography_start_page: null
+index_start_page: 699
+
+chapters:
+  - num: 1
+    title: From Zero to One
+    page_start: 27
+    page_end: 76
+    chapter_title_block_idx: 161
+    problems_block_idx: 585
+    next_chapter_block_idx: 858
+  - num: 2
+    title: Combinational Logic Design
+    page_start: 79
+    page_end: 130
+    chapter_title_block_idx: 858
+    problems_block_idx: 1400
+    next_chapter_block_idx: 1514
+  - num: 3
+    title: Sequential Logic Design
+    page_start: 133
+    page_end: 195
+    chapter_title_block_idx: 1514
+    problems_block_idx: 2113
+    next_chapter_block_idx: 2229
+  - num: 4
+    title: Hardware Description Languages
+    page_start: 197
+    page_end: 261
+    chapter_title_block_idx: 2229
+    problems_block_idx: 2730
+    next_chapter_block_idx: 2829
+  - num: 5
+    title: Digital Building Blocks
+    page_start: 263
+    page_end: 317
+    chapter_title_block_idx: 2829
+    problems_block_idx: 3303
+    next_chapter_block_idx: 3484
+  - num: 6
+    title: Architecture
+    page_start: 319
+    page_end: 393
+    chapter_title_block_idx: 3484
+    problems_block_idx: 4158
+    next_chapter_block_idx: 4318
+  - num: 7
+    title: Microarchitecture
+    page_start: 395
+    page_end: 497
+    chapter_title_block_idx: 4318
+    problems_block_idx: 5054
+    next_chapter_block_idx: 5151
+  - num: 8
+    title: Memory and I/O Systems
+    page_start: 499
+    page_end: 604
+    chapter_title_block_idx: 5151
+    problems_block_idx: 6040
+    next_chapter_block_idx: 6200
+
+appendices:
+  - id: A
+    title: Digital System Implementation
+    page_start: 607
+    chapter_title_block_idx: 6200
+  - id: B
+    title: MIPS Instructions
+    page_start: 643
+    chapter_title_block_idx: 6598
+  - id: C
+    title: C Programming
+    page_start: 647
+    chapter_title_block_idx: 6615
+
+section_re: '^((?:[0-9]+\.[0-9]+)(?=\s+\S)|(?:Exercises)|(?:SystemVerilog Exercises)|(?:VHDL Exercises)|(?:Interview Questions))\s*(.*)$'
+subsection_re: '^([0-9]+\s*\.\s*[0-9]+\s*\.\s*[0-9]+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(?:Exercise|Question)\s+([0-9]+\.[0-9]+)\b\.?' 
+problem_chapter_must_match: true
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+known_missing_problems: []

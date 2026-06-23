@@ -1,0 +1,175 @@
+slug: lee_seshia_embedded_systems
+title: 'Introduction to Embedded Systems: A Cyber-Physical Systems Approach'
+author: Edward A. Lee; Sanjit A. Seshia
+edition: 2nd
+subject: Computer Science
+publisher: MIT Press
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+- 1
+- 2
+body_start_page: 20
+appendices_start_page: 512
+bibliography_start_page: 540
+index_start_page: 560
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 20
+  page_end: 36
+  chapter_title_block_idx: 121
+  problems_block_idx: null
+  next_chapter_block_idx: 237
+- num: 2
+  title: Continuous Dynamics
+  page_start: 37
+  page_end: 60
+  chapter_title_block_idx: 237
+  problems_block_idx: 465
+  next_chapter_block_idx: 510
+- num: 3
+  title: Discrete Dynamics
+  page_start: 61
+  page_end: 96
+  chapter_title_block_idx: 510
+  problems_block_idx: 850
+  next_chapter_block_idx: 919
+- num: 4
+  title: Hybrid Systems
+  page_start: 97
+  page_end: 128
+  chapter_title_block_idx: 919
+  problems_block_idx: 1146
+  next_chapter_block_idx: 1217
+- num: 5
+  title: Composition of State Machines
+  page_start: 128
+  page_end: 154
+  chapter_title_block_idx: 1217
+  problems_block_idx: 1412
+  next_chapter_block_idx: 1448
+- num: 6
+  title: Concurrent Models of Computation
+  page_start: 154
+  page_end: 197
+  chapter_title_block_idx: 1448
+  problems_block_idx: 1812
+  next_chapter_block_idx: 1879
+- num: 7
+  title: Sensors and Actuators
+  page_start: 198
+  page_end: 229
+  chapter_title_block_idx: 1879
+  problems_block_idx: 2181
+  next_chapter_block_idx: 2215
+- num: 8
+  title: Embedded Processors
+  page_start: 229
+  page_end: 257
+  chapter_title_block_idx: 2215
+  problems_block_idx: 2470
+  next_chapter_block_idx: 2479
+- num: 9
+  title: Memory Architectures
+  page_start: 258
+  page_end: 279
+  chapter_title_block_idx: 2479
+  problems_block_idx: 2631
+  next_chapter_block_idx: 2664
+- num: 10
+  title: Input and Output
+  page_start: 279
+  page_end: 310
+  chapter_title_block_idx: 2664
+  problems_block_idx: 2865
+  next_chapter_block_idx: 2940
+- num: 11
+  title: Multitasking
+  page_start: 310
+  page_end: 341
+  chapter_title_block_idx: 2940
+  problems_block_idx: 3163
+  next_chapter_block_idx: 3202
+- num: 12
+  title: Scheduling
+  page_start: 341
+  page_end: 376
+  chapter_title_block_idx: 3202
+  problems_block_idx: 3479
+  next_chapter_block_idx: 3549
+- num: 13
+  title: Invariants and Temporal Logic
+  page_start: 377
+  page_end: 394
+  chapter_title_block_idx: 3549
+  problems_block_idx: 3709
+  next_chapter_block_idx: 3759
+- num: 14
+  title: Equivalence and Refinement
+  page_start: 395
+  page_end: 422
+  chapter_title_block_idx: 3759
+  problems_block_idx: 4004
+  next_chapter_block_idx: 4064
+- num: 15
+  title: Reachability Analysis and Model Checking
+  page_start: 423
+  page_end: 445
+  chapter_title_block_idx: 4064
+  problems_block_idx: 4262
+  next_chapter_block_idx: 4283
+- num: 16
+  title: Quantitative Analysis
+  page_start: 446
+  page_end: 477
+  chapter_title_block_idx: 4283
+  problems_block_idx: 4551
+  next_chapter_block_idx: 4599
+- num: 17
+  title: Security and Privacy
+  page_start: 478
+  page_end: 511
+  chapter_title_block_idx: 4599
+  problems_block_idx: 4873
+  next_chapter_block_idx: 4887
+- num: 18
+  title: Sets and Functions
+  page_start: 512
+  page_end: 521
+  chapter_title_block_idx: 4887
+  problems_block_idx: 4985
+  next_chapter_block_idx: 4998
+- num: 19
+  title: Complexity and Computability
+  page_start: 521
+  page_end: 539
+  chapter_title_block_idx: 4998
+  problems_block_idx: 5174
+  next_chapter_block_idx: 5187
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: '^Example\s+(\d+\.\d+):'
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+- chapter: 6
+  nums:
+  - '6.5'
+heading_priority:
+- subsection_re
+- section_re

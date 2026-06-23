@@ -1,0 +1,267 @@
+{
+  "overrides": [
+    {
+      "id": "jurafsky-fig-2.9-restore",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[71]",
+      "expect": {
+        "id": "tbl-ch02-71"
+      },
+      "set": {
+        "id": "fig-2.9",
+        "caption": "Figure 2.9 Regular expression operators for counting.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 2.9 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-2.10-restore",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[73]",
+      "expect": {
+        "id": "tbl-ch02-73"
+      },
+      "set": {
+        "id": "fig-2.10",
+        "caption": "Figure 2.10 Some characters that need to be escaped (via backslash).",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 2.10 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-3.4-restore",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[126]",
+      "expect": {
+        "id": "tbl-ch03-126"
+      },
+      "set": {
+        "id": "fig-3.4",
+        "caption": "Figure 3.4 Eight sentences randomly generated from four n-grams computed from Shakespeare’s works. All characters were mapped to lower-case and punctuation marks were treated as words. Output is hand-corrected for capitalization to improve readability.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 3.4 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-6.12-restore",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[152]",
+      "expect": {
+        "id": "tbl-ch06-152"
+      },
+      "set": {
+        "id": "fig-6.12",
+        "caption": "Figure 6.12 The PPMI matrix showing the association between words and context words, computed from the counts in Fig. 6.11. Note that most of the 0 PPMI values are ones that had a negative PMI; for example PMI(cherry,computer) = -6.7, meaning that cherry and computer co-occur on Wikipedia less often than we would expect by chance, and with PPMI we replace negative values by zero.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 6.12 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-15.2-restore",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[30]",
+      "expect": {
+        "id": "tbl-ch15-30"
+      },
+      "set": {
+        "id": "fig-15.2",
+        "caption": "Figure 15.2 Excerpt from a conversation between a human travel agent and a human client.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The block is the dialogue excerpt referenced as Fig. 15.2; restore it as a text figure."
+    },
+    {
+      "id": "jurafsky-fig-17.2-restore",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[26]",
+      "expect": {
+        "id": "tbl-ch17-26"
+      },
+      "set": {
+        "id": "fig-17.2",
+        "caption": "Figure 17.2 The Penn Treebank part-of-speech tagset.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The block immediately follows the Fig. 17.2 reference and contains the Penn Treebank tagset table; restore it as a text figure."
+    },
+    {
+      "id": "jurafsky-fig-20.10-restore",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[169]",
+      "expect": {
+        "id": "tbl-ch20-169"
+      },
+      "set": {
+        "id": "fig-20.10",
+        "caption": "Figure 20.10 Features commonly used in classic feature-based approaches to event detection.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 20.10 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-20.15-restore",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[242]",
+      "expect": {
+        "id": "tbl-ch20-242"
+      },
+      "set": {
+        "id": "fig-20.15",
+        "caption": "Figure 20.15 Examples of absolute, relational and durational temporal expressions.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 20.15 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-20.16-restore",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[243]",
+      "expect": {
+        "id": "tbl-ch20-243"
+      },
+      "set": {
+        "id": "fig-20.16",
+        "caption": "Figure 20.16 Examples of temporal lexical triggers.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table embeds the formal Figure 20.16 caption in its final row; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-20.17-restore",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[256]",
+      "expect": {
+        "id": "tbl-ch20-256"
+      },
+      "set": {
+        "id": "fig-20.17",
+        "caption": "Figure 20.17 A temporal expression example annotated with TIMEX3 value attributes.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The code block is the annotated temporal expression example referenced as Fig. 20.17; restore it as a text figure."
+    },
+    {
+      "id": "jurafsky-fig-21.1-restore",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[18]",
+      "expect": {
+        "id": "tbl-ch21-18"
+      },
+      "set": {
+        "id": "fig-21.1",
+        "caption": "Figure 21.1 Some commonly used thematic roles with their definitions.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table embeds the formal Figure 21.1 caption in its final row; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-21.2-restore",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[22]",
+      "expect": {
+        "id": "tbl-ch21-22"
+      },
+      "set": {
+        "id": "fig-21.2",
+        "caption": "Figure 21.2 Some prototypical examples of various thematic roles.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table embeds the formal Figure 21.2 caption in its final row; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-21.3-restore",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[96]",
+      "expect": {
+        "id": "tbl-ch21-96"
+      },
+      "set": {
+        "id": "fig-21.3",
+        "caption": "Figure 21.3 Some semantic roles (frame elements) in the change position on a scale frame.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The table is the frame-elements list referenced by the preceding paragraph as Fig. 21.3; restore it as a text figure."
+    },
+    {
+      "id": "jurafsky-fig-24.7-restore",
+      "action": "set_fields",
+      "chunk": "ch24",
+      "selector": "body[130]",
+      "expect": {
+        "id": "tbl-ch24-130"
+      },
+      "set": {
+        "id": "fig-24.7",
+        "caption": "Figure 24.7 Centering Transitions for Rule 2 from Brennan et al. (1987).",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table footnote is the formal Figure 24.7 caption; prior exclude made the text ref unresolved."
+    },
+    {
+      "id": "jurafsky-fig-12.9-alias-on-combined-image",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[118]",
+      "expect": {
+        "id": "fig-12.10",
+        "src": "8684419cbe2659f1f937011ac636324e66b6e85b38580fc17360745f9e7c36dc.jpg"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-12.9",
+            "type": "figure",
+            "caption": "Figure 12.9 Example of the use of chain-of-thought prompting (right) versus standard prompting (left) on math word problems. Figure from Wei et al. (2022).",
+            "source": "agent-catalog-audit",
+            "evidence": "Raw PDF physical page 263 shows Figure 12.9 immediately above Figure 12.10; MinerU extracted both panels into the existing fig-12.10 image."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Figure 12.9 is present in the same extracted image as Figure 12.10; expose it as a catalog alias sharing the same anchor instead of duplicating/cropping."
+    },
+    {
+      "id": "jurafsky-fig-18.3-restore",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[59]",
+      "expect": {
+        "id": "tbl-ch18-59"
+      },
+      "set": {
+        "id": "fig-18.3",
+        "caption": "Figure 18.3 The grammar for $\\mathcal{L}_{0}$, with example phrases for each rule.",
+        "catalog_exclude_reason": null,
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Parsed table contains the formal Figure 18.3 caption in its final row; restore it as a text figure."
+    }
+  ]
+}
