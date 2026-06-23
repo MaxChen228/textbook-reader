@@ -5626,13 +5626,20 @@
 - 風險：
 > May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （44 條；proposed=1 parked=23）
+## domain: sol  （45 條；proposed=2 parked=23）
 ### P-2026-06-23-hennessy-patterson-caqa-sol — hennessy_patterson_caqa ch3/4/7 case-study 過度切分→sol 題號錯位，3 章無法 merge
 - proposed | type=harness-gap | source=sol_extract
 - 證據：
 > 白名單 [1256] merge ch1/2/5/6 = 120 題全對(86%)。ch3/4/7 系統性錯位、已排除：M3.2「issue%」↔S3.2「答 25 cycles」、M4.2 要 PTX↔S4.2 給 RISC-V 指令數、M7.2 GEMM-dot↔S7.2 batch size；非固定 offset(M3.1↔S3.1 對、M3.18 BTB↔S3.18 對) regex 救不了。根因＝這三章在 6e 是 Case Studies & Exercises 多 part case study，主書 audit 把 a/b/c 各 part 切成獨立頂層題號(3.1→3.1,3.2,3.3...)，解答本沿用教科書原始 exercise 編號→題號字串相撞但語義偏移。
 - 提議：
 > 主書重 audit 把 ch3/4/7 case-study parts 收回單一題號(num 帶 part 後綴 a/b/c)、sol problem_re 配 part 對齊；或引擎加 per-chapter num-remap/語義匹配能力。落地後移除 chapter_re 白名單 [1256] 解鎖三章。
+
+### P-2026-06-23-sedra-microe-sol — sedra_microe 解答本無法 merge：源頭 OCR 缺振盪器章致章級偏移 + 章內題錨錯標
+- proposed | type=source-quality | source=sol_extract
+- 證據：
+> 四維對齊 8th/8th。但 (1) 章級偏移：sol 全書 oscillator 僅 4 次、Wien/Colpitts/Barkhausen/multivibrator/Schmitt 全 0 → 缺整個主書 ch14(Signal Generators/振盪器)；sol 自標 Chapter14 內容實為 CMOS 邏輯(R_on=r_DSN、Boolean Y=A+B+C、PDN/PUN)=主書 ch15 → sol 章 14/15/16 對應主書 15/16/17，按號 merge 使主書 ch14-17 全配錯章解答。(2) 章內 OCR 題錨錯標：ch5 真 5.2 解答(因次分析 k_n=k_n'W/L 無因次)丟錨被棄，後續 block 被誤標 <sup>5.2</sup> 實為 5.3 解答→off-by-one 帶狀漂移至 5.11 才 resync；blk6619 '5.' 是 '5.8' 被 OCR 吃掉小數位。配對率放寬 sup 後 73%(923/1263) 但語義抽樣 ch4/ch5/ch14-17 配到錯解答(配對率高≠配對對)。乾淨章僅 ch1/ch7/ch10/ch11。現引擎無 per-chapter offset 不能只 merge 乾淨章。
+- 提議：
+> 換更乾淨且完整的 8th ISM 源重 ingest(補回振盪器章、修題錨 OCR)；或引擎新增 per-chapter 章號 offset 映射(sol_N→main_N+k) + 題錨 OCR resync 能力後重評。sol_rules.yaml 已留驗證過的 chapter_re/problem_re 供重 ingest 復用。
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - parked | type=harness-gap | source=sol_extract

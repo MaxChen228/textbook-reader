@@ -1,0 +1,19 @@
+# sedra_microe 解答本 — 暫不 merge（源頭 OCR 結構損壞，已開 source-quality proposal）
+#
+# 已推導且驗證的 regex（章/題格式正確，blocker 不在 config 而在源頭 OCR）：
+chapter_re: '^Chapter\s+(\d+)\s*$'          # sol 章標 'Chapter N'（lvl2 與 text-level 混雜，anchored 即濾網）
+problem_re: '^(?:<sup>\s*)?(\d+\.\d+)'        # 題錨多被 <sup>N.M</sup> 包裹；放寬後配對 28%→73%
+multi_per_block: false
+#
+# === 為何 _pending（兩重源頭損壞，非 config 可救）===
+# 1) 章級偏移（致命）：sol 全書 oscillator 僅 4 次、Wien/Colpitts/Barkhausen/multivibrator 全 0
+#    → sol 缺整個「Signal Generators/振盪器」章（主書 ch14）。sol 自標 Chapter14 的內容實為
+#    CMOS 數位邏輯（主書 ch15）。故 sol 章 14/15/16 → 主書 15/16/17，naive 按號 merge 使
+#    主書 ch14-17 全配到錯章解答（振盪器題顯示 CMOS 邏輯解答）。引擎無 per-chapter offset 能力。
+# 2) 章內 OCR 題錨錯標：如 ch5 真 5.2 解答（因次分析「k_n=k_n'W/L 無因次」）丟失題錨被棄，
+#    其後 block 被 OCR 誤標 <sup>5.2</sup> 實為 5.3 解答 → 帶狀 off-by-one，至下一正確錨
+#    （5.11）才 resync；blk6619「5.」是「5.8」被吃掉小數位。隨機損壞、regex 不可救。
+# 語義抽樣：ch1/ch7/ch10/ch11 乾淨對齊，但 ch4/ch5/ch14-17 配到錯解答。現引擎無法只 merge 乾淨章。
+# 解鎖路徑：換更乾淨/完整的 ISM 源重 ingest（補回振盪器章 + 修題錨 OCR），或引擎加 per-chapter
+# 章號 offset 映射 + 題錨 resync 能力後重評。
+_pending: true
