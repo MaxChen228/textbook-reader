@@ -1250,9 +1250,13 @@
 
   function renderHealth(d) {  // daemon 狀態折進產線標題（dm-dot + dm-word）
     const dm = d.daemon
+    const code = d.code || {}
     const healthy = dm.installed && (dm.last_exit_code === 0 || dm.last_exit_code === null)
     let dot, word
+    // 排空中（reload/walltime 退出時排空在飛 worker）優先於「運轉中」：controller 仍活著但已停派新工，
+    // 消除舊盲點（drain 期看板誤顯「運轉中」/CLI 誤顯「閒置」）。
     if (!dm.installed) { dot = 'dot-bad'; word = 'daemon 未安裝' }
+    else if (code.phase === 'draining') { dot = 'dot-warn live'; word = 'controller 排空中（' + (code.reason || 'reload') + '）' }
     else if (dm.in_tick_now) { dot = 'dot-ok live'; word = 'controller 運轉中' }
     else if (healthy) { dot = 'dot-ok'; word = '待命' }
     else { dot = 'dot-bad'; word = `異常 exit=${dm.last_exit_code}` }

@@ -505,6 +505,12 @@ def _pump_event(provider: str, ev: dict, wkey: str, tag: str) -> None:
 _inflight_children: dict[int, int] = {}
 _inflight_lock = threading.Lock()
 
+# drain 協作信號：reactive loop 進入排空（reload/walltime/terminate）即 set → 長跑的 corpus worker
+# （do_math_sweep：batch 子進程 + 逐書 build rebake 迴圈）在安全點（書界）檢查並儘快讓出，避免被當
+# 「殺不掉的純 thread」卡滿 DRAIN_BOUND(600s) 再 os._exit 攔腰（跳過 commit_artifacts、orphan build 子進程）。
+# 協作讓出後 inflight 秒級清空 → 走優雅退出（commit_artifacts 跑）。每 controller 進程 fresh（reload 後新 module）。
+_DRAIN_EVENT = threading.Event()
+
 
 def _register_child(pid: int, pgid: int) -> None:
     with _inflight_lock:
@@ -815,12 +821,23 @@ def _code_version() -> str:
         return '?'
 
 
-def _write_controller_state() -> None:
+def _write_controller_state(phase: str = 'running', **extra) -> None:
     try:
+        st = {'pid': os.getpid(), 'sha': _code_version(), 'started': time.time(), 'phase': phase}
+        st.update(extra)
         with open(CONTROLLER_STATE, 'w') as f:
-            json.dump({'pid': os.getpid(), 'sha': _code_version(), 'started': time.time()}, f)
+            json.dump(st, f)
     except OSError:
         pass
+
+
+def _mark_controller_draining(reason: str) -> None:
+    """進入排空（drain）→ 改寫 controller state phase='draining'（保留 pid/sha 供探活＋觀測），
+    取代舊『drain 一開始就刪檔』。刪檔會讓 devctl status 在整個排空期（math sweep 純 thread 最壞
+    DRAIN_BOUND 秒）誤顯『閒置（無 live controller）』，無法區分 daemon 真死掉 vs 正在 reload 排空
+    —— 開場我自己就被這盲點誤導。改寫後 status 顯『🔄 排空中（reason，已 Ns）』。進程死後 controller_info
+    探活回 None（檔留 stale 無害），reload 的 respawn 會覆寫成新 controller。"""
+    _write_controller_state(phase='draining', reason=reason, drain_started=time.time())
 
 
 def _clear_controller_state() -> None:
@@ -1376,7 +1393,23 @@ def do_math_sweep(dry: bool) -> int:
         te = threading.Thread(target=_pump_err, daemon=True)
         to.start()
         te.start()
-        rc = proc.wait()
+        # 可被 drain 中止的等待（取代裸 proc.wait()）：reload/walltime 進排空 → 中止 batch 子進程，
+        # 殘餘留下個 controller 冪等重掃（rc≠0 → 下方不記 last_sweep）。把「math sweep 卡 600s os._exit」
+        # 降到秒級協作讓出（見 _DRAIN_EVENT）。
+        while True:
+            try:
+                rc = proc.wait(timeout=2)
+                break
+            except subprocess.TimeoutExpired:
+                if _DRAIN_EVENT.is_set():
+                    log('math sweep：偵測 drain（reload/退出）→ 中止 batch 子進程，殘餘留下個 controller 重掃')
+                    proc.terminate()
+                    try:
+                        rc = proc.wait(timeout=10)
+                    except subprocess.TimeoutExpired:
+                        proc.kill()
+                        rc = proc.wait()
+                    break
         to.join(timeout=5)
         te.join(timeout=5)
     finally:
@@ -1426,7 +1459,11 @@ def do_math_sweep(dry: bool) -> int:
         if after < before_by_book.get(slug, after) and slug not in rebake:
             rebake.add(slug)
             log(f'math sweep：{slug} 殘餘 {before_by_book.get(slug)}→{after}（規則修，無 override）→ 重烤上站')
-    for slug in sorted(rebake):
+    rebake_sorted = sorted(rebake)
+    for i, slug in enumerate(rebake_sorted):
+        if _DRAIN_EVENT.is_set():  # drain 書界讓出：剩餘書留下個 controller 冪等重烤（殘餘降即非 fixpoint→自然重掃）
+            log(f'math sweep：偵測 drain → 停在書界，剩 {len(rebake_sorted) - i} 本未重烤（下個 controller 重烤、不丟失）')
+            break
         brc = subprocess.run(['uv', 'run', 'python', '-m', 'build.build_all', slug], cwd=READER_ROOT).returncode
         if brc != 0:
             log(f'❌ math sweep 重烤 {slug} build rc={brc}（parsed 已修、data 未更新，下個 sweep 重試）')
@@ -1890,12 +1927,14 @@ def tick_reactive(no_deploy: bool) -> int:
     deadline = time.monotonic() + LOOP_WALLTIME
     idle = 0
     paused_logged = False  # 暫停閘只 log 一次（per controller instance），避免每 poll 刷 log
+    exit_reason = 'walltime'  # 退出原因（finally 排空時標進 controller state 供觀測）：walltime/reload/idle/terminate
     try:
         while time.monotonic() < deadline:
             # 終止信號（SIGTERM/SIGINT）：handler 已快殺在飛子工 → 直接排空退出。不 _schedule_respawn
             # （kickstart -k 由 launchd 自帶重拉；純 kill 由 StartInterval 兜底），避免雙重重拉。
             if _terminating.is_set():
                 log('reactive loop：終止信號 → 在飛 LLM 子工已快殺、排空退出')
+                exit_reason = 'terminate'
                 break
             # 優雅 reload：收到請求即停派新工、跳出迴圈 → finally 的 ex.shutdown(wait=True) 排空在飛
             # worker（audit/advance 跑完才退）→ 進程退出，launchd 載入新碼。零浪費（對比 kick -k 硬殺）。
@@ -1903,6 +1942,7 @@ def tick_reactive(no_deploy: bool) -> int:
                 _clear_reload()
                 log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
                 _schedule_respawn()  # 排程 detached re-kick：本進程排空退出即刻拉新碼（零空檔）
+                exit_reason = 'reload'
                 break
             # 閘門快照：每 cycle observe 起頭讀一次（單寫手=本執行緒），各 dispatch 點 + worker 的
             # advance_book 共享同一份 → 一個 cycle 內判定一致、且 advance_book per-verb 讀到 ≤上 cycle 新鮮度。
@@ -2000,6 +2040,7 @@ def tick_reactive(no_deploy: bool) -> int:
                     idle += 1
                     if idle >= LOOP_IDLE_ROUNDS:
                         log(f'reactive loop：連 {idle} 輪無工作且無 in-flight OCR → 排空收工（launchd 下次重拉）')
+                        exit_reason = 'idle'
                         break
             else:
                 idle = 0
@@ -2009,7 +2050,9 @@ def tick_reactive(no_deploy: bool) -> int:
             wake.wait(LOOP_POLL)
             wake.clear()
     finally:
-        _clear_controller_state()  # 退出即撤 statefile → 外部改走 kick 起新 controller
+        _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）
+        _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
+        # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）
         # 分流排空（取代舊「一律 120s 上限、逾時快殺」——那正是 rc=-9 集體死亡的源頭：reload 時
         # 把跑了 10–40min 的 audit 在 120s 攔腰 SIGKILL）：
         #   ① 可殺的子進程 agent（_inflight_children 非空）→ **無限等其自然收尾、永不砍**。codex 主力

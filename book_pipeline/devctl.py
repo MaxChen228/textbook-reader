@@ -131,7 +131,10 @@ def code_status() -> dict:
             c = _git(['rev-list', '--count', f'{running}..HEAD'])
             behind = int(c) if c.isdigit() else None
     return {'running': running, 'head': head, 'behind': behind,
-            'started': (info or {}).get('started')}
+            'started': (info or {}).get('started'),
+            'phase': (info or {}).get('phase'),           # running / draining（排空中，消除舊『閒置』盲點）
+            'reason': (info or {}).get('reason'),          # draining 的退出原因：reload/walltime/idle/terminate
+            'drain_started': (info or {}).get('drain_started')}
 
 
 # ── daemon 健康 ──────────────────────────────────────────────────────────────
@@ -919,7 +922,12 @@ def _print_human(snap: dict) -> None:
         print(f"   last tick start {d['last_tick_start_utc']} "
               f"dur={dur_s}  next≈{d['next_tick_eta_s']}s")
     c = snap.get('code') or {}
-    if c.get('running'):
+    if c.get('phase') == 'draining' and c.get('running'):
+        ds = c.get('drain_started')
+        el = f'已 {int(time.time() - ds)}s' if ds else '排空中'
+        print(f"   🔄 排空中（{c.get('reason') or '?'}，{el}）· code={c['running']} → 退出後 respawn 載新碼"
+              f"（非『閒置』：controller 仍活著在排空在飛 worker）")
+    elif c.get('running'):
         b = c.get('behind')
         tag = ('✅ 最新' if b == 0 else
                (f'⏳ 落後 HEAD {b} commit（下次 reload/respawn 自動跟上，毋須 kick）' if b
