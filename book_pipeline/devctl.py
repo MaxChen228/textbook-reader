@@ -776,6 +776,30 @@ def _cmd_probe(args) -> int:
     return 2
 
 
+def provider_health(wks: list) -> dict:
+    """在飛 worker 的 provider 分布 → 偵測『派工落保底』。chain 首=主力（碼層常態 codex）；worker 全落
+    非主力（主力完全沒在用）= 上游（codex/codex-pool）失敗、正燒鏈尾保底（claude Max）。供 status 頂層
+    醒目告警——免像 2026-06-23 那次（codex 暫態額度黏死 controller、~50min 全 claude）只埋在 per-worker
+    provider 欄、沒被注意。status: idle(無worker)/ok(全主力)/degraded(主力+次級混用)/fallback(主力全沒在用)。"""
+    eff = (chain_status().get('effective') or ['codex'])
+    primary = eff[0]
+    live: dict[str, int] = {}
+    for w in wks:
+        p = w.get('provider')
+        if p:
+            live[p] = live.get(p, 0) + 1
+    on_fallback = sum(v for k, v in live.items() if k != primary)
+    if not live:
+        status = 'idle'
+    elif on_fallback and not live.get(primary):
+        status = 'fallback'
+    elif on_fallback:
+        status = 'degraded'
+    else:
+        status = 'ok'
+    return {'status': status, 'primary': primary, 'live': live, 'on_fallback': on_fallback}
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -786,6 +810,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
         'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
         'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
+        'provider_health': provider_health(wks),  # 在飛 worker 落哪層 → 落保底頂層醒目告警（2026-06-23 坑）
         'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
         'daemon': daemon_health(),
         'code': code_status(),
@@ -935,12 +960,22 @@ def _print_human(snap: dict) -> None:
         print(f"   code={c['running']} · HEAD={c.get('head')} · {tag}")
     elif c.get('head'):
         print(f"   code=閒置（無 live controller）· HEAD={c.get('head')}（下次 respawn 直接載）")
+    ph = snap.get('provider_health') or {}
+    _live = '、'.join(f"{k}×{v}" for k, v in (ph.get('live') or {}).items())
+    if ph.get('status') == 'fallback':
+        print(f"   🔴 派工落保底：主力 {ph.get('primary')} 完全沒在用，在飛全靠次級/保底 [{_live}]"
+              f" — codex/codex-pool 失敗？查 daemon.log 或 `devctl probe --real-effort`")
+    elif ph.get('status') == 'degraded':
+        print(f"   🟠 派工部分落次級：[{_live}]（主力 {ph.get('primary')} 仍有在用）")
     wk = snap.get('workers') or []
     if wk:
+        _primary = ph.get('primary')
         print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
         for w in wk:
+            _p = w.get('provider')
+            _mark = '' if _p == _primary or not _primary else ' ⚠非主力'
             print(f"   · {w.get('slug') or w.get('verb')} [{w.get('verb')}] "
-                  f"pid {w.get('pid')} · {w.get('provider')} · 共 {w.get('total_calls', 0)} 次調用")
+                  f"pid {w.get('pid')} · {_p}{_mark} · 共 {w.get('total_calls', 0)} 次調用")
             for r in (w.get('recent') or [])[-5:]:
                 icon = '🔧' if r.get('kind') == 'tool' else '💬'
                 print(f"        {icon} {(r.get('label') or '')[:100]}")
