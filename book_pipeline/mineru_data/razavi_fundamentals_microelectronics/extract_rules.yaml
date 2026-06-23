@@ -1,0 +1,175 @@
+slug: razavi_fundamentals_microelectronics
+title: Fundamentals of Microelectronics
+author: Behzad Razavi
+edition: 2nd
+subject: Microelectronics
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 26
+appendices_start_page: 898
+bibliography_start_page: null
+index_start_page: 918
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction to Microelectronics
+    page_start: 26
+    page_end: 45
+    chapter_title_block_idx: 359
+    problems_block_idx: null
+    next_chapter_block_idx: 542
+  - num: 2
+    title: Basic Physics of Semiconductors
+    page_start: 46
+    page_end: 83
+    chapter_title_block_idx: 542
+    problems_block_idx: 1016
+    next_chapter_block_idx: 1102
+  - num: 3
+    title: Diode Models and Circuits
+    page_start: 84
+    page_end: 146
+    chapter_title_block_idx: 1102
+    problems_block_idx: 1724
+    next_chapter_block_idx: 1871
+  - num: 4
+    title: Physics of Bipolar Transistors
+    page_start: 147
+    page_end: 194
+    chapter_title_block_idx: 1871
+    problems_block_idx: 2318
+    next_chapter_block_idx: 2492
+  - num: 5
+    title: Bipolar Amplifiers
+    page_start: 195
+    page_end: 294
+    chapter_title_block_idx: 2492
+    problems_block_idx: 3624
+    next_chapter_block_idx: 3896
+  - num: 6
+    title: Physics of MOS Transistors
+    page_start: 295
+    page_end: 333
+    chapter_title_block_idx: 3896
+    problems_block_idx: 4272
+    next_chapter_block_idx: 4419
+  - num: 7
+    title: CMOS Amplifiers
+    page_start: 334
+    page_end: 378
+    chapter_title_block_idx: 4419
+    problems_block_idx: 4885
+    next_chapter_block_idx: 5132
+  - num: 8
+    title: Operational Amplifier as a Black Box
+    page_start: 379
+    page_end: 419
+    chapter_title_block_idx: 5132
+    problems_block_idx: 5584
+    next_chapter_block_idx: 5723
+  - num: 9
+    title: Cascode Stages and Current Mirrors
+    page_start: 420
+    page_end: 461
+    chapter_title_block_idx: 5723
+    problems_block_idx: null
+    next_chapter_block_idx: 6315
+  - num: 10
+    title: Differential Amplifiers
+    page_start: 462
+    page_end: 526
+    chapter_title_block_idx: 6315
+    problems_block_idx: 6996
+    next_chapter_block_idx: 7236
+  - num: 11
+    title: Frequency Response
+    page_start: 527
+    page_end: 587
+    chapter_title_block_idx: 7236
+    problems_block_idx: null
+    next_chapter_block_idx: 8060
+  - num: 12
+    title: Feedback
+    page_start: 588
+    page_end: 665
+    chapter_title_block_idx: 8060
+    problems_block_idx: 8884
+    next_chapter_block_idx: 9114
+  - num: 13
+    title: Oscillators
+    page_start: 666
+    page_end: 697
+    chapter_title_block_idx: 9114
+    problems_block_idx: 9447
+    next_chapter_block_idx: 9562
+  - num: 14
+    title: Output Stages and Power Amplifiers
+    page_start: 698
+    page_end: 731
+    chapter_title_block_idx: 9562
+    problems_block_idx: null
+    next_chapter_block_idx: 10039
+  - num: 15
+    title: Analog Filters
+    page_start: 732
+    page_end: 784
+    chapter_title_block_idx: 10039
+    problems_block_idx: 10640
+    next_chapter_block_idx: 10763
+  - num: 16
+    title: Digital CMOS Circuits
+    page_start: 785
+    page_end: 825
+    chapter_title_block_idx: 10763
+    problems_block_idx: 11187
+    next_chapter_block_idx: 11302
+  - num: 17
+    title: CMOS Amplifiers
+    page_start: 826
+    page_end: 897
+    chapter_title_block_idx: 11302
+    problems_block_idx: null
+    next_chapter_block_idx: 12283
+
+appendices:
+  - id: A
+    title: Introduction to SPICE
+    page_start: 898
+    chapter_title_block_idx: 12283
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
