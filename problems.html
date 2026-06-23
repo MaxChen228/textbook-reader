@@ -101,7 +101,7 @@
     .problem-card-cb { accent-color: var(--ink); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0; }
     .problem-card-id { color: var(--ink); font-weight: 700; letter-spacing: .04em; }
     .problem-card-book {
-      margin-top: 4px; font-family: var(--serif); font-size: 15px;
+      margin-top: 4px; font-family: var(--sans); font-size: 15px;
       color: var(--text); font-weight: 600;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
@@ -216,7 +216,7 @@
       font-weight: 700; letter-spacing: .08em;
     }
     .detail-title {
-      margin-top: 8px; font-family: var(--serif); font-size: 26px;
+      margin-top: 8px; font-family: var(--sans); font-size: 26px;
       line-height: 1.25; color: var(--text);
     }
     .detail-meta {
@@ -286,10 +286,6 @@
       <div class="view-toggle">
         <button class="qbk-icon-btn" id="btn-view-list" type="button" title="列表">☰</button>
         <button class="qbk-icon-btn active" id="btn-view-grid" type="button" title="格覽">⊞</button>
-      </div>
-      <div class="qbk-segmented" id="seg-skin">
-        <button data-skin-set="paper">Paper</button>
-        <button data-skin-set="claude">Claude</button>
       </div>
       <div class="qbk-segmented" id="seg-theme">
         <button data-theme-set="auto">Auto</button>

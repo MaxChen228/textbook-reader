@@ -246,7 +246,7 @@ mjx-container[display="true"] {
 .qbk-chip {
   padding: 3px 10px;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: var(--radius);
   font-family: var(--mono);
   font-size: 10px;
   cursor: pointer;
@@ -358,7 +358,7 @@ mjx-container[display="true"] {
 .qbk-raised-item {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius);
   transition: border-color .15s, transform .15s, box-shadow .15s, background .15s;
 }
 .qbk-raised-item:hover {
@@ -469,7 +469,7 @@ mjx-container[display="true"] {
 }
 .qbk-control-row + .qbk-control-row { margin-top: 16px; }
 .qbk-control-label {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 12px;
   font-weight: 500;
   color: var(--sub);
@@ -520,7 +520,7 @@ mjx-container[display="true"] {
 }
 .qbk-control-panel-meta {
   margin-top: 4px;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 12px;
   line-height: 1.35;
   color: var(--sub);
@@ -554,7 +554,7 @@ mjx-container[display="true"] {
   border: 0;
   border-radius: 6px;
   cursor: pointer;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 12px;
   font-weight: 500;
   color: var(--sub);
@@ -581,7 +581,7 @@ mjx-container[display="true"] {
   background: var(--ink);
   color: var(--on-ink);
   border: 1px solid var(--ink);
-  border-radius: 3px;
+  border-radius: var(--radius-pill);
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;

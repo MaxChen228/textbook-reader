@@ -51,7 +51,7 @@
     .sb-back:hover { color: var(--ink); }
     .sb-bookname {
       margin-top: 6px;
-      font-family: var(--serif); font-size: 16px; font-weight: 600;
+      font-family: var(--sans); font-size: 16px; font-weight: 600;
       color: var(--text); line-height: 1.3;
     }
     .sb-bookmeta {
@@ -241,7 +241,7 @@
     /* 領域 = 圖書館大分區：粗襯線大標 + 深色厚底線，最高層級 */
     .lib-group-label {
       display: flex; align-items: baseline; gap: 12px;
-      font-family: var(--serif); font-size: 22px; font-weight: 700;
+      font-family: var(--sans); font-size: 22px; font-weight: 700;
       color: var(--text); letter-spacing: 0;
       padding-bottom: 10px; margin-bottom: 20px;
       border-bottom: 2px solid var(--ink);
@@ -270,11 +270,11 @@
     body[data-theme="dark"] .lib-card-cover img { filter: brightness(.92); }
     .lib-card-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
     .lib-card-title {
-      font-family: var(--serif); font-size: 15px; font-weight: 600; line-height: 1.25;
+      font-family: var(--sans); font-size: 15px; font-weight: 600; line-height: 1.25;
       color: var(--text);
     }
     .lib-card-author {
-      font-family: var(--serif); font-size: 11.5px; color: var(--sub); line-height: 1.35;
+      font-family: var(--sans); font-size: 11.5px; color: var(--sub); line-height: 1.35;
       font-style: italic;
     }
     .lib-card-meta {
@@ -632,13 +632,6 @@
             <button class="qbk-icon-btn compact" id="btn-panel-copy" type="button" title="複製目前章節" aria-label="複製目前章節" disabled>⧉</button>
           </div>
           <div class="qbk-control-row">
-            <span class="qbk-control-label">風格</span>
-            <div class="qbk-segmented" id="seg-skin">
-              <button data-skin="paper">Paper</button>
-              <button data-skin="claude">Claude</button>
-            </div>
-          </div>
-          <div class="qbk-control-row">
             <span class="qbk-control-label">主題</span>
             <div class="qbk-segmented" id="seg-theme">
               <button data-theme="auto">Auto</button>
@@ -754,10 +747,10 @@ let pendingProblemNum = null
 
 // ── 顯示設置（localStorage 持久） ──
 const SETTINGS_KEY = 'textbook.settings.v1'
-const DEFAULT_SETTINGS = { lang: 'en', fsStep: 4, lhStep: 5, widthStep: 5, theme: 'auto', skin: 'paper' }
+const DEFAULT_SETTINGS = { lang: 'en', fsStep: 4, lhStep: 5, widthStep: 5, theme: 'auto', skin: 'cohere' }
 const VALID_LANGS = ['en', 'zh', 'bi']
 const VALID_THEMES = ['auto', 'light', 'dark']
-const VALID_SKINS = ['paper', 'claude']   // 與 design/tokens.css + QBankShared.theme.SKINS 對齊
+const VALID_SKINS = ['cohere']   // 與 design/tokens.css + QBankShared.theme.SKINS 對齊
 const FS_VALUES = [10, 12, 14, 16, 18, 22, 26, 30, 35, 40]
 const LH_VALUES = [1.00, 1.15, 1.30, 1.50, 1.70, 1.95, 2.25, 2.55, 2.85, 3.20]
 const WIDTH_VALUES = [640, 700, 760, 820, 880, 940, 1000, 1060, 1120, 1180]
@@ -980,12 +973,6 @@ function setupSettingsUI() {
     const b = e.target.closest('button[data-theme]')
     if (!b) return
     settings.theme = b.dataset.theme
-    saveSettings(); applySettings()
-  })
-  document.getElementById('seg-skin').addEventListener('click', (e) => {
-    const b = e.target.closest('button[data-skin]')
-    if (!b) return
-    settings.skin = b.dataset.skin
     saveSettings(); applySettings()
   })
   document.getElementById('btn-panel-copy').addEventListener('click', copyCurrentChunk)

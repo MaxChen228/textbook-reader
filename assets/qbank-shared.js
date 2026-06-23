@@ -319,19 +319,19 @@ window.addEventListener("load",printWhenReady,{once:true});
   }
 
   // 主題 + 換皮統一管理器。三頁共用單一真相：
-  //   localStorage 'textbook.settings.v1' 的 .theme(auto/light/dark) 與 .skin(paper/claude…)
+  //   localStorage 'textbook.settings.v1' 的 .theme(auto/light/dark) 與 .skin(cohere…)
   //   兩軸都寫到 <body data-theme data-skin>；token 定義全在 design/tokens.css。
-  // 新增一張皮：tokens.css 加區塊 + 下方 SKINS 加名字，UI(data-skin-set 按鈕)自動長出。
+  // 新增一張皮：tokens.css 加區塊 + 下方 SKINS 加名字 + 把 data-skin-set 切換鈕加回 UI。
   const theme = (function () {
     const KEY = 'textbook.settings.v1';
     const MODES = ['auto', 'light', 'dark'];
-    const SKINS = ['paper', 'claude'];
+    const SKINS = ['cohere'];   // 單一現役皮；加皮見 design/tokens.css 檔頭 ADD A SKIN
     const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
     function read() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch { return {}; } }
     function patch(p) { const s = read(); Object.assign(s, p); try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
     function mode() { const m = read().theme; return MODES.includes(m) ? m : 'auto'; }
-    function skin() { const k = read().skin; return SKINS.includes(k) ? k : 'paper'; }
+    function skin() { const k = read().skin; return SKINS.includes(k) ? k : SKINS[0]; }
     function resolvedMode() { const m = mode(); return (m === 'dark' || (m === 'auto' && mq && mq.matches)) ? 'dark' : 'light'; }
 
     // 把目前狀態寫到 body，並同步任何 [data-theme-set]/[data-skin-set] 控制鈕的 active 態。
