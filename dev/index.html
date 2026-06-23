@@ -318,6 +318,7 @@
     <div class="topbar-spacer"></div>
     <span class="meta qbk-result-count" id="updated"></span>
     <span class="meta qbk-result-count" id="gate-badge" title="閘門狀態（唯讀；操作走 CLI：devctl gates / pause / resume）">⏸ —</span>
+    <span class="meta qbk-result-count" id="depth-strip" title="管線深度（owned 各階段幾本；⏸=閘門緩衝）">🌊 —</span>
     <button class="qbk-control-btn compact" id="btn-math" type="button" title="數學 sweep · 跨書渲染殘餘">🧮 <span id="mt-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
@@ -1328,12 +1329,25 @@
                       : '\n（無 rules）')
   }
 
+  // 管線深度（純觀測）：topbar strip 顯示 owned 書在各階段各幾本（排除「已上架」大且靜態），
+  // ⏸ 標被閘門緩衝（解耦流 hold audit 時 audit 緩衝深度一眼可見）→ 根治「你在等什麼」盲區。
+  // 資料 = devctl build_snapshot 的 depth 欄（{total, held, order}，複用 books[] 已算 stage/gated）。
+  function renderDepth(d) {
+    const el = document.getElementById('depth-strip'); if (!el) return
+    const dep = d.depth || {}, t = dep.total || {}, h = dep.held || {}, order = dep.order || []
+    const parts = order.filter(k => k !== '已上架' && t[k]).map(k => `${k}${t[k]}${h[k] ? '⏸' : ''}`)
+    el.textContent = parts.length ? '🌊 ' + parts.join(' ') : '🌊 管線空'
+    el.title = '管線深度（owned 各階段；⏸=閘門緩衝、非卡關）\n'
+      + order.map(k => `${k}: ${t[k] || 0}${h[k] ? '（緩衝 ' + h[k] + '）' : ''}`).join('\n')
+  }
+
   function render(d) {
     const prevStage = {}
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
     last = d
     renderHealth(d)
     renderGateBadge(d)
+    renderDepth(d)
     updateLineSub()
     renderBooklist(d)
     reconcileBooks(d)
