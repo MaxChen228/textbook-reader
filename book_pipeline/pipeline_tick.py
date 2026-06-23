@@ -860,24 +860,6 @@ def wake_controller() -> bool:
         return False
 
 
-def _have_slugs() -> set:
-    """已存在、不該再爬的 slug：mineru_data/* 任何書（含 _sol、含 in-flight）∪ raw_pdfs/*.pdf。
-    daemon 端去重的權威來源——擋 refill 誤選既有書（曾見 james_islr 等已 parsed 書被重列）。"""
-    have = set()
-    try:
-        for p in glob.glob(os.path.join(DATA_DIR, '*')):
-            if os.path.isdir(p):
-                have.add(os.path.basename(p))
-    except Exception:
-        pass
-    try:
-        for p in glob.glob(os.path.join(ROOT, 'raw_pdfs', '*.pdf')):
-            have.add(os.path.basename(p)[:-4])
-    except Exception:
-        pass
-    return have
-
-
 # 快取「0」當硬閘門的可信時效（秒）。額度 0→正（每日 reset／回補）是『解除阻擋買書員』方向、
 # 且**無失效事件**（invalidate_zlib_cache 只在花額度時觸發、恢復時不觸發）。若信任 stale-0 會卡住
 # 買書員整個 ZLIB_TTL（~5min）→「額度好了卻遲遲不拉書」。故 0 僅 fresh 時可信，更舊 → 樂觀重查。

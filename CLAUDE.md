@@ -96,5 +96,4 @@ uv run python -m http.server 8001                        # 本機預覽
 
 - CF ingress PUT 全覆寫,漏 kg 規則會打掛正式站 wordnexus.lol。
 - `cwebp` 須裝(`brew install webp`),否則 convert 失敗。
-- `lint_latex.py` 有壞 import(`from config import ...`,函式不存在)但不在 tick 路徑,照留;**不**拖 qbank 的 `config.py` 進來。
 - MinerU/zlib 憑證各機獨立,絕不入 git。
