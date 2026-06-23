@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-spivak-calculus",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/test_intake.py（sol_extract spivak_calculus）",
+  "slug": "spivak_calculus",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-23T11:41:45+00:00",
+  "updated": "2026-06-23T11:41:45+00:00",
+  "evidence": "scope_guard bracket：worker [sol_extract spivak_calculus] session=spivak_calculus:69637 存活期間，受保護程式碼面 book_pipeline/test_intake.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "+++ book_pipeline/test_intake.py (untracked 新檔)\n\"\"\"intake.set_gates_for 閘門結果回歸測試：uv run python -m book_pipeline.test_intake\n\n守住 2026-06-23 FREEZE bug 不重現：舊「default=hold + 逐本 allow 子書 slug」會——\n  ① sol_ingest/sol_extract 派工在**母書**，只 allow `<x>_sol` 子書 → 母書被 default=hold 擋死、\n     子書永遠 merge 不進（R3 卡住 nilsson/sedra/khalil 3 本）；\n  ② default=hold 連帶凍結全 corpus 既有 sol backlog → daemon 閒置、看板工人 0。\n新設計 = default=allow + 只 hold crawl lane（本批 + 全 backlog 齊跑，只擋自動爬新書）。\n全 hermetic：redirect pg 路徑到 tmp、mock controller_pid 避免真 SIGUSR1，絕不碰 live .control/gates.json。\n\"\"\"\nfrom __future__ import annotations\n\nimport os\nimport tempfile\n\nfrom book_pipeline import intake\nfrom book_pipeline import pipeline_gates as pg\nfrom book_pipeline import pipeline_tick as pt\n\n\ndef _redirect(tmp: str):\n    saved = (pg.CONTROL_DIR, pg.GATES_PATH)\n    pg.CONTROL_DIR = tmp\n    pg.GATES_PATH = os.path.join(tmp, 'gates.json')\n\n    def restore():\n        pg.CONTROL_DIR, pg.GATES_PATH = saved\n    return restore\n\n\ndef test_set_gates_for_allows_parent_sol_holds_crawl():\n    with tempfile.TemporaryDirectory() as tmp:\n        restore = _redirect(tmp)\n        saved_pid = pt.controller_pid\n        pt.controller_pid = lambda: None          # 不發真 SIGUSR1\n        try:\n            intake.set_gates_for(['nilsson_riedel_electric_circuits_sol'])  # fetch 的是子書 slug\n            g = pg.load_gates()\n            assert g['default'] == 'allow', g\n            # FREEGE-bug 守護：母書（既有 owned、非 fetch 的 slug）的 sol_ingest 必須放行，否則子書 merge 不進\n            assert pg.gate_allows('nilsson_riedel_electric_circuits', 'sol_ingest', g) is True\n            # 全 corpus 既有 sol backlog 也須放行（不再凍結）\n            assert pg.gate_allows('boyd_convex_opt', 'sol_extract', g) is True\n            # 只擋自動 crawl lane（保節奏：intake 直接 fetch 是唯一新書來源）\n            assert pg.gate_allows(None, 'crawl', g) is False\n            assert pg.gate_allows(None, 'math_sweep', g) is True\n            assert pg.gate_allows(None, 'gc', g) is True\n        finally:\n            pt.controller_pid = saved_pid\n            restore()\n    print('✓ set_gates_for：default=allow + hold crawl，母書 sol/backlog 放行、crawl 擋')\n\n\nif __name__ == '__main__':\n    test_set_gates_for_allows_parent_sol_holds_crawl()\n    print('\\n全部通過 ✅')",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

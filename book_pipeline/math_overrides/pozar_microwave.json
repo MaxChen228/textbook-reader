@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "pozar_microwave-ch10-body-76-00acd7",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[76]",
+      "expect": "\\begin{array}{l l} \\text {For T_{1} = 290 K,} & N _ {1} = - 6 2. 0 \\mathrm{dBm}. \\\\ \\text {For T_{2} = 77 K,} & N _ {2} = - 6 4. 7 \\mathrm{dBm}. \\end{array}",
+      "new": "\\begin{array}{l l} \\text {For } T_{1} = 290\\ \\mathrm{K}\\text{,} & N_{1} = - 6 2. 0 \\mathrm{dBm}. \\\\ \\text {For } T_{2} = 77\\ \\mathrm{K}\\text{,} & N_{2} = - 6 4. 7 \\mathrm{dBm}. \\end{array}"
+    },
+    {
+      "id": "pozar_microwave-ch10-body-251-e49450",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[251]",
+      "expect": "\\begin{array}{l l l l} 2 \\omega_ {1} & \\text {(second harmonic of \\omega_ {1})} & m = 2 n = 0 & \\text {order} = 2, \\\\ 2 \\omega_ {2} & \\text {(second harmonic of \\omega_ {2})} & m = 0 n = 2 & \\text {order} = 2, \\\\ \\omega_ {1} - \\omega_ {2} & \\text {(difference frequency)} & m = 1 n = - 1 & \\text {order} = 2, \\\\ \\omega_ {1} + \\omega_ {2} & \\text {(sum frequency)} & m = 1 n = 1 & \\text {order} = 2. \\end{array}",
+      "new": "\\begin{array}{l l l l} 2 \\omega_ {1} & \\text {(second harmonic of } \\omega_ {1} \\text {)} & m = 2 n = 0 & \\text {order} = 2, \\\\ 2 \\omega_ {2} & \\text {(second harmonic of } \\omega_ {2} \\text {)} & m = 0 n = 2 & \\text {order} = 2, \\\\ \\omega_ {1} - \\omega_ {2} & \\text {(difference frequency)} & m = 1 n = - 1 & \\text {order} = 2, \\\\ \\omega_ {1} + \\omega_ {2} & \\text {(sum frequency)} & m = 1 n = 1 & \\text {order} = 2. \\end{array}"
+    }
+  ]
+}

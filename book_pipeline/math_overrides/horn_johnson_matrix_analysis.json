@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "horn_johnson_matrix_analysis-ch06-body-15-f6a17f",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[15]",
+      "expect": "x_{p}(\\lambda -a_{pp}) = \\sum \\liminfits_{\\substack{j = 1\\\\ j\\neq p}}^{n}a_{pj}x_{j}",
+      "new": "x_{p}(\\lambda -a_{pp}) = \\sum\\limits_{\\substack{j = 1\\\\ j\\neq p}}^{n}a_{pj}x_{j}"
+    },
+    {
+      "id": "horn_johnson_matrix_analysis-ch06-body-426-f6a17f",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[426]",
+      "expect": "x_{p}(\\lambda -a_{pp}) = \\sum \\liminfits_{\\substack{j = 1\\\\ j\\neq p}}^{n}a_{pj}x_{j}",
+      "new": "x_{p}(\\lambda -a_{pp}) = \\sum\\limits_{\\substack{j = 1\\\\ j\\neq p}}^{n}a_{pj}x_{j}"
+    },
+    {
+      "id": "horn_johnson_matrix_analysis-ch04-body-569-0dac38",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[569]",
+      "expect": "B = S A S ^ {T}\\tag{4.5.3 ( ^{T} )}",
+      "new": "B = S A S ^ {T}\\tag{4.5.3 (${}^{T}$)}"
+    },
+    {
+      "id": "horn_johnson_matrix_analysis-ch06-body-399-585f79",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[399]",
+      "expect": "R_{i}^{\\prime} = \\sum \\liminfits_{\\substack{j = 1\\\\ j\\neq i}}^{n}\\left|a_{ij}\\right|",
+      "new": "R_{i}^{\\prime} = \\sum\\limits_{\\substack{j = 1\\\\ j\\neq i}}^{n}\\left|a_{ij}\\right|"
+    },
+    {
+      "id": "horn_johnson_matrix_analysis-ch06-body-432-acaedb",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[432]",
+      "expect": "x_{q}(\\lambda -a_{qq}) = \\sum \\liminfits_{\\substack{j = 1\\\\ j\\neq q}}^{n}a_{qj}x_{j}",
+      "new": "x_{q}(\\lambda -a_{qq}) = \\sum\\limits_{\\substack{j = 1\\\\ j\\neq q}}^{n}a_{qj}x_{j}"
+    }
+  ]
+}

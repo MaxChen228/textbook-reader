@@ -1,0 +1,63 @@
+{
+  "overrides": [
+    {
+      "id": "shirley_marschner_graphics-ch15-body-195-819016",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[195]",
+      "expect": "\\mathbf {f} (u) = \\left\\{ \\begin{array}{l l} \\mathbf {f} _ {1} (2 u) & \\text {if 0\\leq u<   \\frac {1}{2}}, \\\\ \\mathbf {f} _ {2} (2 u - 1) & \\text {if \\frac {1}{2} \\leq u <   1}, \\end{array} \\right.",
+      "new": "\\mathbf {f} (u) = \\left\\{ \\begin{array}{l l} \\mathbf {f} _ {1} (2 u) & \\text {if } 0\\leq u< \\frac {1}{2}, \\\\ \\mathbf {f} _ {2} (2 u - 1) & \\text {if } \\frac {1}{2} \\leq u < 1, \\end{array} \\right."
+    },
+    {
+      "id": "shirley_marschner_graphics-ch05-body-71-dc1aa7",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[71]",
+      "field": "md",
+      "all": true,
+      "old": "$( ^ { \\left. } \\mathrm { p r e m u l t i p l y i n g } ^ { \\right. } )$",
+      "new": "$( \\left. \\mathrm { p r e m u l t i p l y i n g } \\right. )$",
+      "anchor": "c307d664"
+    },
+    {
+      "id": "shirley_marschner_graphics-ch04-body-54-b00165",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[54]",
+      "expect": "\\begin{array}{l} \\text {compute u and v using (4.1)} \\\\ \\text {ray.direction \\leftarrow - w} \\\\ \\text {ray.origin \\leftarrow e + u u + v v} \\end{array}",
+      "new": "\\begin{array}{l} \\text {compute u and v using (4.1)} \\\\ \\text {ray.direction } \\leftarrow \\text { - w} \\\\ \\text {ray.origin } \\leftarrow \\text { e + u u + v v} \\end{array}"
+    },
+    {
+      "id": "shirley_marschner_graphics-ch11-body-260-96c354",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[260]",
+      "expect": "\\begin{array}{l} \\text { RGB   turbstripe(point p, double w) } \\\\ \\text { double t = (1+sin(k_{1} z_{p} + turbulence(k_{2} p)) / w) / 2} \\\\ \\text { return t*s0 + (1 - t)*s1 } \\end{array}",
+      "new": "\\begin{array}{l} \\text { RGB turbstripe(point p, double w) } \\\\ \\text { double t = (1+sin(} k_{1} z_{p} \\text { + turbulence(} k_{2} p \\text {)) / w) / 2} \\\\ \\text { return t*s0 + (1 - t)*s1 } \\end{array}"
+    },
+    {
+      "id": "shirley_marschner_graphics-ch05-body-41-9c8335",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[41]",
+      "expect": "\\left[ \\begin{array}{c c c} a _ {1 1} & \\ldots & a _ {1 m} \\\\ \\vdots & & \\vdots \\\\ \\framebox {a _ {i 1}} & \\ldots & a _ {i m} \\\\ \\framebox {\\vdots} & & \\vdots \\\\ a _ {r 1} & \\ldots & a _ {r m} \\end{array} \\right] \\left[ \\begin{array}{c c c c c} b _ {1 1} & \\ldots & \\framebox {b _ {1 j}} & \\ldots & b _ {1 c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ b _ {m 1} & \\ldots & \\framebox {b _ {m j}} & \\ldots & b _ {m c} \\end{array} \\right] = \\left[ \\begin{array}{c c c c c} p _ {1 1} & \\ldots & p _ {1 j} & \\ldots & p _ {1 c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ p _ {i 1} & \\ldots & \\framebox {p _ {i j}} & \\ldots & p _ {i c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ p _ {r 1} & \\ldots & p _ {r j} & \\ldots & p _ {r c} \\end{array} \\right].",
+      "new": "\\left[ \\begin{array}{c c c} a _ {1 1} & \\ldots & a _ {1 m} \\\\ \\vdots & & \\vdots \\\\ \\boxed {a _ {i 1}} & \\ldots & a _ {i m} \\\\ \\boxed {\\vdots} & & \\vdots \\\\ a _ {r 1} & \\ldots & a _ {r m} \\end{array} \\right] \\left[ \\begin{array}{c c c c c} b _ {1 1} & \\ldots & \\boxed {b _ {1 j}} & \\ldots & b _ {1 c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ b _ {m 1} & \\ldots & \\boxed {b _ {m j}} & \\ldots & b _ {m c} \\end{array} \\right] = \\left[ \\begin{array}{c c c c c} p _ {1 1} & \\ldots & p _ {1 j} & \\ldots & p _ {1 c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ p _ {i 1} & \\ldots & \\boxed {p _ {i j}} & \\ldots & p _ {i c} \\\\ \\vdots & & \\vdots & & \\vdots \\\\ p _ {r 1} & \\ldots & p _ {r j} & \\ldots & p _ {r c} \\end{array} \\right]."
+    },
+    {
+      "id": "shirley_marschner_graphics-ch12-body-276-fa71db",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[276]",
+      "expect": "\\begin{array}{l} \\text {function add( triangle T)} \\\\ \\quad \\mathrm{fa} = f (\\mathbf {a}) \\\\ \\quad \\mathrm{fb} = f (\\mathbf {b}) \\\\ \\quad \\mathrm{fc} = f (\\mathbf {c}) \\\\ \\quad \\text {if (abs(fa) <   \\epsilon) then} \\\\ \\quad \\quad \\mathrm{fa} = 0 \\\\ \\quad \\text {if (abs(fb) <   \\epsilon) then} \\\\ \\quad \\quad \\mathrm{fb} = 0 \\\\ \\quad \\text {if (abs(fc) <   \\epsilon) then} \\\\ \\quad \\quad \\mathrm{fc} = 0 \\\\ \\quad \\text {if (fa\\leq 0 and fb\\leq 0 and fc\\leq 0) then} \\\\ \\quad \\quad \\text {if (negative subtree is empty) then} \\\\ \\quad \\quad \\text {negative - subtree = node(T)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {function add( triangle T)} \\\\ \\quad \\mathrm{fa} = f (\\mathbf {a}) \\\\ \\quad \\mathrm{fb} = f (\\mathbf {b}) \\\\ \\quad \\mathrm{fc} = f (\\mathbf {c}) \\\\ \\quad \\text {if (abs(fa) <   } \\epsilon \\text {) then} \\\\ \\quad \\quad \\mathrm{fa} = 0 \\\\ \\quad \\text {if (abs(fb) <   } \\epsilon \\text {) then} \\\\ \\quad \\quad \\mathrm{fb} = 0 \\\\ \\quad \\text {if (abs(fc) <   } \\epsilon \\text {) then} \\\\ \\quad \\quad \\mathrm{fc} = 0 \\\\ \\quad \\text {if (fa} \\leq 0 \\text { and fb} \\leq 0 \\text { and fc} \\leq 0 \\text {) then} \\\\ \\quad \\quad \\text {if (negative subtree is empty) then} \\\\ \\quad \\quad \\text {negative - subtree = node(T)} \\end{array}"
+    },
+    {
+      "id": "shirley_marschner_graphics-ch21-body-74-df85b1",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{l} \\text {color directLight(  x, k_{o} , n)} \\\\ \\text {pick random point x^{\\prime} with normal vector n^{\\prime} on light} \\\\ \\mathbf {d = x ^ {\\prime} - x} \\\\ \\mathbf {k _ {i} = d / \\| d \\|} \\\\ \\text {if (ray x + td has no hits for t <   1- \\epsilon) then} \\\\ \\quad \\text {return \\rho(k_{i} , k_{o})L_{e}(x^{\\prime} , - k_{i})(n\\cdot d)(- n^{\\prime} \\cdot d) / \\|d\\|^{4}} \\\\ \\text {else} \\\\ \\quad \\text {return 0} \\end{array}",
+      "new": "\\begin{array}{l} \\text {color directLight(  x, } k_{o} \\text { , n)} \\\\ \\text {pick random point } x^{\\prime} \\text { with normal vector } n^{\\prime} \\text { on light} \\\\ \\mathbf {d = x ^ {\\prime} - x} \\\\ \\mathbf {k _ {i} = d / \\| d \\|} \\\\ \\text {if (ray x + td has no hits for t <   1- } \\epsilon \\text {) then} \\\\ \\quad \\text {return } \\rho(k_{i} , k_{o})L_{e}(x^{\\prime} , - k_{i})(n\\cdot d)(- n^{\\prime} \\cdot d) / \\|d\\|^{4} \\\\ \\text {else} \\\\ \\quad \\text {return 0} \\end{array}"
+    }
+  ]
+}
