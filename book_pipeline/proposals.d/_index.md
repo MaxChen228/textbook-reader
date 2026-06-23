@@ -45,88 +45,13 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （207 條；proposed=2 parked=2）
+## domain: engine  （210 條；proposed=1 parked=2）
 ### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
 - proposed | type=tooling-gap | source=agent
 - 證據：
 > comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。
 - 提議：
 > 在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。
-
-### P-2026-06-23-khalil-nonlinear — worker 越界改核心碼：book_pipeline/devctl.py（sol_extract khalil_nonlinear）
-- proposed | type=patch | source=scope_guard
-- 證據：
-> scope_guard bracket：worker [sol_extract khalil_nonlinear] session=khalil_nonlinear:24319 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
-- 提議：
-> diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
-> index adf30b5..5a9cd2b 100644
-> --- a/book_pipeline/devctl.py
-> +++ b/book_pipeline/devctl.py
-> @@ -776,6 +776,30 @@ def _cmd_probe(args) -> int:
->      return 2
->
->
-> +def provider_health(wks: list) -> dict:
-> +    """在飛 worker 的 provider 分布 → 偵測『派工落保底』。chain 首=主力（碼層常態 codex）；worker 全落
-> +    非主力（主力完全沒在用）= 上游（codex/codex-pool）失敗、正燒鏈尾保底（claude Max）。供 status 頂層
-> +    醒目告警——免像 2026-06-23 那次（codex 暫態額度黏死 controller、~50min 全 claude）只埋在 per-worker
-> +    provider 欄、沒被注意。status: idle(無worker)/ok(全主力)/degraded(主力+次級混用)/fallback(主力全沒在用)。"""
-> +    eff = (chain_status().get('effective') or ['codex'])
-> +    primary = eff[0]
-> +    live: dict[str, int] = {}
-> +    for w in wks:
-> +        p = w.get('provider')
-> +        if p:
-> +            live[p] = live.get(p, 0) + 1
-> +    on_fallback = sum(v for k, v in live.items() if k != primary)
-> +    if not live:
-> +        status = 'idle'
-> +    elif on_fallback and not live.get(primary):
-> +        status = 'fallback'
-> +    elif on_fallback:
-> +        status = 'degraded'
-> +    else:
-> +        status = 'ok'
-> +    return {'status': status, 'primary': primary, 'live': live, 'on_fallback': on_fallback}
-> +
-> +
->  def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
->      now = _now_utc()
->      bs = books_status(write_timeline=write_timeline)
-> @@ -786,6 +810,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
->          'generated_at_local': datetime.now().isoformat(timespec='seconds'),
->          'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
->          'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
-> +        'provider_health': provider_health(wks),  # 在飛 worker 落哪層 → 落保底頂層醒目告警（2026-06-23 坑）
->          'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
->          'daemon': daemon_health(),
->          'code': code_status(),
-> @@ -935,12 +960,22 @@ def _print_human(snap: dict) -> None:
->          print(f"   code={c['running']} · HEAD={c.get('head')} · {tag}")
->      elif c.get('head'):
->          print(f"   code=閒置（無 live controller）· HEAD={c.get('head')}（下次 respawn 直接載）")
-> +    ph = snap.get('provider_health') or {}
-> +    _live = '、'.join(f"{k}×{v}" for k, v in (ph.get('live') or {}).items())
-> +    if ph.get('status') == 'fallback':
-> +        print(f"   🔴 派工落保底：主力 {ph.get('primary')} 完全沒在用，在飛全靠次級/保底 [{_live}]"
-> +              f" — codex/codex-pool 失敗？查 daemon.log 或 `devctl probe --real-effort`")
-> +    elif ph.get('status') == 'degraded':
-> +        print(f"   🟠 派工部分落次級：[{_live}]（主力 {ph.get('primary')} 仍有在用）")
->      wk = snap.get('workers') or []
->      if wk:
-> +        _primary = ph.get('primary')
->          print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
->          for w in wk:
-> +            _p = w.get('provider')
-> +            _mark = '' if _p == _primary or not _primary else ' ⚠非主力'
->              print(f"   · {w.get('slug') or w.get('verb')} [{w.get('verb')}] "
-> -                  f"pid {w.get('pid')} · {w.get('provider')} · 共 {w.get('total_calls', 0)} 次調用")
-> +                  f"pid {w.get('pid')} · {_p}{_mark} · 共 {w.get('total_calls', 0)} 次調用")
->              for r in (w.get('recent') or [])[-5:]:
->                  icon = '🔧' if r.get('kind') == 'tool' else '💬'
->                  print(f"        {icon} {(r.get('label') or '')[:100]}")
-- 風險：
-> observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
@@ -5762,6 +5687,307 @@
 > scope_guard bracket：worker [audit nagle_saff_differential_equations] session=nagle_saff_differential_equations:79138 存活期間，受保護程式碼面 book_pipeline/validate_rules.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：
 > (無 diff 文本，book_pipeline/validate_rules.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-chapman-electric-machinery — worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc chapman_electric_machinery）
+- superseded | type=patch | source=scope_guard
+- 決議：architect-concurrent-edit-committed
+- 處置：
+> scope_guard 假陽：bracket 存活期間被改的受保護檔（pipeline_queue.py/devctl.py）是架構師並發編輯（stage_depth/buffered_at/gates --at/release/provider_health），非 worker 越界。已 commit 落地（bb8faa1/106ee2f/1296d67），working-tree 函式皆在。教訓＝改 live daemon 碼前先 commit（commit-push-before-redeploy），否則 daemon 跑 bracket 時並發編輯被誤判。
+- 證據：
+> scope_guard bracket：worker [qc chapman_electric_machinery] session=chapman_electric_machinery:57627 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_queue.py b/book_pipeline/pipeline_queue.py
+> index cc6923e..8fe1ff0 100644
+> --- a/book_pipeline/pipeline_queue.py
+> +++ b/book_pipeline/pipeline_queue.py
+> @@ -33,7 +33,10 @@ import os
+>  import sys
+>  from contextlib import contextmanager
+>
+> +from collections import OrderedDict
+> +
+>  from book_pipeline import jsonio
+> +from book_pipeline import pipeline_gates as pg
+>  from book_pipeline import status as st
+>
+>  ROOT = st.ROOT
+> @@ -577,9 +580,61 @@ def next_actionable(rows: list[dict]) -> dict | None:
+>      return sorted(actionable, key=key)[0]
+>
+>
+> +# pipeline 深度桶序（上游→下游）。crawl 待下載（QUALIFIED 未抓）不在此——本視圖只涵蓋已 owned 的在管書。
+> +DEPTH_ORDER = ['待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+> +
+> +
+> +def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
+> +    """把一筆 build_queue row 歸入深度桶。回 (桶, 該本下一個 gate verb 或 None)。
+> +    verb 供 held 判定（gate_allows(slug, verb)）：held = 被閘門擋＝緩衝在閘（非卡關）。"""
+> +    stage = r.get('stage', '') or ''
+> +    pre = stage.split()[0] if stage else ''
+> +    todo = r.get('todo', '—')
+> +    verb = todo.split()[0].split('(')[0] if todo not in ('—', '') else None
+> +    if stage.startswith('R') or pre == 'X':   # R triage拒/qc拒/書況/audit-blocked、X 無源 → 需人工
+> +        return ('卡關', None)
+> +    if pre == '0.2':
+> +        return ('待qc', 'qc')
+> +    if pre == '0.3':                          # 過 qc、待 det ingest 提交 MinerU
+> +        return ('待ingest', 'ingest')
+> +    if pre == '0.5':                          # 已提交、MinerU OCR 處理中（雲端 async、慢）
+> +        return ('OCR處理中', 'ingest')
+> +    if pre == '1':                            # OCR 好、待 audit（hold audit 時這桶＝緩衝池）
+> +        return ('待audit', 'audit')
+> +    if pre == '2':
+> +        return ('待parse', 'parse')
+> +    if pre in ('3', '4'):
+> +        if deployed:                          # 已上站（可能還有 sol/translate 背景收尾）
+> +            return ('已上架', verb)
+> +        if 'catalog_audit' in todo:           # 上站前 catalog gate
+> +            return ('待catalog', 'catalog_audit')
+> +        return ('待deploy', 'deploy')
+> +    return ('卡關', verb)                      # 未知前綴 → 保守歸卡關
+> +
+> +
+> +def stage_depth(rows: list[dict] | None = None, gates: dict | None = None,
+> +                state: dict | None = None) -> dict:
+> +    """pipeline 深度直方圖（單一真相＝build_queue）：owned 書在管線各階段各幾本，及其中幾本被閘門
+> +    hold（＝緩衝在閘、非卡關）。供「先 bulk OCR、再分波放閘 audit」解耦流的波次管理與盲區根治
+> +    （『你在等什麼』＝缺此視圖）。crawl 待下載另見 booklists.pool_counts。回 {total, held}（OrderedDict）。"""
+> +    rows = rows if rows is not None else build_queue()
+> +    gates = gates if gates is not None else pg.load_gates()
+> +    state = state if state is not None else _load_state()
+> +    total = OrderedDict((k, 0) for k in DEPTH_ORDER)
+> +    held = OrderedDict((k, 0) for k in DEPTH_ORDER)
+> +    for r in rows:
+> +        b, verb = _depth_bucket(r, _deployed(r['slug'], state))
+> +        total[b] = total.get(b, 0) + 1
+> +        if verb and not pg.gate_allows(r['slug'], verb, gates):
+> +            held[b] = held.get(b, 0) + 1
+> +    return {'total': total, 'held': held}
+> +
+> +
+>  def main() -> int:
+>      ap = argparse.ArgumentParser(description='跨書全 stage 單一真相')
+>      ap.add_argument('--next', action='store_true', help='只印下一個可動項')
+> +    ap.add_argument('--depth', action='store_true',
+> +                    help='pipeline 深度直方圖（每階段幾本 + 閘門 hold 緩衝數）')
+>      ap.add_argument('--json', action='store_true')
+>      ap.add_argument('--backfill-first-seen', action='store_true',
+>                      help='一次性補登所有缺 first_seen_at 的書（從歷史證據推最早入庫時間）')
+> @@ -608,6 +663,20 @@ def main() -> int:
+>              print('無可動項（全部 done 或待人工/外部）')
+>          return 0
+>
+> +    if args.depth:
+> +        d = stage_depth(rows)
+> +        if args.json:
+> +            print(json.dumps(d, ensure_ascii=False))
+> +            return 0
+> +        print('pipeline 深度（owned 在管線；crawl 待下載見 booklists.pool_counts）：')
+> +        for k in DEPTH_ORDER:
+> +            n = d['total'].get(k, 0)
+> +            h = d['held'].get(k, 0)
+> +            bar = '█' * min(n, 48)
+> +            htag = f'  ⏸{h} held' if h else ''
+> +            print(f"  {k:<8} {n:>4}{htag}  {bar}")
+> +        return 0
+> +
+>      if args.json:
+>          print(json.dumps(rows, ensure_ascii=False, indent=2))
+>          return 0
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-khalil-nonlinear — worker 越界改核心碼：book_pipeline/devctl.py（sol_extract khalil_nonlinear）
+- superseded | type=patch | source=scope_guard
+- 決議：architect-concurrent-edit-committed
+- 處置：
+> scope_guard 假陽：bracket 存活期間被改的受保護檔（pipeline_queue.py/devctl.py）是架構師並發編輯（stage_depth/buffered_at/gates --at/release/provider_health），非 worker 越界。已 commit 落地（bb8faa1/106ee2f/1296d67），working-tree 函式皆在。教訓＝改 live daemon 碼前先 commit（commit-push-before-redeploy），否則 daemon 跑 bracket 時並發編輯被誤判。
+- 證據：
+> scope_guard bracket：worker [sol_extract khalil_nonlinear] session=khalil_nonlinear:24319 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+> index adf30b5..5a9cd2b 100644
+> --- a/book_pipeline/devctl.py
+> +++ b/book_pipeline/devctl.py
+> @@ -776,6 +776,30 @@ def _cmd_probe(args) -> int:
+>      return 2
+>
+>
+> +def provider_health(wks: list) -> dict:
+> +    """在飛 worker 的 provider 分布 → 偵測『派工落保底』。chain 首=主力（碼層常態 codex）；worker 全落
+> +    非主力（主力完全沒在用）= 上游（codex/codex-pool）失敗、正燒鏈尾保底（claude Max）。供 status 頂層
+> +    醒目告警——免像 2026-06-23 那次（codex 暫態額度黏死 controller、~50min 全 claude）只埋在 per-worker
+> +    provider 欄、沒被注意。status: idle(無worker)/ok(全主力)/degraded(主力+次級混用)/fallback(主力全沒在用)。"""
+> +    eff = (chain_status().get('effective') or ['codex'])
+> +    primary = eff[0]
+> +    live: dict[str, int] = {}
+> +    for w in wks:
+> +        p = w.get('provider')
+> +        if p:
+> +            live[p] = live.get(p, 0) + 1
+> +    on_fallback = sum(v for k, v in live.items() if k != primary)
+> +    if not live:
+> +        status = 'idle'
+> +    elif on_fallback and not live.get(primary):
+> +        status = 'fallback'
+> +    elif on_fallback:
+> +        status = 'degraded'
+> +    else:
+> +        status = 'ok'
+> +    return {'status': status, 'primary': primary, 'live': live, 'on_fallback': on_fallback}
+> +
+> +
+>  def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
+>      now = _now_utc()
+>      bs = books_status(write_timeline=write_timeline)
+> @@ -786,6 +810,7 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
+>          'generated_at_local': datetime.now().isoformat(timespec='seconds'),
+>          'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
+>          'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
+> +        'provider_health': provider_health(wks),  # 在飛 worker 落哪層 → 落保底頂層醒目告警（2026-06-23 坑）
+>          'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
+>          'daemon': daemon_health(),
+>          'code': code_status(),
+> @@ -935,12 +960,22 @@ def _print_human(snap: dict) -> None:
+>          print(f"   code={c['running']} · HEAD={c.get('head')} · {tag}")
+>      elif c.get('head'):
+>          print(f"   code=閒置（無 live controller）· HEAD={c.get('head')}（下次 respawn 直接載）")
+> +    ph = snap.get('provider_health') or {}
+> +    _live = '、'.join(f"{k}×{v}" for k, v in (ph.get('live') or {}).items())
+> +    if ph.get('status') == 'fallback':
+> +        print(f"   🔴 派工落保底：主力 {ph.get('primary')} 完全沒在用，在飛全靠次級/保底 [{_live}]"
+> +              f" — codex/codex-pool 失敗？查 daemon.log 或 `devctl probe --real-effort`")
+> +    elif ph.get('status') == 'degraded':
+> +        print(f"   🟠 派工部分落次級：[{_live}]（主力 {ph.get('primary')} 仍有在用）")
+>      wk = snap.get('workers') or []
+>      if wk:
+> +        _primary = ph.get('primary')
+>          print(f"\n🤖 進行中 LLM 工人 ({len(wk)})：")
+>          for w in wk:
+> +            _p = w.get('provider')
+> +            _mark = '' if _p == _primary or not _primary else ' ⚠非主力'
+>              print(f"   · {w.get('slug') or w.get('verb')} [{w.get('verb')}] "
+> -                  f"pid {w.get('pid')} · {w.get('provider')} · 共 {w.get('total_calls', 0)} 次調用")
+> +                  f"pid {w.get('pid')} · {_p}{_mark} · 共 {w.get('total_calls', 0)} 次調用")
+>              for r in (w.get('recent') or [])[-5:]:
+>                  icon = '🔧' if r.get('kind') == 'tool' else '💬'
+>                  print(f"        {icon} {(r.get('label') or '')[:100]}")
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-mohan-power-electronics — worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc mohan_power_electronics）
+- superseded | type=patch | source=scope_guard
+- 決議：architect-concurrent-edit-committed
+- 處置：
+> scope_guard 假陽：bracket 存活期間被改的受保護檔（pipeline_queue.py/devctl.py）是架構師並發編輯（stage_depth/buffered_at/gates --at/release/provider_health），非 worker 越界。已 commit 落地（bb8faa1/106ee2f/1296d67），working-tree 函式皆在。教訓＝改 live daemon 碼前先 commit（commit-push-before-redeploy），否則 daemon 跑 bracket 時並發編輯被誤判。
+- 證據：
+> scope_guard bracket：worker [qc mohan_power_electronics] session=mohan_power_electronics:57623 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_queue.py b/book_pipeline/pipeline_queue.py
+> index cc6923e..eda1f83 100644
+> --- a/book_pipeline/pipeline_queue.py
+> +++ b/book_pipeline/pipeline_queue.py
+> @@ -33,7 +33,10 @@ import os
+>  import sys
+>  from contextlib import contextmanager
+>
+> +from collections import OrderedDict
+> +
+>  from book_pipeline import jsonio
+> +from book_pipeline import pipeline_gates as pg
+>  from book_pipeline import status as st
+>
+>  ROOT = st.ROOT
+> @@ -577,9 +580,61 @@ def next_actionable(rows: list[dict]) -> dict | None:
+>      return sorted(actionable, key=key)[0]
+>
+>
+> +# pipeline 深度桶序（上游→下游）。crawl 待下載（QUALIFIED 未抓）不在此——本視圖只涵蓋已 owned 的在管書。
+> +DEPTH_ORDER = ['待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+> +
+> +
+> +def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
+> +    """把一筆 build_queue row 歸入深度桶。回 (桶, 該本下一個 gate verb 或 None)。
+> +    verb 供 held 判定（gate_allows(slug, verb)）：held = 被閘門擋＝緩衝在閘（非卡關）。"""
+> +    stage = r.get('stage', '') or ''
+> +    pre = stage.split()[0] if stage else ''
+> +    todo = r.get('todo', '—')
+> +    verb = todo.split()[0].split('(')[0] if todo not in ('—', '') else None
+> +    if stage.startswith('R') or pre == 'X':   # R triage拒/qc拒/書況/audit-blocked、X 無源 → 需人工
+> +        return ('卡關', None)
+> +    if pre == '0.2':
+> +        return ('待qc', 'qc')
+> +    if pre == '0.3':                          # 過 qc、待 det ingest 提交 MinerU
+> +        return ('待ingest', 'ingest')
+> +    if pre == '0.5':                          # 已提交、MinerU OCR 處理中（雲端 async、慢）
+> +        return ('OCR處理中', 'ingest')
+> +    if pre == '1':                            # OCR 好、待 audit（hold audit 時這桶＝緩衝池）
+> +        return ('待audit', 'audit')
+> +    if pre == '2':
+> +        return ('待parse', 'parse')
+> +    if pre in ('3', '4'):
+> +        if deployed:                          # 已上站（可能還有 sol/translate 背景收尾）
+> +            return ('已上架', verb)
+> +        if 'catalog_audit' in todo:           # 上站前 catalog gate
+> +            return ('待catalog', 'catalog_audit')
+> +        return ('待deploy', 'deploy')
+> +    return ('卡關', verb)                      # 未知前綴 → 保守歸卡關
+> +
+> +
+> +def stage_depth(rows: list[dict] | None = None, gates: dict | None = None,
+> +                state: dict | None = None) -> dict:
+> +    """pipeline 深度直方圖（單一真相＝build_queue）：owned 書在管線各階段各幾本，及其中幾本被閘門
+> +    hold（＝緩衝在閘、非卡關）。供「先 bulk OCR、再分波放閘 audit」解耦流的波次管理與盲區根治
+> +    （『你在等什麼』＝缺此視圖）。crawl 待下載另見 booklists.pool_counts。回 {total, held}（OrderedDict）。"""
+> +    rows = rows if rows is not None else build_queue()
+> +    gates = gates if gates is not None else pg.load_gates()
+> +    state = state if state is not None else _load_state()
+> +    total = OrderedDict((k, 0) for k in DEPTH_ORDER)
+> +    held = OrderedDict((k, 0) for k in DEPTH_ORDER)
+> +    for r in rows:
+> +        b, verb = _depth_bucket(r, _deployed(r['slug'], state))
+> +        total[b] = total.get(b, 0) + 1
+> +        if verb and not pg.gate_allows(r['slug'], verb, gates):
+> +            held[b] = held.get(b, 0) + 1
+> +    return {'total': total, 'held': held}
+> +
+> +
+>  def main() -> int:
+>      ap = argparse.ArgumentParser(description='跨書全 stage 單一真相')
+>      ap.add_argument('--next', action='store_true', help='只印下一個可動項')
+> +    ap.add_argument('--depth', action='store_true',
+> +                    help='pipeline 深度直方圖（每階段幾本 + 閘門 hold 緩衝數）')
+>      ap.add_argument('--json', action='store_true')
+>      ap.add_argument('--backfill-first-seen', action='store_true',
+>                      help='一次性補登所有缺 first_seen_at 的書（從歷史證據推最早入庫時間）')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-wakerly-digital-design — worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc wakerly_digital_design）
+- superseded | type=patch | source=scope_guard
+- 決議：architect-concurrent-edit-committed
+- 處置：
+> scope_guard 假陽：bracket 存活期間被改的受保護檔（pipeline_queue.py/devctl.py）是架構師並發編輯（stage_depth/buffered_at/gates --at/release/provider_health），非 worker 越界。已 commit 落地（bb8faa1/106ee2f/1296d67），working-tree 函式皆在。教訓＝改 live daemon 碼前先 commit（commit-push-before-redeploy），否則 daemon 跑 bracket 時並發編輯被誤判。
+- 證據：
+> scope_guard bracket：worker [qc wakerly_digital_design] session=wakerly_digital_design:57632 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_queue.py b/book_pipeline/pipeline_queue.py
+> index cc6923e..fce0bbf 100644
+> --- a/book_pipeline/pipeline_queue.py
+> +++ b/book_pipeline/pipeline_queue.py
+> @@ -33,7 +33,10 @@ import os
+>  import sys
+>  from contextlib import contextmanager
+>
+> +from collections import OrderedDict
+> +
+>  from book_pipeline import jsonio
+> +from book_pipeline import pipeline_gates as pg
+>  from book_pipeline import status as st
+>
+>  ROOT = st.ROOT
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
