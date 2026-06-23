@@ -5,8 +5,11 @@
 #  2. 題號混用 'N-M'（~76%）與 'N.M'（~24%，如 2.16/3.1）→ normalize_num_sep 兩側 canon 成 '-' 比對
 #     （dot 形 canon 後 63/64 命中主書真實題號；語義抽樣 2-16/3-1/3-5 對齊正確；per-章 hyphen∩dot=∅）。
 # chapter_re schema 必填（須 1 group）但 derive 模式不使用。
-# 未涵蓋：ch12/13/15/16（解答本根本無此章解答）+ 少數頁邊界題（題首被 OCR 換成頁眉跑馬燈、
-#   start marker 丟失）→ 接受殘缺。不用 problems_in_header：那些 header 數字是頁眉跑馬燈、與其後內容不對應，當題首會製造假題。
+# 未涵蓋：ch12/13/15/16（解答本根本無此章解答）。已知瑕疵（接受、不修）：~14 題題首被 OCR 換成頁眉
+#   跑馬燈（緊鄰 page_number、號碼與其後內容不對應）→ start marker 丟失，該題解答在 derive 模式被併入
+#   「前一題」body 尾巴（如 6-74 尾含 6-75 的 Student-t 解、7-9 尾含 7-10）。每題自己的解仍在且正確，
+#   僅尾巴多夾鄰題解（over-inclusion）。不用 problems_in_header：跑馬燈當題首會製造假題、把內容掛到錯號；
+#   不加 flush-on-header：會截斷跨頁的合法續解（失敗模式更糟、且與跑馬燈無法確定性區分）。
 chapter_re: '^CHAPTER\s+(\d+)'
 problem_re: '^(\d+[-.]\d+[a-z]?)'
 derive_chapter_from_num: true
