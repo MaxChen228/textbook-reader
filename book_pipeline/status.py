@@ -324,7 +324,11 @@ def _stuck_reason(slug: str, r: dict, e: dict) -> tuple[str, str] | None:
         return ('book_qc', '；'.join((e['book_qc'] or {}).get('reasons', []))[:72])
     if e.get('audit_blocked'):
         return ('audit-blocked', '；'.join((e['audit_blocked'] or {}).get('reasons', []))[:72])
-    if r['stage'].startswith(('0', 'X')):
+    # 'X 無源'=無 PDF 源（需人工找源）→ 真卡關。但 '0.x' 早期階段（0.2 待qc / 0·0.3 待ingest /
+    # 0.5 OCR處理中）是「正在/即將處理」的**在飛**狀態（雲端 OCR async 無本地 worker、det ingest 即將跑）
+    # → 非卡關。修：原本 startswith(('0','X')) 把剛 intake、正在 OCR 的書全誤判 stuck，cohort 漏斗虛報
+    # 卡關（同 panel「待X無worker」假象 family）。in-flight 久候不前的偵測屬另一機制（非此人工裁決閘）。
+    if r['stage'].startswith('X'):
         return (r['stage'], r['todo'])
     return None
 

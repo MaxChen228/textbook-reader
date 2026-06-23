@@ -109,6 +109,18 @@ def test_stuck_reason_qc_reject_precedes_audit_blocked():
     assert st._stuck_reason('bk', {'stage': 'R', 'todo': '—'}, e)[0] == 'qc-reject'
 
 
+def test_stuck_reason_early_inflight_stages_not_stuck():
+    """剛 intake、正在/即將處理的早期階段（待qc/待ingest/OCR處理中）= 在飛、非卡關（cohort 歸 ⏳）。
+    回歸：原 startswith(('0','X')) 把雲端 OCR 中的書誤判 stuck、漏斗虛報卡關。"""
+    for stage in ('0.2 待qc', '0 待ingest', '0.3 待ingest', '0.5 OCR處理中'):
+        assert st._stuck_reason('bk', {'stage': stage, 'todo': 'ingest'}, {}) is None, stage
+
+
+def test_stuck_reason_no_source_is_stuck():
+    """'X 無源'=無 PDF 源、需人工找源 → 真卡關。"""
+    assert st._stuck_reason('bk', {'stage': 'X 無源', 'todo': '—'}, {}) == ('X 無源', '—')
+
+
 # ── ④ pipeline_tick._has_open_engine_proposal ────────────────────────────────
 def test_has_open_engine_proposal(monkeypatch):
     from book_pipeline import pipeline_tick as pt
