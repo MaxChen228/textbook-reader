@@ -29,14 +29,16 @@ def test_sol_label_resolves_parent():
         {'slug': 'done', 'deployed': True, 'stage': '4 sol已merge', 'todo': '—'},
         {'slug': 'rej', 'deployed': False, 'stage': 'R qc拒', 'todo': '—'},
         {'slug': 'pre', 'deployed': False, 'stage': '1 待audit', 'todo': 'audit'},
-        {'slug': 'parkd', 'deployed': True, 'stage': '3 parsed', 'todo': '—'},  # 無 sol todo 且未 merge
+        {'slug': 'parkd', 'deployed': True, 'stage': '3 parsed', 'todo': '—'},  # 已deploy無sol todo→真待裁決
+        {'slug': 'fin', 'deployed': False, 'stage': '3 parsed', 'todo': 'catalog_audit(9)'},  # 未deploy收尾中
     )
     assert w._slug_label(rows, 'ext_sol') == 'sol·extract中'      # 母書已 deployed 仍報 sol-pending
     assert w._slug_label(rows, 'ing_sol') == 'sol·ingest中'
     assert w._slug_label(rows, 'done_sol') == 'sol·已merge'
     assert w._slug_label(rows, 'rej_sol') == 'sol·母書R qc拒'      # 母書卡關 → sol 無法 merge
     assert w._slug_label(rows, 'pre_sol') == 'sol·母書1 待audit'  # 母書前置 → sol 不能動
-    assert w._slug_label(rows, 'parkd_sol') == 'sol·待裁決'        # _pending/_escalated → proposal
+    assert w._slug_label(rows, 'parkd_sol') == 'sol·待裁決'        # 母書已deploy卻無sol→_pending/_escalated
+    assert w._slug_label(rows, 'fin_sol') == 'sol·母書3 parsed'   # 母書未deploy收尾中→非終態（pozar 回收坑）
     assert w._slug_label(rows, 'orphan_sol') == 'sol·母書缺'       # 母書不在 snapshot
 
 

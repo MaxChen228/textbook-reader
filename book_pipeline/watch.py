@@ -58,7 +58,13 @@ def _sol_label(pr: dict | None) -> str:
         return 'sol·extract中'
     if stage[:1] in ('0', '1', '2'):
         return f'sol·母書{stage}'                 # 母書仍前置（OCR/audit/parse）→ sol 尚不能動
-    return 'sol·待裁決'                           # 無 sol todo 且未 merge = _pending/_escalated（終態·proposal）
+    # 母書 stage 3/4 但當下無 sol todo：須分辨兩種——
+    #   母書未 deploy → 仍在 catalog_audit/deploy 收尾，sol_ingest todo 尚未浮現（**非終態**，
+    #     sol_ingest 待母書上架才派；R3 pozar_microwave 回收途中誤判 '待裁決' 的根因）；
+    #   母書已 deploy 卻仍無 sol 動作 → _pending/_escalated 真待裁決（終態·proposal）。
+    if not pr.get('deployed'):
+        return f'sol·母書{stage}'                 # 收尾中、sol 尚未輪到（非終態）
+    return 'sol·待裁決'                           # 母書已上架卻無 sol 動作 = _pending/_escalated（終態·proposal）
 
 
 def _is_terminal(label: str) -> bool:
