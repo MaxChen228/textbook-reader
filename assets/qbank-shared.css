@@ -1,29 +1,5 @@
-@import url('https://cdn.jsdelivr.net/npm/computer-modern@0.1.3/cmu-serif.css');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Serif+TC:wght@200;300;400;600&display=swap');
-
-:root {
-  --bg: #f8f7f4;
-  --surface: #fcfbfa;
-  --border: #dbd6cd;
-  --border-l: #e8e4db;
-  --text: #1a1a18;
-  --sub: #7a756c;
-  --accent: #4a4540;
-  --ink: #2a2520;
-  --ink-light: #5a5550;
-  --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-  --latin-serif: 'CMU Serif', 'Computer Modern Serif', 'Computer Modern', 'Latin Modern Roman', 'Times New Roman';
-  --cjk-serif: 'Noto Serif TC', 'Source Han Serif TC', '思源宋體 TC', 'Songti TC', 'STSong', serif;
-  --serif: var(--latin-serif), var(--cjk-serif), serif;
-  --article-font: var(--serif);
-  --sans: var(--serif);
-
-  /* 自評三態色 — 全站唯一來源。改色只改這裡。 */
-  --status-known: #27ae60;
-  --status-unknown: #e67e22;
-  --status-skip: #7f8c8d;
-  --status-danger: #c0392b;
-}
+/* 此檔只放元件樣式，全用語意 token。token + fonts 的單一真相源 = design/tokens.css，
+   由各頁在本檔「之前」直接 <link>（避免 nested @import 序列化 + 解析陷阱）。 */
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -320,7 +296,7 @@ mjx-container[display="true"] {
 }
 .qbk-search:focus {
   border-color: var(--ink-light);
-  box-shadow: 0 0 0 3px rgba(42, 37, 32, .06);
+  box-shadow: var(--focus-ring);
 }
 .qbk-search::placeholder { color: var(--sub); opacity: .7; }
 
@@ -339,7 +315,7 @@ mjx-container[display="true"] {
 }
 .qbk-select:focus {
   border-color: var(--ink-light);
-  box-shadow: 0 0 0 3px rgba(42, 37, 32, .06);
+  box-shadow: var(--focus-ring);
 }
 
 .qbk-result-count {
@@ -388,7 +364,7 @@ mjx-container[display="true"] {
 .qbk-raised-item:hover {
   border-color: var(--ink-light);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+  box-shadow: var(--shadow-1);
 }
 
 /* control primitives：topbar / reader panel / status tools 共用 */
@@ -478,12 +454,9 @@ mjx-container[display="true"] {
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   border: 1px solid var(--border);
   border-radius: 8px;
-  box-shadow: 0 14px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
+  box-shadow: var(--shadow-pop);
 }
 .qbk-popover.open { display: block; animation: qbk-pop-in .18s cubic-bezier(.2,.9,.3,1.1); }
-body[data-theme="dark"] .qbk-popover {
-  box-shadow: 0 14px 40px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35);
-}
 @keyframes qbk-pop-in {
   from { opacity: 0; transform: translateY(-4px) scale(.98); }
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
@@ -593,10 +566,7 @@ body[data-theme="dark"] .qbk-popover {
   background: var(--surface);
   color: var(--ink);
   font-weight: 600;
-  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 0 0 1px var(--border) inset;
-}
-body[data-theme="dark"] .qbk-segmented button.active {
-  box-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 0 1px var(--border) inset;
+  box-shadow: var(--shadow-seg), 0 0 0 1px var(--border) inset;
 }
 .qbk-segmented button[data-fs],
 .qbk-segmented.mono button {
@@ -609,7 +579,7 @@ body[data-theme="dark"] .qbk-segmented button.active {
 .btn-primary {
   padding: 6px 16px;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   border: 1px solid var(--ink);
   border-radius: 3px;
   font-family: var(--mono);

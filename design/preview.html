@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design System Preview — textbook-reader</title>
+  <!-- @dsCard group="Overview" — 設計系統預覽廊：色票 + 字體 + 元件，跨 skin×mode 即時切換 -->
+  <script src="../assets/qbank-shared.js"></script>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="../assets/qbank-shared.css">
+  <style>
+    body { padding: 0 0 80px; }
+    .pv-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .pv-h { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--sub); margin: 36px 0 14px;
+            padding-bottom: 6px; border-bottom: 1px solid var(--border-l); }
+    .pv-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .pv-sw { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+    .pv-chip-color { height: 56px; }
+    .pv-sw .lbl { font-family: var(--mono); font-size: 10px; padding: 7px 9px; color: var(--text); }
+    .pv-sw .lbl small { display: block; color: var(--sub); margin-top: 2px; }
+    .pv-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .pv-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+               padding: 16px; min-width: 200px; }
+    .pv-type-serif { font-family: var(--serif); font-size: 18px; line-height: 1.6; color: var(--text); }
+    .pv-type-mono { font-family: var(--mono); font-size: 12px; color: var(--sub); letter-spacing: .04em; }
+  </style>
+</head>
+<body data-skin="paper" data-theme="light">
+  <div class="qbk-topbar">
+    <span class="system-home-link">DESIGN SYSTEM</span>
+    <span class="topbar-spacer"></span>
+    <div class="qbk-segmented" id="seg-skin">
+      <button data-skin-set="paper">Paper</button>
+      <button data-skin-set="claude">Claude</button>
+    </div>
+    <div class="qbk-segmented" id="seg-theme" style="margin-left:8px">
+      <button data-theme-set="auto">Auto</button>
+      <button data-theme-set="light">Light</button>
+      <button data-theme-set="dark">Dark</button>
+    </div>
+  </div>
+
+  <div class="pv-wrap">
+    <div class="pv-h">Color · 語意色票（隨 skin×mode 即時換）</div>
+    <div class="pv-swatches" id="swatches"></div>
+
+    <div class="pv-h">Typography</div>
+    <div class="pv-card">
+      <div class="pv-type-serif">Serif 正文 — The quick brown fox. 數學物理參考書閱讀體驗。</div>
+      <div class="pv-type-mono">MONO LABEL · 01 / chapter / N.M</div>
+    </div>
+
+    <div class="pv-h">Buttons</div>
+    <div class="pv-row">
+      <button class="btn-primary">Primary</button>
+      <button class="qbk-control-btn">Control</button>
+      <button class="qbk-control-btn active">Active</button>
+      <button class="qbk-control-btn compact">COMPACT</button>
+      <button class="qbk-icon-btn">⚙</button>
+      <button class="qbk-icon-btn active">★</button>
+      <button class="qbk-control-btn" disabled>Disabled</button>
+    </div>
+
+    <div class="pv-h">Chips</div>
+    <div class="qbk-chip-group">
+      <button class="qbk-chip">All <span class="n">128</span></button>
+      <button class="qbk-chip active">Active <span class="n">12</span></button>
+      <button class="qbk-chip">Physics</button>
+      <button class="qbk-chip">Math</button>
+    </div>
+
+    <div class="pv-h">Inputs / Segmented</div>
+    <div class="pv-row">
+      <div class="qbk-search-wrap"><input class="qbk-search" placeholder="search…"></div>
+      <select class="qbk-select"><option>Option A</option></select>
+      <div class="qbk-segmented">
+        <button class="active">One</button><button>Two</button><button>Three</button>
+      </div>
+    </div>
+
+    <div class="pv-h">Surfaces · Shadow · Status</div>
+    <div class="pv-row">
+      <div class="pv-card qbk-raised-item">Raised item (hover 抬升)</div>
+      <div class="qbk-popover open" style="position:relative;right:auto;top:auto;min-width:220px">
+        <div class="qbk-control-panel-title">Popover</div>
+        <div class="qbk-control-panel-meta">浮層陰影 / 模糊背景</div>
+      </div>
+      <div class="pv-card">
+        <span class="status-dot known"></span> known
+        <span class="status-dot unknown" style="margin-left:10px"></span> unknown
+        <span class="status-dot skip" style="margin-left:10px"></span> skip
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 列出所有語意色票 → 證明 token 真實生效且隨 skin×mode 變
+    const TOKENS = ['--bg','--surface','--border','--border-l','--text','--sub',
+                    '--ink','--ink-light','--accent','--on-ink',
+                    '--status-known','--status-unknown','--status-skip','--status-danger'];
+    function paintSwatches() {
+      const cs = getComputedStyle(document.body);
+      document.getElementById('swatches').innerHTML = TOKENS.map(t => {
+        const v = cs.getPropertyValue(t).trim();
+        return `<div class="pv-sw"><div class="pv-chip-color" style="background:var(${t})"></div>
+                <div class="lbl">${t}<small>${v||'—'}</small></div></div>`;
+      }).join('');
+    }
+    QBankShared.theme.init({ onChange: paintSwatches });
+    paintSwatches();
+  </script>
+</body>
+</html>

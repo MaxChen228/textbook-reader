@@ -6,14 +6,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>pipeline dev · textbook-reader</title>
   <script src="../assets/qbank-shared.js"></script>
+  <link rel="stylesheet" href="../design/tokens.css">
   <link rel="stylesheet" href="../assets/qbank-shared.css">
   <style>
-    /* dark tokens — 與 reader 同一份，限本頁 scope */
+    /* token(含 dark/skin) 全在 design/tokens.css，本頁不再各自定義 */
     body { font-size: 14px; line-height: 1.6; transition: background .25s ease, color .25s ease; }
-    body[data-theme="dark"] {
-      --bg: #15140f; --surface: #1c1a14; --border: #2f2a22; --border-l: #25211a;
-      --text: #ebe5d5; --sub: #8a8275; --ink: #f1ead9; --ink-light: #bdb39e; --accent: #d6cfb8;
-    }
     .dev-wrap { max-width: 1280px; margin: 0 auto; padding: 18px 16px 96px; }
     @media (max-width: 640px) { .dev-wrap { padding: 12px 10px 72px; } }
 
@@ -321,10 +318,14 @@
     <button class="qbk-control-btn compact" id="btn-math" type="button" title="數學 sweep · 跨書渲染殘餘">🧮 <span id="mt-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
+    <div class="qbk-segmented" id="seg-skin" style="margin-left:4px">
+      <button data-skin-set="paper">Paper</button>
+      <button data-skin-set="claude">Claude</button>
+    </div>
     <div class="qbk-segmented" id="seg-theme" style="margin-left:4px">
-      <button data-theme="auto">Auto</button>
-      <button data-theme="light">Light</button>
-      <button data-theme="dark">Dark</button>
+      <button data-theme-set="auto">Auto</button>
+      <button data-theme-set="light">Light</button>
+      <button data-theme-set="dark">Dark</button>
     </div>
   </div>
 
@@ -404,19 +405,8 @@
   const sessEventCache = new Map()  // session id → 完整事件（懶載一次；只快取成功結果）
   const sessById = new Map()        // session id → 摘要（render 時建檔；點擊解析不依賴 live last churn）
 
-  // ── 主題（與 reader 共用） ──
-  const SETTINGS_KEY = 'textbook.settings.v1'
-  const darkMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null
-  function readTheme() { try { return (JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}').theme) || 'auto' } catch { return 'auto' } }
-  function writeTheme(t) { let s={}; try{s=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}catch{} s.theme=t; localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)) }
-  function applyTheme() {
-    const t = readTheme(), dark = t === 'dark' || (t === 'auto' && darkMQ && darkMQ.matches)
-    document.body.setAttribute('data-theme', dark ? 'dark' : 'light')
-    document.querySelectorAll('#seg-theme button').forEach(b => b.classList.toggle('active', b.dataset.theme === t))
-  }
-  document.querySelectorAll('#seg-theme button').forEach(b => b.addEventListener('click', () => { writeTheme(b.dataset.theme); applyTheme() }))
-  if (darkMQ) darkMQ.addEventListener('change', applyTheme)
-  applyTheme()
+  // ── 主題 + 換皮：QBankShared.theme 統一管理（按鈕用 data-theme-set / data-skin-set） ──
+  QBankShared.theme.init()
 
   // ── 產線站台定義（里程碑語意：書卡位置 = 它「已完成」的動作，左→右=做越多）──
   // 欄名用過去式（「已X」），非 todo。worker 徽章疊上去 = 正在推它往下一格的 walker。

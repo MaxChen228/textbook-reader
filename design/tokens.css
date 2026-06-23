@@ -1,0 +1,124 @@
+/* ============================================================================
+   DESIGN TOKENS — single source of truth for every skin × mode.
+   Spec: design/DESIGN.md   ·   Switcher: QBankShared.theme (assets/qbank-shared.js)
+
+   TWO ORTHOGONAL AXES, both set on <body>:
+     body[data-skin="<name>"]      風格家族 (paper 預設 / claude / …)
+     body[data-theme="light|dark"] 明暗模式
+
+   CONTRACT: components reference ONLY the semantic tokens below
+   (--bg, --surface, --border, --text, --sub, --ink, --accent, --on-ink, --shadow-N, …),
+   never raw hex. 換皮 = 新增一個 skin 區塊, 元件零改動.
+
+   ADD A SKIN:
+     1. body[data-skin="x"]                     { …light 語意 token 全集… }
+     2. body[data-skin="x"][data-theme="dark"]  { …dark 語意 token 全集… }
+     3. 在 QBankShared.theme 的 SKINS 陣列加 'x'，UI 自動長出選項。
+   每個區塊都定義「全集」(不靠別塊補)，避免跨 skin 殘留。
+   ============================================================================ */
+
+/* webfonts — 統一在此載入(原散在 qbank-shared.css 頂部) */
+@import url('https://cdn.jsdelivr.net/npm/computer-modern@0.1.3/cmu-serif.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Serif+TC:wght@200;300;400;600&display=swap');
+
+/* ── Tier 1 · 結構 token（skin 無關，全 skin 共用） ───────────────────────── */
+:root {
+  /* type */
+  --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --latin-serif: 'CMU Serif', 'Computer Modern Serif', 'Computer Modern', 'Latin Modern Roman', 'Times New Roman';
+  --cjk-serif: 'Noto Serif TC', 'Source Han Serif TC', '思源宋體 TC', 'Songti TC', 'STSong', serif;
+  --serif: var(--latin-serif), var(--cjk-serif), serif;
+  --article-font: var(--serif);
+  --sans: var(--serif);
+
+  /* shape / motion / layout — skins 沿用，不重定義 */
+  --radius-sm: 3px;
+  --radius: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --transition: .15s ease;
+  --qbk-sidebar-width: 250px;
+
+  /* 自評三態色 — skin 無關語意（known/unknown/skip/danger 在任何皮下都同義） */
+  --status-known: #27ae60;
+  --status-unknown: #e67e22;
+  --status-skip: #7f8c8d;
+  --status-danger: #c0392b;
+}
+
+/* ── Tier 2 · 語意 token ────────────────────────────────────────────────── */
+
+/* SKIN: paper（預設）— 暖色紙感 / 襯線 / 學術閱讀。無 data-skin 時也走這套(:root fallback) */
+:root,
+body[data-skin="paper"] {
+  --bg: #f8f7f4;
+  --surface: #fcfbfa;
+  --border: #dbd6cd;
+  --border-l: #e8e4db;
+  --text: #1a1a18;
+  --sub: #7a756c;
+  --accent: #4a4540;
+  --ink: #2a2520;
+  --ink-light: #5a5550;
+  --on-ink: #ffffff;                 /* 疊在 --ink 實心填色上的文字/圖示色 */
+  --shadow-1: 0 2px 8px rgba(0,0,0,.04);
+  --shadow-card: 0 6px 16px rgba(0,0,0,.08);
+  --shadow-pop: 0 14px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
+  --shadow-seg: 0 1px 2px rgba(0,0,0,.06);
+  --focus-ring: 0 0 0 3px rgba(42,37,32,.06);
+}
+body[data-theme="dark"],
+body[data-skin="paper"][data-theme="dark"] {
+  --bg: #15140f;
+  --surface: #1c1a14;
+  --border: #2f2a22;
+  --border-l: #25211a;
+  --text: #ebe5d5;
+  --sub: #8a8275;
+  --accent: #d6cfb8;
+  --ink: #f1ead9;
+  --ink-light: #bdb39e;
+  --on-ink: #15140f;                 /* dark 下 --ink 是亮色 → 疊深色字才有對比 */
+  --shadow-1: 0 2px 8px rgba(0,0,0,.30);
+  --shadow-card: 0 6px 16px rgba(0,0,0,.25);
+  --shadow-pop: 0 14px 40px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35);
+  --shadow-seg: 0 1px 3px rgba(0,0,0,.40);
+  --focus-ring: 0 0 0 3px rgba(214,207,184,.10);
+}
+
+/* SKIN: claude — 取自 Anthropic/Claude 品牌(暖奶油底 + 黏土橙 accent)。
+   ⚠ 首版 first-cut，待 design/DESIGN.md（DESIGN-claude.md）落地後逐值校準。 */
+body[data-skin="claude"] {
+  --bg: #f0eee6;
+  --surface: #faf9f5;
+  --border: #e3dfd3;
+  --border-l: #ece9df;
+  --text: #1f1e1d;
+  --sub: #73706a;
+  --accent: #cc785c;                 /* Crail / 黏土橙 — Claude 招牌色 */
+  --ink: #2b2722;
+  --ink-light: #5e5b55;
+  --on-ink: #faf9f5;
+  --shadow-1: 0 2px 8px rgba(40,30,20,.05);
+  --shadow-card: 0 6px 16px rgba(40,30,20,.09);
+  --shadow-pop: 0 14px 40px rgba(40,30,20,.12), 0 4px 12px rgba(40,30,20,.06);
+  --shadow-seg: 0 1px 2px rgba(40,30,20,.07);
+  --focus-ring: 0 0 0 3px rgba(204,120,92,.18);
+}
+body[data-skin="claude"][data-theme="dark"] {
+  --bg: #262624;
+  --surface: #30302e;
+  --border: #3e3d3a;
+  --border-l: #343331;
+  --text: #f5f4ee;
+  --sub: #a6a299;
+  --accent: #e0876a;
+  --ink: #f0eee6;
+  --ink-light: #c9c5ba;
+  --on-ink: #262624;
+  --shadow-1: 0 2px 8px rgba(0,0,0,.32);
+  --shadow-card: 0 6px 16px rgba(0,0,0,.28);
+  --shadow-pop: 0 14px 40px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35);
+  --shadow-seg: 0 1px 3px rgba(0,0,0,.42);
+  --focus-ring: 0 0 0 3px rgba(224,135,106,.22);
+}

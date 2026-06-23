@@ -8,6 +8,7 @@
   <script>if(!window.MathJax)window.MathJax=QBankShared.mathJaxConfig;</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <link rel="stylesheet" href="design/tokens.css">
   <link rel="stylesheet" href="assets/qbank-shared.css">
   <style>
     :root {
@@ -15,18 +16,7 @@
       --article-lh: 1.78;
     }
     body { font-size: 14px; line-height: 1.7; transition: background .25s ease, color .25s ease; }
-    /* ── dark theme tokens（限本頁 scope） ───────────────────────────────── */
-    body[data-theme="dark"] {
-      --bg: #15140f;
-      --surface: #1c1a14;
-      --border: #2f2a22;
-      --border-l: #25211a;
-      --text: #ebe5d5;
-      --sub: #8a8275;
-      --ink: #f1ead9;
-      --ink-light: #bdb39e;
-      --accent: #d6cfb8;
-    }
+    /* token(含 dark/skin)全在 design/tokens.css；以下僅留深色「行為」補丁(非 token) */
     body[data-theme="dark"] mjx-container { color: inherit; }
 
     :root { --qbk-sidebar-width: 250px; }
@@ -267,7 +257,7 @@
       overflow: hidden;
       transition: background .25s ease;
     }
-    body[data-theme="dark"] .lib-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+    .lib-card:hover { box-shadow: var(--shadow-card); }
     .lib-card-cover {
       width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
       background: var(--bg); border-bottom: 1px solid var(--border-l);
@@ -642,6 +632,13 @@
             <button class="qbk-icon-btn compact" id="btn-panel-copy" type="button" title="複製目前章節" aria-label="複製目前章節" disabled>⧉</button>
           </div>
           <div class="qbk-control-row">
+            <span class="qbk-control-label">風格</span>
+            <div class="qbk-segmented" id="seg-skin">
+              <button data-skin="paper">Paper</button>
+              <button data-skin="claude">Claude</button>
+            </div>
+          </div>
+          <div class="qbk-control-row">
             <span class="qbk-control-label">主題</span>
             <div class="qbk-segmented" id="seg-theme">
               <button data-theme="auto">Auto</button>
@@ -757,9 +754,10 @@ let pendingProblemNum = null
 
 // ── 顯示設置（localStorage 持久） ──
 const SETTINGS_KEY = 'textbook.settings.v1'
-const DEFAULT_SETTINGS = { lang: 'en', fsStep: 4, lhStep: 5, widthStep: 5, theme: 'auto' }
+const DEFAULT_SETTINGS = { lang: 'en', fsStep: 4, lhStep: 5, widthStep: 5, theme: 'auto', skin: 'paper' }
 const VALID_LANGS = ['en', 'zh', 'bi']
 const VALID_THEMES = ['auto', 'light', 'dark']
+const VALID_SKINS = ['paper', 'claude']   // 與 design/tokens.css + QBankShared.theme.SKINS 對齊
 const FS_VALUES = [10, 12, 14, 16, 18, 22, 26, 30, 35, 40]
 const LH_VALUES = [1.00, 1.15, 1.30, 1.50, 1.70, 1.95, 2.25, 2.55, 2.85, 3.20]
 const WIDTH_VALUES = [640, 700, 760, 820, 880, 940, 1000, 1060, 1120, 1180]
@@ -797,6 +795,7 @@ function loadSettings() {
       ? { focus: 2, standard: 5, wide: 8 }[raw.width]
       : DEFAULT_SETTINGS.widthStep),
     theme: VALID_THEMES.includes(raw.theme) ? raw.theme : DEFAULT_SETTINGS.theme,
+    skin: VALID_SKINS.includes(raw.skin) ? raw.skin : DEFAULT_SETTINGS.skin,
   }
   if (JSON.stringify(merged) !== JSON.stringify(raw)) {
     try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(merged)) } catch {}
@@ -898,6 +897,7 @@ function resolvedTheme() {
 function applySettings() {
   document.body.dataset.lang = settings.lang
   document.body.dataset.theme = resolvedTheme()
+  document.body.dataset.skin = settings.skin
   const fs = FS_VALUES[settings.fsStep - 1]
   const lh = LH_VALUES[settings.lhStep - 1]
   const width = WIDTH_VALUES[settings.widthStep - 1]
@@ -914,6 +914,8 @@ function applySettings() {
   document.getElementById('width-value').textContent = width + 'px'
   document.querySelectorAll('#seg-theme button').forEach(b =>
     b.classList.toggle('active', b.dataset.theme === settings.theme))
+  document.querySelectorAll('#seg-skin button').forEach(b =>
+    b.classList.toggle('active', b.dataset.skin === settings.skin))
 }
 
 // 靜態化：URL query 改成檔名 suffix。無 zh overlay 的書一律回 '' → 顯英文、零 404。
@@ -978,6 +980,12 @@ function setupSettingsUI() {
     const b = e.target.closest('button[data-theme]')
     if (!b) return
     settings.theme = b.dataset.theme
+    saveSettings(); applySettings()
+  })
+  document.getElementById('seg-skin').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-skin]')
+    if (!b) return
+    settings.skin = b.dataset.skin
     saveSettings(); applySettings()
   })
   document.getElementById('btn-panel-copy').addEventListener('click', copyCurrentChunk)

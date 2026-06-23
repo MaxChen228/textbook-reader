@@ -8,6 +8,7 @@
   <script>if(!window.MathJax)window.MathJax=QBankShared.mathJaxConfig;</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <link rel="stylesheet" href="design/tokens.css">
   <link rel="stylesheet" href="assets/qbank-shared.css">
   <style>
     body { font-size: 14px; line-height: 1.7; }
@@ -285,6 +286,15 @@
       <div class="view-toggle">
         <button class="qbk-icon-btn" id="btn-view-list" type="button" title="列表">☰</button>
         <button class="qbk-icon-btn active" id="btn-view-grid" type="button" title="格覽">⊞</button>
+      </div>
+      <div class="qbk-segmented" id="seg-skin">
+        <button data-skin-set="paper">Paper</button>
+        <button data-skin-set="claude">Claude</button>
+      </div>
+      <div class="qbk-segmented" id="seg-theme">
+        <button data-theme-set="auto">Auto</button>
+        <button data-theme-set="light">Light</button>
+        <button data-theme-set="dark">Dark</button>
       </div>
     </div>
     <div id="fetch-error"></div>
@@ -1050,6 +1060,7 @@ async function ensureBlocks(p) {
 }
 
 async function init() {
+  S.theme.init()   // 主題+換皮：套用全站設定並綁切換鈕（補回本頁原缺的 dark/skin）
   try {
     const data = await S.fetchJson('data/problems.json', { cache: 'no-cache' })
     allProblems = hydrate(data)

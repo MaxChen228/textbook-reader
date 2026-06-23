@@ -318,6 +318,54 @@ window.addEventListener("load",printWhenReady,{once:true});
     return Math.floor(diff / 86400) + ' 天前';
   }
 
+  // 主題 + 換皮統一管理器。三頁共用單一真相：
+  //   localStorage 'textbook.settings.v1' 的 .theme(auto/light/dark) 與 .skin(paper/claude…)
+  //   兩軸都寫到 <body data-theme data-skin>；token 定義全在 design/tokens.css。
+  // 新增一張皮：tokens.css 加區塊 + 下方 SKINS 加名字，UI(data-skin-set 按鈕)自動長出。
+  const theme = (function () {
+    const KEY = 'textbook.settings.v1';
+    const MODES = ['auto', 'light', 'dark'];
+    const SKINS = ['paper', 'claude'];
+    const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function read() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch { return {}; } }
+    function patch(p) { const s = read(); Object.assign(s, p); try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
+    function mode() { const m = read().theme; return MODES.includes(m) ? m : 'auto'; }
+    function skin() { const k = read().skin; return SKINS.includes(k) ? k : 'paper'; }
+    function resolvedMode() { const m = mode(); return (m === 'dark' || (m === 'auto' && mq && mq.matches)) ? 'dark' : 'light'; }
+
+    // 把目前狀態寫到 body，並同步任何 [data-theme-set]/[data-skin-set] 控制鈕的 active 態。
+    function apply() {
+      const b = document.body;
+      if (b) { b.dataset.theme = resolvedMode(); b.dataset.skin = skin(); }
+      document.querySelectorAll('[data-theme-set]').forEach((el) =>
+        el.classList.toggle('active', el.dataset.themeSet === mode()));
+      document.querySelectorAll('[data-skin-set]').forEach((el) =>
+        el.classList.toggle('active', el.dataset.skinSet === skin()));
+    }
+    function setMode(m) { if (MODES.includes(m)) { patch({ theme: m }); apply(); } }
+    function setSkin(k) { if (SKINS.includes(k)) { patch({ skin: k }); apply(); } }
+
+    // 一次裝好：套用現態 + 綁 [data-theme-set]/[data-skin-set] 委派點擊 + 跟系統明暗。
+    function init(opts = {}) {
+      apply();
+      document.addEventListener('click', (e) => {
+        const t = e.target.closest('[data-theme-set]');
+        if (t) { setMode(t.dataset.themeSet); opts.onChange && opts.onChange(); return; }
+        const s = e.target.closest('[data-skin-set]');
+        if (s) { setSkin(s.dataset.skinSet); opts.onChange && opts.onChange(); }
+      });
+      if (mq) {
+        const cb = () => { if (mode() === 'auto') { apply(); opts.onChange && opts.onChange(); } };
+        if (mq.addEventListener) mq.addEventListener('change', cb);
+        else if (mq.addListener) mq.addListener(cb);
+      }
+      return api;
+    }
+    const api = { KEY, MODES, SKINS, read, mode, skin, resolvedMode, apply, setMode, setSkin, init };
+    return api;
+  })();
+
   window.QBankShared = {
     bindHistoryBackLinks,
     bindSidebarDrawer,
@@ -333,6 +381,7 @@ window.addEventListener("load",printWhenReady,{once:true});
     renderMarkdown,
     renderMath,
     safeHtml,
+    theme,
   };
 
   if (document.readyState === 'loading') {
