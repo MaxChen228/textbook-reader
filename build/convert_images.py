@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import re
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -17,6 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 OUT = ROOT / 'img'
 QUALITY = '80'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
 
 
 def _convert(job: tuple[str, str]) -> tuple[int, str]:
@@ -41,6 +47,8 @@ def _convert(job: tuple[str, str]) -> tuple[int, str]:
 
 
 def _jobs_for(slug: str) -> list[tuple[str, str]]:
+    if not _valid_slug(slug):
+        return []
     book_dir = DATA_DIR / slug
     out_dir = OUT / slug
     jobs: list[tuple[str, str]] = []
@@ -55,8 +63,15 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
 
 
 def main(argv: list[str]) -> None:
-    slugs = argv or sorted(p.parent.parent.name
-                           for p in DATA_DIR.glob('*/parsed/book.json'))
+    if argv:
+        invalid = [slug for slug in argv if not _valid_slug(slug)]
+        if invalid:
+            sys.exit(f'✗ invalid slug(s): {", ".join(invalid)}')
+        slugs = argv
+    else:
+        slugs = sorted(p.parent.parent.name
+                       for p in DATA_DIR.glob('*/parsed/book.json')
+                       if _valid_slug(p.parent.parent.name))
     all_jobs: list[tuple[str, str]] = []
     for slug in slugs:
         all_jobs.extend(_jobs_for(slug))

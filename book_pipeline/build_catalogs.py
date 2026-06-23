@@ -26,6 +26,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+CHUNK_RE = re.compile(r'^(?:ch\d{2}|app[A-Za-z0-9_]{1,16})$')
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
+
+
+def _valid_chunk_stem(stem: str) -> bool:
+    return isinstance(stem, str) and CHUNK_RE.fullmatch(stem) is not None
 
 # 從 caption 任意位置抽正式圖表編號（FIGURE 1.1、Table 2.3、Fig. 3-2 等）。
 # 裸章號（Figure 3 / Table 4）不是可索引圖表編號，會造成假 catalog。
@@ -354,6 +364,8 @@ def _walk_blocks(blocks: list[dict], section_stack: list[str], ch_label: str,
 
 def _scan_chunk(slug: str, stem: str) -> list[dict]:
     """掃描單一章/附錄，回傳 catalog entries。"""
+    if not _valid_slug(slug) or not _valid_chunk_stem(stem):
+        return []
     path = DATA_DIR / slug / 'parsed' / f'{stem}.json'
     if not path.is_file():
         return []
@@ -395,6 +407,8 @@ def _scan_chunk(slug: str, stem: str) -> list[dict]:
 
 def build_catalogs(slug: str, dry_run: bool = False) -> dict:
     """為 slug 產/更新 catalogs.json 與 book.json 統計。回傳統計摘要。"""
+    if not _valid_slug(slug):
+        raise ValueError(f'invalid slug: {slug}')
     parsed_dir = DATA_DIR / slug / 'parsed'
     book_path = parsed_dir / 'book.json'
     if not book_path.is_file():
@@ -482,6 +496,8 @@ def build_all(dry_run: bool = False) -> list[dict]:
     results = []
     for book_path in sorted(DATA_DIR.glob('*/parsed/book.json')):
         slug = book_path.parent.parent.name
+        if not _valid_slug(slug):
+            continue
         try:
             results.append(build_catalogs(slug, dry_run=dry_run))
             r = results[-1]

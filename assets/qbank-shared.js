@@ -39,6 +39,12 @@
       .replace(/>/g, '&gt;');
   }
 
+  function escapeAttr(value) {
+    return escapeHtml(value)
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function safeHtml(text) {
     const segments = String(text ?? '')
       .replace(/\r\n/g, '\n')
@@ -371,6 +377,7 @@ window.addEventListener("load",printWhenReady,{once:true});
     bindSidebarDrawer,
     countUp,
     createChip,
+    escapeAttr,
     escapeHtml,
     fetchJson,
     errorMessage,

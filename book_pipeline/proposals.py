@@ -654,6 +654,15 @@ def frontier_view(recs: list[dict[str, Any]], stale_ids: set[str] | frozenset = 
 
 # ── render（JSON store → _index.md 人類視圖）──────────────────────────────────
 def render(recs: list[dict[str, Any]]) -> str:
+    def clean_body(text: str) -> str:
+        return "\n".join(line.rstrip() for line in str(text).splitlines()).strip()
+
+    def quote_body(text: str) -> str:
+        # Proposal prose often embeds unified diffs. Prefix every line so the generated
+        # Markdown does not itself look like a patch to `git diff --check`.
+        body = clean_body(text)
+        return "\n".join(f"> {line}" if line else ">" for line in body.splitlines())
+
     lines = [
         "# 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改",
         "",
@@ -689,9 +698,9 @@ def render(recs: list[dict[str, Any]]) -> str:
             for k, label in (("disposition", "處置"), ("evidence", "證據"),
                              ("proposal", "提議"), ("risk", "風險")):
                 if r.get(k):
-                    lines.append(f"- {label}：{r[k]}")
+                    lines.append(f"- {label}：\n{quote_body(r[k])}")
             lines.append("")
-    return "\n".join(lines).rstrip() + "\n"
+    return "\n".join(line.rstrip() for line in lines).rstrip() + "\n"
 
 
 def write_index(recs: list[dict[str, Any]] | None = None) -> None:

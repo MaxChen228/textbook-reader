@@ -11,6 +11,7 @@ before→after 與 corpus 總計。
 from __future__ import annotations
 
 import json
+import argparse
 import sys
 import traceback
 from collections import Counter
@@ -107,8 +108,11 @@ def _reparse(slug: str) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    argv = sys.argv[1:] if argv is None else argv
-    slugs = argv or all_slugs()
+    ap = argparse.ArgumentParser(
+        description="重 parse corpus、重套 catalog/math overrides，並量測 math residual before/after")
+    ap.add_argument("slug", nargs="*", help="指定書籍 slug；不給則處理全部")
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+    slugs = args.slug or all_slugs()
 
     if not node_available():
         print("✗ node_modules/mathjax-full 缺：先 `npm --prefix book_pipeline install`", file=sys.stderr)

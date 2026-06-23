@@ -330,6 +330,7 @@ def test_cmd_batch_end_to_end(monkeypatch):
     monkeypatch.setattr(math_sweep, "iter_todo", lambda **k: iter(todo))
     monkeypatch.setattr(math_sweep, "_ccnexus_base", lambda: "http://x")
     monkeypatch.setattr(math_sweep, "_ccnexus_auth", lambda: "auth")
+    monkeypatch.setattr(math_sweep, "node_available", lambda: True)
     monkeypatch.setattr(
         math_sweep, "_call_llm",
         lambda payload, **k: "\n".join('{"i":%d,"tex":"NEW%d"}' % (x["i"], x["i"]) for x in payload))

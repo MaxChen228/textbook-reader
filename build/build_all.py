@@ -17,6 +17,7 @@ convert（產資產）→ bake（發佈引用資產的資料），杜絕「manif
 convert 與 bake 互相獨立（convert 讀 mineru_data→寫 img/；bake 讀 corpus→寫 data/），交換安全。
 """
 import sys
+import argparse
 
 from build import bake_json, convert_images, gen_macros
 from book_pipeline import extract_cover as ec
@@ -27,6 +28,9 @@ def _ensure_covers(slugs: list[str]) -> None:
     convert 仍會用既有 cover.jpg；真缺封面者 surface 待補 PDF。"""
     targets = slugs or ec._audited_slugs()
     for slug in targets:
+        if not ec._valid_slug(slug):
+            print(f'  ✗ {slug}: invalid slug')
+            continue
         if (ec.DATA_DIR / slug / 'cover.jpg').is_file():
             continue
         pdf = ec.find_pdf_for_slug(slug)
@@ -36,8 +40,11 @@ def _ensure_covers(slugs: list[str]) -> None:
         ec.extract_one(slug, pdf)
 
 
-if __name__ == '__main__':
-    args = sys.argv[1:]
+def main(argv: list[str] | None = None) -> None:
+    ap = argparse.ArgumentParser(description='抽封面、轉 WebP，並烤出 reader 靜態 JSON')
+    ap.add_argument('slug', nargs='*', help='指定要 build 的書；省略則 build 全部已解析書')
+    ns = ap.parse_args(argv)
+    args = ns.slug
     print('=== gen math macros → reader ===')
     print('  ', 'updated' if gen_macros.run() else 'unchanged', 'assets/qbank-shared.js')
     print('=== ensure covers ===')
@@ -46,3 +53,7 @@ if __name__ == '__main__':
     convert_images.main(args)
     print('=== bake JSON ===')               # …再發佈引用它們的 manifest（杜絕破圖空窗，見模組 docstring）
     bake_json.main(args)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

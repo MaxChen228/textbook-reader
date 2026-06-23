@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from datetime import datetime
@@ -21,6 +22,26 @@ from book_pipeline.status import raw_slug_map
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
 OVERRIDE_DIR = ROOT / 'book_pipeline' / 'catalog_overrides'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+CHUNK_RE = re.compile(r'^(?:ch\d{2}|app[A-Za-z0-9_]{1,16})$')
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
+
+
+def _valid_chunk(chunk: str) -> bool:
+    return isinstance(chunk, str) and CHUNK_RE.fullmatch(chunk) is not None
+
+
+def _safe_image_filename(filename: str) -> str:
+    if not isinstance(filename, str) or not filename:
+        raise ValueError('image filename must be non-empty')
+    if '/' in filename or '\\' in filename or filename in {'.', '..'}:
+        raise ValueError(f'unsafe image filename: {filename!r}')
+    if Path(filename).name != filename:
+        raise ValueError(f'unsafe image filename: {filename!r}')
+    return filename
 
 
 def _load_json(path: Path) -> Any:
@@ -32,6 +53,10 @@ def _write_json(path: Path, data: Any) -> None:
 
 
 def _chunk_path(slug: str, chunk: str) -> Path:
+    if not _valid_slug(slug):
+        raise ValueError(f'invalid slug: {slug}')
+    if not _valid_chunk(chunk):
+        raise ValueError(f'invalid chunk: {chunk}')
     path = DATA_DIR / slug / 'parsed' / f'{chunk}.json'
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -159,7 +184,7 @@ def _crop_pdf_image(slug: str, override: dict[str, Any]) -> tuple[str, float]:
     pdf_path = _raw_pdf_path(slug)
     image_id = override.get('image_id') or override['block']['id']
     safe = str(image_id).replace('/', '-')
-    filename = override.get('src') or f'manual_{safe}.png'
+    filename = _safe_image_filename(override.get('src') or f'manual_{safe}.png')
     dst_dir = DATA_DIR / slug / 'unified' / 'images'
     dst_dir.mkdir(parents=True, exist_ok=True)
     dst = dst_dir / filename
@@ -216,6 +241,8 @@ def _apply_pdf_crop_insert(slug: str, override: dict[str, Any], backup_dir: Path
 
 def _copy_solution_images(slug: str, override: dict[str, Any]) -> int:
     src_slug = override['from_slug']
+    if not _valid_slug(src_slug):
+        raise ValueError(f'invalid from_slug: {src_slug}')
     src_dir = DATA_DIR / src_slug / 'unified' / 'images'
     dst_dir = DATA_DIR / slug / 'unified' / 'images'
     if not src_dir.is_dir():
@@ -241,6 +268,8 @@ def _copy_solution_images(slug: str, override: dict[str, Any]) -> int:
 
 
 def apply_overrides(slug: str) -> dict[str, Any]:
+    if not _valid_slug(slug):
+        raise ValueError(f'invalid slug: {slug}')
     path = OVERRIDE_DIR / f'{slug}.json'
     if not path.is_file():
         raise FileNotFoundError(path)

@@ -414,6 +414,13 @@ _OV_ALLOWED_FIELDS = {
 }
 _OV_TEXT_FIELDS = {'md', 'caption', 'tex'}
 _OV_ACTIONS = {'set_fields', 'replace_text', 'pdf_crop_insert', 'copy_solution_images'}
+_OV_SLUG = re.compile(r'^[a-z0-9_]{1,64}$')
+_OV_CHUNK = re.compile(r'^(?:ch\d{2}|app[A-Za-z0-9_]{1,16})$')
+
+
+def _safe_basename(name: str) -> bool:
+    return isinstance(name, str) and bool(name) and '/' not in name and '\\' not in name \
+        and name not in {'.', '..'} and Path(name).name == name
 
 
 def test_all_catalog_overrides_structural_contract():
@@ -448,8 +455,8 @@ def test_all_catalog_overrides_structural_contract():
                 if not (isinstance(sel, str) and (_SEL_BODY.match(sel) or _SEL_PROB.match(sel))):
                     violations.append(f'{tag}: selector 不符契約：{sel!r}')
                 ch = ov.get('chunk')
-                if not (isinstance(ch, str) and ch):
-                    violations.append(f'{tag}: 缺/壞 chunk（consumer 首句即 KeyError 炸）：{ch!r}')
+                if not (isinstance(ch, str) and _OV_CHUNK.match(ch)):
+                    violations.append(f'{tag}: 缺/壞 chunk（consumer 首句即炸或 path escape）：{ch!r}')
 
             if action == 'set_fields':
                 set_keys = set((ov.get('set') or {}))
@@ -494,10 +501,13 @@ def test_all_catalog_overrides_structural_contract():
                         int(ov['page'])
                     except (TypeError, ValueError):
                         violations.append(f'{tag}: pdf_crop_insert page 非 int-able：{ov["page"]!r}')
+                if 'src' in ov and not _safe_basename(ov['src']):
+                    violations.append(f'{tag}: pdf_crop_insert src 非安全檔名：{ov["src"]!r}')
 
             elif action == 'copy_solution_images':
-                if not ov.get('from_slug'):
-                    violations.append(f'{tag}: copy_solution_images 缺 from_slug')
+                from_slug = ov.get('from_slug')
+                if not (isinstance(from_slug, str) and _OV_SLUG.match(from_slug)):
+                    violations.append(f'{tag}: copy_solution_images 缺/壞 from_slug：{from_slug!r}')
 
     assert not violations, (f'catalog_overrides 結構漂移（{len(violations)} 條）：\n' +
                             '\n'.join(f'  - {v}' for v in violations[:40]))

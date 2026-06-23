@@ -43,7 +43,7 @@ from pathlib import Path
 from book_pipeline import build_catalogs as bc
 from textbooks import corpus
 
-SLUG = 'parity-fixture'
+SLUG = 'parity_fixture'
 STEM = 'ch01'
 
 # 八情境 chunk。block 順序刻意讓 ①④⑤⑥ 四個 fig-1.2 撞號穿插（中間隔著 fallback fig 與 eq），

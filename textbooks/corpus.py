@@ -30,6 +30,8 @@ from book_pipeline.translate import overlay_anchor
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+APP_ID_RE = re.compile(r'^[A-Za-z0-9_]{1,16}$')
 
 
 # ── books index ──────────────────────────────────────────────────────────────
@@ -65,7 +67,10 @@ def list_books() -> list[dict]:
             continue
         bf = DATA_DIR / rel
         b = json.loads(bf.read_text(encoding='utf-8'))
+        dir_slug = bf.parents[1].name
         slug = b['slug']
+        if not _valid_slug(slug) or slug != dir_slug:
+            continue
         books.append({
             'slug': slug,
             'title': b['title'],
@@ -80,6 +85,10 @@ def list_books() -> list[dict]:
         })
     _books_cache = (sig, books)
     return books
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
 
 
 SUPPORTED_LANGS = ('zh', 'bi')
@@ -106,6 +115,8 @@ _book_cache: dict[tuple[str, str], tuple[tuple[float, float | None], dict]] = {}
 
 
 def load_book(slug: str, lang: str | None = None) -> dict | None:
+    if not _valid_slug(slug):
+        return None
     path = DATA_DIR / slug / 'parsed' / 'book.json'
     if not path.is_file():
         return None
@@ -195,11 +206,15 @@ def _chunk_stem(kind: str, key: str | int) -> str | None:
         except (TypeError, ValueError):
             return None
     if kind == 'app':
+        if not APP_ID_RE.fullmatch(str(key)):
+            return None
         return f'app{key}'
     return None
 
 
 def _chunk_path(slug: str, kind: str, key: str | int) -> Path | None:
+    if not _valid_slug(slug):
+        return None
     stem = _chunk_stem(kind, key)
     if stem is None:
         return None
@@ -334,6 +349,8 @@ def _normalize_catalogs(data: dict) -> dict:
 
 def load_catalogs(slug: str) -> dict | None:
     """讀 parsed/catalogs.json；不存在時回空目錄，讓舊 parsed 可漸進回填。"""
+    if not _valid_slug(slug):
+        return None
     parsed_dir = DATA_DIR / slug / 'parsed'
     book_path = parsed_dir / 'book.json'
     if not book_path.is_file():
@@ -352,6 +369,8 @@ def load_catalogs(slug: str) -> dict | None:
 
 
 def _load_chunk(slug: str, stem: str, lang: str | None) -> dict | None:
+    if not _valid_slug(slug) or '/' in stem or '\\' in stem or '..' in stem:
+        return None
     path = DATA_DIR / slug / 'parsed' / f'{stem}.json'
     if not path.is_file():
         return None
@@ -508,12 +527,18 @@ def _patch_blocks(blocks: list[dict], patches: list[dict], bilingual: bool = Fal
 # ── images ───────────────────────────────────────────────────────────────────
 
 def image_dir(slug: str) -> Path:
+    if not _valid_slug(slug):
+        return DATA_DIR / '__invalid_slug__' / 'unified' / 'images'
     return DATA_DIR / slug / 'unified' / 'images'
 
 
 def has_image(slug: str, filename: str) -> bool:
+    if not _valid_slug(slug) or '/' in filename or '\\' in filename or '..' in filename:
+        return False
     return (image_dir(slug) / filename).is_file()
 
 
 def cover_path(slug: str) -> Path:
+    if not _valid_slug(slug):
+        return DATA_DIR / '__invalid_slug__' / 'cover.jpg'
     return DATA_DIR / slug / 'cover.jpg'

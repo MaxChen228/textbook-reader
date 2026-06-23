@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 import os
 import re
 import sys
@@ -245,10 +246,13 @@ def bake_catalog() -> None:
           f"待查連結 {o.get('candidate', o['unresolved'])} · 無法收錄 {o['absent']}")
 
 
-def main(argv: list[str]) -> None:
+def main(argv: list[str] | None = None) -> None:
+    ap = argparse.ArgumentParser(description='把本地 corpus 預烤成 reader 靜態 JSON')
+    ap.add_argument('slug', nargs='*', help='指定書籍 slug；不給則烤全部')
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
     all_books = corpus.list_books()
     books = all_books
-    wanted = set(argv)
+    wanted = set(args.slug)
     if wanted:
         books = [b for b in all_books if b['slug'] in wanted]
         if not books:
@@ -268,4 +272,4 @@ def main(argv: list[str]) -> None:
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

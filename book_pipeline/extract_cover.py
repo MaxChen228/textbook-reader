@@ -11,6 +11,8 @@ CLI:
 from __future__ import annotations
 
 import os
+import argparse
+import re
 import signal
 import subprocess
 import sys
@@ -21,6 +23,11 @@ import fitz  # pymupdf
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / 'raw_pdfs'
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
 
 # pymupdf/MuPDF 對某些病態 JPEG2000(JPX) 圖會「無限慢解」≈死循環（實測曾凍住 daemon 主迴圈
 # 28 分鐘 96% CPU）。故 daemon 鉤子 ensure_covers 一律把 render 隔離進子進程 + 硬 timeout +
@@ -52,6 +59,8 @@ def _is_solution_pdf(stem: str) -> bool:
 
 def find_pdf_for_slug(slug: str) -> Path | None:
     """依序嘗試：alias map → 規範化後 stem 比對 → slug 各段全出現於 stem。"""
+    if not _valid_slug(slug):
+        return None
     if slug in SLUG_TO_PDF:
         p = RAW / SLUG_TO_PDF[slug]
         return p if p.is_file() else None
@@ -75,6 +84,9 @@ def find_pdf_for_slug(slug: str) -> Path | None:
 
 
 def extract_one(slug: str, pdf_path: Path, *, force: bool = False) -> Path | None:
+    if not _valid_slug(slug):
+        print(f'  ✗ {slug}: invalid slug')
+        return None
     if not pdf_path.is_file():
         print(f'  ✗ {slug}: PDF 不存在 ({pdf_path.name})')
         return None
@@ -128,6 +140,8 @@ def ensure_covers(slugs) -> int:
     封面源頭 = raw PDF 第一頁，triage 完成即可生；解答本（_sol）跳過；任何單本失敗不連坐。"""
     made = 0
     for slug in slugs:
+        if not _valid_slug(slug):
+            continue
         if _is_solution_pdf(slug):
             continue
         sdir = DATA_DIR / slug
@@ -153,23 +167,31 @@ def _audited_slugs() -> list[str]:
     if not DATA_DIR.is_dir():
         return out
     for d in sorted(DATA_DIR.iterdir()):
-        if not d.is_dir() or _is_solution_pdf(d.name):
+        if not d.is_dir() or not _valid_slug(d.name) or _is_solution_pdf(d.name):
             continue
         if (d / 'unified' / 'content_list.json').is_file():
             out.append(d.name)
     return out
 
 
-def main() -> None:
-    args = [a for a in sys.argv[1:] if a != '--force']
-    force = '--force' in sys.argv
+def main(argv: list[str] | None = None) -> None:
+    ap = argparse.ArgumentParser(description='抽 raw PDF 第一頁作為 mineru_data/<slug>/cover.jpg')
+    ap.add_argument('slug', nargs='?', help='書籍 slug；不給則掃所有 audited book 補缺')
+    ap.add_argument('pdf', nargs='?', help='明確指定 PDF 路徑')
+    ap.add_argument('--force', action='store_true', help='覆蓋既有 cover.jpg')
+    ns = ap.parse_args(sys.argv[1:] if argv is None else argv)
+    force = ns.force
 
-    if len(args) == 2:
-        ok = extract_one(args[0], Path(args[1]), force=force)
+    if ns.slug and ns.pdf:
+        if not _valid_slug(ns.slug):
+            sys.exit(f'✗ invalid slug: {ns.slug}')
+        ok = extract_one(ns.slug, Path(ns.pdf), force=force)
         sys.exit(0 if ok else 1)
 
-    if len(args) == 1:
-        slug = args[0]
+    if ns.slug:
+        slug = ns.slug
+        if not _valid_slug(slug):
+            sys.exit(f'✗ invalid slug: {slug}')
         pdf = find_pdf_for_slug(slug)
         if pdf is None:
             print(f'  ✗ {slug}: raw_pdfs/ 找不到對應 PDF（試過 alias map / stem 比對 / 模糊匹配）')
@@ -177,9 +199,6 @@ def main() -> None:
             sys.exit(1)
         ok = extract_one(slug, pdf, force=force)
         sys.exit(0 if ok else 1)
-
-    if len(args) != 0:
-        sys.exit('usage: python -m book_pipeline.extract_cover [<slug> [<pdf>]] [--force]')
 
     # 零參：掃所有 audited slug，缺 cover.jpg 才跑（force 則一律跑）
     slugs = _audited_slugs()

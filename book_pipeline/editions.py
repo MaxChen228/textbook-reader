@@ -117,8 +117,8 @@ def save(slug: str, fields: dict) -> dict:
 
 
 def ensure(slug: str, defaults: dict | None = None) -> dict:
-    """冪等補骨架：只補**缺少**的欄位、不蓋已有值（migration / 機械推導骨架用）。已存在的 edition
-    值原樣保留 → 重跑安全。回補齊後全筆。"""
+    """冪等補骨架：補**缺少或為 None**的欄位、不蓋已有非空值（migration / 機械推導骨架用）。已存在的
+    edition 值原樣保留 → 重跑安全。回補齊後全筆。"""
     import fcntl
     os.makedirs(EDITIONS_DIR, exist_ok=True)
     p = _path(slug)
@@ -129,7 +129,7 @@ def ensure(slug: str, defaults: dict | None = None) -> dict:
         cur = jsonio.read_json(p, None) or {}
         changed = False
         for k, v in base.items():
-            if k not in cur:
+            if k not in cur or cur[k] is None:
                 cur[k] = v
                 changed = True
         if changed:
@@ -167,6 +167,17 @@ def cmd_set(args) -> int:
         merged = dict(cur.get('sol_alignment') or {})
         merged.update(sa)                         # sol_alignment 子 dict 也 merge（保留未給的舊欄）
         fields['sol_alignment'] = merged
+    ident = {}                                     # 身份（title/author 等；子 dict merge）
+    for k in ('title', 'author', 'edition_pref', 'promoted_from'):
+        v = getattr(args, k, None)
+        if v is not None:
+            ident[k] = v
+    if getattr(args, 'has_solution', None) is not None:
+        ident['has_solution'] = args.has_solution
+    if ident:
+        merged = dict(cur.get('identity') or {})
+        merged.update(ident)
+        fields['identity'] = merged
     cls = {}                                       # 分類（領域歸類；agent 查證時順手歸，子 dict merge）
     if getattr(args, 'field_id', None) is not None:
         cls['field_id'] = args.field_id
@@ -214,6 +225,12 @@ def main() -> int:
     p.add_argument('--parent-version', dest='parent_version', help='（解答本）母書版次')
     p.add_argument('--sol-version', dest='sol_version', help='（解答本）解答本版次')
     p.add_argument('--basis', help='（解答本）對齊判斷依據')
+    p.add_argument('--title', help='書名（identity.title）')
+    p.add_argument('--author', help='作者（identity.author）')
+    p.add_argument('--edition-pref', dest='edition_pref', help='偏好版次描述（identity.edition_pref）')
+    p.add_argument('--has-solution', dest='has_solution', action=argparse.BooleanOptionalAction,
+                   default=None, help='母書是否預期有解答本（identity.has_solution）')
+    p.add_argument('--promoted-from', dest='promoted_from', help='identity.promoted_from 來源標記')
     p.add_argument('--field-id', dest='field_id', help='分類領域 id（join fields.json 取顯示名/排序）')
     p.add_argument('--subject', help='分類子科目（領域內細分）')
     p.add_argument('--eligible', dest='eligible', action=argparse.BooleanOptionalAction,

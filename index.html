@@ -716,8 +716,7 @@
 <script>
 const esc = QBankShared.safeHtml
 const renderMarkdown = QBankShared.renderMarkdown
-const escAttr = (s) => String(s ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+const escAttr = QBankShared.escapeAttr
 
 let books = []         // 已收錄可讀書 metadata（data/books.json）
 let catalog = null     // 完整收錄表（data/catalog.json）：書單 SoT × 三態，library 渲染來源
@@ -1256,9 +1255,9 @@ function catalogCardHtml(b) {
     // onerror：封面 webp 萬一 404（如 deploy 空窗或 immutable 快取黏死）→ 收掉封面框、退化成無封面卡，
     // 不顯瀏覽器破圖 icon。build_all 已 convert 先於 bake 杜絕產生空窗，此為前端防線。
     const cover = m.has_cover
-      ? `<div class="lib-card-cover"><img src="img/${esc(b.slug)}/cover.webp" alt="" loading="lazy" onerror="this.closest('.lib-card-cover').style.display='none'"></div>`
+      ? `<div class="lib-card-cover"><img src="img/${escAttr(b.slug)}/cover.webp" alt="" loading="lazy" onerror="this.closest('.lib-card-cover').style.display='none'"></div>`
       : ''
-    return `<a class="lib-card qbk-raised-item" href="#${esc(b.slug)}" data-slug="${esc(b.slug)}">
+    return `<a class="lib-card qbk-raised-item" href="#${escAttr(b.slug)}" data-slug="${escAttr(b.slug)}">
       ${cover}
       <div class="lib-card-body">
         <div class="lib-card-title">${esc(b.title || m.title || b.slug)}</div>
@@ -1428,7 +1427,7 @@ function catalogItemHtml(e) {
   const active = e.chunk_kind === currentKind && String(e.chunk_key) === String(currentKey)
     && e.anchor === activeSectionAnchor
   const thumb = catalogType === 'figures' && e.src
-    ? `<img class="catalog-thumb" data-kind="${escAttr(e.kind || '')}" src="img/${slug}/${escAttr(e.src)}" alt="">`
+    ? `<img class="catalog-thumb" data-kind="${escAttr(e.kind || '')}" src="img/${escAttr(slug)}/${escAttr(e.src)}" alt="">`
     : ''
   return `<div class="catalog-item${active ? ' active' : ''}" data-kind="${escAttr(e.chunk_kind)}" data-key="${escAttr(e.chunk_key)}" data-anchor="${escAttr(e.anchor)}">
     ${thumb}
@@ -1533,7 +1532,7 @@ async function catalogDetailHtml(entry, type) {
   if (type === 'figures' && entry.src) {
     const cap = entry.caption ? `<figcaption>${esc(entry.caption)}</figcaption>` : ''
     const kind = entry.kind ? ` data-kind="${escAttr(entry.kind)}"` : ''
-    return `<figure${kind}><img src="img/${slug}/${escAttr(entry.src)}" alt="${escAttr(entry.caption || '')}">${cap}</figure>`
+    return `<figure${kind}><img src="img/${escAttr(slug)}/${escAttr(entry.src)}" alt="${escAttr(entry.caption || '')}">${cap}</figure>`
   }
   const label = catalogDisplayIdForType(entry, type)
   return `<div class="catalog-detail-fallback">Catalog audit failed: ${esc(label)} has no resolvable anchor.</div>`
@@ -1821,7 +1820,13 @@ async function parseHash({ restoreSaved = false } = {}) {
   closeReaderSidebar()
   await loadBook(s)
   if (parts.length >= 3) {
-    await showChunk(parts[1], parts[2])
+    const kind = parts[1]
+    const key = parts[2]
+    if (!validChunkRef(kind, key)) {
+      showBookOverview()
+      return
+    }
+    await showChunk(kind, key)
   } else {
     const saved = savedProgressTargetFor(s)
     if (saved) navigate(saved.slug, saved.kind, saved.key)
@@ -1846,6 +1851,12 @@ function showBookOverview() {
       <p style="color:var(--sub);margin-top:6px;font-style:italic">${esc(book.author||'')}${book.edition?` · ${esc(book.edition)} edition`:''}</p>
       <p>從左側選章節開始閱讀。</p>
     </div>`
+}
+
+function validChunkRef(kind, key) {
+  if (kind === 'ch') return (book.chapters || []).some(c => String(c.num) === String(key))
+  if (kind === 'app') return (book.appendices || []).some(a => String(a.id) === String(key))
+  return false
 }
 
 async function showChunk(kind, key, { preserveScroll = false } = {}) {
@@ -2091,7 +2102,7 @@ function renderBody(blocks, secPrefix, basePath = ['body']) {
       const anchor = bid ? `sec-${bid}` : `sec-${secPrefix}-${counter}`
       const tag = b.t === 'section' ? 'h2' : 'h3'
       const num = bid ? `<span class="sec-num">${esc(bid)}</span> ` : ''
-      return `<${tag} id="${anchor}" class="sec-h editable-block"${editAttrs(path, 'title', b.t, b.title)}>${num}${esc(b.title)}${editButton()}</${tag}>${isBi ? biReveal(b.title_zh) : ''}`
+      return `<${tag} id="${escAttr(anchor)}" class="sec-h editable-block"${editAttrs(path, 'title', b.t, b.title)}>${num}${esc(b.title)}${editButton()}</${tag}>${isBi ? biReveal(b.title_zh) : ''}`
     }
     return renderBlock(b, isBi, path)
   }).join('')
@@ -2129,14 +2140,14 @@ function renderBlock(b, isBi, path) {
     case 'fig': {
       const cap = b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''
       const id = b.id ? ` id="${escAttr(b.id)}"` : ''
-      const kind = b.kind ? ` data-kind="${esc(b.kind)}"` : ''
-      const fig = `<figure class="editable-block"${id}${kind}${editAttrs(path, 'caption', 'fig', b.caption)}><img src="img/${slug}/${esc(b.src)}" loading="lazy" alt="${esc(b.caption||'')}">${cap}${editButton()}</figure>`
+      const kind = b.kind ? ` data-kind="${escAttr(b.kind)}"` : ''
+      const fig = `<figure class="editable-block"${id}${kind}${editAttrs(path, 'caption', 'fig', b.caption)}><img src="img/${escAttr(slug)}/${escAttr(b.src)}" loading="lazy" alt="${escAttr(b.caption||'')}">${cap}${editButton()}</figure>`
       return fig + (isBi ? biReveal(b.caption_zh) : '')
     }
     case 'table': {
       const cap = b.caption ? `<div class="tbl-cap">${esc(b.caption)}</div>` : ''
       const fn  = b.footnote ? `<div class="tbl-fn">${esc(b.footnote)}</div>` : ''
-      const html = (b.html || '').replace(/src="images\//g, `src="img/${slug}/`)
+      const html = (b.html || '').replace(/src="images\//g, `src="img/${escAttr(slug)}/`)
       const zh = [b.caption_zh, b.footnote_zh].filter(Boolean).join('\n\n')
       const id = b.id ? ` id="${escAttr(b.id)}"` : ''
       return `<div class="tbl editable-block"${id}${editAttrs(path, 'caption', 'table', b.caption)}>${cap}${html}${fn}${editButton()}</div>${isBi ? biReveal(zh) : ''}`
@@ -2155,7 +2166,7 @@ function renderProblems(probs) {
   return `<section class="problems-section">
     <h2>${heading}</h2>
     ${probs.map((p, idx) => `
-      <div class="problem" id="prob-${esc(p.num)}">
+      <div class="problem" id="prob-${escAttr(p.num)}">
         <div class="problem-tools">
           <a class="problem-open" href="problems.html#${encodeURIComponent(`tb:${slug}:${currentKind}:${currentKey}:p:${p.num}`)}">Open in Problems</a>
         </div>

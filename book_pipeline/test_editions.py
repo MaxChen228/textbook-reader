@@ -54,6 +54,26 @@ def test_ensure_idempotent():
     print('✓ editions：ensure 補缺欄不蓋已有值、新 slug 建骨架、重跑冪等')
 
 
+def test_ensure_fills_null_skeleton_groups():
+    """ensure：頂層 None 是待補骨架，不應阻止 migration/backfill 寫入 identity/classification。"""
+    _isolate()
+    ed.save('x', {'identity': None, 'classification': None, 'qualification': None})
+    ed.ensure('x', {
+        'identity': {'title': 'Concrete Mathematics', 'author': 'Graham, Knuth, Patashnik',
+                     'edition_pref': '', 'has_solution': False, 'promoted_from': 'migration'},
+        'classification': {'field_id': 'math', 'subject': '離散數學', 'order': [1, 2, 3, 0]},
+        'qualification': {'eligible': True, 'verified_at': None},
+    })
+    e = ed.load('x')
+    assert e['identity']['title'] == 'Concrete Mathematics'
+    assert e['classification']['field_id'] == 'math'
+    assert e['qualification']['eligible'] is True
+    before = dict(e)
+    ed.ensure('x', {'identity': {'title': 'Wrong'}})
+    assert ed.load('x') == before
+    print('✓ editions：ensure 會補頂層 None 骨架且不覆蓋既有非空值')
+
+
 def test_load_all():
     _isolate()
     ed.save('a', {'version': {'label': '1st'}})
@@ -209,10 +229,42 @@ def test_cmd_set_classification_and_eligible():
     print('✓ editions CLI：--field-id/--subject merge + --eligible 寫 qualification + verified_at 戳')
 
 
+def test_cmd_set_identity():
+    """CLI set 身份欄：title/author/edition_pref/has_solution/promoted_from 子 dict merge。"""
+    import argparse
+    _isolate()
+    ns = argparse.Namespace(slug='m', label=None, year=None, publisher=None, isbn=None,
+                            matches_pref=None, confidence=None, sol_aligned=None,
+                            parent_version=None, sol_version=None, basis=None,
+                            title='Introduction to Algorithms', author='Cormen et al.',
+                            edition_pref='4th', has_solution=True, promoted_from='discovery',
+                            field_id=None, subject=None, eligible=None,
+                            evidence=None, source=None, by='restock')
+    ed.cmd_set(ns)
+    e = ed.load('m')
+    assert e['identity'] == {'title': 'Introduction to Algorithms', 'author': 'Cormen et al.',
+                             'edition_pref': '4th', 'has_solution': True,
+                             'promoted_from': 'discovery'}
+    ns2 = argparse.Namespace(slug='m', label=None, year=None, publisher=None, isbn=None,
+                             matches_pref=None, confidence=None, sol_aligned=None,
+                             parent_version=None, sol_version=None, basis=None,
+                             title=None, author='Thomas H. Cormen et al.', edition_pref=None,
+                             has_solution=None, promoted_from=None,
+                             field_id=None, subject=None, eligible=None,
+                             evidence=None, source=None, by='restock')
+    ed.cmd_set(ns2)
+    e2 = ed.load('m')
+    assert e2['identity']['title'] == 'Introduction to Algorithms'
+    assert e2['identity']['author'] == 'Thomas H. Cormen et al.'
+    assert e2['identity']['has_solution'] is True
+    print('✓ editions CLI：identity 子 dict merge')
+
+
 if __name__ == '__main__':
     test_save_and_load()
     test_save_merges()
     test_ensure_idempotent()
+    test_ensure_fills_null_skeleton_groups()
     test_load_all()
     test_cmd_set_and_merge()
     test_cmd_set_sol_alignment()
@@ -220,4 +272,5 @@ if __name__ == '__main__':
     test_dims_four_dimensions()
     test_qualifies_all_four()
     test_cmd_set_classification_and_eligible()
+    test_cmd_set_identity()
     print('\n全部通過 ✅')

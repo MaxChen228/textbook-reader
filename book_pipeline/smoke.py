@@ -28,6 +28,8 @@ audit-book skill 的 §5 在 schema validator 之後 invoke 本 module，
 from __future__ import annotations
 
 import json
+import argparse
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -35,6 +37,7 @@ from pathlib import Path
 from book_pipeline.catalog_audit import audit_catalog
 
 DATA_DIR = Path('book_pipeline/mineru_data')
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
 
 H1_BODY_THRESHOLD = 20
 H1_PROBLEMS_THRESHOLD = 30
@@ -51,6 +54,8 @@ def smoke_findings(slug: str) -> tuple[list[str], list[str]]:
     _verify_catalog（audit_catalog write_report=False）→ verify 全程零寫檔污染。
     book.json 不存在 → 拋 FileNotFoundError（呼叫端決定處置；smoke() 轉 sys.exit）。
     """
+    if not isinstance(slug, str) or SLUG_RE.fullmatch(slug) is None:
+        raise ValueError(f'invalid slug: {slug}')
     parsed_dir = DATA_DIR / slug / 'parsed'
     book_path = parsed_dir / 'book.json'
     if not book_path.exists():
@@ -127,6 +132,9 @@ def smoke_findings(slug: str) -> tuple[list[str], list[str]]:
 
 def smoke(slug: str) -> int:
     """smoke_findings 純核（H1-H5）+ catalog gate（H6/H7，寫 _catalog_audit.md）+ 寫 _smoke.md + print。"""
+    if not isinstance(slug, str) or SLUG_RE.fullmatch(slug) is None:
+        print(f'❌ {slug}: invalid slug')
+        return 1
     parsed_dir = DATA_DIR / slug / 'parsed'
     try:
         critical, warnings = smoke_findings(slug)
@@ -185,7 +193,12 @@ def smoke(slug: str) -> int:
     return 1 if critical else 0
 
 
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description='對 parser 跑出的 parsed/ 結果做啟發式語義檢測')
+    ap.add_argument('slug')
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+    return smoke(args.slug)
+
+
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        sys.exit('usage: python -m book_pipeline.smoke <slug>')
-    sys.exit(smoke(sys.argv[1]))
+    sys.exit(main())

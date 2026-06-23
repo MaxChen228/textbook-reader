@@ -112,12 +112,18 @@ def _mk_target(slug, ident, fid, subject, base3, kind, of, source) -> dict:
     }
 
 
-def targets(all_eds: dict | None = None, include_discovered: bool = True) -> list[dict]:
+def targets(all_eds: dict | None = None, include_discovered: bool | None = None) -> list[dict]:
     """攤平 universe（editions 主書記錄）→ 有序 target 清單（含衍生解答本）。
     每主書 editions 記錄 → 一 main target；identity.has_solution → 緊接一 <slug>_sol target（即使 _sol 尚無
     editions/無連結＝CANDIDATE，resolver 去找）。order=(field_order〔fields.json live〕, subject_rank, book_rank,
     kind_rank)。include_discovered：併入 discovered 機器候選（無 editions、order 首碼 10000、撞 slug 跳）。"""
-    all_eds = ed.load_all() if all_eds is None else all_eds
+    loaded_from_disk = all_eds is None
+    all_eds = ed.load_all() if loaded_from_disk else all_eds
+    if include_discovered is None:
+        # Production callers usually let this function load the live universe, where discovered/
+        # is part of the restock work surface. Tests/tools that inject all_eds get a pure
+        # editions-only view unless they explicitly opt into discovered candidates.
+        include_discovered = loaded_from_disk
     out = []
     for slug, e in all_eds.items():
         if slug.endswith(SOL_SUFFIX):
@@ -268,17 +274,22 @@ def select_next(n: int, all_eds: dict | None = None, have: set | None = None,
     return picks
 
 
-def _targets_in_state(state: str, all_eds=None, have=None, resolution=None) -> list[dict]:
-    all_eds = ed.load_all() if all_eds is None else all_eds
+def _targets_in_state(state: str, all_eds=None, have=None, resolution=None,
+                      include_discovered: bool | None = None) -> list[dict]:
+    loaded_from_disk = all_eds is None
+    all_eds = ed.load_all() if loaded_from_disk else all_eds
+    if include_discovered is None:
+        include_discovered = loaded_from_disk
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
-    return [t for t in targets(all_eds)
+    return [t for t in targets(all_eds, include_discovered=include_discovered)
             if status_of(t['slug'], have, resolution, all_eds.get(t['slug'])) == state]
 
 
-def unresolved_targets(all_eds=None, have=None, resolution=None) -> list[dict]:
+def unresolved_targets(all_eds=None, have=None, resolution=None,
+                       include_discovered: bool | None = None) -> list[dict]:
     """status==CANDIDATE 的 target（無連結；resolver/restock 工作母體，含衍生 _sol / discovered）。"""
-    return _targets_in_state(CANDIDATE, all_eds, have, resolution)
+    return _targets_in_state(CANDIDATE, all_eds, have, resolution, include_discovered)
 
 
 def _pending_resting(ed_rec: dict | None, now: _dt.datetime) -> bool:
@@ -296,30 +307,36 @@ def _pending_resting(ed_rec: dict | None, now: _dt.datetime) -> bool:
     return (now - t) < _dt.timedelta(days=RECHECK_COOLDOWN_DAYS)
 
 
-def pending_targets(all_eds=None, have=None, resolution=None, now=None) -> list[dict]:
+def pending_targets(all_eds=None, have=None, resolution=None, now=None,
+                    include_discovered: bool | None = None) -> list[dict]:
     """**actionable** PENDING target（有連結但維③④①未全過 → /restock 存量回查母體）。排除 recheck
     cooldown 內 resting 者（近期親查過仍 PENDING＝偏好版暫無 → 暫不重派，防 busy-loop；窗到期自動回母體）。"""
     all_eds = ed.load_all() if all_eds is None else all_eds
     now = now or _dt.datetime.now(_dt.timezone.utc)
-    return [t for t in _targets_in_state(PENDING, all_eds, have, resolution)
+    return [t for t in _targets_in_state(PENDING, all_eds, have, resolution, include_discovered)
             if not _pending_resting(all_eds.get(t['slug']), now)]
 
 
-def crawl_work_remaining(all_eds=None, have=None, resolution=None) -> int:
+def crawl_work_remaining(all_eds=None, have=None, resolution=None,
+                         include_discovered: bool | None = None) -> int:
     """庫存查證工作母體大小 = CANDIDATE（無連結）+ actionable PENDING（排除 cooldown resting）。
-    供互動 /restock（使用者親自 fan-out 填書單）與 `resolve queue` / devctl 面板讀取——**非 daemon**
-    （daemon 已不自主 resolve）。resting 的 PENDING 窗到期後自動回母體 → 週期性可重查（有界）。"""
+    供互動 /restock、`resolve queue`、devctl 面板，以及 daemon 收斂 latch 使用。resting 的 PENDING
+    窗到期後自動回母體 → 週期性可重查（有界、非每 cycle busy-loop）。"""
     all_eds = ed.load_all() if all_eds is None else all_eds
     have = have_slugs() if have is None else have
     resolution = load_resolution() if resolution is None else resolution
-    return (len(unresolved_targets(all_eds, have, resolution))
-            + len(pending_targets(all_eds, have, resolution)))
+    return (len(unresolved_targets(all_eds, have, resolution, include_discovered))
+            + len(pending_targets(all_eds, have, resolution, include_discovered=include_discovered)))
 
 
-def pool_counts(all_eds=None, have=None, resolution=None) -> dict:
+def pool_counts(all_eds=None, have=None, resolution=None,
+                include_discovered: bool | None = None) -> dict:
     """爬書水位母數（向後相容鍵 + 新鍵）。confirmed/ready/qualified_ready=QUALIFIED；unresolved/candidate
     =CANDIDATE；pending=PENDING。"""
-    o = progress(all_eds, have, resolution)['overall']
+    loaded_from_disk = all_eds is None
+    if include_discovered is None:
+        include_discovered = loaded_from_disk
+    o = progress(all_eds, have, resolution, include_discovered=include_discovered)['overall']
     return {'confirmed': o[QUALIFIED], 'ready': o[QUALIFIED], 'qualified_ready': o[QUALIFIED],
             'pending': o[PENDING], 'unresolved': o[CANDIDATE], 'candidate': o[CANDIDATE],
             'owned': o[OWNED], 'rejected': o[REJECTED], 'absent': o[REJECTED],

@@ -320,8 +320,7 @@
 <script>
 const S = window.QBankShared
 const esc = S.escapeHtml
-const escAttr = (s) => String(s ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+const escAttr = S.escapeAttr
 
 const RENDER_CAP = 4000   // grid 格覽一次最多渲染的格塊數（grid 無虛擬捲動）
 const ROW_H = 150         // list 虛擬捲動的固定列高（卡片 138 + 間距 12）

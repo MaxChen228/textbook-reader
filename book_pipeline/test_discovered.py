@@ -64,7 +64,7 @@ def test_targets_merges_discovered():
         {'slug': 'sakurai_qm', 'title': 'Modern QM', 'author': 'Sakurai'},   # 新 main + 衍生 _sol
         {'slug': 'taylor_mech', 'title': 'dup', 'author': 'X'},              # 撞 editions → 跳
     ], {'taylor_mech'})
-    ts = bl.targets(all_eds)
+    ts = bl.targets(all_eds, include_discovered=True)
     slugs = [t['slug'] for t in ts]
     assert 'sakurai_qm' in slugs and 'sakurai_qm_sol' in slugs
     assert slugs.index('taylor_mech') < slugs.index('sakurai_qm')   # editions 優先（排前、order<10000）

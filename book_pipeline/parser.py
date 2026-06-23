@@ -37,11 +37,18 @@ except ModuleNotFoundError:  # 允許 uv run python book_pipeline/parser.py <slu
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'book_pipeline' / 'mineru_data'
+SLUG_RE = re.compile(r'^[a-z0-9_]{1,64}$')
+
+
+def _valid_slug(slug: str) -> bool:
+    return isinstance(slug, str) and SLUG_RE.fullmatch(slug) is not None
 
 
 # ── 讀檔 ─────────────────────────────────────────────────────────────────────
 
 def load_rules(slug: str) -> dict:
+    if not _valid_slug(slug):
+        sys.exit(f'invalid slug: {slug}')
     path = DATA_DIR / slug / 'extract_rules.yaml'
     if not path.is_file():
         sys.exit(f'缺 extract_rules.yaml：{path}')
@@ -49,6 +56,8 @@ def load_rules(slug: str) -> dict:
 
 
 def load_unified(slug: str) -> list[dict]:
+    if not _valid_slug(slug):
+        sys.exit(f'invalid slug: {slug}')
     path = DATA_DIR / slug / 'unified' / 'content_list.json'
     if not path.is_file():
         sys.exit(f'缺 unified content_list：{path}')
@@ -783,6 +792,8 @@ def parse_appendix(app: dict, next_start_idx: int, all_blocks: list[dict],
 
 @cpu_bound('parse')
 def parse_book(slug: str) -> dict:
+    if not _valid_slug(slug):
+        sys.exit(f'invalid slug: {slug}')
     rules = load_rules(slug)
     all_blocks = load_unified(slug)
     regexes = compile_regexes(rules)
@@ -982,10 +993,12 @@ def write_gaps_report(out_dir: Path, slug: str, warnings: list[dict]) -> None:
     (out_dir / '_gaps.md').write_text('\n'.join(lines))
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument('slug')
-    args = ap.parse_args()
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+    if not _valid_slug(args.slug):
+        sys.exit(f'invalid slug: {args.slug}')
 
     result = parse_book(args.slug)
     book = result['book']

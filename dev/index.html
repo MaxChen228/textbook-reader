@@ -377,7 +377,7 @@
   </aside>
 
   <script>
-  const { fetchJson, relTime, escapeHtml } = QBankShared
+  const { fetchJson, relTime, escapeHtml, escapeAttr } = QBankShared
   const REFRESH_MS = 1000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
   let last = null, lastWorkers = []
@@ -453,7 +453,7 @@
   // slug → 穩定色（封面佔位用）
   function hue(s) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) % 360; return h }
   function coverHtml(b, big) {
-    if (b.cover) return `<img src="${escapeHtml(b.cover)}" loading="lazy" alt="">`
+    if (b.cover) return `<img src="${escapeAttr(b.cover)}" loading="lazy" alt="">`
     const init = (b.title || b.slug).replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase()
     const h = hue(b.slug)
     return `<div class="ph" style="background:linear-gradient(135deg,hsl(${h} 38% 42%),hsl(${(h+40)%360} 42% 30%))">${escapeHtml(init || '?')}</div>`
@@ -633,7 +633,7 @@
       el.className = 'book crawl-card dl ' + b.state; el.dataset.dl = b.slug
       el.title = (b.title || b.slug) + ' · ' + (b.state === 'done' ? '已落地' : b.state === 'failed' ? '下載失敗' : '下載中')
       const cv = b.cover
-        ? `<img src="${escapeHtml(b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${b.is_sol ? '📑' : '📘'}'}))">`
+        ? `<img src="${escapeAttr(b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${b.is_sol ? '📑' : '📘'}'}))">`
         : `<div class="ph crawl-ph queue-ph">${b.is_sol ? '📑' : '📘'}</div>`
       el.innerHTML = `<div class="cv">${cv}<span class="dl-badge ${b.state}"></span><span class="dl-mb"></span></div><div class="ttl"></div>`
       updateCrawlEl(el, it)
@@ -646,7 +646,7 @@
     el.title = (it.b.title || it.b.slug) + (url ? ' · 點開 z-lib 頁' : '')
     if (url) { el.href = url; el.target = '_blank'; el.rel = 'noopener noreferrer' }
     const cv = it.b.cover
-      ? `<img src="${escapeHtml(it.b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${it.b.is_sol ? '📑' : '📘'}'}))">`
+      ? `<img src="${escapeAttr(it.b.cover)}" loading="lazy" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph crawl-ph queue-ph',textContent:'${it.b.is_sol ? '📑' : '📘'}'}))">`
       : `<div class="ph crawl-ph queue-ph">${it.b.is_sol ? '📑' : '📘'}</div>`
     el.innerHTML = `<div class="cv">${cv}</div><div class="ttl"></div>`
     updateCrawlEl(el, it)
@@ -867,7 +867,7 @@
     if (openProposals) renderProposalsDrawer()
     else if (openProposalId) renderProposalDrawer()
   }
-  function ppDomBadge(p) { return `<span class="pp-dom" data-d="${escapeHtml(p.domain || '')}">${escapeHtml(p.domain || '?')}</span>` }
+  function ppDomBadge(p) { return `<span class="pp-dom" data-d="${escapeAttr(p.domain || '')}">${escapeHtml(p.domain || '?')}</span>` }
   function renderProposalsDrawer() {
     document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph">📋</div>`
     document.getElementById('dr-title').textContent = 'Proposals'
@@ -932,7 +932,7 @@
       + (p.source ? `<span>source <b>${escapeHtml(p.source)}</b></span>` : '')
       + (p.slug ? `<span>書 <b>${escapeHtml(p.slug)}</b></span>` : '')
       + (ub.kind ? `<span>解鎖 <b>${escapeHtml(ub.kind)}${ub.target ? '→' + escapeHtml(ub.target) : ''}</b></span>` : '')
-      + (va.sha ? `<span title="${escapeHtml(va.date || '')}">已驗 <b>@${escapeHtml(va.sha)}</b></span>` : '')
+      + (va.sha ? `<span title="${escapeAttr(va.date || '')}">已驗 <b>@${escapeHtml(va.sha)}</b></span>` : '')
       + (p.stale ? `<span class="dr-status dr-st-wait">⏳ 需重驗</span>` : '')
       + (p.created ? `<span>${escapeHtml(p.created.replace('T', ' ').replace('+00:00', ''))} UTC</span>` : '')
     const sec = (h, body, pre) => body
@@ -975,7 +975,7 @@
     const tb = m.top_books || []
     document.getElementById('dr-evs').innerHTML = tb.length
       ? `<div class="dr-empty" style="text-align:left;padding:6px 2px">殘餘最多的書（點開看該書）</div>`
-        + tb.map(b => `<div class="ev tool math-row" data-slug="${escapeHtml(b.slug)}"><span class="ico">📕</span>`
+        + tb.map(b => `<div class="ev tool math-row" data-slug="${escapeAttr(b.slug)}"><span class="ico">📕</span>`
           + `<span class="lbl">${escapeHtml(b.slug)}</span>`
           + `<span class="n">${b.bad_occ}${b.in_last_sweep ? ' ✓' : ''}</span></div>`).join('')
       : `<div class="dr-empty">無殘餘 — 全 corpus 數學式皆可渲染 🎉</div>`
@@ -985,7 +985,7 @@
       swHtml += `<div class="tlrow"><span class="stg">${relTime(sw.at)}</span>`
         + `<span class="at">改 ${(sw.touched || []).length} 書</span><span class="du">→殘 ${sw.residual_after} occ</span></div>`
       swHtml += (sw.touched || []).length
-        ? (sw.touched).map(s => `<div class="ev tool math-row" data-slug="${escapeHtml(s)}">`
+        ? (sw.touched).map(s => `<div class="ev tool math-row" data-slug="${escapeAttr(s)}">`
             + `<span class="ico">🔧</span><span class="lbl">${escapeHtml(s)}</span><span class="n">已微調</span></div>`).join('')
         : `<div class="dr-empty" style="text-align:left;padding:4px 2px">本輪無書可改（殘餘皆硬殘）</div>`
     } else swHtml += `<div class="tlrow"><span class="stg">尚未 sweep 過</span></div>`
