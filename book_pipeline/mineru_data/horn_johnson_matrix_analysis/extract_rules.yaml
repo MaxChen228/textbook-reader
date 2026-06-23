@@ -1,0 +1,145 @@
+# ── 書本 metadata ──
+slug: horn_johnson_matrix_analysis
+title: Matrix Analysis
+author: Roger A. Horn; Charles R. Johnson
+edition: 1st
+subject: Linear Algebra
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 16
+appendices_start_page: 546
+bibliography_start_page: 558
+index_start_page: 564
+
+# ── inline-problem 模式 ──
+# 每節結尾有獨立 "Problems" heading（lvl2），題號每節從 1 重置（pure running N.）。
+# 一章有多個 Problems heading，故無法用單一 problems_block_idx 二分 → inline + namespace。
+inline_problems: true
+
+# ── 章節 ──
+chapters:
+  - num: 0
+    title: Review and miscellanea
+    page_start: 16
+    page_end: 47
+    chapter_title_block_idx: 71
+    problems_block_idx: null
+    next_chapter_block_idx: 474
+  - num: 1
+    title: Eigenvalues, eigenvectors, and similarity
+    page_start: 48
+    page_end: 79
+    chapter_title_block_idx: 474
+    problems_block_idx: null
+    next_chapter_block_idx: 899
+  - num: 2
+    title: Unitary equivalence and normal matrices
+    page_start: 80
+    page_end: 133
+    chapter_title_block_idx: 899
+    problems_block_idx: null
+    next_chapter_block_idx: 1573
+  - num: 3
+    title: Canonical forms
+    page_start: 134
+    page_end: 181
+    chapter_title_block_idx: 1573
+    problems_block_idx: null
+    next_chapter_block_idx: 2188
+  - num: 4
+    title: Hermitian and symmetric matrices
+    page_start: 182
+    page_end: 271
+    chapter_title_block_idx: 2188
+    problems_block_idx: null
+    next_chapter_block_idx: 3298
+  - num: 5
+    title: Norms for vectors and matrices
+    page_start: 272
+    page_end: 357
+    chapter_title_block_idx: 3298
+    problems_block_idx: null
+    next_chapter_block_idx: 4642
+  - num: 6
+    title: Location and perturbation of eigenvalues
+    page_start: 358
+    page_end: 405
+    chapter_title_block_idx: 4642
+    problems_block_idx: null
+    next_chapter_block_idx: 5310
+  - num: 7
+    title: Positive definite matrices
+    page_start: 406
+    page_end: 501
+    chapter_title_block_idx: 5310
+    problems_block_idx: null
+    next_chapter_block_idx: 6636
+  - num: 8
+    title: Nonnegative matrices
+    page_start: 502
+    page_end: 545
+    chapter_title_block_idx: 6636
+    problems_block_idx: null
+    next_chapter_block_idx: 7220
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Complex numbers
+    page_start: 546
+    chapter_title_block_idx: 7220
+  - id: B
+    title: Convex sets and functions
+    page_start: 548
+    chapter_title_block_idx: 7242
+  - id: C
+    title: The fundamental theorem of algebra
+    page_start: 552
+    chapter_title_block_idx: 7282
+  - id: D
+    title: Continuous dependence of the zeroes of a polynomial on its coefficients
+    page_start: 554
+    chapter_title_block_idx: 7296
+  - id: E
+    title: Weierstrass's theorem
+    page_start: 556
+    chapter_title_block_idx: 7316
+
+# ── heading regex ──
+# section = 'N.M Title'（N=0..8），subsection = 'N.M.K Title.'
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 題目 pure running 'N. '，每節 Problems heading 後從 1 重置 → namespace_by_section。
+# namespace 停用遞增守則 → 節內正文編號散文（如 §3.2.1 列舉 Jordan block 性質的 1./2./3.）
+# 會被誤切成題、與真題撞 namespace 號（H2 dup）。problems_start_re 把題目限縮在
+# 「Problems heading 後 → 下一 section/subsection heading」的問題區內收。
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^Problems$'
+
+# ── equation ──
+# \tag{N.M.K} / {N.M.K.J} / 帶字母後綴 {1.2.7a}
+equation_strip_dollar: true
+equation_label_re: '\\tag\{(\d+(?:\.\d+)*[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

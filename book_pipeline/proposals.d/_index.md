@@ -45,7 +45,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （200 條；proposed=1 parked=1）
+## domain: engine  （201 條；proposed=1 parked=2）
 ### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
 - proposed | type=tooling-gap | source=agent
 - 證據：
@@ -63,6 +63,14 @@
 > 多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：
 > inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
+
+### P-2026-06-23-horn-johnson-matrix-analysis — namespace-by-section 對 MinerU heading-level 噪訊脆弱：同節多組 Problems 撞號 + 真 heading 丟 text_level 不推進 namespace
+- parked | type=tooling-gap | source=agent
+- 解鎖條件：engine-capability → parser namespace-by-section: 同節多組 Problems 子序號 + text_level 缺失時 section_re regex-fallback heading 偵測（per-book 開關）
+- 證據：
+> horn_johnson §5.4 內有兩個獨立 Problems heading（content_list idx 3500 與 3638）各從 1. 重編，namespace 都 key 到 section_id 5.4 → 5.4.1/5.4.2 撞號；§3.1/§3.2 真 section heading 被 MinerU 漏標 text_level（idx 1646/1701，None 而非 2）→ walker 不推進 current_section_id、§3.2 內容續掛 3.1 撞號。現有 schema lever（problems_start_re / suppress_running_header_sections）皆依賴 detected heading text_level，恰在這兩種噪訊處失效。suppress_running_header_sections 只在『漏標 heading 後緊接 num>1 溢出題』觸發，對 num 從 1 重啟的本案不適用。
+- 提議：
+> 引擎於 namespace-by-section 模式下：(a) 同一 section_id 內偵測到第二個 Problems heading 時，串接一個 problems-block 序號子 namespace（如 5.4#2.1）避免兩組題集撞號；(b) 當 block text 命中 section_re 但 text_level 缺失時，提供 regex-fallback heading 偵測選項（謹慎、可 per-book 開關，避免污染正文）讓 namespace 能在漏標 heading 處仍正確推進。yaml 已產出、解析正確（僅 5 題顯示編號撞號、內容完整），本書照常上架；此案為真結構性引擎缺、待能力落地。
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
 - rejected | type=patch | source=scope_guard

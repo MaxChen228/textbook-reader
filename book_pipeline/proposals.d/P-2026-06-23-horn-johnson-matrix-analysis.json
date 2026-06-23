@@ -1,0 +1,21 @@
+{
+  "id": "P-2026-06-23-horn-johnson-matrix-analysis",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "parked",
+  "title": "namespace-by-section 對 MinerU heading-level 噪訊脆弱：同節多組 Problems 撞號 + 真 heading 丟 text_level 不推進 namespace",
+  "slug": "horn_johnson_matrix_analysis",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-23T10:54:53+00:00",
+  "updated": "2026-06-23T10:55:02+00:00",
+  "evidence": "horn_johnson §5.4 內有兩個獨立 Problems heading（content_list idx 3500 與 3638）各從 1. 重編，namespace 都 key 到 section_id 5.4 → 5.4.1/5.4.2 撞號；§3.1/§3.2 真 section heading 被 MinerU 漏標 text_level（idx 1646/1701，None 而非 2）→ walker 不推進 current_section_id、§3.2 內容續掛 3.1 撞號。現有 schema lever（problems_start_re / suppress_running_header_sections）皆依賴 detected heading text_level，恰在這兩種噪訊處失效。suppress_running_header_sections 只在『漏標 heading 後緊接 num>1 溢出題』觸發，對 num 從 1 重啟的本案不適用。",
+  "proposal": "引擎於 namespace-by-section 模式下：(a) 同一 section_id 內偵測到第二個 Problems heading 時，串接一個 problems-block 序號子 namespace（如 5.4#2.1）避免兩組題集撞號；(b) 當 block text 命中 section_re 但 text_level 缺失時，提供 regex-fallback heading 偵測選項（謹慎、可 per-book 開關，避免污染正文）讓 namespace 能在漏標 heading 處仍正確推進。yaml 已產出、解析正確（僅 5 題顯示編號撞號、內容完整），本書照常上架；此案為真結構性引擎缺、待能力落地。",
+  "risk": "",
+  "disposition": "",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "parser namespace-by-section: 同節多組 Problems 子序號 + text_level 缺失時 section_re regex-fallback heading 偵測（per-book 開關）"
+  }
+}
