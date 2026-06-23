@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "boyd_convex_opt-ch02-problem-2-11-solution-3-fdeeb4",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.11:solution[3]",
+      "field": "md",
+      "all": true,
+      "old": "$x \\not \\sqgeq y , i . e . , ( y _ { 1 } - x _ { 1 } ) ( y _ { 2 } - x _ { 2 } ) < 0$",
+      "new": "$x \\not\\sqsupseteq y , i . e . , ( y_{1} - x_{1} ) ( y_{2} - x_{2} ) < 0$",
+      "anchor": "32e6564c"
+    },
+    {
+      "id": "boyd_convex_opt-ch03-problem-3-25-solution-12-681d92",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.25:solution[12]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { d _ { \\operatorname* { m p } } ( p , q ) = \\sum _ { p _ { i } > q _ { i } } \\mathopen { } \\mathclose \\bgroup \\left( p _ { i } - q _ { i } \\aftergroup \\egroup \\right) } \\end{array}$",
+      "new": "$\\begin{array}{r} d_{\\operatorname*{mp}}(p,q)=\\sum_{p_i>q_i}\\left(p_i-q_i\\right) \\end{array}$",
+      "anchor": "fa26eb0d"
+    }
+  ]
+}

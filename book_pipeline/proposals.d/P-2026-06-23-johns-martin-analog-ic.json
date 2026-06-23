@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-johns-martin-analog-ic",
+  "domain": "engine",
+  "type": "patch",
+  "status": "rejected",
+  "title": "worker 越界改核心碼：book_pipeline/test_dispatch_failover.py（audit johns_martin_analog_ic）",
+  "slug": "johns_martin_analog_ic",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "already-resolved",
+  "created": "2026-06-23T13:28:06+00:00",
+  "updated": "2026-06-23T13:33:38+00:00",
+  "evidence": "scope_guard bracket：worker [audit johns_martin_analog_ic] session=johns_martin_analog_ic:84158 存活期間，受保護程式碼面 book_pipeline/test_dispatch_failover.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/test_dispatch_failover.py b/book_pipeline/test_dispatch_failover.py\nindex 481c93f..fbfb2c3 100644\n--- a/book_pipeline/test_dispatch_failover.py\n+++ b/book_pipeline/test_dispatch_failover.py\n@@ -23,7 +23,7 @@ def _patch(results):\n     calls = []\n     orig = pt._run_one\n     with pt._exhausted_lock:\n-        pt._exhausted_providers.clear()\n+        pt._exhausted_at.clear()\n \n     def fake(provider, todo_verb, slug, prompt, spec):\n         calls.append(provider)\n@@ -89,10 +89,27 @@ def test_outage_classification():\n     print('✓ _hit_outage/_hit_limit 標記分類正確')\n \n \n+def test_exhaustion_ttl_expires():\n+    \"\"\"回歸：暫態額度標記須 TTL 後自動失效（reactive loop 不每 cycle clear，永久標記會黏死整個 walltime\n+    落 claude——2026-06-23 實證 codex 撞額度後 50min 全 claude）。標記→TTL 內 skip→過 TTL 自動清、重探。\"\"\"\n+    import time\n+    with pt._exhausted_lock:\n+        pt._exhausted_at.clear()\n+        now = time.monotonic()\n+        pt._exhausted_at['codex'] = now\n+        assert pt._is_exhausted('codex', now) is True                       # 剛標記 → 跳過\n+        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL - 1) is True  # TTL 內 → 仍跳過\n+        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL + 1) is False # 過 TTL → 重探\n+        assert 'codex' not in pt._exhausted_at, '過 TTL 須清除戳記（下次乾淨重探）'\n+        assert pt._is_exhausted('claude', now) is False                     # 未標記 → 不跳過\n+    print('✓ exhaustion TTL：暫態標記過期自動重探、不黏死 controller 命')\n+\n+\n if __name__ == '__main__':\n     test_outage_fails_over()\n     test_limit_fails_over()\n     test_task_failure_does_not_fail_over()\n     test_all_unavailable_defers()\n     test_outage_classification()\n+    test_exhaustion_ttl_expires()\n     print('\\n全部通過 ✅')",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": "架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）"
+}

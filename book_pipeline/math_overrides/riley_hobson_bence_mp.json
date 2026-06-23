@@ -1,0 +1,251 @@
+{
+  "overrides": [
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-349-a4f1a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[349]",
+      "expect": "\\begin{array}{l} (x + y) ^ {N + 1} = (x + y) \\sum_ {k = 0} ^ {N} ^ {N} C _ {k} x ^ {N - k} y ^ {k} \\\\ = \\sum_ {k = 0} ^ {N} ^ {N} C _ {k} x ^ {N + 1 - k} y ^ {k} + \\sum_ {k = 0} ^ {N} ^ {N} C _ {k} x ^ {N - k} y ^ {k + 1} \\\\ = \\sum_ {k = 0} ^ {N} ^ {N} C _ {k} x ^ {N + 1 - k} y ^ {k} + \\sum_ {j = 1} ^ {N + 1} ^ {N} C _ {j - 1} x ^ {(N + 1) - j} y ^ {j}, \\\\ \\end{array}",
+      "new": "\\begin{array}{l} (x + y) ^ {N + 1} = (x + y) \\sum_ {k = 0} ^ {N} {} ^ {N} C _ {k} x ^ {N - k} y ^ {k} \\\\ = \\sum_ {k = 0} ^ {N} {} ^ {N} C _ {k} x ^ {N + 1 - k} y ^ {k} + \\sum_ {k = 0} ^ {N} {} ^ {N} C _ {k} x ^ {N - k} y ^ {k + 1} \\\\ = \\sum_ {k = 0} ^ {N} {} ^ {N} C _ {k} x ^ {N + 1 - k} y ^ {k} + \\sum_ {j = 1} ^ {N + 1} {} ^ {N} C _ {j - 1} x ^ {(N + 1) - j} y ^ {j}, \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-358-825129",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[358]",
+      "expect": "\\sum_ {s = 0} ^ {n - 1} ^ {k + s} C _ {k} = ^ {n + k} C _ {k + 1}. \\tag {1.53}",
+      "new": "\\sum_ {s = 0} ^ {n - 1} {} ^ {k + s} C _ {k} = {} ^ {n + k} C _ {k + 1}. \\tag {1.53}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-361-6cc602",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[361]",
+      "expect": "\\begin{array}{l} \\sum_ {s = 0} ^ {N + 1 - 1} ^ {k + s} C _ {k} = \\sum_ {s = 0} ^ {N - 1} ^ {k + s} C _ {k} + ^ {k + N} C _ {k} \\\\ = ^ {N + k} C _ {k + 1} + ^ {N + k} C _ {k} \\\\ = ^ {N + k + 1} C _ {k + 1}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\sum_ {s = 0} ^ {N + 1 - 1} {} ^ {k + s} C _ {k} = \\sum_ {s = 0} ^ {N - 1} {} ^ {k + s} C _ {k} + {} ^ {k + N} C _ {k} \\\\ = {} ^ {N + k} C _ {k + 1} + {} ^ {N + k} C _ {k} \\\\ = {} ^ {N + k + 1} C _ {k + 1}. \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-369-d21070",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[369]",
+      "expect": "\\sum_ {s = 0} ^ {p} ^ {p} C _ {s} x ^ {p - s} y ^ {s} \\sum_ {t = 0} ^ {q} ^ {q} C _ {t} x ^ {q - t} y ^ {t} = \\sum_ {r = 0} ^ {p + q} ^ {p + q} C _ {r} x ^ {p + q - r} y ^ {r}.",
+      "new": "\\sum_ {s = 0} ^ {p} {} ^ {p} C _ {s} x ^ {p - s} y ^ {s} \\sum_ {t = 0} ^ {q} {} ^ {q} C _ {t} x ^ {q - t} y ^ {t} = \\sum_ {r = 0} ^ {p + q} {} ^ {p + q} C _ {r} x ^ {p + q - r} y ^ {r}."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-371-0a82be",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[371]",
+      "expect": "\\sum_ {t = 0} ^ {r} ^ {p} C _ {r - t} ^ {q} C _ {t} = ^ {p + q} C _ {r} = \\sum_ {t = 0} ^ {r} ^ {p} C _ {t} ^ {q} C _ {r - t}. \\tag {1.54}",
+      "new": "\\sum_ {t = 0} ^ {r} {} ^ {p} C _ {r - t} {} ^ {q} C _ {t} = {} ^ {p + q} C _ {r} = \\sum_ {t = 0} ^ {r} {} ^ {p} C _ {t} {} ^ {q} C _ {r - t}. \\tag {1.54}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-382-c43974",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[382]",
+      "expect": "(x + y) ^ {n} = (x + y) ^ {- m} = x ^ {- m} \\sum_ {k = 0} ^ {\\infty} ^ {- m} C _ {k} \\left(\\frac {y}{x}\\right) ^ {k}, \\tag {1.57}",
+      "new": "(x + y) ^ {n} = (x + y) ^ {- m} = x ^ {- m} \\sum_ {k = 0} ^ {\\infty} {} ^ {- m} C _ {k} \\left(\\frac {y}{x}\\right) ^ {k}, \\tag {1.57}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch02-body-110-4fef33",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[110]",
+      "expect": "f ^ {(n)} = \\sum_ {r = 0} ^ {n} \\frac {n !}{r ! (n - r) !} u ^ {(r)} v ^ {(n - r)} = \\sum_ {r = 0} ^ {n} ^ {n} C _ {r} u ^ {(r)} v ^ {(n - r)}, \\tag {2.14}",
+      "new": "f ^ {(n)} = \\sum_ {r = 0} ^ {n} \\frac {n !}{r ! (n - r) !} u ^ {(r)} v ^ {(n - r)} = \\sum_ {r = 0} ^ {n} {} ^ {n} C _ {r} u ^ {(r)} v ^ {(n - r)}, \\tag {2.14}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch02-body-113-117613",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[113]",
+      "expect": "\\begin{array}{l} f ^ {(N + 1)} = \\sum_ {r = 0} ^ {N} ^ {N} C _ {r} \\frac {d}{d x} \\left(u ^ {(r)} v ^ {(N - r)}\\right) \\\\ = \\sum_ {r = 0} ^ {N} ^ {N} C _ {r} [ u ^ {(r)} v ^ {(N - r + 1)} + u ^ {(r + 1)} v ^ {(N - r)} ] \\\\ = \\sum_ {s = 0} ^ {N} ^ {N} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + \\sum_ {s = 1} ^ {N + 1} ^ {N} C _ {s - 1} u ^ {(s)} v ^ {(N + 1 - s)}, \\\\ \\end{array}",
+      "new": "\\begin{array}{l} f ^ {(N + 1)} = \\sum_ {r = 0} ^ {N} {} ^ {N} C _ {r} \\frac {d}{d x} \\left(u ^ {(r)} v ^ {(N - r)}\\right) \\\\ = \\sum_ {r = 0} ^ {N} {} ^ {N} C _ {r} [ u ^ {(r)} v ^ {(N - r + 1)} + u ^ {(r + 1)} v ^ {(N - r)} ] \\\\ = \\sum_ {s = 0} ^ {N} {} ^ {N} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + \\sum_ {s = 1} ^ {N + 1} {} ^ {N} C _ {s - 1} u ^ {(s)} v ^ {(N + 1 - s)}, \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch02-body-117-1de2ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[117]",
+      "expect": "f ^ {(N + 1)} = ^ {N} C _ {0} u ^ {(0)} v ^ {(N + 1)} + \\sum_ {s = 1} ^ {N} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + ^ {N} C _ {N} u ^ {(N + 1)} v ^ {(0)}.",
+      "new": "f ^ {(N + 1)} = {} ^ {N} C _ {0} u ^ {(0)} v ^ {(N + 1)} + \\sum_ {s = 1} ^ {N} {} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + {} ^ {N} C _ {N} u ^ {(N + 1)} v ^ {(0)}."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch02-body-119-b443d0",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[119]",
+      "expect": "\\begin{array}{l} f ^ {(N + 1)} = ^ {N + 1} C _ {0} u ^ {(0)} v ^ {(N + 1)} + \\sum_ {s = 1} ^ {N} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + ^ {N + 1} C _ {N + 1} u ^ {(N + 1)} v ^ {(0)} \\\\ = \\sum_ {s = 0} ^ {N + 1} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} f ^ {(N + 1)} = {} ^ {N + 1} C _ {0} u ^ {(0)} v ^ {(N + 1)} + \\sum_ {s = 1} ^ {N} {} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)} + {} ^ {N + 1} C _ {N + 1} u ^ {(N + 1)} v ^ {(0)} \\\\ = \\sum_ {s = 0} ^ {N + 1} {} ^ {N + 1} C _ {s} u ^ {(s)} v ^ {(N + 1 - s)}. \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch03-problem-3-17-body-1-9cf76d",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.17:body[1]",
+      "expect": "(1 + x) ^ {n} = \\sum_ {r = 0} ^ {n} ^ {n} C _ {r} x ^ {r},",
+      "new": "(1 + x) ^ {n} = \\sum_ {r = 0} ^ {n} {} ^ {n} C _ {r} x ^ {r},"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch03-problem-3-17-body-4-4789d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.17:body[4]",
+      "expect": "S _ {1} (n) = ^ {n} C _ {0} - ^ {n} C _ {2} + ^ {n} C _ {4} - \\dots + (- 1) ^ {m}   ^ {n} C _ {2 m}, \\quad n - 1 \\leq 2 m \\leq n,",
+      "new": "S _ {1} (n) = {} ^ {n} C _ {0} - {} ^ {n} C _ {2} + {} ^ {n} C _ {4} - \\dots + (- 1) ^ {m} {} ^ {n} C _ {2 m}, \\quad n - 1 \\leq 2 m \\leq n,"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch03-problem-3-18-body-1-d73d82",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.18:body[1]",
+      "expect": "\\sum_ {r = 0} ^ {n} ^ {n} C _ {r} \\cos r \\theta = 2 ^ {n} \\cos^ {n} (\\theta / 2) \\cos (n \\theta / 2),",
+      "new": "\\sum_ {r = 0} ^ {n} {} ^ {n} C _ {r} \\cos r \\theta = 2 ^ {n} \\cos^ {n} (\\theta / 2) \\cos (n \\theta / 2),"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch03-problem-3-18-body-2-ac916a",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.18:body[2]",
+      "expect": "\\sum_ {r = 0} ^ {n} ^ {n} C _ {r} \\sin r \\theta = 2 ^ {n} \\cos^ {n} (\\theta / 2) \\sin (n \\theta / 2),",
+      "new": "\\sum_ {r = 0} ^ {n} {} ^ {n} C _ {r} \\sin r \\theta = 2 ^ {n} \\cos^ {n} (\\theta / 2) \\sin (n \\theta / 2),"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch19-body-103-3c5d58",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[103]",
+      "expect": "c _ {r} = \\sum_ {s = 0} ^ {r} \\frac {1}{(2 r - 2 s + 1) ! (2 s) !} = \\frac {1}{(2 r + 1) !} \\sum_ {s = 0} ^ {r} ^ {2 r + 1} C _ {2 s}.",
+      "new": "c _ {r} = \\sum_ {s = 0} ^ {r} \\frac {1}{(2 r - 2 s + 1) ! (2 s) !} = \\frac {1}{(2 r + 1) !} \\sum_ {s = 0} ^ {r} {} ^ {2 r + 1} C _ {2 s}."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch19-body-105-3f1448",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[105]",
+      "expect": "2 ^ {2 r + 1} = 2 \\sum_ {s = 0} ^ {r} ^ {2 r + 1} C _ {2 s} \\Rightarrow c _ {r} = \\frac {2 ^ {2 r}}{(2 r + 1) !}.",
+      "new": "2 ^ {2 r + 1} = 2 \\sum_ {s = 0} ^ {r} {} ^ {2 r + 1} C _ {2 s} \\Rightarrow c _ {r} = \\frac {2 ^ {2 r}}{(2 r + 1) !}."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch26-body-517-a0888a",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[517]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { e ^ { \\prime } } ^ { i } = \\nabla \\boldsymbol { u ^ { \\prime } } ^ { i }$",
+      "new": "$\\mathbf { e } ^ { \\prime i } = \\nabla \\boldsymbol { u } ^ { \\prime i }$",
+      "anchor": "8063316e"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch26-body-532-ece0fa",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[532]",
+      "field": "md",
+      "all": true,
+      "old": "${ T ^ { \\prime } } ^ { i j } = \\frac { \\hat { \\sigma } u ^ { \\prime } ^ { i } } { \\hat { \\sigma } u ^ { k } } \\frac { \\hat { \\sigma } u ^ { \\prime } ^ { j } } { \\hat { \\sigma } u ^ { l } } T ^ { k l } \\mathrm { ~ ; }$",
+      "new": "${ T ^ { \\prime } } ^ { i j } = \\frac { \\hat { \\sigma } u ^ { \\prime i } } { \\hat { \\sigma } u ^ { k } } \\frac { \\hat { \\sigma } u ^ { \\prime j } } { \\hat { \\sigma } u ^ { l } } T ^ { k l } \\mathrm { ~ ; }$",
+      "anchor": "9cdcc4e2"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch26-body-533-2b4bee",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[533]",
+      "field": "md",
+      "all": true,
+      "old": "${ T ^ { \\prime } } _ { j } ^ { i } = { \\frac { \\hat { \\sigma } u ^ { \\prime } ^ { i } } { \\hat { \\sigma } u ^ { k } } } { \\frac { \\hat { \\sigma } u ^ { l } } { \\hat { \\sigma } u ^ { \\prime j } } } { T ^ { k } } _ { l } \\ ;$",
+      "new": "${ T ^ { \\prime } } _ { j } ^ { i } = { \\frac { \\hat { \\sigma } u ^ { \\prime i } } { \\hat { \\sigma } u ^ { k } } } { \\frac { \\hat { \\sigma } u ^ { l } } { \\hat { \\sigma } u ^ { \\prime j } } } { T ^ { k } } _ { l } \\ ;$",
+      "anchor": "497b70df"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch30-body-235-e8eed9",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[235]",
+      "expect": "(a + b) ^ {n} = \\sum_ {k = 0} ^ {n} ^ {n} C _ {k} a ^ {k} b ^ {n - k}. \\tag {30.34}",
+      "new": "(a + b) ^ {n} = \\sum_ {k = 0} ^ {n} {} ^ {n} C _ {k} a ^ {k} b ^ {n - k}. \\tag {30.34}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch30-body-705-81fb15",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "body[705]",
+      "expect": "\\sum_ {x = 0} ^ {n} f (x) = \\sum_ {x = 0} ^ {n} ^ {n} C _ {x} p ^ {x} q ^ {n - x} = (p + q) ^ {n} = 1.",
+      "new": "\\sum_ {x = 0} ^ {n} f (x) = \\sum_ {x = 0} ^ {n} {} ^ {n} C _ {x} p ^ {x} q ^ {n - x} = (p + q) ^ {n} = 1."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch30-problem-30-33-body-3-2d2f36",
+      "action": "fix_eq_tex",
+      "chunk": "ch30",
+      "selector": "problem:30.33:body[3]",
+      "expect": "\\operatorname * {P r} (2) = (0. 5) ^ {1 2} \\sum_ {i = 2} ^ {6} ^ {1 2} C _ {i} (0. 4) ^ {i} \\sum_ {j = 2} ^ {8 - i} ^ {1 2 - i} C _ {j} (0. 6) ^ {j}.",
+      "new": "\\operatorname * {P r} (2) = (0. 5) ^ {1 2} \\sum_ {i = 2} ^ {6} {} ^ {1 2} C _ {i} (0. 4) ^ {i} \\sum_ {j = 2} ^ {8 - i} {} ^ {1 2 - i} C _ {j} (0. 6) ^ {j}."
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch08-problem-8-23-body-2-164098",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "problem:8.23:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$( 1 \\textrm {  { ~ \\mathscr { y } ~ } } 1 ) ^ { \\mathrm { T } }$",
+      "new": "$( 1 { ~ \\mathscr { y } ~ } 1 ) ^ { \\mathrm { T } }$",
+      "anchor": "ce7a5b9f"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch24-body-262-24d492",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "body[262]",
+      "field": "md",
+      "all": true,
+      "old": "$\\romannumeral 2$",
+      "new": "$\\mathrm{ii}$",
+      "anchor": "a6ad0420"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch01-body-352-3f18ee",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[352]",
+      "expect": "\\begin{array}{l} (x + y) ^ {N + 1} = ^ {N + 1} C _ {0} x ^ {N + 1} + \\sum_ {k = 1} ^ {N} \\left(^ {N} C _ {k} + ^ {N} C _ {k - 1}\\right) x ^ {(N + 1) - k} y ^ {k} + ^ {N + 1} C _ {N + 1} y ^ {N + 1} \\\\ = ^ {N + 1} C _ {0} x ^ {N + 1} + \\sum_ {k = 1} ^ {N} ^ {N + 1} C _ {k} x ^ {(N + 1) - k} y ^ {k} + ^ {N + 1} C _ {N + 1} y ^ {N + 1} \\\\ = \\sum_ {k = 0} ^ {N + 1} ^ {N + 1} C _ {k} x ^ {(N + 1) - k} y ^ {k}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} (x + y) ^ {N + 1} = {}^ {N + 1} C _ {0} x ^ {N + 1} + \\sum_ {k = 1} ^ {N} \\left({}^ {N} C _ {k} + {}^ {N} C _ {k - 1}\\right) x ^ {(N + 1) - k} y ^ {k} + {}^ {N + 1} C _ {N + 1} y ^ {N + 1} \\\\ = {}^ {N + 1} C _ {0} x ^ {N + 1} + \\sum_ {k = 1} ^ {N} {}^ {N + 1} C _ {k} x ^ {(N + 1) - k} y ^ {k} + {}^ {N + 1} C _ {N + 1} y ^ {N + 1} \\\\ = \\sum_ {k = 0} ^ {N + 1} {}^ {N + 1} C _ {k} x ^ {(N + 1) - k} y ^ {k}. \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch18-body-643-4cb9c0",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[643]",
+      "expect": "\\begin{array}{l} L _ {n} (x) = \\frac {e ^ {x}}{n !} \\sum_ {r = 0} ^ {n} ^ {n} C _ {r} \\frac {d ^ {r} x ^ {n}}{d x ^ {r}} \\frac {d ^ {n - r} e ^ {- x}}{d x ^ {n - r}} \\\\ = \\frac {e ^ {x}}{n !} \\sum_ {r = 0} ^ {n} \\frac {n !}{r ! (n - r) !} \\frac {n !}{(n - r) !} x ^ {n - r} (- 1) ^ {n - r} e ^ {- x} \\\\ = \\sum_ {r = 0} ^ {n} (- 1) ^ {n - r} \\frac {n !}{r ! (n - r) ! (n - r) !} x ^ {n - r}. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} L _ {n} (x) = \\frac {e ^ {x}}{n !} \\sum_ {r = 0} ^ {n} {} ^ {n} C _ {r} \\frac {d ^ {r} x ^ {n}}{d x ^ {r}} \\frac {d ^ {n - r} e ^ {- x}}{d x ^ {n - r}} \\\\ = \\frac {e ^ {x}}{n !} \\sum_ {r = 0} ^ {n} \\frac {n !}{r ! (n - r) !} \\frac {n !}{(n - r) !} x ^ {n - r} (- 1) ^ {n - r} e ^ {- x} \\\\ = \\sum_ {r = 0} ^ {n} (- 1) ^ {n - r} \\frac {n !}{r ! (n - r) ! (n - r) !} x ^ {n - r}. \\\\ \\end{array}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch08-body-163-d021f6",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[163]",
+      "expect": "\\left( \\begin{array}{c} y _ {1} \\\\ \\framebox {y _ {2}} \\\\ \\vdots \\\\ y _ {M} \\end{array} \\right) = \\left( \\begin{array}{c c c c} A _ {1 1} & A _ {1 2} & \\dots & A _ {1 N} \\\\ \\framebox {A _ {2 1}} & A _ {2 2} & \\dots & A _ {2 N} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ A _ {M 1} & A _ {M 2} & \\dots & A _ {M N} \\end{array} \\right) \\left( \\begin{array}{c} \\framebox {x _ {1}} \\\\ x _ {2} \\\\ \\vdots \\\\ x _ {N} \\end{array} \\right) \\tag {8.33}",
+      "new": "\\left( \\begin{array}{c} y _ {1} \\\\ \\boxed {y _ {2}} \\\\ \\vdots \\\\ y _ {M} \\end{array} \\right) = \\left( \\begin{array}{c c c c} A _ {1 1} & A _ {1 2} & \\dots & A _ {1 N} \\\\ \\boxed {A _ {2 1}} & A _ {2 2} & \\dots & A _ {2 N} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ A _ {M 1} & A _ {M 2} & \\dots & A _ {M N} \\end{array} \\right) \\left( \\begin{array}{c} \\boxed {x _ {1}} \\\\ x _ {2} \\\\ \\vdots \\\\ x _ {N} \\end{array} \\right) \\tag {8.33}"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch08-body-169-f5a2a6",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[169]",
+      "expect": "\\mathsf {A e} _ {j} = \\left( \\begin{array}{c c c c} A _ {1 1} & A _ {1 2} & \\ldots & A _ {1 N} \\\\ \\framebox {A _ {2 1}} & A _ {2 2} & \\ldots & A _ {2 N} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ A _ {M 1} & A _ {M 2} & \\ldots & A _ {M N} \\end{array} \\right) \\left( \\begin{array}{c} \\framebox {0} \\\\ \\framebox {0} \\\\ \\vdots \\\\ 1 \\\\ \\vdots \\\\ 0 \\end{array} \\right) = \\left( \\begin{array}{c} A _ {1 j} \\\\ \\framebox {A _ {2 j}} \\\\ \\vdots \\\\ A _ {M j} \\end{array} \\right),",
+      "new": "\\mathsf {A e} _ {j} = \\left( \\begin{array}{c c c c} A _ {1 1} & A _ {1 2} & \\ldots & A _ {1 N} \\\\ \\boxed {A _ {2 1}} & A _ {2 2} & \\ldots & A _ {2 N} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ A _ {M 1} & A _ {M 2} & \\ldots & A _ {M N} \\end{array} \\right) \\left( \\begin{array}{c} \\boxed {0} \\\\ \\boxed {0} \\\\ \\vdots \\\\ 1 \\\\ \\vdots \\\\ 0 \\end{array} \\right) = \\left( \\begin{array}{c} A _ {1 j} \\\\ \\boxed {A _ {2 j}} \\\\ \\vdots \\\\ A _ {M j} \\end{array} \\right),"
+    },
+    {
+      "id": "riley_hobson_bence_mp-ch08-body-174-06f34c",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[174]",
+      "expect": "\\left( \\begin{array}{c c} \\framebox {P _ {1 1}} & P _ {1 2} \\\\ \\hline P _ {2 1} & P _ {2 2} \\end{array} \\right) = \\left( \\begin{array}{c c c} \\framebox {A _ {1 1}} & A _ {1 2} & A _ {1 3} \\\\ \\hline A _ {2 1} & A _ {2 2} & A _ {2 3} \\end{array} \\right) \\left( \\begin{array}{c c} \\framebox {B _ {1 1}} & B _ {1 2} \\\\ \\framebox {B _ {2 1}} & B _ {2 2} \\\\ \\framebox {B _ {3 1}} & B _ {3 2} \\end{array} \\right)",
+      "new": "\\left( \\begin{array}{c c} \\boxed {P _ {1 1}} & P _ {1 2} \\\\ \\hline P _ {2 1} & P _ {2 2} \\end{array} \\right) = \\left( \\begin{array}{c c c} \\boxed {A _ {1 1}} & A _ {1 2} & A _ {1 3} \\\\ \\hline A _ {2 1} & A _ {2 2} & A _ {2 3} \\end{array} \\right) \\left( \\begin{array}{c c} \\boxed {B _ {1 1}} & B _ {1 2} \\\\ \\boxed {B _ {2 1}} & B _ {2 2} \\\\ \\boxed {B _ {3 1}} & B _ {3 2} \\end{array} \\right)"
+    }
+  ]
+}

@@ -1,0 +1,1705 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "razavi-ch02-body114-aliases",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[114]",
+      "expect": {
+        "id": "tbl-ch02-114"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-2.12",
+            "type": "figure",
+            "caption": "Figure 2.12: Injection of carriers into a semiconductor."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body81-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[81]",
+      "expect": {
+        "id": "tbl-ch03-81"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.12",
+            "type": "figure",
+            "caption": "Figure 3.12: (b) sketches this behavior. $V_B $V_B = 0$ (a) (b)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body137-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[137]",
+      "expect": {
+        "id": "tbl-ch03-137"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.17",
+            "type": "figure",
+            "caption": "Figure 3.17: (a) Diode circuit, (b) illustration for very negative inputs, (c) equivalent circuit when $D_1$ is off, (d) input/output charac"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body268-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[268]",
+      "expect": {
+        "id": "tbl-ch03-268"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.26",
+            "type": "figure",
+            "caption": "Figure 3.26: Adaptor feeding a cellphone."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body285-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[285]",
+      "expect": {
+        "id": "tbl-ch03-285"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.29",
+            "type": "figure",
+            "caption": "Figure 3.29: Rectification of positive cycles."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body292-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[292]",
+      "expect": {
+        "id": "tbl-ch03-292"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.31",
+            "type": "figure",
+            "caption": "Figure 3.31: (a) shows the input and output waveforms. (a) (b)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body362-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[362]",
+      "expect": {
+        "id": "tbl-ch03-362"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.41",
+            "type": "figure",
+            "caption": "Figure 3.41: Currents carried by diodes in a full-wave rectifier."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body419-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[419]",
+      "expect": {
+        "id": "tbl-ch03-419"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.52",
+            "type": "figure",
+            "caption": "Figure 3.52: (a) illustrates how the voltage sources must shift the break points. Since the positive limiting point must shift to the left, "
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body435-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[435]",
+      "expect": {
+        "id": "tbl-ch03-435"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.56",
+            "type": "figure",
+            "caption": "Figure 3.56: Capacitor-diode circuit and (b) its waveforms."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body461-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[461]",
+      "expect": {
+        "id": "tbl-ch03-461"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.60",
+            "type": "figure",
+            "caption": "Figure 3.60: shows the result."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch03-body464-aliases",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[464]",
+      "expect": {
+        "id": "tbl-ch03-464"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-3.62",
+            "type": "figure",
+            "caption": "Figure 3.62: shows the equivalent circuit for the case where the diodes are off, suggesting that the conduction of the input through the jun"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch04-body12-aliases",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[12]",
+      "expect": {
+        "id": "tbl-ch04-12"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.2",
+            "type": "figure",
+            "caption": "Figure 4.2: Voltage-dependent current source with an internal resistance $r_{in}$ ."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch04-body52-aliases",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[52]",
+      "expect": {
+        "id": "tbl-ch04-52"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.9",
+            "type": "figure",
+            "caption": "Figure 4.9: (a) Two identical transistors drawing current from $V_C$ , (b) equivalence to a single transistor having twice the area."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch04-body153-aliases",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[153]",
+      "expect": {
+        "id": "tbl-ch04-153"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.19",
+            "type": "figure",
+            "caption": "Figure 4.19: (a) One transistor and (b) n transistors providing transconductance."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch04-body266-aliases",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[266]",
+      "expect": {
+        "id": "tbl-ch04-266"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.36",
+            "type": "figure",
+            "caption": "Figure 4.36: (a) Simple stage, (b) acceptable range of $V_{CC}$ and $R_{C}$ ."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch04-body339-aliases",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[339]",
+      "expect": {
+        "id": "tbl-ch04-339"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-4.45",
+            "type": "figure",
+            "caption": "Figure 4.45: (a) Simple stage using an npn transistor, (b) simple stage using a pnp transistor, (c) another pnp stage, (d) small-signal equi"
+          },
+          {
+            "id": "fig-4.46",
+            "type": "figure",
+            "caption": "Figure 4.46: (a) Stage using npn and pnp devices, (b) small-signal equivalent of (a)."
+          },
+          {
+            "id": "fig-4.47",
+            "type": "figure",
+            "caption": "Figure 4.47: Stage using two npn devices."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（3圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body50-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[50]",
+      "expect": {
+        "id": "tbl-ch05-50"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.3",
+            "type": "figure",
+            "caption": "Figure 5.3: (a) Simple amplifier stage, (b) small-signal model."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body54-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[54]",
+      "expect": {
+        "id": "tbl-ch05-54"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.5",
+            "type": "figure",
+            "caption": "Figure 5.5: (a) Impedance seen at collector, (b) small-signal model."
+          },
+          {
+            "id": "fig-5.6",
+            "type": "figure",
+            "caption": "Figure 5.6: (a) Impedance seen at emitter, (b) small-signal model."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body72-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[72]",
+      "expect": {
+        "id": "tbl-ch05-72"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.11",
+            "type": "figure",
+            "caption": "Figure 5.11: Amplifier driven directly by a microphone."
+          },
+          {
+            "id": "fig-5.12",
+            "type": "figure",
+            "caption": "Figure 5.12: Amplifier with base tied to $V_{CC}$ ."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body123-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[123]",
+      "expect": {
+        "id": "tbl-ch05-123"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.16",
+            "type": "figure",
+            "caption": "Figure 5.16"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body254-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[254]",
+      "expect": {
+        "id": "tbl-ch05-254"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.26",
+            "type": "figure",
+            "caption": "Figure 5.26: PNP stage with degeneration resistor."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body391-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[391]",
+      "expect": {
+        "id": "tbl-ch05-391"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.37",
+            "type": "figure",
+            "caption": "Figure 5.37: (a) CE stage"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body465-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[465]",
+      "expect": {
+        "id": "tbl-ch05-465"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.45",
+            "type": "figure",
+            "caption": "Figure 5.45: (a) CE stage"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body499-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[499]",
+      "expect": {
+        "id": "tbl-ch05-499"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.48",
+            "type": "figure",
+            "caption": "Figure 5.48: (a) CE stage"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body501-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[501]",
+      "expect": {
+        "id": "tbl-ch05-501"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.49",
+            "type": "figure",
+            "caption": "Figure 5.49: (a) CE stage"
+          },
+          {
+            "id": "fig-5.50",
+            "type": "figure",
+            "caption": "Figure 5.50: Microphone amplifier."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body523-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[523]",
+      "expect": {
+        "id": "tbl-ch05-523"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.53",
+            "type": "figure",
+            "caption": "Figure 5.53: Amplifier with direct connection of speaker."
+          },
+          {
+            "id": "fig-5.54",
+            "type": "figure",
+            "caption": "Figure 5.54: (a) Amplifier with capacitive coupling at the input and output, (b) simplified small-signal model."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body606-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[606]",
+      "expect": {
+        "id": "tbl-ch05-606"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.63",
+            "type": "figure",
+            "caption": "Figure 5.63: (a) CB stage sensing an input, (b) bias network for base.We must now generate $V_b$ . A simple approach is to employ a resistiv"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body636-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[636]",
+      "expect": {
+        "id": "tbl-ch05-636"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.68",
+            "type": "figure",
+            "caption": "Figure 5.68: depicts the amplifier $^{12}$ and the equivalent circuit with the antenna modeled by a voltage source, $v_{in}$ , and a resista"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body694-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[694]",
+      "expect": {
+        "id": "tbl-ch05-694"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.76",
+            "type": "figure",
+            "caption": "Figure 5.76: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body709-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[709]",
+      "expect": {
+        "id": "tbl-ch05-709"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.78",
+            "type": "figure",
+            "caption": "Figure 5.78: CB stage with emitter shorted to ground."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch05-body780-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[780]",
+      "expect": {
+        "id": "tbl-ch05-780"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.86",
+            "type": "figure",
+            "caption": "Figure 5.86: Follower with current source."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body45-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[45]",
+      "expect": {
+        "id": "tbl-ch06-45"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.7",
+            "type": "figure",
+            "caption": "Figure 6.7: Use of MOSFET to adjust signal levels."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body102-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[102]",
+      "expect": {
+        "id": "tbl-ch06-102"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.17",
+            "type": "figure",
+            "caption": "Figure 6.17: MOS characteristics for different gate-source voltages."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body111-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[111]",
+      "expect": {
+        "id": "tbl-ch06-111"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.19",
+            "type": "figure",
+            "caption": "Figure 6.19: Role of antenna switch in a cordless phone."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body113-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[113]",
+      "expect": {
+        "id": "tbl-ch06-113"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.20",
+            "type": "figure",
+            "caption": "Figure 6.20: Signal degradation due to on-resistance of antenna switch.and hence $R_{on} \\leq 5.6$ Ω.(6.14)Setting $V_{GS}$ to the maximum v"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body145-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[145]",
+      "expect": {
+        "id": "tbl-ch06-145"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.24",
+            "type": "figure",
+            "caption": "Figure 6.24: Simple MOS circuit."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body181-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[181]",
+      "expect": {
+        "id": "tbl-6.1"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.27",
+            "type": "figure",
+            "caption": "Figure 6.27: Equivalence of a wide MOSFET to two in parallel."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch06-body242-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[242]",
+      "expect": {
+        "id": "tbl-ch06-242"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-6.33",
+            "type": "figure",
+            "caption": "Figure 6.33: Simple PMOS circuit."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body128-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[128]",
+      "expect": {
+        "id": "tbl-ch07-128"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.9",
+            "type": "figure",
+            "caption": "Figure 7.9: (a) CS stage with ideal current source as a load, (b) gain as a function of device channel length."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body175-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[175]",
+      "expect": {
+        "id": "tbl-ch07-175"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.15",
+            "type": "figure",
+            "caption": "Figure 7.15: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body187-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[187]",
+      "expect": {
+        "id": "tbl-ch07-187"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.18",
+            "type": "figure",
+            "caption": "Figure 7.18: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body323-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[323]",
+      "expect": {
+        "id": "tbl-ch07-323"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.30",
+            "type": "figure",
+            "caption": "Figure 7.30: (a) Follower with ideal current source, (b) simplified circuit."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body361-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[361]",
+      "expect": {
+        "id": "tbl-ch07-361"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.34",
+            "type": "figure",
+            "caption": "Figure 7.34: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body362-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[362]",
+      "expect": {
+        "id": "tbl-ch07-362"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.35",
+            "type": "figure",
+            "caption": "Figure 7.35: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch07-body386-aliases",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[386]",
+      "expect": {
+        "id": "tbl-ch07-386"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-7.38",
+            "type": "figure",
+            "caption": "Figure 7.38"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch08-body17-aliases",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[17]",
+      "expect": {
+        "id": "tbl-ch08-17"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-8.3",
+            "type": "figure",
+            "caption": "Figure 8.3: Unity-gain buffer."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch08-body244-aliases",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[244]",
+      "expect": {
+        "id": "tbl-ch08-244"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-8.28",
+            "type": "figure",
+            "caption": "Figure 8.28: Two-stage amplifier."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body90-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[90]",
+      "expect": {
+        "id": "tbl-ch09-90"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.13",
+            "type": "figure",
+            "caption": "Figure 9.13"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body101-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[101]",
+      "expect": {
+        "id": "tbl-ch09-101"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.15",
+            "type": "figure",
+            "caption": "Figure 9.15"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body231-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[231]",
+      "expect": {
+        "id": "tbl-ch09-231"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.24",
+            "type": "figure",
+            "caption": "Figure 9.24"
+          },
+          {
+            "id": "fig-9.25",
+            "type": "figure",
+            "caption": "Figure 9.25"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body241-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[241]",
+      "expect": {
+        "id": "tbl-ch09-241"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.27",
+            "type": "figure",
+            "caption": "Figure 9.27: illustrates the circuit. Here, all transistors are identical to ensure proper scaling of $I_{REF}$ ."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body248-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[248]",
+      "expect": {
+        "id": "tbl-ch09-248"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.29",
+            "type": "figure",
+            "caption": "Figure 9.29"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch09-body315-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[315]",
+      "expect": {
+        "id": "tbl-ch09-315"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.37",
+            "type": "figure",
+            "caption": "Figure 9.37"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch10-body462-aliases",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[462]",
+      "expect": {
+        "id": "tbl-ch10-462"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-10.46",
+            "type": "figure",
+            "caption": "Figure 10.46"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch11-body257-aliases",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[257]",
+      "expect": {
+        "id": "tbl-ch11-257"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-11.31",
+            "type": "figure",
+            "caption": "Figure 11.31"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch12-body598-aliases",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[598]",
+      "expect": {
+        "id": "tbl-ch12-598"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-12.68",
+            "type": "figure",
+            "caption": "Figure 12.68"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch12-body600-aliases",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[600]",
+      "expect": {
+        "id": "tbl-ch12-600"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-12.69",
+            "type": "figure",
+            "caption": "Figure 12.69"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body42-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[42]",
+      "expect": {
+        "id": "tbl-ch16-42"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.5",
+            "type": "figure",
+            "caption": "Figure 16.5: (a) Two inverters separated by a long distance on a chip, (b) equivalent supply voltages."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body45-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[45]",
+      "expect": {
+        "id": "tbl-ch16-45"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.7",
+            "type": "figure",
+            "caption": "Figure 16.7: plots the result."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body144-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[144]",
+      "expect": {
+        "id": "tbl-ch16-144"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.16",
+            "type": "figure",
+            "caption": "Figure 16.16: Comparison of (a) NMOS inverter and (b) inverter using an active pull-up device."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body203-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[203]",
+      "expect": {
+        "id": "tbl-ch16-203"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.21",
+            "type": "figure",
+            "caption": "Figure 16.21: plots the result."
+          },
+          {
+            "id": "fig-16.22",
+            "type": "figure",
+            "caption": "Figure 16.22"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body246-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[246]",
+      "expect": {
+        "id": "tbl-ch16-246"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.24",
+            "type": "figure",
+            "caption": "Figure 16.24: plots each term and the sum of the two, suggesting that low thresholds improve the speed."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body274-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[274]",
+      "expect": {
+        "id": "tbl-ch16-274"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.27",
+            "type": "figure",
+            "caption": "Figure 16.27"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body315-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[315]",
+      "expect": {
+        "id": "tbl-ch16-315"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.33",
+            "type": "figure",
+            "caption": "Figure 16.33"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body327-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[327]",
+      "expect": {
+        "id": "tbl-ch16-327"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.36",
+            "type": "figure",
+            "caption": "Figure 16.36: shows the realization of the gate. With three NMOS transistors in series, we select a width of 3W for $M_1-M_3$ so that the to"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch16-body330-aliases",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[330]",
+      "expect": {
+        "id": "tbl-ch16-330"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-16.37",
+            "type": "figure",
+            "caption": "Figure 16.37"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body39-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[39]",
+      "expect": {
+        "id": "tbl-ch17-39"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.3",
+            "type": "figure",
+            "caption": "Figure 17.3: (a) Simple amplifier stage, (b) small-signal model."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body43-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[43]",
+      "expect": {
+        "id": "tbl-ch17-43"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.5",
+            "type": "figure",
+            "caption": "Figure 17.5: (a) Impedance seen at drain, (b) small-signal model."
+          },
+          {
+            "id": "fig-17.6",
+            "type": "figure",
+            "caption": "Figure 17.6: (a) Impedance seen at source, (b) small-signal model."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body73-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[73]",
+      "expect": {
+        "id": "tbl-ch17-73"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.11",
+            "type": "figure",
+            "caption": "Figure 17.11: Amplifier driven directly by a microphone."
+          },
+          {
+            "id": "fig-17.12",
+            "type": "figure",
+            "caption": "Figure 17.12: Amplifier with gate tied to $V_{DD}$ ."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body75-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[75]",
+      "expect": {
+        "id": "tbl-ch17-75"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.13",
+            "type": "figure",
+            "caption": "Figure 17.13: Amplifier with gate bias."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body247-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[247]",
+      "expect": {
+        "id": "tbl-ch17-247"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.28",
+            "type": "figure",
+            "caption": "Figure 17.28: (a) CS stage with ideal current source as a load, (b) gain as a function of device channel length."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body273-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[273]",
+      "expect": {
+        "id": "tbl-ch17-273"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.32",
+            "type": "figure",
+            "caption": "Figure 17.32: CS stage with diode-connected PMOS device."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body292-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[292]",
+      "expect": {
+        "id": "tbl-ch17-292"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.35",
+            "type": "figure",
+            "caption": "Figure 17.35: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body340-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[340]",
+      "expect": {
+        "id": "tbl-ch17-340"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.41",
+            "type": "figure",
+            "caption": "Figure 17.41: (a)"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body381-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[381]",
+      "expect": {
+        "id": "tbl-ch17-381"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.45",
+            "type": "figure",
+            "caption": "Figure 17.45: Amplifier with direct connection of speaker."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body424-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[424]",
+      "expect": {
+        "id": "tbl-ch17-424"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.51",
+            "type": "figure",
+            "caption": "Figure 17.51: summarizes the allowable signal levels in this design. The gate voltage can be generated using a resistive divider similar to "
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body474-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[474]",
+      "expect": {
+        "id": "tbl-ch17-474"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.59",
+            "type": "figure",
+            "caption": "Figure 17.59: Cg stage lacking bias current."
+          },
+          {
+            "id": "fig-17.60",
+            "type": "figure",
+            "caption": "Figure 17.60: CG stage with source shorted to ground."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body490-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[490]",
+      "expect": {
+        "id": "tbl-ch17-490"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.63",
+            "type": "figure",
+            "caption": "Figure 17.63: CG stage with gate bias network."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body513-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[513]",
+      "expect": {
+        "id": "tbl-ch17-513"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.67",
+            "type": "figure",
+            "caption": "Figure 17.67: Follower with current source."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body520-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[520]",
+      "expect": {
+        "id": "tbl-ch17-520"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.70",
+            "type": "figure",
+            "caption": "Figure 17.70: (a) Follower with ideal current source, (b) simplified circuit."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body578-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[578]",
+      "expect": {
+        "id": "tbl-ch17-578"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.77",
+            "type": "figure",
+            "caption": "Figure 17.77: Examples of (a) CS and (b) CG stages."
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（1圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-ch17-body580-aliases",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[580]",
+      "expect": {
+        "id": "tbl-ch17-580"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-17.78",
+            "type": "figure",
+            "caption": "Figure 17.78: (a)"
+          },
+          {
+            "id": "fig-17.79",
+            "type": "figure",
+            "caption": "Figure 17.79"
+          }
+        ]
+      },
+      "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    }
+  ]
+}

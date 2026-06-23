@@ -1,0 +1,63 @@
+{
+  "overrides": [
+    {
+      "id": "spivak_calculus-ch12-body-145-bebf80",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[145]",
+      "expect": "(f ^ {- 1}) ^ {\\prime} (b) = \\frac {1}{f ^ {\\prime} (f ^ {- 1} (b))}. ₺",
+      "new": "(f ^ {- 1}) ^ {\\prime} (b) = \\frac {1}{f ^ {\\prime} (f ^ {- 1} (b))}."
+    },
+    {
+      "id": "spivak_calculus-appF-body-299-bebf80",
+      "action": "fix_eq_tex",
+      "chunk": "appF",
+      "selector": "body[299]",
+      "expect": "(f ^ {- 1}) ^ {\\prime} (b) = \\frac {1}{f ^ {\\prime} (f ^ {- 1} (b))}. ₺",
+      "new": "(f ^ {- 1}) ^ {\\prime} (b) = \\frac {1}{f ^ {\\prime} (f ^ {- 1} (b))}."
+    },
+    {
+      "id": "spivak_calculus-ch24-body-70-305861",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[70]",
+      "expect": "\\int_ {a} ^ {b} f = \\lim _ {n \\to \\infty} \\int_ {a} ^ {b} f _ {n}. ₺",
+      "new": "\\int_ {a} ^ {b} f = \\lim _ {n \\to \\infty} \\int_ {a} ^ {b} f _ {n}."
+    },
+    {
+      "id": "spivak_calculus-appI-body-1518-305861",
+      "action": "fix_eq_tex",
+      "chunk": "appI",
+      "selector": "body[1518]",
+      "expect": "\\int_ {a} ^ {b} f = \\lim _ {n \\to \\infty} \\int_ {a} ^ {b} f _ {n}. ₺",
+      "new": "\\int_ {a} ^ {b} f = \\lim _ {n \\to \\infty} \\int_ {a} ^ {b} f _ {n}."
+    },
+    {
+      "id": "spivak_calculus-appI-body-3589-34ace7",
+      "action": "fix_inline_math",
+      "chunk": "appI",
+      "selector": "body[3589]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{\\cos x \\cdot \\log x + \\frac{\\cos x}{x}\\right\\} + \\frac{\\sin(x^{\\sin x})}{x}\\right].$",
+      "new": "$\\left[\\left\\{\\cos x \\cdot \\log x + \\frac{\\cos x}{x}\\right\\} + \\frac{\\sin(x^{\\sin x})}{x}\\right].$",
+      "anchor": "9614144a"
+    },
+    {
+      "id": "spivak_calculus-ch11-problem-56-body-1-97ce37",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:56:body[1]",
+      "expect": "\\begin{array}{l} \\text {If} \\lim _ {x \\to [ ]} f (x) = \\lim _ {x \\to [ ]} g (x) = \\{\\quad \\} \\text {and} \\lim _ {x \\to [ ]} f ^ {\\prime} (x) / g ^ {\\prime} (x) = (\\quad), \\text {then} \\lim _ {x \\to [ ]} \\\\ f (x) / g (x) = (\\quad). \\text {Here} [ ] \\text {can be a or a^{+} or a^{-} or \\infty or -\\infty , and \\{\\quad} \\\\ \\text {can be 0 or \\infty or -\\infty , and (\\quad) can be l or \\infty or -\\infty .} \\end{array}",
+      "new": "\\begin{array}{l} \\text {If } \\lim _ {x \\to [ ]} f (x) = \\lim _ {x \\to [ ]} g (x) = \\{\\quad \\} \\text { and } \\lim _ {x \\to [ ]} f ^ {\\prime} (x) / g ^ {\\prime} (x) = (\\quad), \\text { then } \\lim _ {x \\to [ ]} \\\\ f (x) / g (x) = (\\quad). \\text { Here } [ ] \\text { can be } a \\text { or } a^{+} \\text { or } a^{-} \\text { or } \\infty \\text { or } -\\infty, \\text { and } \\{\\quad\\} \\\\ \\text { can be } 0 \\text { or } \\infty \\text { or } -\\infty, \\text { and } (\\quad) \\text { can be l or } \\infty \\text { or } -\\infty. \\end{array}"
+    },
+    {
+      "id": "spivak_calculus-appE-body-1065-97ce37",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[1065]",
+      "expect": "\\begin{array}{l} \\text {If} \\lim _ {x \\to [ ]} f (x) = \\lim _ {x \\to [ ]} g (x) = \\{\\quad \\} \\text {and} \\lim _ {x \\to [ ]} f ^ {\\prime} (x) / g ^ {\\prime} (x) = (\\quad), \\text {then} \\lim _ {x \\to [ ]} \\\\ f (x) / g (x) = (\\quad). \\text {Here} [ ] \\text {can be a or a^{+} or a^{-} or \\infty or -\\infty , and \\{\\quad} \\\\ \\text {can be 0 or \\infty or -\\infty , and (\\quad) can be l or \\infty or -\\infty .} \\end{array}",
+      "new": "\\begin{array}{l} \\text {If } \\lim _ {x \\to [ ]} f (x) = \\lim _ {x \\to [ ]} g (x) = \\{\\quad \\} \\text { and } \\lim _ {x \\to [ ]} f ^ {\\prime} (x) / g ^ {\\prime} (x) = (\\quad), \\text { then } \\lim _ {x \\to [ ]} \\\\ f (x) / g (x) = (\\quad). \\text { Here } [ ] \\text { can be } a \\text { or } a^{+} \\text { or } a^{-} \\text { or } \\infty \\text { or } -\\infty, \\text { and } \\{\\quad\\} \\\\ \\text { can be } 0 \\text { or } \\infty \\text { or } -\\infty, \\text { and } (\\quad) \\text { can be l or } \\infty \\text { or } -\\infty. \\end{array}"
+    }
+  ]
+}

@@ -45,194 +45,13 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （204 條；proposed=4 parked=2）
+## domain: engine  （206 條；proposed=1 parked=2）
 ### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
 - proposed | type=tooling-gap | source=agent
 - 證據：
 > comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。
 - 提議：
 > 在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。
-
-### P-2026-06-23-pozar-microwave — worker 越界改核心碼：build/convert_images.py（sol_extract pozar_microwave）
-- proposed | type=patch | source=scope_guard
-- 證據：
-> scope_guard bracket：worker [sol_extract pozar_microwave] session=pozar_microwave:74391 存活期間，受保護程式碼面 build/convert_images.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
-- 提議：
-> diff --git a/build/convert_images.py b/build/convert_images.py
-> index 7ec97d5..0a5b71f 100644
-> --- a/build/convert_images.py
-> +++ b/build/convert_images.py
-> @@ -52,10 +52,14 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
->      book_dir = DATA_DIR / slug
->      out_dir = OUT / slug
->      jobs: list[tuple[str, str]] = []
-> -    img_dir = book_dir / 'unified' / 'images'
-> -    if img_dir.is_dir():
-> -        for jpg in img_dir.glob('*.jpg'):
-> -            jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
-> +    # 主書影像 + 解答書影像：merged solution 的 fig 引用解答書(<slug>_sol)的影像，但 reader
-> +    # 從 img/<main_slug>/ 載解答圖，故一併轉進主書 out_dir。hash 為內容定址 → 同名即同內容、
-> +    # 重複者覆寫等價，mtime 冪等跳過；解答書無 _sol 目錄則 no-op。
-> +    for img_dir in (book_dir / 'unified' / 'images',
-> +                    DATA_DIR / f'{slug}_sol' / 'unified' / 'images'):
-> +        if img_dir.is_dir():
-> +            for jpg in img_dir.glob('*.jpg'):
-> +                jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
->      cover = book_dir / 'cover.jpg'
->      if cover.is_file():
->          jobs.append((str(cover), str(out_dir / 'cover.webp')))
-- 風險：
-> observe 模式未還原——待架構師裁決收編/還原。
-
-### P-2026-06-23-rudin-analysis — worker 越界改核心碼：book_pipeline/intake.py（sol_extract rudin_analysis）
-- proposed | type=patch | source=scope_guard
-- 證據：
-> scope_guard bracket：worker [sol_extract rudin_analysis] session=rudin_analysis:64889 存活期間，受保護程式碼面 book_pipeline/intake.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
-- 提議：
-> diff --git a/book_pipeline/intake.py b/book_pipeline/intake.py
-> index ff89f1d..c9704c8 100644
-> --- a/book_pipeline/intake.py
-> +++ b/book_pipeline/intake.py
-> @@ -6,9 +6,10 @@
->  首輪踩過 PYTHONPATH/額度槽分配/scratchpad hack）。本工具一鍵完成、確定性、可觀測、低 token：
->
->    pick   = booklists.select_next(N)（合格池 QUALIFIED 確定性前 N 本，排除已失敗達上限）
-> -  gates  = default=hold + 這 N 本 allow '*' + '*' math_sweep（原子取代舊規則）→ SIGUSR1 喚醒 controller
-> -  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs
-> -  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（只放行這 N 本，其餘 held）。
-> +  gates  = default=allow + 只 hold crawl lane → SIGUSR1 喚醒 controller（放行本批 + 全 corpus owned
-> +           收尾工作；只擋自動 crawl 新書 → intake 直接 fetch 是唯一新書來源＝節奏控制）
-> +  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs（繞過 crawl 閘）
-> +  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（本批 + 既有 backlog 齊跑，只擋 crawl）。
->
->  設計選擇：直接 fetch（非開 crawl lane）因 lane all-or-nothing 會超抓（room 可達 CAP=30）；直接
->  fetch 精準 N 本、零多餘 PDF（避免多餘書躺 ingest 成日後 OCR 風暴）。--dry-run 只預覽不動。
-> @@ -39,18 +40,16 @@ def pick(n: int, exclude: set[str] | None = None) -> list[dict]:
->
->
->  def set_gates_for(slugs: list[str]) -> int | None:
-> -    """ADDITIVE：保留現有規則（在飛書 allow + math_sweep）+ 加這批新書 allow '*'（dedup）→ default=hold
-> -    → SIGUSR1 喚醒。回 controller pid。為何 additive 非原子取代：backfill/跨輪 top-up 不可洗掉前批仍
-> -    在飛的書（會把它們 hold 在閘）。已 deploy 書的 allow 規則殘留無害（no-op），campaign 末可 gates clear。"""
-> -    cur = pg.load_gates()
-> -    rules = list(cur.get("rules") or [])
-> -    have = {(r.get("slug"), r.get("stage")) for r in rules}
-> -    if ("*", "math_sweep") not in have:
-> -        rules.append({"slug": "*", "stage": "math_sweep", "action": "allow"})
-> -    for s in slugs:
-> -        if (s, "*") not in have:
-> -            rules.append({"slug": s, "stage": "*", "action": "allow"})
-> -    pg.set_gates("hold", rules)
-> +    """設閘門 = **default=allow + 只 hold crawl lane** → SIGUSR1 喚醒。回 controller pid。
-> +    為何非舊「default=hold + 逐本 allow」（該設計有兩個致命缺陷，2026-06-23 改）：
-> +      ① sol_ingest/sol_extract **派工在母書**——fetch 的是 `<x>_sol` 子書，逐本只 allow 子書 slug，
-> +         母書（既有 owned）沒 allow → 被 default=hold 擋死，子書永遠 merge 不進母書（R3 實際卡住 3 本）。
-> +      ② default=hold **連帶凍結全 corpus 既有 sol backlog**（~12 本 deployed 書的 sol 收尾工作），
-> +         daemon 閒置、合法工作卡住、看板工人 0。
-> +    intake 直接 `_fetch_book` 繞過 crawl 閘 → hold crawl **不影響本批入庫**，卻保留『只有 intake 是
-> +    新書來源』的節奏控制（campaign 一輪 5 本）。default=allow 讓本批 + 全 corpus owned 收尾工作齊跑。
-> +    slugs 參數保留供呼叫端 log；閘門本身不再 per-slug（idempotent，backfill 多輪 fetch 重設無副作用）。"""
-> +    pg.set_gates("allow", [{"slug": "*", "stage": "crawl", "action": "hold"}])
->      pid = pt.controller_pid()
->      if pid:
->          try:
-> @@ -93,8 +92,8 @@ def run(n: int, dry: bool) -> int:
->          batch = pick(n)
->          print(f"選中 {len(batch)} 本：{[b['slug'] for b in batch]}", flush=True)
->          rem = pt._zlib_remaining_cached()
-> -        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=hold + 落地者 allow + "
-> -              f"math_sweep)；zlib 額度(快取) {rem}", flush=True)
-> +        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=allow + hold crawl)；"
-> +              f"zlib 額度(快取) {rem}", flush=True)
->          return 0
->      # backfill 迴圈：fetch 失敗（死連結/額度）即補選替補，直到湊滿 n 本或合格池耗盡。
->      success: list[str] = []
-> @@ -111,7 +110,7 @@ def run(n: int, dry: bool) -> int:
->      if not success:
->          print("本輪零入庫", flush=True)
->          return 0
-> -    pid = set_gates_for(success)  # 只 gate 真正落地的書（取代「先 gate 再 fetch」→ 死連結不會掛空 allow 規則）
-> +    pid = set_gates_for(success)  # 設 default=allow + hold crawl（放行本批 + 全 backlog，只擋自動爬新書）
->      print(f"\n入庫 {len(success)}/{n}：{success}", flush=True)
->      # 主書 vs _sol 解答書分類（_sol 不自己上架、merge 進母書）；母書未 deployed 的 _sol 會 block（無處 merge）。
->      mains = [s for s in success if not s.endswith('_sol')]
-> @@ -123,8 +122,8 @@ def run(n: int, dry: bool) -> int:
->              ok = os.path.exists(os.path.join(_ROOT, 'data', parent, 'book.json'))
->              print(f"    {'✓' if ok else '⚠'} {s} → 母書 {parent}"
->                    + ('' if ok else '（母書未上架 → sol 將 block、需先處理母書）'), flush=True)
-> -    print(f"gates：default=hold + 這 {len(success)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
-> -          flush=True)
-> +    print(f"gates：default=allow + hold crawl（本批 + 全 corpus owned 收尾齊跑、只擋自動爬新書；"
-> +          f"controller pid={pid} 已喚醒）", flush=True)
->      print("daemon 自動推進；觀測：uv run python -m book_pipeline.watch " + ' '.join(success)
->            + "（_sol 經母書解析）/ devctl status / /dev", flush=True)
->      return 0
-- 風險：
-> observe 模式未還原——待架構師裁決收編/還原。
-
-### P-2026-06-23-spivak-calculus — worker 越界改核心碼：book_pipeline/test_intake.py（sol_extract spivak_calculus）
-- proposed | type=patch | source=scope_guard
-- 證據：
-> scope_guard bracket：worker [sol_extract spivak_calculus] session=spivak_calculus:69637 存活期間，受保護程式碼面 book_pipeline/test_intake.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
-- 提議：
-> +++ book_pipeline/test_intake.py (untracked 新檔)
-> """intake.set_gates_for 閘門結果回歸測試：uv run python -m book_pipeline.test_intake
->
-> 守住 2026-06-23 FREEZE bug 不重現：舊「default=hold + 逐本 allow 子書 slug」會——
->   ① sol_ingest/sol_extract 派工在**母書**，只 allow `<x>_sol` 子書 → 母書被 default=hold 擋死、
->      子書永遠 merge 不進（R3 卡住 nilsson/sedra/khalil 3 本）；
->   ② default=hold 連帶凍結全 corpus 既有 sol backlog → daemon 閒置、看板工人 0。
-> 新設計 = default=allow + 只 hold crawl lane（本批 + 全 backlog 齊跑，只擋自動爬新書）。
-> 全 hermetic：redirect pg 路徑到 tmp、mock controller_pid 避免真 SIGUSR1，絕不碰 live .control/gates.json。
-> """
-> from __future__ import annotations
->
-> import os
-> import tempfile
->
-> from book_pipeline import intake
-> from book_pipeline import pipeline_gates as pg
-> from book_pipeline import pipeline_tick as pt
->
->
-> def _redirect(tmp: str):
->     saved = (pg.CONTROL_DIR, pg.GATES_PATH)
->     pg.CONTROL_DIR = tmp
->     pg.GATES_PATH = os.path.join(tmp, 'gates.json')
->
->     def restore():
->         pg.CONTROL_DIR, pg.GATES_PATH = saved
->     return restore
->
->
-> def test_set_gates_for_allows_parent_sol_holds_crawl():
->     with tempfile.TemporaryDirectory() as tmp:
->         restore = _redirect(tmp)
->         saved_pid = pt.controller_pid
->         pt.controller_pid = lambda: None          # 不發真 SIGUSR1
->         try:
->             intake.set_gates_for(['nilsson_riedel_electric_circuits_sol'])  # fetch 的是子書 slug
->             g = pg.load_gates()
->             assert g['default'] == 'allow', g
->             # FREEGE-bug 守護：母書（既有 owned、非 fetch 的 slug）的 sol_ingest 必須放行，否則子書 merge 不進
->             assert pg.gate_allows('nilsson_riedel_electric_circuits', 'sol_ingest', g) is True
->             # 全 corpus 既有 sol backlog 也須放行（不再凍結）
->             assert pg.gate_allows('boyd_convex_opt', 'sol_extract', g) is True
->             # 只擋自動 crawl lane（保節奏：intake 直接 fetch 是唯一新書來源）
->             assert pg.gate_allows(None, 'crawl', g) is False
->             assert pg.gate_allows(None, 'math_sweep', g) is True
->             assert pg.gate_allows(None, 'gc', g) is True
->         finally:
->             pt.controller_pid = saved_pid
->             restore()
->     print('✓ set_gates_for：default=allow + hold crawl，母書 sol/backlog 放行、crawl 擋')
->
->
-> if __name__ == '__main__':
->     test_set_gates_for_allows_parent_sol_holds_crawl()
->     print('\n全部通過 ✅')
-- 風險：
-> observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
@@ -750,6 +569,58 @@
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
+### P-2026-06-23-johns-martin-analog-ic — worker 越界改核心碼：book_pipeline/test_dispatch_failover.py（audit johns_martin_analog_ic）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）
+- 證據：
+> scope_guard bracket：worker [audit johns_martin_analog_ic] session=johns_martin_analog_ic:84158 存活期間，受保護程式碼面 book_pipeline/test_dispatch_failover.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/test_dispatch_failover.py b/book_pipeline/test_dispatch_failover.py
+> index 481c93f..fbfb2c3 100644
+> --- a/book_pipeline/test_dispatch_failover.py
+> +++ b/book_pipeline/test_dispatch_failover.py
+> @@ -23,7 +23,7 @@ def _patch(results):
+>      calls = []
+>      orig = pt._run_one
+>      with pt._exhausted_lock:
+> -        pt._exhausted_providers.clear()
+> +        pt._exhausted_at.clear()
+>
+>      def fake(provider, todo_verb, slug, prompt, spec):
+>          calls.append(provider)
+> @@ -89,10 +89,27 @@ def test_outage_classification():
+>      print('✓ _hit_outage/_hit_limit 標記分類正確')
+>
+>
+> +def test_exhaustion_ttl_expires():
+> +    """回歸：暫態額度標記須 TTL 後自動失效（reactive loop 不每 cycle clear，永久標記會黏死整個 walltime
+> +    落 claude——2026-06-23 實證 codex 撞額度後 50min 全 claude）。標記→TTL 內 skip→過 TTL 自動清、重探。"""
+> +    import time
+> +    with pt._exhausted_lock:
+> +        pt._exhausted_at.clear()
+> +        now = time.monotonic()
+> +        pt._exhausted_at['codex'] = now
+> +        assert pt._is_exhausted('codex', now) is True                       # 剛標記 → 跳過
+> +        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL - 1) is True  # TTL 內 → 仍跳過
+> +        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL + 1) is False # 過 TTL → 重探
+> +        assert 'codex' not in pt._exhausted_at, '過 TTL 須清除戳記（下次乾淨重探）'
+> +        assert pt._is_exhausted('claude', now) is False                     # 未標記 → 不跳過
+> +    print('✓ exhaustion TTL：暫態標記過期自動重探、不黏死 controller 命')
+> +
+> +
+>  if __name__ == '__main__':
+>      test_outage_fails_over()
+>      test_limit_fails_over()
+>      test_task_failure_does_not_fail_over()
+>      test_all_unavailable_defers()
+>      test_outage_classification()
+> +    test_exhaustion_ttl_expires()
+>      print('\n全部通過 ✅')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-23-merzbacher-quantum-mechanics — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit merzbacher_quantum_mechanics）
 - rejected | type=patch | source=scope_guard
 - 決議：already-resolved
@@ -759,6 +630,225 @@
 > scope_guard bracket：worker [audit merzbacher_quantum_mechanics] session=merzbacher_quantum_mechanics:66452 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
 - 提議：
 > (無 diff 文本，book_pipeline/pipeline_tick.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-pozar-microwave — worker 越界改核心碼：build/convert_images.py（sol_extract pozar_microwave）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）
+- 證據：
+> scope_guard bracket：worker [sol_extract pozar_microwave] session=pozar_microwave:74391 存活期間，受保護程式碼面 build/convert_images.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/build/convert_images.py b/build/convert_images.py
+> index 7ec97d5..0a5b71f 100644
+> --- a/build/convert_images.py
+> +++ b/build/convert_images.py
+> @@ -52,10 +52,14 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
+>      book_dir = DATA_DIR / slug
+>      out_dir = OUT / slug
+>      jobs: list[tuple[str, str]] = []
+> -    img_dir = book_dir / 'unified' / 'images'
+> -    if img_dir.is_dir():
+> -        for jpg in img_dir.glob('*.jpg'):
+> -            jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
+> +    # 主書影像 + 解答書影像：merged solution 的 fig 引用解答書(<slug>_sol)的影像，但 reader
+> +    # 從 img/<main_slug>/ 載解答圖，故一併轉進主書 out_dir。hash 為內容定址 → 同名即同內容、
+> +    # 重複者覆寫等價，mtime 冪等跳過；解答書無 _sol 目錄則 no-op。
+> +    for img_dir in (book_dir / 'unified' / 'images',
+> +                    DATA_DIR / f'{slug}_sol' / 'unified' / 'images'):
+> +        if img_dir.is_dir():
+> +            for jpg in img_dir.glob('*.jpg'):
+> +                jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))
+>      cover = book_dir / 'cover.jpg'
+>      if cover.is_file():
+>          jobs.append((str(cover), str(out_dir / 'cover.webp')))
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-razavi-fundamentals-microelectro — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit razavi_fundamentals_microelectronics）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）
+- 證據：
+> scope_guard bracket：worker [audit razavi_fundamentals_microelectronics] session=razavi_fundamentals_microelectronics:72641 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index 9725ae3..28cb749 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -361,10 +361,25 @@ def _llm_env(provider: str) -> dict | None:
+>      return None
+>
+>
+> -# 撞額度的 provider（本 tick 內標記，跨並行子工共享 → 不再重複撞同一耗盡的 provider）。
+> -# 每 tick 開頭清空重試。
+> -_exhausted_providers: set[str] = set()
+> +# 撞額度/中斷的 provider → 標記時刻（monotonic 秒），跨並行子工共享 → 同 cycle 不重撞同一耗盡 provider。
+> +# **TTL 化（非永久標記）**：reactive loop 的 clear 只在 controller 起頭跑一次（tick_reactive:1891），
+> +# 若用永久 set，一次暫態 codex 額度（撞限後恢復）會黏死整個 ~50min walltime 全程落 claude 保底（實證
+> +# 2026-06-23：controller 起後 2min codex 撞額度 → 50min 全 claude，probe 獨立 process 卻顯 codex ✅ 假信心）。
+> +# 改存戳記、過 _EXHAUST_TTL 自動重探 → 暫態限額數分鐘內回 codex，持久故障則每 TTL 重試一次（可接受）。
+> +_exhausted_at: dict[str, float] = {}
+>  _exhausted_lock = threading.Lock()
+> +_EXHAUST_TTL = 300.0  # 撞額度/中斷標記存活秒；過此重探（暫態恢復不必等 controller respawn）
+> +
+> +
+> +def _is_exhausted(provider: str, now: float) -> bool:
+> +    """provider 是否在 TTL 內被標記撞額度/中斷（**呼叫端須持 _exhausted_lock**；過 TTL 清戳記回 False=可重試）。"""
+> +    t = _exhausted_at.get(provider)
+> +    if t is None:
+> +        return False
+> +    if now - t >= _EXHAUST_TTL:
+> +        del _exhausted_at[provider]
+> +        return False
+> +    return True
+>  # claude 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
+>  SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
+>  CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests',
+> @@ -669,16 +684,17 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
+>      tried = []
+>      for provider in chain:
+>          with _exhausted_lock:
+> -            if provider in _exhausted_providers:
+> -                continue
+> +            skip = _is_exhausted(provider, time.monotonic())
+> +        if skip:
+> +            continue
+>          tried.append(provider)
+>          rc, reason = _run_one(provider, todo_verb, key, prompt, spec)
+>          if not reason:
+>              return rc  # 成功，或 agent 真跑了卻任務失敗 → 交回呼叫端，不換 provider
+>          with _exhausted_lock:
+> -            _exhausted_providers.add(provider)  # 額度/中斷皆標死本 tick：免其他子工重撞同一掛掉的 provider
+> -        nxt = next((q for q in chain if q != provider
+> -                    and q not in _exhausted_providers), None)
+> +            _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
+> +            nxt = next((q for q in chain if q != provider
+> +                        and not _is_exhausted(q, time.monotonic())), None)
+>          why = '撞額度' if reason == 'limit' else '服務中斷'
+>          log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
+>              + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
+> @@ -700,7 +716,7 @@ def probe_provider(provider: str, spec: DispatchSpec, timeout: int = 90) -> dict
+>        task-fail  接上但 rc≠0（agent 真跑了） → dispatch 仍停在這層（reason=None 不 failover）
+>        timeout    probe 逾時（接不上/太慢）    → 當無法採用、續探下一層
+>      **零副作用**（不碰 worker_registry/leases/scope_guard/hist，不污染觀測面/租約/守衛指紋），
+> -    亦忽略 _exhausted_providers（探真實當下，非 tick-local 標記）。供 devctl probe 主動診斷（G1）。"""
+> +    亦忽略 _exhausted_at（探真實當下，非 TTL-local 標記）。供 devctl probe 主動診斷（G1）。"""
+>      import signal
+>      import time
+>      prompt = 'Reply with exactly the two characters: OK — do nothing else, call no tools.'
+> @@ -1818,7 +1834,7 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
+>      log(f'=== tick start (dry={dry}) ===')
+>      log('budget: ' + str(mb.status_report()))
+>      with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
+> -        _exhausted_providers.clear()
+> +        _exhausted_at.clear()
+>      if not dry:
+>          wr.reset()  # 清空 worker 註冊表（含上次崩潰殘留），本 tick 新工人重新登記
+>
+> @@ -1887,8 +1903,8 @@ def tick_reactive(no_deploy: bool) -> int:
+>      log(f'=== reactive loop start (code={_code_version()} walltime={LOOP_WALLTIME}s poll={LOOP_POLL}s) ===')
+>      log('budget: ' + str(mb.status_report()))
+>      wr.reset()
+> -    with _exhausted_lock:  # 本 controller 起頭重置額度旗標（下個 invocation 再重探恢復）
+> -        _exhausted_providers.clear()
+> +    with _exhausted_lock:  # 本 controller 起頭重置額度旗標（之後靠 _EXHAUST_TTL 每 cycle 自動重探恢復）
+> +        _exhausted_at.clear()
+>      _gc_throttle['last'] = time.monotonic()  # GC 節流戳重置 → 首掃於 ~GC_INTERVAL 後（系統穩定才掃）
+>
+>      inflight: set[str] = set()
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-rudin-analysis — worker 越界改核心碼：book_pipeline/intake.py（sol_extract rudin_analysis）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）
+- 證據：
+> scope_guard bracket：worker [sol_extract rudin_analysis] session=rudin_analysis:64889 存活期間，受保護程式碼面 book_pipeline/intake.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/intake.py b/book_pipeline/intake.py
+> index ff89f1d..c9704c8 100644
+> --- a/book_pipeline/intake.py
+> +++ b/book_pipeline/intake.py
+> @@ -6,9 +6,10 @@
+>  首輪踩過 PYTHONPATH/額度槽分配/scratchpad hack）。本工具一鍵完成、確定性、可觀測、低 token：
+>
+>    pick   = booklists.select_next(N)（合格池 QUALIFIED 確定性前 N 本，排除已失敗達上限）
+> -  gates  = default=hold + 這 N 本 allow '*' + '*' math_sweep（原子取代舊規則）→ SIGUSR1 喚醒 controller
+> -  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs
+> -  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（只放行這 N 本，其餘 held）。
+> +  gates  = default=allow + 只 hold crawl lane → SIGUSR1 喚醒 controller（放行本批 + 全 corpus owned
+> +           收尾工作；只擋自動 crawl 新書 → intake 直接 fetch 是唯一新書來源＝節奏控制）
+> +  fetch  = 並行 _fetch_book（複用買書員 primitive + zlib 額度槽分配）落 raw_pdfs（繞過 crawl 閘）
+> +  → daemon observe 自動推進 qc→ingest→audit→catalog→deploy（本批 + 既有 backlog 齊跑，只擋 crawl）。
+>
+>  設計選擇：直接 fetch（非開 crawl lane）因 lane all-or-nothing 會超抓（room 可達 CAP=30）；直接
+>  fetch 精準 N 本、零多餘 PDF（避免多餘書躺 ingest 成日後 OCR 風暴）。--dry-run 只預覽不動。
+> @@ -39,18 +40,16 @@ def pick(n: int, exclude: set[str] | None = None) -> list[dict]:
+>
+>
+>  def set_gates_for(slugs: list[str]) -> int | None:
+> -    """ADDITIVE：保留現有規則（在飛書 allow + math_sweep）+ 加這批新書 allow '*'（dedup）→ default=hold
+> -    → SIGUSR1 喚醒。回 controller pid。為何 additive 非原子取代：backfill/跨輪 top-up 不可洗掉前批仍
+> -    在飛的書（會把它們 hold 在閘）。已 deploy 書的 allow 規則殘留無害（no-op），campaign 末可 gates clear。"""
+> -    cur = pg.load_gates()
+> -    rules = list(cur.get("rules") or [])
+> -    have = {(r.get("slug"), r.get("stage")) for r in rules}
+> -    if ("*", "math_sweep") not in have:
+> -        rules.append({"slug": "*", "stage": "math_sweep", "action": "allow"})
+> -    for s in slugs:
+> -        if (s, "*") not in have:
+> -            rules.append({"slug": s, "stage": "*", "action": "allow"})
+> -    pg.set_gates("hold", rules)
+> +    """設閘門 = **default=allow + 只 hold crawl lane** → SIGUSR1 喚醒。回 controller pid。
+> +    為何非舊「default=hold + 逐本 allow」（該設計有兩個致命缺陷，2026-06-23 改）：
+> +      ① sol_ingest/sol_extract **派工在母書**——fetch 的是 `<x>_sol` 子書，逐本只 allow 子書 slug，
+> +         母書（既有 owned）沒 allow → 被 default=hold 擋死，子書永遠 merge 不進母書（R3 實際卡住 3 本）。
+> +      ② default=hold **連帶凍結全 corpus 既有 sol backlog**（~12 本 deployed 書的 sol 收尾工作），
+> +         daemon 閒置、合法工作卡住、看板工人 0。
+> +    intake 直接 `_fetch_book` 繞過 crawl 閘 → hold crawl **不影響本批入庫**，卻保留『只有 intake 是
+> +    新書來源』的節奏控制（campaign 一輪 5 本）。default=allow 讓本批 + 全 corpus owned 收尾工作齊跑。
+> +    slugs 參數保留供呼叫端 log；閘門本身不再 per-slug（idempotent，backfill 多輪 fetch 重設無副作用）。"""
+> +    pg.set_gates("allow", [{"slug": "*", "stage": "crawl", "action": "hold"}])
+>      pid = pt.controller_pid()
+>      if pid:
+>          try:
+> @@ -93,8 +92,8 @@ def run(n: int, dry: bool) -> int:
+>          batch = pick(n)
+>          print(f"選中 {len(batch)} 本：{[b['slug'] for b in batch]}", flush=True)
+>          rem = pt._zlib_remaining_cached()
+> -        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=hold + 落地者 allow + "
+> -              f"math_sweep)；zlib 額度(快取) {rem}", flush=True)
+> +        print(f"DRY：將 fetch（失敗自動 backfill 補到 {n}）→ gates(default=allow + hold crawl)；"
+> +              f"zlib 額度(快取) {rem}", flush=True)
+>          return 0
+>      # backfill 迴圈：fetch 失敗（死連結/額度）即補選替補，直到湊滿 n 本或合格池耗盡。
+>      success: list[str] = []
+> @@ -111,7 +110,7 @@ def run(n: int, dry: bool) -> int:
+>      if not success:
+>          print("本輪零入庫", flush=True)
+>          return 0
+> -    pid = set_gates_for(success)  # 只 gate 真正落地的書（取代「先 gate 再 fetch」→ 死連結不會掛空 allow 規則）
+> +    pid = set_gates_for(success)  # 設 default=allow + hold crawl（放行本批 + 全 backlog，只擋自動爬新書）
+>      print(f"\n入庫 {len(success)}/{n}：{success}", flush=True)
+>      # 主書 vs _sol 解答書分類（_sol 不自己上架、merge 進母書）；母書未 deployed 的 _sol 會 block（無處 merge）。
+>      mains = [s for s in success if not s.endswith('_sol')]
+> @@ -123,8 +122,8 @@ def run(n: int, dry: bool) -> int:
+>              ok = os.path.exists(os.path.join(_ROOT, 'data', parent, 'book.json'))
+>              print(f"    {'✓' if ok else '⚠'} {s} → 母書 {parent}"
+>                    + ('' if ok else '（母書未上架 → sol 將 block、需先處理母書）'), flush=True)
+> -    print(f"gates：default=hold + 這 {len(success)} 本 allow '*' + math_sweep（controller pid={pid} 已喚醒）",
+> -          flush=True)
+> +    print(f"gates：default=allow + hold crawl（本批 + 全 corpus owned 收尾齊跑、只擋自動爬新書；"
+> +          f"controller pid={pid} 已喚醒）", flush=True)
+>      print("daemon 自動推進；觀測：uv run python -m book_pipeline.watch " + ' '.join(success)
+>            + "（_sol 經母書解析）/ devctl status / /dev", flush=True)
+>      return 0
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
@@ -1831,6 +1921,73 @@
 >
 >
 >  def main() -> int:
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-23-spivak-calculus — worker 越界改核心碼：book_pipeline/test_intake.py（sol_extract spivak_calculus）
+- rejected | type=patch | source=scope_guard
+- 決議：already-resolved
+- 處置：
+> 架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）
+- 證據：
+> scope_guard bracket：worker [sol_extract spivak_calculus] session=spivak_calculus:69637 存活期間，受保護程式碼面 book_pipeline/test_intake.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_intake.py (untracked 新檔)
+> """intake.set_gates_for 閘門結果回歸測試：uv run python -m book_pipeline.test_intake
+>
+> 守住 2026-06-23 FREEZE bug 不重現：舊「default=hold + 逐本 allow 子書 slug」會——
+>   ① sol_ingest/sol_extract 派工在**母書**，只 allow `<x>_sol` 子書 → 母書被 default=hold 擋死、
+>      子書永遠 merge 不進（R3 卡住 nilsson/sedra/khalil 3 本）；
+>   ② default=hold 連帶凍結全 corpus 既有 sol backlog → daemon 閒置、看板工人 0。
+> 新設計 = default=allow + 只 hold crawl lane（本批 + 全 backlog 齊跑，只擋自動爬新書）。
+> 全 hermetic：redirect pg 路徑到 tmp、mock controller_pid 避免真 SIGUSR1，絕不碰 live .control/gates.json。
+> """
+> from __future__ import annotations
+>
+> import os
+> import tempfile
+>
+> from book_pipeline import intake
+> from book_pipeline import pipeline_gates as pg
+> from book_pipeline import pipeline_tick as pt
+>
+>
+> def _redirect(tmp: str):
+>     saved = (pg.CONTROL_DIR, pg.GATES_PATH)
+>     pg.CONTROL_DIR = tmp
+>     pg.GATES_PATH = os.path.join(tmp, 'gates.json')
+>
+>     def restore():
+>         pg.CONTROL_DIR, pg.GATES_PATH = saved
+>     return restore
+>
+>
+> def test_set_gates_for_allows_parent_sol_holds_crawl():
+>     with tempfile.TemporaryDirectory() as tmp:
+>         restore = _redirect(tmp)
+>         saved_pid = pt.controller_pid
+>         pt.controller_pid = lambda: None          # 不發真 SIGUSR1
+>         try:
+>             intake.set_gates_for(['nilsson_riedel_electric_circuits_sol'])  # fetch 的是子書 slug
+>             g = pg.load_gates()
+>             assert g['default'] == 'allow', g
+>             # FREEGE-bug 守護：母書（既有 owned、非 fetch 的 slug）的 sol_ingest 必須放行，否則子書 merge 不進
+>             assert pg.gate_allows('nilsson_riedel_electric_circuits', 'sol_ingest', g) is True
+>             # 全 corpus 既有 sol backlog 也須放行（不再凍結）
+>             assert pg.gate_allows('boyd_convex_opt', 'sol_extract', g) is True
+>             # 只擋自動 crawl lane（保節奏：intake 直接 fetch 是唯一新書來源）
+>             assert pg.gate_allows(None, 'crawl', g) is False
+>             assert pg.gate_allows(None, 'math_sweep', g) is True
+>             assert pg.gate_allows(None, 'gc', g) is True
+>         finally:
+>             pt.controller_pid = saved_pid
+>             restore()
+>     print('✓ set_gates_for：default=allow + hold crawl，母書 sol/backlog 放行、crawl 擋')
+>
+>
+> if __name__ == '__main__':
+>     test_set_gates_for_allows_parent_sol_holds_crawl()
+>     print('\n全部通過 ✅')
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
@@ -5626,20 +5783,13 @@
 - 風險：
 > May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （45 條；proposed=2 parked=23）
+## domain: sol  （45 條；proposed=1 parked=24）
 ### P-2026-06-23-hennessy-patterson-caqa-sol — hennessy_patterson_caqa ch3/4/7 case-study 過度切分→sol 題號錯位，3 章無法 merge
 - proposed | type=harness-gap | source=sol_extract
 - 證據：
 > 白名單 [1256] merge ch1/2/5/6 = 120 題全對(86%)。ch3/4/7 系統性錯位、已排除：M3.2「issue%」↔S3.2「答 25 cycles」、M4.2 要 PTX↔S4.2 給 RISC-V 指令數、M7.2 GEMM-dot↔S7.2 batch size；非固定 offset(M3.1↔S3.1 對、M3.18 BTB↔S3.18 對) regex 救不了。根因＝這三章在 6e 是 Case Studies & Exercises 多 part case study，主書 audit 把 a/b/c 各 part 切成獨立頂層題號(3.1→3.1,3.2,3.3...)，解答本沿用教科書原始 exercise 編號→題號字串相撞但語義偏移。
 - 提議：
 > 主書重 audit 把 ch3/4/7 case-study parts 收回單一題號(num 帶 part 後綴 a/b/c)、sol problem_re 配 part 對齊；或引擎加 per-chapter num-remap/語義匹配能力。落地後移除 chapter_re 白名單 [1256] 解鎖三章。
-
-### P-2026-06-23-sedra-microe-sol — sedra_microe 解答本無法 merge：源頭 OCR 缺振盪器章致章級偏移 + 章內題錨錯標
-- proposed | type=source-quality | source=sol_extract
-- 證據：
-> 四維對齊 8th/8th。但 (1) 章級偏移：sol 全書 oscillator 僅 4 次、Wien/Colpitts/Barkhausen/multivibrator/Schmitt 全 0 → 缺整個主書 ch14(Signal Generators/振盪器)；sol 自標 Chapter14 內容實為 CMOS 邏輯(R_on=r_DSN、Boolean Y=A+B+C、PDN/PUN)=主書 ch15 → sol 章 14/15/16 對應主書 15/16/17，按號 merge 使主書 ch14-17 全配錯章解答。(2) 章內 OCR 題錨錯標：ch5 真 5.2 解答(因次分析 k_n=k_n'W/L 無因次)丟錨被棄，後續 block 被誤標 <sup>5.2</sup> 實為 5.3 解答→off-by-one 帶狀漂移至 5.11 才 resync；blk6619 '5.' 是 '5.8' 被 OCR 吃掉小數位。配對率放寬 sup 後 73%(923/1263) 但語義抽樣 ch4/ch5/ch14-17 配到錯解答(配對率高≠配對對)。乾淨章僅 ch1/ch7/ch10/ch11。現引擎無 per-chapter offset 不能只 merge 乾淨章。
-- 提議：
-> 換更乾淨且完整的 8th ISM 源重 ingest(補回振盪器章、修題錨 OCR)；或引擎新增 per-chapter 章號 offset 映射(sol_N→main_N+k) + 題錨 OCR resync 能力後重評。sol_rules.yaml 已留驗證過的 chapter_re/problem_re 供重 ingest 復用。
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - parked | type=harness-gap | source=sol_extract
@@ -5873,6 +6023,16 @@
 > 【2026-06-22 章錨fix(50fdc37)後複驗】本提案提議的「放寬 lvl2/header 章錨」已實作。複跑 dry-run：現抽 10 章、配對 295/322(91%)——章錨已解，但語義抽樣 ch07 錯位（主書「正弦調變」題配到 Nyquist 取樣解答），疑章序 offset（sol ch7=取樣 vs 主書 ch7=調變）。章錨 gap 已關閉但本書仍不可乾淨 merge，續 _pending；真阻塞＝章序/源頭對應，非 lvl。
 - 提議：
 > sol_extract.extract_sol_chapters 放寬章 anchor：允許 text_level==2 / header 的 text block 命中 chapter_re 即收（非僅 lvl1）。一改泛化解鎖本書 + anton_calculus_sol 等同類 harness-gap。
+
+### P-2026-06-23-sedra-microe-sol — sedra_microe 解答本無法 merge：源頭 OCR 缺振盪器章致章級偏移 + 章內題錨錯標
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更乾淨且完整的 Sedra/Smith 8th ISM 源（須含主書 ch14 振盪器/Signal Generators 章、修題錨 <sup> OCR 錯標）重 ingest；sol_rules.yaml 已留驗證過 chapter_re/problem_re 供復用
+- 處置：
+> 源頭 OCR 兩重結構損壞（缺振盪器整章致章級偏移 sol14-16→main15-17 + 章內題錨 off-by-one），verify inconclusive 維持 _pending；非 config/引擎現能救→等外部更佳源。母書 sedra_microe 維持上架可讀。
+- 證據：
+> 四維對齊 8th/8th。但 (1) 章級偏移：sol 全書 oscillator 僅 4 次、Wien/Colpitts/Barkhausen/multivibrator/Schmitt 全 0 → 缺整個主書 ch14(Signal Generators/振盪器)；sol 自標 Chapter14 內容實為 CMOS 邏輯(R_on=r_DSN、Boolean Y=A+B+C、PDN/PUN)=主書 ch15 → sol 章 14/15/16 對應主書 15/16/17，按號 merge 使主書 ch14-17 全配錯章解答。(2) 章內 OCR 題錨錯標：ch5 真 5.2 解答(因次分析 k_n=k_n'W/L 無因次)丟錨被棄，後續 block 被誤標 <sup>5.2</sup> 實為 5.3 解答→off-by-one 帶狀漂移至 5.11 才 resync；blk6619 '5.' 是 '5.8' 被 OCR 吃掉小數位。配對率放寬 sup 後 73%(923/1263) 但語義抽樣 ch4/ch5/ch14-17 配到錯解答(配對率高≠配對對)。乾淨章僅 ch1/ch7/ch10/ch11。現引擎無 per-chapter offset 不能只 merge 乾淨章。
+- 提議：
+> 換更乾淨且完整的 8th ISM 源重 ingest(補回振盪器章、修題錨 OCR)；或引擎新增 per-chapter 章號 offset 映射(sol_N→main_N+k) + 題錨 OCR resync 能力後重評。sol_rules.yaml 已留驗證過的 chapter_re/problem_re 供重 ingest 復用。
 
 ### P-2026-06-19-blundell-thermal-sol — blundell_thermal 解答書無法 merge：sol_extract 不支援以 N.M 題號前綴直接導章
 - superseded | type=harness-gap | source=sol_extract

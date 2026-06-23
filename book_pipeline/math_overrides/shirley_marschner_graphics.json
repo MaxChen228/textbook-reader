@@ -58,6 +58,14 @@
       "selector": "body[74]",
       "expect": "\\begin{array}{l} \\text {color directLight(  x, k_{o} , n)} \\\\ \\text {pick random point x^{\\prime} with normal vector n^{\\prime} on light} \\\\ \\mathbf {d = x ^ {\\prime} - x} \\\\ \\mathbf {k _ {i} = d / \\| d \\|} \\\\ \\text {if (ray x + td has no hits for t <   1- \\epsilon) then} \\\\ \\quad \\text {return \\rho(k_{i} , k_{o})L_{e}(x^{\\prime} , - k_{i})(n\\cdot d)(- n^{\\prime} \\cdot d) / \\|d\\|^{4}} \\\\ \\text {else} \\\\ \\quad \\text {return 0} \\end{array}",
       "new": "\\begin{array}{l} \\text {color directLight(  x, } k_{o} \\text { , n)} \\\\ \\text {pick random point } x^{\\prime} \\text { with normal vector } n^{\\prime} \\text { on light} \\\\ \\mathbf {d = x ^ {\\prime} - x} \\\\ \\mathbf {k _ {i} = d / \\| d \\|} \\\\ \\text {if (ray x + td has no hits for t <   1- } \\epsilon \\text {) then} \\\\ \\quad \\text {return } \\rho(k_{i} , k_{o})L_{e}(x^{\\prime} , - k_{i})(n\\cdot d)(- n^{\\prime} \\cdot d) / \\|d\\|^{4} \\\\ \\text {else} \\\\ \\quad \\text {return 0} \\end{array}"
+    },
+    {
+      "id": "shirley_marschner_graphics-ch13-body-47-7f0b6c",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[47]",
+      "expect": "\\begin{array}{l} \\text {if (base - object\\tohit(\\mathbf {r} ^{\\prime} , t_{0} , t_{1} ,rec)) then} \\\\ \\quad \\text {rec.} \\mathbf {n} = (\\mathbf {M} ^ {- 1}) ^ {\\mathrm{T}} \\text {rec.} \\mathbf {n} \\\\ \\quad \\text {return true} \\\\ \\text {else} \\\\ \\quad \\text {return false} \\end{array}",
+      "new": "\\begin{array}{l} \\text {if (base - object} \\to \\text{hit(} \\mathbf {r} ^{\\prime} , t_{0} , t_{1} ,rec \\text{)) then} \\\\ \\quad \\text {rec.} \\mathbf {n} = (\\mathbf {M} ^ {- 1}) ^ {\\mathrm{T}} \\text {rec.} \\mathbf {n} \\\\ \\quad \\text {return true} \\\\ \\text {else} \\\\ \\quad \\text {return false} \\end{array}"
     }
   ]
 }

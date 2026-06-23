@@ -2,16 +2,16 @@
   "id": "P-2026-06-23-pozar-microwave",
   "domain": "engine",
   "type": "patch",
-  "status": "proposed",
+  "status": "rejected",
   "title": "worker 越界改核心碼：build/convert_images.py（sol_extract pozar_microwave）",
   "slug": "pozar_microwave",
   "detect": [],
   "source": "scope_guard",
-  "resolution": "",
+  "resolution": "already-resolved",
   "created": "2026-06-23T11:54:55+00:00",
-  "updated": "2026-06-23T11:54:55+00:00",
+  "updated": "2026-06-23T13:33:38+00:00",
   "evidence": "scope_guard bracket：worker [sol_extract pozar_microwave] session=pozar_microwave:74391 存活期間，受保護程式碼面 build/convert_images.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
   "proposal": "diff --git a/build/convert_images.py b/build/convert_images.py\nindex 7ec97d5..0a5b71f 100644\n--- a/build/convert_images.py\n+++ b/build/convert_images.py\n@@ -52,10 +52,14 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:\n     book_dir = DATA_DIR / slug\n     out_dir = OUT / slug\n     jobs: list[tuple[str, str]] = []\n-    img_dir = book_dir / 'unified' / 'images'\n-    if img_dir.is_dir():\n-        for jpg in img_dir.glob('*.jpg'):\n-            jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))\n+    # 主書影像 + 解答書影像：merged solution 的 fig 引用解答書(<slug>_sol)的影像，但 reader\n+    # 從 img/<main_slug>/ 載解答圖，故一併轉進主書 out_dir。hash 為內容定址 → 同名即同內容、\n+    # 重複者覆寫等價，mtime 冪等跳過；解答書無 _sol 目錄則 no-op。\n+    for img_dir in (book_dir / 'unified' / 'images',\n+                    DATA_DIR / f'{slug}_sol' / 'unified' / 'images'):\n+        if img_dir.is_dir():\n+            for jpg in img_dir.glob('*.jpg'):\n+                jobs.append((str(jpg), str(out_dir / f'{jpg.stem}.webp')))\n     cover = book_dir / 'cover.jpg'\n     if cover.is_file():\n         jobs.append((str(cover), str(out_dir / 'cover.webp')))",
   "risk": "observe 模式未還原——待架構師裁決收編/還原。",
-  "disposition": ""
+  "disposition": "架構師窗內 commit、工作樹乾淨（git status clean），非 worker 越界；scope_guard 在我 commit 前的 bracket-check 抓到未提交編輯，現已全 commit（exoneration d948d90 之後的 bracket 會自動赦免）"
 }

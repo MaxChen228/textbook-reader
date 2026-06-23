@@ -1,0 +1,191 @@
+# Neamen — Microelectronics: Circuit Analysis and Design (4th ed)
+# Chapter titles in body are text_level=1 *title-only* blocks (no "Chapter N" prefix);
+# chapter number lives only in running headers -> anchors are explicit chapter_title_block_idx.
+# Section/subsection headings are text_level=2 -> heading_text_level: 2.
+
+slug: neamen_microelectronics
+title: "Microelectronics: Circuit Analysis and Design"
+author: Donald A. Neamen
+edition: "4th"
+subject: Microelectronics
+publisher: McGraw-Hill
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 31
+appendices_start_page: 1337
+bibliography_start_page: null
+index_start_page: 1381
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Semiconductor Materials and Diodes
+    page_start: 31
+    page_end: 88
+    chapter_title_block_idx: 293
+    problems_block_idx: 999
+    next_chapter_block_idx: 1128
+  - num: 2
+    title: Diode Circuits
+    page_start: 89
+    page_end: 146
+    chapter_title_block_idx: 1128
+    problems_block_idx: 1841
+    next_chapter_block_idx: 2006
+  - num: 3
+    title: The Field-Effect Transistor
+    page_start: 147
+    page_end: 226
+    chapter_title_block_idx: 2006
+    problems_block_idx: 3153
+    next_chapter_block_idx: 3311
+  - num: 4
+    title: Basic FET Amplifiers
+    page_start: 227
+    page_end: 306
+    chapter_title_block_idx: 3311
+    problems_block_idx: 4369
+    next_chapter_block_idx: 4551
+  - num: 5
+    title: The Bipolar Junction Transistor
+    page_start: 307
+    page_end: 390
+    chapter_title_block_idx: 4551
+    problems_block_idx: 5613
+    next_chapter_block_idx: 5806
+  - num: 6
+    title: Basic BJT Amplifiers
+    page_start: 391
+    page_end: 490
+    chapter_title_block_idx: 5806
+    problems_block_idx: 7075
+    next_chapter_block_idx: 7268
+  - num: 7
+    title: Frequency Response
+    page_start: 491
+    page_end: 580
+    chapter_title_block_idx: 7268
+    problems_block_idx: 8432
+    next_chapter_block_idx: 8626
+  - num: 8
+    title: Output Stages and Power Amplifiers
+    page_start: 581
+    page_end: 642
+    chapter_title_block_idx: 8626
+    problems_block_idx: 9361
+    next_chapter_block_idx: 9526
+  - num: 9
+    title: Ideal Operational Amplifiers and Op-Amp Circuits
+    page_start: 643
+    page_end: 708
+    chapter_title_block_idx: 9526
+    problems_block_idx: 10391
+    next_chapter_block_idx: 10598
+  - num: 10
+    title: Integrated Circuit Biasing and Active Loads
+    page_start: 709
+    page_end: 774
+    chapter_title_block_idx: 10598
+    problems_block_idx: 11452
+    next_chapter_block_idx: 11644
+  - num: 11
+    title: Differential and Multistage Amplifiers
+    page_start: 775
+    page_end: 872
+    chapter_title_block_idx: 11644
+    problems_block_idx: 12872
+    next_chapter_block_idx: 13138
+  - num: 12
+    title: Feedback and Stability
+    page_start: 873
+    page_end: 968
+    chapter_title_block_idx: 13138
+    problems_block_idx: 14402
+    next_chapter_block_idx: 14630
+  - num: 13
+    title: Operational Amplifier Circuits
+    page_start: 969
+    page_end: 1030
+    chapter_title_block_idx: 14630
+    problems_block_idx: 15466
+    next_chapter_block_idx: 15598
+  - num: 14
+    title: Nonideal Effects in Operational Amplifier Circuits
+    page_start: 1031
+    page_end: 1082
+    chapter_title_block_idx: 15598
+    problems_block_idx: 16308
+    next_chapter_block_idx: 16430
+  - num: 15
+    title: Applications and Design of Integrated Circuits
+    page_start: 1083
+    page_end: 1168
+    chapter_title_block_idx: 16430
+    problems_block_idx: 17469
+    next_chapter_block_idx: 17690
+  - num: 16
+    title: MOSFET Digital Circuits
+    page_start: 1169
+    page_end: 1276
+    chapter_title_block_idx: 17690
+    problems_block_idx: 18905
+    next_chapter_block_idx: 19118
+  - num: 17
+    title: Bipolar Digital Circuits
+    page_start: 1277
+    page_end: 1336
+    chapter_title_block_idx: 19118
+    problems_block_idx: 19813
+    next_chapter_block_idx: 19946
+
+appendices:
+  - id: A
+    title: Physical Constants and Conversion Factors
+    page_start: 1337
+    chapter_title_block_idx: 19946
+  - id: B
+    title: Selected Manufacturers' Data Sheets
+    page_start: 1339
+    chapter_title_block_idx: 19954
+  - id: C
+    title: Standard Resistor and Capacitor Values
+    page_start: 1351
+    chapter_title_block_idx: 20050
+  - id: D
+    title: Reading List
+    page_start: 1355
+    chapter_title_block_idx: 20075
+  - id: E
+    title: Answers to Selected Problems
+    page_start: 1359
+    chapter_title_block_idx: 20168
+
+# Sections: "N.M ALLCAPS TITLE" (text_level=2). Subsections: "N.M.K Title Case".
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# End-of-chapter problems numbered N.M; also computer-sim (1.63) and design (\*D1.67) variants.
+problem_start_re: '^\\?\*?[A-Z]?(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -15,6 +15,33 @@
       "selector": "body[251]",
       "expect": "\\begin{array}{l l l l} 2 \\omega_ {1} & \\text {(second harmonic of \\omega_ {1})} & m = 2 n = 0 & \\text {order} = 2, \\\\ 2 \\omega_ {2} & \\text {(second harmonic of \\omega_ {2})} & m = 0 n = 2 & \\text {order} = 2, \\\\ \\omega_ {1} - \\omega_ {2} & \\text {(difference frequency)} & m = 1 n = - 1 & \\text {order} = 2, \\\\ \\omega_ {1} + \\omega_ {2} & \\text {(sum frequency)} & m = 1 n = 1 & \\text {order} = 2. \\end{array}",
       "new": "\\begin{array}{l l l l} 2 \\omega_ {1} & \\text {(second harmonic of } \\omega_ {1} \\text {)} & m = 2 n = 0 & \\text {order} = 2, \\\\ 2 \\omega_ {2} & \\text {(second harmonic of } \\omega_ {2} \\text {)} & m = 0 n = 2 & \\text {order} = 2, \\\\ \\omega_ {1} - \\omega_ {2} & \\text {(difference frequency)} & m = 1 n = - 1 & \\text {order} = 2, \\\\ \\omega_ {1} + \\omega_ {2} & \\text {(sum frequency)} & m = 1 n = 1 & \\text {order} = 2. \\end{array}"
+    },
+    {
+      "id": "pozar_microwave-ch04-problem-4-16-solution-18-c47048",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.16:solution[18]",
+      "field": "md",
+      "all": true,
+      "old": "$|S_{33} - S_{13}^2 / S_{11}|^2 = \\frac{|S_{11}|^2 |S_{33}|^2 - |S_{13}|^4 - S_{11}^* S_{33}^* S_{13}^2 - S_{11} S_{33} S_{13}^*^2}{|S_{11}|^2}$",
+      "new": "$|S_{33} - S_{13}^2 / S_{11}|^2 = \\frac{|S_{11}|^2 |S_{33}|^2 - |S_{13}|^4 - S_{11}^* S_{33}^* S_{13}^2 - S_{11} S_{33} S_{13}^{*2}}{|S_{11}|^2}$",
+      "anchor": "478b1c3f"
+    },
+    {
+      "id": "pozar_microwave-ch02-problem-2-14-solution-21-899824",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:2.14:solution[21]",
+      "expect": "\\text { Power   Dissipated   in   50 \\Omega   LOAD } = \\frac {1}{2} (5 0) \\left(\\frac {1 0}{5 0 + 7 5}\\right) ^ {2} = 0. 1 6 0 \\mathrm{w} \\checkmark",
+      "new": "\\text{Power   Dissipated   in   50 }\\Omega\\text{   LOAD } = \\frac{1}{2} (5 0) \\left(\\frac{1 0}{5 0 + 7 5}\\right)^{2} = 0. 1 6 0 \\mathrm{w} \\checkmark"
+    },
+    {
+      "id": "pozar_microwave-ch05-problem-5-22-solution-13-43276d",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.22:solution[13]",
+      "expect": "\\begin{array}{l} \\text {   5.23   } \\\\ \\text {   From   (5,68)   ,   Z(z) = z0e^ {aZ}   for   0 <   z <   L   .   } \\\\ a = \\frac {1}{L} \\ln \\frac {Z _ {L}}{Z _ {0}} = \\frac {0 . 6 9 3}{L} \\end{array}",
+      "new": "\\begin{array}{l} \\text{   5.23   } \\\\ \\text{   From   (5,68)   ,   } Z(z) = z0e^{aZ} \\text{   for   } 0 < z < L . \\\\ a = \\frac{1}{L} \\ln \\frac{Z_{L}}{Z_{0}} = \\frac{0 . 6 9 3}{L} \\end{array}"
     }
   ]
 }

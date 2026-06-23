@@ -1,0 +1,9 @@
+# Khalil Nonlinear Systems 3rd — 解答本（中文《非线性系统（第三版）》习题解答）
+# 解答正文題號 = bullet '• N.M'（MinerU 把連續題 OCR 成 type=list → expand_list_blocks 攤平）。
+# 主書 num = 'N.M'，bullet group(1) 直接對齊。題目陳述 'Exercise N.M' 是 restate、非解答。
+# 章標 'Chapter N' 缺 Chapter 2 → 改用 derive_chapter_from_num 由題號 N.M 首段推章（不依賴章錨），
+# 救回困在 Chapter 1 區間的 ch2 解答。少數 OCR 空格化題號（'• 1 8'）漏配，接受殘缺。
+chapter_re: '^Chapter\s+(\d+)\s*$'   # derive 模式不使用，僅滿足 schema 1-group 要求
+problem_re: '^[•·]\s*(\d+\.\d+[a-z]?)'
+multi_per_block: false
+derive_chapter_from_num: true

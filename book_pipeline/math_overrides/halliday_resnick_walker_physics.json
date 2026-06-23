@@ -79,6 +79,47 @@
       "old": "$\\underset { \\left. } { \\right. }$",
       "new": "$\\underset { \\left.\\right. } { }$",
       "anchor": "ba266daf"
+    },
+    {
+      "id": "halliday_resnick_walker_physics-ch06-problem-56-solution-2-9778f8",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:56:solution[2]",
+      "field": "md",
+      "all": true,
+      "old": "$a ^ { \\prime } = \\nu ^ { \\prime } ^ { 2 } / R$",
+      "new": "$a^{\\prime} = \\nu^{\\prime 2} / R$",
+      "anchor": "e47848b0"
+    },
+    {
+      "id": "halliday_resnick_walker_physics-ch26-problem-21-solution-1-238394",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "problem:21:solution[1]",
+      "expect": "T = T _ {0} + \\frac {1}{\\alpha} \\left(\\frac {R}{R _ {0}} - 1\\right) = 2 0 ^ {\\circ} \\mathrm{C} + \\left(\\frac {1}{4 . 5 \\times 1 0 ^ {- 3} / \\mathrm{K}}\\right) \\left(\\frac {9 . 6 7 \\Omega}{1 . 1 \\Omega} - 1\\right) = 1. 8 \\times 1 0 ^ {3} ^ {\\circ} \\mathrm{C}.",
+      "new": "T = T_{0} + \\frac{1}{\\alpha} \\left(\\frac{R}{R_{0}} - 1\\right) = 2 0^{\\circ} \\mathrm{C} + \\left(\\frac{1}{4 . 5 \\times 1 0^{- 3} / \\mathrm{K}}\\right) \\left(\\frac{9 . 6 7 \\Omega}{1 . 1 \\Omega} - 1\\right) = 1. 8 \\times 1 0^{3}\\,^{\\circ} \\mathrm{C}."
+    },
+    {
+      "id": "halliday_resnick_walker_physics-ch05-problem-38-solution-8-426d33",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:38:solution[8]",
+      "field": "md",
+      "all": true,
+      "old": "$\\vec { F } _ { w } = 1 2 \\Nu$",
+      "new": "$\\vec{F}_{w} = 1 2 \\mathrm{N}$",
+      "anchor": "5c58bec0"
+    },
+    {
+      "id": "halliday_resnick_walker_physics-ch43-problem-26-solution-4-bf2d12",
+      "action": "fix_inline_math",
+      "chunk": "ch43",
+      "selector": "problem:26:solution[4]",
+      "field": "md",
+      "all": true,
+      "old": "$2 7 . \\mathrm { \\texta n } P _ { \\mathrm { a v g } } = ( 1 5 \\times 1 0 ^ { 9 } \\mathrm { W } { \\cdot } \\mathrm { y } ) / ( 2 0 0 , 0 0 0 \\mathrm { y } ) = 7 . 5 \\times 1 0 ^ { 4 } \\mathrm { W } = 7 5 \\mathrm { k W } .$",
+      "new": "$2 7 . \\mathrm{a n} P_{\\mathrm{a v g}} = ( 1 5 \\times 1 0^{9} \\mathrm{W} {\\cdot} \\mathrm{y} ) / ( 2 0 0 , 0 0 0 \\mathrm{y} ) = 7 . 5 \\times 1 0^{4} \\mathrm{W} = 7 5 \\mathrm{k W} .$",
+      "anchor": "fab9370b"
     }
   ]
 }

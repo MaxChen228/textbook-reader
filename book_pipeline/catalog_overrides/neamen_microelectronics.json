@@ -1,0 +1,185 @@
+{
+  "overrides": [
+    {
+      "id": "neamen-fig-4.34-id-fix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[445]",
+      "expect": { "id": "fig-4.33" },
+      "set": {
+        "id": "fig-4.34",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4(A) caption 錯位：body[445] caption 實為 'Flgure 4.34 Small-signal equivalent circuit of common-gate'，但 MinerU 把 Figure 誤 OCR 成 Flgure 致 parser 抓不到 4.34、撞號成第二個 fig-4.33（catalog 去重顯示 fig-4.33--1）。改 id → fig-4.34，ref 4.34 即覆蓋。body[425] 才是真 fig-4.33。"
+    },
+    {
+      "id": "neamen-fig-4.34-caption-misocr",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[445]",
+      "field": "caption",
+      "old": "Flgure 4.34",
+      "new": "Figure 4.34",
+      "reason": "同塊 caption misOCR：Flgure → Figure（reader 顯示用）"
+    },
+    {
+      "id": "neamen-ref-12.41-misocr",
+      "action": "replace_text",
+      "chunk": "ch12",
+      "selector": "problem:12.65:body[0]",
+      "field": "md",
+      "old": "Figure l2.41",
+      "new": "Figure 12.41",
+      "reason": "C4(C) misOCR：'1' 被 OCR 成小寫 'l'。fig-12.41 'Example of multistage shunt–shunt feedback' 存在且語義吻合（三級級聯回授）。"
+    },
+    {
+      "id": "neamen-ref-13.22-misocr",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[522]",
+      "field": "md",
+      "old": "Figure l3.22",
+      "new": "Figure 13.22",
+      "reason": "C4(C) misOCR：l3.22 → 13.22。fig-13.22 'Bias circuit, CA3140 BiCMOS op-amp' 存在且吻合（basic bias circuit）。"
+    },
+    {
+      "id": "neamen-ref-14.25-misocr",
+      "action": "replace_text",
+      "chunk": "ch14",
+      "selector": "body[476]",
+      "field": "md",
+      "old": "Figure l4.25",
+      "new": "Figure 14.25",
+      "reason": "C4(C) misOCR：同 block 內已有正確 'Figure 14.25(a)'，另一處被 OCR 成 'Figure l4.25'。fig-14.25 'Pair of npn transistors' 存在且吻合（pair of npn transistors）。"
+    },
+    {
+      "id": "neamen-ref-14.5-misocr",
+      "action": "replace_text",
+      "chunk": "ch14",
+      "selector": "body[137]",
+      "field": "md",
+      "old": "Figure l4.5",
+      "new": "Figure 14.5",
+      "reason": "C4(C) misOCR：l4.5 → 14.5。fig-14.5 '(a) Noninverting amplifier and (b) noninve...' 存在且吻合（noninverting amplifier）。"
+    },
+    {
+      "id": "neamen-fig-P10.41-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.41:body[0]",
+      "position": "after",
+      "page": 766,
+      "clip": [0.085, 0.235, 0.355, 0.628],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P10.41",
+        "kind": "line",
+        "caption": "Figure P10.41"
+      },
+      "reason": "C4(B) MinerU 漏抓 problem 圖：problem 10.41 只有題幹無 fig 塊。raw PDF p766 左欄完整電路（Q1–Q7、RE=500Ω、±10V）。"
+    },
+    {
+      "id": "neamen-fig-P10.43-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.43:body[0]",
+      "position": "after",
+      "page": 766,
+      "clip": [0.560, 0.405, 0.935, 0.628],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P10.43",
+        "kind": "line",
+        "caption": "Figure P10.43"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 10.43 缺 fig 塊。raw PDF p766 右欄電流鏡電路（QR/Q1/Q2/Q3、IO1–IO3、RER=3kΩ）。"
+    },
+    {
+      "id": "neamen-fig-P16.19-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch16",
+      "selector": "problem:16.19:body[0]",
+      "position": "after",
+      "page": 1262,
+      "clip": [0.450, 0.240, 0.860, 0.440],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P16.19",
+        "kind": "line",
+        "caption": "Figure P16.19"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 16.19 缺 fig 塊。raw PDF p1262 右上三輸入 NOR 邏輯閘（MX/MY/MZ、3V、VTND=+0.5V）。"
+    },
+    {
+      "id": "neamen-fig-P2.33-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "problem:2.33:body[0]",
+      "position": "after",
+      "page": 139,
+      "clip": [0.515, 0.600, 0.875, 0.772],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P2.33",
+        "kind": "line",
+        "caption": "Figure P2.33"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 2.33 缺 fig 塊。raw PDF p139 含 (a)(b) 兩子電路（VB 偏壓二極體、R=4kΩ）。"
+    },
+    {
+      "id": "neamen-fig-P2.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "problem:2.44:body[0]",
+      "position": "after",
+      "page": 142,
+      "clip": [0.155, 0.430, 0.415, 0.612],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P2.44",
+        "kind": "line",
+        "caption": "Figure P2.44"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 2.44 缺 fig 塊。raw PDF p142 左欄多二極體電路（V1/V2、0.5kΩ、D1/D2、9.5kΩ）。"
+    },
+    {
+      "id": "neamen-fig-P2.63-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "problem:2.63:body[0]",
+      "position": "after",
+      "page": 146,
+      "clip": [0.490, 0.220, 0.860, 0.412],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P2.63",
+        "kind": "line",
+        "caption": "Figure P2.63"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 2.63 缺 fig 塊。raw PDF p146 右欄四輸入邏輯電路（V1–V4、二極體、+5V、10kΩ×2）。"
+    },
+    {
+      "id": "neamen-fig-P9.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:9.44:body[0]",
+      "position": "after",
+      "page": 699,
+      "clip": [0.565, 0.392, 0.878, 0.547],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-P9.44",
+        "kind": "line",
+        "caption": "Figure P9.44"
+      },
+      "reason": "C4(B) MinerU 漏抓：problem 9.44 缺 fig 塊。raw PDF p699 右側非反相 op-amp 電路（50kΩ 回授、vI1/vI2、20kΩ/40kΩ）。"
+    }
+  ]
+}
