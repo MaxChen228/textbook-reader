@@ -238,9 +238,6 @@
     .dev-bar { flex: 1; height: 8px; background: var(--border-l); border-radius: 4px; overflow: hidden; }
     .dev-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width .4s ease; }
     .dev-bar-row .num { font-family: var(--mono); font-size: 11px; color: var(--sub); width: 96px; text-align: right; flex-shrink: 0; }
-    /* zlib 帳號停用態（流量控制）：灰化整列、額度條置空、num 標「停用」 */
-    .dev-bar-row.zlib-off { opacity: .42; }
-    .dev-bar-row.zlib-off .num { color: var(--sub); }
     /* 閘門狀態徽章（唯讀；操作走 CLI devctl gates/pause/resume）：暫停＝醒目琥珀（停產一眼可見）、
        部分閘控＝黃、運轉＝低調。/dev 已純觀測，無任何寫回 UI。 */
     #gate-badge { cursor: default; }
@@ -1199,7 +1196,7 @@
     if (sess) { openSessionDrawer(findSession(decodeURIComponent(sess.dataset.sid)), null); return }
     const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
   })
-  // /dev 已純觀測：暫停/啟動、zlib 帳號停用等控制全移至 CLI（devctl gates/pause/resume、crawl_zlib disable）。
+  // /dev 已純觀測：所有控制全移至 CLI（devctl gates/pause/resume）。
   // 此處不再掛任何寫回監聽器。
 
   // ── 工具：跨度格式 ──
@@ -1311,14 +1308,13 @@
     const zage = z.fetched_at_utc ? ' · ' + relTime(z.fetched_at_utc) : ''
     const zcap = z.total_limit || (z.accounts || []).reduce((s, a) => s + (a.limit || 0), 0) || '?'
     setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/${zcap}${z.stale ? ' · STALE' : ''}${zage})`)
-    // 純觀測：只顯示各帳號額度 bar 與停用態（停用走 CLI crawl_zlib disable/enable，不再有 toggle 鈕）。
+    // 純觀測：只顯示各帳號真實額度 bar（流量控制走閘門 devctl gates crawl，不再有帳號停用）。
     setHtml('zlib', (z.accounts || []).map(a => {
-      const disabled = !!a.disabled
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
-      const numTxt = disabled ? '停用' : (rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`)
-      return `<div class="dev-bar-row${disabled ? ' zlib-off' : ''}"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
-        <span class="dev-bar"><span style="width:${disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span></div>`
+      const numTxt = rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`
+      return `<div class="dev-bar-row"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
+        <span class="dev-bar"><span style="width:${pct}%"></span></span><span class="num">${numTxt}</span></div>`
     }).join('') || '<div class="dev-label">查詢中…</div>')
 
     const bl = d.booklists || {}, blo = bl.overall || {}
