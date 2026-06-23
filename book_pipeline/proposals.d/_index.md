@@ -45,13 +45,49 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （210 條；proposed=1 parked=2）
+## domain: engine  （212 條；proposed=3 parked=2）
 ### P-2026-06-23-comer-internetworking — parser 不支援 ref_text 習題起點
 - proposed | type=tooling-gap | source=agent
 - 證據：
 > comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。
 - 提議：
 > 在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。
+
+### P-2026-06-23-contactsheet-ia-mrc-jbig2-layer — contactsheet 對 IA JPX-MRC 掃描可渲 JBIG2 SMask 文字層，取代 UNRENDERABLE 盲過
+- proposed | type=tooling-gap | source=claude (qc haykin_adaptive_filter)
+- 處置：
+> proposed：待架構師排程落地 contactsheet MRC 分支。當前 haykin 已人工驗訖內容 set_qc pass。
+- 證據：
+> haykin_adaptive_filter: mupdf 對 IA MRC 三層(背景JPX+前景JPX+JBIG2 SMask)合成單頁 render 即 hang>45s→CONTACTSHEET_UNRENDERABLE；但該頁 JBIG2 SMask(高解析 1-bit 文字遮罩)經 pymupdf.Pixmap(doc, smask_xref) 秒解、razor-sharp 全可讀(前/中/後段+公式+插圖驗訖)。同編碼(Internet Archive Scribe + JPXDecode + JBIG2 SMask)已有 12 本經 MinerU 成功 parse(pozar/horn_johnson/hayes_dsp...)。
+- 提議：
+> QC 對 triage=IA-MRC 掃描(producer 含 Internet Archive/Scribe ∧ 頁影像 JPXDecode ∧ 帶 JBIG2 SMask)時，contactsheet 改抽各抽樣頁帶 SMask 影像的 JBIG2 遮罩 xref、用 Pixmap(doc, xref) 直渲拼圖(繞過會 hang 的 JPX 色層合成)。把現行『UNRENDERABLE→盲 pass-through 給 MinerU、靠 book_qc 下游把關』升級為『QC 能實際看見內容→驗書名/版次/清晰/完整』。IA 是主流源、此類書會持續撞同失敗，值得泛化。
+- 風險：
+> low：純 QC 觀測強化，不改 ingest/parse；fail-open(抽不到 SMask 退回現行 pass-through)。
+
+### P-2026-06-23-rappaport-wireless — worker 越界改核心碼：book_pipeline/sol_extract.py（qc rappaport_wireless）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc rappaport_wireless] session=rappaport_wireless:86185 存活期間，受保護程式碼面 book_pipeline/sol_extract.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/sol_extract.py b/book_pipeline/sol_extract.py
+> index 50e2bfc..2d7b786 100644
+> --- a/book_pipeline/sol_extract.py
+> +++ b/book_pipeline/sol_extract.py
+> @@ -82,6 +82,13 @@ def _num_prefix_int(raw: str) -> int | None:
+>          return None
+>
+>
+> +def _canon_num_sep(s: str) -> str:
+> +    """題號分隔符正規化：'.'/'-' 統一成 '-'。供 normalize_num_sep 旗標——解答書混用
+> +    '2-6' 與 '2.16'、主書統一 '2-16' 時，sol key 與主書 num 兩側皆 canon 後字面相等才配得上
+> +    （papoulis：dot 形佔 ~24%、canon 後 63/64 命中主書真實題號，否則靜默漏掉）。"""
+> +    return re.sub(r'[.\-]', '-', s)
+> +
+> +
+>  def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
+>      """不 exit 的 rules 載入內核：成功 →(rules, None)；_pending/schema 錯 →(None, reason)。
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
