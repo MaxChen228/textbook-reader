@@ -47,6 +47,7 @@ import os
 import re
 import subprocess
 import sys
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -432,13 +433,204 @@ def _math_live_occ(detect: list[str], groups: list[dict[str, Any]]) -> int:
                if any(tok in (g.get("tex") or "") for tok in detect))
 
 
+# ── verify：原始資料驗證通道（泛化 math trichotomy 到全 domain）──────────────────
+# 動機（使用者）：每條 proposal 由視野極窄的 worker 提出（只管一本書/一份解答），它主張的資料
+# 問題「是真的、還是只是特例」無從獨立查證。verify＝在存疑時拉該書原始資料 + 重跑確定性檢查，
+# 不靠提案散文。math 的 check/gate 是現成原型，此處泛化到每 domain 一個 verify_fn。
+#
+# 雙正交軸（誠實處理「可不可自動定案」的不對稱）：
+#   verdict（世界狀態）：resolved=資料層已解 / live=問題仍在 / inconclusive=無法機械判定
+#   can_auto_disposition（hook 權威性）：True 才允許 --auto-supersede 自動裁決
+# math(occ)/catalog(critical) 可自動定案；sol（鐵律「配對率高≠對」）/crawl（版次 LLM 親判）/
+# engine 結構類 一律 inconclusive+can_auto=False → 結構上不可能假裝有結論，只回人眼判斷材料。
+@dataclass
+class VerifyResult:
+    pid: str
+    domain: str | None
+    slug: str | None
+    verdict: str                          # resolved | live | inconclusive
+    can_auto_disposition: bool
+    live_metric: int | None               # 確定性數值（occ/critical）；assist-only 為 None
+    metric_label: str
+    note: str
+    raw_excerpt: list[str] = field(default_factory=list)
+    error: str | None = None
+
+
+class VerifyCtx:
+    """批次 verify 的一次性昂貴前置（lazy）：math aggregate、slug 反推、catalog audit 結果快取。"""
+    def __init__(self):
+        self._math: list | None = None
+        self._slug_of = None
+        self._catalog: dict[str, dict] = {}
+
+    @property
+    def math_groups(self) -> list:
+        if self._math is None:
+            from book_pipeline import math_validate as mv
+            self._math = mv.aggregate_reports().get("groups", [])
+        return self._math
+
+    def slug_of(self, rec: dict) -> str | None:
+        """顯式 slug 優先；否則 _slug_resolver。universe **含 _sol 目錄**（sol 提案才解得到）。"""
+        s = (rec.get("slug") or "").strip()
+        if s:
+            return s
+        if self._slug_of is None:
+            data_dir = ROOT / "book_pipeline" / "mineru_data"
+            uni = [p.name for p in data_dir.iterdir() if p.is_dir()] if data_dir.is_dir() else []
+            self._slug_of = _slug_resolver(sorted(uni))
+        return self._slug_of(rec)
+
+    def catalog(self, slug: str) -> dict:
+        if slug not in self._catalog:
+            from book_pipeline.catalog_audit import audit_catalog
+            try:
+                self._catalog[slug] = audit_catalog(slug, write_report=False)
+            except Exception as e:
+                self._catalog[slug] = {"_error": str(e)}
+        return self._catalog[slug]
+
+
+def _verify_math(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    detect = rec.get("detect") or []
+    occ = _math_live_occ(detect, ctx.math_groups)
+    if occ == -1:
+        return VerifyResult(rec["id"], "math", rec.get("slug"), "inconclusive", False, None,
+                            "live_occ", "無偵測子（detect 空）→ 無法機械判定，手動 review")
+    excerpt = []
+    for g in ctx.math_groups:
+        if any(tok in (g.get("tex") or "") for tok in detect):
+            for b in g.get("books", [])[:8]:
+                excerpt.append(f"{b['slug']}: {b['occ']} occ  tex={(g.get('tex') or '')[:50]}")
+    if occ == 0:
+        return VerifyResult(rec["id"], "math", rec.get("slug"), "resolved", True, 0,
+                            "live_occ", "live aggregate 殘餘 0 occ → already-resolved 候選", excerpt)
+    return VerifyResult(rec["id"], "math", rec.get("slug"), "live", True, occ,
+                        "live_occ", f"live aggregate 仍 {occ} occ → 規則仍需要", excerpt)
+
+
+def _verify_catalog(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    slug = ctx.slug_of(rec)
+    dom = rec.get("domain")
+    if not slug:
+        return VerifyResult(rec["id"], dom, None, "inconclusive", False, None,
+                            "catalog_critical", "無法定址 slug（id 截斷碰撞或書已不在 corpus）")
+    summ = ctx.catalog(slug)
+    if summ.get("_error"):
+        return VerifyResult(rec["id"], dom, slug, "inconclusive", False, None,
+                            "catalog_critical", f"audit_catalog 無法執行：{summ['_error']}",
+                            error=summ["_error"])
+    crit = int(summ.get("critical") or 0)
+    excerpt = [f"[{f.code}] {f.message}" for f in (summ.get("findings") or [])
+               if getattr(f, "severity", "") == "critical"][:10]
+    if crit == 0:
+        return VerifyResult(rec["id"], dom, slug, "resolved", True, 0, "catalog_critical",
+                            "catalog critical=0（repair 已涵蓋）→ already-resolved 候選", excerpt)
+    return VerifyResult(rec["id"], dom, slug, "live", True, crit, "catalog_critical",
+                        f"catalog critical={crit} 仍在", excerpt)
+
+
+def _verify_engine(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    # caption 類 tooling-gap → 委派 catalog critical（=supersede 護欄手動版，可自動定案）
+    if _is_catalog_gap(rec):
+        vr = _verify_catalog(rec, ctx)
+        vr.note = "caption tooling-gap 委派 catalog → " + vr.note
+        return vr
+    # patch / 結構類（H1-H3/H5）無確定性「已解」訊號 → inconclusive，附 smoke critical 供人判
+    slug = ctx.slug_of(rec)
+    note = "engine 結構/patch 提案無確定性已解訊號 → 須人工讀 raw 判"
+    excerpt: list[str] = []
+    if slug:
+        try:
+            from book_pipeline.smoke import smoke_findings
+            crit, _w = smoke_findings(slug)
+            excerpt = crit[:10]
+            note += f"（smoke 結構 critical={len(crit)}）"
+        except Exception as e:
+            note += f"（smoke 無法跑：{e}）"
+    return VerifyResult(rec["id"], "engine", slug, "inconclusive", False, None,
+                        "smoke_critical", note, excerpt)
+
+
+def _verify_sol(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    """永遠 inconclusive（鐵律：配對率高≠配對對）。回配對率 + per-ch 抽樣 + 版次結論供人眼判。"""
+    sol_slug = ctx.slug_of(rec)
+    if not sol_slug:
+        return VerifyResult(rec["id"], "sol", None, "inconclusive", False, None,
+                            "match_rate%", "無法定址 sol_slug")
+    from book_pipeline import sol_extract as se
+    block = se.edition_block_reason(sol_slug)        # LLM 親判版次（比配對率權威）
+    rules, reason = se.load_sol_rules_safe(sol_slug)  # 繞 _pending 的 sys.exit
+    if reason:
+        note = f"sol_rules 不可用：{reason}"
+        if block:
+            note += f"｜版次：{block}"
+        return VerifyResult(rec["id"], "sol", sol_slug, "inconclusive", False, None,
+                            "match_rate%", note)
+    main_slug = re.sub(r"(_sol)+$", "", sol_slug)
+    try:
+        sol_data = se.extract_sol_chapters(sol_slug, rules)
+        stats = se.merge_into_main(main_slug, sol_data, dry_run=True)   # dry_run 純讀不寫主書
+    except Exception as e:
+        return VerifyResult(rec["id"], "sol", sol_slug, "inconclusive", False, None,
+                            "match_rate%", f"dry-run merge 失敗：{e}", error=str(e))
+    tot = stats["problems_total"]
+    pct = 100 * stats["problems_with_sol"] // max(tot, 1)
+    excerpt = [f"ch{ch:02d}: {hit}/{ch_tot}  un={un}" for ch, hit, ch_tot, un in stats["per_ch"]]
+    note = (f"配對率 {pct}%（{stats['problems_with_sol']}/{tot}；僅輔助·高%≠配對對，須語義抽樣人判）"
+            f"｜sol沒對到主書={stats['sol_unmatched']}")
+    if block:
+        note += f"｜版次：{block}"
+    return VerifyResult(rec["id"], "sol", sol_slug, "inconclusive", False, None,
+                        "match_rate%", note, excerpt)
+
+
+def _verify_crawl(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    """永遠 inconclusive：版次/可用性由 LLM 親判（無確定性函式）。重列 editions 四維 + 五態供判。"""
+    slug = ctx.slug_of(rec)
+    if not slug:
+        return VerifyResult(rec["id"], "crawl", None, "inconclusive", False, None,
+                            "editions_state", "無法定址 slug")
+    from book_pipeline import editions as ed, booklists as bl
+    e = ed.load(slug)
+    have = bl.have_slugs()
+    resolution = bl.load_resolution()
+    d = ed.dims(slug, e, resolution, have)
+    state = bl.status_of(slug, have, resolution, edition=e)
+    excerpt = [f"五態={state}",
+               f"四維 eligible={d['eligible']} link={d['link']} version={d['version']} "
+               f"sol_alignment={d['sol_alignment']}"]
+    ver = (e or {}).get("version") or {}
+    if ver:
+        excerpt.append(f"version={ver.get('value','?')} matches_pref={ver.get('matches_pref')}")
+    return VerifyResult(rec["id"], "crawl", slug, "inconclusive", False, None,
+                        "editions_state", f"crawl 版次/可用性由 LLM 親判：五態={state}", excerpt)
+
+
+def _verify_unknown(rec: dict, ctx: VerifyCtx) -> VerifyResult:
+    return VerifyResult(rec["id"], rec.get("domain"), None, "inconclusive", False, None,
+                        "", f"未知 domain {rec.get('domain')!r}：無 verify hook")
+
+
+def _verify_fn(domain: str | None) -> Callable[[dict, VerifyCtx], VerifyResult]:
+    """惰性查表（函式內 import 維持 proposals.py 輕 import 面）。"""
+    return {"math": _verify_math, "catalog": _verify_catalog, "engine": _verify_engine,
+            "sol": _verify_sol, "crawl": _verify_crawl}.get(domain, _verify_unknown)
+
+
+def verify_many(ids: list[str], ctx: VerifyCtx) -> list[VerifyResult]:
+    recs = {r["id"]: r for r in load_all()}
+    return [_verify_fn(recs[i].get("domain"))(recs[i], ctx) for i in ids if i in recs]
+
+
 # ── render（JSON store → _index.md 人類視圖）──────────────────────────────────
 def render(recs: list[dict[str, Any]]) -> str:
     lines = [
         "# 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改",
         "",
         "正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：",
-        "`uv run python -m book_pipeline.proposals {propose|resolve|park|list|check|gate|stale}`。",
+        "`uv run python -m book_pipeline.proposals {propose|resolve|park|verify|list|check|gate|stale}`。",
         "決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。",
         "",
     ]
@@ -585,6 +777,56 @@ def cmd_stale(a: argparse.Namespace) -> int:
             note = f"{len(touched)} 個新 commit 動過 {rec.get('domain')} 模組（{' '.join(touched[:6])}）"
         print(f"  {rec.get('id',''):<32} [{rec.get('status','?'):<9}] verified@{va.get('sha','?')} — {note}")
     print(f"\n共 {len(cands)} 條 stale → 跑 `proposals verify <id>` 重驗（live 真相覆蓋過時 disposition）")
+    return 0
+
+
+def cmd_verify(a: argparse.Namespace) -> int:
+    """原始資料驗證通道：拉該書原始資料 + 重跑 domain 確定性檢查（不靠提案散文）。
+    預設唯讀報告（對齊 trace 不寫盤哲學）；--stamp 才蓋 verified_at；--auto-supersede 隱含 stamp
+    且把 resolved+可自動定案者 superseded（sol/crawl/engine 結構類因 can_auto=False 天然排除）。"""
+    where = bool(a.where_domain or a.where_type or a.where_source)
+    if a.ids and where:
+        print("❌ 明確 id 與 --where-* 不可並用（擇一）", file=sys.stderr); return 2
+    if a.ids:
+        ids = list(dict.fromkeys(a.ids))
+    elif where:
+        ids = select_proposed(domain=a.where_domain, type_=a.where_type, source=a.where_source)
+    else:
+        print("❌ 需給至少一個 id，或至少一個 --where-* 過濾", file=sys.stderr); return 2
+    if not ids:
+        print("（無符合提案）"); return 0
+    ctx = VerifyCtx()
+    results = verify_many(ids, ctx)
+    icon = {"resolved": "✅", "live": "🔴", "inconclusive": "❓"}
+    for vr in results:
+        auto = "可自動定案" if vr.can_auto_disposition else "僅輔助·人判"
+        print(f"{icon.get(vr.verdict, '?')} {vr.pid}  [{vr.domain}/{vr.slug or '?'}] "
+              f"{vr.verdict}（{auto}）")
+        print(f"    {vr.note}")
+        for ln in vr.raw_excerpt[:12]:
+            print(f"      · {ln}")
+    n_res = sum(1 for v in results if v.verdict == "resolved" and v.can_auto_disposition)
+    n_inc = sum(1 for v in results if v.verdict == "inconclusive")
+    print(f"\n共 {len(results)} 條：resolved(可自動)={n_res} "
+          f"live={sum(1 for v in results if v.verdict=='live')} inconclusive={n_inc}")
+    # --stamp / --auto-supersede 才寫（預設唯讀）
+    if a.stamp or a.auto_supersede:
+        for vr in results:
+            stamp_verified(vr.pid)
+        write_index()
+        print(f"✓ 已蓋 verified_at 戳 {len(results)} 條 @ {_short_sha()}")
+    if a.auto_supersede:
+        auto_ids = [v.pid for v in results if v.verdict == "resolved" and v.can_auto_disposition]
+        if not auto_ids:
+            print("（無 resolved+可自動定案者可 supersede）"); return 0
+        res = "verify 確定性重檢：live 指標歸零（資料層已解）→ already-resolved"
+        staged, errs = resolve_many(auto_ids, status="superseded", resolution=res)
+        if errs:
+            print("❌ auto-supersede 失敗（全批未寫）：", file=sys.stderr)
+            for e in errs:
+                print(f"  {e}", file=sys.stderr)
+            return 2
+        print(f"✓ 已 supersede {len(staged)} 條（resolved+可自動定案）")
     return 0
 
 
@@ -748,6 +990,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--disposition", help="補充去向說明")
     p.add_argument("--dry-run", action="store_true", help="只印將擱置的 id，不寫入")
     p.set_defaults(fn=cmd_park)
+
+    p = sub.add_parser("verify", help="原始資料驗證通道：拉 raw + 重跑 domain 確定性檢查（不靠提案散文）")
+    p.add_argument("ids", nargs="*", help="一或多個 id；省略則用 --where-* 過濾 proposed")
+    p.add_argument("--where-domain", choices=sorted(DOMAINS))
+    p.add_argument("--where-type")
+    p.add_argument("--where-source")
+    p.add_argument("--stamp", action="store_true", help="跑完蓋 verified_at 稽核戳（預設唯讀不蓋）")
+    p.add_argument("--auto-supersede", action="store_true",
+                   help="把 resolved+可自動定案者 superseded（隱含 --stamp；sol/crawl 天然排除）")
+    p.set_defaults(fn=cmd_verify)
 
     p = sub.add_parser("stale", help="唯讀：列 verified_at 後相關模組有新 commit 的提案（需重驗）")
     p.add_argument("--domain", choices=sorted(DOMAINS))

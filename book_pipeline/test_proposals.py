@@ -241,6 +241,86 @@ def test_stale_candidates_pure():
     assert ids["P-1"] == ["abc123"] and ids["P-5"] is None
 
 
+# ── Pillar 3：verify 原始資料驗證通道（雙軸不變量 / trichotomy / 路由）─────────────
+def test_verify_math_trichotomy():
+    ctx = P.VerifyCtx()
+    ctx._math = [{"tex": "\\Nu x", "total_occ": 5, "books": [{"slug": "bk", "occ": 5}]}]
+    live = P._verify_math({"id": "P-1", "domain": "math", "detect": ["\\Nu"]}, ctx)
+    assert live.verdict == "live" and live.can_auto_disposition and live.live_metric == 5
+    res = P._verify_math({"id": "P-2", "domain": "math", "detect": ["\\Mu"]}, ctx)
+    assert res.verdict == "resolved" and res.can_auto_disposition and res.live_metric == 0
+    none = P._verify_math({"id": "P-3", "domain": "math", "detect": []}, ctx)
+    assert none.verdict == "inconclusive" and none.can_auto_disposition is False
+
+
+def test_verify_sol_always_inconclusive_even_at_100pct(monkeypatch):
+    """鐵律不變量：配對率 100% 也絕不變 resolved／絕不進 live_metric 當結論。"""
+    from book_pipeline import sol_extract as se
+    monkeypatch.setattr(se, "edition_block_reason", lambda s: None)
+    monkeypatch.setattr(se, "load_sol_rules_safe", lambda s: ({"ok": 1}, None))
+    monkeypatch.setattr(se, "extract_sol_chapters", lambda s, r: {1: {"1.1": ["b"]}})
+    monkeypatch.setattr(se, "merge_into_main", lambda m, d, dry_run=True: {
+        "chapters": 1, "problems_total": 10, "problems_with_sol": 10,
+        "sol_unmatched": 0, "per_ch": [(1, 10, 10, [])]})
+    vr = P._verify_sol({"id": "P-x", "domain": "sol", "slug": "foo_sol"}, P.VerifyCtx())
+    assert vr.verdict == "inconclusive" and vr.can_auto_disposition is False
+    assert vr.live_metric is None, "100% 配對率也不得當結論"
+    assert "100%" in vr.note and "僅輔助" in vr.note
+
+
+def test_verify_sol_pending_reports_reason(monkeypatch):
+    from book_pipeline import sol_extract as se
+    monkeypatch.setattr(se, "edition_block_reason", lambda s: None)
+    monkeypatch.setattr(se, "load_sol_rules_safe", lambda s: (None, "標記 _pending"))
+    vr = P._verify_sol({"id": "P-x", "domain": "sol", "slug": "foo_sol"}, P.VerifyCtx())
+    assert vr.verdict == "inconclusive" and "_pending" in vr.note
+
+
+def test_verify_crawl_always_inconclusive(monkeypatch):
+    from book_pipeline import editions as ed, booklists as bl
+    monkeypatch.setattr(ed, "load", lambda s: {"version": {"value": "3", "matches_pref": True}})
+    monkeypatch.setattr(ed, "dims", lambda s, e, r, h: {
+        "eligible": True, "link": True, "version": True, "sol_alignment": True})
+    monkeypatch.setattr(bl, "have_slugs", lambda: set())
+    monkeypatch.setattr(bl, "load_resolution", lambda: {})
+    monkeypatch.setattr(bl, "status_of", lambda s, h, r, edition=None: "OWNED")
+    vr = P._verify_crawl({"id": "P-x", "domain": "crawl", "slug": "neamen"}, P.VerifyCtx())
+    assert vr.verdict == "inconclusive" and vr.can_auto_disposition is False and vr.live_metric is None
+
+
+def test_verify_catalog_routing():
+    ctx = P.VerifyCtx()
+    ctx._slug_of = lambda rec: None  # 強制無法定址路徑（不讀 disk）
+    ctx._catalog["bk0"] = {"critical": 0, "findings": []}
+    ctx._catalog["bk3"] = {"critical": 3, "findings": []}
+    r0 = P._verify_catalog({"id": "P-1", "domain": "catalog", "slug": "bk0"}, ctx)
+    assert r0.verdict == "resolved" and r0.can_auto_disposition and r0.live_metric == 0
+    r3 = P._verify_catalog({"id": "P-2", "domain": "catalog", "slug": "bk3"}, ctx)
+    assert r3.verdict == "live" and r3.live_metric == 3
+    rn = P._verify_catalog({"id": "P-3", "domain": "catalog", "slug": None}, ctx)
+    assert rn.verdict == "inconclusive" and rn.can_auto_disposition is False
+
+
+def test_verify_fn_dispatch_and_unknown():
+    assert P._verify_fn("math") is P._verify_math
+    assert P._verify_fn("sol") is P._verify_sol
+    assert P._verify_fn("nope") is P._verify_unknown
+    vr = P._verify_unknown({"id": "P-x", "domain": "nope"}, P.VerifyCtx())
+    assert vr.verdict == "inconclusive" and vr.can_auto_disposition is False
+
+
+def test_stamp_verified_and_default_readonly():
+    def body():
+        pid = P.propose(domain="math", type_="macro", title="x", slug="x")
+        assert "verified_at" not in P.load_all()[0], "propose 預設不蓋 verified_at"
+        P.stamp_verified(pid, sha="abc1234", date="2026-06-23T00:00:00+00:00")
+        rec = P.load_all()[0]
+        assert rec["verified_at"] == {"sha": "abc1234", "date": "2026-06-23T00:00:00+00:00"}
+        assert rec["status"] == "proposed", "stamp 不改 status（唯讀於決策態）"
+        assert not P.lint(P.load_all())
+    _with_tmp_store(body)
+
+
 if __name__ == "__main__":
     test_real_store_lints_clean();              print("✓ 真實 store lint 乾淨")
     test_real_index_in_sync();                  print("✓ _index.md 與 store 同步")
@@ -259,4 +339,7 @@ if __name__ == "__main__":
     test_verified_at_optional_and_structure();  print("✓ verified_at 可選 + 結構驗")
     test_render_order_and_parked_stats();       print("✓ render order + parked 統計")
     test_stale_candidates_pure();               print("✓ stale_candidates 純函式")
+    import pytest as _pt                          # monkeypatch fixture 測試走 pytest
+    _pt.main([__file__, "-q", "-k", "verify"])
+    print("✓ verify 雙軸/trichotomy/路由（見上 pytest）")
     print("\n全部通過 ✅")
