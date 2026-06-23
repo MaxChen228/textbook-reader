@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-serway-physics-scientists-engine",
   "domain": "sol",
   "type": "edition-mismatch",
-  "status": "proposed",
+  "status": "parked",
   "title": "serway_physics_scientists_engineers 解答書無法 merge：6th ed manual 與主書 9th ed 不對齊",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:55:21+00:00",
-  "updated": "2026-06-19T11:55:21+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "主書 parsed/book.json 顯示 title='Physics for Scientists and Engineers with Modern Physics'、edition='9th'；解答書 unified 開頭 OCR 明確有 'INSTRUCTOR'S SOLUTIONS MANUAL' 與 'SIXTH EDITION'。語義抽樣：主書 ch1 p1 是估算地球平均密度，但 sol P1.1 是晶體平面間距；主書 ch5 p1 是 120 lb 女性的重量/質量換算，但 sol P5.1 是同力作用不同質量；主書 ch21 p1 是氦氣球原子數/平均動能/rms speed，但 sol P21.1 是冰雹撞窗平均力。另以預設規則 dry-run，sol_extract 對此來源抽出 0 章 0 題，因章號主要落在 text_level=2 純數字 block。",
   "proposal": "換與 serway_physics_scientists_engineers 主書同版次（9th ed）的完整解答書；若保留此來源，仍需擴充 sol_extract 支援非 lvl1 chapter anchor，但在版次不符未解前不應 merge。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-edition",
+    "target": "對齊母書版次的解答本"
+  }
 }

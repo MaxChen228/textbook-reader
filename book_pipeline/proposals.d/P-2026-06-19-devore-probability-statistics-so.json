@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-devore-probability-statistics-so",
   "domain": "sol",
   "type": "source-quality",
-  "status": "proposed",
+  "status": "parked",
   "title": "devore_probability_statistics 解答本無法 merge：主書 parsed 無題目且題號規則錯配",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:08:26+00:00",
-  "updated": "2026-06-19T11:08:26+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "主書 devore_probability_statistics 的 parsed/ch01..ch16.json 全部 problems=[]；但 ch01 body 已含 'EXERCISES Section 1.2 (10–32)' 後接 '17.'、'19.' 等題號段落，表示 parser 未把題目抽成可配對 key。另主書 extract_rules.yaml 目前設 problem_num_namespace_by_section=true，但 Devore 單章內題號其實全章連號（如 ch1 1..83、ch2 1..75）；若沿用此規則重跑，主書 key 會成 1.2.17，而解答書在 Section 1.2 下只寫裸整數 17.，仍無法對齊。解答書 unified/content_list 章題結構本身穩定：CHAPTER N → Section N.M / Supplementary Exercises → 17. 這類裸整數題號。",
   "proposal": "先回到 audit-book 修主書：確認 exercise 題目能進 problems[]，並重新檢討/移除 problem_num_namespace_by_section=true；重跑 parser 後再用已提交的 devore_probability_statistics_sol/sol_rules.yaml 重新執行 sol_extract。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "更完整源/換源 re-ingest"
+  }
 }

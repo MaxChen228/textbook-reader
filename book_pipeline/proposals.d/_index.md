@@ -34,10 +34,12 @@
 - 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
 - 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （166 條；proposed=1 parked=0）
+## domain: engine  （166 條；proposed=0 parked=1）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
-- proposed | type=tooling-gap | source=agent
+- parked | type=tooling-gap | source=agent
+- 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。 [2026-06-23 partial 修復] commit 5f7f596 的 suppress_running_header_sections（跑馬燈假 §heading 後緊接題號塊則不推進 namespace）已收掉「下一節 heading 提早切 section」這一類碰撞：重 parse+smoke 從 5 章 H2 降到僅 ch11 殘留（critical 2 中 1 為 H7 catalog caption、與本提案無關）。ch11 'Fredholm Theory' 仍 H2 ['2.1'..'2.4']——非跑馬燈型，而是單章內兩組 §2 EXERCISES（double-EXERCISES + 4.3.X subsection namespace-leak），exercises-gate 嘗試無效已回退。續 proposed：ch11 需 section-aware namespace 分類（OCR 結構修復），非 bounded 引擎能力。
 - 證據：多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\* 的 namespace 衝突。
 - 提議：inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。
@@ -3709,10 +3711,12 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （43 條；proposed=23 parked=0）
+## domain: sol  （43 條；proposed=0 parked=23）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：re-edition → 換對齊版次的 sol（章序/題號 offset）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl1 only」已過時（chapter_level 預設 null 收 lvl2 'Exercise Set N.M'）。真殘留＝高%假象/語義錯位：以正確 chapter_re 可抽出高配對率（~90%），但語義抽樣確認題號 namespace 巧合對齊、實際答非所問（經典假象，見記憶 sol-proposal-triage-sop）。憑%解鎖會塞錯解答（違鐵律「%高≠配對對」）。續 proposed＝高%語義錯位，引擎無解（非缺能力，是配對語義本質不對）。
 - 證據：dry-run（2026-06-19）穩定抽出 0 章、0 題。anton_calculus_sol 的 text_level==1 章標多為純章名（如 'Limits and Continuity'、'Topics in Differentiation'），不含章號；真正帶章號的是 header 'Chapter N' 與 lvl=2 的 'Exercise Set N.M'。若硬用少數含數字的 lvl1（如 Chapter 10/14 Making Connections）作 anchor，會跨章吞併並系統性錯位。
 
@@ -3720,121 +3724,165 @@ index 2c80077..8104e5a 100644
 - 提議：擴充 sol_extract：允許 header 或可設定 text_level 的章 anchor，或新增以 Exercise Set N.M 直接映射主書章號的模式；完成後再對 anton_calculus_sol 重跑 audit-sol。
 
 ### P-2026-06-19-brown-lemay-central-science-sol — brown_lemay_central_science 解答書無法 merge：主書 SI Units Global Edition，sol 為一般 14th edition
-- proposed | type=edition-mismatch | source=sol_extract
+- parked | type=edition-mismatch | source=sol_extract
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：resolution title：main='Chemistry: The Central Science in SI Units, Global Edition'；sol='Student solutions manual to Black exercises for chemistry : the central science'。dry-run 21章1493解答，對主書1598題僅配到820題。語義抽樣同號錯題：1.34 主書問 chemical change，sol 是攝氏/華氏換算；12.48 主書問 semiconductor vs insulator，sol 講金屬熱膨脹；20.50 主書問 redox 類比 proton transfer，sol 講 RuO4 redox potential。
 - 提議：重新解析並換成與 SI Units Global Edition 對版的解答書；在未取得對版 sol 前保持 _pending，不做錯誤 merge。
 
 ### P-2026-06-19-computer-networking-top-down-sol — computer_networking_top_down 解答書無法 merge：sol_extract 不支援 lvl2 章標與 P-prefix 題號映射
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：re-edition → 換對齊版次的 sol（章序/題號 offset）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 章標 + Problem N→P<N> 引擎做不到」已全過時——chapter_level 預設 null 收 lvl2、num_template:'P{}'（c1368d8）解前綴映射，sol_rules.yaml 已配置就緒。真殘留＝部分章版次錯位（edition）：主書 8th ed vs 本 sol 在 ch4/ch7 章內題目編排不同版本（ch7 整章 13 題系統錯位、ch4 約半），同題號配到不同題；ch1/2/3/6/8 對齊。續 _pending + proposed＝edition（源頭版次），引擎無解、待 re-source 版次對齊解答本。
 - 證據：官方 dry-run=0 章 0 題；解答書真正章標為 text_level==2 的 'Chapter N Problems'/'Chapter 5. Problems.'。主書題號為 P1/P2/...，解答書題號為 Problem 1/2/...；現行 problem_re 的 group(1) 必須逐字等於主書 key，無法把 1 轉成 P1。一次性 lvl2 章標 + Problem N->P<N> 分析可抽出 8 章，對主書命中 216/233；語義抽樣 ch01/ch04/ch08 各前 3 題皆同題。
 - 提議：擴充 sol_extract：章 anchor 可配置 text_level/type，並支援 problem key transform（例如 prefix/sprintf 或 regex replace）後重跑 merge。
 
 ### P-2026-06-19-devore-probability-statistics-so — devore_probability_statistics 解答本無法 merge：主書 parsed 無題目且題號規則錯配
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：主書 devore_probability_statistics 的 parsed/ch01..ch16.json 全部 problems=[]；但 ch01 body 已含 'EXERCISES Section 1.2 (10–32)' 後接 '17.'、'19.' 等題號段落，表示 parser 未把題目抽成可配對 key。另主書 extract_rules.yaml 目前設 problem_num_namespace_by_section=true，但 Devore 單章內題號其實全章連號（如 ch1 1..83、ch2 1..75）；若沿用此規則重跑，主書 key 會成 1.2.17，而解答書在 Section 1.2 下只寫裸整數 17.，仍無法對齊。解答書 unified/content_list 章題結構本身穩定：CHAPTER N → Section N.M / Supplementary Exercises → 17. 這類裸整數題號。
 - 提議：先回到 audit-book 修主書：確認 exercise 題目能進 problems[]，並重新檢討/移除 problem_num_namespace_by_section=true；重跑 parser 後再用已提交的 devore_probability_statistics_sol/sol_rules.yaml 重新執行 sol_extract。
 
 ### P-2026-06-19-goldstein-cm3-sol — goldstein_cm3 解答書無法 merge：2nd ed selective solutions 與主書 3rd ed 不對齊
-- proposed | type=edition-mismatch | source=sol_extract
+- parked | type=edition-mismatch | source=sol_extract
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：解答書首頁明寫 'Solutions to Problems in Goldstein, Classical Mechanics, Second Edition'；content_list 僅含 Chapter 1/3/7/9/10。語義抽樣：主書 ch1 p11 是 conservative force，但 sol ch1 key11 是 Lagrange equations；主書 ch3 p13 是 inverse-fifth-power orbit，但 sol ch3 key13 是 dust-in-solar-system。僅局部如 ch10 p6/7/8 對齊，不足以否定整體跨版次錯位。另 sol_extract 只吃 text_level==1 chapter anchor，而本書除 Chapter 7 外章首多為 text_level==2。
 - 提議：換與 goldstein_cm3 同版次的完整解答來源（優先 3rd ed），或重新 crawl/ingest 可對齊的母書-解答書組合；若保留此來源，需擴充 sol_extract 支援非 lvl1 chapter anchor / 顯式章映射，但在版次不符未解前仍不應 merge。
 
 ### P-2026-06-19-griffiths-particles-sol — griffiths_particles 解答書無法 merge：缺可用章 anchor
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：dry-run：抽出 0 章、0 題解答。sol_extract 只掃 text_level==1 章 anchor；本書只有 ch1『Historical Introduction to the Elementary Particles』與 ch8『Electrodynamics and Chromodynamics of Quarks』是 level-1。ch2-7、9-12 在各章首僅出現 text_level=2 的數字+章名，例如『2 / Elementary Particle Dynamics』、『12 / What’s Next』。
 - 提議：換更穩定的解答本/重新 ingest 取得正確 chapter level，或升級 sol_extract 支援以 text_level=2 章標切章後再重試。
 
 ### P-2026-06-19-jackson-electrodynamics-sol — jackson_electrodynamics 解答書缺可靠章錨，無法安全 merge
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：正式 dry-run=0 章 0 題；unified text_level==1 的 text block 為 0。忽略 level 的探針只找到 10 個 CHAPTER 錨（主書有 16 章），且 ch04 混入 5.x、ch07 混入 10.x、ch13 混入 14.x、ch15 混入 16.x，顯示缺章錨後跨章污染。
 - 提議：優先換更完整/更乾淨的 Jackson 解答書或重 ingest；若要救現來源，需讓上游把章標正規化，或升級 sol_extract 支援非 level-1 章錨與依題號前綴斷章。
 
 ### P-2026-06-19-kardar-statistical-physics-sol — kardar_statistical_physics 解答書無法 merge：sol_extract 不支援 lvl=2 羅馬章標且 unified 缺 Chapter VI anchor
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：re-source → 補缺章 anchor/換完整 sol（非選擇性）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 羅馬章標 int() 崩」已過時——chapter_level 預設 null 收任意層級、chapter_roman 旗標（c1368d8）解羅馬→int。真殘留＝source-quality：unified 章標序為 I/II/III/IV/V/VII（**缺 Chapter VI anchor**，OCR 漏），導致 ch6 題目錯置進 ch5 bucket。羅馬能力已具，但源頭缺第 VI 章錨無法安全對位。續 proposed＝source-quality（OCR 缺章錨），待 re-source。
 - 證據：2026-06-19 dry-run（預設規則）結果：抽出 0 章、0 題。content_list.json 的章標只出現在 text_level=2 block：idx 11/397/826/1396/1811/2704，文字為 'Problems for Chapter I/II/III/IV/V/VII - ...'；現行 sol_extract 只掃 text_level==1 且對 chapter_re.group(1) 直接 int()。另外 unified/full.md 第 6209 行仍有 'Problems for Chapter VI - Quantum Statistical Mechanics'，但 content_list.json 在 Chapter V 結尾後直接跳到 idx 2303 '1. One dimensional chain...'，缺失 Chapter VI heading block。主書題號為章內重置純整數，無可靠章界時跨章同號題會錯配。
 - 提議：擴充 sol_extract schema/引擎：允許設定 chapter anchor 的 text_level，並支援羅馬數字章號映射；或在 ingest/unified 階段保留/修復 Chapter VI heading block。完成任一路徑後，再重跑 kardar_statistical_physics_sol 的 audit-sol。
 
 ### P-2026-06-19-kleinberg-algorithm-design-sol — kleinberg_algorithm_design 解答本無法 merge：解答正文無顯式章號/題號，現行 sol_extract 缺序列式對位能力
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 確認為真 harness-gap（非過時）：主書 problem.num 為章內 reset 的裸整數，sol unified 幾乎全為無顯式章號/題號的正文 → 現行 sol_extract 的章錨+題號 key 對位法無從施力。需序列式/位置對位能力（engine 真缺、尚未建，評估後暫緩：對位脆弱、誤配風險高）。續 proposed＝engine 真缺序列對位能力。
 - 證據：2026-06-20 dry-run: uv run --with pyyaml python -m book_pipeline.sol_extract kleinberg_algorithm_design kleinberg_algorithm_design_sol --dry-run -> 抽出 0 章、0 題。主書 problem[num] 為章內 reset 的裸整數；sol unified 幾乎全是無題號正文，text_level==1 條目數量為 0，僅 6 個 text_level==2 小標（如 Schedule G:, Independent Set <=_P Resource Reservation），不足以切章。抽樣語義仍顯示是正確解答本：ch01 p1/p2/p3 對應 two men and two women / rank the other first / Network A,D ratings 20 and 40；ch10 p1/p2/p3 對應 Hitting Set / 3-SAT / Hamiltonian Path；ch13 p1/p2/p3 對應 cannister-3-Coloring / 100,000 voters / described protocol conflict free。
 - 提議：擴充 sol_extract 支援『無顯式題號的連續解答書』：至少提供序列式對位或人工章切分映射能力；能力補齊前維持 kleinberg_algorithm_design_sol/_pending，避免錯配解答寫入 parsed/。
 
 ### P-2026-06-19-lay-linear-algebra-sol — lay_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware anchor
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。但 lay sol 結構不足：unified heading 僅 'Chapter N …' 與 'Supplementary Exercises N-…'，**無 section 子標題**，題目以裸題序平鋪於章內；主書 key 卻是 section-aware C.S.N（如 4.3.17）。sol 不暴露 section 資訊 → 無從重建 C.S.N key（section-aware 能力也救不了，因 sol 端缺 section 來源）。續 proposed＝sol 結構不足（無 section anchor）+ 主書 section-namespace，無可靠對位法。
 - 證據：主書 key 為 C.S.N（如 4.3.17），解答書正文題頭多為裸題序如 35.；可用結構主要是 text_level=2 的 'C.S - ...' 與 'Chapter N ...'。但現行 sol_extract 只接受 text_level=1 chapter anchor。此 unified 僅有 8 個 text_level=1 text blocks，且多數不含章號；以預設規則 dry-run 結果為 0 章 0 題。
 - 提議：升級 sol_extract schema/引擎：支援 level-2 chapter/section anchors，並允許以 section key + 裸題序組裝主書 C.S.N key；否則 lay_linear_algebra_sol 無法產出品質 merge。
 
 ### P-2026-06-19-ogata-control-sol — ogata_control 解答書無法 merge：主書 parsed 只剩章級單題
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：ogata_control/parsed/ch02.json~ch10.json 各章僅 1 題，problem.num 分別為 2~10；但題幹內直接串入多題 anchor，例如 ch02 唯一題目 body 含 'B-2-2.'、'B-2-3.'，ch06 唯一題目 body 含 'B-6-2.'。解答書 ogata_control_sol 則是逐題 'B-2-1.'/'B-3-1.' 結構；若將 key 放鬆成章號，只會把多題解答覆寫成每章最後一題，屬系統性錯配。
 - 提議：先重做 ogata_control 主書 audit/parser（或換更乾淨母書來源），恢復 parsed/chNN.json 的逐題 problem key；之後再以 chapter_re='^CHAPTER\s+(\d+)\s*$'、problem_re='^B[\-–](\d+[\-–]\d+)\.' 重新評估 ogata_control_sol merge。
 
 ### P-2026-06-19-petrucci-general-chemistry-sol — petrucci_general_chemistry 解答本無法 merge：章序與內容不匹配主書
-- proposed | type=edition-mismatch | source=sol_extract
+- parked | type=edition-mismatch | source=sol_extract
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：主書 ch16=Acids and Bases，但解答書 ch16=Thermodynamics and Chemistry、ch17 才是 Acids and Bases；主書 ch20=Chemical Kinetics，但解答書 ch20=Oxidation-Reduction and Electrochemistry。in-memory dry-run（chapter_re=^CHAPTER\s+(\d+)\s*$, problem_re=^(?:\d+)-(\d+[a-z]?)\.）對主書 ch15-27 僅 87/773=11.25% 配對。語義抽樣：主書 ch16 p1 是 Brønsted-Lowry acid/base 判別，解答 key 1 卻是 percent ionization；主書 ch19 p1 是估計半電池 E°，解答 key 1 卻是氧化還原半反應與 E_cell°。另有 CHAPTER 15/17/20/27 為 text_level=2，現行 sol_extract 無法可靠切章。
 - 提議：換與主書同版次/同章序的解答書，或重新解析/更換主書來源；在現有來源下不應 merge。
 
 ### P-2026-06-19-poole-linear-algebra-sol — poole_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware key 重建與 level-2 anchor
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：main-reaudit → 先修主書 section_re（OCR key 退化）再建 sol section-aware key
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。sol 確暴露 section 子標題（unified 有 '1.1 The Geometry…'、'1.2 Length…' lvl2）。真殘留同 strang 之複合：主書 parsed key OCR 退化（'2.0Introduction:Triviality.1'、dup '1.1'＝section_re 未匹配早期節、fallback 章號）+ sol_extract 缺 section-aware key 重建。須先修主書 section 結構再建 sol 能力，否則 merge 錯位。續 proposed＝主書 OCR section 退化 + sol section-aware gap 複合。
 - 證據：主書 problem.num 為 section-aware 混合 key，如 4.0Introduction:ADynamicalSystemonGraphs.1、Exercises4.1.1、ReviewQuestions.16；解答書正文則在 3.1/4.1/8.1 等 section 標題後，以裸題序 1. 2. 3. 開題。現行 sol_extract 只接受 text_level=1 的 chapter anchor，且 problem_re 只能回單一 key。此 unified 僅有 7 個 lvl1 text blocks，包含 Systems of Linear Equations、Eigenvalues and Eigenvectors、Orthogonality、Exploration: Approximating Eigenvalues with the QR Algorithm、Chapter $\mathord 7$、Distance and Approximation；預設 dry-run 結果為抽出 1 章 0 題，ch03 0/372。語義抽樣亦顯示主書 ch03 的 3.1 題幹是 Compute Fx for the following vectors x，但解答書 Chapter 3 的 3.1 Matrix Operations 第 1 題是在做 A + 2D，不能用章號加裸題序硬配。
 - 提議：升級 sol_extract schema/引擎：支援自訂 chapter/section anchor level，允許以 section heading + 裸題序組裝主書 key，並能略過 chapter-intro/review 類 key 空洞；否則 poole_linear_algebra_sol 無法產出品質 merge。
 
 ### P-2026-06-19-serway-physics-scientists-engine — serway_physics_scientists_engineers 解答書無法 merge：6th ed manual 與主書 9th ed 不對齊
-- proposed | type=edition-mismatch | source=sol_extract
+- parked | type=edition-mismatch | source=sol_extract
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：主書 parsed/book.json 顯示 title='Physics for Scientists and Engineers with Modern Physics'、edition='9th'；解答書 unified 開頭 OCR 明確有 'INSTRUCTOR'S SOLUTIONS MANUAL' 與 'SIXTH EDITION'。語義抽樣：主書 ch1 p1 是估算地球平均密度，但 sol P1.1 是晶體平面間距；主書 ch5 p1 是 120 lb 女性的重量/質量換算，但 sol P5.1 是同力作用不同質量；主書 ch21 p1 是氦氣球原子數/平均動能/rms speed，但 sol P21.1 是冰雹撞窗平均力。另以預設規則 dry-run，sol_extract 對此來源抽出 0 章 0 題，因章號主要落在 text_level=2 純數字 block。
 - 提議：換與 serway_physics_scientists_engineers 主書同版次（9th ed）的完整解答書；若保留此來源，仍需擴充 sol_extract 支援非 lvl1 chapter anchor，但在版次不符未解前不應 merge。
 
 ### P-2026-06-19-stewart-calculus-sol — stewart_calculus 解答本無法 merge：主書 corpus 實為 solutions 手冊
-- proposed | type=edition-mismatch | source=sol_extract
+- parked | type=edition-mismatch | source=sol_extract
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：主書 parsed/ch01 body 即為『The functions f(x)=... so f and g are equal.』這類解答句；_audit.md 亦明記 stewart_calculus 現有 corpus 明顯是解答型內容；另主書 ch06/ch10/ch11 分別承載 7.* / 12.* / 17.* 題號，與 sol_extract 依 chNN 路由的假設衝突。
 - 提議：先替換 stewart_calculus 主書來源為真正 textbook 並重跑 ingest/audit-book；在主書恢復為題幹書前，不應對 stewart_calculus_sol 執行 sol merge。
 
 ### P-2026-06-19-strang-linalg-sol — strang_linalg 解答書無法 merge：sol_extract 不支援 lvl=2 Problem Set anchor
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：main-reaudit → 先修主書 section_re（OCR key 退化）再建 sol section-aware key
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 anchor 不支援」已過時（chapter_level 預設 null）。sol 確有 section 結構（'Problem Set N.M, page P'，chapter_re 可抓）。真殘留＝複合：①主書 parsed key 本身 OCR section 退化（樣本 'ProblemSet1.2.1'、dup '1.1'/'1.2'＝section_id 被 'Problem Set 1.2' 污染、部分節 fallback 章號 → 主書自身有 H2/污染 key）；②sol_extract 缺 section-aware key 重建（'Problem Set 1.2' → key '1.2.N' 對齊主書 namespace）。需先 re-audit 主書 section_re 產乾淨 'N.M.problem' key，再建 sol section-aware；在退化主書上強行 merge 會塞錯解答（違鐵律）。續 proposed＝主書 OCR section 退化 + sol section-aware gap 複合。
 - 證據：strang_linalg_sol/unified/content_list.json 的 text block 統計為 lvl=2:60、lvl=1:0；現行 sol_extract 只掃 text_level==1 當 chapter anchor。dry-run（2026-06-19）結果為抽出 0 章、0 題，無法開始配對。解答書實際以 'Problem Set N.M, page P' 當段落標頭，題號再嵌在後續 text/equation block 開頭。
 - 提議：擴充 sol_extract schema/引擎：允許設定章 anchor 的 text_level，或新增以 Problem Set N.M 直接映射主書 chapter + ProblemSetN.M.K namespace 的模式；完成後再重跑 strang_linalg_sol。
 
 ### P-2026-06-19-thomas-calculus-sol — thomas_calculus 解答書無法 merge：主書題號失真且需 section-aware 對齊
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：主書 thomas_calculus 仍有 11 個 H2 duplicate（book_pipeline/mineru_data/thomas_calculus/_audit.md）。語義抽樣：主書 1.1.4 是 g(x)=sqrt(x^2-3x)，但解答書 1.1 第 4 題是 NT/NNT 不等式；主書 2.1.1 是 secant slope 概念敘述，但解答書 2.1 第 1 題是單側極限圖形判讀；主書 ch01 不存在任何 1.2.* key，但解答書 1.2 有完整逐題解答。另解答書採 section heading + 裸題序（如 2.1 heading 下 1. 2. 3.），現行 sol_extract 無法組裝回主書 key。
 - 提議：先重做 thomas_calculus 主書 audit/parser，消除 inline false-positive 與 section namespace 漂移；再升級 sol_extract 支援 section heading + 裸題序組 key，之後重跑 thomas_calculus_sol merge。
 
 ### P-2026-06-19-tipler-mosca-physics-sol — tipler_mosca_physics 解答書無法 merge：sol 章 anchor 與主書章邊界皆不可靠
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：re-source → 補缺章 anchor/換完整 sol（非選擇性）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] lvl2 章標現已可收（chapter_level 預設 null）。真殘留＝語義錯位（章邊界不可靠）：dry-run 56% 配對但語義抽樣確認系統性跨章錯位（main ch03→sol ch7 能量題、ch11→ch16 波題、ch18→capacitance），sol 章 anchor 與主書章邊界皆不可靠。憑%解鎖違鐵律。續 proposed＝語義錯位，引擎無解。
 - 證據：sol unified 有 42 個 chapter-like block，但只有 12 個是 sol_extract 可用的 lvl=1；dry-run 僅抽出 12 章 654 題，配對成功 588/1032（56%）。語義抽樣：main ch03 Q1 對到 chapter 7 能量題；main ch11 Q1 對到 chapter 16 波題；main ch18 Q1 對到 capacitance 題。另 main ch17/ch29 的非空題幹本身也落在前章主題，顯示 parser 章邊界錯位。
 - 提議：需要升級 sol_extract/前處理以接受 header 或 lvl2 chapter anchor，並修主書 parser 章邊界後再重跑 audit-sol。現階段只靠 sol_rules.yaml 無法產出品質 merge。
 
 ### P-2026-06-19-west-graph-theory-sol — west_graph_theory 解答書無法 merge：主書 parsed 問題不是 exercise corpus
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：試探規則僅能從唯一 lvl1 章標 6.PLANAR GRAPHS 語法配到 ch06 72/74，但語義抽樣 9/9 錯位：ch01 1.1.1 主書是 Königsberg Bridge Problem 範例，sol 是 Complete bipartite graphs；ch06 6.1.1 主書是 Gas-water-electricity 範例，sol 是平面圖判斷題；ch08 8.1.1 主書是 perfect graph 定義，sol 是 odd-cycle complement 的 clique/chromatic 題。主書 parsed/chNN.json 目前抓到正文內 Definition/Example/Theorem 編號，不是解答書對應 exercises。另有次要缺口：sol unified 只有第 6 章是 text_level==1 章標，其餘章標在 lvl2。
 - 提議：重做 west_graph_theory 主書 audit/parser，只保留 exercises/problem corpus；並在 sol 來源保留可用章標（或升級 sol_extract 支援 non-lvl1 chapter anchor）後，再重跑 west_graph_theory_sol 的 merge。
 
 ### P-2026-06-19-wooldridge-introductory-economet — wooldridge_introductory_econometrics 解答本無法 merge：主書 parsed 題號語義錯位
-- proposed | type=source-quality | source=sol_extract
+- parked | type=source-quality | source=sol_extract
+- 解鎖條件：re-source → 更完整源/換源 re-ingest
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 證據：dry-run 137/196；語義抽樣顯示 ch01 main#1 對應 sol 1.2、ch02 main#2 對應 sol 2.1、ch04 主書從題號 5 開始但 sol 有 4.1-4.11，無法用單一 problem_re 安全對齊。
 - 提議：先修主書 parser/題號切分品質，或換更可靠主書來源；待主書 parsed 題號與題幹語義一致後，再重跑 audit-sol。
 
 ### P-2026-06-19-zill-differential-equations-sol — zill_differential_equations 解答書無法 merge：sol_extract 缺少 lvl2 章 anchor 與 section-aware key 組裝
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：main-reaudit → 先修主書 section_re（OCR key 退化）再建 sol section-aware key
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「lvl2 章 anchor」已過時（chapter_level 預設 null）。sol 確暴露 section 子標題（'1.1 Definitions…'、'2.1 Solution Curves…' lvl2）。真殘留同 poole/strang 之複合：主書 parsed key section-aware 但 OCR 退化 + sol_extract 缺 section-aware key 重建。須先修主書 section 結構再建 sol 能力。續 proposed＝主書 OCR section 退化 + sol section-aware gap 複合。
 - 證據：zill_differential_equations_sol/unified/content_list.json 的主書對應章號 1-9 出現在 text_level=2 的 'Chapter N'（如 idx 49, 694, 1857, 11157）；同位置 lvl=1 只有章名無數字。解答正文在 section heading（如 1.1 Definitions and Terminology）後只用裸題序 8. 9. 10.，但主書 parsed key 為 exercises1.1.8、2.1.1.2、4.1.1.1 等 section-aware 混合 key。預設 dry-run 穩定為『抽出 3 章、0 題解答』，且只誤抓第二本書的 Chapter 10/13/15。
 - 提議：擴充 sol_extract：允許自訂 chapter anchor 的 text_level/type，並支援以 section heading + 裸題序組裝主書 problem key；必要時加上同冊多書切分能力。完成後再重跑 zill_differential_equations_sol merge。
 
 ### P-2026-06-21-cheng-em-sol — cheng_em 解答本無法 merge：47 個 Chapter 章標全在 text_level==2，引擎只認 lvl1
-- proposed | type=harness-gap | source=sol_extract
+- parked | type=harness-gap | source=sol_extract
+- 解鎖條件：re-source → 補缺章 anchor/換完整 sol（非選擇性）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 主阻塞「lvl2 章標引擎只認 lvl1」已過時——chapter_level 預設 null（50fdc37）已收任意層級。重查真因＝source-quality（selective solutions manual）：整本 sol 全文僅 ~14 個行首題號（'8.2-1' 型）、任意位置含題號 block 24 個，對主書 515 題覆蓋 ≤5%；且 'Chapter N' 標題亂序出現（2,4,5,4,2,8,9,12,11，非單調）→ 章 bucket 不可靠。即便加 derive_chapter_from_num 也只能配 ~3% 且高錯置風險。續 proposed＝source-quality（解答本身殘缺），引擎無解、待 re-source 完整解答本。
 - 證據：sol_scout：lvl1 帶數字章標=0，lvl2/header=47（樣本 'Chapter 2'..'Chapter 8'）。dry-run（去 _pending）：抽出 0 章 0 題、配對 0%。副因 source-quality：題號 prefix 樣本大量 OCR 垃圾（'8) Equation for lives everywhere'、'6) VIX(1=4, make sixty'、'20. N°THA, 2016'）。主書 num=N-M、sol 題號=C.S-K（如 8.2-1）格式亦不對齊。
 - 提議：讓 extract_sol_chapters 也認 text_level==2 的章錨（或可配置 chapter_level），或換更乾淨的 Cheng F&W EM 2nd 解答本重 ingest。現行限制在 level 不在 regex，任何 chapter_re 都救不了。
 
 ### P-2026-06-21-oppenheim-signals-sol — oppenheim_signals 解答本無法 merge：章 anchor 在 lvl2/header（引擎只認 lvl1）
-- proposed | type=harness-gap | source=sol_extract | 偵測=extract_sol_chapters text_level==1
+- parked | type=harness-gap | source=sol_extract | 偵測=extract_sol_chapters text_level==1
+- 解鎖條件：re-edition → 換對齊版次的 sol（章序/題號 offset）
+- 已驗證：@ff636f4（2026-06-23T02:38:44+00:00）
 - 處置：[2026-06-23 truth-layer 復核] 「引擎只認 lvl1」已過時（chapter_level 預設 null 收 lvl2 'Chapter N Answers' 10+header 1=11 章）。真殘留＝高%假象/章序 offset：配對率 ~91% 但語義抽樣確認章序錯位（如 Modulation↔Nyquist），題對不上。憑%解鎖違鐵律。續 proposed＝高%語義錯位（章序 offset），引擎無解。
 - 證據：sol_scout：lvl1 帶數字章標=0；真正章標 'Chapter N Answers' 落 text_level==2（10 個）+ header（1 個 Chapter 6），恰對應主書 11 章。引擎 sol_extract.py:78 章 anchor 僅收 text_level==1 且 type==text，故任何 chapter_re 都 0 章 0 題。題號/章號 regex 本身正確（problem_re group(1) 抓 N.M 對齊主書 num）。結構同 anton_calculus_sol。
 

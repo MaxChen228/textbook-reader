@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-tipler-mosca-physics-sol",
   "domain": "sol",
   "type": "harness-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "tipler_mosca_physics 解答書無法 merge：sol 章 anchor 與主書章邊界皆不可靠",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:57:07+00:00",
-  "updated": "2026-06-23T00:00:00+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "sol unified 有 42 個 chapter-like block，但只有 12 個是 sol_extract 可用的 lvl=1；dry-run 僅抽出 12 章 654 題，配對成功 588/1032（56%）。語義抽樣：main ch03 Q1 對到 chapter 7 能量題；main ch11 Q1 對到 chapter 16 波題；main ch18 Q1 對到 capacitance 題。另 main ch17/ch29 的非空題幹本身也落在前章主題，顯示 parser 章邊界錯位。",
   "proposal": "需要升級 sol_extract/前處理以接受 header 或 lvl2 chapter anchor，並修主書 parser 章邊界後再重跑 audit-sol。現階段只靠 sol_rules.yaml 無法產出品質 merge。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] lvl2 章標現已可收（chapter_level 預設 null）。真殘留＝語義錯位（章邊界不可靠）：dry-run 56% 配對但語義抽樣確認系統性跨章錯位（main ch03→sol ch7 能量題、ch11→ch16 波題、ch18→capacitance），sol 章 anchor 與主書章邊界皆不可靠。憑%解鎖違鐵律。續 proposed＝語義錯位，引擎無解。"
+  "disposition": "[2026-06-23 truth-layer 復核] lvl2 章標現已可收（chapter_level 預設 null）。真殘留＝語義錯位（章邊界不可靠）：dry-run 56% 配對但語義抽樣確認系統性跨章錯位（main ch03→sol ch7 能量題、ch11→ch16 波題、ch18→capacitance），sol 章 anchor 與主書章邊界皆不可靠。憑%解鎖違鐵律。續 proposed＝語義錯位，引擎無解。",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "補缺章 anchor/換完整 sol（非選擇性）"
+  }
 }

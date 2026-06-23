@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-ogata-control-sol",
   "domain": "sol",
   "type": "source-quality",
-  "status": "proposed",
+  "status": "parked",
   "title": "ogata_control 解答書無法 merge：主書 parsed 只剩章級單題",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T10:59:35+00:00",
-  "updated": "2026-06-19T10:59:35+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "ogata_control/parsed/ch02.json~ch10.json 各章僅 1 題，problem.num 分別為 2~10；但題幹內直接串入多題 anchor，例如 ch02 唯一題目 body 含 'B-2-2.'、'B-2-3.'，ch06 唯一題目 body 含 'B-6-2.'。解答書 ogata_control_sol 則是逐題 'B-2-1.'/'B-3-1.' 結構；若將 key 放鬆成章號，只會把多題解答覆寫成每章最後一題，屬系統性錯配。",
   "proposal": "先重做 ogata_control 主書 audit/parser（或換更乾淨母書來源），恢復 parsed/chNN.json 的逐題 problem key；之後再以 chapter_re='^CHAPTER\\s+(\\d+)\\s*$'、problem_re='^B[\\-–](\\d+[\\-–]\\d+)\\.' 重新評估 ogata_control_sol merge。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "更完整源/換源 re-ingest"
+  }
 }

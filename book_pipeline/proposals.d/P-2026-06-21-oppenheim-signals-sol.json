@@ -2,7 +2,7 @@
   "id": "P-2026-06-21-oppenheim-signals-sol",
   "domain": "sol",
   "type": "harness-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "oppenheim_signals 解答本無法 merge：章 anchor 在 lvl2/header（引擎只認 lvl1）",
   "detect": [
     "extract_sol_chapters text_level==1"
@@ -10,9 +10,17 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-21T06:51:21+00:00",
-  "updated": "2026-06-23T00:00:00+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "sol_scout：lvl1 帶數字章標=0；真正章標 'Chapter N Answers' 落 text_level==2（10 個）+ header（1 個 Chapter 6），恰對應主書 11 章。引擎 sol_extract.py:78 章 anchor 僅收 text_level==1 且 type==text，故任何 chapter_re 都 0 章 0 題。題號/章號 regex 本身正確（problem_re group(1) 抓 N.M 對齊主書 num）。結構同 anton_calculus_sol。\n\n【2026-06-22 章錨fix(50fdc37)後複驗】本提案提議的「放寬 lvl2/header 章錨」已實作。複跑 dry-run：現抽 10 章、配對 295/322(91%)——章錨已解，但語義抽樣 ch07 錯位（主書「正弦調變」題配到 Nyquist 取樣解答），疑章序 offset（sol ch7=取樣 vs 主書 ch7=調變）。章錨 gap 已關閉但本書仍不可乾淨 merge，續 _pending；真阻塞＝章序/源頭對應，非 lvl。",
   "proposal": "sol_extract.extract_sol_chapters 放寬章 anchor：允許 text_level==2 / header 的 text block 命中 chapter_re 即收（非僅 lvl1）。一改泛化解鎖本書 + anton_calculus_sol 等同類 harness-gap。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] 「引擎只認 lvl1」已過時（chapter_level 預設 null 收 lvl2 'Chapter N Answers' 10+header 1=11 章）。真殘留＝高%假象/章序 offset：配對率 ~91% 但語義抽樣確認章序錯位（如 Modulation↔Nyquist），題對不上。憑%解鎖違鐵律。續 proposed＝高%語義錯位（章序 offset），引擎無解。"
+  "disposition": "[2026-06-23 truth-layer 復核] 「引擎只認 lvl1」已過時（chapter_level 預設 null 收 lvl2 'Chapter N Answers' 10+header 1=11 章）。真殘留＝高%假象/章序 offset：配對率 ~91% 但語義抽樣確認章序錯位（如 Modulation↔Nyquist），題對不上。憑%解鎖違鐵律。續 proposed＝高%語義錯位（章序 offset），引擎無解。",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-edition",
+    "target": "換對齊版次的 sol（章序/題號 offset）"
+  }
 }

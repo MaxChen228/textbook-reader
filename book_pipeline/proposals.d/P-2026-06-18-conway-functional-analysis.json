@@ -2,15 +2,23 @@
   "id": "P-2026-06-18-conway-functional-analysis",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "inline exercises 被提早切到下一節",
   "detect": [],
   "source": "agent",
   "resolution": "",
   "created": "2026-06-18T22:14:13+00:00",
-  "updated": "2026-06-23T00:00:00+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "多章出現下一節 heading 先於前一節 exercises 尾段的 block 順序，例如 ch1 idx=239 EXERCISES 後題目 5-11 被 idx=243 的 §2 heading 插入，真正 section body 要到 idx=257 才開始；parser inline walker 因 heading 提早切換 section context，產生重複題號 2.5/2.6。類似情形見 ch2 idx=602→623/625、ch3/ch11；ch5 還混有 §13 與 §13\\* 的 namespace 衝突。",
   "proposal": "inline walker 增加『pending section heading』模式：若 heading 後緊接的是 problem_start/list_items 延續而非正文，先暫存 heading、不立刻切 section；直到遇到非題目正文才正式切換。另保留 starred section 的原始 namespace，避免 §13 與 §13* 折疊成同一題號前綴。",
   "risk": "",
-  "disposition": "驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。 [2026-06-23 partial 修復] commit 5f7f596 的 suppress_running_header_sections（跑馬燈假 §heading 後緊接題號塊則不推進 namespace）已收掉「下一節 heading 提早切 section」這一類碰撞：重 parse+smoke 從 5 章 H2 降到僅 ch11 殘留（critical 2 中 1 為 H7 catalog caption、與本提案無關）。ch11 'Fredholm Theory' 仍 H2 ['2.1'..'2.4']——非跑馬燈型，而是單章內兩組 §2 EXERCISES（double-EXERCISES + 4.3.X subsection namespace-leak），exercises-gate 嘗試無效已回退。續 proposed：ch11 需 section-aware namespace 分類（OCR 結構修復），非 bounded 引擎能力。"
+  "disposition": "驗證 genuine 且嘗試修但回退：實作 gated problem_zone_re（zone 內偵測 + namespace 凍結 + spurious-§ 略過）後，ch1-10 的 namespace 碰撞修好，但 detection-gating 會丟掉 conway 不在 EXERCISES heading 下的 legit 習題（實證 ch5 §13.3-13.6、ch9 2.18-2.23 被當 zone 外丟棄），ch11 另有 double-EXERCISES + subsection namespace-leak(4.3.X)。conway 習題分佈不一律有 zone 標記 → 不可 gate detection；安全修需 context-aware 分類（OCR 修復），非 bounded，引擎嘗試已回退。 [2026-06-23 partial 修復] commit 5f7f596 的 suppress_running_header_sections（跑馬燈假 §heading 後緊接題號塊則不推進 namespace）已收掉「下一節 heading 提早切 section」這一類碰撞：重 parse+smoke 從 5 章 H2 降到僅 ch11 殘留（critical 2 中 1 為 H7 catalog caption、與本提案無關）。ch11 'Fredholm Theory' 仍 H2 ['2.1'..'2.4']——非跑馬燈型，而是單章內兩組 §2 EXERCISES（double-EXERCISES + 4.3.X subsection namespace-leak），exercises-gate 嘗試無效已回退。續 proposed：ch11 需 section-aware namespace 分類（OCR 結構修復），非 bounded 引擎能力。",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）"
+  }
 }

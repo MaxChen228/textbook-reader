@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-lay-linear-algebra-sol",
   "domain": "sol",
   "type": "harness-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "lay_linear_algebra 解答本無法 merge：sol_extract 缺 section-aware anchor",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:00:43+00:00",
-  "updated": "2026-06-23T00:00:00+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "主書 key 為 C.S.N（如 4.3.17），解答書正文題頭多為裸題序如 35.；可用結構主要是 text_level=2 的 'C.S - ...' 與 'Chapter N ...'。但現行 sol_extract 只接受 text_level=1 chapter anchor。此 unified 僅有 8 個 text_level=1 text blocks，且多數不含章號；以預設規則 dry-run 結果為 0 章 0 題。",
   "proposal": "升級 sol_extract schema/引擎：支援 level-2 chapter/section anchors，並允許以 section key + 裸題序組裝主書 C.S.N key；否則 lay_linear_algebra_sol 無法產出品質 merge。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。但 lay sol 結構不足：unified heading 僅 'Chapter N …' 與 'Supplementary Exercises N-…'，**無 section 子標題**，題目以裸題序平鋪於章內；主書 key 卻是 section-aware C.S.N（如 4.3.17）。sol 不暴露 section 資訊 → 無從重建 C.S.N key（section-aware 能力也救不了，因 sol 端缺 section 來源）。續 proposed＝sol 結構不足（無 section anchor）+ 主書 section-namespace，無可靠對位法。"
+  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 anchor」已過時（chapter_level 預設 null）。但 lay sol 結構不足：unified heading 僅 'Chapter N …' 與 'Supplementary Exercises N-…'，**無 section 子標題**，題目以裸題序平鋪於章內；主書 key 卻是 section-aware C.S.N（如 4.3.17）。sol 不暴露 section 資訊 → 無從重建 C.S.N key（section-aware 能力也救不了，因 sol 端缺 section 來源）。續 proposed＝sol 結構不足（無 section anchor）+ 主書 section-namespace，無可靠對位法。",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）"
+  }
 }

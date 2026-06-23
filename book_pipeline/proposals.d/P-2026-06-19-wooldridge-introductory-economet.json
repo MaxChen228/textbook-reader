@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-wooldridge-introductory-economet",
   "domain": "sol",
   "type": "source-quality",
-  "status": "proposed",
+  "status": "parked",
   "title": "wooldridge_introductory_econometrics 解答本無法 merge：主書 parsed 題號語義錯位",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:06:15+00:00",
-  "updated": "2026-06-19T11:06:15+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "dry-run 137/196；語義抽樣顯示 ch01 main#1 對應 sol 1.2、ch02 main#2 對應 sol 2.1、ch04 主書從題號 5 開始但 sol 有 4.1-4.11，無法用單一 problem_re 安全對齊。",
   "proposal": "先修主書 parser/題號切分品質，或換更可靠主書來源；待主書 parsed 題號與題幹語義一致後，再重跑 audit-sol。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "更完整源/換源 re-ingest"
+  }
 }

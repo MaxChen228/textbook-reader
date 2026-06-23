@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-west-graph-theory-sol",
   "domain": "sol",
   "type": "source-quality",
-  "status": "proposed",
+  "status": "parked",
   "title": "west_graph_theory 解答書無法 merge：主書 parsed 問題不是 exercise corpus",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T22:48:50+00:00",
-  "updated": "2026-06-19T22:48:50+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "試探規則僅能從唯一 lvl1 章標 6.PLANAR GRAPHS 語法配到 ch06 72/74，但語義抽樣 9/9 錯位：ch01 1.1.1 主書是 Königsberg Bridge Problem 範例，sol 是 Complete bipartite graphs；ch06 6.1.1 主書是 Gas-water-electricity 範例，sol 是平面圖判斷題；ch08 8.1.1 主書是 perfect graph 定義，sol 是 odd-cycle complement 的 clique/chromatic 題。主書 parsed/chNN.json 目前抓到正文內 Definition/Example/Theorem 編號，不是解答書對應 exercises。另有次要缺口：sol unified 只有第 6 章是 text_level==1 章標，其餘章標在 lvl2。",
   "proposal": "重做 west_graph_theory 主書 audit/parser，只保留 exercises/problem corpus；並在 sol 來源保留可用章標（或升級 sol_extract 支援 non-lvl1 chapter anchor）後，再重跑 west_graph_theory_sol 的 merge。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "更完整源/換源 re-ingest"
+  }
 }

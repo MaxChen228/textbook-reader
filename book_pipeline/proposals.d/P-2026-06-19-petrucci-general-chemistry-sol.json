@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-petrucci-general-chemistry-sol",
   "domain": "sol",
   "type": "edition-mismatch",
-  "status": "proposed",
+  "status": "parked",
   "title": "petrucci_general_chemistry 解答本無法 merge：章序與內容不匹配主書",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:12:58+00:00",
-  "updated": "2026-06-19T11:12:58+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "主書 ch16=Acids and Bases，但解答書 ch16=Thermodynamics and Chemistry、ch17 才是 Acids and Bases；主書 ch20=Chemical Kinetics，但解答書 ch20=Oxidation-Reduction and Electrochemistry。in-memory dry-run（chapter_re=^CHAPTER\\s+(\\d+)\\s*$, problem_re=^(?:\\d+)-(\\d+[a-z]?)\\.）對主書 ch15-27 僅 87/773=11.25% 配對。語義抽樣：主書 ch16 p1 是 Brønsted-Lowry acid/base 判別，解答 key 1 卻是 percent ionization；主書 ch19 p1 是估計半電池 E°，解答 key 1 卻是氧化還原半反應與 E_cell°。另有 CHAPTER 15/17/20/27 為 text_level=2，現行 sol_extract 無法可靠切章。",
   "proposal": "換與主書同版次/同章序的解答書，或重新解析/更換主書來源；在現有來源下不應 merge。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-edition",
+    "target": "對齊母書版次的解答本"
+  }
 }

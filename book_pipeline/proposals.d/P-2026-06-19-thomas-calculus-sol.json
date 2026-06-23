@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-thomas-calculus-sol",
   "domain": "sol",
   "type": "source-quality",
-  "status": "proposed",
+  "status": "parked",
   "title": "thomas_calculus 解答書無法 merge：主書題號失真且需 section-aware 對齊",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:55:42+00:00",
-  "updated": "2026-06-19T11:55:42+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "主書 thomas_calculus 仍有 11 個 H2 duplicate（book_pipeline/mineru_data/thomas_calculus/_audit.md）。語義抽樣：主書 1.1.4 是 g(x)=sqrt(x^2-3x)，但解答書 1.1 第 4 題是 NT/NNT 不等式；主書 2.1.1 是 secant slope 概念敘述，但解答書 2.1 第 1 題是單側極限圖形判讀；主書 ch01 不存在任何 1.2.* key，但解答書 1.2 有完整逐題解答。另解答書採 section heading + 裸題序（如 2.1 heading 下 1. 2. 3.），現行 sol_extract 無法組裝回主書 key。",
   "proposal": "先重做 thomas_calculus 主書 audit/parser，消除 inline false-positive 與 section namespace 漂移；再升級 sol_extract 支援 section heading + 裸題序組 key，之後重跑 thomas_calculus_sol merge。",
   "risk": "",
-  "disposition": ""
+  "disposition": "",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "更完整源/換源 re-ingest"
+  }
 }

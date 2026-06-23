@@ -2,15 +2,23 @@
   "id": "P-2026-06-19-kardar-statistical-physics-sol",
   "domain": "sol",
   "type": "harness-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "kardar_statistical_physics 解答書無法 merge：sol_extract 不支援 lvl=2 羅馬章標且 unified 缺 Chapter VI anchor",
   "detect": [],
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T10:54:16+00:00",
-  "updated": "2026-06-23T00:00:00+00:00",
+  "updated": "2026-06-23T02:39:16+00:00",
   "evidence": "2026-06-19 dry-run（預設規則）結果：抽出 0 章、0 題。content_list.json 的章標只出現在 text_level=2 block：idx 11/397/826/1396/1811/2704，文字為 'Problems for Chapter I/II/III/IV/V/VII - ...'；現行 sol_extract 只掃 text_level==1 且對 chapter_re.group(1) 直接 int()。另外 unified/full.md 第 6209 行仍有 'Problems for Chapter VI - Quantum Statistical Mechanics'，但 content_list.json 在 Chapter V 結尾後直接跳到 idx 2303 '1. One dimensional chain...'，缺失 Chapter VI heading block。主書題號為章內重置純整數，無可靠章界時跨章同號題會錯配。",
   "proposal": "擴充 sol_extract schema/引擎：允許設定 chapter anchor 的 text_level，並支援羅馬數字章號映射；或在 ingest/unified 階段保留/修復 Chapter VI heading block。完成任一路徑後，再重跑 kardar_statistical_physics_sol 的 audit-sol。",
   "risk": "",
-  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 羅馬章標 int() 崩」已過時——chapter_level 預設 null 收任意層級、chapter_roman 旗標（c1368d8）解羅馬→int。真殘留＝source-quality：unified 章標序為 I/II/III/IV/V/VII（**缺 Chapter VI anchor**，OCR 漏），導致 ch6 題目錯置進 ch5 bucket。羅馬能力已具，但源頭缺第 VI 章錨無法安全對位。續 proposed＝source-quality（OCR 缺章錨），待 re-source。"
+  "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 羅馬章標 int() 崩」已過時——chapter_level 預設 null 收任意層級、chapter_roman 旗標（c1368d8）解羅馬→int。真殘留＝source-quality：unified 章標序為 I/II/III/IV/V/VII（**缺 Chapter VI anchor**，OCR 漏），導致 ch6 題目錯置進 ch5 bucket。羅馬能力已具，但源頭缺第 VI 章錨無法安全對位。續 proposed＝source-quality（OCR 缺章錨），待 re-source。",
+  "verified_at": {
+    "sha": "ff636f4",
+    "date": "2026-06-23T02:38:44+00:00"
+  },
+  "unblock": {
+    "kind": "re-source",
+    "target": "補缺章 anchor/換完整 sol（非選擇性）"
+  }
 }
