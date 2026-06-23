@@ -12,11 +12,12 @@ from book_pipeline import pipeline_tick as pt
 
 
 def _chain():
-    """dispatch_llm 實際遵循的 provider 順序（= resolve_dispatch 的生效鏈）。鏈固定 3 段（kimi 下架後
-    codex/codex-pool/claude，順序由碼層常態或 runtime override 決定）；若未來變鏈長，unpack 會明確炸
-    → 提醒同步更新測試，不靜默誤判。"""
+    """dispatch_llm 實際遵循的 provider 順序（= resolve_dispatch 的生效鏈）。長度**不寫死**——碼層常態
+    3 段（codex/codex-pool/claude），但 runtime override（devctl chain set，如禁 claude 只留
+    codex,codex-pool）可使其 2 段。測試驗 failover **語意**而非特定鏈長 → 對 ≥2 段皆成立、不隨營運
+    換鏈而假紅（2026-06-24：禁 claude 後鏈剩 2 段，舊 len==3 硬斷言誤殺 4 測）。"""
     chain = list(lp.resolve_dispatch('audit').chain)
-    assert len(chain) == 3, f'測試假設 3-provider 鏈，得到 {chain}'
+    assert len(chain) >= 2, f'failover 測試需 ≥2-provider 鏈，得到 {chain}'
     return chain
 
 
@@ -44,8 +45,8 @@ def _patch(results):
 
 
 def test_outage_fails_over():
-    # 鏈首中斷（outage）→ 落鏈上第二個，回第二個的 rc=0、不再試第三個
-    p0, p1, _p2 = _chain()
+    # 鏈首中斷（outage）→ 落鏈上第二個，回第二個的 rc=0、不再試其後
+    p0, p1 = _chain()[:2]
     calls, restore = _patch({p0: (1, 'outage'), p1: (0, None)})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
@@ -57,19 +58,21 @@ def test_outage_fails_over():
 
 
 def test_limit_fails_over():
-    p0, p1, p2 = _chain()
-    calls, restore = _patch({p0: (1, 'limit'), p1: (1, 'limit'), p2: (0, None)})
+    # 鏈上除末位外逐個撞額度 → 一路 failover 到末位（保底）成功。對任意鏈長成立。
+    chain = _chain()
+    *heads, last = chain
+    calls, restore = _patch({**{p: (1, 'limit') for p in heads}, last: (0, None)})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
-        assert rc == 0 and calls == [p0, p1, p2], (rc, calls)
-        print(f'✓ limit：逐個撞額度 → 一路 failover 到 {p2}(保底)')
+        assert rc == 0 and calls == chain, (rc, calls)
+        print(f'✓ limit：逐個撞額度 → 一路 failover 到 {last}(保底)')
     finally:
         restore()
 
 
 def test_task_failure_does_not_fail_over():
     # reason=None（agent 真跑了卻 rc≠0）→ 不換 provider，rc 直接回呼叫端
-    p0, _p1, _p2 = _chain()
+    p0 = _chain()[0]
     calls, restore = _patch({p0: (2, None)})
     try:
         rc = pt.dispatch_llm('audit', 'x', dry=False)
@@ -116,6 +119,35 @@ def test_exhaustion_ttl_expires():
     print('✓ exhaustion TTL：暫態標記過期自動重探、不黏死 controller 命')
 
 
+def test_codex_pool_pins_endpoint():
+    """codex-pool 派工 model 必帶 `@codex-pool/` 前綴（繞過 ccNexus 默認輪詢→下架 kimi→400
+    tokenization failed，2026-06-24 CLI 路徑實證）；**原生 codex（OAuth 直連）絕不帶前綴、絕不帶
+    -p nexus**（pin 會把主力 provider 強推進 ccNexus 打掛——advisor 點名最該守的負向案例）。
+    鎖死 _build_llm_cmd 與 _display_model 兩 model 出口，及 pin_codex_pool 冪等。"""
+    spec = lp.resolve_dispatch('audit')
+
+    def model_of(cmd):
+        return cmd[cmd.index('--model') + 1]
+
+    pool_cmd = pt._build_llm_cmd('codex-pool', 'x', spec)
+    codex_cmd = pt._build_llm_cmd('codex', 'x', spec)
+    # codex-pool：pin @codex-pool/ + 帶 nexus profile
+    assert model_of(pool_cmd).startswith('@codex-pool/'), f'codex-pool 須 pin：{model_of(pool_cmd)}'
+    assert '-p' in pool_cmd and 'nexus' in pool_cmd, 'codex-pool 須帶 -p nexus profile'
+    # 負向（advisor 點名最該守）：原生 codex 保持裸名、不得 pin、不得帶 -p nexus
+    assert not model_of(codex_cmd).startswith('@'), f'原生 codex 不得 pin：{model_of(codex_cmd)}'
+    assert '-p' not in codex_cmd, '原生 codex 不得帶 -p nexus（會走 ccNexus 打掛主力）'
+    # 顯示出口同步 pin（面板/歷程不誤導實際打哪個 endpoint）
+    assert pt._display_model('codex-pool', spec).startswith('@codex-pool/')
+    assert not pt._display_model('codex', spec).startswith('@')
+    # pin_codex_pool 冪等：已帶 @ 前綴尊重原值（運維可釘別池）；裸名加前綴
+    assert lp.pin_codex_pool('@other/m') == '@other/m'
+    assert lp.pin_codex_pool('gpt-5.4') == '@codex-pool/gpt-5.4'
+    # math_sweep（HTTP path）與 CLI 同 pin（兩條 codex-pool 路徑一致）
+    assert lp.math_sweep_model().startswith('@codex-pool/')
+    print('✓ codex-pool pin @codex-pool/ + 原生 codex 裸名（兩向鎖死）+ math/CLI 同 pin')
+
+
 if __name__ == '__main__':
     test_outage_fails_over()
     test_limit_fails_over()
@@ -123,4 +155,5 @@ if __name__ == '__main__':
     test_all_unavailable_defers()
     test_outage_classification()
     test_exhaustion_ttl_expires()
+    test_codex_pool_pins_endpoint()
     print('\n全部通過 ✅')

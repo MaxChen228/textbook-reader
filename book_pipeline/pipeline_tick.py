@@ -61,7 +61,7 @@ from book_pipeline import booklists
 from book_pipeline import scope_guard
 from book_pipeline import pipeline_gates as pg
 from book_pipeline.llm_policy import (DispatchSpec, KNOWN_PROVIDERS, resolve_dispatch,
-                                      math_sweep_model)
+                                      math_sweep_model, pin_codex_pool)
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -443,10 +443,14 @@ def _tool_label(blk: dict) -> str:
     return name
 
 
-def _codex_model(spec: DispatchSpec) -> str:
-    """codex 家族（含 codex-pool）模型：統一取 spec.codex_model（resolved spec 恒有值；
-    防禦性 fallback gpt-5.4）。pool 與原生 codex 後端白名單相同，不分開持有模型。"""
-    return spec.codex_model or 'gpt-5.4'
+def _codex_model(spec: DispatchSpec, provider: str) -> str:
+    """codex 家族模型（單一 model chokepoint：_build_llm_cmd 與 _display_model 共用）。取
+    spec.codex_model（resolved spec 恒有值；防禦性 fallback gpt-5.4）。
+    **codex-pool 必 pin `@codex-pool/` 前綴**（pin_codex_pool）：ccNexus 裸名落默認輪詢→撞已下架
+    kimi→400 tokenization failed（與 math_sweep 同機制）。**原生 codex（OAuth 直連）保持裸名、絕不
+    pin**——pin 會把主力 provider 強推進 ccNexus 反而打掛（advisor 點名最該守的負向案例）。"""
+    m = spec.codex_model or 'gpt-5.4'
+    return pin_codex_pool(m) if provider == 'codex-pool' else m
 
 
 def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
@@ -461,7 +465,7 @@ def _build_llm_cmd(provider: str, prompt: str, spec: DispatchSpec) -> list[str]:
     if _is_codex(provider):
         cmd = [CODEX_BIN, 'exec', '--json', '--skip-git-repo-check',
                '-C', ROOT, '--sandbox', 'danger-full-access',
-               '--model', _codex_model(spec)]
+               '--model', _codex_model(spec, provider)]
         if spec.codex_effort:
             # codex 的 TOML config override（值需引號才當字串）；只 codex 家族有此旋鈕
             cmd += ['-c', f'model_reasoning_effort="{spec.codex_effort}"']
@@ -576,7 +580,7 @@ def _display_model(provider: str, spec: DispatchSpec) -> str:
     """歷程/面板顯示的模型 label：codex 家族＝實際模型（附 effort），claude＝自訂模型，
     其餘＝provider 名（防禦性 fallthrough）。"""
     if _is_codex(provider):
-        m = _codex_model(spec)
+        m = _codex_model(spec, provider)
         return f'{m}/{spec.codex_effort}' if spec.codex_effort else m
     if provider == 'claude' and spec.claude_model:
         return spec.claude_model

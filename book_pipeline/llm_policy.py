@@ -116,6 +116,16 @@ def effective_chain() -> tuple[str, ...]:
     return resolve_dispatch('_chain_probe').chain or DEFAULT_DISPATCH.chain
 
 
+def pin_codex_pool(model: str) -> str:
+    """codex-pool endpoint pin：裸 model 名加 `@codex-pool/` 前綴繞過 ccNexus 默認輪詢。
+    ccNexus 閘道不做 model→endpoint 匹配，裸名會落「默認輪詢」撞到已下架的 kimi 後端 → 回
+    400 `tokenization failed`（2026-06-24 CLI 派工路徑實證，容器日誌 `[kimi] Response 400`）。
+    顯式 `@codex-pool/<model>` 前綴直釘 codex 池、繞過輪詢（實證 rc=0 成功）。已帶 @ 前綴者尊重
+    原值（運維可釘別池）。**HTTP（math_sweep）與 CLI（_build_llm_cmd）兩條 codex-pool 路徑共用此 pin**
+    ——CLI 路徑曾漏套此 pin，致 codex-pool fallback 形同虛設（裸 gpt-5.4 永遠落 kimi）。"""
+    return model if model.startswith('@') else f'@codex-pool/{model}'
+
+
 def math_sweep_model() -> str:
     """math sweep（ccNexus HTTP batch）的模型。執行路徑與 CLI 派工不同（HTTP vs codex exec），
     但**模型收斂於本配置層**：BOOK_PIPELINE_MATH_MODEL 專屬覆寫優先（math 特需時可單獨換），
@@ -129,4 +139,4 @@ def math_sweep_model() -> str:
     （運維可用 BOOK_PIPELINE_MATH_MODEL=@其他endpoint/model 改釘別池）。"""
     base = (os.environ.get('BOOK_PIPELINE_MATH_MODEL')
             or resolve_dispatch('math_sweep').codex_model or DEFAULT_DISPATCH.codex_model)
-    return base if base.startswith('@') else f'@codex-pool/{base}'
+    return pin_codex_pool(base)
