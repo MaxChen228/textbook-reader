@@ -60,7 +60,8 @@ from book_pipeline import extract_cover
 from book_pipeline import booklists
 from book_pipeline import scope_guard
 from book_pipeline import pipeline_gates as pg
-from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch, math_sweep_model
+from book_pipeline.llm_policy import (DispatchSpec, KNOWN_PROVIDERS, resolve_dispatch,
+                                      math_sweep_model)
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -679,59 +680,107 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     return -2
 
 
+# dispatch_llm 遇這些 status「停在本層」（不 failover）→ 即「現在會用的 provider」。
+_PROBE_LANDS_HERE = ('available', 'task-fail')
+
+
 def probe_provider(provider: str, spec: DispatchSpec, timeout: int = 90) -> dict:
-    """主動探一個 provider 能否跑：用**真實派工命令**（_build_llm_cmd + _llm_env，同沙箱/profile）發一個
-    trivial 任務，回 {provider, up, latency_s, detail}。鏡像 _run_one 的成功/失敗分類（rc==0 且有 agent
-    訊息=up；limit/outage/零事件/timeout=down），但**不碰 worker_registry/leases/scope_guard/hist**
-    （純探針、零副作用、不寫任何狀態），亦**忽略 _exhausted_providers**（探真實當下，非 tick-local 標記）。
-    供 devctl probe 按需診斷 provider 健康，取代「派真工看它 defer」的事後被動驗證（G1）。
-    **有成本**（一次 trivial LLM 調用，~10–40s），勿放 status 熱路徑。"""
+    """真發一次 trivial probe 探一個 provider，回 {provider, status, rc, n_events, ms, err}。
+    用**真實派工命令**（_build_llm_cmd + _llm_env，同沙箱/profile），status 複現 _run_one 的判定
+    （額度 > 中斷 > 任務失敗）：
+      available  rc==0 接上                → dispatch 停在這層（=現在會用的）
+      limit      撞額度（_hit_limit）        → dispatch 換下一層
+      outage     零事件 / 5xx / 連線錯       → dispatch 換下一層
+      task-fail  接上但 rc≠0（agent 真跑了） → dispatch 仍停在這層（reason=None 不 failover）
+      timeout    probe 逾時（接不上/太慢）    → 當無法採用、續探下一層
+    **零副作用**（不碰 worker_registry/leases/scope_guard/hist，不污染觀測面/租約/守衛指紋），
+    亦忽略 _exhausted_providers（探真實當下，非 tick-local 標記）。供 devctl probe 主動診斷（G1）。"""
+    import signal
     import time
-    prompt = '回覆一個字：pong。不要使用任何工具。'
+    prompt = 'Reply with exactly the two characters: OK — do nothing else, call no tools.'
     cmd = _build_llm_cmd(provider, prompt, spec)
     t0 = time.monotonic()
+    p = subprocess.Popen(cmd, cwd=ROOT, env=_llm_env(provider), start_new_session=True,
+                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    err_parts: list[str] = []
+    n_events = [0]
+
+    def _pump():
+        for line in p.stdout:  # type: ignore[union-attr]
+            s = line.strip()
+            if not s:
+                continue
+            try:
+                ev = json.loads(s)
+            except Exception:
+                err_parts.append(s)        # 非 JSON＝CLI/stderr 原生錯誤（認證/額度/crash）
+                continue
+            n_events[0] += 1               # 成功 parse＝provider 確實接上並產出（zero=從未接上）
+            if et := _event_error_text(provider, ev):
+                err_parts.append(et)
+    th = threading.Thread(target=_pump, daemon=True)
+    th.start()
     try:
-        p = subprocess.run(cmd, cwd=ROOT, env=_llm_env(provider), text=True,
-                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout)
+        rc = p.wait(timeout=timeout)
     except subprocess.TimeoutExpired:
-        return {'provider': provider, 'up': False,
-                'latency_s': round(time.monotonic() - t0, 1), 'detail': f'timeout >{timeout}s'}
-    el = round(time.monotonic() - t0, 1)
-    n_events, got_msg, err_parts = 0, False, []  # type: ignore[var-annotated]
-    for line in (p.stdout or '').splitlines():
-        s = line.strip()
-        if not s:
-            continue
-        try:
-            ev = json.loads(s)
-        except Exception:
-            err_parts.append(s)            # 非 JSON = CLI/stderr 原生錯誤（額度/認證/crash）
-            continue
-        n_events += 1
-        if et := _event_error_text(provider, ev):
-            err_parts.append(et)
-        if _is_codex(provider):
-            if ev.get('type') == 'item.completed' and (ev.get('item') or {}).get('type') == 'agent_message':
-                got_msg = True
-        elif ev.get('type') == 'assistant':
-            got_msg = True
+        try:                               # 殺整個 process group（複製 _run_one 逃生）
+            os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+            time.sleep(2)
+            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+        th.join(timeout=3)
+        return {'provider': provider, 'status': 'timeout', 'rc': None, 'n_events': n_events[0],
+                'ms': int((time.monotonic() - t0) * 1000), 'err': '(probe timeout)'}
+    th.join(timeout=3)
+    ms = int((time.monotonic() - t0) * 1000)
     err = '\n'.join(err_parts).lower()
-    if p.returncode == 0 and got_msg:
-        return {'provider': provider, 'up': True, 'latency_s': el, 'detail': 'ok'}
-    if _hit_limit(provider, err):
-        return {'provider': provider, 'up': False, 'latency_s': el, 'detail': '撞額度（limit）'}
-    if n_events == 0 or _hit_outage(err):
-        tail = err.replace('\n', ' ')[-120:] or '零事件（provider 從未接上）'
-        return {'provider': provider, 'up': False, 'latency_s': el, 'detail': f'服務中斷（outage）：{tail}'}
-    return {'provider': provider, 'up': False, 'latency_s': el,
-            'detail': f'rc={p.returncode}（有事件卻失敗）'}
+    if rc == 0:
+        status = 'available'
+    elif _hit_limit(provider, err):
+        status = 'limit'
+    elif n_events[0] == 0 or _hit_outage(err):
+        status = 'outage'
+    else:
+        status = 'task-fail'
+    return {'provider': provider, 'status': status, 'rc': rc, 'n_events': n_events[0],
+            'ms': ms, 'err': '\n'.join(err_parts)[-400:]}
 
 
-def probe_chain(timeout: int = 90) -> list[dict]:
-    """對**生效 chain**（resolve_dispatch 解出，含 runtime override / env）每個 provider 依序探針。
-    回 [{provider, up, latency_s, detail}]，順序＝failover 順序 → 一眼看出「派工會先打誰、它活著嗎」。"""
-    spec = _resolve_dispatch('_probe')
-    return [probe_provider(pv, spec, timeout) for pv in (spec.chain or ())]
+def probe_chain(verb: str = 'audit', *, all_layers: bool = False, skip=(), only=(),
+                timeout: int = 90, real_effort: bool = False) -> dict:
+    """沿真實 chain 逐層 probe，忠於 dispatch_llm failover：探到第一個「會停在這層」即止（=現在會用的
+    provider），除非 all_layers=True（探全景）。skip/only 暫時關層看 fallback 改落哪（可逆、不碰認證）。
+    real_effort=False 時把 codex effort 降 low 加速省額度（落層判定不受 effort 影響）。回
+    {verb, codex_model, effort, chain, closed, env_override, unknown, results[+reachable], landed}。"""
+    from dataclasses import replace
+    spec = _resolve_dispatch(verb)
+    if not real_effort and spec.codex_effort:
+        spec = replace(spec, codex_effort='low')
+    full = list(spec.chain or ())
+    only = [pv.strip() for pv in only if pv.strip()]
+    skip = {pv.strip() for pv in skip if pv.strip()}
+    if only:
+        chain, closed = only, [pv for pv in full if pv not in only]
+    elif skip:
+        chain, closed = [pv for pv in full if pv not in skip], [pv for pv in full if pv in skip]
+    else:
+        chain, closed = full, []
+    results: list[dict] = []
+    landed = None
+    for provider in chain:
+        r = probe_provider(provider, spec, timeout)
+        r['reachable'] = landed is None     # dispatch 是否還 reach 得到這層（前面已 land→否）
+        results.append(r)
+        if landed is None and r['status'] in _PROBE_LANDS_HERE:
+            landed = provider
+            if not all_layers:
+                break
+    return {'verb': verb, 'codex_model': spec.codex_model, 'effort': spec.codex_effort or '-',
+            'chain': chain, 'closed': closed,
+            'env_override': bool(os.environ.get('BOOK_PIPELINE_PROVIDER_CHAIN')),
+            'unknown': [c for c in chain if c not in KNOWN_PROVIDERS],
+            'results': results, 'landed': landed}
 
 
 def _zlib_accounts_remaining() -> list[dict] | None:

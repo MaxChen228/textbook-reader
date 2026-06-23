@@ -721,27 +721,46 @@ def _cmd_chain(args) -> int:
     return 0
 
 
+_PROBE_ICON = {'available': '✅', 'limit': '🔴', 'outage': '🟠', 'task-fail': '⚠️', 'timeout': '⏱️'}
+_PROBE_WHY = {'available': '接上、rc=0', 'limit': '撞額度', 'outage': '服務中斷（零事件/5xx/連線錯）',
+              'task-fail': '接上但這次任務失敗', 'timeout': 'probe 逾時，接不上或太慢'}
+
+
 def _cmd_probe(args) -> int:
-    """主動探生效 chain 上每個 provider 能否跑（鏡像真實派工命令，一次 trivial 調用/provider，**有成本**）。
-    取代「派真工看它 defer」的事後被動驗證（G1）。順序＝failover 順序：一眼看出「派工先打誰、它活著嗎」。"""
+    """主動探派工 chain「現在會落在哪層」（忠於 dispatch failover：早停=最省額度，--all=全景；
+    --skip/--only 暫時關層看 fallback 改落哪）。**真打偵測、有成本**（trivial 調用/層）→ 取代「派真工
+    看它 defer」的事後被動驗證（G1）。pipeline_tick.probe_chain 持邏輯（單一真相），本函式只渲染。"""
     from book_pipeline import pipeline_tick as pt
-    timeout = getattr(args, 'timeout', None) or 90
-    cs = chain_status()
-    as_json = getattr(args, 'json', False)
-    if not as_json:
-        print(f'🔬 探針生效 chain {" → ".join(cs["effective"])}'
-              f'（每 provider 一次 trivial 調用，timeout {timeout}s，請稍候）…')
-    results = pt.probe_chain(timeout=timeout)
-    if as_json:
-        print(json.dumps({'chain': cs['effective'], 'probes': results}, ensure_ascii=False, indent=2))
+    rep = pt.probe_chain(verb=args.verb, all_layers=args.all, timeout=args.timeout,
+                         real_effort=args.real_effort,
+                         skip=(args.skip.split(',') if args.skip else ()),
+                         only=(args.only.split(',') if args.only else ()))
+    if getattr(args, 'json', False):
+        print(json.dumps(rep, ensure_ascii=False, indent=2))
+        return 0 if rep['landed'] else 2
+    print(f'■ probe verb={rep["verb"]} codex_model={rep["codex_model"]} effort={rep["effort"]} '
+          f'timeout={args.timeout}s')
+    print(f'■ chain（真實 failover 順序）= {" → ".join(rep["chain"])}'
+          + ('  ↑env BOOK_PIPELINE_PROVIDER_CHAIN 覆寫' if rep['env_override'] else ''))
+    if rep['closed']:
+        print(f'  ✂ 已關（本次 probe 視同不存在）：{", ".join(rep["closed"])}')
+    if rep['unknown']:
+        print(f'  ⚠ chain 含未知 provider {rep["unknown"]}（合法：{list(pc.KNOWN_PROVIDERS)}）')
+    for r in rep['results']:
+        reach = '' if r['reachable'] else '  ➖(前面已停、僅 --all 健康檢查)'
+        print(f'  {_PROBE_ICON[r["status"]]} {r["provider"]:<11} {_PROBE_WHY[r["status"]]:<28} '
+              f'[rc={r["rc"]} events={r["n_events"]} {r["ms"]}ms]{reach}')
+        if r['status'] in ('limit', 'outage', 'task-fail') and r['err']:
+            for ln in r['err'].splitlines()[-2:]:
+                print(f'       │ {ln[:140]}')
+    if rep['landed']:
+        st = next(r['status'] for r in rep['results'] if r['provider'] == rep['landed'])
+        note = '' if st == 'available' else f'（{_PROBE_ICON[st]}{_PROBE_WHY[st]}：接上故不 failover）'
+        print(f'⏹ 現在跑 agent 會用 → **{rep["landed"]}** {note}')
         return 0
-    for i, r in enumerate(results):
-        print(f'  [{i}] {r["provider"]:<11} {"🟢 up  " if r["up"] else "🔴 down"}  '
-              f'{r["latency_s"]:>5}s  · {r["detail"]}')
-    up = [r['provider'] for r in results if r['up']]
-    print(f'✅ 派工首選活著的 provider：{up[0]}' if up
-          else '❌ 全 chain 不可用 → 派工會 defer；查 ccNexus 容器 / codex auth / claude 額度')
-    return 0
+    print('❌ 整條 chain 都接不上（全 limit/outage/timeout）→ dispatch 會 -2 defer，下個 cycle 重試；'
+          '查 ccNexus 容器 / codex auth / claude 額度')
+    return 2
 
 
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
@@ -973,8 +992,13 @@ def main(argv: list[str] | None = None) -> int:
                      help='省略=show；set <p1> [p2 …]（逗號亦可）；reset=清 override 回碼層常態')
     p_c.add_argument('providers', nargs='*', help=f'set 的 provider 序（合法：{list(pc.KNOWN_PROVIDERS)}）')
     p_c.add_argument('--json', action='store_true')
-    p_pb = sub.add_parser('probe', help='主動探 provider 健康：對生效 chain 每個發 trivial 調用（有成本，按需用）')
-    p_pb.add_argument('--timeout', type=int, default=90, help='每 provider 探針上限秒（預設 90）')
+    p_pb = sub.add_parser('probe', help='主動探派工 chain「現在會落哪層」（忠於 failover；真打、有成本）')
+    p_pb.add_argument('--verb', default='audit', help='用哪 stage 的派工 spec（預設 audit；chain 不隨 verb 變）')
+    p_pb.add_argument('--all', action='store_true', help='不早停，探全 chain 健康全景（預設探到會停那層即止）')
+    p_pb.add_argument('--skip', default='', help='關掉某些層（逗號分隔）看 fallback 改落哪')
+    p_pb.add_argument('--only', default='', help='只探指定層（逗號分隔），驗單層可用否（與 --skip 互斥）')
+    p_pb.add_argument('--real-effort', action='store_true', help='用真實 codex effort（預設降 low 省額度）')
+    p_pb.add_argument('--timeout', type=int, default=90, help='每層 probe 上限秒（預設 90）')
     p_pb.add_argument('--json', action='store_true')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
