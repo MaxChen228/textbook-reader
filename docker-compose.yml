@@ -1,12 +1,11 @@
 # standby 靜態托管：nginx 直讀 repo 工作目錄，daemon 烤新檔即時生效（免 reload）。
 # 對外經 Cloudflare kg-standby tunnel：books.wordnexus.lol → 127.0.0.1:8001。
 services:
+  # /dev 已純觀測：無寫回 sidecar（控制全走 CLI devctl gates/pause/resume、crawl_zlib disable）。
   textbook-reader:
     image: nginx:alpine
     container_name: textbook-reader
     restart: always
-    depends_on:
-      - devcontrol                 # nginx proxy_pass 靜態解析 devcontrol 名 → 須先在（compose 內嵌 DNS）
     ports:
       - "127.0.0.1:8001:80"        # 只綁 loopback，tunnel 走本機
     volumes:
@@ -15,19 +14,3 @@ services:
       # 單檔 bind mount 在 Docker-Desktop(macOS) 下會就此斷掉（容器內檔案憑空消失、
       # 下次 restart nginx 起不來）。掛目錄則 inode 穩定，改檔後僅需 nginx -s reload。
       - ./deploy:/etc/nginx/conf.d:ro                        # deploy/*.conf → 經 *.conf glob 載入
-
-  # /dev 面板寫回控制服務（帳號停用 toggle）。**不 publish port**：只在 compose 內網
-  # devcontrol:8002，nginx 經 `location ^~ /dev/api/` 內網 proxy_pass → 零 host 暴露。
-  # 純 stdlib（無 requests）＋零憑證（不掛 ~/.secrets）；唯一可寫＝窄掛 .control/ 停用態狀態檔。
-  devcontrol:
-    image: python:3.13-alpine
-    container_name: textbook-devcontrol
-    restart: always
-    working_dir: /app
-    command: ["python", "-m", "book_pipeline.dev_control"]
-    environment:
-      - PYTHONPATH=/app
-      - DEV_CONTROL_PORT=8002
-    volumes:
-      - .:/app:ro                                            # repo 代碼（唯讀，import book_pipeline + 讀 dev/zlib_quota.json）
-      - ./book_pipeline/.control:/app/book_pipeline/.control:rw  # 唯一可寫：停用態狀態檔（窄掛，碰不到 *.py）

@@ -39,7 +39,7 @@ from datetime import datetime, timezone
 import requests
 
 from book_pipeline import jsonio
-from book_pipeline.zlib_control_state import (  # 停用態 I/O：dep-light，與 sidecar dev_control 共用單一真相
+from book_pipeline.zlib_control_state import (  # 停用態 I/O：dep-light（停用控制純 CLI；原 sidecar 已移除）
     ACCOUNT_STATE_PATH, disabled_emails, write_disabled as _write_disabled)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -98,8 +98,8 @@ def n_accounts() -> int:
 
 # ── 停用態（流量控制）─────────────────────────────────────────────────────
 # disable N 帳號 → 該帳號 remaining 歸 0、買書員自然跳過 → 當日上限 10×(N_total−N_disabled)/日。
-# 鍵用 email（穩定、面板可讀）。狀態 I/O（disabled_emails/_write_disabled）已抽至
-# zlib_control_state（dep-light、零憑證，與 docker sidecar dev_control 共用單一真相）；
+# 鍵用 email（穩定、/dev 面板可讀觀測）。狀態 I/O（disabled_emails/_write_disabled）已抽至
+# zlib_control_state（dep-light、零憑證；停用控制純 CLI，原 sidecar 已移除）；
 # 此處只留需 ~/.secrets 憑證檔的帳號解析（email↔acctN，host-only）。
 
 def _resolve_email(token: str) -> str | None:
