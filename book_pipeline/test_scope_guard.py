@@ -104,6 +104,47 @@ def test_bracket_ignores_preexisting_architect_edit(monkeypatch):
     print('✓ check_worker：架構師既有改動（pre==post）永不旗標、永不還原')
 
 
+def test_bracket_exonerates_architect_commit_during_window(monkeypatch):
+    """核心降噪：架構師在 worker 窗內 commit 受保護檔（hash 變但工作樹乾淨）→ 免責、不旗標；
+    同窗 worker 留未提交髒檔 → 照舊捕。鑑別子＝git 乾淨(commit) vs 髒(worker Edit/Write)。"""
+    d = _repo()
+    cap = []
+    monkeypatch.setattr(sg.proposals, 'propose', lambda **kw: cap.append(kw) or 'P-x')
+    monkeypatch.setattr(sg, 'SEEN_PATH', os.path.join(d, '.seen.json'))
+    monkeypatch.setattr(sg, '_mode', lambda: 'observe')
+
+    pre = sg.snapshot(root=d)
+    eng = os.path.join(d, 'book_pipeline', 'engine.py')
+    with open(eng, 'w') as f:                                   # 架構師窗內改引擎 + commit
+        f.write('ORIGINAL = 1\nARCHITECT_FEATURE = 1\n')
+    _git(d, 'add', 'book_pipeline/engine.py')
+    _git(d, 'commit', '-qm', 'architect feature')
+    other = os.path.join(d, 'book_pipeline', 'worker_hack.py')  # 同窗 worker 越界（未提交髒檔）
+    with open(other, 'w') as f:
+        f.write('HACK = 1\n')
+
+    handled = sg.check_worker(pre, root=d, verb='audit', slug='s')
+    paths = {h['path'] for h in handled}
+    assert 'book_pipeline/engine.py' not in paths              # 架構師 commit → 免責
+    assert 'book_pipeline/worker_hack.py' in paths             # worker 未提交 → 仍捕
+    assert 'ARCHITECT_FEATURE = 1' in open(eng).read()         # commit 原封不動
+    print('✓ check_worker：架構師窗內 commit 免責、同窗 worker 未提交越界仍捕')
+
+
+def test_committed_clean_discriminator(monkeypatch):
+    """_committed_clean：已 commit→True(免責)、未提交修改→False、untracked→False、git 出錯→False(保守)。"""
+    d = _repo()
+    assert sg._committed_clean('book_pipeline/engine.py', d) is True        # 已 commit、乾淨
+    with open(os.path.join(d, 'book_pipeline', 'engine.py'), 'a') as f:
+        f.write('DIRTY = 1\n')
+    assert sg._committed_clean('book_pipeline/engine.py', d) is False       # 未提交修改
+    with open(os.path.join(d, 'book_pipeline', 'new.py'), 'w') as f:
+        f.write('x = 1\n')
+    assert sg._committed_clean('book_pipeline/new.py', d) is False          # untracked
+    assert sg._committed_clean('book_pipeline/engine.py', '/no/such/repo') is False  # git 出錯→保守
+    print('✓ _committed_clean：commit/dirty/untracked/git-err 四態判定正確')
+
+
 def test_bracket_observe_no_revert(monkeypatch):
     d = _repo()
     cap = []
@@ -135,6 +176,8 @@ if __name__ == '__main__':
     test_parse_porcelain()
     for fn in (test_bracket_enforce_reverts_and_captures,
                test_bracket_ignores_preexisting_architect_edit,
+               test_bracket_exonerates_architect_commit_during_window,
+               test_committed_clean_discriminator,
                test_bracket_observe_no_revert):
         mp = _MP()
         try:

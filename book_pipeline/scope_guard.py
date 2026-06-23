@@ -15,9 +15,15 @@
 `check_worker()` 再拍、取差集 → **只有「此 worker 存活期間新變動的受保護檔」才歸給它**。架構師
 平時（不在任何 worker 視窗內）的開發 pre==post，永不旗標。
 
+── 免責：架構師窗內 commit 不算越界（felix dev=daemon 機核心降噪）──
+bracket 比的是內容 hash，故架構師在某 worker 存活期間 commit 受保護檔（HEAD 移動）→ hash 變了 →
+舊版會誤判越界（每輪產一批假提案）。鑑別子：post 時該檔若 `git status --porcelain` **乾淨**＝變更
+來自 commit（架構師/daemon）；worker 用 Edit/Write **必留未提交髒檔**（無 commit 步驟）→ `_committed_clean`
+免責已提交檔。git 出錯保守不免責、照舊旗標，**絕不因 git 故障漏掉真越界**（additive 收斂、單向安全）。
+
 ── 安全：先捕後還，還原永不失資料 ──
-殘餘風險僅「架構師恰在某 worker 跑時改引擎」→ 該 diff 完整保存在提案裡，一鍵貼回。故即使誤判
-也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：
+殘餘風險僅「架構師恰在某 worker 跑時改引擎**且尚未 commit**」→ 該 diff 完整保存在提案裡，一鍵貼回
+（已 commit 者由上述免責濾掉）。故即使誤判也可逆。模式（env `BOOK_PIPELINE_SCOPE_GUARD`，daemon 預設 observe）：
   off     — 全關。
   observe — 捕提案 + 大聲 surface，**不還原**（預設；永不與架構師互踩）。
   enforce — 捕提案 + 還原核心（架構師信任後 opt-in）。
@@ -98,6 +104,14 @@ def snapshot(root: str = ROOT) -> dict[str, str]:
     return {os.path.relpath(p, root): _hash_file(p) for p in _protected_files(root)}
 
 
+def _committed_clean(rel: str, root: str) -> bool:
+    """rel 在工作樹是否乾淨（無未提交改動）→ hash 變動來自 commit（架構師/daemon），非 worker 越界。
+    worker 用 Edit/Write 必留未提交髒檔（M/??/D），故『git 乾淨』可安全免責；含 new(已 commit→空)/
+    deleted(已 commit 刪→空)。git 出錯回 False（保守不免責、照舊旗標）→ 絕不因故障漏掉真越界。"""
+    rc, out = _git(['status', '--porcelain', '--', rel], root)
+    return rc == 0 and out.strip() == ''
+
+
 def _diff_text(rel: str, code: str, root: str) -> str:
     if code == 'new':
         full = os.path.join(root, rel)
@@ -132,6 +146,19 @@ def check_worker(pre: dict[str, str], root: str = ROOT, *, verb: str = '?',
                 continue
             code = 'new' if a is None else ('deleted' if b is None else 'modified')
             changed.append((rel, code))
+        if not changed:
+            return []
+        # 免責架構師窗內 commit：hash 變了但工作樹乾淨 = commit 造成（HEAD 移動），非 worker（worker 無
+        # commit、必留髒檔）。濾掉後才捕提案 → 根治「felix dev=daemon 機，架構師 commit 撞 worker bracket」
+        # 每輪一批假提案。git 出錯保守保留（_committed_clean 回 False）。
+        kept = []
+        for rel, code in changed:
+            if _committed_clean(rel, root):
+                if log:
+                    log(f'✓ scope_guard：{rel}（{code}）已提交、工作樹乾淨 → 架構師窗內 commit、免責')
+                continue
+            kept.append((rel, code))
+        changed = kept
         if not changed:
             return []
         seen = _seen()
