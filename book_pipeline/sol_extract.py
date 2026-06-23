@@ -82,25 +82,31 @@ def _num_prefix_int(raw: str) -> int | None:
         return None
 
 
-def load_sol_rules(sol_slug: str) -> dict:
+def load_sol_rules_safe(sol_slug: str) -> tuple[dict | None, str | None]:
+    """不 exit 的 rules 載入內核：成功 →(rules, None)；_pending/schema 錯 →(None, reason)。
+
+    load_sol_rules 是其 exit-on-error 薄包裝（CLI 行為 byte-identical，reason 字串完全相同）。
+    proposals verify 通道用本函式量真實配對率——_pending 是「agent 已申訴不可 merge」的合法
+    inconclusive 訊號（如實回報 reason），不被 sys.exit 中斷。
+    """
     p = DATA_DIR / sol_slug / 'sol_rules.yaml'
     raw = yaml.safe_load(p.read_text()) if p.exists() else {}
     raw = raw or {}
     if raw.get('_pending'):
-        sys.exit(f'{sol_slug}/sol_rules.yaml 標記 _pending（主書品質不足，不該 merge）。詳見該檔註解。')
+        return None, f'{sol_slug}/sol_rules.yaml 標記 _pending（主書品質不足，不該 merge）。詳見該檔註解。'
     r = {**DEFAULTS, **{k: raw[k] for k in DEFAULTS if k in raw}}
     chap = re.compile(r['chapter_re'])
     prob = re.compile(r['problem_re'])
     if chap.groups != 1:
-        sys.exit(f'sol_rules.chapter_re 須恰好 1 capture group（章號），現有 {chap.groups}')
+        return None, f'sol_rules.chapter_re 須恰好 1 capture group（章號），現有 {chap.groups}'
     if prob.groups < 1:
-        sys.exit('sol_rules.problem_re 須至少 1 capture group（group(1)=對主書 key）')
+        return None, 'sol_rules.problem_re 須至少 1 capture group（group(1)=對主書 key）'
     clvl = r['chapter_level']
     if clvl is not None and not isinstance(clvl, int):
-        sys.exit(f'sol_rules.chapter_level 須為 int（限定 text_level）或省略/null（任意層級），現有 {clvl!r}')
+        return None, f'sol_rules.chapter_level 須為 int（限定 text_level）或省略/null（任意層級），現有 {clvl!r}'
     tmpl = r['num_template']
     if tmpl is not None and (not isinstance(tmpl, str) or '{}' not in tmpl):
-        sys.exit(f"sol_rules.num_template 須為含 '{{}}' 佔位的字串（如 'P{{}}'）或省略，現有 {tmpl!r}")
+        return None, f"sol_rules.num_template 須為含 '{{}}' 佔位的字串（如 'P{{}}'）或省略，現有 {tmpl!r}"
     return {
         'chapter_re': chap,
         'problem_re': prob,
@@ -111,7 +117,14 @@ def load_sol_rules(sol_slug: str) -> dict:
         'chapter_roman': bool(r['chapter_roman']),
         'num_template': tmpl,
         'derive_chapter_from_num': bool(r['derive_chapter_from_num']),
-    }
+    }, None
+
+
+def load_sol_rules(sol_slug: str) -> dict:
+    rules, reason = load_sol_rules_safe(sol_slug)
+    if reason is not None:
+        sys.exit(reason)
+    return rules
 
 
 def extract_sol_chapters(sol_slug: str, rules: dict) -> dict[int, dict[str, list]]:

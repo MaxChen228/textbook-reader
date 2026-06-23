@@ -43,11 +43,18 @@ H5_BODY_RATIO = 5.0
 H5_BODY_MIN = 50
 
 
-def smoke(slug: str) -> int:
+def smoke_findings(slug: str) -> tuple[list[str], list[str]]:
+    """純結構啟發式（H1-H5），無 I/O（不寫檔、不 print）→ (critical, warnings)。
+
+    catalog gate（H6/H7）刻意**不在**本函式：那是 audit_catalog 的職責、且會寫 _catalog_audit.md。
+    proposals verify 的 engine 結構路徑用本純核取 len(critical)，caption/catalog 路徑另走
+    _verify_catalog（audit_catalog write_report=False）→ verify 全程零寫檔污染。
+    book.json 不存在 → 拋 FileNotFoundError（呼叫端決定處置；smoke() 轉 sys.exit）。
+    """
     parsed_dir = DATA_DIR / slug / 'parsed'
     book_path = parsed_dir / 'book.json'
     if not book_path.exists():
-        sys.exit(f'❌ {book_path} 不存在，先跑 parser')
+        raise FileNotFoundError(f'{book_path} 不存在，先跑 parser')
 
     book = json.loads(book_path.read_text())
     critical: list[str] = []
@@ -114,6 +121,17 @@ def smoke(slug: str) -> int:
                 f'body={body_count} — 可能吞 Index/Bibliography，'
                 f'補 index_start_page 或 bibliography_start_page'
             )
+
+    return critical, warnings
+
+
+def smoke(slug: str) -> int:
+    """smoke_findings 純核（H1-H5）+ catalog gate（H6/H7，寫 _catalog_audit.md）+ 寫 _smoke.md + print。"""
+    parsed_dir = DATA_DIR / slug / 'parsed'
+    try:
+        critical, warnings = smoke_findings(slug)
+    except FileNotFoundError as e:
+        sys.exit(f'❌ {e}')
 
     # Catalog semantic gate. This also writes parsed/_catalog_audit.md as the
     # concrete repair queue for agent/LLM/manual follow-up.
