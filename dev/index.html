@@ -241,15 +241,15 @@
     /* zlib 帳號停用態（流量控制）：灰化整列、額度條置空、num 標「停用」 */
     .dev-bar-row.zlib-off { opacity: .42; }
     .dev-bar-row.zlib-off .num { color: var(--sub); }
-    /* toggle 鈕：點擊停用/啟用帳號（寫回 devcontrol） */
-    .zlib-toggle { flex-shrink: 0; margin-left: 8px; padding: 2px 9px; font-size: 11px;
-      font-family: var(--mono); color: var(--sub); background: var(--border-l);
-      border: 1px solid var(--border); border-radius: 5px; cursor: pointer; transition: all .15s; }
-    .zlib-toggle:hover { color: var(--text); border-color: var(--accent); }
-    .dev-bar-row.zlib-off .zlib-toggle { opacity: 1; }   /* 灰列中鈕仍清晰可點 */
-    /* 系統暫停/啟動鈕：暫停中＝醒目琥珀（系統停產要一眼可見）；運行中＝低調 */
-    #btn-pause.paused { background: var(--status-warn, #d9a441); color: #1c1a14; border-color: var(--status-warn, #d9a441); font-weight: 700; }
-    #btn-pause.running { color: var(--sub); }
+    /* 閘門狀態徽章（唯讀；操作走 CLI devctl gates/pause/resume）：暫停＝醒目琥珀（停產一眼可見）、
+       部分閘控＝黃、運轉＝低調。/dev 已純觀測，無任何寫回 UI。 */
+    #gate-badge { cursor: default; }
+    #gate-badge.gate-paused { color: #1c1a14; background: var(--status-warn, #d9a441); border-color: var(--status-warn, #d9a441); font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+    #gate-badge.gate-partial { color: var(--status-warn, #d9a441); font-weight: 600; }
+    #gate-badge.gate-running { color: var(--sub); }
+    /* 書卡閘門角標（架構師把該書停在某閘）：中性琥珀、左上，與紅色拒絕角標視覺區別＝純觀測非淘汰 */
+    .gate-badge { position: absolute; left: 4px; top: 4px; z-index: 3; font-family: var(--mono);
+      font-size: 9px; background: rgba(190,150,40,.94); color: #1a1407; padding: 1px 5px; border-radius: 4px; }
     .dev-err { border-left: 3px solid var(--status-danger); padding: 6px 10px; margin: 6px 0; font-family: var(--mono);
       font-size: 12px; color: var(--text); background: var(--bg); border-radius: 0 4px 4px 0; word-break: break-word; }
     .dev-err .src { color: var(--sub); margin-right: 8px; }
@@ -314,7 +314,7 @@
     </div>
     <div class="topbar-spacer"></div>
     <span class="meta qbk-result-count" id="updated"></span>
-    <button class="qbk-control-btn compact" id="btn-pause" type="button" title="暫停／啟動製書系統（暫停＝停派一切新工，在飛工作自然收尾）">⏸ —</button>
+    <span class="meta qbk-result-count" id="gate-badge" title="閘門狀態（唯讀；操作走 CLI：devctl gates / pause / resume）">⏸ —</span>
     <button class="qbk-control-btn compact" id="btn-math" type="button" title="數學 sweep · 跨書渲染殘餘">🧮 <span id="mt-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
@@ -384,8 +384,6 @@
   const REFRESH_MS = 1000, CLOCK_MS = 1000, WORKERS_MS = 1000, MATHRAW_MS = 1200, CRAWLLIVE_MS = 1000, PROPOSALS_MS = 12000, SYSTEM_MS = 8000
   let timer = null, clockTimer = null, workersTimer = null, mathRawTimer = null, crawlLiveTimer = null, proposalsTimer = null, systemTimer = null
   let last = null, lastWorkers = []
-  const zlibPending = {}  // zlib 帳號 toggle 樂觀態 email→期望 disabled bool（authoritative ≤300s 追上即清；見 renderZlib）
-  let pausePending = null  // 系統暫停 toggle 樂觀態：期望 paused bool（authoritative ≤20s 追上即清；null=無 pending）
   let crawlLive = null  // live 下載快訊（買書員逐本 下載中→✓/✗；1s 直撿 dev/crawl_live.json，繞 status.json 8s）
   const DL_TAIL_S = 25  // 整批收尾後「剛完成」卡牌＋表頭的寬限秒數，之後自動隱藏退回常態待下載池
   let mathLive = null  // math sweep 聚合進度快照（schema 2；僅 math 抽屜開時輪詢）
@@ -562,7 +560,7 @@
     el.dataset.stage = (b.stage || '').trim()  // applyWalkers 據此判外部 OCR worker（stage 0.3/0.5）
     const cv = el.querySelector('.cv')
     setCover(cv, b); setBadge(cv, b)  // 不碰 .work-ring/.walker（applyWalkers 自管）
-    setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b)
+    setRefine(cv, b); setReject(cv, b); setMathBadge(cv, b); setGateBadge(cv, b)
     el.classList.toggle('rejected', !b.deployed && /^[RX]/.test((b.stage || '').trim()))
   }
   // 已上站書的數學殘餘角標：讓「數學 sweep 在微調哪些上架書」直接顯示在書牆上（不必開抽屜）。
@@ -585,6 +583,17 @@
       if (!r) { r = document.createElement('span'); r.className = 'reject-badge'; cvEl.appendChild(r) }
       if (r.textContent !== lbl) r.textContent = lbl
     } else if (r) { r.remove() }
+  }
+  // 閘門 hold（架構師經 CLI 把該書停在某閘）→ 中性琥珀角標「⏸ {verb}」，純觀測。與 R/X 拒絕（紅、淘汰）
+  // 區別：gated 是「正常停在閘、放行即續」非淘汰、非停滯。放行走 CLI devctl gates。
+  function setGateBadge(cvEl, b) {
+    let g = cvEl.querySelector('.gate-badge')
+    if (b.gated && b.gate_verb) {
+      const txt = '⏸ ' + b.gate_verb
+      if (!g) { g = document.createElement('span'); g.className = 'gate-badge'; cvEl.appendChild(g) }
+      if (g.textContent !== txt) g.textContent = txt
+      g.title = `閘門 hold：停在「${b.gate_verb}」閘（架構師閘控；放行走 CLI devctl gates）`
+    } else if (g) g.remove()
   }
   // 已上站但仍有強制待辦（catalog_audit/sol_extract）→ 角標 🔧，標示「服務中、品檢精修中」
   function setRefine(cvEl, b) {
@@ -1190,15 +1199,8 @@
     if (sess) { openSessionDrawer(findSession(decodeURIComponent(sess.dataset.sid)), null); return }
     const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
   })
-  // zlib 帳號額度條的 toggle 鈕（委派：#zlib 容器恆在，setHtml 只換子節點，監聽器存活）
-  document.getElementById('zlib').addEventListener('click', e => {
-    const btn = e.target.closest('.zlib-toggle'); if (!btn) return
-    toggleZlibAccount(btn.dataset.email, btn.dataset.enable === '1')
-  })
-  // 系統暫停/啟動鈕（當前暫停 → 點擊啟動；當前運行 → 點擊暫停）
-  document.getElementById('btn-pause').addEventListener('click', () => {
-    togglePause(document.getElementById('btn-pause').dataset.paused !== '1')
-  })
+  // /dev 已純觀測：暫停/啟動、zlib 帳號停用等控制全移至 CLI（devctl gates/pause/resume、crawl_zlib disable）。
+  // 此處不再掛任何寫回監聽器。
 
   // ── 工具：跨度格式 ──
   function fmtDur(s) { return s == null ? '—' : (s < 90 ? `${s}s` : `${Math.round(s/60)}m`) }
@@ -1269,52 +1271,21 @@
       + (rej ? `<div class="blf-abs">無法收錄 ${rej}</div>` : ''))
   }
 
-  // zlib 帳號停用/啟用：寫回 devcontrol sidecar（CF Access 已把關，header 由 nginx 轉發復驗）。
-  // 樂觀更新（不等 8s poll）；買書員每 tick 權威 live 查停用態故流量即時生效，面板數字 ≤300s 追上。
-  async function toggleZlibAccount(email, enable) {
-    zlibPending[email] = !enable          // 期望 disabled = !enable
-    if (last) render(last)                // 立即樂觀重繪
-    try {
-      const r = await fetch('api/account', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, enabled: enable }) })
-      if (!r.ok) throw new Error('HTTP ' + r.status)
-    } catch (e) {
-      delete zlibPending[email]           // 失敗回滾 + 提示
-      if (last) render(last)
-      alert('帳號' + (enable ? '啟用' : '停用') + '失敗：' + (e && e.message || e))
-    }
-  }
-
-  // 系統暫停/啟動鈕：state 來自 d.paused（樂觀 pausePending 覆蓋，authoritative ≤20s 追上即清）。
-  function renderPauseBtn(d) {
-    const el = document.getElementById('btn-pause'); if (!el) return
-    const auth = !!d.paused
-    if (pausePending !== null && pausePending === auth) pausePending = null  // authoritative 追上即清
-    const paused = pausePending !== null ? pausePending : auth
-    el.className = 'qbk-control-btn compact ' + (paused ? 'paused' : 'running')
-    el.textContent = paused ? '▶ 啟動系統' : '⏸ 暫停'
-    el.dataset.paused = paused ? '1' : '0'
-  }
-  // 暫停/啟動：寫回 devcontrol sidecar（CF Access 把關）。樂觀更新；daemon ≤20s 輪詢 pipeline_run_state 生效。
-  let pauseBusy = false  // 重入防護：連點期間擋併發 POST（後端 set_running 冪等、純省冗餘請求）
-  async function togglePause(toPaused) {
-    if (pauseBusy) return
-    pauseBusy = true
-    pausePending = toPaused
-    if (last) renderPauseBtn(last)
-    try {
-      const r = await fetch('api/pause', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ paused: toPaused }) })
-      if (!r.ok) throw new Error('HTTP ' + r.status)
-    } catch (e) {
-      pausePending = null
-      if (last) renderPauseBtn(last)
-      alert('系統' + (toPaused ? '暫停' : '啟動') + '失敗：' + (e && e.message || e))
-    } finally {
-      pauseBusy = false
-    }
+  // 閘門狀態徽章（**唯讀**；操作走 CLI devctl gates/pause/resume）。三態：default==hold ∧ 無 rule→暫停(全停)；
+  // default==hold ∧ 有 allow 例外 或 default==allow ∧ 有 hold rule→部分閘控；default==allow ∧ 無 rule→運轉。
+  function renderGateBadge(d) {
+    const el = document.getElementById('gate-badge'); if (!el) return
+    const g = d.gates || { default: (d.paused ? 'hold' : 'allow'), rules: [] }  // 向後相容：無 gates 退回 paused
+    const rules = g.rules || []
+    let cls, txt
+    if (rules.length) { cls = 'partial'; txt = '🔶 閘控 ' + rules.length }
+    else if (g.default === 'hold') { cls = 'paused'; txt = '⏸ 暫停' }
+    else { cls = 'running'; txt = '▶ 運轉' }
+    el.className = 'meta qbk-result-count gate-' + cls
+    el.textContent = txt
+    el.title = '閘門（唯讀；操作走 CLI：devctl gates / pause / resume）\ndefault=' + g.default
+      + (rules.length ? '\n' + rules.map((r, i) => `[${i}] ${r.action} ${r.slug} / ${r.stage}`).join('\n')
+                      : '\n（無 rules）')
   }
 
   function render(d) {
@@ -1322,7 +1293,7 @@
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
     last = d
     renderHealth(d)
-    renderPauseBtn(d)
+    renderGateBadge(d)
     updateLineSub()
     renderBooklist(d)
     reconcileBooks(d)
@@ -1340,21 +1311,14 @@
     const zage = z.fetched_at_utc ? ' · ' + relTime(z.fetched_at_utc) : ''
     const zcap = z.total_limit || (z.accounts || []).reduce((s, a) => s + (a.limit || 0), 0) || '?'
     setText('zlib-total', `(總剩 ${zt == null ? '?' : zt}/${zcap}${z.stale ? ' · STALE' : ''}${zage})`)
-    // pending 樂觀態：toggle 後 authoritative（zlib_quota.json）≤300s 才追上，期間以 pending 維持使用者意圖；追上即清。
-    ;(z.accounts || []).forEach(a => {
-      if (a.email && a.email in zlibPending && !!a.disabled === zlibPending[a.email]) delete zlibPending[a.email]
-    })
+    // 純觀測：只顯示各帳號額度 bar 與停用態（停用走 CLI crawl_zlib disable/enable，不再有 toggle 鈕）。
     setHtml('zlib', (z.accounts || []).map(a => {
-      const disabled = (a.email && a.email in zlibPending) ? zlibPending[a.email] : !!a.disabled
+      const disabled = !!a.disabled
       const lim = a.limit, rem = a.remaining
       const pct = (lim && rem != null) ? Math.min(100, Math.round(rem / lim * 100)) : 0
       const numTxt = disabled ? '停用' : (rem == null ? '查無' : `${rem}/${lim == null ? '?' : lim}`)
-      // toggle 鈕：data-enable = 點擊後要送的 enabled（停用中→點「啟用」送 1；啟用中→點「停用」送 0）。
-      const btn = a.email
-        ? `<button class="zlib-toggle" data-email="${escapeHtml(a.email)}" data-enable="${disabled ? '1' : '0'}">${disabled ? '啟用' : '停用'}</button>`
-        : ''
       return `<div class="dev-bar-row${disabled ? ' zlib-off' : ''}"><span class="name">${escapeHtml(a.email || ('acct'+a.account))}</span>
-        <span class="dev-bar"><span style="width:${disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span>${btn}</div>`
+        <span class="dev-bar"><span style="width:${disabled ? 0 : pct}%"></span></span><span class="num">${numTxt}</span></div>`
     }).join('') || '<div class="dev-label">查詢中…</div>')
 
     const bl = d.booklists || {}, blo = bl.overall || {}
