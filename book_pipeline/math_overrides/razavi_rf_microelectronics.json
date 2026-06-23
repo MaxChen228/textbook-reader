@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "razavi_rf_microelectronics-ch02-body-274-b79eb9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[274]",
+      "expect": "\\begin{array}{r l} N F & = \\frac {\\overline {{V _ {R S} ^ {2}}} + \\overline {{(V _ {n} + I _ {n} R _ {S}) ^ {2}}}}\\overline {{V _ {R S} ^ {2}}} \\\\ & = 1 + \\frac {\\overline {{(V _ {n} + I _ {n} R _ {S}) ^ {2}}}}{\\overline {{V _ {R S} ^ {2}}}}. \\end{array}\\tag{2.79}",
+      "new": "\\begin{array}{r l} N F & = \\frac {\\overline {{V _ {R S} ^ {2}}} + \\overline {{(V _ {n} + I _ {n} R _ {S}) ^ {2}}}}{\\overline {{V _ {R S} ^ {2}}}} \\\\ & = 1 + \\frac {\\overline {{(V _ {n} + I _ {n} R _ {S}) ^ {2}}}}{\\overline {{V _ {R S} ^ {2}}}}. \\end{array}\\tag{2.79}"
+    },
+    {
+      "id": "razavi_rf_microelectronics-ch02-body-66-efe86b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[66]",
+      "expect": "\\begin{array}{r l} y (t) & = \\alpha_ {1} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) + \\alpha_ {2} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) ^ {2} \\\\ & + \\alpha_ {3} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) ^ {3}. \\end{array} \\tag {2.}\\tag{2.21}",
+      "new": "\\begin{array}{r l} y (t) & = \\alpha_ {1} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) + \\alpha_ {2} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) ^ {2} \\\\ & + \\alpha_ {3} (A _ {1} \\cos \\omega_ {1} t + A _ {2} \\cos \\omega_ {2} t) ^ {3}. \\end{array} \\tag{2.21}"
+    },
+    {
+      "id": "razavi_rf_microelectronics-ch02-body-41-590167",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[41]",
+      "expect": "\\begin{array}{r l} y (t) & = \\alpha_ {1} A \\cos \\omega t + \\alpha_ {2} A ^ {2} \\cos^ {2} \\omega t + \\alpha_ {3} A ^ {3} \\cos^ {3} t \\\\ & = \\alpha_ {1} A \\cos \\omega t + \\frac {\\alpha_ {2} A ^ {2}}{2} (1 + \\cos 2 \\omega t) + \\frac {\\alpha_ {3} A ^ {3}}{4} (3 \\cos \\omega t + \\cos 3 \\omega t) \\\\ & = \\frac {\\alpha_ {2} A ^ {2}}{2} + \\left(\\alpha_ {1} A + \\frac {3 \\alpha_ {3} A ^ {3}}{4}\\right) \\cos \\omega t + \\frac {\\alpha_ {2} A ^ {2}}{2} \\cos 2 \\omega t + \\frac {\\alpha_ {3} A ^ {3}}{4} \\cos 3 \\omega t. \\end{array} \\tag {2.12}\\tag{2.14}",
+      "new": "\\begin{array}{r l} y (t) & = \\alpha_ {1} A \\cos \\omega t + \\alpha_ {2} A ^ {2} \\cos^ {2} \\omega t + \\alpha_ {3} A ^ {3} \\cos^ {3} t \\\\ & = \\alpha_ {1} A \\cos \\omega t + \\frac {\\alpha_ {2} A ^ {2}}{2} (1 + \\cos 2 \\omega t) + \\frac {\\alpha_ {3} A ^ {3}}{4} (3 \\cos \\omega t + \\cos 3 \\omega t) \\\\ & = \\frac {\\alpha_ {2} A ^ {2}}{2} + \\left(\\alpha_ {1} A + \\frac {3 \\alpha_ {3} A ^ {3}}{4}\\right) \\cos \\omega t + \\frac {\\alpha_ {2} A ^ {2}}{2} \\cos 2 \\omega t + \\frac {\\alpha_ {3} A ^ {3}}{4} \\cos 3 \\omega t. \\end{array} \\tag {2.12}"
+    },
+    {
+      "id": "razavi_rf_microelectronics-ch02-body-68-74f035",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[68]",
+      "expect": "\\begin{array}{l} \\omega = \\omega_ {1} \\pm \\omega_ {2}: \\alpha_ {2} A _ {1} A _ {2} \\cos (\\omega_ {1} + \\omega_ {2}) t + \\alpha_ {2} A _ {1} A _ {2} \\cos (\\omega_ {1} - \\omega_ {2}) t \\\\ = 2 \\omega_ {1} \\pm \\omega_ {2}: \\frac {3 \\alpha_ {3} A _ {1} ^ {2} A _ {2}}{4} \\cos (2 \\omega_ {1} + \\omega_ {2}) t + \\frac {3 \\alpha_ {3} A _ {1} ^ {2} A _ {2}}{4} \\cos (2 \\omega_ {1} - \\omega_ {2}) t \\end{array} \\tag {2.22}\\tag{2.23}",
+      "new": "\\begin{array}{l} \\omega = \\omega_ {1} \\pm \\omega_ {2}: \\alpha_ {2} A _ {1} A _ {2} \\cos (\\omega_ {1} + \\omega_ {2}) t + \\alpha_ {2} A _ {1} A _ {2} \\cos (\\omega_ {1} - \\omega_ {2}) t \\\\ = 2 \\omega_ {1} \\pm \\omega_ {2}: \\frac {3 \\alpha_ {3} A _ {1} ^ {2} A _ {2}}{4} \\cos (2 \\omega_ {1} + \\omega_ {2}) t + \\frac {3 \\alpha_ {3} A _ {1} ^ {2} A _ {2}}{4} \\cos (2 \\omega_ {1} - \\omega_ {2}) t \\end{array} \\tag {2.22}"
+    }
+  ]
+}

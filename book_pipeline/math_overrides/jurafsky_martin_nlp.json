@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "jurafsky_martin_nlp-ch11-body-168-276431",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[168]",
+      "expect": "^ {\\prime} \\mathrm{Mt} ^ {\\prime}, ^ {\\prime}. ^ {\\prime}, ^ {\\prime} \\text {San} ^ {\\prime}, ^ {\\prime} \\# \\# \\text {itas} ^ {\\prime}, ^ {\\prime} \\text {is} ^ {\\prime}, ^ {\\prime} \\text {in} ^ {\\prime}, ^ {\\prime} \\text {Sunshine} ^ {\\prime}, ^ {\\prime} \\text {Canyon} ^ {\\prime} ^ {\\prime}.",
+      "new": "{}^ {\\prime} \\mathrm{Mt} ^ {\\prime}, {}^ {\\prime}. ^ {\\prime}, {}^ {\\prime} \\text {San} ^ {\\prime}, {}^ {\\prime} \\# \\# \\text {itas} ^ {\\prime}, {}^ {\\prime} \\text {is} ^ {\\prime}, {}^ {\\prime} \\text {in} ^ {\\prime}, {}^ {\\prime} \\text {Sunshine} ^ {\\prime}, {}^ {\\prime} \\text {Canyon} ^ {\\prime\\prime}."
+    },
+    {
+      "id": "jurafsky_martin_nlp-ch02-body-44-dc3c1b",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[44]",
+      "field": "md",
+      "all": true,
+      "old": "$ is a useful pattern for matching a space at the end of a line, and /ˆThe dog\\.\\$",
+      "new": "$ \\text {is a useful pattern for matching a space at the end of a line, and /ˆThe dog}\\backslash\\text {.}\\backslash$",
+      "anchor": "a5feba17"
+    },
+    {
+      "id": "jurafsky_martin_nlp-ch05-body-61-1127dd",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[61]",
+      "expect": "\\begin{array}{l} x _ {1} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``Case(w_{i}) = Lower'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {2} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``w_{i} \\in AcronymDict'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {3} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   ``w_{i} = St.~\\&~Case(w_{i-1}) = Upper''} \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} x _ {1} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``Case(} w_{i} \\text {) = Lower'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {2} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``} w_{i} \\in \\mathrm{AcronymDict} \\text {'' } \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\\\ x _ {3} = \\left\\{ \\begin{array}{l l} 1 & \\text { if ``} w_{i} = \\mathrm{St.}\\ \\&\\ \\mathrm{Case}(w_{i-1}) = \\mathrm{Upper} \\text {''} \\\\ 0 & \\text { otherwise } \\end{array} \\right. \\end{array}"
+    }
+  ]
+}
