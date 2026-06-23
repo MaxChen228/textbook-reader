@@ -787,13 +787,15 @@
   // ── 把 live 工人疊到對應 slug 書卡（root-cause D：diff-based，同工人不 remove+重貼 → bob 不重啟）──
   const WFACE = { audit:'🔍', catalog_audit:'📚', qc:'👁️', parse:'🧩', sol_extract:'🔗', crawl:'📥', crawl_plan:'📥', gc:'🧹' }
   // 兩種徽章疊書卡：① 本地 LLM walker（workers.json：金 + bob + verb·call 數）② 外部 OCR worker
-  //（MinerU 雲端，無本地進程 → 從 stage 0.3/0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
+  //（MinerU 雲端，無本地進程 → 從 stage 0.5 合成：藍 + breathe、無 call 數）。真 worker 優先。
   function applyWalkers() {
     const bySlug = new Map(liveWorkers().map(w => [w.slug, w]))
     document.querySelectorAll('#line .book:not(.crawl-card)').forEach(el => {
       const w = bySlug.get(el.dataset.slug)
       const sc = (el.dataset.stage || '').trim().split(' ')[0]
-      const ocr = !w && (sc === '0.3' || sc === '0.5')  // OCR 段、無本地 worker = 外部雲端進行中
+      // 僅 0.5=已 PUT 雲端、OCR 真的在跑 → 畫進行中藍環；0.3=待 ingest（QC 過、尚未送雲端、下個
+      // cycle 才提交）非進行中，無 worker 就不畫（與抽屜 statusText「待提交 OCR」一致，免假轉圈）。
+      const ocr = !w && sc === '0.5'
       let walker = el.querySelector('.walker')
       if (!w && !ocr) {  // 無任何 worker → 移除疊加（僅在 transition 時改 DOM）
         if (walker) { walker.remove(); el.querySelector('.cv .work-ring')?.remove() }
