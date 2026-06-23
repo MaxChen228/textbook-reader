@@ -651,9 +651,9 @@ def write_snapshot(write_timeline: bool = False) -> str:
 # ── proposals 側欄 feed（/dev 即時看 agent 提出的提案）─────────────────────────
 def proposals_feed(resolved_limit: int = 30) -> dict:
     """當前 proposals（book_pipeline/proposals.d/）→ /dev proposals 側欄資料源。
-    proposed（待決議）帶完整散文欄位（evidence/proposal/risk/disposition/detect）供展開；
-    已決議（accepted/rejected/superseded）僅摘要、近 resolved_limit 筆 → 避免長 diff 體積膨脹。
-    proposed 排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals resolve CLI）。"""
+    未終態（proposed 待裁＋parked 等外部）帶完整散文欄位（evidence/proposal/risk/disposition/detect）
+    與 unblock/verified_at 供展開；已決議（accepted/rejected/superseded）僅摘要、近 resolved_limit 筆
+    → 避免長 diff 體積膨脹。未終態排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals CLI）。"""
     from book_pipeline import proposals as pr
 
     def _clip(s: str, n: int = 6000) -> str:  # 防極端長 diff 撐爆 feed；完整見 CLI proposals show <id>
@@ -661,7 +661,7 @@ def proposals_feed(resolved_limit: int = 30) -> dict:
         return s if len(s) <= n else s[:n] + f'\n…（截斷 {len(s) - n} 字元，完整見 proposals show）'
 
     recs = pr.load_all()
-    counts = {s: 0 for s in ('proposed', 'accepted', 'rejected', 'superseded')}
+    counts = {s: 0 for s in ('proposed', 'parked', 'accepted', 'rejected', 'superseded')}
     by_domain: dict[str, int] = {}
     proposed, resolved = [], []
     for r in recs:
@@ -675,8 +675,10 @@ def proposals_feed(resolved_limit: int = 30) -> dict:
             'slug': r.get('slug') or None, 'source': r.get('source') or '',
             'created': r.get('created'), 'updated': r.get('updated'),
             'resolution': r.get('resolution') or '',
+            'unblock': r.get('unblock') or None, 'verified_at': r.get('verified_at') or None,
         }
-        if stt == 'proposed':
+        # proposed（待裁）＋ parked（等外部）皆未終態：帶完整散文供架構師判斷，不摺成摘要、不截斷。
+        if stt in ('proposed', 'parked'):
             item.update({
                 'evidence': _clip(r.get('evidence')), 'proposal': _clip(r.get('proposal')),
                 'risk': _clip(r.get('risk')), 'disposition': _clip(r.get('disposition')),

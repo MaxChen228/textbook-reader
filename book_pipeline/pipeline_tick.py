@@ -1416,13 +1416,13 @@ def _escalate_sol(slug: str) -> None:
 
 
 def _has_open_engine_proposal(slug: str) -> bool:
-    """該 slug 是否有 status==proposed 的 engine 提案（audit agent 判 blocked 時會開）。
+    """該 slug 是否有「未終態」的 engine 提案（proposed=待裁 或 parked=等外部；兩者皆仍是 blocker）。
     id 內嵌 _slugify(slug)；截斷碰撞極罕見且此處僅用於「是否標 review」（可逆、低風險），故簡單前綴比對即可。"""
     try:
         from book_pipeline import proposals as pr
         key = pr._slugify(slug)
         for d in pr.load_all():
-            if d.get('status') != 'proposed' or d.get('domain') != 'engine':
+            if d.get('status') not in pr.UNRESOLVED or d.get('domain') != 'engine':
                 continue
             body = re.sub(r'^P-\d{4}-\d\d-\d\d-', '', d.get('id', ''))
             # 只認 exact 或同書第 N 案 `-<digits>`；拒 `-sol`（避免母書因解答本的提案被誤標 blocked）。

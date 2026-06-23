@@ -57,8 +57,14 @@ ROOT = Path(__file__).resolve().parent.parent
 STORE = ROOT / "book_pipeline" / "proposals.d"
 INDEX = STORE / "_index.md"
 
-STATUSES = {"proposed", "accepted", "rejected", "superseded"}
-RESOLVED = {"accepted", "rejected", "superseded"}
+STATUSES = {"proposed", "parked", "accepted", "rejected", "superseded"}
+TERMINAL = {"accepted", "rejected", "superseded"}   # 終態：已決議、附 resolution
+UNRESOLVED = {"proposed", "parked"}                 # 未終態：proposed=待分類；parked=已分類·引擎無解·等外部
+RESOLVED = TERMINAL                                 # 別名（resolve CLI choices / lint 沿用，向後相容）
+# parked 的「等什麼外部條件」結構化詞彙（對偶 REJECT_CODES）：
+#   re-source=母書/解答本源頭品質不足待換更完整源；re-edition=版次錯配待換版重 ingest；
+#   engine-capability=引擎真缺某能力待擴充；main-reaudit=主書需重 audit（如 section 結構退化）。
+UNBLOCK_KINDS = {"re-source", "re-edition", "engine-capability", "main-reaudit"}
 REJECT_CODES = {
     "pseudo-macro-guard", "already-resolved", "semantically-ambiguous",
     "single-book", "unsafe", "superseded", "out-of-scope",
@@ -149,7 +155,8 @@ def propose(*, domain: str, type_: str, title: str, slug: str | None = None,
     pid = _claim_id(f"P-{_today()}-{_slugify(slug or title)}")
     rec = {
         "id": pid, "domain": domain, "type": type_, "status": "proposed",
-        "title": title.strip(), "detect": detect or [], "source": source,
+        "title": title.strip(), "slug": (slug or "").strip() or None,
+        "detect": detect or [], "source": source,
         "resolution": "", "created": _now(), "updated": _now(),
     }
     for k in FIELDS:
@@ -209,6 +216,106 @@ def resolve_many(ids: list[str], *, status: str, resolution: str,
         atomic_write_json(str(_path(rec["id"])), rec, indent=2)
     write_index()
     return staged, []
+
+
+def park_many(ids: list[str], *, unblock_kind: str, unblock_target: str,
+              disposition: str | None = None, apply: bool = True) -> tuple[list[dict], list[str]]:
+    """事務性批次擱置：proposed→parked（已分類·引擎無解·等外部）。鏡像 resolve_many all-or-nothing。
+    parked 必帶結構化 unblock{kind,target}（等什麼外部條件），故與 resolve（寫 resolution）分流。
+    只 park proposed（已決議/已 parked 者不可重 park）；非法 kind/非 proposed → 全批不寫。"""
+    if unblock_kind not in UNBLOCK_KINDS:
+        return [], [f"unblock kind {unblock_kind!r} 不在 {sorted(UNBLOCK_KINDS)}"]
+    staged: list[dict] = []
+    for pid in ids:
+        rec = read_json(str(_path(pid)), default=None)
+        if not isinstance(rec, dict):
+            return staged, [f"找不到提案 {pid}"]
+        if rec.get("status") != "proposed":
+            return staged, [f"{pid}: 只能 park proposed（現為 {rec.get('status')}）"]
+        rec = dict(rec)
+        rec["status"] = "parked"
+        rec["unblock"] = {"kind": unblock_kind, "target": (unblock_target or "").strip()}
+        if disposition is not None:
+            rec["disposition"] = disposition.strip()
+        rec["updated"] = _now()
+        staged.append(rec)
+    errs = lint(staged)
+    if errs or not apply:
+        return staged, errs
+    for rec in staged:
+        atomic_write_json(str(_path(rec["id"])), rec, indent=2)
+    write_index()
+    return staged, []
+
+
+def _short_sha() -> str:
+    """working-tree HEAD short SHA（cwd=ROOT）；git 不可用 → '?'。鏡像 pipeline_tick._code_version。"""
+    try:
+        r = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
+                           capture_output=True, text=True, timeout=5)
+        return r.stdout.strip() or "?"
+    except Exception:
+        return "?"
+
+
+def stamp_verified(pid: str, *, sha: str | None = None, date: str | None = None) -> dict:
+    """蓋稽核戳 verified_at{sha,date}=「在此 commit 上跑確定性重檢驗過」。
+    由 verify --stamp 呼叫（明示寫操作，非 verify 隱性副作用）；未來 stale 以此 sha 為比較基準。"""
+    rec = read_json(str(_path(pid)), default=None)
+    if not isinstance(rec, dict):
+        raise ValueError(f"找不到提案 {pid}")
+    rec["verified_at"] = {"sha": sha or _short_sha(), "date": date or _now()}
+    rec["updated"] = _now()
+    atomic_write_json(str(_path(pid)), rec, indent=2)
+    return rec
+
+
+# ── stale：verified_at 之後相關模組有新 commit → 前提可能已變、需重驗 ─────────────────
+# 動機：本系統親歷——sol proposal disposition 寫「引擎只認 lvl1」，但引擎早已加 chapter_level=null
+# 能力，disposition 過時卻無人知。stale 用 git log 比對：某提案 verified 的 sha 之後，其 domain 的
+# 相關模組是否有新 commit；有 → 標 stale（唯讀報告、不自動改 status，架構師看了再 re-verify）。
+DOMAIN_PATHS: dict[str, list[str]] = {
+    "math": ["book_pipeline/math_validate.py", "book_pipeline/backfill_math.py",
+             "book_pipeline/math_normalize.py", "book_pipeline/math_macros.json"],
+    "sol": ["book_pipeline/sol_extract.py"],
+    "engine": ["book_pipeline/parser.py"],
+    "catalog": ["book_pipeline/catalog_audit.py", "book_pipeline/repair_catalog_metadata.py",
+                "book_pipeline/repair_catalog_aliases.py", "book_pipeline/repair_catalog_from_unified.py"],
+    "crawl": [],   # crawl 提案多為書單/可用性事實（非碼前提）→ 空＝永不 stale
+}
+
+
+def _stale_since(sha: str, paths: list[str]) -> list[str] | None:
+    """verified sha..HEAD 間動過 paths 的 commit short-sha 清單。
+    回 []＝未 stale；非空＝stale；None＝sha 不可達（rebase/force-push）→ 呼叫端保守視為需重驗。"""
+    if not paths:
+        return []
+    try:
+        chk = subprocess.run(["git", "rev-parse", "--verify", "--quiet", f"{sha}^{{commit}}"],
+                             cwd=ROOT, capture_output=True, text=True, timeout=5)
+        if chk.returncode != 0:
+            return None  # sha 不可達
+        out = subprocess.run(["git", "log", "--format=%h", f"{sha}..HEAD", "--", *paths],
+                             cwd=ROOT, capture_output=True, text=True, timeout=10)
+        return [ln for ln in out.stdout.splitlines() if ln]
+    except Exception:
+        return None
+
+
+def stale_candidates(recs: list[dict], since_fn) -> list[tuple[dict, list[str] | None]]:
+    """回 [(rec, touched)]：有 verified_at.sha 且其 domain 相關模組自該 sha 後有新 commit（或 sha 不可達）。
+    純函式、注入 since_fn(sha, paths)->list|None 解耦 git（對偶 catalog_resolved_candidates 的 critical_fn）。
+    touched 非空＝有新 commit；touched=None＝sha 不可達（保守需重驗）。未驗過（無 verified_at）不納入。"""
+    out = []
+    for rec in recs:
+        va = rec.get("verified_at")
+        if not (isinstance(va, dict) and va.get("sha")):
+            continue
+        paths = DOMAIN_PATHS.get(rec.get("domain"), [])
+        touched = since_fn(va["sha"], paths)
+        if touched is None or touched:
+            out.append((rec, touched))
+    return out
 
 
 # ── 護欄：自動 supersede 已被 repair 涵蓋的假 catalog 缺口 ────────────────────────
@@ -302,6 +409,18 @@ def lint(recs: list[dict[str, Any]]) -> list[str]:
             bad = [c for c in re.split(r"[ ,+，、]+", res) if c and c not in REJECT_CODES]
             if bad:
                 errs.append(f"{tag}: rejected 理由代碼 {bad} 不在 {sorted(REJECT_CODES)}")
+        # parked 須附結構化 unblock（parked 版的「resolved⟹有 resolution」對偶：擱置必說等什麼）
+        if st == "parked":
+            ub = r.get("unblock")
+            if not (isinstance(ub, dict) and ub.get("kind")):
+                errs.append(f"{tag}: status=parked 須附 unblock.kind")
+            elif ub["kind"] not in UNBLOCK_KINDS:
+                errs.append(f"{tag}: unblock.kind {ub['kind']!r} 不在 {sorted(UNBLOCK_KINDS)}")
+        # verified_at 可選；若存在須為含 sha 的 dict（verify --stamp 蓋的稽核戳）
+        if "verified_at" in r:
+            va = r.get("verified_at")
+            if not (isinstance(va, dict) and va.get("sha")):
+                errs.append(f"{tag}: verified_at 須為含 sha 的 dict（verify --stamp 蓋）")
     return errs
 
 
@@ -319,18 +438,19 @@ def render(recs: list[dict[str, Any]]) -> str:
         "# 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改",
         "",
         "正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：",
-        "`uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。",
+        "`uv run python -m book_pipeline.proposals {propose|resolve|park|list|check|gate|stale}`。",
         "決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。",
         "",
     ]
     by_dom: dict[str, list[dict]] = {}
     for r in recs:
         by_dom.setdefault(r.get("domain", "?"), []).append(r)
-    order = {"proposed": 0, "accepted": 1, "rejected": 2, "superseded": 3}
+    order = {"proposed": 0, "parked": 1, "accepted": 2, "rejected": 3, "superseded": 4}
     for dom in sorted(by_dom):
         rs = sorted(by_dom[dom], key=lambda r: (order.get(r.get("status"), 9), r.get("id", "")))
         n_prop = sum(1 for r in rs if r.get("status") == "proposed")
-        lines.append(f"## domain: {dom}  （{len(rs)} 條；proposed={n_prop}）\n")
+        n_park = sum(1 for r in rs if r.get("status") == "parked")
+        lines.append(f"## domain: {dom}  （{len(rs)} 條；proposed={n_prop} parked={n_park}）\n")
         for r in rs:
             lines.append(f"### {r.get('id')} — {r.get('title')}")
             meta = f"- {r.get('status')} | type={r.get('type')} | source={r.get('source')}"
@@ -339,6 +459,13 @@ def render(recs: list[dict[str, Any]]) -> str:
             lines.append(meta)
             if r.get("resolution"):
                 lines.append(f"- 決議：{r['resolution']}")
+            ub = r.get("unblock")
+            if isinstance(ub, dict) and ub.get("kind"):
+                tgt = ub.get("target") or ""
+                lines.append(f"- 解鎖條件：{ub['kind']}{(' → ' + tgt) if tgt else ''}")
+            va = r.get("verified_at")
+            if isinstance(va, dict) and va.get("sha"):
+                lines.append(f"- 已驗證：@{va['sha']}（{va.get('date','')}）")
             for k, label in (("disposition", "處置"), ("evidence", "證據"),
                              ("proposal", "提議"), ("risk", "風險")):
                 if r.get(k):
@@ -378,7 +505,8 @@ def cmd_list(a: argparse.Namespace) -> int:
     for r in sorted(recs, key=lambda r: (r.get("domain", ""), r.get("status", ""), r.get("id", ""))):
         print(f"  {r.get('id',''):<{w}}  [{r.get('status','?'):<10}] "
               f"{r.get('domain','?'):<8} {r.get('type','?'):<14} {r.get('title','')}")
-    print(f"\n共 {len(recs)} 條；proposed={sum(1 for r in recs if r.get('status')=='proposed')}")
+    print(f"\n共 {len(recs)} 條；proposed={sum(1 for r in recs if r.get('status')=='proposed')} "
+          f"parked={sum(1 for r in recs if r.get('status')=='parked')}")
     return 0
 
 
@@ -413,6 +541,50 @@ def cmd_resolve(a: argparse.Namespace) -> int:
     print(f"{head} → {a.status}（{a.resolution}）")
     for r in staged:
         print(f"  {r['id']}")
+    return 0
+
+
+def cmd_park(a: argparse.Namespace) -> int:
+    """proposed→parked（已分類·引擎無解·等外部）。單條或 --where-* 批次（事務性 all-or-nothing）。"""
+    where = bool(a.where_domain or a.where_type or a.where_source)
+    if a.ids and where:
+        print("❌ 明確 id 與 --where-* 不可並用（擇一）", file=sys.stderr); return 2
+    if a.ids:
+        ids = list(dict.fromkeys(a.ids))
+    elif where:
+        ids = select_proposed(domain=a.where_domain, type_=a.where_type, source=a.where_source)
+    else:
+        print("❌ 需給至少一個 id，或至少一個 --where-* 過濾（拒絕無條件全選）", file=sys.stderr); return 2
+    if not ids:
+        print("（無符合提案）"); return 0
+    staged, errs = park_many(ids, unblock_kind=a.kind, unblock_target=a.target,
+                             disposition=a.disposition, apply=not a.dry_run)
+    if errs:
+        print("❌ park 失敗（全批未寫入）：", file=sys.stderr)
+        for e in errs:
+            print(f"  {e}", file=sys.stderr)
+        return 2
+    head = f"[dry-run] 將擱置 {len(staged)} 條" if a.dry_run else f"✓ 已擱置 {len(staged)} 條"
+    print(f"{head} → parked（unblock={a.kind} → {a.target}）")
+    for r in staged:
+        print(f"  {r['id']}")
+    return 0
+
+
+def cmd_stale(a: argparse.Namespace) -> int:
+    """唯讀報告：列出 verified_at 之後其 domain 相關模組有新 commit 的提案（前提可能已變、需重驗）。"""
+    recs = [r for r in load_all() if not a.domain or r.get("domain") == a.domain]
+    cands = stale_candidates(recs, _stale_since)
+    if not cands:
+        print("（無 stale 提案；未驗過的提案不納入——先 verify --stamp 立基線）"); return 0
+    for rec, touched in sorted(cands, key=lambda c: (c[0].get("domain", ""), c[0].get("id", ""))):
+        va = rec.get("verified_at") or {}
+        if touched is None:
+            note = "verified sha 不可達（rebase/force-push）→ 保守需重驗"
+        else:
+            note = f"{len(touched)} 個新 commit 動過 {rec.get('domain')} 模組（{' '.join(touched[:6])}）"
+        print(f"  {rec.get('id',''):<32} [{rec.get('status','?'):<9}] verified@{va.get('sha','?')} — {note}")
+    print(f"\n共 {len(cands)} 條 stale → 跑 `proposals verify <id>` 重驗（live 真相覆蓋過時 disposition）")
     return 0
 
 
@@ -565,6 +737,21 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--disposition", help="補充去向（如 per-slug override）")
     p.add_argument("--dry-run", action="store_true", help="只印將裁決的 id，不寫入")
     p.set_defaults(fn=cmd_resolve)
+
+    p = sub.add_parser("park", help="proposed→parked：引擎無解·等外部（單條或批次事務性）")
+    p.add_argument("ids", nargs="*", help="一或多個 id；省略則用 --where-* 過濾 proposed 批次")
+    p.add_argument("--where-domain", choices=sorted(DOMAINS), help="批次選取 proposed：domain")
+    p.add_argument("--where-type", help="批次選取 proposed：type")
+    p.add_argument("--where-source", help="批次選取 proposed：source")
+    p.add_argument("--kind", required=True, choices=sorted(UNBLOCK_KINDS), help="解鎖條件種類")
+    p.add_argument("--target", default="", help="解鎖目標（版次/源/模組路徑等自由字串）")
+    p.add_argument("--disposition", help="補充去向說明")
+    p.add_argument("--dry-run", action="store_true", help="只印將擱置的 id，不寫入")
+    p.set_defaults(fn=cmd_park)
+
+    p = sub.add_parser("stale", help="唯讀：列 verified_at 後相關模組有新 commit 的提案（需重驗）")
+    p.add_argument("--domain", choices=sorted(DOMAINS))
+    p.set_defaults(fn=cmd_stale)
 
     p = sub.add_parser("supersede-resolved",
                        help="護欄：自動 supersede 已被 repair 涵蓋的假 catalog 缺口提案")

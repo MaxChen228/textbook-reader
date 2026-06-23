@@ -126,6 +126,17 @@ def test_has_open_engine_proposal(monkeypatch):
     assert pt._has_open_engine_proposal('other_book') is False  # 無提案
 
 
+def test_has_open_engine_proposal_parked_is_open(monkeypatch):
+    """parked engine 提案（已分類·等外部）仍是 blocker → 不該讓母書 audit churn（算開）。"""
+    from book_pipeline import pipeline_tick as pt
+    from book_pipeline import proposals as pr
+    monkeypatch.setattr(pr, 'load_all',
+                        lambda: [{'id': 'P-2026-06-23-foo-book', 'status': 'parked',
+                                  'domain': 'engine',
+                                  'unblock': {'kind': 'engine-capability', 'target': 'parser.py'}}])
+    assert pt._has_open_engine_proposal('foo_book') is True
+
+
 def test_has_open_engine_proposal_matches_suffixed_id(monkeypatch):
     """同書多提案會有 -2/-3 後綴 id；前綴比對須命中。"""
     from book_pipeline import pipeline_tick as pt

@@ -137,6 +137,110 @@ def test_resolve_many_is_transactional():
     _with_tmp_store(body)
 
 
+# ── Pillar 1+2：parked 生命週期 / slug 持久化 / verified_at / stale ───────────────
+def test_slug_persisted():
+    def body():
+        with_slug = P.propose(domain="math", type_="macro", title="x", slug="probe-slug")
+        no_slug = P.propose(domain="math", type_="macro", title="無 slug 標題")
+        by_id = {r["id"]: r for r in P.load_all()}
+        assert by_id[with_slug]["slug"] == "probe-slug", "slug 須持久化進 JSON"
+        assert by_id[no_slug]["slug"] is None, "無傳 slug → 欄為 None（不臆測）"
+    _with_tmp_store(body)
+
+
+def test_park_roundtrip():
+    def body():
+        pid = P.propose(domain="sol", type_="source-quality", title="解答源爛", slug="bk")
+        staged, errs = P.park_many([pid], unblock_kind="re-source", unblock_target="找完整版")
+        assert not errs and len(staged) == 1
+        rec = P.load_all()[0]
+        assert rec["status"] == "parked"
+        assert rec["unblock"] == {"kind": "re-source", "target": "找完整版"}
+        assert not rec.get("resolution"), "parked 不需 resolution"
+        assert not P.lint(P.load_all()), "parked + unblock 應 lint 乾淨"
+        assert P.select_proposed() == [], "parked 不再被 select_proposed 命中"
+    _with_tmp_store(body)
+
+
+def test_park_only_proposed_and_transactional():
+    def body():
+        a = P.propose(domain="sol", type_="source-quality", title="a", slug="a")
+        b = P.propose(domain="sol", type_="source-quality", title="b", slug="b")
+        P.resolve(a, status="superseded", resolution="已修")
+        # 批次含已決議 a → 全批不寫（b 不得被 park）
+        _, errs = P.park_many([a, b], unblock_kind="re-source", unblock_target="t")
+        assert errs and any("只能 park proposed" in e for e in errs)
+        assert P.load_all()  # b 仍 proposed
+        st = {r["id"]: r["status"] for r in P.load_all()}
+        assert st[a] == "superseded" and st[b] == "proposed", "事務失敗不得落盤任何一條"
+    _with_tmp_store(body)
+
+
+def test_park_requires_valid_kind():
+    def body():
+        pid = P.propose(domain="sol", type_="source-quality", title="x", slug="x")
+        _, errs = P.park_many([pid], unblock_kind="bogus-kind", unblock_target="t")
+        assert errs and any("unblock kind" in e for e in errs)
+        assert P.load_all()[0]["status"] == "proposed", "非法 kind 不得落盤"
+    _with_tmp_store(body)
+
+
+def test_lint_parked_needs_unblock():
+    # parked 無 unblock → 報錯；unblock.kind 非法 → 報錯（過濾檔名不符雜訊）
+    no_ub = {"id": "P-2026-06-23-a", "domain": "sol", "type": "source-quality", "status": "parked"}
+    bad_kind = {"id": "P-2026-06-23-b", "domain": "sol", "type": "source-quality", "status": "parked",
+                "unblock": {"kind": "nope", "target": "t"}}
+    errs = [e for e in P.lint([no_ub, bad_kind]) if "檔名" not in e]
+    assert any("unblock.kind" in e and "須附" in e for e in errs), errs
+    assert any("不在" in e for e in errs), errs
+
+
+def test_verified_at_optional_and_structure():
+    ok = {"id": "P-2026-06-23-c", "domain": "math", "type": "macro", "status": "proposed",
+          "verified_at": {"sha": "abc1234", "date": "2026-06-23T00:00:00+00:00"}}
+    bad = {"id": "P-2026-06-23-d", "domain": "math", "type": "macro", "status": "proposed",
+           "verified_at": {"date": "no-sha"}}  # 缺 sha
+    ok_errs = [e for e in P.lint([ok]) if "檔名" not in e]
+    bad_errs = [e for e in P.lint([bad]) if "檔名" not in e]
+    assert not ok_errs, f"合法 verified_at 不該報錯：{ok_errs}"
+    assert any("verified_at" in e for e in bad_errs), bad_errs
+
+
+def test_render_order_and_parked_stats():
+    recs = [
+        {"id": "P-2026-06-23-s", "domain": "sol", "type": "source-quality", "status": "superseded",
+         "resolution": "r", "title": "S"},
+        {"id": "P-2026-06-23-k", "domain": "sol", "type": "source-quality", "status": "parked",
+         "unblock": {"kind": "re-source", "target": "t"}, "title": "K"},
+        {"id": "P-2026-06-23-p", "domain": "sol", "type": "source-quality", "status": "proposed",
+         "title": "P"},
+    ]
+    out = P.render(recs)
+    # 排序：proposed(P) < parked(K) < superseded(S)
+    ip, ik, is_ = out.index("— P"), out.index("— K"), out.index("— S")
+    assert ip < ik < is_, f"order 應 proposed<parked<terminal：{ip},{ik},{is_}"
+    assert "proposed=1 parked=1" in out, "統計列須分開計 proposed/parked"
+    assert "解鎖條件：re-source → t" in out, "parked 須顯示 unblock"
+
+
+def test_stale_candidates_pure():
+    def since_fn(sha, paths):
+        if sha == "gone":
+            return None              # sha 不可達
+        return ["abc123"] if (sha == "old" and paths) else []
+    recs = [
+        {"id": "P-1", "domain": "sol", "verified_at": {"sha": "old"}},     # stale（sol paths 非空）
+        {"id": "P-2", "domain": "sol", "verified_at": {"sha": "cur"}},     # 未 stale
+        {"id": "P-3", "domain": "sol"},                                     # 無 verified_at → 不納入
+        {"id": "P-4", "domain": "crawl", "verified_at": {"sha": "old"}},   # crawl paths=[] → 未 stale
+        {"id": "P-5", "domain": "engine", "verified_at": {"sha": "gone"}}, # 不可達 → 納入(touched=None)
+    ]
+    cands = P.stale_candidates(recs, since_fn)
+    ids = {rec["id"]: touched for rec, touched in cands}
+    assert set(ids) == {"P-1", "P-5"}, f"只 P-1(stale)+P-5(不可達)：{set(ids)}"
+    assert ids["P-1"] == ["abc123"] and ids["P-5"] is None
+
+
 if __name__ == "__main__":
     test_real_store_lints_clean();              print("✓ 真實 store lint 乾淨")
     test_real_index_in_sync();                  print("✓ _index.md 與 store 同步")
@@ -147,4 +251,12 @@ if __name__ == "__main__":
     test_propose_rejects_unknown_domain_and_type(); print("✓ 未知 domain/type 拒收")
     test_select_and_resolve_many_batch();       print("✓ 批次選取 + resolve_many（只動目標、不碰已決議）")
     test_resolve_many_is_transactional();       print("✓ resolve_many 事務性 all-or-nothing + dry-run")
+    test_slug_persisted();                      print("✓ slug 持久化")
+    test_park_roundtrip();                      print("✓ park round-trip（parked+unblock）")
+    test_park_only_proposed_and_transactional(); print("✓ park 只 proposed + 事務性")
+    test_park_requires_valid_kind();            print("✓ park 須合法 kind")
+    test_lint_parked_needs_unblock();           print("✓ lint：parked 須 unblock")
+    test_verified_at_optional_and_structure();  print("✓ verified_at 可選 + 結構驗")
+    test_render_order_and_parked_stats();       print("✓ render order + parked 統計")
+    test_stale_candidates_pure();               print("✓ stale_candidates 純函式")
     print("\n全部通過 ✅")

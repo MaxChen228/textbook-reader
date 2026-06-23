@@ -1,10 +1,10 @@
 # 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改
 
 正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：
-`uv run python -m book_pipeline.proposals {propose|resolve|list|check|gate}`。
+`uv run python -m book_pipeline.proposals {propose|resolve|park|list|check|gate|stale}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （4 條；proposed=0）
+## domain: crawl  （4 條；proposed=0 parked=0）
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
 - accepted | type=booklist-fix | source=crawl
@@ -34,7 +34,7 @@
 - 提議：母書重查並 commit 4th(2012) 連結（z-lib 4th 存在），定 matches_pref；母書定 4th 後 sol 自動可對齊（4th↔4th），neamen_semiconductor_sol 重查即升 QUALIFIED。
 - 風險：母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （166 條；proposed=1）
+## domain: engine  （166 條；proposed=1 parked=0）
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - proposed | type=tooling-gap | source=agent
@@ -3645,7 +3645,7 @@ index 2c80077..8104e5a 100644
 - 提議：(無 diff 文本，book_pipeline/validate_rules.py modified)
 - 風險：observe 模式未還原——待架構師裁決收編/還原。
 
-## domain: math  （8 條；proposed=0）
+## domain: math  （8 條；proposed=0 parked=0）
 
 ### P-2026-06-17-bgroup — \bgroup / \aftergroup / \egroup 群組噪訊收斂
 - accepted | type=normalize-rule | source=math_sweep | 偵測=\bgroup \egroup \aftergroup
@@ -3709,7 +3709,7 @@ index 2c80077..8104e5a 100644
 - 提議：Layer 1 normalize: in normalize_tex, delete stray \\[ and \\] tokens; collapse stray \\( and \\) to literal parentheses inside math payload
 - 風險：May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （43 條；proposed=23）
+## domain: sol  （43 條；proposed=23 parked=0）
 
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - proposed | type=harness-gap | source=sol_extract
