@@ -1264,8 +1264,19 @@
     else if (dm.in_tick_now) { dot = 'dot-ok live'; word = 'controller 運轉中' }
     else if (healthy) { dot = 'dot-ok'; word = '待命' }
     else { dot = 'dot-bad'; word = `異常 exit=${dm.last_exit_code}` }
+    // 現役碼落後 HEAD 時標注（code.behind>0 ⇒ live controller 跑舊碼，下次優雅退出／respawn
+    // 自動跟上、毋須 kick）：把 CLI `devctl status` 才有的「落後 N commit」搬上 /dev，改演算法
+    // 上線後一眼知 daemon 是否已換到新碼。behind 為 null（無 live controller／不可比）時不標。
+    if (code.behind > 0) word += ` · ⚠碼落後 ${code.behind}`
     const de = document.getElementById('dm-dot'); if (de) de.className = 'dev-dot ' + dot
-    const we = document.getElementById('dm-word'); if (we) we.textContent = word
+    const we = document.getElementById('dm-word')
+    if (we) {
+      we.textContent = word
+      we.title = code.behind > 0
+        ? `現役碼 @${code.running} · HEAD @${code.head} · 落後 ${code.behind} commit（下次優雅退出／respawn 自動跟上）`
+        : code.behind === 0 ? `現役碼 @${code.running}（= HEAD）`     // 唯確證相等才說「= HEAD」
+        : code.running ? `現役碼 @${code.running}` : ''               // behind=null（git 無法比對）→ 只報 sha、不妄稱相等
+    }
   }
   // 強制待辦（非 — 非 可選）：區分「待製(未上站)」與「精修(已上站仍有 catalog/sol)」
   function hasMand(b) { return (b.todo || '').split(/\s+/).some(t => t && t !== '—' && !t.endsWith('(可選)')) }
@@ -1331,8 +1342,9 @@
     reconcileMath()  // 殘餘數/reason 隨 status 刷新（agent liveness 另由 1s loadWorkers 管）
 
     // MinerU 無每日硬上限（>1000 頁僅降優先排隊）→ 不畫進度條，只列今日已送頁數。
-    setText('budget-date', `(${d.budget.date_utc} UTC · 無上限)`)
-    setHtml('budget', Object.entries(d.budget.accounts).map(([name, v]) =>
+    const bg = d.budget || { date_utc: '?', accounts: {} }  // budget 缺鍵不該炸掉整片 render（與 d.zlib 一致防禦）
+    setText('budget-date', `(${bg.date_utc || '?'} UTC · 無上限)`)
+    setHtml('budget', Object.entries(bg.accounts || {}).map(([name, v]) =>
       `<div class="dev-bar-row"><span class="name">${escapeHtml(name)}</span>
         <span class="num">${v.used} 頁</span></div>`).join(''))
 
