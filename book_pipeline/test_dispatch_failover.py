@@ -5,6 +5,8 @@
 **期待順序從生效鏈即時派生**（lp.resolve_dispatch('audit').chain）→ 改 DEFAULT/override/env 順序測試
 自動跟、不寫死特定 provider 名，零維護債。monkeypatch _run_one 模擬各 provider 結果，不起子進程、不打網路。"""
 
+import os
+
 from book_pipeline import llm_policy as lp
 from book_pipeline import pipeline_tick as pt
 
@@ -19,9 +21,14 @@ def _chain():
 
 
 def _patch(results):
-    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。每次重置 exhausted 共享集。"""
+    """results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。每次重置 exhausted 共享集；
+    並把 LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』『❌ 全 provider 不可用
+    audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status / /dev）冒假 🔴 cry-wolf
+    （2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。"""
     calls = []
     orig = pt._run_one
+    orig_log = pt.LOG
+    pt.LOG = os.devnull
     with pt._exhausted_lock:
         pt._exhausted_at.clear()
 
@@ -29,7 +36,11 @@ def _patch(results):
         calls.append(provider)
         return results.get(provider, (0, None))
     pt._run_one = fake
-    return calls, (lambda: setattr(pt, '_run_one', orig))
+
+    def restore():
+        pt._run_one = orig
+        pt.LOG = orig_log
+    return calls, restore
 
 
 def test_outage_fails_over():
