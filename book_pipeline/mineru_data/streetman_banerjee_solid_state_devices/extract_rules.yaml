@@ -1,0 +1,160 @@
+slug: streetman_banerjee_solid_state_devices
+title: Solid State Electronic Devices
+author: Ben G. Streetman; Sanjay Kumar Banerjee
+edition: 7th Global
+subject: Microelectronics
+publisher: Pearson
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 575
+bibliography_start_page: null
+index_start_page: 605
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Crystal Properties and Growth of Semiconductors
+    page_start: 21
+    page_end: 51
+    chapter_title_block_idx: 134
+    chapter_title_block_idx_secondary: 135
+    problems_block_idx: 368
+    next_chapter_block_idx: 447
+  - num: 2
+    title: Atoms and Electrons
+    page_start: 52
+    page_end: 82
+    chapter_title_block_idx: 447
+    chapter_title_block_idx_secondary: 448
+    problems_block_idx: 745
+    next_chapter_block_idx: 819
+  - num: 3
+    title: Energy Bands and Charge Carriers in Semiconductors
+    page_start: 83
+    page_end: 141
+    chapter_title_block_idx: 819
+    chapter_title_block_idx_secondary: 820
+    problems_block_idx: 1346
+    next_chapter_block_idx: 1471
+  - num: 4
+    title: Excess Carriers in Semiconductors
+    page_start: 142
+    page_end: 178
+    chapter_title_block_idx: 1471
+    problems_block_idx: 1824
+    next_chapter_block_idx: 1902
+  - num: 5
+    title: Junctions
+    page_start: 179
+    page_end: 276
+    chapter_title_block_idx: 1902
+    problems_block_idx: 2741
+    next_chapter_block_idx: 2890
+  - num: 6
+    title: Field-Effect Transistors
+    page_start: 277
+    page_end: 367
+    chapter_title_block_idx: 2890
+    chapter_title_block_idx_secondary: 2891
+    problems_block_idx: 3593
+    next_chapter_block_idx: 3746
+  - num: 7
+    title: Bipolar Junction Transistors
+    page_start: 368
+    page_end: 429
+    chapter_title_block_idx: 3746
+    problems_block_idx: 4357
+    next_chapter_block_idx: 4482
+  - num: 8
+    title: Optoelectronic Devices
+    page_start: 430
+    page_end: 471
+    chapter_title_block_idx: 4482
+    problems_block_idx: 4782
+    next_chapter_block_idx: 4861
+  - num: 9
+    title: Integrated Circuits
+    page_start: 472
+    page_end: 540
+    chapter_title_block_idx: 4861
+    problems_block_idx: 5345
+    next_chapter_block_idx: 5382
+  - num: 10
+    title: High-Frequency, High-Power and Nanoelectronic Devices
+    page_start: 541
+    page_end: 574
+    chapter_title_block_idx: 5382
+    chapter_title_block_idx_secondary: 5383
+    problems_block_idx: 5649
+    next_chapter_block_idx: 5696
+
+appendices:
+  - id: I
+    title: Definitions of Commonly Used Symbols
+    page_start: 575
+    chapter_title_block_idx: 5696
+  - id: II
+    title: Physical Constants and Conversion Factors
+    page_start: 579
+    chapter_title_block_idx: 5711
+  - id: III
+    title: Properties of Semiconductor Materials
+    page_start: 580
+    chapter_title_block_idx: 5715
+  - id: IV
+    title: Derivation of the Density of States in the Conduction Band
+    page_start: 581
+    chapter_title_block_idx: 5719
+  - id: V
+    title: Derivation of Fermi-Dirac Statistics
+    page_start: 586
+    chapter_title_block_idx: 5797
+  - id: VI
+    title: Dry and Wet Thermal Oxide Thickness Grown on Si (100) as a Function of Time and Temperature
+    page_start: 589
+    chapter_title_block_idx: 5854
+  - id: VII
+    title: Solid Solubilities of Impurities in Si
+    page_start: 591
+    chapter_title_block_idx: 5862
+  - id: VIII
+    title: Diffusivities of Dopants in Si and SiO2
+    page_start: 592
+    chapter_title_block_idx: 5866
+  - id: IX
+    title: Projected Range and Straggle as Function of Implant Energy in Si
+    page_start: 594
+    chapter_title_block_idx: 5875
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '(?i)^(?:self\s*quiz(?:\s*question\s*1)?|question\s*1(?:\s*self\s*quiz|\s*se\s*lf\s*quiz|\s*sel\s*f\s*qui\s*z)?|reading\s*li\s*st|answers\s+to\s+selected\s+self\s*quiz\s+questions)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+-[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s*(\d+[–-]\d+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

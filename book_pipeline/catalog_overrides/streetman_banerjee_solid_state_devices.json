@@ -1,0 +1,86 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "streetman-remove-false-fig-9.42-alias",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[279]",
+      "expect": {
+        "id": "fig-9.40",
+        "caption": "(a)"
+      },
+      "set": {
+        "catalog_aliases": null,
+        "catalog_repair_source": "agent-remove-false-alias"
+      },
+      "reason": "body[279] 是 Figure 9.40(a) 的圖塊，但先前被掛上 fig-9.42 alias 充當近鄰假覆蓋；raw PDF 物理頁 534 明確有獨立的 Figure 9.42，應改為真圖補回。"
+    },
+    {
+      "id": "streetman-figure-4.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[107]",
+      "position": "after",
+      "page": 156,
+      "clip": [
+        0.22,
+        0.78,
+        0.62,
+        0.97
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.11",
+        "kind": "line",
+        "caption": "Figure 4.11: Quasi-Fermi levels F_n and F_p for a Si sample with n_0 = 10^14 cm^-3, τ_p = 2 μs, and g_op = 10^19 EHP/cm^3-s (Example 4-4)."
+      },
+      "reason": "C4 ref 4.11：raw PDF 物理頁 156（印刷頁 155）例題底部明確有 Figure 4.11 圖塊，但 MinerU 只留下正文與數學式，未產生 fig block。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "streetman-figure-9.42-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[281]",
+      "position": "after",
+      "page": 534,
+      "clip": [
+        0.04,
+        0.5,
+        0.77,
+        0.89
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-9.42",
+        "kind": "line",
+        "caption": "Figure 9.42: Attachment of leads from the Al pads on the periphery of the chip to posts on the package. (© 2004 Micron Technology, Inc. All rights reserved. Used with permission.)"
+      },
+      "reason": "raw PDF 物理頁 534（印刷頁 533）下半部明確有 Figure 9.42；先前 catalog 只把 Figure 9.40(a) 假掛為 fig-9.42 alias。依 catalog-audit §4.C4 情境(B) 用真圖重建。"
+    },
+    {
+      "id": "streetman-figure-9.41-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[281]",
+      "position": "after",
+      "page": 534,
+      "clip": [
+        0.08,
+        0.08,
+        0.72,
+        0.47
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-9.41",
+        "kind": "line",
+        "caption": "Figure 9.41: Sawing of a wafer along scribe lines: After the wafer is tested, the “known good dies” are “inked” or identified. The wafer is then sawed into individual dies for subsequent packaging. (© 2004 Micron Technology, Inc. All rights reserved. Used with permission.)"
+      },
+      "reason": "C4 ref 9.41：raw PDF 物理頁 534（印刷頁 533）上半部明確有 Figure 9.41，但 parsed/catalog 完全漏掉。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    }
+  ]
+}

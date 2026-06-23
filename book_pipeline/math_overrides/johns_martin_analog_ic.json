@@ -1,0 +1,78 @@
+{
+  "overrides": [
+    {
+      "id": "johns_martin_analog_ic-ch05-body-165-5eb035",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[165]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { \\omega } _ { \\mathsf { O } } > > \\mathbf { \\omega } _ { \\mathsf { O } } _ { \\mathsf { p } } _ { 1 } ,$",
+      "new": "$\\mathbf{\\omega}_{\\mathsf{O}} >> \\mathbf{\\omega}_{\\mathsf{O}_{\\mathsf{p}_{1}}},$",
+      "anchor": "d992a339"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch11-problem-11-9-body-0-0782af",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "problem:11.9:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$z \\ = \\ { \\Theta } ^ { \\mathrm { j } \\mathrm { { c } } } ^ { \\mathsf { T } }$",
+      "new": "$z = {\\Theta}^{\\mathrm{j}\\mathrm{c}\\mathsf{T}}$",
+      "anchor": "26e27f47"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch09-problem-9-11-body-2-993293",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.11:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$\\vee / \\sqrt \\mathrm { H z }$",
+      "new": "$\\vee / \\sqrt{\\mathrm{Hz}}$",
+      "anchor": "7e6ae3b8"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch02-body-345-0b6861",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[345]",
+      "field": "md",
+      "all": true,
+      "old": "$1 0 \\square \\times 8 0 0 \\Omega / \\big \\square = 8 \\mathrm { k } \\Omega$",
+      "new": "$10 \\square \\times 800 \\Omega / \\square = 8 \\mathrm{k}\\Omega$",
+      "anchor": "33090fd2"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch01-body-29-ae82ca",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[29]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\Nu } _ { \\mathsf { D } } = { \\ o } { 1 0 ^ { 2 2 } }$",
+      "new": "${N}_{\\mathsf{D}} = {o}{10^{22}}$",
+      "anchor": "3bf68a58"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch09-body-197-3ab786",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[197]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 4 } = 7 6 . 7 ~ \\mu \\mathrm { V }$",
+      "new": "$N_{4} = 76.7~\\mu\\mathrm{V}$",
+      "anchor": "e30e9a50"
+    },
+    {
+      "id": "johns_martin_analog_ic-ch12-body-269-e22595",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[269]",
+      "expect": "\\mathrm {i_ {o1} = i_ {D1} - 100 \\muA = 0.2898 \\muA}",
+      "new": "i_{o1} = i_{D1} - 100\\,\\mu\\mathrm{A} = 0.2898\\,\\mu\\mathrm{A}"
+    }
+  ]
+}

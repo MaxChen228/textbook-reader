@@ -1,5 +1,14 @@
 {
-  "ref_classifications": [],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "9.53",
+      "classification": "source_mismatch",
+      "reason": "raw PDF 物理頁 454（書頁 428）Problem 9.20 明寫 Fig. 9.53，但同頁唯一對應圖塊 caption 為 Figure 9.52；後續題目頁直接跳到 Figure 9.56/9.57，前後頁皆無 Figure 9.53，可判為源頭編號缺口。",
+      "where": "ch09.json problem 9.20 body[0]",
+      "evidence": "raw PDF p.454 (printed p.428) shows Problem 9.20 referencing Fig. 9.53, but the only nearby figure on that page is Figure 9.52; adjacent problem pages jump to Figures 9.56, 9.57, 9.58, and 9.59 with no Figure 9.53 present."
+    }
+  ],
   "overrides": [
     {
       "id": "razavi-ch02-body114-aliases",
@@ -1700,6 +1709,231 @@
         ]
       },
       "reason": "Example/section 圖嵌 table HTML，build_catalogs 抓不到→catalog_aliases 補語意 id（2圖）；kind=text 避 C3"
+    },
+    {
+      "id": "razavi-prob-5.105-5.106-aliases",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.5:body[1]",
+      "expect": {
+        "id": "fig-5.107"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-5.105",
+            "type": "figure",
+            "caption": "Figure 5.105"
+          },
+          {
+            "id": "fig-5.106",
+            "type": "figure",
+            "caption": "Figure 5.106"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 280（書頁 254）同一張 composite 圖塊同時含 Figure 5.105、5.106、5.107；parser 只抽到 fig-5.107。對現有 fig-5.107 block 補 alias 即可覆蓋 Problems 5.3/5.4。"
+    },
+    {
+      "id": "razavi-prob-9.4-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "problem:9.3:body[1]",
+      "field": "md",
+      "old": "Fig. 9.40",
+      "new": "Fig. 9.62",
+      "reason": "raw PDF 物理頁 457（書頁 431）該題實為 Problem 9.40 and references Figure 9.62；parsed 把題號/圖號 OCR 漂移成 '*9.4' 與 'Fig. 9.40'。先修正文圖號，避免把源頭正確的 Figure 9.62 誤報成缺圖。"
+    },
+    {
+      "id": "razavi-prob-9.46-9.47-aliases",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.14:body[3]",
+      "expect": {
+        "id": "fig-9.48"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.46",
+            "type": "figure",
+            "caption": "Figure 9.46"
+          },
+          {
+            "id": "fig-9.47",
+            "type": "figure",
+            "caption": "Figure 9.47"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 453（書頁 427）同一張 composite 圖塊同時含 Figure 9.46、9.47、9.48；parser 只保留 fig-9.48。對既有 block 補 alias，覆蓋 Problems 9.11 與 9.12。"
+    },
+    {
+      "id": "razavi-prob-9.50-alias",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.17:body[1]",
+      "expect": {
+        "id": "fig-9.51"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.50",
+            "type": "figure",
+            "caption": "Figure 9.50"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 453（書頁 427）Figure 9.51 這張 composite 同時含 Figure 9.50；parser 只抽到 fig-9.51。對現有 block 補 alias 覆蓋 Problem 9.16。"
+    },
+    {
+      "id": "razavi-prob-9.66-alias",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.48:body[1]",
+      "expect": {
+        "id": "fig-9.67"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.66",
+            "type": "figure",
+            "caption": "Figure 9.66"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 458（書頁 432）同一張 composite 圖塊同時含 Figure 9.66、9.67、9.68；parser 只抽到 fig-9.67/fig-9.68。對現有 fig-9.67 block 補 alias 覆蓋 Problem 9.46。"
+    },
+    {
+      "id": "razavi-prob-9.73-alias",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.57:body[4]",
+      "expect": {
+        "id": "fig-9.74"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-9.73",
+            "type": "figure",
+            "caption": "Figure 9.73"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 459（書頁 433）Figure 9.74 這張 composite 同時含 Figure 9.73 與 Figure 9.74；parser 只保留 fig-9.74。對既有 block 補 alias 覆蓋 Problem 9.56。"
+    },
+    {
+      "id": "razavi-prob-10.59-10.63-aliases",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "problem:10.8:body[2]",
+      "expect": {
+        "id": "fig-10.64"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-10.59",
+            "type": "figure",
+            "caption": "Figure 10.59"
+          },
+          {
+            "id": "fig-10.60",
+            "type": "figure",
+            "caption": "Figure 10.60"
+          },
+          {
+            "id": "fig-10.61",
+            "type": "figure",
+            "caption": "Figure 10.61"
+          },
+          {
+            "id": "fig-10.62",
+            "type": "figure",
+            "caption": "Figure 10.62"
+          },
+          {
+            "id": "fig-10.63",
+            "type": "figure",
+            "caption": "Figure 10.63"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 514（書頁 488）Figure 10.64 這張 composite 明確同時含 Figure 10.59–10.64；parser 只保留 fig-10.64。對既有 block 補 alias 即可覆蓋 Problems 10.3–10.7。"
+    },
+    {
+      "id": "razavi-prob-12.83-12.85-aliases",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "problem:12.25:body[1]",
+      "expect": {
+        "id": "fig-12.86"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-12.83",
+            "type": "figure",
+            "caption": "Figure 12.83"
+          },
+          {
+            "id": "fig-12.84",
+            "type": "figure",
+            "caption": "Figure 12.84"
+          },
+          {
+            "id": "fig-12.85",
+            "type": "figure",
+            "caption": "Figure 12.85"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 657（書頁 631）Figure 12.86 的 full composite 其實自上而下包含 Figure 12.83、12.84、12.85、12.86；parser 只保留 fig-12.86。對 full block 補 alias 覆蓋 Problems 12.18–12.20。"
+    },
+    {
+      "id": "razavi-prob-15.56-15.59-aliases",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "problem:15.7:body[7]",
+      "expect": {
+        "id": "fig-15.55"
+      },
+      "set": {
+        "catalog_repair_source": "agent-alias-fix",
+        "catalog_aliases": [
+          {
+            "id": "fig-15.56",
+            "type": "figure",
+            "caption": "Figure 15.56"
+          },
+          {
+            "id": "fig-15.57",
+            "type": "figure",
+            "caption": "Figure 15.57"
+          },
+          {
+            "id": "fig-15.58",
+            "type": "figure",
+            "caption": "Figure 15.58"
+          },
+          {
+            "id": "fig-15.59",
+            "type": "figure",
+            "caption": "Figure 15.59"
+          }
+        ]
+      },
+      "reason": "raw PDF 物理頁 781（書頁 755）這張 full composite 明確同時含 Figure 15.56、15.57、15.58、15.59；parser 只保留 fig-15.55。對 full block 補 alias，覆蓋 Problems 15.5、15.6、15.7、15.8。"
     }
   ]
 }
