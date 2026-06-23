@@ -23,7 +23,7 @@ def _patch(results):
     calls = []
     orig = pt._run_one
     with pt._exhausted_lock:
-        pt._exhausted_providers.clear()
+        pt._exhausted_at.clear()
 
     def fake(provider, todo_verb, slug, prompt, spec):
         calls.append(provider)
@@ -89,10 +89,27 @@ def test_outage_classification():
     print('✓ _hit_outage/_hit_limit 標記分類正確')
 
 
+def test_exhaustion_ttl_expires():
+    """回歸：暫態額度標記須 TTL 後自動失效（reactive loop 不每 cycle clear，永久標記會黏死整個 walltime
+    落 claude——2026-06-23 實證 codex 撞額度後 50min 全 claude）。標記→TTL 內 skip→過 TTL 自動清、重探。"""
+    import time
+    with pt._exhausted_lock:
+        pt._exhausted_at.clear()
+        now = time.monotonic()
+        pt._exhausted_at['codex'] = now
+        assert pt._is_exhausted('codex', now) is True                       # 剛標記 → 跳過
+        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL - 1) is True  # TTL 內 → 仍跳過
+        assert pt._is_exhausted('codex', now + pt._EXHAUST_TTL + 1) is False # 過 TTL → 重探
+        assert 'codex' not in pt._exhausted_at, '過 TTL 須清除戳記（下次乾淨重探）'
+        assert pt._is_exhausted('claude', now) is False                     # 未標記 → 不跳過
+    print('✓ exhaustion TTL：暫態標記過期自動重探、不黏死 controller 命')
+
+
 if __name__ == '__main__':
     test_outage_fails_over()
     test_limit_fails_over()
     test_task_failure_does_not_fail_over()
     test_all_unavailable_defers()
     test_outage_classification()
+    test_exhaustion_ttl_expires()
     print('\n全部通過 ✅')

@@ -361,10 +361,25 @@ def _llm_env(provider: str) -> dict | None:
     return None
 
 
-# 撞額度的 provider（本 tick 內標記，跨並行子工共享 → 不再重複撞同一耗盡的 provider）。
-# 每 tick 開頭清空重試。
-_exhausted_providers: set[str] = set()
+# 撞額度/中斷的 provider → 標記時刻（monotonic 秒），跨並行子工共享 → 同 cycle 不重撞同一耗盡 provider。
+# **TTL 化（非永久標記）**：reactive loop 的 clear 只在 controller 起頭跑一次（tick_reactive:1891），
+# 若用永久 set，一次暫態 codex 額度（撞限後恢復）會黏死整個 ~50min walltime 全程落 claude 保底（實證
+# 2026-06-23：controller 起後 2min codex 撞額度 → 50min 全 claude，probe 獨立 process 卻顯 codex ✅ 假信心）。
+# 改存戳記、過 _EXHAUST_TTL 自動重探 → 暫態限額數分鐘內回 codex，持久故障則每 TTL 重試一次（可接受）。
+_exhausted_at: dict[str, float] = {}
 _exhausted_lock = threading.Lock()
+_EXHAUST_TTL = 300.0  # 撞額度/中斷標記存活秒；過此重探（暫態恢復不必等 controller respawn）
+
+
+def _is_exhausted(provider: str, now: float) -> bool:
+    """provider 是否在 TTL 內被標記撞額度/中斷（**呼叫端須持 _exhausted_lock**；過 TTL 清戳記回 False=可重試）。"""
+    t = _exhausted_at.get(provider)
+    if t is None:
+        return False
+    if now - t >= _EXHAUST_TTL:
+        del _exhausted_at[provider]
+        return False
+    return True
 # claude 撞 5h 滾動窗會吐這些字串、秒退；codex 撞 ChatGPT 訂閱限額吐 rate/quota 類訊息。
 SESSION_LIMIT_MARKERS = ('session limit', 'hit your session', 'usage limit')
 CODEX_LIMIT_MARKERS = ('rate limit', 'usage limit', 'quota', 'too many requests',
@@ -669,16 +684,17 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
     tried = []
     for provider in chain:
         with _exhausted_lock:
-            if provider in _exhausted_providers:
-                continue
+            skip = _is_exhausted(provider, time.monotonic())
+        if skip:
+            continue
         tried.append(provider)
         rc, reason = _run_one(provider, todo_verb, key, prompt, spec)
         if not reason:
             return rc  # 成功，或 agent 真跑了卻任務失敗 → 交回呼叫端，不換 provider
         with _exhausted_lock:
-            _exhausted_providers.add(provider)  # 額度/中斷皆標死本 tick：免其他子工重撞同一掛掉的 provider
-        nxt = next((q for q in chain if q != provider
-                    and q not in _exhausted_providers), None)
+            _exhausted_at[provider] = time.monotonic()  # 額度/中斷標記（TTL 內）：免同 cycle 子工重撞
+            nxt = next((q for q in chain if q != provider
+                        and not _is_exhausted(q, time.monotonic())), None)
         why = '撞額度' if reason == 'limit' else '服務中斷'
         log(f'⚠ {provider} {why}（{todo_verb} {key or ""}）→ '
             + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
@@ -700,7 +716,7 @@ def probe_provider(provider: str, spec: DispatchSpec, timeout: int = 90) -> dict
       task-fail  接上但 rc≠0（agent 真跑了） → dispatch 仍停在這層（reason=None 不 failover）
       timeout    probe 逾時（接不上/太慢）    → 當無法採用、續探下一層
     **零副作用**（不碰 worker_registry/leases/scope_guard/hist，不污染觀測面/租約/守衛指紋），
-    亦忽略 _exhausted_providers（探真實當下，非 tick-local 標記）。供 devctl probe 主動診斷（G1）。"""
+    亦忽略 _exhausted_at（探真實當下，非 TTL-local 標記）。供 devctl probe 主動診斷（G1）。"""
     import signal
     import time
     prompt = 'Reply with exactly the two characters: OK — do nothing else, call no tools.'
@@ -1818,7 +1834,7 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
     with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
-        _exhausted_providers.clear()
+        _exhausted_at.clear()
     if not dry:
         wr.reset()  # 清空 worker 註冊表（含上次崩潰殘留），本 tick 新工人重新登記
 
@@ -1887,8 +1903,8 @@ def tick_reactive(no_deploy: bool) -> int:
     log(f'=== reactive loop start (code={_code_version()} walltime={LOOP_WALLTIME}s poll={LOOP_POLL}s) ===')
     log('budget: ' + str(mb.status_report()))
     wr.reset()
-    with _exhausted_lock:  # 本 controller 起頭重置額度旗標（下個 invocation 再重探恢復）
-        _exhausted_providers.clear()
+    with _exhausted_lock:  # 本 controller 起頭重置額度旗標（之後靠 _EXHAUST_TTL 每 cycle 自動重探恢復）
+        _exhausted_at.clear()
     _gc_throttle['last'] = time.monotonic()  # GC 節流戳重置 → 首掃於 ~GC_INTERVAL 後（系統穩定才掃）
 
     inflight: set[str] = set()
