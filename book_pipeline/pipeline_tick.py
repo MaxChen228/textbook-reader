@@ -59,12 +59,23 @@ from book_pipeline import leases
 from book_pipeline import extract_cover
 from book_pipeline import booklists
 from book_pipeline import scope_guard
-from book_pipeline.pipeline_run_state import is_paused
+from book_pipeline import pipeline_gates as pg
 from book_pipeline.llm_policy import DispatchSpec, resolve_dispatch, math_sweep_model
 
 ROOT = q.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
 LOCK = os.path.join(BP, '.tick.lock')
+
+# 閘門快照：reactive loop 每 cycle observe 起頭更新一次（單寫手=主執行緒），各 dispatch 點 + worker thread
+# 的 advance_book 讀同一份（GIL 下 dict 參照讀寫原子）。tick_once 起頭亦設一次。其餘路徑（手動呼叫）
+# fallback 即時 load。讀 holder 比每 verb 讀磁碟 cheap，又比「進 advance 凍結整本」新鮮（≤上 cycle）。
+_GATES_HOLDER = {'g': None}
+
+
+def _active_gates() -> dict:
+    """當前閘門快照：reactive/tick_once 已設 holder → 回快照；否則 fallback 即時 load（fail-safe hold）。"""
+    g = _GATES_HOLDER['g']
+    return g if g is not None else pg.load_gates()
 LOG = os.path.join(BP, 'reports', 'daemon.log')
 CRAWL_LIVE_PATH = os.path.join(ROOT, 'dev', 'crawl_live.json')  # live 下載快訊（買書員逐本 下載中→✓/✗，繞 status.json）
 READER_ROOT = q.READER_ROOT
@@ -896,6 +907,14 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
     (解析池 ∖ owned ∖ 失敗達上限) 推導。**額度只在這裡咬**，與 LLM 無關、無退避。連 MAX_FETCH_FAILS
     次失敗的書記進 pipeline_state（q.bump_crawl_fail），select_next 以 exclude 排除、不卡隊頭。
     回本輪抓到的 slug。"""
+    # 閘門：crawl lane 全域 held（不派新書）→ 本輪不抓（涵蓋 reactive/tick_once/dry；reactive 另有
+    # pre-check 省 _start，此處為 tick_once 路徑 + 硬兜底）。per-book crawl 閘在 batch 選出後再過濾。
+    _g = _active_gates()
+    if not pg.gate_allows(None, 'crawl', _g):
+        if dry:
+            log('crawl 買書員：gate hold（不派新書）→ 本輪不抓')
+        return []
+
     backlog = _crawl_backlog(rows)
     room = max(0, CRAWL_INFLIGHT_CAP - backlog)  # pipeline 還能容納幾本在飛（backpressure：滿了不抓）
     blocked = q.crawl_blocked_slugs(MAX_FETCH_FAILS)
@@ -923,8 +942,9 @@ def drain_crawl_queue(rows: list[dict], dry: bool = False) -> list[str]:
     # 本輪要抓的本數 = min(pipeline 餘裕, 額度槽)；確定性取解析池前 n 本（排除已失敗達上限者）
     n = min(len(slots), room)
     batch = booklists.select_next(n, exclude=blocked)
+    batch = [b for b in batch if pg.gate_allows(b.get('slug'), 'crawl', _g)]  # per-book crawl 閘
     if not batch:
-        log('crawl 買書員：合格池暫無可下載（全 owned/pending/candidate/rejected 或已失敗達上限）')
+        log('crawl 買書員：合格池暫無可下載（全 owned/pending/candidate/rejected/gate-held 或已失敗達上限）')
         return []
     for i, b in enumerate(batch):
         b['account'] = slots[i]
@@ -1217,6 +1237,11 @@ def do_math_sweep(dry: bool) -> int:
     單位派 agent）→ daemon 把殘餘變動的書重烤上站 → 重量殘餘、記錄 sweep/batch 狀態（供 fixpoint 判定）。
     回 0=完成/跳過、1=batch 基礎設施失敗（node/ccnexus，不記狀態 → 下個 cycle 重試）。"""
     from book_pipeline import math_validate as mv
+    # 閘門：math_sweep lane held → 跳過（涵蓋 tick_once/dry + 硬兜底；reactive 另有 pre-check 省 _start）。
+    if not pg.gate_allows(None, 'math_sweep', _active_gates()):
+        if dry:
+            log('math sweep：gate hold → 跳過')
+        return 0
     due, total = _math_sweep_due()
     if not due:
         return 0
@@ -1454,6 +1479,11 @@ def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> 
         if not actionable or stage.startswith(('R', 'X')):
             return
         verb = actionable[0].split('(')[0]
+        # 閘門：held → 正常停在此閘（非停滯、非拒絕）→ 直接 return，**不碰 last_key、不標 blocked/review**。
+        # 放在 last_key 更新前 → 不污染停滯偵測；dry 亦套用 → --dry-run 如實顯示書停在哪個閘。
+        if not pg.gate_allows(slug, verb, _active_gates()):
+            log(f'advance {slug}：停在閘「{verb}」（gate hold）→ 待放行')
+            return
         # 停滯鍵用 (stage, verb)：todo 在同 stage 內推進（如 catalog_audit→deploy 皆在 3）
         # 算前進、不誤判停滯；唯有同階段同動作連兩步沒變（修復沒清掉）才真停。
         key = (stage, verb)
@@ -1623,6 +1653,11 @@ def do_post_deploy_gc(dry: bool) -> int:
     worker）皆在 controller 進程內、已持 .tick.lock → 直呼 storage_gc.gc_book 不重取鎖（與手動
     prune 共用同一刪除核心）。安全閘全在 _gc_candidates（鏡像 prune：只動已上站、跳在飛）。"""
     from book_pipeline import storage_gc as sgc
+    # 閘門：gc lane held → 跳過（涵蓋 tick_once/dry + 硬兜底；reactive 另有 pre-check 省 _start）。
+    if not pg.gate_allows(None, 'gc', _active_gates()):
+        if dry:
+            log('post-deploy GC：gate hold → 跳過')
+        return 0
     _gc_throttle['last'] = time.monotonic()  # 不論有無候選都重置節流戳（下次 ~INTERVAL 後再掃）
     cands = _gc_candidates(q._load_state())
     if not cands:
@@ -1650,10 +1685,10 @@ def tick(dry: bool, max_llm: int, no_deploy: bool) -> int:
 
 
 def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
-    # 暫停閘（真執行才擋；dry-run 仍印計畫供檢視，暫停只攔執行非規劃）。
-    if not dry and is_paused():
-        log('系統暫停（pause flag）→ 本 tick 不執行任何工作（resume 後恢復）')
-        return 0
+    # 閘門快照：本 tick 各 dispatch 點 + advance_book 共享。**不再整 tick early-return**——改由各點
+    # gate_allows 過濾（default=hold + allow 例外時，例外書/lane 仍須跑過 dispatch 才放行）；全 held
+    # 時各點自然全 no-op（等價舊「暫停不做事」）。dry-run 一律印計畫，gate 如實反映在各點顯示誰被擋。
+    _GATES_HOLDER['g'] = pg.load_gates()
     log(f'=== tick start (dry={dry}) ===')
     log('budget: ' + str(mb.status_report()))
     with _exhausted_lock:  # 每 tick 重置 provider 額度旗標（上個 tick 撞光的可能已 reset）
@@ -1662,7 +1697,8 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
         wr.reset()  # 清空 worker 註冊表（含上次崩潰殘留），本 tick 新工人重新登記
 
     # A. 收割已就緒 in-flight（uploading=False）：OCR 早已並行於雲端，並行 poll 組 unified。
-    _harvest_parallel(sorted(mb.harvestable()), dry)
+    _harvest_parallel([s for s in sorted(mb.harvestable())
+                       if pg.gate_allows(s, 'ingest', _active_gates())], dry)
 
     # B. 不同資源並行，不互堵：待ingest書 → detached 背景 upload（fire-and-forget，立刻返回、
     #    不被慢上傳堵住整 tick）；其餘書 → 主線程同時並行縱向 advance（LLM 與 upload 真並行）。
@@ -1673,7 +1709,8 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
         log(f'封面補抽異常（不影響派工）：{e}')
     occ = mb.occupied()
     ingest_slugs = [r['slug'] for r in rows
-                    if r['todo'].split('(')[0] == 'ingest' and r['slug'] not in occ]
+                    if r['todo'].split('(')[0] == 'ingest' and r['slug'] not in occ
+                    and pg.gate_allows(r['slug'], 'ingest', _active_gates())]
     skip = set(ingest_slugs)
     for s in ingest_slugs:
         do_submit(s, dry)  # detached upload，立刻返回；早寫 manifest 防跨 tick 重提
@@ -1701,7 +1738,8 @@ def tick_once(dry: bool, max_llm: int, no_deploy: bool) -> int:
 
     # D. 再收割一輪已就緒書（剛 crawl→submit 的多半還在上傳/OCR，主要收 A 階段後翻 ready 的）。
     if not dry:
-        _harvest_parallel(sorted(mb.harvestable()), dry)
+        _harvest_parallel([s for s in sorted(mb.harvestable())
+                           if pg.gate_allows(s, 'ingest', _active_gates())], dry)
         # E. 對收割到 unified 的書再並行縱向推進（parse→audit→catalog→sol→deploy 一條龍）。
         _advance_parallel([r['slug'] for r in _sorted_rows()], dry, no_deploy)
 
@@ -1780,26 +1818,29 @@ def tick_reactive(no_deploy: bool) -> int:
                 log('reactive loop：收到 reload → 停派新工、排空在飛 worker 後優雅退出（launchd 載新碼）')
                 _schedule_respawn()  # 排程 detached re-kick：本進程排空退出即刻拉新碼（零空檔）
                 break
-            # 暫停閘：系統暫停時停派一切新工（crawl + 全階段），在飛 worker 自然收尾（同 reload 語意、
-            # 不殺）。loop **保活輪詢旗標、不進 idle 收斂退出**（暫停是常態非「無事做」）→ 進程存活，
-            # resume ≤LOOP_POLL 生效（devctl resume 另送 SIGUSR1 即時喚醒 → 秒級恢復）。reload/walltime/
-            # 終止信號仍在上方先判 → 暫停中照樣能換碼、被 launchd 重拉。
-            if is_paused():
+            # 閘門快照：每 cycle observe 起頭讀一次（單寫手=本執行緒），各 dispatch 點 + worker 的
+            # advance_book 共享同一份 → 一個 cycle 內判定一致、且 advance_book per-verb 讀到 ≤上 cycle 新鮮度。
+            _g = pg.load_gates()
+            _GATES_HOLDER['g'] = _g
+            # **不在此 skip dispatch**：default==hold 時也要照跑 observe/dispatch，否則 allow 例外規則
+            # （如「只推這 6 本」）永遠觸發不到。各 dispatch 點的 gate_allows 自會擋下未放行者 → 全 held
+            # 時 dispatched==0、由下方 idle-exit 段的 gates_active 判保活（default hold=常態、不收斂退出，
+            # gate 編輯 ≤LOOP_POLL 生效；default allow=正常運轉、沒派工就 idle-exit 靠 SIGUSR1/launchd 響應）。
+            if pg.gates_active(_g):
                 if not paused_logged:
-                    log('reactive loop：系統暫停（pause flag）→ 停派新工、保活輪詢；resume 即恢復')
+                    log('reactive loop：gates default=hold（僅放行 allow 例外；無例外＝全 held + 保活輪詢）')
                     paused_logged = True
-                wake.wait(LOOP_POLL)
-                wake.clear()
-                continue
-            if paused_logged:
-                log('reactive loop：resume → 恢復 observe/派工')
+            elif paused_logged:
+                log('reactive loop：default=allow → 全面恢復派工')
                 paused_logged = False
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
             leased_slugs = {r.get('slug') for r in leases.active(log=log)}
             dispatched = 0
 
-            # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）
+            # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）。harvest 折進 ingest 同一閘鍵。
             for slug in sorted(mb.harvestable()):
+                if not pg.gate_allows(slug, 'ingest', _g):
+                    continue  # 該書 ingest 閘 held → 暫不收割（OCR 留雲端，放行後再收）
                 if _start(f'harvest:{slug}', lambda s=slug: do_harvest(s, False)):
                     dispatched += 1
 
@@ -1816,7 +1857,7 @@ def tick_reactive(no_deploy: bool) -> int:
                 slug = r['slug']
                 verb = r['todo'].split('(')[0]
                 if verb == 'ingest':
-                    if slug not in occ:
+                    if slug not in occ and pg.gate_allows(slug, 'ingest', _g):
                         do_submit(slug, False)
                     continue
                 if slug in leased_slugs:
@@ -1824,7 +1865,12 @@ def tick_reactive(no_deploy: bool) -> int:
                 # 只剩可選(translate)／無工作(—) → 不派 worker：advance_book 本就 early-return，
                 # 省一條空轉 thread + 一次 assess。有任一必做 token（audit/parse/catalog_audit/
                 # sol_extract/deploy）才推進 → live 工人數＝真有事做的書數，不再一書一空轉 worker。
-                if not [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]:
+                acts = [t for t in r['todo'].split() if t and t != '—' and not t.endswith('(可選)')]
+                if not acts:
+                    continue
+                # 下一閘 held → 不派 thread（省一條空轉 worker，免 dispatched++ 卡 idle 收斂）。
+                # 真 enforcement 仍在 advance_book 內逐 verb 兜底（多步推進中途被擋亦停）。
+                if not pg.gate_allows(slug, acts[0].split('(')[0], _g):
                     continue
                 if _start(f'advance:{slug}', lambda s=slug: advance_book(s, False, no_deploy)):
                     dispatched += 1
@@ -1833,7 +1879,8 @@ def tick_reactive(no_deploy: bool) -> int:
             # drain worker 直接 select_next 取 ready 抓+落 raw_pdfs（無 LLM、不註冊 worker_registry → 不顯示
             # 為 crawl agent；__crawl_drain__ 序列化）。無 buffer/refill：下載候選即時從解析池推導。額度0/無
             # ready/pipeline 滿 → _drain_due False → 不派 → loop 能 idle 收斂（額度經快取判斷，免 subprocess）。
-            if _drain_due(rows) and _start('__crawl_drain__', lambda r=rows: drain_crawl_queue(r)):
+            if pg.gate_allows(None, 'crawl', _g) and _drain_due(rows) \
+                    and _start('__crawl_drain__', lambda r=rows: drain_crawl_queue(r)):
                 dispatched += 1
 
             # C3. corpus-level 數學 sweep（track-only）：residual_unaccepted>0 且非 fixpoint 才跑。**無無頭
@@ -1841,13 +1888,15 @@ def tick_reactive(no_deploy: bool) -> int:
             # 多少，非以書為單位）。__math_sweep__ key 自動序列化（在跑時不疊派）；fixpoint/converged → due
             # False → loop 能收斂 idle。
             due, _resid = _math_sweep_due()
-            if due and _start('__math_sweep__', lambda: do_math_sweep(False)):
+            if due and pg.gate_allows(None, 'math_sweep', _g) \
+                    and _start('__math_sweep__', lambda: do_math_sweep(False)):
                 dispatched += 1
 
             # C3.5 post-deploy 自動 GC（det-step）：節流到位才掃（免每 cycle 掃全書）。清已穩定
             # 上站書的 🟡 可重生中間產物，讓中間產物自己排水。__post_deploy_gc__ key 序列化、
             # gc_book 在 controller 進程內已持 .tick.lock。candidates 空 → 一次掃即收斂、不空轉。
-            if _gc_due() and _start('__post_deploy_gc__', lambda: do_post_deploy_gc(False)):
+            if pg.gate_allows(None, 'gc', _g) and _gc_due() \
+                    and _start('__post_deploy_gc__', lambda: do_post_deploy_gc(False)):
                 dispatched += 1
 
             # 排空收斂：連續 LOOP_IDLE_ROUNDS 輪「無新派工 ∧ 無在跑 ∧ 無 in-flight OCR」才收工。
@@ -1856,10 +1905,16 @@ def tick_reactive(no_deploy: bool) -> int:
             with ifl_lock:
                 busy = len(inflight)
             if dispatched == 0 and busy == 0 and not occ:
-                idle += 1
-                if idle >= LOOP_IDLE_ROUNDS:
-                    log(f'reactive loop：連 {idle} 輪無工作且無 in-flight OCR → 排空收工（launchd 下次重拉）')
-                    break
+                # gates default=hold（gates_active）= 常態暫停、非「無事做」→ **保活輪詢、不累計 idle**，
+                # 讓 gate 編輯 ≤LOOP_POLL 生效（subsume 舊 pause 的「暫停不收斂退出」語意）。default=allow
+                # 才正常 idle-exit（沒派工＝真沒事）、靠 SIGUSR1/launchd 響應後續 gate 編輯。
+                if pg.gates_active(_g):
+                    idle = 0
+                else:
+                    idle += 1
+                    if idle >= LOOP_IDLE_ROUNDS:
+                        log(f'reactive loop：連 {idle} 輪無工作且無 in-flight OCR → 排空收工（launchd 下次重拉）')
+                        break
             else:
                 idle = 0
             # 事件驅動：工人一完成即被喚醒重觀測（transition 延遲從「滿一個 poll」塌到一次

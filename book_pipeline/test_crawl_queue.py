@@ -10,6 +10,9 @@ import tempfile
 
 from book_pipeline import pipeline_tick as pt
 from book_pipeline import pipeline_queue as q
+from book_pipeline import pipeline_gates as pg
+
+_PG_ORIG = (pg.CONTROL_DIR, pg.GATES_PATH)  # drain 新增 crawl 閘 → 測試須重導 gates 路徑並開閘
 
 # 這些測試直接改共享模組全域（非 monkeypatch fixture）——teardown 還原，避免污染其他測試檔（pytest 同
 # process）。最關鍵是 booklists.select_next：被換成回傳假 'a'/'b' 的 stub，若不還原會讓後續任何呼叫真
@@ -24,6 +27,8 @@ _ORIG['set_touched'] = pt.hist.set_touched
 def teardown_function(function):
     pt.booklists.select_next = _ORIG['select_next']
     pt.hist.set_touched = _ORIG['set_touched']
+    pg.CONTROL_DIR, pg.GATES_PATH = _PG_ORIG  # 還原 gates 路徑（不污染他測 / 真 .control/）
+    pt._GATES_HOLDER['g'] = None
     for k in ('log', '_crawl_backlog', '_zlib_accounts_remaining', '_fetch_book',
               '_zlib_remaining_cached', 'CONTROLLER_STATE', 'RELOAD_REQUEST'):
         if _ORIG[k] is not None:
@@ -39,6 +44,12 @@ def _setup():
     pt.RELOAD_REQUEST = os.path.join(d, 'reload_request')
     pt.log = lambda *a, **k: None
     pt.hist.set_touched = lambda *a, **k: None
+    # 重導 gates 路徑到 temp 並開閘（default=allow）：本測試聚焦下載邏輯，非閘門；不重導會讀真
+    # .control/（無檔→fail-safe hold→drain 全擋，誤判下載邏輯壞）。_GATES_HOLDER 清 None → drain 走 load。
+    pg.CONTROL_DIR = d
+    pg.GATES_PATH = os.path.join(d, 'gates.json')
+    pt._GATES_HOLDER['g'] = None
+    pg.set_gates('allow', [])
     from book_pipeline import devctl  # drain 內 import → 直接 stub 該函式
     devctl.invalidate_zlib_cache = lambda *a, **k: None
     return d

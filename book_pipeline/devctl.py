@@ -35,7 +35,7 @@ from book_pipeline import worker_registry as wr
 from book_pipeline import agent_history as hist
 from book_pipeline import book_timeline as tl
 from book_pipeline import pipeline_queue as q
-from book_pipeline import pipeline_run_state as prs
+from book_pipeline import pipeline_gates as pg
 from book_pipeline import trace
 
 ROOT = st.ROOT
@@ -404,6 +404,7 @@ def books_status(write_timeline: bool = False) -> dict:
     sess_by_slug = hist.sessions_grouped(limit=SESSIONS_PER_BOOK) if write_timeline else {}  # 僅 detail 寫手(60s)需；讀 index 一次迴圈外分發
     from book_pipeline import booklists
     res_cov = booklists.load_resolution()  # 迴圈外讀一次：pre-ingest 書封面退而求 sidecar z-lib 封面
+    gates = pg.load_gates()  # 迴圈外讀一次：per-book「下一閘是否 held」純觀測（複用 assess 的 todo）
     rows = []
     todos = []
     for s in slugs:
@@ -418,6 +419,11 @@ def books_status(write_timeline: bool = False) -> dict:
         deployed = os.path.exists(os.path.join(ROOT, 'data', s, 'book.json'))
         r['deployed'] = deployed  # 產線「上站完成」站定位用（book.json 已烤出）
         r['math_bad'] = math_by_book.get(s)  # 數學殘餘 occ（None=未驗/缺）→ 抽屜顯示，不 gate
+        # per-book 閘門觀測（純讀）：複用 assess 已算的 todo 取「下一個必做 verb」，查它是否被 held。
+        nverb = next((t.split('(')[0] for t in (r.get('todo') or '').split()
+                      if t and t != '—' and not t.endswith('(可選)')), None)
+        r['gated'] = pg.next_gate_status(s, nverb, gates)  # True=下一閘被閘控擋住（中性停，非拒絕/停滯）
+        r['gate_verb'] = nverb if r['gated'] else None     # 被擋在哪個 verb（UI 顯示「⏸ 停在 X 閘」）
         # 時間軸 + agent session 摘要逐出 status.json 核（佔 books[] ~82%、僅抽屜用）→ per-book
         # dev/detail/<slug>.json，抽屜 on-demand 撿。觀測式時間軸 = deployed-aware label（已部署→
         # 'deployed'，否則 stage）的 append-on-change 歷史，**只准單一寫手**（60s devsnapshot，永遠
@@ -593,6 +599,68 @@ def booklist_progress() -> dict:
     return booklists.progress()
 
 
+def gates_status() -> dict:
+    """閘門政策快照（純讀，餵 /dev 觀測）：{default, rules, active}。active=gates_active(=default==hold)。
+    前端據此畫三態徽章：default==hold→暫停(紅)／default==allow+有 hold rule→部分閘控(黃)／否則→運轉(綠)。"""
+    g = pg.load_gates()
+    return {'default': g['default'], 'rules': g['rules'], 'active': pg.gates_active(g)}
+
+
+def _gate_badge(g: dict) -> str:
+    if not g['rules']:
+        return '⏸ 暫停(全停)' if g['default'] == 'hold' else '▶️ 運轉(全自動)'
+    return '🔶 部分閘控'
+
+
+def _print_gates(g: dict) -> None:
+    print(f'gates：default={g["default"]} · active(保活)={pg.gates_active(g)} · {_gate_badge(g)}')
+    if g['rules']:
+        print('  rules（first-match-wins，由上而下第一條命中者勝）：')
+        for i, r in enumerate(g['rules']):
+            print(f'    [{i}] {r["action"]:5} slug={r["slug"]:32} stage={r["stage"]}')
+    else:
+        print('  rules：（無）')
+
+
+def _cmd_gates(args) -> int:
+    """閘門控制 CLI（架構師操作面）。無 action=show；mutate 後送 SIGUSR1 喚醒 controller 秒級生效。"""
+    action = getattr(args, 'action', None)
+    if not action:
+        if getattr(args, 'json', False):
+            print(json.dumps(gates_status(), ensure_ascii=False, indent=2))
+        else:
+            _print_gates(pg.load_gates())
+        return 0
+    try:
+        if action == 'default':
+            if args.a1 not in ('hold', 'allow'):
+                print('用法：devctl gates default <hold|allow>')
+                return 2
+            g = pg.set_default(args.a1)
+        elif action in ('allow', 'hold'):
+            if not args.a1 or not args.a2:
+                print(f'用法：devctl gates {action} <slug|*> <stage|*>'
+                      f'（stage∈{sorted(pg.KNOWN_STAGES)} 或 *）')
+                return 2
+            if args.a1 != '*' and args.a1 not in set(st.all_slugs()):
+                print(f'⚠ slug {args.a1!r} 不在已知書單（仍寫入；crawl 候選書可能尚未 owned）')
+            g = pg.add_rule(args.a1, args.a2, action)
+        elif action == 'rm':
+            g = pg.rm_rule(int(args.a1))
+        elif action == 'clear':
+            g = pg.clear_rules()
+        else:
+            return 1
+    except (ValueError, IndexError, TypeError) as e:
+        print(f'❌ {e}')
+        return 2
+    from book_pipeline import pipeline_tick as pt
+    woke = pt.wake_controller()
+    _print_gates(g)
+    print('已喚醒 controller 立即生效。' if woke else '無 live controller → 下次起來即遵守。')
+    return 0
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -601,7 +669,8 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     return {
         'generated_at_utc': now.isoformat(),
         'generated_at_local': datetime.now().isoformat(timespec='seconds'),
-        'paused': prs.is_paused(),  # 系統暫停態（pause flag）→ /dev 暫停/啟動鈕 + daemon 是否派工
+        'gates': gates_status(),  # 閘門政策（default/rules/active）→ /dev 純觀測徽章 + per-book gated
+        'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
         'daemon': daemon_health(),
         'code': code_status(),
         'budget': budget_status(),
@@ -796,8 +865,15 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser('incident', help='出事全貌 dump（給 Claude 除錯）')
     sub.add_parser('kick', help='硬殺重啟（棄在飛工作；緊急用）')
     sub.add_parser('reload', help='優雅載入新碼：排空在飛 worker 後退出（零浪費）')
-    sub.add_parser('pause', help='暫停系統：停派一切新工（在飛 worker 自然收尾）；預設暫停')
-    sub.add_parser('resume', help='啟動系統：恢復派工（解除暫停）')
+    sub.add_parser('pause', help='暫停系統：gates default=hold + 清 rules（全停）；預設暫停')
+    sub.add_parser('resume', help='啟動系統：gates default=allow + 清 rules（全面恢復）')
+    p_g = sub.add_parser('gates', help='閘門控制（per-book × per-stage，first-match）；無參數=顯示現況')
+    p_g.add_argument('action', nargs='?',
+                     choices=['default', 'allow', 'hold', 'rm', 'clear'],
+                     help='省略=show；default <hold|allow>；allow/hold <slug|*> <stage|*>；rm <idx>；clear')
+    p_g.add_argument('a1', nargs='?', help='default: hold|allow ｜ allow/hold: slug（* = 全部）｜ rm: idx')
+    p_g.add_argument('a2', nargs='?', help='allow/hold: stage（* = 全部；見 KNOWN_STAGES）')
+    p_g.add_argument('--json', action='store_true')
     p_tl = sub.add_parser('timeline', help='某書（或全部）的階段時間軸')
     p_tl.add_argument('slug', nargs='?', help='省略 = 全部書')
     p_tl.add_argument('--json', action='store_true')
@@ -949,20 +1025,22 @@ def main(argv: list[str] | None = None) -> int:
         return r.returncode
 
     if args.cmd in ('pause', 'resume'):
-        # 寫運行/暫停旗標（.control/，與 sidecar/pipeline_tick 共用單一真相）；暫停＝停派新工、
-        # 在飛 worker 自然收尾（同 reload 不殺）。送 SIGUSR1 喚醒 live controller → 立即 re-observe
-        # 重判暫停閘（暫停即停下個 cycle 派工、resume 即恢復），秒級生效；無 live controller（閒置/
-        # 停機）→ 旗標已落盤，下次 controller 起來自然遵守。
+        # subsume pause：pause=寫 gates {default:hold,rules:[]}、resume=寫 {default:allow,rules:[]}
+        # （清 rules → 全 lane 全書齊發；要細粒度用 `devctl gates`）。送 SIGUSR1 喚醒 live controller →
+        # 立即 re-observe 重判閘門，秒級生效；無 live controller（閒置/停機）→ 已落盤，下次起來自然遵守。
         from book_pipeline import pipeline_tick as pt
-        prs.set_running(args.cmd == 'resume')
+        pg.resume() if args.cmd == 'resume' else pg.pause()
         woke = pt.wake_controller()
         if args.cmd == 'pause':
-            print('⏸  系統已暫停：停派一切新工（在飛 worker 自然收尾）。'
+            print('⏸  系統已暫停（gates default=hold、清空 rules）：停派一切新工（在飛 worker 自然收尾）。'
                   + ('已喚醒 controller 立即生效。' if woke else '無 live controller → 下次起來即遵守。'))
         else:
-            print('▶️  系統已啟動：恢復派工。'
+            print('▶️  系統已啟動（gates default=allow、清空 rules）：全面恢復派工。'
                   + ('已喚醒 controller 立即恢復。' if woke else '無 live controller（閒置/停機）→ 下次重拉即派工。'))
         return 0
+
+    if args.cmd == 'gates':
+        return _cmd_gates(args)
 
     return 1
 
