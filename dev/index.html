@@ -880,29 +880,36 @@
     document.getElementById('dr-cv').innerHTML = `<div class="ph crawl-ph">📋</div>`
     document.getElementById('dr-title').textContent = 'Proposals'
     const f = proposalsFeed
-    const c = (f && f.counts) || { proposed: 0, accepted: 0, rejected: 0, superseded: 0 }
-    document.getElementById('dr-sub').textContent = `agent 提出的提案 · 待決議 ${c.proposed}`
+    const c = (f && f.counts) || { proposed: 0, parked: 0, accepted: 0, rejected: 0, superseded: 0 }
+    const fr = (f && f.frontier && f.frontier.counts) || {}
+    document.getElementById('dr-sub').textContent = `提案 · 待分類 ${c.proposed} · 等外部 ${c.parked || 0}`
     const bd = f && f.by_domain ? Object.entries(f.by_domain).map(([k, v]) => `${k} ${v}`).join(' · ') : ''
     document.getElementById('dr-meta').innerHTML =
-      `<span class="dr-status dr-st-wait">🟡 待決議 <b>${c.proposed}</b>`
-      + ` <small style="opacity:.6">· accepted ${c.accepted} · rejected ${c.rejected}`
-      + `${c.superseded ? ' · superseded ' + c.superseded : ''}</small></span>`
+      `<span class="dr-status dr-st-wait">🟡 待分類 <b>${c.proposed}</b></span>`
+      + ` <span class="dr-status dr-st-ready">⏸ 等外部 <b>${c.parked || 0}</b></span>`
+      + ` <small style="opacity:.6">accepted ${c.accepted} · rejected ${c.rejected}`
+      + `${c.superseded ? ' · superseded ' + c.superseded : ''}${fr.stale ? ' · ⏳stale ' + fr.stale : ''}</small>`
       + (bd ? `<span>${escapeHtml(bd)}</span>` : '')
       + `<div class="pp-filter">`
-      + `<button data-f="proposed" class="${ppFilter === 'proposed' ? 'on' : ''}">待決議</button>`
+      + `<button data-f="proposed" class="${ppFilter === 'proposed' ? 'on' : ''}">待分類</button>`
+      + `<button data-f="parked" class="${ppFilter === 'parked' ? 'on' : ''}">等外部</button>`
       + `<button data-f="all" class="${ppFilter === 'all' ? 'on' : ''}">全部</button></div>`
-    const items = ((f && f.items) || []).filter(p => ppFilter === 'all' || p.status === 'proposed')
+    const items = ((f && f.items) || []).filter(p =>
+      ppFilter === 'all' || (p.bucket || (p.status === 'proposed' ? 'actionable' : 'terminal'))
+        === (ppFilter === 'parked' ? 'parked' : 'actionable'))
     const evs = document.getElementById('dr-evs')
     evs.innerHTML = items.length ? items.map(p => {
-      const resolved = p.status !== 'proposed'
-      const st = resolved ? `<span class="pp-st">${escapeHtml(p.status)}</span>`
-                          : `<span class="pp-st proposed">待決</span>`
-      return `<div class="pp-row ${resolved ? 'resolved' : ''}" data-pid="${encodeURIComponent(p.id)}">`
+      const bk = p.bucket || (p.status === 'proposed' ? 'actionable' : 'terminal')
+      const st = bk === 'terminal' ? `<span class="pp-st">${escapeHtml(p.status)}</span>`
+               : bk === 'parked' ? `<span class="pp-st" style="color:var(--status-ready,#5aa)">⏸ 等外部</span>`
+                                 : `<span class="pp-st proposed">待分類</span>`
+      const stale = p.stale ? `<span class="pp-src" title="需重驗">⏳</span>` : ''
+      return `<div class="pp-row ${bk === 'terminal' ? 'resolved' : ''}" data-pid="${encodeURIComponent(p.id)}">`
         + `<span class="pp-tt">${escapeHtml(p.title || p.id)}</span>`
         + ppDomBadge(p) + `<span class="pp-type">${escapeHtml(p.type || '')}</span>`
         + (p.source ? `<span class="pp-src">${escapeHtml(p.source)}</span>` : '')
-        + st + `<span class="pp-at">${escapeHtml(p.created ? relTime(p.created) : '')}</span></div>`
-    }).join('') : `<div class="dr-empty">${ppFilter === 'proposed' ? '無待決議提案 🎉' : '無提案'}</div>`
+        + stale + st + `<span class="pp-at">${escapeHtml(p.created ? relTime(p.created) : '')}</span></div>`
+    }).join('') : `<div class="dr-empty">${ppFilter === 'all' ? '無提案' : (ppFilter === 'parked' ? '無等外部提案' : '無待分類提案 🎉')}</div>`
     document.getElementById('dr-tl').innerHTML = ''
     document.getElementById('dr-hist').innerHTML = ''
   }
@@ -921,19 +928,27 @@
     }
     document.getElementById('dr-title').textContent = p.title || p.id
     document.getElementById('dr-sub').textContent = p.id
-    const stCls = p.status === 'proposed' ? 'dr-st-wait' : (p.status === 'accepted' ? 'dr-st-done' : 'dr-st-ready')
+    const bk = p.bucket || (p.status === 'proposed' ? 'actionable' : 'terminal')
+    const stCls = bk === 'actionable' ? 'dr-st-wait' : (bk === 'parked' ? 'dr-st-ready'
+                  : (p.status === 'accepted' ? 'dr-st-done' : 'dr-st-ready'))
+    const stLabel = bk === 'actionable' ? '🟡 待分類' : bk === 'parked' ? '⏸ 等外部' : escapeHtml(p.status)
+    const ub = p.unblock || {}
+    const va = p.verified_at || {}
     document.getElementById('dr-meta').innerHTML =
-      `<span class="dr-status ${stCls}">${p.status === 'proposed' ? '🟡 待決議' : escapeHtml(p.status)}</span>`
+      `<span class="dr-status ${stCls}">${stLabel}</span>`
       + ppDomBadge(p) + `<span>type <b>${escapeHtml(p.type || '')}</b></span>`
       + (p.source ? `<span>source <b>${escapeHtml(p.source)}</b></span>` : '')
       + (p.slug ? `<span>書 <b>${escapeHtml(p.slug)}</b></span>` : '')
+      + (ub.kind ? `<span>解鎖 <b>${escapeHtml(ub.kind)}${ub.target ? '→' + escapeHtml(ub.target) : ''}</b></span>` : '')
+      + (va.sha ? `<span title="${escapeHtml(va.date || '')}">已驗 <b>@${escapeHtml(va.sha)}</b></span>` : '')
+      + (p.stale ? `<span class="dr-status dr-st-wait">⏳ 需重驗</span>` : '')
       + (p.created ? `<span>${escapeHtml(p.created.replace('T', ' ').replace('+00:00', ''))} UTC</span>` : '')
     const sec = (h, body, pre) => body
       ? `<div class="pp-sec"><div class="h">${h}</div>${pre ? `<pre class="pp-pre">${escapeHtml(body)}</pre>` : `<div class="bd">${escapeHtml(body)}</div>`}</div>`
       : ''
     const detect = (p.detect && p.detect.length) ? p.detect.join('   ') : ''
     document.getElementById('dr-evs').innerHTML =
-      (p.status !== 'proposed'
+      (bk === 'terminal'
         ? `<div class="pp-sec"><div class="h">⚠ 已決議 — 僅摘要</div><div class="bd">完整內容：proposals show ${escapeHtml(p.id)}</div></div>`
         : '')
       + sec('evidence（發現根據）', p.evidence)

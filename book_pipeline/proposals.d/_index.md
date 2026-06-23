@@ -1,7 +1,7 @@
 # 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改
 
 正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：
-`uv run python -m book_pipeline.proposals {propose|resolve|park|verify|list|check|gate|stale}`。
+`uv run python -m book_pipeline.proposals {propose|resolve|park|verify|frontier|list|stale|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
 ## domain: crawl  （4 條；proposed=0 parked=0）

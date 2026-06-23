@@ -321,6 +321,38 @@ def test_stamp_verified_and_default_readonly():
     _with_tmp_store(body)
 
 
+def test_verify_engine_caption_routing_status_agnostic():
+    """已決議的 caption tooling-gap 提案 verify 路由須穩定（不隨 status 漂移走錯 smoke 分支）。"""
+    ctx = P.VerifyCtx()
+    ctx._slug_of = lambda rec: "bk"
+    ctx._catalog["bk"] = {"critical": 0, "findings": []}
+    base = {"id": "P-x", "domain": "engine", "type": "tooling-gap",
+            "title": "figure caption 缺", "evidence": "empty_caption"}
+    for st in ("proposed", "superseded", "accepted"):
+        vr = P._verify_engine({**base, "status": st}, ctx)
+        assert vr.metric_label == "catalog_critical", f"status={st} 應委派 catalog 而非 smoke"
+        assert vr.verdict == "resolved"
+
+
+# ── Pillar 4：frontier 生命週期聚合（零缺口三桶 + stale 跨切）─────────────────────
+def test_frontier_view_buckets_and_stale():
+    recs = [
+        {"id": "P-1", "domain": "sol", "status": "proposed"},
+        {"id": "P-2", "domain": "sol", "status": "parked"},
+        {"id": "P-3", "domain": "math", "status": "superseded"},
+        {"id": "P-4", "domain": "math", "status": "accepted"},
+        {"id": "P-5", "domain": "engine", "status": "proposed"},
+    ]
+    fv = P.frontier_view(recs, stale_ids={"P-1", "P-3"})
+    c = fv["counts"]
+    # 零缺口：actionable + parked + terminal == total
+    assert c["actionable"] + c["parked"] + c["terminal"] == fv["total"] == 5
+    assert c["actionable"] == 2 and c["parked"] == 1 and c["terminal"] == 2
+    # stale 只算未終態（P-3 superseded 雖在 stale_ids 也不計）
+    assert fv["stale"] == ["P-1"] and c["stale"] == 1
+    assert fv["by_domain"]["sol"] == {"actionable": 1, "parked": 1, "terminal": 0}
+
+
 if __name__ == "__main__":
     test_real_store_lints_clean();              print("✓ 真實 store lint 乾淨")
     test_real_index_in_sync();                  print("✓ _index.md 與 store 同步")
@@ -339,7 +371,8 @@ if __name__ == "__main__":
     test_verified_at_optional_and_structure();  print("✓ verified_at 可選 + 結構驗")
     test_render_order_and_parked_stats();       print("✓ render order + parked 統計")
     test_stale_candidates_pure();               print("✓ stale_candidates 純函式")
+    test_frontier_view_buckets_and_stale();     print("✓ frontier 零缺口三桶 + stale 跨切")
     import pytest as _pt                          # monkeypatch fixture 測試走 pytest
-    _pt.main([__file__, "-q", "-k", "verify"])
-    print("✓ verify 雙軸/trichotomy/路由（見上 pytest）")
+    _pt.main([__file__, "-q", "-k", "verify or stamp"])
+    print("✓ verify 雙軸/trichotomy/路由 + stamp（見上 pytest）")
     print("\n全部通過 ✅")

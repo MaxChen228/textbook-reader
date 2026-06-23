@@ -330,17 +330,21 @@ _CATALOG_GAP_KW = (
 )
 
 
-def _is_catalog_gap(rec: dict) -> bool:
-    """proposed 的 catalog/caption 引擎缺口提案（domain engine|catalog + type=tooling-gap + 標題/證據含 caption 類關鍵字）。
-    刻意只認 caption tooling-gap：conway/poole 等『章節/題號切分』缺口不含這些字 → 不誤觸（critical=0 也不動）。
-    **type 必須 tooling-gap**：scope_guard 的 patch 記錄（type=patch）標題常帶階段名『catalog_audit』含子字串 catalog →
-    若不濾 type 會把『worker 越界改 parser.py』誤判成 caption 假缺口、蓋上錯誤的 repair-covered 理由。"""
-    if rec.get('status') != 'proposed' or rec.get('domain') not in ('engine', 'catalog'):
-        return False
-    if rec.get('type') != 'tooling-gap':
+def _is_caption_tooling_gap(rec: dict) -> bool:
+    """caption/catalog 引擎缺口（domain engine|catalog + type=tooling-gap + 標題/證據含 caption 類關鍵字）。
+    **不綁 status**——verify 路由用本判定（已決議的同一條提案路由須穩定，不隨 status 漂移）。
+    刻意只認 caption tooling-gap：conway/poole 等『章節/題號切分』缺口不含這些字 → 不誤觸。
+    **type 必須 tooling-gap**：scope_guard 的 patch 記錄（type=patch）標題常帶階段名『catalog_audit』含子字串
+    catalog → 若不濾 type 會把『worker 越界改 parser.py』誤判成 caption 假缺口。"""
+    if rec.get('domain') not in ('engine', 'catalog') or rec.get('type') != 'tooling-gap':
         return False
     blob = ' '.join((rec.get(k) or '') for k in ('title', 'evidence', 'proposal')).lower()
     return any(k in blob for k in _CATALOG_GAP_KW)
+
+
+def _is_catalog_gap(rec: dict) -> bool:
+    """supersede 護欄用：限 **proposed** 的 caption tooling-gap（已決議者絕不被自動重裁）。"""
+    return rec.get('status') == 'proposed' and _is_caption_tooling_gap(rec)
 
 
 def catalog_resolved_candidates(recs: list[dict], slug_of, critical_fn) -> list[tuple[dict, str]]:
@@ -532,8 +536,9 @@ def _verify_catalog(rec: dict, ctx: VerifyCtx) -> VerifyResult:
 
 
 def _verify_engine(rec: dict, ctx: VerifyCtx) -> VerifyResult:
-    # caption 類 tooling-gap → 委派 catalog critical（=supersede 護欄手動版，可自動定案）
-    if _is_catalog_gap(rec):
+    # caption 類 tooling-gap → 委派 catalog critical（=supersede 護欄手動版，可自動定案）。
+    # 用不綁 status 的判定 → 同一條提案 verify 路由穩定（不隨 proposed→resolved 漂移）。
+    if _is_caption_tooling_gap(rec):
         vr = _verify_catalog(rec, ctx)
         vr.note = "caption tooling-gap 委派 catalog → " + vr.note
         return vr
@@ -624,13 +629,36 @@ def verify_many(ids: list[str], ctx: VerifyCtx) -> list[VerifyResult]:
     return [_verify_fn(recs[i].get("domain"))(recs[i], ctx) for i in ids if i in recs]
 
 
+# ── frontier：生命週期聚合儀表板（回答「每條提案站在哪、哪些是真待辦」）─────────────
+def frontier_view(recs: list[dict[str, Any]], stale_ids: set[str] | frozenset = frozenset()) -> dict:
+    """純函式（無 I/O）：三互斥生命週期桶（零缺口：actionable+parked+terminal==total）+ stale 跨切覆蓋。
+    stale 需 git → 由呼叫端 stale_candidates(recs,_stale_since) 算好 stale_ids 注入，維持本函式純粹/可測。
+      actionable=proposed（待分類）/ parked（等外部）/ terminal（已決議）。stale=未終態且 verified_at 過時者。"""
+    buckets: dict[str, list[str]] = {"actionable": [], "parked": [], "terminal": []}
+    by_domain: dict[str, dict[str, int]] = {}
+    for r in recs:
+        st = r.get("status")
+        b = "actionable" if st == "proposed" else "parked" if st == "parked" else "terminal"
+        buckets[b].append(r.get("id"))
+        by_domain.setdefault(r.get("domain") or "?", {"actionable": 0, "parked": 0, "terminal": 0})[b] += 1
+    stale = [r.get("id") for r in recs
+             if r.get("id") in stale_ids and r.get("status") in UNRESOLVED]
+    return {
+        "total": len(recs),
+        "counts": {**{b: len(v) for b, v in buckets.items()}, "stale": len(stale)},
+        "buckets": buckets,
+        "by_domain": by_domain,
+        "stale": stale,
+    }
+
+
 # ── render（JSON store → _index.md 人類視圖）──────────────────────────────────
 def render(recs: list[dict[str, Any]]) -> str:
     lines = [
         "# 建議佇列（proposals）— 由 JSON store 自動生成，請勿手改",
         "",
         "正本 = `book_pipeline/proposals.d/<id>.json`（一案一檔）。新增/改狀態一律走 CLI：",
-        "`uv run python -m book_pipeline.proposals {propose|resolve|park|verify|list|check|gate|stale}`。",
+        "`uv run python -m book_pipeline.proposals {propose|resolve|park|verify|frontier|list|stale|check|gate}`。",
         "決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。",
         "",
     ]
@@ -797,6 +825,10 @@ def cmd_verify(a: argparse.Namespace) -> int:
         print("（無符合提案）"); return 0
     ctx = VerifyCtx()
     results = verify_many(ids, ctx)
+    found = {v.pid for v in results}
+    missing = [i for i in ids if i not in found]
+    if missing:   # 打錯 id 不靜默吞（--auto-supersede 會落盤，須讓使用者知道少驗了哪些）
+        print(f"⚠ 略過 {len(missing)} 個找不到的 id：{' '.join(missing)}", file=sys.stderr)
     icon = {"resolved": "✅", "live": "🔴", "inconclusive": "❓"}
     for vr in results:
         auto = "可自動定案" if vr.can_auto_disposition else "僅輔助·人判"
@@ -827,6 +859,28 @@ def cmd_verify(a: argparse.Namespace) -> int:
                 print(f"  {e}", file=sys.stderr)
             return 2
         print(f"✓ 已 supersede {len(staged)} 條（resolved+可自動定案）")
+    return 0
+
+
+def cmd_frontier(a: argparse.Namespace) -> int:
+    """生命週期聚合儀表板：每條提案站在哪（待分類/等外部/已決議）、哪些需重驗（stale）。"""
+    recs = [r for r in load_all() if not a.domain or r.get("domain") == a.domain]
+    stale_ids = {rec["id"] for rec, _ in stale_candidates(recs, _stale_since)}
+    fv = frontier_view(recs, stale_ids)
+    c = fv["counts"]
+    print(f"proposals frontier（{fv['total']} 條{('｜domain=' + a.domain) if a.domain else ''}）")
+    print(f"  ⚡ actionable 待分類 = {c['actionable']}")
+    print(f"  ⏸  parked 等外部    = {c['parked']}")
+    print(f"  ✅ terminal 已決議   = {c['terminal']}")
+    print(f"  ⏳ stale 需重驗      = {c['stale']}")
+    print("\nby domain（actionable / parked / terminal）：")
+    for dom in sorted(fv["by_domain"]):
+        d = fv["by_domain"][dom]
+        print(f"  {dom:<9} {d['actionable']:>3} / {d['parked']:>3} / {d['terminal']:>3}")
+    if fv["stale"]:
+        print("\n⏳ stale（verify <id> 以 live 真相覆蓋過時 disposition）：")
+        for sid in fv["stale"][:20]:
+            print(f"  {sid}")
     return 0
 
 
@@ -1004,6 +1058,10 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("stale", help="唯讀：列 verified_at 後相關模組有新 commit 的提案（需重驗）")
     p.add_argument("--domain", choices=sorted(DOMAINS))
     p.set_defaults(fn=cmd_stale)
+
+    p = sub.add_parser("frontier", help="生命週期儀表板：待分類/等外部/已決議/需重驗 聚合視圖")
+    p.add_argument("--domain", choices=sorted(DOMAINS))
+    p.set_defaults(fn=cmd_frontier)
 
     p = sub.add_parser("supersede-resolved",
                        help="護欄：自動 supersede 已被 repair 涵蓋的假 catalog 缺口提案")

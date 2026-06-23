@@ -649,11 +649,13 @@ def write_snapshot(write_timeline: bool = False) -> str:
 
 
 # ── proposals 側欄 feed（/dev 即時看 agent 提出的提案）─────────────────────────
-def proposals_feed(resolved_limit: int = 30) -> dict:
+def proposals_feed(resolved_limit: int = 30, with_stale: bool = False) -> dict:
     """當前 proposals（book_pipeline/proposals.d/）→ /dev proposals 側欄資料源。
     未終態（proposed 待裁＋parked 等外部）帶完整散文欄位（evidence/proposal/risk/disposition/detect）
     與 unblock/verified_at 供展開；已決議（accepted/rejected/superseded）僅摘要、近 resolved_limit 筆
-    → 避免長 diff 體積膨脹。未終態排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals CLI）。"""
+    → 避免長 diff 體積膨脹。未終態排最前、各組內 created 倒序。純讀、無寫（裁決走 proposals CLI）。
+    frontier=生命週期聚合（三互斥桶+stale）；每 item 帶 bucket/stale。with_stale=True 才算 stale
+    （需 git subprocess）——心跳寫盤用 False（重活不進 8s/60s feed），CLI/手動查才 True。"""
     from book_pipeline import proposals as pr
 
     def _clip(s: str, n: int = 6000) -> str:  # 防極端長 diff 撐爆 feed；完整見 CLI proposals show <id>
@@ -663,15 +665,21 @@ def proposals_feed(resolved_limit: int = 30) -> dict:
     recs = pr.load_all()
     counts = {s: 0 for s in ('proposed', 'parked', 'accepted', 'rejected', 'superseded')}
     by_domain: dict[str, int] = {}
+    # stale 需 git（subprocess）→ 只在 CLi(with_stale) 算；心跳寫盤略過（重活不進 8s/60s feed）。
+    stale_ids = ({rec['id'] for rec, _ in pr.stale_candidates(recs, pr._stale_since)}
+                 if with_stale else frozenset())
+    frontier = pr.frontier_view(recs, stale_ids)
     proposed, resolved = [], []
     for r in recs:
         stt = r.get('status') or 'proposed'
         counts[stt] = counts.get(stt, 0) + 1
         dom = r.get('domain') or '?'
         by_domain[dom] = by_domain.get(dom, 0) + 1
+        bucket = ('actionable' if stt == 'proposed' else 'parked' if stt == 'parked' else 'terminal')
         item = {
             'id': r.get('id'), 'domain': dom, 'type': r.get('type'),
-            'status': stt, 'title': r.get('title') or r.get('id'),
+            'status': stt, 'bucket': bucket, 'stale': r.get('id') in stale_ids,
+            'title': r.get('title') or r.get('id'),
             'slug': r.get('slug') or None, 'source': r.get('source') or '',
             'created': r.get('created'), 'updated': r.get('updated'),
             'resolution': r.get('resolution') or '',
@@ -694,17 +702,13 @@ def proposals_feed(resolved_limit: int = 30) -> dict:
         'total': len(recs),
         'counts': counts,
         'by_domain': by_domain,
+        'frontier': frontier,
         'items': proposed + resolved[:resolved_limit],
     }
 
 
 def write_proposals() -> str:
-    feed = proposals_feed()
-    os.makedirs(os.path.dirname(PROPOSALS_PATH), exist_ok=True)
-    tmp = PROPOSALS_PATH + '.tmp'
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(feed, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, PROPOSALS_PATH)  # 原子寫，避免網頁讀到半截
+    _atomic_write_json(PROPOSALS_PATH, proposals_feed())   # 心跳寫盤：with_stale=False（不跑 git）
     return PROPOSALS_PATH
 
 
@@ -875,16 +879,21 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == 'proposals':
-        feed = proposals_feed()
+        feed = proposals_feed(with_stale=True)   # CLI 手動查：算真實 stale（heartbeat 寫盤才省 git）
         if args.json:
             print(json.dumps(feed, ensure_ascii=False, indent=2))
             return 0
         c = feed['counts']
-        print(f"提案 {feed['total']}：proposed {c['proposed']} · accepted {c['accepted']} · "
-              f"rejected {c['rejected']} · superseded {c['superseded']}　by-domain {feed['by_domain']}")
+        fr = feed.get('frontier', {})
+        print(f"提案 {feed['total']}：proposed {c['proposed']} · parked {c.get('parked', 0)} · "
+              f"accepted {c['accepted']} · rejected {c['rejected']} · superseded {c['superseded']}"
+              f"　stale {fr.get('counts', {}).get('stale', 0)}　by-domain {feed['by_domain']}")
+        mark_of = {'proposed': '🟡待分類', 'parked': '⏸等外部'}
         for it in feed['items']:
-            mark = '🟡待決' if it['status'] == 'proposed' else f"·{it['status']}"
-            print(f"   {mark}  {it['id']}  [{it['domain']}/{it['type']}] {(it['title'] or '')[:54]}")
+            mark = mark_of.get(it['status'], f"·{it['status']}")
+            ub = it.get('unblock') or {}
+            tail = f"  →{ub['kind']}" if ub.get('kind') else ''
+            print(f"   {mark}  {it['id']}  [{it['domain']}/{it['type']}] {(it['title'] or '')[:50]}{tail}")
         return 0
 
     if args.cmd == 'errors':
