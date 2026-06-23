@@ -1,0 +1,178 @@
+slug: johns_martin_analog_ic
+title: Analog Integrated Circuit Design
+author: Tony Chan Carusone; David A. Johns; Kenneth W. Martin
+edition: 2nd
+subject: Microelectronics
+publisher: Wiley
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 810
+bibliography_start_page: null
+index_start_page: 810
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Integrated-Circuit Devices and Modelling
+    page_start: 24
+    page_end: 95
+    chapter_title_block_idx: 117
+    problems_block_idx: 1138
+    next_chapter_block_idx: 1194
+  - num: 2
+    title: Processing and Layout
+    page_start: 96
+    page_end: 139
+    chapter_title_block_idx: 1194
+    problems_block_idx: 1687
+    next_chapter_block_idx: 1725
+  - num: 3
+    title: Basic Current Mirrors and Single-Stage Amplifiers
+    page_start: 140
+    page_end: 166
+    chapter_title_block_idx: 1725
+    problems_block_idx: 2090
+    next_chapter_block_idx: 2194
+  - num: 4
+    title: Frequency Response of Electronic Circuits
+    page_start: 167
+    page_end: 226
+    chapter_title_block_idx: 2194
+    problems_block_idx: 3070
+    next_chapter_block_idx: 3178
+  - num: 5
+    title: Feedback Amplifiers
+    page_start: 227
+    page_end: 264
+    chapter_title_block_idx: 3178
+    problems_block_idx: 3647
+    next_chapter_block_idx: 3746
+  - num: 6
+    title: Basic Opamp Design and Compensation
+    page_start: 265
+    page_end: 324
+    chapter_title_block_idx: 3746
+    problems_block_idx: 4541
+    next_chapter_block_idx: 4659
+  - num: 7
+    title: Biasing, References, and Regulators
+    page_start: 325
+    page_end: 353
+    chapter_title_block_idx: 4659
+    problems_block_idx: 5062
+    next_chapter_block_idx: 5113
+  - num: 8
+    title: Bipolar Devices and Circuits
+    page_start: 354
+    page_end: 385
+    chapter_title_block_idx: 5113
+    problems_block_idx: 5549
+    next_chapter_block_idx: 5587
+  - num: 9
+    title: Noise and Linearity Analysis and Modelling
+    page_start: 386
+    page_end: 435
+    chapter_title_block_idx: 5587
+    problems_block_idx: 6288
+    next_chapter_block_idx: 6378
+  - num: 10
+    title: Comparators
+    page_start: 436
+    page_end: 466
+    chapter_title_block_idx: 6378
+    problems_block_idx: 6687
+    next_chapter_block_idx: 6736
+  - num: 11
+    title: Sample-and-Hold and Translinear Circuits
+    page_start: 467
+    page_end: 491
+    chapter_title_block_idx: 6736
+    problems_block_idx: 6999
+    next_chapter_block_idx: 7050
+  - num: 12
+    title: Continuous-Time Filters
+    page_start: 492
+    page_end: 559
+    chapter_title_block_idx: 7050
+    problems_block_idx: 7994
+    next_chapter_block_idx: 8037
+  - num: 13
+    title: Discrete-Time Signals
+    page_start: 560
+    page_end: 579
+    chapter_title_block_idx: 8037
+    problems_block_idx: 8320
+    next_chapter_block_idx: 8365
+  - num: 14
+    title: Switched-Capacitor Circuits
+    page_start: 580
+    page_end: 628
+    chapter_title_block_idx: 8365
+    problems_block_idx: 8986
+    next_chapter_block_idx: 9040
+  - num: 15
+    title: Data Converter Fundamentals
+    page_start: 629
+    page_end: 645
+    chapter_title_block_idx: 9040
+    problems_block_idx: 9271
+    next_chapter_block_idx: 9303
+  - num: 16
+    title: Nyquist-Rate D/A Converters
+    page_start: 646
+    page_end: 668
+    chapter_title_block_idx: 9303
+    problems_block_idx: 9501
+    next_chapter_block_idx: 9533
+  - num: 17
+    title: Nyquist-Rate A/D Converters
+    page_start: 669
+    page_end: 718
+    chapter_title_block_idx: 9533
+    problems_block_idx: 10033
+    next_chapter_block_idx: 10088
+  - num: 18
+    title: Oversampling Converters
+    page_start: 719
+    page_end: 760
+    chapter_title_block_idx: 10088
+    problems_block_idx: 10608
+    next_chapter_block_idx: 10648
+  - num: 19
+    title: Phase-Locked Loops
+    page_start: 761
+    page_end: 809
+    chapter_title_block_idx: 10648
+    problems_block_idx: 11253
+    next_chapter_block_idx: 11305
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
