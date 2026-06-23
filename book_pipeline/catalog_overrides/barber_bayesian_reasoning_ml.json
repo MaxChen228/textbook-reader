@@ -1,0 +1,47 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "barber-figure-11.6-a",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[336]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-336",
+        "caption": "(a)",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-11.6",
+        "caption": "(a)",
+        "catalog_repair_source": "agent-caption-promote"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "raw PDF p.277 / physical page 302 shows this left subfigure as part (a) of Figure 11.6; it was incorrectly excluded as an unnumbered body figure."
+    },
+    {
+      "id": "barber-figure-11.6-b",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[337]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-337",
+        "caption": "(b)",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-11.6",
+        "caption": "Figure 11.6 (a) A model for the relationship between lung Cancer, Asbestos exposure and Smoking with factorised parameter priors. Variables c and s are observed, but variable a is consistently missing. (b) A factorised parameter posterior approximation.",
+        "catalog_repair_source": "agent-caption-promote"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "raw PDF p.277 / physical page 302 prints the full Figure 11.6 caption next to this right subfigure; promoting it restores the missing internal Figure 11.6 reference."
+    }
+  ]
+}

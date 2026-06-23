@@ -1,0 +1,131 @@
+slug: dasgupta_papadimitriou_vazirani_algorithms
+title: Algorithms
+author: Sanjoy Dasgupta; Christos Papadimitriou; Umesh Vazirani
+edition: 1st
+subject: Algorithms
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 328
+bibliography_start_page: null
+index_start_page: 330
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Prologue
+    page_start: 12
+    page_end: 21
+    chapter_title_block_idx: 49
+    chapter_title_block_idx_secondary: 50
+    problems_block_idx: 149
+    next_chapter_block_idx: 208
+  - num: 1
+    title: Algorithms with numbers
+    page_start: 22
+    page_end: 55
+    chapter_title_block_idx: 208
+    chapter_title_block_idx_secondary: 209
+    problems_block_idx: 579
+    next_chapter_block_idx: 697
+  - num: 2
+    title: Divide-and-conquer algorithms
+    page_start: 56
+    page_end: 90
+    chapter_title_block_idx: 697
+    chapter_title_block_idx_secondary: 698
+    problems_block_idx: 1040
+    next_chapter_block_idx: 1204
+  - num: 3
+    title: Decompositions of graphs
+    page_start: 91
+    page_end: 114
+    chapter_title_block_idx: 1204
+    problems_block_idx: 1376
+    next_chapter_block_idx: 1520
+  - num: 4
+    title: Paths in graphs
+    page_start: 115
+    page_end: 137
+    chapter_title_block_idx: 1520
+    problems_block_idx: 1697
+    next_chapter_block_idx: 1788
+  - num: 5
+    title: Greedy algorithms
+    page_start: 138
+    page_end: 166
+    chapter_title_block_idx: 1788
+    problems_block_idx: 2061
+    next_chapter_block_idx: 2193
+  - num: 6
+    title: Dynamic programming
+    page_start: 167
+    page_end: 198
+    chapter_title_block_idx: 2193
+    problems_block_idx: 2461
+    next_chapter_block_idx: 2599
+  - num: 7
+    title: Linear programming and reductions
+    page_start: 199
+    page_end: 242
+    chapter_title_block_idx: 2599
+    chapter_title_block_idx_secondary: 2600
+    problems_block_idx: 3077
+    next_chapter_block_idx: 3226
+  - num: 8
+    title: NP-complete problems
+    page_start: 243
+    page_end: 281
+    chapter_title_block_idx: 3226
+    problems_block_idx: 3575
+    next_chapter_block_idx: 3679
+  - num: 9
+    title: Coping with NP-completeness
+    page_start: 282
+    page_end: 307
+    chapter_title_block_idx: 3679
+    problems_block_idx: 3932
+    next_chapter_block_idx: 3993
+  - num: 10
+    title: Quantum algorithms
+    page_start: 308
+    page_end: 327
+    chapter_title_block_idx: 3993
+    chapter_title_block_idx_secondary: 3994
+    problems_block_idx: 4198
+    next_chapter_block_idx: 4232
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)|)\s*((?!(?:Figure|Table)\b)[A-Z][A-Za-z0-9''’(),:;/\-]*(?:\s+[A-Za-z0-9''’(),:;/\-]+)*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: '^Historical notes and further reading$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{(.+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

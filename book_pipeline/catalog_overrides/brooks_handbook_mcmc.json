@@ -1,0 +1,31 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "0.234",
+      "classification": "non_reference",
+      "reason": "這裡的 \"the figure 0.234\" 是英文裡指數值 0.234，不是對圖表的交叉引用。",
+      "where": "ch03.json body[44]",
+      "evidence": "Raw PDF p.119: \"... which is where the figure 0.234 comes from.\""
+    }
+  ],
+  "overrides": [
+    {
+      "id": "brooks-fig-2.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[153]",
+      "position": "before",
+      "page": 79,
+      "clip": [0.09, 0.12, 0.84, 0.86],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-2.2",
+        "kind": "line",
+        "caption": "Figure 2.2: The Hamiltonian Monte Carlo algorithm"
+      },
+      "reason": "Raw PDF p.79 確有 Figure 2.2 的完整 code listing 與 caption；MinerU 把它解析成被排除的 table block (`tbl-ch02-152`)，因此需以 pdf_crop_insert 補成真正的 figure 供 catalog 覆蓋正文引用。"
+    }
+  ]
+}

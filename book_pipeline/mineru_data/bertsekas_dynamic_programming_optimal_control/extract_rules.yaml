@@ -1,0 +1,121 @@
+slug: bertsekas_dynamic_programming_optimal_control
+title: "Dynamic Programming and Optimal Control, Vol. I"
+author: "Dimitri P. Bertsekas"
+edition: 3rd
+subject: Control Systems
+publisher: Athena Scientific
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 238
+bibliography_start_page: 273
+index_start_page: 279
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Dynamic Programming Algorithm
+    page_start: 8
+    page_end: 38
+    chapter_title_block_idx: 107
+    problems_block_idx: 853
+    next_chapter_block_idx: 1044
+  - num: 2
+    title: Deterministic Systems and the Shortest Path Problem
+    page_start: 39
+    page_end: 59
+    chapter_title_block_idx: 1044
+    problems_block_idx: 1461
+    next_chapter_block_idx: 1556
+  - num: 3
+    title: Deterministic Continuous-Time Optimal Control
+    page_start: 60
+    page_end: 80
+    chapter_title_block_idx: 1556
+    problems_block_idx: 2254
+    next_chapter_block_idx: 2331
+  - num: 4
+    title: Problems with Perfect State Information
+    page_start: 81
+    page_end: 115
+    chapter_title_block_idx: 2331
+    problems_block_idx: 3269
+    next_chapter_block_idx: 3540
+  - num: 5
+    title: Problems with Imperfect State Information
+    page_start: 116
+    page_end: 148
+    chapter_title_block_idx: 3540
+    problems_block_idx: 4520
+    next_chapter_block_idx: 4693
+  - num: 6
+    title: Approximate Dynamic Programming
+    page_start: 149
+    page_end: 208
+    chapter_title_block_idx: 4693
+    problems_block_idx: 6200
+    next_chapter_block_idx: 6400
+  - num: 7
+    title: Introduction to Infinite Horizon Problems
+    page_start: 209
+    page_end: 237
+    chapter_title_block_idx: 6400
+    chapter_title_block_idx_secondary: 6399
+    problems_block_idx: 7061
+    next_chapter_block_idx: 7281
+
+appendices:
+  - id: A
+    title: Mathematical Review
+    page_start: 238
+    chapter_title_block_idx: 7281
+  - id: B
+    title: On Optimization Theory
+    page_start: 243
+    chapter_title_block_idx: 7410
+  - id: C
+    title: On Probability Theory
+    page_start: 245
+    chapter_title_block_idx: 7471
+  - id: D
+    title: On Finite-State Markov Chains
+    page_start: 247
+    chapter_title_block_idx: 7549
+  - id: E
+    title: Kalman Filtering
+    page_start: 249
+    chapter_title_block_idx: 7610
+  - id: F
+    title: Modeling of Stochastic Linear Systems
+    page_start: 260
+    chapter_title_block_idx: 8012
+  - id: G
+    title: Formulating Problems of Decision Under Uncertainty
+    page_start: 262
+    chapter_title_block_idx: 8082
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)?)\s*(?!CONTENTS$|Contents$|EXERCISES$|Exercises$|References$|INDEX$|Index$|Example\b|[A-Z]\.\d+\b)([A-Z].+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)(?:\s+.*)?$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+((?:\d+\.\d+\.\d+|[A-Z]\.\d+))\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

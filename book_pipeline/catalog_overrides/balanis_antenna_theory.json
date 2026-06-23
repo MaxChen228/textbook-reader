@@ -1,0 +1,67 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "balanis-figure-11.10-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[145]",
+      "position": "after",
+      "page": 628,
+      "clip": [
+        0.14,
+        0.11,
+        0.85,
+        0.84
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-11.10.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-11.10",
+        "kind": "line",
+        "caption": "Figure 11.10 Measured and computed voltage and current distributions on a log-periodic dipole array of 13 elements with frequency such that element No. 10 is λ/2, and τ = 0.95, σ = 0.0564, N = 13, and l_n/d_n = 177."
+      },
+      "reason": "C4 ref 11.10：raw PDF 物理頁 628（印刷頁 606）整頁明確是 Figure 11.10，但 parsed/ch11 完全漏掉 fig block；依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "balanis-problem-14.21-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "problem:14.21:body[0]",
+      "position": "after",
+      "page": 892,
+      "clip": [
+        0.61,
+        0.29,
+        0.87,
+        0.50
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-P14.21.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P14.21",
+        "kind": "line",
+        "caption": "Figure P14.21"
+      },
+      "reason": "C4 ref P14.21：raw PDF 物理頁 892（印刷頁 870）Problem 14.21 右側明確有題圖 P14.21，但 parsed/ch14 問題區未產生 fig block；依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "balanis-problem-14.45-id-fix",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "problem:14.46:body[1]",
+      "expect": {
+        "id": "fig-14.57",
+        "caption": "P14.45"
+      },
+      "set": {
+        "id": "fig-P14.45",
+        "caption": "Figure P14.45",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 ref P14.45：raw PDF 物理頁 894（印刷頁 872）Problem 14.45 右側題圖標成 P14.45；parsed 卻把這張圖掛到 problem 14.46 並誤標成 fig-14.57。此處先校正語意 id/caption，讓 catalog 正確覆蓋正文對 Figure P14.45 的引用。"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+slug: fitzgerald_electric_machinery
+title: Electric Machinery
+author: A. E. Fitzgerald; Charles Kingsley Jr.; Stephen D. Umans
+edition: 6th
+subject: Electric Machinery
+publisher: McGraw-Hill Higher Education
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 642
+bibliography_start_page: null
+index_start_page: 701
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Magnetic Circuits and Magnetic Materials
+    page_start: 15
+    page_end: 70
+    chapter_title_block_idx: 279
+    problems_block_idx: 812
+    next_chapter_block_idx: 999
+  - num: 2
+    title: Transformers
+    page_start: 71
+    page_end: 125
+    chapter_title_block_idx: 999
+    problems_block_idx: 1653
+    next_chapter_block_idx: 1774
+  - num: 3
+    title: Electromechanical-Energy-Conversion Principles
+    page_start: 126
+    page_end: 186
+    chapter_title_block_idx: 1774
+    problems_block_idx: 2443
+    next_chapter_block_idx: 2640
+  - num: 4
+    title: Introduction to Rotating Machines
+    page_start: 187
+    page_end: 258
+    chapter_title_block_idx: 2640
+    problems_block_idx: 3354
+    next_chapter_block_idx: 3466
+  - num: 5
+    title: Synchronous Machines
+    page_start: 259
+    page_end: 319
+    chapter_title_block_idx: 3466
+    problems_block_idx: 4131
+    next_chapter_block_idx: 4274
+  - num: 6
+    title: Polyphase Induction Machines
+    page_start: 320
+    page_end: 370
+    chapter_title_block_idx: 4274
+    problems_block_idx: 4849
+    next_chapter_block_idx: 5003
+  - num: 7
+    title: DC Machines
+    page_start: 371
+    page_end: 420
+    chapter_title_block_idx: 5003
+    problems_block_idx: 5489
+    next_chapter_block_idx: 5632
+  - num: 8
+    title: Variable-Reluctance Machines and Stepping Motors
+    page_start: 421
+    page_end: 465
+    chapter_title_block_idx: 5632
+    problems_block_idx: 6073
+    next_chapter_block_idx: 6135
+  - num: 9
+    title: Single- and Two-Phase Motors
+    page_start: 466
+    page_end: 506
+    chapter_title_block_idx: 6135
+    problems_block_idx: 6617
+    next_chapter_block_idx: 6690
+  - num: 10
+    title: Introduction to Power Electronics
+    page_start: 507
+    page_end: 572
+    chapter_title_block_idx: 6690
+    problems_block_idx: 7335
+    next_chapter_block_idx: 7426
+  - num: 11
+    title: Speed and Torque Control
+    page_start: 573
+    page_end: 641
+    chapter_title_block_idx: 7426
+    problems_block_idx: 8281
+    next_chapter_block_idx: 8487
+
+appendices:
+  - id: A
+    title: Three-Phase Circuits
+    page_start: 642
+    chapter_title_block_idx: 8487
+  - id: B
+    title: Voltages, Magnetic Fields, and Inductances of Distributed AC Windings
+    page_start: 658
+    chapter_title_block_idx: 8700
+  - id: C
+    title: The dq0 Transformation
+    page_start: 671
+    chapter_title_block_idx: 8848
+  - id: D
+    title: Engineering Aspects of Practical Electric Machine Performance and Operation
+    page_start: 682
+    chapter_title_block_idx: 9025
+  - id: E
+    title: Table of Constants and Conversion Factors for SI Units
+    page_start: 694
+    chapter_title_block_idx: 9143
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{((?:[A-Z]\.)?\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: '^(?:EXAMPLE|Practice Problem)\s+((?:\d+|[A-Z])\.\d+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "gelman-bda-ch08-prob12-table-8.8-id",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:12:body[7]",
+      "expect": {
+        "id": "tbl-8.7",
+        "caption": "Table 8.7"
+      },
+      "set": {
+        "id": "tbl-8.8",
+        "caption": "Table 8.8 Respondents to the CBS telephone survey classified by opinion, number of residential telephone lines (category ‘?’ indicates no response to the number of phone lines question), and number of adults in the household (category ‘?’ includes all responses greater than 8 as well as nonresponses).",
+        "catalog_repair_source": "agent-table-footnote-id-fix"
+      },
+      "reason": "C5: problem 12 references Table 8.8 and the same table block's footnote contains the full Table 8.8 caption; MinerU/parser used fallback caption Table 8.7, creating duplicate tbl-8.7 and missing tbl-8.8."
+    }
+  ]
+}

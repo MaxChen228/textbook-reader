@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-23-gelman-bayesian-data-analysis",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/test_dispatch_failover.py（catalog_audit gelman_bayesian_data_analysis）",
+  "slug": "gelman_bayesian_data_analysis",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-23T19:11:20+00:00",
+  "updated": "2026-06-23T19:11:20+00:00",
+  "evidence": "scope_guard bracket：worker [catalog_audit gelman_bayesian_data_analysis] session=gelman_bayesian_data_analysis:8082 存活期間，受保護程式碼面 book_pipeline/test_dispatch_failover.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/test_dispatch_failover.py b/book_pipeline/test_dispatch_failover.py\nindex f566c7a..db1c043 100644\n--- a/book_pipeline/test_dispatch_failover.py\n+++ b/book_pipeline/test_dispatch_failover.py\n@@ -11,25 +11,27 @@ from book_pipeline import llm_policy as lp\n from book_pipeline import pipeline_tick as pt\n \n \n+# 測試用**固定** failover 鏈（hermetic）：絕不讀 live `resolve_dispatch` 生效鏈——runtime override\n+# （devctl chain set，如使用者「只用 codex-pool」會使生效鏈剩 1 段）會讓 failover 測試假紅。_patch 把\n+# `_resolve_dispatch` pin 成此鏈，故測試永遠驗的是 failover **語意**、與當下營運鏈無關（2026-06-24 定）。\n+_HCHAIN = ('codex', 'codex-pool', 'claude')\n+\n+\n def _chain():\n-    \"\"\"dispatch_llm 實際遵循的 provider 順序（= resolve_dispatch 的生效鏈）。長度**不寫死**——碼層常態\n-    3 段（codex/codex-pool/claude），但 runtime override（devctl chain set，如禁 claude 只留\n-    codex,codex-pool）可使其 2 段。測試驗 failover **語意**而非特定鏈長 → 對 ≥2 段皆成立、不隨營運\n-    換鏈而假紅（2026-06-24：禁 claude 後鏈剩 2 段，舊 len==3 硬斷言誤殺 4 測）。\"\"\"\n-    chain = list(lp.resolve_dispatch('audit').chain)\n-    assert len(chain) >= 2, f'failover 測試需 ≥2-provider 鏈，得到 {chain}'\n-    return chain\n-\n-\n-def _patch(results):\n-    \"\"\"results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。每次重置 exhausted 共享集；\n-    並把 LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』『❌ 全 provider 不可用\n-    audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status / /dev）冒假 🔴 cry-wolf\n-    （2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。\"\"\"\n+    \"\"\"failover 測試用的固定 3-provider 鏈（hermetic，見 _HCHAIN）。\"\"\"\n+    return list(_HCHAIN)\n+\n+\n+def _patch(results, chain=_HCHAIN):\n+    \"\"\"results: {provider: (rc, reason)}。回 (calls 累積串, restore 函式)。\n+    - pin `_resolve_dispatch` → 固定 chain（hermetic，不受 runtime provider_chain.json override 影響）。\n+    - 重置 exhausted 共享集；LOG 暫導向 os.devnull——dispatch_llm 的 failover 行（『⚠ codex 撞額度』\n+      『❌ 全 provider 不可用 audit x』）不該污染真 reports/daemon.log，否則 ops 看板（devctl status /\n+      /dev）冒假 🔴 cry-wolf（2026-06-23 使用者從 /dev 看板撞見這批合成 slug='x' 的假 outage）。\"\"\"\n     calls = []\n-    orig = pt._run_one\n-    orig_log = pt.LOG\n+    orig_run, orig_resolve, orig_log = pt._run_one, pt._resolve_dispatch, pt.LOG\n     pt.LOG = os.devnull\n+    pt._resolve_dispatch = lambda verb: lp.DispatchSpec(chain=tuple(chain), codex_model='gpt-5.4')\n     with pt._exhausted_lock:\n         pt._exhausted_at.clear()\n \n@@ -39,8 +41,9 @@ def _patch(results):\n     pt._run_one = fake\n \n     def restore():\n-        pt._run_one = orig\n-        pt.LOG = orig_log\n+        pt._run_one, pt._resolve_dispatch, pt.LOG = orig_run, orig_resolve, orig_log\n+        with pt._exhausted_lock:\n+            pt._exhausted_at.clear()\n     return calls, restore",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

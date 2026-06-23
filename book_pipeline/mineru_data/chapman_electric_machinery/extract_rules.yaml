@@ -1,0 +1,130 @@
+slug: chapman_electric_machinery
+title: Electric Machinery Fundamentals
+author: Stephen J. Chapman
+edition: 5th
+subject: Electric Machinery
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 28
+appendices_start_page: 640
+bibliography_start_page: null
+index_start_page: 697
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Machinery Principles
+    page_start: 28
+    page_end: 91
+    chapter_title_block_idx: 117
+    problems_block_idx: 888
+    next_chapter_block_idx: 990
+  - num: 2
+    title: Transformers
+    page_start: 92
+    page_end: 178
+    chapter_title_block_idx: 990
+    problems_block_idx: 2017
+    next_chapter_block_idx: 2162
+  - num: 3
+    title: AC Machinery Fundamentals
+    page_start: 179
+    page_end: 217
+    chapter_title_block_idx: 2162
+    problems_block_idx: 2653
+    next_chapter_block_idx: 2700
+  - num: 4
+    title: Synchronous Generators
+    page_start: 218
+    page_end: 297
+    chapter_title_block_idx: 2700
+    problems_block_idx: 3561
+    next_chapter_block_idx: 3702
+  - num: 5
+    title: Synchronous Motors
+    page_start: 298
+    page_end: 333
+    chapter_title_block_idx: 3702
+    problems_block_idx: 4078
+    next_chapter_block_idx: 4206
+  - num: 6
+    title: Induction Motors
+    page_start: 334
+    page_end: 430
+    chapter_title_block_idx: 4206
+    problems_block_idx: 5265
+    next_chapter_block_idx: 5472
+  - num: 7
+    title: DC Machinery Fundamentals
+    page_start: 431
+    page_end: 490
+    chapter_title_block_idx: 5472
+    problems_block_idx: 6088
+    next_chapter_block_idx: 6159
+  - num: 8
+    title: DC Motors and Generators
+    page_start: 491
+    page_end: 591
+    chapter_title_block_idx: 6159
+    problems_block_idx: 7184
+    next_chapter_block_idx: 7333
+  - num: 9
+    title: Single-Phase and Special-Purpose Motors
+    page_start: 592
+    page_end: 639
+    chapter_title_block_idx: 7333
+    problems_block_idx: 7797
+    next_chapter_block_idx: 7844
+
+appendices:
+  - id: A
+    title: Three-Phase Circuits
+    page_start: 640
+    chapter_title_block_idx: 7844
+  - id: B
+    title: Coil Pitch and Distributed Windings
+    page_start: 666
+    chapter_title_block_idx: 8189
+  - id: C
+    title: Salient-Pole Theory of Synchronous Machines
+    page_start: 686
+    chapter_title_block_idx: 8471
+  - id: D
+    title: Tables of Constants and Conversion Factors
+    page_start: 696
+    chapter_title_block_idx: 8593
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^()((?!(?:LEARNING\s+)?OBJECTIVES$|QUESTIONS$|PROBLEMS$|REFERENCES?$|FIGURE\b|TABLE\b|INDEX$|APPENDIX\b|SOLUTION$)[A-Z].*[a-z].*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^([0-9A-Z][\-–][0-9]+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9A-Z][\-–][0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+([0-9A-Z][\-–][0-9]+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

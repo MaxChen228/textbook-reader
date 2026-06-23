@@ -1,0 +1,64 @@
+{
+  "overrides": [
+    {
+      "id": "fix-fig-14-9-caption-ocr-id",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[135]",
+      "expect": {
+        "id": "fig-14.10",
+        "caption": "Fig. 14,9 PWM full-bridge transformer example,"
+      },
+      "set": {
+        "id": "fig-14.9",
+        "caption": "Fig. 14.9 PWM full-bridge transformer example.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C4: body[126] cites Fig. 14.9; adjacent visual block body[135] has caption OCR 'Fig. 14,9' but was assigned id fig-14.10. Correct semantic id/caption to cover the in-book reference."
+    },
+    {
+      "id": "fix-fig-15-10-remove-unnumbered-exclude",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[189]",
+      "expect": {
+        "id": "fig-ch15-189",
+        "caption": "Fíg. 15.10 Ac inductor, in which copper loss and core loss are significant: (a) definition of terminal quantities, (b) core geometry, (c) arbitrary terminal waveforms."
+      },
+      "set": {
+        "id": "fig-15.10",
+        "caption": "Fig. 15.10 Ac inductor, in which copper loss and core loss are significant: (a) definition of terminal quantities, (b) core geometry, (c) arbitrary terminal waveforms.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "C4: body[177] cites Fig. 15.10; body[189] is the actual numbered caption but OCR 'Fíg' caused it to be treated as unnumbered/excluded. Restore semantic id and remove exclusion."
+    },
+    {
+      "id": "fix-table-11-1-caption-ocr-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[107]",
+      "expect": {
+        "id": "tbl-ch11-107",
+        "caption": "Tabte 11.1 CCM and DCM conversion ratios of basic converters"
+      },
+      "set": {
+        "id": "tbl-11.1",
+        "caption": "Table 11.1 CCM and DCM conversion ratios of basic converters",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "C5: body[95] cites Table 11.1; body[107] is the table caption but OCR 'Tabte' prevented semantic id extraction and excluded it as unnumbered."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.41",
+      "classification": "source_mismatch",
+      "reason": "Chapter 14 problem 14.1(b) cites Fig. 6.41(c), but this source parse/book has chapter 6 figures around the isolated Cuk converter only up to Fig. 6.40; no Fig. 6.41 visual/caption exists in parsed catalog or searchable raw PDF text layer.",
+      "where": "ch14.json problem 14.1 body[7]",
+      "evidence": "Parsed ch06 has Fig. 6.39 at body[289] and Fig. 6.40 at body[293-295], then section 6.4 begins; global parsed/catalog search finds no fig-6.41 or caption containing 6.41, while the only demand is problem 14.1(b)'s bracketed '[Fig. 6.41(c)]'."
+    }
+  ]
+}

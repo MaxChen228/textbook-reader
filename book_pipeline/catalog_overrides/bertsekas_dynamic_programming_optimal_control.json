@@ -1,0 +1,32 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "2.4.2",
+      "classification": "source_mismatch",
+      "reason": "同一原書跨頁中，exercise 2.2 題文引用 Fig. 2.4.2，但相鄰唯一對應圖的印刷 caption 明確寫成 Figure 2.4.1 Graph for Exercise 2.2，來源本身編號互相衝突。",
+      "where": "ch02.json problem:2.2:body[0]",
+      "evidence": "raw PDF 第 98-99 頁跨頁／MinerU page_idx 57：左頁題 2.2 正文為 \"graph of Fig. 2.4.2\"，右頁唯一相鄰圖 caption 為 \"Figure 2.4.1 Graph for Exercise 2.2\"；chapter 2 沒有任何印刷為 Figure 2.4.2 的供給端圖塊。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bertsekas-restore-ch02-prob23-body1-source-id",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.3:body[1]",
+      "expect": {
+        "t": "fig",
+        "caption": "Figure 2.4.1 Graph for Exercise 2.2. The arc lengths are shown next to the arcs."
+      },
+      "set": {
+        "id": "fig-2.4.1--1"
+      },
+      "unset": [
+        "catalog_aliases",
+        "catalog_repair_source"
+      ],
+      "reason": "保留原書印刷 caption 的 Figure 2.4.1 編號；Fig. 2.4.2 缺口改以 source_mismatch 分類處理，而非偽造不存在的 source figure id。"
+    }
+  ]
+}

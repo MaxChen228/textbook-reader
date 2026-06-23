@@ -108,8 +108,8 @@
       "field": "md",
       "all": true,
       "old": "$\\underset{\\sim}{\\mathbf{x}}_3 = \\underset{\\sim}{\\mathbf{x}}_4 = \\underset{\\sim}{\\mathbf{x}}(t)$",
-      "new": "${\\underset{\\sim}{\\mathbf{x}}}_3 = {\\underset{\\sim}{\\mathbf{x}}}_4 = \\underset{\\sim}{\\mathbf{x}}(t)$",
-      "anchor": "8a2d1da0"
+      "new": "${\\underset{\\sim}{\\mathbf{x}}}_{3} = {\\underset{\\sim}{\\mathbf{x}}}_{4} = \\underset{\\sim}{\\mathbf{x}}(t)$",
+      "anchor": "71343f76"
     },
     {
       "id": "papoulis_probability-ch10-problem-10-12-solution-19-b96075",
@@ -265,6 +265,14 @@
       "selector": "problem:10-10:solution[1]",
       "expect": "\\begin{array}{r l} \\underset {\\sim} {x} (t) & = \\underset {\\sim} {R e} [ w (t) e ^ {j \\omega_ {0} t} ] \\\\ \\underset {\\sim} {x} (t - \\tau) & = \\underset {\\sim} {R e} [ w _ {\\tau} (t) e ^ {j \\omega_ {0} t} ] = \\underset {\\sim} {R e} [ w (t - \\tau) e ^ {j \\omega_ {0} (t - \\tau)} ] \\\\ \\underset {\\sim} {w} _ {\\tau} (t) & = \\underset {\\sim} {w} (t - \\tau) e ^ {- j \\omega_ {0} \\tau} \\end{array}\\tag{10-11}",
       "new": "\\begin{array}{r l} \\underset {\\sim} {x} (t) & = \\underset {\\sim} {R e} [ w (t) e ^ {j \\omega_ {0} t} ] \\\\ \\underset {\\sim} {x} (t - \\tau) & = \\underset {\\sim} {R e} [ w _ {\\tau} (t) e ^ {j \\omega_ {0} t} ] = \\underset {\\sim} {R e} [ w (t - \\tau) e ^ {j \\omega_ {0} (t - \\tau)} ] \\\\ {\\underset {\\sim} {w}} _ {\\tau} (t) & = \\underset {\\sim} {w} (t - \\tau) e ^ {- j \\omega_ {0} \\tau} \\end{array}\\tag{10-11}"
+    },
+    {
+      "id": "papoulis_probability-ch05-body-740-7c854d",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[740]",
+      "expect": "p _ {n} (0) + \\frac {p _ {n - 1} (0)}{1 !} + \\frac {p _ {n - 2} (0)}{2 !} + \\dots + \\frac {p _ {1} (0)}{(n - 1) !} + \\frac {1}{n !} = 1\\tag{5-138) ( ^{1} \\}",
+      "new": "p_{n}(0) + \\frac{p_{n - 1}(0)}{1 !} + \\frac{p_{n - 2}(0)}{2 !} + \\dots + \\frac{p_{1}(0)}{(n - 1) !} + \\frac{1}{n !} = 1\\tag{5-138}"
     }
   ]
 }

@@ -1,0 +1,71 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "chapman-figure-1.16-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[353]",
+      "position": "before",
+      "page": 61,
+      "clip": [
+        0.02,
+        0.05,
+        0.46,
+        0.34
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-1.16",
+        "kind": "line",
+        "caption": "FIGURE 1-16 A current-carrying wire in the presence of a magnetic field."
+      },
+      "reason": "C4 ref 1.16：raw PDF 物理頁 61（印刷頁 33）頁首明確有 Figure 1-16 線圖與 caption，但 parsed/ch01 只保留正文引用，未產生 fig block。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "chapman-figure-6.63-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[801]",
+      "position": "before",
+      "page": 421,
+      "clip": [
+        0.05,
+        0.43,
+        0.75,
+        0.945
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.63",
+        "kind": "line",
+        "caption": "Figure 6.63"
+      },
+      "reason": "C4 ref 6.63：raw PDF 物理頁 421（印刷頁 393）在 6.13 節段首明確有電動機銘牌圖，但 parsed/ch06 完全漏掉此 figure。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "chapman-figure-P8.10-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8-27:body[3]",
+      "position": "before",
+      "page": 590,
+      "clip": [
+        0.02,
+        0.05,
+        0.67,
+        0.295
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P8.10",
+        "kind": "line",
+        "caption": "FIGURE P8-10 The compounded dc generator in Problems 8-27 and 8-28."
+      },
+      "reason": "C4 ref P8.10：raw PDF 物理頁 590（印刷頁 562）頁首明確有 Figure P8-10 電路圖，且 Problem 8-27 正文直接引用，但 parsed/ch08 問題區未產生 fig block。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    }
+  ]
+}
