@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "schutz_first_course_gr-ch03-body-227-9fed75",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[227]",
+      "expect": "T _ {\\alpha} ^ {\\beta} _ {\\gamma} := \\eta_ {\\alpha \\mu} T ^ {\\mu \\beta} _ {\\gamma}\\tag{3.57}",
+      "new": "T_{\\alpha}{}^{\\beta}{}_{\\gamma} := \\eta_{\\alpha \\mu} T^{\\mu \\beta}{}_{\\gamma}\\tag{3.57}"
+    },
+    {
+      "id": "schutz_first_course_gr-ch04-problem-4-24-body-4-153e90",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.24:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\vec { U } _ { s }  _ { \\mathcal { O } } ( 1 , 0 , 0 , 0 )$",
+      "new": "$\\vec{U}_{s\\mathcal{O}}(1,0,0,0)$",
+      "anchor": "802e7a08"
+    },
+    {
+      "id": "schutz_first_course_gr-ch06-body-228-8b2eff",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[228]",
+      "expect": "[ \\nabla_ {\\alpha}, \\nabla_ {\\beta} ] F ^ {\\mu} _ {\\nu} = R ^ {\\mu} _ {\\sigma \\alpha \\beta} F ^ {\\sigma} _ {\\nu} + R _ {\\nu} ^ {\\sigma} _ {\\alpha \\beta} F ^ {\\mu} _ {\\sigma}.\\tag{6.78}",
+      "new": "[ \\nabla_{\\alpha}, \\nabla_{\\beta} ] F^{\\mu}_{\\nu} = R^{\\mu}_{\\sigma \\alpha \\beta} F^{\\sigma}_{\\nu} + R_{\\nu}{}^{\\sigma}{}_{\\alpha \\beta} F^{\\mu}_{\\sigma}.\\tag{6.78}"
+    },
+    {
+      "id": "schutz_first_course_gr-ch01-body-80-b0c051",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[80]",
+      "expect": "\\delta_ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if i = j ,} \\\\ 0 & \\text {if i\\neq j .} \\end{array} \\right.\\tag{1.4c}",
+      "new": "\\delta_{i j} = \\left\\{ \\begin{array}{ll} 1 & \\text{if } i = j \\text{,} \\\\ 0 & \\text{if } i\\neq j \\text{.} \\end{array} \\right.\\tag{1.4c}"
+    },
+    {
+      "id": "schutz_first_course_gr-ch03-body-254-ac52d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[254]",
+      "expect": "\\nabla \\mathbf {T} (\\texttt {\\text { ，}}, \\texttt {\\text { ， }}),",
+      "new": "\\nabla \\mathbf{T}(\\texttt{，}, \\texttt{，}),"
+    },
+    {
+      "id": "schutz_first_course_gr-ch11-body-353-dbeb72",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[353]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r l r } { \\mathrm { d } \\theta } { } \\end{array} =  &  { } 0 ;$",
+      "new": "$\\begin{array}{rlr} {\\mathrm{d}\\theta} & = & {}0; \\end{array}$",
+      "anchor": "43dc9d4d"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+slug: bartle_sherbert_real_analysis
+title: Introduction to Real Analysis
+author: Robert G. Bartle; Donald R. Sherbert
+edition: 4th
+subject: Real Analysis
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 362
+bibliography_start_page: 384
+index_start_page: 409
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: PRELIMINARIES
+    page_start: 15
+    page_end: 36
+    chapter_title_block_idx: 63
+    problems_block_idx: null
+    next_chapter_block_idx: 532
+  - num: 2
+    title: THE REAL NUMBERS
+    page_start: 37
+    page_end: 67
+    chapter_title_block_idx: 532
+    problems_block_idx: null
+    next_chapter_block_idx: 1187
+  - num: 3
+    title: SEQUENCES AND SERIES
+    page_start: 68
+    page_end: 115
+    chapter_title_block_idx: 1187
+    problems_block_idx: null
+    next_chapter_block_idx: 2222
+  - num: 4
+    title: LIMITS
+    page_start: 116
+    page_end: 137
+    chapter_title_block_idx: 2222
+    problems_block_idx: null
+    next_chapter_block_idx: 2676
+  - num: 5
+    title: CONTINUOUS FUNCTIONS
+    page_start: 138
+    page_end: 174
+    chapter_title_block_idx: 2676
+    problems_block_idx: null
+    next_chapter_block_idx: 3324
+  - num: 6
+    title: DIFFERENTIATION
+    page_start: 175
+    page_end: 211
+    chapter_title_block_idx: 3324
+    problems_block_idx: null
+    next_chapter_block_idx: 4038
+  - num: 7
+    title: THE RIEMANN INTEGRAL
+    page_start: 212
+    page_end: 254
+    chapter_title_block_idx: 4038
+    problems_block_idx: null
+    next_chapter_block_idx: 4901
+  - num: 8
+    title: SEQUENCES OF FUNCTIONS
+    page_start: 255
+    page_end: 280
+    chapter_title_block_idx: 4901
+    problems_block_idx: null
+    next_chapter_block_idx: 5452
+  - num: 9
+    title: INFINITE SERIES
+    page_start: 281
+    page_end: 301
+    chapter_title_block_idx: 5452
+    problems_block_idx: null
+    next_chapter_block_idx: 5897
+  - num: 10
+    title: THE GENERALIZED RIEMANN INTEGRAL
+    page_start: 302
+    page_end: 339
+    chapter_title_block_idx: 5897
+    problems_block_idx: null
+    next_chapter_block_idx: 6702
+  - num: 11
+    title: A GLIMPSE INTO TOPOLOGY
+    page_start: 340
+    page_end: 361
+    chapter_title_block_idx: 6702
+    problems_block_idx: null
+    next_chapter_block_idx: 7087
+
+appendices:
+  - id: A
+    title: LOGIC AND PROOFS
+    page_start: 362
+    chapter_title_block_idx: 7087
+  - id: B
+    title: FINITE AND COUNTABLE SETS
+    page_start: 371
+    chapter_title_block_idx: 7271
+  - id: C
+    title: THE RIEMANN AND LEBESGUE CRITERIA
+    page_start: 374
+    chapter_title_block_idx: 7332
+  - id: D
+    title: APPROXIMATE INTEGRATION
+    page_start: 378
+    chapter_title_block_idx: 7404
+  - id: E
+    title: TWO EXAMPLES
+    page_start: 381
+    chapter_title_block_idx: 7465
+
+section_re: '^Section\s+(\d+(?:\s+\d+)?\.\d+)\s+(.+)$'
+subsection_re: '^()(?!Section\b)(?!Exercises?\s+for\s+Section\b)([A-Z][^\n]{0,200})$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\s*\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '(?i)^Exercises?\s+for\s+Section\s+\d+(?:\s+\d+)?\.\d+\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\(?([0-9]+(?:\.[0-9]+)?[a-z]?(?:'')?)\)?\}'
+
+example_start_re: '^(\d+(?:\.\d+)+)\s+Example(?:s)?\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

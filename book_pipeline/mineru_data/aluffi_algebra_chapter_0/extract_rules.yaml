@@ -1,0 +1,110 @@
+slug: aluffi_algebra_chapter_0
+title: "Algebra: Chapter 0"
+author: "Paolo Aluffi"
+edition: null
+subject: "Abstract Algebra"
+publisher: "American Mathematical Society"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 721
+bibliography_start_page: null
+index_start_page: 721
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Preliminaries: Set theory and categories"
+    page_start: 23
+    page_end: 62
+    chapter_title_block_idx: 100
+    problems_block_idx: null
+    next_chapter_block_idx: 825
+  - num: 2
+    title: "Groups, first encounter"
+    page_start: 63
+    page_end: 140
+    chapter_title_block_idx: 825
+    problems_block_idx: null
+    next_chapter_block_idx: 2298
+  - num: 3
+    title: "Rings and modules"
+    page_start: 141
+    page_end: 208
+    chapter_title_block_idx: 2298
+    problems_block_idx: null
+    next_chapter_block_idx: 3600
+  - num: 4
+    title: "Groups, second encounter"
+    page_start: 209
+    page_end: 264
+    chapter_title_block_idx: 3600
+    problems_block_idx: null
+    next_chapter_block_idx: 4693
+  - num: 5
+    title: "Irreducibility and factorization in integral domains"
+    page_start: 265
+    page_end: 326
+    chapter_title_block_idx: 4693
+    problems_block_idx: null
+    next_chapter_block_idx: 5830
+  - num: 6
+    title: "Linear algebra"
+    page_start: 327
+    page_end: 406
+    chapter_title_block_idx: 5830
+    problems_block_idx: null
+    next_chapter_block_idx: 7261
+  - num: 7
+    title: "Fields"
+    page_start: 407
+    page_end: 504
+    chapter_title_block_idx: 7261
+    problems_block_idx: null
+    next_chapter_block_idx: 8988
+  - num: 8
+    title: "Linear algebra, reprise"
+    page_start: 505
+    page_end: 580
+    chapter_title_block_idx: 8988
+    problems_block_idx: null
+    next_chapter_block_idx: 10389
+  - num: 9
+    title: "Homological algebra"
+    page_start: 581
+    page_end: 720
+    chapter_title_block_idx: 10389
+    problems_block_idx: null
+    next_chapter_block_idx: 12768
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\.\s+([A-Z][^.]{0,80})\.(?:\s+.+)?$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+(?![^.]{1,80}\.\s+[A-Z]).+$'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

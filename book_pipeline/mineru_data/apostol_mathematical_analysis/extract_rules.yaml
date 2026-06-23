@@ -1,0 +1,163 @@
+slug: apostol_mathematical_analysis
+title: Mathematical Analysis
+author: Tom M. Apostol
+edition: 2nd
+subject: Real Analysis
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 497
+bibliography_start_page: null
+index_start_page: 497
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: The Real and Complex Number Systems
+    page_start: 13
+    page_end: 43
+    chapter_title_block_idx: 38
+    problems_block_idx: 526
+    next_chapter_block_idx: 674
+  - num: 2
+    title: Some Basic Notions of Set Theory
+    page_start: 44
+    page_end: 58
+    chapter_title_block_idx: 674
+    problems_block_idx: 871
+    next_chapter_block_idx: 956
+  - num: 3
+    title: Elements of Point Set Topology
+    page_start: 59
+    page_end: 81
+    chapter_title_block_idx: 956
+    problems_block_idx: 1293
+    next_chapter_block_idx: 1409
+  - num: 4
+    title: Limits and Continuity
+    page_start: 82
+    page_end: 115
+    chapter_title_block_idx: 1409
+    problems_block_idx: 1920
+    next_chapter_block_idx: 2106
+  - num: 5
+    title: Derivatives
+    page_start: 116
+    page_end: 138
+    chapter_title_block_idx: 2106
+    problems_block_idx: null
+    next_chapter_block_idx: 2553
+  - num: 6
+    title: Functions of Bounded Variation and Rectifiable Curves
+    page_start: 139
+    page_end: 151
+    chapter_title_block_idx: 2553
+    problems_block_idx: 2761
+    next_chapter_block_idx: 2834
+  - num: 7
+    title: The Riemann-Stieltjes Integral
+    page_start: 152
+    page_end: 194
+    chapter_title_block_idx: 2834
+    problems_block_idx: 3489
+    next_chapter_block_idx: 3667
+  - num: 8
+    title: Infinite Series and Infinite Products
+    page_start: 195
+    page_end: 229
+    chapter_title_block_idx: 3667
+    problems_block_idx: 4244
+    next_chapter_block_idx: 4412
+  - num: 9
+    title: Sequences of Functions
+    page_start: 230
+    page_end: 263
+    chapter_title_block_idx: 4412
+    problems_block_idx: 4965
+    next_chapter_block_idx: 5069
+  - num: 10
+    title: The Lebesgue Integral
+    page_start: 264
+    page_end: 317
+    chapter_title_block_idx: 5069
+    problems_block_idx: 6042
+    next_chapter_block_idx: 6199
+  - num: 11
+    title: Fourier Series and Fourier Integrals
+    page_start: 318
+    page_end: 355
+    chapter_title_block_idx: 6199
+    problems_block_idx: 6744
+    next_chapter_block_idx: 6927
+  - num: 12
+    title: Multivariable Differential Calculus
+    page_start: 356
+    page_end: 378
+    chapter_title_block_idx: 6927
+    problems_block_idx: 7319
+    next_chapter_block_idx: 7427
+  - num: 13
+    title: Implicit Functions and Extremum Problems
+    page_start: 379
+    page_end: 399
+    chapter_title_block_idx: 7427
+    problems_block_idx: 7722
+    next_chapter_block_idx: 7792
+  - num: 14
+    title: Multiple Riemann Integrals
+    page_start: 400
+    page_end: 416
+    chapter_title_block_idx: 7792
+    problems_block_idx: 8041
+    next_chapter_block_idx: 8105
+  - num: 15
+    title: Multiple Lebesgue Integrals
+    page_start: 417
+    page_end: 445
+    chapter_title_block_idx: 8105
+    problems_block_idx: 8562
+    next_chapter_block_idx: 8628
+  - num: 16
+    title: Cauchy's Theorem and the Residue Calculus
+    page_start: 446
+    page_end: 496
+    chapter_title_block_idx: 8628
+    problems_block_idx: 9353
+    next_chapter_block_idx: 9695
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(__never_match__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

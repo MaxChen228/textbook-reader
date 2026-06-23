@@ -1,0 +1,116 @@
+{
+  "overrides": [
+    {
+      "id": "merzbacher_quantum_mechanics-ch14-body-55-53967e",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[55]",
+      "expect": "- i \\hbar \\frac {d}{d t} \\left<   \\Psi (t) \\left. \\right| = \\left<   \\Psi (t) \\left. \\right| H (t)",
+      "new": "- i \\hbar \\frac{d}{d t} \\left< \\Psi(t) \\right| = \\left< \\Psi(t) \\right| H(t)"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch24-body-268-864edc",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "body[268]",
+      "field": "md",
+      "all": true,
+      "old": "$c { \\textbf { \\em { \\alpha } } } \\cdot { \\textbf { \\em p } } + \\beta m c ^ { 2 }$",
+      "new": "$c{\\boldsymbol{\\alpha}}\\cdot{\\mathbf{p}} + \\beta m c^{2}$",
+      "anchor": "af0fbc4d"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch02-body-26-8cb592",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[26]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\omega } _ { \\pmb _ { \\mathscr { s } } }$",
+      "new": "${\\pmb \\omega}_{\\pmb{\\mathscr{s}}}$",
+      "anchor": "62551105"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch02-body-116-067212",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[116]",
+      "field": "md",
+      "all": true,
+      "old": "$= 1 \\mathring \\mathbf { A } )$",
+      "new": "$= 1 \\mathring{\\mathbf{A}})$",
+      "anchor": "5222d8ff"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch02-body-128-5873d8",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[128]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathbf { A }$",
+      "new": "$\\mathring{\\mathbf{A}}$",
+      "anchor": "96b91336"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch23-body-224-557fd8",
+      "action": "fix_inline_math",
+      "chunk": "ch23",
+      "selector": "body[224]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb u } _ { 1 , 2 } ( { \\pmb \\mathrm { r } t } )$",
+      "new": "${\\pmb u}_{1,2}({\\pmb{\\mathrm{r}}}t)$",
+      "anchor": "386e39c1"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch24-body-81-9faca6",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "body[81]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb u } ^ { ( R ) } ( { \\pmb \\mathrm { p } } )$",
+      "new": "${\\pmb u}^{(R)}({\\pmb{\\mathrm{p}}})$",
+      "anchor": "726ac419"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch24-body-616-bd3826",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[616]",
+      "expect": "\\boxed \\frac {E}{m c ^ {2}} = \\frac {1}{\\sqrt {1 + \\frac {(Z \\alpha) ^ {2}}{[ \\sqrt {(j + 1 / 2) ^ {2} - (Z \\alpha) ^ {2}} + n ^ {\\prime} ] ^ {2}}}}",
+      "new": "\\boxed{\\frac{E}{m c^{2}} = \\frac{1}{\\sqrt{1 + \\frac{(Z \\alpha)^{2}}{[ \\sqrt{(j + 1 / 2)^{2} - (Z \\alpha)^{2}} + n^{\\prime} ]^{2}}}}}"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch19-body-279-d4fb08",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[279]",
+      "field": "md",
+      "all": true,
+      "old": "$| \\big \\mathrm { \\big / } \\big |$",
+      "new": "$\\big| \\big/ \\big|$",
+      "anchor": "672611e3"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch13-body-350-e207c8",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[350]",
+      "field": "md",
+      "all": true,
+      "old": "$E \\ll E _ { 0 } - \\frac { \\Gamma } { 2 } \\tplus E \\gg E _ { 0 } + \\frac { \\Gamma } { 2 }$",
+      "new": "$E \\ll E_{0} - \\frac{\\Gamma}{2} \\text{ plus } E \\gg E_{0} + \\frac{\\Gamma}{2}$",
+      "anchor": "63684cdd"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch14-body-215-57ddef",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[215]",
+      "expect": "\\begin{array}{r l} \\mathrm {H^ {\\prime} (q,p) = H(x, p_ {x}) = H(q,p) - \\varepsilon \\frac {\\partial H}{\\partial x} \\frac {\\partialG}{\\partial p_ {x}}} \\\\ & + \\varepsilon \\frac {\\partial H}{\\partial p _ {x}} \\frac {\\partial G}{\\partial x} = H (q, p) + \\varepsilon [ G, H ] _ {P. B.} \\end{array}",
+      "new": "\\begin{array}{rl} \\mathrm{H^{\\prime}(q,p) = H(x, p_{x}) = H(q,p) - \\varepsilon \\frac{\\partial H}{\\partial x} \\frac{\\partial G}{\\partial p_{x}}} \\\\ & + \\varepsilon \\frac{\\partial H}{\\partial p_{x}} \\frac{\\partial G}{\\partial x} = H(q, p) + \\varepsilon [ G, H ]_{P. B.} \\end{array}"
+    }
+  ]
+}

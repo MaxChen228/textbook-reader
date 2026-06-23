@@ -1,0 +1,67 @@
+{
+  "overrides": [
+    {
+      "id": "thorne_blandford_modern_classical-ch14-body-339-020dce",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[339]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nabla P ^ { \\prime } \\mathrm  $",
+      "new": "$\\nabla P ^ { \\prime }  $",
+      "anchor": "d37cfcb3"
+    },
+    {
+      "id": "thorne_blandford_modern_classical-ch16-body-60-53b2f9",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[60]",
+      "field": "md",
+      "all": true,
+      "old": "$V _ { \\mathrm { g } } \\equivq$",
+      "new": "$V _ { \\mathrm { g } } \\equiv q$",
+      "anchor": "aa504cbc"
+    },
+    {
+      "id": "thorne_blandford_modern_classical-ch17-problem-17-1-body-10-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "problem:17.1:body[10]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N_{2}$",
+      "anchor": "3972e8c4"
+    },
+    {
+      "id": "thorne_blandford_modern_classical-ch17-problem-17-1-body-13-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "problem:17.1:body[13]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N_{2}$",
+      "anchor": "2e816b76"
+    },
+    {
+      "id": "thorne_blandford_modern_classical-ch06-body-192-55d897",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[192]",
+      "expect": "\\left| \\binom{\\text { rms   value   of   y ^{\\prime} s oscillations}}{\\text { at   frequency   f   in   a   very   narrow   bandwidth   \\Delta f }} \\simeq \\sqrt {S _ {y} (f) \\Delta f}. \\right|",
+      "new": "\\left| \\binom{\\text{rms value of } y^{\\prime}\\text{s oscillations}}{\\text{at frequency f in a very narrow bandwidth } \\Delta f} \\simeq \\sqrt{S_{y}(f) \\Delta f}. \\right|"
+    },
+    {
+      "id": "thorne_blandford_modern_classical-ch13-body-70-f3eb28",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[70]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf f = - \\nabla \\cdot \\boldsymbol \\mathsf { T } ]$",
+      "new": "$\\mathbf f = - \\nabla \\cdot \\boldsymbol{\\mathsf{T}} ]$",
+      "anchor": "8348e297"
+    }
+  ]
+}
