@@ -451,6 +451,52 @@ def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
     jsonio.atomic_write_json(CRAWL_MANIFEST, man, indent=2)
 
 
+def reconcile_orphan_pdfs(log=None) -> dict:
+    """raw_pdfs/<slug>.pdf 在卻未登錄 slug_map → 若 <slug> 是現有 target ∧ 尚未 ingest，
+    原子補登 slug_map。修復 slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → daemon
+    經 _raw_slug_map 誤判『X 無源』永久卡死（taylor_terhaar 等 4 本曾因此卡 6 天）。
+
+    只補登符合 <slug>.pdf 慣例（cmd_fetch 的命名）且 slug 是現有 target 者；z-lib 原名檔
+    （手動丟入、非慣例）無法安全推 slug → 列入 unresolved 交 /restock 人工指派。idempotent、
+    原子寫、僅在有補登時落盤。回 {'registered': [...], 'unresolved': [...]}。"""
+    from book_pipeline import booklists as bl
+    sm = jsonio.read_json(SLUG_MAP, {'map': {}})
+    mp = sm.setdefault('map', {})
+    known = set(mp.keys())
+    try:
+        targets = {t['slug'] for t in bl.targets()}
+    except Exception:
+        targets = set()
+    registered, unresolved = [], []
+    for path in sorted(glob.glob(os.path.join(RAW, '*.pdf'))):
+        fn = os.path.basename(path)
+        if fn in known:
+            continue
+        stem = fn[:-4]
+        if os.path.exists(os.path.join(DATA, stem, 'unified', 'content_list.json')):
+            continue                       # 已 ingest（raw 僅 GC 前殘留）→ 不補登也不報、靜默跳過
+        if stem in targets:
+            mp[fn] = stem                  # <slug>.pdf 慣例 ∧ 現有 target → 補登（自癒 git-revert 遺失）
+            registered.append(stem)
+        else:
+            unresolved.append(fn)          # z-lib 原名或非 target → 交 /restock 人工指派 slug
+    if registered:
+        jsonio.atomic_write_json(SLUG_MAP, sm, indent=2)
+        (log or print)(f'📇 reconcile：補登 {len(registered)} 本 orphan PDF→slug_map'
+                        f'（{", ".join(registered)}）')
+    return {'registered': registered, 'unresolved': unresolved}
+
+
+def cmd_reconcile(args) -> int:
+    r = reconcile_orphan_pdfs()
+    print(f'補登 slug_map：{len(r["registered"])} 本 → {r["registered"] or "（無）"}')
+    if r['unresolved']:
+        print(f'\n未解析 orphan（{len(r["unresolved"])}，z-lib 原名/非 target → /restock 人工指派 slug）：')
+        for fn in r['unresolved']:
+            print(f'  {fn}')
+    return 0
+
+
 def cmd_fetch(args) -> int:
     slug = args.slug
     if not re.fullmatch(r'[a-z0-9_]{1,64}', slug or ''):  # 深層強制：slug 流入路徑/argv，擋穿越
@@ -524,6 +570,10 @@ def main() -> int:
     p_inv = sub.add_parser('inventory')
     p_inv.add_argument('--json', action='store_true')
     p_inv.set_defaults(func=cmd_inventory)
+
+    sub.add_parser('reconcile',
+                   help='補登 raw_pdfs 中未登錄 slug_map 的 <slug>.pdf orphan（自癒 git-revert 遺失導致的「X 無源」卡死）'
+                   ).set_defaults(func=cmd_reconcile)
 
     p_s = sub.add_parser('search')
     p_s.add_argument('query')

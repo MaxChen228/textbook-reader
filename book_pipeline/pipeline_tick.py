@@ -2012,6 +2012,13 @@ def tick_reactive(no_deploy: bool) -> int:
     # → 前代必已死、其子工皆 PPID==1，本次回收絕不誤殺自家活 worker（尚未派任何工）。
     _reap_throttle['last'] = time.monotonic()
     leases.reap_orphans(log=log)
+    # 啟動即自癒 orphan PDF：slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → 該書經
+    # _raw_slug_map 誤判『X 無源』永久卡死。補登 <slug>.pdf 慣例的 target orphan（taylor 等曾卡 6 天）。
+    try:
+        from book_pipeline import crawl_zlib
+        crawl_zlib.reconcile_orphan_pdfs(log=log)
+    except Exception as e:
+        log(f'reconcile_orphan_pdfs 異常（不影響 pipeline）：{e}')
 
     inflight: set[str] = set()
     ifl_lock = threading.Lock()
