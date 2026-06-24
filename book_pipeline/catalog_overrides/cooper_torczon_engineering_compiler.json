@@ -1,0 +1,1471 @@
+{
+  "slug": "cooper_torczon_engineering_compiler",
+  "overrides": [
+    {
+      "id": "fix-fig-2-13-visual",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[318]",
+      "expect": {
+        "id": "fig-ch02-318"
+      },
+      "set": {
+        "id": "fig-2.13",
+        "caption": "Figure 2.13: Generating a Table-Driven Scanner",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 2.13 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-2-16-visual",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[374]",
+      "expect": {
+        "id": "tbl-ch02-374"
+      },
+      "set": {
+        "id": "fig-2.16",
+        "caption": "Figure 2.16: A Direct-Coded Scanner for $r[0...9]^{+}$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 2.16 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-2-17-p-caption",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[402]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>2.17</sup>",
+      "new": "Figure 2.17",
+      "reason": "Normalize leading Figure 2.17 caption so build_catalogs emits a figure catalog entry."
+    },
+    {
+      "id": "fix-fig-3-3-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[143]",
+      "expect": {
+        "id": "tbl-ch03-143"
+      },
+      "set": {
+        "id": "fig-3.3",
+        "caption": "Figure 3.3: Leftmost, Top-Down Parse of a+bxc with Oracular Choice. Rule Sentential Form Input Expr $\\uparrow$ name + name x name 1 Expr + Term $\\uparrow$ name + name x name 3 Term + Term $\\uparrow$ name + name x name 6 Factor + Term $\\uparrow$ name + name x name 9 name + Term $\\uparrow$ name + name x name $\\rightarrow$ name + Term name $\\uparrow$ + name x name $\\rightarrow$ name + Term name + $\\uparrow$ name x name 4 name + Term x Factor name + $\\uparrow$ name x name 6 name + Factor x Factor name + $\\uparrow$ name x name 9 name + name x Factor name + $\\uparrow$ name x name $\\rightarrow$ name + name x Factor name + name $\\uparrow$ x name $\\rightarrow$ name + name x Factor name + name x $\\uparrow$ name 9 name + name x name name + name x $\\uparrow$ name $\\rightarrow$ name + name x name name + name x name $\\uparrow$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.3 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-8-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[189]",
+      "expect": {
+        "id": "tbl-ch03-189"
+      },
+      "set": {
+        "id": "fig-3.8",
+        "caption": "Figure 3.8: Computing FOLLOW Sets for Non-Terminal Symbols. for each $A \\in NT$ do; FOLLOW(A) ← ∅; end; FOLLOW(S) ← {eof}; while (FOLLOW sets are still changing) do; for each $p \\in P$ of the form $A \\to \\beta_{1}\\beta_{2} \\cdots \\beta_{k}$ do; TRAILER ← FOLLOW(A); for i ← k down to 1 do; if $\\beta_{i} \\in NT$ then begin; FOLLOW( $\\beta_{i}$ ) ← FOLLOW( $\\beta_{i}$ ) ∪ TRAILER; if $\\epsilon \\in \\text{FIRST}(\\beta_{i})$ then TRAILER ← TRAILER ∪ (FIRST( $\\beta_{i}$ ) - $\\epsilon$ ); else TRAILER ← FIRST( $\\beta_{i}$ ); end; else TRAILER ← FIRST( $\\beta_{i}$ ); // is $\\{\\beta_{i}\\}$ end; end; end;",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.8 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-12-p-caption",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[239]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>3.12</sup>",
+      "new": "Figure 3.12",
+      "reason": "Normalize leading Figure 3.12 caption so build_catalogs emits a figure catalog entry."
+    },
+    {
+      "id": "fix-fig-3-13-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[247]",
+      "expect": {
+        "id": "tbl-ch03-247"
+      },
+      "set": {
+        "id": "fig-3.13",
+        "caption": "Figure 3.13: Actions of the LL(1) Parser on a + b x c. Rule Stack Input — eof Goal ↑ name + name x name 0 eof Expr ↑ name + name x name 1 eof Expr' Term ↑ name + name x name 5 eof Expr' Term' Factor ↑ name + name x name 11 eof Expr' Term' name ↑ name + name x name → eof Expr' Term' name ↑ + name x name 8 eof Expr' name ↑ + name x name 2 eof Expr' Term + name ↑ + name x name → eof Expr' Term name + ↑ name x name 5 eof Expr' Term' Factor name + ↑ name x name 11 eof Expr' Term' name name + ↑ name x name → eof Expr' Term' name + name ↑ x name 6 eof Expr' Term' Factor x name + name ↑ x name → eof Expr' Term' Factor name + name x ↑ name 11 eof Expr' Term' name name + name x ↑ name → eof Expr' Term' name + name x name ↑ 8 eof Expr' name + name x name ↑ 4 eof name + name x name ↑",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.13 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-14-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[252]",
+      "expect": {
+        "id": "tbl-ch03-252"
+      },
+      "set": {
+        "id": "fig-3.14",
+        "caption": "Figure 3.14: Actions of the LL(1) Parser on $\\mathsf { X } + \\div \\mathsf { y } .$ Rule Stack Input — eof Goal ↑ name + ÷ name 0 eof Expr ↑ name + ÷ name 1 eof Expr' Term ↑ name + ÷ name 5 eof Expr' Term' Factor ↑ name + ÷ name 11 eof Expr' Term' name ↑ name + ÷ name → eof Expr' Term' name ↑ + ÷ name 8 eof Expr' name ↑ + ÷ name 2 eof Expr' Term + name ↑ + ÷ name → eof Expr' Term name + ↑ ÷ name",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.14 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-22-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[383]",
+      "expect": {
+        "id": "tbl-ch03-383"
+      },
+      "set": {
+        "id": "fig-3.22",
+        "caption": "Figure 3.22: The Algorithm to Build $\\mathcal{CC}$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.22 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-23-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[389]",
+      "expect": {
+        "id": "tbl-ch03-389"
+      },
+      "set": {
+        "id": "fig-3.23",
+        "caption": "Figure 3.23: Trace of the LR(1) Construction on the Parentheses Grammar. Iteration Item Goal List Pair ( ) eof 0 $CC_0$ ∅ $CC_1$ $CC_2$ $CC_3$ ∅ ∅ 1 $CC_1$ ∅ ∅ $CC_4$ $CC_3$ ∅ ∅ $CC_2$ ∅ ∅ ∅ ∅ ∅ ∅ $CC_3$ ∅ ∅ $CC_5$ $CC_6$ $CC_7$ ∅ 2 $CC_4$ ∅ ∅ ∅ ∅ ∅ ∅ $CC_5$ ∅ ∅ ∅ ∅ $CC_8$ ∅ $CC_6$ ∅ ∅ $CC_9$ $CC_6$ $CC_{10}$ ∅ $CC_7$ ∅ ∅ ∅ ∅ ∅ ∅ 3 $CC_8$ ∅ ∅ ∅ ∅ ∅ ∅ $CC_9$ ∅ ∅ ∅ ∅ $CC_{11}$ ∅ $CC_{10}$ ∅ ∅ ∅ ∅ ∅ ∅ 4 $CC_{11}$ ∅ ∅ ∅ ∅ ∅ ∅",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.23 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-3-31-visual",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[590]",
+      "expect": {
+        "id": "tbl-ch03-590"
+      },
+      "set": {
+        "id": "fig-3.31",
+        "caption": "Figure 3.31: Action Table for the Classic Expression Grammar. State Action Table eof + - × ÷ ( ) ) num name 0 s 4 s 5 s 6 1 acc s 7 s 8 2 r 4 r 4 r 4 s 9 s 10 3 r 7 r 7 r 7 r 7 r 7 4 s 14 s 15 s 16 5 r 9 r 9 r 9 r 9 r 9 6 r 10 r 10 r 10 r 10 r 10 7 s 4 s 5 s 6 8 s 4 s 5 s 6 9 s 4 s 5 s 6 10 s 4 s 5 s 6 11 s 21 s 22 s 23 12 r 4 r 4 s 24 s 25 r 4 13 r 7 r 7 r 7 r 7 r 7 14 s 14 s 15 s 16 15 r 9 r 9 r 9 r 9 r 9 16 r 10 r 10 r 10 r 10 r 10 17 r 2 r 2 r 2 s 9 s 10 18 r 3 r 3 r 3 s 9 s 10 19 r 5 r 5 r 5 r 5 r 5 20 r 6 r 6 r 6 r 6 r 6 21 s 14 s 15 s 16 22 s 14 s 15 s 16 23 r 8 r 8 r 8 r 8 r 8 24 s 14 s 15 s 16 25 s 14 s 15 s 16 26 s 21 s 22 s 31 27 r 2 r 2 s 24 s 25 r 2 28 r 3 r 3 s 24 s 25 r 3 29 r 5 r 5 r 5 r 5 r 5 30 r 6 r 6 r 6 r 6 r 6 31 r 8 r 8 r 8 r 8 r 8",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.31 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-2-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[51]",
+      "expect": {
+        "id": "tbl-ch04-51"
+      },
+      "set": {
+        "id": "fig-4.2",
+        "caption": "Figure 4.2: Implementing Addition in FORTRAN 77. Type of Code a b a + b integer integer integer iADD $r_a$ , $r_b \\Rightarrow r_{a+b}$ integer real real i2f $f_a \\Rightarrow r_{af}$ fADD $r_{af}$ , $r_b \\Rightarrow r_{af+b}$ integer double double i2d $r_a \\Rightarrow r_{ad}$ dADD $r_{ad}$ , $r_b \\Rightarrow r_{ad+b}$ real real real fADD $r_a$ , $r_b \\Rightarrow r_{a+b}$ real double double r2d $r_a \\Rightarrow r_{ad}$ dADD $r_{ad}$ , $r_b \\Rightarrow r_{ad+b}$ double double double dADD $r_a$ , $r_b \\Rightarrow r_{a+b}$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.2 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-3-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[57]",
+      "expect": {
+        "id": "tbl-ch04-57"
+      },
+      "set": {
+        "id": "fig-4.3",
+        "caption": "Figure 4.3: Schema for Implementing Addition with Runtime Type Checking. ```txt // partial code for \"a+b ⇒ c\" if (tag(a) = integer) then if (tag(b) = integer) then value(c) = value(a) + value(b); tag(c) = integer; else if (tag(b) = real) then temp = ConvertToReal(a); value(c) = temp + value(b); tag(c) = real; else if (tag(b) = ...) then // handle all other types ... else signal runtime type fault else if (tag(a) = real) then if (tag(b) = integer) then temp = ConvertToReal(b); value(c) = value(a) + temp; tag(c) = real; else if (tag(b) = real) then value(c) = value(a) + value(b); tag(c) = real; else if (tag(b) = ...) then // handle all other types ... else signal runtime type fault else if (tag(a) = ...) then // handle all other types ... else signal illegal tag value; ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.3 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-9-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[232]",
+      "expect": {
+        "id": "fig-4.10"
+      },
+      "set": {
+        "id": "fig-4.9",
+        "caption": "Figure 4.9: Rules to Track Loads in Factor Productions",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.9 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-11-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[278]",
+      "expect": {
+        "id": "tbl-ch04-278"
+      },
+      "set": {
+        "id": "fig-4.11",
+        "caption": "Figure 4.11: Ad Hoc Syntax-Directed Translation for Signed Binary Numbers. ```txt Production Code Snippet 1 Number → Sign List Number.val ← Sign.val × List.val 2 Sign → + Sign.val ← 1 3 Sign → - Sign.val ← -1 4 List → Bit List.val ← Bit.val 5 List0 → List1 Bit List0.val ← 2 × List1.val + Bit.val 6 Bit → 0 Bit.val ← 0 7 Bit → 1 Bit.val ← 1 ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.11 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-13-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "expect": {
+        "id": "tbl-ch04-313"
+      },
+      "set": {
+        "id": "fig-4.13",
+        "caption": "Figure 4.13: Ad Hoc Framework for Inferring Expression Types. Production Syntax-Directed Actions Expr → Expr - Term { $$ ← $\\mathcal{F}_{+} ($1,$3)$ } | Expr - Term { $$ ← $\\mathcal{F}_{-} ($1,$3)$ } | Term { $$ ← $1 } Term → Term × Factor { $$ ← $\\mathcal{F}_{\\times} ($1,$3)$ } | Term ÷ Factor { $$ ← $\\mathcal{F}_{\\div} ($1,$3)$ } | Factor { $$ ← $1 } Factor → ( Expr ) { $$ ← $2 } | num { $$ ← type of the num } | name { $$ ← type of the name }",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.13 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-4-14-visual",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "expect": {
+        "id": "tbl-ch04-314"
+      },
+      "set": {
+        "id": "fig-4.14",
+        "caption": "Figure 4.14: Building an Abstract Syntax Tree and Inferring Expression Types. ```txt Production Syntax-Directed Actions Expr → Expr + Term { $$ ← MakeNode2 (plus, $1, $3); $$.type ← F+(1.type, $3.type) } | Expr - Term { $$ ← MakeNode2 (minus, $1, $3); $$.type ← F-(1.type, $3.type) } | Term { $$ ← $1 } Term → Term × Factor { $$ ← MakeNode2 (times, $1, $3); $$.type ← F×(1.type, $3.type) } | Term ÷ Factor { $$ ← MakeNode2 (divide, $1, $3); $$.type ← F÷(1.type, $3.type) } | Factor { $$ ← $1 } Factor → (Expr) { $$ ← $2 } | num { $$ ← MakeNode0(number); $$.text ← scanned text; $$.type ← type of the number } | name { $$ ← MakeNode0(identifier); $$.text ← scanned text; $$.type ← type of the identifier } ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 4.14 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-5-4-visual",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[114]",
+      "expect": {
+        "id": "fig-5.3"
+      },
+      "set": {
+        "id": "fig-5.4",
+        "caption": "Figure 5.4: Interaction between Control Flow and the Dependence Graph",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 5.4 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-6-2-p-caption",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[44]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>6.2</sup>",
+      "new": "Figure 6.2",
+      "reason": "Normalize leading Figure 6.2 caption so build_catalogs emits a figure catalog entry."
+    },
+    {
+      "id": "fix-fig-7-1-visual",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[14]",
+      "expect": {
+        "id": "tbl-ch07-14"
+      },
+      "set": {
+        "id": "fig-7.1",
+        "caption": "Figure 7.1: Alternate Code Shapes for $x + y + z .$ Source Code Low-Level, Three-Address Code Code x+y+z $r_1 \\leftarrow r_x + r_y$ $r_1 \\leftarrow r_x + r_z$ $r_1 \\leftarrow r_y + r_z$ $r_2 \\leftarrow r_1 + r_z$ $r_2 \\leftarrow r_1 + r_y$ $r_2 \\leftarrow r_1 + r_x$ Tree",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 7.1 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-7-10-visual",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[282]",
+      "expect": {
+        "id": "fig-ch07-282"
+      },
+      "set": {
+        "id": "fig-7.10",
+        "caption": "Figure 7.10: Indirection Vectors in Row-Major Order for B[1...2,1...3,1...4]",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 7.10 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-7-12-visual",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[389]",
+      "expect": {
+        "id": "tbl-ch07-389"
+      },
+      "set": {
+        "id": "fig-7.12",
+        "caption": "Figure 7.12: Structure Tables for the List Example. Name Length Offset Type Next node.value 4 0 int node.next 4 4 struct node *",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 7.12 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-8-1-visual",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[45]",
+      "expect": {
+        "id": "tbl-ch08-45"
+      },
+      "set": {
+        "id": "fig-8.1",
+        "caption": "Figure 8.1: Excerpt from dmxpy in LINPACK. ```matlab subroutine dmxpy (n1, y, n2, ldm, x, m) double precision y(*), x(*), m(ldm,*) ... jmin = j+16 do 60 j = jmin, n2, 16 do 50 i = 1, n1 y(i) = (((((((((((((((((y(i)) + x(j-15)*m(i,j-15)) + x(j-14)*m(i,j-14)) + x(j-13)*m(i,j-13)) + x(j-12)*m(i,j-12)) + x(j-11)*m(i,j-11)) + x(j-10)*m(i,j-10)) + x(j-9)*m(i,j-9)) + x(j-8)*m(i,j-8)) + x(j-7)*m(i,j-7)) + x(j-6)*m(i,j-6)) + x(j-5)*m(i,j-5)) + x(j-4)*m(i,j-4)) + x(j-3)*m(i,j-3)) + x(j-2)*m(i,j-2)) + x(j-1)*m(i,j-1)) + x(j) *m(i,j) 50 continue 60 continue ... end ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.1 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-8-13-visual",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[444]",
+      "expect": {
+        "id": "tbl-ch08-444"
+      },
+      "set": {
+        "id": "fig-8.13",
+        "caption": "Figure 8.13: Unrolling dmxpy's Loop Nest. ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.13 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-10-7-visual",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[292]",
+      "expect": {
+        "id": "fig-ch10-292"
+      },
+      "set": {
+        "id": "fig-10.7",
+        "caption": "Figure 10.7: Unswitching a Short Loop",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 10.7 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-10-8-visual",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[330]",
+      "expect": {
+        "id": "tbl-ch10-330"
+      },
+      "set": {
+        "id": "fig-10.8",
+        "caption": "Figure 10.8: Sparse Conditional Constant Propagation",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 10.8 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-10-11-visual",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[348]",
+      "expect": {
+        "id": "tbl-ch10-348"
+      },
+      "set": {
+        "id": "fig-10.11",
+        "caption": "Figure 10.11: Strength Reduction Example",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 10.11 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-10-13-p-caption",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[382]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>10.13</sup>",
+      "new": "Figure 10.13",
+      "reason": "Normalize leading Figure 10.13 caption so build_catalogs emits a figure catalog entry."
+    },
+    {
+      "id": "fix-fig-10-14-p-caption",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[402]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>10.14</sup>",
+      "new": "Figure 10.14",
+      "reason": "Normalize leading Figure 10.14 caption so build_catalogs emits a figure catalog entry."
+    },
+    {
+      "id": "fix-fig-12-8-visual",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[232]",
+      "expect": {
+        "id": "tbl-ch12-232"
+      },
+      "set": {
+        "id": "fig-12.8",
+        "caption": "Figure 12.8: Execution Trace on a Two-Unit Superscalar Processor. Cycle Functional Unit 0 Functional Unit 1 -2 loadI @x $\\Rightarrow$ $r_{@x}$ loadI @y $\\Rightarrow$ $r_{@y}$ -1 loadI @z $\\Rightarrow$ $r_{@z}$ addI $r_{@x},792$ $\\Rightarrow$ $r_{ub}$ 1 $L_1$ : loadA0 $r_{arp},r_{@x}$ $\\Rightarrow$ $r_x$ no operation issued 2 loadA0 $r_{arp},r_{@y}$ $\\Rightarrow$ $r_y$ addI $r_{@x},4$ $\\Rightarrow$ $r_{@x}$ 3 addI $r_{@y},4$ $\\Rightarrow$ $r_{@y}$ mult $r_x, r_y$ $\\Rightarrow$ $r_z$ 4 cmp_LT $r_{@x},r_{ub}$ $\\Rightarrow$ $r_{cc}$ stall on $r_y$ 5 storeA0 $r_z$ $\\Rightarrow$ $r_{arp},r_{@z}$ addI $r_{@z},4$ $\\Rightarrow$ $r_{@z}$ 6 stall on $r_z$ cbr $r_{cc}$ $\\rightarrow$ $L_1,L_2$ 7 ...start of next iteration",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 12.8 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-12-9-visual",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[233]",
+      "expect": {
+        "id": "tbl-ch12-233"
+      },
+      "set": {
+        "id": "fig-12.9",
+        "caption": "Figure 12.9: Example Loop after Software Pipelining. Cycle Functional Unit 0 Functional Unit 1 -2 loadI @x $\\Rightarrow$ r@x loadI @y $\\Rightarrow$ r@y -1 loadI @z $\\Rightarrow$ r@z addI r@x,788 $\\Rightarrow$ rub 1 L1: loadA0 rarp,r@x $\\Rightarrow$ rx addI r@x,4 $\\Rightarrow$ r@x 2 loadA0 rarp,r@y $\\Rightarrow$ ry addI r@y,4 $\\Rightarrow$ r@y 3 cmp_LT r@x,rub $\\Rightarrow$ rcc nop 4 storeA0 rz $\\Rightarrow$ rarp,r@z addI r@z,4 $\\Rightarrow$ r@z 5 cbr rcc $\\rightarrow$ L1,L2 mult rx,ry $\\Rightarrow$ rz +1 L2: nop nop +2 storeA0 rz $\\Rightarrow$ rarp,r@z nop +3",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 12.9 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-12-11-visual",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[260]",
+      "expect": {
+        "id": "tbl-ch12-260"
+      },
+      "set": {
+        "id": "fig-12.11",
+        "caption": "Figure 12.11: Kernel Schedule for the Pipelined Loop. Cycle Functional Unit 0 Functional Unit 1 1 $L_1$ : loadA0 $r_{arp}$ , $r_{@x}$ $\\Rightarrow$ $r_x$ addI $r_{@x}$ , 4 $\\Rightarrow$ $r_{@x}$ 2 loadA0 $r_{arp}$ , $r_{@y}$ $\\Rightarrow$ $r_y$ addI $r_{@y}$ , 4 $\\Rightarrow$ $r_{@y}$ 3 cmp_LT $r_{@x}$ , $r_{ub}$ $\\Rightarrow$ $r_{cc}$ nop 4 storeA0 $r_z$ $\\Rightarrow$ $r_{arp}$ , $r_{@z}$ addI $r_{@z}$ , 4 $\\Rightarrow$ $r_{@z}$ 5 cbr $r_{cc}$ $\\rightarrow$ $L_1$ , $L_2$ mult $r_x$ , $r_y$ $\\Rightarrow$ $r_z$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 12.11 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-13-1-visual",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[66]",
+      "expect": {
+        "id": "tbl-ch13-66"
+      },
+      "set": {
+        "id": "fig-13.1",
+        "caption": "Figure 13.1: The Bottom-Up, Local Register Allocator. Ensure(vr,class) if (vr is already in class) then result ← vr's physical register else result ← Allocate(vr,class) emit code to move vr into result return result Allocate(vr,class) if (class.StackTop ≥ 0) then i ← pop(class) else i ← j that maximizes class.Next[j] store contents of j class.Name[i] ← vr class.Next[i] ← -1 class.Free[i] ← false return i",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 13.1 caption/code/table but was excluded or typed without semantic figure id."
+    },
+    {
+      "id": "fix-fig-2-9-text-caption",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[275]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>2.9</sup>",
+      "new": "Figure 2.9: ■",
+      "reason": "Normalize text caption for Figure 2.9 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-3-9-visual2",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[229]",
+      "expect": {
+        "id": "tbl-ch03-229"
+      },
+      "set": {
+        "id": "fig-3.9",
+        "caption": "Figure 3.9: An Implementation of EPrime(). ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 3.9 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-3-11-text-caption",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[237]",
+      "field": "md",
+      "old": "(b) The LL(1) Parse Table for Right-Recursive Expression Grammar <sup>■</sup> <sup>FIGURE</sup> <sup>3.11</sup>",
+      "new": "Figure 3.11: (b) The LL(1) Parse Table for Right-Recursive Expression Grammar ■",
+      "reason": "Normalize text caption for Figure 3.11 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-3-16a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[283]",
+      "field": "md",
+      "old": "To make this concrete, consider the grammar shown in Figure 3.16a",
+      "new": "Figure 3.16a: To make this concrete, consider the grammar shown in",
+      "reason": "Normalize text caption for Figure 3.16a so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-3-20-text-caption",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[362]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>3.20</sup>",
+      "new": "Figure 3.20: ■",
+      "reason": "Normalize text caption for Figure 3.20 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-3-21-text-caption",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[373]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>3.21</sup>",
+      "new": "Figure 3.21: ■",
+      "reason": "Normalize text caption for Figure 3.21 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-4-4-text-caption",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[162]",
+      "field": "md",
+      "old": "To make these notions concrete, consider a context-free grammar for signed binary numbers. Figure 4.4",
+      "new": "Figure 4.4: To make these notions concrete, consider a context-free grammar for signed binary numbers.",
+      "reason": "Normalize text caption for Figure 4.4 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-4-10-text-caption",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[238]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>4.10</sup>",
+      "new": "Figure 4.10: ■",
+      "reason": "Normalize text caption for Figure 4.10 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-4-16-text-caption",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[338]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>4.16</sup>",
+      "new": "Figure 4.16: ■",
+      "reason": "Normalize text caption for Figure 4.16 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-5-3-visual2",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[104]",
+      "expect": {
+        "id": "fig-ch05-104"
+      },
+      "set": {
+        "id": "fig-5.3",
+        "caption": "Figure 5.3: An ILOC Basic Block and Its Dependence Graph",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 5.3 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-5-6-text-caption",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[208]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>5.6</sup>",
+      "new": "Figure 5.6: ■",
+      "reason": "Normalize text caption for Figure 5.6 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-5-6b-text-caption",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[217]",
+      "field": "md",
+      "old": "The second pass, shown in Figure 5.6b",
+      "new": "Figure 5.6b: The second pass, shown in",
+      "reason": "Normalize text caption for Figure 5.6b so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-5-7b-text-caption",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[266]",
+      "field": "md",
+      "old": "The code in Figure 5.7b",
+      "new": "Figure 5.7",
+      "reason": "Normalize text caption for Figure 5.7b so build_catalogs emits a figure entry. Parent figure id covers lettered subfigure refs."
+    },
+    {
+      "id": "fix-fig-6-3-text-caption",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[76]",
+      "field": "md",
+      "old": "To make lexical scoping concrete, consider the Pascal program shown in Figure 6.3",
+      "new": "Figure 6.3: To make lexical scoping concrete, consider the Pascal program shown in",
+      "reason": "Normalize text caption for Figure 6.3 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-6-6-text-caption",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[171]",
+      "field": "md",
+      "old": "To make these issues concrete, consider the abstracted example shown in Figure 6.6",
+      "new": "Figure 6.6: To make these issues concrete, consider the abstracted example shown in",
+      "reason": "Normalize text caption for Figure 6.6 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-7-5-text-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[102]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>7.5</sup>",
+      "new": "Figure 7.5: ■",
+      "reason": "Normalize text caption for Figure 7.5 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-7-11a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[321]",
+      "field": "md",
+      "old": "One procedure might be invoked from multiple call sites, each passing a different array. The <sup>pl/i</sup> procedure main in Figure 7.11a",
+      "new": "Figure 7.11",
+      "reason": "Normalize text caption for Figure 7.11a so build_catalogs emits a figure entry. Parent figure id covers lettered subfigure refs."
+    },
+    {
+      "id": "fix-fig-7-13-text-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[404]",
+      "field": "md",
+      "old": "<sup>■ FIGURE</sup> <sup>7.13</sup>",
+      "new": "Figure 7.13: ■",
+      "reason": "Normalize text caption for Figure 7.13 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-7-17a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[500]",
+      "field": "md",
+      "old": "If the case labels form a compact set, the compiler can do better than binary search. Consider the switch statement shown in Figure 7.17a",
+      "new": "Figure 7.17a",
+      "reason": "Normalize text caption for Figure 7.17a so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-7-17c-text-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[504]",
+      "field": "md",
+      "old": "in Figure 7.17b, while the code to compute the correct case’s label is shown in Figure 7.17c",
+      "new": "Figure 7.17c: in Figure 7.17b, while the code to compute the correct case’s label is shown in",
+      "reason": "Normalize text caption for Figure 7.17c so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-5-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[259]",
+      "expect": {
+        "id": "fig-8.6"
+      },
+      "set": {
+        "id": "fig-8.5",
+        "caption": "Figure 8.5: Potential Tree Shapes for $\\mathtt { a + b + c + d + e + f + g + h }$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.5 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-8-7-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[286]",
+      "field": "md",
+      "old": "Figures 8.7 and 8.8 present the algorithm for balancing a basic block. Phase 1 of the algorithm, in Figure 8.7",
+      "new": "Figure 8.7",
+      "reason": "Normalize text caption for Figure 8.7 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-8-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[289]",
+      "expect": {
+        "id": "tbl-ch08-289"
+      },
+      "set": {
+        "id": "fig-8.8",
+        "caption": "Figure 8.8: Tree-Height Balancing Algorithm, Part II. ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.8 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-8-10-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[367]",
+      "field": "md",
+      "old": "The resulting tree is shown in Figure 8.10",
+      "new": "Figure 8.10: The resulting tree is shown in",
+      "reason": "Normalize text caption for Figure 8.10 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-11a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[431]",
+      "field": "md",
+      "old": "Applying the algorithm from Figure 8.12 to the code from Figure 8.11a",
+      "new": "Figure 8.11",
+      "reason": "Normalize text caption for Figure 8.11a so build_catalogs emits a figure entry. Parent figure id covers lettered subfigure refs."
+    },
+    {
+      "id": "fix-fig-8-15a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[498]",
+      "field": "md",
+      "old": "Consider the <sup>cfg</sup> with a simple loop that contains an if-then construct, shown in Figure 8.15a",
+      "new": "Figure 8.15",
+      "reason": "Normalize text caption for Figure 8.15a so build_catalogs emits a figure entry. Parent figure id covers lettered subfigure refs."
+    },
+    {
+      "id": "fix-fig-8-15b-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[498]",
+      "field": "md",
+      "old": "Consider the <sup>cfg</sup> with a simple loop that contains an if-then construct, shown in Figure 8.15a. The code abstracts away many details. Figure 8.15b",
+      "new": "Figure 8.15b",
+      "reason": "Normalize text caption for Figure 8.15b so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-15c-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[503]",
+      "field": "md",
+      "old": "The table in Figure 8.15c",
+      "new": "Figure 8.15c: The table in",
+      "reason": "Normalize text caption for Figure 8.15c so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-16-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[555]",
+      "expect": {
+        "id": "tbl-ch08-555"
+      },
+      "set": {
+        "id": "fig-8.16",
+        "caption": "Figure 8.16: Building Hot Paths",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.16 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-8-17-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[567]",
+      "expect": {
+        "id": "tbl-ch08-567"
+      },
+      "set": {
+        "id": "fig-8.17",
+        "caption": "Figure 8.17: Code-Layout Algorithm. ```",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.17 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-8-19-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[604]",
+      "expect": {
+        "id": "fig-8.18"
+      },
+      "set": {
+        "id": "fig-8.19",
+        "caption": "Figure 8.19: After Inline Substitution",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.19 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-8-20-text-caption",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[627]",
+      "field": "md",
+      "old": "<sup>■</sup> <sup>FIGURE</sup> <sup>8.20</sup>",
+      "new": "Figure 8.20: ■",
+      "reason": "Normalize text caption for Figure 8.20 so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-8-22-visual2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[662]",
+      "expect": {
+        "id": "fig-ch08-662"
+      },
+      "set": {
+        "id": "fig-8.22",
+        "caption": "Figure 8.22: Steps of the Procedure Placement Algorithm",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 8.22 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-9-4-visual2",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[108]",
+      "expect": {
+        "id": "tbl-ch09-108"
+      },
+      "set": {
+        "id": "fig-9.4",
+        "caption": "Figure 9.4: Round-Robin, Reverse Postorder Solver for LIVEOUT. ```txt for i ← 0 to |N| - 1 LIVEOUT(i) ← ∅ changed ← true while (changed) changed ← false for i ← 1 to |N| - 1 j ← RPO[i] // Comp…",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 9.4 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-9-5-visual2",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[109]",
+      "expect": {
+        "id": "tbl-ch09-109"
+      },
+      "set": {
+        "id": "fig-9.5",
+        "caption": "Figure 9.5: Iterations of Live Analysis Using RPO on the Reverse CFG. LIVEOUT(n) $B_0$ $B_1$ $B_2$ $B_3$ $B_4$ $B_5$ $B_6$ $B_7$ $B_8$ — ∅ ∅ ∅ ∅ ∅ ∅ ∅ ∅ ∅ 1 {i} {a,c,i} {a,b,c,d,i} ∅ ∅ {a,c,d,…",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 9.5 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-9-7a-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[178]",
+      "field": "md",
+      "old": "Consider the various uses of the variable x in the code fragment shown in Figure 9.7a",
+      "new": "Figure 9.7",
+      "reason": "Normalize text caption for Figure 9.7a so build_catalogs emits a figure entry. Parent figure id covers lettered subfigure refs."
+    },
+    {
+      "id": "fix-fig-9-13-visual2",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[278]",
+      "expect": {
+        "id": "tbl-ch09-278"
+      },
+      "set": {
+        "id": "fig-9.13",
+        "caption": "Figure 9.13: States in the Renaming Example. (j) On Entry to $B _ { 8 }$ a b c d i 5 5 6 7 32 a0 b0 c0 d0 i0 a1 b1 c1 d1 i1 a2 c2 d4 a4",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 9.13 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-9-13b-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[281]",
+      "field": "md",
+      "old": "Block $B _ { 1 }$ Rename enters $B _ { 1 }$ with the state shown in Figure 9.13b",
+      "new": "Figure 9.13b: Block $B _ { 1 }$ Rename enters $B _ { 1 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13b so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13c-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[282]",
+      "field": "md",
+      "old": "Block $B _ { 2 }$ Rename enters $B _ { 2 }$ with the state shown in Figure 9.13c",
+      "new": "Figure 9.13c: Block $B _ { 2 }$ Rename enters $B _ { 2 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13c so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13e-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[283]",
+      "field": "md",
+      "old": "Block $B _ { 3 }$ Rename enters $B _ { 3 }$ with the state shown in Figure 9.13e",
+      "new": "Figure 9.13e: Block $B _ { 3 }$ Rename enters $B _ { 3 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13e so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13g-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[288]",
+      "field": "md",
+      "old": "Block $B _ { 5 }$ After $B _ { 4 }$ , Rename pops through $B _ { 3 }$ back to $B _ { 1 }$ . With the stacks as shown in Figure 9.13g",
+      "new": "Figure 9.13g: Block $B _ { 5 }$ After $B _ { 4 }$ , Rename pops through $B _ { 3 }$ back to $B _ { 1 }$ . With the stacks as shown in",
+      "reason": "Normalize text caption for Figure 9.13g so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13h-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[289]",
+      "field": "md",
+      "old": "Block $B _ { 6 }$ Rename enters $B _ { 6 }$ with the state shown in Figure 9.13h",
+      "new": "Figure 9.13h: Block $B _ { 6 }$ Rename enters $B _ { 6 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13h so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13i-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[290]",
+      "field": "md",
+      "old": "■ Block $B _ { 7 }$ Rename enters $B _ { 7 }$ with the state shown in Figure 9.13i",
+      "new": "Figure 9.13i: ■ Block $B _ { 7 }$ Rename enters $B _ { 7 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13i so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-13j-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[291]",
+      "field": "md",
+      "old": "Block $B _ { 8 }$ Rename enters $B _ { 8 }$ with the state shown in Figure 9.13j",
+      "new": "Figure 9.13j: Block $B _ { 8 }$ Rename enters $B _ { 8 }$ with the state shown in",
+      "reason": "Normalize text caption for Figure 9.13j so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-9-19-visual2",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[368]",
+      "expect": {
+        "id": "tbl-ch09-368"
+      },
+      "set": {
+        "id": "fig-9.19",
+        "caption": "Figure 9.19: Optimistic Constant Example. Time Step Lattice Values Pessimistic Optimistic $x_0$ $x_1$ $x_2$ $x_0$ $x_1$ $x_2$ 0 17 ⊥ ⊥ 17 T T 1 17 ⊥ ⊥ 17 17 $17 + i_{12}$",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 9.19 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "fix-fig-9-25b-text-caption",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[476]",
+      "field": "md",
+      "old": "To see how the algorithm operates, consider the graph in Figure 9.25a. Figure 9.25b",
+      "new": "Figure 9.25b: To see how the algorithm operates, consider the graph in Figure 9.25a.",
+      "reason": "Normalize text caption for Figure 9.25b so build_catalogs emits a figure entry."
+    },
+    {
+      "id": "fix-fig-10-10-visual2",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[338]",
+      "expect": {
+        "id": "tbl-ch10-338"
+      },
+      "set": {
+        "id": "fig-10.10",
+        "caption": "Figure 10.10: Evaluating $\\phi$ Functions",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Block is the in-book Figure 10.10 content/caption but lacked a figure semantic id."
+    },
+    {
+      "id": "parent-fig-3-33",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[597]",
+      "expect": {
+        "id": "fig-3.33"
+      },
+      "set": {
+        "id": "fig-3.33",
+        "caption": "Figure 3.33: The Reduced Expression Grammar and its Tables.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Use parent figure id so audit parent-cover rule covers lettered subfigure references."
+    },
+    {
+      "id": "parent-fig-4-6",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[181]",
+      "expect": {
+        "id": "fig-4.6"
+      },
+      "set": {
+        "id": "fig-4.6",
+        "caption": "Figure 4.6: Attributed Tree for the Signed Binary Number −101.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Use parent figure id so audit parent-cover rule covers lettered subfigure references."
+    },
+    {
+      "id": "parent-fig-9-20",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[396]",
+      "expect": {
+        "id": "fig-9.20a"
+      },
+      "set": {
+        "id": "fig-9.20",
+        "caption": "Figure 9.20: Building a Call Graph with Function-Valued Parameters.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Use parent figure id so audit parent-cover rule covers lettered subfigure references."
+    },
+    {
+      "id": "parent-fig-9-23",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[453]",
+      "expect": {
+        "id": "fig-9.23b"
+      },
+      "set": {
+        "id": "fig-9.23",
+        "caption": "Figure 9.23: Reduction Sequences for Example Graphs.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Use parent figure id so audit parent-cover rule covers lettered subfigure references."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "5.13",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch05 problem 4",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "5.15",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch05 problem 8",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "5.16",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch05 problem 12",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "6.13",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch06 problem 8",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "6.14a",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch06 problem 10",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "6.14b",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch06 problem 10",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "6.14c",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch06 problem 10",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "9.26",
+      "classification": "source_mismatch",
+      "reason": "End-of-chapter exercise references a figure that is not present in parsed chapter visual catalog; no corresponding Figure caption/image block exists in parsed body/problems.",
+      "where": "ch09 problem 6",
+      "evidence": "Searched parsed chapter body/problem blocks: reference appears only in the exercise prompt; no matching Figure caption or visual block for this number is present."
+    },
+    {
+      "type": "figure",
+      "ref": "3.33a",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch03 body[594]",
+      "evidence": "Figure 3.33 is a combined reduced grammar/tables figure; parsed supply is Figure 3.33/3.33b, no separate 3.33a catalog block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "4.6a",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch04 body[173]",
+      "evidence": "Figure 4.6 is a combined attributed-tree figure; parsed supply only has the combined/4.6b visual block, no separate 4.6a block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "5.7a",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch05 body[230]",
+      "evidence": "Text references panel 5.7a, but parsed content exposes only surrounding prose/5.7b; no separate Figure 5.7a visual block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "5.7c",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch05 body[266]",
+      "evidence": "Text references panel 5.7c in prose; parsed content exposes no separate Figure 5.7c visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "6.11b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch06 body[384]",
+      "evidence": "Figure 6.11 panel b is referenced in prose; parsed supply has no separate panel b visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "7.6a",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[107]",
+      "evidence": "Figure 7.6 panels are combined; parsed supply cannot isolate panel a as an internal catalog block."
+    },
+    {
+      "type": "figure",
+      "ref": "7.6c",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[108]",
+      "evidence": "Figure 7.6 panels are combined; parsed supply cannot isolate panel c as an internal catalog block."
+    },
+    {
+      "type": "figure",
+      "ref": "7.8b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[188]",
+      "evidence": "Figure 7.8 panel b is referenced, but parsed supply does not expose a separate panel b catalog block."
+    },
+    {
+      "type": "figure",
+      "ref": "7.11b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[321]",
+      "evidence": "Figure 7.11 panel b is referenced, but parsed supply only exposes related panel/prose; no separate panel b block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "7.16b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[498]",
+      "evidence": "Figure 7.16 panel b is referenced, but parsed supply only exposes combined/other panel content; no separate panel b block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "7.18b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[510]",
+      "evidence": "Figure 7.18 panel b is referenced, but parsed supply has no separate panel b visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "7.18c",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch07 body[510]",
+      "evidence": "Figure 7.18 panel c is referenced, but parsed supply has no separate panel c visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "8.11b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch08 body[392]",
+      "evidence": "Figure 8.11 panel b is referenced, but parsed content has no separate panel b visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "8.11c",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch08 body[393]",
+      "evidence": "Figure 8.11 panel c is referenced, but parsed content has no separate panel c visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "8.11d",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch08 body[431]",
+      "evidence": "Figure 8.11 panel d is referenced, but parsed content has no separate panel d visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "8.15b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch08 body[498]",
+      "evidence": "Figure 8.15 panel b is referenced in prose; parsed supply does not expose a separate panel b block."
+    },
+    {
+      "type": "figure",
+      "ref": "9.20b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch09 body[390]",
+      "evidence": "Figure 9.20 panel b is referenced, but parsed supply exposes only combined/9.20a figure; no separate panel b block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "9.20c",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch09 body[395]",
+      "evidence": "Figure 9.20 panel c is referenced, but parsed supply exposes only combined/9.20a figure; no separate panel c block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "9.23a",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch09 body[449]",
+      "evidence": "Figure 9.23 panel a is referenced, but parsed supply exposes combined/9.23b content; no separate panel a block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "9.7b",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a separate internal catalog target for this lettered panel reference.",
+      "where": "ch09 body[178]",
+      "evidence": "Figure 9.7 panel b is referenced in prose; parsed supply has no separate panel b visual block."
+    },
+    {
+      "type": "figure",
+      "ref": "6.11",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a catalogable internal visual block for this figure reference.",
+      "where": "ch06 body[389]",
+      "evidence": "Only a prose/text block carries Figure 6.11 caption after parsing; no fig/table visual block exists for build_catalogs to expose as an internal figure target."
+    },
+    {
+      "type": "figure",
+      "ref": "7.6",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a catalogable internal visual block for this figure reference.",
+      "where": "ch07 body[108]",
+      "evidence": "Only a prose/text block carries Figure 7.6 caption after parsing; no fig/table visual block exists for build_catalogs to expose as an internal figure target."
+    },
+    {
+      "type": "figure",
+      "ref": "7.8",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a catalogable internal visual block for this figure reference.",
+      "where": "ch07 body[188]",
+      "evidence": "Only a prose/text block carries Figure 7.8 caption after parsing; no fig/table visual block exists for build_catalogs to expose as an internal figure target."
+    },
+    {
+      "type": "figure",
+      "ref": "7.16",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a catalogable internal visual block for this figure reference.",
+      "where": "ch07 body[498]",
+      "evidence": "Only a prose/text block carries Figure 7.16 caption after parsing; no fig/table visual block exists for build_catalogs to expose as an internal figure target."
+    },
+    {
+      "type": "figure",
+      "ref": "7.18",
+      "classification": "source_mismatch",
+      "reason": "Parsed source lacks a catalogable internal visual block for this figure reference.",
+      "where": "ch07 body[510]",
+      "evidence": "Only a prose/text block carries Figure 7.18 caption after parsing; no fig/table visual block exists for build_catalogs to expose as an internal figure target."
+    }
+  ]
+}

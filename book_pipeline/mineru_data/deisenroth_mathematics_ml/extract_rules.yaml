@@ -1,0 +1,133 @@
+slug: deisenroth_mathematics_ml
+title: Mathematics for Machine Learning
+author: Marc Peter Deisenroth; A. Aldo Faisal; Cheng Soon Ong
+edition: 1st
+subject: Machine Learning
+publisher: Cambridge University Press
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 22
+appendices_start_page: null
+bibliography_start_page: 376
+index_start_page: 386
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction and Motivation
+  page_start: 22
+  page_end: 27
+  chapter_title_block_idx: 100
+  problems_block_idx: null
+  next_chapter_block_idx: 173
+- num: 2
+  title: Linear Algebra
+  page_start: 27
+  page_end: 75
+  chapter_title_block_idx: 173
+  problems_block_idx: 1008
+  next_chapter_block_idx: 1153
+- num: 3
+  title: Analytic Geometry
+  page_start: 76
+  page_end: 101
+  chapter_title_block_idx: 1153
+  problems_block_idx: 1590
+  next_chapter_block_idx: 1635
+- num: 4
+  title: Matrix Decompositions
+  page_start: 101
+  page_end: 139
+  chapter_title_block_idx: 1635
+  problems_block_idx: 2239
+  next_chapter_block_idx: 2278
+- num: 5
+  title: Vector Calculus
+  page_start: 139
+  page_end: 171
+  chapter_title_block_idx: 2278
+  problems_block_idx: 2856
+  next_chapter_block_idx: 2904
+- num: 6
+  title: Probability and Distributions
+  page_start: 171
+  page_end: 219
+  chapter_title_block_idx: 2904
+  problems_block_idx: 3706
+  next_chapter_block_idx: 3769
+- num: 7
+  title: Continuous Optimization
+  page_start: 220
+  page_end: 243
+  chapter_title_block_idx: 3769
+  problems_block_idx: 4102
+  next_chapter_block_idx: 4150
+- num: 8
+  title: When Models Meet Data
+  page_start: 244
+  page_end: 278
+  chapter_title_block_idx: 4150
+  problems_block_idx: 4669
+  next_chapter_block_idx: 4670
+- num: 9
+  title: Linear Regression
+  page_start: 279
+  page_end: 305
+  chapter_title_block_idx: 4670
+  problems_block_idx: 5098
+  next_chapter_block_idx: 5099
+- num: 10
+  title: Dimensionality Reduction with Principal Component Analysis
+  page_start: 305
+  page_end: 332
+  chapter_title_block_idx: 5099
+  problems_block_idx: 5547
+  next_chapter_block_idx: 5548
+- num: 11
+  title: Density Estimation with Gaussian Mixture Models
+  page_start: 333
+  page_end: 353
+  chapter_title_block_idx: 5548
+  problems_block_idx: 5867
+  next_chapter_block_idx: 5868
+- num: 12
+  title: Classification with Support Vector Machines
+  page_start: 354
+  page_end: 375
+  chapter_title_block_idx: 5868
+  problems_block_idx: 6174
+  next_chapter_block_idx: 6175
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^((?:[2-9]|1[0-2])\.\d+)\s+.+$
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: ^Exercises$
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+\.\d+)\b.*$
+figure_caption_merge: false
+figure_caption_main_re: ^(Figure\s+\d+\.\d+\b.*)$
+known_missing_problems:
+- chapter: 5
+  nums:
+  - '5.7'
+- chapter: 6
+  nums:
+  - '6.4'
+  - '6.11'

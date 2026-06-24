@@ -1,0 +1,22 @@
+{
+  "slug": "deisenroth_mathematics_ml",
+  "overrides": [
+    {
+      "id": "deisenroth-ch12-fix-fig-12-2-id",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[16]",
+      "expect": {
+        "id": "fig-12.1",
+        "src": "fa45b3f26fd75774418efe858e1ee1f887f2cfc127c4d715169fb6e08e796ba8.jpg"
+      },
+      "set": {
+        "id": "fig-12.2",
+        "caption": "Figure 12.2 Equation of a separating hyperplane (12.3). (a) The standard way of representing the equation in 3D. (b) For ease of drawing, we look at the hyperplane edge on.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Raw PDF page 357 shows this image is Figure 12.2; MinerU assigned duplicate fig-12.1 and attached surrounding text as caption, causing missing Figure 12.2 reference."
+    }
+  ],
+  "ref_classifications": []
+}

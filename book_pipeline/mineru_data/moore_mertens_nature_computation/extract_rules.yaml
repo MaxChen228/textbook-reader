@@ -1,0 +1,149 @@
+slug: moore_mertens_nature_computation
+title: The Nature of Computation
+author: Cristopher Moore; Stephan Mertens
+edition: null
+subject: Theory of Computation
+publisher: Oxford University Press
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 16
+appendices_start_page: 926
+bibliography_start_page: 960
+index_start_page: 989
+inline_problems: false
+chapters:
+- num: 1
+  title: Prologue
+  page_start: 16
+  page_end: 30
+  chapter_title_block_idx: 84
+  problems_block_idx: 166
+  next_chapter_block_idx: 212
+- num: 2
+  title: The Basics
+  page_start: 30
+  page_end: 56
+  chapter_title_block_idx: 212
+  problems_block_idx: 402
+  next_chapter_block_idx: 563
+- num: 3
+  title: Insights and Algorithms
+  page_start: 56
+  page_end: 109
+  chapter_title_block_idx: 563
+  problems_block_idx: 1042
+  next_chapter_block_idx: 1334
+- num: 4
+  title: 'Needles in a Haystack: the Class NP'
+  page_start: 110
+  page_end: 141
+  chapter_title_block_idx: 1334
+  problems_block_idx: 1700
+  next_chapter_block_idx: 1784
+- num: 5
+  title: Who is the Hardest One of All? NP-Completeness
+  page_start: 142
+  page_end: 188
+  chapter_title_block_idx: 1784
+  problems_block_idx: 2262
+  next_chapter_block_idx: 2390
+- num: 6
+  title: 'The Deep Question: P vs. NP'
+  page_start: 188
+  page_end: 238
+  chapter_title_block_idx: 2390
+  problems_block_idx: 2892
+  next_chapter_block_idx: 3050
+- num: 7
+  title: The Grand Unified Theory of Computation
+  page_start: 238
+  page_end: 316
+  chapter_title_block_idx: 3050
+  problems_block_idx: 3904
+  next_chapter_block_idx: 4156
+- num: 8
+  title: Memory, Paths, and Games
+  page_start: 316
+  page_end: 365
+  chapter_title_block_idx: 4156
+  problems_block_idx: 4626
+  next_chapter_block_idx: 4755
+- num: 9
+  title: Optimization and Approximation
+  page_start: 366
+  page_end: 466
+  chapter_title_block_idx: 4755
+  problems_block_idx: 5780
+  next_chapter_block_idx: 6160
+- num: 10
+  title: Randomized Algorithms
+  page_start: 466
+  page_end: 522
+  chapter_title_block_idx: 6160
+  problems_block_idx: 6720
+  next_chapter_block_idx: 6977
+- num: 11
+  title: Interaction and Pseudorandomness
+  page_start: 522
+  page_end: 577
+  chapter_title_block_idx: 6977
+  problems_block_idx: 7668
+  next_chapter_block_idx: 7798
+- num: 12
+  title: Random Walks and Rapid Mixing
+  page_start: 578
+  page_end: 666
+  chapter_title_block_idx: 7798
+  problems_block_idx: 8651
+  next_chapter_block_idx: 9053
+- num: 13
+  title: Counting, Sampling, and Statistical Physics
+  page_start: 666
+  page_end: 738
+  chapter_title_block_idx: 9053
+  problems_block_idx: 9733
+  next_chapter_block_idx: 10016
+- num: 14
+  title: 'When Formulas Freeze: Phase Transitions in Computation'
+  page_start: 738
+  page_end: 833
+  chapter_title_block_idx: 10016
+  problems_block_idx: 11025
+  next_chapter_block_idx: 11394
+- num: 15
+  title: Quantum Computation
+  page_start: 834
+  page_end: 925
+  chapter_title_block_idx: 11394
+  problems_block_idx: 12509
+  next_chapter_block_idx: 12893
+appendices:
+- id: A
+  title: Mathematical Tools
+  page_start: 926
+  page_end: 959
+  chapter_title_block_idx: 12894
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+\.\d+)\b
+problem_chapter_must_match: true
+problems_end_re: ^(Notes|NOTES|References|Index)$
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+\.\d+)\b.*$
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

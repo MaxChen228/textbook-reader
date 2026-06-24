@@ -1,0 +1,38 @@
+{
+  "overrides": [
+    {
+      "id": "courant-john-calculus-ch02-fig-2-15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[194]",
+      "position": "after",
+      "page": 164,
+      "clip": [0.34, 0.12, 0.80, 0.44],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-2.15",
+        "kind": "line",
+        "caption": "Figure 2.15"
+      },
+      "reason": "正文 body[194] 參照 Fig. 2.15；raw PDF 實體頁 164 明確有 Figure 2.15，但 MinerU 未產生對應圖塊，故從原頁裁圖補入 catalog 供給端。"
+    },
+    {
+      "id": "courant-john-calculus-ch08-fig-8-4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "body[44]",
+      "position": "after",
+      "page": 603,
+      "clip": [0.20, 0.10, 0.87, 0.90],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.4",
+        "kind": "line",
+        "caption": "Figure 8.4 Combination of vibrations. I: sin x - (sin 2x)/2 + (sin 3x)/3 - (sin 4x)/4; II: sin x - (sin 2x)/2 + (sin 3x)/3 - (sin 4x)/4 + (sin 5x)/5 - (sin 6x)/6 + (sin 7x)/7; III: sin x - (sin 2x)/2 + (sin 3x)/3; IV: sin x - (sin 2x)/2."
+      },
+      "reason": "正文 body[241] 參照 Figure 8.4, p. 579，且 body[44] 總述 Figures 8.3 to 8.5；raw PDF 實體頁 603/印刷頁 579 有 Figure 8.4，但 MinerU 漏抓，故裁原圖補入。"
+    }
+  ]
+}

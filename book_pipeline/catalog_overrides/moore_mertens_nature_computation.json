@@ -1,0 +1,66 @@
+{
+  "slug": "moore_mertens_nature_computation",
+  "overrides": [
+    {
+      "id": "moore-mertens-fig-6.5-pseudocode",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[288]",
+      "expect": {
+        "id": "tbl-ch06-288"
+      },
+      "set": {
+        "id": "fig-6.5",
+        "caption": "FIGURE 6.5: The definition of the function $f(n)$ used in Theorem 6.6.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "MinerU parsed Figure 6.5 pseudocode as a table and prior repair excluded it; raw PDF page 214 shows this block is the Figure 6.5 algorithm captioned in-place."
+    },
+    {
+      "id": "moore-mertens-fig-10.5-walksat-pseudocode",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[67]",
+      "expect": {
+        "id": "tbl-ch10-67"
+      },
+      "set": {
+        "id": "fig-10.5",
+        "caption": "FIGURE 10.5: The WalkSAT algorithm for k-SAT.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "MinerU parsed Figure 10.5 pseudocode as a table and prior repair excluded it; raw PDF page 474 shows this block is the Figure 10.5 algorithm captioned in-place."
+    },
+    {
+      "id": "moore-mertens-fig-2.8-long-division-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "problem:2.11:body[0]",
+      "position": "before",
+      "page": 49,
+      "clip": [
+        0.0,
+        0.11,
+        1.0,
+        0.29
+      ],
+      "zoom": 3.0,
+      "image_id": "fig-2.8",
+      "src": "manual_fig-2.8.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-2.8",
+        "kind": "line",
+        "caption": "FIGURE 2.8: Using long division to calculate a mod b. In this case a = 35500, b = 113, |a/b| = 314, and a mod b = 18."
+      },
+      "reason": "MinerU extracted the long-division display as equations but did not produce a catalog figure; raw PDF page 49 has Figure 2.8 immediately above Problem 2.11."
+    }
+  ],
+  "ref_classifications": []
+}

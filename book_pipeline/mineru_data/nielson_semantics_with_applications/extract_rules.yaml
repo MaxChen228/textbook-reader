@@ -1,0 +1,101 @@
+slug: nielson_semantics_with_applications
+title: "Semantics with Applications: A Formal Introduction"
+author: "Hanne Riis Nielson; Flemming Nielson"
+edition: null
+subject: "Programming Languages"
+publisher: "John Wiley & Sons"
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 246
+bibliography_start_page: 246
+index_start_page: 248
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 31
+    chapter_title_block_idx: 74
+    chapter_title_block_idx_secondary: 75
+    problems_block_idx: null
+    next_chapter_block_idx: 317
+  - num: 2
+    title: "Operational Semantics"
+    page_start: 32
+    page_end: 75
+    chapter_title_block_idx: 317
+    chapter_title_block_idx_secondary: 318
+    problems_block_idx: null
+    next_chapter_block_idx: 1005
+  - num: 3
+    title: "Provably Correct Implementation"
+    page_start: 76
+    page_end: 97
+    chapter_title_block_idx: 1005
+    chapter_title_block_idx_secondary: 1006
+    problems_block_idx: null
+    next_chapter_block_idx: 1356
+  - num: 4
+    title: "Denotational Semantics"
+    page_start: 98
+    page_end: 145
+    chapter_title_block_idx: 1356
+    chapter_title_block_idx_secondary: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 2118
+  - num: 5
+    title: "Static Program Analysis"
+    page_start: 146
+    page_end: 181
+    chapter_title_block_idx: 2118
+    chapter_title_block_idx_secondary: 2119
+    problems_block_idx: null
+    next_chapter_block_idx: 2726
+  - num: 6
+    title: "Axiomatic Program Verification"
+    page_start: 182
+    page_end: 221
+    chapter_title_block_idx: 2726
+    chapter_title_block_idx_secondary: 2727
+    problems_block_idx: null
+    next_chapter_block_idx: 3450
+  - num: 7
+    title: "Further Reading"
+    page_start: 222
+    page_end: 245
+    chapter_title_block_idx: 3450
+    chapter_title_block_idx_secondary: 3451
+    problems_block_idx: null
+    next_chapter_block_idx: 3747
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(__never_match__)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+equation_strip_dollar: true
+
+example_start_re: '^(Example|Fact|Theorem|Lemma|Proposition)\s+\d+\.\d+\b.*$'

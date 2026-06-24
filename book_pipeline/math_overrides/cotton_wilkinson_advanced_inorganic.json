@@ -1,0 +1,142 @@
+{
+  "overrides": [
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch07-body-256-6b7a7f",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[256]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{Ti_xM_yC_{12}}$",
+      "new": "$\\mathrm{Ti}_{x}\\mathrm{M}_{y}\\mathrm{C}_{12}$",
+      "anchor": "32f0ad3a"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch10-body-509-be626c",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[509]",
+      "expect": "\\mathrm{R} _ {2} \\underset {\\mathrm{H}} {\\mathrm{NP}} - \\underset {\\mathrm{Cl}} {\\mathrm{PNR}} _ {2} \\xrightarrow {\\text {(Bu)(Me} _ {3} \\mathrm{Si)} \\mathrm{NLi}} \\mathrm{RNP} = \\mathrm{PNR}",
+      "new": "\\mathrm{R} _ {2} \\underset {\\mathrm{H}} {\\mathrm{NP}} - {\\underset {\\mathrm{Cl}} {\\mathrm{PNR}}} _ {2} \\xrightarrow {\\text {(Bu)(Me} _ {3} \\mathrm{Si)} \\mathrm{NLi}} \\mathrm{RNP} = \\mathrm{PNR}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch02-body-120-b81a6c",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[120]",
+      "expect": "\\begin{array}{l l} \\text {For m - n = 0} & \\mathbf {p} K _ {1} \\sim 8. 5 \\pm 1. 0 \\qquad (K \\sim 1 0 ^ {- 8} \\text {to} 1 0 ^ {- 9}) \\\\ \\text {For m - n = 1} & \\mathbf {p} K _ {1} \\sim 2. 8 \\pm 0. 9 \\qquad (K \\sim 1 0 ^ {- 2} \\text {to} 1 0 ^ {- 4}) \\\\ \\text {For m - n\\geq 2} & \\mathbf {p} K _ {1} <   <   0 (\\text {the acid is very strong}) \\end{array}",
+      "new": "\\begin{array}{l l} \\text {For m - n = 0} & \\mathbf {p} K _ {1} \\sim 8. 5 \\pm 1. 0 \\qquad (K \\sim 1 0 ^ {- 8} \\text {to} 1 0 ^ {- 9}) \\\\ \\text {For m - n = 1} & \\mathbf {p} K _ {1} \\sim 2. 8 \\pm 0. 9 \\qquad (K \\sim 1 0 ^ {- 2} \\text {to} 1 0 ^ {- 4}) \\\\ \\text {For m - n} \\geq 2 & \\mathbf {p} K _ {1} <   <   0 (\\text {the acid is very strong}) \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch03-body-128-9ee5e9",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[128]",
+      "expect": "\\begin{array}{l l} \\text {LiCH(SiMe_{3})_{2}} & \\text {polymeric chains} \\\\ \\text {LiC(SiMe_{3})_{3}} & \\text {dimer} \\\\ \\text {LiBu} ^ {t} & \\text {tetramer} \\\\ \\text {LiPr} ^ {i} & \\text {hexamer} \\\\ \\text {Li(c - C_{6}H_{11})} & \\text {hexamer} \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm {LiCH(SiMe_{3})_{2}} & \\text {polymeric chains} \\\\ \\mathrm {LiC(SiMe_{3})_{3}} & \\text {dimer} \\\\ \\text {LiBu} ^ {t} & \\text {tetramer} \\\\ \\text {LiPr} ^ {i} & \\text {hexamer} \\\\ \\mathrm {Li(c - C_{6}H_{11})} & \\text {hexamer} \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch09-body-22-ac52c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[22]",
+      "expect": "\\begin{array}{c} \\text { Tetrahedral } \\\\ \\mathrm {NH_ {4} ^ {+} and CH_ {4}} \\\\ (\\text { also   BH_ {4} ^ {-}}) \\end{array} \\quad \\begin{array}{c} \\text { Angular } \\\\ \\mathrm{H} \\stackrel {\\ddot {\\mathrm{O}}} {\\mathrm{H}} \\mathrm{H} \\stackrel {\\ddot {\\mathrm{N}}} {\\mathrm{H}} \\end{array}",
+      "new": "\\begin{array}{c} \\text { Tetrahedral } \\\\ \\mathrm {NH_ {4} ^ {+} and CH_ {4}} \\\\ (\\text { also } \\mathrm {BH_ {4} ^ {-}}) \\end{array} \\quad \\begin{array}{c} \\text { Angular } \\\\ \\mathrm{H} \\stackrel {\\ddot {\\mathrm{O}}} {\\mathrm{H}} \\mathrm{H} \\stackrel {\\ddot {\\mathrm{N}}} {\\mathrm{H}} \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch12-body-34-724170",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{l} \\mathrm {H_ {2} S_ {4} + S_ {2} Cl_ {2}} \\longrightarrow \\text {cyclo - S_ {6} + 2HCl} \\\\ \\mathrm {H_ {2} S_ {8} + S_ {4} Cl_ {2}} \\longrightarrow \\text {cyclo - S_ {12} + 2HCl} \\\\ \\mathrm {Cp_ {2} TiS_ {5} + S_ {2} Cl_ {2}} \\longrightarrow \\text {cyclo - S_ {7} + Cp_ {2} TiCl_ {2}} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {H_ {2} S_ {4} + S_ {2} Cl_ {2}} \\longrightarrow \\mathrm {cyclo - S_ {6} + 2HCl} \\\\ \\mathrm {H_ {2} S_ {8} + S_ {4} Cl_ {2}} \\longrightarrow \\mathrm {cyclo - S_ {12} + 2HCl} \\\\ \\mathrm {Cp_ {2} TiS_ {5} + S_ {2} Cl_ {2}} \\longrightarrow \\mathrm {cyclo - S_ {7} + Cp_ {2} TiCl_ {2}} \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch16-body-34-5b0638",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{l l} \\mathrm {Mn(CO) _ {6} ^ {+}}  ,   \\sim 2 0 9 0 & \\text { Mn   dien(CO)_{3} ^ {+}}  ,   \\sim 2 0 2 0  ,   \\sim 1 9 0 0 \\\\ \\mathrm {Cr(CO) _ {6}}  ,   \\sim 2 0 0 0 & \\text { Cr   dien(CO)_{3}}  ,   \\sim 1 9 0 0  ,   \\sim 1 7 6 0 \\\\ \\mathrm {V(CO) _ {6} ^ {-}}  ,   \\sim 1 8 6 0 & \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm {Mn(CO) _ {6} ^ {+}}  ,   \\sim 2 0 9 0 & \\mathrm { Mn   dien(CO)_{3} ^ {+}}  ,   \\sim 2 0 2 0  ,   \\sim 1 9 0 0 \\\\ \\mathrm {Cr(CO) _ {6}}  ,   \\sim 2 0 0 0 & \\mathrm { Cr   dien(CO)_{3}}  ,   \\sim 1 9 0 0  ,   \\sim 1 7 6 0 \\\\ \\mathrm {V(CO) _ {6} ^ {-}}  ,   \\sim 1 8 6 0 & \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch10-body-153-90c421",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[153]",
+      "field": "caption",
+      "all": true,
+      "old": "$M^{II}_{3}[\\mathrm{Bi(NO_{3})_{6}]_{2}\\cdot24\\mathrm{H_{2}O}$",
+      "new": "$M^{II}_{3}[\\mathrm{Bi(NO_{3})_{6}}]_{2}\\cdot24\\mathrm{H_{2}O}$",
+      "anchor": "ffe6ed29"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch10-body-153-a3a9b7",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[153]",
+      "field": "caption",
+      "all": true,
+      "old": "$[\\mathrm{Bi_{6}O_{4}(OH)_{4}]^{6+}$",
+      "new": "$[\\mathrm{Bi_{6}O_{4}(OH)_{4}}]^{6+}$",
+      "anchor": "ffe6ed29"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch17-body-1263-574692",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[1263]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{Ni_{4}(SPr^{i})_{8}X~(X=Br,I)$",
+      "new": "$\\mathrm{Ni_{4}(SPr^{i})_{8}X~(X=Br,I)}$",
+      "anchor": "69ae0fb9"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch07-body-131-320eb7",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[131]",
+      "expect": "\\begin{array}{c c c} \\mathrm {N\\equivC - C\\equivN} & \\mathrm {C\\equivN- C\\equiv N} & \\mathrm {C\\equivN- N\\equiv C} \\\\ 1 & 2 & 3 \\end{array}",
+      "new": "\\begin{array}{c c c} \\mathrm {N\\equiv C - C\\equiv N} & \\mathrm {C\\equiv N- C\\equiv N} & \\mathrm {C\\equiv N- N\\equiv C} \\\\ 1 & 2 & 3 \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch11-body-219-6cd9cd",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[219]",
+      "field": "md",
+      "all": true,
+      "old": "$CH_{3}CO\\cdotOOH$",
+      "new": "$CH_{3}CO\\cdot OOH$",
+      "anchor": "147c2eb1"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch18-body-449-a6d9d1",
+      "action": "fix_inline_math",
+      "chunk": "ch18",
+      "selector": "body[449]",
+      "field": "md",
+      "all": true,
+      "old": "\\(\\sim\\$1.9 BM and its structure is unknown. MoBr\\$\\_4\\$ is also known; it can be made(^{16}) by the action of HBr on MoCl\\$\\_5\\$.",
+      "new": "\\sim\\$1.9\\ \\mathrm{BM}\\ \\text{and its structure is unknown. MoBr}_{4}\\text{ is also known; it can be made}^{(16)}\\text{ by the action of HBr on MoCl}_{5}\\text{.}",
+      "anchor": "9cb3b932"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch17-body-394-04a7ac",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[394]",
+      "expect": "\\begin{array}{r l} & \\mathrm {Cr^ {II} (H_ {2} O) _ {6} ^ {2 + } + Co^ {III} (NH_ {3}) _ {5} Cl^ {2 + }} \\longrightarrow [ (\\mathrm {H_ {2} O}) _ {5} \\mathrm {Cr^ {II} ClCo^ {III} (NH_ {3}) _ {5}} ] ^ {4 +} \\\\ & \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\text {electron transfer} \\\\ & \\mathrm {Cr(H_ {2} O) _ {5} Cl^ {2 + } + Co(NH_ {3}) _ {5} (H_ {2} O) ^ {2 + }} \\xleftarrow {} [ (\\mathrm {H_ {2} O}) _ {5} \\mathrm {Cr^ {III} ClCo^ {II} (NH_ {3}) _ {5}} ] ^ {4 +} \\\\ & \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\text {H^{+}, H_{2} O} \\\\ & \\mathrm {Co(H_ {2} O) _ {6} ^ {2 + } + 5N H _ {4} ^ {+}} \\end{array}",
+      "new": "\\begin{array}{r l} & \\mathrm {Cr^ {II} (H_ {2} O) _ {6} ^ {2 + } + Co^ {III} (NH_ {3}) _ {5} Cl^ {2 + }} \\longrightarrow [ (\\mathrm {H_ {2} O}) _ {5} \\mathrm {Cr^ {II} ClCo^ {III} (NH_ {3}) _ {5}} ] ^ {4 +} \\\\ & \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\text {electron transfer} \\\\ & \\mathrm {Cr(H_ {2} O) _ {5} Cl^ {2 + } + Co(NH_ {3}) _ {5} (H_ {2} O) ^ {2 + }} \\xleftarrow {} [ (\\mathrm {H_ {2} O}) _ {5} \\mathrm {Cr^ {III} ClCo^ {II} (NH_ {3}) _ {5}} ] ^ {4 +} \\\\ & \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\text {H}^{+}\\text {, H}_{2}\\text { O} \\\\ & \\mathrm {Co(H_ {2} O) _ {6} ^ {2 + } + 5N H _ {4} ^ {+}} \\end{array}"
+    },
+    {
+      "id": "cotton_wilkinson_advanced_inorganic-ch02-body-329-ec892e",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[329]",
+      "expect": "\\left[ \\mathrm{Ir} (\\mathrm{H}) _ {2} \\left(\\mathrm{Me} _ {2} \\mathrm{CO}\\right) _ {2} \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\right] \\mathrm{SbF} _ {6} + \\operatorname{Re} (\\mathrm{H}) _ {7} \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\xrightarrow [ - \\mathrm{Me} _ {2} \\mathrm{CO} ]{- \\mathrm{H} _ {2}} \\left[ \\left(\\mathrm{PPh} _ {3}\\right) _ {2} (\\mathrm{H}) _ {3} \\operatorname{Re} (\\mu - \\mathrm{H}) _ {3} \\operatorname{Ir} (\\mathrm{H}) \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\right] \\mathrm{SbF} _ {6} \\tag {11}\\tag{11}",
+      "new": "\\left[ \\mathrm{Ir} (\\mathrm{H}) _ {2} \\left(\\mathrm{Me} _ {2} \\mathrm{CO}\\right) _ {2} \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\right] \\mathrm{SbF} _ {6} + \\operatorname{Re} (\\mathrm{H}) _ {7} \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\xrightarrow [ - \\mathrm{Me} _ {2} \\mathrm{CO} ]{- \\mathrm{H} _ {2}} \\left[ \\left(\\mathrm{PPh} _ {3}\\right) _ {2} (\\mathrm{H}) _ {3} \\operatorname{Re} (\\mu - \\mathrm{H}) _ {3} \\operatorname{Ir} (\\mathrm{H}) \\left(\\mathrm{PPh} _ {3}\\right) _ {2} \\right] \\mathrm{SbF} _ {6} \\tag {11}"
+    }
+  ]
+}

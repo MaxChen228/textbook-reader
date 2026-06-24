@@ -1,0 +1,108 @@
+{
+  "slug": "menezes_handbook_applied_crypto",
+  "overrides": [
+    {
+      "id": "menezes-fig-7.10-id",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[301]",
+      "expect": {
+        "id": "fig-7.9",
+        "caption": "DES inner function $f .$"
+      },
+      "set": {
+        "id": "fig-7.10",
+        "caption": "Figure 7.10: DES inner function $f$.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Raw PDF page 254 labels this visual as Figure 7.10; MinerU/catalog assigned previous figure id."
+    },
+    {
+      "id": "menezes-fig-9.6-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[293]",
+      "expect": {
+        "id": "fig-ch09-293",
+        "caption": "CBC-based MAC algorithm."
+      },
+      "set": {
+        "id": "fig-9.6",
+        "caption": "Figure 9.6: CBC-based MAC algorithm.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Raw PDF page 353 labels the CBC-based MAC diagram as Figure 9.6; the parsed figure had only a chapter fallback id."
+    },
+    {
+      "id": "menezes-fig-9.8-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[335]",
+      "expect": {
+        "id": "fig-ch09-335",
+        "caption": "Three methods for providing data integrity using hash functions. The second method provides encipherment simultaneously"
+      },
+      "set": {
+        "id": "fig-9.8",
+        "caption": "Figure 9.8: Three methods for providing data integrity using hash functions. The second method provides encipherment simultaneously.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Raw PDF page 360 labels this diagram as Figure 9.8; MinerU omitted the semantic figure number from caption/id."
+    },
+    {
+      "id": "menezes-tbl-2.9-id",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[642]",
+      "expect": {
+        "id": "tbl-ch02-642",
+        "caption": "The powers of x modulo $f ( x ) = x ^ { 4 } + x + 1 .$"
+      },
+      "set": {
+        "id": "tbl-2.9",
+        "caption": "Table 2.9: The powers of x modulo $f(x)=x^4+x+1$.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Raw PDF page 86 contains Table 2.9 immediately after the reference; MinerU captured it with a fallback table id."
+    },
+    {
+      "id": "menezes-fig-12.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[20]",
+      "position": "before",
+      "page": 492,
+      "clip": [
+        0.18,
+        0.17,
+        0.82,
+        0.49
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-12.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-12.1",
+        "kind": "line",
+        "caption": "Figure 12.1: Simplified classification of key establishment techniques."
+      },
+      "reason": "Raw PDF page 491 contains Figure 12.1, but MinerU emitted no visual block for it; crop inserts the missing diagram after the first text reference."
+    },
+    {
+      "id": "menezes-fig-12.2-id",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[284]",
+      "expect": {
+        "id": "tbl-ch12-283",
+        "caption": "Summary of Beller-Yacobi protocol (2-pass)."
+      },
+      "set": {
+        "id": "fig-12.2",
+        "caption": "Figure 12.2: Summary of Beller-Yacobi protocol (2-pass).",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Raw PDF page 515 labels this protocol diagram as Figure 12.2; MinerU parsed it as a table with fallback id."
+    }
+  ]
+}

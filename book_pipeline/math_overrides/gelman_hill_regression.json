@@ -1,0 +1,140 @@
+{
+  "overrides": [
+    {
+      "id": "gelman_hill_regression-ch03-body-82-d0f169",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[82]",
+      "expect": "\\begin{array}{l} \\text {fit.3 <   - lm (kid.score \\sim mom.hs + mom.iq)} \\\\ \\text {display (fit.3)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {fit.3 <   - lm (kid.score } \\sim \\text { mom.hs + mom.iq)} \\\\ \\text {display (fit.3)} \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch05-body-78-f751e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[78]",
+      "expect": "\\begin{array}{r c l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if z_{i} >0} \\\\ 0 & \\text {if z_{i} <  0} \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}\\tag{5.4}",
+      "new": "\\begin{array}{r c l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if } z_{i} >0 \\\\ 0 & \\text {if } z_{i} <  0 \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}\\tag{5.4}"
+    },
+    {
+      "id": "gelman_hill_regression-ch05-body-192-5c6c97",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[192]",
+      "expect": "\\begin{array}{l} \\text {fit.5 <   - glm (switch \\sim c.dist100 + c.arsenic + c.dist100:c.arsenic,} \\\\ \\text {family = binomial(link = \"logit\"))} \\end{array}",
+      "new": "\\begin{array}{l} \\text {fit.5 <   - glm (switch } \\sim \\text { c.dist100 + c.arsenic + c.dist100:c.arsenic,} \\\\ \\text {family = binomial(link = \"logit\"))} \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch06-body-147-b58fea",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[147]",
+      "expect": "\\begin{array}{l l l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if z_{i} <  0} \\\\ 2 & \\text {if z_{i} \\in(0,c_{2})} \\\\ 3 & \\text {if z_{i} \\in(c_{2} ,c_{3})} \\\\ & \\dots \\\\ K - 1 & \\text {if z_{i} \\in(c_{K - 2} ,c_{K - 1})} \\\\ K & \\text {if z_{i} >c_{K - 1}} \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}\\tag{6.10}",
+      "new": "\\begin{array}{l l l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if } z_{i} <  0 \\\\ 2 & \\text {if } z_{i} \\in(0,c_{2}) \\\\ 3 & \\text {if } z_{i} \\in(c_{2} ,c_{3}) \\\\ & \\dots \\\\ K - 1 & \\text {if } z_{i} \\in(c_{K - 2} ,c_{K - 1}) \\\\ K & \\text {if } z_{i} >c_{K - 1} \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}\\tag{6.10}"
+    },
+    {
+      "id": "gelman_hill_regression-ch06-body-199-b477e7",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[199]",
+      "expect": "\\begin{array}{r c l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if z_{i} >0} \\\\ 0 & \\text {if z_{i} <  0} \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}",
+      "new": "\\begin{array}{r c l} y _ {i} & = & \\left\\{ \\begin{array}{l l} 1 & \\text {if } z_{i} >0 \\\\ 0 & \\text {if } z_{i} <  0 \\end{array} \\right. \\\\ z _ {i} & = & X _ {i} \\beta + \\epsilon_ {i}, \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch10-body-135-6e012e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[135]",
+      "expect": "\\begin{array}{l l l} \\text {lm(formula = score1 \\sim party + I(z*(party==0)) + I(z*(party==1)))} \\\\ & \\text {coef.est coef.se} \\\\ (\\text {Intercept}) & - 0. 3 3 & 0. 0 3 \\\\ \\text {party} & 0. 7 3 & 0. 0 4 \\\\ I (z * (\\text {party == 0})) & 0. 8 7 & 0. 1 5 \\\\ I (z * (\\text {party == 1})) & 0. 0 6 & 0. 2 4 \\\\ n = 3 5 7, k = 4 \\\\ \\text {residual sd = 0.21, R - Squared = 0.81} \\end{array}",
+      "new": "\\begin{array}{l l l} \\text {lm(formula = score1 } \\sim \\text { party + I(z*(party==0)) + I(z*(party==1)))} \\\\ & \\text {coef.est coef.se} \\\\ (\\text {Intercept}) & - 0. 3 3 & 0. 0 3 \\\\ \\text {party} & 0. 7 3 & 0. 0 4 \\\\ I (z * (\\text {party == 0})) & 0. 8 7 & 0. 1 5 \\\\ I (z * (\\text {party == 1})) & 0. 0 6 & 0. 2 4 \\\\ n = 3 5 7, k = 4 \\\\ \\text {residual sd = 0.21, R - Squared = 0.81} \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch10-body-177-f7c121",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[177]",
+      "expect": "\\text { fit.1b } <   - \\text { lm   (y   ~\\sim   encouraged) }",
+      "new": "\\text { fit.1b } <   - \\text { lm   (y   } \\sim \\text {   encouraged) }"
+    },
+    {
+      "id": "gelman_hill_regression-ch12-body-207-4b7be5",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[207]",
+      "expect": "\\begin{array}{l} \\text {u.full <   - u[county]} \\\\ \\text {M2 <   - lmer (y ^ {\\sim} x+ u.full + (1 | county))} \\\\ \\text {display (M2)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {u.full <   - u[county]} \\\\ \\text {M2 <   - lmer (y } \\sim \\text { x+ u.full + (1 | county))} \\\\ \\text {display (M2)} \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch18-body-25-3226c2",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[25]",
+      "expect": "p (y | \\beta , X) = \\prod_ {i = 1} ^ {n} \\left\\{ \\begin{array}{l l} \\mathrm{logit} ^ {- 1} (X _ {i} \\beta) & \\text {if y_{i} = 1} \\\\ 1 - \\mathrm{logit} ^ {- 1} (X _ {i} \\beta) & \\text {if y_{i} = 0}, \\end{array} \\right.",
+      "new": "p (y | \\beta , X) = \\prod_ {i = 1} ^ {n} \\left\\{ \\begin{array}{l l} \\mathrm{logit} ^ {- 1} (X _ {i} \\beta) & \\text {if } y_{i} = 1 \\\\ 1 - \\mathrm{logit} ^ {- 1} (X _ {i} \\beta) & \\text {if } y_{i} = 0, \\end{array} \\right."
+    },
+    {
+      "id": "gelman_hill_regression-ch18-body-221-018705",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[221]",
+      "expect": "p (y _ {i} | \\beta , \\sigma , X) = \\left\\{ \\begin{array}{l l} \\mathrm{N} (y _ {i} | a + b x _ {i}, \\sigma^ {2}) & \\text {if y_{i} <  200} \\\\ \\Phi ((a + b x _ {i} - 2 0 0) / \\sigma) & \\text {if y_{i} = 200^{+}}. \\end{array} \\right.\\tag{18.20}",
+      "new": "p (y _ {i} | \\beta , \\sigma , X) = \\left\\{ \\begin{array}{l l} \\mathrm{N} (y _ {i} | a + b x _ {i}, \\sigma^ {2}) & \\text {if } y_{i} <  200 \\\\ \\Phi ((a + b x _ {i} - 2 0 0) / \\sigma) & \\text {if } y_{i} = 200^{+}. \\end{array} \\right.\\tag{18.20}"
+    },
+    {
+      "id": "gelman_hill_regression-ch22-body-32-3bdcd5",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[32]",
+      "expect": "\\begin{array}{c c c c} & \\text {Df} & \\text {SS} & \\text {MS} \\\\ \\hline \\text {Model expansion} & k _ {2} & \\sum_ {i} (y _ {i} - X _ {1} \\hat {\\beta} _ {1}) ^ {2} - \\sum_ {i} (y _ {i} - X _ {2} \\hat {\\beta} _ {2}) ^ {2} & \\text {SS/} k _ {2} \\\\ \\text {Residuals} & n - k _ {1} - k _ {2} & \\sum_ {i} (y _ {i} - X _ {2} \\hat {\\beta} _ {2}) ^ {2} & \\text {SS/(n- k_{1}-k_{2})} \\end{array}",
+      "new": "\\begin{array}{c c c c} & \\text {Df} & \\text {SS} & \\text {MS} \\\\ \\hline \\text {Model expansion} & k _ {2} & \\sum_ {i} (y _ {i} - X _ {1} \\hat {\\beta} _ {1}) ^ {2} - \\sum_ {i} (y _ {i} - X _ {2} \\hat {\\beta} _ {2}) ^ {2} & \\text {SS/} k _ {2} \\\\ \\text {Residuals} & n - k _ {1} - k _ {2} & \\sum_ {i} (y _ {i} - X _ {2} \\hat {\\beta} _ {2}) ^ {2} & \\text {SS/(n- } k_{1} \\text {-} k_{2} \\text {)} \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch05-body-291-09646b",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[291]",
+      "expect": "\\begin{array}{c} \\delta (\\text { arsenic,educ4 }) = \\logit ^ {- 1} (- 0. 2 1 - 0. 9 0 \\cdot 1 + 0. 4 7 \\cdot \\text { arsenic } + 0. 1 7 \\cdot \\text { educ4 }) - \\\\ \\logit ^ {- 1} (- 0. 2 1 - 0. 9 0 \\cdot 0 + 0. 4 7 \\cdot \\text { arsenic } + 0. 1 7 \\cdot \\text { educ4 }). \\end{array}\\tag{5.6}",
+      "new": "\\begin{array}{c} \\delta (\\text { arsenic,educ4 }) = \\operatorname{logit} ^ {- 1} (- 0. 2 1 - 0. 9 0 \\cdot 1 + 0. 4 7 \\cdot \\text { arsenic } + 0. 1 7 \\cdot \\text { educ4 }) - \\\\ \\operatorname{logit} ^ {- 1} (- 0. 2 1 - 0. 9 0 \\cdot 0 + 0. 4 7 \\cdot \\text { arsenic } + 0. 1 7 \\cdot \\text { educ4 }). \\end{array}\\tag{5.6}"
+    },
+    {
+      "id": "gelman_hill_regression-ch06-body-252-a81844",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[252]",
+      "expect": "\\begin{array}{r c l} \\operatorname * {P r} (\\text { switch }) = \\operatorname * {P r} (d _ {i} > x) & = & \\operatorname * {P r} \\left(\\frac {d _ {i} - \\mu}{\\sigma} > \\frac {x - \\mu}{\\sigma}\\right) \\\\ & = & \\logit^ {- 1} \\left(\\frac {\\mu - x}{\\sigma}\\right) = \\logit^ {- 1} \\left(\\frac {\\mu}{\\sigma} - \\frac {1}{\\sigma} x\\right), \\end{array}",
+      "new": "\\begin{array}{r c l} \\operatorname * {P r} (\\text { switch }) = \\operatorname * {P r} (d _ {i} > x) & = & \\operatorname * {P r} \\left(\\frac {d _ {i} - \\mu}{\\sigma} > \\frac {x - \\mu}{\\sigma}\\right) \\\\ & = & \\operatorname{logit}^ {- 1} \\left(\\frac {\\mu - x}{\\sigma}\\right) = \\operatorname{logit}^ {- 1} \\left(\\frac {\\mu}{\\sigma} - \\frac {1}{\\sigma} x\\right), \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch23-body-57-248248",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[57]",
+      "expect": "\\begin{array}{l l} \\binom {y _ {i}} {T _ {i}} & \\sim \\mathrm{N} \\left(\\binom {\\alpha_ {j [ i ]} + \\beta T _ {i}} {\\gamma_ {j [ i ]} + \\delta z _ {i}}, \\left( \\begin{array}{c c} \\sigma_ {y} ^ {2} & \\rho_ {y T} \\sigma_ {y} \\sigma_ {T} \\\\ \\rho \\sigma_ {y} \\sigma_ {T} & \\sigma_ {T} ^ {2} \\end{array} \\right)\\right), \\text { for } i = 1, \\dots , n, \\\\ \\binom {\\alpha_ {j}} {\\gamma_ {j}} & \\sim \\mathrm{N} \\left(\\binom {\\mu_ {\\alpha}} {\\mu_ {\\gamma}}, \\left( \\begin{array}{c c} \\sigma_ {\\alpha} ^ {2} & \\rho_ {\\alpha \\gamma} \\sigma_ {\\alpha} \\sigma_ {\\gamma} \\\\ \\rho \\sigma_ {\\alpha} \\sigma_ {\\gamma} & \\sigma_ {\\gamma} ^ {2} \\end{array} \\right)\\right), \\text { for } j = 1, \\dots , J. \\end{array} \\tag {2}\\tag{23.1}",
+      "new": "\\begin{array}{l l} \\binom {y _ {i}} {T _ {i}} & \\sim \\mathrm{N} \\left(\\binom {\\alpha_ {j [ i ]} + \\beta T _ {i}} {\\gamma_ {j [ i ]} + \\delta z _ {i}}, \\left( \\begin{array}{c c} \\sigma_ {y} ^ {2} & \\rho_ {y T} \\sigma_ {y} \\sigma_ {T} \\\\ \\rho \\sigma_ {y} \\sigma_ {T} & \\sigma_ {T} ^ {2} \\end{array} \\right)\\right), \\text { for } i = 1, \\dots , n, \\\\ \\binom {\\alpha_ {j}} {\\gamma_ {j}} & \\sim \\mathrm{N} \\left(\\binom {\\mu_ {\\alpha}} {\\mu_ {\\gamma}}, \\left( \\begin{array}{c c} \\sigma_ {\\alpha} ^ {2} & \\rho_ {\\alpha \\gamma} \\sigma_ {\\alpha} \\sigma_ {\\gamma} \\\\ \\rho \\sigma_ {\\alpha} \\sigma_ {\\gamma} & \\sigma_ {\\gamma} ^ {2} \\end{array} \\right)\\right), \\text { for } j = 1, \\dots , J. \\end{array} \\tag{23.1}"
+    },
+    {
+      "id": "gelman_hill_regression-ch06-body-173-bb3120",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[173]",
+      "expect": "\\begin{array}{r c l} \\mathrm{E} (y | x) & = & 1 \\cdot \\operatorname * {P r} (y = 1 | x) + 2 \\cdot \\operatorname * {P r} (y = 2 | x) + 3 \\cdot \\operatorname * {P r} (y = 3 | x) \\\\ & = & 1 \\cdot \\left(1 - \\logit^ {- 1} \\left(\\frac {x - c _ {1 . 5}}{\\sigma}\\right)\\right) + \\\\ & & + 2 \\cdot \\left(\\logit^ {- 1} \\left(\\frac {x - c _ {1 . 5}}{\\sigma}\\right) - \\logit^ {- 1} \\left(\\frac {x - c _ {2 . 5}}{\\sigma}\\right)\\right) + \\\\ & & + 3 \\cdot \\logit^ {- 1} \\left(\\frac {x - c _ {2 . 5}}{\\sigma}\\right), \\end{array}\\tag{6.14}",
+      "new": "\\begin{array}{r c l} \\mathrm{E} (y | x) & = & 1 \\cdot \\operatorname * {P r} (y = 1 | x) + 2 \\cdot \\operatorname * {P r} (y = 2 | x) + 3 \\cdot \\operatorname * {P r} (y = 3 | x) \\\\ & = & 1 \\cdot \\left(1 - \\operatorname{logit}^ {- 1} \\left(\\frac {x - c _ {1 . 5}}{\\sigma}\\right)\\right) + \\\\ & & + 2 \\cdot \\left(\\operatorname{logit}^ {- 1} \\left(\\frac {x - c _ {1 . 5}}{\\sigma}\\right) - \\operatorname{logit}^ {- 1} \\left(\\frac {x - c _ {2 . 5}}{\\sigma}\\right)\\right) + \\\\ & & + 3 \\cdot \\operatorname{logit}^ {- 1} \\left(\\frac {x - c _ {2 . 5}}{\\sigma}\\right), \\end{array}\\tag{6.14}"
+    },
+    {
+      "id": "gelman_hill_regression-ch12-body-197-5dd3a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[197]",
+      "expect": "\\begin{array}{r c l} \\mathrm{sd} (\\epsilon_ {i}) & = & \\sqrt {\\Sigma_ {i i}} = \\sqrt {\\sigma_ {y} ^ {2} + \\sigma_ {\\alpha} ^ {2}} \\\\ \\mathrm{corr} (\\epsilon_ {i}, \\epsilon_ {k}) & = & \\frac {\\Sigma_ {i k}}{\\sqrt {\\Sigma_ {i i} \\Sigma_ {k k}}} = \\left\\{ \\begin{array}{l l} \\frac {\\sigma_ {\\alpha} ^ {2}}{\\sigma_ {y} ^ {2} + \\sigma_ {\\alpha} ^ {2}} & \\text {if j[i] = j[k]} \\\\ 0 & \\text {if j[i]\\neq j[k].} \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{r c l} \\mathrm{sd} (\\epsilon_ {i}) & = & \\sqrt {\\Sigma_ {i i}} = \\sqrt {\\sigma_ {y} ^ {2} + \\sigma_ {\\alpha} ^ {2}} \\\\ \\mathrm{corr} (\\epsilon_ {i}, \\epsilon_ {k}) & = & \\frac {\\Sigma_ {i k}}{\\sqrt {\\Sigma_ {i i} \\Sigma_ {k k}}} = \\left\\{ \\begin{array}{l l} \\frac {\\sigma_ {\\alpha} ^ {2}}{\\sigma_ {y} ^ {2} + \\sigma_ {\\alpha} ^ {2}} & \\text {if j[i] = j[k]} \\\\ 0 & \\text {if } j[i]\\neq j[k]. \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "gelman_hill_regression-ch18-body-281-dbc00a",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[281]",
+      "expect": "\\begin{array}{l} p (\\alpha , \\beta , \\omega , \\mu_ {\\alpha}, \\mu_ {\\beta}, \\sigma_ {\\alpha}, \\sigma_ {\\beta} | y) \\propto \\prod_ {i = 1} ^ {n} \\prod_ {k = 1} ^ {K} \\binom {y _ {i k} + \\xi_ {i k} - 1} {\\xi_ {i k} - 1} \\left(\\frac {1}{\\omega_ {k}}\\right) ^ {\\xi_ {i k}} \\left(\\frac {\\omega_ {k} - 1}{\\omega_ {k}}\\right) ^ {y _ {i k}} \\\\ \\times \\prod_ {i = 1} ^ {n} \\mathrm{N} (\\alpha_ {i} | \\mu_ {\\alpha}, \\sigma_ {\\alpha} ^ {2}) \\prod_ {k = 1} ^ {K} \\mathrm{N} (\\beta_ {k} | \\mu_ {\\beta}, \\sigma_ {\\beta} ^ {2}) \\prod_ {k = 1} ^ {K} \\gamma_ {k} ^ {- 2}, \\end{array} \\tag {18.}\\tag{18.21}",
+      "new": "\\begin{array}{l} p (\\alpha , \\beta , \\omega , \\mu_ {\\alpha}, \\mu_ {\\beta}, \\sigma_ {\\alpha}, \\sigma_ {\\beta} | y) \\propto \\prod_ {i = 1} ^ {n} \\prod_ {k = 1} ^ {K} \\binom {y _ {i k} + \\xi_ {i k} - 1} {\\xi_ {i k} - 1} \\left(\\frac {1}{\\omega_ {k}}\\right) ^ {\\xi_ {i k}} \\left(\\frac {\\omega_ {k} - 1}{\\omega_ {k}}\\right) ^ {y _ {i k}} \\\\ \\times \\prod_ {i = 1} ^ {n} \\mathrm{N} (\\alpha_ {i} | \\mu_ {\\alpha}, \\sigma_ {\\alpha} ^ {2}) \\prod_ {k = 1} ^ {K} \\mathrm{N} (\\beta_ {k} | \\mu_ {\\beta}, \\sigma_ {\\beta} ^ {2}) \\prod_ {k = 1} ^ {K} \\gamma_ {k} ^ {- 2}, \\end{array} \\tag{18.21}"
+    }
+  ]
+}

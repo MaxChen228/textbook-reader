@@ -1,0 +1,73 @@
+slug: knuth_taocp_vol3
+title: "The Art of Computer Programming, Volume 3: Sorting and Searching"
+author: Donald E. Knuth
+edition: 2nd
+subject: Algorithms
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 16
+appendices_start_page: 971
+index_start_page: 990
+inline_problems: true
+heading_text_level: 2
+suppress_running_header_sections: true
+
+chapters:
+  - num: 5
+    title: Sorting
+    page_start: 16
+    page_end: 500
+    chapter_title_block_idx: 109
+    problems_block_idx: null
+    next_chapter_block_idx: 4741
+  - num: 6
+    title: Searching
+    page_start: 501
+    page_end: 736
+    chapter_title_block_idx: 4741
+    problems_block_idx: null
+    next_chapter_block_idx: 6892
+
+appendices:
+  - id: A
+    title: Tables of Numerical Quantities
+    page_start: 971
+    page_end: 975
+    chapter_title_block_idx: 9225
+  - id: B
+    title: Index to Notations
+    page_start: 976
+    page_end: 983
+    chapter_title_block_idx: 9247
+  - id: C
+    title: Index to Algorithms and Theorems
+    page_start: 984
+    page_end: 989
+    chapter_title_block_idx: 9298
+
+section_re: '^(?:\\\*)?([56](?:\.\d)?)[.]?\s+(.+)$'
+subsection_re: '^(?:\\\*)?([56]\.\d+\.\d+)[.]\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^([0-9]+)\.\s*(?:\[[^\]]+\]\s*)?'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^Exercises(?:—.*)?$'
+problems_end_re: '^Notes on the Exercises$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+known_missing_problems: []

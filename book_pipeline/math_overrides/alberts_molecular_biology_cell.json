@@ -1,0 +1,78 @@
+{
+  "overrides": [
+    {
+      "id": "alberts_molecular_biology_cell-ch02-body-131-c482a4",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[131]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Chi \\to \\mathsf { Y }$",
+      "new": "$\\mathrm{X} \\to \\mathsf { Y }$",
+      "anchor": "e869adb3"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch02-body-132-c482a4",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[132]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Chi \\to \\mathsf { Y }$",
+      "new": "$\\mathrm{X} \\to \\mathsf { Y }$",
+      "anchor": "68944d85"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch03-body-13-eb2d9e",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[13]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu { - } \\complement _ { \\alpha }$",
+      "new": "$\\mathrm{N} { - } \\complement _ { \\alpha }$",
+      "anchor": "82d4d11d"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch03-body-14-eb2d9e",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[14]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu { - } \\complement _ { \\alpha }$",
+      "new": "$\\mathrm{N} { - } \\complement _ { \\alpha }$",
+      "anchor": "b803bb9b"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch11-body-167-3e43b8",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[167]",
+      "expect": "\\begin{array}{c} \\text {for K^{+} it is V_{M} - V_{K}} \\\\ \\text {and for Na^{+} it is V_{M} - V_{Na}} \\end{array}",
+      "new": "\\begin{array}{c} \\text {for } K^{+} \\text { it is } V_{M} - V_{K} \\\\ \\text {and for } Na^{+} \\text { it is } V_{M} - V_{Na} \\end{array}"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch02-body-197-cdec29",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[197]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Chi \\to \\Upsilon$",
+      "new": "$\\mathrm{X} \\to \\Upsilon$",
+      "anchor": "d5081523"
+    },
+    {
+      "id": "alberts_molecular_biology_cell-ch11-body-76-2750b1",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[76]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu \\hat { \\alpha } ^ { + } - \\nvdash \\hat { \\alpha } ^ { + }$",
+      "new": "$\\mathrm{N} \\hat { \\alpha } ^ { + } - \\nvdash \\hat { \\alpha } ^ { + }$",
+      "anchor": "c8b8494e"
+    }
+  ]
+}

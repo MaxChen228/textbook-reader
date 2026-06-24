@@ -1,0 +1,150 @@
+slug: cooper_torczon_engineering_compiler
+title: "Engineering a Compiler"
+author: Keith D. Cooper; Linda Torczon
+edition: 2nd
+subject: Compilers
+publisher: Morgan Kaufmann
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 749
+bibliography_start_page: 789
+index_start_page: 811
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Overview of Compilation
+    page_start: 25
+    page_end: 48
+    chapter_title_block_idx: 147
+    problems_block_idx: 377
+    next_chapter_block_idx: 389
+  - num: 2
+    title: Scanners
+    page_start: 49
+    page_end: 108
+    chapter_title_block_idx: 389
+    problems_block_idx: 1004
+    next_chapter_block_idx: 1073
+  - num: 3
+    title: Parsing
+    page_start: 108
+    page_end: 184
+    chapter_title_block_idx: 1073
+    problems_block_idx: 1858
+    next_chapter_block_idx: 1906
+  - num: 4
+    title: Context-Sensitive Analysis
+    page_start: 185
+    page_end: 244
+    chapter_title_block_idx: 1906
+    problems_block_idx: 2445
+    next_chapter_block_idx: 2489
+  - num: 5
+    title: Intermediate Representations
+    page_start: 245
+    page_end: 292
+    chapter_title_block_idx: 2489
+    problems_block_idx: 3022
+    next_chapter_block_idx: 3072
+  - num: 6
+    title: The Procedure Abstraction
+    page_start: 293
+    page_end: 354
+    chapter_title_block_idx: 3072
+    problems_block_idx: 3661
+    next_chapter_block_idx: 3722
+  - num: 7
+    title: Code Shape
+    page_start: 355
+    page_end: 428
+    chapter_title_block_idx: 3722
+    problems_block_idx: 4431
+    next_chapter_block_idx: 4516
+  - num: 8
+    title: Introduction to Optimization
+    page_start: 429
+    page_end: 498
+    chapter_title_block_idx: 4516
+    problems_block_idx: 5364
+    next_chapter_block_idx: 5426
+  - num: 9
+    title: Data-Flow Analysis
+    page_start: 499
+    page_end: 562
+    chapter_title_block_idx: 5426
+    problems_block_idx: 6061
+    next_chapter_block_idx: 6117
+  - num: 10
+    title: Scalar Optimizations
+    page_start: 563
+    page_end: 620
+    chapter_title_block_idx: 6117
+    problems_block_idx: 6699
+    next_chapter_block_idx: 6744
+  - num: 11
+    title: Instruction Selection
+    page_start: 621
+    page_end: 662
+    chapter_title_block_idx: 6744
+    problems_block_idx: 7115
+    next_chapter_block_idx: 7147
+  - num: 12
+    title: Instruction Scheduling
+    page_start: 663
+    page_end: 702
+    chapter_title_block_idx: 7147
+    problems_block_idx: 7519
+    next_chapter_block_idx: 7566
+  - num: 13
+    title: Register Allocation
+    page_start: 703
+    page_end: 748
+    chapter_title_block_idx: 7566
+    problems_block_idx: 7971
+    next_chapter_block_idx: 8019
+
+appendices:
+  - id: A
+    title: ILOC
+    page_start: 749
+    chapter_title_block_idx: 8019
+  - id: B
+    title: Data Structures
+    page_start: 761
+    chapter_title_block_idx: 8131
+
+section_re: '^((?:\d+\.\d+|[A-B]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-B]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+\S'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^{}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+
+known_missing_problems:
+  - chapter: 5
+    nums:
+      - "5.7"

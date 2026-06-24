@@ -1,0 +1,63 @@
+{
+  "overrides": [
+    {
+      "id": "herlihy-fig-8.1-code-table-idfix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[16]",
+      "expect": {
+        "id": "tbl-ch08-16"
+      },
+      "set": {
+        "id": "fig-8.1",
+        "caption": "Figure 8.1 The Lock Interface.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[16] 是 Lock interface 程式碼清單，html 末尾含 'Figure 8.1 The Lock Interface.'；parser 將其當無編號 table 排除，導致正文 Fig. 8.1 無 catalog 供應。改成 fig-8.1 text figure。"
+    },
+    {
+      "id": "herlihy-fig-8.15-merged-table-alias",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "problem:97:body[2]",
+      "expect": {
+        "id": "fig-8.16"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-8.15",
+            "type": "figure",
+            "caption": "Figure 8.15 The Rooms class.",
+            "source": "agent-merged-code-caption",
+            "evidence": "同一 code table 內先出現 Rooms class 清單，緊接 'Figure 8.15 The Rooms class.'；後半才是 Figure 8.16 CountDownLatch example。"
+          }
+        ],
+        "catalog_repair_source": "agent-alias-fix"
+      },
+      "reason": "problem 97 body[2] 合併了 Figure 8.15 Rooms class 與 Figure 8.16 CountDownLatch example。保留主 id fig-8.16 供應後文 Fig. 8.16，另加 fig-8.15 alias 覆蓋本題引用。"
+    },
+    {
+      "id": "herlihy-fig-18.16-code-table-idfix",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[82]",
+      "expect": {
+        "id": "tbl-ch18-82"
+      },
+      "set": {
+        "id": "fig-18.16",
+        "caption": "Figure 18.16 The Copyable<T> interface.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[80] 引用 Fig. 18.16 說明 Copyable<T> interface；緊鄰 body[82] 即 public interface Copyable<T> 程式碼清單，但 parser 將其排除為 unnumbered table。補語意 id fig-18.16 與 caption。"
+    }
+  ]
+}

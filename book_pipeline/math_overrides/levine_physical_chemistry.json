@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "levine_physical_chemistry-ch14-body-445-4498eb",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[445]",
+      "field": "md",
+      "all": true,
+      "old": "$-nF^{\\mathcal{C}}^{\\circ}$",
+      "new": "$-nF^{\\mathcal{C}\\circ}$",
+      "anchor": "1e21a749"
+    },
+    {
+      "id": "levine_physical_chemistry-ch19-body-101-5afb75",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[101]",
+      "expect": "\\begin{array}{l} \\text {because indep} \\\\ \\text {or \\theta and \\theta , can we t} \\\\ \\text {with \\pi } _ {1 s} = \\pi^ {- 1 / 2} (Z / a) ^ {3 / 2} e ^ {- Z r / a} \\end{array}",
+      "new": "\\begin{array}{l} \\text {because indep} \\\\ \\text {or } \\theta \\text { and } \\theta \\text { , can we t} \\\\ \\text {with } \\pi _ {1 s} = \\pi^ {- 1 / 2} (Z / a) ^ {3 / 2} e ^ {- Z r / a} \\end{array}"
+    },
+    {
+      "id": "levine_physical_chemistry-ch17-body-580-4969e5",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[580]",
+      "expect": "\\begin{array}{c} \\mathrm{I} \\xrightarrow {k _ {t}} 2 \\mathrm{R} \\cdot \\\\ \\mathrm{R} \\cdot + \\mathrm{M} \\xrightarrow {k _ {a}} \\mathrm{RM} \\cdot \\\\ \\mathrm{RM} \\cdot + \\mathrm{M} \\xrightarrow {k _ {p 1}} \\mathrm{RM} _ {2} \\cdot , \\quad \\mathrm{RM} _ {2} \\cdot + \\mathrm{M} \\xrightarrow {k _ {p 2}} \\mathrm{RM} _ {3} \\cdot , \\dots \\\\ \\mathrm{RM} _ {m} \\cdot + \\mathrm{RM} _ {n} \\cdot \\xrightarrow {k _ {t , m n}} \\mathrm{RM} _ {m + n} \\mathrm{R} \\quad \\text {for m = 0,1,2,\\ldots,n = 0,1,2,\\ldots} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm{I} \\xrightarrow {k _ {t}} 2 \\mathrm{R} \\cdot \\\\ \\mathrm{R} \\cdot + \\mathrm{M} \\xrightarrow {k _ {a}} \\mathrm{RM} \\cdot \\\\ \\mathrm{RM} \\cdot + \\mathrm{M} \\xrightarrow {k _ {p 1}} \\mathrm{RM} _ {2} \\cdot , \\quad \\mathrm{RM} _ {2} \\cdot + \\mathrm{M} \\xrightarrow {k _ {p 2}} \\mathrm{RM} _ {3} \\cdot , \\dots \\\\ \\mathrm{RM} _ {m} \\cdot + \\mathrm{RM} _ {n} \\cdot \\xrightarrow {k _ {t , m n}} \\mathrm{RM} _ {m + n} \\mathrm{R} \\quad \\text {for } m = 0,1,2,\\ldots, n = 0,1,2,\\ldots \\end{array}"
+    },
+    {
+      "id": "levine_physical_chemistry-ch14-body-355-6b78a1",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[355]",
+      "expect": "\\begin{array}{r l}&\\frac {\\frac {1}{3} \\mathrm{Ga} ^ {3 +} + \\frac {1}{2} \\mathrm{H} _ {2} \\rightleftharpoons \\frac {1}{3} \\mathrm{Ga} + \\mathrm{H} ^ {+}}{- (\\frac {1}{2} \\mathrm{Cu} ^ {2 +} + \\frac {1}{2} \\mathrm{H} _ {2} \\rightleftharpoons \\frac {1}{2} \\mathrm{Cu} + \\mathrm{H} ^ {+})}\\\\&\\hline \\frac {\\frac {1}{2} \\mathrm{Cu} + \\frac {1}{3} \\mathrm{Ga} ^ {3 +} \\rightleftharpoons \\frac {1}{2} \\mathrm{Cu} ^ {2 +} + \\frac {1}{3} \\mathrm{Ga}}\\end{array}",
+      "new": "\\begin{array}{r l}&\\frac {\\frac {1}{3} \\mathrm{Ga} ^ {3 +} + \\frac {1}{2} \\mathrm{H} _ {2} \\rightleftharpoons \\frac {1}{3} \\mathrm{Ga} + \\mathrm{H} ^ {+}}{- (\\frac {1}{2} \\mathrm{Cu} ^ {2 +} + \\frac {1}{2} \\mathrm{H} _ {2} \\rightleftharpoons \\frac {1}{2} \\mathrm{Cu} + \\mathrm{H} ^ {+})}\\\\\\hline &\\frac {1}{2} \\mathrm{Cu} + \\frac {1}{3} \\mathrm{Ga} ^ {3 +} \\rightleftharpoons \\frac {1}{2} \\mathrm{Cu} ^ {2 +} + \\frac {1}{3} \\mathrm{Ga}\\end{array}"
+    },
+    {
+      "id": "levine_physical_chemistry-ch05-body-246-372be5",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[246]",
+      "field": "md",
+      "all": true,
+      "old": "\\( signs in the formula prevent D2, E2, F2, and G2 from being changed when the formula is copied from C3 into C4 to C16. A cell address with \\( signs is called an absolute reference, whereas one without \\( signs is a relative reference. When a formula is copied from one row to the row below, the row numbers of all relative references are increased by 1, while absolute references do not change. When the formula is copied to the second row below the original row, the row numbers of relative references are increased by 2; and so on. Figure 5.8 shows some of the formulas in column",
+      "new": "\\text{\\$ signs in the formula prevent D2, E2, F2, and G2 from being changed when the formula is copied from C3 into C4 to C16. A cell address with \\$ signs is called an absolute reference, whereas one without \\$ signs is a relative reference. When a formula is copied from one row to the row below, the row numbers of all relative references are increased by 1, while absolute references do not change. When the formula is copied to the second row below the original row, the row numbers of relative references are increased by 2; and so on. Figure 5.8 shows some of the formulas in column}",
+      "anchor": "ae74c773"
+    }
+  ]
+}

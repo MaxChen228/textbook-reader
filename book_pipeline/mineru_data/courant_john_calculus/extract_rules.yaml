@@ -1,0 +1,119 @@
+slug: courant_john_calculus
+title: Introduction to Calculus and Analysis Volume I
+author: Richard Courant; Fritz John
+edition: null
+subject: Calculus
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 673
+bibliography_start_page: null
+index_start_page: 675
+
+inline_problems: false
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 24
+    page_end: 141
+    chapter_title_block_idx: 152
+    chapter_title_block_idx_secondary: 155
+    problems_block_idx: 1484
+    next_chapter_block_idx: 1796
+  - num: 2
+    title: The Fundamental Ideas of the Integral and Differential Calculus
+    page_start: 142
+    page_end: 223
+    chapter_title_block_idx: 1796
+    chapter_title_block_idx_secondary: 1805
+    problems_block_idx: 2922
+    next_chapter_block_idx: 3028
+  - num: 3
+    title: The Techniques of Calculus
+    page_start: 224
+    page_end: 346
+    chapter_title_block_idx: 3028
+    chapter_title_block_idx_secondary: 3030
+    problems_block_idx: 4792
+    next_chapter_block_idx: 5036
+  - num: 4
+    title: Applications in Physics and Geometry
+    page_start: 347
+    page_end: 462
+    chapter_title_block_idx: 5036
+    chapter_title_block_idx_secondary: 5037
+    problems_block_idx: 6543
+    next_chapter_block_idx: 6632
+  - num: 5
+    title: "Taylor's Expansion"
+    page_start: 463
+    page_end: 503
+    chapter_title_block_idx: 6632
+    chapter_title_block_idx_secondary: 6633
+    problems_block_idx: 7247
+    next_chapter_block_idx: 7316
+  - num: 6
+    title: Numerical Methods
+    page_start: 504
+    page_end: 532
+    chapter_title_block_idx: 7316
+    chapter_title_block_idx_secondary: 7325
+    problems_block_idx: 7720
+    next_chapter_block_idx: 7766
+  - num: 7
+    title: Infinite Sums and Products
+    page_start: 533
+    page_end: 593
+    chapter_title_block_idx: 7766
+    chapter_title_block_idx_secondary: 7780
+    problems_block_idx: 8586
+    next_chapter_block_idx: 8745
+  - num: 8
+    title: Trigonometric Series
+    page_start: 594
+    page_end: 655
+    chapter_title_block_idx: 8745
+    chapter_title_block_idx_secondary: 8758
+    problems_block_idx: 9707
+    next_chapter_block_idx: 9752
+  - num: 9
+    title: Differential Equations for the Simplest Types of Vibration
+    page_start: 656
+    page_end: 674
+    chapter_title_block_idx: 9752
+    chapter_title_block_idx_secondary: 9759
+    problems_block_idx: 9985
+    next_chapter_block_idx: 10048
+
+appendices: []
+
+section_re: '^(?:SECTION\s+)?\*?(\d+\.\d+[a-z]?)\.?\s*,?\s+(.+)$'
+subsection_re: '^\*?([a-z])\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

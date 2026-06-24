@@ -1,0 +1,67 @@
+{
+  "overrides": [
+    {
+      "id": "guyton_hall_physiology-ch31-body-0-fedb23",
+      "action": "fix_inline_math",
+      "chunk": "ch31",
+      "selector": "body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\mathrm { { H } _ { 2 } \\mathrm { { C O } _ { 3 } \\right) } }$",
+      "new": "$\\left( \\mathrm { H } _ { 2 } \\mathrm { C O } _ { 3 } \\right)$",
+      "anchor": "dd5ba9db"
+    },
+    {
+      "id": "guyton_hall_physiology-ch31-body-3-fedb23",
+      "action": "fix_inline_math",
+      "chunk": "ch31",
+      "selector": "body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\mathrm { { H } _ { 2 } \\mathrm { { C O } _ { 3 } \\right) } }$",
+      "new": "$\\left( \\mathrm { H } _ { 2 } \\mathrm { C O } _ { 3 } \\right)$",
+      "anchor": "ba038a2e"
+    },
+    {
+      "id": "guyton_hall_physiology-ch33-body-3-fedb23",
+      "action": "fix_inline_math",
+      "chunk": "ch33",
+      "selector": "body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\mathrm { { H } _ { 2 } \\mathrm { { C O } _ { 3 } \\right) } }$",
+      "new": "$\\left( \\mathrm { H } _ { 2 } \\mathrm { C O } _ { 3 } \\right)$",
+      "anchor": "4709a510"
+    },
+    {
+      "id": "guyton_hall_physiology-ch41-body-90-fedb23",
+      "action": "fix_inline_math",
+      "chunk": "ch41",
+      "selector": "body[90]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\mathrm { { H } _ { 2 } \\mathrm { { C O } _ { 3 } \\right) } }$",
+      "new": "$\\left( \\mathrm { H } _ { 2 } \\mathrm { C O } _ { 3 } \\right)$",
+      "anchor": "e8eb63a5"
+    },
+    {
+      "id": "guyton_hall_physiology-ch65-body-127-fedb23",
+      "action": "fix_inline_math",
+      "chunk": "ch65",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\mathrm { { H } _ { 2 } \\mathrm { { C O } _ { 3 } \\right) } }$",
+      "new": "$\\left( \\mathrm { H } _ { 2 } \\mathrm { C O } _ { 3 } \\right)$",
+      "anchor": "1b06d855"
+    },
+    {
+      "id": "guyton_hall_physiology-ch69-body-45-1b63bd",
+      "action": "fix_eq_tex",
+      "chunk": "ch69",
+      "selector": "body[45]",
+      "expect": "\\begin{array}{l} \\text {(1) RCH_{2}CH_{2}COOH + CoA + ATP} \\xrightarrow {\\text {Thiokinase}} \\text {RCH_{2}CH_{2}COCoA + AMP + Pyrophosphate} \\\\ \\text {(Fatty acid)} \\quad \\text {(Fatty acyl - CoA)} \\\\ \\text {(2) RCH_{2}CH_{2}COCoA + FAD} \\xrightarrow {\\text {Acyl dehydrogenase}} \\text {RCH_{2}CH=CHCOCoA + FADH_{2}} \\\\ \\text {(Fatty acyl - CoA)} \\\\ \\text {(3) RCH_{2}CH=CHCOCoA + H_{2}O} \\xrightarrow {\\text {Enoyl hydrase}} \\text {RCH_{2}CHOHCH_{2}COCoA} \\\\ \\text {(4) RCH_{2}CHOHCH_{2}COCoA + NAD^{+}} \\xrightarrow [ \\text {dehydrogenase} ]{\\beta \\text {-Hydroxyacyl}} \\text {RCH_{2}COCH_{2}COCoA + NADH + H^{+}} \\\\ \\text {(5) RCH_{2}COCH_{2}COCoA + CoA} \\xrightarrow {\\text {Thiolase}} \\text {RCH_{2}COCoA + CH_{3}COCoA} \\\\ \\text {(Fatty acyl - CoA)} \\quad \\text {(Acetyl - CoA)} \\\\ \\text {(Figure 69-3. Beta oxidation of fatty acids to yield acetyl coenzyme A.} \\end{array}",
+      "new": "\\begin{array}{l} \\text{(1) } \\mathrm{RCH}_{2}\\mathrm{CH}_{2}\\mathrm{COOH}+\\mathrm{CoA}+\\mathrm{ATP} \\xrightarrow{\\text{Thiokinase}} \\mathrm{RCH}_{2}\\mathrm{CH}_{2}\\mathrm{COCoA}+\\mathrm{AMP}+\\text{Pyrophosphate} \\\\ \\text{(Fatty acid)} \\quad \\text{(Fatty acyl - CoA)} \\\\ \\text{(2) } \\mathrm{RCH}_{2}\\mathrm{CH}_{2}\\mathrm{COCoA}+\\mathrm{FAD} \\xrightarrow{\\text{Acyl dehydrogenase}} \\mathrm{RCH}_{2}\\mathrm{CH}=\\mathrm{CHCOCoA}+\\mathrm{FADH}_{2} \\\\ \\text{(Fatty acyl - CoA)} \\\\ \\text{(3) } \\mathrm{RCH}_{2}\\mathrm{CH}=\\mathrm{CHCOCoA}+\\mathrm{H}_{2}\\mathrm{O} \\xrightarrow{\\text{Enoyl hydrase}} \\mathrm{RCH}_{2}\\mathrm{CHOHCH}_{2}\\mathrm{COCoA} \\\\ \\text{(4) } \\mathrm{RCH}_{2}\\mathrm{CHOHCH}_{2}\\mathrm{COCoA}+\\mathrm{NAD}^{+} \\xrightarrow[\\text{dehydrogenase}]{\\beta\\text{-Hydroxyacyl}} \\mathrm{RCH}_{2}\\mathrm{COCH}_{2}\\mathrm{COCoA}+\\mathrm{NADH}+\\mathrm{H}^{+} \\\\ \\text{(5) } \\mathrm{RCH}_{2}\\mathrm{COCH}_{2}\\mathrm{COCoA}+\\mathrm{CoA} \\xrightarrow{\\text{Thiolase}} \\mathrm{RCH}_{2}\\mathrm{COCoA}+\\mathrm{CH}_{3}\\mathrm{COCoA} \\\\ \\text{(Fatty acyl - CoA)} \\quad \\text{(Acetyl - CoA)} \\\\ \\text{(Figure 69-3. Beta oxidation of fatty acids to yield acetyl coenzyme A.} \\end{array}"
+    }
+  ]
+}

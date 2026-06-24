@@ -1,0 +1,94 @@
+slug: preparata_shamos_computational_geometry
+title: "Computational Geometry: An Introduction"
+author: "Franco P. Preparata; Michael Ian Shamos"
+edition: null
+subject: "Computational Geometry"
+publisher: "Springer-Verlag"
+language: en
+
+filter_types: [header, footer, page_number, page_footnote, ref_text]
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: [1, 2]
+
+body_start_page: 12
+appendices_start_page: 377
+bibliography_start_page: 377
+index_start_page: 393
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 12
+    page_end: 46
+    chapter_title_block_idx: 68
+    problems_block_idx: 485
+    next_chapter_block_idx: 486
+  - num: 2
+    title: "Geometric Searching"
+    page_start: 47
+    page_end: 100
+    chapter_title_block_idx: 486
+    problems_block_idx: 980
+    next_chapter_block_idx: 1002
+  - num: 3
+    title: "Convex Hulls: Basic Algorithms"
+    page_start: 101
+    page_end: 154
+    chapter_title_block_idx: 1002
+    problems_block_idx: 1521
+    next_chapter_block_idx: 1551
+  - num: 4
+    title: "Convex Hulls: Extensions and Applications"
+    page_start: 155
+    page_end: 189
+    chapter_title_block_idx: 1551
+    chapter_title_block_idx_secondary: 1552
+    problems_block_idx: 1878
+    next_chapter_block_idx: 1892
+  - num: 5
+    title: "Proximity: Fundamental Algorithms"
+    page_start: 190
+    page_end: 229
+    chapter_title_block_idx: 1892
+    chapter_title_block_idx_secondary: 1893
+    problems_block_idx: 2272
+    next_chapter_block_idx: 2295
+  - num: 6
+    title: "Proximity: Variants and Generalizations"
+    page_start: 230
+    page_end: 269
+    chapter_title_block_idx: 2295
+    chapter_title_block_idx_secondary: 2296
+    problems_block_idx: 2656
+    next_chapter_block_idx: 2698
+  - num: 7
+    title: "Intersections"
+    page_start: 270
+    page_end: 325
+    chapter_title_block_idx: 2698
+    problems_block_idx: 3264
+    next_chapter_block_idx: 3272
+  - num: 8
+    title: "The Geometry of Rectangles"
+    page_start: 326
+    page_end: 376
+    chapter_title_block_idx: 3272
+    problems_block_idx: 3737
+    next_chapter_block_idx: 3748
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)?)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\(([^)]+)\)$'
+example_start_re: null

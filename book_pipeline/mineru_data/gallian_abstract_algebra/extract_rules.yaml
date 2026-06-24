@@ -1,0 +1,274 @@
+slug: gallian_abstract_algebra
+title: Contemporary Abstract Algebra
+author: Joseph A. Gallian
+edition: 10th
+subject: Abstract Algebra
+publisher: CRC Press
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+ignore_image_content: false
+ignore_chart_content: false
+body_start_page: 19
+appendices_start_page: null
+bibliography_start_page: 600
+index_start_page: 605
+inline_problems: false
+heading_text_level:
+- 1
+- 2
+section_re: '^((?!Exercises$|Computer Exercises$|References$|Selected Readings$|Historical Note$|Biographical Note$|Biography\b)[A-Z][A-Za-z0-9’''(),;:\-
+  $\_{}^]+(?: [A-Z0-9$\_{}^][A-Za-z0-9’''(),;:\- $\_{}^]*)*)\s*(.*)$'
+subsection_re: ^(Definition|Definitions|Theorem\s+\d+\.\d+|Lemma\s+\d+\.\d+|Corollary(?:\s+\d+)?|EXAMPLE\s+\d+|Example\s+\d+|PROOF|Historical
+  Note|Biography of .+|A Check-Digit Scheme Based on .+|Rubik’s Cube)\s*(.*)$
+heading_priority:
+- subsection_re
+- section_re
+suppress_running_header_sections: true
+problem_start_re: ^\s*(\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: ^(Computer Exercises|References|Selected Readings|Biography\b|[A-Z][A-Za-z .]+)$
+solution_start_re: null
+problems_start_re: null
+equation_strip_dollar: true
+equation_label_re: ^\s*\(?([0-9]+\.[0-9]+)\)?\s*$
+example_start_re: ^(?:EXAMPLE|Example)\s+(\d+)\b
+figure_caption_merge: true
+figure_caption_main_re: ^(Figure\s+\d+\.\d+)\s*(.*)$
+known_missing_problems:
+- chapter: 3
+  nums:
+  - '3.77'
+- chapter: 25
+  nums:
+  - '25.14'
+appendices: []
+chapters:
+- num: 0
+  title: Preliminaries
+  chapter_title_block_idx: 157
+  problems_block_idx: 400
+  next_chapter_block_idx: 474
+  page_start: 20
+  page_end: 45
+- num: 1
+  title: Introduction to Groups
+  chapter_title_block_idx: 474
+  problems_block_idx: 546
+  next_chapter_block_idx: 614
+  page_start: 46
+  page_end: 57
+- num: 2
+  title: Groups
+  chapter_title_block_idx: 614
+  problems_block_idx: 755
+  next_chapter_block_idx: 842
+  page_start: 58
+  page_end: 77
+- num: 3
+  title: Finite Groups; Subgroups
+  chapter_title_block_idx: 842
+  problems_block_idx: 968
+  next_chapter_block_idx: 1093
+  page_start: 78
+  page_end: 96
+- num: 4
+  title: Cyclic Groups
+  chapter_title_block_idx: 1093
+  problems_block_idx: 1245
+  next_chapter_block_idx: 1368
+  page_start: 96
+  page_end: 116
+- num: 5
+  title: Permutation Groups
+  chapter_title_block_idx: 1368
+  problems_block_idx: 1600
+  next_chapter_block_idx: 1735
+  page_start: 116
+  page_end: 146
+- num: 6
+  title: Isomorphisms
+  chapter_title_block_idx: 1735
+  problems_block_idx: 1923
+  next_chapter_block_idx: 2035
+  page_start: 146
+  page_end: 167
+- num: 7
+  title: Cosets and Lagrange’s Theorem
+  chapter_title_block_idx: 2035
+  problems_block_idx: 2199
+  next_chapter_block_idx: 2308
+  page_start: 168
+  page_end: 190
+- num: 8
+  title: External Direct Products
+  chapter_title_block_idx: 2308
+  problems_block_idx: 2471
+  next_chapter_block_idx: 2593
+  page_start: 190
+  page_end: 212
+- num: 9
+  title: Normal Subgroups and Factor Groups
+  chapter_title_block_idx: 2593
+  problems_block_idx: 2773
+  next_chapter_block_idx: 2904
+  page_start: 212
+  page_end: 238
+- num: 10
+  title: Group Homomorphisms
+  chapter_title_block_idx: 2904
+  problems_block_idx: 3032
+  next_chapter_block_idx: 3151
+  page_start: 238
+  page_end: 259
+- num: 11
+  title: Fundamental Theorem of Finite Abelian Groups
+  chapter_title_block_idx: 3151
+  problems_block_idx: 3240
+  next_chapter_block_idx: 3305
+  page_start: 260
+  page_end: 273
+- num: 12
+  title: Introduction to Rings
+  chapter_title_block_idx: 3305
+  problems_block_idx: 3388
+  next_chapter_block_idx: 3475
+  page_start: 274
+  page_end: 286
+- num: 13
+  title: Integral Domains
+  chapter_title_block_idx: 3475
+  problems_block_idx: 3554
+  next_chapter_block_idx: 3649
+  page_start: 286
+  page_end: 298
+- num: 14
+  title: Ideals and Factor Rings
+  chapter_title_block_idx: 3649
+  problems_block_idx: 3741
+  next_chapter_block_idx: 3863
+  page_start: 298
+  page_end: 313
+- num: 15
+  title: Ring Homomorphisms
+  chapter_title_block_idx: 3863
+  problems_block_idx: 3973
+  next_chapter_block_idx: 4082
+  page_start: 314
+  page_end: 330
+- num: 16
+  title: Polynomial Rings
+  chapter_title_block_idx: 4082
+  problems_block_idx: 4194
+  next_chapter_block_idx: 4291
+  page_start: 330
+  page_end: 343
+- num: 17
+  title: Factorization of Polynomials
+  chapter_title_block_idx: 4291
+  problems_block_idx: 4434
+  next_chapter_block_idx: 4503
+  page_start: 344
+  page_end: 362
+- num: 18
+  title: Divisibility in Integral Domains
+  chapter_title_block_idx: 4503
+  problems_block_idx: 4660
+  next_chapter_block_idx: 4753
+  page_start: 362
+  page_end: 383
+- num: 19
+  title: Extension Fields
+  chapter_title_block_idx: 4753
+  problems_block_idx: 4919
+  next_chapter_block_idx: 4994
+  page_start: 384
+  page_end: 404
+- num: 20
+  title: Algebraic Extensions
+  chapter_title_block_idx: 4994
+  problems_block_idx: 5114
+  next_chapter_block_idx: 5204
+  page_start: 404
+  page_end: 420
+- num: 21
+  title: Finite Fields
+  chapter_title_block_idx: 5204
+  problems_block_idx: 5320
+  next_chapter_block_idx: 5416
+  page_start: 420
+  page_end: 437
+- num: 22
+  title: Geometric Constructions
+  chapter_title_block_idx: 5416
+  problems_block_idx: 5456
+  next_chapter_block_idx: 5492
+  page_start: 438
+  page_end: 446
+- num: 23
+  title: Sylow Theorems
+  chapter_title_block_idx: 5492
+  problems_block_idx: 5629
+  next_chapter_block_idx: 5718
+  page_start: 446
+  page_end: 465
+- num: 24
+  title: Finite Simple Groups
+  chapter_title_block_idx: 5718
+  problems_block_idx: 5836
+  next_chapter_block_idx: 5913
+  page_start: 466
+  page_end: 486
+- num: 25
+  title: Generators and Relations
+  chapter_title_block_idx: 5913
+  problems_block_idx: 6054
+  next_chapter_block_idx: 6109
+  page_start: 486
+  page_end: 502
+- num: 26
+  title: Symmetry Groups
+  chapter_title_block_idx: 6109
+  problems_block_idx: 6156
+  next_chapter_block_idx: 6188
+  page_start: 502
+  page_end: 510
+- num: 27
+  title: Symmetry and Counting
+  chapter_title_block_idx: 6188
+  problems_block_idx: 6259
+  next_chapter_block_idx: 6291
+  page_start: 510
+  page_end: 521
+- num: 28
+  title: Cayley Digraphs of Groups
+  chapter_title_block_idx: 6291
+  problems_block_idx: 6410
+  next_chapter_block_idx: 6497
+  page_start: 522
+  page_end: 544
+- num: 29
+  title: Introduction to Algebraic Coding Theory
+  chapter_title_block_idx: 6497
+  problems_block_idx: 6730
+  next_chapter_block_idx: 6836
+  page_start: 544
+  page_end: 574
+- num: 30
+  title: An Introduction to Galois Theory
+  chapter_title_block_idx: 6836
+  problems_block_idx: 6988
+  next_chapter_block_idx: 7037
+  page_start: 574
+  page_end: 591
+- num: 31
+  title: Cyclotomic Extensions
+  chapter_title_block_idx: 7037
+  problems_block_idx: 7128
+  next_chapter_block_idx: 7154
+  page_start: 592
+  page_end: 601

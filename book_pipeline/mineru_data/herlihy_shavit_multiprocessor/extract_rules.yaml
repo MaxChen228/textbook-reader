@@ -1,0 +1,183 @@
+slug: herlihy_shavit_multiprocessor
+title: The Art of Multiprocessor Programming
+author: Maurice Herlihy; Nir Shavit
+edition: 1st
+subject: Concurrent Programming
+publisher: Morgan Kaufmann
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 26
+appendices_start_page: 478
+bibliography_start_page: 508
+index_start_page: 520
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 26
+    page_end: 45
+    chapter_title_block_idx: 121
+    problems_block_idx: 293
+    next_chapter_block_idx: 346
+  - num: 2
+    title: Mutual Exclusion
+    page_start: 46
+    page_end: 69
+    chapter_title_block_idx: 346
+    problems_block_idx: 576
+    next_chapter_block_idx: 621
+  - num: 3
+    title: Concurrent Objects
+    page_start: 70
+    page_end: 95
+    chapter_title_block_idx: 621
+    problems_block_idx: 833
+    next_chapter_block_idx: 876
+  - num: 4
+    title: Foundations of Shared Memory
+    page_start: 96
+    page_end: 123
+    chapter_title_block_idx: 876
+    problems_block_idx: 1079
+    next_chapter_block_idx: 1138
+  - num: 5
+    title: The Relative Power of Primitive Synchronization Operations
+    page_start: 124
+    page_end: 149
+    chapter_title_block_idx: 1138
+    problems_block_idx: 1334
+    next_chapter_block_idx: 1417
+  - num: 6
+    title: Universality of Consensus
+    page_start: 150
+    page_end: 165
+    chapter_title_block_idx: 1417
+    problems_block_idx: 1520
+    next_chapter_block_idx: 1538
+  - num: 7
+    title: Spin Locks and Contention
+    page_start: 166
+    page_end: 201
+    chapter_title_block_idx: 1538
+    problems_block_idx: 1786
+    next_chapter_block_idx: 1810
+  - num: 8
+    title: Monitors and Blocking Synchronization
+    page_start: 202
+    page_end: 219
+    chapter_title_block_idx: 1810
+    problems_block_idx: 1917
+    next_chapter_block_idx: 1958
+  - num: 9
+    title: "Linked Lists: The Role of Locking"
+    page_start: 220
+    page_end: 247
+    chapter_title_block_idx: 1958
+    problems_block_idx: 2152
+    next_chapter_block_idx: 2187
+  - num: 10
+    title: Concurrent Queues and the ABA Problem
+    page_start: 248
+    page_end: 269
+    chapter_title_block_idx: 2187
+    problems_block_idx: 2326
+    next_chapter_block_idx: 2355
+  - num: 11
+    title: Concurrent Stacks and Elimination
+    page_start: 270
+    page_end: 283
+    chapter_title_block_idx: 2355
+    problems_block_idx: 2435
+    next_chapter_block_idx: 2467
+  - num: 12
+    title: "Counting, Sorting, and Distributed Coordination"
+    page_start: 284
+    page_end: 323
+    chapter_title_block_idx: 2467
+    problems_block_idx: 2795
+    next_chapter_block_idx: 2858
+  - num: 13
+    title: Concurrent Hashing and Natural Parallelism
+    page_start: 324
+    page_end: 353
+    chapter_title_block_idx: 2858
+    problems_block_idx: 3071
+    next_chapter_block_idx: 3087
+  - num: 14
+    title: Skiplists and Balanced Search
+    page_start: 354
+    page_end: 375
+    chapter_title_block_idx: 3087
+    problems_block_idx: 3242
+    next_chapter_block_idx: 3259
+  - num: 15
+    title: Priority Queues
+    page_start: 376
+    page_end: 393
+    chapter_title_block_idx: 3259
+    problems_block_idx: 3376
+    next_chapter_block_idx: 3397
+  - num: 16
+    title: "Futures, Scheduling, and Work Distribution"
+    page_start: 394
+    page_end: 421
+    chapter_title_block_idx: 3397
+    problems_block_idx: 3581
+    next_chapter_block_idx: 3647
+  - num: 17
+    title: Barriers
+    page_start: 422
+    page_end: 441
+    chapter_title_block_idx: 3647
+    problems_block_idx: 3733
+    next_chapter_block_idx: 3790
+  - num: 18
+    title: Transactional Memory
+    page_start: 442
+    page_end: 477
+    chapter_title_block_idx: 3790
+    problems_block_idx: 4084
+    next_chapter_block_idx: 4114
+
+appendices:
+  - id: A
+    title: Software Basics
+    page_start: 478
+    chapter_title_block_idx: 4114
+  - id: B
+    title: Hardware Basics
+    page_start: 494
+    chapter_title_block_idx: 4284
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Exercise\s+(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

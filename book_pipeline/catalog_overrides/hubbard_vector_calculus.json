@@ -1,0 +1,78 @@
+{
+  "slug": "hubbard_vector_calculus",
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "2.2.1",
+      "classification": "inline_caption_in_equation",
+      "reason": "Figure label is embedded in an equation block that represents the matrix illustration, not a missing external figure block.",
+      "where": "ch02.json body[147]",
+      "evidence": "body[147] tex contains the matrix display followed by \\text {FIGURE 2.2.1.}; there is no separate image/caption block for this schematic in parsed data."
+    },
+    {
+      "type": "figure",
+      "ref": "2.2.3",
+      "classification": "inline_caption_in_equation",
+      "reason": "Figure label is embedded in an equation block that represents the matrix illustration, not a missing external figure block.",
+      "where": "ch02.json body[155]",
+      "evidence": "body[155] tex contains the matrix display followed by \\text {FIGURE 2.2.3.}; this is the referenced matrix illustration, but build_catalogs only catalogs fig/table blocks."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "hubbard-ch03-fig-3.1.12-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[190]",
+      "expect": {
+        "id": "fig-ch03-190",
+        "caption": "If the points"
+      },
+      "set": {
+        "id": "fig-3.1.12",
+        "caption": "FIGURE 3.1.12.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "MinerU split the caption; image visibly includes FIGURE 3.1.12 under the plot, and body[201] references Figure 3.1.12."
+    },
+    {
+      "id": "hubbard-ch05-fig-5.5.4-id",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[653]",
+      "expect": {
+        "id": "fig-ch05-653"
+      },
+      "set": {
+        "id": "fig-5.5.4",
+        "caption": "FIGURE 5.5.4.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "This excluded image is the Sierpinski gasket construction referenced by body[626] as Figure 5.5.4."
+    },
+    {
+      "id": "hubbard-appA-fig-A1.5-id",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[67]",
+      "expect": {
+        "id": "fig-appA-67"
+      },
+      "set": {
+        "id": "fig-A1.5",
+        "caption": "FIGURE A1.5.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "The image shows the construction referenced by body[85] as Figure A1.5; nearby body[68] also labels it as FIGURE FOR EXERCISE A1.5."
+    }
+  ]
+}

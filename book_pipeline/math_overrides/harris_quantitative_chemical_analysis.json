@@ -1,0 +1,183 @@
+{
+  "overrides": [
+    {
+      "id": "harris_quantitative_chemical_analysis-ch06-problem-6-23-body-1-5931a2",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6-23:body[1]",
+      "expect": "\\begin{array}{l}\\text {(a) BF_{3} + NH_{3} \\rightleftharpoons F_{3} B - NH_{3}}\\\\\\text {(b) F^{-} + AsF_{5} \\rightleftharpoons AsF_{6} ^{-}}\\end{array}",
+      "new": "\\begin{array}{l}\\text {(a) } \\mathrm{BF}_{3} + \\mathrm{NH}_{3} \\rightleftharpoons \\mathrm{F}_{3} \\mathrm{B} - \\mathrm{NH}_{3}\\\\\\text {(b) } \\mathrm{F}^{-} + \\mathrm{AsF}_{5} \\rightleftharpoons \\mathrm{AsF}_{6} ^{-}\\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch08-problem-8-5-body-1-c41b84",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8-5:body[1]",
+      "expect": "\\begin{array}{l l} \\text {(a) SO_{4} ^ {2 - }} & (\\mu = 0. 0 1 \\mathrm{M}) \\\\ \\text {(b) Sc^{3 + }} & (\\mu = 0. 0 0 5 \\mathrm{M}) \\\\ \\text {(c) Eu^{3 + }} & (\\mu = 0. 1 \\mathrm{M}) \\\\ \\text {(d) (CH_{3}CH_{2})_{3}NH^{+}} & (\\mu = 0. 0 5 \\mathrm{M}) \\end{array}",
+      "new": "\\begin{array}{l l} \\text {(a) } \\mathrm{SO}_{4} ^ {2 - } & (\\mu = 0. 0 1 \\mathrm{M}) \\\\ \\text {(b) } \\mathrm{Sc}^{3 + } & (\\mu = 0. 0 0 5 \\mathrm{M}) \\\\ \\text {(c) } \\mathrm{Eu}^{3 + } & (\\mu = 0. 1 \\mathrm{M}) \\\\ \\text {(d) } (\\mathrm{CH}_{3}\\mathrm{CH}_{2})_{3}\\mathrm{NH}^{+} & (\\mu = 0. 0 5 \\mathrm{M}) \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch09-body-195-2e34b1",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[195]",
+      "expect": "\\begin{array}{c} \\text {cellulose - CH_{2} OH} \\xrightarrow [ ]{K _ {\\mathrm{a}} \\approx 1 0 ^ {- 1 5}} \\text {cellulose - CH_{2} O^{-}} + \\mathrm{H^{+}} \\\\ \\text {ROH} \\end{array}",
+      "new": "\\begin{array}{c} \\text {cellulose - }\\mathrm{CH}_{2}\\mathrm{OH} \\xrightarrow [ ]{K _ {\\mathrm{a}} \\approx 1 0 ^ {- 1 5}} \\text {cellulose - }\\mathrm{CH}_{2}\\mathrm{O}^{-} + \\mathrm{H^{+}} \\\\ \\text {ROH} \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch09-body-418-3cd175",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[418]",
+      "expect": "\\begin{array}{c}\\mathrm {B(OH) _ {3}} + \\mathrm {OH^ {-}} \\rightarrow (\\mathrm{HO}) _ {2} \\mathrm {BO^ {-}} + \\mathrm {H_ {2} O}\\\\\\text { Boric   acid(HA) } \\quad \\text { borate(A^ {- })}\\end{array}",
+      "new": "\\begin{array}{c}\\mathrm {B(OH) _ {3}} + \\mathrm {OH^ {-}} \\rightarrow (\\mathrm{HO}) _ {2} \\mathrm {BO^ {-}} + \\mathrm {H_ {2} O}\\\\\\text { Boric   acid(HA) } \\quad \\text { borate(}\\mathrm{A}^{-}\\text {)}\\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch13-problem-13-16-body-1-06f854",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "problem:13-16:body[1]",
+      "expect": "\\begin{array}{c} \\mathrm {N(C H _ {2} C H _ {2} N H _ {3} ^ {+}) _ {3} \\cdot 3Cl^ {-}} \\\\ \\text { Tris(2 - aminoethyl)amine\\cdot 3HCl} \\\\ \\mathrm {H_ {3} A^ {3 + } \\cdot 3Cl^ {-}} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm {N(C H _ {2} C H _ {2} N H _ {3} ^ {+}) _ {3} \\cdot 3Cl^ {-}} \\\\ \\text { Tris(2 - aminoethyl)amine}\\cdot 3\\mathrm{HCl} \\\\ \\mathrm {H_ {3} A^ {3 + } \\cdot 3Cl^ {-}} \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch18-body-15-844952",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[15]",
+      "expect": "\\begin{array}{c}\\text {Net reaction of (2) - (4):}\\\\\\text {Catalytic O_{3} destruction}\\\\2 \\mathrm{O_{3}} \\rightarrow 3 \\mathrm{O_{2}}\\end{array}",
+      "new": "\\begin{array}{c}\\text {Net reaction of (2) - (4):}\\\\\\text {Catalytic }\\mathrm{O}_{3}\\text { destruction}\\\\2 \\mathrm{O_{3}} \\rightarrow 3 \\mathrm{O_{2}}\\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch19-body-235-c48bf7",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[235]",
+      "expect": "\\begin{array}{l}\\text {at Pt electrode: (bipyridyl)_{3} Co^{3 + } + e^{-} \\rightarrow (bipyridyl)_{3} Co^{2 + }}\\\\\\text {(bipyridyl)_{3} Co^{2 + } + sensitizer^{+*} \\rightarrow (bipyridyl)_{3} Co^{3 + } + sensitizer}\\end{array}",
+      "new": "\\begin{array}{l} \\text {at Pt electrode: }(\\mathrm{bipyridyl})_{3} \\mathrm{Co}^{3 + } + e^{-} \\rightarrow (\\mathrm{bipyridyl})_{3} \\mathrm{Co}^{2 + }\\\\(\\mathrm{bipyridyl})_{3} \\mathrm{Co}^{2 + } + \\mathrm{sensitizer}^{+*} \\rightarrow (\\mathrm{bipyridyl})_{3} \\mathrm{Co}^{3 + } + \\mathrm{sensitizer}\\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch22-body-84-425a8d",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[84]",
+      "expect": "\\begin{array}{l} \\text {Intensity of M + I} \\\\ \\text {relative to molecular} \\\\ \\text {ion for C_{n} H_{m}}. \\end{array} \\quad \\text {Intensity} = \\underbrace {n \\times 1 . 0 8 \\%} _ {\\text {From} ^ {1 3} \\mathrm{C}} + \\underbrace {m \\times 0 . 0 1 2 \\%} _ {\\text {From} ^ {2} \\mathrm{H}}\\tag{22-2}",
+      "new": "\\begin{array}{l} \\text {Intensity of M + I} \\\\ \\text {relative to molecular} \\\\ \\text {ion for }C_{n} H_{m}\\text {.} \\end{array} \\quad \\text {Intensity} = \\underbrace {n \\times 1 . 0 8 \\%} _ {\\text {From } ^ {1 3} \\mathrm{C}} + \\underbrace {m \\times 0 . 0 1 2 \\%} _ {\\text {From } ^ {2} \\mathrm{H}}\\tag{22-2}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch23-problem-23-28-body-5-10b30b",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "problem:23-28:body[5]",
+      "expect": "\\begin{array}{l} \\text {Column 1: N = 1000; k_{2} = 1.2; \\alpha = 1.16; resolution = 0.6} \\\\ \\text {Column 2: N = 5000; k_{2} = 3.9; \\alpha = 1.06; resolution = 0.8} \\\\ \\text {Column 3: N = 500; k_{2} = 4.7; \\alpha = 1.31; resolution = 1.1} \\\\ \\text {Column 4: N = 2000; k_{2} = 2.4; \\alpha = 1.24; resolution = 1.5} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Column 1: } N = 1000;\\ k_{2} = 1.2;\\ \\alpha = 1.16;\\ \\text {resolution = 0.6} \\\\ \\text {Column 2: } N = 5000;\\ k_{2} = 3.9;\\ \\alpha = 1.06;\\ \\text {resolution = 0.8} \\\\ \\text {Column 3: } N = 500;\\ k_{2} = 4.7;\\ \\alpha = 1.31;\\ \\text {resolution = 1.1} \\\\ \\text {Column 4: } N = 2000;\\ k_{2} = 2.4;\\ \\alpha = 1.24;\\ \\text {resolution = 1.5} \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch26-body-235-e7e2b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "body[235]",
+      "expect": "\\begin{array}{c} \\uparrow \\\\ \\text {Electroosmotic mobility} \\\\ (\\text {units = m^{2} /[V\\cdot s]}) \\end{array}",
+      "new": "\\begin{array}{c} \\uparrow \\\\ \\text {Electroosmotic mobility} \\\\ (\\text {units = }m^{2} /[V\\cdot s]) \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch27-body-120-3fe04d",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[120]",
+      "expect": "\\begin{array}{c c c}\\text {:NHHN: + 2CH_{3} CO_{2} H}&\\rightarrow&\\mathrm{H_{2}N^{+}}\\\\\\text {Piperazine}&\\text {Acetic acid}&\\text {Piperazine diacetate}\\\\\\text {FM 86.136}&\\text {FM 60.052}&\\text {FM 206.240}\\end{array}\\tag{27-6}",
+      "new": "\\begin{array}{c c c}\\mathrm{:NHHN:} + 2\\mathrm{CH}_{3} \\mathrm{CO}_{2} \\mathrm{H}&\\rightarrow&\\mathrm{H_{2}N^{+}}\\\\\\text {Piperazine}&\\text {Acetic acid}&\\text {Piperazine diacetate}\\\\\\text {FM 86.136}&\\text {FM 60.052}&\\text {FM 206.240}\\end{array}\\tag{27-6}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch03-body-27-09081a",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[27]",
+      "expect": "\\begin{array}{r l r} {5. 3 4 5} & & {7. 2 6 \\times 1 0 ^ {1 4}} \\\\ {+ 6. 7 2 8} & & {- 6. 6 9 \\times 1 0 ^ {1 4}} \\\\ {\\hline 1 2. 0 7 3} & & {0. 5 7 \\times 1 0 ^ {1 4}} \\end{array}",
+      "new": "\\begin{array}{r l r} {5. 3 4 5} & & {7. 2 6 \\times 1 0 ^ {1 4}} \\\\ {+ 6. 7 2 8} & & {- 6. 6 9 \\times 1 0 ^ {1 4}} \\\\ \\hline {1 2. 0 7 3} & & {0. 5 7 \\times 1 0 ^ {1 4}} \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch04-body-3-d00708",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[3]",
+      "expect": "\\begin{array}{l l} \\text {Count on \"normal\" days} & \\text {Today's count} \\\\ \\hline 5. 1 \\\\ 5. 3 \\\\ 4. 8 \\\\ 5. 4 \\\\ 5. 2 \\\\ \\text {Average = 5.16} \\end{array} \\times 1 0 ^ {6} \\text {cells/μL} & 5. 6 \\times 1 0 ^ {6} \\text {cells/μL}",
+      "new": "\\begin{array}{l l} \\text {Count on \"normal\" days} & \\text {Today's count} \\\\ \\hline 5. 1 & 5. 6 \\\\ 5. 3 & \\\\ 4. 8 & \\\\ 5. 4 & \\\\ 5. 2 & \\\\ \\text {Average = 5.16} & \\end{array} \\times 1 0 ^ {6} \\text {cells/μL}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch14-body-519-df9996",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[519]",
+      "expect": "E = E^{\\circ} - \\underbrace{\\frac{0.05916}{2}\\log\\left(\\frac{1}{[H^{+}]^{2 + }[H^{+}]K_{1} + K_{1}K_{2}}\\right)}_\\substack{\\text{Formal potential (= E^{\\circ^{\\prime}} if pH = 7)}} - \\frac{0.05916}{2}\\log \\frac{F_{H_{2}A}}{F_{D}}\\tag{14-35}",
+      "new": "E = E^{\\circ} - \\underbrace{\\frac{0.05916}{2}\\log\\left(\\frac{1}{[H^{+}]^{2 + }[H^{+}]K_{1} + K_{1}K_{2}}\\right)}_{\\substack{\\text{Formal potential (= }E^{\\circ^{\\prime}}\\text{ if pH = 7)}}} - \\frac{0.05916}{2}\\log \\frac{F_{H_{2}A}}{F_{D}}\\tag{14-35}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch20-body-251-eafd7e",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[251]",
+      "expect": "\\begin{array}{l} y = a _ {0} \\sin (0 \\omega x) + b _ {0} \\cos (0 \\omega x) + a _ {1} \\sin (1 \\omega x) + b _ {1} \\cos (1 \\omega x) \\\\ \\quad + a _ {2} \\sin (2 \\omega x) + b _ {2} \\cos (2 \\omega x) + \\dots \\\\ = \\sum_ {n = 0} ^ {\\infty} [ a _ {n} \\sin (n \\omega x) + b _ {n} \\cos (n \\omega x) ] \\end{array} \\tag {20}\\tag{20-10}",
+      "new": "\\begin{array}{l} y = a _ {0} \\sin (0 \\omega x) + b _ {0} \\cos (0 \\omega x) + a _ {1} \\sin (1 \\omega x) + b _ {1} \\cos (1 \\omega x) \\\\ \\quad + a _ {2} \\sin (2 \\omega x) + b _ {2} \\cos (2 \\omega x) + \\dots \\\\ = \\sum_ {n = 0} ^ {\\infty} [ a _ {n} \\sin (n \\omega x) + b _ {n} \\cos (n \\omega x) ] \\end{array} \\tag{20-10}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch20-body-347-ab5059",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[347]",
+      "expect": "y _ {0} (\\text { adjusted }) = \\frac {- 2 1 y _ {- 4} + 1 4 y _ {- 3} + 3 9 y _ {- 2} + 5 4 y _ {- 1} + 5 9 y _ {0} + 5 4 y _ {1} + 3 9 y _ {2} + 1 4 y _ {3} - 2 1 y _ {4}}{2 3 1} \\tag {20-}\\tag{20-17}",
+      "new": "y _ {0} (\\text { adjusted }) = \\frac {- 2 1 y _ {- 4} + 1 4 y _ {- 3} + 3 9 y _ {- 2} + 5 4 y _ {- 1} + 5 9 y _ {0} + 5 4 y _ {1} + 3 9 y _ {2} + 1 4 y _ {3} - 2 1 y _ {4}}{2 3 1} \\tag{20-17}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch24-body-214-33e1b1",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "body[214]",
+      "field": "md",
+      "all": true,
+      "old": "$\\xrightarrow{H_{2}-O_{2}$",
+      "new": "$\\xrightarrow{H_{2}-O_{2}}$",
+      "anchor": "be46cae8"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch23-body-102-a84814",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[102]",
+      "expect": "\\begin{array}{r l}\\mathrm{K} ^ {+} (a q) + \\mathrm{MnO} _ {4} ^ {-} (a q) + (\\mathrm{C} _ {8} \\mathrm{H} _ {1 7}) _ {3} \\underset {\\text {Ion pair}} {\\overset {+} {\\mathrm{NCH}}} _ {3} \\mathrm{Cl} ^ {-} (o r g)&\\rightleftharpoons\\\\\\mathrm{K} ^ {+} (a q) + \\mathrm{Cl} ^ {-} (a q) + (\\mathrm{C} _ {8} \\mathrm{H} _ {1 7}) _ {3} \\underset {\\text {Ion pair}} {\\overset {+} {\\mathrm{NCH}}} _ {3} \\mathrm{MnO} _ {4} ^ {-} (o r g)\\end{array}",
+      "new": "\\begin{array}{r l}\\mathrm{K} ^ {+} (a q) + \\mathrm{MnO} _ {4} ^ {-} (a q) + (\\mathrm{C} _ {8} \\mathrm{H} _ {1 7}) _ {3} {\\underset {\\text {Ion pair}} {\\overset {+} {\\mathrm{NCH}}}} _ {3} \\mathrm{Cl} ^ {-} (o r g)&\\rightleftharpoons\\\\\\mathrm{K} ^ {+} (a q) + \\mathrm{Cl} ^ {-} (a q) + (\\mathrm{C} _ {8} \\mathrm{H} _ {1 7}) _ {3} {\\underset {\\text {Ion pair}} {\\overset {+} {\\mathrm{NCH}}}} _ {3} \\mathrm{MnO} _ {4} ^ {-} (o r g)\\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch10-body-120-a8ba25",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[120]",
+      "expect": "\\begin{array}{r l} & {[ \\mathrm{H} ^ {+} ] _ {1} = \\sqrt {\\frac {K _ {1} K _ {2} (0 . 0 0 1 0 0) + K _ {1} K _ {\\mathrm{w}}}{K _ {1} + (0 . 0 0 1 0 0)}} = 4. 5 3 \\times 1 0 ^ {- 5} \\mathrm{M}} \\\\ & {\\Rightarrow [ \\mathrm{H} _ {2} \\mathrm{M} ] _ {1} = \\frac {[ \\mathrm{H} ^ {+} ] [ \\mathrm{HM} ^ {-} ]}{K _ {1}} = \\frac {(4 . 5 3 \\times 1 0 ^ {- 5}) (1 . 0 0 \\times 1 0 ^ {- 3})}{3 . 5 \\times 1 0 ^ {- 4}}} \\\\ & {\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {= 1.29\\times 10^{-4} M}} \\end{array}",
+      "new": "\\begin{array}{r l} & {[ \\mathrm{H} ^ {+} ] _ {1} = \\sqrt {\\frac {K _ {1} K _ {2} (0 . 0 0 1 0 0) + K _ {1} K _ {\\mathrm{w}}}{K _ {1} + (0 . 0 0 1 0 0)}} = 4. 5 3 \\times 1 0 ^ {- 5} \\mathrm{M}} \\\\ & {\\Rightarrow [ \\mathrm{H} _ {2} \\mathrm{M} ] _ {1} = \\frac {[ \\mathrm{H} ^ {+} ] [ \\mathrm{HM} ^ {-} ]}{K _ {1}} = \\frac {(4 . 5 3 \\times 1 0 ^ {- 5}) (1 . 0 0 \\times 1 0 ^ {- 3})}{3 . 5 \\times 1 0 ^ {- 4}}} \\\\ & {\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad = 1.29\\times 10^{-4} \\mathrm{M}} \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch12-body-124-720b89",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[124]",
+      "expect": "\\begin{array}{r l} & [ \\mathrm{Ca} ^ {2 +} ] = \\underbrace {\\left(\\frac {2 5 . 0 \\mathrm{mL} - 5 . 0 \\mathrm{mL}}{2 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Fraction   of   \\mathrm{Ca} ^{2 + }} \\text {   remaining   } (= 4 / 5)} \\underbrace {(0 . 0 4 0 0 \\mathrm{M}) \\left(\\frac {5 0 . 0 \\mathrm{mL}}{5 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Original   Concentration   of   \\mathrm{Ca} ^{2 +}}} \\underbrace {\\left(\\frac {5 0 . 0 \\mathrm{mL}}{5 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Dilution   factor }} \\underbrace {\\text {   Initial   volume   of   \\mathrm{Ca} ^{2 + }}} _ {\\text {   Total   volume   of   solution }} \\\\ & = 0. 0 2 9 1 \\mathrm{M} \\Rightarrow \\mathrm{pCa} ^ {2 +} = - \\log [ \\mathrm{Ca} ^ {2 +} ] = 1. 5 4 \\end{array}",
+      "new": "\\begin{array}{r l} & [ \\mathrm{Ca} ^ {2 +} ] = \\underbrace {\\left(\\frac {2 5 . 0 \\mathrm{mL} - 5 . 0 \\mathrm{mL}}{2 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Fraction   of   } \\mathrm{Ca} ^{2 + } \\text {   remaining   } (= 4 / 5)} \\underbrace {(0 . 0 4 0 0 \\mathrm{M}) \\left(\\frac {5 0 . 0 \\mathrm{mL}}{5 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Original   Concentration   of   } \\mathrm{Ca} ^{2 +}} \\underbrace {\\left(\\frac {5 0 . 0 \\mathrm{mL}}{5 5 . 0 \\mathrm{mL}}\\right)} _ {\\text {   Dilution   factor }} \\underbrace {\\text {   Initial   volume   of   } \\mathrm{Ca} ^{2 + }} _ {\\text {   Total   volume   of   solution }} \\\\ & = 0. 0 2 9 1 \\mathrm{M} \\Rightarrow \\mathrm{pCa} ^ {2 +} = - \\log [ \\mathrm{Ca} ^ {2 +} ] = 1. 5 4 \\end{array}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-ch09-body-371-735d5c",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[371]",
+      "expect": "\\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} = \\mathrm{O} + \\mathrm{HSO} _ {3} ^ {-} \\\\ \\text {Formaldehyde} \\quad \\text {Bisulfite} \\end{array} \\rightarrow \\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} \\begin{array}{c} \\mathrm{O} ^ {-} \\\\ \\mathrm{SO} _ {3} \\mathrm{H} \\end{array} \\rightarrow \\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} \\begin{array}{c} \\mathrm{OH} \\\\ \\mathrm{SO} _ {3} ^ {-} \\end{array} \\end{array}\\tag{A}",
+      "new": "\\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} = \\mathrm{O} + \\mathrm{HSO} _ {3} ^ {-} \\\\ \\text {Formaldehyde} \\quad \\text {Bisulfite} \\end{array} \\rightarrow \\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} \\begin{array}{c} \\mathrm{O} ^ {-} \\\\ \\mathrm{SO} _ {3} \\mathrm{H} \\end{array} \\end{array} \\rightarrow \\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{C} \\begin{array}{c} \\mathrm{OH} \\\\ \\mathrm{SO} _ {3} ^ {-} \\end{array} \\end{array}\\tag{A}"
+    },
+    {
+      "id": "harris_quantitative_chemical_analysis-appB-body-220-1081b5",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[220]",
+      "expect": "\\frac {\\left(0 . 9 0 4 0 \\frac {\\mathrm{g} - \\text {solution}}{\\mathrm{mL} - \\text {solution}}\\right) \\left(0 . 2 7 6 3 \\frac {\\mathrm{g} - \\mathrm{NH} _ {3} ^ {-}}{\\mathrm{g} - \\text {solution}}\\right) (1 . 0 0 0 \\mathrm{mL} - \\text {solution})}{\\left(1 7 . 0 3 0 7 \\frac {\\mathrm{g} - \\mathrm{NH} _ {3} ^ {-}}{\\mathrm{mol} \\mathrm{NH} _ {3}}\\right) (0 . 5 0 0 0 \\mathrm{L})} = 0. 0 2 9 3 3 \\frac {\\mathrm{mol}}{\\mathrm{L}} \\tag {c}\\tag{d}",
+      "new": "\\frac {\\left(0 . 9 0 4 0 \\frac {\\mathrm{g} - \\text {solution}}{\\mathrm{mL} - \\text {solution}}\\right) \\left(0 . 2 7 6 3 \\frac {\\mathrm{g} - \\mathrm{NH} _ {3} ^ {-}}{\\mathrm{g} - \\text {solution}}\\right) (1 . 0 0 0 \\mathrm{mL} - \\text {solution})}{\\left(1 7 . 0 3 0 7 \\frac {\\mathrm{g} - \\mathrm{NH} _ {3} ^ {-}}{\\mathrm{mol} \\mathrm{NH} _ {3}}\\right) (0 . 5 0 0 0 \\mathrm{L})} = 0. 0 2 9 3 3 \\frac {\\mathrm{mol}}{\\mathrm{L}} \\tag {c,d}"
+    }
+  ]
+}

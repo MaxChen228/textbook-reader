@@ -1,0 +1,145 @@
+slug: menezes_handbook_applied_crypto
+title: "Handbook of Applied Cryptography"
+author: "Alfred J. Menezes; Paul C. van Oorschot; Scott A. Vanstone"
+edition: null
+subject: "Cryptography"
+publisher: "CRC Press"
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 1
+appendices_start_page: 663
+bibliography_start_page: 703
+index_start_page: 755
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Overview of Cryptography"
+    page_start: 1
+    page_end: 48
+    chapter_title_block_idx: 2
+    problems_block_idx: null
+    next_chapter_block_idx: 729
+  - num: 2
+    title: "Mathematical Background"
+    page_start: 49
+    page_end: 86
+    chapter_title_block_idx: 729
+    problems_block_idx: null
+    next_chapter_block_idx: 1468
+  - num: 3
+    title: "Number-Theoretic Reference Problems"
+    page_start: 87
+    page_end: 132
+    chapter_title_block_idx: 1468
+    problems_block_idx: null
+    next_chapter_block_idx: 2059
+  - num: 4
+    title: "Public-Key Parameters"
+    page_start: 133
+    page_end: 168
+    chapter_title_block_idx: 2059
+    problems_block_idx: null
+    next_chapter_block_idx: 2510
+  - num: 5
+    title: "Pseudorandom Bits and Sequences"
+    page_start: 169
+    page_end: 190
+    chapter_title_block_idx: 2510
+    problems_block_idx: null
+    next_chapter_block_idx: 2797
+  - num: 6
+    title: "Stream Ciphers"
+    page_start: 191
+    page_end: 222
+    chapter_title_block_idx: 2797
+    problems_block_idx: null
+    next_chapter_block_idx: 3220
+  - num: 7
+    title: "Block Ciphers"
+    page_start: 223
+    page_end: 282
+    chapter_title_block_idx: 3220
+    problems_block_idx: null
+    next_chapter_block_idx: 3886
+  - num: 8
+    title: "Public-Key Encryption"
+    page_start: 283
+    page_end: 320
+    chapter_title_block_idx: 3886
+    problems_block_idx: null
+    next_chapter_block_idx: 4392
+  - num: 9
+    title: "Hash Functions and Data Integrity"
+    page_start: 321
+    page_end: 384
+    chapter_title_block_idx: 4392
+    problems_block_idx: null
+    next_chapter_block_idx: 5098
+  - num: 10
+    title: "Identification and Entity Authentication"
+    page_start: 385
+    page_end: 424
+    chapter_title_block_idx: 5098
+    problems_block_idx: null
+    next_chapter_block_idx: 5640
+  - num: 11
+    title: "Digital Signatures"
+    page_start: 425
+    page_end: 488
+    chapter_title_block_idx: 5640
+    problems_block_idx: null
+    next_chapter_block_idx: 6437
+  - num: 12
+    title: "Key Establishment Protocols"
+    page_start: 489
+    page_end: 542
+    chapter_title_block_idx: 6437
+    problems_block_idx: null
+    next_chapter_block_idx: 7150
+  - num: 13
+    title: "Key Management Techniques"
+    page_start: 543
+    page_end: 590
+    chapter_title_block_idx: 7150
+    problems_block_idx: null
+    next_chapter_block_idx: 7803
+  - num: 14
+    title: "Efficient Implementation"
+    page_start: 591
+    page_end: 634
+    chapter_title_block_idx: 7803
+    problems_block_idx: null
+    next_chapter_block_idx: 8341
+  - num: 15
+    title: "Patents and Standards"
+    page_start: 635
+    page_end: 662
+    chapter_title_block_idx: 8341
+    problems_block_idx: null
+    next_chapter_block_idx: 8657
+appendices:
+  - id: A
+    title: "Bibliography of Papers from Selected Cryptographic Forums"
+    page_start: 663
+    page_end: 702
+    chapter_title_block_idx: 8657
+
+section_re: '^([0-9]+\.[0-9]+)\s+(.+)$'
+subsection_re: '^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(?!)((?:.*))$'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '^\(?([0-9]+\.[0-9]+)\)?$'
+example_start_re: '^([0-9]+\.[0-9]+)\s+Example\b.*$'
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []
