@@ -84,6 +84,17 @@
       "old": "$\\Nu = - 3 _ { 1 0 }$",
       "new": "$N=-3_{10}$",
       "anchor": "dec9205e"
+    },
+    {
+      "id": "mano_digital_design-ch08-body-346-f5645c",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[346]",
+      "field": "caption",
+      "all": true,
+      "old": "$finish; // Stopwatch initial begin reset_b = 0; Start = 0; clock = 0; #5 reset_b = 1; Start = 1; repeat (32) begin #5 clock = ~ clock; // Clock generator end end initial // $",
+      "new": "$finish; // Stopwatch initial begin reset_b = 0; Start = 0; clock = 0; \\#5 reset_b = 1; Start = 1; repeat (32) begin \\#5 clock = ~ clock; // Clock generator end end initial // $",
+      "anchor": "72f9df1e"
     }
   ]
 }
