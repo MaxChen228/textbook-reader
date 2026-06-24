@@ -1,0 +1,135 @@
+title: Molecular Quantum Mechanics
+edition: 5th
+subject: Physical Chemistry
+language: en
+index_start_page: 543
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 2
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^\(([a-z])\)\s+(.+)$
+problem_start_re: ^\\?\*?(\d+\.\d+)\s+
+problem_chapter_must_match: true
+problems_end_re: ^(?:Further information|Further reading|Resource section|Mathematical
+  background\s+\d+\b|Answers to selected Exercises and Problems|Index)\b
+equation_label_re: \((\d+\.\d+[a-z]?)\)
+figure_caption_main_re: ^(?:Fig\.?|Figure)\s+(\d+\.\d+)\s+(.+)$
+chapters:
+- num: 0
+  title: Introduction and orientation
+  page_start: 16
+  page_end: 24
+  chapter_title_block_idx: 86
+  problems_block_idx: 171
+  next_chapter_block_idx: 208
+- num: 1
+  title: The foundations of quantum mechanics
+  page_start: 24
+  page_end: 53
+  chapter_title_block_idx: 208
+  problems_block_idx: 633
+  next_chapter_block_idx: 792
+- num: 2
+  title: Linear motion and the harmonic oscillator
+  page_start: 53
+  page_end: 83
+  chapter_title_block_idx: 792
+  problems_block_idx: 1318
+  next_chapter_block_idx: 1459
+- num: 3
+  title: Rotational motion and the hydrogen atom
+  page_start: 83
+  page_end: 115
+  chapter_title_block_idx: 1459
+  problems_block_idx: 2005
+  next_chapter_block_idx: 2091
+- num: 4
+  title: Angular momentum
+  page_start: 115
+  page_end: 137
+  chapter_title_block_idx: 2091
+  problems_block_idx: 2477
+  next_chapter_block_idx: 2578
+- num: 5
+  title: Group theory
+  page_start: 137
+  page_end: 184
+  chapter_title_block_idx: 2578
+  problems_block_idx: 3316
+  next_chapter_block_idx: 3459
+- num: 6
+  title: Techniques of approximation
+  page_start: 184
+  page_end: 226
+  chapter_title_block_idx: 3459
+  problems_block_idx: 4217
+  next_chapter_block_idx: 4289
+- num: 7
+  title: Atomic spectra and atomic structure
+  page_start: 226
+  page_end: 273
+  chapter_title_block_idx: 4289
+  problems_block_idx: 5058
+  next_chapter_block_idx: 5111
+- num: 8
+  title: Molecular electronic structure
+  page_start: 273
+  page_end: 310
+  chapter_title_block_idx: 5111
+  problems_block_idx: 5716
+  next_chapter_block_idx: 5770
+- num: 9
+  title: Molecular symmetry
+  page_start: 311
+  page_end: 352
+  chapter_title_block_idx: 5770
+  problems_block_idx: 6368
+  next_chapter_block_idx: 6415
+- num: 10
+  title: Molecular rotations and vibrations
+  page_start: 353
+  page_end: 397
+  chapter_title_block_idx: 6415
+  problems_block_idx: 7189
+  next_chapter_block_idx: 7281
+- num: 11
+  title: Molecular electronic transitions
+  page_start: 397
+  page_end: 422
+  chapter_title_block_idx: 7281
+  problems_block_idx: 7607
+  next_chapter_block_idx: 7658
+- num: 12
+  title: The electric properties of molecules
+  page_start: 422
+  page_end: 452
+  chapter_title_block_idx: 7658
+  problems_block_idx: 8258
+  next_chapter_block_idx: 8299
+- num: 13
+  title: The magnetic properties of molecules
+  page_start: 452
+  page_end: 492
+  chapter_title_block_idx: 8299
+  problems_block_idx: 9029
+  next_chapter_block_idx: 9160
+- num: 14
+  title: Scattering theory
+  page_start: 492
+  page_end: 530
+  chapter_title_block_idx: 9160
+  problems_block_idx: 9873
+  next_chapter_block_idx: 9995
+appendices: []
+slug: atkins_friedman_molecular_quantum
+author: Peter Atkins; Ronald Friedman
+publisher: Oxford University Press
+body_start_page: 1
+appendices_start_page: 516
+equation_strip_dollar: true

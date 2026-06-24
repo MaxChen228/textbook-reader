@@ -1,0 +1,187 @@
+slug: purves_life_biology
+title: 'Life: The Science of Biology'
+author: David Sadava; David M. Hillis; H. Craig Heller; May R. Berenbaum
+edition: 10th ed.
+publisher: Sinauer Associates; W. H. Freeman
+subject: Biology
+language: en
+body_start_page: 46
+appendices_start_page: 492
+bibliography_start_page: 510
+index_start_page: 558
+heading_text_level:
+- 1
+- 2
+heading_priority:
+- subsection_re
+- section_re
+section_re: ^(\d{1,2}\.\d+)\s+(.+)$
+subsection_re: ^()(?!(?:CHAPTER\s*(?:OUTLINE|REVIEW|SUMMARY)|REMEMBERING|UNDERSTANDING|APPLYING|ANALYZING|INVESTIGATING\s*LIFE)\b)([A-Z][A-Za-z0-9,;:()&\-–—\'’"? ]{8,})$
+equation_label_re: ^\((\d+(?:\.\d+)?)\)$
+equation_strip_dollar: true
+example_start_re: ^(\d{1,2}\.\d+)\s+
+figure_caption_main_re: ^(\d{1,2}\.\d+)\s+(.+)$
+figure_caption_merge: true
+inline_problems: false
+problem_start_re: ^(\d{1,2})\.\s+
+problem_chapter_must_match: false
+problems_end_re: ^(?:Go to BioPortal|Chapter Summary|CHAPTER\s+SUMMARY|Answers to Chapter Review Questions|Glossary|Index)\b
+filter_types:
+- header
+- footer
+- page_number
+chapters:
+- num: 1
+  title: Studying Life
+  page_start: 46
+  page_end: 65
+  chapter_title_block_idx: 1316
+  problems_block_idx: 1599
+  next_chapter_block_idx: 1648
+- num: 2
+  title: Small Molecules and the Chemistry of Life
+  page_start: 66
+  page_end: 83
+  chapter_title_block_idx: 1648
+  problems_block_idx: 1961
+  next_chapter_block_idx: 1982
+- num: 3
+  title: Proteins, Carbohydrates, and Lipids
+  page_start: 84
+  page_end: 106
+  chapter_title_block_idx: 1982
+  problems_block_idx: 2360
+  next_chapter_block_idx: 2384
+- num: 4
+  title: Nucleic Acids and the Origin of Life
+  page_start: 107
+  page_end: 121
+  chapter_title_block_idx: 2384
+  problems_block_idx: 2672
+  next_chapter_block_idx: 2691
+- num: 5
+  title: 'Cells: The Working Units of Life'
+  page_start: 122
+  page_end: 149
+  chapter_title_block_idx: 2691
+  problems_block_idx: 3168
+  next_chapter_block_idx: 3196
+- num: 6
+  title: Cell Membranes
+  page_start: 150
+  page_end: 169
+  chapter_title_block_idx: 3196
+  problems_block_idx: 3543
+  next_chapter_block_idx: 3599
+- num: 7
+  title: Cell Communication and Multicellularity
+  page_start: 170
+  page_end: 189
+  chapter_title_block_idx: 3599
+  problems_block_idx: 3917
+  next_chapter_block_idx: 3979
+- num: 8
+  title: Energy, Enzymes, and Metabolism
+  page_start: 189
+  page_end: 209
+  chapter_title_block_idx: 3979
+  problems_block_idx: 4374
+  next_chapter_block_idx: 4430
+- num: 9
+  title: Pathways That Harvest Chemical Energy
+  page_start: 210
+  page_end: 230
+  chapter_title_block_idx: 4430
+  problems_block_idx: 4790
+  next_chapter_block_idx: 4850
+- num: 10
+  title: 'Photosynthesis: Energy from Sunlight'
+  page_start: 230
+  page_end: 250
+  chapter_title_block_idx: 4850
+  problems_block_idx: 5211
+  next_chapter_block_idx: 5262
+- num: 11
+  title: The Cell Cycle and Cell Division
+  page_start: 250
+  page_end: 276
+  chapter_title_block_idx: 5262
+  problems_block_idx: 5697
+  next_chapter_block_idx: 5746
+- num: 12
+  title: Inheritance, Genes, and Chromosomes
+  page_start: 277
+  page_end: 304
+  chapter_title_block_idx: 5746
+  problems_block_idx: 6183
+  next_chapter_block_idx: 6258
+- num: 13
+  title: DNA and Its Role in Heredity
+  page_start: 304
+  page_end: 325
+  chapter_title_block_idx: 6258
+  problems_block_idx: 6615
+  next_chapter_block_idx: 6634
+- num: 14
+  title: 'From DNA to Protein: Gene Expression'
+  page_start: 326
+  page_end: 348
+  chapter_title_block_idx: 6634
+  problems_block_idx: 7046
+  next_chapter_block_idx: 7093
+- num: 15
+  title: Gene Mutation and Molecular Medicine
+  page_start: 349
+  page_end: 372
+  chapter_title_block_idx: 7093
+  problems_block_idx: 7487
+  next_chapter_block_idx: 7532
+- num: 16
+  title: Regulation of Gene Expression
+  page_start: 373
+  page_end: 396
+  chapter_title_block_idx: 7532
+  problems_block_idx: 7937
+  next_chapter_block_idx: 7990
+- num: 17
+  title: Genomes
+  page_start: 397
+  page_end: 417
+  chapter_title_block_idx: 7990
+  problems_block_idx: 8335
+  next_chapter_block_idx: 8421
+- num: 18
+  title: Recombinant DNA and Biotechnology
+  page_start: 418
+  page_end: 437
+  chapter_title_block_idx: 8421
+  problems_block_idx: 8762
+  next_chapter_block_idx: 8790
+- num: 19
+  title: Differential Gene Expression in Development
+  page_start: 437
+  page_end: 457
+  chapter_title_block_idx: 8790
+  problems_block_idx: 9130
+  next_chapter_block_idx: 9150
+- num: 20
+  title: Genes, Development, and Evolution
+  page_start: 457
+  page_end: 491
+  chapter_title_block_idx: 9150
+  problems_block_idx: 9356
+  next_chapter_block_idx: 9833
+appendices: []
+known_missing_problems:
+- chapter: 2
+  nums:
+  - '2.2'
+- chapter: 3
+  nums:
+  - '3.2'
+- chapter: 9
+  nums:
+  - '9.10'
+- chapter: 19
+  nums:
+  - '19.5'

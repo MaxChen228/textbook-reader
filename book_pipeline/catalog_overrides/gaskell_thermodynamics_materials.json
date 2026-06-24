@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "gaskell-fig-15.13-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[358]",
+      "field": "md",
+      "old": "similar to Figure 5.13, but the above values",
+      "new": "similar to Figure 15.13, but the above values",
+      "reason": "正文位於 Ch. 15 Landau 2-4-6 討論，前後均引用 order-parameter versus temperature 圖 15.13；catalog 已有 fig-15.13（caption: order parameter value versus temperature for the 2-3-4 model），沒有 fig-5.13，故此處 Figure 5.13 是漏掉章號十位的 OCR/來源誤號。"
+    }
+  ]
+}

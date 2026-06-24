@@ -1,0 +1,155 @@
+slug: murphy_janeways_immunobiology
+title: "Janeway's Immunobiology"
+author: "Kenneth Murphy; Casey Weaver; Leslie Berg"
+edition: "10th"
+subject: "Biology"
+publisher: "W. W. Norton & Company"
+language: "en"
+
+body_start_page: 46
+appendices_start_page: 1816
+index_start_page: 2113
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+heading_priority:
+  - subsection_re
+  - section_re
+
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^(\d+-\d+[A-Za-z])\s+(.+)$'
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^(?:General references\.|Section references\.)$'
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+([A-Z]?\d+(?:\.\d+)+[A-Za-z]?)\b'
+
+chapters:
+  - num: 1
+    title: "Basic Concepts in Immunology"
+    page_start: 46
+    page_end: 138
+    chapter_title_block_idx: 837
+    problems_block_idx: null
+    next_chapter_block_idx: 1272
+  - num: 2
+    title: "Innate Immunity: The First Lines of Defense"
+    page_start: 138
+    page_end: 231
+    chapter_title_block_idx: 1271
+    problems_block_idx: 1566
+    next_chapter_block_idx: 1656
+  - num: 3
+    title: "Cellular Mechanisms of Innate Immunity"
+    page_start: 231
+    page_end: 374
+    chapter_title_block_idx: 1655
+    problems_block_idx: 2087
+    next_chapter_block_idx: 2306
+  - num: 4
+    title: "Antigen Recognition by B-cell and Tcell Receptors"
+    page_start: 374
+    page_end: 491
+    chapter_title_block_idx: 2305
+    problems_block_idx: 2650
+    next_chapter_block_idx: 2805
+  - num: 5
+    title: "The Generation of Lymphocyte Antigen Receptors"
+    page_start: 491
+    page_end: 568
+    chapter_title_block_idx: 2804
+    problems_block_idx: 3071
+    next_chapter_block_idx: 3193
+  - num: 6
+    title: "Antigen Presentation to T Lymphocytes"
+    page_start: 568
+    page_end: 671
+    chapter_title_block_idx: 3192
+    problems_block_idx: 3537
+    next_chapter_block_idx: 3719
+  - num: 7
+    title: "Lymphocyte Receptor Signaling"
+    page_start: 671
+    page_end: 765
+    chapter_title_block_idx: 3718
+    problems_block_idx: 4018
+    next_chapter_block_idx: 4161
+  - num: 8
+    title: "The Development of B and T Lymphocytes"
+    page_start: 765
+    page_end: 864
+    chapter_title_block_idx: 4160
+    problems_block_idx: 4529
+    next_chapter_block_idx: 4655
+  - num: 9
+    title: "T Cell-Mediated Immunity"
+    page_start: 864
+    page_end: 996
+    chapter_title_block_idx: 4654
+    problems_block_idx: 5111
+    next_chapter_block_idx: 5275
+  - num: 10
+    title: "The Humoral Immune Response"
+    page_start: 996
+    page_end: 1110
+    chapter_title_block_idx: 5274
+    problems_block_idx: 5617
+    next_chapter_block_idx: 5811
+  - num: 11
+    title: "Integrated Dynamics of Innate and Adaptive Immunity"
+    page_start: 1110
+    page_end: 1219
+    chapter_title_block_idx: 5810
+    problems_block_idx: 6170
+    next_chapter_block_idx: 6336
+  - num: 12
+    title: "The Mucosal Immune System"
+    page_start: 1219
+    page_end: 1359
+    chapter_title_block_idx: 6336
+    problems_block_idx: 6811
+    next_chapter_block_idx: 7013
+  - num: 13
+    title: "Failures of Host Defense Mechanisms"
+    page_start: 1359
+    page_end: 1517
+    chapter_title_block_idx: 7012
+    problems_block_idx: 7558
+    next_chapter_block_idx: 7844
+  - num: 14
+    title: "Allergic Diseases and Hypersensitivity Reactions"
+    page_start: 1517
+    page_end: 1592
+    chapter_title_block_idx: 7843
+    problems_block_idx: 8125
+    next_chapter_block_idx: 8292
+  - num: 15
+    title: "Autoimmunity and Transplantation"
+    page_start: 1592
+    page_end: 1706
+    chapter_title_block_idx: 8291
+    problems_block_idx: 8690
+    next_chapter_block_idx: 8853
+  - num: 16
+    title: "Manipulation of the Immune Response"
+    page_start: 1706
+    page_end: 1816
+    chapter_title_block_idx: 8852
+    problems_block_idx: 9246
+    next_chapter_block_idx: 9508
+
+appendices:
+  - id: I
+    title: "The Immunologist's Toolbox"
+    chapter_title_block_idx: 9508
+  - id: II_IV
+    title: "Appendices II-IV"
+    chapter_title_block_idx: 9737

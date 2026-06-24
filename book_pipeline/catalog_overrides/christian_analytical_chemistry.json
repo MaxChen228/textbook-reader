@@ -1,0 +1,37 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "14.6",
+      "classification": "source_mismatch",
+      "reason": "正文跨章類比 Figure 14.6，但本書 Chapter 14 實際 catalog/parsed 只含 Figure 14.1–14.5；unified 全文僅此正文 reference，無 Figure/Fig. 14.6 caption 或 image block 可對應，無法真修成內部 figure。",
+      "where": "ch17.json body[165]",
+      "evidence": "Parsed Chapter 14 figure catalog has fig-14.1, fig-14.2, fig-14.3, fig-14.4, fig-14.5 only; unified/content_list contains 'Figure 14.6' only in the Chapter 17 standard-addition paragraph on page_idx 591."
+    },
+    {
+      "type": "figure",
+      "ref": "50.3",
+      "classification": "external",
+      "reason": "正文明確引用 The Feynman Lectures in Physics Volume 1 Chapter 50 的 Figure 50–3，不是本書內部 figure。",
+      "where": "ch16.json problem 52 body[9]",
+      "evidence": "Adjacent parsed text says: 'An excellent understandable description ... appears in The Feynman Lectures in Physics (Volume 1, chapter 50). See the web supplement ... (Feynman, Figure 50–3) ...'."
+    },
+    {
+      "type": "figure",
+      "ref": "7.16.3",
+      "classification": "external",
+      "reason": "題目明確要求比較 text website 上 Addendum to Section 7.16 的 Figure 7.16.3，該圖屬網站補充資料而非本書內部 catalog。",
+      "where": "ch07.json problem 73 body[0]",
+      "evidence": "Parsed problem text says: 'Compare the chart with Figure 7.16.3 on the text website (Addendum to Section 7.16).' Index also labels 'phosphoric acid, 7.16.3 website'."
+    },
+    {
+      "type": "table",
+      "ref": "S20.1",
+      "classification": "external",
+      "reason": "正文明確指向 text website 的 supplemental Table S20.1，不是本書內部 table；本書 Chapter 20 catalog 只有 Table 20.1 等一般章內表。",
+      "where": "ch20.json body[157]",
+      "evidence": "Parsed text says: 'Table S20.1 on the text website provides a list of compounds in air...'; catalog neighbor check finds tbl-20.1 but no supplemental tbl-S20.1."
+    }
+  ],
+  "overrides": []
+}

@@ -1,0 +1,168 @@
+slug: jensen_computational_chemistry
+title: Introduction to Computational Chemistry
+author: Frank Jensen
+edition: null
+subject: Physical Chemistry
+publisher: John Wiley & Sons
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+- 1
+- 2
+body_start_page: 20
+appendices_start_page: 421
+bibliography_start_page: null
+index_start_page: 441
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 20
+  page_end: 24
+  chapter_title_block_idx: 89
+  problems_block_idx: null
+  next_chapter_block_idx: 134
+- num: 2
+  title: Force Field Methods
+  page_start: 25
+  page_end: 71
+  chapter_title_block_idx: 134
+  problems_block_idx: null
+  next_chapter_block_idx: 540
+- num: 3
+  title: Electronic Structure Methods
+  page_start: 72
+  page_end: 116
+  chapter_title_block_idx: 540
+  problems_block_idx: null
+  next_chapter_block_idx: 1104
+- num: 4
+  title: Electron Correlation Methods
+  page_start: 117
+  page_end: 168
+  chapter_title_block_idx: 1104
+  problems_block_idx: null
+  next_chapter_block_idx: 1613
+- num: 5
+  title: Basis Sets
+  page_start: 169
+  page_end: 195
+  chapter_title_block_idx: 1613
+  problems_block_idx: null
+  next_chapter_block_idx: 1893
+- num: 6
+  title: Density Functional Theory
+  page_start: 196
+  page_end: 214
+  chapter_title_block_idx: 1893
+  problems_block_idx: null
+  next_chapter_block_idx: 2119
+- num: 7
+  title: Valence Bond Methods
+  page_start: 214
+  page_end: 222
+  chapter_title_block_idx: 2119
+  problems_block_idx: null
+  next_chapter_block_idx: 2205
+- num: 8
+  title: Relativistic Methods
+  page_start: 223
+  page_end: 236
+  chapter_title_block_idx: 2205
+  problems_block_idx: null
+  next_chapter_block_idx: 2362
+- num: 9
+  title: Wave Function Analysis
+  page_start: 236
+  page_end: 253
+  chapter_title_block_idx: 2362
+  problems_block_idx: null
+  next_chapter_block_idx: 2571
+- num: 10
+  title: Molecular Properties
+  page_start: 254
+  page_end: 282
+  chapter_title_block_idx: 2571
+  problems_block_idx: null
+  next_chapter_block_idx: 2984
+- num: 11
+  title: Illustrating the Concepts
+  page_start: 283
+  page_end: 314
+  chapter_title_block_idx: 2984
+  problems_block_idx: null
+  next_chapter_block_idx: 3247
+- num: 12
+  title: Transition State Theory and Statistical Mechanics
+  page_start: 315
+  page_end: 327
+  chapter_title_block_idx: 3247
+  problems_block_idx: null
+  next_chapter_block_idx: 3384
+- num: 13
+  title: Change of Coordinate System
+  page_start: 328
+  page_end: 334
+  chapter_title_block_idx: 3384
+  problems_block_idx: null
+  next_chapter_block_idx: 3475
+- num: 14
+  title: Optimization Techniques
+  page_start: 335
+  page_end: 365
+  chapter_title_block_idx: 3475
+  problems_block_idx: null
+  next_chapter_block_idx: 3793
+- num: 15
+  title: Qualitative Theories
+  page_start: 366
+  page_end: 390
+  chapter_title_block_idx: 3793
+  problems_block_idx: null
+  next_chapter_block_idx: 4010
+- num: 16
+  title: Simulations, Time-dependent Methods and Solvation Models
+  page_start: 391
+  page_end: 418
+  chapter_title_block_idx: 4010
+  problems_block_idx: null
+  next_chapter_block_idx: 4336
+- num: 17
+  title: Concluding Remarks
+  page_start: 419
+  page_end: 420
+  chapter_title_block_idx: 4336
+  problems_block_idx: null
+  next_chapter_block_idx: 4354
+appendices:
+- id: A
+  title: Units and Conversion Factors
+  chapter_title_block_idx: 4354
+- id: B
+  title: Mathematical Formulae
+  chapter_title_block_idx: 4399
+- id: C
+  title: Orbital Exponents
+  chapter_title_block_idx: 4451
+- id: D
+  title: Physical Constants
+  chapter_title_block_idx: 4480
+- id: E
+  title: Computer Software
+  chapter_title_block_idx: 4485
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^Problem\s+(\d+(?:\.\d+)*)\b
+problem_chapter_must_match: false
+equation_strip_dollar: true
+equation_label_re: \(([A-Za-z]?\d+(?:\.\d+)*)\)
+example_start_re: null

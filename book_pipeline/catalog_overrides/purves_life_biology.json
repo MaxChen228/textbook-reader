@@ -1,0 +1,1526 @@
+{
+  "version": 1,
+  "slug": "purves_life_biology",
+  "overrides": [
+    {
+      "id": "purves_life_biology-fig-1.13-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[182]",
+      "expect": {
+        "caption": "1.13 A Green Revolution The agricultural advancements of the last 100 years have vastly increased yields and nutritional value of crops such as grains that sustain the expanding human population. In the last 30 years, these advancements have included genetic recombination techniques. Here a researcher with the U.S. Department of Agriculture works with a strain of \"supernutritious\" rice that provides high levels of the amino acid lysine."
+      },
+      "set": {
+        "id": "fig-1.13",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 1.13; align semantic catalog id to cited Figure 1.13."
+    },
+    {
+      "id": "purves_life_biology-fig-11.15-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[188]",
+      "expect": {
+        "caption": "11.15 Fertilization and Meiosis Alternate in Sexual Reproduction In sexual reproduction, haploid (n) cells or organisms alternate with diploid (2n) cells or organisms. Go to Activity 11.3 Sexual Life Cycle Life10e.com/ac11.3"
+      },
+      "set": {
+        "id": "fig-11.15",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 11.15; align semantic catalog id to cited Figure 11.15."
+    },
+    {
+      "id": "purves_life_biology-fig-12.18-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[248]",
+      "expect": {
+        "caption": "12.18 Crossing Over Results in Genetic Recombination Recombination accounts for why linked alleles are not always inherited together. Alleles at different loci on the same chromosome can be recombined by crossing over, and separated from one another. Such recombination occurs during prophase I of meiosis."
+      },
+      "set": {
+        "id": "fig-12.18",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 12.18; align semantic catalog id to cited Figure 12.18.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-13.20-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[215]",
+      "expect": {
+        "caption": "13.20 DNA Repair Mechanisms The proteins of the replication complex function in DNA repair mechanisms, reducing the rate of errors in the replicated DNA. Another mechanism (excision repair) repairs damage to existing DNA molecules."
+      },
+      "set": {
+        "id": "fig-13.20",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 13.20; align semantic catalog id to cited Figure 13.20.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-15.8-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[125]",
+      "expect": {
+        "caption": "15.8 Hemoglobin Polymorphism Each of these mutant alleles codes for a protein with a single amino acid change in the 146-amino acid chain of β-globin. Only three of the hundreds of known variants of β-globin, shown on the left, are known to lead to clinical abnormalities. \"S\" is the sickle-cell anemia allele."
+      },
+      "set": {
+        "id": "fig-15.8",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 15.8; align semantic catalog id to cited Figure 15.8."
+    },
+    {
+      "id": "purves_life_biology-fig-15.9-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[128]",
+      "expect": {
+        "caption": "15.9 A Fragile-X Chromosome at Metaphase The chromosomal abnormality associated with fragile-X syndrome shows up under the microscope as a constriction in the chromosome. This occurs during preparation of the chromosome for microscopy."
+      },
+      "set": {
+        "id": "fig-15.9",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 15.9; align semantic catalog id to cited Figure 15.9."
+    },
+    {
+      "id": "purves_life_biology-fig-16.4-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[51]",
+      "expect": {
+        "caption": "16.4 The lac Operon of E. coli The lac operon of E. coli is a segment of DNA that includes a promoter, an operator, and the three structural genes that code for lactose-metabolizing enzymes."
+      },
+      "set": {
+        "id": "fig-16.4",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.4; align semantic catalog id to cited Figure 16.4."
+    },
+    {
+      "id": "purves_life_biology-fig-16.5-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[59]",
+      "expect": {
+        "caption": "16.5 The lac Operon: An Inducible System (A) When lactose is absent, the synthesis of enzymes for its metabolism is inhibited. (B) Lactose (the inducer) leads to synthesis of the enzymes in the lactose-metabolizing pathway by binding to the repressor protein and preventing its binding to the operator."
+      },
+      "set": {
+        "id": "fig-16.5",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.5; align semantic catalog id to cited Figure 16.5.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-16.6-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[67]",
+      "expect": {
+        "caption": "16.6 Catabolite Repression Regulates the lac Operon The promoter for the lac operon does not function efficiently in the absence of cAMP, as occurs when glucose levels are high. High glucose levels thus repress the enzymes that metabolize lactose."
+      },
+      "set": {
+        "id": "fig-16.6",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.6; align semantic catalog id to cited Figure 16.6."
+    },
+    {
+      "id": "purves_life_biology-fig-16.7-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[94]",
+      "expect": {
+        "caption": "16.7 Potential Points for the Regulation of Gene Expression"
+      },
+      "set": {
+        "id": "fig-16.7",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.7; align semantic catalog id to cited Figure 16.7.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-16.19-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[230]",
+      "expect": {
+        "caption": "16.19 Epigenetic Remodeling of Chromatin for Transcription Initiation of transcription requires that nucleosomes change their structure, becoming less compact. This chromatin remodeling makes DNA accessible to the transcription initiation complex (see Figure 16.8)."
+      },
+      "set": {
+        "id": "fig-16.19",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.19; align semantic catalog id to cited Figure 16.19."
+    },
+    {
+      "id": "purves_life_biology-fig-16.24-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[286]",
+      "expect": {
+        "caption": "16.24 Translational Repressor Can Repress Translation\nBinding of a protein to a target mRNA can inhibit its translation."
+      },
+      "set": {
+        "id": "fig-16.24",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.24; align semantic catalog id to cited Figure 16.24."
+    },
+    {
+      "id": "purves_life_biology-fig-17.15-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[240]",
+      "expect": {
+        "caption": "17.15 Pharmacogenomics Correlations between genotypes and responses to drugs will help physicians develop personalized medical care. The different colors indicate individuals with different SNPs."
+      },
+      "set": {
+        "id": "fig-17.15",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 17.15; align semantic catalog id to cited Figure 17.15.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-17.16-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[261]",
+      "expect": {
+        "caption": "17.16 Proteomics (A) A single gene can code for multiple proteins. (B) A cell's proteins can be separated on the basis of charge and size by two-dimensional gel electrophoresis. The two separations can distinguish most proteins from one another."
+      },
+      "set": {
+        "id": "fig-17.16",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 17.16; align semantic catalog id to cited Figure 17.16."
+    },
+    {
+      "id": "purves_life_biology-fig-18.4-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[115]",
+      "expect": {
+        "caption": "18.4 Green Fluorescent Protein as a Reporter The presence of a plasmid with the gene for green fluorescent protein (GFP) is readily apparent in transgenic cells because the GFP that the cells produce glows under ultraviolet light. This allows the identification of cells carrying a plasmid without the use of selection on antibiotics. That is, no cells are killed during the selection process."
+      },
+      "set": {
+        "id": "fig-18.4",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 18.4; align semantic catalog id to cited Figure 18.4."
+    },
+    {
+      "id": "purves_life_biology-fig-18.8-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[165]",
+      "expect": {
+        "caption": "18.8 DNA Microarray for Medical Diagnosis The pattern of expression of 70 genes in tumor tissues indicates whether breast cancer is likely to recur. Actual arrays have more spots than shown here."
+      },
+      "set": {
+        "id": "fig-18.8",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 18.8; align semantic catalog id to cited Figure 18.8.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-19.4-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[77]",
+      "expect": {
+        "caption": "19.4 Embryonic Inducers in Vertebrate Eye Development The eye of a frog develops as different cells induce changes in neighboring cells."
+      },
+      "set": {
+        "id": "fig-19.4",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.4; align semantic catalog id to cited Figure 19.4."
+    },
+    {
+      "id": "purves_life_biology-fig-19.9-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[110]",
+      "expect": {
+        "caption": "19.9 Organ Identity Genes in Arabidopsis Flowers (A) The four organs of a flower—carpels (yellow), stamens (green), petals (purple), and sepals (pink)—grow in whorls that develop from the floral meristem. (B) Floral organs are determined by three classes of organ identity genes whose polypeptide products combine in pairs to form transcription factors. (C) Combinations of polypeptide subunits in transcription factors activate gene expression for specific organs."
+      },
+      "set": {
+        "id": "fig-19.9",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.9; align semantic catalog id to cited Figure 19.9."
+    },
+    {
+      "id": "purves_life_biology-fig-19.10-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[130]",
+      "expect": {
+        "caption": "19.10 The French Flag Model In the \"French flag\" model, a concentration gradient of a diffusible morphogen signals each cell to specify its position."
+      },
+      "set": {
+        "id": "fig-19.10",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.10; align semantic catalog id to cited Figure 19.10."
+    },
+    {
+      "id": "purves_life_biology-fig-19.12-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[155]",
+      "expect": {
+        "caption": "19.12 Concentrations of Bicoid and Nanos Proteins Determine the Anterior–Posterior Axis. The anterior–posterior axis of Drosophila arises from gradients of the morphogens encoded by (A) bicoid and (B) nanos. Together, Bicoid and Nanos establish a concentration gradient of Hunchback (C)."
+      },
+      "set": {
+        "id": "fig-19.12",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.12; align semantic catalog id to cited Figure 19.12.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-19.18-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[221]",
+      "expect": {
+        "caption": "19.18 Stem Cell Transplantation Multipotent stem cells can be used in hematopoietic stem cell transplantation to replace stem cells destroyed by cancer therapy."
+      },
+      "set": {
+        "id": "fig-19.18",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.18; align semantic catalog id to cited Figure 19.18.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-20.1-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[34]",
+      "expect": {
+        "caption": "20.1 DNA Sequence Similarity in Eye Development Genes\nGenes controlling eye development contain regions that are highly conserved, even among species with very different eyes. These sequences, from a conserved region of the Pax6 gene and its homo-"
+      },
+      "set": {
+        "id": "fig-20.1",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 20.1; align semantic catalog id to cited Figure 20.1."
+    },
+    {
+      "id": "purves_life_biology-fig-20.13-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[127]",
+      "expect": {
+        "caption": "20.13 Spring and Summer Forms of a Caterpillar (A) Spring caterpillars of the moth Nemoria arizonaria resemble the oak catkins on which they feed. They develop into adults (shown above), which lay eggs on oak leaves. (B) The summer caterpillars feed on oak leaves and are camouflaged by their resemblance to oak twigs. 20.14 Light Seekers The bean plants on the left were grown under low light levels. The plant's cells have elongated in response to the low light, and the plants have become spindly. The control plants on the right were grown under normal light conditions."
+      },
+      "set": {
+        "id": "fig-20.13",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 20.13; align semantic catalog id to cited Figure 20.13."
+    },
+    {
+      "id": "purves_life_biology-fig-16.17-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[208]",
+      "expect": {
+        "caption": "16.17 Regulation of Transcription by HIV The tat protein acts as an antiterminator, allowing transcription of the HIV genome."
+      },
+      "set": {
+        "id": "fig-16.17",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.17; align semantic catalog id so refs to Figure 16.17B resolve via parent/target catalog entry.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-16.8-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[106]",
+      "expect": {
+        "caption": "16.8 The Initiation of Transcription in Eukaryotes Apart from TFIID, which binds to the TATA box, each general transcription factor in this transcription complex has binding sites only for the other proteins in the complex, and does not bind directly to DNA. B, E, F, and H are general transcription factors."
+      },
+      "set": {
+        "id": "fig-16.8",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 16.8; align semantic catalog id so refs to Figure 16.8 resolve via parent/target catalog entry."
+    },
+    {
+      "id": "purves_life_biology-fig-19.11-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[132]",
+      "expect": {
+        "caption": "19.11 Specification of the Vertebrate Limb and the French Flag Model The zone of polarizing activity (ZPA) in the limb bud of the embryo secretes the morphogen Sonic hedgehog (Shh). Cells in the bud form different digits depending on the concentration of Shh."
+      },
+      "set": {
+        "id": "fig-19.11",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 19.11; align semantic catalog id so refs to Figure 19.11 resolve via parent/target catalog entry.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-2.12-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[124]",
+      "expect": {
+        "caption": "2.12 Hydrophilic and Hydrophobic (A) Molecules with polar covalent bonds are attracted to polar water (they are hydrophilic). (B) Molecules with nonpolar covalent bonds show greater attraction to one another than to water (they are hydrophobic)."
+      },
+      "set": {
+        "id": "fig-2.12",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 2.12; align semantic catalog id so refs to Figure 2.12A resolve via parent/target catalog entry."
+    },
+    {
+      "id": "purves_life_biology-fig-3.13-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[164]",
+      "expect": {
+        "caption": "3.13 Protein Structure Can Change Proteins can change their tertiary structure when they bind to other molecules (A) or are modified chemically (B)."
+      },
+      "set": {
+        "id": "fig-3.13",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 3.13; align semantic catalog id so refs to Figure 3.13A resolve via parent/target catalog entry."
+    },
+    {
+      "id": "purves_life_biology-fig-3.7-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[106]",
+      "expect": {
+        "caption": "3.7 The Four Levels of Protein Structure Secondary, tertiary, and quaternary structure all arise from the primary structure of the protein."
+      },
+      "set": {
+        "id": "fig-3.7",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 3.7; align semantic catalog id so refs to Figure 3.7 resolve via parent/target catalog entry."
+    },
+    {
+      "id": "purves_life_biology-fig-3.8-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[109]",
+      "expect": {
+        "caption": "3.8 Left- and Right-Handed Helices A protein will often have one or more right-handed helices as part of its secondary structure."
+      },
+      "set": {
+        "id": "fig-3.8",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 3.8; align semantic catalog id so refs to Figure 3.8 resolve via parent/target catalog entry."
+    },
+    {
+      "id": "purves_life_biology-fig-4.2-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[31]",
+      "expect": {
+        "caption": "4.2 Linking Nucleotides Together\nGrowth of a nucleic acid (RNA in this figure) from its monomers occurs in the 5' (phosphate) to 3' (hydroxyl) direction."
+      },
+      "set": {
+        "id": "fig-4.2",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 4.2; align semantic catalog id so refs to Figure 4.2 resolve via parent/target catalog entry.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-4.3-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[44]",
+      "expect": {
+        "caption": "4.3 RNA (A) RNA is usually a single strand. (B) When a single-stranded RNA folds back on itself, hydrogen bonds between complementary sequences can stabilize it into a three-dimensional shape with complex surface characteristics."
+      },
+      "set": {
+        "id": "fig-4.3",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 4.3; align semantic catalog id so refs to Figure 4.3 resolve via parent/target catalog entry.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-4.5-parent-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[62]",
+      "expect": {
+        "caption": "4.5 DNA Replication and Transcription DNA is usually completely replicated (A) but only partially transcribed (B). RNA transcripts are produced from genes that code for specific proteins. Transcription of different genes occurs at different times and, in multicellular organisms, in different cells of the body."
+      },
+      "set": {
+        "id": "fig-4.5",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Caption begins with 4.5; align semantic catalog id so refs to Figure 4.5 resolve via parent/target catalog entry.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-13.20A-ch13-body227",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[227]",
+      "field": "md",
+      "old": "Figure 13.20A",
+      "new": "Figure 13.20a",
+      "reason": "Normalize uppercase panel suffix in Figure 13.20A reference to lowercase so parent fig-13.20 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-13.20B-ch13-body228",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[228]",
+      "field": "md",
+      "old": "Figure 13.20B",
+      "new": "Figure 13.20b",
+      "reason": "Normalize uppercase panel suffix in Figure 13.20B reference to lowercase so parent fig-13.20 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-13.20C-ch13-body229",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[229]",
+      "field": "md",
+      "old": "Figure 13.20C",
+      "new": "Figure 13.20c",
+      "reason": "Normalize uppercase panel suffix in Figure 13.20C reference to lowercase so parent fig-13.20 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-15.5C-ch15-body83",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[83]",
+      "field": "md",
+      "old": "Figure 15.5C",
+      "new": "Figure 15.5c",
+      "reason": "Normalize uppercase panel suffix in Figure 15.5C reference to lowercase so parent fig-15.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-16.5A-ch16-body53",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[53]",
+      "field": "md",
+      "old": "Figure 16.5A",
+      "new": "Figure 16.5a",
+      "reason": "Normalize uppercase panel suffix in Figure 16.5A reference to lowercase so parent fig-16.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-16.5B-ch16-body53",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[53]",
+      "field": "md",
+      "old": "Figure 16.5B",
+      "new": "Figure 16.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 16.5B reference to lowercase so parent fig-16.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-17.16A-ch17-body257",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[257]",
+      "field": "md",
+      "old": "Figure 17.16A",
+      "new": "Figure 17.16a",
+      "reason": "Normalize uppercase panel suffix in Figure 17.16A reference to lowercase so parent fig-17.16 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-17.16B-ch17-body259",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[259]",
+      "field": "md",
+      "old": "Figure 17.16B",
+      "new": "Figure 17.16b",
+      "reason": "Normalize uppercase panel suffix in Figure 17.16B reference to lowercase so parent fig-17.16 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-17.1A-ch17-body25",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[25]",
+      "field": "md",
+      "old": "Figure 17.1A",
+      "new": "Figure 17.1a",
+      "reason": "Normalize uppercase panel suffix in Figure 17.1A reference to lowercase so parent fig-17.1 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-17.1B-ch17-body30",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[30]",
+      "field": "md",
+      "old": "Figure 17.1B",
+      "new": "Figure 17.1b",
+      "reason": "Normalize uppercase panel suffix in Figure 17.1B reference to lowercase so parent fig-17.1 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-17.5B-ch17-body107",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[107]",
+      "field": "md",
+      "old": "Figure 17.5B",
+      "new": "Figure 17.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 17.5B reference to lowercase so parent fig-17.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.12A-ch19-body145",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[145]",
+      "field": "md",
+      "old": "Figure 19.12A",
+      "new": "Figure 19.12a",
+      "reason": "Normalize uppercase panel suffix in Figure 19.12A reference to lowercase so parent fig-19.12 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.12B-ch19-body145",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[145]",
+      "field": "md",
+      "old": "Figure 19.12B",
+      "new": "Figure 19.12b",
+      "reason": "Normalize uppercase panel suffix in Figure 19.12B reference to lowercase so parent fig-19.12 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.12C-ch19-body146",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[146]",
+      "field": "md",
+      "old": "Figure 19.12C",
+      "new": "Figure 19.12c",
+      "reason": "Normalize uppercase panel suffix in Figure 19.12C reference to lowercase so parent fig-19.12 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.19A-ch19-body230",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[230]",
+      "field": "md",
+      "old": "Figure 19.19A",
+      "new": "Figure 19.19a",
+      "reason": "Normalize uppercase panel suffix in Figure 19.19A reference to lowercase so parent fig-19.19 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.5A-ch19-body69",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[69]",
+      "field": "md",
+      "old": "Figure 19.5A",
+      "new": "Figure 19.5a",
+      "reason": "Normalize uppercase panel suffix in Figure 19.5A reference to lowercase so parent fig-19.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.5B-ch19-body70",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[70]",
+      "field": "md",
+      "old": "Figure 19.5B",
+      "new": "Figure 19.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 19.5B reference to lowercase so parent fig-19.5 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.8B-ch19-body108",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[108]",
+      "field": "md",
+      "old": "Figure 19.8B",
+      "new": "Figure 19.8b",
+      "reason": "Normalize uppercase panel suffix in Figure 19.8B reference to lowercase so parent fig-19.8 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.9A-ch19-body112",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[112]",
+      "field": "md",
+      "old": "Figure 19.9A",
+      "new": "Figure 19.9a",
+      "reason": "Normalize uppercase panel suffix in Figure 19.9A reference to lowercase so parent fig-19.9 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-19.9B-ch19-body113",
+      "action": "replace_text",
+      "chunk": "ch19",
+      "selector": "body[113]",
+      "field": "md",
+      "old": "Figure 19.9B",
+      "new": "Figure 19.9b",
+      "reason": "Normalize uppercase panel suffix in Figure 19.9B reference to lowercase so parent fig-19.9 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.11A-ch02-body119",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[119]",
+      "field": "md",
+      "old": "Figure 2.11A",
+      "new": "Figure 2.11a",
+      "reason": "Normalize uppercase panel suffix in Figure 2.11A reference to lowercase so parent fig-2.11 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.11B-ch02-body119",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[119]",
+      "field": "md",
+      "old": "Figure 2.11B",
+      "new": "Figure 2.11b",
+      "reason": "Normalize uppercase panel suffix in Figure 2.11B reference to lowercase so parent fig-2.11 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.12A-ch02-body122",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[122]",
+      "field": "md",
+      "old": "Figure 2.12A",
+      "new": "Figure 2.12a",
+      "reason": "Normalize uppercase panel suffix in Figure 2.12A reference to lowercase so parent fig-2.12 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-20.13B-ch20-body120",
+      "action": "replace_text",
+      "chunk": "ch20",
+      "selector": "body[120]",
+      "field": "md",
+      "old": "Figure 20.13B",
+      "new": "Figure 20.13b",
+      "reason": "Normalize uppercase panel suffix in Figure 20.13B reference to lowercase so parent fig-20.13 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.13A-ch03-body167",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[167]",
+      "field": "md",
+      "old": "Figure 3.13A",
+      "new": "Figure 3.13a",
+      "reason": "Normalize uppercase panel suffix in Figure 3.13A reference to lowercase so parent fig-3.13 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.13B-ch03-body168",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[168]",
+      "field": "md",
+      "old": "Figure 3.13B",
+      "new": "Figure 3.13b",
+      "reason": "Normalize uppercase panel suffix in Figure 3.13B reference to lowercase so parent fig-3.13 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.21A-ch03-body260",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[260]",
+      "field": "md",
+      "old": "Figure 3.21A",
+      "new": "Figure 3.21a",
+      "reason": "Normalize uppercase panel suffix in Figure 3.21A reference to lowercase so parent fig-3.21 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.22A-ch03-body269",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[269]",
+      "field": "md",
+      "old": "Figure 3.22A",
+      "new": "Figure 3.22a",
+      "reason": "Normalize uppercase panel suffix in Figure 3.22A reference to lowercase so parent fig-3.22 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.22B-ch03-body270",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[270]",
+      "field": "md",
+      "old": "Figure 3.22B",
+      "new": "Figure 3.22b",
+      "reason": "Normalize uppercase panel suffix in Figure 3.22B reference to lowercase so parent fig-3.22 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.2B-ch03-body43",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[43]",
+      "field": "md",
+      "old": "Figure 3.2B",
+      "new": "Figure 3.2b",
+      "reason": "Normalize uppercase panel suffix in Figure 3.2B reference to lowercase so parent fig-3.2 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.2C-ch03-body44",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[44]",
+      "field": "md",
+      "old": "Figure 3.2C",
+      "new": "Figure 3.2c",
+      "reason": "Normalize uppercase panel suffix in Figure 3.2C reference to lowercase so parent fig-3.2 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.4B-ch03-body54",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[54]",
+      "field": "md",
+      "old": "Figure 3.4B",
+      "new": "Figure 3.4b",
+      "reason": "Normalize uppercase panel suffix in Figure 3.4B reference to lowercase so parent fig-3.4 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.7A-ch03-body96",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[96]",
+      "field": "md",
+      "old": "Figure 3.7A",
+      "new": "Figure 3.7a",
+      "reason": "Normalize uppercase panel suffix in Figure 3.7A reference to lowercase so parent fig-3.7 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.7E-ch03-body124",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[124]",
+      "field": "md",
+      "old": "Figure 3.7E",
+      "new": "Figure 3.7e",
+      "reason": "Normalize uppercase panel suffix in Figure 3.7E reference to lowercase so parent fig-3.7 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-4.3B-ch04-body35",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[35]",
+      "field": "md",
+      "old": "Figure 4.3B",
+      "new": "Figure 4.3b",
+      "reason": "Normalize uppercase panel suffix in Figure 4.3B reference to lowercase so parent fig-4.3 covers it without changing the referenced panel."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-16.17B-ch16-body201-r3",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[201]",
+      "field": "md",
+      "old": "Figure 16.17B",
+      "new": "Figure 16.17b",
+      "reason": "Normalize uppercase panel suffix in Figure 16.17B reference to lowercase so parent fig-16.17 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-16.5B-ch16-body66-r3",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[66]",
+      "field": "md",
+      "old": "Figure 16.5B",
+      "new": "Figure 16.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 16.5B reference to lowercase so parent fig-16.5 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.12B-ch02-body123-r3",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[123]",
+      "field": "md",
+      "old": "Figure 2.12B",
+      "new": "Figure 2.12b",
+      "reason": "Normalize uppercase panel suffix in Figure 2.12B reference to lowercase so parent fig-2.12 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.13B-ch07-body29-r3",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[29]",
+      "field": "md",
+      "old": "Figure 3.13B",
+      "new": "Figure 3.13b",
+      "reason": "Normalize uppercase panel suffix in Figure 3.13B reference to lowercase so parent fig-3.13 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.7A-ch03-body309-r3",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[309]",
+      "field": "md",
+      "old": "Figure 3.7A",
+      "new": "Figure 3.7a",
+      "reason": "Normalize uppercase panel suffix in Figure 3.7A reference to lowercase so parent fig-3.7 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.7C-ch03-body105-r3",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[105]",
+      "field": "md",
+      "old": "Figure 3.7C",
+      "new": "Figure 3.7c",
+      "reason": "Normalize uppercase panel suffix in Figure 3.7C reference to lowercase so parent fig-3.7 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-3.7D-ch03-body108-r3",
+      "action": "replace_text",
+      "chunk": "ch03",
+      "selector": "body[108]",
+      "field": "md",
+      "old": "Figure 3.7D",
+      "new": "Figure 3.7d",
+      "reason": "Normalize uppercase panel suffix in Figure 3.7D reference to lowercase so parent fig-3.7 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-4.5B-ch04-body53-r3",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[53]",
+      "field": "md",
+      "old": "Figure 4.5B",
+      "new": "Figure 4.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 4.5B reference to lowercase so parent fig-4.5 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.14A-ch05-body256-r3",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[256]",
+      "field": "md",
+      "old": "Figure 5.14A",
+      "new": "Figure 5.14a",
+      "reason": "Normalize uppercase panel suffix in Figure 5.14A reference to lowercase so parent fig-5.14 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.14B-ch05-body260-r3",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[260]",
+      "field": "md",
+      "old": "Figure 5.14B",
+      "new": "Figure 5.14b",
+      "reason": "Normalize uppercase panel suffix in Figure 5.14B reference to lowercase so parent fig-5.14 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.5B-ch05-body107-r3",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[107]",
+      "field": "md",
+      "old": "Figure 5.5B",
+      "new": "Figure 5.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 5.5B reference to lowercase so parent fig-5.5 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.8A-ch05-body142-r3",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[142]",
+      "field": "md",
+      "old": "Figure 5.8A",
+      "new": "Figure 5.8a",
+      "reason": "Normalize uppercase panel suffix in Figure 5.8A reference to lowercase so parent fig-5.8 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.8B-ch05-body156-r3",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[156]",
+      "field": "md",
+      "old": "Figure 5.8B",
+      "new": "Figure 5.8b",
+      "reason": "Normalize uppercase panel suffix in Figure 5.8B reference to lowercase so parent fig-5.8 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-6.12A-ch06-body186-r3",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[186]",
+      "field": "md",
+      "old": "Figure 6.12A",
+      "new": "Figure 6.12a",
+      "reason": "Normalize uppercase panel suffix in Figure 6.12A reference to lowercase so parent fig-6.12 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-6.12B-ch06-body187-r3",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[187]",
+      "field": "md",
+      "old": "Figure 6.12B",
+      "new": "Figure 6.12b",
+      "reason": "Normalize uppercase panel suffix in Figure 6.12B reference to lowercase so parent fig-6.12 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-7.16A-ch08-body290-r3",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[290]",
+      "field": "md",
+      "old": "Figure 7.16A",
+      "new": "Figure 7.16a",
+      "reason": "Normalize uppercase panel suffix in Figure 7.16A reference to lowercase so parent fig-7.16 covers it."
+    },
+    {
+      "id": "purves_life_biology-tbl-4.1-semantic-table-from-html",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[23]",
+      "expect": {
+        "id": "tbl-ch04-23"
+      },
+      "set": {
+        "id": "tbl-4.1",
+        "caption": "Table 4.1 Distinguishing RNA from DNA",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Parsed table HTML at ch04 body[23] is TABLE 4.1; promote to semantic table id and caption.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-tbl-6.1-semantic-table-from-html",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[214]",
+      "expect": {
+        "id": "tbl-ch06-214"
+      },
+      "set": {
+        "id": "tbl-6.1",
+        "caption": "Table 6.1 Membrane Transport Mechanisms",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Parsed table HTML at ch06 body[214] is TABLE 6.1; promote to semantic table id and caption.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-tbl-14.2-semantic-table-from-html",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[187]",
+      "expect": {
+        "id": "tbl-ch14-187"
+      },
+      "set": {
+        "id": "tbl-14.2",
+        "caption": "Table 14.2 Differences between Prokaryotic and Eukaryotic Gene Expression",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Parsed table HTML at ch14 body[187] is TABLE 14.2; promote to semantic table id and caption.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-13.5-from-adjacent-caption-p-65",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[66]",
+      "expect": {
+        "id": "fig-ch13-66"
+      },
+      "set": {
+        "id": "fig-13.5",
+        "caption": "13.5 Transfection in Eukaryotic Cells A DNA molecule can be treated chemically so that it is taken up from a solution by mammalian cells. $^{a}$ The inclusion of a marker gene shows that the cells have been genetically transformed by the DNA.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[65] is the visible caption beginning Figure 13.5; attach it to neighboring figure block body[66] for cited Figure 13.5.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-15.18-from-adjacent-caption-p-232",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[233]",
+      "expect": {
+        "id": "fig-ch15-233"
+      },
+      "set": {
+        "id": "fig-15.18",
+        "caption": "15.18 DNA Testing by Allele-Specific Oligonucleotide Hybridization Testing of this family reveals that three of them are heterozygous carriers of the sickle allele. The first child, however, has inherited two normal alleles and is neither affected by the disease nor a carrier.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[232] is the visible caption beginning Figure 15.18; attach it to neighboring figure block body[233] for cited Figure 15.18.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-16.12-from-adjacent-caption-p-161",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[160]",
+      "expect": {
+        "id": "fig-45.10"
+      },
+      "set": {
+        "id": "fig-16.12",
+        "caption": "16.12 Bacteriophage and Host (A) E. coli cells (viewed here from the side) are the host for bacteriophage T2. (B) Bacteriophages have attached to this E. coli cell, and the reproductive cycle is underway, producing new phage particles. The cell is viewed in transverse section.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[161] is the visible caption beginning Figure 16.12; attach it to neighboring figure block body[160] for cited Figure 16.12."
+    },
+    {
+      "id": "purves_life_biology-fig-16.16-from-adjacent-caption-p-199",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[200]",
+      "expect": {
+        "id": "fig-16.17A"
+      },
+      "set": {
+        "id": "fig-16.16",
+        "caption": "16.16 The Reproductive Cycle of HIV This retrovirus enters a host cell via fusion of its envelope with the host's plasma membrane. Reverse transcription of retroviral RNA then produces a DNA provirus—a molecule of complementary DNA that inserts itself into the host's genome.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[199] is the visible caption beginning Figure 16.16; attach it to neighboring figure block body[200] for cited Figure 16.16."
+    },
+    {
+      "id": "purves_life_biology-fig-16.21-from-adjacent-caption-p-250",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[251]",
+      "expect": {
+        "id": "fig-16.21A"
+      },
+      "set": {
+        "id": "fig-16.21",
+        "caption": "16.21 X Chromosome Inactivation (A) A Barr body and an active X chromosome in the nucleus of a human female cell. The X chromosomes are stained with a yellow-green fluorescent dye; the other chromosomes are stained with a red fluorescent dye. (B) A model for X chromosome inactivation.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[250] is the visible caption beginning Figure 16.21; attach it to neighboring figure block body[251] for cited Figure 16.21B."
+    },
+    {
+      "id": "purves_life_biology-fig-16.9-from-adjacent-caption-p-119",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[120]",
+      "expect": {
+        "id": "fig-ch16-120"
+      },
+      "set": {
+        "id": "fig-16.9",
+        "caption": "16.9 Transcription Factors and Transcription Initiation The actions of many proteins determine whether and where RNA polymerase II will transcribe DNA.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[119] is the visible caption beginning Figure 16.9; attach it to neighboring figure block body[120] for cited Figure 16.9.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-17.11-from-adjacent-caption-p-187",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[188]",
+      "expect": {
+        "id": "fig-17.5"
+      },
+      "set": {
+        "id": "fig-17.11",
+        "caption": "17.11 A Moderately Repetitive Sequence Codes for rRNA (A) This rRNA gene, along with its nontranscribed spacer region, is repeated 280 times in the human genome, with clusters on five chromosomes. (B) This electron micrograph shows transcription of multiple rRNA genes.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[187] is the visible caption beginning Figure 17.11; attach it to neighboring figure block body[188] for cited Figure 17.11."
+    },
+    {
+      "id": "purves_life_biology-fig-17.3-from-adjacent-caption-p-62",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[63]",
+      "expect": {
+        "id": "fig-ch17-63"
+      },
+      "set": {
+        "id": "fig-17.3",
+        "caption": "17.3 The Genomic Book of Life Genome sequences contain many features, some of which are summarized in this overview. Sifting through all the information contained in a genome sequence can help us understand how an organism functions and what its evolutionary history might be.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[62] is the visible caption beginning Figure 17.3; attach it to neighboring figure block body[63] for cited Figure 17.3.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-17.6-from-adjacent-caption-p-110",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[112]",
+      "expect": {
+        "id": "fig-ch17-112"
+      },
+      "set": {
+        "id": "fig-17.6",
+        "caption": "17.6 Using Transposon Mutagenesis to Determine the Minimal Genome Mycoplasma genitalium has one of the smallest known genomes of any prokaryote. But are all of its genes essential to life? By inactivating the genes one by one, scientists determined which of them are essential for the cell's survival. This research may lead to the construction of artificial cells with customized genomes, designed to perform functions such as degrading oil and making plastics. $^{a}$",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[110] is the visible caption beginning Figure 17.6; attach it to neighboring figure block body[112] for cited Figure 17.6.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-18.3-from-adjacent-caption-p-104",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[105]",
+      "expect": {
+        "id": "fig-18.1"
+      },
+      "set": {
+        "id": "fig-18.3",
+        "caption": "18.3 Selection for Recombinant DNA Selectable marker (reporter) genes are used by biologists to select for bacteria that have taken up a plasmid. In a typical experiment, most of the bacteria will not take up any DNA. Of those that do, only a small fraction will take up recombinant DNA.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[104] is the visible caption beginning Figure 18.3; attach it to neighboring figure block body[105] for cited Figure 18.3."
+    },
+    {
+      "id": "purves_life_biology-fig-18.5-from-adjacent-caption-p-126",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[127]",
+      "expect": {
+        "id": "fig-14.8"
+      },
+      "set": {
+        "id": "fig-18.5",
+        "caption": "18.5 Constructing Libraries Intact genomic DNA is too large to be introduced into host cells. (A) A genomic library can be made by breaking the DNA into small fragments, incorporating the fragments into a vector, and then transforming host cells with the recombinant vectors. Each colony of cells contains many copies of a small part of the genome. (B) Similarly, there are many mRNAs in a cell. These can be copied into cDNAs and a library made from them. The DNA in these colonies can then be isola",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[126] is the visible caption beginning Figure 18.5; attach it to neighboring figure block body[127] for cited Figure 18.5."
+    },
+    {
+      "id": "purves_life_biology-fig-2.15-from-adjacent-caption-p-175",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[174]",
+      "expect": {
+        "id": "fig-ch02-174"
+      },
+      "set": {
+        "id": "fig-2.15",
+        "caption": "2.15 Water in Biology These three properties of water make it beneficial to organisms.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[175] is the visible caption beginning Figure 2.15; attach it to neighboring figure block body[174] for cited Figure 2.15A.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-3.11-from-adjacent-caption-p-154",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[155]",
+      "expect": {
+        "id": "fig-3.12"
+      },
+      "set": {
+        "id": "fig-3.11",
+        "caption": "3.11 Quaternary Structure of a Protein\nHemoglobin consists of four folded polypeptide subunits that assemble themselves into the quaternary structure represented by the ribbon model (A) and space-filling model (B). In both graphic representations, each type of subunit is a different color ( $\\alpha$ subunits are blue and $\\beta$ subunits are green). The heme groups (red) contain iron and are the oxygen-carrying sites.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[154] is the visible caption beginning Figure 3.11; attach it to neighboring figure block body[155] for cited Figure 3.11."
+    },
+    {
+      "id": "purves_life_biology-fig-3.19-from-adjacent-caption-p-227",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[229]",
+      "expect": {
+        "id": "fig-ch03-229"
+      },
+      "set": {
+        "id": "fig-3.19",
+        "caption": "3.19 Chemically Modified Carbohydrates Added functional groups can modify the form and properties of a carbohydrate.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[227] is the visible caption beginning Figure 3.19; attach it to neighboring figure block body[229] for cited Figure 3.19.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-5.10-from-adjacent-caption-p-202",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[201]",
+      "expect": {
+        "id": "fig-ch05-201"
+      },
+      "set": {
+        "id": "fig-5.10",
+        "caption": "5.10 Lysosomes Isolate Digestive Enzymes from the Cytoplasm Lysosomes are sites for the hydrolysis of material taken into the cell by phagocytosis. Go to Activity 5.3 Lysosomal Digestion Life10e.com/ac5.3",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[202] is the visible caption beginning Figure 5.10; attach it to neighboring figure block body[201] for cited Figure 5.10.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-5.17-from-adjacent-caption-p-279",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[280]",
+      "expect": {
+        "id": "fig-5.18"
+      },
+      "set": {
+        "id": "fig-5.17",
+        "caption": "5.17 Cilia (A) This unicellular eukaryotic organism (a ciliate protist) can coordinate the beating of its cilia, allowing rapid movement. (B) A cross section of a single cilium shows the arrangement of microtubules and other proteins.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[279] is the visible caption beginning Figure 5.17; attach it to neighboring figure block body[280] for cited Figure 5.17B."
+    },
+    {
+      "id": "purves_life_biology-fig-5.6-from-adjacent-caption-p-135",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[136]",
+      "expect": {
+        "id": "fig-ch05-136"
+      },
+      "set": {
+        "id": "fig-5.6",
+        "caption": "5.6 Cell Fractionation Organelles can be separated from one another after cells are broken open and their contents suspended in an aqueous medium. The medium is placed in a tube and spun in a centrifuge, which rotates about an axis at high speed. Centrifugal forces (measured in multiples of gravity, × g) cause particles to sediment (form a pellet) at the bottom of the tube, which may be collected for biochemical study. Heavier particles sediment at lower speeds (lower centrifugal forces) than li",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[135] is the visible caption beginning Figure 5.6; attach it to neighboring figure block body[136] for cited Figure 5.6.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-fig-7.12-from-adjacent-caption-p-123",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[122]",
+      "expect": {
+        "id": "fig-41.3"
+      },
+      "set": {
+        "id": "fig-7.12",
+        "caption": "7.12 The Formation of Cyclic AMP The formation of cAMP from ATP is catalyzed by adenylyl cyclase, an enzyme that is activated by G proteins.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[123] is the visible caption beginning Figure 7.12; attach it to neighboring figure block body[122] for cited Figure 7.12."
+    },
+    {
+      "id": "purves_life_biology-fig-8.2-from-adjacent-caption-p-33",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[32]",
+      "expect": {
+        "id": "fig-ch08-32"
+      },
+      "set": {
+        "id": "fig-8.2",
+        "caption": "8.2 The Laws of Thermodynamics (A) The first law states that energy cannot be created or destroyed. (B) The second law states that after energy transformations, some energy becomes unavailable to do work.",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "reason": "Adjacent paragraph body[33] is the visible caption beginning Figure 8.2; attach it to neighboring figure block body[32] for cited Figure 8.2.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-16.21B-ch16-body253-adj",
+      "action": "replace_text",
+      "chunk": "ch16",
+      "selector": "body[253]",
+      "field": "md",
+      "old": "Figure 16.21B",
+      "new": "Figure 16.21b",
+      "reason": "Normalize uppercase panel suffix in Figure 16.21B reference to lowercase so parent fig-16.21 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-18.5A-ch18-body120-adj",
+      "action": "replace_text",
+      "chunk": "ch18",
+      "selector": "body[120]",
+      "field": "md",
+      "old": "Figure 18.5A",
+      "new": "Figure 18.5a",
+      "reason": "Normalize uppercase panel suffix in Figure 18.5A reference to lowercase so parent fig-18.5 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-18.5B-ch18-body123-adj",
+      "action": "replace_text",
+      "chunk": "ch18",
+      "selector": "body[123]",
+      "field": "md",
+      "old": "Figure 18.5B",
+      "new": "Figure 18.5b",
+      "reason": "Normalize uppercase panel suffix in Figure 18.5B reference to lowercase so parent fig-18.5 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.15A-ch02-body163-adj",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[163]",
+      "field": "md",
+      "old": "Figure 2.15A",
+      "new": "Figure 2.15a",
+      "reason": "Normalize uppercase panel suffix in Figure 2.15A reference to lowercase so parent fig-2.15 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.15B-ch02-body165-adj",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[165]",
+      "field": "md",
+      "old": "Figure 2.15B",
+      "new": "Figure 2.15b",
+      "reason": "Normalize uppercase panel suffix in Figure 2.15B reference to lowercase so parent fig-2.15 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-2.15C-ch02-body166-adj",
+      "action": "replace_text",
+      "chunk": "ch02",
+      "selector": "body[166]",
+      "field": "md",
+      "old": "Figure 2.15C",
+      "new": "Figure 2.15c",
+      "reason": "Normalize uppercase panel suffix in Figure 2.15C reference to lowercase so parent fig-2.15 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-5.17B-ch05-body267-adj",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[267]",
+      "field": "md",
+      "old": "Figure 5.17B",
+      "new": "Figure 5.17b",
+      "reason": "Normalize uppercase panel suffix in Figure 5.17B reference to lowercase so parent fig-5.17 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-8.2A-ch08-body38-adj",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[38]",
+      "field": "md",
+      "old": "Figure 8.2A",
+      "new": "Figure 8.2a",
+      "reason": "Normalize uppercase panel suffix in Figure 8.2A reference to lowercase so parent fig-8.2 covers it."
+    },
+    {
+      "id": "purves_life_biology-normalize-panel-ref-8.2B-ch08-body40-adj",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[40]",
+      "field": "md",
+      "old": "Figure 8.2B",
+      "new": "Figure 8.2b",
+      "reason": "Normalize uppercase panel suffix in Figure 8.2B reference to lowercase so parent fig-8.2 covers it."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "21.5",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch01.json body block[57]",
+      "evidence": "p Any population of a plant or animal species displays variation, and if you select breeding pairs on the basis of some particular trait, that trait is more likely to be present i…"
+    },
+    {
+      "type": "figure",
+      "ref": "38.5",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch18.json body block[142]",
+      "evidence": "p There are many thousands of examples of how such experiments have shed light on the functions of genes and their protein products. One example involves a genetic system that pro…"
+    },
+    {
+      "type": "figure",
+      "ref": "44.4",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch19.json body block[229]",
+      "evidence": "p As stated earlier, totipotent stem cells that can differentiate into any cell type are found only in very early embryos. In both mice and humans, a slightly later embryonic stag…"
+    },
+    {
+      "type": "figure",
+      "ref": "45.1",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch16.json body block[155]",
+      "evidence": "p Three main criteria were used to determine that the transformed cells were neurons: morphology, electrical excitability, and lack of cell division. The transformed cells clearly…"
+    },
+    {
+      "type": "table",
+      "ref": "23.2",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch20.json problem 10 body block[111]",
+      "evidence": "p hexapods (Hexapoda) [117] Major group of arthropods [26] characterized by a reduction (from the ancestral arthropod condition) to six walking appendages, and the consolidation o…"
+    },
+    {
+      "type": "table",
+      "ref": "33.1",
+      "classification": "external",
+      "reason": "本 parsed corpus 只含 ch01–ch20；此正文/術語表 ref 指向未收錄的後續章節，非本書當前 catalog 可供應項。",
+      "where": "ch20.json problem 10 body block[91]",
+      "evidence": "p eutherians (Eutheria) A group of viviparous mammals [129], eutherians are well developed at birth (contrast to prototherians and marsupials, the other two groups of mammals). Mo…"
+    }
+  ]
+}

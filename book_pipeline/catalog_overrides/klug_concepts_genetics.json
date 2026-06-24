@@ -1,0 +1,178 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "7.24",
+      "classification": "external",
+      "reason": "Appendix image-credit line cites source book figure number, not an internal Klug Concepts of Genetics figure reference.",
+      "where": "appA.json body[1959]",
+      "evidence": "Credit text says 'Harold Weintraub... Essential Molecular Biology 2e, Freifelder & Malachinski, Jones & Bartlett, Fig. 7-24, pp. 141' within image credits, not narrative text."
+    },
+    {
+      "type": "figure",
+      "ref": "9.07b",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for part b of existing internal Fig. 9.7; internal catalog has parent fig-9.7, while the credit notation is not a separate reader demand.",
+      "where": "appA.json body[2004]",
+      "evidence": "Credit text says 'Fig 9.07b E. Passarge, Color Atlas of Genetics...' and chapter 9 catalog already contains fig-9.7 with caption covering parts (a) and (b)."
+    },
+    {
+      "type": "figure",
+      "ref": "21.04",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line, not narrative reader demand; source line names the chapter-opener/BLAST credit and there is no separate internal fig-21.04 block in parsed chapter 21.",
+      "where": "appA.json body[2026]",
+      "evidence": "Credit text begins 'Chapter opener BLAST search...' then 'Fig 21.04 BLAST search of the Gen-Bank database...' in the image credits section."
+    },
+    {
+      "type": "figure",
+      "ref": "21.08b",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for panel b of existing internal Fig. 21.8; catalog has parent fig-21.8, not a separate panel id.",
+      "where": "appA.json body[2026]",
+      "evidence": "Credit text says 'Fig 21.08b Adapted by permission...' and chapter 21 catalog contains fig-21.8 captioned '(a)... (b) Assignment of Arabidopsis genes...'."
+    },
+    {
+      "type": "figure",
+      "ref": "22.04a",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for panel a of existing internal Fig. 22.4; catalog has parent fig-22.4, not a separate panel id.",
+      "where": "appA.json body[2028]",
+      "evidence": "Credit text says 'Fig 22.04a Adapted...' and chapter 22 catalog contains fig-22.4 caption with parts (a) and (b)."
+    },
+    {
+      "type": "figure",
+      "ref": "22.04b",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for panel b of existing internal Fig. 22.4; catalog has parent fig-22.4, not a separate panel id.",
+      "where": "appA.json body[2028]",
+      "evidence": "Credit text says 'Fig 22.04b Adapted...' and chapter 22 catalog contains fig-22.4 caption with parts (a) and (b)."
+    },
+    {
+      "type": "figure",
+      "ref": "22.07b",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for panel b of existing internal Fig. 22.7; catalog has parent fig-22.7, not a separate panel id.",
+      "where": "appA.json body[2028]",
+      "evidence": "Credit text says 'Fig 22.07b Adapted...' and chapter 22 parsed body has fig-22.7 panel blocks."
+    },
+    {
+      "type": "figure",
+      "ref": "25.03",
+      "classification": "credit_line",
+      "reason": "Appendix image-credit line for existing internal Fig. 25.3; OCR uses leading zero in the credits but catalog id is fig-25.3.",
+      "where": "appA.json body[2035]",
+      "evidence": "Credit text says 'Fig 25.03 Reprinted from Trends in Genetics...' and chapter 25 catalog contains fig-25.3 for the CFTR gene map."
+    },
+    {
+      "type": "figure",
+      "ref": "14.17",
+      "classification": "source_mismatch",
+      "reason": "Source page references Figure 14-17 as a small inline peptide-bond chemical diagram, but MinerU did not extract any corresponding visual block/caption on the page; no safe existing catalog block can be promoted.",
+      "where": "ch14.json body[157]",
+      "evidence": "raw PDF page 362 shows the prose '(Figure 14-17)' in the paragraph about peptide bonds, with no extracted image/table item in unified content_list around page_idx 401; nearby extracted figures are 14-16 and 14-18."
+    },
+    {
+      "type": "table",
+      "ref": "14.1",
+      "classification": "source_mismatch",
+      "reason": "Source page contains Table 14.1 at the bottom, but MinerU routed that region into surrounding problem/text layout and no parsed table block for tbl-14.1 exists; catalog cannot be repaired without fresh extraction/cropping of a table image.",
+      "where": "ch14.json body[44]",
+      "evidence": "raw PDF page 349 displays 'TABLE 14.1 Various Protein Factors Involved during Translation in E. coli' below the reference paragraph; parsed ch14 only has tbl-14.2 and no tbl-14.1 catalog entry."
+    },
+    {
+      "type": "table",
+      "ref": "4.2",
+      "classification": "source_mismatch",
+      "reason": "Source text references Table 4.2, but the adjacent parsed/raw pages around the X-linkage section contain Figure 4-13, Figure 4-14, and problem art, with no extracted Table 4.2 block/caption available for promotion.",
+      "where": "ch04.json body[183]",
+      "evidence": "raw PDF pages 88-89 around the reference show Figure 4-13 and the start of 'X-Linkage in Humans'; parsed ch04 catalog tables include tbl-4.1 only, and no tbl-4.2 appears in the chapter tables."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "klug-concepts-genetics-fig-11-10-from-misaligned-fig",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[104]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-11.11"
+      },
+      "set": {
+        "id": "fig-11.10",
+        "catalog_aliases": [
+          "11.10"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "正文 body[101] references Figure 11-10 immediately before this RNA primer figure; the block caption is missing its leading figure number and was previously promoted to fig-11.11, leaving fig-11.10 absent."
+    },
+    {
+      "id": "klug-concepts-genetics-fig-12-14-from-repetitive-dna-overview",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[109]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-12.13"
+      },
+      "set": {
+        "id": "fig-12.14",
+        "catalog_aliases": [
+          "12.14"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "正文 body[113] says Figure 12-14 schematizes repetitive DNA categories; body[109] caption is 'An overview of the various categories of repetitive DNA' and was misnumbered as duplicate fig-12.13."
+    },
+    {
+      "id": "klug-concepts-genetics-fig-18-19-from-misread-caption",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[120]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-18.20"
+      },
+      "set": {
+        "id": "fig-18.19",
+        "catalog_aliases": [
+          "18.19"
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption text explicitly says 'FIcuRE 18-19(a) Parts of the Arabidopsis flower'; block was misnumbered as fig-18.20, causing body[115]'s Figure 18-19 ref to miss."
+    },
+    {
+      "id": "klug-concepts-genetics-fig-6-22-from-misnumbered-block",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[199]",
+      "set": {
+        "id": "fig-6.22",
+        "caption": "FIGURE 6–22 Demonstration that recombination between a phage chromosome with a deletion in the A cistron and another phage with a point mutation overlapped by that deletion cannot yield a chromosome with wild-type A and B cistrons.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_aliases"
+      ],
+      "reason": "The image at body[199] visibly contains the Figure 6-22 label and caption; duplicate fig-6.23 body[200] holds the actual Figure 6-23 image."
+    },
+    {
+      "id": "klug-concepts-genetics-fig-13-4-from-table-graphic",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[69]",
+      "set": {
+        "id": "fig-13.4",
+        "caption": "FIGURE 13–4 Results and interpretation of a mixed copolymer experiment in which a ratio of 1A:5C is used (1/6A:5/6C).",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_aliases"
+      ],
+      "reason": "MinerU split Figure 13-4 into table blocks plus a footer caption; content_list page_idx 359 has the Figure 13-4 footer immediately after table body[69]/body[70]. Promote the first table block as the figure anchor for the missing reference."
+    }
+  ]
+}

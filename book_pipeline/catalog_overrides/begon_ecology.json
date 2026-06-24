@@ -1,0 +1,24 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "begon-ecology-fig-16-7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch16",
+      "selector": "body[82]",
+      "position": "before",
+      "page": 489,
+      "clip": [0.095, 0.085, 0.905, 0.91],
+      "zoom": 2.5,
+      "src": "manual_fig-16.7.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-16.7",
+        "kind": "line",
+        "caption": "Figure 16.7 (opposite) (a) Thirty-one lakes in the North Island of New Zealand where rotifer communities (78 species in total) were sampled and described. (b) Results of cluster analysis (classification) on species composition data from the 31 lakes (based on the Bray–Curtis similarity measure); lake communities that are most similar cluster together and eight clusters are identified (A–H). (c) Results of canonical correspondence analysis (ordination). The positions in ordination space are shown for lake sites (shown as letters A–H corresponding to their classification), individual rotifer species (orange arrows in top panel) and environmental factors (orange arrows in lower panel). (d) Silhouettes of four of the rotifer species. (After Duggan et al., 2002.)",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "MinerU emitted the opposite-page Figure 16.7 caption but missed the full-page composite image containing subfigures 16.7a–d; raw PDF physical page 489 contains the complete figure opposite the page-490 caption, and parent id fig-16.7 covers lowercase subfigure refs."
+    }
+  ]
+}

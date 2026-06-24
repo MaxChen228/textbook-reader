@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "voet-ch01-table-1.1-caption-from-fig-caption",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[18]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch01-18",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-1.1",
+        "caption": "Table 1-1 Molecular Composition of E. coli",
+        "catalog_repair_source": "agent-caption-split"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 35 shows Table 1-1 Molecular Composition of E. coli immediately after Figure 1-3; MinerU attached the table caption to the preceding figure caption and left the table block unnumbered."
+    },
+    {
+      "id": "voet-ch22-fig-2.18-to-22.18-ocr",
+      "action": "replace_text",
+      "chunk": "ch22",
+      "selector": "body[312]",
+      "field": "md",
+      "old": "the peripheral and transmembrane arms of Complex I (Fig. 2-18) in a way",
+      "new": "the peripheral and transmembrane arms of Complex I (Fig. 22-18) in a way",
+      "reason": "Chapter 22 context and the same paragraph's next sentence both refer to Complex I Figure 22-18; parsed Figure 2-18 is an OCR/dropout of the second 2, not a chapter 2 figure reference."
+    }
+  ]
+}

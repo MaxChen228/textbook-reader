@@ -1,0 +1,200 @@
+slug: futuyma_evolution
+title: Evolution
+author: Douglas J. Futuyma; Mark Kirkpatrick
+edition: 4th
+subject: Biology
+publisher: Sinauer Associates
+language: en
+filter_types:
+- header
+- footer
+- page_number
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 24
+appendices_start_page: 624
+bibliography_start_page: 656
+index_start_page: 690
+inline_problems: false
+chapters:
+- num: 1
+  title: Evolutionary Biology
+  page_start: 24
+  page_end: 48
+  chapter_title_block_idx: 469
+  problems_block_idx: 683
+  next_chapter_block_idx: 696
+- num: 2
+  title: The Tree of Life
+  page_start: 48
+  page_end: 75
+  chapter_title_block_idx: 696
+  problems_block_idx: 959
+  next_chapter_block_idx: 969
+- num: 3
+  title: Natural Selection and Adaptation
+  page_start: 76
+  page_end: 100
+  chapter_title_block_idx: 969
+  problems_block_idx: 1207
+  next_chapter_block_idx: 1218
+- num: 4
+  title: Mutation and Variation
+  page_start: 100
+  page_end: 123
+  chapter_title_block_idx: 1218
+  problems_block_idx: 1446
+  next_chapter_block_idx: 1471
+- num: 5
+  title: The Genetical Theory of Natural Selection
+  page_start: 124
+  page_end: 155
+  chapter_title_block_idx: 1471
+  problems_block_idx: 1807
+  next_chapter_block_idx: 1817
+- num: 6
+  title: Phenotypic Evolution
+  page_start: 156
+  page_end: 186
+  chapter_title_block_idx: 1817
+  problems_block_idx: 2125
+  next_chapter_block_idx: 2138
+- num: 7
+  title: 'Genetic Drift: Evolution at Random'
+  page_start: 186
+  page_end: 211
+  chapter_title_block_idx: 2138
+  problems_block_idx: 2388
+  next_chapter_block_idx: 2402
+- num: 8
+  title: Evolution in Space
+  page_start: 212
+  page_end: 233
+  chapter_title_block_idx: 2402
+  problems_block_idx: 2584
+  next_chapter_block_idx: 2601
+- num: 9
+  title: Species and Speciation
+  page_start: 234
+  page_end: 268
+  chapter_title_block_idx: 2601
+  problems_block_idx: 2935
+  next_chapter_block_idx: 2951
+- num: 10
+  title: All About Sex
+  page_start: 268
+  page_end: 296
+  chapter_title_block_idx: 2951
+  problems_block_idx: 3239
+  next_chapter_block_idx: 3252
+- num: 11
+  title: How to Be Fit
+  page_start: 296
+  page_end: 316
+  chapter_title_block_idx: 3252
+  problems_block_idx: 3459
+  next_chapter_block_idx: 3469
+- num: 12
+  title: Cooperation and Conflict
+  page_start: 316
+  page_end: 342
+  chapter_title_block_idx: 3469
+  problems_block_idx: 3729
+  next_chapter_block_idx: 3741
+- num: 13
+  title: Interactions among Species
+  page_start: 342
+  page_end: 365
+  chapter_title_block_idx: 3741
+  problems_block_idx: 3956
+  next_chapter_block_idx: 3967
+- num: 14
+  title: The Evolution of Genes and Genomes
+  page_start: 366
+  page_end: 390
+  chapter_title_block_idx: 3967
+  problems_block_idx: 4193
+  next_chapter_block_idx: 4206
+- num: 15
+  title: Evolution and Development
+  page_start: 390
+  page_end: 422
+  chapter_title_block_idx: 4206
+  problems_block_idx: 4484
+  next_chapter_block_idx: 4504
+- num: 16
+  title: 'Phylogeny: The Unity and Diversity of Life'
+  page_start: 422
+  page_end: 452
+  chapter_title_block_idx: 4504
+  problems_block_idx: 4730
+  next_chapter_block_idx: 4746
+- num: 17
+  title: The History of Life
+  page_start: 452
+  page_end: 490
+  chapter_title_block_idx: 4746
+  problems_block_idx: 5056
+  next_chapter_block_idx: 5070
+- num: 18
+  title: The Geography of Evolution
+  page_start: 490
+  page_end: 512
+  chapter_title_block_idx: 5070
+  problems_block_idx: 5237
+  next_chapter_block_idx: 5250
+- num: 19
+  title: The Evolution of Biological Diversity
+  page_start: 512
+  page_end: 536
+  chapter_title_block_idx: 5250
+  problems_block_idx: 5438
+  next_chapter_block_idx: 5450
+- num: 20
+  title: 'Macroevolution: Evolution above the Species Level'
+  page_start: 536
+  page_end: 568
+  chapter_title_block_idx: 5450
+  problems_block_idx: 5720
+  next_chapter_block_idx: 5732
+- num: 21
+  title: The Evolutionary Story of Homo sapiens
+  page_start: 568
+  page_end: 593
+  chapter_title_block_idx: 5732
+  problems_block_idx: 5967
+  next_chapter_block_idx: 5979
+- num: 22
+  title: Evolution and Society
+  page_start: 594
+  page_end: 624
+  chapter_title_block_idx: 5979
+  problems_block_idx: null
+  next_chapter_block_idx: 6243
+appendices:
+- id: A
+  title: A Statistics Primer
+  page_start: 624
+  page_end: 637
+  chapter_title_block_idx: 6243
+section_re: ^(BOX\s+\d+[A-Z])\s+(.+)$
+subsection_re: ^(?!BOX\b)([A-Z][A-Za-z0-9,;:\-’\'"() ]{3,})\s*$()$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level:
+- 1
+- 2
+problem_start_re: ^([1-9]|1[0-4])\.\s+\S
+problem_chapter_must_match: false
+problems_end_re: ^(?:UNIT\s+[IVX]+\b|Appendix:|Glossary|Literature Cited|Index\b)
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: \((\d+(?:\.\d+)?|[A-Z]?\d+)\)
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

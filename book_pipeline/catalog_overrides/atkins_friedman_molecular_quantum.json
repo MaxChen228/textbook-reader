@@ -1,0 +1,45 @@
+{
+    "slug": "atkins_friedman_molecular_quantum",
+    "overrides": [
+        {
+            "id": "atkins-friedman-fix-fig-9.1-fallback",
+            "action": "set_fields",
+            "chunk": "ch09",
+            "selector": "body[76]",
+            "expect": {
+                "id": "fig-ch09-76",
+                "src": "9ca655c570519a21338c89aa20712783e5c7bb33aaac43dd19a3d96afd09f836.jpg"
+            },
+            "set": {
+                "id": "fig-9.1",
+                "caption": "Fig. 9.1 A summary of the initiation (left) and iteration (right) procedures for a Hartree\u2013Fock self-consistent field calculation.",
+                "catalog_repair_source": "catalog-audit-2026-06-24"
+            },
+            "reason": "\u6b63\u6587 ch09 body[63] \u5f15\u7528 Fig. 9.1\uff1bPDF \u7b2c 316 \u9801\u8207\u5716\u6a94 9ca655... \u78ba\u8a8d\u6b64 fallback \u5716\u584a\u5c31\u662f Hartree\u2013Fock SCF flowchart\uff0c\u53ea\u7f3a\u8a9e\u610f id/caption\u3002"
+        },
+        {
+            "id": "atkins-friedman-insert-fig-8.26-pdf-crop",
+            "action": "pdf_crop_insert",
+            "chunk": "ch08",
+            "selector": "body[300]",
+            "position": "before",
+            "page": 292,
+            "clip": [
+                0.11,
+                0.08,
+                0.76,
+                0.48
+            ],
+            "zoom": 2.5,
+            "image_id": "fig-8.26",
+            "src": "manual_fig-8.26.png",
+            "block": {
+                "t": "fig",
+                "id": "fig-8.26",
+                "kind": "line",
+                "caption": "Fig. 8.26 The molecular orbitals of NH3 at its equilibrium bond angle of 107\u00b0. The energy levels are notional. The orbital depictions have been computed as described in Chapter 9, using a 3-21G* basis in the Hartree\u2013Fock approximation."
+            },
+            "reason": "\u6b63\u6587 ch08 body[295] \u5f15\u7528 Fig. 8.26\uff1braw PDF \u7b2c 292 \u9801\u78ba\u6709\u8a72\u5716\u8207 caption\uff0c\u4f46 MinerU \u672a\u7522\u751f\u5c0d\u61c9\u5716\u584a\uff0c\u6545\u4ee5 pdf_crop_insert \u88dc\u5165 Fig. 8.27 \u524d\u3002"
+        }
+    ]
+}

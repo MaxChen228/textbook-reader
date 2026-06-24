@@ -1,0 +1,51 @@
+{
+  "overrides": [
+    {
+      "id": "cotton-wilkinson-fig-5a2-alias",
+      "action": "set_fields",
+      "chunk": "app5",
+      "selector": "body[16]",
+      "expect": {
+        "id": "fig-A5.2"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-5A.2",
+            "type": "figure"
+          }
+        ],
+        "catalog_repair_source": "agent-alias-fix"
+      },
+      "reason": "正文作 Fig. 5A-2，catalog 端已有同一圖 FIG. A5-2（body[14]-[16]），只是 appendix 編號 A5/5A 表記互換導致 canonical ref fig-5A.2 覆蓋不到。加別名，不改主 id。"
+    },
+    {
+      "id": "cotton-wilkinson-fig-7-11-idfix",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[228]",
+      "expect": {
+        "id": "fig-ch07-228"
+      },
+      "set": {
+        "id": "fig-7.11",
+        "caption": "Figure 7-11 Other thiocarbon ligands.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 body[216] 明確引用 Fig. 7-11『Other thiocarbon ligands』；相鄰 body[228] 是被排除的無 caption 圖，位於該段後且前一編號圖為 Fig. 7-10。補語意 id/caption 並納入 catalog。"
+    },
+    {
+      "id": "cotton-wilkinson-table-14-4-ocr-to-13-5",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[156]",
+      "field": "md",
+      "old": "Table 14-4 to be $4.2 \\times 10^{-4}$ for $Cl_{2}$",
+      "new": "Table 13-5 to be $4.2 \\times 10^{-4}$ for $Cl_{2}$",
+      "reason": "正文討論鹵素氧化還原電位，緊鄰且實際提供所需 potentials 的表是 body[164] Table 13-5；Chapter 14 的 Table 14-1/14-2 為 noble gases，非此處資料。此處 14-4 為 OCR/來源表號錯讀，改回 13-5。"
+    }
+  ]
+}

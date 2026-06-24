@@ -45,7 +45,216 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （218 條；proposed=3 parked=4）
+## domain: engine  （234 條；proposed=19 parked=4）
+### P-2026-06-24-begon-ecology — worker 越界改核心碼：book_pipeline/test_crawl_zlib.py（qc begon_ecology）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc begon_ecology] session=begon_ecology:52211 存活期間，受保護程式碼面 book_pipeline/test_crawl_zlib.py（new）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> +++ book_pipeline/test_crawl_zlib.py (untracked 新檔)
+> """crawl_zlib.reconcile_orphan_pdfs 測試：raw_pdfs 的 <slug>.pdf orphan 自癒補登 slug_map。
+>
+> 回歸守衛：slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → daemon 經 _raw_slug_map
+> 誤判『X 無源』永久卡死（taylor_terhaar 等 4 本實證卡 6 天）。reconcile 補登 <slug>.pdf 慣例
+> 的現有 target orphan、放過 z-lib 原名/非 target、靜默跳過已 ingest，原子寫、idempotent。
+>
+> hermetic：重導 cz.RAW/DATA/SLUG_MAP 到 tmp + monkeypatch booklists.targets，絕不碰真實狀態。
+> """
+> from __future__ import annotations
+>
+> import contextlib
+> import json
+> import os
+> import tempfile
+>
+> from book_pipeline import crawl_zlib as cz
+>
+>
+> @contextlib.contextmanager
+> def _sandbox(targets):
+>     d = tempfile.mkdtemp(prefix='reconcile_test_')
+>     raw = os.path.join(d, 'raw_pdfs')
+>     data = os.path.join(d, 'mineru_data')
+>     os.makedirs(raw)
+>     os.makedirs(data)
+>     import book_pipeline.booklists as bl
+>     saved = (cz.RAW, cz.DATA, cz.SLUG_MAP, bl.targets)
+>     cz.RAW, cz.DATA = raw, data
+>     cz.SLUG_MAP = os.path.join(d, 'slug_map.json')
+>     bl.targets = lambda: [{'slug': s} for s in targets]
+>     try:
+>         yield d, raw, data
+>     finally:
+>         (cz.RAW, cz.DATA, cz.SLUG_MAP, bl.targets) = saved
+>
+>
+> def _touch(path):
+>     os.makedirs(os.path.dirname(path), exist_ok=True)
+>     open(path, 'w').close()
+>
+>
+> def _slug_map(path):
+>     return (json.load(open(path)) or {}).get('map', {}) if os.path.exists(path) else {}
+>
+>
+> def test_reconcile_registers_target_orphan():
+>     with _sandbox(targets={'taylor_terhaar_mechanics', 'huang_sm'}) as (d, raw, data):
+>         _touch(os.path.join(raw, 'taylor_terhaar_mechanics.pdf'))
+>         _touch(os.path.join(raw, 'huang_sm.pdf'))
+>         r = cz.reconcile_orphan_pdfs()
+>         assert set(r['registered']) == {'taylor_terhaar_mechanics', 'huang_sm'}, r
+>         assert r['unresolved'] == [], r
+>         assert _slug_map(cz.SLUG_MAP) == {
+>             'taylor_terhaar_mechanics.pdf': 'taylor_terhaar_mechanics',
+>             'huang_sm.pdf': 'huang_sm',
+>         }
+>
+>
+> def test_reconcile_skips_zlib_named_and_non_target():
+>     with _sandbox(targets={'real_book'}) as (d, raw, data):
+>         _touch(os.path.join(raw, 'Introduction to Linear Algebra (Strang) (z-library.sk).pdf'))
+>         _touch(os.path.join(raw, 'not_a_target.pdf'))  # 慣例命名但非 target
+>         r = cz.reconcile_orphan_pdfs()
+>         assert r['registered'] == [], r
+>         assert len(r['unresolved']) == 2, r
+>         assert not os.path.exists(cz.SLUG_MAP), '無補登 → 不落盤'
+>
+>
+> def test_reconcile_skips_already_ingested():
+>     with _sandbox(targets={'ingested'}) as (d, raw, data):
+>         _touch(os.path.join(raw, 'ingested.pdf'))
+>         _touch(os.path.join(data, 'ingested', 'unified', 'content_list.json'))  # 已 ingest
+>         r = cz.reconcile_orphan_pdfs()
+>         assert r['registered'] == [] and r['unresolved'] == [], r  # 靜默跳過、不誤報 /restock
+>
+>
+> def test_reconcile_skips_already_registered_and_is_idempotent():
+>     with _sandbox(targets={'bk', 'fresh'}) as (d, raw, data):
+>         _touch(os.path.join(raw, 'bk.pdf'))
+>         _touch(os.path.join(raw, 'fresh.pdf'))
+>         with open(cz.SLUG_MAP, 'w') as f:
+>             json.dump({'map': {'fresh.pdf': 'fresh'}}, f)  # fresh 已登錄
+>         r1 = cz.reconcile_orphan_pdfs()
+>         assert r1['registered'] == ['bk'], r1  # 只補 bk、fresh 跳過
+>         r2 = cz.reconcile_orphan_pdfs()
+>         assert r2['registered'] == [], r2       # 第二次全已登錄 → no-op（idempotent）
+>
+>
+> if __name__ == '__main__':
+>     test_reconcile_registers_target_orphan()
+>     print('✓ 補登 <slug>.pdf 慣例的 target orphan + 原子落盤')
+>     test_reconcile_skips_zlib_named_and_non_target()
+>     print('✓ 放過 z-lib 原名/非 target → unresolved 交 /restock、無補登不落盤')
+>     test_reconcile_skips_already_ingested()
+>     print('✓ 靜默跳過已 ingest（raw 殘留）、不誤報 /restock')
+>     test_reconcile_skips_already_registered_and_is_idempotent()
+>     print('✓ 已登錄跳過 + 第二次 no-op（idempotent）')
+>     print('\n全部通過 ✅')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-begon-ecology-2 — worker 越界改核心碼：book_pipeline/crawl_zlib.py（qc begon_ecology）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc begon_ecology] session=begon_ecology:52211 存活期間，受保護程式碼面 book_pipeline/crawl_zlib.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/crawl_zlib.py b/book_pipeline/crawl_zlib.py
+> index aafe2b4..128384d 100644
+> --- a/book_pipeline/crawl_zlib.py
+> +++ b/book_pipeline/crawl_zlib.py
+> @@ -451,6 +451,52 @@ def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
+>      jsonio.atomic_write_json(CRAWL_MANIFEST, man, indent=2)
+>
+>
+> +def reconcile_orphan_pdfs(log=None) -> dict:
+> +    """raw_pdfs/<slug>.pdf 在卻未登錄 slug_map → 若 <slug> 是現有 target ∧ 尚未 ingest，
+> +    原子補登 slug_map。修復 slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → daemon
+> +    經 _raw_slug_map 誤判『X 無源』永久卡死（taylor_terhaar 等 4 本曾因此卡 6 天）。
+> +
+> +    只補登符合 <slug>.pdf 慣例（cmd_fetch 的命名）且 slug 是現有 target 者；z-lib 原名檔
+> +    （手動丟入、非慣例）無法安全推 slug → 列入 unresolved 交 /restock 人工指派。idempotent、
+> +    原子寫、僅在有補登時落盤。回 {'registered': [...], 'unresolved': [...]}。"""
+> +    from book_pipeline import booklists as bl
+> +    sm = jsonio.read_json(SLUG_MAP, {'map': {}})
+> +    mp = sm.setdefault('map', {})
+> +    known = set(mp.keys())
+> +    try:
+> +        targets = {t['slug'] for t in bl.targets()}
+> +    except Exception:
+> +        targets = set()
+> +    registered, unresolved = [], []
+> +    for path in sorted(glob.glob(os.path.join(RAW, '*.pdf'))):
+> +        fn = os.path.basename(path)
+> +        if fn in known:
+> +            continue
+> +        stem = fn[:-4]
+> +        if os.path.exists(os.path.join(DATA, stem, 'unified', 'content_list.json')):
+> +            continue                       # 已 ingest（raw 僅 GC 前殘留）→ 不補登也不報、靜默跳過
+> +        if stem in targets:
+> +            mp[fn] = stem                  # <slug>.pdf 慣例 ∧ 現有 target → 補登（自癒 git-revert 遺失）
+> +            registered.append(stem)
+> +        else:
+> +            unresolved.append(fn)          # z-lib 原名或非 target → 交 /restock 人工指派 slug
+> +    if registered:
+> +        jsonio.atomic_write_json(SLUG_MAP, sm, indent=2)
+> +        (log or print)(f'📇 reconcile：補登 {len(registered)} 本 orphan PDF→slug_map'
+> +                        f'（{", ".join(registered)}）')
+> +    return {'registered': registered, 'unresolved': unresolved}
+> +
+> +
+> +def cmd_reconcile(args) -> int:
+> +    r = reconcile_orphan_pdfs()
+> +    print(f'補登 slug_map：{len(r["registered"])} 本 → {r["registered"] or "（無）"}')
+> +    if r['unresolved']:
+> +        print(f'\n未解析 orphan（{len(r["unresolved"])}，z-lib 原名/非 target → /restock 人工指派 slug）：')
+> +        for fn in r['unresolved']:
+> +            print(f'  {fn}')
+> +    return 0
+> +
+> +
+>  def cmd_fetch(args) -> int:
+>      slug = args.slug
+>      if not re.fullmatch(r'[a-z0-9_]{1,64}', slug or ''):  # 深層強制：slug 流入路徑/argv，擋穿越
+> @@ -525,6 +571,10 @@ def main() -> int:
+>      p_inv.add_argument('--json', action='store_true')
+>      p_inv.set_defaults(func=cmd_inventory)
+>
+> +    sub.add_parser('reconcile',
+> +                   help='補登 raw_pdfs 中未登錄 slug_map 的 <slug>.pdf orphan（自癒 git-revert 遺失導致的「X 無源」卡死）'
+> +                   ).set_defaults(func=cmd_reconcile)
+> +
+>      p_s = sub.add_parser('search')
+>      p_s.add_argument('query')
+>      p_s.add_argument('--ext', default='pdf')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-begon-ecology-3 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc begon_ecology）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc begon_ecology] session=begon_ecology:52211 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index 0935ac4..12dd8d7 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -2012,6 +2012,13 @@ def tick_reactive(no_deploy: bool) -> int:
+>      # → 前代必已死、其子工皆 PPID==1，本次回收絕不誤殺自家活 worker（尚未派任何工）。
+>      _reap_throttle['last'] = time.monotonic()
+>      leases.reap_orphans(log=log)
+> +    # 啟動即自癒 orphan PDF：slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → 該書經
+> +    # _raw_slug_map 誤判『X 無源』永久卡死。補登 <slug>.pdf 慣例的 target orphan（taylor 等曾卡 6 天）。
+> +    try:
+> +        from book_pipeline import crawl_zlib
+> +        crawl_zlib.reconcile_orphan_pdfs(log=log)
+> +    except Exception as e:
+> +        log(f'reconcile_orphan_pdfs 異常（不影響 pipeline）：{e}')
+>
+>      inflight: set[str] = set()
+>      ifl_lock = threading.Lock()
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-24-bertsekas-nonlinear-programming — worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc bertsekas_nonlinear_programming）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -234,6 +443,641 @@
 >          r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-cotton-wilkinson-advanced-inorga — worker 越界改核心碼：book_pipeline/book_audit.py（qc cotton_wilkinson_advanced_inorganic）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc cotton_wilkinson_advanced_inorganic] session=cotton_wilkinson_advanced_inorganic:35726 存活期間，受保護程式碼面 book_pipeline/book_audit.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/book_audit.py b/book_pipeline/book_audit.py
+> index c8fa9ec..5c0ad51 100644
+> --- a/book_pipeline/book_audit.py
+> +++ b/book_pipeline/book_audit.py
+> @@ -21,6 +21,7 @@ import sys
+>  from textbooks import corpus
+>  from book_pipeline import booklists as bl
+>  from book_pipeline import book_qc
+> +from book_pipeline import parser
+>  from book_pipeline import math_validate as mv
+>
+>
+> @@ -43,7 +44,7 @@ def audit_book(slug: str, sot: dict | None = None, residual: dict | None = None)
+>      landed_title = book.get("title") or ""
+>      sot_title = (sot or {}).get("title") or ""
+>
+> -    flags = book_qc.detect(book, sot_title)
+> +    flags = book_qc.detect(book, sot_title, parser.load_rules_safe(slug))
+>      # 與 book_qc.empty_chapter_reason 同謂詞：題本（有 problems）的 body=0 章不算空
+>      empties = [c.get("num") or c.get("id") for c in (chs + apps)
+>                 if c.get("body_count", 0) == 0 and c.get("problem_count", 0) == 0]
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-housecroft-sharpe-inorganic-chem — worker 越界改核心碼：book_pipeline/leases.py（audit housecroft_sharpe_inorganic_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [audit housecroft_sharpe_inorganic_chemistry] session=housecroft_sharpe_inorganic_chemistry:18524 存活期間，受保護程式碼面 book_pipeline/leases.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/leases.py b/book_pipeline/leases.py
+> index b482e28..e7d4565 100644
+> --- a/book_pipeline/leases.py
+> +++ b/book_pipeline/leases.py
+> @@ -192,3 +192,128 @@ def _safe_unlink(path: str) -> None:
+>          os.unlink(path)
+>      except FileNotFoundError:
+>          pass
+> +
+> +
+> +# ── 孤兒 agent 進程回收 ───────────────────────────────────────────────────────
+> +# 病理：controller 被 kick -k 硬殺（SIGKILL 跳過 finally、不對子工 process group 發 SIGTERM）或
+> +# 崩潰 → 其 codex/claude 子進程孤兒化（reparent 到 launchd，PPID==1）。LLM_TIMEOUT 移除後
+> +# （codex 主力卡死病理消失）孤兒 codex 再無自我超時、永不自死 → 每次 kick 累積 → load 飆升、
+> +# 餓死觀測心跳。leases.active() 的 TTL=0 無限 + identity 仍相符 → 把活著的孤兒當「健康在跑」
+> +# 永不殺（或 lease 檔已清則純隱形）→ 兩路都讓孤兒永生。解法：controller 啟動 + 週期主動回收。
+> +#
+> +# 鑑別子（全部成立才算「本 repo 的孤兒 agent」，絕不誤殺）：
+> +#   PPID==1（父已死）∧ daemon agent 簽名（'codex' ∨ 'claude'+'--add-dir'）∧ 屬本 repo
+> +#   （ROOT 在 argv，或 argv 缺 ROOT 的 node 孫程序退而查 cwd==ROOT）。
+> +# 安全性：活 controller 的子 agent fork 即 PPID==controller（非 1，永不誤命中）；互動
+> +# Claude Code session（`claude --dangerously-skip-permissions`）無 'codex'、無 '--add-dir'、
+> +# argv 無 ROOT → 三重排除。startup 呼叫時 flock 已序列化（前代必已死）；運行中呼叫亦安全
+> +# （fork 語意保證活子工非 PPID==1）。
+> +_ROOT = os.path.dirname(_BP)
+> +_ORPHAN_CACHE = {'at': 0.0, 'val': {'count': 0, 'oldest_sec': 0}}
+> +_ORPHAN_CACHE_TTL = 10  # count_orphans 走 1s snapshot 熱路徑 → 快取避免每次 ps
+> +
+> +
+> +def _parse_etime(et: str) -> int:
+> +    """macOS ps etime（[[dd-]hh:]mm:ss）→ 秒。macOS 無 etimes(raw)，只能解格式化串。"""
+> +    try:
+> +        et = et.strip()
+> +        days = 0
+> +        if '-' in et:
+> +            d, et = et.split('-', 1)
+> +            days = int(d)
+> +        parts = [int(p) for p in et.split(':')]
+> +        if len(parts) == 3:
+> +            h, m, s = parts
+> +        elif len(parts) == 2:
+> +            h, m, s = 0, parts[0], parts[1]
+> +        else:
+> +            h, m, s = 0, 0, parts[0]
+> +        return days * 86400 + h * 3600 + m * 60 + s
+> +    except (ValueError, IndexError):
+> +        return 0
+> +
+> +
+> +def _cwd_is(pid: int, root: str) -> bool:
+> +    """lsof 查 pid 的 cwd 是否在 root 下（僅對 argv 缺 ROOT 的 node 孫程序兜底，故呼叫稀少）。"""
+> +    try:
+> +        out = subprocess.run(['lsof', '-a', '-p', str(pid), '-d', 'cwd', '-Fn'],
+> +                             capture_output=True, text=True, timeout=5).stdout
+> +    except (OSError, subprocess.SubprocessError):
+> +        return False
+> +    return root in out
+> +
+> +
+> +def _agent_orphans(root: str | None = None) -> list[dict]:
+> +    """掃出前代 controller 遺留的孤兒 agent 進程（判據見上方註解）。回 [{pid, pgid, age_sec}]。"""
+> +    root = root or _ROOT
+> +    try:
+> +        out = subprocess.run(['ps', '-axo', 'pid=,ppid=,etime=,command='],
+> +                             capture_output=True, text=True, timeout=10).stdout
+> +    except (OSError, subprocess.SubprocessError):
+> +        return []
+> +    res = []
+> +    for line in out.splitlines():
+> +        parts = line.split(None, 3)
+> +        if len(parts) < 4:
+> +            continue
+> +        pid_s, ppid_s, et_s, cmd = parts
+> +        if ppid_s != '1':
+> +            continue
+> +        low = cmd.lower()
+> +        sig = ('codex' in low) or ('claude' in low and '--add-dir' in cmd)
+> +        if not sig:
+> +            continue
+> +        try:
+> +            pid = int(pid_s)
+> +        except ValueError:
+> +            continue
+> +        # 專案歸屬：ROOT 在 argv（codex `-C ROOT` / claude `--add-dir ROOT`，cheap）；
+> +        # 缺者（codex node 孫程序 argv 未必帶 ROOT）退查 cwd==ROOT。
+> +        if root not in cmd and not _cwd_is(pid, root):
+> +            continue
+> +        try:
+> +            pgid = os.getpgid(pid)
+> +        except OSError:
+> +            pgid = pid
+> +        res.append({'pid': pid, 'pgid': pgid, 'age_sec': _parse_etime(et_s)})
+> +    return res
+> +
+> +
+> +def count_orphans(root: str | None = None) -> dict:
+> +    """唯讀觀測：{count, oldest_sec}（10s 快取，避免 1s snapshot 熱路徑每次 ps）。/dev 健康欄用。"""
+> +    now = time.time()
+> +    if now - _ORPHAN_CACHE['at'] < _ORPHAN_CACHE_TTL:
+> +        return dict(_ORPHAN_CACHE['val'])
+> +    orphs = _agent_orphans(root)
+> +    val = {'count': len(orphs),
+> +           'oldest_sec': max((o['age_sec'] for o in orphs), default=0)}
+> +    _ORPHAN_CACHE['at'] = now
+> +    _ORPHAN_CACHE['val'] = val
+> +    return dict(val)
+> +
+> +
+> +def reap_orphans(root: str | None = None, log=None) -> dict:
+> +    """殺掉所有孤兒 agent process group（SIGKILL）。回 {reaped, groups, oldest_sec}。
+> +    安全性見上方註解（永不碰活 controller 的子 worker）。controller 啟動 + 週期呼叫。"""
+> +    orphs = _agent_orphans(root)
+> +    if not orphs:
+> +        return {'reaped': 0, 'groups': 0, 'oldest_sec': 0}
+> +    oldest = max(o['age_sec'] for o in orphs)
+> +    groups: set[int] = set()
+> +    for o in orphs:
+> +        pg = o['pgid']
+> +        if pg not in groups:
+> +            groups.add(pg)
+> +            try:
+> +                os.killpg(pg, signal.SIGKILL)  # 殺整組 → 連帶同組 node 孫程序
+> +            except OSError:
+> +                pass
+> +        try:
+> +            os.kill(o['pid'], signal.SIGKILL)  # 個別兜底（脫離 group 者）
+> +        except OSError:
+> +            pass
+> +    _ORPHAN_CACHE['at'] = 0.0  # 剛殺完 → 失效快取，下次觀測重算
+> +    if log:
+> +        h, m = oldest // 3600, (oldest % 3600) // 60
+> +        log(f'🧟 回收 {len(orphs)} 個孤兒 agent 進程（{len(groups)} 組，最老 {h}h{m}m）— 前代 controller 殘留')
+> +    return {'reaped': len(orphs), 'groups': len(groups), 'oldest_sec': oldest}
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-housecroft-sharpe-inorganic-chem-2 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（audit housecroft_sharpe_inorganic_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [audit housecroft_sharpe_inorganic_chemistry] session=housecroft_sharpe_inorganic_chemistry:18524 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index 8d016ac..a5686e0 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -209,6 +209,28 @@ def _refresh_snapshot() -> None:
+>          _snap_lock.release()
+>
+>
+> +# 保證刷新節奏：常駐 controller 的專屬執行緒，每 SNAP_CADENCE 秒必寫一次 dev/status.json 便宜核
+> +# （write_timeline=False）。與 log() 事件、主迴圈 wake.wait、外部 60s uv-run heartbeat **全解耦**——
+> +# 只要本 controller 進程活著，status.json 新鮮度 ≤SNAP_CADENCE，不受負載/事件稀疏/外部 heartbeat
+> +# 被餓死影響（根治「status.json 滯後 400s」：原唯一保證寫手是負載下被餓死的外部 fresh-process
+> +# heartbeat，controller 只在 log 事件時刷、cycle 間 sleep 不刷）。blocking 取 _snap_lock 與 worker
+> +# 觸發的 _refresh_snapshot 序列化、不疊並發 build_snapshot。
+> +SNAP_CADENCE = int(os.environ.get('BOOK_PIPELINE_SNAP_CADENCE', '20'))
+> +
+> +
+> +def _snapshot_heartbeat(stop: threading.Event) -> None:
+> +    global _last_snap
+> +    import time
+> +    from book_pipeline.devctl import write_snapshot
+> +    while not stop.wait(SNAP_CADENCE):
+> +        try:
+> +            with _snap_lock:
+> +                _last_snap = time.monotonic()
+> +                write_snapshot()  # write_timeline=False：只刷 live 核，不碰歷史時間軸
+> +        except Exception:
+> +            pass
+> +
+> +
+>  _log_lock = threading.Lock()
+>
+>
+> @@ -1815,6 +1837,16 @@ def _gc_due() -> bool:
+>      return (time.monotonic() - _gc_throttle['last']) >= GC_INTERVAL_SEC
+>
+>
+> +# 孤兒 agent 週期回收節流（startup 必掃一次；運行中低頻補掃，捕 codex top 已退但 node 孫程序殘留
+> +# 的少見情形）。300s 一次、ps 一掃即廉價。見 leases.reap_orphans。
+> +REAP_INTERVAL_SEC = int(os.environ.get('BOOK_PIPELINE_REAP_INTERVAL_SEC', '300'))
+> +_reap_throttle = {'last': 0.0}
+> +
+> +
+> +def _reap_due() -> bool:
+> +    return (time.monotonic() - _reap_throttle['last']) >= REAP_INTERVAL_SEC
+> +
+> +
+>  def _gc_candidates(state: dict) -> list[str]:
+>      """可自動 GC 的書：確有 🟡 可重生產物 ∧ 已上站(完整 book.json) ∧ 非在飛 ∧ deployed_at
+>      距今 ≥ GC_STABILITY_MIN 分（無戳＝歷史書，必非剛 deploy → eligible）。先 cheap listdir
+> @@ -1965,11 +1997,19 @@ def tick_reactive(no_deploy: bool) -> int:
+>      with _exhausted_lock:  # 本 controller 起頭重置額度旗標（之後靠 _EXHAUST_TTL 每 cycle 自動重探恢復）
+>          _exhausted_at.clear()
+>      _gc_throttle['last'] = time.monotonic()  # GC 節流戳重置 → 首掃於 ~GC_INTERVAL 後（系統穩定才掃）
+> +    # 啟動即回收前代 controller 遺留的孤兒 agent 進程（kick -k 硬殺/崩潰的殘留）。flock 已序列化
+> +    # → 前代必已死、其子工皆 PPID==1，本次回收絕不誤殺自家活 worker（尚未派任何工）。
+> +    _reap_throttle['last'] = time.monotonic()
+> +    leases.reap_orphans(log=log)
+>
+>      inflight: set[str] = set()
+>      ifl_lock = threading.Lock()
+>      wake = threading.Event()  # 工人完成即 set → 控制迴圈立刻重觀測，免等滿一個 LOOP_POLL
+>      ex = ThreadPoolExecutor(max_workers=LOOP_CONCURRENCY)
+> +    # 保證刷新執行緒：每 SNAP_CADENCE 秒必寫一次 status.json 便宜核 → 與負載/事件/外部 heartbeat
+> +    # 解耦，新鮮度 ≤SNAP_CADENCE（見 _snapshot_heartbeat）。daemon thread，finally 設 stop 收尾。
+> +    _snap_stop = threading.Event()
+> +    threading.Thread(target=_snapshot_heartbeat, args=(_snap_stop,), daemon=True).start()
+>
+>      def _start(key: str, fn) -> bool:
+>          """key 不在 inflight 才提交 worker；結束自動移出。回是否真的派了（同進程去重）。"""
+> @@ -2039,6 +2079,11 @@ def tick_reactive(no_deploy: bool) -> int:
+>                  paused_logged = False
+>              # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
+>              leased_slugs = {r.get('slug') for r in leases.active(log=log)}
+> +            # 孤兒 agent 週期回收（低頻、ps 一掃即廉價）：捕「codex top 已退但 node 孫程序殘留」
+> +            # 等少見情形；fork 語意保證活 worker 非 PPID==1 → 運行中回收絕不誤殺自家在飛工。
+> +            if _reap_due():
+> +                _reap_throttle['last'] = time.monotonic()
+> +                leases.reap_orphans(log=log)
+>              dispatched = 0
+>
+>              # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）。harvest 折進 ingest 同一閘鍵。
+> @@ -2133,6 +2178,7 @@ def tick_reactive(no_deploy: bool) -> int:
+>              log('reactive loop：walltime 到期 → 排 detached respawn（排空退出即 kickstart 新 controller，消 idle-gap）')
+>              _schedule_respawn()
+>      finally:
+> +        _snap_stop.set()  # 停保證刷新執行緒（daemon thread，進程退出本就會收，明確 set 早停）
+>          _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）
+>          _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
+>          # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-housecroft-sharpe-inorganic-chem-3 — worker 越界改核心碼：book_pipeline/devctl.py（audit housecroft_sharpe_inorganic_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [audit housecroft_sharpe_inorganic_chemistry] session=housecroft_sharpe_inorganic_chemistry:18524 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/devctl.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-jensen-computational-chemistry — worker 越界改核心碼：book_pipeline/test_book_qc.py（qc jensen_computational_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc jensen_computational_chemistry] session=jensen_computational_chemistry:35730 存活期間，受保護程式碼面 book_pipeline/test_book_qc.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/test_book_qc.py b/book_pipeline/test_book_qc.py
+> index 8951a6e..1594c87 100644
+> --- a/book_pipeline/test_book_qc.py
+> +++ b/book_pipeline/test_book_qc.py
+> @@ -162,3 +162,66 @@ def test_blocking_excludes_empty_chapter():
+>      # empty_chapter 是警示級、不阻擋部署
+>      assert qc.blocking_reasons(["empty_chapter(2)"]) == []
+>      assert qc.blocking_reasons(["companion", "empty_chapter(2)"]) == ["companion"]
+> +
+> +
+> +# --- no_problems_extracted（rules 宣告有題卻 parsed 0 題；clayden/devore/wald 實證受害者）---
+> +
+> +def test_total_problem_count_sums_chapters_and_appendices():
+> +    book = {"chapters": [{"problem_count": 5}, {"problem_count": 3}],
+> +            "appendices": [{"problem_count": 2}]}
+> +    assert qc.total_problem_count(book) == 10
+> +    # 缺欄/None 視為 0
+> +    assert qc.total_problem_count({"chapters": [{"body_count": 1}, {"problem_count": None}]}) == 0
+> +
+> +
+> +def test_declared_inline_but_zero_flags():
+> +    # devore-like：inline_problems=true 卻 0 題 → 正則對不上 OCR 版式、整批丟失
+> +    assert qc.declared_problems_missing_reason({"inline_problems": True}, 0) == "no_problems_extracted"
+> +
+> +
+> +def test_declared_pbi_but_zero_flags():
+> +    # wald/clayden-like：章設 problems_block_idx 卻 0 題（任一章設了即算宣告）
+> +    rules = {"inline_problems": False,
+> +             "chapters": [{"problems_block_idx": 12}, {"problems_block_idx": None}]}
+> +    assert qc.declared_problems_missing_reason(rules, 0) == "no_problems_extracted"
+> +
+> +
+> +def test_declared_but_has_problems_clean():
+> +    # 宣告有題且真有題（osborne 117）→ 不旗標
+> +    assert qc.declared_problems_missing_reason({"inline_problems": True}, 117) is None
+> +
+> +
+> +def test_not_declared_and_zero_is_legit_empty():
+> +    # 純理論書/專著（angrist-like）：inline=false ∧ 全章 pbi=null ∧ 0 題 → 合法、不旗標（誤判防線）
+> +    rules = {"inline_problems": False,
+> +             "chapters": [{"problems_block_idx": None}, {"problems_block_idx": None}]}
+> +    assert qc.declared_problems_missing_reason(rules, 0) is None
+> +    assert qc.declared_problems_missing_reason({}, 0) is None
+> +
+> +
+> +def test_rules_none_or_broken_fail_open():
+> +    # rules 缺/壞 → None（無從判斷、fail-open，不旗標好書）
+> +    assert qc.declared_problems_missing_reason(None, 0) is None
+> +    assert qc.declared_problems_missing_reason("not a dict", 0) is None
+> +
+> +
+> +def test_no_problems_extracted_is_blocking():
+> +    assert "no_problems_extracted" in qc.blocking_reasons(["no_problems_extracted"])
+> +
+> +
+> +def test_detect_flags_declared_but_empty_via_rules():
+> +    # 端到端：detect 帶 rules → declared-but-empty 受害者被旗標且屬 BLOCKING（clayden 重現）
+> +    book = {"title": "Organic Chemistry",
+> +            "chapters": [{"num": n, "body_count": 100, "problem_count": 0} for n in range(1, 44)],
+> +            "appendices": []}
+> +    rules = {"inline_problems": False, "chapters": [{"problems_block_idx": 5}] * 38}
+> +    flags = qc.detect(book, "Organic Chemistry", rules)
+> +    assert "no_problems_extracted" in flags
+> +    assert "no_problems_extracted" in qc.blocking_reasons(flags)
+> +
+> +
+> +def test_detect_no_rules_skips_problem_check():
+> +    # 向下相容：不傳 rules → 不查習題完整性（即使 0 題也不旗標）
+> +    book = {"title": "X",
+> +            "chapters": [{"num": 1, "body_count": 100, "problem_count": 0}], "appendices": []}
+> +    assert qc.detect(book, "X") == []
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-kandel-principles-neural-science — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc kandel_principles_neural_science）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc kandel_principles_neural_science] session=kandel_principles_neural_science:52207 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> (無 diff 文本，book_pipeline/pipeline_tick.py modified)
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-klug-concepts-genetics — worker 越界改核心碼：book_pipeline/crawl_zlib.py（qc klug_concepts_genetics）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc klug_concepts_genetics] session=klug_concepts_genetics:45797 存活期間，受保護程式碼面 book_pipeline/crawl_zlib.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/crawl_zlib.py b/book_pipeline/crawl_zlib.py
+> index aafe2b4..3f12b2a 100644
+> --- a/book_pipeline/crawl_zlib.py
+> +++ b/book_pipeline/crawl_zlib.py
+> @@ -451,6 +451,51 @@ def _register(slug: str, raw_filename: str, book: dict, md5: str) -> None:
+>      jsonio.atomic_write_json(CRAWL_MANIFEST, man, indent=2)
+>
+>
+> +def reconcile_orphan_pdfs(log=None) -> dict:
+> +    """raw_pdfs/<slug>.pdf 在卻未登錄 slug_map → 若 <slug> 是現有 target ∧ 尚未 ingest，
+> +    原子補登 slug_map。修復 slug_map（git-tracked）被 git 操作回退、PDF 卻留碟上 → daemon
+> +    經 _raw_slug_map 誤判『X 無源』永久卡死（taylor_terhaar 等 4 本曾因此卡 6 天）。
+> +
+> +    只補登符合 <slug>.pdf 慣例（cmd_fetch 的命名）且 slug 是現有 target 者；z-lib 原名檔
+> +    （手動丟入、非慣例）無法安全推 slug → 列入 unresolved 交 /restock 人工指派。idempotent、
+> +    原子寫、僅在有補登時落盤。回 {'registered': [...], 'unresolved': [...]}。"""
+> +    from book_pipeline import booklists as bl
+> +    sm = jsonio.read_json(SLUG_MAP, {'map': {}})
+> +    mp = sm.setdefault('map', {})
+> +    known = set(mp.keys())
+> +    try:
+> +        targets = {t['slug'] for t in bl.targets()}
+> +    except Exception:
+> +        targets = set()
+> +    registered, unresolved = [], []
+> +    for path in sorted(glob.glob(os.path.join(RAW, '*.pdf'))):
+> +        fn = os.path.basename(path)
+> +        if fn in known:
+> +            continue
+> +        stem = fn[:-4]
+> +        ingested = os.path.exists(os.path.join(DATA, stem, 'unified', 'content_list.json'))
+> +        if stem in targets and not ingested:
+> +            mp[fn] = stem
+> +            registered.append(stem)
+> +        else:
+> +            unresolved.append(fn)
+> +    if registered:
+> +        jsonio.atomic_write_json(SLUG_MAP, sm, indent=2)
+> +        (log or print)(f'📇 reconcile：補登 {len(registered)} 本 orphan PDF→slug_map'
+> +                        f'（{", ".join(registered)}）')
+> +    return {'registered': registered, 'unresolved': unresolved}
+> +
+> +
+> +def cmd_reconcile(args) -> int:
+> +    r = reconcile_orphan_pdfs()
+> +    print(f'補登 slug_map：{len(r["registered"])} 本 → {r["registered"] or "（無）"}')
+> +    if r['unresolved']:
+> +        print(f'\n未解析 orphan（{len(r["unresolved"])}，z-lib 原名/非 target → /restock 人工指派 slug）：')
+> +        for fn in r['unresolved']:
+> +            print(f'  {fn}')
+> +    return 0
+> +
+> +
+>  def cmd_fetch(args) -> int:
+>      slug = args.slug
+>      if not re.fullmatch(r'[a-z0-9_]{1,64}', slug or ''):  # 深層強制：slug 流入路徑/argv，擋穿越
+> @@ -525,6 +570,10 @@ def main() -> int:
+>      p_inv.add_argument('--json', action='store_true')
+>      p_inv.set_defaults(func=cmd_inventory)
+>
+> +    sub.add_parser('reconcile',
+> +                   help='補登 raw_pdfs 中未登錄 slug_map 的 <slug>.pdf orphan（自癒 git-revert 遺失導致的「X 無源」卡死）'
+> +                   ).set_defaults(func=cmd_reconcile)
+> +
+>      p_s = sub.add_parser('search')
+>      p_s.add_argument('query')
+>      p_s.add_argument('--ext', default='pdf')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-levine-physical-chemistry — worker 越界改核心碼：book_pipeline/status.py（qc levine_physical_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc levine_physical_chemistry] session=levine_physical_chemistry:45809 存活期間，受保護程式碼面 book_pipeline/status.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/status.py b/book_pipeline/status.py
+> index 2db361a..598e0ba 100644
+> --- a/book_pipeline/status.py
+> +++ b/book_pipeline/status.py
+> @@ -271,7 +271,11 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
+>      raw = raw or {}
+>      has_sol_book = _exists(f'{slug}_sol', 'unified', 'content_list.json')
+>      has_zh = bool(glob.glob(f'{DATA}/{slug}/parsed/*.zh.json'))
+> -    if not _exists(slug, 'unified', 'content_list.json'):
+> +    # parsed/book.json 存在＝ingest+parse 已完成的鐵證（parser 無 unified 產不出 book.json）。
+> +    # 不因上游中間產物（unified）被 quarantine/GC 移除就把**已處理書倒退回 ingest**——
+> +    # stewart_calculus 曾因 unified→_quarantine 斷 symlink 被誤判「未ingest」、卡死 6 天每 cycle
+> +    # 重 ingest（raw 已 post-deploy GC、無從重做）。parsed 在則跳過 ingest 三態、續往下游推導。
+> +    if not _exists(slug, 'unified', 'content_list.json') and not _exists(slug, 'parsed', 'book.json'):
+>          # 前置三態皆待本地一條龍 ingest（動詞統一）；階段名保留診斷區分
+>          if slug in pending:
+>              return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'sol_book': has_sol_book}
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-silbey-physical-chemistry — worker 越界改核心碼：book_pipeline/book_qc.py（qc silbey_physical_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc silbey_physical_chemistry] session=silbey_physical_chemistry:35699 存活期間，受保護程式碼面 book_pipeline/book_qc.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/book_qc.py b/book_pipeline/book_qc.py
+> index 3d2db46..c81a070 100644
+> --- a/book_pipeline/book_qc.py
+> +++ b/book_pipeline/book_qc.py
+> @@ -10,6 +10,7 @@ book_audit（唯讀報告）與 pipeline_tick 部署前 gate 共用此層。每
+>    companion        title 含 Study Guide / Solutions Manual / Instructor / in Focus … → 週邊/錯版本
+>    title_mismatch   SoT 主書名 token 大量不見於落地 title（且非 companion 已捕）→ 配錯書
+>    empty_chapter    body_count == 0 的章 → parse 斷裂
+> +  no_problems_extracted  rules 宣告有題（inline/pbi）卻 parsed 0 題 → 習題整批靜默丟失
+>
+>  BLOCKING 子集 = 應攔下不自動上站、標 review 的硬缺陷（empty_chapter 僅警示不阻擋）。
+>  """
+> @@ -44,7 +45,8 @@ _STOP = {"the", "a", "an", "of", "and", "for", "to", "in", "on", "with",
+>           "vol", "volume", "edition", "ed"}
+>
+>  # 應攔下不自動上站的硬缺陷（命中即標 review）；empty_chapter 不在內（僅警示）
+> -BLOCKING = ("partial_source", "chapter_gap", "companion", "title_mismatch")
+> +BLOCKING = ("partial_source", "chapter_gap", "companion", "title_mismatch",
+> +            "no_problems_extracted")
+>
+>
+>  def tokens(s: str) -> set[str]:
+> @@ -107,8 +109,31 @@ def empty_chapter_reason(chapters, appendices=None) -> str | None:
+>      return f"empty_chapter({len(empties)})" if empties else None
+>
+>
+> -def detect(book: dict, sot_title: str = "") -> list[str]:
+> -    """全維度旗標（含警示級）。book = corpus.load_book() 形狀。"""
+> +def total_problem_count(book: dict) -> int:
+> +    """全書 parsed 題數＝各章/附錄 problem_count 加總（book.json 已帶此摘要欄、零額外 I/O）。"""
+> +    units = list(book.get("chapters") or []) + list(book.get("appendices") or [])
+> +    return sum(int(u.get("problem_count") or 0) for u in units)
+> +
+> +
+> +def declared_problems_missing_reason(rules, problem_count: int) -> str | None:
+> +    """extract_rules 宣告本書有習題（inline_problems=true 或任一章 problems_block_idx 非 null）
+> +    卻 parsed 全書 0 題 → audit 的 problem_start_re / problems_block_idx 對不上 OCR 版式
+> +    （實證：clayden 用 NO_PROBLEM_MATCH sentinel 永不命中、devore/wald 正則對不上排版），
+> +    整批習題靜默丟失、書照樣上站。習題是教科書核心，丟光等同殘卷 → BLOCKING。
+> +    純理論書（inline_problems=false ∧ 全章 problems_block_idx=null）合法無題 → **不旗標**
+> +    （誤判防線：34 本理論書/專著實證正確放行）。rules 缺/壞→None（無從判斷，fail-open）。"""
+> +    if problem_count > 0 or not isinstance(rules, dict):
+> +        return None
+> +    declared = bool(rules.get("inline_problems")) or any(
+> +        isinstance(c, dict) and c.get("problems_block_idx") is not None
+> +        for c in (rules.get("chapters") or [])
+> +    )
+> +    return "no_problems_extracted" if declared else None
+> +
+> +
+> +def detect(book: dict, sot_title: str = "", rules: dict | None = None) -> list[str]:
+> +    """全維度旗標（含警示級）。book = corpus.load_book() 形狀；rules = extract_rules.yaml
+> +    （None=不查習題完整性，向下相容舊呼叫）。"""
+>      chs = book.get("chapters") or []
+>      apps = book.get("appendices") or []
+>      nums = [c.get("num") for c in chs]
+> @@ -119,6 +144,7 @@ def detect(book: dict, sot_title: str = "") -> list[str]:
+>          companion_reason(landed),
+>          title_mismatch_reason(sot_title, landed),
+>          empty_chapter_reason(chs, apps),
+> +        declared_problems_missing_reason(rules, total_problem_count(book)),
+>      ]
+>      return [f for f in flags if f]
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-silbey-physical-chemistry-2 — worker 越界改核心碼：book_pipeline/parser.py（qc silbey_physical_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc silbey_physical_chemistry] session=silbey_physical_chemistry:35699 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py
+> index 7c7f43d..4aa7902 100644
+> --- a/book_pipeline/parser.py
+> +++ b/book_pipeline/parser.py
+> @@ -55,6 +55,22 @@ def load_rules(slug: str) -> dict:
+>      return yaml.safe_load(path.read_text())
+>
+>
+> +def load_rules_safe(slug: str) -> dict | None:
+> +    """load_rules 的零副作用變體：缺檔／invalid slug／YAML 壞 → None（**不 sys.exit**）。
+> +    供部署前 gate（book_qc 習題完整性）與 book_audit 唯讀體檢用——這些情境絕不能因
+> +    缺/壞 rules 中止行程（fail-open：判不了就不旗標、照常上站）。"""
+> +    if not _valid_slug(slug):
+> +        return None
+> +    path = DATA_DIR / slug / 'extract_rules.yaml'
+> +    if not path.is_file():
+> +        return None
+> +    try:
+> +        r = yaml.safe_load(path.read_text())
+> +        return r if isinstance(r, dict) else None
+> +    except Exception:
+> +        return None
+> +
+> +
+>  def load_unified(slug: str) -> list[dict]:
+>      if not _valid_slug(slug):
+>          sys.exit(f'invalid slug: {slug}')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-silbey-physical-chemistry-3 — worker 越界改核心碼：book_pipeline/pipeline_tick.py（qc silbey_physical_chemistry）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc silbey_physical_chemistry] session=silbey_physical_chemistry:35699 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index bb04239..0935ac4 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -1233,11 +1233,12 @@ def _book_qc_block(slug: str) -> list[str]:
+>          from textbooks import corpus
+>          from book_pipeline import booklists as bl
+>          from book_pipeline import book_qc
+> +        from book_pipeline import parser
+>          book = corpus.load_book(slug)
+>          if not book:
+>              return []
+>          sot = next((t for t in bl.targets() if t.get('slug') == slug), None)
+> -        flags = book_qc.detect(book, (sot or {}).get('title', ''))
+> +        flags = book_qc.detect(book, (sot or {}).get('title', ''), parser.load_rules_safe(slug))
+>          return book_qc.blocking_reasons(flags)
+>      except Exception as e:
+>          log(f'book_qc gate {slug} 異常（fail-open，照常部署）：{e}')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-skoog-instrumental-analysis — worker 越界改核心碼：book_pipeline/pipeline_tick.py（catalog_audit skoog_instrumental_analysis）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [catalog_audit skoog_instrumental_analysis] session=skoog_instrumental_analysis:42581 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py
+> index daca705..bb04239 100644
+> --- a/book_pipeline/pipeline_tick.py
+> +++ b/book_pipeline/pipeline_tick.py
+> @@ -2188,7 +2188,9 @@ def tick_reactive(no_deploy: bool) -> int:
+>              log('reactive loop：walltime 到期 → 排 detached respawn（排空退出即 kickstart 新 controller，消 idle-gap）')
+>              _schedule_respawn()
+>      finally:
+> -        _snap_stop.set()  # 停保證刷新執行緒（daemon thread，進程退出本就會收，明確 set 早停）
+> +        # ⚠ 不在此停保證刷新執行緒：排空可能長達數十分（無限等在飛 audit 自然收尾），這正是 /dev 該即時
+> +        # 顯「🔄 排空中」之時。執行緒須撐過整個排空、待 drain wait 迴圈結束才停（見下）。早停會讓排空期
+> +        # status.json 又凍結（wolf-crying 根源）。
+>          _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）
+>          _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
+>          # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）
+> @@ -2220,6 +2222,7 @@ def tick_reactive(no_deploy: bool) -> int:
+>              if now_m - _bound_started >= DRAIN_BOUND:
+>                  break
+>              time.sleep(0.5)
+> +        _snap_stop.set()  # 排空 wait 已結束 → 此刻才停保證刷新執行緒（撐過整個排空期、status.json 全程新鮮）
+>          with ifl_lock:
+>              _stuck = len(inflight)
+>          if _stuck == 0:
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-taylor-terhaar-mechanics — Support end-of-book problem banks keyed by chapter number
+- proposed | type=tooling-gap | source=agent
+- 證據：
+> Taylor Mechanics has chapter bodies at blocks 45..4196 and a single end-of-book PROBLEMS section at blocks 4398..4597. Problems are numbered 1.01..13.06 by chapter, but are not inside each chapter interval. Current extract_rules.yaml schema only supports per-chapter problems_block_idx within (chapter_title_block_idx,next_chapter_block_idx) or inline_problems within the same chapter interval; pointing pbi into the global problem bank makes chapter bodies swallow intervening chapters, while pbi=null drops all real problems.
+- 提議：
+> Add schema/parser support for a global/end_of_book_problems_block_idx range that dispatches problem_start_re matches to chapters by captured chapter prefix, without changing each chapter body interval.
 
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent

@@ -1,0 +1,108 @@
+{
+  "overrides": [
+    {
+      "id": "skoog-ch02-fig-2-24-notebook-data-page",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[368]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch02-368",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-2.24",
+        "caption": "Figure 2-24 Laboratory notebook data page.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Raw PDF page 89 labels this notebook data-page block as Figure 2-24; MinerU emitted it as an excluded table, causing the Figure 2-24 reference to miss."
+    },
+    {
+      "id": "skoog-ch17-table-17-1-typical-complex-forming-titrations",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[108]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch17-108",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-17.1",
+        "caption": "Table 17-1 Typical Inorganic Complex-Forming Titrations",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Body refers to Table 17-1 and this nearby table block carries caption 'Tab le 17-1' with matching title."
+    },
+    {
+      "id": "skoog-ch21-fig-21-3-silver-silver-chloride-electrode",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[43]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-21.4"
+      },
+      "set": {
+        "id": "fig-21.3",
+        "caption": "Figure 21-3 A commercial silver–silver chloride reference electrode.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The image at body[43] is the commercial Ag/AgCl electrode described immediately by the missing Figure 21-3 reference; it was mislabeled as fig-21.4."
+    },
+    {
+      "id": "skoog-ch27-table-27-1-substituent-fluorescence-effects",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[62]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch27-62",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-27.1",
+        "caption": "Table 27-1 Effect of Substitution on the Fluorescence of Benzene",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Body text explicitly introduces data in Table 27-1; the following table block contains substituted benzene fluorescence data but was excluded as unnumbered."
+    },
+    {
+      "id": "skoog-ch29-table-29-1-common-mass-analyzers",
+      "action": "set_fields",
+      "chunk": "ch29",
+      "selector": "body[21]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch29-21",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "tbl-29.1",
+        "caption": "Table 29-1 Common Mass Analyzers for Mass Spectrometry",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Body text says Table 29-1 lists common mass analyzers; this adjacent table block has caption 'Tab le 29-1' and matching title."
+    },
+    {
+      "id": "skoog-ch34-fig-34-13-packed-column-cec-electrochromatogram",
+      "action": "set_fields",
+      "chunk": "ch34",
+      "selector": "body[142]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-34.5"
+      },
+      "set": {
+        "id": "fig-34.13",
+        "caption": "Figure 34-13 Typical electrochromatogram for the separation of 16 polyaromatic hydrocarbons by packed-column capillary electrochromatography.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The plotted electropherogram at body[142] matches the preceding Figure 34-13 reference and its continuation caption at body[141]; it was mislabeled as fig-34.5."
+    }
+  ]
+}

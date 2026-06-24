@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "ramakrishnan-ch19-fig-19-2-id",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[30]",
+      "expect": {
+        "t": "table",
+        "id": "fig-19.1--1",
+        "caption": "The instances of these relations corresponding to the instance of Hourly Emps relation in Figure 19.1 is shown in Figure 19.2. Figure 19.2 Instances of Hourly Emps2 and Wages"
+      },
+      "set": {
+        "id": "fig-19.2",
+        "kind": "text",
+        "catalog_repair_source": "catalog-audit-c4-id-fix"
+      },
+      "reason": "C4: body text references Figure 19.2 and the same table block caption contains 'Figure 19.2 Instances of Hourly Emps2 and Wages'; MinerU/parser assigned a spurious fig-19.1-derived id. Set the block's semantic id to fig-19.2."
+    },
+    {
+      "id": "ramakrishnan-ch26-fig-26-17-alias",
+      "action": "set_fields",
+      "chunk": "ch26",
+      "selector": "problem:26.10:body[1]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch26-prob9-1",
+        "caption": "<sub>Figure</sub> <sub>26.17</sub> The SubscriberInfo Relation",
+        "catalog_exclude_reason": "problem_inline_unlabeled_table"
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-26.17",
+            "type": "figure",
+            "caption": "Figure 26.17: The SubscriberInfo Relation",
+            "source": "catalog-audit-c4-inline-table-alias",
+            "evidence": "Problem 26.8 references Figure 26.17; the inline table block caption is '<sub>Figure</sub> <sub>26.17</sub> The SubscriberInfo Relation'."
+          }
+        ],
+        "catalog_repair_source": "catalog-audit-c4-inline-table-alias"
+      },
+      "reason": "C4: the referenced Figure 26.17 exists as an inline table block whose caption carries the figure label, but the block remains excluded as an unlabeled problem table. Add a figure catalog alias to satisfy the reference without reclassifying the underlying table block."
+    }
+  ]
+}

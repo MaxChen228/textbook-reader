@@ -1,0 +1,200 @@
+slug: levine_physical_chemistry
+title: Physical Chemistry
+author: Ira N. Levine
+edition: 5th
+subject: Physical Chemistry
+body_start_page: 26
+appendices_start_page: 987
+bibliography_start_page: null
+index_start_page: null
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+heading_text_level: 2
+heading_priority:
+- subsection_re
+- section_re
+section_re: ^([0-9]+\.[0-9]+)\s+(.+)$
+subsection_re: ^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+)$
+example_start_re: ^Example\s+([0-9]+\.[0-9]+)\b
+equation_label_re: \\tag\{([^}]+)\}
+equation_strip_dollar: true
+figure_caption_main_re: ^(Fig(?:ure)?\.?\s+[0-9]+\.[0-9]+)\b\s*(.*)$
+problem_start_re: ^([0-9]+\.[0-9]+)\s+
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+chapters:
+- num: 1
+  title: Thermodynamics
+  page_start: 26
+  page_end: 59
+  chapter_title_block_idx: 230
+  problems_block_idx: 789
+  next_chapter_block_idx: 860
+- num: 2
+  title: The First Law of Thermodynamics
+  page_start: 60
+  page_end: 100
+  chapter_title_block_idx: 860
+  problems_block_idx: 1534
+  next_chapter_block_idx: 1634
+- num: 3
+  title: The Second Law of Thermodynamics
+  page_start: 101
+  page_end: 130
+  chapter_title_block_idx: 1634
+  problems_block_idx: 2088
+  next_chapter_block_idx: 2153
+- num: 4
+  title: Material Equilibrium
+  page_start: 131
+  page_end: 164
+  chapter_title_block_idx: 2153
+  problems_block_idx: 2720
+  next_chapter_block_idx: 2800
+- num: 5
+  title: Standard Thermodynamic Functions of Reaction
+  page_start: 165
+  page_end: 198
+  chapter_title_block_idx: 2800
+  problems_block_idx: 3330
+  next_chapter_block_idx: 3414
+- num: 6
+  title: Reaction Equilibrium in Ideal Gas Mixtures
+  page_start: 199
+  page_end: 227
+  chapter_title_block_idx: 3414
+  problems_block_idx: 3837
+  next_chapter_block_idx: 3941
+- num: 7
+  title: One-Component Phase Equilibrium
+  page_start: 228
+  page_end: 254
+  chapter_title_block_idx: 3941
+  problems_block_idx: 4284
+  next_chapter_block_idx: 4351
+- num: 8
+  title: Real Gases
+  page_start: 255
+  page_end: 273
+  chapter_title_block_idx: 4351
+  problems_block_idx: 4634
+  next_chapter_block_idx: 4706
+- num: 9
+  title: Solutions
+  page_start: 274
+  page_end: 305
+  chapter_title_block_idx: 4706
+  problems_block_idx: 5200
+  next_chapter_block_idx: 5342
+- num: 10
+  title: Nonideal Solutions
+  page_start: 306
+  page_end: 343
+  chapter_title_block_idx: 5342
+  problems_block_idx: 5940
+  next_chapter_block_idx: 6058
+- num: 11
+  title: Reaction Equilibrium in Nonideal Systems
+  page_start: 344
+  page_end: 365
+  chapter_title_block_idx: 6058
+  problems_block_idx: 6347
+  next_chapter_block_idx: 6440
+- num: 12
+  title: Colligative Properties
+  page_start: 366
+  page_end: 408
+  chapter_title_block_idx: 6440
+  problems_block_idx: 6970
+  next_chapter_block_idx: 7088
+- num: 13
+  title: Surface Chemistry
+  page_start: 409
+  page_end: 433
+  chapter_title_block_idx: 7088
+  problems_block_idx: 7426
+  next_chapter_block_idx: 7504
+- num: 14
+  title: Electrochemical Systems
+  page_start: 434
+  page_end: 480
+  chapter_title_block_idx: 7504
+  problems_block_idx: 8241
+  next_chapter_block_idx: 8374
+- num: 15
+  title: Kinetic Theory of Gases
+  page_start: 481
+  page_end: 511
+  chapter_title_block_idx: 8374
+  problems_block_idx: 8883
+  next_chapter_block_idx: 8970
+- num: 16
+  title: Transport Processes
+  page_start: 512
+  page_end: 552
+  chapter_title_block_idx: 8970
+  problems_block_idx: 9608
+  next_chapter_block_idx: 9689
+- num: 17
+  title: Reaction Kinetics
+  page_start: 553
+  page_end: 622
+  chapter_title_block_idx: 9689
+  problems_block_idx: 10734
+  next_chapter_block_idx: 10895
+- num: 18
+  title: Photochemistry
+  page_start: 623
+  page_end: 669
+  chapter_title_block_idx: 10895
+  problems_block_idx: 11699
+  next_chapter_block_idx: 11804
+- num: 19
+  title: Quantum Mechanics
+  page_start: 670
+  page_end: 703
+  chapter_title_block_idx: 11804
+  problems_block_idx: 12271
+  next_chapter_block_idx: 12367
+- num: 20
+  title: Atomic Structure and Atomic Spectra
+  page_start: 704
+  page_end: 762
+  chapter_title_block_idx: 12367
+  problems_block_idx: 13172
+  next_chapter_block_idx: 13270
+- num: 21
+  title: Molecular Electronic Structure
+  page_start: 763
+  page_end: 847
+  chapter_title_block_idx: 13270
+  problems_block_idx: 14487
+  next_chapter_block_idx: 14637
+- num: 22
+  title: Statistical Mechanics
+  page_start: 848
+  page_end: 903
+  chapter_title_block_idx: 14637
+  problems_block_idx: 15543
+  next_chapter_block_idx: 15654
+- num: 23
+  title: Theories of Reaction Rates
+  page_start: 904
+  page_end: 939
+  chapter_title_block_idx: 15654
+  problems_block_idx: 16130
+  next_chapter_block_idx: 16165
+- num: 24
+  title: Solids and Liquids
+  page_start: 940
+  page_end: 986
+  chapter_title_block_idx: 16165
+  problems_block_idx: 16782
+  next_chapter_block_idx: 16987
+appendices: []

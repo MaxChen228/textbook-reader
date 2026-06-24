@@ -1,0 +1,122 @@
+slug: pavia_spectroscopy
+title: Introduction to Spectroscopy
+author: Donald L. Pavia; Gary M. Lampman; George S. Kriz; James R. Vyvyan
+edition: 4th
+subject: Organic Chemistry
+publisher: Brooks/Cole, Cengage Learning
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 689
+bibliography_start_page: null
+index_start_page: 737
+
+chapters:
+  - num: 1
+    title: Molecular Formulas and What Can Be Learned from Them
+    page_start: 17
+    page_end: 30
+    chapter_title_block_idx: 155
+    problems_block_idx: 325
+    next_chapter_block_idx: 358
+  - num: 2
+    title: Infrared Spectroscopy
+    page_start: 31
+    page_end: 120
+    chapter_title_block_idx: 358
+    problems_block_idx: 1090
+    next_chapter_block_idx: 1220
+  - num: 3
+    title: "Nuclear Magnetic Resonance Spectroscopy: Part One: Basic Concepts"
+    page_start: 121
+    page_end: 192
+    chapter_title_block_idx: 1220
+    problems_block_idx: 1714
+    next_chapter_block_idx: 1830
+  - num: 4
+    title: "Nuclear Magnetic Resonance Spectroscopy: Part Two: Carbon-13 Spectra, Including Heteronuclear Coupling with Other Nuclei"
+    page_start: 193
+    page_end: 248
+    chapter_title_block_idx: 1830
+    chapter_title_block_idx_secondary: 1831
+    problems_block_idx: 2157
+    next_chapter_block_idx: 2331
+  - num: 5
+    title: "Nuclear Magnetic Resonance Spectroscopy: Part Three: Spin-Spin Coupling"
+    page_start: 249
+    page_end: 344
+    chapter_title_block_idx: 2331
+    problems_block_idx: 2859
+    next_chapter_block_idx: 3114
+  - num: 6
+    title: "Nuclear Magnetic Resonance Spectroscopy: Part Four: Other Topics in One-Dimensional NMR"
+    page_start: 345
+    page_end: 396
+    chapter_title_block_idx: 3114
+    chapter_title_block_idx_secondary: 3115
+    problems_block_idx: 3357
+    next_chapter_block_idx: 3474
+  - num: 7
+    title: Ultraviolet Spectroscopy
+    page_start: 397
+    page_end: 433
+    chapter_title_block_idx: 3474
+    problems_block_idx: 3802
+    next_chapter_block_idx: 3859
+  - num: 8
+    title: Mass Spectrometry
+    page_start: 434
+    page_end: 535
+    chapter_title_block_idx: 3859
+    problems_block_idx: 4463
+    next_chapter_block_idx: 4638
+  - num: 9
+    title: Combined Structure Problems
+    page_start: 536
+    page_end: 602
+    chapter_title_block_idx: 4638
+    problems_block_idx: 4734
+    next_chapter_block_idx: 4986
+  - num: 10
+    title: "Nuclear Magnetic Resonance Spectroscopy: Part Five: Advanced NMR Techniques"
+    page_start: 603
+    page_end: 672
+    chapter_title_block_idx: 4986
+    problems_block_idx: 5264
+    next_chapter_block_idx: 5372
+
+appendices:
+  - id: A
+    title: Appendices
+    page_start: 689
+    chapter_title_block_idx: 5652
+
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^([A-Z])\.\s+(.+)$'
+problem_start_re: '^\\?\*?(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: '^(R\s*E\s*F\s*E\s*R\s*E\s*N\s*C\s*E\s*S|S\s*O\s*U\s*R\s*C\s*E\s*S\s+O\s*F\s+A\s*D\s*D\s*I\s*T\s*I\s*O\s*N\s*A\s*L\s+P\s*R\s*O\s*B\s*L\s*E\s*M\s*S)\s*$'
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^(?:Equation\s*)?(\d+\.\d+)'
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "jensen-ch13-fig-4.41-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[73]",
+      "field": "md",
+      "old": "Figure 4.41). In the initial coordinate system",
+      "new": "Figure 4.4). In the initial coordinate system",
+      "reason": "Raw PDF physical page 335 prints Figure 4.4; MinerU/OCR merged the following punctuation/word into 4.41, causing a false missing-figure ref. Catalog already has fig-4.4 (Structure of the CI matrix)."
+    }
+  ]
+}

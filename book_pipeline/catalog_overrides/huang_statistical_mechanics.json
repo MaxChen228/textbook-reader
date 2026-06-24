@@ -1,0 +1,30 @@
+{
+  "slug": "huang_statistical_mechanics",
+  "version": 1,
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "huang-statmech-fig-14-2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[38]",
+      "position": "after",
+      "page": 362,
+      "clip": [
+        0.08,
+        0.785,
+        0.92,
+        0.95
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-14.2.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-14.2",
+        "kind": "line",
+        "caption": "Fig. 14.2 A configuration of a two-dimensional lattice gas. Solid circles represent atoms and open circles represent empty lattice sites."
+      },
+      "reason": "C4: 正文於 ch14 body[38] 引用 Figure 14.2；MinerU content_list 在 page_idx 361/362 間漏抓該圖，依 raw PDF page 362 補裁 Figure 14.2 圖與 caption 並插於引用段落後。"
+    }
+  ]
+}

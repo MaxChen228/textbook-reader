@@ -1,0 +1,223 @@
+slug: silbey_physical_chemistry
+title: Physical Chemistry
+author: Robert J. Silbey; Robert A. Alberty; Moungi G. Bawendi
+edition: 4th ed.
+subject: Physical Chemistry
+publisher: Wiley
+language: en
+body_start_page: 15
+appendices_start_page: 869
+index_start_page: 940
+filter_types:
+- header
+- footer
+- page_number
+heading_text_level: 2
+heading_priority:
+- subsection_re
+- section_re
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(Point Group(?:s)?\s+.+|Special Point Groups|General|Specific Cases|Application
+  to Group Theory|Applications to Quantum Mechanics)()\s*$
+example_start_re: ^Example\s+(\d+\.\d+)\s+.+$
+equation_label_re: \((\d+\.\d+)\)
+equation_strip_dollar: true
+problem_start_re: ^(\d+\.(?:\d+|[A-Z]))\b
+problem_chapter_must_match: true
+problems_end_re: ^(?:Computer Problems|Answers to Selected Problems|Chapter\s+\d+\b|[A-H]\.\s+|INDEX\b)
+figure_caption_merge: true
+figure_caption_main_re: ^Figure\s+(\d+\.\d+)\b
+chapters:
+- num: 1
+  title: Zeroth Law of Thermodynamics and Equations of State
+  page_start: 15
+  page_end: 41
+  chapter_title_block_idx: 64
+  problems_block_idx: 400
+  next_chapter_block_idx: 486
+- num: 2
+  title: First Law of Thermodynamics
+  page_start: 42
+  page_end: 85
+  chapter_title_block_idx: 486
+  problems_block_idx: 1084
+  next_chapter_block_idx: 1237
+- num: 3
+  title: Second and Third Laws of Thermodynamics
+  page_start: 86
+  page_end: 113
+  chapter_title_block_idx: 1237
+  problems_block_idx: 1670
+  next_chapter_block_idx: 1757
+- num: 4
+  title: Fundamental Equations of Thermodynamics
+  page_start: 114
+  page_end: 143
+  chapter_title_block_idx: 1757
+  problems_block_idx: 2239
+  next_chapter_block_idx: 2358
+- num: 5
+  title: Chemical Equilibrium
+  page_start: 144
+  page_end: 184
+  chapter_title_block_idx: 2358
+  problems_block_idx: 2976
+  next_chapter_block_idx: 3073
+- num: 6
+  title: Phase Equilibrium
+  page_start: 185
+  page_end: 225
+  chapter_title_block_idx: 3073
+  problems_block_idx: 3591
+  next_chapter_block_idx: 3786
+- num: 7
+  title: Electrochemical Equilibrium
+  page_start: 226
+  page_end: 261
+  chapter_title_block_idx: 3786
+  problems_block_idx: 4276
+  next_chapter_block_idx: 4445
+- num: 8
+  title: Thermodynamics of Biochemical Reactions
+  page_start: 262
+  page_end: 302
+  chapter_title_block_idx: 4445
+  problems_block_idx: 4867
+  next_chapter_block_idx: 5028
+- num: 9
+  title: Quantum Theory
+  page_start: 303
+  page_end: 355
+  chapter_title_block_idx: 5028
+  problems_block_idx: 5880
+  next_chapter_block_idx: 5993
+- num: 10
+  title: Atomic Structure
+  page_start: 356
+  page_end: 403
+  chapter_title_block_idx: 5993
+  problems_block_idx: 6615
+  next_chapter_block_idx: 6728
+- num: 11
+  title: Molecular Electronic Structure
+  page_start: 404
+  page_end: 444
+  chapter_title_block_idx: 6728
+  problems_block_idx: 7243
+  next_chapter_block_idx: 7321
+- num: 12
+  title: Symmetry
+  page_start: 445
+  page_end: 465
+  chapter_title_block_idx: 7321
+  problems_block_idx: 7564
+  next_chapter_block_idx: 7653
+- num: 13
+  title: Rotational and Vibrational Spectroscopy
+  page_start: 466
+  page_end: 509
+  chapter_title_block_idx: 7653
+  problems_block_idx: 8207
+  next_chapter_block_idx: 8313
+- num: 14
+  title: Electronic Spectroscopy of Molecules
+  page_start: 510
+  page_end: 544
+  chapter_title_block_idx: 8313
+  problems_block_idx: 8675
+  next_chapter_block_idx: 8752
+- num: 15
+  title: Magnetic Resonance Spectroscopy
+  page_start: 545
+  page_end: 575
+  chapter_title_block_idx: 8752
+  problems_block_idx: 9107
+  next_chapter_block_idx: 9178
+- num: 16
+  title: Statistical Mechanics
+  page_start: 576
+  page_end: 619
+  chapter_title_block_idx: 9178
+  problems_block_idx: 9717
+  next_chapter_block_idx: 9851
+- num: 17
+  title: Kinetic Theory of Gases
+  page_start: 621
+  page_end: 648
+  chapter_title_block_idx: 9851
+  problems_block_idx: 10216
+  next_chapter_block_idx: 10293
+- num: 18
+  title: Experimental Kinetics and Gas Reactions
+  page_start: 649
+  page_end: 693
+  chapter_title_block_idx: 10293
+  problems_block_idx: 10910
+  next_chapter_block_idx: 11147
+- num: 19
+  title: Chemical Dynamics and Photochemistry
+  page_start: 694
+  page_end: 731
+  chapter_title_block_idx: 11147
+  problems_block_idx: 11602
+  next_chapter_block_idx: 11690
+- num: 20
+  title: Kinetics in the Liquid Phase
+  page_start: 732
+  page_end: 769
+  chapter_title_block_idx: 11690
+  problems_block_idx: 12192
+  next_chapter_block_idx: 12362
+- num: 21
+  title: Macromolecules
+  page_start: 771
+  page_end: 793
+  chapter_title_block_idx: 12362
+  problems_block_idx: 12637
+  next_chapter_block_idx: 12703
+- num: 22
+  title: Electric and Magnetic Properties of Molecules
+  page_start: 794
+  page_end: 810
+  chapter_title_block_idx: 12703
+  problems_block_idx: 12935
+  next_chapter_block_idx: 12962
+- num: 23
+  title: Solid-State Chemistry
+  page_start: 811
+  page_end: 847
+  chapter_title_block_idx: 12962
+  problems_block_idx: 13419
+  next_chapter_block_idx: 13467
+- num: 24
+  title: Surface Dynamics
+  page_start: 848
+  page_end: 869
+  chapter_title_block_idx: 13467
+  problems_block_idx: 13700
+  next_chapter_block_idx: 13744
+appendices:
+- id: A
+  title: Physical Quantities and Units
+  chapter_title_block_idx: 13770
+- id: B
+  title: Values of Physical Constants
+  chapter_title_block_idx: 13803
+- id: C
+  title: Tables of Physical Chemical Data
+  chapter_title_block_idx: 13805
+- id: D
+  title: Mathematical Relations
+  chapter_title_block_idx: 13868
+- id: E
+  title: Greek Alphabet
+  chapter_title_block_idx: 14100
+- id: F
+  title: Useful Information on the Web
+  chapter_title_block_idx: 14102
+- id: G
+  title: Symbols for Physical Quantities and Their SI Units
+  chapter_title_block_idx: 14111
+- id: H
+  title: Answers to the First Set of Problems
+  chapter_title_block_idx: 14160

@@ -1,0 +1,146 @@
+slug: maclane_categories
+title: Categories for the Working Mathematician
+author: Saunders Mac Lane
+edition: 2nd
+subject: Category Theory
+publisher: Springer
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, aside_text, ref_text]
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 294
+bibliography_start_page: 299
+index_start_page: 305
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Categories, Functors, and Natural Transformations
+    page_start: 7
+    page_end: 30
+    chapter_title_block_idx: 178
+    problems_block_idx: null
+    next_chapter_block_idx: 473
+  - num: 2
+    title: Constructions on Categories
+    page_start: 31
+    page_end: 54
+    chapter_title_block_idx: 473
+    problems_block_idx: null
+    next_chapter_block_idx: 795
+  - num: 3
+    title: Universals and Limits
+    page_start: 55
+    page_end: 78
+    chapter_title_block_idx: 795
+    problems_block_idx: null
+    next_chapter_block_idx: 1130
+  - num: 4
+    title: Adjoints
+    page_start: 79
+    page_end: 108
+    chapter_title_block_idx: 1130
+    problems_block_idx: null
+    next_chapter_block_idx: 1589
+  - num: 5
+    title: Limits
+    page_start: 109
+    page_end: 136
+    chapter_title_block_idx: 1589
+    problems_block_idx: null
+    next_chapter_block_idx: 1950
+  - num: 6
+    title: Monads and Algebras
+    page_start: 137
+    page_end: 160
+    chapter_title_block_idx: 1950
+    problems_block_idx: null
+    next_chapter_block_idx: 2320
+  - num: 7
+    title: Monoids
+    page_start: 161
+    page_end: 188
+    chapter_title_block_idx: 2320
+    problems_block_idx: null
+    next_chapter_block_idx: 2747
+  - num: 8
+    title: Abelian Categories
+    page_start: 191
+    page_end: 202
+    chapter_title_block_idx: 2747
+    problems_block_idx: null
+    next_chapter_block_idx: 3026
+  - num: 9
+    title: Special Limits
+    page_start: 211
+    page_end: 230
+    chapter_title_block_idx: 3026
+    problems_block_idx: null
+    next_chapter_block_idx: 3357
+  - num: 10
+    title: Kan Extensions
+    page_start: 233
+    page_end: 248
+    chapter_title_block_idx: 3357
+    problems_block_idx: null
+    next_chapter_block_idx: 3642
+  - num: 11
+    title: Symmetry and Braidings in Monoidal Categories
+    page_start: 251
+    page_end: 266
+    chapter_title_block_idx: 3642
+    problems_block_idx: null
+    next_chapter_block_idx: 3863
+  - num: 12
+    title: Structures in Categories
+    page_start: 267
+    page_end: 285
+    chapter_title_block_idx: 3863
+    problems_block_idx: null
+    next_chapter_block_idx: 4194
+
+appendices:
+  - id: A
+    title: Foundations
+    page_start: 289
+    page_end: 291
+    chapter_title_block_idx: 4194
+  - id: B
+    title: "Table of Standard Categories: Objects and Arrows"
+    page_start: 293
+    page_end: 294
+    chapter_title_block_idx: 4225
+  - id: C
+    title: Table of Terminology
+    page_start: 295
+    page_end: 296
+    chapter_title_block_idx: 4229
+
+section_re: '^((?:[1-9]|1[0-2])\.\s+(.+))$'
+subsection_re: '^(Notes?\.)()$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^Exercises?$'
+suppress_running_header_sections: true
+problems_end_re: '^Notes?\.?$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+  - chapter: 3
+    nums: ["5.CategorieswithFiniteProducts.4"]
+  - chapter: 5
+    nums: ["8.TheSpecialAdjointFunctorTheorem.1", "8.TheSpecialAdjointFunctorTheorem.2"]
+  - chapter: 9
+    nums: ["4.DiagonalNaturality.5"]

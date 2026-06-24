@@ -1,0 +1,162 @@
+slug: gaskell_thermodynamics_materials
+title: Introduction to the Thermodynamics of Materials
+author: "David R. Gaskell; David E. Laughlin"
+edition: "7th"
+subject: Thermal Physics
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 651
+bibliography_start_page: null
+index_start_page: 685
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction and Definition of Terms
+    page_start: 25
+    page_end: 44
+    chapter_title_block_idx: 141
+    problems_block_idx: 365
+    next_chapter_block_idx: 386
+  - num: 2
+    title: The First Law of Thermodynamics
+    page_start: 45
+    page_end: 78
+    chapter_title_block_idx: 386
+    problems_block_idx: 848
+    next_chapter_block_idx: 948
+  - num: 3
+    title: The Second Law of Thermodynamics
+    page_start: 79
+    page_end: 115
+    chapter_title_block_idx: 948
+    problems_block_idx: 1490
+    next_chapter_block_idx: 1525
+  - num: 4
+    title: The Statistical Interpretation of Entropy
+    page_start: 116
+    page_end: 152
+    chapter_title_block_idx: 1525
+    problems_block_idx: 1999
+    next_chapter_block_idx: 2029
+  - num: 5
+    title: Fundamental Equations and Their Relationships
+    page_start: 153
+    page_end: 190
+    chapter_title_block_idx: 2029
+    problems_block_idx: 2601
+    next_chapter_block_idx: 2649
+  - num: 6
+    title: Heat Capacity, Enthalpy, Entropy, and the Third Law of Thermodynamics
+    page_start: 191
+    page_end: 236
+    chapter_title_block_idx: 2649
+    problems_block_idx: 3182
+    next_chapter_block_idx: 3251
+  - num: 7
+    title: Phase Equilibrium in a One-Component System
+    page_start: 237
+    page_end: 271
+    chapter_title_block_idx: 3251
+    problems_block_idx: 3593
+    next_chapter_block_idx: 3669
+  - num: 8
+    title: The Behavior of Gases
+    page_start: 272
+    page_end: 311
+    chapter_title_block_idx: 3669
+    problems_block_idx: 4169
+    next_chapter_block_idx: 4214
+  - num: 9
+    title: The Behavior of Solutions
+    page_start: 312
+    page_end: 363
+    chapter_title_block_idx: 4214
+    problems_block_idx: 4873
+    next_chapter_block_idx: 4937
+  - num: 10
+    title: Gibbs Free Energy Composition and Phase Diagrams of Binary Systems
+    page_start: 364
+    page_end: 414
+    chapter_title_block_idx: 4937
+    problems_block_idx: 5389
+    next_chapter_block_idx: 5532
+  - num: 11
+    title: Reactions Involving Gases
+    page_start: 415
+    page_end: 447
+    chapter_title_block_idx: 5532
+    problems_block_idx: 6048
+    next_chapter_block_idx: 6090
+  - num: 12
+    title: Reactions Involving Pure Condensed Phases and a Gaseous Phase
+    page_start: 448
+    page_end: 490
+    chapter_title_block_idx: 6090
+    problems_block_idx: 6715
+    next_chapter_block_idx: 6784
+  - num: 13
+    title: Reaction Equilibria in Systems Containing Components in Condensed Solution
+    page_start: 491
+    page_end: 563
+    chapter_title_block_idx: 6784
+    problems_block_idx: 7786
+    next_chapter_block_idx: 7852
+  - num: 14
+    title: Electrochemistry
+    page_start: 564
+    page_end: 617
+    chapter_title_block_idx: 7852
+    problems_block_idx: 8715
+    next_chapter_block_idx: 8753
+  - num: 15
+    title: More Binary System Solution Models
+    page_start: 618
+    page_end: 650
+    chapter_title_block_idx: 8753
+    problems_block_idx: 9241
+    next_chapter_block_idx: 9292
+
+appendices:
+  - id: A
+    title: Selected Thermodynamic and Thermochemical Data
+    page_start: 651
+    chapter_title_block_idx: 9292
+  - id: B
+    title: Useful Mathematical Relationships
+    page_start: 658
+    chapter_title_block_idx: 9365
+  - id: C
+    title: The Generation of Additional Thermodynamic Potentials as Legendre Transformations
+    page_start: 661
+    chapter_title_block_idx: 9404
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\$?\s*(?:\{\s*)?(?:\\(?:bf|mathbf)\s*\{\s*)?(\d+\s*\.\s*\d+)\s*(?:\^\s*\{?\s*\\?\*\s*\}?|\\\*|\*)?(?:\s*\}\s*){0,3}\$?\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

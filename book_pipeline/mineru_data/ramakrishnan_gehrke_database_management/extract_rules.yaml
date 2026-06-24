@@ -1,0 +1,253 @@
+slug: ramakrishnan_gehrke_database_management
+title: Database Management Systems
+author: Raghu Ramakrishnan; Johannes Gehrke
+edition: 3rd
+subject: Database Systems
+publisher: McGraw-Hill
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level:
+- 1
+- 2
+body_start_page: 35
+appendices_start_page: 1077
+bibliography_start_page: 1034
+index_start_page: 1077
+inline_problems: true
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(?:<sup>)?Exercise(?:</sup>)?\s*(?:<sup>)?(\d+\.\d+)(?:</sup>)?\b\s*
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_start_re: ^(?:EXERCISES|PROJECT-BASED EXERCISES)$
+problems_end_re: ^(?:BIBLIOGRAPHIC NOTES|FURTHER READING|AUTHOR INDEX|SUBJECT INDEX)$
+solution_start_re: null
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: ^(Figure|Table)\s+(\d+\.\d+)
+chapters:
+- num: 1
+  title: Overview Of Database Systems
+  chapter_title_block_idx: 158
+  problems_block_idx: null
+  next_chapter_block_idx: 409
+  page_start: 35
+  page_end: 57
+- num: 2
+  title: Introduction To Database Design
+  chapter_title_block_idx: 409
+  problems_block_idx: null
+  next_chapter_block_idx: 749
+  page_start: 57
+  page_end: 89
+- num: 3
+  title: The Relational Model
+  chapter_title_block_idx: 749
+  problems_block_idx: null
+  next_chapter_block_idx: 1230
+  page_start: 89
+  page_end: 132
+- num: 4
+  title: Relational Algebra And Calculus
+  chapter_title_block_idx: 1230
+  problems_block_idx: null
+  next_chapter_block_idx: 1665
+  page_start: 132
+  page_end: 162
+- num: 5
+  title: 'SQL: Queries, Constraints, Triggers'
+  chapter_title_block_idx: 1665
+  problems_block_idx: null
+  next_chapter_block_idx: 2382
+  page_start: 162
+  page_end: 217
+- num: 6
+  title: Database Application Development
+  chapter_title_block_idx: 2382
+  problems_block_idx: null
+  next_chapter_block_idx: 2835
+  page_start: 217
+  page_end: 252
+- num: 7
+  title: Internet Applications
+  chapter_title_block_idx: 2835
+  problems_block_idx: null
+  next_chapter_block_idx: 3406
+  page_start: 252
+  page_end: 305
+- num: 8
+  title: Overview Of Storage And Indexing
+  chapter_title_block_idx: 3406
+  problems_block_idx: null
+  next_chapter_block_idx: 3779
+  page_start: 305
+  page_end: 336
+- num: 9
+  title: 'Storing Data: Disks And Files'
+  chapter_title_block_idx: 3779
+  problems_block_idx: null
+  next_chapter_block_idx: 4133
+  page_start: 336
+  page_end: 370
+- num: 10
+  title: Tree-Structured Indexing
+  chapter_title_block_idx: 4133
+  problems_block_idx: null
+  next_chapter_block_idx: 4422
+  page_start: 370
+  page_end: 402
+- num: 11
+  title: Hash-Based Indexing
+  chapter_title_block_idx: 4422
+  problems_block_idx: null
+  next_chapter_block_idx: 4632
+  page_start: 402
+  page_end: 425
+- num: 12
+  title: Overview Of Query Evaluation
+  chapter_title_block_idx: 4632
+  problems_block_idx: null
+  next_chapter_block_idx: 4969
+  page_start: 425
+  page_end: 453
+- num: 13
+  title: External Sorting
+  chapter_title_block_idx: 4969
+  problems_block_idx: null
+  next_chapter_block_idx: 5166
+  page_start: 453
+  page_end: 471
+- num: 14
+  title: Evaluating Relational Operators
+  chapter_title_block_idx: 5166
+  problems_block_idx: null
+  next_chapter_block_idx: 5609
+  page_start: 471
+  page_end: 510
+- num: 15
+  title: A Typical Relational Query Optimizer
+  chapter_title_block_idx: 5609
+  problems_block_idx: null
+  next_chapter_block_idx: 6146
+  page_start: 510
+  page_end: 551
+- num: 16
+  title: Overview Of Transaction Management
+  chapter_title_block_idx: 6146
+  problems_block_idx: null
+  next_chapter_block_idx: 6476
+  page_start: 551
+  page_end: 581
+- num: 17
+  title: Concurrency Control
+  chapter_title_block_idx: 6476
+  problems_block_idx: null
+  next_chapter_block_idx: 6828
+  page_start: 581
+  page_end: 611
+- num: 18
+  title: Crash Recovery
+  chapter_title_block_idx: 6828
+  problems_block_idx: null
+  next_chapter_block_idx: 7114
+  page_start: 611
+  page_end: 637
+- num: 19
+  title: Schema Refinement And Normal Forms
+  chapter_title_block_idx: 7114
+  problems_block_idx: null
+  next_chapter_block_idx: 7681
+  page_start: 637
+  page_end: 681
+- num: 20
+  title: Physical Database Design And Tuning
+  chapter_title_block_idx: 7681
+  problems_block_idx: null
+  next_chapter_block_idx: 8213
+  page_start: 681
+  page_end: 724
+- num: 21
+  title: Security And Authorization
+  chapter_title_block_idx: 8213
+  problems_block_idx: null
+  next_chapter_block_idx: 8573
+  page_start: 724
+  page_end: 757
+- num: 22
+  title: Parallel And Distributed Databases
+  chapter_title_block_idx: 8573
+  problems_block_idx: null
+  next_chapter_block_idx: 9109
+  page_start: 757
+  page_end: 804
+- num: 23
+  title: Object-Database Systems
+  chapter_title_block_idx: 9109
+  problems_block_idx: null
+  next_chapter_block_idx: 9647
+  page_start: 804
+  page_end: 849
+- num: 24
+  title: Deductive Databases
+  chapter_title_block_idx: 9647
+  problems_block_idx: null
+  next_chapter_block_idx: 10004
+  page_start: 849
+  page_end: 878
+- num: 25
+  title: Data Warehousing And Decision Support
+  chapter_title_block_idx: 10004
+  problems_block_idx: null
+  next_chapter_block_idx: 10516
+  page_start: 878
+  page_end: 921
+- num: 26
+  title: Data Mining
+  chapter_title_block_idx: 10516
+  problems_block_idx: null
+  next_chapter_block_idx: 10900
+  page_start: 921
+  page_end: 958
+- num: 27
+  title: Information Retrieval And XML Data
+  chapter_title_block_idx: 10900
+  problems_block_idx: null
+  next_chapter_block_idx: 11366
+  page_start: 958
+  page_end: 1000
+- num: 28
+  title: Spatial Data Management
+  chapter_title_block_idx: 11366
+  problems_block_idx: null
+  next_chapter_block_idx: 11596
+  page_start: 1000
+  page_end: 1024
+- num: 29
+  title: Further Reading
+  chapter_title_block_idx: 11596
+  problems_block_idx: null
+  next_chapter_block_idx: 12593
+  page_start: 1024
+  page_end: 1076
+appendices: []
+known_missing_problems:
+- chapter: 16
+  nums:
+  - '16.7'
+- chapter: 27
+  nums:
+  - '27.3'
+  - '27.5'

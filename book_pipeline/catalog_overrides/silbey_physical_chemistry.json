@@ -1,0 +1,24 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.31",
+      "classification": "external",
+      "reason": "Figure 6.31 appears only inside the reproduced-source credit for this book's Figure 11.13; it refers to Hollas, High Resolution Spectroscopy, not to an internal Silbey figure.",
+      "where": "ch11.json body[153]",
+      "evidence": "Parsed caption text reads: 'Figure 11.13 ... [Reproduced from J. M. Hollas, High Resolution Spectroscopy, Fig. 6.31, p. 316 ...]'; catalog already has internal fig-11.13 for this visual."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "silbey-pchem-ch06-fix-carbon-phase-ref-6.1d",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[20]",
+      "field": "md",
+      "old": "The phase diagram for carbon in Fig. 0.1d shows that graphite and diamond are in equilibrium",
+      "new": "The phase diagram for carbon in Fig. 6.1d shows that graphite and diamond are in equilibrium",
+      "reason": "C4 Figure 0.1d is a source/OCR numbering error in the paragraph immediately following Figure 6.1(a-d). The corresponding catalog entry is Figure 6.1, whose caption explicitly says '(a, b) water, (c) carbon dioxide, and (d) carbon'; therefore the intended internal reference is Fig. 6.1d."
+    }
+  ]
+}

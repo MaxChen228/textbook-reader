@@ -1,0 +1,25 @@
+{
+  "slug": "murphy_janeways_immunobiology",
+  "overrides": [
+    {
+      "id": "murphy-janeway-fig-13-42-table-caption",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[402]",
+      "expect": {
+        "id": "tbl-ch13-402",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-13.42",
+        "caption": "Fig. 13.42 Genes that influence progression to AIDS in humans. Abbreviations: E, an effect that acts early in progression to AIDS; L, acts late in AIDS progression; ?, plausible mechanism of action with no direct proof.",
+        "catalog_repair_source": "agent-reviewed-catalog-id-caption"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4:正文引用 Fig. 13.42；MinerU 將其表格拆成 body[402]/body[403]，caption 另在 unified content_list 後方，導致 catalog 只見未編號 body table。補回原 Fig. 13.42 caption 並以 text figure catalog 化。"
+    }
+  ],
+  "ref_classifications": []
+}

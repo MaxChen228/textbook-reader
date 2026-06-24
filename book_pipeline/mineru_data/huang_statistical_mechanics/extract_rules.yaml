@@ -1,0 +1,183 @@
+slug: huang_statistical_mechanics
+title: Statistical Mechanics
+author: Kerson Huang
+edition: 2nd
+subject: Thermal Physics
+publisher: John Wiley & Sons
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 20
+appendices_start_page: 485
+bibliography_start_page: null
+index_start_page: 504
+inline_problems: false
+chapters:
+- num: 1
+  title: THE LAWS OF THERMODYNAMICS
+  page_start: 20
+  page_end: 47
+  chapter_title_block_idx: 52
+  problems_block_idx: 501
+  next_chapter_block_idx: 530
+- num: 2
+  title: SOME APPLICATIONS OF THERMODYNAMICS
+  page_start: 48
+  page_end: 68
+  chapter_title_block_idx: 530
+  problems_block_idx: 809
+  next_chapter_block_idx: 832
+- num: 3
+  title: THE PROBLEM OF KINETIC THEORY
+  page_start: 69
+  page_end: 89
+  chapter_title_block_idx: 832
+  problems_block_idx: 1108
+  next_chapter_block_idx: 1122
+- num: 4
+  title: THE EQUILIBRIUM STATE OF A DILUTE GAS
+  page_start: 90
+  page_end: 109
+  chapter_title_block_idx: 1122
+  problems_block_idx: 1385
+  next_chapter_block_idx: 1415
+- num: 5
+  title: TRANSPORT PHENOMENA
+  page_start: 110
+  page_end: 143
+  chapter_title_block_idx: 1415
+  problems_block_idx: 1939
+  next_chapter_block_idx: 1985
+- num: 6
+  title: CLASSICAL STATISTICAL MECHANICS
+  page_start: 144
+  page_end: 159
+  chapter_title_block_idx: 1985
+  problems_block_idx: 2241
+  next_chapter_block_idx: 2252
+- num: 7
+  title: CANONICAL ENSEMBLE AND GRAND CANONICAL ENSEMBLE
+  page_start: 160
+  page_end: 187
+  chapter_title_block_idx: 2252
+  problems_block_idx: 2642
+  next_chapter_block_idx: 2709
+- num: 8
+  title: QUANTUM STATISTICAL MECHANICS
+  page_start: 188
+  page_end: 209
+  chapter_title_block_idx: 2709
+  problems_block_idx: 3022
+  next_chapter_block_idx: 3066
+- num: 9
+  title: GENERAL PROPERTIES OF THE PARTITION FUNCTION
+  page_start: 210
+  page_end: 229
+  chapter_title_block_idx: 3066
+  problems_block_idx: 3351
+  next_chapter_block_idx: 3380
+- num: 10
+  title: APPROXIMATE METHODS
+  page_start: 230
+  page_end: 257
+  chapter_title_block_idx: 3380
+  problems_block_idx: 3812
+  next_chapter_block_idx: 3864
+- num: 11
+  title: FERMI SYSTEMS
+  page_start: 258
+  page_end: 294
+  chapter_title_block_idx: 3864
+  problems_block_idx: 4399
+  next_chapter_block_idx: 4430
+- num: 12
+  title: BOSE SYSTEMS
+  page_start: 295
+  page_end: 323
+  chapter_title_block_idx: 4430
+  problems_block_idx: 4805
+  next_chapter_block_idx: 4855
+- num: 13
+  title: SUPERFLUIDS
+  page_start: 324
+  page_end: 357
+  chapter_title_block_idx: 4855
+  problems_block_idx: 5358
+  next_chapter_block_idx: 5384
+- num: 14
+  title: THE ISING MODEL
+  page_start: 358
+  page_end: 384
+  chapter_title_block_idx: 5384
+  problems_block_idx: 5703
+  next_chapter_block_idx: 5773
+- num: 15
+  title: THE ONSAGER SOLUTION
+  page_start: 385
+  page_end: 408
+  chapter_title_block_idx: 5773
+  problems_block_idx: 6221
+  next_chapter_block_idx: 6222
+- num: 16
+  title: CRITICAL PHENOMENA
+  page_start: 409
+  page_end: 432
+  chapter_title_block_idx: 6222
+  problems_block_idx: 6502
+  next_chapter_block_idx: 6535
+- num: 17
+  title: THE LANDAU APPROACH
+  page_start: 433
+  page_end: 457
+  chapter_title_block_idx: 6535
+  problems_block_idx: 6897
+  next_chapter_block_idx: 6919
+- num: 18
+  title: RENORMALIZATION GROUP
+  page_start: 458
+  page_end: 484
+  chapter_title_block_idx: 6919
+  problems_block_idx: 7287
+  next_chapter_block_idx: 7330
+appendices:
+- id: A
+  title: N-BODY SYSTEM OF IDENTICAL PARTICLES
+  page_start: 485
+  chapter_title_block_idx: 7330
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^()([A-Z][A-Za-z][A-Za-z0-9,;:’\'\-() ]{2,})$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^\s*(\d+\.\d+)\b
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^{}]+)\}
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+- chapter: 7
+  nums:
+  - '7.7'
+- chapter: 11
+  nums:
+  - '11.5'
+  - '11.6'
+  - '11.7'
+  - '11.8'
+  - '11.9'
+  - '11.10'
+  - '11.11'
+  - '11.12'
+  - '11.13'
+  - '11.14'

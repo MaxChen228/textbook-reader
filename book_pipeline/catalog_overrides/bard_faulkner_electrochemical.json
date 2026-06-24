@@ -1,0 +1,40 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "13.2.12",
+      "classification": "source_mismatch",
+      "reason": "原 PDF 正文明寫 Figure 13.2.12，但上下文同時指向 Figure 13.3.12/13.3.13 的 zone diagram 與 pattern CVs；本章 catalog 有 fig-13.3.12 與 fig-13.3.13，且不存在 fig-13.2.12，判定為原書/來源文字編號錯配，非本書漏圖。",
+      "where": "ch13.json body[344]",
+      "evidence": "PDF physical page 623: 'This behavior is evident in curves 2–4 of Figure 13.3.13 and is also indicated in pattern CVs 3–5 of Figure 13.2.12.' Same paragraph also references Figure 13.3.12 for the zone diagram; catalog contains fig-13.3.12 and fig-13.3.13."
+    },
+    {
+      "type": "figure",
+      "ref": "15.4.5d",
+      "classification": "source_mismatch",
+      "reason": "原 PDF 在第 18 章 18.4 節正文明寫 Figure 15.4.5d，但相鄰文字與 catalog 圖說皆為 Figure 18.4.5 的 d 分圖；判定為原書/來源文字章號錯配，非本書漏圖。",
+      "where": "ch18.json body[132]",
+      "evidence": "PDF physical page 891: 'As demonstrated in Figure 15.4.5d...' while surrounding section is 18.4 and nearby catalog entry fig-18.4.5 includes panel (d) comparing generation of CO2 radical and collection of C2O4^2-."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bard-faulkner-fig-14-2-5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[85]",
+      "position": "after",
+      "page": 663,
+      "clip": [0.49, 0.48, 0.89, 0.83],
+      "zoom": 3,
+      "src": "manual_fig-14.2.5.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-14.2.5",
+        "kind": "plot",
+        "caption": "Figure 14.2.5 Surface excesses vs. charge density, $\\sigma ^ { \\mathrm { M } }$, for Hg in 0.1 M KBr. [Reprinted with permission from Devanathan and Canagaratna (16). © 1963, Pergamon Press PLC.]"
+      },
+      "reason": "MinerU captured Figure 14.2.4 twice but missed the adjacent Figure 14.2.5 on PDF physical page 663; raw PDF shows the KBr plot at lower right."
+    }
+  ]
+}
