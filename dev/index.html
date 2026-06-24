@@ -1209,11 +1209,16 @@
   })
   // corpus 抽屜內 top 髒書 → 點開該書抽屜
   document.getElementById('dr-evs').addEventListener('click', e => {
-    const flt = e.target.closest('.pp-filter button')
-    if (flt) { ppFilter = flt.dataset.f; renderProposalsDrawer(); return }
     const prow = e.target.closest('.pp-row')
     if (prow) { openProposalDrawer(decodeURIComponent(prow.dataset.pid)); return }
     const row = e.target.closest('.math-row'); if (row) openDrawer(row.dataset.slug)
+  })
+  // proposals 篩選 tab（待分類/等外部/全部）渲染進 dr-meta（非 dr-evs）→ 委派必須掛 dr-meta；
+  // 原誤掛 dr-evs（sibling，事件不冒泡過去）→ 按鈕點了沒反應。dr-meta 元素持久（innerHTML
+  // 重繪不換元素）故委派一次綁定即長存。（2026-06-24 修使用者回報「篩選按鈕按不動」。）
+  document.getElementById('dr-meta').addEventListener('click', e => {
+    const flt = e.target.closest('.pp-filter button')
+    if (flt) { ppFilter = flt.dataset.f; renderProposalsDrawer() }
   })
   // session row 點擊：抽屜歷程（from=當前書）與 corpus 面板（無 from）共用
   document.getElementById('dr-hist').addEventListener('click', e => {
