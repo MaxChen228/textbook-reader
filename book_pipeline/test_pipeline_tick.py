@@ -49,6 +49,22 @@ def test_run_build_all_serialized_peak_concurrency_one():
         pt.subprocess.run = orig
 
 
+def test_audit_parallel_default_and_sem():
+    # audit/catalog_audit 並發閘預設（env 可調，但常態須有上限避免子進程爆發）
+    assert pt.AUDIT_PARALLEL == 8
+    assert isinstance(pt._AUDIT_SEM, type(threading.Semaphore()))
+    assert pt._CPU_HEAVY_LLM_STAGES == ('audit', 'catalog_audit')
+
+
+def test_llm_concurrency_guard_caps_only_cpu_heavy():
+    """audit/catalog_audit 走 _AUDIT_SEM（CPU-heavy 子進程）；qc/sol_extract 不套（network-bound 輕量）。"""
+    import contextlib
+    assert pt._llm_concurrency_guard('audit') is pt._AUDIT_SEM
+    assert pt._llm_concurrency_guard('catalog_audit') is pt._AUDIT_SEM
+    assert isinstance(pt._llm_concurrency_guard('qc'), contextlib.nullcontext)
+    assert isinstance(pt._llm_concurrency_guard('sol_extract'), contextlib.nullcontext)
+
+
 def test_run_build_all_returns_rc():
     class _R:
         returncode = 7
@@ -64,5 +80,7 @@ def test_run_build_all_returns_rc():
 if __name__ == '__main__':
     test_build_parallel_default_serialized()
     test_run_build_all_serialized_peak_concurrency_one()
+    test_audit_parallel_default_and_sem()
+    test_llm_concurrency_guard_caps_only_cpu_heavy()
     test_run_build_all_returns_rc()
     print('全部通過 ✅')

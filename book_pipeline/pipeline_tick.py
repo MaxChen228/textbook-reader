@@ -109,6 +109,13 @@ CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
 # 序列化（預設 1）：一次一本吃滿核最快、總吞吐更高。_BUILD_SEM 同時管 do_deploy 與 math 重烤兩處。
 BUILD_PARALLEL = int(os.environ.get('BOOK_PIPELINE_BUILD_PARALLEL', '1'))
 _BUILD_SEM = threading.Semaphore(BUILD_PARALLEL)
+# audit / catalog_audit 並發上限：兩階段各 spawn rg/python 子進程（audit_scout、catalog rebuild），
+# CPU-heavy。LLM_PARALLEL=0（全並發）下一批 N 本同時 audit → N×子進程爆發（實測 44 本 load 飆 80）。
+# 限同時最多 AUDIT_PARALLEL 本跑這兩階段——audit 多為 network-bound（codex 等待）、CPU 是間歇 burst，
+# 故 cap 取核數 8（非如 build 序列化到 1）：擋子進程爆發又不過度節流吞吐。qc/sol 輕量不套此閘。env 可調。
+AUDIT_PARALLEL = int(os.environ.get('BOOK_PIPELINE_AUDIT_PARALLEL', '8'))
+_AUDIT_SEM = threading.Semaphore(AUDIT_PARALLEL)
+_CPU_HEAVY_LLM_STAGES = ('audit', 'catalog_audit')
 # pipeline 在飛上限（backpressure）：pipeline 內待消化（in-flight OCR + 未上站待辦）≥ 此就不再下載新書，
 # 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 cycle 直接 select_next 取解析池待下載書、
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
@@ -698,21 +705,14 @@ def _run_one(provider: str, todo_verb: str, slug: str | None,
             log(f'scope_guard 異常（不影響派工）：{e}')
 
 
-def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
-    """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈不可用 → 呼叫端 defer。
-    派工策略（chain/model/effort/timeout）由 _resolve_dispatch(verb) 解析（DEFAULT←STAGE←env）。
-    **failover 觸發二類**（_run_one 回 reason）：① 撞額度（limit）② 服務中斷（outage：provider 零事件
-    /5xx/連線錯——外部掛了，非任務失敗）。兩者皆標記 provider 本 tick exhausted（並行子工不再重撞死池）、
-    換下一個 provider **重跑同一任務**（不浪費派工）；全鏈耗盡才 -2。**「有事件但 rc≠0」= agent 真跑了卻
-    任務失敗 → 不 failover**（換 provider 無益且恐雙寫），rc 交回呼叫端。
-    （本函式服務 qc/audit/sol_extract；crawl 不再派 LLM——買書員確定性下載 + 填書單改人工 /restock。）"""
-    prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
-    key = slug  # lease/registry/hist 身分鍵 = slug
-    spec = _resolve_dispatch(todo_verb)
-    chain = list(spec.chain or ())
-    if dry:
-        log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt, spec)))
-        return 0
+def _llm_concurrency_guard(verb: str):
+    """audit/catalog_audit 各 spawn CPU-heavy rg/python 子進程（audit_scout/catalog rebuild）→ 限
+    _AUDIT_SEM 並發、擋一批 N 本同時 audit 的子進程爆發；qc/sol 輕量(network-bound)不限。"""
+    return _AUDIT_SEM if verb in _CPU_HEAVY_LLM_STAGES else contextlib.nullcontext()
+
+
+def _dispatch_chain(todo_verb: str, key, prompt: str, spec, chain: list) -> int:
+    """dispatch_llm 的 provider failover 迴圈（抽出供 _llm_concurrency_guard 包覆並發閘）。"""
     tried = []
     # **單一 provider 鏈不套 exhaustion**（multi 才套）：exhaust 標記的唯二作用＝① 同 cycle 並發子工 fast-skip
     # 死池 ② 跨 cycle TTL 內換下一 provider——兩者都**前提是有「下一個」可切**。sole provider 鏈沒有 next，標
@@ -740,6 +740,26 @@ def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
             + (f'串接 {nxt} 重跑' if nxt else '鏈上無可用 provider'))
     log(f'❌ 全 provider 不可用 {chain}（試過 {tried}）→ defer {todo_verb} {key or ""}，下個 cycle 重試')
     return -2
+
+
+def dispatch_llm(todo_verb: str, slug: str | None, dry: bool) -> int:
+    """派 headless LLM 跑階段，沿 provider 鏈 failover。回 rc；-2 = 全鏈不可用 → 呼叫端 defer。
+    派工策略（chain/model/effort/timeout）由 _resolve_dispatch(verb) 解析（DEFAULT←STAGE←env）。
+    **failover 觸發二類**（_run_one 回 reason）：① 撞額度（limit）② 服務中斷（outage：provider 零事件
+    /5xx/連線錯——外部掛了，非任務失敗）。兩者皆標記 provider 本 tick exhausted（並行子工不再重撞死池）、
+    換下一個 provider **重跑同一任務**（不浪費派工）；全鏈耗盡才 -2。**「有事件但 rc≠0」= agent 真跑了卻
+    任務失敗 → 不 failover**（換 provider 無益且恐雙寫），rc 交回呼叫端。
+    （本函式服務 qc/audit/sol_extract；crawl 不再派 LLM——買書員確定性下載 + 填書單改人工 /restock。）"""
+    prompt = LLM_PROMPTS[todo_verb].format(slug=slug or '')
+    key = slug  # lease/registry/hist 身分鍵 = slug
+    spec = _resolve_dispatch(todo_verb)
+    chain = list(spec.chain or ())
+    if dry:
+        log('DRY ' + ' '.join(shlex.quote(c) for c in _build_llm_cmd(chain[0], prompt, spec)))
+        return 0
+    # audit/catalog_audit CPU-heavy → _AUDIT_SEM 限並發；qc/sol 輕量不套（見 _llm_concurrency_guard）。
+    with _llm_concurrency_guard(todo_verb):
+        return _dispatch_chain(todo_verb, key, prompt, spec, chain)
 
 
 # dispatch_llm 遇這些 status「停在本層」（不 failover）→ 即「現在會用的 provider」。
