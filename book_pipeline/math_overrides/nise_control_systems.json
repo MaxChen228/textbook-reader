@@ -50,6 +50,14 @@
       "selector": "body[563]",
       "expect": "\\left[ \\begin{array}{c} \\dot {x} _ {1} \\\\ \\dot {x} _ {2} \\\\ \\dot {x} _ {N} \\end{array} \\right] = \\left[ \\begin{array}{c c} \\left(\\left[ \\begin{array}{c c} 0 & 1 \\\\ - 3 & - 5 \\end{array} \\right] - \\left[ \\begin{array}{c c} 0 \\\\ 1 \\end{array} \\right] [ k _ {1} & k _ {2} ]\\right) & \\left[ \\begin{array}{c} 0 \\\\ 1 \\end{array} \\right] K _ {e} \\\\ - [ 1 & 0 ] & 0 \\end{array} \\right] \\left[ \\begin{array}{c} x _ {1} \\\\ x _ {2} \\\\ x _ {N} \\end{array} \\right] + \\left[ \\begin{array}{c} 0 \\\\ 0 \\\\ 1 \\end{array} \\right] r",
       "new": "\\left[ \\begin{array}{c} \\dot {x} _ {1} \\\\ \\dot {x} _ {2} \\\\ \\dot {x} _ {N} \\end{array} \\right] = \\left[ \\begin{array}{c c} \\left(\\left[ \\begin{array}{c c} 0 & 1 \\\\ - 3 & - 5 \\end{array} \\right] - \\left[ \\begin{array}{c c} 0 \\\\ 1 \\end{array} \\right] \\left[ \\begin{array}{c c} k _ {1} & k _ {2} \\end{array} \\right]\\right) & \\left[ \\begin{array}{c} 0 \\\\ 1 \\end{array} \\right] K _ {e} \\\\ - \\left[ \\begin{array}{c c} 1 & 0 \\end{array} \\right] & 0 \\end{array} \\right] \\left[ \\begin{array}{c} x _ {1} \\\\ x _ {2} \\\\ x _ {N} \\end{array} \\right] + \\left[ \\begin{array}{c} 0 \\\\ 0 \\\\ 1 \\end{array} \\right] r"
+    },
+    {
+      "id": "nise_control_systems-ch04-body-448-1e6857",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[448]",
+      "expect": "\\begin{array}{l} \\text {C1 = 26.25^{*} (s + 4) / \\ldots} \\\\ \\quad \\text {(s^{*} (s+3.5)^{*} \\ldots} \\\\ \\quad \\text {(s + 5)^{*} (s + 6));} \\\\ \\text {C2 = 26.25^{*} (s + 4) / \\ldots} \\\\ \\quad \\text {(s^{*} (s + 4.01)^{*} \\ldots} \\\\ \\quad \\text {(s + 5)^{*} (s + 6));} \\\\ \\text {c1 = ilaplace (C1);} \\\\ \\text {c1 = vpa (c1,3);} \\\\ ^ {\\prime} c 1 ^ {\\prime} \\\\ \\text {pretty (c1)} \\\\ \\text {c2 = ilaplace (C2);} \\\\ \\text {c2 = vpa (c2,3);} \\\\ ^ {\\prime} c 2 ^ {\\prime} \\\\ \\text {pretty (c2);} \\end{array}",
+      "new": "\\begin{array}{l} C1 = 26.25^{*} (s + 4) / \\ldots \\\\ \\quad (s^{*} (s+3.5)^{*} \\ldots \\\\ \\quad (s + 5)^{*} (s + 6)); \\\\ C2 = 26.25^{*} (s + 4) / \\ldots \\\\ \\quad (s^{*} (s + 4.01)^{*} \\ldots \\\\ \\quad (s + 5)^{*} (s + 6)); \\\\ \\text {c1 = ilaplace (C1);} \\\\ \\text {c1 = vpa (c1,3);} \\\\ {} ^ {\\prime} c 1 ^ {\\prime} \\\\ \\text {pretty (c1)} \\\\ \\text {c2 = ilaplace (C2);} \\\\ \\text {c2 = vpa (c2,3);} \\\\ {} ^ {\\prime} c 2 ^ {\\prime} \\\\ \\text {pretty (c2);} \\end{array}"
     }
   ]
 }

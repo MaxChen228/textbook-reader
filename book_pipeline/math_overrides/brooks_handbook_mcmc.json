@@ -42,6 +42,14 @@
       "selector": "body[64]",
       "expect": "\\Psi (Y _ {t}, \\xi) = \\left\\{ \\begin{array}{c c} Y _ {t}, & \\text {if \\xi = 1 and Y_{t} = \\{0.25,0.5\\} ;} \\\\ \\{0. 2 5, 0. 5 \\} & \\text {if \\xi = 1 and Y_{t} = \\{0.5,2\\} ;} \\\\ \\{0. 5, 2 \\}, & \\text {if \\xi = 0 and Y_{t} = \\{0.25,0.5\\} ;} \\\\ \\{2 \\}, & \\text {if \\xi = 0 and Y_{t} = \\{0.5,2\\} ;} \\\\ \\phi (X _ {t}, \\xi), & \\text {if Y_{t} = \\{X_{t}\\} .} \\end{array} \\right.",
       "new": "\\Psi (Y _ {t}, \\xi) = \\left\\{ \\begin{array}{c c} Y _ {t}, & \\text {if } \\xi = 1 \\text { and } Y_{t} = \\{0.25,0.5\\} ; \\\\ \\{0. 2 5, 0. 5 \\} & \\text {if } \\xi = 1 \\text { and } Y_{t} = \\{0.5,2\\} ; \\\\ \\{0. 5, 2 \\}, & \\text {if } \\xi = 0 \\text { and } Y_{t} = \\{0.25,0.5\\} ; \\\\ \\{2 \\}, & \\text {if } \\xi = 0 \\text { and } Y_{t} = \\{0.5,2\\} ; \\\\ \\phi (X _ {t}, \\xi), & \\text {if } Y_{t} = \\{X_{t}\\} . \\end{array} \\right."
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch07-body-108-6b4ec4",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[108]",
+      "expect": "\\alpha [ (k, \\pmb {\\theta} _ {k}), (k ^ {\\prime}, \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime}) ] = \\frac {\\pi (k ^ {\\prime} , \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime} | \\mathcal {D})}{\\pi (k , \\pmb {\\theta} _ {k} | \\mathcal {D})} \\frac {q (k ^ {\\prime} \\to k)}{q (k \\to k ^ {\\prime})} \\frac {| \\pmb {B} _ {k ^ {\\prime}} |}{| \\pmb {B} _ {k} |} \\times \\left\\{ \\begin{array}{l l} q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for n_{k^{\\prime}} <   n_{k}} \\\\ 1 & \\text {for n_{k^{\\prime}} = n_{k}} \\\\ 1 / q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for n_{k^{\\prime}} > n_{k}} \\end{array} \\right..",
+      "new": "\\alpha [ (k, \\pmb {\\theta} _ {k}), (k ^ {\\prime}, \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime}) ] = \\frac {\\pi (k ^ {\\prime} , \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime} | \\mathcal {D})}{\\pi (k , \\pmb {\\theta} _ {k} | \\mathcal {D})} \\frac {q (k ^ {\\prime} \\to k)}{q (k \\to k ^ {\\prime})} \\frac {| \\pmb {B} _ {k ^ {\\prime}} |}{| \\pmb {B} _ {k} |} \\times \\left\\{ \\begin{array}{l l} q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for } n_{k^{\\prime}} < n_{k} \\\\ 1 & \\text {for } n_{k^{\\prime}} = n_{k} \\\\ 1 / q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for } n_{k^{\\prime}} > n_{k} \\end{array} \\right.."
     }
   ]
 }
