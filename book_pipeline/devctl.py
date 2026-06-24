@@ -39,6 +39,7 @@ from book_pipeline import pipeline_gates as pg
 from book_pipeline import provider_chain as pc
 from book_pipeline import llm_policy as lp
 from book_pipeline import trace
+from book_pipeline import leases
 
 ROOT = st.ROOT
 BP = os.path.join(ROOT, 'book_pipeline')
@@ -861,6 +862,15 @@ def _depth_histogram(books: list) -> dict:
     return {'total': total, 'held': held, 'order': list(q.DEPTH_ORDER)}
 
 
+def _loadavg() -> dict:
+    """系統 load average（1/5/15 分）→ /dev 觀測負載飽和（餓死觀測心跳的元兇）。"""
+    try:
+        a, b, c = os.getloadavg()
+        return {'1m': round(a, 1), '5m': round(b, 1), '15m': round(c, 1)}
+    except OSError:
+        return {}
+
+
 def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
     now = _now_utc()
     bs = books_status(write_timeline=write_timeline)
@@ -873,6 +883,8 @@ def build_snapshot(since_min: int = 180, write_timeline: bool = False) -> dict:
         'depth': _depth_histogram(bs['books']),  # pipeline 深度直方圖（每階段幾本 + audit 緩衝深度）→ /dev 盲區根治
         'provider_chain': chain_status(),  # LLM failover 順序（effective/override/default/source）→ /dev 觀測
         'provider_health': provider_health(wks),  # 在飛 worker 落哪層 → 落保底頂層醒目告警（2026-06-23 坑）
+        'orphans': leases.count_orphans(),  # 孤兒 agent 進程數（前代 controller 硬殺/崩潰殘留）→ /dev 健康欄告警
+        'load': _loadavg(),                 # 系統 load average → 觀測負載飽和（餓死觀測心跳的元兇）
         'paused': pg.gates_active(),  # 向後相容：default==hold（舊前端徽章；Phase3 前端改讀 gates 後可移）
         'daemon': daemon_health(),
         'code': code_status(),
@@ -1029,6 +1041,16 @@ def _print_human(snap: dict) -> None:
               f" — codex/codex-pool 失敗？查 daemon.log 或 `devctl probe --real-effort`")
     elif ph.get('status') == 'degraded':
         print(f"   🟠 派工部分落次級：[{_live}]（主力 {ph.get('primary')} 仍有在用）")
+    orph = snap.get('orphans') or {}
+    if orph.get('count'):
+        oh = orph.get('oldest_sec', 0) // 3600
+        print(f"   🧟 孤兒 agent 進程 {orph['count']} 個（最老 {oh}h）— controller 啟動/週期自動回收；"
+              f"持續增長＝回收失效，查 daemon.log")
+    ld = snap.get('load') or {}
+    if ld.get('1m') is not None:
+        ncpu = os.cpu_count() or 1
+        warn = ' ⚠ 負載飽和（恐餓死觀測/拖慢 agent）' if ld['1m'] > ncpu * 4 else ''
+        print(f"   📈 load {ld['1m']}/{ld.get('5m')}/{ld.get('15m')}（{ncpu} 核）{warn}")
     dep = snap.get('depth') or {}
     _dt, _dh = dep.get('total') or {}, dep.get('held') or {}
     _parts = [f"{k} {_dt[k]}{'⏸'+str(_dh.get(k,0)) if _dh.get(k) else ''}"

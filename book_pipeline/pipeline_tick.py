@@ -209,6 +209,28 @@ def _refresh_snapshot() -> None:
         _snap_lock.release()
 
 
+# 保證刷新節奏：常駐 controller 的專屬執行緒，每 SNAP_CADENCE 秒必寫一次 dev/status.json 便宜核
+# （write_timeline=False）。與 log() 事件、主迴圈 wake.wait、外部 60s uv-run heartbeat **全解耦**——
+# 只要本 controller 進程活著，status.json 新鮮度 ≤SNAP_CADENCE，不受負載/事件稀疏/外部 heartbeat
+# 被餓死影響（根治「status.json 滯後 400s」：原唯一保證寫手是負載下被餓死的外部 fresh-process
+# heartbeat，controller 只在 log 事件時刷、cycle 間 sleep 不刷）。blocking 取 _snap_lock 與 worker
+# 觸發的 _refresh_snapshot 序列化、不疊並發 build_snapshot。
+SNAP_CADENCE = int(os.environ.get('BOOK_PIPELINE_SNAP_CADENCE', '20'))
+
+
+def _snapshot_heartbeat(stop: threading.Event) -> None:
+    global _last_snap
+    import time
+    from book_pipeline.devctl import write_snapshot
+    while not stop.wait(SNAP_CADENCE):
+        try:
+            with _snap_lock:
+                _last_snap = time.monotonic()
+                write_snapshot()  # write_timeline=False：只刷 live 核，不碰歷史時間軸
+        except Exception:
+            pass
+
+
 _log_lock = threading.Lock()
 
 
@@ -1815,6 +1837,16 @@ def _gc_due() -> bool:
     return (time.monotonic() - _gc_throttle['last']) >= GC_INTERVAL_SEC
 
 
+# 孤兒 agent 週期回收節流（startup 必掃一次；運行中低頻補掃，捕 codex top 已退但 node 孫程序殘留
+# 的少見情形）。300s 一次、ps 一掃即廉價。見 leases.reap_orphans。
+REAP_INTERVAL_SEC = int(os.environ.get('BOOK_PIPELINE_REAP_INTERVAL_SEC', '300'))
+_reap_throttle = {'last': 0.0}
+
+
+def _reap_due() -> bool:
+    return (time.monotonic() - _reap_throttle['last']) >= REAP_INTERVAL_SEC
+
+
 def _gc_candidates(state: dict) -> list[str]:
     """可自動 GC 的書：確有 🟡 可重生產物 ∧ 已上站(完整 book.json) ∧ 非在飛 ∧ deployed_at
     距今 ≥ GC_STABILITY_MIN 分（無戳＝歷史書，必非剛 deploy → eligible）。先 cheap listdir
@@ -1965,11 +1997,19 @@ def tick_reactive(no_deploy: bool) -> int:
     with _exhausted_lock:  # 本 controller 起頭重置額度旗標（之後靠 _EXHAUST_TTL 每 cycle 自動重探恢復）
         _exhausted_at.clear()
     _gc_throttle['last'] = time.monotonic()  # GC 節流戳重置 → 首掃於 ~GC_INTERVAL 後（系統穩定才掃）
+    # 啟動即回收前代 controller 遺留的孤兒 agent 進程（kick -k 硬殺/崩潰的殘留）。flock 已序列化
+    # → 前代必已死、其子工皆 PPID==1，本次回收絕不誤殺自家活 worker（尚未派任何工）。
+    _reap_throttle['last'] = time.monotonic()
+    leases.reap_orphans(log=log)
 
     inflight: set[str] = set()
     ifl_lock = threading.Lock()
     wake = threading.Event()  # 工人完成即 set → 控制迴圈立刻重觀測，免等滿一個 LOOP_POLL
     ex = ThreadPoolExecutor(max_workers=LOOP_CONCURRENCY)
+    # 保證刷新執行緒：每 SNAP_CADENCE 秒必寫一次 status.json 便宜核 → 與負載/事件/外部 heartbeat
+    # 解耦，新鮮度 ≤SNAP_CADENCE（見 _snapshot_heartbeat）。daemon thread，finally 設 stop 收尾。
+    _snap_stop = threading.Event()
+    threading.Thread(target=_snapshot_heartbeat, args=(_snap_stop,), daemon=True).start()
 
     def _start(key: str, fn) -> bool:
         """key 不在 inflight 才提交 worker；結束自動移出。回是否真的派了（同進程去重）。"""
@@ -2039,6 +2079,11 @@ def tick_reactive(no_deploy: bool) -> int:
                 paused_logged = False
             # observe：reap 租約（含 orphan kill）→ leased_slugs = 此刻有活 LLM 子進程的書
             leased_slugs = {r.get('slug') for r in leases.active(log=log)}
+            # 孤兒 agent 週期回收（低頻、ps 一掃即廉價）：捕「codex top 已退但 node 孫程序殘留」
+            # 等少見情形；fork 語意保證活 worker 非 PPID==1 → 運行中回收絕不誤殺自家在飛工。
+            if _reap_due():
+                _reap_throttle['last'] = time.monotonic()
+                leases.reap_orphans(log=log)
             dispatched = 0
 
             # A. 收割已就緒 in-flight OCR（IO poll，非阻塞 worker）。harvest 折進 ingest 同一閘鍵。
@@ -2133,6 +2178,7 @@ def tick_reactive(no_deploy: bool) -> int:
             log('reactive loop：walltime 到期 → 排 detached respawn（排空退出即 kickstart 新 controller，消 idle-gap）')
             _schedule_respawn()
     finally:
+        _snap_stop.set()  # 停保證刷新執行緒（daemon thread，進程退出本就會收，明確 set 早停）
         _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）
         _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
         # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）

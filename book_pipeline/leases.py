@@ -192,3 +192,128 @@ def _safe_unlink(path: str) -> None:
         os.unlink(path)
     except FileNotFoundError:
         pass
+
+
+# ── 孤兒 agent 進程回收 ───────────────────────────────────────────────────────
+# 病理：controller 被 kick -k 硬殺（SIGKILL 跳過 finally、不對子工 process group 發 SIGTERM）或
+# 崩潰 → 其 codex/claude 子進程孤兒化（reparent 到 launchd，PPID==1）。LLM_TIMEOUT 移除後
+# （codex 主力卡死病理消失）孤兒 codex 再無自我超時、永不自死 → 每次 kick 累積 → load 飆升、
+# 餓死觀測心跳。leases.active() 的 TTL=0 無限 + identity 仍相符 → 把活著的孤兒當「健康在跑」
+# 永不殺（或 lease 檔已清則純隱形）→ 兩路都讓孤兒永生。解法：controller 啟動 + 週期主動回收。
+#
+# 鑑別子（全部成立才算「本 repo 的孤兒 agent」，絕不誤殺）：
+#   PPID==1（父已死）∧ daemon agent 簽名（'codex' ∨ 'claude'+'--add-dir'）∧ 屬本 repo
+#   （ROOT 在 argv，或 argv 缺 ROOT 的 node 孫程序退而查 cwd==ROOT）。
+# 安全性：活 controller 的子 agent fork 即 PPID==controller（非 1，永不誤命中）；互動
+# Claude Code session（`claude --dangerously-skip-permissions`）無 'codex'、無 '--add-dir'、
+# argv 無 ROOT → 三重排除。startup 呼叫時 flock 已序列化（前代必已死）；運行中呼叫亦安全
+# （fork 語意保證活子工非 PPID==1）。
+_ROOT = os.path.dirname(_BP)
+_ORPHAN_CACHE = {'at': 0.0, 'val': {'count': 0, 'oldest_sec': 0}}
+_ORPHAN_CACHE_TTL = 10  # count_orphans 走 1s snapshot 熱路徑 → 快取避免每次 ps
+
+
+def _parse_etime(et: str) -> int:
+    """macOS ps etime（[[dd-]hh:]mm:ss）→ 秒。macOS 無 etimes(raw)，只能解格式化串。"""
+    try:
+        et = et.strip()
+        days = 0
+        if '-' in et:
+            d, et = et.split('-', 1)
+            days = int(d)
+        parts = [int(p) for p in et.split(':')]
+        if len(parts) == 3:
+            h, m, s = parts
+        elif len(parts) == 2:
+            h, m, s = 0, parts[0], parts[1]
+        else:
+            h, m, s = 0, 0, parts[0]
+        return days * 86400 + h * 3600 + m * 60 + s
+    except (ValueError, IndexError):
+        return 0
+
+
+def _cwd_is(pid: int, root: str) -> bool:
+    """lsof 查 pid 的 cwd 是否在 root 下（僅對 argv 缺 ROOT 的 node 孫程序兜底，故呼叫稀少）。"""
+    try:
+        out = subprocess.run(['lsof', '-a', '-p', str(pid), '-d', 'cwd', '-Fn'],
+                             capture_output=True, text=True, timeout=5).stdout
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return root in out
+
+
+def _agent_orphans(root: str | None = None) -> list[dict]:
+    """掃出前代 controller 遺留的孤兒 agent 進程（判據見上方註解）。回 [{pid, pgid, age_sec}]。"""
+    root = root or _ROOT
+    try:
+        out = subprocess.run(['ps', '-axo', 'pid=,ppid=,etime=,command='],
+                             capture_output=True, text=True, timeout=10).stdout
+    except (OSError, subprocess.SubprocessError):
+        return []
+    res = []
+    for line in out.splitlines():
+        parts = line.split(None, 3)
+        if len(parts) < 4:
+            continue
+        pid_s, ppid_s, et_s, cmd = parts
+        if ppid_s != '1':
+            continue
+        low = cmd.lower()
+        sig = ('codex' in low) or ('claude' in low and '--add-dir' in cmd)
+        if not sig:
+            continue
+        try:
+            pid = int(pid_s)
+        except ValueError:
+            continue
+        # 專案歸屬：ROOT 在 argv（codex `-C ROOT` / claude `--add-dir ROOT`，cheap）；
+        # 缺者（codex node 孫程序 argv 未必帶 ROOT）退查 cwd==ROOT。
+        if root not in cmd and not _cwd_is(pid, root):
+            continue
+        try:
+            pgid = os.getpgid(pid)
+        except OSError:
+            pgid = pid
+        res.append({'pid': pid, 'pgid': pgid, 'age_sec': _parse_etime(et_s)})
+    return res
+
+
+def count_orphans(root: str | None = None) -> dict:
+    """唯讀觀測：{count, oldest_sec}（10s 快取，避免 1s snapshot 熱路徑每次 ps）。/dev 健康欄用。"""
+    now = time.time()
+    if now - _ORPHAN_CACHE['at'] < _ORPHAN_CACHE_TTL:
+        return dict(_ORPHAN_CACHE['val'])
+    orphs = _agent_orphans(root)
+    val = {'count': len(orphs),
+           'oldest_sec': max((o['age_sec'] for o in orphs), default=0)}
+    _ORPHAN_CACHE['at'] = now
+    _ORPHAN_CACHE['val'] = val
+    return dict(val)
+
+
+def reap_orphans(root: str | None = None, log=None) -> dict:
+    """殺掉所有孤兒 agent process group（SIGKILL）。回 {reaped, groups, oldest_sec}。
+    安全性見上方註解（永不碰活 controller 的子 worker）。controller 啟動 + 週期呼叫。"""
+    orphs = _agent_orphans(root)
+    if not orphs:
+        return {'reaped': 0, 'groups': 0, 'oldest_sec': 0}
+    oldest = max(o['age_sec'] for o in orphs)
+    groups: set[int] = set()
+    for o in orphs:
+        pg = o['pgid']
+        if pg not in groups:
+            groups.add(pg)
+            try:
+                os.killpg(pg, signal.SIGKILL)  # 殺整組 → 連帶同組 node 孫程序
+            except OSError:
+                pass
+        try:
+            os.kill(o['pid'], signal.SIGKILL)  # 個別兜底（脫離 group 者）
+        except OSError:
+            pass
+    _ORPHAN_CACHE['at'] = 0.0  # 剛殺完 → 失效快取，下次觀測重算
+    if log:
+        h, m = oldest // 3600, (oldest % 3600) // 60
+        log(f'🧟 回收 {len(orphs)} 個孤兒 agent 進程（{len(groups)} 組，最老 {h}h{m}m）— 前代 controller 殘留')
+    return {'reaped': len(orphs), 'groups': len(groups), 'oldest_sec': oldest}

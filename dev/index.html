@@ -319,6 +319,7 @@
     <span class="meta qbk-result-count" id="updated"></span>
     <span class="meta qbk-result-count" id="gate-badge" title="閘門狀態（唯讀；操作走 CLI：devctl gates / pause / resume）">⏸ —</span>
     <span class="meta qbk-result-count" id="depth-strip" title="管線深度（owned 各階段幾本；⏸=閘門緩衝）">🌊 —</span>
+    <span class="meta qbk-result-count" id="sys-health" title="系統健康：孤兒 agent 進程數 + 系統 load average（負載飽和會餓死觀測心跳）" style="display:none"></span>
     <button class="qbk-control-btn compact" id="btn-math" type="button" title="數學 sweep · 跨書渲染殘餘">🧮 <span id="mt-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-proposals" type="button" title="agent 提出的提案（待決議）">📋 <span id="pp-count">·</span></button>
     <button class="qbk-control-btn compact" id="btn-refresh" type="button" title="立即刷新">↻ refresh</button>
@@ -1341,6 +1342,32 @@
       + order.map(k => `${k}: ${t[k] || 0}${h[k] ? '（緩衝 ' + h[k] + '）' : ''}`).join('\n')
   }
 
+  // 系統健康（純觀測）：孤兒 agent 進程數 + 系統 load average。僅異常時顯（孤兒>0 或 load 偏高）→
+  // 平時不佔位。孤兒＝前代 controller 硬殺/崩潰殘留（已由 controller 啟動+週期自動回收，持續增長＝
+  // 回收失效）；load 飽和會餓死觀測心跳、拖慢所有 agent（status.json 滯後的根因觀測面）。
+  function renderSysHealth(d) {
+    const el = document.getElementById('sys-health'); if (!el) return
+    const orph = d.orphans || {}, ld = d.load || {}
+    const parts = [], tips = []
+    if (orph.count > 0) {
+      const oh = Math.floor((orph.oldest_sec || 0) / 3600)
+      parts.push(`🧟 孤兒×${orph.count}`)
+      tips.push(`孤兒 agent 進程 ${orph.count} 個（最老 ${oh}h）— 自動回收中；持續增長＝回收失效`)
+    }
+    if (ld['1m'] != null) {
+      const hot = ld['1m'] > 24  // ~8 核 ×3 經驗閾；飽和才標紅
+      if (orph.count > 0 || hot) {
+        parts.push(`${hot ? '🔴' : '📈'} load ${ld['1m']}`)
+        tips.push(`load ${ld['1m']}/${ld['5m']}/${ld['15m']}${hot ? ' — 負載飽和，恐餓死觀測/拖慢 agent' : ''}`)
+      }
+    }
+    if (!parts.length) { el.style.display = 'none'; return }
+    el.style.display = ''
+    el.textContent = parts.join(' ')
+    el.title = tips.join('\n')
+    el.style.color = (orph.count > 0 || (ld['1m'] != null && ld['1m'] > 24)) ? 'var(--qbk-danger, #d33)' : ''
+  }
+
   function render(d) {
     const prevStage = {}
     if (last && last.books) last.books.forEach(b => { prevStage[b.slug] = b.stage })  // 記前次階段：reconcile 後對剛變的卡閃示
@@ -1348,6 +1375,7 @@
     renderHealth(d)
     renderGateBadge(d)
     renderDepth(d)
+    renderSysHealth(d)
     updateLineSub()
     renderBooklist(d)
     reconcileBooks(d)
