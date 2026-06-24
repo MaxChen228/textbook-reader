@@ -21,6 +21,7 @@ import sys
 from textbooks import corpus
 from book_pipeline import booklists as bl
 from book_pipeline import book_qc
+from book_pipeline import parser
 from book_pipeline import math_validate as mv
 
 
@@ -43,7 +44,7 @@ def audit_book(slug: str, sot: dict | None = None, residual: dict | None = None)
     landed_title = book.get("title") or ""
     sot_title = (sot or {}).get("title") or ""
 
-    flags = book_qc.detect(book, sot_title)
+    flags = book_qc.detect(book, sot_title, parser.load_rules_safe(slug))
     # 與 book_qc.empty_chapter_reason 同謂詞：題本（有 problems）的 body=0 章不算空
     empties = [c.get("num") or c.get("id") for c in (chs + apps)
                if c.get("body_count", 0) == 0 and c.get("problem_count", 0) == 0]

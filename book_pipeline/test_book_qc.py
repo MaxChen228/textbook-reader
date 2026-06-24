@@ -162,3 +162,66 @@ def test_blocking_excludes_empty_chapter():
     # empty_chapter 是警示級、不阻擋部署
     assert qc.blocking_reasons(["empty_chapter(2)"]) == []
     assert qc.blocking_reasons(["companion", "empty_chapter(2)"]) == ["companion"]
+
+
+# --- no_problems_extracted（rules 宣告有題卻 parsed 0 題；clayden/devore/wald 實證受害者）---
+
+def test_total_problem_count_sums_chapters_and_appendices():
+    book = {"chapters": [{"problem_count": 5}, {"problem_count": 3}],
+            "appendices": [{"problem_count": 2}]}
+    assert qc.total_problem_count(book) == 10
+    # 缺欄/None 視為 0
+    assert qc.total_problem_count({"chapters": [{"body_count": 1}, {"problem_count": None}]}) == 0
+
+
+def test_declared_inline_but_zero_flags():
+    # devore-like：inline_problems=true 卻 0 題 → 正則對不上 OCR 版式、整批丟失
+    assert qc.declared_problems_missing_reason({"inline_problems": True}, 0) == "no_problems_extracted"
+
+
+def test_declared_pbi_but_zero_flags():
+    # wald/clayden-like：章設 problems_block_idx 卻 0 題（任一章設了即算宣告）
+    rules = {"inline_problems": False,
+             "chapters": [{"problems_block_idx": 12}, {"problems_block_idx": None}]}
+    assert qc.declared_problems_missing_reason(rules, 0) == "no_problems_extracted"
+
+
+def test_declared_but_has_problems_clean():
+    # 宣告有題且真有題（osborne 117）→ 不旗標
+    assert qc.declared_problems_missing_reason({"inline_problems": True}, 117) is None
+
+
+def test_not_declared_and_zero_is_legit_empty():
+    # 純理論書/專著（angrist-like）：inline=false ∧ 全章 pbi=null ∧ 0 題 → 合法、不旗標（誤判防線）
+    rules = {"inline_problems": False,
+             "chapters": [{"problems_block_idx": None}, {"problems_block_idx": None}]}
+    assert qc.declared_problems_missing_reason(rules, 0) is None
+    assert qc.declared_problems_missing_reason({}, 0) is None
+
+
+def test_rules_none_or_broken_fail_open():
+    # rules 缺/壞 → None（無從判斷、fail-open，不旗標好書）
+    assert qc.declared_problems_missing_reason(None, 0) is None
+    assert qc.declared_problems_missing_reason("not a dict", 0) is None
+
+
+def test_no_problems_extracted_is_blocking():
+    assert "no_problems_extracted" in qc.blocking_reasons(["no_problems_extracted"])
+
+
+def test_detect_flags_declared_but_empty_via_rules():
+    # 端到端：detect 帶 rules → declared-but-empty 受害者被旗標且屬 BLOCKING（clayden 重現）
+    book = {"title": "Organic Chemistry",
+            "chapters": [{"num": n, "body_count": 100, "problem_count": 0} for n in range(1, 44)],
+            "appendices": []}
+    rules = {"inline_problems": False, "chapters": [{"problems_block_idx": 5}] * 38}
+    flags = qc.detect(book, "Organic Chemistry", rules)
+    assert "no_problems_extracted" in flags
+    assert "no_problems_extracted" in qc.blocking_reasons(flags)
+
+
+def test_detect_no_rules_skips_problem_check():
+    # 向下相容：不傳 rules → 不查習題完整性（即使 0 題也不旗標）
+    book = {"title": "X",
+            "chapters": [{"num": 1, "body_count": 100, "problem_count": 0}], "appendices": []}
+    assert qc.detect(book, "X") == []

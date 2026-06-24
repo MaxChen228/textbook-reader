@@ -1233,11 +1233,12 @@ def _book_qc_block(slug: str) -> list[str]:
         from textbooks import corpus
         from book_pipeline import booklists as bl
         from book_pipeline import book_qc
+        from book_pipeline import parser
         book = corpus.load_book(slug)
         if not book:
             return []
         sot = next((t for t in bl.targets() if t.get('slug') == slug), None)
-        flags = book_qc.detect(book, (sot or {}).get('title', ''))
+        flags = book_qc.detect(book, (sot or {}).get('title', ''), parser.load_rules_safe(slug))
         return book_qc.blocking_reasons(flags)
     except Exception as e:
         log(f'book_qc gate {slug} 異常（fail-open，照常部署）：{e}')

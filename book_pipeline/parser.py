@@ -55,6 +55,22 @@ def load_rules(slug: str) -> dict:
     return yaml.safe_load(path.read_text())
 
 
+def load_rules_safe(slug: str) -> dict | None:
+    """load_rules 的零副作用變體：缺檔／invalid slug／YAML 壞 → None（**不 sys.exit**）。
+    供部署前 gate（book_qc 習題完整性）與 book_audit 唯讀體檢用——這些情境絕不能因
+    缺/壞 rules 中止行程（fail-open：判不了就不旗標、照常上站）。"""
+    if not _valid_slug(slug):
+        return None
+    path = DATA_DIR / slug / 'extract_rules.yaml'
+    if not path.is_file():
+        return None
+    try:
+        r = yaml.safe_load(path.read_text())
+        return r if isinstance(r, dict) else None
+    except Exception:
+        return None
+
+
 def load_unified(slug: str) -> list[dict]:
     if not _valid_slug(slug):
         sys.exit(f'invalid slug: {slug}')
