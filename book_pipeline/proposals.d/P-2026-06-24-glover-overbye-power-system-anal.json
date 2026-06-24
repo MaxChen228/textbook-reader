@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-24-glover-overbye-power-system-anal",
+  "domain": "sol",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "glover_overbye_power_system_analysis_design 解答本部分題號落在非 text block 導致漏切",
+  "slug": "glover_overbye_power_system_analysis_design_sol",
+  "detect": [],
+  "source": "sol_extract",
+  "resolution": "",
+  "created": "2026-06-24T03:36:40+00:00",
+  "updated": "2026-06-24T03:36:40+00:00",
+  "evidence": "dry-run 382/496=77%；語義抽樣 ch2/ch8/ch10/ch13/ch14 對齊，ch3/ch5 等有 22 個解答題號被 MinerU 標為 page_number/header/aside_text（如 3.4、3.8、5.9、13.13），現有 sol_extract 只在 type=text 切 problem_re，會漏切這些題並使前一題 over-include。",
+  "proposal": "讓 sol_extract 支援 opt-in problems_in_header/aside_text/page_number 或題號 block 正規化；本次先 merge 382 題可對齊解答，接受少量 over-inclusion/missing。",
+  "risk": "",
+  "disposition": ""
+}

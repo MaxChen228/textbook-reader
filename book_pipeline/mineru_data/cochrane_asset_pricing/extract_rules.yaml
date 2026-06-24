@@ -1,0 +1,185 @@
+slug: cochrane_asset_pricing
+title: Asset Pricing
+author: John H. Cochrane
+edition: null
+subject: Finance
+publisher: Princeton University Press
+language: en
+
+filter_types: [page_number, header, footer]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 507
+bibliography_start_page: 515
+index_start_page: 525
+
+chapters:
+  - num: 1
+    title: Consumption-Based Model and Overview
+    page_start: 21
+    page_end: 52
+    chapter_title_block_idx: 85
+    problems_block_idx: 457
+    next_chapter_block_idx: 498
+  - num: 2
+    title: Applying the Basic Model
+    page_start: 53
+    page_end: 66
+    chapter_title_block_idx: 498
+    problems_block_idx: 598
+    next_chapter_block_idx: 638
+  - num: 3
+    title: Contingent Claims Markets
+    page_start: 67
+    page_end: 78
+    chapter_title_block_idx: 638
+    problems_block_idx: null
+    next_chapter_block_idx: 778
+  - num: 4
+    title: The Discount Factor
+    page_start: 79
+    page_end: 94
+    chapter_title_block_idx: 778
+    problems_block_idx: 941
+    next_chapter_block_idx: 953
+  - num: 5
+    title: Mean-Variance Frontier and Beta Representations
+    page_start: 95
+    page_end: 116
+    chapter_title_block_idx: 953
+    problems_block_idx: 1240
+    next_chapter_block_idx: 1255
+  - num: 6
+    title: Relation between Discount Factors, Betas, and Mean-Variance Frontiers
+    page_start: 117
+    page_end: 138
+    chapter_title_block_idx: 1255
+    problems_block_idx: 1557
+    next_chapter_block_idx: 1567
+  - num: 7
+    title: Implications of Existence and Equivalence Theorems
+    page_start: 139
+    page_end: 148
+    chapter_title_block_idx: 1567
+    problems_block_idx: null
+    next_chapter_block_idx: 1639
+  - num: 8
+    title: Conditioning Information
+    page_start: 149
+    page_end: 166
+    chapter_title_block_idx: 1639
+    problems_block_idx: 1835
+    next_chapter_block_idx: 1851
+  - num: 9
+    title: Factor Pricing Models
+    page_start: 167
+    page_end: 207
+    chapter_title_block_idx: 1851
+    problems_block_idx: 2312
+    next_chapter_block_idx: 2332
+  - num: 10
+    title: GMM in Explicit Discount Factor Models
+    page_start: 208
+    page_end: 218
+    chapter_title_block_idx: 2332
+    problems_block_idx: null
+    next_chapter_block_idx: 2508
+  - num: 11
+    title: "GMM: General Formulas and Applications"
+    page_start: 219
+    page_end: 246
+    chapter_title_block_idx: 2508
+    problems_block_idx: 2856
+    next_chapter_block_idx: 2864
+  - num: 12
+    title: Regression-Based Tests of Linear Factor Models
+    page_start: 247
+    page_end: 270
+    chapter_title_block_idx: 2864
+    problems_block_idx: 3185
+    next_chapter_block_idx: 3197
+  - num: 13
+    title: GMM for Linear Factor Models in Discount Factor Form
+    page_start: 271
+    page_end: 285
+    chapter_title_block_idx: 3197
+    problems_block_idx: 3362
+    next_chapter_block_idx: 3391
+  - num: 14
+    title: Maximum Likelihood
+    page_start: 286
+    page_end: 296
+    chapter_title_block_idx: 3391
+    problems_block_idx: 3532
+    next_chapter_block_idx: 3544
+  - num: 15
+    title: Time-Series, Cross-Section, and GMM/DF Tests of Linear Factor Models
+    page_start: 297
+    page_end: 310
+    chapter_title_block_idx: 3544
+    problems_block_idx: null
+    next_chapter_block_idx: 3650
+  - num: 16
+    title: Which Method?
+    page_start: 311
+    page_end: 330
+    chapter_title_block_idx: 3650
+    problems_block_idx: null
+    next_chapter_block_idx: 3790
+  - num: 17
+    title: Option Pricing
+    page_start: 331
+    page_end: 344
+    chapter_title_block_idx: 3790
+    problems_block_idx: 3953
+    next_chapter_block_idx: 3958
+  - num: 18
+    title: Option Pricing without Perfect Replication
+    page_start: 345
+    page_end: 366
+    chapter_title_block_idx: 3958
+    problems_block_idx: 4229
+    next_chapter_block_idx: 4241
+  - num: 19
+    title: The Term Structure of Interest Rates
+    page_start: 367
+    page_end: 406
+    chapter_title_block_idx: 4241
+    problems_block_idx: 4710
+    next_chapter_block_idx: 4733
+  - num: 20
+    title: Expected Returns in the Time Series and Cross Section
+    page_start: 407
+    page_end: 473
+    chapter_title_block_idx: 4733
+    problems_block_idx: 5396
+    next_chapter_block_idx: 5414
+  - num: 21
+    title: Equity Premium Puzzle and Consumption-Based Models
+    page_start: 474
+    page_end: 506
+    chapter_title_block_idx: 5414
+    problems_block_idx: 5746
+    next_chapter_block_idx: 5768
+
+appendices:
+  - id: A
+    title: Continuous Time
+    page_start: 507
+    chapter_title_block_idx: 5768
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Za-z0-9$\\{}^_.,:;’''()\-–/& ]{3,})$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+equation_strip_dollar: true
+example_start_re: null

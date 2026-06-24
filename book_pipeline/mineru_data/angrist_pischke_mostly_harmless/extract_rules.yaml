@@ -1,0 +1,108 @@
+slug: angrist_pischke_mostly_harmless
+title: "Mostly Harmless Econometrics: An Empiricist's Companion"
+author: "Joshua D. Angrist; Jörn-Steffen Pischke"
+edition: null
+subject: Econometrics
+publisher: Princeton University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 272
+bibliography_start_page: 272
+index_start_page: null
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Questions about Questions
+    page_start: 18
+    page_end: 23
+    chapter_title_block_idx: 56
+    chapter_title_block_idx_secondary: 57
+    problems_block_idx: null
+    next_chapter_block_idx: 89
+  - num: 2
+    title: The Experimental Ideal
+    page_start: 24
+    page_end: 35
+    chapter_title_block_idx: 89
+    chapter_title_block_idx_secondary: 90
+    problems_block_idx: null
+    next_chapter_block_idx: 186
+  - num: 3
+    title: Making Regression Make Sense
+    page_start: 36
+    page_end: 97
+    chapter_title_block_idx: 186
+    chapter_title_block_idx_secondary: 187
+    problems_block_idx: null
+    next_chapter_block_idx: 878
+  - num: 4
+    title: "Instrumental Variables in Action: Sometimes You Get What You Need"
+    page_start: 98
+    page_end: 179
+    chapter_title_block_idx: 878
+    problems_block_idx: null
+    next_chapter_block_idx: 1719
+  - num: 5
+    title: "Parallel Worlds: Fixed Effects, Differences-in-differences, and Panel Data"
+    page_start: 180
+    page_end: 203
+    chapter_title_block_idx: 1719
+    chapter_title_block_idx_secondary: 1720
+    problems_block_idx: null
+    next_chapter_block_idx: 1946
+  - num: 6
+    title: "Getting a Little Jumpy: Regression Discontinuity Designs"
+    page_start: 204
+    page_end: 217
+    chapter_title_block_idx: 1946
+    chapter_title_block_idx_secondary: 1947
+    problems_block_idx: null
+    next_chapter_block_idx: 2074
+  - num: 7
+    title: Quantile Regression
+    page_start: 218
+    page_end: 235
+    chapter_title_block_idx: 2074
+    chapter_title_block_idx_secondary: 2075
+    problems_block_idx: null
+    next_chapter_block_idx: 2251
+  - num: 8
+    title: Nonstandard Standard Error Issues
+    page_start: 236
+    page_end: 271
+    chapter_title_block_idx: 2251
+    chapter_title_block_idx_secondary: 2252
+    problems_block_idx: null
+    next_chapter_block_idx: 2680
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?!.*)((?:))$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

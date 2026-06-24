@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "overrides": [
+    {
+      "id": "fix-fig-203-1-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[32]",
+      "expect": {
+        "id": "fig-202.1"
+      },
+      "set": {
+        "id": "fig-203.1",
+        "caption": "Figure 203.1 Three one-player extensive games with imperfect recall.",
+        "catalog_repair_source": "catalog-audit-id-fix"
+      },
+      "reason": "Raw PDF page 203 caption is Figure 203.1; MinerU assigned duplicate fig-202.1."
+    },
+    {
+      "id": "fix-fig-205-2-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[47]",
+      "expect": {
+        "id": "fig-205.2"
+      },
+      "set": {
+        "id": "fig-205.2",
+        "caption": "Figure 205.2 The game Γ2, equivalent to Γ1 according to the principle of inflation-deflation.",
+        "catalog_repair_source": "catalog-audit-id-fix"
+      },
+      "reason": "Raw PDF page 205 labels this lower game as Figure 205.2; keep it to satisfy the body reference."
+    },
+    {
+      "id": "fix-fig-208-1-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[63]",
+      "expect": {
+        "id": "fig-207.1"
+      },
+      "set": {
+        "id": "fig-208.1",
+        "caption": "Figure 208.1 The game Γ5, equivalent to Γ1 according to the principle of interchange of moves.",
+        "catalog_repair_source": "catalog-audit-id-fix"
+      },
+      "reason": "Raw PDF page 208 caption is Figure 208.1; MinerU assigned duplicate fig-207.1."
+    },
+    {
+      "id": "fix-fig-212-1-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[79]",
+      "expect": {
+        "id": "fig-211.1"
+      },
+      "set": {
+        "id": "fig-212.1",
+        "caption": "Figure 212.1 Three games. The middle game is obtained from the top game by adding a superfluous move. The bottom game is the strategic form of both the top and middle games.",
+        "catalog_repair_source": "catalog-audit-id-fix"
+      },
+      "reason": "Raw PDF page 212 caption is Figure 212.1; parsed id is duplicate fig-211.1."
+    },
+    {
+      "id": "fix-fig-217-1-id",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[108]",
+      "expect": {
+        "id": "fig-214.1"
+      },
+      "set": {
+        "id": "fig-217.1",
+        "caption": "Figure 217.1 The extensive game with imperfect information in Exercise 217.1.",
+        "catalog_repair_source": "catalog-audit-id-fix"
+      },
+      "reason": "Raw PDF page 217 caption is Figure 217.1; parsed id was copied from nearby Figure 214.1."
+    },
+    {
+      "id": "crop-fig-206-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[52]",
+      "position": "before",
+      "page": 213,
+      "clip": [
+        0.22,
+        0.1,
+        0.78,
+        0.32
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-206.1",
+        "kind": "line",
+        "caption": "Figure 206.1 The game Γ3, equivalent to Γ1 according to the principle of addition of a superfluous move."
+      },
+      "reason": "Raw PDF page 206 has Figure 206.1; MinerU did not emit a distinct matching figure block."
+    },
+    {
+      "id": "crop-fig-169-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:169.1:body[1]",
+      "position": "before",
+      "page": 178,
+      "clip": [
+        0.18,
+        0.07,
+        0.82,
+        0.24
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-169.1",
+        "kind": "line",
+        "caption": "Figure 169.1 Machines M1 for player 1 and M2 for player 2 for the infinitely repeated Prisoner's Dilemma."
+      },
+      "reason": "Raw PDF page 169 has Figure 169.1, but MinerU omitted it from parsed figures."
+    },
+    {
+      "id": "crop-fig-190-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[106]",
+      "position": "before",
+      "page": 198,
+      "clip": [
+        0.35,
+        0.09,
+        0.65,
+        0.31
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-190.1",
+        "kind": "line",
+        "caption": "Figure 190.1 A game form that implements the choice function considered in Example 190.1 in which the legitimate owner obtains the object."
+      },
+      "reason": "Raw PDF page 190 has Figure 190.1; parser treated the nearby visual as a noncatalog table."
+    },
+    {
+      "id": "crop-fig-205-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[44]",
+      "position": "before",
+      "page": 212,
+      "clip": [
+        0.26,
+        0.1,
+        0.74,
+        0.36
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-205.1",
+        "kind": "line",
+        "caption": "Figure 205.1 The game Γ1."
+      },
+      "reason": "Raw PDF page 205 includes Figure 205.1; parsed output missed the top game figure."
+    },
+    {
+      "id": "crop-fig-226-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:226.1:body[0]",
+      "position": "before",
+      "page": 233,
+      "clip": [
+        0.22,
+        0.1,
+        0.78,
+        0.35
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-226.1",
+        "kind": "line",
+        "caption": "Figure 226.1 The game in Exercise 226.1."
+      },
+      "reason": "Raw PDF page 226 has Figure 226.1; MinerU did not emit a matching figure block."
+    },
+    {
+      "id": "crop-fig-229-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:229.1:body[0]",
+      "position": "before",
+      "page": 236,
+      "clip": [
+        0.16,
+        0.07,
+        0.84,
+        0.3
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-229.1",
+        "kind": "line",
+        "caption": "Figure 229.1 The game in Exercise 229.1."
+      },
+      "reason": "Raw PDF page 229 has Figure 229.1; MinerU did not emit a matching figure block."
+    },
+    {
+      "id": "crop-fig-249-1",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[163]",
+      "position": "before",
+      "page": 256,
+      "clip": [
+        0.36,
+        0.11,
+        0.64,
+        0.27
+      ],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-249.1",
+        "kind": "line",
+        "caption": "Figure 249.1 A three-player strategic game in which there is a Nash equilibrium that is undominated but is not trembling hand perfect."
+      },
+      "reason": "Raw PDF page 249 has Figure 249.1; parsed id near this location is shifted to fig-250.1."
+    }
+  ],
+  "ref_classifications": []
+}

@@ -1,0 +1,138 @@
+slug: osborne_rubinstein_game_theory
+title: A Course in Game Theory
+author: Martin J. Osborne; Ariel Rubinstein
+edition: null
+subject: Economics
+publisher: The MIT Press
+language: en
+filter_types:
+- header
+- footer
+- page_number
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 16
+appendices_start_page: null
+bibliography_start_page: 325
+index_start_page: 337
+inline_problems: true
+heading_text_level: 2
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 16
+  page_end: 24
+  chapter_title_block_idx: 84
+  problems_block_idx: null
+  next_chapter_block_idx: 156
+- num: 2
+  title: Nash Equilibrium
+  page_start: 25
+  page_end: 44
+  chapter_title_block_idx: 156
+  problems_block_idx: null
+  next_chapter_block_idx: 372
+- num: 3
+  title: Mixed, Correlated, and Evolutionary Equilibrium
+  page_start: 45
+  page_end: 66
+  chapter_title_block_idx: 372
+  problems_block_idx: null
+  next_chapter_block_idx: 567
+- num: 4
+  title: Rationalizability and Iterated Elimination of Dominated Actions
+  page_start: 67
+  page_end: 79
+  chapter_title_block_idx: 567
+  problems_block_idx: null
+  next_chapter_block_idx: 690
+- num: 5
+  title: Knowledge and Equilibrium
+  page_start: 80
+  page_end: 99
+  chapter_title_block_idx: 690
+  problems_block_idx: null
+  next_chapter_block_idx: 907
+- num: 6
+  title: Extensive Games with Perfect Information
+  page_start: 100
+  page_end: 126
+  chapter_title_block_idx: 907
+  problems_block_idx: null
+  next_chapter_block_idx: 1154
+- num: 7
+  title: Bargaining Games
+  page_start: 127
+  page_end: 141
+  chapter_title_block_idx: 1154
+  problems_block_idx: null
+  next_chapter_block_idx: 1313
+- num: 8
+  title: Repeated Games
+  page_start: 142
+  page_end: 170
+  chapter_title_block_idx: 1313
+  problems_block_idx: null
+  next_chapter_block_idx: 1589
+- num: 9
+  title: Complexity Considerations in Repeated Games
+  page_start: 171
+  page_end: 183
+  chapter_title_block_idx: 1589
+  problems_block_idx: null
+  next_chapter_block_idx: 1711
+- num: 10
+  title: Implementation Theory
+  page_start: 184
+  page_end: 204
+  chapter_title_block_idx: 1711
+  problems_block_idx: null
+  next_chapter_block_idx: 1915
+- num: 11
+  title: Extensive Games with Imperfect Information
+  page_start: 205
+  page_end: 224
+  chapter_title_block_idx: 1915
+  problems_block_idx: null
+  next_chapter_block_idx: 2069
+- num: 12
+  title: Sequential Equilibrium
+  page_start: 225
+  page_end: 262
+  chapter_title_block_idx: 2069
+  problems_block_idx: null
+  next_chapter_block_idx: 2389
+- num: 13
+  title: The Core
+  page_start: 263
+  page_end: 281
+  chapter_title_block_idx: 2389
+  problems_block_idx: null
+  next_chapter_block_idx: 2623
+- num: 14
+  title: Stable Sets, the Bargaining Set, and the Shapley Value
+  page_start: 282
+  page_end: 303
+  chapter_title_block_idx: 2623
+  problems_block_idx: null
+  next_chapter_block_idx: 2883
+- num: 15
+  title: The Nash Solution
+  page_start: 304
+  page_end: 324
+  chapter_title_block_idx: 2883
+  problems_block_idx: null
+  next_chapter_block_idx: 3139
+appendices: []
+section_re: ^(\d{1,2}\.\d+)\s+(.+)$
+subsection_re: ^(\d{1,2}\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^•\s*(?:Exercise\.?\s*)?(\d+\.\d+)\b
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: ^Notes$
+equation_strip_dollar: false
+equation_label_re: ^\((\d+(?:\.\d+)?)\)$
+example_start_re: ^Example\s+(\d+\.\d+)\b

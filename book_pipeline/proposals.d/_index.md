@@ -45,7 +45,196 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （215 條；proposed=0 parked=4）
+## domain: engine  （218 條；proposed=3 parked=4）
+### P-2026-06-24-bertsekas-nonlinear-programming — worker 越界改核心碼：book_pipeline/pipeline_queue.py（qc bertsekas_nonlinear_programming）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc bertsekas_nonlinear_programming] session=bertsekas_nonlinear_programming:82074 存活期間，受保護程式碼面 book_pipeline/pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/pipeline_queue.py b/book_pipeline/pipeline_queue.py
+> index e5275f1..2c698c1 100644
+> --- a/book_pipeline/pipeline_queue.py
+> +++ b/book_pipeline/pipeline_queue.py
+> @@ -448,8 +448,13 @@ _TRIAGE_CACHE_PATH = os.path.join(ROOT, 'book_pipeline', '.triage_cache.json')
+>  _triage_cache: dict | None = None
+>
+>
+> -def _triage(slug: str, raw: dict) -> dict | None:
+> -    """對該 slug 的 raw PDF 跑 triage（按檔內容快取，命中免重開 PDF）。無 PDF 回 None。"""
+> +def _triage(slug: str, raw: dict, live: bool = True) -> dict | None:
+> +    """對該 slug 的 raw PDF 跑 triage（按檔內容快取，命中免重開 PDF）。無 PDF 回 None。
+> +
+> +    live=False（觀測唯讀，如 build_snapshot）：cache miss **不現跑子進程**、回
+> +    {'_uncached': True} sentinel → 上層顯『待分流』placeholder。唯一 warmer = daemon observe
+> +    （build_queue，live=True）。根因：觀測快照同步跑 triage 子進程（pre-ingest 大 PDF ~45s/本），
+> +    bulk intake 冷快取窗讓 /dev 凍結數分鐘——觀測絕不做實工（鏡像 sol_stats 指紋快取教訓）。"""
+>      global _triage_cache
+>      fn = raw.get(slug)
+>      if not fn:
+> @@ -469,6 +474,8 @@ def _triage(slug: str, raw: dict) -> dict | None:
+>              _triage_cache = {}
+>      if key and key in _triage_cache:
+>          return _triage_cache[key]
+> +    if not live:                       # 觀測唯讀：cache miss 不阻塞快照、交 daemon observe 暖
+> +        return {'_uncached': True}
+>      # pymupdf 對病態 PDF（corrupt / 半下載 / 超大）會無限打轉、無 timeout → 曾整份 build_snapshot
+>      # 卡死 14min，launchd 因前一實例未退而不觸發新 60s run → status.json 凍結數分鐘（看板假象）。
+>      # 故隔離進子進程跑硬 timeout：超時/壞檔 → review+needs_llm（轉 qc 視覺驗證），cache 之不再重試。
+> @@ -498,19 +505,26 @@ def _triage(slug: str, raw: dict) -> dict | None:
+>      return res
+>
+>
+> -def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
+> -    """回傳擴展 stage：含 triage/qc（ingest 前）與 deploy（parse 後）。"""
+> +def assess_full(slug: str, pending: set, raw: dict, state: dict, live_triage: bool = True) -> dict:
+> +    """回傳擴展 stage：含 triage/qc（ingest 前）與 deploy（parse 後）。
+> +
+> +    live_triage=False（觀測唯讀，如 build_snapshot）：未快取的 triage 不現跑子進程，
+> +    顯『0.1 待分流』placeholder（daemon 下個 observe 才分流）。唯一 warmer = daemon 的
+> +    build_queue/assess_one（live_triage=True，預設）→ 觀測絕不阻塞於 PDF triage。"""
+>      has_unified = st._exists(slug, 'unified', 'content_list.json')
+>
+>      # ── ingest 前：triage / qc ──
+>      if not has_unified:
+>          if slug in pending:  # 已 PUT、unified 未組 → 續 ingest
+>              return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'llm': False}
+> -        tri = _triage(slug, raw)
+> +        tri = _triage(slug, raw, live=live_triage)
+>          if tri is None:
+>              # 無源 = 殘留 slug 或待補；crawl 由書單 SoT 驅動（見 pipeline_tick），
+>              # 不從此處觸發，僅 surface。
+>              return {'slug': slug, 'stage': 'X 無源', 'todo': '—', 'llm': False}
+> +        if tri.get('_uncached'):  # 觀測唯讀且未快取 → 暫態 placeholder（非卡關，daemon 下個 tick 評估）
+> +            return {'slug': slug, 'stage': '0.1 待分流', 'todo': '—', 'llm': False,
+> +                    'note': '尚未分流（daemon 下個 tick 評估）'}
+>          qc = state.get(slug, {}).get('qc')
+>          if tri.get('verdict') == 'reject' and not tri.get('needs_llm'):
+>              return {'slug': slug, 'stage': 'R triage拒', 'todo': '—',
+> @@ -581,7 +595,7 @@ def next_actionable(rows: list[dict]) -> dict | None:
+>
+>
+>  # pipeline 深度桶序（上游→下游）。crawl 待下載（QUALIFIED 未抓）不在此——本視圖只涵蓋已 owned 的在管書。
+> -DEPTH_ORDER = ['待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+> +DEPTH_ORDER = ['待分流', '待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+>
+>
+>  def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
+> @@ -593,6 +607,8 @@ def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
+>      verb = todo.split()[0].split('(')[0] if todo not in ('—', '') else None
+>      if stage.startswith('R') or pre == 'X':   # R triage拒/qc拒/書況/audit-blocked、X 無源 → 需人工
+>          return ('卡關', None)
+> +    if pre == '0.1':                          # 觀測唯讀下未快取 triage 的暫態 placeholder（非閘、無 verb）
+> +        return ('待分流', None)
+>      if pre == '0.2':
+>          return ('待qc', 'qc')
+>      if pre == '0.3':                          # 過 qc、待 det ingest 提交 MinerU
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-bertsekas-nonlinear-programming-2 — worker 越界改核心碼：book_pipeline/test_pipeline_queue.py（qc bertsekas_nonlinear_programming）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc bertsekas_nonlinear_programming] session=bertsekas_nonlinear_programming:82074 存活期間，受保護程式碼面 book_pipeline/test_pipeline_queue.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/test_pipeline_queue.py b/book_pipeline/test_pipeline_queue.py
+> index c68b842..42cbc64 100644
+> --- a/book_pipeline/test_pipeline_queue.py
+> +++ b/book_pipeline/test_pipeline_queue.py
+> @@ -48,8 +48,8 @@ def test_assess_full_qc_reject_short_circuits():
+>          st.DATA = data_root  # has_unified=False（tmp 下沒造 unified）→ 走 triage/qc 分支
+>          # 直接 stub pipeline_queue._triage：回「需 LLM 視覺驗證」（如掃描 PDF），不碰真實 PDF。
+>          orig_triage = pq._triage
+> -        pq._triage = lambda slug, raw: {'verdict': 'review', 'needs_llm': True,
+> -                                        'type': 'scan', 'quality': 'low'}
+> +        pq._triage = lambda slug, raw, live=True: {'verdict': 'review', 'needs_llm': True,
+> +                                                   'type': 'scan', 'quality': 'low'}
+>          try:
+>              slug = 'probe_book'
+>              raw = {slug: 'probe.pdf'}  # 非空 → 不會落入 'X 無源'（_triage 已 stub，不實際讀）
+> @@ -85,8 +85,8 @@ def test_assess_full_missing_qc_reprompts():
+>          orig_data = st.DATA
+>          st.DATA = data_root
+>          orig_triage = pq._triage
+> -        pq._triage = lambda slug, raw: {'verdict': 'review', 'needs_llm': True,
+> -                                        'type': 'scan', 'quality': 'mid'}
+> +        pq._triage = lambda slug, raw, live=True: {'verdict': 'review', 'needs_llm': True,
+> +                                                   'type': 'scan', 'quality': 'mid'}
+>          try:
+>              slug = 'truncated_book'
+>              raw = {slug: 'truncated.pdf'}
+> @@ -108,6 +108,46 @@ def test_assess_full_missing_qc_reprompts():
+>              pq._triage = orig_triage
+>
+>
+> +# ══ 2.5 觀測唯讀 triage：cache miss 不跑子進程 + 顯『待分流』（bulk intake 冷快取防凍結）══
+> +
+> +def test_readonly_triage_uncached_never_runs_subprocess():
+> +    """觀測唯讀 invariant（build_snapshot 用 live_triage=False）：未快取的 triage **絕不現跑子進程**，
+> +    回 {'_uncached': True} → assess_full 顯『0.1 待分流』placeholder。根因：觀測快照同步跑 pre-ingest
+> +    大 PDF 的 triage 子進程（~45s/本），bulk intake 冷快取窗讓 /dev 凍結數分鐘。唯一 warmer=daemon
+> +    observe（live_triage=True）。對照組 live=True 仍須真跑（不能誤把 daemon warmer 也短路掉）。"""
+> +    with tempfile.TemporaryDirectory() as root:
+> +        orig_root, orig_cachepath, orig_cache = pq.ROOT, pq._TRIAGE_CACHE_PATH, pq._triage_cache
+> +        pq.ROOT = root
+> +        pq._TRIAGE_CACHE_PATH = os.path.join(root, '.triage_cache.json')
+> +        pq._triage_cache = None
+> +        os.makedirs(os.path.join(root, 'raw_pdfs'))
+> +        with open(os.path.join(root, 'raw_pdfs', 'probe.pdf'), 'wb') as f:
+> +            f.write(b'%PDF-1.4 fake')  # 內容無關：live=False 在開檔前就短路
+> +        # 若 live=False 仍呼叫子進程，這個 stub 會讓測試爆 → 證明「絕不現跑」
+> +        import subprocess as _sp
+> +        orig_run = _sp.run
+> +        _sp.run = lambda *a, **k: (_ for _ in ()).throw(AssertionError('live=False 不該跑 triage 子進程'))
+> +        try:
+> +            raw = {'probe': 'probe.pdf'}
+> +            r = pq._triage('probe', raw, live=False)
+> +            assert r == {'_uncached': True}, f"唯讀 miss 應回 _uncached sentinel，實得 {r!r}"
+> +            # cache 不應被寫入（觀測不留實工副作用）
+> +            assert not os.path.isfile(pq._TRIAGE_CACHE_PATH), "唯讀 miss 絕不可寫 triage cache"
+> +            # assess_full(live_triage=False) → '0.1 待分流'
+> +            with tempfile.TemporaryDirectory() as data_root:
+> +                od = st.DATA
+> +                st.DATA = data_root  # has_unified=False
+> +                try:
+> +                    a = pq.assess_full('probe', set(), raw, {}, live_triage=False)
+> +                    assert a['stage'] == '0.1 待分流', f"唯讀未快取應顯『0.1 待分流』，實得 {a['stage']!r}"
+> +                    assert a['todo'] == '—' and a['llm'] is False
+> +                finally:
+> +                    st.DATA = od
+> +        finally:
+> +            _sp.run = orig_run
+> +            pq.ROOT, pq._TRIAGE_CACHE_PATH, pq._triage_cache = orig_root, orig_cachepath, orig_cache
+> +
+> +
+>  # ══ 3. deploy gate 三態：catalog_audit 待辦 / catalog_accepted / sol_extract 待 merge ══
+>
+>  def test_assess_full_deploy_gate_catalog_and_sol():
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-24-bertsekas-nonlinear-programming-3 — worker 越界改核心碼：book_pipeline/devctl.py（qc bertsekas_nonlinear_programming）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [qc bertsekas_nonlinear_programming] session=bertsekas_nonlinear_programming:82074 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/devctl.py b/book_pipeline/devctl.py
+> index d8f425b..b472cfd 100644
+> --- a/book_pipeline/devctl.py
+> +++ b/book_pipeline/devctl.py
+> @@ -415,7 +415,9 @@ def books_status(write_timeline: bool = False) -> dict:
+>      for s in slugs:
+>          # 用 daemon 同款 assess_full（state-aware：認 qc/triage 拒、catalog accept、deploy gate）
+>          # → dashboard 與 daemon 永不分歧（根治「看板顯示與實際派工不一致」的矛盾源）。
+> -        r = q.assess_full(s, pending, raw, state)
+> +        # live_triage=False：觀測唯讀，未快取的 PDF triage **不現跑子進程**（避免 bulk intake 冷快取窗
+> +        # 讓快照阻塞數分鐘→/dev 凍結）；暖快取交 daemon observe（build_queue）。未分流書暫顯『待分流』。
+> +        r = q.assess_full(s, pending, raw, state, live_triage=False)
+>          r.setdefault('prob', 0)
+>          r.setdefault('sol', 0)
+>          r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
 ### P-2026-06-18-conway-functional-analysis — inline exercises 被提早切到下一節
 - parked | type=tooling-gap | source=agent
 - 解鎖條件：engine-capability → 序列/位置對位能力（parser ch11 double-EXERCISES／sol 無 section）
@@ -6341,7 +6530,14 @@
 - 風險：
 > May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （46 條；proposed=0 parked=26）
+## domain: sol  （47 條；proposed=1 parked=26）
+### P-2026-06-24-glover-overbye-power-system-anal — glover_overbye_power_system_analysis_design 解答本部分題號落在非 text block 導致漏切
+- proposed | type=harness-gap | source=sol_extract
+- 證據：
+> dry-run 382/496=77%；語義抽樣 ch2/ch8/ch10/ch13/ch14 對齊，ch3/ch5 等有 22 個解答題號被 MinerU 標為 page_number/header/aside_text（如 3.4、3.8、5.9、13.13），現有 sol_extract 只在 type=text 切 problem_re，會漏切這些題並使前一題 over-include。
+- 提議：
+> 讓 sol_extract 支援 opt-in problems_in_header/aside_text/page_number 或題號 block 正規化；本次先 merge 382 題可對齊解答，接受少量 over-inclusion/missing。
+
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - parked | type=harness-gap | source=sol_extract
 - 解鎖條件：re-edition → 換對齊版次的 sol（章序/題號 offset）
