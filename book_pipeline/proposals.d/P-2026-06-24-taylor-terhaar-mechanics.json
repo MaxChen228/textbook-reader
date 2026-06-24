@@ -2,16 +2,20 @@
   "id": "P-2026-06-24-taylor-terhaar-mechanics",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "Support end-of-book problem banks keyed by chapter number",
   "slug": "taylor_terhaar_mechanics",
   "detect": [],
   "source": "agent",
   "resolution": "",
   "created": "2026-06-24T07:35:01+00:00",
-  "updated": "2026-06-24T07:35:01+00:00",
+  "updated": "2026-06-24T10:47:38+00:00",
   "evidence": "Taylor Mechanics has chapter bodies at blocks 45..4196 and a single end-of-book PROBLEMS section at blocks 4398..4597. Problems are numbered 1.01..13.06 by chapter, but are not inside each chapter interval. Current extract_rules.yaml schema only supports per-chapter problems_block_idx within (chapter_title_block_idx,next_chapter_block_idx) or inline_problems within the same chapter interval; pointing pbi into the global problem bank makes chapter bodies swallow intervening chapters, while pbi=null drops all real problems.",
   "proposal": "Add schema/parser support for a global/end_of_book_problems_block_idx range that dispatches problem_start_re matches to chapters by captured chapter prefix, without changing each chapter body interval.",
   "risk": "",
-  "disposition": ""
+  "disposition": "verify inconclusive（engine 結構恆 inconclusive；smoke 因 parsed/book.json 不存在跑不了）。grep parser.py 證實現僅 per-chapter problems_block_idx + inline_problems 兩模式、無全域題庫 dispatch → 引擎真缺：pbi 指全域 bank 會吞中介章、pbi=null 丟全題。待能力落地由 proposals stale 自動 resurface。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "parser/audit schema：全域章末題庫（書末單一 PROBLEMS 區）按題號章前綴 dispatch 回各章，不改各章 body 區間"
+  }
 }
