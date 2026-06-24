@@ -1,0 +1,60 @@
+{
+  "overrides": [
+    {
+      "id": "efron_hastie_computer_age-ch09-body-201-ac10ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[201]",
+      "expect": "P _ {i} \\left/ \\sum_ {\\mathcal {R} _ {j}} P _ {j} \\doteq e ^ {c _ {i} \\beta} \\left. \\right/ \\sum_ {k \\in \\mathcal {R} _ {j}} e ^ {c _ {k} \\beta},",
+      "new": "P _ {i} / \\sum_ {\\mathcal {R} _ {j}} P _ {j} \\doteq e ^ {c _ {i} \\beta} / \\sum_ {k \\in \\mathcal {R} _ {j}} e ^ {c _ {k} \\beta},"
+    },
+    {
+      "id": "efron_hastie_computer_age-ch04-body-23-24f449",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[23]",
+      "expect": "f _ {\\mu} (x) = \\frac {(x - \\lambda) ^ {\\nu - 1}}{\\sigma^ {\\nu} \\Gamma (\\nu)} e ^ {- \\frac {x - \\lambda}{\\sigma}} \\quad \\text {(for x\\geq\\lambda,0 otherwise).}",
+      "new": "f _ {\\mu} (x) = \\frac {(x - \\lambda) ^ {\\nu - 1}}{\\sigma^ {\\nu} \\Gamma (\\nu)} e ^ {- \\frac {x - \\lambda}{\\sigma}} \\quad \\text {(for } x\\geq\\lambda, 0 \\text { otherwise).}"
+    },
+    {
+      "id": "efron_hastie_computer_age-ch12-body-185-d2b9b5",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[185]",
+      "expect": "D (y _ {i}, \\hat {\\mu} _ {i}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if y_{i} \\neq\\hat{\\mu} _{i}} \\\\ 0 & \\text {if y_{i} = \\hat{\\mu} _{i}}, \\end{array} \\right.",
+      "new": "D (y _ {i}, \\hat {\\mu} _ {i}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } y_{i} \\neq\\hat{\\mu} _{i} \\\\ 0 & \\text {if } y_{i} = \\hat{\\mu} _{i}, \\end{array} \\right."
+    },
+    {
+      "id": "efron_hastie_computer_age-ch12-body-232-a2459f",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[232]",
+      "expect": "\\mu_ {i j} = \\left\\{ \\begin{array}{l l} 2 & \\text {if y_{i} = 1} \\\\ - 2 & \\text {if y_{i} = 0}, \\end{array} \\right.",
+      "new": "\\mu_ {i j} = \\left\\{ \\begin{array}{l l} 2 & \\text {if } y_{i} = 1 \\\\ - 2 & \\text {if } y_{i} = 0, \\end{array} \\right."
+    },
+    {
+      "id": "efron_hastie_computer_age-ch16-body-109-d0e68e",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[109]",
+      "expect": "\\hat {\\beta} _ {j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if | \\tilde {\\beta} | <   \\lambda ;} \\\\ \\operatorname{sign} (\\tilde {\\beta} _ {j}) (| \\tilde {\\beta} _ {j} | - \\lambda) & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\hat {\\beta} _ {j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } | \\tilde {\\beta} | < \\lambda ; \\\\ \\operatorname{sign} (\\tilde {\\beta} _ {j}) (| \\tilde {\\beta} _ {j} | - \\lambda) & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "efron_hastie_computer_age-ch20-body-208-97d308",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[208]",
+      "expect": "t \\left(c, \\beta^ {(b)}\\right) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x_{322} ^{\\prime} \\beta^{(b)} \\leq c} \\\\ 0 & \\text {if x_{332} ^{\\prime} \\beta^{(b)} >c}, \\end{array} \\right.",
+      "new": "t \\left(c, \\beta^ {(b)}\\right) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x_{322} ^{\\prime} \\beta^{(b)} \\leq c \\\\ 0 & \\text {if } x_{332} ^{\\prime} \\beta^{(b)} >c, \\end{array} \\right."
+    },
+    {
+      "id": "efron_hastie_computer_age-ch21-body-134-10b11b",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[134]",
+      "expect": "\\mu_ {i} \\sim \\left\\{ \\begin{array}{l l} 0 & \\text {for i = 1,2,\\ldots,9000} \\\\ \\mathcal {N} (- 3, 1) & \\text {for i = 9001,\\ldots,10,000.} \\end{array} \\right.",
+      "new": "\\mu_ {i} \\sim \\left\\{ \\begin{array}{l l} 0 & \\text {for } i = 1,2,\\ldots,9000 \\\\ \\mathcal {N} (- 3, 1) & \\text {for } i = 9001,\\ldots,10,000. \\end{array} \\right."
+    }
+  ]
+}

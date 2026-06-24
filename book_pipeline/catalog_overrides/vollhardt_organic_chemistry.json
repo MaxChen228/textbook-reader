@@ -1,0 +1,98 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "6.9",
+      "classification": "source_mismatch",
+      "reason": "Raw/parsed text repeatedly cites Table 6-9, but MinerU did not emit an internal table block for it; nearby parsed content contains narrative refs only and no recoverable table block to assign without fabricating catalog data.",
+      "where": "ch06.json body[113]",
+      "evidence": "Parsed text: 'compare the reactivities of bromoethane and its derivatives (Table 6-9)' and body[114] 'understand the data in Table 6-9'; surrounding blocks are paragraphs/figures, no table block for 6-9."
+    },
+    {
+      "type": "table",
+      "ref": "11.3",
+      "classification": "source_mismatch",
+      "reason": "The reference is real text, but the corresponding Table 11-3 was not emitted as a table/catalog entry by MinerU; chapter 11 catalog contains 11.1, 11.2, 11.4, 11.5 and no block that can be safely relabeled as 11.3.",
+      "where": "ch11.json problem:11-9:body[2]",
+      "evidence": "Parsed text: 'Two examples are shown in Table 11-3'; catalog inspection shows no tbl-11.3 and no table block containing Table 11-3."
+    },
+    {
+      "type": "table",
+      "ref": "11.6",
+      "classification": "source_mismatch",
+      "reason": "The reference is real text, but MinerU did not emit Table 11-6 as an internal table block; no safe selector exists to assign without fabricating table content.",
+      "where": "ch11.json problem:11-23:body[3]",
+      "evidence": "Parsed text: 'Table 11-6 illustrates the relation between molecular formula, structure, and degree of unsaturation'; catalog has no tbl-11.6 and no table block containing Table 11-6."
+    },
+    {
+      "type": "table",
+      "ref": "14.1",
+      "classification": "source_mismatch",
+      "reason": "The reference is real text, but MinerU did not emit Table 14-1 as an internal table block; chapter 14 catalog starts at 14.2/14.3 for tables.",
+      "where": "ch14.json problem:14-17:body[6]",
+      "evidence": "Parsed text: 'Many typical dienes and dienophiles have common names ... (Table 14-1)'; catalog inspection shows tbl-14.2 and tbl-14.3 only."
+    },
+    {
+      "type": "table",
+      "ref": "15.1",
+      "classification": "source_mismatch",
+      "reason": "The reference is real text, but no chapter 15 table entries were emitted by MinerU/catalog, so this cannot be repaired via a safe id/caption correction.",
+      "where": "ch15.json body[171]",
+      "evidence": "Parsed text cites 'A phenyl-hydrogen bond ... Table 15-1'; catalog inspection shows zero chapter 15 table entries."
+    },
+    {
+      "type": "table",
+      "ref": "17.5",
+      "classification": "source_mismatch",
+      "reason": "The reference is real text, but MinerU did not emit Table 17-5 as a table/catalog entry; existing chapter 17 table entries cover 17.1 through 17.4 only.",
+      "where": "ch17.json problem:17-13:body[3]",
+      "evidence": "Parsed text: 'They form so-called oximes, hydrazone and semicarbazones, respectively (Table 17-5)'; catalog inspection shows no tbl-17.5."
+    },
+    {
+      "type": "table",
+      "ref": "25.1",
+      "classification": "source_mismatch",
+      "reason": "Table 25-1 is represented in parsed output as a figure/text list of top drugs, not as a table block; forcing one unlabeled figure/text group into tbl-25.1 would fabricate a table catalog entry.",
+      "where": "ch04.json problem:4-18:body[14]",
+      "evidence": "Chapter 25 body[1] cites Table 25-1, followed by drug names and figure blocks (body[6] onward), but no table block or caption for tbl-25.1 exists in parsed/catalog output."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "vollhardt-table-20.1-alias",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "problem:20-3:body[1]",
+      "expect": {
+        "id": "tbl-20.2"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-20.1",
+            "type": "table",
+            "caption": "Table 20-1 C-L Bond Lengths in RC-L Compared with R-L Single-Bond Distances",
+            "source": "agent-alias-split",
+            "evidence": "The same table block begins with 'Table 20-1' and then includes Table 20-2; keep the existing tbl-20.2 identity and add tbl-20.1 as an alias entry anchored to this block."
+          }
+        ],
+        "catalog_repair_source": "agent-alias-split"
+      },
+      "reason": "MinerU merged Table 20-1 and Table 20-2 into one table block whose id was parsed as tbl-20.2; add an explicit tbl-20.1 alias instead of overwriting the existing 20.2 supply."
+    },
+    {
+      "id": "vollhardt-problem-14-29-inline-figure-27-exclude",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "problem:14-29:body[27]",
+      "expect": {
+        "id": "fig-ch14-prob22-27"
+      },
+      "set": {
+        "catalog_exclude_reason": "problem_inline_unlabeled_fig",
+        "catalog_repair_source": "agent-reviewed-noncatalog"
+      },
+      "reason": "Problem 14-29 contains a local reaction scheme image whose OCR caption is problem prose mentioning Table 14-1, not a numbered figure caption. Exclude it from semantic catalog instead of fabricating a figure id."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-24-silbey-physical-chemistry-2",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/parser.py（qc silbey_physical_chemistry）",
+  "slug": "silbey_physical_chemistry",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-24T06:06:07+00:00",
+  "updated": "2026-06-24T06:06:07+00:00",
+  "evidence": "scope_guard bracket：worker [qc silbey_physical_chemistry] session=silbey_physical_chemistry:35699 存活期間，受保護程式碼面 book_pipeline/parser.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/parser.py b/book_pipeline/parser.py\nindex 7c7f43d..4aa7902 100644\n--- a/book_pipeline/parser.py\n+++ b/book_pipeline/parser.py\n@@ -55,6 +55,22 @@ def load_rules(slug: str) -> dict:\n     return yaml.safe_load(path.read_text())\n \n \n+def load_rules_safe(slug: str) -> dict | None:\n+    \"\"\"load_rules 的零副作用變體：缺檔／invalid slug／YAML 壞 → None（**不 sys.exit**）。\n+    供部署前 gate（book_qc 習題完整性）與 book_audit 唯讀體檢用——這些情境絕不能因\n+    缺/壞 rules 中止行程（fail-open：判不了就不旗標、照常上站）。\"\"\"\n+    if not _valid_slug(slug):\n+        return None\n+    path = DATA_DIR / slug / 'extract_rules.yaml'\n+    if not path.is_file():\n+        return None\n+    try:\n+        r = yaml.safe_load(path.read_text())\n+        return r if isinstance(r, dict) else None\n+    except Exception:\n+        return None\n+\n+\n def load_unified(slug: str) -> list[dict]:\n     if not _valid_slug(slug):\n         sys.exit(f'invalid slug: {slug}')",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

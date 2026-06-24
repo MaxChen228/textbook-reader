@@ -52,20 +52,27 @@
     },
     {
       "id": "mcquarrie-simon-pchem-ch10-fig-10-22-text-figure",
-      "action": "set_fields",
+      "action": "pdf_crop_insert",
       "chunk": "ch10",
       "selector": "body[184]",
-      "expect": {
-        "t": "eq",
-        "id": "eq-ch10-184"
-      },
-      "set": {
+      "position": "before",
+      "page": 425,
+      "clip": [
+        0.04,
+        0.04,
+        0.93,
+        0.32
+      ],
+      "zoom": 3,
+      "src": "manual_fig-10.22.png",
+      "block": {
+        "t": "fig",
         "id": "fig-10.22",
         "caption": "Figure 10.22 The ground-state electron configuration of the π electrons in butadiene.",
-        "kind": "text",
+        "kind": "line",
         "catalog_repair_source": "agent-explicit-ref"
       },
-      "reason": "C4 Figure 10.22 is present in raw PDF page 425 and parsed as an equation array tagged FIGURE10.22 at ch10 body[184]; expose it as a text figure catalog entry without fabricating an image."
+      "reason": "C4 Figure 10.22 is present in raw PDF page 425 but MinerU parsed the diagram as an equation array tagged FIGURE10.22 at ch10 body[184]; crop the source figure and update the existing block id to a real figure catalog entry."
     }
   ]
 }

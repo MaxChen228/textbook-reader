@@ -1,0 +1,155 @@
+{
+  "overrides": [
+    {
+      "id": "anslyn-ch15-fig-15-12b-ref-1",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[157]",
+      "field": "md",
+      "old": "not shown in Figure 5.12 B",
+      "new": "not shown in Figure 15.12 B",
+      "reason": "正文位於 Chapter 15 且上下文反覆討論 Figure 15.12 B；parsed OCR 漏掉章號 1，誤成 Figure 5.12 B。"
+    },
+    {
+      "id": "anslyn-ch15-fig-15-12b-ref-2",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[158]",
+      "field": "md",
+      "old": "orbital (g) in Figure 5.12 B",
+      "new": "orbital (g) in Figure 15.12 B",
+      "reason": "同一段落引用 Figure 15.12 B 的 orbital labels；parsed OCR 漏掉章號 1。"
+    },
+    {
+      "id": "anslyn-ch05-table-5-5c-alias",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[175]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-5.7"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-5.5",
+            "type": "table",
+            "caption": "Table 5.5",
+            "source": "agent-catalog-audit",
+            "evidence": "The multi-part acidity table block itself contains subparts of Table 5.5; audit detected an internal Table 5.5 reference from body[175]."
+          },
+          {
+            "id": "tbl-5.5A",
+            "type": "table",
+            "caption": "Table 5.5A",
+            "source": "agent-near-ref-alias",
+            "evidence": "Existing repair: body[178] nearby reference to Table 5.5A points to the multi-part acidity table material around this anchor."
+          },
+          {
+            "id": "tbl-5.5C",
+            "type": "table",
+            "caption": "Table 5.5C",
+            "source": "agent-catalog-audit",
+            "evidence": "body[169] cites para-fluorobenzoic acid in Table 5.5C; the chapter's multi-part Table 5.5 acidity material is OCR-cataloged under the adjacent table block."
+          },
+          {
+            "id": "tbl-5.5D",
+            "type": "table",
+            "caption": "Table 5.5D",
+            "source": "agent-near-ref-alias",
+            "evidence": "Existing repair: body[176] nearby reference to Table 5.5D points to the multi-part acidity table material around this anchor."
+          },
+          {
+            "id": "tbl-5.5F",
+            "type": "table",
+            "caption": "Table 5.5F",
+            "source": "agent-catalog-audit",
+            "evidence": "body[187] cites group VIA acid trends in Table 5.5F; this is part of the same multi-part acidity table sequence OCR-cataloged around this anchor."
+          }
+        ]
+      },
+      "reason": "Table 5.5 is a multi-part acidity table; MinerU/catalog created nearby table anchors with incomplete subpart aliases. Add missing cited subparts C and F without changing the primary parsed table id."
+    },
+    {
+      "id": "anslyn-ch06-table-6-1-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[226]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-226"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-6.1",
+            "type": "table",
+            "caption": "Table 6.1",
+            "source": "agent-catalog-audit",
+            "evidence": "body[229], body[231], and body[235] cite Table 6.1 A/B/C immediately after the three adjacent A/B/C visual blocks body[226]-body[228]. MinerU emitted these table panels as excluded figure blocks."
+          }
+        ]
+      },
+      "reason": "Table 6.1 is represented by adjacent A/B/C visual panels that MinerU emitted as figures; expose a table alias on the first panel anchor for catalog ref coverage."
+    },
+    {
+      "id": "anslyn-ch10-table-10-3-alias",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[150]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-150"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-10.3",
+            "type": "table",
+            "caption": "Table 10.3 Relative Rates for Addition of Bromine in Methanol with Added NaBr at 25 °C",
+            "source": "agent-catalog-audit",
+            "evidence": "Visual inspection of body[150] image shows the heading 'Table 10.3 Relative Rates for Addition of Bromine in Methanol with Added NaBr at 25 °C'."
+          }
+        ]
+      },
+      "reason": "MinerU emitted Table 10.3 as an excluded line figure; add a table alias to the real table image anchor."
+    },
+    {
+      "id": "anslyn-ch11-remove-table-11-13-nearby-alias",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[611]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-11.14"
+      },
+      "unset": [
+        "catalog_aliases"
+      ],
+      "reason": "Table 11.13 is physically present on the raw PDF page and is inserted as its own cropped table block; remove the earlier nearby alias from the Figure 11.14 context block."
+    },
+    {
+      "id": "anslyn-ch11-table-11-13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[614]",
+      "position": "before",
+      "page": 722,
+      "clip": [
+        0.02,
+        0.425,
+        0.25,
+        0.775
+      ],
+      "zoom": 3.0,
+      "src": "manual_tbl-11.13.png",
+      "block": {
+        "t": "table",
+        "id": "tbl-11.13",
+        "kind": "line",
+        "caption": "Table 11.13 Rotation vs. Cleavage in Tetramethylenes (Gas Phase, 425–440 °C)"
+      },
+      "reason": "MinerU omitted the standalone Table 11.13 block. Raw PDF page 722 left column contains the table; crop and insert it before the paragraph that cites Table 11.13."
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+slug: szabo_ostlund_quantum_chemistry
+title: "Modern Quantum Chemistry: Introduction to Advanced Electronic Structure Theory"
+author: Attila Szabo; Neil S. Ostlund
+edition: null
+subject: Physical Chemistry
+publisher: Dover Publications
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 424
+bibliography_start_page: null
+index_start_page: 473
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Mathematical Review
+    page_start: 15
+    page_end: 52
+    chapter_title_block_idx: 70
+    problems_block_idx: null
+    next_chapter_block_idx: 785
+  - num: 2
+    title: Many-Electron Wave Functions and Operators
+    page_start: 53
+    page_end: 121
+    chapter_title_block_idx: 785
+    problems_block_idx: null
+    next_chapter_block_idx: 1808
+  - num: 3
+    title: The Hartree-Fock Approximation
+    page_start: 122
+    page_end: 244
+    chapter_title_block_idx: 1808
+    problems_block_idx: null
+    next_chapter_block_idx: 3287
+  - num: 4
+    title: Configuration Interaction
+    page_start: 245
+    page_end: 284
+    chapter_title_block_idx: 3287
+    problems_block_idx: null
+    next_chapter_block_idx: 3775
+  - num: 5
+    title: Pair and Coupled-Pair Theories
+    page_start: 285
+    page_end: 333
+    chapter_title_block_idx: 3775
+    problems_block_idx: null
+    next_chapter_block_idx: 4568
+  - num: 6
+    title: Many-Body Perturbation Theory
+    page_start: 334
+    page_end: 393
+    chapter_title_block_idx: 4568
+    problems_block_idx: null
+    next_chapter_block_idx: 5346
+  - num: 7
+    title: The One-Particle Many-Body Green's Function
+    page_start: 394
+    page_end: 423
+    chapter_title_block_idx: 5346
+    problems_block_idx: null
+    next_chapter_block_idx: 5805
+
+appendices:
+  - id: A
+    title: Integral Evaluation with 1s Primitive Gaussians
+    page_start: 424
+    chapter_title_block_idx: 5805
+  - id: B
+    title: Two-Electron Self-Consistent-Field Program
+    page_start: 431
+    chapter_title_block_idx: 5913
+  - id: C
+    title: Analytic Derivative Methods and Geometry Optimization
+    page_start: 451
+    chapter_title_block_idx: 6044
+  - id: D
+    title: Molecular Integrals for H₂ as a Function of Bond Length
+    page_start: 473
+    chapter_title_block_idx: 6329
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+((?:\d+|[A-Z])\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(NOTES|FURTHER READING|APPENDIX\s+[A-Z]|INDEX)\s*$'
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
