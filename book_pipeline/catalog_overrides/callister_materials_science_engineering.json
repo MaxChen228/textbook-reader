@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "callister-ch14-body82-fig-14.2-alias",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[82]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-14.2",
+        "src": "b964aaf5a1d71f16564fcb62b88cdca993e3135d5c4eaf6f659af7bbb8df1256.jpg"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-14.2",
+            "type": "figure",
+            "caption": "Figure 14.2: Chain structures for poly(vinyl chloride) and polypropylene referenced by the surrounding text.",
+            "source": "agent-alias",
+            "evidence": "正文 body[84] explicitly references Figure 14.2; MinerU emitted the visual as fig-14.2 but attached following Table 14.3 prose as caption, causing build_catalogs to classify the block as table."
+          }
+        ],
+        "catalog_repair_source": "figure-alias-for-misattached-table-caption"
+      },
+      "reason": "Figure 14.2 visual exists in parsed ch14 body[82], but its caption text was contaminated by Table 14.3 prose and the catalog classified it as table; add an explicit figure alias without changing the existing block anchor."
+    },
+    {
+      "id": "callister-ch17-body126-table-17.2-alias",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[126]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch17-126",
+        "src": "9f581ee6b4ee063b1170c4c4a97dc68c45b9bb1ae9fa59238b7d66a098677a9e.jpg"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-17.2",
+            "type": "table",
+            "caption": "Table 17.2: Galvanic series in seawater, listing metals and alloys from increasingly inert to increasingly active.",
+            "source": "agent-alias",
+            "evidence": "正文 body[122] introduces the galvanic series as Table 17.2; the following visual body[126] is the galvanic-series table image, emitted as an unnumbered fig with only source-credit caption."
+          }
+        ],
+        "catalog_repair_source": "table-alias-for-visual-table"
+      },
+      "reason": "Table 17.2 is present as a visual table image but MinerU emitted it as an unnumbered figure; add a table alias rather than misclassifying the source block."
+    }
+  ]
+}

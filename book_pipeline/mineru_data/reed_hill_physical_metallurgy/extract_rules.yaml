@@ -1,0 +1,205 @@
+slug: reed_hill_physical_metallurgy
+title: Physical Metallurgy Principles
+author: Reza Abbaschian; Lara Abbaschian
+edition: 5th
+subject: Solid State Physics
+publisher: Cengage
+language: en
+
+filter_types: [page_number, header, footer]
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 775
+bibliography_start_page: null
+index_start_page: 775
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "The Structure of Metals"
+    page_start: 23
+    page_end: 49
+    chapter_title_block_idx: 151
+    problems_block_idx: 351
+    next_chapter_block_idx: 390
+  - num: 2
+    title: "Characterization Techniques"
+    page_start: 53
+    page_end: 86
+    chapter_title_block_idx: 390
+    problems_block_idx: 671
+    next_chapter_block_idx: 706
+  - num: 3
+    title: "Crystal Binding"
+    page_start: 88
+    page_end: 106
+    chapter_title_block_idx: 706
+    problems_block_idx: 901
+    next_chapter_block_idx: 935
+  - num: 4
+    title: "Introduction to Dislocations"
+    page_start: 108
+    page_end: 141
+    chapter_title_block_idx: 935
+    problems_block_idx: 1236
+    next_chapter_block_idx: 1294
+  - num: 5
+    title: "Dislocations and Plastic Deformation"
+    page_start: 145
+    page_end: 181
+    chapter_title_block_idx: 1294
+    problems_block_idx: 1595
+    next_chapter_block_idx: 1675
+  - num: 6
+    title: "Elements of Grain Boundaries"
+    page_start: 185
+    page_end: 219
+    chapter_title_block_idx: 1675
+    problems_block_idx: 1952
+    next_chapter_block_idx: 1997
+  - num: 7
+    title: "Vacancies and Thermodynamics"
+    page_start: 222
+    page_end: 242
+    chapter_title_block_idx: 1997
+    problems_block_idx: 2275
+    next_chapter_block_idx: 2318
+  - num: 8
+    title: "Annealing"
+    page_start: 245
+    page_end: 286
+    chapter_title_block_idx: 2318
+    problems_block_idx: 2704
+    next_chapter_block_idx: 2759
+  - num: 9
+    title: "Solid Solutions"
+    page_start: 289
+    page_end: 313
+    chapter_title_block_idx: 2759
+    problems_block_idx: 3020
+    next_chapter_block_idx: 3040
+  - num: 10
+    title: "Phases"
+    page_start: 315
+    page_end: 338
+    chapter_title_block_idx: 3040
+    problems_block_idx: 3312
+    next_chapter_block_idx: 3350
+  - num: 11
+    title: "Binary Phase Diagrams"
+    page_start: 340
+    page_end: 378
+    chapter_title_block_idx: 3350
+    problems_block_idx: 3665
+    next_chapter_block_idx: 3702
+  - num: 12
+    title: "Diffusion in Substitutional Solid Solutions"
+    page_start: 380
+    page_end: 419
+    chapter_title_block_idx: 3702
+    problems_block_idx: 4159
+    next_chapter_block_idx: 4201
+  - num: 13
+    title: "Interstitial Diffusion"
+    page_start: 422
+    page_end: 439
+    chapter_title_block_idx: 4201
+    problems_block_idx: 4421
+    next_chapter_block_idx: 4457
+  - num: 14
+    title: "Solidification of Metals"
+    page_start: 441
+    page_end: 493
+    chapter_title_block_idx: 4457
+    problems_block_idx: 4936
+    next_chapter_block_idx: 5011
+  - num: 15
+    title: "Nucleation and Growth Kinetics"
+    page_start: 497
+    page_end: 530
+    chapter_title_block_idx: 5011
+    problems_block_idx: 5327
+    next_chapter_block_idx: 5393
+  - num: 16
+    title: "Precipitation Hardening"
+    page_start: 533
+    page_end: 553
+    chapter_title_block_idx: 5393
+    problems_block_idx: 5549
+    next_chapter_block_idx: 5597
+  - num: 17
+    title: "Deformation Twinning and Martensite Reactions"
+    page_start: 555
+    page_end: 594
+    chapter_title_block_idx: 5597
+    problems_block_idx: 5910
+    next_chapter_block_idx: 5997
+  - num: 18
+    title: "The Iron-Carbon Alloy System"
+    page_start: 598
+    page_end: 637
+    chapter_title_block_idx: 5997
+    problems_block_idx: 6282
+    next_chapter_block_idx: 6353
+  - num: 19
+    title: "The Hardening of Steel"
+    page_start: 640
+    page_end: 685
+    chapter_title_block_idx: 6353
+    problems_block_idx: 6671
+    next_chapter_block_idx: 6744
+  - num: 20
+    title: "Selected Nonferrous Alloy Systems"
+    page_start: 688
+    page_end: 720
+    chapter_title_block_idx: 6744
+    problems_block_idx: 6962
+    next_chapter_block_idx: 7025
+  - num: 21
+    title: "Failure of Metals"
+    page_start: 724
+    page_end: 774
+    chapter_title_block_idx: 7025
+    problems_block_idx: 7335
+    next_chapter_block_idx: 7438
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(References|Further Reading)\s*$'
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(Fig\.\s*\d+\.\d+[A-Za-z]?)(?:\s+|$)(.*)$'
+
+known_missing_problems:
+  - chapter: 1
+    nums: ['1.1', '1.2', '1.3', '1.4', '1.5', '1.9', '1.10', '1.11', '1.12']
+  - chapter: 4
+    nums: ['4.6', '4.7']
+  - chapter: 5
+    nums: ['5.6', '5.13', '5.14']
+  - chapter: 9
+    nums: ['9.1', '9.2', '9.3', '9.4', '9.5', '9.6', '9.7']
+  - chapter: 11
+    nums: ['11.1']
+  - chapter: 14
+    nums: ['14.1', '14.2', '14.3', '14.4', '14.5']
+  - chapter: 17
+    nums: ['17.12']

@@ -1,0 +1,589 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "10.13b",
+      "classification": "covered_by_parent",
+      "reason": "Panel (b) of multipart Figure 10-13 is covered by repaired fig-10.13.",
+      "where": "ch10.json body[85]",
+      "evidence": "Caption at ch10 body[91] is Figure 10-13 with panels (a) and (b)."
+    },
+    {
+      "type": "figure",
+      "ref": "22.2e",
+      "classification": "covered_by_parent",
+      "reason": "Panel (e) of multipart Figure 22-2 is covered by repaired fig-22.2.",
+      "where": "ch22.json body[22]",
+      "evidence": "Caption at ch22 body[28] is Figure 22-2 with panels (a)-(f)."
+    },
+    {
+      "type": "figure",
+      "ref": "22.2f",
+      "classification": "covered_by_parent",
+      "reason": "Panel (f) of multipart Figure 22-2 is covered by repaired fig-22.2.",
+      "where": "ch22.json body[24]",
+      "evidence": "Caption at ch22 body[28] is Figure 22-2 with panels (a)-(f)."
+    },
+    {
+      "type": "figure",
+      "ref": "25.7a",
+      "classification": "covered_by_parent",
+      "reason": "Panel (a) of multipart Figure 25-7 is covered by repaired fig-25.7.",
+      "where": "ch25.json body[41]",
+      "evidence": "Caption at ch25 body[48] is Figure 25-7 with panels (a)-(c)."
+    },
+    {
+      "type": "figure",
+      "ref": "25.7b",
+      "classification": "covered_by_parent",
+      "reason": "Panel (b) of multipart Figure 25-7 is covered by repaired fig-25.7.",
+      "where": "ch25.json body[41]",
+      "evidence": "Caption at ch25 body[48] is Figure 25-7 with panels (a)-(c)."
+    },
+    {
+      "type": "figure",
+      "ref": "25.7c",
+      "classification": "covered_by_parent",
+      "reason": "Panel (c) of multipart Figure 25-7 is covered by repaired fig-25.7.",
+      "where": "ch25.json body[42]",
+      "evidence": "Caption at ch25 body[48] is Figure 25-7 with panels (a)-(c)."
+    },
+    {
+      "type": "figure",
+      "ref": "17.22b",
+      "classification": "covered_by_parent",
+      "reason": "Panel (b) of multipart Figure 17-22 is covered by repaired fig-17.22.",
+      "where": "ch17.json body[172]",
+      "evidence": "Caption at ch17 body[186] is Figure 17-22 with panels (a)-(g)."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "raven-ch01-1-5-setid",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[32]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-32"
+      },
+      "set": {
+        "id": "fig-1.5",
+        "caption": "1–5 A photosynthetic autotroph Large-flowered trillium (Trillium grandiflorum), one of the first plants to flower in spring in the deciduous woods of eastern and midwestern North America. Like most vascular plants, trilliums are rooted in the soil; photosynthesis occurs chiefly in the leaves. Flowers are produced in well-lighted conditions before leaves appear on surrounding trees. The underground portions (rhizomes) of the plant live for many years and spread to produce new plants vegetatively under the thick cover of decaying material on the forest floor. Trilliums also reproduce by producing seeds, which are dispersed by ants.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 1.5; preserve old id 'fig-ch01-32' as alias when semantic."
+    },
+    {
+      "id": "raven-ch10-10-13-setid",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[91]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-91"
+      },
+      "set": {
+        "id": "fig-10.13",
+        "caption": "10–13 Ti plasmid (a) Diagrammatic representation of an Agrobacterium tumefaciens cell, showing the main DNA (the bacterial \"chromosome\") and the Ti plasmid. (b) Detail of the Ti plasmid. O is the gene that codes for an opine-synthesizing enzyme; onc is a group of three genes coding for enzymes that are involved in the biosynthesis of plant hormones; and R represents sequences of 25 base pairs. Only the DNA between the two R regions is transferred into the plant's genome. The group of genes known as vir controls the transfer of the T-DNA to the host (plant) chromosome.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 10.13; preserve old id 'fig-ch10-91' as alias when semantic."
+    },
+    {
+      "id": "raven-ch10-10-14-setid",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[94]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-94"
+      },
+      "set": {
+        "id": "fig-10.14",
+        "caption": "10–14 Plasmid vectors for DNA transfer\nProcedure for using plasmids of Agrobacterium tumefaciens as vectors in DNA, or gene, transfer. (a) A hybrid plasmid that carries only the T-DNA from a Ti plasmid is cut open with a restriction enzyme and a foreign gene is inserted, creating a recombinant plasmid. (b) The recombinant plasmid is transferred into an A. tumefaciens cell that contains a Ti plasmid with its T-DNA removed, creating an engineered plasmid. (c) The A. tumefaciens containing the engineered plasmid is used to infect a plant. The vir region of the Ti plasmid without T-DNA controls the transfer of the foreign gene from the recombinant plasmid into the plant's chromosomes.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 10.14; preserve old id 'fig-ch10-94' as alias when semantic."
+    },
+    {
+      "id": "raven-ch10-10-15-setid",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[107]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-107"
+      },
+      "set": {
+        "id": "fig-10.15",
+        "caption": "10–15 Transgenic virus-resistant papaya trees The insertion of protein-coat genes of papaya ringspot virus into papaya cells subsequently resulted in trees resistant to the virus. Seen here on the left are healthy transgenic papaya trees; on the right are virus-infected trees.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 10.15; preserve old id 'fig-ch10-107' as alias when semantic."
+    },
+    {
+      "id": "raven-ch11-11-4-setid",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[47]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-47"
+      },
+      "set": {
+        "id": "fig-11.4",
+        "caption": "11-4 Mutation in viper's bugloss (Echium vulgare) A recessive mutation, a, occurred in cells of an AA (homozygous dominant) blue-flowered plant that were destined to develop into gametes, making those cells Aa. (Such mutations are called germinal mutations because they arise in the germ line—the cell lineage—from which the gametes are derived.) Upon selfing, the mutation was transmitted to progeny, some of which were aa (homozygous recessive) and expressed the mutant white-flowered phenotype, as seen here.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 11.4; preserve old id 'fig-ch11-47' as alias when semantic."
+    },
+    {
+      "id": "raven-ch11-11-5-setid",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[57]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-57"
+      },
+      "set": {
+        "id": "fig-11.5",
+        "caption": "11–5 The founder effect When a small subset of a population founds a new colony (for example, on a previously uninhabited island), the allele frequencies within the founding group may be different from those within the parent population. Thus the gene pool of the new population will have a different composition than the gene pool of the parent population.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 11.5; preserve old id 'fig-ch11-57' as alias when semantic."
+    },
+    {
+      "id": "raven-ch11-11-6-setid",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[71]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-71"
+      },
+      "set": {
+        "id": "fig-11.6",
+        "caption": "(b) 11-6 Environmental effects on phenotype (a) Jeffrey pines (Pinus jeffreyi) usually grow tall and straight. (b) Environmental forces, however, can alter the normal growth patterns. This tree is growing on a mountaintop in Yosemite National Park, California, where it is exposed to strong, constant winds.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 11.6; preserve old id 'fig-ch11-71' as alias when semantic."
+    },
+    {
+      "id": "raven-ch12-12-10-setid",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[103]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-103"
+      },
+      "set": {
+        "id": "fig-12.10",
+        "caption": "12–10 Origin of a photosynthetic eukaryotic cell from a heterotrophic prokaryote (a) Most prokaryotes contain a rigid cell wall, so it is likely that an initial step in the transformation of a prokaryote to a eukaryotic cell was a loss of the prokaryote's ability to form a cell wall. (b), (c) This free-living, naked form now had the ability to increase in size, change shape, and engulf extracellular objects by infolding of the plasma membrane (endocytosis), resulting in the formation of endocytic vesicles. (d), (e) Internalization of a patch of the plasma membrane to which DNA was attached was the probable precursor of the nucleus. The primitive phagocyte eventually acquired a true nucleus containing an",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 12.10; preserve old id 'fig-ch12-103' as alias when semantic."
+    },
+    {
+      "id": "raven-ch12-12-11-setid",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[105]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-105"
+      },
+      "set": {
+        "id": "fig-12.11",
+        "caption": "12–11 Endosymbiosis in Vorticella\n(a) Each bell-shaped cell of the protozoan Vorticella contains numerous cells of the autotrophic, endosymbiotic alga Chlorella.\n(b) Electron micrograph of a Vorticella containing cells of Chlorella. Each algal cell is found in a separate vacuole (perialgal vacuole) bounded by a single membrane. The protozoan provides the algae with protection and mineral nutrients, while the algae produce carbohydrates that serve as nourishment for their heterotrophic host cell.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 12.11; preserve old id 'fig-ch12-105' as alias when semantic."
+    },
+    {
+      "id": "raven-ch13-13-23-setid",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[138]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-138"
+      },
+      "set": {
+        "id": "fig-13.23",
+        "caption": "13–23 Generalized life cycle of a virus The life cycle, or infection cycle, of a virus consists of two stages: replication inside host cells and the spread to new hosts. For most plant viruses, the spread to new hosts is assisted by vector organisms.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 13.23; preserve old id 'fig-ch13-138' as alias when semantic."
+    },
+    {
+      "id": "raven-ch13-13-29-setid",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[163]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-163"
+      },
+      "set": {
+        "id": "fig-13.29",
+        "caption": "13–29 Tobacco mosaic virus (TMV) (a) Electron micrograph showing virus particles in a mesophyll cell of a tobacco leaf. (b) A portion of the TMV particle, as determined by X-ray crystallography. The single-stranded RNA, shown here in red, fits into the grooves of the protein subunits that assemble into the helical arrangement of the capsid.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 13.29; preserve old id 'fig-ch13-163' as alias when semantic."
+    },
+    {
+      "id": "raven-ch13-13-30-setid",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[164]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-164"
+      },
+      "set": {
+        "id": "fig-13.30",
+        "caption": "(a) 13–30 Icosahedral plant viruses Protein capsids, as determined by X-ray crystallography, for (a) cowpea chlorotic mottle virus and",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 13.30; preserve old id 'fig-ch13-164' as alias when semantic."
+    },
+    {
+      "id": "raven-ch13-13-32-setid",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[170]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-170"
+      },
+      "set": {
+        "id": "fig-13.32",
+        "caption": "13–32 Viroid Electron micrograph of potato spindle tuber viroids (arrows) mixed with portions of the double-stranded DNA molecule of a bacteriophage. This micrograph illustrates the tremendous difference in size between a viroid and a virus.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 13.32; preserve old id 'fig-ch13-170' as alias when semantic."
+    },
+    {
+      "id": "raven-ch13-13-6-setid",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[45]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-45"
+      },
+      "set": {
+        "id": "fig-13.6",
+        "caption": "13-6 Fruiting body of a myxobacterium Chondromyces crocatus, a myxobacterium, or gliding bacterium, produces fruiting bodies, each of which may contain as many as 1 million cells, consisting of a central stalk that branches to form clusters of myxospores. Normally, the myxobacteria are rods that glide together along slime tracks, but they eventually form fruiting bodies, as shown here.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 13.6; preserve old id 'fig-ch13-45' as alias when semantic."
+    },
+    {
+      "id": "raven-ch22-22-2-setid",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[28]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch22-28"
+      },
+      "set": {
+        "id": "fig-22.2",
+        "caption": "22–2 Development of the embryo of arrowhead (Sagittaria), a monocot Early stages: (a) The two-celled stage, resulting from transverse division of the zygote. (b) The three-celled proembryo. (c) Disregarding the large basal cell, the proembryo is now at the four-celled stage. All four of these cells, through a series of divisions, contribute to formation of the embryo proper. (d) The protoderm has been initiated at the terminal end of the embryo proper. At this stage, the suspensor consists of only two cells, one of which is the large basal cell. Late stages: (e) A depression, or notch (the site of the future apical meristem of the shoot), has formed at the base of the emerging cotyledon. (f) The cotyledon curves, and the embryo is approaching maturity. The suspensor has disappeared.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 22.2; preserve old id 'fig-ch22-28' as alias when semantic."
+    },
+    {
+      "id": "raven-ch23-23-26-setid",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[121]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch23-121"
+      },
+      "set": {
+        "id": "fig-23.26",
+        "caption": "23–26 Branched and unbranched trichomes Transverse section of a common mullein (Verbascum thapsus) leaf, taken with a scanning electron microscope. The leaves and stems of the common mullein appear densely woolly because of the presence of great numbers of highly branched trichomes such as those seen here on both the upper and lower surfaces of the leaf. Short, unbranched glandular trichomes (resembling mushrooms) are also present. The ground tissue of the leaf is represented by the mesophyll, which is permeated by numerous vascular bundles, or veins (arrows).",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 23.26; preserve old id 'fig-ch23-121' as alias when semantic."
+    },
+    {
+      "id": "raven-ch23-23-7-setid",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[50]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch23-50"
+      },
+      "set": {
+        "id": "fig-23.7",
+        "caption": "23-7 Collenchyma, fresh tissue Transverse section of collenchyma tissue from a petiole in rhubarb (Rheum rhabarbarum). In fresh tissue like this, the unevenly thickened collenchyma cell walls have a glistening appearance.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 23.7; preserve old id 'fig-ch23-50' as alias when semantic."
+    },
+    {
+      "id": "raven-ch25-25-7-setid",
+      "action": "set_fields",
+      "chunk": "ch25",
+      "selector": "body[48]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch25-48"
+      },
+      "set": {
+        "id": "fig-25.7",
+        "caption": "25–7 Three basic types of organization in primary structure of stems, as seen in transverse section (a) The vascular system appears as a continuous hollow cylinder around the pith. (b) Discrete vascular bundles form a single ring around the pith. (c) The vascular bundles appear scattered throughout the ground tissue.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 25.7; preserve old id 'fig-ch25-48' as alias when semantic."
+    },
+    {
+      "id": "raven-ch27-27-10-setid",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[91]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch27-91"
+      },
+      "set": {
+        "id": "fig-27.10",
+        "caption": "27-10 Biosynthesis of ethylene Methionine serves as the precursor of ethylene in all higher plant tissues. S-Adenosylmethionine (SAM) is converted to 1-aminocyclopropane-1-carboxylic acid (ACC), the immediate precursor of ethylene, by ACC synthase.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 27.10; preserve old id 'fig-ch27-91' as alias when semantic."
+    },
+    {
+      "id": "raven-ch27-27-14-setid",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[119]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch27-119"
+      },
+      "set": {
+        "id": "fig-27.14",
+        "caption": "27–14 Gibberellins Shown here are three of the more than 125 gibberellins that have been isolated from natural sources. GA $_{3}$ (gibberellic acid) is the most abundant in fungi and is biologically",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 27.14; preserve old id 'fig-ch27-119' as alias when semantic."
+    },
+    {
+      "id": "raven-ch27-27-20-setid",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[151]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch27-151"
+      },
+      "set": {
+        "id": "fig-27.20",
+        "caption": "27–20 Hormonal regulation of the rate of cell expansion (a) Turgor pressure within the cell pushes out on the cell walls. (b) Stretching of the cell wall is necessary for cell expansion but is limited by hemicellulose cross-bridges between cellulose microfibrils. (c) Hormones may cause an increase in extensibility by stimulating a reversible cleavage of the",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 27.20; preserve old id 'fig-ch27-151' as alias when semantic."
+    },
+    {
+      "id": "raven-ch27-27-21-setid",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[152]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch27-152"
+      },
+      "set": {
+        "id": "fig-27.21",
+        "caption": "27–21 Cortical microtubules These transverse arrays of cortical microtubules in living hypocotyl cells of Arabidopsis have been visualized with green fluorescent protein (GFP); the numerous red-colored structures are chloroplasts. The transverse arrangement of microtubules is promoted by gibberellins. hemicellulose cross-bridges or through a disruption of hydrogen bonds between the cellulose microfibrils and the hemicellulose cross-bridges. Disruption of the hydrogen bonds is mediated by a cell wall protein called expansin. These modifications allow cellulose microfibrils to move apart from each other, resulting in the irreversible expansion of the wall.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 27.21; preserve old id 'fig-ch27-152' as alias when semantic."
+    },
+    {
+      "id": "raven-ch27-27-7-setid",
+      "action": "set_fields",
+      "chunk": "ch27",
+      "selector": "body[71]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch27-71"
+      },
+      "set": {
+        "id": "fig-27.7",
+        "caption": "(c) 27–7 Auxin and fruit development Auxin, produced by developing embryos, promotes maturation of the ovary wall and the development of fleshy fruits. (a) Normal strawberry (Fragaria × ananassa), (b) strawberry from which all seeds have been removed, and (c) strawberry from which a horizontal band of seeds has been removed. If a paste containing auxin were applied to (b), the strawberry would grow normally.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 27.7; preserve old id 'fig-ch27-71' as alias when semantic."
+    },
+    {
+      "id": "raven-ch28-28-10-setid",
+      "action": "set_fields",
+      "chunk": "ch28",
+      "selector": "body[63]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch28-63"
+      },
+      "set": {
+        "id": "fig-28.10",
+        "caption": "(b) 28-10 Circadian rhythms In many plants, the leaves move outward during the day, to a position perpendicular to the stem and the sun's rays; at night, the leaves move upward, toward the stem. These sleep movements can be recorded on a revolving drum using a delicately balanced pen-and-lever system attached to a leaf by a fine thread (a). Many plants, such as the common bean (Phaseolus vulgaris) shown here, will continue to exhibit these movements for several days, even when kept in continuous dim light. (b) A recording of this circadian rhythm, showing its persistence under a condition of constant dim light.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 28.10; preserve old id 'fig-ch28-63' as alias when semantic."
+    },
+    {
+      "id": "raven-ch29-29-13-setid",
+      "action": "set_fields",
+      "chunk": "ch29",
+      "selector": "body[128]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch29-128"
+      },
+      "set": {
+        "id": "fig-29.13",
+        "caption": "29–13 The glutamine synthetase–glutamate synthase pathway (abbreviated) in leaves The assimilation of nitrogen into organic compounds requires ATP and reduced ferredoxin, both of which are readily available in photosynthesizing cells. Of the two glutamate molecules produced, one recycles to bind with ammonia, perpetuating the pathway, whereas the other glutamate is transaminated to form other amino acids. In roots, either NADH or NADPH replaces the ferredoxin in the pathway.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 29.13; preserve old id 'fig-ch29-128' as alias when semantic."
+    },
+    {
+      "id": "raven-ch29-29-2-setid",
+      "action": "set_fields",
+      "chunk": "ch29",
+      "selector": "body[27]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch29-27"
+      },
+      "set": {
+        "id": "fig-29.2",
+        "caption": "(b) 29–2 Some plants contain large amounts of specific elements (a) Plants of the mustard family, such as wintercress (Barbarea vulgaris), use sulfur in the synthesis of the mustard oils that give the plants their sharp taste. These mustard plants were growing in Ithaca, New York. (b) Horsetails incorporate silicon into their cell walls, making the plants indigestible to most herbivores but useful, at least in colonial America, for scouring pots and pans. These bushy vegetative shoots, as well as several stalk-like fertile shoots, of the horsetail Equisetum telemateia were photographed in California.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "Caption/text identifies this visual as Figure 29.2; preserve old id 'fig-ch29-27' as alias when semantic."
+    },
+    {
+      "id": "raven-ch01-1-10-setid",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[63]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch01-63"
+      },
+      "set": {
+        "id": "fig-1.10",
+        "caption": "1–10 Examples of the enormous diversity of biomes on Earth (a) The temperate deciduous forest, which covers most of the eastern United States and southeastern Canada, is dominated by trees that lose their leaves in the cold winters. Here are paper birches and a red maple photographed in early autumn in the Adirondack Mountains of New York State. (b) Underlain with permafrost, Arctic tundra is a treeless biome characterized by a short growing season. Shown here are tundra plants in full autumn color, photographed in Tombstone Valley, Yukon, Canada. (c) In Africa, savannas are inhabited by huge herds of grazing mammals, such as these zebras and wildebeests. The tree in the foreground is an acacia. (d) Moist tropical forests, shown here in Costa Rica, constitute the richest, most diverse biome on Earth, with perhaps half of all species of organisms on Earth found there. (e) Deserts typically receive less than 25 centimeters of rain per year. Here in the Sonoran desert in Arizona, the dominant plant is the giant saguaro cactus. Adapted for life in a dry climate, saguaro cacti have shallow, wide-spreading roots and thick stems for storing water. (f) Mediterranean climates are rare on a world scale. Cool, moist winters, during which the plants grow, are followed by hot, dry summers, during which the plants become dormant. Shown here is evergreen oak woodland, on Mount Diablo in California.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "MinerU split Figure 1.10 caption into paragraph body[67]; assign it to nearby image block."
+    },
+    {
+      "id": "raven-ch03-3-16-setid",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[85]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-85"
+      },
+      "set": {
+        "id": "fig-3.16",
+        "caption": "3-16 Organelles in a leaf cell A peroxisome with a large crystalline inclusion and a single bounding membrane may be contrasted with the two mitochondria and the chloroplast, each of which is bounded by two membranes. Due to the plane of the section, the double nature of the chloroplast envelope is apparent only in the lower portion of this electron micrograph. A single membrane, the tonoplast, separates the vacuole from the rest of the cytoplasm in this leaf cell of tobacco (Nicotiana tabacum).",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "MinerU split Figure 3.16 caption into paragraph body[90]; assign it to nearby image block."
+    },
+    {
+      "id": "raven-ch07-7-4-setid",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[42]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-42"
+      },
+      "set": {
+        "id": "fig-7.4",
+        "caption": "7-4 Electromagnetic spectrum White light is actually a mixture of light of different colors. When it is passed through a prism, it is separated into its components—\"the celebrated phaenomena of colors,\" as Newton referred to it. Visible light is only a small portion of a vast electromagnetic spectrum, which ranges from $10^{-5}$ nanometers to $10^{17}$ nanometers. For the human eye, the visible radiations range from violet light, in which the shortest rays are about 380 nanometers, to red light, in which the longest rays are about 750 nanometers.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "MinerU split Figure 7.4 caption into paragraph body[41]; assign it to nearby image block."
+    },
+    {
+      "id": "raven-ch17-17-22-setid",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[179]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch17-179"
+      },
+      "set": {
+        "id": "fig-17.22",
+        "caption": "17–22 Representative ferns The diversity of ferns, as illustrated by a few genera of the largest order of ferns, Filicales. (a) Lindsaea, Volcán Barba, Costa Rica. (b) A tree fern, Cyathea, at Monteverde, Costa Rica. (c) Plagiogyria, with distinct fertile and vegetative leaves, Volcán Poás, Costa Rica. (d) Elaphoglossum, with thick, undivided leaves, near Cuzco, Peru. (e) Asplenium septentrionale, a small fern that occurs all around the Northern Hemisphere, growing on metal-rich soil near a lead-silver mine in Wales. (f) Pleopeltis polypodioides, growing as an epiphyte on a juniper trunk in Arkansas. (g) A species of Hymenophyllum, one of the filmy ferns, so-called because of their delicate leaves. Filmy ferns occur as epiphytes primarily in tropical rainforests or wet temperate regions.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "MinerU split Figure 17.22 caption into paragraph body[186]; assign it to nearby image block."
+    },
+    {
+      "id": "raven-ch19-19-22-setid",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[107]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch19-107"
+      },
+      "set": {
+        "id": "fig-19.22",
+        "caption": "19–22 Life cycle of soybean A eudicot (Glycine max) is shown here as a representative angiosperm. On germination (bottom center), a seed begins to grow into a mature sporophyte, which, in an angiosperm, eventually produces flowers. Within the anthers of the flower, microspore mother cells, or microsporocytes, develop. These divide meiotically, each giving rise to four haploid microspores. Each microspore divides once to form a tube cell and a generative cell. This two-celled structure is the immature microgametophyte, or pollen grain (upper right). Either before or during germination, the generative cell divides, forming two sperm. These sperm are conveyed to the egg apparatus, consisting of the egg cell and two synergids, by the pollen tube. The germinated pollen grain, with its tube nucleus and two sperm, constitutes the microgametophyte, or mature male gametophyte.",
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-catalog-c4-id-from-caption"
+      },
+      "reason": "MinerU split Figure 19.22 caption into paragraph body[110]; assign it to nearby image block."
+    }
+  ]
+}

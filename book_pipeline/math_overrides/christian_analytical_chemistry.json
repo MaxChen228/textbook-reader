@@ -1,0 +1,151 @@
+{
+  "overrides": [
+    {
+      "id": "christian_analytical_chemistry-ch21-body-419-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[419]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N _ { 2 }$",
+      "anchor": "77275ffa"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch21-body-420-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[420]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N _ { 2 }$",
+      "anchor": "9a97b135"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch22-body-21-a3e1c3",
+      "action": "fix_inline_math",
+      "chunk": "ch22",
+      "selector": "body[21]",
+      "field": "md",
+      "all": true,
+      "old": "${ } ^ { ( } ^ { 1 2 } \\mathrm { C } ^ { 1 } \\mathrm { H } _ { 4 } )$",
+      "new": "${ } ^ { ( 1 2 } \\mathrm { C } ^ { 1 } \\mathrm { H } _ { 4 } )$",
+      "anchor": "6140e476"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch13-body-92-3eae91",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[92]",
+      "expect": "- \\left(\\mathrm{H} ^ {+} + \\mathrm{e} ^ {-} \\rightleftharpoons \\frac {1}{2} \\mathrm{H} _ {2})",
+      "new": "- \\left(\\mathrm{H} ^ {+} + \\mathrm{e} ^ {-} \\rightleftharpoons \\frac {1}{2} \\mathrm{H} _ {2}\\right)"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch05-body-55-276772",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[55]",
+      "expect": "\\begin{array}{c} \\text {Moles = (moles / liter) \\times liters} \\\\ = \\text {molarity \\times liters} \\end{array}",
+      "new": "\\begin{array}{c} \\text {Moles = (moles / liter) } \\times \\text { liters} \\\\ = \\text {molarity } \\times \\text { liters} \\end{array}"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch07-body-209-823874",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[209]",
+      "expect": "\\begin{array}{c c c c} & \\text {[HOAc]} & \\text {[H^{+}]} & \\text {[OAc^{-}]} \\\\ \\text {Initial} & 1. 0 0 \\times 1 0 ^ {- 3} & 0 & 0 \\\\ \\text {Change (x = mmol / mL} \\\\ \\text {HOAc ionized)} & - x & + x & + x \\\\ \\text {Equilibrium} & 1. 0 0 \\times 1 0 ^ {- 3} - x & x & x \\end{array}",
+      "new": "\\begin{array}{c c c c} & \\text {[HOAc]} & [\\mathrm{H}^{+}] & [\\mathrm{OAc}^{-}] \\\\ \\text {Initial} & 1. 0 0 \\times 1 0 ^ {- 3} & 0 & 0 \\\\ \\text {Change (x = mmol / mL} \\\\ \\text {HOAc ionized)} & - x & + x & + x \\\\ \\text {Equilibrium} & 1. 0 0 \\times 1 0 ^ {- 3} - x & x & x \\end{array}"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch11-body-257-c7a3d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[257]",
+      "expect": "\\begin{array}{l}\\mathrm {X^ {-} + Ag^ {+} \\rightarrow \\underline {{AgX}} + excess Ag^ {+}}\\\\\\text {excess Ag^ {+} +SCN^ {-} \\rightarrow \\underline {{AgSCN}}}\\end{array}",
+      "new": "\\begin{array}{l}\\mathrm {X}^ {-} + \\mathrm{Ag}^ {+} \\rightarrow \\underline {{\\mathrm{AgX}}} + \\text{excess } \\mathrm{Ag}^ {+}\\\\\\text {excess } \\mathrm{Ag}^ {+} +\\mathrm{SCN}^ {-} \\rightarrow \\underline {{\\mathrm{AgSCN}}}\\end{array}"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch16-body-41-8b5878",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[41]",
+      "expect": "\\begin{array}{l} \\text {\\AA = angstrom = 10^{-10} meter = 10^{-8} centimeter = 10^{-4} micrometer} \\\\ \\text {nm = nanometer = 10^{-9} meter = 10 angstroms = 10^{-3} micrometer} \\\\ \\mu \\text {m = micrometer = 10^{-6} meter = 10^{4} angstroms} \\end{array}",
+      "new": "\\begin{array}{l} \\text {\\AA = angstrom = } 10^{-10} \\text { meter = } 10^{-8} \\text { centimeter = } 10^{-4} \\text { micrometer} \\\\ \\text {nm = nanometer = } 10^{-9} \\text { meter = 10 angstroms = } 10^{-3} \\text { micrometer} \\\\ \\mu \\text {m = micrometer = } 10^{-6} \\text { meter = } 10^{4} \\text { angstroms} \\end{array}"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch17-body-53-b5ac4d",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[53]",
+      "field": "md",
+      "all": true,
+      "old": "$1 \\ \\mathrm { n m } = 1 0 \\ \\mathring \\mathrm { A } )$",
+      "new": "$1 \\ \\mathrm { n m } = 1 0 \\ \\mathring {\\mathrm { A } } )$",
+      "anchor": "22e735bb"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch21-body-598-e91c18",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[598]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\lambda _ { i } C _ { i } ) / ( \\lambda _ { j } C _ { j } ) ^$",
+      "new": "$( \\lambda _ { i } C _ { i } ) / ( \\lambda _ { j } C _ { j } )$",
+      "anchor": "ce972d89"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch07-body-738-af5760",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[738]",
+      "field": "md",
+      "all": true,
+      "old": "$0 . 0 2 0 \\ \\mathrm { H A } ^ { 2 - } = 0  &  { } \\mathrm { A } ^ { 3 - } = 0 . 0 1 2 \\ \\mathrm { H } _ { 3 } \\mathrm { A s O } _ { 4 } : { \\mathrm { p } } K _ { 1 } = 2 . 2 5 \\quad { \\mathrm { p } } K _ { 2 } = 7 . 0 0 \\quad { \\mathrm { p } } K _ { 3 } = 1 1 . 5 2$",
+      "new": "$0 . 0 2 0 \\ \\mathrm { H A } ^ { 2 - } = 0 \\quad { } \\mathrm { A } ^ { 3 - } = 0 . 0 1 2 \\ \\mathrm { H } _ { 3 } \\mathrm { A s O } _ { 4 } : { \\mathrm { p } } K _ { 1 } = 2 . 2 5 \\quad { \\mathrm { p } } K _ { 2 } = 7 . 0 0 \\quad { \\mathrm { p } } K _ { 3 } = 1 1 . 5 2$",
+      "anchor": "980edabc"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch05-body-485-2b60ae",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[485]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { { \\bf a } _ { 2 } } { { \\bf C } _ { 2 } } { { \\bf O } _ { 4 } } \\mathrm { ( N a _ { 2 } A ) }$",
+      "new": "$\\mathrm {Na} _ { 2 } { { \\bf C } _ { 2 } } { { \\bf O } _ { 4 } } \\mathrm { ( N a _ { 2 } A ) }$",
+      "anchor": "a6bc7dc5"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch16-body-288-5340d0",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[288]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu > n )$",
+      "new": "$( N > n )$",
+      "anchor": "7fd63ffe"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch17-body-75-537465",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[75]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\Nu _ { 2 } { \\mathrm { O } } )$",
+      "new": "$( N _ { 2 } { \\mathrm { O } } )$",
+      "anchor": "967d3d0f"
+    },
+    {
+      "id": "christian_analytical_chemistry-ch09-body-79-914e63",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[79]",
+      "expect": "\\begin{array}{c c c} \\text {Dominating species} \\\\ \\text {Higher (monobasic)} & p K _ {6} & Y ^ {4 -} \\\\ \\text {pH} & & H Y ^ {3 -} \\\\ \\text {Lower (monoacidic)} & p K _ {5} & H _ {2} Y ^ {2 -} \\\\ & p K _ {4} & H _ {3} Y ^ {-} \\\\ & p K _ {3} & H _ {4} Y \\\\ & p K _ {2} & H _ {5} Y ^ {+} \\\\ & p K _ {1} & H _ {6} Y ^ {2 +} \\end{array} \\begin{array}{c c c} \\text {pH = pK_{a6} = 10.24} \\\\ \\text {pH = pK_{a5} = 6.16} \\\\ \\text {pH = pK_{a4} = 2.66} \\\\ \\text {pH = pK_{a3} = 2.0} \\\\ \\text {pH = pK_{a2} = 1.5} \\\\ \\text {pH = pK_{a1} = 0.0} \\end{array}",
+      "new": "\\begin{array}{c c c} \\text {Dominating species} \\\\ \\text {Higher (monobasic)} & p K _ {6} & Y ^ {4 -} \\\\ \\text {pH} & & H Y ^ {3 -} \\\\ \\text {Lower (monoacidic)} & p K _ {5} & H _ {2} Y ^ {2 -} \\\\ & p K _ {4} & H _ {3} Y ^ {-} \\\\ & p K _ {3} & H _ {4} Y \\\\ & p K _ {2} & H _ {5} Y ^ {+} \\\\ & p K _ {1} & H _ {6} Y ^ {2 +} \\end{array} \\begin{array}{c c c} \\text {pH = } pK_{a6} \\text { = 10.24} \\\\ \\text {pH = } pK_{a5} \\text { = 6.16} \\\\ \\text {pH = } pK_{a4} \\text { = 2.66} \\\\ \\text {pH = } pK_{a3} \\text { = 2.0} \\\\ \\text {pH = } pK_{a2} \\text { = 1.5} \\\\ \\text {pH = } pK_{a1} \\text { = 0.0} \\end{array}"
+    }
+  ]
+}

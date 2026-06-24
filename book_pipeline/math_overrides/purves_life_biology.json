@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "purves_life_biology-ch04-body-49-614cd2",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[49]",
+      "expect": "5 ^ {\\prime} \\text {-TCAGCA-3^ {\\prime}}",
+      "new": "5 ^ {\\prime} \\text {-TCAGCA-}3^ {\\prime}"
+    },
+    {
+      "id": "purves_life_biology-ch04-body-50-3fac13",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[50]",
+      "expect": ", 3 ^ {\\prime} \\text {-AGTCGT-5^ {\\prime}}",
+      "new": ", 3 ^ {\\prime} \\text {-AGTCGT-}5^ {\\prime}"
+    },
+    {
+      "id": "purves_life_biology-ch14-body-252-512bad",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[252]",
+      "expect": "\\begin{array}{l} \\text {mRNA 5^ {\\prime} \\ldots A G G A G G \\ldots (start codon) \\ldots 3^ {\\prime}} \\\\ \\text {rRNA 3^ {\\prime} \\ldots U C C U C C \\ldots (P site) \\ldots 5^ {\\prime}} \\end{array}",
+      "new": "\\begin{array}{l} \\text {mRNA } 5^ {\\prime} \\ldots \\text {A G G A G G} \\ldots \\text {(start codon)} \\ldots 3^ {\\prime} \\\\ \\text {rRNA } 3^ {\\prime} \\ldots \\text {U C C U C C} \\ldots \\text {(P site)} \\ldots 5^ {\\prime} \\end{array}"
+    }
+  ]
+}

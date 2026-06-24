@@ -1,0 +1,64 @@
+slug: young_lovell_polymers
+title: Introduction to Polymers
+author: "Robert J. Young; Peter A. Lovell"
+edition: "2nd"
+subject: null
+publisher: Chapman & Hall
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 23
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 8
+    page_end: 21
+    chapter_title_block_idx: 49
+    problems_block_idx: null
+    next_chapter_block_idx: 170
+  - num: 2
+    title: Synthesis
+    page_start: 22
+    page_end: 22
+    chapter_title_block_idx: 170
+    problems_block_idx: null
+    next_chapter_block_idx: 175
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Problem|Exercise)\s+(\d+(?:\.\d+)*)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

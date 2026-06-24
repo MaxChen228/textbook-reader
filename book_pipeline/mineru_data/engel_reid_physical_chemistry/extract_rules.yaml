@@ -1,0 +1,304 @@
+slug: "engel_reid_physical_chemistry"
+title: "Physical Chemistry"
+author: "Thomas Engel; Philip Reid"
+edition: 3rd
+subject: "Physical Chemistry"
+publisher: "Pearson"
+language: "en"
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 26
+appendices_start_page: 1032
+index_start_page: 1099
+inline_problems: false
+heading_text_level:
+  - 1
+  - 2
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d{1,2}\.\d+)\s+(.+)$'
+subsection_re: '^(\d{1,2}\.\d+\.\d+)\s+(.+)$'
+problem_start_re: '^P(\d+\.\d+)(?:\s+|$)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\tag\{([^}]+)\}'
+example_start_re: '^EXAMPLE PROBLEM\s+(\d+\.\d+)'
+figure_caption_merge: true
+figure_caption_main_re: '^(FIGURE|TABLE)\s+\d+\.\d+'
+known_missing_problems: []
+chapters:
+  - num: 1
+    title: "Fundamental Concepts of Thermodynamics"
+    page_start: 26
+    page_end: 41
+    chapter_title_block_idx: 632
+    problems_block_idx: 853
+    next_chapter_block_idx: 934
+  - num: 2
+    title: "Heat, Work, Internal Energy, Enthalpy, and the First Law of Thermodynamics"
+    page_start: 42
+    page_end: 69
+    chapter_title_block_idx: 934
+    problems_block_idx: 1348
+    next_chapter_block_idx: 1445
+  - num: 3
+    title: "The Importance of State Functions: Internal Energy and Enthalpy"
+    page_start: 70
+    page_end: 91
+    chapter_title_block_idx: 1445
+    problems_block_idx: 1794
+    next_chapter_block_idx: 1868
+  - num: 4
+    title: "Thermochemistry"
+    page_start: 92
+    page_end: 109
+    chapter_title_block_idx: 1868
+    problems_block_idx: 2116
+    next_chapter_block_idx: 2197
+  - num: 5
+    title: "Entropy and the Second and Third Laws of Thermodynamics"
+    page_start: 110
+    page_end: 149
+    chapter_title_block_idx: 2197
+    problems_block_idx: 2779
+    next_chapter_block_idx: 2874
+  - num: 6
+    title: "Chemical Equilibrium"
+    page_start: 150
+    page_end: 189
+    chapter_title_block_idx: 2874
+    problems_block_idx: 3527
+    next_chapter_block_idx: 3668
+  - num: 7
+    title: "The Properties of Real Gases"
+    page_start: 190
+    page_end: 205
+    chapter_title_block_idx: 3668
+    problems_block_idx: 3885
+    next_chapter_block_idx: 3932
+  - num: 8
+    title: "Phase Diagrams and the Relative Stability of Solids, Liquids, and Gases"
+    page_start: 206
+    page_end: 233
+    chapter_title_block_idx: 3932
+    problems_block_idx: 4266
+    next_chapter_block_idx: 4378
+  - num: 9
+    title: "Ideal and Real Solutions"
+    page_start: 234
+    page_end: 267
+    chapter_title_block_idx: 4378
+    problems_block_idx: 4909
+    next_chapter_block_idx: 4981
+  - num: 10
+    title: "Electrolyte Solutions"
+    page_start: 268
+    page_end: 283
+    chapter_title_block_idx: 4981
+    problems_block_idx: 5223
+    next_chapter_block_idx: 5283
+  - num: 11
+    title: "Electrochemical Cells, Batteries, and Fuel Cells"
+    page_start: 284
+    page_end: 317
+    chapter_title_block_idx: 5283
+    problems_block_idx: 5822
+    next_chapter_block_idx: 5905
+  - num: 12
+    title: "From Classical to Quantum Mechanics"
+    page_start: 318
+    page_end: 333
+    chapter_title_block_idx: 5905
+    problems_block_idx: 6105
+    next_chapter_block_idx: 6166
+  - num: 13
+    title: "The Schrödinger Equation"
+    page_start: 334
+    page_end: 355
+    chapter_title_block_idx: 6166
+    problems_block_idx: 6466
+    next_chapter_block_idx: 6553
+  - num: 14
+    title: "The Quantum Mechanical Postulates"
+    page_start: 356
+    page_end: 367
+    chapter_title_block_idx: 6553
+    problems_block_idx: 6691
+    next_chapter_block_idx: 6739
+  - num: 15
+    title: "Using Quantum Mechanics on Simple Systems"
+    page_start: 368
+    page_end: 385
+    chapter_title_block_idx: 6739
+    problems_block_idx: 6959
+    next_chapter_block_idx: 7070
+  - num: 16
+    title: "The Particle in the Box and the Real World"
+    page_start: 386
+    page_end: 407
+    chapter_title_block_idx: 7070
+    problems_block_idx: 7326
+    next_chapter_block_idx: 7408
+  - num: 17
+    title: "Commuting and Noncommuting Operators and the Surprising Consequences of Entanglement"
+    page_start: 408
+    page_end: 429
+    chapter_title_block_idx: 7408
+    problems_block_idx: 7662
+    next_chapter_block_idx: 7723
+  - num: 18
+    title: "A Quantum Mechanical Model for the Vibration and Rotation of Molecules"
+    page_start: 430
+    page_end: 455
+    chapter_title_block_idx: 7723
+    problems_block_idx: 8155
+    next_chapter_block_idx: 8223
+  - num: 19
+    title: "The Vibrational and Rotational Spectroscopy of Diatomic Molecules"
+    page_start: 456
+    page_end: 489
+    chapter_title_block_idx: 8223
+    problems_block_idx: 8619
+    next_chapter_block_idx: 8743
+  - num: 20
+    title: "The Hydrogen Atom"
+    page_start: 490
+    page_end: 507
+    chapter_title_block_idx: 8743
+    problems_block_idx: 9026
+    next_chapter_block_idx: 9092
+  - num: 21
+    title: "Many-Electron Atoms"
+    page_start: 508
+    page_end: 531
+    chapter_title_block_idx: 9092
+    problems_block_idx: 9383
+    next_chapter_block_idx: 9470
+  - num: 22
+    title: "Quantum States for Many-Electron Atoms and Atomic Spectroscopy"
+    page_start: 532
+    page_end: 561
+    chapter_title_block_idx: 9470
+    problems_block_idx: 9832
+    next_chapter_block_idx: 9908
+  - num: 23
+    title: "The Chemical Bond in Diatomic Molecules"
+    page_start: 562
+    page_end: 591
+    chapter_title_block_idx: 9908
+    problems_block_idx: 10306
+    next_chapter_block_idx: 10377
+  - num: 24
+    title: "Molecular Structure and Energy Levels for Polyatomic Molecules"
+    page_start: 592
+    page_end: 625
+    chapter_title_block_idx: 10377
+    problems_block_idx: 10756
+    next_chapter_block_idx: 10846
+  - num: 25
+    title: "Electronic Spectroscopy"
+    page_start: 626
+    page_end: 655
+    chapter_title_block_idx: 10846
+    problems_block_idx: 11208
+    next_chapter_block_idx: 11260
+  - num: 26
+    title: "Computational Chemistry"
+    page_start: 656
+    page_end: 711
+    chapter_title_block_idx: 11260
+    problems_block_idx: 11875
+    next_chapter_block_idx: 12118
+  - num: 27
+    title: "Molecular Symmetry"
+    page_start: 712
+    page_end: 739
+    chapter_title_block_idx: 12118
+    problems_block_idx: 12522
+    next_chapter_block_idx: 12577
+  - num: 28
+    title: "Nuclear Magnetic Resonance Spectroscopy"
+    page_start: 740
+    page_end: 771
+    chapter_title_block_idx: 12577
+    problems_block_idx: 12986
+    next_chapter_block_idx: 13018
+  - num: 29
+    title: "Probability"
+    page_start: 772
+    page_end: 795
+    chapter_title_block_idx: 13018
+    problems_block_idx: 13355
+    next_chapter_block_idx: 13499
+  - num: 30
+    title: "The Boltzmann Distribution"
+    page_start: 796
+    page_end: 817
+    chapter_title_block_idx: 13499
+    problems_block_idx: 13790
+    next_chapter_block_idx: 13874
+  - num: 31
+    title: "Ensemble and Molecular Partition Functions"
+    page_start: 818
+    page_end: 849
+    chapter_title_block_idx: 13874
+    problems_block_idx: 14315
+    next_chapter_block_idx: 14457
+  - num: 32
+    title: "Statistical Thermodynamics"
+    page_start: 850
+    page_end: 881
+    chapter_title_block_idx: 14457
+    problems_block_idx: 14891
+    next_chapter_block_idx: 15040
+  - num: 33
+    title: "Kinetic Theory of Gases"
+    page_start: 882
+    page_end: 901
+    chapter_title_block_idx: 15040
+    problems_block_idx: 15298
+    next_chapter_block_idx: 15409
+  - num: 34
+    title: "Transport Phenomena"
+    page_start: 902
+    page_end: 933
+    chapter_title_block_idx: 15409
+    problems_block_idx: 15878
+    next_chapter_block_idx: 16001
+  - num: 35
+    title: "Elementary Chemical Kinetics"
+    page_start: 934
+    page_end: 979
+    chapter_title_block_idx: 16001
+    problems_block_idx: 16715
+    next_chapter_block_idx: 16914
+  - num: 36
+    title: "Complex Reaction Mechanisms"
+    page_start: 980
+    page_end: 1031
+    chapter_title_block_idx: 16914
+    problems_block_idx: 17696
+    next_chapter_block_idx: 17945
+appendices:
+  - id: appA
+    title: "Math Supplement"
+    chapter_title_block_idx: 17945
+  - id: appB
+    title: "Data Tables"
+    chapter_title_block_idx: 18355
+  - id: appC
+    title: "Point Group Character Tables"
+    chapter_title_block_idx: 18486
+  - id: appD
+    title: "Answers to Selected End-of-Chapter Problems"
+    chapter_title_block_idx: 18540

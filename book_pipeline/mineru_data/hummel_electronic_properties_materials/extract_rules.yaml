@@ -1,0 +1,201 @@
+slug: hummel_electronic_properties_materials
+title: Electronic Properties of Materials
+author: Rolf E. Hummel
+edition: 4th
+subject: Solid State Physics
+publisher: Springer
+language: en
+body_start_page: 23
+appendices_start_page: 465
+bibliography_start_page: 499
+index_start_page: 499
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+inline_problems: false
+section_re: '^([0-9]+\.[0-9]+)\.\s+(.+)$'
+subsection_re: '^([0-9]+\.[0-9]+\.[0-9]+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+heading_text_level: [1, 2]
+problem_start_re: '^\\?\*?([0-9]+)\.\s+(?!(?:Introduction|Applications)$)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: '^(?:Suggestions for Further Reading|Suggested Reading|References|APPENDICES|Appendices|Solutions)\b'
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+known_missing_problems:
+  - chapter: 15
+    nums: ['15.3']
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 3
+    page_end: 6
+    chapter_title_block_idx: 85
+    problems_block_idx: null
+    next_chapter_block_idx: 109
+  - num: 2
+    title: The Wave-Particle Duality
+    page_start: 7
+    page_end: 14
+    chapter_title_block_idx: 109
+    chapter_title_block_idx_secondary: 110
+    problems_block_idx: 186
+    next_chapter_block_idx: 199
+  - num: 3
+    title: The Schrödinger Equation
+    page_start: 15
+    page_end: 18
+    chapter_title_block_idx: 199
+    chapter_title_block_idx_secondary: 200
+    problems_block_idx: 249
+    next_chapter_block_idx: 270
+  - num: 4
+    title: Solution of the Schrödinger Equation for Four Specific Problems
+    page_start: 19
+    page_end: 36
+    chapter_title_block_idx: 270
+    problems_block_idx: 512
+    next_chapter_block_idx: 537
+  - num: 5
+    title: Energy Bands in Crystals
+    page_start: 37
+    page_end: 62
+    chapter_title_block_idx: 537
+    problems_block_idx: 778
+    next_chapter_block_idx: 797
+  - num: 6
+    title: Electrons in a Crystal
+    page_start: 63
+    page_end: 74
+    chapter_title_block_idx: 797
+    problems_block_idx: 903
+    next_chapter_block_idx: 960
+  - num: 7
+    title: Electrical Conduction in Metals and Alloys
+    page_start: 79
+    page_end: 114
+    chapter_title_block_idx: 960
+    problems_block_idx: 1271
+    next_chapter_block_idx: 1291
+  - num: 8
+    title: Semiconductors
+    page_start: 115
+    page_end: 198
+    chapter_title_block_idx: 1291
+    problems_block_idx: 1791
+    next_chapter_block_idx: 1833
+  - num: 9
+    title: Electrical Properties of Polymers, Ceramics, Dielectrics, and Amorphous Materials
+    page_start: 199
+    page_end: 214
+    chapter_title_block_idx: 1833
+    problems_block_idx: 2053
+    next_chapter_block_idx: 2099
+  - num: 10
+    title: The Optical Constants
+    page_start: 215
+    page_end: 234
+    chapter_title_block_idx: 2099
+    problems_block_idx: 2234
+    next_chapter_block_idx: 2252
+  - num: 11
+    title: Atomistic Theory of the Optical Properties
+    page_start: 235
+    page_end: 256
+    chapter_title_block_idx: 2252
+    problems_block_idx: 2465
+    next_chapter_block_idx: 2489
+  - num: 12
+    title: Quantum Mechanical Treatment of the Optical Properties
+    page_start: 257
+    page_end: 268
+    chapter_title_block_idx: 2489
+    problems_block_idx: 2605
+    next_chapter_block_idx: 2624
+  - num: 13
+    title: Applications of the Optical Properties
+    page_start: 269
+    page_end: 346
+    chapter_title_block_idx: 2624
+    problems_block_idx: 3182
+    next_chapter_block_idx: 3231
+  - num: 14
+    title: Lasers
+    page_start: 347
+    page_end: 356
+    chapter_title_block_idx: 3231
+    problems_block_idx: 3290
+    next_chapter_block_idx: 3298
+  - num: 15
+    title: Magnetic Phenomena and Their Interpretation—Classical Approach
+    page_start: 347
+    page_end: 372
+    chapter_title_block_idx: 3298
+    problems_block_idx: 3544
+    next_chapter_block_idx: 3564
+  - num: 16
+    title: Quantum Mechanical Considerations
+    page_start: 373
+    page_end: 382
+    chapter_title_block_idx: 3564
+    problems_block_idx: 3660
+    next_chapter_block_idx: 3677
+  - num: 17
+    title: Applications of Magnetic Materials
+    page_start: 385
+    page_end: 404
+    chapter_title_block_idx: 3677
+    problems_block_idx: 3782
+    next_chapter_block_idx: 3815
+  - num: 18
+    title: Superconductivity
+    page_start: 405
+    page_end: 408
+    chapter_title_block_idx: 3815
+    problems_block_idx: null
+    next_chapter_block_idx: 3837
+  - num: 19
+    title: Heat, Work, and Energy
+    page_start: 409
+    page_end: 418
+    chapter_title_block_idx: 3837
+    problems_block_idx: 3924
+    next_chapter_block_idx: 3946
+  - num: 20
+    title: Heat Capacity
+    page_start: 419
+    page_end: 430
+    chapter_title_block_idx: 3946
+    problems_block_idx: 4072
+    next_chapter_block_idx: 4085
+  - num: 21
+    title: Thermal Conduction
+    page_start: 431
+    page_end: 438
+    chapter_title_block_idx: 4085
+    problems_block_idx: 4153
+    next_chapter_block_idx: 4164
+  - num: 22
+    title: Thermal Expansion
+    page_start: 439
+    page_end: 464
+    chapter_title_block_idx: 4164
+    problems_block_idx: 4181
+    next_chapter_block_idx: 4195
+appendices:
+  - id: app1
+    title: Appendices
+    page_start: 465
+    page_end: 478
+    chapter_title_block_idx: 4195

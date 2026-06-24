@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-24-ashby-materials-selection",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/devctl.py（qc ashby_materials_selection）",
+  "slug": "ashby_materials_selection",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-24T09:45:11+00:00",
+  "updated": "2026-06-24T09:45:11+00:00",
+  "evidence": "scope_guard bracket：worker [qc ashby_materials_selection] session=ashby_materials_selection:63176 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "(無 diff 文本，book_pipeline/devctl.py modified)",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

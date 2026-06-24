@@ -111,6 +111,17 @@
       "selector": "body[215]",
       "expect": "\\begin{array}{r l} \\mathrm {H^ {\\prime} (q,p) = H(x, p_ {x}) = H(q,p) - \\varepsilon \\frac {\\partial H}{\\partial x} \\frac {\\partialG}{\\partial p_ {x}}} \\\\ & + \\varepsilon \\frac {\\partial H}{\\partial p _ {x}} \\frac {\\partial G}{\\partial x} = H (q, p) + \\varepsilon [ G, H ] _ {P. B.} \\end{array}",
       "new": "\\begin{array}{rl} \\mathrm{H^{\\prime}(q,p) = H(x, p_{x}) = H(q,p) - \\varepsilon \\frac{\\partial H}{\\partial x} \\frac{\\partial G}{\\partial p_{x}}} \\\\ & + \\varepsilon \\frac{\\partial H}{\\partial p_{x}} \\frac{\\partial G}{\\partial x} = H(q, p) + \\varepsilon [ G, H ]_{P. B.} \\end{array}"
+    },
+    {
+      "id": "merzbacher_quantum_mechanics-ch04-body-38-8b9c7a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[38]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { A } ^ { \\prime } \\pmb { \\up? }$",
+      "new": "$\\pmb { A } ^ { \\prime } \\pmb { \\mathrm { up? } }$",
+      "anchor": "22d65106"
     }
   ]
 }

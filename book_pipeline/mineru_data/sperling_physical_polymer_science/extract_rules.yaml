@@ -1,0 +1,142 @@
+slug: sperling_physical_polymer_science
+title: "Introduction to Physical Polymer Science"
+author: "L. H. Sperling"
+edition: "4th"
+subject: null
+publisher: Wiley-Interscience
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 27
+appendices_start_page: 52
+bibliography_start_page: null
+index_start_page: 847
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction to Polymer Science"
+    page_start: 27
+    page_end: 54
+    chapter_title_block_idx: 121
+    problems_block_idx: 431
+    next_chapter_block_idx: 461
+  - num: 2
+    title: "Chain Structure and Configuration"
+    page_start: 55
+    page_end: 96
+    chapter_title_block_idx: 461
+    problems_block_idx: 878
+    next_chapter_block_idx: 934
+  - num: 3
+    title: "Dilute Solution Thermodynamics, Molecular Weights, and Sizes"
+    page_start: 97
+    page_end: 169
+    chapter_title_block_idx: 934
+    problems_block_idx: 1773
+    next_chapter_block_idx: 1818
+  - num: 4
+    title: "Concentrated Solutions, Phase Separation Behavior, and Diffusion"
+    page_start: 170
+    page_end: 220
+    chapter_title_block_idx: 1818
+    problems_block_idx: 2325
+    next_chapter_block_idx: 2406
+  - num: 5
+    title: "The Amorphous State"
+    page_start: 221
+    page_end: 262
+    chapter_title_block_idx: 2406
+    problems_block_idx: 2786
+    next_chapter_block_idx: 2882
+  - num: 6
+    title: "The Crystalline State"
+    page_start: 263
+    page_end: 347
+    chapter_title_block_idx: 2882
+    problems_block_idx: 3768
+    next_chapter_block_idx: 3808
+  - num: 7
+    title: "Polymers in the Liquid Crystalline State"
+    page_start: 348
+    page_end: 371
+    chapter_title_block_idx: 3808
+    problems_block_idx: 4054
+    next_chapter_block_idx: 4063
+  - num: 8
+    title: "Glass-Rubber Transition Behavior"
+    page_start: 372
+    page_end: 448
+    chapter_title_block_idx: 4063
+    problems_block_idx: 4928
+    next_chapter_block_idx: 5014
+  - num: 9
+    title: "Cross-linked Polymers and Rubber Elasticity"
+    page_start: 449
+    page_end: 527
+    chapter_title_block_idx: 5014
+    problems_block_idx: 5908
+    next_chapter_block_idx: 6050
+  - num: 10
+    title: "Polymer Viscoelasticity and Rheology"
+    page_start: 528
+    page_end: 577
+    chapter_title_block_idx: 6050
+    problems_block_idx: 6561
+    next_chapter_block_idx: 6646
+  - num: 11
+    title: "Mechanical Behavior of Polymers"
+    page_start: 578
+    page_end: 633
+    chapter_title_block_idx: 6646
+    problems_block_idx: 7217
+    next_chapter_block_idx: 7236
+  - num: 12
+    title: "Polymer Surfaces and Interfaces"
+    page_start: 634
+    page_end: 707
+    chapter_title_block_idx: 7236
+    problems_block_idx: 8028
+    next_chapter_block_idx: 8066
+  - num: 13
+    title: "Multicomponent Polymeric Materials"
+    page_start: 708
+    page_end: 777
+    chapter_title_block_idx: 8066
+    problems_block_idx: 8797
+    next_chapter_block_idx: 8826
+  - num: 14
+    title: "Modern Polymer Topics"
+    page_start: 778
+    page_end: 846
+    chapter_title_block_idx: 8826
+    problems_block_idx: 9517
+    next_chapter_block_idx: 9540
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_start_re: null
+problems_end_re: '^(APPENDIX|REFERENCE|REFERENCES|GENERAL READING|HANDBOOKS|WEB SITES|INDEX)\b'
+solution_start_re: null
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: '^(Figure|Fig\.)\s+([0-9]+\.[0-9]+)'
+known_missing_problems: []
