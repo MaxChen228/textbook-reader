@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "watson_molecular_biology_gene-ch03-body-150-d3db85",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[150]",
+      "expect": "\\begin{array}{r l}&\\text { amino   acid(A) + amino   acid(B)}\\\\&\\rightarrow \\text { dipeptide(A - B) + H_{2} O},\\end{array}",
+      "new": "\\begin{array}{r l}&\\text { amino   acid(A) + amino   acid(B)}\\\\&\\rightarrow \\text { dipeptide(A - B) + }H_{2}O,\\end{array}"
+    },
+    {
+      "id": "watson_molecular_biology_gene-ch16-body-58-e99a6f",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[58]",
+      "expect": "\\begin{array}{c c c c c c c c} \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} \\\\ 5 ^ {\\prime} \\text {- - GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU-3^ {\\prime}} \\end{array}",
+      "new": "\\begin{array}{c c c c c c c c} \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} & \\text {Ala} \\\\ 5 ^ {\\prime} \\text {- - GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU} & \\text {GCU-}3^ {\\prime} \\end{array}"
+    },
+    {
+      "id": "watson_molecular_biology_gene-ch16-body-60-7afae8",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[60]",
+      "expect": "\\begin{array}{c c c c c c c c} \\text {Ala} & \\text {Ala} & \\text {Ser} & \\text {Cys} & \\text {Cys} & \\text {Cys} & \\text {Cys} & \\text {Cys} \\\\ 5 ^ {\\prime} \\text {- - GCU} & \\text {GCU} & \\text {AGC} & \\text {UGC} & \\text {UGC} & \\text {UGC} & \\text {UGC} & \\text {UGC-3^{\\prime}} \\end{array}",
+      "new": "\\begin{array}{c c c c c c c c} \\text {Ala} & \\text {Ala} & \\text {Ser} & \\text {Cys} & \\text {Cys} & \\text {Cys} & \\text {Cys} & \\text {Cys} \\\\ 5 ^ {\\prime} \\text {- - GCU} & \\text {GCU} & \\text {AGC} & \\text {UGC} & \\text {UGC} & \\text {UGC} & \\text {UGC} & \\text {UGC-}3^{\\prime} \\end{array}"
+    },
+    {
+      "id": "watson_molecular_biology_gene-ch08-body-2-16b9e8",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[2]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\sim } 1 0 ^ { 1 0 } \\mathring \\mathrm { A }$",
+      "new": "${ \\sim } 1 0 ^ { 1 0 } \\mathring{\\mathrm { A }}$",
+      "anchor": "1c498b98"
+    },
+    {
+      "id": "watson_molecular_biology_gene-ch13-body-80-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[80]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring{\\mathrm { A }}$",
+      "anchor": "6efa4b3a"
+    }
+  ]
+}

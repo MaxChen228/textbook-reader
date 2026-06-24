@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "van_vlack_materials_science-ch03-body-177-3a9721",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[177]",
+      "expect": "\\begin{array}{r l} \\text {(b)} & m _ {\\mathrm{u.c.}} = 6 \\text { atoms } (2 4. 3 1 \\mathrm{g}) / (0. 6 0 2 \\times 1 0 ^ {2 4}) = 2. 4 2 \\times 1 0 ^ {- 2 2} \\mathrm{g} \\\\ & V _ {\\mathrm{u.c.}} = \\frac {m}{\\rho} = (2. 4 2 \\times 1 0 ^ {- 2 2} \\mathrm{g}) / (1. 7 4 \\times 1 0 ^ {6} \\mathrm{g} / \\mathrm{m} ^ {3}) \\\\ & = 1. 4 \\times 1 0 ^ {- 2 8} \\mathrm{m} ^ {3} \\end{array}\\tag{or 0.14 nm ( ^{3} )}",
+      "new": "\\begin{array}{r l} \\text {(b)} & m _ {\\mathrm{u.c.}} = 6 \\text { atoms } (2 4. 3 1 \\mathrm{g}) / (0. 6 0 2 \\times 1 0 ^ {2 4}) = 2. 4 2 \\times 1 0 ^ {- 2 2} \\mathrm{g} \\\\ & V _ {\\mathrm{u.c.}} = \\frac {m}{\\rho} = (2. 4 2 \\times 1 0 ^ {- 2 2} \\mathrm{g}) / (1. 7 4 \\times 1 0 ^ {6} \\mathrm{g} / \\mathrm{m} ^ {3}) \\\\ & = 1. 4 \\times 1 0 ^ {- 2 8} \\mathrm{m} ^ {3} \\end{array}\\tag{or 0.14 nm (³)}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch05-body-228-275160",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[228]",
+      "expect": "\\begin{array}{r l r} \\text {At 800^{\\circ} C} & & 0. 4 5 (1 0 \\mathrm{g}) = 4. 5 \\mathrm{g} \\\\ 7 8 0 ^ {\\circ} + & & 0. 5 0 (1 0) = 5. 0 \\\\ 7 8 0 ^ {\\circ} - & & 0. 6 1 5 (1 0) = 6. 1 5 \\\\ 6 0 0 ^ {\\circ} & & 0. 6 0 (1 0) = 6. 0 \\\\ 4 0 0 ^ {\\circ} & & 0. 5 9 5 (1 0) = 5. 9 5 \\\\ 2 0 ^ {\\circ} & & 0. 6 0 (1 0) = 6. 0 \\end{array}",
+      "new": "\\begin{array}{r l r} \\text {At }800^{\\circ}\\mathrm{C} & & 0. 4 5 (1 0 \\mathrm{g}) = 4. 5 \\mathrm{g} \\\\ 7 8 0 ^ {\\circ} + & & 0. 5 0 (1 0) = 5. 0 \\\\ 7 8 0 ^ {\\circ} - & & 0. 6 1 5 (1 0) = 6. 1 5 \\\\ 6 0 0 ^ {\\circ} & & 0. 6 0 (1 0) = 6. 0 \\\\ 4 0 0 ^ {\\circ} & & 0. 5 9 5 (1 0) = 5. 9 5 \\\\ 2 0 ^ {\\circ} & & 0. 6 0 (1 0) = 6. 0 \\end{array}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch11-body-282-0cf662",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[282]",
+      "expect": "\\begin{array}{r l} \\text {At 0^{\\circ} C:} & F (E) = 1 / [ 1 + e ^ {(0. 2 \\mathrm{eV}) / k (2 7 3 \\mathrm{K})} ] \\\\ & = 0. 2 0 \\times 1 0 ^ {- 3} \\\\ & \\vdots \\end{array}",
+      "new": "\\begin{array}{r l} \\text {At }0^{\\circ}\\mathrm{C:} & F (E) = 1 / [ 1 + e ^ {(0. 2 \\mathrm{eV}) / k (2 7 3 \\mathrm{K})} ] \\\\ & = 0. 2 0 \\times 1 0 ^ {- 3} \\\\ & \\vdots \\end{array}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch14-body-37-d07b11",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[37]",
+      "expect": "\\mathrm{Zn} \\longrightarrow \\mathrm{Zn} ^ {2 +} + 2 \\mathrm{e} ^ {-}\\tag{14-2.1(_{Zn})}",
+      "new": "\\mathrm{Zn} \\longrightarrow \\mathrm{Zn} ^ {2 +} + 2 \\mathrm{e} ^ {-}\\tag{14-2.1(₍Zn₎)}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch06-body-69-4170b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[69]",
+      "expect": "\\text {(a) Liquid at} 9 5 0 ^ {\\circ} \\mathrm{C:} \\quad \\frac {(6 . 7 - \\sim 4)}{(2 6 - \\sim 4)} (5. 8 \\mathrm{kg}) \\approx 0. 7 \\mathrm{kg}\\tag{and (5.1\\mathrm{kg}\\beta\\}",
+      "new": "\\text {(a) Liquid at } 9 5 0 ^ {\\circ} \\mathrm{C:} \\quad \\frac {(6 . 7 - \\sim 4)}{(2 6 - \\sim 4)} (5. 8 \\mathrm{kg}) \\approx 0. 7 \\mathrm{kg}\\tag{and (5.1 kg β)}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch13-body-64-226c11",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[64]",
+      "expect": "\\begin{array}{r l} 1 0 ^ {- 7} \\mathrm {coul/ m^ {2}} & = (8. 8 5 \\times 1 0 ^ {- 1 2} \\mathrm {coul / volt\\cdotm}) (2. 2 5 \\mathrm{volt/d}) \\\\ d & = 0. 0 0 0 2 \\mathrm{m} \\end{array}\\tag{or 0.2 mm}",
+      "new": "\\begin{array}{r l} 1 0 ^ {- 7} \\mathrm {coul/ m^ {2}} & = (8. 8 5 \\times 1 0 ^ {- 1 2} \\mathrm {coul / volt\\cdot m}) (2. 2 5 \\mathrm{volt/d}) \\\\ d & = 0. 0 0 0 2 \\mathrm{m} \\end{array}\\tag{or 0.2 mm}"
+    }
+  ]
+}

@@ -63,8 +63,8 @@
       "field": "md",
       "all": true,
       "old": "$X \\right. Y \\left.$",
-      "new": "$\\left. X \\right. Y \\left. \\right.$",
-      "anchor": "a045f416"
+      "new": "$X Y$",
+      "anchor": "0fba81a9"
     },
     {
       "id": "pearl_causality-ch02-body-166-ec9966",
@@ -128,6 +128,17 @@
       "old": "$( \\romannumeral 1 ^ { \\prime \\prime } )$",
       "new": "$( \\mathrm{i} ^ { \\prime \\prime } )$",
       "anchor": "7c5ec0ed"
+    },
+    {
+      "id": "pearl_causality-ch11-body-562-3441ad",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[562]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\mathbf { C } , E , f ) , ( \\mathbf { C } , E , \\ b { \\ l } _ { \\ l } _ { \\ l } _ { \\ l }$",
+      "new": "$( \\mathbf { C } , E , f ) , ( \\mathbf { C } , E , \\ b { \\ l } _ { { \\ l } { \\ l } { \\ l } { \\ l } }$",
+      "anchor": "66b9a126"
     }
   ]
 }

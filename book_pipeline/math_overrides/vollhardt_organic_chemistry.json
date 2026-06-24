@@ -1,0 +1,137 @@
+{
+  "overrides": [
+    {
+      "id": "vollhardt_organic_chemistry-ch20-problem-20-8-body-9-456b6f",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20-8:body[9]",
+      "expect": "\\mathrm{LiAlH} _ {4} + 3 \\left(\\mathrm{CH} _ {3}\\right) _ {3} \\mathrm{COH} \\longrightarrow \\begin{array}{c} \\text {LiAl[OC(CH_{3})_{3}]_{3} H} \\\\ \\text {Lithium tri(tert - butoxy)aluminum} \\\\ \\text {hydride} \\end{array} + 3 \\mathrm{H-H}",
+      "new": "\\mathrm{LiAlH}_{4} + 3 \\left(\\mathrm{CH}_{3}\\right)_{3} \\mathrm{COH} \\longrightarrow \\begin{array}{c} \\mathrm{LiAl[OC(CH_{3})_{3}]_{3}H} \\\\ \\text {Lithium tri(tert - butoxy)aluminum} \\\\ \\text {hydride} \\end{array} + 3 \\mathrm{H-H}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch01-problem-1-22-body-219-6570e8",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:1-22:body[219]",
+      "field": "md",
+      "all": true,
+      "old": "$\\overset{:}\\underset{|}{\\overset{..}{C}}H$",
+      "new": "$\\overset{:}{\\underset{|}{\\overset{..}{C}}}H$",
+      "anchor": "72235819"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch13-problem-13-6-body-7-cffd88",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "problem:13-6:body[7]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\tilde{\\nu}_{\\mathrm{C}\\equiv \\mathrm{C}$",
+      "new": "$\\tilde{\\nu}_{\\mathrm{C}\\equiv \\mathrm{C}}$",
+      "anchor": "035315f8"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch17-body-92-00e81a",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[92]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\begin{array}{c}\\text{C=C} \\\\\\hline\\end{array} \\xrightarrow{1.\\text{O}_3,\\text{CH}_2\\text{Cl}_2 \\\\\\text{2. (\\text{CH}_3)_2\\text{S}} \\\\\\hline\\end{array} \\xrightarrow{\\text{C=O} + \\text{O=C}} \\begin{array}{c}\\text{O}\\\\ || \\\\ \\text{C=O} + \\text{O=C} \\\\\\hline\\end{array}$",
+      "new": "$\\begin{array}{c}\\text{C=C} \\\\\\hline\\end{array} \\xrightarrow{\\begin{array}{c}1.\\text{O}_3,\\text{CH}_2\\text{Cl}_2 \\\\ 2. (\\text{CH}_3)_2\\text{S} \\\\\\hline\\end{array}} \\xrightarrow{\\text{C=O} + \\text{O=C}} \\begin{array}{c}\\text{O}\\\\ || \\\\ \\text{C=O} + \\text{O=C} \\\\\\hline\\end{array}$",
+      "anchor": "a6ffecb2"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch19-problem-19-3-body-3-bc79f3",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19-3:body[3]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\tilde{\\nu}_{\\mathrm{O - H}$",
+      "new": "$\\tilde{\\nu}_{\\mathrm{O - H}}$",
+      "anchor": "6f4d57fb"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch19-problem-19-3-body-3-684af5",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19-3:body[3]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\tilde{\\nu}_{\\mathrm{C = O}$",
+      "new": "$\\tilde{\\nu}_{\\mathrm{C = O}}$",
+      "anchor": "6f4d57fb"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch26-body-13-0f7b67",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[13]",
+      "field": "caption",
+      "all": true,
+      "old": "$^\\text{a}Essential amino acids.\\ ^bEntire structure.\\ ^c\\(pK_a$",
+      "new": "${}^{\\text{a}}\\text{Essential amino acids. }{}^b\\text{Entire structure. }{}^c pK_a$",
+      "anchor": "d7abca3a"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch13-problem-13-6-body-7-21dfb3",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "problem:13-6:body[7]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\tilde{\\nu}_{\\mathrm{Csp - H}$",
+      "new": "$\\tilde{\\nu}_{\\mathrm{Csp - H}}$",
+      "anchor": "035315f8"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch21-problem-21-23-body-22-0562b5",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "problem:21-23:body[22]",
+      "expect": "\\mathrm{CH} _ {2} = \\mathrm{CHCH} = \\mathrm{CH} _ {2} + 2 \\mathrm{HCN} \\xrightarrow {\\text {Catalyst}} \\mathrm{NCCH} _ {2} \\underset {\\mathrm{H}} {\\mathrm{CH}} \\underset {\\mathrm{H}} {\\mathrm{CHCH}} _ {2} \\mathrm{CN}",
+      "new": "\\mathrm{CH} _ {2} = \\mathrm{CHCH} = \\mathrm{CH} _ {2} + 2 \\mathrm{HCN} \\xrightarrow {\\text {Catalyst}} \\mathrm{NCCH} _ {2} \\underset {\\mathrm{H}} {\\mathrm{CH}} {\\underset {\\mathrm{H}} {\\mathrm{CHCH}}} _ {2} \\mathrm{CN}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch08-problem-8-16-body-19-c50261",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8-16:body[19]",
+      "expect": "\\mathrm{Br} \\quad \\mathrm{O} + \\mathrm{CH} _ {3} (\\mathrm{CH} _ {2}) _ {5} \\mathrm{CH} _ {2} \\quad \\mathrm{Cl} \\xrightarrow [ \\mathrm{MgBrCl} ]{\\text {5^ {\\prime}} \\mathrm{CuI}} \\mathrm{CH} _ {3} (\\mathrm{CH} _ {2}) _ {8} \\mathrm{OCH} _ {2} \\mathrm{CH} _ {3} 8 2 \\%",
+      "new": "\\mathrm{Br} \\quad \\mathrm{O} + \\mathrm{CH} _ {3} (\\mathrm{CH} _ {2}) _ {5} \\mathrm{CH} _ {2} \\quad \\mathrm{Cl} \\xrightarrow [ \\mathrm{MgBrCl} ]{5^ {\\prime}\\, \\mathrm{CuI}} \\mathrm{CH} _ {3} (\\mathrm{CH} _ {2}) _ {8} \\mathrm{OCH} _ {2} \\mathrm{CH} _ {3} 8 2 \\%"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch08-problem-8-21-body-258-6d5d46",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8-21:body[258]",
+      "expect": "\\begin{array}{l} \\text {(a) CH_{3}CH + NADH} \\xrightarrow {\\text {Alcohol dehydrogenase}} \\\\ \\text {(b) CH_{3}CCOH + NADH} \\xrightarrow {\\text {Lactate dehydrogenase}} \\\\ \\text {(c) HOCCCH_{2}CCOH + NADH} \\xrightarrow {\\text {Malate dehydrogenase}} \\\\ \\text {(c) 2-Oxobutanedioic acid (Oxaloacetic acid)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(a) }\\mathrm{CH}_{3}\\mathrm{CH} + \\mathrm{NADH} \\xrightarrow {\\text {Alcohol dehydrogenase}} \\\\ \\text {(b) }\\mathrm{CH}_{3}\\mathrm{CCOH} + \\mathrm{NADH} \\xrightarrow {\\text {Lactate dehydrogenase}} \\\\ \\text {(c) }\\mathrm{HOCCCH}_{2}\\mathrm{CCOH} + \\mathrm{NADH} \\xrightarrow {\\text {Malate dehydrogenase}} \\\\ \\text {(c) 2-Oxobutanedioic acid (Oxaloacetic acid)} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch13-body-264-793065",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[264]",
+      "expect": "\\begin{array}{l} \\mathrm{RC} \\equiv \\mathrm{CH} \\xrightarrow {\\text {1.   NaNH} _ {2} , \\text {liquid NH} _ {3}} \\quad \\mathrm{RC} \\equiv \\mathrm{CR} ^ {\\prime} \\\\ \\mathrm{S} _ {\\mathrm{N}} 2 \\text {reaction: R^{\\prime} must be primary} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{RC} \\equiv \\mathrm{CH} \\xrightarrow {\\text {1. }\\mathrm{NaNH} _ {2} , \\text {liquid }\\mathrm{NH} _ {3}} \\quad \\mathrm{RC} \\equiv \\mathrm{CR} ^ {\\prime} \\\\ \\mathrm{S} _ {\\mathrm{N}} 2 \\text { reaction: } R^{\\prime} \\text { must be primary} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch19-problem-19-24-body-61-b0f9d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "problem:19-24:body[61]",
+      "expect": "\\begin{array}{l} \\mathrm {RCH_ {2} OH} \\xrightarrow {\\text {Oxidizing agent}} \\mathrm{RCOOH} \\\\ \\text {Oxidizing agents: aqueous CrO_{3} , KMnO_{4} , HNO_{3}} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {RCH_ {2} OH} \\xrightarrow {\\text {Oxidizing agent}} \\mathrm{RCOOH} \\\\ \\text {Oxidizing agents: aqueous }\\mathrm{CrO}_{3} , \\mathrm{KMnO}_{4} , \\mathrm{HNO}_{3} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch19-problem-19-24-body-62-8bd2ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "problem:19-24:body[62]",
+      "expect": "\\begin{array}{c} \\text {RCHO} \\xrightarrow {\\text {Oxidizing agent}} \\text {RCOOH} \\\\ \\text {Oxidizing agents: aqueous CrO_{3} , KMnO_{4} , Ag^{+} , H_{2} O_{2} , HNO_{3}} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm{RCHO} \\xrightarrow {\\text {Oxidizing agent}} \\mathrm{RCOOH} \\\\ \\text {Oxidizing agents: aqueous }\\mathrm{CrO}_{3} , \\mathrm{KMnO}_{4} , \\mathrm{Ag}^{+} , \\mathrm{H}_{2} \\mathrm{O}_{2} , \\mathrm{HNO}_{3} \\end{array}"
+    }
+  ]
+}

@@ -60,7 +60,7 @@
       "all": true,
       "old": "$\\sum_{m = p}^{\\infty}a_{m} = 1\\right\\} .$",
       "new": "$\\left.\\sum_{m = p}^{\\infty}a_{m} = 1\\right\\} .$",
-      "anchor": "58701d68"
+      "anchor": "0ea0765d"
     },
     {
       "id": "hubbard_vector_calculus-ch00-problem-0-5-2-body-1-bca3a8",
@@ -117,6 +117,14 @@
       "selector": "body[579]",
       "expect": "\\begin{array}{l}\\int_ {P} \\omega = \\int_ {T} \\left(y d y \\wedge d z + x d x \\wedge d z + z d x \\wedge d y\\right) \\binom {P _ {\\left(\\begin{array}{c}x\\\\y\\\\1 - x - y\\end{array}\\right)}} \\overbrace {\\left[\\begin{array}{c}1\\\\0\\\\- 1\\end{array}\\right]} ^ {\\overrightarrow {D _ {1} \\gamma}}, \\overbrace {\\left[\\begin{array}{c}0\\\\1\\\\- 1\\end{array}\\right]}\\left. \\right) | d x d y |\\\\= \\int_ {T} \\left(y \\det \\left[\\begin{array}{c c}0&1\\\\- 1&- 1\\end{array}\\right] + x \\det \\left[\\begin{array}{c c}1&0\\\\- 1&- 1\\end{array}\\right] + (1 - x - y) \\det \\left[\\begin{array}{c c}1&0\\\\0&1\\end{array}\\right]\\right) | d x d y |\\\\= \\int_ {T} (y - x + 1 - x - y) | d x d y |\\\\= \\int_ {T} (1 - 2 x) | d x d y | = \\int_ {0} ^ {1} \\left(\\int_ {0} ^ {1 - y} (1 - 2 x) d x\\right) d y\\\\= \\int_ {0} ^ {1} [ x - x ^ {2} ] _ {0} ^ {1 - y} d y = \\int_ {0} ^ {1} (y - y ^ {2}) d y = \\left[ \\frac {y ^ {2}}{2} - \\frac {y ^ {3}}{3} \\right] _ {0} ^ {1} = \\frac {1}{6}.\\end{array}\\tag {6.4.33}",
       "new": "\\begin{array}{l}\\int_ {P} \\omega = \\int_ {T} \\left(y d y \\wedge d z + x d x \\wedge d z + z d x \\wedge d y\\right) \\left( P _ {\\left(\\begin{array}{c}x\\\\y\\\\1 - x - y\\end{array}\\right)}, \\overbrace {\\left[\\begin{array}{c}1\\\\0\\\\- 1\\end{array}\\right]} ^ {\\overrightarrow {D _ {1} \\gamma}}, \\overbrace {\\left[\\begin{array}{c}0\\\\1\\\\- 1\\end{array}\\right]}\\right) | d x d y |\\\\= \\int_ {T} \\left(y \\det \\left[\\begin{array}{c c}0&1\\\\- 1&- 1\\end{array}\\right] + x \\det \\left[\\begin{array}{c c}1&0\\\\- 1&- 1\\end{array}\\right] + (1 - x - y) \\det \\left[\\begin{array}{c c}1&0\\\\0&1\\end{array}\\right]\\right) | d x d y |\\\\= \\int_ {T} (y - x + 1 - x - y) | d x d y |\\\\= \\int_ {T} (1 - 2 x) | d x d y | = \\int_ {0} ^ {1} \\left(\\int_ {0} ^ {1 - y} (1 - 2 x) d x\\right) d y\\\\= \\int_ {0} ^ {1} [ x - x ^ {2} ] _ {0} ^ {1 - y} d y = \\int_ {0} ^ {1} (y - y ^ {2}) d y = \\left[ \\frac {y ^ {2}}{2} - \\frac {y ^ {3}}{3} \\right] _ {0} ^ {1} = \\frac {1}{6}.\\end{array}\\tag {6.4.33}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch01-body-915-a641f2",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[915]",
+      "expect": "\\left| \\mathbf {g} (\\mathbf {f} (\\mathbf {x})) - \\mathbf {z} _ {0} \\right| <   \\epsilon \\quad \\text { when } \\quad \\left| \\mathbf {x} - \\mathbf {x} _ {0} \\right| <   \\delta . \\tag * {\\square}",
+      "new": "\\left| \\mathbf{g}(\\mathbf{f}(\\mathbf{x})) - \\mathbf{z}_{0} \\right| < \\epsilon \\quad \\text{ when } \\quad \\left| \\mathbf{x} - \\mathbf{x}_{0} \\right| < \\delta . \\tag*{$\\square$}"
     }
   ]
 }
