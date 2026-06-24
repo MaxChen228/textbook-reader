@@ -1,0 +1,55 @@
+{
+  "overrides": [
+    {
+      "id": "wasserman_all_of_statistics-ch06-body-66-d2f115",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[66]",
+      "expect": "C = \\left\\{ \\begin{array}{l l} \\{Y _ {1} - 1 \\} & \\text {if Y_{1} = Y_{2}} \\\\ \\{(Y _ {1} + Y _ {2}) / 2 \\} & \\text {if Y_{1} \\neq Y_{2}}. \\end{array} \\right.",
+      "new": "C = \\left\\{ \\begin{array}{l l} \\{Y _ {1} - 1 \\} & \\text {if } Y_{1} = Y_{2} \\\\ \\{(Y _ {1} + Y _ {2}) / 2 \\} & \\text {if } Y_{1} \\neq Y_{2}. \\end{array} \\right."
+    },
+    {
+      "id": "wasserman_all_of_statistics-ch10-body-3-efe0e9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[3]",
+      "expect": "\\begin{array}{r c l} X \\in R & \\Longrightarrow & \\text {reject H_{0}} \\\\ X \\notin R & \\Longrightarrow & \\text {retain (do not reject) H_{0}} \\end{array}",
+      "new": "\\begin{array}{r c l} X \\in R & \\Longrightarrow & \\text {reject } H_{0} \\\\ X \\notin R & \\Longrightarrow & \\text {retain (do not reject) } H_{0} \\end{array}"
+    },
+    {
+      "id": "wasserman_all_of_statistics-ch16-body-45-2745f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[45]",
+      "expect": "\\begin{array}{r c l l} \\theta & = & \\mathbb {E} (C _ {1}) - \\mathbb {E} (C _ {0}) \\\\ & = & \\mathbb {E} (C _ {1} | X = 1) - \\mathbb {E} (C _ {0} | X = 0) & \\text {since X\\amalg(C_{0} , C_{1})} \\\\ & = & \\mathbb {E} (Y | X = 1) - \\mathbb {E} (Y | X = 0) & \\text {since Y = C_{X}} \\\\ & = & \\alpha . \\end{array}",
+      "new": "\\begin{array}{r c l l} \\theta & = & \\mathbb {E} (C _ {1}) - \\mathbb {E} (C _ {0}) \\\\ & = & \\mathbb {E} (C _ {1} | X = 1) - \\mathbb {E} (C _ {0} | X = 0) & \\text {since } X\\amalg(C_{0} , C_{1}) \\\\ & = & \\mathbb {E} (Y | X = 1) - \\mathbb {E} (Y | X = 0) & \\text {since } Y = C_{X} \\\\ & = & \\alpha . \\end{array}"
+    },
+    {
+      "id": "wasserman_all_of_statistics-ch17-body-117-2330c0",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[117]",
+      "expect": "Z = \\left\\{ \\begin{array}{l l} 1 & \\text {if (C_{0} ,C_{1}) = (0,0)} \\\\ 2 & \\text {if (C_{0} ,C_{1}) = (0,1)} \\\\ 3 & \\text {if (C_{0} ,C_{1}) = (1,0)} \\\\ 4 & \\text {if (C_{0} ,C_{1}) = (1,1).} \\end{array} \\right.",
+      "new": "Z = \\left\\{ \\begin{array}{l l} 1 & \\text {if } (C_{0} ,C_{1}) = (0,0) \\\\ 2 & \\text {if } (C_{0} ,C_{1}) = (0,1) \\\\ 3 & \\text {if } (C_{0} ,C_{1}) = (1,0) \\\\ 4 & \\text {if } (C_{0} ,C_{1}) = (1,1). \\end{array} \\right."
+    },
+    {
+      "id": "wasserman_all_of_statistics-ch17-problem-9-body-1-5ace53",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "problem:9:body[1]",
+      "expect": "\\begin{array}{r c l} X & \\sim & \\text {Normal (0,1)} \\\\ Y \\mid X = x & \\sim & \\text {Normal (\\alpha x, 1)} \\\\ Z \\mid X = x, Y = y & \\sim & \\text {Normal (\\beta y + \\gamma x, 1)}. \\end{array}",
+      "new": "\\begin{array}{r c l} X & \\sim & \\operatorname{Normal} (0,1) \\\\ Y \\mid X = x & \\sim & \\operatorname{Normal} (\\alpha x, 1) \\\\ Z \\mid X = x, Y = y & \\sim & \\operatorname{Normal} (\\beta y + \\gamma x, 1). \\end{array}"
+    },
+    {
+      "id": "wasserman_all_of_statistics-ch09-body-119-dab069",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[119]",
+      "field": "md",
+      "all": true,
+      "old": "$\\widehat{\\mathfrak{se}} = \\sqrt{1 / I_n(\\widehat{\\theta}_n)$",
+      "new": "$\\widehat{\\mathfrak{se}} = \\sqrt{1 / I_n(\\widehat{\\theta}_n)}$",
+      "anchor": "a7ebdbe2"
+    }
+  ]
+}

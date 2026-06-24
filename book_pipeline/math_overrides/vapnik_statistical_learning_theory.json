@@ -15,6 +15,14 @@
       "selector": "body[268]",
       "expect": "\\begin{array}{c} W _ {T} (f) \\\\ = \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {x} f (t) d t - F _ {\\ell} (x)\\right) ^ {2} d x + \\gamma_ {\\ell} \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {\\infty} R (z - x) f (x) d x\\right) ^ {2} d z. \\end{array} \\tag {7-35}\\tag{7.27}",
       "new": "\\begin{array}{c} W _ {T} (f) \\\\ = \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {x} f (t) d t - F _ {\\ell} (x)\\right) ^ {2} d x + \\gamma_ {\\ell} \\int_ {- \\infty} ^ {\\infty} \\left(\\int_ {- \\infty} ^ {\\infty} R (z - x) f (x) d x\\right) ^ {2} d z. \\end{array} \\tag{7.27}"
+    },
+    {
+      "id": "vapnik_statistical_learning_theory-ch08-body-184-e72c6a",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[184]",
+      "expect": "\\begin{array}{c} \\mathcal {M} ^ {k} (x _ {i} ^ {k}, x _ {i} ^ {k}) \\\\ = \\left\\{ \\begin{array}{l l} \\frac {\\Delta^ {2}}{4 d _ {i} d _ {j}} e ^ {\\left\\{- \\frac {x _ {i} ^ {k} - x _ {j} ^ {k}}{\\Delta} \\right\\}} \\left(e ^ {\\left\\{\\frac {d _ {i}}{\\Delta} \\right\\}} - e ^ {\\left\\{- \\frac {d _ {i}}{\\Delta} \\right\\}}\\right) \\left(e ^ {\\left\\{\\frac {d _ {j}}{\\Delta} \\right\\}} - e ^ {\\left\\{- \\frac {d _ {j}}{\\Delta} \\right\\}}\\right) & \\text {if i\\neq j}, \\\\ \\frac {\\Delta^ {2}}{2 d _ {i} ^ {2}} \\left(e ^ {\\left\\{\\frac {2 d _ {i}}{\\Delta} \\right\\}} - 1 - \\frac {2 d _ {i}}{\\Delta}\\right) & \\text {if i = j}. \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{c} \\mathcal {M} ^ {k} (x _ {i} ^ {k}, x _ {i} ^ {k}) \\\\ = \\left\\{ \\begin{array}{l l} \\frac {\\Delta^ {2}}{4 d _ {i} d _ {j}} e ^ {\\left\\{- \\frac {x _ {i} ^ {k} - x _ {j} ^ {k}}{\\Delta} \\right\\}} \\left(e ^ {\\left\\{\\frac {d _ {i}}{\\Delta} \\right\\}} - e ^ {\\left\\{- \\frac {d _ {i}}{\\Delta} \\right\\}}\\right) \\left(e ^ {\\left\\{\\frac {d _ {j}}{\\Delta} \\right\\}} - e ^ {\\left\\{- \\frac {d _ {j}}{\\Delta} \\right\\}}\\right) & \\text {if } i\\neq j, \\\\ \\frac {\\Delta^ {2}}{2 d _ {i} ^ {2}} \\left(e ^ {\\left\\{\\frac {2 d _ {i}}{\\Delta} \\right\\}} - 1 - \\frac {2 d _ {i}}{\\Delta}\\right) & \\text {if } i = j. \\end{array} \\right. \\end{array}"
     }
   ]
 }

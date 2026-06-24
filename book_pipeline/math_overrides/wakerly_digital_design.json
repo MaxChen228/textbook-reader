@@ -20,7 +20,7 @@
       "all": true,
       "old": "$Q2^{*}'$",
       "new": "$Q2^{*\\prime}$",
-      "anchor": "2b7ab810"
+      "anchor": "97670f08"
     },
     {
       "id": "wakerly_digital_design-ch04-body-21-34d51c",
@@ -53,6 +53,38 @@
       "selector": "body[354]",
       "expect": "\\begin{array}{l l} \\text {D1} = & \\text {Q1+ Q2^{\\prime} \\cdot Q3^ {\\prime}} \\\\ \\text {D2} = & \\text {Q1\\cdot Q3^{\\prime} \\cdot A^{\\prime} + Q1\\cdot Q3\\cdot A+ Q1\\cdot Q2\\cdot B} \\\\ \\text {D3} = & \\text {Q1\\cdot A+ Q2^{\\prime} \\cdot Q3^{\\prime} \\cdot A} \\end{array}",
       "new": "\\begin{array}{l l} \\text {D1} = & Q1+ Q2^{\\prime} \\cdot Q3^ {\\prime} \\\\ \\text {D2} = & Q1\\cdot Q3^{\\prime} \\cdot A^{\\prime} + Q1\\cdot Q3\\cdot A+ Q1\\cdot Q2\\cdot B \\\\ \\text {D3} = & Q1\\cdot A+ Q2^{\\prime} \\cdot Q3^{\\prime} \\cdot A \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch07-body-452-cfe73f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[452]",
+      "expect": "\\begin{array}{r c l} \\text {Q2*} & = & \\text {Q2^{\\prime} \\cdot Q1^{\\prime} \\cdot Q0^{\\prime} \\cdot (HAZ + RIGHT)} \\\\ & & + \\text {Q2^{\\prime} \\cdot Q0\\cdot (HAZ)} \\\\ & & + \\text {Q2\\cdot Q0} \\end{array}",
+      "new": "\\begin{array}{r c l} \\mathrm {Q2*} & = & \\mathrm {Q2}^{\\prime} \\cdot \\mathrm {Q1}^{\\prime} \\cdot \\mathrm {Q0}^{\\prime} \\cdot (\\mathrm{HAZ} + \\mathrm{RIGHT}) \\\\ & & + \\mathrm {Q2}^{\\prime} \\cdot \\mathrm {Q0}\\cdot (\\mathrm{HAZ}) \\\\ & & + \\mathrm {Q2}\\cdot \\mathrm {Q0} \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch02-body-132-c99d03",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[132]",
+      "expect": "\\begin{array}{r} {+ 6 \\quad 0 1 1 0} \\\\ {+ - 3 \\quad + 1 1 0 1} \\\\ {\\hline + 3 \\quad 1 0 0 1 1} \\end{array}",
+      "new": "\\begin{array}{r} {+ 6 \\quad 0 1 1 0} \\\\ {+ - 3 \\quad + 1 1 0 1} \\\\ \\hline {+ 3 \\quad 1 0 0 1 1} \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch07-body-202-e27905",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[202]",
+      "expect": "\\begin{array}{r c l} \\mathrm {Q0* & = D0} \\\\ \\mathrm {Q1* & = D1} \\end{array}",
+      "new": "\\begin{array}{r c l} \\mathrm {Q0*} & = & \\mathrm{D0} \\\\ \\mathrm {Q1*} & = & \\mathrm{D1} \\end{array}"
+    },
+    {
+      "id": "wakerly_digital_design-ch07-body-500-9fbf1d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[500]",
+      "expect": "\\begin{array}{r c l} \\text {L1*} & = & \\text {L1^{\\prime}} \\cdot \\text {L2^{\\prime}} \\cdot \\text {L3^{\\prime}} \\cdot \\text {L4} \\cdot \\text {ERR^{\\prime}} \\cdot (\\text {G1^{\\prime}} \\cdot \\text {G2^{\\prime}} \\cdot \\text {G3^{\\prime}} \\cdot \\text {G4^{\\prime}}) \\\\ & & + \\text {L1^{\\prime}} \\cdot \\text {L2^{\\prime}} \\cdot \\text {L3^{\\prime}} \\cdot \\text {L4^{\\prime}} \\cdot \\text {ERR^{\\prime}} \\cdot (\\text {G1^{\\prime}} \\cdot \\text {G2^{\\prime}} \\cdot \\text {G3^{\\prime}} \\cdot \\text {G4^{\\prime}}) \\\\ & & + \\text {L1^{\\prime}} \\cdot \\text {L2^{\\prime}} \\cdot \\text {L3^{\\prime}} \\cdot \\text {L4^{\\'}} \\cdot \\text {ERR} \\cdot (\\text {G1^{\\prime}} \\cdot \\text {G2^{\\prime}} \\cdot \\text {G3^{\\prime}} \\cdot \\text {G4^{\\prime}}) \\end{array}",
+      "new": "\\begin{array}{r c l} \\mathrm {L1}^{*} & = & \\mathrm {L1}^{\\prime} \\cdot \\mathrm {L2}^{\\prime} \\cdot \\mathrm {L3}^{\\prime} \\cdot \\mathrm {L4} \\cdot \\mathrm {ERR}^{\\prime} \\cdot (\\mathrm {G1}^{\\prime} \\cdot \\mathrm {G2}^{\\prime} \\cdot \\mathrm {G3}^{\\prime} \\cdot \\mathrm {G4}^{\\prime}) \\\\ & & + \\mathrm {L1}^{\\prime} \\cdot \\mathrm {L2}^{\\prime} \\cdot \\mathrm {L3}^{\\prime} \\cdot \\mathrm {L4}^{\\prime} \\cdot \\mathrm {ERR}^{\\prime} \\cdot (\\mathrm {G1}^{\\prime} \\cdot \\mathrm {G2}^{\\prime} \\cdot \\mathrm {G3}^{\\prime} \\cdot \\mathrm {G4}^{\\prime}) \\\\ & & + \\mathrm {L1}^{\\prime} \\cdot \\mathrm {L2}^{\\prime} \\cdot \\mathrm {L3}^{\\prime} \\cdot \\mathrm {L4}^{\\prime} \\cdot \\mathrm {ERR} \\cdot (\\mathrm {G1}^{\\prime} \\cdot \\mathrm {G2}^{\\prime} \\cdot \\mathrm {G3}^{\\prime} \\cdot \\mathrm {G4}^{\\prime}) \\end{array}"
     }
   ]
 }

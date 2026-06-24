@@ -114,6 +114,30 @@
       "selector": "body[623]",
       "expect": "\\begin{array}{r l} \\upsilon_ {\\mathrm{s}} (t) & = 5 \\sin (4 \\times 1 0 ^ {4} t - 3 0 ^ {\\circ}) \\\\ & = 5 \\cos (4 \\times 1 0 ^ {4} t - 1 2 0 ^ {\\circ}) \\end{array} \\tag {V}\\tag{1.72}",
       "new": "\\begin{array}{r l} \\upsilon_ {\\mathrm{s}} (t) & = 5 \\sin (4 \\times 1 0 ^ {4} t - 3 0 ^ {\\circ}) \\\\ & = 5 \\cos (4 \\times 1 0 ^ {4} t - 1 2 0 ^ {\\circ}) \\end{array} \\tag {V, 1.72}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch02-body-322-6573c9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[322]",
+      "expect": "\\begin{array}{l} \\left| \\widetilde {V} (z) \\right| = \\left\\{\\left[ V _ {0} ^ {+} (e ^ {- j \\beta z} + | \\Gamma | e ^ {j \\theta_ {\\mathrm{r}}} e ^ {j \\beta z}) \\right] \\right. \\\\ \\quad \\cdot \\left[ (V _ {0} ^ {+}) ^ {*} (e ^ {j \\beta z} + | \\Gamma | e ^ {- j \\theta_ {\\mathrm{r}}} e ^ {- j \\beta z}) \\right] \\Bigg \\} ^ {1 / 2} \\\\ = | V _ {0} ^ {+} | \\left[ 1 + | \\Gamma | ^ {2} + | \\Gamma | (e ^ {j (2 \\beta z + \\theta_ {\\mathrm{r}})} + e ^ {- j (2 \\beta z + \\theta_ {\\mathrm{r}})}) \\right] ^ {1 / 2} \\\\ = | V _ {0} ^ {+} | \\left[ 1 + | \\Gamma | ^ {2} + 2 | \\Gamma | \\cos (2 \\beta z + \\theta_ {\\mathrm{r}}) \\right] ^ {1 / 2}, \\end{array} \\tag {2}\\tag{2.64}",
+      "new": "\\begin{array}{l} \\left| \\widetilde {V} (z) \\right| = \\left\\{\\left[ V _ {0} ^ {+} (e ^ {- j \\beta z} + | \\Gamma | e ^ {j \\theta_ {\\mathrm{r}}} e ^ {j \\beta z}) \\right] \\right. \\\\ \\quad \\cdot \\left[ (V _ {0} ^ {+}) ^ {*} (e ^ {j \\beta z} + | \\Gamma | e ^ {- j \\theta_ {\\mathrm{r}}} e ^ {- j \\beta z}) \\right] \\Bigg \\} ^ {1 / 2} \\\\ = | V _ {0} ^ {+} | \\left[ 1 + | \\Gamma | ^ {2} + | \\Gamma | (e ^ {j (2 \\beta z + \\theta_ {\\mathrm{r}})} + e ^ {- j (2 \\beta z + \\theta_ {\\mathrm{r}})}) \\right] ^ {1 / 2} \\\\ = | V _ {0} ^ {+} | \\left[ 1 + | \\Gamma | ^ {2} + 2 | \\Gamma | \\cos (2 \\beta z + \\theta_ {\\mathrm{r}}) \\right] ^ {1 / 2}, \\end{array} \\tag{2.64}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch02-body-950-237ad9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[950]",
+      "expect": "\\begin{array}{l} V _ {\\infty} = V _ {1} ^ {+} + V _ {1} ^ {-} + V _ {2} ^ {+} + V _ {2} ^ {-} + V _ {3} ^ {+} + V _ {3} ^ {-} + \\dots \\\\ = V _ {1} ^ {+} \\left[ 1 + \\Gamma_ {\\mathrm{L}} + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} ^ {2} + \\Gamma_ {\\mathrm{L}} ^ {3} \\Gamma_ {\\mathrm{g}} ^ {2} + \\dots \\right] \\\\ = V _ {1} ^ {+} \\left[ (1 + \\Gamma_ {\\mathrm{L}}) (1 + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} ^ {2} + \\dots) \\right] \\\\ = V _ {1} ^ {+} (1 + \\Gamma_ {\\mathrm{L}}) [ 1 + x + x ^ {2} + \\dots ], \\end{array} \\tag {2}\\tag{2.153}",
+      "new": "\\begin{array}{l} V _ {\\infty} = V _ {1} ^ {+} + V _ {1} ^ {-} + V _ {2} ^ {+} + V _ {2} ^ {-} + V _ {3} ^ {+} + V _ {3} ^ {-} + \\dots \\\\ = V _ {1} ^ {+} \\left[ 1 + \\Gamma_ {\\mathrm{L}} + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} ^ {2} + \\Gamma_ {\\mathrm{L}} ^ {3} \\Gamma_ {\\mathrm{g}} ^ {2} + \\dots \\right] \\\\ = V _ {1} ^ {+} \\left[ (1 + \\Gamma_ {\\mathrm{L}}) (1 + \\Gamma_ {\\mathrm{L}} \\Gamma_ {\\mathrm{g}} + \\Gamma_ {\\mathrm{L}} ^ {2} \\Gamma_ {\\mathrm{g}} ^ {2} + \\dots) \\right] \\\\ = V _ {1} ^ {+} (1 + \\Gamma_ {\\mathrm{L}}) [ 1 + x + x ^ {2} + \\dots ], \\end{array} \\tag{2.153}"
+    },
+    {
+      "id": "ulaby_applied_electromagnetics-ch04-body-228-2ab5b5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[228]",
+      "expect": "\\begin{array}{l} V _ {2 1} = - \\int_ {P _ {1}} ^ {P _ {2}} \\mathbf {E} \\cdot d \\mathbf {l} \\\\ = - \\int_ {x = 1} ^ {x = 3} [ \\hat {\\mathbf {x}} x ^ {2} + \\hat {\\mathbf {y}} (2 x - 4) ^ {2} ] \\cdot [ \\hat {\\mathbf {x}} d x + \\hat {\\mathbf {y}} 2 d x ] \\\\ = - \\int_ {x = 1} ^ {3} [ x ^ {2} + 2 (2 x - 4) ^ {2} ] d x \\\\ = - \\int_ {x = 1} ^ {3} (9 x ^ {2} - 3 2 x + 3 2) d x = - 1 4 \\end{array} \\tag {V}\\tag{4.49}",
+      "new": "\\begin{array}{l} V _ {2 1} = - \\int_ {P _ {1}} ^ {P _ {2}} \\mathbf {E} \\cdot d \\mathbf {l} \\\\ = - \\int_ {x = 1} ^ {x = 3} [ \\hat {\\mathbf {x}} x ^ {2} + \\hat {\\mathbf {y}} (2 x - 4) ^ {2} ] \\cdot [ \\hat {\\mathbf {x}} d x + \\hat {\\mathbf {y}} 2 d x ] \\\\ = - \\int_ {x = 1} ^ {3} [ x ^ {2} + 2 (2 x - 4) ^ {2} ] d x \\\\ = - \\int_ {x = 1} ^ {3} (9 x ^ {2} - 3 2 x + 3 2) d x = - 1 4 \\end{array} \\tag{4.49}"
     }
   ]
 }

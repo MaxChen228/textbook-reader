@@ -7,6 +7,30 @@
       "selector": "body[65]",
       "expect": "y _ {i j} ^ {\\text {old}} = \\left\\{ \\begin{array}{l l} y _ {i j} & \\text {if y_{ij} is observed} \\\\ \\mathrm{E} (y _ {i j} | y _ {\\text {obs}}, \\theta^ {\\text {old}}) & \\text {if y_{ij} is missing,} \\end{array} \\right.",
       "new": "y _ {i j} ^ {\\text {old}} = \\left\\{ \\begin{array}{l l} y _ {i j} & \\text {if } y_{ij} \\text { is observed} \\\\ \\mathrm{E} (y _ {i j} | y _ {\\text {obs}}, \\theta^ {\\text {old}}) & \\text {if } y_{ij} \\text { is missing,} \\end{array} \\right."
+    },
+    {
+      "id": "gelman_bayesian_data_analysis-ch05-body-142-994e5d",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[142]",
+      "expect": "\\begin{array}{c c c c c} & d f & \\text {SS} & \\text {MS} & \\text {E(MS|\\sigma^ {2} ,\\tau)} \\\\ \\hline \\text {Between groups} & J - 1 & \\sum_ {i} \\sum_ {j} (\\overline {{y}} _ {\\cdot j} - \\overline {{y}} _ {\\cdot .}) ^ {2} & \\text {SS / (J - 1)} & n \\tau^ {2} + \\sigma^ {2} \\\\ \\text {Within groups} & J (n - 1) & \\sum_ {i} \\sum_ {j} (y _ {i j} - \\overline {{y}} _ {\\cdot j}) ^ {2} & \\text {SS / (J(n - 1))} & \\sigma^ {2} \\\\ \\text {Total} & J n - 1 & \\sum_ {i} \\sum_ {j} (y _ {i j} - \\overline {{y}} _ {\\cdot .}) ^ {2} & \\text {SS / (Jn - 1)} \\end{array}",
+      "new": "\\begin{array}{c c c c c} & d f & \\text {SS} & \\text {MS} & \\text {E(MS|}\\sigma^ {2} ,\\tau\\text {)} \\\\ \\hline \\text {Between groups} & J - 1 & \\sum_ {i} \\sum_ {j} (\\overline {{y}} _ {\\cdot j} - \\overline {{y}} _ {\\cdot .}) ^ {2} & \\text {SS / (J - 1)} & n \\tau^ {2} + \\sigma^ {2} \\\\ \\text {Within groups} & J (n - 1) & \\sum_ {i} \\sum_ {j} (y _ {i j} - \\overline {{y}} _ {\\cdot j}) ^ {2} & \\text {SS / (J(n - 1))} & \\sigma^ {2} \\\\ \\text {Total} & J n - 1 & \\sum_ {i} \\sum_ {j} (y _ {i j} - \\overline {{y}} _ {\\cdot .}) ^ {2} & \\text {SS / (Jn - 1)} \\end{array}"
+    },
+    {
+      "id": "gelman_bayesian_data_analysis-ch20-body-12-2718da",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[12]",
+      "expect": "b _ {h} (x) = \\left\\{ \\begin{array}{l l} \\frac {1}{6} u ^ {3} & \\text {for x\\in(x_{h} ,x_{h + 1})}, \\quad u = (x - x _ {h}) / \\delta \\\\ \\frac {1}{6} (1 + 3 u + 3 u ^ {2} - 3 u ^ {3}) & \\text {for x\\in(x_{h + 1} ,x_{h + 2})}, \\quad u = (x - x _ {h + 1}) / \\delta \\\\ \\frac {1}{6} (4 - 6 u ^ {2} + 3 u ^ {3}) & \\text {for x\\in(x_{h + 2} ,x_{h + 3})}, \\quad u = (x - x _ {h + 2}) / \\delta \\\\ \\frac {1}{6} (1 - 3 u + 3 u ^ {2} - u ^ {3}) & \\text {for x\\in(x_{h + 3} ,x_{h + 4})}, \\quad u = (x - x _ {h + 3}) / \\delta \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "b _ {h} (x) = \\left\\{ \\begin{array}{l l} \\frac {1}{6} u ^ {3} & \\text {for } x\\in(x_{h} ,x_{h + 1}), \\quad u = (x - x _ {h}) / \\delta \\\\ \\frac {1}{6} (1 + 3 u + 3 u ^ {2} - 3 u ^ {3}) & \\text {for } x\\in(x_{h + 1} ,x_{h + 2}), \\quad u = (x - x _ {h + 1}) / \\delta \\\\ \\frac {1}{6} (4 - 6 u ^ {2} + 3 u ^ {3}) & \\text {for } x\\in(x_{h + 2} ,x_{h + 3}), \\quad u = (x - x _ {h + 2}) / \\delta \\\\ \\frac {1}{6} (1 - 3 u + 3 u ^ {2} - u ^ {3}) & \\text {for } x\\in(x_{h + 3} ,x_{h + 4}), \\quad u = (x - x _ {h + 3}) / \\delta \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "gelman_bayesian_data_analysis-ch05-body-93-85cd4c",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[93]",
+      "expect": "\\begin{array}{l} p (\\theta , \\alpha , \\beta | y) \\propto p (\\alpha , \\beta) p (\\theta | \\alpha , \\beta) p (y | \\theta , \\alpha , \\beta) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} p (\\theta , \\alpha , \\beta | y) \\propto p (\\alpha , \\beta) p (\\theta | \\alpha , \\beta) p (y | \\theta , \\alpha , \\beta) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
     }
   ]
 }

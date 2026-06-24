@@ -96,8 +96,8 @@
       "field": "md",
       "all": true,
       "old": "$\\tilde { \\gamma } _ { 0 }  _ { \\mathsf { p } } \\sigma ^ { 2 }$",
-      "new": "$\\tilde { \\gamma } _ { 0 \\mathsf { p } } \\sigma ^ { 2 }$",
-      "anchor": "73cb9c38"
+      "new": "$\\tilde{\\gamma}_{0\\mathsf{p}} \\sigma^{2}$",
+      "anchor": "d4482cca"
     },
     {
       "id": "hayashi_econometrics-ch02-body-697-dd4ad5",
@@ -107,8 +107,8 @@
       "field": "md",
       "all": true,
       "old": "$\\sqrt { n } \\tilde { \\gamma } _ { j } - \\sqrt { n } \\hat { \\gamma } _ { j }  _ { \\mathfrak { p } }$",
-      "new": "$\\sqrt { n } \\tilde { \\gamma } _ { j } - \\sqrt { n } \\hat { \\gamma } _ { j \\mathfrak { p } }$",
-      "anchor": "73cb9c38"
+      "new": "$\\sqrt{n} \\tilde{\\gamma}_{j} - \\sqrt{n} \\hat{\\gamma}_{j\\mathfrak{p}}$",
+      "anchor": "d4482cca"
     },
     {
       "id": "hayashi_econometrics-ch01-body-77-f19c29",
@@ -254,8 +254,88 @@
       "field": "md",
       "all": true,
       "old": "$\\mathbf { x } _ { n }  _ { \\mathfrak { p } } \\pmb { \\beta }$",
-      "new": "$\\mathbf { x } _ { n \\mathfrak { p } } \\pmb { \\beta }$",
-      "anchor": "c44e0300"
+      "new": "$\\mathbf{x}_{n\\mathfrak{p}} \\pmb{\\beta}$",
+      "anchor": "b4491563"
+    },
+    {
+      "id": "hayashi_econometrics-ch02-body-848-529d83",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[848]",
+      "expect": "\\begin{array}{l} \\underset {a} {\\sim} \\sqrt {n} \\tilde {\\gamma} _ {j} - \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) ^ {\\prime} \\sqrt {n} (\\mathbf {b} - \\boldsymbol {\\beta}) \\\\ \\qquad (\\text {since} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) \\xrightarrow [ p ]{} \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j})) \\\\ = \\sqrt {n} \\tilde {\\gamma} _ {j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} (\\mathbf {b} - \\boldsymbol {\\beta}) \\quad \\text {where} \\boldsymbol {\\mu} _ {j} \\equiv \\mathrm{E} (\\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) \\\\ \\qquad (\\text {since} \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t}) = \\mathbf {0} \\text {by (2.10.15)}) \\\\ = \\sqrt {n} \\tilde {\\gamma} _ {j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t} \\\\ = \\sqrt {n} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t} \\quad (\\text {by (2.10.7)}) \\\\ \\underset {a} {\\sim} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\vareappa_ {t} \\\\ = (\\text {since} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\sqrt {n} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j}) \\\\ = \\frac {1}{\\sqrt {n}} \\sum_ {t = 1} ^ {j} \\varepsilon_ {t} \\varepsilon_ {t - j} \\to 0   \\text {(for each $j$)} \\\\ \\underset {a} {\\sim} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n}   \\boldsymbol {\\Sigma} _ {\\mathbf {x x}} ^ {- 1}   \\frac {1}{n}   \\sum_ {t = 1} ^ {n}   \\mathbf {x} _ {t}   \\cdot   \\varepsilon_ {t}, (\\text {since $S_{xx}$ $\\to$ $\\Sigma_{xx}$}) \\\\ = c _ {j} ^ {\\prime}   \\sqrt {n}   \\tilde {\\mathbf {g}} _ {j}, \\end{array}",
+      "new": "\\begin{array}{l} \\underset {a} {\\sim} \\sqrt {n} \\tilde {\\gamma} _ {j} - \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) ^ {\\prime} \\sqrt {n} (\\mathbf {b} - \\boldsymbol {\\beta}) \\\\ \\qquad (\\text {since} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) \\xrightarrow [ p ]{} \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t} + \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j})) \\\\ = \\sqrt {n} \\tilde {\\gamma} _ {j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} (\\mathbf {b} - \\boldsymbol {\\beta}) \\quad \\text {where} \\boldsymbol {\\mu} _ {j} \\equiv \\mathrm{E} (\\mathbf {x} _ {t} \\cdot \\varepsilon_ {t - j}) \\\\ \\qquad (\\text {since} \\mathrm{E} (\\mathbf {x} _ {t - j} \\cdot \\varepsilon_ {t}) = \\mathbf {0} \\text {by (2.10.15)}) \\\\ = \\sqrt {n} \\tilde {\\gamma} _ {j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t} \\\\ = \\sqrt {n} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t} \\quad (\\text {by (2.10.7)}) \\\\ \\underset {a} {\\sim} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n} \\mathbf {S} _ {\\mathbf {x x}} ^ {- 1} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\mathbf {x} _ {t} \\cdot \\varepsilon_ {t} \\\\ = (\\text {since} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\sqrt {n} \\frac {1}{n} \\sum_ {t = j + 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j}) \\\\ = \\frac {1}{\\sqrt {n}} \\sum_ {t = 1} ^ {j} \\varepsilon_ {t} \\varepsilon_ {t - j} \\to 0   \\text {(for each $j$)} \\\\ \\underset {a} {\\sim} \\sqrt {n} \\frac {1}{n} \\sum_ {t = 1} ^ {n} \\varepsilon_ {t} \\varepsilon_ {t - j} - \\boldsymbol {\\mu} _ {j} ^ {\\prime} \\sqrt {n}   \\boldsymbol {\\Sigma} _ {\\mathbf {x x}} ^ {- 1}   \\frac {1}{n}   \\sum_ {t = 1} ^ {n}   \\mathbf {x} _ {t}   \\cdot   \\varepsilon_ {t}, (\\text {since $S_{xx}$ $\\to$ $\\Sigma_{xx}$}) \\\\ = c _ {j} ^ {\\prime}   \\sqrt {n}   \\tilde {\\mathbf {g}} _ {j}, \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch01-body-70-f67481",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[70]",
+      "expect": "\\begin{array}{r l} \\operatorname{Cov} (\\varepsilon_ {i}, x _ {j k}) & = \\operatorname{E} (x _ {j k} \\varepsilon_ {i}) - \\operatorname{E} (x _ {j k}) \\operatorname{E} (\\varepsilon_ {i}) \\quad \\text {(by definition of covariance)} \\\\ & = \\operatorname{E} (x _ {j k} \\varepsilon_ {i}) \\quad \\text {(since E(\\varepsilon_ {i}) = 0, see (1.1.8))} \\\\ & = 0 \\quad \\text {(by the orthogonality conditions (1.1.9)).} \\end{array}",
+      "new": "\\begin{array}{r l} \\operatorname{Cov} (\\varepsilon_ {i}, x _ {j k}) & = \\operatorname{E} (x _ {j k} \\varepsilon_ {i}) - \\operatorname{E} (x _ {j k}) \\operatorname{E} (\\varepsilon_ {i}) \\quad \\text {(by definition of covariance)} \\\\ & = \\operatorname{E} (x _ {j k} \\varepsilon_ {i}) \\quad \\text{(since } E(\\varepsilon_ {i}) = 0\\text{, see (1.1.8))} \\\\ & = 0 \\quad \\text {(by the orthogonality conditions (1.1.9)).} \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch01-body-576-cf3652",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[576]",
+      "expect": "\\begin{array}{l} \\mathrm{E} (\\widetilde {\\boldsymbol {\\varepsilon}} \\mid \\widetilde {\\mathbf {X}}) = \\mathrm{E} (\\widetilde {\\boldsymbol {\\varepsilon}} \\mid \\mathbf {X}) \\\\ \\qquad \\text {(since \\mathbf {C is nonsingular, X and \\widetilde {X} contain the same information)}} \\\\ \\qquad = \\mathrm{E} (\\mathbf {C} \\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) \\\\ \\qquad = \\mathbf {C E} (\\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) \\quad \\text {(by the linearity of conditional expectations)} \\\\ \\qquad = \\mathbf {0} \\quad \\text {(since E(\\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) = \\mathbf {0 by Assumption 1.2).}} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{E} (\\widetilde {\\boldsymbol {\\varepsilon}} \\mid \\widetilde {\\mathbf {X}}) = \\mathrm{E} (\\widetilde {\\boldsymbol {\\varepsilon}} \\mid \\mathbf {X}) \\\\ \\qquad \\text{(since } \\mathbf {C} \\text{ is nonsingular, } \\mathbf {X} \\text{ and } \\widetilde {\\mathbf {X}} \\text{ contain the same information)} \\\\ \\qquad = \\mathrm{E} (\\mathbf {C} \\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) \\\\ \\qquad = \\mathbf {C E} (\\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) \\quad \\text{(by the linearity of conditional expectations)} \\\\ \\qquad = \\mathbf {0} \\quad \\text{(since } \\mathrm{E}(\\boldsymbol {\\varepsilon} \\mid \\mathbf {X}) = \\mathbf {0} \\text{ by Assumption 1.2).} \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch02-body-310-d70fd8",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[310]",
+      "expect": "\\begin{array}{l l} e _ {i} \\equiv y _ {i} - \\mathbf {x} _ {i} ^ {\\prime} \\mathbf {b} \\\\ = y _ {i} - \\mathbf {x} _ {i} ^ {\\prime} \\boldsymbol {\\beta} - \\mathbf {x} _ {i} ^ {\\prime} (\\mathbf {b} - \\boldsymbol {\\beta}) & \\text {(by adding and subtracting \\mathbf {x} _{i} ^{\\prime}\\boldsymbol {\\beta})} \\\\ = \\varepsilon_ {i} - \\mathbf {x} _ {i} ^ {\\prime} (\\mathbf {b} - \\boldsymbol {\\beta}), \\end{array}",
+      "new": "\\begin{array}{l l} e _ {i} \\equiv y _ {i} - \\mathbf {x} _ {i} ^ {\\prime} \\mathbf {b} \\\\ = y _ {i} - \\mathbf {x} _ {i} ^ {\\prime} \\boldsymbol {\\beta} - \\mathbf {x} _ {i} ^ {\\prime} (\\mathbf {b} - \\boldsymbol {\\beta}) & \\text{(by adding and subtracting } \\mathbf {x} _{i} ^{\\prime}\\boldsymbol {\\beta}\\text{)} \\\\ = \\varepsilon_ {i} - \\mathbf {x} _ {i} ^ {\\prime} (\\mathbf {b} - \\boldsymbol {\\beta}), \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch04-problem-4-10-body-5-d4ddcc",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.10:body[5]",
+      "expect": "\\begin{array}{r l} & {\\mathbf {A} _ {1 2} \\mathbf {A} _ {2 2} ^ {- 1} \\mathbf {A} _ {2 1}} \\\\ & {\\quad = \\mathrm{E} (\\mathbf {z} _ {i 1} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 2} ^ {\\prime})} \\\\ & {\\qquad [ \\mathrm{E} (\\mathbf {z} _ {i 2} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 2} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {z} _ {i 2} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 1} ^ {\\prime})} \\\\ & {\\quad = \\mathrm{E} (\\mathbf {z} _ {i 1} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 1} ^ {\\prime}) \\quad (\\mathrm{since#z} _ {i 2} (= L _ {2}) = \\# \\mathbf {x} _ {i} (= K))} \\\\ & {\\quad = \\mathbf {A} _ {1 1}.} \\end{array}",
+      "new": "\\begin{array}{r l} & {\\mathbf {A} _ {1 2} \\mathbf {A} _ {2 2} ^ {- 1} \\mathbf {A} _ {2 1}} \\\\ & {\\quad = \\mathrm{E} (\\mathbf {z} _ {i 1} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 2} ^ {\\prime})} \\\\ & {\\qquad [ \\mathrm{E} (\\mathbf {z} _ {i 2} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 2} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {z} _ {i 2} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 1} ^ {\\prime})} \\\\ & {\\quad = \\mathrm{E} (\\mathbf {z} _ {i 1} \\mathbf {x} _ {i} ^ {\\prime}) [ \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {x} _ {i} ^ {\\prime}) ] ^ {- 1} \\mathrm{E} (\\mathbf {x} _ {i} \\mathbf {z} _ {i 1} ^ {\\prime}) \\quad (\\mathrm{since}\\ \\#\\mathbf {z} _ {i 2} (= L _ {2}) = \\# \\mathbf {x} _ {i} (= K))} \\\\ & {\\quad = \\mathbf {A} _ {1 1}.} \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch06-body-358-a3b8c6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[358]",
+      "expect": "\\begin{array}{l} \\text { first   element   of   E(g_{t} | g_{t - 1}, g_{t - 2},\\ldots)} \\\\ = \\mathrm{E} (\\varepsilon_ {t} | \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\\\ = \\mathrm{E} (\\varepsilon_ {t} | \\varepsilon_ {t - 1}, \\varepsilon_ {t - 2}, \\ldots , y _ {t - 2} \\varepsilon_ {t - 1}, y _ {t - 3} \\varepsilon_ {t - 2}, \\ldots) \\\\ = 0 \\quad (\\text { since } \\{\\varepsilon_ {t} \\} \\text { is   i.i.d.   and } y _ {t - j} \\text { is   a   function   of } (\\varepsilon_ {t - j}, \\varepsilon_ {t - j - 1}, \\ldots)) \\end{array}",
+      "new": "\\begin{array}{l} \\text{ first element of } \\mathrm{E}(g_{t} \\mid g_{t - 1}, g_{t - 2},\\ldots) \\\\ = \\mathrm{E} (\\varepsilon_ {t} \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\\\ = \\mathrm{E} (\\varepsilon_ {t} \\mid \\varepsilon_ {t - 1}, \\varepsilon_ {t - 2}, \\ldots , y _ {t - 2} \\varepsilon_ {t - 1}, y _ {t - 3} \\varepsilon_ {t - 2}, \\ldots) \\\\ = 0 \\quad (\\text{ since } \\{\\varepsilon_ {t} \\} \\text{ is i.i.d. and } y _ {t - j} \\text{ is a function of } (\\varepsilon_ {t - j}, \\varepsilon_ {t - j - 1}, \\ldots)) \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch06-body-360-2be3db",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[360]",
+      "expect": "\\begin{array}{l} \\text {second element of E(g_{t} | g_{t - 1}, g_{t - 2},\\ldots)} \\\\ = \\mathrm{E} (\\varepsilon_ {t} y _ {t - 1} \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\\\ = \\mathrm{E} [ \\mathrm{E} (\\varepsilon_ {t} y _ {t - 1} \\mid y _ {t - 1}, \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots ] \\\\ \\text {(by the Law of Iterated Expectations)} \\\\ = \\mathrm{E} [ y _ {t - 1} \\mathrm{E} (\\varepsilon_ {t} \\mid y _ {t - 1}, \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots ] \\\\ = 0 \\quad (\\text {since E(\\varepsilon_{t} \\mid y_{t - 1},\\varepsilon_{t - 1},\\varepsilon_{t - 2},\\ldots,y_{t - 2}\\varepsilon_{t - 1},y_{t - 3}\\varepsilon_{t - 2},\\ldots) = 0).} \\end{array}",
+      "new": "\\begin{array}{l} \\text{second element of } \\mathrm{E}(g_{t} \\mid g_{t - 1}, g_{t - 2},\\ldots) \\\\ = \\mathrm{E} (\\varepsilon_ {t} y _ {t - 1} \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\\\ = \\mathrm{E} [ \\mathrm{E} (\\varepsilon_ {t} y _ {t - 1} \\mid y _ {t - 1}, \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots ] \\\\ \\text{(by the Law of Iterated Expectations)} \\\\ = \\mathrm{E} [ y _ {t - 1} \\mathrm{E} (\\varepsilon_ {t} \\mid y _ {t - 1}, \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots) \\mid \\mathbf {g} _ {t - 1}, \\mathbf {g} _ {t - 2}, \\ldots ] \\\\ = 0 \\quad (\\text{since } \\mathrm{E}(\\varepsilon_{t} \\mid y_{t - 1},\\varepsilon_{t - 1},\\varepsilon_{t - 2},\\ldots,y_{t - 2}\\varepsilon_{t - 1},y_{t - 3}\\varepsilon_{t - 2},\\ldots) = 0). \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch06-body-580-aed870",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[580]",
+      "expect": "\\begin{array}{r l} \\boldsymbol {\\Gamma} _ {j} & = \\mathrm{E} (\\mathbf {g} _ {t} \\mathbf {g} _ {t - j} ^ {\\prime}) \\quad \\text {(since E(g_{t}) = 0)} \\\\ & = \\mathrm{E} (\\varepsilon_ {t} \\varepsilon_ {t - j} \\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime}) \\\\ & = \\mathrm{E} [ \\mathrm{E} (\\varepsilon_ {t} \\varepsilon_ {t - j} | \\mathbf {x} _ {t}, \\mathbf {x} _ {t - j}) \\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime} ] \\quad \\text {(by the Law of Total Expectations)} \\\\ & = \\omega_ {j} \\mathrm{E} (\\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime}). \\end{array}",
+      "new": "\\begin{array}{r l} \\boldsymbol {\\Gamma} _ {j} & = \\mathrm{E} (\\mathbf {g} _ {t} \\mathbf {g} _ {t - j} ^ {\\prime}) \\quad \\text{(since } \\mathrm{E}(g_{t}) = 0\\text{)} \\\\ & = \\mathrm{E} (\\varepsilon_ {t} \\varepsilon_ {t - j} \\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime}) \\\\ & = \\mathrm{E} [ \\mathrm{E} (\\varepsilon_ {t} \\varepsilon_ {t - j} \\mid \\mathbf {x} _ {t}, \\mathbf {x} _ {t - j}) \\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime} ] \\quad \\text{(by the Law of Total Expectations)} \\\\ & = \\omega_ {j} \\mathrm{E} (\\mathbf {x} _ {t} \\mathbf {x} _ {t - j} ^ {\\prime}). \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch06-problem-analyticalexercises-1-body-3-737069",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:ANALYTICALEXERCISES.1:body[3]",
+      "expect": "\\begin{array}{r l} & {\\| z - z ^ {\\prime} \\| ^ {2} = \\| z - z _ {n} \\| ^ {2} + 2 \\operatorname{E} [ (z - z _ {n}) (z _ {n} - z ^ {\\prime}) ] + \\| z _ {n} - z ^ {\\prime} \\| ^ {2}} \\\\ & {\\leq \\| z - z _ {n} \\| ^ {2} + 2 \\sqrt {\\operatorname{E} [ (z - z _ {n}) ^ {2} ]} \\sqrt {\\operatorname{E} [ (z _ {n} - z ^ {\\prime}) ^ {2} ]} + \\| z _ {n} - z ^ {\\prime} \\| ^ {2}} \\\\ & {\\quad \\text {(by Cauchy - Schwartz inequality that E(xy) \\leq \\sqrt {E(x^ {2})} \\sqrt {E(y^ {2})})}} \\\\ & {= (\\| z - z _ {n} \\| + \\| z _ {n} - z ^ {\\prime} \\|) ^ {2}.} \\end{array}",
+      "new": "\\begin{array}{r l} & {\\| z - z ^ {\\prime} \\| ^ {2} = \\| z - z _ {n} \\| ^ {2} + 2 \\operatorname{E} [ (z - z _ {n}) (z _ {n} - z ^ {\\prime}) ] + \\| z _ {n} - z ^ {\\prime} \\| ^ {2}} \\\\ & {\\leq \\| z - z _ {n} \\| ^ {2} + 2 \\sqrt {\\operatorname{E} [ (z - z _ {n}) ^ {2} ]} \\sqrt {\\operatorname{E} [ (z _ {n} - z ^ {\\prime}) ^ {2} ]} + \\| z _ {n} - z ^ {\\prime} \\| ^ {2}} \\\\ & {\\quad \\text{(by Cauchy - Schwartz inequality that } \\mathrm{E}(xy) \\leq \\sqrt {\\mathrm{E}(x^ {2})} \\sqrt {\\mathrm{E}(y^ {2})}\\text{)}} \\\\ & {= (\\| z - z _ {n} \\| + \\| z _ {n} - z ^ {\\prime} \\|) ^ {2}.} \\end{array}"
+    },
+    {
+      "id": "hayashi_econometrics-ch07-body-564-74de57",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[564]",
+      "expect": "\\begin{array}{r l} \\underset {(K \\times 1)} {\\mathbf {g} _ {n} (\\boldsymbol {\\theta})} & \\cong \\underset {(K \\times p)} \\mathbf {g} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) + \\underset {(p \\times 1)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) (\\boldsymbol {\\theta} - \\hat {\\boldsymbol {\\theta}} _ {j})} \\\\ & = \\left[ \\underset {(K \\times p)} {\\mathbf {g} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) - \\underset {(p \\times 1)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) \\hat {\\boldsymbol {\\theta}} _ {j}}} \\right] - \\left[ - \\underset {(K \\times p)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j})} \\right] \\boldsymbol {\\theta} \\\\ & = \\mathbf {v} _ {j} - \\underset {(K \\times p)} {\\mathbf {G} _ {j}} \\boldsymbol {\\theta}, \\end{array}",
+      "new": "\\begin{array}{r l} \\underset {(K \\times 1)} {\\mathbf {g} _ {n} (\\boldsymbol {\\theta})} & \\cong \\underset {(K \\times p)} {\\mathbf {g} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j})} + \\underset {(p \\times 1)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) (\\boldsymbol {\\theta} - \\hat {\\boldsymbol {\\theta}} _ {j})} \\\\ & = \\left[ \\underset {(K \\times p)} {\\mathbf {g} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) - \\underset {(p \\times 1)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j}) \\hat {\\boldsymbol {\\theta}} _ {j}}} \\right] - \\left[ - \\underset {(K \\times p)} {\\mathbf {G} _ {n} (\\hat {\\boldsymbol {\\theta}} _ {j})} \\right] \\boldsymbol {\\theta} \\\\ & = \\mathbf {v} _ {j} - \\underset {(K \\times p)} {\\mathbf {G} _ {j}} \\boldsymbol {\\theta}, \\end{array}"
     }
   ]
 }

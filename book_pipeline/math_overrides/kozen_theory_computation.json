@@ -53,6 +53,22 @@
       "selector": "body[9]",
       "expect": "\\begin{array}{l} x = ^ {\\prime} y = ^ {\\prime} e c h o. | t r. \\text {\\\"47\\\"}; e c h o\" x = y x y; x\" \\\\ y = ^ {\\prime} e c h o. | t r. \\text {\\\"47\\\"}; e c h o\" x = y x y; x\" \\end{array}",
       "new": "\\begin{array}{l}\\text{x = ' y = ' e c h o. | t r. \"47\"; e c h o\" x = y x y; x\"}\\\\\\text{y = ' e c h o. | t r. \"47\"; e c h o\" x = y x y; x\"}\\end{array}"
+    },
+    {
+      "id": "kozen_theory_computation-ch39-body-42-addea8",
+      "action": "fix_eq_tex",
+      "chunk": "ch39",
+      "selector": "body[42]",
+      "expect": "\\begin{array}{l l} N \\in \\mathrm{m} (\\sigma (\\rho (\\varphi))) \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho (\\sigma (\\varphi))) & \\text { because } \\sigma \\text { and } \\rho \\text { commute } \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi)))) \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi))) ^ {- C}) & \\text { Lemma   H.2(ii),   var(N,C) = \\varnothing} \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi)) ^ {- C})) & \\text { Lemma   H.2(iii), } \\rho_ {1} (C) = C. \\end{array}",
+      "new": "\\begin{array}{l l} N \\in \\mathrm{m} (\\sigma (\\rho (\\varphi))) \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho (\\sigma (\\varphi))) & \\text { because } \\sigma \\text { and } \\rho \\text { commute } \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi)))) \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi))) ^ {- C}) & \\text { Lemma   H.2(ii),   var(N,C) = } \\varnothing \\\\ \\Rightarrow N \\in \\mathrm{m} (\\rho_ {1} (\\rho_ {0} (\\sigma (\\varphi)) ^ {- C})) & \\text { Lemma   H.2(iii), } \\rho_ {1} (C) = C. \\end{array}"
+    },
+    {
+      "id": "kozen_theory_computation-ch28-body-31-7acd0d",
+      "action": "fix_eq_tex",
+      "chunk": "ch28",
+      "selector": "body[31]",
+      "expect": "\\begin{array}{l} z \\in I _ {n + 1} \\wedge x = y z \\\\ \\Leftrightarrow \\exists z _ {1} \\exists z _ {2} \\exists z _ {3} \\exists z _ {4} \\\\ \\bigwedge_ {i = 1} ^ {4} z _ {i} \\in I _ {n} \\wedge z = z _ {1} z _ {2} + z _ {3} + z _ {4} \\wedge x = y z _ {1} z _ {2} + y z _ {3} + y z _ {4} \\\\ \\Leftrightarrow \\exists z _ {1} \\exists z _ {2} \\exists z _ {3} \\exists z _ {4} \\exists s \\exists t \\exists u \\exists v \\exists w z = s + z _ {3} + z _ {4} \\wedge x = u + v + w \\\\ \\wedge \\bigwedge_ {i = 1} ^ {4} z _ {i} \\in I _ {n} \\wedge s = z _ {1} z _ {2} \\wedge t = y z _ {1} \\wedge u = t z _ {2} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} z \\in I _ {n + 1} \\wedge x = y z \\\\ \\Leftrightarrow \\exists z _ {1} \\exists z _ {2} \\exists z _ {3} \\exists z _ {4} \\\\ \\bigwedge_ {i = 1} ^ {4} z _ {i} \\in I _ {n} \\wedge z = z _ {1} z _ {2} + z _ {3} + z _ {4} \\wedge x = y z _ {1} z _ {2} + y z _ {3} + y z _ {4} \\\\ \\Leftrightarrow \\exists z _ {1} \\exists z _ {2} \\exists z _ {3} \\exists z _ {4} \\exists s \\exists t \\exists u \\exists v \\exists w z = s + z _ {3} + z _ {4} \\wedge x = u + v + w \\\\ \\wedge \\bigwedge_ {i = 1} ^ {4} z _ {i} \\in I _ {n} \\wedge s = z _ {1} z _ {2} \\wedge t = y z _ {1} \\wedge u = t z _ {2} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
     }
   ]
 }

@@ -29,6 +29,22 @@
       "old": "$\\Nu = \\mathrm { n o } )$",
       "new": "$\\nu = \\mathrm { n o } )$",
       "anchor": "2f9c7444"
+    },
+    {
+      "id": "wackerly_mathematical_statistics-ch04-problem-4-112-body-24-aea232",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.112:body[24]",
+      "expect": "\\begin{array}{l} E (Y) = \\int_ {- \\infty} ^ {\\infty} y f (y) d y \\\\ \\qquad = \\int_ {0} ^ {1} y \\left[ \\frac {y ^ {\\alpha - 1} (1 - y) ^ {\\beta - 1}}{B (\\alpha , \\beta)} \\right] d y \\\\ \\qquad = \\frac {1}{B (\\alpha , \\beta)} \\int_ {0} ^ {1} y ^ {\\alpha} (1 - y) ^ {\\beta - 1} d y \\\\ \\qquad = \\frac {B (\\alpha + 1 , \\beta)}{B (\\alpha , \\beta)} \\qquad \\text {(because \\alpha > 0 implies that \\alpha + 1 > 0)} \\\\ \\qquad = \\frac {\\Gamma (\\alpha + \\beta)}{\\Gamma (\\alpha) \\Gamma (\\beta)} \\times \\frac {\\Gamma (\\alpha + 1) \\Gamma (\\beta)}{\\Gamma (\\alpha + \\beta + 1)} \\\\ \\qquad = \\frac {\\Gamma (\\alpha + \\beta)}{\\Gamma (\\alpha) \\Gamma (\\beta)} \\times \\frac {\\alpha \\Gamma (\\alpha) \\Gamma (\\beta)}{(\\alpha + \\beta) \\Gamma (\\alpha + \\beta)} = \\frac {\\alpha}{(\\alpha + \\beta)}. \\end{array}",
+      "new": "\\begin{array}{l} E (Y) = \\int_ {- \\infty} ^ {\\infty} y f (y) d y \\\\ \\qquad = \\int_ {0} ^ {1} y \\left[ \\frac {y ^ {\\alpha - 1} (1 - y) ^ {\\beta - 1}}{B (\\alpha , \\beta)} \\right] d y \\\\ \\qquad = \\frac {1}{B (\\alpha , \\beta)} \\int_ {0} ^ {1} y ^ {\\alpha} (1 - y) ^ {\\beta - 1} d y \\\\ \\qquad = \\frac {B (\\alpha + 1 , \\beta)}{B (\\alpha , \\beta)} \\qquad \\text {(because } \\alpha > 0 \\text { implies that } \\alpha + 1 > 0\\text {)} \\\\ \\qquad = \\frac {\\Gamma (\\alpha + \\beta)}{\\Gamma (\\alpha) \\Gamma (\\beta)} \\times \\frac {\\Gamma (\\alpha + 1) \\Gamma (\\beta)}{\\Gamma (\\alpha + \\beta + 1)} \\\\ \\qquad = \\frac {\\Gamma (\\alpha + \\beta)}{\\Gamma (\\alpha) \\Gamma (\\beta)} \\times \\frac {\\alpha \\Gamma (\\alpha) \\Gamma (\\beta)}{(\\alpha + \\beta) \\Gamma (\\alpha + \\beta)} = \\frac {\\alpha}{(\\alpha + \\beta)}. \\end{array}"
+    },
+    {
+      "id": "wackerly_mathematical_statistics-ch15-body-74-23b317",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[74]",
+      "expect": "r = \\frac {S _ {x y}}{\\sqrt {S _ {x x} S _ {y y}}} = \\frac {\\sum_ {i = 1} ^ {n} x _ {i} y _ {i} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} x _ {i}\\right) \\left(\\sum_ {i = 1} ^ {n} y _ {i}\\right)}\\sqrt {\\left[ \\sum_ {i = 1} ^ {n} x _ {i} ^ {2} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} x _ {i}\\right) ^ {2} \\right] \\left[ \\sum_ {i = 1} ^ {n} y _ {i} ^ {2} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} y _ {i}\\right) ^ {2} \\right]}.",
+      "new": "r = \\frac {S _ {x y}}{\\sqrt {S _ {x x} S _ {y y}}} = \\frac {\\sum_ {i = 1} ^ {n} x _ {i} y _ {i} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} x _ {i}\\right) \\left(\\sum_ {i = 1} ^ {n} y _ {i}\\right)}{\\sqrt {\\left[ \\sum_ {i = 1} ^ {n} x _ {i} ^ {2} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} x _ {i}\\right) ^ {2} \\right] \\left[ \\sum_ {i = 1} ^ {n} y _ {i} ^ {2} - \\frac {1}{n} \\left(\\sum_ {i = 1} ^ {n} y _ {i}\\right) ^ {2} \\right]}}."
     }
   ]
 }

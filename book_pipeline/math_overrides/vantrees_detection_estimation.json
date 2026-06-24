@@ -31,6 +31,30 @@
       "selector": "body[564]",
       "expect": "\\begin{array}{l} \\ln \\Lambda [ r (t) ] = \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) r (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v \\\\ - \\frac {1}{2} \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) \\sqrt {E} s (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v. \\end{array} \\tag {1.5}\\tag{151}",
       "new": "\\begin{array}{l} \\ln \\Lambda [ r (t) ] = \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) r (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v \\\\ - \\frac {1}{2} \\int_ {T _ {i}} ^ {T _ {f}} d u \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, z) \\sqrt {E} s (z) d z \\int_ {T _ {i}} ^ {T _ {f}} h _ {w} (u, v) \\sqrt {E} s (v) d v. \\end{array} \\tag{151}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch03-body-51-5e4567",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[51]",
+      "expect": "\\begin{array}{r l} E _ {e} (N) & \\triangleq \\int_ {0} ^ {T} e _ {N} ^ {2} (t) d t = \\int_ {0} ^ {T} \\left[ x (t) - \\sum_ {i = 1} ^ {N} x _ {i} \\phi_ {i} (t) \\right] ^ {2} d t \\\\ & = E _ {x} - 2 \\sum_ {i = 1} ^ {N} \\int_ {0} ^ {T} x (t) x _ {i} \\phi_ {i} (t) d t + \\int_ {0} ^ {T} \\sum_ {i = 1} ^ {N} \\sum_ {j = 1} ^ {N} x _ {i} x _ {j} \\phi_ {i} (t) \\phi_ {j} (t) d t \\\\ & = E _ {x} - \\sum_ {i = 1} ^ {N} x _ {i} ^ {2}. \\end{array} \\tag {13}\\tag{13}",
+      "new": "\\begin{array}{r l} E _ {e} (N) & \\triangleq \\int_ {0} ^ {T} e _ {N} ^ {2} (t) d t = \\int_ {0} ^ {T} \\left[ x (t) - \\sum_ {i = 1} ^ {N} x _ {i} \\phi_ {i} (t) \\right] ^ {2} d t \\\\ & = E _ {x} - 2 \\sum_ {i = 1} ^ {N} \\int_ {0} ^ {T} x (t) x _ {i} \\phi_ {i} (t) d t + \\int_ {0} ^ {T} \\sum_ {i = 1} ^ {N} \\sum_ {j = 1} ^ {N} x _ {i} x _ {j} \\phi_ {i} (t) \\phi_ {j} (t) d t \\\\ & = E _ {x} - \\sum_ {i = 1} ^ {N} x _ {i} ^ {2}. \\end{array} \\tag {13}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch04-body-1337-175d2a",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1337]",
+      "expect": "\\begin{array}{l} \\Lambda [ r (t) ] = \\\\ \\underbrace {\\int_ {- \\infty} ^ {\\infty} \\cdots \\int_ {- \\infty} ^ {\\infty}} _ {M} p _ {a _ {1}} \\left(A _ {1}\\right) p _ {a _ {2}} \\left(A _ {2}\\right) \\dots p _ {a _ {M}} \\left(A _ {M}\\right) \\exp \\left[ + \\frac {2}{N _ {0}} \\int_ {0} ^ {T} r (t) \\sum_ {i = 1} ^ {M} A _ {i} s _ {i} (t) d t \\right. \\\\ \\left. - \\frac {1}{N _ {0}} \\int_ {0} ^ {T} \\sum_ {i = 1} ^ {M} \\sum_ {j = 1} ^ {M} A _ {i} A _ {j} s _ {i} (t) s _ {j} (t) d t \\right] d A _ {1} \\dots d A _ {M}. \\end{array} \\tag {40}\\tag{401}",
+      "new": "\\begin{array}{l} \\Lambda [ r (t) ] = \\\\ \\underbrace {\\int_ {- \\infty} ^ {\\infty} \\cdots \\int_ {- \\infty} ^ {\\infty}} _ {M} p _ {a _ {1}} \\left(A _ {1}\\right) p _ {a _ {2}} \\left(A _ {2}\\right) \\dots p _ {a _ {M}} \\left(A _ {M}\\right) \\exp \\left[ + \\frac {2}{N _ {0}} \\int_ {0} ^ {T} r (t) \\sum_ {i = 1} ^ {M} A _ {i} s _ {i} (t) d t \\right. \\\\ \\left. - \\frac {1}{N _ {0}} \\int_ {0} ^ {T} \\sum_ {i = 1} ^ {M} \\sum_ {j = 1} ^ {M} A _ {i} A _ {j} s _ {i} (t) s _ {j} (t) d t \\right] d A _ {1} \\dots d A _ {M}. \\end{array} \\tag {40}"
+    },
+    {
+      "id": "vantrees_detection_estimation-ch02-body-320-8a5e60",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[320]",
+      "expect": "\\begin{array}{l} \\mathcal {R} = P _ {0} C _ {0 0} \\int_ {Z - Z _ {1} - Z _ {2}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} + P _ {0} C _ {1 0} \\int_ {Z _ {1}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} \\\\ \\quad + P _ {0} C _ {2 0} \\int_ {Z _ {2}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} + P _ {1} C _ {1 1} \\int_ {Z - Z _ {0} - Z _ {2}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} \\\\ \\quad + P _ {1} C _ {0 1} \\int_ {Z _ {0}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} + P _ {1} C _ {2 1} \\int_ {Z _ {2}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} \\\\ \\quad + P _ {2} C _ {2 2} \\int_ {Z - Z _ {0} - Z _ {1}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R} + P _ {2} C _ {0 2} \\int_ {Z _ {0}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R} \\\\ \\quad + P _ {2} C _ {1 2} \\int_ {Z _ {1}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R}. \\end{array} \\tag {9}\\tag{99}",
+      "new": "\\begin{array}{l} \\mathcal {R} = P _ {0} C _ {0 0} \\int_ {Z - Z _ {1} - Z _ {2}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} + P _ {0} C _ {1 0} \\int_ {Z _ {1}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} \\\\ \\quad + P _ {0} C _ {2 0} \\int_ {Z _ {2}} p _ {\\mathbf {r} | H _ {0}} (\\mathbf {R} | H _ {0}) d \\mathbf {R} + P _ {1} C _ {1 1} \\int_ {Z - Z _ {0} - Z _ {2}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} \\\\ \\quad + P _ {1} C _ {0 1} \\int_ {Z _ {0}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} + P _ {1} C _ {2 1} \\int_ {Z _ {2}} p _ {\\mathbf {r} | H _ {1}} (\\mathbf {R} | H _ {1}) d \\mathbf {R} \\\\ \\quad + P _ {2} C _ {2 2} \\int_ {Z - Z _ {0} - Z _ {1}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R} + P _ {2} C _ {0 2} \\int_ {Z _ {0}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R} \\\\ \\quad + P _ {2} C _ {1 2} \\int_ {Z _ {1}} p _ {\\mathbf {r} | H _ {2}} (\\mathbf {R} | H _ {2}) d \\mathbf {R}. \\end{array} \\tag{99}"
     }
   ]
 }

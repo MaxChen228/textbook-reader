@@ -1,0 +1,103 @@
+{
+  "overrides": [
+    {
+      "id": "weste_harris_cmos_vlsi-ch13-body-34-7d6028",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[34]",
+      "field": "md",
+      "all": true,
+      "old": "$0 . 0 0 1 \\mathrm { W } / ( \\mathrm { c m } ^ { 2 } ^ { \\circ } \\mathrm { C } )$",
+      "new": "$0 . 0 0 1 \\mathrm { W } / ( \\mathrm { c m } ^ { 2 } { } ^ { \\circ } \\mathrm { C } )$",
+      "anchor": "55454b10"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch02-body-226-712314",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[226]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } _ { : }$",
+      "new": "$\\mathring { \\mathrm { A } } _ { : }$",
+      "anchor": "18a06082"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch02-problem-2-1-body-0-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.1:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring { \\mathrm { A } }$",
+      "anchor": "cb831249"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch02-problem-2-4-body-0-23ceba",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.4:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } .$",
+      "new": "$\\mathring { \\mathrm { A } } .$",
+      "anchor": "6d62222b"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch04-body-337-af8312",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[337]",
+      "field": "md",
+      "all": true,
+      "old": "$\\stackrel { \\left. } { \\mathrm { g . } } \\stackrel { \\right. } { }$",
+      "new": "$\\mathrm { g . }$",
+      "anchor": "988c471e"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch01-body-244-4534c0",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[244]",
+      "field": "caption",
+      "all": true,
+      "old": "$2 &lt; $",
+      "new": "$2 < $",
+      "anchor": "77bbb595"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch01-body-244-023f01",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[244]",
+      "field": "caption",
+      "all": true,
+      "old": "$1 &lt;- 0 otherwise</td><td>R</td><td>000000</td><td>101010</td></tr><tr><td>addi $",
+      "new": "$1 <- 0 otherwise</td><td>R</td><td>000000</td><td>101010</td></tr><tr><td>addi $",
+      "anchor": "77bbb595"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch01-body-244-5e5e6c",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[244]",
+      "field": "caption",
+      "all": true,
+      "old": "$2, imm</td><td>branch if equal:</td><td>PC &lt;- PC + $",
+      "new": "$2, imm</td><td>branch if equal:</td><td>PC <- PC + $",
+      "anchor": "77bbb595"
+    },
+    {
+      "id": "weste_harris_cmos_vlsi-ch01-body-244-70d7a0",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[244]",
+      "field": "caption",
+      "all": true,
+      "old": "$ </td><td>I</td><td>000100</td><td>n/a</td></tr><tr><td>j destination</td><td>jump:</td><td>PC &lt;- $",
+      "new": "$ </td><td>I</td><td>000100</td><td>n/a</td></tr><tr><td>j destination</td><td>jump:</td><td>PC <- $",
+      "anchor": "77bbb595"
+    }
+  ]
+}

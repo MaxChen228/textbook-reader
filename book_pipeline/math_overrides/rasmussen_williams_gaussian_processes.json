@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "rasmussen_williams_gaussian_processes-ch04-body-179-2b1a81",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[179]",
+      "field": "md",
+      "all": true,
+      "old": "$\\widetilde { ( \\frac { 2 } { A } \\widetilde { ) } } ^ { J - \\mathrm { { b } } } { } ^ { \\rangle } ^ { 2 } \\widetilde { B } ^ { \\overline { { k } } }$",
+      "new": "$\\widetilde { ( \\frac { 2 } { A } \\widetilde { ) } } ^ { J - \\mathrm { { b } } \\rangle 2 } \\widetilde { B } ^ { \\overline { { k } } }$",
+      "anchor": "c2b5179d"
+    },
+    {
+      "id": "rasmussen_williams_gaussian_processes-ch02-body-96-1aaa20",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{c} \\text {input: X (inputs), y (targets), k (covariance function), \\sigma_{n} ^{2} (noise level),} \\\\ \\mathbf {x _ {*}} (\\text {test input}) \\\\ 2: L := \\text {cholesky} (K + \\sigma_ {n} ^ {2} I) \\\\ \\left. \\begin{array}{l} \\boldsymbol {\\alpha} := L ^ {\\top} \\backslash (L \\backslash \\mathbf {y}) \\\\ 4: \\bar {f} _ {*} := \\mathbf {k} _ {*} ^ {\\top} \\boldsymbol {\\alpha} \\end{array} \\right\\} \\text {predictive mean eq. (2.25)} \\\\ \\left. \\begin{array}{l} \\mathbf {v} := L \\backslash \\mathbf {k} _ {*} \\\\ 6: \\mathbb {V} [ f _ {*} ] := k (\\mathbf {x} _ {*}, \\mathbf {x} _ {*}) - \\mathbf {v} ^ {\\top} \\mathbf {v} \\end{array} \\right\\} \\text {predictive variance eq. (2.26)} \\\\ \\log p (\\mathbf {y} | X) := - \\frac {1}{2} \\mathbf {y} ^ {\\top} \\boldsymbol {\\alpha} - \\sum_ {i} \\log L _ {i i} - \\frac {n}{2} \\log 2 \\pi \\\\ 8: \\text {return: f_{*}} (\\text {mean}), \\mathbb {V} [ f _ {*} ] (\\text {variance}), \\log p (\\mathbf {y} | X) \\log \\text {marginal likelihood} \\end{array}",
+      "new": "\\begin{array}{c} \\text {input: X (inputs), y (targets), k (covariance function), } \\sigma_{n} ^{2} \\text { (noise level),} \\\\ \\mathbf {x} _ {*} (\\text {test input}) \\\\ 2: L := \\text {cholesky} (K + \\sigma_ {n} ^ {2} I) \\\\ \\left. \\begin{array}{l} \\boldsymbol {\\alpha} := L ^ {\\top} \\backslash (L \\backslash \\mathbf {y}) \\\\ 4: \\bar {f} _ {*} := \\mathbf {k} _ {*} ^ {\\top} \\boldsymbol {\\alpha} \\end{array} \\right\\} \\text {predictive mean eq. (2.25)} \\\\ \\left. \\begin{array}{l} \\mathbf {v} := L \\backslash \\mathbf {k} _ {*} \\\\ 6: \\mathbb {V} [ f _ {*} ] := k (\\mathbf {x} _ {*}, \\mathbf {x} _ {*}) - \\mathbf {v} ^ {\\top} \\mathbf {v} \\end{array} \\right\\} \\text {predictive variance eq. (2.26)} \\\\ \\log p (\\mathbf {y} | X) := - \\frac {1}{2} \\mathbf {y} ^ {\\top} \\boldsymbol {\\alpha} - \\sum_ {i} \\log L _ {i i} - \\frac {n}{2} \\log 2 \\pi \\\\ 8: \\text {return: } f_{*} \\text { (mean), } \\mathbb {V} [ f _ {*} ] (\\text {variance}), \\log p (\\mathbf {y} | X) \\log \\text {marginal likelihood} \\end{array}"
+    },
+    {
+      "id": "rasmussen_williams_gaussian_processes-appA-body-19-5058c1",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[19]",
+      "expect": "\\begin{array}{r l} \\mathbf {x} \\sim \\mathcal {N} (\\boldsymbol {\\mu} _ {x}, A), & \\text { and } \\mathbf {x} | \\mathbf {y} \\sim \\mathcal {N} \\big (\\boldsymbol {\\mu} _ {x} + C B ^ {- 1} (\\mathbf {y} - \\boldsymbol {\\mu} _ {y}), A - C B ^ {- 1} C ^ {\\top} \\big) \\\\ & \\text { or } \\mathbf {x} | \\mathbf {y} \\sim \\mathcal {N} \\big (\\boldsymbol {\\mu} _ {x} - \\tilde {A} ^ {- 1} \\tilde {C} (\\mathbf {y} - \\boldsymbol {\\mu} _ {y}), \\tilde {A} ^ {- 1} \\big). \\end{array} \\tag {A}\\tag{A.6}",
+      "new": "\\begin{array}{r l} \\mathbf {x} \\sim \\mathcal {N} (\\boldsymbol {\\mu} _ {x}, A), & \\text { and } \\mathbf {x} | \\mathbf {y} \\sim \\mathcal {N} \\big (\\boldsymbol {\\mu} _ {x} + C B ^ {- 1} (\\mathbf {y} - \\boldsymbol {\\mu} _ {y}), A - C B ^ {- 1} C ^ {\\top} \\big) \\\\ & \\text { or } \\mathbf {x} | \\mathbf {y} \\sim \\mathcal {N} \\big (\\boldsymbol {\\mu} _ {x} - \\tilde {A} ^ {- 1} \\tilde {C} (\\mathbf {y} - \\boldsymbol {\\mu} _ {y}), \\tilde {A} ^ {- 1} \\big). \\end{array} \\tag{A.6}"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "stutzman_thiele_antenna_theory_design-ch16-body-410-f75669",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[410]",
+      "expect": "\\begin{array}{l} E ^ {c w} (s ^ {\\prime \\prime}) = \\text { creeping wave field along s^{\\prime\\prime}} \\\\ D ^ {s} (Q _ {1}) = \\text { the surface diffraction coefficient (attachment coefficient) at point A } \\\\ \\gamma (s ^ {\\prime \\prime}) = \\alpha (s ^ {\\prime \\prime}) + j \\beta (s ^ {\\prime \\prime}) = \\text { creeping wave propagation factor } \\\\ s ^ {\\prime \\prime} = \\text { arc length along the creeping wave path } \\\\ G (s ^ {\\prime \\prime}) = \\text { the ray divergence factor determined by the geometry of the ray } \\end{array}",
+      "new": "\\begin{array}{l} E ^ {c w} (s ^ {\\prime \\prime}) = \\text { creeping wave field along } s^{\\prime\\prime} \\\\ D ^ {s} (Q _ {1}) = \\text { the surface diffraction coefficient (attachment coefficient) at point A } \\\\ \\gamma (s ^ {\\prime \\prime}) = \\alpha (s ^ {\\prime \\prime}) + j \\beta (s ^ {\\prime \\prime}) = \\text { creeping wave propagation factor } \\\\ s ^ {\\prime \\prime} = \\text { arc length along the creeping wave path } \\\\ G (s ^ {\\prime \\prime}) = \\text { the ray divergence factor determined by the geometry of the ray } \\end{array}"
+    },
+    {
+      "id": "stutzman_thiele_antenna_theory_design-ch14-body-128-fa996c",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[128]",
+      "expect": "\\left[ Z _ {\\mathrm{mn}} \\right] = 1 0 ^ {2} \\left[ \\begin{array}{l l l l l} 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 4. 2 4 \\angle 8 7. 9 2 ^ {\\circ} \\\\ 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} \\\\ 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ}. \\\\ 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ}. \\\\ 4. 2 4 \\angle 8 7. 9 2 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & \\text {679.5}",
+      "new": "\\left[ Z _ {\\mathrm{mn}} \\right] = 1 0 ^ {2} \\left[ \\begin{array}{l l l l l} 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 4. 2 4 \\angle 8 7. 9 2 ^ {\\circ} \\\\ 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} \\\\ 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ}. \\\\ 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & 6 7 9. 5 \\angle - 8 9. 9 9 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ}. \\\\ 4. 2 4 \\angle 8 7. 9 2 ^ {\\circ} & 9. 7 5 \\angle 8 9. 0 9 ^ {\\circ} & 3 3. 0 3 \\angle 8 9. 7 3 ^ {\\circ} & 2 9 2. 6 \\angle 8 9. 9 7 ^ {\\circ} & \\text {679.5} \\end{array} \\right]"
+    }
+  ]
+}

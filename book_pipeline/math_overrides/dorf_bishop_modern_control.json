@@ -7,6 +7,14 @@
       "selector": "body[557]",
       "expect": "\\begin{array}{l} \\% \\text {Convert G(s) = (2s^{\\wedge} 2 + 8s + 6) / (s^{\\wedge} 3 + 8s^{\\wedge} 2 + 16s + 6)} \\\\ \\% \\text {to a state - space representation} \\\\ \\% \\\\ \\text {num = [2 8 6]; den = [1 8 16 6]; sys\\_tf = tf(num,den);} \\\\ \\text {sys\\_ss = ss(sys\\_tf);} \\end{array}\\tag{a}",
       "new": "\\begin{array}{l} \\% \\text {Convert } G(s) = (2s^{2} + 8s + 6) / (s^{3} + 8s^{2} + 16s + 6) \\\\ \\% \\text {to a state - space representation} \\\\ \\% \\\\ \\text {num = [2 8 6]; den = [1 8 16 6]; sys\\_tf = tf(num,den);} \\\\ \\text {sys\\_ss = ss(sys\\_tf);} \\end{array}\\tag{a}"
+    },
+    {
+      "id": "dorf_bishop_modern_control-ch02-body-546-fdd55a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[546]",
+      "expect": "\\begin{array}{r l} {Y (s) = Y _ {1} (s) + Y _ {2} (s)} & {= \\Bigg [ \\frac {G _ {1} (s) G _ {2} (s) G _ {3} (s) G _ {4} (s)}{(1 - G _ {2} (s) H _ {2} (s)) (1 - G _ {3} (s) H _ {3} (s))}} \\\\ & \\quad + \\frac {G _ {5} (s) G _ {6} (s) G _ {7} (s) G _ {8} (s)}{(1 - G _ {6} (s) H _ {6} (s)) (1 - G _ {7} (s) H _ {7} (s))} \\Bigg ] R (s). \\textbf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf\\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf \\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\textsf {\\:}}}}}}}}}}}}}}}}}} & & \\end{array}",
+      "new": "\\begin{array}{r l} {Y (s) = Y _ {1} (s) + Y _ {2} (s)} & {= \\Bigg [ \\frac {G _ {1} (s) G _ {2} (s) G _ {3} (s) G _ {4} (s)}{(1 - G _ {2} (s) H _ {2} (s)) (1 - G _ {3} (s) H _ {3} (s))}} \\\\ & \\quad + \\frac {G _ {5} (s) G _ {6} (s) G _ {7} (s) G _ {8} (s)}{(1 - G _ {6} (s) H _ {6} (s)) (1 - G _ {7} (s) H _ {7} (s))} \\Bigg ] R (s). \\end{array}"
     }
   ]
 }
