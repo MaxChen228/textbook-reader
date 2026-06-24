@@ -448,8 +448,13 @@ _TRIAGE_CACHE_PATH = os.path.join(ROOT, 'book_pipeline', '.triage_cache.json')
 _triage_cache: dict | None = None
 
 
-def _triage(slug: str, raw: dict) -> dict | None:
-    """對該 slug 的 raw PDF 跑 triage（按檔內容快取，命中免重開 PDF）。無 PDF 回 None。"""
+def _triage(slug: str, raw: dict, live: bool = True) -> dict | None:
+    """對該 slug 的 raw PDF 跑 triage（按檔內容快取，命中免重開 PDF）。無 PDF 回 None。
+
+    live=False（觀測唯讀，如 build_snapshot）：cache miss **不現跑子進程**、回
+    {'_uncached': True} sentinel → 上層顯『待分流』placeholder。唯一 warmer = daemon observe
+    （build_queue，live=True）。根因：觀測快照同步跑 triage 子進程（pre-ingest 大 PDF ~45s/本），
+    bulk intake 冷快取窗讓 /dev 凍結數分鐘——觀測絕不做實工（鏡像 sol_stats 指紋快取教訓）。"""
     global _triage_cache
     fn = raw.get(slug)
     if not fn:
@@ -469,6 +474,8 @@ def _triage(slug: str, raw: dict) -> dict | None:
             _triage_cache = {}
     if key and key in _triage_cache:
         return _triage_cache[key]
+    if not live:                       # 觀測唯讀：cache miss 不阻塞快照、交 daemon observe 暖
+        return {'_uncached': True}
     # pymupdf 對病態 PDF（corrupt / 半下載 / 超大）會無限打轉、無 timeout → 曾整份 build_snapshot
     # 卡死 14min，launchd 因前一實例未退而不觸發新 60s run → status.json 凍結數分鐘（看板假象）。
     # 故隔離進子進程跑硬 timeout：超時/壞檔 → review+needs_llm（轉 qc 視覺驗證），cache 之不再重試。
@@ -498,19 +505,26 @@ def _triage(slug: str, raw: dict) -> dict | None:
     return res
 
 
-def assess_full(slug: str, pending: set, raw: dict, state: dict) -> dict:
-    """回傳擴展 stage：含 triage/qc（ingest 前）與 deploy（parse 後）。"""
+def assess_full(slug: str, pending: set, raw: dict, state: dict, live_triage: bool = True) -> dict:
+    """回傳擴展 stage：含 triage/qc（ingest 前）與 deploy（parse 後）。
+
+    live_triage=False（觀測唯讀，如 build_snapshot）：未快取的 triage 不現跑子進程，
+    顯『0.1 待分流』placeholder（daemon 下個 observe 才分流）。唯一 warmer = daemon 的
+    build_queue/assess_one（live_triage=True，預設）→ 觀測絕不阻塞於 PDF triage。"""
     has_unified = st._exists(slug, 'unified', 'content_list.json')
 
     # ── ingest 前：triage / qc ──
     if not has_unified:
         if slug in pending:  # 已 PUT、unified 未組 → 續 ingest
             return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'llm': False}
-        tri = _triage(slug, raw)
+        tri = _triage(slug, raw, live=live_triage)
         if tri is None:
             # 無源 = 殘留 slug 或待補；crawl 由書單 SoT 驅動（見 pipeline_tick），
             # 不從此處觸發，僅 surface。
             return {'slug': slug, 'stage': 'X 無源', 'todo': '—', 'llm': False}
+        if tri.get('_uncached'):  # 觀測唯讀且未快取 → 暫態 placeholder（非卡關，daemon 下個 tick 評估）
+            return {'slug': slug, 'stage': '0.1 待分流', 'todo': '—', 'llm': False,
+                    'note': '尚未分流（daemon 下個 tick 評估）'}
         qc = state.get(slug, {}).get('qc')
         if tri.get('verdict') == 'reject' and not tri.get('needs_llm'):
             return {'slug': slug, 'stage': 'R triage拒', 'todo': '—',
@@ -581,7 +595,7 @@ def next_actionable(rows: list[dict]) -> dict | None:
 
 
 # pipeline 深度桶序（上游→下游）。crawl 待下載（QUALIFIED 未抓）不在此——本視圖只涵蓋已 owned 的在管書。
-DEPTH_ORDER = ['待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
+DEPTH_ORDER = ['待分流', '待qc', '待ingest', 'OCR處理中', '待audit', '待parse', '待catalog', '待deploy', '已上架', '卡關']
 
 
 def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
@@ -593,6 +607,8 @@ def _depth_bucket(r: dict, deployed: bool) -> tuple[str, str | None]:
     verb = todo.split()[0].split('(')[0] if todo not in ('—', '') else None
     if stage.startswith('R') or pre == 'X':   # R triage拒/qc拒/書況/audit-blocked、X 無源 → 需人工
         return ('卡關', None)
+    if pre == '0.1':                          # 觀測唯讀下未快取 triage 的暫態 placeholder（非閘、無 verb）
+        return ('待分流', None)
     if pre == '0.2':
         return ('待qc', 'qc')
     if pre == '0.3':                          # 過 qc、待 det ingest 提交 MinerU

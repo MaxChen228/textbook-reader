@@ -415,7 +415,9 @@ def books_status(write_timeline: bool = False) -> dict:
     for s in slugs:
         # 用 daemon 同款 assess_full（state-aware：認 qc/triage 拒、catalog accept、deploy gate）
         # → dashboard 與 daemon 永不分歧（根治「看板顯示與實際派工不一致」的矛盾源）。
-        r = q.assess_full(s, pending, raw, state)
+        # live_triage=False：觀測唯讀，未快取的 PDF triage **不現跑子進程**（避免 bulk intake 冷快取窗
+        # 讓快照阻塞數分鐘→/dev 凍結）；暖快取交 daemon observe（build_queue）。未分流書暫顯『待分流』。
+        r = q.assess_full(s, pending, raw, state, live_triage=False)
         r.setdefault('prob', 0)
         r.setdefault('sol', 0)
         r['sol_book'] = st._exists(f'{s}_sol', 'unified', 'content_list.json')

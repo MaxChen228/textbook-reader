@@ -48,8 +48,8 @@ def test_assess_full_qc_reject_short_circuits():
         st.DATA = data_root  # has_unified=False（tmp 下沒造 unified）→ 走 triage/qc 分支
         # 直接 stub pipeline_queue._triage：回「需 LLM 視覺驗證」（如掃描 PDF），不碰真實 PDF。
         orig_triage = pq._triage
-        pq._triage = lambda slug, raw: {'verdict': 'review', 'needs_llm': True,
-                                        'type': 'scan', 'quality': 'low'}
+        pq._triage = lambda slug, raw, live=True: {'verdict': 'review', 'needs_llm': True,
+                                                   'type': 'scan', 'quality': 'low'}
         try:
             slug = 'probe_book'
             raw = {slug: 'probe.pdf'}  # 非空 → 不會落入 'X 無源'（_triage 已 stub，不實際讀）
@@ -85,8 +85,8 @@ def test_assess_full_missing_qc_reprompts():
         orig_data = st.DATA
         st.DATA = data_root
         orig_triage = pq._triage
-        pq._triage = lambda slug, raw: {'verdict': 'review', 'needs_llm': True,
-                                        'type': 'scan', 'quality': 'mid'}
+        pq._triage = lambda slug, raw, live=True: {'verdict': 'review', 'needs_llm': True,
+                                                   'type': 'scan', 'quality': 'mid'}
         try:
             slug = 'truncated_book'
             raw = {slug: 'truncated.pdf'}
@@ -106,6 +106,46 @@ def test_assess_full_missing_qc_reprompts():
         finally:
             st.DATA = orig_data
             pq._triage = orig_triage
+
+
+# ══ 2.5 觀測唯讀 triage：cache miss 不跑子進程 + 顯『待分流』（bulk intake 冷快取防凍結）══
+
+def test_readonly_triage_uncached_never_runs_subprocess():
+    """觀測唯讀 invariant（build_snapshot 用 live_triage=False）：未快取的 triage **絕不現跑子進程**，
+    回 {'_uncached': True} → assess_full 顯『0.1 待分流』placeholder。根因：觀測快照同步跑 pre-ingest
+    大 PDF 的 triage 子進程（~45s/本），bulk intake 冷快取窗讓 /dev 凍結數分鐘。唯一 warmer=daemon
+    observe（live_triage=True）。對照組 live=True 仍須真跑（不能誤把 daemon warmer 也短路掉）。"""
+    with tempfile.TemporaryDirectory() as root:
+        orig_root, orig_cachepath, orig_cache = pq.ROOT, pq._TRIAGE_CACHE_PATH, pq._triage_cache
+        pq.ROOT = root
+        pq._TRIAGE_CACHE_PATH = os.path.join(root, '.triage_cache.json')
+        pq._triage_cache = None
+        os.makedirs(os.path.join(root, 'raw_pdfs'))
+        with open(os.path.join(root, 'raw_pdfs', 'probe.pdf'), 'wb') as f:
+            f.write(b'%PDF-1.4 fake')  # 內容無關：live=False 在開檔前就短路
+        # 若 live=False 仍呼叫子進程，這個 stub 會讓測試爆 → 證明「絕不現跑」
+        import subprocess as _sp
+        orig_run = _sp.run
+        _sp.run = lambda *a, **k: (_ for _ in ()).throw(AssertionError('live=False 不該跑 triage 子進程'))
+        try:
+            raw = {'probe': 'probe.pdf'}
+            r = pq._triage('probe', raw, live=False)
+            assert r == {'_uncached': True}, f"唯讀 miss 應回 _uncached sentinel，實得 {r!r}"
+            # cache 不應被寫入（觀測不留實工副作用）
+            assert not os.path.isfile(pq._TRIAGE_CACHE_PATH), "唯讀 miss 絕不可寫 triage cache"
+            # assess_full(live_triage=False) → '0.1 待分流'
+            with tempfile.TemporaryDirectory() as data_root:
+                od = st.DATA
+                st.DATA = data_root  # has_unified=False
+                try:
+                    a = pq.assess_full('probe', set(), raw, {}, live_triage=False)
+                    assert a['stage'] == '0.1 待分流', f"唯讀未快取應顯『0.1 待分流』，實得 {a['stage']!r}"
+                    assert a['todo'] == '—' and a['llm'] is False
+                finally:
+                    st.DATA = od
+        finally:
+            _sp.run = orig_run
+            pq.ROOT, pq._TRIAGE_CACHE_PATH, pq._triage_cache = orig_root, orig_cachepath, orig_cache
 
 
 # ══ 3. deploy gate 三態：catalog_audit 待辦 / catalog_accepted / sol_extract 待 merge ══
