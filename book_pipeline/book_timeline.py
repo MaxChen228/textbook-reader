@@ -85,6 +85,46 @@ def seed(slug: str, stage: str, at: str) -> None:
             fcntl.flock(lf, fcntl.LOCK_UN)
 
 
+def observe_many(items: list[dict]) -> None:
+    """批次 observe（+ 可選 seed）：**一次 flock + 一次全檔 RMW 套用全部**。
+
+    取代逐本 observe 的 N 次全檔 RMW：devsnapshot 心跳 write_timeline 對 ~400 本各呼叫 observe
+    （每次讀整個 book_timeline.json + 寫整檔）= O(書×檔大小) I/O，30 本壓測下撞 OCR/parse 磁碟寫
+    → 心跳持鎖卡數分鐘 → status.json 滯後（看板凍結）。批次後 148MB→360KB（讀寫各一次）。
+    每 item: {'slug', 'stage', 'seed_at'(可選)}。seed_at 僅在該書時間軸空時當歷史錨點（鏡像 seed）。"""
+    items = [it for it in items if it.get('slug') and it.get('stage')]
+    if not items:
+        return
+    with open(LOCK, 'w') as lf:
+        fcntl.flock(lf, fcntl.LOCK_EX)
+        try:
+            data = {}
+            if os.path.exists(PATH):
+                try:
+                    data = json.load(open(PATH)) or {}
+                except Exception:
+                    data = {}
+            changed = False
+            for it in items:
+                slug, stage, seed_at = it['slug'], it['stage'], it.get('seed_at')
+                events = data.setdefault(slug, [])
+                if not events and seed_at:  # 空時間軸 + 有歷史時戳 → 錨點（等價舊 seed→observe dedup）
+                    events.append({'stage': stage, 'at': seed_at, 'seeded': True})
+                    changed = True
+                    continue
+                if events and events[-1].get('stage') == stage:
+                    continue  # 階段未變，冪等去重
+                events.append({'stage': stage, 'at': _now()})
+                changed = True
+            if changed:
+                tmp = PATH + '.tmp'
+                with open(tmp, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                os.replace(tmp, PATH)
+        finally:
+            fcntl.flock(lf, fcntl.LOCK_UN)
+
+
 def get(slug: str) -> list:
     """單書時間軸 [{stage, at}...]，按發生序。"""
     try:

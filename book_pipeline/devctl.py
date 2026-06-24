@@ -431,6 +431,7 @@ def books_status(write_timeline: bool = False) -> dict:
     gates = pg.load_gates()  # 迴圈外讀一次：per-book「下一閘是否 held」純觀測（複用 assess 的 todo）
     rows = []
     todos = []
+    tl_items = []  # write_timeline 批次：迴圈收集、迴圈後一次 observe_many（避免逐本全檔 RMW 卡死心跳）
     for s in slugs:
         # 用 daemon 同款 assess_full（state-aware：認 qc/triage 拒、catalog accept、deploy gate）
         # → dashboard 與 daemon 永不分歧（根治「看板顯示與實際派工不一致」的矛盾源）。
@@ -467,18 +468,21 @@ def books_status(write_timeline: bool = False) -> dict:
         # 亂跳（billingsley churn 根因）。故 controller(write_timeline=False) 只產輕量核、不碰 detail；
         # 唯 60s 心跳 observe + 寫 detail。既有書回填 deployed_at（唯一留存歷史時戳）。完整逐事件仍由
         # 網頁點開時 fetch sessions/<id>.jsonl，故 detail 只掛輕量摘要（封頂避免爆量）。
-        if write_timeline:
+        if write_timeline:  # 收集；批次寫在迴圈後（單次 RMW）→ 不再逐本 observe（412 次全檔 RMW 卡死心跳）
             dep_at = (state.get(s) or {}).get('deployed_at')
-            if deployed and dep_at:
-                tl.seed(s, 'deployed', dep_at)
-            tl.observe(s, 'deployed' if deployed else r.get('stage', ''))
-            _write_detail(s, tl.get(s), sess_by_slug.get(s, []))
+            tl_items.append({'slug': s, 'stage': 'deployed' if deployed else r.get('stage', ''),
+                             'seed_at': dep_at if (deployed and dep_at) else None})
         rows.append(r)
         non_opt = [p for p in r['todo'].split() if p != '—' and not p.endswith('(可選)')]
         if non_opt:
             todos.append({'slug': s, 'todo': ' '.join(non_opt)})
-    if write_timeline:  # detail 唯一寫手順手清孤兒：SoT 移除的書其 detail 檔不再覆寫 → 刪（防磁碟殘渣，P3 review nit）
-        _prune_detail(set(slugs))
+    if write_timeline:
+        tl.observe_many(tl_items)            # 一次 flock + 一次全檔 RMW 套全部（取代逐本 observe）
+        tl_all = tl.load_all()               # 一次讀全時間軸（取代逐本 tl.get(s) 的 N 次全檔讀）
+        for it in tl_items:
+            s = it['slug']
+            _write_detail(s, tl_all.get(s, []), sess_by_slug.get(s, []))
+        _prune_detail(set(slugs))            # detail 唯一寫手順手清孤兒（SoT 移除的書 detail 不再覆寫→刪）
     return {'books': rows, 'actionable': todos, 'total': len(rows)}
 
 
