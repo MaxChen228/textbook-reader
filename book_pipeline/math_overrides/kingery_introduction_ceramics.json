@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "kingery_introduction_ceramics-ch13-body-229-3b7306",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[229]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{K(Ta_xNb_{1 - x})O_3}$",
+      "new": "$\\mathrm{K(Ta}_{x}\\mathrm{Nb}_{1 - x}\\mathrm{)O}_{3}$",
+      "anchor": "29d2a078"
+    },
+    {
+      "id": "kingery_introduction_ceramics-ch08-body-15-07c09a",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[15]",
+      "expect": "V _ {\\tau} ^ {\\beta} = \\frac {4 \\pi}{3} u ^ {3} (t - \\tau) ^ {3}. \\text {   当   } \\tag {1}\\tag{8.2}",
+      "new": "V _ {\\tau} ^ {\\beta} = \\frac {4 \\pi}{3} u ^ {3} (t - \\tau) ^ {3}. \\text {   当   } \\tag {1}\\text{(8.2)}"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "overrides": [
+    {
+      "id": "knuth_taocp_vol3-ch05-problem-5-3-4-57-body-0-c66319",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.3.4.57:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$ y _ { 1 } , y _ { 3 } , . . . , y _ { 2 }  _ { n / 2 } ] _ { - 1 } $",
+      "new": "$ y _ { 1 } , y _ { 3 } , . . . , y _ { 2 n / 2 } ] _ { - 1 } $",
+      "anchor": "1fc07eb5"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch05-body-2897-f1bc68",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[2897]",
+      "expect": "X _ {N} = \\left\\{ \\begin{array}{l l} 0, & \\text {if N\\leq M ;} \\\\ 3 N + 1 + \\frac {1}{N} \\sum_ {0 \\leq k <   N} (Y _ {k} + Y _ {N - 1 - k}), & \\text {if N > M ;} \\end{array} \\right.",
+      "new": "X _ {N} = \\left\\{ \\begin{array}{l l} 0, & \\text {if } N\\leq M ; \\\\ 3 N + 1 + \\frac {1}{N} \\sum_ {0 \\leq k <   N} (Y _ {k} + Y _ {N - 1 - k}), & \\text {if } N > M ; \\end{array} \\right."
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-body-19-40989f",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[19]",
+      "expect": "\\begin{array}{l l} \\text {b, f, p, v \\to 1} & \\text {l \\to 4} \\\\ \\text {c, g, j, k, q, s, x, z \\to 2} & \\text {m, n \\to 5} \\\\ \\text {d, t \\to 3} & \\text {r \\to 6} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {b, f, p, v } \\to 1 & \\text {l } \\to 4 \\\\ \\text {c, g, j, k, q, s, x, z } \\to 2 & \\text {m, n } \\to 5 \\\\ \\text {d, t } \\to 3 & \\text {r } \\to 6 \\end{array}"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-body-890-3a399b",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[890]",
+      "expect": "\\begin{array}{l} \\text {D5. [Insert into tree.] Set Q \\Leftarrow AVAIL, KEY (Q) \\leftarrow K , LLINK (Q) \\leftarrow} \\\\ \\text {RLINK (Q) \\leftarrow A.If b = 0 set LLINK (P) \\leftarrow Q , otherwise set} \\\\ \\text {RLINK (P) \\leftarrow Q .} \\end{array}",
+      "new": "\\begin{array}{l} \\text {D5. [Insert into tree.] Set } Q \\Leftarrow \\mathrm{AVAIL}, \\mathrm{KEY} (Q) \\leftarrow K , \\mathrm{LLINK} (Q) \\leftarrow \\\\ \\mathrm{RLINK} (Q) \\leftarrow A.\\text {If b = 0 set } \\mathrm{LLINK} (P) \\leftarrow Q , \\text { otherwise set} \\\\ \\mathrm{RLINK} (P) \\leftarrow Q . \\end{array}"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-body-923-8134c5",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[923]",
+      "expect": "\\begin{array}{l} A _ {N} = 1 + M ^ {1 - N} \\sum_ {k _ {1} + \\dots + k _ {M} = N} \\left(\\frac {N !}{k _ {1} ! \\ldots k _ {M} !}\\right) A _ {k _ {1}} \\\\ = 1 + M ^ {1 - N} \\sum_ {k} \\binom {N} {k} (M - 1) ^ {N - k} A _ {k}, \\qquad \\text {for N\\geq 2}, \\end{array}",
+      "new": "\\begin{array}{l} A _ {N} = 1 + M ^ {1 - N} \\sum_ {k _ {1} + \\dots + k _ {M} = N} \\left(\\frac {N !}{k _ {1} ! \\ldots k _ {M} !}\\right) A _ {k _ {1}} \\\\ = 1 + M ^ {1 - N} \\sum_ {k} \\binom {N} {k} (M - 1) ^ {N - k} A _ {k}, \\qquad \\text {for } N\\geq 2, \\end{array}"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-body-1135-7f70d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1135]",
+      "expect": "h _ {2} (K) = \\left\\{ \\begin{array}{l l} 1, & \\text {if h_{1} (K) = 0}; \\\\ M - h _ {1} (K), & \\text {if h_{1} (K) > 0}. \\end{array} \\right.",
+      "new": "h _ {2} (K) = \\left\\{ \\begin{array}{l l} 1, & \\text {if } h_{1} (K) = 0; \\\\ M - h _ {1} (K), & \\text {if } h_{1} (K) > 0. \\end{array} \\right."
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-body-1150-608b6a",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1150]",
+      "expect": "\\begin{array}{l l} \\text {ENN2 1 - M , 1} & c \\leftarrow M - i. \\\\ \\text {J1NZ * + 2} \\\\ \\text {ENT2 0} & \\text {If i = 0, c\\leftarrow 1 .} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {ENN2 1 - M , 1} & c \\leftarrow M - i. \\\\ \\text {J1NZ * + 2} \\\\ \\text {ENT2 0} & \\text {If } i = 0, c\\leftarrow 1 . \\end{array}"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch06-problem-6-5-10-body-5-8bc81d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.5.10:body[5]",
+      "expect": "\\begin{array}{l l} \\text {i)} \\{x _ {i}, y _ {j}, y _ {k} \\} & \\text {where j + k\\equiv i (modulo v) and j <   k, 1\\leq i,j,k\\leq v ;} \\\\ \\text {ii)} \\{x _ {i}, y _ {j}, z \\} & \\text {where 2j\\equiv i (modulo v), 1\\leq i,j\\leq v .} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {i)} \\{x _ {i}, y _ {j}, y _ {k} \\} & \\text {where } j + k\\equiv i \\text { (modulo v) and } j <   k, 1\\leq i,j,k\\leq v ; \\\\ \\text {ii)} \\{x _ {i}, y _ {j}, z \\} & \\text {where } 2j\\equiv i \\text { (modulo v), } 1\\leq i,j\\leq v . \\end{array}"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch05-body-1929-3436a5",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[1929]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Big 7 + \\Big \\lceil { l } / { 2 } \\Big \\rceil 0 \\mathsf { s }$",
+      "new": "$7 + \\Big \\lceil { l } / { 2 } \\Big \\rceil 0 \\mathsf { s }$",
+      "anchor": "1c843bf6"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch05-problem-5-2-2-43-body-0-1252cb",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.2.2.43:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r }  \\operatorname* { l i m } _ { a \\to 0 ^ { + } } y ^ { a - 1 } . \\rule { 0 ex } \\end{array}$",
+      "new": "$\\begin{array} { r }  \\operatorname* { l i m } _ { a \\to 0 ^ { + } } y ^ { a - 1 } . \\rule { 0 ex }{0 ex} \\end{array}$",
+      "anchor": "314c4bfc"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch05-body-564-20ca91",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[564]",
+      "field": "md",
+      "all": true,
+      "old": "$n { \\Chi } _ { \\mathbf { S } }$",
+      "new": "$n { X } _ { \\mathbf { S } }$",
+      "anchor": "e923f64f"
+    },
+    {
+      "id": "knuth_taocp_vol3-ch05-problem-5-1-2-23-body-4-022228",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.1.2.23:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\begin{array} { l l } { w _ { 1 } } & { \\dots w _ { k } } \\\\ { y _ { 1 } } & { \\dots } & { y _ { k } } \\end{array} \\right) \\bigcircledast \\left( \\begin{array} { l l } { x _ { 1 } } & { \\dots x _ { l } } \\\\ { z _ { 1 } } & { \\dots z _ { l } } \\end{array} \\right)$",
+      "new": "$\\left( \\begin{array} { l l } { w _ { 1 } } & { \\dots w _ { k } } \\\\ { y _ { 1 } } & { \\dots } & { y _ { k } } \\end{array} \\right) \\circledast \\left( \\begin{array} { l l } { x _ { 1 } } & { \\dots x _ { l } } \\\\ { z _ { 1 } } & { \\dots z _ { l } } \\end{array} \\right)$",
+      "anchor": "a069f442"
+    }
+  ]
+}

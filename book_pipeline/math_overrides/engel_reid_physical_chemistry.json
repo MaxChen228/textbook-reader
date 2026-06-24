@@ -1,0 +1,92 @@
+{
+  "overrides": [
+    {
+      "id": "engel_reid_physical_chemistry-ch07-body-136-e66098",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[136]",
+      "expect": "\\begin{array}{r l} \\int_ {P _ {i}} ^ {P} (d \\mu_ {\\text {real}} - d \\mu_ {\\text {ideal}}) & = [ \\mu_ {\\text {real}} (P) - \\mu_ {\\text {real}} (P _ {i}) ] - [ \\mu_ {\\text {ideal}} (P) - \\mu_ {\\text {ideal}} (P _ {i}) ] \\\\ & = \\int_ {P _ {i}} ^ {P} (V _ {m} ^ {\\text {real}} - V _ {m} ^ {\\text {ideal}}) d P ^ {\\prime} \\end{array} \\tag {1}\\tag{7.18}",
+      "new": "\\begin{array}{r l} \\int_ {P _ {i}} ^ {P} (d \\mu_ {\\text {real}} - d \\mu_ {\\text {ideal}}) & = [ \\mu_ {\\text {real}} (P) - \\mu_ {\\text {real}} (P _ {i}) ] - [ \\mu_ {\\text {ideal}} (P) - \\mu_ {\\text {ideal}} (P _ {i}) ] \\\\ & = \\int_ {P _ {i}} ^ {P} (V _ {m} ^ {\\text {real}} - V _ {m} ^ {\\text {ideal}}) d P ^ {\\prime} \\end{array} \\tag{7.18}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch11-body-84-067e51",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[84]",
+      "expect": "\\begin{array}{r l} \\Delta G _ {R} & = \\widetilde {\\mu} _ {Z n ^ {2 +}} + \\widetilde {\\mu} _ {C u} - \\widetilde {\\mu} _ {C u ^ {2 +}} - \\widetilde {\\mu} _ {Z n} = \\mu^ {\\circ} _ {Z n ^ {2 +}} - \\mu^ {\\circ} _ {C u ^ {2 +}} + R T \\ln \\frac {a _ {Z n ^ {2 +}}}{a _ {C u ^ {2 +}}} \\\\ & = \\Delta G _ {R} ^ {\\circ} + R T \\ln \\frac {a _ {Z n ^ {2 +}}}{a _ {C u ^ {2 +}}} \\end{array} \\tag {1}\\tag{11.22}",
+      "new": "\\begin{array}{r l} \\Delta G _ {R} & = \\widetilde {\\mu} _ {Z n ^ {2 +}} + \\widetilde {\\mu} _ {C u} - \\widetilde {\\mu} _ {C u ^ {2 +}} - \\widetilde {\\mu} _ {Z n} = \\mu^ {\\circ} _ {Z n ^ {2 +}} - \\mu^ {\\circ} _ {C u ^ {2 +}} + R T \\ln \\frac {a _ {Z n ^ {2 +}}}{a _ {C u ^ {2 +}}} \\\\ & = \\Delta G _ {R} ^ {\\circ} + R T \\ln \\frac {a _ {Z n ^ {2 +}}}{a _ {C u ^ {2 +}}} \\end{array} \\tag{11.22}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch32-body-331-2bed5f",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[331]",
+      "expect": "\\begin{array}{r l} \\Delta G ^ {\\circ} & = c \\left(- R T \\ln \\left(\\frac {q _ {L} ^ {\\circ}}{N _ {A}}\\right)\\right) + d \\left(- R T \\ln \\left(\\frac {q _ {M} ^ {\\circ}}{N _ {A}}\\right)\\right) - a \\left(- R T \\ln \\left(\\frac {q _ {J} ^ {\\circ}}{N _ {A}}\\right)\\right) \\\\ & - b \\left(- R T \\ln \\left(\\frac {q _ {K} ^ {\\circ}}{N _ {A}}\\right)\\right) \\\\ & = - R T \\ln \\left(\\frac {\\left(\\frac {q _ {L} ^ {\\circ}}{N _ {A}}\\right) ^ {c} \\left(\\frac {q _ {M} ^ {\\circ}}{N _ {A}}\\right) ^ {d}}{\\left(\\frac {q _ {J} ^ {\\circ}}{N _ {A}}\\right) ^ {a} \\left(\\frac {q _ {K} ^ {\\circ}}{N _ {A}}\\right) ^ {b}}\\right) \\end{array} \\tag {3}\\tag{32.83}",
+      "new": "\\begin{array}{r l} \\Delta G ^ {\\circ} & = c \\left(- R T \\ln \\left(\\frac {q _ {L} ^ {\\circ}}{N _ {A}}\\right)\\right) + d \\left(- R T \\ln \\left(\\frac {q _ {M} ^ {\\circ}}{N _ {A}}\\right)\\right) - a \\left(- R T \\ln \\left(\\frac {q _ {J} ^ {\\circ}}{N _ {A}}\\right)\\right) \\\\ & - b \\left(- R T \\ln \\left(\\frac {q _ {K} ^ {\\circ}}{N _ {A}}\\right)\\right) \\\\ & = - R T \\ln \\left(\\frac {\\left(\\frac {q _ {L} ^ {\\circ}}{N _ {A}}\\right) ^ {c} \\left(\\frac {q _ {M} ^ {\\circ}}{N _ {A}}\\right) ^ {d}}{\\left(\\frac {q _ {J} ^ {\\circ}}{N _ {A}}\\right) ^ {a} \\left(\\frac {q _ {K} ^ {\\circ}}{N _ {A}}\\right) ^ {b}}\\right) \\end{array} \\tag{32.83}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch34-body-80-66dd73",
+      "action": "fix_eq_tex",
+      "chunk": "ch34",
+      "selector": "body[80]",
+      "expect": "\\begin{array}{l} \\frac {\\partial \\widetilde {N} (x , t)}{\\partial t} = \\frac {\\partial \\left(J _ {x} - J _ {x + d x}\\right)}{\\partial x} \\\\ = \\frac {\\partial}{\\partial x} \\left[ - D \\left(\\frac {\\partial \\widetilde {N} (x , t)}{\\partial x}\\right) - \\left(- D \\left(\\left(\\frac {\\partial \\widetilde {N} (x , t)}{\\partial x}\\right) + \\left(\\frac {\\partial^ {2} \\widetilde {N} (x , t)}{\\partial x ^ {2}}\\right) \\partial x\\right)\\right) \\right] \\\\ \\frac {\\partial \\widetilde {N} (x , t)}{\\partial t} = D \\frac {\\partial^ {2} \\widetilde {N} (x , t)}{\\partial x ^ {2}} \\end{array} \\tag {34.1}\\tag{34.16}",
+      "new": "\\begin{array}{l} \\frac {\\partial \\widetilde {N} (x , t)}{\\partial t} = \\frac {\\partial \\left(J _ {x} - J _ {x + d x}\\right)}{\\partial x} \\\\ = \\frac {\\partial}{\\partial x} \\left[ - D \\left(\\frac {\\partial \\widetilde {N} (x , t)}{\\partial x}\\right) - \\left(- D \\left(\\left(\\frac {\\partial \\widetilde {N} (x , t)}{\\partial x}\\right) + \\left(\\frac {\\partial^ {2} \\widetilde {N} (x , t)}{\\partial x ^ {2}}\\right) \\partial x\\right)\\right) \\right] \\\\ \\frac {\\partial \\widetilde {N} (x , t)}{\\partial t} = D \\frac {\\partial^ {2} \\widetilde {N} (x , t)}{\\partial x ^ {2}} \\end{array} \\tag{34.16}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch35-body-474-f8344a",
+      "action": "fix_eq_tex",
+      "chunk": "ch35",
+      "selector": "body[474]",
+      "expect": "\\begin{array}{r l} \\frac {d \\xi}{d t} & = - k _ {f} ^ {+} [ \\mathrm{H} _ {2} \\mathrm{O} ] + k _ {r} ^ {+} [ \\mathrm{H} ^ {+} ] [ \\mathrm{OH} ^ {-} ] \\\\ & = - k _ {f} ^ {+} (\\xi + [ \\mathrm{H} _ {2} \\mathrm{O} ] _ {e q}) + k _ {r} ^ {+} (\\xi - [ \\mathrm{H} ^ {+} ] _ {e q}) (\\xi - [ \\mathrm{OH} ^ {-} ] _ {e q}) \\\\ & = - k _ {f} ^ {+} \\left(\\xi + \\frac {k _ {r} ^ {+}}{k _ {f} ^ {+}} [ \\mathrm{H} ^ {+} ] _ {e q} [ \\mathrm{OH} ^ {-} ] _ {e q}\\right) + k _ {r} ^ {+} (\\xi - [ \\mathrm{H} ^ {+} ] _ {e q}) (\\xi - [ \\mathrm{OH} ^ {-} ] _ {e q}) \\\\ & = - k _ {f} ^ {+} \\xi - k _ {r} ^ {+} \\xi ([ \\mathrm{H} ^ {+} ] _ {e q} + [ \\mathrm{OH} ^ {-} ] _ {e q}) + \\mathrm{O} (\\xi^ {2}) \\end{array} \\tag {35}\\tag{35.107}",
+      "new": "\\begin{array}{r l} \\frac {d \\xi}{d t} & = - k _ {f} ^ {+} [ \\mathrm{H} _ {2} \\mathrm{O} ] + k _ {r} ^ {+} [ \\mathrm{H} ^ {+} ] [ \\mathrm{OH} ^ {-} ] \\\\ & = - k _ {f} ^ {+} (\\xi + [ \\mathrm{H} _ {2} \\mathrm{O} ] _ {e q}) + k _ {r} ^ {+} (\\xi - [ \\mathrm{H} ^ {+} ] _ {e q}) (\\xi - [ \\mathrm{OH} ^ {-} ] _ {e q}) \\\\ & = - k _ {f} ^ {+} \\left(\\xi + \\frac {k _ {r} ^ {+}}{k _ {f} ^ {+}} [ \\mathrm{H} ^ {+} ] _ {e q} [ \\mathrm{OH} ^ {-} ] _ {e q}\\right) + k _ {r} ^ {+} (\\xi - [ \\mathrm{H} ^ {+} ] _ {e q}) (\\xi - [ \\mathrm{OH} ^ {-} ] _ {e q}) \\\\ & = - k _ {f} ^ {+} \\xi - k _ {r} ^ {+} \\xi ([ \\mathrm{H} ^ {+} ] _ {e q} + [ \\mathrm{OH} ^ {-} ] _ {e q}) + \\mathrm{O} (\\xi^ {2}) \\end{array} \\tag{35.107}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch36-body-626-a8ad01",
+      "action": "fix_eq_tex",
+      "chunk": "ch36",
+      "selector": "body[626]",
+      "expect": "\\begin{array}{l} \\left[ D ^ {+} A ^ {-} \\right] = \\frac {k _ {e t} [ D A ]}{k _ {b - e t} + k _ {s e p}} = \\left(\\frac {k _ {e t}}{k _ {b - e t} + k _ {s e p}}\\right) \\left(\\frac {k _ {d} [ D ] [ A ] + k _ {b - e t} \\left[ D ^ {+} A ^ {-} \\right]}{k _ {d ^ {\\prime}} + k _ {e t}}\\right) \\\\ \\left[ D ^ {+} A ^ {-} \\right] = \\frac {k _ {e t} k _ {d}}{k _ {b - e t} k _ {d ^ {\\prime}} + k _ {s e p} k _ {d ^ {\\prime}} + k _ {s e p} k _ {e t}} [ D ] [ A ] \\end{array} \\tag {36}\\tag{36.195}",
+      "new": "\\begin{array}{l} \\left[ D ^ {+} A ^ {-} \\right] = \\frac {k _ {e t} [ D A ]}{k _ {b - e t} + k _ {s e p}} = \\left(\\frac {k _ {e t}}{k _ {b - e t} + k _ {s e p}}\\right) \\left(\\frac {k _ {d} [ D ] [ A ] + k _ {b - e t} \\left[ D ^ {+} A ^ {-} \\right]}{k _ {d ^ {\\prime}} + k _ {e t}}\\right) \\\\ \\left[ D ^ {+} A ^ {-} \\right] = \\frac {k _ {e t} k _ {d}}{k _ {b - e t} k _ {d ^ {\\prime}} + k _ {s e p} k _ {d ^ {\\prime}} + k _ {s e p} k _ {e t}} [ D ] [ A ] \\end{array} \\tag{36.195}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-appappA-body-355-368c87",
+      "action": "fix_eq_tex",
+      "chunk": "appappA",
+      "selector": "body[355]",
+      "expect": "\\begin{array}{r l} \\mathbf {R} _ {z} \\mathbf {R} _ {- z} & = \\left( \\begin{array}{c c c} \\cos \\theta & - \\sin \\theta & 0 \\\\ \\sin \\theta & \\cos \\theta & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\left( \\begin{array}{c c c} \\cos \\theta & \\sin \\theta & 0 \\\\ - \\sin \\theta & \\cos \\theta & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\\\ & = \\left( \\begin{array}{c c c} \\cos^ {2} \\theta + \\sin^ {2} \\theta + 0 & \\sin \\theta \\cos \\theta - \\sin \\theta \\cos \\theta + 0 & 0 \\\\ \\sin \\theta \\cos \\theta - \\sin \\theta \\cos \\theta + 0 & \\cos^ {2} \\theta + \\sin^ {2} \\theta + 0 & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\\\ & = \\left( \\begin{array}{c c c} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\end{array} \\tag {A.}\\tag{A.85}",
+      "new": "\\begin{array}{r l} \\mathbf {R} _ {z} \\mathbf {R} _ {- z} & = \\left( \\begin{array}{c c c} \\cos \\theta & - \\sin \\theta & 0 \\\\ \\sin \\theta & \\cos \\theta & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\left( \\begin{array}{c c c} \\cos \\theta & \\sin \\theta & 0 \\\\ - \\sin \\theta & \\cos \\theta & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\\\ & = \\left( \\begin{array}{c c c} \\cos^ {2} \\theta + \\sin^ {2} \\theta + 0 & \\sin \\theta \\cos \\theta - \\sin \\theta \\cos \\theta + 0 & 0 \\\\ \\sin \\theta \\cos \\theta - \\sin \\theta \\cos \\theta + 0 & \\cos^ {2} \\theta + \\sin^ {2} \\theta + 0 & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\\\ & = \\left( \\begin{array}{c c c} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{array} \\right) \\end{array} \\tag{A.85}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch03-body-202-727c96",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[202]",
+      "expect": "\\begin{array}{r l} C _ {P} & = C _ {V} + \\left(\\frac {\\partial U}{\\partial V}\\right) _ {T} \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} + P \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} = C _ {V} + \\left[ \\left(\\frac {\\partial U}{\\partial V}\\right) _ {T} + P \\right] \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} \\\\ & = C _ {V} + T \\left(\\frac {\\partial P}{\\partial T}\\right) _ {V} \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} \\end{array} \\tag {2}\\tag{3.37}",
+      "new": "\\begin{array}{r l} C _ {P} & = C _ {V} + \\left(\\frac {\\partial U}{\\partial V}\\right) _ {T} \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} + P \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} = C _ {V} + \\left[ \\left(\\frac {\\partial U}{\\partial V}\\right) _ {T} + P \\right] \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} \\\\ & = C _ {V} + T \\left(\\frac {\\partial P}{\\partial T}\\right) _ {V} \\left(\\frac {\\partial V}{\\partial T}\\right) _ {P} \\end{array} \\tag{3.37}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch06-body-368-18af42",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[368]",
+      "expect": "\\begin{array}{l} K _ {P} = \\frac {\\left(\\frac {P _ {C} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\gamma} \\left(\\frac {P _ {D} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\delta}}{\\left(\\frac {P _ {A} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\alpha} \\left(\\frac {P _ {B} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\beta}} = \\frac {\\left(\\frac {c _ {C} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\gamma} \\left(\\frac {c _ {D} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\delta}}{\\left(\\frac {c _ {A} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\alpha} \\left(\\frac {c _ {B} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\beta}} \\quad \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {\\gamma + \\delta - \\alpha - \\beta} = K _ {c} \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {\\Delta v} \\\\ K _ {c} = K _ {P} \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {- \\Delta v} \\end{array} \\tag {6.7}\\tag{6.74}",
+      "new": "\\begin{array}{l} K _ {P} = \\frac {\\left(\\frac {P _ {C} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\gamma} \\left(\\frac {P _ {D} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\delta}}{\\left(\\frac {P _ {A} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\alpha} \\left(\\frac {P _ {B} ^ {e q}}{P ^ {\\circ}}\\right) ^ {\\beta}} = \\frac {\\left(\\frac {c _ {C} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\gamma} \\left(\\frac {c _ {D} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\delta}}{\\left(\\frac {c _ {A} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\alpha} \\left(\\frac {c _ {B} ^ {e q}}{c ^ {\\circ}}\\right) ^ {\\beta}} \\quad \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {\\gamma + \\delta - \\alpha - \\beta} = K _ {c} \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {\\Delta v} \\\\ K _ {c} = K _ {P} \\left(\\frac {c ^ {\\circ} R T}{P ^ {\\circ}}\\right) ^ {- \\Delta v} \\end{array} \\tag{6.74}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch08-body-123-94df56",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[123]",
+      "expect": "\\begin{array}{r l} \\left(\\frac {d P}{d T}\\right) _ {\\text {vaporization}} & = \\frac {\\Delta S _ {\\text {vaporization}}}{\\Delta V _ {\\text {vaporization}}} \\approx \\frac {9 5 \\mathrm{Jmol} ^ {- 1} \\mathrm{K} ^ {- 1}}{2 . 0 \\times 1 0 ^ {- 2} \\mathrm{m} ^ {3} \\mathrm{mol} ^ {- 1}} \\approx 4. 8 \\times 1 0 ^ {3} \\mathrm{PaK} ^ {- 1} \\\\ & = 4. 8 \\times 1 0 ^ {- 2} \\mathrm{barK} ^ {- 1} \\end{array} \\tag {8.1}\\tag{8.16}",
+      "new": "\\begin{array}{r l} \\left(\\frac {d P}{d T}\\right) _ {\\text {vaporization}} & = \\frac {\\Delta S _ {\\text {vaporization}}}{\\Delta V _ {\\text {vaporization}}} \\approx \\frac {9 5 \\mathrm{Jmol} ^ {- 1} \\mathrm{K} ^ {- 1}}{2 . 0 \\times 1 0 ^ {- 2} \\mathrm{m} ^ {3} \\mathrm{mol} ^ {- 1}} \\approx 4. 8 \\times 1 0 ^ {3} \\mathrm{PaK} ^ {- 1} \\\\ & = 4. 8 \\times 1 0 ^ {- 2} \\mathrm{barK} ^ {- 1} \\end{array} \\tag{8.16}"
+    },
+    {
+      "id": "engel_reid_physical_chemistry-ch32-body-71-908475",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[71]",
+      "expect": "\\begin{array}{l} U = - \\left(\\frac {\\partial \\ln Q}{\\partial \\beta}\\right) _ {V} = - N \\left(\\frac {\\partial \\ln q}{\\partial \\beta}\\right) _ {V} \\\\ = - N \\left(\\frac {\\partial \\ln (q _ {T} q _ {R} q _ {V} q _ {E})}{\\partial \\beta}\\right) _ {V} \\\\ = - N \\left(\\frac {\\partial}{\\partial \\beta} (\\ln q _ {T} + \\ln q _ {R} + \\ln q _ {V} + \\ln q _ {E})\\right) _ {V} \\\\ = - N \\left[ \\left(\\frac {\\partial \\ln q _ {T}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {R}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {V}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {E}}{\\partial \\beta}\\right) _ {V} \\right] \\\\ = U _ {T} + U _ {R} + U _ {V} + U _ {E} \\end{array} \\tag {3}\\tag{32.17}",
+      "new": "\\begin{array}{l} U = - \\left(\\frac {\\partial \\ln Q}{\\partial \\beta}\\right) _ {V} = - N \\left(\\frac {\\partial \\ln q}{\\partial \\beta}\\right) _ {V} \\\\ = - N \\left(\\frac {\\partial \\ln (q _ {T} q _ {R} q _ {V} q _ {E})}{\\partial \\beta}\\right) _ {V} \\\\ = - N \\left(\\frac {\\partial}{\\partial \\beta} (\\ln q _ {T} + \\ln q _ {R} + \\ln q _ {V} + \\ln q _ {E})\\right) _ {V} \\\\ = - N \\left[ \\left(\\frac {\\partial \\ln q _ {T}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {R}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {V}}{\\partial \\beta}\\right) _ {V} + \\left(\\frac {\\partial \\ln q _ {E}}{\\partial \\beta}\\right) _ {V} \\right] \\\\ = U _ {T} + U _ {R} + U _ {V} + U _ {E} \\end{array} \\tag{32.17}"
+    }
+  ]
+}

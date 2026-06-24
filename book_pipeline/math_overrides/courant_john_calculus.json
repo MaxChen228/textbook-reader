@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "courant_john_calculus-ch05-body-233-002d32",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[233]",
+      "expect": "\\begin{array}{l} \\binom {\\alpha} {\\nu} = \\frac {\\alpha (\\alpha - 1) \\cdots (\\alpha - \\nu + 1)}{\\nu !} \\quad \\text {(for \\nu > 0)}, \\\\ \\binom {\\alpha} {0} = 1. \\end{array}",
+      "new": "\\begin{array}{l} \\binom {\\alpha} {\\nu} = \\frac {\\alpha (\\alpha - 1) \\cdots (\\alpha - \\nu + 1)}{\\nu !} \\quad \\text {(for } \\nu > 0\\text {)}, \\\\ \\binom {\\alpha} {0} = 1. \\end{array}"
+    },
+    {
+      "id": "courant_john_calculus-ch03-body-457-b88ef6",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[457]",
+      "expect": "\\begin{array}{l} f ^ {\\prime} (x) = \\frac {x + a}{\\sqrt {(x + a) ^ {2} + h ^ {2}}} + \\frac {x - a}{\\sqrt {(x - a) ^ {2} + h ^ {2}}}, \\\\ f ^ {\\prime \\prime} (x) = \\frac {- (x + a) ^ {2}}{\\sqrt {[ (x + a) ^ {2} + h ^ {2} ] ^ {3}}} + \\frac {1}{\\sqrt {(x + a) ^ {2} + h ^ {2}}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} f ^ {\\prime} (x) = \\frac {x + a}{\\sqrt {(x + a) ^ {2} + h ^ {2}}} + \\frac {x - a}{\\sqrt {(x - a) ^ {2} + h ^ {2}}}, \\\\ f ^ {\\prime \\prime} (x) = \\frac {- (x + a) ^ {2}}{\\sqrt {[ (x + a) ^ {2} + h ^ {2} ] ^ {3}}} + \\frac {1}{\\sqrt {(x + a) ^ {2} + h ^ {2}}} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

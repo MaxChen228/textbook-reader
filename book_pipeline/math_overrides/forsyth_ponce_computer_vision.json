@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "forsyth_ponce_computer_vision-ch21-body-23-9b8254",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[23]",
+      "expect": "P \\left( \\begin{array}{c c} n _ {1} \\text {of type 1 from pattern,} \\\\ \\dots , \\\\ n _ {N} \\text {patches of type N from pattern} \\\\ \\text {and n_{i1} -n_{1} of type 1 from noise}, \\\\ \\dots , \\\\ n _ {i N} - n _ {N} \\text {from noise} \\end{array} \\right) j ^ {\\prime} \\text {th pattern}",
+      "new": "P \\left( \\begin{array}{c} n _ {1} \\text {of type 1 from pattern,} \\\\ \\dots , \\\\ n _ {N} \\text {patches of type N from pattern} \\\\ \\text {and } n_{i1} -n_{1} \\text { of type 1 from noise}, \\\\ \\dots , \\\\ n _ {i N} - n _ {N} \\text {from noise} \\end{array} \\right) j ^ {\\prime} \\text {th pattern}"
+    },
+    {
+      "id": "forsyth_ponce_computer_vision-ch11-body-133-d922d4",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[133]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r l } { \\mathcal { M } _ { 2 } = \\left( \\mathcal { R } ^ { T } } & { { } - \\mathcal { \\bar { R } } ^ { \\bar { T } } \\pmb { t } \\right) } \\end{array}$",
+      "new": "$\\begin{array} { r l } \\mathcal { M } _ { 2 } = \\bigl( \\mathcal { R } ^ { T } & { } - \\mathcal { \\bar { R } } ^ { \\bar { T } } \\pmb { t } \\bigr) \\end{array}$",
+      "anchor": "e4d82e64"
+    },
+    {
+      "id": "forsyth_ponce_computer_vision-ch21-body-204-c1e713",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[204]",
+      "expect": "\\begin{array}{c} \\overline {{\\pi_ {i}}} = \\text {expected frequency of being in state s_{i} at time 1} \\\\ = \\sum_ {j = 1} ^ {N} \\xi_ {1} (i, j) \\\\ \\overline {{p _ {i j}}} = \\frac {\\text {expected number of transitions from s_{i} to s_{j}}}{\\text {expected number of transitions from state s_{i}}} \\\\ = \\frac {\\sum_ {t = 1} ^ {T} \\xi_ {t} (i , j)}{\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j)} \\\\ \\overline {{q _ {i} (k)}} = \\frac {\\text {expected number of times in s_{i} and observing Y = y_{k}}}{\\text {expected number of times in state s_{i}}} \\\\ = \\frac {\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j) \\delta (Y _ {t} , y _ {k})}{\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j)} \\\\ \\text {here \\delta(u,v) is one if its arguments are equal and zero otherwise.} \\end{array}",
+      "new": "\\begin{array}{c} \\overline {{\\pi_ {i}}} = \\text {expected frequency of being in state } s_{i} \\text { at time 1} \\\\ = \\sum_ {j = 1} ^ {N} \\xi_ {1} (i, j) \\\\ \\overline {{p _ {i j}}} = \\frac {\\text {expected number of transitions from } s_{i} \\text { to } s_{j}}{\\text {expected number of transitions from state } s_{i}} \\\\ = \\frac {\\sum_ {t = 1} ^ {T} \\xi_ {t} (i , j)}{\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j)} \\\\ \\overline {{q _ {i} (k)}} = \\frac {\\text {expected number of times in } s_{i} \\text { and observing } Y = y_{k}}{\\text {expected number of times in state } s_{i}} \\\\ = \\frac {\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j) \\delta (Y _ {t} , y _ {k})}{\\sum_ {t = 1} ^ {T} \\sum_ {j = 1} ^ {N} \\xi_ {t} (i , j)} \\\\ \\text {here } \\delta(u,v) \\text { is one if its arguments are equal and zero otherwise.} \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+slug: grimaldi_discrete_combinatorial
+title: "Discrete and Combinatorial Mathematics: An Applied Introduction"
+author: "Ralph P. Grimaldi"
+edition: "4th"
+subject: Discrete Mathematics
+publisher: "Addison-Wesley"
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 887
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Fundamental Principles of Counting"
+    page_start: 24
+    page_end: 67
+    chapter_title_block_idx: 263
+    problems_block_idx: null
+    next_chapter_block_idx: 1166
+  - num: 2
+    title: "Fundamentals of Logic"
+    page_start: 68
+    page_end: 143
+    chapter_title_block_idx: 1166
+    problems_block_idx: null
+    next_chapter_block_idx: 2926
+  - num: 3
+    title: "Set Theory"
+    page_start: 144
+    page_end: 213
+    chapter_title_block_idx: 2926
+    problems_block_idx: null
+    next_chapter_block_idx: 4299
+  - num: 4
+    title: "Properties of the Integers: Mathematical Induction"
+    page_start: 214
+    page_end: 267
+    chapter_title_block_idx: 4299
+    problems_block_idx: null
+    next_chapter_block_idx: 5463
+  - num: 5
+    title: "Relations and Functions"
+    page_start: 268
+    page_end: 329
+    chapter_title_block_idx: 5463
+    problems_block_idx: null
+    next_chapter_block_idx: 6715
+  - num: 6
+    title: "Languages: Finite State Machines"
+    page_start: 330
+    page_end: 357
+    chapter_title_block_idx: 6715
+    problems_block_idx: null
+    next_chapter_block_idx: 7192
+  - num: 7
+    title: "Relations: The Second Time Around"
+    page_start: 358
+    page_end: 405
+    chapter_title_block_idx: 7192
+    problems_block_idx: null
+    next_chapter_block_idx: 8069
+  - num: 8
+    title: "The Principle of Inclusion and Exclusion"
+    page_start: 406
+    page_end: 435
+    chapter_title_block_idx: 8069
+    problems_block_idx: null
+    next_chapter_block_idx: 8616
+  - num: 9
+    title: "Generating Functions"
+    page_start: 436
+    page_end: 467
+    chapter_title_block_idx: 8616
+    problems_block_idx: null
+    next_chapter_block_idx: 9327
+  - num: 10
+    title: "Recurrence Relations"
+    page_start: 468
+    page_end: 533
+    chapter_title_block_idx: 9327
+    problems_block_idx: null
+    next_chapter_block_idx: 10584
+  - num: 11
+    title: "An Introduction to Graph Theory"
+    page_start: 534
+    page_end: 601
+    chapter_title_block_idx: 10584
+    problems_block_idx: null
+    next_chapter_block_idx: 11741
+  - num: 12
+    title: "Trees"
+    page_start: 602
+    page_end: 651
+    chapter_title_block_idx: 11741
+    problems_block_idx: null
+    next_chapter_block_idx: 12493
+  - num: 13
+    title: "Optimization and Matching"
+    page_start: 652
+    page_end: 693
+    chapter_title_block_idx: 12493
+    problems_block_idx: null
+    next_chapter_block_idx: 13130
+  - num: 14
+    title: "Rings and Modular Arithmetic"
+    page_start: 694
+    page_end: 731
+    chapter_title_block_idx: 13130
+    problems_block_idx: null
+    next_chapter_block_idx: 13823
+  - num: 15
+    title: "Boolean Algebra and Switching Functions"
+    page_start: 732
+    page_end: 765
+    chapter_title_block_idx: 13823
+    problems_block_idx: null
+    next_chapter_block_idx: 14426
+  - num: 16
+    title: "Groups, Coding Theory, and Polya's Method of Enumeration"
+    page_start: 766
+    page_end: 819
+    chapter_title_block_idx: 14426
+    problems_block_idx: null
+    next_chapter_block_idx: 15508
+  - num: 17
+    title: "Finite Fields and Combinatorial Designs"
+    page_start: 820
+    page_end: 886
+    chapter_title_block_idx: 15508
+    problems_block_idx: null
+    next_chapter_block_idx: 16726
+
+appendices: []
+
+section_re: '^((?:EXERCISES\s+[0-9]+\.[0-9]+(?:\s+(?:AND|and)\s+[0-9]+\.[0-9]+)?)|SUPPLEMENTARY EXERCISES)\s*(.*)$'
+subsection_re: '^([0-9]+\.[0-9]+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^([0-9]+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '(?i)^EXERCISES\s+[0-9]+\.[0-9]+(?:\s+(?:AND|and)\s+[0-9]+\.[0-9]+)?$|^SUPPLEMENTARY EXERCISES$'
+suppress_running_header_sections: true
+problems_end_re: '^(REFERENCES|[0-9]+\.[0-9]+\s+Summary and Historical Review|Summary and Historical Review|Appendix\s+[0-9]+\b|EXERCISES\s+A\.[0-9]+)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^(EXAMPLE\s+[0-9]+\.[0-9]+)\s*$'
+
+figure_caption_merge: false
+
+known_missing_problems: []

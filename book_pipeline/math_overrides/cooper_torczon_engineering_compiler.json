@@ -1,0 +1,232 @@
+{
+  "overrides": [
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-313-be6e2c",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "field": "caption",
+      "all": true,
+      "old": "$$ ← $1 } Term → Term × Factor { $$",
+      "new": "$$ \\leftarrow \\$1 \\ \\} \\ \\mathrm{Term} \\rightarrow \\mathrm{Term} \\times \\mathrm{Factor} \\ \\{ $$",
+      "anchor": "401218e0"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-be6e2c",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$$ ← $1 } Term → Term × Factor { $$",
+      "new": "$$ \\leftarrow \\$1 \\ \\} \\ \\mathrm{Term} \\rightarrow \\mathrm{Term} \\times \\mathrm{Factor} \\ \\{ $$",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch03-body-424-159b4c",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[424]",
+      "expect": "\\mathrm{CC} _ {1 0} = \\left\\{\\left[ \\text { Pair } \\rightarrow (\\underline {{\\text { }}}) \\bullet , \\underline {{\\text { }}} ] \\right\\}",
+      "new": "\\mathrm{CC} _ {1 0} = \\left\\{\\left[ \\text { Pair } \\rightarrow (\\underline {{\\text { }}}) \\bullet , \\underline {{\\text { }}} \\right] \\right\\}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch02-body-355-9db3b0",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[355]",
+      "expect": "\\begin{array}{l} \\text {while (state \\neq s_{e}) do} \\\\ \\text {NextChar(char);} \\\\ \\text {cat \\leftarrow CharCat[char];} \\\\ \\text {state \\leftarrow \\delta[state, cat];} \\\\ \\text {end;} \\end{array}",
+      "new": "\\begin{array}{l} \\text {while (state }\\neq s_{e}\\text{) do} \\\\ \\text {NextChar(char);} \\\\ \\text {cat }\\leftarrow \\text { CharCat[char];} \\\\ \\text {state }\\leftarrow \\delta[\\text{state, cat}]\\text{;} \\\\ \\text {end;} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch02-body-409-454f7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[409]",
+      "expect": "\\begin{array}{l} \\text {begin;} \\\\ \\quad \\text {RegNum} \\leftarrow \\text {RegNum} \\times 1 0 + (\\text {char - '0'}); \\\\ \\quad \\text {goto s_{2}}; \\\\ \\text {end;} \\end{array}",
+      "new": "\\begin{array}{l} \\text {begin;} \\\\ \\quad \\text {RegNum} \\leftarrow \\text {RegNum} \\times 1 0 + \\text {(char - '0');} \\\\ \\quad \\text {goto }s_{2}\\text{;} \\\\ \\text {end;} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch05-body-96-ac7993",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{c c} \\text {if (x = y)} & \\text {if (x = y)} \\\\ \\text {then stmt_ {1}} & \\swarrow \\searrow \\\\ \\text {else stmt_ {2}} & \\text {stmt_ {1}} \\\\ \\text {stmt_ {3}} & \\searrow \\swarrow \\\\ & \\text {stmt_ {3}} \\end{array}",
+      "new": "\\begin{array}{c c} \\text {if (x = y)} & \\text {if (x = y)} \\\\ \\text {then }stmt_ {1} & \\swarrow \\searrow \\\\ \\text {else }stmt_ {2} & stmt_ {1} \\\\ stmt_ {3} & \\searrow \\swarrow \\\\ & stmt_ {3} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch05-problem-3-body-1-0fd654",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:3:body[1]",
+      "expect": "\\begin{array}{l} \\text {if (c[i] \\neq 0)} \\\\ \\text {then a[i] \\leftarrow b[i]\\div c[i];} \\\\ \\text {else a[i] \\leftarrow b[i];} \\end{array}",
+      "new": "\\begin{array}{l} \\text {if (c[i] }\\neq 0\\text{)} \\\\ \\text {then a[i] }\\leftarrow \\text{ b[i]}\\div \\text{ c[i];} \\\\ \\text {else a[i] }\\leftarrow \\text{ b[i];} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch07-body-256-18f213",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[256]",
+      "expect": "\\begin{array}{l l l l} \\text {loadI} & @ V & \\Rightarrow r _ {@ V} & / / \\text {get V^{\\prime}s address} \\\\ \\text {subI} & r _ {i}, 3 & \\Rightarrow r _ {1} & / / (\\text {offset - lower bound}) \\\\ \\text {lshiftI} & r _ {1}, 2 & \\Rightarrow r _ {2} & / / x \\text {element length (4)} \\\\ \\text {loadAO} & r _ {@ V}, r _ {2} & \\Rightarrow r _ {V} & / / \\text {value of V[i]} \\end{array}",
+      "new": "\\begin{array}{l l l l} \\text {loadI} & @ V & \\Rightarrow r _ {@ V} & / / \\text {get }V^{\\prime}\\text{s address} \\\\ \\text {subI} & r _ {i}, 3 & \\Rightarrow r _ {1} & / / \\text{(offset - lower bound)} \\\\ \\text {lshiftI} & r _ {1}, 2 & \\Rightarrow r _ {2} & / / x \\text {element length (4)} \\\\ \\text {loadAO} & r _ {@ V}, r _ {2} & \\Rightarrow r _ {V} & / / \\text {value of V[i]} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch07-body-293-2501cd",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[293]",
+      "expect": "\\begin{array}{l} \\text {@A + (i \\times l e n _ {2} \\times w) - (l o w _ {1} \\times l e n _ {2} \\times w) + (j \\times w) - (l o w _ {2} \\times w), or} \\\\ \\text {@A + (i \\times l e n _ {2} \\times w) + (j \\times w) - (l o w _ {1} \\times l e n _ {2} \\times w + l o w _ {2} \\times w)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {@A} + (i \\times l e n _ {2} \\times w) - (l o w _ {1} \\times l e n _ {2} \\times w) + (j \\times w) - (l o w _ {2} \\times w), \\text{ or} \\\\ \\text {@A} + (i \\times l e n _ {2} \\times w) + (j \\times w) - (l o w _ {1} \\times l e n _ {2} \\times w + l o w _ {2} \\times w) \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch07-body-474-50ae3b",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[474]",
+      "expect": "\\begin{array}{l l}&\\text {cmp\\_LT r_{x} ,r_{y} \\Rightarrow r_{1} // Step 2}\\\\\\text {while (x <   y) \\{}&\\text {cbr r_{1} \\rightarrow L_{1} ,L_{2}}\\\\\\text {loop body}&\\text {L_{1}: loop body // Step 3}\\\\\\}&\\text {cmp\\_LT r_{x} ,r_{y} \\Rightarrow r_{2} // Step 4}\\\\\\text {next statement}&\\text {cbr r_{2} \\rightarrow L_{1} ,L_{2}}\\\\&\\text {L_{2}: next statement // Step 5}\\end{array}",
+      "new": "\\begin{array}{l l}&\\text {cmp\\_LT }r_{x} ,r_{y} \\Rightarrow r_{1}\\text{ // Step 2}\\\\\\text {while (x < y) \\{}&\\text {cbr }r_{1} \\rightarrow L_{1} ,L_{2}\\\\\\text {loop body}&\\text {L}_{1}\\text{: loop body // Step 3}\\\\\\text{\\}}&\\text {cmp\\_LT }r_{x} ,r_{y} \\Rightarrow r_{2}\\text{ // Step 4}\\\\\\text {next statement}&\\text {cbr }r_{2} \\rightarrow L_{1} ,L_{2}\\\\&\\text {L}_{2}\\text{: next statement // Step 5}\\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch11-body-177-b81ee3",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[177]",
+      "expect": "\\begin{array}{l} \\text {addI r_{2} ,0 \\Rightarrow r_{7}} \\\\ \\text {mult r_{4} ,r_{7} \\Rightarrow r_{10}} \\end{array} \\quad \\Longrightarrow \\quad \\text {mult r_{4} ,r_{2} \\Rightarrow r_{10}}",
+      "new": "\\begin{array}{l} \\text {addI }r_{2} ,0 \\Rightarrow r_{7} \\\\ \\text {mult }r_{4} ,r_{7} \\Rightarrow r_{10} \\end{array} \\quad \\Longrightarrow \\quad \\text {mult }r_{4} ,r_{2} \\Rightarrow r_{10}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-313-e900fb",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "field": "caption",
+      "all": true,
+      "old": "$$ ← $\\mathcal{F}_{+} ($1,$3)$ } | Expr - Term { $$",
+      "new": "$$ \\leftarrow \\mathcal{F}_{+} (\\$1,\\$3) \\ \\} \\mid \\mathrm{Expr} - \\mathrm{Term} \\ \\{ $$",
+      "anchor": "401218e0"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-313-f0dc22",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "field": "caption",
+      "all": true,
+      "old": "$$ ← $\\mathcal{F}_{\\div} ($1,$3)$ } | Factor { $$",
+      "new": "$$ \\leftarrow \\mathcal{F}_{\\div} (\\$1,\\$3) \\ \\} \\mid \\mathrm{Factor} \\ \\{ $$",
+      "anchor": "401218e0"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-313-ef0de3",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "field": "caption",
+      "all": true,
+      "old": "$1 } Factor → ( Expr ) { $",
+      "new": "$1 \\ \\} \\ \\mathrm{Factor} \\rightarrow ( \\mathrm{Expr} ) \\ \\{ $",
+      "anchor": "401218e0"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-313-1280f4",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[313]",
+      "field": "caption",
+      "all": true,
+      "old": "$$ ← type of the num } | name { $$",
+      "new": "$$ \\leftarrow \\text{type of the num } \\ \\} \\mid \\mathrm{name} \\ \\{ $$",
+      "anchor": "401218e0"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-815640",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$3.type) } | Expr - Term { $",
+      "new": "$3.\\mathrm{type}) \\ \\} \\mid \\mathrm{Expr} - \\mathrm{Term} \\ \\{ $",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-7ad019",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$$.type ← F×(1.type, $3.type) } | Term ÷ Factor { $$",
+      "new": "$$.\\mathrm{type} \\leftarrow F\\times(1.\\mathrm{type}, \\$3.\\mathrm{type}) \\ \\} \\mid \\mathrm{Term} \\div \\mathrm{Factor} \\ \\{ $$",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-d4f2eb",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$$.type ← F÷(1.type, $3.type) } | Factor { $$",
+      "new": "$$.\\mathrm{type} \\leftarrow F\\div(1.\\mathrm{type}, \\$3.\\mathrm{type}) \\ \\} \\mid \\mathrm{Factor} \\ \\{ $$",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-c38c18",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$1 } Factor → (Expr) { $",
+      "new": "$1 \\ \\} \\ \\mathrm{Factor} \\rightarrow (\\mathrm{Expr}) \\ \\{ $",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch04-body-314-026789",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[314]",
+      "field": "caption",
+      "all": true,
+      "old": "$$.type ← type of the number } | name { $$",
+      "new": "$$.\\mathrm{type} \\leftarrow \\text{type of the number } \\ \\} \\mid \\mathrm{name} \\ \\{ $$",
+      "anchor": "2ab01d55"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch03-body-27-dd89b0",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[27]",
+      "field": "md",
+      "all": true,
+      "old": "$ { { \\^ { 6 } \\mathrm { a } } } +  { \\mathrm { b } } \\times  { \\mathrm { c } } ^ { \\prime \\prime }$",
+      "new": "$ {} ^ { 6 } \\mathrm { a } + { \\mathrm { b } } \\times { \\mathrm { c } } ^ { \\prime \\prime }$",
+      "anchor": "09cc6e20"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch03-body-466-3088cc",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[466]",
+      "expect": "\\begin{array}{l} \\mathrm{cc} _ {6} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr then Stmt \\bullet ,eof} ], \\\\ [ S t m t \\to \\text {if expr then Stmt \\bullet else Stmt,eof} ] \\end{array} \\right\\} \\\\ \\mathrm{cc} _ {7} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if \\bullet expr then Stmt,}\\{\\text {eof,else} \\} ], \\\\ [ S t m t \\to \\text {if \\bullet expr then Stmt else Stmt,}\\{\\text {eof,else} \\} ] \\end{array} \\right\\} \\\\ \\mathrm{cc} _ {8} = \\{[ S t m t \\to \\text {assign \\bullet ,}\\{\\text {eof,else} \\} ] \\} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{cc} _ {6} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr then Stmt }\\bullet\\text { ,eof} ], \\\\ [ S t m t \\to \\text {if expr then Stmt }\\bullet\\text { else Stmt,eof} ] \\end{array} \\right\\} \\\\ \\mathrm{cc} _ {7} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if }\\bullet\\text { expr then Stmt,}\\{\\text {eof,else} \\} ], \\\\ [ S t m t \\to \\text {if }\\bullet\\text { expr then Stmt else Stmt,}\\{\\text {eof,else} \\} ] \\end{array} \\right\\} \\\\ \\mathrm{cc} _ {8} = \\{[ S t m t \\to \\text {assign }\\bullet\\text { ,}\\{\\text {eof,else} \\} ] \\} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch03-body-468-db0845",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[468]",
+      "expect": "\\begin{array}{l} \\mathbf {c c c} _ {9} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr then Stmt else \\bullet Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {if expr then Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {if expr then Stmt else Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {assign, eof} ] \\end{array} \\right\\} \\\\ \\mathbf {c c c} _ {1 0} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr \\bullet then Stmt, \\{\\text {eof,else}\\}} ], \\\\ [ S t m t \\to \\text {if expr \\bullet then Stmt else Stmt, \\{\\text {eof,else}\\}} ] \\end{array} \\right\\} \\end{array}",
+      "new": "\\begin{array}{l} \\mathbf {c c c} _ {9} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr then Stmt else } \\bullet \\text { Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {if expr then Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {if expr then Stmt else Stmt, eof} ], \\\\ [ S t m t \\to \\bullet \\text {assign, eof} ] \\end{array} \\right\\} \\\\ \\mathbf {c c c} _ {1 0} = \\left\\{ \\begin{array}{l} [ S t m t \\to \\text {if expr } \\bullet \\text { then Stmt, \\{eof,else\\}} ], \\\\ [ S t m t \\to \\text {if expr } \\bullet \\text { then Stmt else Stmt, \\{eof,else\\}} ] \\end{array} \\right\\} \\end{array}"
+    },
+    {
+      "id": "cooper_torczon_engineering_compiler-ch07-body-356-1d95c9",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[356]",
+      "expect": "\\begin{array}{l l l l l}&\\text {loadI}&@ b&\\Rightarrow r _ {@ b}\\\\&\\text {loadAI}&r _ {@ b}, - 4&\\Rightarrow r _ {1}&/ / \\text {get b ^ {\\prime} s length}\\\\&\\text {loadI}&@ a&\\Rightarrow r _ {@ a}\\\\&\\text {loadAI}&r _ {@ a}, - 4&\\Rightarrow r _ {2}&/ / \\text {get a ^ {\\prime} s length}\\\\&\\text {cmp\\_LT}&r _ {2}, r _ {1}&\\Rightarrow r _ {3}&/ / \\text {will b fit in a?}\\\\&\\text {cbr}&r _ {3}&\\rightarrow L _ {\\text {sov}}, L _ {1}&/ / \\text {raise overflow}\\\\&L _ {1}: \\text {loadI}&0&\\Rightarrow r _ {4}&/ / \\text {counter}\\\\&\\text {cmp\\_LT}&r _ {4}, r _ {1}&\\Rightarrow r _ {5}&/ / \\text {more to copy?}\\\\&\\text {cbr}&r _ {5}&\\rightarrow L _ {2}, L _ {3}\\\\&L _ {2}: \\text {cloadAO}&r _ {@ b}, r _ {4}&\\Rightarrow r _ {6}&/ / \\text {get char from b}\\\\&\\text {cstoreAO}&r _ {6}&\\Rightarrow r _ {@ a}, r _ {4}&/ / \\text {put it in a}\\\\&\\text {addI}&r _ {4}, 1&\\Rightarrow r _ {4}&/ / \\text {increment offset}\\\\&\\text {cmp\\_LT}&r _ {4}, r _ {1}&\\Rightarrow r _ {7}&/ / \\text {more to copy?}\\\\&\\text {cbr}&r _ {7}&\\rightarrow L _ {2}, L _ {3}\\\\&L _ {3}: \\text {storeAI}&r _ {1}&\\Rightarrow r _ {@ a}, - 4&/ / \\text {set length}\\end{array}",
+      "new": "\\begin{array}{l l l l l}&\\text {loadI}&@ b&\\Rightarrow r _ {@ b}\\\\&\\text {loadAI}&r _ {@ b}, - 4&\\Rightarrow r _ {1}&/ / \\text {get b}^{\\prime}\\text {s length}\\\\&\\text {loadI}&@ a&\\Rightarrow r _ {@ a}\\\\&\\text {loadAI}&r _ {@ a}, - 4&\\Rightarrow r _ {2}&/ / \\text {get a}^{\\prime}\\text {s length}\\\\&\\text {cmp\\_LT}&r _ {2}, r _ {1}&\\Rightarrow r _ {3}&/ / \\text {will b fit in a?}\\\\&\\text {cbr}&r _ {3}&\\rightarrow L _ {\\text {sov}}, L _ {1}&/ / \\text {raise overflow}\\\\&L _ {1}: \\text {loadI}&0&\\Rightarrow r _ {4}&/ / \\text {counter}\\\\&\\text {cmp\\_LT}&r _ {4}, r _ {1}&\\Rightarrow r _ {5}&/ / \\text {more to copy?}\\\\&\\text {cbr}&r _ {5}&\\rightarrow L _ {2}, L _ {3}\\\\&L _ {2}: \\text {cloadAO}&r _ {@ b}, r _ {4}&\\Rightarrow r _ {6}&/ / \\text {get char from b}\\\\&\\text {cstoreAO}&r _ {6}&\\Rightarrow r _ {@ a}, r _ {4}&/ / \\text {put it in a}\\\\&\\text {addI}&r _ {4}, 1&\\Rightarrow r _ {4}&/ / \\text {increment offset}\\\\&\\text {cmp\\_LT}&r _ {4}, r _ {1}&\\Rightarrow r _ {7}&/ / \\text {more to copy?}\\\\&\\text {cbr}&r _ {7}&\\rightarrow L _ {2}, L _ {3}\\\\&L _ {3}: \\text {storeAI}&r _ {1}&\\Rightarrow r _ {@ a}, - 4&/ / \\text {set length}\\end{array}"
+    }
+  ]
+}

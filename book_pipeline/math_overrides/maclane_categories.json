@@ -1,0 +1,68 @@
+{
+  "overrides": [
+    {
+      "id": "maclane_categories-ch09-body-60-18b47a",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[60]",
+      "expect": "\\tau \\mapsto (y, k ^ {\\prime}) \\in \\underline {{\\operatorname{Colim}}} _ {j} \\underset {\\longleftarrow} {\\operatorname{Lim}} _ {p} F (p, j),",
+      "new": "\\tau \\mapsto (y, k ^ {\\prime}) \\in \\underline {{\\operatorname{Colim}}} _ {j} {\\underset {\\longleftarrow} {\\operatorname{Lim}}} _ {p} F (p, j),"
+    },
+    {
+      "id": "maclane_categories-ch06-body-18-7bcda8",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[18]",
+      "expect": "L: A \\rightarrow A, \\quad \\varepsilon : L \\rightarrow I, \\quad \\delta : L \\rightarrow L ^ {2}} )}",
+      "new": "L: A \\rightarrow A, \\quad \\varepsilon : L \\rightarrow I, \\quad \\delta : L \\rightarrow L ^ {2}"
+    },
+    {
+      "id": "maclane_categories-ch07-body-176-8d2cbb",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[176]",
+      "expect": "d _ {i} d _ {j + 1} = d _ {j} d _ {i}, \\quad i \\leq j )}",
+      "new": "d _ {i} d _ {j + 1} = d _ {j} d _ {i}, \\quad i \\leq j"
+    },
+    {
+      "id": "maclane_categories-ch07-body-177-bc43f6",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[177]",
+      "expect": "s _ {j + 1} s _ {i} = s _ {i} s _ {j} \\qquad i \\leq j )}",
+      "new": "s _ {j + 1} s _ {i} = s _ {i} s _ {j} \\qquad i \\leq j"
+    },
+    {
+      "id": "maclane_categories-ch07-body-178-36cb87",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[178]",
+      "expect": "\\left. \\begin{array}{r l} d _ {i} s _ {j} = s _ {j - 1} d _ {i}, & i <   j \\\\ = 1, & i = j, j + 1, \\\\ = s _ {j} d _ {i - 1} & i > j + 1. \\end{array} \\right\\} )}",
+      "new": "\\left. \\begin{array}{r l} d _ {i} s _ {j} = s _ {j - 1} d _ {i}, & i <   j \\\\ = 1, & i = j, j + 1, \\\\ = s _ {j} d _ {i - 1} & i > j + 1. \\end{array} \\right\\}"
+    },
+    {
+      "id": "maclane_categories-ch11-body-70-05ee4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[70]",
+      "expect": "\\begin{array}{c c c} v (F   a _ {1}, \\ldots , F   a _ {n}) & \\xrightarrow {F _ {v}} & F   v (a _ {1}, \\ldots , a _ {n}) \\\\ \\Biggl \\downarrow v (\\theta_ {a _ {1}}, \\ldots , \\theta_ {a _ {n}}) & & \\Biggl \\downarrow \\theta_ {v} (a _ {1}, \\ldots , a _ {n}) \\\\ v (G   a _ {1}, \\ldots , G   a _ {n}) & \\xrightarrow [ G _ {v} ] & G   v (a _ {1}, \\ldots , a _ {n}) \\end{array}",
+      "new": "\\begin{array}{c c c} v (F   a _ {1}, \\ldots , F   a _ {n}) & \\xrightarrow {F _ {v}} & F   v (a _ {1}, \\ldots , a _ {n}) \\\\ \\Biggl \\downarrow v (\\theta_ {a _ {1}}, \\ldots , \\theta_ {a _ {n}}) & & \\Biggl \\downarrow \\theta_ {v} (a _ {1}, \\ldots , a _ {n}) \\\\ v (G   a _ {1}, \\ldots , G   a _ {n}) & \\xrightarrow { G _ {v} } & G   v (a _ {1}, \\ldots , a _ {n}) \\end{array}"
+    },
+    {
+      "id": "maclane_categories-ch12-body-280-5643ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[280]",
+      "expect": "\\begin{array}{c c c} p & \\longrightarrow & c \\\\ \\Big \\downarrow & & \\Big \\downarrow_ {s} \\\\ a & \\xrightarrow [ f ] & b. \\end{array}",
+      "new": "\\begin{array}{c c c} p & \\longrightarrow & c \\\\ \\Big \\downarrow & & \\Big \\downarrow_ {s} \\\\ a & \\xrightarrow { f } & b. \\end{array}"
+    },
+    {
+      "id": "maclane_categories-ch09-body-43-c4a5ae",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[43]",
+      "expect": "\\begin{array}{c} F (p, j) \\xleftarrow {\\nu_ {p , j}} \\underset {\\mu_ {p, j}} {\\operatorname * {L i m}} _ {p} F (p, j) \\xrightarrow {\\mu_ {j}} \\underset {\\alpha_ {j}} {\\operatorname * {C o l i m}} _ {j} \\underset {\\downarrow} {\\operatorname * {L i m}} _ {p} F (p, j) \\\\ \\underline {{\\operatorname * {C o l i m}}} _ {j} F (p, j) \\xleftarrow {\\nu_ {p}} \\underset {\\downarrow} {\\operatorname * {L i m}} _ {p} \\underset {\\downarrow} {\\operatorname * {C o l i m}} _ {j} F (p, j) = \\underset {\\leftarrow} {\\operatorname * {L i m}} _ {p} \\underset {\\downarrow} {\\operatorname * {C o l i m}} _ {j} F (p, j) \\end{array}",
+      "new": "\\begin{array}{c} F (p, j) \\xleftarrow {\\nu_ {p , j}} {\\underset {\\mu_ {p, j}} {\\operatorname * {L i m}}} _ {p} F (p, j) \\xrightarrow {\\mu_ {j}} {\\underset {\\alpha_ {j}} {\\operatorname * {C o l i m}}} _ {j} {\\underset {\\downarrow} {\\operatorname * {L i m}}} _ {p} F (p, j) \\\\ \\underline {{\\operatorname * {C o l i m}}} _ {j} F (p, j) \\xleftarrow {\\nu_ {p}} {\\underset {\\downarrow} {\\operatorname * {L i m}}} _ {p} {\\underset {\\downarrow} {\\operatorname * {C o l i m}}} _ {j} F (p, j) = {\\underset {\\leftarrow} {\\operatorname * {L i m}}} _ {p} {\\underset {\\downarrow} {\\operatorname * {C o l i m}}} _ {j} F (p, j) \\end{array}"
+    }
+  ]
+}

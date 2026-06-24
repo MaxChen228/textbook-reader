@@ -1,0 +1,53 @@
+{
+  "overrides": [
+    {
+      "id": "gallian_abstract_algebra-ch03-problem-86-body-1-d76a3e",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:86:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{  \\begin{array} { c c } { { \\left[ { \\begin{array} { c c } { { 1 } } & { { 0 } } \\\\ { { 0 } } & { { 1 } } \\end{array} } \\right] } , } & { { \\left[ { \\begin{array} { c c } { { - 1 } } & { { 0 } } \\\\ { { 0 } } & { { - 1 } } \\end{array} } \\right] } } \\right\\} , { \\mathbf c . \\ \\{ 1 , \\ 5 \\} } \\end{array}$",
+      "new": "$\\left\\{  \\begin{array} { c c } { { \\left[ { \\begin{array} { c c } { { 1 } } & { { 0 } } \\\\ { { 0 } } & { { 1 } } \\end{array} } \\right] } , } & { { \\left[ { \\begin{array} { c c } { { - 1 } } & { { 0 } } \\\\ { { 0 } } & { { - 1 } } \\end{array} } \\right] } } \\end{array} \\right\\} , { \\mathbf c . \\ \\{ 1 , \\ 5 \\} }$",
+      "anchor": "2e1d961b"
+    },
+    {
+      "id": "gallian_abstract_algebra-ch03-problem-8-body-0-14a0b0",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$| a \\ + \\ b | \\big { ? }$",
+      "new": "$| a \\ + \\ b | \\big\\{ ? \\}$",
+      "anchor": "e85bbc50"
+    },
+    {
+      "id": "gallian_abstract_algebra-ch03-problem-80-body-0-e10732",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:80:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$| b | \\big ?$",
+      "new": "$| b | ?$",
+      "anchor": "2c056f83"
+    },
+    {
+      "id": "gallian_abstract_algebra-ch17-body-98-1f35fe",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[98]",
+      "expect": "\\begin{array}{r l} & (x ^ {6} + x ^ {5} + x ^ {4} + x ^ {3} + x ^ {2} + x) (x ^ {6} + x ^ {5} + x ^ {4} + x ^ {3} + x ^ {2} + x) \\\\ & \\quad = (x ^ {a _ {1}} + x ^ {a _ {2}} + x ^ {a _ {3}} + x ^ {a _ {4}} + x ^ {a _ {5}} + x ^ {a _ {6}}). \\\\ & \\quad (x ^ {b _ {1}} + x ^ {b _ {2}} + x ^ {b _ {3}} + x ^ {b _ {4}} + x ^ {b _ {5}} + x ^ {b _ {6}}). \\end{array} \\tag {1}\\tag{17.1}",
+      "new": "\\begin{array}{r l} & (x ^ {6} + x ^ {5} + x ^ {4} + x ^ {3} + x ^ {2} + x) (x ^ {6} + x ^ {5} + x ^ {4} + x ^ {3} + x ^ {2} + x) \\\\ & \\quad = (x ^ {a _ {1}} + x ^ {a _ {2}} + x ^ {a _ {3}} + x ^ {a _ {4}} + x ^ {a _ {5}} + x ^ {a _ {6}}). \\\\ & \\quad (x ^ {b _ {1}} + x ^ {b _ {2}} + x ^ {b _ {3}} + x ^ {b _ {4}} + x ^ {b _ {5}} + x ^ {b _ {6}}). \\end{array} \\tag{17.1}"
+    },
+    {
+      "id": "gallian_abstract_algebra-ch29-problem-10-body-1-78d54e",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "problem:10:body[1]",
+      "expect": "\\begin{array}{c} C = \\{0 0 0 0 0 0 0, 1 1 1 0 1 0 0, 0 1 1 1 0 1 0,   0 0 1 1 1 0 1, 1 0 0 1 1 1 0, \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} C = \\{0 0 0 0 0 0 0, 1 1 1 0 1 0 0, 0 1 1 1 0 1 0,   0 0 1 1 1 0 1, 1 0 0 1 1 1 0, \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

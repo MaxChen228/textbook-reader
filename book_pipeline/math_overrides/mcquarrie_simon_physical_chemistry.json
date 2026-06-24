@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "mcquarrie_simon_physical_chemistry-ch29-body-130-7a8042",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "body[130]",
+      "expect": "\\begin{array}{l} \\text {[ P ] = [ A ] _ {0} \\left\\{1 + \\frac {1}{k _ {1} - k _ {2}} (k _ {2} e ^ {- k _ {1} t} - k _ {1} e ^ {- k _ {2} t}) \\right\\}} \\\\ \\approx \\text {[ A ] _ {0} \\left\\{1 + \\frac {1}{- k _ {2}} k _ {2} e ^ {- k _ {1} t} \\right\\}} \\\\ = \\text {[ A ] _ {0} (1 - e ^ {- k _ {1} t})} \\end{array}",
+      "new": "\\begin{array}{l} [ P ] = [ A ] _ {0} \\left\\{1 + \\frac {1}{k _ {1} - k _ {2}} (k _ {2} e ^ {- k _ {1} t} - k _ {1} e ^ {- k _ {2} t}) \\right\\} \\\\ \\approx [ A ] _ {0} \\left\\{1 + \\frac {1}{- k _ {2}} k _ {2} e ^ {- k _ {1} t} \\right\\} \\\\ = [ A ] _ {0} (1 - e ^ {- k _ {1} t}) \\end{array}"
+    }
+  ]
+}

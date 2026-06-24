@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "angrist_pischke_mostly_harmless-ch03-body-181-b5ae6a",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[181]",
+      "field": "md",
+      "all": true,
+      "old": "$E \\left[ \\mathrm { Y } _ { i } \\middle | \\mathrm { C } _ { i } = 1 \\right] - E \\middle | \\mathrm { Y } _ { i } \\middle | \\mathrm { C } _ { i } = 0 ]$",
+      "new": "$E \\left[ \\mathrm { Y } _ { i } \\middle | \\mathrm { C } _ { i } = 1 \\right] - E \\left[ \\mathrm { Y } _ { i } \\middle | \\mathrm { C } _ { i } = 0 \\right]$",
+      "anchor": "d6eb025f"
+    },
+    {
+      "id": "angrist_pischke_mostly_harmless-ch04-body-467-59d929",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[467]",
+      "expect": "\\begin{array}{r c l} \\frac {\\sum_ {j} \\sum_ {i} \\mathrm{s} _ {i j} (\\overline {{S}} _ {j} - \\overline {{S}})}{\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} & = & \\frac {\\sum_ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) \\sum_ {i} \\mathrm{s} _ {i j}}{\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} \\\\ & = & \\frac {\\sum_ {j} \\overline {{(S}}} _ {j} - \\overline {{S}}) (n _ {j} \\overline {{S}} _ {j}){\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} = 1. \\end{array}",
+      "new": "\\begin{array}{r c l} \\frac {\\sum_ {j} \\sum_ {i} \\mathrm{s} _ {i j} (\\overline {{S}} _ {j} - \\overline {{S}})}{\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} & = & \\frac {\\sum_ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) \\sum_ {i} \\mathrm{s} _ {i j}}{\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} \\\\ & = & \\frac {\\sum_ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) (n _ {j} \\overline {{S}} _ {j})}{\\sum_ {j} n _ {j} (\\overline {{S}} _ {j} - \\overline {{S}}) ^ {2}} = 1. \\end{array}"
+    }
+  ]
+}

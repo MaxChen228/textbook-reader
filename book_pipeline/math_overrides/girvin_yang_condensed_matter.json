@@ -84,6 +84,17 @@
       "selector": "body[130]",
       "expect": "\\begin{array}{l} - c \\frac {\\delta}{\\delta A _ {\\mu} (\\vec {r})} \\left<   \\Psi \\left. \\right| \\frac {1}{2 m} \\left(\\vec {p} + \\frac {e}{c} \\vec {A}\\right) ^ {2} + V | \\Psi \\rangle \\\\ = \\frac {- e}{2 m} \\int d ^ {3} \\vec {R} \\Psi^ {*} (\\vec {R}) \\left\\{\\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\delta^ {3} (\\vec {r} - \\vec {R}) \\right. \\\\ \\left. + \\delta^ {3} (\\vec {r} - \\vec {R}) \\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\right\\} \\Psi (\\vec {R}) (19.40) \\\\ = \\left\\langle \\Psi | J ^ {\\mu} (\\vec {r}) | \\Psi \\right\\rangle (19.41) \\\\ \\end{array}",
       "new": "\\begin{array}{l} - c \\frac {\\delta}{\\delta A _ {\\mu} (\\vec {r})} \\left\\langle   \\Psi \\left| \\frac {1}{2 m} \\left(\\vec {p} + \\frac {e}{c} \\vec {A}\\right) ^ {2} + V \\right| \\Psi \\right\\rangle \\\\ = \\frac {- e}{2 m} \\int d ^ {3} \\vec {R} \\Psi^ {*} (\\vec {R}) \\left\\{\\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\delta^ {3} (\\vec {r} - \\vec {R}) \\right. \\\\ \\left. + \\delta^ {3} (\\vec {r} - \\vec {R}) \\left(p ^ {\\mu} + \\frac {e}{c} A ^ {\\mu}\\right) \\right\\} \\Psi (\\vec {R}) (19.40) \\\\ = \\left\\langle \\Psi | J ^ {\\mu} (\\vec {r}) | \\Psi \\right\\rangle (19.41) \\\\ \\end{array}"
+    },
+    {
+      "id": "girvin_yang_condensed_matter-ch05-body-91-7d3983",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[91]",
+      "field": "md",
+      "all": true,
+      "old": "$\\overset  { \\mathcal { D } } ( \\vec { 0 } ) = \\overset  { 0 }$",
+      "new": "$\\overset  { \\mathcal { D } } { ( \\vec { 0 } ) } = 0$",
+      "anchor": "08f55593"
     }
   ]
 }

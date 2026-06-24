@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "anslyn_dougherty_physical_organic-ch02-body-118-b13d42",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[118]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Delta H_{\\mathrm{f}}^{\\circ}_{298}$",
+      "new": "$\\Delta H_{\\mathrm{f}}^{\\circ}{}_{298}$",
+      "anchor": "450ef61d"
+    },
+    {
+      "id": "anslyn_dougherty_physical_organic-ch01-body-40-d64fc4",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[40]",
+      "expect": "\\begin{array}{c c c} 1 8 0 ^ {\\circ} & \\\\ \\text {:C\\equiv O:} & H - C \\equiv C - H & H \\quad 1 2 0 ^ {\\circ} \\\\ & & \\oplus C - H \\\\ & & H \\end{array} \\quad \\begin{array}{c c c} H & \\\\ \\text {   } & 1 0 9. 5 ^ {\\circ} \\\\ H & C - H \\end{array}",
+      "new": "\\begin{array}{c c c} 1 8 0 ^ {\\circ} & \\\\ \\text {:} C\\equiv O \\text {:} & H - C \\equiv C - H & H \\quad 1 2 0 ^ {\\circ} \\\\ & & \\oplus C - H \\\\ & & H \\end{array} \\quad \\begin{array}{c c c} H & \\\\ \\text {   } & 1 0 9. 5 ^ {\\circ} \\\\ H & C - H \\end{array}"
+    },
+    {
+      "id": "anslyn_dougherty_physical_organic-ch09-problem-12-body-1-c97216",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:12:body[1]",
+      "expect": "\\begin{array}{c} \\text {Rate = [acetone](k_{H^{+}} [H_{3} O^{+} ] + k_{HA} [HA] + k_{OH^{-}} [OH^{-}] + k_{B} [B])} \\\\ \\text {term 1 term 2 term 3 term 4} \\end{array}",
+      "new": "\\begin{array}{c} \\text {Rate} = [\\text {acetone}](k_{H^{+}} [H_{3} O^{+} ] + k_{HA} [HA] + k_{OH^{-}} [OH^{-}] + k_{B} [B]) \\\\ \\text {term 1 term 2 term 3 term 4} \\end{array}"
+    },
+    {
+      "id": "anslyn_dougherty_physical_organic-ch04-body-136-87c58f",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[136]",
+      "expect": "\\delta_ {\\mathrm{obs}} - \\delta_ {\\mathrm{H}} = X _ {\\mathrm {H\\bulletG}} (\\delta_ {\\mathrm {H\\bulletG}} - \\delta_ {\\mathrm{H}})\\tag{Eq. 4.29}",
+      "new": "\\delta_ {\\mathrm{obs}} - \\delta_ {\\mathrm{H}} = X _ {\\mathrm {H\\bullet G}} (\\delta_ {\\mathrm {H\\bullet G}} - \\delta_ {\\mathrm{H}})\\tag{Eq. 4.29}"
+    }
+  ]
+}

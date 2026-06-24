@@ -1,0 +1,169 @@
+{
+  "slug": "grimaldi_discrete_combinatorial",
+  "overrides": [
+    {
+      "id": "grimaldi-fig-10.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[73]",
+      "position": "after",
+      "page": 476,
+      "clip": [
+        0.5,
+        0.17,
+        0.77,
+        0.34
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.4",
+        "kind": "line",
+        "caption": "Figure 10.4"
+      },
+      "reason": "C4: Fig. 10.4 exists in raw PDF immediately after the reference but MinerU emitted the pseudocode as an excluded table, leaving no figure catalog entry."
+    },
+    {
+      "id": "grimaldi-fig-13.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "problem:EXERCISES13.1.2:body[0]",
+      "position": "after",
+      "page": 659,
+      "clip": [
+        0.35,
+        0.17,
+        0.8,
+        0.42
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-13.4",
+        "kind": "line",
+        "caption": "Figure 13.4"
+      },
+      "reason": "C4: Exercise 13.1.2 references Fig. 13.4; raw PDF page shows the graph beside the exercise, but parsed data has no corresponding figure block."
+    },
+    {
+      "id": "grimaldi-fig-14.1-caption",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[251]",
+      "expect": {
+        "id": "fig-14.1",
+        "caption": "Table 14.11"
+      },
+      "set": {
+        "caption": "Figure 14.1",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C4: block already anchors the modular exponentiation pseudocode as fig-14.1, but caption was polluted as Table 14.11 so build_catalogs classified it as a table. Raw PDF page 714 labels it Figure 14.1."
+    },
+    {
+      "id": "grimaldi-table-15.14-restore",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[136]",
+      "expect": {
+        "id": "fig-15.10"
+      },
+      "set": {
+        "id": "fig-15.10",
+        "caption": "Table 15.14",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C5: this block is the Karnaugh map labeled Table 15.14 in raw PDF page 752; keep it as table supply for Table 15.14 instead of using it for Figure 15.10."
+    },
+    {
+      "id": "grimaldi-fig-15.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "problem:EXERCISES15.2.5:body[0]",
+      "position": "after",
+      "page": 749,
+      "clip": [
+        0.17,
+        0.74,
+        0.84,
+        0.94
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-15.7",
+        "kind": "line",
+        "caption": "Figure 15.7"
+      },
+      "reason": "C4: Exercise 15.2.5 references Fig. 15.7; raw PDF page 749 contains the network at the bottom of the page, but MinerU omitted it from the exercise block."
+    },
+    {
+      "id": "grimaldi-fig-15.10-id-fix",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[162]",
+      "expect": {
+        "src": "fb9be0fc673d89f5cf894f21a70034a7323b8d18074cfba5a8fc3029bc4dc537.jpg"
+      },
+      "set": {
+        "id": "fig-15.10",
+        "caption": "Figure 15.10",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C4: raw PDF page 752 labels this multiple-of-three detector block as Figure 15.10; MinerU captured it but assigned the following figure number."
+    },
+    {
+      "id": "grimaldi-fig-15.11-id-fix",
+      "action": "set_fields",
+      "chunk": "ch15",
+      "selector": "body[167]",
+      "expect": {
+        "src": "5fad0166f39619a3f9e34d12c850ee24012d1ed4cb032221d0736fcd9b146d14.jpg"
+      },
+      "set": {
+        "id": "fig-15.11",
+        "caption": "Figure 15.11",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C4: raw PDF page 752 labels this two-level gating network as Figure 15.11; MinerU captured it but carried a later duplicate id."
+    },
+    {
+      "id": "grimaldi-fig-6.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "problem:EXERCISES6.1.28:body[45]",
+      "position": "after",
+      "page": 344,
+      "clip": [
+        0.34,
+        0.56,
+        0.67,
+        0.75
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.3",
+        "kind": "line",
+        "caption": "Figure 6.3"
+      },
+      "reason": "C4: raw PDF page 344 shows the serial binary adder labeled Figure 6.3 after the referenced paragraph, but parsed exercise data jumps from fig-6.2 to fig-6.4."
+    },
+    {
+      "id": "grimaldi-fig-A1.2-id-fix",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[309]",
+      "expect": {
+        "id": "fig-A1.1",
+        "src": "b35608be8aae9cfa9919d4d40107c07e14434189db67a1671646ab5c48a7280f.jpg"
+      },
+      "set": {
+        "id": "fig-A1.2",
+        "caption": "Figure A1.2",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "C4: raw PDF page 859 labels the right-hand f5 graph as Figure A1.2; MinerU captured the image but inherited duplicate id/caption fig-A1.1."
+    }
+  ]
+}
