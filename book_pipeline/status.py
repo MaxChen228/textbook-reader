@@ -271,7 +271,11 @@ def assess(slug: str, pending: set = frozenset(), raw: dict = None) -> dict:
     raw = raw or {}
     has_sol_book = _exists(f'{slug}_sol', 'unified', 'content_list.json')
     has_zh = bool(glob.glob(f'{DATA}/{slug}/parsed/*.zh.json'))
-    if not _exists(slug, 'unified', 'content_list.json'):
+    # parsed/book.json 存在＝ingest+parse 已完成的鐵證（parser 無 unified 產不出 book.json）。
+    # 不因上游中間產物（unified）被 quarantine/GC 移除就把**已處理書倒退回 ingest**——
+    # stewart_calculus 曾因 unified→_quarantine 斷 symlink 被誤判「未ingest」、卡死 6 天每 cycle
+    # 重 ingest（raw 已 post-deploy GC、無從重做）。parsed 在則跳過 ingest 三態、續往下游推導。
+    if not _exists(slug, 'unified', 'content_list.json') and not _exists(slug, 'parsed', 'book.json'):
         # 前置三態皆待本地一條龍 ingest（動詞統一）；階段名保留診斷區分
         if slug in pending:
             return {'slug': slug, 'stage': '0.5 OCR處理中', 'todo': 'ingest', 'sol_book': has_sol_book}

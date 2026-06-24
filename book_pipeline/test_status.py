@@ -388,6 +388,25 @@ def test_entry_ts_priority_and_fallback():
         assert st._entry_ts('c') is None, 'qc-only 無 durable 戳 → None（待 backfill）'
 
 
+def test_assess_parsed_book_not_regressed_when_unified_gone():
+    """已 parse 的書若上游 unified 被 quarantine/GC 移除（stewart_calculus 的 unified→_quarantine
+    斷 symlink）絕不倒退回『未ingest』——parsed/book.json 在＝ingest+parse 已完成的鐵證。
+    此前 status.assess 只認 unified/content_list.json → 已部署書被誤判未ingest、卡死 6 天
+    每 cycle 重 ingest（raw 已 post-deploy GC、無從重做）。"""
+    with _sandbox() as (root, data):
+        slug = 'unified_gone'
+        _mk_book(data, slug)                                              # parsed/book.json 在；故意不建 unified/
+        _write(os.path.join(data, slug, 'extract_rules.yaml'), 'x')      # 過 audit 閘（line 281）
+        # 無 unified、不在 raw、不在 pending → 舊碼回 'X 未ingest'；新碼憑 parsed 續往下游
+        r = st.assess(slug, pending=frozenset(), raw={})
+        assert not r['stage'].endswith('未ingest'), r
+        assert r['todo'] != 'ingest', r
+        assert r['stage'].startswith('3 parsed') or r['stage'].startswith('4'), r
+        # 反例：unified + parsed 皆無 → 仍正確回未ingest（不誤放真未處理書）
+        r2 = st.assess('truly_raw', pending=frozenset(), raw={})
+        assert r2['stage'] == 'X 未ingest' and r2['todo'] == 'ingest', r2
+
+
 if __name__ == '__main__':
     test_assess_stage_transitions_by_disk_state()
     print('✓ stage 轉移矩陣（X/0/0.5 待ingest → 1 待audit → 2 待parse → 3 parsed → 4 sol已merge）')
@@ -399,4 +418,6 @@ if __name__ == '__main__':
     print('✓ sol_stats：壞檔不連坐靜默跳過 + solution 三態（缺/空/null=無，非空list=有）+ .zh 不重計')
     test_entry_ts_priority_and_fallback()
     print('✓ 入庫時間戳：first_seen_at 優先 / 缺則退階段戳最早 / qc-only=None')
+    test_assess_parsed_book_not_regressed_when_unified_gone()
+    print('✓ unified 被移除不倒退：parsed/book.json 在＝ingest 已完成、不誤判未ingest（stewart 斷 symlink 卡死回歸）')
     print('\n全部通過 ✅')
