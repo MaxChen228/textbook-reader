@@ -1,0 +1,41 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.34",
+      "classification": "source_mismatch",
+      "reason": "原書正文引用 Figure 1.34，但 raw PDF 相鄰頁從 Figure 1.31/1.32/1.33 直接接到 Figure 1.35，未提供 Figure 1.34 可供 catalog 修復。",
+      "where": "ch01.json body[298]",
+      "evidence": "raw PDF physical pages 56-58: p56 text says 'An example is shown in Figure 1.34'; p57 caption is FIGURE 1.32; p58 caption is FIGURE 1.33; parsed catalog has fig-1.33 and fig-1.35 but no source image/caption for fig-1.34."
+    },
+    {
+      "type": "table",
+      "ref": "3.4",
+      "classification": "source_mismatch",
+      "reason": "原書正文引用 Table 3.4，但本書 Chapter 3 catalog/raw source 僅有 Table 3.1、3.2、3.3；此處是原書錯引，不能安全改寫為任一現有表。",
+      "where": "ch04.json body[52]",
+      "evidence": "raw PDF physical page 228 prints 'given in Table 3.4'; parsed catalog for Chapter 3 contains tbl-3.1/tbl-3.2 and raw PDF physical page 215 contains TABLE 3.3; no TABLE 3.4 exists in the parsed catalog or nearby raw source."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "porter-table-3.3-normalize",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[515]",
+      "expect": {
+        "id": "tbl-ch03-515",
+        "t": "table"
+      },
+      "set": {
+        "id": "tbl-3.3",
+        "caption": "TABLE 3.3 Classification of Nucleation and Growth Transformations",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "raw PDF physical page 215 shows TABLE 3.3; MinerU OCR mangled the caption and prior catalog state treated this numbered table as unnumbered."
+    }
+  ]
+}

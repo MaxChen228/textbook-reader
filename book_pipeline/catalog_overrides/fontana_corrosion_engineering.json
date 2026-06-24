@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "fontana-ch04-fix-fig-4-20-ref-ocr",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[164]",
+      "field": "md",
+      "old": "statistical-data (Fig. 14-20). As shown in this graph",
+      "new": "statistical-data (Fig. 4-20). As shown in this graph",
+      "reason": "OCR 將同段已存在的 Figure 4-20 誤讀成 Figure 14-20；catalog 已有 fig-4.20，且上下文位於 Chapter 4 crevice corrosion test discussion。"
+    }
+  ]
+}

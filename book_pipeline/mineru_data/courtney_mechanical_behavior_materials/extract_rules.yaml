@@ -1,0 +1,149 @@
+slug: courtney_mechanical_behavior_materials
+title: Mechanical Behavior of Materials
+author: Thomas H. Courtney
+edition: 2nd
+subject: Materials Science
+publisher: Waveland Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 735
+bibliography_start_page: null
+index_start_page: 735
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Overview of Mechanical Behavior
+    page_start: 17
+    page_end: 59
+    chapter_title_block_idx: 44
+    problems_block_idx: 436
+    next_chapter_block_idx: 460
+  - num: 2
+    title: Elastic Behavior
+    page_start: 60
+    page_end: 100
+    chapter_title_block_idx: 460
+    problems_block_idx: 774
+    next_chapter_block_idx: 825
+  - num: 3
+    title: Dislocations
+    page_start: 101
+    page_end: 155
+    chapter_title_block_idx: 825
+    problems_block_idx: 1231
+    next_chapter_block_idx: 1269
+  - num: 4
+    title: Plastic Deformation in Single and Polycrystalline Materials
+    page_start: 156
+    page_end: 190
+    chapter_title_block_idx: 1269
+    problems_block_idx: 1475
+    next_chapter_block_idx: 1521
+  - num: 5
+    title: Strengthening of Crystalline Materials
+    page_start: 191
+    page_end: 259
+    chapter_title_block_idx: 1521
+    problems_block_idx: 1999
+    next_chapter_block_idx: 2116
+  - num: 6
+    title: Composite Materials
+    page_start: 260
+    page_end: 308
+    chapter_title_block_idx: 2116
+    problems_block_idx: 2533
+    next_chapter_block_idx: 2578
+  - num: 7
+    title: High-Temperature Deformation of Crystalline Materials
+    page_start: 309
+    page_end: 369
+    chapter_title_block_idx: 2578
+    problems_block_idx: 3001
+    next_chapter_block_idx: 3065
+  - num: 8
+    title: Deformation of Noncrystalline Materials
+    page_start: 370
+    page_end: 419
+    chapter_title_block_idx: 3065
+    problems_block_idx: 3402
+    next_chapter_block_idx: 3453
+  - num: 9
+    title: Fracture Mechanics
+    page_start: 420
+    page_end: 469
+    chapter_title_block_idx: 3453
+    problems_block_idx: 3806
+    next_chapter_block_idx: 3842
+  - num: 10
+    title: Toughening Mechanisms and the Physics of Fracture
+    page_start: 470
+    page_end: 537
+    chapter_title_block_idx: 3842
+    problems_block_idx: 4342
+    next_chapter_block_idx: 4408
+  - num: 11
+    title: High-Temperature Fracture
+    page_start: 538
+    page_end: 581
+    chapter_title_block_idx: 4408
+    problems_block_idx: 4713
+    next_chapter_block_idx: 4743
+  - num: 12
+    title: Fatigue of Engineering Materials
+    page_start: 582
+    page_end: 645
+    chapter_title_block_idx: 4743
+    problems_block_idx: 5155
+    next_chapter_block_idx: 5190
+  - num: 13
+    title: Embrittlement
+    page_start: 646
+    page_end: 701
+    chapter_title_block_idx: 5190
+    problems_block_idx: 5553
+    next_chapter_block_idx: 5599
+  - num: 14
+    title: Cellular Solids
+    page_start: 702
+    page_end: 734
+    chapter_title_block_idx: 5599
+    problems_block_idx: 5879
+    next_chapter_block_idx: 6958
+
+appendices: []
+
+section_re: '^((?:\d+\.\d+)?)\s*([A-Z][-A-Z0-9()''"/,:& ]*[A-Z0-9)])$'
+subsection_re: '^((?:[A-Z]|\d+)\.)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^(Name Index|Specific Substance Index|Subject Index)$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^EXAMPLE PROBLEM\s+(\d+\.\d+)\.?$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

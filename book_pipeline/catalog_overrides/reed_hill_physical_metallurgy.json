@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "12.5",
+      "classification": "source_mismatch",
+      "reason": "Problem 14.6 cites Table 12.5, but chapter 12 in this source only contains internal tables 12.1 through 12.4.",
+      "where": "ch14.json problem:14.6:body[0]",
+      "evidence": "Raw PDF p.495 shows problem 14.6 ending with 'Note: see Table 12.5.' Raw PDF p.407 and the parsed/catalog data for chapter 12 show the nickel-base diffusion table as Table 12.4, with no Table 12.5 anywhere in chapter 12."
+    },
+    {
+      "type": "table",
+      "ref": "X2.1",
+      "classification": "external",
+      "reason": "The X2.1 reference is to ASTM Standard A255, not to an internal table in this book.",
+      "where": "ch19.json body[57]",
+      "evidence": "The Table 19.5 block footnote reads '*Abstracted from ASTM Standard A255, Table X2.1.' This explicitly identifies Table X2.1 as an external ASTM source table rather than a catalogable table in this book."
+    }
+  ],
+  "overrides": []
+}

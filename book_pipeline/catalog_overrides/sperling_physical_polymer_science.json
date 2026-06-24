@@ -1,0 +1,15 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sperling-fix-table-13-13-source-typo",
+      "action": "replace_text",
+      "chunk": "ch13",
+      "selector": "body[407]",
+      "field": "md",
+      "old": "Table 11.13",
+      "new": "Table 13.13",
+      "reason": "raw PDF 此頁正文實印 Table 11.13，但同段唯一對應的表是本章 tbl-13.13（Selected composite applications，內含 Bone cements 列）；以 override 修正內部交叉引用。"
+    }
+  ]
+}

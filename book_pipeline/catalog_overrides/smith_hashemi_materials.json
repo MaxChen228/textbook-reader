@@ -1,0 +1,207 @@
+{
+  "slug": "smith_hashemi_materials",
+  "overrides": [
+    {
+      "id": "smith-hashemi-fig-16.8-id-fix",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[90]",
+      "expect": {
+        "id": "fig-16.9"
+      },
+      "set": {
+        "id": "fig-16.8",
+        "caption": "Figure 16.8 Alignment of magnetic dipoles for different types of magnetism: (a) ferromagnetism, (b) antiferromagnetism, and (c) ferrimagnetism.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Catalog block is the Figure 16.8 multi-panel magnetic-dipole diagram; MinerU omitted number and build assigned 16.9, causing missing ref 16.8b."
+    },
+    {
+      "id": "smith-hashemi-fig-4.36-id-fix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[253]",
+      "expect": {
+        "id": "fig-4.35"
+      },
+      "set": {
+        "id": "fig-4.36",
+        "caption": "Figure 4.36 Man looking into an electron microscope.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Right-hand image on PDF page 220 is Figure 4.36; MinerU/build duplicated Figure 4.35 id."
+    },
+    {
+      "id": "smith-hashemi-fig-3.18-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[252]",
+      "position": "before",
+      "page": 146,
+      "clip": [
+        0.12,
+        0.08,
+        0.88,
+        0.93
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-3.18",
+        "kind": "line",
+        "caption": "Figure 3.18 Miller-Bravais hexagonal crystal structure direction indices for principal directions: (a) +a1 axis direction on basal plane, (b) +a2 axis direction on basal plane, (c) +a3 direction axis on basal plane, (d) +a3 direction axis incorporating c axis, and (e) positive and negative Miller-Bravais directions on the upper basal plane."
+      },
+      "reason": "Figure 3.18 is present on the prior PDF page but absent from parsed catalog near the text references; insert a single parent figure id to cover 3.18 and panels 3.18a-e."
+    },
+    {
+      "id": "smith-hashemi-fig-P3.63-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "problem:3.63:body[0]",
+      "position": "after",
+      "page": 173,
+      "clip": [
+        0.28,
+        0.68,
+        0.82,
+        0.94
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P3.63",
+        "kind": "line",
+        "caption": "Figure P3.63"
+      },
+      "reason": "Problem 3.63 references Figure P3.63; raw/MinerU page has the two lower diagrams and footer caption, but parser did not attach them to the problem."
+    },
+    {
+      "id": "smith-hashemi-fig-P3.80-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "problem:3.80:body[0]",
+      "position": "after",
+      "page": 175,
+      "clip": [
+        0.3,
+        0.61,
+        0.78,
+        0.95
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P3.80",
+        "kind": "line",
+        "caption": "Figure P3.80"
+      },
+      "reason": "Problem 3.80 references Figure P3.80; image and footer caption exist on PDF page 175 but were not attached to the parsed problem."
+    },
+    {
+      "id": "smith-hashemi-fig-P4.43-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "problem:4.43:body[0]",
+      "position": "before",
+      "page": 232,
+      "clip": [
+        0.18,
+        0.08,
+        0.68,
+        0.36
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P4.43",
+        "kind": "photo",
+        "caption": "Figure P4.43"
+      },
+      "reason": "Problem 4.43 references a low-carbon steel micrograph; raw page has the micrograph above the problem text but parser omitted the catalog entry."
+    },
+    {
+      "id": "smith-hashemi-fig-P17.32-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch17",
+      "selector": "problem:17.32:body[0]",
+      "position": "after",
+      "page": 1032,
+      "clip": [
+        0.78,
+        0.62,
+        0.89,
+        0.84
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-P17.32",
+        "kind": "line",
+        "caption": "Figure P17.32 Bone and implant system."
+      },
+      "reason": "Problem 17.32 references Figure P17.32; raw page has small bone/implant sketch in right margin with caption, omitted from parsed problem."
+    },
+    {
+      "id": "smith-hashemi-fig-P17.41-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch17",
+      "selector": "problem:17.41:body[0]",
+      "position": "after",
+      "page": 1034,
+      "clip": [
+        0.78,
+        0.08,
+        0.9,
+        0.28
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-P17.41",
+        "kind": "line",
+        "caption": "Figure P17.41"
+      },
+      "reason": "Problem 17.41 references Figure P17.41; raw page has small inclined-fracture sketch in right margin, omitted from parsed problem."
+    },
+    {
+      "id": "smith-hashemi-fig-P4.44-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "problem:4.44:body[0]",
+      "position": "before",
+      "page": 232,
+      "clip": [
+        0.4,
+        0.08,
+        0.72,
+        0.36
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P4.44",
+        "kind": "photo",
+        "caption": "Figure P4.44"
+      },
+      "reason": "Problem 4.44 references the type 430 stainless steel micrograph; raw page has the right-hand 200× micrograph with Figure P4.44 caption but parser omitted it."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "P3.86",
+      "classification": "source_mismatch",
+      "reason": "The raw page containing Problem 3.86 shows only Figures P3.84 and P3.85 above the problem; no Figure P3.86 appears on that page, so the problem reference has no internal catalog target to repair.",
+      "where": "ch03.json problem 3.86 body[0]",
+      "evidence": "PDF page 176: headings/captions visible for Figure P3.84 and Figure P3.85; Problem 3.86 text references Figure P3.86, but no corresponding figure/caption is present on the raw page."
+    },
+    {
+      "type": "figure",
+      "ref": "P8.41",
+      "classification": "source_mismatch",
+      "reason": "The raw page containing Problem 8.41 has the phase diagram captioned Figure P8.40, while the problem text refers to Figure P8.41; this is a source numbering mismatch, not a missing parsed image.",
+      "where": "ch08.json problem 8.41 body[0]",
+      "evidence": "PDF page 432: the nickel/alloy phase diagram immediately above Problem 8.41 is captioned Figure P8.40; the problem text below says Figure P8.41."
+    }
+  ]
+}

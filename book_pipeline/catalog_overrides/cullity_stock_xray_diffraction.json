@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "cullity-fig-10.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[41]",
+      "expect": {
+        "id": "fig-ch10-41",
+        "caption": "Figure 2 Calculated diffraction patterns for various lattice $s = ( h ^ { 2 } + k ^ { 2 } + l ^ { 2 } )$",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-10.2",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "ch04 problem 3 的正文要求『Plot the values ... in the manner of Fig 10-2』；同書 ch10 body[41] 的 caption 明確是 Figure 2，屬第 10 章第 2 圖。補語意 id fig-10.2 並移除 unnumbered_body_fig，使該跨章引用有真實 catalog 供應。"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "van_vlack_materials_science",
+  "version": 1,
+  "overrides": [
+    {
+      "id": "van-vlack-fig-4-5-1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[246]",
+      "position": "before",
+      "page": 161,
+      "clip": [
+        0.015,
+        0.065,
+        0.93,
+        0.275
+      ],
+      "zoom": 2.5,
+      "image_id": "fig-4.5.1",
+      "src": "manual_fig-4.5.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-4.5.1",
+        "kind": "line",
+        "caption": "FIG. 4-5.1 Ionic solid solution (MgO-FeO)."
+      },
+      "reason": "C4: body[246] cites Fig. 4-5.1. Raw PDF page 161 (content page_idx 160) contains the missed figure at the top of the page; insert a full-width manual crop including the figure and printed caption before the first citing paragraph."
+    }
+  ]
+}

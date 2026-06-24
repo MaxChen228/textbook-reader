@@ -1,0 +1,127 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "engel-fig-16.3-from-misassigned-16.4",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[33]",
+      "expect": {
+        "id": "fig-16.4"
+      },
+      "set": {
+        "id": "fig-16.3",
+        "caption": "FIGURE 16.3 Overlap of wave functions from two closely spaced finite depth wells. The vertical scale has been expanded relative to Figure 16.1 to better display the overlap.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "unified page 388 image was parsed onto the wrong figure number; body[34] already carries the real Figure 16.4"
+    },
+    {
+      "id": "engel-fig-17.3-from-fallback",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[51]",
+      "expect": {
+        "id": "fig-ch17-51"
+      },
+      "set": {
+        "id": "fig-17.3",
+        "caption": "FIGURE 17.3 One of the beams exiting from the first magnet has been passed through a second magnet rotated by 90°. Again the beam is split into two components. The third magnet gives a result that is different than what would have been expected from classical physics.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "raw page shows a labeled Figure 17.3, but parsed block retained only a fallback id with no caption"
+    },
+    {
+      "id": "engel-fig-18.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "body[105]",
+      "position": "after",
+      "page": 437,
+      "clip": [
+        0.66,
+        0.05,
+        0.97,
+        0.64
+      ],
+      "zoom": 3,
+      "src": "manual_fig-18.6.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-18.6",
+        "kind": "line",
+        "caption": "FIGURE 18.6 The right-hand rule is used to determine the cross product between two vectors."
+      },
+      "reason": "Figure 18.6 is visible on the raw PDF page but no parsed figure block or catalog entry exists"
+    },
+    {
+      "id": "engel-fig-21.2b-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch21",
+      "selector": "body[106]",
+      "position": "after",
+      "page": 517,
+      "clip": [
+        0.67,
+        0.29,
+        0.96,
+        0.56
+      ],
+      "zoom": 3,
+      "src": "manual_fig-21.2b.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-21.2b",
+        "kind": "line",
+        "caption": "FIGURE 21.2b Exact (red curve) and approximate (purple curve) wave functions for the ground state of the particle in the box. The optimal approximate wave function contains both terms of Equation (21.11). The light blue curve shows the contribution of the second term in Equation (21.11) to the approximate wave function."
+      },
+      "reason": "the lower subfigure on raw page 517 is referenced in text as Figure 21.2b but is missing from parsed output"
+    },
+    {
+      "id": "engel-fig-21.2a-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch21",
+      "selector": "body[106]",
+      "position": "after",
+      "page": 517,
+      "clip": [
+        0.67,
+        0.05,
+        0.96,
+        0.30
+      ],
+      "zoom": 3,
+      "src": "manual_fig-21.2a.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-21.2a",
+        "kind": "line",
+        "caption": "FIGURE 21.2a Exact (red curve) and approximate (purple curve) wave functions for the ground state of the particle in the box. The approximate wave function contains only the first term in Equation (21.11)."
+      },
+      "reason": "the upper subfigure on raw page 517 is referenced in text as Figure 21.2a but is missing from parsed output"
+    },
+    {
+      "id": "engel-fig-26.21-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch26",
+      "selector": "body[347]",
+      "position": "after",
+      "page": 687,
+      "clip": [
+        0.67,
+        0.06,
+        0.96,
+        0.29
+      ],
+      "zoom": 3,
+      "src": "manual_fig-26.21.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-26.21",
+        "kind": "line",
+        "caption": "FIGURE 26.21 Accounting for electron correlation involves excitations such as the n→π* transition in formaldehyde, which moves charge from oxygen to carbon and reduces the dipole moment in the carbonyl group."
+      },
+      "reason": "raw page 687 contains Figure 26.21 in the margin, but parsed output omitted it entirely"
+    }
+  ]
+}

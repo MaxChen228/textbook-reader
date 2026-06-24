@@ -1,0 +1,159 @@
+slug: barsoum_fundamentals_ceramics
+title: "Fundamentals of Ceramics"
+author: "Michel W. Barsoum"
+edition: null
+subject: null
+publisher: "Institute of Physics Publishing"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 607
+bibliography_start_page: null
+index_start_page: 607
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 20
+    page_end: 31
+    chapter_title_block_idx: 152
+    problems_block_idx: 249
+    next_chapter_block_idx: 270
+  - num: 2
+    title: "Bonding in Ceramics"
+    page_start: 32
+    page_end: 70
+    chapter_title_block_idx: 270
+    problems_block_idx: 636
+    next_chapter_block_idx: 706
+  - num: 3
+    title: "Structure of Ceramics"
+    page_start: 71
+    page_end: 106
+    chapter_title_block_idx: 706
+    problems_block_idx: 1016
+    next_chapter_block_idx: 1077
+  - num: 4
+    title: "Effect of Chemical Forces on Physical Properties"
+    page_start: 107
+    page_end: 128
+    chapter_title_block_idx: 1077
+    problems_block_idx: 1263
+    next_chapter_block_idx: 1313
+  - num: 5
+    title: "Thermodynamic and Kinetic Considerations"
+    page_start: 129
+    page_end: 155
+    chapter_title_block_idx: 1313
+    problems_block_idx: 1676
+    next_chapter_block_idx: 1718
+  - num: 6
+    title: "Defects in Ceramics"
+    page_start: 156
+    page_end: 193
+    chapter_title_block_idx: 1718
+    problems_block_idx: 2187
+    next_chapter_block_idx: 2251
+  - num: 7
+    title: "Diffusion and Electrical Conductivity"
+    page_start: 194
+    page_end: 260
+    chapter_title_block_idx: 2251
+    problems_block_idx: 3045
+    next_chapter_block_idx: 3168
+  - num: 8
+    title: "Phase Equilibria"
+    page_start: 261
+    page_end: 283
+    chapter_title_block_idx: 3168
+    problems_block_idx: 3382
+    next_chapter_block_idx: 3416
+  - num: 9
+    title: "Formation, Structure, and Properties of Glasses"
+    page_start: 284
+    page_end: 320
+    chapter_title_block_idx: 3416
+    problems_block_idx: 3788
+    next_chapter_block_idx: 3855
+  - num: 10
+    title: "Sintering and Grain Growth"
+    page_start: 321
+    page_end: 374
+    chapter_title_block_idx: 3855
+    problems_block_idx: 4446
+    next_chapter_block_idx: 4531
+  - num: 11
+    title: "Mechanical Properties: Fast Fracture"
+    page_start: 375
+    page_end: 418
+    chapter_title_block_idx: 4531
+    problems_block_idx: 4944
+    next_chapter_block_idx: 5011
+  - num: 12
+    title: "Creep, Subcritical Crack Growth, and Fatigue"
+    page_start: 419
+    page_end: 460
+    chapter_title_block_idx: 5011
+    problems_block_idx: 5439
+    next_chapter_block_idx: 5532
+  - num: 13
+    title: "Thermal Properties"
+    page_start: 461
+    page_end: 483
+    chapter_title_block_idx: 5532
+    problems_block_idx: 5760
+    next_chapter_block_idx: 5808
+  - num: 14
+    title: "Dielectric Properties"
+    page_start: 484
+    page_end: 525
+    chapter_title_block_idx: 5808
+    problems_block_idx: 6253
+    next_chapter_block_idx: 6353
+  - num: 15
+    title: "Magnetic and Nonlinear Dielectric Properties"
+    page_start: 526
+    page_end: 571
+    chapter_title_block_idx: 6353
+    problems_block_idx: 6816
+    next_chapter_block_idx: 6884
+  - num: 16
+    title: "Optical Properties"
+    page_start: 572
+    page_end: 606
+    chapter_title_block_idx: 6884
+    problems_block_idx: 7211
+    next_chapter_block_idx: 7390
+
+appendices: []
+
+section_re: '^((?:\d+\.\d+(?=\s+\S))|(?:Appendix\s+\d+[A-Z]))\s*(.*)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)(?=\s+\S))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: '^(Additional Reading|Thermodynamic Data:?)\\s*$'
+solution_start_re: '^Answer\\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^(?:WORKED\s+)?EXAMPLE\s+([0-9]+(?:\.[0-9]+)?)\.?$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

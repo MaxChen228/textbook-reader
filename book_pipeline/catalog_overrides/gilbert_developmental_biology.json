@@ -1,0 +1,729 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "gilbert-exclude-fake-8-7A",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[54]",
+      "expect": {
+        "id": "fig-8.7A"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is a trailing sentence fragment from the preceding paragraph, not the A panel of Figure 8.7."
+    },
+    {
+      "id": "gilbert-alias-8-7-panels",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[62]",
+      "expect": {
+        "id": "fig-8.7"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.7A",
+            "type": "figure",
+            "caption": "Figure 8.7A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-8.7B",
+            "type": "figure",
+            "caption": "Figure 8.7B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-8.7C",
+            "type": "figure",
+            "caption": "Figure 8.7C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 8.7A/B/C；母圖 caption 已含全部 panel 語意。"
+    },
+    {
+      "id": "gilbert-alias-8-8-panels",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[74]",
+      "expect": {
+        "id": "fig-8.8"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.8A",
+            "type": "figure",
+            "caption": "Figure 8.8A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-8.8B",
+            "type": "figure",
+            "caption": "Figure 8.8B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-8.8C",
+            "type": "figure",
+            "caption": "Figure 8.8C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-8.8D",
+            "type": "figure",
+            "caption": "Figure 8.8D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 8.8A/B/C；母圖 caption 已含 A-D。"
+    },
+    {
+      "id": "gilbert-alias-8-9-panels",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[76]",
+      "expect": {
+        "id": "fig-8.9"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-8.9A",
+            "type": "figure",
+            "caption": "Figure 8.9A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (C)."
+          },
+          {
+            "id": "fig-8.9B",
+            "type": "figure",
+            "caption": "Figure 8.9B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (C)."
+          },
+          {
+            "id": "fig-8.9C",
+            "type": "figure",
+            "caption": "Figure 8.9C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (C)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 8.9A/B/C；母圖 caption 已含全部 panel 語意。"
+    },
+    {
+      "id": "gilbert-alias-9-5-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[29]",
+      "expect": {
+        "id": "fig-9.5"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.5A",
+            "type": "figure",
+            "caption": "Figure 9.5A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.5B",
+            "type": "figure",
+            "caption": "Figure 9.5B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.5C",
+            "type": "figure",
+            "caption": "Figure 9.5C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.5D",
+            "type": "figure",
+            "caption": "Figure 9.5D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.5A/C；母圖 caption 已含 A-D。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-7A",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[208]",
+      "expect": {
+        "id": "fig-9.7A"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is explanatory prose ('see Figure 9.7A,B'), not the A panel itself."
+    },
+    {
+      "id": "gilbert-alias-9-7-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[41]",
+      "expect": {
+        "id": "fig-9.7"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.7A",
+            "type": "figure",
+            "caption": "Figure 9.7A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7B",
+            "type": "figure",
+            "caption": "Figure 9.7B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7C",
+            "type": "figure",
+            "caption": "Figure 9.7C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7D",
+            "type": "figure",
+            "caption": "Figure 9.7D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7E",
+            "type": "figure",
+            "caption": "Figure 9.7E",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7F",
+            "type": "figure",
+            "caption": "Figure 9.7F",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          },
+          {
+            "id": "fig-9.7G",
+            "type": "figure",
+            "caption": "Figure 9.7G",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (G)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.7A-F；母圖 caption 已含完整 panel 集。"
+    },
+    {
+      "id": "gilbert-alias-9-9-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[50]",
+      "expect": {
+        "id": "fig-9.9"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.9A",
+            "type": "figure",
+            "caption": "Figure 9.9A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          },
+          {
+            "id": "fig-9.9B",
+            "type": "figure",
+            "caption": "Figure 9.9B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.9A/B；母圖 caption 已含兩個 panel。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-10E",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[157]",
+      "expect": {
+        "id": "fig-9.10E"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is a trailing sentence about Figure 9.10E, not the panel itself."
+    },
+    {
+      "id": "gilbert-alias-9-10-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[59]",
+      "expect": {
+        "id": "fig-9.10"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.10A",
+            "type": "figure",
+            "caption": "Figure 9.10A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (E)."
+          },
+          {
+            "id": "fig-9.10B",
+            "type": "figure",
+            "caption": "Figure 9.10B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (E)."
+          },
+          {
+            "id": "fig-9.10C",
+            "type": "figure",
+            "caption": "Figure 9.10C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (E)."
+          },
+          {
+            "id": "fig-9.10D",
+            "type": "figure",
+            "caption": "Figure 9.10D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (E)."
+          },
+          {
+            "id": "fig-9.10E",
+            "type": "figure",
+            "caption": "Figure 9.10E",
+            "source": "agent-panel-alias",
+            "evidence": "正文 later explicitly cites Figure 9.10E; anchor it to the multi-panel parent figure."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.10A-D，且後文另有 Figure 9.10E；母圖為多分圖。"
+    },
+    {
+      "id": "gilbert-alias-9-15-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[96]",
+      "expect": {
+        "id": "fig-9.15"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.15A",
+            "type": "figure",
+            "caption": "Figure 9.15A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.15B",
+            "type": "figure",
+            "caption": "Figure 9.15B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.15C",
+            "type": "figure",
+            "caption": "Figure 9.15C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.15D",
+            "type": "figure",
+            "caption": "Figure 9.15D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) through (D)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.15A-D；母圖 caption 已含完整 panel 集。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-16B",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[135]",
+      "expect": {
+        "id": "fig-9.16B"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "wrong_figure_number_duplicate",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This image is Figure 9.17 (parasegments), not Figure 9.16B."
+    },
+    {
+      "id": "gilbert-alias-9-16-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[118]",
+      "expect": {
+        "id": "fig-9.16"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.16A",
+            "type": "figure",
+            "caption": "Figure 9.16A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and adjacent bullet list enumerate panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-9.16B",
+            "type": "figure",
+            "caption": "Figure 9.16B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and adjacent bullet list enumerate panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-9.16C",
+            "type": "figure",
+            "caption": "Figure 9.16C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and adjacent bullet list enumerate panels (A), (B), and (C)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.16A/B/C；須由真正的 segmentation mutants 母圖承接。"
+    },
+    {
+      "id": "gilbert-alias-9-18-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[138]",
+      "expect": {
+        "id": "fig-9.18"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.18A",
+            "type": "figure",
+            "caption": "Figure 9.18A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and discussion enumerate panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.18B",
+            "type": "figure",
+            "caption": "Figure 9.18B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and discussion enumerate panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.18C",
+            "type": "figure",
+            "caption": "Figure 9.18C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and discussion enumerate panels (A) through (D)."
+          },
+          {
+            "id": "fig-9.18D",
+            "type": "figure",
+            "caption": "Figure 9.18D",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption and discussion enumerate panels (A) through (D)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.18A-C；母圖 caption/discussion 已明列 A-D。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-23B",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[162]",
+      "expect": {
+        "id": "fig-9.23B"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is narrative prose about Figure 9.23B, not the panel image."
+    },
+    {
+      "id": "gilbert-alias-9-23-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[167]",
+      "expect": {
+        "id": "fig-9.23"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.23A",
+            "type": "figure",
+            "caption": "Figure 9.23A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          },
+          {
+            "id": "fig-9.23B",
+            "type": "figure",
+            "caption": "Figure 9.23B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.23A/B；應由真正的雙 panel 母圖承接。"
+    },
+    {
+      "id": "gilbert-alias-9-25-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[172]",
+      "expect": {
+        "id": "fig-9.25"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.25A",
+            "type": "figure",
+            "caption": "Figure 9.25A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          },
+          {
+            "id": "fig-9.25B",
+            "type": "figure",
+            "caption": "Figure 9.25B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.25B；母圖 caption 已含 A/B。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-29A-r1",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[195]",
+      "expect": {
+        "id": "fig-9.29A"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is not panel A of Figure 9.29; it is a stray punctuation fragment."
+    },
+    {
+      "id": "gilbert-exclude-fake-9-29A-r2",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[196]",
+      "expect": {
+        "id": "fig-9.29A"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This duplicate is also a stray fragment, not panel A of Figure 9.29."
+    },
+    {
+      "id": "gilbert-exclude-fake-9-29C",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[206]",
+      "expect": {
+        "id": "fig-9.29C"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "text_fragment_misparsed_as_figure",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block is prose mentioning Figure 9.29C, not the panel image."
+    },
+    {
+      "id": "gilbert-alias-9-29-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[200]",
+      "expect": {
+        "id": "fig-9.29"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.29A",
+            "type": "figure",
+            "caption": "Figure 9.29A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-9.29B",
+            "type": "figure",
+            "caption": "Figure 9.29B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          },
+          {
+            "id": "fig-9.29C",
+            "type": "figure",
+            "caption": "Figure 9.29C",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A), (B), and (C)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.29A-C；應由正確母圖承接。"
+    },
+    {
+      "id": "gilbert-exclude-fake-9-31B",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[213]",
+      "expect": {
+        "id": "fig-9.31B"
+      },
+      "set": {
+        "id": null,
+        "catalog_exclude_reason": "wrong_panel_letter_fragment",
+        "catalog_repair_source": "agent-catalog-cleanup"
+      },
+      "reason": "This block only carries the '(A)' label, but was misassigned as Figure 9.31B."
+    },
+    {
+      "id": "gilbert-alias-9-31-panels",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[214]",
+      "expect": {
+        "id": "fig-9.31"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-9.31A",
+            "type": "figure",
+            "caption": "Figure 9.31A",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          },
+          {
+            "id": "fig-9.31B",
+            "type": "figure",
+            "caption": "Figure 9.31B",
+            "source": "agent-panel-alias",
+            "evidence": "Parent caption explicitly enumerates panels (A) and (B)."
+          }
+        ],
+        "catalog_repair_source": "agent-panel-alias"
+      },
+      "reason": "正文引用 Figure 9.31A/B；母圖 caption 已含 A/B。"
+    },
+    {
+      "id": "gilbert-fig-1-4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[13]",
+      "position": "before",
+      "page": 43,
+      "clip": [
+        0.055,
+        0.355,
+        0.955,
+        0.69
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-1.4",
+        "kind": "line",
+        "caption": "FIGURE 1.4 Some of the model systems used to study developmental biology. From left to right the silhouettes represent the following model organisms: Arabidopsis thaliana, Drosophila melanogaster, Hydra vulgaris, Caenorhabditis elegans, Xenopus laevis, Danio rerio, Gallus gallus, Mus musculus, and stem cells of Homo sapiens (blastocyst with inner cell mass depicted)."
+      },
+      "reason": "Raw PDF page 43 clearly contains Figure 1.4, but parsed chapter 1 has no corresponding figure block."
+    },
+    {
+      "id": "gilbert-table-1-1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[14]",
+      "position": "before",
+      "page": 54,
+      "clip": [
+        0.045,
+        0.345,
+        0.955,
+        0.83
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "table",
+        "id": "tbl-1.1",
+        "caption": "TABLE 1.1 Types of cell movement during gastrulation"
+      },
+      "reason": "Raw PDF page 54 clearly contains Table 1.1, but parsed chapter 1 has no corresponding table block."
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "27.7",
+      "classification": "source_mismatch",
+      "reason": "Figure 19.15 的 caption 明確標示來源是 “Adapted from Purves et al., 2004, Fig. 27.7.”；這是外部來源圖號，不是本書內部 Figure 27.7。",
+      "where": "ch19.json body[120]",
+      "evidence": "unified content_list page_idx 702 的 caption text 寫有 “(Source: Adapted from Purves et al., 2004, Fig. 27.7.)”；同頁正文 body[123] 另行正確引用本書 Figure 19.15，故 27.7 屬來源編號而非缺圖。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bear-neuroscience-ch03-body37-alias-fig-3-3",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[37]",
+      "expect": {
+        "id": "fig-3.4a"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-3.3",
+            "type": "figure",
+            "caption": "Figure 3.3",
+            "source": "agent-near-ref-alias",
+            "evidence": "body[32] 正文明述 phospholipid bilayer is shown in Figure 3.3；此 visual block 內容正是 phospholipid bilayer cross section。"
+          }
+        ],
+        "catalog_repair_source": "agent-near-ref-alias"
+      },
+      "reason": "這個 visual block 的圖像內容是 phospholipid bilayer，對應 body[32] 的 Figure 3.3；保留既有 fig-3.4a 主 id，補 alias 以避免引入新的 3.4a 缺口。"
+    },
+    {
+      "id": "bear-neuroscience-ch14-body128-fix-fig-14-11",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[128]",
+      "expect": {
+        "id": "fig-14.12"
+      },
+      "set": {
+        "id": "fig-14.11",
+        "caption": "Figure 14.11",
+        "catalog_repair_source": "agent-visual-id-fix"
+      },
+      "reason": "圖像內容是 cortex-basal ganglia-VLo motor loop，精確對應 body[120] 對 Figure 14.11 的敘述；原先被錯掛成 14.12。"
+    },
+    {
+      "id": "bear-neuroscience-ch14-body130-fix-fig-14-13",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[130]",
+      "expect": {
+        "id": "fig-14.12"
+      },
+      "set": {
+        "id": "fig-14.13",
+        "caption": "Figure 14.13",
+        "catalog_repair_source": "agent-visual-id-fix"
+      },
+      "reason": "圖像內容是 basal ganglia direct motor loop wiring diagram，對應 body[132] 的 Figure 14.13；原 caption/id 漂到 14.12。"
+    },
+    {
+      "id": "bear-neuroscience-ch14-body137-drop-wrong-fig-14-13-alias",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[137]",
+      "expect": {
+        "id": "fig-14.14"
+      },
+      "set": {
+        "catalog_aliases": null,
+        "catalog_repair_source": "agent-alias-relocation"
+      },
+      "reason": "Figure 14.13 的 alias 應掛在 body[130] 的 direct motor loop 圖，不該掛在 Figure 14.14 的 direct/indirect pathways 圖上。"
+    },
+    {
+      "id": "bear-neuroscience-ch16-body136-fix-fig-16-15",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[136]",
+      "expect": {
+        "id": "fig-16.14"
+      },
+      "set": {
+        "id": "fig-16.15",
+        "caption": "Figure 16.15",
+        "catalog_repair_source": "agent-visual-id-fix"
+      },
+      "reason": "此圖是 rat lever self-stimulation box，精確對應 body[142] 對 Figure 16.15 的描述；它被錯掛成前一節的 Figure 16.14。"
+    },
+    {
+      "id": "bear-neuroscience-ch16-body149-promote-fig-16-16",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[149]",
+      "expect": {
+        "id": "fig-ch16-149"
+      },
+      "set": {
+        "id": "fig-16.16",
+        "caption": "The mesocorticolimbic dopamine system. Animals are motivated to behave in ways that stimulate the release of dopamine in the basal forebrain area.",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "unified page 609 的 paired visual/footnote 說明這張圖是 mesocorticolimbic dopamine system，正對 body[143] 對 Figure 16.16 的敘述；應升格為 semantic figure。"
+    }
+  ]
+}

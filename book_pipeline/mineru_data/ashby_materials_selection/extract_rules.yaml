@@ -1,0 +1,192 @@
+slug: ashby_materials_selection
+title: Materials Selection in Mechanical Design
+author: Michael F. Ashby
+edition: 4th
+subject: Materials Science
+publisher: Butterworth-Heinemann
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 511
+bibliography_start_page: null
+index_start_page: 657
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 30
+    chapter_title_block_idx: 107
+    problems_block_idx: null
+    next_chapter_block_idx: 229
+  - num: 2
+    title: The Design Process
+    page_start: 31
+    page_end: 46
+    chapter_title_block_idx: 229
+    problems_block_idx: null
+    next_chapter_block_idx: 383
+  - num: 3
+    title: Engineering Materials and Their Properties
+    page_start: 47
+    page_end: 72
+    chapter_title_block_idx: 383
+    problems_block_idx: null
+    next_chapter_block_idx: 748
+  - num: 4
+    title: Material Property Charts
+    page_start: 73
+    page_end: 112
+    chapter_title_block_idx: 748
+    problems_block_idx: null
+    next_chapter_block_idx: 1163
+  - num: 5
+    title: "Materials Selection - The Basics"
+    page_start: 113
+    page_end: 140
+    chapter_title_block_idx: 1163
+    problems_block_idx: null
+    next_chapter_block_idx: 1490
+  - num: 6
+    title: "Case Studies: Materials Selection"
+    page_start: 141
+    page_end: 212
+    chapter_title_block_idx: 1490
+    problems_block_idx: null
+    next_chapter_block_idx: 2326
+  - num: 7
+    title: Multiple Constraints and Conflicting Objectives
+    page_start: 213
+    page_end: 232
+    chapter_title_block_idx: 2326
+    problems_block_idx: null
+    next_chapter_block_idx: 2550
+  - num: 8
+    title: "Case Studies: Multiple Constraints and Conflicting Objectives"
+    page_start: 233
+    page_end: 258
+    chapter_title_block_idx: 2550
+    problems_block_idx: null
+    next_chapter_block_idx: 2865
+  - num: 9
+    title: Selection of Material and Shape
+    page_start: 259
+    page_end: 276
+    chapter_title_block_idx: 2865
+    problems_block_idx: null
+    next_chapter_block_idx: 3249
+  - num: 10
+    title: "Case Studies: Material and Shape"
+    page_start: 277
+    page_end: 314
+    chapter_title_block_idx: 3257
+    problems_block_idx: null
+    next_chapter_block_idx: 3510
+  - num: 11
+    title: Designing Hybrid Materials
+    page_start: 315
+    page_end: 340
+    chapter_title_block_idx: 3510
+    problems_block_idx: null
+    next_chapter_block_idx: 4039
+  - num: 12
+    title: "Case Studies: Hybrids"
+    page_start: 341
+    page_end: 366
+    chapter_title_block_idx: 4039
+    problems_block_idx: null
+    next_chapter_block_idx: 4272
+  - num: 13
+    title: Processes and Process Selection
+    page_start: 367
+    page_end: 414
+    chapter_title_block_idx: 4272
+    problems_block_idx: null
+    next_chapter_block_idx: 4754
+  - num: 14
+    title: "Case Studies: Process Selection"
+    page_start: 415
+    page_end: 436
+    chapter_title_block_idx: 4754
+    problems_block_idx: null
+    next_chapter_block_idx: 4939
+  - num: 15
+    title: Materials and the Environment
+    page_start: 437
+    page_end: 476
+    chapter_title_block_idx: 4939
+    problems_block_idx: null
+    next_chapter_block_idx: 5146
+  - num: 16
+    title: Materials and Industrial Design
+    page_start: 477
+    page_end: 494
+    chapter_title_block_idx: 5146
+    problems_block_idx: null
+    next_chapter_block_idx: 5325
+  - num: 17
+    title: Forces for Change
+    page_start: 495
+    page_end: 510
+    chapter_title_block_idx: 5325
+    problems_block_idx: null
+    next_chapter_block_idx: 5437
+
+appendices:
+  - id: A
+    title: "Data for Engineering Materials"
+    page_start: 511
+    chapter_title_block_idx: 5437
+  - id: B
+    title: "Useful Solutions for Standard Problems"
+    page_start: 541
+    chapter_title_block_idx: 5618
+  - id: C
+    title: "Material Indices"
+    page_start: 575
+    chapter_title_block_idx: 6205
+  - id: D
+    title: "Data Sources for Documentation"
+    page_start: 581
+    chapter_title_block_idx: 6246
+  - id: E
+    title: Exercises
+    page_start: 611
+    chapter_title_block_idx: 7027
+
+section_re: '^((?:\d+\.\d+|[A-E](?:\.\d+|\d+\.\d+)))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-E](?:\.\d+\.\d+|\d+\.\d+\.\d+)))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(__never_matches__)$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

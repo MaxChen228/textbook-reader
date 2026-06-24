@@ -1,0 +1,23 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "kingery-ch17-table-17-1-id-caption",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[34]",
+      "expect": {
+        "id": "tbl-17.2"
+      },
+      "set": {
+        "id": "tbl-17.1",
+        "caption": "Table 17.1. Conversion Factors for Practical and Esu Units",
+        "catalog_aliases": [
+          "17.1"
+        ],
+        "catalog_repair_source": "agent-id-caption-fix"
+      },
+      "reason": "The block html is the practical/esu conversion table referenced by the preceding paragraph as Table 17.1; MinerU attached the following Table 17.2 caption/id to this table."
+    }
+  ]
+}

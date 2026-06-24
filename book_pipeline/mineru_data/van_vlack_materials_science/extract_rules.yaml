@@ -1,0 +1,169 @@
+slug: van_vlack_materials_science
+title: Elements of Materials Science and Engineering
+author: Lawrence H. Van Vlack
+edition: 6th
+subject: Materials Science
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 575
+bibliography_start_page: 604
+index_start_page: 608
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to Materials Science and Engineering
+    page_start: 24
+    page_end: 41
+    chapter_title_block_idx: 103
+    chapter_title_block_idx_secondary: 106
+    problems_block_idx: 268
+    next_chapter_block_idx: 298
+  - num: 2
+    title: Atomic Bonding and Coordination
+    page_start: 42
+    page_end: 81
+    chapter_title_block_idx: 298
+    chapter_title_block_idx_secondary: 305
+    problems_block_idx: 666
+    next_chapter_block_idx: 727
+  - num: 3
+    title: Crystals (Atomic Order)
+    page_start: 82
+    page_end: 129
+    chapter_title_block_idx: 727
+    chapter_title_block_idx_secondary: 735
+    problems_block_idx: 1323
+    next_chapter_block_idx: 1439
+  - num: 4
+    title: Disorder in Solid Phases
+    page_start: 130
+    page_end: 169
+    chapter_title_block_idx: 1439
+    chapter_title_block_idx_secondary: 1446
+    problems_block_idx: 1867
+    next_chapter_block_idx: 1948
+  - num: 5
+    title: Phase Equilibria
+    page_start: 170
+    page_end: 209
+    chapter_title_block_idx: 1948
+    chapter_title_block_idx_secondary: 1954
+    problems_block_idx: 2348
+    next_chapter_block_idx: 2418
+  - num: 6
+    title: Reaction Rates
+    page_start: 210
+    page_end: 237
+    chapter_title_block_idx: 2418
+    chapter_title_block_idx_secondary: 2423
+    problems_block_idx: 2761
+    next_chapter_block_idx: 2810
+  - num: 7
+    title: Microstructures
+    page_start: 238
+    page_end: 273
+    chapter_title_block_idx: 2810
+    chapter_title_block_idx_secondary: 2815
+    problems_block_idx: 3194
+    next_chapter_block_idx: 3246
+  - num: 8
+    title: Deformation and Fracture
+    page_start: 274
+    page_end: 303
+    chapter_title_block_idx: 3246
+    chapter_title_block_idx_secondary: 3250
+    problems_block_idx: 3562
+    next_chapter_block_idx: 3628
+  - num: 9
+    title: Shaping, Strengthening, and Toughening Processes
+    page_start: 304
+    page_end: 369
+    chapter_title_block_idx: 3628
+    chapter_title_block_idx_secondary: 3636
+    problems_block_idx: 4266
+    next_chapter_block_idx: 4378
+  - num: 10
+    title: Polymers and Composites
+    page_start: 370
+    page_end: 413
+    chapter_title_block_idx: 4378
+    chapter_title_block_idx_secondary: 4384
+    problems_block_idx: 4842
+    next_chapter_block_idx: 4875
+  - num: 11
+    title: Conducting Materials
+    page_start: 414
+    page_end: 471
+    chapter_title_block_idx: 4875
+    chapter_title_block_idx_secondary: 4882
+    problems_block_idx: 5530
+    next_chapter_block_idx: 5605
+  - num: 12
+    title: Magnetic Properties of Ceramics and Metals
+    page_start: 472
+    page_end: 491
+    chapter_title_block_idx: 5605
+    chapter_title_block_idx_secondary: 5610
+    problems_block_idx: 5808
+    next_chapter_block_idx: 5835
+  - num: 13
+    title: Dielectric and Optical Properties of Ceramics and Polymers
+    page_start: 492
+    page_end: 523
+    chapter_title_block_idx: 5835
+    chapter_title_block_idx_secondary: 5841
+    problems_block_idx: 6176
+    next_chapter_block_idx: 6225
+  - num: 14
+    title: Performance of Materials in Service
+    page_start: 524
+    page_end: 573
+    chapter_title_block_idx: 6225
+    chapter_title_block_idx_secondary: 6233
+    problems_block_idx: 6718
+    next_chapter_block_idx: 6789
+
+appendices:
+  - id: A
+    title: Constants and Conversions
+    page_start: 575
+    chapter_title_block_idx: 6789
+  - id: B
+    title: Table of Selected Elements
+    page_start: 578
+    chapter_title_block_idx: 6799
+  - id: C
+    title: Properties of Selected Engineering Materials (20°C)
+    page_start: 580
+    chapter_title_block_idx: 6805
+
+section_re: '^()(?!(?:FIG\.|TABLE\b))([A-Z][A-Z0-9⇔↔()*,.''"/&:;\-\s]+[A-Z0-9)\*])$'
+subsection_re: '^()(?!(?:FIG\.|TABLE\b))(?=.*[a-z])([A-Z][A-Za-z0-9⇔↔()\[\],.''"/&:;\-\s]+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:\d+[\-–]P\d+)|(?:\d{3,4}))\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9A-Za-z.\-]+)\}'
+example_start_re: '^Example\s+(\d+[\-–]\d+\.\d+)$'
+
+known_missing_problems: []

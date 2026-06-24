@@ -1,0 +1,92 @@
+slug: porter_easterling_phase_transformations
+title: Phase Transformations in Metals and Alloys
+author: David A. Porter; Kenneth E. Easterling; Mohamed Y. Sherif
+edition: 4th
+subject: Materials Science
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 525
+bibliography_start_page: null
+index_start_page: 567
+
+chapters:
+  - num: 1
+    title: Thermodynamics and Phase Diagrams
+    page_start: 23
+    page_end: 84
+    chapter_title_block_idx: 98
+    problems_block_idx: 743
+    next_chapter_block_idx: 796
+  - num: 2
+    title: Diffusion
+    page_start: 85
+    page_end: 134
+    chapter_title_block_idx: 796
+    problems_block_idx: 1279
+    next_chapter_block_idx: 1339
+  - num: 3
+    title: Crystal Interfaces and Microstructure
+    page_start: 135
+    page_end: 220
+    chapter_title_block_idx: 1339
+    problems_block_idx: 2061
+    next_chapter_block_idx: 2171
+  - num: 4
+    title: Solidification
+    page_start: 221
+    page_end: 284
+    chapter_title_block_idx: 2171
+    problems_block_idx: 2732
+    next_chapter_block_idx: 2814
+  - num: 5
+    title: Diffusional Transformations in Solids
+    page_start: 285
+    page_end: 396
+    chapter_title_block_idx: 2814
+    problems_block_idx: 3796
+    next_chapter_block_idx: 3924
+  - num: 6
+    title: Diffusionless Martensitic Transformations
+    page_start: 397
+    page_end: 524
+    chapter_title_block_idx: 3924
+    problems_block_idx: 4873
+    next_chapter_block_idx: 5742
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+(?:\.\d+){2,})\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^(REFERENCES|FURTHER READING|Solutions to Odd-numbered Exercises|CHAPTER\s+\d+)$'
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

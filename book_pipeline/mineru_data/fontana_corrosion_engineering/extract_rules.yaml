@@ -1,0 +1,126 @@
+slug: fontana_corrosion_engineering
+title: Corrosion Engineering
+author: Mars G. Fontana
+edition: 3rd
+subject: Corrosion Engineering
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 564
+bibliography_start_page: null
+index_start_page: 564
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 30
+    chapter_title_block_idx: 100
+    problems_block_idx: null
+    next_chapter_block_idx: 190
+  - num: 2
+    title: Corrosion Principles
+    page_start: 31
+    page_end: 57
+    chapter_title_block_idx: 190
+    problems_block_idx: null
+    next_chapter_block_idx: 444
+  - num: 3
+    title: Eight Forms of Corrosion
+    page_start: 58
+    page_end: 171
+    chapter_title_block_idx: 444
+    problems_block_idx: null
+    next_chapter_block_idx: 1317
+  - num: 4
+    title: Corrosion Testing
+    page_start: 172
+    page_end: 237
+    chapter_title_block_idx: 1317
+    problems_block_idx: null
+    next_chapter_block_idx: 1841
+  - num: 5
+    title: Materials
+    page_start: 238
+    page_end: 296
+    chapter_title_block_idx: 1841
+    chapter_title_block_idx_secondary: 1842
+    problems_block_idx: null
+    next_chapter_block_idx: 2257
+  - num: 6
+    title: Corrosion Prevention
+    page_start: 297
+    page_end: 335
+    chapter_title_block_idx: 2257
+    problems_block_idx: null
+    next_chapter_block_idx: 2629
+  - num: 7
+    title: Mineral Acids
+    page_start: 336
+    page_end: 378
+    chapter_title_block_idx: 2629
+    problems_block_idx: null
+    next_chapter_block_idx: 2950
+  - num: 8
+    title: Other Environments
+    page_start: 379
+    page_end: 463
+    chapter_title_block_idx: 2950
+    problems_block_idx: null
+    next_chapter_block_idx: 3582
+  - num: 9
+    title: Modern Theory-Principles
+    page_start: 464
+    page_end: 500
+    chapter_title_block_idx: 3582
+    problems_block_idx: null
+    next_chapter_block_idx: 3898
+  - num: 10
+    title: Modern Theory-Applications
+    page_start: 501
+    page_end: 523
+    chapter_title_block_idx: 3898
+    problems_block_idx: null
+    next_chapter_block_idx: 4065
+  - num: 11
+    title: High-Temperature Corrosion
+    page_start: 524
+    page_end: 563
+    chapter_title_block_idx: 4065
+    problems_block_idx: null
+    next_chapter_block_idx: 4440
+
+appendices: []
+
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^(\d+-\d+-\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+-\d+)\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

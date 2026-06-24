@@ -1,0 +1,19 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "hummel-fig-11.12-idfix",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[151]",
+      "expect": {
+        "id": "fig-11.11"
+      },
+      "set": {
+        "id": "fig-11.12",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "body[150]/body[151] 是一對相鄰圖。前者圖像為 epsilon_1 (n^2) 的色散曲線，後者圖像為 epsilon_2 的吸收峰；而現有 joint caption 也明寫 \"Figures 11.11 and 11.12 ... epsilon_1 and epsilon_2, respectively\"。MinerU 將第二張圖誤複用成 fig-11.11，改為 fig-11.12 對齊正文對 Figure 11.12 的內部引用。"
+    }
+  ]
+}

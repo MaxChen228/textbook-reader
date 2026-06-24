@@ -1,0 +1,24 @@
+{
+  "overrides": [
+    {
+      "id": "barsoum-ch15-table-15-2-ref-ocr",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[129]",
+      "field": "md",
+      "old": "(see Table 5.2).",
+      "new": "(see Table 15.2).",
+      "reason": "Chapter 15 context and existing catalog entry tbl-15.2 show the reference lost the leading chapter digit; Table 5.2 is not the intended magnetic-moments table."
+    },
+    {
+      "id": "barsoum-ch15-table-15-4-ref-ocr",
+      "action": "replace_text",
+      "chunk": "ch15",
+      "selector": "body[243]",
+      "field": "md",
+      "old": "According to Table 5.4,",
+      "new": "According to Table 15.4,",
+      "reason": "Chapter 15 ferrite discussion and existing catalog entry tbl-15.4 show the reference lost the leading chapter digit; Table 5.4 belongs to another chapter."
+    }
+  ]
+}

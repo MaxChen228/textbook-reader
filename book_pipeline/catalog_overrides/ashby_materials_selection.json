@@ -1,0 +1,86 @@
+{
+  "slug": "ashby_materials_selection",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "ashby-materials-selection-fix-table-14.4-image-block",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[25]",
+      "expect": {
+        "id": "fig-14.3",
+        "src": "b4c71ff0bfdbfca12a3b28482ce352141e9f6df1e1e988a7ebd443c886a4aa30.jpg"
+      },
+      "set": {
+        "id": "tbl-14.4",
+        "caption": "Table 14.4 Process Requirements for the Fan",
+        "catalog_repair_source": "catalog-audit-2026-06-24"
+      },
+      "reason": "正文 ch14 body[26] 引用 Table 14.4；raw PDF p.437 確認該表存在，MinerU 已抽成 image block body[25] 但沿用前一圖 fig-14.3 的 id/caption，故校正為 tbl-14.4。"
+    },
+    {
+      "id": "ashby-materials-selection-fix-table-14.7-image-block",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[64]",
+      "expect": {
+        "id": "fig-14.12",
+        "src": "999b1bf74c3882465aacdab49aebe8298780b92602e7f5be4f045cfaf414c49a.jpg"
+      },
+      "set": {
+        "id": "tbl-14.7",
+        "caption": "Table 14.7 Process Requirements for the Spark Plug Insulator",
+        "catalog_repair_source": "catalog-audit-2026-06-24"
+      },
+      "reason": "正文 ch14 body[63]/body[68] 引用 Table 14.7；raw PDF p.447 確認該表存在，MinerU 已抽成 image block body[64] 但沿用前一圖 fig-14.12 的 id/caption，故校正為 tbl-14.7。"
+    },
+    {
+      "id": "ashby-materials-selection-fix-table-16.2-image-block",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[41]",
+      "expect": {
+        "id": "fig-16.4",
+        "src": "1b0982f92ff750d520e68cf27dcfe449f84c453ff5c945fb7a3deb00454056ce.jpg"
+      },
+      "set": {
+        "id": "tbl-16.2",
+        "caption": "Table 16.2 Some Aesthetic Attributes of Materials",
+        "catalog_repair_source": "catalog-audit-2026-06-24"
+      },
+      "reason": "正文 ch16 body[40] 引用 Table 16.2；raw PDF p.485 確認該表存在，MinerU 已抽成 image block body[41] 但沿用 Figure 16.4 的 id/caption，故校正為 tbl-16.2。"
+    },
+    {
+      "id": "ashby-materials-selection-fix-figure-14.12-image-block",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[65]",
+      "expect": {
+        "id": "fig-14.6",
+        "src": "8bf34c79bec67b751d36692e60c7d0317f63e681e86cd58331c71a48f2f68009.jpg"
+      },
+      "set": {
+        "id": "fig-14.12",
+        "caption": "Figure 14.12 A spark plug. We seek a process to make the insulator.",
+        "catalog_repair_source": "catalog-audit-2026-06-24"
+      },
+      "reason": "修正 Table 14.7 後，正文 ch14 body[62] 對 Figure 14.12 的引用暴露為缺 catalog；raw PDF p.447 確認 body[65] 圖檔是 spark plug 圖，但 MinerU 錯標為 fig-14.6 且 caption 殘缺，故校正為 fig-14.12。"
+    },
+    {
+      "id": "ashby-materials-selection-fix-figure-16.4-image-block",
+      "action": "set_fields",
+      "chunk": "ch16",
+      "selector": "body[46]",
+      "expect": {
+        "id": "fig-16.5",
+        "src": "aac20e8bce9c7a293b0650fe4afc5886159fa1d4c9eec1c9cf1c692a1d48c33f.jpg"
+      },
+      "set": {
+        "id": "fig-16.4",
+        "caption": "Figure 16.4 Tactile qualities of materials. Foams and many natural materials are soft and warm; metals, ceramics, and glasses are hard and cold. Polymers lie in between.",
+        "catalog_repair_source": "catalog-audit-2026-06-24"
+      },
+      "reason": "修正 Table 16.2 後，正文 ch16 body[43]/body[44] 對 Figure 16.4 的引用暴露為缺 catalog；raw PDF p.486 確認 body[46] 圖檔為 tactile qualities 圖，但 MinerU 錯標為 fig-16.5，故校正為 fig-16.4。"
+    }
+  ]
+}

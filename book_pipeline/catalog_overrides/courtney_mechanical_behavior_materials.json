@@ -1,0 +1,27 @@
+{
+  "overrides": [
+    {
+      "id": "courtney-fig-9.16-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[139]",
+      "position": "before",
+      "page": 446,
+      "clip": [
+        0.08,
+        0.20,
+        0.96,
+        0.985
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-9.16.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-9.16",
+        "kind": "line",
+        "caption": "Figure 9.16 Several sample geometries suitable for measuring plane strain fracture toughness. $K_{Ic}$ is defined by $\\sigma_{F}(\\pi c)^{1/2}f(c/a)$, where $\\sigma_{F}$ is the fracture stress and $f(c/a)$ is a function of the test sample geometry. The crack length (c) used in calculating $K_{Ic}$ is that of the initial machined notch ($c'$) plus the increment provided by sharpening of the crack tip prior to testing. Specifications for producing plane strain conditions are noted. However, the sheet thickness should always be compared to the plastic zone size ($r_{y} \\cong K_{c}^{2}/2\\pi\\sigma_{y}^{2}$) calculated from the measured fracture toughness to verify that plane strain conditions have been met."
+      },
+      "reason": "C4: parsed text repeatedly references Fig. 9.16, and raw PDF physical page 446 contains Figure 9.16, but MinerU emitted the visual/formula panel as tbl-9.2 rather than a figure catalog entry. Insert a replayable crop of the original figure immediately before the OCR table block."
+    }
+  ]
+}

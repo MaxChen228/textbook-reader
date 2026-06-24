@@ -1,0 +1,220 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "44.6",
+      "classification": "external",
+      "reason": "Citation explicitly points to Pollard et al., Cell Biology, Fig. 44.6, not an internal Lodish figure.",
+      "where": "ch19.json body[350]",
+      "evidence": "[Part (c) and (d) Data from T. D. Pollard et al., 2016, Cell Biology, 3d ed., Elsevier, Fig. 44.6.]"
+    },
+    {
+      "type": "figure",
+      "ref": "53.11",
+      "classification": "external",
+      "reason": "Citation explicitly points to Principles of Neural Science, Fig. 53-11, not an internal Lodish figure.",
+      "where": "ch22.json body[451]",
+      "evidence": "[Data from E. R. Kandel, J. H. Schwartz, and T. M. Jessell, 2000, Principles of Neural Science, 4th ed., McGraw-Hill, p. 1054, Fig. 53-11.]"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "lodish-remove-spurious-5-23a-alias",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[109]",
+      "expect": {
+        "id": "fig-5.11"
+      },
+      "set": {
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-remove-spurious-alias"
+      },
+      "reason": "Figure 5.11 was incorrectly aliased as Figure 5.23a."
+    },
+    {
+      "id": "lodish-remove-spurious-6-9-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[171]",
+      "expect": {
+        "id": "fig-6.10"
+      },
+      "set": {
+        "catalog_aliases": [],
+        "catalog_repair_source": "agent-remove-spurious-alias"
+      },
+      "reason": "Figure 6.10 was incorrectly aliased as Figure 6.9b/c."
+    },
+    {
+      "id": "lodish-keep-only-valid-24-25a-alias",
+      "action": "set_fields",
+      "chunk": "ch24",
+      "selector": "body[328]",
+      "expect": {
+        "id": "fig-24.25a"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-24.22",
+            "type": "figure",
+            "caption": "Figure 24.22",
+            "source": "agent-near-ref-alias",
+            "evidence": "body[324] next visual at distance 4"
+          }
+        ],
+        "catalog_repair_source": "agent-remove-spurious-alias"
+      },
+      "reason": "Remove the incorrect Figure 24.24a alias before inserting the real Figure 24.24."
+    },
+    {
+      "id": "lodish-insert-fig-4-21",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[228]",
+      "position": "before",
+      "page": 737,
+      "clip": [
+        0.135,
+        0.152,
+        0.944,
+        0.758
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.21",
+        "kind": "line",
+        "caption": "EXPERIMENTAL FIGURE 4-21 Fluorescent samples in a restricted focal plane can be imaged by total internal reflection fluorescence (TIRF) microscopy.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "MinerU emitted this TIRF figure as a table placeholder; crop the full Figure 4-21 from the raw PDF."
+    },
+    {
+      "id": "lodish-insert-fig-5-23",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[295]",
+      "position": "before",
+      "page": 879,
+      "clip": [
+        0.124,
+        0.064,
+        0.879,
+        0.882
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-5.23",
+        "kind": "line",
+        "caption": "FIGURE 5-23 RNA is synthesized 5' -> 3'.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Insert the missing full Figure 5-23 so refs 5.23, 5.23a, 5.23b, and 5.23c resolve to the correct visual."
+    },
+    {
+      "id": "lodish-insert-fig-6-9",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[159]",
+      "position": "before",
+      "page": 1010,
+      "clip": [
+        0.131,
+        0.077,
+        0.944,
+        0.762
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.9",
+        "kind": "line",
+        "caption": "FIGURE 6-9 Mutations that result in genetic suppression or synthetic lethality reveal interacting or redundant proteins.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Figure 6-9 is present in the raw PDF but only a placeholder survived parsing."
+    },
+    {
+      "id": "lodish-insert-fig-7-37",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[458]",
+      "position": "before",
+      "page": 1309,
+      "clip": [
+        0.136,
+        0.075,
+        0.947,
+        0.761
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-7.37",
+        "kind": "line",
+        "caption": "EXPERIMENTAL FIGURE 7-37 Yeast transformation experiments were used to identify the functional chromosomal elements necessary for normal chromosome replication and segregation.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Figure 7-37 exists in the raw PDF but was reduced to descriptive text plus a table placeholder."
+    },
+    {
+      "id": "lodish-insert-fig-8-49",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "body[647]",
+      "position": "before",
+      "page": 1521,
+      "clip": [
+        0.135,
+        0.073,
+        0.948,
+        0.761
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.49",
+        "kind": "line",
+        "caption": "FIGURE 8-49 Opposing influence of Polycomb and Trithorax complexes on expression of the Hox transcription factor Abd-B in Drosophila embryos.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Figure 8-49 is present in the raw PDF but was not emitted as a catalogable figure block."
+    },
+    {
+      "id": "lodish-insert-fig-24-24",
+      "action": "pdf_crop_insert",
+      "chunk": "ch24",
+      "selector": "body[328]",
+      "position": "before",
+      "page": 4179,
+      "clip": [
+        0.135,
+        0.077,
+        0.948,
+        0.769
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-24.24",
+        "kind": "line",
+        "caption": "FIGURE 24-24 Structure of class I and class II MHC molecules.",
+        "catalog_repair_source": "agent-pdf-crop"
+      },
+      "reason": "Insert the missing structure figure that precedes Figure 24-25 in the raw PDF."
+    },
+    {
+      "id": "lodish-fix-5-44-ref",
+      "action": "replace_text",
+      "chunk": "ch25",
+      "selector": "body[140]",
+      "field": "md",
+      "old": "see Figure 5-44",
+      "new": "see Figure 5-43",
+      "reason": "The cancer chapter points to the retroviral life cycle figure, which is Figure 5-43 in this edition."
+    }
+  ]
+}
