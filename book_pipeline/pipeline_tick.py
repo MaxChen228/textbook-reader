@@ -1626,14 +1626,30 @@ def _yaml_parse_error(text: str) -> str | None:
 
 
 def _malformed_rules_reason(slug: str) -> str | None:
-    """extract_rules.yaml 存在但非合法 YAML → 回錯因（供 audit 接受時擋下、免進 parser 靜默 crash-loop）；
-    合法／不存在 → None。2026-06-24 dogfood：glover_overbye 章標「Transmission Lines: Steady-State」含
-    未引號冒號 → parser.load_rules 的 yaml.safe_load 拋 ScannerError、書卡 待parse 每 cycle 崩、無 R 狀態。"""
+    """extract_rules.yaml 存在但 **parser 無法載入** → 回精簡錯因（audit 接受時擋下、免進 parser 靜默
+    crash-loop）；可載入／不存在 → None。涵蓋兩類（2026-06-24 dogfood 同本 glover_overbye 連撞兩次）：
+    ① YAML 語法壞——值含未引號冒號（章標「Transmission Lines: Steady-State」）→ yaml.safe_load ScannerError；
+    ② rules 不完整——缺必要 regex key（漏 equation_label_re）/ 壞 regex → parser.compile_regexes KeyError/re.error。
+    兩類都讓 parser 每 cycle 崩、書卡 待parse 無 R 狀態 → 守護＝『parser 真能載入這份 rules』而非只驗語法。"""
     path = os.path.join(DATA_DIR, slug, 'extract_rules.yaml')
     if not os.path.isfile(path):
         return None
-    with open(path, encoding='utf-8') as fh:
-        return _yaml_parse_error(fh.read())
+    return _rules_load_error(open(path, encoding='utf-8').read())
+
+
+def _rules_load_error(text: str) -> str | None:
+    """extract_rules.yaml 文本 **parser 能否載入** → 精簡錯因 / None。純函式、易測（_malformed_rules_reason
+    讀檔後委派此）。① 語法（_yaml_parse_error）② 必要 regex key 缺 / regex 壞（parser.compile_regexes
+    KeyError/re.error）。"""
+    if (syn := _yaml_parse_error(text)) is not None:
+        return f'YAML 語法: {syn}'
+    try:
+        import yaml
+        from book_pipeline import parser as _parser
+        _parser.compile_regexes(yaml.safe_load(text) or {})  # 缺必要 regex key→KeyError、壞 regex→re.error
+    except Exception as e:
+        return f'rules 不完整: {type(e).__name__}: {" ".join(str(e).split())}'[:160]
+    return None
 
 
 def advance_book(slug: str, dry: bool, no_deploy: bool, max_steps: int = 15) -> None:

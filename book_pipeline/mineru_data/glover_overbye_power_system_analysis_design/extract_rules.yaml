@@ -132,6 +132,7 @@ appendices:
 
 section_re: '^(\d+\.\d+)\s+(.+)$'
 subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+equation_label_re: '\\tag\{([^}]+)\}'
 heading_priority:
   - subsection_re
   - section_re

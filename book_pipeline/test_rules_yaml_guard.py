@@ -32,8 +32,28 @@ def test_malformed_rules_reason_missing_file():
     assert pt._malformed_rules_reason('__no_such_slug_xyz__') is None
 
 
+def test_rules_load_error_missing_required_key():
+    """語法合法但缺必要 regex key（equation_label_re）→ parser.compile_regexes KeyError → 守護偵測。
+    2026-06-24 dogfood：glover_overbye audit 漏 equation_label_re（376/377 本都有）→ parser 每 cycle 崩。
+    語法守護（_yaml_parse_error）抓不到此類 → 守護升級為『parser 真能載入這份 rules』（含 compile_regexes）。"""
+    complete = ("section_re: '^(\\d+\\.\\d+)\\s'\n"
+                "subsection_re: '^(\\d+\\.\\d+\\.\\d+)\\s'\n"
+                "problem_start_re: '^(\\d+)\\s'\n"
+                "equation_label_re: '\\\\tag\\{([^}]+)\\}'\n")
+    assert pt._rules_load_error(complete) is None, '完整 rules 應可載入'
+    missing = ("section_re: '^(\\d+\\.\\d+)\\s'\n"
+               "subsection_re: '^(\\d+\\.\\d+\\.\\d+)\\s'\n"
+               "problem_start_re: '^(\\d+)\\s'\n")  # 缺 equation_label_re
+    reason = pt._rules_load_error(missing)
+    assert reason is not None and 'equation_label_re' in reason, f'缺必要 key 須被偵測：{reason}'
+    # 壞 regex 也該被偵測
+    bad_re = complete + "example_start_re: '([unclosed'\n"
+    assert pt._rules_load_error(bad_re) is not None, '壞 regex 須被偵測'
+
+
 if __name__ == '__main__':
     test_good_yaml_passes()
     test_unquoted_colon_title_caught()
     test_malformed_rules_reason_missing_file()
+    test_rules_load_error_missing_required_key()
     print('全部通過 ✅')
