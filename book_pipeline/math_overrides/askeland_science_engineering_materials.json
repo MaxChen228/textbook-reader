@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "askeland_science_engineering_materials-ch24-body-197-ec2652",
+      "action": "fix_inline_math",
+      "chunk": "ch24",
+      "selector": "body[197]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm { ^ { * } W D \\mathrm { - } 4 0 ^ { T M } ^ { , 3 } }$",
+      "new": "${} ^ { * } W D \\mathrm { - } 4 0 ^ { T M , 3 }$",
+      "anchor": "58e86de2"
+    },
+    {
+      "id": "askeland_science_engineering_materials-ch03-body-411-e481ea",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[411]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda = 0 . 7 1 0 7 \\mathring \\mathrm { A }$",
+      "new": "$\\lambda = 0 . 7 1 0 7 \\mathring {\\mathrm { A }}$",
+      "anchor": "f3993753"
+    },
+    {
+      "id": "askeland_science_engineering_materials-ch05-body-174-223fc1",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[174]",
+      "expect": "D = 0. 7 4 \\mathrm {\\frac {cm^ {2}}{s}} \\exp \\left[ \\frac {- 9 0 , 0 0 0 \\mathrm {\\frac {cal}{mol}}}{(1 . 9 8 7 \\mathrm {\\frac {cal}{mol\\cdotK}}) (2 2 7 3 \\mathrm{K})} \\right] = 1. 6 4 \\times 1 0 ^ {- 9} \\mathrm {cm^ {2} /s}",
+      "new": "D = 0. 7 4 \\frac {\\mathrm {cm}^ {2}}{\\mathrm {s}} \\exp \\left[ \\frac {- 9 0 , 0 0 0 \\frac {\\mathrm {cal}}{\\mathrm {mol}}}{(1 . 9 8 7 \\frac {\\mathrm {cal}}{\\mathrm {mol}\\cdot \\mathrm{K}}) (2 2 7 3 \\mathrm{K})} \\right] = 1. 6 4 \\times 1 0 ^ {- 9} \\mathrm {cm}^ {2} /\\mathrm{s}"
+    },
+    {
+      "id": "askeland_science_engineering_materials-ch14-body-162-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[162]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$\\nu _ { 2 }$",
+      "anchor": "53a95e2b"
+    }
+  ]
+}

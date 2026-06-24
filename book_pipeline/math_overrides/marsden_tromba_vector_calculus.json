@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "marsden_tromba_vector_calculus-ch01-body-838-96b473",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[838]",
+      "expect": "r = \\sqrt {x ^ {2} + y ^ {2}}, \\qquad \\theta = \\left\\{ \\begin{array}{l l} \\tan^ {- 1} (y / x) & \\text {if x > 0 and y\\geq 0} \\\\ \\pi + \\tan^ {- 1} (y / x) & \\text {if x <   0} \\\\ 2 \\pi + \\tan^ {- 1} (y / x) & \\text {if x > 0 and y <   0}, \\end{array} \\right. \\qquad z = z,",
+      "new": "r = \\sqrt {x ^ {2} + y ^ {2}}, \\qquad \\theta = \\left\\{ \\begin{array}{l l} \\tan^ {- 1} (y / x) & \\text {if } x > 0 \\text { and } y\\geq 0 \\\\ \\pi + \\tan^ {- 1} (y / x) & \\text {if } x <   0 \\\\ 2 \\pi + \\tan^ {- 1} (y / x) & \\text {if } x > 0 \\text { and } y <   0, \\end{array} \\right. \\qquad z = z,"
+    },
+    {
+      "id": "marsden_tromba_vector_calculus-ch07-body-74-67d6fd",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{l l} \\int \\mathbf {F} \\cdot d \\mathbf {s} = \\int_ {a} ^ {b} \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\mathbf {c} ^ {\\prime} (t)   d t & \\text {(by definition)} \\\\ = \\int_ {a} ^ {b} \\left[ \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\frac {\\mathbf {c} ^ {\\prime} (t)}{\\| \\mathbf {c} ^ {\\prime} (t) \\|} \\right] \\| \\mathbf {c} ^ {\\prime} (t) \\|   d t & \\text {(canceling \\| \\mathbf {c} ^ {\\prime} (t) \\|)} \\\\ = \\int_ {J _ {a}} ^ {b} [ \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\mathbf {T} (t) ] \\| \\mathbf {c} ^ {\\prime} (t) \\|   d t. \\end{array}",
+      "new": "\\begin{array}{l l} \\int \\mathbf {F} \\cdot d \\mathbf {s} = \\int_ {a} ^ {b} \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\mathbf {c} ^ {\\prime} (t)   d t & \\text {(by definition)} \\\\ = \\int_ {a} ^ {b} \\left[ \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\frac {\\mathbf {c} ^ {\\prime} (t)}{\\| \\mathbf {c} ^ {\\prime} (t) \\|} \\right] \\| \\mathbf {c} ^ {\\prime} (t) \\|   d t & \\text {(canceling } \\| \\mathbf {c} ^ {\\prime} (t) \\| \\text {)} \\\\ = \\int_ {J _ {a}} ^ {b} [ \\mathbf {F} (\\mathbf {c} (t)) \\cdot \\mathbf {T} (t) ] \\| \\mathbf {c} ^ {\\prime} (t) \\|   d t. \\end{array}"
+    },
+    {
+      "id": "marsden_tromba_vector_calculus-ch01-body-516-80bd43",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[516]",
+      "expect": "\\begin{array}{c} \\left| \\begin{array}{c c c} \\alpha b _ {1} + \\beta c _ {1} & \\alpha b _ {2} + \\beta c _ {2} & \\alpha b _ {3} + \\beta c _ {3} \\\\ b _ {1} & b _ {2} & b _ {3} \\\\ c _ {1} & c _ {2} & c _ {3} \\end{array} \\right| \\\\ = - \\frac {1}{\\alpha} \\left| \\begin{array}{c c c} \\alpha b _ {1} + \\beta c _ {1} & \\alpha b _ {2} + \\beta c _ {2} & \\alpha b _ {3} + \\beta c _ {3} \\\\ - \\alpha b _ {1} & - \\alpha b _ {2} & - \\alpha b _ {3} \\\\ c _ {1} & c _ {2} & c _ {3} \\end{array} \\right| \\\\ (\\text {factoring - 1 / }",
+      "new": "\\begin{array}{c} \\left| \\begin{array}{c c c} \\alpha b _ {1} + \\beta c _ {1} & \\alpha b _ {2} + \\beta c _ {2} & \\alpha b _ {3} + \\beta c _ {3} \\\\ b _ {1} & b _ {2} & b _ {3} \\\\ c _ {1} & c _ {2} & c _ {3} \\end{array} \\right| \\\\ = - \\frac {1}{\\alpha} \\left| \\begin{array}{c c c} \\alpha b _ {1} + \\beta c _ {1} & \\alpha b _ {2} + \\beta c _ {2} & \\alpha b _ {3} + \\beta c _ {3} \\\\ - \\alpha b _ {1} & - \\alpha b _ {2} & - \\alpha b _ {3} \\\\ c _ {1} & c _ {2} & c _ {3} \\end{array} \\right| \\\\ (\\text {factoring - 1 / }) \\end{array}"
+    }
+  ]
+}

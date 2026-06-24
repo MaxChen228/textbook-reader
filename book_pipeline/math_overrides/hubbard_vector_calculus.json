@@ -1,0 +1,122 @@
+{
+  "overrides": [
+    {
+      "id": "hubbard_vector_calculus-ch02-body-505-d436bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[505]",
+      "expect": "(A ^ {\\top} A) _ {i, j} = \\vec {\\mathbf {v}} _ {i} \\cdot \\vec {\\mathbf {v}} _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\quad \\text {if i = j} \\\\ 0 & \\quad \\text {if i\\neq j} \\end{array} \\right.",
+      "new": "(A ^ {\\top} A) _ {i, j} = \\vec {\\mathbf {v}} _ {i} \\cdot \\vec {\\mathbf {v}} _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\quad \\text {if } i = j \\\\ 0 & \\quad \\text {if } i\\neq j \\end{array} \\right."
+    },
+    {
+      "id": "hubbard_vector_calculus-ch02-body-510-6051ba",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[510]",
+      "expect": "\\mathbf {v} _ {i} \\cdot \\mathbf {v} _ {j} = A \\vec {\\mathbf {e}} _ {i} \\cdot A \\vec {\\mathbf {e}} _ {j} = \\vec {\\mathbf {e}} _ {i} \\cdot \\vec {\\mathbf {e}} _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if i = j} \\\\ 0 & \\text {if i\\neq j} \\end{array} \\right.",
+      "new": "\\mathbf {v} _ {i} \\cdot \\mathbf {v} _ {j} = A \\vec {\\mathbf {e}} _ {i} \\cdot A \\vec {\\mathbf {e}} _ {j} = \\vec {\\mathbf {e}} _ {i} \\cdot \\vec {\\mathbf {e}} _ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if } i = j \\\\ 0 & \\text {if } i\\neq j \\end{array} \\right."
+    },
+    {
+      "id": "hubbard_vector_calculus-ch02-body-1931-61f954",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[1931]",
+      "expect": "\\underbrace {2 R | L ^ {- 1} |} _ {\\text {radius of W_{0}}} = r \\quad \\text {and} \\quad \\underbrace {\\frac {1}{2 R | L ^ {- 1} | ^ {2}}} _ {\\text {Lipsch. eq. 2.10.26}} \\geq \\underbrace {6 r} _ {\\text {computed Lipsch.}}",
+      "new": "\\underbrace {2 R | L ^ {- 1} |} _ {\\text {radius of } W_{0}} = r \\quad \\text {and} \\quad \\underbrace {\\frac {1}{2 R | L ^ {- 1} | ^ {2}}} _ {\\text {Lipsch. eq. 2.10.26}} \\geq \\underbrace {6 r} _ {\\text {computed Lipsch.}}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch04-body-1712-b26fe5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1712]",
+      "expect": "\\left\\{ \\begin{array}{l l} 0 & \\text {if |x| > R} \\\\ R & \\text {if |x|\\leq R, H_{l} (x) > R} \\\\ - R & \\text {if |x|\\leq R, H_{l} (x) <   - R} \\\\ H _ {l} (\\mathbf {x}) & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{l l} 0 & \\text {if } |x| > R \\\\ R & \\text {if } |x|\\leq R, H_{l} (x) > R \\\\ - R & \\text {if } |x|\\leq R, H_{l} (x) <   - R \\\\ H _ {l} (\\mathbf {x}) & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "hubbard_vector_calculus-ch06-body-2136-911211",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[2136]",
+      "expect": "\\int_ {S ^ {1}} W _ {\\vec {\\mathbf {B}}} = \\frac {\\mu_ {0} I}{4 \\pi} \\int_ {0} ^ {2 \\pi} \\underbrace \\overbrace {\\frac {1}{\\cos^ {2} t + \\sin^ {2} t} \\left[ \\begin{array}{c} 0 \\\\ - \\sin t \\\\ \\cos t \\end{array} \\right]} ^ {1} \\cdot \\underbrace {\\left[ \\begin{array}{c} 0 \\\\ - \\sin t \\\\ \\cos t \\end{array} \\right]} _ {\\vec {F} (\\gamma (t))} d t = \\frac {\\mu_ {0} I}{2}.",
+      "new": "\\int_ {S ^ {1}} W _ {\\vec {\\mathbf {B}}} = \\frac {\\mu_ {0} I}{4 \\pi} \\int_ {0} ^ {2 \\pi} \\underbrace {\\overbrace {\\frac {1}{\\cos^ {2} t + \\sin^ {2} t} \\left[ \\begin{array}{c} 0 \\\\ - \\sin t \\\\ \\cos t \\end{array} \\right]} ^ {1}} \\cdot \\underbrace {\\left[ \\begin{array}{c} 0 \\\\ - \\sin t \\\\ \\cos t \\end{array} \\right]} _ {\\vec {F} (\\gamma (t))} d t = \\frac {\\mu_ {0} I}{2}."
+    },
+    {
+      "id": "hubbard_vector_calculus-appA-body-1558-8d77fd",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[1558]",
+      "field": "md",
+      "all": true,
+      "old": "$K_{p} = \\left\\{\\sum_{m = p}^{\\infty}a_{m}f_{m}\\mid a_{m}\\geq 0,$",
+      "new": "$K_{p} = \\left\\{\\sum_{m = p}^{\\infty}a_{m}f_{m}\\mid a_{m}\\geq 0,\\right.$",
+      "anchor": "58701d68"
+    },
+    {
+      "id": "hubbard_vector_calculus-appA-body-1558-b0b8d7",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[1558]",
+      "field": "md",
+      "all": true,
+      "old": "$\\sum_{m = p}^{\\infty}a_{m} = 1\\right\\} .$",
+      "new": "$\\left.\\sum_{m = p}^{\\infty}a_{m} = 1\\right\\} .$",
+      "anchor": "58701d68"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch00-problem-0-5-2-body-1-bca3a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch00",
+      "selector": "problem:0.5.2:body[1]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} \\sin \\frac {1}{x} & \\quad \\text {if x\\neq 0} \\\\ 0 & \\quad \\text {if x = 0} \\end{array} \\right. \\text {is not continuous.}",
+      "new": "f (x) = \\left\\{ \\begin{array}{l l} \\sin \\frac {1}{x} & \\quad \\text {if } x\\neq 0 \\\\ 0 & \\quad \\text {if } x = 0 \\end{array} \\right. \\text {is not continuous.}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch01-body-1131-bbcd16",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1131]",
+      "expect": "\\sin 2 \\pi \\alpha \\quad \\left\\{ \\begin{array}{l l} = 0 & \\text {if \\alpha is an integer or half - integer} \\\\ > 0 & \\text {if the fractional part of \\alpha is <   1 / 2} \\\\ <   0 & \\text {if the fractional part of \\alpha is > 1 / 2}. \\end{array} \\right.",
+      "new": "\\sin 2 \\pi \\alpha \\quad \\left\\{ \\begin{array}{l l} = 0 & \\text {if } \\alpha \\text { is an integer or half - integer} \\\\ > 0 & \\text {if the fractional part of } \\alpha \\text { is } <   1 / 2 \\\\ <   0 & \\text {if the fractional part of } \\alpha \\text { is } > 1 / 2. \\end{array} \\right."
+    },
+    {
+      "id": "hubbard_vector_calculus-ch01-body-1580-89ae1c",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1580]",
+      "expect": "\\begin{array}{l} (A + H) ^ {- 1} = \\left(A (I + A ^ {- 1} H)\\right) ^ {- 1} \\underbrace {\\text {Prop.1.2.15(see margin)}} _ {= (I + A ^ {- 1} H) ^ {- 1} A ^ {- 1}} \\\\ = \\underbrace {(I - (- A ^ {- 1} H)) ^ {- 1}} _ {\\text {sum of series in line below}} A ^ {- 1} \\\\ = \\underbrace {(I + (- A ^ {- 1} H) + (- A ^ {- 1} H) ^ {2} + \\cdots)} _ {\\text {series I + B + B^{2} +... , where B = - A^{-1} H}} A ^ {- 1} \\end{array} \\tag {1.7.54}",
+      "new": "\\begin{array}{l} (A + H) ^ {- 1} = \\left(A (I + A ^ {- 1} H)\\right) ^ {- 1} \\underbrace {\\text {Prop.1.2.15(see margin)}} _ {= (I + A ^ {- 1} H) ^ {- 1} A ^ {- 1}} \\\\ = \\underbrace {(I - (- A ^ {- 1} H)) ^ {- 1}} _ {\\text {sum of series in line below}} A ^ {- 1} \\\\ = \\underbrace {(I + (- A ^ {- 1} H) + (- A ^ {- 1} H) ^ {2} + \\cdots)} _ {\\text {series } I + B + B^{2} +... \\text {, where } B = - A^{-1} H} A ^ {- 1} \\end{array} \\tag {1.7.54}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch02-body-331-e8acbf",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[331]",
+      "expect": "\\underbrace {\\left[ \\begin{array}{c c c c c c c c} & & i & & j & & \\\\ 1 & & 0 & \\ldots & 0 & & & 0 \\\\ \\vdots & & \\vdots & \\vdots & \\vdots & & & \\vdots \\\\ 0 & & 0 & \\ldots & 1 & & & 0 \\\\ 0 & & 0 & 1 & 0 & & & 0 \\\\ 0 & & 1 & \\ldots & 0 & \\ldots & & 0 \\\\ 0 & & 0 & 0 & 0 & 1 & & 0 \\\\ \\vdots & & \\vdots & \\vdots & \\vdots & \\vdots & & \\vdots \\\\ 0 & \\ldots & 0 & \\ldots & 0 & \\ldots & \\ldots & 1 \\end{array} \\right]} _ {\\text {Type 3: E_{3} (i,j)}}",
+      "new": "\\underbrace {\\left[ \\begin{array}{c c c c c c c c} & & i & & j & & \\\\ 1 & & 0 & \\ldots & 0 & & & 0 \\\\ \\vdots & & \\vdots & \\vdots & \\vdots & & & \\vdots \\\\ 0 & & 0 & \\ldots & 1 & & & 0 \\\\ 0 & & 0 & 1 & 0 & & & 0 \\\\ 0 & & 1 & \\ldots & 0 & \\ldots & & 0 \\\\ 0 & & 0 & 0 & 0 & 1 & & 0 \\\\ \\vdots & & \\vdots & \\vdots & \\vdots & \\vdots & & \\vdots \\\\ 0 & \\ldots & 0 & \\ldots & 0 & \\ldots & \\ldots & 1 \\end{array} \\right]} _ {\\text {Type 3: } E_{3} \\text { } (i,j)}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch06-body-2222-ec34f1",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[2222]",
+      "expect": "\\begin{array}{l} \\mathbf {c} \\varphi \\big (P _ {\\mathbf {x}} (\\vec {\\mathbf {v}} _ {1}, \\dots , \\vec {\\mathbf {v}} _ {k - 1}) \\big) = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {C P _ {\\mathbf {x}} (h \\vec {\\mathbf {v}} _ {1}, \\dots , h \\vec {\\mathbf {v}} _ {k - 1})} \\overbrace {f d x _ {i _ {1}} \\wedge \\cdots \\wedge d x _ {i _ {k}}} ^ {\\varphi} \\\\ = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {[ 0, 1 ] \\times [ 0, h ] \\times \\dots \\times [ 0, h ]} \\varphi (P _ {\\gamma (\\mathbf {t})} (\\overrightarrow {D _ {1} \\gamma}, \\dots , \\overrightarrow {D _ {k} \\gamma})) | d \\mathbf {t} ^ {k} | \\\\ = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {0} ^ {1} \\int_ {0} ^ {h} \\dots \\int_ {0} ^ {h} \\overbrace {f (t _ {0} (\\mathbf {x} + t _ {1} \\vec {\\mathbf {v}} _ {1} + \\cdots + t _ {k - 1} \\vec {\\mathbf {v}} _ {k - 1}))} ^ {f (\\gamma (\\mathbf {t}))} \\\\ \\underbrace {d x _ {i _ {1}} \\wedge . . . \\wedge d x _ {i _ {k}}} _ {\\text {elem. k - form}} \\underbrace {\\left(\\mathbf {x} + t _ {1} \\vec {\\mathbf {v}} _ {1} + \\cdots + t _ {k - 1} \\vec {\\mathbf {v}} _ {k - 1} , t _ {0} \\vec {\\mathbf {v}} _ {1} , . . . , t _ {0} \\vec {\\mathbf {v}} _ {k - 1}\\right)} _ {\\text {k vectors in R^{n}: D_{0} \\gamma D_{1} \\gamma , . . . , D_{k - 1} \\gamma}} | d t _ {k - 1}... d t _ {1} d t _ {0} |. \\end{array} 6. 1 3. 2 0",
+      "new": "\\begin{array}{l} \\mathbf {c} \\varphi \\big (P _ {\\mathbf {x}} (\\vec {\\mathbf {v}} _ {1}, \\dots , \\vec {\\mathbf {v}} _ {k - 1}) \\big) = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {C P _ {\\mathbf {x}} (h \\vec {\\mathbf {v}} _ {1}, \\dots , h \\vec {\\mathbf {v}} _ {k - 1})} \\overbrace {f d x _ {i _ {1}} \\wedge \\cdots \\wedge d x _ {i _ {k}}} ^ {\\varphi} \\\\ = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {[ 0, 1 ] \\times [ 0, h ] \\times \\dots \\times [ 0, h ]} \\varphi (P _ {\\gamma (\\mathbf {t})} (\\overrightarrow {D _ {1} \\gamma}, \\dots , \\overrightarrow {D _ {k} \\gamma})) | d \\mathbf {t} ^ {k} | \\\\ = \\lim _ {h \\to 0} \\frac {1}{h ^ {k - 1}} \\int_ {0} ^ {1} \\int_ {0} ^ {h} \\dots \\int_ {0} ^ {h} \\overbrace {f (t _ {0} (\\mathbf {x} + t _ {1} \\vec {\\mathbf {v}} _ {1} + \\cdots + t _ {k - 1} \\vec {\\mathbf {v}} _ {k - 1}))} ^ {f (\\gamma (\\mathbf {t}))} \\\\ \\underbrace {d x _ {i _ {1}} \\wedge . . . \\wedge d x _ {i _ {k}}} _ {\\text {elem. k - form}} \\underbrace {\\left(\\mathbf {x} + t _ {1} \\vec {\\mathbf {v}} _ {1} + \\cdots + t _ {k - 1} \\vec {\\mathbf {v}} _ {k - 1} , t _ {0} \\vec {\\mathbf {v}} _ {1} , . . . , t _ {0} \\vec {\\mathbf {v}} _ {k - 1}\\right)} _ {\\text {k vectors in } R^{n}\\text {: } D_{0} \\gamma D_{1} \\gamma , . . . , D_{k - 1} \\gamma} | d t _ {k - 1}... d t _ {1} d t _ {0} |. \\end{array} 6. 1 3. 2 0"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch03-body-679-98ccb5",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[679]",
+      "expect": "\\begin{array}{l} F \\left( \\begin{array}{c} a + u \\\\ b + v \\end{array} \\right) = \\frac {1}{\\big (f (a) + f ^ {\\prime} (a) u + f ^ {\\prime \\prime} (a) u ^ {2} / 2 + o (u ^ {2}) \\big) + \\big (f (b) + f ^ {\\prime} (b) v + f ^ {\\prime \\prime} (b) v ^ {2} / 2 + o (v ^ {2}) \\big)} \\\\ = \\overbrace {\\frac {1}{f (a) + f (b)}} ^ {\\text {a constant}} \\overbrace \\frac {1}{1 + \\frac {f ^ {\\prime} (a) u + f ^ {\\prime \\prime} (a) u ^ {2} / 2 + f ^ {\\prime} (b) v + f ^ {\\prime \\prime} (b) v ^ {2} / 2}{f (a) + f (b)}} + o (u ^ {2} + v ^ {2}). \\end{array}",
+      "new": "\\begin{array}{l} F \\left( \\begin{array}{c} a + u \\\\ b + v \\end{array} \\right) = \\frac {1}{\\big (f (a) + f ^ {\\prime} (a) u + f ^ {\\prime \\prime} (a) u ^ {2} / 2 + o (u ^ {2}) \\big) + \\big (f (b) + f ^ {\\prime} (b) v + f ^ {\\prime \\prime} (b) v ^ {2} / 2 + o (v ^ {2}) \\big)} \\\\ = \\overbrace {\\frac {1}{f (a) + f (b)}} ^ {\\text {a constant}} \\overbrace {\\frac {1}{1 + \\frac {f ^ {\\prime} (a) u + f ^ {\\prime \\prime} (a) u ^ {2} / 2 + f ^ {\\prime} (b) v + f ^ {\\prime \\prime} (b) v ^ {2} / 2}{f (a) + f (b)}}} + o (u ^ {2} + v ^ {2}). \\end{array}"
+    },
+    {
+      "id": "hubbard_vector_calculus-ch06-body-579-17e2e4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[579]",
+      "expect": "\\begin{array}{l}\\int_ {P} \\omega = \\int_ {T} \\left(y d y \\wedge d z + x d x \\wedge d z + z d x \\wedge d y\\right) \\binom {P _ {\\left(\\begin{array}{c}x\\\\y\\\\1 - x - y\\end{array}\\right)}} \\overbrace {\\left[\\begin{array}{c}1\\\\0\\\\- 1\\end{array}\\right]} ^ {\\overrightarrow {D _ {1} \\gamma}}, \\overbrace {\\left[\\begin{array}{c}0\\\\1\\\\- 1\\end{array}\\right]}\\left. \\right) | d x d y |\\\\= \\int_ {T} \\left(y \\det \\left[\\begin{array}{c c}0&1\\\\- 1&- 1\\end{array}\\right] + x \\det \\left[\\begin{array}{c c}1&0\\\\- 1&- 1\\end{array}\\right] + (1 - x - y) \\det \\left[\\begin{array}{c c}1&0\\\\0&1\\end{array}\\right]\\right) | d x d y |\\\\= \\int_ {T} (y - x + 1 - x - y) | d x d y |\\\\= \\int_ {T} (1 - 2 x) | d x d y | = \\int_ {0} ^ {1} \\left(\\int_ {0} ^ {1 - y} (1 - 2 x) d x\\right) d y\\\\= \\int_ {0} ^ {1} [ x - x ^ {2} ] _ {0} ^ {1 - y} d y = \\int_ {0} ^ {1} (y - y ^ {2}) d y = \\left[ \\frac {y ^ {2}}{2} - \\frac {y ^ {3}}{3} \\right] _ {0} ^ {1} = \\frac {1}{6}.\\end{array}\\tag {6.4.33}",
+      "new": "\\begin{array}{l}\\int_ {P} \\omega = \\int_ {T} \\left(y d y \\wedge d z + x d x \\wedge d z + z d x \\wedge d y\\right) \\left( P _ {\\left(\\begin{array}{c}x\\\\y\\\\1 - x - y\\end{array}\\right)}, \\overbrace {\\left[\\begin{array}{c}1\\\\0\\\\- 1\\end{array}\\right]} ^ {\\overrightarrow {D _ {1} \\gamma}}, \\overbrace {\\left[\\begin{array}{c}0\\\\1\\\\- 1\\end{array}\\right]}\\right) | d x d y |\\\\= \\int_ {T} \\left(y \\det \\left[\\begin{array}{c c}0&1\\\\- 1&- 1\\end{array}\\right] + x \\det \\left[\\begin{array}{c c}1&0\\\\- 1&- 1\\end{array}\\right] + (1 - x - y) \\det \\left[\\begin{array}{c c}1&0\\\\0&1\\end{array}\\right]\\right) | d x d y |\\\\= \\int_ {T} (y - x + 1 - x - y) | d x d y |\\\\= \\int_ {T} (1 - 2 x) | d x d y | = \\int_ {0} ^ {1} \\left(\\int_ {0} ^ {1 - y} (1 - 2 x) d x\\right) d y\\\\= \\int_ {0} ^ {1} [ x - x ^ {2} ] _ {0} ^ {1 - y} d y = \\int_ {0} ^ {1} (y - y ^ {2}) d y = \\left[ \\frac {y ^ {2}}{2} - \\frac {y ^ {3}}{3} \\right] _ {0} ^ {1} = \\frac {1}{6}.\\end{array}\\tag {6.4.33}"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "overrides": [
+    {
+      "id": "pavia_spectroscopy-ch02-body-131-3b2c6b",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[131]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { 0 } _ { 2 }$",
+      "new": "$N { 0 } _ { 2 }$",
+      "anchor": "3f77345e"
+    },
+    {
+      "id": "pavia_spectroscopy-ch02-body-511-3b2c6b",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[511]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { 0 } _ { 2 }$",
+      "new": "$N { 0 } _ { 2 }$",
+      "anchor": "43cbd93f"
+    },
+    {
+      "id": "pavia_spectroscopy-ch09-body-44-3b2c6b",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[44]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { 0 } _ { 2 }$",
+      "new": "$N { 0 } _ { 2 }$",
+      "anchor": "3e098ad9"
+    },
+    {
+      "id": "pavia_spectroscopy-ch04-body-85-c0daf5",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[85]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 3 }$",
+      "new": "$N _ { 3 }$",
+      "anchor": "ba54b2e0"
+    },
+    {
+      "id": "pavia_spectroscopy-ch04-body-105-c0daf5",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[105]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 3 }$",
+      "new": "$N _ { 3 }$",
+      "anchor": "a1cd3ddd"
+    },
+    {
+      "id": "pavia_spectroscopy-ch04-body-85-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[85]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N _ { 2 }$",
+      "anchor": "ba54b2e0"
+    },
+    {
+      "id": "pavia_spectroscopy-ch08-body-52-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[52]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N _ { 2 }$",
+      "anchor": "4e9553dc"
+    },
+    {
+      "id": "pavia_spectroscopy-ch04-body-91-4de76a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[91]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 1 }$",
+      "new": "$N _ { 1 }$",
+      "anchor": "daf3af04"
+    },
+    {
+      "id": "pavia_spectroscopy-ch04-body-98-4de76a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[98]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 1 }$",
+      "new": "$N _ { 1 }$",
+      "anchor": "1a073ade"
+    },
+    {
+      "id": "pavia_spectroscopy-ch02-problem-5-body-29-beb753",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:5:body[29]",
+      "expect": "\\begin{array}{c c} \\text {(j) CH_3 - CH_2 - CH_2 - S - CH_2 - CH_2 - CH_3} & \\mathrm {CH_3(CH_2)_4CH_2 - S - H} \\\\ \\mathbf {A} & \\mathbf {B} \\\\ \\mathrm {CH_3(CH_2)_4CH_2 - O - H} & \\mathrm {CH_3 - CH_2 - CH_2 - O - CH_2 - CH_2 - CH_3} \\\\ \\mathbf {C} & \\mathbf {D} \\end{array}",
+      "new": "\\begin{array}{c c} \\mathrm {(j) CH_3 - CH_2 - CH_2 - S - CH_2 - CH_2 - CH_3} & \\mathrm {CH_3(CH_2)_4CH_2 - S - H} \\\\ \\mathbf {A} & \\mathbf {B} \\\\ \\mathrm {CH_3(CH_2)_4CH_2 - O - H} & \\mathrm {CH_3 - CH_2 - CH_2 - O - CH_2 - CH_2 - CH_3} \\\\ \\mathbf {C} & \\mathbf {D} \\end{array}"
+    },
+    {
+      "id": "pavia_spectroscopy-appA-body-51-81ad44",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[51]",
+      "expect": "\\mathrm {H_ {a}} \\left\\{ \\begin{array}{l} \\delta_ {g e m} \\text {for - COOR = 0.84} \\\\ \\delta_ {c i s} \\text {for - C_{6} H_{5} = 0.37} \\\\ \\mathrm {H_ {a} = 5.25 + 0.84 + 0.37 = 6.46ppm;} \\\\ \\text {actual = 6.43ppm} \\end{array} \\right.",
+      "new": "\\mathrm {H_ {a}} \\left\\{ \\begin{array}{l} \\delta_ {g e m} \\text {for - COOR = 0.84} \\\\ \\delta_ {c i s} \\text {for - } C_{6} H_{5} = 0.37 \\\\ \\mathrm {H_ {a} = 5.25 + 0.84 + 0.37 = 6.46ppm;} \\\\ \\text {actual = 6.43ppm} \\end{array} \\right."
+    },
+    {
+      "id": "pavia_spectroscopy-ch08-body-157-62cffb",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[157]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\Nu _ { 2 } ,$",
+      "new": "$N _ { 2 } ,$",
+      "anchor": "57d20ee7"
+    }
+  ]
+}

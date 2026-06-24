@@ -1,0 +1,144 @@
+{
+  "overrides": [
+    {
+      "id": "osborne_rubinstein_game_theory-ch10-body-67-1737d5",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { b } \\succ _ { i } _ { \\mathrm { \\tiny ~ f o r ~ a l l } } \\dag \\in { \\pmb N } \\}$",
+      "new": "$\\pmb { b } \\succ _ { i _ { \\mathrm { \\tiny ~ f o r ~ a l l } } } \\dag \\in { \\pmb N } \\}$",
+      "anchor": "ba91eb78"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch14-body-119-9cd4f7",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[119]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Psi _ { i } ( N \\{ j \\} , \\nu ^ { N \\{ j \\} ) - x i \\cdot } ^ { \\prime \\prime }$",
+      "new": "$\\Psi _ { i } ( N \\{ j \\} , \\nu ^ { N \\{ j \\} ) - x i \\cdot \\prime \\prime }$",
+      "anchor": "e4e42362"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch03-body-89-559e5d",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[89]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textbf { \\epsilon } _ { \\kappa }$",
+      "new": "$\\boldsymbol { \\epsilon } _ { \\kappa }$",
+      "anchor": "855007ce"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch07-body-19-c681da",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[19]",
+      "field": "md",
+      "all": true,
+      "old": "$a n y ^ { \\textbf { \\delta \\in ( 0 , 1 ) } }$",
+      "new": "$a n y ^ { \\boldsymbol { \\delta } \\in ( 0 , 1 ) }$",
+      "anchor": "472ded56"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch10-body-67-7d754a",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[67]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textit { \\textbf { i } } { \\boldsymbol { \\epsilon } } \\textbf { \\Lambda }$",
+      "new": "$\\textit { \\textbf { i } } { \\boldsymbol { \\epsilon } } \\boldsymbol { \\Lambda }$",
+      "anchor": "ba91eb78"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch12-body-112-4d8094",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[112]",
+      "expect": "\\left\\{ \\begin{array}{l l} \\mu_ {C S} (h) (T) & \\text {if h_{k} = Out} \\\\ \\max \\{b ^ {K - k}, \\mu_ {C S} (h) (T) \\} & \\text {if h_{k} = (In,F) and \\mu_{CS} (h)(T) > 0} \\\\ 0 & \\text {if h_{k} = (In,C) or \\mu_{CS} (h)(T) = 0.} \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{l l} \\mu_ {C S} (h) (T) & \\text {if } h_{k} = Out \\\\ \\max \\{b ^ {K - k}, \\mu_ {C S} (h) (T) \\} & \\text {if } h_{k} = (In,F) \\text { and } \\mu_{CS} (h)(T) > 0 \\\\ 0 & \\text {if } h_{k} = (In,C) \\text { or } \\mu_{CS} (h)(T) = 0. \\end{array} \\right."
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch10-body-11-d102e8",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[11]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathcal { P } } .$",
+      "new": "${ \\pmb { \\mathcal { P } } } .$",
+      "anchor": "7f4be867"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch13-body-111-c8a1b1",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[111]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { \\sum _ { i \\in N } x _ { i } = \\sum _ { i \\in N } \\omega _ { i } \\mathrm { ~ , ~ } \\big ~ } \\end{array}$",
+      "new": "$\\begin{array} { r } { \\sum _ { i \\in N } x _ { i } = \\sum _ { i \\in N } \\omega _ { i } \\mathrm { ~ , ~ } \\bigl. ~ } \\end{array}$",
+      "anchor": "5348a548"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch14-body-147-ff541b",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[147]",
+      "field": "md",
+      "all": true,
+      "old": "$\\big \\beta _ { s } = ( | S | + 1 ) ! ( | N | - | S | { - } 2 ) ! / | N | !$",
+      "new": "$\\bigl. \\beta _ { s } = ( | S | + 1 ) ! ( | N | - | S | { - } 2 ) ! / | N | !$",
+      "anchor": "7fcc9ae5"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch07-problem-123-1-body-1-3a7d43",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:123.1:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm { i f } \\left( x ^ { t } , 0 \\right) \\succap 2 \\left( x ^ { \\ast } , 0 \\right)$",
+      "new": "$\\mathrm { i f } \\left( x ^ { t } , 0 \\right) \\succapprox 2 \\left( x ^ { \\ast } , 0 \\right)$",
+      "anchor": "fbbb9a63"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch10-problem-183-1-body-1-d8f14c",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "problem:183.1:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$f ( \\succap \\ u ) = \\left\\{ \\begin{array} { l l } { { \\mathfrak { a } } } \\\\ { { \\mathfrak { a } } ^ { * } } \\end{array} \\right.$",
+      "new": "$f ( \\succapprox \\ u ) = \\left\\{ \\begin{array} { l l } { { \\mathfrak { a } } } \\\\ { { \\mathfrak { a } } ^ { * } } \\end{array} \\right.$",
+      "anchor": "fe407c5b"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch15-body-3-8f56f1",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\succap _ { \\mathrm { a n d } } \\succap _ { \\mathrm { a } }$",
+      "new": "$\\succapprox _ { \\mathrm { a n d } } \\succapprox _ { \\mathrm { a } }$",
+      "anchor": "257df648"
+    },
+    {
+      "id": "osborne_rubinstein_game_theory-ch15-body-83-126a72",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[83]",
+      "field": "md",
+      "all": true,
+      "old": "$x ^ { * } : p \\cdot x \\succi : x ^ { * }$",
+      "new": "$x ^ { * } : p \\cdot x \\succ_i : x ^ { * }$",
+      "anchor": "a7669bc2"
+    }
+  ]
+}

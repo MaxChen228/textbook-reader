@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "smith_hashemi_materials-ch11-body-79-8ec08b",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[79]",
+      "expect": "\\begin{array}{l l} \\text {Na^{+}}: & \\left(\\frac {1}{2}, 0, 0\\right) \\left(0, \\frac {1}{2}, 0\\right) \\left(0, 0, \\frac {1}{2}\\right) \\left(\\frac {1}{2}, \\frac {1}{2}, \\frac {1}{2}\\right) \\\\ \\text {Cl^{-}}: & (0, 0, 0) \\left(\\frac {1}{2}, \\frac {1}{2}, 0\\right) \\left(\\frac {1}{2}, 0, \\frac {1}{2}\\right) \\left(0, \\frac {1}{2}, \\frac {1}{2}\\right) \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm{Na}^{+}: & \\left(\\frac {1}{2}, 0, 0\\right) \\left(0, \\frac {1}{2}, 0\\right) \\left(0, 0, \\frac {1}{2}\\right) \\left(\\frac {1}{2}, \\frac {1}{2}, \\frac {1}{2}\\right) \\\\ \\mathrm{Cl}^{-}: & (0, 0, 0) \\left(\\frac {1}{2}, \\frac {1}{2}, 0\\right) \\left(\\frac {1}{2}, 0, \\frac {1}{2}\\right) \\left(0, \\frac {1}{2}, \\frac {1}{2}\\right) \\end{array}"
+    },
+    {
+      "id": "smith_hashemi_materials-ch16-body-225-ad6956",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[225]",
+      "field": "md",
+      "all": true,
+      "old": "$( 3 0 0 \\mathring \\mathrm { A } )$",
+      "new": "$( 3 0 0 \\mathring {\\mathrm { A } } )$",
+      "anchor": "b0dcaa1a"
+    },
+    {
+      "id": "smith_hashemi_materials-ch02-body-265-0fb32a",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[265]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu _ { 2 }$",
+      "new": "$N _ { 2 }$",
+      "anchor": "2b01dae5"
+    },
+    {
+      "id": "smith_hashemi_materials-ch13-body-208-d4b8ce",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[208]",
+      "expect": "w = 8. 5 \\mathrm{g} n = 2 \\mathrm {for Cu\\rightarrowCu^ {2 + } +2 e^ {-} F = 96,500A\\cdots / mol}",
+      "new": "w = 8. 5 \\mathrm{g} n = 2 \\mathrm {for Cu\\rightarrow Cu^ {2 + } +2 e^ {-} F = 96,500A\\cdots / mol}"
+    },
+    {
+      "id": "smith_hashemi_materials-ch13-body-217-d0d531",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[217]",
+      "expect": "w = 3 0 4 \\mathrm{g} n = 2 \\mathrm {for Fe\\rightarrowFe^ {2 + } +2 e^ {-}} F = 9 6, 5 0 0 \\mathrm{A} \\cdot \\mathrm{s/mol}",
+      "new": "w = 3 0 4 \\mathrm{g} n = 2 \\mathrm {for Fe\\rightarrow Fe^ {2 + } +2 e^ {-}} F = 9 6, 5 0 0 \\mathrm{A} \\cdot \\mathrm{s/mol}"
+    }
+  ]
+}

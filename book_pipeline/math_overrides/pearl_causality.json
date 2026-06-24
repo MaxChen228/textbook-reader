@@ -1,0 +1,133 @@
+{
+  "overrides": [
+    {
+      "id": "pearl_causality-ch01-body-189-2bf2d8",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[189]",
+      "field": "md",
+      "all": true,
+      "old": "$X _ { 2 } \\right. X _ { 4 } \\left. X _ { 3 }$",
+      "new": "$\\left. X _ { 2 } \\right. X _ { 4 } \\left. X _ { 3 } \\right.$",
+      "anchor": "221ff1e0"
+    },
+    {
+      "id": "pearl_causality-ch04-body-149-1f958e",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[149]",
+      "field": "md",
+      "all": true,
+      "old": "$Z _ { 1 } = \\theta , Z _ { 2 } = \\{ Z \\} ~ \\mathrm { a r e } ~ ^ { ( Y \\perp \\perp X _ { 1 } ) _ { G _ { \\underline { { X } } } _ { 1 } , \\overline { { X } } _ { 2 } } }$",
+      "new": "$Z _ { 1 } = \\theta , Z _ { 2 } = \\{ Z \\} ~ \\mathrm { a r e } ~ ^ { ( Y \\perp \\perp X _ { 1 } ) _ { G _ { \\underline { { X } } _ { 1 } , \\overline { { X } } _ { 2 } } } }$",
+      "anchor": "0ec28997"
+    },
+    {
+      "id": "pearl_causality-ch01-body-185-4c5a69",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[185]",
+      "field": "md",
+      "all": true,
+      "old": "$i \\right. m \\left. j$",
+      "new": "$\\left. i \\right. m \\left. j \\right.$",
+      "anchor": "f0a3a130"
+    },
+    {
+      "id": "pearl_causality-ch01-body-193-aec1d2",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[193]",
+      "field": "md",
+      "all": true,
+      "old": "$X \\right. Z _ { 1 } \\ldots Z _ { 3 } \\left. Y$",
+      "new": "$\\left. X \\right. Z _ { 1 } \\ldots Z _ { 3 } \\left. Y \\right.$",
+      "anchor": "4d796a06"
+    },
+    {
+      "id": "pearl_causality-ch02-body-14-12b49c",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[14]",
+      "field": "md",
+      "all": true,
+      "old": "$X \\right. Y \\left. Z$",
+      "new": "$\\left. X \\right. Y \\left. Z \\right.$",
+      "anchor": "a045f416"
+    },
+    {
+      "id": "pearl_causality-ch02-body-14-16508e",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[14]",
+      "field": "md",
+      "all": true,
+      "old": "$X \\right. Y \\left.$",
+      "new": "$\\left. X \\right. Y \\left. \\right.$",
+      "anchor": "a045f416"
+    },
+    {
+      "id": "pearl_causality-ch02-body-166-ec9966",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[166]",
+      "field": "md",
+      "all": true,
+      "old": "$( a \\right. c \\left. b )$",
+      "new": "$( \\left. a \\right. c \\left. b \\right. )$",
+      "anchor": "5754c8ae"
+    },
+    {
+      "id": "pearl_causality-ch04-body-201-98adeb",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[201]",
+      "field": "md",
+      "all": true,
+      "old": "$X \\right. Z \\left.$",
+      "new": "$\\left. X \\right. Z \\left. \\right.$",
+      "anchor": "976a8102"
+    },
+    {
+      "id": "pearl_causality-ch07-body-279-0925d3",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[279]",
+      "field": "md",
+      "all": true,
+      "old": "$A \\right. D \\left. B$",
+      "new": "$\\left. A \\right. D \\left. B \\right.$",
+      "anchor": "8de89c8f"
+    },
+    {
+      "id": "pearl_causality-ch03-body-52-9e05af",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[52]",
+      "expect": "P (x _ {i} | p a _ {i} ^ {\\prime}) = \\left\\{ \\begin{array}{l l} P (x _ {i} | p a _ {i}) & \\text {if F_{1} = idle,} \\\\ 0 & \\text {if F_{i} = do(x_{i} ^{\\prime}) and x_{i} \\neq x_{i} ^{\\prime}}, \\\\ 1 & \\text {if F_{i} = do(x_{i} ^{\\prime}) and x_{i} = x_{i} ^{\\prime}}. \\end{array} \\right.\\tag{3.8}",
+      "new": "P (x _ {i} | p a _ {i} ^ {\\prime}) = \\left\\{ \\begin{array}{l l} P (x _ {i} | p a _ {i}) & \\text {if } F_{1} = idle, \\\\ 0 & \\text {if } F_{i} = do(x_{i} ^{\\prime}) \\text { and } x_{i} \\neq x_{i} ^{\\prime}, \\\\ 1 & \\text {if } F_{i} = do(x_{i} ^{\\prime}) \\text { and } x_{i} = x_{i} ^{\\prime}. \\end{array} \\right.\\tag{3.8}"
+    },
+    {
+      "id": "pearl_causality-ch10-body-173-a04251",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[173]",
+      "field": "md",
+      "all": true,
+      "old": "$U = u ^ { \\prime }  \\mathrm  $",
+      "new": "$U = u ^ { \\prime }  $",
+      "anchor": "28e94a01"
+    },
+    {
+      "id": "pearl_causality-ch07-body-509-9ff981",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[509]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\romannumeral 1 ^ { \\prime \\prime } )$",
+      "new": "$( \\mathrm{i} ^ { \\prime \\prime } )$",
+      "anchor": "7c5ec0ed"
+    }
+  ]
+}

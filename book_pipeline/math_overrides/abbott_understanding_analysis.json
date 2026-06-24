@@ -1,0 +1,68 @@
+{
+  "overrides": [
+    {
+      "id": "abbott_understanding_analysis-ch01-problem-1-6-1-body-8-03325e",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "problem:1.6.1:body[8]",
+      "expect": "b _ {n} = \\left\\{ \\begin{array}{l l} 2 & \\text {if a_{nn} \\neq 2} \\\\ 3 & \\text {if a_{nn} = 2.} \\end{array} \\right.",
+      "new": "b _ {n} = \\left\\{ \\begin{array}{l l} 2 & \\text {if } a_{nn} \\neq 2 \\\\ 3 & \\text {if } a_{nn} = 2. \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch04-body-33-888fe3",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[33]",
+      "expect": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x = 0} \\\\ 1 / n & \\text {if x = m/n\\in\\mathbf {Q} \\setminus\\{0\\} is in lowest terms with n > 0} \\\\ 0 & \\text {if x\\notin\\mathbf {Q}}. \\end{array} \\right.",
+      "new": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x = 0 \\\\ 1 / n & \\text {if } x = m/n\\in\\mathbf {Q} \\setminus\\{0\\} \\text{ is in lowest terms with } n > 0 \\\\ 0 & \\text {if } x\\notin\\mathbf {Q}. \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch06-problem-6-2-2-body-7-de82c6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.2.2:body[7]",
+      "expect": "h _ {n} (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x = \\frac {1}{n}} \\\\ x & \\text {if x = 1, \\frac {1}{2} , \\frac {1}{3} ,\\ldots, \\frac {1}{n - 1}} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "h _ {n} (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x = \\frac {1}{n} \\\\ x & \\text {if } x = 1, \\frac {1}{2} , \\frac {1}{3} ,\\ldots, \\frac {1}{n - 1} \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch07-body-224-e1c509",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[224]",
+      "expect": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x = 0} \\\\ 1 / n & \\text {if x = m/n\\in\\mathbf {Q} \\setminus\\{0\\} is in lowest terms with n > 0} \\\\ 0 & \\text {if x\\notin\\mathbf {Q}} \\end{array} \\right.",
+      "new": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x = 0 \\\\ 1 / n & \\text {if } x = m/n\\in\\mathbf {Q} \\setminus\\{0\\} \\text{ is in lowest terms with } n > 0 \\\\ 0 & \\text {if } x\\notin\\mathbf {Q} \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch07-problem-7-3-2-body-1-137586",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.3.2:body[1]",
+      "expect": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x = 0} \\\\ 1 / n & \\text {if x = m / n\\in \\mathbf {Q} \\setminus\\{0\\} is in lowest terms with n > 0} \\\\ 0 & \\text {if x\\notin \\mathbf {Q}} \\end{array} \\right.",
+      "new": "t (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x = 0 \\\\ 1 / n & \\text {if } x = m / n\\in \\mathbf {Q} \\setminus\\{0\\} \\text{ is in lowest terms with } n > 0 \\\\ 0 & \\text {if } x\\notin \\mathbf {Q} \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch07-problem-7-3-6-body-1-8de95f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.3.6:body[1]",
+      "expect": "g _ {n} (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x = r_{n}} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "g _ {n} (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x = r_{n} \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch08-problem-8-1-13-body-10-d5a355",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8.1.13:body[10]",
+      "expect": "F ^ {\\prime} (x) = \\left\\{ \\begin{array}{l l} (3 / 2) \\sqrt {x} \\sin (1 / x) - (1 / \\sqrt {x}) \\cos (1 / x) & \\text {if x\\neq 0} \\\\ 0 & \\text {if x = 0.} \\end{array} \\right.",
+      "new": "F ^ {\\prime} (x) = \\left\\{ \\begin{array}{l l} (3 / 2) \\sqrt {x} \\sin (1 / x) - (1 / \\sqrt {x}) \\cos (1 / x) & \\text {if } x\\neq 0 \\\\ 0 & \\text {if } x = 0. \\end{array} \\right."
+    },
+    {
+      "id": "abbott_understanding_analysis-ch08-problem-8-6-7-body-4-e10469",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8.6.7:body[4]",
+      "expect": "A B = \\left\\{ \\begin{array}{l l} \\text {as given} & \\text {if A\\geq O and B\\geq O} \\\\ - [ A (- B) ] & \\text {if A\\geq O and B <   O} \\\\ - [ (- A) B ] & \\text {if A <   O and B\\geq O} \\\\ (- A) (- B) & \\text {if A <   O and B <   O}. \\end{array} \\right.",
+      "new": "A B = \\left\\{ \\begin{array}{l l} \\text {as given} & \\text {if } A\\geq O \\text{ and } B\\geq O \\\\ - [ A (- B) ] & \\text {if } A\\geq O \\text{ and } B < O \\\\ - [ (- A) B ] & \\text {if } A < O \\text{ and } B\\geq O \\\\ (- A) (- B) & \\text {if } A < O \\text{ and } B < O. \\end{array} \\right."
+    }
+  ]
+}

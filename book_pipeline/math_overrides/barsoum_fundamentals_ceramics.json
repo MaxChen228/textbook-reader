@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "barsoum_fundamentals_ceramics-ch14-problem-14-11-body-4-0e734d",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "problem:14.11:body[4]",
+      "expect": "\\begin{array}{c c c c c} \\text {Temp. (^{\\circ} C)} & 1 1 9 & 1 4 8 & 1 7 1 & 2 0 0 \\\\ k ^ {\\prime} & 1. 0 0 4 & 1. 0 0 3 7 & 1. 0 0 3 5 & 1. 0 0 3 2 \\\\ \\text {Answer: N = 1.735\\times10^{25} m^{-3}} \\end{array}",
+      "new": "\\begin{array}{c c c c c} \\text {Temp. } (^{\\circ} C) & 1 1 9 & 1 4 8 & 1 7 1 & 2 0 0 \\\\ k ^ {\\prime} & 1. 0 0 4 & 1. 0 0 3 7 & 1. 0 0 3 5 & 1. 0 0 3 2 \\\\ \\text {Answer: } N = 1.735\\times10^{25} m^{-3} \\end{array}"
+    },
+    {
+      "id": "barsoum_fundamentals_ceramics-ch10-body-26-b8650e",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[26]",
+      "field": "md",
+      "all": true,
+      "old": "$0.5 \\, \\mum$",
+      "new": "$0.5 \\, \\mu\\mathrm{m}$",
+      "anchor": "8ce1835b"
+    },
+    {
+      "id": "barsoum_fundamentals_ceramics-ch10-body-363-939699",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[363]",
+      "field": "md",
+      "all": true,
+      "old": "$2 \\, \\mum$",
+      "new": "$2 \\, \\mu\\mathrm{m}$",
+      "anchor": "64174436"
+    }
+  ]
+}

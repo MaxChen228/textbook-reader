@@ -1,0 +1,55 @@
+{
+  "overrides": [
+    {
+      "id": "romer_advanced_macroeconomics-ch10-body-27-48c88b",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[27]",
+      "expect": "\\sum_ {s = 1} ^ {S} q _ {s} R _ {i s} \\left\\{ \\begin{array}{l l} = 1 & \\text {if K_{i} >0} \\\\ \\leq 1 & \\text {if K_{i} = 0} \\end{array} \\right. \\quad \\text {for all i}.\\tag{10.5}",
+      "new": "\\sum_ {s = 1} ^ {S} q _ {s} R _ {i s} \\left\\{ \\begin{array}{l l} = 1 & \\text {if } K_{i} >0 \\\\ \\leq 1 & \\text {if } K_{i} = 0 \\end{array} \\right. \\quad \\text {for all i}.\\tag{10.5}"
+    },
+    {
+      "id": "romer_advanced_macroeconomics-ch11-body-78-0456d6",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[78]",
+      "field": "md",
+      "all": true,
+      "old": "$w / e _$",
+      "new": "$w / e$",
+      "anchor": "85c51aa5"
+    },
+    {
+      "id": "romer_advanced_macroeconomics-ch05-body-175-3b79e1",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[175]",
+      "expect": "\\begin{array}{l} a _ {\\mathrm{CK}} \\tilde {K} _ {t} + a _ {\\mathrm{CA}} \\tilde {A} _ {t} + a _ {\\mathrm{CG}} \\tilde {G} _ {t} + \\left(\\frac {\\ell^ {*}}{1 - \\ell^ {*}} + \\alpha\\right) (a _ {\\mathrm{LK}} \\tilde {K} _ {t} + a _ {\\mathrm{LA}} \\tilde {A} _ {t} + a _ {\\mathrm{LG}} \\tilde {G} _ {t}) \\\\ = \\alpha \\tilde {K} _ {t} + (1 - \\alpha) \\tilde {A} _ {t}. \\end{array} \\tag {5.4}\\tag{5.47}",
+      "new": "\\begin{array}{l} a _ {\\mathrm{CK}} \\tilde {K} _ {t} + a _ {\\mathrm{CA}} \\tilde {A} _ {t} + a _ {\\mathrm{CG}} \\tilde {G} _ {t} + \\left(\\frac {\\ell^ {*}}{1 - \\ell^ {*}} + \\alpha\\right) (a _ {\\mathrm{LK}} \\tilde {K} _ {t} + a _ {\\mathrm{LA}} \\tilde {A} _ {t} + a _ {\\mathrm{LG}} \\tilde {G} _ {t}) \\\\ = \\alpha \\tilde {K} _ {t} + (1 - \\alpha) \\tilde {A} _ {t}. \\end{array} \\tag{5.47}"
+    },
+    {
+      "id": "romer_advanced_macroeconomics-ch05-body-238-d9e713",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[238]",
+      "expect": "\\begin{array}{r l} \\Delta \\ln Y _ {t} & = 0. 0 0 4 4 - 0. 0 5 \\Delta \\ln m _ {t} + 0. 1 7 \\Delta \\ln m _ {t - 1} + 0. 1 6 \\Delta \\ln m _ {t - 2} \\\\ & (0. 0 0 2 8) (0. 1 0) (0. 1 2) (0. 1 2) \\\\ & + 0. 0 1 \\Delta \\ln m _ {t - 3} - 0. 0 2 \\Delta \\ln m _ {t - 4} - 0. 0 0 0 0 0 4 t, \\\\ & (0. 1 2) (0. 1 0) (0. 0 0 0 0 1 2) \\end{array} \\tag {5}\\tag{5.55}",
+      "new": "\\begin{array}{r l} \\Delta \\ln Y _ {t} & = 0. 0 0 4 4 - 0. 0 5 \\Delta \\ln m _ {t} + 0. 1 7 \\Delta \\ln m _ {t - 1} + 0. 1 6 \\Delta \\ln m _ {t - 2} \\\\ & (0. 0 0 2 8) (0. 1 0) (0. 1 2) (0. 1 2) \\\\ & + 0. 0 1 \\Delta \\ln m _ {t - 3} - 0. 0 2 \\Delta \\ln m _ {t - 4} - 0. 0 0 0 0 0 4 t, \\\\ & (0. 1 2) (0. 1 0) (0. 0 0 0 0 1 2) \\end{array} \\tag{5.55}"
+    },
+    {
+      "id": "romer_advanced_macroeconomics-ch07-body-161-7fc8fe",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[161]",
+      "expect": "\\begin{array}{l} x _ {t} = \\lambda x _ {t - 1} \\\\ + \\frac {\\lambda}{A} \\frac {1 - 2 A}{2} [ m _ {t} + (1 + \\lambda) (E _ {t} m _ {t + 1} + \\lambda E _ {t} m _ {t + 2} + \\lambda^ {2} E _ {t} m _ {t + 3} + \\dots) ]. \\end{array} \\tag {7.5}\\tag{7.50}",
+      "new": "\\begin{array}{l} x _ {t} = \\lambda x _ {t - 1} \\\\ + \\frac {\\lambda}{A} \\frac {1 - 2 A}{2} [ m _ {t} + (1 + \\lambda) (E _ {t} m _ {t + 1} + \\lambda E _ {t} m _ {t + 2} + \\lambda^ {2} E _ {t} m _ {t + 3} + \\dots) ]. \\end{array} \\tag{7.50}"
+    },
+    {
+      "id": "romer_advanced_macroeconomics-ch13-body-203-99d7ce",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[203]",
+      "expect": "\\begin{array}{r l} V _ {1} ^ {2} (D, \\alpha_ {2} ^ {\\mathrm{MED}}) & = \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (\\alpha_ {2} ^ {\\mathrm{MED}}) + \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (W - D) \\\\ & \\quad + (1 - \\alpha_ {1} ^ {\\mathrm{MED}}) \\ln (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) + (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) \\ln (W - D) \\\\ & = \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (\\alpha_ {2} ^ {\\mathrm{MED}}) + (1 - \\alpha_ {1} ^ {\\mathrm{MED}}) \\ln (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) + \\ln (W - D). \\end{array} \\tag {13}\\tag{13.33}",
+      "new": "\\begin{array}{r l} V _ {1} ^ {2} (D, \\alpha_ {2} ^ {\\mathrm{MED}}) & = \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (\\alpha_ {2} ^ {\\mathrm{MED}}) + \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (W - D) \\\\ & \\quad + (1 - \\alpha_ {1} ^ {\\mathrm{MED}}) \\ln (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) + (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) \\ln (W - D) \\\\ & = \\alpha_ {1} ^ {\\mathrm{MED}} \\ln (\\alpha_ {2} ^ {\\mathrm{MED}}) + (1 - \\alpha_ {1} ^ {\\mathrm{MED}}) \\ln (1 - \\alpha_ {2} ^ {\\mathrm{MED}}) + \\ln (W - D). \\end{array} \\tag{13.33}"
+    }
+  ]
+}

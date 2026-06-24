@@ -1,0 +1,90 @@
+{
+  "overrides": [
+    {
+      "id": "silbey_physical_chemistry-ch19-body-82-128a15",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[82]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{H_A + H_BH_C =}$",
+      "new": "$\\mathrm{H}_{A} + \\mathrm{H}_{B}\\mathrm{H}_{C} =$",
+      "anchor": "8c6c6275"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch19-body-82-18abbb",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "body[82]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{H_AH_B + H_C}$",
+      "new": "$\\mathrm{H}_{A}\\mathrm{H}_{B} + \\mathrm{H}_{C}$",
+      "anchor": "8c6c6275"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch19-problem-19-11-body-1-5223b2",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "problem:19.11:body[1]",
+      "expect": "\\begin{array}{l l l l} \\text {[ P ] / 10^ {- 3} mol L ^ {- 1}} & 0 & 1. 0 & 2. 0 \\\\ \\phi / \\phi_ {0} & 1 & 0. 6 1 & 0. 4 3 \\end{array}",
+      "new": "\\begin{array}{l l l l} [ P ] / 10^ {- 3} \\mathrm{mol}\\, \\mathrm{L} ^ {- 1} & 0 & 1. 0 & 2. 0 \\\\ \\phi / \\phi_ {0} & 1 & 0. 6 1 & 0. 4 3 \\end{array}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch20-problem-20-26-body-3-d924e9",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20.26:body[3]",
+      "expect": "\\begin{array}{c c} \\text {[ F ] / 10^{-6} mol L^{-1}} & v _ {\\mathrm{F}} / 1 0 ^ {- 7} \\mathrm{molL} ^ {- 1} \\mathrm{s} ^ {- 1} \\\\ \\hline 2 & 2. 2 \\\\ 4 0 & 5. 9 \\end{array}",
+      "new": "\\begin{array}{c c} [ F ] / 10^{-6} \\mathrm{mol}\\, \\mathrm{L}^{-1} & v _ {\\mathrm{F}} / 1 0 ^ {- 7} \\mathrm{molL} ^ {- 1} \\mathrm{s} ^ {- 1} \\\\ \\hline 2 & 2. 2 \\\\ 4 0 & 5. 9 \\end{array}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch20-problem-20-26-body-5-bf253b",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20.26:body[5]",
+      "expect": "\\begin{array}{c c} \\text {[ M ] / 10^{-6} mol L^{-1}} & v _ {\\text {M}} / 1 0 ^ {- 7} \\text {mol L^{-1} s^{-1}} \\\\ \\hline 5 & 1. 3 \\\\ 1 0 0 & 3. 6 \\end{array}",
+      "new": "\\begin{array}{c c} [ M ] / 10^{-6} \\mathrm{mol}\\, \\mathrm{L}^{-1} & v _ {\\text {M}} / 1 0 ^ {- 7} \\mathrm{mol}\\, \\mathrm{L}^{-1} \\mathrm{s}^{-1} \\\\ \\hline 5 & 1. 3 \\\\ 1 0 0 & 3. 6 \\end{array}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch05-body-99-dcd5d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[99]",
+      "expect": "\\begin{array}{r l} G & = (1 - \\xi) \\mu_ {\\mathrm{A}} ^ {\\circ} + \\xi \\mu_ {\\mathrm{B}} ^ {\\circ} + R T \\ln (P / P ^ {\\circ}) + R T [ (1 - \\xi) \\ln (1 - \\xi) + \\xi \\ln \\xi ] \\\\ & = \\mu_ {\\mathrm{A}} ^ {\\circ} - (\\mu_ {\\mathrm{A}} ^ {\\circ} - \\mu_ {\\mathrm{B}} ^ {\\circ}) \\xi + R T \\ln (P / P ^ {\\circ}) + \\Delta_ {\\text {mix}} G ^ {\\circ} \\end{array} \\tag {5}\\tag{5.28}",
+      "new": "\\begin{array}{r l} G & = (1 - \\xi) \\mu_ {\\mathrm{A}} ^ {\\circ} + \\xi \\mu_ {\\mathrm{B}} ^ {\\circ} + R T \\ln (P / P ^ {\\circ}) + R T [ (1 - \\xi) \\ln (1 - \\xi) + \\xi \\ln \\xi ] \\\\ & = \\mu_ {\\mathrm{A}} ^ {\\circ} - (\\mu_ {\\mathrm{A}} ^ {\\circ} - \\mu_ {\\mathrm{B}} ^ {\\circ}) \\xi + R T \\ln (P / P ^ {\\circ}) + \\Delta_ {\\text {mix}} G ^ {\\circ} \\end{array} \\tag{5.28}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch10-body-13-f8584e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[13]",
+      "expect": "\\left[ \\frac {- h ^ {2}}{8 \\pi^ {2} \\mu} \\left(\\frac {\\partial^ {2}}{\\partial x ^ {2}} + \\frac {\\partial^ {2}}{\\partial y ^ {2}} + \\frac {\\partial^ {2}}{\\partial z ^ {2}}\\right) - \\frac {Z e ^ {2}}{4 \\pi \\varepsilon_ {0} (x ^ {2} + y ^ {2} + z ^ {2}) ^ {1 / 2}} \\right] \\psi (x, y, z) = E \\psi (x, y, z) \\tag {10.2}\\tag{10.2}",
+      "new": "\\left[ \\frac {- h ^ {2}}{8 \\pi^ {2} \\mu} \\left(\\frac {\\partial^ {2}}{\\partial x ^ {2}} + \\frac {\\partial^ {2}}{\\partial y ^ {2}} + \\frac {\\partial^ {2}}{\\partial z ^ {2}}\\right) - \\frac {Z e ^ {2}}{4 \\pi \\varepsilon_ {0} (x ^ {2} + y ^ {2} + z ^ {2}) ^ {1 / 2}} \\right] \\psi (x, y, z) = E \\psi (x, y, z) \\tag{10.2}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch16-body-104-00e890",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[104]",
+      "expect": "\\begin{array}{r l} A & = - N k T \\ln Q = - N k T \\ln \\frac {q _ {\\mathrm{t}} e}{N} - N k T \\ln q _ {\\mathrm{v}} - N k T \\ln q _ {\\mathrm{r}} - N k T \\ln q _ {\\mathrm{e}} \\\\ & = A _ {\\mathrm{t}} + A _ {\\mathrm{v}} + A _ {\\mathrm{r}} + A _ {\\mathrm{e}} \\end{array} \\tag {16}\\tag{16.34}",
+      "new": "\\begin{array}{r l} A & = - N k T \\ln Q = - N k T \\ln \\frac {q _ {\\mathrm{t}} e}{N} - N k T \\ln q _ {\\mathrm{v}} - N k T \\ln q _ {\\mathrm{r}} - N k T \\ln q _ {\\mathrm{e}} \\\\ & = A _ {\\mathrm{t}} + A _ {\\mathrm{v}} + A _ {\\mathrm{r}} + A _ {\\mathrm{e}} \\end{array} \\tag{16.34}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch16-body-106-4576a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[106]",
+      "expect": "A _ {\\mathrm{t}} = - N k T \\ln \\frac {q _ {\\mathrm{t}} e}{N}, A _ {\\mathrm{v}} = - N k T \\ln q _ {\\mathrm{v}}, A _ {\\mathrm{r}} = - N k T \\ln q _ {\\mathrm{r}}, A _ {\\mathrm{e}} = - N k T \\ln q _ {\\mathrm{e}} \\tag {16.35}\\tag{16.35}",
+      "new": "A _ {\\mathrm{t}} = - N k T \\ln \\frac {q _ {\\mathrm{t}} e}{N}, A _ {\\mathrm{v}} = - N k T \\ln q _ {\\mathrm{v}}, A _ {\\mathrm{r}} = - N k T \\ln q _ {\\mathrm{r}}, A _ {\\mathrm{e}} = - N k T \\ln q _ {\\mathrm{e}} \\tag{16.35}"
+    },
+    {
+      "id": "silbey_physical_chemistry-ch02-body-413-988f54",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[413]",
+      "expect": "\\begin{array}{r l} \\Delta_ {\\mathrm{r}} \\dot {H} _ {T} ^ {\\circ} & = \\Delta_ {\\mathrm{r}} H _ {2 9 8} ^ {\\circ} + \\int_ {2 9 8} ^ {T} [ \\Delta_ {\\mathrm{r}} \\alpha + (\\Delta_ {\\mathrm{r}} \\beta) T + (\\Delta_ {\\mathrm{r}} \\gamma) T ^ {2} ] \\mathrm{d} T \\\\ & = \\Delta_ {\\mathrm{r}} H _ {2 9 8} ^ {\\circ} + \\Delta_ {\\mathrm{r}} \\alpha (T - 2 9 8) + \\frac {\\Delta_ {\\mathrm{r}} \\beta}{2} (T ^ {2} - 2 9 8 ^ {2}) + \\frac {\\Delta_ {\\mathrm{r}} \\gamma}{3} (T ^ {3} - 2 9 8 ^ {3}) \\\\ & = \\Delta_ {\\mathrm{r}} H _ {0} ^ {\\circ} + (\\Delta_ {\\mathrm{r}} \\alpha) T + (\\Delta_ {\\mathrm{r}} \\beta / 2) T ^ {2} + (\\Delta_ {\\mathrm{r}} \\gamma / 3) T ^ {3} \\end{array} \\tag {2.3}\\tag{2.100}",
+      "new": "\\begin{array}{r l} \\Delta_ {\\mathrm{r}} \\dot {H} _ {T} ^ {\\circ} & = \\Delta_ {\\mathrm{r}} H _ {2 9 8} ^ {\\circ} + \\int_ {2 9 8} ^ {T} [ \\Delta_ {\\mathrm{r}} \\alpha + (\\Delta_ {\\mathrm{r}} \\beta) T + (\\Delta_ {\\mathrm{r}} \\gamma) T ^ {2} ] \\mathrm{d} T \\\\ & = \\Delta_ {\\mathrm{r}} H _ {2 9 8} ^ {\\circ} + \\Delta_ {\\mathrm{r}} \\alpha (T - 2 9 8) + \\frac {\\Delta_ {\\mathrm{r}} \\beta}{2} (T ^ {2} - 2 9 8 ^ {2}) + \\frac {\\Delta_ {\\mathrm{r}} \\gamma}{3} (T ^ {3} - 2 9 8 ^ {3}) \\\\ & = \\Delta_ {\\mathrm{r}} H _ {0} ^ {\\circ} + (\\Delta_ {\\mathrm{r}} \\alpha) T + (\\Delta_ {\\mathrm{r}} \\beta / 2) T ^ {2} + (\\Delta_ {\\mathrm{r}} \\gamma / 3) T ^ {3} \\end{array} \\tag{2.100}"
+    }
+  ]
+}

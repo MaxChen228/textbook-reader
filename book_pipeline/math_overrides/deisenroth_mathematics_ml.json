@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "deisenroth_mathematics_ml-ch02-body-205-7e403e",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[205]",
+      "expect": "\\left[ \\begin{array}{c c c c c c} - 2 & 4 & - 2 & - 1 & 4 & - 3 \\\\ 4 & - 8 & 3 & - 3 & 1 & 2 \\\\ 1 & - 2 & 1 & - 1 & 1 & 0 \\\\ 1 & - 2 & 0 & - 3 & 4 & a \\end{array} \\right] \\text {Swap with R_{3}}",
+      "new": "\\left[ \\begin{array}{c c c c c c} - 2 & 4 & - 2 & - 1 & 4 & - 3 \\\\ 4 & - 8 & 3 & - 3 & 1 & 2 \\\\ 1 & - 2 & 1 & - 1 & 1 & 0 \\\\ 1 & - 2 & 0 & - 3 & 4 & a \\end{array} \\right] \\text {Swap with } R_{3}"
+    },
+    {
+      "id": "deisenroth_mathematics_ml-ch04-body-163-962de2",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[163]",
+      "field": "md",
+      "all": true,
+      "old": "$A _ { 3 } = { \\begin{array} { c c } { \\left[ \\cos ( { \\frac { \\pi } { 6 } } ) } & { - \\sin ( { \\frac { \\pi } { 6 } } ) \\right] } \\\\ { \\sin ( { \\frac { \\pi } { 6 } } ) } & { \\cos ( { \\frac { \\pi } { 6 } } ) } \\end{array} } = { \\frac { 1 } { 2 } } { \\left[ \\begin{array} { l l } { { \\sqrt { 3 } } } & { - 1 } \\\\ { 1 } & { { \\sqrt { 3 } } } \\end{array} \\right] }$",
+      "new": "$A _ { 3 } = { \\left[ \\begin{array} { c c } { \\cos ( { \\frac { \\pi } { 6 } } ) } & { - \\sin ( { \\frac { \\pi } { 6 } } ) } \\\\ { \\sin ( { \\frac { \\pi } { 6 } } ) } & { \\cos ( { \\frac { \\pi } { 6 } } ) } \\end{array} \\right] } = { \\frac { 1 } { 2 } } { \\left[ \\begin{array} { l l } { { \\sqrt { 3 } } } & { - 1 } \\\\ { 1 } & { { \\sqrt { 3 } } } \\end{array} \\right] }$",
+      "anchor": "6300cbc7"
+    },
+    {
+      "id": "deisenroth_mathematics_ml-ch04-body-286-98ef3c",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[286]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { { u } } _ { i } , i = 1 , \\ldots , m _ $",
+      "new": "$\\mathbf { { u } } _ { i } , i = 1 , \\ldots , m $",
+      "anchor": "cbd581a5"
+    },
+    {
+      "id": "deisenroth_mathematics_ml-ch10-body-94-88dcba",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[94]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\mathbf { \\vec { \\nu } } _ { 8 } , \\mathbf { \\vec { \\nu } } _ $",
+      "new": "$\\mathbf { \\vec { \\nu } } _ { 8 } , \\mathbf { \\vec { \\nu } } $",
+      "anchor": "ff4ca82b"
+    }
+  ]
+}

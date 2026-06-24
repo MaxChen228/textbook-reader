@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "cochrane_asset_pricing-ch09-body-295-3d3dd3",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[295]",
+      "expect": "\\operatorname{cov} (x ^ {i}, x ^ {j}) = E [ (\\beta_ {i} \\tilde {f} + \\varepsilon^ {i}) (\\beta_ {j} \\tilde {f} + \\varepsilon^ {j}) ] = \\beta_ {i} \\beta_ {j} \\sigma^ {2} (f) + \\left\\{ \\begin{array}{l l} \\sigma_ {\\varepsilon^ {i}} ^ {2} & \\text {if i = j ,} \\\\ 0 & \\text {if i\\neq j .} \\end{array} \\right.",
+      "new": "\\operatorname{cov} (x ^ {i}, x ^ {j}) = E [ (\\beta_ {i} \\tilde {f} + \\varepsilon^ {i}) (\\beta_ {j} \\tilde {f} + \\varepsilon^ {j}) ] = \\beta_ {i} \\beta_ {j} \\sigma^ {2} (f) + \\left\\{ \\begin{array}{l l} \\sigma_ {\\varepsilon^ {i}} ^ {2} & \\text {if } i = j , \\\\ 0 & \\text {if } i\\neq j . \\end{array} \\right."
+    },
+    {
+      "id": "cochrane_asset_pricing-ch17-body-16-9a6612",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[16]",
+      "expect": "\\begin{array}{c}\\text {Call payoff = \\left\\{ \\right.S_{T} -X\\quad if S_{T} \\geq X,}\\\\0 \\quad \\text {if S_{T} \\leq X,}\\\\C _ {T} = \\max (S _ {T} - X, 0).\\end{array}",
+      "new": "\\begin{array}{c}\\text {Call payoff} = \\left\\{\\begin{array}{l l} S_{T} -X & \\text {if } S_{T} \\geq X,\\\\0 & \\text {if } S_{T} \\leq X,\\end{array}\\right.\\\\C _ {T} = \\max (S _ {T} - X, 0).\\end{array}"
+    },
+    {
+      "id": "cochrane_asset_pricing-ch11-body-242-90148f",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[242]",
+      "field": "md",
+      "all": true,
+      "old": "$. \\hfill - \\infty \\ : k / T \\ = \\ 0 \\mathrm { - } \\mathrm { i }$",
+      "new": "$. \\quad - \\infty \\ : k / T \\ = \\ 0 \\mathrm { - } \\mathrm { i }$",
+      "anchor": "d47d3167"
+    }
+  ]
+}

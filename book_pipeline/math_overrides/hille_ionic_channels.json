@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "hille_ionic_channels-ch16-body-27-0d5d6e",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[27]",
+      "expect": "\\begin{array}{r l} \\mathrm {p K _ {a}} = & - \\log \\frac {k _ {- 1}}{k _ {1}} = - \\log \\left[ \\frac {b _ {- 1}}{b _ {1}} \\frac {\\exp (\\delta z F E / 2 R T)}{\\exp (- \\delta z F E / 2 R T)} \\right] \\\\ = & \\mathrm {p K _ {a} (0 mV) - \\frac {\\deltazFE}{2.303RT}} \\end{array}",
+      "new": "\\begin{array}{r l} \\mathrm {p K _ {a}} = & - \\log \\frac {k _ {- 1}}{k _ {1}} = - \\log \\left[ \\frac {b _ {- 1}}{b _ {1}} \\frac {\\exp (\\delta z F E / 2 R T)}{\\exp (- \\delta z F E / 2 R T)} \\right] \\\\ = & \\mathrm {p K _ {a} (0 mV)} - \\frac {\\delta z F E}{2.303RT} \\end{array}"
+    }
+  ]
+}

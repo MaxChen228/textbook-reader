@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "shackelford_materials_science_engineers-ch07-body-84-82a13d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[84]",
+      "expect": "\\begin{array}{r l} (\\Delta Q / \\Delta t) / A & = - (3 9 8 \\mathrm {J / s\\cdot m\\cdot K}) ([ 0 ^ {\\circ} \\mathrm{C} - 5 0 ^ {\\circ} \\mathrm{C} ]) / [ 1 0 \\times 1 0 ^ {- 3} \\mathrm{m} ] \\\\ & = - (3 9 8 \\mathrm {J / s\\cdot m\\cdot K}) (- 5 \\times 1 0 ^ {- 3} ^ {\\circ} \\mathrm{C/m}). \\end{array}",
+      "new": "\\begin{array}{r l} (\\Delta Q / \\Delta t) / A & = - (3 9 8 \\mathrm {J / s\\cdot m\\cdot K}) ([ 0 ^ {\\circ} \\mathrm{C} - 5 0 ^ {\\circ} \\mathrm{C} ]) / [ 1 0 \\times 1 0 ^ {- 3} \\mathrm{m} ] \\\\ & = - (3 9 8 \\mathrm {J / s\\cdot m\\cdot K}) (- 5 \\times 1 0 ^ {- 3} {} ^ {\\circ} \\mathrm{C/m}). \\end{array}"
+    }
+  ]
+}

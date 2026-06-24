@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "raven_biology_plants-ch06-body-104-91fcb6",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[104]",
+      "expect": "\\begin{array}{l} \\text {Glucose + 2ADP + 2P_{i} \\longrightarrow 2   Ethanol + 2CO_{2} + 2ATP + 2H_{2} O} \\\\ \\text {or} \\\\ \\text {Glucose + 2ADP + 2P_{i} \\longrightarrow 2   Lactate + 2ATP + 2H_{2} O} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{Glucose} + 2\\mathrm{ADP} + 2P_{i} \\longrightarrow 2\\mathrm{Ethanol} + 2\\mathrm{CO}_{2} + 2\\mathrm{ATP} + 2\\mathrm{H}_{2} O \\\\ \\text {or} \\\\ \\mathrm{Glucose} + 2\\mathrm{ADP} + 2P_{i} \\longrightarrow 2\\mathrm{Lactate} + 2\\mathrm{ATP} + 2\\mathrm{H}_{2} O \\end{array}"
+    }
+  ]
+}

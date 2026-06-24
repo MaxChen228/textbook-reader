@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "ramakrishnan_gehrke_database_management-ch14-body-106-e28599",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[106]",
+      "expect": "\\begin{array}{c} \\text {foreach tuple r\\in R do} \\\\ \\text {foreach tuple s\\in S do} \\\\ \\text {if r_{i} = = s_{j} then add \\langle r,s\\rangle to result} \\end{array}",
+      "new": "\\begin{array}{c} \\text {foreach tuple } r\\in R \\text { do} \\\\ \\text {foreach tuple } s\\in S \\text { do} \\\\ \\text {if } r_{i} = = s_{j} \\text { then add } \\langle r,s\\rangle \\text { to result} \\end{array}"
+    },
+    {
+      "id": "ramakrishnan_gehrke_database_management-ch14-body-126-389fed",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[126]",
+      "expect": "\\begin{array}{l} \\text {foreach tuple r\\in R do} \\\\ \\text {foreach tuple s\\in S where r_{i} = = s_{j}} \\\\ \\text {add \\langle r,s\\rangle to result} \\end{array}",
+      "new": "\\begin{array}{l} \\text {foreach tuple } r\\in R \\text { do} \\\\ \\text {foreach tuple } s\\in S \\text { where } r_{i} = = s_{j} \\\\ \\text {add } \\langle r,s\\rangle \\text { to result} \\end{array}"
+    },
+    {
+      "id": "ramakrishnan_gehrke_database_management-ch07-body-206-9614ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[206]",
+      "expect": "\\mathrm{action?name1=value1&name2=value2&name3=value3}",
+      "new": "\\mathrm{action?name1=value1\\&name2=value2\\&name3=value3}"
+    },
+    {
+      "id": "ramakrishnan_gehrke_database_management-ch07-body-208-1175b4",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[208]",
+      "expect": "\\mathrm{page.jsp?username=John+Doe&password=secret}",
+      "new": "\\mathrm{page.jsp?username=John+Doe\\&password=secret}"
+    },
+    {
+      "id": "ramakrishnan_gehrke_database_management-ch07-body-134-c3de57",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[134]",
+      "expect": "\\begin{array}{l} \\text {<  mrow >} \\\\ \\quad \\text {<  mrow > <   msup <   mi > x <   /mi <   mn > 2 <   /mn > <   /msup >} \\\\ \\quad \\text {<  mo > - <   /mo >} \\\\ \\quad \\text {<  mrow ><  mn > 4 <   /mn >} \\\\ \\quad \\text {<  mo > & invisibletimes; <   /mo >} \\\\ \\quad \\text {<  mi > x <   /mi >} \\\\ \\quad \\text {<  /mrow >} \\\\ \\quad \\text {<  mo > - <   /mo ><  mn > 32 <   /mn >} \\\\ \\quad \\text {<  /mrow ><  mo > = <   /mo ><  mn > 0 <   /mn >} \\\\ \\text {<  /mrow >} \\end{array}",
+      "new": "\\begin{array}{l} \\text {<  mrow >} \\\\ \\quad \\text {<  mrow > <   msup <   mi > x <   /mi <   mn > 2 <   /mn > <   /msup >} \\\\ \\quad \\text {<  mo > - <   /mo >} \\\\ \\quad \\text {<  mrow ><  mn > 4 <   /mn >} \\\\ \\quad \\text {<  mo > \\& invisibletimes; <   /mo >} \\\\ \\quad \\text {<  mi > x <   /mi >} \\\\ \\quad \\text {<  /mrow >} \\\\ \\quad \\text {<  mo > - <   /mo ><  mn > 32 <   /mn >} \\\\ \\quad \\text {<  /mrow ><  mo > = <   /mo ><  mn > 0 <   /mn >} \\\\ \\text {<  /mrow >} \\end{array}"
+    }
+  ]
+}

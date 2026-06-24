@@ -1,0 +1,108 @@
+{
+  "overrides": [
+    {
+      "id": "moore_mertens_nature_computation-ch10-problem-10-26-body-1-dc0bb0",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.26:body[1]",
+      "expect": "P = 1 \\left/ \\sum_ {n = 1} ^ {\\infty} \\frac {1}{n ^ {2}} \\left. \\right..",
+      "new": "P = 1 / \\sum_ {n = 1} ^ {\\infty} \\frac {1}{n ^ {2}} ."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch13-body-198-32217e",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[198]",
+      "expect": "N = \\frac {N}{N _ {r}} \\frac {N _ {r}}{N _ {r \\ell}} \\frac {N _ {r \\ell}}{N _ {r \\ell r}} = 1 \\left/ \\left(\\frac {N _ {r}}{N} \\frac {N _ {r \\ell}}{N _ {r}} \\frac {N _ {r \\ell r}}{N _ {r \\ell}}\\right)\\left. \\right..",
+      "new": "N = \\frac {N}{N _ {r}} \\frac {N _ {r}}{N _ {r \\ell}} \\frac {N _ {r \\ell}}{N _ {r \\ell r}} = 1 / \\left(\\frac {N _ {r}}{N} \\frac {N _ {r \\ell}}{N _ {r}} \\frac {N _ {r \\ell r}}{N _ {r \\ell}}\\right)."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch02-body-117-304acd",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[117]",
+      "expect": "A _ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if (i,j)\\in E , i.e., there is an edge from vertex i to vertex j} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "A _ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if }(i,j)\\in E ,\\ \\text {i.e., there is an edge from vertex i to vertex j} \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch03-body-194-11b92b",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[194]",
+      "expect": "d (s, t) = \\min \\left(d (s ^ {\\prime}, t) + 1, d (s, t ^ {\\prime}) + 1, \\left\\{ \\begin{array}{l l} d (s ^ {\\prime}, t ^ {\\prime}) & \\text {if s_{1} = t_{1}} \\\\ d (s ^ {\\prime}, t ^ {\\prime}) + 1 & \\text {if s_{1} \\neq t_{1}} \\end{array} \\right.\\right).",
+      "new": "d (s, t) = \\min \\left(d (s ^ {\\prime}, t) + 1, d (s, t ^ {\\prime}) + 1, \\left\\{ \\begin{array}{l l} d (s ^ {\\prime}, t ^ {\\prime}) & \\text {if }s_{1} = t_{1} \\\\ d (s ^ {\\prime}, t ^ {\\prime}) + 1 & \\text {if }s_{1} \\neq t_{1} \\end{array} \\right.\\right)."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch04-body-70-2280ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[70]",
+      "expect": "\\begin{array}{l} \\hline \\text {SAT} \\\\ \\text {Input: A CNF Boolean formula \\phi(x_{1},\\ldots,x_{n})} \\\\ \\text {Question: Is \\phi satisfiable?} \\end{array}",
+      "new": "\\begin{array}{l} \\hline \\text {SAT} \\\\ \\text {Input: A CNF Boolean formula }\\phi(x_{1},\\ldots,x_{n}) \\\\ \\text {Question: Is }\\phi\\text { satisfiable?} \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch05-body-289-fbc476",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[289]",
+      "expect": "\\begin{array}{l} \\hline \\text {COSINE INTEGRATION} \\\\ \\text {Input: A list of integers x_{1},\\ldots,x_{n}} \\\\ \\text {Question: Is \\int_{- \\pi} ^{\\pi} (\\cos x_{1}\\theta)(\\cos x_{2}\\theta)\\cdots(\\cos x_{n}\\theta) d\\theta\\neq 0?} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\hline \\text {COSINE INTEGRATION} \\\\ \\text {Input: A list of integers }x_{1},\\ldots,x_{n} \\\\ \\text {Question: Is }\\int_{- \\pi} ^{\\pi} (\\cos x_{1}\\theta)(\\cos x_{2}\\theta)\\cdots(\\cos x_{n}\\theta) d\\theta\\neq 0\\text {?} \\\\ \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch07-body-110-ee57a2",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[110]",
+      "expect": "\\operatorname{Halts} (\\Pi , x) = \\left\\{ \\begin{array}{l l} \\text {true} & \\text {if \\Pi halts on input x} \\\\ \\text {false} & \\text {otherwise} \\end{array} \\right.",
+      "new": "\\operatorname{Halts} (\\Pi , x) = \\left\\{ \\begin{array}{l l} \\text {true} & \\text {if }\\Pi\\text { halts on input }x \\\\ \\text {false} & \\text {otherwise} \\end{array} \\right."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch07-body-215-6dec7d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[215]",
+      "expect": "\\begin{array}{l l} & h (\\mathbf {x}, y) \\\\ & \\text {begin} \\\\ h (\\mathbf {x}, y) & z := f (\\mathbf {x}); \\\\ \\text {begin} & \\text {for y^{\\prime} = 0 to y - 1 do} \\\\ \\text {if y = 0 then return f(x);} & z := g (\\mathbf {x}, y ^ {\\prime}, z); \\\\ \\text {else return g(x,y,h(x,y - 1));} & \\text {end} \\\\ \\text {end} & \\text {return z}; \\\\ & \\text {end} \\end{array}",
+      "new": "\\begin{array}{l l} & h (\\mathbf {x}, y) \\\\ & \\text {begin} \\\\ h (\\mathbf {x}, y) & z := f (\\mathbf {x}); \\\\ \\text {begin} & \\text {for }y^{\\prime} = 0\\text { to } y - 1\\text { do} \\\\ \\text {if }y = 0\\text { then return }f(x); & z := g (\\mathbf {x}, y ^ {\\prime}, z); \\\\ \\text {else return }g(x,y,h(x,y - 1)); & \\text {end} \\\\ \\text {end} & \\text {return }z; \\\\ & \\text {end} \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch07-body-559-3b475e",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[559]",
+      "expect": "\\begin{array}{l} \\text {COLLATZ} \\\\ \\text {Input: Integers x, y, and q, and integer coefficients a_{i}, b_{i} for 0\\leq i <   q} \\\\ \\text {Question: Is there an integer t such that g^{t}(x) = y?} \\end{array}",
+      "new": "\\begin{array}{l} \\text {COLLATZ} \\\\ \\text {Input: Integers }x, y,\\text { and }q,\\text { and integer coefficients }a_{i}, b_{i}\\text { for }0\\leq i < q \\\\ \\text {Question: Is there an integer }t\\text { such that }g^{t}(x) = y\\text {?} \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch13-body-19-138a21",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[19]",
+      "expect": "\\begin{array}{l} \\hline \\text {DETERMINANT} \\\\ \\text {Input: An n\\times n matrix A with integer entries} \\\\ \\text {Output: Its determinant, det A} \\end{array}",
+      "new": "\\begin{array}{l} \\hline \\text {DETERMINANT} \\\\ \\text {Input: An }n\\times n\\text { matrix }A\\text { with integer entries} \\\\ \\text {Output: Its determinant, }\\det A \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch13-body-371-425f23",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[371]",
+      "expect": "A _ {i j} ^ {\\prime} = \\left\\{ \\begin{array}{l l} + 1 & \\text {if i\\to j} \\\\ - 1 & \\text {if j\\to i} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "A _ {i j} ^ {\\prime} = \\left\\{ \\begin{array}{l l} + 1 & \\text {if }i\\to j \\\\ - 1 & \\text {if }j\\to i \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch15-body-456-6a071e",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[456]",
+      "expect": "\\begin{array}{l} \\hline \\text { RSA   KEYBREAKING } \\\\ \\text { Input:   Integers   N, e   with   gcd(e, \\varphi(N)) = 1} \\\\ \\text { Output:   d = e^{-1} in   \\mathbb {Z} _{\\varphi(N)} ^{*}} \\end{array}",
+      "new": "\\begin{array}{l} \\hline \\text { RSA   KEYBREAKING } \\\\ \\text { Input:   Integers   }N, e\\text {   with   }gcd(e, \\varphi(N)) = 1 \\\\ \\text { Output:   }d = e^{-1}\\text { in   }\\mathbb {Z} _{\\varphi(N)} ^{*} \\end{array}"
+    },
+    {
+      "id": "moore_mertens_nature_computation-ch15-body-629-8ea026",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[629]",
+      "expect": "\\begin{array}{l} \\hline \\text { BREAKING   KEY   EXCHANGE } \\\\ \\text { Input: A   n -bit   prime   p, a   primitive   root   a, and   a^x,a^y\\in\\mathbb {Z} _{p} ^*} \\\\ \\text { Output: a^xy } \\end{array}",
+      "new": "\\begin{array}{l} \\hline \\text { BREAKING   KEY   EXCHANGE } \\\\ \\text { Input: A   }n\\text { -bit   prime   }p,\\text { a   primitive   root   }a,\\text { and   }a^x,a^y\\in\\mathbb {Z} _{p} ^* \\\\ \\text { Output: }a^{xy} \\end{array}"
+    }
+  ]
+}
