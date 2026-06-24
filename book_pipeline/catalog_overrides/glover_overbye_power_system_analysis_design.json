@@ -1,0 +1,257 @@
+{
+  "overrides": [
+    {
+      "id": "glover-fig-6.19-restore-id",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[749]",
+      "expect": {
+        "t": "fig"
+      },
+      "set": {
+        "id": "fig-6.19",
+        "caption": "Figure 6.19: Example 6.20 with maximum economic loading",
+        "catalog_repair_source": "agent-catalog-id-fix"
+      },
+      "reason": "Raw PDF physical page 403 shows this existing image block is the numbered Figure 6.19, not an unnumbered body figure.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "glover-table-9.5-id-fix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[347]",
+      "expect": {
+        "t": "table"
+      },
+      "set": {
+        "id": "tbl-9.5",
+        "caption": "Table 9.5",
+        "catalog_repair_source": "agent-catalog-id-fix"
+      },
+      "reason": "Raw PDF Example 9.8 has two consecutive tables: body[343] is Table 9.4, body[347] is the bus-voltage table Table 9.5 referenced by Problems 9.57–9.58."
+    },
+    {
+      "id": "glover-fig-6.20-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[799]",
+      "position": "before",
+      "page": 407,
+      "clip": [
+        0.1,
+        0.18,
+        0.92,
+        0.67
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-6.20",
+        "kind": "line",
+        "caption": "Figure 6.20: Example 6.22 five-bus case with transmission line losses"
+      },
+      "reason": "Raw PDF physical page 407 contains Figure 6.20, but MinerU did not emit a cataloged figure block near the Example 6.22 reference."
+    },
+    {
+      "id": "glover-fig-7.16-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.16:body[0]",
+      "position": "after",
+      "page": 488,
+      "clip": [
+        0.07,
+        0.27,
+        0.79,
+        0.39
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-7.16",
+        "kind": "line",
+        "caption": "Figure 7.16: Problem 7.16"
+      },
+      "reason": "Raw PDF physical page 488 contains the Problem 7.16 single-line diagram immediately beside the problem text; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-8.25-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.30:body[0]",
+      "position": "after",
+      "page": 554,
+      "clip": [
+        0.07,
+        0.08,
+        0.79,
+        0.34
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.25",
+        "kind": "line",
+        "caption": "Figure 8.25: Problem 8.30"
+      },
+      "reason": "Raw PDF physical page 554 contains the Problem 8.30 delta-load circuit labeled Figure 8.25; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-9.18-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:9.11:body[0]",
+      "position": "after",
+      "page": 599,
+      "clip": [
+        0.07,
+        0.08,
+        0.78,
+        0.35
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-9.18",
+        "kind": "line",
+        "caption": "Figure 9.18: Problem 9.11"
+      },
+      "reason": "Raw PDF physical page 599 contains the system diagram for Problem 9.11 labeled Figure 9.18; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-10.40-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "problem:10.9:body[0]",
+      "position": "after",
+      "page": 677,
+      "clip": [
+        0.47,
+        0.8,
+        0.79,
+        0.96
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.40",
+        "kind": "line",
+        "caption": "Figure 10.40: Problem 10.9"
+      },
+      "reason": "Raw PDF physical page 677 contains the RC time-delay circuit labeled Figure 10.40; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-11.29-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.22:body[0]",
+      "position": "after",
+      "page": 755,
+      "clip": [
+        0.09,
+        0.43,
+        0.79,
+        0.94
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.29",
+        "kind": "line",
+        "caption": "Figure 11.29: Single-line diagram of a six-bus power system"
+      },
+      "reason": "Raw PDF physical page 755 contains the six-bus system diagram labeled Figure 11.29; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-12.14-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:12.1:body[0]",
+      "position": "after",
+      "page": 792,
+      "clip": [
+        0.07,
+        0.57,
+        0.86,
+        0.69
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-12.14",
+        "kind": "line",
+        "caption": "Figure 12.14: Problem 12.1"
+      },
+      "reason": "Raw PDF physical page 792 contains the closed-loop automatic voltage regulator block diagram labeled Figure 12.14; parsed problem lacks the figure block."
+    },
+    {
+      "id": "glover-fig-8.19-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[26]",
+      "position": "before",
+      "page": 538,
+      "clip": [
+        0.07,
+        0.11,
+        0.86,
+        0.69
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.19",
+        "kind": "line",
+        "caption": "Figure 8.19: Per-unit sequence networks of practical Y–Y, Y–Δ, and Δ–Δ transformers"
+      },
+      "reason": "Raw PDF physical page 538 contains Figure 8.19; parsed ch08 body is empty and no catalog supply exists, while ch09 references this source figure."
+    },
+    {
+      "id": "glover-fig-8.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.17:body[0]",
+      "position": "after",
+      "page": 523,
+      "clip": [
+        0.1,
+        0.57,
+        0.88,
+        0.93
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.6",
+        "kind": "line",
+        "caption": "Figure 8.6: Sequence networks for Example 8.4"
+      },
+      "reason": "Raw PDF physical page 523 contains Figure 8.6, but this parse has an empty ch08 body so the Problem 8.17 reference has no catalog supply."
+    },
+    {
+      "id": "glover-fig-8.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "problem:8.21:body[0]",
+      "position": "after",
+      "page": 524,
+      "clip": [
+        0.07,
+        0.08,
+        0.62,
+        0.28
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-8.7",
+        "kind": "line",
+        "caption": "Figure 8.7: General three-phase impedance load"
+      },
+      "reason": "Raw PDF physical page 524 contains Figure 8.7, but this parse has an empty ch08 body so the Problem 8.21 reference has no catalog supply."
+    }
+  ]
+}
