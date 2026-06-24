@@ -346,6 +346,38 @@
       "old": "$\\mathrm { C O } _ { 2 } / \\gim$",
       "new": "$\\mathrm { C O } _ { 2 } / \\mathrm{gm}$",
       "anchor": "18aabe8d"
+    },
+    {
+      "id": "voet_voet_biochemistry-ch32-body-218-428882",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[218]",
+      "expect": "\\begin{array}{c c c} \\text {Anticodon:} & ^ 3 ^ {\\prime} - \\mathrm{A} - \\mathrm{A} - \\mathrm{Gm} - ^ {5 ^ {\\prime}} & ^ 3 ^ {\\prime} - \\mathrm{A} - \\mathrm{A} - \\mathrm{Gm} - ^ {5 ^ {\\prime}} \\\\ & 5 ^ {\\prime} \\vdots \\vdots \\vdots 3 ^ {\\prime} & 5 ^ {\\prime} \\vdots \\vdots \\vdots 3 ^ {\\prime} \\\\ \\text {Codon:} & - \\mathrm{U} - \\mathrm{U} - \\mathrm{C} - & - \\mathrm{U} - \\mathrm{U} - \\mathrm{U} - \\end{array}",
+      "new": "\\begin{array}{c c c} \\text {Anticodon:} & ^ {3\\prime} - \\mathrm{A} - \\mathrm{A} - \\mathrm{Gm} - ^ {5\\prime} & ^ {3\\prime} - \\mathrm{A} - \\mathrm{A} - \\mathrm{Gm} - ^ {5\\prime} \\\\ & 5 ^ {\\prime} \\vdots \\vdots \\vdots 3 ^ {\\prime} & 5 ^ {\\prime} \\vdots \\vdots \\vdots 3 ^ {\\prime} \\\\ \\text {Codon:} & - \\mathrm{U} - \\mathrm{U} - \\mathrm{C} - & - \\mathrm{U} - \\mathrm{U} - \\mathrm{U} - \\end{array}"
+    },
+    {
+      "id": "voet_voet_biochemistry-ch02-body-43-5d4468",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[43]",
+      "expect": "\\begin{array}{c} \\mathrm{H} \\quad \\mathrm{H} \\\\ | \\quad | \\\\ \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} - \\mathrm{C} = \\mathrm{C} - \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} - \\mathrm{C} - \\mathrm{O} ^ {-} \\\\ \\text {Oleate(C_{17} H_{33} COO^{-})} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm{H} \\quad \\mathrm{H} \\\\ | \\quad | \\\\ \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} - \\mathrm{C} = \\mathrm{C} - \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} \\mathrm{CH} _ {2} - \\mathrm{C} - \\mathrm{O} ^ {-} \\\\ \\text {Oleate(}\\mathrm{C}_{17}\\mathrm{H}_{33}\\mathrm{COO}^{-}\\text {)} \\end{array}"
+    },
+    {
+      "id": "voet_voet_biochemistry-ch10-body-275-448122",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[275]",
+      "expect": "\\begin{array}{l} \\text {[ ES] = [ E][S] / K = 4[E][S] / k_ {1}} \\\\ \\text {[ ES_ {2} ] = [ ES][S] / K_ {2} = \\frac {3}{2} [ ES][S] / k_ {2} = 6[E][S] ^ {2} / k_ {1} k_ {2}} \\\\ \\text {[ ES_ {3} ] = [ ES_ {2} ][S] / K_ {3} = \\frac {2}{3} [ ES_ {2} ][S] / k_ {3} = 4[E][S] ^ {3} / k_ {1} k_ {2} k_ {3}} \\\\ \\text {[ ES_ {4} ] = [ ES_ {3} ][S] / K_ {4} = \\frac {1}{4} [ ES_ {3} ][S] / k_ {4} = [E][S] ^ {4} / k_ {1} k_ {2} k_ {3} k_ {4}} \\end{array}",
+      "new": "\\begin{array}{l} [ ES] = [ E][S] / K = 4[E][S] / k_ {1} \\\\ [ ES_ {2} ] = [ ES][S] / K_ {2} = \\frac {3}{2} [ ES][S] / k_ {2} = 6[E][S] ^ {2} / k_ {1} k_ {2} \\\\ [ ES_ {3} ] = [ ES_ {2} ][S] / K_ {3} = \\frac {2}{3} [ ES_ {2} ][S] / k_ {3} = 4[E][S] ^ {3} / k_ {1} k_ {2} k_ {3} \\\\ [ ES_ {4} ] = [ ES_ {3} ][S] / K_ {4} = \\frac {1}{4} [ ES_ {3} ][S] / k_ {4} = [E][S] ^ {4} / k_ {1} k_ {2} k_ {3} k_ {4} \\end{array}"
+    },
+    {
+      "id": "voet_voet_biochemistry-ch19-body-151-d54070",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[151]",
+      "expect": "\\begin{array}{c} \\text {Cys - Tyr - Phe - Gln - Asn - Cys - Pro - Arg - Gly - NH_{2}} \\\\ \\text {\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large}\\text {Human vasopressin} \\end{array}",
+      "new": "\\begin{array}{c} \\text {Cys - Tyr - Phe - Gln - Asn - Cys - Pro - Arg - Gly - NH}_{2} \\\\ \\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\text {Human vasopressin} \\end{array}"
     }
   ]
 }

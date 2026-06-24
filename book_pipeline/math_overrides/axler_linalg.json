@@ -26,7 +26,7 @@
       "chunk": "ch03",
       "selector": "problem:3.19:body[26]",
       "expect": "\\varphi_ {j} (v _ {k}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if k = j ,} \\\\ 0 & \\text {if k\\neq j .} \\end{array} \\right.",
-      "new": "\\varphi_{j}(v_{k}) = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = j\\text{,} \\\\ 0 & \\text{if } k\\neq j\\text{.} \\end{array} \\right."
+      "new": "\\varphi_{j}(v_{k}) = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = j, \\\\ 0 & \\text{if } k\\neq j. \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch03-problem-3-19-body-32-f4fc5b",
@@ -34,7 +34,7 @@
       "chunk": "ch03",
       "selector": "problem:3.19:body[32]",
       "expect": "\\varphi_ {j} (e _ {k}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if k = j}, \\\\ 0 & \\text {if k\\neq j}. \\end{array} \\right.",
-      "new": "\\varphi_{j}(e_{k}) = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = j\\text{,} \\\\ 0 & \\text{if } k\\neq j\\text{.} \\end{array} \\right."
+      "new": "\\varphi_{j}(e_{k}) = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = j, \\\\ 0 & \\text{if } k\\neq j. \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch07-problem-7-25-body-40-156973",
@@ -42,7 +42,7 @@
       "chunk": "ch07",
       "selector": "problem:7.25:body[40]",
       "expect": "7. 5 0 \\qquad \\sum_ {j = 1} ^ {m} A _ {j, k} \\overline {{A _ {j , r}}} = \\left\\langle \\sum_ {j = 1} ^ {m} A _ {j, k} f _ {j}, \\sum_ {j = 1} ^ {m} A _ {j, r} f _ {j} \\right\\rangle = \\langle S e _ {k}, S e _ {r} \\rangle = \\left\\{ \\begin{array}{l l} 1 & \\text {if k = r}, \\\\ 0 & \\text {if k\\neq r}. \\end{array} \\right.",
-      "new": "7.50 \\qquad \\sum_{j = 1}^{m} A_{j, k} \\overline{{A_{j , r}}} = \\left\\langle \\sum_{j = 1}^{m} A_{j, k} f_{j}, \\sum_{j = 1}^{m} A_{j, r} f_{j} \\right\\rangle = \\langle S e_{k}, S e_{r} \\rangle = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = r\\text{,} \\\\ 0 & \\text{if } k\\neq r\\text{.} \\end{array} \\right."
+      "new": "7.50 \\qquad \\sum_{j = 1}^{m} A_{j, k} \\overline{{A_{j , r}}} = \\left\\langle \\sum_{j = 1}^{m} A_{j, k} f_{j}, \\sum_{j = 1}^{m} A_{j, r} f_{j} \\right\\rangle = \\langle S e_{k}, S e_{r} \\rangle = \\left\\{ \\begin{array}{l l} 1 & \\text{if } k = r, \\\\ 0 & \\text{if } k\\neq r. \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch07-problem-7-25-body-91-aaff35",
@@ -50,7 +50,7 @@
       "chunk": "ch07",
       "selector": "problem:7.25:body[91]",
       "expect": "\\langle S e _ {j}, S e _ {k} \\rangle = \\langle \\lambda_ {j} e _ {j}, \\lambda_ {k} e _ {k} \\rangle = \\lambda_ {j} \\overline {{\\lambda_ {k}}} \\langle e _ {j}, e _ {k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text {if j\\neq k}, \\\\ 1 & \\text {if j = k} \\end{array} \\right.",
-      "new": "\\langle S e_{j}, S e_{k} \\rangle = \\langle \\lambda_{j} e_{j}, \\lambda_{k} e_{k} \\rangle = \\lambda_{j} \\overline{{\\lambda_{k}}} \\langle e_{j}, e_{k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text{if } j\\neq k\\text{,} \\\\ 1 & \\text{if } j = k \\end{array} \\right."
+      "new": "\\langle S e_{j}, S e_{k} \\rangle = \\langle \\lambda_{j} e_{j}, \\lambda_{k} e_{k} \\rangle = \\lambda_{j} \\overline{{\\lambda_{k}}} \\langle e_{j}, e_{k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text{if } j\\neq k, \\\\ 1 & \\text{if } j = k \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch07-problem-7-20-body-78-49834c",
@@ -58,7 +58,7 @@
       "chunk": "ch07",
       "selector": "problem:7.20:body[78]",
       "expect": "\\langle f _ {j}, f _ {k} \\rangle = \\frac {1}{s _ {j} s _ {k}} \\langle T e _ {j}, T e _ {k} \\rangle = \\frac {1}{s _ {j} s _ {k}} \\langle e _ {j}, T ^ {*} T e _ {k} \\rangle = \\frac {s _ {k}}{s _ {j}} \\langle e _ {j}, e _ {k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text {if j\\neq k ,} \\\\ 1 & \\text {if j = k .} \\end{array} \\right.",
-      "new": "\\langle f_{j}, f_{k} \\rangle = \\frac{1}{s_{j} s_{k}} \\langle T e_{j}, T e_{k} \\rangle = \\frac{1}{s_{j} s_{k}} \\langle e_{j}, T^{*} T e_{k} \\rangle = \\frac{s_{k}}{s_{j}} \\langle e_{j}, e_{k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text{if } j\\neq k\\text{,} \\\\ 1 & \\text{if } j = k\\text{.} \\end{array} \\right."
+      "new": "\\langle f_{j}, f_{k} \\rangle = \\frac{1}{s_{j} s_{k}} \\langle T e_{j}, T e_{k} \\rangle = \\frac{1}{s_{j} s_{k}} \\langle e_{j}, T^{*} T e_{k} \\rangle = \\frac{s_{k}}{s_{j}} \\langle e_{j}, e_{k} \\rangle = \\left\\{ \\begin{array}{l l} 0 & \\text{if } j\\neq k, \\\\ 1 & \\text{if } j = k. \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch07-problem-7-20-body-85-0b5d88",
@@ -66,7 +66,7 @@
       "chunk": "ch07",
       "selector": "problem:7.20:body[85]",
       "expect": "T e _ {k} = \\left\\{ \\begin{array}{l l} s _ {k} f _ {k} & \\text {if 1\\leq k\\leq m}, \\\\ 0 & \\text {if m <   k\\leq dim V}. \\end{array} \\right.",
-      "new": "T e_{k} = \\left\\{ \\begin{array}{l l} s_{k} f_{k} & \\text{if } 1\\leq k\\leq m\\text{,} \\\\ 0 & \\text{if } m < k\\leq \\dim V\\text{.} \\end{array} \\right."
+      "new": "T e_{k} = \\left\\{ \\begin{array}{l l} s_{k} f_{k} & \\text{if } 1\\leq k\\leq m, \\\\ 0 & \\text{if } m < k\\leq \\dim V. \\end{array} \\right."
     },
     {
       "id": "axler_linalg-ch09-problem-9-21-body-70-28b9f8",

@@ -47,6 +47,14 @@
       "selector": "body[64]",
       "expect": "\\begin{array}{r l} 1 0 ^ {- 7} \\mathrm {coul/ m^ {2}} & = (8. 8 5 \\times 1 0 ^ {- 1 2} \\mathrm {coul / volt\\cdotm}) (2. 2 5 \\mathrm{volt/d}) \\\\ d & = 0. 0 0 0 2 \\mathrm{m} \\end{array}\\tag{or 0.2 mm}",
       "new": "\\begin{array}{r l} 1 0 ^ {- 7} \\mathrm {coul/ m^ {2}} & = (8. 8 5 \\times 1 0 ^ {- 1 2} \\mathrm {coul / volt\\cdot m}) (2. 2 5 \\mathrm{volt/d}) \\\\ d & = 0. 0 0 0 2 \\mathrm{m} \\end{array}\\tag{or 0.2 mm}"
+    },
+    {
+      "id": "van_vlack_materials_science-ch09-body-58-23a93c",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[58]",
+      "expect": "\\begin{array}{r l r} & \\text {(c) apparent porosity = (open pore volume)/(total volume)} \\\\ & \\quad = [ (3. 8 4 - 3. 7 9 \\mathrm {g) / (1 g / c m ^ {3})} ] / 0. 7 6 \\mathrm {cm^ {3}} \\\\ & \\quad = 0. 0 6 6 & \\text {(or 6.6 v/o, bulk basis)} \\\\ & \\text {(d) total porosity = (V_ {total} - V_ {true}) / V_ {total}} \\\\ & \\quad = (0. 7 6 - 0. 7 0 \\mathrm {cm^ {3}) / 0. 7 6 cm^ {3}} \\\\ & \\quad = 0. 0 7 9 & \\text {(or 7.9 v/o bulk basis)} \\end{array}",
+      "new": "\\begin{array}{r l r} & \\text {(c) apparent porosity = (open pore volume)/(total volume)} \\\\ & \\quad = [ (3. 8 4 - 3. 7 9 \\mathrm {g) / (1 g / c m ^ {3})} ] / 0. 7 6 \\mathrm {cm^ {3}} \\\\ & \\quad = 0. 0 6 6 & \\text {(or 6.6 v/o, bulk basis)} \\\\ & \\text {(d) total porosity = }(V_ {total} - V_ {true}) / V_ {total}\\text {)} \\\\ & \\quad = (0. 7 6 - 0. 7 0 \\mathrm {cm^ {3}) / 0. 7 6 cm^ {3}} \\\\ & \\quad = 0. 0 7 9 & \\text {(or 7.9 v/o bulk basis)} \\end{array}"
     }
   ]
 }

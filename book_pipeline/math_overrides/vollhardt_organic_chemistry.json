@@ -61,7 +61,7 @@
       "all": true,
       "old": "$\\tilde{\\nu}_{\\mathrm{C = O}$",
       "new": "$\\tilde{\\nu}_{\\mathrm{C = O}}$",
-      "anchor": "6f4d57fb"
+      "anchor": "51854fbe"
     },
     {
       "id": "vollhardt_organic_chemistry-ch26-body-13-0f7b67",
@@ -83,7 +83,7 @@
       "all": true,
       "old": "$\\tilde{\\nu}_{\\mathrm{Csp - H}$",
       "new": "$\\tilde{\\nu}_{\\mathrm{Csp - H}}$",
-      "anchor": "035315f8"
+      "anchor": "3f091e2a"
     },
     {
       "id": "vollhardt_organic_chemistry-ch21-problem-21-23-body-22-0562b5",
@@ -132,6 +132,38 @@
       "selector": "problem:19-24:body[62]",
       "expect": "\\begin{array}{c} \\text {RCHO} \\xrightarrow {\\text {Oxidizing agent}} \\text {RCOOH} \\\\ \\text {Oxidizing agents: aqueous CrO_{3} , KMnO_{4} , Ag^{+} , H_{2} O_{2} , HNO_{3}} \\end{array}",
       "new": "\\begin{array}{c} \\mathrm{RCHO} \\xrightarrow {\\text {Oxidizing agent}} \\mathrm{RCOOH} \\\\ \\text {Oxidizing agents: aqueous }\\mathrm{CrO}_{3} , \\mathrm{KMnO}_{4} , \\mathrm{Ag}^{+} , \\mathrm{H}_{2} \\mathrm{O}_{2} , \\mathrm{HNO}_{3} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch08-problem-8-21-body-95-b8a171",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:8-21:body[95]",
+      "expect": "\\begin{array}{c} \\text {RLi or RMgX + CH_{2} = O} \\longrightarrow \\text {RCH_{2} OH} \\\\ \\text {Formaldehyde} \\quad \\text {Primary alcohol} \\\\ \\text {RLi or RMgX + R'CH} \\longrightarrow \\text {OH} \\\\ \\text {Aldehyde} \\quad \\text {Secondary alcohol} \\\\ \\text {RLi or RMgX + R'CR''} \\longrightarrow \\text {OH} \\\\ \\text {Ketone} \\quad \\text {Tertiary alcohol} \\\\ \\text {Aldehyde or ketone cannot contain other groups that react with} \\\\ \\text {organometallic reagents such as O - H or other C = O groups.} \\end{array}",
+      "new": "\\begin{array}{c} \\text {RLi or RMgX + CH}_{2}\\text { = O} \\longrightarrow \\text {RCH}_{2}\\text { OH} \\\\ \\text {Formaldehyde} \\quad \\text {Primary alcohol} \\\\ \\text {RLi or RMgX + R'CH} \\longrightarrow \\text {OH} \\\\ \\text {Aldehyde} \\quad \\text {Secondary alcohol} \\\\ \\text {RLi or RMgX + R'CR''} \\longrightarrow \\text {OH} \\\\ \\text {Ketone} \\quad \\text {Tertiary alcohol} \\\\ \\text {Aldehyde or ketone cannot contain other groups that react with} \\\\ \\text {organometallic reagents such as O - H or other C = O groups.} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch26-problem-26-14-body-4-482288",
+      "action": "fix_eq_tex",
+      "chunk": "ch26",
+      "selector": "problem:26-14:body[4]",
+      "expect": "\\begin{array}{c} \\text {Phe - Val - Asn - Gln - His - Leu - Cys - Gly - Ser - His - Leu - Val - Glu - Ala - Leu - Tyr - Leu - Val - Cys - Gly - Glu - Arg - Gly - Phe - Phe - Tyr - Thr - Pro - Lys - Ala} \\\\ 5 \\quad 1 0 \\quad 1 5 \\quad 2 0 \\quad 2 5 \\quad 3 0 \\\\ \\Biggl \\downarrow \\text {Trypsin, H_{2} O} \\\\ \\text {Phe - Val - Asn - Gln - His - Leu - Cys - Gly - Ser - His - Leu - Val - Glu - Ala - Leu - Tyr - Leu - Val - Cys - Gly - Glu - Arg + Gly - Phe - Phe - Tyr - Thr - Pro - Lys + Ala} \\end{array}",
+      "new": "\\begin{array}{c} \\text {Phe - Val - Asn - Gln - His - Leu - Cys - Gly - Ser - His - Leu - Val - Glu - Ala - Leu - Tyr - Leu - Val - Cys - Gly - Glu - Arg - Gly - Phe - Phe - Tyr - Thr - Pro - Lys - Ala} \\\\ 5 \\quad 1 0 \\quad 1 5 \\quad 2 0 \\quad 2 5 \\quad 3 0 \\\\ \\Biggl \\downarrow \\text {Trypsin, H}_{2}\\text { O} \\\\ \\text {Phe - Val - Asn - Gln - His - Leu - Cys - Gly - Ser - His - Leu - Val - Glu - Ala - Leu - Tyr - Leu - Val - Cys - Gly - Glu - Arg + Gly - Phe - Phe - Tyr - Thr - Pro - Lys + Ala} \\end{array}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch02-problem-2-10-body-31-6cf509",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:2-10:body[31]",
+      "expect": "\\mathrm{O} _ {2} \\mathrm{NO} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{H} + \\mathrm{H} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\mathrm{NO}: ^ {-} + \\mathrm{H} _ {3} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackup {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2}",
+      "new": "\\mathrm{O} _ {2} \\mathrm{NO} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{H} + \\mathrm{H} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\mathrm{NO}: ^ {-} + \\mathrm{H} _ {3} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\bullet} {\\underset {\\bullet \\bullet} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2} \\stackrel {\\bullet \\circledast} {\\underset {\\bullet \\circledast} {\\rightleftharpoons}} \\mathrm{O} _ {2}"
+    },
+    {
+      "id": "vollhardt_organic_chemistry-ch21-problem-21-8-body-4-c2483b",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "problem:21-8:body[4]",
+      "expect": "\\begin{array}{l} \\mathrm {RX + ^ {-} CN \\longrightarrow RC\\equivN + X^ {-}} \\\\ \\mathrm {RC\\equivN\\xrightarrow {\\text {LiAlH} _ {4} \\text {or H} _ {2} , \\text {metal catalyst}} RCH_ {2} NH_ {2}} \\\\ \\mathrm {CH_ {3} (CH_ {2}) _ {8} Br + NaCN\\xrightarrow [ -NaBr ]{\\text {DMSO}} CH_ {3} (CH_ {2}) _ {8} CN\\xrightarrow [ 93\\% ]{\\text {H} _ {2} , \\text {Raney Ni,100 atm}} CH_ {3} (CH_ {2}) _ {8} CH_ {2} NH_ {2}} \\\\ \\text {1 - Bromononane} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {RX + ^ {-} CN \\longrightarrow RC\\equiv{}N + X^ {-}} \\\\ \\mathrm {RC\\equiv{}N\\xrightarrow {\\text {LiAlH} _ {4} \\text {or H} _ {2} , \\text {metal catalyst}} RCH_ {2} NH_ {2}} \\\\ \\mathrm {CH_ {3} (CH_ {2}) _ {8} Br + NaCN\\xrightarrow [ -NaBr ]{\\text {DMSO}} CH_ {3} (CH_ {2}) _ {8} CN\\xrightarrow [ 93\\% ]{\\text {H} _ {2} , \\text {Raney Ni,100 atm}} CH_ {3} (CH_ {2}) _ {8} CH_ {2} NH_ {2}} \\\\ \\text {1 - Bromononane} \\end{array}"
     }
   ]
 }
