@@ -103,6 +103,12 @@ LLM_PARALLEL = int(os.environ.get('BOOK_PIPELINE_LLM_PARALLEL', '0'))
 # 並行 crawl 下載度：買書員 select_next 取 K 本後，K 個確定性 `crawl_zlib fetch` 並行下載（IO bound，
 # 40MB/本）。帳號由 daemon 依各帳號餘額預先指派（--account），不靠 agent 自選 → 零碰撞。
 CRAWL_PARALLEL = int(os.environ.get('BOOK_PIPELINE_CRAWL_PARALLEL', '6'))
+# deploy build_all 並發上限：build 是純 CPU/IO（convert_images cwebp 開滿核 + JSON bake），
+# 非 network-bound。LOOP_CONCURRENCY=32 會讓多本同時 do_deploy → 每本 build 各開 cpu_count
+# 個 cwebp → N×cpu_count 進程爆炸（實測 6 本並發=48 進程、load 57、每本反而 5× 慢、餓死觀測）。
+# 序列化（預設 1）：一次一本吃滿核最快、總吞吐更高。_BUILD_SEM 同時管 do_deploy 與 math 重烤兩處。
+BUILD_PARALLEL = int(os.environ.get('BOOK_PIPELINE_BUILD_PARALLEL', '1'))
+_BUILD_SEM = threading.Semaphore(BUILD_PARALLEL)
 # pipeline 在飛上限（backpressure）：pipeline 內待消化（in-flight OCR + 未上站待辦）≥ 此就不再下載新書，
 # 把爬速綁定消化速。2026-06 簡化後**唯一**爬書水位——買書員每 cycle 直接 select_next 取解析池待下載書、
 # 並行抓，無購物清單 buffer（buffer 唯一不可推導的下載失敗計數已移 pipeline_state.json：見 q.crawl_fail_*）。
@@ -1316,6 +1322,15 @@ def commit_artifacts() -> None:
         log(f'auto-commit 異常（不影響 pipeline）：{e}')
 
 
+def _run_build_all(slug: str) -> int:
+    """序列化執行 build_all（_BUILD_SEM）。cwebp ProcessPool 開滿核，多本並發 deploy 會
+    N×cpu_count 進程爆炸、互搶 CPU 反使每本更慢、餓死觀測心跳；序列化後一次一本吃滿核、
+    總吞吐更高。do_deploy 與 math sweep 重烤共用此 helper → 兩路 build 一起受同一閘限流。"""
+    with _BUILD_SEM:
+        return subprocess.run(['uv', 'run', 'python', '-m', 'build.build_all', slug],
+                              cwd=READER_ROOT).returncode
+
+
 def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if no_deploy:
         log(f'deploy skip {slug}（--no-deploy）')
@@ -1332,12 +1347,11 @@ def do_deploy(slug: str, dry: bool, no_deploy: bool) -> int:
     if not dry:
         q.clear_book_qc(slug)
     # build-only：烤出本地 data/<slug> + img/<slug>，nginx 直讀工作目錄即時上站（無 git/push）
-    build = ['uv', 'run', 'python', '-m', 'build.build_all', slug]
     log(('DRY ' if dry else 'RUN ') + 'build_all ' + slug)
     if dry:
         return 0
     with _live_det_worker('deploy', slug):  # build_all 上百張圖 cwebp 轉檔 → 數分鐘，面板顯示「🔧 deploy 處理中」
-        rc = subprocess.run(build, cwd=READER_ROOT).returncode
+        rc = _run_build_all(slug)  # _BUILD_SEM 序列化：多本並發 deploy 不再 N×cpu_count 進程爆炸
     # 只在 build 成功且 book.json 真的烤出才標已部署；否則留待下個 cycle 重試（不誤標 done）。
     book_json = os.path.join(READER_ROOT, 'data', slug, 'book.json')
     if rc == 0 and os.path.isfile(book_json):
@@ -1531,7 +1545,7 @@ def do_math_sweep(dry: bool) -> int:
         if _DRAIN_EVENT.is_set():  # drain 書界讓出：剩餘書留下個 controller 冪等重烤（殘餘降即非 fixpoint→自然重掃）
             log(f'math sweep：偵測 drain → 停在書界，剩 {len(rebake_sorted) - i} 本未重烤（下個 controller 重烤、不丟失）')
             break
-        brc = subprocess.run(['uv', 'run', 'python', '-m', 'build.build_all', slug], cwd=READER_ROOT).returncode
+        brc = _run_build_all(slug)  # 共用 _BUILD_SEM：與 do_deploy 的 build 一起序列化、不疊加進程爆炸
         if brc != 0:
             log(f'❌ math sweep 重烤 {slug} build rc={brc}（parsed 已修、data 未更新，下個 sweep 重試）')
         do_math_track(slug)
