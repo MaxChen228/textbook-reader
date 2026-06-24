@@ -871,9 +871,19 @@ def _code_version() -> str:
         return '?'
 
 
+# 本 controller 啟動時固定的身分（sha=載入的碼版、started=起始時刻）。**drain 改寫不可重算 sha**：
+# 進入排空時 git HEAD 多半已前進（我提交了新碼但舊 controller 仍在排空），重算會把「正在排空的舊碼」
+# 誤標成 HEAD 新碼 → devctl status 顯 code=新碼、誤導「新碼已上線」，正好打臉版本 forensics 的初衷。
+_CONTROLLER_BIRTH: dict = {}
+
+
 def _write_controller_state(phase: str = 'running', **extra) -> None:
+    if not _CONTROLLER_BIRTH:  # 首呼（loop 起頭）固定身分，之後（drain 改寫）沿用、不重算
+        _CONTROLLER_BIRTH['sha'] = _code_version()
+        _CONTROLLER_BIRTH['started'] = time.time()
     try:
-        st = {'pid': os.getpid(), 'sha': _code_version(), 'started': time.time(), 'phase': phase}
+        st = {'pid': os.getpid(), 'sha': _CONTROLLER_BIRTH['sha'],
+              'started': _CONTROLLER_BIRTH['started'], 'phase': phase}
         st.update(extra)
         with open(CONTROLLER_STATE, 'w') as f:
             json.dump(st, f)
