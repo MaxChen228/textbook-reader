@@ -1,0 +1,30 @@
+{
+  "slug": "gelman_hill_regression",
+  "overrides": [
+    {
+      "id": "gelman-hill-regression-figure-24-6-table-alias",
+      "action": "set_fields",
+      "chunk": "ch24",
+      "selector": "body[123]",
+      "expect": {
+        "id": "tbl-ch24-123",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-24.6",
+            "type": "figure",
+            "caption": "Figure 24.6 Average deviance, estimated effective number of parameters, and deviance information criterion (DIC) for each of four models fit to the dog data in Section 24.2.",
+            "source": "agent-catalog-repair",
+            "evidence": "The parsed table footnote is the formal caption: 'Figure 24.6 Average deviance, estimated efective number of parameters, and deviance information criterion (DIC) for each of four models fit to the dog data in Section 24.2.'"
+          }
+        ],
+        "catalog_repair_source": "agent-table-with-figure-caption-alias",
+        "kind": "text"
+      },
+      "reason": "Figure 24.6 is rendered as a table block with its formal Figure caption in footnote; expose it as a figure catalog alias instead of inventing a separate image. The source object is a text/table display, so kind=text prevents image-file validation for the figure alias."
+    }
+  ],
+  "ref_classifications": []
+}

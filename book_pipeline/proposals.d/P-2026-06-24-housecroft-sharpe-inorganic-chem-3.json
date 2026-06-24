@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-24-housecroft-sharpe-inorganic-chem-3",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/devctl.py（audit housecroft_sharpe_inorganic_chemistry）",
+  "slug": "housecroft_sharpe_inorganic_chemistry",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-24T04:57:29+00:00",
+  "updated": "2026-06-24T04:57:29+00:00",
+  "evidence": "scope_guard bracket：worker [audit housecroft_sharpe_inorganic_chemistry] session=housecroft_sharpe_inorganic_chemistry:18524 存活期間，受保護程式碼面 book_pipeline/devctl.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "(無 diff 文本，book_pipeline/devctl.py modified)",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

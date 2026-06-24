@@ -1,0 +1,47 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "6.32",
+      "classification": "external",
+      "reason": "正文引用的是 Hehre et al. 的 Table 6.32（文獻內表號），不是本書內部表格；本書第 6 章只有 Table 6.1 與 6.2。",
+      "where": "ch18.json body[105]",
+      "evidence": "ch18 body[105] reads \"in pretty good agreement with experiment (Hehre et al., Table 6.32)\"; catalogs.json contains chapter-6 tables tbl-6.1 and tbl-6.2 only, while raw PDF/file page 728 shows this is an inline citation to Hehre et al."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "levine-quantum-chemistry-fig-17.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch17",
+      "selector": "body[94]",
+      "position": "before",
+      "page": 658,
+      "clip": [
+        0.27,
+        0.06,
+        0.84,
+        0.285
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-17.3.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-17.3",
+        "kind": "line",
+        "caption": "FIGURE 17.3 Hückel MO energies for benzene."
+      },
+      "reason": "raw PDF page 658 contains Figure 17.3 above equations (17.35)-(17.36), but MinerU folded its caption into eq-ch17-94 instead of emitting a figure block. Clip expanded after visual QA to include the full right-side caption."
+    },
+    {
+      "id": "levine-quantum-chemistry-fig-17.3-remove-caption-from-eq",
+      "action": "replace_text",
+      "chunk": "ch17",
+      "selector": "body[95]",
+      "field": "tex",
+      "old": "\\alpha + 2 \\beta \\quad \\text {   FIGURE   17.3   Hückel   MO   energies   for   benzene.   }",
+      "new": "\\alpha + 2 \\beta",
+      "reason": "After restoring Figure 17.3 as a catalog figure, remove the caption text that MinerU incorrectly embedded in the equation block. The selector targets the equation after pdf_crop_insert inserts Figure 17.3 before original body[94]."
+    }
+  ]
+}

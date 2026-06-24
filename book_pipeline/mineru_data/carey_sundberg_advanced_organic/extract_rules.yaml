@@ -1,0 +1,121 @@
+slug: carey_sundberg_advanced_organic
+title: "Advanced Organic Chemistry Part A: Structure and Mechanisms"
+author: "Francis A. Carey; Richard J. Sundberg"
+edition: "5th"
+subject: Chemistry
+publisher: Springer
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 1169
+bibliography_start_page: 1169
+index_start_page: 1184
+
+chapters:
+  - num: 1
+    title: "Chemical Bonding and Molecular Structure"
+    page_start: 22
+    page_end: 138
+    chapter_title_block_idx: 88
+    problems_block_idx: 1177
+    next_chapter_block_idx: 1321
+  - num: 2
+    title: "Stereochemistry, Conformation, and Stereoselectivity"
+    page_start: 139
+    page_end: 272
+    chapter_title_block_idx: 1321
+    problems_block_idx: 2650
+    next_chapter_block_idx: 2836
+  - num: 3
+    title: "Structural Effects on Stability and Reactivity"
+    page_start: 273
+    page_end: 407
+    chapter_title_block_idx: 2836
+    problems_block_idx: 4150
+    next_chapter_block_idx: 4284
+  - num: 4
+    title: "Nucleophilic Substitution"
+    page_start: 408
+    page_end: 494
+    chapter_title_block_idx: 4284
+    problems_block_idx: 5109
+    next_chapter_block_idx: 5287
+  - num: 5
+    title: "Polar Addition and Elimination Reactions"
+    page_start: 493
+    page_end: 596
+    chapter_title_block_idx: 5287
+    problems_block_idx: 6559
+    next_chapter_block_idx: 6670
+  - num: 6
+    title: "Carbanions and Other Carbon Nucleophiles"
+    page_start: 597
+    page_end: 649
+    chapter_title_block_idx: 6670
+    problems_block_idx: 7139
+    next_chapter_block_idx: 7303
+  - num: 7
+    title: "Addition, Condensation and Substitution Reactions of Carbonyl Compounds"
+    page_start: 650
+    page_end: 731
+    chapter_title_block_idx: 7303
+    problems_block_idx: 8094
+    next_chapter_block_idx: 8246
+  - num: 8
+    title: "Aromaticity"
+    page_start: 730
+    page_end: 787
+    chapter_title_block_idx: 8246
+    problems_block_idx: 8874
+    next_chapter_block_idx: 9019
+  - num: 9
+    title: "Aromatic Substitution"
+    page_start: 788
+    page_end: 849
+    chapter_title_block_idx: 9019
+    problems_block_idx: 9713
+    next_chapter_block_idx: 9811
+  - num: 10
+    title: "Concerted Pericyclic Reactions"
+    page_start: 849
+    page_end: 982
+    chapter_title_block_idx: 9811
+    problems_block_idx: 11290
+    next_chapter_block_idx: 11493
+  - num: 11
+    title: "Free Radical Reactions"
+    page_start: 982
+    page_end: 1087
+    chapter_title_block_idx: 11493
+    problems_block_idx: 12899
+    next_chapter_block_idx: 13009
+  - num: 12
+    title: "Photochemistry"
+    page_start: 1088
+    page_end: 1168
+    chapter_title_block_idx: 13009
+    problems_block_idx: 13827
+    next_chapter_block_idx: 13937
+
+appendices: []
+
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+problem_start_re: '^(\d+\.\d+)\.\s+.+$'
+problem_chapter_must_match: true
+equation_label_re: '\\tag\{(\d+\.\d+)\}'
+equation_strip_dollar: true

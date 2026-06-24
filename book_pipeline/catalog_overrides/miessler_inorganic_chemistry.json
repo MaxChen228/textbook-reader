@@ -1,0 +1,84 @@
+{
+  "slug": "miessler_inorganic_chemistry",
+  "overrides": [
+    {
+      "id": "miessler-fig-3.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[42]",
+      "position": "after",
+      "page": 64,
+      "clip": [
+        0.22,
+        0.075,
+        0.69,
+        0.145
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-3.5.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-3.5",
+        "kind": "line",
+        "caption": "FIGURE 3.5 Resonance Structures of Fulminate, CNO-."
+      },
+      "reason": "正文引用 Figure 3.5；raw PDF 第 64 頁有該圖，MinerU 只抽成 eq-ch03-43，未進 catalog。"
+    },
+    {
+      "id": "miessler-fig-8.31-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch08",
+      "selector": "body[321]",
+      "position": "after",
+      "page": 302,
+      "clip": [
+        0.14,
+        0.7,
+        0.975,
+        0.955
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-8.31.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-8.31",
+        "kind": "line",
+        "caption": "FIGURE 8.31 Nitrogen Hydrides. Multiple bonds in hydrazoic acid are not shown."
+      },
+      "reason": "正文引用 Figure 8.31；raw PDF 第 302 頁有整張 nitrogen hydrides 圖，MinerU 未 emit fig block。"
+    },
+    {
+      "id": "miessler-fig-15.26-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "body[318]",
+      "position": "before",
+      "page": 627,
+      "clip": [
+        0.045,
+        0.555,
+        0.255,
+        0.805
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-15.26.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-15.26",
+        "kind": "line",
+        "caption": "FIGURE 15.26 A Hydride Ion in a Cage of Eight Lithium Ions. Molecular structures generated with CIF data, with hydrogen atoms omitted for clarity."
+      },
+      "reason": "正文引用 Figure 15.26；raw PDF 第 627 頁左下有該圖，MinerU 未產生 fig-15.26 catalog entry。"
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "12.13",
+      "classification": "source_mismatch",
+      "reason": "正文與 exercise 引用 Figure 12.13，但 raw PDF 對應章節在 12.12 後直接進入 Table 12.12/12.13 與 Exercise 12.3，未出現 Figure 12.13；該編號在原書來源中缺失/跳號，不能由 catalog override 真修。",
+      "where": "ch12.json body[228]; ch12.json body[273]",
+      "evidence": "raw PDF 第 473 頁有 FIGURE 12.12；第 475 頁 12.7 The Trans Effect 文字兩處引用 Figure 12.13，但頁面只含 Exercise 12.3，未見 Figure 12.13；第 474 頁為 TABLE 12.13。"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+slug: stock_watson_econometrics
+title: Introduction to Econometrics
+author: James H. Stock; Mark W. Watson
+edition: 4th Global
+subject: Econometrics
+publisher: Pearson
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level:
+- 1
+- 2
+body_start_page: 43
+appendices_start_page: 763
+bibliography_start_page: 771
+index_start_page: 785
+inline_problems: true
+section_re: ^(\d{1,2}\.\d+)\s+(.+)$
+subsection_re: '^((?:Question #\d+:|[A-Z][A-Za-z,;:–—\- ]{2,}|KEY CONCEPT(?:\s+.+)?|FIGURE\s+\d{1,2}\.\d+|TABLE\s+\d{1,2}\.\d+|APPENDIX|A P P E N D I X))\s*(.*)$'
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d{1,2}\.\d+)\b.*$
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_start_re: ^Exercises$
+problems_end_re: ^Empirical Exercises$
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^(Example(?::\s*.+)?)$
+figure_caption_merge: true
+figure_caption_main_re: ^(FIGURE|TABLE)\s+\d{1,2}\.\d+\b.*$
+chapters:
+- num: 1
+  title: Economic Questions and Data
+  chapter_title_block_idx: 311
+  problems_block_idx: null
+  next_chapter_block_idx: 448
+  page_start: 43
+  page_end: 55
+- num: 2
+  title: Review of Probability
+  chapter_title_block_idx: 448
+  problems_block_idx: 893
+  next_chapter_block_idx: 1080
+  page_start: 56
+  page_end: 104
+- num: 3
+  title: Review of Statistics
+  chapter_title_block_idx: 1080
+  problems_block_idx: 1441
+  next_chapter_block_idx: 1620
+  page_start: 104
+  page_end: 144
+- num: 4
+  title: Linear Regression with One Regressor
+  chapter_title_block_idx: 1620
+  problems_block_idx: 1884
+  next_chapter_block_idx: 2069
+  page_start: 144
+  page_end: 178
+- num: 5
+  title: 'Regression with a Single Regressor: Hypothesis Tests and Confidence Intervals'
+  chapter_title_block_idx: 2069
+  problems_block_idx: 2355
+  next_chapter_block_idx: 2527
+  page_start: 178
+  page_end: 211
+- num: 6
+  title: Linear Regression with Multiple Regressors
+  chapter_title_block_idx: 2527
+  problems_block_idx: 2848
+  next_chapter_block_idx: 2997
+  page_start: 211
+  page_end: 247
+- num: 7
+  title: Hypothesis Tests and Confidence Intervals in Multiple Regression
+  chapter_title_block_idx: 2997
+  problems_block_idx: 3232
+  next_chapter_block_idx: 3356
+  page_start: 247
+  page_end: 278
+- num: 8
+  title: Nonlinear Regression Functions
+  chapter_title_block_idx: 3356
+  problems_block_idx: 3794
+  next_chapter_block_idx: 3974
+  page_start: 279
+  page_end: 330
+- num: 9
+  title: Assessing Studies Based on Multiple Regression
+  chapter_title_block_idx: 3974
+  problems_block_idx: 4247
+  next_chapter_block_idx: 4323
+  page_start: 330
+  page_end: 362
+- num: 10
+  title: Regression with Panel Data
+  chapter_title_block_idx: 4323
+  problems_block_idx: 4549
+  next_chapter_block_idx: 4682
+  page_start: 362
+  page_end: 393
+- num: 11
+  title: Regression with a Binary Dependent Variable
+  chapter_title_block_idx: 4682
+  problems_block_idx: 4925
+  next_chapter_block_idx: 5084
+  page_start: 393
+  page_end: 427
+- num: 12
+  title: Instrumental Variables Regression
+  chapter_title_block_idx: 5084
+  problems_block_idx: 5435
+  next_chapter_block_idx: 5593
+  page_start: 428
+  page_end: 475
+- num: 13
+  title: Experiments and Quasi-Experiments
+  chapter_title_block_idx: 5593
+  problems_block_idx: 5882
+  next_chapter_block_idx: 5997
+  page_start: 475
+  page_end: 515
+- num: 14
+  title: Prediction with Many Regressors and Big Data
+  chapter_title_block_idx: 5997
+  problems_block_idx: 6318
+  next_chapter_block_idx: 6464
+  page_start: 515
+  page_end: 555
+- num: 15
+  title: Introduction to Time Series Regression and Forecasting
+  chapter_title_block_idx: 6464
+  problems_block_idx: 6952
+  next_chapter_block_idx: 7116
+  page_start: 555
+  page_end: 610
+- num: 16
+  title: Estimation of Dynamic Causal Effects
+  chapter_title_block_idx: 7116
+  problems_block_idx: 7426
+  next_chapter_block_idx: 7568
+  page_start: 610
+  page_end: 649
+- num: 17
+  title: Additional Topics in Time Series Regression
+  chapter_title_block_idx: 7568
+  problems_block_idx: 7949
+  next_chapter_block_idx: 8011
+  page_start: 649
+  page_end: 687
+- num: 18
+  title: The Theory of Linear Regression with One Regressor
+  chapter_title_block_idx: 8011
+  problems_block_idx: 8248
+  next_chapter_block_idx: 8380
+  page_start: 688
+  page_end: 714
+- num: 19
+  title: The Theory of Multiple Regression
+  chapter_title_block_idx: 8380
+  problems_block_idx: 8807
+  next_chapter_block_idx: 9119
+  page_start: 714
+  page_end: 762
+appendices:
+- id: A
+  title: Appendix
+  chapter_title_block_idx: 9119
+known_missing_problems:
+- chapter: 5
+  nums:
+  - '5.8'
+- chapter: 9
+  nums:
+  - '9.3'
+- chapter: 17
+  nums:
+  - '17.7'
+  - '17.9'

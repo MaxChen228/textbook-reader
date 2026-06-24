@@ -1,0 +1,119 @@
+slug: mcquarrie_quantum_chemistry
+title: Quantum Chemistry
+author: Donald A. McQuarrie
+edition: 2nd
+subject: Quantum Chemistry
+publisher: University Science Books
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+heading_priority:
+- subsection_re
+- section_re
+body_start_page: 18
+appendices_start_page: 706
+bibliography_start_page: null
+index_start_page: 706
+chapters:
+- num: 1
+  title: The Dawn of the Quantum Theory
+  page_start: 18
+  page_end: 68
+  chapter_title_block_idx: 87
+  problems_block_idx: 504
+  next_chapter_block_idx: 771
+- num: 2
+  title: The Classical Wave Equation
+  page_start: 70
+  page_end: 112
+  chapter_title_block_idx: 771
+  problems_block_idx: 1073
+  next_chapter_block_idx: 1487
+- num: 3
+  title: The Schrödinger Equation and a Particle in a Box
+  page_start: 114
+  page_end: 144
+  chapter_title_block_idx: 1487
+  problems_block_idx: 1832
+  next_chapter_block_idx: 2208
+- num: 4
+  title: The Postulates and General Principles of Quantum Mechanics
+  page_start: 160
+  page_end: 206
+  chapter_title_block_idx: 2208
+  problems_block_idx: 2766
+  next_chapter_block_idx: 3269
+- num: 5
+  title: The Harmonic Oscillator and Vibrational Spectroscopy
+  page_start: 224
+  page_end: 306
+  chapter_title_block_idx: 3269
+  problems_block_idx: 3827
+  next_chapter_block_idx: 4223
+- num: 6
+  title: The Rigid Rotator and Rotational Spectroscopy
+  page_start: 284
+  page_end: 366
+  chapter_title_block_idx: 4223
+  problems_block_idx: 4748
+  next_chapter_block_idx: 5081
+- num: 7
+  title: The Hydrogen Atom
+  page_start: 338
+  page_end: 376
+  chapter_title_block_idx: 5081
+  problems_block_idx: 5600
+  next_chapter_block_idx: 5961
+- num: 8
+  title: Approximation Methods
+  page_start: 398
+  page_end: 426
+  chapter_title_block_idx: 5961
+  problems_block_idx: 6406
+  next_chapter_block_idx: 6815
+- num: 9
+  title: Many-Electron Atoms
+  page_start: 452
+  page_end: 498
+  chapter_title_block_idx: 6815
+  problems_block_idx: 7516
+  next_chapter_block_idx: 7680
+- num: 10
+  title: 'The Chemical Bond: One- and Two-Electron Molecules'
+  page_start: 516
+  page_end: 558
+  chapter_title_block_idx: 7680
+  problems_block_idx: 8295
+  next_chapter_block_idx: 8492
+- num: 11
+  title: Qualitative Theory of Chemical Bonding
+  page_start: 576
+  page_end: 606
+  chapter_title_block_idx: 8492
+  problems_block_idx: 8916
+  next_chapter_block_idx: 9056
+- num: 12
+  title: Computational Quantum Chemistry
+  page_start: 624
+  page_end: 684
+  chapter_title_block_idx: 9056
+  problems_block_idx: 9481
+  next_chapter_block_idx: 9961
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+example_start_re: ^EXAMPLE\s+([A-Z]?\d+(?:\.\d+)?-\d+)\b
+problem_start_re: ^(\d+[-–]\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: ^(References|MATHCHAPTER|Appendix:)\b
+equation_label_re: \\tag\{([^}]+)\}
+equation_strip_dollar: true

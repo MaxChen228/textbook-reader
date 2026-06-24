@@ -1,0 +1,289 @@
+slug: skoog_instrumental_analysis
+title: Principles of Instrumental Analysis
+author: Douglas A. Skoog; F. James Holler; Stanley R. Crouch
+edition: 6th
+subject: General Chemistry
+publisher: Thomson Brooks/Cole
+language: en
+
+filter_types: [page_number, header, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 984
+bibliography_start_page: null
+index_start_page: 1028
+
+inline_problems: false
+
+section_re: '^(\d{1,2}[A-Z])\s+(.+\S)$'
+subsection_re: '^(\d{1,2}[A-Z]-\d+)\s+(.+\S)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^\\?\*?(\d{1,2}-\d+)\b\s*'
+problem_chapter_must_match: false
+problems_end_re: '^(Instrumental Analysis in Action|Answers to Selected Problems|APPENDIX|INDEX)\b.*'
+solution_start_re: null
+
+equation_label_re: '^(\d{1,2}-\d+)'
+equation_strip_dollar: true
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 1
+    page_end: 25
+    chapter_title_block_idx: 259
+    problems_block_idx: 581
+    next_chapter_block_idx: 639
+  - num: 2
+    title: "Electrical Components and Circuits"
+    page_start: 26
+    page_end: 58
+    chapter_title_block_idx: 639
+    problems_block_idx: 1189
+    next_chapter_block_idx: 1271
+  - num: 3
+    title: "Operational Amplifiers in Chemical Instrumentation"
+    page_start: 59
+    page_end: 79
+    chapter_title_block_idx: 1271
+    problems_block_idx: 1548
+    next_chapter_block_idx: 1633
+  - num: 4
+    title: "Digital Electronics and Computers"
+    page_start: 80
+    page_end: 109
+    chapter_title_block_idx: 1633
+    problems_block_idx: 1955
+    next_chapter_block_idx: 1985
+  - num: 5
+    title: "Signals and Noise"
+    page_start: 110
+    page_end: 131
+    chapter_title_block_idx: 1985
+    problems_block_idx: 2184
+    next_chapter_block_idx: 2273
+  - num: 6
+    title: "An Introduction to Spectrometric Methods"
+    page_start: 132
+    page_end: 163
+    chapter_title_block_idx: 2273
+    problems_block_idx: 2693
+    next_chapter_block_idx: 2752
+  - num: 7
+    title: "Components of Optical Instruments"
+    page_start: 164
+    page_end: 214
+    chapter_title_block_idx: 2752
+    problems_block_idx: 3442
+    next_chapter_block_idx: 3483
+  - num: 8
+    title: "An Introduction to Optical Atomic Spectrometry"
+    page_start: 215
+    page_end: 229
+    chapter_title_block_idx: 3483
+    problems_block_idx: 3676
+    next_chapter_block_idx: 3717
+  - num: 9
+    title: "Atomic Absorption and Atomic Fluorescence Spectrometry"
+    page_start: 230
+    page_end: 253
+    chapter_title_block_idx: 3717
+    problems_block_idx: 4013
+    next_chapter_block_idx: 4071
+  - num: 10
+    title: "Atomic Emission Spectrometry"
+    page_start: 254
+    page_end: 280
+    chapter_title_block_idx: 4071
+    problems_block_idx: 4336
+    next_chapter_block_idx: 4412
+  - num: 11
+    title: "Atomic Mass Spectrometry"
+    page_start: 281
+    page_end: 302
+    chapter_title_block_idx: 4412
+    problems_block_idx: 4661
+    next_chapter_block_idx: 4699
+  - num: 12
+    title: "Atomic X-ray Spectrometry"
+    page_start: 303
+    page_end: 335
+    chapter_title_block_idx: 4699
+    problems_block_idx: 5068
+    next_chapter_block_idx: 5168
+  - num: 13
+    title: "An Introduction to Ultraviolet-Visible Molecular Absorption Spectrometry"
+    page_start: 336
+    page_end: 366
+    chapter_title_block_idx: 5168
+    problems_block_idx: 5532
+    next_chapter_block_idx: 5630
+  - num: 14
+    title: "Applications of Ultraviolet-Visible Molecular Absorption Spectrometry"
+    page_start: 367
+    page_end: 398
+    chapter_title_block_idx: 5630
+    problems_block_idx: 5983
+    next_chapter_block_idx: 6101
+  - num: 15
+    title: "Molecular Luminescence Spectrometry"
+    page_start: 399
+    page_end: 429
+    chapter_title_block_idx: 6101
+    problems_block_idx: 6504
+    next_chapter_block_idx: 6566
+  - num: 16
+    title: "An Introduction to Infrared Spectrometry"
+    page_start: 430
+    page_end: 454
+    chapter_title_block_idx: 6566
+    problems_block_idx: 6888
+    next_chapter_block_idx: 6926
+  - num: 17
+    title: "Applications of Infrared Spectrometry"
+    page_start: 455
+    page_end: 480
+    chapter_title_block_idx: 6926
+    problems_block_idx: 7199
+    next_chapter_block_idx: 7236
+  - num: 18
+    title: "Raman Spectroscopy"
+    page_start: 481
+    page_end: 497
+    chapter_title_block_idx: 7236
+    problems_block_idx: 7429
+    next_chapter_block_idx: 7467
+  - num: 19
+    title: "Nuclear Magnetic Resonance Spectroscopy"
+    page_start: 498
+    page_end: 549
+    chapter_title_block_idx: 7467
+    problems_block_idx: 8002
+    next_chapter_block_idx: 8092
+  - num: 20
+    title: "Molecular Mass Spectrometry"
+    page_start: 550
+    page_end: 588
+    chapter_title_block_idx: 8092
+    problems_block_idx: 8542
+    next_chapter_block_idx: 8599
+  - num: 21
+    title: "Surface Characterization by Spectroscopy and Microscopy"
+    page_start: 589
+    page_end: 627
+    chapter_title_block_idx: 8599
+    problems_block_idx: 9009
+    next_chapter_block_idx: 9090
+  - num: 22
+    title: "An Introduction to Electroanalytical Chemistry"
+    page_start: 628
+    page_end: 658
+    chapter_title_block_idx: 9090
+    problems_block_idx: 9612
+    next_chapter_block_idx: 9735
+  - num: 23
+    title: "Potentiometry"
+    page_start: 659
+    page_end: 696
+    chapter_title_block_idx: 9735
+    problems_block_idx: 10272
+    next_chapter_block_idx: 10378
+  - num: 24
+    title: "Coulometry"
+    page_start: 697
+    page_end: 715
+    chapter_title_block_idx: 10378
+    problems_block_idx: 10606
+    next_chapter_block_idx: 10668
+  - num: 25
+    title: "Voltammetry"
+    page_start: 716
+    page_end: 761
+    chapter_title_block_idx: 10668
+    problems_block_idx: 11169
+    next_chapter_block_idx: 11272
+  - num: 26
+    title: "An Introduction to Chromatographic Separations"
+    page_start: 762
+    page_end: 787
+    chapter_title_block_idx: 11272
+    problems_block_idx: 11640
+    next_chapter_block_idx: 11721
+  - num: 27
+    title: "Gas Chromatography"
+    page_start: 788
+    page_end: 815
+    chapter_title_block_idx: 11721
+    problems_block_idx: 12059
+    next_chapter_block_idx: 12142
+  - num: 28
+    title: "Liquid Chromatography"
+    page_start: 816
+    page_end: 855
+    chapter_title_block_idx: 12142
+    problems_block_idx: 12635
+    next_chapter_block_idx: 12719
+  - num: 29
+    title: "Supercritical Fluid Chromatography and Extraction"
+    page_start: 856
+    page_end: 866
+    chapter_title_block_idx: 12719
+    problems_block_idx: 12836
+    next_chapter_block_idx: 12872
+  - num: 30
+    title: "Capillary Electrophoresis, Capillary Electrochromatography, and Field-Flow Fractionation"
+    page_start: 867
+    page_end: 893
+    chapter_title_block_idx: 12872
+    problems_block_idx: 13149
+    next_chapter_block_idx: 13223
+  - num: 31
+    title: "Thermal Methods"
+    page_start: 894
+    page_end: 908
+    chapter_title_block_idx: 13223
+    problems_block_idx: 13376
+    next_chapter_block_idx: 13417
+  - num: 32
+    title: "Radiochemical Methods"
+    page_start: 909
+    page_end: 928
+    chapter_title_block_idx: 13417
+    problems_block_idx: 13706
+    next_chapter_block_idx: 13762
+  - num: 33
+    title: "Automated Methods of Analysis"
+    page_start: 929
+    page_end: 949
+    chapter_title_block_idx: 13762
+    problems_block_idx: 13980
+    next_chapter_block_idx: 14009
+  - num: 34
+    title: "Particle Size Determination"
+    page_start: 950
+    page_end: 966
+    chapter_title_block_idx: 14009
+    problems_block_idx: 14190
+    next_chapter_block_idx: 14247
+
+appendices:
+  - id: A1
+    title: Evaluation of Analytical Data
+    page_start: 967
+    chapter_title_block_idx: 14247
+  - id: A2
+    title: Activity Coefficients
+    page_start: 994
+    chapter_title_block_idx: 14794
+  - id: A3
+    title: Some Standard and Formal Electrode Potentials
+    page_start: 997
+    chapter_title_block_idx: 14844
+  - id: A4
+    title: Compounds Recommended for the Preparation of Standard Solutions of Some Common Elements
+    page_start: 1001
+    chapter_title_block_idx: 14850

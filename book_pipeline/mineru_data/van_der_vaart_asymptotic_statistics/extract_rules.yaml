@@ -1,0 +1,210 @@
+title: Asymptotic Statistics
+slug: van_der_vaart_asymptotic_statistics
+author: A. W. van der Vaart
+edition: null
+subject: Probability
+publisher: Cambridge University Press
+language: en
+body_start_page: 17
+appendices_start_page: 455
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+heading_text_level: 2
+section_re: '^\*?(\d+\.\d+(?:\.\d+)?)\.?\s+(.+)$'
+subsection_re: '^\*?(\d+\.\d+\.\d+)\.?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+example_start_re: '^(\d+\.\d+)\s+(?:Example|Lemma|Theorem|Corollary|Proposition)\b'
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true
+figure_caption_merge: false
+figure_caption_main_re: null
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+appendices: []
+index_start_page: 455
+bibliography_start_page: null
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 20
+    chapter_title_block_idx: 80
+    problems_block_idx: null
+    next_chapter_block_idx: 123
+  - num: 2
+    title: Stochastic Convergence
+    page_start: 21
+    page_end: 40
+    chapter_title_block_idx: 123
+    problems_block_idx: 431
+    next_chapter_block_idx: 463
+  - num: 3
+    title: Delta Method
+    page_start: 41
+    page_end: 50
+    chapter_title_block_idx: 463
+    problems_block_idx: 587
+    next_chapter_block_idx: 598
+  - num: 4
+    title: Moment Estimators
+    page_start: 51
+    page_end: 56
+    chapter_title_block_idx: 598
+    problems_block_idx: 675
+    next_chapter_block_idx: 687
+  - num: 5
+    title: M- and Z-Estimators
+    page_start: 57
+    page_end: 100
+    chapter_title_block_idx: 687
+    problems_block_idx: 1300
+    next_chapter_block_idx: 1338
+  - num: 6
+    title: Contiguity
+    page_start: 101
+    page_end: 107
+    chapter_title_block_idx: 1338
+    problems_block_idx: 1442
+    next_chapter_block_idx: 1453
+  - num: 7
+    title: Local Asymptotic Normality
+    page_start: 108
+    page_end: 123
+    chapter_title_block_idx: 1453
+    problems_block_idx: 1668
+    next_chapter_block_idx: 1686
+  - num: 8
+    title: Efficiency of Estimators
+    page_start: 124
+    page_end: 140
+    chapter_title_block_idx: 1686
+    problems_block_idx: 1911
+    next_chapter_block_idx: 1930
+  - num: 9
+    title: Limits of Experiments
+    page_start: 141
+    page_end: 153
+    chapter_title_block_idx: 1930
+    problems_block_idx: 2093
+    next_chapter_block_idx: 2107
+  - num: 10
+    title: Bayes Procedures
+    page_start: 154
+    page_end: 168
+    chapter_title_block_idx: 2107
+    problems_block_idx: 2313
+    next_chapter_block_idx: 2321
+  - num: 11
+    title: Projections
+    page_start: 169
+    page_end: 176
+    chapter_title_block_idx: 2321
+    problems_block_idx: 2437
+    next_chapter_block_idx: 2458
+  - num: 12
+    title: U-Statistics
+    page_start: 177
+    page_end: 188
+    chapter_title_block_idx: 2458
+    problems_block_idx: 2608
+    next_chapter_block_idx: 2631
+  - num: 13
+    title: Rank, Sign, and Permutation Statistics
+    page_start: 189
+    page_end: 207
+    chapter_title_block_idx: 2631
+    problems_block_idx: 2886
+    next_chapter_block_idx: 2902
+  - num: 14
+    title: Relative Efficiency of Tests
+    page_start: 208
+    page_end: 230
+    chapter_title_block_idx: 2902
+    problems_block_idx: 3190
+    next_chapter_block_idx: 3211
+  - num: 15
+    title: Efficiency of Tests
+    page_start: 231
+    page_end: 242
+    chapter_title_block_idx: 3211
+    problems_block_idx: 3358
+    next_chapter_block_idx: 3370
+  - num: 16
+    title: Likelihood Ratio Tests
+    page_start: 243
+    page_end: 257
+    chapter_title_block_idx: 3370
+    problems_block_idx: 3551
+    next_chapter_block_idx: 3561
+  - num: 17
+    title: Chi-Square Tests
+    page_start: 258
+    page_end: 270
+    chapter_title_block_idx: 3561
+    problems_block_idx: 3706
+    next_chapter_block_idx: 3723
+  - num: 18
+    title: Stochastic Convergence in Metric Spaces
+    page_start: 271
+    page_end: 280
+    chapter_title_block_idx: 3723
+    problems_block_idx: 3852
+    next_chapter_block_idx: 3868
+  - num: 19
+    title: Empirical Processes
+    page_start: 281
+    page_end: 306
+    chapter_title_block_idx: 3868
+    problems_block_idx: 4213
+    next_chapter_block_idx: 4240
+  - num: 20
+    title: Functional Delta Method
+    page_start: 307
+    page_end: 319
+    chapter_title_block_idx: 4240
+    problems_block_idx: 4414
+    next_chapter_block_idx: 4425
+  - num: 21
+    title: Quantiles and Order Statistics
+    page_start: 320
+    page_end: 331
+    chapter_title_block_idx: 4425
+    problems_block_idx: 4595
+    next_chapter_block_idx: 4603
+  - num: 22
+    title: L-Statistics
+    page_start: 332
+    page_end: 341
+    chapter_title_block_idx: 4603
+    problems_block_idx: 4722
+    next_chapter_block_idx: 4738
+  - num: 23
+    title: Bootstrap
+    page_start: 342
+    page_end: 356
+    chapter_title_block_idx: 4738
+    problems_block_idx: 4929
+    next_chapter_block_idx: 4944
+  - num: 24
+    title: Nonparametric Density Estimation
+    page_start: 357
+    page_end: 373
+    chapter_title_block_idx: 4944
+    problems_block_idx: 5155
+    next_chapter_block_idx: 5167
+  - num: 25
+    title: Semiparametric Models
+    page_start: 374
+    page_end: 459
+    chapter_title_block_idx: 5167
+    problems_block_idx: 6259
+    next_chapter_block_idx: 6482

@@ -1,0 +1,44 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "9.8",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Figure 9.8，但 parsed/catalog 與 MinerU content_list 在該引用附近都沒有對應圖或 caption；catalog 由 fig-9.7 直接跳到 fig-9.9，無安全的既有圖塊可改名或裁補。",
+      "where": "ch09.json body[366]",
+      "evidence": "content_list page_idx 484 contains the Figure 9.8 reference at bbox [35,622,856,659] and surrounding equations/text only; page_idx 483-485 have no figure item. parsed ch09 body[314] is fig-9.7, body[459] is fig-9.9, and no catalog entry/caption contains Figure 9.8."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "mcquarrie-qc-ch02-fig-2-11-restore-spring",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[99]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-99",
+        "src": "af099354a8c82d79f86d20afa227d4cbe982b253d92039bec5c485b07c52c7a4.jpg"
+      },
+      "set": {
+        "id": "fig-2.11",
+        "caption": "Figure 2.11 A body of mass m connected to a wall by a spring.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 Figure 2.11 is present as an excluded unnumbered body figure; image shows the spring/mass setup and nearby parsed text has caption 'A body of mass m connected to a wall by a spring.'"
+    },
+    {
+      "id": "mcquarrie-qc-ch10-body283-figure-10-24-ocr-ref",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[283]",
+      "field": "md",
+      "old": "in agreement with the value in Figure 9.24. (See also Problem 10–46 for a proof of this result.)",
+      "new": "in agreement with the value in Figure 10.24. (See also Problem 10–46 for a proof of this result.)",
+      "reason": "C4 Figure 9.24 is an OCR/reference typo: adjacent text in Example 10-7 says Figure 10.24, and catalogs already contain fig-10.24."
+    }
+  ]
+}

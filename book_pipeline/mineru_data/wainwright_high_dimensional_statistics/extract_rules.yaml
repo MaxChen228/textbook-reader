@@ -1,0 +1,155 @@
+slug: wainwright_high_dimensional_statistics
+title: "High-Dimensional Statistics: A Non-Asymptotic Viewpoint"
+author: "Martin J. Wainwright"
+edition: null
+subject: "Probability"
+publisher: "Cambridge University Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 542
+bibliography_start_page: 542
+index_start_page: 558
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 19
+    page_end: 38
+    chapter_title_block_idx: 109
+    problems_block_idx: null
+    next_chapter_block_idx: 334
+  - num: 2
+    title: "Basic tail and concentration bounds"
+    page_start: 39
+    page_end: 75
+    chapter_title_block_idx: 334
+    problems_block_idx: 813
+    next_chapter_block_idx: 952
+  - num: 3
+    title: "Concentration of measure"
+    page_start: 76
+    page_end: 115
+    chapter_title_block_idx: 952
+    problems_block_idx: 1530
+    next_chapter_block_idx: 1633
+  - num: 4
+    title: "Uniform laws of large numbers"
+    page_start: 116
+    page_end: 138
+    chapter_title_block_idx: 1633
+    problems_block_idx: 1915
+    next_chapter_block_idx: 1986
+  - num: 5
+    title: "Metric entropy and its uses"
+    page_start: 139
+    page_end: 176
+    chapter_title_block_idx: 1986
+    problems_block_idx: 2522
+    next_chapter_block_idx: 2603
+  - num: 6
+    title: "Random matrices and covariance estimation"
+    page_start: 177
+    page_end: 211
+    chapter_title_block_idx: 2603
+    problems_block_idx: 3084
+    next_chapter_block_idx: 3166
+  - num: 7
+    title: "Sparse linear models in high dimensions"
+    page_start: 212
+    page_end: 253
+    chapter_title_block_idx: 3166
+    problems_block_idx: 3648
+    next_chapter_block_idx: 3780
+  - num: 8
+    title: "Principal component analysis in high dimensions"
+    page_start: 254
+    page_end: 276
+    chapter_title_block_idx: 3780
+    problems_block_idx: 4066
+    next_chapter_block_idx: 4114
+  - num: 9
+    title: "Decomposability and restricted strong convexity"
+    page_start: 277
+    page_end: 329
+    chapter_title_block_idx: 4114
+    problems_block_idx: 4866
+    next_chapter_block_idx: 4954
+  - num: 10
+    title: "Matrix estimation with rank constraints"
+    page_start: 330
+    page_end: 364
+    chapter_title_block_idx: 4954
+    problems_block_idx: 5397
+    next_chapter_block_idx: 5464
+  - num: 11
+    title: "Graphical models for high-dimensional data"
+    page_start: 365
+    page_end: 400
+    chapter_title_block_idx: 5464
+    problems_block_idx: 5930
+    next_chapter_block_idx: 5999
+  - num: 12
+    title: "Reproducing kernel Hilbert spaces"
+    page_start: 401
+    page_end: 433
+    chapter_title_block_idx: 5999
+    problems_block_idx: 6432
+    next_chapter_block_idx: 6495
+  - num: 13
+    title: "Nonparametric least squares"
+    page_start: 434
+    page_end: 470
+    chapter_title_block_idx: 6495
+    problems_block_idx: 7021
+    next_chapter_block_idx: 7086
+  - num: 14
+    title: "Localization and uniform laws"
+    page_start: 471
+    page_end: 502
+    chapter_title_block_idx: 7086
+    problems_block_idx: 7566
+    next_chapter_block_idx: 7609
+  - num: 15
+    title: "Minimax lower bounds"
+    page_start: 503
+    page_end: 541
+    chapter_title_block_idx: 7609
+    problems_block_idx: 8143
+    next_chapter_block_idx: 8236
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+problems_start_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

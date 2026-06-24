@@ -1,0 +1,159 @@
+slug: box_jenkins_time_series
+title: "Time Series Analysis: Forecasting and Control"
+author: "George E. P. Box; Gwilym M. Jenkins; Gregory C. Reinsel"
+edition: "4th"
+subject: Probability
+publisher: "John Wiley & Sons"
+language: en
+
+filter_types: [header, footer, page_number]
+ignore_image_content: true
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 672
+bibliography_start_page: null
+index_start_page: 738
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 23
+    page_end: 40
+    chapter_title_block_idx: 330
+    problems_block_idx: null
+    next_chapter_block_idx: 542
+  - num: 2
+    title: Autocorrelation Function and Spectrum of Stationary Processes
+    page_start: 42
+    page_end: 67
+    chapter_title_block_idx: 542
+    problems_block_idx: null
+    next_chapter_block_idx: 842
+  - num: 3
+    title: Linear Stationary Models
+    page_start: 68
+    page_end: 112
+    chapter_title_block_idx: 842
+    problems_block_idx: null
+    next_chapter_block_idx: 1496
+  - num: 4
+    title: Linear Nonstationary Models
+    page_start: 113
+    page_end: 156
+    chapter_title_block_idx: 1496
+    problems_block_idx: null
+    next_chapter_block_idx: 2187
+  - num: 5
+    title: Forecasting
+    page_start: 157
+    page_end: 213
+    chapter_title_block_idx: 2187
+    problems_block_idx: null
+    next_chapter_block_idx: 2975
+  - num: 6
+    title: Model Identification
+    page_start: 214
+    page_end: 248
+    chapter_title_block_idx: 2975
+    problems_block_idx: null
+    next_chapter_block_idx: 3392
+  - num: 7
+    title: Model Estimation
+    page_start: 249
+    page_end: 349
+    chapter_title_block_idx: 3392
+    problems_block_idx: null
+    next_chapter_block_idx: 4818
+  - num: 8
+    title: Model Diagnostic Checking
+    page_start: 350
+    page_end: 369
+    chapter_title_block_idx: 4818
+    problems_block_idx: null
+    next_chapter_block_idx: 5040
+  - num: 9
+    title: Seasonal Models
+    page_start: 370
+    page_end: 428
+    chapter_title_block_idx: 5040
+    problems_block_idx: null
+    next_chapter_block_idx: 5684
+  - num: 10
+    title: Nonlinear and Long Memory Models
+    page_start: 429
+    page_end: 454
+    chapter_title_block_idx: 5684
+    problems_block_idx: null
+    next_chapter_block_idx: 5984
+  - num: 11
+    title: Transfer Function Models
+    page_start: 455
+    page_end: 488
+    chapter_title_block_idx: 5984
+    problems_block_idx: null
+    next_chapter_block_idx: 6449
+  - num: 12
+    title: Identification, Fitting, and Checking of Transfer Function Models
+    page_start: 489
+    page_end: 544
+    chapter_title_block_idx: 6449
+    problems_block_idx: null
+    next_chapter_block_idx: 7165
+  - num: 13
+    title: Intervention Analysis Models and Outlier Detection
+    page_start: 545
+    page_end: 566
+    chapter_title_block_idx: 7165
+    problems_block_idx: null
+    next_chapter_block_idx: 7417
+  - num: 14
+    title: Multivariate Time Series Analysis
+    page_start: 567
+    page_end: 612
+    chapter_title_block_idx: 7417
+    problems_block_idx: null
+    next_chapter_block_idx: 7922
+  - num: 15
+    title: Aspects of Process Control
+    page_start: 613
+    page_end: 671
+    chapter_title_block_idx: 7922
+    problems_block_idx: null
+    next_chapter_block_idx: 8666
+
+appendices:
+  - id: A
+    title: Collection of Tables and Charts
+    page_start: 673
+    chapter_title_block_idx: 8666
+  - id: B
+    title: Collection of Time Series Used for Examples in the Text and in Exercises
+    page_start: 680
+    chapter_title_block_idx: 8699
+  - id: C
+    title: References
+    page_start: 696
+    chapter_title_block_idx: 8766
+  - id: D
+    title: Exercises and Problems
+    page_start: 711
+    chapter_title_block_idx: 9115
+
+heading_priority: [subsection_re, section_re]
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+problem_start_re: '^(\d+\.\d+)\.\s+\S'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null

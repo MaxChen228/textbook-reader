@@ -1,0 +1,187 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "stock-watson-fig-2.5-id-fix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[197]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-2.6a",
+        "src": "daf78a4a1cc6fe948130bda95160dde438956b49ac7fb6430bd1209c012f5295.jpg"
+      },
+      "set": {
+        "id": "fig-2.5",
+        "caption": "Figure 2.5: The normal probability density function with mean μ and variance σ²",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 Figure 2.5 旁的圖塊為 normal density 95% shaded area；MinerU 將其錯標成 fig-2.6a 並把後文黏入 caption。"
+    },
+    {
+      "id": "stock-watson-fig-3.1-id-fix",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[75]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch03-75",
+        "src": "c782049352a93c2fb17e0c41bad6fac69fab6d8523d57a54cdbb018f67bdd7e1.jpg"
+      },
+      "set": {
+        "id": "fig-3.1",
+        "caption": "Figure 3.1: Calculating the p-value when σY is known",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊目視為 p-value shaded tails diagram，正對 body[69] 的 Figure 3.1 引用；原 fallback id 被排除。"
+    },
+    {
+      "id": "stock-watson-fig-4.4-id-fix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[148]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-148",
+        "src": "32a5e79fc9dba9f083643545938e9d0a4f8131e19669530aae3217323ae15303.jpg"
+      },
+      "set": {
+        "id": "fig-4.4",
+        "caption": "Figure 4.4: Sensitivity of OLS to extreme outliers",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊顯示含/不含 outlier 的 OLS regression lines，正對 body[143] 的 Figure 4.4 引用。"
+    },
+    {
+      "id": "stock-watson-fig-4.5-id-fix",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[188]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch04-188",
+        "src": "fb85defc75f298a824b114ecafe54fcd77ab5f1f1ad5fc635c4db24408d61023.jpg"
+      },
+      "set": {
+        "id": "fig-4.5",
+        "caption": "Figure 4.5: Scatterplot illustrating how variance of X affects the OLS slope estimator",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊為 150 artificial data points scatterplot，正對 body[184] 的 Figure 4.5 引用；原 fallback id 被排除。"
+    },
+    {
+      "id": "stock-watson-fig-8.5-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[125]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.6",
+        "src": "153f1bff79080cb485f89233f4f43fcc9d6ca464d127dad2836f5ea2c5287757.jpg"
+      },
+      "set": {
+        "id": "fig-8.5",
+        "caption": "Figure 8.5: The Linear-Log Regression Function",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 body[118] 與緊鄰 caption body[123]/body[124] 指向 Figure 8.5 linear-log regression；此圖塊原被錯標為 fig-8.6。"
+    },
+    {
+      "id": "stock-watson-fig-12.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[35]",
+      "position": "before",
+      "page": 434,
+      "clip": [
+        0.12,
+        0.07,
+        0.73,
+        0.85
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-12.1",
+        "kind": "line",
+        "caption": "Figure 12.1: Equilibrium Price and Quantity Data"
+      },
+      "reason": "Figure 12.1 是包含 12.1a/b/c 的複合圖，MinerU 誤成 table 且現有 alias 掛到人物照；raw PDF p434 清楚包含完整 Figure 12.1。"
+    },
+    {
+      "id": "stock-watson-fig-14.1-id-fix",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[88]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch14-88",
+        "src": "41f14c78a67b3bd2ee7d58aaaca44a2c81ee11544eb282b10aef49e5664f1c4b.jpg"
+      },
+      "set": {
+        "id": "fig-14.1",
+        "caption": "Figure 14.1: The ridge regression estimator minimizes SSR(b) plus a penalty",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊為 ridge penalty / SSR diagram，正對 body[84] 的 Figure 14.1 引用；原 fallback id 被排除。"
+    },
+    {
+      "id": "stock-watson-fig-8.6-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[145]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.7",
+        "src": "b8ff301df85ff697a1fdc678ba2251f03e93462b8a8f2cfb419e5fd5cb2eb241.jpg"
+      },
+      "set": {
+        "id": "fig-8.6",
+        "caption": "Figure 8.6: The Log-Linear and Log-Log Regression Functions",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊顯示 log-linear 與 log-log regression，正對 body[140]/body[142]/body[146] 的 Figure 8.6 引用；原 id 錯位為 fig-8.7。"
+    },
+    {
+      "id": "stock-watson-fig-8.7-id-fix",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[171]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.8",
+        "src": "c6aca4df51308b2c693634670cc3e5b0c168607474c934dd99180ec7f1df743e.jpg"
+      },
+      "set": {
+        "id": "fig-8.7",
+        "caption": "Figure 8.7: The Cubic and Linear-Log Regression Functions",
+        "catalog_repair_source": "agent-catalog-audit-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "圖塊顯示 cubic 與 linear-log regression，正對 body[172] 的 Figure 8.7 引用；原 id 錯位為 fig-8.8。"
+    }
+  ]
+}

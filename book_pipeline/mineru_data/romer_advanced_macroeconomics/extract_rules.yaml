@@ -1,0 +1,129 @@
+slug: romer_advanced_macroeconomics
+title: Advanced Macroeconomics
+author: David Romer
+edition: 5th
+subject: Economics
+publisher: McGraw-Hill Education
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 733
+bibliography_start_page: 733
+index_start_page: 770
+
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Za-z0-9 ,;:\-–—''"“”()]+)$'
+problem_start_re: '^(\d+\.\d+)\.\s+.+$'
+problem_chapter_must_match: true
+equation_label_re: '^\(?([0-9]+\.[0-9]+)\)?$'
+equation_strip_dollar: true
+example_start_re: null
+figure_caption_main_re: null
+
+chapters:
+  - num: 1
+    title: The Solow Growth Model
+    page_start: 24
+    page_end: 67
+    chapter_title_block_idx: 144
+    problems_block_idx: 534
+    next_chapter_block_idx: 603
+  - num: 2
+    title: Infinite-Horizon and Overlapping-Generations Models
+    page_start: 68
+    page_end: 116
+    chapter_title_block_idx: 603
+    problems_block_idx: 1044
+    next_chapter_block_idx: 1160
+  - num: 3
+    title: Endogenous Growth
+    page_start: 117
+    page_end: 167
+    chapter_title_block_idx: 1160
+    problems_block_idx: 1641
+    next_chapter_block_idx: 1716
+  - num: 4
+    title: Cross-Country Income Differences
+    page_start: 167
+    page_end: 205
+    chapter_title_block_idx: 1716
+    problems_block_idx: 2037
+    next_chapter_block_idx: 2112
+  - num: 5
+    title: Real-Business-Cycle Theory
+    page_start: 206
+    page_end: 255
+    chapter_title_block_idx: 2112
+    problems_block_idx: 2549
+    next_chapter_block_idx: 2635
+  - num: 6
+    title: Nominal Rigidity
+    page_start: 256
+    page_end: 326
+    chapter_title_block_idx: 2635
+    problems_block_idx: 3289
+    next_chapter_block_idx: 3379
+  - num: 7
+    title: Dynamic Stochastic General-Equilibrium Models of Fluctuations
+    page_start: 327
+    page_end: 385
+    chapter_title_block_idx: 3379
+    problems_block_idx: 3970
+    next_chapter_block_idx: 4012
+  - num: 8
+    title: Consumption
+    page_start: 386
+    page_end: 437
+    chapter_title_block_idx: 4012
+    problems_block_idx: 4477
+    next_chapter_block_idx: 4583
+  - num: 9
+    title: Investment
+    page_start: 438
+    page_end: 475
+    chapter_title_block_idx: 4583
+    problems_block_idx: 4901
+    next_chapter_block_idx: 4974
+  - num: 10
+    title: Financial Markets and Financial Crises
+    page_start: 476
+    page_end: 537
+    chapter_title_block_idx: 4974
+    problems_block_idx: 5457
+    next_chapter_block_idx: 5529
+  - num: 11
+    title: Unemployment
+    page_start: 538
+    page_end: 595
+    chapter_title_block_idx: 5529
+    problems_block_idx: 6059
+    next_chapter_block_idx: 6156
+  - num: 12
+    title: Monetary Policy
+    page_start: 596
+    page_end: 677
+    chapter_title_block_idx: 6156
+    problems_block_idx: 6871
+    next_chapter_block_idx: 6989
+  - num: 13
+    title: Budget Deficits and Fiscal Policy
+    page_start: 678
+    page_end: 732
+    chapter_title_block_idx: 6989
+    problems_block_idx: 7471
+    next_chapter_block_idx: 7538
+
+appendices: []

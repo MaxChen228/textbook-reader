@@ -1,0 +1,273 @@
+slug: harris_quantitative_chemical_analysis
+title: Quantitative Chemical Analysis
+author: Daniel C. Harris
+edition: 9th
+subject: General Chemistry
+publisher: W. H. Freeman and Company
+language: en
+
+filter_types: [page_number, header, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+equation_strip_dollar: true
+heading_text_level: [1, 2]
+
+body_start_page: 24
+appendices_start_page: 880
+bibliography_start_page: 888
+index_start_page: 982
+
+inline_problems: false
+heading_priority: [subsection_re, section_re]
+section_re: '^(\d+-\d+|[A-Z]-\d+)\s+(.+)$'
+subsection_re: '^([A-Z]\.\d+)\s+(.+)$'
+example_start_re: '^EXAMPLE\s+(.+)$'
+equation_label_re: '^\((\d+-\d+|[A-Z]-\d+)\)$'
+problem_start_re: '^(\d+-\d+)\s*\.'
+problem_chapter_must_match: false
+problems_start_re: '^(Exercises|Problems)$'
+problems_end_re: '^(Glossary|APPENDIX\s+[A-Z]\b|Answers(?: to (?:Selected )?Problems)?|INDEX|Index)$'
+solution_start_re: '^Answers?$'
+
+chapters:
+  - num: 0
+    title: "The Analytical Process"
+    page_start: 24
+    page_end: 32
+    chapter_title_block_idx: 247
+    problems_block_idx: 358
+    next_chapter_block_idx: 370
+  - num: 1
+    title: "Chemical Measurements"
+    page_start: 33
+    page_end: 46
+    chapter_title_block_idx: 370
+    problems_block_idx: 606
+    next_chapter_block_idx: 713
+  - num: 2
+    title: "Tools of the Trade"
+    page_start: 47
+    page_end: 68
+    chapter_title_block_idx: 713
+    problems_block_idx: 1036
+    next_chapter_block_idx: 1114
+  - num: 3
+    title: "Experimental Error"
+    page_start: 69
+    page_end: 86
+    chapter_title_block_idx: 1114
+    problems_block_idx: 1448
+    next_chapter_block_idx: 1562
+  - num: 4
+    title: "Statistics"
+    page_start: 87
+    page_end: 117
+    chapter_title_block_idx: 1562
+    problems_block_idx: 2064
+    next_chapter_block_idx: 2199
+  - num: 5
+    title: "Quality Assurance and Calibration Methods"
+    page_start: 118
+    page_end: 141
+    chapter_title_block_idx: 2199
+    problems_block_idx: 2560
+    next_chapter_block_idx: 2676
+  - num: 6
+    title: "Chemical Equilibrium"
+    page_start: 142
+    page_end: 167
+    chapter_title_block_idx: 2676
+    problems_block_idx: 3202
+    next_chapter_block_idx: 3374
+  - num: 7
+    title: "Let the Titrations Begin"
+    page_start: 168
+    page_end: 183
+    chapter_title_block_idx: 3374
+    problems_block_idx: 3638
+    next_chapter_block_idx: 3746
+  - num: 8
+    title: "Activity and the Systematic Treatment of Equilibrium"
+    page_start: 184
+    page_end: 209
+    chapter_title_block_idx: 3746
+    problems_block_idx: 4267
+    next_chapter_block_idx: 4377
+  - num: 9
+    title: "Monoprotic Acid-Base Equilibria"
+    page_start: 210
+    page_end: 233
+    chapter_title_block_idx: 4377
+    problems_block_idx: 4890
+    next_chapter_block_idx: 5013
+  - num: 10
+    title: "Polyprotic Acid-Base Equilibria"
+    page_start: 234
+    page_end: 255
+    chapter_title_block_idx: 5013
+    problems_block_idx: 5438
+    next_chapter_block_idx: 5569
+  - num: 11
+    title: "Acid-Base Titrations"
+    page_start: 256
+    page_end: 287
+    chapter_title_block_idx: 5569
+    problems_block_idx: 6123
+    next_chapter_block_idx: 6310
+  - num: 12
+    title: "EDTA Titrations"
+    page_start: 288
+    page_end: 309
+    chapter_title_block_idx: 6310
+    problems_block_idx: 6669
+    next_chapter_block_idx: 6800
+  - num: 13
+    title: "Advanced Topics in Equilibrium"
+    page_start: 310
+    page_end: 328
+    chapter_title_block_idx: 6800
+    problems_block_idx: 7113
+    next_chapter_block_idx: 7195
+  - num: 14
+    title: "Fundamentals of Electrochemistry"
+    page_start: 329
+    page_end: 360
+    chapter_title_block_idx: 7195
+    problems_block_idx: 7813
+    next_chapter_block_idx: 8037
+  - num: 15
+    title: "Electrodes and Potentiometry"
+    page_start: 361
+    page_end: 396
+    chapter_title_block_idx: 8037
+    problems_block_idx: 8542
+    next_chapter_block_idx: 8727
+  - num: 16
+    title: "Redox Titrations"
+    page_start: 397
+    page_end: 417
+    chapter_title_block_idx: 8727
+    problems_block_idx: 9070
+    next_chapter_block_idx: 9231
+  - num: 17
+    title: "Electroanalytical Techniques"
+    page_start: 418
+    page_end: 454
+    chapter_title_block_idx: 9231
+    problems_block_idx: 9760
+    next_chapter_block_idx: 9941
+  - num: 18
+    title: "Fundamentals of Spectrophotometry"
+    page_start: 455
+    page_end: 495
+    chapter_title_block_idx: 9941
+    problems_block_idx: 10354
+    next_chapter_block_idx: 10604
+  - num: 19
+    title: "Applications of Spectrophotometry"
+    page_start: 496
+    page_end: 525
+    chapter_title_block_idx: 10604
+    problems_block_idx: 10991
+    next_chapter_block_idx: 11147
+  - num: 20
+    title: "Spectrophotometers"
+    page_start: 526
+    page_end: 563
+    chapter_title_block_idx: 11147
+    problems_block_idx: 11587
+    next_chapter_block_idx: 11705
+  - num: 21
+    title: "Atomic Spectroscopy"
+    page_start: 564
+    page_end: 593
+    chapter_title_block_idx: 11705
+    problems_block_idx: 12033
+    next_chapter_block_idx: 12123
+  - num: 22
+    title: "Mass Spectrometry"
+    page_start: 594
+    page_end: 638
+    chapter_title_block_idx: 12123
+    problems_block_idx: 12652
+    next_chapter_block_idx: 12800
+  - num: 23
+    title: "Introduction to Analytical Separations"
+    page_start: 639
+    page_end: 667
+    chapter_title_block_idx: 12800
+    problems_block_idx: 13316
+    next_chapter_block_idx: 13495
+  - num: 24
+    title: "Gas Chromatography"
+    page_start: 668
+    page_end: 701
+    chapter_title_block_idx: 13495
+    problems_block_idx: 13896
+    next_chapter_block_idx: 14062
+  - num: 25
+    title: "High-Performance Liquid Chromatography"
+    page_start: 702
+    page_end: 747
+    chapter_title_block_idx: 14062
+    problems_block_idx: 14662
+    next_chapter_block_idx: 14862
+  - num: 26
+    title: "Chromatographic Methods and Capillary Electrophoresis"
+    page_start: 748
+    page_end: 785
+    chapter_title_block_idx: 14862
+    problems_block_idx: 15356
+    next_chapter_block_idx: 15495
+  - num: 27
+    title: "Gravimetric and Combustion Analysis"
+    page_start: 786
+    page_end: 805
+    chapter_title_block_idx: 15495
+    problems_block_idx: 15749
+    next_chapter_block_idx: 15860
+  - num: 28
+    title: "Sample Preparation"
+    page_start: 806
+    page_end: 855
+    chapter_title_block_idx: 15860
+    problems_block_idx: 16128
+    next_chapter_block_idx: 17260
+
+appendices:
+  - id: "A"
+    title: "Logarithms and Exponents and Graphs of Straight Lines"
+    chapter_title_block_idx: 18284
+  - id: "B"
+    title: "Propagation of Uncertainty"
+    chapter_title_block_idx: 18356
+  - id: "C"
+    title: "Analysis of Variance and Efficiency in Experimental Design"
+    chapter_title_block_idx: 18623
+  - id: "D"
+    title: "Oxidation Numbers and Balancing Redox Equations"
+    chapter_title_block_idx: 18749
+  - id: "E"
+    title: "Normality"
+    chapter_title_block_idx: 18965
+  - id: "F"
+    title: "Solubility Products"
+    chapter_title_block_idx: 18971
+  - id: "G"
+    title: "Acid Dissociation Constants"
+    chapter_title_block_idx: 18977
+  - id: "H"
+    title: "Standard Reduction Potentials"
+    chapter_title_block_idx: 19006
+  - id: "I"
+    title: "Formation Constants"
+    chapter_title_block_idx: 19030
+  - id: "J"
+    title: "Logarithm of the Formation Constant for the Reaction M(aq) + L(aq) ⇌ ML(aq)"
+    chapter_title_block_idx: 19039
+  - id: "K"
+    title: "Analytical Standards"
+    chapter_title_block_idx: 19053
+  - id: "L"
+    title: "DNA and RNA"
+    chapter_title_block_idx: 19062

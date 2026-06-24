@@ -1,0 +1,114 @@
+slug: pearl_causality
+title: 'Causality: Models, Reasoning, and Inference'
+author: Judea Pearl
+edition: 2nd
+subject: Artificial Intelligence
+publisher: Cambridge University Press
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 27
+appendices_start_page: 613
+bibliography_start_page: 665
+index_start_page: 710
+chapters:
+- num: 1
+  title: Introduction to Probabilities, Graphs, and Causal Models
+  page_start: 27
+  page_end: 85
+  chapter_title_block_idx: 98
+  problems_block_idx: null
+  next_chapter_block_idx: 530
+- num: 2
+  title: A Theory of Inferred Causation
+  page_start: 86
+  page_end: 121
+  chapter_title_block_idx: 530
+  problems_block_idx: null
+  next_chapter_block_idx: 780
+- num: 3
+  title: Causal Diagrams and the Identification of Causal Effects
+  page_start: 122
+  page_end: 186
+  chapter_title_block_idx: 780
+  problems_block_idx: null
+  next_chapter_block_idx: 1232
+- num: 4
+  title: Actions, Plans, and Direct Effects
+  page_start: 187
+  page_end: 225
+  chapter_title_block_idx: 1232
+  problems_block_idx: null
+  next_chapter_block_idx: 1522
+- num: 5
+  title: Causality and Structural Models in Social Science and Economics
+  page_start: 226
+  page_end: 283
+  chapter_title_block_idx: 1522
+  problems_block_idx: null
+  next_chapter_block_idx: 1924
+- num: 6
+  title: Simpson’s Paradox, Confounding, and Collapsibility
+  page_start: 284
+  page_end: 324
+  chapter_title_block_idx: 1924
+  problems_block_idx: null
+  next_chapter_block_idx: 2190
+- num: 7
+  title: The Logic of Structure-Based Counterfactuals
+  page_start: 325
+  page_end: 407
+  chapter_title_block_idx: 2190
+  problems_block_idx: null
+  next_chapter_block_idx: 2833
+- num: 8
+  title: 'Imperfect Experiments: Bounding Effects and Counterfactuals'
+  page_start: 408
+  page_end: 442
+  chapter_title_block_idx: 2833
+  problems_block_idx: null
+  next_chapter_block_idx: 3094
+- num: 9
+  title: 'Probability of Causation: Interpretation and Identification'
+  page_start: 443
+  page_end: 481
+  chapter_title_block_idx: 3094
+  problems_block_idx: null
+  next_chapter_block_idx: 3428
+- num: 10
+  title: The Actual Cause
+  page_start: 482
+  page_end: 513
+  chapter_title_block_idx: 3428
+  problems_block_idx: null
+  next_chapter_block_idx: 3652
+- num: 11
+  title: Reflections, Elaborations, and Discussions with Readers
+  page_start: 514
+  page_end: 612
+  chapter_title_block_idx: 3652
+  problems_block_idx: null
+  next_chapter_block_idx: 4427
+appendices:
+- id: A
+  title: The Art and Science of Cause and Effect
+  page_start: 613
+  chapter_title_block_idx: 4427
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level:
+- 1
+- 2
+problem_start_re: (?!)^(\d+)$
+problem_chapter_must_match: false
+equation_strip_dollar: true
+equation_label_re: \((\d+\.\d+[a-z]?)\)

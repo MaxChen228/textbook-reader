@@ -1,0 +1,155 @@
+slug: "miessler_inorganic_chemistry"
+title: "Inorganic Chemistry"
+author: "Gary L. Miessler; Paul J. Fischer; Donald A. Tarr"
+edition: "5th"
+subject: "General Chemistry"
+publisher: "Pearson"
+language: "en"
+
+body_start_page: 15
+appendices_start_page: 633
+index_start_page: 697
+
+filter_types:
+  - header
+  - footer
+  - page_number
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction to Inorganic Chemistry"
+    page_start: 1
+    page_end: 8
+    chapter_title_block_idx: 181
+    problems_block_idx: 287
+    next_chapter_block_idx: 294
+  - num: 2
+    title: "Atomic Structure"
+    page_start: 9
+    page_end: 44
+    chapter_title_block_idx: 294
+    problems_block_idx: 741
+    next_chapter_block_idx: 899
+  - num: 3
+    title: "Simple Bonding Theory"
+    page_start: 45
+    page_end: 74
+    chapter_title_block_idx: 899
+    problems_block_idx: 1223
+    next_chapter_block_idx: 1388
+  - num: 4
+    title: "Symmetry and Group Theory"
+    page_start: 75
+    page_end: 116
+    chapter_title_block_idx: 1388
+    problems_block_idx: 1905
+    next_chapter_block_idx: 2132
+  - num: 5
+    title: "Molecular Orbitals"
+    page_start: 117
+    page_end: 168
+    chapter_title_block_idx: 2132
+    problems_block_idx: 2637
+    next_chapter_block_idx: 2758
+  - num: 6
+    title: "Acid-Base and Donor-Acceptor Chemistry"
+    page_start: 169
+    page_end: 214
+    chapter_title_block_idx: 2758
+    problems_block_idx: 3309
+    next_chapter_block_idx: 3455
+  - num: 7
+    title: "The Crystalline Solid State"
+    page_start: 215
+    page_end: 248
+    chapter_title_block_idx: 3455
+    problems_block_idx: 3844
+    next_chapter_block_idx: 3918
+  - num: 8
+    title: "Chemistry of the Main Group Elements"
+    page_start: 249
+    page_end: 312
+    chapter_title_block_idx: 3918
+    problems_block_idx: 4701
+    next_chapter_block_idx: 4828
+  - num: 9
+    title: "Coordination Chemistry I: Structures and Isomers"
+    page_start: 313
+    page_end: 356
+    chapter_title_block_idx: 4828
+    problems_block_idx: 5359
+    next_chapter_block_idx: 5467
+  - num: 10
+    title: "Coordination Chemistry II: Bonding"
+    page_start: 357
+    page_end: 402
+    chapter_title_block_idx: 5467
+    problems_block_idx: 5960
+    next_chapter_block_idx: 6105
+  - num: 11
+    title: "Coordination Chemistry III: Electronic Spectra"
+    page_start: 403
+    page_end: 436
+    chapter_title_block_idx: 6105
+    problems_block_idx: 6519
+    next_chapter_block_idx: 6619
+  - num: 12
+    title: "Coordination Chemistry IV: Reactions and Mechanisms"
+    page_start: 437
+    page_end: 474
+    chapter_title_block_idx: 6619
+    problems_block_idx: 7086
+    next_chapter_block_idx: 7176
+  - num: 13
+    title: "Organometallic Chemistry"
+    page_start: 475
+    page_end: 540
+    chapter_title_block_idx: 7176
+    problems_block_idx: 7963
+    next_chapter_block_idx: 8158
+  - num: 14
+    title: "Organometallic Reactions and Catalysis"
+    page_start: 541
+    page_end: 578
+    chapter_title_block_idx: 8158
+    problems_block_idx: 8646
+    next_chapter_block_idx: 8788
+  - num: 15
+    title: "Parallels between Main Group and Organometallic Chemistry"
+    page_start: 579
+    page_end: 618
+    chapter_title_block_idx: 8788
+    problems_block_idx: 9254
+    next_chapter_block_idx: 9413
+
+appendices:
+  - id: "A"
+    title: "Answers to Exercises"
+    page_start: 619
+    chapter_title_block_idx: 9413
+  - id: "C"
+    title: "Character Tables"
+    page_start: 658
+    chapter_title_block_idx: 10129
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+equation_strip_dollar: true
+
+example_start_re: '^(?:E\s*)?X\s*A\s*M\s*P\s*L\s*E\s+(\d+\s*\.\s*\d+)\s*$'
+figure_caption_main_re: '^(Figure\s+\d+\.\d+)\s+(.+)$'
+figure_caption_merge: true
+
+known_missing_problems: []

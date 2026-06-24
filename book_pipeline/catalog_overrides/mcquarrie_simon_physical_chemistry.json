@@ -1,0 +1,71 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "13.7",
+      "classification": "source_mismatch",
+      "reason": "正文 Example 13-10 引用 Table 13.7，但本章 parsed/catalog 沒有 Table 13.7；raw PDF 第 556 頁原文同樣寫 Table 13.7，而該位置實際使用的是緊接其後的 D3h reducible-representation array，不是本書內部表格 catalog entry。",
+      "where": "ch13.json body[268]",
+      "evidence": "raw PDF page 556: 'Using Table 13.7 to determine the characters of the 12-dimensional reducible representation'; parsed ch13 has no table blocks after tbl-13.6, and body[269] contains the relevant D3h array as an equation block."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "mcquarrie-simon-pchem-ch05-fig-5-4-restore-two-mass-spring",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[63]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch05-63",
+        "src": "b523b0716b6bda12c7a2f6d8fe7123a1c1cd9d6563963766ec5aae653ade2e73.jpg"
+      },
+      "set": {
+        "id": "fig-5.4",
+        "caption": "Figure 5.4 Two masses connected by a spring, which is a model used to describe the vibrational motion of a diatomic molecule.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Figure 5.4 is present as a fallback-id figure at ch05 body[63]; adjacent parsed caption is body[64], and raw/picture content shows two masses connected by a spring."
+    },
+    {
+      "id": "mcquarrie-simon-pchem-ch05-fig-5-6-fix-morse-potential",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[108]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.4",
+        "src": "6826685de98946e33895dec74c99e81c77dd878b42149c74a01db4bacec169cb.jpg"
+      },
+      "set": {
+        "id": "fig-5.6",
+        "caption": "Figure 5.6 The Morse potential energy curve V(l) = D(1 - e^{-β(l-l0)})^2 plotted against the internuclear displacement l for H2.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 Figure 5.6 is present at ch05 body[108] but misidentified as fig-5.4; raw PDF page 195 and image content show the Morse potential energy curve described by adjacent parsed text body[109]."
+    },
+    {
+      "id": "mcquarrie-simon-pchem-ch10-fig-10-22-text-figure",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[184]",
+      "expect": {
+        "t": "eq",
+        "id": "eq-ch10-184"
+      },
+      "set": {
+        "id": "fig-10.22",
+        "caption": "Figure 10.22 The ground-state electron configuration of the π electrons in butadiene.",
+        "kind": "text",
+        "catalog_repair_source": "agent-explicit-ref"
+      },
+      "reason": "C4 Figure 10.22 is present in raw PDF page 425 and parsed as an equation array tagged FIGURE10.22 at ch10 body[184]; expose it as a text figure catalog entry without fabricating an image."
+    }
+  ]
+}

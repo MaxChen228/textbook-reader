@@ -1,0 +1,195 @@
+slug: efron_hastie_computer_age
+title: Computer Age Statistical Inference
+author: Bradley Efron; Trevor Hastie
+edition: null
+subject: Statistics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+
+body_start_page: 20
+appendices_start_page: 470
+bibliography_start_page: 470
+index_start_page: 480
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Algorithms and Inference
+    page_start: 20
+    page_end: 28
+    chapter_title_block_idx: 53
+    problems_block_idx: null
+    next_chapter_block_idx: 131
+  - num: 2
+    title: Frequentist Inference
+    page_start: 29
+    page_end: 38
+    chapter_title_block_idx: 131
+    problems_block_idx: null
+    next_chapter_block_idx: 244
+  - num: 3
+    title: Bayesian Inference
+    page_start: 39
+    page_end: 54
+    chapter_title_block_idx: 244
+    problems_block_idx: null
+    next_chapter_block_idx: 423
+  - num: 4
+    title: Fisherian Inference and Maximum Likelihood Estimation
+    page_start: 55
+    page_end: 69
+    chapter_title_block_idx: 423
+    problems_block_idx: null
+    next_chapter_block_idx: 620
+  - num: 5
+    title: Parametric Models and Exponential Families
+    page_start: 70
+    page_end: 91
+    chapter_title_block_idx: 620
+    problems_block_idx: null
+    next_chapter_block_idx: 917
+  - num: 6
+    title: Empirical Bayes
+    page_start: 92
+    page_end: 107
+    chapter_title_block_idx: 917
+    problems_block_idx: null
+    next_chapter_block_idx: 1121
+  - num: 7
+    title: James–Stein Estimation and Ridge Regression
+    page_start: 108
+    page_end: 124
+    chapter_title_block_idx: 1121
+    problems_block_idx: null
+    next_chapter_block_idx: 1361
+  - num: 8
+    title: Generalized Linear Models and Regression Trees
+    page_start: 125
+    page_end: 147
+    chapter_title_block_idx: 1361
+    problems_block_idx: null
+    next_chapter_block_idx: 1652
+  - num: 9
+    title: Survival Analysis and the EM Algorithm
+    page_start: 148
+    page_end: 171
+    chapter_title_block_idx: 1652
+    problems_block_idx: null
+    next_chapter_block_idx: 1944
+  - num: 10
+    title: The Jackknife and the Bootstrap
+    page_start: 172
+    page_end: 197
+    chapter_title_block_idx: 1944
+    problems_block_idx: null
+    next_chapter_block_idx: 2257
+  - num: 11
+    title: Bootstrap Confidence Intervals
+    page_start: 198
+    page_end: 224
+    chapter_title_block_idx: 2257
+    problems_block_idx: null
+    next_chapter_block_idx: 2615
+  - num: 12
+    title: Cross-Validation and Cp Estimates of Prediction Error
+    page_start: 225
+    page_end: 249
+    chapter_title_block_idx: 2615
+    problems_block_idx: null
+    next_chapter_block_idx: 2959
+  - num: 13
+    title: Objective Bayes Inference and Markov Chain Monte Carlo
+    page_start: 250
+    page_end: 280
+    chapter_title_block_idx: 2959
+    problems_block_idx: null
+    next_chapter_block_idx: 3359
+  - num: 14
+    title: Statistical Inference and Methodology in the Postwar Era
+    page_start: 281
+    page_end: 287
+    chapter_title_block_idx: 3359
+    problems_block_idx: null
+    next_chapter_block_idx: 3403
+  - num: 15
+    title: Large-Scale Hypothesis Testing and False-Discovery Rates
+    page_start: 288
+    page_end: 314
+    chapter_title_block_idx: 3403
+    problems_block_idx: null
+    next_chapter_block_idx: 3732
+  - num: 16
+    title: Sparse Modeling and the Lasso
+    page_start: 315
+    page_end: 340
+    chapter_title_block_idx: 3732
+    problems_block_idx: null
+    next_chapter_block_idx: 3978
+  - num: 17
+    title: Random Forests and Boosting
+    page_start: 341
+    page_end: 367
+    chapter_title_block_idx: 3978
+    problems_block_idx: null
+    next_chapter_block_idx: 4199
+  - num: 18
+    title: Neural Networks and Deep Learning
+    page_start: 368
+    page_end: 391
+    chapter_title_block_idx: 4199
+    problems_block_idx: null
+    next_chapter_block_idx: 4414
+  - num: 19
+    title: Support-Vector Machines and Kernel Methods
+    page_start: 392
+    page_end: 410
+    chapter_title_block_idx: 4414
+    problems_block_idx: null
+    next_chapter_block_idx: 4612
+  - num: 20
+    title: Inference After Model Selection
+    page_start: 411
+    page_end: 437
+    chapter_title_block_idx: 4612
+    problems_block_idx: null
+    next_chapter_block_idx: 4941
+  - num: 21
+    title: Empirical Bayes Estimation Strategies
+    page_start: 438
+    page_end: 462
+    chapter_title_block_idx: 4941
+    problems_block_idx: null
+    next_chapter_block_idx: 5258
+  - num: 22
+    title: Epilogue
+    page_start: 463
+    page_end: 469
+    chapter_title_block_idx: 5258
+    problems_block_idx: null
+    next_chapter_block_idx: 5324
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^([0-9]{4}[a-z]?|(?:Algorithm\s+\d+\.\d+))\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+example_start_re: null

@@ -1,0 +1,166 @@
+slug: levine_quantum_chemistry
+title: Quantum Chemistry
+author: Ira N. Levine
+edition: 6th ed.
+subject: Physical Chemistry
+publisher: Pearson Prentice Hall
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 14
+appendices_start_page: 735
+bibliography_start_page: 735
+index_start_page: 744
+inline_problems: false
+suppress_running_header_sections: true
+heading_text_level: 2
+chapters:
+- num: 1
+  title: The Schrödinger Equation
+  chapter_title_block_idx: 184
+  problems_block_idx: 428
+  next_chapter_block_idx: 471
+  page_start: 1
+  page_end: 22
+- num: 2
+  title: The Particle in a Box
+  chapter_title_block_idx: 471
+  problems_block_idx: 649
+  next_chapter_block_idx: 687
+  page_start: 23
+  page_end: 36
+- num: 3
+  title: Operators
+  chapter_title_block_idx: 687
+  problems_block_idx: 1102
+  next_chapter_block_idx: 1170
+  page_start: 37
+  page_end: 64
+- num: 4
+  title: The Harmonic Oscillator
+  chapter_title_block_idx: 1170
+  problems_block_idx: 1519
+  next_chapter_block_idx: 1609
+  page_start: 65
+  page_end: 96
+- num: 5
+  title: Angular Momentum
+  chapter_title_block_idx: 1609
+  problems_block_idx: 2082
+  next_chapter_block_idx: 2143
+  page_start: 97
+  page_end: 125
+- num: 6
+  title: The Hydrogen Atom
+  chapter_title_block_idx: 2143
+  problems_block_idx: 2660
+  next_chapter_block_idx: 2729
+  page_start: 126
+  page_end: 165
+- num: 7
+  title: Theorems of Quantum Mechanics
+  chapter_title_block_idx: 2729
+  problems_block_idx: 3320
+  next_chapter_block_idx: 3427
+  page_start: 166
+  page_end: 210
+- num: 8
+  title: The Variation Method
+  chapter_title_block_idx: 3427
+  problems_block_idx: 3867
+  next_chapter_block_idx: 3990
+  page_start: 211
+  page_end: 247
+- num: 9
+  title: Perturbation Theory
+  chapter_title_block_idx: 3990
+  problems_block_idx: 4508
+  next_chapter_block_idx: 4570
+  page_start: 248
+  page_end: 282
+- num: 10
+  title: Electron Spin and the Spin-Statistics Theorem
+  chapter_title_block_idx: 4570
+  problems_block_idx: 4914
+  next_chapter_block_idx: 4973
+  page_start: 283
+  page_end: 308
+- num: 11
+  title: Many-Electron Atoms
+  chapter_title_block_idx: 4973
+  problems_block_idx: 5447
+  next_chapter_block_idx: 5502
+  page_start: 309
+  page_end: 350
+- num: 12
+  title: Molecular Symmetry
+  chapter_title_block_idx: 5502
+  problems_block_idx: 5649
+  next_chapter_block_idx: 5696
+  page_start: 351
+  page_end: 368
+- num: 13
+  title: Electronic Structure of Diatomic Molecules
+  chapter_title_block_idx: 5696
+  problems_block_idx: 6485
+  next_chapter_block_idx: 6536
+  page_start: 369
+  page_end: 434
+- num: 14
+  title: Theorems of Molecular Quantum Mechanics
+  chapter_title_block_idx: 6536
+  problems_block_idx: 7083
+  next_chapter_block_idx: 7133
+  page_start: 435
+  page_end: 470
+- num: 15
+  title: Molecular Electronic Structure
+  chapter_title_block_idx: 7133
+  problems_block_idx: 8038
+  next_chapter_block_idx: 8119
+  page_start: 471
+  page_end: 565
+- num: 16
+  title: Electron-Correlation Methods
+  chapter_title_block_idx: 8119
+  problems_block_idx: 8848
+  next_chapter_block_idx: 8897
+  page_start: 566
+  page_end: 635
+- num: 17
+  title: Semiempirical and Molecular-Mechanics Treatments of Molecules
+  chapter_title_block_idx: 8897
+  problems_block_idx: 9561
+  next_chapter_block_idx: 9621
+  page_start: 636
+  page_end: 699
+- num: 18
+  title: Comparisons of Methods
+  chapter_title_block_idx: 9621
+  problems_block_idx: 9800
+  next_chapter_block_idx: 9829
+  page_start: 700
+  page_end: 724
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problems_start_re: ^(PROBLEMS|Problems)$
+problem_start_re: ^(\d+\.\d+)\.?\s+
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^(EXAMPLE)\b
+figure_caption_merge: true
+figure_caption_main_re: ^FIGURE\s+\d+\.\d+

@@ -1,0 +1,136 @@
+slug: fudenberg_tirole_game_theory
+title: Game Theory
+author: Drew Fudenberg; Jean Tirole
+edition: null
+subject: Economics
+publisher: The MIT Press
+language: en
+
+filter_types: [header, footer, page_number, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 31
+appendices_start_page: null
+bibliography_start_page: null
+index_start_page: 600
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Games in Strategic Form and Nash Equilibrium
+    page_start: 31
+    page_end: 71
+    chapter_title_block_idx: 122
+    chapter_title_block_idx_secondary: 123
+    problems_block_idx: 463
+    next_chapter_block_idx: 608
+  - num: 2
+    title: Iterated Strict Dominance, Rationalizability, and Correlated Equilibrium
+    page_start: 72
+    page_end: 93
+    chapter_title_block_idx: 608
+    problems_block_idx: 767
+    next_chapter_block_idx: 819
+  - num: 3
+    title: Extensive-Form Games
+    page_start: 94
+    page_end: 133
+    chapter_title_block_idx: 819
+    problems_block_idx: 1106
+    next_chapter_block_idx: 1198
+  - num: 4
+    title: Applications of Multi-Stage Games with Observed Actions
+    page_start: 134
+    page_end: 172
+    chapter_title_block_idx: 1198
+    problems_block_idx: 1543
+    next_chapter_block_idx: 1637
+  - num: 5
+    title: Repeated Games
+    page_start: 173
+    page_end: 235
+    chapter_title_block_idx: 1637
+    problems_block_idx: 2226
+    next_chapter_block_idx: 2357
+  - num: 6
+    title: Static Games of Incomplete Information
+    page_start: 236
+    page_end: 272
+    chapter_title_block_idx: 2357
+    problems_block_idx: 2688
+    next_chapter_block_idx: 2794
+  - num: 7
+    title: Bayesian Games and Mechanism Design
+    page_start: 273
+    page_end: 347
+    chapter_title_block_idx: 2794
+    problems_block_idx: 3666
+    next_chapter_block_idx: 3864
+  - num: 8
+    title: "Equilibrium Refinements: Perfect Bayesian Equilibrium, Sequential Equilibrium, and Trembling-Hand Perfection"
+    page_start: 348
+    page_end: 393
+    chapter_title_block_idx: 3864
+    problems_block_idx: 4303
+    next_chapter_block_idx: 4376
+  - num: 9
+    title: Reputation Effects
+    page_start: 394
+    page_end: 423
+    chapter_title_block_idx: 4376
+    problems_block_idx: 4591
+    next_chapter_block_idx: 4657
+  - num: 10
+    title: Sequential Bargaining under Incomplete Information
+    page_start: 424
+    page_end: 463
+    chapter_title_block_idx: 4657
+    problems_block_idx: 5021
+    next_chapter_block_idx: 5146
+  - num: 11
+    title: "More Equilibrium Refinements: Stability, Forward Induction, and Iterated Weak Dominance"
+    page_start: 464
+    page_end: 505
+    chapter_title_block_idx: 5146
+    problems_block_idx: 5463
+    next_chapter_block_idx: 5535
+  - num: 12
+    title: Advanced Topics in Strategic-Form Games
+    page_start: 506
+    page_end: 529
+    chapter_title_block_idx: 5535
+    problems_block_idx: 5770
+    next_chapter_block_idx: 5837
+  - num: 13
+    title: Payoff-Relevant Strategies and Markov Equilibrium
+    page_start: 530
+    page_end: 567
+    chapter_title_block_idx: 5837
+    problems_block_idx: 6228
+    next_chapter_block_idx: 6334
+  - num: 14
+    title: Advanced Topics in Dynamic Games
+    page_start: 568
+    page_end: 599
+    chapter_title_block_idx: 6334
+    problems_block_idx: 6649
+    next_chapter_block_idx: 6704
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\*{0,3}\s*'
+problem_chapter_must_match: true
+problems_end_re: '^References$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\(([0-9]+(?:\.[0-9]+)*)\)$'
+example_start_re: '^Example\s+(\d+\.\d+)[:.]?.*$'
+figure_caption_merge: true
+figure_caption_main_re: '^Figure\s+([0-9]+(?:\.[0-9]+)*)\s*(.*)$'

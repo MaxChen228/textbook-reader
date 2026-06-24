@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "17.19",
+      "classification": "source_mismatch",
+      "reason": "Problem 17-2 references Figure 17-19, but the parsed chapter and source page sequence contain no catalogable Figure 17-19 block; adjacent problem figures jump to Figure 17-20/17-21 on the following pages.",
+      "where": "ch17.json problem 17-2 body[0]",
+      "evidence": "Parsed source page_idx 495 has only the text '17-2 The spectrum in Figure 17-19...' and no image block; unified content immediately after this page contains Figure 17-20 and Figure 17-21 image/caption blocks on page_idx 496-497, with no Figure 17-19 image or caption in between. Catalog ch17 similarly has fig-17.18 then problem figures fig-17.20/fig-17.21, but no fig-17.19."
+    },
+    {
+      "type": "figure",
+      "ref": "17.22",
+      "classification": "source_mismatch",
+      "reason": "Problem 17-5 references Figure 17-22, but the parsed chapter and source page sequence contain no catalogable Figure 17-22 block; adjacent problem figures stop at Figure 17-21 before Chapter 18 begins.",
+      "where": "ch17.json problem 17-5 body[0]",
+      "evidence": "Parsed source page_idx 495 has only the text '17-5 The spectrum in Figure 17-22...' and no image block; unified content around page_idx 496-497 contains Figure 17-20 and Figure 17-21 image/caption blocks, then page_idx 498 begins Chapter 18. Catalog ch17 contains fig-17.20/fig-17.21 problem figures but no fig-17.22."
+    }
+  ],
+  "overrides": []
+}

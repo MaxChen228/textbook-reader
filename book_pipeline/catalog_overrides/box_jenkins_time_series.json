@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "box-jenkins-ch06-table-6-1-restore",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[37]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch06-37"
+      },
+      "set": {
+        "id": "tbl-6.1",
+        "caption": "Table 6.1 Theoretical Autocorrelation and Partial Autocorrelation Functions for Some Common ARIMA Processes",
+        "catalog_repair_source": "agent-table-id-caption-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文於 ch06 body[32] 引用 Table 6.1；raw PDF 第 218 頁存在 Table 6.1，MinerU 已抽出其表格為 body[37]，但 caption 未含表號而被誤標為 unnumbered_body_table。補正式 id/caption 讓 catalog 供給 tbl-6.1。"
+    }
+  ]
+}

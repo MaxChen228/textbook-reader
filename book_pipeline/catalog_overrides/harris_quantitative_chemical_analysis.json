@@ -1,0 +1,54 @@
+{
+  "overrides": [
+    {
+      "id": "harris-fig-2.22-spreadsheet-alias",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[217]",
+      "expect": {
+        "id": "tbl-ch02-217",
+        "footnote": "FIGURE 2-22 Evolution of a spreadsheet for computing the density of water."
+      },
+      "set": {
+        "kind": "text",
+        "catalog_aliases": [
+          {
+            "id": "fig-2.22",
+            "type": "figure",
+            "caption": "FIGURE 2-22 Evolution of a spreadsheet for computing the density of water.",
+            "source": "agent-table-figure-alias",
+            "evidence": "ch02 body[217] is the spreadsheet visual whose footnote is 'FIGURE 2-22 Evolution of a spreadsheet for computing the density of water.'; body[218]/[219]/[221]/[226] refer to Figure 2-22a/b/d subpanels."
+          }
+        ],
+        "catalog_repair_source": "agent-table-figure-alias"
+      },
+      "reason": "MinerU emitted Figure 2-22 as a table block because the visual is an Excel spreadsheet. Keep the table excluded from table catalog, but add a figure alias so Figure 2-22 / 2-22a / 2-22b refs are covered by the parent fig-2.22."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "13A.5",
+      "classification": "external",
+      "reason": "Caption cites another source, not an internal figure in this book.",
+      "where": "ch23.json body[385]",
+      "evidence": "The visible Figure 23-19 caption says it is adapted from 'Fig. 13A.5 of J. F. Rubinson and K. A. Rubinson, Contemporary Instrumental Analysis, 1st ed.'; catalog already has fig-23.19/fig-23.19--2 for the local figure."
+    },
+    {
+      "type": "table",
+      "ref": "12.1.1A",
+      "classification": "external",
+      "reason": "Problem solution cites a table in Harned and Owen, not a table in this book.",
+      "where": "ch28.json problem:28-25:body[28]",
+      "evidence": "Text says: 'Table 12-1-1A of H. S. Harned and B. B. Owen, Physical Chemistry of Electrolyte Solutions, 3rd ed. (New York: Reinhold, 1958), p. 725.'"
+    },
+    {
+      "type": "table",
+      "ref": "15.2.1A",
+      "classification": "external",
+      "reason": "Problem solution cites a table in Harned and Owen, not a table in this book.",
+      "where": "ch28.json problem:28-25:body[28]",
+      "evidence": "Text says: 'Table 15-2-1A of Harned and Owen, p. 752.'"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "5.3.1",
+      "classification": "source_mismatch",
+      "reason": "正文在 ch05 body[752] 引用 Fig. 5.3.1，但原始 PDF 同頁的實際圖說明確是 Figure 5.3.2；catalog 已有 fig-5.3.2，且後文也以 Fig. 5.3.2 引用同一張圖。因此 5.3.1 是來源文字中的錯號，不應硬改圖 id 或補假圖。",
+      "where": "ch05.json body[752]",
+      "evidence": "raw_pdfs/bertsekas_nonlinear_programming.pdf 第 262 頁（MinerU page_idx=261，印刷頁 504-505）左頁段落寫 'cf. Fig. 5.3.1'；右頁同一圖 caption 寫 'Figure 5.3.2. Illustration of how for c large enough...'，下方正文又寫 'as shown in Fig. 5.3.2'. Parsed catalog contains fig-5.3.2 at ch05 body[761] with the matching caption and image, while no Figure 5.3.1 caption exists in the source page."
+    }
+  ],
+  "overrides": []
+}

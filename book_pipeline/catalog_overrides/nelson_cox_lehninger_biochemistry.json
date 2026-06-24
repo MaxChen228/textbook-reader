@@ -1,0 +1,118 @@
+{
+  "overrides": [
+    {
+      "id": "lehninger-fig-11.19-normalize",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[102]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-11.18a",
+        "src": "71a2133f5d37469207fc4065fb15e384e8b73d16af5eeae2519922089cf07462.jpg"
+      },
+      "set": {
+        "id": "fig-11.19",
+        "caption": "FIGURE 11-19 Measurement of lateral diffusion rates of lipids by fluorescence recovery after photobleaching (FRAP). Lipids in the outer leaflet of the plasma membrane are labeled by reaction with a membrane-impermeant fluorescent probe (red) so that the surface is uniformly labeled when viewed with a fluorescence microscope. A small area is bleached with a laser, then recovers its fluorescence. With time, unbleached lipid molecules diffuse into the bleached region, and it again becomes fluorescent. The FRAP method can also be used to measure lateral diffusion of membrane proteins labeled with a fluorescent tag.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "MinerU assigned the Figure 11-19 image block the preceding figure id; image itself visibly contains FIGURE 11-19 caption."
+    },
+    {
+      "id": "lehninger-fig-18.9-normalize",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[64]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-18.2a",
+        "src": "cbe94fb6b13ad09a660964d16ba9b893ca9b5427e87c65417065a8b3636238a5.jpg"
+      },
+      "set": {
+        "id": "fig-18.9",
+        "caption": "FIGURE 18-9 Glucose-alanine cycle. Alanine serves as a carrier of ammonia and of the carbon skeleton of pyruvate from skeletal muscle to liver. The ammonia is excreted and the pyruvate is used to produce glucose, which is returned to the muscle.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Figure block image visibly contains FIGURE 18-9, but MinerU attached a stale fig-18.2a id from nearby cross-reference text."
+    },
+    {
+      "id": "lehninger-fig-9.28a-parent-normalize",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[265]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.28b",
+        "src": "eb3270f99dea0bb791929d00ceec311ccc0b47934be831c17583575a9d488ce6.jpg"
+      },
+      "set": {
+        "id": "fig-9.28",
+        "catalog_aliases": [
+          "9.28a",
+          "9.28b"
+        ],
+        "catalog_repair_source": "agent-parent-id-fix"
+      },
+      "reason": "The parsed figure is the combined Figure 9-28 panel; assigning parent fig-9.28 covers text refs to 9.28a/9.28b without inventing a separate panel block."
+    },
+    {
+      "id": "lehninger-table-11.3-normalize",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[344]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch11-344"
+      },
+      "set": {
+        "id": "tbl-11.3",
+        "caption": "TABLE 11-3 Permeability Characteristics and Predominant Distribution of Known Mammalian Aquaporins",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "The table block immediately following the Chapter Review carries fallback id, while the parsed table title at ch11 body region is TABLE 11-3."
+    },
+    {
+      "id": "lehninger-fig-9.24-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[239]",
+      "position": "before",
+      "page": 1239,
+      "clip": [
+        0.13,
+        0.31,
+        0.88,
+        0.73
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-9.24",
+        "kind": "line",
+        "caption": "FIGURE 9-24 Introns and exons. This gene transcript contains five exons and four introns, along with 5' and 3' untranslated regions (5'UTR and 3'UTR). Splicing removes the introns to create an mRNA product for translation into protein."
+      },
+      "reason": "Raw PDF page 1239 contains Figure 9-24 between the referring paragraph and Figure 9-25, but MinerU omitted the figure block."
+    },
+    {
+      "id": "lehninger-fig-20.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch20",
+      "selector": "body[44]",
+      "position": "before",
+      "page": 2509,
+      "clip": [
+        0.08,
+        0.06,
+        0.92,
+        0.86
+      ],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-20.5",
+        "kind": "line",
+        "caption": "FIGURE 20-5 Primary and secondary photopigments. (a) Chlorophylls a and b and bacteriochlorophyll are the primary gatherers of light energy. (b) β-Carotene (a carotenoid) and (c) lutein (a xanthophyll) are accessory pigments in plants. (d) Phycoerythrobilin and phycocyanobilin (phycobilins) are accessory pigments in cyanobacteria and red algae."
+      },
+      "reason": "Raw PDF page 2509 contains Figure 20-5 before Figure 20-6, but MinerU omitted the parent figure block and only produced stray 20.5 panel catalog entries attached to Figure 20-7."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-24-skoog-instrumental-analysis",
+  "domain": "engine",
+  "type": "patch",
+  "status": "proposed",
+  "title": "worker 越界改核心碼：book_pipeline/pipeline_tick.py（catalog_audit skoog_instrumental_analysis）",
+  "slug": "skoog_instrumental_analysis",
+  "detect": [],
+  "source": "scope_guard",
+  "resolution": "",
+  "created": "2026-06-24T05:05:32+00:00",
+  "updated": "2026-06-24T05:05:32+00:00",
+  "evidence": "scope_guard bracket：worker [catalog_audit skoog_instrumental_analysis] session=skoog_instrumental_analysis:42581 存活期間，受保護程式碼面 book_pipeline/pipeline_tick.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。",
+  "proposal": "diff --git a/book_pipeline/pipeline_tick.py b/book_pipeline/pipeline_tick.py\nindex daca705..bb04239 100644\n--- a/book_pipeline/pipeline_tick.py\n+++ b/book_pipeline/pipeline_tick.py\n@@ -2188,7 +2188,9 @@ def tick_reactive(no_deploy: bool) -> int:\n             log('reactive loop：walltime 到期 → 排 detached respawn（排空退出即 kickstart 新 controller，消 idle-gap）')\n             _schedule_respawn()\n     finally:\n-        _snap_stop.set()  # 停保證刷新執行緒（daemon thread，進程退出本就會收，明確 set 早停）\n+        # ⚠ 不在此停保證刷新執行緒：排空可能長達數十分（無限等在飛 audit 自然收尾），這正是 /dev 該即時\n+        # 顯「🔄 排空中」之時。執行緒須撐過整個排空、待 drain wait 迴圈結束才停（見下）。早停會讓排空期\n+        # status.json 又凍結（wolf-crying 根源）。\n         _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）\n         _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status\n         # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）\n@@ -2220,6 +2222,7 @@ def tick_reactive(no_deploy: bool) -> int:\n             if now_m - _bound_started >= DRAIN_BOUND:\n                 break\n             time.sleep(0.5)\n+        _snap_stop.set()  # 排空 wait 已結束 → 此刻才停保證刷新執行緒（撐過整個排空期、status.json 全程新鮮）\n         with ifl_lock:\n             _stuck = len(inflight)\n         if _stuck == 0:",
+  "risk": "observe 模式未還原——待架構師裁決收編/還原。",
+  "disposition": ""
+}

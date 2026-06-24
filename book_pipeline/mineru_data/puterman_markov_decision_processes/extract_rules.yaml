@@ -1,0 +1,124 @@
+slug: puterman_markov_decision_processes
+title: Markov Decision Processes
+author: Martin L. Puterman
+edition: 2nd
+subject: Optimization
+publisher: Wiley
+language: en
+filter_types: [page_number, header, footer, aside_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+body_start_page: 16
+appendices_start_page: 594
+bibliography_start_page: 628
+index_start_page: 658
+inline_problems: false
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 16
+    page_end: 31
+    chapter_title_block_idx: 94
+    problems_block_idx: null
+    next_chapter_block_idx: 279
+  - num: 2
+    title: Model Formulation
+    page_start: 32
+    page_end: 47
+    chapter_title_block_idx: 279
+    problems_block_idx: 520
+    next_chapter_block_idx: 546
+  - num: 3
+    title: Examples
+    page_start: 48
+    page_end: 88
+    chapter_title_block_idx: 546
+    problems_block_idx: 1081
+    next_chapter_block_idx: 1154
+  - num: 4
+    title: Finite-Horizon Markov Decision Processes
+    page_start: 89
+    page_end: 133
+    chapter_title_block_idx: 1154
+    problems_block_idx: 1853
+    next_chapter_block_idx: 1957
+  - num: 5
+    title: "Infinite-Horizon Models: Foundations"
+    page_start: 134
+    page_end: 156
+    chapter_title_block_idx: 1957
+    problems_block_idx: 2307
+    next_chapter_block_idx: 2357
+  - num: 6
+    title: Discounted Markov Decision Problems
+    page_start: 157
+    page_end: 291
+    chapter_title_block_idx: 2357
+    problems_block_idx: 4604
+    next_chapter_block_idx: 4793
+  - num: 7
+    title: The Expected Total-Reward Criterion
+    page_start: 292
+    page_end: 345
+    chapter_title_block_idx: 4793
+    problems_block_idx: 5636
+    next_chapter_block_idx: 5728
+  - num: 8
+    title: Average Reward and Related Criteria
+    page_start: 346
+    page_end: 455
+    chapter_title_block_idx: 5728
+    problems_block_idx: 7518
+    next_chapter_block_idx: 7661
+  - num: 9
+    title: "The Average Reward Criterion—Multichain and Communicating Models"
+    page_start: 456
+    page_end: 506
+    chapter_title_block_idx: 7661
+    problems_block_idx: 8473
+    next_chapter_block_idx: 8538
+  - num: 10
+    title: Sensitive Discount Optimality
+    page_start: 507
+    page_end: 544
+    chapter_title_block_idx: 8538
+    problems_block_idx: 9202
+    next_chapter_block_idx: 9242
+  - num: 11
+    title: Continuous-Time Models
+    page_start: 545
+    page_end: 593
+    chapter_title_block_idx: 9242
+    problems_block_idx: 10025
+    next_chapter_block_idx: 10120
+appendices:
+  - id: A
+    title: Markov Chains
+    page_start: 600
+    chapter_title_block_idx: 10178
+  - id: B
+    title: Semicontinuous Functions
+    page_start: 617
+    chapter_title_block_idx: 10441
+  - id: C
+    title: Normed Linear Spaces
+    page_start: 620
+    chapter_title_block_idx: 10491
+  - id: D
+    title: Linear Programming
+    page_start: 625
+    chapter_title_block_idx: 10583
+section_re: '^\*?(\d+\.\d+)\s+(.+)$'
+subsection_re: '^\*?(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+known_missing_problems: []

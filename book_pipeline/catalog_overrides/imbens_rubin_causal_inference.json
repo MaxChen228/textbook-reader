@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "imbens-rubin-ch20-table-20-4-id",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[70]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-20.4"
+      },
+      "set": {
+        "id": "tbl-20.4",
+        "catalog_aliases": [
+          {
+            "id": "tbl-20.4",
+            "type": "table",
+            "caption": "Table 20.4. Single Block Model for Trimmed Lalonde Non-Experimental Data",
+            "source": "catalog-audit-repair",
+            "evidence": "Parsed body[70] caption is 'Table 20<sub>.</sub>4<sub>.</sub> Single Block Model...' while catalog semantic id parsing failed because of HTML subscript punctuation."
+          }
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Catalog audit C5:正文引用 Table 20.4；parsed table block caption is Table 20.4 but parser left fallback id tbl-ch20-70."
+    },
+    {
+      "id": "imbens-rubin-ch20-table-20-5-id",
+      "action": "set_fields",
+      "chunk": "ch20",
+      "selector": "body[71]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-20.5"
+      },
+      "set": {
+        "id": "tbl-20.5",
+        "catalog_aliases": [
+          {
+            "id": "tbl-20.5",
+            "type": "table",
+            "caption": "Table 20.5. Model-Based Analysis for Various Estimands for Trimmed Lalonde Non-Experimental Data",
+            "source": "catalog-audit-repair",
+            "evidence": "Parsed body[71] caption is 'Table 20<sub>.</sub>5<sub>.</sub> Model-Based Analysis...' while catalog semantic id parsing failed because of HTML subscript punctuation."
+          }
+        ],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Catalog audit C5:正文引用 Table 20.5；parsed table block caption is Table 20.5 but parser left fallback id tbl-ch20-71."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+slug: davidson_mackinnon_econometric_theory
+title: "Econometric Theory and Methods"
+author: "Russell Davidson; James G. MacKinnon"
+edition: null
+subject: Econometrics
+publisher: "Oxford University Press"
+language: en
+filter_types: [page_number, header, footer, page_footnote]
+heading_text_level: [1, 2]
+body_start_page: 0
+appendices_start_page: 692
+bibliography_start_page: null
+index_start_page: null
+section_re: '^(\d+\.\d+)(?=\s+\S)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)(?=\s+\S)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+equation_strip_dollar: true
+chapters:
+  - num: 1
+    title: "Regression Models"
+    page_start: 0
+    page_end: 39
+    chapter_title_block_idx: 0
+    problems_block_idx: 482
+    next_chapter_block_idx: 549
+  - num: 2
+    title: "The Geometry of Linear Regression"
+    page_start: 40
+    page_end: 83
+    chapter_title_block_idx: 549
+    problems_block_idx: 1080
+    next_chapter_block_idx: 1157
+  - num: 3
+    title: "The Statistical Properties of Ordinary Least Squares"
+    page_start: 84
+    page_end: 119
+    chapter_title_block_idx: 1157
+    problems_block_idx: 1584
+    next_chapter_block_idx: 1645
+  - num: 4
+    title: "Hypothesis Testing in Linear Regression Models"
+    page_start: 120
+    page_end: 173
+    chapter_title_block_idx: 1645
+    problems_block_idx: 2256
+    next_chapter_block_idx: 2308
+  - num: 5
+    title: "Confidence Intervals"
+    page_start: 174
+    page_end: 208
+    chapter_title_block_idx: 2308
+    problems_block_idx: 2722
+    next_chapter_block_idx: 2764
+  - num: 6
+    title: "Nonlinear Regression"
+    page_start: 209
+    page_end: 252
+    chapter_title_block_idx: 2764
+    problems_block_idx: 3306
+    next_chapter_block_idx: 3365
+  - num: 7
+    title: "Generalized Least Squares and Related Topics"
+    page_start: 253
+    page_end: 306
+    chapter_title_block_idx: 3365
+    problems_block_idx: 3992
+    next_chapter_block_idx: 4073
+  - num: 8
+    title: "Instrumental Variables Estimation"
+    page_start: 307
+    page_end: 347
+    chapter_title_block_idx: 4073
+    problems_block_idx: 4559
+    next_chapter_block_idx: 4628
+  - num: 9
+    title: "The Generalized Method of Moments"
+    page_start: 348
+    page_end: 394
+    chapter_title_block_idx: 4628
+    problems_block_idx: 5230
+    next_chapter_block_idx: 5315
+  - num: 10
+    title: "The Method of Maximum Likelihood"
+    page_start: 395
+    page_end: 444
+    chapter_title_block_idx: 5315
+    problems_block_idx: 5918
+    next_chapter_block_idx: 6029
+  - num: 11
+    title: "Discrete and Limited Dependent Variables"
+    page_start: 445
+    page_end: 494
+    chapter_title_block_idx: 6029
+    problems_block_idx: 6610
+    next_chapter_block_idx: 6706
+  - num: 12
+    title: "Multivariate Models"
+    page_start: 495
+    page_end: 549
+    chapter_title_block_idx: 6706
+    problems_block_idx: 7403
+    next_chapter_block_idx: 7493
+  - num: 13
+    title: "Methods for Stationary Time-Series Data"
+    page_start: 550
+    page_end: 597
+    chapter_title_block_idx: 7493
+    problems_block_idx: 8083
+    next_chapter_block_idx: 8170
+  - num: 14
+    title: "Unit Roots and Cointegration"
+    page_start: 598
+    page_end: 642
+    chapter_title_block_idx: 8170
+    problems_block_idx: 8660
+    next_chapter_block_idx: 8747
+  - num: 15
+    title: "Testing the Specification of Econometric Models"
+    page_start: 643
+    page_end: 691
+    chapter_title_block_idx: 8747
+    problems_block_idx: 9291
+    next_chapter_block_idx: 9392
+appendices: []
