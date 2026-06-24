@@ -1,0 +1,136 @@
+slug: scheinerman_mathematics_discrete
+title: "Mathematics: A Discrete Introduction"
+author: "Edward R. Scheinerman"
+edition: "3rd"
+subject: "Discrete Mathematics"
+publisher: "Brooks/Cole, Cengage Learning"
+language: en
+
+filter_types:
+  - header
+  - footer
+  - page_number
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 30
+appendices_start_page: 438
+bibliography_start_page: null
+index_start_page: 494
+inline_problems: true
+heading_text_level: [2]
+
+chapters:
+  - num: 1
+    title: "Fundamentals"
+    page_start: 30
+    page_end: 61
+    chapter_title_block_idx: 243
+    next_chapter_block_idx: 1013
+    problems_block_idx: null
+  - num: 2
+    title: "Collections"
+    page_start: 62
+    page_end: 101
+    chapter_title_block_idx: 1013
+    next_chapter_block_idx: 1931
+    problems_block_idx: null
+  - num: 3
+    title: "Counting and Relations"
+    page_start: 102
+    page_end: 147
+    chapter_title_block_idx: 1931
+    next_chapter_block_idx: 2972
+    problems_block_idx: null
+  - num: 4
+    title: "More Proof"
+    page_start: 148
+    page_end: 195
+    chapter_title_block_idx: 2972
+    next_chapter_block_idx: 4118
+    problems_block_idx: null
+  - num: 5
+    title: "Functions"
+    page_start: 196
+    page_end: 241
+    chapter_title_block_idx: 4118
+    next_chapter_block_idx: 5161
+    problems_block_idx: null
+  - num: 6
+    title: "Probability"
+    page_start: 242
+    page_end: 281
+    chapter_title_block_idx: 5161
+    next_chapter_block_idx: 6145
+    problems_block_idx: null
+  - num: 7
+    title: "Number Theory"
+    page_start: 282
+    page_end: 317
+    chapter_title_block_idx: 6145
+    next_chapter_block_idx: 7025
+    problems_block_idx: null
+  - num: 8
+    title: "Algebra"
+    page_start: 318
+    page_end: 359
+    chapter_title_block_idx: 7025
+    next_chapter_block_idx: 8142
+    problems_block_idx: null
+  - num: 9
+    title: "Graphs"
+    page_start: 360
+    page_end: 407
+    chapter_title_block_idx: 8142
+    next_chapter_block_idx: 9236
+    problems_block_idx: null
+  - num: 10
+    title: "Partially Ordered Sets"
+    page_start: 408
+    page_end: 437
+    chapter_title_block_idx: 9236
+    next_chapter_block_idx: 9972
+    problems_block_idx: null
+
+appendices:
+  - id: A
+    title: "Lots of Hints and Comments; Some Answers"
+    page_start: 438
+    page_end: 463
+    chapter_title_block_idx: 9973
+  - id: B
+    title: "Solutions to Self Tests"
+    page_start: 464
+    page_end: 484
+    chapter_title_block_idx: 11241
+  - id: C
+    title: "Glossary"
+    page_start: 485
+    page_end: 490
+    chapter_title_block_idx: 12050
+  - id: D
+    title: "Fundamentals"
+    page_start: 491
+    page_end: 493
+    chapter_title_block_idx: 12375
+
+section_re: '^(?:Section\s+)?(\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Za-z].*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s*'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_start_re: '^(?:\d+\s+)?Exercises\b'
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: true
+
+equation_strip_dollar: false
+equation_label_re: '^\(([^)]+)\)'
+example_start_re: '^(?:Example|Proposition|Theorem|Lemma|Corollary|Definition)\s+(\d+(?:\.\d+)*)\b'
+figure_caption_merge: true
+figure_caption_main_re: '^(Figure|Table)\s+\d+(?:\.\d+)?\b'
+known_missing_problems: []

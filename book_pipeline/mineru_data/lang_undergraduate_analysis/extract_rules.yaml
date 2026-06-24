@@ -1,0 +1,198 @@
+slug: lang_undergraduate_analysis
+title: Undergraduate Analysis
+author: Serge Lang
+edition: 2nd
+subject: Real Analysis
+publisher: Springer
+language: en
+filter_types:
+- header
+- footer
+- page_number
+ignore_image_content: false
+ignore_chart_content: false
+body_start_page: 21
+appendices_start_page: 645
+bibliography_start_page: null
+index_start_page: 653
+inline_problems: true
+heading_text_level:
+- 1
+- 2
+chapters:
+- num: 0
+  title: Sets and Mappings
+  chapter_title_block_idx: 83
+  problems_block_idx: null
+  next_chapter_block_idx: 315
+  page_start: 21
+  page_end: 35
+- num: 1
+  title: Real Numbers
+  chapter_title_block_idx: 307
+  problems_block_idx: null
+  next_chapter_block_idx: 609
+  page_start: 35
+  page_end: 52
+- num: 2
+  title: Limits and Continuous Functions
+  chapter_title_block_idx: 599
+  problems_block_idx: null
+  next_chapter_block_idx: 1200
+  page_start: 52
+  page_end: 84
+- num: 3
+  title: Differentiation
+  chapter_title_block_idx: 1190
+  problems_block_idx: null
+  next_chapter_block_idx: 1405
+  page_start: 84
+  page_end: 96
+- num: 4
+  title: Elementary Functions
+  chapter_title_block_idx: 1393
+  problems_block_idx: null
+  next_chapter_block_idx: 1876
+  page_start: 96
+  page_end: 119
+- num: 5
+  title: The Elementary Real Integral
+  chapter_title_block_idx: 1865
+  problems_block_idx: null
+  next_chapter_block_idx: 2371
+  page_start: 119
+  page_end: 147
+- num: 6
+  title: Normed Vector Spaces
+  chapter_title_block_idx: 2358
+  problems_block_idx: null
+  next_chapter_block_idx: 2916
+  page_start: 147
+  page_end: 178
+- num: 7
+  title: Limits
+  chapter_title_block_idx: 2906
+  problems_block_idx: null
+  next_chapter_block_idx: 3506
+  page_start: 178
+  page_end: 211
+- num: 8
+  title: Compactness
+  chapter_title_block_idx: 3497
+  problems_block_idx: null
+  next_chapter_block_idx: 3724
+  page_start: 211
+  page_end: 224
+- num: 9
+  title: Series
+  chapter_title_block_idx: 3714
+  problems_block_idx: null
+  next_chapter_block_idx: 4461
+  page_start: 224
+  page_end: 263
+- num: 10
+  title: The Integral in One Variable
+  chapter_title_block_idx: 4462
+  problems_block_idx: null
+  next_chapter_block_idx: 5083
+  page_start: 264
+  page_end: 301
+- num: 11
+  title: Approximation with Convolutions
+  chapter_title_block_idx: 5074
+  problems_block_idx: null
+  next_chapter_block_idx: 5230
+  page_start: 301
+  page_end: 309
+- num: 12
+  title: Fourier Series
+  chapter_title_block_idx: 5217
+  problems_block_idx: null
+  next_chapter_block_idx: 5846
+  page_start: 309
+  page_end: 344
+- num: 13
+  title: Improper Integrals
+  chapter_title_block_idx: 5834
+  problems_block_idx: null
+  next_chapter_block_idx: 6376
+  page_start: 344
+  page_end: 371
+- num: 14
+  title: The Fourier Integral
+  chapter_title_block_idx: 6366
+  problems_block_idx: null
+  next_chapter_block_idx: 6653
+  page_start: 371
+  page_end: 385
+- num: 15
+  title: Functions on n-Space
+  chapter_title_block_idx: 6660
+  problems_block_idx: null
+  next_chapter_block_idx: 7541
+  page_start: 389
+  page_end: 434
+- num: 16
+  title: The Winding Number and Global Potential Functions
+  chapter_title_block_idx: 7542
+  problems_block_idx: null
+  next_chapter_block_idx: 8107
+  page_start: 435
+  page_end: 473
+- num: 17
+  title: Derivatives in Vector Spaces
+  chapter_title_block_idx: 8094
+  problems_block_idx: null
+  next_chapter_block_idx: 8999
+  page_start: 473
+  page_end: 520
+- num: 18
+  title: Inverse Mapping Theorem
+  chapter_title_block_idx: 8986
+  problems_block_idx: null
+  next_chapter_block_idx: 9648
+  page_start: 520
+  page_end: 556
+- num: 19
+  title: Ordinary Differential Equations
+  chapter_title_block_idx: 9638
+  problems_block_idx: null
+  next_chapter_block_idx: 10092
+  page_start: 556
+  page_end: 583
+- num: 20
+  title: Multiple Integrals
+  chapter_title_block_idx: 10083
+  problems_block_idx: null
+  next_chapter_block_idx: 10871
+  page_start: 583
+  page_end: 625
+- num: 21
+  title: Differential Forms
+  chapter_title_block_idx: 10860
+  problems_block_idx: null
+  next_chapter_block_idx: 11352
+  page_start: 625
+  page_end: 652
+appendices:
+- id: app
+  title: Appendix
+  chapter_title_block_idx: 11239
+section_re: ^((?:[IVXLCDM]+|\d+),\s*§\d+)\.\s+(.+)$
+subsection_re: ^((?:[IVXLCDM]+|\d+),\s*§\d+\.\d+)\.\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: EXERCISES$
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^Example\s+(\d+)\.
+figure_caption_merge: false
+figure_caption_main_re: ^(Figure|Fig\.)\s+([0-9A-Za-z.]+)
+known_missing_problems: []

@@ -1,0 +1,124 @@
+slug: shilov_linear_algebra
+title: Linear Algebra
+author: Georgi E. Shilov
+edition: null
+subject: Linear Algebra
+publisher: Dover Publications
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 370
+bibliography_start_page: 388
+index_start_page: 390
+
+section_re: '^([IVX]+\.\d+|\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^([IVX]+\.\d+\.\d+|\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.?\s+.+$'
+problem_chapter_must_match: false
+problems_end_re: '^(HINTS AND ANSWERS|BIBLIOGRAPHY|INDEX)\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+chapters:
+  - num: 1
+    title: Determinants
+    page_start: 10
+    page_end: 39
+    chapter_title_block_idx: 35
+    problems_block_idx: 457
+    next_chapter_block_idx: 491
+  - num: 2
+    title: Linear Spaces
+    page_start: 40
+    page_end: 66
+    chapter_title_block_idx: 491
+    problems_block_idx: 926
+    next_chapter_block_idx: 950
+  - num: 3
+    title: Systems of Linear Equations
+    page_start: 67
+    page_end: 83
+    chapter_title_block_idx: 950
+    problems_block_idx: 1114
+    next_chapter_block_idx: 1172
+  - num: 4
+    title: Linear Functions of a Vector Argument
+    page_start: 84
+    page_end: 126
+    chapter_title_block_idx: 1172
+    problems_block_idx: 1783
+    next_chapter_block_idx: 1896
+  - num: 5
+    title: Coordinate Transformations
+    page_start: 127
+    page_end: 141
+    chapter_title_block_idx: 1896
+    problems_block_idx: 2127
+    next_chapter_block_idx: 2152
+  - num: 6
+    title: The Canonical Form of the Matrix of a Linear Operator
+    page_start: 142
+    page_end: 187
+    chapter_title_block_idx: 2152
+    problems_block_idx: 2845
+    next_chapter_block_idx: 2883
+  - num: 7
+    title: Bilinear and Quadratic Forms
+    page_start: 188
+    page_end: 222
+    chapter_title_block_idx: 2883
+    problems_block_idx: 3434
+    next_chapter_block_idx: 3498
+  - num: 8
+    title: Euclidean Spaces
+    page_start: 223
+    page_end: 255
+    chapter_title_block_idx: 3498
+    problems_block_idx: 3932
+    next_chapter_block_idx: 4033
+  - num: 9
+    title: Unitary Spaces
+    page_start: 256
+    page_end: 281
+    chapter_title_block_idx: 4033
+    problems_block_idx: 4461
+    next_chapter_block_idx: 4480
+  - num: 10
+    title: Quadratic Forms in Euclidean and Unitary Spaces
+    page_start: 282
+    page_end: 320
+    chapter_title_block_idx: 4480
+    problems_block_idx: 5038
+    next_chapter_block_idx: 5073
+  - num: 11
+    title: Finite-Dimensional Algebras and Their Representations
+    page_start: 321
+    page_end: 343
+    chapter_title_block_idx: 5073
+    problems_block_idx: 5365
+    next_chapter_block_idx: 5402
+  - num: 12
+    title: Categories of Finite-Dimensional Spaces
+    page_start: 344
+    page_end: 369
+    chapter_title_block_idx: 5402
+    problems_block_idx: null
+    next_chapter_block_idx: 5692
+appendices:
+  - id: hints_answers
+    title: Hints and Answers
+    page_start: 370
+    chapter_title_block_idx: 5692

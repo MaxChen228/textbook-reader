@@ -1,0 +1,39 @@
+{
+  "slug": "ross_elementary_analysis",
+  "overrides": [
+    {
+      "id": "ross-fig-11-2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.10:body[0]",
+      "position": "before",
+      "page": 93,
+      "clip": [0.12, 0.07, 0.90, 0.37],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.2",
+        "kind": "line",
+        "caption": "FIGURE 11.2"
+      },
+      "reason": "MinerU 漏抓 Exercise 11.10 參照的 Figure 11.2；raw PDF p.93 上半頁確有該圖與 caption。"
+    },
+    {
+      "id": "ross-fig-16-1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch16",
+      "selector": "body[6]",
+      "position": "after",
+      "page": 126,
+      "clip": [0.31, 0.62, 0.78, 0.96],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-16.1",
+        "kind": "line",
+        "caption": "FIGURE 16.1"
+      },
+      "reason": "MinerU 漏抓 Long Division 小節正文參照的 Figure 16.1；raw PDF p.126 下半頁確有 long-division 圖與 caption。"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+slug: treil_linear_algebra_done_wrong
+title: Linear Algebra Done Wrong
+author: Sergei Treil
+edition: null
+subject: Linear Algebra
+publisher: null
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+ignore_image_content: false
+ignore_chart_content: false
+
+body_start_page: 11
+appendices_start_page: 285
+bibliography_start_page: null
+index_start_page: 285
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Basic Notions
+    page_start: 11
+    page_end: 48
+    chapter_title_block_idx: 46
+    problems_block_idx: null
+    next_chapter_block_idx: 687
+  - num: 2
+    title: Systems of linear equations
+    page_start: 49
+    page_end: 84
+    chapter_title_block_idx: 687
+    problems_block_idx: null
+    next_chapter_block_idx: 1317
+  - num: 3
+    title: Determinants
+    page_start: 85
+    page_end: 108
+    chapter_title_block_idx: 1317
+    problems_block_idx: null
+    next_chapter_block_idx: 1711
+  - num: 4
+    title: Introduction to spectral theory (eigenvalues and eigenvectors)
+    page_start: 109
+    page_end: 126
+    chapter_title_block_idx: 1711
+    problems_block_idx: null
+    next_chapter_block_idx: 2019
+  - num: 5
+    title: Inner product spaces
+    page_start: 127
+    page_end: 172
+    chapter_title_block_idx: 2019
+    problems_block_idx: null
+    next_chapter_block_idx: 2884
+  - num: 6
+    title: Structure of operators in inner product spaces.
+    page_start: 173
+    page_end: 206
+    chapter_title_block_idx: 2884
+    problems_block_idx: null
+    next_chapter_block_idx: 3491
+  - num: 7
+    title: Bilinear and quadratic forms
+    page_start: 207
+    page_end: 226
+    chapter_title_block_idx: 3491
+    problems_block_idx: null
+    next_chapter_block_idx: 3815
+  - num: 8
+    title: Dual spaces and tensors
+    page_start: 227
+    page_end: 262
+    chapter_title_block_idx: 3815
+    problems_block_idx: null
+    next_chapter_block_idx: 4423
+  - num: 9
+    title: Advanced spectral theory
+    page_start: 263
+    page_end: 284
+    chapter_title_block_idx: 4423
+    problems_block_idx: null
+    next_chapter_block_idx: 4766
+
+appendices: []
+
+section_re: '^([0-9]+)\.\s+(.+?)\.?$'
+subsection_re: '^([0-9]+\.[0-9]+(?:\.[0-9]+)*)\.\s+(.+?)\.?$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+
+problem_start_re: '^\s*([0-9]+\.[0-9]+)\.\s+.*$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_start_re: null
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
