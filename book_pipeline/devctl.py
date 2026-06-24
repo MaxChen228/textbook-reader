@@ -94,10 +94,29 @@ def _parse_ts_iso(s: str | None) -> datetime | None:
 
 
 def _tail(path: str, n: int) -> list[str]:
+    """末 n 行。**從檔尾 seek 反向讀區塊**（O(n) 非 O(檔案大小)）：build_snapshot 每次對
+    daemon.log/stdout.log（壓測下 10+MB）_tail，舊 readlines() 整檔讀入在 OCR 磁碟爭用下卡死數分鐘
+    → 心跳 hang、status.json 滯後（看板凍結）。改 seek 後與 log 大小、I/O 爭用無關。"""
     if not os.path.exists(path):
         return []
-    with open(path, encoding='utf-8', errors='replace') as f:
-        return [l.rstrip('\n') for l in f.readlines()[-n:]]
+    try:
+        with open(path, 'rb') as f:
+            f.seek(0, os.SEEK_END)
+            end = f.tell()
+            block = 65536
+            data = b''
+            pos = end
+            while pos > 0 and data.count(b'\n') <= n:
+                step = min(block, pos)
+                pos -= step
+                f.seek(pos)
+                data = f.read(step) + data
+        lines = data.decode('utf-8', errors='replace').split('\n')
+        if lines and lines[-1] == '':  # 檔尾換行造成的空尾元素
+            lines.pop()
+        return lines[-n:]
+    except OSError:
+        return []
 
 
 def _sh(cmd: list[str]) -> str:
