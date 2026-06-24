@@ -8,14 +8,14 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T10:58:25+00:00",
-  "updated": "2026-06-23T02:39:16+00:00",
+  "updated": "2026-06-24T02:57:55+00:00",
   "evidence": "dry-run：抽出 0 章、0 題解答。sol_extract 只掃 text_level==1 章 anchor；本書只有 ch1『Historical Introduction to the Elementary Particles』與 ch8『Electrodynamics and Chromodynamics of Quarks』是 level-1。ch2-7、9-12 在各章首僅出現 text_level=2 的數字+章名，例如『2 / Elementary Particle Dynamics』、『12 / What’s Next』。",
   "proposal": "換更穩定的解答本/重新 ingest 取得正確 chapter level，或升級 sol_extract 支援以 text_level=2 章標切章後再重試。",
   "risk": "",
   "disposition": "",
   "verified_at": {
-    "sha": "ff636f4",
-    "date": "2026-06-23T02:38:44+00:00"
+    "sha": "ff58e0f",
+    "date": "2026-06-24T02:57:55+00:00"
   },
   "unblock": {
     "kind": "re-source",

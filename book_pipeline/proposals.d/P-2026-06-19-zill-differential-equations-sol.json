@@ -8,14 +8,14 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T11:54:26+00:00",
-  "updated": "2026-06-23T02:50:21+00:00",
+  "updated": "2026-06-24T02:57:55+00:00",
   "evidence": "zill_differential_equations_sol/unified/content_list.json 的主書對應章號 1-9 出現在 text_level=2 的 'Chapter N'（如 idx 49, 694, 1857, 11157）；同位置 lvl=1 只有章名無數字。解答正文在 section heading（如 1.1 Definitions and Terminology）後只用裸題序 8. 9. 10.，但主書 parsed key 為 exercises1.1.8、2.1.1.2、4.1.1.1 等 section-aware 混合 key。預設 dry-run 穩定為『抽出 3 章、0 題解答』，且只誤抓第二本書的 Chapter 10/13/15。",
   "proposal": "擴充 sol_extract：允許自訂 chapter anchor 的 text_level/type，並支援以 section heading + 裸題序組裝主書 problem key；必要時加上同冊多書切分能力。完成後再重跑 zill_differential_equations_sol merge。",
   "risk": "",
   "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 章 anchor」已過時（chapter_level 預設 null）。sol 確暴露 section 子標題（'1.1 Definitions…'、'2.1 Solution Curves…' lvl2）。真殘留同 poole/strang 之複合：主書 parsed key section-aware 但 OCR 退化 + sol_extract 缺 section-aware key 重建。須先修主書 section 結構再建 sol 能力。park（main-reaudit）＝主書 OCR section 退化 + sol section-aware gap 複合。",
   "verified_at": {
-    "sha": "ff636f4",
-    "date": "2026-06-23T02:38:44+00:00"
+    "sha": "ff58e0f",
+    "date": "2026-06-24T02:57:55+00:00"
   },
   "unblock": {
     "kind": "main-reaudit",

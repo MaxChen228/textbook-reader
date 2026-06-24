@@ -2,16 +2,20 @@
   "id": "P-2026-06-23-comer-internetworking",
   "domain": "engine",
   "type": "tooling-gap",
-  "status": "proposed",
+  "status": "parked",
   "title": "parser 不支援 ref_text 習題起點",
   "slug": "comer_internetworking",
   "detect": [],
   "source": "agent",
   "resolution": "",
   "created": "2026-06-23T10:05:01+00:00",
-  "updated": "2026-06-23T10:05:01+00:00",
+  "updated": "2026-06-24T02:56:13+00:00",
   "evidence": "comer_internetworking 多數章末 EXERCISES（例 ch2 idx 715-726、ch7 idx 1772-1786）被 MinerU 標成 ref_text，題號格式乾淨如 2.1 / 7.1；但 parser.split_problems / walk_inline_chapter 只對 type in (text,list) 做 problem_start_re，比對不到 ref_text，導致 ch2/ch4/ch6/ch7/ch8/ch9/ch11/ch13/ch14/ch16/ch17/ch18/ch20/ch23/ch24/ch26/ch27 等章 problems=0。這不是 extract_rules schema 可表達的問題。",
   "proposal": "在 problems walker（split_problems 與 walk_inline_chapter）把 ref_text 視為 text-like block：允許 ref_text 參與 problem_start_re 起點判定，且在 current 題目已開啟時用 block_to_struct 收進 body。需保持 filter_types 可顯式排除 ref_text 的既有語義。",
   "risk": "",
-  "disposition": ""
+  "disposition": "真 harness-gap（非 verify 誤判的 caption-gap）：comer 17 章 EXERCISES 被 MinerU 標 ref_text，live problems=0 已核實（全書 30 章僅抽 54 題）。catalog critical=0 與習題抽取正交、不可據以 supersede。待 parser ref_text walker 能力落地，由 proposals stale 自動 resurface。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "parser.split_problems/walk_inline_chapter 視 ref_text 為 text-like 參與 problem_start_re（保留 filter_types 顯式排除語義）"
+  }
 }

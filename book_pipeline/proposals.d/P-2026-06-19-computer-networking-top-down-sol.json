@@ -8,14 +8,14 @@
   "source": "sol_extract",
   "resolution": "",
   "created": "2026-06-19T21:45:23+00:00",
-  "updated": "2026-06-23T02:50:21+00:00",
+  "updated": "2026-06-24T02:57:55+00:00",
   "evidence": "官方 dry-run=0 章 0 題；解答書真正章標為 text_level==2 的 'Chapter N Problems'/'Chapter 5. Problems.'。主書題號為 P1/P2/...，解答書題號為 Problem 1/2/...；現行 problem_re 的 group(1) 必須逐字等於主書 key，無法把 1 轉成 P1。一次性 lvl2 章標 + Problem N->P<N> 分析可抽出 8 章，對主書命中 216/233；語義抽樣 ch01/ch04/ch08 各前 3 題皆同題。",
   "proposal": "擴充 sol_extract：章 anchor 可配置 text_level/type，並支援 problem key transform（例如 prefix/sprintf 或 regex replace）後重跑 merge。",
   "risk": "",
   "disposition": "[2026-06-23 truth-layer 復核] 「lvl2 章標 + Problem N→P<N> 引擎做不到」已全過時——chapter_level 預設 null 收 lvl2、num_template:'P{}'（c1368d8）解前綴映射，sol_rules.yaml 已配置就緒。真殘留＝部分章版次錯位（edition）：主書 8th ed vs 本 sol 在 ch4/ch7 章內題目編排不同版本（ch7 整章 13 題系統錯位、ch4 約半），同題號配到不同題；ch1/2/3/6/8 對齊。park（re-edition，_pending 仍為 daemon operational gate）＝edition（源頭版次），引擎無解、待 re-source 版次對齊解答本。",
   "verified_at": {
-    "sha": "ff636f4",
-    "date": "2026-06-23T02:38:44+00:00"
+    "sha": "ff58e0f",
+    "date": "2026-06-24T02:57:55+00:00"
   },
   "unblock": {
     "kind": "re-edition",
