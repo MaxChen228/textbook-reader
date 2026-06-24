@@ -1,0 +1,145 @@
+slug: nelson_biological_physics
+title: "Biological Physics: Energy, Information, Life"
+author: Philip Nelson
+edition: 1st
+subject: Biological Physics
+publisher: W. H. Freeman and Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 30
+appendices_start_page: 588
+bibliography_start_page: 638
+index_start_page: 652
+
+chapters:
+  - num: 1
+    page_start: 30
+    page_end: 61
+    title: What the Ancients Knew
+    chapter_title_block_idx: 177
+    problems_block_idx: 506
+    next_chapter_block_idx: 563
+  - num: 2
+    page_start: 62
+    page_end: 95
+    title: "What's Inside Cells"
+    chapter_title_block_idx: 563
+    problems_block_idx: 792
+    next_chapter_block_idx: 832
+  - num: 3
+    page_start: 98
+    page_end: 137
+    title: The Molecular Dance
+    chapter_title_block_idx: 832
+    problems_block_idx: 1219
+    next_chapter_block_idx: 1249
+  - num: 4
+    page_start: 138
+    page_end: 186
+    title: Random Walks, Friction, and Diffusion
+    chapter_title_block_idx: 1249
+    problems_block_idx: 1769
+    next_chapter_block_idx: 1836
+  - num: 5
+    page_start: 187
+    page_end: 223
+    title: "Life in the Slow Lane: The Low Reynolds-Number World"
+    chapter_title_block_idx: 1836
+    problems_block_idx: 2208
+    next_chapter_block_idx: 2277
+  - num: 6
+    page_start: 225
+    page_end: 273
+    title: Entropy, Temperature, and Free Energy
+    chapter_title_block_idx: 2277
+    problems_block_idx: 2812
+    next_chapter_block_idx: 2889
+  - num: 7
+    page_start: 275
+    page_end: 322
+    title: Entropic Forces at Work
+    chapter_title_block_idx: 2889
+    problems_block_idx: 3398
+    next_chapter_block_idx: 3451
+  - num: 8
+    page_start: 323
+    page_end: 369
+    title: Chemical Forces and Self-Assembly
+    chapter_title_block_idx: 3451
+    problems_block_idx: 3950
+    next_chapter_block_idx: 3986
+  - num: 9
+    page_start: 370
+    page_end: 429
+    title: Cooperative Transitions in Macromolecules
+    chapter_title_block_idx: 3986
+    problems_block_idx: 4641
+    next_chapter_block_idx: 4712
+  - num: 10
+    page_start: 430
+    page_end: 497
+    title: Enzymes and Molecular Machines
+    chapter_title_block_idx: 4712
+    problems_block_idx: 5376
+    next_chapter_block_idx: 5435
+  - num: 11
+    page_start: 498
+    page_end: 533
+    title: Machines in Membranes
+    chapter_title_block_idx: 5435
+    problems_block_idx: 5801
+    next_chapter_block_idx: 5829
+  - num: 12
+    page_start: 535
+    page_end: 587
+    title: Nerve Impulses
+    chapter_title_block_idx: 5829
+    problems_block_idx: 6322
+    next_chapter_block_idx: 6389
+
+appendices:
+  - id: A
+    title: Global List of Symbols and Units
+    chapter_title_block_idx: 6389
+  - id: B
+    title: Numerical Values
+    chapter_title_block_idx: 6606
+  - id: C
+    title: Additional Problems
+    chapter_title_block_idx: 6709
+
+section_re: '^([0-9]+\.[0-9]+)\s+([A-Z0-9$\\{}_^&(),:;"''’`/\-– ]+)$'
+subsection_re: '^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^([0-9]+\.[0-9]+)\b.*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^(Example:?\s*.*)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems:
+  - chapter: 7
+    nums: ["7.9"]

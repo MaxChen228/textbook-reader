@@ -1,0 +1,92 @@
+{
+  "overrides": [
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch09-body-227-a562d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[227]",
+      "expect": "\\boldsymbol {\\alpha} (\\boldsymbol {\\theta}; \\mu) \\equiv \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\frac {1}{n} \\boldsymbol {Z} ^ {\\top} \\boldsymbol {f} (\\boldsymbol {\\theta}, \\boldsymbol {y}).",
+      "new": "\\boldsymbol {\\alpha} (\\boldsymbol {\\theta}; \\mu) \\equiv {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\frac {1}{n} \\boldsymbol {Z} ^ {\\top} \\boldsymbol {f} (\\boldsymbol {\\theta}, \\boldsymbol {y})."
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch09-body-232-fd507b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[232]",
+      "expect": "\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\hat {\\pmb {\\theta}} = \\pmb {\\theta} _ {\\mu}.",
+      "new": "{\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\hat {\\pmb {\\theta}} = \\pmb {\\theta} _ {\\mu}."
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch10-body-163-54a181",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[163]",
+      "expect": "\\mathcal {I} (\\boldsymbol {\\theta}) \\equiv \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\boldsymbol {\\theta}} \\frac {1}{n} \\boldsymbol {I} (\\boldsymbol {\\theta}),",
+      "new": "\\mathcal {I} (\\boldsymbol {\\theta}) \\equiv {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\boldsymbol {\\theta}} \\frac {1}{n} \\boldsymbol {I} (\\boldsymbol {\\theta}),"
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch10-body-166-0f8591",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[166]",
+      "expect": "\\mathcal {H} (\\pmb {\\theta}) \\equiv \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\pmb {\\theta}} \\frac {1}{n} \\pmb {H} (\\pmb {y}, \\pmb {\\theta}),",
+      "new": "\\mathcal {H} (\\pmb {\\theta}) \\equiv {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\pmb {\\theta}} \\frac {1}{n} \\pmb {H} (\\pmb {y}, \\pmb {\\theta}),"
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-13-d61d04",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[13]",
+      "expect": "\\mathrm{Var} \\big (\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} n ^ {1 / 2} (\\hat {\\pmb {\\theta}} - \\pmb {\\theta} _ {\\mu}) \\big) = \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\big (N ^ {- 1} \\pmb {R} ^ {\\top} (\\acute {\\pmb {\\theta}}) \\pmb {R} (\\acute {\\pmb {\\theta}}) \\big) ^ {- 1},",
+      "new": "\\mathrm{Var} \\big ({\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} n ^ {1 / 2} (\\hat {\\pmb {\\theta}} - \\pmb {\\theta} _ {\\mu}) \\big) = {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\big (N ^ {- 1} \\pmb {R} ^ {\\top} (\\acute {\\pmb {\\theta}}) \\pmb {R} (\\acute {\\pmb {\\theta}}) \\big) ^ {- 1},"
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-15-efd563",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[15]",
+      "expect": "\\mathrm{Var} \\big (\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} n ^ {1 / 2} (\\hat {\\pmb {\\theta}} - \\pmb {\\theta} _ {\\mu}) \\big) = \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\acute {s} ^ {2} \\big (N ^ {- 1} \\pmb {R} ^ {\\top} (\\acute {\\pmb {\\theta}}) \\pmb {R} (\\acute {\\pmb {\\theta}}) \\big) ^ {- 1},",
+      "new": "\\mathrm{Var} \\big ({\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} n ^ {1 / 2} (\\hat {\\pmb {\\theta}} - \\pmb {\\theta} _ {\\mu}) \\big) = {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\acute {s} ^ {2} \\big (N ^ {- 1} \\pmb {R} ^ {\\top} (\\acute {\\pmb {\\theta}}) \\pmb {R} (\\acute {\\pmb {\\theta}}) \\big) ^ {- 1},"
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-18-bf98c9",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[18]",
+      "expect": "\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} n ^ {1 / 2} (\\acute {\\boldsymbol {\\theta}} + \\acute {\\boldsymbol {b}} - \\boldsymbol {\\theta} _ {\\mu}) = \\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} n ^ {1 / 2} (\\hat {\\boldsymbol {\\theta}} - \\boldsymbol {\\theta} _ {\\mu}).",
+      "new": "{\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} n ^ {1 / 2} (\\acute {\\boldsymbol {\\theta}} + \\acute {\\boldsymbol {b}} - \\boldsymbol {\\theta} _ {\\mu}) = {\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} n ^ {1 / 2} (\\hat {\\boldsymbol {\\theta}} - \\boldsymbol {\\theta} _ {\\mu})."
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-26-244078",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[26]",
+      "expect": "\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} N ^ {- 1} \\boldsymbol {Z} ^ {\\top} (\\boldsymbol {\\theta} _ {\\mu}) \\boldsymbol {r} (\\boldsymbol {\\theta} _ {\\mu}) = \\mathbf {0}.",
+      "new": "{\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} N ^ {- 1} \\boldsymbol {Z} ^ {\\top} (\\boldsymbol {\\theta} _ {\\mu}) \\boldsymbol {r} (\\boldsymbol {\\theta} _ {\\mu}) = \\mathbf {0}."
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-30-93fee7",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[30]",
+      "expect": "\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\frac {1}{n} \\left[ \\begin{array}{c c} \\boldsymbol {R} _ {\\mu} ^ {\\top} \\boldsymbol {R} _ {\\mu} & \\boldsymbol {R} _ {\\mu} ^ {\\top} \\boldsymbol {Z} _ {\\mu} \\\\ \\boldsymbol {Z} _ {\\mu} ^ {\\top} \\boldsymbol {R} _ {\\mu} & \\boldsymbol {Z} _ {\\mu} ^ {\\top} \\boldsymbol {Z} _ {\\mu} \\end{array} \\right]",
+      "new": "{\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\frac {1}{n} \\left[ \\begin{array}{c c} \\boldsymbol {R} _ {\\mu} ^ {\\top} \\boldsymbol {R} _ {\\mu} & \\boldsymbol {R} _ {\\mu} ^ {\\top} \\boldsymbol {Z} _ {\\mu} \\\\ \\boldsymbol {Z} _ {\\mu} ^ {\\top} \\boldsymbol {R} _ {\\mu} & \\boldsymbol {Z} _ {\\mu} ^ {\\top} \\boldsymbol {Z} _ {\\mu} \\end{array} \\right]"
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch15-body-64-9f2e4f",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[64]",
+      "expect": "\\underset {n \\to \\infty} {\\mathrm{plim}} _ {\\mu} \\frac {1}{n} \\sum_ {t = 1} ^ {n} m _ {t} (y _ {t}, \\pmb {\\theta}) = 0.",
+      "new": "{\\underset {n \\to \\infty} {\\mathrm{plim}}} _ {\\mu} \\frac {1}{n} \\sum_ {t = 1} ^ {n} m _ {t} (y _ {t}, \\pmb {\\theta}) = 0."
+    },
+    {
+      "id": "davidson_mackinnon_econometric_theory-ch10-body-461-a4cd40",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[461]",
+      "expect": "B (x, \\lambda) = \\left\\{ \\begin{array}{l l} \\frac {x ^ {\\lambda} - 1}{\\lambda} & \\text {when \\lambda\\neq 0 ;} \\\\ \\log x & \\text {when \\lambda = 0 ,} \\end{array} \\right.",
+      "new": "B (x, \\lambda) = \\left\\{ \\begin{array}{l l} \\frac {x ^ {\\lambda} - 1}{\\lambda} & \\text {when } \\lambda\\neq 0 ; \\\\ \\log x & \\text {when } \\lambda = 0 , \\end{array} \\right."
+    }
+  ]
+}

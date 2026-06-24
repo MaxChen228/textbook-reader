@@ -1,0 +1,147 @@
+slug: alon_systems_biology
+title: "An Introduction to Systems Biology: Design Principles of Biological Circuits"
+author: Uri Alon
+edition: null
+subject: Biology
+publisher: Chapman & Hall/CRC
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 257
+bibliography_start_page: 287
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 20
+    chapter_title_block_idx: 78
+    problems_block_idx: null
+    next_chapter_block_idx: 108
+  - num: 2
+    title: "Transcription Networks: Basic Concepts"
+    page_start: 21
+    page_end: 42
+    chapter_title_block_idx: 108
+    problems_block_idx: 290
+    next_chapter_block_idx: 336
+  - num: 3
+    title: "Autoregulation: A Network Motif"
+    page_start: 43
+    page_end: 56
+    chapter_title_block_idx: 336
+    problems_block_idx: 469
+    next_chapter_block_idx: 511
+  - num: 4
+    title: The Feed-Forward Loop Network Motif
+    page_start: 57
+    page_end: 90
+    chapter_title_block_idx: 511
+    problems_block_idx: 833
+    next_chapter_block_idx: 872
+  - num: 5
+    title: Temporal Programs and the Global Structure of Transcription Networks
+    page_start: 91
+    page_end: 112
+    chapter_title_block_idx: 872
+    problems_block_idx: 1046
+    next_chapter_block_idx: 1072
+  - num: 6
+    title: Network Motifs in Developmental, Signal Transduction, and Neuronal Networks
+    page_start: 113
+    page_end: 150
+    chapter_title_block_idx: 1072
+    problems_block_idx: 1366
+    next_chapter_block_idx: 1461
+  - num: 7
+    title: "Robustness of Protein Circuits: The Example of Bacterial Chemotaxis"
+    page_start: 151
+    page_end: 174
+    chapter_title_block_idx: 1461
+    problems_block_idx: 1651
+    next_chapter_block_idx: 1739
+  - num: 8
+    title: Robust Patterning in Development
+    page_start: 175
+    page_end: 190
+    chapter_title_block_idx: 1739
+    problems_block_idx: 1888
+    next_chapter_block_idx: 1921
+  - num: 9
+    title: Kinetic Proofreading
+    page_start: 191
+    page_end: 208
+    chapter_title_block_idx: 1921
+    problems_block_idx: 2082
+    next_chapter_block_idx: 2138
+  - num: 10
+    title: Optimal Gene Circuit Design
+    page_start: 209
+    page_end: 230
+    chapter_title_block_idx: 2138
+    problems_block_idx: 2281
+    next_chapter_block_idx: 2373
+  - num: 11
+    title: Demand Rules for Gene Regulation
+    page_start: 231
+    page_end: 248
+    chapter_title_block_idx: 2373
+    problems_block_idx: 2509
+    next_chapter_block_idx: 2529
+  - num: 12
+    title: "Epilogue: Simplicity in Biology"
+    page_start: 249
+    page_end: 256
+    chapter_title_block_idx: 2529
+    problems_block_idx: null
+    next_chapter_block_idx: 2586
+
+appendices:
+  - id: A
+    title: "The Input Function of a Gene: Michaelis-Menten and Hill Equations"
+    page_start: 257
+    chapter_title_block_idx: 2586
+  - id: B
+    title: Multi-Dimensional Input Functions
+    page_start: 269
+    chapter_title_block_idx: 2751
+  - id: C
+    title: Graph Properties of Transcription Networks
+    page_start: 273
+    chapter_title_block_idx: 2784
+  - id: D
+    title: Cell-Cell Variability in Gene Expression
+    page_start: 277
+    chapter_title_block_idx: 2820
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: '^Solution(?:\s*\(.*\))?:$|^Solution\s+for\s+.+:$'
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+(?:\.[0-9]+)?[a-z]?|P[0-9]+\.[0-9]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
