@@ -378,6 +378,17 @@
       "selector": "body[151]",
       "expect": "\\begin{array}{c} \\text {Cys - Tyr - Phe - Gln - Asn - Cys - Pro - Arg - Gly - NH_{2}} \\\\ \\text {\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large}\\text {Human vasopressin} \\end{array}",
       "new": "\\begin{array}{c} \\text {Cys - Tyr - Phe - Gln - Asn - Cys - Pro - Arg - Gly - NH}_{2} \\\\ \\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\Large\\text {Human vasopressin} \\end{array}"
+    },
+    {
+      "id": "voet_voet_biochemistry-ch07-body-187-e6db9e",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[187]",
+      "field": "md",
+      "all": true,
+      "old": "$300 million and took over a decade to complete. In contrast, using “next generation” sequencing technology (see below), the diploid genome of James Watson (of Watson–Crick fame) was sequenced in 2 months at a cost of \u0007US\\$",
+      "new": "$\\text{300 million and took over a decade to complete. In contrast, using “next generation” sequencing technology (see below), the diploid genome of James Watson (of Watson–Crick fame) was sequenced in 2 months at a cost of US}$",
+      "anchor": "83b6b050"
     }
   ]
 }
