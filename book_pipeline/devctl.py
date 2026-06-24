@@ -158,6 +158,16 @@ def code_status() -> dict:
 
 
 # ── daemon 健康 ──────────────────────────────────────────────────────────────
+def _derive_running(last_start, last_end, controller_alive: bool) -> bool:
+    """daemon 運轉判定：log-marker（last_start 未被更新的 end 蓋）∨ controller 進程實活。
+    **controller_alive 是權威覆寫**——log-marker 啟發法在高日誌量/長命 controller 下
+    『reactive loop start』會滾出 log tail 窗 → last_start=None → 偽陰（且 detached-respawn
+    controller 不被 launchd 追蹤）；偽陰會誤導記憶的『running_now=False → devctl kick』兜底
+    去**誤殺健康 controller**（連帶丟在飛 worker）。故 controller 進程活著即判運轉。純函式可測。"""
+    by_log = bool(last_start and (last_end is None or last_start > last_end))
+    return by_log or controller_alive
+
+
 def daemon_health() -> dict:
     out = _sh(['launchctl', 'list'])
     installed = False
@@ -187,9 +197,11 @@ def daemon_health() -> dict:
     last_dur = None
     if last_start and last_end and last_end >= last_start:
         last_dur = int((last_end - last_start).total_seconds())
-    # 「運轉中」由 log 標記推導（比 _proc_info 時序穩）：有 start 且尚無更新的 end → controller 在跑。
-    running = bool(last_start and (last_end is None or last_start > last_end))
+    # 「運轉中」：log-marker（start 未被更新 end 蓋）∨ controller 進程實活。後者權威覆寫——
+    # log-marker 在高日誌量/長命/detached-respawn controller 下偽陰（start 滾出 tail 窗），
+    # 偽陰會誤導『running_now=False → kick』誤殺健康 controller（見 _derive_running）。
     tick_proc = _proc_info('pipeline_tick')
+    running = _derive_running(last_start, last_end, bool(tick_proc))
     # StartInterval 架構：下次 ≈ 上次結束 + 間隔；運轉中不可預測 → None（前端顯示「正在跑」）。
     if running:
         next_eta = None
