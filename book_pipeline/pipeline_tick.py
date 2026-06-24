@@ -2188,7 +2188,9 @@ def tick_reactive(no_deploy: bool) -> int:
             log('reactive loop：walltime 到期 → 排 detached respawn（排空退出即 kickstart 新 controller，消 idle-gap）')
             _schedule_respawn()
     finally:
-        _snap_stop.set()  # 停保證刷新執行緒（daemon thread，進程退出本就會收，明確 set 早停）
+        # ⚠ 不在此停保證刷新執行緒：排空可能長達數十分（無限等在飛 audit 自然收尾），這正是 /dev 該即時
+        # 顯「🔄 排空中」之時。執行緒須撐過整個排空、待 drain wait 迴圈結束才停（見下）。早停會讓排空期
+        # status.json 又凍結（wolf-crying 根源）。
         _DRAIN_EVENT.set()  # 協作 drain 信號：do_math_sweep 在書界/batch poll 檢查並儘快讓出（避免卡 600s os._exit）
         _mark_controller_draining(exit_reason)  # drain 期間保留 statefile（phase=draining）→ devctl status
         # 顯「🔄 排空中」而非誤判「閒置」；進程死後探活回 None、reload respawn 覆寫（取代舊『一進 finally 就刪檔』盲點）
@@ -2220,6 +2222,7 @@ def tick_reactive(no_deploy: bool) -> int:
             if now_m - _bound_started >= DRAIN_BOUND:
                 break
             time.sleep(0.5)
+        _snap_stop.set()  # 排空 wait 已結束 → 此刻才停保證刷新執行緒（撐過整個排空期、status.json 全程新鮮）
         with ifl_lock:
             _stuck = len(inflight)
         if _stuck == 0:
