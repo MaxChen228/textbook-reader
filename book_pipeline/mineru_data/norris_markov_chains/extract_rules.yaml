@@ -1,0 +1,86 @@
+slug: norris_markov_chains
+title: Markov Chains
+author: J. R. Norris
+edition: 1st
+subject: Probability
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 249
+bibliography_start_page: 249
+index_start_page: 251
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Discrete-time Markov chains
+    page_start: 18
+    page_end: 76
+    chapter_title_block_idx: 87
+    problems_block_idx: null
+    next_chapter_block_idx: 1078
+  - num: 2
+    title: Continuous-time Markov chains I
+    page_start: 77
+    page_end: 124
+    chapter_title_block_idx: 1078
+    problems_block_idx: null
+    next_chapter_block_idx: 1809
+  - num: 3
+    title: Continuous-time Markov chains II
+    page_start: 125
+    page_end: 144
+    chapter_title_block_idx: 1809
+    problems_block_idx: null
+    next_chapter_block_idx: 2154
+  - num: 4
+    title: Further theory
+    page_start: 145
+    page_end: 186
+    chapter_title_block_idx: 2154
+    problems_block_idx: null
+    next_chapter_block_idx: 2876
+  - num: 5
+    title: Applications
+    page_start: 187
+    page_end: 233
+    chapter_title_block_idx: 2876
+    problems_block_idx: null
+    next_chapter_block_idx: 3613
+  - num: 6
+    title: "Appendix: probability and measure"
+    page_start: 234
+    page_end: 248
+    chapter_title_block_idx: 3613
+    problems_block_idx: null
+    next_chapter_block_idx: 3867
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_start_re: '^Exercises?$'
+
+equation_strip_dollar: true
+equation_label_re: '^\\tag\\{([0-9]+(?:\\.[0-9]+)?[a-z]?|[a-z])\\}$'
+
+example_start_re: '^Examples?\s+([0-9]+(?:\.[0-9]+)+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
