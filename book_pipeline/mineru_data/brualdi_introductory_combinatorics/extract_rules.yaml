@@ -1,0 +1,156 @@
+# ── 書本 metadata ──
+slug: brualdi_introductory_combinatorics
+title: Introductory Combinatorics
+author: Richard A. Brualdi
+edition: "5th"
+subject: Combinatorics
+publisher: Pearson
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 13
+appendices_start_page: 594
+bibliography_start_page: 608
+index_start_page: 610
+
+# ── inline-problem 模式 ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "What Is Combinatorics?"
+    page_start: 13
+    page_end: 38
+    chapter_title_block_idx: 85
+    problems_block_idx: 288
+    next_chapter_block_idx: 359
+  - num: 2
+    title: "Permutations and Combinations"
+    page_start: 39
+    page_end: 80
+    chapter_title_block_idx: 359
+    problems_block_idx: 897
+    next_chapter_block_idx: 1038
+  - num: 3
+    title: "The Pigeonhole Principle"
+    page_start: 81
+    page_end: 98
+    chapter_title_block_idx: 1038
+    problems_block_idx: 1244
+    next_chapter_block_idx: 1293
+  - num: 4
+    title: "Generating Permutations and Combinations"
+    page_start: 99
+    page_end: 138
+    chapter_title_block_idx: 1293
+    problems_block_idx: 1693
+    next_chapter_block_idx: 1803
+  - num: 5
+    title: "The Binomial Coefficients"
+    page_start: 139
+    page_end: 172
+    chapter_title_block_idx: 1803
+    problems_block_idx: 2257
+    next_chapter_block_idx: 2371
+  - num: 6
+    title: "The Inclusion-Exclusion Principle and Applications"
+    page_start: 173
+    page_end: 216
+    chapter_title_block_idx: 2371
+    problems_block_idx: 2968
+    next_chapter_block_idx: 3056
+  - num: 7
+    title: "Recurrence Relations and Generating Functions"
+    page_start: 217
+    page_end: 276
+    chapter_title_block_idx: 3056
+    problems_block_idx: 4040
+    next_chapter_block_idx: 4182
+  - num: 8
+    title: "Special Counting Sequences"
+    page_start: 277
+    page_end: 332
+    chapter_title_block_idx: 4182
+    problems_block_idx: 5003
+    next_chapter_block_idx: 5082
+  - num: 9
+    title: "Systems of Distinct Representatives"
+    page_start: 333
+    page_end: 352
+    chapter_title_block_idx: 5082
+    problems_block_idx: 5309
+    next_chapter_block_idx: 5359
+  - num: 10
+    title: "Combinatorial Designs"
+    page_start: 353
+    page_end: 406
+    chapter_title_block_idx: 5359
+    problems_block_idx: 6046
+    next_chapter_block_idx: 6151
+  - num: 11
+    title: "Introduction to Graph Theory"
+    page_start: 407
+    page_end: 472
+    chapter_title_block_idx: 6151
+    problems_block_idx: 6810
+    next_chapter_block_idx: 6981
+  - num: 12
+    title: "More on Graph Theory"
+    page_start: 473
+    page_end: 516
+    chapter_title_block_idx: 6981
+    problems_block_idx: 7466
+    next_chapter_block_idx: 7570
+  - num: 13
+    title: "Digraphs and Networks"
+    page_start: 517
+    page_end: 552
+    chapter_title_block_idx: 7570
+    problems_block_idx: 7965
+    next_chapter_block_idx: 8022
+  - num: 14
+    title: "Pólya Counting"
+    page_start: 553
+    page_end: 593
+    chapter_title_block_idx: 8022
+    problems_block_idx: 8573
+    next_chapter_block_idx: 8657
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
