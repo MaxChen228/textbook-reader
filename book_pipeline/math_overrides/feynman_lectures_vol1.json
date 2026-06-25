@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "feynman_lectures_vol1-ch50-body-32-f14f1d",
+      "action": "fix_eq_tex",
+      "chunk": "ch50",
+      "selector": "body[32]",
+      "expect": "\\begin{array}{l l} \\text {C - 2} & \\text {G - 3} \\\\ \\text {C^{\\prime} -4} & \\text {G^{\\prime} -6} \\\\ \\text {C^{\\prime\\prime} -8} & \\text {G^{\\prime\\prime} -12} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {C - 2} & \\text {G - 3} \\\\ C^{\\prime} \\text { -4} & G^{\\prime} \\text { -6} \\\\ C^{\\prime\\prime} \\text { -8} & G^{\\prime\\prime} \\text { -12} \\end{array}"
+    },
+    {
+      "id": "feynman_lectures_vol1-ch45-body-27-4a0700",
+      "action": "fix_eq_tex",
+      "chunk": "ch45",
+      "selector": "body[27]",
+      "expect": "\\left. \\begin{array}{c} \\text {Work done by the gas = shaded area = \\Delta V \\Delta P = \\Delta Q \\bigg(\\frac {\\Delta T}{T} \\bigg)} \\\\ \\frac {\\Delta T}{T} \\cdot (\\text {heat needed to change V by \\Delta V}) _ {\\text {constant T}} \\\\ = \\Delta V \\cdot (\\text {change in P when T changes by \\Delta T}) _ {\\text {constant V}} \\\\ \\frac {1}{\\Delta V} \\cdot (\\text {heat needed to change V by \\Delta V}) _ {T} = T (\\partial P / \\partial T) _ {V}. \\end{array} \\right\\}",
+      "new": "\\left. \\begin{array}{c} \\text {Work done by the gas = shaded area = } \\Delta V \\Delta P = \\Delta Q \\bigg(\\frac {\\Delta T}{T} \\bigg) \\\\ \\frac {\\Delta T}{T} \\cdot (\\text {heat needed to change V by } \\Delta V) _ {\\text {constant T}} \\\\ = \\Delta V \\cdot (\\text {change in P when T changes by } \\Delta T) _ {\\text {constant V}} \\\\ \\frac {1}{\\Delta V} \\cdot (\\text {heat needed to change V by } \\Delta V) _ {T} = T (\\partial P / \\partial T) _ {V}. \\end{array} \\right\\}"
+    }
+  ]
+}

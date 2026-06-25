@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "peebles_physical_cosmology-ch10-body-74-26a639",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{r l} 0 = \\delta S _ {m} & = \\int d ^ {4} x \\sqrt {- g} T _ {i j} \\xi^ {i} _ {; k} g ^ {k j} \\\\ & = \\int d ^ {4} x \\sqrt {- g} [ (\\xi^ {i} T _ {i} ^ {k}) _ {; k} - \\xi^ {i} T _ {i} ^ {k} _ {; k} ] \\\\ & = - \\int d ^ {4} x \\sqrt {- g} \\xi^ {i} T _ {i} ^ {k} _ {; k}. \\end{array}\\tag{10.31}",
+      "new": "\\begin{array}{r l} 0 = \\delta S _ {m} & = \\int d ^ {4} x \\sqrt {- g} T _ {i j} \\xi^ {i} _ {; k} g ^ {k j} \\\\ & = \\int d ^ {4} x \\sqrt {- g} [ (\\xi^ {i} T _ {i} ^ {k}) _ {; k} - \\xi^ {i} T _ {i} ^ {k}{} _ {; k} ] \\\\ & = - \\int d ^ {4} x \\sqrt {- g} \\xi^ {i} T _ {i} ^ {k}{} _ {; k}. \\end{array}\\tag{10.31}"
+    },
+    {
+      "id": "peebles_physical_cosmology-ch08-body-48-22083f",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[48]",
+      "expect": "g _ {i j} = g _ {j i},\\tag{_(8.18}",
+      "new": "g _ {i j} = g _ {j i},\\tag{8.18}"
+    },
+    {
+      "id": "peebles_physical_cosmology-ch09-body-10-02515a",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[10]",
+      "expect": "S = \\int L d t, \\qquad L = - m (g _ {i j} \\dot {x} ^ {i} \\dot {x} ^ {j}) ^ {1 / 2}.\\tag{_(9.4}",
+      "new": "S = \\int L d t, \\qquad L = - m (g _ {i j} \\dot {x} ^ {i} \\dot {x} ^ {j}) ^ {1 / 2}.\\tag{9.4}"
+    }
+  ]
+}

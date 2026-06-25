@@ -1,0 +1,175 @@
+slug: grafakos_classical_fourier
+title: Classical and Modern Fourier Analysis
+author: Loukas Grafakos
+edition: null
+subject: Harmonic Analysis
+publisher: Pearson Education
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 876
+bibliography_start_page: 914
+index_start_page: 940
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "$L^p$ Spaces and Interpolation"
+    page_start: 16
+    page_end: 91
+    chapter_title_block_idx: 88
+    chapter_title_block_idx_secondary: 89
+    problems_block_idx: null
+    next_chapter_block_idx: 1412
+  - num: 2
+    title: Maximal Functions, Fourier Transform, and Distributions
+    page_start: 92
+    page_end: 171
+    chapter_title_block_idx: 1412
+    chapter_title_block_idx_secondary: 1413
+    problems_block_idx: null
+    next_chapter_block_idx: 2808
+  - num: 3
+    title: Fourier Analysis on the Torus
+    page_start: 172
+    page_end: 261
+    chapter_title_block_idx: 2808
+    chapter_title_block_idx_secondary: 2809
+    problems_block_idx: null
+    next_chapter_block_idx: 4312
+  - num: 4
+    title: Singular Integrals of Convolution Type
+    page_start: 262
+    page_end: 351
+    chapter_title_block_idx: 4312
+    chapter_title_block_idx_secondary: 4313
+    problems_block_idx: null
+    next_chapter_block_idx: 5777
+  - num: 5
+    title: Littlewood-Paley Theory and Multipliers
+    page_start: 352
+    page_end: 427
+    chapter_title_block_idx: 5777
+    chapter_title_block_idx_secondary: 5778
+    problems_block_idx: null
+    next_chapter_block_idx: 6995
+  - num: 6
+    title: Smoothness and Function Spaces
+    page_start: 428
+    page_end: 531
+    chapter_title_block_idx: 6995
+    chapter_title_block_idx_secondary: 6996
+    problems_block_idx: null
+    next_chapter_block_idx: 8837
+  - num: 7
+    title: BMO and Carleson Measures
+    page_start: 532
+    page_end: 583
+    chapter_title_block_idx: 8837
+    chapter_title_block_idx_secondary: 8838
+    problems_block_idx: null
+    next_chapter_block_idx: 9686
+  - num: 8
+    title: Singular Integrals of Nonconvolution Type
+    page_start: 584
+    page_end: 689
+    chapter_title_block_idx: 9686
+    chapter_title_block_idx_secondary: 9687
+    problems_block_idx: null
+    next_chapter_block_idx: 11600
+  - num: 9
+    title: Weighted Inequalities
+    page_start: 690
+    page_end: 747
+    chapter_title_block_idx: 11600
+    chapter_title_block_idx_secondary: 11601
+    problems_block_idx: null
+    next_chapter_block_idx: 12603
+  - num: 10
+    title: Boundedness and Convergence of Fourier Integrals
+    page_start: 748
+    page_end: 875
+    chapter_title_block_idx: 12603
+    chapter_title_block_idx_secondary: 12604
+    problems_block_idx: null
+    next_chapter_block_idx: 14567
+
+appendices:
+  - id: A
+    title: Gamma and Beta Functions
+    page_start: 876
+    chapter_title_block_idx: 14567
+  - id: B
+    title: Bessel Functions
+    page_start: 881
+    chapter_title_block_idx: 14650
+  - id: C
+    title: Rademacher Functions
+    page_start: 888
+    chapter_title_block_idx: 14746
+  - id: D
+    title: Spherical Coordinates
+    page_start: 894
+    chapter_title_block_idx: 14829
+  - id: E
+    title: Some Trigonometric Identities and Inequalities
+    page_start: 898
+    chapter_title_block_idx: 14892
+  - id: F
+    title: Summation by Parts
+    page_start: 899
+    chapter_title_block_idx: 14912
+  - id: G
+    title: Basic Functional Analysis
+    page_start: 900
+    chapter_title_block_idx: 14924
+  - id: H
+    title: The Minimax Lemma
+    page_start: 901
+    chapter_title_block_idx: 14937
+  - id: I
+    title: The Schur Lemma
+    page_start: 904
+    chapter_title_block_idx: 14993
+  - id: J
+    title: The Whitney Decomposition of Open Sets in $R^{n}$
+    page_start: 909
+    chapter_title_block_idx: 15074
+  - id: K
+    title: Smoothness and Vanishing Moments
+    page_start: 911
+    chapter_title_block_idx: 15103
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\.\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.[a-z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:\d+|[A-Z])(?:\.\d+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

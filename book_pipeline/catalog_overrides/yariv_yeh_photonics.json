@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "13.4.2",
+      "classification": "source_mismatch",
+      "reason": "題目 13.12 在原始 PDF 實體頁 632 明寫 \"Figure 13.4-2\"，但第 13.4 節對應的 linear array 圖在實體頁 619，實際圖說是 \"Figure 13.6\"。此處是來源內部引用編號與 caption 編號系統不一致，不應硬改 catalog id。",
+      "where": "ch13.json problem 13.12 body block[0]",
+      "evidence": "raw PDF p.632: \"13.12 Consider the linear array as shown in Figure 13.4-2.\" raw PDF p.619 caption: \"Figure 13.6 A simple example of N parallel identical slab waveguides.\""
+    }
+  ],
+  "overrides": []
+}

@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "bjorken_drell_relativistic_qm-ch03-body-109-3fd106",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[109]",
+      "expect": "\\begin{array}{r l} \\int \\psi^ {(+)} ^ {\\dagger} (\\mathbf {x}, t) \\psi^ {(+)} (\\mathbf {x}, t) d ^ {3} x & = \\int d ^ {3} p \\frac {m c ^ {2}}{E ^ {-}} \\sum_ {\\pm s, \\pm s ^ {\\prime}} b ^ {*} (p, s ^ {\\prime}) b (p, s) u ^ {\\dagger} (p, s ^ {\\prime}) u (p, s) \\\\ & = \\int d ^ {3} p \\sum_ {\\pm s} | b (p, s) | ^ {2} = 1 \\end{array} \\tag {3.24}",
+      "new": "\\begin{array}{r l} \\int \\psi^{(+){\\dagger}} (\\mathbf {x}, t) \\psi^ {(+)} (\\mathbf {x}, t) d ^ {3} x & = \\int d ^ {3} p \\frac {m c ^ {2}}{E ^ {-}} \\sum_ {\\pm s, \\pm s ^ {\\prime}} b ^ {*} (p, s ^ {\\prime}) b (p, s) u ^ {\\dagger} (p, s ^ {\\prime}) u (p, s) \\\\ & = \\int d ^ {3} p \\sum_ {\\pm s} | b (p, s) | ^ {2} = 1 \\end{array} \\tag {3.24}"
+    },
+    {
+      "id": "bjorken_drell_relativistic_qm-ch05-body-60-0e4467",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[60]",
+      "expect": "\\begin{array}{l} P \\Phi (\\mathbf {x}, t) = \\Phi^ {\\prime} (\\mathbf {x} ^ {\\prime}, t) = \\Phi (\\mathbf {x}, t) \\\\ P \\mathbf {A} (\\mathbf {x}, t) = \\mathbf {A} ^ {\\prime} (\\mathbf {x} ^ {\\prime}, t) = - \\mathbf {A} (\\mathbf {x}, t) \\qquad \\text {for x^{\\prime} = -x} \\end{array}",
+      "new": "\\begin{array}{l} P \\Phi (\\mathbf {x}, t) = \\Phi^ {\\prime} (\\mathbf {x} ^ {\\prime}, t) = \\Phi (\\mathbf {x}, t) \\\\ P \\mathbf {A} (\\mathbf {x}, t) = \\mathbf {A} ^ {\\prime} (\\mathbf {x} ^ {\\prime}, t) = - \\mathbf {A} (\\mathbf {x}, t) \\qquad \\text {for } x^{\\prime} = -x \\end{array}"
+    },
+    {
+      "id": "bjorken_drell_relativistic_qm-appB-body-27-771727",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[27]",
+      "field": "md",
+      "all": true,
+      "old": "$\\hat { \\big \\ S }$",
+      "new": "$\\hat { S }$",
+      "anchor": "ee41da1a"
+    },
+    {
+      "id": "bjorken_drell_relativistic_qm-ch08-body-224-5ff7bc",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[224]",
+      "expect": "\\begin{array}{r l} & {\\int_ {- \\infty} ^ {\\infty} d ^ {4} k f (k) \\frac {1}{k ^ {2} - \\lambda^ {2} + i \\epsilon} \\frac {1}{(p ^ {\\prime} - k) ^ {2} - m ^ {2} + i \\epsilon} \\frac {1}{(p - k) ^ {2} - m ^ {2} + i \\epsilon}} \\\\ & {\\quad = 2 \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} d z _ {1} d z _ {2} d z _ {3} \\delta (1 - z _ {1} - z _ {2} - z _ {3})} \\\\ & {\\qquad \\times \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {4} k f (k)}{[ k ^ {2} - 2 k \\cdot p ^ {\\prime} z _ {2} - 2 k \\cdot p z _ {3} - \\lambda^ {2} z _ {1} + (p ^ {\\prime 2} - m ^ {2}) z _ {2} + (p ^ {2} - m ^ {2}) z _ {3} + i \\epsilon ] ^ {3}}} \\\\ & {\\quad = 2 \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} d z _ {1} d z _ {2} d z _ {3} \\delta (1 - z _ {1} - z _ {2} - z _ {3}) \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {4} k f (k + p ^ {\\prime} z _ {2} + p z _ {3})}{(k ^ {2} - c + i \\epsilon) ^ {3}}} \\\\ & {\\text {with c\\equiv (p^{\\prime} z_{2} +pz_{3})\\cdot(p^{\\prime} z_{2} +pz_{3})+ \\lambda^{2} z_{1} -(p^{\\prime 2}-m^{2})z_{2} -(p^{2}-m^{2})z_{3}}} \\\\ & {\\qquad = - p ^ {\\prime 2} z _ {2} (1 - z _ {2}) - p ^ {2} z _ {3} (1 - z _ {3}) + 2 p \\cdot p ^ {\\prime} z _ {2} z _ {3} + m ^ {2} (1 - z _ {1}) + \\lambda^ {2} z _ {1}} \\\\ & {\\qquad = - (p ^ {\\prime 2} - m ^ {2}) z _ {2} (1 - z _ {2}) - (p ^ {2} - m ^ {2}) z _ {3} (1 - z _ {3}) - q ^ {2} z _ {2} z _ {3}} \\\\ & {\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad + m ^ {2} (1 - z _ {1}) ^ {2} + \\lambda^ {2} z _ {1}} \\end{array}",
+      "new": "\\begin{array}{r l} & {\\int_ {- \\infty} ^ {\\infty} d ^ {4} k f (k) \\frac {1}{k ^ {2} - \\lambda^ {2} + i \\epsilon} \\frac {1}{(p ^ {\\prime} - k) ^ {2} - m ^ {2} + i \\epsilon} \\frac {1}{(p - k) ^ {2} - m ^ {2} + i \\epsilon}} \\\\ & {\\quad = 2 \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} d z _ {1} d z _ {2} d z _ {3} \\delta (1 - z _ {1} - z _ {2} - z _ {3})} \\\\ & {\\qquad \\times \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {4} k f (k)}{[ k ^ {2} - 2 k \\cdot p ^ {\\prime} z _ {2} - 2 k \\cdot p z _ {3} - \\lambda^ {2} z _ {1} + (p ^ {\\prime 2} - m ^ {2}) z _ {2} + (p ^ {2} - m ^ {2}) z _ {3} + i \\epsilon ] ^ {3}}} \\\\ & {\\quad = 2 \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} \\int_ {0} ^ {\\infty} d z _ {1} d z _ {2} d z _ {3} \\delta (1 - z _ {1} - z _ {2} - z _ {3}) \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {4} k f (k + p ^ {\\prime} z _ {2} + p z _ {3})}{(k ^ {2} - c + i \\epsilon) ^ {3}}} \\\\ & {\\text {with } c\\equiv (p^{\\prime} z_{2} +pz_{3})\\cdot(p^{\\prime} z_{2} +pz_{3})+ \\lambda^{2} z_{1} -(p^{\\prime 2}-m^{2})z_{2} -(p^{2}-m^{2})z_{3}} \\\\ & {\\qquad = - p ^ {\\prime 2} z _ {2} (1 - z _ {2}) - p ^ {2} z _ {3} (1 - z _ {3}) + 2 p \\cdot p ^ {\\prime} z _ {2} z _ {3} + m ^ {2} (1 - z _ {1}) + \\lambda^ {2} z _ {1}} \\\\ & {\\qquad = - (p ^ {\\prime 2} - m ^ {2}) z _ {2} (1 - z _ {2}) - (p ^ {2} - m ^ {2}) z _ {3} (1 - z _ {3}) - q ^ {2} z _ {2} z _ {3}} \\\\ & {\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad + m ^ {2} (1 - z _ {1}) ^ {2} + \\lambda^ {2} z _ {1}} \\end{array}"
+    }
+  ]
+}

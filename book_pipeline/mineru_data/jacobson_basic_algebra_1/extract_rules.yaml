@@ -1,0 +1,118 @@
+slug: jacobson_basic_algebra_1
+title: Basic Algebra I
+author: Nathan Jacobson
+edition: 2nd
+subject: Abstract Algebra
+publisher: W. H. Freeman and Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 506
+bibliography_start_page: null
+index_start_page: 512
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Concepts from Set Theory. The Integers
+    page_start: 18
+    page_end: 42
+    chapter_title_block_idx: 82
+    problems_block_idx: null
+    next_chapter_block_idx: 395
+  - num: 1
+    title: Monoids and Groups
+    page_start: 43
+    page_end: 101
+    chapter_title_block_idx: 395
+    problems_block_idx: null
+    next_chapter_block_idx: 1128
+  - num: 2
+    title: Rings
+    page_start: 102
+    page_end: 173
+    chapter_title_block_idx: 1128
+    problems_block_idx: null
+    next_chapter_block_idx: 2089
+  - num: 3
+    title: Modules over a Principal Ideal Domain
+    page_start: 174
+    page_end: 226
+    chapter_title_block_idx: 2089
+    problems_block_idx: null
+    next_chapter_block_idx: 2751
+  - num: 4
+    title: Galois Theory of Equations
+    page_start: 227
+    page_end: 322
+    chapter_title_block_idx: 2751
+    problems_block_idx: null
+    next_chapter_block_idx: 3864
+  - num: 5
+    title: Real Polynomial Equations and Inequalities
+    page_start: 323
+    page_end: 358
+    chapter_title_block_idx: 3864
+    problems_block_idx: null
+    next_chapter_block_idx: 4242
+  - num: 6
+    title: Metric Vector Spaces and the Classical Groups
+    page_start: 359
+    page_end: 421
+    chapter_title_block_idx: 4242
+    problems_block_idx: null
+    next_chapter_block_idx: 4996
+  - num: 7
+    title: Algebras Over a Field
+    page_start: 422
+    page_end: 471
+    chapter_title_block_idx: 4996
+    problems_block_idx: null
+    next_chapter_block_idx: 5686
+  - num: 8
+    title: Lattices and Boolean Algebras
+    page_start: 472
+    page_end: 505
+    chapter_title_block_idx: 5686
+    problems_block_idx: null
+    next_chapter_block_idx: 6176
+
+appendices:
+  - id: A
+    title: Some Topics for Independent Study
+    page_start: 506
+    chapter_title_block_idx: 6176
+
+section_re: '^(\d+\.\d+)\s+((?:[^a-z\s]+)(?:\s+.+)?)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+((?:[^a-z\s]+)(?:\s+.+)?)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '(?i)^EXERCISES?$'
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

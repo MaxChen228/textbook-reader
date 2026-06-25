@@ -1,0 +1,165 @@
+slug: matousek_lectures_discrete_geometry
+title: Lectures on Discrete Geometry
+author: Jiri Matousek
+edition: null
+subject: Computational Geometry
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 418
+bibliography_start_page: 434
+index_start_page: 476
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Convexity
+    page_start: 18
+    page_end: 33
+    chapter_title_block_idx: 163
+    problems_block_idx: null
+    next_chapter_block_idx: 367
+  - num: 2
+    title: "Lattices and Minkowski's Theorem"
+    page_start: 34
+    page_end: 45
+    chapter_title_block_idx: 367
+    problems_block_idx: null
+    next_chapter_block_idx: 486
+  - num: 3
+    title: Convex Independent Subsets
+    page_start: 46
+    page_end: 57
+    chapter_title_block_idx: 486
+    problems_block_idx: null
+    next_chapter_block_idx: 614
+  - num: 4
+    title: Incidence Problems
+    page_start: 58
+    page_end: 93
+    chapter_title_block_idx: 614
+    problems_block_idx: null
+    next_chapter_block_idx: 999
+  - num: 5
+    title: Convex Polytopes
+    page_start: 94
+    page_end: 141
+    chapter_title_block_idx: 999
+    problems_block_idx: null
+    next_chapter_block_idx: 1552
+  - num: 6
+    title: Number of Faces in Arrangements
+    page_start: 142
+    page_end: 181
+    chapter_title_block_idx: 1552
+    problems_block_idx: null
+    next_chapter_block_idx: 2008
+  - num: 7
+    title: Lower Envelopes
+    page_start: 182
+    page_end: 211
+    chapter_title_block_idx: 2008
+    problems_block_idx: null
+    next_chapter_block_idx: 2353
+  - num: 8
+    title: Intersection Patterns of Convex Sets
+    page_start: 212
+    page_end: 223
+    chapter_title_block_idx: 2353
+    problems_block_idx: null
+    next_chapter_block_idx: 2476
+  - num: 9
+    title: Geometric Selection Theorems
+    page_start: 224
+    page_end: 247
+    chapter_title_block_idx: 2476
+    problems_block_idx: null
+    next_chapter_block_idx: 2728
+  - num: 10
+    title: Transversals and Epsilon Nets
+    page_start: 248
+    page_end: 281
+    chapter_title_block_idx: 2728
+    problems_block_idx: null
+    next_chapter_block_idx: 3107
+  - num: 11
+    title: Attempts to Count k-Sets
+    page_start: 282
+    page_end: 305
+    chapter_title_block_idx: 3107
+    problems_block_idx: null
+    next_chapter_block_idx: 3391
+  - num: 12
+    title: Two Applications of High-Dimensional Polytopes
+    page_start: 306
+    page_end: 327
+    chapter_title_block_idx: 3391
+    problems_block_idx: null
+    next_chapter_block_idx: 3640
+  - num: 13
+    title: Volumes in High Dimension
+    page_start: 328
+    page_end: 345
+    chapter_title_block_idx: 3640
+    problems_block_idx: null
+    next_chapter_block_idx: 3853
+  - num: 14
+    title: Measure Concentration and Almost Spherical Sections
+    page_start: 346
+    page_end: 371
+    chapter_title_block_idx: 3853
+    problems_block_idx: null
+    next_chapter_block_idx: 4162
+  - num: 15
+    title: Embedding Finite Metric Spaces into Normed Spaces
+    page_start: 372
+    page_end: 417
+    chapter_title_block_idx: 4162
+    problems_block_idx: null
+    next_chapter_block_idx: 4713
+
+appendices:
+  - id: A
+    title: What Was It About? An Informal Summary
+    page_start: 418
+    chapter_title_block_idx: 4713
+  - id: B
+    title: Hints to Selected Exercises
+    page_start: 426
+    chapter_title_block_idx: 4827
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '(?i)^Exercises$'
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

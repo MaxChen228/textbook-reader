@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "leveque_finite_difference-ch04-body-11-4a88ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[11]",
+      "expect": "\\begin{array}{l} \\text {for iter = 0:maxiter} \\\\ \\text {for j = 2:(m + 1)} \\\\ \\text {for i = 2:(m + 1)} \\\\ \\text {unew(i,j) = 0.25*(u(i - 1,j) + u(i + 1,j) + ...} \\\\ \\text {u(i,j - 1) + u(i,j + 1) - h^2 * f(i,j));} \\\\ \\text {end} \\\\ \\text {end} \\\\ \\text {u = unew;} \\\\ \\text {end} \\end{array}",
+      "new": "\\begin{array}{l} \\text {for iter = 0:maxiter} \\\\ \\text {for j = 2:(m + 1)} \\\\ \\text {for i = 2:(m + 1)} \\\\ \\text {unew(i,j) = 0.25*(u(i - 1,j) + u(i + 1,j) + ...} \\\\ \\text {u(i,j - 1) + u(i,j + 1) - h}^{2}\\text{ * f(i,j));} \\\\ \\text {end} \\\\ \\text {end} \\\\ \\text {u = unew;} \\\\ \\text {end} \\end{array}"
+    },
+    {
+      "id": "leveque_finite_difference-appB-body-95-625325",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[95]",
+      "expect": "\\begin{array}{l} \\text {Toff = .5. / sqrt(1 - (2*(1:m - 1)) . ^ {(-2)) ;}} \\\\ \\text {T = diag(Toff,1) + diag(Toff, - 1);} \\\\ \\text {xi = sort(eig(T));} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Toff = .5. / sqrt(1 - (2*(1:m - 1)) .}^{(-2)}\\text{) ;} \\\\ \\text {T = diag(Toff,1) + diag(Toff, - 1);} \\\\ \\text {xi = sort(eig(T));} \\end{array}"
+    },
+    {
+      "id": "leveque_finite_difference-ch04-body-155-6705b9",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[155]",
+      "expect": "\\begin{array}{l} \\text {choose a guess u_{0}} \\\\ r _ {0} = f - A u _ {0} \\\\ \\text {for k = 1, 2, \\ldots} \\\\ \\quad w _ {k - 1} = A r _ {k - 1} \\\\ \\quad \\alpha_ {k - 1} = (r _ {k - 1} ^ {T} r _ {k - 1}) / (r _ {k - 1} ^ {T} w _ {k - 1}) \\\\ \\quad u _ {k} = u _ {k - 1} + \\alpha_ {k - 1} r _ {k - 1} \\\\ \\quad r _ {k} = r _ {k - 1} - \\alpha_ {k - 1} w _ {k - 1} \\\\ \\quad \\text {if \\|r_{k}\\| is less than some tolerance then stop} \\\\ \\quad \\text {end} \\end{array}",
+      "new": "\\begin{array}{l} \\text {choose a guess } u_{0} \\\\ r _ {0} = f - A u _ {0} \\\\ \\text {for } k = 1, 2, \\ldots \\\\ \\quad w _ {k - 1} = A r _ {k - 1} \\\\ \\quad \\alpha_ {k - 1} = (r _ {k - 1} ^ {T} r _ {k - 1}) / (r _ {k - 1} ^ {T} w _ {k - 1}) \\\\ \\quad u _ {k} = u _ {k - 1} + \\alpha_ {k - 1} r _ {k - 1} \\\\ \\quad r _ {k} = r _ {k - 1} - \\alpha_ {k - 1} w _ {k - 1} \\\\ \\quad \\text {if } \\|r_{k}\\| \\text { is less than some tolerance then stop} \\\\ \\quad \\text {end} \\end{array}"
+    },
+    {
+      "id": "leveque_finite_difference-ch04-body-209-417447",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[209]",
+      "expect": "\\begin{array}{l} \\text {Choose initial guess u_{0} (possibly the zero vector)} \\\\ r _ {0} = f - A u _ {0} \\\\ p _ {0} = r _ {0} \\\\ \\text {for k = 1, 2, ...} \\\\ \\quad w _ {k - 1} = A p _ {k - 1} \\\\ \\alpha_ {k - 1} = (r _ {k - 1} ^ {T} r _ {k - 1}) / (p _ {k - 1} ^ {T} w _ {k - 1}) \\\\ u _ {k} = u _ {k - 1} + \\alpha_ {k - 1} p _ {k - 1} \\\\ r _ {k} = r _ {k - 1} - \\alpha_ {k - 1} w _ {k - 1} \\\\ \\text {if \\|r_{k}\\| is less than some tolerance then stop} \\\\ \\beta_ {k - 1} = (r _ {k} ^ {T} r _ {k}) / (r _ {k - 1} ^ {T} r _ {k - 1}) \\\\ p _ {k} = r _ {k} + \\beta_ {k - 1} p _ {k - 1} \\\\ \\text {end} \\end{array}",
+      "new": "\\begin{array}{l} \\text {Choose initial guess } u_{0} \\text { (possibly the zero vector)} \\\\ r _ {0} = f - A u _ {0} \\\\ p _ {0} = r _ {0} \\\\ \\text {for k = 1, 2, ...} \\\\ \\quad w _ {k - 1} = A p _ {k - 1} \\\\ \\alpha_ {k - 1} = (r _ {k - 1} ^ {T} r _ {k - 1}) / (p _ {k - 1} ^ {T} w _ {k - 1}) \\\\ u _ {k} = u _ {k - 1} + \\alpha_ {k - 1} p _ {k - 1} \\\\ r _ {k} = r _ {k - 1} - \\alpha_ {k - 1} w _ {k - 1} \\\\ \\text {if } \\|r_{k}\\| \\text { is less than some tolerance then stop} \\\\ \\beta_ {k - 1} = (r _ {k} ^ {T} r _ {k}) / (r _ {k - 1} ^ {T} r _ {k - 1}) \\\\ p _ {k} = r _ {k} + \\beta_ {k - 1} p _ {k - 1} \\\\ \\text {end} \\end{array}"
+    },
+    {
+      "id": "leveque_finite_difference-ch04-body-344-e3cd14",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[344]",
+      "expect": "\\begin{array}{l} q _ {1} = r _ {0} / \\| r _ {0} \\| _ {2} \\\\ \\text {for k = 1, 2, ...} \\\\ v = A q _ {k} \\\\ \\text {for i = 1:k} \\\\ h _ {i k} = q _ {i} ^ {T} v \\\\ v = v - h _ {i k} q _ {i} & \\% \\text {orthogonalize to previous vectors} \\\\ \\text {end} \\\\ h _ {k + 1, k} = \\| v \\| _ {2} \\\\ q _ {k + 1} = v / h _ {k + 1, k} & \\% \\text {normalize} \\\\ \\% \\text {For GMRES: Check residual of least squares problem (4.75).} \\\\ \\% \\text {If it's sufficiently small, halt and compute u_{k}} \\\\ \\text {end} \\end{array}",
+      "new": "\\begin{array}{l l} q _ {1} = r _ {0} / \\| r _ {0} \\| _ {2} \\\\ \\text {for k = 1, 2, ...} \\\\ v = A q _ {k} \\\\ \\text {for i = 1:k} \\\\ h _ {i k} = q _ {i} ^ {T} v \\\\ v = v - h _ {i k} q _ {i} & \\% \\text {orthogonalize to previous vectors} \\\\ \\text {end} \\\\ h _ {k + 1, k} = \\| v \\| _ {2} \\\\ q _ {k + 1} = v / h _ {k + 1, k} & \\% \\text {normalize} \\\\ \\% \\text {For GMRES: Check residual of least squares problem (4.75).} \\\\ \\% \\text {If it's sufficiently small, halt and compute } u_{k} \\\\ \\text {end} \\end{array}"
+    },
+    {
+      "id": "leveque_finite_difference-ch02-body-281-404280",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[281]",
+      "expect": "A = \\frac {1}{h ^ {2}} \\left[ \\begin{array}{c c c c} \\left(h ^ {2} c _ {1} - 2 a _ {1}\\right) & \\left(a _ {1} + h b _ {1} / 2\\right) & & \\\\ \\left(a _ {2} - h b _ {2} / 2\\right) & \\left(h ^ {2} c _ {2} - 2 a _ {2}\\right) & \\left(a _ {2} + h b _ {2} / 2\\right) & \\\\ \\ddots & \\ddots & \\ddots & \\\\ & \\left(a _ {m - 1} - h b _ {m - 1} / 2\\right) & \\left(h ^ {2} c _ {m - 1} - 2 a _ {m - 1}\\right) & \\left(a _ {m - 1} + h b _ {m - 1} / 2\\right) \\\\ & & \\left(a _ {m} - h b _ {m} / 2\\right) & \\left(h ^ {2} c _ {m} - 2 a _ {m}\\right) \\end{array} \\right. \\tag {3-6}\\tag{2.67}",
+      "new": "A = \\frac {1}{h ^ {2}} \\left[ \\begin{array}{c c c c} \\left(h ^ {2} c _ {1} - 2 a _ {1}\\right) & \\left(a _ {1} + h b _ {1} / 2\\right) & & \\\\ \\left(a _ {2} - h b _ {2} / 2\\right) & \\left(h ^ {2} c _ {2} - 2 a _ {2}\\right) & \\left(a _ {2} + h b _ {2} / 2\\right) & \\\\ \\ddots & \\ddots & \\ddots & \\\\ & \\left(a _ {m - 1} - h b _ {m - 1} / 2\\right) & \\left(h ^ {2} c _ {m - 1} - 2 a _ {m - 1}\\right) & \\left(a _ {m - 1} + h b _ {m - 1} / 2\\right) \\\\ & & \\left(a _ {m} - h b _ {m} / 2\\right) & \\left(h ^ {2} c _ {m} - 2 a _ {m}\\right) \\end{array} \\right] \\tag {3-6}"
+    }
+  ]
+}

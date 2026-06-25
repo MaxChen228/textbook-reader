@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "grosso_parravicini_solid_state-ch73-body-26-e26465",
+      "action": "fix_inline_math",
+      "chunk": "ch73",
+      "selector": "body[26]",
+      "field": "md",
+      "all": true,
+      "old": "$\\int_{V}J\\cdotE dr$",
+      "new": "$\\int_{V}J\\cdot E dr$",
+      "anchor": "8c6261a3"
+    },
+    {
+      "id": "grosso_parravicini_solid_state-ch46-body-46-2b1ed2",
+      "action": "fix_eq_tex",
+      "chunk": "ch46",
+      "selector": "body[46]",
+      "expect": "\\varepsilon_ {2} (q, \\omega) = \\left\\{ \\begin{array}{l l} \\frac {2 m ^ {2} e ^ {2}}{\\hbar^ {3}} \\frac {\\omega}{q ^ {3}} & \\text {if q <   2k_{F} and 0\\leq(2m / \\hbar)\\omega\\leq 2qk_{F} - q^{2}} \\\\ \\frac {m e ^ {2}}{\\hbar^ {2}} \\frac {1}{q ^ {3}} \\left[ k _ {\\mathrm{F}} ^ {2} - \\left(\\frac {q}{2} - \\frac {m}{\\hbar} \\frac {\\omega}{q}\\right) ^ {2} \\right] & \\text {if 2qk_{F} -q^{2} \\leq(2m / \\hbar)\\omega\\leq 2qk_{F} + q^{2}} \\\\ 0 & \\text {in the other cases} \\end{array} \\right.\\tag{A10}",
+      "new": "\\varepsilon_ {2} (q, \\omega) = \\left\\{ \\begin{array}{l l} \\frac {2 m ^ {2} e ^ {2}}{\\hbar^ {3}} \\frac {\\omega}{q ^ {3}} & \\text {if } q < 2k_{F} \\text { and } 0\\leq(2m / \\hbar)\\omega\\leq 2qk_{F} - q^{2} \\\\ \\frac {m e ^ {2}}{\\hbar^ {2}} \\frac {1}{q ^ {3}} \\left[ k _ {\\mathrm{F}} ^ {2} - \\left(\\frac {q}{2} - \\frac {m}{\\hbar} \\frac {\\omega}{q}\\right) ^ {2} \\right] & \\text {if } 2qk_{F} -q^{2} \\leq(2m / \\hbar)\\omega\\leq 2qk_{F} + q^{2} \\\\ 0 & \\text {in the other cases} \\end{array} \\right.\\tag{A10}"
+    },
+    {
+      "id": "grosso_parravicini_solid_state-ch120-body-83-f7cf93",
+      "action": "fix_eq_tex",
+      "chunk": "ch120",
+      "selector": "body[83]",
+      "expect": "\\begin{array}{l} \\langle f | H _ {\\text { indirect }} | i \\rangle = \\frac {1}{2} \\langle f | H _ {1} S - S H _ {1} | i \\rangle = \\frac {1}{2} \\sum_ {\\alpha} [ \\langle f | H _ {1} | \\alpha \\rangle \\langle \\alpha | S | i \\rangle - \\langle f | S | \\alpha \\rangle \\langle \\alpha | H _ {1} | i \\rangle ] \\\\ = \\frac {1}{2} \\sum_ {\\alpha} \\langle f | H _ {1} | \\alpha \\rangle \\langle \\alpha | H _ {1} | i \\rangle \\left[ \\frac {1}{E _ {i} - E _ {\\alpha}} + \\frac {1}{E _ {f} - E _ {\\alpha}} \\right]. \\end{array} \\tag {A}\\tag{A4}",
+      "new": "\\begin{array}{l} \\langle f | H _ {\\text { indirect }} | i \\rangle = \\frac {1}{2} \\langle f | H _ {1} S - S H _ {1} | i \\rangle = \\frac {1}{2} \\sum_ {\\alpha} [ \\langle f | H _ {1} | \\alpha \\rangle \\langle \\alpha | S | i \\rangle - \\langle f | S | \\alpha \\rangle \\langle \\alpha | H _ {1} | i \\rangle ] \\\\ = \\frac {1}{2} \\sum_ {\\alpha} \\langle f | H _ {1} | \\alpha \\rangle \\langle \\alpha | H _ {1} | i \\rangle \\left[ \\frac {1}{E _ {i} - E _ {\\alpha}} + \\frac {1}{E _ {f} - E _ {\\alpha}} \\right]. \\end{array} \\tag{A4}"
+    }
+  ]
+}

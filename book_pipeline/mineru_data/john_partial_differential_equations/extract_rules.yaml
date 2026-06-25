@@ -1,0 +1,110 @@
+slug: john_partial_differential_equations
+title: Partial Differential Equations
+author: Fritz John
+edition: 4th
+subject: Differential Equations
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+  - 1
+  - 2
+
+body_start_page: 9
+appendices_start_page: 248
+bibliography_start_page: 248
+index_start_page: 252
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: The Single First-Order Equation
+    page_start: 9
+    page_end: 40
+    chapter_title_block_idx: 44
+    problems_block_idx: null
+    next_chapter_block_idx: 638
+  - num: 2
+    title: "Second-Order Equations: Hyperbolic Equations for Functions of Two Independent Variables"
+    page_start: 41
+    page_end: 61
+    chapter_title_block_idx: 638
+    problems_block_idx: null
+    next_chapter_block_idx: 1007
+  - num: 3
+    title: Characteristic Manifolds and the Cauchy Problem
+    page_start: 62
+    page_end: 101
+    chapter_title_block_idx: 1006
+    problems_block_idx: null
+    next_chapter_block_idx: 1757
+  - num: 4
+    title: The Laplace Equation
+    page_start: 102
+    page_end: 133
+    chapter_title_block_idx: 1756
+    problems_block_idx: null
+    next_chapter_block_idx: 2358
+  - num: 5
+    title: Hyperbolic Equations in Higher Dimensions
+    page_start: 134
+    page_end: 192
+    chapter_title_block_idx: 2357
+    problems_block_idx: null
+    next_chapter_block_idx: 3523
+  - num: 6
+    title: Higher-Order Elliptic Equations with Constant Coefficients
+    page_start: 193
+    page_end: 213
+    chapter_title_block_idx: 3523
+    problems_block_idx: null
+    next_chapter_block_idx: 3925
+  - num: 7
+    title: Parabolic Equations
+    page_start: 214
+    page_end: 242
+    chapter_title_block_idx: 3924
+    problems_block_idx: null
+    next_chapter_block_idx: 4492
+  - num: 8
+    title: H. Lewy's Example of a Linear Equation without Solutions
+    page_start: 243
+    page_end: 247
+    chapter_title_block_idx: 4491
+    problems_block_idx: null
+    next_chapter_block_idx: 4567
+
+appendices: []
+
+section_re: '^(?=(\d+\.\s+(?!(?:For|To|Let|Find|Show|Solve|Write|Prove|Use|Given|Assume|Identify|Verify|Compute|Derive|Construct|Consider|Suppose|Explain|State|Instability|Apply|Determine)\b).+)$)\d+\.\s+(.+)$'
+subsection_re: '^(?=(\([a-z]\)\s+.+)$)\([a-z]\)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_start_re: '(?i)^PROBLEMS?$'
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

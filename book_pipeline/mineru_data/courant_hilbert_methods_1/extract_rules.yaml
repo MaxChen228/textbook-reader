@@ -1,0 +1,86 @@
+slug: courant_hilbert_methods_1
+title: "Methods of Mathematical Physics, Volume II: Partial Differential Equations"
+author: "Richard Courant; David Hilbert"
+edition: null
+subject: Differential Equations
+publisher: Interscience Publishers
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 822
+bibliography_start_page: 822
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introductory Remarks
+    page_start: 24
+    page_end: 84
+    chapter_title_block_idx: 84
+    problems_block_idx: null
+    next_chapter_block_idx: 1073
+  - num: 2
+    title: General Theory of Partial Differential Equations of First Order
+    page_start: 85
+    page_end: 176
+    chapter_title_block_idx: 1073
+    problems_block_idx: null
+    next_chapter_block_idx: 2458
+  - num: 3
+    title: Differential Equations of Higher Order
+    page_start: 177
+    page_end: 262
+    chapter_title_block_idx: 2458
+    problems_block_idx: null
+    next_chapter_block_idx: 3791
+  - num: 4
+    title: Potential Theory and Elliptic Differential Equations
+    page_start: 263
+    page_end: 429
+    chapter_title_block_idx: 3791
+    problems_block_idx: null
+    next_chapter_block_idx: 6296
+  - num: 5
+    title: Hyperbolic Differential Equations in Two Independent Variables
+    page_start: 430
+    page_end: 573
+    chapter_title_block_idx: 6296
+    problems_block_idx: null
+    next_chapter_block_idx: 8572
+  - num: 6
+    title: Hyperbolic Differential Equations in More Than Two Independent Variables
+    page_start: 574
+    page_end: 821
+    chapter_title_block_idx: 8572
+    problems_block_idx: null
+    next_chapter_block_idx: 12293
+
+section_re: '^(§\d+[a-z]?)\.\s+(.+)$'
+subsection_re: '^(NO_SUBSECTION_MATCH)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(NO_PROBLEM_MATCH)$'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

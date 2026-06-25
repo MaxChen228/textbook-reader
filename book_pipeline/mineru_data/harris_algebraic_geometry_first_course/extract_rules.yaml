@@ -1,0 +1,205 @@
+slug: harris_algebraic_geometry_first_course
+title: Algebraic Geometry A First Course
+author: Joe Harris
+edition: null
+subject: Algebraic Geometry
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 328
+bibliography_start_page: 334
+index_start_page: 337
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Affine and Projective Varieties
+    page_start: 23
+    page_end: 36
+    chapter_title_block_idx: 136
+    problems_block_idx: null
+    next_chapter_block_idx: 317
+  - num: 2
+    title: Regular Functions and Maps
+    page_start: 37
+    page_end: 51
+    chapter_title_block_idx: 317
+    problems_block_idx: null
+    next_chapter_block_idx: 520
+  - num: 3
+    title: Cones, Projections, and More About Products
+    page_start: 52
+    page_end: 60
+    chapter_title_block_idx: 520
+    chapter_title_block_idx_secondary: 521
+    problems_block_idx: null
+    next_chapter_block_idx: 648
+  - num: 4
+    title: Families and Parameter Spaces
+    page_start: 61
+    page_end: 67
+    chapter_title_block_idx: 648
+    problems_block_idx: null
+    next_chapter_block_idx: 741
+  - num: 5
+    title: Ideals of Varieties, Irreducible Decomposition, and the Nullstellensatz
+    page_start: 68
+    page_end: 82
+    chapter_title_block_idx: 741
+    problems_block_idx: null
+    next_chapter_block_idx: 953
+  - num: 6
+    title: Grassmannians and Related Varieties
+    page_start: 83
+    page_end: 91
+    chapter_title_block_idx: 953
+    problems_block_idx: null
+    next_chapter_block_idx: 1075
+  - num: 7
+    title: Rational Functions and Rational Maps
+    page_start: 92
+    page_end: 107
+    chapter_title_block_idx: 1075
+    problems_block_idx: null
+    next_chapter_block_idx: 1297
+  - num: 8
+    title: More Examples
+    page_start: 108
+    page_end: 117
+    chapter_title_block_idx: 1297
+    problems_block_idx: null
+    next_chapter_block_idx: 1444
+  - num: 9
+    title: Determinantal Varieties
+    page_start: 118
+    page_end: 133
+    chapter_title_block_idx: 1444
+    problems_block_idx: null
+    next_chapter_block_idx: 1667
+  - num: 10
+    title: Algebraic Groups
+    page_start: 134
+    page_end: 150
+    chapter_title_block_idx: 1667
+    problems_block_idx: null
+    next_chapter_block_idx: 1891
+  - num: 11
+    title: Definitions of Dimension and Elementary Examples
+    page_start: 153
+    page_end: 170
+    chapter_title_block_idx: 1895
+    chapter_title_block_idx_secondary: 1896
+    problems_block_idx: null
+    next_chapter_block_idx: 2123
+  - num: 12
+    title: More Dimension Computations
+    page_start: 171
+    page_end: 182
+    chapter_title_block_idx: 2123
+    problems_block_idx: null
+    next_chapter_block_idx: 2275
+  - num: 13
+    title: Hilbert Polynomials
+    page_start: 183
+    page_end: 193
+    chapter_title_block_idx: 2275
+    problems_block_idx: null
+    next_chapter_block_idx: 2446
+  - num: 14
+    title: Smoothness and Tangent Spaces
+    page_start: 194
+    page_end: 205
+    chapter_title_block_idx: 2446
+    problems_block_idx: null
+    next_chapter_block_idx: 2611
+  - num: 15
+    title: Gauss Maps, Tangential and Dual Varieties
+    page_start: 206
+    page_end: 219
+    chapter_title_block_idx: 2611
+    chapter_title_block_idx_secondary: 2612
+    problems_block_idx: null
+    next_chapter_block_idx: 2795
+  - num: 16
+    title: Tangent Spaces to Grassmannians
+    page_start: 220
+    page_end: 230
+    chapter_title_block_idx: 2795
+    problems_block_idx: null
+    next_chapter_block_idx: 2957
+  - num: 17
+    title: Further Topics Involving Smoothness and Tangent Spaces
+    page_start: 231
+    page_end: 243
+    chapter_title_block_idx: 2957
+    problems_block_idx: null
+    next_chapter_block_idx: 3150
+  - num: 18
+    title: Degree
+    page_start: 244
+    page_end: 258
+    chapter_title_block_idx: 3150
+    problems_block_idx: null
+    next_chapter_block_idx: 3356
+  - num: 19
+    title: Further Examples and Applications of Degree
+    page_start: 259
+    page_end: 270
+    chapter_title_block_idx: 3356
+    problems_block_idx: null
+    next_chapter_block_idx: 3499
+  - num: 20
+    title: Singular Points and Tangent Cones
+    page_start: 271
+    page_end: 285
+    chapter_title_block_idx: 3499
+    problems_block_idx: null
+    next_chapter_block_idx: 3691
+  - num: 21
+    title: Parameter Spaces and Moduli Spaces
+    page_start: 286
+    page_end: 301
+    chapter_title_block_idx: 3691
+    problems_block_idx: null
+    next_chapter_block_idx: 3867
+  - num: 22
+    title: Quadrics
+    page_start: 302
+    page_end: 327
+    chapter_title_block_idx: 3867
+    problems_block_idx: null
+    next_chapter_block_idx: 4224
+
+section_re: '^()((?!(?:Example|Exercise)\b)(?!(?:LECTURE|PART|Contents|References|Index|Hints\b))[A-Z][^\n]{1,120})$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\.'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

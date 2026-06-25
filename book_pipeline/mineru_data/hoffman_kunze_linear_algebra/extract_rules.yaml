@@ -1,0 +1,124 @@
+slug: hoffman_kunze_linear_algebra
+title: Linear Algebra
+author: Kenneth Hoffman; Ray Kunze
+edition: 2nd
+subject: Linear Algebra
+publisher: Prentice-Hall, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 395
+bibliography_start_page: 409
+index_start_page: 410
+
+inline_problems: true
+problem_num_namespace_by_section: true
+problems_start_re: '^Exercises$'
+
+chapters:
+  - num: 1
+    title: Linear Equations
+    page_start: 10
+    page_end: 36
+    chapter_title_block_idx: 51
+    problems_block_idx: null
+    next_chapter_block_idx: 528
+  - num: 2
+    title: Vector Spaces
+    page_start: 37
+    page_end: 75
+    chapter_title_block_idx: 528
+    problems_block_idx: null
+    next_chapter_block_idx: 1297
+  - num: 3
+    title: Linear Transformations
+    page_start: 76
+    page_end: 125
+    chapter_title_block_idx: 1297
+    problems_block_idx: null
+    next_chapter_block_idx: 2281
+  - num: 4
+    title: Polynomials
+    page_start: 126
+    page_end: 148
+    chapter_title_block_idx: 2281
+    problems_block_idx: null
+    next_chapter_block_idx: 2754
+  - num: 5
+    title: Determinants
+    page_start: 149
+    page_end: 189
+    chapter_title_block_idx: 2754
+    problems_block_idx: null
+    next_chapter_block_idx: 3609
+  - num: 6
+    title: Elementary Canonical Forms
+    page_start: 190
+    page_end: 235
+    chapter_title_block_idx: 3609
+    problems_block_idx: null
+    next_chapter_block_idx: 4464
+  - num: 7
+    title: The Rational and Jordan Forms
+    page_start: 236
+    page_end: 278
+    chapter_title_block_idx: 4464
+    problems_block_idx: null
+    next_chapter_block_idx: 5213
+  - num: 8
+    title: Inner Product Spaces
+    page_start: 279
+    page_end: 327
+    chapter_title_block_idx: 5213
+    problems_block_idx: null
+    next_chapter_block_idx: 6116
+  - num: 9
+    title: Operators on Inner Product Spaces
+    page_start: 328
+    page_end: 367
+    chapter_title_block_idx: 6116
+    problems_block_idx: null
+    next_chapter_block_idx: 6918
+  - num: 10
+    title: Bilinear Forms
+    page_start: 368
+    page_end: 394
+    chapter_title_block_idx: 6918
+    problems_block_idx: null
+    next_chapter_block_idx: 7445
+
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 395
+    chapter_title_block_idx: 7445
+
+section_re: '^((?:\d+\.\d+|[A-Z]\.\d+))\.\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+))\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([^}]+?)\s*\}'
+
+example_start_re: '^EXAMPLE\s+(\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

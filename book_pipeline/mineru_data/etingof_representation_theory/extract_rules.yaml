@@ -1,0 +1,124 @@
+slug: etingof_representation_theory
+title: Introduction to Representation Theory
+author: Pavel Etingof; Oleg Golberg; Sebastian Hensel; Tiankai Liu; Alex Schwendner; Dmitry Vaintrob; Elena Yudovina
+edition: null
+subject: Abstract Algebra
+publisher: American Mathematical Society
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 224
+bibliography_start_page: 224
+index_start_page: 232
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 8
+    page_end: 11
+    chapter_title_block_idx: 43
+    chapter_title_block_idx_secondary: 44
+    problems_block_idx: null
+    next_chapter_block_idx: 72
+  - num: 2
+    title: Basic notions of representation theory
+    page_start: 12
+    page_end: 47
+    chapter_title_block_idx: 72
+    chapter_title_block_idx_secondary: 73
+    problems_block_idx: null
+    next_chapter_block_idx: 507
+  - num: 3
+    title: General results of representation theory
+    page_start: 48
+    page_end: 65
+    chapter_title_block_idx: 507
+    chapter_title_block_idx_secondary: 508
+    problems_block_idx: null
+    next_chapter_block_idx: 705
+  - num: 4
+    title: "Representations of finite groups: Basic results"
+    page_start: 66
+    page_end: 97
+    chapter_title_block_idx: 705
+    chapter_title_block_idx_secondary: 706
+    problems_block_idx: null
+    next_chapter_block_idx: 1055
+  - num: 5
+    title: "Representations of finite groups: Further results"
+    page_start: 98
+    page_end: 151
+    chapter_title_block_idx: 1055
+    chapter_title_block_idx_secondary: 1056
+    problems_block_idx: null
+    next_chapter_block_idx: 1803
+  - num: 6
+    title: Quiver representations
+    page_start: 152
+    page_end: 183
+    chapter_title_block_idx: 1803
+    chapter_title_block_idx_secondary: 1804
+    problems_block_idx: null
+    next_chapter_block_idx: 2294
+  - num: 7
+    title: Introduction to categories
+    page_start: 184
+    page_end: 207
+    chapter_title_block_idx: 2294
+    chapter_title_block_idx_secondary: 2295
+    problems_block_idx: null
+    next_chapter_block_idx: 2525
+  - num: 8
+    title: Homological algebra
+    page_start: 208
+    page_end: 215
+    chapter_title_block_idx: 2525
+    chapter_title_block_idx_secondary: 2526
+    problems_block_idx: null
+    next_chapter_block_idx: 2633
+  - num: 9
+    title: Structure of finite dimensional algebras
+    page_start: 216
+    page_end: 223
+    chapter_title_block_idx: 2633
+    chapter_title_block_idx_secondary: 2634
+    problems_block_idx: null
+    next_chapter_block_idx: 2898
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Problem|Exercise)\s+(\d+\.\d+\.\d+)\.?(?:\s|$)'
+problem_chapter_must_match: true
+
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\.?(?:\s|$)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

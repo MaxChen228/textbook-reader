@@ -1,0 +1,167 @@
+slug: lang_complex_analysis
+title: Complex Analysis
+author: Serge Lang
+edition: 4th
+subject: Complex Analysis
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 466
+bibliography_start_page: 492
+index_start_page: 494
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Complex Numbers and Functions
+    page_start: 16
+    page_end: 49
+    chapter_title_block_idx: 98
+    problems_block_idx: null
+    next_chapter_block_idx: 742
+  - num: 2
+    title: Power Series
+    page_start: 50
+    page_end: 98
+    chapter_title_block_idx: 742
+    problems_block_idx: null
+    next_chapter_block_idx: 1747
+  - num: 3
+    title: Cauchy's Theorem, First Part
+    page_start: 99
+    page_end: 145
+    chapter_title_block_idx: 1747
+    problems_block_idx: null
+    next_chapter_block_idx: 2545
+  - num: 4
+    title: Winding Numbers and Cauchy's Theorem
+    page_start: 146
+    page_end: 168
+    chapter_title_block_idx: 2545
+    problems_block_idx: null
+    next_chapter_block_idx: 2877
+  - num: 5
+    title: Applications of Cauchy's Integral Formula
+    page_start: 169
+    page_end: 185
+    chapter_title_block_idx: 2877
+    problems_block_idx: null
+    next_chapter_block_idx: 3200
+  - num: 6
+    title: Calculus of Residues
+    page_start: 186
+    page_end: 220
+    chapter_title_block_idx: 3200
+    problems_block_idx: null
+    next_chapter_block_idx: 3849
+  - num: 7
+    title: Conformal Mappings
+    page_start: 221
+    page_end: 253
+    chapter_title_block_idx: 3849
+    problems_block_idx: null
+    next_chapter_block_idx: 4404
+  - num: 8
+    title: Harmonic Functions
+    page_start: 254
+    page_end: 303
+    chapter_title_block_idx: 4404
+    problems_block_idx: null
+    next_chapter_block_idx: 5241
+  - num: 9
+    title: Schwarz Reflection
+    page_start: 306
+    page_end: 318
+    chapter_title_block_idx: 5247
+    problems_block_idx: null
+    next_chapter_block_idx: 5417
+  - num: 10
+    title: The Riemann Mapping Theorem
+    page_start: 319
+    page_end: 334
+    chapter_title_block_idx: 5417
+    problems_block_idx: null
+    next_chapter_block_idx: 5674
+  - num: 11
+    title: Analytic Continuation Along Curves
+    page_start: 335
+    page_end: 349
+    chapter_title_block_idx: 5674
+    problems_block_idx: null
+    next_chapter_block_idx: 5895
+  - num: 12
+    title: Applications of the Maximum Modulus Principle and Jensen's Formula
+    page_start: 352
+    page_end: 384
+    chapter_title_block_idx: 5901
+    problems_block_idx: null
+    next_chapter_block_idx: 6513
+  - num: 13
+    title: Entire and Meromorphic Functions
+    page_start: 385
+    page_end: 403
+    chapter_title_block_idx: 6513
+    problems_block_idx: null
+    next_chapter_block_idx: 6866
+  - num: 14
+    title: Elliptic Functions
+    page_start: 404
+    page_end: 420
+    chapter_title_block_idx: 6866
+    problems_block_idx: null
+    next_chapter_block_idx: 7160
+  - num: 15
+    title: The Gamma and Zeta Functions
+    page_start: 421
+    page_end: 452
+    chapter_title_block_idx: 7160
+    problems_block_idx: null
+    next_chapter_block_idx: 7780
+  - num: 16
+    title: The Prime Number Theorem
+    page_start: 453
+    page_end: 465
+    chapter_title_block_idx: 7780
+    problems_block_idx: null
+    next_chapter_block_idx: 8014
+
+appendices:
+  - id: A
+    title: Appendix
+    page_start: 466
+    chapter_title_block_idx: 8014
+
+section_re: '^((?:[IVXLC]+|APP\.),\s*§\d+|§\d+)\.\s+(.+)$'
+subsection_re: '^()()$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problems_start_re: 'EXERCISES$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^Example\s+([0-9]+)\.?$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

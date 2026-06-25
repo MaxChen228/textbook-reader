@@ -1,0 +1,37 @@
+{
+  "overrides": [
+    {
+      "id": "longair_high_energy_astrophysics-ch03-body-118-833c11",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[118]",
+      "field": "md",
+      "all": true,
+      "old": "${  { \\boldsymbol } v } _ { \\mathrm { r o t } }$",
+      "new": "${ \\boldsymbol { v } } _ { \\mathrm { r o t } }$",
+      "anchor": "ce6156de"
+    },
+    {
+      "id": "longair_high_energy_astrophysics-appA-body-228-7b043e",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[228]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\mathring \\mathrm { A } )$",
+      "new": "$( \\mathring { \\mathrm { A } } )$",
+      "anchor": "1d06ead7"
+    },
+    {
+      "id": "longair_high_energy_astrophysics-ch05-body-132-a3b3a7",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[132]",
+      "field": "caption",
+      "all": true,
+      "old": "$1 \\nK ^ { + }$",
+      "new": "$1 nK ^ { + }$",
+      "anchor": "0c48c6cc"
+    }
+  ]
+}

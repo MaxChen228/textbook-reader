@@ -1,0 +1,168 @@
+slug: grimmett_stirzaker_probability
+title: Probability and Random Processes
+author: Geoffrey R. Grimmett; David R. Stirzaker
+edition: 4th
+subject: Probability
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 643
+bibliography_start_page: 661
+index_start_page: 667
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Events and their probabilities
+    page_start: 13
+    page_end: 39
+    chapter_title_block_idx: 95
+    problems_block_idx: null
+    next_chapter_block_idx: 603
+  - num: 2
+    title: Random variables and their distributions
+    page_start: 40
+    page_end: 60
+    chapter_title_block_idx: 603
+    problems_block_idx: null
+    next_chapter_block_idx: 952
+  - num: 3
+    title: Discrete random variables
+    page_start: 61
+    page_end: 110
+    chapter_title_block_idx: 952
+    problems_block_idx: null
+    next_chapter_block_idx: 1898
+  - num: 4
+    title: Continuous random variables
+    page_start: 111
+    page_end: 179
+    chapter_title_block_idx: 1898
+    problems_block_idx: null
+    next_chapter_block_idx: 3325
+  - num: 5
+    title: Generating functions and their applications
+    page_start: 180
+    page_end: 250
+    chapter_title_block_idx: 3325
+    problems_block_idx: null
+    next_chapter_block_idx: 4663
+  - num: 6
+    title: Markov chains
+    page_start: 251
+    page_end: 360
+    chapter_title_block_idx: 4663
+    problems_block_idx: null
+    next_chapter_block_idx: 6734
+  - num: 7
+    title: Convergence of random variables
+    page_start: 361
+    page_end: 417
+    chapter_title_block_idx: 6734
+    problems_block_idx: null
+    next_chapter_block_idx: 7879
+  - num: 8
+    title: Random processes
+    page_start: 418
+    page_end: 444
+    chapter_title_block_idx: 7879
+    problems_block_idx: null
+    next_chapter_block_idx: 8370
+  - num: 9
+    title: Stationary processes
+    page_start: 445
+    page_end: 482
+    chapter_title_block_idx: 8370
+    problems_block_idx: null
+    next_chapter_block_idx: 9118
+  - num: 10
+    title: Renewals
+    page_start: 483
+    page_end: 512
+    chapter_title_block_idx: 9118
+    chapter_title_block_idx_secondary: 9120
+    problems_block_idx: null
+    next_chapter_block_idx: 9693
+  - num: 11
+    title: Queues
+    page_start: 513
+    page_end: 544
+    chapter_title_block_idx: 9693
+    problems_block_idx: null
+    next_chapter_block_idx: 10279
+  - num: 12
+    title: Martingales
+    page_start: 545
+    page_end: 588
+    chapter_title_block_idx: 10279
+    problems_block_idx: null
+    next_chapter_block_idx: 11081
+  - num: 13
+    title: Diffusion processes
+    page_start: 589
+    page_end: 642
+    chapter_title_block_idx: 11081
+    problems_block_idx: null
+    next_chapter_block_idx: 12042
+
+appendices:
+  - id: I
+    title: Foundations and notation
+    page_start: 643
+    chapter_title_block_idx: 12042
+  - id: II
+    title: Further reading
+    page_start: 648
+    chapter_title_block_idx: 12145
+  - id: III
+    title: History and varieties of probability
+    page_start: 650
+    chapter_title_block_idx: 12161
+  - id: IV
+    title: "John Arbuthnot’s Preface to Of the laws of chance (1692)"
+    page_start: 653
+    chapter_title_block_idx: 12192
+  - id: V
+    title: Table of distributions
+    page_start: 656
+    chapter_title_block_idx: 12215
+  - id: VI
+    title: Chronology
+    page_start: 658
+    chapter_title_block_idx: 12223
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:\([A-Z]\)|\d+\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '(?i)^(?:Exercises\s+for\s+Section\s+\d+\.\d+|\d+\.\d+\s+Problems)\s*$'
+suppress_running_header_sections: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,120 @@
+slug: liu_algebraic_geometry
+title: Algebraic Geometry and Arithmetic Curves
+author: Qing Liu
+edition: 1st
+subject: Algebraic Geometry
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 573
+bibliography_start_page: 573
+index_start_page: 578
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Some topics in commutative algebra
+    page_start: 17
+    page_end: 41
+    chapter_title_block_idx: 94
+    problems_block_idx: null
+    next_chapter_block_idx: 505
+  - num: 2
+    title: General properties of schemes
+    page_start: 42
+    page_end: 93
+    chapter_title_block_idx: 505
+    problems_block_idx: null
+    next_chapter_block_idx: 1296
+  - num: 3
+    title: Morphisms and base change
+    page_start: 94
+    page_end: 130
+    chapter_title_block_idx: 1296
+    problems_block_idx: null
+    next_chapter_block_idx: 1851
+  - num: 4
+    title: Some local properties
+    page_start: 131
+    page_end: 172
+    chapter_title_block_idx: 1851
+    problems_block_idx: null
+    next_chapter_block_idx: 2483
+  - num: 5
+    title: Coherent sheaves and Cech cohomology
+    page_start: 173
+    page_end: 225
+    chapter_title_block_idx: 2483
+    problems_block_idx: null
+    next_chapter_block_idx: 3395
+  - num: 6
+    title: Sheaves of differentials
+    page_start: 226
+    page_end: 267
+    chapter_title_block_idx: 3395
+    problems_block_idx: null
+    next_chapter_block_idx: 4086
+  - num: 7
+    title: Divisors and applications to curves
+    page_start: 268
+    page_end: 332
+    chapter_title_block_idx: 4086
+    problems_block_idx: null
+    next_chapter_block_idx: 5171
+  - num: 8
+    title: Birational geometry of surfaces
+    page_start: 333
+    page_end: 390
+    chapter_title_block_idx: 5171
+    problems_block_idx: null
+    next_chapter_block_idx: 6062
+  - num: 9
+    title: Regular surfaces
+    page_start: 391
+    page_end: 469
+    chapter_title_block_idx: 6062
+    problems_block_idx: null
+    next_chapter_block_idx: 7321
+  - num: 10
+    title: Reduction of algebraic curves
+    page_start: 470
+    page_end: 572
+    chapter_title_block_idx: 7321
+    problems_block_idx: null
+    next_chapter_block_idx: 8958
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.?\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+(?=\s+\S))|(?:Exercises))\s*(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

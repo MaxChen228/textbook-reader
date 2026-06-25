@@ -7621,7 +7621,7 @@
 - 風險：
 > May alter literal delimiter text shown inside code-like math text; rely on corpus gate and override collateral if any
 
-## domain: sol  （47 條；proposed=0 parked=27）
+## domain: sol  （47 條；proposed=0 parked=26）
 ### P-2026-06-19-anton-calculus-sol — anton_calculus 解答書無法 merge：sol_extract 不支援 header/lvl2 章 anchor
 - parked | type=harness-gap | source=sol_extract
 - 解鎖條件：re-edition → 換對齊版次的 sol（章序/題號 offset）
@@ -7761,15 +7761,6 @@
 > 主書 parsed/book.json 顯示 title='Physics for Scientists and Engineers with Modern Physics'、edition='9th'；解答書 unified 開頭 OCR 明確有 'INSTRUCTOR'S SOLUTIONS MANUAL' 與 'SIXTH EDITION'。語義抽樣：主書 ch1 p1 是估算地球平均密度，但 sol P1.1 是晶體平面間距；主書 ch5 p1 是 120 lb 女性的重量/質量換算，但 sol P5.1 是同力作用不同質量；主書 ch21 p1 是氦氣球原子數/平均動能/rms speed，但 sol P21.1 是冰雹撞窗平均力。另以預設規則 dry-run，sol_extract 對此來源抽出 0 章 0 題，因章號主要落在 text_level=2 純數字 block。
 - 提議：
 > 換與 serway_physics_scientists_engineers 主書同版次（9th ed）的完整解答書；若保留此來源，仍需擴充 sol_extract 支援非 lvl1 chapter anchor，但在版次不符未解前不應 merge。
-
-### P-2026-06-19-stewart-calculus-sol — stewart_calculus 解答本無法 merge：主書 corpus 實為 solutions 手冊
-- parked | type=edition-mismatch | source=sol_extract
-- 解鎖條件：re-edition → 對齊母書版次的解答本
-- 已驗證：@ff58e0f（2026-06-24T02:57:55+00:00）
-- 證據：
-> 主書 parsed/ch01 body 即為『The functions f(x)=... so f and g are equal.』這類解答句；_audit.md 亦明記 stewart_calculus 現有 corpus 明顯是解答型內容；另主書 ch06/ch10/ch11 分別承載 7.* / 12.* / 17.* 題號，與 sol_extract 依 chNN 路由的假設衝突。
-- 提議：
-> 先替換 stewart_calculus 主書來源為真正 textbook 並重跑 ingest/audit-book；在主書恢復為題幹書前，不應對 stewart_calculus_sol 執行 sol merge。
 
 ### P-2026-06-19-strang-linalg-sol — strang_linalg 解答書無法 merge：sol_extract 不支援 lvl=2 Problem Set anchor
 - parked | type=harness-gap | source=sol_extract
@@ -8014,6 +8005,18 @@
 > 正式 dry-run（預設規則）穩定抽出 0 章、0 題。檢查 unified/content_list.json：1..40 章共有 40 個章標樣式 block，但只有 2 個是 text_level=1；其餘 35 個是 level=2、3 個是 None。語義抽樣：1.1/2.1/7.1 的主書題幹與解答書 1.1)/2.1)/7.1) 主題一致，排除版次錯配。若忽略 text_level 限制、以 ^\d+\s+.+$ 作章標，可抽出 40 章、213 題，對回主書 88/255 題。
 - 提議：
 > sol_extract 應支援可配置的 chapter anchor text_level，或改為 text 命中 chapter_re 即可切章；完成後可直接用已落盤的 sol_rules.yaml 重跑 merge。
+
+### P-2026-06-19-stewart-calculus-sol — stewart_calculus 解答本無法 merge：主書 corpus 實為 solutions 手冊
+- superseded | type=edition-mismatch | source=sol_extract
+- 決議：主書已換為 8th edition 正確主書（5237147/d0043f），原 9th solutions mismatch 根因消除
+- 解鎖條件：re-edition → 對齊母書版次的解答本
+- 已驗證：@ff58e0f（2026-06-24T02:57:55+00:00）
+- 處置：
+> sol 解答本對齊留待後續架構師裁決
+- 證據：
+> 主書 parsed/ch01 body 即為『The functions f(x)=... so f and g are equal.』這類解答句；_audit.md 亦明記 stewart_calculus 現有 corpus 明顯是解答型內容；另主書 ch06/ch10/ch11 分別承載 7.* / 12.* / 17.* 題號，與 sol_extract 依 chNN 路由的假設衝突。
+- 提議：
+> 先替換 stewart_calculus 主書來源為真正 textbook 並重跑 ingest/audit-book；在主書恢復為題幹書前，不應對 stewart_calculus_sol 執行 sol merge。
 
 ### P-2026-06-19-strauss-pde-sol — strauss_pde 解答書無法 merge：sol_extract 無法處理 lvl2 章 anchor 與重複 running header
 - superseded | type=harness-gap | source=sol_extract

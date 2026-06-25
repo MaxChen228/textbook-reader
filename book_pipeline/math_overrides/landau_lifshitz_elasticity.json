@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_elasticity-ch01-body-5-92ec50",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$dl' = \\sqrt{(dx'_{1}^{2} + dx'_{2}^{2} + dx'_{3}^{2})}$",
+      "new": "$dl' = \\sqrt{((dx'_{1})^{2} + (dx'_{2})^{2} + (dx'_{3})^{2})}$",
+      "anchor": "eb8f4c97"
+    },
+    {
+      "id": "landau_lifshitz_elasticity-ch01-body-5-b1a17d",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$dl'^{2} = dx'_{i}^{2} = (dx_{i} + du_{i})^{2}$",
+      "new": "$(dl')^{2} = (dx'_{i})^{2} = (dx_{i} + du_{i})^{2}$",
+      "anchor": "eb8f4c97"
+    }
+  ]
+}

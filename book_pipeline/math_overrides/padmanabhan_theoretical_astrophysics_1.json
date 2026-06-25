@@ -1,0 +1,89 @@
+{
+  "overrides": [
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch05-body-231-d47106",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[231]",
+      "expect": "\\begin{array}{l} \\text {number of microstates} \\\\ \\text {between E and E + \\delta E} \\end{array} = g (E) \\delta E.",
+      "new": "\\begin{array}{l} \\text {number of microstates} \\\\ \\text {between } E \\text { and } E + \\delta E \\end{array} = g (E) \\delta E."
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch01-body-23-a6f7d1",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[23]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda = ( h c / \\epsilon _ { a } ) = 2 \\alpha ^ { - 2 } \\hat { \\lambda } _ { e } \\simeq 1 0 ^ { 3 } \\mathring \\mathrm { A }$",
+      "new": "$\\lambda = ( h c / \\epsilon _ { a } ) = 2 \\alpha ^ { - 2 } \\hat { \\lambda } _ { e } \\simeq 1 0 ^ { 3 } \\mathring {\\mathrm { A }}$",
+      "anchor": "de0c56ad"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch01-body-147-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[147]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring {\\mathrm { A }}$",
+      "anchor": "64c45381"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch03-body-664-75aab3",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[664]",
+      "field": "md",
+      "all": true,
+      "old": "$l \\simeq 1 0 \\mathrm { c m } , \\lambda \\simeq 4 0 0 0 \\mathring \\mathrm { A }$",
+      "new": "$l \\simeq 1 0 \\mathrm { c m } , \\lambda \\simeq 4 0 0 0 \\mathring {\\mathrm { A }}$",
+      "anchor": "2407479b"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch03-problem-3-24-body-4-6262e7",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.24:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda = 5 0 0 0 \\mathring \\mathrm { A } .$",
+      "new": "$\\lambda = 5 0 0 0 \\mathring {\\mathrm { A }} .$",
+      "anchor": "7bee0bc8"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch07-body-119-cb1074",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[119]",
+      "field": "md",
+      "all": true,
+      "old": "$H _ { \\gamma } = 4 3 4 0 \\mathring \\mathrm { A } )$",
+      "new": "$H _ { \\gamma } = 4 3 4 0 \\mathring {\\mathrm { A }} )$",
+      "anchor": "c70c560c"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch07-body-146-7cedb0",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[146]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } ,$",
+      "new": "$\\mathring {\\mathrm { A }} ,$",
+      "anchor": "00b0f9b0"
+    },
+    {
+      "id": "padmanabhan_theoretical_astrophysics_1-ch07-problem-7-5-body-0-399f5a",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.5:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$1 2 0 1 { - } \\mathring \\mathrm { A }$",
+      "new": "$1 2 0 1 { - } \\mathring {\\mathrm { A }}$",
+      "anchor": "404cd0f7"
+    }
+  ]
+}

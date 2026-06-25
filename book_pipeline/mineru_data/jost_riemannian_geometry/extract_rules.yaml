@@ -1,0 +1,137 @@
+slug: jost_riemannian_geometry
+title: Riemannian Geometry and Geometric Analysis
+author: Jurgen Jost
+edition: 7th
+subject: Differential Geometry
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 663
+bibliography_start_page: null
+index_start_page: 695
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Riemannian Manifolds
+    page_start: 14
+    page_end: 62
+    chapter_title_block_idx: 87
+    problems_block_idx: 864
+    next_chapter_block_idx: 915
+  - num: 2
+    title: Lie Groups and Vector Bundles
+    page_start: 63
+    page_end: 126
+    chapter_title_block_idx: 915
+    problems_block_idx: 2033
+    next_chapter_block_idx: 2064
+  - num: 3
+    title: The Laplace Operator and Harmonic Differential Forms
+    page_start: 127
+    page_end: 174
+    chapter_title_block_idx: 2064
+    problems_block_idx: 2862
+    next_chapter_block_idx: 2931
+  - num: 4
+    title: Connections and Curvature
+    page_start: 175
+    page_end: 244
+    chapter_title_block_idx: 2931
+    chapter_title_block_idx_secondary: 2937
+    problems_block_idx: 4187
+    next_chapter_block_idx: 4199
+  - num: 5
+    title: Geometry of Submanifolds
+    page_start: 245
+    page_end: 261
+    chapter_title_block_idx: 4199
+    problems_block_idx: 4460
+    next_chapter_block_idx: 4483
+  - num: 6
+    title: Geodesics and Jacobi Fields
+    page_start: 262
+    page_end: 335
+    chapter_title_block_idx: 4483
+    problems_block_idx: 5640
+    next_chapter_block_idx: 5790
+  - num: 7
+    title: Symmetric Spaces and Kähler Manifolds
+    page_start: 336
+    page_end: 399
+    chapter_title_block_idx: 5790
+    problems_block_idx: 7023
+    next_chapter_block_idx: 7036
+  - num: 8
+    title: Morse Theory and Floer Homology
+    page_start: 400
+    page_end: 496
+    chapter_title_block_idx: 7036
+    problems_block_idx: 8653
+    next_chapter_block_idx: 8681
+  - num: 9
+    title: Harmonic Maps Between Riemannian Manifolds
+    page_start: 497
+    page_end: 579
+    chapter_title_block_idx: 8681
+    problems_block_idx: 10106
+    next_chapter_block_idx: 10147
+  - num: 10
+    title: Harmonic Maps from Riemann Surfaces
+    page_start: 580
+    page_end: 637
+    chapter_title_block_idx: 10147
+    problems_block_idx: 11226
+    next_chapter_block_idx: 11259
+  - num: 11
+    title: Variational Problems from Quantum Field Theory
+    page_start: 638
+    page_end: 662
+    chapter_title_block_idx: 11259
+    problems_block_idx: 11676
+    next_chapter_block_idx: 11681
+
+appendices:
+  - id: A
+    title: Linear Elliptic Partial Differential Equations
+    page_start: 663
+    chapter_title_block_idx: 11681
+  - id: B
+    title: Fundamental Groups and Covering Spaces
+    page_start: 675
+    chapter_title_block_idx: 11905
+
+section_re: '^((?:[A-Z]|\d+)\.\d+)\s+(.+)$'
+subsection_re: '^((?:[A-Z]|\d+)\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:[A-Z]|\d+)\.\d+(?:\.\d+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

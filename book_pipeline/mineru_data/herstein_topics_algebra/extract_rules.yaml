@@ -1,0 +1,97 @@
+slug: herstein_topics_algebra
+title: Topics in Algebra
+author: I. N. Herstein
+edition: 2nd
+subject: Abstract Algebra
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 388
+bibliography_start_page: null
+index_start_page: 388
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Preliminary Notions
+    page_start: 10
+    page_end: 34
+    chapter_title_block_idx: 38
+    problems_block_idx: null
+    next_chapter_block_idx: 413
+  - num: 2
+    title: Group Theory
+    page_start: 35
+    page_end: 128
+    chapter_title_block_idx: 413
+    problems_block_idx: null
+    next_chapter_block_idx: 1841
+  - num: 3
+    title: Ring Theory
+    page_start: 129
+    page_end: 178
+    chapter_title_block_idx: 1841
+    problems_block_idx: null
+    next_chapter_block_idx: 2584
+  - num: 4
+    title: Vector Spaces and Modules
+    page_start: 179
+    page_end: 215
+    chapter_title_block_idx: 2584
+    chapter_title_block_idx_secondary: 2585
+    problems_block_idx: null
+    next_chapter_block_idx: 3143
+  - num: 5
+    title: Fields
+    page_start: 216
+    page_end: 268
+    chapter_title_block_idx: 3143
+    problems_block_idx: null
+    next_chapter_block_idx: 3859
+  - num: 6
+    title: Linear Transformations
+    page_start: 269
+    page_end: 363
+    chapter_title_block_idx: 3859
+    chapter_title_block_idx_secondary: 3860
+    problems_block_idx: null
+    next_chapter_block_idx: 5365
+  - num: 7
+    title: Selected Topics
+    page_start: 364
+    page_end: 387
+    chapter_title_block_idx: 5365
+    problems_block_idx: null
+    next_chapter_block_idx: 5721
+
+section_re: '^(?:<sub>)?(\d+(?:\.\s*\d(?:\s*\d)*)+)(?:</sub>)?\s+(.+)$'
+subsection_re: '^()(?!Problems$)([A-Z][A-Za-z]+(?:[ &:/''.-][A-Za-z]+)*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\*{0,2}\s*((?:\d\s*)+)\.\s*(?=(?:\([a-z]\)|[A-Z]|If\b|Let\b|Use\b|Show\b|Prove\b|Given\b|Describe\b|Find\b|Determine\b|Suppose\b|Compute\b|Complete\b|Verify\b|\$\\mathbf))'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '(?i)^Problems$'
+problems_end_re: '^Supplementary Problems$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?|[a-z])\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

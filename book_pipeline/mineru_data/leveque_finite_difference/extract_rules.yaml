@@ -1,0 +1,144 @@
+slug: leveque_finite_difference
+title: Finite Difference Methods for Ordinary and Partial Differential Equations
+author: Randall J. LeVeque
+edition: null
+subject: Differential Equations
+publisher: Society for Industrial and Applied Mathematics
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 259
+bibliography_start_page: 343
+index_start_page: 351
+
+chapters:
+  - num: 1
+    title: Finite Difference Approximations
+    page_start: 17
+    page_end: 26
+    chapter_title_block_idx: 94
+    problems_block_idx: null
+    next_chapter_block_idx: 252
+  - num: 2
+    title: Steady States and Boundary Value Problems
+    page_start: 27
+    page_end: 72
+    chapter_title_block_idx: 252
+    problems_block_idx: null
+    next_chapter_block_idx: 971
+  - num: 3
+    title: Elliptic Equations
+    page_start: 73
+    page_end: 82
+    chapter_title_block_idx: 971
+    problems_block_idx: null
+    next_chapter_block_idx: 1136
+  - num: 4
+    title: Iterative Methods for Sparse Linear Systems
+    page_start: 83
+    page_end: 126
+    chapter_title_block_idx: 1136
+    problems_block_idx: null
+    next_chapter_block_idx: 1823
+  - num: 5
+    title: The Initial Value Problem for Ordinary Differential Equations
+    page_start: 127
+    page_end: 150
+    chapter_title_block_idx: 1823
+    problems_block_idx: null
+    next_chapter_block_idx: 2243
+  - num: 6
+    title: Zero-Stability and Convergence for Initial Value Problems
+    page_start: 151
+    page_end: 162
+    chapter_title_block_idx: 2243
+    problems_block_idx: null
+    next_chapter_block_idx: 2481
+  - num: 7
+    title: Absolute Stability for Ordinary Differential Equations
+    page_start: 163
+    page_end: 180
+    chapter_title_block_idx: 2481
+    problems_block_idx: null
+    next_chapter_block_idx: 2772
+  - num: 8
+    title: Stiff Ordinary Differential Equations
+    page_start: 181
+    page_end: 194
+    chapter_title_block_idx: 2772
+    problems_block_idx: null
+    next_chapter_block_idx: 2936
+  - num: 9
+    title: Diffusion Equations and Parabolic Problems
+    page_start: 195
+    page_end: 214
+    chapter_title_block_idx: 2936
+    problems_block_idx: null
+    next_chapter_block_idx: 3255
+  - num: 10
+    title: Advection Equations and Hyperbolic Systems
+    page_start: 215
+    page_end: 246
+    chapter_title_block_idx: 3255
+    problems_block_idx: null
+    next_chapter_block_idx: 3767
+  - num: 11
+    title: Mixed Equations
+    page_start: 247
+    page_end: 258
+    chapter_title_block_idx: 3767
+    problems_block_idx: null
+    next_chapter_block_idx: 3932
+
+appendices:
+  - id: A
+    title: Measuring Errors
+    page_start: 259
+    chapter_title_block_idx: 3932
+  - id: B
+    title: Polynomial Interpolation and Orthogonal Polynomials
+    page_start: 273
+    chapter_title_block_idx: 4201
+  - id: C
+    title: Eigenvalues and Inner-Product Norms
+    page_start: 283
+    chapter_title_block_idx: 4377
+  - id: D
+    title: Matrix Powers and Exponentials
+    page_start: 299
+    chapter_title_block_idx: 4674
+  - id: E
+    title: Partial Differential Equations
+    page_start: 325
+    chapter_title_block_idx: 5161
+
+section_re: '^((?:\\d+|[A-Z])\\.\\d+)\\s+(.+)$'
+subsection_re: '^((?:\\d+|[A-Z])\\.\\d+\\.\\d+)\\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\\s+(\\d+\\.\\d+)\\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\{([A-Z0-9]+(?:\\.[0-9]+)+[a-z]?)\\}'
+
+example_start_re: '^Example\\s+([A-Z0-9]+(?:\\.\\d+)*)\\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

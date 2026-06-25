@@ -1,0 +1,70 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_continuous_media-ch01-body-114-79d55c",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[114]",
+      "field": "md",
+      "all": true,
+      "old": "$(\\delta\\mathbf{r})^2 = R^4(\\delta\\mathbf{r}')^2 / r'_0^4$",
+      "new": "$(\\delta\\mathbf{r})^2 = R^4(\\delta\\mathbf{r}')^2 / (r'_0)^4$",
+      "anchor": "a6f6b176"
+    },
+    {
+      "id": "landau_lifshitz_continuous_media-ch10-problem-92-1-body-3-17266b",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "problem:92.1:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$I_{\\alpha \\beta} = \\langle E'_\\alpha E'_\\beta^* \\rangle$",
+      "new": "$I_{\\alpha \\beta} = \\langle E'_\\alpha (E'_\\beta)^* \\rangle$",
+      "anchor": "6eb7ed96"
+    },
+    {
+      "id": "landau_lifshitz_continuous_media-ch11-problem-101-3-body-4-1d7459",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "problem:101.3:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$E_{0}^{+}_{x} = iE_{0}^{+}_{y} = \\frac{1}{2}E_{0}$",
+      "new": "$E_{0x}^{+} = iE_{0y}^{+} = \\frac{1}{2}E_{0}$",
+      "anchor": "4337059b"
+    },
+    {
+      "id": "landau_lifshitz_continuous_media-ch11-problem-101-3-body-4-18dafb",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "problem:101.3:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$E_{0}^{-}_{x} = -iE_{0}^{-}_{y} = \\frac{1}{2}E_{0}$",
+      "new": "$E_{0x}^{-} = -iE_{0y}^{-} = \\frac{1}{2}E_{0}$",
+      "anchor": "4337059b"
+    },
+    {
+      "id": "landau_lifshitz_continuous_media-ch15-body-30-19605c",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[30]",
+      "field": "md",
+      "all": true,
+      "old": "$E'_{i}E'_{k}^{*}$",
+      "new": "$E'_{i}(E'_{k})^{*}$",
+      "anchor": "8f5aa19b"
+    },
+    {
+      "id": "landau_lifshitz_continuous_media-ch02-body-100-516971",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[100]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaE$",
+      "new": "$\\delta E$",
+      "anchor": "29e19768"
+    }
+  ]
+}

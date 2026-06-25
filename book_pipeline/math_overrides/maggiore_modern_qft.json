@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "maggiore_modern_qft-ch03-problem-3-6-body-0-4fb73b",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.6:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ d s  \\ d s \\equiv \\do \\Pi - \\partial ^ { 2 } / \\partial y ^ { 2 }$",
+      "new": "$\\ d s  \\ d s \\equiv d o \\Pi - \\partial ^ { 2 } / \\partial y ^ { 2 }$",
+      "anchor": "ff202603"
+    },
+    {
+      "id": "maggiore_modern_qft-ch12-body-76-48d142",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[76]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\sl \\Pi + m ^ { 2 } ) A ^ { \\mu } = 0$",
+      "new": "$( \\mathit{\\Pi} + m ^ { 2 } ) A ^ { \\mu } = 0$",
+      "anchor": "87cd86d6"
+    }
+  ]
+}
