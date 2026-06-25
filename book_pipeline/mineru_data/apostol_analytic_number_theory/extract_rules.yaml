@@ -1,0 +1,142 @@
+slug: apostol_analytic_number_theory
+title: Introduction to Analytic Number Theory
+author: Tom M. Apostol
+edition: null
+subject: Number Theory
+publisher: Springer
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 340
+bibliography_start_page: 340
+index_start_page: 344
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "The Fundamental Theorem of Arithmetic"
+    page_start: 12
+    page_end: 34
+    chapter_title_block_idx: 240
+    problems_block_idx: 537
+    next_chapter_block_idx: 593
+  - num: 2
+    title: "Arithmetical Functions and Dirichlet Multiplication"
+    page_start: 35
+    page_end: 62
+    chapter_title_block_idx: 593
+    problems_block_idx: 1039
+    next_chapter_block_idx: 1159
+  - num: 3
+    title: "Averages of Arithmetical Functions"
+    page_start: 63
+    page_end: 84
+    chapter_title_block_idx: 1159
+    problems_block_idx: 1488
+    next_chapter_block_idx: 1576
+  - num: 4
+    title: "Some Elementary Theorems on the Distribution of Prime Numbers"
+    page_start: 85
+    page_end: 116
+    chapter_title_block_idx: 1576
+    problems_block_idx: 2157
+    next_chapter_block_idx: 2280
+  - num: 5
+    title: "Congruences"
+    page_start: 117
+    page_end: 139
+    chapter_title_block_idx: 2280
+    problems_block_idx: 2687
+    next_chapter_block_idx: 2741
+  - num: 6
+    title: "Finite Abelian Groups and Their Characters"
+    page_start: 140
+    page_end: 156
+    chapter_title_block_idx: 2741
+    problems_block_idx: 3014
+    next_chapter_block_idx: 3050
+  - num: 7
+    title: "Dirichlet's Theorem on Primes in Arithmetic Progressions"
+    page_start: 157
+    page_end: 167
+    chapter_title_block_idx: 3050
+    problems_block_idx: 3233
+    next_chapter_block_idx: 3247
+  - num: 8
+    title: "Periodic Arithmetical Functions and Gauss Sums"
+    page_start: 168
+    page_end: 188
+    chapter_title_block_idx: 3247
+    problems_block_idx: 3595
+    next_chapter_block_idx: 3655
+  - num: 9
+    title: "Quadratic Residues and the Quadratic Reciprocity Law"
+    page_start: 189
+    page_end: 214
+    chapter_title_block_idx: 3655
+    problems_block_idx: 4136
+    next_chapter_block_idx: 4183
+  - num: 10
+    title: "Primitive Roots"
+    page_start: 215
+    page_end: 234
+    chapter_title_block_idx: 4183
+    problems_block_idx: 4513
+    next_chapter_block_idx: 4558
+  - num: 11
+    title: "Dirichlet Series and Euler Products"
+    page_start: 235
+    page_end: 259
+    chapter_title_block_idx: 4558
+    problems_block_idx: 4952
+    next_chapter_block_idx: 5008
+  - num: 12
+    title: 'The Functions $\zeta(s)$ and $L(s, \chi)$'
+    page_start: 260
+    page_end: 288
+    chapter_title_block_idx: 5008
+    problems_block_idx: 5494
+    next_chapter_block_idx: 5587
+  - num: 13
+    title: "Analytic Proof of the Prime Number Theorem"
+    page_start: 289
+    page_end: 314
+    chapter_title_block_idx: 5587
+    problems_block_idx: 6030
+    next_chapter_block_idx: 6100
+  - num: 14
+    title: "Partitions"
+    page_start: 315
+    page_end: 339
+    chapter_title_block_idx: 6100
+    problems_block_idx: 6470
+    next_chapter_block_idx: 6568
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^\\?\*?\s*(\d+)\.\s+'
+problem_chapter_must_match: false
+
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+(\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
