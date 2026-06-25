@@ -77,6 +77,28 @@
       "selector": "body[11]",
       "expect": "\\begin{array}{l} P \\times \\mathbb {N} = \\{(p, n) \\mid p \\text {   is   a   person   and   } n \\text {   is   a   natural   number } \\} \\\\ \\qquad = \\{(\\text { Prince   Charles }, 0), (\\text { Prince   Charles }, 1), (\\text { Prince   Charles }, 2), \\ldots , \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(Angelina Jolie, 0), (Angelina Jolie, 1), \\ldots}. \\end{array}",
       "new": "\\begin{array}{l} P \\times \\mathbb {N} = \\{(p, n) \\mid p \\text {   is   a   person   and   } n \\text {   is   a   natural   number } \\} \\\\ \\qquad = \\{(\\text { Prince   Charles }, 0), (\\text { Prince   Charles }, 1), (\\text { Prince   Charles }, 2), \\ldots , \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad (\\text {Angelina Jolie}, 0), (\\text {Angelina Jolie}, 1), \\ldots \\}. \\end{array}"
+    },
+    {
+      "id": "velleman_how_to_prove_it-ch05-body-48-aca381",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[48]",
+      "field": "md",
+      "all": true,
+      "old": "$( b _ { 1 } , c _ { 1 } ) \\in \\mathfrak { g } _ $",
+      "new": "$( b _ { 1 } , c _ { 1 } ) \\in \\mathfrak { g } $",
+      "anchor": "adfe2a8b"
+    },
+    {
+      "id": "velleman_how_to_prove_it-ch08-body-34-bcc784",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[34]",
+      "field": "md",
+      "all": true,
+      "old": "$A \\sim C . \\boxed  $",
+      "new": "$A \\sim C .  $",
+      "anchor": "2cb074b2"
     }
   ]
 }

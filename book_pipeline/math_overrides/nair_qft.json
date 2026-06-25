@@ -1,0 +1,303 @@
+{
+  "overrides": [
+    {
+      "id": "nair_qft-ch09-body-45-229c8b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[45]",
+      "expect": "\\begin{array}{l} V (k) = - (6 \\lambda) ^ {2} \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\int_ {0} ^ {1} d v \\frac {1}{[ (p ^ {2} + m ^ {2}) (1 - v) + ((k - p) ^ {2} + m ^ {2}) v ] ^ {2}} \\\\ = - (6 \\lambda) ^ {2} \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\int_ {0} ^ {1} d v \\frac {1}{[ ((p - k v) ^ {2} + m ^ {2}) + k ^ {2} v (1 - v) ] ^ {2}} \\end{array} \\tag {9.}\\tag{9.15}",
+      "new": "\\begin{array}{l} V (k) = - (6 \\lambda) ^ {2} \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\int_ {0} ^ {1} d v \\frac {1}{[ (p ^ {2} + m ^ {2}) (1 - v) + ((k - p) ^ {2} + m ^ {2}) v ] ^ {2}} \\\\ = - (6 \\lambda) ^ {2} \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\int_ {0} ^ {1} d v \\frac {1}{[ ((p - k v) ^ {2} + m ^ {2}) + k ^ {2} v (1 - v) ] ^ {2}} \\end{array} \\tag{9.15}"
+    },
+    {
+      "id": "nair_qft-ch09-body-147-8d221e",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[147]",
+      "expect": "\\begin{array}{r l} \\mathcal {S} _ {E} (A, \\bar {\\psi}, \\psi) = & \\int d ^ {4} x \\left[ \\frac {Z _ {3}}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} + \\frac {\\lambda}{2} (\\partial \\cdot A) ^ {2} + Z _ {2} \\bar {\\psi} (\\gamma \\cdot \\partial + m - \\delta m) \\psi \\right. \\\\ & \\left. - i e Z _ {1} \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\right] \\end{array} \\tag {9.4}\\tag{9.46}",
+      "new": "\\begin{array}{r l} \\mathcal {S} _ {E} (A, \\bar {\\psi}, \\psi) = & \\int d ^ {4} x \\left[ \\frac {Z _ {3}}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} + \\frac {\\lambda}{2} (\\partial \\cdot A) ^ {2} + Z _ {2} \\bar {\\psi} (\\gamma \\cdot \\partial + m - \\delta m) \\psi \\right. \\\\ & \\left. - i e Z _ {1} \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\right] \\end{array} \\tag{9.46}"
+    },
+    {
+      "id": "nair_qft-ch09-body-158-e0d4a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[158]",
+      "expect": "\\begin{array}{l} \\Gamma_ {\\bar {\\psi} \\psi} ^ {(1)} = e ^ {2} \\int d ^ {4} x d ^ {4} y \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} e ^ {i (k + p) \\cdot (x - y)} \\frac {1}{k ^ {2}} \\bar {\\psi} (x) \\gamma^ {\\mu} \\frac {1}{m + i \\gamma \\cdot p} \\gamma_ {\\mu} \\psi (y) \\\\ = \\int_ {x, y} \\bar {\\psi} (x) \\Sigma (x, y) \\psi (y) \\end{array} \\tag {9.4}\\tag{9.48}",
+      "new": "\\begin{array}{l} \\Gamma_ {\\bar {\\psi} \\psi} ^ {(1)} = e ^ {2} \\int d ^ {4} x d ^ {4} y \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} e ^ {i (k + p) \\cdot (x - y)} \\frac {1}{k ^ {2}} \\bar {\\psi} (x) \\gamma^ {\\mu} \\frac {1}{m + i \\gamma \\cdot p} \\gamma_ {\\mu} \\psi (y) \\\\ = \\int_ {x, y} \\bar {\\psi} (x) \\Sigma (x, y) \\psi (y) \\end{array} \\tag{9.48}"
+    },
+    {
+      "id": "nair_qft-ch09-body-342-517e73",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[342]",
+      "expect": "\\begin{array}{r l} G (x _ {1}, x _ {2}, \\dots , x _ {N}) & = \\tilde {\\mathcal {N}} Z _ {3} ^ {- N / 2} \\int [ d \\chi ] e ^ {- S} \\chi (x _ {1}) \\chi (x _ {2}) \\dots \\chi (x _ {N}) \\\\ & = Z _ {3} ^ {- \\frac {1}{2} N} \\langle \\chi (x _ {1}) \\chi (x _ {2}) \\dots \\chi (x _ {N}) \\rangle \\end{array} \\tag {9}\\tag{9.101}",
+      "new": "\\begin{array}{r l} G (x _ {1}, x _ {2}, \\dots , x _ {N}) & = \\tilde {\\mathcal {N}} Z _ {3} ^ {- N / 2} \\int [ d \\chi ] e ^ {- S} \\chi (x _ {1}) \\chi (x _ {2}) \\dots \\chi (x _ {N}) \\\\ & = Z _ {3} ^ {- \\frac {1}{2} N} \\langle \\chi (x _ {1}) \\chi (x _ {2}) \\dots \\chi (x _ {N}) \\rangle \\end{array} \\tag{9.101}"
+    },
+    {
+      "id": "nair_qft-ch10-body-261-9f1f54",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[261]",
+      "expect": "\\begin{array}{r l} \\left| \\Psi \\right\\rangle = & \\left[ \\left(B ^ {(-)} \\xi^ {(-)} + i \\bar {c} ^ {(-)} c ^ {(-)}\\right) \\mathcal {O} + \\left(i \\xi^ {(-)} B ^ {(-)} + c ^ {(-)} \\bar {c} ^ {(-)}\\right) \\tilde {\\mathcal {O}} \\right] \\\\ & + (B ^ {(- 1)} \\rho_ {1} + c ^ {(- 1)} \\rho_ {4}) | \\sigma \\rangle \\end{array} \\tag {10}\\tag{10.105}",
+      "new": "\\begin{array}{r l} \\left| \\Psi \\right\\rangle = & \\left[ \\left(B ^ {(-)} \\xi^ {(-)} + i \\bar {c} ^ {(-)} c ^ {(-)}\\right) \\mathcal {O} + \\left(i \\xi^ {(-)} B ^ {(-)} + c ^ {(-)} \\bar {c} ^ {(-)}\\right) \\tilde {\\mathcal {O}} \\right] \\\\ & + (B ^ {(- 1)} \\rho_ {1} + c ^ {(- 1)} \\rho_ {4}) | \\sigma \\rangle \\end{array} \\tag{10.105}"
+    },
+    {
+      "id": "nair_qft-ch12-body-82-94c5fb",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[82]",
+      "expect": "\\begin{array}{r l} \\int \\left\\langle \\partial_ {0} \\lambda (x) \\partial_ {0} \\lambda (y) \\right\\rangle & = \\frac {1}{2} \\int \\frac {d ^ {3} k}{(2 \\pi) ^ {3}} d ^ {3} x d ^ {3} y \\omega_ {k} e ^ {- i k \\cdot (\\boldsymbol {x} - \\boldsymbol {y})} e ^ {- x ^ {2} / L ^ {2} - y ^ {2} / L ^ {2}} \\\\ & = \\frac {\\pi}{2} L ^ {2} \\end{array} \\tag {1}\\tag{12.34}",
+      "new": "\\begin{array}{r l} \\int \\left\\langle \\partial_ {0} \\lambda (x) \\partial_ {0} \\lambda (y) \\right\\rangle & = \\frac {1}{2} \\int \\frac {d ^ {3} k}{(2 \\pi) ^ {3}} d ^ {3} x d ^ {3} y \\omega_ {k} e ^ {- i k \\cdot (\\boldsymbol {x} - \\boldsymbol {y})} e ^ {- x ^ {2} / L ^ {2} - y ^ {2} / L ^ {2}} \\\\ & = \\frac {\\pi}{2} L ^ {2} \\end{array} \\tag{12.34}"
+    },
+    {
+      "id": "nair_qft-ch18-body-257-bc5b66",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[257]",
+      "expect": "\\begin{array}{r l} \\mathrm{Im} \\Pi_ {R} ^ {\\mu \\nu} = \\pi \\int \\frac {d ^ {3} q}{(2 \\pi) ^ {3}} \\frac {1}{2 E _ {p}} \\frac {1}{2 E _ {q}} \\bigg [ T ^ {\\mu \\nu} (p, q) (n _ {q} - n _ {p}) \\delta (E _ {p} - E _ {q} - k _ {0}) \\\\ & - T ^ {\\mu \\nu} (p ^ {\\prime}, q ^ {\\prime}) (\\bar {n} _ {q} - \\bar {n} _ {p}) \\delta (E _ {p} - E _ {q} + k _ {0}) \\bigg ] \\end{array} \\tag {18}\\tag{18.106}",
+      "new": "\\begin{array}{r l} \\mathrm{Im} \\Pi_ {R} ^ {\\mu \\nu} = \\pi \\int \\frac {d ^ {3} q}{(2 \\pi) ^ {3}} \\frac {1}{2 E _ {p}} \\frac {1}{2 E _ {q}} \\bigg [ T ^ {\\mu \\nu} (p, q) (n _ {q} - n _ {p}) \\delta (E _ {p} - E _ {q} - k _ {0}) \\\\ & - T ^ {\\mu \\nu} (p ^ {\\prime}, q ^ {\\prime}) (\\bar {n} _ {q} - \\bar {n} _ {p}) \\delta (E _ {p} - E _ {q} + k _ {0}) \\bigg ] \\end{array} \\tag{18.106}"
+    },
+    {
+      "id": "nair_qft-ch10-body-235-777466",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[235]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL = \\partial_{\\mu}K^{\\mu} = \\partial_{\\mu}[iB^{a}(D^{\\mu}c)^{a}]$",
+      "new": "$\\delta L = \\partial_{\\mu}K^{\\mu} = \\partial_{\\mu}[iB^{a}(D^{\\mu}c)^{a}]$",
+      "anchor": "45413822"
+    },
+    {
+      "id": "nair_qft-ch04-body-62-856d79",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[62]",
+      "expect": "\\begin{array}{l} \\frac {\\delta Z [ J ]}{\\delta J (x)} = \\sum_ {N} \\frac {1}{N !} \\int J (y _ {1}) J (y _ {2}) \\dots J (y _ {N}) \\langle 0 | T \\phi (x) \\phi (y _ {1}) \\phi (y _ {2}) \\dots \\phi (y _ {N}) | 0 \\rangle \\\\ = \\langle 0 | T \\phi (x) e ^ {\\int J \\phi} | 0 \\rangle \\end{array} \\tag {4.2}\\tag{4.24}",
+      "new": "\\begin{array}{l} \\frac {\\delta Z [ J ]}{\\delta J (x)} = \\sum_ {N} \\frac {1}{N !} \\int J (y _ {1}) J (y _ {2}) \\dots J (y _ {N}) \\langle 0 | T \\phi (x) \\phi (y _ {1}) \\phi (y _ {2}) \\dots \\phi (y _ {N}) | 0 \\rangle \\\\ = \\langle 0 | T \\phi (x) e ^ {\\int J \\phi} | 0 \\rangle \\end{array} \\tag{4.24}"
+    },
+    {
+      "id": "nair_qft-ch05-body-69-6f19f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[69]",
+      "expect": "\\begin{array}{l} \\frac {1}{2} \\int_ {x, y} G (x, y) \\frac {\\delta}{\\delta \\varphi (x)} \\frac {\\delta}{\\delta \\varphi (y)} \\varphi (1) \\varphi (2) = \\frac {1}{2} \\left[ \\int_ {x} G (x, 1) \\frac {\\delta}{\\delta \\varphi (x)} \\varphi (2) + \\int_ {x} G (x, 2) \\frac {\\delta}{\\delta \\varphi (x)} \\varphi (1) \\right] \\\\ = G (1, 2) \\end{array} \\tag {5.}\\tag{5.28}",
+      "new": "\\begin{array}{l} \\frac {1}{2} \\int_ {x, y} G (x, y) \\frac {\\delta}{\\delta \\varphi (x)} \\frac {\\delta}{\\delta \\varphi (y)} \\varphi (1) \\varphi (2) = \\frac {1}{2} \\left[ \\int_ {x} G (x, 1) \\frac {\\delta}{\\delta \\varphi (x)} \\varphi (2) + \\int_ {x} G (x, 2) \\frac {\\delta}{\\delta \\varphi (x)} \\varphi (1) \\right] \\\\ = G (1, 2) \\end{array} \\tag{5.28}"
+    },
+    {
+      "id": "nair_qft-ch05-body-71-8eb172",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[71]",
+      "expect": "\\int \\frac {1}{2} G \\delta \\delta \\varphi (1) \\varphi (2) \\dots \\varphi (N) = \\sum_ {i <   j} G (i, j) \\varphi (1) \\dots \\varphi (i - 1) \\varphi (i + 1) \\dots \\varphi (j - 1) \\varphi (j + 1) \\dots \\varphi (N) \\tag {4}\\tag{5.29}",
+      "new": "\\int \\frac {1}{2} G \\delta \\delta \\varphi (1) \\varphi (2) \\dots \\varphi (N) = \\sum_ {i < j} G (i, j) \\varphi (1) \\dots \\varphi (i - 1) \\varphi (i + 1) \\dots \\varphi (j - 1) \\varphi (j + 1) \\dots \\varphi (N) \\tag{5.29}"
+    },
+    {
+      "id": "nair_qft-ch05-body-74-b59553",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{r l} \\frac {1}{2 !} \\int \\frac {1}{2} G \\delta \\delta \\int \\frac {1}{2} G \\delta \\delta & \\varphi (1) \\varphi (2) \\varphi (3) \\varphi (4) = G (1, 2) G (3, 4) + G (1, 3) G (2, 4) \\\\ & + G (1, 4) G (2, 3) \\end{array} \\tag {5.3}\\tag{5.30}",
+      "new": "\\begin{array}{r l} \\frac {1}{2 !} \\int \\frac {1}{2} G \\delta \\delta \\int \\frac {1}{2} G \\delta \\delta & \\varphi (1) \\varphi (2) \\varphi (3) \\varphi (4) = G (1, 2) G (3, 4) + G (1, 3) G (2, 4) \\\\ & + G (1, 4) G (2, 3) \\end{array} \\tag{5.30}"
+    },
+    {
+      "id": "nair_qft-ch08-body-212-c9dd54",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[212]",
+      "expect": "\\begin{array}{l} W [ J ] = G _ {1} ^ {c} + \\frac {1}{2 !} G _ {2} ^ {c} + \\dots \\\\ = \\int d ^ {4} x J (x) G ^ {c} (x) + \\frac {1}{2 !} \\int d ^ {4} x _ {1} d ^ {4} x _ {2} J (x _ {1}) J (x _ {2}) G ^ {c} (x _ {1}, x _ {2}) + \\dots \\\\ = \\sum_ {N} \\frac {1}{N !} \\int \\int d ^ {4} x _ {1}... d ^ {4} x _ {N} J (x _ {1})... J (x _ {N}) G ^ {c} (x _ {1},... x _ {N}) \\end{array} \\tag {8}\\tag{8.89}",
+      "new": "\\begin{array}{l} W [ J ] = G _ {1} ^ {c} + \\frac {1}{2 !} G _ {2} ^ {c} + \\dots \\\\ = \\int d ^ {4} x J (x) G ^ {c} (x) + \\frac {1}{2 !} \\int d ^ {4} x _ {1} d ^ {4} x _ {2} J (x _ {1}) J (x _ {2}) G ^ {c} (x _ {1}, x _ {2}) + \\dots \\\\ = \\sum_ {N} \\frac {1}{N !} \\int \\int d ^ {4} x _ {1}... d ^ {4} x _ {N} J (x _ {1})... J (x _ {N}) G ^ {c} (x _ {1},... x _ {N}) \\end{array} \\tag{8.89}"
+    },
+    {
+      "id": "nair_qft-ch08-body-258-0fe2a2",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[258]",
+      "expect": "\\begin{array}{r l} \\int_ {3} V (1, 3) G (3, 2) & = \\delta (1, 2) \\\\ V (1, 2) & = K (1, 2) + \\Sigma (1, 2) \\\\ \\Sigma (1, 2) & = 1 2 \\lambda G (1, 1) \\delta (1, 2) \\\\ - 4 \\lambda \\int_ {3, 4, 5} G (1, 3) G (1, 4) G (1, 5) V (3, 4, 5, 2) \\end{array} \\tag {8}\\tag{8.108}",
+      "new": "\\begin{array}{r l} \\int_ {3} V (1, 3) G (3, 2) & = \\delta (1, 2) \\\\ V (1, 2) & = K (1, 2) + \\Sigma (1, 2) \\\\ \\Sigma (1, 2) & = 1 2 \\lambda G (1, 1) \\delta (1, 2) \\\\ - 4 \\lambda \\int_ {3, 4, 5} G (1, 3) G (1, 4) G (1, 5) V (3, 4, 5, 2) \\end{array} \\tag{8.108}"
+    },
+    {
+      "id": "nair_qft-ch04-body-70-1407f1",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[70]",
+      "expect": "\\begin{array}{l} \\frac {\\partial}{\\partial x ^ {0}} \\langle 0 | T \\phi (x) e ^ {\\int J \\phi} | 0 \\rangle = \\langle 0 | P (\\infty , x ^ {0}) \\frac {\\partial \\phi (x)}{\\partial x ^ {0}} P (x ^ {0}, - \\infty) | 0 \\rangle \\\\ + \\int d ^ {3} y J (x ^ {0}, \\boldsymbol {y}) \\langle 0 | P (\\infty , x ^ {0}) [ \\phi (x) \\phi (x ^ {0}, \\boldsymbol {y}) \\\\ - \\phi (x ^ {0}, \\boldsymbol {y}) \\phi (x) ] P (x ^ {0}, - \\infty) | 0 \\rangle \\end{array} \\tag {4}\\tag{4.28}",
+      "new": "\\begin{array}{l} \\frac {\\partial}{\\partial x ^ {0}} \\langle 0 | T \\phi (x) e ^ {\\int J \\phi} | 0 \\rangle = \\langle 0 | P (\\infty , x ^ {0}) \\frac {\\partial \\phi (x)}{\\partial x ^ {0}} P (x ^ {0}, - \\infty) | 0 \\rangle \\\\ + \\int d ^ {3} y J (x ^ {0}, \\boldsymbol {y}) \\langle 0 | P (\\infty , x ^ {0}) [ \\phi (x) \\phi (x ^ {0}, \\boldsymbol {y}) \\\\ - \\phi (x ^ {0}, \\boldsymbol {y}) \\phi (x) ] P (x ^ {0}, - \\infty) | 0 \\rangle \\end{array} \\tag{4.28}"
+    },
+    {
+      "id": "nair_qft-ch07-body-68-815a03",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[68]",
+      "expect": "\\begin{array}{l} \\int d ^ {3} x e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {x}} \\Psi_ {f} ^ {*} (x) \\Psi_ {i} (x) \\\\ = e ^ {i (E _ {f} - E _ {i}) x ^ {0}} \\int d ^ {3} x \\psi_ {f} ^ {*} (\\boldsymbol {x} - \\boldsymbol {a} _ {n}) \\psi_ {i} (\\boldsymbol {x} - \\boldsymbol {a} _ {n}) e ^ {i \\boldsymbol {q} \\cdot (\\boldsymbol {x} - \\boldsymbol {a} _ {n})} e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {a} _ {n}} \\\\ = e ^ {i (E _ {f} - E _ {i}) x ^ {0}} \\langle f | e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {\\xi} _ {n}} | i \\rangle e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {a} _ {n}} \\end{array} \\tag {7.3}\\tag{7.31}",
+      "new": "\\begin{array}{l} \\int d ^ {3} x e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {x}} \\Psi_ {f} ^ {*} (x) \\Psi_ {i} (x) \\\\ = e ^ {i (E _ {f} - E _ {i}) x ^ {0}} \\int d ^ {3} x \\psi_ {f} ^ {*} (\\boldsymbol {x} - \\boldsymbol {a} _ {n}) \\psi_ {i} (\\boldsymbol {x} - \\boldsymbol {a} _ {n}) e ^ {i \\boldsymbol {q} \\cdot (\\boldsymbol {x} - \\boldsymbol {a} _ {n})} e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {a} _ {n}} \\\\ = e ^ {i (E _ {f} - E _ {i}) x ^ {0}} \\langle f | e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {\\xi} _ {n}} | i \\rangle e ^ {i \\boldsymbol {q} \\cdot \\boldsymbol {a} _ {n}} \\end{array} \\tag{7.31}"
+    },
+    {
+      "id": "nair_qft-ch08-body-47-11de8d",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[47]",
+      "expect": "\\begin{array}{l} Z [ J ] = \\mathcal {N} ^ {\\prime} \\exp \\left[ - i \\lambda \\int d ^ {4} x \\left(\\frac {\\delta}{\\delta J (x)}\\right) ^ {4} \\right] \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} _ {0} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\\\ = \\mathcal {N} ^ {\\prime} \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} _ {0} - i \\lambda \\int \\varphi^ {4} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\\\ = \\mathcal {N} ^ {\\prime} \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\end{array} \\tag {8.2}\\tag{8.21}",
+      "new": "\\begin{array}{l} Z [ J ] = \\mathcal {N} ^ {\\prime} \\exp \\left[ - i \\lambda \\int d ^ {4} x \\left(\\frac {\\delta}{\\delta J (x)}\\right) ^ {4} \\right] \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} _ {0} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\\\ = \\mathcal {N} ^ {\\prime} \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} _ {0} - i \\lambda \\int \\varphi^ {4} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\\\ = \\mathcal {N} ^ {\\prime} \\int [ d \\varphi ] \\exp \\left[ i \\mathcal {S} - \\frac {1}{2} \\epsilon \\int \\varphi^ {2} + \\int J \\varphi \\right] \\end{array} \\tag{8.21}"
+    },
+    {
+      "id": "nair_qft-ch08-body-180-7b8e37",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[180]",
+      "expect": "\\left. \\frac {1}{2} \\langle T \\frac {\\partial G _ {B C}}{\\partial \\varphi^ {A}} \\frac {\\partial \\varphi^ {B}}{\\partial x ^ {\\mu}} \\frac {\\partial \\varphi^ {C}}{\\partial x _ {\\mu}} e ^ {\\int J \\varphi} \\rangle \\right] _ {z \\rightarrow x} = \\frac {1}{2} \\frac {\\partial}{\\partial z ^ {\\mu}} \\langle T \\mathcal {O} _ {C A} ^ {\\mu} (x) \\varphi^ {C} (z) e ^ {\\int J \\varphi} \\rangle \\Bigg ] _ {z \\rightarrow x} - \\frac {i}{2} \\langle \\frac {\\delta}{\\delta \\varphi^ {A} (x)} (\\operatorname{Tr} \\log G) e ^ {\\int J \\varphi} \\rangle \\tag {8.7}\\tag{8.76}",
+      "new": "\\left. \\frac {1}{2} \\langle T \\frac {\\partial G _ {B C}}{\\partial \\varphi^ {A}} \\frac {\\partial \\varphi^ {B}}{\\partial x ^ {\\mu}} \\frac {\\partial \\varphi^ {C}}{\\partial x _ {\\mu}} e ^ {\\int J \\varphi} \\rangle \\right] _ {z \\rightarrow x} = \\frac {1}{2} \\frac {\\partial}{\\partial z ^ {\\mu}} \\langle T \\mathcal {O} _ {C A} ^ {\\mu} (x) \\varphi^ {C} (z) e ^ {\\int J \\varphi} \\rangle \\Bigg ] _ {z \\rightarrow x} - \\frac {i}{2} \\langle \\frac {\\delta}{\\delta \\varphi^ {A} (x)} (\\operatorname{Tr} \\log G) e ^ {\\int J \\varphi} \\rangle \\tag{8.76}"
+    },
+    {
+      "id": "nair_qft-ch08-body-256-978e15",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[256]",
+      "expect": "\\begin{array}{l} - 1 2 \\lambda \\Phi (1) \\int_ {3, 4} \\tilde {G} (1, 3) \\tilde {G} (1, 4) \\tilde {V} _ {\\Phi} (3, 4, 2) \\\\ + 1 2 \\lambda \\int_ {3, \\dots , 7} \\tilde {G} (1, 3) \\tilde {V} _ {\\Phi} (3, 4, 2) \\tilde {G} (4, 5) \\tilde {G} (1, 6) \\tilde {G} (1, 7) \\tilde {V} _ {\\Phi} (5, 6, 7) \\\\ - 4 \\lambda \\int_ {3, 4, 5} ^ {\\prime} \\tilde {G} (1, 3) \\tilde {G} (1, 4) \\tilde {G} (1, 5) \\tilde {V} _ {\\Phi} (3, 4, 5, 2) \\end{array} \\tag {8.10}\\tag{8.107}",
+      "new": "\\begin{array}{l} - 1 2 \\lambda \\Phi (1) \\int_ {3, 4} \\tilde {G} (1, 3) \\tilde {G} (1, 4) \\tilde {V} _ {\\Phi} (3, 4, 2) \\\\ + 1 2 \\lambda \\int_ {3, \\dots , 7} \\tilde {G} (1, 3) \\tilde {V} _ {\\Phi} (3, 4, 2) \\tilde {G} (4, 5) \\tilde {G} (1, 6) \\tilde {G} (1, 7) \\tilde {V} _ {\\Phi} (5, 6, 7) \\\\ - 4 \\lambda \\int_ {3, 4, 5} ^ {\\prime} \\tilde {G} (1, 3) \\tilde {G} (1, 4) \\tilde {G} (1, 5) \\tilde {V} _ {\\Phi} (3, 4, 5, 2) \\end{array} \\tag{8.107}"
+    },
+    {
+      "id": "nair_qft-ch09-body-98-6d7427",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[98]",
+      "expect": "\\begin{array}{c} \\Gamma_ {2} ^ {(2)} = \\frac {1}{2} \\int_ {x, y} \\partial \\Phi (x) \\left[ \\frac {3 \\lambda^ {2}}{1 6 \\pi^ {4}} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) \\delta^ {(4)} (x - y) - F (x, y) \\right] \\partial \\Phi (y) \\\\ F (x, y) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} e ^ {i k \\cdot (x - y)} \\left[ \\frac {3 \\lambda^ {2}}{1 6 \\pi^ {4}} \\log \\left(\\frac {k ^ {2}}{m ^ {2}}\\right) \\right] \\end{array} \\tag {9}\\tag{9.36}",
+      "new": "\\begin{array}{c} \\Gamma_ {2} ^ {(2)} = \\frac {1}{2} \\int_ {x, y} \\partial \\Phi (x) \\left[ \\frac {3 \\lambda^ {2}}{1 6 \\pi^ {4}} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) \\delta^ {(4)} (x - y) - F (x, y) \\right] \\partial \\Phi (y) \\\\ F (x, y) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} e ^ {i k \\cdot (x - y)} \\left[ \\frac {3 \\lambda^ {2}}{1 6 \\pi^ {4}} \\log \\left(\\frac {k ^ {2}}{m ^ {2}}\\right) \\right] \\end{array} \\tag{9.36}"
+    },
+    {
+      "id": "nair_qft-ch09-body-198-555708",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[198]",
+      "expect": "\\begin{array}{l} \\Gamma = \\int \\frac {1}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} + \\frac {1}{2} (\\partial \\cdot A) ^ {2} + \\bar {\\psi} (\\gamma \\cdot \\partial + m) \\psi - i e \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\\\ \\int + \\frac {1}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} \\left[ Z _ {3} ^ {(1)} + \\frac {\\alpha}{3 \\pi} \\left(\\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) - 1\\right) \\right] + \\lambda^ {(1)} \\frac {1}{2} (\\partial \\cdot A) ^ {2} \\\\ + \\left[ Z _ {2} ^ {(1)} + \\frac {\\alpha}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) + \\frac {\\alpha}{2 \\pi} \\right] \\bar {\\psi} (\\gamma \\cdot \\partial + m) \\psi \\\\ - \\left[ \\delta m ^ {(1)} - \\frac {3 \\alpha m}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) - \\frac {\\alpha m}{2 \\pi} \\right] \\bar {\\psi} \\psi \\\\ - \\left[ Z _ {1} ^ {(1)} + \\frac {\\alpha}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) \\right] i e \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\\\ + \\Lambda - \\text { independent   terms } + \\dots . \\end{array} \\tag {9.}\\tag{9.65}",
+      "new": "\\begin{array}{l} \\Gamma = \\int \\frac {1}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} + \\frac {1}{2} (\\partial \\cdot A) ^ {2} + \\bar {\\psi} (\\gamma \\cdot \\partial + m) \\psi - i e \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\\\ \\int + \\frac {1}{4} F _ {\\mu \\nu} F ^ {\\mu \\nu} \\left[ Z _ {3} ^ {(1)} + \\frac {\\alpha}{3 \\pi} \\left(\\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) - 1\\right) \\right] + \\lambda^ {(1)} \\frac {1}{2} (\\partial \\cdot A) ^ {2} \\\\ + \\left[ Z _ {2} ^ {(1)} + \\frac {\\alpha}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) + \\frac {\\alpha}{2 \\pi} \\right] \\bar {\\psi} (\\gamma \\cdot \\partial + m) \\psi \\\\ - \\left[ \\delta m ^ {(1)} - \\frac {3 \\alpha m}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) - \\frac {\\alpha m}{2 \\pi} \\right] \\bar {\\psi} \\psi \\\\ - \\left[ Z _ {1} ^ {(1)} + \\frac {\\alpha}{4 \\pi} \\log \\left(\\frac {\\Lambda^ {2}}{m ^ {2}}\\right) \\right] i e \\bar {\\psi} \\gamma^ {\\mu} \\psi A _ {\\mu} \\\\ + \\Lambda - \\text { independent   terms } + \\dots . \\end{array} \\tag{9.65}"
+    },
+    {
+      "id": "nair_qft-ch10-body-227-79c572",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[227]",
+      "expect": "\\begin{array}{l} \\mathcal {S} _ {q} = \\mathcal {S} _ {E} (A) + \\int \\left[ i B ^ {a} f ^ {a} + \\frac {\\alpha e ^ {2}}{2} B ^ {a} B ^ {a} + \\bar {c} ^ {a} (x) \\left(\\frac {\\delta f ^ {a} (x)}{\\delta \\theta^ {b} (y)}\\right) c ^ {b} (y) \\right] \\\\ = \\mathcal {S} _ {E} (A) + \\mathcal {Q} \\int \\left[ \\bar {c} ^ {a} \\left(f ^ {a} - i \\frac {\\alpha}{2} B ^ {a}\\right) \\right] \\end{array} \\tag {1}\\tag{10.89}",
+      "new": "\\begin{array}{l} \\mathcal {S} _ {q} = \\mathcal {S} _ {E} (A) + \\int \\left[ i B ^ {a} f ^ {a} + \\frac {\\alpha e ^ {2}}{2} B ^ {a} B ^ {a} + \\bar {c} ^ {a} (x) \\left(\\frac {\\delta f ^ {a} (x)}{\\delta \\theta^ {b} (y)}\\right) c ^ {b} (y) \\right] \\\\ = \\mathcal {S} _ {E} (A) + \\mathcal {Q} \\int \\left[ \\bar {c} ^ {a} \\left(f ^ {a} - i \\frac {\\alpha}{2} B ^ {a}\\right) \\right] \\end{array} \\tag{10.89}"
+    },
+    {
+      "id": "nair_qft-ch15-body-54-09bb4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[54]",
+      "expect": "\\begin{array}{r l} \\frac {\\partial^ {2} \\Psi (q _ {N} , t _ {N})}{\\partial q _ {N} ^ {2}} & = i \\frac {3}{(t _ {N} - t _ {N - 1})} \\Psi (q _ {N}, t _ {N}) - \\int \\frac {(q _ {N} - q _ {N - 1}) ^ {2}}{(t _ {N} - t _ {N - 1}) ^ {2}} e ^ {i S} \\Psi (q _ {0}, t _ {0}) \\\\ & \\quad - i (t _ {N} - t _ {N - 1}) \\left[ \\frac {\\partial^ {2} V}{\\partial q _ {N} ^ {2}} \\Psi (q _ {N}, t _ {N}) + \\frac {\\partial V}{\\partial q _ {N}} \\frac {\\partial \\Psi (q _ {N} , t _ {N})}{\\partial q _ {N}} \\right] \\\\ & \\quad + (q _ {N} - q _ {N - 1}) ^ {i} \\frac {\\partial V}{\\partial q _ {N} ^ {i}} e ^ {i S} \\Psi (q _ {0}, t _ {0}) \\end{array} \\tag {15.}\\tag{15.25}",
+      "new": "\\begin{array}{r l} \\frac {\\partial^ {2} \\Psi (q _ {N} , t _ {N})}{\\partial q _ {N} ^ {2}} & = i \\frac {3}{(t _ {N} - t _ {N - 1})} \\Psi (q _ {N}, t _ {N}) - \\int \\frac {(q _ {N} - q _ {N - 1}) ^ {2}}{(t _ {N} - t _ {N - 1}) ^ {2}} e ^ {i S} \\Psi (q _ {0}, t _ {0}) \\\\ & \\quad - i (t _ {N} - t _ {N - 1}) \\left[ \\frac {\\partial^ {2} V}{\\partial q _ {N} ^ {2}} \\Psi (q _ {N}, t _ {N}) + \\frac {\\partial V}{\\partial q _ {N}} \\frac {\\partial \\Psi (q _ {N} , t _ {N})}{\\partial q _ {N}} \\right] \\\\ & \\quad + (q _ {N} - q _ {N - 1}) ^ {i} \\frac {\\partial V}{\\partial q _ {N} ^ {i}} e ^ {i S} \\Psi (q _ {0}, t _ {0}) \\end{array} \\tag{15.25}"
+    },
+    {
+      "id": "nair_qft-ch17-body-21-f9f867",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[21]",
+      "expect": "\\begin{array}{r l} \\mathrm{Tr} (\\gamma_ {5} \\theta) = & - \\frac {1}{8 \\pi^ {2}} \\int d ^ {4} x \\epsilon^ {\\mu \\nu \\alpha \\beta} \\mathrm{Str} \\left[ \\varphi \\left(\\frac {1}{4} F _ {V \\mu \\nu} F _ {V \\alpha \\beta} + \\frac {1}{1 2} F _ {A \\mu \\nu} F _ {A \\alpha \\beta} \\right. \\right. \\\\ & \\left. \\left. - \\frac {2}{3} (A _ {\\mu} A _ {\\nu} F _ {V \\alpha \\beta} + A _ {\\mu} F _ {V \\nu \\alpha} A _ {\\beta} + F _ {V \\mu \\nu} A _ {\\alpha} A _ {\\beta}) \\right. \\right. \\\\ & \\left. \\left. + \\frac {8}{3} A _ {\\mu} A _ {\\nu} A _ {\\alpha} A _ {\\beta}\\right) \\right] \\end{array} \\tag {1}\\tag{17.9}",
+      "new": "\\begin{array}{r l} \\mathrm{Tr} (\\gamma_ {5} \\theta) = & - \\frac {1}{8 \\pi^ {2}} \\int d ^ {4} x \\epsilon^ {\\mu \\nu \\alpha \\beta} \\mathrm{Str} \\left[ \\varphi \\left(\\frac {1}{4} F _ {V \\mu \\nu} F _ {V \\alpha \\beta} + \\frac {1}{1 2} F _ {A \\mu \\nu} F _ {A \\alpha \\beta} \\right. \\right. \\\\ & \\left. \\left. - \\frac {2}{3} (A _ {\\mu} A _ {\\nu} F _ {V \\alpha \\beta} + A _ {\\mu} F _ {V \\nu \\alpha} A _ {\\beta} + F _ {V \\mu \\nu} A _ {\\alpha} A _ {\\beta}) \\right. \\right. \\\\ & \\left. \\left. + \\frac {8}{3} A _ {\\mu} A _ {\\nu} A _ {\\alpha} A _ {\\beta}\\right) \\right] \\end{array} \\tag{17.9}"
+    },
+    {
+      "id": "nair_qft-ch18-body-143-0d31f0",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[143]",
+      "expect": "\\begin{array}{l} \\Gamma^ {(2)} = \\frac {1}{2} \\int d \\mu (k) \\int \\frac {d ^ {3} q}{(2 \\pi) ^ {3}} \\left[ \\frac {n + \\bar {n}}{E _ {q}} \\left(2 A _ {1} \\cdot Q A _ {2} \\cdot Q - A _ {1} \\cdot Q A _ {2} \\cdot Q ^ {\\prime} \\right. \\right. \\\\ \\left. - A _ {1} \\cdot Q ^ {\\prime} A _ {2} \\cdot Q + 2 A _ {1} \\cdot A _ {2}\\right) - \\frac {n}{E _ {q}} 2 A _ {1} \\cdot Q A _ {2} \\cdot Q \\frac {k \\cdot Q ^ {\\prime}}{k \\cdot Q} \\\\ \\left. - \\frac {\\bar {n}}{E _ {q}} 2 A _ {1} \\cdot Q ^ {\\prime} A _ {2} \\cdot Q ^ {\\prime} \\frac {k \\cdot Q}{k \\cdot Q ^ {\\prime}} \\right] \\end{array} \\tag {1}\\tag{18.59}",
+      "new": "\\begin{array}{l} \\Gamma^ {(2)} = \\frac {1}{2} \\int d \\mu (k) \\int \\frac {d ^ {3} q}{(2 \\pi) ^ {3}} \\left[ \\frac {n + \\bar {n}}{E _ {q}} \\left(2 A _ {1} \\cdot Q A _ {2} \\cdot Q - A _ {1} \\cdot Q A _ {2} \\cdot Q ^ {\\prime} \\right. \\right. \\\\ \\left. - A _ {1} \\cdot Q ^ {\\prime} A _ {2} \\cdot Q + 2 A _ {1} \\cdot A _ {2}\\right) - \\frac {n}{E _ {q}} 2 A _ {1} \\cdot Q A _ {2} \\cdot Q \\frac {k \\cdot Q ^ {\\prime}}{k \\cdot Q} \\\\ \\left. - \\frac {\\bar {n}}{E _ {q}} 2 A _ {1} \\cdot Q ^ {\\prime} A _ {2} \\cdot Q ^ {\\prime} \\frac {k \\cdot Q}{k \\cdot Q ^ {\\prime}} \\right] \\end{array} \\tag{18.59}"
+    },
+    {
+      "id": "nair_qft-ch18-body-328-849e62",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[328]",
+      "expect": "\\begin{array}{r l} \\int_ {- \\infty} ^ {y ^ {0}} F (\\mathcal {E} - \\mathcal {E} ^ {*}) & \\approx \\int_ {- \\infty} ^ {0} d ^ {4} \\zeta \\frac {d ^ {4} p _ {1}}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p _ {2}}{(2 \\pi) ^ {4}} F (X, p _ {2}) (\\mathcal {E} - \\mathcal {E} ^ {*}) (X, p _ {1}) \\\\ & \\qquad \\times \\exp [ i p _ {1} (\\xi + \\zeta) - i p _ {2} \\zeta ] \\\\ & \\approx \\int_ {0} ^ {\\infty} d ^ {4} \\zeta \\frac {d ^ {4} p _ {1}}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p _ {2}}{(2 \\pi) ^ {4}} F (X, p _ {1}) (\\mathcal {E} - \\mathcal {E} ^ {*}) (X, p _ {2}) \\\\ & \\qquad \\times \\exp [ i p _ {2} (\\xi - \\zeta) + i p _ {1} \\zeta ] \\end{array} \\tag {1}\\tag{18.137}",
+      "new": "\\begin{array}{r l} \\int_ {- \\infty} ^ {y ^ {0}} F (\\mathcal {E} - \\mathcal {E} ^ {*}) & \\approx \\int_ {- \\infty} ^ {0} d ^ {4} \\zeta \\frac {d ^ {4} p _ {1}}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p _ {2}}{(2 \\pi) ^ {4}} F (X, p _ {2}) (\\mathcal {E} - \\mathcal {E} ^ {*}) (X, p _ {1}) \\\\ & \\qquad \\times \\exp [ i p _ {1} (\\xi + \\zeta) - i p _ {2} \\zeta ] \\\\ & \\approx \\int_ {0} ^ {\\infty} d ^ {4} \\zeta \\frac {d ^ {4} p _ {1}}{(2 \\pi) ^ {4}} \\frac {d ^ {4} p _ {2}}{(2 \\pi) ^ {4}} F (X, p _ {1}) (\\mathcal {E} - \\mathcal {E} ^ {*}) (X, p _ {2}) \\\\ & \\qquad \\times \\exp [ i p _ {2} (\\xi - \\zeta) + i p _ {1} \\zeta ] \\end{array} \\tag{18.137}"
+    },
+    {
+      "id": "nair_qft-ch19-body-247-25fcda",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[247]",
+      "expect": "\\begin{array}{l}\\langle J ^ {\\mu} (x) \\rangle = \\frac {1}{N} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} (i \\gamma \\cdot \\partial + m F ^ {\\dagger}) G (x, y) \\right] _ {y \\rightarrow x}\\\\= (- i) ^ {3} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} m F ^ {\\dagger} X X X \\right] \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\left[ \\frac {1}{p ^ {2} - m ^ {2} + i \\epsilon} \\right] ^ {4} + \\dots\\\\= \\frac {i}{9 6 \\pi^ {2}} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\right] + \\dots\\\\= - \\frac {1}{2 4 \\pi^ {2}} \\epsilon^ {\\mu \\nu \\alpha \\beta} \\operatorname{Tr} (U ^ {- 1} \\partial_ {\\nu} U U ^ {- 1} \\partial_ {\\alpha} U U ^ {- 1} \\partial_ {\\beta} U) + \\dots\\end{array}\\tag {19}\\tag{19.85}",
+      "new": "\\begin{array}{l}\\langle J ^ {\\mu} (x) \\rangle = \\frac {1}{N} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} (i \\gamma \\cdot \\partial + m F ^ {\\dagger}) G (x, y) \\right] _ {y \\rightarrow x}\\\\= (- i) ^ {3} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} m F ^ {\\dagger} X X X \\right] \\int \\frac {d ^ {4} p}{(2 \\pi) ^ {4}} \\left[ \\frac {1}{p ^ {2} - m ^ {2} + i \\epsilon} \\right] ^ {4} + \\dots\\\\= \\frac {i}{9 6 \\pi^ {2}} \\operatorname{Tr} \\left[ \\gamma^ {\\mu} F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\gamma \\cdot F ^ {\\dagger} \\right] + \\dots\\\\= - \\frac {1}{2 4 \\pi^ {2}} \\epsilon^ {\\mu \\nu \\alpha \\beta} \\operatorname{Tr} (U ^ {- 1} \\partial_ {\\nu} U U ^ {- 1} \\partial_ {\\alpha} U U ^ {- 1} \\partial_ {\\beta} U) + \\dots\\end{array}\\tag{19.85}"
+    },
+    {
+      "id": "nair_qft-ch20-body-300-1a19bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[300]",
+      "expect": "\\begin{array}{l} i _ {\\xi} \\Omega = - \\epsilon_ {i j k} \\theta_ {k} (- x _ {j} d p _ {i} - p _ {i} d x _ {j}) - \\theta_ {k} e g (\\delta_ {j} ^ {m} \\delta_ {k} ^ {n} - \\delta_ {k} ^ {m} \\delta_ {j} ^ {n}) \\frac {x _ {j} x _ {n}}{r ^ {3}} d x ^ {m} \\\\ = \\theta_ {k} d (- \\epsilon_ {i j k} x _ {i} p _ {j}) + \\theta_ {k} e g \\left(\\frac {d x _ {k}}{r} - \\frac {x _ {i} x _ {k}}{r ^ {3}} d x ^ {i}\\right) \\\\ = \\theta_ {k} d (- \\epsilon_ {i j k} x _ {i} p _ {j} + e g \\frac {x _ {k}}{r}) \\end{array} \\tag {2}\\tag{20.115}",
+      "new": "\\begin{array}{l} i _ {\\xi} \\Omega = - \\epsilon_ {i j k} \\theta_ {k} (- x _ {j} d p _ {i} - p _ {i} d x _ {j}) - \\theta_ {k} e g (\\delta_ {j} ^ {m} \\delta_ {k} ^ {n} - \\delta_ {k} ^ {m} \\delta_ {j} ^ {n}) \\frac {x _ {j} x _ {n}}{r ^ {3}} d x ^ {m} \\\\ = \\theta_ {k} d (- \\epsilon_ {i j k} x _ {i} p _ {j}) + \\theta_ {k} e g \\left(\\frac {d x _ {k}}{r} - \\frac {x _ {i} x _ {k}}{r ^ {3}} d x ^ {i}\\right) \\\\ = \\theta_ {k} d (- \\epsilon_ {i j k} x _ {i} p _ {j} + e g \\frac {x _ {k}}{r}) \\end{array} \\tag{20.115}"
+    },
+    {
+      "id": "nair_qft-ch20-body-376-e34a5f",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[376]",
+      "expect": "\\begin{array}{c} \\Omega = \\frac {1}{2} \\int d \\mu d \\mu^ {\\prime} \\Omega (v, x ^ {T}, v ^ {\\prime}, x ^ {\\prime T}) \\delta \\varphi (v, x ^ {T}) \\wedge \\delta \\varphi (v ^ {\\prime}, x ^ {\\prime T}) \\\\ \\Omega (v, x ^ {T}, v ^ {\\prime}, x ^ {\\prime T}) = - 2 \\partial_ {v} \\delta (v - v ^ {\\prime}) \\delta^ {(2)} (x ^ {T} - x ^ {\\prime T}) \\\\ d \\mu = d v d ^ {2} x ^ {T} \\end{array} \\tag {20.1}\\tag{20.146}",
+      "new": "\\begin{array}{c} \\Omega = \\frac {1}{2} \\int d \\mu d \\mu^ {\\prime} \\Omega (v, x ^ {T}, v ^ {\\prime}, x ^ {\\prime T}) \\delta \\varphi (v, x ^ {T}) \\wedge \\delta \\varphi (v ^ {\\prime}, x ^ {\\prime T}) \\\\ \\Omega (v, x ^ {T}, v ^ {\\prime}, x ^ {\\prime T}) = - 2 \\partial_ {v} \\delta (v - v ^ {\\prime}) \\delta^ {(2)} (x ^ {T} - x ^ {\\prime T}) \\\\ d \\mu = d v d ^ {2} x ^ {T} \\end{array} \\tag{20.146}"
+    },
+    {
+      "id": "nair_qft-ch10-body-318-2a5ad0",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[318]",
+      "expect": "\\begin{array}{l} \\mathcal {S} _ {q} = \\int d ^ {4} x \\left[ \\frac {Z _ {3}}{4} (\\partial_ {\\mu} A _ {\\nu} ^ {a} - \\partial_ {\\nu} A _ {\\mu} ^ {a}) (\\partial^ {\\mu} A ^ {a \\nu} - \\partial^ {\\nu} A ^ {a \\mu}) \\right. \\\\ \\left. + \\frac {e Z _ {1}}{2} f ^ {a b c} (\\partial_ {\\mu} A _ {\\nu} ^ {a} - \\partial_ {\\nu} A _ {\\mu} ^ {a}) A ^ {b \\mu} A ^ {c \\nu} \\right. \\\\ \\left. + \\frac {e ^ {2} Z _ {4}}{4} f ^ {a b c} f ^ {a m n} A ^ {b \\mu} A ^ {c \\nu} A _ {\\mu} ^ {m} A _ {\\nu} ^ {n} + \\tilde {Z} _ {3} \\partial_ {\\mu} \\bar {c} ^ {a} \\partial^ {\\mu} c ^ {a} \\right. \\\\ \\left. + e \\tilde {Z} _ {1} f ^ {a b c} \\partial_ {\\mu} \\bar {c} ^ {a} A ^ {b \\mu} c ^ {c} + \\frac {\\lambda}{2} (\\partial \\cdot A ^ {a}) ^ {2} \\right] \\end{array} \\tag {1}\\tag{10.125}",
+      "new": "\\begin{array}{l} \\mathcal {S} _ {q} = \\int d ^ {4} x \\left[ \\frac {Z _ {3}}{4} (\\partial_ {\\mu} A _ {\\nu} ^ {a} - \\partial_ {\\nu} A _ {\\mu} ^ {a}) (\\partial^ {\\mu} A ^ {a \\nu} - \\partial^ {\\nu} A ^ {a \\mu}) \\right. \\\\ \\left. + \\frac {e Z _ {1}}{2} f ^ {a b c} (\\partial_ {\\mu} A _ {\\nu} ^ {a} - \\partial_ {\\nu} A _ {\\mu} ^ {a}) A ^ {b \\mu} A ^ {c \\nu} \\right. \\\\ \\left. + \\frac {e ^ {2} Z _ {4}}{4} f ^ {a b c} f ^ {a m n} A ^ {b \\mu} A ^ {c \\nu} A _ {\\mu} ^ {m} A _ {\\nu} ^ {n} + \\tilde {Z} _ {3} \\partial_ {\\mu} \\bar {c} ^ {a} \\partial^ {\\mu} c ^ {a} \\right. \\\\ \\left. + e \\tilde {Z} _ {1} f ^ {a b c} \\partial_ {\\mu} \\bar {c} ^ {a} A ^ {b \\mu} c ^ {c} + \\frac {\\lambda}{2} (\\partial \\cdot A ^ {a}) ^ {2} \\right] \\end{array} \\tag{10.125}"
+    },
+    {
+      "id": "nair_qft-ch10-body-398-d306e5",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[398]",
+      "expect": "\\begin{array}{l} \\Gamma = \\frac {e ^ {2}}{2} \\int \\bar {q} (x) t ^ {a} \\gamma_ {\\mu} q (x) \\bar {q} (y) t ^ {a} \\gamma_ {\\mu} q (y) \\int \\frac {d ^ {n} k}{(2 \\pi) ^ {n}} e ^ {i k (x - y)} F (k) \\\\ F (k) = e ^ {2} (\\mu^ {2}) ^ {\\epsilon / 2} \\frac {2 C _ {2}}{k ^ {2}} \\int \\frac {d ^ {n} p ^ {\\prime}}{(2 \\pi) ^ {n}} \\frac {1}{p ^ {\\prime 2} (p ^ {\\prime} + k) ^ {2}} \\\\ = \\frac {e ^ {2} C _ {2}}{8 \\pi^ {2} k ^ {2}} \\left[ \\frac {2}{\\epsilon} - \\gamma + 2 + \\log 4 \\pi - \\log (k ^ {2} / \\mu^ {2}) \\right] \\end{array} \\tag {1}\\tag{10.152}",
+      "new": "\\begin{array}{l} \\Gamma = \\frac {e ^ {2}}{2} \\int \\bar {q} (x) t ^ {a} \\gamma_ {\\mu} q (x) \\bar {q} (y) t ^ {a} \\gamma_ {\\mu} q (y) \\int \\frac {d ^ {n} k}{(2 \\pi) ^ {n}} e ^ {i k (x - y)} F (k) \\\\ F (k) = e ^ {2} (\\mu^ {2}) ^ {\\epsilon / 2} \\frac {2 C _ {2}}{k ^ {2}} \\int \\frac {d ^ {n} p ^ {\\prime}}{(2 \\pi) ^ {n}} \\frac {1}{p ^ {\\prime 2} (p ^ {\\prime} + k) ^ {2}} \\\\ = \\frac {e ^ {2} C _ {2}}{8 \\pi^ {2} k ^ {2}} \\left[ \\frac {2}{\\epsilon} - \\gamma + 2 + \\log 4 \\pi - \\log (k ^ {2} / \\mu^ {2}) \\right] \\end{array} \\tag{10.152}"
+    },
+    {
+      "id": "nair_qft-ch11-body-175-6cde19",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[175]",
+      "expect": "\\begin{array}{l} \\mathcal {M} ^ {(1)} = - e ^ {2} \\bar {u} _ {p} \\left[ \\gamma \\cdot e ^ {\\prime} \\left(1 + h _ {1} \\frac {\\omega}{m}\\right) ^ {2} \\frac {i}{(\\gamma \\cdot (p + k) - m) (1 + 2 h _ {1} \\omega / m)} \\gamma \\cdot e ^ {\\prime} \\right. \\\\ \\left. + \\gamma \\cdot e \\left(1 - h _ {1} \\frac {\\omega}{m}\\right) ^ {2} \\frac {i}{(\\gamma \\cdot (p - k) - m) (1 - 2 h _ {1} \\omega / m)} \\gamma \\cdot e ^ {\\prime} \\right] u _ {p} \\\\ \\approx - i e ^ {2} \\frac {1}{2 p \\cdot k} \\bar {u} _ {p} [ \\gamma \\cdot e ^ {\\prime} \\gamma \\cdot k \\gamma \\cdot e + \\gamma \\cdot e \\gamma \\cdot k \\gamma \\cdot e ^ {\\prime} ] u _ {p} \\\\ \\approx - i \\frac {e ^ {2}}{m} e \\cdot e ^ {\\prime} \\end{array} \\tag {11.6}\\tag{11.63}",
+      "new": "\\begin{array}{l} \\mathcal {M} ^ {(1)} = - e ^ {2} \\bar {u} _ {p} \\left[ \\gamma \\cdot e ^ {\\prime} \\left(1 + h _ {1} \\frac {\\omega}{m}\\right) ^ {2} \\frac {i}{(\\gamma \\cdot (p + k) - m) (1 + 2 h _ {1} \\omega / m)} \\gamma \\cdot e ^ {\\prime} \\right. \\\\ \\left. + \\gamma \\cdot e \\left(1 - h _ {1} \\frac {\\omega}{m}\\right) ^ {2} \\frac {i}{(\\gamma \\cdot (p - k) - m) (1 - 2 h _ {1} \\omega / m)} \\gamma \\cdot e ^ {\\prime} \\right] u _ {p} \\\\ \\approx - i e ^ {2} \\frac {1}{2 p \\cdot k} \\bar {u} _ {p} [ \\gamma \\cdot e ^ {\\prime} \\gamma \\cdot k \\gamma \\cdot e + \\gamma \\cdot e \\gamma \\cdot k \\gamma \\cdot e ^ {\\prime} ] u _ {p} \\\\ \\approx - i \\frac {e ^ {2}}{m} e \\cdot e ^ {\\prime} \\end{array} \\tag{11.63}"
+    },
+    {
+      "id": "nair_qft-ch13-body-22-0620f7",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[22]",
+      "expect": "\\begin{array}{l} \\Gamma^ {(3)} = \\int d ^ {4} x d ^ {4} y d ^ {4} z \\operatorname{Tr} \\left[ S (x, y) \\gamma^ {5} \\gamma \\cdot A (y) S (y, z) \\gamma \\cdot V (z) S (z, x) \\gamma \\cdot V (x) \\right] \\\\ = \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ A _ {\\mu} (2 q) V _ {\\alpha} (p _ {1}) V _ {\\beta} (p _ {2}) ] \\mathcal {I} ^ {\\mu \\alpha \\beta} (q, p _ {1}, p _ {2}) \\end{array} \\tag {13.}\\tag{13.6}",
+      "new": "\\begin{array}{l} \\Gamma^ {(3)} = \\int d ^ {4} x d ^ {4} y d ^ {4} z \\operatorname{Tr} \\left[ S (x, y) \\gamma^ {5} \\gamma \\cdot A (y) S (y, z) \\gamma \\cdot V (z) S (z, x) \\gamma \\cdot V (x) \\right] \\\\ = \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ A _ {\\mu} (2 q) V _ {\\alpha} (p _ {1}) V _ {\\beta} (p _ {2}) ] \\mathcal {I} ^ {\\mu \\alpha \\beta} (q, p _ {1}, p _ {2}) \\end{array} \\tag{13.6}"
+    },
+    {
+      "id": "nair_qft-ch13-body-32-aee900",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[32]",
+      "expect": "\\begin{array}{l} \\delta_ {\\theta} \\Gamma^ {(3)} = - \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ A _ {\\mu} (2 q) \\theta (p _ {1}) V _ {\\alpha} (p _ {2}) ] \\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) \\\\ \\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} \\gamma^ {\\mu} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\alpha} \\right. \\\\ \\left. - \\frac {1}{\\gamma \\cdot (k + r)} \\gamma^ {5} \\gamma^ {\\mu} \\frac {1}{\\gamma \\cdot (k + q)} \\gamma^ {\\alpha} \\right] \\end{array} \\tag {13.1}\\tag{13.11}",
+      "new": "\\begin{array}{l} \\delta_ {\\theta} \\Gamma^ {(3)} = - \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ A _ {\\mu} (2 q) \\theta (p _ {1}) V _ {\\alpha} (p _ {2}) ] \\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) \\\\ \\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} \\gamma^ {\\mu} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\alpha} \\right. \\\\ \\left. - \\frac {1}{\\gamma \\cdot (k + r)} \\gamma^ {5} \\gamma^ {\\mu} \\frac {1}{\\gamma \\cdot (k + q)} \\gamma^ {\\alpha} \\right] \\end{array} \\tag{13.11}"
+    },
+    {
+      "id": "nair_qft-ch13-body-38-bf29b1",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[38]",
+      "expect": "\\begin{array}{l}\\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) = 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\int \\frac {(k - q) _ {\\nu} (k - r) _ {\\beta}}{(k - q) ^ {2} (k - r) ^ {2}} k ^ {3} p _ {1 \\lambda} \\hat {k} ^ {\\lambda} \\left. \\frac {d \\Omega^ {(3)}}{(2 \\pi) ^ {4}} \\right] _ {k \\rightarrow \\infty}\\\\= 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\int \\frac {d \\Omega^ {(3)}}{(2 \\pi) ^ {4}} \\hat {k} _ {\\nu} (q - r) _ {\\beta} p _ {1 \\lambda} \\hat {k} ^ {\\lambda}\\\\= 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\left(\\frac {\\delta_ {\\nu \\lambda}}{4}\\right) p _ {1 \\lambda} p _ {2 \\beta} \\frac {\\operatorname{Vol} (S ^ {3})}{1 6 \\pi^ {4}}\\\\= \\frac {1}{8 \\pi^ {2}} \\epsilon^ {\\mu \\nu \\alpha \\beta} p _ {1 \\nu} p _ {2 \\beta}\\end{array}\\tag {1}\\tag{13.14}",
+      "new": "\\begin{array}{l}\\mathcal {F} ^ {\\mu \\alpha} (q, p _ {1}, p _ {2}) = 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\int \\frac {(k - q) _ {\\nu} (k - r) _ {\\beta}}{(k - q) ^ {2} (k - r) ^ {2}} k ^ {3} p _ {1 \\lambda} \\hat {k} ^ {\\lambda} \\left. \\frac {d \\Omega^ {(3)}}{(2 \\pi) ^ {4}} \\right] _ {k \\rightarrow \\infty}\\\\= 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\int \\frac {d \\Omega^ {(3)}}{(2 \\pi) ^ {4}} \\hat {k} _ {\\nu} (q - r) _ {\\beta} p _ {1 \\lambda} \\hat {k} ^ {\\lambda}\\\\= 4 \\epsilon^ {\\mu \\nu \\alpha \\beta} \\left(\\frac {\\delta_ {\\nu \\lambda}}{4}\\right) p _ {1 \\lambda} p _ {2 \\beta} \\frac {\\operatorname{Vol} (S ^ {3})}{1 6 \\pi^ {4}}\\\\= \\frac {1}{8 \\pi^ {2}} \\epsilon^ {\\mu \\nu \\alpha \\beta} p _ {1 \\nu} p _ {2 \\beta}\\end{array}\\tag{13.14}"
+    },
+    {
+      "id": "nair_qft-ch13-body-43-0e0eb2",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[43]",
+      "expect": "\\begin{array}{l} \\delta_ {\\varphi} \\Gamma^ {(3)} = - \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ \\varphi (2 q) V _ {\\alpha} (p _ {1}) V _ {\\beta} (p _ {2}) ] \\mathcal {H} ^ {\\alpha \\beta} (q, p _ {1}, p _ {2}) \\\\ \\mathcal {H} ^ {\\alpha \\beta} (q, p _ {1}, p _ {2}) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} 2 \\gamma \\cdot q \\frac {1}{\\gamma \\cdot (k + q)} \\right. \\\\ \\left. \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right] \\\\ = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\gamma^ {5} \\frac {1}{\\gamma \\cdot (k + q)} \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right. \\\\ \\left. + \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right] \\end{array} \\tag {13.1}\\tag{13.16}",
+      "new": "\\begin{array}{l} \\delta_ {\\varphi} \\Gamma^ {(3)} = - \\int d \\mu (q, p _ {1}, p _ {2}) \\operatorname{Str} [ \\varphi (2 q) V _ {\\alpha} (p _ {1}) V _ {\\beta} (p _ {2}) ] \\mathcal {H} ^ {\\alpha \\beta} (q, p _ {1}, p _ {2}) \\\\ \\mathcal {H} ^ {\\alpha \\beta} (q, p _ {1}, p _ {2}) = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} 2 \\gamma \\cdot q \\frac {1}{\\gamma \\cdot (k + q)} \\right. \\\\ \\left. \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right] \\\\ = \\int \\frac {d ^ {4} k}{(2 \\pi) ^ {4}} \\mathrm{Tr} \\left[ \\gamma^ {5} \\frac {1}{\\gamma \\cdot (k + q)} \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right. \\\\ \\left. + \\frac {1}{\\gamma \\cdot (k - q)} \\gamma^ {5} \\gamma^ {\\alpha} \\frac {1}{\\gamma \\cdot (k - r)} \\gamma^ {\\beta} \\right] \\end{array} \\tag{13.16}"
+    },
+    {
+      "id": "nair_qft-ch13-body-114-560b61",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[114]",
+      "expect": "\\begin{array}{l} \\delta_ {\\alpha , \\beta} \\Gamma = - i \\int d ^ {4} x \\alpha (x) \\left[ \\underbrace {c _ {2} [ b ]} _ {\\nu_ {L}, e _ {L}} + \\underbrace {c _ {2} [ c ]} _ {\\nu_ {L}} + \\underbrace {c _ {2} [ c ]} _ {e _ {L}} - \\underbrace {4 c _ {2} [ c ]} _ {e _ {R}} \\right] \\\\ - i \\int d ^ {4} x \\beta (x) \\left[ \\underbrace {c _ {2} [ b ]} _ {u _ {L}, d _ {L}} + \\underbrace {\\frac {1}{9} c _ {2} [ c ]} _ {u _ {L}} + \\underbrace {\\frac {1}{9} c _ {2} [ c ]} _ {d _ {L}} - \\underbrace {\\frac {1 6}{9} c _ {2} [ c ]} _ {u _ {R}} - \\underbrace {\\frac {4}{9} c _ {2} [ c ]} _ {d _ {R}} \\right] \\\\ = - i \\int d ^ {4} x (\\alpha (x) + \\beta (x)) (c _ {2} [ b ] - 2 c _ {2} [ c ]) \\end{array} \\tag {1}\\tag{13.41}",
+      "new": "\\begin{array}{l} \\delta_ {\\alpha , \\beta} \\Gamma = - i \\int d ^ {4} x \\alpha (x) \\left[ \\underbrace {c _ {2} [ b ]} _ {\\nu_ {L}, e _ {L}} + \\underbrace {c _ {2} [ c ]} _ {\\nu_ {L}} + \\underbrace {c _ {2} [ c ]} _ {e _ {L}} - \\underbrace {4 c _ {2} [ c ]} _ {e _ {R}} \\right] \\\\ - i \\int d ^ {4} x \\beta (x) \\left[ \\underbrace {c _ {2} [ b ]} _ {u _ {L}, d _ {L}} + \\underbrace {\\frac {1}{9} c _ {2} [ c ]} _ {u _ {L}} + \\underbrace {\\frac {1}{9} c _ {2} [ c ]} _ {d _ {L}} - \\underbrace {\\frac {1 6}{9} c _ {2} [ c ]} _ {u _ {R}} - \\underbrace {\\frac {4}{9} c _ {2} [ c ]} _ {d _ {R}} \\right] \\\\ = - i \\int d ^ {4} x (\\alpha (x) + \\beta (x)) (c _ {2} [ b ] - 2 c _ {2} [ c ]) \\end{array} \\tag{13.41}"
+    }
+  ]
+}
