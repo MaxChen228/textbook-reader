@@ -76,10 +76,15 @@ def _add_ordinal(n: int) -> str:
     return f'{n}{ {1:"st",2:"nd",3:"rd"}.get(n%10, "th") }'
 
 
-def normalize_author(val: str | None) -> tuple[str | None, bool]:
-    """' and ' → '; '；保留單一逗號分隔（少數正常）但 ', ' → '; ' 若全是名字。"""
+def normalize_author(val: str | list | None) -> tuple[str | None, bool]:
+    """' and ' → '; '；保留單一逗號分隔（少數正常）但 ', ' → '; ' 若全是名字。
+    容錯：author 被寫成 YAML list（如 ['A', 'B']）→ 正規化為 '; ' 串接字串，
+    避免單一壞紀錄讓整個 corpus 的 metadata gate 崩。"""
     if not val:
         return val, False
+    if isinstance(val, list):
+        joined = '; '.join(str(x).strip() for x in val if str(x).strip())
+        return (joined or None), True
     s = val.strip()
     original = s
     # " and " → "; "
@@ -118,13 +123,36 @@ def _yaml_quote(v: str | None) -> str:
 
 
 def _patch_yaml_field(text: str, field: str, new_val: str | None) -> str:
-    """把 top-level `field: ...` 那行的 value 換掉（保留同行尾註解、保留檔內其他 line）。"""
-    pat = re.compile(rf'^({field}:\s*)(?:".*?"|\'.*?\'|[^\n#]*?)(\s*(?:#.*)?)$', re.M)
-    repl = lambda m: f'{m.group(1)}{_yaml_quote(new_val)}{m.group(2)}'
-    new_text, n = pat.subn(repl, text, count=1)
-    if n != 1:
+    """把 top-level `field: ...` 換成 scalar。支援兩種原值形態：
+      ① 單行 scalar（`field: value  # 註解`）→ 換 value、保留同行尾註解；
+      ② 多行 block list（`field:` 後接數行 `  - item`）→ 整塊（標頭行 + 所有縮排 list-item 行）
+         折成單行 `field: <scalar>`（list-author 規範化為 '; ' 串接後 write-back 不殘留 orphan item）。
+    其餘 line 原樣保留。"""
+    lines = text.split('\n')
+    out: list[str] = []
+    i = 0
+    patched = False
+    head = re.compile(rf'^{re.escape(field)}:(\s*)(.*)$')
+    while i < len(lines):
+        m = head.match(lines[i])
+        if m and not patched:
+            inline = m.group(2)
+            cm = re.search(r'(\s+#.*)$', inline)  # 同行尾註解（僅單行 scalar 情境保留）
+            comment = cm.group(1) if cm else ''
+            is_block = inline.strip() in ('', '|', '>') or inline.strip().startswith('#')
+            j = i + 1
+            if is_block:  # 吃掉後續所有縮排 list-item 行
+                while j < len(lines) and re.match(r'^\s+-\s', lines[j]):
+                    j += 1
+            out.append(f'{field}: {_yaml_quote(new_val)}{comment if not is_block else ""}')
+            patched = True
+            i = j if is_block else i + 1
+            continue
+        out.append(lines[i])
+        i += 1
+    if not patched:
         raise RuntimeError(f'patch {field} failed')
-    return new_text
+    return '\n'.join(out)
 
 
 def main() -> None:
