@@ -1,0 +1,63 @@
+{
+  "overrides": [
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch02-problem-ii-37-body-2-437e71",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:II-37:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ r _ { \\mathbb { A } } _ { \\mathbb { Q } } ^ { 1 } = \\ r _ { \\mathrm { S p e c } } \\mathbb { Q } [ x ]$",
+      "new": "$\\ r _ { {\\mathbb { A }} _ { \\mathbb { Q } } } ^ { 1 } = \\ r _ { \\mathrm { S p e c } } \\mathbb { Q } [ x ]$",
+      "anchor": "487237b5"
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch01-body-196-94f05c",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[196]",
+      "expect": "h _ {X} (T) = \\left\\{ \\begin{array}{c} \\text {sequences of elements a_{1} ,\\ldots\\in T that} \\\\ \\text {are solutions of the equations f_{i} = 0} \\end{array} \\right\\}.",
+      "new": "h _ {X} (T) = \\left\\{ \\begin{array}{c} \\text {sequences of elements } a_{1} ,\\ldots\\in T \\text { that} \\\\ \\text {are solutions of the equations } f_{i} = 0 \\end{array} \\right\\}."
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch02-problem-ii-22-body-2-f834a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:II-22:body[2]",
+      "expect": "\\left. \\begin{array}{l} f g \\text {vanishes on Y but} \\\\ f \\text {does not vanish on Y_{red}} \\end{array} \\right\\} \\Longrightarrow g \\text {vanishes on Y}.",
+      "new": "\\left. \\begin{array}{l} f g \\text {vanishes on } Y \\text { but} \\\\ f \\text {does not vanish on } Y_{red} \\end{array} \\right\\} \\Longrightarrow g \\text {vanishes on } Y."
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch05-body-47-0d294a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[47]",
+      "expect": "I _ {a} = \\operatorname{Ker} \\bigl (K [ x ] \\to K [ x, y ] / (y ^ {2} - y, x + a y) \\bigr) = \\left\\{ \\begin{array}{l l} (x ^ {2} + a x) & \\text {if a\\neq 0}, \\\\ (x) & \\text {if a = 0}. \\end{array} \\right.",
+      "new": "I _ {a} = \\operatorname{Ker} \\bigl (K [ x ] \\to K [ x, y ] / (y ^ {2} - y, x + a y) \\bigr) = \\left\\{ \\begin{array}{l l} (x ^ {2} + a x) & \\text {if } a\\neq 0, \\\\ (x) & \\text {if } a = 0. \\end{array} \\right."
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch05-body-61-bec127",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[61]",
+      "expect": "K [ x, y ] / (a y + x, y ^ {2}) = \\left\\{ \\begin{array}{l l} K [ x ] / (x ^ {2}) & \\text {if a\\neq 0 ,} \\\\ K [ x, y ] / (x, y ^ {2}) & \\text {if a = 0 ,} \\end{array} \\right.",
+      "new": "K [ x, y ] / (a y + x, y ^ {2}) = \\left\\{ \\begin{array}{l l} K [ x ] / (x ^ {2}) & \\text {if } a\\neq 0, \\\\ K [ x, y ] / (x, y ^ {2}) & \\text {if } a = 0, \\end{array} \\right."
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch06-problem-vi-18-body-6-8199e0",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:VI-18:body[6]",
+      "expect": "U _ {I} (T) = \\left\\{ \\begin{array}{l} \\text {rank r summands of T^{r + 1} such that the I - th} \\\\ \\text {basis vector of T^{r + 1} generates the cokernel} \\end{array} \\right\\}",
+      "new": "U _ {I} (T) = \\left\\{ \\begin{array}{l} \\text {rank r summands of } T^{r + 1} \\text { such that the I - th} \\\\ \\text {basis vector of } T^{r + 1} \\text { generates the cokernel} \\end{array} \\right\\}"
+    },
+    {
+      "id": "eisenbud_harris_geometry_schemes-ch06-problem-vi-26-body-17-27dd33",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:VI-26:body[17]",
+      "expect": "h _ {P, X / S} (B) = \\left\\{ \\begin{array}{c} \\text {pairs (\\nu ,\\Sigma) such that \\nu : B\\to S and \\Sigma\\subset B\\times_{S} X\\subset\\mathbb {P} _{B} ^{n}} \\\\ \\text {is flat over B with Hilbert polynomial P} \\end{array} \\right\\}",
+      "new": "h _ {P, X / S} (B) = \\left\\{ \\begin{array}{c} \\text {pairs } (\\nu ,\\Sigma) \\text { such that } \\nu : B\\to S \\text { and } \\Sigma\\subset B\\times_{S} X\\subset\\mathbb {P} _{B} ^{n} \\\\ \\text {is flat over B with Hilbert polynomial P} \\end{array} \\right\\}"
+    }
+  ]
+}

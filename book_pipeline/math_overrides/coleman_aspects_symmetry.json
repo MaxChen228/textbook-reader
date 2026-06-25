@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "coleman_aspects_symmetry-ch02-body-282-628870",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[282]",
+      "expect": "\\begin{array}{r l} \\mathrm{i} \\mathcal {M} & = \\delta_ {a c} \\delta_ {b d} [ A m _ {\\pi} ^ {2} + B (u + t) + C s ] + \\delta_ {a b} \\delta_ {c d} [ A m _ {\\pi} ^ {2} + B (u + s) + C t ] \\\\ & + \\delta_ {a d} \\delta_ {b c} [ A m _ {\\pi} ^ {2} + B (s + t) + C u ], \\end{array} \\tag {1}\\tag{9.2}",
+      "new": "\\begin{array}{r l} \\mathrm{i} \\mathcal {M} & = \\delta_ {a c} \\delta_ {b d} [ A m _ {\\pi} ^ {2} + B (u + t) + C s ] + \\delta_ {a b} \\delta_ {c d} [ A m _ {\\pi} ^ {2} + B (u + s) + C t ] \\\\ & + \\delta_ {a d} \\delta_ {b c} [ A m _ {\\pi} ^ {2} + B (s + t) + C u ], \\end{array} \\tag {1\\;9.2}"
+    },
+    {
+      "id": "coleman_aspects_symmetry-ch03-body-215-fa3fd4",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[215]",
+      "expect": "\\begin{array}{r l} & \\left[ \\left(Z \\mu_ {0} \\frac {\\partial \\mu}{\\partial \\mu_ {0}}\\right) \\frac {\\partial}{\\partial \\mu} + \\left(Z \\mu_ {0} \\frac {\\partial \\lambda}{\\partial \\mu_ {0}}\\right) \\frac {\\partial}{\\partial \\lambda} - \\frac {n}{2} \\left(Z \\mu_ {0} \\frac {\\partial \\ln Z _ {3}}{\\partial \\mu_ {0}}\\right) \\right] \\cdot \\Gamma^ {(n)} (\\dots) \\\\ & = i \\Gamma_ {\\Delta} ^ {(n)} (0, \\dots). \\end{array} \\tag {3}\\tag{3.22}",
+      "new": "\\begin{array}{r l} & \\left[ \\left(Z \\mu_ {0} \\frac {\\partial \\mu}{\\partial \\mu_ {0}}\\right) \\frac {\\partial}{\\partial \\mu} + \\left(Z \\mu_ {0} \\frac {\\partial \\lambda}{\\partial \\mu_ {0}}\\right) \\frac {\\partial}{\\partial \\lambda} - \\frac {n}{2} \\left(Z \\mu_ {0} \\frac {\\partial \\ln Z _ {3}}{\\partial \\mu_ {0}}\\right) \\right] \\cdot \\Gamma^ {(n)} (\\dots) \\\\ & = i \\Gamma_ {\\Delta} ^ {(n)} (0, \\dots). \\end{array} \\tag{3.22}"
+    },
+    {
+      "id": "coleman_aspects_symmetry-ch08-body-372-c9dbf3",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[372]",
+      "expect": "\\begin{array}{l} \\langle \\psi | H | \\psi \\rangle = N \\left[ \\frac {1}{2 m} \\int d ^ {3} r | \\nabla \\phi | ^ {2} \\right. \\\\ \\left. + \\frac {1}{2} \\int d ^ {3} r _ {1} d ^ {3} r _ {2} V ^ {(2)} (r _ {1}, r _ {2}) | \\phi (r _ {1}) \\phi (r _ {2}) | ^ {2} \\right. \\\\ \\left. + \\frac {1}{6} \\int d ^ {3} r _ {1} d ^ {3} r _ {2} d ^ {3} r _ {3} V ^ {(3)} (r _ {1}, r _ {2}, r _ {3}) | \\phi (r _ {1}) \\phi (r _ {2}) \\phi (r _ {3}) | ^ {2} \\right. \\\\ \\left. + \\dots \\right], \\end{array} \\tag {3.5}\\tag{3.52}",
+      "new": "\\begin{array}{l} \\langle \\psi | H | \\psi \\rangle = N \\left[ \\frac {1}{2 m} \\int d ^ {3} r | \\nabla \\phi | ^ {2} \\right. \\\\ \\left. + \\frac {1}{2} \\int d ^ {3} r _ {1} d ^ {3} r _ {2} V ^ {(2)} (r _ {1}, r _ {2}) | \\phi (r _ {1}) \\phi (r _ {2}) | ^ {2} \\right. \\\\ \\left. + \\frac {1}{6} \\int d ^ {3} r _ {1} d ^ {3} r _ {2} d ^ {3} r _ {3} V ^ {(3)} (r _ {1}, r _ {2}, r _ {3}) | \\phi (r _ {1}) \\phi (r _ {2}) \\phi (r _ {3}) | ^ {2} \\right. \\\\ \\left. + \\dots \\right], \\end{array} \\tag{3.52}"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "overrides": [
+    {
+      "id": "reichl_statistical_physics-ch07-body-121-c6be4f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[121]",
+      "expect": "g _ {i j} = \\left\\{ \\begin{array}{l l} \\frac {V c _ {\\rho}}{T ^ {2}} & \\text {if i = j and 1\\leqslant i\\leqslant\\nu ;} \\\\ \\frac {V}{T} \\left(\\frac {\\partial \\tilde {\\mu}}{\\partial \\rho}\\right) _ {T} & \\text {if i = j and \\nu + 1\\leqslant i\\leqslant 2\\nu ;} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.\\tag{7.31}",
+      "new": "g _ {i j} = \\left\\{ \\begin{array}{l l} \\frac {V c _ {\\rho}}{T ^ {2}} & \\text {if } i = j \\text{ and } 1\\leqslant i\\leqslant\\nu ; \\\\ \\frac {V}{T} \\left(\\frac {\\partial \\tilde {\\mu}}{\\partial \\rho}\\right) _ {T} & \\text {if } i = j \\text{ and } \\nu + 1\\leqslant i\\leqslant 2\\nu ; \\\\ 0 & \\text {otherwise.} \\end{array} \\right.\\tag{7.31}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch05-body-185-17e58e",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[185]",
+      "field": "md",
+      "all": true,
+      "old": "$P^{s](n)$",
+      "new": "$P^{s}(n)$",
+      "anchor": "0655f22d"
+    },
+    {
+      "id": "reichl_statistical_physics-ch05-body-185-65089d",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[185]",
+      "field": "md",
+      "all": true,
+      "old": "$\\sum_{n=1}^{M} P^{s](n)=1$",
+      "new": "$\\sum_{n=1}^{M} P^{s}(n)=1$",
+      "anchor": "0655f22d"
+    },
+    {
+      "id": "reichl_statistical_physics-ch08-body-578-b3ac07",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[578]",
+      "expect": "\\begin{array}{r l} \\tilde {A} _ {5 4} & = I _ {3} \\otimes (I _ {3} \\otimes \\Gamma_ {6}) - I _ {3} \\otimes (E _ {3} \\otimes X _ {6}) + I _ {3} \\otimes (E _ {3} ^ {- 1} \\otimes X _ {6} ^ {T}) + E _ {3} \\otimes (I _ {3} \\otimes Y _ {6} ^ {T}) \\\\ & \\quad - E _ {3} ^ {- 1} \\otimes (I _ {3} \\otimes Y _ {6}), \\end{array} \\tag {8.18}\\tag{8.180}",
+      "new": "\\begin{array}{r l} \\tilde {A} _ {5 4} & = I _ {3} \\otimes (I _ {3} \\otimes \\Gamma_ {6}) - I _ {3} \\otimes (E _ {3} \\otimes X _ {6}) + I _ {3} \\otimes (E _ {3} ^ {- 1} \\otimes X _ {6} ^ {T}) + E _ {3} \\otimes (I _ {3} \\otimes Y _ {6} ^ {T}) \\\\ & \\quad - E _ {3} ^ {- 1} \\otimes (I _ {3} \\otimes Y _ {6}), \\end{array} \\tag{8.180}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch09-body-126-b5b57e",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[126]",
+      "field": "md",
+      "all": true,
+      "old": "$b_{l}(T,V)\\longrightarrow \\limits_{V\\to \\infty}\\bar{b}_{l}(T)$",
+      "new": "$b_{l}(T,V)\\mathop{\\longrightarrow}\\limits_{V\\to \\infty}\\bar{b}_{l}(T)$",
+      "anchor": "ad09423e"
+    },
+    {
+      "id": "reichl_statistical_physics-ch05-body-591-0a1e39",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[591]",
+      "expect": "\\begin{array}{r l} \\frac {\\partial P _ {1} (x , t)}{\\partial t} & = \\int_ {- \\infty} ^ {\\infty} d y \\left[ \\left(\\sum_ {n = 0} ^ {\\infty} \\frac {(- y) ^ {n}}{n !} \\frac {\\partial^ {n}}{\\partial x ^ {n}} (P _ {1} (x, t) \\tau (x, y))\\right) - P _ {1} (x, t) \\tau (x, y) \\right] \\\\ & = \\int_ {- \\infty} ^ {\\infty} d y \\sum_ {n = 1} ^ {\\infty} \\frac {(- y) ^ {n}}{n !} \\frac {\\partial^ {n}}{\\partial x ^ {n}} (P _ {1} (x, t) \\tau (x, y)). \\end{array} \\tag {5}\\tag{5.164}",
+      "new": "\\begin{array}{r l} \\frac {\\partial P _ {1} (x , t)}{\\partial t} & = \\int_ {- \\infty} ^ {\\infty} d y \\left[ \\left(\\sum_ {n = 0} ^ {\\infty} \\frac {(- y) ^ {n}}{n !} \\frac {\\partial^ {n}}{\\partial x ^ {n}} (P _ {1} (x, t) \\tau (x, y))\\right) - P _ {1} (x, t) \\tau (x, y) \\right] \\\\ & = \\int_ {- \\infty} ^ {\\infty} d y \\sum_ {n = 1} ^ {\\infty} \\frac {(- y) ^ {n}}{n !} \\frac {\\partial^ {n}}{\\partial x ^ {n}} (P _ {1} (x, t) \\tau (x, y)). \\end{array} \\tag{5.164}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch09-body-383-49c897",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[383]",
+      "expect": "\\begin{array}{l} \\Delta B _ {2, f d} = - 2 ^ {3 / 2} \\lambda_ {T} ^ {3} \\int d \\mathbf {r} \\left[ \\left(\\sum_ {n} | \\psi_ {n} ^ {(s)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n}} - \\sum_ {n _ {o}} | \\psi_ {n _ {o}} ^ {(s)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n _ {o}}}\\right) + 3 \\left(\\sum_ {n} | \\psi_ {n} ^ {(a)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n}} - \\sum_ {n _ {o}} | \\psi_ {n _ {o}} ^ {(a)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n _ {o}}}\\right) \\right], \\end{array} \\tag {9}\\tag{9.123}",
+      "new": "\\begin{array}{l} \\Delta B _ {2, f d} = - 2 ^ {3 / 2} \\lambda_ {T} ^ {3} \\int d \\mathbf {r} \\left[ \\left(\\sum_ {n} | \\psi_ {n} ^ {(s)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n}} - \\sum_ {n _ {o}} | \\psi_ {n _ {o}} ^ {(s)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n _ {o}}}\\right) + 3 \\left(\\sum_ {n} | \\psi_ {n} ^ {(a)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n}} - \\sum_ {n _ {o}} | \\psi_ {n _ {o}} ^ {(a)} (\\mathbf {r}) | ^ {2} e ^ {- \\beta E _ {n _ {o}}}\\right) \\right], \\end{array} \\tag{9.123}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch10-body-1083-4510e3",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[1083]",
+      "expect": "\\begin{array}{l} - i \\omega \\rho_ {\\omega} (\\mathbf {r}) + \\rho_ {0} \\nabla_ {\\mathbf {r}} \\cdot \\mathbf {v} _ {\\omega} (\\mathbf {r}) = 0, \\\\ - i \\omega \\rho_ {0} \\mathbf {v} _ {\\omega} (\\mathbf {r}) = - \\nabla_ {\\mathbf {r}} P _ {\\omega} (\\mathbf {r}) - \\eta \\nabla_ {\\mathbf {r}} \\times (\\nabla_ {\\mathbf {r}} \\times \\mathbf {v} _ {\\omega} (\\mathbf {r})) + (\\zeta + \\frac {4}{3} \\eta) \\nabla_ {\\mathbf {r}} (\\nabla_ {\\mathbf {r}} \\cdot \\mathbf {v} _ {\\omega} (\\mathbf {r})), \\end{array} \\tag {10.353}\\tag{10.354}",
+      "new": "\\begin{align} - i \\omega \\rho_ {\\omega} (\\mathbf {r}) + \\rho_ {0} \\nabla_ {\\mathbf {r}} \\cdot \\mathbf {v} _ {\\omega} (\\mathbf {r}) &= 0, \\tag {10.353}\\\\ - i \\omega \\rho_ {0} \\mathbf {v} _ {\\omega} (\\mathbf {r}) &= - \\nabla_ {\\mathbf {r}} P _ {\\omega} (\\mathbf {r}) - \\eta \\nabla_ {\\mathbf {r}} \\times (\\nabla_ {\\mathbf {r}} \\times \\mathbf {v} _ {\\omega} (\\mathbf {r})) + (\\zeta + \\frac {4}{3} \\eta) \\nabla_ {\\mathbf {r}} (\\nabla_ {\\mathbf {r}} \\cdot \\mathbf {v} _ {\\omega} (\\mathbf {r})), \\tag{10.354}\\end{align}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch10-body-1229-dadfa8",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[1229]",
+      "expect": "\\begin{array}{l} \\frac {\\partial \\rho s}{\\partial t} = - \\nabla_ {\\mathbf {r}} \\cdot \\left[ \\frac {\\left(\\mathbf {J} _ {E} ^ {R} - \\tilde {\\mu} \\mathbf {J}\\right)}{T} \\right] + \\left[ \\mathbf {J} _ {E} ^ {R} - \\mu \\mathbf {J} - \\rho s T (\\mathbf {w} + \\mathbf {v} _ {s}) \\right] \\cdot \\nabla_ {\\mathbf {r}} \\left(\\frac {1}{T}\\right) \\\\ + \\frac {1}{T} \\boldsymbol {\\lambda} \\cdot \\nabla_ {\\mathbf {r}} \\left(\\mu^ {R} - \\tilde {\\mu}\\right). \\end{array} \\tag {1}\\tag{10.402}",
+      "new": "\\begin{array}{l} \\frac {\\partial \\rho s}{\\partial t} = - \\nabla_ {\\mathbf {r}} \\cdot \\left[ \\frac {\\left(\\mathbf {J} _ {E} ^ {R} - \\tilde {\\mu} \\mathbf {J}\\right)}{T} \\right] + \\left[ \\mathbf {J} _ {E} ^ {R} - \\mu \\mathbf {J} - \\rho s T (\\mathbf {w} + \\mathbf {v} _ {s}) \\right] \\cdot \\nabla_ {\\mathbf {r}} \\left(\\frac {1}{T}\\right) \\\\ + \\frac {1}{T} \\boldsymbol {\\lambda} \\cdot \\nabla_ {\\mathbf {r}} \\left(\\mu^ {R} - \\tilde {\\mu}\\right). \\end{array} \\tag{10.402}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch10-body-1261-4af2b3",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[1261]",
+      "expect": "\\begin{array}{l} \\left( \\begin{array}{c c c c} z & 0 & - i k \\rho_ {n} ^ {0} & - i k \\rho_ {s} ^ {0} \\\\ z \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & z \\frac {\\rho^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} & - i k \\rho^ {0} s ^ {0} & 0 \\\\ - \\frac {i k}{\\rho^ {0} \\kappa_ {T}} & - i k \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} & \\rho_ {n} ^ {0} z & \\rho_ {s} ^ {0} z \\\\ - i \\frac {k}{(\\rho^ {0}) ^ {2} \\kappa_ {T}} & i k \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & 0 & z \\end{array} \\right) \\left( \\begin{array}{c} \\tilde {\\rho} (\\mathbf {k}, z) \\\\ \\tilde {\\nu} _ {n} (\\mathbf {k}, z) \\\\ \\tilde {T} (\\mathbf {k}, z) \\\\ \\tilde {\\nu} _ {s} (\\mathbf {k}, z) \\end{array} \\right) \\\\ = \\left( \\begin{array}{c c c c} 1 & 0 & 0 & 0 \\\\ \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & 0 & \\frac {\\rho^ {0} \\tilde {c} _ {\\rho}}{T} & 0 \\\\ 0 & \\rho_ {n} ^ {0} & 0 & \\rho_ {s} ^ {0} \\\\ 0 & 0 & 0 & 1 \\end{array} \\right) \\left( \\begin{array}{c} \\Delta \\rho (\\mathbf {k}, 0) \\\\ v _ {n} (\\mathbf {k}, 0) \\\\ \\Delta T (\\mathbf {k}, 0) \\\\ v _ {s} (\\mathbf {k}, 0) \\end{array} \\right). \\end{array} \\tag {10}\\tag{10.419}",
+      "new": "\\begin{array}{l} \\left( \\begin{array}{c c c c} z & 0 & - i k \\rho_ {n} ^ {0} & - i k \\rho_ {s} ^ {0} \\\\ z \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & z \\frac {\\rho^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} & - i k \\rho^ {0} s ^ {0} & 0 \\\\ - \\frac {i k}{\\rho^ {0} \\kappa_ {T}} & - i k \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} & \\rho_ {n} ^ {0} z & \\rho_ {s} ^ {0} z \\\\ - i \\frac {k}{(\\rho^ {0}) ^ {2} \\kappa_ {T}} & i k \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & 0 & z \\end{array} \\right) \\left( \\begin{array}{c} \\tilde {\\rho} (\\mathbf {k}, z) \\\\ \\tilde {\\nu} _ {n} (\\mathbf {k}, z) \\\\ \\tilde {T} (\\mathbf {k}, z) \\\\ \\tilde {\\nu} _ {s} (\\mathbf {k}, z) \\end{array} \\right) \\\\ = \\left( \\begin{array}{c c c c} 1 & 0 & 0 & 0 \\\\ \\left[ s ^ {0} - \\frac {1}{\\rho^ {0}} \\left(\\frac {\\partial P}{\\partial T}\\right) _ {\\rho} ^ {0} \\right] & 0 & \\frac {\\rho^ {0} \\tilde {c} _ {\\rho}}{T} & 0 \\\\ 0 & \\rho_ {n} ^ {0} & 0 & \\rho_ {s} ^ {0} \\\\ 0 & 0 & 0 & 1 \\end{array} \\right) \\left( \\begin{array}{c} \\Delta \\rho (\\mathbf {k}, 0) \\\\ v _ {n} (\\mathbf {k}, 0) \\\\ \\Delta T (\\mathbf {k}, 0) \\\\ v _ {s} (\\mathbf {k}, 0) \\end{array} \\right). \\end{array} \\tag{10.419}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch10-body-1269-0e7d5e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[1269]",
+      "expect": "\\begin{array}{l} \\operatorname{Det} [ \\bar {\\mathbf {S}} (\\mathbf {k}, z) ] \\approx - \\frac {\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} \\left\\{z ^ {4} + \\left(\\frac {1}{\\rho^ {0} \\kappa_ {T}} + \\frac {T ^ {0} (s ^ {0}) ^ {2} \\rho_ {s} ^ {0}}{\\tilde {c} _ {\\rho} \\rho_ {n} ^ {0}}\\right) k ^ {2} z ^ {2} + \\frac {T ^ {0} \\rho_ {s} ^ {0} (s ^ {0}) ^ {2}}{\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho} \\kappa_ {T}} k ^ {4} \\right\\} \\\\ = - \\frac {\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} \\left(z ^ {2} + \\frac {1}{\\rho^ {0} \\kappa_ {T}} k ^ {2}\\right) \\left(z ^ {2} + \\frac {T ^ {0} \\rho_ {s} ^ {0} (s ^ {0}) ^ {2}}{\\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}} k ^ {2}\\right) = 0. \\end{array} \\tag {10.}\\tag{10.423}",
+      "new": "\\begin{array}{l} \\operatorname{Det} [ \\bar {\\mathbf {S}} (\\mathbf {k}, z) ] \\approx - \\frac {\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} \\left\\{z ^ {4} + \\left(\\frac {1}{\\rho^ {0} \\kappa_ {T}} + \\frac {T ^ {0} (s ^ {0}) ^ {2} \\rho_ {s} ^ {0}}{\\tilde {c} _ {\\rho} \\rho_ {n} ^ {0}}\\right) k ^ {2} z ^ {2} + \\frac {T ^ {0} \\rho_ {s} ^ {0} (s ^ {0}) ^ {2}}{\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho} \\kappa_ {T}} k ^ {4} \\right\\} \\\\ = - \\frac {\\rho^ {0} \\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}}{T ^ {0}} \\left(z ^ {2} + \\frac {1}{\\rho^ {0} \\kappa_ {T}} k ^ {2}\\right) \\left(z ^ {2} + \\frac {T ^ {0} \\rho_ {s} ^ {0} (s ^ {0}) ^ {2}}{\\rho_ {n} ^ {0} \\tilde {c} _ {\\rho}} k ^ {2}\\right) = 0. \\end{array} \\tag{10.423}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch06-body-193-c9cf8d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[193]",
+      "expect": "\\begin{array}{l}\\langle f \\rangle = \\lim _ {T \\rightarrow \\infty} \\frac {1}{T} \\int_ {t _ {0}} ^ {t _ {0} + T} d t \\sum_ {m = - \\infty} ^ {\\infty} \\sum_ {n = - \\infty} ^ {\\infty} A _ {m, n} e ^ {2 \\pi i [ m (q _ {0} + t) + n (p _ {0} + \\alpha t) ]}\\\\= A _ {0, 0} + \\lim _ {T \\rightarrow \\infty} \\frac {1}{T} \\sum_ {m = - \\infty} ^ {\\infty} ^ {\\prime} \\sum_ {n = - \\infty} ^ {\\infty} ^ {\\prime} A _ {m, n} e ^ {2 \\pi i [ m (q _ {0} + t _ {0}) + n (p _ {0} + \\alpha t _ {0}) ]}\\\\\\times \\left(\\frac {e ^ {2 \\pi i (m + n) T} - 1}{2 \\pi i (m + \\alpha n)}\\right).\\end{array}\\tag{3}",
+      "new": "\\begin{array}{l}\\langle f \\rangle = \\lim _ {T \\rightarrow \\infty} \\frac {1}{T} \\int_ {t _ {0}} ^ {t _ {0} + T} d t \\sum_ {m = - \\infty} ^ {\\infty} \\sum_ {n = - \\infty} ^ {\\infty} A _ {m, n} e ^ {2 \\pi i [ m (q _ {0} + t) + n (p _ {0} + \\alpha t) ]}\\\\= A _ {0, 0} + \\lim _ {T \\rightarrow \\infty} \\frac {1}{T} \\sum_ {m = - \\infty} ^ {\\infty}{} ^ {\\prime} \\sum_ {n = - \\infty} ^ {\\infty}{} ^ {\\prime} A _ {m, n} e ^ {2 \\pi i [ m (q _ {0} + t _ {0}) + n (p _ {0} + \\alpha t _ {0}) ]}\\\\\\times \\left(\\frac {e ^ {2 \\pi i (m + n) T} - 1}{2 \\pi i (m + \\alpha n)}\\right).\\end{array}\\tag{3}"
+    },
+    {
+      "id": "reichl_statistical_physics-appA-body-145-0a79b2",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[145]",
+      "expect": "\\begin{array}{r l} & {\\langle \\hat {O} ^ {(1)} \\rangle = \\mathrm{Tr} _ {N} (\\hat {O} _ {N} ^ {(1)} \\hat {\\rho} _ {N}) = \\frac {1}{N !} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\left(\\prod_ {\\alpha = 1} ^ {\\infty} n _ {\\alpha}!\\right)} \\\\ & {\\qquad \\times^ {(S)} \\langle k _ {1}, k _ {2}, \\ldots , k _ {N} | \\hat {O} _ {N} ^ {(1)} \\hat {\\rho} _ {N} | k _ {1}, k _ {2}, \\ldots , k _ {N} \\rangle^ {(S)}} \\\\ & {= \\left(\\frac {1}{N !}\\right) ^ {4} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\sum_ {k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime}} \\sum_ {i = 1} ^ {N} ^ {(+)} \\langle k _ {1}, \\ldots , k _ {N} | \\hat {O} _ {i} | k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} \\rangle^ {(+)}} \\\\ & {\\qquad \\times^ {(+)} \\langle k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle^ {(+)}} \\\\ & {= N \\left(\\frac {1}{N !}\\right) ^ {2} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\sum_ {k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime}} \\langle k _ {1}, \\ldots , k _ {N} | \\hat {O} _ {1} | k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} \\rangle^ {(+)}} \\\\ & {\\qquad \\times \\langle k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle^ {(+)}} \\\\ & {= \\frac {1}{(N - 1) !} \\sum_ {k _ {1} ^ {\\prime}} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\langle k _ {1} | \\hat {O} _ {1} | k _ {1} ^ {\\prime} \\rangle^ {(+)} \\langle k _ {1} ^ {\\prime}, k _ {2}, \\ldots , k _ {N} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle .} \\end{array}\\tag{B.35}",
+      "new": "\\begin{array}{r l} & {\\langle \\hat {O} ^ {(1)} \\rangle = \\mathrm{Tr} _ {N} (\\hat {O} _ {N} ^ {(1)} \\hat {\\rho} _ {N}) = \\frac {1}{N !} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\left(\\prod_ {\\alpha = 1} ^ {\\infty} n _ {\\alpha}!\\right)} \\\\ & {\\qquad \\times^ {(S)} \\langle k _ {1}, k _ {2}, \\ldots , k _ {N} | \\hat {O} _ {N} ^ {(1)} \\hat {\\rho} _ {N} | k _ {1}, k _ {2}, \\ldots , k _ {N} \\rangle^ {(S)}} \\\\ & {= \\left(\\frac {1}{N !}\\right) ^ {4} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\sum_ {k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime}} \\sum_ {i = 1} ^ {N}{} ^ {(+)} \\langle k _ {1}, \\ldots , k _ {N} | \\hat {O} _ {i} | k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} \\rangle^ {(+)}} \\\\ & {\\qquad \\times^ {(+)} \\langle k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle^ {(+)}} \\\\ & {= N \\left(\\frac {1}{N !}\\right) ^ {2} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\sum_ {k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime}} \\langle k _ {1}, \\ldots , k _ {N} | \\hat {O} _ {1} | k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} \\rangle^ {(+)}} \\\\ & {\\qquad \\times \\langle k _ {1} ^ {\\prime}, \\ldots , k _ {N} ^ {\\prime} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle^ {(+)}} \\\\ & {= \\frac {1}{(N - 1) !} \\sum_ {k _ {1} ^ {\\prime}} \\sum_ {k _ {1}, \\ldots , k _ {N}} \\langle k _ {1} | \\hat {O} _ {1} | k _ {1} ^ {\\prime} \\rangle^ {(+)} \\langle k _ {1} ^ {\\prime}, k _ {2}, \\ldots , k _ {N} | \\hat {\\rho} _ {N} | k _ {1}, \\ldots , k _ {N} \\rangle .} \\end{array}\\tag{B.35}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch02-body-464-2d0672",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[464]",
+      "expect": "\\begin{array}{l} \\not {d} Q = d U - Y d X - \\sum_ {j} \\mu_ {j} ^ {\\prime} d N _ {j} = \\left(\\frac {\\partial U}{\\partial T}\\right) _ {X, \\{N _ {j} \\}} d T + \\left[ \\left(\\frac {\\partial U}{\\partial X}\\right) _ {T, \\{N _ {j} \\}} - Y \\right] d X \\\\ + \\sum_ {j} \\left[ \\left(\\frac {\\partial U}{\\partial N _ {j}}\\right) _ {T, X, \\{N _ {i \\neq j} \\}} - \\mu_ {j} ^ {\\prime} \\right] d N _ {j}. \\end{array} \\tag {2.3}\\tag{2.134}",
+      "new": "\\begin{array}{l} \\not {d} Q = d U - Y d X - \\sum_ {j} \\mu_ {j} ^ {\\prime} d N _ {j} = \\left(\\frac {\\partial U}{\\partial T}\\right) _ {X, \\{N _ {j} \\}} d T + \\left[ \\left(\\frac {\\partial U}{\\partial X}\\right) _ {T, \\{N _ {j} \\}} - Y \\right] d X \\\\ + \\sum_ {j} \\left[ \\left(\\frac {\\partial U}{\\partial N _ {j}}\\right) _ {T, X, \\{N _ {i \\neq j} \\}} - \\mu_ {j} ^ {\\prime} \\right] d N _ {j}. \\end{array} \\tag{2.134}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch02-body-787-12010a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[787]",
+      "expect": "\\begin{array}{l} G (T, P, \\xi) = \\sum_ {i} n _ {i} \\mu_ {i} = \\sum_ {i} n _ {i} \\mu_ {i} ^ {0} \\left(P _ {0}, T _ {0}\\right) - \\sum_ {i} n _ {i} R T \\ln \\left[ \\left(\\frac {T}{T _ {0}}\\right) ^ {5 / 2} \\left(\\frac {P _ {0}}{P _ {i}}\\right) \\right] \\\\ = \\sum_ {i} n _ {i} \\mu_ {i} ^ {0} \\left(P _ {0}, T _ {0}\\right) - \\sum_ {i} n _ {i} R T \\ln \\left[ \\left(\\frac {T}{T _ {0}}\\right) ^ {5 / 2} \\left(\\frac {P _ {0}}{P}\\right) \\right] \\\\ + R T \\ln \\left[ x _ {A} ^ {n _ {A}} x _ {B} ^ {n _ {B}} x _ {C} ^ {n _ {C}} x _ {D} ^ {n _ {D}} \\right], \\end{array} \\tag {1}\\tag{2.243}",
+      "new": "\\begin{array}{l} G (T, P, \\xi) = \\sum_ {i} n _ {i} \\mu_ {i} = \\sum_ {i} n _ {i} \\mu_ {i} ^ {0} \\left(P _ {0}, T _ {0}\\right) - \\sum_ {i} n _ {i} R T \\ln \\left[ \\left(\\frac {T}{T _ {0}}\\right) ^ {5 / 2} \\left(\\frac {P _ {0}}{P _ {i}}\\right) \\right] \\\\ = \\sum_ {i} n _ {i} \\mu_ {i} ^ {0} \\left(P _ {0}, T _ {0}\\right) - \\sum_ {i} n _ {i} R T \\ln \\left[ \\left(\\frac {T}{T _ {0}}\\right) ^ {5 / 2} \\left(\\frac {P _ {0}}{P}\\right) \\right] \\\\ + R T \\ln \\left[ x _ {A} ^ {n _ {A}} x _ {B} ^ {n _ {B}} x _ {C} ^ {n _ {C}} x _ {D} ^ {n _ {D}} \\right], \\end{array} \\tag{2.243}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch04-body-560-990730",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[560]",
+      "expect": "\\begin{array}{l} P _ {N} (x, y) = \\left(\\frac {1}{2 \\pi}\\right) ^ {N} \\int_ {0} ^ {2 \\pi} d \\theta_ {1} \\dots \\int_ {0} ^ {2 \\pi} d \\theta_ {N} \\int_ {0} ^ {\\infty} d r _ {1} \\dots \\int_ {0} ^ {\\infty} d r _ {N} P (r _ {1}) \\times \\dots \\times P (r _ {N}) \\\\ \\times \\delta (x - r _ {1} \\cos (\\theta_ {1}) - r _ {2} \\cos (\\theta_ {2}) - \\dots - r _ {N} \\cos (\\theta_ {N})) \\\\ \\times \\delta (y - r _ {1} \\sin (\\theta_ {1}) - r _ {2} \\sin (\\theta_ {2}) - \\dots - r _ {N} \\sin (\\theta_ {N})). \\end{array} \\tag {4.1}\\tag{4.164}",
+      "new": "\\begin{array}{l} P _ {N} (x, y) = \\left(\\frac {1}{2 \\pi}\\right) ^ {N} \\int_ {0} ^ {2 \\pi} d \\theta_ {1} \\dots \\int_ {0} ^ {2 \\pi} d \\theta_ {N} \\int_ {0} ^ {\\infty} d r _ {1} \\dots \\int_ {0} ^ {\\infty} d r _ {N} P (r _ {1}) \\times \\dots \\times P (r _ {N}) \\\\ \\times \\delta (x - r _ {1} \\cos (\\theta_ {1}) - r _ {2} \\cos (\\theta_ {2}) - \\dots - r _ {N} \\cos (\\theta_ {N})) \\\\ \\times \\delta (y - r _ {1} \\sin (\\theta_ {1}) - r _ {2} \\sin (\\theta_ {2}) - \\dots - r _ {N} \\sin (\\theta_ {N})). \\end{array} \\tag{4.164}"
+    },
+    {
+      "id": "reichl_statistical_physics-ch05-body-583-621b03",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[583]",
+      "expect": "\\begin{array}{l}\\frac {\\partial P _ {1} (x , t)}{\\partial t} = \\lim _ {\\Delta \\rightarrow 0} \\frac {1}{\\Delta^ {2}} \\left[ P _ {1} (x + \\Delta , t) + P _ {1} (x - \\Delta , t) - 2 P _ {1} (x, t) \\right]\\\\= \\lim _ {\\Delta \\rightarrow 0} \\frac {1}{\\Delta^ {2}} \\left[ P _ {1} (x, t) + \\left(\\frac {\\partial P _ {1}}{\\partial x}\\right) _ {\\Delta = 0} \\Delta + \\frac {1}{2} \\left(\\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}\\right) _ {\\Delta = 0} \\Delta^ {2} + \\dots \\right.\\\\\\left. + P _ {1} (x, t) - \\left(\\frac {\\partial P _ {1}}{\\partial x}\\right) _ {\\Delta = 0} \\Delta + \\frac {1}{2} \\left(\\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}\\right) _ {\\Delta = 0} \\Delta^ {2} + \\dots - 2 P _ {1} (x, t) \\right]\\\\= \\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}.\\end{array}\\tag {5.16}\\tag{5.161}",
+      "new": "\\begin{array}{l}\\frac {\\partial P _ {1} (x , t)}{\\partial t} = \\lim _ {\\Delta \\rightarrow 0} \\frac {1}{\\Delta^ {2}} \\left[ P _ {1} (x + \\Delta , t) + P _ {1} (x - \\Delta , t) - 2 P _ {1} (x, t) \\right]\\\\= \\lim _ {\\Delta \\rightarrow 0} \\frac {1}{\\Delta^ {2}} \\left[ P _ {1} (x, t) + \\left(\\frac {\\partial P _ {1}}{\\partial x}\\right) _ {\\Delta = 0} \\Delta + \\frac {1}{2} \\left(\\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}\\right) _ {\\Delta = 0} \\Delta^ {2} + \\dots \\right.\\\\\\left. + P _ {1} (x, t) - \\left(\\frac {\\partial P _ {1}}{\\partial x}\\right) _ {\\Delta = 0} \\Delta + \\frac {1}{2} \\left(\\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}\\right) _ {\\Delta = 0} \\Delta^ {2} + \\dots - 2 P _ {1} (x, t) \\right]\\\\= \\frac {\\partial^ {2} P _ {1}}{\\partial x ^ {2}}.\\end{array}\\tag{5.161}"
+    }
+  ]
+}

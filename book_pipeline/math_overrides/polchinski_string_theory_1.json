@@ -159,6 +159,110 @@
       "selector": "body[120]",
       "expect": "\\begin{array}{l} \\left[ \\delta_ {\\tau_ {1}}, \\delta_ {\\tau_ {2}} \\right] X ^ {\\mu} (\\tau) \\\\ = - \\left[ \\delta (\\tau - \\tau_ {1}) \\partial_ {\\tau} \\delta (\\tau - \\tau_ {2}) - \\delta (\\tau - \\tau_ {2}) \\partial_ {\\tau} \\delta (\\tau - \\tau_ {1}) \\right] \\partial_ {\\tau} X ^ {\\mu} (\\tau) \\\\ \\equiv \\int d \\tau_ {3} f _ {\\tau_ {1} \\tau_ {2}} ^ {\\tau_ {3}} \\delta_ {\\tau_ {3}} X ^ {\\mu} (\\tau). \\end{array} \\tag {4}\\tag{4.2.20}",
       "new": "\\begin{array}{l} \\left[ \\delta_ {\\tau_ {1}}, \\delta_ {\\tau_ {2}} \\right] X ^ {\\mu} (\\tau) \\\\ = - \\left[ \\delta (\\tau - \\tau_ {1}) \\partial_ {\\tau} \\delta (\\tau - \\tau_ {2}) - \\delta (\\tau - \\tau_ {2}) \\partial_ {\\tau} \\delta (\\tau - \\tau_ {1}) \\right] \\partial_ {\\tau} X ^ {\\mu} (\\tau) \\\\ \\equiv \\int d \\tau_ {3} f _ {\\tau_ {1} \\tau_ {2}} ^ {\\tau_ {3}} \\delta_ {\\tau_ {3}} X ^ {\\mu} (\\tau). \\end{array} \\tag{4.2.20}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch07-body-137-db477a",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[137]",
+      "expect": "\\vartheta_ {1 0} (v, \\tau) = 2 \\exp (\\pi i \\tau / 4) \\cos \\pi v \\prod_ {m = 1} ^ {\\infty} (1 - q ^ {m}) (1 + z q ^ {m}) (1 + z ^ {- 1} q ^ {m}), \\tag {7}\\tag{7.2.38c}",
+      "new": "\\vartheta_ {1 0} (v, \\tau) = 2 \\exp (\\pi i \\tau / 4) \\cos \\pi v \\prod_ {m = 1} ^ {\\infty} (1 - q ^ {m}) (1 + z q ^ {m}) (1 + z ^ {- 1} q ^ {m}), \\tag{7.2.38c}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch07-body-138-f643dc",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[138]",
+      "expect": "\\vartheta_ {1 1} (v, \\tau) = - 2 \\exp (\\pi i \\tau / 4) \\sin \\pi v \\prod_ {m = 1} ^ {\\infty} (1 - q ^ {m}) (1 - z q ^ {m}) (1 - z ^ {- 1} q ^ {m}). \\tag {7.2}\\tag{7.2.38d}",
+      "new": "\\vartheta_ {1 1} (v, \\tau) = - 2 \\exp (\\pi i \\tau / 4) \\sin \\pi v \\prod_ {m = 1} ^ {\\infty} (1 - q ^ {m}) (1 - z q ^ {m}) (1 - z ^ {- 1} q ^ {m}). \\tag{7.2.38d}"
+    },
+    {
+      "id": "polchinski_string_theory_1-appA-body-50-4899be",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[50]",
+      "expect": "\\begin{array}{r l} \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\exp (i S) \\frac {\\delta S}{\\delta q (t)} \\mathcal {F} & = - i \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\left[ \\frac {\\delta}{\\delta q (t)} \\exp (i S) \\right] \\mathcal {F} \\\\ & = i \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\exp (i S) \\frac {\\delta \\mathcal {F}}{\\delta q (t)}. \\end{array} \\tag {1}\\tag{A.1.19}",
+      "new": "\\begin{array}{r l} \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\exp (i S) \\frac {\\delta S}{\\delta q (t)} \\mathcal {F} & = - i \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\left[ \\frac {\\delta}{\\delta q (t)} \\exp (i S) \\right] \\mathcal {F} \\\\ & = i \\int [ d q ] _ {q _ {i}, 0} ^ {q _ {f}, T} \\exp (i S) \\frac {\\delta \\mathcal {F}}{\\delta q (t)}. \\end{array} \\tag{A.1.19}"
+    },
+    {
+      "id": "polchinski_string_theory_1-appA-body-86-03da81",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[86]",
+      "expect": "\\begin{array}{r l}\\int d q \\left<   q \\left. \\right| \\exp (- \\hat {H} U) | q \\rangle&= \\int d q \\left<   q, U | q, 0 \\right> _ {\\mathrm{E}}\\\\&= \\int d q \\int [ d q ] _ {q, 0} ^ {q, U} \\exp (- S _ {\\mathrm{E}})\\\\&= \\int [ d q ] _ {\\mathrm{P}} \\exp (- S _ {\\mathrm{E}}).\\end{array}\\tag{A.1.33}",
+      "new": "\\begin{array}{r l}\\int d q \\left\\langle q \\right| \\exp (- \\hat {H} U) \\left| q \\right\\rangle&= \\int d q \\left\\langle q, U \\middle| q, 0 \\right\\rangle _ {\\mathrm{E}}\\\\&= \\int d q \\int [ d q ] _ {q, 0} ^ {q, U} \\exp (- S _ {\\mathrm{E}})\\\\&= \\int [ d q ] _ {\\mathrm{P}} \\exp (- S _ {\\mathrm{E}}).\\end{array}\\tag{A.1.33}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch06-body-376-a21913",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[376]",
+      "expect": "\\begin{array}{r l} S _ {S _ {2}} (k _ {1}, e _ {1}; k _ {2}; k _ {3}) & = g _ {\\mathrm{c}} ^ {2} g _ {\\mathrm{c}} ^ {\\prime} e ^ {- 2 \\lambda} e _ {1 \\mu \\nu} \\left\\langle : \\tilde {c} c \\partial X ^ {\\mu} \\bar {\\partial} X ^ {\\nu} e ^ {i k _ {1} \\cdot X} (z _ {1}, \\bar {z} _ {1}): \\right. \\\\ & \\quad : \\tilde {c} c e ^ {i k _ {2} \\cdot X} (z _ {2}, \\bar {z} _ {2}):: \\tilde {c} c e ^ {i k _ {3} \\cdot X} (z _ {3}, \\bar {z} _ {3}): \\Big \\rangle_ {S _ {2}} \\\\ & = - \\frac {\\pi i \\alpha^ {\\prime}}{2} g _ {\\mathrm{c}} ^ {\\prime} e _ {1 \\mu \\nu} k _ {2 3} ^ {\\mu} k _ {2 3} ^ {\\nu} (2 \\pi) ^ {2 6} \\delta^ {2 6} (\\sum_ {i} k _ {i}), \\end{array} \\tag {6.0}\\tag{6.6.14}",
+      "new": "\\begin{array}{r l} S _ {S _ {2}} (k _ {1}, e _ {1}; k _ {2}; k _ {3}) & = g _ {\\mathrm{c}} ^ {2} g _ {\\mathrm{c}} ^ {\\prime} e ^ {- 2 \\lambda} e _ {1 \\mu \\nu} \\left\\langle : \\tilde {c} c \\partial X ^ {\\mu} \\bar {\\partial} X ^ {\\nu} e ^ {i k _ {1} \\cdot X} (z _ {1}, \\bar {z} _ {1}): \\right. \\\\ & \\quad : \\tilde {c} c e ^ {i k _ {2} \\cdot X} (z _ {2}, \\bar {z} _ {2}):: \\tilde {c} c e ^ {i k _ {3} \\cdot X} (z _ {3}, \\bar {z} _ {3}): \\Big \\rangle_ {S _ {2}} \\\\ & = - \\frac {\\pi i \\alpha^ {\\prime}}{2} g _ {\\mathrm{c}} ^ {\\prime} e _ {1 \\mu \\nu} k _ {2 3} ^ {\\mu} k _ {2 3} ^ {\\nu} (2 \\pi) ^ {2 6} \\delta^ {2 6} (\\sum_ {i} k _ {i}), \\end{array} \\tag{6.6.14}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch06-body-399-4f238d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[399]",
+      "expect": "\\begin{array}{l} \\text {:} e ^ {i k _ {1} \\cdot X (z _ {1}, \\bar {z} _ {1})}: \\text {:} e ^ {i k _ {4} \\cdot X (z _ {4}, \\bar {z} _ {4})} := | z _ {1 4} | ^ {\\alpha^ {\\prime} k _ {1} \\cdot k _ {4}}: \\left(1 + i z _ {1 4} k _ {1} \\cdot \\partial X + i \\bar {z} _ {1 4} k _ {1} \\cdot \\bar {\\partial} X \\right. \\\\ \\left. - z _ {1 4} \\bar {z} _ {1 4} k _ {1} \\cdot \\partial X k _ {1} \\cdot \\bar {\\partial} X + \\dots\\right) e ^ {i (k _ {1} + k _ {4}) \\cdot X} (z _ {4}, \\bar {z} _ {4}):. \\end{array} \\tag {6.6.2}\\tag{6.6.24}",
+      "new": "\\begin{array}{l} \\text {:} e ^ {i k _ {1} \\cdot X (z _ {1}, \\bar {z} _ {1})}: \\text {:} e ^ {i k _ {4} \\cdot X (z _ {4}, \\bar {z} _ {4})} := | z _ {1 4} | ^ {\\alpha^ {\\prime} k _ {1} \\cdot k _ {4}}: \\left(1 + i z _ {1 4} k _ {1} \\cdot \\partial X + i \\bar {z} _ {1 4} k _ {1} \\cdot \\bar {\\partial} X \\right. \\\\ \\left. - z _ {1 4} \\bar {z} _ {1 4} k _ {1} \\cdot \\partial X k _ {1} \\cdot \\bar {\\partial} X + \\dots\\right) e ^ {i (k _ {1} + k _ {4}) \\cdot X} (z _ {4}, \\bar {z} _ {4}):. \\end{array} \\tag{6.6.24}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch07-body-190-833da0",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[190]",
+      "expect": "\\begin{array}{l} \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} Z _ {S _ {1}} (m _ {i} ^ {2}) = i V _ {d} \\int_ {0} ^ {\\infty} \\frac {d l}{2 l} \\int_ {- \\pi} ^ {\\pi} \\frac {d \\theta}{2 \\pi} (2 \\pi l) ^ {- d / 2} \\\\ \\qquad \\times \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} \\exp \\left[ - (h _ {i} + \\tilde {h} _ {i} - 2) l / \\alpha^ {\\prime} + i (h _ {i} - \\tilde {h} _ {i}) \\theta \\right] \\\\ = i V _ {d} \\int_ {R} \\frac {d \\tau d \\bar {\\tau}}{4 \\tau_ {2}} (4 \\pi^ {2} \\alpha^ {\\prime} \\tau_ {2}) ^ {- d / 2} \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} q ^ {h _ {i} - 1} \\bar {q} ^ {\\tilde {h} _ {i} - 1}, \\end{array} \\tag {7.3}\\tag{7.3.12}",
+      "new": "\\begin{array}{l} \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} Z _ {S _ {1}} (m _ {i} ^ {2}) = i V _ {d} \\int_ {0} ^ {\\infty} \\frac {d l}{2 l} \\int_ {- \\pi} ^ {\\pi} \\frac {d \\theta}{2 \\pi} (2 \\pi l) ^ {- d / 2} \\\\ \\qquad \\times \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} \\exp \\left[ - (h _ {i} + \\tilde {h} _ {i} - 2) l / \\alpha^ {\\prime} + i (h _ {i} - \\tilde {h} _ {i}) \\theta \\right] \\\\ = i V _ {d} \\int_ {R} \\frac {d \\tau d \\bar {\\tau}}{4 \\tau_ {2}} (4 \\pi^ {2} \\alpha^ {\\prime} \\tau_ {2}) ^ {- d / 2} \\sum_ {i \\in \\mathcal {H} ^ {\\perp}} q ^ {h _ {i} - 1} \\bar {q} ^ {\\tilde {h} _ {i} - 1}, \\end{array} \\tag{7.3.12}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch08-body-271-be79f2",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[271]",
+      "expect": "\\begin{array}{l} Z _ {\\Gamma} (\\tau) = V _ {\\Gamma} ^ {- 1} | \\eta (\\tau) | ^ {- 2 k} \\sum_ {l ^ {\\prime \\prime} \\in \\Gamma^ {*}} \\int d ^ {2 k} l \\exp (2 \\pi i l ^ {\\prime \\prime} \\circ l + \\pi i \\tau l _ {L} ^ {2} - \\pi i \\bar {\\tau} l _ {R} ^ {2}) \\\\ = V _ {\\Gamma} ^ {- 1} (\\tau \\bar {\\tau}) ^ {- k / 2} | \\eta (\\tau) | ^ {- 2 k} \\sum_ {l ^ {\\prime \\prime} \\in \\Gamma^ {*}} \\exp (- \\pi i l _ {L} ^ {\\prime \\prime 2} / \\tau + \\pi i l _ {R} ^ {\\prime \\prime 2} / \\bar {\\tau}) \\\\ = V _ {\\Gamma} ^ {- 1} Z _ {\\Gamma^ {*}} (- 1 / \\tau), \\end{array} \\tag {8}\\tag{8.4.23}",
+      "new": "\\begin{array}{l} Z _ {\\Gamma} (\\tau) = V _ {\\Gamma} ^ {- 1} | \\eta (\\tau) | ^ {- 2 k} \\sum_ {l ^ {\\prime \\prime} \\in \\Gamma^ {*}} \\int d ^ {2 k} l \\exp (2 \\pi i l ^ {\\prime \\prime} \\circ l + \\pi i \\tau l _ {L} ^ {2} - \\pi i \\bar {\\tau} l _ {R} ^ {2}) \\\\ = V _ {\\Gamma} ^ {- 1} (\\tau \\bar {\\tau}) ^ {- k / 2} | \\eta (\\tau) | ^ {- 2 k} \\sum_ {l ^ {\\prime \\prime} \\in \\Gamma^ {*}} \\exp (- \\pi i l _ {L} ^ {\\prime \\prime 2} / \\tau + \\pi i l _ {R} ^ {\\prime \\prime 2} / \\bar {\\tau}) \\\\ = V _ {\\Gamma} ^ {- 1} Z _ {\\Gamma^ {*}} (- 1 / \\tau), \\end{array} \\tag{8.4.23}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch08-body-448-a0487c",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[448]",
+      "expect": "\\begin{aligned} X^{\\prime 25}(z,\\bar{z}) & = \\theta_{i}R^{\\prime} - \\frac{iR^{\\prime}}{2\\pi} (2\\pi l - \\theta_{j} + \\theta_{i})\\ln (z / \\bar{z}) + i\\left(\\frac{\\alpha^{\\prime}}{2}\\right)^{1 / 2}\\sum_{\\substack{m = -\\infty \\\\ m\\neq 0}}^{\\infty}\\frac{\\alpha_{m}^{25}}{m} (z^{-m} - \\bar{z}^{-m})\\\\ & = \\theta_{i}R^{\\prime} + \\frac{\\sigma^{1}}{\\pi}\\Delta X^{\\prime 25} - (2\\alpha^{\\prime})^{1 / 2}\\sum_{\\substack{m = -\\infty \\\\ m\\neq 0}}^{\\infty}\\frac{\\alpha_{m}^{25}}{m}\\exp (-m\\sigma^{2})\\sin m\\sigma^{1}. \\end{aligned} \\tag{8.6.19}\\tag{8.6.19}",
+      "new": "\\begin{aligned} X^{\\prime 25}(z,\\bar{z}) & = \\theta_{i}R^{\\prime} - \\frac{iR^{\\prime}}{2\\pi} (2\\pi l - \\theta_{j} + \\theta_{i})\\ln (z / \\bar{z}) + i\\left(\\frac{\\alpha^{\\prime}}{2}\\right)^{1 / 2}\\sum_{\\substack{m = -\\infty \\\\ m\\neq 0}}^{\\infty}\\frac{\\alpha_{m}^{25}}{m} (z^{-m} - \\bar{z}^{-m})\\\\ & = \\theta_{i}R^{\\prime} + \\frac{\\sigma^{1}}{\\pi}\\Delta X^{\\prime 25} - (2\\alpha^{\\prime})^{1 / 2}\\sum_{\\substack{m = -\\infty \\\\ m\\neq 0}}^{\\infty}\\frac{\\alpha_{m}^{25}}{m}\\exp (-m\\sigma^{2})\\sin m\\sigma^{1}. \\end{aligned} \\tag{8.6.19}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch09-body-64-be7146",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[64]",
+      "expect": "\\begin{array}{l} T _ {S _ {2}} (1; 2; 3; 4) - T _ {S _ {2}} (- 1; - 2; - 3; - 4) ^ {*} \\\\ = i \\sum_ {j _ {5}} \\int \\frac {d ^ {d - 1} \\mathbf {k} _ {5}}{2 E _ {5} (2 \\pi) ^ {d - 1}} T _ {S _ {2}} (1; 2; 5) T _ {S _ {2}} (- 5; 3; 4) \\\\ + 2 \\text { permutations } \\\\ = - i e ^ {- 4 \\lambda} \\sum_ {j _ {5}} \\int \\frac {d ^ {d - 1} \\mathbf {k} _ {5}}{2 E _ {5} (2 \\pi) ^ {d - 1}} \\langle   \\langle \\hat {\\mathcal {V}} _ {1} | \\hat {\\mathcal {V}} _ {2} (1, 1) | \\hat {\\mathcal {V}} _ {5} \\rangle   \\langle   \\langle \\hat {\\mathcal {V}} _ {- 5} | \\hat {\\mathcal {V}} _ {3} (1, 1) | \\hat {\\mathcal {V}} _ {4} \\rangle \\\\ + 2 \\text { permutations }. \\end{array} \\tag {9.1.2}\\tag{9.1.24}",
+      "new": "\\begin{array}{l} T _ {S _ {2}} (1; 2; 3; 4) - T _ {S _ {2}} (- 1; - 2; - 3; - 4) ^ {*} \\\\ = i \\sum_ {j _ {5}} \\int \\frac {d ^ {d - 1} \\mathbf {k} _ {5}}{2 E _ {5} (2 \\pi) ^ {d - 1}} T _ {S _ {2}} (1; 2; 5) T _ {S _ {2}} (- 5; 3; 4) \\\\ + 2 \\text { permutations } \\\\ = - i e ^ {- 4 \\lambda} \\sum_ {j _ {5}} \\int \\frac {d ^ {d - 1} \\mathbf {k} _ {5}}{2 E _ {5} (2 \\pi) ^ {d - 1}} \\langle   \\langle \\hat {\\mathcal {V}} _ {1} | \\hat {\\mathcal {V}} _ {2} (1, 1) | \\hat {\\mathcal {V}} _ {5} \\rangle   \\langle   \\langle \\hat {\\mathcal {V}} _ {- 5} | \\hat {\\mathcal {V}} _ {3} (1, 1) | \\hat {\\mathcal {V}} _ {4} \\rangle \\\\ + 2 \\text { permutations }. \\end{array} \\tag{9.1.24}"
+    },
+    {
+      "id": "polchinski_string_theory_1-ch09-body-69-69d144",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[69]",
+      "expect": "\\begin{array}{l} T _ {S _ {2}} (1; 2; 3; 4) - T _ {S _ {2}} (- 1; - 2; - 3; - 4) ^ {*} \\\\ = \\frac {1 6 \\pi^ {2} i}{\\alpha^ {\\prime} e ^ {2 \\lambda}} \\sum_ {i, i ^ {\\prime}} \\delta_ {m _ {i} ^ {2}, \\tilde {m} _ {i} ^ {2}} \\delta (k _ {i} ^ {2} + m _ {i} ^ {2}) \\langle   \\langle \\hat {\\mathcal {V}} _ {1} | \\hat {\\mathcal {V}} _ {2} (1, 1) b _ {0} \\tilde {b} _ {0} | i \\rangle \\mathcal {G} ^ {i i ^ {\\prime}} \\langle   \\langle i ^ {\\prime} | \\hat {\\mathcal {V}} _ {3} (1, 1) | \\hat {\\mathcal {V}} _ {4} \\rangle \\\\ + 2 \\text { permutations. } \\end{array} \\tag {9.1.2}\\tag{9.1.26}",
+      "new": "\\begin{array}{l} T _ {S _ {2}} (1; 2; 3; 4) - T _ {S _ {2}} (- 1; - 2; - 3; - 4) ^ {*} \\\\ = \\frac {1 6 \\pi^ {2} i}{\\alpha^ {\\prime} e ^ {2 \\lambda}} \\sum_ {i, i ^ {\\prime}} \\delta_ {m _ {i} ^ {2}, \\tilde {m} _ {i} ^ {2}} \\delta (k _ {i} ^ {2} + m _ {i} ^ {2}) \\langle   \\langle \\hat {\\mathcal {V}} _ {1} | \\hat {\\mathcal {V}} _ {2} (1, 1) b _ {0} \\tilde {b} _ {0} | i \\rangle \\mathcal {G} ^ {i i ^ {\\prime}} \\langle   \\langle i ^ {\\prime} | \\hat {\\mathcal {V}} _ {3} (1, 1) | \\hat {\\mathcal {V}} _ {4} \\rangle \\\\ + 2 \\text { permutations. } \\end{array} \\tag{9.1.26}"
+    },
+    {
+      "id": "polchinski_string_theory_1-appA-body-27-cd0df4",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[27]",
+      "expect": "\\begin{array}{l}\\langle q _ {f}, T | q _ {i}, 0 \\rangle \\approx \\int \\frac {d p _ {N - 1}}{2 \\pi \\hbar} d q _ {N - 1} \\dots \\frac {d p _ {1}}{2 \\pi \\hbar} d q _ {1} \\frac {d p _ {0}}{2 \\pi \\hbar}\\\\\\qquad \\times \\exp \\left\\{- \\frac {i}{\\hbar} \\sum_ {m = 0} ^ {N - 1} \\left[ H (p _ {m}, q _ {m}) \\epsilon - p _ {m} (q _ {m + 1} - q _ {m}) \\right] \\right\\}\\\\\\rightarrow \\int [ d p d q ] \\exp \\left\\{\\frac {i}{\\hbar} \\int_ {0} ^ {T} d t [ p \\dot {q} - H (p, q) ] \\right\\}.\\end{array}\\tag {A.1}\\tag{A.1.12}",
+      "new": "\\begin{array}{l}\\langle q _ {f}, T | q _ {i}, 0 \\rangle \\approx \\int \\frac {d p _ {N - 1}}{2 \\pi \\hbar} d q _ {N - 1} \\dots \\frac {d p _ {1}}{2 \\pi \\hbar} d q _ {1} \\frac {d p _ {0}}{2 \\pi \\hbar}\\\\\\qquad \\times \\exp \\left\\{- \\frac {i}{\\hbar} \\sum_ {m = 0} ^ {N - 1} \\left[ H (p _ {m}, q _ {m}) \\epsilon - p _ {m} (q _ {m + 1} - q _ {m}) \\right] \\right\\}\\\\\\rightarrow \\int [ d p d q ] \\exp \\left\\{\\frac {i}{\\hbar} \\int_ {0} ^ {T} d t [ p \\dot {q} - H (p, q) ] \\right\\}.\\end{array}\\tag{A.1.12}"
+    },
+    {
+      "id": "polchinski_string_theory_1-appA-body-207-64e612",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[207]",
+      "expect": "\\begin{array}{l}\\langle \\psi_ {f}, T | \\psi_ {i}, 0 \\rangle \\approx - \\int d \\chi_ {0} d \\psi_ {1} d \\chi_ {1} \\dots d \\psi_ {N - 1} d \\chi_ {N - 1}\\\\\\qquad \\times \\exp \\sum_ {m = 0} ^ {N - 1} \\left[ - i H (\\chi_ {m}, \\psi_ {m}) \\epsilon - \\chi_ {m} (\\psi_ {m + 1} - \\psi_ {m}) \\right]\\\\\\rightarrow \\int [ d \\chi d \\psi ] \\exp \\left\\{\\int_ {0} ^ {T} d t [ - \\chi \\dot {\\psi} - i H (\\chi , \\psi) ] \\right\\}.\\end{array}\\tag {A.2}\\tag{A.2.17}",
+      "new": "\\begin{array}{l}\\langle \\psi_ {f}, T | \\psi_ {i}, 0 \\rangle \\approx - \\int d \\chi_ {0} d \\psi_ {1} d \\chi_ {1} \\dots d \\psi_ {N - 1} d \\chi_ {N - 1}\\\\\\qquad \\times \\exp \\sum_ {m = 0} ^ {N - 1} \\left[ - i H (\\chi_ {m}, \\psi_ {m}) \\epsilon - \\chi_ {m} (\\psi_ {m + 1} - \\psi_ {m}) \\right]\\\\\\rightarrow \\int [ d \\chi d \\psi ] \\exp \\left\\{\\int_ {0} ^ {T} d t [ - \\chi \\dot {\\psi} - i H (\\chi , \\psi) ] \\right\\}.\\end{array}\\tag{A.2.17}"
     }
   ]
 }

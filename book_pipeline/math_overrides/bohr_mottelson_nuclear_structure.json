@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "bohr_mottelson_nuclear_structure-ch01-body-612-e5c318",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[612]",
+      "expect": "\\left| \\right. I M ^ {\\prime} \\right> _ {\\mathcal {X} ^ {\\prime}} = \\sum_ {M ^ {\\prime \\prime \\prime}} \\left| I M ^ {\\prime \\prime \\prime} \\right> _ {\\mathcal {X} ^ {\\prime \\prime \\prime}} \\left<   I M ^ {\\prime \\prime \\prime} \\right| \\exp \\{- i \\psi I _ {z} \\} \\left| \\right. I M ^ {\\prime} \\right>",
+      "new": "\\left| I M ^ {\\prime} \\right> _ {\\mathcal {X} ^ {\\prime}} = \\sum_ {M ^ {\\prime \\prime \\prime}} \\left| I M ^ {\\prime \\prime \\prime} \\right> _ {\\mathcal {X} ^ {\\prime \\prime \\prime}} \\left< I M ^ {\\prime \\prime \\prime} \\right| \\exp \\{- i \\psi I _ {z} \\} \\left| I M ^ {\\prime} \\right>"
+    },
+    {
+      "id": "bohr_mottelson_nuclear_structure-ch01-body-1172-100ccf",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1172]",
+      "expect": "\\rho_ {m} = \\begin{array}{c c c} \\hline m _ {1} & m _ {2} & m _ {3} \\\\ \\hline m _ {2} & & \\\\ \\hline \\end{array} \\rightarrow \\left\\{ \\begin{array}{l l} r _ {m} = \\begin{array}{c c c} \\hline 1 & 2 & 4 \\\\ \\hline 3 & & \\\\ r _ {m} = \\begin{array}{c c c} \\hline 1 & 3 & 4 \\\\ \\hline 2 & & \\\\ \\hline \\end{array} & & \\\\ \\hline \\end{array} \\right.",
+      "new": "\\rho_ {m} = \\begin{array}{c c c} \\hline m _ {1} & m _ {2} & m _ {3} \\\\ \\hline m _ {2} & & \\\\ \\hline \\end{array} \\rightarrow \\left\\{ \\begin{array}{l l} r _ {m} = \\begin{array}{c c c} \\hline 1 & 2 & 4 \\\\ \\hline 3 & & \\\\ \\hline \\end{array} & \\\\ r _ {m} = \\begin{array}{c c c} \\hline 1 & 3 & 4 \\\\ \\hline 2 & & \\\\ \\hline \\end{array} & \\end{array} \\right."
+    },
+    {
+      "id": "bohr_mottelson_nuclear_structure-ch04-body-154-550a67",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[154]",
+      "expect": "\\begin{array}{c c c c} \\mathcal {R P}, \\mathcal {T} & \\overline {{\\text {   3   -   }}} & \\overline {{\\text {   3   +   }}} & \\overline {{\\text {   K+2   \\pm   }}} \\\\ & \\overline {{\\text {   2   +   }}} & \\overline {{\\text {   2   -   }}} & \\overline {{\\text {   K+1   \\pm   }}} \\\\ & \\overline {{\\text {   1   -   }}} & \\overline {{\\text {   1   +   }}} & \\overline {{\\text {   K   \\pm   }}} \\\\ & \\overline {{\\text {   s = +1   }}} & \\overline {{\\text {   s = -1   }}} & \\overline {{\\text {   K > 0   }}} \\\\ & K = 0 & & \\end{array}",
+      "new": "\\begin{array}{c c c c} \\mathcal {R P}, \\mathcal {T} & \\overline {{\\text {   3   -   }}} & \\overline {{\\text {   3   +   }}} & \\overline {{\\text {   K+2   }\\pm}} \\\\ & \\overline {{\\text {   2   +   }}} & \\overline {{\\text {   2   -   }}} & \\overline {{\\text {   K+1   }\\pm}} \\\\ & \\overline {{\\text {   1   -   }}} & \\overline {{\\text {   1   +   }}} & \\overline {{\\text {   K   }\\pm}} \\\\ & \\overline {{\\text {   s = +1   }}} & \\overline {{\\text {   s = -1   }}} & \\overline {{\\text {   K > 0   }}} \\\\ & K = 0 & & \\end{array}"
+    }
+  ]
+}

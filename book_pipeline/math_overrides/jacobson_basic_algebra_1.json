@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "jacobson_basic_algebra_1-ch07-body-44-4c01e0",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[44]",
+      "expect": "\\varepsilon_ {S, T} = \\left\\{ \\begin{array}{c l} \\prod_ {s \\in S, t \\in T} \\varepsilon_ {s, t} & \\text {if S\\neq\\varnothing , T\\neq\\varnothing} \\\\ 1 & \\text {if S or T = \\varnothing .} \\end{array} \\right.",
+      "new": "\\varepsilon_ {S, T} = \\left\\{ \\begin{array}{c l} \\prod_ {s \\in S, t \\in T} \\varepsilon_ {s, t} & \\text {if } S\\neq\\varnothing ,\\ T\\neq\\varnothing \\\\ 1 & \\text {if } S \\text { or } T = \\varnothing . \\end{array} \\right."
+    },
+    {
+      "id": "jacobson_basic_algebra_1-ch05-body-231-df58f8",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[231]",
+      "field": "md",
+      "all": true,
+      "old": "\\( F\\_4(t\\_i; x, y)=F\\_3(t\\_i; x,G\\_3(t\\_i; x)y). This reduces the consideration to a single equation with no inequations for the various terms of the cover \\( δ\\_3.",
+      "new": "F_4(t_i; x, y)=F_3(t_i; x,G_3(t_i; x)y).\\ \\text{This reduces the consideration to a single equation with no inequations for the various terms of the cover } \\delta_3.",
+      "anchor": "8e4338f7"
+    },
+    {
+      "id": "jacobson_basic_algebra_1-ch04-body-458-cc9151",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[458]",
+      "expect": "\\begin{array}{l} \\varphi (n) = \\varphi (2 ^ {e _ {1}}) \\varphi (p _ {2} ^ {e _ {2}}) \\dots \\varphi (p _ {s} ^ {e _ {s}}) \\\\ = \\left\\{ \\begin{array}{l l} 2 ^ {e _ {1} - 1} p _ {2} ^ {e _ {2} - 1} (p _ {2} - 1) \\dots p _ {s} ^ {e _ {s} - 1} (p _ {s} - 1) & \\text {if e_{1} >0} \\\\ p _ {2} ^ {e _ {2} - 1} (p _ {2} - 1) \\dots p _ {s} ^ {e _ {s} - 1} (p _ {s} - 1) & \\text {if e_{1} = 0.} \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\varphi (n) = \\varphi (2 ^ {e _ {1}}) \\varphi (p _ {2} ^ {e _ {2}}) \\dots \\varphi (p _ {s} ^ {e _ {s}}) \\\\ = \\left\\{ \\begin{array}{l l} 2 ^ {e _ {1} - 1} p _ {2} ^ {e _ {2} - 1} (p _ {2} - 1) \\dots p _ {s} ^ {e _ {s} - 1} (p _ {s} - 1) & \\text {if } e_{1} >0 \\\\ p _ {2} ^ {e _ {2} - 1} (p _ {2} - 1) \\dots p _ {s} ^ {e _ {s} - 1} (p _ {s} - 1) & \\text {if } e_{1} = 0. \\end{array} \\right. \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "overrides": [
+    {
+      "id": "jost_riemannian_geometry-ch02-body-48-0314c4",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[48]",
+      "expect": "\\omega^ {j} (e _ {i}) = \\delta_ {i} ^ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {for i = j}, \\\\ 0 & \\text {for i\\neq j}. \\end{array} \\right.",
+      "new": "\\omega^ {j} (e _ {i}) = \\delta_ {i} ^ {j} = \\left\\{ \\begin{array}{l l} 1 & \\text {for } i = j, \\\\ 0 & \\text {for } i\\neq j. \\end{array} \\right."
+    },
+    {
+      "id": "jost_riemannian_geometry-ch02-body-781-439928",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[781]",
+      "expect": "\\begin{array}{l} \\Gamma^ {2} = 1. \\\\ \\text {For odd n,} \\qquad \\qquad \\Gamma v = v \\Gamma , \\qquad \\qquad \\text {for all v\\in V}. \\\\ \\text {For even n,} \\qquad \\qquad \\Gamma v = - v \\Gamma , \\qquad \\qquad \\text {for all v\\in V}. \\end{array}",
+      "new": "\\begin{array}{l} \\Gamma^ {2} = 1. \\\\ \\text {For odd } n, \\qquad \\qquad \\Gamma v = v \\Gamma , \\qquad \\qquad \\text {for all } v\\in V. \\\\ \\text {For even } n, \\qquad \\qquad \\Gamma v = - v \\Gamma , \\qquad \\qquad \\text {for all } v\\in V. \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch06-body-437-8d29ee",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[437]",
+      "expect": "c _ {\\rho} (t) := \\left\\{ \\begin{array}{l l} \\cos (\\sqrt {\\rho} t) & \\text {if \\rho > 0 ,} \\\\ 1 & \\text {if \\rho = 0 ,} \\\\ \\cosh (\\sqrt {- \\rho} t) & \\text {if \\rho <   0 ,} \\end{array} \\right.",
+      "new": "c _ {\\rho} (t) := \\left\\{ \\begin{array}{l l} \\cos (\\sqrt {\\rho} t) & \\text {if } \\rho > 0 , \\\\ 1 & \\text {if } \\rho = 0 , \\\\ \\cosh (\\sqrt {- \\rho} t) & \\text {if } \\rho <   0 , \\end{array} \\right."
+    },
+    {
+      "id": "jost_riemannian_geometry-ch07-body-114-bad61d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[114]",
+      "expect": "\\begin{array}{c} \\sigma_ {p} (p) = p, \\\\ D \\sigma_ {p} (p) = - \\mathrm{id} \\qquad (\\text {as a selfmap of T_{p} M}). \\end{array}",
+      "new": "\\begin{array}{c} \\sigma_ {p} (p) = p, \\\\ D \\sigma_ {p} (p) = - \\mathrm{id} \\qquad (\\text {as a selfmap of } T_{p} M). \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch07-body-710-1e9a96",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[710]",
+      "expect": "\\begin{array}{c} \\text {tr ad X ad Y = \\left\\langle \\frac {1}{\\sqrt {2}} (E^{ij} - E^{ji}), \\text {ad X ad Y} \\frac {1}{\\sqrt {2}} (E^{ij} - E^{ji})\\right\\rangle} \\\\ = (n - 1) x _ {k \\ell} y _ {\\ell k} + x _ {i j} y _ {i j}, \\end{array}",
+      "new": "\\begin{array}{c} \\operatorname{tr} \\operatorname{ad} X \\operatorname{ad} Y = \\left\\langle \\frac {1}{\\sqrt {2}} (E^{ij} - E^{ji}), \\operatorname{ad} X \\operatorname{ad} Y \\frac {1}{\\sqrt {2}} (E^{ij} - E^{ji})\\right\\rangle \\\\ = (n - 1) x _ {k \\ell} y _ {\\ell k} + x _ {i j} y _ {i j}, \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch09-body-348-15b9c8",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[348]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textit { h } = \\textit { \\varepsilon }$",
+      "new": "$h = \\varepsilon$",
+      "anchor": "84d6f789"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch06-body-694-a0ef92",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[694]",
+      "expect": "\\begin{array}{l} 2 n (1 - \\mu r ^ {2} (x)) \\leq - \\Delta d ^ {2} (x, p) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} 2 n (1 - \\mu r ^ {2} (x)) \\leq - \\Delta d ^ {2} (x, p) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch08-body-1260-924561",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[1260]",
+      "expect": "\\begin{array}{l} d (v (t _ {1}), v (t _ {2})) \\leq \\int_ {t _ {1}} ^ {t _ {2}} \\big (g _ {i j} (v) \\dot {v} ^ {i} \\dot {v} ^ {j} \\big) ^ {\\frac {1}{2}} d t \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} d (v (t _ {1}), v (t _ {2})) \\leq \\int_ {t _ {1}} ^ {t _ {2}} \\big (g _ {i j} (v) \\dot {v} ^ {i} \\dot {v} ^ {j} \\big) ^ {\\frac {1}{2}} d t \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch09-body-906-d32712",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[906]",
+      "expect": "\\begin{array}{l} \\int d ^ {2 q} (f (x), f _ {B})   d x \\leq \\int \\bigg (\\int d (f (x), f (y))   d y \\bigg) ^ {2 q} d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\int d ^ {2 q} (f (x), f _ {B})   d x \\leq \\int \\bigg (\\int d (f (x), f (y))   d y \\bigg) ^ {2 q} d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch09-body-960-c9160d",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[960]",
+      "expect": "\\begin{array}{l} \\inf _ {B (x _ {0}, r)} h (x) \\leq h (x _ {1}) = \\mu - \\frac {1}{\\kappa^ {2}} d ^ {2} (p _ {1}, f (x _ {1})) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\inf _ {B (x _ {0}, r)} h (x) \\leq h (x _ {1}) = \\mu - \\frac {1}{\\kappa^ {2}} d ^ {2} (p _ {1}, f (x _ {1})) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jost_riemannian_geometry-ch09-body-1046-82ea09",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[1046]",
+      "expect": "\\begin{array}{l} \\int_ {B (x _ {0}, R)} \\langle d f, d f \\rangle \\leq \\frac {c _ {4}}{R ^ {2}} \\int_ {B (x _ {0}, R)} (v _ {+, 4 R} - v) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\int_ {B (x _ {0}, R)} \\langle d f, d f \\rangle \\leq \\frac {c _ {4}}{R ^ {2}} \\int_ {B (x _ {0}, R)} (v _ {+, 4 R} - v) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

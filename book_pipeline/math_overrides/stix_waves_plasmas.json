@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "stix_waves_plasmas-ch03-problem-1-body-0-4bc086",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:1:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\nabla\\cdotD=4\\pi\\sigma$",
+      "new": "$\\nabla\\cdot D=4\\pi\\sigma$",
+      "anchor": "2d2a381e"
+    },
+    {
+      "id": "stix_waves_plasmas-ch18-body-48-8a86d6",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[48]",
+      "expect": "\\begin{array}{l} \\frac {\\partial N (\\mathbf {r} _ {\\perp} , t)}{\\partial t} + d \\Phi \\sum_ {\\pm} \\left[ \\frac {n \\langle v _ {\\parallel} \\rangle}{B} \\right] _ {l _ {1}} ^ {l _ {2}} \\\\ = 2 \\pi d \\Phi \\sum_ {\\pm} \\int_ {l _ {1}} ^ {l _ {2}} d l \\int_ {0} ^ {\\infty} d E \\int_ {0} ^ {E / B (l)} d \\mu \\frac {\\partial}{\\partial \\mu} \\left\\{\\frac {\\gamma \\mu | v _ {\\parallel} |}{4 E B} \\frac {\\partial f}{\\partial \\mu} - \\lim _ {V \\rightarrow \\infty} \\frac {2 \\pi q ^ {2}}{m ^ {2}} \\sum_ {n = - \\infty} ^ {\\infty} \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {3} k}{V} \\frac {k _ {\\parallel} v _ {\\parallel}}{\\omega} \\frac {\\mu}{| v _ {\\parallel} |} \\\\ \\times \\delta (\\omega_ {k r} - k _ {\\parallel} v _ {\\parallel} - n \\Omega) | \\psi_ {n, k} | ^ {2} L f \\Bigg \\} = 0. \\end{array}",
+      "new": "\\begin{array}{l} \\frac {\\partial N (\\mathbf {r} _ {\\perp} , t)}{\\partial t} + d \\Phi \\sum_ {\\pm} \\left[ \\frac {n \\langle v _ {\\parallel} \\rangle}{B} \\right] _ {l _ {1}} ^ {l _ {2}} \\\\ = 2 \\pi d \\Phi \\sum_ {\\pm} \\int_ {l _ {1}} ^ {l _ {2}} d l \\int_ {0} ^ {\\infty} d E \\int_ {0} ^ {E / B (l)} d \\mu \\frac {\\partial}{\\partial \\mu} \\left\\{\\frac {\\gamma \\mu | v _ {\\parallel} |}{4 E B} \\frac {\\partial f}{\\partial \\mu} - \\lim _ {V \\rightarrow \\infty} \\frac {2 \\pi q ^ {2}}{m ^ {2}} \\sum_ {n = - \\infty} ^ {\\infty} \\int_ {- \\infty} ^ {\\infty} \\frac {d ^ {3} k}{V} \\frac {k _ {\\parallel} v _ {\\parallel}}{\\omega} \\frac {\\mu}{| v _ {\\parallel} |} \\\\ \\times \\delta (\\omega_ {k r} - k _ {\\parallel} v _ {\\parallel} - n \\Omega) | \\psi_ {n, k} | ^ {2} L f \\right\\} = 0. \\end{array}"
+    }
+  ]
+}

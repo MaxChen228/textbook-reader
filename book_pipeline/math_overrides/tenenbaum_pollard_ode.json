@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "tenenbaum_pollard_ode-ch09-body-747-407cb6",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[747]",
+      "expect": "\\int_ {- 1} ^ {1} P _ {n} (x) \\frac {d}{d x} \\left[ (1 - x ^ {2}) P _ {m} ^ {\\prime} (x) \\right] d x + m (m + 1) \\int_ {- 1} ^ {1} P _ {n} (x) P _ {m} (x) d x = 0. \\tag {c}\\tag{c}",
+      "new": "\\int_ {- 1} ^ {1} P _ {n} (x) \\frac {d}{d x} \\left[ (1 - x ^ {2}) P _ {m} ^ {\\prime} (x) \\right] d x + m (m + 1) \\int_ {- 1} ^ {1} P _ {n} (x) P _ {m} (x) d x = 0. \\tag{c}"
+    }
+  ]
+}

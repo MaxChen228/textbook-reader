@@ -1,0 +1,135 @@
+{
+  "overrides": [
+    {
+      "id": "courant_hilbert_methods_1-ch06-body-1006-137801",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[1006]",
+      "field": "md",
+      "all": true,
+      "old": "$^{J}U = \\sum_{\\kappa=1}^{k} ^{J} U^{\\kappa}$",
+      "new": "${}^{J}U = \\sum_{\\kappa=1}^{k} {}^{J} U^{\\kappa}$",
+      "anchor": "825c2992"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch03-body-1008-d98584",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1008]",
+      "expect": "\\left| \\left(\\frac {\\partial}{\\partial r}\\right) ^ {k} \\zeta \\right| \\leq R ^ {- k} C _ {k}\\tag{( (k \\geq 0) ) ,}",
+      "new": "\\left| \\left(\\frac {\\partial}{\\partial r}\\right) ^ {k} \\zeta \\right| \\leq R ^ {- k} C _ {k}\\tag{((k ≥ 0)),}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-1516-c4ab40",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1516]",
+      "expect": "\\Gamma ,\\tag{on (\\Gamma),}",
+      "new": "\\Gamma ,\\tag{on (Γ),}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch02-body-267-23d762",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[267]",
+      "expect": "M \\left(x, y, u, \\frac {d x}{d s}, \\frac {d y}{d s}, \\frac {d u}{d s}\\right) = 0,\\tag{( (2') \\}",
+      "new": "M \\left(x, y, u, \\frac {d x}{d s}, \\frac {d y}{d s}, \\frac {d u}{d s}\\right) = 0,\\tag{((2'))}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-33-7887d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[33]",
+      "expect": "\\Delta u = \\frac {1}{r ^ {2} \\sin \\theta} \\left[ \\frac {\\partial}{\\partial r} \\left(r ^ {2} u _ {r} \\sin \\theta\\right) + \\frac {\\partial}{\\partial \\theta} (u _ {\\theta} \\sin \\theta) + \\frac {\\partial}{\\partial \\phi} \\left(\\frac {u _ {\\phi}}{\\sin \\theta}\\right) \\right] (n = 3),\\tag{( (n=2), \\}",
+      "new": "\\Delta u = \\frac {1}{r ^ {2} \\sin \\theta} \\left[ \\frac {\\partial}{\\partial r} \\left(r ^ {2} u _ {r} \\sin \\theta\\right) + \\frac {\\partial}{\\partial \\theta} (u _ {\\theta} \\sin \\theta) + \\frac {\\partial}{\\partial \\phi} \\left(\\frac {u _ {\\phi}}{\\sin \\theta}\\right) \\right] (n = 3),\\tag{((n=2),}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-151-1bcd02",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[151]",
+      "expect": "\\frac {\\partial}{\\partial \\nu} \\frac {1}{r} = - \\frac {\\cos (\\nu , r)}{r ^ {2}}\\tag{((n = 3)\\}",
+      "new": "\\frac {\\partial}{\\partial \\nu} \\frac {1}{r} = - \\frac {\\cos (\\nu , r)}{r ^ {2}}\\tag{((n = 3))}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-153-86d9b0",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[153]",
+      "expect": "\\frac {\\partial}{\\partial \\nu} \\log \\frac {1}{r} = - \\frac {\\cos (\\nu , r)}{r}\\tag{( (n = 2), \\}",
+      "new": "\\frac {\\partial}{\\partial \\nu} \\log \\frac {1}{r} = - \\frac {\\cos (\\nu , r)}{r}\\tag{((n = 2),}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-1084-b75ec5",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1084]",
+      "expect": "g \\geq \\max | \\phi |\\tag{on (\\Gamma\\}",
+      "new": "g \\geq \\max | \\phi |\\tag{on (Γ)}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-1783-a8e722",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1783]",
+      "expect": "w (z) \\sim \\frac {\\alpha}{(z - z _ {0}) ^ {n}},\\tag{(z\\to z_{0}\\}",
+      "new": "w (z) \\sim \\frac {\\alpha}{(z - z _ {0}) ^ {n}},\\tag{(z→z₀)}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch04-body-1786-a739c3",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[1786]",
+      "expect": "w (z) \\sim \\alpha (z - z _ {0}) ^ {n},\\tag{(z\\to z_0\\}",
+      "new": "w (z) \\sim \\alpha (z - z _ {0}) ^ {n},\\tag{(z→z₀)}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch05-body-591-517598",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[591]",
+      "expect": "L ^ {*} (R (x, t; \\xi , \\tau)) = 0\\tag{((t < \\tau)\\}",
+      "new": "L ^ {*} (R (x, t; \\xi , \\tau)) = 0\\tag{((t < τ))}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch05-body-1022-0cd286",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[1022]",
+      "expect": "\\left| \\begin{array}{c c c} a & b & c \\\\ \\dot {x} & \\dot {y} & 0 \\\\ 0 & \\dot {x} & \\dot {y} \\end{array} \\right| \\equiv a \\dot {y} ^ {2} - b \\dot {x} \\dot {y} + c \\dot {x} ^ {2} = 0,\\tag{( (2') \\}",
+      "new": "\\left| \\begin{array}{c c c} a & b & c \\\\ \\dot {x} & \\dot {y} & 0 \\\\ 0 & \\dot {x} & \\dot {y} \\end{array} \\right| \\equiv a \\dot {y} ^ {2} - b \\dot {x} \\dot {y} + c \\dot {x} ^ {2} = 0,\\tag{((2'))}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch06-body-540-43f5a9",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[540]",
+      "expect": "l ^ {j} A ^ {\\nu} r ^ {i}: l ^ {j} A ^ {0} r ^ {i} = - f _ {\\nu}\\tag{((\\nu >0)\\}",
+      "new": "l ^ {j} A ^ {\\nu} r ^ {i}: l ^ {j} A ^ {0} r ^ {i} = - f _ {\\nu}\\tag{((ν >0))}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch06-body-1733-7ae120",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1733]",
+      "expect": "u = \\frac {r ^ {2 - n}}{4 \\pi^ {(n - 1) / 2}} \\sum_ {\\nu = 1} ^ {(n - 3) / 2} a _ {\\nu , n} (2 r) ^ {\\nu} g ^ {\\nu} (t - r)\\tag{for odd (n\\}",
+      "new": "u = \\frac {r ^ {2 - n}}{4 \\pi^ {(n - 1) / 2}} \\sum_ {\\nu = 1} ^ {(n - 3) / 2} a _ {\\nu , n} (2 r) ^ {\\nu} g ^ {\\nu} (t - r)\\tag{for odd (n)}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch06-body-1736-f4da5c",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1736]",
+      "expect": "u = \\frac {r ^ {2 - n}}{2 ^ {n - 1} \\pi^ {n / 2}} \\sum_ {\\nu = 1} ^ {(n - 2) / 2} b _ {\\nu , n} (2 r) ^ {\\nu} H ^ {\\nu} (r, t)\\tag{for even (n\\}",
+      "new": "u = \\frac {r ^ {2 - n}}{2 ^ {n - 1} \\pi^ {n / 2}} \\sum_ {\\nu = 1} ^ {(n - 2) / 2} b _ {\\nu , n} (2 r) ^ {\\nu} H ^ {\\nu} (r, t)\\tag{for even (n)}"
+    },
+    {
+      "id": "courant_hilbert_methods_1-ch06-body-2195-46562d",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[2195]",
+      "expect": "L [ u ] = 0\\tag{((t > 0)\\}",
+      "new": "L [ u ] = 0\\tag{((t > 0))}"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "schwabl_qm-ch20-body-291-e21832",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[291]",
+      "expect": "\\begin{array}{c c c} \\mathrm{SG} _ {1} & & \\mathrm{SG} _ {2} \\\\ \\stackrel {{| a \\rangle}} {{\\longrightarrow}} \\bigvee & & \\bigvee \\stackrel {{| e \\rangle}} {{\\longrightarrow}} \\\\ \\bigwedge & & \\bigwedge \\end{array} \\quad \\text {Fig. 20.3. Two Stern - Gerlach apparatuses SG_{1} and} \\mathrm{SG} _ {2} \\text {in series}",
+      "new": "\\begin{array}{c c c} \\mathrm{SG} _ {1} & & \\mathrm{SG} _ {2} \\\\ \\stackrel {{| a \\rangle}} {{\\longrightarrow}} \\bigvee & & \\bigvee \\stackrel {{| e \\rangle}} {{\\longrightarrow}} \\\\ \\bigwedge & & \\bigwedge \\end{array} \\quad \\text {Fig. 20.3. Two Stern - Gerlach apparatuses } \\mathrm{SG}_{1} \\text{ and } \\mathrm{SG} _ {2} \\text {in series}"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "overrides": [
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-1254-78959e",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1254]",
+      "expect": "h _ {i j} = \\left\\{ \\begin{array}{l l} \\frac {1}{| \\Theta_ {i , v} | - 1} & \\text {if j\\neq i , j\\in\\Theta_{i,v}}, \\\\ 0 & \\text {if j = i .} \\end{array} \\right.",
+      "new": "h _ {i j} = \\left\\{ \\begin{array}{l l} \\frac {1}{| \\Theta_ {i , v} | - 1} & \\text {if } j\\neq i ,\\ j\\in\\Theta_{i,v}, \\\\ 0 & \\text {if } j = i . \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-problem-6-3-7-body-1-1b1e92",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.3.7:body[1]",
+      "expect": "\\rho_ {j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if j\\in A}, \\\\ 1 + \\sum_ {k \\in S} p _ {j k} \\rho_ {k} & \\text {if j\\notin A}, \\end{array} \\right.",
+      "new": "\\rho_ {j} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } j\\in A, \\\\ 1 + \\sum_ {k \\in S} p _ {j k} \\rho_ {k} & \\text {if } j\\notin A, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-problem-6-15-53-body-3-1b8ba5",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.15.53:body[3]",
+      "expect": "\\pi_ {i} = \\left\\{ \\begin{array}{l l} \\frac {1 - p}{r + 1 - p} & \\text {if i = 0 ,} \\\\ \\frac {1}{r + 1 - p} & \\text {if i = 1,2,\\ldots,r .} \\end{array} \\right.",
+      "new": "\\pi_ {i} = \\left\\{ \\begin{array}{l l} \\frac {1 - p}{r + 1 - p} & \\text {if } i = 0 , \\\\ \\frac {1}{r + 1 - p} & \\text {if } i = 1,2,\\ldots,r . \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch07-body-210-b2ea84",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[210]",
+      "expect": "h ^ {\\prime} (x) = \\left\\{ \\begin{array}{l l} h (x) & \\text {if x\\notin (b,b + \\delta),} \\\\ \\left(1 + \\frac {b - x}{\\delta}\\right) h (b) & \\text {if x\\in (b,b + \\delta),} \\end{array} \\right.",
+      "new": "h ^ {\\prime} (x) = \\left\\{ \\begin{array}{l l} h (x) & \\text {if } x\\notin (b,b + \\delta), \\\\ \\left(1 + \\frac {b - x}{\\delta}\\right) h (b) & \\text {if } x\\in (b,b + \\delta), \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch07-problem-7-11-21-body-1-80c1b5",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.11.21:body[1]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if |x| \\leq 2 ,} \\\\ \\frac {c}{x ^ {2} \\log | x |} & \\text {if |x| > 2 ,} \\end{array} \\right.",
+      "new": "f (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } |x| \\leq 2 , \\\\ \\frac {c}{x ^ {2} \\log | x |} & \\text {if } |x| > 2 , \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch09-body-119-af24d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[119]",
+      "expect": "\\rho (n) = \\left\\{ \\begin{array}{l l} 1 & \\text {if n = 0 ,} \\\\ 0 & \\text {if n\\neq 0 .} \\end{array} \\right.",
+      "new": "\\rho (n) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } n = 0 , \\\\ 0 & \\text {if } n\\neq 0 . \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch10-body-314-5fafeb",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[314]",
+      "expect": "\\begin{array}{l l} \\frac {C (t)}{t} \\xrightarrow {\\text {a.s.}} \\frac {\\mathbb {E} R}{\\mathbb {E} X} & \\quad \\text {as t\\to\\infty ,} \\\\ \\frac {c (t)}{t} \\to \\frac {\\mathbb {E} R}{\\mathbb {E} X} & \\quad \\text {as t\\to\\infty .} \\end{array}",
+      "new": "\\begin{array}{l l} \\frac {C (t)}{t} \\xrightarrow {\\text {a.s.}} \\frac {\\mathbb {E} R}{\\mathbb {E} X} & \\quad \\text {as } t\\to\\infty , \\\\ \\frac {c (t)}{t} \\to \\frac {\\mathbb {E} R}{\\mathbb {E} X} & \\quad \\text {as } t\\to\\infty . \\end{array}"
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch10-problem-10-2-body-1-953893",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.2:body[1]",
+      "expect": "F _ {W} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x <   s ,} \\\\ 1 - F (s) + \\int_ {0} ^ {s} F _ {W} (x - u)   d F (u) & \\text {if x\\geq s ,} \\end{array} \\right.",
+      "new": "F _ {W} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } x <   s , \\\\ 1 - F (s) + \\int_ {0} ^ {s} F _ {W} (x - u)   d F (u) & \\text {if } x\\geq s , \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch11-body-365-bfcecf",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[365]",
+      "expect": "h _ {i j} = \\left\\{ \\begin{array}{l l} \\lambda_ {i j} & \\text {if i\\neq j}, \\\\ - \\sum_ {k} \\lambda_ {i k} & \\text {if i = j}, \\end{array} \\right.",
+      "new": "h _ {i j} = \\left\\{ \\begin{array}{l l} \\lambda_ {i j} & \\text {if } i\\neq j, \\\\ - \\sum_ {k} \\lambda_ {i k} & \\text {if } i = j, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch11-body-390-00d0e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[390]",
+      "expect": "\\left\\{ \\begin{array}{l l} \\lambda_ {i j} & \\text {if 1\\leq i , j\\leq c ,} \\\\ \\mu_ {i} & \\text {if j = \\infty ,} \\\\ \\nu_ {j} & \\text {if i = \\infty .} \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{l l} \\lambda_ {i j} & \\text {if } 1\\leq i , j\\leq c , \\\\ \\mu_ {i} & \\text {if } j = \\infty , \\\\ \\nu_ {j} & \\text {if } i = \\infty . \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch12-problem-12-3-5-body-1-a862b7",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.3.5:body[1]",
+      "expect": "X _ {n} = \\left\\{ \\begin{array}{l l} x _ {n} & \\text {if 1\\leq n\\leq r}, \\\\ X _ {U (n)} + X _ {V (n)} & \\text {if n > r}, \\end{array} \\right.",
+      "new": "X _ {n} = \\left\\{ \\begin{array}{l l} x _ {n} & \\text {if } 1\\leq n\\leq r, \\\\ X _ {U (n)} + X _ {V (n)} & \\text {if } n > r, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch12-problem-12-9-6-body-3-3552a6",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:12.9.6:body[3]",
+      "expect": "Y _ {n} = \\left\\{ \\begin{array}{l l} X _ {n} & \\text {if Y_{n - 1} = 0}, \\\\ n Y _ {n - 1} | X _ {n} | & \\text {if Y_{n - 1} \\neq 0}. \\end{array} \\right.",
+      "new": "Y _ {n} = \\left\\{ \\begin{array}{l l} X _ {n} & \\text {if } Y_{n - 1} = 0, \\\\ n Y _ {n - 1} | X _ {n} | & \\text {if } Y_{n - 1} \\neq 0. \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch13-body-254-ae66a7",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[254]",
+      "expect": "D ^ {\\mathrm{a}} (t) = \\left\\{ \\begin{array}{l l} D (t) & \\text {if T > t ,} \\\\ 0 & \\text {if T\\leq t ,} \\end{array} \\right.",
+      "new": "D ^ {\\mathrm{a}} (t) = \\left\\{ \\begin{array}{l l} D (t) & \\text {if } T > t , \\\\ 0 & \\text {if } T\\leq t , \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch13-body-624-0aa744",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[624]",
+      "expect": "p (\\mathbf {w}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if \\mathbf {w} \\in H}, \\\\ 0 & \\text {if \\mathbf {w} \\in J}. \\end{array} \\right.",
+      "new": "p (\\mathbf {w}) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } \\mathbf {w} \\in H, \\\\ 0 & \\text {if } \\mathbf {w} \\in J. \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch07-problem-7-11-33-body-1-38619a",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.11.33:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\frac { 1 } { t } \\int _ { 0 } ^ { t } I _ { \\{ X ( s ) = j \\} } d s \\stackrel { \\mathrm { a . s . } } { \\longrightarrow } \\frac { 1 } { m _ { j } g _ { j } } \\mathrm { a s } t  \\mathsf$",
+      "new": "$\\frac { 1 } { t } \\int _ { 0 } ^ { t } I _ { \\{ X ( s ) = j \\} } d s \\stackrel { \\mathrm { a . s . } } { \\longrightarrow } \\frac { 1 } { m _ { j } g _ { j } } \\mathrm { a s }\\ t \\to \\infty$",
+      "anchor": "86c8ba59"
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-305-b73aa6",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[305]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\cal F } \\arrows { \\cal S }$",
+      "new": "${ \\cal F } \\to { \\cal S }$",
+      "anchor": "8961f26e"
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch02-body-22-a2e5d7",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[22]",
+      "expect": "F _ {X} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x <   0 ,} \\\\ \\frac {1}{4} & \\text {if 0\\leq x <   1 ,} \\\\ \\frac {3}{4} & \\text {if 1\\leq x <   2 ,} \\\\ 1 & \\text {if x\\geq 2 ,} \\end{array} \\right.",
+      "new": "F _ {X} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } x <   0, \\\\ \\frac {1}{4} & \\text {if } 0\\leq x <   1, \\\\ \\frac {3}{4} & \\text {if } 1\\leq x <   2, \\\\ 1 & \\text {if } x\\geq 2, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch02-body-24-f1bd9d",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[24]",
+      "expect": "F _ {W} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if x <   0 ,} \\\\ \\frac {3}{4} & \\text {if 0\\leq x <   4 ,} \\\\ 1 & \\text {if x\\geq 4 ,} \\end{array} \\right.",
+      "new": "F _ {W} (x) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } x <   0, \\\\ \\frac {3}{4} & \\text {if } 0\\leq x <   4, \\\\ 1 & \\text {if } x\\geq 4, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch04-body-651-ceead7",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[651]",
+      "expect": "g _ {j} (r + 1) = \\left\\{ \\begin{array}{l l} - \\frac {r !   e ^ {\\lambda}}{\\lambda^ {r + 1}} \\mathbb {P} (P = j) \\sum_ {k = 0} ^ {r} \\frac {\\lambda^ {k} e ^ {- \\lambda}}{k !} & \\text {if r <   j}, \\\\ \\frac {r !   e ^ {\\lambda}}{\\lambda^ {r + 1}} \\mathbb {P} (P = j) \\sum_ {k = r + 1} ^ {\\infty} \\frac {\\lambda^ {k} e ^ {- \\lambda}}{k !} & \\text {if r\\geq j}, \\end{array} \\right.",
+      "new": "g _ {j} (r + 1) = \\left\\{ \\begin{array}{l l} - \\frac {r !   e ^ {\\lambda}}{\\lambda^ {r + 1}} \\mathbb {P} (P = j) \\sum_ {k = 0} ^ {r} \\frac {\\lambda^ {k} e ^ {- \\lambda}}{k !} & \\text {if } r <   j, \\\\ \\frac {r !   e ^ {\\lambda}}{\\lambda^ {r + 1}} \\mathbb {P} (P = j) \\sum_ {k = r + 1} ^ {\\infty} \\frac {\\lambda^ {k} e ^ {- \\lambda}}{k !} & \\text {if } r\\geq j, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch04-problem-4-14-37-body-2-a8cb00",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.14.37:body[2]",
+      "expect": "\\int_ {- \\infty} ^ {\\infty} H _ {m} (x) H _ {n} (x) \\phi (x)   d x = \\left\\{ \\begin{array}{l l} 0 & \\text {if m\\neq n}, \\\\ n! & \\text {if m = n}. \\end{array} \\right.",
+      "new": "\\int_ {- \\infty} ^ {\\infty} H _ {m} (x) H _ {n} (x) \\phi (x)   d x = \\left\\{ \\begin{array}{l l} 0 & \\text {if } m\\neq n, \\\\ n! & \\text {if } m = n. \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch05-problem-5-9-7-body-1-12138c",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.9.7:body[1]",
+      "expect": "\\frac {\\partial f}{\\partial v _ {i j}} = \\left\\{ \\begin{array}{l l} \\frac {\\partial^ {2} f}{\\partial x _ {i} \\partial x _ {j}} & \\text {if i\\neq j}, \\\\ \\frac {1}{2} \\frac {\\partial^ {2} f}{\\partial x _ {i} ^ {2}} & \\text {if i = j}, \\end{array} \\right.",
+      "new": "\\frac {\\partial f}{\\partial v _ {i j}} = \\left\\{ \\begin{array}{l l} \\frac {\\partial^ {2} f}{\\partial x _ {i} \\partial x _ {j}} & \\text {if } i\\neq j, \\\\ \\frac {1}{2} \\frac {\\partial^ {2} f}{\\partial x _ {i} ^ {2}} & \\text {if } i = j, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-169-ff81a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[169]",
+      "expect": "f _ {1 1} (n) = \\left\\{ \\begin{array}{l l} p _ {1 1} = \\frac {1}{2} & \\text {if n = 1 ,} \\\\ p _ {1 2} (p _ {2 2}) ^ {n - 2} p _ {2 1} = \\frac {1}{2} (\\frac {3}{4}) ^ {n - 2} \\frac {1}{4} & \\text {if n\\geq 2 ,} \\end{array} \\right.",
+      "new": "f _ {1 1} (n) = \\left\\{ \\begin{array}{l l} p _ {1 1} = \\frac {1}{2} & \\text {if } n = 1, \\\\ p _ {1 2} (p _ {2 2}) ^ {n - 2} p _ {2 1} = \\frac {1}{2} (\\frac {3}{4}) ^ {n - 2} \\frac {1}{4} & \\text {if } n\\geq 2, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-860-85b8f8",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[860]",
+      "expect": "g _ {m, m + 1} = \\left\\{ \\begin{array}{l l} 4 ^ {m} & \\text {if m\\geq 0 ,} \\\\ \\frac {1}{2} \\cdot 4 ^ {- m} & \\text {if m\\leq - 1 ,} \\end{array} \\right. \\quad g _ {m, m - 1} = \\left\\{ \\begin{array}{l l} \\frac {1}{2} \\cdot 4 ^ {m} & \\text {if m\\geq 1 ,} \\\\ 4 ^ {- m} & \\text {if m\\leq 0 ,} \\end{array} \\right.",
+      "new": "g _ {m, m + 1} = \\left\\{ \\begin{array}{l l} 4 ^ {m} & \\text {if } m\\geq 0, \\\\ \\frac {1}{2} \\cdot 4 ^ {- m} & \\text {if } m\\leq - 1, \\end{array} \\right. \\quad g _ {m, m - 1} = \\left\\{ \\begin{array}{l l} \\frac {1}{2} \\cdot 4 ^ {m} & \\text {if } m\\geq 1, \\\\ 4 ^ {- m} & \\text {if } m\\leq 0, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-1036-d568a3",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1036]",
+      "expect": "Z (x, t) = \\left\\{ \\begin{array}{l l} Z (x, 0) & \\text {if T > t}, \\\\ \\sum_ {i = 1} ^ {N} Z _ {i} (x - Y _ {i}, t - T) & \\text {if T\\leq t}, \\end{array} \\right.",
+      "new": "Z (x, t) = \\left\\{ \\begin{array}{l l} Z (x, 0) & \\text {if } T > t, \\\\ \\sum_ {i = 1} ^ {N} Z _ {i} (x - Y _ {i}, t - T) & \\text {if } T\\leq t, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-1167-c794e7",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1167]",
+      "expect": "r (u) = \\left\\{ \\begin{array}{l l} 0 & \\text {if u <   0 ,} \\\\ e ^ {- \\alpha u} & \\text {if u\\geq 0 .} \\end{array} \\right.",
+      "new": "r (u) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } u <   0, \\\\ e ^ {- \\alpha u} & \\text {if } u\\geq 0. \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch06-body-1240-199dc9",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1240]",
+      "expect": "p _ {i j} = \\left\\{ \\begin{array}{l l} h _ {i j} a _ {i j} & \\text {if i\\neq j}, \\\\ 1 - \\sum_ {k: k \\neq i} h _ {i k} a _ {i k} & \\text {if i = j}, \\end{array} \\right.",
+      "new": "p _ {i j} = \\left\\{ \\begin{array}{l l} h _ {i j} a _ {i j} & \\text {if } i\\neq j, \\\\ 1 - \\sum_ {k: k \\neq i} h _ {i k} a _ {i k} & \\text {if } i = j, \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch11-body-358-1f8ae4",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[358]",
+      "expect": "g _ {\\mathbf {m}, \\mathbf {n}} = \\left\\{ \\begin{array}{l l} \\lambda_ {i j} \\phi_ {i} (m _ {i}) & \\text {if \\mathbf {n} = \\mathbf {m} - \\mathbf {e} _{i} + \\mathbf {e} _{j}}, \\\\ \\nu_ {j} & \\text {if \\mathbf {n} = \\mathbf {m} + \\mathbf {e} _{j}}, \\\\ \\mu_ {i} \\phi_ {i} (m _ {i}) & \\text {if \\mathbf {n} = \\mathbf {m} - \\mathbf {e} _{i}}, \\\\ 0 & \\text {for other \\mathbf {n} \\neq \\mathbf {m}}. \\end{array} \\right.",
+      "new": "g _ {\\mathbf {m}, \\mathbf {n}} = \\left\\{ \\begin{array}{l l} \\lambda_ {i j} \\phi_ {i} (m _ {i}) & \\text {if } \\mathbf {n} = \\mathbf {m} - \\mathbf {e} _{i} + \\mathbf {e} _{j}, \\\\ \\nu_ {j} & \\text {if } \\mathbf {n} = \\mathbf {m} + \\mathbf {e} _{j}, \\\\ \\mu_ {i} \\phi_ {i} (m _ {i}) & \\text {if } \\mathbf {n} = \\mathbf {m} - \\mathbf {e} _{i}, \\\\ 0 & \\text {for other } \\mathbf {n} \\neq \\mathbf {m}. \\end{array} \\right."
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch02-body-78-206bc5",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[78]",
+      "expect": "\\begin{array}{l} \\mathbb {P} \\left(\\frac {1}{n} S _ {n} \\geq p + \\epsilon\\right) \\leq \\sum_ {k = m} ^ {n} e ^ {\\lambda [ k - n (p + \\epsilon) ]} \\binom {n} {k} p ^ {k} q ^ {n - k} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\mathbb {P} \\left(\\frac {1}{n} S _ {n} \\geq p + \\epsilon\\right) \\leq \\sum_ {k = m} ^ {n} e ^ {\\lambda [ k - n (p + \\epsilon) ]} \\binom {n} {k} p ^ {k} q ^ {n - k} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "grimmett_stirzaker_probability-ch02-body-80-270bc9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[80]",
+      "expect": "\\begin{array}{l} \\mathbb {P} \\left(\\frac {1}{n} S _ {n} \\geq p + \\epsilon\\right) \\leq e ^ {- \\lambda n \\epsilon} \\big [ p e ^ {\\lambda^ {2} q ^ {2}} + q e ^ {\\lambda^ {2} p ^ {2}} \\big ] ^ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\mathbb {P} \\left(\\frac {1}{n} S _ {n} \\geq p + \\epsilon\\right) \\leq e ^ {- \\lambda n \\epsilon} \\big [ p e ^ {\\lambda^ {2} q ^ {2}} + q e ^ {\\lambda^ {2} p ^ {2}} \\big ] ^ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

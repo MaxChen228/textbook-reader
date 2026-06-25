@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "siegman_lasers-ch15-body-408-3005d9",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[408]",
+      "expect": "\\left[ \\begin{array}{c c} M _ {x x} & M _ {x y} \\\\ \\hline M _ {y x} & M _ {y y} \\end{array} \\right] = \\left[ \\begin{array}{c} \\text {overall 4\\times 4} \\\\ \\text {matrix product} \\end{array} \\right].",
+      "new": "\\left[ \\begin{array}{c c} M _ {x x} & M _ {x y} \\\\ \\hline M _ {y x} & M _ {y y} \\end{array} \\right] = \\left[ \\begin{array}{c} \\text {overall } 4\\times 4 \\\\ \\text {matrix product} \\end{array} \\right]."
+    },
+    {
+      "id": "siegman_lasers-ch20-body-32-6e5ac8",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[32]",
+      "expect": "\\left[ \\begin{array}{c} \\text {ray path from P_{1} to P_{2}} \\\\ \\text {through X_{1} and X_{2}} \\end{array} \\right] \\quad \\equiv \\quad \\left[ \\begin{array}{c} \\text {ray path from P_{1} to P_{2}} \\\\ \\text {along the optical axis} \\end{array} \\right],",
+      "new": "\\left[ \\begin{array}{c} \\text {ray path from } P_{1} \\text { to } P_{2} \\\\ \\text {through } X_{1} \\text { and } X_{2} \\end{array} \\right] \\quad \\equiv \\quad \\left[ \\begin{array}{c} \\text {ray path from } P_{1} \\text { to } P_{2} \\\\ \\text {along the optical axis} \\end{array} \\right],"
+    },
+    {
+      "id": "siegman_lasers-ch21-body-109-931c60",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[109]",
+      "expect": "\\begin{array}{r l} r _ {a, 2} & = A r _ {a, 1} + B r _ {a, 1} ^ {\\prime} = (A + B / R _ {a}) r _ {a, 1} \\\\ & = r _ {a, 1} / \\lambda_ {a} = r _ {a, 1} / M \\qquad \\text {(demagnifying eigenwave R_{a}).} \\end{array}",
+      "new": "\\begin{array}{r l} r _ {a, 2} & = A r _ {a, 1} + B r _ {a, 1} ^ {\\prime} = (A + B / R _ {a}) r _ {a, 1} \\\\ & = r _ {a, 1} / \\lambda_ {a} = r _ {a, 1} / M \\qquad \\text {(demagnifying eigenwave } R_{a}\\text {).} \\end{array}"
+    },
+    {
+      "id": "siegman_lasers-ch07-problem-7-7-7-body-0-ec43d6",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:7.7.7:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$1/[1 + I/I_{\\mathrm{sat}}}$",
+      "new": "$1/[1 + I/I_{\\mathrm{sat}}]$",
+      "anchor": "66c19752"
+    }
+  ]
+}

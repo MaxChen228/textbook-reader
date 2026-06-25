@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "mahan_many_particle_physics-ch11-body-111-471ee1",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[111]",
+      "expect": "\\left<   a C _ {\\mathbf {k} -} ^ {\\dagger} \\mid \\left\\{H _ {0} + V _ {\\mathrm{sd}} - E _ {G} - \\delta E _ {a} \\right\\} \\psi_ {0 a} = 0 \\left. \\right.",
+      "new": "\\left\\langle   a C _ {\\mathbf {k} -} ^ {\\dagger} \\mid \\left\\{H _ {0} + V _ {\\mathrm{sd}} - E _ {G} - \\delta E _ {a} \\right\\} \\psi_ {0 a} = 0 \\right."
+    },
+    {
+      "id": "mahan_many_particle_physics-ch08-body-90-e2900d",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[90]",
+      "expect": "\\begin{array}{r l} \\chi (\\mathbf {q}, i \\omega) & = P ^ {(1)} (\\mathbf {q}, i \\omega) = \\frac {2}{\\nu} \\sum_ {\\mathbf {p}} \\frac {1}{\\beta} \\sum_ {i p} \\mathcal {G} ^ {(0)} (p) \\mathcal {G} ^ {(0)} (p + q) \\\\ P ^ {(1)} (\\mathbf {q}, \\omega) & = 2 \\int \\frac {d ^ {3} p}{(2 \\pi) ^ {3}} n _ {p} \\left(\\frac {1}{\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} + \\omega + i \\delta} + \\frac {1}{\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} - \\omega - i \\delta}\\right) \\\\ & - 2 \\operatorname{Im} [ P ^ {(1)} (\\mathbf {q}, \\omega) ] = 2 \\pi \\int \\frac {d ^ {3} p}{(2 \\pi) ^ {3}} n _ {p} [ \\delta (\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} + \\omega) - \\delta (\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} - \\omega) ] \\endarray",
+      "new": "\\begin{array}{r l} \\chi (\\mathbf {q}, i \\omega) & = P ^ {(1)} (\\mathbf {q}, i \\omega) = \\frac {2}{\\nu} \\sum_ {\\mathbf {p}} \\frac {1}{\\beta} \\sum_ {i p} \\mathcal {G} ^ {(0)} (p) \\mathcal {G} ^ {(0)} (p + q) \\\\ P ^ {(1)} (\\mathbf {q}, \\omega) & = 2 \\int \\frac {d ^ {3} p}{(2 \\pi) ^ {3}} n _ {p} \\left(\\frac {1}{\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} + \\omega + i \\delta} + \\frac {1}{\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} - \\omega - i \\delta}\\right) \\\\ & - 2 \\operatorname{Im} [ P ^ {(1)} (\\mathbf {q}, \\omega) ] = 2 \\pi \\int \\frac {d ^ {3} p}{(2 \\pi) ^ {3}} n _ {p} [ \\delta (\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} + \\omega) - \\delta (\\varepsilon_ {\\mathbf {p}} - \\varepsilon_ {\\mathbf {p} + \\mathbf {q}} - \\omega) ] \\end{array}"
+    }
+  ]
+}
