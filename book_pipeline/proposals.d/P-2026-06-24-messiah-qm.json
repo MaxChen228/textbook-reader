@@ -1,0 +1,21 @@
+{
+  "id": "P-2026-06-24-messiah-qm",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "parked",
+  "title": "interleaved appendices in combined volume swallow later chapters",
+  "slug": "messiah_qm",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-24T23:15:18+00:00",
+  "updated": "2026-06-25T00:39:34+00:00",
+  "evidence": "Dover combined vols 1+2 structure is CH XII -> Appendix A/B -> CH XIII..XXI -> Appendix C/D. validate_rules passes, parser emits 21 chapters + 4 appendices, but parsed/appB.json contains later chapter titles (e.g. ANGULAR MOMENTUM IN QUANTUM MECHANICS, FIELD QUANTIZATION. RADIATION THEORY) and smoke warns appB body=7149. Existing schema can only model appendices as terminal ranges, not mid-book interleaves.",
+  "proposal": "Extend audit/parser schema so appendices can carry explicit end boundaries or allow multiple appendix segments interleaved with later chapters, instead of assuming appendices are a single terminal tail.",
+  "risk": "",
+  "disposition": "engine 結構恆 inconclusive。evidence 具體可信（appB.json 含後段章標 ANGULAR MOMENTUM/FIELD QUANTIZATION、body=7149；schema 只能 model terminal appendix）。與 taylor_terhaar（全域章末題庫）、aitchison（combined 2-vol 非連續多區附錄，CLAUDE.md 記）同屬「合卷/多卷非線性結構」引擎缺口簇。待能力落地由 stale 重浮。不 reject、不下架 owned。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "audit/parser schema：附錄支援顯式 end boundary 或多段交錯附錄（合卷本 CH→附錄→CH 非線性結構），不假設附錄為書末單一尾段"
+  }
+}

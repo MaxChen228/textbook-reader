@@ -1,0 +1,98 @@
+slug: velleman_how_to_prove_it
+title: "How to Prove It: A Structured Approach"
+author: "Daniel J. Velleman"
+edition: 3rd
+subject: "Mathematical Logic"
+publisher: "Cambridge University Press"
+language: en
+
+filter_types: [header, page_number, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 20
+appendices_start_page: 482
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+heading_text_level: 2
+
+chapters:
+  - num: 1
+    title: "Sentential Logic"
+    chapter_title_block_idx: 115
+    page_start: 20
+    page_end: 78
+    problems_block_idx: null
+    next_chapter_block_idx: 770
+  - num: 2
+    title: "Quantificational Logic"
+    chapter_title_block_idx: 770
+    page_start: 79
+    page_end: 116
+    problems_block_idx: null
+    next_chapter_block_idx: 1160
+  - num: 3
+    title: "Proofs"
+    chapter_title_block_idx: 1160
+    page_start: 117
+    page_end: 213
+    problems_block_idx: null
+    next_chapter_block_idx: 2267
+  - num: 4
+    title: "Relations"
+    chapter_title_block_idx: 2267
+    page_start: 214
+    page_end: 280
+    problems_block_idx: null
+    next_chapter_block_idx: 2935
+  - num: 5
+    title: "Functions"
+    chapter_title_block_idx: 2935
+    page_start: 281
+    page_end: 333
+    problems_block_idx: null
+    next_chapter_block_idx: 3511
+  - num: 6
+    title: "Mathematical Induction"
+    chapter_title_block_idx: 3511
+    page_start: 334
+    page_end: 393
+    problems_block_idx: null
+    next_chapter_block_idx: 4103
+  - num: 7
+    title: "Number Theory"
+    chapter_title_block_idx: 4103
+    page_start: 394
+    page_end: 450
+    problems_block_idx: null
+    next_chapter_block_idx: 4725
+  - num: 8
+    title: "Infinite Sets"
+    chapter_title_block_idx: 4725
+    page_start: 451
+    page_end: 481
+    problems_block_idx: null
+    next_chapter_block_idx: 5054
+appendices: []
+
+section_re: '^([1-8]\.\d+)\.?[ ]+(.+)$'
+subsection_re: '^(ZZZ_NEVER_MATCH)(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^\\?\*?[ ]*(\d+)\.(?!\d)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^Exercises$'
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^Example[ ]+(\d+\.\d+\.\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

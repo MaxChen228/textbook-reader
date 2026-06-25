@@ -1,0 +1,123 @@
+slug: becker_becker_schwarz_string
+title: 'String Theory and M-Theory: A Modern Introduction'
+author: Katrin Becker; Melanie Becker; John H. Schwarz
+edition: null
+subject: String Theory
+publisher: Cambridge University Press
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 18
+appendices_start_page: 707
+bibliography_start_page: 717
+index_start_page: 743
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 18
+  page_end: 33
+  chapter_title_block_idx: 133
+  problems_block_idx: null
+  next_chapter_block_idx: 269
+- num: 2
+  title: The bosonic string
+  page_start: 34
+  page_end: 74
+  chapter_title_block_idx: 269
+  problems_block_idx: 891
+  next_chapter_block_idx: 981
+- num: 3
+  title: Conformal field theory and string interactions
+  page_start: 75
+  page_end: 125
+  chapter_title_block_idx: 981
+  problems_block_idx: 1673
+  next_chapter_block_idx: 1726
+- num: 4
+  title: Strings with world-sheet supersymmetry
+  page_start: 126
+  page_end: 164
+  chapter_title_block_idx: 1726
+  problems_block_idx: 2294
+  next_chapter_block_idx: 2356
+- num: 5
+  title: Strings with space-time supersymmetry
+  page_start: 165
+  page_end: 203
+  chapter_title_block_idx: 2356
+  problems_block_idx: 2937
+  next_chapter_block_idx: 2988
+- num: 6
+  title: T-duality and D-branes
+  page_start: 204
+  page_end: 265
+  chapter_title_block_idx: 2988
+  problems_block_idx: 3749
+  next_chapter_block_idx: 3813
+- num: 7
+  title: The heterotic string
+  page_start: 266
+  page_end: 312
+  chapter_title_block_idx: 3813
+  problems_block_idx: 4471
+  next_chapter_block_idx: 4543
+- num: 8
+  title: M-theory and string duality
+  page_start: 313
+  page_end: 372
+  chapter_title_block_idx: 4543
+  problems_block_idx: 5321
+  next_chapter_block_idx: 5395
+- num: 9
+  title: String geometry
+  page_start: 373
+  page_end: 472
+  chapter_title_block_idx: 5395
+  problems_block_idx: 6811
+  next_chapter_block_idx: 6871
+- num: 10
+  title: Flux compactifications
+  page_start: 473
+  page_end: 565
+  chapter_title_block_idx: 6871
+  problems_block_idx: 8211
+  next_chapter_block_idx: 8284
+- num: 11
+  title: Black holes in string theory
+  page_start: 566
+  page_end: 626
+  chapter_title_block_idx: 8284
+  problems_block_idx: 9154
+  next_chapter_block_idx: 9217
+- num: 12
+  title: Gauge theory/string theory dualities
+  page_start: 627
+  page_end: 706
+  chapter_title_block_idx: 9217
+  problems_block_idx: 10192
+  next_chapter_block_idx: 10255
+appendices: []
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(?!(?:PROBLEM|EXERCISE|SOLUTION|HOMEWORK PROBLEMS|EXERCISES)\b)()([A-Z][A-Za-z0-9 ,;:\-–—\(\)\[\]\/\$\\\.]+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^PROBLEM\s+(\d+\.\d+)\b
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: ^(Bibliographic discussion|Bibliography|Index)$
+solution_start_re: ^SOLUTION$
+equation_label_re: \((\d+\.\d+)\)
+equation_strip_dollar: false
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: ^(Fig(?:ure)?\.\s*\d+\.\d+.*)$
+known_missing_problems: []

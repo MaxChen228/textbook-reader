@@ -1,0 +1,97 @@
+slug: landau_lifshitz_elasticity
+title: Theory of Elasticity
+author: L. D. Landau; E. M. Lifshitz
+edition: 3rd
+subject: Condensed Matter Physics
+publisher: Pergamon Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 192
+bibliography_start_page: null
+index_start_page: 192
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Fundamental Equations
+    page_start: 8
+    page_end: 44
+    chapter_title_block_idx: 101
+    chapter_title_block_idx_secondary: 102
+    problems_block_idx: null
+    next_chapter_block_idx: 838
+  - num: 2
+    title: The Equilibrium of Rods and Plates
+    page_start: 45
+    page_end: 93
+    chapter_title_block_idx: 838
+    chapter_title_block_idx_secondary: 839
+    problems_block_idx: null
+    next_chapter_block_idx: 1771
+  - num: 3
+    title: Elastic Waves
+    page_start: 94
+    page_end: 114
+    chapter_title_block_idx: 1771
+    chapter_title_block_idx_secondary: 1772
+    problems_block_idx: null
+    next_chapter_block_idx: 2231
+  - num: 4
+    title: Dislocations
+    page_start: 115
+    page_end: 139
+    chapter_title_block_idx: 2231
+    chapter_title_block_idx_secondary: 2232
+    problems_block_idx: null
+    next_chapter_block_idx: 2680
+  - num: 5
+    title: Thermal Conduction and Viscosity in Solids
+    page_start: 140
+    page_end: 150
+    chapter_title_block_idx: 2680
+    chapter_title_block_idx_secondary: 2681
+    problems_block_idx: null
+    next_chapter_block_idx: 2896
+  - num: 6
+    title: Mechanics of Liquid Crystals
+    page_start: 151
+    page_end: 191
+    chapter_title_block_idx: 2896
+    chapter_title_block_idx_secondary: 2897
+    problems_block_idx: null
+    next_chapter_block_idx: 3762
+
+appendices: []
+
+section_re: '^§\s*(\d+)\.\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTIONS__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEM\s*([0-9]*)\.?(?:\s+.*)?$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: '^SOLUTION\.?\s*'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,25 @@
+{
+  "overrides": [
+    {
+      "id": "phillips-ch09-fig-9-4-restore",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[288]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-288",
+        "src": "9981d138a31412a77df6f9b91bbeaf7363325301034e4115ca404675d7c799bd.jpg",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-9.4",
+        "caption": "Fig. 9.4 Real (εR) and imaginary (εI) parts of the dielectric function at T = 0.",
+        "catalog_repair_source": "agent-raw-pdf-verified"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF physical page 150 shows this image is Fig. 9.4 with caption 'Real (εR) and imaginary (εI) parts of the dielectric function at T = 0.'; MinerU dropped the figure number and prior catalog exclusion made the text reference unresolved."
+    }
+  ]
+}

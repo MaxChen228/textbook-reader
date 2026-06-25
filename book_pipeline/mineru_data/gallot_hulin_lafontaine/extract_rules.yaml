@@ -1,0 +1,82 @@
+slug: gallot_hulin_lafontaine
+title: Riemannian Geometry
+author: Sylvestre Gallot; Dominique Hulin; Jacques Lafontaine
+edition: 2nd
+subject: Differential Geometry
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 251
+bibliography_start_page: null
+index_start_page: 301
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Differential Manifolds
+    page_start: 18
+    page_end: 67
+    chapter_title_block_idx: 62
+    problems_block_idx: null
+    next_chapter_block_idx: 959
+  - num: 2
+    title: Riemannian Metrics
+    page_start: 68
+    page_end: 122
+    chapter_title_block_idx: 959
+    problems_block_idx: null
+    next_chapter_block_idx: 1872
+  - num: 3
+    title: Curvature
+    page_start: 123
+    page_end: 196
+    chapter_title_block_idx: 1872
+    problems_block_idx: null
+    next_chapter_block_idx: 3215
+  - num: 4
+    title: "Analysis on Manifolds and the Ricci Curvature"
+    page_start: 197
+    page_end: 232
+    chapter_title_block_idx: 3215
+    problems_block_idx: null
+    next_chapter_block_idx: 3866
+  - num: 5
+    title: Riemannian Submanifolds
+    page_start: 233
+    page_end: 250
+    chapter_title_block_idx: 3866
+    problems_block_idx: null
+    next_chapter_block_idx: 4183
+
+appendices: []
+
+section_re: '^([A-Z])\.\s+(.+)$'
+subsection_re: '^()(?![A-Z]\.\s)(?!CHAPTER\b)(?!\d+\.\d+\s)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+Exercises?:\s+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

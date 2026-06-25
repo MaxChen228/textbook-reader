@@ -1,0 +1,193 @@
+slug: bransden_joachain_atoms
+title: Physics of Atoms and Molecules
+author: B. H. Bransden; C. J. Joachain
+edition: null
+subject: null
+publisher: Longman Scientific & Technical
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 601
+bibliography_start_page: 680
+index_start_page: 682
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Electrons, photons and atoms
+    page_start: 8
+    page_end: 59
+    chapter_title_block_idx: 32
+    problems_block_idx: 633
+    next_chapter_block_idx: 704
+  - num: 2
+    title: The elements of quantum mechanics
+    page_start: 60
+    page_end: 134
+    chapter_title_block_idx: 704
+    problems_block_idx: 1931
+    next_chapter_block_idx: 2018
+  - num: 3
+    title: One-electron atoms
+    page_start: 135
+    page_end: 161
+    chapter_title_block_idx: 2018
+    problems_block_idx: 2368
+    next_chapter_block_idx: 2396
+  - num: 4
+    title: Interaction of one-electron atoms with electromagnetic radiation
+    page_start: 162
+    page_end: 201
+    chapter_title_block_idx: 2396
+    problems_block_idx: 2985
+    next_chapter_block_idx: 3018
+  - num: 5
+    title: "One-electron atoms: fine structure, hyperfine structure and interaction with external electric and magnetic fields"
+    page_start: 202
+    page_end: 255
+    chapter_title_block_idx: 3018
+    problems_block_idx: 3733
+    next_chapter_block_idx: 3758
+  - num: 6
+    title: Two-electron atoms
+    page_start: 256
+    page_end: 296
+    chapter_title_block_idx: 3758
+    problems_block_idx: 4257
+    next_chapter_block_idx: 4274
+  - num: 7
+    title: Many-electron atoms
+    page_start: 297
+    page_end: 361
+    chapter_title_block_idx: 4274
+    problems_block_idx: 5123
+    next_chapter_block_idx: 5171
+  - num: 8
+    title: The interaction of many-electron atoms with electromagnetic fields
+    page_start: 362
+    page_end: 389
+    chapter_title_block_idx: 5171
+    problems_block_idx: 5497
+    next_chapter_block_idx: 5510
+  - num: 9
+    title: Molecular structure
+    page_start: 390
+    page_end: 434
+    chapter_title_block_idx: 5510
+    problems_block_idx: 6024
+    next_chapter_block_idx: 6047
+  - num: 10
+    title: Molecular spectra
+    page_start: 435
+    page_end: 467
+    chapter_title_block_idx: 6047
+    problems_block_idx: 6400
+    next_chapter_block_idx: 6423
+  - num: 11
+    title: "Atomic collisions: basic concepts and potential scattering"
+    page_start: 468
+    page_end: 505
+    chapter_title_block_idx: 6423
+    problems_block_idx: 7024
+    next_chapter_block_idx: 7066
+  - num: 12
+    title: Electron-atom collisions
+    page_start: 506
+    page_end: 533
+    chapter_title_block_idx: 7066
+    problems_block_idx: 7429
+    next_chapter_block_idx: 7448
+  - num: 13
+    title: Atom-atom collisions
+    page_start: 534
+    page_end: 560
+    chapter_title_block_idx: 7448
+    problems_block_idx: 7827
+    next_chapter_block_idx: 7845
+  - num: 14
+    title: Some applications of atomic physics
+    page_start: 561
+    page_end: 600
+    chapter_title_block_idx: 7845
+    problems_block_idx: 8266
+    next_chapter_block_idx: 8291
+
+appendices:
+  - id: "1"
+    title: Classical scattering by a central potential
+    page_start: 601
+    chapter_title_block_idx: 8291
+  - id: "2"
+    title: The laboratory and centre of mass systems
+    page_start: 609
+    chapter_title_block_idx: 8409
+  - id: "3"
+    title: Evaluation of integrals by using generating functions
+    page_start: 617
+    chapter_title_block_idx: 8522
+  - id: "4"
+    title: Angular momentum - useful formulae and results
+    page_start: 621
+    chapter_title_block_idx: 8589
+  - id: "5"
+    title: Hydrogenic wave functions in momentum space
+    page_start: 628
+    chapter_title_block_idx: 8725
+  - id: "6"
+    title: The Hamiltonian for a charged particle in an electromagnetic field
+    page_start: 636
+    chapter_title_block_idx: 8846
+  - id: "7"
+    title: The Dirac equation and relativistic corrections to the Schrödinger equation
+    page_start: 638
+    chapter_title_block_idx: 8869
+  - id: "8"
+    title: Separation of the centre of mass coordinates for an N-electron atom
+    page_start: 649
+    chapter_title_block_idx: 9068
+  - id: "9"
+    title: Evaluation of two-centre integrals
+    page_start: 652
+    chapter_title_block_idx: 9113
+  - id: "10"
+    title: Solutions to selected problems
+    page_start: 654
+    chapter_title_block_idx: 9140
+  - id: "11"
+    title: Fundamental constants, atomic units and conversion factors
+    page_start: 676
+    chapter_title_block_idx: 9532
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([^\s\S])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{\[([^\]]+)\]\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

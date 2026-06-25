@@ -1,0 +1,178 @@
+slug: stix_waves_plasmas
+title: Waves in Plasmas
+author: Thomas Howard Stix
+edition: "1st"
+subject: Plasma Physics
+publisher: American Institute of Physics
+language: en
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 18
+appendices_start_page: null
+bibliography_start_page: 559
+index_start_page: 574
+inline_problems: false
+chapters:
+  - num: 1
+    title: Wave Normal Surfaces
+    page_start: 18
+    page_end: 41
+    chapter_title_block_idx: 49
+    problems_block_idx: 291
+    next_chapter_block_idx: 339
+  - num: 2
+    title: Waves in a Cold Uniform Plasma
+    page_start: 42
+    page_end: 63
+    chapter_title_block_idx: 339
+    chapter_title_block_idx_secondary: 340
+    problems_block_idx: 536
+    next_chapter_block_idx: 590
+  - num: 3
+    title: Causality, Acoustic Waves, and Simple Drift Waves
+    page_start: 64
+    page_end: 85
+    chapter_title_block_idx: 590
+    chapter_title_block_idx_secondary: 591
+    problems_block_idx: 818
+    next_chapter_block_idx: 854
+  - num: 4
+    title: Energy Flow and Accessibility
+    page_start: 86
+    page_end: 121
+    chapter_title_block_idx: 854
+    problems_block_idx: 1237
+    next_chapter_block_idx: 1285
+  - num: 5
+    title: Kruskal-Schwarzschild Solutions for a Bounded Plasma
+    page_start: 122
+    page_end: 139
+    chapter_title_block_idx: 1285
+    chapter_title_block_idx_secondary: 1286
+    problems_block_idx: 1473
+    next_chapter_block_idx: 1508
+  - num: 6
+    title: Oscillations in Bounded Plasmas
+    page_start: 140
+    page_end: 165
+    chapter_title_block_idx: 1508
+    chapter_title_block_idx_secondary: 1509
+    problems_block_idx: 1745
+    next_chapter_block_idx: 1780
+  - num: 7
+    title: Plasma Models with Discrete Structure
+    page_start: 166
+    page_end: 185
+    chapter_title_block_idx: 1780
+    chapter_title_block_idx_secondary: 1781
+    problems_block_idx: 1949
+    next_chapter_block_idx: 1994
+  - num: 8
+    title: Longitudinal Oscillations in a Plasma of Continuous Structure
+    page_start: 186
+    page_end: 233
+    chapter_title_block_idx: 1994
+    chapter_title_block_idx_secondary: 1995
+    problems_block_idx: 2421
+    next_chapter_block_idx: 2489
+  - num: 9
+    title: Absolute and Convective Instability
+    page_start: 234
+    page_end: 253
+    chapter_title_block_idx: 2489
+    chapter_title_block_idx_secondary: 2490
+    problems_block_idx: 2654
+    next_chapter_block_idx: 2684
+  - num: 10
+    title: Susceptibilities for a Hot Plasma in a Magnetic Field
+    page_start: 254
+    page_end: 281
+    chapter_title_block_idx: 2684
+    chapter_title_block_idx_secondary: 2685
+    problems_block_idx: 2980
+    next_chapter_block_idx: 3017
+  - num: 11
+    title: Waves in Magnetized Uniform Media
+    page_start: 282
+    page_end: 321
+    chapter_title_block_idx: 3017
+    problems_block_idx: 3444
+    next_chapter_block_idx: 3465
+  - num: 12
+    title: Effects on Waves from Weak Collisions
+    page_start: 322
+    page_end: 355
+    chapter_title_block_idx: 3465
+    problems_block_idx: 3781
+    next_chapter_block_idx: 3834
+  - num: 13
+    title: Reflection, Absorption, and Mode Conversion
+    page_start: 356
+    page_end: 399
+    chapter_title_block_idx: 3834
+    chapter_title_block_idx_secondary: 3835
+    problems_block_idx: 4240
+    next_chapter_block_idx: 4279
+  - num: 14
+    title: Nonuniform Plasmas
+    page_start: 400
+    page_end: 429
+    chapter_title_block_idx: 4279
+    chapter_title_block_idx_secondary: 4280
+    problems_block_idx: 4531
+    next_chapter_block_idx: 4575
+  - num: 15
+    title: The Straight-Trajectory Approximation
+    page_start: 430
+    page_end: 461
+    chapter_title_block_idx: 4575
+    chapter_title_block_idx_secondary: 4576
+    problems_block_idx: 4893
+    next_chapter_block_idx: 4941
+  - num: 16
+    title: Quasilinear Diffusion
+    page_start: 462
+    page_end: 501
+    chapter_title_block_idx: 4941
+    problems_block_idx: 5301
+    next_chapter_block_idx: 5324
+  - num: 17
+    title: Quasilinear Diffusion in a Magnetized Plasma
+    page_start: 502
+    page_end: 537
+    chapter_title_block_idx: 5324
+    chapter_title_block_idx_secondary: 5325
+    problems_block_idx: 5691
+    next_chapter_block_idx: 5708
+  - num: 18
+    title: Bounce-Averaged Quasilinear Diffusion
+    page_start: 538
+    page_end: 558
+    chapter_title_block_idx: 5708
+    chapter_title_block_idx_secondary: 5709
+    problems_block_idx: null
+    next_chapter_block_idx: 5932
+appendices: []
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^(\d+-\d+-\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

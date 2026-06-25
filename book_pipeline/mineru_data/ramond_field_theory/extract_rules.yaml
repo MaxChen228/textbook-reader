@@ -1,0 +1,111 @@
+slug: ramond_field_theory
+title: "Field Theory: A Modern Primer"
+author: Pierre Ramond
+edition: 2nd
+subject: Quantum Field Theory
+publisher: Westview Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 331
+bibliography_start_page: 341
+index_start_page: 347
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: How to Build an Action Functional
+    page_start: 21
+    page_end: 65
+    chapter_title_block_idx: 128
+    problems_block_idx: null
+    next_chapter_block_idx: 927
+  - num: 2
+    title: Quantum Mechanics and the Path Integral
+    page_start: 66
+    page_end: 82
+    chapter_title_block_idx: 927
+    problems_block_idx: null
+    next_chapter_block_idx: 1215
+  - num: 3
+    title: The Functional Integral for Scalar Fields
+    page_start: 83
+    page_end: 120
+    chapter_title_block_idx: 1215
+    problems_block_idx: null
+    next_chapter_block_idx: 1848
+  - num: 4
+    title: "Perturbative Evaluation of the FPI: phi4 Theory"
+    page_start: 121
+    page_end: 180
+    chapter_title_block_idx: 1848
+    problems_block_idx: null
+    next_chapter_block_idx: 2713
+  - num: 5
+    title: Fermions
+    page_start: 181
+    page_end: 202
+    chapter_title_block_idx: 2713
+    problems_block_idx: null
+    next_chapter_block_idx: 3088
+  - num: 6
+    title: Symmetries and Gauge Invariance
+    page_start: 203
+    page_end: 242
+    chapter_title_block_idx: 3088
+    problems_block_idx: null
+    next_chapter_block_idx: 3838
+  - num: 7
+    title: Hamiltonian Formalism of Gauge Theories
+    page_start: 243
+    page_end: 260
+    chapter_title_block_idx: 3838
+    problems_block_idx: null
+    next_chapter_block_idx: 4153
+  - num: 8
+    title: Perturbative Evaluation of Gauge Theories
+    page_start: 261
+    page_end: 330
+    chapter_title_block_idx: 4153
+    problems_block_idx: null
+    next_chapter_block_idx: 5275
+
+appendices:
+  - id: A
+    title: Gaussian Integration
+    page_start: 331
+    chapter_title_block_idx: 5275
+  - id: B
+    title: Integration over Arbitrary Dimensions
+    page_start: 335
+    chapter_title_block_idx: 5322
+  - id: C
+    title: Euclidean Space Feynman Rules
+    page_start: 339
+    chapter_title_block_idx: 5360
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^\\?\*{0,2}\s*([A-Z])\.\s+.+$'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '^PROBLEMS$'
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+known_missing_problems: []

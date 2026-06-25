@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.28",
+      "classification": "source_mismatch",
+      "reason": "正文原文引用 Fig. 6.28，但第 6 章原書圖號只到 FIG. 6.27；此處語境是在引用 CO2 laser pumping efficiency / pump channels，對應的是鄰近既有 FIG. 6.27，原書不存在 FIG. 6.28 可供 catalog 對應。",
+      "where": "ch07.json body[130]",
+      "evidence": "raw_pdfs/svelto_lasers.pdf page 282 contains 'see Fig. 6.28'; raw PDF page 263 contains FIG. 6.27 caption and Chapter 6 conclusion follows immediately after, with no FIG. 6.28 caption found in raw-PDF text search."
+    }
+  ],
+  "overrides": []
+}

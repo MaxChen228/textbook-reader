@@ -1,0 +1,175 @@
+slug: townsend_modern_qm
+title: A Modern Approach to Quantum Mechanics
+author: John S. Townsend
+edition: 1st International
+subject: Quantum Mechanics
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 16
+appendices_start_page: 459
+bibliography_start_page: null
+index_start_page: 482
+
+inline_problems: false
+chapters:
+  - num: 1
+    title: Stern-Gerlach Experiments
+    page_start: 16
+    page_end: 38
+    chapter_title_block_idx: 58
+    problems_block_idx: 293
+    next_chapter_block_idx: 329
+  - num: 2
+    title: Rotation of Basis States and Matrix Mechanics
+    page_start: 39
+    page_end: 78
+    chapter_title_block_idx: 329
+    problems_block_idx: 889
+    next_chapter_block_idx: 933
+  - num: 3
+    title: Angular Momentum
+    page_start: 79
+    page_end: 107
+    chapter_title_block_idx: 933
+    problems_block_idx: 1358
+    next_chapter_block_idx: 1418
+  - num: 4
+    title: Time Evolution
+    page_start: 108
+    page_end: 134
+    chapter_title_block_idx: 1418
+    problems_block_idx: 1724
+    next_chapter_block_idx: 1758
+  - num: 5
+    title: A System of Two Spin-1/2 Particles
+    page_start: 135
+    page_end: 161
+    chapter_title_block_idx: 1758
+    chapter_title_block_idx_secondary: 1759
+    problems_block_idx: 2047
+    next_chapter_block_idx: 2074
+  - num: 6
+    title: Wave Mechanics in One Dimension
+    page_start: 162
+    page_end: 208
+    chapter_title_block_idx: 2074
+    problems_block_idx: 2673
+    next_chapter_block_idx: 2781
+  - num: 7
+    title: The One-Dimensional Harmonic Oscillator
+    page_start: 209
+    page_end: 230
+    chapter_title_block_idx: 2781
+    problems_block_idx: 3089
+    next_chapter_block_idx: 3117
+  - num: 8
+    title: Path Integrals
+    page_start: 231
+    page_end: 251
+    chapter_title_block_idx: 3117
+    problems_block_idx: 3353
+    next_chapter_block_idx: 3367
+  - num: 9
+    title: Translational and Rotational Symmetry in the Two-Body Problem
+    page_start: 252
+    page_end: 288
+    chapter_title_block_idx: 3367
+    chapter_title_block_idx_secondary: 3368
+    problems_block_idx: 3877
+    next_chapter_block_idx: 3958
+  - num: 10
+    title: Bound States of Central Potentials
+    page_start: 289
+    page_end: 320
+    chapter_title_block_idx: 3958
+    chapter_title_block_idx_secondary: 3959
+    problems_block_idx: 4350
+    next_chapter_block_idx: 4426
+  - num: 11
+    title: Time-Independent Perturbations
+    page_start: 321
+    page_end: 355
+    chapter_title_block_idx: 4426
+    chapter_title_block_idx_secondary: 4427
+    problems_block_idx: 4883
+    next_chapter_block_idx: 4962
+  - num: 12
+    title: Identical Particles
+    page_start: 356
+    page_end: 382
+    chapter_title_block_idx: 4962
+    problems_block_idx: 5274
+    next_chapter_block_idx: 5301
+  - num: 13
+    title: Scattering
+    page_start: 383
+    page_end: 413
+    chapter_title_block_idx: 5301
+    problems_block_idx: 5669
+    next_chapter_block_idx: 5749
+  - num: 14
+    title: Photons and Atoms
+    page_start: 414
+    page_end: 458
+    chapter_title_block_idx: 5749
+    problems_block_idx: 6363
+    next_chapter_block_idx: 6441
+
+appendices:
+  - id: A
+    title: Electromagnetic Units
+    page_start: 459
+    chapter_title_block_idx: 6441
+  - id: B
+    title: The Pauli Spin Matrices
+    page_start: 464
+    chapter_title_block_idx: 6523
+  - id: C
+    title: Clebsch-Gordan Coefficients
+    page_start: 468
+    chapter_title_block_idx: 6573
+  - id: D
+    title: Evaluation of Gaussian Integrals
+    page_start: 472
+    chapter_title_block_idx: 6639
+  - id: E
+    title: The Lagrangian for a Charge q in a Magnetic Field
+    page_start: 475
+    chapter_title_block_idx: 6670
+  - id: F
+    title: Values of Physical Constants
+    page_start: 478
+    chapter_title_block_idx: 6718
+  - id: G
+    title: Answers to Selected Problems
+    page_start: 480
+    chapter_title_block_idx: 6731
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(?!)()$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+
+problem_start_re: '^(\d+\.\d+)\.?\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

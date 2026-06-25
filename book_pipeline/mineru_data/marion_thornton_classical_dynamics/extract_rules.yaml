@@ -1,0 +1,182 @@
+slug: marion_thornton_classical_dynamics
+title: Classical Dynamics of Particles and Systems
+author: Stephen T. Thornton; Jerry B. Marion
+edition: 5th
+subject: Classical Mechanics
+publisher: Thomson Brooks/Cole
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 604
+bibliography_start_page: 641
+index_start_page: 658
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Matrices, Vectors, and Vector Calculus
+    page_start: 16
+    page_end: 62
+    chapter_title_block_idx: 141
+    problems_block_idx: 810
+    next_chapter_block_idx: 895
+  - num: 2
+    title: "Newtonian Mechanics— Single Particle"
+    page_start: 63
+    page_end: 113
+    chapter_title_block_idx: 895
+    problems_block_idx: 1489
+    next_chapter_block_idx: 1612
+  - num: 3
+    title: Oscillations
+    page_start: 114
+    page_end: 158
+    chapter_title_block_idx: 1612
+    problems_block_idx: 2158
+    next_chapter_block_idx: 2243
+  - num: 4
+    title: Nonlinear Oscillations and Chaos
+    page_start: 159
+    page_end: 196
+    chapter_title_block_idx: 2243
+    problems_block_idx: 2602
+    next_chapter_block_idx: 2657
+  - num: 5
+    title: Gravitation
+    page_start: 197
+    page_end: 221
+    chapter_title_block_idx: 2657
+    problems_block_idx: 2927
+    next_chapter_block_idx: 2959
+  - num: 6
+    title: Some Methods in the Calculus of Variations
+    page_start: 222
+    page_end: 242
+    chapter_title_block_idx: 2959
+    problems_block_idx: 3263
+    next_chapter_block_idx: 3287
+  - num: 7
+    title: "Hamilton's Principle— Lagrangian and Hamiltonian Dynamics"
+    page_start: 243
+    page_end: 301
+    chapter_title_block_idx: 3287
+    problems_block_idx: 4148
+    next_chapter_block_idx: 4235
+  - num: 8
+    title: Central-Force Motion
+    page_start: 302
+    page_end: 342
+    chapter_title_block_idx: 4235
+    problems_block_idx: 4739
+    next_chapter_block_idx: 4819
+  - num: 9
+    title: Dynamics of a System of Particles
+    page_start: 343
+    page_end: 401
+    chapter_title_block_idx: 4819
+    problems_block_idx: 5639
+    next_chapter_block_idx: 5769
+  - num: 10
+    title: Motion in a Noninertial Reference Frame
+    page_start: 402
+    page_end: 425
+    chapter_title_block_idx: 5769
+    problems_block_idx: 6070
+    next_chapter_block_idx: 6107
+  - num: 11
+    title: Dynamics of Rigid Bodies
+    page_start: 426
+    page_end: 482
+    chapter_title_block_idx: 6107
+    problems_block_idx: 6918
+    next_chapter_block_idx: 6996
+  - num: 12
+    title: Coupled Oscillations
+    page_start: 483
+    page_end: 526
+    chapter_title_block_idx: 6996
+    problems_block_idx: 7620
+    next_chapter_block_idx: 7676
+  - num: 13
+    title: "Continuous Systems; Waves"
+    page_start: 527
+    page_end: 560
+    chapter_title_block_idx: 7676
+    problems_block_idx: 8154
+    next_chapter_block_idx: 8210
+  - num: 14
+    title: Special Theory of Relativity
+    page_start: 561
+    page_end: 603
+    chapter_title_block_idx: 8210
+    problems_block_idx: 8761
+    next_chapter_block_idx: 8858
+
+appendices:
+  - id: A
+    title: Taylor's Theorem
+    page_start: 604
+    chapter_title_block_idx: 8858
+  - id: B
+    title: Elliptic Integrals
+    page_start: 609
+    chapter_title_block_idx: 8955
+  - id: C
+    title: Ordinary Differential Equations of Second Order*
+    page_start: 614
+    chapter_title_block_idx: 9039
+  - id: D
+    title: Useful Formulas*
+    page_start: 623
+    chapter_title_block_idx: 9218
+  - id: E
+    title: Useful Integrals*
+    page_start: 628
+    chapter_title_block_idx: 9331
+  - id: F
+    title: Differential Relations in Different Coordinate Systems
+    page_start: 632
+    chapter_title_block_idx: 9385
+  - id: G
+    title: A "Proof" of the Relation
+    page_start: 636
+    chapter_title_block_idx: 9426
+  - id: H
+    title: Numerical Solution for Example 2.7
+    page_start: 638
+    chapter_title_block_idx: 9455
+
+section_re: '^(\d+\.\d+|[A-Z]\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+|[A-Z]\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^([A-Z]?\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\.?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+((?:\d+\.\d+)|(?:[A-Z]\.\d+))$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,56 @@
+{
+  "overrides": [
+    {
+      "id": "peebles-fig-13.3-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[115]",
+      "expect": {
+        "id": "fig-ch13-115"
+      },
+      "set": {
+        "id": "fig-13.3",
+        "catalog_repair_source": "agent-caption-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption is Figure 13.3 but OCR spacing made build_catalogs assign fallback id and prior review excluded it; ch24 references figure 13.3, so this is a valid numbered catalog entry."
+    },
+    {
+      "id": "peebles-fig-13.13-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[249]",
+      "expect": {
+        "id": "fig-ch13-249"
+      },
+      "set": {
+        "id": "fig-13.13",
+        "caption": "Figure 13.13. Growth factor for density fluctuations in linear perturbation theory. The factor D is evaluated at z = 0 and normalized to a fixed amplitude $\\delta \\rho / \\rho$ at a fixed high redshift. The solid line assumes negligible space curvature, the dashed line Λ = 0.",
+        "catalog_repair_source": "agent-caption-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Unified source has consecutive captions 'figure 13.13' and 'figure 13.14'; this block's OCR caption was 'figure 1 3. 1 4' but the raw text immediately before the caption states Figures 13.13 and 13.14 show growth factor and velocity factor respectively. The visual block preceding the velocity-factor caption is the growth-factor Figure 13.13 referenced from ch11."
+    },
+    {
+      "id": "peebles-fig-3.12-id-from-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[138]",
+      "expect": {
+        "id": "fig-ch03-138"
+      },
+      "set": {
+        "id": "fig-3.12",
+        "catalog_repair_source": "agent-caption-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Caption is Figure 3.12 (OCR spaced as 'Figure 3. 1 2'); ch10 references figure 3.12, so this is a valid numbered catalog entry rather than an unnumbered body figure."
+    }
+  ]
+}

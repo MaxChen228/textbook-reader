@@ -1,0 +1,132 @@
+slug: reichl_statistical_physics
+title: A Modern Course in Statistical Physics
+author: L. E. Reichl
+edition: 2nd
+subject: Thermal Physics
+publisher: John Wiley & Sons
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+- aside_text
+- ref_text
+ignore_image_content: false
+ignore_chart_content: false
+body_start_page: 18
+appendices_start_page: 785
+bibliography_start_page: 815
+index_start_page: 816
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 18
+  page_end: 24
+  chapter_title_block_idx: 46
+  problems_block_idx: null
+  next_chapter_block_idx: 90
+- num: 2
+  title: Introduction to Thermodynamics
+  page_start: 26
+  page_end: 112
+  chapter_title_block_idx: 90
+  problems_block_idx: 1169
+  next_chapter_block_idx: 1239
+- num: 3
+  title: The Thermodynamics of Phase Transitions
+  page_start: 113
+  page_end: 188
+  chapter_title_block_idx: 1239
+  problems_block_idx: 2075
+  next_chapter_block_idx: 2120
+- num: 4
+  title: Elementary Probability Theory and Limit Theorems
+  page_start: 190
+  page_end: 245
+  chapter_title_block_idx: 2120
+  problems_block_idx: 2866
+  next_chapter_block_idx: 2903
+- num: 5
+  title: Stochastic Dynamics and Brownian Motion
+  page_start: 246
+  page_end: 301
+  chapter_title_block_idx: 2903
+  problems_block_idx: 3646
+  next_chapter_block_idx: 3697
+- num: 6
+  title: The Foundations of Statistical Mechanics
+  page_start: 302
+  page_end: 356
+  chapter_title_block_idx: 3697
+  problems_block_idx: 4407
+  next_chapter_block_idx: 4434
+- num: 7
+  title: Equilibrium Statistical Mechanics
+  page_start: 358
+  page_end: 443
+  chapter_title_block_idx: 4434
+  problems_block_idx: 5496
+  next_chapter_block_idx: 5543
+- num: 8
+  title: Order-Disorder Transitions and Renormalization Theory
+  page_start: 444
+  page_end: 504
+  chapter_title_block_idx: 5543
+  problems_block_idx: 6338
+  next_chapter_block_idx: 6352
+- num: 9
+  title: Interacting Fluids
+  page_start: 505
+  page_end: 546
+  chapter_title_block_idx: 6352
+  problems_block_idx: 6890
+  next_chapter_block_idx: 6907
+- num: 10
+  title: Hydrodynamic Processes Near Equilibrium
+  page_start: 548
+  page_end: 672
+  chapter_title_block_idx: 6907
+  problems_block_idx: 8629
+  next_chapter_block_idx: 8694
+- num: 11
+  title: Transport Theory
+  page_start: 673
+  page_end: 737
+  chapter_title_block_idx: 8694
+  problems_block_idx: 9597
+  next_chapter_block_idx: 9641
+- num: 12
+  title: Nonequilibrium Phase Transitions
+  page_start: 738
+  page_end: 784
+  chapter_title_block_idx: 9641
+  problems_block_idx: 10279
+  next_chapter_block_idx: 10291
+appendices:
+- id: A
+  title: Probability Distributions
+  page_start: 785
+  chapter_title_block_idx: 10291
+- id: B
+  title: Stability of Solutions to Nonlinear Equations
+  page_start: 808
+  chapter_title_block_idx: 10607
+section_re: ^(?:▶\s*)?(S?\d+\.[A-Z])\.\s+(.+)$
+subsection_re: ^(?:▶\s*)?(S?\d+\.[A-Z](?:\.\d+|\.\d+\.[a-z]))\.\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+heading_text_level: 2
+problem_start_re: ^Problem\s+(\d+\.\d+)\.\s*(?:.*)$
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: false
+equation_label_re: \((\d+\.\d+(?:\.\d+)?)\)
+example_start_re: ^(Example\s+\d+\.\d+)\.\s*(?:.*)$
+figure_caption_merge: false
+figure_caption_main_re: ^Figure\s+(\d+\.\d+)\s*(.*)$
+known_missing_problems: []

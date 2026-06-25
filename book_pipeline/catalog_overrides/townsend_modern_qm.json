@@ -1,0 +1,71 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "townsend-fig-3.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[69]",
+      "position": "before",
+      "page": 86,
+      "clip": [
+        0.055,
+        0.045,
+        0.955,
+        0.125
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-3.3",
+        "kind": "line",
+        "caption": "FIGURE 3.3 A free particle with momentum p has the same energy as one with momentum -p."
+      },
+      "reason": "MinerU parsed the Figure 3.3 artwork/caption as an equation block at body[69], so the text reference has no figure catalog entry; raw PDF page 86 shows the figure at the top of the page."
+    },
+    {
+      "id": "townsend-fig-10.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[41]",
+      "position": "after",
+      "page": 294,
+      "clip": [
+        0.03,
+        0.63,
+        0.96,
+        0.965
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.2",
+        "kind": "line",
+        "caption": "FIGURE 10.2 For a particular value of the total energy E, there is a maximum radius beyond which the particles cannot separate classically."
+      },
+      "reason": "MinerU omitted Figure 10.2; raw PDF page 294 contains the referenced Coulomb-potential diagram at the bottom of the page."
+    },
+    {
+      "id": "townsend-fig-10.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[85]",
+      "position": "after",
+      "page": 297,
+      "clip": [
+        0.08,
+        0.50,
+        0.98,
+        0.97
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.3",
+        "kind": "line",
+        "caption": "FIGURE 10.3 The energy levels of the hydrogen atom superposed on a graph of the Coulomb potential energy."
+      },
+      "reason": "MinerU omitted Figure 10.3; raw PDF page 297 contains the referenced hydrogen energy-level diagram in the lower half of the page."
+    }
+  ]
+}

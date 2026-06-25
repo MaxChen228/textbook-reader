@@ -1,0 +1,199 @@
+slug: schwabl_qm
+title: Quantum Mechanics
+author: Franz Schwabl
+edition: 4th
+subject: Quantum Mechanics
+publisher: Springer
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [1, 2]
+
+body_start_page: 13
+appendices_start_page: 400
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Historical and Experimental Foundations
+    page_start: 13
+    page_end: 23
+    chapter_title_block_idx: 58
+    problems_block_idx: 171
+    next_chapter_block_idx: 172
+  - num: 2
+    title: The Wave Function and the Schrödinger Equation
+    page_start: 24
+    page_end: 56
+    chapter_title_block_idx: 172
+    problems_block_idx: 725
+    next_chapter_block_idx: 760
+  - num: 3
+    title: One-Dimensional Problems
+    page_start: 57
+    page_end: 106
+    chapter_title_block_idx: 760
+    problems_block_idx: 1448
+    next_chapter_block_idx: 1540
+  - num: 4
+    title: The Uncertainty Relation
+    page_start: 107
+    page_end: 116
+    chapter_title_block_idx: 1540
+    problems_block_idx: 1702
+    next_chapter_block_idx: 1708
+  - num: 5
+    title: Angular Momentum
+    page_start: 117
+    page_end: 128
+    chapter_title_block_idx: 1708
+    problems_block_idx: 1898
+    next_chapter_block_idx: 1921
+  - num: 6
+    title: The Central Potential I
+    page_start: 129
+    page_end: 151
+    chapter_title_block_idx: 1921
+    problems_block_idx: 2287
+    next_chapter_block_idx: 2337
+  - num: 7
+    title: Motion in an Electromagnetic Field
+    page_start: 152
+    page_end: 166
+    chapter_title_block_idx: 2337
+    problems_block_idx: 2539
+    next_chapter_block_idx: 2577
+  - num: 8
+    title: Operators, Matrices, State Vectors
+    page_start: 167
+    page_end: 189
+    chapter_title_block_idx: 2577
+    problems_block_idx: 3033
+    next_chapter_block_idx: 3047
+  - num: 9
+    title: Spin
+    page_start: 190
+    page_end: 199
+    chapter_title_block_idx: 3047
+    problems_block_idx: 3194
+    next_chapter_block_idx: 3223
+  - num: 10
+    title: Addition of Angular Momenta
+    page_start: 200
+    page_end: 208
+    chapter_title_block_idx: 3223
+    problems_block_idx: 3365
+    next_chapter_block_idx: 3376
+  - num: 11
+    title: Approximation Methods for Stationary States
+    page_start: 209
+    page_end: 220
+    chapter_title_block_idx: 3376
+    problems_block_idx: 3550
+    next_chapter_block_idx: 3591
+  - num: 12
+    title: Relativistic Corrections
+    page_start: 221
+    page_end: 231
+    chapter_title_block_idx: 3591
+    problems_block_idx: 3787
+    next_chapter_block_idx: 3794
+  - num: 13
+    title: Several-Electron Atoms
+    page_start: 232
+    page_end: 263
+    chapter_title_block_idx: 3794
+    problems_block_idx: 4251
+    next_chapter_block_idx: 4276
+  - num: 14
+    title: The Zeeman Effect and the Stark Effect
+    page_start: 264
+    page_end: 274
+    chapter_title_block_idx: 4276
+    problems_block_idx: 4438
+    next_chapter_block_idx: 4443
+  - num: 15
+    title: Molecules
+    page_start: 275
+    page_end: 292
+    chapter_title_block_idx: 4443
+    problems_block_idx: 4694
+    next_chapter_block_idx: 4722
+  - num: 16
+    title: Time Dependent Phenomena
+    page_start: 293
+    page_end: 316
+    chapter_title_block_idx: 4722
+    problems_block_idx: 5077
+    next_chapter_block_idx: 5118
+  - num: 17
+    title: The Central Potential II
+    page_start: 317
+    page_end: 328
+    chapter_title_block_idx: 5118
+    problems_block_idx: 5315
+    next_chapter_block_idx: 5333
+  - num: 18
+    title: Scattering Theory
+    page_start: 329
+    page_end: 357
+    chapter_title_block_idx: 5333
+    problems_block_idx: 5769
+    next_chapter_block_idx: 5801
+  - num: 19
+    title: Supersymmetric Quantum Theory
+    page_start: 358
+    page_end: 370
+    chapter_title_block_idx: 5801
+    problems_block_idx: 6045
+    next_chapter_block_idx: 6056
+  - num: 20
+    title: State and Measurement in Quantum Mechanics
+    page_start: 371
+    page_end: 399
+    chapter_title_block_idx: 6056
+    problems_block_idx: 6508
+    next_chapter_block_idx: 6532
+
+appendices:
+  - id: A
+    title: Mathematical Tools for the Solution of Linear Differential Equations
+    page_start: 400
+    chapter_title_block_idx: 6532
+  - id: B
+    title: Canonical and Kinetic Momentum
+    page_start: 406
+    chapter_title_block_idx: 6665
+  - id: C
+    title: Algebraic Determination of the Orbital Angular Momentum Eigenfunctions
+    page_start: 407
+    chapter_title_block_idx: 6694
+  - id: D
+    title: The Periodic Table and Important Physical Quantities
+    page_start: 413
+    chapter_title_block_idx: 6809
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,147 @@
+slug: landau_lifshitz_physical_kinetics
+title: "Physical Kinetics"
+author: "E. M. Lifshitz; L. P. Pitaevskii"
+edition: null
+subject: null
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 9
+appendices_start_page: 456
+bibliography_start_page: null
+index_start_page: 456
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: "Kinetic Theory of Gases"
+    page_start: 9
+    page_end: 96
+    chapter_title_block_idx: 126
+    chapter_title_block_idx_secondary: 127
+    problems_block_idx: null
+    next_chapter_block_idx: 1625
+  - num: 2
+    title: "The Diffusion Approximation"
+    page_start: 97
+    page_end: 122
+    chapter_title_block_idx: 1625
+    chapter_title_block_idx_secondary: 1626
+    problems_block_idx: null
+    next_chapter_block_idx: 2105
+  - num: 3
+    title: "Collisionless Plasmas"
+    page_start: 123
+    page_end: 175
+    chapter_title_block_idx: 2105
+    chapter_title_block_idx_secondary: 2106
+    problems_block_idx: null
+    next_chapter_block_idx: 3041
+  - num: 4
+    title: "Collisions in Plasmas"
+    page_start: 176
+    page_end: 224
+    chapter_title_block_idx: 3041
+    chapter_title_block_idx_secondary: 3042
+    problems_block_idx: null
+    next_chapter_block_idx: 3945
+  - num: 5
+    title: "Plasmas in Magnetic Fields"
+    page_start: 225
+    page_end: 272
+    chapter_title_block_idx: 3945
+    chapter_title_block_idx_secondary: 3946
+    problems_block_idx: null
+    next_chapter_block_idx: 4796
+  - num: 6
+    title: "Instability Theory"
+    page_start: 273
+    page_end: 291
+    chapter_title_block_idx: 4796
+    chapter_title_block_idx_secondary: 4797
+    problems_block_idx: null
+    next_chapter_block_idx: 5087
+  - num: 7
+    title: "Insulators"
+    page_start: 292
+    page_end: 319
+    chapter_title_block_idx: 5087
+    chapter_title_block_idx_secondary: 5088
+    problems_block_idx: null
+    next_chapter_block_idx: 5532
+  - num: 8
+    title: "Quantum Liquids"
+    page_start: 320
+    page_end: 336
+    chapter_title_block_idx: 5532
+    chapter_title_block_idx_secondary: 5533
+    problems_block_idx: null
+    next_chapter_block_idx: 5816
+  - num: 9
+    title: "Metals"
+    page_start: 337
+    page_end: 398
+    chapter_title_block_idx: 5816
+    chapter_title_block_idx_secondary: 5817
+    problems_block_idx: null
+    next_chapter_block_idx: 6866
+  - num: 10
+    title: "The Diagram Technique for Non-equilibrium Systems"
+    page_start: 399
+    page_end: 420
+    chapter_title_block_idx: 6866
+    chapter_title_block_idx_secondary: 6867
+    problems_block_idx: null
+    next_chapter_block_idx: 7248
+  - num: 11
+    title: "Superconductors"
+    page_start: 421
+    page_end: 434
+    chapter_title_block_idx: 7248
+    chapter_title_block_idx_secondary: 7249
+    problems_block_idx: null
+    next_chapter_block_idx: 7474
+  - num: 12
+    title: "Kinetics of Phase Transitions"
+    page_start: 435
+    page_end: 455
+    chapter_title_block_idx: 7474
+    chapter_title_block_idx_secondary: 7475
+    problems_block_idx: null
+    next_chapter_block_idx: 7834
+
+appendices: []
+
+section_re: '^§\s*([0-9]+)\.\s+(.+)$'
+subsection_re: '^()((?!PROBLEMS?\b)(?!CHAPTER\b)(?!INDEX\b)(?!CONTENTS?\b)[A-Z][A-Z0-9 ,.''/\-&()]+[A-Z0-9])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEM(?:\s+([0-9]+)\.)?(?:\s+|$)'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

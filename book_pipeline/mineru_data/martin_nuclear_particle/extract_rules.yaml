@@ -1,0 +1,138 @@
+slug: martin_nuclear_particle
+title: Nuclear and Particle Physics
+author: B. R. Martin
+edition: 2nd
+subject: Nuclear Physics
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 352
+bibliography_start_page: 454
+index_start_page: 456
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Basic Concepts
+    page_start: 14
+    page_end: 43
+    chapter_title_block_idx: 55
+    problems_block_idx: 479
+    next_chapter_block_idx: 514
+  - num: 2
+    title: Nuclear Phenomenology
+    page_start: 44
+    page_end: 83
+    chapter_title_block_idx: 514
+    problems_block_idx: 988
+    next_chapter_block_idx: 1022
+  - num: 3
+    title: Particle Phenomenology
+    page_start: 84
+    page_end: 121
+    chapter_title_block_idx: 1022
+    problems_block_idx: 1514
+    next_chapter_block_idx: 1552
+  - num: 4
+    title: Experimental Methods
+    page_start: 122
+    page_end: 159
+    chapter_title_block_idx: 1552
+    problems_block_idx: 1894
+    next_chapter_block_idx: 1934
+  - num: 5
+    title: "Quark Dynamics: The Strong Interaction"
+    page_start: 160
+    page_end: 189
+    chapter_title_block_idx: 1934
+    problems_block_idx: 2235
+    next_chapter_block_idx: 2290
+  - num: 6
+    title: Weak Interactions and Electroweak Unification
+    page_start: 190
+    page_end: 229
+    chapter_title_block_idx: 2290
+    problems_block_idx: 2792
+    next_chapter_block_idx: 2858
+  - num: 7
+    title: Models and Theories of Nuclear Physics
+    page_start: 230
+    page_end: 265
+    chapter_title_block_idx: 2858
+    problems_block_idx: 3296
+    next_chapter_block_idx: 3318
+  - num: 8
+    title: Applications of Nuclear Physics
+    page_start: 266
+    page_end: 309
+    chapter_title_block_idx: 3318
+    problems_block_idx: 3788
+    next_chapter_block_idx: 3816
+  - num: 9
+    title: Outstanding Questions and Future Prospects
+    page_start: 310
+    page_end: 351
+    chapter_title_block_idx: 3816
+    problems_block_idx: null
+    next_chapter_block_idx: 4266
+
+appendices:
+  - id: A
+    title: Some Results in Quantum Mechanics
+    page_start: 352
+    chapter_title_block_idx: 4266
+  - id: B
+    title: Relativistic Kinematics
+    page_start: 364
+    chapter_title_block_idx: 4480
+  - id: C
+    title: Rutherford Scattering
+    page_start: 374
+    chapter_title_block_idx: 4650
+  - id: D
+    title: Gauge Theories
+    page_start: 380
+    chapter_title_block_idx: 4731
+  - id: E
+    title: Data
+    page_start: 390
+    chapter_title_block_idx: 4869
+  - id: F
+    title: Solutions to Problems
+    page_start: 406
+    chapter_title_block_idx: 4927
+
+section_re: '^([1-9][0-9]*\.[0-9]+)\s+(.+)$'
+subsection_re: '^([1-9][0-9]*\.[0-9]+\.[0-9]+(?:\.[0-9]+)?)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^([1-8]\.[0-9]+)(?=\s)'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

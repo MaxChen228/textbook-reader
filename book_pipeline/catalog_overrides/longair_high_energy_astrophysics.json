@@ -1,0 +1,208 @@
+{
+  "overrides": [
+    {
+      "id": "longair-fig-13.21-idfix",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[245]",
+      "expect": {
+        "id": "fig-13.16"
+      },
+      "set": {
+        "id": "fig-13.21",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "body[245] caption describes the Galactic distribution of pulsars and is referenced as Fig. 13.21 in Sect. 13.6; it was incorrectly assigned duplicate id fig-13.16. Earlier body[210]/body[213] still supply Fig. 13.16."
+    },
+    {
+      "id": "longair-fig-8.8-idfix-a",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[151]",
+      "expect": {
+        "id": "fig-ch08-151"
+      },
+      "set": {
+        "id": "fig-8.8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[151] is panel (a) of the synchrotron single-electron spectrum referenced as Fig. 8.8; parser left it as fallback/excluded."
+    },
+    {
+      "id": "longair-fig-8.8-idfix-caption",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[152]",
+      "expect": {
+        "id": "fig-ch08-152"
+      },
+      "set": {
+        "id": "fig-8.8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "body[152] contains the caption for Fig. 8.8: spectrum of synchrotron radiation shown with linear/logarithmic axes; parser left it fallback/excluded."
+    },
+    {
+      "id": "longair-fig-9.8-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[192]",
+      "expect": {
+        "id": "fig-ch09-192"
+      },
+      "set": {
+        "id": "fig-9.8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "caption says Bose-Einstein spectra for different chemical potentials, exactly the object referenced as Fig. 9.8; fallback id came from missing explicit caption prefix."
+    },
+    {
+      "id": "longair-fig-9.9-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[279]",
+      "expect": {
+        "id": "fig-ch09-279"
+      },
+      "set": {
+        "id": "fig-9.9",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "caption describes Comptonisation spectra with tau values from Pozdnyakov et al.; this is referenced twice as Fig. 9.9 and was fallback/excluded."
+    },
+    {
+      "id": "longair-fig-9.13-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[327]",
+      "expect": {
+        "id": "fig-ch09-327"
+      },
+      "set": {
+        "id": "fig-9.13",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "caption describes Sunyaev-Zeldovich intensity change curves and is referenced from ch04 and ch09 as Fig. 9.13; parser left it fallback/excluded."
+    },
+    {
+      "id": "longair-fig-9.16-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[365]",
+      "expect": {
+        "id": "fig-9.15"
+      },
+      "set": {
+        "id": "fig-9.16",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "body[365] caption illustrates Huygens construction for Cherenkov radiation, immediately after aside_text 'Fig. 9.16'; it was misassigned duplicate fig-9.15. Earlier body[360-363] still supply Fig. 9.15."
+    },
+    {
+      "id": "longair-fig-14.6-idfix-a",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[53]",
+      "expect": {
+        "id": "fig-14.5"
+      },
+      "set": {
+        "id": "fig-14.6",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "image is panel (a) side view of thin accretion disc (H, r, Ms), referenced as Fig. 14.6; it was misassigned duplicate fig-14.5. body[50] still supplies Fig. 14.5."
+    },
+    {
+      "id": "longair-fig-14.6-idfix-b",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[54]",
+      "expect": {
+        "id": "fig-14.5"
+      },
+      "set": {
+        "id": "fig-14.6",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "caption says schematic geometry of a thin accretion disc with side/top views; image is panel (b) top view. Assigning parent fig-14.6 also covers textual ref Fig. 14.6b via audit parent matching."
+    },
+    {
+      "id": "longair-fig-14.7-idfix",
+      "action": "set_fields",
+      "chunk": "ch14",
+      "selector": "body[170]",
+      "expect": {
+        "id": "fig-14.8"
+      },
+      "set": {
+        "id": "fig-14.7",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "image/caption is schematic optically thick accretion-disc emission spectrum with nu^(1/3), referenced as Fig. 14.7 immediately before; it was misassigned fig-14.8. body[173] still supplies the physical-regime Fig. 14.8."
+    },
+    {
+      "id": "longair-fig-3.8-idfix",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[47]",
+      "expect": {
+        "id": "fig-ch03-47"
+      },
+      "set": {
+        "id": "fig-3.8",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "content_list page_idx 103 contains the unlabeled panels for the contour plots discussed as Fig. 3.8; body[47] is the first panel of that figure. Giving the parent id covers the Fig. 3.8 textual references. body[49] belongs to the next captioned Fig. 3.9."
+    },
+    {
+      "id": "longair-fig-3.8-caption",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[47]",
+      "expect": {
+        "id": "fig-3.8"
+      },
+      "set": {
+        "caption": "Figure 3.8 Contour plots of galaxy number density in the colour–absolute magnitude diagram of Fig. 3.4, split by environment overdensity and morphology (Hogg et al., 2004).",
+        "catalog_repair_source": "agent-caption-restore"
+      },
+      "reason": "MinerU emitted the Fig. 3.8 image panels on content_list page_idx 103 but dropped the caption text; body[47] is the first panel and now supplies the catalog entry, so add a conservative caption from the surrounding prose."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "11.7",
+      "classification": "external",
+      "reason": "Both refs point to the Landau-Lifshitz supersonic piston example; the text cites it as an illustrative external problem, not an internal figure emitted by this book.",
+      "where": "ch11.json body[219]; ch16.json body[183]",
+      "evidence": "content_list page_idx 334 text: 'piston driven supersonically into a cylinder containing stationary gas (Fig. 11.7) (Landau and Lifshitz, 1987)'; no nearby internal image/caption for Fig. 11.7, next internal visual is Fig. 11.8. ch16 explicitly says 'Sect. 11.3.2 (see Fig. 11.7)' for the same external example."
+    },
+    {
+      "type": "figure",
+      "ref": "7.14",
+      "classification": "source_mismatch",
+      "reason": "The only occurrence is a backward reference in ch16 text; ch07 parsed/catalog supply ends at Fig. 7.6 and content_list has no Fig. 7.14 caption/image, so the source appears to retain an unresolved/cross-edition figure reference rather than an internal catalog entry to repair.",
+      "where": "ch16.json body[183]",
+      "evidence": "Text says: 'young supernova remnants are intense X-ray emitters (see Fig. 7.14). The structure ... is shown in Fig. 16.8a.' Search of content_list finds no Fig. 7.14 caption/image; parsed ch07 figure ids are 7.1, 7.2, 7.3, 7.5a, 7.6 only."
+    }
+  ]
+}

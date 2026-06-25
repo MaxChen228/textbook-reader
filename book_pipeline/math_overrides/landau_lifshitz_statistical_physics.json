@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_statistical_physics-ch14-body-545-bccce7",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[545]",
+      "expect": "x ^ {8} \\sigma_ {k l} ^ {2} \\sigma_ {k + 1, l} ^ {2} \\sigma_ {k + 1, l - 1} ^ {2} \\sigma_ {k, l - 1} ^ {4} \\sigma_ {k, l - 2} ^ {2} \\sigma_ {k - 1, l - 1} ^ {2} \\sigma_ {k - 1, l - 2} ^ {2}, \\tag {b}\\tag{c}",
+      "new": "x ^ {8} \\sigma_ {k l} ^ {2} \\sigma_ {k + 1, l} ^ {2} \\sigma_ {k + 1, l - 1} ^ {2} \\sigma_ {k, l - 1} ^ {4} \\sigma_ {k, l - 2} ^ {2} \\sigma_ {k - 1, l - 1} ^ {2} \\sigma_ {k - 1, l - 2} ^ {2}, \\tag {b,c}"
+    }
+  ]
+}

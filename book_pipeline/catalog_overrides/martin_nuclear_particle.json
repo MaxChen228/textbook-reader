@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "martin-nuclear-particle-ch06-fix-figure-10-19-ref",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[264]",
+      "field": "md",
+      "old": "Figure 10.19(b), in analogy to $K ^ { 0 } - \\bar { K } ^ { 0 }$ mixing (Figure 10.19(a))",
+      "new": "Figure 6.19(b), in analogy to $K ^ { 0 } - \\bar { K } ^ { 0 }$ mixing (Figure 6.19(a))",
+      "reason": "C4 missing fig-10.19 is an OCR/extraction numbering error: the same chapter already has Figure 6.19 with subfigures (a) K0→Kbar0 and (b) B0→Bbar0, matching this paragraph's wording; there is no Chapter 10 chunk in this parsed book."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+slug: landau_lifshitz_continuous_media
+title: Electrodynamics of Continuous Media
+author: "L. D. Landau; E. M. Lifshitz; L. P. Pitaevskii"
+edition: "2nd"
+subject: Electromagnetism
+publisher: Butterworth-Heinemann
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 467
+bibliography_start_page: null
+index_start_page: 471
+
+inline_problems: true
+
+section_re: '^§\s*(\d+)\.\s*(.+)$'
+subsection_re: '^(?!)(a)(b)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^PROBLEM\s+(\d+)\.\s*'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^PROBLEMS'
+problems_end_re: null
+solution_start_re: '^SOLUTION\.'
+
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true
+
+chapters:
+  - num: 1
+    title: "Electrostatics of Conductors"
+    page_start: 16
+    page_end: 48
+    chapter_title_block_idx: 95
+    chapter_title_block_idx_secondary: 97
+    problems_block_idx: null
+    next_chapter_block_idx: 726
+  - num: 2
+    title: "Electrostatics of Dielectrics"
+    page_start: 49
+    page_end: 100
+    chapter_title_block_idx: 726
+    chapter_title_block_idx_secondary: 727
+    problems_block_idx: null
+    next_chapter_block_idx: 1757
+  - num: 3
+    title: "Steady Current"
+    page_start: 101
+    page_end: 119
+    chapter_title_block_idx: 1757
+    chapter_title_block_idx_secondary: 1758
+    problems_block_idx: null
+    next_chapter_block_idx: 2113
+  - num: 4
+    title: "Static Magnetic Field"
+    page_start: 120
+    page_end: 144
+    chapter_title_block_idx: 2113
+    chapter_title_block_idx_secondary: 2114
+    problems_block_idx: null
+    next_chapter_block_idx: 2611
+  - num: 5
+    title: "Ferromagnetism and Antiferromagnetism"
+    page_start: 145
+    page_end: 194
+    chapter_title_block_idx: 2611
+    problems_block_idx: null
+    next_chapter_block_idx: 3465
+  - num: 6
+    title: "Superconductivity"
+    page_start: 195
+    page_end: 213
+    chapter_title_block_idx: 3465
+    chapter_title_block_idx_secondary: 3466
+    problems_block_idx: null
+    next_chapter_block_idx: 3760
+  - num: 7
+    title: "Quasi-Static Electromagnetic Field"
+    page_start: 214
+    page_end: 239
+    chapter_title_block_idx: 3760
+    chapter_title_block_idx_secondary: 3761
+    problems_block_idx: null
+    next_chapter_block_idx: 4252
+  - num: 8
+    title: "Magnetohydrodynamics"
+    page_start: 240
+    page_end: 271
+    chapter_title_block_idx: 4252
+    chapter_title_block_idx_secondary: 4253
+    problems_block_idx: null
+    next_chapter_block_idx: 4816
+  - num: 9
+    title: "The Electromagnetic Wave Equations"
+    page_start: 272
+    page_end: 304
+    chapter_title_block_idx: 4816
+    problems_block_idx: null
+    next_chapter_block_idx: 5446
+  - num: 10
+    title: "The Propagation of Electromagnetic Waves"
+    page_start: 305
+    page_end: 345
+    chapter_title_block_idx: 5446
+    chapter_title_block_idx_secondary: 5447
+    problems_block_idx: null
+    next_chapter_block_idx: 6226
+  - num: 11
+    title: "Electromagnetic Waves in Anisotropic Media"
+    page_start: 346
+    page_end: 372
+    chapter_title_block_idx: 6226
+    problems_block_idx: null
+    next_chapter_block_idx: 6713
+  - num: 12
+    title: "Spatial Dispersion"
+    page_start: 373
+    page_end: 386
+    chapter_title_block_idx: 6713
+    chapter_title_block_idx_secondary: 6714
+    problems_block_idx: null
+    next_chapter_block_idx: 6964
+  - num: 13
+    title: "Non-Linear Optics"
+    page_start: 387
+    page_end: 408
+    chapter_title_block_idx: 6964
+    chapter_title_block_idx_secondary: 6965
+    problems_block_idx: null
+    next_chapter_block_idx: 7383
+  - num: 14
+    title: "The Passage of Fast Particles Through Matter"
+    page_start: 409
+    page_end: 427
+    chapter_title_block_idx: 7383
+    problems_block_idx: null
+    next_chapter_block_idx: 7702
+  - num: 15
+    title: "Scattering of Electromagnetic Waves"
+    page_start: 428
+    page_end: 453
+    chapter_title_block_idx: 7702
+    chapter_title_block_idx_secondary: 7703
+    problems_block_idx: null
+    next_chapter_block_idx: 8190
+  - num: 16
+    title: "Diffraction of X-Rays in Crystals"
+    page_start: 454
+    page_end: 466
+    chapter_title_block_idx: 8190
+    chapter_title_block_idx_secondary: 8191
+    problems_block_idx: null
+    next_chapter_block_idx: 8429
+
+appendices:
+  - id: A
+    title: Curvilinear Coordinates
+    chapter_title_block_idx: 8429
+
+known_missing_problems: []

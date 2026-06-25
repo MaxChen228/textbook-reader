@@ -1,0 +1,91 @@
+{
+  "overrides": [
+    {
+      "id": "tenenbaum-pollard-fig-2-211-id",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[62]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-2.221",
+        "src": "4a56adedeeed7a854482033947a2463d265416b89a0ee7c2dbec0a0371200943.jpg"
+      },
+      "set": {
+        "id": "fig-2.211",
+        "caption": "Figure 2.211",
+        "catalog_repair_source": "agent-raw-pdf-caption-check"
+      },
+      "reason": "Raw PDF page 22 shows the first graph captioned Figure 2.211; MinerU assigned the following Figure 2.221 caption/id to this block."
+    },
+    {
+      "id": "tenenbaum-pollard-fig-6-12-include",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[17]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-17",
+        "src": "e784241385facae356848c927dcf24d443264601246575912cd229e0a3e19cc5.jpg"
+      },
+      "set": {
+        "id": "fig-6.12",
+        "caption": "Figure 6.12",
+        "catalog_repair_source": "agent-raw-pdf-caption-check"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Raw PDF page 62 shows this previously excluded uncaptioned parsed figure is the referenced Figure 6.12."
+    },
+    {
+      "id": "tenenbaum-pollard-fig-9-18-id",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[248]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.17",
+        "src": "546d904dddca9f9064054f834cfb5f543f6669b29f88ee84fb62a1f5d5acea2c.jpg"
+      },
+      "set": {
+        "id": "fig-9.18",
+        "caption": "Figure 9.18",
+        "catalog_repair_source": "agent-raw-pdf-caption-check"
+      },
+      "reason": "Raw PDF page 85 shows the right-hand second region is captioned Figure 9.18; MinerU duplicated Figure 9.17 onto it."
+    },
+    {
+      "id": "tenenbaum-pollard-fig-17-13-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[427]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-17.12",
+        "src": "87fc348f46291dad128f36eaf4213d5bd723a49880466fdc2b486932cf183b59.jpg"
+      },
+      "set": {
+        "id": "fig-17.13",
+        "caption": "Figure 17.13",
+        "catalog_repair_source": "agent-raw-pdf-caption-check"
+      },
+      "reason": "Raw PDF page 185 shows the right-hand pursuit curve is Figure 17.13; MinerU duplicated Figure 17.12 onto it."
+    },
+    {
+      "id": "tenenbaum-pollard-fig-32-38-include",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[533]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-533",
+        "src": "a5179ffbe30a032bafcf76213d504ea185916898b2a8dd34e6f4b6a72e43efe8.jpg"
+      },
+      "set": {
+        "id": "fig-32.38",
+        "caption": "Figure 32.38",
+        "catalog_repair_source": "agent-raw-pdf-caption-check"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "Raw PDF page 446 shows this previously excluded parsed figure is Figure 32.38 referenced immediately after the discussion."
+    }
+  ]
+}

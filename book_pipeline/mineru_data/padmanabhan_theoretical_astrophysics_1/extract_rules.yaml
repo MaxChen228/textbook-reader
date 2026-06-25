@@ -1,0 +1,135 @@
+slug: padmanabhan_theoretical_astrophysics_1
+title: "Theoretical Astrophysics, Volume I: Astrophysical Processes"
+author: "Thanu Padmanabhan"
+edition: null
+subject: Astrophysics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 608
+bibliography_start_page: 608
+index_start_page: 614
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Order-of-Magnitude Astrophysics"
+    page_start: 22
+    page_end: 62
+    chapter_title_block_idx: 100
+    problems_block_idx: null
+    next_chapter_block_idx: 522
+  - num: 2
+    title: "Dynamics"
+    page_start: 63
+    page_end: 103
+    chapter_title_block_idx: 522
+    problems_block_idx: null
+    next_chapter_block_idx: 1057
+  - num: 3
+    title: "Special Relativity, Electrodynamics, and Optics"
+    page_start: 104
+    page_end: 170
+    chapter_title_block_idx: 1057
+    problems_block_idx: null
+    next_chapter_block_idx: 1974
+  - num: 4
+    title: "Basics of Electromagnetic Radiation"
+    page_start: 171
+    page_end: 203
+    chapter_title_block_idx: 1974
+    problems_block_idx: null
+    next_chapter_block_idx: 2433
+  - num: 5
+    title: "Statistical Mechanics"
+    page_start: 204
+    page_end: 271
+    chapter_title_block_idx: 2433
+    problems_block_idx: null
+    next_chapter_block_idx: 3350
+  - num: 6
+    title: "Radiative Processes"
+    page_start: 272
+    page_end: 346
+    chapter_title_block_idx: 3350
+    problems_block_idx: null
+    next_chapter_block_idx: 4430
+  - num: 7
+    title: "Spectra"
+    page_start: 347
+    page_end: 381
+    chapter_title_block_idx: 4430
+    problems_block_idx: null
+    next_chapter_block_idx: 4841
+  - num: 8
+    title: "Neutral Fluids"
+    page_start: 382
+    page_end: 448
+    chapter_title_block_idx: 4841
+    chapter_title_block_idx_secondary: 4842
+    problems_block_idx: null
+    next_chapter_block_idx: 5713
+  - num: 9
+    title: "Plasma Physics"
+    page_start: 449
+    page_end: 494
+    chapter_title_block_idx: 5713
+    problems_block_idx: null
+    next_chapter_block_idx: 6358
+  - num: 10
+    title: "Gravitational Dynamics"
+    page_start: 495
+    page_end: 528
+    chapter_title_block_idx: 6358
+    problems_block_idx: null
+    next_chapter_block_idx: 6817
+  - num: 11
+    title: "General Theory of Relativity"
+    page_start: 529
+    page_end: 583
+    chapter_title_block_idx: 6817
+    problems_block_idx: null
+    next_chapter_block_idx: 7595
+  - num: 12
+    title: "Basics of Nuclear Physics"
+    page_start: 584
+    page_end: 607
+    chapter_title_block_idx: 7595
+    problems_block_idx: null
+    next_chapter_block_idx: 7858
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b.*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

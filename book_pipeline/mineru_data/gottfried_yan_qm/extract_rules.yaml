@@ -1,0 +1,142 @@
+slug: gottfried_yan_qm
+title: "Quantum Mechanics: Fundamentals"
+author: Kurt Gottfried; Tung-Mow Yan
+edition: 2nd
+subject: Quantum Mechanics
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 624
+bibliography_start_page: null
+index_start_page: 627
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Fundamental Concepts
+    page_start: 20
+    page_end: 45
+    chapter_title_block_idx: 110
+    problems_block_idx: 382
+    next_chapter_block_idx: 395
+  - num: 2
+    title: The Formal Framework
+    page_start: 46
+    page_end: 131
+    chapter_title_block_idx: 395
+    problems_block_idx: 1913
+    next_chapter_block_idx: 1967
+  - num: 3
+    title: Basic Tools
+    page_start: 132
+    page_end: 183
+    chapter_title_block_idx: 1967
+    problems_block_idx: 2884
+    next_chapter_block_idx: 2915
+  - num: 4
+    title: Low-Dimensional Systems
+    page_start: 184
+    page_end: 253
+    chapter_title_block_idx: 2915
+    problems_block_idx: 4026
+    next_chapter_block_idx: 4139
+  - num: 5
+    title: Hydrogenic Atoms
+    page_start: 254
+    page_end: 285
+    chapter_title_block_idx: 4139
+    problems_block_idx: 4646
+    next_chapter_block_idx: 4708
+  - num: 6
+    title: Two-Electron Atoms
+    page_start: 286
+    page_end: 301
+    chapter_title_block_idx: 4708
+    problems_block_idx: 4878
+    next_chapter_block_idx: 4929
+  - num: 7
+    title: Symmetries
+    page_start: 302
+    page_end: 353
+    chapter_title_block_idx: 4929
+    problems_block_idx: 5817
+    next_chapter_block_idx: 5897
+  - num: 8
+    title: Elastic Scattering
+    page_start: 354
+    page_end: 421
+    chapter_title_block_idx: 5897
+    problems_block_idx: 6965
+    next_chapter_block_idx: 7074
+  - num: 9
+    title: Inelastic Collisions
+    page_start: 422
+    page_end: 455
+    chapter_title_block_idx: 7074
+    problems_block_idx: 7615
+    next_chapter_block_idx: 7648
+  - num: 10
+    title: Electrodynamics
+    page_start: 456
+    page_end: 521
+    chapter_title_block_idx: 7648
+    problems_block_idx: 8644
+    next_chapter_block_idx: 8735
+  - num: 11
+    title: Systems of Identical Particles
+    page_start: 522
+    page_end: 557
+    chapter_title_block_idx: 8735
+    problems_block_idx: 9324
+    next_chapter_block_idx: 9364
+  - num: 12
+    title: Interpretation
+    page_start: 558
+    page_end: 595
+    chapter_title_block_idx: 9364
+    problems_block_idx: 9860
+    next_chapter_block_idx: 9895
+  - num: 13
+    title: Relativistic Quantum Mechanics
+    page_start: 596
+    page_end: 623
+    chapter_title_block_idx: 9895
+    problems_block_idx: 10426
+    next_chapter_block_idx: 10450
+
+appendices:
+  - id: A
+    title: Operator Identities
+    page_start: 624
+    chapter_title_block_idx: 10450
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^\(?([a-z])\)?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+(?![A-Z][A-Za-z-]*(?:\s+[A-Z][A-Za-z-]*){0,4}$)'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

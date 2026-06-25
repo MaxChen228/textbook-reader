@@ -1,0 +1,31 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "1.15",
+      "classification": "external",
+      "reason": "正文明寫 “see Ott, Fig. 1.15”，Ott 是引用文獻，目標為外部書籍圖號，不是本書內部 Figure 1.15；本書第 1 章圖號也只到 1.11。",
+      "where": "ch07.json body[754]",
+      "evidence": "raw PDF p.487: “...move very far apart under iteration of the map (see Ott, Fig. 1.15 for a clear illustration of this for H).”"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "jose-saletan-fig-2.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[170]",
+      "position": "after",
+      "page": 90,
+      "clip": [0.07, 0.075, 0.92, 0.23],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-2.5",
+        "kind": "line",
+        "caption": "FIGURE 2.5 A bead on a rotating wire, for Worked Example 2.2."
+      },
+      "reason": "MinerU 將 raw PDF p.90 的 Figure 2.5 圖與 caption 漏出 catalog，只在 content_list 中作 header；正文 body[170] 明確引用 Fig. 2.5。"
+    }
+  ]
+}

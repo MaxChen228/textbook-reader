@@ -1,0 +1,94 @@
+{
+  "overrides": [
+    {
+      "id": "scheinerman_mathematics_discrete-appB-body-653-e3dc85",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[653]",
+      "field": "md",
+      "all": true,
+      "old": "$P \\right. \\left.$",
+      "new": "$P \\left. \\right.$",
+      "anchor": "e83daed2"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-appB-body-720-e3dc85",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[720]",
+      "field": "md",
+      "all": true,
+      "old": "$P \\right. \\left.$",
+      "new": "$P \\left. \\right.$",
+      "anchor": "5a7742cb"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-appB-body-721-e3dc85",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[721]",
+      "field": "md",
+      "all": true,
+      "old": "$P \\right. \\left.$",
+      "new": "$P \\left. \\right.$",
+      "anchor": "6269d91b"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-ch03-problem-17-29-body-5-571d95",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:17.29:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bigl ( _ { 0 } \\sp 5 _ { 0 } \\bigr )$",
+      "new": "$\\bigl ( _ { 0 } ^ { 5 _ { 0 } } \\bigr )$",
+      "anchor": "cdd23f51"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-ch01-problem-7-15-body-12-4d915f",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "problem:7.15:body[12]",
+      "field": "md",
+      "all": true,
+      "old": "$\\land , \\lor , \\right. , \\left.$",
+      "new": "$\\land , \\lor , \\left. \\right. , \\left. \\right.$",
+      "anchor": "215363a6"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-ch10-body-205-89648b",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[205]",
+      "expect": "f (a) = \\left\\{ \\begin{array}{l l} f ^ {\\prime} (a) & \\text {if a\\neq x ,} \\\\ k + 1 & \\text {if a = x .} \\end{array} \\right.",
+      "new": "f (a) = \\left\\{ \\begin{array}{l l} f ^ {\\prime} (a) & \\text {if } a\\neq x , \\\\ k + 1 & \\text {if } a = x . \\end{array} \\right."
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-appA-body-369-8734aa",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[369]",
+      "expect": "1 + 4 + 7 + \\dots + (3 k - 2) = \\frac {k (3 k - 1)}{2}\\tag{((*)\\}",
+      "new": "1 + 4 + 7 + \\dots + (3 k - 2) = \\frac {k (3 k - 1)}{2}\\tag{((*)\\}}"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-appA-body-385-5848b4",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[385]",
+      "expect": "2 ^ {k} \\leq 2 ^ {k + 1} - 2 ^ {k - 1} - 1.\\tag{((*)\\}",
+      "new": "2 ^ {k} \\leq 2 ^ {k + 1} - 2 ^ {k - 1} - 1.\\tag{((*)\\}}"
+    },
+    {
+      "id": "scheinerman_mathematics_discrete-appB-body-515-de9e99",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[515]",
+      "field": "md",
+      "all": true,
+      "old": "$2 ^ { n } \\neqq$",
+      "new": "$2 ^ { n } \\neq$",
+      "anchor": "68133fdd"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+slug: goldenfeld_phase_transitions
+title: Lectures on Phase Transitions and the Renormalization Group
+author: Nigel Goldenfeld
+edition: 1st
+subject: Condensed Matter Physics
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 27
+appendices_start_page: null
+bibliography_start_page: null
+index_start_page: 411
+
+inline_problems: false
+heading_text_level: 2
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^([0-9]+\.[0-9]+)\s+(.+\S)$'
+subsection_re: '^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+\S)$'
+problem_start_re: '^Exercise\s+([0-9]+-[0-9]+)\b'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 5
+    page_end: 22
+    chapter_title_block_idx: 203
+    problems_block_idx: 350
+    next_chapter_block_idx: 368
+  - num: 2
+    title: How Phase Transitions Occur in Principle
+    page_start: 23
+    page_end: 84
+    chapter_title_block_idx: 368
+    problems_block_idx: 1135
+    next_chapter_block_idx: 1173
+  - num: 3
+    title: How Phase Transitions Occur in Practice
+    page_start: 85
+    page_end: 116
+    chapter_title_block_idx: 1173
+    problems_block_idx: 1627
+    next_chapter_block_idx: 1700
+  - num: 4
+    title: Critical Phenomena in Fluids
+    page_start: 117
+    page_end: 134
+    chapter_title_block_idx: 1700
+    problems_block_idx: 1949
+    next_chapter_block_idx: 1956
+  - num: 5
+    title: Landau Theory
+    page_start: 135
+    page_end: 166
+    chapter_title_block_idx: 1956
+    problems_block_idx: 2348
+    next_chapter_block_idx: 2387
+  - num: 6
+    title: Fluctuations and the Breakdown of Landau Theory
+    page_start: 167
+    page_end: 188
+    chapter_title_block_idx: 2387
+    problems_block_idx: 2651
+    next_chapter_block_idx: 2687
+  - num: 7
+    title: Anomalous Dimensions
+    page_start: 189
+    page_end: 200
+    chapter_title_block_idx: 2687
+    problems_block_idx: 2827
+    next_chapter_block_idx: 2839
+  - num: 8
+    title: Scaling in Static, Dynamic and Non-Equilibrium Phenomena
+    page_start: 201
+    page_end: 228
+    chapter_title_block_idx: 2839
+    problems_block_idx: null
+    next_chapter_block_idx: 3187
+  - num: 9
+    title: The Renormalisation Group
+    page_start: 229
+    page_end: 286
+    chapter_title_block_idx: 3187
+    problems_block_idx: 3985
+    next_chapter_block_idx: 4035
+  - num: 10
+    title: Anomalous Dimensions Far from Equilibrium
+    page_start: 287
+    page_end: 334
+    chapter_title_block_idx: 4035
+    problems_block_idx: 4668
+    next_chapter_block_idx: 4721
+  - num: 11
+    title: Continuous Symmetry
+    page_start: 335
+    page_end: 350
+    chapter_title_block_idx: 4721
+    problems_block_idx: null
+    next_chapter_block_idx: 4958
+  - num: 12
+    title: Critical Phenomena Near Four Dimensions
+    page_start: 351
+    page_end: 388
+    chapter_title_block_idx: 4958
+    problems_block_idx: 5499
+    next_chapter_block_idx: 5541
+
+appendices: []

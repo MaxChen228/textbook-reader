@@ -1,0 +1,102 @@
+slug: polchinski_string_theory_1
+title: 'String Theory, Volume 1: An Introduction to the Bosonic String'
+author: Joseph Polchinski
+edition: null
+subject: Quantum Field Theory
+publisher: Cambridge University Press
+language: en
+filter_types:
+- page_number
+- header
+- footer
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level:
+- 1
+- 2
+body_start_page: 22
+appendices_start_page: 350
+bibliography_start_page: 368
+index_start_page: 410
+inline_problems: false
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+equation_strip_dollar: true
+equation_label_re: \((\d+\.\d+\.\d+)\)
+chapters:
+- num: 1
+  title: A first look at strings
+  page_start: 22
+  page_end: 52
+  chapter_title_block_idx: 179
+  problems_block_idx: 573
+  next_chapter_block_idx: 603
+- num: 2
+  title: Conformal field theory
+  page_start: 53
+  page_end: 97
+  chapter_title_block_idx: 603
+  problems_block_idx: 1283
+  next_chapter_block_idx: 1333
+- num: 3
+  title: The Polyakov path integral
+  page_start: 98
+  page_end: 141
+  chapter_title_block_idx: 1333
+  problems_block_idx: 1864
+  next_chapter_block_idx: 1897
+- num: 4
+  title: The string spectrum
+  page_start: 142
+  page_end: 165
+  chapter_title_block_idx: 1897
+  problems_block_idx: 2274
+  next_chapter_block_idx: 2293
+- num: 5
+  title: The string S-matrix
+  page_start: 166
+  page_end: 186
+  chapter_title_block_idx: 2293
+  problems_block_idx: 2568
+  next_chapter_block_idx: 2581
+- num: 6
+  title: Tree-level amplitudes
+  page_start: 187
+  page_end: 226
+  chapter_title_block_idx: 2581
+  problems_block_idx: 3175
+  next_chapter_block_idx: 3212
+- num: 7
+  title: One-loop amplitudes
+  page_start: 227
+  page_end: 251
+  chapter_title_block_idx: 3212
+  problems_block_idx: 3564
+  next_chapter_block_idx: 3593
+- num: 8
+  title: Toroidal compactification and T-duality
+  page_start: 252
+  page_end: 303
+  chapter_title_block_idx: 3593
+  problems_block_idx: 4285
+  next_chapter_block_idx: 4317
+- num: 9
+  title: Higher order amplitudes
+  page_start: 304
+  page_end: 349
+  chapter_title_block_idx: 4317
+  problems_block_idx: 4828
+  next_chapter_block_idx: 4847
+appendices:
+- num: A
+  id: A
+  title: A short course on path integrals
+  page_start: 350
+  page_end: 367
+  chapter_title_block_idx: 4847
+  next_chapter_block_idx: 5147

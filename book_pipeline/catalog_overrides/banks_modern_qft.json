@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "banks-modern-qft-fig-6-1-restore",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[32]",
+      "expect": {
+        "id": "fig-ch06-32",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-6.1",
+        "caption": "Gauge-boson production in $\\mathsf { e } ^ { + } , \\mathsf { e } ^ { - }$ annihilation.",
+        "catalog_repair_source": "catalog-audit-figure-6-1"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 Figure 6.1: MinerU captured the image and caption on PDF page 74 (page_idx 73) but split the printed label 'Fig. 6.1.' into the page footer, so build_catalogs treated the block as unnumbered/excluded. The body text explicitly references Figure 6.1 immediately before this block."
+    }
+  ]
+}

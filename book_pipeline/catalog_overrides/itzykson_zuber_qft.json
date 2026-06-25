@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "itzykson-zuber-qft-fig-7-5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[94]",
+      "position": "after",
+      "page": 350,
+      "clip": [0.055, 0.805, 0.93, 0.955],
+      "zoom": 2.5,
+      "src": "manual_fig-7.5.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-7.5",
+        "kind": "line",
+        "caption": "Figure 7-5 The two diagrams of order $\\hbar$ for vacuum polarization in the counterterm approach."
+      },
+      "reason": "C4 Figure 7.5: raw PDF physical page 350 contains the referenced Figure 7-5 at the bottom of the page, but MinerU did not emit a fig block between Eq. (7-21)/(7-22). Crop restores the missing catalog supply next to the reference."
+    },
+    {
+      "id": "itzykson-zuber-qft-fig-11-12-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[445]",
+      "position": "after",
+      "page": 567,
+      "clip": [0.055, 0.055, 0.68, 0.18],
+      "zoom": 2.5,
+      "src": "manual_fig-11.12.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-11.12",
+        "kind": "line",
+        "caption": "Figure 11-12 Tadpole amplitude."
+      },
+      "reason": "C4 Figure 11.12: raw PDF physical page 567 shows Figure 11-12 immediately after the tadpole-condition paragraph/equation, but MinerU skipped the figure block. Crop restores the missing catalog entry."
+    },
+    {
+      "id": "itzykson-zuber-qft-fig-13-7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[369]",
+      "position": "after",
+      "page": 684,
+      "clip": [0.06, 0.815, 0.93, 0.955],
+      "zoom": 2.5,
+      "src": "manual_fig-13.7.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-13.7",
+        "kind": "line",
+        "caption": "Figure 13-7 Lowest-order mass insertion in the $\\phi^{4}$ theory."
+      },
+      "reason": "C4 Figure 13.7: raw PDF physical page 684 contains the referenced one-loop mass-insertion diagram at the page bottom; MinerU omitted the fig block. Crop restores fig-13.7 before the next section."
+    }
+  ]
+}

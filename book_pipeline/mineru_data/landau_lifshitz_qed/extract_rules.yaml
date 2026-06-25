@@ -1,0 +1,168 @@
+slug: landau_lifshitz_qed
+title: Quantum Electrodynamics
+author: V. B. Berestetskii; E. M. Lifshitz; L. P. Pitaevskii
+edition: 2nd
+subject: Quantum Field Theory
+publisher: Pergamon Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 662
+bibliography_start_page: null
+index_start_page: 662
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 17
+    chapter_title_block_idx: 157
+    problems_block_idx: null
+    next_chapter_block_idx: 199
+  - num: 2
+    title: Photons
+    page_start: 18
+    page_end: 45
+    chapter_title_block_idx: 199
+    chapter_title_block_idx_secondary: 200
+    problems_block_idx: null
+    next_chapter_block_idx: 661
+  - num: 3
+    title: Bosons
+    page_start: 46
+    page_end: 74
+    chapter_title_block_idx: 661
+    chapter_title_block_idx_secondary: 662
+    problems_block_idx: null
+    next_chapter_block_idx: 1155
+  - num: 4
+    title: Fermions
+    page_start: 75
+    page_end: 130
+    chapter_title_block_idx: 1155
+    chapter_title_block_idx_secondary: 1156
+    problems_block_idx: null
+    next_chapter_block_idx: 2251
+  - num: 5
+    title: Particles in an External Field
+    page_start: 131
+    page_end: 171
+    chapter_title_block_idx: 2251
+    chapter_title_block_idx_secondary: 2252
+    problems_block_idx: null
+    next_chapter_block_idx: 3009
+  - num: 6
+    title: Radiation
+    page_start: 172
+    page_end: 233
+    chapter_title_block_idx: 3009
+    problems_block_idx: null
+    next_chapter_block_idx: 4114
+  - num: 7
+    title: Scattering of Radiation
+    page_start: 234
+    page_end: 259
+    chapter_title_block_idx: 4114
+    chapter_title_block_idx_secondary: 4115
+    problems_block_idx: null
+    next_chapter_block_idx: 4576
+  - num: 8
+    title: The Scattering Matrix
+    page_start: 260
+    page_end: 295
+    chapter_title_block_idx: 4576
+    chapter_title_block_idx_secondary: 4577
+    problems_block_idx: null
+    next_chapter_block_idx: 5233
+  - num: 9
+    title: Invariant Perturbation Theory
+    page_start: 296
+    page_end: 329
+    chapter_title_block_idx: 5233
+    chapter_title_block_idx_secondary: 5234
+    problems_block_idx: null
+    next_chapter_block_idx: 5783
+  - num: 10
+    title: Interaction of Electrons
+    page_start: 330
+    page_end: 366
+    chapter_title_block_idx: 5783
+    chapter_title_block_idx_secondary: 5784
+    problems_block_idx: null
+    next_chapter_block_idx: 6450
+  - num: 11
+    title: Interaction of Electrons with Photons
+    page_start: 367
+    page_end: 468
+    chapter_title_block_idx: 6450
+    chapter_title_block_idx_secondary: 6451
+    problems_block_idx: null
+    next_chapter_block_idx: 8286
+  - num: 12
+    title: Exact Propagators and Vertex Parts
+    page_start: 469
+    page_end: 513
+    chapter_title_block_idx: 8286
+    chapter_title_block_idx_secondary: 8287
+    problems_block_idx: null
+    next_chapter_block_idx: 9058
+  - num: 13
+    title: Radiative Corrections
+    page_start: 514
+    page_end: 609
+    chapter_title_block_idx: 9058
+    chapter_title_block_idx_secondary: 9059
+    problems_block_idx: null
+    next_chapter_block_idx: 10748
+  - num: 14
+    title: Asymptotic Formulae of Quantum Electrodynamics
+    page_start: 610
+    page_end: 636
+    chapter_title_block_idx: 10748
+    chapter_title_block_idx_secondary: 10749
+    problems_block_idx: null
+    next_chapter_block_idx: 11227
+  - num: 15
+    title: Electrodynamics of Hadrons
+    page_start: 637
+    page_end: 661
+    chapter_title_block_idx: 11227
+    chapter_title_block_idx_secondary: 11228
+    problems_block_idx: null
+    next_chapter_block_idx: 11654
+
+appendices: []
+
+section_re: '^§\s*(\d+)\.\s+(.+)$'
+subsection_re: '^()(__NO_SUBSECTION_MATCH__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEMS?‡?(?:\s*((?:[0-9]+)|))\.?(?:\s+|$)'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: '^SOLUTION\.\s+'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

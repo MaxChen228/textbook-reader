@@ -1,0 +1,146 @@
+slug: phillips_advanced_solid_state
+title: Advanced Solid State Physics
+author: Philip Phillips
+edition: 2nd
+subject: Solid State Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, aside_text, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 416
+bibliography_start_page: null
+index_start_page: 413
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 22
+    chapter_title_block_idx: 56
+    problems_block_idx: 128
+    next_chapter_block_idx: 139
+  - num: 2
+    title: Non-interacting electron gas
+    page_start: 23
+    page_end: 28
+    chapter_title_block_idx: 139
+    problems_block_idx: 236
+    next_chapter_block_idx: 243
+  - num: 3
+    title: Born-Oppenheimer approximation
+    page_start: 29
+    page_end: 36
+    chapter_title_block_idx: 243
+    problems_block_idx: 359
+    next_chapter_block_idx: 368
+  - num: 4
+    title: Second quantization
+    page_start: 37
+    page_end: 43
+    chapter_title_block_idx: 368
+    problems_block_idx: 472
+    next_chapter_block_idx: 488
+  - num: 5
+    title: Hartree-Fock approximation
+    page_start: 44
+    page_end: 49
+    chapter_title_block_idx: 488
+    problems_block_idx: 569
+    next_chapter_block_idx: 580
+  - num: 6
+    title: Interacting electron gas
+    page_start: 50
+    page_end: 63
+    chapter_title_block_idx: 580
+    problems_block_idx: 736
+    next_chapter_block_idx: 767
+  - num: 7
+    title: Local magnetic moments in metals
+    page_start: 64
+    page_end: 92
+    chapter_title_block_idx: 767
+    problems_block_idx: 1180
+    next_chapter_block_idx: 1203
+  - num: 8
+    title: "Quenching of local moments: the Kondo problem"
+    page_start: 93
+    page_end: 127
+    chapter_title_block_idx: 1203
+    problems_block_idx: 1640
+    next_chapter_block_idx: 1677
+  - num: 9
+    title: Screening and plasmons
+    page_start: 128
+    page_end: 158
+    chapter_title_block_idx: 1677
+    problems_block_idx: 2144
+    next_chapter_block_idx: 2172
+  - num: 10
+    title: Bosonization
+    page_start: 159
+    page_end: 181
+    chapter_title_block_idx: 2172
+    problems_block_idx: 2447
+    next_chapter_block_idx: 2483
+  - num: 11
+    title: Electron-lattice interactions
+    page_start: 182
+    page_end: 201
+    chapter_title_block_idx: 2483
+    problems_block_idx: 2768
+    next_chapter_block_idx: 2782
+  - num: 12
+    title: Superconductivity in metals
+    page_start: 202
+    page_end: 270
+    chapter_title_block_idx: 2782
+    problems_block_idx: 3733
+    next_chapter_block_idx: 3776
+  - num: 13
+    title: "Disorder: localization and exceptions"
+    page_start: 271
+    page_end: 301
+    chapter_title_block_idx: 3776
+    problems_block_idx: 4013
+    next_chapter_block_idx: 4089
+  - num: 14
+    title: Quantum phase transitions
+    page_start: 302
+    page_end: 329
+    chapter_title_block_idx: 4089
+    problems_block_idx: 4329
+    next_chapter_block_idx: 4388
+  - num: 15
+    title: Quantum Hall and other topological states
+    page_start: 330
+    page_end: 365
+    chapter_title_block_idx: 4388
+    problems_block_idx: 4741
+    next_chapter_block_idx: 4832
+  - num: 16
+    title: "Electrons at strong coupling: Mottness"
+    page_start: 366
+    page_end: 412
+    chapter_title_block_idx: 4832
+    problems_block_idx: 5303
+    next_chapter_block_idx: 5373
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\b.*$'
+problem_chapter_must_match: true
+problems_end_re: '^References$'
+solution_start_re: null
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true

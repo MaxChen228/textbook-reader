@@ -1,0 +1,175 @@
+slug: stanley_phase_transitions
+title: Introduction to Phase Transitions and Critical Phenomena
+author: H. Eugene Stanley
+edition: null
+subject: Statistical Mechanics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 285
+bibliography_start_page: null
+index_start_page: 326
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "What Are the Critical Phenomena? A Survey of Some Basic Results"
+    page_start: 22
+    page_end: 46
+    chapter_title_block_idx: 88
+    problems_block_idx: null
+    next_chapter_block_idx: 266
+  - num: 2
+    title: Useful Thermodynamic Relations for Fluid and Magnetic Systems
+    page_start: 47
+    page_end: 63
+    chapter_title_block_idx: 266
+    problems_block_idx: null
+    next_chapter_block_idx: 535
+  - num: 3
+    title: Critical-Point Exponents
+    page_start: 64
+    page_end: 77
+    chapter_title_block_idx: 535
+    chapter_title_block_idx_secondary: 534
+    problems_block_idx: null
+    next_chapter_block_idx: 697
+  - num: 4
+    title: Exponent Inequalities
+    page_start: 78
+    page_end: 91
+    chapter_title_block_idx: 697
+    problems_block_idx: null
+    next_chapter_block_idx: 926
+  - num: 5
+    title: The van der Waals Theory of Liquid-Gas Phase Transitions
+    page_start: 92
+    page_end: 103
+    chapter_title_block_idx: 926
+    chapter_title_block_idx_secondary: 925
+    problems_block_idx: null
+    next_chapter_block_idx: 1089
+  - num: 6
+    title: The Mean Field Theory of Magnetic Phase Transitions
+    page_start: 104
+    page_end: 118
+    chapter_title_block_idx: 1089
+    problems_block_idx: null
+    next_chapter_block_idx: 1317
+  - num: 7
+    title: The Pair Correlation Function and the Ornstein-Zernike Theory
+    page_start: 119
+    page_end: 133
+    chapter_title_block_idx: 1317
+    problems_block_idx: null
+    next_chapter_block_idx: 1536
+  - num: 8
+    title: Results Provided by Exact Solution of Model Systems
+    page_start: 134
+    page_end: 158
+    chapter_title_block_idx: 1536
+    chapter_title_block_idx_secondary: 1535
+    problems_block_idx: null
+    next_chapter_block_idx: 1807
+  - num: 9
+    title: Results Obtained from Model Systems by Approximation Methods
+    page_start: 159
+    page_end: 191
+    chapter_title_block_idx: 1807
+    problems_block_idx: null
+    next_chapter_block_idx: 2144
+  - num: 10
+    title: "Landau's Classic Theory of Exponents"
+    page_start: 192
+    page_end: 199
+    chapter_title_block_idx: 2144
+    chapter_title_block_idx_secondary: 2143
+    problems_block_idx: null
+    next_chapter_block_idx: 2260
+  - num: 11
+    title: Scaling Law Hypothesis for Thermodynamic Functions
+    page_start: 200
+    page_end: 215
+    chapter_title_block_idx: 2260
+    problems_block_idx: null
+    next_chapter_block_idx: 2517
+  - num: 12
+    title: Scaling of the Static Correlation Functions
+    page_start: 216
+    page_end: 226
+    chapter_title_block_idx: 2517
+    problems_block_idx: null
+    next_chapter_block_idx: 2674
+  - num: 13
+    title: Introduction to Dynamic Critical Phenomena in Fluid Systems
+    page_start: 227
+    page_end: 241
+    chapter_title_block_idx: 2674
+    chapter_title_block_idx_secondary: 2673
+    problems_block_idx: null
+    next_chapter_block_idx: 2874
+  - num: 14
+    title: Measurements of the Dynamic Structure Factor for Fluid Systems
+    page_start: 242
+    page_end: 257
+    chapter_title_block_idx: 2874
+    problems_block_idx: null
+    next_chapter_block_idx: 3024
+  - num: 15
+    title: Dynamic Scaling Laws and the Mode-Mode Coupling Approximation
+    page_start: 258
+    page_end: 284
+    chapter_title_block_idx: 3024
+    problems_block_idx: null
+    next_chapter_block_idx: 3314
+
+appendices:
+  - id: A
+    title: The Lattice-Gas Model of a Fluid System
+    page_start: 285
+    chapter_title_block_idx: 3314
+  - id: B
+    title: Exact Solution of the Zero-Field Ising Model for a Two-Dimensional Lattice
+    page_start: 290
+    chapter_title_block_idx: 3392
+  - id: C
+    title: Geometric Interpretation of the Static Scaling Hypothesis for Thermodynamic Potentials
+    page_start: 297
+    chapter_title_block_idx: 3504
+  - id: D
+    title: The Dynamic Structure Factor in the Hydrodynamic Limit
+    page_start: 300
+    chapter_title_block_idx: 3548
+  - id: E
+    title: "Model Systems Useful in the Study of Time-Dependent Cooperative Phenomena: The Glauber Model"
+    page_start: 305
+    chapter_title_block_idx: 3629
+  - id: F
+    title: Two-Dimensional Ferroelectric and Antiferroelectric Models
+    page_start: 312
+    chapter_title_block_idx: 3729
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+([0-9][0-9.]*)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_label_re: '^\(?([A-F]?\d+\.\d+)\)?$'
+equation_strip_dollar: true

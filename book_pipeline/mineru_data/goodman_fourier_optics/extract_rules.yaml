@@ -1,0 +1,127 @@
+slug: goodman_fourier_optics
+title: Introduction to Fourier Optics
+author: Joseph W. Goodman
+edition: 3rd
+subject: Optics
+publisher: Roberts & Company Publishers
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 454
+bibliography_start_page: 486
+index_start_page: 502
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 22
+    page_end: 23
+    chapter_title_block_idx: 69
+    problems_block_idx: null
+    next_chapter_block_idx: 88
+  - num: 2
+    title: Analysis of Two-Dimensional Signals and Systems
+    page_start: 24
+    page_end: 51
+    chapter_title_block_idx: 88
+    problems_block_idx: 403
+    next_chapter_block_idx: 481
+  - num: 3
+    title: Foundations of Scalar Diffraction Theory
+    page_start: 52
+    page_end: 83
+    chapter_title_block_idx: 481
+    problems_block_idx: 902
+    next_chapter_block_idx: 936
+  - num: 4
+    title: Fresnel and Fraunhofer Diffraction
+    page_start: 84
+    page_end: 117
+    chapter_title_block_idx: 936
+    problems_block_idx: 1280
+    next_chapter_block_idx: 1365
+  - num: 5
+    title: Wave-Optics Analysis of Coherent Optical Systems
+    page_start: 118
+    page_end: 147
+    chapter_title_block_idx: 1365
+    problems_block_idx: 1667
+    next_chapter_block_idx: 1749
+  - num: 6
+    title: Frequency Analysis of Optical Imaging Systems
+    page_start: 148
+    page_end: 193
+    chapter_title_block_idx: 1749
+    problems_block_idx: 2205
+    next_chapter_block_idx: 2283
+  - num: 7
+    title: Wavefront Modulation
+    page_start: 194
+    page_end: 239
+    chapter_title_block_idx: 2283
+    problems_block_idx: 2736
+    next_chapter_block_idx: 2764
+  - num: 8
+    title: Analog Optical Information Processing
+    page_start: 240
+    page_end: 317
+    chapter_title_block_idx: 2764
+    problems_block_idx: 3560
+    next_chapter_block_idx: 3626
+  - num: 9
+    title: Holography
+    page_start: 318
+    page_end: 419
+    chapter_title_block_idx: 3626
+    problems_block_idx: 4634
+    next_chapter_block_idx: 4697
+  - num: 10
+    title: Fourier Optics in Optical Communications
+    page_start: 420
+    page_end: 453
+    chapter_title_block_idx: 4697
+    problems_block_idx: 5034
+    next_chapter_block_idx: 5047
+
+appendices:
+  - id: A
+    title: Delta Functions and Fourier Transform Theorems
+    page_start: 454
+    chapter_title_block_idx: 5047
+  - id: B
+    title: Introduction to Paraxial Geometrical Optics
+    page_start: 462
+    chapter_title_block_idx: 5144
+  - id: C
+    title: Polarization and Jones Matrices
+    page_start: 476
+    chapter_title_block_idx: 5304
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{((?:\d+|[A-Z])-\d+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

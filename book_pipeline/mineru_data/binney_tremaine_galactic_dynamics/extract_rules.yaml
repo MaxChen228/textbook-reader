@@ -1,0 +1,173 @@
+slug: binney_tremaine_galactic_dynamics
+title: Galactic Dynamics
+author: James Binney; Scott Tremaine
+edition: null
+subject: Astrophysics
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 660
+bibliography_start_page: 736
+index_start_page: 750
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 46
+    chapter_title_block_idx: 93
+    problems_block_idx: null
+    next_chapter_block_idx: 283
+  - num: 2
+    title: Potential Theory
+    page_start: 47
+    page_end: 119
+    chapter_title_block_idx: 283
+    problems_block_idx: 1120
+    next_chapter_block_idx: 1180
+  - num: 3
+    title: The Orbits of Stars
+    page_start: 120
+    page_end: 203
+    chapter_title_block_idx: 1180
+    problems_block_idx: 2048
+    next_chapter_block_idx: 2090
+  - num: 4
+    title: Equilibria of Collisionless Systems
+    page_start: 204
+    page_end: 299
+    chapter_title_block_idx: 2090
+    problems_block_idx: 3092
+    next_chapter_block_idx: 3158
+  - num: 5
+    title: Stability of Collisionless Systems
+    page_start: 300
+    page_end: 352
+    chapter_title_block_idx: 3158
+    problems_block_idx: 3779
+    next_chapter_block_idx: 3851
+  - num: 6
+    title: Disk Dynamics and Spiral Structure
+    page_start: 353
+    page_end: 433
+    chapter_title_block_idx: 3851
+    problems_block_idx: 4532
+    next_chapter_block_idx: 4575
+  - num: 7
+    title: Collisions and Encounters of Stellar Systems
+    page_start: 434
+    page_end: 505
+    chapter_title_block_idx: 4575
+    problems_block_idx: 5214
+    next_chapter_block_idx: 5276
+  - num: 8
+    title: Kinetic Theory
+    page_start: 506
+    page_end: 568
+    chapter_title_block_idx: 5276
+    problems_block_idx: 5883
+    next_chapter_block_idx: 5926
+  - num: 9
+    title: Stellar Evolution in Galaxies
+    page_start: 569
+    page_end: 605
+    chapter_title_block_idx: 5926
+    problems_block_idx: 6254
+    next_chapter_block_idx: 6270
+  - num: 10
+    title: Dark Matter
+    page_start: 606
+    page_end: 659
+    chapter_title_block_idx: 6270
+    problems_block_idx: 6673
+    next_chapter_block_idx: 6714
+
+appendices:
+  - id: 1.A
+    title: Useful Numbers
+    page_start: 660
+    chapter_title_block_idx: 6714
+  - id: 1.B
+    title: Mathematical Background
+    page_start: 661
+    chapter_title_block_idx: 6747
+  - id: 1.C
+    title: Special Functions
+    page_start: 669
+    chapter_title_block_idx: 6914
+  - id: 1.D
+    title: Mechanics
+    page_start: 675
+    chapter_title_block_idx: 7045
+  - id: 1.E
+    title: Fluid Mechanics
+    page_start: 687
+    chapter_title_block_idx: 7256
+  - id: 4.A
+    title: Proof of the Strong Jeans Theorem
+    page_start: 693
+    chapter_title_block_idx: 7356
+  - id: 4.B
+    title: N-Body Program
+    page_start: 695
+    chapter_title_block_idx: 7381
+  - id: 5.A
+    title: Modes of an Infinite Stellar System
+    page_start: 698
+    chapter_title_block_idx: 7396
+  - id: 5.B
+    title: Perturbation Energy in Fluid Systems
+    page_start: 703
+    chapter_title_block_idx: 7460
+  - id: 5.C
+    title: The Antonov-Lebovitz Theorem
+    page_start: 704
+    chapter_title_block_idx: 7481
+  - id: 6.A
+    title: Derivation of the Reduction Factor
+    page_start: 706
+    chapter_title_block_idx: 7515
+  - id: 8.A
+    title: The Diffusion Coefficients
+    page_start: 710
+    chapter_title_block_idx: 7592
+  - id: 8.B
+    title: The Equilibrium Soft Binary Distribution
+    page_start: 715
+    chapter_title_block_idx: 7657
+  - id: 9.A
+    title: Cosmology
+    page_start: 718
+    chapter_title_block_idx: 7697
+
+section_re: '^(\d+(?:\.\d+)?)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+(?:[A-Z])?-[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

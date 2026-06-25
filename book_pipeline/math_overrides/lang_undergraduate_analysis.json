@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "lang_undergraduate_analysis-ch08-body-23-effd8c",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[23]",
+      "field": "md",
+      "all": true,
+      "old": "$\\{y_{n_k_j}\\} (j = 1, 2, \\ldots)$",
+      "new": "$\\{y_{n_{k_j}}\\} (j = 1, 2, \\ldots)$",
+      "anchor": "d4fcabd5"
+    },
+    {
+      "id": "lang_undergraduate_analysis-ch04-problem-iv-3-3-body-0-44c003",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:IV,§3.3:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\arccosine x$",
+      "new": "$\\arccos x$",
+      "anchor": "03aa9dd6"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+slug: fowles_modern_optics
+title: Introduction to Modern Optics
+author: Grant R. Fowles
+edition: 2nd
+subject: Optics
+publisher: Dover Publications
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 312
+bibliography_start_page: 323
+index_start_page: 328
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Propagation of Light
+    page_start: 10
+    page_end: 29
+    chapter_title_block_idx: 53
+    problems_block_idx: 249
+    next_chapter_block_idx: 277
+  - num: 2
+    title: The Vectorial Nature of Light
+    page_start: 30
+    page_end: 65
+    chapter_title_block_idx: 277
+    problems_block_idx: 663
+    next_chapter_block_idx: 711
+  - num: 3
+    title: Coherence and Interference
+    page_start: 66
+    page_end: 93
+    chapter_title_block_idx: 711
+    problems_block_idx: 992
+    next_chapter_block_idx: 1016
+  - num: 4
+    title: Multiple-Beam Interference
+    page_start: 94
+    page_end: 112
+    chapter_title_block_idx: 1016
+    problems_block_idx: 1197
+    next_chapter_block_idx: 1223
+  - num: 5
+    title: Diffraction
+    page_start: 113
+    page_end: 158
+    chapter_title_block_idx: 1223
+    problems_block_idx: 1634
+    next_chapter_block_idx: 1670
+  - num: 6
+    title: The Propagation of Light in Material Media
+    page_start: 159
+    page_end: 209
+    chapter_title_block_idx: 1670
+    problems_block_idx: 2253
+    next_chapter_block_idx: 2291
+  - num: 7
+    title: Thermal Radiation and Light Quanta
+    page_start: 210
+    page_end: 230
+    chapter_title_block_idx: 2291
+    problems_block_idx: 2524
+    next_chapter_block_idx: 2545
+  - num: 8
+    title: Optical Spectra
+    page_start: 231
+    page_end: 268
+    chapter_title_block_idx: 2545
+    chapter_title_block_idx_secondary: 2546
+    problems_block_idx: 2968
+    next_chapter_block_idx: 2983
+  - num: 9
+    title: Amplification of Light. Lasers
+    page_start: 269
+    page_end: 298
+    chapter_title_block_idx: 2983
+    problems_block_idx: 3275
+    next_chapter_block_idx: 3290
+  - num: 10
+    title: Ray Optics
+    page_start: 299
+    page_end: 311
+    chapter_title_block_idx: 3290
+    problems_block_idx: 3433
+    next_chapter_block_idx: 3445
+
+appendices:
+  - id: I
+    title: The Sagnac Effect
+    page_start: 312
+    chapter_title_block_idx: 3445
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\b[\.)]?\s*'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+  - chapter: 10
+    nums: ["10.1"]

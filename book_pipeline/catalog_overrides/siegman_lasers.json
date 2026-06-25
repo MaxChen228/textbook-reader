@@ -1,0 +1,74 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "siegman-lasers-fig-15.14-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "body[182]",
+      "position": "before",
+      "page": 625,
+      "clip": [
+        0.04,
+        0.08,
+        0.88,
+        0.225
+      ],
+      "zoom": 2.8,
+      "src": "manual_fig-15.14.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-15.14",
+        "kind": "line",
+        "caption": "FIGURE 15.14 Analytical model for a periodic focusing system."
+      },
+      "reason": "raw PDF page 625 contains Figure 15.14 above the §15.3 text, but MinerU emitted no figure block for it; body[182] references it immediately after."
+    },
+    {
+      "id": "siegman-lasers-fig-15.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "body[357]",
+      "position": "before",
+      "page": 642,
+      "clip": [
+        0.18,
+        0.09,
+        0.91,
+        0.245
+      ],
+      "zoom": 2.8,
+      "src": "manual_fig-15.22.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-15.22",
+        "kind": "line",
+        "caption": "FIGURE 15.22 An astigmatic optical element (cylindrical lens)."
+      },
+      "reason": "raw PDF page 642 contains Figure 15.22 near the top of §15.6, but MinerU emitted no figure block for it; body[357] references it in the opening paragraph."
+    },
+    {
+      "id": "siegman-lasers-fig-30.9-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch30",
+      "selector": "body[114]",
+      "position": "before",
+      "page": 1211,
+      "clip": [
+        0.04,
+        0.085,
+        0.86,
+        0.255
+      ],
+      "zoom": 2.8,
+      "src": "manual_fig-30.9.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-30.9",
+        "kind": "line",
+        "caption": "FIGURE 30.9 Moving atom interacting with waves propagating in the +z and -z directions."
+      },
+      "reason": "raw PDF page 1211 contains Figure 30.9 above the Doppler-broadening derivation, but MinerU emitted no figure block for it; body[114] references it."
+    }
+  ]
+}

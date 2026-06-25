@@ -1,0 +1,112 @@
+slug: abrikosov_qft_statistical
+title: Quantum Field Theoretical Methods in Statistical Physics
+author: "A. A. Abrikosov; L. P. Gor'kov; I. Ye. Dzyaloshinskii"
+edition: 2nd
+subject: Condensed Matter Physics
+publisher: Pergamon Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 372
+bibliography_start_page: 372
+index_start_page: 376
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Properties of Many-Particle Systems at Low Temperatures
+    page_start: 14
+    page_end: 54
+    chapter_title_block_idx: 71
+    chapter_title_block_idx_secondary: 72
+    problems_block_idx: null
+    next_chapter_block_idx: 677
+  - num: 2
+    title: Quantum Field Theoretical Methods at T=0
+    page_start: 55
+    page_end: 107
+    chapter_title_block_idx: 677
+    chapter_title_block_idx_secondary: 678
+    problems_block_idx: null
+    next_chapter_block_idx: 1556
+  - num: 3
+    title: The Diagram Technique at Finite Temperatures
+    page_start: 108
+    page_end: 164
+    chapter_title_block_idx: 1556
+    chapter_title_block_idx_secondary: 1557
+    problems_block_idx: null
+    next_chapter_block_idx: 2456
+  - num: 4
+    title: Fermi Liquid Theory
+    page_start: 165
+    page_end: 215
+    chapter_title_block_idx: 2456
+    chapter_title_block_idx_secondary: 2457
+    problems_block_idx: null
+    next_chapter_block_idx: 3226
+  - num: 5
+    title: System of Interacting Bosons
+    page_start: 216
+    page_end: 262
+    chapter_title_block_idx: 3226
+    chapter_title_block_idx_secondary: 3227
+    problems_block_idx: null
+    next_chapter_block_idx: 3870
+  - num: 6
+    title: Electromagnetic Radiation in an Absorbing Medium
+    page_start: 263
+    page_end: 289
+    chapter_title_block_idx: 3870
+    problems_block_idx: null
+    next_chapter_block_idx: 4291
+  - num: 7
+    title: Theory of Superconductivity
+    page_start: 290
+    page_end: 351
+    chapter_title_block_idx: 4291
+    chapter_title_block_idx_secondary: 4292
+    problems_block_idx: null
+    next_chapter_block_idx: 5185
+  - num: 8
+    title: Transport Equation for Excitations in a Fermi Liquid
+    page_start: 352
+    page_end: 371
+    chapter_title_block_idx: 5185
+    chapter_title_block_idx_secondary: 5186
+    problems_block_idx: null
+    next_chapter_block_idx: 5589
+
+appendices: []
+
+section_re: '^§\s*(\d+)\.\s+(.+)$'
+subsection_re: '^(\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

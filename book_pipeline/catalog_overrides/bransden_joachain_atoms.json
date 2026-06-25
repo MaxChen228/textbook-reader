@@ -1,0 +1,98 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "bransden-atoms-fig-2.4-id",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[396]",
+      "set": {
+        "id": "fig-2.4",
+        "caption": "2.4 Wave functions for the simple harmonic oscillator — $\\psi_{n}(\\xi)/\\sqrt{\\alpha}$ with $\\xi=\\alpha x$; $\\cdots\\cdots|\\psi_{n}(\\xi)|^{2}/\\alpha$; the probability distribution for a classical oscillator with energy $E_{n}$. The classical motion is confined to the region between the vertical lines.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Figure 2.4 image exists at ch02 body[396]; MinerU emitted following caption text as separate paragraphs, leaving the figure excluded and unavailable to正文 refs."
+    },
+    {
+      "id": "bransden-atoms-fig-2.6-id",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[505]",
+      "set": {
+        "id": "fig-2.6",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Caption clearly labels this existing figure as 2.6; only the block id remained fallback positional.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "bransden-atoms-fig-2.10-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch02",
+      "selector": "body[1023]",
+      "position": "before",
+      "page": 129,
+      "clip": [
+        0.49,
+        0.24,
+        0.99,
+        0.72
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-2.10",
+        "kind": "line",
+        "caption": "2.10 Approximate eigenvalues given by the Rayleigh–Ritz variational method with linear trial functions. Each root $E_{i}^{(N)}$ of the determinantal equation [2.387] is an upper bound on the corresponding exact eigenvalue $E_{i}$ ."
+      },
+      "reason": "MinerU represented Figure 2.10's diagram as an equation block and separate caption text at ch02 body[1022-1023], so no figure catalog entry was produced; raw PDF page 129 contains the diagram above the caption."
+    },
+    {
+      "id": "bransden-atoms-fig-4.7-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[465]",
+      "set": {
+        "id": "fig-4.7",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Caption clearly labels this existing figure as 4.7; only the block id remained fallback positional.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "bransden-atoms-fig-a2.1-id",
+      "action": "set_fields",
+      "chunk": "app1",
+      "selector": "body[98]",
+      "set": {
+        "id": "fig-A2.1",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Appendix figure block exists and caption labels it A2.1; set semantic id to satisfy正文 ref.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    },
+    {
+      "id": "bransden-atoms-fig-a2.2-id",
+      "action": "set_fields",
+      "chunk": "app2",
+      "selector": "body[28]",
+      "set": {
+        "id": "fig-A2.2",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Appendix figure block exists and caption labels it A2.2; set semantic id to satisfy正文 refs.",
+      "unset": [
+        "catalog_exclude_reason"
+      ]
+    }
+  ]
+}

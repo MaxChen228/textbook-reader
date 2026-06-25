@@ -1,0 +1,156 @@
+slug: landau_lifshitz_classical_fields
+title: The Classical Theory of Fields
+author: L. D. Landau; E. M. Lifshitz
+edition: 4th
+subject: null
+publisher: Pergamon Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 7
+appendices_start_page: 404
+bibliography_start_page: null
+index_start_page: 404
+
+inline_problems: true
+problem_num_namespace_by_section: true
+
+chapters:
+  - num: 1
+    title: THE PRINCIPLE OF RELATIVITY
+    page_start: 7
+    page_end: 29
+    chapter_title_block_idx: 103
+    chapter_title_block_idx_secondary: 104
+    problems_block_idx: null
+    next_chapter_block_idx: 534
+  - num: 2
+    title: RELATIVISTIC MECHANICS
+    page_start: 30
+    page_end: 48
+    chapter_title_block_idx: 534
+    chapter_title_block_idx_secondary: 535
+    problems_block_idx: null
+    next_chapter_block_idx: 950
+  - num: 3
+    title: CHARGES IN ELECTROMAGNETIC FIELDS
+    page_start: 49
+    page_end: 71
+    chapter_title_block_idx: 950
+    chapter_title_block_idx_secondary: 951
+    problems_block_idx: null
+    next_chapter_block_idx: 1430
+  - num: 4
+    title: THE ELECTROMAGNETIC FIELD EQUATIONS
+    page_start: 72
+    page_end: 94
+    chapter_title_block_idx: 1430
+    chapter_title_block_idx_secondary: 1431
+    problems_block_idx: null
+    next_chapter_block_idx: 1924
+  - num: 5
+    title: CONSTANT ELECTROMAGNETIC FIELDS
+    page_start: 95
+    page_end: 114
+    chapter_title_block_idx: 1924
+    chapter_title_block_idx_secondary: 1925
+    problems_block_idx: null
+    next_chapter_block_idx: 2370
+  - num: 6
+    title: ELECTROMAGNETIC WAVES
+    page_start: 115
+    page_end: 135
+    chapter_title_block_idx: 2370
+    chapter_title_block_idx_secondary: 2371
+    problems_block_idx: null
+    next_chapter_block_idx: 2886
+  - num: 7
+    title: THE PROPAGATION OF LIGHT
+    page_start: 136
+    page_end: 164
+    chapter_title_block_idx: 2886
+    chapter_title_block_idx_secondary: 2887
+    problems_block_idx: null
+    next_chapter_block_idx: 3401
+  - num: 8
+    title: THE FIELD OF MOVING CHARGES
+    page_start: 165
+    page_end: 176
+    chapter_title_block_idx: 3401
+    chapter_title_block_idx_secondary: 3402
+    problems_block_idx: null
+    next_chapter_block_idx: 3642
+  - num: 9
+    title: RADIATION OF ELECTROMAGNETIC WAVES
+    page_start: 177
+    page_end: 231
+    chapter_title_block_idx: 3642
+    chapter_title_block_idx_secondary: 3643
+    problems_block_idx: null
+    next_chapter_block_idx: 4785
+  - num: 10
+    title: PARTICLE IN A GRAVITATIONAL FIELD
+    page_start: 232
+    page_end: 264
+    chapter_title_block_idx: 4785
+    chapter_title_block_idx_secondary: 4786
+    problems_block_idx: null
+    next_chapter_block_idx: 5467
+  - num: 11
+    title: THE GRAVITATIONAL FIELD EQUATIONS
+    page_start: 265
+    page_end: 300
+    chapter_title_block_idx: 5467
+    chapter_title_block_idx_secondary: 5468
+    problems_block_idx: null
+    next_chapter_block_idx: 6191
+  - num: 12
+    title: THE FIELD OF GRAVITATING BODIES
+    page_start: 301
+    page_end: 350
+    chapter_title_block_idx: 6191
+    chapter_title_block_idx_secondary: 6192
+    problems_block_idx: null
+    next_chapter_block_idx: 7181
+  - num: 13
+    title: GRAVITATIONAL WAVES
+    page_start: 351
+    page_end: 363
+    chapter_title_block_idx: 7181
+    chapter_title_block_idx_secondary: 7182
+    problems_block_idx: null
+    next_chapter_block_idx: 7457
+  - num: 14
+    title: RELATIVISTIC COSMOLOGY
+    page_start: 364
+    page_end: 403
+    chapter_title_block_idx: 7457
+    problems_block_idx: null
+    next_chapter_block_idx: 8285
+
+appendices: []
+
+section_re: '^§\s*(\d+)\.\s+(.+)$'
+subsection_re: '^§\s*(\d+\.\d+)\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_start_re: '(?i)^PROBLEMS?$'
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

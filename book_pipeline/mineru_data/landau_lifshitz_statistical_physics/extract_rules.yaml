@@ -1,0 +1,171 @@
+slug: landau_lifshitz_statistical_physics
+title: "Statistical Physics, Part 1"
+author: "Lev D. Landau; Evgenii M. Lifshitz"
+edition: 3rd
+subject: Thermal Physics
+publisher: Pergamon Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 556
+bibliography_start_page: null
+index_start_page: 556
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "THE FUNDAMENTAL PRINCIPLES OF STATISTICAL PHYSICS"
+    page_start: 18
+    page_end: 50
+    chapter_title_block_idx: 208
+    chapter_title_block_idx_secondary: 209
+    problems_block_idx: null
+    next_chapter_block_idx: 616
+  - num: 2
+    title: THERMODYNAMIC QUANTITIES
+    page_start: 51
+    page_end: 95
+    chapter_title_block_idx: 616
+    chapter_title_block_idx_secondary: 617
+    problems_block_idx: null
+    next_chapter_block_idx: 1341
+  - num: 3
+    title: THE GIBBS DISTRIBUTION
+    page_start: 96
+    page_end: 127
+    chapter_title_block_idx: 1341
+    chapter_title_block_idx_secondary: 1342
+    problems_block_idx: null
+    next_chapter_block_idx: 1878
+  - num: 4
+    title: IDEAL GASES
+    page_start: 128
+    page_end: 174
+    chapter_title_block_idx: 1878
+    chapter_title_block_idx_secondary: 1879
+    problems_block_idx: null
+    next_chapter_block_idx: 2647
+  - num: 5
+    title: THE FERMI AND BOSE DISTRIBUTIONS
+    page_start: 175
+    page_end: 207
+    chapter_title_block_idx: 2647
+    chapter_title_block_idx_secondary: 2648
+    problems_block_idx: null
+    next_chapter_block_idx: 3213
+  - num: 6
+    title: SOLIDS
+    page_start: 208
+    page_end: 241
+    chapter_title_block_idx: 3213
+    chapter_title_block_idx_secondary: 3214
+    problems_block_idx: null
+    next_chapter_block_idx: 3732
+  - num: 7
+    title: NON-IDEAL GASES
+    page_start: 242
+    page_end: 267
+    chapter_title_block_idx: 3732
+    chapter_title_block_idx_secondary: 3733
+    problems_block_idx: null
+    next_chapter_block_idx: 4148
+  - num: 8
+    title: PHASE EQUILIBRIUM
+    page_start: 268
+    page_end: 279
+    chapter_title_block_idx: 4148
+    chapter_title_block_idx_secondary: 4149
+    problems_block_idx: null
+    next_chapter_block_idx: 4307
+  - num: 9
+    title: SOLUTIONS
+    page_start: 280
+    page_end: 321
+    chapter_title_block_idx: 4307
+    chapter_title_block_idx_secondary: 4308
+    problems_block_idx: null
+    next_chapter_block_idx: 4900
+  - num: 10
+    title: CHEMICAL REACTIONS
+    page_start: 322
+    page_end: 333
+    chapter_title_block_idx: 4900
+    chapter_title_block_idx_secondary: 4901
+    problems_block_idx: null
+    next_chapter_block_idx: 5084
+  - num: 11
+    title: PROPERTIES OF MATTER AT VERY HIGH DENSITY
+    page_start: 334
+    page_end: 349
+    chapter_title_block_idx: 5084
+    chapter_title_block_idx_secondary: 5085
+    problems_block_idx: null
+    next_chapter_block_idx: 5308
+  - num: 12
+    title: FLUCTUATIONS
+    page_start: 350
+    page_end: 417
+    chapter_title_block_idx: 5308
+    chapter_title_block_idx_secondary: 5309
+    problems_block_idx: null
+    next_chapter_block_idx: 6475
+  - num: 13
+    title: THE SYMMETRY OF CRYSTALS
+    page_start: 418
+    page_end: 462
+    chapter_title_block_idx: 6475
+    chapter_title_block_idx_secondary: 6476
+    problems_block_idx: null
+    next_chapter_block_idx: 7015
+  - num: 14
+    title: PHASE TRANSITIONS OF THE SECOND KIND AND CRITICAL PHENOMENA
+    page_start: 463
+    page_end: 533
+    chapter_title_block_idx: 7015
+    chapter_title_block_idx_secondary: 7016
+    problems_block_idx: null
+    next_chapter_block_idx: 8034
+  - num: 15
+    title: SURFACES
+    page_start: 534
+    page_end: 555
+    chapter_title_block_idx: 8034
+    chapter_title_block_idx_secondary: 8035
+    problems_block_idx: null
+    next_chapter_block_idx: 8378
+
+appendices: []
+
+section_re: '^§\s*(\d+)\.\s+(.+)$'
+subsection_re: '^(?!)()()$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:PROBLEM\.?\s+)?(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: '(?i)^SOLUTION\.?$'
+problems_start_re: '(?i)^PROBLEMS?$'
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,154 @@
+slug: greiner_relativistic_qm
+title: 'Relativistic Quantum Mechanics: Wave Equations'
+author: Walter Greiner
+edition: 3rd
+subject: Quantum Mechanics
+publisher: Springer
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 22
+appendices_start_page: null
+bibliography_start_page: null
+index_start_page: 438
+inline_problems: true
+chapters:
+- num: 1
+  title: 'Relativistic Wave Equation for Spin-0 Particles: The Klein-Gordon Equation and Its Applications'
+  page_start: 22
+  page_end: 119
+  chapter_title_block_idx: 111
+  problems_block_idx: null
+  next_chapter_block_idx: 1909
+- num: 2
+  title: 'A Wave Equation for Spin-1/2 Particles: The Dirac Equation'
+  page_start: 120
+  page_end: 147
+  chapter_title_block_idx: 1909
+  problems_block_idx: null
+  next_chapter_block_idx: 2406
+- num: 3
+  title: Lorentz Covariance of the Dirac Equation
+  page_start: 148
+  page_end: 169
+  chapter_title_block_idx: 2406
+  problems_block_idx: null
+  next_chapter_block_idx: 2848
+- num: 4
+  title: Spinors Under Spatial Reflection
+  page_start: 170
+  page_end: 171
+  chapter_title_block_idx: 2848
+  problems_block_idx: null
+  next_chapter_block_idx: 2877
+- num: 5
+  title: Bilinear Covariants of the Dirac Spinors
+  page_start: 172
+  page_end: 177
+  chapter_title_block_idx: 2877
+  problems_block_idx: null
+  next_chapter_block_idx: 2995
+- num: 6
+  title: 'Another Way of Constructing Solutions of the Free Dirac Equation: Construction by Lorentz Transformations'
+  page_start: 178
+  page_end: 197
+  chapter_title_block_idx: 2995
+  problems_block_idx: null
+  next_chapter_block_idx: 3322
+- num: 7
+  title: Projection Operators for Energy and Spin
+  page_start: 198
+  page_end: 203
+  chapter_title_block_idx: 3322
+  problems_block_idx: null
+  next_chapter_block_idx: 3407
+- num: 8
+  title: Wave Packets of Plane Dirac Waves
+  page_start: 204
+  page_end: 217
+  chapter_title_block_idx: 3407
+  problems_block_idx: null
+  next_chapter_block_idx: 3592
+- num: 9
+  title: 'Dirac Particles in External Fields: Examples and Problems'
+  page_start: 218
+  page_end: 281
+  chapter_title_block_idx: 3592
+  problems_block_idx: null
+  next_chapter_block_idx: 4616
+- num: 10
+  title: The Two-Centre Dirac Equation
+  page_start: 282
+  page_end: 297
+  chapter_title_block_idx: 4616
+  problems_block_idx: null
+  next_chapter_block_idx: 4886
+- num: 11
+  title: The Foldy-Wouthuysen Representation for Free Particles
+  page_start: 298
+  page_end: 311
+  chapter_title_block_idx: 4886
+  problems_block_idx: null
+  next_chapter_block_idx: 5111
+- num: 12
+  title: The Hole Theory
+  page_start: 312
+  page_end: 345
+  chapter_title_block_idx: 5111
+  problems_block_idx: null
+  next_chapter_block_idx: 5702
+- num: 13
+  title: Klein's Paradox
+  page_start: 346
+  page_end: 353
+  chapter_title_block_idx: 5702
+  problems_block_idx: null
+  next_chapter_block_idx: 5840
+- num: 14
+  title: The Weyl Equation – The Neutrino
+  page_start: 354
+  page_end: 367
+  chapter_title_block_idx: 5840
+  problems_block_idx: null
+  next_chapter_block_idx: 6068
+- num: 15
+  title: Wave Equations for Particles with Arbitrary Spins
+  page_start: 368
+  page_end: 409
+  chapter_title_block_idx: 6068
+  problems_block_idx: null
+  next_chapter_block_idx: 6878
+- num: 16
+  title: Lorentz Invariance and Relativistic Symmetry Principles
+  page_start: 410
+  page_end: 437
+  chapter_title_block_idx: 6878
+  problems_block_idx: null
+  next_chapter_block_idx: 7354
+appendices: []
+section_re: ^(?!(?:1\.1|1\.2|1\.3|1\.4|1\.5|1\.6|1\.7|1\.8|1\.9|1\.10|1\.11|1\.12|1\.13|1\.14|1\.15|1\.16|1\.17|1\.18|1\.19|1\.20|1\.21|1\.22|1\.23|1\.24|2\.1|2\.2|2\.3|2\.4|3\.1|3\.2|3\.3|5\.1|5\.2|6\.1|6\.2|6\.3|6\.4|6\.5|6\.6|8\.1|8\.2|8\.3|8\.4|8\.5|9\.1|9\.2|9\.3|9\.4|9\.5|9\.6|9\.7|9\.8|9\.9|9\.10|9\.11|9\.12|12\.1|12\.2|12\.3|12\.4|12\.5|12\.6|13\.1|14\.1|14\.2|14\.3|15\.1|15\.2|15\.3|15\.4|15\.5|15\.6|15\.7|15\.8|15\.9|15\.10|15\.11|15\.12|15\.13|15\.14|15\.15|15\.16|15\.17|15\.18|15\.19|15\.20|16\.1|16\.2|16\.3)\s)(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(1\.1|1\.2|1\.3|1\.4|1\.5|1\.6|1\.7|1\.8|1\.9|1\.10|1\.11|1\.12|1\.13|1\.14|1\.15|1\.16|1\.17|1\.18|1\.19|1\.20|1\.21|1\.22|1\.23|1\.24|2\.1|2\.2|2\.3|2\.4|3\.1|3\.2|3\.3|5\.1|5\.2|6\.1|6\.2|6\.3|6\.4|6\.5|6\.6|8\.1|8\.2|8\.3|8\.4|8\.5|9\.1|9\.2|9\.3|9\.4|9\.5|9\.6|9\.7|9\.8|9\.9|9\.10|9\.11|9\.12|12\.1|12\.2|12\.3|12\.4|12\.5|12\.6|13\.1|14\.1|14\.2|14\.3|15\.1|15\.2|15\.3|15\.4|15\.5|15\.6|15\.7|15\.8|15\.9|15\.10|15\.11|15\.12|15\.13|15\.14|15\.15|15\.16|15\.17|15\.18|15\.19|15\.20|16\.1|16\.2|16\.3)\s+(?:The\ Charged\ Klein\-Gordon\ Field|Derivation\ of\ the\ Field\ Equations\ for\ Wavefields|Determination\ of\ the\ Energy\-Momentum\ Tensor\ for\ a\ General\ Lagrange\ Density\ \$\\mathcal\{L\}\(\\psi_\{\\sigma\},\ \\partial\\psi_\{\\sigma\}/\\partial\ x\^\{\\mu\}\)\$|Lagrange\ Density\ and\ Energy\-Momentum\ Tensor\ of\ the\ Schrödinger\ Equation|Lorentz\ Invariance\ of\ the\ Klein\-Gordon\ Equation|C\ Parity|Lagrange\ Density\ and\ Energy\-Momentum\ Tensor\ of\ the\ Free\ Klein\-Gordon\ Equation\ in\ the\ Feshbach\-Villars\ Representation|The\ Hamiltonian\ in\ the\ Feshbach–Villars\ Representation|Solution\ of\ the\ Free\ Klein\-Gordon\ Equation\ in\ the\ Feshbach\-Villars\ Representation|Separation\ of\ Angular\ and\ Radial\ Parts\ of\ the\ Wave\ Function\ for\ the\ Stationary\ Klein\-Gordon\ Equation\ with\ a\ Coulomb\ Potential|Pionic\ Atom\ with\ Point\-Like\ Nucleus|Lagrange\ Density\ and\ Energy\-Momentum\ Tensor\ for\ a\ lein\-Gordon\ Particle\ in\ an\ Electromagnetic\ Field|Solution\ of\ the\ Klein\-Gordon\ Equation\ for\ the\ Potential\ of\ an\ Homogeneously\ Charged\ Sphere|The\ Solution\ of\ the\ Klein\-Gordon\ Equation\ for\ a\ Square\-Well\ Potential|Solution\ of\ the\ Klein\-Gordon\ Equation\ for\ an\ Exponential\ Potential|Solution\ of\ the\ Klein\-Gordon\ Equation\ for\ a\ Scalar\ \$1\ /\ r\$\ Potential|Basics\ of\ Pionic\ Atoms|Calculation\ of\ the\ Position\ Operator\ in\ the\ \$\\Phi\$\ Representation|Calculation\ of\ the\ Current\ Density\ in\ the\ \$\\Phi\$\ Representation\ for\ Particles\ and\ Antiparticles|Calculation\ of\ the\ Position\ Eigenfunctions\ in\ the\ Coordinate\ Representation|Mathematical\ Supplement:\ Modified\ Bessel\ Functions\ of\ the\ Second\ Type,\ \$K_\{\\nu\}\(z\)\$|The\ Kisslinger\ Potential|Evaluation\ of\ the\ Kisslinger\ Potential\ in\ Coordinate\ Space|Lorentz–Lorenz\ Effect\ in\ Electrodynamics\ and\ Its\ Analogy\ in\ Pion–Nucleon\ Scattering\ \(the\ Ericson–Ericson\ Correction\)|Representation\ of\ the\ Maxwell\ Equations\ in\ the\ Form\ of\ the\ Dirac\ Equation|Lagrange\ Density\ and\ Energy\-Momentum\ Tensor\ of\ the\ Free\ Dirac\ Equation|Calculation\ of\ the\ Energies\ of\ the\ Solutions\ to\ the\ Free\ Dirac\ Equation\ in\ the\ Canonical\ Formalism|Time\ Derivative\ of\ the\ Position\ and\ Momentum\ Operators\ for\ Dirac\ Particles\ in\ an\ Electromagnetic\ Field|Pauli's\ Fundamental\ Theorem:\ The\ 16\ Complete\ \$4\ \\times\ 4\$\ Matrices\ \$\\hat\{\\Gamma\}_A\$|Proof\ of\ the\ Coefficients\ \$\\hat\{\\sigma\}_\{\\alpha\ \\beta\}\$\ for\ the\ Infinitesimal\ Lorentz\ Transformation|Calculation\ of\ the\ Inverse\ Spinor\ Transformation\ Operators|Transformation\ Properties\ of\ Some\ Bilinear\ Expressions\ of\ Dirac\ Spinors|Majorana\ Representation\ of\ the\ Dirac\ Equation|Calculation\ of\ the\ Spinor\ Transformation\ Operator\ in\ Matrix\ Form|Calculation\ of\ the\ Spinor\ \$u\(p\ \+\ q\)\$\ by\ Means\ of\ a\ Lorentz\ Transformation\ from\ the\ Spinor\ \$u\(p\)\$\ of\ a\ Free\ Particle|Normalization\ of\ the\ Spinor\ \$\\omega\^\{r\}\(p\)\$|Proof\ of\ the\ Relation\ \$\\omega\^\{r\\dagger\}\(\\varepsilon_r\ p\)\\omega\^\{r'\}\(\\varepsilon_\{r'\}\ p\)\ =\ \\delta_\{rr'\}\(E\ /\ m_0\ c\^2\)\$|Independence\ of\ the\ Closure\ Relation\ from\ the\ Representation\ of\ the\ Dirac\ Spinors|Proof\ of\ Another\ Closure\ Relation\ for\ Dirac\ Spinors|The\ Gordon\ Decomposition|Calculation\ of\ the\ Expectation\ Value\ of\ a\ Velocity\ Operator|Calculation\ of\ the\ Norm\ of\ a\ Wave\ Packet|Calculation\ of\ the\ Current\ for\ a\ Wave\ Packet|Temporal\ Development\ of\ a\ Wave\ Packet\ with\ Gaussian\ Density\ Distribution|Eigenvalue\ Spectrum\ of\ a\ Dirac\ Particle\ in\ a\ One\-Dimensional\ Square\-Well\ Potential|Eigenvalues\ of\ the\ Dirac\ Equation|Separation\ of\ the\ Variables\ for\ the\ Dirac\ Equation\ with\ Central\ Potential\ \(Minimally\ Coupled\)|Commutation\ of\ the\ Total\ Angular\ Momentum\ Operator\ with\ the\ Hamiltonian\ in\ a\ Spherically\ Symmetric\ Potential|A\ Dirac\ Particle\ in\ a\ Spherical\ Potential\ Box|Solution\ of\ the\ Radial\ Equations\ for\ a\ Dirac\ Particle\ in\ a\ Coulomb\ Potential|Discuss\ the\ Sommerfeld\ Fine\-Structure\ Formula\ and\ the\ Classification\ of\ the\ Electron\ Levels\ in\ the\ Dirac\ Theory|Solution\ of\ the\ Dirac\ Equation\ for\ a\ Coulomb\ and\ a\ Scalar\ Potential|Stationary\ Continuum\ States\ of\ a\ Dirac\ Particle\ in\ a\ Coulomb\ Field|Muonic\ Atoms|Dirac\ Equation\ for\ the\ Interaction\ Between\ a\ Nuclear\ and\ an\ External\ Field\ Taking\ Account\ of\ the\ Anomalous\ Magnetic\ Moment|The\ Impossibility\ of\ Additional\ Solutions\ for\ the\ Dirac\-Coulomb\ Problem\ Beyond\ \$Z\ =\ 118\$|Radiative\ Transition\ Probability\ from\ the\ Hydrogen\ Ground\ State\ to\ the\ States\ of\ Negative\ Energy|Expectation\ Values\ of\ Some\ Operators\ in\ Charge\-Conjugate\ States|Proof\ of\ \$\\langle\ \\hat\{H\}\ \(\-e\)\\rangle_\{\\mathrm\{c\}\}\ =\ \-\\langle\ \\hat\{H\}\(e\)\\rangle\$|Effect\ of\ Charge\ Conjugation\ on\ an\ Electron\ with\ Negative\ Energy|Representation\ of\ Operators\ for\ Charge\ Conjugation\ and\ Time\ Reversal|Behaviour\ of\ the\ Current\ with\ Time\ Reversal\ and\ Charge\ Conjugation|Klein's\ Paradox\ and\ the\ Hole\ Theory|Dirac\ Equation\ for\ Neutrinos|CP\ as\ a\ Symmetry\ for\ the\ Dirac\ Neutrino|Solutions\ of\ the\ Weyl\ Equation\ with\ Good\ Angular\ Momentum|Eigenvalue\ Equation\ for\ Multispinors|Multispinor\ \$\\omega\^\{\(\+\)\}\$\ as\ Eigenvector\ of\ \$\\hat\{\\Sigma\}\^2\$|Multispinor\ of\ Negative\ Energy|Construction\ of\ the\ Spinor\ \$\\omega_\{\\alpha\\beta\\ldots\\tau\}\^\{\(\+\)\}\(p,i\)\$|The\ Bargmann\-Wigner\ Equations|γ\ Matrices\ in\ the\ Weyl\ Representation|Commutation\ Relation\ of\ Kemmer\ Matrices|Properties\ of\ the\ Kemmer\ Equation\ Under\ Lorentz\ Transformation|Verification\ of\ the\ Kemmer\ Algebra|Verification\ of\ the\ Proca\ Equations\ from\ the\ Lagrange\ Density|Conserved\ Current\ of\ Vector\ Fields|Lorentz\ Covariance\ of\ Vector\ Field\ Theory|Maxwell\-Similar\ Form\ of\ the\ Vector\ Fields|Plane\ Waves\ for\ the\ Proca\ Equation|Transformation\ from\ the\ Kemmer\ to\ the\ Proca\ Representation|Lagrange\ Density\ for\ Kemmer\ Theory|The\ Weinberg\-Shay\-Good\ Equations|Lagrangian\ Density\ for\ the\ Weinberg\-Shay\-Good\ Theory|Coupling\ of\ Charged\ Vector\ Mesons\ to\ the\ Electromagnetic\ Field|A\ Useful\ Relation|Transformation\ Relations\ of\ the\ Rest\ Mass\ Under\ Dilatations|\$D\^\{1\}\$\ Representation\ of\ SU\(2\)|Vector\ Representation\ and\ Spin)$
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: ^(EXERCISE|EXAMPLE)$
+suppress_running_header_sections: true
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: ^(Fig\.|Figure)\s*([0-9]+(?:\.[0-9]+)?)\s*(.*)$
+known_missing_problems: []
+heading_text_level:
+- 1
+- 2

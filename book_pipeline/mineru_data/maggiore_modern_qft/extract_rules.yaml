@@ -1,0 +1,129 @@
+slug: maggiore_modern_qft
+title: A Modern Introduction to Quantum Field Theory
+author: Michele Maggiore
+edition: 1st
+subject: 量子場論
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 16
+appendices_start_page: 300
+bibliography_start_page: 300
+index_start_page: 302
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 16
+    page_end: 27
+    chapter_title_block_idx: 114
+    problems_block_idx: 236
+    next_chapter_block_idx: 247
+  - num: 2
+    title: Lorentz and Poincare symmetries in QFT
+    page_start: 28
+    page_end: 57
+    chapter_title_block_idx: 247
+    problems_block_idx: 705
+    next_chapter_block_idx: 729
+  - num: 3
+    title: Classical field theory
+    page_start: 58
+    page_end: 97
+    chapter_title_block_idx: 729
+    problems_block_idx: 1418
+    next_chapter_block_idx: 1439
+  - num: 4
+    title: Quantization of free fields
+    page_start: 98
+    page_end: 123
+    chapter_title_block_idx: 1439
+    problems_block_idx: 1820
+    next_chapter_block_idx: 1873
+  - num: 5
+    title: Perturbation theory and Feynman diagrams
+    page_start: 124
+    page_end: 169
+    chapter_title_block_idx: 1873
+    problems_block_idx: 2570
+    next_chapter_block_idx: 2594
+  - num: 6
+    title: Cross-sections and decay rates
+    page_start: 170
+    page_end: 194
+    chapter_title_block_idx: 2594
+    problems_block_idx: 2975
+    next_chapter_block_idx: 3018
+  - num: 7
+    title: Quantum electrodynamics
+    page_start: 195
+    page_end: 209
+    chapter_title_block_idx: 3018
+    problems_block_idx: 3233
+    next_chapter_block_idx: 3270
+  - num: 8
+    title: The low-energy limit of the electroweak theory
+    page_start: 210
+    page_end: 233
+    chapter_title_block_idx: 3270
+    problems_block_idx: 3647
+    next_chapter_block_idx: 3691
+  - num: 9
+    title: Path integral quantization
+    page_start: 234
+    page_end: 257
+    chapter_title_block_idx: 3691
+    problems_block_idx: null
+    next_chapter_block_idx: 4032
+  - num: 10
+    title: Non-abelian gauge theories
+    page_start: 258
+    page_end: 267
+    chapter_title_block_idx: 4032
+    problems_block_idx: null
+    next_chapter_block_idx: 4198
+  - num: 11
+    title: Spontaneous symmetry breaking
+    page_start: 268
+    page_end: 280
+    chapter_title_block_idx: 4198
+    problems_block_idx: null
+    next_chapter_block_idx: 4392
+  - num: 12
+    title: Solutions to exercises
+    page_start: 281
+    page_end: 299
+    chapter_title_block_idx: 4392
+    problems_block_idx: null
+    next_chapter_block_idx: 4724
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\((\d+\.\d+)\)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

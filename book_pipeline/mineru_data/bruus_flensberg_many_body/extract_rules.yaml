@@ -1,0 +1,188 @@
+slug: bruus_flensberg_many_body
+title: Many-Body Quantum Theory in Condensed Matter Physics
+author: Henrik Bruus; Karsten Flensberg
+edition: null
+subject: Condensed Matter Physics
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 396
+bibliography_start_page: null
+index_start_page: 446
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: First and Second Quantization
+    page_start: 21
+    page_end: 51
+    chapter_title_block_idx: 97
+    problems_block_idx: null
+    next_chapter_block_idx: 540
+  - num: 2
+    title: The Electron Gas
+    page_start: 52
+    page_end: 71
+    chapter_title_block_idx: 540
+    problems_block_idx: null
+    next_chapter_block_idx: 786
+  - num: 3
+    title: Phonons; Coupling to Electrons
+    page_start: 72
+    page_end: 85
+    chapter_title_block_idx: 786
+    problems_block_idx: null
+    next_chapter_block_idx: 960
+  - num: 4
+    title: Mean-Field Theory
+    page_start: 86
+    page_end: 99
+    chapter_title_block_idx: 960
+    problems_block_idx: null
+    next_chapter_block_idx: 1159
+  - num: 5
+    title: Time Dependence in Quantum Theory
+    page_start: 100
+    page_end: 111
+    chapter_title_block_idx: 1159
+    problems_block_idx: null
+    next_chapter_block_idx: 1338
+  - num: 6
+    title: Linear Response Theory
+    page_start: 112
+    page_end: 121
+    chapter_title_block_idx: 1338
+    problems_block_idx: null
+    next_chapter_block_idx: 1492
+  - num: 7
+    title: Transport in Mesoscopic Systems
+    page_start: 122
+    page_end: 139
+    chapter_title_block_idx: 1492
+    problems_block_idx: null
+    next_chapter_block_idx: 1737
+  - num: 8
+    title: Green's Functions
+    page_start: 140
+    page_end: 158
+    chapter_title_block_idx: 1737
+    problems_block_idx: null
+    next_chapter_block_idx: 2051
+  - num: 9
+    title: Equation of Motion Theory
+    page_start: 159
+    page_end: 170
+    chapter_title_block_idx: 2051
+    problems_block_idx: null
+    next_chapter_block_idx: 2239
+  - num: 10
+    title: Transport in Interacting Mesoscopic Systems
+    page_start: 171
+    page_end: 203
+    chapter_title_block_idx: 2239
+    problems_block_idx: null
+    next_chapter_block_idx: 2660
+  - num: 11
+    title: Imaginary-Time Green's Functions
+    page_start: 204
+    page_end: 223
+    chapter_title_block_idx: 2660
+    problems_block_idx: null
+    next_chapter_block_idx: 2957
+  - num: 12
+    title: Feynman Diagrams and External Potentials
+    page_start: 224
+    page_end: 245
+    chapter_title_block_idx: 2957
+    problems_block_idx: null
+    next_chapter_block_idx: 3227
+  - num: 13
+    title: Feynman Diagrams and Pair Interactions
+    page_start: 246
+    page_end: 265
+    chapter_title_block_idx: 3227
+    problems_block_idx: null
+    next_chapter_block_idx: 3467
+  - num: 14
+    title: The Interacting Electron Gas
+    page_start: 266
+    page_end: 285
+    chapter_title_block_idx: 3467
+    problems_block_idx: null
+    next_chapter_block_idx: 3745
+  - num: 15
+    title: Fermi Liquid Theory
+    page_start: 286
+    page_end: 304
+    chapter_title_block_idx: 3745
+    problems_block_idx: null
+    next_chapter_block_idx: 3997
+  - num: 16
+    title: Impurity Scattering and Conductivity
+    page_start: 305
+    page_end: 332
+    chapter_title_block_idx: 3997
+    problems_block_idx: null
+    next_chapter_block_idx: 4349
+  - num: 17
+    title: Green's Functions and Phonons
+    page_start: 333
+    page_end: 344
+    chapter_title_block_idx: 4349
+    problems_block_idx: null
+    next_chapter_block_idx: 4511
+  - num: 18
+    title: Superconductivity
+    page_start: 345
+    page_end: 366
+    chapter_title_block_idx: 4511
+    problems_block_idx: null
+    next_chapter_block_idx: 4826
+  - num: 19
+    title: 1D Electron Gases and Luttinger Liquids
+    page_start: 367
+    page_end: 395
+    chapter_title_block_idx: 4826
+    problems_block_idx: null
+    next_chapter_block_idx: 5253
+
+appendices:
+  - id: A
+    title: Fourier Transformations
+    page_start: 396
+    chapter_title_block_idx: 5253
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\s*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,135 @@
+slug: mahan_many_particle_physics
+title: Many-Particle Physics
+author: Gerald D. Mahan
+edition: 2nd
+subject: Condensed Matter Physics
+publisher: null
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 1014
+bibliography_start_page: 1014
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introductory Material
+    page_start: 14
+    page_end: 92
+    chapter_title_block_idx: 73
+    chapter_title_block_idx_secondary: 74
+    problems_block_idx: 1172
+    next_chapter_block_idx: 1225
+  - num: 2
+    title: Green's Functions at Zero Temperature
+    page_start: 93
+    page_end: 143
+    chapter_title_block_idx: 1225
+    chapter_title_block_idx_secondary: 1226
+    problems_block_idx: 1894
+    next_chapter_block_idx: 1913
+  - num: 3
+    title: Green's Functions at Finite Temperatures
+    page_start: 144
+    page_end: 249
+    chapter_title_block_idx: 1913
+    chapter_title_block_idx_secondary: 1914
+    problems_block_idx: 3332
+    next_chapter_block_idx: 3405
+  - num: 4
+    title: Exactly Solvable Models
+    page_start: 250
+    page_end: 389
+    chapter_title_block_idx: 3405
+    chapter_title_block_idx_secondary: 3406
+    problems_block_idx: 5114
+    next_chapter_block_idx: 5179
+  - num: 5
+    title: Electron Gas
+    page_start: 390
+    page_end: 507
+    chapter_title_block_idx: 5179
+    chapter_title_block_idx_secondary: 5180
+    problems_block_idx: 6446
+    next_chapter_block_idx: 6500
+  - num: 6
+    title: Electron-Phonon Interaction
+    page_start: 508
+    page_end: 611
+    chapter_title_block_idx: 6500
+    chapter_title_block_idx_secondary: 6501
+    problems_block_idx: 7503
+    next_chapter_block_idx: 7559
+  - num: 7
+    title: dc Conductivities
+    page_start: 612
+    page_end: 704
+    chapter_title_block_idx: 7559
+    problems_block_idx: 8553
+    next_chapter_block_idx: 8574
+  - num: 8
+    title: Optical Properties of Solids
+    page_start: 705
+    page_end: 776
+    chapter_title_block_idx: 8574
+    problems_block_idx: 9280
+    next_chapter_block_idx: 9307
+  - num: 9
+    title: Superconductivity
+    page_start: 777
+    page_end: 850
+    chapter_title_block_idx: 9307
+    chapter_title_block_idx_secondary: 9308
+    problems_block_idx: 10051
+    next_chapter_block_idx: 10083
+  - num: 10
+    title: Liquid Helium
+    page_start: 851
+    page_end: 966
+    chapter_title_block_idx: 10083
+    chapter_title_block_idx_secondary: 10084
+    problems_block_idx: 11111
+    next_chapter_block_idx: 11144
+  - num: 11
+    title: Spin Fluctuations
+    page_start: 967
+    page_end: 1013
+    chapter_title_block_idx: 11144
+    chapter_title_block_idx_secondary: 11145
+    problems_block_idx: 11623
+    next_chapter_block_idx: 12742
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^([A-Z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

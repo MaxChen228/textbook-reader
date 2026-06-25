@@ -1,0 +1,254 @@
+{
+  "overrides": [
+    {
+      "id": "meyer_matrix_analysis_applied-ch09-body-224-5873d8",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[224]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathbf { A }$",
+      "new": "$\\mathring {\\mathbf { A }}$",
+      "anchor": "702544e2"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch09-body-244-5873d8",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[244]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathbf { A }$",
+      "new": "$\\mathring {\\mathbf { A }}$",
+      "anchor": "2ca4b8e9"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch02-body-1551-15c486",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[1551]",
+      "expect": "\\longrightarrow \\left( \\begin{array}{c c c} 2 & 4 & 7 \\\\ 0 & 0 & - 1 / 2 \\\\ 0 & 2 & 1 \\end{array} \\right) \\underset {\\leftarrow} {\\leftarrow} _ {I n t e r c h a n g e R _ {2} a n d R _ {3}} \\longrightarrow \\left( \\begin{array}{c c c} 2 & 4 & 7 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & - 1 / 2 \\end{array} \\right) = \\mathbf {U}.",
+      "new": "\\longrightarrow \\left( \\begin{array}{c c c} 2 & 4 & 7 \\\\ 0 & 0 & - 1 / 2 \\\\ 0 & 2 & 1 \\end{array} \\right) {\\underset {\\leftarrow} {\\leftarrow}} _ {I n t e r c h a n g e R _ {2} a n d R _ {3}} \\longrightarrow \\left( \\begin{array}{c c c} 2 & 4 & 7 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & - 1 / 2 \\end{array} \\right) = \\mathbf {U}."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch06-problem-6-3-8-body-0-0be201",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "problem:6.3.8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { x } _ { n }  \\pm \\mathbf { G } _ { 1 } \\mathbf { x } _ { 0 } /  \\mathbf { G } _ { 1 } \\mathbf { x } _ { 0 }  _ { 2 }$",
+      "new": "$\\mathbf { x } _ { n }  \\pm \\mathbf { G } _ { 1 } \\mathbf { x } _ { 0 } /  \\mathbf { G } _ { 1 } \\mathbf { x } _ { 0 2 }$",
+      "anchor": "a08be513"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch01-body-540-30b599",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[540]",
+      "expect": "\\left( \\begin{array}{c c c} a _ {1 1} & a _ {1 2} & a _ {1 3} \\\\ \\framebox {a _ {2 1}} & a _ {2 2} & a _ {2 3} \\end{array} \\right) \\left( \\begin{array}{c c c c} b _ {1 1} & b _ {1 2} & \\framebox {b _ {1 3}} & b _ {1 4} \\\\ b _ {2 1} & b _ {2 2} & b _ {2 3} & b _ {2 4} \\\\ b _ {3 1} & b _ {3 2} & b _ {3 3} & b _ {3 4} \\end{array} \\right),",
+      "new": "\\left( \\begin{array}{c c c} a _ {1 1} & a _ {1 2} & a _ {1 3} \\\\ \\boxed {a _ {2 1}} & a _ {2 2} & a _ {2 3} \\end{array} \\right) \\left( \\begin{array}{c c c c} b _ {1 1} & b _ {1 2} & \\boxed {b _ {1 3}} & b _ {1 4} \\\\ b _ {2 1} & b _ {2 2} & b _ {2 3} & b _ {2 4} \\\\ b _ {3 1} & b _ {3 2} & b _ {3 3} & b _ {3 4} \\end{array} \\right),"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch01-body-1041-d26c12",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1041]",
+      "expect": "\\mu = \\left\\{ \\begin{array}{c l} 1 & \\text {if x_{i} is real} \\\\ x _ {i} / | x _ {i} | & \\text {if x_{i} is not real} \\end{array} \\right. \\quad \\text {and} \\quad \\mathbf {u} = \\mathbf {x} \\mp \\mu \\| \\mathbf {x} \\|   \\mathbf {e} _ {i}",
+      "new": "\\mu = \\left\\{ \\begin{array}{c l} 1 & \\text {if } x_{i} \\text { is real} \\\\ x _ {i} / | x _ {i} | & \\text {if } x_{i} \\text { is not real} \\end{array} \\right. \\quad \\text {and} \\quad \\mathbf {u} = \\mathbf {x} \\mp \\mu \\| \\mathbf {x} \\|   \\mathbf {e} _ {i}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch01-problem-1-10-17-body-5-69de34",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "problem:1.10.17:body[5]",
+      "expect": "\\alpha = \\frac {1}{1 - | x _ {1} |} \\quad \\text {and} \\quad \\mu = \\left\\{ \\begin{array}{c l} 1 & \\text {if x_{1} is real,} \\\\ x _ {1} / | x _ {1} | & \\text {if x_{1} is not real,} \\end{array} \\right.",
+      "new": "\\alpha = \\frac {1}{1 - | x _ {1} |} \\quad \\text {and} \\quad \\mu = \\left\\{ \\begin{array}{c l} 1 & \\text {if } x_{1} \\text { is real,} \\\\ x _ {1} / | x _ {1} | & \\text {if } x_{1} \\text { is not real,} \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch02-body-14-2e592f",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[14]",
+      "expect": "\\begin{array}{l} \\text {(iii)} \\text {Replace the j^{th} equation by a combination of itself plus a} \\\\ \\text {multiple of the i^{th} equation.} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(iii)} \\text {Replace the } j^{th} \\text { equation by a combination of itself plus a} \\\\ \\text {multiple of the } i^{th} \\text { equation.} \\end{array}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch03-body-68-7eb5e6",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[68]",
+      "expect": "\\begin{array}{r l} 0 \\in \\sigma (\\mathbf {A}) & \\Longleftrightarrow \\mathbf {A x} = \\mathbf {0} \\quad \\text {for some x\\neq 0} \\\\ & \\Longleftrightarrow N (\\mathbf {A}) \\neq \\mathbf {0} \\Longleftrightarrow \\mathbf {A} \\text {is singular (by Theorem 2.5.6, page 209).} \\end{array}",
+      "new": "\\begin{array}{r l} 0 \\in \\sigma (\\mathbf {A}) & \\Longleftrightarrow \\mathbf {A x} = \\mathbf {0} \\quad \\text {for some } x\\neq 0 \\\\ & \\Longleftrightarrow N (\\mathbf {A}) \\neq \\mathbf {0} \\Longleftrightarrow \\mathbf {A} \\text {is singular (by Theorem 2.5.6, page 209).} \\end{array}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch03-body-1027-679a1f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1027]",
+      "expect": "z _ {k} = \\left\\{ \\begin{array}{l l} \\cos \\big (t \\sqrt {\\lambda} _ {k} \\big) & \\text {if k = j} \\\\ 0 & \\text {if k\\neq j} \\end{array} \\right. \\implies \\mathbf {y} = \\Big (\\cos \\big (t \\sqrt {\\lambda} _ {k} \\big) \\Big) \\mathbf {x} _ {j}.",
+      "new": "z _ {k} = \\left\\{ \\begin{array}{l l} \\cos \\big (t \\sqrt {\\lambda} _ {k} \\big) & \\text {if } k = j \\\\ 0 & \\text {if } k\\neq j \\end{array} \\right. \\implies \\mathbf {y} = \\Big (\\cos \\big (t \\sqrt {\\lambda} _ {k} \\big) \\Big) \\mathbf {x} _ {j}."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch03-body-1140-d45c35",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1140]",
+      "expect": "\\mathbf {L} _ {1} = \\left\\{ \\begin{array}{l l} \\left( \\begin{array}{c c} 1 / \\sqrt {p _ {1}} & - \\mathbf {c} _ {1} ^ {T} / p _ {1} \\\\ \\mathbf {0} & \\mathbf {I} \\end{array} \\right) & \\text {if p_{1} >0}, \\\\ \\left( \\begin{array}{c c} 1 / \\sqrt {- p _ {1}} & - \\mathbf {c} _ {1} ^ {T} / p _ {1} \\\\ \\mathbf {0} & \\mathbf {I} \\end{array} \\right) & \\text {if p_{1} <  0}, \\end{array} \\right.",
+      "new": "\\mathbf {L} _ {1} = \\left\\{ \\begin{array}{l l} \\left( \\begin{array}{c c} 1 / \\sqrt {p _ {1}} & - \\mathbf {c} _ {1} ^ {T} / p _ {1} \\\\ \\mathbf {0} & \\mathbf {I} \\end{array} \\right) & \\text {if } p_{1} >0, \\\\ \\left( \\begin{array}{c c} 1 / \\sqrt {- p _ {1}} & - \\mathbf {c} _ {1} ^ {T} / p _ {1} \\\\ \\mathbf {0} & \\mathbf {I} \\end{array} \\right) & \\text {if } p_{1} <  0, \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch03-problem-3-1-8-body-1-c9b1e0",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.1.8:body[1]",
+      "expect": "\\delta_ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if i = j,} \\\\ 0 & \\text {if i\\neq j.} \\end{array} \\right.",
+      "new": "\\delta_ {i j} = \\left\\{ \\begin{array}{l l} 1 & \\text {if } i = j, \\\\ 0 & \\text {if } i\\neq j. \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch04-body-445-9689ee",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[445]",
+      "expect": "\\left[ \\mathbf {E} \\mathbf {E} ^ {T} \\right] _ {i j} = \\sum_ {k = 1} ^ {n} e _ {i k} e _ {j k} = \\left\\{ \\begin{array}{c l} - 1 & \\text {when N_{i} and N_{j} are directly connected}, \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\left[ \\mathbf {E} \\mathbf {E} ^ {T} \\right] _ {i j} = \\sum_ {k = 1} ^ {n} e _ {i k} e _ {j k} = \\left\\{ \\begin{array}{c l} - 1 & \\text {when } N_{i} \\text { and } N_{j} \\text { are directly connected}, \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch04-body-2073-2f3438",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[2073]",
+      "expect": "t ^ {j} \\mathrm{e} ^ {\\lambda t} = t ^ {j} \\mathrm{e} ^ {x t} \\left(\\cos y t + \\mathrm{i} \\sin y t\\right) \\to \\left\\{ \\begin{array}{l l} 0 & \\text {if x <   0 ,} \\\\ \\text {unbounded} & \\text {if x\\geq 0 and j > 0 ,} \\\\ \\text {oscillates indefinitely} & \\text {if x = j = 0 and y\\neq 0 ,} \\\\ 1 & \\text {if x = y = j = 0 .} \\end{array} \\right.",
+      "new": "t ^ {j} \\mathrm{e} ^ {\\lambda t} = t ^ {j} \\mathrm{e} ^ {x t} \\left(\\cos y t + \\mathrm{i} \\sin y t\\right) \\to \\left\\{ \\begin{array}{l l} 0 & \\text {if } x <   0 , \\\\ \\text {unbounded} & \\text {if } x\\geq 0 \\text { and } j > 0 , \\\\ \\text {oscillates indefinitely} & \\text {if } x = j = 0 \\text { and } y\\neq 0 , \\\\ 1 & \\text {if } x = y = j = 0 . \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch04-problem-4-2-38-body-3-c9d4b3",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:4.2.38:body[3]",
+      "expect": "\\frac {\\mathbf {x} ^ {T} \\mathbf {L x}}{4} = \\left\\{ \\begin{array}{l} \\text { the   minimum   number   of   edges   that   had   to } \\\\ \\text { have   been   removed   to   create   the   partition   (S, \\overline {{S }}).} \\end{array} \\right\\}",
+      "new": "\\frac {\\mathbf {x} ^ {T} \\mathbf {L x}}{4} = \\left\\{ \\begin{array}{l} \\text { the   minimum   number   of   edges   that   had   to } \\\\ \\text { have   been   removed   to   create   the   partition   } (S, \\overline {{S }}). \\end{array} \\right\\}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch05-body-180-1c2b7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[180]",
+      "expect": "\\mathbf {u} _ {k} = \\frac {\\mathbf {E} _ {k} \\cdots \\mathbf {E} _ {2} \\mathbf {E} _ {1} \\mathbf {x} _ {k}}{\\| \\mathbf {E} _ {k} \\cdots \\mathbf {E} _ {2} \\mathbf {E} _ {1} \\mathbf {x} _ {k} \\|} \\quad \\text {for k = 1,2,\\ldots,n.}",
+      "new": "\\mathbf {u} _ {k} = \\frac {\\mathbf {E} _ {k} \\cdots \\mathbf {E} _ {2} \\mathbf {E} _ {1} \\mathbf {x} _ {k}}{\\| \\mathbf {E} _ {k} \\cdots \\mathbf {E} _ {2} \\mathbf {E} _ {1} \\mathbf {x} _ {k} \\|} \\quad \\text {for } k = 1,2,\\ldots,n."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch05-body-527-f5a4e9",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[527]",
+      "expect": "\\langle \\mathbf {U} _ {i} | \\mathbf {U} _ {j} \\rangle = \\big \\langle \\mathbf {u} _ {i} \\mathbf {u} _ {i} ^ {*} \\big | \\mathbf {u} _ {j} \\mathbf {u} _ {j} ^ {*} \\big \\rangle = t r a c e \\left(\\mathbf {u} _ {i} [ \\mathbf {u} _ {i} ^ {*} \\mathbf {u} _ {j} ] \\mathbf {u} _ {j} ^ {*}\\right) = \\left\\{ \\begin{array}{l l} 1 & \\text {if i = j}, \\\\ 0 & \\text {if i\\neq j}. \\end{array} \\right.",
+      "new": "\\langle \\mathbf {U} _ {i} | \\mathbf {U} _ {j} \\rangle = \\big \\langle \\mathbf {u} _ {i} \\mathbf {u} _ {i} ^ {*} \\big | \\mathbf {u} _ {j} \\mathbf {u} _ {j} ^ {*} \\big \\rangle = t r a c e \\left(\\mathbf {u} _ {i} [ \\mathbf {u} _ {i} ^ {*} \\mathbf {u} _ {j} ] \\mathbf {u} _ {j} ^ {*}\\right) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } i = j, \\\\ 0 & \\text {if } i\\neq j. \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch05-body-553-41f01f",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[553]",
+      "expect": "q _ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   term   T_{i} appears   in   the   query,} \\\\ 0 & \\text { otherwise. } \\end{array} \\right.",
+      "new": "q _ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text { if   term   } T_{i} \\text { appears   in   the   query,} \\\\ 0 & \\text { otherwise. } \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch05-body-680-f5f105",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[680]",
+      "expect": "\\xi_ {k j} = \\left\\langle \\mathbf {v} _ {k} \\big | (\\mathbf {A} ^ {T}) _ {* j} \\right\\rangle = \\left\\{ \\begin{array}{l l} \\sigma_ {k} u _ {k j} & \\text {for k\\leq r}, \\\\ 0 & \\text {for k > r}. \\end{array} \\right.",
+      "new": "\\xi_ {k j} = \\left\\langle \\mathbf {v} _ {k} \\big | (\\mathbf {A} ^ {T}) _ {* j} \\right\\rangle = \\left\\{ \\begin{array}{l l} \\sigma_ {k} u _ {k j} & \\text {for } k\\leq r, \\\\ 0 & \\text {for } k > r. \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch05-body-1043-0f9d59",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[1043]",
+      "expect": "\\mathbf {D} \\longleftarrow \\left( \\begin{array}{c} 1 \\\\ \\mathrm{e} ^ {- \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\mathrm{e} ^ {- 2 \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\mathrm{e} ^ {- 3 \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\vdots \\\\ \\mathrm{e} ^ {- (2 ^ {j} - 1) \\pi \\mathrm{i} / 2 ^ {j}} \\end{array} \\right) _ {2 ^ {j} \\times 1} (\\text {Half of the (2^{j + 1})^{th} roots of 1},   \\text {perhaps from a lookup table})",
+      "new": "\\mathbf {D} \\longleftarrow \\left( \\begin{array}{c} 1 \\\\ \\mathrm{e} ^ {- \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\mathrm{e} ^ {- 2 \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\mathrm{e} ^ {- 3 \\pi \\mathrm{i} / 2 ^ {j}} \\\\ \\vdots \\\\ \\mathrm{e} ^ {- (2 ^ {j} - 1) \\pi \\mathrm{i} / 2 ^ {j}} \\end{array} \\right) _ {2 ^ {j} \\times 1} (\\text {Half of the } (2^{j + 1})^{th} \\text { roots of 1},   \\text {perhaps from a lookup table})"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch07-body-178-ad331a",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[178]",
+      "expect": "\\begin{array}{r l} c _ {j} = \\sum_ {i = 1} ^ {n} a _ {i j} & = \\text { total   number   of   all   units   required   to   make   one } J \\text {-unit} \\\\ & = \\text { total   number   of   dollars   spent   by } J \\text { to   create $1   of   revenue. } \\end{array}",
+      "new": "\\begin{array}{r l} c _ {j} = \\sum_ {i = 1} ^ {n} a _ {i j} & = \\text { total   number   of   all   units   required   to   make   one } J \\text {-unit} \\\\ & = \\text { total   number   of   dollars   spent   by } J \\text { to   create \\$1   of   revenue. } \\end{array}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch07-body-736-520e5b",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[736]",
+      "expect": "\\begin{array}{l} P (X _ {t + 1} = S _ {j} \\mid X _ {t} = S _ {i _ {t}}, X _ {t - 1} = S _ {i _ {t - 1}}, \\ldots , X _ {0} = S _ {i _ {0}}) \\\\ = P (X _ {t + 1} = S _ {j} \\mid X _ {t} = S _ {i _ {t}}) \\quad \\text { for each t = 0,1,2,\\ldots.} \\end{array}",
+      "new": "\\begin{array}{l} P (X _ {t + 1} = S _ {j} \\mid X _ {t} = S _ {i _ {t}}, X _ {t - 1} = S _ {i _ {t - 1}}, \\ldots , X _ {0} = S _ {i _ {0}}) \\\\ = P (X _ {t + 1} = S _ {j} \\mid X _ {t} = S _ {i _ {t}}) \\quad \\text { for each } t = 0,1,2,\\ldots. \\end{array}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch07-body-806-dcf33e",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[806]",
+      "expect": "Z _ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text {if the chain is in S_{j} after the i^{th} move,} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "Z _ {i} = \\left\\{ \\begin{array}{l l} 1 & \\text {if the chain is in } S_{j} \\text { after the } i^{th} \\text { move,} \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch07-body-934-394a5d",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[934]",
+      "expect": "Z _ {0} = \\left\\{ \\begin{array}{l l} 1 & \\text {if S_{i} = S_{j}}, \\\\ 0 & \\text {otherwise,} \\end{array} \\right. \\quad \\text {and} \\quad Z _ {k} = \\left\\{ \\begin{array}{l l} 1 & \\text {if the chain is in S_{j} after step k}, \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "Z _ {0} = \\left\\{ \\begin{array}{l l} 1 & \\text {if } S_{i} = S_{j}, \\\\ 0 & \\text {otherwise,} \\end{array} \\right. \\quad \\text {and} \\quad Z _ {k} = \\left\\{ \\begin{array}{l l} 1 & \\text {if the chain is in } S_{j} \\text { after step } k, \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch09-body-140-ea17c6",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[140]",
+      "expect": "\\nu_ {1} = \\| \\mathbf {x} _ {1} \\| _ {2} \\quad \\text { and } \\quad \\nu_ {k} = \\| (\\mathbf {I} - \\mathbf {P} _ {k}) \\mathbf {x} _ {k} \\| _ {2} \\quad \\text {(the projected height of \\mathbf {x} _ {k}).}",
+      "new": "\\nu_ {1} = \\| \\mathbf {x} _ {1} \\| _ {2} \\quad \\text { and } \\quad \\nu_ {k} = \\| (\\mathbf {I} - \\mathbf {P} _ {k}) \\mathbf {x} _ {k} \\| _ {2} \\quad \\text {(the projected height of } \\mathbf {x} _ {k}\\text {).}"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch09-body-207-7c42b3",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[207]",
+      "expect": "\\sum_ {j = 1} ^ {n} a _ {k j} \\mathring {\\mathrm{A}} _ {i j} = \\left\\{ \\begin{array}{c l} \\det \\left(\\mathbf {A}\\right) & \\text {if k = i ,} \\\\ 0 & \\text {if k\\neq i ,} \\end{array} \\right.",
+      "new": "\\sum_ {j = 1} ^ {n} a _ {k j} \\mathring {\\mathrm{A}} _ {i j} = \\left\\{ \\begin{array}{c l} \\det \\left(\\mathbf {A}\\right) & \\text {if } k = i , \\\\ 0 & \\text {if } k\\neq i , \\end{array} \\right."
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch07-body-955-e99af3",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[955]",
+      "field": "md",
+      "all": true,
+      "old": "$t _ { 1 } , t _ { 2 } , t _ { 3 } , \\ldots _ $",
+      "new": "$t _ { 1 } , t _ { 2 } , t _ { 3 } , \\ldots $",
+      "anchor": "83d68929"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch03-problem-3-1-26-body-1-dcd725",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.1.26:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\big ( \\mathbf { A } ^ { T } \\big ) \\big !$",
+      "new": "$\\big ( \\mathbf { A } ^ { T } \\big )!$",
+      "anchor": "5568eb7f"
+    },
+    {
+      "id": "meyer_matrix_analysis_applied-ch04-body-1873-4f532e",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[1873]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array}{c} \\mathbf { J } = { \\left( \\begin{array} { l l l } { 1 } & { 1 } & { } \\\\ { 0 } & { 1 } & { } \\\\ { 0 } & { 0 } & { } \\end{array} \\right) } \\quad { \\begin{array} { l } { 0 } \\\\ { 0 } \\\\ { 1 } \\end{array} } { \\end{array} }$",
+      "new": "$\\begin{array}{c} \\mathbf { J } = { \\left( \\begin{array} { l l l } { 1 } & { 1 } & { } \\\\ { 0 } & { 1 } & { } \\\\ { 0 } & { 0 } & { } \\end{array} \\right) } \\quad { \\begin{array} { l } { 0 } \\\\ { 0 } \\\\ { 1 } \\end{array} } \\end{array}$",
+      "anchor": "bc83ee70"
+    }
+  ]
+}

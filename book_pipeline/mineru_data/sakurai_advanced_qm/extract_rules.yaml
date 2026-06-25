@@ -1,0 +1,96 @@
+slug: sakurai_advanced_qm
+title: Advanced Quantum Mechanics
+author: J. J. Sakurai
+edition: 1st
+subject: Quantum Mechanics
+publisher: Addison-Wesley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 310
+bibliography_start_page: 332
+index_start_page: 334
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Classical Fields
+    page_start: 10
+    page_end: 28
+    chapter_title_block_idx: 44
+    chapter_title_block_idx_secondary: 45
+    problems_block_idx: 357
+    next_chapter_block_idx: 396
+  - num: 2
+    title: The Quantum Theory of Radiation
+    page_start: 29
+    page_end: 83
+    chapter_title_block_idx: 396
+    problems_block_idx: 1252
+    next_chapter_block_idx: 1326
+  - num: 3
+    title: Relativistic Quantum Mechanics of Spin-1/2 Particles
+    page_start: 84
+    page_end: 187
+    chapter_title_block_idx: 1326
+    problems_block_idx: 3010
+    next_chapter_block_idx: 3100
+  - num: 4
+    title: Covariant Perturbation Theory
+    page_start: 188
+    page_end: 309
+    chapter_title_block_idx: 3100
+    problems_block_idx: 4796
+    next_chapter_block_idx: 4888
+
+appendices:
+  - id: A
+    title: Electrodynamics in the Radiation (Coulomb) Gauge
+    page_start: 310
+    chapter_title_block_idx: 4888
+  - id: B
+    title: Gamma Matrices
+    page_start: 314
+    chapter_title_block_idx: 4958
+  - id: C
+    title: Pauli's Fundamental Theorem
+    page_start: 317
+    chapter_title_block_idx: 5018
+  - id: D
+    title: Formulas and Rules in Covariant Perturbation Theory
+    page_start: 321
+    chapter_title_block_idx: 5104
+  - id: E
+    title: Feynman Integrals; the Computations of the Self-Energy and the Anomalous Magnetic Moment of the Electron
+    page_start: 324
+    chapter_title_block_idx: 5160
+
+section_re: '^(\d+-\d+)\.\s+([A-Z][A-Z0-9 ,;:()''\-–/\\$]+)$'
+subsection_re: 'a^()()'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+-\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "ross_elementary_analysis-ch19-body-115-518ba1",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[115]",
+      "expect": "\\begin{array}{c} \\text {if (s_{n}) is a sequence in (a,b) converging} \\\\ \\text {to a, then (f(s_{n})) converges,} \\end{array}",
+      "new": "\\begin{array}{c} \\text {if } (s_{n}) \\text { is a sequence in (a,b) converging} \\\\ \\text {to a, then } (f(s_{n})) \\text { converges,} \\end{array}"
+    },
+    {
+      "id": "ross_elementary_analysis-ch17-problem-17-14-body-0-510c7a",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "problem:17.14:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$x\\in R\\setminusQ$",
+      "new": "$x\\in R\\setminus Q$",
+      "anchor": "daf8eb67"
+    },
+    {
+      "id": "ross_elementary_analysis-ch25-body-51-c3b272",
+      "action": "fix_inline_math",
+      "chunk": "ch25",
+      "selector": "body[51]",
+      "field": "md",
+      "all": true,
+      "old": "$S\\subseteqR$",
+      "new": "$S\\subseteq R$",
+      "anchor": "1026a548"
+    },
+    {
+      "id": "ross_elementary_analysis-ch27-body-13-67669c",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[13]",
+      "expect": "\\begin{array}{l} \\sum_ {k = 0} ^ {n} k \\binom {n} {k} x ^ {k} (1 - x) ^ {n - k} = n \\sum_ {k = 1} ^ {n} \\binom {n - 1} {k - 1} x ^ {k} (1 - x) ^ {n - k} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\sum_ {k = 0} ^ {n} k \\binom {n} {k} x ^ {k} (1 - x) ^ {n - k} = n \\sum_ {k = 1} ^ {n} \\binom {n - 1} {k - 1} x ^ {k} (1 - x) ^ {n - k} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "ross_elementary_analysis-ch35-body-34-d492a2",
+      "action": "fix_eq_tex",
+      "chunk": "ch35",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{l} m (f, [ a, b ]) \\cdot [ F (b) - F (a) ] \\leq L _ {F} (f, P) \\leq U _ {F} (f, P) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} m (f, [ a, b ]) \\cdot [ F (b) - F (a) ] \\leq L _ {F} (f, P) \\leq U _ {F} (f, P) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

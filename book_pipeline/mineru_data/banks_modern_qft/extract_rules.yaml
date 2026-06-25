@@ -1,0 +1,152 @@
+slug: banks_modern_qft
+title: "Modern Quantum Field Theory: A Concise Introduction"
+author: Thomas Banks
+edition: null
+subject: Quantum Field Theory
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 254
+bibliography_start_page: 271
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 10
+    page_end: 16
+    chapter_title_block_idx: 35
+    problems_block_idx: 90
+    next_chapter_block_idx: 91
+  - num: 2
+    title: Quantum theory of free scalar fields
+    page_start: 17
+    page_end: 25
+    chapter_title_block_idx: 91
+    problems_block_idx: 178
+    next_chapter_block_idx: 230
+  - num: 3
+    title: Interacting field theory
+    page_start: 26
+    page_end: 46
+    chapter_title_block_idx: 230
+    problems_block_idx: 496
+    next_chapter_block_idx: 516
+  - num: 4
+    title: Particles of spin 1, and gauge invariance
+    page_start: 47
+    page_end: 52
+    chapter_title_block_idx: 516
+    problems_block_idx: 584
+    next_chapter_block_idx: 591
+  - num: 5
+    title: Spin-1/2 particles and Fermi statistics
+    page_start: 53
+    page_end: 70
+    chapter_title_block_idx: 591
+    problems_block_idx: 795
+    next_chapter_block_idx: 833
+  - num: 6
+    title: Massive quantum electrodynamics
+    page_start: 71
+    page_end: 84
+    chapter_title_block_idx: 833
+    problems_block_idx: 1013
+    next_chapter_block_idx: 1028
+  - num: 7
+    title: Symmetries, Ward identities, and Nambu-Goldstone bosons
+    page_start: 85
+    page_end: 101
+    chapter_title_block_idx: 1028
+    problems_block_idx: 1206
+    next_chapter_block_idx: 1244
+  - num: 8
+    title: Non-abelian gauge theory
+    page_start: 102
+    page_end: 145
+    chapter_title_block_idx: 1244
+    problems_block_idx: 1784
+    next_chapter_block_idx: 1831
+  - num: 9
+    title: Renormalization and effective field theory
+    page_start: 146
+    page_end: 214
+    chapter_title_block_idx: 1831
+    problems_block_idx: 2659
+    next_chapter_block_idx: 2687
+  - num: 10
+    title: Instantons and solitons
+    page_start: 215
+    page_end: 250
+    chapter_title_block_idx: 2687
+    problems_block_idx: 3147
+    next_chapter_block_idx: 3164
+  - num: 11
+    title: Concluding remarks
+    page_start: 251
+    page_end: 253
+    chapter_title_block_idx: 3164
+    problems_block_idx: null
+    next_chapter_block_idx: 3181
+
+appendices:
+  - id: A
+    title: Books
+    page_start: 254
+    chapter_title_block_idx: 3181
+  - id: B
+    title: Cross sections
+    page_start: 256
+    chapter_title_block_idx: 3191
+  - id: C
+    title: Diracology
+    page_start: 257
+    chapter_title_block_idx: 3197
+  - id: D
+    title: Feynman rules
+    page_start: 260
+    chapter_title_block_idx: 3252
+  - id: E
+    title: Group theory and Lie algebras
+    page_start: 265
+    chapter_title_block_idx: 3326
+  - id: F
+    title: Everything else
+    page_start: 269
+    chapter_title_block_idx: 3368
+
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\\?\*?(\d+\.\d+)\.?\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\(((?:[A-Z]\.)?\d+(?:\.\d+)*)\)$'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

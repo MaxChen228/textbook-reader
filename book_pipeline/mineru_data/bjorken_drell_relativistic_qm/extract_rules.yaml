@@ -1,0 +1,125 @@
+slug: bjorken_drell_relativistic_qm
+title: Relativistic Quantum Mechanics
+author: J. D. Bjorken; S. D. Drell
+edition: null
+subject: Quantum Mechanics
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 289
+bibliography_start_page: null
+index_start_page: 299
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: The Dirac Equation
+    page_start: 13
+    page_end: 25
+    chapter_title_block_idx: 59
+    problems_block_idx: 233
+    next_chapter_block_idx: 241
+  - num: 2
+    title: Lorentz Covariance of the Dirac Equation
+    page_start: 26
+    page_end: 37
+    chapter_title_block_idx: 241
+    problems_block_idx: 440
+    next_chapter_block_idx: 451
+  - num: 3
+    title: Solutions to the Dirac Equation for a Free Particle
+    page_start: 38
+    page_end: 54
+    chapter_title_block_idx: 451
+    problems_block_idx: 659
+    next_chapter_block_idx: 671
+  - num: 4
+    title: The Foldy-Wouthuysen Transformation
+    page_start: 55
+    page_end: 72
+    chapter_title_block_idx: 671
+    problems_block_idx: 884
+    next_chapter_block_idx: 909
+  - num: 5
+    title: Hole Theory
+    page_start: 73
+    page_end: 85
+    chapter_title_block_idx: 909
+    problems_block_idx: 1039
+    next_chapter_block_idx: 1053
+  - num: 6
+    title: Propagator Theory
+    page_start: 86
+    page_end: 107
+    chapter_title_block_idx: 1053
+    problems_block_idx: 1314
+    next_chapter_block_idx: 1322
+  - num: 7
+    title: Applications
+    page_start: 108
+    page_end: 155
+    chapter_title_block_idx: 1322
+    problems_block_idx: 1920
+    next_chapter_block_idx: 1938
+  - num: 8
+    title: Higher-order Corrections to the Scattering Matrix
+    page_start: 156
+    page_end: 190
+    chapter_title_block_idx: 1938
+    problems_block_idx: 2361
+    next_chapter_block_idx: 2378
+  - num: 9
+    title: The Klein-Gordon Equation
+    page_start: 191
+    page_end: 216
+    chapter_title_block_idx: 2378
+    problems_block_idx: 2709
+    next_chapter_block_idx: 2727
+  - num: 10
+    title: Nonelectromagnetic Interactions
+    page_start: 217
+    page_end: 288
+    chapter_title_block_idx: 2727
+    problems_block_idx: 3650
+    next_chapter_block_idx: 3694
+
+appendices:
+  - id: A
+    title: Notation
+    page_start: 289
+    chapter_title_block_idx: 3694
+  - id: B
+    title: Rules for Feynman Graphs
+    page_start: 293
+    chapter_title_block_idx: 3788
+
+section_re: '^([0-9BlIl]{1,2}\.[0-9Il]+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:<sub>|<sup>)?([0-9IlZzOo]+)[\.,](?:</sub>|</sup>)?\s*'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

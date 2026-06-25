@@ -1,0 +1,94 @@
+slug: cohen_tannoudji_qm_vol1
+title: Quantum Mechanics Volume 1
+author: Claude Cohen-Tannoudji; Bernard Diu; Franck Laloe
+edition: 2nd
+subject: Quantum Mechanics
+publisher: Wiley-VCH
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 924
+bibliography_start_page: null
+index_start_page: 924
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Waves and particles. Introduction to the fundamental ideas of quantum mechanics
+    page_start: 24
+    page_end: 109
+    chapter_title_block_idx: 123
+    chapter_title_block_idx_secondary: 124
+    problems_block_idx: null
+    next_chapter_block_idx: 1267
+  - num: 2
+    title: The mathematical tools of quantum mechanics
+    page_start: 110
+    page_end: 235
+    chapter_title_block_idx: 1267
+    chapter_title_block_idx_secondary: 1268
+    problems_block_idx: null
+    next_chapter_block_idx: 3518
+  - num: 3
+    title: The postulates of quantum mechanics
+    page_start: 236
+    page_end: 415
+    chapter_title_block_idx: 3518
+    chapter_title_block_idx_secondary: 3519
+    problems_block_idx: null
+    next_chapter_block_idx: 6269
+  - num: 4
+    title: "Application of the postulates to simple cases: spin 1/2 and two-level systems"
+    page_start: 416
+    page_end: 519
+    chapter_title_block_idx: 6269
+    chapter_title_block_idx_secondary: 6270
+    problems_block_idx: null
+    next_chapter_block_idx: 7669
+  - num: 5
+    title: The one-dimensional harmonic oscillator
+    page_start: 520
+    page_end: 689
+    chapter_title_block_idx: 7669
+    chapter_title_block_idx_secondary: 7670
+    problems_block_idx: null
+    next_chapter_block_idx: 10369
+  - num: 6
+    title: General properties of angular momentum in quantum mechanics
+    page_start: 690
+    page_end: 923
+    chapter_title_block_idx: 10369
+    chapter_title_block_idx_secondary: 10370
+    problems_block_idx: null
+    next_chapter_block_idx: 14333
+
+section_re: '^((?:Complement.*\$)|(?:References(?: and suggestions for further reading:)?\:?)|(?:REVISITING ONE-DIMENSIONAL PROBLEMS)|(?:CONCLUSION)|(?:[A-Z]\.))\s*(.*)$'
+subsection_re: '^([A-Z]-\d+(?:-[a-z])?|\d+-[a-z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: '^Exercises$'
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z0-9]+(?:-[A-Z0-9]+)*[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,120 @@
+slug: schroeder_thermal_physics
+title: "An Introduction to Thermal Physics"
+author: "Daniel V. Schroeder"
+edition: null
+subject: "Thermal Physics"
+publisher: "Addison-Wesley"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 368
+bibliography_start_page: 408
+index_start_page: 417
+
+inline_problems: true
+suppress_running_header_sections: true
+
+chapters:
+  - num: 1
+    title: "Energy in Thermal Physics"
+    page_start: 12
+    page_end: 59
+    chapter_title_block_idx: 66
+    problems_block_idx: null
+    next_chapter_block_idx: 684
+  - num: 2
+    title: "The Second Law"
+    page_start: 60
+    page_end: 95
+    chapter_title_block_idx: 684
+    problems_block_idx: null
+    next_chapter_block_idx: 1158
+  - num: 3
+    title: "Interactions and Implications"
+    page_start: 96
+    page_end: 132
+    chapter_title_block_idx: 1158
+    problems_block_idx: null
+    next_chapter_block_idx: 1614
+  - num: 4
+    title: "Engines and Refrigerators"
+    page_start: 133
+    page_end: 159
+    chapter_title_block_idx: 1614
+    problems_block_idx: null
+    next_chapter_block_idx: 1908
+  - num: 5
+    title: "Free Energy and Chemical Thermodynamics"
+    page_start: 160
+    page_end: 230
+    chapter_title_block_idx: 1908
+    problems_block_idx: null
+    next_chapter_block_idx: 2827
+  - num: 6
+    title: "Boltzmann Statistics"
+    page_start: 231
+    page_end: 267
+    chapter_title_block_idx: 2827
+    problems_block_idx: null
+    next_chapter_block_idx: 3344
+  - num: 7
+    title: "Quantum Statistics"
+    page_start: 268
+    page_end: 337
+    chapter_title_block_idx: 3344
+    problems_block_idx: null
+    next_chapter_block_idx: 4252
+  - num: 8
+    title: "Systems of Interacting Particles"
+    page_start: 338
+    page_end: 367
+    chapter_title_block_idx: 4252
+    problems_block_idx: null
+    next_chapter_block_idx: 4594
+
+appendices:
+  - id: A
+    title: "Elements of Quantum Mechanics"
+    page_start: 368
+    chapter_title_block_idx: 4594
+  - id: B
+    title: "Mathematical Results"
+    page_start: 395
+    chapter_title_block_idx: 4899
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(?!(?:Problem|Chapter)\b)((?:[A-Z][A-Za-z’''-]+(?:\s+|$)){1,8})(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\.(?:$|\s+(?!(?:The\s+result\s+is|it\s+is\s+not\s+really\s+necessary)\b).*)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems:
+  - chapter: 4
+    nums:
+      - "4.5"
+      - "4.18"
+      - "4.29"

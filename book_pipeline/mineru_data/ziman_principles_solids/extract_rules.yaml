@@ -1,0 +1,122 @@
+slug: ziman_principles_solids
+title: Principles of the Theory of Solids
+author: J. M. Ziman
+edition: 2nd
+subject: Solid State Physics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 428
+bibliography_start_page: 428
+index_start_page: 438
+
+chapters:
+  - num: 1
+    title: Periodic Structures
+    page_start: 14
+    page_end: 39
+    chapter_title_block_idx: 57
+    problems_block_idx: null
+    next_chapter_block_idx: 428
+  - num: 2
+    title: Lattice Waves
+    page_start: 40
+    page_end: 89
+    chapter_title_block_idx: 428
+    problems_block_idx: null
+    next_chapter_block_idx: 1088
+  - num: 3
+    title: Electron States
+    page_start: 90
+    page_end: 131
+    chapter_title_block_idx: 1088
+    problems_block_idx: null
+    next_chapter_block_idx: 1576
+  - num: 4
+    title: Static Properties of Solids
+    page_start: 132
+    page_end: 158
+    chapter_title_block_idx: 1576
+    problems_block_idx: null
+    next_chapter_block_idx: 1878
+  - num: 5
+    title: Electron-Electron Interaction
+    page_start: 159
+    page_end: 183
+    chapter_title_block_idx: 1878
+    problems_block_idx: null
+    next_chapter_block_idx: 2225
+  - num: 6
+    title: Dynamics of Electrons
+    page_start: 184
+    page_end: 223
+    chapter_title_block_idx: 2225
+    problems_block_idx: null
+    next_chapter_block_idx: 2738
+  - num: 7
+    title: Transport Properties
+    page_start: 224
+    page_end: 267
+    chapter_title_block_idx: 2738
+    problems_block_idx: null
+    next_chapter_block_idx: 3407
+  - num: 8
+    title: Optical Properties
+    page_start: 268
+    page_end: 304
+    chapter_title_block_idx: 3407
+    problems_block_idx: null
+    next_chapter_block_idx: 3914
+  - num: 9
+    title: The Fermi Surface
+    page_start: 305
+    page_end: 341
+    chapter_title_block_idx: 3914
+    problems_block_idx: null
+    next_chapter_block_idx: 4391
+  - num: 10
+    title: Magnetism
+    page_start: 342
+    page_end: 391
+    chapter_title_block_idx: 4391
+    problems_block_idx: null
+    next_chapter_block_idx: 5055
+  - num: 11
+    title: Superconductivity
+    page_start: 392
+    page_end: 427
+    chapter_title_block_idx: 5055
+    problems_block_idx: null
+    next_chapter_block_idx: 5522
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

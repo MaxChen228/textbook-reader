@@ -1,0 +1,41 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "de-gennes-fig-6.5-subfigure-aliases",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[183]",
+      "expect": {
+        "id": "fig-8.5"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-6.5a",
+            "type": "figure",
+            "caption": "Figure 6.5a",
+            "source": "agent-catalog-audit",
+            "evidence": "body[170] references Fig. 6-5a; this nearby visual's caption describes panel (a) as the plot of both sides of Eq. (6-61)."
+          },
+          {
+            "id": "fig-6.5b",
+            "type": "figure",
+            "caption": "Figure 6.5b",
+            "source": "agent-catalog-audit",
+            "evidence": "body[170] references Fig. 6-5b; this same nearby visual's caption describes panel (b) as the order parameter at the first-order transition versus epsilon."
+          },
+          {
+            "id": "fig-6.5c",
+            "type": "figure",
+            "caption": "Figure 6.5c",
+            "source": "agent-catalog-audit",
+            "evidence": "body[177] references Fig. 6-5c; this same nearby visual's caption describes panel (c) as tunneling measurement of the energy gap versus magnetic field."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Figure 6-5 is a three-panel visual emitted with OCR id fig-8.5 in ch06;正文 demands subfigure refs 6.5a/6.5b/6.5c. Add explicit aliases so catalog covers all three refs without changing the reader anchor."
+    }
+  ]
+}

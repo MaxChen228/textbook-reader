@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "schwabl-qm-fig-14.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[18]",
+      "position": "after",
+      "page": 266,
+      "clip": [0.10, 0.47, 0.97, 0.64],
+      "zoom": 3.0,
+      "src": "manual_fig-14.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-14.1",
+        "kind": "line",
+        "caption": "Fig. 14.1. The “Anomalous” Zeeman effect. The levels l ± 1/2 are split by the field into 2l + 2 and 2l levels"
+      },
+      "reason": "MinerU omitted Figure 14.1; raw PDF physical page 266 contains the diagram and caption immediately after the referring paragraph."
+    },
+    {
+      "id": "schwabl-qm-fig-15.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "body[65]",
+      "position": "after",
+      "page": 281,
+      "clip": [0.10, 0.07, 0.97, 0.17],
+      "zoom": 3.0,
+      "src": "manual_fig-15.1.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-15.1",
+        "kind": "line",
+        "caption": "Fig. 15.1. The ionized hydrogen molecule"
+      },
+      "reason": "MinerU omitted Figure 15.1; raw PDF physical page 281 shows the ionized hydrogen molecule diagram and caption."
+    },
+    {
+      "id": "schwabl-qm-fig-20.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch20",
+      "selector": "body[289]",
+      "position": "after",
+      "page": 391,
+      "clip": [0.10, 0.36, 0.97, 0.47],
+      "zoom": 3.0,
+      "src": "manual_fig-20.3.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-20.3",
+        "kind": "line",
+        "caption": "Fig. 20.3. Two Stern–Gerlach apparatuses SG1 and SG2 in series"
+      },
+      "reason": "MinerU omitted Figure 20.3; raw PDF physical page 391 contains the two Stern–Gerlach apparatuses diagram and caption."
+    }
+  ]
+}

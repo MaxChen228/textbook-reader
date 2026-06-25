@@ -1,0 +1,152 @@
+slug: svelto_lasers
+title: Principles of Lasers
+author: Orazio Svelto
+edition: 5th
+subject: Optics
+publisher: Springer
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 18
+appendices_start_page: 556
+bibliography_start_page: 592
+index_start_page: 610
+inline_problems: false
+chapters:
+- num: 1
+  title: Introductory Concepts
+  page_start: 18
+  page_end: 32
+  chapter_title_block_idx: 101
+  problems_block_idx: 244
+  next_chapter_block_idx: 254
+- num: 2
+  title: Interaction of Radiation with Atoms and Ions
+  page_start: 33
+  page_end: 96
+  chapter_title_block_idx: 254
+  problems_block_idx: 979
+  next_chapter_block_idx: 1034
+- num: 3
+  title: Energy Levels, Radiative and Nonradiative Transitions in Molecules and Semiconductors
+  page_start: 96
+  page_end: 146
+  chapter_title_block_idx: 1034
+  problems_block_idx: 1495
+  next_chapter_block_idx: 1538
+- num: 4
+  title: Ray and Wave Propagation Through Optical Media
+  page_start: 146
+  page_end: 176
+  chapter_title_block_idx: 1538
+  problems_block_idx: 1886
+  next_chapter_block_idx: 1920
+- num: 5
+  title: Passive Optical Resonators
+  page_start: 177
+  page_end: 217
+  chapter_title_block_idx: 1920
+  problems_block_idx: 2333
+  next_chapter_block_idx: 2382
+- num: 6
+  title: Pumping Processes
+  page_start: 218
+  page_end: 266
+  chapter_title_block_idx: 2382
+  problems_block_idx: 2765
+  next_chapter_block_idx: 2821
+- num: 7
+  title: Continuous Wave Laser Behavior
+  page_start: 267
+  page_end: 323
+  chapter_title_block_idx: 2821
+  problems_block_idx: 3340
+  next_chapter_block_idx: 3408
+- num: 8
+  title: Q-Switching, Cavity Dumping, and Mode-Locking
+  page_start: 323
+  page_end: 384
+  chapter_title_block_idx: 3408
+  problems_block_idx: 3929
+  next_chapter_block_idx: 3998
+- num: 9
+  title: Solid-State, Dye, and Semiconductor Lasers
+  page_start: 385
+  page_end: 440
+  chapter_title_block_idx: 3998
+  problems_block_idx: 4406
+  next_chapter_block_idx: 4486
+- num: 10
+  title: Gas, Chemical, Free Electron, and X-Ray Lasers
+  page_start: 441
+  page_end: 483
+  chapter_title_block_idx: 4486
+  problems_block_idx: 4785
+  next_chapter_block_idx: 4837
+- num: 11
+  title: Properties of Laser Beams
+  page_start: 485
+  page_end: 514
+  chapter_title_block_idx: 4838
+  problems_block_idx: 5173
+  next_chapter_block_idx: 5200
+- num: 12
+  title: 'Laser Beam Transformation: Propagation, Amplification, Frequency Conversion, Pulse Compression and Pulse Expansion'
+  page_start: 515
+  page_end: 556
+  chapter_title_block_idx: 5200
+  problems_block_idx: 5619
+  next_chapter_block_idx: 5672
+appendices:
+- id: A
+  title: Semiclassical Treatment of the Interaction of Radiation with Matter
+  chapter_title_block_idx: 5672
+- id: B
+  title: Lineshape Calculation for Collision Broadening
+  chapter_title_block_idx: 5753
+- id: C
+  title: Simplified Treatment of Amplified Spontaneous Emission
+  chapter_title_block_idx: 5790
+- id: D
+  title: Space Dependent Rate Equations
+  chapter_title_block_idx: 5867
+- id: E
+  title: 'Theory of Mode-Locking: Homogeneous Line'
+  chapter_title_block_idx: 6007
+- id: F
+  title: Propagation of a Laser Pulse Through a Dispersive Medium or a Gain Medium
+  chapter_title_block_idx: 6105
+- id: G
+  title: Numerical Examples of Pulse Compressors
+  chapter_title_block_idx: 6176
+- id: H
+  title: Tables of Physical Constants
+  chapter_title_block_idx: 6208
+section_re: ^(\d+\.\d+)\.?\s+(?!Prove\b|Consider\b|Assuming\b|Using\b|Derive\b|Show\b|Calculate\b|List\b|Repeat\b|From\b)([A-Z][A-Za-z][A-Za-z
+  ,:\-\(\)]+)$
+subsection_re: ^(\d+\.\d+\.\d+)\.?\s+(?!Prove\b|Consider\b|Assuming\b|Using\b|Derive\b|Show\b|Calculate\b|List\b|Repeat\b|From\b)([A-Z][A-Za-z][A-Za-z
+  ,:\-\(\)]+)$
+heading_priority:
+- subsection_re
+- section_re
+example_start_re: ^(\d+\.\d+)\.\s+
+problem_start_re: ^(\d+\.\d+)\.\s+
+problem_chapter_must_match: true
+problems_end_re: ^(References|Appendix\s+[A-Z]|Index|Answers to Selected Problems)\b
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+known_missing_problems:
+- chapter: 5
+  nums:
+  - '5.1'
+- chapter: 10
+  nums:
+  - '10.1'
+  - '10.2'
+  - '10.3'

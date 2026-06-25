@@ -1,0 +1,135 @@
+{
+  "overrides": [
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch02-body-386-0062fd",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[386]",
+      "expect": "\\left( \\right.\\lambda_ {1} \\left<   \\psi_ {1} \\left. \\right| + \\lambda_ {2} \\left<   \\psi_ {2} \\left. \\right|\\left. \\right) A ^ {\\dagger} = \\lambda_ {1} \\left<   \\psi_ {1} \\left. \\right| A ^ {\\dagger} + \\lambda_ {2} \\left<   \\psi_ {2} \\left. \\right| A ^ {\\dagger}",
+      "new": "\\left( \\lambda_ {1} \\left< \\psi_ {1} \\right| + \\lambda_ {2} \\left< \\psi_ {2} \\right| \\right) A ^ {\\dagger} = \\lambda_ {1} \\left< \\psi_ {1} \\right| A ^ {\\dagger} + \\lambda_ {2} \\left< \\psi_ {2} \\right| A ^ {\\dagger}"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch02-body-428-d026d4",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[428]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda \\left. u \\mid A \\mid v \\right. \\mid w \\right. \\left. \\psi \\mid$",
+      "new": "$\\lambda \\left. u \\mid A \\mid v \\right. \\mid w \\psi \\mid$",
+      "anchor": "42f10240"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch02-body-428-5afe91",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[428]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda ^ { * } \\left. v \\mid A ^ { \\dagger } \\mid u \\right. \\mid \\psi \\right. \\left. w \\mid$",
+      "new": "$\\lambda ^ { * } \\left. v \\mid A ^ { \\dagger } \\mid u \\right. \\mid \\psi w \\mid$",
+      "anchor": "42f10240"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch02-body-694-82e726",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[694]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left\\{ \\begin{array} { l l }  a _ { n } { \\mathrm { ~ } } ; n = 1 , 2 , \\dots { \\mathrm { ~ } } \\right\\} \\end{array}$",
+      "new": "$\\left\\{ \\begin{array} { l }  a _ { n } { \\mathrm { ~ } } ; n = 1 , 2 , \\dots { \\mathrm { ~ } } \\end{array} \\right\\}$",
+      "anchor": "75e91556"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch02-body-1076-e94f8f",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[1076]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\begin{array} { l l l } { c f . } & { \\ S } & { \\mathrm { F - 3 - a } } \\right) \\end{array}$",
+      "new": "$\\left( \\begin{array} { l l l } { c f . } & { S } & { \\mathrm { F - 3 - a } } \\end{array} \\right)$",
+      "anchor": "336caf49"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch05-body-1297-080bbc",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[1297]",
+      "expect": "\\frac {1}{\\pi} \\int_ {0} ^ {\\infty} \\rho \\mathrm{d} \\rho \\int_ {0} ^ {2 \\pi} \\mathrm{d} \\varphi \\mathrm{e} ^ {- \\rho^ {2}} \\sum_ {n m} \\mathrm{e} ^ {i (n - m) \\varphi} \\frac {\\rho^ {n + m}}{\\sqrt {n ! m !}} | \\varphi_ {n} \\rangle \\left<   \\varphi_ {m} \\left. \\right|",
+      "new": "\\frac {1}{\\pi} \\int_ {0} ^ {\\infty} \\rho \\mathrm{d} \\rho \\int_ {0} ^ {2 \\pi} \\mathrm{d} \\varphi \\mathrm{e} ^ {- \\rho^ {2}} \\sum_ {n m} \\mathrm{e} ^ {i (n - m) \\varphi} \\frac {\\rho^ {n + m}}{\\sqrt {n ! m !}} | \\varphi_ {n} \\rangle \\left< \\varphi_ {m} \\right|"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch01-body-734-23ceba",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[734]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } .$",
+      "new": "$\\mathring {\\mathrm { A }} .$",
+      "anchor": "67c11b47"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch05-body-466-7b99d6",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[466]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } )$",
+      "new": "$\\mathring {\\mathrm { A }} )$",
+      "anchor": "5a69c1ab"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch05-body-535-ba028c",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[535]",
+      "field": "md",
+      "all": true,
+      "old": "$r _ { 1 } \\simeq 0 . 5 \\mathring \\mathrm { ~ A ~ }$",
+      "new": "$r _ { 1 } \\simeq 0 . 5 \\mathring {\\mathrm { ~ A ~ }}$",
+      "anchor": "880feb56"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch05-body-762-53621f",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[762]",
+      "expect": "\\frac {b _ {2 m + 2}}{b _ {2 m}} = \\frac {m !}{(m + 1) !} \\frac {\\lambda^ {m + 1}}{\\lambda^ {m}} = \\frac {\\lambda}{m + 1} \\stackrel {\\sim} _ {m \\to \\infty} \\frac {\\lambda}{m}",
+      "new": "\\frac {b _ {2 m + 2}}{b _ {2 m}} = \\frac {m !}{(m + 1) !} \\frac {\\lambda^ {m + 1}}{\\lambda^ {m}} = \\frac {\\lambda}{m + 1} \\underset {m \\to \\infty}{\\sim} \\frac {\\lambda}{m}"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch03-body-1225-039634",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1225]",
+      "expect": "\\begin{array}{r}\\rho_ {n n} = Z ^ {- 1} \\left<   u _ {n} \\left. \\right| \\mathrm{e} ^ {- H / k T} | u _ {n} \\rangle\\\\= Z ^ {- 1} \\mathrm{e} ^ {- E _ {n} / k T}\\end{array}",
+      "new": "\\begin{array}{r}\\rho_ {n n} = Z ^ {- 1} \\left< u _ {n} \\right| \\mathrm{e} ^ {- H / k T} | u _ {n} \\rangle\\\\= Z ^ {- 1} \\mathrm{e} ^ {- E _ {n} / k T}\\end{array}"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch05-body-2064-956eeb",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[2064]",
+      "field": "md",
+      "all": true,
+      "old": "$T ( k _ { B } T \\ggright)$",
+      "new": "$T ( k _ { B } T \\gg)$",
+      "anchor": "2ceeaa56"
+    },
+    {
+      "id": "cohen_tannoudji_qm_vol1-ch06-body-2883-40cebc",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[2883]",
+      "field": "caption",
+      "all": true,
+      "old": "$1 2 \\time 1 0 ^ { \\circ }$",
+      "new": "$1 2 \\times 1 0 ^ { \\circ }$",
+      "anchor": "781ec3b6"
+    }
+  ]
+}

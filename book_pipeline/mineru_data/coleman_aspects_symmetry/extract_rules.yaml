@@ -1,0 +1,101 @@
+slug: coleman_aspects_symmetry
+title: Aspects of Symmetry
+author: Sidney Coleman
+edition: null
+subject: Quantum Field Theory
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 77
+bibliography_start_page: null
+index_start_page: null
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: An introduction to unitary symmetry (1966)
+    page_start: 15
+    page_end: 49
+    chapter_title_block_idx: 74
+    problems_block_idx: null
+    next_chapter_block_idx: 595
+  - num: 2
+    title: Soft pions (1967)
+    page_start: 50
+    page_end: 80
+    chapter_title_block_idx: 595
+    problems_block_idx: null
+    next_chapter_block_idx: 1134
+  - num: 3
+    title: Dilatations (1971)
+    page_start: 81
+    page_end: 112
+    chapter_title_block_idx: 1134
+    chapter_title_block_idx_secondary: 1135
+    problems_block_idx: null
+    next_chapter_block_idx: 1598
+  - num: 4
+    title: "Renormalization and symmetry: a review for non-specialists (1971)"
+    page_start: 113
+    page_end: 126
+    chapter_title_block_idx: 1598
+    problems_block_idx: null
+    next_chapter_block_idx: 1775
+  - num: 5
+    title: "Secret symmetry: an introduction to spontaneous symmetry breakdown and gauge fields (1973)"
+    page_start: 127
+    page_end: 198
+    chapter_title_block_idx: 1775
+    problems_block_idx: null
+    next_chapter_block_idx: 2848
+  - num: 6
+    title: Classical lumps and their quantum descendants (1975)
+    page_start: 199
+    page_end: 278
+    chapter_title_block_idx: 2848
+    problems_block_idx: null
+    next_chapter_block_idx: 3990
+  - num: 7
+    title: The uses of instantons (1977)
+    page_start: 279
+    page_end: 364
+    chapter_title_block_idx: 3990
+    problems_block_idx: null
+    next_chapter_block_idx: 5365
+  - num: 8
+    title: 1/N (1979)
+    page_start: 365
+    page_end: 416
+    chapter_title_block_idx: 5365
+    problems_block_idx: null
+    next_chapter_block_idx: 6064
+
+appendices: []
+
+section_re: '^(\d*)\s*(.+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^Problem\s+(\d+(?:\.\d+)*)\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+equation_label_re: '^\((\d+(?:\.\d+)*)\)$'
+example_start_re: null
+equation_strip_dollar: false
+known_missing_problems: []

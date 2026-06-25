@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-25-courant-hilbert-methods-1",
+  "domain": "crawl",
+  "type": "edition-mismatch",
+  "status": "proposed",
+  "title": "courant_hilbert_methods_1 內容實為 Volume II (PDE)，非 slug/editions 宣稱的 Vol 1",
+  "slug": "courant_hilbert_methods_1",
+  "detect": [],
+  "source": "audit:courant_hilbert_methods_1",
+  "resolution": "",
+  "created": "2026-06-25T03:07:41+00:00",
+  "updated": "2026-06-25T03:07:41+00:00",
+  "evidence": "ingested PDF 經 audit 偵察坐實為 Courant《Methods of Mathematical Physics, Volume II — Partial Differential Equations》單卷，零 Vol 1 內容：(1) front matter p0/p2/p4 全標 'VOLUME II'、'VOLUME II PARTIAL DIFFERENTIAL EQUATIONS By R. Courant'；(2) copyright © 1962 by R. Courant（Vol 1 為 1953 Courant & Hilbert）；(3) preface 'concerned with the theory of partial differential equations'；(4) 6 章全 PDE：I Introductory Remarks→II 1st-order→III Higher Order→IV Potential Theory & Elliptic→V Hyperbolic (2 var)→VI Hyperbolic (>2 var)，無 Vol 1 招牌章（Quadratic Forms/Integral Equations/Calculus of Variations/Vibration & Eigenvalue/Special Functions）；(5) bibliography p822 標 '(Page references...are to this volume.)'、834pp 單卷。**editions/courant_hilbert_methods_1.json 的 evidence『Wiley-Interscience 1989 combined 2-volume set, includes vol 1 content, id=121655322』是錯的——zlib id 121655322 實際只含 Vol II、非 combined、無 Vol 1 內容**。restock 維③版本確認在此 false-positive。",
+  "proposal": "架構師擇一：(A) rename slug courant_hilbert_methods_1→courant_hilbert_methods_2（一致改 slug_map.json/editions 檔名+identity.title 'Volume 2'+version label+evidence/mineru_data 目錄/raw_pdfs/pipeline_state/book_timeline 等 daemon state，須 daemon 靜默期 all-or-nothing 做、半套=壞 state），再重派 audit（結構偵察已備於 _audit.md，可直接接力）；(B) 另 source standalone Vol 1（restock『no standalone vol 1 found』先別當定論）。**絕不下架 owned**。注意：本案為 crawl 域 proposal + 無 extract_rules.yaml，R audit-blocked 只認 engine 提案故不觸發 → daemon 下個 cycle 可能重派 audit 空轉，建議架構師儘速 rename 或手動止派此 slug。",
+  "risk": "wrong-volume = title_mismatch 類（近抓錯書非版次微調）；四維模型版本維未過→此 slug 非合格可部署書，不應 audit→deploy 成半錯標 LIVE（slug=_1/editions=Vol1/catalog 顯 Vol1/內文 Vol2 自相矛盾）。worker 已停手不產 yaml、不碰 slug/editions/state。",
+  "disposition": ""
+}

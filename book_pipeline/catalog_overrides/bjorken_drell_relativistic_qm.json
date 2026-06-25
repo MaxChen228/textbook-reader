@@ -1,0 +1,109 @@
+{
+  "slug": "bjorken_drell_relativistic_qm",
+  "overrides": [
+    {
+      "id": "bjorken-drell-fix-fig-4-1-id",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[31]",
+      "expect": {
+        "id": "fig-ch04-31",
+        "caption": "Fig. <sub>4-I</sub> Foldy-Wouthrysen triangle construction",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-4.1",
+        "caption": "Fig. 4-1 Foldy-Wouthuysen triangle construction",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 Figure 4.1: nearby body[31] is the Foldy-Wouthuysen triangle figure; OCR rendered 4-1 as 4-I and prior repair excluded it as unnumbered. Restore semantic fig-4.1."
+    },
+    {
+      "id": "bjorken-drell-fix-fig-9-10-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[163]",
+      "expect": {
+        "id": "fig-ch09-163",
+        "caption": "FiS. 9-10 Fourth-order contributions to $\\pi ^ { + } { - } \\pi ^ { - }$ Coulomb scattering",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-9.10",
+        "caption": "Fig. 9-10 Fourth-order contributions to $\\pi ^ { + } - \\pi ^ { - }$ Coulomb scattering",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "C4 Figure 9.10: body[163] carries the actual Fig. 9-10 caption but was excluded as unnumbered; assign semantic id instead of aliasing the preceding Fig. 9-9 image."
+    },
+    {
+      "id": "bjorken-drell-fix-ocr-fig-2-4-to-7-4",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[218]",
+      "field": "md",
+      "old": "lines in Fig. 2.4. They",
+      "new": "lines in Fig. 7.4. They",
+      "reason": "C4 Figure 2.4: raw PDF page 127 shows this sentence refers to Fig. 7.4; OCR misread 7 as 2."
+    },
+    {
+      "id": "bjorken-drell-fix-ocr-fig-l0-23a-to-10-23a",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[705]",
+      "field": "md",
+      "old": "diagram of Fig. L0.23a to",
+      "new": "diagram of Fig. 10.23a to",
+      "reason": "C4 Figure L0.23a: OCR misread the leading 1 in chapter 10 as L; parent fig-10.23 is already cataloged."
+    },
+    {
+      "id": "bjorken-drell-fix-ocr-fig-l0-23b-to-10-23b",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[705]",
+      "field": "md",
+      "old": "Fig. L0.23b, changing",
+      "new": "Fig. 10.23b, changing",
+      "reason": "C4 Figure L0.23b: OCR misread the leading 1 in chapter 10 as L; fig-10.23b alias exists on the corresponding nearby visual."
+    },
+    {
+      "id": "bjorken-drell-fix-ocr-second-fig-2-4-to-7-4",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[218]",
+      "field": "md",
+      "old": "corresponding to Fig. 2.4. The",
+      "new": "corresponding to Fig. 7.4. The",
+      "reason": "C4 Figure 2.4: same raw PDF sentence block has a second OCR misread of Fig. 7.4 as Fig. 2.4."
+    },
+    {
+      "id": "bjorken-drell-insert-fig-9-3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[90]",
+      "position": "after",
+      "page": 201,
+      "clip": [
+        0.04,
+        0.7,
+        0.96,
+        0.98
+      ],
+      "zoom": 2.5,
+      "src": "manual_fig-9.3.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-9.3",
+        "kind": "line",
+        "caption": "Fig. 9-3 Coulomb scattering of a $\\pi ^ { + }$ meson."
+      },
+      "reason": "C4 Figure 9.3: raw PDF page 201 contains the figure, but MinerU omitted the visual block; crop the page bottom figure and insert it near the first reference."
+    }
+  ],
+  "ref_classifications": []
+}

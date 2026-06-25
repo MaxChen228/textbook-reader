@@ -1,0 +1,175 @@
+slug: hook_hall_solid_state
+title: Solid State Physics
+author: J. R. Hook; H. E. Hall
+edition: 2nd
+subject: Solid State Physics
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 414
+bibliography_start_page: 467
+index_start_page: 471
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Crystal structure
+    page_start: 17
+    page_end: 46
+    chapter_title_block_idx: 105
+    chapter_title_block_idx_secondary: 106
+    problems_block_idx: 259
+    next_chapter_block_idx: 286
+  - num: 2
+    title: Crystal dynamics
+    page_start: 47
+    page_end: 87
+    chapter_title_block_idx: 286
+    chapter_title_block_idx_secondary: 287
+    problems_block_idx: 655
+    next_chapter_block_idx: 694
+  - num: 3
+    title: Free electrons in metals
+    page_start: 88
+    page_end: 109
+    chapter_title_block_idx: 694
+    chapter_title_block_idx_secondary: 695
+    problems_block_idx: 886
+    next_chapter_block_idx: 907
+  - num: 4
+    title: The effect of the periodic lattice potential - energy bands
+    page_start: 110
+    page_end: 140
+    chapter_title_block_idx: 907
+    problems_block_idx: 1094
+    next_chapter_block_idx: 1128
+  - num: 5
+    title: Semiconductors
+    page_start: 141
+    page_end: 176
+    chapter_title_block_idx: 1128
+    chapter_title_block_idx_secondary: 1129
+    problems_block_idx: 1469
+    next_chapter_block_idx: 1500
+  - num: 6
+    title: Semiconductor devices
+    page_start: 177
+    page_end: 204
+    chapter_title_block_idx: 1500
+    chapter_title_block_idx_secondary: 1501
+    problems_block_idx: 1676
+    next_chapter_block_idx: 1693
+  - num: 7
+    title: Diamagnetism and paramagnetism
+    page_start: 205
+    page_end: 225
+    chapter_title_block_idx: 1693
+    chapter_title_block_idx_secondary: 1694
+    problems_block_idx: 1858
+    next_chapter_block_idx: 1888
+  - num: 8
+    title: Magnetic order
+    page_start: 226
+    page_end: 257
+    chapter_title_block_idx: 1888
+    chapter_title_block_idx_secondary: 1889
+    problems_block_idx: 2157
+    next_chapter_block_idx: 2197
+  - num: 9
+    title: Electric properties of insulators
+    page_start: 258
+    page_end: 282
+    chapter_title_block_idx: 2197
+    chapter_title_block_idx_secondary: 2198
+    problems_block_idx: 2388
+    next_chapter_block_idx: 2405
+  - num: 10
+    title: Superconductivity
+    page_start: 283
+    page_end: 317
+    chapter_title_block_idx: 2405
+    chapter_title_block_idx_secondary: 2406
+    problems_block_idx: 2683
+    next_chapter_block_idx: 2726
+  - num: 11
+    title: Waves in crystals
+    page_start: 318
+    page_end: 339
+    chapter_title_block_idx: 2726
+    chapter_title_block_idx_secondary: 2727
+    problems_block_idx: 2914
+    next_chapter_block_idx: 2930
+  - num: 12
+    title: Scattering of neutrons and electrons from solids
+    page_start: 340
+    page_end: 361
+    chapter_title_block_idx: 2930
+    problems_block_idx: 3060
+    next_chapter_block_idx: 3087
+  - num: 13
+    title: Real metals
+    page_start: 362
+    page_end: 397
+    chapter_title_block_idx: 3087
+    chapter_title_block_idx_secondary: 3088
+    problems_block_idx: 3386
+    next_chapter_block_idx: 3417
+  - num: 14
+    title: Low-dimensional systems
+    page_start: 398
+    page_end: 413
+    chapter_title_block_idx: 3417
+    chapter_title_block_idx_secondary: 3418
+    problems_block_idx: 3533
+    next_chapter_block_idx: 3541
+
+appendices:
+  - id: A
+    title: Coupled probability amplitudes
+    page_start: 414
+    chapter_title_block_idx: 3541
+  - id: B
+    title: Electric and magnetic fields inside materials
+    page_start: 418
+    chapter_title_block_idx: 3585
+  - id: C
+    title: Quantum mechanics of an electron in a magnetic field
+    page_start: 426
+    chapter_title_block_idx: 3688
+  - id: D
+    title: The exchange energy
+    page_start: 428
+    chapter_title_block_idx: 3712
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\(?(\d+\.\d+)\)?\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '(?:\\tag\s*\{|\()([A-Z]?\d+(?:\.\d+)?[a-z]?)(?:\}|\))'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

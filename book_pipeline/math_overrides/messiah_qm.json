@@ -1,0 +1,140 @@
+{
+  "overrides": [
+    {
+      "id": "messiah_qm-ch14-body-212-a70da6",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[212]",
+      "expect": "\\Psi = \\sum_ {i} \\Theta_ {i} \\left<   \\Theta_ {i} \\left. \\right| \\Psi >.",
+      "new": "\\Psi = \\sum_ {i} \\Theta_ {i} \\left\\langle   \\Theta_ {i} \\middle| \\Psi \\right\\rangle."
+    },
+    {
+      "id": "messiah_qm-appB-body-1522-a70da6",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[1522]",
+      "expect": "\\Psi = \\sum_ {i} \\Theta_ {i} \\left<   \\Theta_ {i} \\left. \\right| \\Psi >.",
+      "new": "\\Psi = \\sum_ {i} \\Theta_ {i} \\left\\langle   \\Theta_ {i} \\middle| \\Psi \\right\\rangle."
+    },
+    {
+      "id": "messiah_qm-ch16-body-60-745cb9",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[60]",
+      "expect": "\\lambda \\left<   E ^ {0} \\alpha \\left. \\right| 1 \\rangle = \\frac {\\left<   E ^ {0} \\alpha \\left. \\right| (\\lambda V) | 0 \\rangle}{E _ {a} ^ {0} - E ^ {0}}. \\quad (E ^ {0} \\neq E _ {a} ^ {0})",
+      "new": "\\lambda \\left\\langle   E ^ {0} \\alpha \\left. \\right| 1 \\right\\rangle = \\frac {\\left\\langle   E ^ {0} \\alpha \\left. \\right| (\\lambda V) | 0 \\right\\rangle}{E _ {a} ^ {0} - E ^ {0}}. \\quad (E ^ {0} \\neq E _ {a} ^ {0})"
+    },
+    {
+      "id": "messiah_qm-appB-body-2548-745cb9",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[2548]",
+      "expect": "\\lambda \\left<   E ^ {0} \\alpha \\left. \\right| 1 \\rangle = \\frac {\\left<   E ^ {0} \\alpha \\left. \\right| (\\lambda V) | 0 \\rangle}{E _ {a} ^ {0} - E ^ {0}}. \\quad (E ^ {0} \\neq E _ {a} ^ {0})",
+      "new": "\\lambda \\left\\langle   E ^ {0} \\alpha \\left. \\right| 1 \\right\\rangle = \\frac {\\left\\langle   E ^ {0} \\alpha \\left. \\right| (\\lambda V) | 0 \\right\\rangle}{E _ {a} ^ {0} - E ^ {0}}. \\quad (E ^ {0} \\neq E _ {a} ^ {0})"
+    },
+    {
+      "id": "messiah_qm-ch18-body-165-73b34e",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[165]",
+      "expect": "\\delta E - \\sum_ {\\lambda} \\sum_ {\\mu} \\varepsilon_ {\\lambda \\mu} ^ {\\prime} \\delta \\left<   \\mu^ {\\prime} \\left. \\right| \\lambda^ {\\prime} > = 0",
+      "new": "\\delta E - \\sum_ {\\lambda} \\sum_ {\\mu} \\varepsilon_ {\\lambda \\mu} ^ {\\prime} \\delta \\left\\langle   \\mu^ {\\prime} \\left. \\right| \\lambda^ {\\prime} \\right\\rangle = 0"
+    },
+    {
+      "id": "messiah_qm-appB-body-3623-73b34e",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[3623]",
+      "expect": "\\delta E - \\sum_ {\\lambda} \\sum_ {\\mu} \\varepsilon_ {\\lambda \\mu} ^ {\\prime} \\delta \\left<   \\mu^ {\\prime} \\left. \\right| \\lambda^ {\\prime} > = 0",
+      "new": "\\delta E - \\sum_ {\\lambda} \\sum_ {\\mu} \\varepsilon_ {\\lambda \\mu} ^ {\\prime} \\delta \\left\\langle   \\mu^ {\\prime} \\left. \\right| \\lambda^ {\\prime} \\right\\rangle = 0"
+    },
+    {
+      "id": "messiah_qm-ch20-body-946-9bfcba",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[946]",
+      "expect": "\\frac {e}{2 m} \\left<   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\sigma | \\Phi^ {\\prime} \\rangle \\equiv \\left<   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\mu | \\Phi^ {\\prime} \\rangle",
+      "new": "\\frac {e}{2 m} \\left\\langle   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\sigma | \\Phi^ {\\prime} \\right\\rangle \\equiv \\left\\langle   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\mu | \\Phi^ {\\prime} \\right\\rangle"
+    },
+    {
+      "id": "messiah_qm-appB-body-5776-9bfcba",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[5776]",
+      "expect": "\\frac {e}{2 m} \\left<   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\sigma | \\Phi^ {\\prime} \\rangle \\equiv \\left<   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\mu | \\Phi^ {\\prime} \\rangle",
+      "new": "\\frac {e}{2 m} \\left\\langle   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\sigma | \\Phi^ {\\prime} \\right\\rangle \\equiv \\left\\langle   \\Phi^ {\\prime \\prime} \\left. \\right| \\delta (\\boldsymbol {r} - \\boldsymbol {r} _ {0}) \\mu | \\Phi^ {\\prime} \\right\\rangle"
+    },
+    {
+      "id": "messiah_qm-ch16-body-29-9e2819",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[29]",
+      "expect": "(H _ {0} - E _ {a} ^ {0}) | n \\rangle + (V - \\varepsilon_ {1}) | n - 1 \\rangle \\dots - \\varepsilon_ {n} | 0 \\rangle = 0. )}",
+      "new": "(H _ {0} - E _ {a} ^ {0}) | n \\rangle + (V - \\varepsilon_ {1}) | n - 1 \\rangle \\dots - \\varepsilon_ {n} | 0 \\rangle = 0."
+    },
+    {
+      "id": "messiah_qm-appB-body-2517-9e2819",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[2517]",
+      "expect": "(H _ {0} - E _ {a} ^ {0}) | n \\rangle + (V - \\varepsilon_ {1}) | n - 1 \\rangle \\dots - \\varepsilon_ {n} | 0 \\rangle = 0. )}",
+      "new": "(H _ {0} - E _ {a} ^ {0}) | n \\rangle + (V - \\varepsilon_ {1}) | n - 1 \\rangle \\dots - \\varepsilon_ {n} | 0 \\rangle = 0."
+    },
+    {
+      "id": "messiah_qm-ch21-body-152-0fa7d5",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[152]",
+      "expect": "a _ {\\sigma} ^ {\\dagger} = \\sum_ {\\varrho} T _ {\\sigma \\varrho} b _ {\\varrho} ^ {\\dagger}. )}",
+      "new": "a _ {\\sigma} ^ {\\dagger} = \\sum_ {\\varrho} T _ {\\sigma \\varrho} b _ {\\varrho} ^ {\\dagger}."
+    },
+    {
+      "id": "messiah_qm-appB-body-6152-0fa7d5",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[6152]",
+      "expect": "a _ {\\sigma} ^ {\\dagger} = \\sum_ {\\varrho} T _ {\\sigma \\varrho} b _ {\\varrho} ^ {\\dagger}. )}",
+      "new": "a _ {\\sigma} ^ {\\dagger} = \\sum_ {\\varrho} T _ {\\sigma \\varrho} b _ {\\varrho} ^ {\\dagger}."
+    },
+    {
+      "id": "messiah_qm-appA-body-163-730053",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[163]",
+      "expect": "f (x) = \\mathcal {F} ^ {\\dagger} [ F ] = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2}} \\int_ {- \\infty} ^ {+ \\infty} \\mathrm{e} ^ {\\mathrm{i} \\alpha u x} F (u) \\mathrm{d} u. )}",
+      "new": "f (x) = \\mathcal {F} ^ {\\dagger} [ F ] = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2}} \\int_ {- \\infty} ^ {+ \\infty} \\mathrm{e} ^ {\\mathrm{i} \\alpha u x} F (u) \\mathrm{d} u."
+    },
+    {
+      "id": "messiah_qm-appA-body-167-5dde41",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[167]",
+      "expect": "\\begin{array}{l} f (x _ {1}, \\dots , x _ {n}) \\equiv \\mathcal {F} ^ {\\dagger} [ F ] \\\\ = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2} n} \\int_ {- \\infty} ^ {+ \\infty} \\dots \\int_ {- \\infty} ^ {+ \\infty} \\mathrm{e} ^ {\\mathrm{i} \\alpha (u _ {1} x _ {1} + \\dots + u _ {n} x _ {n})} F (u _ {1}, \\dots , u _ {n})   \\mathrm{d} u _ {1} \\dots \\mathrm{d} u _ {n}. \\end{array} )}",
+      "new": "\\begin{array}{l} f (x _ {1}, \\dots , x _ {n}) \\equiv \\mathcal {F} ^ {\\dagger} [ F ] \\\\ = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2} n} \\int_ {- \\infty} ^ {+ \\infty} \\dots \\int_ {- \\infty} ^ {+ \\infty} \\mathrm{e} ^ {\\mathrm{i} \\alpha (u _ {1} x _ {1} + \\dots + u _ {n} x _ {n})} F (u _ {1}, \\dots , u _ {n})   \\mathrm{d} u _ {1} \\dots \\mathrm{d} u _ {n}. \\end{array}"
+    },
+    {
+      "id": "messiah_qm-appA-body-171-f91169",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[171]",
+      "expect": "\\mathcal {F} ^ {\\dagger} [ F (c u _ {1}, \\dots , c u _ {n}) ] = \\frac {1}{| c | ^ {n}} f \\left(\\frac {x}{c}, \\dots , \\frac {x _ {n}}{c}\\right) (c = \\text { arbitrary   const. }). )}",
+      "new": "\\mathcal {F} ^ {\\dagger} [ F (c u _ {1}, \\dots , c u _ {n}) ] = \\frac {1}{| c | ^ {n}} f \\left(\\frac {x}{c}, \\dots , \\frac {x _ {n}}{c}\\right) (c = \\text { arbitrary   const. })."
+    },
+    {
+      "id": "messiah_qm-appA-body-213-1ea74e",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[213]",
+      "expect": "V _ {u} ^ {\\dagger} [ \\chi ] \\equiv \\mathcal {F} ^ {\\dagger} U _ {x} [ \\chi ] = U _ {x} [ \\mathcal {F} ^ {\\dagger} \\chi ]. )}",
+      "new": "V _ {u} ^ {\\dagger} [ \\chi ] \\equiv \\mathcal {F} ^ {\\dagger} U _ {x} [ \\chi ] = U _ {x} [ \\mathcal {F} ^ {\\dagger} \\chi ]."
+    },
+    {
+      "id": "messiah_qm-appA-body-228-0fa8ce",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[228]",
+      "expect": "f (x) = \\mathcal {F} ^ {\\dagger} F (u) = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2}} \\operatorname * {l q m} _ {\\lambda \\rightarrow \\infty} \\int_ {- \\lambda} ^ {+ \\lambda} \\mathrm{e} ^ {\\mathrm{i} \\alpha u x} F (u) \\mathrm{d} u. )}",
+      "new": "f (x) = \\mathcal {F} ^ {\\dagger} F (u) = \\left(\\frac {\\alpha}{2 \\pi}\\right) ^ {\\frac {1}{2}} \\operatorname * {l q m} _ {\\lambda \\rightarrow \\infty} \\int_ {- \\lambda} ^ {+ \\lambda} \\mathrm{e} ^ {\\mathrm{i} \\alpha u x} F (u) \\mathrm{d} u."
+    }
+  ]
+}

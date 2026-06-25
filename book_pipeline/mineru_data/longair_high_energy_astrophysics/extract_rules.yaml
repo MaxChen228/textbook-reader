@@ -1,0 +1,210 @@
+slug: longair_high_energy_astrophysics
+title: High Energy Astrophysics
+author: Malcolm S. Longair
+edition: 3rd
+subject: Astrophysics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 20
+appendices_start_page: 770
+bibliography_start_page: 800
+index_start_page: 848
+
+inline_problems: false
+heading_text_level: 2
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^__NO_PROBLEMS__(\d+)$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []
+
+chapters:
+  - num: 1
+    title: High energy astrophysics – an introduction
+    page_start: 20
+    page_end: 51
+    chapter_title_block_idx: 87
+    problems_block_idx: null
+    next_chapter_block_idx: 337
+  - num: 2
+    title: The stars and stellar evolution
+    page_start: 52
+    page_end: 93
+    chapter_title_block_idx: 337
+    problems_block_idx: null
+    next_chapter_block_idx: 753
+  - num: 3
+    title: The galaxies
+    page_start: 94
+    page_end: 115
+    chapter_title_block_idx: 753
+    problems_block_idx: null
+    next_chapter_block_idx: 967
+  - num: 4
+    title: Clusters of galaxies
+    page_start: 116
+    page_end: 147
+    chapter_title_block_idx: 967
+    problems_block_idx: null
+    next_chapter_block_idx: 1270
+  - num: 5
+    title: Ionisation losses
+    page_start: 148
+    page_end: 170
+    chapter_title_block_idx: 1270
+    problems_block_idx: null
+    next_chapter_block_idx: 1526
+  - num: 6
+    title: Radiation of accelerated charged particles and bremsstrahlung of electrons
+    page_start: 171
+    page_end: 194
+    chapter_title_block_idx: 1526
+    problems_block_idx: null
+    next_chapter_block_idx: 1860
+  - num: 7
+    title: The dynamics of charged particles in magnetic fields
+    page_start: 195
+    page_end: 209
+    chapter_title_block_idx: 1860
+    problems_block_idx: null
+    next_chapter_block_idx: 2049
+  - num: 8
+    title: Synchrotron radiation
+    page_start: 210
+    page_end: 244
+    chapter_title_block_idx: 2049
+    problems_block_idx: null
+    next_chapter_block_idx: 2509
+  - num: 9
+    title: Interactions of high energy photons
+    page_start: 245
+    page_end: 295
+    chapter_title_block_idx: 2509
+    problems_block_idx: null
+    next_chapter_block_idx: 3125
+  - num: 10
+    title: Nuclear interactions
+    page_start: 296
+    page_end: 314
+    chapter_title_block_idx: 3125
+    problems_block_idx: null
+    next_chapter_block_idx: 3258
+  - num: 11
+    title: Aspects of plasma physics and magnetohydrodynamics
+    page_start: 315
+    page_end: 349
+    chapter_title_block_idx: 3258
+    problems_block_idx: null
+    next_chapter_block_idx: 3652
+  - num: 12
+    title: Interstellar gas and magnetic fields
+    page_start: 350
+    page_end: 394
+    chapter_title_block_idx: 3652
+    problems_block_idx: null
+    next_chapter_block_idx: 4017
+  - num: 13
+    title: Dead stars
+    page_start: 395
+    page_end: 459
+    chapter_title_block_idx: 4017
+    problems_block_idx: null
+    next_chapter_block_idx: 4569
+  - num: 14
+    title: Accretion power in astrophysics
+    page_start: 460
+    page_end: 509
+    chapter_title_block_idx: 4569
+    problems_block_idx: null
+    next_chapter_block_idx: 5029
+  - num: 15
+    title: Cosmic rays
+    page_start: 510
+    page_end: 552
+    chapter_title_block_idx: 5029
+    problems_block_idx: null
+    next_chapter_block_idx: 5386
+  - num: 16
+    title: The origin of cosmic rays in our Galaxy
+    page_start: 553
+    page_end: 577
+    chapter_title_block_idx: 5386
+    problems_block_idx: null
+    next_chapter_block_idx: 5663
+  - num: 17
+    title: The acceleration of high energy particles
+    page_start: 578
+    page_end: 601
+    chapter_title_block_idx: 5663
+    problems_block_idx: null
+    next_chapter_block_idx: 5908
+  - num: 18
+    title: Active galaxies
+    page_start: 602
+    page_end: 626
+    chapter_title_block_idx: 5908
+    problems_block_idx: null
+    next_chapter_block_idx: 6078
+  - num: 19
+    title: Black holes in the nuclei of galaxies
+    page_start: 627
+    page_end: 653
+    chapter_title_block_idx: 6078
+    problems_block_idx: null
+    next_chapter_block_idx: 6340
+  - num: 20
+    title: The vicinity of the black hole
+    page_start: 654
+    page_end: 677
+    chapter_title_block_idx: 6340
+    problems_block_idx: null
+    next_chapter_block_idx: 6522
+  - num: 21
+    title: Extragalactic radio sources
+    page_start: 678
+    page_end: 697
+    chapter_title_block_idx: 6522
+    problems_block_idx: null
+    next_chapter_block_idx: 6663
+  - num: 22
+    title: Compact extragalactic sources and superluminal motions
+    page_start: 698
+    page_end: 730
+    chapter_title_block_idx: 6663
+    problems_block_idx: null
+    next_chapter_block_idx: 6951
+  - num: 23
+    title: Cosmological aspects of high energy astrophysics
+    page_start: 731
+    page_end: 769
+    chapter_title_block_idx: 6951
+    problems_block_idx: null
+    next_chapter_block_idx: 7227
+
+appendices:
+  - id: A
+    title: Astronomical conventions and nomenclature
+    page_start: 770
+    chapter_title_block_idx: 7227

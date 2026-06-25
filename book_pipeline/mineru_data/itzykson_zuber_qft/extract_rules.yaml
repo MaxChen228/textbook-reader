@@ -1,0 +1,146 @@
+slug: itzykson_zuber_qft
+title: Quantum Field Theory
+author: Claude Itzykson; Jean-Bernard Zuber
+edition: null
+subject: Quantum Field Theory
+publisher: Dover Publications
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 714
+bibliography_start_page: null
+index_start_page: 724
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: CLASSICAL THEORY
+    page_start: 24
+    page_end: 67
+    chapter_title_block_idx: 107
+    problems_block_idx: null
+    next_chapter_block_idx: 896
+  - num: 2
+    title: THE DIRAC EQUATION
+    page_start: 68
+    page_end: 127
+    chapter_title_block_idx: 896
+    problems_block_idx: null
+    next_chapter_block_idx: 1978
+  - num: 3
+    title: QUANTIZATION—FREE FIELDS
+    page_start: 128
+    page_end: 185
+    chapter_title_block_idx: 1978
+    problems_block_idx: null
+    next_chapter_block_idx: 3000
+  - num: 4
+    title: INTERACTION WITH AN EXTERNAL FIELD
+    page_start: 186
+    page_end: 220
+    chapter_title_block_idx: 3000
+    problems_block_idx: null
+    next_chapter_block_idx: 3554
+  - num: 5
+    title: ELEMENTARY PROCESSES
+    page_start: 221
+    page_end: 283
+    chapter_title_block_idx: 3554
+    problems_block_idx: null
+    next_chapter_block_idx: 4536
+  - num: 6
+    title: PERTURBATION THEORY
+    page_start: 284
+    page_end: 340
+    chapter_title_block_idx: 4536
+    problems_block_idx: null
+    next_chapter_block_idx: 5358
+  - num: 7
+    title: RADIATIVE CORRECTIONS
+    page_start: 341
+    page_end: 394
+    chapter_title_block_idx: 5358
+    problems_block_idx: null
+    next_chapter_block_idx: 6126
+  - num: 8
+    title: RENORMALIZATION
+    page_start: 395
+    page_end: 447
+    chapter_title_block_idx: 6126
+    problems_block_idx: null
+    next_chapter_block_idx: 6933
+  - num: 9
+    title: FUNCTIONAL METHODS
+    page_start: 448
+    page_end: 497
+    chapter_title_block_idx: 6933
+    problems_block_idx: null
+    next_chapter_block_idx: 7788
+  - num: 10
+    title: INTEGRAL EQUATIONS AND BOUND-STATE PROBLEMS
+    page_start: 498
+    page_end: 531
+    chapter_title_block_idx: 7788
+    problems_block_idx: null
+    next_chapter_block_idx: 8298
+  - num: 11
+    title: SYMMETRIES
+    page_start: 532
+    page_end: 584
+    chapter_title_block_idx: 8298
+    problems_block_idx: null
+    next_chapter_block_idx: 9126
+  - num: 12
+    title: NONABELIAN GAUGE FIELDS
+    page_start: 585
+    page_end: 654
+    chapter_title_block_idx: 9126
+    problems_block_idx: null
+    next_chapter_block_idx: 10336
+  - num: 13
+    title: ASYMPTOTIC BEHAVIOR
+    page_start: 655
+    page_end: 713
+    chapter_title_block_idx: 10336
+    problems_block_idx: null
+    next_chapter_block_idx: 11206
+
+appendices:
+  - id: A
+    title: METRIC
+    page_start: 714
+    chapter_title_block_idx: 11206
+
+section_re: '^(\d+-\d+)\s+(.+)$'
+subsection_re: '^(\d+-\d+-\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\(([a-z])\)\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '^Exercises$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9A-Z]+-[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

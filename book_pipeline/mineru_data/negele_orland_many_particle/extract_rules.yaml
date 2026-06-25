@@ -1,0 +1,112 @@
+slug: negele_orland_many_particle
+title: Quantum Many-Particle Systems
+author: John W. Negele; Henri Orland
+edition: null
+subject: Theoretical Physics
+publisher: Westview Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 469
+bibliography_start_page: null
+index_start_page: 469
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Second Quantization and Coherent States
+    page_start: 15
+    page_end: 60
+    chapter_title_block_idx: 73
+    chapter_title_block_idx_secondary: 74
+    problems_block_idx: 709
+    next_chapter_block_idx: 839
+  - num: 2
+    title: General Formalism at Finite Temperature
+    page_start: 61
+    page_end: 151
+    chapter_title_block_idx: 839
+    chapter_title_block_idx_secondary: 840
+    problems_block_idx: 2008
+    next_chapter_block_idx: 2086
+  - num: 3
+    title: Perturbation Theory at Zero Temperature
+    page_start: 152
+    page_end: 189
+    chapter_title_block_idx: 2086
+    chapter_title_block_idx_secondary: 2087
+    problems_block_idx: 2423
+    next_chapter_block_idx: 2547
+  - num: 4
+    title: Order Parameters and Broken Symmetry
+    page_start: 190
+    page_end: 248
+    chapter_title_block_idx: 2547
+    chapter_title_block_idx_secondary: 2548
+    problems_block_idx: 3287
+    next_chapter_block_idx: 3430
+  - num: 5
+    title: Green's Functions
+    page_start: 249
+    page_end: 309
+    chapter_title_block_idx: 3430
+    problems_block_idx: 4061
+    next_chapter_block_idx: 4233
+  - num: 6
+    title: The Landau Theory of Fermi Liquids
+    page_start: 310
+    page_end: 345
+    chapter_title_block_idx: 4233
+    chapter_title_block_idx_secondary: 4234
+    problems_block_idx: 4683
+    next_chapter_block_idx: 4828
+  - num: 7
+    title: Further Development of Functional Integrals
+    page_start: 346
+    page_end: 413
+    chapter_title_block_idx: 4828
+    chapter_title_block_idx_secondary: 4829
+    problems_block_idx: 5618
+    next_chapter_block_idx: 5933
+  - num: 8
+    title: Stochastic Methods
+    page_start: 414
+    page_end: 468
+    chapter_title_block_idx: 5933
+    chapter_title_block_idx_secondary: 5934
+    problems_block_idx: 6417
+    next_chapter_block_idx: 6667
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(?!CHAPTER\b|PROBLEMS?\b|PROBLEM\b|PREFACE\b|CONTENTS\b|INDEX\b|Table\b)(?!\d+\.\d+\b)([A-Z][A-Za-z0-9$\{}^_.,:;''"“”/&*+\- ]*[A-Za-z0-9)$\]}])$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^PROBLEM\s+(\d+\.\d+)(?:\\\*)?\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{\s*([0-9]+\.[0-9]+[a-z]?)\s*\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

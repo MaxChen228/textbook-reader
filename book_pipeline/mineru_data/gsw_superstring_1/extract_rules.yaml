@@ -1,0 +1,124 @@
+slug: gsw_superstring_1
+title: "Superstring Theory Volume 1: Introduction"
+author: "Michael B. Green; John H. Schwarz; Edward Witten"
+edition: null
+subject: "String Theory"
+publisher: "Cambridge University Press"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 255
+bibliography_start_page: 446
+index_start_page: 476
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 12
+    page_end: 67
+    chapter_title_block_idx: 54
+    problems_block_idx: null
+    next_chapter_block_idx: 512
+  - num: 2
+    title: "Free Bosonic Strings"
+    page_start: 68
+    page_end: 131
+    chapter_title_block_idx: 512
+    problems_block_idx: null
+    next_chapter_block_idx: 1344
+  - num: 3
+    title: "Modern Covariant Quantization"
+    page_start: 132
+    page_end: 195
+    chapter_title_block_idx: 1344
+    problems_block_idx: null
+    next_chapter_block_idx: 2154
+  - num: 4
+    title: "World-Sheet Supersymmetry in String Theory"
+    page_start: 196
+    page_end: 254
+    chapter_title_block_idx: 2154
+    problems_block_idx: null
+    next_chapter_block_idx: 2970
+  - num: 5
+    title: "Space-Time Supersymmetry in String Theory"
+    page_start: 260
+    page_end: 292
+    chapter_title_block_idx: 3011
+    problems_block_idx: null
+    next_chapter_block_idx: 3454
+  - num: 6
+    title: "Nonabelian Gauge Symmetry"
+    page_start: 302
+    page_end: 354
+    chapter_title_block_idx: 3525
+    problems_block_idx: null
+    next_chapter_block_idx: 4136
+  - num: 7
+    title: "Tree Amplitudes"
+    page_start: 364
+    page_end: 439
+    chapter_title_block_idx: 4227
+    problems_block_idx: null
+    next_chapter_block_idx: 5139
+
+appendices:
+  - id: "4.A"
+    title: "Super Yang-Mills Theories"
+    page_start: 255
+    chapter_title_block_idx: 2970
+  - id: "5.A"
+    title: "Properties of $SO(2n)$ Groups"
+    page_start: 293
+    chapter_title_block_idx: 3454
+  - id: "5.B"
+    title: "The spin(8) Clifford Algebra"
+    page_start: 299
+    chapter_title_block_idx: 3507
+  - id: "6.A"
+    title: "Elements of $E_{8}$"
+    page_start: 355
+    chapter_title_block_idx: 4136
+  - id: "6.B"
+    title: "Modular Forms"
+    page_start: 361
+    chapter_title_block_idx: 4202
+  - id: "7.A"
+    title: "Coherent-State Methods and Correlation Functions"
+    page_start: 440
+    chapter_title_block_idx: 5139
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

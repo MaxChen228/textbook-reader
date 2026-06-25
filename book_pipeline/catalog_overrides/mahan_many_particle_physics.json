@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "mahan-fig-4.15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[1017]",
+      "position": "before",
+      "page": 343,
+      "clip": [
+        0.09,
+        0.115,
+        0.83,
+        0.235
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.15",
+        "kind": "line",
+        "caption": "FIGURE 4.15. Spin up and spin down charge densities."
+      },
+      "reason": "MinerU 將 FIGURE 4.15 圖與 caption 併入 equation block；raw PDF 第 343 頁上方可見完整圖與 caption，裁入獨立 fig block 供 catalog 覆蓋正文引用。"
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.17",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Fig. 6.17(a)，但 ch06 catalog 無 fig-6.17 對應塊；raw PDF 第 596 頁後 Chapter 6 已進節尾/Problems，未見該圖。",
+      "where": "ch09.json body[560]",
+      "evidence": "Text says: 'which is shown in Fig. 6.17(a)'; parsed ch06 figure catalog ends at fig-6.16, and local raw-PDF check around Chapter 6 end found no Figure 6.17 caption/block."
+    },
+    {
+      "type": "figure",
+      "ref": "6.18",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Fig. 6.18 for Pb，但 ch06 catalog 無 fig-6.18 block；raw PDF 檢視未見對應圖。",
+      "where": "ch07.json body[478]",
+      "evidence": "Text says: 'a result was given in Fig. 6.18 for Pb'; parsed ch06 figure catalog contains no fig-6.18 and Chapter 6 end in the raw PDF does not expose a corresponding figure."
+    }
+  ]
+}

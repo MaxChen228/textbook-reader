@@ -1,0 +1,94 @@
+slug: bohr_mottelson_nuclear_structure
+title: Nuclear Structure
+author: Aage Bohr; Ben R. Mottelson
+edition: null
+subject: Nuclear Physics
+publisher: World Scientific Publishing Co. Pte. Ltd.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 1193
+bibliography_start_page: 1193
+index_start_page: 1231
+
+chapters:
+  - num: 1
+    title: Symmetries and Conservation Laws
+    page_start: 18
+    page_end: 153
+    chapter_title_block_idx: 78
+    chapter_title_block_idx_secondary: 79
+    problems_block_idx: null
+    next_chapter_block_idx: 1923
+  - num: 2
+    title: Independent-Particle Motion
+    page_start: 154
+    page_end: 325
+    chapter_title_block_idx: 1923
+    chapter_title_block_idx_secondary: 1924
+    problems_block_idx: null
+    next_chapter_block_idx: 3985
+  - num: 3
+    title: Single-Particle Configurations
+    page_start: 326
+    page_end: 465
+    chapter_title_block_idx: 3985
+    chapter_title_block_idx_secondary: 3986
+    problems_block_idx: null
+    next_chapter_block_idx: 5842
+  - num: 4
+    title: Rotational Spectra
+    page_start: 501
+    page_end: 710
+    chapter_title_block_idx: 6482
+    chapter_title_block_idx_secondary: 6483
+    problems_block_idx: null
+    next_chapter_block_idx: 8695
+  - num: 5
+    title: One-Particle Motion in Nonspherical Nuclei
+    page_start: 711
+    page_end: 824
+    chapter_title_block_idx: 8695
+    chapter_title_block_idx_secondary: 8696
+    problems_block_idx: null
+    next_chapter_block_idx: 9737
+  - num: 6
+    title: Vibrational Spectra
+    page_start: 825
+    page_end: 1192
+    chapter_title_block_idx: 9737
+    chapter_title_block_idx_secondary: 9738
+    problems_block_idx: null
+    next_chapter_block_idx: 15296
+
+appendices: []
+
+section_re: '^((?:\d+[A-Z]?-\d+))\s+(.+)$'
+subsection_re: '^((?:\d+[A-Z]?-\d+[a-z]))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+((?:\d+[A-Z]?-\d+[a-z]?))\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+(?:[A-Z])?-[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

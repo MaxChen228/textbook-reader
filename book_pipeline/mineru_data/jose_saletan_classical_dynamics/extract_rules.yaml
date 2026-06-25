@@ -1,0 +1,119 @@
+slug: jose_saletan_classical_dynamics
+title: "Classical Dynamics: A Contemporary Approach"
+author: Jorge V. Jose; Eugene J. Saletan
+edition: 1st
+subject: Classical Mechanics
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 24
+appendices_start_page: 672
+bibliography_start_page: 679
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Fundamentals of Mechanics
+    page_start: 24
+    page_end: 70
+    chapter_title_block_idx: 138
+    problems_block_idx: 656
+    next_chapter_block_idx: 732
+  - num: 2
+    title: Lagrangian Formulation of Mechanics
+    page_start: 71
+    page_end: 130
+    chapter_title_block_idx: 732
+    problems_block_idx: 1459
+    next_chapter_block_idx: 1533
+  - num: 3
+    title: Topics in Lagrangian Dynamics
+    page_start: 131
+    page_end: 169
+    chapter_title_block_idx: 1533
+    problems_block_idx: 2078
+    next_chapter_block_idx: 2151
+  - num: 4
+    title: Scattering and Linear Oscillators
+    page_start: 170
+    page_end: 223
+    chapter_title_block_idx: 2151
+    problems_block_idx: 2732
+    next_chapter_block_idx: 2784
+  - num: 5
+    title: Hamiltonian Formulation of Mechanics
+    page_start: 224
+    page_end: 306
+    chapter_title_block_idx: 2784
+    problems_block_idx: 3855
+    next_chapter_block_idx: 4010
+  - num: 6
+    title: Topics in Hamiltonian Dynamics
+    page_start: 307
+    page_end: 404
+    chapter_title_block_idx: 4010
+    problems_block_idx: 5355
+    next_chapter_block_idx: 5425
+  - num: 7
+    title: Nonlinear Dynamics
+    page_start: 405
+    page_end: 514
+    chapter_title_block_idx: 5425
+    problems_block_idx: 6565
+    next_chapter_block_idx: 6682
+  - num: 8
+    title: Rigid Bodies
+    page_start: 515
+    page_end: 575
+    chapter_title_block_idx: 6682
+    problems_block_idx: 7535
+    next_chapter_block_idx: 7594
+  - num: 9
+    title: Continuum Dynamics
+    page_start: 576
+    page_end: 670
+    chapter_title_block_idx: 7594
+    problems_block_idx: 9127
+    next_chapter_block_idx: 9170
+  - num: 10
+    title: Epilogue
+    page_start: 671
+    page_end: 671
+    chapter_title_block_idx: 9170
+    problems_block_idx: null
+    next_chapter_block_idx: 9174
+
+appendices:
+  - id: A
+    title: Vector Spaces
+    page_start: 672
+    chapter_title_block_idx: 9174
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^WORKED EXAMPLE\s+([0-9]+(?:\.[0-9]+)*)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
