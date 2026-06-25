@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "bransden_joachain_atoms-ch07-body-657-1eb99c",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[657]",
+      "field": "md",
+      "all": true,
+      "old": "$u_{n_l l_j j_m_n}$",
+      "new": "$u_{n_l l_j j_{m_n}}$",
+      "anchor": "d18637cd"
+    },
+    {
+      "id": "bransden_joachain_atoms-ch08-body-156-1124b1",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[156]",
+      "expect": "(1 \\mathrm{s}) ^ {2} (2 \\mathrm{p}) ^ {2} ^ {1} \\mathrm{D} _ {2} \\rightarrow (1 \\mathrm{s}) ^ {2} (2 \\mathrm{s} 2 \\mathrm{p}) ^ {1} \\mathrm{P} _ {1}",
+      "new": "(1 \\mathrm{s}) ^ {2} (2 \\mathrm{p}) ^ {2} {} ^ {1} \\mathrm{D} _ {2} \\rightarrow (1 \\mathrm{s}) ^ {2} (2 \\mathrm{s} 2 \\mathrm{p}) ^ {1} \\mathrm{P} _ {1}"
+    },
+    {
+      "id": "bransden_joachain_atoms-ch08-body-158-aa3c01",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[158]",
+      "expect": "(1 \\mathrm{s}) ^ {2} (2 \\mathrm{p}) ^ {2} ^ {1} \\mathrm{S} _ {0} \\rightarrow (1 \\mathrm{s}) ^ {2} (2 \\mathrm{s} 2 \\mathrm{p}) ^ {1} \\mathrm{P} _ {1}",
+      "new": "(1 \\mathrm{s}) ^ {2} (2 \\mathrm{p}) ^ {2} {} ^ {1} \\mathrm{S} _ {0} \\rightarrow (1 \\mathrm{s}) ^ {2} (2 \\mathrm{s} 2 \\mathrm{p}) ^ {1} \\mathrm{P} _ {1}"
+    },
+    {
+      "id": "bransden_joachain_atoms-ch13-body-130-8c4900",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[130]",
+      "expect": "F (s) = \\int_ {0} ^ {1} \\frac {1 - x ^ {s}}{(1 - x ^ {2}) ^ {3 / 2}} d x\\tag{1.  ( \\dot{m} ) :}",
+      "new": "F (s) = \\int_ {0} ^ {1} \\frac {1 - x ^ {s}}{(1 - x ^ {2}) ^ {3 / 2}} d x\\tag{1.  ( ṁ ) :}"
+    }
+  ]
+}

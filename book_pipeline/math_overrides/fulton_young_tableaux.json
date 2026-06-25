@@ -1,0 +1,42 @@
+{
+  "overrides": [
+    {
+      "id": "fulton_young_tableaux-ch09-body-11-4e6ad4",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[11]",
+      "expect": "X _ {i _ {1}, \\ldots , i _ {d} ^ {\\bullet}} X _ {j _ {1}, \\ldots , j _ {d}} - \\sum X _ {i _ {1} ^ {\\prime}, \\ldots , i _ {d} ^ {\\prime} ^ {\\bullet}} X _ {j _ {1} ^ {\\prime}, \\ldots , j _ {d} ^ {\\prime}},",
+      "new": "X _ {i _ {1}, \\ldots , i _ {d} ^ {\\bullet}} X _ {j _ {1}, \\ldots , j _ {d}} - \\sum X _ {i _ {1} ^ {\\prime}, \\ldots , i _ {d} ^ {\\prime \\bullet}} X _ {j _ {1} ^ {\\prime}, \\ldots , j _ {d} ^ {\\prime}},"
+    },
+    {
+      "id": "fulton_young_tableaux-appA-body-30-2d88f4",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[30]",
+      "field": "md",
+      "all": true,
+      "old": "$c_{\\mu}^{v}_{\\lambda} = c_{\\lambda}^{v}_{\\mu}$",
+      "new": "${c_{\\mu}^{v}}_{\\lambda} = {c_{\\lambda}^{v}}_{\\mu}$",
+      "anchor": "851a3123"
+    },
+    {
+      "id": "fulton_young_tableaux-ch07-body-71-287b01",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[71]",
+      "expect": "\\begin{array}{c c} \\framebox {2} & 1 \\\\ 3 & 4 \\\\ 5 \\end{array} = - \\framebox {2} \\framebox {1} \\\\ \\framebox {5} & 4 \\\\ \\framebox {3} & = \\framebox {5} \\framebox {1} \\\\ \\framebox {2} & 4 \\\\ \\framebox {3} & = - \\framebox {5} \\framebox {4} \\\\ \\framebox {2} & 1 \\\\ \\framebox {3} & \\end{array}",
+      "new": "\\begin{array}{c c} \\framebox {2} & 1 \\\\ 3 & 4 \\\\ 5 \\end{array} = - \\begin{array}{c c} \\framebox {2} \\framebox {1} \\\\ \\framebox {5} & 4 \\\\ \\framebox {3} & \\end{array} = \\begin{array}{c c} \\framebox {5} \\framebox {1} \\\\ \\framebox {2} & 4 \\\\ \\framebox {3} & \\end{array} = - \\begin{array}{c c} \\framebox {5} \\framebox {4} \\\\ \\framebox {2} & 1 \\\\ \\framebox {3} & \\end{array}"
+    },
+    {
+      "id": "fulton_young_tableaux-ch06-body-27-82131a",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[27]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Lambda_{n}\\otimesQ$",
+      "new": "$\\Lambda_{n}\\otimes Q$",
+      "anchor": "3abe10c2"
+    }
+  ]
+}

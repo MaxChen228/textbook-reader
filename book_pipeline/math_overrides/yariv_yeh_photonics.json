@@ -1,0 +1,108 @@
+{
+  "overrides": [
+    {
+      "id": "yariv_yeh_photonics-ch13-body-96-95519c",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[96]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaC_{m}$",
+      "new": "$\\delta C_{m}$",
+      "anchor": "b9b3cfc5"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-100-95519c",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[100]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaC_{m}$",
+      "new": "$\\delta C_{m}$",
+      "anchor": "292c0f49"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-319-d8e832",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[319]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda_{0}=1~\\mum$",
+      "new": "$\\lambda_{0}=1~\\mu\\mathrm{m}$",
+      "anchor": "e81551ab"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-346-d8e832",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[346]",
+      "field": "md",
+      "all": true,
+      "old": "$\\lambda_{0}=1~\\mum$",
+      "new": "$\\lambda_{0}=1~\\mu\\mathrm{m}$",
+      "anchor": "71266a19"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch10-body-456-576fe9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[456]",
+      "expect": "\\begin{array}{l} \\text {BER = probability that i_{N} > \\frac {i_{S}}{2}} \\\\ \\qquad = \\int_ {i _ {S} / 2} ^ {\\infty} p (i _ {N}) d i _ {N} = \\frac {1}{\\sigma \\sqrt {2 \\pi}} \\int_ {i _ {S} / 2} ^ {\\infty} e ^ {- (i _ {N} ^ {2} / 2 \\sigma^ {2})} d i _ {N} \\\\ \\qquad = \\frac {1}{\\sqrt {\\pi}} \\int_ {i _ {S} / 2 \\sqrt {2} \\sigma} ^ {\\infty} e ^ {- \\xi^ {2}} d \\xi \\end{array}",
+      "new": "\\begin{array}{l} \\text {BER = probability that } i_{N} > \\frac {i_{S}}{2} \\\\ \\qquad = \\int_ {i _ {S} / 2} ^ {\\infty} p (i _ {N}) d i _ {N} = \\frac {1}{\\sigma \\sqrt {2 \\pi}} \\int_ {i _ {S} / 2} ^ {\\infty} e ^ {- (i _ {N} ^ {2} / 2 \\sigma^ {2})} d i _ {N} \\\\ \\qquad = \\frac {1}{\\sqrt {\\pi}} \\int_ {i _ {S} / 2 \\sqrt {2} \\sigma} ^ {\\infty} e ^ {- \\xi^ {2}} d \\xi \\end{array}"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-110-d30477",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[110]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaE_{m}$",
+      "new": "$\\delta E_{m}$",
+      "anchor": "f6f53f60"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-319-1f3a77",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[319]",
+      "field": "md",
+      "all": true,
+      "old": "$100~\\mum$",
+      "new": "$100~\\mu\\mathrm{m}$",
+      "anchor": "e81551ab"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch13-body-346-6047ff",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[346]",
+      "field": "md",
+      "all": true,
+      "old": "$0.33~\\mum$",
+      "new": "$0.33~\\mu\\mathrm{m}$",
+      "anchor": "71266a19"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch15-body-120-00c2e3",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[120]",
+      "field": "md",
+      "all": true,
+      "old": "$\\sim 250 \\, \\mum$",
+      "new": "$\\sim 250 \\, \\mu\\mathrm{m}$",
+      "anchor": "52207a59"
+    },
+    {
+      "id": "yariv_yeh_photonics-ch09-body-411-af1075",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[411]",
+      "expect": "\\begin{array}{l} \\Delta \\eta_ {1 1} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {1} = p _ {1 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {2 2} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {2} = p _ {1 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {3 3} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {3} = p _ {3 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {i j} = 0, \\quad \\text {for i\\neq j} \\end{array}",
+      "new": "\\begin{array}{l} \\Delta \\eta_ {1 1} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {1} = p _ {1 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {2 2} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {2} = p _ {1 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {3 3} = \\Delta \\left(\\frac {1}{n ^ {2}}\\right) _ {3} = p _ {3 3} S _ {0} \\sin (\\Omega t - K z) \\\\ \\Delta \\eta_ {i j} = 0, \\quad \\text {for } i\\neq j \\end{array}"
+    }
+  ]
+}

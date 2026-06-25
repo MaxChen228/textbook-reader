@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "id": "bruus_flensberg_many_body-appA-body-66-b9e747",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[66]",
+      "field": "md",
+      "all": true,
+      "old": "$c_\\nu_b^\\dagger = c_\\nu_b^\\dagger c_{\\nu_n_j} c_\\nu_n^\\dagger$",
+      "new": "$c_{\\nu_b}^\\dagger = c_{\\nu_b}^\\dagger c_{\\nu_{n_j}} c_{\\nu_n}^\\dagger$",
+      "anchor": "9a54acea"
+    },
+    {
+      "id": "bruus_flensberg_many_body-appA-body-66-ec3ae9",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[66]",
+      "field": "md",
+      "all": true,
+      "old": "$c_\\nu_b^\\dagger c_{\\nu_n_j}$",
+      "new": "$c_{\\nu_b}^\\dagger c_{\\nu_{n_j}}$",
+      "anchor": "9a54acea"
+    },
+    {
+      "id": "bruus_flensberg_many_body-ch01-body-204-333e9d",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[204]",
+      "field": "md",
+      "all": true,
+      "old": "$e^{\\pmiq\\cdot r}$",
+      "new": "$e^{\\pm i q\\cdot r}$",
+      "anchor": "984f9cb6"
+    },
+    {
+      "id": "bruus_flensberg_many_body-ch13-body-50-d5cf39",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[50]",
+      "expect": "\\begin{array}{r l} \\mathcal {G} (b, a) & = \\frac {\\left( \\begin{array}{c c} b & b \\\\ a & a \\end{array} + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right) \\left(1 + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right)}{\\left(1 + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right)} \\\\ & = \\left( \\begin{array}{c c} b & b \\\\ a & a \\end{array} + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\dots \\\\ a & a \\end{array} \\end{array} \\end{array} \\right) _ {\\text {connected}} \\end{array} \\tag {13.17}",
+      "new": "\\begin{array}{r l} \\mathcal {G} (b, a) & = \\frac {\\left( \\begin{array}{c c} b & b \\\\ a & a \\end{array} + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right) \\left(1 + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right)}{\\left(1 + \\begin{array}{c c} b & + \\cdots \\\\ a & a \\end{array} \\right)} \\\\ & = \\left( \\begin{array}{c c} b & b \\\\ a & a \\end{array} + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\begin{array}{c c} b & + \\dots \\\\ a & a \\end{array} \\end{array} \\end{array} \\end{array} \\right) _ {\\text {connected}} \\end{array} \\tag {13.17}"
+    }
+  ]
+}

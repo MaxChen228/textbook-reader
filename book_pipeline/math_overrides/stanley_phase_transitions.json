@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "stanley_phase_transitions-ch09-body-123-f48b5f",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[123]",
+      "expect": "\\begin{array}{l} \\text {(b) Order r^3:} \\\\ \\text {(c) Order r^5:} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(b) Order } r^3\\text{:} \\\\ \\text {(c) Order } r^5\\text{:} \\end{array}"
+    },
+    {
+      "id": "stanley_phase_transitions-ch07-body-108-45fe9c",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[108]",
+      "expect": "\\begin{array}{l} \\frac {n}{S (q)} = 1 - n \\hat {C} (q) = 1 - n \\{\\hat {C} (0) + \\hat {c} _ {2} (n, T) q ^ {2} + \\mathcal {O} (q ^ {4}) \\} \\\\ = \\hat {c} _ {2} (n, T) \\left\\{\\frac {1 - n \\hat {C} (0)}{\\hat {c} _ {2} (n , T)} - n q ^ {2} + \\mathcal {O} (q ^ {4}) \\right\\} \\\\ = R ^ {2} \\{\\kappa_ {1} ^ {2} + q ^ {2} + \\mathcal {O} (q ^ {4}) \\}, \\end{array} \\tag {7.4}\\tag{7.42}",
+      "new": "\\begin{array}{l} \\frac {n}{S (q)} = 1 - n \\hat {C} (q) = 1 - n \\{\\hat {C} (0) + \\hat {c} _ {2} (n, T) q ^ {2} + \\mathcal {O} (q ^ {4}) \\} \\\\ = \\hat {c} _ {2} (n, T) \\left\\{\\frac {1 - n \\hat {C} (0)}{\\hat {c} _ {2} (n , T)} - n q ^ {2} + \\mathcal {O} (q ^ {4}) \\right\\} \\\\ = R ^ {2} \\{\\kappa_ {1} ^ {2} + q ^ {2} + \\mathcal {O} (q ^ {4}) \\}, \\end{array}\\tag{7.42}"
+    },
+    {
+      "id": "stanley_phase_transitions-ch08-body-96-7be1ff",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{r l} E (S, H = 0) & = - \\frac {\\partial}{\\partial \\beta} \\left\\{\\ln Z _ {N} (T, \\dot {H} = 0) \\right\\} = - \\sum_ {i = 1} ^ {N - 1} J _ {i} \\tanh \\mathcal {J} _ {i} \\\\ & = - J (N - 1) \\tanh \\mathcal {J}, \\end{array} \\tag {8}\\tag{8.26a}",
+      "new": "\\begin{array}{r l} E (S, H = 0) & = - \\frac {\\partial}{\\partial \\beta} \\left\\{\\ln Z _ {N} (T, \\dot {H} = 0) \\right\\} = - \\sum_ {i = 1} ^ {N - 1} J _ {i} \\tanh \\mathcal {J} _ {i} \\\\ & = - J (N - 1) \\tanh \\mathcal {J}, \\end{array}\\tag{8.26a}"
+    },
+    {
+      "id": "stanley_phase_transitions-appB-body-74-53fd64",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{l} \\ln Z _ {N} (T, 0) \\sim \\ln 2 + \\frac {1}{2} \\frac {1}{(2 \\pi) ^ {2}} \\iint \\mathrm{d} q _ {1} \\mathrm{d} q _ {2} \\ln \\left\\{\\cosh^ {2} 2 \\mathcal {J} - 2 \\sinh 2 \\mathcal {J} (\\cos q _ {1} + \\cos q _ {2}) \\right\\}. \\end{array} \\tag {B.}\\tag{B.25}",
+      "new": "\\begin{array}{l} \\ln Z _ {N} (T, 0) \\sim \\ln 2 + \\frac {1}{2} \\frac {1}{(2 \\pi) ^ {2}} \\iint \\mathrm{d} q _ {1} \\mathrm{d} q _ {2} \\ln \\left\\{\\cosh^ {2} 2 \\mathcal {J} - 2 \\sinh 2 \\mathcal {J} (\\cos q _ {1} + \\cos q _ {2}) \\right\\}. \\end{array}\\tag{B.25}"
+    },
+    {
+      "id": "stanley_phase_transitions-appE-body-25-192e16",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[25]",
+      "expect": "\\begin{array}{l} \\frac {\\mathrm{d}}{\\mathrm{d} t} p (s _ {1}, s _ {2}, \\dots s _ {N}, t) = - \\sum_ {j = 1} ^ {N} w _ {j} (s _ {j}) p (s _ {1}, \\dots s _ {j}, \\dots s _ {N}, t) \\\\ + \\sum_ {j = 1} ^ {N} w _ {j} (- s _ {j}) p (s _ {1}, \\dots - s _ {j}, \\dots s _ {N}, t). \\end{array} \\tag {P}\\tag{E.9}",
+      "new": "\\begin{array}{l} \\frac {\\mathrm{d}}{\\mathrm{d} t} p (s _ {1}, s _ {2}, \\dots s _ {N}, t) = - \\sum_ {j = 1} ^ {N} w _ {j} (s _ {j}) p (s _ {1}, \\dots s _ {j}, \\dots s _ {N}, t) \\\\ + \\sum_ {j = 1} ^ {N} w _ {j} (- s _ {j}) p (s _ {1}, \\dots - s _ {j}, \\dots s _ {N}, t). \\end{array}\\tag{E.9}"
+    },
+    {
+      "id": "stanley_phase_transitions-ch13-body-66-e2273c",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[66]",
+      "expect": "\\begin{array}{r l}I (\\mathbf {R}, \\omega) =&\\lim _ {T \\rightarrow \\infty} \\frac {1}{T} | \\mathcal {B} | ^ {2} \\iint_ {- T / 2} ^ {T / 2} \\mathrm{d} t \\mathrm{d} t ^ {\\prime} \\iint \\mathrm{d} \\mathbf {r} \\mathrm{d} \\mathbf {r} ^ {\\prime} \\mathrm{e} ^ {- \\mathrm{i} \\mathbf {q} \\cdot (\\mathbf {r} - \\mathbf {r} ^ {\\prime})} \\mathrm{e} ^ {\\mathrm{i} (\\omega - \\omega_ {0}) (t - t ^ {\\prime})}\\\\&\\times \\langle n (\\mathbf {r}, t) n (\\mathbf {r} ^ {\\prime}, t ^ {\\prime}) \\rangle .\\end{array}\\tag {1}\\tag{13.21}",
+      "new": "\\begin{array}{r l}I (\\mathbf {R}, \\omega) =&\\lim _ {T \\rightarrow \\infty} \\frac {1}{T} | \\mathcal {B} | ^ {2} \\iint_ {- T / 2} ^ {T / 2} \\mathrm{d} t \\mathrm{d} t ^ {\\prime} \\iint \\mathrm{d} \\mathbf {r} \\mathrm{d} \\mathbf {r} ^ {\\prime} \\mathrm{e} ^ {- \\mathrm{i} \\mathbf {q} \\cdot (\\mathbf {r} - \\mathbf {r} ^ {\\prime})} \\mathrm{e} ^ {\\mathrm{i} (\\omega - \\omega_ {0}) (t - t ^ {\\prime})}\\\\&\\times \\langle n (\\mathbf {r}, t) n (\\mathbf {r} ^ {\\prime}, t ^ {\\prime}) \\rangle .\\end{array}\\tag{13.21}"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "arnold_mathematical_methods_mechanics-ch52-body-21-cd77e8",
+      "action": "fix_eq_tex",
+      "chunk": "ch52",
+      "selector": "body[21]",
+      "expect": "\\left. \\begin{array}{l l} \\dot {\\varphi} = \\omega (\\mathbf {I}) + \\varepsilon f (\\mathbf {I}, \\varphi) \\\\ \\dot {\\mathbf {I}} = \\varepsilon \\mathbf {g} (\\mathbf {I}, \\varphi) \\end{array} \\right\\} & \\quad \\varphi \\bmod 2 \\pi \\in S ^ {1}, \\\\ & \\mathbf {I} \\in G \\subset \\mathbb {R} ^ {l},",
+      "new": "\\begin{array}{l l} \\left. \\begin{array}{l l} \\dot {\\varphi} = \\omega (\\mathbf {I}) + \\varepsilon f (\\mathbf {I}, \\varphi) \\\\ \\dot {\\mathbf {I}} = \\varepsilon \\mathbf {g} (\\mathbf {I}, \\varphi) \\end{array} \\right\\} & \\quad \\varphi \\bmod 2 \\pi \\in S ^ {1}, \\\\ & \\mathbf {I} \\in G \\subset \\mathbb {R} ^ {l}, \\end{array}"
+    },
+    {
+      "id": "arnold_mathematical_methods_mechanics-ch52-problem-showthat-partials-i-q-lambda-partial-lambda-isasingle-valuedfuncti-body-11-934e76",
+      "action": "fix_inline_math",
+      "chunk": "ch52",
+      "selector": "problem:Showthat$\\partialS(I,q;\\lambda)/\\partial\\lambda$isasingle-valuedfuncti:body[11]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\partialS(I,q;\\lambda)/\\partial\\lambda$",
+      "new": "$\\partial S(I,q;\\lambda)/\\partial\\lambda$",
+      "anchor": "78327456"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "townsend_modern_qm-ch05-body-43-c81405",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[43]",
+      "expect": "\\begin{array}{c} \\text {E_1 + A / 2} \\\\ \\text {E_1} \\\\ 2 A \\\\ \\text {E_1 - 3A / 2} \\end{array}",
+      "new": "\\begin{array}{c} E_1 + A / 2 \\\\ E_1 \\\\ 2 A \\\\ E_1 - 3A / 2 \\end{array}"
+    },
+    {
+      "id": "townsend_modern_qm-ch14-body-76-ad70af",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[76]",
+      "expect": "H _ {\\mathrm{E&M}} = \\frac {1}{8 \\pi} \\int d ^ {3} r \\left(\\mathbf {E} ^ {2} + \\mathbf {B} ^ {2}\\right)",
+      "new": "H _ {\\mathrm{E\\&M}} = \\frac {1}{8 \\pi} \\int d ^ {3} r \\left(\\mathbf {E} ^ {2} + \\mathbf {B} ^ {2}\\right)"
+    }
+  ]
+}

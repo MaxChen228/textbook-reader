@@ -1,0 +1,83 @@
+{
+  "overrides": [
+    {
+      "id": "anderson_basic_notions-ch04-body-12-0e1cca",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[12]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\mathfrak { v } _ { 1 } _ { 1 }$",
+      "new": "$( \\mathfrak { v } _ { 1 _ { 1 } }$",
+      "anchor": "dcc9d511"
+    },
+    {
+      "id": "anderson_basic_notions-ch05-body-128-c44956",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[128]",
+      "expect": "\\underset {\\sim} {Y 0} _ {i} = y _ {i} 0 _ {i},",
+      "new": "{\\underset {\\sim} {Y 0}} _ {i} = y _ {i} 0 _ {i},"
+    },
+    {
+      "id": "anderson_basic_notions-ch05-body-341-46d391",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[341]",
+      "field": "md",
+      "all": true,
+      "old": "$J _ { \\overline { { \\mathbf { \\Lambda } } } } ^ { \\prime } _ { \\textbf { s } }$",
+      "new": "${J _ { \\overline { { \\mathbf { \\Lambda } } } } ^ { \\prime }} _ { \\textbf { s } }$",
+      "anchor": "8fed6891"
+    },
+    {
+      "id": "anderson_basic_notions-ch09-body-670-7e4547",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[670]",
+      "expect": "x _ {i} ^ {*} (\\mathbf {k}) \\equiv 2 \\langle a _ {\\mathbf {k}} ^ {\\dagger} _ {x} a _ {- \\mathbf {k} \\beta} ^ {\\dagger} \\rangle (\\sigma_ {i} \\sigma_ {y}) _ {\\alpha \\beta}",
+      "new": "x _ {i} ^ {*} (\\mathbf {k}) \\equiv 2 \\langle {a _ {\\mathbf {k}} ^ {\\dagger}} _ {x} a _ {- \\mathbf {k} \\beta} ^ {\\dagger} \\rangle (\\sigma_ {i} \\sigma_ {y}) _ {\\alpha \\beta}"
+    },
+    {
+      "id": "anderson_basic_notions-ch03-body-230-8f4cd8",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[230]",
+      "field": "md",
+      "all": true,
+      "old": "$\\tau = \\theta , \\ \\rho _ { \\textbf { s } } = \\textbf { \\rho }$",
+      "new": "$\\tau = \\theta , \\ \\rho _ { \\textbf { s } } = \\boldsymbol { \\rho }$",
+      "anchor": "c6b7b6a1"
+    },
+    {
+      "id": "anderson_basic_notions-ch02-body-276-343bea",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[276]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { A } _ { \\mathbf { H } \\mathbf { F } } \\^ { \\star } \\cdot \\mathbf { \\sigma } \\mathbf { \\hat { s } } ( \\mathbf { r } )$",
+      "new": "$\\mathbf { A } _ { \\mathbf { H } \\mathbf { F } } ^ { \\star } \\cdot \\mathbf { \\sigma } \\mathbf { \\hat { s } } ( \\mathbf { r } )$",
+      "anchor": "fed4d63b"
+    },
+    {
+      "id": "anderson_basic_notions-ch03-body-142-5e006b",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[142]",
+      "field": "md",
+      "all": true,
+      "old": "$w _ { \\mathrm { n } } \\sim \\varepsilonLambda$",
+      "new": "$w _ { \\mathrm { n } } \\sim \\varepsilon \\Lambda$",
+      "anchor": "2f46757e"
+    },
+    {
+      "id": "anderson_basic_notions-ch05-body-248-c76bfd",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[248]",
+      "expect": "\\begin{array}{r l} \\mathrm {Q\\DeltaVG_ {0} V_ {out} G_ {0} TQ} = & \\mathrm {Q\\DeltaVG_ {0} V_ {out} G_ {0} (\\DeltaVQ)} \\\\ & + \\mathrm {Q\\DeltaVG_ {0} V_ {out} G_ {0} (V_ {out} + \\DeltaV)G_ {0} TQ}, \\end{array}",
+      "new": "\\begin{array}{r l} \\mathrm {Q}\\Delta V G_ {0} V_ {out} G_ {0} TQ = & \\mathrm {Q}\\Delta V G_ {0} V_ {out} G_ {0} (\\Delta V Q) \\\\ & + \\mathrm {Q}\\Delta V G_ {0} V_ {out} G_ {0} (V_ {out} + \\Delta V)G_ {0} TQ, \\end{array}"
+    }
+  ]
+}
