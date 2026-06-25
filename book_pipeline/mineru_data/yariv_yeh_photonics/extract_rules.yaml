@@ -1,0 +1,199 @@
+slug: yariv_yeh_photonics
+title: Photonics
+author: "Amnon Yariv; Pochi Yeh"
+edition: "6th"
+subject: Optics
+publisher: Oxford University Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 808
+bibliography_start_page: null
+index_start_page: 839
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Electromagnetic Fields and Waves
+    page_start: 12
+    page_end: 76
+    chapter_title_block_idx: 115
+    problems_block_idx: 889
+    next_chapter_block_idx: 1111
+  - num: 2
+    title: Rays and Optical Beams
+    page_start: 77
+    page_end: 120
+    chapter_title_block_idx: 1111
+    problems_block_idx: 1801
+    next_chapter_block_idx: 1925
+  - num: 3
+    title: Guided Waves in Dielectric Slabs and Fibers
+    page_start: 121
+    page_end: 166
+    chapter_title_block_idx: 1925
+    problems_block_idx: 2421
+    next_chapter_block_idx: 2638
+  - num: 4
+    title: Optical Resonators
+    page_start: 167
+    page_end: 221
+    chapter_title_block_idx: 2638
+    problems_block_idx: 3379
+    next_chapter_block_idx: 3480
+  - num: 5
+    title: Interaction of Radiation and Atomic Systems
+    page_start: 222
+    page_end: 247
+    chapter_title_block_idx: 3480
+    problems_block_idx: 3855
+    next_chapter_block_idx: 3909
+  - num: 6
+    title: Theory of Laser Oscillation and Some Specific Laser Systems
+    page_start: 248
+    page_end: 323
+    chapter_title_block_idx: 3909
+    problems_block_idx: 4807
+    next_chapter_block_idx: 4938
+  - num: 7
+    title: Chromatic Dispersion and Polarization Mode Dispersion in Fibers
+    page_start: 324
+    page_end: 364
+    chapter_title_block_idx: 4938
+    problems_block_idx: 5570
+    next_chapter_block_idx: 5702
+  - num: 8
+    title: Nonlinear Optics
+    page_start: 365
+    page_end: 416
+    chapter_title_block_idx: 5702
+    problems_block_idx: 6410
+    next_chapter_block_idx: 6504
+  - num: 9
+    title: Electro-optic Modulation of Laser Beams
+    page_start: 417
+    page_end: 475
+    chapter_title_block_idx: 6504
+    problems_block_idx: 7249
+    next_chapter_block_idx: 7339
+  - num: 10
+    title: Noise in Optical Detection and Generation
+    page_start: 476
+    page_end: 511
+    chapter_title_block_idx: 7339
+    problems_block_idx: 7885
+    next_chapter_block_idx: 7933
+  - num: 11
+    title: Detection of Optical Radiation
+    page_start: 512
+    page_end: 549
+    chapter_title_block_idx: 7933
+    problems_block_idx: 8442
+    next_chapter_block_idx: 8495
+  - num: 12
+    title: Wave Propagation in Periodic Media
+    page_start: 550
+    page_end: 612
+    chapter_title_block_idx: 8495
+    problems_block_idx: 9387
+    next_chapter_block_idx: 9453
+  - num: 13
+    title: Waveguide Coupling
+    page_start: 613
+    page_end: 643
+    chapter_title_block_idx: 9453
+    problems_block_idx: 9904
+    next_chapter_block_idx: 9995
+  - num: 14
+    title: Nonlinear Optical Effects in Fibers
+    page_start: 644
+    page_end: 683
+    chapter_title_block_idx: 9995
+    problems_block_idx: 10534
+    next_chapter_block_idx: 10610
+  - num: 15
+    title: "Semiconductor Lasers—Theory and Applications"
+    page_start: 684
+    page_end: 724
+    chapter_title_block_idx: 10610
+    problems_block_idx: 11035
+    next_chapter_block_idx: 11112
+  - num: 16
+    title: Advanced Semiconductor Lasers
+    page_start: 725
+    page_end: 758
+    chapter_title_block_idx: 11112
+    problems_block_idx: 11502
+    next_chapter_block_idx: 11548
+  - num: 17
+    title: Optical Amplifiers
+    page_start: 759
+    page_end: 788
+    chapter_title_block_idx: 11548
+    problems_block_idx: 11847
+    next_chapter_block_idx: 11955
+  - num: 18
+    title: Classical Treatment of Quantum Noise and Squeezed States
+    page_start: 789
+    page_end: 807
+    chapter_title_block_idx: 11955
+    problems_block_idx: 12191
+    next_chapter_block_idx: 12263
+
+appendices:
+  - id: A
+    title: Wave Equation in Cylindrical Coordinates and Bessel Functions
+    page_start: 808
+    chapter_title_block_idx: 12263
+  - id: B
+    title: Exact Solutions of the Step-Index Circular Waveguide
+    page_start: 813
+    chapter_title_block_idx: 12323
+  - id: C
+    title: "Kramers–Kronig Relations"
+    page_start: 823
+    chapter_title_block_idx: 12449
+  - id: D
+    title: Transformation of a Coherent Electromagnetic Field by a Thin Lens
+    page_start: 828
+    chapter_title_block_idx: 12535
+  - id: E
+    title: Fermi Level and Its Temperature Dependence
+    page_start: 831
+    chapter_title_block_idx: 12570
+  - id: F
+    title: "Electro-optic Effect in Cubic 43m Crystals"
+    page_start: 834
+    chapter_title_block_idx: 12611
+  - id: G
+    title: Conversion for Power Units and Attenuation Units
+    page_start: 838
+    chapter_title_block_idx: 12653
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][a-z].*)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)(?=\s|$)'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: '^EXAMPLE:\s*(.+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
