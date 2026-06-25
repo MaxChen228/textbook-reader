@@ -1,0 +1,96 @@
+# ── 書本 metadata ──
+slug: eisenbud_harris_geometry_schemes
+title: The Geometry of Schemes
+author: David Eisenbud; Joe Harris
+edition: null
+subject: Algebraic Geometry
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+# MinerU 把 chapter title / I.M section / I.M.K subsection 全標 text_level=2（lvl1 只有書名）
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15           # ch I "Basic Definitions" pg 15
+appendices_start_page: 282    # 無 appendix → 末章(VI) page_end(281)+1
+bibliography_start_page: 282  # References 區首個 ref_text 在 pg 282
+index_start_page: 287         # Index 區起 pg 287
+
+# ── inline-problem 模式 ──
+# 習題散落 section 中、無獨立 Exercises heading，形如 "Exercise I-45. ..."；全本 inline。
+inline_problems: true
+
+# ── 章節（羅馬數字章 I–VI；II/IV/V 章標題頁未被 OCR 成 block，錨在各章首 section heading；title 取自 running header） ──
+chapters:
+  - num: 1
+    title: Basic Definitions
+    page_start: 15
+    page_end: 53
+    chapter_title_block_idx: 149
+    problems_block_idx: null
+    next_chapter_block_idx: 696
+  - num: 2
+    title: Examples
+    page_start: 54
+    page_end: 96
+    chapter_title_block_idx: 696   # 錨在 II.1 section heading（無獨立章標題塊）
+    problems_block_idx: null
+    next_chapter_block_idx: 1252
+  - num: 3
+    title: Projective Schemes
+    page_start: 97
+    page_end: 156
+    chapter_title_block_idx: 1252
+    problems_block_idx: null
+    next_chapter_block_idx: 2107
+  - num: 4
+    title: Classical Constructions
+    page_start: 157
+    page_end: 213
+    chapter_title_block_idx: 2107  # 錨在 IV.1 section heading
+    problems_block_idx: null
+    next_chapter_block_idx: 2883
+  - num: 5
+    title: Local Constructions
+    page_start: 214
+    page_end: 254
+    chapter_title_block_idx: 2883  # 錨在 V.1 section heading
+    problems_block_idx: null
+    next_chapter_block_idx: 3474
+  - num: 6
+    title: Schemes and Functors
+    page_start: 255
+    page_end: 281
+    chapter_title_block_idx: 3474
+    problems_block_idx: null
+    next_chapter_block_idx: 3824   # back-matter(References) 首塊，idx-bound 防 Index 被吞
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex（章內 section/subsection 皆 "Roman.num[.num] Title"） ──
+section_re: '^([IVXLC]+\.\d+)\s+(.+)$'
+subsection_re: '^([IVXLC]+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（Exercise <Roman>-<num>，每章共用一計數器、含 chapter prefix 故全本唯一） ──
+problem_start_re: '^Exercise\s+([IVXLC]+-\d+)\.'
+problem_chapter_must_match: false   # num 含 '-' 羅馬前綴，跳過 int() 驗
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([IVXLC]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文編號 Example <Roman>-<num>，與 Exercise 共用計數器） ──
+example_start_re: '^Example\s+([IVXLC]+-\d+)\.'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
