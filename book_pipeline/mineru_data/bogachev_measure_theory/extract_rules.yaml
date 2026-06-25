@@ -1,0 +1,96 @@
+slug: bogachev_measure_theory
+title: Measure Theory
+author: V. I. Bogachev
+edition: 1st
+subject: Real Analysis
+publisher: Springer
+language: en
+
+# block 過濾
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+# section/subsection heading 落在 text_level=2（章標 CHAPTER N / 章名落 lvl1 或 lvl2，由 anchor idx 指定，不受此欄影響）
+heading_text_level: 2
+
+# 內容範圍（global 0-based PDF page_idx）
+body_start_page: 15            # CHAPTER 1 起點
+appendices_start_page: 423     # Bibliographical and Historical Comments 起點（back-matter 起點）
+bibliography_start_page: 454   # References 起點
+index_start_page: 496          # Author Index（之後 Subject Index）起點
+
+# 二分模式（每章末單一 "Exercises" lvl2 heading 切習題；非 inline）
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Constructions and extensions of measures
+    page_start: 15
+    page_end: 118
+    chapter_title_block_idx: 70      # 'CHAPTER 1' (lvl2)
+    problems_block_idx: 1228         # 'Exercises' (lvl2, pg97)
+    next_chapter_block_idx: 1625
+  - num: 2
+    title: The Lebesgue integral
+    page_start: 119
+    page_end: 188
+    chapter_title_block_idx: 1625    # 'CHAPTER 2' (lvl1)
+    problems_block_idx: 2440         # 'Exercises' (lvl2, pg170)
+    next_chapter_block_idx: 2794
+  - num: 3
+    title: Operations on measures and functions
+    page_start: 189
+    page_end: 262
+    chapter_title_block_idx: 2794    # 章名 (lvl1)；'CHAPTER 3' 被 OCR 併掉
+    problems_block_idx: 3660         # 'Exercises' (lvl2, pg242)
+    next_chapter_block_idx: 4040
+  - num: 4
+    title: "The spaces $L^p$ and spaces of measures"
+    page_start: 263
+    page_end: 342
+    chapter_title_block_idx: 4040    # 章名 (lvl1)
+    problems_block_idx: 4879         # 'Exercises' (lvl2, pg317)
+    next_chapter_block_idx: 5378
+  - num: 5
+    title: Connections between the integral and derivative
+    page_start: 343
+    page_end: 422
+    chapter_title_block_idx: 5378    # 章名 (lvl1)
+    problems_block_idx: 6305         # 'Exercises' (lvl2, pg400)
+    next_chapter_block_idx: 6716
+
+appendices:
+  - id: A
+    title: Bibliographical and Historical Comments
+    page_start: 423
+    chapter_title_block_idx: 6716
+  - id: B
+    title: "Appendix: Curriculum of the course Real Analysis"
+    page_start: 453
+    chapter_title_block_idx: 6901
+
+# heading regex（各恰好 2 capture group: id, title）
+# section: 'N.M. Title'（如 '1.2. Algebras and σ-algebras'）；強制非空 title
+# subsection: 'N.M(roman). Title'（如 '1.12(i). Set operations'，Supplements 內字母小節）
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\([ivxlcdmIVXLCDM]+\))\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# 題號：習題在章末 Exercises 區，編號 'N.M.K'。分隔符變體（raw 實掃）：'.'/'°'(難題)/'.°'/'°.'/':'(OCR 誤植)
+problem_start_re: '^(\d+\.\d+\.\d+)[.°:]*\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+# equation：\tag{N.M.K}（如 \tag{1.2.1}）
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([\d.]+[a-z]?)\}'
+
+# 內文 Example 非 worked-problem 風（純例題物件、與定理同編號體系）→ 不抽出
+example_start_re: null
+
+# figure
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
