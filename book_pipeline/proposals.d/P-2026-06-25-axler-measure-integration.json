@@ -1,0 +1,21 @@
+{
+  "id": "P-2026-06-25-axler-measure-integration",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "parked",
+  "title": "EXERCISES heading 自帶 section id 時應由它定 namespace + 關前一題區（前置 section heading 被 OCR 丟失）",
+  "slug": "axler_measure_integration",
+  "detect": [],
+  "source": "audit-book/axler_measure_integration",
+  "resolution": "",
+  "created": "2026-06-25T02:50:07+00:00",
+  "updated": "2026-06-25T02:50:41+00:00",
+  "evidence": "Axler MIRA ch7：7B 的 section heading 被 MinerU 完全丟失（只剩 title-only 子標 Definition of L^p(μ)/Duality），但 EXERCISES 7B heading 仍帶 id。現引擎 namespace 只由 detected section heading 推導 → (1) 7B 習題誤掛 7A.* 與 7A 撞號（smoke H2 ['7A.1','7A.10',…]）；(2) EXERCISES 7A 開區後因 7B section heading 不存在、區不關 → 7B 整節定理被吸進 7A.17（104 blocks）。inline+namespace+problems_start_re gate 全已設仍無解，屬 schema 表達不了的結構殘留。",
+  "proposal": "兩個獨立子缺口，須分清：(A) namespace 撞號——problems_start_re 命中且帶 capture group 時，引擎於 exercises-gate 把該 group 當 current_section_id（覆寫 last section heading 推來的值）。加性：無 capture group 的書（如 Enderton ^Exercises$）行為不變。(B) body bleed——bleed 發生在 EXERCISES 7A→7B 之間（7B 整節定理在 EXERCISES 7B 之前），故『在 EXERCISES 7B 關區』太遲、解不了 bleed；真正缺的是『被 OCR 剝掉 id 的 7B title 塊（title-only heading-lvl）仍能當 section boundary 關閉前一題區』，例如新欄位允許指定 title-only heading 也關區、或引擎對 heading-lvl 但非 detected-section 的塊預設關 problems region。**(A) 只解撞號、(B) 才解 bleed，兩者需分別落地**。可泛化至任何『每節 EXERCISES NA 自帶 id、但前置 section heading 被 OCR 丟失/標錯層』的書（Axler 全家族）。margin 題號 OCR 散落造成的全書欠切分屬 source-quality、另論、不在此提案。",
+  "risk": "low；加性、僅影響 problems_start_re 帶 group 的書",
+  "disposition": "engine-capability：problems_start_re 帶 group 時由其定 namespace + 關前一題區。評估暫緩，待引擎落地後由 proposals stale 自動 resurface。本書 yaml 已產出、不 audit-block（內容層 12 章/sections/方程式完整，殘缺僅 ch7 7B namespace 與全書 margin 漏號欠切分，後者屬 source-quality 另論）。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "parser.walk_inline_chapter / walk_chapter exercises-gate"
+  }
+}

@@ -1,0 +1,152 @@
+# ── 書本 metadata ──
+slug: axler_measure_integration
+title: "Measure, Integration & Real Analysis"
+author: Sheldon Axler
+edition: null
+subject: Real Analysis
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+# section heading 在 lvl2，但 5 個 NA-section（3A/6E/10A/10D/11A）被 MinerU 標成 lvl1
+# （與章標同層）→ 必須 [1, 2] 兩級都收，否則這 5 節漏偵、其後習題掛錯 namespace。
+# 章標 "Chapter N Title"（lvl1）不匹配 section_re（^\d+[A-Z]）故不會被誤判成 section。
+heading_text_level: [1, 2]
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 15
+appendices_start_page: 414      # 無 Appendix；ch12 page_end(413)+1 = back matter(Photo Credits) 起點
+bibliography_start_page: 416
+index_start_page: null          # 全本無獨立 Index heading
+
+# ── inline-problem 模式 ──
+# Axler 習題無「每章單一 Problems heading」，而是每節末一個 "EXERCISES NA" 區、
+# 習題編號每節從 1 重置 → inline + namespace_by_section + problems_start_re gate。
+inline_problems: true
+problem_num_namespace_by_section: true
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: Riemann Integration
+    page_start: 15
+    page_end: 26
+    chapter_title_block_idx: 119
+    problems_block_idx: null
+    next_chapter_block_idx: 307
+  - num: 2
+    title: Measures
+    page_start: 27
+    page_end: 86
+    chapter_title_block_idx: 307
+    problems_block_idx: null
+    next_chapter_block_idx: 1355
+  - num: 3
+    title: Integration
+    page_start: 87
+    page_end: 114
+    chapter_title_block_idx: 1355
+    problems_block_idx: null
+    next_chapter_block_idx: 1817
+  - num: 4
+    title: Differentiation
+    page_start: 115
+    page_end: 129
+    chapter_title_block_idx: 1817
+    problems_block_idx: null
+    next_chapter_block_idx: 2077
+  - num: 5
+    title: Product Measures
+    page_start: 130
+    page_end: 159
+    chapter_title_block_idx: 2077
+    problems_block_idx: null
+    next_chapter_block_idx: 2581
+  - num: 6
+    title: Banach Spaces
+    page_start: 160
+    page_end: 206
+    chapter_title_block_idx: 2581
+    problems_block_idx: null
+    next_chapter_block_idx: 3407
+  - num: 7
+    title: "L^p Spaces"
+    page_start: 207
+    page_end: 224
+    chapter_title_block_idx: 3407
+    problems_block_idx: null
+    next_chapter_block_idx: 3753
+  - num: 8
+    title: Hilbert Spaces
+    page_start: 225
+    page_end: 268
+    chapter_title_block_idx: 3753
+    problems_block_idx: null
+    next_chapter_block_idx: 4590
+  - num: 9
+    title: Real and Complex Measures
+    page_start: 269
+    page_end: 293
+    chapter_title_block_idx: 4590
+    problems_block_idx: null
+    next_chapter_block_idx: 5037
+  - num: 10
+    title: Linear Maps on Hilbert Spaces
+    page_start: 294
+    page_end: 352
+    chapter_title_block_idx: 5037
+    problems_block_idx: null
+    next_chapter_block_idx: 6091
+  - num: 11
+    title: Fourier Analysis
+    page_start: 353
+    page_end: 393
+    chapter_title_block_idx: 6091
+    problems_block_idx: null
+    next_chapter_block_idx: 6710
+  - num: 12
+    title: Probability Measures
+    page_start: 394
+    page_end: 413
+    chapter_title_block_idx: 6710
+    problems_block_idx: null
+    next_chapter_block_idx: 7018
+
+# ── 附錄 ──
+appendices: []
+
+# ── heading regex ──
+# section = "NA Title"（如 "1A Review: Riemann Integral"）；id=NA 供 namespace。
+section_re: '^(\d+[A-Z])\s+(.+)$'
+# Axler 無編號 subsection（無 "1A.1" 形態）→ 用 NA.K never-match，使 "1.1 Definition"
+# 等編號結果塊落 body（不被誤判成 subsection）。
+subsection_re: '^(\d+[A-Z]\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 習題編號為純流水整數（"1 Suppose...", "2 Suppose..."）；namespace 串 section_id → "1A.1"。
+# 用 [1-9]\d* 拒絕 leading-zero / 裸 "0"（Axler 習題從不編 0；防 OCR 雜訊 "0 ..." 假命中）。
+problem_start_re: '^([1-9]\d*)\s'
+problem_chapter_must_match: false
+# 習題只在 "EXERCISES NA" 區內收（大小寫不一用 (?i)）。字母可選：ch12 是章級
+# "EXERCISES 12"（無 section 字母）；ch1-11 為 "EXERCISES 1A" 等。
+problems_start_re: '(?i)^EXERCISES\s+\d+[A-Z]?\s*$'
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+# Axler 範例標 "N.M Example ..."（如 "1.4 Example lower and upper Riemann sums"）。
+example_start_re: '^(\d+\.\d+)\s+Example\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
