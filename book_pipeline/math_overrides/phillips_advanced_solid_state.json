@@ -1,0 +1,31 @@
+{
+  "overrides": [
+    {
+      "id": "phillips_advanced_solid_state-ch12-body-265-cac8bc",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[265]",
+      "field": "caption",
+      "all": true,
+      "old": "${ \\pmb \\mathsf { p } } _ { 1 } = - { \\pmb \\mathsf { p } } _ { 2 }$",
+      "new": "${ \\pmb{\\mathsf { p }} } _ { 1 } = - { \\pmb{\\mathsf { p }} } _ { 2 }$",
+      "anchor": "a8532a4f"
+    },
+    {
+      "id": "phillips_advanced_solid_state-ch16-body-321-88e70f",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[321]",
+      "expect": "\\begin{array}{r l} & {- \\langle \\tilde {\\eta} _ {i \\sigma} \\tilde {T} _ {1} \\tilde {\\xi} _ {i \\sigma} ^ {\\dagger} \\rangle = t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad = t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\delta_ {i j} \\delta_ {\\bar {\\sigma} \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dant} \\rangle} \\\\ & {\\qquad + t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad = t \\sum_ {\\delta} \\langle f _ {i \\sigma} \\tilde {n} _ {i \\sigma} f _ {i \\bar {\\sigma}} ^ {\\dagger} f _ {i + \\delta \\bar {\\sigma}} (1 - \\tilde {n} _ {i + \\delta \\sigma}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad + t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} f _ {j + \\delta \\sigma^ {\\prime}}, (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle ,} \\end{array}",
+      "new": "\\begin{array}{r l} & {- \\langle \\tilde {\\eta} _ {i \\sigma} \\tilde {T} _ {1} \\tilde {\\xi} _ {i \\sigma} ^ {\\dagger} \\rangle = t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad = t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\delta_ {i j} \\delta_ {\\bar {\\sigma} \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad + t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} f _ {j + \\delta \\sigma^ {\\prime}} (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad = t \\sum_ {\\delta} \\langle f _ {i \\sigma} \\tilde {n} _ {i \\sigma} f _ {i \\bar {\\sigma}} ^ {\\dagger} f _ {i + \\delta \\bar {\\sigma}} (1 - \\tilde {n} _ {i + \\delta \\sigma}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle} \\\\ & {\\qquad + t \\sum_ {j, \\delta , \\sigma^ {\\prime}} \\langle f _ {i \\sigma} ^ {\\dagger} \\tilde {n} _ {j \\bar {\\sigma} ^ {\\prime}} f _ {j \\sigma^ {\\prime}} ^ {\\dagger} \\tilde {n} _ {i \\bar {\\sigma}} f _ {j + \\delta \\sigma^ {\\prime}}, (1 - \\tilde {n} _ {j + \\delta \\bar {\\sigma} ^ {\\prime}}) (1 - \\tilde {n} _ {i \\bar {\\sigma}}) f _ {i \\sigma} ^ {\\dagger} \\rangle ,} \\end{array}"
+    },
+    {
+      "id": "phillips_advanced_solid_state-ch12-body-664-d22786",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[664]",
+      "expect": "\\left<   f \\left. \\right| \\gamma_ {\\mathbf {p} + \\mathbf {q} \\uparrow} ^ {\\dagger} \\gamma_ {- \\mathbf {p} \\downarrow} ^ {\\dagger} | i \\rangle = \\delta_ {\\mathbf {p} ^ {\\prime \\prime}, - \\mathbf {p}} \\delta_ {\\mathbf {p} ^ {\\prime}, \\mathbf {p} + \\mathbf {q}}.",
+      "new": "\\left\\langle f \\middle| \\gamma_ {\\mathbf {p} + \\mathbf {q} \\uparrow} ^ {\\dagger} \\gamma_ {- \\mathbf {p} \\downarrow} ^ {\\dagger} \\middle| i \\right\\rangle = \\delta_ {\\mathbf {p} ^ {\\prime \\prime}, - \\mathbf {p}} \\delta_ {\\mathbf {p} ^ {\\prime}, \\mathbf {p} + \\mathbf {q}}."
+    }
+  ]
+}

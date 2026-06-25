@@ -1,0 +1,132 @@
+{
+  "overrides": [
+    {
+      "id": "zettili_qm-ch02-body-431-418ded",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[431]",
+      "expect": "(e ^ {\\hat {A}}) ^ {\\dagger} = e ^ {\\hat {A}} ^ {\\dagger}, (e ^ {i \\hat {A}}) ^ {\\dagger} = e ^ {- i \\hat {A}} ^ {\\dagger}, (e ^ {i \\alpha \\hat {A}}) ^ {\\dagger} = e ^ {- i \\alpha^ {*} \\hat {A}} ^ {\\dagger},",
+      "new": "(e ^ {\\hat {A}}) ^ {\\dagger} = {e ^ {\\hat {A}}} ^ {\\dagger}, (e ^ {i \\hat {A}}) ^ {\\dagger} = {e ^ {- i \\hat {A}}} ^ {\\dagger}, (e ^ {i \\alpha \\hat {A}}) ^ {\\dagger} = {e ^ {- i \\alpha^ {*} \\hat {A}}} ^ {\\dagger},"
+    },
+    {
+      "id": "zettili_qm-ch02-body-1249-21ca41",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[1249]",
+      "field": "md",
+      "all": true,
+      "old": "$( e ^ { \\hat { A } } ) ^ { \\dagger } = e ^ { \\hat { A } } ^ { \\dagger }$",
+      "new": "$( e ^ { \\hat { A } } ) ^ { \\dagger } = { e ^ { \\hat { A } } } ^ { \\dagger }$",
+      "anchor": "4348b0a5"
+    },
+    {
+      "id": "zettili_qm-ch02-body-1249-4888a7",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[1249]",
+      "field": "md",
+      "all": true,
+      "old": "$( e ^ { i \\hat { A } } ) ^ { \\dagger } = e ^ { - i \\hat { A } } ^ { \\dagger }$",
+      "new": "$( e ^ { i \\hat { A } } ) ^ { \\dagger } = e ^ { - i \\hat { A } ^ { \\dagger } }$",
+      "anchor": "579e8701"
+    },
+    {
+      "id": "zettili_qm-ch07-body-412-bf9565",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[412]",
+      "expect": "\\mid 1, 0 \\rangle = \\left<   \\frac {1}{2}, \\frac {1}{2}; \\frac {1}{2}, - \\frac {1}{2} \\mid 1, 0 \\right>\\left| \\right. \\frac {1}{2}, \\frac {1}{2}; \\frac {1}{2}, - \\frac {1}{2} \\right> + \\left<   \\frac {1}{2}, \\frac {1}{2}; - \\frac {1}{2}, \\frac {1}{2} \\mid 1, 0 \\right>\\left| \\right. \\frac {1}{2}, \\frac {1}{2}; - \\frac {1}{2}, \\frac {1}{2} \\right > ,",
+      "new": "\\mid 1, 0 \\rangle = \\left<   \\frac {1}{2}, \\frac {1}{2}; \\frac {1}{2}, - \\frac {1}{2} \\mid 1, 0 \\right>\\left| \\frac {1}{2}, \\frac {1}{2}; \\frac {1}{2}, - \\frac {1}{2} \\right> + \\left<   \\frac {1}{2}, \\frac {1}{2}; - \\frac {1}{2}, \\frac {1}{2} \\mid 1, 0 \\right>\\left| \\frac {1}{2}, \\frac {1}{2}; - \\frac {1}{2}, \\frac {1}{2} \\right > ,"
+    },
+    {
+      "id": "zettili_qm-ch06-body-349-4e39a7",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[349]",
+      "field": "md",
+      "all": true,
+      "old": "$ \\lambda = \\textrm { \\sqrt { 2 \\mu ( - E ) } / \\hbar }$",
+      "new": "$ \\lambda = \\sqrt { 2 \\mu ( - E ) } / \\hbar$",
+      "anchor": "0cc64705"
+    },
+    {
+      "id": "zettili_qm-ch12-body-313-36635c",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[313]",
+      "expect": "(E - V _ {0}) ^ {2} = c ^ {2} p _ {2} ^ {2} + m ^ {2} c ^ {4} \\quad \\Longrightarrow \\quad v _ {g} = \\frac {\\partial E}{\\partial p _ {2}} = \\frac {p _ {2}}{E - V _ {0}} \\quad \\Longrightarrow \\quad \\left\\{ \\begin{array}{l l} v _ {g} > 0 & \\text {If p_{2} <   0} \\\\ v _ {g} <   0 & \\text {If p_{2} > 0}. \\end{array} \\right.",
+      "new": "(E - V _ {0}) ^ {2} = c ^ {2} p _ {2} ^ {2} + m ^ {2} c ^ {4} \\quad \\Longrightarrow \\quad v _ {g} = \\frac {\\partial E}{\\partial p _ {2}} = \\frac {p _ {2}}{E - V _ {0}} \\quad \\Longrightarrow \\quad \\left\\{ \\begin{array}{l l} v _ {g} > 0 & \\text {If } p_{2} <   0 \\\\ v _ {g} <   0 & \\text {If } p_{2} > 0. \\end{array} \\right."
+    },
+    {
+      "id": "zettili_qm-ch12-body-487-176ca3",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[487]",
+      "expect": "\\varepsilon_ {\\alpha \\beta \\mu \\nu} = \\left\\{ \\begin{array}{l l} 1, & \\text {for \\alpha ,\\beta ,\\mu ,\\nu an even permutation of 0 , 1 , 2 , 3 ,} \\\\ 0, & \\text {if any two or more indices among \\alpha ,\\beta ,\\mu ,\\nu are equal ,} \\\\ - 1, & \\text {for \\alpha ,\\beta ,\\mu ,\\nu an odd permutation of 0 , 1 , 2 , 3 .} \\end{array} \\right.",
+      "new": "\\varepsilon_ {\\alpha \\beta \\mu \\nu} = \\left\\{ \\begin{array}{l l} 1, & \\text {for } \\alpha ,\\beta ,\\mu ,\\nu \\text { an even permutation of 0 , 1 , 2 , 3 ,} \\\\ 0, & \\text {if any two or more indices among } \\alpha ,\\beta ,\\mu ,\\nu \\text { are equal ,} \\\\ - 1, & \\text {for } \\alpha ,\\beta ,\\mu ,\\nu \\text { an odd permutation of 0 , 1 , 2 , 3 .} \\end{array} \\right."
+    },
+    {
+      "id": "zettili_qm-ch12-body-749-4d31ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[749]",
+      "expect": "\\boxed { \\begin{array}{c} | u _ {1} \\rangle = \\left( \\begin{array}{c} 1 \\\\ 0 \\\\ 0 \\\\ 0 \\end{array} \\right), \\qquad | u _ {2} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 1 \\\\ 0 \\\\ 0 \\end{array} \\right), \\qquad | u _ {3} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 0 \\\\ 1 \\\\ 0 \\end{array} \\right), \\qquad | u _ {4} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 0 \\\\ 0 \\\\ 1 \\end{array} \\right).} \\end{array}",
+      "new": "\\boxed { \\begin{array}{c} | u _ {1} \\rangle = \\left( \\begin{array}{c} 1 \\\\ 0 \\\\ 0 \\\\ 0 \\end{array} \\right), \\qquad | u _ {2} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 1 \\\\ 0 \\\\ 0 \\end{array} \\right), \\qquad | u _ {3} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 0 \\\\ 1 \\\\ 0 \\end{array} \\right), \\qquad | u _ {4} \\rangle = \\left( \\begin{array}{c} 0 \\\\ 0 \\\\ 0 \\\\ 1 \\end{array} \\right). \\end{array} }"
+    },
+    {
+      "id": "zettili_qm-ch01-body-650-19bb25",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[650]",
+      "field": "caption",
+      "all": true,
+      "old": "$\\big | \\psi ( x , t ) \\big | ^ { 2 } \\big ;$",
+      "new": "$\\bigl | \\psi ( x , t ) \\bigr | ^ { 2 } ;$",
+      "anchor": "ca3ae8b6"
+    },
+    {
+      "id": "zettili_qm-ch01-body-732-dc9fc1",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[732]",
+      "field": "md",
+      "all": true,
+      "old": "$V _ { s _ { 1 } } - 2 V _ { s _ { 2 } } = W / e _  \\it _  \\it$",
+      "new": "$V _ { s _ { 1 } } - 2 V _ { s _ { 2 } } = W / e$",
+      "anchor": "265aecfc"
+    },
+    {
+      "id": "zettili_qm-ch12-body-883-9b8a99",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[883]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { \\boxed { \\left( \\gamma ^ { \\mu } p _ { \\mu } + m c \\right) v _ { j } = 0 \\ \\middle | \\mathrm { w i t h } \\ j = 1 , \\ 2 . } } \\end{array}$",
+      "new": "$\\begin{array} { r } { \\boxed { \\left( \\gamma ^ { \\mu } p _ { \\mu } + m c \\right) v _ { j } = 0 \\mid \\mathrm { w i t h } \\ j = 1 , \\ 2 . } } \\end{array}$",
+      "anchor": "1c089373"
+    },
+    {
+      "id": "zettili_qm-ch05-problem-5-18-body-1-0cc85c",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.18:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\hat { \\vec { L } } { } ^ { 2 } \\hat { \\vec { \\cent } }$",
+      "new": "$\\hat { \\vec { L } } { } ^ { 2 } \\hat { \\vec { ¢ } }$",
+      "anchor": "2c75676f"
+    },
+    {
+      "id": "zettili_qm-ch11-body-385-983026",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[385]",
+      "field": "md",
+      "all": true,
+      "old": "$\\hbar c = 1 9 7 . 3 3 \\mathrm { { \\fontfamily { q p l } \\selectfont } } { \\mathrm { ~ d e V } }$",
+      "new": "$\\hbar c = 1 9 7 . 3 3 \\mathrm { ~ d e V }$",
+      "anchor": "2a11c2e6"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "hook_hall_solid_state-ch05-body-113-78c9ad",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[113]",
+      "field": "md",
+      "all": true,
+      "old": "$E _ { \\mathrm { D } } \\ \\Lt \\Lt \\Lt 1 \\Lt 2 \\Lt \\Lt E _ { \\mathrm { G } }$",
+      "new": "$E _ { \\mathrm { D } } \\ < \\ < \\ < 1 \\ < 2 \\ < \\ < E _ { \\mathrm { G } }$",
+      "anchor": "e9dfde4e"
+    },
+    {
+      "id": "hook_hall_solid_state-ch13-problem-13-8-body-0-0b9283",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "problem:13.8:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\omega _ { \\mathrm { P } } \\tau \\lessleqslant 1 ?$",
+      "new": "$\\omega _ { \\mathrm { P } } \\tau \\leqslant 1 ?$",
+      "anchor": "a2baa9d3"
+    }
+  ]
+}

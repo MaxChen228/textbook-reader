@@ -1,0 +1,44 @@
+{
+  "overrides": [
+    {
+      "id": "ramond_field_theory-ch06-body-570-df7740",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[570]",
+      "expect": "[ \\nabla_ {\\nu}, \\nabla_ {\\mu} ] T _ {\\rho} = S _ {\\nu \\mu} ^ {\\sigma} \\nabla_ {\\sigma} T _ {\\rho} + R _ {\\nu \\mu} ^ {\\lambda} _ {\\rho} T _ {\\lambda},",
+      "new": "[ \\nabla_ {\\nu}, \\nabla_ {\\mu} ] T _ {\\rho} = S _ {\\nu \\mu} ^ {\\sigma} \\nabla_ {\\sigma} T _ {\\rho} + R _ {\\nu \\mu} ^ {\\lambda} {} _ {\\rho} T _ {\\lambda},"
+    },
+    {
+      "id": "ramond_field_theory-ch06-body-576-2e1c54",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[576]",
+      "expect": "R _ {\\nu \\mu} ^ {\\lambda} _ {\\rho} = \\partial_ {\\nu} \\Gamma^ {\\lambda} _ {\\rho \\mu} + \\Gamma^ {\\sigma} _ {\\rho \\nu} \\Gamma^ {\\lambda} _ {\\sigma \\mu} - (\\mu \\leftrightarrow \\nu) .",
+      "new": "R _ {\\nu \\mu} ^ {\\lambda} {} _ {\\rho} = \\partial_ {\\nu} \\Gamma^ {\\lambda} _ {\\rho \\mu} + \\Gamma^ {\\sigma} _ {\\rho \\nu} \\Gamma^ {\\lambda} _ {\\sigma \\mu} - (\\mu \\leftrightarrow \\nu) ."
+    },
+    {
+      "id": "ramond_field_theory-ch02-body-220-2bef30",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[220]",
+      "expect": "\\lim_{\\substack{t_{f}\\to -i\\infty\\\\t_{i}\\to i\\infty}}\\langle Q^{\\prime}_{t_{f}}|Q_{t_{i}}\\rangle_{J} = \\phi_{0}^{*}(Q)\\phi_{0}(Q^{\\prime})e^{-iE_{0}(t_{f} - t_{i})}\\left\\langle \\Omega |\\Omega \\rangle_{J}",
+      "new": "\\lim_{\\substack{t_{f}\\to -i\\infty\\\\t_{i}\\to i\\infty}}\\langle Q^{\\prime}_{t_{f}}|Q_{t_{i}}\\rangle_{J} = \\phi_{0}^{*}(Q)\\phi_{0}(Q^{\\prime})e^{-iE_{0}(t_{f} - t_{i})}\\left\\langle \\Omega |\\Omega \\right\\rangle_{J}"
+    },
+    {
+      "id": "ramond_field_theory-ch04-body-301-2add23",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[301]",
+      "expect": "\\underline {{\\text {   \\bigcirc   }}} = m ^ {2} \\frac {\\hat {\\lambda}}{2} \\left[ \\frac {1}{\\epsilon} + \\psi (2) - \\ln \\hat {m} ^ {2} + \\mathcal {O} (\\epsilon) \\right],",
+      "new": "\\underline {{\\bigcirc}} = m ^ {2} \\frac {\\hat {\\lambda}}{2} \\left[ \\frac {1}{\\epsilon} + \\psi (2) - \\ln \\hat {m} ^ {2} + \\mathcal {O} (\\epsilon) \\right],"
+    },
+    {
+      "id": "ramond_field_theory-ch06-body-510-5c1ab5",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[510]",
+      "expect": "\\begin{array}{l} \\delta_ {\\omega} S _ {E} = \\frac {1}{1 6 \\pi G} \\int d ^ {4} x E \\delta R \\\\ = \\frac {1}{1 6 \\pi G} \\int d ^ {4} x \\delta \\omega_ {\\rho} ^ {m n} [ \\partial_ {\\mu} \\left\\{E (e _ {m} ^ {\\mu} e _ {n} ^ {\\rho} - e _ {m} ^ {\\mu} e _ {n} ^ {\\rho}) \\right\\} - E (e _ {m} ^ {\\rho} e _ {q} ^ {\\mu} - e _ {m} ^ {\\mu} e _ {q} ^ {\\rho}) \\omega_ {\\mu n} ^ {q} \\\\ + E (e _ {q} ^ {\\mu} e _ {n} ^ {\\rho} - e _ {q} ^ {\\rho} e _ {n} ^ {\\mu}) \\omega_ {\\mu} ^ {q} _ {m} ] + \\text { surface   terms }, \\end{array} \\tag {6.4.7}",
+      "new": "\\begin{array}{l} \\delta_ {\\omega} S _ {E} = \\frac {1}{1 6 \\pi G} \\int d ^ {4} x E \\delta R \\\\ = \\frac {1}{1 6 \\pi G} \\int d ^ {4} x \\delta \\omega_ {\\rho} ^ {m n} [ \\partial_ {\\mu} \\left\\{E (e _ {m} ^ {\\mu} e _ {n} ^ {\\rho} - e _ {m} ^ {\\mu} e _ {n} ^ {\\rho}) \\right\\} - E (e _ {m} ^ {\\rho} e _ {q} ^ {\\mu} - e _ {m} ^ {\\mu} e _ {q} ^ {\\rho}) \\omega_ {\\mu n} ^ {q} \\\\ + E (e _ {q} ^ {\\mu} e _ {n} ^ {\\rho} - e _ {q} ^ {\\rho} e _ {n} ^ {\\mu}) \\omega_ {\\mu} ^ {q} {} _ {m} ] + \\text { surface   terms }, \\end{array} \\tag {6.4.7}"
+    }
+  ]
+}
