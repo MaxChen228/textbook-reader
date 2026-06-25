@@ -1,0 +1,131 @@
+# ── 書本 metadata ──
+slug: fulton_young_tableaux
+title: Young Tableaux
+author: William Fulton
+edition: null
+subject: Combinatorics
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # section heading (N.M) 落在 lvl2；章標題另由 chapter_title_block_idx 手動錨定（混 lvl1/lvl2）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 16
+appendices_start_page: 192
+bibliography_start_page: 235   # "Answers and References" 起點，當 back-matter 切點（answers 屬 sol 域、不入主書）
+index_start_page: 263          # "Index of Notation"
+
+# ── inline-problem 模式 ──
+inline_problems: true          # 全本 inline「Exercise N」散落 section 中、每章重編、章內連續（非 per-section reset）
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Bumping and sliding"
+    page_start: 16
+    page_end: 25
+    chapter_title_block_idx: 145
+    problems_block_idx: null
+    next_chapter_block_idx: 232
+  - num: 2
+    title: "Words; the plactic monoid"
+    page_start: 26
+    page_end: 38
+    chapter_title_block_idx: 232
+    problems_block_idx: null
+    next_chapter_block_idx: 416
+  - num: 3
+    title: "Increasing sequences; proofs of the claims"
+    page_start: 39
+    page_end: 44
+    chapter_title_block_idx: 416
+    problems_block_idx: null
+    next_chapter_block_idx: 488
+  - num: 4
+    title: "The Robinson-Schensted-Knuth correspondence"
+    page_start: 45
+    page_end: 66
+    chapter_title_block_idx: 488
+    problems_block_idx: null
+    next_chapter_block_idx: 741
+  - num: 5
+    title: "The Littlewood-Richardson rule"
+    page_start: 67
+    page_end: 80
+    chapter_title_block_idx: 741
+    problems_block_idx: null
+    next_chapter_block_idx: 921
+  - num: 6
+    title: "Symmetric polynomials"
+    page_start: 81
+    page_end: 91
+    chapter_title_block_idx: 921
+    problems_block_idx: null
+    next_chapter_block_idx: 1071
+  - num: 7
+    title: "Representations of the symmetric group"
+    page_start: 92
+    page_end: 112
+    chapter_title_block_idx: 1071
+    problems_block_idx: null
+    next_chapter_block_idx: 1358
+  - num: 8
+    title: "Representations of the general linear group"
+    page_start: 113
+    page_end: 139
+    chapter_title_block_idx: 1358
+    problems_block_idx: null
+    next_chapter_block_idx: 1694
+  - num: 9
+    title: "Flag varieties"
+    page_start: 140
+    page_end: 162
+    chapter_title_block_idx: 1694
+    problems_block_idx: null
+    next_chapter_block_idx: 1970
+  - num: 10
+    title: "Schubert varieties and polynomials"
+    page_start: 163
+    page_end: 191
+    chapter_title_block_idx: 1970
+    problems_block_idx: null
+    next_chapter_block_idx: 2360
+
+# ── 附錄 ──
+appendices:
+  - id: "A"
+    title: "Combinatorial variations"
+    page_start: 192
+    chapter_title_block_idx: 2360
+  - id: "B"
+    title: "On the topology of algebraic varieties"
+    page_start: 220
+    chapter_title_block_idx: 2751
+
+# ── heading regex ──
+# section/subsection 同時涵蓋章節 N.M（1.1–10.6）與附錄字母 section（A.1/B.1）、subsection（A.4.1）
+section_re: '^((?:\d+|[A-Z])\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+|[A-Z])\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^Exercise\s+(\d+)'
+problem_chapter_must_match: false   # 「Exercise N」純流水、每章重編，N≠章號故必 false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null   # 全本無 "Example N" 段
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
