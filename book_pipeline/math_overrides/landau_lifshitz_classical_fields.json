@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_classical_fields-ch11-body-109-800870",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[109]",
+      "expect": "I _ {2} = \\frac {1}{9 6} (R _ {i k l m} R ^ {l m p r} R _ {p r} ^ {i k} + i R _ {i k l m} R ^ {l m p r} R _ {p r} ^ {*} ^ {i k}),",
+      "new": "I _ {2} = \\frac {1}{9 6} (R _ {i k l m} R ^ {l m p r} R _ {p r} ^ {i k} + i R _ {i k l m} R ^ {l m p r} R _ {p r} ^ {* i k}),"
+    },
+    {
+      "id": "landau_lifshitz_classical_fields-ch13-body-67-c0c209",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[67]",
+      "expect": "h _ {i k} ^ {; l} _ {; l} = 0.",
+      "new": "h _ {i k} ^ {; l} {} _ {; l} = 0."
+    }
+  ]
+}

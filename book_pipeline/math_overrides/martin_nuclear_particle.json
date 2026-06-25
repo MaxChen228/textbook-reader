@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "martin_nuclear_particle-ch03-problem-3-14-body-1-3f579f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.14:body[1]",
+      "expect": "\\begin{array}{l l l} \\text {(a) p + \\bar {p} \\to \\pi^ {+} + \\pi^ {-}} & \\text {(b) p \\to e^ {+} + \\gamma} & \\text {(c) \\Sigma^ {0} \\to \\Lambda + \\gamma} \\\\ \\text {(d) p + p \\to \\Sigma^ {+} + n + K ^ {0} + \\pi^ {+}} & \\text {(e) \\Xi^ {-} \\to \\Lambda + \\pi^ {-}} & \\text {(f) \\Delta^ {+} \\to p + \\pi^ {0}} \\end{array}",
+      "new": "\\begin{array}{l l l} \\text {(a) } p + \\bar {p} \\to \\pi^ {+} + \\pi^ {-} & \\text {(b) } p \\to e^ {+} + \\gamma & \\text {(c) } \\Sigma^ {0} \\to \\Lambda + \\gamma \\\\ \\text {(d) } p + p \\to \\Sigma^ {+} + n + K ^ {0} + \\pi^ {+} & \\text {(e) } \\Xi^ {-} \\to \\Lambda + \\pi^ {-} & \\text {(f) } \\Delta^ {+} \\to p + \\pi^ {0} \\end{array}"
+    },
+    {
+      "id": "martin_nuclear_particle-ch07-body-160-23ceba",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[160]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A } .$",
+      "new": "$\\mathring { \\mathrm { A } } .$",
+      "anchor": "adacc4e4"
+    }
+  ]
+}

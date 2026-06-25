@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "lang_complex_analysis-appA-body-361-27a955",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[361]",
+      "expect": "\\int_ {\\gamma_ {k}} G _ {P _ {j}} = \\left\\{ \\begin{array}{l l} 2 \\pi & \\text {if k = j}, \\\\ 0 & \\text {if k\\neq j}. \\end{array} \\right.",
+      "new": "\\int_ {\\gamma_ {k}} G _ {P _ {j}} = \\left\\{ \\begin{array}{l l} 2 \\pi & \\text {if } k = j, \\\\ 0 & \\text {if } k\\neq j. \\end{array} \\right."
+    }
+  ]
+}

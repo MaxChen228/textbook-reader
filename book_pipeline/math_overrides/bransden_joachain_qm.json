@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "bransden_joachain_qm-ch13-body-261-f165ee",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[261]",
+      "expect": "^ 3 \\alpha = [ \\lambda - \\frac {1}{2} \\lambda^ {2} ^ {3} r _ {0} ] ^ {- 1}",
+      "new": "{}^ 3 \\alpha = [ \\lambda - \\frac {1}{2} \\lambda^ {2 3} r _ {0} ] ^ {- 1}"
+    },
+    {
+      "id": "bransden_joachain_qm-ch12-body-201-a2ebce",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[201]",
+      "expect": "\\psi_ {\\mathrm{q}} (\\mathbf {r}, \\sigma) = \\phi_ {\\mathrm{q}} (x, y) \\exp (\\mathrm{i} k z) \\times \\left\\{ \\begin{array}{l l} \\alpha & \\text {for m_{s} = 1 / 2} \\\\ \\beta & \\text {for m_{s} = -1 / 2} \\end{array} \\right.",
+      "new": "\\psi_ {\\mathrm{q}} (\\mathbf {r}, \\sigma) = \\phi_ {\\mathrm{q}} (x, y) \\exp (\\mathrm{i} k z) \\times \\left\\{ \\begin{array}{l l} \\alpha & \\text {for \\(m_{s} = 1 / 2\\)} \\\\ \\beta & \\text {for \\(m_{s} = -1 / 2\\)} \\end{array} \\right."
+    },
+    {
+      "id": "bransden_joachain_qm-ch05-body-689-fd66a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[689]",
+      "expect": "\\begin{array}{l} \\text {[ r . p , H ] = [ (x p _ {x} + y p _ {y} + z p _ {z}) , \\frac {1}{2 m} (p _ {x} ^ {2} + p _ {y} ^ {2} + p _ {z} ^ {2}) + V (x , y , z) ]} \\\\ \\qquad = \\frac {\\mathrm{i} \\hbar}{m} (p _ {x} ^ {2} + p _ {y} ^ {2} + p _ {z} ^ {2}) - \\mathrm{i} \\hbar \\left(x \\frac {\\partial V}{\\partial x} + y \\frac {\\partial V}{\\partial y} + z \\frac {\\partial V}{\\partial z}\\right) \\\\ \\qquad = 2 \\mathrm{i} \\hbar T - \\mathrm{i} \\hbar (\\mathbf {r}. \\nabla V) \\end{array}",
+      "new": "\\begin{array}{l} {[ r . p , H ] = [ (x p _ {x} + y p _ {y} + z p _ {z}) , \\frac {1}{2 m} (p _ {x} ^ {2} + p _ {y} ^ {2} + p _ {z} ^ {2}) + V (x , y , z) ]} \\\\ \\qquad = \\frac {\\mathrm{i} \\hbar}{m} (p _ {x} ^ {2} + p _ {y} ^ {2} + p _ {z} ^ {2}) - \\mathrm{i} \\hbar \\left(x \\frac {\\partial V}{\\partial x} + y \\frac {\\partial V}{\\partial y} + z \\frac {\\partial V}{\\partial z}\\right) \\\\ \\qquad = 2 \\mathrm{i} \\hbar T - \\mathrm{i} \\hbar (\\mathbf {r}. \\nabla V) \\end{array}"
+    }
+  ]
+}

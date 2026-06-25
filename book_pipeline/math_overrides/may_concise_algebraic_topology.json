@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "may_concise_algebraic_topology-ch25-body-128-e07833",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[128]",
+      "expect": "\\gamma (a _ {i}) \\equiv \\left\\{ \\begin{array}{l l} 1 \\otimes a _ {i} & \\text { if   i   is   not   of   the   form   2^{r} -1} \\\\ \\xi_ {r} \\otimes 1 + 1 \\otimes a _ {2 ^ {r} - 1} & \\text { if   i = 2^{r} -1}. \\end{array} \\right.",
+      "new": "\\gamma (a _ {i}) \\equiv \\left\\{ \\begin{array}{l l} 1 \\otimes a _ {i} & \\text { if   i   is   not   of   the   form } 2^{r} -1 \\\\ \\xi_ {r} \\otimes 1 + 1 \\otimes a _ {2 ^ {r} - 1} & \\text { if } i = 2^{r} -1. \\end{array} \\right."
+    },
+    {
+      "id": "may_concise_algebraic_topology-ch22-body-122-d3d35b",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[122]",
+      "expect": "\\begin{array}{c c c} F (X, Y) \\wedge F (X, Z) \\wedge X \\wedge X & \\xrightarrow {t \\wedge \\mathrm{id}} & F (X, Z) \\wedge F (X, Y) \\wedge X \\wedge X \\\\ \\Big \\downarrow_ {\\mathrm{id} \\wedge t \\wedge \\mathrm{id}} & & \\Big \\downarrow_ {\\mathrm{id} \\wedge \\varepsilon \\wedge \\mathrm{id}} \\\\ F (X, Y) \\wedge X \\wedge F (X, Z) \\wedge X & & F (X, Z) \\wedge Y \\wedge X \\\\ \\Big \\downarrow_ {\\varepsilon \\wedge \\varepsilon} & & \\Big \\downarrow_ {\\mathrm{id} \\wedge t} \\\\ Y \\wedge Z \\xleftarrow [ t ] & Z \\wedge Y \\xleftarrow [ \\varepsilon \\wedge \\mathrm{id} ] & F (X, Z) \\wedge X \\wedge Y. \\end{array}",
+      "new": "\\begin{array}{c c c} F (X, Y) \\wedge F (X, Z) \\wedge X \\wedge X & \\xrightarrow {t \\wedge \\mathrm{id}} & F (X, Z) \\wedge F (X, Y) \\wedge X \\wedge X \\\\ \\Big \\downarrow_ {\\mathrm{id} \\wedge t \\wedge \\mathrm{id}} & & \\Big \\downarrow_ {\\mathrm{id} \\wedge \\varepsilon \\wedge \\mathrm{id}} \\\\ F (X, Y) \\wedge X \\wedge F (X, Z) \\wedge X & & F (X, Z) \\wedge Y \\wedge X \\\\ \\Big \\downarrow_ {\\varepsilon \\wedge \\varepsilon} & & \\Big \\downarrow_ {\\mathrm{id} \\wedge t} \\\\ Y \\wedge Z \\xleftarrow { t } & Z \\wedge Y \\xleftarrow { \\varepsilon \\wedge \\mathrm{id} } & F (X, Z) \\wedge X \\wedge Y. \\end{array}"
+    }
+  ]
+}

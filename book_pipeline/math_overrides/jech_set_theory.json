@@ -1,0 +1,74 @@
+{
+  "overrides": [
+    {
+      "id": "jech_set_theory-ch24-body-258-c820fb",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[258]",
+      "expect": "\\chi_ {\\eta} (\\lambda) = \\sup (M _ {\\eta} \\cap \\lambda) \\quad \\text {(for all \\lambda\\in A)},",
+      "new": "\\chi_ {\\eta} (\\lambda) = \\sup (M _ {\\eta} \\cap \\lambda) \\quad \\text {(for all } \\lambda\\in A\\text{)},"
+    },
+    {
+      "id": "jech_set_theory-ch34-body-79-d7235b",
+      "action": "fix_inline_math",
+      "chunk": "ch34",
+      "selector": "body[79]",
+      "field": "md",
+      "all": true,
+      "old": "$\\gamma \\geq \\alpha, \\beta, S^{V_{\\gamma}} \\simeq T^{V_{\\gamma}} \\mod$",
+      "new": "$\\gamma \\geq \\alpha, \\beta, S^{V_{\\gamma}} \\simeq T^{V_{\\gamma}} \\mathbin{\\mathrm{mod}}$",
+      "anchor": "860c491d"
+    },
+    {
+      "id": "jech_set_theory-ch14-problem-14-1-body-1-17b2f9",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.1:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "\\( D = \\{r \\in P : \\text{either } r \\text{ is incompatible with } p, \\text{ or } r \\text{ is incompatible with } q, \\text{ or } r \\leq p \\text{ and } r \\leq q\\} \\text{ is dense.}]",
+      "new": "D = \\{r \\in P : \\text{either } r \\text{ is incompatible with } p, \\text{ or } r \\text{ is incompatible with } q, \\text{ or } r \\leq p \\text{ and } r \\leq q\\} \\text{ is dense.}]",
+      "anchor": "d6190710"
+    },
+    {
+      "id": "jech_set_theory-ch11-body-63-76eaed",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[63]",
+      "expect": "\\begin{array}{l} x \\in \\bigcup_ {n = 0} ^ {\\infty} A _ {n} \\leftrightarrow \\exists n   \\exists a   (x, a) \\in F _ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} x \\in \\bigcup_ {n = 0} ^ {\\infty} A _ {n} \\leftrightarrow \\exists n   \\exists a   (x, a) \\in F _ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jech_set_theory-ch11-body-65-52c1e9",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[65]",
+      "expect": "\\begin{array}{l} x \\in \\bigcap_ {n = 0} ^ {\\infty} A _ {n} \\leftrightarrow \\forall n   \\exists a   (x, a) \\in F _ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} x \\in \\bigcap_ {n = 0} ^ {\\infty} A _ {n} \\leftrightarrow \\forall n   \\exists a   (x, a) \\in F _ {n} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jech_set_theory-ch12-body-221-70d2bf",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[221]",
+      "expect": "\\begin{array}{l} V \\vDash \\forall x   \\forall y   \\forall z   (\\varphi (x, y, p) \\land \\varphi (x, z, p) \\to y = z) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} V \\vDash \\forall x   \\forall y   \\forall z   (\\varphi (x, y, p) \\land \\varphi (x, z, p) \\to y = z) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jech_set_theory-ch14-body-292-5d7489",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[292]",
+      "expect": "\\begin{array}{l} \\text {(i)} \\| x \\in y \\| \\in G \\leftrightarrow \\exists t \\in \\operatorname{dom} (y)   (y (t) \\in G \\text {and} \\| x = t \\| \\in G) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\text {(i)} \\| x \\in y \\| \\in G \\leftrightarrow \\exists t \\in \\operatorname{dom} (y)   (y (t) \\in G \\text {and} \\| x = t \\| \\in G) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "jech_set_theory-ch14-body-302-63dfbe",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[302]",
+      "expect": "\\begin{array}{l} M [ G ] \\models \\exists x   \\psi (x, \\ldots) \\leftrightarrow (\\exists x \\in M [ G ])   M [ G ] \\models \\psi (x, \\ldots) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} M [ G ] \\models \\exists x   \\psi (x, \\ldots) \\leftrightarrow (\\exists x \\in M [ G ])   M [ G ] \\models \\psi (x, \\ldots) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "overrides": [
+    {
+      "id": "itzykson_zuber_qft-ch04-body-457-28f170",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[457]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$",
+      "anchor": "215abefd"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch04-body-470-28f170",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[470]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$",
+      "anchor": "8e114b9d"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch07-body-88-28f170",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[88]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$",
+      "anchor": "dd7ebd4a"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch07-body-90-28f170",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[90]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL$",
+      "new": "$\\delta L$",
+      "anchor": "16bd7f3c"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch13-body-383-335840",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[383]",
+      "expect": "S _ {f i} = i (2 \\pi) ^ {4} \\delta^ {4} (p _ {X} + l ^ {\\prime} - p - l) \\bar {u} (l ^ {\\prime}) \\gamma^ {\\mu} u (l) \\frac {e ^ {2}}{q ^ {2}} \\left<   p _ {X} \\left. \\right| J _ {\\mu} (0) | p >",
+      "new": "S _ {f i} = i (2 \\pi) ^ {4} \\delta^ {4} (p _ {X} + l ^ {\\prime} - p - l) \\bar {u} (l ^ {\\prime}) \\gamma^ {\\mu} u (l) \\frac {e ^ {2}}{q ^ {2}} \\left\\langle p _ {X} \\left| J _ {\\mu} (0) \\right| p \\right\\rangle"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch02-body-497-f56f9b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[497]",
+      "expect": "\\varphi_ {j, m} ^ {(\\pm)} = \\left( \\begin{array}{c c} a _ {\\mu} & Y _ {l} ^ {\\mu} \\\\ b _ {\\mu^ {\\prime}} & Y _ {l} ^ {\\mu^ {\\prime}} \\end{array} \\right) \\quad \\text {(no summation over \\mu and \\mu^{\\prime})}",
+      "new": "\\varphi_ {j, m} ^ {(\\pm)} = \\left( \\begin{array}{c c} a _ {\\mu} & Y _ {l} ^ {\\mu} \\\\ b _ {\\mu^ {\\prime}} & Y _ {l} ^ {\\mu^ {\\prime}} \\end{array} \\right) \\quad \\text {(no summation over } \\mu \\text { and } \\mu^{\\prime} \\text{)}"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch05-body-200-e7269a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[200]",
+      "expect": "\\psi (x) \\underset {t \\rightarrow \\pm \\infty} {\\longrightarrow} Z _ {2} ^ {1 / 2} \\psi_ {\\text { out }} (x) \\underset {\\text { in }}",
+      "new": "\\psi (x) \\underset {t \\rightarrow \\pm \\infty} {\\longrightarrow} Z _ {2} ^ {1 / 2} \\underset {\\text { in }}{\\psi_ {\\text { out }}} (x)"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch11-body-273-6381a5",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[273]",
+      "expect": "\\begin{array}{r}\\frac {\\partial}{\\partial x ^ {\\mu}} \\left<   A \\left. \\right| T j ^ {\\mu} (x) j ^ {\\nu} (y) | B > = \\left<   A \\left. \\right| T \\partial_ {\\mu} j ^ {\\mu} (x) j ^ {\\nu} (y) | B >\\\\+ \\delta (x ^ {0} - y ^ {0}) \\langle A | [ j ^ {0} (x), j ^ {\\nu} (y) ] | B \\rangle | _ {\\mathrm{naive}}\\end{array}",
+      "new": "\\begin{array}{r}\\frac {\\partial}{\\partial x ^ {\\mu}} \\left\\langle A \\left| T j ^ {\\mu} (x) j ^ {\\nu} (y) \\right| B \\right\\rangle = \\left\\langle A \\left| T \\partial_ {\\mu} j ^ {\\mu} (x) j ^ {\\nu} (y) \\right| B \\right\\rangle\\\\+ \\delta (x ^ {0} - y ^ {0}) \\langle A | [ j ^ {0} (x), j ^ {\\nu} (y) ] | B \\rangle | _ {\\mathrm{naive}}\\end{array}"
+    },
+    {
+      "id": "itzykson_zuber_qft-ch12-body-459-649d14",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[459]",
+      "field": "md",
+      "all": true,
+      "old": "$\\deltaL_{A^{3}}$",
+      "new": "$\\delta L_{A^{3}}$",
+      "anchor": "58544e72"
+    }
+  ]
+}

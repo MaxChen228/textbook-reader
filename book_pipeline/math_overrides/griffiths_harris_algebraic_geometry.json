@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "griffiths_harris_algebraic_geometry-ch02-body-932-7a42cc",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[932]",
+      "expect": "H ^ {0} (E, \\mathcal {O} _ {E} (- E)) = T _ {x} ^ {* \\prime} (M). )}",
+      "new": "H ^ {0} (E, \\mathcal {O} _ {E} (- E)) = T _ {x} ^ {* \\prime} (M). )"
+    },
+    {
+      "id": "griffiths_harris_algebraic_geometry-ch06-body-1064-181033",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1064]",
+      "expect": "\\begin{array}{l l} 0 = \\iota (v) (\\omega^ {n} \\wedge \\varphi) & \\text {(since \\omega^ {n} \\wedge \\varphi\\equiv 0 for trivial reasons)} \\\\ = n \\omega^ {n - 1} \\wedge \\iota (v) \\omega \\wedge \\varphi & \\text {(since as observed above \\iota(v)\\varphi\\equiv 0)} \\\\ \\Rightarrow \\int_ {M} \\omega^ {n - 1} \\wedge \\iota (v) \\omega \\wedge \\varphi = 0 \\\\ \\Rightarrow \\iota (v) \\omega = 0 \\text { in } H ^ {0, 1} (M) \\end{array}",
+      "new": "\\begin{array}{l l} 0 = \\iota (v) (\\omega^ {n} \\wedge \\varphi) & \\text{(since } \\omega^ {n} \\wedge \\varphi\\equiv 0 \\text{ for trivial reasons)} \\\\ = n \\omega^ {n - 1} \\wedge \\iota (v) \\omega \\wedge \\varphi & \\text{(since as observed above } \\iota(v)\\varphi\\equiv 0\\text{)} \\\\ \\Rightarrow \\int_ {M} \\omega^ {n - 1} \\wedge \\iota (v) \\omega \\wedge \\varphi = 0 \\\\ \\Rightarrow \\iota (v) \\omega = 0 \\text { in } H ^ {0, 1} (M) \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "overrides": [
+    {
+      "id": "liu_algebraic_geometry-ch09-body-844-5f77bf",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[844]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Delta ^ { \\prime } \\omega ^ { \\prime } ^ { \\otimes 1 2 } = \\Delta \\omega ^ { \\otimes 1 2 }$",
+      "new": "$\\Delta ^ { \\prime } \\omega ^ { \\prime \\otimes 1 2 } = \\Delta \\omega ^ { \\otimes 1 2 }$",
+      "anchor": "5b203a6f"
+    },
+    {
+      "id": "liu_algebraic_geometry-ch10-body-506-b8e17e",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[506]",
+      "expect": "\\dim_ {k (x)} \\Omega_ {C, x} ^ {1} \\otimes_ {\\mathcal {O} _ {C, x}} k (x) = \\dim_ {k (\\overline {{x}})} \\Omega_ C _ {\\overline {{k}}, \\overline {{x}}} ^ {- 1} \\otimes_ {\\mathcal {O} _ {C _ {\\overline {{k}}, \\overline {{x}}}}} k (\\overline {{x}}) \\leq 2.",
+      "new": "\\dim_ {k (x)} \\Omega_ {C, x} ^ {1} \\otimes_ {\\mathcal {O} _ {C, x}} k (x) = \\dim_ {k (\\overline {{x}})} \\Omega_{C _ {\\overline {{k}}, \\overline {{x}}}} ^ {- 1} \\otimes_ {\\mathcal {O} _ {C _ {\\overline {{k}}, \\overline {{x}}}}} k (\\overline {{x}}) \\leq 2."
+    },
+    {
+      "id": "liu_algebraic_geometry-ch06-body-68-b788c9",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[68]",
+      "field": "md",
+      "all": true,
+      "old": "$\\delta : I / I ^ { 2 } \\stackrel { \\left. } { \\right. } \\Omega _ { B \\mid T \\mid / B } ^ { 1 } \\otimes C = C d T$",
+      "new": "$\\delta : I / I ^ { 2 } \\Omega _ { B \\mid T \\mid / B } ^ { 1 } \\otimes C = C d T$",
+      "anchor": "c98dd3d0"
+    },
+    {
+      "id": "liu_algebraic_geometry-ch08-body-58-ec7376",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[58]",
+      "field": "md",
+      "all": true,
+      "old": "$P \\simeq \\mathrm { P r o j } \\left( \\oplus _ { n \\geq 0 } f _ { * } \\mathcal { O } _ { P } ( \\bar { n _ { \\right) } } )$",
+      "new": "$P \\simeq \\mathrm { P r o j } \\left( \\oplus _ { n \\geq 0 } f _ { * } \\mathcal { O } _ { P } ( \\bar { n } ) \\right)$",
+      "anchor": "849a570a"
+    },
+    {
+      "id": "liu_algebraic_geometry-ch09-body-617-6929fe",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[617]",
+      "field": "md",
+      "all": true,
+      "old": "$\\operatorname { P i c } ^ { 0 } ( Z ) \\stackrel { \\sim } \\operatorname { P i c } ^ { 0 } ( D )$",
+      "new": "$\\operatorname { P i c } ^ { 0 } ( Z ) \\stackrel { \\sim } { \\operatorname { P i c } ^ { 0 } ( D ) }$",
+      "anchor": "60330ecd"
+    }
+  ]
+}

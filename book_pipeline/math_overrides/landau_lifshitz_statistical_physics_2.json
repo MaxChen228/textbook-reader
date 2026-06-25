@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "landau_lifshitz_statistical_physics_2-ch03-body-253-21cdbd",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[253]",
+      "expect": "\\begin{array}{r l} \\frac {\\partial \\chi}{\\partial \\beta} & = \\sum_ {i} \\frac {\\hbar^ {2}}{2 m _ {i}} \\left[ - \\frac {2 i \\beta p _ {i}}{\\hbar} \\frac {\\partial U}{\\partial q _ {i}} \\chi + \\frac {2 i p _ {i}}{\\hbar} \\frac {\\partial \\chi}{\\partial q _ {i}} - \\beta \\chi \\frac {\\partial^ {2} U}{\\partial q _ {i} ^ {2}} + \\beta^ {2} \\chi \\left(\\frac {\\partial U}{\\partial q _ {i}}\\right) ^ {2} \\right. \\\\ & \\quad \\left. - 2 \\beta \\frac {\\partial \\chi}{\\partial q _ {i}} \\frac {\\partial U}{\\partial q _ {i}} + \\frac {\\partial^ {2} \\chi}{\\partial q _ {i} ^ {2}} \\right] \\end{array} \\tag {1}\\tag{33.8}",
+      "new": "\\begin{array}{r l} \\frac {\\partial \\chi}{\\partial \\beta} & = \\sum_ {i} \\frac {\\hbar^ {2}}{2 m _ {i}} \\left[ - \\frac {2 i \\beta p _ {i}}{\\hbar} \\frac {\\partial U}{\\partial q _ {i}} \\chi + \\frac {2 i p _ {i}}{\\hbar} \\frac {\\partial \\chi}{\\partial q _ {i}} - \\beta \\chi \\frac {\\partial^ {2} U}{\\partial q _ {i} ^ {2}} + \\beta^ {2} \\chi \\left(\\frac {\\partial U}{\\partial q _ {i}}\\right) ^ {2} \\right. \\\\ & \\quad \\left. - 2 \\beta \\frac {\\partial \\chi}{\\partial q _ {i}} \\frac {\\partial U}{\\partial q _ {i}} + \\frac {\\partial^ {2} \\chi}{\\partial q _ {i} ^ {2}} \\right] \\end{array} \\tag{33.8}"
+    }
+  ]
+}

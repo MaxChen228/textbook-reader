@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "abrikosov_qft_statistical-ch07-body-526-cf375f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[526]",
+      "expect": "T \\sum_ {\\omega} \\frac {i e}{m} \\left(\\nabla_ {r ^ {\\prime}} - \\nabla_ {r}\\right) \\underset {r ^ {\\prime} \\rightarrow r} {\\widetilde {\\mathfrak {G}}} _ {\\omega} ^ {(0)} (r, r ^ {\\prime}) - \\frac {e ^ {2}}{m} N A (r) \\equiv 0,",
+      "new": "T \\sum_ {\\omega} \\frac {i e}{m} \\left(\\nabla_ {r ^ {\\prime}} - \\nabla_ {r}\\right) {\\underset {r ^ {\\prime} \\rightarrow r} {\\widetilde {\\mathfrak {G}}}} _ {\\omega} ^ {(0)} (r, r ^ {\\prime}) - \\frac {e ^ {2}}{m} N A (r) \\equiv 0,"
+    },
+    {
+      "id": "abrikosov_qft_statistical-ch04-body-432-d9e3d9",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[432]",
+      "field": "md",
+      "all": true,
+      "old": "$|\\omega|\\sim\\omega(k)\\simuk$",
+      "new": "$|\\omega|\\sim\\omega(k)\\sim uk$",
+      "anchor": "ce1cca30"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "brualdi_introductory_combinatorics-ch04-problem-52-body-1-75b3e4",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:52:body[1]",
+      "expect": "b _ {i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if a_{n - 1} +\\cdots + a_{i} is even, and} \\\\ 1 & \\text {if a_{n - 1} +\\cdots + a_{i} is odd.} \\end{array} \\right.",
+      "new": "b _ {i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if \\(a_{n - 1} +\\cdots + a_{i}\\) is even, and} \\\\ 1 & \\text {if \\(a_{n - 1} +\\cdots + a_{i}\\) is odd.} \\end{array} \\right."
+    },
+    {
+      "id": "brualdi_introductory_combinatorics-ch13-body-192-3ffd06",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[192]",
+      "expect": "f ^ {\\prime} (\\alpha) = \\left\\{ \\begin{array}{l l} f (\\alpha) + 1 & \\text {if \\alpha is one of the arcs \\alpha_{j} in (a);} \\\\ f (\\alpha) - 1 & \\text {if \\alpha is one of the arcs \\alpha_{j} in (b);} \\\\ f (\\alpha) & \\text {otherwise.} \\end{array} \\right.",
+      "new": "f ^ {\\prime} (\\alpha) = \\left\\{ \\begin{array}{l l} f (\\alpha) + 1 & \\text {if \\(\\alpha\\) is one of the arcs \\(\\alpha_{j}\\) in (a);} \\\\ f (\\alpha) - 1 & \\text {if \\(\\alpha\\) is one of the arcs \\(\\alpha_{j}\\) in (b);} \\\\ f (\\alpha) & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "brualdi_introductory_combinatorics-ch02-problem-39-body-1-9cb64b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:39:body[1]",
+      "expect": "\\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{bmatrix} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\end{array} \\right|.",
+      "new": "\\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c c c c c c c c c c c c c c c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\hline \\end{array} \\right| \\left| \\begin{array}{c} \\end{array} \\right|."
+    }
+  ]
+}

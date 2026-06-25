@@ -1,0 +1,154 @@
+{
+  "overrides": [
+    {
+      "id": "grafakos_classical_fourier-ch03-body-892-e1bc01",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[892]",
+      "expect": "\\lim _ {\\varepsilon \\rightarrow 0} \\left. \\varepsilon^ {\\frac {n}{2 p ^ {\\prime}}} \\right\\| \\sum_ {j = 1} ^ {k} \\left| P _ {j} \\right| L _ {\\varepsilon / p ^ {\\prime}} \\left\\| _ {L ^ {p ^ {\\prime}, 1} (\\mathbf {R} ^ {n})} = \\left\\| \\sum_ {j = 1} ^ {k} \\left| P _ {j} \\right| \\right\\| _ {L ^ {p ^ {\\prime}, 1} (\\mathbf {T} ^ {n})}.",
+      "new": "\\lim _ {\\varepsilon \\rightarrow 0} \\varepsilon^ {\\frac {n}{2 p ^ {\\prime}}} \\left\\| \\sum_ {j = 1} ^ {k} \\left| P _ {j} \\right| L _ {\\varepsilon / p ^ {\\prime}} \\right\\| _ {L ^ {p ^ {\\prime}, 1} (\\mathbf {R} ^ {n})} = \\left\\| \\sum_ {j = 1} ^ {k} \\left| P _ {j} \\right| \\right\\| _ {L ^ {p ^ {\\prime}, 1} (\\mathbf {T} ^ {n})}."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch03-problem-3-6-9-body-4-eb42c6",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.6.9:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left[Hint: \\text{Let } a = \\sup_F \\left\\| \\sup_{t \\in F} |f_t| \\right\\|_{L^p} \\leq b, \\text{ where the supremum is taken over all finite subsets } F \\text{ of } \\mathbf{R}. \\text{ Pick a sequence of sets } F_n \\text{ so that } \\left\\| \\sup_{t \\in F_n} |f_t| \\right\\|_{L^p} \\text{ converges to } a \\text{ as } n \\to \\infty. \\text{ Let } g = \\sup_n \\sup_{t \\in F_n} |f_t|$",
+      "new": "$\\left[Hint: \\text{Let } a = \\sup_F \\left\\| \\sup_{t \\in F} |f_t| \\right\\|_{L^p} \\leq b, \\text{ where the supremum is taken over all finite subsets } F \\text{ of } \\mathbf{R}. \\text{ Pick a sequence of sets } F_n \\text{ so that } \\left\\| \\sup_{t \\in F_n} |f_t| \\right\\|_{L^p} \\text{ converges to } a \\text{ as } n \\to \\infty. \\text{ Let } g = \\sup_n \\sup_{t \\in F_n} |f_t|\\right]$",
+      "anchor": "6c7854c1"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch06-body-1046-273b16",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[1046]",
+      "expect": "\\left\\| f\\right\\|_{\\dot{F}^{p}_{\\alpha ,q}}\\leq \\left\\| \\right.\\left\\{ \\right.\\sum_{j\\in \\mathbf{Z}}\\left[ \\right.\\sum_{\\mu \\in \\mathbf{Z}}d(j - \\mu)\\Bigl \\{M\\Big(\\sum_{\\substack{Q\\in \\mathcal{D}\\\\\\ell (Q) = 2^{-\\mu}}} \\big(|s_{Q}|  |Q|^{-\\frac{1}{2} -\\frac{\\alpha}{n}}\\big)^{b}\\chi_{Q}\\Bigr)\\right\\}^{\\frac{1}{b}}\\right]^{q}\\right\\} ^{\\frac{1}{q}}\\right\\|_{L^{p}},",
+      "new": "\\left\\| f\\right\\|_{\\dot{F}^{p}_{\\alpha ,q}}\\leq \\left\\| \\left\\{ \\sum_{j\\in \\mathbf{Z}}\\left[ \\sum_{\\mu \\in \\mathbf{Z}}d(j - \\mu)\\Bigl \\{M\\Big(\\sum_{\\substack{Q\\in \\mathcal{D}\\\\\\ell (Q) = 2^{-\\mu}}} \\big(|s_{Q}|  |Q|^{-\\frac{1}{2} -\\frac{\\alpha}{n}}\\big)^{b}\\chi_{Q}\\Bigr)\\Bigr\\}^{\\frac{1}{b}}\\right]^{q}\\right\\} ^{\\frac{1}{q}}\\right\\|_{L^{p}},"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch09-problem-9-5-5-body-3-cbe2f8",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.5.5:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left[Hint: \\left\\|T(f)\\right\\|_{L^p} = \\sup_{\\left\\|u\\right\\|_{L^{(p/2)'} \\leq 1}\\left(\\int_{\\mathbf{R}^n}|T(f)|^2 u dx\\right)^{\\frac{1}{2}}. \\text{Apply the hypothesis and Hölder's inequality.}\\right]$",
+      "new": "$\\left[Hint: \\left\\|T(f)\\right\\|_{L^p} = \\sup_{\\left\\|u\\right\\|_{L^{(p/2)'}} \\leq 1}\\left(\\int_{\\mathbf{R}^n}|T(f)|^2 u dx\\right)^{\\frac{1}{2}}. \\text{Apply the hypothesis and Hölder's inequality.}\\right]$",
+      "anchor": "efad0877"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch10-problem-10-5-10-body-5-bda4c4",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "problem:10.5.10:body[5]",
+      "expect": "\\sum_ {s \\in {\\bf D} _ {m}} \\left<   f \\left. \\right| \\varphi_ {s} \\rangle \\varphi_ {s} = c _ {0} f.",
+      "new": "\\sum_ {s \\in {\\bf D} _ {m}} \\left<   f \\mid \\varphi_ {s} \\right\\rangle \\varphi_ {s} = c _ {0} f."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch01-body-123-720793",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[123]",
+      "expect": "f (x) = \\left\\{ \\begin{array}{l l} \\lim _ {j \\to \\infty} f _ {n _ {j}} (x) & \\text {when x\\notin\\bigcap_{m = 1} ^{\\infty}\\bigcup_{k = m} ^{\\infty} A_{k}} \\\\ 0 & \\text {when x\\in\\bigcap_{m = 1} ^{\\infty}\\bigcup_{k = m} ^{\\infty} A_{k}}. \\end{array} \\right.",
+      "new": "f (x) = \\left\\{ \\begin{array}{l l} \\lim _ {j \\to \\infty} f _ {n _ {j}} (x) & \\text {when } x\\notin\\bigcap_{m = 1} ^{\\infty}\\bigcup_{k = m} ^{\\infty} A_{k} \\\\ 0 & \\text {when } x\\in\\bigcap_{m = 1} ^{\\infty}\\bigcup_{k = m} ^{\\infty} A_{k}. \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch03-body-794-a65495",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[794]",
+      "expect": "\\begin{array}{r l} \\int_ {\\mathbf {T} ^ {n}} S (P) (x) \\overline {{Q (x)}}   d x & = \\sum_ {r \\in \\mathbf {Z} ^ {n}} b (r) \\widehat {P} (r) \\overline {{\\widehat {Q} (r)}} \\\\ & = \\left\\{ \\begin{array}{l l} b (m) & \\text {when k = m}, \\\\ 0 & \\text {when k\\neq m}. \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{r l} \\int_ {\\mathbf {T} ^ {n}} S (P) (x) \\overline {{Q (x)}}   d x & = \\sum_ {r \\in \\mathbf {Z} ^ {n}} b (r) \\widehat {P} (r) \\overline {{\\widehat {Q} (r)}} \\\\ & = \\left\\{ \\begin{array}{l l} b (m) & \\text {when } k = m, \\\\ 0 & \\text {when } k\\neq m. \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch03-body-847-6b4637",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[847]",
+      "expect": "\\widetilde {\\chi} _ {[ - 1, 1 ] ^ {n}} (x _ {1}, \\ldots , x _ {n}) = \\left\\{ \\begin{array}{l l} 1 & \\text {when all |x_{j} | <   1}, \\\\ 1 / 2 & \\text {when some but not all |x_{j}| = 1}, \\\\ 1 / 2 ^ {n} & \\text {when all |x_{j}| = 1}, \\\\ 0 & \\text {when some |x_{j}| > 1}. \\end{array} \\right.",
+      "new": "\\widetilde {\\chi} _ {[ - 1, 1 ] ^ {n}} (x _ {1}, \\ldots , x _ {n}) = \\left\\{ \\begin{array}{l l} 1 & \\text {when all } |x_{j} | <   1, \\\\ 1 / 2 & \\text {when some but not all } |x_{j}| = 1, \\\\ 1 / 2 ^ {n} & \\text {when all } |x_{j}| = 1, \\\\ 0 & \\text {when some } |x_{j}| > 1. \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch03-body-1024-7aa2e3",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1024]",
+      "expect": "\\widehat {P _ {N , j}} (m) = \\left\\{ \\begin{array}{l l} 1 & \\text {when m = 0} \\\\ \\frac {1}{2} a _ {j} e ^ {2 \\pi i \\gamma_ {j}} & \\text {when m = \\lambda_{j}}, \\\\ \\frac {1}{2} a _ {j} e ^ {- 2 \\pi i \\gamma_ {j}} & \\text {when m = -\\lambda_{j}}, \\\\ 0 & \\text {when m\\notin\\{0,\\lambda_{j},- \\lambda_{j} \\}}. \\end{array} \\right.",
+      "new": "\\widehat {P _ {N , j}} (m) = \\left\\{ \\begin{array}{l l} 1 & \\text {when } m = 0 \\\\ \\frac {1}{2} a _ {j} e ^ {2 \\pi i \\gamma_ {j}} & \\text {when } m = \\lambda_{j}, \\\\ \\frac {1}{2} a _ {j} e ^ {- 2 \\pi i \\gamma_ {j}} & \\text {when } m = -\\lambda_{j}, \\\\ 0 & \\text {when } m\\notin\\{0,\\lambda_{j},- \\lambda_{j} \\}. \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch03-body-1030-9aba3d",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1030]",
+      "expect": "\\widehat {P _ {N}} (m) = \\left\\{ \\begin{array}{l l} 1 & \\text {when m = 0 ,} \\\\ \\prod_ {j = 1} ^ {N} \\frac {1}{2} a _ {j} e ^ {2 \\pi i \\varepsilon_ {j} \\gamma_ {j}} & \\text {when m = \\sum_{j = 1} ^ {N} \\varepsilon_{j} \\lambda_{j} and \\sum_{j = 1} ^ {N} |\\varepsilon_{j}| > 0 ,} \\\\ 0 & \\text {otherwise.} \\end{array} \\right.",
+      "new": "\\widehat {P _ {N}} (m) = \\left\\{ \\begin{array}{l l} 1 & \\text {when } m = 0 , \\\\ \\prod_ {j = 1} ^ {N} \\frac {1}{2} a _ {j} e ^ {2 \\pi i \\varepsilon_ {j} \\gamma_ {j}} & \\text {when } m = \\sum_{j = 1} ^ {N} \\varepsilon_{j} \\lambda_{j} \\text { and } \\sum_{j = 1} ^ {N} |\\varepsilon_{j}| > 0 , \\\\ 0 & \\text {otherwise.} \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch06-body-847-1e7101",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[847]",
+      "expect": "\\Delta_ {j} ^ {\\eta} \\Delta_ {k} = \\left\\{ \\begin{array}{l l} \\Delta_ {j} & \\text {when j = k} \\\\ 0 & \\text {when j\\neq k}, \\end{array} \\right.",
+      "new": "\\Delta_ {j} ^ {\\eta} \\Delta_ {k} = \\left\\{ \\begin{array}{l l} \\Delta_ {j} & \\text {when } j = k \\\\ 0 & \\text {when } j\\neq k, \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch06-problem-6-4-4-body-3-f9dc5a",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:6.4.4:body[3]",
+      "expect": "\\int_ {1} ^ {\\infty} s ^ {k}   \\psi (s)   d s = \\left\\{ \\begin{array}{l l} 1 & \\text {if k = 0} \\\\ 0 & \\text {if k = 1,2,3,\\ldots.} \\end{array} \\right.",
+      "new": "\\int_ {1} ^ {\\infty} s ^ {k}   \\psi (s)   d s = \\left\\{ \\begin{array}{l l} 1 & \\text {if } k = 0 \\\\ 0 & \\text {if } k = 1,2,3,\\ldots. \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch09-problem-9-2-3-body-5-945c97",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.2.3:body[5]",
+      "expect": "\\big \\| \\log \\varphi \\big \\| _ {B M O} \\leq \\left\\{ \\begin{array}{l l} [ \\varphi ] _ {A _ {p}} & \\text {when 1 <   p\\leq 2} \\\\ (p - 1) [ \\varphi ] _ {A _ {p}} ^ {\\frac {1}{p - 1}} & \\text {when 2 <   p <   \\infty .} \\end{array} \\right.",
+      "new": "\\big \\| \\log \\varphi \\big \\| _ {B M O} \\leq \\left\\{ \\begin{array}{l l} [ \\varphi ] _ {A _ {p}} & \\text {when } 1 <   p\\leq 2 \\\\ (p - 1) [ \\varphi ] _ {A _ {p}} ^ {\\frac {1}{p - 1}} & \\text {when } 2 <   p <   \\infty . \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch10-body-476-ae16f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[476]",
+      "expect": "\\left\\| \\mathcal {K} _ {N} \\right\\| _ {L ^ {p} (\\mathbf {R} ^ {2}) \\to L ^ {p} (\\mathbf {R} ^ {2})} \\leq c _ {p} \\left\\{ \\begin{array}{l l} N ^ {\\frac {2}{p} - 1} (\\log N) ^ {\\frac {1}{p ^ {\\prime}}} & \\text {when 1 <   p <   2}, \\\\ (\\log N) ^ {\\frac {1}{p}} & \\text {when 2 <   p <   \\infty}. \\end{array} \\right.",
+      "new": "\\left\\| \\mathcal {K} _ {N} \\right\\| _ {L ^ {p} (\\mathbf {R} ^ {2}) \\to L ^ {p} (\\mathbf {R} ^ {2})} \\leq c _ {p} \\left\\{ \\begin{array}{l l} N ^ {\\frac {2}{p} - 1} (\\log N) ^ {\\frac {1}{p ^ {\\prime}}} & \\text {when } 1 <   p <   2, \\\\ (\\log N) ^ {\\frac {1}{p}} & \\text {when } 2 <   p <   \\infty. \\end{array} \\right."
+    },
+    {
+      "id": "grafakos_classical_fourier-ch08-body-967-3ea641",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[967]",
+      "expect": "\\lim_{\\delta \\downarrow 0}F(z + i\\delta) = \\lim_{\\epsilon \\to 0}\\frac{1}{2\\pi i}\\int \\liminfits_{\\substack{\\zeta \\in \\Gamma \\\\ |\\operatorname{Re}\\zeta -\\operatorname{Re}z| > \\epsilon}}\\frac{f(\\zeta)}{\\zeta - z} d\\zeta +f(z)\\frac{1}{2\\pi i} (\\pi i)  ,",
+      "new": "\\lim_{\\delta \\downarrow 0}F(z + i\\delta) = \\lim_{\\epsilon \\to 0}\\frac{1}{2\\pi i}\\int \\lim_{\\substack{\\zeta \\in \\Gamma \\\\ |\\operatorname{Re}\\zeta -\\operatorname{Re}z| > \\epsilon}}\\frac{f(\\zeta)}{\\zeta - z} d\\zeta +f(z)\\frac{1}{2\\pi i} (\\pi i)  ,"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch08-body-683-bc4efa",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[683]",
+      "expect": "\\begin{array}{r l r l} & {\\int_ {\\mathbf {R} ^ {n}} \\sum_ {j \\in \\mathbf {Z}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   \\varphi   d x} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   \\varphi   d x} & & {\\text {(series converges in L^{2} and \\varphi\\in L^{2})}} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   Q _ {j} (\\varphi)   d x} & & {\\widehat {(Q _ {j} (\\varphi)} = \\widehat {\\varphi} \\text {on the}} \\\\ & & & {\\text {support of} ((\\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})) ^ {\\widehat {)}}} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\eta_ {N}   S _ {j - 3} \\big (\\Delta_ {j} (b) Q _ {j} (\\varphi) \\big)   d x} & & {\\text {(duality)}} \\\\ {=} & {\\int_ {\\mathbf {R} ^ {n}} \\eta_ {N} \\sum_ {j \\in \\mathbf {Z}} S _ {j - 3} \\big (\\Delta_ {j} (b) Q _ {j} (\\varphi) \\big)   d x} & & {\\text {(series converges in L^{1} and \\eta_ {N} \\in L^{\\infty}.)}} \\end{array}",
+      "new": "\\begin{array}{r l r l} & {\\int_ {\\mathbf {R} ^ {n}} \\sum_ {j \\in \\mathbf {Z}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   \\varphi   d x} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   \\varphi   d x} & & {\\text {(series converges in }L^{2}\\text{ and }\\varphi\\in L^{2}\\text{)}} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})   Q _ {j} (\\varphi)   d x} & & {\\widehat {(Q _ {j} (\\varphi)} = \\widehat {\\varphi} \\text {on the}} \\\\ & & & {\\text {support of} ((\\Delta_ {j} (b)   S _ {j - 3} (\\eta_ {N})) ^ {\\widehat {)}}} \\\\ {=} & {\\sum_ {j \\in \\mathbf {Z}} \\int_ {\\mathbf {R} ^ {n}} \\eta_ {N}   S _ {j - 3} \\big (\\Delta_ {j} (b) Q _ {j} (\\varphi) \\big)   d x} & & {\\text {(duality)}} \\\\ {=} & {\\int_ {\\mathbf {R} ^ {n}} \\eta_ {N} \\sum_ {j \\in \\mathbf {Z}} S _ {j - 3} \\big (\\Delta_ {j} (b) Q _ {j} (\\varphi) \\big)   d x} & & {\\text {(series converges in }L^{1}\\text{ and }\\eta_ {N} \\in L^{\\infty}\\text{.)}} \\end{array}"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch02-body-571-0f383e",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[571]",
+      "expect": "\\begin{array}{r l} & {\\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\left\\{f (x) - \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} \\right\\} | x | ^ {z} d x} \\\\ & {\\qquad + \\int_ {| x | > 1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} f (x) | x | ^ {z} d x} \\\\ & {\\qquad + \\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} | x | ^ {z} d x} \\\\ & {= \\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\left\\{f (x) - \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} \\right\\} | x | ^ {z} d x} \\\\ & {\\qqquad + \\int_ {| x | > 1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} f (x) | x | ^ {z} d x} \\\\ & {\\qquad + \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\int_ {r = 0} ^ {1} \\int_ {\\mathbf {S} ^ {n - 1}} (r \\theta) ^ {\\alpha} r ^ {z + n - 1} d r d \\theta ,} \\end{array}",
+      "new": "\\begin{array}{r l} & {\\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\left\\{f (x) - \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} \\right\\} | x | ^ {z} d x} \\\\ & {\\qquad + \\int_ {| x | > 1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} f (x) | x | ^ {z} d x} \\\\ & {\\qquad + \\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} | x | ^ {z} d x} \\\\ & {= \\int_ {| x | <   1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\left\\{f (x) - \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} x ^ {\\alpha} \\right\\} | x | ^ {z} d x} \\\\ & {\\qquad\\qquad + \\int_ {| x | > 1} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} f (x) | x | ^ {z} d x} \\\\ & {\\qquad + \\sum_ {| \\alpha | \\leq N} \\frac {(\\partial^ {\\alpha} f) (0)}{\\alpha !} \\frac {\\pi^ {\\frac {z + n}{2}}}{\\Gamma (\\frac {z + n}{2})} \\int_ {r = 0} ^ {1} \\int_ {\\mathbf {S} ^ {n - 1}} (r \\theta) ^ {\\alpha} r ^ {z + n - 1} d r d \\theta ,} \\end{array}"
+    },
+    {
+      "id": "grafakos_classical_fourier-ch07-body-48-1e0744",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[48]",
+      "expect": "\\begin{array}{l} \\frac {1}{v _ {n}} \\int_ {| z - x _ {0} | \\leq 1} \\left| \\log | z | - \\log | x _ {0} | \\right| d z = \\frac {1}{v _ {n}} \\int_ {\\left| \\frac {z}{| x _ {0} |} - \\frac {x _ {0}}{| x _ {0} |} \\right| \\leq 1} \\left| \\log \\frac {| z |}{| x _ {0} |} \\right| d z \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\frac {1}{v _ {n}} \\int_ {| z - x _ {0} | \\leq 1} \\left| \\log | z | - \\log | x _ {0} | \\right| d z = \\frac {1}{v _ {n}} \\int_ {\\left| \\frac {z}{| x _ {0} |} - \\frac {x _ {0}}{| x _ {0} |} \\right| \\leq 1} \\left| \\log \\frac {| z |}{| x _ {0} |} \\right| d z \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

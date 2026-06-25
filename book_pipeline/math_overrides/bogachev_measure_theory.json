@@ -1,0 +1,107 @@
+{
+  "overrides": [
+    {
+      "id": "bogachev_measure_theory-ch02-problem-2-12-109-body-5-ed2faf",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.12.109:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$\\operatorname{Re}\\left[(\\exp(i\\theta)f(x)]\\text{ as } r\\to0+\\text{ for all }\\theta\\in\\mathbb{R}^{1}\\text{ and is majorized by }|f(x)|;\\text{ one can take }\\theta\\text{ such that}$",
+      "new": "$\\operatorname{Re}\\left[(\\exp(i\\theta)f(x)\\right]\\text{ as } r\\to0+\\text{ for all }\\theta\\in\\mathbb{R}^{1}\\text{ and is majorized by }|f(x)|;\\text{ one can take }\\theta\\text{ such that}$",
+      "anchor": "0b0c0017"
+    },
+    {
+      "id": "bogachev_measure_theory-ch05-body-358-f32e57",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[358]",
+      "expect": "\\delta (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if x\\in[a,b]\\setminus\\bigcup_{n = 1} ^{\\infty} E_{n}}, \\\\ \\operatorname{dist} (x, [ a, b ] \\backslash U _ {n}) & \\text {if x\\in E_{n}}. \\end{array} \\right.",
+      "new": "\\delta (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } x\\in[a,b]\\setminus\\bigcup_{n = 1} ^{\\infty} E_{n}, \\\\ \\operatorname{dist} (x, [ a, b ] \\backslash U _ {n}) & \\text {if } x\\in E_{n}. \\end{array} \\right."
+    },
+    {
+      "id": "bogachev_measure_theory-ch02-body-467-703ecd",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[467]",
+      "field": "md",
+      "all": true,
+      "old": "$n\\inIN$",
+      "new": "$n\\in\\mathbb{N}$",
+      "anchor": "d637ed4c"
+    },
+    {
+      "id": "bogachev_measure_theory-ch03-problem-3-10-68-body-0-346ff0",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.10.68:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$f\\colonIN\\toIN$",
+      "new": "$f\\colon\\mathbb{N}\\to\\mathbb{N}$",
+      "anchor": "77125975"
+    },
+    {
+      "id": "bogachev_measure_theory-ch05-body-605-7a3a72",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[605]",
+      "field": "md",
+      "all": true,
+      "old": "$m,k\\inIN$",
+      "new": "$m,k\\in\\mathbb{N}$",
+      "anchor": "ce3d911c"
+    },
+    {
+      "id": "bogachev_measure_theory-ch05-problem-5-8-75-body-0-fe2c45",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:5.8.75:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$m\\inIN$",
+      "new": "$m\\in\\mathbb{N}$",
+      "anchor": "452ebb55"
+    },
+    {
+      "id": "bogachev_measure_theory-ch02-body-301-a7a78b",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[301]",
+      "expect": "\\begin{array}{l} \\int_ {X} | f _ {j} - g _ {j} | d \\mu = \\int_ {X _ {n}} | f _ {j} - g _ {j} | d \\mu + \\int_ {X \\setminus X _ {n}} | f _ {j} - g _ {j} | d \\mu \\\\ \\qquad \\leq \\int_ {X _ {n}} | f _ {j} - g _ {j} | d \\mu + \\int_ {X \\setminus X _ {n}} \\left[ | f _ {j} - f _ {N} | + | f _ {N} - g _ {N} | + | g _ {N} - g _ {j} | \\right] d \\mu \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\int_ {X} | f _ {j} - g _ {j} | d \\mu = \\int_ {X _ {n}} | f _ {j} - g _ {j} | d \\mu + \\int_ {X \\setminus X _ {n}} | f _ {j} - g _ {j} | d \\mu \\\\ \\qquad \\leq \\int_ {X _ {n}} | f _ {j} - g _ {j} | d \\mu + \\int_ {X \\setminus X _ {n}} \\left[ | f _ {j} - f _ {N} | + | f _ {N} - g _ {N} | + | g _ {N} - g _ {j} | \\right] d \\mu \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "bogachev_measure_theory-ch02-body-337-46acb7",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[337]",
+      "expect": "\\begin{array}{l} \\int_ {X} | g _ {n} (x) - g _ {k} (x) |   \\mu (d x) \\\\ \\qquad \\leq \\int_ {X} \\Big [ | g _ {n} (x) - f _ {n} (x) | + | f _ {n} (x) - f _ {k} (x) | + | f _ {k} (x) - g _ {k} (x) | \\Big ]   \\mu (d x) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\int_ {X} | g _ {n} (x) - g _ {k} (x) |   \\mu (d x) \\\\ \\qquad \\leq \\int_ {X} \\Big [ | g _ {n} (x) - f _ {n} (x) | + | f _ {n} (x) - f _ {k} (x) | + | f _ {k} (x) - g _ {k} (x) | \\Big ]   \\mu (d x) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "bogachev_measure_theory-ch04-body-343-4c1b55",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[343]",
+      "expect": "\\begin{array}{c} | \\mu (A) - \\mu_ {n} (A) | \\leq | \\mu (A) - \\mu_ {k} (A) | + | \\mu_ {k} (A) - \\mu_ {n} (A) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} | \\mu (A) - \\mu_ {n} (A) | \\leq | \\mu (A) - \\mu_ {k} (A) | + | \\mu_ {k} (A) - \\mu_ {n} (A) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "bogachev_measure_theory-ch05-body-733-e2bd2a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[733]",
+      "expect": "\\begin{array}{l} \\alpha^ {- n} H ^ {n} \\big (G _ {j} (A _ {j}) \\big) = \\alpha^ {- n} | \\det G _ {j} | \\lambda_ {n} (A _ {j}) \\leq \\int_ {A _ {j}} | J f (x) |   d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\alpha^ {- n} H ^ {n} \\big (G _ {j} (A _ {j}) \\big) = \\alpha^ {- n} | \\det G _ {j} | \\lambda_ {n} (A _ {j}) \\leq \\int_ {A _ {j}} | J f (x) |   d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "bogachev_measure_theory-ch05-body-737-26aef8",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[737]",
+      "expect": "\\begin{array}{l} \\alpha^ {- 2 n} \\int_ {\\mathbb {R} ^ {k}} \\operatorname{Card} \\bigl (A \\cap f ^ {- 1} (y) \\bigr)   H ^ {n} (d y) \\leq \\int_ {A} | J f (x) |   d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\alpha^ {- 2 n} \\int_ {\\mathbb {R} ^ {k}} \\operatorname{Card} \\bigl (A \\cap f ^ {- 1} (y) \\bigr)   H ^ {n} (d y) \\leq \\int_ {A} | J f (x) |   d x \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

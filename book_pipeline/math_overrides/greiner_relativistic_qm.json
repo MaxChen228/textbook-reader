@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "greiner_relativistic_qm-ch16-body-12-8006ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[12]",
+      "expect": "\\beta_ {\\sigma} ^ {\\nu} \\beta^ {\\sigma} _ {\\varrho} = a ^ {\\prime} _ {\\sigma} ^ {\\mu} a _ {\\mu} ^ {\\nu} a ^ {\\prime \\sigma} _ {\\varepsilon} a ^ {\\varepsilon} \\varrho = \\delta^ {\\mu} _ {\\varepsilon} a _ {\\mu} ^ {\\nu} a ^ {\\varepsilon} _ {\\varrho} = \\delta^ {\\nu} _ {\\varrho}.",
+      "new": "\\beta_ {\\sigma} ^ {\\nu} \\beta^ {\\sigma} _ {\\varrho} = {a ^ {\\prime}} _ {\\sigma} ^ {\\mu} a _ {\\mu} ^ {\\nu} a ^ {\\prime \\sigma} _ {\\varepsilon} a ^ {\\varepsilon} \\varrho = \\delta^ {\\mu} _ {\\varepsilon} a _ {\\mu} ^ {\\nu} a ^ {\\varepsilon} _ {\\varrho} = \\delta^ {\\nu} _ {\\varrho}."
+    }
+  ]
+}

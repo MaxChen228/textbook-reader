@@ -1,0 +1,60 @@
+{
+  "overrides": [
+    {
+      "id": "becker_becker_schwarz_string-ch09-body-328-7e2fa5",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[328]",
+      "expect": "\\frac {1}{4} (\\partial_ {m} \\omega_ {n r s} - \\partial_ {n} \\omega_ {m r s} + \\omega_ {m r p} \\omega_ {n} ^ {p} _ {s} - \\omega_ {n r p} \\omega_ {m} ^ {p} _ {s}) \\gamma^ {r s} \\eta = \\frac {1}{4} R _ {m n r s} \\gamma^ {r s} \\eta ,",
+      "new": "\\frac {1}{4} (\\partial_ {m} \\omega_ {n r s} - \\partial_ {n} \\omega_ {m r s} + {\\omega_ {m r p} \\omega_ {n} ^ {p}} _ {s} - {\\omega_ {n r p} \\omega_ {m} ^ {p}} _ {s}) \\gamma^ {r s} \\eta = \\frac {1}{4} R _ {m n r s} \\gamma^ {r s} \\eta ,"
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch09-body-396-dc9dd4",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[396]",
+      "expect": "\\nabla^ {k} \\nabla_ {k} \\delta g _ {m n} + 2 R _ {m} ^ {p} _ {n} ^ {q} \\delta g _ {p q} = 0.\\tag{9.92}",
+      "new": "\\nabla^ {k} \\nabla_ {k} \\delta g _ {m n} + 2 {R _ {m} ^ {p}} _ {n} ^ {q} \\delta g _ {p q} = 0.\\tag{9.92}"
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch09-body-1044-3fdc3c",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[1044]",
+      "expect": "\\nabla_ {\\mu} e _ {\\nu} ^ {\\alpha} = \\partial_ {\\mu} e _ {\\nu} ^ {\\alpha} - \\Gamma_ {\\mu \\nu} ^ {\\rho} e _ {\\rho} ^ {\\alpha} + \\omega_ {\\mu} ^ {\\alpha} _ {\\beta} e _ {\\nu} ^ {\\beta} = 0.\\tag{9.248}",
+      "new": "\\nabla_ {\\mu} e _ {\\nu} ^ {\\alpha} = \\partial_ {\\mu} e _ {\\nu} ^ {\\alpha} - \\Gamma_ {\\mu \\nu} ^ {\\rho} e _ {\\rho} ^ {\\alpha} + {\\omega_ {\\mu} ^ {\\alpha}} _ {\\beta} e _ {\\nu} ^ {\\beta} = 0.\\tag{9.248}"
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch09-body-1050-7bac6b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[1050]",
+      "expect": "\\omega_ {\\mu} ^ {\\alpha} _ {\\beta} = - e _ {\\beta} ^ {\\nu} (\\partial_ {\\mu} e _ {\\nu} ^ {\\alpha} - \\Gamma_ {\\mu \\nu} ^ {\\lambda} e _ {\\lambda} ^ {\\alpha}).\\tag{9.251}",
+      "new": "{\\omega_ {\\mu} ^ {\\alpha}} _ {\\beta} = - e _ {\\beta} ^ {\\nu} (\\partial_ {\\mu} e _ {\\nu} ^ {\\alpha} - \\Gamma_ {\\mu \\nu} ^ {\\lambda} e _ {\\lambda} ^ {\\alpha}).\\tag{9.251}"
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch09-problem-9-7-body-1-30107d",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.7:body[1]",
+      "expect": "\\nabla^ {k} \\nabla_ {k} \\delta g _ {m n} + 2 R _ {m} ^ {p} _ {n} ^ {q} \\delta g _ {p q} = 0.",
+      "new": "\\nabla^ {k} \\nabla_ {k} \\delta g _ {m n} + 2 {R _ {m} ^ {p}} _ {n} ^ {q} \\delta g _ {p q} = 0."
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch10-body-726-305f49",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[726]",
+      "expect": "\\tilde {\\omega} _ {B} ^ {A} = \\omega^ {A} _ {B} - \\frac {1}{2} H _ {M} ^ {A} _ {B} d x ^ {M}.\\tag{10.205}",
+      "new": "\\tilde {\\omega} _ {B} ^ {A} = \\omega^ {A} _ {B} - \\frac {1}{2} {H _ {M} ^ {A}} _ {B} d x ^ {M}.\\tag{10.205}"
+    },
+    {
+      "id": "becker_becker_schwarz_string-ch07-body-137-da9cb5",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[137]",
+      "expect": "\\begin{array}{l} \\text {PA: (128, 1) \\oplus (128^{\\prime} , 1),} \\\\ \\text {AP: (1, 128) \\oplus (1, 128^{\\prime}).} \\end{array}\\tag{7.44}",
+      "new": "\\begin{array}{l} \\text {PA: } (128, 1) \\oplus (128^{\\prime} , 1), \\\\ \\text {AP: } (1, 128) \\oplus (1, 128^{\\prime}). \\end{array}\\tag{7.44}"
+    }
+  ]
+}
