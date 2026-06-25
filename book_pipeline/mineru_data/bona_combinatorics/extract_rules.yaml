@@ -1,0 +1,187 @@
+slug: bona_combinatorics
+title: A Walk Through Combinatorics
+author: Miklós Bóna
+edition: 5th
+subject: Combinatorics
+publisher: World Scientific
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 23
+appendices_start_page: 625
+bibliography_start_page: 625
+index_start_page: 629
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Seven Is More Than Six. The Pigeon-Hole Principle"
+    page_start: 23
+    page_end: 44
+    chapter_title_block_idx: 103
+    problems_block_idx: 185
+    next_chapter_block_idx: 319
+  - num: 2
+    title: "One Step at a Time. The Method of Mathematical Induction"
+    page_start: 45
+    page_end: 64
+    chapter_title_block_idx: 319
+    problems_block_idx: 422
+    next_chapter_block_idx: 567
+  - num: 3
+    title: "There are a Lot of Them. Elementary Counting Problems"
+    page_start: 65
+    page_end: 94
+    chapter_title_block_idx: 567
+    problems_block_idx: 699
+    next_chapter_block_idx: 903
+  - num: 4
+    title: "No Matter How You Slice It. The Binomial Theorem and Related Identities"
+    page_start: 95
+    page_end: 122
+    chapter_title_block_idx: 903
+    problems_block_idx: 1057
+    next_chapter_block_idx: 1302
+  - num: 5
+    title: "Divide and Conquer. Partitions"
+    page_start: 123
+    page_end: 144
+    chapter_title_block_idx: 1302
+    problems_block_idx: 1439
+    next_chapter_block_idx: 1560
+  - num: 6
+    title: "Not So Vicious Cycles. Cycles in Permutations"
+    page_start: 145
+    page_end: 168
+    chapter_title_block_idx: 1560
+    problems_block_idx: 1706
+    next_chapter_block_idx: 1855
+  - num: 7
+    title: "You Shall Not Overcount. The Sieve"
+    page_start: 169
+    page_end: 186
+    chapter_title_block_idx: 1855
+    problems_block_idx: 1948
+    next_chapter_block_idx: 2078
+  - num: 8
+    title: "A Function is Worth Many Numbers. Generating Functions"
+    page_start: 187
+    page_end: 232
+    chapter_title_block_idx: 2078
+    problems_block_idx: 2474
+    next_chapter_block_idx: 2706
+  - num: 9
+    title: "Dots and Lines. The Origins of Graph Theory"
+    page_start: 233
+    page_end: 260
+    chapter_title_block_idx: 2706
+    problems_block_idx: 2842
+    next_chapter_block_idx: 2994
+  - num: 10
+    title: "Staying Connected. Trees"
+    page_start: 261
+    page_end: 296
+    chapter_title_block_idx: 2994
+    problems_block_idx: 3216
+    next_chapter_block_idx: 3400
+  - num: 11
+    title: "Finding A Good Match. Coloring and Matching"
+    page_start: 297
+    page_end: 330
+    chapter_title_block_idx: 3400
+    problems_block_idx: 3641
+    next_chapter_block_idx: 3762
+  - num: 12
+    title: "Do Not Cross. Planar Graphs"
+    page_start: 331
+    page_end: 350
+    chapter_title_block_idx: 3762
+    problems_block_idx: 3919
+    next_chapter_block_idx: 4003
+  - num: 13
+    title: "Does it Clique? Ramsey Theory"
+    page_start: 351
+    page_end: 372
+    chapter_title_block_idx: 4003
+    problems_block_idx: 4143
+    next_chapter_block_idx: 4235
+  - num: 14
+    title: "So Hard To Avoid. Subsequence Conditions on Permutations"
+    page_start: 373
+    page_end: 410
+    chapter_title_block_idx: 4235
+    problems_block_idx: 4485
+    next_chapter_block_idx: 4683
+  - num: 15
+    title: "Who Knows What it Looks Like, But it Exists. The Probabilistic Method"
+    page_start: 411
+    page_end: 448
+    chapter_title_block_idx: 4683
+    problems_block_idx: 4989
+    next_chapter_block_idx: 5179
+  - num: 16
+    title: "At Least Some Order. Partial Orders and Lattices"
+    page_start: 449
+    page_end: 482
+    chapter_title_block_idx: 5179
+    problems_block_idx: 5445
+    next_chapter_block_idx: 5598
+  - num: 17
+    title: "As Evenly As Possible. Block Designs and Error Correcting Codes"
+    page_start: 483
+    page_end: 522
+    chapter_title_block_idx: 5598
+    problems_block_idx: 5938
+    next_chapter_block_idx: 6077
+  - num: 18
+    title: "Are They Really Diferent? Counting Unlabeled Structures"
+    page_start: 523
+    page_end: 560
+    chapter_title_block_idx: 6077
+    problems_block_idx: 6391
+    next_chapter_block_idx: 6540
+  - num: 19
+    title: "The Sooner The Better. Combinatorial Algorithms"
+    page_start: 561
+    page_end: 592
+    chapter_title_block_idx: 6540
+    problems_block_idx: 6825
+    next_chapter_block_idx: 6922
+  - num: 20
+    title: "Does Many Mean More Than One? Computational Complexity"
+    page_start: 593
+    page_end: 624
+    chapter_title_block_idx: 6922
+    problems_block_idx: 7212
+    next_chapter_block_idx: 7295
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^\((\d+)\)\s*'
+problem_chapter_must_match: false
+problems_end_re: '^Solutions to Exercises\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
