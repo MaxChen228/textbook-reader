@@ -1,0 +1,116 @@
+# ── 書本 metadata ──
+slug: vidyasagar_nonlinear_systems
+title: Nonlinear Systems Analysis
+author: M. Vidyasagar
+edition: 2nd
+subject: Control Systems
+publisher: Prentice Hall
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 12
+appendices_start_page: 480
+bibliography_start_page: 497
+index_start_page: 504
+
+# ── inline-problem 模式 ──
+# 習題以 'Problem N.M ...' 散落各 section 中、無獨立 Problems heading → 全本 inline。
+# 章內題號 monotonic（5.16/5.17/5.30 不 reset）→ 不需 namespace。
+inline_problems: true
+problem_num_namespace_by_section: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 12
+    page_end: 16
+    chapter_title_block_idx: 72
+    problems_block_idx: null
+    next_chapter_block_idx: 148
+  - num: 2
+    title: "Nonlinear Differential Equations"
+    page_start: 17
+    page_end: 63
+    chapter_title_block_idx: 148
+    problems_block_idx: null
+    next_chapter_block_idx: 960
+  - num: 3
+    title: "Second-Order Systems"
+    page_start: 64
+    page_end: 98
+    chapter_title_block_idx: 960
+    problems_block_idx: null
+    next_chapter_block_idx: 1526
+  - num: 4
+    title: "Approximate Analysis Methods"
+    page_start: 99
+    page_end: 145
+    chapter_title_block_idx: 1526
+    problems_block_idx: null
+    next_chapter_block_idx: 2298
+  - num: 5
+    title: "Lyapunov Stability"
+    page_start: 146
+    page_end: 280
+    chapter_title_block_idx: 2298
+    problems_block_idx: null
+    next_chapter_block_idx: 4735
+  - num: 6
+    title: "Input-Output Stability"
+    page_start: 281
+    page_end: 386
+    chapter_title_block_idx: 4735
+    problems_block_idx: null
+    next_chapter_block_idx: 6582
+  - num: 7
+    title: "Differential Geometric Methods"
+    page_start: 387
+    page_end: 479
+    chapter_title_block_idx: 6582
+    problems_block_idx: null
+    next_chapter_block_idx: 8245
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: "Prevalence of Differential Equations with Unique Solutions"
+    page_start: 480
+    chapter_title_block_idx: 8245
+  - id: B
+    title: "Proof of the Kalman-Yacubovitch Lemma"
+    page_start: 485
+    chapter_title_block_idx: 8322
+  - id: C
+    title: "Proof of the Frobenius Theorem"
+    page_start: 490
+    chapter_title_block_idx: 8428
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題，running-number 'N Example ...'） ──
+example_start_re: '^(\d+)\s+Example\b'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
