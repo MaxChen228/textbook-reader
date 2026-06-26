@@ -1,0 +1,136 @@
+slug: taur_ning_vlsi_devices
+title: Fundamentals of Modern VLSI Devices
+author: Yuan Taur; Tak H. Ning
+edition: 3rd
+subject: Microelectronics
+publisher: Cambridge University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # MinerU 把 §-section heading 全標 lvl2（章標反落 lvl1/2 混雜）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 28
+appendices_start_page: 592     # 無 Appendix；末章夾在 page 591，後接 References
+bibliography_start_page: 592   # 章後集中 References（防 ch12 problems 吞參考文獻）
+index_start_page: 614          # Index 起點（防末章吞 Index）
+
+inline_problems: false         # 二分模式：每章 lvl2 'Exercises' heading 分隔正文/習題
+
+# ── 章節 ──
+# 章標多被 MinerU 打散：ch3/7/8/10 章號被丟（lvl1/2 無號標題）、ch6 章標整塊遺失
+# （用 page 233 首塊 roadmap idx 2354 當邊界，title 取自本欄）。
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 28
+    page_end: 35
+    chapter_title_block_idx: 126
+    problems_block_idx: 193        # 導論章無 Exercises；哨兵指向章末已過濾 header→problems 區為空。
+                                   # 不用 null：節標 1.1/1.2 與 problem_start_re 同形(N.M)→validator 誤報
+    next_chapter_block_idx: 194
+  - num: 2
+    title: Basic Device Physics
+    page_start: 36
+    page_end: 69
+    chapter_title_block_idx: 194
+    problems_block_idx: 586
+    next_chapter_block_idx: 621
+  - num: 3
+    title: p–n Junctions and Metal–Silicon Contacts
+    page_start: 70
+    page_end: 125
+    chapter_title_block_idx: 621
+    problems_block_idx: 1217
+    next_chapter_block_idx: 1290
+  - num: 4
+    title: MOS Capacitors
+    page_start: 126
+    page_end: 197
+    chapter_title_block_idx: 1290
+    problems_block_idx: 1934
+    next_chapter_block_idx: 1985
+  - num: 5
+    title: "MOSFETs: Long Channel"
+    page_start: 198
+    page_end: 232
+    chapter_title_block_idx: 1985
+    problems_block_idx: 2321
+    next_chapter_block_idx: 2354
+  - num: 6
+    title: "MOSFETs: Short Channel"
+    page_start: 233
+    page_end: 290
+    chapter_title_block_idx: 2354
+    problems_block_idx: 2943
+    next_chapter_block_idx: 2970
+  - num: 7
+    title: Silicon-on-Insulator and Double-Gate MOSFETs
+    page_start: 291
+    page_end: 321
+    chapter_title_block_idx: 2970
+    problems_block_idx: 3300
+    next_chapter_block_idx: 3330
+  - num: 8
+    title: CMOS Performance Factors
+    page_start: 322
+    page_end: 387
+    chapter_title_block_idx: 3330
+    problems_block_idx: 3891
+    next_chapter_block_idx: 3930
+  - num: 9
+    title: Bipolar Devices
+    page_start: 388
+    page_end: 451
+    chapter_title_block_idx: 3930
+    problems_block_idx: 4665
+    next_chapter_block_idx: 4729
+  - num: 10
+    title: Bipolar Device Design
+    page_start: 452
+    page_end: 511
+    chapter_title_block_idx: 4729
+    problems_block_idx: 5299
+    next_chapter_block_idx: 5354
+  - num: 11
+    title: Bipolar Performance Factors
+    page_start: 512
+    page_end: 547
+    chapter_title_block_idx: 5354
+    problems_block_idx: 5650
+    next_chapter_block_idx: 5708
+  - num: 12
+    title: Memory Devices
+    page_start: 548
+    page_end: 591
+    chapter_title_block_idx: 5708
+    problems_block_idx: 6041
+    next_chapter_block_idx: 6590
+
+appendices: []
+
+# ── heading regex（N.M section / N.M.K(.J) subsection；多數 lvl2） ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+(?:\.\d+){2,})\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（章末 Exercises，題首形如 "3.1 …"/"12.4 …"） ──
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+# ── equation（\tag{N.M} / \tag{3.140}） ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（本書無獨立 Example 段落） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（人工驗證後才填） ──
+known_missing_problems: []
