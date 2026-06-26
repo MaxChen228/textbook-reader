@@ -1,0 +1,120 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "6.10a",
+      "classification": "source_mismatch",
+      "reason": "書中正文（page 328, ch06）明印 'as depicted in Fig. 6.10a.'，但全書 944 頁無任何 FIGURE 6.10 圖說、ch06 圖編號止於 6.9；§6.10 周邊頁（326 fig-6.9、327 §6.9、328-331 §6.10 Representer Theorem）全為文字/方程，無此圖。fig-6.9(a) 正是文字描述的 ε-insensitive tube 圖。屬作者懸空引用（書中無此圖），非本書可供給之 figure。",
+      "where": "ch06.json body[331]",
+      "evidence": "印刷原文確認為 'in Fig. 6.10a.'（高倍渲染目視）；全書 grep 'FIGURE 6.10' 零命中；ch06 catalog 圖止於 fig-6.9；page 327/329/330 渲染全文字無圖。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "haykin-tbl-4.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[783]",
+      "position": "after",
+      "page": 229,
+      "clip": [0.07, 0.063, 0.93, 0.695],
+      "zoom": 3.0,
+      "image_id": "tbl-4.3",
+      "block": {
+        "t": "fig",
+        "id": "tbl-4.3",
+        "caption": "TABLE 4.3 Summary of the Nonlinear Conjugate-Gradient Algorithm for the Supervised Training of a Multilayer Perceptron"
+      },
+      "reason": "MinerU 把 Table 4.3 演算法摘要框誤判成 subsection title（body[789]）+ 散文步驟，未產 catalogable table block → catalog 缺 tbl-4.3（有 4.1/4.2/4.4）。從 raw PDF p229 裁整個演算法框；t=fig 攜 src，caption 'TABLE 4.3' 驅動 build_catalogs type=table → 落 tables[] 且帶圖。"
+    },
+    {
+      "id": "haykin-tbl-P9.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "problem:9.7:body[0]",
+      "position": "after",
+      "page": 505,
+      "clip": [0.10, 0.065, 0.92, 0.51],
+      "zoom": 3.0,
+      "image_id": "tbl-P9.7",
+      "block": {
+        "t": "fig",
+        "id": "tbl-P9.7",
+        "caption": "TABLE P9.7 Summary of the Conscience Algorithm"
+      },
+      "reason": "Problem 9.7 正文 'summarized in Table P9.7'，但 MinerU 完全漏抓該演算法摘要表（parsed 無；只抓到另一張 plot fig-P9.7 'For Problem 9.7.'）。書中 p505 頂確有 'TABLE P9.7 Summary of the Conscience Algorithm' 框。t=fig 攜 src + caption 'TABLE P9.7' → type=table 落 tables[]。"
+    },
+    {
+      "id": "haykin-fig-P11.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.3:body[0]",
+      "position": "after",
+      "page": 656,
+      "clip": [0.18, 0.063, 0.82, 0.40],
+      "zoom": 3.0,
+      "image_id": "fig-P11.3",
+      "block": {
+        "t": "fig",
+        "id": "fig-P11.3",
+        "kind": "line",
+        "caption": "FIGURE P11.3"
+      },
+      "reason": "Problem 11.3 'Markov chain depicted in Fig. P11.3' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 上方確有此圖（x1/x2/x3 節點 + 轉移機率）。"
+    },
+    {
+      "id": "haykin-fig-P11.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.4:body[0]",
+      "position": "after",
+      "page": 656,
+      "clip": [0.18, 0.43, 0.82, 0.788],
+      "zoom": 3.0,
+      "image_id": "fig-P11.4",
+      "block": {
+        "t": "fig",
+        "id": "fig-P11.4",
+        "kind": "line",
+        "caption": "FIGURE P11.4"
+      },
+      "reason": "Problem 11.4 'Markov chain shown in Fig. P11.4' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 下方（P11.3 圖之下）確有此圖。"
+    },
+    {
+      "id": "haykin-fig-P11.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "problem:11.5:body[0]",
+      "position": "after",
+      "page": 657,
+      "clip": [0.16, 0.07, 0.84, 0.320],
+      "zoom": 3.0,
+      "image_id": "fig-P11.5",
+      "block": {
+        "t": "fig",
+        "id": "fig-P11.5",
+        "kind": "line",
+        "caption": "FIGURE P11.5"
+      },
+      "reason": "Problem 11.5 'Markov chain shown in Fig. P11.5' 的 state-transition diagram（Time 0 / n-1 / n），MinerU 漏抓；raw PDF p657 上方確有此圖。"
+    },
+    {
+      "id": "haykin-fig-P15.9-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch15",
+      "selector": "problem:15.9:body[0]",
+      "position": "after",
+      "page": 878,
+      "clip": [0.06, 0.065, 0.98, 0.448],
+      "zoom": 3.0,
+      "image_id": "fig-P15.9",
+      "block": {
+        "t": "fig",
+        "id": "fig-P15.9",
+        "kind": "line",
+        "caption": "FIGURE P15.9 Fully recurrent network"
+      },
+      "reason": "Problem 15.9 'fully recurrent network shown in Fig. P15.9'，MinerU 漏抓；raw PDF p878 上方確有此 fully recurrent network 圖。"
+    }
+  ]
+}
