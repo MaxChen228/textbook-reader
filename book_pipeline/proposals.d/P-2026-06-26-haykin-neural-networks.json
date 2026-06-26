@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-26-haykin-neural-networks",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "pdf_crop_insert 預設 .png 輸出永不被 build 轉 webp → reader 壞圖（37 本受害）",
+  "slug": "haykin_neural_networks",
+  "detect": [],
+  "source": "catalog_audit:haykin_neural_networks",
+  "resolution": "",
+  "created": "2026-06-26T08:29:03+00:00",
+  "updated": "2026-06-26T08:29:03+00:00",
+  "evidence": "catalog-audit.md §5 明文承諾「裁出的 PNG…build 階段 cwebp 轉 webp」，但 build/convert_images.py:62 _jobs_for 只 glob('*.jpg')、build/bake_json.py:25 JPG_TO_WEBP 只改寫 r'\\.jpg$'。apply_catalog_overrides._crop_pdf_image 預設存 manual_<id>.png。實測 haykin：用預設 .png src → build 後 img/<slug>/ 無對應 webp、baked catalogs.json src 仍為 manual_*.png → reader 請求不存在檔 404、圖全不顯示（catalog audit critical=0 仍綠＝silent-zero）。改顯式 .jpg src 後 → webp 生成、src 改寫為 .webp、reader 正常。grep manual_*.png 的 catalog_overrides 共 37 本潛在受害（anslyn/balanis/hayashi/van_valkenburg/ulaby 等 tbl/fig 皆是）。",
+  "proposal": "build/convert_images._jobs_for 的 glob 擴成 *.jpg + *.png（png 為 cwebp 合法輸入，內容定址 stem 不衝突）；build/bake_json 的 JPG_TO_WEBP 與 HTML_IMG_RE 一併涵蓋 .png→.webp（rewrite 改 r'\\.(jpe?g|png)$'）。如此 skill §5 的 .png 契約真正成立、37 本既有 png crop 一次 un-break（png→webp 對線稿/表格無損優於 jpg 中介）。本書 haykin 已用 .jpg src 自救上線，不依賴此修。",
+  "risk": "low",
+  "disposition": ""
+}

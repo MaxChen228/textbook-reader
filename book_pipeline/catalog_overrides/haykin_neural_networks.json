@@ -17,7 +17,12 @@
       "selector": "body[783]",
       "position": "after",
       "page": 229,
-      "clip": [0.07, 0.063, 0.93, 0.695],
+      "clip": [
+        0.07,
+        0.063,
+        0.93,
+        0.695
+      ],
       "zoom": 3.0,
       "image_id": "tbl-4.3",
       "block": {
@@ -25,7 +30,8 @@
         "id": "tbl-4.3",
         "caption": "TABLE 4.3 Summary of the Nonlinear Conjugate-Gradient Algorithm for the Supervised Training of a Multilayer Perceptron"
       },
-      "reason": "MinerU 把 Table 4.3 演算法摘要框誤判成 subsection title（body[789]）+ 散文步驟，未產 catalogable table block → catalog 缺 tbl-4.3（有 4.1/4.2/4.4）。從 raw PDF p229 裁整個演算法框；t=fig 攜 src，caption 'TABLE 4.3' 驅動 build_catalogs type=table → 落 tables[] 且帶圖。"
+      "reason": "MinerU 把 Table 4.3 演算法摘要框誤判成 subsection title（body[789]）+ 散文步驟，未產 catalogable table block → catalog 缺 tbl-4.3（有 4.1/4.2/4.4）。從 raw PDF p229 裁整個演算法框；t=fig 攜 src，caption 'TABLE 4.3' 驅動 build_catalogs type=table → 落 tables[] 且帶圖。",
+      "src": "manual_tbl-4.3.jpg"
     },
     {
       "id": "haykin-tbl-P9.7-pdf-crop",
@@ -34,7 +40,12 @@
       "selector": "problem:9.7:body[0]",
       "position": "after",
       "page": 505,
-      "clip": [0.10, 0.065, 0.92, 0.51],
+      "clip": [
+        0.1,
+        0.065,
+        0.92,
+        0.51
+      ],
       "zoom": 3.0,
       "image_id": "tbl-P9.7",
       "block": {
@@ -42,7 +53,8 @@
         "id": "tbl-P9.7",
         "caption": "TABLE P9.7 Summary of the Conscience Algorithm"
       },
-      "reason": "Problem 9.7 正文 'summarized in Table P9.7'，但 MinerU 完全漏抓該演算法摘要表（parsed 無；只抓到另一張 plot fig-P9.7 'For Problem 9.7.'）。書中 p505 頂確有 'TABLE P9.7 Summary of the Conscience Algorithm' 框。t=fig 攜 src + caption 'TABLE P9.7' → type=table 落 tables[]。"
+      "reason": "Problem 9.7 正文 'summarized in Table P9.7'，但 MinerU 完全漏抓該演算法摘要表（parsed 無；只抓到另一張 plot fig-P9.7 'For Problem 9.7.'）。書中 p505 頂確有 'TABLE P9.7 Summary of the Conscience Algorithm' 框。t=fig 攜 src + caption 'TABLE P9.7' → type=table 落 tables[]。",
+      "src": "manual_tbl-P9.7.jpg"
     },
     {
       "id": "haykin-fig-P11.3-pdf-crop",
@@ -51,7 +63,12 @@
       "selector": "problem:11.3:body[0]",
       "position": "after",
       "page": 656,
-      "clip": [0.18, 0.063, 0.82, 0.40],
+      "clip": [
+        0.18,
+        0.063,
+        0.82,
+        0.4
+      ],
       "zoom": 3.0,
       "image_id": "fig-P11.3",
       "block": {
@@ -60,7 +77,8 @@
         "kind": "line",
         "caption": "FIGURE P11.3"
       },
-      "reason": "Problem 11.3 'Markov chain depicted in Fig. P11.3' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 上方確有此圖（x1/x2/x3 節點 + 轉移機率）。"
+      "reason": "Problem 11.3 'Markov chain depicted in Fig. P11.3' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 上方確有此圖（x1/x2/x3 節點 + 轉移機率）。",
+      "src": "manual_fig-P11.3.jpg"
     },
     {
       "id": "haykin-fig-P11.4-pdf-crop",
@@ -69,7 +87,12 @@
       "selector": "problem:11.4:body[0]",
       "position": "after",
       "page": 656,
-      "clip": [0.18, 0.43, 0.82, 0.788],
+      "clip": [
+        0.18,
+        0.43,
+        0.82,
+        0.788
+      ],
       "zoom": 3.0,
       "image_id": "fig-P11.4",
       "block": {
@@ -78,7 +101,8 @@
         "kind": "line",
         "caption": "FIGURE P11.4"
       },
-      "reason": "Problem 11.4 'Markov chain shown in Fig. P11.4' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 下方（P11.3 圖之下）確有此圖。"
+      "reason": "Problem 11.4 'Markov chain shown in Fig. P11.4' 的 state-transition diagram，MinerU 漏抓；raw PDF p656 下方（P11.3 圖之下）確有此圖。",
+      "src": "manual_fig-P11.4.jpg"
     },
     {
       "id": "haykin-fig-P11.5-pdf-crop",
@@ -87,7 +111,12 @@
       "selector": "problem:11.5:body[0]",
       "position": "after",
       "page": 657,
-      "clip": [0.16, 0.07, 0.84, 0.320],
+      "clip": [
+        0.16,
+        0.07,
+        0.84,
+        0.32
+      ],
       "zoom": 3.0,
       "image_id": "fig-P11.5",
       "block": {
@@ -96,7 +125,8 @@
         "kind": "line",
         "caption": "FIGURE P11.5"
       },
-      "reason": "Problem 11.5 'Markov chain shown in Fig. P11.5' 的 state-transition diagram（Time 0 / n-1 / n），MinerU 漏抓；raw PDF p657 上方確有此圖。"
+      "reason": "Problem 11.5 'Markov chain shown in Fig. P11.5' 的 state-transition diagram（Time 0 / n-1 / n），MinerU 漏抓；raw PDF p657 上方確有此圖。",
+      "src": "manual_fig-P11.5.jpg"
     },
     {
       "id": "haykin-fig-P15.9-pdf-crop",
@@ -105,7 +135,12 @@
       "selector": "problem:15.9:body[0]",
       "position": "after",
       "page": 878,
-      "clip": [0.06, 0.065, 0.98, 0.448],
+      "clip": [
+        0.06,
+        0.065,
+        0.98,
+        0.448
+      ],
       "zoom": 3.0,
       "image_id": "fig-P15.9",
       "block": {
@@ -114,7 +149,8 @@
         "kind": "line",
         "caption": "FIGURE P15.9 Fully recurrent network"
       },
-      "reason": "Problem 15.9 'fully recurrent network shown in Fig. P15.9'，MinerU 漏抓；raw PDF p878 上方確有此 fully recurrent network 圖。"
+      "reason": "Problem 15.9 'fully recurrent network shown in Fig. P15.9'，MinerU 漏抓；raw PDF p878 上方確有此 fully recurrent network 圖。",
+      "src": "manual_fig-P15.9.jpg"
     }
   ]
 }
