@@ -1,0 +1,150 @@
+# ── 書本 metadata ──
+slug: sastry_nonlinear_systems
+title: "Nonlinear Systems: Analysis, Stability, and Control"
+author: Shankar Sastry
+edition: "1st"
+subject: Control Systems
+publisher: Springer
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 22
+appendices_start_page: 666
+bibliography_start_page: 666
+index_start_page: 682
+
+# ── inline-problem 模式 ──
+# 研究專著：習題以 "Problem N.M ..." 散落於章末（多在 N.x Exercises 節後），無獨立 Problems heading。
+# 275 個 "Problem N.M" 標記、章內連號（1.1..1.15 / 12.1..12.10），不 reset → 不需 namespace。
+inline_problems: true
+
+# ── 章節 ──
+# scout 章錨偵測失效（lvl2 收斂只認出 ch2）：章標散落 lvl1（無編號）/lvl2（有編號），
+# ch1 章標被 MinerU 吞掉（用 page_number gap @154 定錨）、ch13 章標降級為 plain text @9980。
+# 全章定位靠 lvl2 的 "N.1 <Title>" 首節標記重建（13 章全有）。
+chapters:
+  - num: 1
+    title: Linear vs. Nonlinear
+    page_start: 22
+    page_end: 51
+    chapter_title_block_idx: 154
+    problems_block_idx: null
+    next_chapter_block_idx: 468
+  - num: 2
+    title: Planar Dynamical Systems
+    page_start: 52
+    page_end: 96
+    chapter_title_block_idx: 468
+    problems_block_idx: null
+    next_chapter_block_idx: 1043
+  - num: 3
+    title: Mathematical Background
+    page_start: 97
+    page_end: 147
+    chapter_title_block_idx: 1043
+    problems_block_idx: null
+    next_chapter_block_idx: 1859
+  - num: 4
+    title: Input-Output Analysis
+    page_start: 148
+    page_end: 202
+    chapter_title_block_idx: 1859
+    problems_block_idx: null
+    next_chapter_block_idx: 2741
+  - num: 5
+    title: Lyapunov Stability Theory
+    page_start: 203
+    page_end: 255
+    chapter_title_block_idx: 2741
+    problems_block_idx: null
+    next_chapter_block_idx: 3668
+  - num: 6
+    title: Applications of Lyapunov Theory
+    page_start: 256
+    page_end: 307
+    chapter_title_block_idx: 3668
+    problems_block_idx: null
+    next_chapter_block_idx: 4496
+  - num: 7
+    title: Dynamical Systems and Bifurcations
+    page_start: 308
+    page_end: 369
+    chapter_title_block_idx: 4496
+    problems_block_idx: null
+    next_chapter_block_idx: 5344
+  - num: 8
+    title: Basics of Differential Geometry
+    page_start: 370
+    page_end: 404
+    chapter_title_block_idx: 5344
+    problems_block_idx: null
+    next_chapter_block_idx: 5976
+  - num: 9
+    title: Linearization by State Feedback
+    page_start: 405
+    page_end: 469
+    chapter_title_block_idx: 5976
+    problems_block_idx: null
+    next_chapter_block_idx: 7020
+  - num: 10
+    title: Design Examples Using Linearization
+    page_start: 470
+    page_end: 530
+    chapter_title_block_idx: 7020
+    problems_block_idx: null
+    next_chapter_block_idx: 7784
+  - num: 11
+    title: Geometric Nonlinear Control
+    page_start: 531
+    page_end: 594
+    chapter_title_block_idx: 7784
+    problems_block_idx: null
+    next_chapter_block_idx: 8767
+  - num: 12
+    title: Exterior Differential Systems in Control
+    page_start: 595
+    page_end: 661
+    chapter_title_block_idx: 8767
+    problems_block_idx: null
+    next_chapter_block_idx: 9980
+  - num: 13
+    title: "New Vistas: Multi-Agent Hybrid Systems"
+    page_start: 662
+    page_end: 665
+    chapter_title_block_idx: 9980
+    problems_block_idx: null
+    next_chapter_block_idx: 9997
+
+# ── 附錄 ──
+# 全本無 Appendix（References p666 緊接 ch13 之後、Index p682）。
+appendices: []
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# "Problem N.M ..."（章前綴、含 N.）→ must_match true；連號不 reset → 不 namespace。
+problem_start_re: '^Problem\s+(\d+\.\d+)'
+problem_chapter_must_match: true
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
