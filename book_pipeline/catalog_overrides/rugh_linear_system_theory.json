@@ -1,0 +1,86 @@
+{
+  "overrides": [
+    {
+      "id": "rugh-fig-2.11-id-fix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.1:body[6]",
+      "expect": { "id": "fig-ch02-prob0-6" },
+      "set": {
+        "id": "fig-2.11",
+        "catalog_aliases": ["2.11"],
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": ["catalog_exclude_reason"],
+      "reason": "情境(A): 圖實體已被 MinerU 切進 problem:2.1 body 內、拿 fallback id fig-ch02-prob0-6,且被 audit 標 catalog_exclude_reason=problem_inline_unlabeled_fig(誤判為 problem 內無標籤圖)。caption 明寫『2.11 Figure A state variable diagram for Example 2.5.』、正文 Example 2.10 ref Figure 2.11 → 此為真·編號主文圖,解除 exclude + 設語意 id 即覆蓋。build_catalogs._semantic_id 在 exclude_reason 存在且 caption 無解析 label(本書 N.M-Figure 格式不被 _caption_labels 認)時回 None,故必須 unset exclude_reason 才落回 raw_id 分支取 fig-2.11。圖在 problem body 屬 parser 切分產物,不搬移(cosmetic)。"
+    },
+    {
+      "id": "rugh-fig-4.12-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[138]",
+      "position": "after",
+      "page": 82,
+      "clip": [0.13, 0.33, 0.90, 0.50],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.12",
+        "kind": "line",
+        "caption": "4.12 Figure State variable change produces an equivalent linear state equation."
+      },
+      "reason": "情境(B): 掃描頁 p82 有真 block diagram『State variable change produces an equivalent linear state equation』,MinerU 漏抓 image(全書任何章節皆無 fig-4.12)。正文 body[138] ref Figure 4.12。"
+    },
+    {
+      "id": "rugh-fig-13.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[24]",
+      "position": "after",
+      "page": 235,
+      "clip": [0.13, 0.66, 0.90, 0.81],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-13.2",
+        "kind": "line",
+        "caption": "13.2 Figure A state equation decomposition related to controllability."
+      },
+      "reason": "情境(B): 掃描頁 p235 底部有真 block diagram,MinerU 漏抓(全書無 fig-13.2)。正文 body[24] ref Figure 13.2。"
+    },
+    {
+      "id": "rugh-fig-18.8-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "body[103]",
+      "position": "after",
+      "page": 350,
+      "clip": [0.13, 0.24, 0.90, 0.41],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-18.8",
+        "kind": "line",
+        "caption": "18.8 Figure Decomposition of the state equation (12)."
+      },
+      "reason": "情境(B): 掃描頁 p350 上中段有真 block diagram,MinerU 漏抓(全書無 fig-18.8)。正文 body[103] ref Figure 18.8。"
+    },
+    {
+      "id": "rugh-fig-29.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch29",
+      "selector": "body[77]",
+      "position": "after",
+      "page": 566,
+      "clip": [0.10, 0.63, 0.92, 0.85],
+      "zoom": 3,
+      "block": {
+        "t": "fig",
+        "id": "fig-29.4",
+        "kind": "line",
+        "caption": "29.4 Figure Observer-based dynamic output feedback."
+      },
+      "reason": "情境(B): 掃描頁 p566 底部有大型 block diagram『Observer-based dynamic output feedback』,MinerU 漏抓(全書無 fig-29.4)。正文 body[77] ref Figure 29.4。圖大、eq(15) 緊鄰上方,clip 需特別驗框。"
+    }
+  ]
+}
