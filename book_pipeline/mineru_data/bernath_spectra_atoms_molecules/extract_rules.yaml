@@ -1,0 +1,144 @@
+slug: bernath_spectra_atoms_molecules
+title: "Spectra of Atoms and Molecules"
+author: "Peter F. Bernath"
+edition: "2nd"
+subject: "Atomic and Molecular Physics"
+publisher: "Oxford University Press"
+language: "en"
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+# MinerU 把 §-section heading (N.M ...) 全標成 text_level=2 (scout: {2: 70})
+heading_text_level: 2
+
+# ── 內容範圍 (global 0-based PDF page_idx) ──
+body_start_page: 17
+appendices_start_page: 420
+bibliography_start_page: null   # 僅 per-chapter References (走 ref_text filter)，無全域 bibliography
+index_start_page: 445
+
+inline_problems: false           # 每章皆有獨立 "Problems" heading → 全本二分模式
+
+# ── 章節 ──
+# MinerU 章標分三種 type：ch1/2/5/6/7 = "Chapter N" text(lvl1/2) + 真標題分兩塊 → cti=marker, secondary=title；
+#                          ch3/4/8/9/10 = "Chapter N" 被標成 type=header 的跑馬燈(落章內非章首)，
+#                          真章首 = N.1 section 前的 lvl=1 標題塊 → cti=該標題塊 (跑馬燈 header 在 body 內被 filter)。
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 17
+    page_end: 54
+    chapter_title_block_idx: 67
+    chapter_title_block_idx_secondary: 68
+    problems_block_idx: 460
+    next_chapter_block_idx: 583
+  - num: 2
+    title: "Molecular Symmetry"
+    page_start: 55
+    page_end: 71
+    chapter_title_block_idx: 583
+    chapter_title_block_idx_secondary: 584
+    problems_block_idx: 777
+    next_chapter_block_idx: 833
+  - num: 3
+    title: "Matrix Representation of Groups"
+    page_start: 72
+    page_end: 104
+    chapter_title_block_idx: 833
+    problems_block_idx: 1305
+    next_chapter_block_idx: 1381
+  - num: 4
+    title: "Quantum Mechanics and Group Theory"
+    page_start: 105
+    page_end: 122
+    chapter_title_block_idx: 1381
+    problems_block_idx: 1660
+    next_chapter_block_idx: 1701
+  - num: 5
+    title: "Atomic Spectroscopy"
+    page_start: 123
+    page_end: 174
+    chapter_title_block_idx: 1701
+    chapter_title_block_idx_secondary: 1702
+    problems_block_idx: 2299
+    next_chapter_block_idx: 2438
+  - num: 6
+    title: "Rotational Spectroscopy"
+    page_start: 175
+    page_end: 221
+    chapter_title_block_idx: 2438
+    chapter_title_block_idx_secondary: 2439
+    problems_block_idx: 2962
+    next_chapter_block_idx: 3108
+  - num: 7
+    title: "Vibrational Spectroscopy"
+    page_start: 222
+    page_end: 306
+    chapter_title_block_idx: 3108
+    chapter_title_block_idx_secondary: 3109
+    problems_block_idx: 4052
+    next_chapter_block_idx: 4261
+  - num: 8
+    title: "Light Scattering and the Raman Effect"
+    page_start: 307
+    page_end: 334
+    chapter_title_block_idx: 4261
+    problems_block_idx: 4595
+    next_chapter_block_idx: 4652
+  - num: 9
+    title: "Electronic Spectroscopy of Diatomics"
+    page_start: 335
+    page_end: 380
+    chapter_title_block_idx: 4652
+    problems_block_idx: 5179
+    next_chapter_block_idx: 5270
+  - num: 10
+    title: "Electronic Spectroscopy of Polyatomics"
+    page_start: 381
+    page_end: 419
+    chapter_title_block_idx: 5270
+    problems_block_idx: 5658
+    next_chapter_block_idx: 5744
+
+# ── 附錄 ──
+appendices:
+  - id: "A"
+    title: "Units, Conversions, and Physical Constants"
+    page_start: 420
+    chapter_title_block_idx: 5744
+  - id: "B"
+    title: "Character Tables"
+    page_start: 422
+    chapter_title_block_idx: 5754
+  - id: "C"
+    title: "Direct Product Tables"
+    page_start: 434
+    chapter_title_block_idx: 5798
+  - id: "D"
+    title: "Introductory Textbooks"
+    page_start: 438
+    chapter_title_block_idx: 5814
+
+# ── heading regex (N.M / N.M.K, lvl=2) ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號：純流水 "1. 2. 3. ..." 帶 (a)(b)(c) 子題，每章重置 ──
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation：\tag{N.M} ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example：本書內文無 Example 段落 ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
