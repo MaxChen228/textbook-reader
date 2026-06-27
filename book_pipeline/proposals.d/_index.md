@@ -63,7 +63,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （247 條；proposed=7 parked=8）
+## domain: engine  （247 條；proposed=6 parked=8）
 ### P-2026-06-25-bona-combinatorics — worker 越界改核心碼：book_pipeline/normalize_metadata.py（audit bona_combinatorics）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -192,17 +192,6 @@
 - 提議：
 > (A) post-unified 完整性閘：assemble 後斷言 content_list 所有 img_path 屬於 unified/images(扣 kind=text)，落差大於0 即 raise 或 flag review、不放行 audit。(B) _chunk_done 完成判據納入 images：若該 chunk content_list 有 img refs 但 chunk_dir/images 不存在或檔數明顯少於 refs，判未完成、觸發重解。(C) extract_zip 後驗 zip namelist 與解出檔數一致(防 ENOSPC 半途中斷靜默吞)。建好後可 fix-tooling-then-sweep 回掃既有書(掃 content_list img-refs vs unified/images 落差)找同類受害書。
 
-### P-2026-06-27-boron-boulpaep-physiology — catalog_audit _parent_num 只折小寫尾部子圖字母、漏折大寫 panel(A/B/C/D) → 母圖存在仍誤報 missing_figure/table_refs
-- proposed | type=tooling-gap | source=catalog-audit/architect
-- 處置：
-> 架構師本 session 直接實作；proposal 作 provenance/審計軌跡，落地後標 accepted 帶 commit sha
-- 證據：
-> boron_boulpaep_physiology: audit_catalog 報 712 critical，其中 690(687 fig + 3 tbl)=正文引用大寫 panel(如 Figure 15-23B / Table 39-1A)、而母圖 fig-15.23 / 母表 tbl-39.1 確實存在於 catalog。根因：_parent_num regex '^(.+\\d)[a-z]$' 只折小寫尾字母(reif 小寫 panel 正常折回母圖)，大寫不折→_catalog_covers_ref 對大寫 panel 永遠 False。catalog_aliases 不被 _catalog_covers_ref 查→override 無合法出口；非 misOCR/非 external 故 ref_classifications 是偽造覆蓋(skill §3.6 明禁)。醫學/生物參考書普遍用大寫 panel，影響全 corpus 同類書。
-- 提議：
-> _parent_num regex [a-z] → [a-zA-Z]（對稱小寫折疊、單調只降不升 critical、零 false-negative：panel 判 covered ⟺ 母圖影像存在＝語意正確）。爆炸半徑僅 C4/C5（_parent_num 唯一被 _catalog_covers_ref 用）。驗證：boron critical 712→22、reif 8 不變、axler/thomas 仍 0。
-- 風險：
-> low
-
 ### P-2026-06-27-tinoco-physical-chemistry-bio — worker 越界改核心碼：book_pipeline/catalog_audit.py（catalog_audit tinoco_physical_chemistry_bio）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -306,6 +295,18 @@
 > 本書每章章末問題區 [pbi+1,nci-1] 內含兩組各自 N.M 編號的題集：EXERCISES（1.1–1.24…）緊接 TUTORIAL PROBLEMS（restart 1.1–1.8 + 延續 1.25–1.28），兩組題目語義互異（exercise 1.1='What is the ratio of the energy…' vs tutorial 1.1='In the paper What can the Bohr–Sommerfeld model show…'）。parser 在單一 problems 區內套遞增/重複守則，把 tutorial 組往回跳的題號（1.1–1.8）整段當偽命中丟棄，只留延續過 exercise max 的（1.25–1.28）。實測丟失：ch1 raw34→parsed26（丟8）、ch2 raw52→parsed32（丟20）、ch24 raw71→parsed40（丟31），27 章結構一致、全書估丟數百題。problem_num_namespace_by_section 僅 inline 模式生效、two-part 模式無對應欄位；problems_end_re 只能截斷（會把 tutorial 組整個切掉，更糟）。
 - 提議：
 > 引擎需支援『單一 two-part problems 區內含多個各自獨立重編號的子題組』：可選 schema 欄位如 problems_subblock_split_re（命中 lvl2 'TUTORIAL PROBLEMS' 等子標 → 開新子組、其後題號掛子組 namespace 如 'N.M-tutorial' 或 'N.tM'），或在 two-part 模式下讓 monotonic guard 在遇到 problems-region 內的子標 heading 時 reset 編號基準而非丟棄回跳題。
+
+### P-2026-06-27-boron-boulpaep-physiology — catalog_audit _parent_num 只折小寫尾部子圖字母、漏折大寫 panel(A/B/C/D) → 母圖存在仍誤報 missing_figure/table_refs
+- accepted | type=tooling-gap | source=catalog-audit/architect
+- 決議：25f2792
+- 處置：
+> _parent_num [a-z]→[a-zA-Z]；boron critical 712→22(清 690 大寫 panel 假陽性)、reif/axler/thomas 無回歸
+- 證據：
+> boron_boulpaep_physiology: audit_catalog 報 712 critical，其中 690(687 fig + 3 tbl)=正文引用大寫 panel(如 Figure 15-23B / Table 39-1A)、而母圖 fig-15.23 / 母表 tbl-39.1 確實存在於 catalog。根因：_parent_num regex '^(.+\\d)[a-z]$' 只折小寫尾字母(reif 小寫 panel 正常折回母圖)，大寫不折→_catalog_covers_ref 對大寫 panel 永遠 False。catalog_aliases 不被 _catalog_covers_ref 查→override 無合法出口；非 misOCR/非 external 故 ref_classifications 是偽造覆蓋(skill §3.6 明禁)。醫學/生物參考書普遍用大寫 panel，影響全 corpus 同類書。
+- 提議：
+> _parent_num regex [a-z] → [a-zA-Z]（對稱小寫折疊、單調只降不升 critical、零 false-negative：panel 判 covered ⟺ 母圖影像存在＝語意正確）。爆炸半徑僅 C4/C5（_parent_num 唯一被 _catalog_covers_ref 用）。驗證：boron critical 712→22、reif 8 不變、axler/thomas 仍 0。
+- 風險：
+> low
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
 - rejected | type=patch | source=scope_guard
