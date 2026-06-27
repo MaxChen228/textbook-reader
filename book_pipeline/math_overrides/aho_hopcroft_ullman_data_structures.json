@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "aho_hopcroft_ullman_data_structures-ch01-body-216-9b27cd",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[216]",
+      "expect": "\\begin{array}{l l} \\text {spell:} & \\text {translate [A - Z] \\to [a - z], blank \\to newline} \\\\ & \\text {sort} \\\\ & \\text {unique} \\\\ & \\text {diff dictionary} \\end{array}",
+      "new": "\\begin{array}{l l} \\text{spell:} & \\text{translate [A - Z] } \\to \\text{ [a - z], blank } \\to \\text{ newline} \\\\ & \\text{sort} \\\\ & \\text{unique} \\\\ & \\text{diff dictionary} \\end{array}"
+    },
+    {
+      "id": "aho_hopcroft_ullman_data_structures-ch05-body-253-3dcb04",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[253]",
+      "expect": "\\begin{array}{l l} (6) & \\text {SPLIT} (S _ {\\mathrm{k}}, S _ {\\mathrm{k}}, S _ {\\mathrm{k}} ^ {\\prime}, \\\\ r); & \\\\ (7) & \\text {MERGE} (S _ {\\mathrm{k}} ^ {\\prime}, S _ {\\mathrm{k+1}}, \\\\ S _ {\\mathrm{k+1}}) & \\\\ & \\text {end} \\\\ & \\text {end} \\\\ & \\text {end; \\{\\text {LCS} \\}} \\end{array}",
+      "new": "\\begin{array}{l l} (6) & \\text {SPLIT} (S _ {\\mathrm{k}}, S _ {\\mathrm{k}}, S _ {\\mathrm{k}} ^ {\\prime}, \\\\ r); & \\\\ (7) & \\text {MERGE} (S _ {\\mathrm{k}} ^ {\\prime}, S _ {\\mathrm{k+1}}, \\\\ S _ {\\mathrm{k+1}}) & \\\\ & \\text {end} \\\\ & \\text {end} \\\\ & \\text {end; \\{LCS\\}} \\end{array}"
+    }
+  ]
+}

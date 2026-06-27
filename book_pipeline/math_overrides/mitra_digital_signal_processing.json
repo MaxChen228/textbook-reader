@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "mitra_digital_signal_processing-ch02-body-337-61156a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[337]",
+      "expect": "\\begin{array}{l} \\text { n } = 0: \\text { N }; \\\\ \\text { x } = \\text { K } ^ {*} \\text { a }. \\text { ^n }; \\end{array}",
+      "new": "\\begin{array}{l} \\text { n } = 0: \\text { N }; \\\\ \\text { x } = \\text { K } ^ {*} \\text { a }. ^{n}; \\end{array}"
+    },
+    {
+      "id": "mitra_digital_signal_processing-ch06-body-40-403b84",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[40]",
+      "expect": "\\begin{array}{l} X (z) = - \\sum_ {n = - \\infty} ^ {- 1} \\alpha^ {n} z ^ {- n} = - \\sum_ {m = 1} ^ {\\infty} \\alpha^ {- m} z ^ {m} = - \\alpha^ {- 1} z \\sum_ {n = 0} ^ {\\infty} \\alpha^ {- m} z ^ {m} \\\\ = - \\frac {\\alpha^ {- 1} z}{1 - \\alpha^ {- 1} z} = \\frac {1}{1 - \\alpha z ^ {- 1}}, \\qquad \\text {for |α^{-1} z| <   1}, \\end{array}",
+      "new": "\\begin{array}{l} X (z) = - \\sum_ {n = - \\infty} ^ {- 1} \\alpha^ {n} z ^ {- n} = - \\sum_ {m = 1} ^ {\\infty} \\alpha^ {- m} z ^ {m} = - \\alpha^ {- 1} z \\sum_ {n = 0} ^ {\\infty} \\alpha^ {- m} z ^ {m} \\\\ = - \\frac {\\alpha^ {- 1} z}{1 - \\alpha^ {- 1} z} = \\frac {1}{1 - \\alpha z ^ {- 1}}, \\qquad \\text {for } |\\alpha^{-1} z| < 1, \\end{array}"
+    },
+    {
+      "id": "mitra_digital_signal_processing-ch08-body-264-55a6d8",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[264]",
+      "expect": "A _ {3} (z) = \\frac {- 0 . 2 + 0 . 1 8 z ^ {- 1} + 0 . 4 z ^ {- 2} + z ^ {- 3}}{1 + 0 . 4 z ^ {- 1} + 0 . 1 8 z ^ {- 2} - 0 . 2 z ^ {- 3}}.\\tag{<|content_end|>}",
+      "new": "A _ {3} (z) = \\frac {- 0 . 2 + 0 . 1 8 z ^ {- 1} + 0 . 4 z ^ {- 2} + z ^ {- 3}}{1 + 0 . 4 z ^ {- 1} + 0 . 1 8 z ^ {- 2} - 0 . 2 z ^ {- 3}}."
+    },
+    {
+      "id": "mitra_digital_signal_processing-ch05-body-807-16ebb2",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[807]",
+      "expect": "\\mathbf {H} _ {2 ^ {\\nu + 1}, n} = \\left[ \\begin{array}{c c} \\mathbf {H} _ {2 ^ {\\nu}, n} \\otimes \\left[ \\frac {1}{\\sqrt {2}} & \\frac {1}{\\sqrt {2}} \\right] \\\\ \\mathbf {I} _ {2 ^ {\\nu}} \\otimes \\left[ \\frac {1}{\\sqrt {2}} - \\frac {1}{\\sqrt {2}} \\right] \\end{array} \\right], \\nu \\geq 0.",
+      "new": "\\mathbf {H} _ {2 ^ {\\nu + 1}, n} = \\left[ \\begin{array}{c} \\mathbf {H} _ {2 ^ {\\nu}, n} \\otimes \\left[ \\begin{array}{c c} \\frac {1}{\\sqrt {2}} & \\frac {1}{\\sqrt {2}} \\end{array} \\right] \\\\ \\mathbf {I} _ {2 ^ {\\nu}} \\otimes \\left[ \\begin{array}{c c} \\frac {1}{\\sqrt {2}} & - \\frac {1}{\\sqrt {2}} \\end{array} \\right] \\end{array} \\right], \\nu \\geq 0."
+    }
+  ]
+}

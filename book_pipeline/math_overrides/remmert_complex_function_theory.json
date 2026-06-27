@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "remmert_complex_function_theory-ch11-body-49-166346",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[49]",
+      "expect": "\\sum_ {- \\infty} ^ {\\infty} ^ {\\prime} \\left(\\frac {1}{z + \\nu} + \\frac {1}{\\nu}\\right) = \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}} \\quad \\text { and } \\quad \\sum_ {- \\infty} ^ {\\infty} \\frac {1}{(z + \\nu) ^ {k}}, k \\geq 2",
+      "new": "\\sum_ {- \\infty} ^ {\\infty} {} ^ {\\prime} \\left(\\frac {1}{z + \\nu} + \\frac {1}{\\nu}\\right) = \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}} \\quad \\text { and } \\quad \\sum_ {- \\infty} ^ {\\infty} \\frac {1}{(z + \\nu) ^ {k}}, k \\geq 2"
+    },
+    {
+      "id": "remmert_complex_function_theory-ch11-body-166-166346",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[166]",
+      "expect": "\\sum_ {- \\infty} ^ {\\infty} ^ {\\prime} \\left(\\frac {1}{z + \\nu} + \\frac {1}{\\nu}\\right) = \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}} \\quad \\text { and } \\quad \\sum_ {- \\infty} ^ {\\infty} \\frac {1}{(z + \\nu) ^ {k}}, k \\geq 2",
+      "new": "\\sum_ {- \\infty} ^ {\\infty} {} ^ {\\prime} \\left(\\frac {1}{z + \\nu} + \\frac {1}{\\nu}\\right) = \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}} \\quad \\text { and } \\quad \\sum_ {- \\infty} ^ {\\infty} \\frac {1}{(z + \\nu) ^ {k}}, k \\geq 2"
+    },
+    {
+      "id": "remmert_complex_function_theory-ch08-body-210-12fdde",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[210]",
+      "expect": "\\sum_ {j = 0} ^ {k - 1} q (r \\lambda^ {j}) = k a _ {0} + \\sum_ {- m} ^ {n} ^ {\\prime} a _ {\\nu} r ^ {\\nu} \\frac {\\lambda^ {\\nu k} - 1}{\\lambda^ {\\nu} - 1}, \\quad k \\geq 1.",
+      "new": "\\sum_ {j = 0} ^ {k - 1} q (r \\lambda^ {j}) = k a _ {0} + \\sum_ {- m} ^ {n} {} ^ {\\prime} a _ {\\nu} r ^ {\\nu} \\frac {\\lambda^ {\\nu k} - 1}{\\lambda^ {\\nu} - 1}, \\quad k \\geq 1."
+    },
+    {
+      "id": "remmert_complex_function_theory-ch11-body-61-9401ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[61]",
+      "expect": "\\varepsilon_ {1} (z) = \\frac {1}{z} + \\sum_ {- \\infty} ^ {\\infty} ^ {\\prime} \\left(\\frac {1}{z + \\nu} - \\frac {1}{\\nu}\\right)",
+      "new": "\\varepsilon_ {1} (z) = \\frac {1}{z} + \\sum_ {- \\infty} ^ {\\infty} {} ^ {\\prime} \\left(\\frac {1}{z + \\nu} - \\frac {1}{\\nu}\\right)"
+    },
+    {
+      "id": "remmert_complex_function_theory-ch11-body-77-4e1d5d",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[77]",
+      "expect": "\\begin{array}{r c l} \\pi \\cot \\pi z = \\varepsilon_ {1} (z) = \\sum_ {- \\infty} ^ {\\infty} e \\frac {1}{z + \\nu} & = & \\frac {1}{z} + \\sum_ {- \\infty} ^ {\\infty} ^ {\\prime} \\left(\\frac {1}{z + \\nu} - \\frac {1}{\\nu}\\right) \\\\ & = & \\frac {1}{z} + \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}}. \\end{array}",
+      "new": "\\begin{array}{r c l} \\pi \\cot \\pi z = \\varepsilon_ {1} (z) = \\sum_ {- \\infty} ^ {\\infty} e \\frac {1}{z + \\nu} & = & \\frac {1}{z} + \\sum_ {- \\infty} ^ {\\infty} {} ^ {\\prime} \\left(\\frac {1}{z + \\nu} - \\frac {1}{\\nu}\\right) \\\\ & = & \\frac {1}{z} + \\sum_ {1} ^ {\\infty} \\frac {2 z}{z ^ {2} - \\nu^ {2}}. \\end{array}"
+    },
+    {
+      "id": "remmert_complex_function_theory-ch07-body-156-e1021f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[156]",
+      "expect": "\\frac {f (\\zeta)}{\\zeta} + h (\\zeta) = \\frac {f (\\zeta)}{\\zeta} \\frac {\\bar {\\zeta}}{\\bar {\\zeta} - \\bar {z}} \\quad \\text {(on account of \\zeta \\bar {\\zeta} = s^ {2}).}",
+      "new": "\\frac {f (\\zeta)}{\\zeta} + h (\\zeta) = \\frac {f (\\zeta)}{\\zeta} \\frac {\\bar {\\zeta}}{\\bar {\\zeta} - \\bar {z}} \\quad \\text {(on account of } \\zeta \\bar {\\zeta} = s^ {2}\\text {).}"
+    }
+  ]
+}

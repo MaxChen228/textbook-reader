@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "sastry_nonlinear_systems-ch04-body-222-f859ae",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[222]",
+      "field": "md",
+      "all": true,
+      "old": "\\( g(\\cdot) : [0, \\infty[\\mapsto\\mathbb{R} \\text{(respectively, } g(\\cdot) : Z\\_{+} \\mapsto\\mathbb{R}) \\text{ is said to belong to } L\\_{p}[0, \\infty[ \\text{(respectively, } l\\_{p}(Z\\_{+}) \\text{ if it is measurable and in addition",
+      "new": "g(\\cdot) : [0, \\infty[\\mapsto\\mathbb{R} \\text{(respectively, } g(\\cdot) : Z_{+} \\mapsto\\mathbb{R}) \\text{ is said to belong to } L_{p}[0, \\infty[ \\text{(respectively, } l_{p}(Z_{+}) \\text{ if it is measurable and in addition}",
+      "anchor": "578e8618"
+    },
+    {
+      "id": "sastry_nonlinear_systems-ch04-body-613-d73090",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[613]",
+      "expect": "\\begin{array}{l} y (t) = c (t) \\Phi (t, 0) x _ {0} \\\\ \\qquad + \\sum_ {k = 1} ^ {\\infty} \\int_ {0} ^ {t} \\int_ {0} ^ {\\sigma_ {1}} \\cdot \\int_ {0} ^ {\\sigma_ {k - 1}} c (t) \\Phi (t, \\sigma_ {1}) D (\\sigma_ {1}) \\Phi (\\sigma_ {1}, \\sigma_ {2}) D (\\sigma_ {2}) \\\\ \\qquad \\dots D (\\sigma_ {k}) \\Phi (\\sigma_ {k}, 0) x _ {0} u (\\sigma_ {1}) \\dots u (\\sigma_ {k}) d \\sigma_ {k} \\dots d \\sigma_ {1} \\\\ \\qquad + \\sum_ {k = 1} ^ {\\infty} \\int_ {0} ^ {t} \\int_ {0} ^ {\\sigma_ {1}} \\cdot \\int_ {0} ^ {\\sigma_ {k - 1}} c (t) \\Phi (t, \\sigma_ {1}) D (\\sigma_ {1}) \\Phi (\\sigma_ {1}, \\sigma_ {2}) D (\\σ _ {2}) \\\\ \\qquad \\dots D (\\sigma_ {k}) \\Phi (\\sigma_ {k}, 0) b (\\sigma_ {k}) u (\\sigma_ {1}) \\dots u (\\sigma_ {k}) d \\sigma_ {k} \\dots d \\sigma_ {1}. \\end{array}",
+      "new": "\\begin{array}{l} y (t) = c (t) \\Phi (t, 0) x _ {0} \\\\ \\qquad + \\sum_ {k = 1} ^ {\\infty} \\int_ {0} ^ {t} \\int_ {0} ^ {\\sigma_ {1}} \\cdot \\int_ {0} ^ {\\sigma_ {k - 1}} c (t) \\Phi (t, \\sigma_ {1}) D (\\sigma_ {1}) \\Phi (\\sigma_ {1}, \\sigma_ {2}) D (\\sigma_ {2}) \\\\ \\qquad \\dots D (\\sigma_ {k}) \\Phi (\\sigma_ {k}, 0) x _ {0} u (\\sigma_ {1}) \\dots u (\\sigma_ {k}) d \\sigma_ {k} \\dots d \\sigma_ {1} \\\\ \\qquad + \\sum_ {k = 1} ^ {\\infty} \\int_ {0} ^ {t} \\int_ {0} ^ {\\sigma_ {1}} \\cdot \\int_ {0} ^ {\\sigma_ {k - 1}} c (t) \\Phi (t, \\sigma_ {1}) D (\\sigma_ {1}) \\Phi (\\sigma_ {1}, \\sigma_ {2}) D (\\sigma _ {2}) \\\\ \\qquad \\dots D (\\sigma_ {k}) \\Phi (\\sigma_ {k}, 0) b (\\sigma_ {k}) u (\\sigma_ {1}) \\dots u (\\sigma_ {k}) d \\sigma_ {k} \\dots d \\sigma_ {1}. \\end{array}"
+    }
+  ]
+}

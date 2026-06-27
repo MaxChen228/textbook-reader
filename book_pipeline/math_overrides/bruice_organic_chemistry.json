@@ -1,0 +1,122 @@
+{
+  "overrides": [
+    {
+      "id": "bruice_organic_chemistry-ch03-body-55-b62983",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[55]",
+      "expect": "\\begin{array}{c c c c} \\text {R - OH} & \\text {R - NH_{2}} & \\text {R - X} & \\text {X = F, Cl, Br, or I} \\\\ \\text {an alcohol} & \\text {an amine} & \\text {an alkyl halide} & \\text {an ether} \\end{array}",
+      "new": "\\begin{array}{c c c c} \\mathrm{R - OH} & \\mathrm{R - NH_{2}} & \\mathrm{R - X} & \\mathrm{X = F, Cl, Br, or\\ I} \\\\ \\text{an alcohol} & \\text{an amine} & \\text{an alkyl halide} & \\text{an ether} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch09-body-204-c5b1cb",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[204]",
+      "expect": "\\begin{array}{l} \\text {a. CH_{3} CH_{2} Br + H_{2} O or CH_{3} CH_{2} Br + HO^{-}} \\\\ \\text {b. CH_{3} CHCH_{2} Br + HO^{-} or CH_{3} CH_{2} CHBr + HO^{-}} \\\\ \\text {c. CH_{3} CH_{2} Cl + CH_{3} O^{-} or CH_{3} CH_{2} Cl + CH_{3} S^{-}} \\\\ \\text {d. CH_{3} CH_{2} Cl + I^{-} or CH_{3} CH_{2} Br + I^{-}} \\end{array}",
+      "new": "\\begin{array}{l} \\text{a. }\\mathrm{CH_{3} CH_{2} Br + H_{2} O}\\text{ or }\\mathrm{CH_{3} CH_{2} Br + HO^{-}} \\\\ \\text{b. }\\mathrm{CH_{3} CHCH_{2} Br + HO^{-}}\\text{ or }\\mathrm{CH_{3} CH_{2} CHBr + HO^{-}} \\\\ \\text{c. }\\mathrm{CH_{3} CH_{2} Cl + CH_{3} O^{-}}\\text{ or }\\mathrm{CH_{3} CH_{2} Cl + CH_{3} S^{-}} \\\\ \\text{d. }\\mathrm{CH_{3} CH_{2} Cl + I^{-}}\\text{ or }\\mathrm{CH_{3} CH_{2} Br + I^{-}} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch11-problem-48-body-7-603bb3",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:48:body[7]",
+      "expect": "\\begin{array}{c} \\text {g. CH_{3} CHCH_{2} CH_{2} OH} \\\\ \\text {CH_{3}} \\end{array} \\xrightarrow [ \\text {pyridine} ]{\\mathrm{SOCl_{2}}}",
+      "new": "\\begin{array}{c} \\text{g. }\\mathrm{CH_{3} CHCH_{2} CH_{2} OH} \\\\ \\mathrm{CH_{3}} \\end{array} \\xrightarrow [ \\text{pyridine} ]{\\mathrm{SOCl_{2}}}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch12-body-341-b58c58",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[341]",
+      "expect": "\\begin{array}{l} \\text {2 R - CH = CH_{2}} \\xrightarrow {\\text {Grubbs catalyst}} \\mathrm{R-CH=CH-R} + \\mathrm{CH_{2}=CH_{2}} \\\\ \\text {the reaction works best with a terminal alkene} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm{2 R - CH = CH_{2}} \\xrightarrow {\\text{Grubbs catalyst}} \\mathrm{R-CH=CH-R} + \\mathrm{CH_{2}=CH_{2}} \\\\ \\text{the reaction works best with a terminal alkene} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch13-body-285-7aa7fa",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[285]",
+      "expect": "\\begin{array}{c} \\text {RCH - CH = CH_{2}} \\longleftrightarrow \\text {RCH = CH - CH_{2}} \\\\ \\text {an allylic radical} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm{RCH - CH = CH_{2}} \\longleftrightarrow \\mathrm{RCH = CH - CH_{2}} \\\\ \\text{an allylic radical} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch11-body-93-eadadc",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[93]",
+      "expect": "\\begin{array}{c} \\mathrm {^ {-} OC H _ {3}} \\\\ \\mathrm {R - OH} \\\\ \\text { alcohol } \\end{array} \\xrightarrow [ \\Delta ]{\\mathrm{HX}} \\begin{array}{c} \\mathrm {^ {-} C\\equivCCH_ {3}} \\\\ \\mathrm {R - X} \\\\ \\text { alkyl   halide } \\\\ \\mathrm{X=Cl,Br,I} \\\\ \\mathrm {^ {-} C\\equivN} \\end{array} \\xrightarrow {\\mathrm {^ {-} C\\equivCCH_ {3}}}",
+      "new": "\\begin{array}{c} \\mathrm {^ {-} OC H _ {3}} \\\\ \\mathrm {R - OH} \\\\ \\text { alcohol } \\end{array} \\xrightarrow [ \\Delta ]{\\mathrm{HX}} \\begin{array}{c} \\mathrm {^ {-} C\\equiv CCH_ {3}} \\\\ \\mathrm {R - X} \\\\ \\text { alkyl   halide } \\\\ \\mathrm{X=Cl,Br,I} \\\\ \\mathrm {^ {-} C\\equiv N} \\end{array} \\xrightarrow {\\mathrm {^ {-} C\\equiv CCH_ {3}}}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch26-body-235-c607f2",
+      "action": "fix_inline_math",
+      "chunk": "ch26",
+      "selector": "body[235]",
+      "field": "md",
+      "all": true,
+      "old": "$2.7 billion and took about 10 years to complete. Using the next-generation sequencing technology (pyrosequencing), a human genome was sequenced in two months at a cost of \\~ \\$",
+      "new": "$\\text{2.7 billion and took about 10 years to complete. Using the next-generation sequencing technology (pyrosequencing), a human genome was sequenced in two months at a cost of }\\sim$",
+      "anchor": "2879e858"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch06-body-485-29747b",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[485]",
+      "expect": "\\mathrm{a.} \\mathrm{CH} _ {3} \\mathrm{CH} = \\mathrm{CHCH} _ {3} + \\mathrm{Cl} _ {2} \\longrightarrow \\mathrm{CH} _ {3} \\underset {\\text {Cl}} {\\mathrm{CH}} \\underset {\\text {Cl}} {\\mathrm{CHCHCH}} _ {3}",
+      "new": "\\mathrm{a.} \\mathrm{CH} _ {3} \\mathrm{CH} = \\mathrm{CHCH} _ {3} + \\mathrm{Cl} _ {2} \\longrightarrow \\mathrm{CH} _ {3} \\underset {\\text {Cl}} {\\mathrm{CH}} {\\underset {\\text {Cl}} {\\mathrm{CHCHCH}}} _ {3}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch06-problem-65-body-1-29747b",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "problem:65:body[1]",
+      "expect": "\\mathrm{a.} \\mathrm{CH} _ {3} \\mathrm{CH} = \\mathrm{CHCH} _ {3} + \\mathrm{Cl} _ {2} \\longrightarrow \\mathrm{CH} _ {3} \\underset {\\text {Cl}} {\\mathrm{CH}} \\underset {\\text {Cl}} {\\mathrm{CHCHCH}} _ {3}",
+      "new": "\\mathrm{a.} \\mathrm{CH} _ {3} \\mathrm{CH} = \\mathrm{CHCH} _ {3} + \\mathrm{Cl} _ {2} \\longrightarrow \\mathrm{CH} _ {3} \\underset {\\text {Cl}} {\\mathrm{CH}} {\\underset {\\text {Cl}} {\\mathrm{CHCHCH}}} _ {3}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch05-body-20-397af7",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[20]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{C_nH_{2n+2} = C_8H_{10}}$",
+      "new": "$\\mathrm{C}_{n}\\mathrm{H}_{2n+2} = \\mathrm{C}_{8}\\mathrm{H}_{10}$",
+      "anchor": "6d0e6b36"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch06-body-101-aa3149",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[101]",
+      "expect": "\\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\stackrel {2} {\\mathrm{CH}} = \\stackrel {1} {\\mathrm{CH}} _ {2} + \\mathrm{HCl} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\underset {\\text {Cl}} {\\mathrm{CHCH}} _ {3}",
+      "new": "\\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\stackrel {2} {\\mathrm{CH}} = \\stackrel {1} {\\mathrm{CH}} _ {2} + \\mathrm{HCl} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} {\\underset {\\text {Cl}} {\\mathrm{CHCH}}} _ {3}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch01-body-232-966743",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[232]",
+      "expect": "\\begin{array}{c} \\text {b. H - \\ddot {C} -H} \\\\ \\mid \\\\ \\text {H} \\end{array}",
+      "new": "\\begin{array}{c} \\text {b. H - } \\ddot {C} \\text { -H} \\\\ \\mid \\\\ \\text {H} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch23-body-95-5cd69f",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[95]",
+      "expect": "\\begin{array}{l} \\text {   I   } ^ {-} \\text {   is   a   better   } \\\\ \\text {   nucleophile   than   HO   } ^ {-} \\end{array} \\xrightarrow {\\text {   :   :   :   +   CH   _ {3 }   CH   _ {2}   -   Cl   }} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{I} + \\mathrm{Cl} \\\\ \\text {   I   } ^ {-} \\text {   is   a   better   leaving   } \\\\ \\text {   group   than   Cl   } ^ {-} \\xrightarrow {\\text {   HO   :   +   CH   _ {3 }   CH   _ {2}   -   I   }} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{OH} + \\mathrm{I} ^ {-}",
+      "new": "\\begin{array}{l} \\begin{array}{l} \\text {   I   } ^ {-} \\text {   is   a   better   } \\\\ \\text {   nucleophile   than   HO   } ^ {-} \\end{array} \\xrightarrow {\\text {   :   :   :   +   CH   } _ {3 } \\text {   CH   } _ {2} \\text {   -   Cl   }} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{I} + \\mathrm{Cl} \\\\ \\text {   I   } ^ {-} \\text {   is   a   better   leaving   } \\\\ \\text {   group   than   Cl   } ^ {-} \\xrightarrow {\\text {   HO   :   +   CH   } _ {3 } \\text {   CH   } _ {2} \\text {   -   I   }} \\longrightarrow \\mathrm{CH} _ {3} \\mathrm{CH} _ {2} \\mathrm{OH} + \\mathrm{I} ^ {-} \\end{array}"
+    },
+    {
+      "id": "bruice_organic_chemistry-ch14-body-325-cc488c",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[325]",
+      "expect": "\\begin{array}{c c c c} \\mathrm {CH_ {3} CH_ {2} -OH} & \\mathrm {CH_ {3} CH_ {2} -O - CH_ {2} CH_ {3}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ \\text {an alcohol} & \\text {an ether} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ \\sim 1 0 5 0 \\mathrm{cm} ^ {- 1} & \\sim 1 0 5 0 \\mathrm{cm} ^ {- 1} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underbrace {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\oversets {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} C}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\end{array}",
+      "new": "\\begin{array}{c c c c} \\mathrm {CH_ {3} CH_ {2} -OH} & \\mathrm {CH_ {3} CH_ {2} -O - CH_ {2} CH_ {3}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ \\text {an alcohol} & \\text {an ether} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ \\sim 1 0 5 0 \\mathrm{cm} ^ {- 1} & \\sim 1 0 5 0 \\mathrm{cm} ^ {- 1} & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underbrace {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} C}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O} {\\underset {|} {C}}} & \\mathrm {\\overset {O} {\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} & \\mathrm {\\overset {O-CH_{3}}{\\underset {|} {C}}} \\\\ & & \\end{array}"
+    }
+  ]
+}

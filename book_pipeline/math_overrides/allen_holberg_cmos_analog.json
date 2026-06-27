@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "allen_holberg_cmos_analog-ch03-body-148-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[148]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring{\\mathrm { A }}$",
+      "anchor": "00beab70"
+    },
+    {
+      "id": "allen_holberg_cmos_analog-ch03-body-151-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[151]",
+      "field": "footnote",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring{\\mathrm { A }}$",
+      "anchor": "ea89a432"
+    },
+    {
+      "id": "allen_holberg_cmos_analog-ch09-body-618-efcc4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[618]",
+      "expect": "b _ {i} = \\left\\{ \\begin{array}{l l} = + 1 & \\text {if V_{i - 1} >V_{OCi}} \\\\ = - 1 & \\text {if V_{i - 1} <  V_{OCi}} \\end{array} \\right.\\tag{9.7-11}",
+      "new": "b _ {i} = \\left\\{ \\begin{array}{l l} = + 1 & \\text {if } V_{i - 1} >V_{OCi} \\\\ = - 1 & \\text {if } V_{i - 1} <  V_{OCi} \\end{array} \\right.\\tag{9.7-11}"
+    },
+    {
+      "id": "allen_holberg_cmos_analog-ch09-body-63-385c7a",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[63]",
+      "expect": "\\text{Accuracy of the ith-bit} = \\frac {\\pm 0.5 L S B}{2 ^ {N - i - 1} L S B} = \\frac {1}{2 ^ {N - i}} = \\frac {100}{2 ^ {N - i}} \\% \\tag{1.1}\\tag{9.1-18}",
+      "new": "\\text{Accuracy of the ith-bit} = \\frac {\\pm 0.5 L S B}{2 ^ {N - i - 1} L S B} = \\frac {1}{2 ^ {N - i}} = \\frac {100}{2 ^ {N - i}} \\% \\tag{1.1, 9.1-18}"
+    },
+    {
+      "id": "allen_holberg_cmos_analog-ch04-body-588-3dfe43",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[588]",
+      "expect": "\\begin{array}{l} V _ {\\mathrm{REF}} = \\frac {R _ {5}}{R _ {1}} V _ {P T A T} + \\frac {R _ {5}}{R _ {2}} \\left[ V _ {G O} - \\frac {T}{T _ {0}} \\left[ V _ {G O} - V _ {C T A T} \\left(T _ {0}\\right) \\right] - (\\gamma - 1) V _ {t} \\ln \\left(\\frac {T}{T _ {0}}\\right) \\right] \\\\ - \\frac {R _ {5}}{R _ {4}} \\left[ V _ {G O} - \\frac {T}{T _ {0}} \\left[ V _ {G O} - V _ {C T A T} \\left(T _ {0}\\right) \\right] - \\gamma V _ {t} \\ln \\left(\\frac {T}{T _ {0}}\\right) \\right] \\end{array} \\tag {6}\\tag{4.6-43}",
+      "new": "\\begin{array}{l} V _ {\\mathrm{REF}} = \\frac {R _ {5}}{R _ {1}} V _ {P T A T} + \\frac {R _ {5}}{R _ {2}} \\left[ V _ {G O} - \\frac {T}{T _ {0}} \\left[ V _ {G O} - V _ {C T A T} \\left(T _ {0}\\right) \\right] - (\\gamma - 1) V _ {t} \\ln \\left(\\frac {T}{T _ {0}}\\right) \\right] \\\\ - \\frac {R _ {5}}{R _ {4}} \\left[ V _ {G O} - \\frac {T}{T _ {0}} \\left[ V _ {G O} - V _ {C T A T} \\left(T _ {0}\\right) \\right] - \\gamma V _ {t} \\ln \\left(\\frac {T}{T _ {0}}\\right) \\right] \\end{array} \\tag{4.6-43}"
+    }
+  ]
+}

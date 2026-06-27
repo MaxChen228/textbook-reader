@@ -1,0 +1,88 @@
+{
+  "overrides": [
+    {
+      "id": "riehl_category_theory-ch03-body-50-828324",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[50]",
+      "field": "md",
+      "all": true,
+      "old": "$\\bullet \\right. \\bullet \\left. \\bullet$",
+      "new": "$\\bullet \\bullet \\bullet$",
+      "anchor": "290bd032"
+    },
+    {
+      "id": "riehl_category_theory-ch03-body-189-2124e9",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[189]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { C } ^ { \\bullet \\right. \\bullet \\left. \\bullet }$",
+      "new": "$\\mathsf { C } ^ { \\bullet \\bullet \\bullet }$",
+      "anchor": "145194bb"
+    },
+    {
+      "id": "riehl_category_theory-ch03-body-470-38fb41",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[470]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { J } = \\bullet \\right. \\bullet \\left. \\bullet$",
+      "new": "$\\mathsf { J } = \\bullet \\bullet \\bullet$",
+      "anchor": "7c7c7cf7"
+    },
+    {
+      "id": "riehl_category_theory-ch02-body-125-7c1df9",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[125]",
+      "expect": "\\begin{array}{c} \\mathbb {1} \\xrightarrow [ \\frac {1}{1} ]{\\stackrel {{0}} {{\\leftarrow ! - 2}}} \\mathbb {2} \\\\ \\text {Cat(1, -) \\xlongequal{0^ {*}} Cat(2, -)} \\\\ \\text ob \\xlongequal{id\\implies mor} \\\\ \\text {mod} \\end{array}",
+      "new": "\\begin{array}{c} \\mathbb {1} \\xrightarrow [ \\frac {1}{1} ]{\\stackrel {{0}} {{\\leftarrow ! - 2}}} \\mathbb {2} \\\\ \\mathrm {Cat}(1, -) \\xlongequal{0^ {*}} \\mathrm {Cat}(2, -) \\\\ \\text {ob} \\xlongequal{\\mathrm {id}\\implies \\mathrm {mor}} \\\\ \\text {mod} \\end{array}"
+    },
+    {
+      "id": "riehl_category_theory-ch01-body-300-ac35c3",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[300]",
+      "expect": "\\begin{array}{c c c} \\mathsf {C} (x, y) & \\xrightarrow {h \\cdot -} & \\mathsf {C} (x, z) \\\\ ^ {- \\cdot f} \\Big \\downarrow & & \\Big \\downarrow^ {- \\cdot f} \\\\ \\mathsf {C} (w, y) & \\xrightarrow [ h \\cdot - ] & \\mathsf {C} (w, z) \\end{array}",
+      "new": "\\begin{array}{c c c} \\mathsf {C} (x, y) & \\xrightarrow {h \\cdot -} & \\mathsf {C} (x, z) \\\\ ^ {- \\cdot f} \\Big \\downarrow & & \\Big \\downarrow^ {- \\cdot f} \\\\ \\mathsf {C} (w, y) & \\xrightarrow { h \\cdot - } & \\mathsf {C} (w, z) \\end{array}"
+    },
+    {
+      "id": "riehl_category_theory-ch03-problem-3-6-ix-body-2-9b631f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.6.ix:body[2]",
+      "expect": "\\begin{array}{c c c} E ^ {\\prime} & \\xrightarrow {g} & E \\\\ p ^ {\\prime} \\Big \\downarrow & & \\Big \\downarrow p \\\\ B ^ {\\prime} & \\xrightarrow [ f ] & B \\end{array}",
+      "new": "\\begin{array}{c c c} E ^ {\\prime} & \\xrightarrow {g} & E \\\\ p ^ {\\prime} \\Big \\downarrow & & \\Big \\downarrow p \\\\ B ^ {\\prime} & \\xrightarrow { f } & B \\end{array}"
+    },
+    {
+      "id": "riehl_category_theory-ch03-body-160-1f755b",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[160]",
+      "expect": "\\lim _ {\\mathsf {J}} F \\succrightarrow \\prod_ {j \\in \\mathrm{ob} \\mathsf {J}} F j \\xrightarrow [ d ]{\\stackrel {{c}} {{=}}} \\prod_ {f \\in \\mathrm{mor} \\mathsf {J}} F (\\mathrm{cod} f).",
+      "new": "\\lim _ {\\mathsf {J}} F \\mathrel{\\succ\\!\\rightarrow} \\prod_ {j \\in \\mathrm{ob} \\mathsf {J}} F j \\xrightarrow [ d ]{\\stackrel {{c}} {{=}}} \\prod_ {f \\in \\mathrm{mor} \\mathsf {J}} F (\\mathrm{cod} f)."
+    },
+    {
+      "id": "riehl_category_theory-ch04-body-96-7c2157",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[96]",
+      "field": "md",
+      "all": true,
+      "old": "$F \\colon { \\mathsf { C } }  \\sqin { \\mathsf { D } }$",
+      "new": "$F \\colon { \\mathsf { C } }  \\mathrel{\\sqsubset\\!\\in} { \\mathsf { D } }$",
+      "anchor": "de5ecbfc"
+    },
+    {
+      "id": "riehl_category_theory-ch06-body-79-c32a27",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[79]",
+      "expect": "\\begin{array}{c} F c \\xrightarrow {\\lambda_ {\\mathrm{id} _ {K c} : K c \\to K c} ^ {K c}} \\operatorname{Lan} _ {K} F (K c) \\\\ \\gamma_ {c} \\Big \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad G K c \\xlongequal [ G i d _ {K c} ] & G K c \\end{array}",
+      "new": "\\begin{array}{c c} F c \\xrightarrow {\\lambda_ {\\mathrm{id} _ {K c} : K c \\to K c} ^ {K c}} \\operatorname{Lan} _ {K} F (K c) \\\\ \\gamma_ {c} \\Big \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad G K c \\xlongequal [ G i d _ {K c} ] {} & G K c \\end{array}"
+    }
+  ]
+}

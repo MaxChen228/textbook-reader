@@ -1,0 +1,129 @@
+{
+  "overrides": [
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-63-30f629",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[63]",
+      "expect": "\\text { tr } ^ {\\prime} \\backslash n ^ {\\prime} ^ {\\prime} ^ {\\prime} <   \\text { all\\_figs }",
+      "new": "\\text { tr } ^ {\\prime} \\backslash n ^ {\\prime\\prime\\prime} < \\text { all\\_figs }"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch04-problem-4-4-body-9-98fab0",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:4.4:body[9]",
+      "field": "md",
+      "all": true,
+      "old": "$^ { \\cdots } \\texttt { A A B - * C / , } ^ { \\texttt { \\gg } }$",
+      "new": "$^ { \\cdots } \\texttt { A A B - * C / , } ^ { \\texttt { >> } }$",
+      "anchor": "78df5578"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch08-body-342-5ebfd8",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[342]",
+      "expect": "\\begin{array}{l} \\text {union \\{\\text {Cons: \\{\\text {val:int,}}} \\\\ \\text {next:rec List . union \\{\\text {Cons: \\{\\text {val:int, next:List} \\}},} \\\\ \\text {Nil: unit \\}} \\\\ \\text {Nil: unit \\}} \\end{array}",
+      "new": "\\begin{array}{l} \\text{union \\{Cons: \\{val:int,\\}} \\\\ \\text{next:rec List . union \\{Cons: \\{val:int, next:List\\}\\},} \\\\ \\text{Nil: unit \\}} \\\\ \\text{Nil: unit \\}} \\end{array}"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-381-a1ad4c",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[381]",
+      "expect": "\\begin{array}{l l} \\text {@colors = (\"red\", \"green\", \"blue\");} & \\quad \\# \\text {   initializer   syntax } \\\\ \\text { print   $colors[1];} & \\quad \\# \\text {   green } \\end{array}",
+      "new": "\\begin{array}{l l} \\text {@colors = (\"red\", \"green\", \"blue\");} & \\quad \\# \\text {   initializer   syntax } \\\\ \\text { print   \\$colors[1];} & \\quad \\# \\text {   green } \\end{array}"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-384-e1706d",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[384]",
+      "expect": "\\begin{array}{l} \\% \\text {complements} = (\\text {\"red\"} \\Rightarrow \\text {\"cyan)}, \\\\ \\qquad \\qquad \\qquad \\qquad \\text {\"green\"} \\Rightarrow \\text {\"magenta\"}, \\text {\"blue\"} \\Rightarrow \\text {\"yellow\"}); \\\\ \\text {print $complements\\{\"blue\"}; \\qquad \\qquad \\qquad \\# \\text {yellow} \\end{array}",
+      "new": "\\begin{array}{l} \\% \\text {complements} = (\\text {\"red\"} \\Rightarrow \\text {\"cyan)}, \\\\ \\qquad \\qquad \\qquad \\qquad \\text {\"green\"} \\Rightarrow \\text {\"magenta\"}, \\text {\"blue\"} \\Rightarrow \\text {\"yellow\"}); \\\\ \\text {print \\$complements\\{}\\text{\"blue\"}\\text{\\};} \\qquad \\qquad \\qquad \\# \\text {yellow} \\end{array}"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-216-0224e9",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[216]",
+      "field": "md",
+      "all": true,
+      "old": "$</sub> <sub>and</sub> <sub>@</sub> <sub>characters</sub> <sub>at</sub> <sub>the</sub> <sub>beginning</sub> <sub>of</sub> <sub>variable</sub> names in Perl. Explain the diferent meanings of \\$",
+      "new": "$\\text{</sub> <sub>and</sub> <sub>@</sub> <sub>characters</sub> <sub>at</sub> <sub>the</sub> <sub>beginning</sub> <sub>of</sub> <sub>variable</sub> names in Perl. Explain the diferent meanings of }\\backslash$",
+      "anchor": "901e6cc1"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-305-0012c3",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[305]",
+      "field": "md",
+      "all": true,
+      "old": "$ Examples are shown in the middle of the figure. The \\A and \\Z escapes difer from ^ and \\$",
+      "new": "$ \\text{Examples are shown in the middle of the figure. The }\\backslash\\text{A and }\\backslash\\text{Z escapes difer from }{}^{\\wedge}\\text{ and }\\backslash$",
+      "anchor": "f612bb83"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-342-e947be",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[342]",
+      "field": "md",
+      "all": true,
+      "old": "$<sup>\\`</sup>, \\$",
+      "new": "$\\text{<sup>`</sup>, }\\backslash$",
+      "anchor": "a5a22b3a"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-360-b5a4e5",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[360]",
+      "expect": "\\begin{array}{l l} \\text {a = \"4\";} \\\\ \\text {print a . 3 . \"\\n\";} & \\# ^ {\\prime}. ^ {\\prime} \\text {is concatenation} \\\\ \\text {print a + 3 . \"\\n\";} & \\# ^ {\\prime} + ^ {\\prime} \\text {is addition} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {a = \"4\";} \\\\ \\text {print a . 3 . \"}\\backslash\\text{n\";} & \\# ^ {\\prime}. ^ {\\prime} \\text {is concatenation} \\\\ \\text {print a + 3 . \"}\\backslash\\text{n\";} & \\# ^ {\\prime} + ^ {\\prime} \\text {is addition} \\end{array}"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-body-363-64c97e",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[363]",
+      "expect": "\\begin{array}{l} \\text {a[3] = \"1\";} \\\\ \\text {print a[3] + a[4], \"\\n\";} \\end{array} \\quad \\# (\\text {array @a was previously undefined})",
+      "new": "\\begin{array}{l} \\text {a[3] = \"1\";} \\\\ \\text {print a[3] + a[4], \"}\\backslash\\text{n\";} \\end{array} \\quad \\# (\\text {array @a was previously undefined})"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-problem-14-2-body-5-089222",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.2:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$\\*. Create versions of ll that use \\$",
+      "new": "$\\backslash *.\\ \\text{Create versions of ll that use }\\backslash$",
+      "anchor": "764be0d8"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch14-problem-14-2-body-5-33be36",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:14.2:body[5]",
+      "field": "md",
+      "all": true,
+      "old": "$\\*\" instead of \"\\$",
+      "new": "$\\backslash *\\text{\" instead of \"}\\backslash$",
+      "anchor": "764be0d8"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch02-problem-2-1-body-6-2f8642",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:2.1:body[6]",
+      "field": "md",
+      "all": true,
+      "old": "$), an optional string of asterisks (\\*—used on checks to discourage fraud), a string of decimal digits, and an optional fractional part consisting of a decimal point (.) and two decimal digits. The string of digits to the left of the decimal point may consist of a single zero (0). Otherwise it must not start with a zero. If there are more than three digits to the left of the decimal point, groups of three (counting from the right) must be separated by commas (, ). Example: \\$",
+      "new": "$\\text{), an optional string of asterisks (*—used on checks to discourage fraud), a string of decimal digits, and an optional fractional part consisting of a decimal point (.) and two decimal digits. The string of digits to the left of the decimal point may consist of a single zero (0). Otherwise it must not start with a zero. If there are more than three digits to the left of the decimal point, groups of three (counting from the right) must be separated by commas (, ). Example: }$",
+      "anchor": "421d73c8"
+    }
+  ]
+}

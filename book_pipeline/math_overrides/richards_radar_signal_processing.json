@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "richards_radar_signal_processing-ch08-body-400-75d448",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[400]",
+      "expect": "\\begin{array}{r l} \\widehat {\\Delta \\phi} [ m ] = & \\arg \\left\\{y _ {p} ^ {\\prime} ^ {*} [ m - 1 ] y _ {p} ^ {\\prime} [ m ] \\right\\} \\\\ & \\approx \\phi [ m ] - \\phi [ m - 1 ] \\end{array}",
+      "new": "\\begin{array}{r l} \\widehat {\\Delta \\phi} [ m ] = & \\arg \\left\\{y _ {p} ^ {\\prime *} [ m - 1 ] y _ {p} ^ {\\prime} [ m ] \\right\\} \\\\ & \\approx \\phi [ m ] - \\phi [ m - 1 ] \\end{array}"
+    }
+  ]
+}

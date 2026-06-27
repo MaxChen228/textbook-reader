@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "sansen_analog_design_essentials-ch01-body-498-1ac132",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[498]",
+      "expect": "\\begin{array}{l l} \\text {If V _ {GST} = 0.2 V , v _ {sat} takes over for L <   65 nm} \\\\ \\text {If V _ {GST} = 0.5 V} & \\text {for L <   0.15 \\mu m} \\end{array}",
+      "new": "\\begin{array}{l l} \\text{If } V_{GST} = 0.2 V,\\ v_{sat} \\text{ takes over for } L < 65\\,\\mathrm{nm} \\\\ \\text{If } V_{GST} = 0.5 V & \\text{for } L < 0.15\\,\\mu m \\end{array}"
+    },
+    {
+      "id": "sansen_analog_design_essentials-ch14-body-126-16dddf",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[126]",
+      "expect": "A _ {R} = R _ {F} \\text {(if >> 1/ g_{m})}",
+      "new": "A_{R} = R_{F} \\text{(if >> } 1/g_{m}\\text{)}"
+    },
+    {
+      "id": "sansen_analog_design_essentials-ch14-body-141-9f1d5e",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[141]",
+      "expect": "A _ {R} = R _ {F} \\text {(if >> 1/ g_ {m})}",
+      "new": "A_{R} = R_{F} \\text{(if >> } 1/g_{m}\\text{)}"
+    }
+  ]
+}

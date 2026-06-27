@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "hoffman_kunze_linear_algebra-ch06-body-423-e19ecd",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[423]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf{E_iE_j} = 0$",
+      "new": "$\\mathbf{E}_{i}\\mathbf{E}_{j} = 0$",
+      "anchor": "330c536c"
+    },
+    {
+      "id": "hoffman_kunze_linear_algebra-ch06-body-465-2b0602",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[465]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{E_iE_j} = 0,\\mathrm{i}\\neq \\mathrm{j};$",
+      "new": "$\\mathrm{E}_{i}\\mathrm{E}_{j} = 0,\\mathrm{i}\\neq \\mathrm{j};$",
+      "anchor": "0f3d1704"
+    }
+  ]
+}

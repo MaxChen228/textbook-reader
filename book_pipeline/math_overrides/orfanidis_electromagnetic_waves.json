@@ -1,0 +1,355 @@
+{
+  "overrides": [
+    {
+      "id": "orfanidis_electromagnetic_waves-ch06-body-186-5d51a7",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[186]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu \\mathrm { a C l } ( n = 1 . 4 8 . )$",
+      "new": "$N \\mathrm { a C l } ( n = 1 . 4 8 . )$",
+      "anchor": "fcef6278"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch21-body-50-6d5fc7",
+      "action": "fix_inline_math",
+      "chunk": "ch21",
+      "selector": "body[50]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma \\left( 0 . 8 1 \\right) \\left( 0 . 8 8 6 \\right) \\left( 1 . 1 8 9 \\right) = 1 0 . 7 2 3 ~ \\mathrm { { \\fontfamily { q p l } \\selectfont ~ r a d } \\index { { q p l } } \\index { { q p l } } = 3 5 ~ 2 0 2 ~ d e g ^ { 2 } }$",
+      "new": "$\\Gamma \\left( 0 . 8 1 \\right) \\left( 0 . 8 8 6 \\right) \\left( 1 . 1 8 9 \\right) = 1 0 . 7 2 3 ~ \\mathrm { r a d } = 3 5 ~ 2 0 2 ~ \\mathrm { d e g } ^ { 2 }$",
+      "anchor": "0d34c1cd"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch23-body-508-e7f09e",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[508]",
+      "expect": "\\begin{array}{l l} \\text {y} = \\operatorname{sinhc} (x); & \\% \\text {hyperbolic sinc function, \\sinhc} (x) = \\sinh (\\pi x) / \\pi x \\\\ \\text {x} = \\operatorname{asinhc} (y); & \\% \\text {inverse function, finds the x that satisfies \\sinhc} (x) = y \\end{array}",
+      "new": "\\begin{array}{l l} \\text {y} = \\operatorname{sinhc} (x); & \\% \\text {hyperbolic sinc function, } \\operatorname{sinhc} (x) = \\sinh (\\pi x) / \\pi x \\\\ \\text {x} = \\operatorname{asinhc} (y); & \\% \\text {inverse function, finds the x that satisfies } \\operatorname{sinhc} (x) = y \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch25-body-385-5eb875",
+      "action": "fix_inline_math",
+      "chunk": "ch25",
+      "selector": "body[385]",
+      "field": "md",
+      "all": true,
+      "old": "\\[0,1]’;",
+      "new": "[0,1]';",
+      "anchor": "b87d36d9"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch25-body-483-536fec",
+      "action": "fix_inline_math",
+      "chunk": "ch25",
+      "selector": "body[483]",
+      "field": "md",
+      "all": true,
+      "old": "$\\ ' _ { \\mathsf { p } }  ' , \\ ' _ { \\mathsf { t } } '$",
+      "new": "$\\text {'} _ { \\mathsf { p } } \\text {'} , \\text {'} _ { \\mathsf { t } } \\text {'}$",
+      "anchor": "772626a3"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch06-body-617-167f98",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[617]",
+      "expect": "\\begin{array}{l} \\text {na = 1; nb = 1.5; A = 20; DF = 1.5;} \\\\ \\text {n = chebtr(na,nb,A,DF);} \\\\ \\text {M = length(n) - 2;} \\\\ \\text {f = linspace(0,4,1601);} \\\\ \\text {L = 0.25 * ones(1,M);} \\\\ \\text {G0 = (na - nb)^2 / (na + nb)^2;} \\\\ \\text {G = abs(multidiel(n,L,1./f)).^2;} \\\\ \\text {plot(f, 10*log10(G / G0));} \\end{array}",
+      "new": "\\begin{array}{l} \\text {na = 1; nb = 1.5; A = 20; DF = 1.5;} \\\\ \\text {n = chebtr(na,nb,A,DF);} \\\\ \\text {M = length(n) - 2;} \\\\ \\text {f = linspace(0,4,1601);} \\\\ \\text {L = 0.25 * ones(1,M);} \\\\ \\text {G0 = (na - nb)}^2 \\text { / (na + nb)}^2 \\text {;} \\\\ \\text {G = abs(multidiel(n,L,1./f)).}^2 \\text {;} \\\\ \\text {plot(f, 10*log10(G / G0));} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch08-body-413-6cea64",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[413]",
+      "expect": "\\boxed { \\begin{array}{c} \\text {initialize with F_{1} = F_{2} = 0 ,} \\\\ \\text {for i = 0,1,\\ldots,N_{iter} ,do:} \\\\ F _ {1} = \\frac {1}{\\pi L _ {+}} \\operatorname{acos} \\big (| \\rho_ {T} | \\cos (\\pi F _ {1} L _ {-}) \\big) \\\\ F _ {2} = \\frac {1}{\\pi L _ {+}} \\operatorname{acos} \\big (- | \\rho_ {T} | \\cos (\\pi F _ {2} L _ {-}) \\big) \\end{array} }",
+      "new": "\\boxed { \\begin{array}{c} \\text {initialize with } F_{1} = F_{2} = 0 , \\\\ \\text {for } i = 0,1,\\ldots,N_{iter} ,\\text {do:} \\\\ F _ {1} = \\frac {1}{\\pi L _ {+}} \\operatorname{acos} \\big (| \\rho_ {T} | \\cos (\\pi F _ {1} L _ {-}) \\big) \\\\ F _ {2} = \\frac {1}{\\pi L _ {+}} \\operatorname{acos} \\big (- | \\rho_ {T} | \\cos (\\pi F _ {2} L _ {-}) \\big) \\end{array} }"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch08-body-415-c52426",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[415]",
+      "expect": "\\begin{array}{l l} \\text {[F1,F2]} = \\text { omniband(na,nH,nL,LH,LL,theta,pol,Niter)} & \\% \\text { bandedge frequencies } \\\\ \\text {[F1,F2]} = \\text { omniband(na,nH,nL,LH,LL,theta,pol)} & \\% \\text { equivalent to N_{iter} = 0} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {[F1,F2]} = \\text { omniband(na,nH,nL,LH,LL,theta,pol,Niter)} & \\% \\text { bandedge frequencies } \\\\ \\text {[F1,F2]} = \\text { omniband(na,nH,nL,LH,LL,theta,pol)} & \\% \\text { equivalent to } N_{iter} = 0 \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch09-body-193-d611df",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[193]",
+      "expect": "\\boxed {H _ {z} (x, y) = H _ {0} \\cos k _ {x} x \\cos k _ {y} y} \\quad \\text {(TE_{nm} modes)}",
+      "new": "\\boxed {H _ {z} (x, y) = H _ {0} \\cos k _ {x} x \\cos k _ {y} y} \\quad \\text {(}TE_{nm}\\text { modes)}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-233-757be4",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[233]",
+      "expect": "\\begin{array}{l l} \\text {ac = sqrt(ef - ec);} \\\\ \\text {as = sqrt(ef - es);} \\\\ \\text {k0a\\_min = -1 / 2*(1 / pc / ac + 1 / ps / as)} & \\% 0. 5 4 4 8 - \\text {lower cutoff} \\\\ \\text {be = linspace(b0, 0.9985*bcinf, 401);} & \\% \\text {plot almost up to bcinf} \\\\ \\text {ga = sqrt(be.^2 - ef);} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {ac = sqrt(ef - ec);} \\\\ \\text {as = sqrt(ef - es);} \\\\ \\text {k0a\\_min = -1 / 2*(1 / pc / ac + 1 / ps / as)} & \\%\\, 0.5448 - \\text {lower cutoff} \\\\ \\text {be = linspace(b0, 0.9985*bcinf, 401);} & \\% \\text {plot almost up to bcinf} \\\\ \\text {ga = sqrt(be.}^2 \\text { - ef);} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-295-4bf706",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[295]",
+      "expect": "\\begin{array}{l} \\text {be = linspace(1.00001*be0, 0.995*bcinf, 2001); \\% TM1 mode} \\\\ \\text {ga = sqrt(be.^2 - ef); ac = sqrt(be.^2 - ec); as = sqrt(be.^2 - es);} \\\\ \\text {k0a = atanh(-ga.*(pc*ac+ps*as)./(ga.^2 + pc*ps*ac.*as))/2./ga;} \\\\ \\text {plot(k0a,be,'--'); axis([0,1,0,4.5]);} \\end{array}",
+      "new": "\\begin{array}{l} \\text {be = linspace(1.00001*be0, 0.995*bcinf, 2001); \\% TM1 mode} \\\\ \\text {ga = sqrt(be.}^2 \\text { - ef); ac = sqrt(be.}^2 \\text { - ec); as = sqrt(be.}^2 \\text { - es);} \\\\ \\text {k0a = atanh(-ga.*(pc*ac+ps*as)./(ga.}^2 \\text { + pc*ps*ac.*as))/2./ga;} \\\\ \\text {plot(k0a,be,'--'); axis([0,1,0,4.5]);} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-670-32f1f4",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[670]",
+      "expect": "\\begin{array}{l} \\text {la0 = 1550;k0 = 2*pi / la0;} \\\\ \\text {ec = 1.535^2; ef = -131.9475 - 12.65j;} \\end{array}",
+      "new": "\\begin{array}{l} \\text {la0 = 1550;k0 = 2*pi / la0;} \\\\ \\text {ec = 1.535}^2 \\text {; ef = -131.9475 - 12.65j;} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-769-0c04d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[769]",
+      "expect": "\\begin{array}{l l} \\text {la0 = 632.8;k0 = 2*pi / la0;a = 20 / 2;} & \\% \\text {la0,a in units of nm} \\\\ \\text {es = 1.5^{\\wedge} 2;ec = 1.55^{\\wedge} 2;ef = (0.0657 - 4*j)^{\\wedge} 2;} \\\\ \\text {tol = 1e - 12;} & \\% \\text {error tolerance} \\\\ [ \\text {be0,E0,N0} ] = \\text {dmda(la0,ef,ec,es,a,0,tol)}; & \\% \\text {LRSP} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {la0 = 632.8;k0 = 2*pi / la0;a = 20 / 2;} & \\% \\text {la0,a in units of nm} \\\\ \\text {es = 1.5}^{\\wedge} \\text {2;ec = 1.55}^{\\wedge} \\text {2;ef = (0.0657 - 4*j)}^{\\wedge} \\text {2;} \\\\ \\text {tol = 1e - 12;} & \\% \\text {error tolerance} \\\\ [ \\text {be0,E0,N0} ] = \\text {dmda(la0,ef,ec,es,a,0,tol)}; & \\% \\text {LRSP} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-783-c11930",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[783]",
+      "expect": "\\begin{array}{l} \\text { beR   =   sqrt(ec)   *   (1   +   ec / 2   *   (AR^2*(wa.^2   -   wcut^2).^2   -   ... } \\\\ \\text { AI^2*(wa.^2   +   wcut^2).^2) / 4. / wa.^2   *   k0^2); } \\\\ \\text { beI   =   sqrt(ec)   *   ec   *   AR*AI   *   (wa.^4   -   wcut^4) / 4. / wa.^2   *   k0^2; } \\end{array}",
+      "new": "\\begin{array}{l} \\text { beR   =   sqrt(ec)   *   (1   +   ec / 2   *   (AR}^2\\text {*(wa.}^2\\text {   -   wcut}^2\\text {).}^2\\text {   -   ... } \\\\ \\text { AI}^2\\text {*(wa.}^2\\text {   +   wcut}^2\\text {).}^2\\text {) / 4. / wa.}^2\\text {   *   k0}^2\\text {); } \\\\ \\text { beI   =   sqrt(ec)   *   ec   *   AR*AI   *   (wa.}^4\\text {   -   wcut}^4\\text {) / 4. / wa.}^2\\text {   *   k0}^2\\text {; } \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch14-body-166-ff03de",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[166]",
+      "expect": "\\begin{array}{l l} \\text {[cL,rL]} = \\operatorname{sgcirc} (S, ^ {\\prime} l ^ {\\prime}); & \\% \\text {load or Z_{in} stability circle} \\\\ \\text {[cG,rG]} = \\operatorname{sgcirc} (S, ^ {\\prime} s ^ {\\prime}); & \\% \\text {source or Z_{out} stability circle} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {[cL,rL]} = \\operatorname{sgcirc} (S, \\text{'} l \\text{'}); & \\% \\text {load or } Z_{in} \\text { stability circle} \\\\ \\text {[cG,rG]} = \\operatorname{sgcirc} (S, \\text{'} s \\text{'}); & \\% \\text {source or } Z_{out} \\text { stability circle} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch14-body-449-482488",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[449]",
+      "expect": "\\begin{array}{l l} \\text {[ c , r ] = sgcirc(S , ^ {\\prime} p ^ {\\prime} , G) ;} & \\text {operating power gain circle} \\\\ \\text {[ c , r ] = sgcirc(S , ^ {\\prime} a ^ {\\prime} , G) ;} & \\text {available power gain circle} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {[ c , r ] = sgcirc(S , '} p \\text {' , G) ;} & \\text {operating power gain circle} \\\\ \\text {[ c , r ] = sgcirc(S , '} a \\text {' , G) ;} & \\text {available power gain circle} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch20-body-129-348bab",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[129]",
+      "expect": "\\begin{array}{l l} E (x, z _ {0} + z) = e ^ {- j k z} E (x - \\frac {1}{2} d, z _ {0})  , & \\text {when z an odd multiple of z_{T}} \\\\ E (x, z _ {0} + z) = e ^ {- j k z} E (x, z _ {0})  , & \\text {when z is an even multiple of z_{T}} \\end{array}",
+      "new": "\\begin{array}{l l} E (x, z _ {0} + z) = e ^ {- j k z} E (x - \\frac {1}{2} d, z _ {0})  , & \\text {when z an odd multiple of } z_{T} \\\\ E (x, z _ {0} + z) = e ^ {- j k z} E (x, z _ {0})  , & \\text {when z is an even multiple of } z_{T} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch20-body-1008-07debf",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "body[1008]",
+      "expect": "\\begin{array}{l} \\text {g = 2;} \\\\ \\text {N = 6;} \\\\ \\text {a = sqrt((0:N) / N); % radii} \\\\ \\text {vi = zeros(N,1);} \\\\ \\text {f = @(v,a,b)b^2 * jinc(b*v / pi) - a^2 * jinc(a*v / pi); % pattern of [a,b] annulus} \\end{array}",
+      "new": "\\begin{array}{l} \\text {g = 2;} \\\\ \\text {N = 6;} \\\\ \\text {a = sqrt((0:N) / N); \\% radii} \\\\ \\text {vi = zeros(N,1);} \\\\ \\text {f = @(v,a,b)b}^2 \\text { * jinc(b*v / pi) - a}^2 \\text { * jinc(a*v / pi); \\% pattern of [a,b] annulus} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch21-body-90-d6488d",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[90]",
+      "expect": "\\begin{array}{l l} \\text {F0} = \\text {diffint(v,sigma,0)}; & \\% \\text {evaluates the function F_{0} (v,\\sigma)} \\\\ \\text {F1} = \\text {diffint(v,sigma,1)}; & \\% \\text {evaluates the function F_{1} (v,\\sigma)} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {F0} = \\text {diffint(v,sigma,0)}; & \\% \\text {evaluates the function } F_{0} (v,\\sigma) \\\\ \\text {F1} = \\text {diffint(v,sigma,1)}; & \\% \\text {evaluates the function } F_{1} (v,\\sigma) \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch22-body-51-dd53dc",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[51]",
+      "expect": "\\begin{array}{l l} \\text {d = 0.25; a = [1,1];} & \\% d \\text {is in units of} \\lambda \\\\ \\text {[g, phi] = gain1d(d, a, 400);} & \\% 4 0 0 \\text {phi's in [0,\\pi]} \\\\ \\text {dbz(phi,g,30,20);} & \\% 3 0 ^ {\\circ} \\text {grid, 20 - dB scale} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {d = 0.25; a = [1,1];} & \\%\\, d \\text { is in units of } \\lambda \\\\ \\text {[g, phi] = gain1d(d, a, 400);} & \\%\\, 400 \\text { phi's in } [0,\\pi] \\\\ \\text {dbz(phi,g,30,20);} & \\%\\, 30 ^ {\\circ} \\text { grid, 20 - dB scale} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch22-body-160-519947",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[160]",
+      "expect": "\\begin{array}{l l} \\psi = k _ {x} d = k d \\cos \\phi & \\text {(array along x - axis, with \\theta = 90^{\\circ})} \\\\ \\psi = k _ {z} d = k d \\cos \\theta & \\text {(array along z - axis)} \\end{array}",
+      "new": "\\begin{array}{l l} \\psi = k _ {x} d = k d \\cos \\phi & \\text {(array along x - axis, with } \\theta = 90^{\\circ}\\text {)} \\\\ \\psi = k _ {z} d = k d \\cos \\theta & \\text {(array along z - axis)} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch23-body-556-328dc6",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[556]",
+      "expect": "\\begin{array}{c} \\mathbf {a} = [ 1, 0, 0, \\ldots , 0 ] ^ {T} \\\\ \\text {for n = 1,2,\\ldots,N_{iter}}, \\\\ \\mathbf {a} = Q ^ {- 1} \\mathbf {a} \\end{array}",
+      "new": "\\begin{array}{c} \\mathbf {a} = [ 1, 0, 0, \\ldots , 0 ] ^ {T} \\\\ \\text {for } n = 1,2,\\ldots,N_{iter}, \\\\ \\mathbf {a} = Q ^ {- 1} \\mathbf {a} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch24-body-430-b6350b",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[430]",
+      "expect": "\\begin{array}{l l} \\text {[Z,B]} = \\text {hmat(L,a,M,ker,basis)}; & \\% \\text {construct the (2M + 1)\\times(2M + 1) Hallén impedance matrix} \\\\ \\text {Zwrap} = \\text {hwrap(Z)}; & \\% \\text {wrap impedance matrix to size (M + 1)\\times(M + 1)} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {[Z,B]} = \\text {hmat(L,a,M,ker,basis)}; & \\% \\text {construct the } (2M + 1)\\times(2M + 1) \\text { Hallén impedance matrix} \\\\ \\text {Zwrap} = \\text {hwrap(Z)}; & \\% \\text {wrap impedance matrix to size } (M + 1)\\times(M + 1) \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-appF-body-55-6535bd",
+      "action": "fix_eq_tex",
+      "chunk": "appF",
+      "selector": "body[55]",
+      "expect": "\\begin{array}{l l} \\text {F0} = \\text {diffint} (\\mathrm{v}, \\text {sigma}, 0); & \\% \\text {diffraction integral F_{0}} (\\nu , \\sigma), \\text {Eq. (F.9)} \\\\ \\text {F1} = \\text {diffint} (\\mathrm{v}, \\text {sigma}, 1); & \\% \\text {diffraction integral F_{1}} (\\nu , \\sigma), \\text {Eq. (F.13)} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {F0} = \\text {diffint} (\\mathrm{v}, \\text {sigma}, 0); & \\% \\text {diffraction integral } F_{0} (\\nu , \\sigma), \\text {Eq. (F.9)} \\\\ \\text {F1} = \\text {diffint} (\\mathrm{v}, \\text {sigma}, 1); & \\% \\text {diffraction integral } F_{1} (\\nu , \\sigma), \\text {Eq. (F.13)} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch02-body-103-3d6d7e",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[103]",
+      "expect": "\\boxed { \\begin{array}{l l} \\boldsymbol {E} (z) = \\boldsymbol {E} _ {0 +} e ^ {- j k z} + \\boldsymbol {E} _ {0 -} e ^ {j k z} \\\\ \\boldsymbol {H} (z) = \\frac {1}{\\eta} \\hat {\\mathbf {z}} \\times \\left[ \\boldsymbol {E} _ {0 +} e ^ {- j k z} - \\boldsymbol {E} _ {0 -} e ^ {j k z} \\right] \\end{array} } & (\\text {forward + backward waves})",
+      "new": "\\boxed { \\begin{array}{l l} \\boldsymbol {E} (z) = \\boldsymbol {E} _ {0 +} e ^ {- j k z} + \\boldsymbol {E} _ {0 -} e ^ {j k z} \\\\ \\boldsymbol {H} (z) = \\frac {1}{\\eta} \\hat {\\mathbf {z}} \\times \\left[ \\boldsymbol {E} _ {0 +} e ^ {- j k z} - \\boldsymbol {E} _ {0 -} e ^ {j k z} \\right] \\end{array} } \\quad (\\text {forward + backward waves})"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch07-body-384-bb9e70",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[384]",
+      "expect": "\\begin{array}{l} \\mathrm {kz = sqrt(DR- j*DI);} \\\\ \\mathrm {kz(DI==0\\ & DR <   0) = - kz(DI==0\\ & DR <   0);} \\end{array}",
+      "new": "\\begin{array}{l} \\mathrm {kz = sqrt(DR- j*DI);} \\\\ \\mathrm {kz(DI==0\\& DR < 0) = - kz(DI==0\\& DR < 0);} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch21-body-247-c02cbf",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[247]",
+      "expect": "\\begin{array}{l l} \\text { for   sides 1\\ & 3: } & E _ {a} = \\hat {\\mathbf {x}} \\frac {h E _ {0}}{a} \\\\ \\text { for   sides 2\\ & 4: } & E _ {a} = \\pm \\hat {\\mathbf {y}} \\frac {h E _ {z} (x)}{a} = \\mp \\hat {\\mathbf {y}} \\frac {h E _ {0}}{a} \\sin \\left(\\frac {\\pi x}{L}\\right) \\end{array}",
+      "new": "\\begin{array}{l l} \\text { for   sides 1\\& 3: } & E _ {a} = \\hat {\\mathbf {x}} \\frac {h E _ {0}}{a} \\\\ \\text { for   sides 2\\& 4: } & E _ {a} = \\pm \\hat {\\mathbf {y}} \\frac {h E _ {z} (x)}{a} = \\mp \\hat {\\mathbf {y}} \\frac {h E _ {0}}{a} \\sin \\left(\\frac {\\pi x}{L}\\right) \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch21-body-249-3f1463",
+      "action": "fix_eq_tex",
+      "chunk": "ch21",
+      "selector": "body[249]",
+      "expect": "\\begin{array}{l l} \\text { for   sides 1\\ & 3: } & J _ {m s} = - \\hat {\\mathbf {y}} \\frac {2 h E _ {0}}{a} \\\\ \\text { for   sides 2\\ & 4: } & J _ {m s} = \\pm \\hat {\\mathbf {x}} \\frac {2 h E _ {0}}{a} \\sin \\left(\\frac {\\pi x}{L}\\right) \\end{array}",
+      "new": "\\begin{array}{l l} \\text { for   sides 1\\& 3: } & J _ {m s} = - \\hat {\\mathbf {y}} \\frac {2 h E _ {0}}{a} \\\\ \\text { for   sides 2\\& 4: } & J _ {m s} = \\pm \\hat {\\mathbf {x}} \\frac {2 h E _ {0}}{a} \\sin \\left(\\frac {\\pi x}{L}\\right) \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch05-body-177-bab425",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[177]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\varGamma _ { 1 } } = \\left( { \\var Z _ { 1 } } - { \\eta _ { a } } \\right) / \\left( { Z _ { 1 } } + { \\eta _ { a } } \\right)$",
+      "new": "${ \\Gamma _ { 1 } } = \\left( { Z _ { 1 } } - { \\eta _ { a } } \\right) / \\left( { Z _ { 1 } } + { \\eta _ { a } } \\right)$",
+      "anchor": "a956546d"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch06-body-604-743613",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[604]",
+      "expect": "\\begin{array}{l l} \\text {e0 = sqrt((nb - na)^2 / (4*nb*na));} \\\\ \\text {x0 = 1 / sin(DF*pi / 4);} \\\\ \\text {M = ceil(acosh(sqrt((e0^2 + 1)*10^(A / 10) - e0^2)) / acosh(x0));} \\\\ \\text {e1 = e0 / cosh(M*acosh(x0));} \\\\ \\text {m = 0:M - 1;} \\\\ \\text {delta = acos(cos((acos(-j/e1)+pi*m)/M)/x0);} \\\\ \\text {z = exp(2*j*delta);} & \\% \\text {zeros of A(z)} \\\\ \\text {a = real(poly(z));} & \\% \\text {coefficients of A(z)} \\\\ \\text {sigma = sign(na - nb)*abs(sum(a))/sqrt(1+e0^2);} & \\% \\text {scale factor σ} \\\\ \\text {delta = acos(cos((m + 0.5)*pi/M)/x0);} \\\\ \\text {z = exp(2*j*delta);} & \\% \\text {zeros of B(z)} \\\\ \\text {b = real(poly(z));} & \\% \\text {unscaled coefficients of B(z)} \\\\ \\text {b0 = sigma * e0 / abs(sum(b));} \\\\ \\text {b = b0 * b;} & \\% \\text {rescaled B(z)} \\\\ \\text {r = bkwrec(a,b);} & \\% \\text {backward recursion} \\\\ \\text {n = na * r2n(r);} & \\% \\text {refractive indices} \\end{array}",
+      "new": "\\begin{array}{l l} \\verb|e0 = sqrt((nb - na)^2 / (4*nb*na));| \\\\ \\verb|x0 = 1 / sin(DF*pi / 4);| \\\\ \\verb|M = ceil(acosh(sqrt((e0^2 + 1)*10^(A / 10) - e0^2)) / acosh(x0));| \\\\ \\verb|e1 = e0 / cosh(M*acosh(x0));| \\\\ \\verb|m = 0:M - 1;| \\\\ \\verb|delta = acos(cos((acos(-j/e1)+pi*m)/M)/x0);| \\\\ \\verb|z = exp(2*j*delta);| & \\verb|% zeros of A(z)| \\\\ \\verb|a = real(poly(z));| & \\verb|% coefficients of A(z)| \\\\ \\verb|sigma = sign(na - nb)*abs(sum(a))/sqrt(1+e0^2);| & \\verb|% scale factor σ| \\\\ \\verb|delta = acos(cos((m + 0.5)*pi/M)/x0);| \\\\ \\verb|z = exp(2*j*delta);| & \\verb|% zeros of B(z)| \\\\ \\verb|b = real(poly(z));| & \\verb|% unscaled coefficients of B(z)| \\\\ \\verb|b0 = sigma * e0 / abs(sum(b));| \\\\ \\verb|b = b0 * b;| & \\verb|% rescaled B(z)| \\\\ \\verb|r = bkwrec(a,b);| & \\verb|% backward recursion| \\\\ \\verb|n = na * r2n(r);| & \\verb|% refractive indices| \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch07-body-370-dd4f67",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[370]",
+      "expect": "\\begin{array}{l} \\text {ep0 = 8.854e - 12; mu0 = 4*pi*1e - 7;} \\\\ \\text {sigma = 4; f = 1e9; w = 2*pi*f;} \\\\ \\text {ep1 = ep0; ep2 = 81*ep0 - j*sigma / w;} \\\\ \\text {k1 = w*sqrt(mu0*ep1); k2 = w*sqrt(mu0*ep2);} \\\\ \\text {th = linspace(0,90,901); thr = pi*th / 180;} \\\\ \\text {k1x = k1*sin(thr); k1z = k1*cos(thr);} \\\\ \\text {k2z = sqrt(w^2 *mu0*ep2 - k1x.^2);} \\\\ \\text {rte = abs((k1z - k2z)./(k1z + k2z)); } \\\\ \\text {rtm = abs((k2z*ep1 - k1z*ep2)./(k2z*ep1 + k1z*ep2))}; \\\\ \\text {plot(th,rtm, th,rte);} \\end{array}",
+      "new": "\\begin{array}{l} \\verb|ep0 = 8.854e - 12; mu0 = 4*pi*1e - 7;| \\\\ \\verb|sigma = 4; f = 1e9; w = 2*pi*f;| \\\\ \\verb|ep1 = ep0; ep2 = 81*ep0 - j*sigma / w;| \\\\ \\verb|k1 = w*sqrt(mu0*ep1); k2 = w*sqrt(mu0*ep2);| \\\\ \\verb|th = linspace(0,90,901); thr = pi*th / 180;| \\\\ \\verb|k1x = k1*sin(thr); k1z = k1*cos(thr);| \\\\ \\verb|k2z = sqrt(w^2 *mu0*ep2 - k1x.^2);| \\\\ \\verb|rte = abs((k1z - k2z)./(k1z + k2z));| \\\\ \\verb|rtm = abs((k2z*ep1 - k1z*ep2)./(k2z*ep1 + k1z*ep2));| \\\\ \\verb|plot(th,rtm, th,rte);| \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-302-3490f9",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[302]",
+      "expect": "\\begin{array}{r l} k _ {f} a & = \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {c}}{k _ {f}}\\right) + \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {s}}{k _ {f}}\\right) + \\frac {1}{2} m \\pi \\\\ \\phi & = \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {c}}{k _ {f}}\\right) - \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {s}}{k _ {f}}\\right) + \\frac {1}{2} m \\pi \\end{array} \\tag {TE_{m}}",
+      "new": "\\begin{array}{r l} k _ {f} a & = \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {c}}{k _ {f}}\\right) + \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {s}}{k _ {f}}\\right) + \\frac {1}{2} m \\pi \\\\ \\phi & = \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {c}}{k _ {f}}\\right) - \\frac {1}{2} \\operatorname{atan} \\left(\\frac {\\alpha_ {s}}{k _ {f}}\\right) + \\frac {1}{2} m \\pi \\end{array} \\tag {TE\\(_{m}\\)}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-304-bf2dfe",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[304]",
+      "expect": "\\begin{array}{l} k _ {f} a = \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {c} \\alpha_ {c}}\\right) + \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {s} \\alpha_ {s}}\\right) + \\frac {1}{2} (m - 1) \\pi \\\\ \\phi = \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {c} \\alpha_ {c}}\\right) - \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {s} \\alpha_ {s}}\\right) + \\frac {1}{2} m \\pi \\end{array} \\tag {TM_{m}}",
+      "new": "\\begin{array}{l} k _ {f} a = \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {c} \\alpha_ {c}}\\right) + \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {s} \\alpha_ {s}}\\right) + \\frac {1}{2} (m - 1) \\pi \\\\ \\phi = \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {c} \\alpha_ {c}}\\right) - \\frac {1}{2} \\operatorname{atan} \\left(- \\frac {k _ {f}}{p _ {s} \\alpha_ {s}}\\right) + \\frac {1}{2} m \\pi \\end{array} \\tag {TM\\(_{m}\\)}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch11-problem-11-41-body-1-852d31",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "problem:11.41:body[1]",
+      "expect": "\\begin{array}{c} \\text {Z_0} \\\\ V _ {G} \\sim \\text {Z_0} \\\\ \\text {d_1} \\\\ \\text {V_1} \\\\ \\text {V_2} \\\\ \\text {d_2} \\\\ \\text {Z_0} \\\\ \\text {Z_0} \\\\ \\text {d_1} \\\\ \\text {V_1} \\\\ \\text {V_2} \\\\ \\text {d_2} \\\\ \\text {Z_0} \\\\ \\text {Z_0} \\\\ \\text {d_1} \\\\ \\text {V_1} \\\\ \\text {V_2} \\\\ \\text {d_2} \\\\ \\text {Z_0} \\\\ \\text {d_1} \\\\ \\text {V_1} \\\\ \\text {V_2} \\\\ \\text {d_2} \\\\ \\text {Z_0} \\\\ \\text {Z_0} \\end{array}",
+      "new": "\\begin{array}{c} Z_0 \\\\ V _ {G} \\sim Z_0 \\\\ d_1 \\\\ V_1 \\\\ V_2 \\\\ d_2 \\\\ Z_0 \\\\ Z_0 \\\\ d_1 \\\\ V_1 \\\\ V_2 \\\\ d_2 \\\\ Z_0 \\\\ Z_0 \\\\ d_1 \\\\ V_1 \\\\ V_2 \\\\ d_2 \\\\ Z_0 \\\\ d_1 \\\\ V_1 \\\\ V_2 \\\\ d_2 \\\\ Z_0 \\\\ Z_0 \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch13-body-316-5ae563",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[316]",
+      "expect": "\\begin{array}{l} \\text {r1 = (Z1 - Z0) / (Z1 + Z0);} \\\\ \\text {r2 = (Z2 - Z1) / (Z2 + Z1);} \\\\ \\text {r3 = abs((ZL - Z2) / (ZL + Z2));} \\\\ \\text {th3 = angle((ZL - Z2) / (ZL + Z2));} \\\\ \\text {s = ((r2 + r3)^2 - r1^2*(1 + r2*r3)^2) / (4*r2*r3*(1 - r1^2));} \\\\ \\text {if (s <   0)|(s > 1), fprintf('no solution exists'); return; end} \\\\ \\text {de2 = th3 / 2 + asin(sqrt(s)) * [1;-1]; % construct two solutions} \\\\ \\text {G2 = (r2 + r3*exp(j*th3 - 2*j*de2)). / (1 + r2*r3*exp(j*th3 - 2*j*de2));} \\\\ \\text {de1 = angle(-G2 / r1) / 2;} \\\\ \\text {L1 = de1 / 2 / pi; L2 = de2 / 2 / pi;} \\\\ \\text {L12 = mod([L1,L2], 0.5); % reduce modulo λ / 2} \\end{array}",
+      "new": "\\begin{array}{l} \\verb|r1 = (Z1 - Z0) / (Z1 + Z0);| \\\\ \\verb|r2 = (Z2 - Z1) / (Z2 + Z1);| \\\\ \\verb|r3 = abs((ZL - Z2) / (ZL + Z2));| \\\\ \\verb|th3 = angle((ZL - Z2) / (ZL + Z2));| \\\\ \\verb|s = ((r2 + r3)^2 - r1^2*(1 + r2*r3)^2) / (4*r2*r3*(1 - r1^2));| \\\\ \\verb|if (s <   0)|(s > 1), fprintf('no solution exists'); return; end| \\\\ \\verb|de2 = th3 / 2 + asin(sqrt(s)) * [1;-1]; % construct two solutions| \\\\ \\verb|G2 = (r2 + r3*exp(j*th3 - 2*j*de2)). / (1 + r2*r3*exp(j*th3 - 2*j*de2));| \\\\ \\verb|de1 = angle(-G2 / r1) / 2;| \\\\ \\verb|L1 = de1 / 2 / pi; L2 = de2 / 2 / pi;| \\\\ \\verb|L12 = mod([L1,L2], 0.5); % reduce modulo λ / 2| \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch19-body-382-68fc03",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[382]",
+      "expect": "\\boxed { \\begin{array}{c} \\boldsymbol {E} _ {\\perp} = \\pm \\hat {\\mathbf {z}} \\times \\partial_ {z} \\boldsymbol {F} \\\\ \\hat {\\mathbf {z}}   E _ {z} = \\pm \\nabla_ {\\perp} \\times \\boldsymbol {F} \\\\ - j k \\eta   \\boldsymbol {H} _ {\\perp} = \\pm \\left[ k ^ {2} \\boldsymbol {F} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F}) \\right] \\\\ - j k \\eta   \\hat {\\mathbf {z}}   H _ {z} = \\pm \\hat {\\mathbf {z}}   \\partial_ {z} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F}) \\end{array} } \\text {for z\\gtrless 0}",
+      "new": "\\boxed { \\begin{array}{c} \\boldsymbol {E} _ {\\perp} = \\pm \\hat {\\mathbf {z}} \\times \\partial_ {z} \\boldsymbol {F} \\\\ \\hat {\\mathbf {z}}   E _ {z} = \\pm \\nabla_ {\\perp} \\times \\boldsymbol {F} \\\\ - j k \\eta   \\boldsymbol {H} _ {\\perp} = \\pm \\left[ k ^ {2} \\boldsymbol {F} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F}) \\right] \\\\ - j k \\eta   \\hat {\\mathbf {z}}   H _ {z} = \\pm \\hat {\\mathbf {z}}   \\partial_ {z} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F}) \\end{array} } \\text {for } z\\gtrless 0"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch19-body-412-eac280",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[412]",
+      "expect": "\\begin{array}{c} \\boldsymbol {E} - \\boldsymbol {E} ^ {i} = \\boldsymbol {E} ^ {s} = \\pm \\nabla \\times (\\boldsymbol {F} - \\boldsymbol {F} ^ {i}) \\quad \\Rightarrow \\quad \\boldsymbol {E} = \\boldsymbol {E} ^ {i} \\mp \\nabla \\times \\boldsymbol {F} ^ {i} \\pm \\nabla \\times \\boldsymbol {F}, \\quad \\text {or,} \\\\ \\boldsymbol {E} = \\boldsymbol {E} ^ {i} \\mp \\boldsymbol {E} ^ {r} \\pm \\nabla \\times \\boldsymbol {F}, \\quad \\text {for z\\geqslant 0} \\end{array}",
+      "new": "\\begin{array}{c} \\boldsymbol {E} - \\boldsymbol {E} ^ {i} = \\boldsymbol {E} ^ {s} = \\pm \\nabla \\times (\\boldsymbol {F} - \\boldsymbol {F} ^ {i}) \\quad \\Rightarrow \\quad \\boldsymbol {E} = \\boldsymbol {E} ^ {i} \\mp \\nabla \\times \\boldsymbol {F} ^ {i} \\pm \\nabla \\times \\boldsymbol {F}, \\quad \\text {or,} \\\\ \\boldsymbol {E} = \\boldsymbol {E} ^ {i} \\mp \\boldsymbol {E} ^ {r} \\pm \\nabla \\times \\boldsymbol {F}, \\quad \\text {for } z\\geqslant 0 \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch19-body-1000-8b6a4f",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[1000]",
+      "expect": "\\begin{array}{l l} \\text {on the aperture, A} & \\text {on the conductor, M_{c} = A} \\\\ \\hline k ^ {2} \\boldsymbol {F} ^ {0} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F} ^ {0}) = - j k \\eta \\boldsymbol {H} _ {\\perp} ^ {i} & k ^ {2} \\boldsymbol {A} _ {c} ^ {0} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {A} _ {c} ^ {0}) = - j k \\eta^ {- 1} \\boldsymbol {E} _ {c \\perp} ^ {i} \\\\ \\hat {\\mathbf {z}} \\cdot \\nabla_ {\\perp} \\times \\boldsymbol {F} ^ {0} = E _ {z} ^ {i} & \\hat {\\mathbf {z}} \\cdot \\nabla_ {\\perp} \\times \\boldsymbol {A} _ {c} ^ {0} = - H _ {c z} ^ {i} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {on the aperture, A} & \\text {on the conductor, } M_{c} = A \\\\ \\hline k ^ {2} \\boldsymbol {F} ^ {0} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {F} ^ {0}) = - j k \\eta \\boldsymbol {H} _ {\\perp} ^ {i} & k ^ {2} \\boldsymbol {A} _ {c} ^ {0} + \\nabla_ {\\perp} (\\nabla_ {\\perp} \\cdot \\boldsymbol {A} _ {c} ^ {0}) = - j k \\eta^ {- 1} \\boldsymbol {E} _ {c \\perp} ^ {i} \\\\ \\hat {\\mathbf {z}} \\cdot \\nabla_ {\\perp} \\times \\boldsymbol {F} ^ {0} = E _ {z} ^ {i} & \\hat {\\mathbf {z}} \\cdot \\nabla_ {\\perp} \\times \\boldsymbol {A} _ {c} ^ {0} = - H _ {c z} ^ {i} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch23-body-189-f42779",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[189]",
+      "expect": "\\begin{array}{l l} \\text {N = 21; K = (N - 1) / 2; d = 0.5; thmax = 70;} \\\\ \\text {psmax = 2*pi*d * cos(thmax*pi/180);} \\\\ \\text {Ai = ones(1,K + 1);} \\\\ \\text {psi = 2*pi*(0:K) / N;} & \\% \\text {half of DFT frequencies} \\\\ \\text {j = find(psi);} & \\% \\text {non - zero \\psi's} \\\\ \\text {Ai(j) = psmax*(psi(j) >= psmax). / psi(j) + (psi(j) <   psmax);} & \\% \\text {half of the DFT values} \\\\ \\text {Ai = [Ai, Ai(K:-1:1)];} & \\% \\text {all the DFT values} \\\\ \\text {a = woodward(Ai, 0) / N;} & \\% \\text {inverse DFT with alt = 0} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {N = 21; K = (N - 1) / 2; d = 0.5; thmax = 70;} \\\\ \\text {psmax = 2*pi*d * cos(thmax*pi/180);} \\\\ \\text {Ai = ones(1,K + 1);} \\\\ \\text {psi = 2*pi*(0:K) / N;} & \\% \\text {half of DFT frequencies} \\\\ \\text {j = find(psi);} & \\% \\text {non - zero } \\psi \\text {'s} \\\\ \\text {Ai(j) = psmax*(psi(j) >= psmax). / psi(j) + (psi(j) <   psmax);} & \\% \\text {half of the DFT values} \\\\ \\text {Ai = [Ai, Ai(K:-1:1)];} & \\% \\text {all the DFT values} \\\\ \\text {a = woodward(Ai, 0) / N;} & \\% \\text {inverse DFT with alt = 0} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch05-body-179-b47dac",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[179]",
+      "expect": "\\begin{array}{c} \\left[ \\begin{array}{l} E _ {1 +} \\\\ E _ {1 -} \\end{array} \\right] = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{l} E _ {1 +} ^ {\\prime} \\\\ E _ {1 -} ^ {\\prime} \\end{array} \\right] = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{c c} e ^ {j k _ {1} l _ {1}} & 0 \\\\ 0 & e ^ {- j k _ {1} l _ {1}} \\end{array} \\right] \\left[ \\begin{array}{l} E _ {2 +} \\\\ E _ {2 -} \\end{array} \\right] \\\\ = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{c c} e ^ {j k _ {1} l _ {1}} & 0 \\\\ 0 & e ^ {- j k _ {1} l _ {1}} \\end{bmatrix} \\frac {1}{\\tau_ {2}} \\left[ \\begin{array}{l l} 1 & \\rho_ {2} \\\\ \\rho_ {2} & 1 \\end{array} \\right] \\left[ \\begin{array}{l} E _ {2 +} ^ {\\prime} \\\\ 0 \\end{array} \\right] \\right. \\end{array}",
+      "new": "\\begin{array}{c} \\left[ \\begin{array}{l} E _ {1 +} \\\\ E _ {1 -} \\end{array} \\right] = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{l} E _ {1 +} ^ {\\prime} \\\\ E _ {1 -} ^ {\\prime} \\end{array} \\right] = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{c c} e ^ {j k _ {1} l _ {1}} & 0 \\\\ 0 & e ^ {- j k _ {1} l _ {1}} \\end{array} \\right] \\left[ \\begin{array}{l} E _ {2 +} \\\\ E _ {2 -} \\end{array} \\right] \\\\ = \\frac {1}{\\tau_ {1}} \\left[ \\begin{array}{l l} 1 & \\rho_ {1} \\\\ \\rho_ {1} & 1 \\end{array} \\right] \\left[ \\begin{array}{c c} e ^ {j k _ {1} l _ {1}} & 0 \\\\ 0 & e ^ {- j k _ {1} l _ {1}} \\end{array} \\right] \\frac {1}{\\tau_ {2}} \\left[ \\begin{array}{l l} 1 & \\rho_ {2} \\\\ \\rho_ {2} & 1 \\end{array} \\right] \\left[ \\begin{array}{l} E _ {2 +} ^ {\\prime} \\\\ 0 \\end{array} \\right] \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch19-body-665-6cf21c",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[665]",
+      "expect": "\\boxed { \\begin{array}{l l} A = \\frac {2}{\\pi} E _ {z} ^ {i} \\\\ \\boldsymbol {B} = \\frac {4}{\\pi} j k \\eta   \\boldsymbol {H} _ {\\perp} ^ {i} \\times \\hat {\\mathbf {z}} \\\\ \\boldsymbol {C} = - \\frac {4}{3 \\pi} \\left[ \\nabla_ {\\perp} E _ {z} ^ {i} + j k \\eta   \\boldsymbol {H} _ {\\perp} ^ {i} \\times \\hat {\\mathbf {z}} \\right] \\end{array} } & \\Rightarrow \\begin{array}{l l} B _ {x} = \\frac {4}{\\pi} j k \\eta   H _ {y} ^ {i} \\\\ B _ {y} = - \\frac {4}{\\pi} j k \\eta   H _ {x} ^ {i} \\\\ C _ {x} = - \\frac {4}{3 \\pi} \\left[ \\partial_ {x} E _ {z} ^ {i} + j k \\eta   H _ {y} ^ {i} \\right] \\\\ C _ {y} = - \\frac {4}{3 \\pi} \\left[ \\partial_ {y} E _ {z} ^ {i} - j k \\eta   H _ {x} ^ {i} \\right] \\end{array}",
+      "new": "\\begin{array}{c c} \\boxed { \\begin{array}{l l} A = \\frac {2}{\\pi} E _ {z} ^ {i} \\\\ \\boldsymbol {B} = \\frac {4}{\\pi} j k \\eta   \\boldsymbol {H} _ {\\perp} ^ {i} \\times \\hat {\\mathbf {z}} \\\\ \\boldsymbol {C} = - \\frac {4}{3 \\pi} \\left[ \\nabla_ {\\perp} E _ {z} ^ {i} + j k \\eta   \\boldsymbol {H} _ {\\perp} ^ {i} \\times \\hat {\\mathbf {z}} \\right] \\end{array} } & \\Rightarrow \\begin{array}{l l} B _ {x} = \\frac {4}{\\pi} j k \\eta   H _ {y} ^ {i} \\\\ B _ {y} = - \\frac {4}{\\pi} j k \\eta   H _ {x} ^ {i} \\\\ C _ {x} = - \\frac {4}{3 \\pi} \\left[ \\partial_ {x} E _ {z} ^ {i} + j k \\eta   H _ {y} ^ {i} \\right] \\\\ C _ {y} = - \\frac {4}{3 \\pi} \\left[ \\partial_ {y} E _ {z} ^ {i} - j k \\eta   H _ {x} ^ {i} \\right] \\end{array} \\end{array}"
+    },
+    {
+      "id": "orfanidis_electromagnetic_waves-ch10-body-118-6cc52b",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[118]",
+      "expect": "\\begin{array}{l l} \\beta = 1 0. 2 6 7 4 - 0. 0 1 0 7 j \\mathrm {rad / \\mum}, & L _ {z} = - \\frac {1}{\\operatorname{Im} (\\beta)} = 9 3. 5 9 6 9 \\mu \\mathrm{m} \\\\ \\gamma = 4 1. 0 7 5 5 + 0. 5 9 8 9 j \\mathrm {rad / \\mum}, & L _ {f} = \\frac {1}{\\operatorname{Re} (\\gamma)} = 0. 0 2 4 3 \\mu \\mathrm{m} \\\\ \\alpha_ {c} = 2. 5 6 5 9 - 0. 0 4 2 8 j \\mathrm {rad / \\mum}, & L _ {c} = \\frac {1}{\\operatorname{Re} (\\alpha_ {c})} = 0. 3 8 9 7 \\mu \\mathrm{m} \\end{array}",
+      "new": "\\begin{array}{l l} \\beta = 1 0. 2 6 7 4 - 0. 0 1 0 7 j \\mathrm {rad} / \\mu \\mathrm{m}, & L _ {z} = - \\frac {1}{\\operatorname{Im} (\\beta)} = 9 3. 5 9 6 9 \\mu \\mathrm{m} \\\\ \\gamma = 4 1. 0 7 5 5 + 0. 5 9 8 9 j \\mathrm {rad} / \\mu \\mathrm{m}, & L _ {f} = \\frac {1}{\\operatorname{Re} (\\gamma)} = 0. 0 2 4 3 \\mu \\mathrm{m} \\\\ \\alpha_ {c} = 2. 5 6 5 9 - 0. 0 4 2 8 j \\mathrm {rad} / \\mu \\mathrm{m}, & L _ {c} = \\frac {1}{\\operatorname{Re} (\\alpha_ {c})} = 0. 3 8 9 7 \\mu \\mathrm{m} \\end{array}"
+    }
+  ]
+}
