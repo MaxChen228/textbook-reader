@@ -1,0 +1,64 @@
+{
+  "overrides": [
+    {
+      "id": "stock_watson_econometrics-ch08-problem-8-12-body-68-c00744",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "problem:8.12:body[68]",
+      "field": "md",
+      "all": true,
+      "old": "$d X ^ { a } / d X = a X ^ { a } ^ { - 1 }$",
+      "new": "$d X ^ { a } / d X = a X ^ { a - 1 }$",
+      "anchor": "3815c2fb"
+    },
+    {
+      "id": "stock_watson_econometrics-ch18-body-65-374590",
+      "action": "fix_eq_tex",
+      "chunk": "ch18",
+      "selector": "body[65]",
+      "expect": "\\begin{array}{l} \\text {(i) if S_{n} \\xrightarrow{p} a, then g(S_{n}) \\xrightarrow{p} g(a), and} \\\\ \\text {(ii) if S_{n} \\xrightarrow{d} S, then g(S_{n}) \\xrightarrow{d} g(S).} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(i) if } S_{n} \\xrightarrow{p} a, \\text { then } g(S_{n}) \\xrightarrow{p} g(a), \\text { and} \\\\ \\text {(ii) if } S_{n} \\xrightarrow{d} S, \\text { then } g(S_{n}) \\xrightarrow{d} g(S). \\end{array}"
+    },
+    {
+      "id": "stock_watson_econometrics-ch19-problem-19-18-body-70-c2b6e1",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19.18:body[70]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\begin{array} { r } { { \\frac { 1 } { n } } \\sum _ { i = 1 } ^ { n } X _ { j i } X _ { l i } \\xrightarrow { p } } E ( X _ { j i } X _ { l i } ) } \\end{array} $",
+      "new": "$\\begin{array} { r } { \\frac { 1 } { n } \\sum _ { i = 1 } ^ { n } X _ { j i } X _ { l i } \\xrightarrow { p } E ( X _ { j i } X _ { l i } ) } \\end{array} $",
+      "anchor": "47bb60aa"
+    },
+    {
+      "id": "stock_watson_econometrics-ch05-body-150-f148cc",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[150]",
+      "expect": "\\widehat {E a r n i n g s} = - 1 2. 1 2 + 2. 3 7 \\text {   Years   Education,   } \\tag {1.36} \\tag {0.10}",
+      "new": "\\widehat {E a r n i n g s} = - 1 2. 1 2 + 2. 3 7 \\text {   Years   Education,   } \\quad {0.10} \\tag {1.36}"
+    },
+    {
+      "id": "stock_watson_econometrics-ch19-problem-19-15-body-0-065d5a",
+      "action": "fix_inline_math",
+      "chunk": "ch19",
+      "selector": "problem:19.15:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array}{c} \\begin{array} { r } { { \\pmb { Y } } _ { i } = ( Y _ { i 1 } \\quad Y _ { i 2 } \\end{array} \\cdot \\cdot \\cdot \\cdot Y _ { i T } ) ^ { \\prime } , { \\pmb { X } } _ { i } = ( X _ { i 1 } \\quad X _ { i 2 } \\cdot \\cdot \\cdot X _ { i T } ) ^ { \\prime } } \\end{array}$",
+      "new": "$\\begin{array}{r} { \\pmb { Y } } _ { i } = ( Y _ { i 1 } \\quad Y _ { i 2 } \\cdot \\cdot \\cdot \\cdot Y _ { i T } ) ^ { \\prime } , { \\pmb { X } } _ { i } = ( X _ { i 1 } \\quad X _ { i 2 } \\cdot \\cdot \\cdot X _ { i T } ) ^ { \\prime } \\end{array}$",
+      "anchor": "ef18cd2d"
+    },
+    {
+      "id": "stock_watson_econometrics-ch03-body-233-2f9c6f",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[233]",
+      "field": "md",
+      "all": true,
+      "old": "$ (the units are years \\* dollars pe hour, not readily interpretable). Thus the sample correlation coefficient is $",
+      "new": "$ \\text{(the units are years * dollars pe hour, not readily interpretable). Thus the sample correlation coefficient is} $",
+      "anchor": "2fc2cd4d"
+    }
+  ]
+}

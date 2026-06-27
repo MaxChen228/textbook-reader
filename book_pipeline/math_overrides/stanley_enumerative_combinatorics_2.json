@@ -1,0 +1,50 @@
+{
+  "overrides": [
+    {
+      "id": "stanley_enumerative_combinatorics_2-ch06-body-576-d97aef",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[576]",
+      "expect": "\\begin{array}{l} L = \\{x _ {i _ {1}} x _ {i _ {2}} \\dots x _ {i _ {k}}: \\omega (x _ {i _ {1}}) + \\dots + \\omega (x _ {i _ {j}}) \\geq 0 \\\\ \\text {if j <   k , and \\omega(x_{i_{1}})+\\cdots+ \\omega(x_{i_{k}}) = - 1\\}.} \\end{array}",
+      "new": "\\begin{array}{l} L = \\{x _ {i _ {1}} x _ {i _ {2}} \\dots x _ {i _ {k}}: \\omega (x _ {i _ {1}}) + \\dots + \\omega (x _ {i _ {j}}) \\geq 0 \\\\ \\text {if } j < k, \\text { and } \\omega(x_{i_{1}})+\\cdots+ \\omega(x_{i_{k}}) = - 1\\}. \\end{array}"
+    },
+    {
+      "id": "stanley_enumerative_combinatorics_2-ch05-problem-35-body-2-71d243",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:35:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { C _ { n } }$",
+      "new": "$N { C _ { n } }$",
+      "anchor": "be3c6005"
+    },
+    {
+      "id": "stanley_enumerative_combinatorics_2-ch05-problem-35-body-6-e8d64a",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "problem:35:body[6]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Nu { \\cal C } _ { n }$",
+      "new": "$N { \\cal C } _ { n }$",
+      "anchor": "3e07cd73"
+    },
+    {
+      "id": "stanley_enumerative_combinatorics_2-appA1-body-109-253895",
+      "action": "fix_eq_tex",
+      "chunk": "appA1",
+      "selector": "body[109]",
+      "expect": "\\begin{array}{r c l l} T \\stackrel {{\\mathrm{jdt}}} {{\\sim}} T ^ {\\prime} & \\Longleftrightarrow & \\mathrm{jdt} (T) = \\mathrm{jdt} (T ^ {\\prime}) & \\text {(by Theorem A1.3.4)} \\\\ & \\Longleftrightarrow & \\text {reading(jdt(T)) = reading(jdt(T^{\\prime}))} & \\text {(by Theorem A1.1.6)} \\\\ & \\Longleftrightarrow & \\text {reading(T)} \\stackrel {{K}} {{\\sim}} \\text {reading(T^{\\prime})} & \\text {(by (A1.11)).} \\end{array}",
+      "new": "\\begin{array}{r c l l} T \\stackrel {{\\mathrm{jdt}}} {{\\sim}} T ^ {\\prime} & \\Longleftrightarrow & \\mathrm{jdt} (T) = \\mathrm{jdt} (T ^ {\\prime}) & \\text {(by Theorem A1.3.4)} \\\\ & \\Longleftrightarrow & \\text {reading(jdt(T)) = reading(jdt(}T^{\\prime}\\text {))} & \\text {(by Theorem A1.1.6)} \\\\ & \\Longleftrightarrow & \\text {reading(T)} \\stackrel {{K}} {{\\sim}} \\text {reading(}T^{\\prime}\\text {)} & \\text {(by (A1.11)).} \\end{array}"
+    },
+    {
+      "id": "stanley_enumerative_combinatorics_2-appA1-body-242-247049",
+      "action": "fix_eq_tex",
+      "chunk": "appA1",
+      "selector": "body[242]",
+      "expect": "\\begin{array}{r c l l} c _ {\\mu \\nu} ^ {\\lambda} & = & \\# \\{\\text { SYT   } T: \\text {   sh } (T) = \\lambda / \\mu  ,   T \\overset {\\text { jdt }} {\\sim} P _ {\\nu} \\} & \\text {(by Theorem A1.5.1)} \\\\ & = & \\# \\{T \\in \\text { st } (\\mathcal {L} _ {\\nu}): \\text {   sh } (T) = \\lambda / \\mu \\} & \\text {(by Lemma A1.5.7)} \\\\ & = & \\# \\{L \\in \\mathcal {L} _ {\\nu}: \\text {   sh } (L) = \\lambda / \\mu \\} & \\text {(since st is injective on   \\mathcal {L} _{\\nu}).} \\end{array}",
+      "new": "\\begin{array}{r c l l} c _ {\\mu \\nu} ^ {\\lambda} & = & \\# \\{\\text { SYT   } T: \\text {   sh } (T) = \\lambda / \\mu  ,   T \\overset {\\text { jdt }} {\\sim} P _ {\\nu} \\} & \\text {(by Theorem A1.5.1)} \\\\ & = & \\# \\{T \\in \\mathrm {st} (\\mathcal {L} _ {\\nu}): \\text {   sh } (T) = \\lambda / \\mu \\} & \\text {(by Lemma A1.5.7)} \\\\ & = & \\# \\{L \\in \\mathcal {L} _ {\\nu}: \\text {   sh } (L) = \\lambda / \\mu \\} & \\text {(since st is injective on   }\\mathcal {L} _{\\nu}\\text {).} \\end{array}"
+    }
+  ]
+}
