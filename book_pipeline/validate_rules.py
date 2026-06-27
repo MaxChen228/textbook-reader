@@ -191,6 +191,31 @@ def validate(slug: str) -> int:
         try:
             ps_re = re.compile(R['problem_start_re'])
             pe_re = re.compile(R['problems_end_re']) if R.get('problems_end_re') else None
+            # 章末習題區 heading 詞彙（= audit-book Step 6 P1 精確集 + P2 regex）。binary 模式下真題
+            # 一律落在這種 heading 下；故 pbi=null 章「有 problem_start_re 命中」唯有同時存在【未被
+            # anchor 的 problems heading】才是 audit 漏抓 anchor 真 bug。無此 heading 的命中＝正文編號
+            # 散文清單（振動模式/Boolean 定律/軟體分類…），純 binary 書的無題章本就會有此形態 → 不報。
+            # （heading-less inline 題誤設 binary 的 case 靜態無從分辨，歸 parser 動態習題完整性閘。）
+            PROB_HEAD_EXACT = {
+                'Problems', 'PROBLEMS', 'Exercises', 'EXERCISES',
+                'Problem Set', 'PROBLEM SET', '問題', '練習題',
+            }
+            ph_re = re.compile(
+                r'^(Further\s+Problems|End[-\s]of[-\s]Chapter\s+Problems'
+                r'|Chapter\s+\d+\s+Problems|Problems\s+for\s+Chapter\s+\d+)'
+                r'(\s+on\s+Chapter\s+\d+)?\s*$'
+            )
+
+            def _has_unanchored_problems_heading(cti: int, nci: int) -> bool:
+                for j in range(cti + 1, nci):
+                    b = B[j]
+                    if b.get('type') != 'text':
+                        continue
+                    t = (b.get('text') or '').strip()
+                    if t in PROB_HEAD_EXACT or ph_re.match(t):
+                        return True
+                return False
+
             bad_chs = []
             for c in (R.get('chapters', []) or []):
                 if c.get('problems_block_idx') is not None:
@@ -198,6 +223,7 @@ def validate(slug: str) -> int:
                 cti, nci = c.get('chapter_title_block_idx'), c.get('next_chapter_block_idx')
                 if cti is None or nci is None:
                     continue
+                has_hit = False
                 for j in range(cti + 1, nci):
                     b = B[j]
                     text = (b.get('text') or '').strip()
@@ -206,11 +232,15 @@ def validate(slug: str) -> int:
                             and pe_re.match(text):
                         break
                     if b.get('type') in ('text', 'list') and ps_re.match(text):
-                        bad_chs.append(c.get('num'))
+                        has_hit = True
                         break
+                # 收窄：命中 ∧ 章內有未 anchor 的 problems heading → 漏抓 anchor 真 bug；
+                # 命中但無 problems heading → 正文散文編號清單（純 binary 書無題章常態）→ 不報。
+                if has_hit and _has_unanchored_problems_heading(cti, nci):
+                    bad_chs.append(c.get('num'))
             if bad_chs:
-                errs.append(f'章 {bad_chs} pbi=null 但章內有 problem_start_re 命中'
-                            f'（應設 inline_problems=true 或填正確 pbi）')
+                errs.append(f'章 {bad_chs} pbi=null 但章內有未 anchor 的 Problems/Exercises heading'
+                            f'（應填正確 pbi；若真為 inline 散落題則設 inline_problems=true）')
         except Exception:
             pass
 

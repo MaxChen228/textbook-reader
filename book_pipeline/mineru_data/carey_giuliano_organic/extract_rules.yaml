@@ -1,0 +1,236 @@
+# carey_giuliano_organic — Organic Chemistry 12th ed (Carey & Giuliano)
+# 章標在 header 跑馬燈；章扉頁=CHAPTER OUTLINE (lvl2 text)，作 chapter_title_block_idx
+# 二分模式抽 end-of-chapter PROBLEMS(純 N.M)；example_start_re 抽 in-chapter 'Problem N.M' 隨堂題
+slug: carey_giuliano_organic
+title: Organic Chemistry
+author: Francis A. Carey; Robert M. Giuliano
+edition: 12th
+subject: Organic Chemistry
+publisher: McGraw Hill
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 32
+appendices_start_page: 1199
+bibliography_start_page: 1201   # Glossary 起點，截尾排除 Glossary+Index
+index_start_page: 1222
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Structure Determines Properties"
+    page_start: 32
+    page_end: 85
+    chapter_title_block_idx: 578
+    problems_block_idx: 1375
+    next_chapter_block_idx: 1548
+  - num: 2
+    title: "Alkanes and Cycloalkanes: Introduction to Hydrocarbons"
+    page_start: 86
+    page_end: 129
+    chapter_title_block_idx: 1548
+    problems_block_idx: 2186
+    next_chapter_block_idx: 2345
+  - num: 3
+    title: "Alkanes and Cycloalkanes: Conformations and cis–trans Stereoisomers"
+    page_start: 130
+    page_end: 165
+    chapter_title_block_idx: 2345
+    problems_block_idx: 2833
+    next_chapter_block_idx: 3028
+  - num: 4
+    title: "Chirality"
+    page_start: 166
+    page_end: 203
+    chapter_title_block_idx: 3028
+    problems_block_idx: 3569
+    next_chapter_block_idx: 3767
+  - num: 5
+    title: "Alcohols and Alkyl Halides: Introduction to Reaction Mechanisms"
+    page_start: 204
+    page_end: 241
+    chapter_title_block_idx: 3767
+    problems_block_idx: 4304
+    next_chapter_block_idx: 4446
+  - num: 6
+    title: "Nucleophilic Substitution"
+    page_start: 242
+    page_end: 275
+    chapter_title_block_idx: 4446
+    problems_block_idx: 4852
+    next_chapter_block_idx: 5041
+  - num: 7
+    title: "Structure and Preparation of Alkenes: Elimination Reactions"
+    page_start: 276
+    page_end: 319
+    chapter_title_block_idx: 5041
+    problems_block_idx: 5765
+    next_chapter_block_idx: 5969
+  - num: 8
+    title: "Addition Reactions of Alkenes"
+    page_start: 320
+    page_end: 361
+    chapter_title_block_idx: 5969
+    problems_block_idx: 6553
+    next_chapter_block_idx: 6795
+  - num: 9
+    title: "Alkynes"
+    page_start: 362
+    page_end: 387
+    chapter_title_block_idx: 6795
+    problems_block_idx: 7144
+    next_chapter_block_idx: 7270
+  - num: 10
+    title: "Introduction to Free Radicals"
+    page_start: 388
+    page_end: 415
+    chapter_title_block_idx: 7270
+    problems_block_idx: 7709
+    next_chapter_block_idx: 7847
+  - num: 11
+    title: "Conjugation in Alkadienes and Allylic Systems"
+    page_start: 416
+    page_end: 457
+    chapter_title_block_idx: 7847
+    problems_block_idx: 8429
+    next_chapter_block_idx: 8646
+  - num: 12
+    title: "Arenes and Aromaticity"
+    page_start: 458
+    page_end: 507
+    chapter_title_block_idx: 8646
+    problems_block_idx: 9389
+    next_chapter_block_idx: 9580
+  - num: 13
+    title: "Electrophilic and Nucleophilic Aromatic Substitution"
+    page_start: 508
+    page_end: 563
+    chapter_title_block_idx: 9580
+    problems_block_idx: 10297
+    next_chapter_block_idx: 10524
+  - num: 14
+    title: "Spectroscopy"
+    page_start: 564
+    page_end: 631
+    chapter_title_block_idx: 10524
+    problems_block_idx: 11336
+    next_chapter_block_idx: 11495
+  - num: 15
+    title: "Organometallic Compounds"
+    page_start: 632
+    page_end: 669
+    chapter_title_block_idx: 11495
+    problems_block_idx: 11998
+    next_chapter_block_idx: 12150
+  - num: 16
+    title: "Alcohols, Diols, and Thiols"
+    page_start: 670
+    page_end: 707
+    chapter_title_block_idx: 12150
+    problems_block_idx: 12580
+    next_chapter_block_idx: 12764
+  - num: 17
+    title: "Ethers, Epoxides, and Sulfides"
+    page_start: 708
+    page_end: 745
+    chapter_title_block_idx: 12764
+    problems_block_idx: 13262
+    next_chapter_block_idx: 13464
+  - num: 18
+    title: "Aldehydes and Ketones: Nucleophilic Addition to the Carbonyl Group"
+    page_start: 746
+    page_end: 795
+    chapter_title_block_idx: 13464
+    problems_block_idx: 14038
+    next_chapter_block_idx: 14269
+  - num: 19
+    title: "Carboxylic Acids"
+    page_start: 796
+    page_end: 831
+    chapter_title_block_idx: 14269
+    problems_block_idx: 14725
+    next_chapter_block_idx: 14912
+  - num: 20
+    title: "Carboxylic Acid Derivatives: Nucleophilic Acyl Substitution"
+    page_start: 832
+    page_end: 883
+    chapter_title_block_idx: 14912
+    problems_block_idx: 15602
+    next_chapter_block_idx: 15804
+  - num: 21
+    title: "Enols and Enolates"
+    page_start: 884
+    page_end: 923
+    chapter_title_block_idx: 15804
+    problems_block_idx: 16424
+    next_chapter_block_idx: 16613
+  - num: 22
+    title: "Amines"
+    page_start: 924
+    page_end: 979
+    chapter_title_block_idx: 16613
+    problems_block_idx: 17268
+    next_chapter_block_idx: 17599
+  - num: 23
+    title: "Carbohydrates"
+    page_start: 980
+    page_end: 1029
+    chapter_title_block_idx: 17599
+    problems_block_idx: 18154
+    next_chapter_block_idx: 18294
+  - num: 24
+    title: "Lipids"
+    page_start: 1030
+    page_end: 1069
+    chapter_title_block_idx: 18294
+    problems_block_idx: 18766
+    next_chapter_block_idx: 18904
+  - num: 25
+    title: "Amino Acids, Peptides, and Proteins"
+    page_start: 1070
+    page_end: 1131
+    chapter_title_block_idx: 18904
+    problems_block_idx: 19615
+    next_chapter_block_idx: 19768
+  - num: 26
+    title: "Nucleosides, Nucleotides, and Nucleic Acids"
+    page_start: 1132
+    page_end: 1167
+    chapter_title_block_idx: 19768
+    problems_block_idx: 20125
+    next_chapter_block_idx: 20241
+  - num: 27
+    title: "Synthetic Polymers"
+    page_start: 1168
+    page_end: 1198
+    chapter_title_block_idx: 20241
+    problems_block_idx: 20706
+    next_chapter_block_idx: 20803
+
+appendices:
+  - id: A
+    title: "Summary of Methods Used to Synthesize a Particular Functional Group"
+    page_start: 1199
+    chapter_title_block_idx: 20803
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\s'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Problem\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
