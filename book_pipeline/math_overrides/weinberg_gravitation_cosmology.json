@@ -1,0 +1,121 @@
+{
+  "overrides": [
+    {
+      "id": "weinberg_gravitation_cosmology-ch13-body-36-8d8417",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[36]",
+      "field": "md",
+      "all": true,
+      "old": "$\\xi_\\rho^n_V(X)$",
+      "new": "${\\xi_\\rho^n}_V(X)$",
+      "anchor": "02f6c513"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch02-body-193-85d645",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[193]",
+      "expect": "\\begin{array}{l} T ^ {\\prime \\alpha} _ {\\beta} ^ {\\gamma} = A ^ {\\prime \\alpha} _ {\\beta} B ^ {\\prime \\gamma} \\\\ = \\Lambda_ {\\delta} ^ {\\alpha} \\Lambda_ {\\beta} ^ {\\varepsilon} \\Lambda_ {\\zeta} ^ {\\gamma} T _ {\\varepsilon} ^ {\\delta \\zeta} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} T ^ {\\prime \\alpha} _ {\\beta} {}^ {\\gamma} = A ^ {\\prime \\alpha} _ {\\beta} B ^ {\\prime \\gamma} \\\\ = \\Lambda_ {\\delta} ^ {\\alpha} \\Lambda_ {\\beta} ^ {\\varepsilon} \\Lambda_ {\\zeta} ^ {\\gamma} T _ {\\varepsilon} ^ {\\delta \\zeta} \\\\ \\end{array}"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch02-body-194-58d12f",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[194]",
+      "field": "md",
+      "all": true,
+      "old": "$T^{\\alpha}_{\\beta}^{\\gamma \\delta}$",
+      "new": "$T^{\\alpha}_{\\beta}{}^{\\gamma \\delta}$",
+      "anchor": "a55709d8"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch02-body-464-0b8598",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[464]",
+      "expect": "0 = T _ {\\mathrm{em}} ^ {\\alpha} _ {\\alpha} = 3 p _ {\\mathrm{em}} - \\rho_ {\\mathrm{em}} \\tag {2.10.33}",
+      "new": "0 = T _ {\\mathrm{em}} ^ {\\alpha} {}_ {\\alpha} = 3 p _ {\\mathrm{em}} - \\rho_ {\\mathrm{em}} \\tag {2.10.33}"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch04-body-50-53b67f",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[50]",
+      "field": "md",
+      "all": true,
+      "old": "$T^{\\mu}_{\\nu}^{\\rho}$",
+      "new": "$T^{\\mu}_{\\nu}{}^{\\rho}$",
+      "anchor": "340f798d"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch04-body-58-89c3e5",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[58]",
+      "field": "md",
+      "all": true,
+      "old": "$S_{\\nu}^{\\rho}_{\\sigma}$",
+      "new": "$S_{\\nu}^{\\rho}{}_{\\sigma}$",
+      "anchor": "5e2dee54"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch04-body-58-cdca1a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[58]",
+      "field": "md",
+      "all": true,
+      "old": "$S_{\\mu}^{\\rho}_{\\sigma}$",
+      "new": "$S_{\\mu}^{\\rho}{}_{\\sigma}$",
+      "anchor": "5e2dee54"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch07-body-109-f241ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[109]",
+      "expect": "(R _ {v} ^ {\\mu} - \\frac {1}{2} \\delta_ {v} ^ {\\mu} R) \\phi_ {; \\mu} = - 8 \\pi T _ {\\phi} ^ {\\mu} _ {v; \\mu} \\tag {7.3.6}",
+      "new": "(R _ {v} ^ {\\mu} - \\frac {1}{2} \\delta_ {v} ^ {\\mu} R) \\phi_ {; \\mu} = - 8 \\pi T _ {\\phi} ^ {\\mu} {}_ {v; \\mu} \\tag {7.3.6}"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch13-body-170-77817b",
+      "action": "fix_inline_math",
+      "chunk": "ch13",
+      "selector": "body[170]",
+      "field": "md",
+      "all": true,
+      "old": "$R_A_B$",
+      "new": "$R_{A B}$",
+      "anchor": "91baf767"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch14-body-523-91acd4",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[523]",
+      "expect": "J _ {G} ^ {\\mu} _ {; \\mu} = R ^ {- 3} (t) \\frac {\\partial}{\\partial t} \\left(R ^ {3} (t) J _ {G} ^ {t}\\right) = 3 n _ {G} H \\tag {14.8.7}",
+      "new": "J _ {G} ^ {\\mu} {}_ {; \\mu} = R ^ {- 3} (t) \\frac {\\partial}{\\partial t} \\left(R ^ {3} (t) J _ {G} ^ {t}\\right) = 3 n _ {G} H \\tag {14.8.7}"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch14-body-493-894d26",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[493]",
+      "field": "md",
+      "all": true,
+      "old": "$S>5\\times10^{-26}Wm^{-2}\\timesHz^{-1}$",
+      "new": "$S>5\\times 10^{-26}Wm^{-2}\\times Hz^{-1}$",
+      "anchor": "215c8218"
+    },
+    {
+      "id": "weinberg_gravitation_cosmology-ch07-body-113-1206ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[113]",
+      "expect": "\\begin{array}{l} T _ {\\phi} ^ {\\mu} _ {v; \\mu} = \\left[ A ^ {\\prime} (\\phi) + B ^ {\\prime} (\\phi) \\right] \\phi ; ^ {\\mu} \\phi_ {; v} \\phi_ {; \\mu} \\\\ + [ A (\\phi) + D ^ {\\prime} (\\phi) ] \\phi_ {; v} \\square^ {2} \\phi \\\\ + [ A (\\phi) + 2 B (\\phi) + C ^ {\\prime} (\\phi) ] \\phi_ {;; v} ^ {\\mu} \\phi_ {; \\mu} \\\\ + D (\\phi) \\left(\\square^ {2} \\phi\\right) _ {; v} + C (\\phi) \\square^ {2} \\left(\\phi_ {; v}\\right) \\tag {7.3.8} \\\\ \\end{array}",
+      "new": "\\begin{array}{l} {T _ {\\phi} ^ {\\mu}} _ {v; \\mu} = \\left[ A ^ {\\prime} (\\phi) + B ^ {\\prime} (\\phi) \\right] \\phi ; ^ {\\mu} \\phi_ {; v} \\phi_ {; \\mu} \\\\ + [ A (\\phi) + D ^ {\\prime} (\\phi) ] \\phi_ {; v} \\square^ {2} \\phi \\\\ + [ A (\\phi) + 2 B (\\phi) + C ^ {\\prime} (\\phi) ] \\phi_ {;; v} ^ {\\mu} \\phi_ {; \\mu} \\\\ + D (\\phi) \\left(\\square^ {2} \\phi\\right) _ {; v} + C (\\phi) \\square^ {2} \\left(\\phi_ {; v}\\right) \\tag {7.3.8} \\\\ \\end{array}"
+    }
+  ]
+}

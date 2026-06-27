@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-ch14-body-69-5362b0",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[69]",
+      "expect": "\\mathbf {v} = \\left\\{ \\begin{array}{l l} \\mathbf {0} & \\text {if 1 - y\\langle\\mathbf {w} , \\mathbf {x} \\rangle\\leq 0} \\\\ - y \\mathbf {x} & \\text {if 1 - y\\langle\\mathbf {w} , \\mathbf {x} \\rangle > 0} \\end{array} \\right.",
+      "new": "\\mathbf {v} = \\left\\{ \\begin{array}{l l} \\mathbf {0} & \\text {if } 1 - y\\langle\\mathbf {w} , \\mathbf {x} \\rangle\\leq 0 \\\\ - y \\mathbf {x} & \\text {if } 1 - y\\langle\\mathbf {w} , \\mathbf {x} \\rangle > 0 \\end{array} \\right."
+    },
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-ch15-body-107-408b1f",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[107]",
+      "expect": "g (\\mathbf {w}) = \\max _ {\\boldsymbol {\\alpha} \\in \\mathbb {R} ^ {m}: \\boldsymbol {\\alpha} \\geq \\mathbf {0}} \\sum_ {i = 1} ^ {m} \\alpha_ {i} (1 - y _ {i} \\langle \\mathbf {w}, \\mathbf {x} _ {i} \\rangle) = \\left\\{ \\begin{array}{l l} 0 & \\text {if \\forall i, y_{i} \\langle\\mathbf {w} ,\\mathbf {x} _{i} \\rangle\\geq 1} \\\\ \\infty & \\text {otherwise} \\end{array} \\right..",
+      "new": "g (\\mathbf {w}) = \\max _ {\\boldsymbol {\\alpha} \\in \\mathbb {R} ^ {m}: \\boldsymbol {\\alpha} \\geq \\mathbf {0}} \\sum_ {i = 1} ^ {m} \\alpha_ {i} (1 - y _ {i} \\langle \\mathbf {w}, \\mathbf {x} _ {i} \\rangle) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } \\forall i, y_{i} \\langle\\mathbf {w} ,\\mathbf {x} _{i} \\rangle\\geq 1 \\\\ \\infty & \\text {otherwise} \\end{array} \\right.."
+    },
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-ch13-body-63-f437d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[63]",
+      "expect": "f _ {S} (A \\left(S ^ {(i)}\\right)) - f _ {S} (A (S)) \\leq \\frac {\\ell \\left(A \\left(S ^ {(i)}\\right) , z _ {i}\\right) - \\ell \\left(A (S) , z _ {i}\\right)}{m} + \\frac {\\ell \\left(A (S) , z ^ {\\prime}\\right) - \\ell \\left(A \\left(S ^ {(i)}\\right) , z ^ {\\prime}\\right)}{m} \\tag {13.6}\\tag{13.9}",
+      "new": "f _ {S} (A \\left(S ^ {(i)}\\right)) - f _ {S} (A (S)) \\leq \\frac {\\ell \\left(A \\left(S ^ {(i)}\\right) , z _ {i}\\right) - \\ell \\left(A (S) , z _ {i}\\right)}{m} + \\frac {\\ell \\left(A (S) , z ^ {\\prime}\\right) - \\ell \\left(A \\left(S ^ {(i)}\\right) , z ^ {\\prime}\\right)}{m} \\tag {13.6\\;13.9}"
+    },
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-ch15-body-28-851748",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[28]",
+      "expect": "\\begin{array}{c} \\hline \\text {Hard - SVM} \\\\ \\text {input: (x_{1} ,y_{1}),\\ldots,(x_{m} ,y_{m})} \\\\ \\text {solve:} \\\\ (\\mathbf {w} _ {0}, b _ {0}) = \\underset {(\\mathbf {w}, b)} {\\operatorname{argmin}} \\| \\mathbf {w} \\| ^ {2} \\text {s.t.} \\forall i, y _ {i} (\\langle \\mathbf {w}, \\mathbf {x} _ {i} \\rangle + b) \\geq 1 \\\\ \\text {output:} \\hat {\\mathbf {w}} = \\frac {\\mathbf {w} _ {0}}{\\| \\mathbf {w} _ {0} \\|}, \\hat {b} = \\frac {b _ {0}}{\\| \\mathbf {w} _ {0} \\|} \\end{array}\\tag{15.2}",
+      "new": "\\begin{array}{c} \\hline \\text {Hard - SVM} \\\\ \\text {input: }(x_{1} ,y_{1}),\\ldots,(x_{m} ,y_{m}) \\\\ \\text {solve:} \\\\ (\\mathbf {w} _ {0}, b _ {0}) = \\underset {(\\mathbf {w}, b)} {\\operatorname{argmin}} \\| \\mathbf {w} \\| ^ {2} \\text {s.t.} \\forall i, y _ {i} (\\langle \\mathbf {w}, \\mathbf {x} _ {i} \\rangle + b) \\geq 1 \\\\ \\text {output:} \\hat {\\mathbf {w}} = \\frac {\\mathbf {w} _ {0}}{\\| \\mathbf {w} _ {0} \\|}, \\hat {b} = \\frac {b _ {0}}{\\| \\mathbf {w} _ {0} \\|} \\end{array}\\tag{15.2}"
+    },
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-appB-body-46-526efd",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[46]",
+      "expect": "\\begin{array}{l l} \\mathbb {E} [ e ^ {- t Z} ] = \\mathbb {E} [ e ^ {- t \\sum_ {i} Z _ {i}} ] = \\mathbb {E} [ \\prod_ {i} e ^ {- t Z _ {i}} ] \\\\ \\qquad = \\prod_ {i} \\mathbb {E} [ e ^ {- t Z _ {i}} ] & \\text {by independence} \\\\ \\qquad = \\prod_ {i} \\left(1 + p _ {i} (e ^ {- t} - 1)\\right) \\\\ \\qquad \\leq \\prod_ {i} e ^ {p _ {i} (e ^ {- t} - 1)} & \\text {using 1 + x\\leq e^{x}} \\\\ \\qquad = e ^ {(e ^ {- t} - 1) p}. \\end{array}",
+      "new": "\\begin{array}{l l} \\mathbb {E} [ e ^ {- t Z} ] = \\mathbb {E} [ e ^ {- t \\sum_ {i} Z _ {i}} ] = \\mathbb {E} [ \\prod_ {i} e ^ {- t Z _ {i}} ] \\\\ \\qquad = \\prod_ {i} \\mathbb {E} [ e ^ {- t Z _ {i}} ] & \\text {by independence} \\\\ \\qquad = \\prod_ {i} \\left(1 + p _ {i} (e ^ {- t} - 1)\\right) \\\\ \\qquad \\leq \\prod_ {i} e ^ {p _ {i} (e ^ {- t} - 1)} & \\text {using } 1 + x\\leq e^{x} \\\\ \\qquad = e ^ {(e ^ {- t} - 1) p}. \\end{array}"
+    },
+    {
+      "id": "shalev_shwartz_ben_david_understanding_ml-ch27-body-40-c59414",
+      "action": "fix_eq_tex",
+      "chunk": "ch27",
+      "selector": "body[40]",
+      "expect": "\\begin{array}{l} \\sqrt {\\log (N (c 2 ^ {- k} , A))} \\leq \\sqrt {d \\log \\left(2 ^ {k + 1} \\sqrt {d}\\right)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\sqrt {\\log (N (c 2 ^ {- k} , A))} \\leq \\sqrt {d \\log \\left(2 ^ {k + 1} \\sqrt {d}\\right)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}
