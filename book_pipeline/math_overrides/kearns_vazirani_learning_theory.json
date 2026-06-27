@@ -58,6 +58,38 @@
       "old": "${ \\pmb \\mathscr { s } } ^ { \\prime \\prime } .$",
       "new": "${ \\pmb {\\mathscr { s }} } ^ { \\prime \\prime } .$",
       "anchor": "37fd3a29"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-48-2b9b7f",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[48]",
+      "expect": "\\left ^ {d} \\sum_ {i = 0} ^ {d} \\binom {m} {i} \\leq \\sum_ {i = 0} ^ {d} \\left ^ {i} \\binom {m} {i} \\leq \\sum_ {i = 0} ^ {m} \\left ^ {i} \\binom {m} {i} = \\left ^ {m} \\leq e ^ {d}.",
+      "new": "2 ^ {d} \\sum_ {i = 0} ^ {d} \\binom {m} {i} \\leq \\sum_ {i = 0} ^ {d} 2 ^ {i} \\binom {m} {i} \\leq \\sum_ {i = 0} ^ {m} 2 ^ {i} \\binom {m} {i} = 2 ^ {m} \\leq e ^ {d}."
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-50-74f399",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[50]",
+      "expect": "\\Phi_ {d}  = \\sum_ {i = 0} ^ {d} \\binom{m}{i} \\leq \\left ^ {d} = O",
+      "new": "\\Phi_ {d}  = \\sum_ {i = 0} ^ {d} \\binom{m}{i} \\leq 2 ^ {d} = O"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-73-a335a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[73]",
+      "expect": "\\leq \\Phi_ {d}  2 ^ {- \\frac {\\epsilon m}{2}} \\leq \\left ^ {d} 2 ^ {- \\frac {\\epsilon m}{2}}.",
+      "new": "\\leq \\Phi_ {d}  2 ^ {- \\frac {\\epsilon m}{2}} \\leq 2 ^ {d} 2 ^ {- \\frac {\\epsilon m}{2}}."
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-101-184f3a",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[101]",
+      "expect": "\\left| \\Pi_ {\\mathcal {C} _ {G}}  \\right| \\leq T _ {\\mathcal {C} _ {G}}  \\leq \\left(\\Pi_ {\\mathcal {C}} \\right) ^ {s} \\leq \\left ^ {d s}",
+      "new": "\\left| \\Pi_ {\\mathcal {C} _ {G}}  \\right| \\leq T _ {\\mathcal {C} _ {G}}  \\leq \\left(\\Pi_ {\\mathcal {C}} \\right) ^ {s} \\leq 2 ^ {d s}"
     }
   ]
 }
