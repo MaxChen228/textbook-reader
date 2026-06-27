@@ -261,13 +261,38 @@ def can_archive_raw_pdf(pdf_name: str) -> tuple[bool, str]:
     return True, f'{slug} 已上站'
 
 
+def _unified_images_dir(slug: str) -> str:
+    return os.path.join(DATA, slug, 'unified', 'images')
+
+
+def _images_archived_marker(slug: str) -> str:
+    """unified/images 已下沉的本地哨兵：記錄原檔名清單，讓 catalog_audit._image_exists
+    與重 build 認得『圖在冷藏、視為存在』，不誤判圖缺失、不重觸發 pdf_crop。"""
+    return os.path.join(DATA, slug, 'unified', 'images.archived.json')
+
+
+def _can_archive_unified_images(slug: str, flying: set) -> bool:
+    """unified/images 下沉判據：已上站 ∧ 非在飛 ∧ webp 已生成（img/<slug>/ 在＝重轉產物已存在，
+    來源可下沉）∧ 尚未下沉（無 marker）∧ images/ 目錄真在。unified/images 唯二消費者是
+    catalog pdf_crop 與重轉 webp——前者靠 marker fallback 不誤判、後者罕見要時 restore。
+    content_list.json 不搬（ingest 哨兵 + parser/sol 來源，留本機）。"""
+    if not (_deployed(slug) and slug not in flying and f'{slug}_sol' not in flying):
+        return False
+    if not os.path.isdir(_unified_images_dir(slug)):
+        return False
+    if os.path.exists(_images_archived_marker(slug)):
+        return False
+    return os.path.isdir(os.path.join(ROOT, 'img', slug))
+
+
 def collect_archive(only: list[str] | None = None
                     ) -> tuple[dict[str, list[str]], list[tuple[str, str]]]:
     """🔵 冷 → 搬 ARCHIVE_ROOT。回 (移動組, 保留清單)。
-    only 給定時僅作用該些書的 raw_zips（範圍化分批/驗證），跳過 raw_pdfs/quarantine。"""
+    only 給定時僅作用該些書的 raw_zips + unified_images（範圍化分批/驗證），跳過 raw_pdfs/quarantine。"""
     sel = set(only) if only else None
     flying = _in_flight()
     zips: list[str] = []
+    uimgs: list[str] = []
     for slug in _slugs():
         if sel and slug not in sel:
             continue
@@ -275,6 +300,9 @@ def collect_archive(only: list[str] | None = None
         # 真相（resume 重收割會解壓它），搬走會讓 daemon 找不到 → 與其協調須排除。
         if _deployed(slug) and slug not in flying and f'{slug}_sol' not in flying:
             zips += _raw_zips(slug)
+        # unified/images 下沉（容量第二大槓桿，30MB/本）：判據見 _can_archive_unified_images。
+        if _can_archive_unified_images(slug, flying):
+            uimgs.append(_unified_images_dir(slug))
     pdfs: list[str] = []
     held: list[tuple[str, str]] = []
     quar: list[str] = []
@@ -291,7 +319,8 @@ def collect_archive(only: list[str] | None = None
                     held.append((p, why))
         if os.path.isdir(QUARANTINE):
             quar = [os.path.join(QUARANTINE, f) for f in os.listdir(QUARANTINE)]
-    return {'raw_zips': zips, 'raw_pdfs': pdfs, 'quarantine': quar}, held
+    return {'raw_zips': zips, 'raw_pdfs': pdfs, 'quarantine': quar,
+            'unified_images': uimgs}, held
 
 
 # ── 冷藏索引（manifest）：HDD 易手自帶清單，restore/observability 不靠人腦記憶 ────
@@ -309,7 +338,7 @@ def _load_manifest() -> dict:
     m = jsonio.read_json(_manifest_path(), None)
     if not isinstance(m, dict):
         m = {}
-    for k in ('raw_zips', 'raw_pdfs', 'quarantine'):
+    for k in ('raw_zips', 'raw_pdfs', 'quarantine', 'unified_images'):
         m.setdefault(k, {})
     return m
 
@@ -368,44 +397,53 @@ def _sentinel_path() -> str:
     return os.path.join(ARCHIVE_ROOT, '.cold_archive_id')
 
 
-def _ensure_sentinel(for_write: bool) -> None:
-    """掛載身分校驗：防 ARCHIVE_ROOT 漂移/空掛載點時把資料搬進開機碟空殼。
-      · sentinel 在且與 sidecar.archive_id 不符 → 拒絕（錯誤卷）。
+def _check_sentinel(for_write: bool) -> tuple[bool, str]:
+    """掛載身分校驗核心（回 (ok, reason)，**不 sys.exit**）：防 ARCHIVE_ROOT 漂移/空掛載點時
+    把資料搬進開機碟空殼。daemon 自動 archive 必走此版（exit 會殺 controller）；CLI 走
+    _ensure_sentinel wrapper 維持 sys.exit。語義：
+      · sentinel 在且與 sidecar.archive_id 不符 → 拒（錯誤卷）。
       · sentinel 在、sidecar 無 id → 採信卷上 id（HDD 易手後 adopt）。
-      · sentinel 缺 + for_write：sidecar 已有 id（曾 archive 過）→ 拒絕（恐 HDD 未掛/空卷）；
+      · sentinel 缺 + for_write：sidecar 已有 id（曾 archive 過）→ 拒（恐 HDD 未掛/空卷）；
         無 id（首次）→ 初始化 sentinel + 寫回 sidecar.archive_id。
       · sentinel 缺 + 唯讀 → 放行（restore 找不到資料自會報錯，不額外擋）。"""
     cfg = _read_sidecar()
     expected = cfg.get('archive_id')
     sp = _sentinel_path()
     if os.path.exists(sp):
-        # sentinel 在 → 必須讀得到且非空才驗；讀失敗/空＝身分損毀 → 拒絕（不靜默放行，否則
-        # 可能寫入無法驗證身分的卷）。
+        # sentinel 在 → 必須讀得到且非空才驗；讀失敗/空＝身分損毀 → 拒（不靜默放行）。
         try:
             actual = open(sp, encoding='utf-8').read().strip()
         except OSError as e:
-            sys.exit(f'  ⛔ 冷藏 sentinel 讀取失敗（{sp}：{e}）：無法驗掛載身分，拒絕動作。')
+            return False, f'冷藏 sentinel 讀取失敗（{sp}：{e}）：無法驗掛載身分'
         if not actual:
-            sys.exit(f'  ⛔ 冷藏 sentinel 為空（{sp}）：身分損毀，拒絕動作'
-                     f'（人工確認卷後重寫 .cold_archive_id）。')
+            return False, (f'冷藏 sentinel 為空（{sp}）：身分損毀'
+                           f'（人工確認卷後重寫 .cold_archive_id）')
         if expected and actual != expected:
-            sys.exit(f'  ⛔ 冷藏掛載身分不符（卷上 {actual} ≠ 設定 {expected}）：恐錯誤/空掛載點，'
-                     f'拒絕動作。確認 sidecar(.storage_gc.json) archive_root 指向正確卷。')
+            return False, (f'冷藏掛載身分不符（卷上 {actual} ≠ 設定 {expected}）：恐錯誤/空掛載點。'
+                           f'確認 sidecar(.storage_gc.json) archive_root 指向正確卷')
         if not expected:
             cfg['archive_id'] = actual
             _save_sidecar(cfg)
-        return
+        return True, ''
     if not for_write:
-        return
+        return True, ''
     if expected:
-        sys.exit(f'  ⛔ 設定期望冷藏身分 {expected} 但 {ARCHIVE_ROOT} 無 sentinel：'
-                 f'恐 HDD 未掛載或指向錯誤空卷，拒絕搬入。掛回正確卷再試。')
+        return False, (f'設定期望冷藏身分 {expected} 但 {ARCHIVE_ROOT} 無 sentinel：'
+                       f'恐 HDD 未掛載或指向錯誤空卷，拒絕搬入。掛回正確卷再試')
     os.makedirs(ARCHIVE_ROOT, exist_ok=True)
     new = uuid.uuid4().hex[:12]
     with open(sp, 'w', encoding='utf-8') as f:
         f.write(new + '\n')
     cfg['archive_id'] = new
     _save_sidecar(cfg)
+    return True, ''
+
+
+def _ensure_sentinel(for_write: bool) -> None:
+    """CLI wrapper：掛載身分校驗失敗即 sys.exit（保留原 CLI 行為）。daemon 用 _check_sentinel。"""
+    ok, reason = _check_sentinel(for_write)
+    if not ok:
+        sys.exit(f'  ⛔ {reason}，拒絕動作。')
 
 
 def _offline_books() -> list[tuple[str, bool]]:
@@ -547,6 +585,73 @@ def cmd_prune(args) -> None:
     print(f'  ✅ 已回收 {_human(freed)}；工作碟剩餘 {_human(_free_bytes())}\n')
 
 
+def _archive_core(only: list[str] | None = None) -> dict:
+    """archive 搬移核心：sentinel 校驗 + 逐項事務式 move（_safe_move）+ manifest。
+    **不取 _tick_lock**（呼叫端負責：CLI cmd_archive 取鎖；daemon do_post_deploy_gc 已持鎖→直呼，
+    重取會 flock 自鎖死）。**不 sys.exit**（sentinel 失敗回 ok:False；daemon exit 會殺 controller）。
+    回 {ok, moved, failures:[(name,err)], reason, by_kind:{kind:bytes}}。供 CLI 與 daemon 共用同一
+    搬移核心，杜絕漂移（鏡像 gc_book 之於 prune）。"""
+    ok, reason = _check_sentinel(for_write=True)
+    if not ok:
+        return {'ok': False, 'moved': 0, 'failures': [], 'reason': reason, 'by_kind': {}}
+    groups, _ = collect_archive(only)  # 取鎖後（或持鎖內）重新列舉，避 TOCTOU
+    man = _load_manifest()
+    moved = 0
+    failures: list[tuple[str, str]] = []
+    by_kind: dict[str, int] = {}
+    seen_slugs: set[str] = set()
+    for key in ('raw_zips', 'raw_pdfs', 'quarantine', 'unified_images'):
+        for p in groups.get(key, []):
+            if key == 'raw_zips':
+                # p = mineru_data/<slug>/raw/chunk_N.zip → 取 <slug> 需 dirname 兩層
+                slug = os.path.basename(os.path.dirname(os.path.dirname(p)))
+                dest_dir = os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)
+            elif key == 'unified_images':
+                # p = mineru_data/<slug>/unified/images → 取 <slug> 需 dirname 兩層（同 raw_zips）
+                slug = os.path.basename(os.path.dirname(os.path.dirname(p)))
+                dest_dir = os.path.join(ARCHIVE_ROOT, 'unified_images')
+            else:
+                slug = None
+                dest_dir = os.path.join(ARCHIVE_ROOT, key)
+            os.makedirs(dest_dir, exist_ok=True)
+            # raw_zips 自帶組裝說明書：搬某書第一個 zip 時連帶複製 chunks.json→_assembly.json
+            if key == 'raw_zips' and slug and slug not in seen_slugs:
+                seen_slugs.add(slug)
+                ck = os.path.join(DATA, slug, 'unified', 'chunks.json')
+                asm = os.path.join(dest_dir, '_assembly.json')
+                if os.path.exists(ck) and not os.path.exists(asm):
+                    try:
+                        shutil.copy2(ck, asm)
+                    except Exception as e:
+                        failures.append((f'{slug}/_assembly.json', str(e)))
+            try:
+                if key == 'unified_images':
+                    # 整個 images/ 目錄 move → unified_images/<slug>/。move 前收檔名清單，move 後
+                    # 留本地 marker（images.archived.json）→ catalog_audit._image_exists 與重 build
+                    # 認得「圖在冷藏、視為存在」，不誤判圖缺失、不重觸發 pdf_crop。
+                    names = sorted(os.listdir(p)) if os.path.isdir(p) else []
+                    sz = _safe_move(p, os.path.join(dest_dir, slug))
+                    jsonio.atomic_write_json(
+                        _images_archived_marker(slug),
+                        {'files': names, 'bytes': sz, 'moved_at': _now()})
+                    man['unified_images'][slug] = {
+                        'files': len(names), 'bytes': sz, 'moved_at': _now()}
+                else:
+                    sz = _safe_move(p, os.path.join(dest_dir, os.path.basename(p)))
+                    rec = man[key].setdefault(
+                        slug if slug else os.path.basename(p), {'files': [], 'bytes': 0})
+                    if slug:
+                        rec['files'].append(os.path.basename(p))
+                    rec['bytes'] = rec.get('bytes', 0) + sz
+                    rec['moved_at'] = _now()
+                moved += sz
+                by_kind[key] = by_kind.get(key, 0) + sz
+            except Exception as e:
+                failures.append((os.path.relpath(p, ROOT), str(e)))
+    _save_manifest(man)
+    return {'ok': True, 'moved': moved, 'failures': failures, 'reason': '', 'by_kind': by_kind}
+
+
 def cmd_archive(args) -> None:
     only = getattr(args, 'slug', None)
     groups, held = collect_archive(only)
@@ -563,11 +668,13 @@ def cmd_archive(args) -> None:
     elif same_disk:
         print('  ⚠ 目的地與工作碟同一顆實體碟 → 搬移不釋放空間（恐冷藏卷未掛、落到開機碟）。')
     total = 0
-    for key in ('raw_zips', 'raw_pdfs', 'quarantine'):
-        paths = groups[key]
+    for key in ('raw_zips', 'raw_pdfs', 'quarantine', 'unified_images'):
+        paths = groups.get(key, [])
         sz = _du_bytes_multi(paths)
         total += sz
-        sub = 'raw_zips/<slug>/' if key == 'raw_zips' else f'{key}/'
+        sub = ('raw_zips/<slug>/' if key == 'raw_zips'
+               else 'unified_images/<slug>/' if key == 'unified_images'
+               else f'{key}/')
         print(f'  ── {key}: {len(paths)} 項，{_human(sz)} → {ARCHIVE_ROOT}/{sub}')
     if held:
         print(f'  ── 保留（raw_pdfs 未消費完，不搬）：{len(held)} 項')
@@ -581,45 +688,10 @@ def cmd_archive(args) -> None:
         print('  → 確認冷藏卷已掛（/Volumes/TOSHIBA EXT）後加 --apply 執行搬移\n')
         return
     with _tick_lock():
-        _ensure_sentinel(for_write=True)  # 掛載身分校驗：錯卷/空殼即拒，不搬進開機碟
-        groups, _ = collect_archive(only)  # 取鎖後重新列舉（TOCTOU）
-        man = _load_manifest()
-        moved = 0
-        failures: list[tuple[str, str]] = []
-        seen_slugs: set[str] = set()
-        for key in ('raw_zips', 'raw_pdfs', 'quarantine'):
-            for p in groups[key]:
-                if key == 'raw_zips':
-                    # p = mineru_data/<slug>/raw/chunk_N.zip → 取 <slug> 需 dirname 兩層
-                    slug = os.path.basename(os.path.dirname(os.path.dirname(p)))
-                    dest_dir = os.path.join(ARCHIVE_ROOT, 'raw_zips', slug)
-                else:
-                    slug = None
-                    dest_dir = os.path.join(ARCHIVE_ROOT, key)
-                os.makedirs(dest_dir, exist_ok=True)
-                # P2.2 冷藏自帶組裝說明書：搬某書第一個 zip 時連帶複製 unified/chunks.json
-                # → _assembly.json，使「只剩冷藏」也能 reassemble（不靠本地 gitignore 檔）。
-                if slug and slug not in seen_slugs:
-                    seen_slugs.add(slug)
-                    ck = os.path.join(DATA, slug, 'unified', 'chunks.json')
-                    asm = os.path.join(dest_dir, '_assembly.json')
-                    if os.path.exists(ck) and not os.path.exists(asm):
-                        try:
-                            shutil.copy2(ck, asm)
-                        except Exception as e:
-                            failures.append((f'{slug}/_assembly.json', str(e)))
-                try:
-                    sz = _safe_move(p, os.path.join(dest_dir, os.path.basename(p)))
-                    moved += sz
-                    rec = man[key].setdefault(slug if slug else os.path.basename(p),
-                                              {'files': [], 'bytes': 0})
-                    if slug:
-                        rec['files'].append(os.path.basename(p))
-                    rec['bytes'] = rec.get('bytes', 0) + sz
-                    rec['moved_at'] = _now()
-                except Exception as e:
-                    failures.append((os.path.relpath(p, ROOT), str(e)))
-        _save_manifest(man)
+        res = _archive_core(only)  # 取鎖內呼叫核心（sentinel 校驗 + 事務式 move + manifest）
+    if not res['ok']:
+        sys.exit(f'  ⛔ {res["reason"]}，拒絕動作。')
+    moved, failures = res['moved'], res['failures']
     print(f'  ✅ 已冷藏 {_human(moved)}（邏輯位元組，非 du 配置大小）；'
           f'工作碟剩餘 {_human(_free_bytes())}\n  冷藏索引：{_manifest_path()}')
     if failures:
@@ -641,7 +713,8 @@ def _cold_inventory() -> None:
     man = _load_manifest()
     for key, label in (('raw_zips', '📦 raw_zips（書 OCR 回包，可 reassemble）'),
                        ('raw_pdfs', '📄 raw_pdfs（來源 PDF）'),
-                       ('quarantine', '🗃 quarantine（退貨書）')):
+                       ('quarantine', '🗃 quarantine（退貨書）'),
+                       ('unified_images', '🖼 unified_images（圖原檔，重轉 webp 來源）')):
         items = dict(man.get(key, {}))
         if not items:  # manifest 缺 → 掃實際目錄（手動搬入/前 manifest 時代資料）
             d = os.path.join(ARCHIVE_ROOT, key)
@@ -655,7 +728,7 @@ def _cold_inventory() -> None:
             print(f'      · {name}{extra}')
         if len(items) > 12:
             print(f'      …… 共 {len(items)} 項')
-    print('  還原：restore <名> [--kind raw_zips|raw_pdfs|quarantine] --apply\n')
+    print('  還原：restore <名> [--kind raw_zips|raw_pdfs|quarantine|unified_images] --apply\n')
 
 
 def _restore_raw_zips(slug: str, apply: bool) -> None:
@@ -711,6 +784,43 @@ def _restore_flat(name: str, kind: str, apply: bool) -> None:
     print(f'  ✅ 已拉回 → {dst}\n')
 
 
+def restore_unified_images_core(slug: str) -> bool:
+    """拉回下沉的 unified/images（冷藏 copy 回原位 + 刪 marker）。**不取鎖、不 sys.exit**——
+    供 build 期間 convert_images 自動補圖呼叫（build_all 是 daemon subprocess、不持 .tick.lock；
+    controller 持鎖整生命週期，子進程取鎖會死鎖 → 故核心不取鎖）。下沉書必穩定上站非在飛、
+    daemon 不碰 → 不取鎖無 race。回是否成功（冷藏無此書/失敗→False，不炸呼叫端）。"""
+    src = os.path.join(ARCHIVE_ROOT, 'unified_images', slug)
+    dst = _unified_images_dir(slug)
+    if not os.path.isdir(src):
+        return False
+    try:
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copytree(src, dst, dirs_exist_ok=True)
+        marker = _images_archived_marker(slug)
+        if os.path.exists(marker):
+            os.remove(marker)
+        return True
+    except Exception:
+        return False
+
+
+def _restore_unified_images(slug: str, apply: bool) -> None:
+    """CLI：拉回某書下沉的 unified/images + 刪 marker。restore 是 copy（冷藏端保留＝durable backup）。"""
+    src = os.path.join(ARCHIVE_ROOT, 'unified_images', slug)
+    if not os.path.isdir(src):
+        sys.exit(f'冷藏無此書 unified/images：{src}')
+    n = len(os.listdir(src))
+    dst = _unified_images_dir(slug)
+    print(f'\n  restore {slug}（unified_images）：{n} 項 → {dst}（拷回）')
+    if not apply:
+        print('  DRY-RUN（加 --apply 執行）\n')
+        return
+    with _tick_lock():  # CLI 手動：取鎖與 daemon 序列化（核心不取鎖，wrapper 包鎖）
+        ok = restore_unified_images_core(slug)
+    print(f'  ✅ 已拉回 {n} 項 → {dst}（marker 已清）\n' if ok
+          else f'  ⚠ restore 失敗（冷藏無此書或 IO 錯）\n')
+
+
 def cmd_restore(args) -> None:
     """從冷藏拉回。無 slug → 列冷藏清單；有 slug → 按 --kind 還原（預設 raw_zips）。"""
     if not args.slug:
@@ -719,6 +829,8 @@ def cmd_restore(args) -> None:
     _ensure_sentinel(for_write=False)  # 拉回前驗掛載身分（錯卷即拒）
     if args.kind == 'raw_zips':
         _restore_raw_zips(args.slug, args.apply)
+    elif args.kind == 'unified_images':
+        _restore_unified_images(args.slug, args.apply)
     else:
         _restore_flat(args.slug, args.kind, args.apply)
 
@@ -868,7 +980,8 @@ def main() -> None:
     r = sub.add_parser('restore', help='從冷藏拉回（無參數=列冷藏清單）')
     r.add_argument('slug', nargs='?',
                    help='書 slug（raw_zips）或檔名（raw_pdfs/quarantine）；省略=列清單')
-    r.add_argument('--kind', choices=['raw_zips', 'raw_pdfs', 'quarantine'],
+    r.add_argument('--kind',
+                   choices=['raw_zips', 'raw_pdfs', 'quarantine', 'unified_images'],
                    default='raw_zips', help='還原類別（預設 raw_zips）')
     r.add_argument('--apply', action='store_true')
     r.set_defaults(func=cmd_restore)

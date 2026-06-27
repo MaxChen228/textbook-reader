@@ -1876,6 +1876,10 @@ GC_STABILITY_MIN = int(os.environ.get('BOOK_PIPELINE_GC_STABILITY_MIN', '120'))
 # GC 全書掃描節流（per-controller monotonic）：免每 observe cycle 掃 320 書讀 book.json。
 GC_INTERVAL_SEC = int(os.environ.get('BOOK_PIPELINE_GC_INTERVAL_SEC', '1800'))
 _gc_throttle = {'last': 0.0}  # 本 controller 上次 GC 掃描戳；loop 起頭重置 → 首掃於 ~INTERVAL 後
+# 高水位自動 archive：開機碟 used% ≥ 此閾值 → do_post_deploy_gc 把冷資料（raw_zips/raw_pdfs/
+# quarantine + unified/images）事務式搬冷藏碟、降回安全水位。低於閾值不搬 → 保留本機快取（重
+# ingest/重 build 快）。根除「冷資料堆滿開機碟、archive 全靠人工」的週期性撞 100%（記憶事件）。
+GC_ARCHIVE_HIGH_WATER_PCT = int(os.environ.get('BOOK_PIPELINE_ARCHIVE_HIGH_WATER', '80'))
 
 
 def _gc_due() -> bool:
@@ -1925,11 +1929,51 @@ def _gc_candidates(state: dict) -> list[str]:
     return out
 
 
+def _do_archive_high_water(sgc, dry: bool) -> None:
+    """高水位偵測 → 自動把冷資料（raw_zips/raw_pdfs/quarantine + unified/images）事務式搬冷藏碟。
+    呼叫處（do_post_deploy_gc）在 controller 進程內、**已持 .tick.lock** → 直呼 _archive_core
+    不重取鎖（重取會 flock 自鎖死，鏡像 gc_book）。**fail-safe**：disk 偵測失敗 / sentinel 失敗
+    / 碟離線 / 任何異常 → log 告警、**絕不拋**（不殺 controller、不擋 pipeline；與 gc_book 同調）。
+    低於高水位不搬 → 保留本機快取（重 ingest/重 build 快），按需下沉。"""
+    try:
+        sv = os.statvfs(ROOT)
+        total = sv.f_blocks * sv.f_frsize
+        used_pct = 100.0 * (1 - sv.f_bavail * sv.f_frsize / total) if total else 0.0
+    except Exception as e:
+        log(f'高水位 archive：disk 偵測失敗（略過）：{e}')
+        return
+    if used_pct < GC_ARCHIVE_HIGH_WATER_PCT:
+        return
+    try:
+        if dry:
+            groups, _ = sgc.collect_archive()
+            n = sum(len(groups.get(k, [])) for k in
+                    ('raw_zips', 'raw_pdfs', 'quarantine', 'unified_images'))
+            log(f'高水位 {used_pct:.0f}% ≥ {GC_ARCHIVE_HIGH_WATER_PCT}%（DRY）：'
+                f'會 archive {n} 項冷資料 → 冷藏碟')
+            return
+        res = sgc._archive_core()
+        if not res['ok']:
+            log(f'⚠ 高水位 {used_pct:.0f}% 但自動 archive 跳過：{res["reason"]}')
+            return
+        if res['moved']:
+            parts = ' + '.join(f'{k} {v / 1e9:.1f}G'
+                               for k, v in res['by_kind'].items() if v)
+            log(f'高水位 {used_pct:.0f}% → 自動冷藏 {res["moved"] / 1e9:.2f}GB（{parts}）；'
+                f'開機碟剩餘 {sgc._human(sgc._free_bytes())}')
+        for name, err in res['failures'][:5]:
+            log(f'  ⚠ archive {name}: {err}')
+    except Exception as e:
+        log(f'高水位 archive 異常（不影響 prune/pipeline）：{e}')
+
+
 def do_post_deploy_gc(dry: bool) -> int:
-    """post-deploy 自動 GC：清『已穩定上站 ∧ 非在飛』書的 🟡 可免費重生產物（raw/chunk_*/ +
-    chunks/），讓中間產物自己排水、免人工定期 prune。呼叫處（tick_once 序列尾 / reactive det
-    worker）皆在 controller 進程內、已持 .tick.lock → 直呼 storage_gc.gc_book 不重取鎖（與手動
-    prune 共用同一刪除核心）。安全閘全在 _gc_candidates（鏡像 prune：只動已上站、跳在飛）。"""
+    """post-deploy 自動 GC，兩段：
+      A. prune 🟡 可免費重生產物（raw/chunk_*/ + chunks/）——已穩定上站 ∧ 非在飛書，自己排水。
+      B. 高水位 → 自動 archive 🔵 冷資料（raw + unified/images）到冷藏碟，降回安全水位（容量自治）。
+    呼叫處（tick_once 序列尾 / reactive det worker）皆在 controller 進程內、已持 .tick.lock →
+    gc_book / _archive_core 皆不重取鎖。安全閘：prune 在 _gc_candidates、archive 在
+    collect_archive（只動已上站、跳在飛）；archive fail-safe 不拋（見 _do_archive_high_water）。"""
     from book_pipeline import storage_gc as sgc
     # 閘門：gc lane held → 跳過（涵蓋 tick_once/dry + 硬兜底；reactive 另有 pre-check 省 _start）。
     if not pg.gate_allows(None, 'gc', _active_gates()):
@@ -1937,21 +1981,25 @@ def do_post_deploy_gc(dry: bool) -> int:
             log('post-deploy GC：gate hold → 跳過')
         return 0
     _gc_throttle['last'] = time.monotonic()  # 不論有無候選都重置節流戳（下次 ~INTERVAL 後再掃）
+    # A. prune 可重生產物
     cands = _gc_candidates(q._load_state())
-    if not cands:
-        return 0
     if dry:
-        log(f'post-deploy GC（DRY）：{len(cands)} 本可清可重生產物 → '
-            f'{", ".join(cands[:8])}' + (' …' if len(cands) > 8 else ''))
+        if cands:
+            log(f'post-deploy GC（DRY）：{len(cands)} 本可清可重生產物 → '
+                f'{", ".join(cands[:8])}' + (' …' if len(cands) > 8 else ''))
+        _do_archive_high_water(sgc, dry=True)
         return 0
-    freed = 0
-    for slug in cands:
-        with _live_det_worker('gc', slug):  # /dev 面板顯「🔧 gc 處理中」
-            f, warns = sgc.gc_book(slug)
-        freed += f
-        for w in warns:
-            log(f'  ⚠ gc {slug}: {w}')
-    log(f'post-deploy GC：回收 {freed / 1e9:.2f}GB（清 {len(cands)} 本已穩定上站書的可重生產物）')
+    if cands:
+        freed = 0
+        for slug in cands:
+            with _live_det_worker('gc', slug):  # /dev 面板顯「🔧 gc 處理中」
+                f, warns = sgc.gc_book(slug)
+            freed += f
+            for w in warns:
+                log(f'  ⚠ gc {slug}: {w}')
+        log(f'post-deploy GC：回收 {freed / 1e9:.2f}GB（清 {len(cands)} 本已穩定上站書的可重生產物）')
+    # B. 高水位 → 自動 archive 冷資料（容量自治，根除週期性撞滿）
+    _do_archive_high_water(sgc, dry=False)
     return 0
 
 

@@ -67,6 +67,29 @@ def _jobs_for(slug: str) -> list[tuple[str, str]]:
     return jobs
 
 
+def _restore_unified_images_if_webp_lost(slug: str) -> None:
+    """下沉書若 webp 也丟失（img/<slug>/ 無 webp）→ 從冷藏自動拉回 unified/images 供重轉，閉環
+    『全自動』（未來 img/ 被清的姊妹情境）。正常（webp 在）不動：unified/images 已下沉但 webp 在
+    → glob 空、跳過、reader 用既有 webp，無需拉回。"""
+    if not _valid_slug(slug):
+        return
+    bd = DATA_DIR / slug
+    if not (bd / 'unified' / 'images.archived.json').is_file() \
+            or (bd / 'unified' / 'images').is_dir():
+        return  # 沒下沉 或 images 還在本地
+    out_dir = OUT / slug
+    if out_dir.is_dir() and any(out_dir.glob('*.webp')):
+        return  # webp 仍在 → reader OK，不需重轉、不必拉回
+    try:
+        from book_pipeline import storage_gc as sgc
+        if sgc.restore_unified_images_core(slug):
+            print(f'  ↩ {slug}: webp 缺失，已從冷藏 restore unified/images 供重轉')
+        else:
+            print(f'  ⚠ {slug}: unified/images 下沉且 webp 缺、冷藏拉回失敗（碟未掛？）')
+    except Exception as e:
+        print(f'  ⚠ {slug}: unified/images 自動 restore 異常（{e}）')
+
+
 def main(argv: list[str]) -> None:
     if argv:
         slugs = [slug for slug in argv if _valid_slug(slug)]
@@ -81,6 +104,7 @@ def main(argv: list[str]) -> None:
                        if _valid_slug(p.parent.parent.name))
     all_jobs: list[tuple[str, str]] = []
     for slug in slugs:
+        _restore_unified_images_if_webp_lost(slug)  # 下沉書 webp 丟失→自動拉回供重轉
         all_jobs.extend(_jobs_for(slug))
     print(f'{len(slugs)} book(s), {len(all_jobs)} image(s) to check')
 

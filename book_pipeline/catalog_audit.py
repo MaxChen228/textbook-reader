@@ -262,7 +262,19 @@ def _image_exists(root: Path, src: str) -> bool:
         root / 'parsed' / src_path,
         root / 'parsed' / 'images' / src_path.name,
     ]
-    return any(p.is_file() for p in candidates)
+    if any(p.is_file() for p in candidates):
+        return True
+    # unified/images 已下沉冷藏（storage_gc archive）→ 讀本地 marker 認得「圖在冷藏、視為存在」，
+    # 不誤判圖缺失、不重觸發 pdf_crop（檔名清單在 images.archived.json；要動圖時 restore 拉回）。
+    marker = root / 'unified' / 'images.archived.json'
+    if marker.is_file():
+        try:
+            names = set((json.loads(marker.read_text()) or {}).get('files', []))
+            if src_path.name in names:
+                return True
+        except Exception:
+            pass
+    return False
 
 
 def _visible_catalog_entry(group: str, entry: dict[str, Any]) -> bool:
