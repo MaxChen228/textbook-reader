@@ -1,0 +1,87 @@
+{
+  "overrides": [
+    {
+      "id": "washington_elliptic_curves-ch04-body-633-3c8499",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[633]",
+      "expect": "\\sum_ {x \\in \\mathbf {F} _ {q}} x ^ {i} = \\left\\{ \\begin{array}{c l} 0 & \\text {if q - 1\\nmid i} \\\\ - 1 & \\text {if q - 1|i.} \\end{array} \\right.",
+      "new": "\\sum_ {x \\in \\mathbf {F} _ {q}} x ^ {i} = \\left\\{ \\begin{array}{c l} 0 & \\text {if } q - 1\\nmid i \\\\ - 1 & \\text {if } q - 1|i. \\end{array} \\right."
+    },
+    {
+      "id": "washington_elliptic_curves-ch09-body-745-d5e285",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[745]",
+      "expect": "\\begin{array}{r l} \\wp (\\frac {1}{n} \\omega_ {2}) & \\text {if n is odd or if 4x^{3} +4Ax+4B has only one real root} \\\\ \\wp (\\frac {1}{n} \\omega_ {2}), & \\wp (\\frac {1}{n} \\omega_ {2} + \\frac {1}{2} \\omega_ {1}), \\quad \\wp (\\frac {1}{n} \\omega_ {2} + \\frac {1}{2} \\omega_ {1} + \\frac {1}{2} \\omega_ {2}) \\\\ & \\text {if n is even and 4x^{3} +4Ax+4B has 3 real roots} \\end{array}",
+      "new": "\\begin{array}{r l} \\wp (\\frac {1}{n} \\omega_ {2}) & \\text {if n is odd or if } 4x^{3} +4Ax+4B \\text { has only one real root} \\\\ \\wp (\\frac {1}{n} \\omega_ {2}), & \\wp (\\frac {1}{n} \\omega_ {2} + \\frac {1}{2} \\omega_ {1}), \\quad \\wp (\\frac {1}{n} \\omega_ {2} + \\frac {1}{2} \\omega_ {1} + \\frac {1}{2} \\omega_ {2}) \\\\ & \\text {if n is even and } 4x^{3} +4Ax+4B \\text { has 3 real roots} \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch10-body-99-7b1537",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[99]",
+      "expect": "\\begin{array}{c} \\text { Homothety classes of lattices L } \\\\ \\text { with RL\\subseteq L} \\end{array} \\longleftrightarrow \\begin{array}{c} \\text { Equivalence classes of } \\\\ \\text { nonzero ideals of R } \\end{array}",
+      "new": "\\begin{array}{c} \\text { Homothety classes of lattices L } \\\\ \\text { with } RL\\subseteq L \\end{array} \\longleftrightarrow \\begin{array}{c} \\text { Equivalence classes of } \\\\ \\text { nonzero ideals of R } \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch11-body-242-bcee26",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[242]",
+      "expect": "\\begin{array}{r l} \\left(\\prod_ {j = 0} ^ {n - 1} g \\circ \\tau_ {j T ^ {\\prime}}\\right) ^ {n} & = \\prod_ {j = 0} ^ {n - 1} f \\circ n \\circ \\tau_ {j T ^ {\\prime}} \\\\ & = \\prod_ {j = 0} ^ {n - 1} f \\circ \\tau_ {j T} \\circ n \\quad (\\text {since nT^{\\prime} = T}). \\end{array}",
+      "new": "\\begin{array}{r l} \\left(\\prod_ {j = 0} ^ {n - 1} g \\circ \\tau_ {j T ^ {\\prime}}\\right) ^ {n} & = \\prod_ {j = 0} ^ {n - 1} f \\circ n \\circ \\tau_ {j T ^ {\\prime}} \\\\ & = \\prod_ {j = 0} ^ {n - 1} f \\circ \\tau_ {j T} \\circ n \\quad (\\text {since } nT^{\\prime} = T). \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch11-body-727-ac4174",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[727]",
+      "expect": "\\begin{array}{l l} \\psi (\\phi Q) = (\\dots , e _ {n} (P, \\phi Q), \\dots) \\\\ = (\\dots , e _ {n} (\\phi P, \\phi Q), \\dots) & \\text {(since \\phi P = P for P\\in E(\\mathbf {F} _ {q})[n])} \\\\ = \\big (\\dots , e _ {n} (P, Q) ^ {\\phi}, \\dots \\big) & \\text {(by part (5) of Theorem 11.7)} \\\\ = (\\dots , e _ {n} (P, Q), \\dots) & \\text {(since \\mu_ {n} \\subset \\mathbf {F} _ {q})} \\\\ = \\psi (Q). \\end{array}",
+      "new": "\\begin{array}{l l} \\psi (\\phi Q) = (\\dots , e _ {n} (P, \\phi Q), \\dots) \\\\ = (\\dots , e _ {n} (\\phi P, \\phi Q), \\dots) & \\text {(since } \\phi P = P \\text { for } P\\in E(\\mathbf {F} _ {q})[n]) \\\\ = \\big (\\dots , e _ {n} (P, Q) ^ {\\phi}, \\dots \\big) & \\text {(by part (5) of Theorem 11.7)} \\\\ = (\\dots , e _ {n} (P, Q), \\dots) & \\text {(since } \\mu_ {n} \\subset \\mathbf {F} _ {q}) \\\\ = \\psi (Q). \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch12-body-177-f021ed",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[177]",
+      "expect": "\\begin{array}{r l} & g _ {Q} ^ {x} = 3 x _ {Q} ^ {2} + 2 a _ {2} x _ {Q} + a _ {4} - a _ {1} y _ {Q} \\\\ & g _ {Q} ^ {y} = - 2 y _ {Q} - a _ {1} x _ {Q} - a _ {3} \\\\ & v _ {Q} = \\left\\{ \\begin{array}{l l} g _ {Q} ^ {x} & (\\text {if 2Q = \\infty}) \\\\ 2 g _ {Q} ^ {x} - a _ {1} g _ {Q} ^ {y} & (\\text {if 2Q\\neq\\infty}) \\end{array} \\right. \\\\ & u _ {Q} = (g _ {Q} ^ {y}) ^ {2}. \\end{array}",
+      "new": "\\begin{array}{r l} & g _ {Q} ^ {x} = 3 x _ {Q} ^ {2} + 2 a _ {2} x _ {Q} + a _ {4} - a _ {1} y _ {Q} \\\\ & g _ {Q} ^ {y} = - 2 y _ {Q} - a _ {1} x _ {Q} - a _ {3} \\\\ & v _ {Q} = \\left\\{ \\begin{array}{l l} g _ {Q} ^ {x} & (\\text {if } 2Q = \\infty) \\\\ 2 g _ {Q} ^ {x} - a _ {1} g _ {Q} ^ {y} & (\\text {if } 2Q\\neq\\infty) \\end{array} \\right. \\\\ & u _ {Q} = (g _ {Q} ^ {y}) ^ {2}. \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch15-body-81-2d7484",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[81]",
+      "expect": "T _ {r} \\left(\\sum_ {n = 1} ^ {\\infty} b _ {n} q ^ {n}\\right) = \\left\\{ \\begin{array}{l l} \\sum_ {n = 1} ^ {\\infty} b _ {r n} q ^ {n} + \\sum_ {n = 1} ^ {\\infty} r b _ {n} q ^ {r n}, & \\text {if r\\nmid N} \\\\ \\sum_ {n = 1} ^ {\\infty} b _ {r n} q ^ {n}, & \\text {if r\\mid N}. \\end{array} \\right.",
+      "new": "T _ {r} \\left(\\sum_ {n = 1} ^ {\\infty} b _ {n} q ^ {n}\\right) = \\left\\{ \\begin{array}{l l} \\sum_ {n = 1} ^ {\\infty} b _ {r n} q ^ {n} + \\sum_ {n = 1} ^ {\\infty} r b _ {n} q ^ {r n}, & \\text {if } r\\nmid N \\\\ \\sum_ {n = 1} ^ {\\infty} b _ {r n} q ^ {n}, & \\text {if } r\\mid N. \\end{array} \\right."
+    },
+    {
+      "id": "washington_elliptic_curves-ch04-body-575-808536",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[575]",
+      "field": "md",
+      "all": true,
+      "old": "$\\# E ( \\mathbf { F } _ { 1 9 } ) = 2 7 . \\qquad \\big \\mathbb { L }$",
+      "new": "$\\# E ( \\mathbf { F } _ { 1 9 } ) = 2 7 . \\qquad \\mathbb { L }$",
+      "anchor": "6e92f308"
+    },
+    {
+      "id": "washington_elliptic_curves-ch11-body-269-8d59a7",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[269]",
+      "expect": "\\begin{array}{l} e _ {n} (\\alpha (S), \\alpha (T)) = \\frac {g _ {\\alpha (T)} (\\alpha (P + S))}{g _ {\\alpha (T)} (\\alpha (P))} \\\\ \\qquad = \\prod_ {i} \\frac {g _ {T} (P + S - Q _ {i} ^ {\\prime})}{g _ {T} (P - Q _ {i} ^ {\\prime})} \\quad \\text {(the constant C cancels out)} \\\\ \\qquad = \\prod_ {i} e _ {n} (S, T) \\\\ \\qquad \\text {(since both P and P - Q_{i} ^{\\prime} give the same value of e_{n})} \\\\ \\qquad = e _ {n} (S, T) ^ {k} = e _ {n} (S, T) ^ {\\deg (\\alpha)}. \\end{array}",
+      "new": "\\begin{array}{l} e _ {n} (\\alpha (S), \\alpha (T)) = \\frac {g _ {\\alpha (T)} (\\alpha (P + S))}{g _ {\\alpha (T)} (\\alpha (P))} \\\\ \\qquad = \\prod_ {i} \\frac {g _ {T} (P + S - Q _ {i} ^ {\\prime})}{g _ {T} (P - Q _ {i} ^ {\\prime})} \\quad \\text {(the constant C cancels out)} \\\\ \\qquad = \\prod_ {i} e _ {n} (S, T) \\\\ \\qquad \\text{(since both } P \\text{ and } P - Q_{i} ^{\\prime} \\text{ give the same value of } e_{n} \\text{)} \\\\ \\qquad = e _ {n} (S, T) ^ {k} = e _ {n} (S, T) ^ {\\deg (\\alpha)}. \\end{array}"
+    },
+    {
+      "id": "washington_elliptic_curves-ch11-body-729-84d844",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[729]",
+      "expect": "\\begin{array}{l l} \\# E (\\mathbf {F} _ {q}) [ n ] = \\# \\text {Ker} (\\phi - 1) | _ {E [ n ]} & \\text {(since \\operatorname{Ker} (\\phi - 1) = E(\\mathbf {F} _ {q}))} \\\\ = \\# E [ n ] / \\# ((\\phi - 1) E [ n ]) & \\text {(by Lemma 11.29)} \\\\ \\geq \\# E [ n ] / \\# (\\text {Ker} \\psi) & \\text {(since (\\phi - 1)E[n]\\subseteq\\text {Ker} \\psi)} \\\\ = \\# \\psi (E [ n ]) = \\# E (\\mathbf {F} _ {q}) [ n ]. \\end{array}",
+      "new": "\\begin{array}{l l} \\# E (\\mathbf {F} _ {q}) [ n ] = \\# \\text {Ker} (\\phi - 1) | _ {E [ n ]} & \\text{(since } \\operatorname{Ker} (\\phi - 1) = E(\\mathbf {F} _ {q})\\text{)} \\\\ = \\# E [ n ] / \\# ((\\phi - 1) E [ n ]) & \\text {(by Lemma 11.29)} \\\\ \\geq \\# E [ n ] / \\# (\\text {Ker} \\psi) & \\text{(since } (\\phi - 1)E[n]\\subseteq\\text {Ker} \\psi\\text{)} \\\\ = \\# \\psi (E [ n ]) = \\# E (\\mathbf {F} _ {q}) [ n ]. \\end{array}"
+    }
+  ]
+}
