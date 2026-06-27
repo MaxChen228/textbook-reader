@@ -1,0 +1,37 @@
+{
+  "overrides": [
+    {
+      "id": "gonzalez_microwave_amplifiers-ch01-body-823-80ba45",
+      "action": "fix_inline_math",
+      "chunk": "ch01",
+      "selector": "body[823]",
+      "field": "md",
+      "all": true,
+      "old": "$V_{1} = 0.167\\left|0^{\\circ} E_{1}, I_{1} = 0.0118\\left| -45^{\\circ} E_{1}, V_{2} = 0.118\\left| -45^{\\circ} E_{1}, \\text{and } I_{2} = -0.0118\\left| -45^{\\circ} E_{1}. \\right.\\right. \\right.$",
+      "new": "$V_{1} = 0.167|0^{\\circ} E_{1}, I_{1} = 0.0118| -45^{\\circ} E_{1}, V_{2} = 0.118| -45^{\\circ} E_{1}, \\text{and } I_{2} = -0.0118| -45^{\\circ} E_{1}.$",
+      "anchor": "33263e86"
+    },
+    {
+      "id": "gonzalez_microwave_amplifiers-ch03-body-27-531d18",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[27]",
+      "field": "md",
+      "all": true,
+      "old": "$E_{1}=10\\left\\lfloor0^{\\circ}, Z_{1}=50\\Omega,$",
+      "new": "$E_{1}=10\\left\\lfloor0^{\\circ}\\right., Z_{1}=50\\Omega,$",
+      "anchor": "b6905e49"
+    },
+    {
+      "id": "gonzalez_microwave_amplifiers-ch04-body-187-75e609",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[187]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Gamma_{IN}=0.744\\left|-107.88^{\\circ},\\left|\\Gamma_{a}\\right|=0.575,\\text{and}(\\mathrm{VSWR})_{\\mathrm{in}}=3.71.$",
+      "new": "$\\Gamma_{IN}=0.744|-107.88^{\\circ},\\left|\\Gamma_{a}\\right|=0.575,\\text{and}(\\mathrm{VSWR})_{\\mathrm{in}}=3.71.$",
+      "anchor": "26d6c960"
+    }
+  ]
+}

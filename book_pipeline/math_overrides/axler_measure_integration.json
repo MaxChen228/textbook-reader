@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "axler_measure_integration-ch02-body-247-4cfe3f",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[247]",
+      "expect": "\\chi_ {E} ^ {- 1} (B) = \\left\\{ \\begin{array}{l l} E & \\text {if 0\\notin B and 1\\in B}, \\\\ X \\setminus E & \\text {if 0\\in B and 1\\notin B}, \\\\ X & \\text {if 0\\in B and 1\\in B}, \\\\ \\emptyset & \\text {if 0\\notin B and 1\\notin B}. \\end{array} \\right.",
+      "new": "\\chi_ {E} ^ {- 1} (B) = \\left\\{ \\begin{array}{l l} E & \\text{if } 0\\notin B \\text{ and } 1\\in B \\text{,} \\\\ X \\setminus E & \\text{if } 0\\in B \\text{ and } 1\\notin B \\text{,} \\\\ X & \\text{if } 0\\in B \\text{ and } 1\\in B \\text{,} \\\\ \\emptyset & \\text{if } 0\\notin B \\text{ and } 1\\notin B \\text{.} \\end{array} \\right."
+    },
+    {
+      "id": "axler_measure_integration-ch03-body-131-fedb01",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[131]",
+      "expect": "\\begin{array}{l} \\int (f + g)   d \\mu = \\int f   d \\mu + \\int g   d \\mu , \\\\ \\text {   completing   the   proof.   } \\end{array} \\quad \\boxed  \\begin{array}{l} \\text {   Gottfried   Leibniz   (1646 - 1716)   invented   the   symbol   \\int   to   denote   integration   in   1675.   }",
+      "new": "\\begin{array}{l} \\int (f + g)   d \\mu = \\int f   d \\mu + \\int g   d \\mu , \\\\ \\text {   completing   the   proof.   } \\end{array} \\quad \\boxed{\\begin{array}{l} \\text{   Gottfried   Leibniz   (1646 - 1716)   invented   the   symbol   } \\int \\text{   to   denote   integration   in   1675.   } \\end{array}}"
+    }
+  ]
+}

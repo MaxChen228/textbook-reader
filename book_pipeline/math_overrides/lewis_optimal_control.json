@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "lewis_optimal_control-ch10-body-23-a7856f",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[23]",
+      "expect": "0 = Q (x) + \\nabla V ^ {\\mathrm{T}} (x) f (x) - \\frac {1}{4} \\nabla V ^ {\\mathrm{T}} (x) g (x) R ^ {- 1} g ^ {\\mathrm{T}} (x) \\nabla V (x).\\tag{(V(0) = 0\\}",
+      "new": "0 = Q (x) + \\nabla V ^ {\\mathrm{T}} (x) f (x) - \\frac {1}{4} \\nabla V ^ {\\mathrm{T}} (x) g (x) R ^ {- 1} g ^ {\\mathrm{T}} (x) \\nabla V (x).\\tag{(V(0) = 0)}"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "bergen_vittal_power_systems-ch09-body-137-27b351",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[137]",
+      "expect": "\\begin{array}{l l} \\text {For k = 1,2,\\ldots,(n - 1)} \\\\ \\text {If Y_{kk} = 0} \\\\ \\text {then} \\\\ \\text {quit} \\\\ \\text {else} \\\\ Y _ {i k} = \\frac {Y _ {i k}}{Y _ {k k}} \\quad i = k + 1, \\ldots , n \\\\ Y _ {i j} = Y _ {i j} - \\frac {Y _ {i k} Y _ {k j}}{Y _ {k k}} \\quad i, j = k + 1, \\ldots , n \\end{array}",
+      "new": "\\begin{array}{l l} \\text{For } k = 1,2,\\ldots,(n - 1) \\\\ \\text{If } Y_{kk} = 0 \\\\ \\text {then} \\\\ \\text {quit} \\\\ \\text {else} \\\\ Y _ {i k} = \\frac {Y _ {i k}}{Y _ {k k}} \\quad i = k + 1, \\ldots , n \\\\ Y _ {i j} = Y _ {i j} - \\frac {Y _ {i k} Y _ {k j}}{Y _ {k k}} \\quad i, j = k + 1, \\ldots , n \\end{array}"
+    }
+  ]
+}

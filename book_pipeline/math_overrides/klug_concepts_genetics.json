@@ -1,0 +1,85 @@
+{
+  "overrides": [
+    {
+      "id": "klug_concepts_genetics-ch03-body-64-8abfc8",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[64]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { F } _ { \\harpoonright }$",
+      "new": "$\\mathsf { F } _ { \\upharpoonright }$",
+      "anchor": "2f194577"
+    },
+    {
+      "id": "klug_concepts_genetics-ch08-body-97-8abfc8",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[97]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathsf { F } _ { \\harpoonright }$",
+      "new": "$\\mathsf { F } _ { \\upharpoonright }$",
+      "anchor": "ed353d9d"
+    },
+    {
+      "id": "klug_concepts_genetics-ch04-problem-2-body-12-ab3899",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:2:body[12]",
+      "expect": "\\begin{array}{l l} \\mathrm {P_ {1} :} & \\text {red\\times\\ref{unknown}} \\\\ \\mathrm {F_ {1} :} & 2 0 4 \\text {red} \\\\ & 1 9 8 \\text {purple} \\end{array} \\quad (1 / 2)",
+      "new": "\\begin{array}{l l} \\mathrm {P_ {1} :} & \\text {red}\\times\\ref{unknown} \\\\ \\mathrm {F_ {1} :} & 2 0 4 \\text {red} \\\\ & 1 9 8 \\text {purple} \\end{array} \\quad (1 / 2)"
+    },
+    {
+      "id": "klug_concepts_genetics-ch04-problem-2-body-14-107392",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:2:body[14]",
+      "expect": "\\begin{array}{l l} \\mathrm {P_ {1}}: & \\text {oval\\times\\ref{unknown})} \\\\ \\mathrm {F_ {1}}: & 2 0 1 \\text {long} \\quad (1 / 2) \\\\ & 2 0 1 \\text {oval} \\quad (1 / 2) \\end{array}",
+      "new": "\\begin{array}{l l} \\mathrm {P_ {1}}: & \\text {oval}\\times\\ref{unknown}) \\\\ \\mathrm {F_ {1}}: & 2 0 1 \\text {long} \\quad (1 / 2) \\\\ & 2 0 1 \\text {oval} \\quad (1 / 2) \\end{array}"
+    },
+    {
+      "id": "klug_concepts_genetics-ch25-body-51-f8a156",
+      "action": "fix_eq_tex",
+      "chunk": "ch25",
+      "selector": "body[51]",
+      "expect": "\\begin{array}{c c c} & \\text { Sperm } \\\\ & \\text { fr(A) = p } & \\text { fr(a) = q } \\\\ \\hline \\text { fr(A) = p } & \\text { fr(AA) = p^2 } & \\text { fr(Aa) = pq } \\\\ \\hline \\text { Eggs } \\\\ \\text { fr(a) = q } & \\text { fr(aA) = qp } & \\text { fr(aa) = q^2 } \\end{array}",
+      "new": "\\begin{array}{c c c} & \\text { Sperm } \\\\ & \\text { fr(A) = p } & \\text { fr(a) = q } \\\\ \\hline \\text { fr(A) = p } & \\text { fr(AA) = }p^2 & \\text { fr(Aa) = pq } \\\\ \\hline \\text { Eggs } \\\\ \\text { fr(a) = q } & \\text { fr(aA) = qp } & \\text { fr(aa) = }q^2 \\end{array}"
+    },
+    {
+      "id": "klug_concepts_genetics-appA-body-635-e87e8c",
+      "action": "fix_inline_math",
+      "chunk": "appA",
+      "selector": "body[635]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathring \\mathrm { A }$",
+      "new": "$\\mathring {\\mathrm { A }}$",
+      "anchor": "3839c26c"
+    },
+    {
+      "id": "klug_concepts_genetics-appA-body-353-841ce8",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[353]",
+      "expect": "\\begin{array}{r l} \\nu - s & = \\frac {4 6 + 3 0 + 1 0 + 1 4}{1 0 0 0} \\times 1 0 0 \\\\ & = 1 0 \\% (\\text {map units}) \\\\ & \\underbrace {s c - - - - v - - - - s} _ {3 3} \\underbrace {1 0} _ \\end{array}",
+      "new": "\\begin{array}{r l} \\nu - s & = \\frac {4 6 + 3 0 + 1 0 + 1 4}{1 0 0 0} \\times 1 0 0 \\\\ & = 1 0 \\% (\\text {map units}) \\\\ & \\underbrace {s c - - - - v - - - - s} _ {3 3} \\underbrace {1 0} \\end{array}"
+    },
+    {
+      "id": "klug_concepts_genetics-ch04-problem-2-body-9-651344",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:2:body[9]",
+      "expect": "F _ {2}: \\left\\{ \\begin{array}{l l} 1 / 4 R R \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 3 / 1 6 R R O - \\\\ 2 / 4 R r \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 6 / 1 6 R r O - \\\\ 1 / 4 r r \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 3 / 1 6 r r O - \\\\ \\end{array} \\right. & \\text {   red   long   } \\\\ & \\text {   red   oval   } \\\\ & \\text {   purple   long   } \\\\ & \\text {   purple   oval   } \\\\ & \\text {   white   long   } \\\\ & \\text {   white   oval   } \\end{array} \\right.",
+      "new": "\\left. \\begin{array}{ll} F _ {2}: \\left\\{ \\begin{array}{l l} 1 / 4 R R \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 3 / 1 6 R R O - \\\\ 2 / 4 R r \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 6 / 1 6 R r O - \\\\ 1 / 4 r r \\bigg \\langle \\begin{array}{c} 3 / 4 O - \\\\ 1 / 4 o o \\end{array} & 3 / 1 6 r r O - \\\\ \\end{array} \\right. & \\text {   red   long   } \\\\ & \\text {   red   oval   } \\\\ & \\text {   purple   long   } \\\\ & \\text {   purple   oval   } \\\\ & \\text {   white   long   } \\\\ & \\text {   white   oval   } \\end{array} \\right."
+    },
+    {
+      "id": "klug_concepts_genetics-appA-body-130-b01b7e",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[130]",
+      "expect": "\\begin{array}{l} \\text {etc.} \\\\ \\left\\{ \\begin{array}{l} 1 / 4 B B \\left\\{ \\begin{array}{l} 1 / 4 C C = 1 / 6 4 A A B B C C \\\\ 2 / 4 C c = 2 / 6 4 A A B B C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 A A \\left\\{ \\begin{array}{l} 1 / 4 B b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 b b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\end{array} \\right. \\\\ \\text {etc.} \\\\ \\left\\{ \\begin{array}{l} 1 / 4 B B \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 2 / 4 B b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 b b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\end{*}. \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\text {etc.} \\\\ \\left\\{ \\begin{array}{l} 1 / 4 B B \\left\\{ \\begin{array}{l} 1 / 4 C C = 1 / 6 4 A A B B C C \\\\ 2 / 4 C c = 2 / 6 4 A A B B C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 A A \\left\\{ \\begin{array}{l} 1 / 4 B b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 b b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\end{array} \\right. \\\\ \\text {etc.} \\\\ \\left\\{ \\begin{array}{l} 1 / 4 B B \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 2 / 4 B b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\\\ 1 / 4 b b \\left\\{ \\begin{array}{l} 1 / 4 C C \\\\ 2 / 4 C c \\\\ 1 / 4 c c \\end{array} \\right. \\end{array} \\right. . \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ \\text {etc.} \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (\\text {etc.}) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\\\ (1 / 4 a a) \\end{array} \\right. \\end{array}"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "overrides": [
+    {
+      "id": "bertsekas_nonlinear_programming-ch02-body-1177-5eb519",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[1177]",
+      "expect": "\\nabla_ {u _ {i}} H _ {i} (x _ {i} ^ {*}, u _ {i} ^ {*}, p _ {i + 1} ^ {*}) = \\nabla_ {u _ {i}} \\left\\{p _ {i + 1} ^ {*} ^ {\\prime} B _ {i} u _ {i} ^ {*} + \\frac {1}{2} u _ {i} ^ {* \\prime} R _ {i} u _ {i} ^ {*} + \\frac {1}{2} x _ {i} ^ {* \\prime} Q _ {i} x _ {i} ^ {*} \\right\\} = 0",
+      "new": "\\nabla_ {u _ {i}} H _ {i} (x _ {i} ^ {*}, u _ {i} ^ {*}, p _ {i + 1} ^ {*}) = \\nabla_ {u _ {i}} \\left\\{p _ {i + 1} ^ {*\\prime} B _ {i} u _ {i} ^ {*} + \\frac {1}{2} u _ {i} ^ {* \\prime} R _ {i} u _ {i} ^ {*} + \\frac {1}{2} x _ {i} ^ {* \\prime} Q _ {i} x _ {i} ^ {*} \\right\\} = 0"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch02-body-1242-712efc",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[1242]",
+      "expect": "H _ {i} (x _ {i}, u _ {i}, p _ {i + 1} ^ {k}) = g _ {i} (x _ {i}, u _ {i}) + p _ {i + 1} ^ {k}   ^ {\\prime} f _ {i} (x _ {i}, u _ {i}).\\tag{2.215}",
+      "new": "H _ {i} (x _ {i}, u _ {i}, p _ {i + 1} ^ {k}) = g _ {i} (x _ {i}, u _ {i}) + p _ {i + 1} ^ {k\\prime} f _ {i} (x _ {i}, u _ {i}).\\tag{2.215}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch03-body-441-99b1f4",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[441]",
+      "expect": "\\bar {x} ^ {k} = \\arg \\min _ {x \\in X} \\left\\{\\nabla f (x ^ {k}) ^ {\\prime} (x - x ^ {k}) + \\frac {1}{2 s ^ {k}} (x - x ^ {k}) ^ {\\prime} \\nabla^ {2} f (x ^ {k}) (x - x ^ {k}) \\right\\}. \\tag {2}\\tag{3.53}",
+      "new": "\\bar {x} ^ {k} = \\arg \\min _ {x \\in X} \\left\\{\\nabla f (x ^ {k}) ^ {\\prime} (x - x ^ {k}) + \\frac {1}{2 s ^ {k}} (x - x ^ {k}) ^ {\\prime} \\nabla^ {2} f (x ^ {k}) (x - x ^ {k}) \\right\\}. \\tag{3.53}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch03-body-552-f0a02e",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[552]",
+      "expect": "\\begin{array}{r l} f (x ^ {k}) - f \\big (x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big) & = \\nabla f (x ^ {k}) ^ {\\prime} \\big (x ^ {k} - x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big) \\\\ & + \\big (\\nabla f (\\xi^ {k}) - \\nabla f (x ^ {k}) \\big) ^ {\\prime} \\big (x ^ {k} - x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big), \\end{array} \\tag {3}\\tag{3.74}",
+      "new": "\\begin{array}{r l} f (x ^ {k}) - f \\big (x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big) & = \\nabla f (x ^ {k}) ^ {\\prime} \\big (x ^ {k} - x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big) \\\\ & + \\big (\\nabla f (\\xi^ {k}) - \\nabla f (x ^ {k}) \\big) ^ {\\prime} \\big (x ^ {k} - x ^ {k} (\\beta^ {- 1} s ^ {k}) \\big), \\end{array} \\tag{3.74}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch04-body-393-672c8c",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[393]",
+      "expect": "\\begin{array}{l} \\text { minimize } f (x) \\\\ \\text { subject   to } h _ {i} (x) = 0, \\dots , h _ {m} (x) = 0, \\quad g _ {j} (x) = 0, \\quad \\forall j \\in A (x ^ {*}). \\end{array} \\tag {4}\\tag{4.45}",
+      "new": "\\begin{array}{l} \\text { minimize } f (x) \\\\ \\text { subject   to } h _ {i} (x) = 0, \\dots , h _ {m} (x) = 0, \\quad g _ {j} (x) = 0, \\quad \\forall j \\in A (x ^ {*}). \\end{array} \\tag{4.45}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch05-body-431-bda2f6",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[431]",
+      "expect": "\\begin{array}{l} \\min _ {z} \\bar {L} _ {c} (x, z, \\lambda , \\mu) = f (x) + \\lambda^ {\\prime} h (x) + \\frac {c}{2} \\| h (x) \\| ^ {2} \\\\ \\quad + \\sum_ {j = 1} ^ {r} \\min _ {z _ {j}} \\left\\{\\mu_ {j} \\left(g _ {j} (x) + z _ {j} ^ {2}\\right) + \\frac {c}{2} | g _ {j} (x) + z _ {j} ^ {2} | ^ {2} \\right\\}, \\end{array} \\tag {5}\\tag{5.58}",
+      "new": "\\begin{array}{l} \\min _ {z} \\bar {L} _ {c} (x, z, \\lambda , \\mu) = f (x) + \\lambda^ {\\prime} h (x) + \\frac {c}{2} \\| h (x) \\| ^ {2} \\\\ \\quad + \\sum_ {j = 1} ^ {r} \\min _ {z _ {j}} \\left\\{\\mu_ {j} \\left(g _ {j} (x) + z _ {j} ^ {2}\\right) + \\frac {c}{2} | g _ {j} (x) + z _ {j} ^ {2} | ^ {2} \\right\\}, \\end{array} \\tag{5.58}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch07-body-289-65d624",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[289]",
+      "expect": "x _ {i _ {k}} ^ {k + 1} \\in \\arg \\min _ {x _ {i _ {k}} \\in X _ {i _ {k}}} \\left\\{f _ {i _ {k}} (x _ {i _ {k}}) + \\lambda^ {k ^ {\\prime}} A _ {i _ {k}} x _ {i _ {k}} + \\frac {c ^ {k}}{2} \\left\\| A _ {i _ {k}} x _ {i _ {k}} + \\sum_ {i \\neq i _ {k}} A _ {i} x _ {i} ^ {k} - b \\right\\| ^ {2} \\right\\} \\tag {7.37}\\tag{7.37}",
+      "new": "x _ {i _ {k}} ^ {k + 1} \\in \\arg \\min _ {x _ {i _ {k}} \\in X _ {i _ {k}}} \\left\\{f _ {i _ {k}} (x _ {i _ {k}}) + \\lambda^ {k ^ {\\prime}} A _ {i _ {k}} x _ {i _ {k}} + \\frac {c ^ {k}}{2} \\left\\| A _ {i _ {k}} x _ {i _ {k}} + \\sum_ {i \\neq i _ {k}} A _ {i} x _ {i} ^ {k} - b \\right\\| ^ {2} \\right\\} \\tag{7.37}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch07-body-505-a20d3f",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[505]",
+      "expect": "x ^ {k + 1} \\in \\arg \\min _ {x \\in X} \\left\\{f (x) + \\lambda^ {k ^ {\\prime}} (A x - b) + \\frac {c}{2} \\| A x - b \\| ^ {2} + \\frac {\\gamma}{2} \\| x - x ^ {k} \\| ^ {2} \\right\\}, \\tag {7.}\\tag{7.76}",
+      "new": "x ^ {k + 1} \\in \\arg \\min _ {x \\in X} \\left\\{f (x) + \\lambda^ {k ^ {\\prime}} (A x - b) + \\frac {c}{2} \\| A x - b \\| ^ {2} + \\frac {\\gamma}{2} \\| x - x ^ {k} \\| ^ {2} \\right\\}, \\tag{7.76}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-appB-body-67-da0600",
+      "action": "fix_eq_tex",
+      "chunk": "appB",
+      "selector": "body[67]",
+      "expect": "\\left(\\nabla f (x) - \\nabla f (y)\\right) ^ {\\prime} (x - y) \\geq \\frac {\\sigma L}{\\sigma + L} \\| x - y \\| ^ {2} + \\frac {1}{\\sigma + L} \\left\\| \\nabla f (x) - \\nabla f (y) \\right\\| ^ {2}. \\tag {B.6}\\tag{B.6}",
+      "new": "\\left(\\nabla f (x) - \\nabla f (y)\\right) ^ {\\prime} (x - y) \\geq \\frac {\\sigma L}{\\sigma + L} \\| x - y \\| ^ {2} + \\frac {1}{\\sigma + L} \\left\\| \\nabla f (x) - \\nabla f (y) \\right\\| ^ {2}. \\tag{B.6}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch01-body-1066-5e7a62",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1066]",
+      "expect": "\\begin{array}{r l} & {f (x ^ {k} + d ^ {k}) \\leq f (x ^ {k}) + \\nabla f (x ^ {k}) ^ {\\prime} \\tilde {d} ^ {k} + \\frac {1}{2} \\tilde {d} ^ {k} ^ {\\prime} \\nabla^ {2} f (x ^ {k}) \\tilde {d} ^ {k} + o \\big ((\\gamma^ {k}) ^ {2} \\big)} \\\\ & {\\qquad = f (x ^ {k}) - \\gamma^ {k} \\big \\| | \\nabla f (x ^ {k}) | \\big \\| + \\frac {(\\gamma^ {k}) ^ {2}}{2 \\big \\| \\nabla f (x ^ {k}) \\big \\| ^ {2}} \\nabla f (x ^ {k}) ^ {\\prime} \\nabla^ {2} f (x ^ {k}) \\nabla f (x ^ {k})} \\\\ & {\\qquad + o \\big ((\\gamma^ {k}) ^ {2} \\big).} \\end{array}",
+      "new": "\\begin{array}{r l} & {f (x ^ {k} + d ^ {k}) \\leq f (x ^ {k}) + \\nabla f (x ^ {k}) ^ {\\prime} \\tilde {d} ^ {k} + \\frac {1}{2} \\tilde {d} ^ {k\\prime} \\nabla^ {2} f (x ^ {k}) \\tilde {d} ^ {k} + o \\big ((\\gamma^ {k}) ^ {2} \\big)} \\\\ & {\\qquad = f (x ^ {k}) - \\gamma^ {k} \\big \\| | \\nabla f (x ^ {k}) | \\big \\| + \\frac {(\\gamma^ {k}) ^ {2}}{2 \\big \\| \\nabla f (x ^ {k}) \\big \\| ^ {2}} \\nabla f (x ^ {k}) ^ {\\prime} \\nabla^ {2} f (x ^ {k}) \\nabla f (x ^ {k})} \\\\ & {\\qquad + o \\big ((\\gamma^ {k}) ^ {2} \\big).} \\end{array}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch01-body-834-f279c2",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[834]",
+      "expect": "\\begin{array}{r l} f (x ^ {k + 1}) & = \\frac {1}{2} (x ^ {k} - \\alpha^ {k} g ^ {k}) ^ {\\prime} Q (x ^ {k} - \\alpha^ {k} g ^ {k}) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} Q x ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} g ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\end{array} \\tag {1.61}\\tag{1.61}",
+      "new": "\\begin{array}{r l} f (x ^ {k + 1}) & = \\frac {1}{2} (x ^ {k} - \\alpha^ {k} g ^ {k}) ^ {\\prime} Q (x ^ {k} - \\alpha^ {k} g ^ {k}) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} Q x ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} g ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\end{array} \\tag {1.61}"
+    }
+  ]
+}

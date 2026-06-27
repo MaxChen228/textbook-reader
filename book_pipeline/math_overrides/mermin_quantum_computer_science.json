@@ -1,0 +1,36 @@
+{
+  "overrides": [
+    {
+      "id": "mermin_quantum_computer_science-ch02-body-116-2c8497",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[116]",
+      "expect": "\\begin{array}{c c} \\framebox {\\text {H}} & \\framebox {\\text {U} _ {f}} \\\\ \\framebox {\\text {H}} & \\framebox {\\text {H}} \\end{array} = \\underline {{\\quad}}",
+      "new": "\\begin{array}{c c} \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {U} _ {f}} \\\\ \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {H}} \\end{array} = \\underline {{\\quad}}"
+    },
+    {
+      "id": "mermin_quantum_computer_science-ch02-body-119-567749",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[119]",
+      "expect": "\\begin{array}{c c} \\framebox {H} \\framebox {U _ {f}} \\framebox {H} & = \\\\ \\framebox {H} \\framebox {H} \\end{array} \\quad \\begin{array}{c c} \\framebox {X} \\\\ \\bullet \\end{array}",
+      "new": "\\begin{array}{c c} \\boxed {\\mathrm {H}} \\boxed {\\mathrm {U} _ {f}} \\boxed {\\mathrm {H}} & = \\\\ \\boxed {\\mathrm {H}} \\boxed {\\mathrm {H}} \\end{array} \\quad \\begin{array}{c c} \\boxed {\\mathrm {X}} \\\\ \\bullet \\end{array}"
+    },
+    {
+      "id": "mermin_quantum_computer_science-ch02-body-121-e13604",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[121]",
+      "expect": "\\begin{array}{c c} \\framebox {H} \\framebox {U _ {f}} \\framebox {H} & = \\\\ \\framebox {H} \\framebox {H} \\framebox {X} & \\framebox {Z} \\framebox {\\bullet} \\end{array}",
+      "new": "\\begin{array}{c c} \\boxed {\\mathrm {H}} \\boxed {\\mathrm {U} _ {f}} \\boxed {\\mathrm {H}} & = \\\\ \\boxed {\\mathrm {H}} \\boxed {\\mathrm {H}} \\boxed {\\mathrm {X}} & \\boxed {\\mathrm {Z}} \\boxed {\\bullet} \\end{array}"
+    },
+    {
+      "id": "mermin_quantum_computer_science-ch02-body-123-10df83",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[123]",
+      "expect": "\\begin{array}{c c} \\framebox {\\text {H}} & \\framebox {\\text {U} _ {f}} \\\\ \\framebox {\\text {H}} & \\framebox {\\text {H}} \\end{array} = \\begin{array}{c c} \\framebox {\\text {H}} & \\\\ \\framebox {\\text {Z}} & \\end{array}",
+      "new": "\\begin{array}{c c} \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {U} _ {f}} \\\\ \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {H}} \\end{array} = \\begin{array}{c c} \\boxed {\\mathrm {H}} & \\\\ \\boxed {\\mathrm {Z}} & \\end{array}"
+    }
+  ]
+}

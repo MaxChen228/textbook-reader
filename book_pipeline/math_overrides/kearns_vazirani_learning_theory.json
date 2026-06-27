@@ -1,0 +1,63 @@
+{
+  "overrides": [
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-78-01d800",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[78]",
+      "expect": "m \\geq c _ {0} \\left",
+      "new": "m \\geq c _ {0}"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-82-01d800",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[82]",
+      "expect": "m \\geq c _ {0} \\left",
+      "new": "m \\geq c _ {0}"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch04-body-171-63bf06",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[171]",
+      "expect": "\\begin{array}{l l} = & \\frac {7 2 ^ {i}}{\\epsilon^ {1 + 1 / 2 + 1 / 4 + \\cdots + 1 / 2 ^ {i - 1}}} \\\\ = & \\frac {7 2 ^ {i} \\epsilon^ {1 / 2 ^ {i - 1}}}{\\epsilon^ {2}} \\\\ \\leq & \\frac {7 2 ^ {i} (3 g ^ {- } )}{\\epsilon^ {2}} \\\\ \\leq & \\frac {7 2 ^ {i} \\cdot 3 (3 g ^ {- i}  ^ {2})}{\\epsilon^ {2}} \\\\ = & \\frac {9 \\cdot 7 2 ^ {i} (g ^ {- i} ) ^ {2}}{\\epsilon^ {2}} \\end{array}",
+      "new": "\\begin{array}{l l} = & \\frac {7 2 ^ {i}}{\\epsilon^ {1 + 1 / 2 + 1 / 4 + \\cdots + 1 / 2 ^ {i - 1}}} \\\\ = & \\frac {7 2 ^ {i} \\epsilon^ {1 / 2 ^ {i - 1}}}{\\epsilon^ {2}} \\\\ \\leq & \\frac {7 2 ^ {i} (3 g ^ {- } )}{\\epsilon^ {2}} \\\\ \\leq & \\frac {7 2 ^ {i} \\cdot 3 (3 g ^ {- i 2})}{\\epsilon^ {2}} \\\\ = & \\frac {9 \\cdot 7 2 ^ {i} (g ^ {- i} ) ^ {2}}{\\epsilon^ {2}} \\end{array}"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch03-body-10-767d48",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[10]",
+      "expect": "\\Pi_ {\\mathcal {C}}  = \\left\\{\\left(c \\left, \\dots , c \\left\\right): c \\in \\mathcal {C} \\right\\}.",
+      "new": "\\Pi_ {\\mathcal {C}} = \\left\\{\\left(c, \\dots , c\\right): c \\in \\mathcal {C} \\right\\}."
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch04-body-111-6048b7",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[111]",
+      "expect": "\\operatorname{error} _ {\\mathcal {D} ^ {\\prime}} \\left - \\alpha / 3 \\leq \\hat {e} _ {1} \\leq \\operatorname{error} _ {\\mathcal {D} ^ {\\prime}} \\left + \\alpha / 3.",
+      "new": "\\operatorname{error} _ {\\mathcal {D} ^ {\\prime}} - \\alpha / 3 \\leq \\hat {e} _ {1} \\leq \\operatorname{error} _ {\\mathcal {D} ^ {\\prime}} + \\alpha / 3."
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch04-body-167-f86b75",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[167]",
+      "expect": "\\left \\left(\\frac {2 4}{g ^ {- 1} }\\right) \\dots \\left(\\frac {2 4}{g ^ {- } }\\right)",
+      "new": "\\left(\\frac {2 4}{g ^ {- 1} }\\right) \\dots \\left(\\frac {2 4}{g ^ {- } }\\right)"
+    },
+    {
+      "id": "kearns_vazirani_learning_theory-ch08-body-33-b9944b",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[33]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mathscr { s } } ^ { \\prime \\prime } .$",
+      "new": "${ \\pmb {\\mathscr { s }} } ^ { \\prime \\prime } .$",
+      "anchor": "37fd3a29"
+    }
+  ]
+}
