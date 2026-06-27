@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "boron-fig-18.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch18",
+      "selector": "body[15]",
+      "position": "after",
+      "page": 465,
+      "clip": [0.10, 0.085, 0.905, 0.89],
+      "zoom": 2.5,
+      "src": "manual_fig-18.3.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-18.3",
+        "kind": "line",
+        "caption": "Figure 18-3 Peripheral blood smear. Erythrocytes (average diameter, ~7.5 μm) are present in all panels. A, Neutrophil. B, Eosinophil. C, Basophil. D, Lymphocyte. E, Monocyte. F, Platelets."
+      },
+      "reason": "MinerU 漏抽 Figure 18-3（ch18 無此塗片塊，6 格血球 panel 被誤標 fig-18.4/fig-52.4/fig-ch18-24）；raw p465 確有這張 6-panel 血液抹片圖。"
+    },
+    {
+      "id": "boron-fig-43.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch43",
+      "selector": "body[44]",
+      "position": "after",
+      "page": 930,
+      "clip": [0.05, 0.505, 0.96, 0.802],
+      "zoom": 2.5,
+      "src": "manual_fig-43.4.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-43.4",
+        "kind": "line",
+        "caption": "Figure 43-4 Stimulation of protein secretion from the pancreatic acinar cell."
+      },
+      "reason": "MinerU 漏抽 Figure 43-4 母圖（catalog 僅有 fig-43.4A）；raw p930 確有跨整頁的多 panel 胰腺 acinar cell 分泌圖。補母圖同時解決文內 43.4 與 43.4B 兩個 ref。"
+    },
+    {
+      "id": "boron-fig-47.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch47",
+      "selector": "body[103]",
+      "position": "after",
+      "page": 1038,
+      "clip": [0.085, 0.31, 0.91, 0.535],
+      "zoom": 2.5,
+      "src": "manual_fig-47.7.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-47.7",
+        "kind": "line",
+        "caption": "Figure 47-7 Action of steroid hormones."
+      },
+      "reason": "MinerU 漏抽 Figure 47-7（其 caption 被誤接到鄰圖 fig-47.6--1）；raw p1038 中段確有 steroid hormone 作用機轉圖。"
+    }
+  ]
+}
