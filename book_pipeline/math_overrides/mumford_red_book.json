@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "id": "mumford_red_book-ch15-body-58-f799e3",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[58]",
+      "expect": "\\underline {{o}} _ {a _ {i}, y} = \\underline {{o}} _ {a _ {i}, \\mathbb {A} ^ {1}} \\left/ m _ {i} ^ {r _ {i}} \\left. \\right.,",
+      "new": "\\underline {{o}} _ {a _ {i}, y} = \\underline {{o}} _ {a _ {i}, \\mathbb {A} ^ {1}} \\left/ m _ {i} ^ {r _ {i}} \\right.,"
+    },
+    {
+      "id": "mumford_red_book-ch05-body-74-bf40f3",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[74]",
+      "expect": "\\begin{array}{r l} P _ {1} = (0, 1, 0) & \\text {(the only point at \\infty with respect to the affine piece X,Y)} \\\\ P _ {2} = (0, 0, 1) & \\text {(the origin)} \\\\ Q _ {1} = (1, 0, 1) \\Big \\} & \\text {other points on the X - axis.} \\\\ Q _ {2} = (- 1, 0, 1) \\Big \\} & \\end{array}",
+      "new": "\\begin{array}{r l} P _ {1} = (0, 1, 0) & \\text {(the only point at } \\infty \\text { with respect to the affine piece X,Y)} \\\\ P _ {2} = (0, 0, 1) & \\text {(the origin)} \\\\ Q _ {1} = (1, 0, 1) \\Big \\} & \\text {other points on the X - axis.} \\\\ Q _ {2} = (- 1, 0, 1) \\Big \\} & \\end{array}"
+    },
+    {
+      "id": "mumford_red_book-ch06-body-100-d47b90",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[100]",
+      "expect": "\\left\\{ \\begin{array}{l} \\text {Subset of X^{*}} \\\\ \\text {where X_{i} \\neq 0} \\end{array} \\right\\} \\cong \\mathbb {A} ^ {1} \\times \\left\\{ \\begin{array}{l} \\text {Subset of X} \\\\ \\text {where X_{i} \\neq 0} \\end{array} \\right\\}.",
+      "new": "\\left\\{ \\begin{array}{l} \\text {Subset of } X^{*} \\\\ \\text {where } X_{i} \\neq 0 \\end{array} \\right\\} \\cong \\mathbb {A} ^ {1} \\times \\left\\{ \\begin{array}{l} \\text {Subset of X} \\\\ \\text {where } X_{i} \\neq 0 \\end{array} \\right\\}."
+    },
+    {
+      "id": "mumford_red_book-ch11-body-2-51603f",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[2]",
+      "expect": "\\begin{array}{r c l} \\operatorname{Spec} (R) & = & \\text {the set of prime ideals P \\not\\subseteq R} \\\\ & & [ R \\text {itself is not counted as a prime ideal} \\\\ & & \\text {but (0), if prime, is counted }. ] \\end{array}\\tag{I}",
+      "new": "\\begin{array}{r c l} \\operatorname{Spec} (R) & = & \\text {the set of prime ideals } P \\not\\subseteq R \\\\ & & [ R \\text { itself is not counted as a prime ideal} \\\\ & & \\text {but (0), if prime, is counted }. ] \\end{array}\\tag{I}"
+    },
+    {
+      "id": "mumford_red_book-ch15-body-11-f9eb9b",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[11]",
+      "expect": "\\Gamma (U, \\mathcal {F} ^ {\\prime}) = \\left\\{s \\in \\prod_ {x \\in U} \\mathcal {F} _ {x}   \\middle |   \\begin{array}{l} \\text {For all x\\in U, \\exists a neighbourhood V_{x} of x in X} \\\\ \\text {and t\\in\\Gamma(V_{x},\\mathcal {F}) such that t and s give the} \\\\ \\text {same element of \\mathcal {F} _{y} , all y\\in V_{x} \\cap U.} \\end{array} \\right\\}",
+      "new": "\\Gamma (U, \\mathcal {F} ^ {\\prime}) = \\left\\{s \\in \\prod_ {x \\in U} \\mathcal {F} _ {x}   \\middle |   \\begin{array}{l} \\text {For all } x\\in U, \\exists \\text { a neighbourhood } V_{x} \\text { of } x \\text { in } X \\\\ \\text {and } t\\in\\Gamma(V_{x},\\mathcal {F}) \\text { such that } t \\text { and } s \\text { give the} \\\\ \\text {same element of } \\mathcal {F} _{y} , \\text { all } y\\in V_{x} \\cap U. \\end{array} \\right\\}"
+    },
+    {
+      "id": "mumford_red_book-ch16-body-75-c03ccf",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[75]",
+      "expect": "\\left\\{ \\begin{array}{l} \\text {set of k - valued} \\\\ \\text {points of x} \\end{array} \\right\\} \\cong \\left\\{ \\begin{array}{l} \\text {set of points x\\in X, plus} \\\\ \\text {injections \\Bbbk(x)\\hookrightarrow k} \\end{array} \\right\\}.",
+      "new": "\\left\\{ \\begin{array}{l} \\text {set of k - valued} \\\\ \\text {points of x} \\end{array} \\right\\} \\cong \\left\\{ \\begin{array}{l} \\text {set of points } x\\in X, \\text { plus} \\\\ \\text {injections } \\Bbbk(x)\\hookrightarrow k \\end{array} \\right\\}."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "kuo_automatic_control-ch03-body-311-55dfec",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[311]",
+      "expect": "\\frac {y _ {\\text {out}}}{y _ {2}} = \\frac {\\frac {y _ {\\text {out}}}{y _ {\\text {in}}}}{\\frac {y _ {2}}{y _ {\\text {in}}}} = \\frac {\\frac {\\sum M _ {k} \\Delta_ {k} | _ {\\text {from, y_{in} to y_{out}}}}{\\Delta}}{\\frac {\\sum M _ {k} \\Delta_ {k} | _ {\\text {from, y_{in} to y_{2}}}}{\\Delta}}",
+      "new": "\\frac {y _ {\\text {out}}}{y _ {2}} = \\frac {\\frac {y _ {\\text {out}}}{y _ {\\text {in}}}}{\\frac {y _ {2}}{y _ {\\text {in}}}} = \\frac {\\frac {\\sum M _ {k} \\Delta_ {k} | _ {\\text {from, } y_{in} \\text { to } y_{out}}}{\\Delta}}{\\frac {\\sum M _ {k} \\Delta_ {k} | _ {\\text {from, } y_{in} \\text { to } y_{2}}}{\\Delta}}"
+    },
+    {
+      "id": "kuo_automatic_control-ch10-body-509-27e60b",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[509]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mpb { \\tau }$",
+      "new": "$\\pmb { \\tau }$",
+      "anchor": "cd6a7e25"
+    },
+    {
+      "id": "kuo_automatic_control-ch10-body-771-362cce",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[771]",
+      "field": "md",
+      "all": true,
+      "old": "\\( ${ \\bf x } ( t ) = \\mathbb { P } \\overline { { { \\bf x } } } ( t )$ here P is nonsingular, transforms the dynamic equations to",
+      "new": "{ \\bf x } ( t ) = \\mathbb { P } \\overline { { { \\bf x } } } ( t ) \\quad \\text {here P is nonsingular, transforms the dynamic equations to}",
+      "anchor": "5e6f40c6"
+    }
+  ]
+}
