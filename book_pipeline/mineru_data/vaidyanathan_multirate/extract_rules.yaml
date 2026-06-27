@@ -1,0 +1,159 @@
+slug: vaidyanathan_multirate
+title: Multirate Systems and Filter Banks
+author: P. P. Vaidyanathan
+edition: "1st"
+subject: Signal Processing
+publisher: Prentice Hall
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 795
+bibliography_start_page: 879
+index_start_page: 904
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 14
+    page_end: 24
+    chapter_title_block_idx: 73
+    problems_block_idx: null
+    next_chapter_block_idx: 170
+  - num: 2
+    title: Review of Discrete-Time Systems
+    page_start: 25
+    page_end: 54
+    chapter_title_block_idx: 170
+    problems_block_idx: 541
+    next_chapter_block_idx: 581
+  - num: 3
+    title: Review of Digital Filters
+    page_start: 55
+    page_end: 112
+    chapter_title_block_idx: 581
+    problems_block_idx: 1238
+    next_chapter_block_idx: 1355
+  - num: 4
+    title: Fundamentals of Multirate Systems
+    page_start: 113
+    page_end: 200
+    chapter_title_block_idx: 1355
+    problems_block_idx: 2215
+    next_chapter_block_idx: 2349
+  - num: 5
+    title: Maximally Decimated Filter Banks
+    page_start: 201
+    page_end: 298
+    chapter_title_block_idx: 2349
+    problems_block_idx: 3436
+    next_chapter_block_idx: 3639
+  - num: 6
+    title: "Paraunitary Perfect Reconstruction (PR) Filter Banks"
+    page_start: 299
+    page_end: 349
+    chapter_title_block_idx: 3639
+    problems_block_idx: null
+    next_chapter_block_idx: 4329
+  - num: 7
+    title: Linear Phase Perfect Reconstruction QMF Banks
+    page_start: 350
+    page_end: 365
+    chapter_title_block_idx: 4329
+    problems_block_idx: 4498
+    next_chapter_block_idx: 4521
+  - num: 8
+    title: Cosine Modulated Filter Banks
+    page_start: 366
+    page_end: 406
+    chapter_title_block_idx: 4521
+    problems_block_idx: 5030
+    next_chapter_block_idx: 5059
+  - num: 9
+    title: Quantization Effects
+    page_start: 407
+    page_end: 439
+    chapter_title_block_idx: 5059
+    problems_block_idx: 5416
+    next_chapter_block_idx: 5462
+  - num: 10
+    title: Multirate Filter Bank Theory and Related Topics
+    page_start: 440
+    page_end: 469
+    chapter_title_block_idx: 5462
+    problems_block_idx: 5794
+    next_chapter_block_idx: 5828
+  - num: 11
+    title: The Wavelet Transform and Its Relation to Multirate Filter Banks
+    page_start: 470
+    page_end: 557
+    chapter_title_block_idx: 5828
+    problems_block_idx: 6904
+    next_chapter_block_idx: 7001
+  - num: 12
+    title: Multidimensional Multirate Systems
+    page_start: 558
+    page_end: 672
+    chapter_title_block_idx: 7001
+    problems_block_idx: 8316
+    next_chapter_block_idx: 8505
+  - num: 13
+    title: Review of Discrete-Time Multi-Input Multi-Output LTI Systems
+    page_start: 673
+    page_end: 734
+    chapter_title_block_idx: 8505
+    problems_block_idx: 9376
+    next_chapter_block_idx: 9491
+  - num: 14
+    title: Paraunitary and Lossless Systems
+    page_start: 735
+    page_end: 794
+    chapter_title_block_idx: 9491
+    problems_block_idx: 10273
+    next_chapter_block_idx: 10382
+
+appendices:
+  - id: A
+    title: Review of Matrices
+    page_start: 795
+    chapter_title_block_idx: 10382
+  - id: B
+    title: Review of Random Processes
+    page_start: 816
+    chapter_title_block_idx: 10778
+  - id: C
+    title: Quantization of Subband Signals
+    page_start: 829
+    chapter_title_block_idx: 11007
+  - id: D
+    title: Spectral Factorization Techniques
+    page_start: 862
+    chapter_title_block_idx: 11454
+  - id: E
+    title: "Mason's Gain Formula"
+    page_start: 872
+    chapter_title_block_idx: 11590
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\.\s'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
