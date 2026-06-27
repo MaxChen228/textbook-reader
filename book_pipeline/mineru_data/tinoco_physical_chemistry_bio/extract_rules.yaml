@@ -1,0 +1,127 @@
+slug: tinoco_physical_chemistry_bio
+title: "Physical Chemistry: Principles and Applications in Biological Sciences"
+author: "Ignacio Tinoco; Kenneth Sauer; James C. Wang; Joseph D. Puglisi"
+edition: "4th International"
+subject: Physical Chemistry
+publisher: null
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 27
+appendices_start_page: 737
+bibliography_start_page: null
+index_start_page: 753
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 27
+    page_end: 38
+    chapter_title_block_idx: 151
+    problems_block_idx: 235
+    next_chapter_block_idx: 255
+  - num: 2
+    title: "The First Law: Energy Is Conserved"
+    page_start: 39
+    page_end: 92
+    chapter_title_block_idx: 255
+    problems_block_idx: 993
+    next_chapter_block_idx: 1165
+  - num: 3
+    title: "The Second Law: The Entropy of the Universe Increases"
+    page_start: 93
+    page_end: 144
+    chapter_title_block_idx: 1165
+    problems_block_idx: 1882
+    next_chapter_block_idx: 2033
+  - num: 4
+    title: Free Energy and Chemical Equilibria
+    page_start: 145
+    page_end: 210
+    chapter_title_block_idx: 2033
+    problems_block_idx: 3019
+    next_chapter_block_idx: 3235
+  - num: 5
+    title: Free Energy and Physical Equilibria
+    page_start: 211
+    page_end: 276
+    chapter_title_block_idx: 3235
+    problems_block_idx: 4049
+    next_chapter_block_idx: 4224
+  - num: 6
+    title: Molecular Motion and Transport Properties
+    page_start: 277
+    page_end: 338
+    chapter_title_block_idx: 4224
+    problems_block_idx: 5014
+    next_chapter_block_idx: 5160
+  - num: 7
+    title: "Kinetics: Rates of Chemical Reactions"
+    page_start: 339
+    page_end: 424
+    chapter_title_block_idx: 5160
+    problems_block_idx: 6376
+    next_chapter_block_idx: 6711
+  - num: 8
+    title: Enzyme Kinetics
+    page_start: 425
+    page_end: 460
+    chapter_title_block_idx: 6711
+    problems_block_idx: 7094
+    next_chapter_block_idx: 7305
+  - num: 9
+    title: "Molecular Structures and Interactions: Theory"
+    page_start: 461
+    page_end: 554
+    chapter_title_block_idx: 7305
+    problems_block_idx: 8380
+    next_chapter_block_idx: 8517
+  - num: 10
+    title: "Molecular Structures and Interactions: Spectroscopy"
+    page_start: 555
+    page_end: 638
+    chapter_title_block_idx: 8517
+    problems_block_idx: 9363
+    next_chapter_block_idx: 9568
+  - num: 11
+    title: Molecular Distributions and Statistical Thermodynamics
+    page_start: 639
+    page_end: 690
+    chapter_title_block_idx: 9568
+    problems_block_idx: 10313
+    next_chapter_block_idx: 10376
+  - num: 12
+    title: Macromolecular Structure and X-Ray Diffraction
+    page_start: 691
+    page_end: 736
+    chapter_title_block_idx: 10376
+    problems_block_idx: 10892
+    next_chapter_block_idx: 10969
+
+section_re: '^()(?!EXAMPLE\s|EXERCISE\s|Solution\s*$|[▲▶►▸◀]?\s*(?:FIGURE|TABLE)\s+\d)(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^(?:EXAMPLE|EXERCISE)\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
