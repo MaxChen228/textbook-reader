@@ -1,0 +1,202 @@
+# ── 書本 metadata ──
+slug: smith_march_advanced_organic
+title: "March's Advanced Organic Chemistry: Reactions, Mechanisms, and Structure"
+author: "Michael B. Smith"
+edition: "7th"
+subject: "Organic Chemistry"
+publisher: "John Wiley & Sons"
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # section/subsection heading 落 lvl2（章標 lvl1，由 cti 指定不受影響）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 30
+appendices_start_page: 1596
+bibliography_start_page: null   # 全書參考文獻為頁註腳 footnote，無獨立 Bibliography
+index_start_page: 1657          # 排除作者+主題 Index（~5.3 萬 block，pg1657–2074）
+
+# ── inline-problem 模式 ──
+# March 是有機化學參考工具書，全本無 end-of-chapter Problems/Exercises（0 個 Problems heading）。
+# 所有章 P4 無題：pbi 全 null、inline_problems=false、problem_start_re 恆不匹配。
+inline_problems: false
+
+# ── 章節 ──
+# ch2/17/18/19 章標被 MinerU 完全丟棄（只剩 type=header 'CHAPTER N' 跑馬燈）→ 用首節 N.A.
+# 所在頁的頁邊界前一塊當 cti（首頁第一塊−1），title 依 March 7th 真實目次補回（資料衍生：
+# 由 first N.A. section + 章首散文內容驗證，非記憶猜測）。
+chapters:
+  - num: 1
+    title: "Localized Chemical Bonding"
+    page_start: 30
+    page_end: 58
+    chapter_title_block_idx: 111
+    problems_block_idx: null
+    next_chapter_block_idx: 468
+  - num: 2
+    title: "Delocalized Chemical Bonding"
+    page_start: 59
+    page_end: 122
+    chapter_title_block_idx: 468        # 重建：章標丟失，cti=pg58 末塊，body 從 pg59 起含 2.A
+    problems_block_idx: null
+    next_chapter_block_idx: 1446
+  - num: 3
+    title: "Bonding Weaker Than Covalent"
+    page_start: 123
+    page_end: 148
+    chapter_title_block_idx: 1446
+    problems_block_idx: null
+    next_chapter_block_idx: 1863
+  - num: 4
+    title: "Stereochemistry and Conformation"
+    page_start: 149
+    page_end: 234
+    chapter_title_block_idx: 1863
+    problems_block_idx: null
+    next_chapter_block_idx: 3065
+  - num: 5
+    title: "Carbocations, Carbanions, Free Radicals, Carbenes, and Nitrenes"
+    page_start: 235
+    page_end: 287
+    chapter_title_block_idx: 3065
+    problems_block_idx: null
+    next_chapter_block_idx: 3982
+  - num: 6
+    title: "Mechanisms and Methods of Determining Them"
+    page_start: 288
+    page_end: 315
+    chapter_title_block_idx: 3982
+    problems_block_idx: null
+    next_chapter_block_idx: 4398
+  - num: 7
+    title: "Irradiation Processes in Organic Chemistry"
+    page_start: 316
+    page_end: 338
+    chapter_title_block_idx: 4398
+    problems_block_idx: null
+    next_chapter_block_idx: 4704
+  - num: 8
+    title: "Acids and Bases"
+    page_start: 339
+    page_end: 373
+    chapter_title_block_idx: 4704
+    problems_block_idx: null
+    next_chapter_block_idx: 5241
+  - num: 9
+    title: "Effects of Structure and Medium on Reactivity"
+    page_start: 374
+    page_end: 399
+    chapter_title_block_idx: 5241
+    problems_block_idx: null
+    next_chapter_block_idx: 5622
+  - num: 10
+    title: "Aliphatic Substitution, Nucleophilic and Organometallic"
+    page_start: 400
+    page_end: 595
+    chapter_title_block_idx: 5622
+    problems_block_idx: null
+    next_chapter_block_idx: 9584
+  - num: 11
+    title: "Aromatic Substitution, Electrophilic"
+    page_start: 596
+    page_end: 675
+    chapter_title_block_idx: 9584
+    problems_block_idx: null
+    next_chapter_block_idx: 11086
+  - num: 12
+    title: "Aliphatic, Alkenyl, and Alkynyl Substitution, Electrophilic and Organometallic"
+    page_start: 676
+    page_end: 758
+    chapter_title_block_idx: 11086
+    problems_block_idx: null
+    next_chapter_block_idx: 12768
+  - num: 13
+    title: "Aromatic Substitution: Nucleophilic and Organometallic"
+    page_start: 759
+    page_end: 829
+    chapter_title_block_idx: 12768
+    problems_block_idx: null
+    next_chapter_block_idx: 14336
+  - num: 14
+    title: "Substitution Reactions: Radical"
+    page_start: 830
+    page_end: 885
+    chapter_title_block_idx: 14336
+    problems_block_idx: null
+    next_chapter_block_idx: 15466
+  - num: 15
+    title: "Addition to Carbon–Carbon Multiple Bonds"
+    page_start: 886
+    page_end: 1093
+    chapter_title_block_idx: 15466
+    problems_block_idx: null
+    next_chapter_block_idx: 20141
+  - num: 16
+    title: "Addition to Carbon–Hetero Multiple Bonds"
+    page_start: 1094
+    page_end: 1279
+    chapter_title_block_idx: 20141
+    problems_block_idx: null
+    next_chapter_block_idx: 24382
+  - num: 17
+    title: "Eliminations"
+    page_start: 1280
+    page_end: 1348
+    chapter_title_block_idx: 24382      # 重建：章標丟失，cti=pg1279 末塊，body 從 pg1280 起含 17.A
+    problems_block_idx: null
+    next_chapter_block_idx: 25605
+  - num: 18
+    title: "Rearrangements"
+    page_start: 1349
+    page_end: 1460
+    chapter_title_block_idx: 25605      # 重建：章標丟失，cti=pg1348 末塊，body 從 pg1349 起含 18.A
+    problems_block_idx: null
+    next_chapter_block_idx: 27728
+  - num: 19
+    title: "Oxidations and Reductions"
+    page_start: 1461
+    page_end: 1595
+    chapter_title_block_idx: 27728      # 重建：章標丟失，cti=pg1460 末塊，body 從 pg1461 起含 19.A
+    problems_block_idx: null
+    next_chapter_block_idx: 30908
+
+# ── 附錄 ──
+appendices:
+  - id: "A"
+    title: "The Literature of Organic Chemistry"
+    page_start: 1596
+    chapter_title_block_idx: 30908
+  - id: "B"
+    title: "Classification of Reactions by Type of Compounds Synthesized"
+    page_start: 1632
+    chapter_title_block_idx: 31252
+
+# ── heading regex ──
+# section   "N.A. TITLE"     → id="N.A"   （N=章號, 大寫單字母）
+# subsection "N.A.i. Title"  → id="N.A.i" （小寫羅馬數字）
+section_re: '^(\d+\.[A-Z])\.\s+(.+)$'
+subsection_re: '^(\d+\.[A-Z]\.[ivxl]+)\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+# 本書無題：problem_start_re 設恆不匹配（(?!) 空負向先行斷言永遠失敗），1 capture group
+problem_start_re: '^(?!)(\d+)'
+problem_chapter_must_match: false
+
+# ── equation ──
+# \tag 樣本：'1-1' '4.1' '143' '10-64'（混 hyphen / dot / 純數字）
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9.\-a-z]+)\}'
+
+# ── example（內文題） ──
+example_start_re: null          # 全本 0 個 Example heading
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
