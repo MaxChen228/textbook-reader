@@ -1,0 +1,158 @@
+slug: ramo_whinnery_van_duzer
+title: "Fields and Waves in Communication Electronics"
+author: "Simon Ramo; John R. Whinnery; Theodore Van Duzer"
+edition: "3rd"
+subject: "電磁學"
+publisher: "Wiley"
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 826
+bibliography_start_page: null
+index_start_page: 849
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Stationary Electric Fields"
+    page_start: 18
+    page_end: 84
+    chapter_title_block_idx: 65
+    problems_block_idx: 800
+    next_chapter_block_idx: 926
+  - num: 2
+    title: "Stationary Magnetic Fields"
+    page_start: 85
+    page_end: 128
+    chapter_title_block_idx: 926
+    problems_block_idx: 1430
+    next_chapter_block_idx: 1498
+  - num: 3
+    title: "Maxwell's Equations"
+    page_start: 129
+    page_end: 185
+    chapter_title_block_idx: 1498
+    problems_block_idx: 2210
+    next_chapter_block_idx: 2338
+  - num: 4
+    title: "The Electromagnetics of Circuits"
+    page_start: 186
+    page_end: 227
+    chapter_title_block_idx: 2338
+    problems_block_idx: 2824
+    next_chapter_block_idx: 2886
+  - num: 5
+    title: "Transmission Lines"
+    page_start: 228
+    page_end: 288
+    chapter_title_block_idx: 2886
+    problems_block_idx: 3524
+    next_chapter_block_idx: 3633
+  - num: 6
+    title: "Plane-Wave Propagation and Reflection"
+    page_start: 289
+    page_end: 335
+    chapter_title_block_idx: 3633
+    problems_block_idx: 4216
+    next_chapter_block_idx: 4297
+  - num: 7
+    title: "Two- and Three-Dimensional Boundary Value Problems"
+    page_start: 336
+    page_end: 409
+    chapter_title_block_idx: 4297
+    problems_block_idx: 5273
+    next_chapter_block_idx: 5387
+  - num: 8
+    title: "Waveguides with Cylindrical Conducting Boundaries"
+    page_start: 410
+    page_end: 476
+    chapter_title_block_idx: 5387
+    problems_block_idx: 6183
+    next_chapter_block_idx: 6297
+  - num: 9
+    title: "Special Waveguide Types"
+    page_start: 477
+    page_end: 504
+    chapter_title_block_idx: 6297
+    problems_block_idx: 6605
+    next_chapter_block_idx: 6660
+  - num: 10
+    title: "Resonators"
+    page_start: 505
+    page_end: 544
+    chapter_title_block_idx: 6660
+    problems_block_idx: 7133
+    next_chapter_block_idx: 7200
+  - num: 11
+    title: "Microwave Networks"
+    page_start: 545
+    page_end: 598
+    chapter_title_block_idx: 7200
+    problems_block_idx: 7836
+    next_chapter_block_idx: 7917
+  - num: 12
+    title: "Radiation"
+    page_start: 599
+    page_end: 691
+    chapter_title_block_idx: 7917
+    problems_block_idx: 8891
+    next_chapter_block_idx: 9020
+  - num: 13
+    title: "Electromagnetic Properties of Materials"
+    page_start: 692
+    page_end: 755
+    chapter_title_block_idx: 9020
+    problems_block_idx: 9754
+    next_chapter_block_idx: 9844
+  - num: 14
+    title: "Optics"
+    page_start: 756
+    page_end: 825
+    chapter_title_block_idx: 9844
+    problems_block_idx: 10670
+    next_chapter_block_idx: 10769
+
+appendices:
+  - id: "1"
+    title: "Conversion Factors Between Systems of Units"
+    page_start: 826
+    chapter_title_block_idx: 10769
+  - id: "2"
+    title: "Coordinate Systems and Vector Relations"
+    page_start: 828
+    chapter_title_block_idx: 10778
+  - id: "3"
+    title: "Sketch of the Derivation of Magnetic Field Laws"
+    page_start: 834
+    chapter_title_block_idx: 10842
+  - id: "4"
+    title: "Complex Phasors as Used in Electrical Circuits"
+    page_start: 837
+    chapter_title_block_idx: 10885
+  - id: "5"
+    title: "Solution for Retarded Potentials: Green's Function"
+    page_start: 841
+    chapter_title_block_idx: 10953
+
+section_re: '^(\d+\.\d+)\s+(?![A-Z][a-z])(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+[a-z]?)[\\*]*\s'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+[a-z]?)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
