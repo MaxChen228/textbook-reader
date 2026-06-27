@@ -9,6 +9,30 @@
       "old": "$\\mathit { \\Omega } ^ { \\left. } 3 ^ { \\right. }$",
       "new": "$\\mathit{\\Omega}^{3}$",
       "anchor": "897e067c"
+    },
+    {
+      "id": "blundell_thermal-ch05-problem-5-7-solution-5-22e258",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.7:solution[5]",
+      "expect": "\\boxed {6. 3} \\text {   It   stays   the   same.   (p   is   constant,   \\therefore   u   is   constant   \\therefore   U_{tot} = uV}",
+      "new": "\\boxed {6. 3} \\text {   It   stays   the   same.   (p   is   constant,   } \\therefore \\text {   u   is   constant   } \\therefore \\text {   } U_{tot} = uV\\text { }"
+    },
+    {
+      "id": "blundell_thermal-ch20-problem-20-5-solution-5-f70362",
+      "action": "fix_eq_tex",
+      "chunk": "ch20",
+      "selector": "problem:20.5:solution[5]",
+      "expect": "\\begin{array}{l} \\Delta \\longrightarrow \\begin{array}{c} g _ {\\mu_ {B} B} \\\\ 0 \\\\ - g _ {\\mu_ {B} B} \\end{array} \\\\ z = 1 + e ^ {- \\beta \\Delta} (1 + 2 \\cosh (g \\mu_ {\\beta} B \\beta)) \\\\ F = - N R _ {B} T \\ln Z \\\\ m = - \\left(\\frac {\\partial F}{\\partial B}\\right) _ {T} = N k _ {B} T \\frac {2 e ^ {- \\beta \\Delta} \\sinh (g \\mu_ {B} B \\beta) \\cdot \\beta g \\mu_ {B}}{1 + e ^ {- \\beta \\Delta} (1 + 2 \\cosh g \\mu_ {B} B \\beta)} \\\\ m \\rightarrow \\frac {2 N (g \\mu_ {B}) ^ {2} B \\beta e ^ {- \\beta \\Delta}}{1 + 3 e ^ {- \\beta \\Delta}} = \\frac {2 N (g \\mu_ {B}) ^ {2} B}{k _ {B} T (3 + e ^ {\\beta \\Delta})} \\\\ \\mathrm{so} \\quad M = \\frac {m}{V}, \\quad X = \\frac {\\mu_ {0} M}{B} \\quad \\mathrm{yields} \\quad X = \\frac {2 n \\mu_ {0} (g \\mu_ {B}) ^ {2}}{k _ {B} T (3 + e ^ {B \\Delta})}. \\\\ \\Rightarrow \\ln \\text {   E   adds   } \\Rightarrow \\text { eqn   20.51   =   3   \\times   (eqn   20.31)   } \\\\ \\text { and } C = 3 k _ {B} \\quad \\text { at } \\quad \\text { high } T. \\\\ - n = 2 \\\\ E = - \\frac {R}{n ^ {2}}, \\quad \\text { degeneracy } 2 n ^ {2} \\\\ \\mathrm{一} n = 1 \\quad \\Rightarrow z = \\sum_ {n = 1} ^ {\\infty} 2 n ^ {2} e ^ {\\beta R / n ^ {2}}. \\\\ \\left. \\begin{array}{l} {R = 1 3. 6   \\mathrm{eV}} \\\\ {k _ {\\mathrm{B}} T = 0. 0 2 5 9   \\mathrm{eV}} \\end{array} \\right\\} \\Rightarrow \\beta R = 5 2 5. 6   > > 1 \\\\ \\ln \\text {   fact,   } U = - \\frac {d \\ln Z}{d \\beta} = - R \\left(\\frac {e ^ {\\beta R} + e ^ {\\beta R / 4}}{e ^ {\\beta R} + 4 e ^ {\\beta R / 4}}\\right) \\\\ \\approx - R (1 - \\underbrace {3 e ^ {- 3 \\beta R / 4}} _ {\\approx 2 \\times 1 0 ^ {- 1 7 1}}) \\\\ \\Rightarrow \\text { mean   energy } \\approx - R. \\\\ \\end{array}",
+      "new": "\\begin{array}{l} \\Delta \\longrightarrow \\begin{array}{c} g _ {\\mu_ {B} B} \\\\ 0 \\\\ - g _ {\\mu_ {B} B} \\end{array} \\\\ z = 1 + e ^ {- \\beta \\Delta} (1 + 2 \\cosh (g \\mu_ {\\beta} B \\beta)) \\\\ F = - N R _ {B} T \\ln Z \\\\ m = - \\left(\\frac {\\partial F}{\\partial B}\\right) _ {T} = N k _ {B} T \\frac {2 e ^ {- \\beta \\Delta} \\sinh (g \\mu_ {B} B \\beta) \\cdot \\beta g \\mu_ {B}}{1 + e ^ {- \\beta \\Delta} (1 + 2 \\cosh g \\mu_ {B} B \\beta)} \\\\ m \\rightarrow \\frac {2 N (g \\mu_ {B}) ^ {2} B \\beta e ^ {- \\beta \\Delta}}{1 + 3 e ^ {- \\beta \\Delta}} = \\frac {2 N (g \\mu_ {B}) ^ {2} B}{k _ {B} T (3 + e ^ {\\beta \\Delta})} \\\\ \\mathrm{so} \\quad M = \\frac {m}{V}, \\quad X = \\frac {\\mu_ {0} M}{B} \\quad \\mathrm{yields} \\quad X = \\frac {2 n \\mu_ {0} (g \\mu_ {B}) ^ {2}}{k _ {B} T (3 + e ^ {B \\Delta})}. \\\\ \\Rightarrow \\ln \\text {   E   adds   } \\Rightarrow \\text { eqn   20.51   } = 3 \\times \\text {   (eqn   20.31)   } \\\\ \\text { and } C = 3 k _ {B} \\quad \\text { at } \\quad \\text { high } T. \\\\ - n = 2 \\\\ E = - \\frac {R}{n ^ {2}}, \\quad \\text { degeneracy } 2 n ^ {2} \\\\ \\mathrm{一} n = 1 \\quad \\Rightarrow z = \\sum_ {n = 1} ^ {\\infty} 2 n ^ {2} e ^ {\\beta R / n ^ {2}}. \\\\ \\left. \\begin{array}{l} {R = 1 3. 6   \\mathrm{eV}} \\\\ {k _ {\\mathrm{B}} T = 0. 0 2 5 9   \\mathrm{eV}} \\end{array} \\right\\} \\Rightarrow \\beta R = 5 2 5. 6   > > 1 \\\\ \\ln \\text {   fact,   } U = - \\frac {d \\ln Z}{d \\beta} = - R \\left(\\frac {e ^ {\\beta R} + e ^ {\\beta R / 4}}{e ^ {\\beta R} + 4 e ^ {\\beta R / 4}}\\right) \\\\ \\approx - R (1 - \\underbrace {3 e ^ {- 3 \\beta R / 4}} _ {\\approx 2 \\times 1 0 ^ {- 1 7 1}}) \\\\ \\Rightarrow \\text { mean   energy } \\approx - R. \\\\ \\end{array}"
+    },
+    {
+      "id": "blundell_thermal-ch22-problem-22-6-solution-8-f8e787",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "problem:22.6:solution[8]",
+      "expect": "\\begin{array}{l} {(c) \\quad \\mathrm{Thereactionoccusesbecausetheparticlesarebathedinaradiationfield.}} \\\\ {\\mathrm{Ionizationratepervolumisproportionaltofnumberdensities,buttherecombinationratepervolumisproportionaltotheproductofthenumberdensitiesoftherecombiningparticles\\Rightarrowifdensity\\downarrow,therecombination}} \\\\ {\\mathrm{ishitmoredramahically\\Rightarrowdegreeionization\\uparrow}.} \\end{array}",
+      "new": "\\begin{array}{l} {(c) \\quad \\mathrm{Thereactionoccusesbecausetheparticlesarebathedinaradiationfield.}} \\\\ {\\mathrm{Ionizationratepervolumisproportionaltofnumberdensities,buttherecombinationratepervolumisproportionaltotheproductofthenumberdensitiesoftherecombiningparticles} \\Rightarrow \\mathrm{ifdensity} \\downarrow,\\mathrm{therecombination}} \\\\ {\\mathrm{ishitmoredramahically} \\Rightarrow \\mathrm{degreeionization} \\uparrow.} \\end{array}"
     }
   ]
 }

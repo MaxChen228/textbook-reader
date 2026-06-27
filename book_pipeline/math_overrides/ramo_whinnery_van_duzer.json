@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "id": "ramo_whinnery_van_duzer-ch12-body-545-f45f9d",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[545]",
+      "expect": "\\begin{array}{l l} M _ {\\mathrm{sy}} = - E _ {0} & \\text {at x = \\pm a / 2} \\\\ M _ {\\mathrm{s} x} = - E _ {0} \\sin \\frac {\\pi x}{a} & \\text {at y = -b / 2} \\\\ M _ {\\mathrm{s} x} = E _ {0} \\sin \\frac {\\pi x}{a} & \\text {at y = b / 2} \\end{array}",
+      "new": "\\begin{array}{l l} M _ {\\mathrm{sy}} = - E _ {0} & \\text {at } x = \\pm a / 2 \\\\ M _ {\\mathrm{s} x} = - E _ {0} \\sin \\frac {\\pi x}{a} & \\text {at } y = -b / 2 \\\\ M _ {\\mathrm{s} x} = E _ {0} \\sin \\frac {\\pi x}{a} & \\text {at } y = b / 2 \\end{array}"
+    }
+  ]
+}

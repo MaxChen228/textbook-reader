@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "ma_soatto_invitation_3d_vision-ch06-body-47-fbed86",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[47]",
+      "expect": "\\boxed {\\boldsymbol {x} _ {2} ^ {\\prime} ^ {T} \\widehat {T ^ {\\prime}} K R K ^ {- 1} \\boldsymbol {x} _ {1} ^ {\\prime} = 0,}",
+      "new": "\\boxed {\\boldsymbol {x} _ {2} ^ {\\prime T} \\widehat {T ^ {\\prime}} K R K ^ {- 1} \\boldsymbol {x} _ {1} ^ {\\prime} = 0,}"
+    },
+    {
+      "id": "ma_soatto_invitation_3d_vision-ch06-body-218-d1ba5c",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[218]",
+      "expect": "\\boldsymbol {x ^ {\\prime}} _ {2} ^ {T} \\widehat {T ^ {\\prime}} \\boldsymbol {x} _ {1} ^ {\\prime} = 0.",
+      "new": "\\boldsymbol {x} _ {2} ^ {\\prime T} \\widehat {T ^ {\\prime}} \\boldsymbol {x} _ {1} ^ {\\prime} = 0."
+    }
+  ]
+}

@@ -119,6 +119,46 @@
       "selector": "body[88]",
       "expect": "\\begin{array}{c} \\left\\{ \\begin{array}{l} \\text {set of f = Spec (R) \\to X} \\\\ \\text {such that f([M]) = x} \\end{array} \\right\\} \\longrightarrow \\left\\{ \\begin{array}{l} \\text {set of local homomorphisms} \\\\ g: A _ {P} = \\underline {{o}} _ {x, X} \\to R \\end{array} \\right\\} \\\\ \\swarrow \\\\ \\left\\{ \\begin{array}{l} \\text {set of homomorphisms \\varphi : A\\to R} \\\\ \\text {such that \\varphi^{-1} (\\mathcal {M}) = P} \\end{array} \\right\\}. \\end{array}",
       "new": "\\begin{array}{c} \\left\\{ \\begin{array}{l} \\text {set of } f = \\operatorname{Spec} (R) \\to X \\\\ \\text {such that } f([M]) = x \\end{array} \\right\\} \\longrightarrow \\left\\{ \\begin{array}{l} \\text {set of local homomorphisms} \\\\ g: A _ {P} = \\underline {{o}} _ {x, X} \\to R \\end{array} \\right\\} \\\\ \\swarrow \\\\ \\left\\{ \\begin{array}{l} \\text {set of homomorphisms } \\varphi : A\\to R \\\\ \\text {such that } \\varphi^{-1} (\\mathcal {M}) = P \\end{array} \\right\\}. \\end{array}"
+    },
+    {
+      "id": "mumford_red_book-appF-body-190-a1fdf5",
+      "action": "fix_eq_tex",
+      "chunk": "appF",
+      "selector": "body[190]",
+      "expect": "\\begin{array}{l l} \\Phi : & \\text {Jac / \\pm 1} \\hookrightarrow \\mathbb {P} ^ {2 ^ {g} - 1} = \\mathbb {P} _ {j} \\\\ \\Psi : & \\text {Prym / \\pm 1} \\hookrightarrow \\mathbb {P} ^ {2 ^ {g - 1} - 1} = \\mathbb {P} _ {p}. \\end{array}",
+      "new": "\\begin{array}{l l} \\Phi : & \\text {Jac} / \\pm 1 \\hookrightarrow \\mathbb {P} ^ {2 ^ {g} - 1} = \\mathbb {P} _ {j} \\\\ \\Psi : & \\text {Prym} / \\pm 1 \\hookrightarrow \\mathbb {P} ^ {2 ^ {g - 1} - 1} = \\mathbb {P} _ {p}. \\end{array}"
+    },
+    {
+      "id": "mumford_red_book-ch14-body-45-9c86c4",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[45]",
+      "expect": "f \\left(\\sigma_ {X} (x)\\right) = \\sigma (f (x))\\tag{((*)\\}",
+      "new": "f \\left(\\sigma_ {X} (x)\\right) = \\sigma (f (x))\\tag{((*)\\}}"
+    },
+    {
+      "id": "mumford_red_book-ch17-body-22-012b48",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[22]",
+      "expect": "\\left(S _ {N} / A _ {N}\\right) \\otimes_ {R} \\left(R _ {P} / P \\cdot R _ {P}\\right) = (0),\\tag{((*)'\\}",
+      "new": "\\left(S _ {N} / A _ {N}\\right) \\otimes_ {R} \\left(R _ {P} / P \\cdot R _ {P}\\right) = (0),\\tag{((*)'\\}}"
+    },
+    {
+      "id": "mumford_red_book-ch23-body-10-e3664d",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "body[10]",
+      "expect": "\\det \\left(\\partial f _ {i} / \\partial X _ {j}\\right) (x) \\neq 0.\\tag{((*)\\}",
+      "new": "\\det \\left(\\partial f _ {i} / \\partial X _ {j}\\right) (x) \\neq 0.\\tag{((*)\\}}"
+    },
+    {
+      "id": "mumford_red_book-appE-body-151-d19996",
+      "action": "fix_eq_tex",
+      "chunk": "appE",
+      "selector": "body[151]",
+      "expect": "E (x _ {1}, x _ {2}) = \\operatorname{Im} H (x _ {1}, x _ {2}), \\qquad \\mathrm{all} x _ {1}, x _ {2} \\in L,\\tag{((*)\\}",
+      "new": "E (x _ {1}, x _ {2}) = \\operatorname{Im} H (x _ {1}, x _ {2}), \\qquad \\mathrm{all} x _ {1}, x _ {2} \\in L,\\tag{((*)\\}}"
     }
   ]
 }
