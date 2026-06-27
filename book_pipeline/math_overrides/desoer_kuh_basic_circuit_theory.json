@@ -6,7 +6,7 @@
       "chunk": "ch04",
       "selector": "body[182]",
       "expect": "\\begin{array}{l l} \\text {Complete} & \\text {Zero - input} \\\\ \\text {response} & \\text {response v_{i}} \\end{array} \\qquad \\qquad \\begin{array}{l l} \\text {Zero - state} \\\\ \\text {response v_{0}} \\end{array}",
-      "new": "\\begin{array}{l l} \\text{Complete} & \\text{Zero - input} \\\\ \\text{response} & \\text{response }v_{i} \\end{array} \\qquad \\qquad \\begin{array}{l l} \\text{Zero - state} \\\\ \\text{response }v_{0} \\end{array}"
+      "new": "\\begin{array}{l l} \\text {Complete} & \\text {Zero - input} \\\\ \\text {response} & \\text {response } v_{i} \\end{array} \\qquad \\qquad \\begin{array}{l l} \\text {Zero - state} \\\\ \\text {response } v_{0} \\end{array}"
     },
     {
       "id": "desoer_kuh_basic_circuit_theory-ch09-problem-7-body-1-2255f7",
@@ -14,7 +14,7 @@
       "chunk": "ch09",
       "selector": "problem:7:body[1]",
       "expect": "\\begin{array}{c c} i _ {1} & j _ {2} \\\\ v _ {1} \\text {+ - } & R _ {2} + v _ {2} \\\\ & - \\end{array} \\quad \\begin{array}{c c} \\text {With R_{2} = 1\\Omega} & \\text {With \\hat{R_{2}} = 2\\Omega} \\\\ \\hline v _ {1} = 4 \\text {volts} & \\hat {v _ {1}} = 6 \\text {volts} \\\\ i _ {1} = 1 \\text {amp} & \\hat {i _ {1}} = 1. 2 \\text {amp} \\\\ v _ {2} = 1 \\text {volt} & \\hat {v _ {2}} = ? \\end{array}",
-      "new": "\\begin{array}{c c} i _ {1} & j _ {2} \\\\ v _ {1} \\text {+ - } & R _ {2} + v _ {2} \\\\ & - \\end{array} \\quad \\begin{array}{c c} \\text{With }R_{2} = 1\\Omega & \\text{With }\\hat{R_{2}} = 2\\Omega \\\\ \\hline v _ {1} = 4 \\text {volts} & \\hat {v _ {1}} = 6 \\text {volts} \\\\ i _ {1} = 1 \\text {amp} & \\hat {i _ {1}} = 1. 2 \\text {amp} \\\\ v _ {2} = 1 \\text {volt} & \\hat {v _ {2}} = ? \\end{array}"
+      "new": "\\begin{array}{c c} i _ {1} & j _ {2} \\\\ v _ {1} \\text {+ - } & R _ {2} + v _ {2} \\\\ & - \\end{array} \\quad \\begin{array}{c c} \\text {With } R_{2} = 1\\Omega & \\text {With } \\hat{R_{2}} = 2\\Omega \\\\ \\hline v _ {1} = 4 \\text {volts} & \\hat {v _ {1}} = 6 \\text {volts} \\\\ i _ {1} = 1 \\text {amp} & \\hat {i _ {1}} = 1. 2 \\text {amp} \\\\ v _ {2} = 1 \\text {volt} & \\hat {v _ {2}} = ? \\end{array}"
     },
     {
       "id": "desoer_kuh_basic_circuit_theory-ch09-problem-10-body-90-3d9a69",
@@ -22,7 +22,7 @@
       "chunk": "ch09",
       "selector": "problem:10:body[90]",
       "expect": "v _ {k} = \\left\\{ \\begin{array}{c l} e _ {i} & \\text {if branch k\\cdot leaves node} i \\\\ - e _ {i} & \\text {if branch k enters node} i \\end{array} \\right.",
-      "new": "v _ {k} = \\left\\{ \\begin{array}{c l} e _ {i} & \\text{if branch } k\\cdot \\text{ leaves node } i \\\\ - e _ {i} & \\text{if branch k enters node } i \\end{array} \\right."
+      "new": "v _ {k} = \\left\\{ \\begin{array}{c l} e _ {i} & \\text {if branch } k\\cdot \\text { leaves node } i \\\\ - e _ {i} & \\text {if branch k enters node} i \\end{array} \\right."
     },
     {
       "id": "desoer_kuh_basic_circuit_theory-ch17-body-220-4b8a2e",
@@ -30,7 +30,7 @@
       "chunk": "ch17",
       "selector": "body[220]",
       "expect": "V _ {1} (s) = \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text {to I_{1} acting alone} \\end{array} \\right) + \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text {to I_{2} acting alone} \\end{array} \\right)",
-      "new": "V _ {1} (s) = \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text{to }I_{1}\\text{ acting alone} \\end{array} \\right) + \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text{to }I_{2}\\text{ acting alone} \\end{array} \\right)"
+      "new": "V _ {1} (s) = \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text {to } I_{1} \\text { acting alone} \\end{array} \\right) + \\left( \\begin{array}{c} \\text {Laplace transform of} \\\\ \\text {voltage at port 1 due} \\\\ \\text {to } I_{2} \\text { acting alone} \\end{array} \\right)"
     },
     {
       "id": "desoer_kuh_basic_circuit_theory-ch05-problem-17-body-1-7f70c4",
@@ -40,8 +40,7 @@
       "field": "md",
       "all": true,
       "old": "$\\mathfrak{E}(t) = \\nicefrac{1}{2}[v_1^2 (t) + v_2^2 (t)];$",
-      "new": "$\\mathfrak{E}(t) = \\frac{1}{2}[v_1^2 (t) + v_2^2 (t)];$",
-      "anchor": "a4a2d333"
+      "new": "$\\mathfrak{E}(t) = \\frac{1}{2}[v_1^2 (t) + v_2^2 (t)];$"
     }
   ]
 }

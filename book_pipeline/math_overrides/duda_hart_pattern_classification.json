@@ -1,0 +1,47 @@
+{
+  "overrides": [
+    {
+      "id": "duda_hart_pattern_classification-appA-body-341-c404d9",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[341]",
+      "expect": "\\begin{array}{r c l} \\delta (x - a) & = & \\left\\{ \\begin{array}{c c} 0 & \\text {if x\\neq a} \\\\ \\infty & \\text {if x = a}, \\end{array} \\right. \\quad \\text {with} \\\\ & & \\int_ {- \\infty} ^ {\\infty} \\delta (x) d x = 1, \\end{array}\\tag{120}",
+      "new": "\\begin{array}{r c l} \\delta (x - a) & = & \\left\\{ \\begin{array}{c c} 0 & \\text{if } x\\neq a \\\\ \\infty & \\text{if } x = a, \\end{array} \\right. \\quad \\text {with} \\\\ & & \\int_ {- \\infty} ^ {\\infty} \\delta (x) d x = 1, \\end{array}\\tag{120}"
+    },
+    {
+      "id": "duda_hart_pattern_classification-ch09-problem-44-body-31-b2c220",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:44:body[31]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\pmb \\mu } _ { 1 } = ( { \\pmb \\mathrm { ^ + 5 } } ) { \\pmb \\mu } _ { 2 } = ( { \\ - } _ { - 5 } ^ { 5 } )$",
+      "new": "${ \\pmb{\\mu} } _ { 1 } = ( { \\pmb{\\mathrm { + 5 }} } ) { \\pmb{\\mu} } _ { 2 } = ( { - } _ { - 5 } ^ { 5 } )$",
+      "anchor": "73d1dd51"
+    },
+    {
+      "id": "duda_hart_pattern_classification-ch06-body-17-1114d4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[17]",
+      "expect": "f (n e t) = S g n (n e t) \\equiv \\left\\{ \\begin{array}{r l} 1 & \\text {if net\\geq 0} \\\\ - 1 & \\text {if net <   0 ,} \\end{array} \\right.\\tag{3}",
+      "new": "f (n e t) = S g n (n e t) \\equiv \\left\\{ \\begin{array}{r l} 1 & \\text {if net} \\geq 0 \\\\ - 1 & \\text {if net <   0 ,} \\end{array} \\right.\\tag{3}"
+    },
+    {
+      "id": "duda_hart_pattern_classification-ch09-body-220-ceea6b",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[220]",
+      "expect": "\\begin{array}{l} \\gamma \\\\ 8 \\end{array} \\qquad \\begin{array}{r l} W _ {k + 1} (i) \\leftarrow \\frac {W _ {k} (i)}{Z _ {k}} \\times \\left\\{ \\begin{array}{l l} e ^ {- \\alpha_ {k}} & \\text {if h_{k} (\\mathbf {x} ^{i}) = y_{i} (correctly classified)} \\\\ e ^ {\\alpha_ {k}} & \\text {if h_{k} (\\mathbf {x} ^{i})\\neq y_{i} (incorrectly classified)} \\end{array} \\right. \\\\ \\underline {{\\mathbf {u n t i l}}} k = k _ {m a x} \\end{array}",
+      "new": "\\begin{array}{l} \\gamma \\\\ 8 \\end{array} \\qquad \\begin{array}{r l} W_{k+1}(i) \\leftarrow \\frac{W_k(i)}{Z_k} \\times \\left\\{ \\begin{array}{l l} e^{-\\alpha_k} & \\text{if } h_k(\\mathbf{x}^{i}) = y_i \\text{ (correctly classified)} \\\\ e^{\\alpha_k} & \\text{if } h_k(\\mathbf{x}^{i})\\neq y_i \\text{ (incorrectly classified)} \\end{array} \\right. \\\\ \\underline{{\\mathbf{u n t i l}}}\\ k = k_{m a x} \\end{array}"
+    },
+    {
+      "id": "duda_hart_pattern_classification-appA-body-309-b8a586",
+      "action": "fix_eq_tex",
+      "chunk": "appA",
+      "selector": "body[309]",
+      "expect": "\\begin{array}{l} p _ {x _ {1} x _ {2}} (x _ {1}, x _ {2}) = \\frac {1}{2 \\pi \\sigma_ {1} \\sigma_ {2} \\sqrt {1 - \\rho^ {2}}} \\times \\\\ \\exp \\left[ - \\frac {1}{2 (1 - \\rho^ {2})} \\left[ \\left(\\frac {x _ {1} - \\mu_ {1}}{\\sigma_ {1}}\\right) ^ {2} - 2 \\rho \\left(\\frac {x _ {1} - \\mu_ {1}}{\\sigma_ {1}}\\right) \\left(\\frac {x _ {2} - \\mu_ {2}}{\\sigma_ {2}}\\right) + \\left(\\frac {x _ {2} - \\mu_ {2}}{\\sigma_ {2}}\\right) ^ {2} \\right] \\right]. \\end{array} \\tag {11}\\tag{113}",
+      "new": "\\begin{array}{l} p_{x_{1}x_{2}}(x_{1},x_{2}) = \\frac{1}{2 \\pi \\sigma_{1} \\sigma_{2} \\sqrt{1-\\rho^{2}}} \\times \\\\ \\exp \\left[ -\\frac{1}{2(1-\\rho^{2})} \\left[ \\left(\\frac{x_{1}-\\mu_{1}}{\\sigma_{1}}\\right)^{2} - 2\\rho \\left(\\frac{x_{1}-\\mu_{1}}{\\sigma_{1}}\\right) \\left(\\frac{x_{2}-\\mu_{2}}{\\sigma_{2}}\\right) + \\left(\\frac{x_{2}-\\mu_{2}}{\\sigma_{2}}\\right)^{2} \\right] \\right]. \\end{array} \\tag{11}"
+    }
+  ]
+}

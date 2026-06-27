@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "wheeden_zygmund_measure-ch12-problem-5-body-4-018d58",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "problem:5:body[4]",
+      "expect": "f \\sim \\frac {2 h}{\\pi} \\left[ \\frac {1}{2} + \\sum_ {k = 1} ^ {\\infty} \\left(\\frac {\\sin k h}{k h}\\right) ^ {2} \\cos k x \\right] = \\frac {h}{\\pi} \\left[ 1 + \\sum_ {- \\infty} ^ {+ \\infty} ^ {\\prime} \\left(\\frac {\\sin k h}{k h}\\right) ^ {2} e ^ {i k x} \\right].",
+      "new": "f \\sim \\frac {2 h}{\\pi} \\left[ \\frac {1}{2} + \\sum_ {k = 1} ^ {\\infty} \\left(\\frac {\\sin k h}{k h}\\right) ^ {2} \\cos k x \\right] = \\frac {h}{\\pi} \\left[ 1 + \\sideset{}{^{\\prime}}\\sum_ {- \\infty} ^ {+ \\infty} \\left(\\frac {\\sin k h}{k h}\\right) ^ {2} e ^ {i k x} \\right]."
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch04-body-84-8e671b",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[84]",
+      "expect": "u _ {1} (\\mathbf {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if \\mathbf {x} <   \\mathbf {x} _{0}} \\\\ 1 & \\text {if \\mathbf {x} \\geq \\mathbf {x} _{0}}, \\end{array} \\right. \\quad u _ {2} (\\mathbf {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if \\mathbf {x} \\neq \\mathbf {x} _{0}} \\\\ 1 & \\text {if \\mathbf {x} = \\mathbf {x} _{0}}. \\end{array} \\right.",
+      "new": "u _ {1} (\\mathbf {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } \\mathbf {x} <   \\mathbf {x} _{0} \\\\ 1 & \\text {if } \\mathbf {x} \\geq \\mathbf {x} _{0}, \\end{array} \\right. \\quad u _ {2} (\\mathbf {x}) = \\left\\{ \\begin{array}{l l} 0 & \\text {if } \\mathbf {x} \\neq \\mathbf {x} _{0} \\\\ 1 & \\text {if } \\mathbf {x} = \\mathbf {x} _{0}. \\end{array} \\right."
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch14-body-276-360bc6",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[276]",
+      "expect": "\\left(| f | * \\frac {1}{| \\mathbf {y} | ^ {n - \\alpha}}\\right) (\\mathbf {x}) = I _ {\\alpha} (| f |) (\\mathbf {x}) <   \\infty \\quad \\text {a.e. in \\mathbf {R} ^{n}};",
+      "new": "\\left(| f | * \\frac {1}{| \\mathbf {y} | ^ {n - \\alpha}}\\right) (\\mathbf {x}) = I _ {\\alpha} (| f |) (\\mathbf {x}) <   \\infty \\quad \\text {a.e. in } \\mathbf {R} ^{n};"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch09-problem-3-body-0-ade41f",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:3:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$K \\in L ^ { p ^ { \\prime } } ( \\mathbf { R } ^ { \\mathbf { n } } ) , 1 \\leq p \\leq \\infty , 1 / p + 1 / p ^ { \\prime } = 1 _  \\mathit $",
+      "new": "$K \\in L ^ { p ^ { \\prime } } ( \\mathbf { R } ^ { \\mathbf { n } } ) , 1 \\leq p \\leq \\infty , 1 / p + 1 / p ^ { \\prime } = 1 $",
+      "anchor": "c7cc5096"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch14-body-113-4889b1",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "body[113]",
+      "field": "md",
+      "all": true,
+      "old": "$B _ { k } \\overset  { = } \\bar { B } ( \\mathbf { x } _ { k } ; r _ { k } ) \\subset B ( \\mathbf { x } ; 3 r _ { k } )$",
+      "new": "$B _ { k } \\overset  { = }{\\bar { B }} ( \\mathbf { x } _ { k } ; r _ { k } ) \\subset B ( \\mathbf { x } ; 3 r _ { k } )$",
+      "anchor": "0239d5a1"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch13-body-453-5cbcb6",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[453]",
+      "expect": "\\begin{array}{l} \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 1} \\omega (\\alpha) d \\alpha \\leq \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 3} \\left(\\int_ {\\{0 <   | f | <   \\alpha^ {- 1 / (p - 1)} \\}} | f | ^ {2} d \\mathbf {x}\\right) d \\alpha \\\\ = \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} \\left(\\int_ {0} ^ {| f | ^ {1 - p}} \\alpha^ {p ^ {\\prime} - 3} d \\alpha\\right) d \\mathbf {x} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} | f | ^ {(1 - p) (p ^ {\\prime} - 2)} d \\mathbf {x} \\quad \\text {since p^{\\prime} >2} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\mathbf {R} ^ {n}} | f | ^ {p} d \\mathbf {x} = \\frac {1}{p ^ {\\prime} - 2}. \\end{array}",
+      "new": "\\begin{array}{l} \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 1} \\omega (\\alpha) d \\alpha \\leq \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 3} \\left(\\int_ {\\{0 <   | f | <   \\alpha^ {- 1 / (p - 1)} \\}} | f | ^ {2} d \\mathbf {x}\\right) d \\alpha \\\\ = \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} \\left(\\int_ {0} ^ {| f | ^ {1 - p}} \\alpha^ {p ^ {\\prime} - 3} d \\alpha\\right) d \\mathbf {x} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} | f | ^ {(1 - p) (p ^ {\\prime} - 2)} d \\mathbf {x} \\quad \\text {since } p^{\\prime} >2 \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\mathbf {R} ^ {n}} | f | ^ {p} d \\mathbf {x} = \\frac {1}{p ^ {\\prime} - 2}. \\end{array}"
+    }
+  ]
+}

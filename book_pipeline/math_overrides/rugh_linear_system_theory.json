@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "rugh_linear_system_theory-ch15-body-108-a4e95a",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[108]",
+      "expect": "\\begin{array}{r l} \\left[ \\begin{array}{l} \\dot {z} _ {a} (t) \\\\ \\dot {z} _ {b} (t) \\end{array} \\right] & = \\left[ \\begin{array}{l l} F _ {1 1} (t) & F _ {1 2} (t) \\\\ F _ {2 1} (t) & F _ {2 2} (t) \\end{array} \\right] \\left[ \\begin{array}{l} z _ {a} (t) \\\\ z _ {b} (t) \\end{array} \\right] + \\left[ \\begin{array}{l} G _ {1} (t) \\\\ G _ {2} (t) \\end{array} \\right] u (t), \\\\ y (t) & = \\left[ \\begin{array}{l l} I _ {p} & 0 _ {p \\times (n - p)} \\end{array} \\right] \\left[ \\begin{array}{l} z _ {a} (t) \\\\ z _ {b} (t) \\end{array} \\right] \\end{array} \\tag {C}\\tag{20}",
+      "new": "\\begin{array}{r l} \\left[ \\begin{array}{l} \\dot {z} _ {a} (t) \\\\ \\dot {z} _ {b} (t) \\end{array} \\right] & = \\left[ \\begin{array}{l l} F _ {1 1} (t) & F _ {1 2} (t) \\\\ F _ {2 1} (t) & F _ {2 2} (t) \\end{array} \\right] \\left[ \\begin{array}{l} z _ {a} (t) \\\\ z _ {b} (t) \\end{array} \\right] + \\left[ \\begin{array}{l} G _ {1} (t) \\\\ G _ {2} (t) \\end{array} \\right] u (t), \\\\ y (t) & = \\left[ \\begin{array}{l l} I _ {p} & 0 _ {p \\times (n - p)} \\end{array} \\right] \\left[ \\begin{array}{l} z _ {a} (t) \\\\ z _ {b} (t) \\end{array} \\right] \\end{array} \\tag {C.20}"
+    },
+    {
+      "id": "rugh_linear_system_theory-ch24-body-125-9bdd78",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[125]",
+      "expect": "\\begin{array}{r l} \\left\\| A ^ {T} (k - 1) \\otimes A ^ {T} (k - 1) - A ^ {T} (k) \\otimes A ^ {T} (k) \\right\\| & = \\left\\| \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. A ^ {T} (k - 1) \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes A ^ {T} (k - 1) \\right\\| \\\\ & \\leq n ^ {2} \\beta (\\beta + 2 \\alpha). \\end{array} \\tag {2}\\tag{24}",
+      "new": "\\begin{array}{r l} \\left\\| A ^ {T} (k - 1) \\otimes A ^ {T} (k - 1) - A ^ {T} (k) \\otimes A ^ {T} (k) \\right\\| & = \\left\\| \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. A ^ {T} (k - 1) \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes A ^ {T} (k - 1) \\right\\| \\\\ & \\leq n ^ {2} \\beta (\\beta + 2 \\alpha). \\end{array} \\tag {2.24}"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "sutton_barto_reinforcement_learning-ch11-body-22-e72857",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[22]",
+      "expect": "H _ {t + 1} (s, a) = \\left\\{ \\begin{array}{l l} H _ {t} (s, a) + \\alpha \\delta_ {t} & \\text {if a = A_{t} and s = S_{t}} \\\\ H _ {t} (s, a) & \\text {otherwise,} \\end{array} \\right.",
+      "new": "H _ {t + 1} (s, a) = \\left\\{ \\begin{array}{l l} H _ {t} (s, a) + \\alpha \\delta_ {t} & \\text {if } a = A_{t} \\text{ and } s = S_{t} \\\\ H _ {t} (s, a) & \\text {otherwise,} \\end{array} \\right."
+    },
+    {
+      "id": "sutton_barto_reinforcement_learning-ch11-body-29-3cb87f",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[29]",
+      "expect": "E _ {t} (s, a) = \\left\\{ \\begin{array}{l l} \\gamma \\lambda E _ {t - 1} (s, a) + 1 - \\pi_ {t} (S _ {t}, A _ {t}) & \\text {if s = S_{t} and a = A_{t}}; \\\\ \\gamma \\lambda E _ {t - 1} (s, a) & \\text {otherwise,} \\end{array} \\right.\\tag{11.2}",
+      "new": "E _ {t} (s, a) = \\left\\{ \\begin{array}{l l} \\gamma \\lambda E _ {t - 1} (s, a) + 1 - \\pi_ {t} (S _ {t}, A _ {t}) & \\text {if } s = S_{t} \\text{ and } a = A_{t}; \\\\ \\gamma \\lambda E _ {t - 1} (s, a) & \\text {otherwise,} \\end{array} \\right.\\tag{11.2}"
+    },
+    {
+      "id": "sutton_barto_reinforcement_learning-ch02-body-85-597ee3",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[85]",
+      "expect": "\\begin{array}{r l r} \\frac {\\partial \\pi_ {t} (b)}{\\partial H _ {t} (a)} = \\frac {\\partial}{\\partial H _ {t} (a)} \\pi_ {t} (b) \\\\ & = \\frac {\\partial}{\\partial H _ {t} (a)} \\left[ \\frac {e ^ {H _ {t} (b)}}{\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}} \\right] \\\\ & = \\frac {\\frac {\\partial e ^ {H _ {t} (b)}}{\\partial H _ {t} (a)} \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} - e ^ {H _ {t} (b)} \\frac {\\partial \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}}{\\partial H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} & \\text {(by the quotient rule)} \\\\ & = \\frac {\\mathbb {I} _ {a = b} e ^ {H _ {t} (a)} \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} - e ^ {H _ {t} (b)} e ^ {H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} & \\text {(because \\frac {\\partial e ^ {x}}{\\partial x} = e ^ {x})} \\\\ & = \\frac {\\mathbb {I} _ {a = b} e ^ {H _ {t} (b)}}{\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}} - \\frac {e ^ {H _ {t} (b)} e ^ {H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} \\\\ & = \\mathbb {I} _ {a = b} \\pi_ {t} (b) - \\pi_ {t} (b) \\pi_ {t} (a) \\\\ & = \\pi_ {t} (b) \\bigl (\\mathbb {I} _ {a = b} - \\pi_ {t} (a) \\bigr). & \\text {Q.E.D.}. \\end{array}",
+      "new": "\\begin{array}{r l r} \\frac {\\partial \\pi_ {t} (b)}{\\partial H _ {t} (a)} = \\frac {\\partial}{\\partial H _ {t} (a)} \\pi_ {t} (b) \\\\ & = \\frac {\\partial}{\\partial H _ {t} (a)} \\left[ \\frac {e ^ {H _ {t} (b)}}{\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}} \\right] \\\\ & = \\frac {\\frac {\\partial e ^ {H _ {t} (b)}}{\\partial H _ {t} (a)} \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} - e ^ {H _ {t} (b)} \\frac {\\partial \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}}{\\partial H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} & \\text {(by the quotient rule)} \\\\ & = \\frac {\\mathbb {I} _ {a = b} e ^ {H _ {t} (a)} \\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} - e ^ {H _ {t} (b)} e ^ {H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} & \\text{(because } \\frac {\\partial e ^ {x}}{\\partial x} = e ^ {x} \\text{)} \\\\ & = \\frac {\\mathbb {I} _ {a = b} e ^ {H _ {t} (b)}}{\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)}} - \\frac {e ^ {H _ {t} (b)} e ^ {H _ {t} (a)}}{\\bigl (\\sum_ {c = 1} ^ {n} e ^ {H _ {t} (c)} \\bigr) ^ {2}} \\\\ & = \\mathbb {I} _ {a = b} \\pi_ {t} (b) - \\pi_ {t} (b) \\pi_ {t} (a) \\\\ & = \\pi_ {t} (b) \\bigl (\\mathbb {I} _ {a = b} - \\pi_ {t} (a) \\bigr). & \\text {Q.E.D.}. \\end{array}"
+    }
+  ]
+}

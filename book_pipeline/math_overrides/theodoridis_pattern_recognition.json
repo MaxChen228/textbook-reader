@@ -1,0 +1,67 @@
+{
+  "overrides": [
+    {
+      "id": "theodoridis_pattern_recognition-ch03-body-161-8565dc",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[161]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textbf { \\textit { x } } \\in \\textbf { \\textit { \\omega } } _ { i }$",
+      "new": "$\\boldsymbol{x} \\in \\boldsymbol{\\omega} _ { i }$",
+      "anchor": "d37ef6ff"
+    },
+    {
+      "id": "theodoridis_pattern_recognition-ch03-body-385-8565dc",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[385]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textbf { \\textit { x } } \\in \\textbf { \\textit { \\omega } } _ { i }$",
+      "new": "$\\boldsymbol{x} \\in \\boldsymbol{\\omega} _ { i }$",
+      "anchor": "82b55b8a"
+    },
+    {
+      "id": "theodoridis_pattern_recognition-ch03-body-124-0254c3",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[124]",
+      "field": "md",
+      "all": true,
+      "old": "$\\textbf { \\em x } \\in \\textbf { \\em \\omega } _ { i }$",
+      "new": "$\\boldsymbol{x} \\in \\boldsymbol{\\omega} _ { i }$",
+      "anchor": "d6b1267d"
+    },
+    {
+      "id": "theodoridis_pattern_recognition-ch03-body-131-88d779",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[131]",
+      "expect": "\\begin{array}{l l} \\text {For [1, - 2]^{T} we get} & [ - 1, 2, - 1, 1, - 2, 1, 0, 0, 0 ] ^ {T} \\quad \\text {and} \\\\ & [ 0, 0, 0, 1, - 2, 1, - 1, 2, - 1 ] ^ {T} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {For }[1, - 2]^{T}\\text { we get} & [ - 1, 2, - 1, 1, - 2, 1, 0, 0, 0 ] ^ {T} \\quad \\text {and} \\\\ & [ 0, 0, 0, 1, - 2, 1, - 1, 2, - 1 ] ^ {T} \\end{array}"
+    },
+    {
+      "id": "theodoridis_pattern_recognition-ch09-body-82-5e2df2",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[82]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathbf { a r o u n d } ^ { \\textit { \\omega } + }$",
+      "new": "$\\mathbf { a r o u n d } ^ { \\omega + }$",
+      "anchor": "eb46449e"
+    },
+    {
+      "id": "theodoridis_pattern_recognition-ch15-body-169-dd5af1",
+      "action": "fix_inline_math",
+      "chunk": "ch15",
+      "selector": "body[169]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { x } _ { i } , i = 1 , 2 , . . . , N _ $",
+      "new": "$\\pmb { x } _ { i } , i = 1 , 2 , . . . , N $",
+      "anchor": "a5f06021"
+    }
+  ]
+}

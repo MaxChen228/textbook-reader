@@ -1,0 +1,76 @@
+{
+  "overrides": [
+    {
+      "id": "tinoco_physical_chemistry_bio-ch02-body-281-de1c65",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[281]",
+      "expect": "w _ {P} = - P _ {\\mathrm{ex}} \\left(V _ {2} - V _ {1}\\right) \\quad \\text {(expansion, constant P_{ex})}",
+      "new": "w _ {P} = - P _ {\\mathrm{ex}} \\left(V _ {2} - V _ {1}\\right) \\quad \\text {(expansion, constant }P_{\\mathrm{ex}}\\text {)}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch02-body-595-794feb",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[595]",
+      "expect": "\\begin{array}{l} \\overline {{H}} _ {2 9 8} ^ {0} (\\mathrm{A}) \\equiv \\Delta \\overline {{H}} _ {f, 2 9 8} ^ {0} (\\mathrm{A}) = \\text { enthalpy   (heat)   of   formation   of   A } \\\\ \\text { per   mole   from   the   elements   in   their } \\\\ \\text { most   stable   states   at   standard } \\\\ \\text { conditions   (1   atm)   and   25^{\\circ} C} \\end{array}",
+      "new": "\\begin{array}{l} \\overline {{H}} _ {2 9 8} ^ {0} (\\mathrm{A}) \\equiv \\Delta \\overline {{H}} _ {f, 2 9 8} ^ {0} (\\mathrm{A}) = \\text { enthalpy   (heat)   of   formation   of   A } \\\\ \\text { per   mole   from   the   elements   in   their } \\\\ \\text { most   stable   states   at   standard } \\\\ \\text { conditions   (1   atm)   and   }25^{\\circ} C \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch03-body-583-7c004c",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[583]",
+      "expect": "\\begin{array}{c} \\text {(constant P; C_{P} = n \\overline {{C}} _{P}} \\\\ \\text {independent of T)} \\end{array}",
+      "new": "\\begin{array}{c} \\text {(constant P; } C_{P} = n \\overline {{C}} _{P} \\\\ \\text {independent of T)} \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch04-problem-31-body-1-c23886",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:31:body[1]",
+      "expect": "\\begin{array}{c c} 5 ^ {\\prime} \\text {-GGGCC-3^ {\\prime}} & 5 ^ {\\prime} \\text {-GGTCC-3^ {\\prime}} \\\\ 3 ^ {\\prime} \\text {-CCCAGG-5^ {\\prime}} & 3 ^ {\\prime} \\text {-CCAAGG-5^ {\\prime}} \\end{array}",
+      "new": "\\begin{array}{c c} 5 ^ {\\prime} \\text {-GGGCC-}3^ {\\prime} & 5 ^ {\\prime} \\text {-GGTCC-}3^ {\\prime} \\\\ 3 ^ {\\prime} \\text {-CCCAGG-}5^ {\\prime} & 3 ^ {\\prime} \\text {-CCAAGG-}5^ {\\prime} \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch08-body-201-a86426",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[201]",
+      "expect": "\\begin{array}{c} \\text {enzyme - S - CH_{2} CNH_{2}} \\\\ \\parallel \\\\ \\mathrm{O} \\end{array}",
+      "new": "\\begin{array}{c} \\text {enzyme - S - CH}_{2}\\text {CNH}_{2} \\\\ \\parallel \\\\ \\mathrm{O} \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch08-problem-7-body-1-c4015d",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:7:body[1]",
+      "expect": "\\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{O} + \\mathrm{H} _ {2} \\mathrm{NCNH} _ {2} \\longrightarrow 2 \\mathrm{NH} _ {3} + \\mathrm{CO} _ {2} \\\\ \\text {\\parallel} \\\\ \\mathrm{O} \\end{array}",
+      "new": "\\begin{array}{c} \\mathrm{H} _ {2} \\mathrm{O} + \\mathrm{H} _ {2} \\mathrm{NCNH} _ {2} \\longrightarrow 2 \\mathrm{NH} _ {3} + \\mathrm{CO} _ {2} \\\\ \\parallel \\\\ \\mathrm{O} \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch08-problem-13-body-1-893573",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "problem:13:body[1]",
+      "expect": "\\begin{array}{c c} \\mathrm{E+S} \\Longleftrightarrow & \\mathrm{ES} \\\\ \\Big \\downarrow \\uparrow \\mathrm {H^ {+}} & \\Big \\downarrow \\uparrow \\mathrm {H^ {+}} \\\\ \\mathrm {H^ {+} E + S} \\Longleftrightarrow & \\mathrm {H^ {+} ES} \\xrightarrow {k} \\text {products + H^ {+} E} \\end{array}",
+      "new": "\\begin{array}{c c} \\mathrm{E+S} \\Longleftrightarrow & \\mathrm{ES} \\\\ \\Big \\downarrow \\uparrow \\mathrm {H^ {+}} & \\Big \\downarrow \\uparrow \\mathrm {H^ {+}} \\\\ \\mathrm {H^ {+} E + S} \\Longleftrightarrow & \\mathrm {H^ {+} ES} \\xrightarrow {k} \\text {products + }\\mathrm {H^ {+} E} \\end{array}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch02-problem-16-body-4-8d3196",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "problem:16:body[4]",
+      "expect": "\\Delta H = \\Delta E + \\Delta (n R T) \\tag {d}\\tag{e}",
+      "new": "\\Delta H = \\Delta E + \\Delta (n R T) \\tag {d}"
+    },
+    {
+      "id": "tinoco_physical_chemistry_bio-ch09-body-820-e50460",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[820]",
+      "expect": "\\begin{array}{l l} U = + k _ {r} (r - r _ {\\mathrm{eq}}) ^ {2} & \\text {(bond stretching)} \\\\ + k _ {b} (\\theta - \\theta_ {\\mathrm{eq}}) ^ {2} & \\text {(bond angle bending)} \\\\ + (V _ {n} / 2) [ 1 + \\cos (n \\phi - \\phi_ {0}) ] & \\text {(torsion angle rotation; n = 2 or 3)} \\\\ + \\frac {B _ {i j}}{r _ {i j} ^ {1 2}} & \\text {(van der Waals repulsion;} \\\\ - \\frac {A _ {i j}}{r _ {i j} ^ {6}} & \\text {(London attraction; A_{ij} is positive)} \\\\ + C \\frac {q _ {i} q _ {j}}{r _ {i j}} & \\text {(Coulomb interaction;} \\\\ & \\text {C depends on the units)} \\end{array} \\tag {9.42}",
+      "new": "\\begin{array}{l l} U = + k _ {r} (r - r _ {\\mathrm{eq}}) ^ {2} & \\text {(bond stretching)} \\\\ + k _ {b} (\\theta - \\theta_ {\\mathrm{eq}}) ^ {2} & \\text {(bond angle bending)} \\\\ + (V _ {n} / 2) [ 1 + \\cos (n \\phi - \\phi_ {0}) ] & \\text {(torsion angle rotation; n = 2 or 3)} \\\\ + \\frac {B _ {i j}}{r _ {i j} ^ {1 2}} & \\text {(van der Waals repulsion;} \\\\ - \\frac {A _ {i j}}{r _ {i j} ^ {6}} & \\text {(London attraction; } A_{ij} \\text { is positive)} \\\\ + C \\frac {q _ {i} q _ {j}}{r _ {i j}} & \\text {(Coulomb interaction;} \\\\ & \\text {C depends on the units)} \\end{array} \\tag {9.42}"
+    }
+  ]
+}

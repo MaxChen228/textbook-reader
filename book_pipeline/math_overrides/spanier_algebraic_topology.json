@@ -1,0 +1,61 @@
+{
+  "overrides": [
+    {
+      "id": "spanier_algebraic_topology-ch06-body-752-7773d2",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[752]",
+      "expect": "\\hat {\\tau} _ {*} \\colon H ^ {q} (\\hat {\\Gamma} ^ {*} (X)) \\to I H ^ {q} (\\hat {\\Gamma} ^ {\\prime} ^ {*} (X))",
+      "new": "\\hat {\\tau} _ {*} \\colon H ^ {q} (\\hat {\\Gamma} ^ {*} (X)) \\to I H ^ {q} (\\hat {\\Gamma} ^ {\\prime *} (X))"
+    },
+    {
+      "id": "spanier_algebraic_topology-ch07-problem-a-5-body-20-f47fa9",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "problem:A.5:body[20]",
+      "field": "md",
+      "all": true,
+      "old": "$h_{[\\omega][[\\alpha],[\\beta]]} = [h_{[\\omega][\\alpha],h_{[\\omega][\\beta]]}$",
+      "new": "$h_{[\\omega][[\\alpha],[\\beta]]} = [h_{[\\omega][\\alpha]},h_{[\\omega][\\beta]]}]$",
+      "anchor": "2db56714"
+    },
+    {
+      "id": "spanier_algebraic_topology-ch03-body-460-dc5827",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[460]",
+      "field": "md",
+      "all": true,
+      "old": "\\( (v, v')(v', v'') = (v, v'').",
+      "new": "(v, v')(v', v'') = (v, v'').",
+      "anchor": "e12e0b1c"
+    },
+    {
+      "id": "spanier_algebraic_topology-ch05-body-299-e9c045",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[299]",
+      "field": "md",
+      "all": true,
+      "old": "\\(\\{c\\} \\otimes c' = \\{c \\otimes c'\\}\\_{C \\otimes Z(C')}\\$. Therefore \\(\\nu(\\{c\\} \\otimes \\{c'\\}) = \\{c \\otimes c'\\}\\_{C \\otimes C'} = \\mu(\\{c\\} \\otimes \\{c'\\})\\)",
+      "new": "\\(\\{c\\} \\otimes c' = \\{c \\otimes c'\\}_{C \\otimes Z(C')}. \\text{Therefore } \\nu(\\{c\\} \\otimes \\{c'\\}) = \\{c \\otimes c'\\}_{C \\otimes C'} = \\mu(\\{c\\} \\otimes \\{c'\\})\\)",
+      "anchor": "3c298e6e"
+    },
+    {
+      "id": "spanier_algebraic_topology-ch04-problem-ii-3-body-19-b9f318",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "problem:II.3:body[19]",
+      "expect": "\\begin{array}{c} \\dots \\to H _ {q} (X _ {1} \\cap X _ {2}, A) \\to H _ {q} (X _ {1}, A) \\oplus H _ {q} (X _ {2}, A) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\dots \\to H _ {q} (X _ {1} \\cap X _ {2}, A) \\to H _ {q} (X _ {1}, A) \\oplus H _ {q} (X _ {2}, A) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "spanier_algebraic_topology-ch05-body-292-1fc33a",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[292]",
+      "expect": "\\begin{array}{c} 0 \\to H _ {i} (C) * H _ {j} (C ^ {\\prime}) \\to H _ {i} (C) \\otimes B _ {j} (C ^ {\\prime}) \\xrightarrow {(- 1) ^ {i} \\otimes \\gamma_ {j}} H _ {i} (C) \\otimes Z _ {j} (C ^ {\\prime}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} 0 \\to H _ {i} (C) * H _ {j} (C ^ {\\prime}) \\to H _ {i} (C) \\otimes B _ {j} (C ^ {\\prime}) \\xrightarrow {(- 1) ^ {i} \\otimes \\gamma_ {j}} H _ {i} (C) \\otimes Z _ {j} (C ^ {\\prime}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

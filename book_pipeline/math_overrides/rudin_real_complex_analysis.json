@@ -1,0 +1,48 @@
+{
+  "overrides": [
+    {
+      "id": "rudin_real_complex_analysis-ch03-problem-7-body-0-c70e68",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:7:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathpalette { L } ( \\mu )$",
+      "new": "$L ( \\mu )$",
+      "anchor": "88a481c6"
+    },
+    {
+      "id": "rudin_real_complex_analysis-ch06-body-193-c70e68",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[193]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathpalette { L } ( \\mu )$",
+      "new": "$L ( \\mu )$",
+      "anchor": "7ebf75d9"
+    },
+    {
+      "id": "rudin_real_complex_analysis-ch02-problem-25-body-4-2f8f8e",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:25:body[4]",
+      "field": "md",
+      "all": true,
+      "old": "$f \\in L ^ { 1 } { \\big ? }$",
+      "new": "$f \\in L ^ { 1 } { ? }$",
+      "anchor": "17eb01dd"
+    },
+    {
+      "id": "rudin_real_complex_analysis-ch03-problem-18-body-6-b11825",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:18:body[6]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { R } ^ { 1 } \\big ?$",
+      "new": "$\\pmb { R } ^ { 1 } ?$",
+      "anchor": "ea4d287b"
+    }
+  ]
+}
