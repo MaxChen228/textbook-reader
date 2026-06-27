@@ -1,0 +1,167 @@
+slug: kundur_power_system_stability
+title: Power System Stability and Control
+author: Prabha Kundur
+edition: 1st
+subject: Power Systems
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 1189
+bibliography_start_page: null
+index_start_page: 1189
+
+inline_problems: false
+
+chapters:
+- num: 1
+  title: General Characteristics of Modern Power Systems
+  page_start: 25
+  page_end: 38
+  chapter_title_block_idx: 147
+  problems_block_idx: null
+  next_chapter_block_idx: 311
+- num: 2
+  title: Introduction to the Power System Stability Problem
+  page_start: 39
+  page_end: 66
+  chapter_title_block_idx: 311
+  problems_block_idx: null
+  next_chapter_block_idx: 590
+- num: 3
+  title: Synchronous Machine Theory and Modelling
+  page_start: 67
+  page_end: 160
+  chapter_title_block_idx: 590
+  problems_block_idx: null
+  next_chapter_block_idx: 1983
+- num: 4
+  title: Synchronous Machine Parameters
+  page_start: 161
+  page_end: 190
+  chapter_title_block_idx: 1983
+  problems_block_idx: null
+  next_chapter_block_idx: 2433
+- num: 5
+  title: Synchronous Machine Representation in Stability Studies
+  page_start: 191
+  page_end: 220
+  chapter_title_block_idx: 2433
+  problems_block_idx: null
+  next_chapter_block_idx: 2863
+- num: 6
+  title: AC Transmission
+  page_start: 221
+  page_end: 292
+  chapter_title_block_idx: 2863
+  problems_block_idx: null
+  next_chapter_block_idx: 3955
+- num: 7
+  title: Power System Loads
+  page_start: 293
+  page_end: 336
+  chapter_title_block_idx: 3955
+  problems_block_idx: null
+  next_chapter_block_idx: 4629
+- num: 8
+  title: Excitation Systems
+  page_start: 337
+  page_end: 398
+  chapter_title_block_idx: 4629
+  problems_block_idx: null
+  next_chapter_block_idx: 5416
+- num: 9
+  title: Prime Movers and Energy Supply Systems
+  page_start: 399
+  page_end: 484
+  chapter_title_block_idx: 5416
+  problems_block_idx: null
+  next_chapter_block_idx: 6558
+- num: 10
+  title: High-Voltage Direct-Current Transmission
+  page_start: 485
+  page_end: 602
+  chapter_title_block_idx: 6558
+  problems_block_idx: null
+  next_chapter_block_idx: 8277
+- num: 11
+  title: Control of Active Power and Reactive Power
+  page_start: 603
+  page_end: 720
+  chapter_title_block_idx: 8277
+  problems_block_idx: null
+  next_chapter_block_idx: 9783
+- num: 12
+  title: Small-Signal Stability
+  page_start: 721
+  page_end: 848
+  chapter_title_block_idx: 9783
+  problems_block_idx: null
+  next_chapter_block_idx: 11863
+- num: 13
+  title: Transient Stability
+  page_start: 849
+  page_end: 980
+  chapter_title_block_idx: 11863
+  problems_block_idx: null
+  next_chapter_block_idx: 13668
+- num: 14
+  title: Voltage Stability
+  page_start: 981
+  page_end: 1046
+  chapter_title_block_idx: 13668
+  problems_block_idx: null
+  next_chapter_block_idx: 14548
+- num: 15
+  title: Subsynchronous Oscillations
+  page_start: 1047
+  page_end: 1094
+  chapter_title_block_idx: 14548
+  problems_block_idx: null
+  next_chapter_block_idx: 15133
+- num: 16
+  title: Mid-Term and Long-Term Stability
+  page_start: 1095
+  page_end: 1124
+  chapter_title_block_idx: 15133
+  problems_block_idx: null
+  next_chapter_block_idx: 15477
+- num: 17
+  title: Methods of Improving Stability
+  page_start: 1125
+  page_end: 1188
+  chapter_title_block_idx: 15477
+  problems_block_idx: null
+  next_chapter_block_idx: 16215
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+((?:(?![A-Z][a-z]).)+)$'
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+
+problem_start_re: ^Problem\s+(\d+\.\d+)\s+
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: ^Example\s+(\d+\.\d+)
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
