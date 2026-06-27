@@ -1,0 +1,92 @@
+{
+  "overrides": [
+    {
+      "id": "moon_stirling_statistical_signal-ch11-body-61-808cbb",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[61]",
+      "expect": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if f_{X} (x|\\theta_{1}) > v f_{X} (x|\\theta_{0})} \\\\ \\gamma & \\text {if f_{X} (x|\\theta_{1}) = v f_{X} (x|\\theta_{0})} \\\\ 0 & \\text {if f_{X} (x|\\theta_{1}) <   v f_{X} (x|\\theta_{0})} \\end{array} \\right.\\tag{11.2}",
+      "new": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } f_{X} (x|\\theta_{1}) > v f_{X} (x|\\theta_{0}) \\\\ \\gamma & \\text {if } f_{X} (x|\\theta_{1}) = v f_{X} (x|\\theta_{0}) \\\\ 0 & \\text {if } f_{X} (x|\\theta_{1}) < v f_{X} (x|\\theta_{0}) \\end{array} \\right.\\tag{11.2}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch11-body-441-c919c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[441]",
+      "expect": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if f_{X} (x\\mid\\theta_{2}) > \\nu f_{X} (x\\mid\\theta_{1})}, \\\\ \\gamma & \\text {if f_{X} (x\\mid\\theta_{2}) = \\nu f_{X} (x\\mid\\theta_{1})}, \\\\ 0 & \\text {if f_{X} (x\\mid\\theta_{2}) <   \\nu f_{X} (x\\mid\\theta_{1})}, \\end{array} \\right.\\tag{11.48}",
+      "new": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if } f_{X} (x\\mid\\theta_{2}) > \\nu f_{X} (x\\mid\\theta_{1}), \\\\ \\gamma & \\text {if } f_{X} (x\\mid\\theta_{2}) = \\nu f_{X} (x\\mid\\theta_{1}), \\\\ 0 & \\text {if } f_{X} (x\\mid\\theta_{2}) < \\nu f_{X} (x\\mid\\theta_{1}), \\end{array} \\right.\\tag{11.48}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch16-body-72-709a1b",
+      "action": "fix_eq_tex",
+      "chunk": "ch16",
+      "selector": "body[72]",
+      "expect": "u _ {i j} = \\frac {1}{(d (\\mathbf {x} _ {j} , \\mathbf {y} _ {i})) ^ {2 / (m - 1)} \\sum_ {l = 1} ^ {k} \\frac {1}{(d (\\mathbf {x} _ {j} , \\mathbf {y} _ {l})) ^ {2 / (m - 1)}}} \\quad i = 1, 2, \\dots , k \\quad j = 1, 2, \\dots , N, \\tag {16}\\tag{16.5}",
+      "new": "u _ {i j} = \\frac {1}{(d (\\mathbf {x} _ {j} , \\mathbf {y} _ {i})) ^ {2 / (m - 1)} \\sum_ {l = 1} ^ {k} \\frac {1}{(d (\\mathbf {x} _ {j} , \\mathbf {y} _ {l})) ^ {2 / (m - 1)}}} \\quad i = 1, 2, \\dots , k \\quad j = 1, 2, \\dots , N, \\tag{16.5}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch17-body-13-918ef6",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[13]",
+      "expect": "\\begin{array}{r l} P (X _ {1} = x _ {1}, X _ {2} = x _ {2}, X _ {3} = x _ {3} \\mid p) & = \\left(\\frac {n !}{x _ {1} ! x _ {2} ! x _ {3} !}\\right) \\left(\\frac {1}{4}\\right) ^ {x _ {1}} \\left(\\frac {1}{4} + \\frac {p}{4}\\right) ^ {x _ {2}} \\left(\\frac {1}{2} - \\frac {p}{4}\\right) ^ {x _ {3}} \\\\ & = f _ {\\mathbf {X}} (x _ {1}, x _ {2}, x _ {3} \\mid p), \\end{array} \\tag {17.}\\tag{17.1}",
+      "new": "\\begin{array}{r l} P (X _ {1} = x _ {1}, X _ {2} = x _ {2}, X _ {3} = x _ {3} \\mid p) & = \\left(\\frac {n !}{x _ {1} ! x _ {2} ! x _ {3} !}\\right) \\left(\\frac {1}{4}\\right) ^ {x _ {1}} \\left(\\frac {1}{4} + \\frac {p}{4}\\right) ^ {x _ {2}} \\left(\\frac {1}{2} - \\frac {p}{4}\\right) ^ {x _ {3}} \\\\ & = f _ {\\mathbf {X}} (x _ {1}, x _ {2}, x _ {3} \\mid p), \\end{array} \\tag{17.1}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch19-body-239-bb1139",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[239]",
+      "expect": "L (\\mathbf {s}) = - \\log P (\\mathbf {y}, \\mathbf {s} | \\mathcal {M}) = - \\log \\pi (s [ 1 ]) - \\sum_ {t = 1} ^ {T} \\log a (s [ t ], s [ t - 1 ]) - \\log f _ {s [ t ]} (\\mathbf {y} [ t ]). \\tag {10-1}\\tag{19.11}",
+      "new": "L (\\mathbf {s}) = - \\log P (\\mathbf {y}, \\mathbf {s} | \\mathcal {M}) = - \\log \\pi (s [ 1 ]) - \\sum_ {t = 1} ^ {T} \\log a (s [ t ], s [ t - 1 ]) - \\log f _ {s [ t ]} (\\mathbf {y} [ t ]). \\tag{19.11}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch14-body-88-ce2607",
+      "action": "fix_eq_tex",
+      "chunk": "ch14",
+      "selector": "body[88]",
+      "expect": "\\begin{array}{l} \\| \\mathbf {x} _ {n + p} - \\mathbf {x} _ {n} \\| \\leq \\| \\mathbf {x} _ {n + p} - \\mathbf {x} _ {n + p - 1} \\| + \\| \\mathbf {x} _ {n + p - 1} - \\mathbf {x} _ {n + p - 2} \\| + \\dots + \\| \\mathbf {x} _ {n + 1} - \\mathbf {x} _ {n} \\| \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\| \\mathbf {x} _ {n + p} - \\mathbf {x} _ {n} \\| \\leq \\| \\mathbf {x} _ {n + p} - \\mathbf {x} _ {n + p - 1} \\| + \\| \\mathbf {x} _ {n + p - 1} - \\mathbf {x} _ {n + p - 2} \\| + \\dots + \\| \\mathbf {x} _ {n + 1} - \\mathbf {x} _ {n} \\| \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch11-body-545-d31e07",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[545]",
+      "expect": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text {if (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_ {0}) <   pL_{10} f_{X|\\theta}(x\\mid\\vartheta_ {1})}, \\\\ 0 & \\text {if (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_ {0}) > pL_{10} f_{X|\\theta}(x\\mid\\vartheta_ {1})}, \\\\ \\text {arbitrary} & \\text {if (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_ {0}) = pL_{10} f_{X|\\theta}(x\\mid\\vartheta_ {1})}. \\end{array} \\right.",
+      "new": "\\phi (x) = \\left\\{ \\begin{array}{l l} 1 & \\text{if } (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_{0}) < pL_{10} f_{X|\\theta}(x\\mid\\vartheta_{1}), \\\\ 0 & \\text{if } (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_{0}) > pL_{10} f_{X|\\theta}(x\\mid\\vartheta_{1}), \\\\ \\text{arbitrary} & \\text{if } (1 - p)L_{01} f_{X|\\theta}(x\\mid\\vartheta_{0}) = pL_{10} f_{X|\\theta}(x\\mid\\vartheta_{1}). \\end{array} \\right."
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch11-body-619-0938fb",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[619]",
+      "expect": "\\begin{array}{l} \\phi_ {p} (x) = \\arg \\min _ {\\phi} \\{L (\\vartheta_ {1}, \\phi) f _ {\\theta | X} (\\vartheta_ {1} | x) + L (\\vartheta_ {0}, \\phi) f _ {\\theta | X} (\\vartheta_ {0} | x) \\} \\\\ = \\left\\{ \\begin{array}{l l} \\arg \\min _ {\\phi} \\left\\{L (\\vartheta_ {1}, \\phi) \\frac {\\frac {1}{3} p}{\\frac {3}{4} (1 - p) + \\frac {1}{3} p} + L (\\vartheta_ {0}, \\phi) \\frac {\\frac {3}{4} (1 - p)}{\\frac {3}{4} (1 - p) + \\frac {1}{3} p} \\right\\} & \\text {if x = x_{1}}, \\\\ \\arg \\min _ {\\phi} \\left\\{L (\\vartheta_ {1}, \\phi) \\frac {\\frac {2}{3} p}{\\frac {1}{4} (1 - p) + \\frac {2}{3} p} + L (\\vartheta_ {0}, \\phi) \\frac {\\frac {1}{4} (1 - p)}{\\frac {1}{4} (1 - p) + \\frac {2}{3} p} \\right\\} & \\text {if x = x_{0}}. \\end{array} \\right. \\end{array}\\tag{11.76}",
+      "new": "\\begin{array}{l} \\phi_{p} (x) = \\arg \\min_{\\phi} \\{L (\\vartheta_{1}, \\phi) f_{\\theta | X} (\\vartheta_{1} | x) + L (\\vartheta_{0}, \\phi) f_{\\theta | X} (\\vartheta_{0} | x) \\} \\\\ = \\left\\{ \\begin{array}{l l} \\arg \\min_{\\phi} \\left\\{L (\\vartheta_{1}, \\phi) \\frac {\\frac {1}{3} p}{\\frac {3}{4} (1 - p) + \\frac {1}{3} p} + L (\\vartheta_{0}, \\phi) \\frac {\\frac {3}{4} (1 - p)}{\\frac {3}{4} (1 - p) + \\frac {1}{3} p} \\right\\} & \\text{if } x = x_{1}, \\\\ \\arg \\min_{\\phi} \\left\\{L (\\vartheta_{1}, \\phi) \\frac {\\frac {2}{3} p}{\\frac {1}{4} (1 - p) + \\frac {2}{3} p} + L (\\vartheta_{0}, \\phi) \\frac {\\frac {1}{4} (1 - p)}{\\frac {1}{4} (1 - p) + \\frac {2}{3} p} \\right\\} & \\text{if } x = x_{0}. \\end{array} \\right. \\end{array}\\tag{11.76}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch12-body-127-82e1ec",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[127]",
+      "expect": "\\begin{array}{r l} \\frac {\\partial}{\\partial \\theta} E \\mathbf {t} ^ {T} (\\theta , \\mathbf {X}) & = \\int \\ell (\\theta , \\mathbf {x}) \\frac {\\partial}{\\partial \\theta} \\log \\ell (\\theta , \\mathbf {x}) \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}) d \\mathbf {x} + \\int \\ell (\\theta , \\mathbf {x}) \\frac {\\partial}{\\partial \\theta} \\mathbf {t} (\\theta , \\mathbf {x}) d \\mathbf {x} \\\\ & = E \\mathbf {s} (\\theta , \\mathbf {x}) \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}) + E \\frac {\\partial}{\\partial \\theta} \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}). \\end{array} \\tag {12}\\tag{12.11}",
+      "new": "\\begin{array}{r l} \\frac {\\partial}{\\partial \\theta} E \\mathbf {t} ^ {T} (\\theta , \\mathbf {X}) & = \\int \\ell (\\theta , \\mathbf {x}) \\frac {\\partial}{\\partial \\theta} \\log \\ell (\\theta , \\mathbf {x}) \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}) d \\mathbf {x} + \\int \\ell (\\theta , \\mathbf {x}) \\frac {\\partial}{\\partial \\theta} \\mathbf {t} (\\theta , \\mathbf {x}) d \\mathbf {x} \\\\ & = E \\mathbf {s} (\\theta , \\mathbf {x}) \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}) + E \\frac {\\partial}{\\partial \\theta} \\mathbf {t} ^ {T} (\\theta , \\mathbf {x}). \\end{array} \\tag{12.11}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch12-body-283-bd653c",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[283]",
+      "expect": "\\sum_ {i = 1} ^ {m} \\left(\\mathbf {x} _ {i} - \\mathbf {m}\\right) ^ {T} R ^ {- 1} \\left(\\mathbf {x} _ {i} - \\mathbf {m}\\right) = \\operatorname{tr} R ^ {- 1} \\left\\{\\sum_ {i = 1} ^ {m} \\left(\\mathbf {x} _ {i} - \\overline {{{\\mathbf {x}}}}\\right) \\left(\\mathbf {x} _ {i} - \\overline {{{\\mathbf {x}}}}\\right) ^ {T} \\right\\} + m (\\overline {{{\\mathbf {x}}}} - \\mathbf {m}) ^ {T} R ^ {- 1} (\\overline {{{\\mathbf {x}}}} - \\mathbf {m}). \\tag {6.2-43}\\tag{12.40}",
+      "new": "\\sum_ {i = 1} ^ {m} \\left(\\mathbf {x} _ {i} - \\mathbf {m}\\right) ^ {T} R ^ {- 1} \\left(\\mathbf {x} _ {i} - \\mathbf {m}\\right) = \\operatorname{tr} R ^ {- 1} \\left\\{\\sum_ {i = 1} ^ {m} \\left(\\mathbf {x} _ {i} - \\overline {{{\\mathbf {x}}}}\\right) \\left(\\mathbf {x} _ {i} - \\overline {{{\\mathbf {x}}}}\\right) ^ {T} \\right\\} + m (\\overline {{{\\mathbf {x}}}} - \\mathbf {m}) ^ {T} R ^ {- 1} (\\overline {{{\\mathbf {x}}}} - \\mathbf {m}). \\tag{12.40}"
+    },
+    {
+      "id": "moon_stirling_statistical_signal-ch12-body-769-56c89b",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[769]",
+      "expect": "P \\left(N _ {0} = 1 \\mid Y _ {0} = y _ {0}\\right) = a _ {0 | 0} = \\left\\{ \\begin{array}{l l} \\frac {P \\left(Y _ {0} = 1 \\mid N _ {0} = 1\\right)}{P \\left(Y _ {0} = 1\\right)} P \\left(N _ {0} = 1\\right) & \\text {if} Y _ {0} = 1 \\\\ \\frac {P \\left(Y _ {0} = 0 \\mid Y _ {0} = 1\\right)}{P \\left(Y _ {0} = 0\\right)} P \\left(N _ {0} = 1\\right) & \\text {if} Y _ {0} = 0 \\end{array} = \\frac {a _ {0} \\delta \\left(y _ {0} - 1\\right)}{a _ {0} + q _ {0} - a _ {0} q _ {0}} \\right. \\tag {12-192}\\tag{12.103}",
+      "new": "P \\left(N _ {0} = 1 \\mid Y _ {0} = y _ {0}\\right) = a _ {0 | 0} = \\left\\{ \\begin{array}{l l} \\frac {P \\left(Y _ {0} = 1 \\mid N _ {0} = 1\\right)}{P \\left(Y _ {0} = 1\\right)} P \\left(N _ {0} = 1\\right) & \\text {if} Y _ {0} = 1 \\\\ \\frac {P \\left(Y _ {0} = 0 \\mid Y _ {0} = 1\\right)}{P \\left(Y _ {0} = 0\\right)} P \\left(N _ {0} = 1\\right) & \\text {if} Y _ {0} = 0 \\end{array} = \\frac {a _ {0} \\delta \\left(y _ {0} - 1\\right)}{a _ {0} + q _ {0} - a _ {0} q _ {0}} \\right. \\tag{12.103}"
+    }
+  ]
+}
