@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-26-taur-ning-vlsi-devices",
+  "domain": "crawl",
+  "type": "harness-gap",
+  "status": "proposed",
+  "title": "taur_ning_vlsi_devices：ch8/ch10 OCR 剝除全部習題題號→該2章0題（per-chapter 靜默丟題滑過 whole-book 完整性閘）",
+  "slug": "taur_ning_vlsi_devices",
+  "detect": [],
+  "source": "audit-book(taur_ning_vlsi_devices)",
+  "resolution": "",
+  "created": "2026-06-26T08:11:29+00:00",
+  "updated": "2026-06-26T08:11:29+00:00",
+  "evidence": "MinerU OCR 把 ch8/ch10 章末 Exercises 區的 N.M 題號整批丟失：ch8 problems 區 23 個 text 塊 0 個帶題號（raw idx3892 直接 'Apply constant-field scaling rules…' 無 '8.1'）；ch10 30 個 text 塊 0 個帶題號（raw idx5346 僅碎片 '10.'）。對照 ch2-7/9/11 題號完整、各 8-18 題正常切出（91 題）。ch9 另缺 9.8（_gaps.md 標 probable_ocr_miss）。非 yaml/parser 可修：無題號可供 problem_start_re 匹配，放鬆 regex=cheat。book_qc.declared_problems_missing_reason 僅在 total_problem_count==0 觸發，本書 total=91>0 故 per-chapter 全失靜默滑過部署閘。",
+  "proposal": "架構師裁決：park --kind re-source（重 OCR 救 ch8/ch10/ch9.8 習題）或接受該2章無習題出貨（其餘10章內容+9章習題完整）。次要：book_qc 完整性閘可考慮加 per-chapter 粒度（宣告有 Exercises heading 的章 parsed 0 題→旗標），補本案暴露的靜默丟題盲區。",
+  "risk": "low",
+  "disposition": ""
+}

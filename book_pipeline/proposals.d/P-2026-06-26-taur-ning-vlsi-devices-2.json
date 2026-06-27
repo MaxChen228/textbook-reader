@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-26-taur-ning-vlsi-devices-2",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "ingest 解壓 chunk zip 可漏整個 images/ 子目錄而靜默過關，缺 post-unified 圖檔完整性閘",
+  "slug": "taur_ning_vlsi_devices",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-26T08:40:10+00:00",
+  "updated": "2026-06-26T08:40:10+00:00",
+  "evidence": "taur_ning_vlsi_devices catalog 出現 152 個 C3(missing_images)。根因：chunk_1.zip 內含 473 張圖(images/*.jpg)，但 extract_zip(mineru_ingest.py:402-407 的 zf.extractall)當時 transient 失敗(極可能 ENOSPC，事發時 felix 工作碟 99% 滿)，raw/chunk_1/ 解出全部其他檔(content_list/model/origin.pdf/full.md/layout)獨缺 images/ 子目錄。手動 test-extract images/* rc=0 乾淨解出 473 張→zip 完好、失敗在 extractall 調用層。兩道防線同時失效：(1)_chunk_done(:419-422)只認 content_list.json 存在即判 chunk 完成、不檢查 images/，誤判已完成不重解；(2)assemble 合併 images 用 if src_img.is_dir() (:461)靜默跳過缺失目錄、無報錯。結果 130 個被 content_list 引用的圖名(catalog src=content-hash)在 unified/images 缺檔。簽名：單 chunk、乾淨缺一目錄、其他 chunk(0/2/3)images 完整。已用補解 chunk_1.zip 到 unified/images 救回(critical 152→0)，但 unified/ 是可重生產物，daemon 重 ingest 仍會復發。",
+  "proposal": "(A) post-unified 完整性閘：assemble 後斷言 content_list 所有 img_path 屬於 unified/images(扣 kind=text)，落差大於0 即 raise 或 flag review、不放行 audit。(B) _chunk_done 完成判據納入 images：若該 chunk content_list 有 img refs 但 chunk_dir/images 不存在或檔數明顯少於 refs，判未完成、觸發重解。(C) extract_zip 後驗 zip namelist 與解出檔數一致(防 ENOSPC 半途中斷靜默吞)。建好後可 fix-tooling-then-sweep 回掃既有書(掃 content_list img-refs vs unified/images 落差)找同類受害書。",
+  "risk": "",
+  "disposition": ""
+}

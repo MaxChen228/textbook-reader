@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-25-stevens-apue",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "parser cannot split exercise starts tagged as ref_text",
+  "slug": "stevens_apue",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-25T23:04:27+00:00",
+  "updated": "2026-06-25T23:04:27+00:00",
+  "evidence": "In stevens_apue, chapter-end exercise starts are sometimes MinerU type=ref_text instead of text/list (e.g. ch01 problems 1.1-1.5 at blocks 522-526; ch06 problems 6.1-6.5 at blocks 2570-2574; mixed chapters 4/11/12/15). split_problems only considers t in ('text','list'), so those real exercises are skipped and parser reports ch01/ch06 problems=0 despite valid problem_start_re.",
+  "proposal": "Allow configured problem-start detection on ref_text in problem regions, or add a schema flag such as problem_start_types including ref_text, while preserving normal body ref_text filtering behavior.",
+  "risk": "",
+  "disposition": ""
+}
