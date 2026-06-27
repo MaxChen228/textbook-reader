@@ -1,0 +1,302 @@
+# ── 書本 metadata ──
+slug: greenwood_earnshaw_elements
+title: "Chemistry of the Elements"
+author: "Norman N. Greenwood; Alan Earnshaw"
+edition: "2nd"
+subject: "Inorganic Chemistry"
+publisher: "Butterworth-Heinemann"
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # MinerU 把 §-heading 全標 lvl2（section-like ^N.M dist {2:464, 1:5}）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 21
+appendices_start_page: 1300
+bibliography_start_page: null   # 無後置書目；參考文獻為逐章腳註（ref_text/page_footnote）
+index_start_page: 1320
+
+# ── inline-problem 模式 ──
+# 純參考專著（Greenwood & Earnshaw — Chemistry of the Elements）：全本零習題/Exercises。
+# 全章 problems_block_idx=null、inline_problems=false。problem_start_re 取一個書內 0 命中的式樣
+# （^Problem N.M）以滿足 schema required 又不被 validator 的「pbi=null 章內有 problem_start_re 命中」誤判。
+inline_problems: false
+
+# ── 章節（31 章，元素族序）──
+# 章標多在 lvl1；ch12 Phosphorus 被 MinerU 誤標 lvl2（idx 6801）。number 前綴 OCR 時有時無，
+# title 已去前綴。ch24/25 章號與章名被拆兩塊，anchor 取標題塊（14805/15157）。
+chapters:
+  - num: 1
+    title: "Origin of the Elements. Isotopes and Atomic Weights"
+    page_start: 21
+    page_end: 39
+    chapter_title_block_idx: 76
+    problems_block_idx: null
+    next_chapter_block_idx: 287
+  - num: 2
+    title: "Chemical Periodicity and the Periodic Table"
+    page_start: 40
+    page_end: 51
+    chapter_title_block_idx: 287
+    problems_block_idx: null
+    next_chapter_block_idx: 424
+  - num: 3
+    title: "Hydrogen"
+    page_start: 52
+    page_end: 87
+    chapter_title_block_idx: 424
+    problems_block_idx: null
+    next_chapter_block_idx: 967
+  - num: 4
+    title: "Lithium, Sodium, Potassium, Rubidium, Caesium and Francium"
+    page_start: 88
+    page_end: 126
+    chapter_title_block_idx: 967
+    problems_block_idx: null
+    next_chapter_block_idx: 1497
+  - num: 5
+    title: "Beryllium, Magnesium, Calcium, Strontium, Barium and Radium"
+    page_start: 127
+    page_end: 158
+    chapter_title_block_idx: 1497
+    problems_block_idx: null
+    next_chapter_block_idx: 1925
+  - num: 6
+    title: "Boron"
+    page_start: 159
+    page_end: 235
+    chapter_title_block_idx: 1925
+    problems_block_idx: null
+    next_chapter_block_idx: 3021
+  - num: 7
+    title: "Aluminium, Gallium, Indium and Thallium"
+    page_start: 236
+    page_end: 287
+    chapter_title_block_idx: 3021
+    problems_block_idx: null
+    next_chapter_block_idx: 3695
+  - num: 8
+    title: "Carbon"
+    page_start: 288
+    page_end: 347
+    chapter_title_block_idx: 3695
+    problems_block_idx: null
+    next_chapter_block_idx: 4534
+  - num: 9
+    title: "Silicon"
+    page_start: 348
+    page_end: 387
+    chapter_title_block_idx: 4534
+    problems_block_idx: null
+    next_chapter_block_idx: 5082
+  - num: 10
+    title: "Germanium, Tin and Lead"
+    page_start: 388
+    page_end: 426
+    chapter_title_block_idx: 5082
+    problems_block_idx: null
+    next_chapter_block_idx: 5632
+  - num: 11
+    title: "Nitrogen"
+    page_start: 427
+    page_end: 493
+    chapter_title_block_idx: 5632
+    problems_block_idx: null
+    next_chapter_block_idx: 6801
+  - num: 12
+    title: "Phosphorus"
+    page_start: 494
+    page_end: 561
+    chapter_title_block_idx: 6801
+    problems_block_idx: null
+    next_chapter_block_idx: 7785
+  - num: 13
+    title: "Arsenic, Antimony and Bismuth"
+    page_start: 562
+    page_end: 614
+    chapter_title_block_idx: 7785
+    problems_block_idx: null
+    next_chapter_block_idx: 8532
+  - num: 14
+    title: "Oxygen"
+    page_start: 615
+    page_end: 659
+    chapter_title_block_idx: 8532
+    problems_block_idx: null
+    next_chapter_block_idx: 9201
+  - num: 15
+    title: "Sulfur"
+    page_start: 660
+    page_end: 761
+    chapter_title_block_idx: 9201
+    problems_block_idx: null
+    next_chapter_block_idx: 10673
+  - num: 16
+    title: "Selenium, Tellurium and Polonium"
+    page_start: 762
+    page_end: 803
+    chapter_title_block_idx: 10673
+    problems_block_idx: null
+    next_chapter_block_idx: 11282
+  - num: 17
+    title: "The Halogens: Fluorine, Chlorine, Bromine, Iodine and Astatine"
+    page_start: 804
+    page_end: 902
+    chapter_title_block_idx: 11282
+    problems_block_idx: null
+    next_chapter_block_idx: 12803
+  - num: 18
+    title: "The Noble Gases: Helium, Neon, Argon, Krypton, Xenon and Radon"
+    page_start: 903
+    page_end: 919
+    chapter_title_block_idx: 12803
+    problems_block_idx: null
+    next_chapter_block_idx: 13063
+  - num: 19
+    title: "Coordination and Organometallic Compounds"
+    page_start: 920
+    page_end: 958
+    chapter_title_block_idx: 13063
+    problems_block_idx: null
+    next_chapter_block_idx: 13600
+  - num: 20
+    title: "Scandium, Yttrium, Lanthanum and Actinium"
+    page_start: 959
+    page_end: 968
+    chapter_title_block_idx: 13600
+    problems_block_idx: null
+    next_chapter_block_idx: 13734
+  - num: 21
+    title: "Titanium, Zirconium and Hafnium"
+    page_start: 969
+    page_end: 990
+    chapter_title_block_idx: 13734
+    problems_block_idx: null
+    next_chapter_block_idx: 14017
+  - num: 22
+    title: "Vanadium, Niobium and Tantalum"
+    page_start: 991
+    page_end: 1016
+    chapter_title_block_idx: 14017
+    problems_block_idx: null
+    next_chapter_block_idx: 14336
+  - num: 23
+    title: "Chromium, Molybdenum and Tungsten"
+    page_start: 1017
+    page_end: 1054
+    chapter_title_block_idx: 14336
+    problems_block_idx: null
+    next_chapter_block_idx: 14805
+  - num: 24
+    title: "Manganese, Technetium and Rhenium"
+    page_start: 1055
+    page_end: 1084
+    chapter_title_block_idx: 14805
+    problems_block_idx: null
+    next_chapter_block_idx: 15157
+  - num: 25
+    title: "Iron, Ruthenium and Osmium"
+    page_start: 1085
+    page_end: 1127
+    chapter_title_block_idx: 15157
+    problems_block_idx: null
+    next_chapter_block_idx: 15689
+  - num: 26
+    title: "Cobalt, Rhodium and Iridium"
+    page_start: 1128
+    page_end: 1158
+    chapter_title_block_idx: 15689
+    problems_block_idx: null
+    next_chapter_block_idx: 16093
+  - num: 27
+    title: "Nickel, Palladium and Platinum"
+    page_start: 1159
+    page_end: 1187
+    chapter_title_block_idx: 16093
+    problems_block_idx: null
+    next_chapter_block_idx: 16480
+  - num: 28
+    title: "Copper, Silver and Gold"
+    page_start: 1188
+    page_end: 1215
+    chapter_title_block_idx: 16480
+    problems_block_idx: null
+    next_chapter_block_idx: 16862
+  - num: 29
+    title: "Zinc, Cadmium and Mercury"
+    page_start: 1216
+    page_end: 1241
+    chapter_title_block_idx: 16862
+    problems_block_idx: null
+    next_chapter_block_idx: 17281
+  - num: 30
+    title: "The Lanthanide Elements (Z = 58 - 71)"
+    page_start: 1242
+    page_end: 1264
+    chapter_title_block_idx: 17281
+    problems_block_idx: null
+    next_chapter_block_idx: 17571
+  - num: 31
+    title: "The Actinide and Transactinide Elements (Z = 90 - 103 and 104 - 112)"
+    page_start: 1265
+    page_end: 1299
+    chapter_title_block_idx: 17571
+    problems_block_idx: null
+    next_chapter_block_idx: 18007
+
+# ── 附錄（書本自身編號 1–7；Appendix 3 落 lvl2 idx 18056）──
+appendices:
+  - id: "1"
+    title: "Atomic Orbitals"
+    page_start: 1300
+    chapter_title_block_idx: 18007
+  - id: "2"
+    title: "Symmetry Elements, Symmetry Operations and Point Groups"
+    page_start: 1305
+    chapter_title_block_idx: 18026
+  - id: "3"
+    title: "Some Non-SI Units"
+    page_start: 1308
+    chapter_title_block_idx: 18056
+  - id: "4"
+    title: "Abundance of Elements in Crustal Rocks/ppm (i.e. g/tonne)"
+    page_start: 1309
+    chapter_title_block_idx: 18074
+  - id: "5"
+    title: "Effective Ionic Radii in pm for Various Oxidation States (in parentheses)"
+    page_start: 1310
+    chapter_title_block_idx: 18077
+  - id: "6"
+    title: "Nobel Prize for Chemistry"
+    page_start: 1311
+    chapter_title_block_idx: 18083
+  - id: "7"
+    title: "Nobel Prize for Physics"
+    page_start: 1315
+    chapter_title_block_idx: 18191
+
+# ── heading regex（N.M section / N.M.K subsection，皆 lvl2）──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（無習題；式樣 0 命中）──
+problem_start_re: '^Problem\s+(\d+\.\d+)\s'
+problem_chapter_must_match: false
+
+# ── equation（\tag{N} 整數標籤，含 3a/4b 變體；junk 如 \tag{mp 40°} 不被錨定式捕獲）──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（無內文 Example 段）──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []
