@@ -112,7 +112,7 @@
       "all": true,
       "old": "$\\*\" instead of \"\\$",
       "new": "$\\backslash *\\text{\" instead of \"}\\backslash$",
-      "anchor": "764be0d8"
+      "anchor": "e646605a"
     },
     {
       "id": "scott_programming_language_pragmatics-ch02-problem-2-1-body-6-2f8642",
@@ -124,6 +124,14 @@
       "old": "$), an optional string of asterisks (\\*—used on checks to discourage fraud), a string of decimal digits, and an optional fractional part consisting of a decimal point (.) and two decimal digits. The string of digits to the left of the decimal point may consist of a single zero (0). Otherwise it must not start with a zero. If there are more than three digits to the left of the decimal point, groups of three (counting from the right) must be separated by commas (, ). Example: \\$",
       "new": "$\\text{), an optional string of asterisks (*—used on checks to discourage fraud), a string of decimal digits, and an optional fractional part consisting of a decimal point (.) and two decimal digits. The string of digits to the left of the decimal point may consist of a single zero (0). Otherwise it must not start with a zero. If there are more than three digits to the left of the decimal point, groups of three (counting from the right) must be separated by commas (, ). Example: }$",
       "anchor": "421d73c8"
+    },
+    {
+      "id": "scott_programming_language_pragmatics-ch08-body-72-07d118",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[72]",
+      "expect": "\\begin{array}{c} \\frac {\\overline {{\\tau <   : \\tau^ {\\prime}}}}{\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime}}} \\}} s \\text {-u - depth} \\\\ \\frac {\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime \\prime}}} \\}}\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime \\prime}} , \\overline {{c ^ {\\prime} : \\tau^ {\\prime}}} \\}} s \\text {-u - width} \\end{array}",
+      "new": "\\begin{array}{c} \\frac {\\overline {{\\tau <   : \\tau^ {\\prime}}}}{\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime}}} \\}} s \\text {-u - depth} \\\\ \\frac {\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime \\prime}}} \\}}{\\mathrm{union} \\{\\overline {{c : \\tau}} \\} <   : \\mathrm{union} \\{\\overline {{c : \\tau^ {\\prime \\prime}} , \\overline {{c ^ {\\prime} : \\tau^ {\\prime}}} \\}}} s \\text {-u - width} \\end{array}"
     }
   ]
 }

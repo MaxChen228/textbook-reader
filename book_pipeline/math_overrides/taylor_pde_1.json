@@ -1,0 +1,90 @@
+{
+  "overrides": [
+    {
+      "id": "taylor_pde_1-ch04-body-158-22d90a",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[158]",
+      "expect": "\\begin{array}{c} \\Big | \\int_ {X} f (x) g (x) d \\mu (x) \\Big | \\leq C \\left\\| | g | ^ {b \\theta + 1} \\right\\| _ {L ^ {p _ {1} ^ {\\prime}}} ^ {1 - \\theta} \\cdot \\left\\| | g | ^ {b (\\theta - 1) + 1} \\right\\| _ {L ^ {p _ {2} ^ {\\prime}} ^ {\\prime}} ^ {\\theta} \\\\ = C \\| g \\| _ {L ^ {q ^ {\\prime}}}, \\end{array}\\tag{2.26}",
+      "new": "\\begin{array}{c} \\Big | \\int_ {X} f (x) g (x) d \\mu (x) \\Big | \\leq C \\left\\| | g | ^ {b \\theta + 1} \\right\\| _ {L ^ {p _ {1} ^ {\\prime}}} ^ {1 - \\theta} \\cdot \\left\\| | g | ^ {b (\\theta - 1) + 1} \\right\\| _ {L ^ {p _ {2} ^ {\\prime} \\prime}} ^ {\\theta} \\\\ = C \\| g \\| _ {L ^ {q ^ {\\prime}}}, \\end{array}\\tag{2.26}"
+    },
+    {
+      "id": "taylor_pde_1-ch02-body-839-f54ad7",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[839]",
+      "field": "md",
+      "all": true,
+      "old": "$- { \\partial ^ { 2 } } / { \\partial x _ { 0 } ^ { 2 } } + \\textstyle { \\sum _ { 1 } ^ { 3 } } \\hat { \\textmd { \\textmu } } ^ { 2 } / { \\partial x _ { j } ^ { 2 } }$",
+      "new": "$- { \\partial ^ { 2 } } / { \\partial x _ { 0 } ^ { 2 } } + \\textstyle { \\sum _ { 1 } ^ { 3 } } \\hat { \\mu } ^ { 2 } / { \\partial x _ { j } ^ { 2 } }$",
+      "anchor": "32050420"
+    },
+    {
+      "id": "taylor_pde_1-ch01-body-920-49fd4b",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[920]",
+      "expect": "\\alpha (X _ {1}, \\dots , X _ {j}, \\dots , X _ {\\ell}, \\dots , X _ {k}) = - \\alpha (X _ {1}, \\dots , X _ {\\ell}, \\dots , X _ {j}, \\dots , X _ {k}). \\tag {3.11}\\tag{13.11}",
+      "new": "\\alpha (X _ {1}, \\dots , X _ {j}, \\dots , X _ {\\ell}, \\dots , X _ {k}) = - \\alpha (X _ {1}, \\dots , X _ {\\ell}, \\dots , X _ {j}, \\dots , X _ {k}). \\tag{13.11}"
+    },
+    {
+      "id": "taylor_pde_1-ch01-body-1018-51c243",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[1018]",
+      "expect": "\\big (\\mathcal {L} _ {X} \\omega \\big) (X _ {1}, \\dots , X _ {k}) = X \\cdot \\omega (X _ {1}, \\dots , X _ {k}) - \\sum_ {j} \\omega (X _ {1}, \\dots , [ X, X _ {j} ], \\dots , X _ {k}). \\tag {13.52}\\tag{13.52}",
+      "new": "\\big (\\mathcal {L} _ {X} \\omega \\big) (X _ {1}, \\dots , X _ {k}) = X \\cdot \\omega (X _ {1}, \\dots , X _ {k}) - \\sum_ {j} \\omega (X _ {1}, \\dots , [ X, X _ {j} ], \\dots , X _ {k}). \\tag {13.52}"
+    },
+    {
+      "id": "taylor_pde_1-ch02-body-430-7b4322",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[430]",
+      "expect": "m u _ {t t} - \\left[ f _ {\\xi_ {j} \\xi_ {k}} (x, u _ {x}) u _ {x _ {j} x _ {k}} + f _ {\\xi_ {j} x _ {j}} (x, u _ {x}) + \\frac {1}{2} g ^ {- 1} (\\partial_ {x _ {j}} g) f _ {\\xi_ {j}} (x, u _ {x}) \\right] = 0. \\tag {5.16}\\tag{5.16}",
+      "new": "m u _ {t t} - \\left[ f _ {\\xi_ {j} \\xi_ {k}} (x, u _ {x}) u _ {x _ {j} x _ {k}} + f _ {\\xi_ {j} x _ {j}} (x, u _ {x}) + \\frac {1}{2} g ^ {- 1} (\\partial_ {x _ {j}} g) f _ {\\xi_ {j}} (x, u _ {x}) \\right] = 0. \\tag {5.16}"
+    },
+    {
+      "id": "taylor_pde_1-ch02-body-868-ebc32a",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[868]",
+      "expect": "\\frac {d}{d \\tau} I (\\mathcal {A} + \\tau \\beta) \\big | _ {\\tau = 0} = - \\frac {1}{4 \\pi} \\int \\langle d \\beta , d \\mathcal {A} \\rangle d V = - \\frac {1}{4 \\pi} \\int \\langle \\beta , d ^ {\\star} d \\mathcal {A} \\rangle d V, \\tag {.38}\\tag{11.38}",
+      "new": "\\frac {d}{d \\tau} I (\\mathcal {A} + \\tau \\beta) \\big | _ {\\tau = 0} = - \\frac {1}{4 \\pi} \\int \\langle d \\beta , d \\mathcal {A} \\rangle d V = - \\frac {1}{4 \\pi} \\int \\langle \\beta , d ^ {\\star} d \\mathcal {A} \\rangle d V, \\tag{11.38}"
+    },
+    {
+      "id": "taylor_pde_1-ch03-body-1465-14014d",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[1465]",
+      "expect": "\\begin{array}{c} F _ {m + 1} \\left(2 ^ {m + 1} j + \\ell\\right) = F _ {m} \\left(2 ^ {m} j + \\ell\\right) + F _ {m} \\left(2 ^ {m} j + 2 ^ {k - 1} + \\ell\\right), \\\\ F _ {m + 1} \\left(2 ^ {m} + 2 ^ {m + 1} j + \\ell\\right) = \\overline {{\\omega}} _ {m} ^ {j} \\Big [ F _ {m} \\left(2 ^ {m} j + \\ell\\right) - F _ {m} \\left(2 ^ {m} j + 2 ^ {k - 1} + \\ell\\right) \\Big ], \\end{array} \\tag {2.22}\\tag{12.22}",
+      "new": "\\begin{array}{c} F _ {m + 1} \\left(2 ^ {m + 1} j + \\ell\\right) = F _ {m} \\left(2 ^ {m} j + \\ell\\right) + F _ {m} \\left(2 ^ {m} j + 2 ^ {k - 1} + \\ell\\right), \\\\ F _ {m + 1} \\left(2 ^ {m} + 2 ^ {m + 1} j + \\ell\\right) = \\overline {{\\omega}} _ {m} ^ {j} \\Big [ F _ {m} \\left(2 ^ {m} j + \\ell\\right) - F _ {m} \\left(2 ^ {m} j + 2 ^ {k - 1} + \\ell\\right) \\Big ], \\end{array} \\tag{12.22}"
+    },
+    {
+      "id": "taylor_pde_1-ch03-problem-12-4-body-75-c42751",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:12.4:body[75]",
+      "expect": "\\Gamma (z) = \\lim _ {n \\rightarrow \\infty} e ^ {- \\gamma z} e ^ {z (1 + 1 / 2 + \\dots + 1 / n)} z ^ {- 1} (1 + z) ^ {- 1} \\left(1 + \\frac {z}{2}\\right) ^ {- 1} \\dots \\left(1 + \\frac {z}{n}\\right) ^ {- 1}, \\tag {A.30}\\tag{A.30}",
+      "new": "\\Gamma (z) = \\lim _ {n \\rightarrow \\infty} e ^ {- \\gamma z} e ^ {z (1 + 1 / 2 + \\dots + 1 / n)} z ^ {- 1} (1 + z) ^ {- 1} \\left(1 + \\frac {z}{2}\\right) ^ {- 1} \\dots \\left(1 + \\frac {z}{n}\\right) ^ {- 1}, \\tag {A.30}"
+    },
+    {
+      "id": "taylor_pde_1-ch04-body-174-c075a8",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[174]",
+      "expect": "f = u (0), \\quad t ^ {1 / 2 - \\theta} u \\in L ^ {2} (\\mathbb {R} ^ {+}, H _ {1}), \\quad t ^ {1 / 2 - \\theta} \\frac {d u}{d t} \\in L ^ {2} (\\mathbb {R} ^ {+}, H _ {0}); \\tag {2.30}\\tag{2.31}",
+      "new": "f = u (0), \\quad t ^ {1 / 2 - \\theta} u \\in L ^ {2} (\\mathbb {R} ^ {+}, H _ {1}), \\quad t ^ {1 / 2 - \\theta} \\frac {d u}{d t} \\in L ^ {2} (\\mathbb {R} ^ {+}, H _ {0}); \\tag {2.30}"
+    },
+    {
+      "id": "taylor_pde_1-ch02-problem-10-1-body-0-ba37da",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "problem:10.1:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\xiwedge$",
+      "new": "$\\xi\\wedge$",
+      "anchor": "2280d156"
+    }
+  ]
+}

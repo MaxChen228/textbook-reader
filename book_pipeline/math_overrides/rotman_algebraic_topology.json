@@ -1,0 +1,79 @@
+{
+  "overrides": [
+    {
+      "id": "rotman_algebraic_topology-ch01-body-58-1652f2",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[58]",
+      "expect": "g (x) = \\left\\{ \\begin{array}{l l} y _ {0} & \\text {if 0\\leq \\| x\\| \\leq \\frac {1}{2}} \\\\ F (x / \\| x \\|, 2 - 2 \\| x \\|) & \\text {if \\frac {1}{2} \\leq \\| x\\| \\leq 1}. \\end{array} \\right.",
+      "new": "g (x) = \\left\\{ \\begin{array}{l l} y _ {0} & \\text {if } 0\\leq \\| x\\| \\leq \\frac {1}{2} \\\\ F (x / \\| x \\|, 2 - 2 \\| x \\|) & \\text {if } \\frac {1}{2} \\leq \\| x\\| \\leq 1. \\end{array} \\right."
+    },
+    {
+      "id": "rotman_algebraic_topology-ch03-problem-3-6-body-17-0412d1",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "problem:3.6:body[17]",
+      "expect": "H (s, t) = \\left\\{ \\begin{array}{l} p \\quad \\text {if 2s\\leq 1 - t} \\quad ((s, t) \\in \\text {shaded triangle}) \\\\ f (\\theta_ {t} (s)) = f ((2 s - 1 + t) / (1 + t)) \\quad \\text {if 2s\\geq 1 - t}. \\end{array} \\right.",
+      "new": "H (s, t) = \\left\\{ \\begin{array}{l} p \\quad \\text {if } 2s\\leq 1 - t \\quad ((s, t) \\in \\text {shaded triangle}) \\\\ f (\\theta_ {t} (s)) = f ((2 s - 1 + t) / (1 + t)) \\quad \\text {if } 2s\\geq 1 - t. \\end{array} \\right."
+    },
+    {
+      "id": "rotman_algebraic_topology-ch04-body-73-a8d024",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[73]",
+      "expect": "\\begin{array}{l} \\varepsilon_ {0} ^ {n} \\colon (t _ {0}, \\ldots , t _ {n - 1}) \\mapsto (0, t _ {0}, \\ldots , t _ {n - 1}); \\\\ \\varepsilon_ {i} ^ {n} \\colon (t _ {0}, \\ldots , t _ {n - 1}) \\mapsto (t _ {0}, \\ldots , t _ {i - 1}, 0, t _ {i}, \\ldots , t _ {n - 1}) \\quad \\text {if i\\geq 1}. \\end{array}",
+      "new": "\\begin{array}{l} \\varepsilon_ {0} ^ {n} \\colon (t _ {0}, \\ldots , t _ {n - 1}) \\mapsto (0, t _ {0}, \\ldots , t _ {n - 1}); \\\\ \\varepsilon_ {i} ^ {n} \\colon (t _ {0}, \\ldots , t _ {n - 1}) \\mapsto (t _ {0}, \\ldots , t _ {i - 1}, 0, t _ {i}, \\ldots , t _ {n - 1}) \\quad \\text {if } i\\geq 1. \\end{array}"
+    },
+    {
+      "id": "rotman_algebraic_topology-ch07-problem-7-43-body-23-e80399",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "problem:7.43:body[23]",
+      "expect": "\\begin{array}{r l} \\bar {\\varphi} \\bar {\\theta} [ \\alpha ] = \\bar {\\varphi} (\\theta (\\alpha)) & = \\bar {\\varphi} (e _ {1} \\dots e _ {n} R) \\\\ & = \\varphi (e _ {1}) \\dots \\varphi (e _ {n}) \\quad \\text {(since \\varphi is a homomorphism killing R)} \\\\ & = [ \\alpha_ {p} e _ {1} \\dots e _ {n} \\alpha_ {p} ^ {- 1} ] \\\\ & = [ \\alpha ], \\quad \\text { since } [ \\alpha_ {p} ] = 1. \\end{array}",
+      "new": "\\begin{array}{r l} \\bar {\\varphi} \\bar {\\theta} [ \\alpha ] = \\bar {\\varphi} (\\theta (\\alpha)) & = \\bar {\\varphi} (e _ {1} \\dots e _ {n} R) \\\\ & = \\varphi (e _ {1}) \\dots \\varphi (e _ {n}) \\quad \\text {(since } \\varphi \\text { is a homomorphism killing R)} \\\\ & = [ \\alpha_ {p} e _ {1} \\dots e _ {n} \\alpha_ {p} ^ {- 1} ] \\\\ & = [ \\alpha ], \\quad \\text { since } [ \\alpha_ {p} ] = 1. \\end{array}"
+    },
+    {
+      "id": "rotman_algebraic_topology-ch09-problem-9-40-body-72-f5aa1a",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.40:body[72]",
+      "expect": "H _ {p} (X) = \\left\\{ \\begin{array}{l l} \\mathbf {Z} & \\text {if p = 0} \\\\ \\mathbf {Z} / 2 \\mathbf {Z} \\oplus \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if p = 1} \\\\ \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if p = 2} \\\\ \\mathbf {Z} \\oplus \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if p = 3} \\\\ 0 & \\text {if p\\geq 4}. \\end{array} \\right.",
+      "new": "H _ {p} (X) = \\left\\{ \\begin{array}{l l} \\mathbf {Z} & \\text {if } p = 0 \\\\ \\mathbf {Z} / 2 \\mathbf {Z} \\oplus \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if } p = 1 \\\\ \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if } p = 2 \\\\ \\mathbf {Z} \\oplus \\mathbf {Z} / 2 \\mathbf {Z} & \\text {if } p = 3 \\\\ 0 & \\text {if } p\\geq 4. \\end{array} \\right."
+    },
+    {
+      "id": "rotman_algebraic_topology-ch09-problem-9-14-body-55-79dc5d",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "problem:9.14:body[55]",
+      "expect": "\\begin{array}{c c c} F _ {0} & \\xrightarrow {1} & F _ {0} \\xrightarrow {} 0 \\\\ & & \\Biggl \\downarrow_ {\\theta_ {0}} \\\\ E _ {1} & \\xrightarrow [ \\partial ] & E _ {0} \\xrightarrow {} H _ {0} E. \\end{array}",
+      "new": "\\begin{array}{c c c} F _ {0} & \\xrightarrow {1} & F _ {0} \\xrightarrow {} 0 \\\\ & & \\Biggl \\downarrow_ {\\theta_ {0}} \\\\ E _ {1} & \\xrightarrow [ \\partial ] {} & E _ {0} \\xrightarrow {} H _ {0} E. \\end{array}"
+    },
+    {
+      "id": "rotman_algebraic_topology-ch11-body-104-49c615",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[104]",
+      "expect": "\\begin{array}{c c c} X ^ {\\mathbf {I}} \\times \\mathbf {I} \\times \\mathbf {I} & \\xrightarrow {\\Phi \\times 1} & Y ^ {\\mathbf {I}} \\times \\mathbf {I} \\\\ (e \\times 1) u \\Bigg \\downarrow & & \\Bigg \\downarrow e \\\\ X \\times \\mathbf {I} & \\xrightarrow [ F ] & Y. \\end{array}",
+      "new": "\\begin{array}{c c c} X ^ {\\mathbf {I}} \\times \\mathbf {I} \\times \\mathbf {I} & \\xrightarrow {\\Phi \\times 1} & Y ^ {\\mathbf {I}} \\times \\mathbf {I} \\\\ (e \\times 1) u \\Bigg \\downarrow & & \\Bigg \\downarrow e \\\\ X \\times \\mathbf {I} & \\xrightarrow [ F ] {} & Y. \\end{array}"
+    },
+    {
+      "id": "rotman_algebraic_topology-ch11-body-458-ea262b",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[458]",
+      "expect": "\\begin{array}{c c c} X & \\xrightarrow {\\tilde {f}} & B \\times F \\\\ \\Big \\downarrow_ {i} & & \\Big \\downarrow_ {p} \\\\ X \\times \\mathbf {I} & \\xrightarrow [ G ] & B, \\end{array}",
+      "new": "\\begin{array}{c c c} X & \\xrightarrow {\\tilde {f}} & B \\times F \\\\ \\Big \\downarrow_ {i} & & \\Big \\downarrow_ {p} \\\\ X \\times \\mathbf {I} & \\xrightarrow [ G ] {} & B, \\end{array}"
+    },
+    {
+      "id": "rotman_algebraic_topology-ch03-problem-3-12-body-3-458a56",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "problem:3.12:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "\\(dz=z2\\pi if'\\( (t)dt\\)",
+      "new": "\\(dz=z2\\pi if'(t)dt\\)",
+      "anchor": "c33234d5"
+    }
+  ]
+}

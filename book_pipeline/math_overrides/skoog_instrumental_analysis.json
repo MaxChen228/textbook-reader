@@ -1,0 +1,157 @@
+{
+  "overrides": [
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-137-d98480",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[137]",
+      "field": "md",
+      "all": true,
+      "old": "$9.05 \\, \\mum$",
+      "new": "$9.05 \\, \\mu m$",
+      "anchor": "b24f43cb"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-163-cd06d1",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[163]",
+      "field": "md",
+      "all": true,
+      "old": "$1000 \\, \\mum$",
+      "new": "$1000 \\, \\mu m$",
+      "anchor": "33b0a85c"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch17-body-161-daace1",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[161]",
+      "field": "md",
+      "all": true,
+      "old": "$1.4 \\, \\mum$",
+      "new": "$1.4 \\, \\mu m$",
+      "anchor": "7fe59190"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch17-body-161-aee1f3",
+      "action": "fix_inline_math",
+      "chunk": "ch17",
+      "selector": "body[161]",
+      "field": "md",
+      "all": true,
+      "old": "$3.0 \\, \\mum$",
+      "new": "$3.0 \\, \\mu m$",
+      "anchor": "7fe59190"
+    },
+    {
+      "id": "skoog_instrumental_analysis-appA4-body-157-312a6f",
+      "action": "fix_inline_math",
+      "chunk": "appA4",
+      "selector": "body[157]",
+      "field": "md",
+      "all": true,
+      "old": "$0.75 \\, \\mum$",
+      "new": "$0.75 \\, \\mu m$",
+      "anchor": "268d9f03"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch23-problem-23-21-body-1-f7b4ac",
+      "action": "fix_eq_tex",
+      "chunk": "ch23",
+      "selector": "problem:23-21:body[1]",
+      "expect": "\\mathrm{Ag} | \\mathrm {AgCl(sat^ {\\prime} d)} | | \\mathrm {Cu^ {2 + } (3.25\\times1 0 ^ {-3} M)} | \\text { membrane   electrode   for   Cu^ {2 + }}",
+      "new": "\\mathrm{Ag} | \\mathrm {AgCl(sat^ {\\prime} d)} | | \\mathrm {Cu^ {2 + } (3.25\\times1 0 ^ {-3} M)} | \\text { membrane   electrode   for } \\mathrm{Cu}^{2 +}"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch22-problem-22-4-body-1-6b0a93",
+      "action": "fix_inline_math",
+      "chunk": "ch22",
+      "selector": "problem:22-4:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$\\mathrm{Sn(ClO_4)_2(3.00\\times 10^{-5}M),\\mathrm{Sn(ClO_4)_4(6.00\\times 10^{-5}M)}|\\mathrm{Pt}$",
+      "new": "$\\mathrm{Sn(ClO_4)_2(3.00\\times 10^{-5}M)},\\mathrm{Sn(ClO_4)_4(6.00\\times 10^{-5}M)}|\\mathrm{Pt}$",
+      "anchor": "91f4f266"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch24-body-4-faefb6",
+      "action": "fix_eq_tex",
+      "chunk": "ch24",
+      "selector": "body[4]",
+      "expect": "E _ {\\text {appl}} = \\left(E _ {\\mathrm{r}} - E _ {\\mathrm{l}}\\right) + \\left(\\eta_ {\\mathrm{rc}} + \\eta_ {\\mathrm{rk}}\\right) - \\left(\\eta_ {\\mathrm{lc}} + \\eta_ {\\mathrm{lk}}\\right) - I R \\tag {24-1}\\tag{24-1}",
+      "new": "E _ {\\text {appl}} = \\left(E _ {\\mathrm{r}} - E _ {\\mathrm{l}}\\right) + \\left(\\eta_ {\\mathrm{rc}} + \\eta_ {\\mathrm{rk}}\\right) - \\left(\\eta_ {\\mathrm{lc}} + \\eta_ {\\mathrm{lk}}\\right) - I R \\tag {24-1}"
+    },
+    {
+      "id": "skoog_instrumental_analysis-appA1-body-222-4afc07",
+      "action": "fix_eq_tex",
+      "chunk": "appA1",
+      "selector": "body[222]",
+      "expect": "\\begin{array}{l} \\sum (d x _ {i}) ^ {2} = \\left(\\frac {\\partial x}{\\partial p}\\right) ^ {2} \\sum (d p _ {i}) ^ {2} + \\left(\\frac {\\partial x}{\\partial q}\\right) ^ {2} \\sum (d q _ {i}) ^ {2} \\\\ \\quad + \\left(\\frac {\\partial x}{\\partial r}\\right) ^ {2} \\sum (d r _ {i}) ^ {2} + \\dots \\end{array} \\tag {a}\\tag{a1-27}",
+      "new": "\\begin{array}{l} \\sum (d x _ {i}) ^ {2} = \\left(\\frac {\\partial x}{\\partial p}\\right) ^ {2} \\sum (d p _ {i}) ^ {2} + \\left(\\frac {\\partial x}{\\partial q}\\right) ^ {2} \\sum (d q _ {i}) ^ {2} \\\\ \\quad + \\left(\\frac {\\partial x}{\\partial r}\\right) ^ {2} \\sum (d r _ {i}) ^ {2} + \\dots \\end{array} \\tag{a1-27}"
+    },
+    {
+      "id": "skoog_instrumental_analysis-appA1-body-224-569a5e",
+      "action": "fix_eq_tex",
+      "chunk": "appA1",
+      "selector": "body[224]",
+      "expect": "\\begin{array}{l} \\frac {\\sum (d x _ {i}) ^ {2}}{N - 1} = \\left(\\frac {\\partial x}{\\partial p}\\right) ^ {2} \\frac {\\sum (d p _ {i}) ^ {2}}{N - 1} + \\left(\\frac {\\partial x}{\\partial q}\\right) ^ {2} \\frac {\\sum (d q _ {i}) ^ {2}}{N - 1} \\\\ + \\left(\\frac {\\partial x}{\\partial r}\\right) ^ {2} \\frac {\\sum (d r _ {i}) ^ {2}}{N - 1} + \\dots \\end{array} \\tag {a1}\\tag{a1-28}",
+      "new": "\\begin{array}{l} \\frac {\\sum (d x _ {i}) ^ {2}}{N - 1} = \\left(\\frac {\\partial x}{\\partial p}\\right) ^ {2} \\frac {\\sum (d p _ {i}) ^ {2}}{N - 1} + \\left(\\frac {\\partial x}{\\partial q}\\right) ^ {2} \\frac {\\sum (d q _ {i}) ^ {2}}{N - 1} \\\\ + \\left(\\frac {\\partial x}{\\partial r}\\right) ^ {2} \\frac {\\sum (d r _ {i}) ^ {2}}{N - 1} + \\dots \\end{array} \\tag{a1-28}"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-127-3ce258",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "$6 \\, \\mum$",
+      "new": "$6 \\, \\mu\\mathrm{m}$",
+      "anchor": "5d1eba62"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-127-cae0dd",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "$4.3 \\, \\mum$",
+      "new": "$4.3 \\, \\mu\\mathrm{m}$",
+      "anchor": "5d1eba62"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-127-c9bb43",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[127]",
+      "field": "md",
+      "all": true,
+      "old": "$15 \\, \\mum$",
+      "new": "$15 \\, \\mu\\mathrm{m}$",
+      "anchor": "5d1eba62"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-137-45e4b3",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[137]",
+      "field": "md",
+      "all": true,
+      "old": "$9.67 \\, \\mum$",
+      "new": "$9.67 \\, \\mu\\mathrm{m}$",
+      "anchor": "b24f43cb"
+    },
+    {
+      "id": "skoog_instrumental_analysis-ch16-body-137-c2555f",
+      "action": "fix_inline_math",
+      "chunk": "ch16",
+      "selector": "body[137]",
+      "field": "md",
+      "all": true,
+      "old": "$9.50 \\, \\mum$",
+      "new": "$9.50 \\, \\mu\\mathrm{m}$",
+      "anchor": "b24f43cb"
+    }
+  ]
+}

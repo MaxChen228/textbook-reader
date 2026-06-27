@@ -83,6 +83,28 @@
       "selector": "body[79]",
       "expect": "\\begin{array}{c} F c \\xrightarrow {\\lambda_ {\\mathrm{id} _ {K c} : K c \\to K c} ^ {K c}} \\operatorname{Lan} _ {K} F (K c) \\\\ \\gamma_ {c} \\Big \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad G K c \\xlongequal [ G i d _ {K c} ] & G K c \\end{array}",
       "new": "\\begin{array}{c c} F c \\xrightarrow {\\lambda_ {\\mathrm{id} _ {K c} : K c \\to K c} ^ {K c}} \\operatorname{Lan} _ {K} F (K c) \\\\ \\gamma_ {c} \\Big \\downarrow \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad G K c \\xlongequal [ G i d _ {K c} ] {} & G K c \\end{array}"
+    },
+    {
+      "id": "riehl_category_theory-ch03-body-52-ca0e48",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[52]",
+      "field": "md",
+      "all": true,
+      "old": "$B \\stackrel { f } { \\right. } A \\stackrel { g } { \\left. } C$",
+      "new": "$B \\stackrel { f } { \\leftarrow } A \\stackrel { g } { \\rightarrow } C$",
+      "anchor": "ec3a6243"
+    },
+    {
+      "id": "riehl_category_theory-ch06-body-108-3431f3",
+      "action": "fix_inline_math",
+      "chunk": "ch06",
+      "selector": "body[108]",
+      "field": "md",
+      "all": true,
+      "old": "$\\Pi _ { H \\backslash G } X \\stackrel { \\left. } { \\right. } \\Pi _ { G } X$",
+      "new": "$\\Pi _ { H \\backslash G } X \\longrightarrow \\Pi _ { G } X$",
+      "anchor": "87e461ae"
     }
   ]
 }

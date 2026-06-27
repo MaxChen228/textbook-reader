@@ -1,0 +1,42 @@
+{
+  "overrides": [
+    {
+      "id": "zorich_mathematical_analysis_1-ch08-body-369-9bebe5",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[369]",
+      "field": "md",
+      "all": true,
+      "old": "$( x ^ { 1 } , x ^ { 2 } ^ { \\prime } + h ^ { 2 } , \\ldots , x ^ { m } + h ^ { m } ) , \\ldots , ( x ^ { 1 } , x ^ { 2 } , \\ldots , x ^ { m - 1 } , x ^ { m } + h ^ { m } )$",
+      "new": "$( x ^ { 1 } , x ^ { 2 \\prime } + h ^ { 2 } , \\ldots , x ^ { m } + h ^ { m } ) , \\ldots , ( x ^ { 1 } , x ^ { 2 } , \\ldots , x ^ { m - 1 } , x ^ { m } + h ^ { m } )$",
+      "anchor": "f1fcba7c"
+    },
+    {
+      "id": "zorich_mathematical_analysis_1-ch05-problem-5-2-7-2-body-1-bcb777",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "problem:5.2.7.2:body[1]",
+      "expect": "\\begin{array}{l} \\text {a)} f (x) = \\left\\{ \\begin{array}{l l} \\exp (- \\frac {1}{x ^ {2}}) & \\text {for x\\neq 0 ,} \\\\ 0 & \\text {for x = 0 ;} \\end{array} \\right. \\\\ \\text {b)} f (x) = \\left\\{ \\begin{array}{l l} x ^ {2} \\sin \\frac {1}{x} & \\text {for x\\neq 0 ,} \\\\ 0 & \\text {for x = 0 .} \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\text {a)} f (x) = \\left\\{ \\begin{array}{l l} \\exp (- \\frac {1}{x ^ {2}}) & \\text {for } x\\neq 0 \\text {,} \\\\ 0 & \\text {for } x = 0 \\text {;} \\end{array} \\right. \\\\ \\text {b)} f (x) = \\left\\{ \\begin{array}{l l} x ^ {2} \\sin \\frac {1}{x} & \\text {for } x\\neq 0 \\text {,} \\\\ 0 & \\text {for } x = 0 \\text {.} \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "zorich_mathematical_analysis_1-ch05-body-1490-6ac7ab",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[1490]",
+      "field": "md",
+      "all": true,
+      "old": "$Q ( x ) \\neqq$",
+      "new": "$Q ( x ) \\neq$",
+      "anchor": "0b13e9b7"
+    },
+    {
+      "id": "zorich_mathematical_analysis_1-ch01-body-400-6f1166",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[400]",
+      "expect": "\\begin{array}{c} \\neg \\Bigl (\\lim _ {x \\to a} f (x) = A \\Bigr) \\Leftrightarrow \\exists \\varepsilon > 0   \\forall \\delta > 0   \\exists x   \\in \\mathbb {R} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\neg \\Bigl (\\lim _ {x \\to a} f (x) = A \\Bigr) \\Leftrightarrow \\exists \\varepsilon > 0   \\forall \\delta > 0   \\exists x   \\in \\mathbb {R} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

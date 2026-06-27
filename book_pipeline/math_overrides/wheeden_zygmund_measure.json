@@ -53,6 +53,62 @@
       "selector": "body[453]",
       "expect": "\\begin{array}{l} \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 1} \\omega (\\alpha) d \\alpha \\leq \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 3} \\left(\\int_ {\\{0 <   | f | <   \\alpha^ {- 1 / (p - 1)} \\}} | f | ^ {2} d \\mathbf {x}\\right) d \\alpha \\\\ = \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} \\left(\\int_ {0} ^ {| f | ^ {1 - p}} \\alpha^ {p ^ {\\prime} - 3} d \\alpha\\right) d \\mathbf {x} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} | f | ^ {(1 - p) (p ^ {\\prime} - 2)} d \\mathbf {x} \\quad \\text {since p^{\\prime} >2} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\mathbf {R} ^ {n}} | f | ^ {p} d \\mathbf {x} = \\frac {1}{p ^ {\\prime} - 2}. \\end{array}",
       "new": "\\begin{array}{l} \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 1} \\omega (\\alpha) d \\alpha \\leq \\int_ {0} ^ {\\infty} \\alpha^ {p ^ {\\prime} - 3} \\left(\\int_ {\\{0 <   | f | <   \\alpha^ {- 1 / (p - 1)} \\}} | f | ^ {2} d \\mathbf {x}\\right) d \\alpha \\\\ = \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} \\left(\\int_ {0} ^ {| f | ^ {1 - p}} \\alpha^ {p ^ {\\prime} - 3} d \\alpha\\right) d \\mathbf {x} \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\{0 <   | f | <   \\infty \\}} | f | ^ {2} | f | ^ {(1 - p) (p ^ {\\prime} - 2)} d \\mathbf {x} \\quad \\text {since } p^{\\prime} >2 \\\\ = \\frac {1}{p ^ {\\prime} - 2} \\int_ {\\mathbf {R} ^ {n}} | f | ^ {p} d \\mathbf {x} = \\frac {1}{p ^ {\\prime} - 2}. \\end{array}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch02-body-206-ee0147",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[206]",
+      "expect": "\\int \\liminfits_{a}^{b}f  d\\phi = \\liminfits_{\\substack{a^{\\prime}\\to a\\\\ b^{\\prime}\\to b}}\\int \\liminfits_{a^{\\prime}}^{b^{\\prime}}f  d\\phi ,",
+      "new": "\\int \\limits_{a}^{b}f  d\\phi = \\lim\\limits_{\\substack{a^{\\prime}\\to a\\\\ b^{\\prime}\\to b}}\\int \\limits_{a^{\\prime}}^{b^{\\prime}}f  d\\phi ,"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch02-body-208-347687",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[208]",
+      "expect": "\\int \\liminfits_{- \\infty}^{+\\infty}fd\\phi = \\limsupits_{\\substack{a\\to -\\infty \\\\ b\\to +\\infty}}\\int \\limits_{a}^{b}fd\\phi",
+      "new": "\\int \\limits_{- \\infty}^{+\\infty}fd\\phi = \\lim\\limits_{\\substack{a\\to -\\infty \\\\ b\\to +\\infty}}\\int \\limits_{a}^{b}fd\\phi"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch12-body-486-51ff67",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[486]",
+      "expect": "\\begin{array}{l} \\left| \\widetilde {f} _ {\\varepsilon} (x _ {0}) - \\widetilde {f} _ {1 / n} (x _ {0}) \\right| \\leq \\frac {1}{\\pi} \\int_ {1 / (n + 1)} ^ {1 / n} \\left| f (x _ {0} + t) - f (x _ {0} - t) \\right| \\frac {1}{2} \\cot \\frac {1}{2} t d t \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}\\tag{12.55}",
+      "new": "\\begin{array}{l} \\left| \\widetilde {f} _ {\\varepsilon} (x _ {0}) - \\widetilde {f} _ {1 / n} (x _ {0}) \\right| \\leq \\frac {1}{\\pi} \\int_ {1 / (n + 1)} ^ {1 / n} \\left| f (x _ {0} + t) - f (x _ {0} - t) \\right| \\frac {1}{2} \\cot \\frac {1}{2} t d t \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}\\tag{12.55}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch15-problem-14-body-1-d1858a",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "problem:14:body[1]",
+      "expect": "\\begin{array}{l} \\| f \\| _ {L ^ {q} (B)} \\leq c _ {n, p} \\| \\nabla f \\| _ {L ^ {p} (B)} + c _ {n} \\frac {1}{r (B)} \\| f \\| _ {L ^ {p} (B)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\| f \\| _ {L ^ {q} (B)} \\leq c _ {n, p} \\| \\nabla f \\| _ {L ^ {p} (B)} + c _ {n} \\frac {1}{r (B)} \\| f \\| _ {L ^ {p} (B)} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch07-body-597-c775f9",
+      "action": "fix_eq_tex",
+      "chunk": "ch07",
+      "selector": "body[597]",
+      "expect": "\\begin{array}{l} | f (\\mathbf {u}) | = | f (\\mathbf {x} + \\mathbf {h}) | \\leq | f (\\mathbf {x} + \\mathbf {h}) + f (\\mathbf {x} - \\mathbf {h}) - 2 f (\\mathbf {x}) | + | f (\\mathbf {x} - \\mathbf {h}) | + 2 | f (\\mathbf {x}) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} | f (\\mathbf {u}) | = | f (\\mathbf {x} + \\mathbf {h}) | \\leq | f (\\mathbf {x} + \\mathbf {h}) + f (\\mathbf {x} - \\mathbf {h}) - 2 f (\\mathbf {x}) | + | f (\\mathbf {x} - \\mathbf {h}) | + 2 | f (\\mathbf {x}) | \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch09-body-33-18b167",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[33]",
+      "expect": "\\begin{array}{l} \\left| \\int_ {\\mathbf {R} ^ {n}} f (\\mathbf {x} - \\mathbf {t}) K (\\mathbf {t})   d \\mathbf {t} \\right| \\leq \\left(\\int_ {S} | f (\\mathbf {x} - \\mathbf {t}) |   d \\mathbf {t}\\right) (\\max | K |) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} \\left| \\int_ {\\mathbf {R} ^ {n}} f (\\mathbf {x} - \\mathbf {t}) K (\\mathbf {t})   d \\mathbf {t} \\right| \\leq \\left(\\int_ {S} | f (\\mathbf {x} - \\mathbf {t}) |   d \\mathbf {t}\\right) (\\max | K |) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch09-body-96-295597",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{l} | f _ {\\varepsilon} (\\mathbf {x}) - f (\\mathbf {x}) | \\leq \\eta \\int_ {| \\mathbf {t} | <   \\delta} | K _ {\\varepsilon} (\\mathbf {t}) | d \\mathbf {t} + \\int_ {| \\mathbf {t} | \\geq \\delta} | f (\\mathbf {x} - \\mathbf {t}) - f (\\mathbf {x}) |   | K _ {\\varepsilon} (\\mathbf {t}) |   d \\mathbf {t} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{l} | f _ {\\varepsilon} (\\mathbf {x}) - f (\\mathbf {x}) | \\leq \\eta \\int_ {| \\mathbf {t} | <   \\delta} | K _ {\\varepsilon} (\\mathbf {t}) | d \\mathbf {t} + \\int_ {| \\mathbf {t} | \\geq \\delta} | f (\\mathbf {x} - \\mathbf {t}) - f (\\mathbf {x}) |   | K _ {\\varepsilon} (\\mathbf {t}) |   d \\mathbf {t} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
     }
   ]
 }

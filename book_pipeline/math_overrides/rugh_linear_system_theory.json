@@ -15,6 +15,14 @@
       "selector": "body[125]",
       "expect": "\\begin{array}{r l} \\left\\| A ^ {T} (k - 1) \\otimes A ^ {T} (k - 1) - A ^ {T} (k) \\otimes A ^ {T} (k) \\right\\| & = \\left\\| \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. A ^ {T} (k - 1) \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes A ^ {T} (k - 1) \\right\\| \\\\ & \\leq n ^ {2} \\beta (\\beta + 2 \\alpha). \\end{array} \\tag {2}\\tag{24}",
       "new": "\\begin{array}{r l} \\left\\| A ^ {T} (k - 1) \\otimes A ^ {T} (k - 1) - A ^ {T} (k) \\otimes A ^ {T} (k) \\right\\| & = \\left\\| \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. A ^ {T} (k - 1) \\otimes \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\right. \\\\ & + \\left. \\left[ A ^ {T} (k) - A ^ {T} (k - 1) \\right] \\otimes A ^ {T} (k - 1) \\right\\| \\\\ & \\leq n ^ {2} \\beta (\\beta + 2 \\alpha). \\end{array} \\tag {2.24}"
+    },
+    {
+      "id": "rugh_linear_system_theory-ch29-body-250-f51907",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "body[250]",
+      "expect": "\\left[ \\begin{array}{c c} z I _ {2 n + q} - \\left[ \\begin{array}{c c c} A + B K _ {1} & - B K _ {1} & - B K _ {2} \\\\ 0 & A - H _ {1} C & E - H _ {1} F \\\\ 0 & - H _ {2} C & I - H _ {2} F \\end{array} \\right] & \\end{array} \\right] ^ {- 1} = \\\\ \\left[ \\begin{array}{c c} (z I - A - B K _ {1}) ^ {- 1} & - (z I - A - B K _ {1}) ^ {- 1} \\left[ B K _ {1} & B K _ {2} \\right] \\left[ \\begin{array}{c c} z I - A + H _ {1} C & - E + H _ {1} F \\\\ H _ {2} C & z I - I + H _ {2} F \\end{array} \\right] ^ {- 1} \\\\ 0 & \\left[ \\begin{array}{c c} z I - A + H _ {1} C & - E + H _ {1} F \\\\ H _ {2} C & z I - I + H _ {2} F \\end{array} \\right] ^ {- 1} \\end{array} \\right]",
+      "new": "\\begin{array}{c} \\left[ z I _ {2 n + q} - \\left[ \\begin{array}{c c c} A + B K _ {1} & - B K _ {1} & - B K _ {2} \\\\ 0 & A - H _ {1} C & E - H _ {1} F \\\\ 0 & - H _ {2} C & I - H _ {2} F \\end{array} \\right] \\right] ^ {- 1} = \\\\ \\left[ \\begin{array}{c c} (z I - A - B K _ {1}) ^ {- 1} & - (z I - A - B K _ {1}) ^ {- 1} \\left[ \\begin{array}{c c} B K _ {1} & B K _ {2} \\end{array} \\right] \\left[ \\begin{array}{c c} z I - A + H _ {1} C & - E + H _ {1} F \\\\ H _ {2} C & z I - I + H _ {2} F \\end{array} \\right] ^ {- 1} \\\\ 0 & \\left[ \\begin{array}{c c} z I - A + H _ {1} C & - E + H _ {1} F \\\\ H _ {2} C & z I - I + H _ {2} F \\end{array} \\right] ^ {- 1} \\end{array} \\right] \\end{array}"
     }
   ]
 }
