@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-27-boron-boulpaep-physiology",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "catalog_audit _parent_num 只折小寫尾部子圖字母、漏折大寫 panel(A/B/C/D) → 母圖存在仍誤報 missing_figure/table_refs",
+  "slug": "boron_boulpaep_physiology",
+  "detect": [],
+  "source": "catalog-audit/architect",
+  "resolution": "",
+  "created": "2026-06-27T03:26:31+00:00",
+  "updated": "2026-06-27T03:26:31+00:00",
+  "evidence": "boron_boulpaep_physiology: audit_catalog 報 712 critical，其中 690(687 fig + 3 tbl)=正文引用大寫 panel(如 Figure 15-23B / Table 39-1A)、而母圖 fig-15.23 / 母表 tbl-39.1 確實存在於 catalog。根因：_parent_num regex '^(.+\\\\d)[a-z]$' 只折小寫尾字母(reif 小寫 panel 正常折回母圖)，大寫不折→_catalog_covers_ref 對大寫 panel 永遠 False。catalog_aliases 不被 _catalog_covers_ref 查→override 無合法出口；非 misOCR/非 external 故 ref_classifications 是偽造覆蓋(skill §3.6 明禁)。醫學/生物參考書普遍用大寫 panel，影響全 corpus 同類書。",
+  "proposal": "_parent_num regex [a-z] → [a-zA-Z]（對稱小寫折疊、單調只降不升 critical、零 false-negative：panel 判 covered ⟺ 母圖影像存在＝語意正確）。爆炸半徑僅 C4/C5（_parent_num 唯一被 _catalog_covers_ref 用）。驗證：boron critical 712→22、reif 8 不變、axler/thomas 仍 0。",
+  "risk": "low",
+  "disposition": "架構師本 session 直接實作；proposal 作 provenance/審計軌跡，落地後標 accepted 帶 commit sha"
+}

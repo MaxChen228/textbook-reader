@@ -34,7 +34,9 @@ def _canonical_num(value: str) -> str:
 
 def _parent_num(value: str) -> str | None:
     value = _canonical_num(value)
-    m = re.match(r'^(.+\d)[a-z]$', value)
+    # 折疊單一尾部子圖字母 → 母圖/母表編號（e.g. 15.23B / 33.2c → 15.23 / 33.2）。
+    # 大小寫皆折：教科書 panel 標號有用小寫(reif)也有用大寫(醫學/生物參考書 A/B/C/D)。
+    m = re.match(r'^(.+\d)[a-zA-Z]$', value)
     return m.group(1) if m else None
 
 

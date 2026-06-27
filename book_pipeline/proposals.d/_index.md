@@ -4,7 +4,7 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|park|verify|frontier|list|stale|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （5 條；proposed=1 parked=0）
+## domain: crawl  （6 條；proposed=2 parked=0）
 ### P-2026-06-25-courant-hilbert-methods-1 — courant_hilbert_methods_1 內容實為 Volume II (PDE)，非 slug/editions 宣稱的 Vol 1
 - proposed | type=edition-mismatch | source=audit:courant_hilbert_methods_1
 - 證據：
@@ -13,6 +13,15 @@
 > 架構師擇一：(A) rename slug courant_hilbert_methods_1→courant_hilbert_methods_2（一致改 slug_map.json/editions 檔名+identity.title 'Volume 2'+version label+evidence/mineru_data 目錄/raw_pdfs/pipeline_state/book_timeline 等 daemon state，須 daemon 靜默期 all-or-nothing 做、半套=壞 state），再重派 audit（結構偵察已備於 _audit.md，可直接接力）；(B) 另 source standalone Vol 1（restock『no standalone vol 1 found』先別當定論）。**絕不下架 owned**。注意：本案為 crawl 域 proposal + 無 extract_rules.yaml，R audit-blocked 只認 engine 提案故不觸發 → daemon 下個 cycle 可能重派 audit 空轉，建議架構師儘速 rename 或手動止派此 slug。
 - 風險：
 > wrong-volume = title_mismatch 類（近抓錯書非版次微調）；四維模型版本維未過→此 slug 非合格可部署書，不應 audit→deploy 成半錯標 LIVE（slug=_1/editions=Vol1/catalog 顯 Vol1/內文 Vol2 自相矛盾）。worker 已停手不產 yaml、不碰 slug/editions/state。
+
+### P-2026-06-26-taur-ning-vlsi-devices — taur_ning_vlsi_devices：ch8/ch10 OCR 剝除全部習題題號→該2章0題（per-chapter 靜默丟題滑過 whole-book 完整性閘）
+- proposed | type=harness-gap | source=audit-book(taur_ning_vlsi_devices)
+- 證據：
+> MinerU OCR 把 ch8/ch10 章末 Exercises 區的 N.M 題號整批丟失：ch8 problems 區 23 個 text 塊 0 個帶題號（raw idx3892 直接 'Apply constant-field scaling rules…' 無 '8.1'）；ch10 30 個 text 塊 0 個帶題號（raw idx5346 僅碎片 '10.'）。對照 ch2-7/9/11 題號完整、各 8-18 題正常切出（91 題）。ch9 另缺 9.8（_gaps.md 標 probable_ocr_miss）。非 yaml/parser 可修：無題號可供 problem_start_re 匹配，放鬆 regex=cheat。book_qc.declared_problems_missing_reason 僅在 total_problem_count==0 觸發，本書 total=91>0 故 per-chapter 全失靜默滑過部署閘。
+- 提議：
+> 架構師裁決：park --kind re-source（重 OCR 救 ch8/ch10/ch9.8 習題）或接受該2章無習題出貨（其餘10章內容+9章習題完整）。次要：book_qc 完整性閘可考慮加 per-chapter 粒度（宣告有 Exercises heading 的章 parsed 0 題→旗標），補本案暴露的靜默丟題盲區。
+- 風險：
+> low
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
 - accepted | type=booklist-fix | source=crawl
@@ -54,7 +63,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （240 條；proposed=1 parked=7）
+## domain: engine  （247 條；proposed=7 parked=8）
 ### P-2026-06-25-bona-combinatorics — worker 越界改核心碼：book_pipeline/normalize_metadata.py（audit bona_combinatorics）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -125,6 +134,93 @@
 >
 >
 >  def main() -> None:
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-25-boylestad-electronic-devices — worker 越界改核心碼：book_pipeline/validate_rules.py（audit boylestad_electronic_devices）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [audit boylestad_electronic_devices] session=boylestad_electronic_devices:36290 存活期間，受保護程式碼面 book_pipeline/validate_rules.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/validate_rules.py b/book_pipeline/validate_rules.py
+> index 371c224..100c202 100644
+> --- a/book_pipeline/validate_rules.py
+> +++ b/book_pipeline/validate_rules.py
+> @@ -122,12 +122,16 @@ def validate(slug: str) -> int:
+>              pass
+>
+>      # heading_text_level：選填，MinerU section heading 的 text_level（預設 1，須 ≥1 正整數）。
+> -    # 可為 list[int]——OCR level 不一致時兩級都收（Dummit&Foote [1, 2]）。
+> +    # 可為 list[int|None]——OCR level 不一致時多級都收；None 代表 MinerU 未標 level 但文字
+> +    # 仍是可辨識 heading（TAOCP 4A 的 7.2.1.x 小節）。
+>      if 'heading_text_level' in R:
+>          hl = R['heading_text_level']
+>          hl_list = hl if isinstance(hl, list) else [hl]
+> -        if not hl_list or not all(isinstance(x, int) and not isinstance(x, bool) and x >= 1 for x in hl_list):
+> -            errs.append(f'heading_text_level 須為 ≥1 的整數或其 list（得到 {hl!r}）')
+> +        if not hl_list or not all(
+> +            x is None or (isinstance(x, int) and not isinstance(x, bool) and x >= 1)
+> +            for x in hl_list
+> +        ):
+> +            errs.append(f'heading_text_level 須為 ≥1 的整數、null、或其 list（得到 {hl!r}）')
+>
+>      # suppress_running_header_sections：選填 bool（opt-in；inline 模式抑制頁頂跑馬燈假 section
+>      # heading 推進 namespace）。非 bool 會靜默落 truthy/falsy → 明確擋下。
+- 風險：
+> observe 模式未還原——待架構師裁決收編/還原。
+
+### P-2026-06-25-stevens-apue — parser cannot split exercise starts tagged as ref_text
+- proposed | type=tooling-gap | source=agent
+- 證據：
+> In stevens_apue, chapter-end exercise starts are sometimes MinerU type=ref_text instead of text/list (e.g. ch01 problems 1.1-1.5 at blocks 522-526; ch06 problems 6.1-6.5 at blocks 2570-2574; mixed chapters 4/11/12/15). split_problems only considers t in ('text','list'), so those real exercises are skipped and parser reports ch01/ch06 problems=0 despite valid problem_start_re.
+- 提議：
+> Allow configured problem-start detection on ref_text in problem regions, or add a schema flag such as problem_start_types including ref_text, while preserving normal body ref_text filtering behavior.
+
+### P-2026-06-26-haykin-neural-networks — pdf_crop_insert 預設 .png 輸出永不被 build 轉 webp → reader 壞圖（37 本受害）
+- proposed | type=tooling-gap | source=catalog_audit:haykin_neural_networks
+- 證據：
+> catalog-audit.md §5 明文承諾「裁出的 PNG…build 階段 cwebp 轉 webp」，但 build/convert_images.py:62 _jobs_for 只 glob('*.jpg')、build/bake_json.py:25 JPG_TO_WEBP 只改寫 r'\.jpg$'。apply_catalog_overrides._crop_pdf_image 預設存 manual_<id>.png。實測 haykin：用預設 .png src → build 後 img/<slug>/ 無對應 webp、baked catalogs.json src 仍為 manual_*.png → reader 請求不存在檔 404、圖全不顯示（catalog audit critical=0 仍綠＝silent-zero）。改顯式 .jpg src 後 → webp 生成、src 改寫為 .webp、reader 正常。grep manual_*.png 的 catalog_overrides 共 37 本潛在受害（anslyn/balanis/hayashi/van_valkenburg/ulaby 等 tbl/fig 皆是）。
+- 提議：
+> build/convert_images._jobs_for 的 glob 擴成 *.jpg + *.png（png 為 cwebp 合法輸入，內容定址 stem 不衝突）；build/bake_json 的 JPG_TO_WEBP 與 HTML_IMG_RE 一併涵蓋 .png→.webp（rewrite 改 r'\.(jpe?g|png)$'）。如此 skill §5 的 .png 契約真正成立、37 本既有 png crop 一次 un-break（png→webp 對線稿/表格無損優於 jpg 中介）。本書 haykin 已用 .jpg src 自救上線，不依賴此修。
+- 風險：
+> low
+
+### P-2026-06-26-taur-ning-vlsi-devices-2 — ingest 解壓 chunk zip 可漏整個 images/ 子目錄而靜默過關，缺 post-unified 圖檔完整性閘
+- proposed | type=tooling-gap | source=agent
+- 證據：
+> taur_ning_vlsi_devices catalog 出現 152 個 C3(missing_images)。根因：chunk_1.zip 內含 473 張圖(images/*.jpg)，但 extract_zip(mineru_ingest.py:402-407 的 zf.extractall)當時 transient 失敗(極可能 ENOSPC，事發時 felix 工作碟 99% 滿)，raw/chunk_1/ 解出全部其他檔(content_list/model/origin.pdf/full.md/layout)獨缺 images/ 子目錄。手動 test-extract images/* rc=0 乾淨解出 473 張→zip 完好、失敗在 extractall 調用層。兩道防線同時失效：(1)_chunk_done(:419-422)只認 content_list.json 存在即判 chunk 完成、不檢查 images/，誤判已完成不重解；(2)assemble 合併 images 用 if src_img.is_dir() (:461)靜默跳過缺失目錄、無報錯。結果 130 個被 content_list 引用的圖名(catalog src=content-hash)在 unified/images 缺檔。簽名：單 chunk、乾淨缺一目錄、其他 chunk(0/2/3)images 完整。已用補解 chunk_1.zip 到 unified/images 救回(critical 152→0)，但 unified/ 是可重生產物，daemon 重 ingest 仍會復發。
+- 提議：
+> (A) post-unified 完整性閘：assemble 後斷言 content_list 所有 img_path 屬於 unified/images(扣 kind=text)，落差大於0 即 raise 或 flag review、不放行 audit。(B) _chunk_done 完成判據納入 images：若該 chunk content_list 有 img refs 但 chunk_dir/images 不存在或檔數明顯少於 refs，判未完成、觸發重解。(C) extract_zip 後驗 zip namelist 與解出檔數一致(防 ENOSPC 半途中斷靜默吞)。建好後可 fix-tooling-then-sweep 回掃既有書(掃 content_list img-refs vs unified/images 落差)找同類受害書。
+
+### P-2026-06-27-boron-boulpaep-physiology — catalog_audit _parent_num 只折小寫尾部子圖字母、漏折大寫 panel(A/B/C/D) → 母圖存在仍誤報 missing_figure/table_refs
+- proposed | type=tooling-gap | source=catalog-audit/architect
+- 處置：
+> 架構師本 session 直接實作；proposal 作 provenance/審計軌跡，落地後標 accepted 帶 commit sha
+- 證據：
+> boron_boulpaep_physiology: audit_catalog 報 712 critical，其中 690(687 fig + 3 tbl)=正文引用大寫 panel(如 Figure 15-23B / Table 39-1A)、而母圖 fig-15.23 / 母表 tbl-39.1 確實存在於 catalog。根因：_parent_num regex '^(.+\\d)[a-z]$' 只折小寫尾字母(reif 小寫 panel 正常折回母圖)，大寫不折→_catalog_covers_ref 對大寫 panel 永遠 False。catalog_aliases 不被 _catalog_covers_ref 查→override 無合法出口；非 misOCR/非 external 故 ref_classifications 是偽造覆蓋(skill §3.6 明禁)。醫學/生物參考書普遍用大寫 panel，影響全 corpus 同類書。
+- 提議：
+> _parent_num regex [a-z] → [a-zA-Z]（對稱小寫折疊、單調只降不升 critical、零 false-negative：panel 判 covered ⟺ 母圖影像存在＝語意正確）。爆炸半徑僅 C4/C5（_parent_num 唯一被 _catalog_covers_ref 用）。驗證：boron critical 712→22、reif 8 不變、axler/thomas 仍 0。
+- 風險：
+> low
+
+### P-2026-06-27-tinoco-physical-chemistry-bio — worker 越界改核心碼：book_pipeline/catalog_audit.py（catalog_audit tinoco_physical_chemistry_bio）
+- proposed | type=patch | source=scope_guard
+- 證據：
+> scope_guard bracket：worker [catalog_audit tinoco_physical_chemistry_bio] session=tinoco_physical_chemistry_bio:36070 存活期間，受保護程式碼面 book_pipeline/catalog_audit.py（modified）被改動。程式碼面對任何 worker 都非合法輸出 → 判定為 worker 為通過自身階段而擅改引擎/工具不夠逼它繞過。
+- 提議：
+> diff --git a/book_pipeline/catalog_audit.py b/book_pipeline/catalog_audit.py
+> index 4eb31b8..5a7e11a 100644
+> --- a/book_pipeline/catalog_audit.py
+> +++ b/book_pipeline/catalog_audit.py
+> @@ -34,7 +34,9 @@ def _canonical_num(value: str) -> str:
+>
+>  def _parent_num(value: str) -> str | None:
+>      value = _canonical_num(value)
+> -    m = re.match(r'^(.+\d)[a-z]$', value)
+> +    # 折疊單一尾部子圖字母 → 母圖/母表編號（e.g. 15.23B / 33.2c → 15.23 / 33.2）。
+> +    # 大小寫皆折：教科書 panel 標號有用小寫(reif)也有用大寫(醫學/生物參考書 A/B/C/D)。
+> +    m = re.match(r'^(.+\d)[a-zA-Z]$', value)
+>      return m.group(1) if m else None
 - 風險：
 > observe 模式未還原——待架構師裁決收編/還原。
 
@@ -200,6 +296,16 @@
 > 兩個獨立子缺口，須分清：(A) namespace 撞號——problems_start_re 命中且帶 capture group 時，引擎於 exercises-gate 把該 group 當 current_section_id（覆寫 last section heading 推來的值）。加性：無 capture group 的書（如 Enderton ^Exercises$）行為不變。(B) body bleed——bleed 發生在 EXERCISES 7A→7B 之間（7B 整節定理在 EXERCISES 7B 之前），故『在 EXERCISES 7B 關區』太遲、解不了 bleed；真正缺的是『被 OCR 剝掉 id 的 7B title 塊（title-only heading-lvl）仍能當 section boundary 關閉前一題區』，例如新欄位允許指定 title-only heading 也關區、或引擎對 heading-lvl 但非 detected-section 的塊預設關 problems region。**(A) 只解撞號、(B) 才解 bleed，兩者需分別落地**。可泛化至任何『每節 EXERCISES NA 自帶 id、但前置 section heading 被 OCR 丟失/標錯層』的書（Axler 全家族）。margin 題號 OCR 散落造成的全書欠切分屬 source-quality、另論、不在此提案。
 - 風險：
 > low；加性、僅影響 problems_start_re 帶 group 的書
+
+### P-2026-06-27-shriver-atkins-inorganic — two-part 章末雙題組（EXERCISES + TUTORIAL PROBLEMS）各自 N.M 獨立重編號，引擎無欄位表達、monotonic guard 靜默丟整個 tutorial 組
+- parked | type=tooling-gap | source=audit-book/shriver_atkins_inorganic
+- 解鎖條件：engine-capability → parser.py: 二分(非-inline)模式 problems 區子題組 split/namespace — 缺欄位表達『單一 [pbi+1,nci-1] 區內含多組各自從 N.1 重編號的子題集(EXERCISES + TUTORIAL PROBLEMS)』
+- 處置：
+> 真相層已驗(raw blocks 756-796 + parsed ch01):EXERCISES 1.1-1.28(26題全留) vs TUTORIAL PROBLEMS 獨立 1.1-1.8(8題全丟,因與 exercises 撞號回跳被 monotonic guard 當偽命中),全書27章一致估丟數百題。現有欄位皆無解:inline+namespace 因 EXERCISES/TUTORIAL heading 非 N.M 不 reset→仍撞 '1.1';problems_end_re 只截掉 tutorial;單 pbi 無法表達兩區。疊加 OCR two-column 亂序(1.25-1.28 錯置到 TUTORIAL heading 後)使簡單 heading-split 也不足。yaml 已產(exercises 組 643 題完整 ship,不觸 R audit-blocked),待引擎能力落地由 proposals stale resurface 重 parse 救回 tutorial。
+- 證據：
+> 本書每章章末問題區 [pbi+1,nci-1] 內含兩組各自 N.M 編號的題集：EXERCISES（1.1–1.24…）緊接 TUTORIAL PROBLEMS（restart 1.1–1.8 + 延續 1.25–1.28），兩組題目語義互異（exercise 1.1='What is the ratio of the energy…' vs tutorial 1.1='In the paper What can the Bohr–Sommerfeld model show…'）。parser 在單一 problems 區內套遞增/重複守則，把 tutorial 組往回跳的題號（1.1–1.8）整段當偽命中丟棄，只留延續過 exercise max 的（1.25–1.28）。實測丟失：ch1 raw34→parsed26（丟8）、ch2 raw52→parsed32（丟20）、ch24 raw71→parsed40（丟31），27 章結構一致、全書估丟數百題。problem_num_namespace_by_section 僅 inline 模式生效、two-part 模式無對應欄位；problems_end_re 只能截斷（會把 tutorial 組整個切掉，更糟）。
+- 提議：
+> 引擎需支援『單一 two-part problems 區內含多個各自獨立重編號的子題組』：可選 schema 欄位如 problems_subblock_split_re（命中 lvl2 'TUTORIAL PROBLEMS' 等子標 → 開新子組、其後題號掛子組 namespace 如 'N.M-tutorial' 或 'N.tM'），或在 two-part 模式下讓 monotonic guard 在遇到 problems-region 內的子標 heading 時 reset 編號基準而非丟棄回跳題。
 
 ### P-2026-06-18-krall-trivelpiece-plasma — worker 越界改核心碼：.claude/skills/book-pipeline/references/crawl.md（audit krall_trivelpiece_plasma）
 - rejected | type=patch | source=scope_guard
