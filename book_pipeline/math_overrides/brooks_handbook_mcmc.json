@@ -50,6 +50,17 @@
       "selector": "body[108]",
       "expect": "\\alpha [ (k, \\pmb {\\theta} _ {k}), (k ^ {\\prime}, \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime}) ] = \\frac {\\pi (k ^ {\\prime} , \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime} | \\mathcal {D})}{\\pi (k , \\pmb {\\theta} _ {k} | \\mathcal {D})} \\frac {q (k ^ {\\prime} \\to k)}{q (k \\to k ^ {\\prime})} \\frac {| \\pmb {B} _ {k ^ {\\prime}} |}{| \\pmb {B} _ {k} |} \\times \\left\\{ \\begin{array}{l l} q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for n_{k^{\\prime}} <   n_{k}} \\\\ 1 & \\text {for n_{k^{\\prime}} = n_{k}} \\\\ 1 / q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for n_{k^{\\prime}} > n_{k}} \\end{array} \\right..",
       "new": "\\alpha [ (k, \\pmb {\\theta} _ {k}), (k ^ {\\prime}, \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime}) ] = \\frac {\\pi (k ^ {\\prime} , \\pmb {\\theta} _ {k ^ {\\prime}} ^ {\\prime} | \\mathcal {D})}{\\pi (k , \\pmb {\\theta} _ {k} | \\mathcal {D})} \\frac {q (k ^ {\\prime} \\to k)}{q (k \\to k ^ {\\prime})} \\frac {| \\pmb {B} _ {k ^ {\\prime}} |}{| \\pmb {B} _ {k} |} \\times \\left\\{ \\begin{array}{l l} q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for } n_{k^{\\prime}} < n_{k} \\\\ 1 & \\text {for } n_{k^{\\prime}} = n_{k} \\\\ 1 / q _ {n _ {k ^ {\\prime}} - n _ {k}} (\\pmb {u}) & \\text {for } n_{k^{\\prime}} > n_{k} \\end{array} \\right.."
+    },
+    {
+      "id": "brooks_handbook_mcmc-ch08-body-89-462507",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[89]",
+      "field": "md",
+      "all": true,
+      "old": "$\\phi _ { \\left. } = \\phi _ { \\right. }$",
+      "new": "$\\phi _ { \\left. \\right. } = \\phi _ { \\left. \\right. }$",
+      "anchor": "751a3f2d"
     }
   ]
 }
