@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "jensen_computational_chemistry-ch03-body-96-3e98ce",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[96]",
+      "expect": "\\begin{array}{l} \\delta E = \\sum_ {i} ^ {N} \\left\\langle \\delta \\phi_ {i} | \\mathbf {h} _ {i} | \\phi_ {i} \\right\\rangle + \\left\\langle \\phi_ {i} | \\mathbf {h} _ {i} | \\delta \\phi_ {i} \\right\\rangle + \\sum_ {i j} ^ {N} \\left(\\left\\langle \\delta \\phi_ {i} | \\mathbf {J} _ {j} - \\mathbf {K} _ {j} | \\phi_ {i} \\right\\rangle + \\left\\langle \\phi_ {i} | \\mathbf {J} _ {j} - \\mathbf {K} _ {j} | \\delta \\phi_ {i} \\right\\rangle\\right) \\\\ \\delta E = \\sum_ {i} ^ {N} \\left(\\left\\langle \\delta \\phi_ {i} | \\mathbf {F} _ {i} | \\phi_ {i} \\right\\rangle + \\left\\langle \\phi_ {i} | \\mathbf {F} _ {i} | \\delta \\phi_ {i} \\right\\rangle\\right) \\\\ \\mathbf {F} _ {i} = \\mathbf {h} _ {i} + \\sum_ {j} ^ {N} (\\mathbf {J} _ {j} - \\mathbf {K} _ {j}) \\end{array} \\tag {3.}\\tag{3.36}",
+      "new": "\\begin{array}{l} \\delta E = \\sum_{i}^{N} \\left\\langle \\delta \\phi_{i} | \\mathbf{h}_{i} | \\phi_{i} \\right\\rangle + \\left\\langle \\phi_{i} | \\mathbf{h}_{i} | \\delta \\phi_{i} \\right\\rangle + \\sum_{i j}^{N} \\left(\\left\\langle \\delta \\phi_{i} | \\mathbf{J}_{j} - \\mathbf{K}_{j} | \\phi_{i} \\right\\rangle + \\left\\langle \\phi_{i} | \\mathbf{J}_{j} - \\mathbf{K}_{j} | \\delta \\phi_{i} \\right\\rangle\\right) \\\\ \\delta E = \\sum_{i}^{N} \\left(\\left\\langle \\delta \\phi_{i} | \\mathbf{F}_{i} | \\phi_{i} \\right\\rangle + \\left\\langle \\phi_{i} | \\mathbf{F}_{i} | \\delta \\phi_{i} \\right\\rangle\\right) \\\\ \\mathbf{F}_{i} = \\mathbf{h}_{i} + \\sum_{j}^{N} (\\mathbf{J}_{j} - \\mathbf{K}_{j}) \\end{array}\\tag{3.36}"
+    },
+    {
+      "id": "jensen_computational_chemistry-ch06-body-64-c3f837",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[64]",
+      "expect": "\\begin{array}{r l} \\varepsilon_ {c} ^ {\\mathrm{VWN}} (r _ {S}, \\zeta) & = \\varepsilon_ {c} (r _ {S}, 0) + \\varepsilon_ {a} (\\mathbf {r} _ {S}) \\left[ \\frac {f (\\zeta)}{f ^ {\\prime \\prime} } \\right] [ 1 - \\zeta^ {4} ] + [ \\varepsilon_ {c} (r _ {S}, 1) - \\varepsilon_ {c} (r _ {S}, 0) ] f (\\zeta) \\zeta^ {4} \\\\ f (\\zeta) & = \\frac {(1 + \\zeta) ^ {4 / 3} + (1 - \\zeta) ^ {4 / 3} - 2}{2 (2 ^ {1 / 3} - 1)} \\end{array} \\tag {6.2}\\tag{6.20}",
+      "new": "\\begin{array}{r l} \\varepsilon_ {c} ^ {\\mathrm{VWN}} (r _ {S}, \\zeta) & = \\varepsilon_ {c} (r _ {S}, 0) + \\varepsilon_ {a} (\\mathbf {r} _ {S}) \\left[ \\frac {f (\\zeta)}{f ^ {\\prime \\prime} } \\right] [ 1 - \\zeta^ {4} ] + [ \\varepsilon_ {c} (r _ {S}, 1) - \\varepsilon_ {c} (r _ {S}, 0) ] f (\\zeta) \\zeta^ {4} \\\\ f (\\zeta) & = \\frac {(1 + \\zeta) ^ {4 / 3} + (1 - \\zeta) ^ {4 / 3} - 2}{2 (2 ^ {1 / 3} - 1)} \\end{array} \\tag{6.20}"
+    },
+    {
+      "id": "jensen_computational_chemistry-ch08-body-89-ae8845",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[89]",
+      "expect": "\\begin{array}{l} \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{SO}} = \\frac {g _ {\\mathrm{e}} \\mu_ {\\mathrm{B}}}{2 m c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} Z _ {A} \\frac {\\mathbf {s} _ {i} \\cdot (\\mathbf {r} _ {i A} \\times \\boldsymbol {\\pi} _ {i})}{r _ {i A} ^ {3}} \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{PSO}} = \\frac {\\mu_ {\\mathrm{N}}}{m c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} g _ {A} \\frac {\\mathbf {I} _ {A} \\cdot (\\mathbf {r} _ {i A} \\times \\boldsymbol {\\pi} _ {i})}{r _ {i A} ^ {3}} \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{SS}} = - \\frac {g _ {\\mathrm{e}} \\mu_ {\\mathrm{B}}}{c ^ {2}} \\frac {\\mu_ {\\mathrm{N}}}{c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} g _ {\\mathrm{A}} \\left(\\frac {\\mathbf {s} _ {i} \\cdot \\mathbf {I} _ {A}}{r _ {i A} ^ {3}} - 3 \\frac {(\\mathbf {s} _ {i} \\cdot \\mathbf {r} _ {i A}) (\\mathbf {r} _ {i A} \\cdot \\mathbf {I} _ {A})}{r _ {i A} ^ {5}} - \\frac {8 \\pi}{3} (\\mathbf {s} _ {i} \\cdot \\mathbf {I} _ {A}) \\delta (\\mathbf {r} _ {i A})\\right) \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\text {Darwin}} = \\frac {\\pi}{2 m ^ {2} c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} Z _ {A} \\delta (\\mathbf {r} _ {i A}) \\end{array} \\tag {8.3}\\tag{8.32}",
+      "new": "\\begin{array}{l} \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{SO}} = \\frac {g _ {\\mathrm{e}} \\mu_ {\\mathrm{B}}}{2 m c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} Z _ {A} \\frac {\\mathbf {s} _ {i} \\cdot (\\mathbf {r} _ {i A} \\times \\boldsymbol {\\pi} _ {i})}{r _ {i A} ^ {3}} \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{PSO}} = \\frac {\\mu_ {\\mathrm{N}}}{m c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} g _ {A} \\frac {\\mathbf {I} _ {A} \\cdot (\\mathbf {r} _ {i A} \\times \\boldsymbol {\\pi} _ {i})}{r _ {i A} ^ {3}} \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\mathrm{SS}} = - \\frac {g _ {\\mathrm{e}} \\mu_ {\\mathrm{B}}}{c ^ {2}} \\frac {\\mu_ {\\mathrm{N}}}{c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} g _ {\\mathrm{A}} \\left(\\frac {\\mathbf {s} _ {i} \\cdot \\mathbf {I} _ {A}}{r _ {i A} ^ {3}} - 3 \\frac {(\\mathbf {s} _ {i} \\cdot \\mathbf {r} _ {i A}) (\\mathbf {r} _ {i A} \\cdot \\mathbf {I} _ {A})}{r _ {i A} ^ {5}} - \\frac {8 \\pi}{3} (\\mathbf {s} _ {i} \\cdot \\mathbf {I} _ {A}) \\delta (\\mathbf {r} _ {i A})\\right) \\\\ \\mathbf {H} _ {\\mathrm{ne}} ^ {\\text {Darwin}} = \\frac {\\pi}{2 m ^ {2} c ^ {2}} \\sum_ {i = 1} ^ {N} \\sum_ {A} Z _ {A} \\delta (\\mathbf {r} _ {i A}) \\end{array} \\tag{8.32}"
+    }
+  ]
+}

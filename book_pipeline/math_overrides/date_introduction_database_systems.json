@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "id": "date_introduction_database_systems-ch27-problem-27-23-body-2-66bdee",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "problem:27.23:body[2]",
+      "field": "md",
+      "all": true,
+      "old": "$a } { \\$",
+      "new": "$a \\} \\{ \\backslash$",
+      "anchor": "bbb5adbb"
+    },
+    {
+      "id": "date_introduction_database_systems-ch03-body-64-7c50c5",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[64]",
+      "expect": "\\text { EMP } := \\text { EMP   WHERE   NOT   (  EMP# = EMP#('E4')  ) } ;",
+      "new": "\\text { EMP } := \\text { EMP   WHERE   NOT   (  EMP\\# = EMP\\#('E4')  ) } ;"
+    },
+    {
+      "id": "date_introduction_database_systems-ch27-body-260-cbc61f",
+      "action": "fix_inline_math",
+      "chunk": "ch27",
+      "selector": "body[260]",
+      "field": "md",
+      "all": true,
+      "old": "\\(sx in document(\"SuppliersRelation.xml\") //SupplierTuple(SNUM. = \\$spx/SNUM]",
+      "new": "\\text{sx in document(\"SuppliersRelation.xml\") //SupplierTuple(SNUM. = \\$spx/SNUM] }",
+      "anchor": "f2dfd72e"
+    }
+  ]
+}

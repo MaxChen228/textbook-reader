@@ -1,0 +1,23 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mcquarrie-table-3.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "body[65]",
+      "position": "before",
+      "page": 76,
+      "clip": [0.06, 0.07, 0.94, 0.92],
+      "zoom": 2.5,
+      "src": "manual_tbl-3.1.png",
+      "block": {
+        "t": "fig",
+        "id": "tbl-3.1",
+        "kind": "line",
+        "caption": "Table 3-1. A summary of formulas for several types of ensemble"
+      },
+      "reason": "raw PDF 物理頁 76 明確有 Table 3-1，但 parsed/catalog 完全漏供應，導致正文對 Table 3-1 的引用成為 C5。依 catalog-audit §4.C5 情境(B) 以 pdf_crop_insert 補回真實表圖，插在 Chapter 3 中 Table 3-1 原應出現的位置（Section 3-1 結尾、3-2 前）。"
+    }
+  ]
+}

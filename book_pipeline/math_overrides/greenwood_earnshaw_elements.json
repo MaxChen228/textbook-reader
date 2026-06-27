@@ -1,0 +1,197 @@
+{
+  "overrides": [
+    {
+      "id": "greenwood_earnshaw_elements-ch04-body-265-f832e6",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[265]",
+      "expect": "\\begin{array}{r l} & \\mathrm {Li + HC\\equiv CH\\xrightarrow {\\text {liqNH_ {3}}} LiC\\equiv CH+ \\frac {1}{2} H_ {2}} \\\\ & 2 \\mathrm {Li + HC\\equiv CH\\xrightarrow {\\text {liqNH_ {3}}} Li_ {2} C_ {2} + H_ {2}} \\end{array}",
+      "new": "\\begin{array}{r l} & \\mathrm {Li + HC\\equiv CH}\\xrightarrow {\\text {liqNH}_{3}} \\mathrm{LiC\\equiv CH}+ \\frac {1}{2} \\mathrm{H}_{2} \\\\ & 2 \\mathrm {Li + HC\\equiv CH}\\xrightarrow {\\text {liqNH}_{3}} \\mathrm{Li}_{2} \\mathrm{C}_{2} + \\mathrm{H}_{2} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch09-body-151-0f22f5",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[151]",
+      "expect": "\\begin{array}{l l l l} \\text {CN 4 : Li^{1} (59)} & \\text {Be^{ll} (27)} & \\text {Al^{lll} (39) Si^{IV} (26)} \\\\ \\text {CN 6 : Na^{1} (102) Mg^{ll} (72)} & \\text {Al^{lll} (54) Ti^{IV} (61) Fe^{ll} (78)} \\\\ \\text {CN 8 : K^{1} (151) Ca^{ll} (112)} \\\\ \\text {CN 12: K^{1} (164)} \\end{array}",
+      "new": "\\begin{array}{l l l l} \\text {CN 4 : } \\mathrm{Li}^{1} \\text{ (59)} & \\mathrm{Be}^{ll} \\text{ (27)} & \\mathrm{Al}^{lll} \\text{ (39) } \\mathrm{Si}^{IV} \\text{ (26)} \\\\ \\text {CN 6 : } \\mathrm{Na}^{1} \\text{ (102) } \\mathrm{Mg}^{ll} \\text{ (72)} & \\mathrm{Al}^{lll} \\text{ (54) } \\mathrm{Ti}^{IV} \\text{ (61) } \\mathrm{Fe}^{ll} \\text{ (78)} \\\\ \\text {CN 8 : } \\mathrm{K}^{1} \\text{ (151) } \\mathrm{Ca}^{ll} \\text{ (112)} \\\\ \\text {CN 12: } \\mathrm{K}^{1} \\text{ (164)} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch11-body-131-df8e15",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[131]",
+      "expect": "2 \\mathrm{H} _ {2} + (\\mathrm{O} _ {2} + 4 \\mathrm{N} _ {2}) \\underset {\\text {air}} {\\overset {1 1 0 0 ^ {\\circ}} {\\rightleftharpoons}} 2 \\mathrm{H} _ {2} \\mathrm{O} + 4 \\mathrm{N} _ {2}; \\quad \\mathrm{CH} _ {4} + \\mathrm{H} _ {2} \\mathrm{O} \\underset {\\text {Ni / 1000^{\\circ}}} {\\overset {\\text {Ni / 1000^{\\circ}}} {\\rightleftharpoons}} \\mathrm{CO} + 3 \\mathrm{H} _ {2}",
+      "new": "2 \\mathrm{H} _ {2} + (\\mathrm{O} _ {2} + 4 \\mathrm{N} _ {2}) \\underset {\\text {air}} {\\overset {1 1 0 0 ^ {\\circ}} {\\rightleftharpoons}} 2 \\mathrm{H} _ {2} \\mathrm{O} + 4 \\mathrm{N} _ {2}; \\quad \\mathrm{CH} _ {4} + \\mathrm{H} _ {2} \\mathrm{O} \\underset {\\text {Ni / } 1000^{\\circ}} {\\overset {\\text {Ni / } 1000^{\\circ}} {\\rightleftharpoons}} \\mathrm{CO} + 3 \\mathrm{H} _ {2}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch11-body-178-c1114d",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[178]",
+      "expect": "\\begin{array}{r l} \\text {Basic solutions (1MNH_ {2} ^ {-})} \\\\ \\mathrm{NH} _ {3} + \\mathrm{e} ^ {-} = \\mathrm{NH} _ {2} ^ {-} + \\frac {1}{2} \\mathrm{H} _ {2} & E ^ {\\circ} = 1. 5 9 \\mathrm{V} \\\\ 2 \\mathrm{NH} _ {3} + \\frac {1}{2} \\mathrm{N} _ {2} + 3 \\mathrm{e} ^ {-} = 3 \\mathrm{NH} _ {2} ^ {-} & E ^ {\\circ} = 1. 5 5 \\mathrm{V} \\end{array}",
+      "new": "\\begin{array}{r l} \\text {Basic solutions (1MNH}_{2}^{-}\\text {)} \\\\ \\mathrm{NH} _ {3} + \\mathrm{e} ^ {-} = \\mathrm{NH} _ {2} ^ {-} + \\frac {1}{2} \\mathrm{H} _ {2} & E ^ {\\circ} = 1. 5 9 \\mathrm{V} \\\\ 2 \\mathrm{NH} _ {3} + \\frac {1}{2} \\mathrm{N} _ {2} + 3 \\mathrm{e} ^ {-} = 3 \\mathrm{NH} _ {2} ^ {-} & E ^ {\\circ} = 1. 5 5 \\mathrm{V} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch13-body-237-b116c0",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[237]",
+      "expect": "\\begin{array}{r l} \\mathrm {As_ {4} S_ {4}} & \\xrightarrow [ \\text {in MeNHCH_ {2} CH_ {2} OH} ]{\\text {piperidine (or hexa-}} [ \\mathrm {pipH^ {+}} ] _ {2} [ \\mathrm {As_ {4} S_ {6}} ] ^ {2 -} \\\\ & \\xrightarrow [ 2 \\mathrm{HX} ]{2 \\mathrm{HX}} 2 \\mathrm{pipHX} + \\mathrm {H_ {2} S} + \\mathrm {As_ {2} S_ {5}} \\end{array}",
+      "new": "\\begin{array}{r l} \\mathrm {As_ {4} S_ {4}} & \\xrightarrow [ \\text {in MeNHCH}_{2}\\mathrm{CH}_{2}\\mathrm{OH} ]{\\text {piperidine (or hexa-}} [ \\mathrm {pipH^ {+}} ] _ {2} [ \\mathrm {As_ {4} S_ {6}} ] ^ {2 -} \\\\ & \\xrightarrow [ 2 \\mathrm{HX} ]{2 \\mathrm{HX}} 2 \\mathrm{pipHX} + \\mathrm {H_ {2} S} + \\mathrm {As_ {2} S_ {5}} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch13-body-354-e0c85a",
+      "action": "fix_eq_tex",
+      "chunk": "ch13",
+      "selector": "body[354]",
+      "expect": "\\begin{array}{r l} & [ \\mathrm {Cr(CO) _ {6}} ] \\xrightarrow {\\mathrm {PhAsH_ {2}}} [ \\mathrm {Cr(CO) _ {5} (AsPhH_ {2})} ] \\text {yellow} \\\\ & \\xrightarrow {\\mathrm{LiBu}} [ \\mathrm {Cr(CO) _ {5} (AsPhLi_ {2})} ] \\text {orange} \\xrightarrow {\\text {cyclohexyl-}} \\\\ & [ \\{\\mathrm {Cr(CO) _ {5}} \\} _ {2} \\mathrm{AsPh} ] \\text {dark violet (mp 104^ {\\circ})} \\end{array}",
+      "new": "\\begin{array}{r l} & [ \\mathrm {Cr(CO) _ {6}} ] \\xrightarrow {\\mathrm {PhAsH_ {2}}} [ \\mathrm {Cr(CO) _ {5} (AsPhH_ {2})} ] \\text {yellow} \\\\ & \\xrightarrow {\\mathrm{LiBu}} [ \\mathrm {Cr(CO) _ {5} (AsPhLi_ {2})} ] \\text {orange} \\xrightarrow {\\text {cyclohexyl-}} \\\\ & [ \\{\\mathrm {Cr(CO) _ {5}} \\} _ {2} \\mathrm{AsPh} ] \\text {dark violet (mp } 104^ {\\circ}\\text {)} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch15-body-467-66d361",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[467]",
+      "expect": "\\begin{array}{r l} & \\text {(b) Solvolysis of salts of acids that are weaker than H_{2}SO_{4}:} \\\\ & \\mathrm {KNO_ {3} + H_ {2} SO_ {4} \\longrightarrow K^ {+} + HS O _ {4} ^ {-} + HNO_ {3}} \\\\ & \\mathrm {NH_ {4} ClO_ {4} + H_ {2} SO_ {4} \\longrightarrow NH_ {4} ^ {+} + HS O _ {4} ^ {-}} \\\\ & \\quad + \\mathrm {HCl O _ {4}} \\end{array}",
+      "new": "\\begin{array}{r l} & \\text {(b) Solvolysis of salts of acids that are weaker than } H_{2}SO_{4}\\text {:} \\\\ & \\mathrm {KNO_ {3} + H_ {2} SO_ {4} \\longrightarrow K^ {+} + HS O _ {4} ^ {-} + HNO_ {3}} \\\\ & \\mathrm {NH_ {4} ClO_ {4} + H_ {2} SO_ {4} \\longrightarrow NH_ {4} ^ {+} + HS O _ {4} ^ {-}} \\\\ & \\quad + \\mathrm {HCl O _ {4}} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch17-body-664-ad8ac8",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[664]",
+      "expect": "\\begin{array}{l} \\text { Halic   acids,   HOXO_{2} , and halates,} \\\\ \\mathrm{XO_{3}} ^ {- (1 2 1, 1 2 2)} \\end{array}",
+      "new": "\\begin{array}{l} \\text { Halic   acids,   } HOXO_{2} \\text { , and halates,} \\\\ \\mathrm{XO_{3}} ^ {- (1 2 1, 1 2 2)} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch19-body-200-913680",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[200]",
+      "expect": "\\begin{array}{r l} \\text {in [Ta(η^5 - C_5H_5)_2(Me)(CH_2)]} & \\mathrm{Ta-CH_2 220.6pm} \\\\ & \\mathrm{Ta-CH_3 225pm} \\end{array}",
+      "new": "\\begin{array}{r l} \\text {in [Ta(} \\eta^5 - C_5H_5 \\text {)}_2\\text {(Me)(CH}_2\\text {)]} & \\mathrm{Ta-CH_2 220.6pm} \\\\ & \\mathrm{Ta-CH_3 225pm} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch25-body-131-e7a5af",
+      "action": "fix_inline_math",
+      "chunk": "ch25",
+      "selector": "body[131]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left[\\mathrm{(H_2O)_4Fe\\left\\langle\\begin{array}{c}OH\\\\OH}\\right\\rangle\\mathrm{Fe(H_2O)_4}]^{4+}$",
+      "new": "$\\left[\\mathrm{(H_2O)_4Fe}\\left\\langle\\begin{array}{c}OH\\\\OH\\end{array}\\right\\rangle\\mathrm{Fe(H_2O)_4}\\right]^{4+}$",
+      "anchor": "fc4391a3"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch04-body-27-52516a",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "body[27]",
+      "field": "md",
+      "all": true,
+      "old": "$5 per tonne for salt in brine and \\~\\$",
+      "new": "$5\\text{ per tonne for salt in brine and }\\sim$",
+      "anchor": "1872fa74"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch04-body-236-2895ad",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[236]",
+      "expect": "\\mathrm {R^ {\\prime\\prime} Li + RR^ {\\prime} C = NH\\longrightarrowRR^ {\\prime} C = NLi+ R^ {\\prime\\prime} H}",
+      "new": "\\mathrm {R^ {\\prime\\prime} Li + RR^ {\\prime} C = NH\\longrightarrow RR^ {\\prime} C = NLi+ R^ {\\prime\\prime} H}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch11-body-297-30afa3",
+      "action": "fix_inline_math",
+      "chunk": "ch11",
+      "selector": "body[297]",
+      "field": "footnote",
+      "all": true,
+      "old": "$NO^{+}+e^{-}\\longrightarrowNO$",
+      "new": "$NO^{+}+e^{-}\\longrightarrow NO$",
+      "anchor": "afb954c6"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch17-body-175-19b7da",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[175]",
+      "expect": "\\begin{array}{r l}&\\mathrm {H_ {2} O + HF\\longrightarrow[(H_ {3} O) ^ {+} F^ {-} ]\\rightleftharpoons}\\\\&\\qquad \\qquad \\qquad \\qquad [ \\mathrm {H_ {3} O} ] ^ {+} (\\mathrm{aq}) + \\mathrm {F^ {-} (aq)}; \\quad \\mathrm{pK} _ {a} 2. 9 5\\\\&\\mathrm {F^ {-} (aq) + HF\\rightleftharpoonsHF_ {2} ^ {-} (aq)}; \\quad K _ {2} = \\frac {[ \\mathrm {HF_ {2} ^ {-}} ]}{[ \\mathrm{HF} ] [ \\mathrm {F^ {-}} ]}\\end{array}",
+      "new": "\\begin{array}{r l}&\\mathrm {H_ {2} O + HF\\longrightarrow[(H_ {3} O) ^ {+} F^ {-} ]\\rightleftharpoons}\\\\&\\qquad \\qquad \\qquad \\qquad [ \\mathrm {H_ {3} O} ] ^ {+} (\\mathrm{aq}) + \\mathrm {F^ {-} (aq)}; \\quad \\mathrm{pK} _ {a} 2. 9 5\\\\&\\mathrm {F^ {-} (aq) + HF\\rightleftharpoons HF_ {2} ^ {-} (aq)}; \\quad K _ {2} = \\frac {[ \\mathrm {HF_ {2} ^ {-}} ]}{[ \\mathrm{HF} ] [ \\mathrm {F^ {-}} ]}\\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch12-body-375-f4fc7f",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[375]",
+      "expect": "\\begin{array}{l} \\text { SiO } _ {2} \\left\\{ \\begin{array}{c c c c c c c c} \\text { quartz } & \\xrightarrow {8 6 7 ^ {\\circ}} & \\text { tridymite } & \\xrightarrow {1 4 7 0 ^ {\\circ}} & \\text { cristobalite } & \\xrightarrow {1 7 1 3 ^ {\\circ}} & \\text { melt } \\\\ \\beta \\xlongequal {5 7 3 ^ {\\circ}} \\alpha & & \\beta \\xlongequal {1 1 7 ^ {\\circ}} \\alpha_ {1} \\xlongequal {1 6 3 ^ {\\circ}} \\alpha_ {2} & & \\beta \\xlongequal {2 2 0 ^ {\\circ}} \\alpha & & \\\\ & & & & & & \\\\ & & & & & & \\\\ \\text { AlPO } _ {4} \\left\\{ \\begin{array}{c c c c c c c c} \\text { berlinite } & \\xlongequal {7 0 5 ^ {\\circ}} & \\text { tridymite - form } & \\xlongequal {1 0 2 5 ^ {\\circ}} & \\text { cristobalite - form } & \\xlongequal {> 1 6 0 0 ^ {\\circ}} & \\text { melt } \\\\ \\beta \\xlongequal {5 8 6 ^ {\\circ}} \\alpha & & \\beta \\xlongequal {9 3 ^ {\\circ}} \\alpha_ {1} \\xlongequal {1 3 0 ^ {\\circ}} \\alpha_ {2} & & \\beta \\xlongequal {2 1 0 ^ {\\circ}} \\alpha & & \\\\ & & & & & & \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\text { SiO } _ {2} \\left\\{ \\begin{array}{c c c c c c c c} \\text { quartz } & \\xrightarrow {8 6 7 ^ {\\circ}} & \\text { tridymite } & \\xrightarrow {1 4 7 0 ^ {\\circ}} & \\text { cristobalite } & \\xrightarrow {1 7 1 3 ^ {\\circ}} & \\text { melt } \\\\ \\beta \\xlongequal {5 7 3 ^ {\\circ}} \\alpha & & \\beta \\xlongequal {1 1 7 ^ {\\circ}} \\alpha_ {1} \\xlongequal {1 6 3 ^ {\\circ}} \\alpha_ {2} & & \\beta \\xlongequal {2 2 0 ^ {\\circ}} \\alpha & & \\\\ & & & & & & \\\\ & & & & & & \\\\ \\text { AlPO } _ {4} \\left\\{ \\begin{array}{c c c c c c c c} \\text { berlinite } & \\xlongequal {7 0 5 ^ {\\circ}} & \\text { tridymite - form } & \\xlongequal {1 0 2 5 ^ {\\circ}} & \\text { cristobalite - form } & \\xlongequal {> 1 6 0 0 ^ {\\circ}} & \\text { melt } \\\\ \\beta \\xlongequal {5 8 6 ^ {\\circ}} \\alpha & & \\beta \\xlongequal {9 3 ^ {\\circ}} \\alpha_ {1} \\xlongequal {1 3 0 ^ {\\circ}} \\alpha_ {2} & & \\beta \\xlongequal {2 1 0 ^ {\\circ}} \\alpha & & \\\\ & & & & & & \\end{array} \\right. \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch03-body-113-7d712e",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[113]",
+      "expect": "\\begin{array}{r l}&\\text {(d^ {2})} [ \\mathrm {MoH_ {4} (dppe) _ {2}} ] + 2 \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(d^ {4})} [ \\mathrm {IrH_ {5} (PCy_ {3}) _ {2}} ] \\underset {\\mathrm{NEI} _ {3}} {\\overset {\\mathrm{H} ^ {+}} {\\rightleftharpoons}}\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(d^ {6})} [ \\mathrm {RuH_ {2} (dppe) _ {2}} ] + \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(d^ {8})} [ \\mathrm {RhH\\{P(C H _ {2} C H _ {2} PPh_ {2}) _ {3} \\}} ] + \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\text {(Rh(\\eta^ {2} - H _ {2})\\{P(C H _ {2} C H _ {2} PPh_ {2}) _ {3} \\}} ] ^ {+}\\end{array}",
+      "new": "\\begin{array}{r l}&(d^ {2}) [ \\mathrm {MoH_ {4} (dppe) _ {2}} ] + 2 \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad (d^ {4}) [ \\mathrm {IrH_ {5} (PCy_ {3}) _ {2}} ] \\underset {\\mathrm{NEI} _ {3}} {\\overset {\\mathrm{H} ^ {+}} {\\rightleftharpoons}}\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad (d^ {6}) [ \\mathrm {RuH_ {2} (dppe) _ {2}} ] + \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad (d^ {8}) [ \\mathrm {RhH\\{P(C H _ {2} C H _ {2} PPh_ {2}) _ {3} \\}} ] + \\mathrm{H} ^ {+} \\longrightarrow\\\\&\\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad (Rh(\\eta^ {2} - H _ {2})\\{P(C H _ {2} C H _ {2} PPh_ {2}) _ {3} \\}) ] ^ {+}\\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch06-body-391-1df8e4",
+      "action": "fix_eq_tex",
+      "chunk": "ch06",
+      "selector": "body[391]",
+      "expect": "\\begin{array}{r l} & \\text {   closo - 1,6 - C_{2} B_{8} H_{10}} \\xrightarrow [ \\mathrm{OH} ^ {-} + 2 \\mathrm{H} _ {2} \\mathrm{O} ]{\\text {   base   hydrol   }} \\\\ & \\text {   (64)   } \\\\ & \\text {   arachno - 1,3 - C_{2} B_{7} H_{12} ^{-} + B(OH)_{3}   } \\\\ & \\text {   (65)   } \\\\ & \\text    nido - 1,7 - C_{2} B_{9} H_{12} ^{-} \\xrightarrow[+6H_{2}O-6e^{-}]{chromic acid oxidn.} \\\\ & \\text {   (66)   } \\\\ & \\text {   arachno - 1,3 - C_{2} B_{7} H_{13} + 2B(OH)_{3} + 5H^{+}   } \\\\ & \\text {   (67)   } \\end{array}",
+      "new": "\\begin{array}{r l} & \\mathrm {   closo - 1,6 - C_{2} B_{8} H_{10}} \\xrightarrow [ \\mathrm{OH} ^ {-} + 2 \\mathrm{H} _ {2} \\mathrm{O} ]{\\text {   base   hydrol   }} \\\\ & \\text {   (64)   } \\\\ & \\mathrm {   arachno - 1,3 - C_{2} B_{7} H_{12} ^{-} + B(OH)_{3}   } \\\\ & \\text {   (65)   } \\\\ & \\mathrm {   nido - 1,7 - C_{2} B_{9} H_{12} ^{-}} \\xrightarrow[+6H_{2}O-6e^{-}]{\\text{chromic acid oxidn.}} \\\\ & \\text {   (66)   } \\\\ & \\mathrm {   arachno - 1,3 - C_{2} B_{7} H_{13} + 2B(OH)_{3} + 5H^{+}   } \\\\ & \\text {   (67)   } \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch11-body-73-9b4ee5",
+      "action": "fix_eq_tex",
+      "chunk": "ch11",
+      "selector": "body[73]",
+      "expect": "\\begin{array}{r l} & [ \\mathrm {MoCl_ {4} (PMe_ {2} Ph) _ {2}} ] + 2 \\mathrm {N_ {2}} \\xrightarrow {\\text {Na / toluene / PMe_ {2} Ph}} \\\\ & \\quad \\text {cis - [Mo(N_ {2})_ {2} (PMe_ {2} Ph) _ {4} ]} \\\\ & [ \\mathrm {WCl_ {4} (PMe_ {2} Ph) _ {2}} ] + 2 \\mathrm {N_ {2}} \\xrightarrow {\\text {(Na / Hg) / PMe_ {2} Ph}} \\\\ & \\quad \\text {cis - [W(N_ {2})_ {2} (PMe_ {2} Ph) _ {4} ] yellow} \\\\ & [ \\mathrm{FeClH(depe)_{2}} ] + \\mathrm {N_ {2}} \\xrightarrow {\\text {NaBH_{4} / Me_{2} CO}} \\\\ & \\quad \\text {NaCl + trans - [Fe(depe)_{2} H(N_{2})] orange} \\\\ & 2 [ \\mathrm{Ni(acac)_{2}} ] + 4 \\mathrm{PCy_{3}} + \\mathrm {N_ {2}} \\xrightarrow {\\text {AlMe_{3}}} \\\\ & \\quad [ \\{\\mathrm{Ni(N_{2})(PCy_{3})_{2}} \\} _ {2} ] \\end{array}",
+      "new": "\\begin{array}{r l} & [ \\mathrm {MoCl_ {4} (PMe_ {2} Ph) _ {2}} ] + 2 \\mathrm {N_ {2}} \\xrightarrow {\\mathrm {Na / toluene / PMe_ {2} Ph}} \\\\ & \\quad \\mathrm {cis - [Mo(N_ {2})_ {2} (PMe_ {2} Ph) _ {4} ]} \\\\ & [ \\mathrm {WCl_ {4} (PMe_ {2} Ph) _ {2}} ] + 2 \\mathrm {N_ {2}} \\xrightarrow {\\mathrm {(Na / Hg) / PMe_ {2} Ph}} \\\\ & \\quad \\mathrm {cis - [W(N_ {2})_ {2} (PMe_ {2} Ph) _ {4} ] yellow} \\\\ & [ \\mathrm{FeClH(depe)_{2}} ] + \\mathrm {N_ {2}} \\xrightarrow {\\mathrm {NaBH_{4} / Me_{2} CO}} \\\\ & \\quad \\mathrm {NaCl + trans - [Fe(depe)_{2} H(N_{2})] orange} \\\\ & 2 [ \\mathrm{Ni(acac)_{2}} ] + 4 \\mathrm{PCy_{3}} + \\mathrm {N_ {2}} \\xrightarrow {\\mathrm {AlMe_{3}}} \\\\ & \\quad [ \\{\\mathrm{Ni(N_{2})(PCy_{3})_{2}} \\} _ {2} ] \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch12-body-271-aa0bc2",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[271]",
+      "expect": "\\begin{array}{l l} \\text {normal\":} & [ \\mathrm{NH} _ {4} ] _ {2} [ \\mathrm{HPO} _ {3} ]. \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{Li} _ {2} [ \\mathrm{HPO} _ {3} ], \\\\ & \\mathrm{Na} _ {2} [ \\mathrm{HPO} _ {3} ]. 5 \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{K} _ {2} [ \\mathrm{HPO} _ {3} ] \\\\ \\text {acid\":} & [ \\mathrm{NH} _ {4} ] [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ], \\mathrm{Li} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ], \\\\ & \\mathrm{Na} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ]. 2 \\frac {1}{2} \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{K} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ] \\\\ & \\text {and M[HPO_{2}(OH)]_{2}} (\\mathrm{M=Mg,Ca,Sr}). \\end{array}",
+      "new": "\\begin{array}{l l} \\text {normal\":} & [ \\mathrm{NH} _ {4} ] _ {2} [ \\mathrm{HPO} _ {3} ]. \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{Li} _ {2} [ \\mathrm{HPO} _ {3} ], \\\\ & \\mathrm{Na} _ {2} [ \\mathrm{HPO} _ {3} ]. 5 \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{K} _ {2} [ \\mathrm{HPO} _ {3} ] \\\\ \\text {acid\":} & [ \\mathrm{NH} _ {4} ] [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ], \\mathrm{Li} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ], \\\\ & \\mathrm{Na} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ]. 2 \\frac {1}{2} \\mathrm{H} _ {2} \\mathrm{O}, \\mathrm{K} [ \\mathrm{HPO} _ {2} (\\mathrm{OH}) ] \\\\ & \\mathrm {and M[HPO_{2}(OH)]_{2}} (\\mathrm{M=Mg,Ca,Sr}). \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch15-body-69-758d72",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[69]",
+      "expect": "\\begin{array}{r l} & \\mathrm {S_ {12 - n} Cl_ {2} + H_ {2} S_ {n} \\longrightarrow cyclo- S_ {12} + 2HCl} \\\\ & \\quad [ \\text { also   for   S_ {6 } , S_ {10} , S_ {18} , S_ {20}} ] \\\\ & \\mathrm {S_ {x} Cl_ {2} + [Ti(\\eta^ {5} -C_ {5} H_ {5}) _ {2} (S_ {3})] \\longrightarrow cyclo- S_ {x+ 5}} \\\\ & \\quad + [ \\mathrm {Ti(\\eta^ {5} -C_ {5} H_ {5}) _ {2} Cl_ {2}} ] \\quad [ \\text { for   S_ {7 } , S_ {9} , S_ {10} , S_ {11}} ] \\end{array}",
+      "new": "\\begin{array}{r l} & \\mathrm {S_ {12 - n} Cl_ {2} + H_ {2} S_ {n} \\longrightarrow cyclo- S_ {12} + 2HCl} \\\\ & \\quad [ \\mathrm { also   for   S_ {6 } , S_ {10} , S_ {18} , S_ {20}} ] \\\\ & \\mathrm {S_ {x} Cl_ {2} + [Ti(\\eta^ {5} -C_ {5} H_ {5}) _ {2} (S_ {3})] \\longrightarrow cyclo- S_ {x+ 5}} \\\\ & \\quad + [ \\mathrm {Ti(\\eta^ {5} -C_ {5} H_ {5}) _ {2} Cl_ {2}} ] \\quad [ \\mathrm { for   S_ {7 } , S_ {9} , S_ {10} , S_ {11}} ] \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch17-body-341-d9c8e0",
+      "action": "fix_eq_tex",
+      "chunk": "ch17",
+      "selector": "body[341]",
+      "expect": "\\begin{array}{r l} & \\mathrm {MF_ {5} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [MF_ {6} ] ^ {-}}; \\\\ & \\text {colourless solids: M = As, Sb} \\\\ & \\mathrm {PtF_ {5} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [PtF_ {6} ] ^ {-}}; \\\\ & \\text {orange, paramagnetic solid, mp 171°} \\\\ & \\mathrm {BF_ {3} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [BF_ {4} ] ^ {-}}; \\\\ & \\text {colourless solid, mp 30°} \\\\ & \\mathrm {MF + ClF_ {3} \\longrightarrow M ^ {+} [ClF_ {4} ] ^ {-}}; \\\\ & \\text {white or pink solids, decomp~\\sim 350°:} \\\\ & \\mathrm{M=K,Rb,Cs} \\\\ & \\mathrm {NOF + ClF_ {3} \\longrightarrow [NO] ^ {+} [ClF_ {4} ] ^ {-}}; \\\\ & \\text {white solid, dissociates below 25°} \\end{array}",
+      "new": "\\begin{array}{r l} & \\mathrm {MF_ {5} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [MF_ {6} ] ^ {-}}; \\\\ & \\text {colourless solids: M = As, Sb} \\\\ & \\mathrm {PtF_ {5} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [PtF_ {6} ] ^ {-}}; \\\\ & \\text {orange, paramagnetic solid, mp 171°} \\\\ & \\mathrm {BF_ {3} + ClF_ {3} \\longrightarrow [ClF_ {2} ] ^ {+} [BF_ {4} ] ^ {-}}; \\\\ & \\text {colourless solid, mp 30°} \\\\ & \\mathrm {MF + ClF_ {3} \\longrightarrow M ^ {+} [ClF_ {4} ] ^ {-}}; \\\\ & \\text {white or pink solids, decomp~}\\sim 350\\text{°:} \\\\ & \\mathrm{M=K,Rb,Cs} \\\\ & \\mathrm {NOF + ClF_ {3} \\longrightarrow [NO] ^ {+} [ClF_ {4} ] ^ {-}}; \\\\ & \\text {white solid, dissociates below 25°} \\end{array}"
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch08-body-264-84a95b",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[264]",
+      "expect": "\\left. \\begin{array}{c} \\mathrm{CO} _ {2} + \\mathrm{H} _ {2} \\mathrm{O} \\rightleftharpoons \\mathrm{H} _ {2} \\mathrm{CO} _ {3} (\\text {slow}) \\\\ \\mathrm{H} _ {2} \\mathrm{CO} _ {3} + \\mathrm{OH} ^ {-} \\rightleftharpoons \\mathrm{HCO} _ {3} ^ {- - } + \\mathrm{H} _ {2} \\mathrm{O} (\\text {fast}) \\\\ \\left. \\begin{array}{c} \\mathrm{CO} _ {2} + \\mathrm{OH} ^ {- - } \\rightleftharpoons \\mathrm{HCO} _ {3} ^ {- - } (\\text {slow}) \\\\ \\mathrm{HCO} _ {3} ^ {- - } + \\mathrm{OH} ^ {- - } \\rightleftharpoons \\mathrm{CO} _ {3} ^ {2 - - } + \\mathrm{H} _ {2} \\mathrm{O} (\\text {fast}) \\end{array} \\right\\} \\mathrm{pH} <   8",
+      "new": "\\left. \\begin{array}{c} \\mathrm{CO} _ {2} + \\mathrm{H} _ {2} \\mathrm{O} \\rightleftharpoons \\mathrm{H} _ {2} \\mathrm{CO} _ {3} (\\text {slow}) \\\\ \\mathrm{H} _ {2} \\mathrm{CO} _ {3} + \\mathrm{OH} ^ {-} \\rightleftharpoons \\mathrm{HCO} _ {3} ^ {- - } + \\mathrm{H} _ {2} \\mathrm{O} (\\text {fast}) \\\\ \\left. \\begin{array}{c} \\mathrm{CO} _ {2} + \\mathrm{OH} ^ {- - } \\rightleftharpoons \\mathrm{HCO} _ {3} ^ {- - } (\\text {slow}) \\\\ \\mathrm{HCO} _ {3} ^ {- - } + \\mathrm{OH} ^ {- - } \\rightleftharpoons \\mathrm{CO} _ {3} ^ {2 - - } + \\mathrm{H} _ {2} \\mathrm{O} (\\text {fast}) \\end{array} \\right\\} \\mathrm{pH} <   8 \\end{array} \\right."
+    },
+    {
+      "id": "greenwood_earnshaw_elements-ch19-body-197-bc4033",
+      "action": "fix_eq_tex",
+      "chunk": "ch19",
+      "selector": "body[197]",
+      "expect": "\\begin{array}{l}\\left[ \\mathrm{W} (\\mathrm{CO}) _ {6} \\right] + \\mathrm{LiR} \\xrightarrow {\\mathrm{Et} _ {2} \\mathrm{O}} \\left[ \\mathrm{W} (\\mathrm{CO}) _ {5} ^ {\\prime} \\underset {\\mathrm{R}} {\\overset {\\mathrm{OLi} (\\mathrm{OEt} _ {2}) _ {n}} {\\rightleftharpoons}}) \\mid\\\\\\left[ \\mathrm{W} (\\mathrm{CO}) _ {5} ^ {\\prime} \\underset {\\mathrm{R}} {\\overset {\\mathrm{OMe}} {\\rightleftharpoons}}) \\right] \\xleftarrow {\\mathrm{Me} _ {3} \\mathrm{OBF} _ {6}}\\end{array}",
+      "new": "\\begin{array}{l}\\left[ \\mathrm{W} (\\mathrm{CO}) _ {6} \\right] + \\mathrm{LiR} \\xrightarrow {\\mathrm{Et} _ {2} \\mathrm{O}} \\left[ \\mathrm{W} (\\mathrm{CO}) _ {5} ^ {\\prime} \\underset {\\mathrm{R}} {\\overset {\\mathrm{OLi} (\\mathrm{OEt} _ {2}) _ {n}} {\\rightleftharpoons}}) \\right] \\mid\\\\\\left[ \\mathrm{W} (\\mathrm{CO}) _ {5} ^ {\\prime} \\underset {\\mathrm{R}} {\\overset {\\mathrm{OMe}} {\\rightleftharpoons}}) \\right] \\xleftarrow {\\mathrm{Me} _ {3} \\mathrm{OBF} _ {6}}\\end{array}"
+    }
+  ]
+}

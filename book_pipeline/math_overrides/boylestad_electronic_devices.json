@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "id": "boylestad_electronic_devices-ch09-body-148-302fc1",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[148]",
+      "expect": "\\begin{array}{c} \\text {TABLE 5} \\\\ \\text {Variation in X_{C}} = \\frac {1}{2 \\pi f C} \\text {with frequency for a} \\\\ 5 p F \\text {capacitor} \\end{array}",
+      "new": "\\begin{array}{c} \\text {TABLE 5} \\\\ \\text {Variation in } X_{C} = \\frac {1}{2 \\pi f C} \\text { with frequency for a} \\\\ 5 p F \\text {capacitor} \\end{array}"
+    },
+    {
+      "id": "boylestad_electronic_devices-ch10-body-132-33af15",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[132]",
+      "expect": "\\begin{array}{l l} \\text {For nMOS (Q_{1}) :} & V _ {G S} = V _ {i} - 0 \\mathrm{V} = 0 \\mathrm{V} - 0 \\mathrm{V} = 0 \\mathrm{V} \\\\ \\text {For pMOS (Q_{2}) :} & V _ {G S} = V _ {i} - (+ 5 \\mathrm{V}) = 0 \\mathrm{V} - 5 \\mathrm{V} = - 5 \\mathrm{V} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {For nMOS }(Q_{1})\\text {:} & V _ {G S} = V _ {i} - 0 \\mathrm{V} = 0 \\mathrm{V} - 0 \\mathrm{V} = 0 \\mathrm{V} \\\\ \\text {For pMOS }(Q_{2})\\text {:} & V _ {G S} = V _ {i} - (+ 5 \\mathrm{V}) = 0 \\mathrm{V} - 5 \\mathrm{V} = - 5 \\mathrm{V} \\end{array}"
+    },
+    {
+      "id": "boylestad_electronic_devices-ch10-body-136-4bc915",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[136]",
+      "expect": "\\begin{array}{l l} \\text {For nMOS (Q_{1}) :} & V _ {G S} = V _ {i} - 0 \\mathrm{V} = + 5 \\mathrm{V} - 0 \\mathrm{V} = + 5 \\mathrm{V} \\\\ \\text {For pMOS (Q_{2}) :} & V _ {G S} = V _ {i} - (+ 5 \\mathrm{V}) = + 5 \\mathrm{V} - 5 \\mathrm{V} = 0 \\mathrm{V} \\end{array}",
+      "new": "\\begin{array}{l l} \\text {For nMOS }(Q_{1})\\text {:} & V _ {G S} = V _ {i} - 0 \\mathrm{V} = + 5 \\mathrm{V} - 0 \\mathrm{V} = + 5 \\mathrm{V} \\\\ \\text {For pMOS }(Q_{2})\\text {:} & V _ {G S} = V _ {i} - (+ 5 \\mathrm{V}) = + 5 \\mathrm{V} - 5 \\mathrm{V} = 0 \\mathrm{V} \\end{array}"
+    },
+    {
+      "id": "boylestad_electronic_devices-ch10-body-302-3bd74b",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[302]",
+      "field": "md",
+      "all": true,
+      "old": "$I _ { \\| \\big B } \\quad \\mathrm { ~ A ~ }$",
+      "new": "$I _ { \\| B } \\quad \\mathrm { ~ A ~ }$",
+      "anchor": "5088211a"
+    }
+  ]
+}

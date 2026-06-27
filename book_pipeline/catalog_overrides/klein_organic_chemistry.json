@@ -1,0 +1,306 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "klein-ch02-table-2.1-alias",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[125]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-125",
+        "caption": "\\* The “R” refers to the remainder of the compound, usually carbon and hydrogen atoms."
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-2.1",
+            "type": "table",
+            "caption": "Table 2.1 Examples of Common Functional Groups",
+            "source": "agent-catalog-alias",
+            "evidence": "The body[125] image block is the full functional-group chart headed 'TABLE 2.1 EXAMPLES OF COMMON FUNCTIONAL GROUPS'; the current caption only preserves the trailing footnote."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-alias"
+      },
+      "reason": "C5 Table 2.1 is already present as the image immediately after body[124], but MinerU only retained the footnote as caption. Add a table alias without overwriting the footnote text."
+    },
+    {
+      "id": "klein-ch02-table-2.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[161]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch02-161",
+        "src": "a1d1f7a18891b452a5d0e48ad8e51ac102d45adfcd4c3cc7aede6e1ba777ea9a.jpg"
+      },
+      "set": {
+        "id": "tbl-2.2",
+        "caption": "Table 2.2 Formal Charge on an Oxygen Atom Associated with a Particular Number of Bonds and Lone Pairs",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 2.2 is a full-page chart already captured at ch02 body[161]; it only lacks a semantic table id/caption."
+    },
+    {
+      "id": "klein-prob7.4-table-7.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "problem:7.4:body[5]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch07-prob3-5",
+        "caption": "Problem 7.4 figure 2",
+        "src": "5d6fc85b44871fb4072468a4d8d7991d681f46807f6347acb861e067a1a5d043.jpg"
+      },
+      "set": {
+        "id": "tbl-7.2",
+        "caption": "Table 7.2 Effect of Substituents on the Rates of SN2 Reactions",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 7.2 is the comparison chart shown in problem 7.4 body[5]; promote the actual chart block from a generic problem figure to a semantic table."
+    },
+    {
+      "id": "klein-ch09-table-9.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[144]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.3",
+        "caption": "Figure 9.3",
+        "src": "928185c24d1423759cc0aedfb200cca4f28734a462868c60758cf1766da3a245.jpg"
+      },
+      "set": {
+        "id": "tbl-9.2",
+        "caption": "Table 9.2 Selected Bases and Their Conjugate Acids",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 9.2 is the base-strength chart displayed immediately after body[143]; this duplicate fig-9.3 block should instead supply the table ref."
+    },
+    {
+      "id": "klein-ch10-table-10.3-idfix",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[623]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch10-623",
+        "src": "2afc2e4cc3c2d6de7a29ee8b2d957e722351c3a0b13e8c4439f2e9ef3076e3c1.jpg"
+      },
+      "set": {
+        "id": "tbl-10.3",
+        "caption": "Table 10.3 Common Polymers Formed from Ethylene and Substituted Ethylene",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 10.3 is already captured as a complete table image at ch10 body[623]."
+    },
+    {
+      "id": "klein-ch11-table-11.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[166]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch11-166",
+        "src": "fb34dec004d45539446eb0e3b4464100968edb67cfcaf3c827b394bf8799ebc1.jpg"
+      },
+      "set": {
+        "id": "tbl-11.1",
+        "caption": "Table 11.1 Synthetic Toolbox Review",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 11.1 spans body[166]/body[167]; the titled first image shard is the correct anchor for the table entry."
+    },
+    {
+      "id": "klein-ch12-table-12.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[662]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-662",
+        "src": "4b8c207cc5a090c33b400679a0718523aed1acc8552b5b695eba847fc4521669.jpg"
+      },
+      "set": {
+        "id": "tbl-12.1",
+        "caption": "Table 12.1 An Update to Our Existing Synthetic Toolbox (Table 11.1) That Incorporates Reduction and Oxidation Methods",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 12.1 is the full chart image at ch12 body[662] following the TABLE 12.1 heading."
+    },
+    {
+      "id": "klein-ch12-table-12.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[691]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch12-691",
+        "src": "09e1000d48044ece7776795f8cbf4655756c5c63926f7408e19d08c55cc9038d.jpg"
+      },
+      "set": {
+        "id": "tbl-12.2",
+        "caption": "Table 12.2 Summary of Carbon-Carbon Bond-Forming Reactions",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 12.2 is already present as the titled chart at ch12 body[691]."
+    },
+    {
+      "id": "klein-ch13-table-13.1-alias",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[561]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch13-561",
+        "caption": "Whenever you see two adjacent functional groups, an epoxide starting material should be considered. Let’s see an example.",
+        "src": "e56ef77bacb6e79377fdbf4b1edd49d3c94ebf50997342e4bc28097f8b038b1e.jpg"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-13.1",
+            "type": "table",
+            "caption": "Table 13.1 Update to Synthetic Toolbox: 1,2-Disubstituted Target Molecules",
+            "source": "agent-catalog-alias",
+            "evidence": "The body[561] image is the full TABLE 13.1 chart; MinerU attached the explanatory paragraph as caption instead of a semantic table label."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-alias"
+      },
+      "reason": "C5 Table 13.1 is present as the image directly following body[560], but the block caption is explanatory prose rather than the table label. Add a semantic table alias without overwriting the prose."
+    },
+    {
+      "id": "klein-ch18-table-18.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[387]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch18-387",
+        "src": "ece969d8a0552f49126b40210fc49460127f3ab7a9e79c6f69441ff6273c04af.jpg"
+      },
+      "set": {
+        "id": "tbl-18.2",
+        "caption": "Table 18.2 Functional Group Conversions That Change Directing Effects",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 18.2 is already captured as a complete chart image at ch18 body[387]."
+    },
+    {
+      "id": "klein-ch19-table-19.1-idfix",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[119]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch19-119",
+        "src": "b17e1bb2a5a2d4e47a62552a0ed73844b9644dece4558ff6b35405de5048a2bb.jpg"
+      },
+      "set": {
+        "id": "tbl-19.1",
+        "caption": "Table 19.1 A Summary of Aldehyde Preparation Methods Covered in Previous Chapters",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 19.1 is decomposed into text plus reaction images; body[119] is the first in-table reaction block and serves as a stable anchor for the table section."
+    },
+    {
+      "id": "klein-ch19-table-19.2-idfix",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[136]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch19-136",
+        "src": "14c7ab902e6ab20ff5781d89a8a5a3339f3e1ed5deb9177759ab98cb5025d4af.jpg"
+      },
+      "set": {
+        "id": "tbl-19.2",
+        "caption": "Table 19.2 A Summary of Ketone Preparation Methods Covered in Previous Chapters",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 19.2 is likewise represented by text plus reaction images; anchor the table entry to the first reaction block at body[136]."
+    },
+    {
+      "id": "klein-ch19-table-19.3-idfix",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[653]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch19-653",
+        "src": "5378db799f82f9b82b81b1243a1dc8c39dd8420a93f6bd45e86a9ff98d7efea7.jpg"
+      },
+      "set": {
+        "id": "tbl-19.3",
+        "caption": "Table 19.3 An Update to Our Existing Synthetic Toolbox (Table 11.1) to Summarize the Synthesis of Alkenes",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C5 Table 19.3 is already captured as the titled chart at ch19 body[653]."
+    },
+    {
+      "id": "klein-ch21-table-21.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch21",
+      "selector": "body[479]",
+      "position": "after",
+      "page": 1052,
+      "clip": [
+        0.30,
+        0.74,
+        0.87,
+        0.985
+      ],
+      "zoom": 2.8,
+      "src": "manual_tbl-21.2.png",
+      "block": {
+        "t": "fig",
+        "id": "tbl-21.2",
+        "kind": "line",
+        "caption": "Table 21.2 A List of Common Michael Donors and Michael Acceptors"
+      },
+      "reason": "C5 Table 21.2 is visible in the raw PDF at the bottom of physical page 1052, but MinerU emitted only the surrounding prose/headings and missed the actual chart image."
+    },
+    {
+      "id": "klein-fig-24.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch24",
+      "selector": "body[85]",
+      "position": "before",
+      "page": 1177,
+      "clip": [
+        0.08,
+        0.34,
+        0.73,
+        0.58
+      ],
+      "zoom": 3.0,
+      "src": "manual_fig-24.2.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-24.2",
+        "kind": "line",
+        "caption": "Figure 24.2: The structures of the d aldotetroses."
+      },
+      "reason": "C4 Figure 24.2 is present in raw PDF physical page 1177 between the Aldotetroses paragraph and the Aldopentoses subsection, but MinerU omitted the entire figure block."
+    },
+    {
+      "id": "klein-fig-25.18-idfix",
+      "action": "set_fields",
+      "chunk": "ch25",
+      "selector": "body[428]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch25-428",
+        "src": "4045f0bc89c309edc19753b370c4c233061454790735bb7145b9becff84f2476.jpg"
+      },
+      "set": {
+        "id": "fig-25.18",
+        "caption": "Figure 25.18: Polypeptide chains of alpha-keratin, coiled into a right-handed alpha helix.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 Figure 25.18 is the vertical alpha-helix image already present at ch25 body[428]; it only lacks its formal figure id/caption."
+    }
+  ]
+}

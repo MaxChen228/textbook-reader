@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "harrington_time_harmonic_em-ch02-body-163-b4ba34",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[163]",
+      "expect": "\\left. \\begin{array}{l} k ^ {\\prime} = \\sqrt {\\frac {\\omega \\mu \\sigma}{2}} \\\\ k ^ {\\prime \\prime} = \\sqrt {\\frac {\\omega \\mu \\sigma}{2}} \\\\ | \\eta | = \\sqrt {\\frac {\\omega \\mu}{\\sigma}} \\\\ \\zeta = \\frac {\\pi}{4} \\end{array} \\right\\} \\quad \\text {in good conductors (\\sigma\\gg\\omega\\epsilon)}",
+      "new": "\\left. \\begin{array}{l} k ^ {\\prime} = \\sqrt {\\frac {\\omega \\mu \\sigma}{2}} \\\\ k ^ {\\prime \\prime} = \\sqrt {\\frac {\\omega \\mu \\sigma}{2}} \\\\ | \\eta | = \\sqrt {\\frac {\\omega \\mu}{\\sigma}} \\\\ \\zeta = \\frac {\\pi}{4} \\end{array} \\right\\} \\quad \\text {in good conductors }(\\sigma\\gg\\omega\\epsilon)"
+    },
+    {
+      "id": "harrington_time_harmonic_em-ch05-body-398-e3ae55",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[398]",
+      "expect": "\\psi = H_{0}^{(2)}(|{\\bf e} - {\\bf e}^{\\prime}|)\\xrightarrow [ \\substack{\\rho^{\\prime}\\to \\infty \\\\ \\phi^{\\prime} = 0}{\\quad}\\sqrt{\\frac{2j}{\\pi\\rho^{\\prime}}} e^{-j\\rho^{\\prime}}e^{j\\rho \\cos \\phi}",
+      "new": "\\psi = H_{0}^{(2)}(|{\\bf e} - {\\bf e}^{\\prime}|)\\xrightarrow [ \\substack{\\rho^{\\prime}\\to \\infty \\\\ \\phi^{\\prime} = 0}]{\\quad}\\sqrt{\\frac{2j}{\\pi\\rho^{\\prime}}} e^{-j\\rho^{\\prime}}e^{j\\rho \\cos \\phi}"
+    }
+  ]
+}

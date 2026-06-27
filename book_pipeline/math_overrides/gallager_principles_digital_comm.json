@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "gallager_principles_digital_comm-ch09-body-445-e68f02",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "body[445]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { u } ^ { 1 } = ( 0 , \\textnormal { \\ldots } , 0 , \\sqrt { E _ { \\mathrm { b } } } , 0 , \\textnormal { \\ldots } , 0 )$",
+      "new": "$\\pmb { u } ^ { 1 } = ( 0 , \\ldots , 0 , \\sqrt { E _ { \\mathrm { b } } } , 0 , \\ldots , 0 )$",
+      "anchor": "e0622b59"
+    },
+    {
+      "id": "gallager_principles_digital_comm-ch09-problem-9-14-body-0-e68f02",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.14:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$\\pmb { u } ^ { 1 } = ( 0 , \\textnormal { \\ldots } , 0 , \\sqrt { E _ { \\mathrm { b } } } , 0 , \\textnormal { \\ldots } , 0 )$",
+      "new": "$\\pmb { u } ^ { 1 } = ( 0 , \\ldots , 0 , \\sqrt { E _ { \\mathrm { b } } } , 0 , \\ldots , 0 )$",
+      "anchor": "d53b6479"
+    },
+    {
+      "id": "gallager_principles_digital_comm-ch09-body-410-febb61",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[410]",
+      "expect": "\\Re (\\langle \\boldsymbol {v}, \\boldsymbol {u} ^ {0} * \\boldsymbol {g} \\rangle) \\underset {<  } {\\geq} _ {\\tilde {U} = \\boldsymbol {u} ^ {0}} \\Re (\\langle \\boldsymbol {v}, \\boldsymbol {u} ^ {1} * \\boldsymbol {g} \\rangle).",
+      "new": "\\Re (\\langle \\boldsymbol {v}, \\boldsymbol {u} ^ {0} * \\boldsymbol {g} \\rangle) {\\underset {<  } {\\geq}} _ {\\tilde {U} = \\boldsymbol {u} ^ {0}} \\Re (\\langle \\boldsymbol {v}, \\boldsymbol {u} ^ {1} * \\boldsymbol {g} \\rangle)."
+    },
+    {
+      "id": "gallager_principles_digital_comm-ch09-body-327-5f003e",
+      "action": "fix_eq_tex",
+      "chunk": "ch09",
+      "selector": "body[327]",
+      "expect": "| v _ {0} | ^ {2} \\overset {\\geq} _ {<  } \\underset {\\tilde {U} = u ^ {1}} {\\tilde {U} = u ^ {0}} | v _ {1} | ^ {2}.",
+      "new": "| v _ {0} | ^ {2} \\overset {\\geq} {<  } \\underset {\\tilde {U} = u ^ {1}} {\\tilde {U} = u ^ {0}} | v _ {1} | ^ {2}."
+    },
+    {
+      "id": "gallager_principles_digital_comm-ch04-body-493-601175",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[493]",
+      "expect": "\\begin{array}{c} \\mu (\\mathcal {B} _ {1} \\cap \\mathcal {B} _ {2}) \\leq \\mu (\\mathcal {E} _ {1} ^ {k} \\cap \\mathcal {E} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {1} ^ {k}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\mu (\\mathcal {B} _ {1} \\cap \\mathcal {B} _ {2}) \\leq \\mu (\\mathcal {E} _ {1} ^ {k} \\cap \\mathcal {E} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {1} ^ {k}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "gallager_principles_digital_comm-ch04-body-495-7b588f",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[495]",
+      "expect": "\\begin{array}{c} \\mu (\\mathcal {B} _ {1} \\cup \\mathcal {B} _ {2}) \\leq \\mu (\\mathcal {E} _ {1} ^ {k} \\cup \\mathcal {E} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {1} ^ {k}) + \\mu (\\mathcal {D} _ {2} ^ {k}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\mu (\\mathcal {B} _ {1} \\cup \\mathcal {B} _ {2}) \\leq \\mu (\\mathcal {E} _ {1} ^ {k} \\cup \\mathcal {E} _ {2} ^ {k}) + \\mu (\\mathcal {D} _ {1} ^ {k}) + \\mu (\\mathcal {D} _ {2} ^ {k}) \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}

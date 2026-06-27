@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "deitel_java_how_to_program-ch05-body-378-d5744b",
+      "action": "fix_inline_math",
+      "chunk": "ch05",
+      "selector": "body[378]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left( \\begin{array} { l l l l l l l } { \\mathrm { i } } & { \\mathrm { : = } } & { \\Theta } \\end{array} \\right) \\& \\& \\ \\left( \\begin{array} { l }  \\mathrm { ~ ( 1 0 ~ / ~ i ~ = ~ } 2 \\right) \\end{array}$",
+      "new": "$\\left( \\begin{array} { l l l l l l l } { \\mathrm { i } } & { \\mathrm { : = } } & { \\Theta } \\end{array} \\right) \\& \\& \\\\ \\left( \\begin{array} { l }  \\mathrm { ~ ( 1 0 ~ / ~ i ~ = ~ } 2 \\end{array} \\right)$",
+      "anchor": "be936e32"
+    },
+    {
+      "id": "deitel_java_how_to_program-ch02-body-390-853d60",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[390]",
+      "field": "md",
+      "all": true,
+      "old": "$\\texttt { \\textbf { X } } = \\texttt { y } = \\texttt { \\Theta }$",
+      "new": "$\\texttt { \\textbf { X } } = \\texttt { y } = \\Theta$",
+      "anchor": "d37d6a5b"
+    }
+  ]
+}

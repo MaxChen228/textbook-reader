@@ -1,0 +1,105 @@
+slug: silverstein_spectrometric_id
+title: Spectrometric Identification of Organic Compounds
+author: "Robert M. Silverstein; Francis X. Webster; David J. Kiemle; David L. Bryce"
+edition: 8th
+subject: Analytical Chemistry
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 462
+bibliography_start_page: 46
+index_start_page: 462
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Mass Spectrometry
+    page_start: 10
+    page_end: 79
+    chapter_title_block_idx: 231
+    problems_block_idx: 763
+    next_chapter_block_idx: 5139
+  - num: 2
+    title: Infrared Spectroscopy
+    page_start: 80
+    page_end: 134
+    chapter_title_block_idx: 5139
+    problems_block_idx: 5714
+    next_chapter_block_idx: 5826
+  - num: 3
+    title: Proton (<sup>1</sup>H) Magnetic Resonance Spectroscopy
+    page_start: 135
+    page_end: 199
+    chapter_title_block_idx: 5826
+    problems_block_idx: 6372
+    next_chapter_block_idx: 6555
+  - num: 4
+    title: Carbon-13 NMR Spectroscopy<sup>∗</sup>
+    page_start: 200
+    page_end: 238
+    chapter_title_block_idx: 6555
+    problems_block_idx: 6849
+    next_chapter_block_idx: 6942
+  - num: 5
+    title: Two-Dimensional NMR Spectroscopy
+    page_start: 239
+    page_end: 306
+    chapter_title_block_idx: 6942
+    problems_block_idx: 7271
+    next_chapter_block_idx: 7415
+  - num: 6
+    title: Multinuclear Magnetic Resonance Spectroscopy
+    page_start: 307
+    page_end: 333
+    chapter_title_block_idx: 7415
+    problems_block_idx: 7561
+    next_chapter_block_idx: 7606
+  - num: 7
+    title: Solved Problems
+    page_start: 334
+    page_end: 372
+    chapter_title_block_idx: 7606
+    problems_block_idx: null
+    next_chapter_block_idx: 7908
+  - num: 8
+    title: Assigned Problems
+    page_start: 373
+    page_end: 461
+    chapter_title_block_idx: 7908
+    problems_block_idx: null
+    next_chapter_block_idx: 8406
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(?:PROBLEM\s+)?(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
