@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "madhow_fundamentals_digital_comm-ch08-body-184-5e86e5",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[184]",
+      "expect": "\\begin{array}{c} H _ {2} \\\\ | z _ {1 2} | ^ {2} + | z _ {2 2} | ^ {2} \\overset {>} _ {<  } | z _ {1 1} | ^ {2} + | z _ {2 1} | ^ {2}. \\\\ H _ {1} \\end{array}",
+      "new": "\\begin{array}{c} H _ {2} \\\\ | z _ {1 2} | ^ {2} + | z _ {2 2} | ^ {2} \\mathop{\\gtrless}_{<}^{>} | z _ {1 1} | ^ {2} + | z _ {2 1} | ^ {2}. \\\\ H _ {1} \\end{array}"
+    },
+    {
+      "id": "madhow_fundamentals_digital_comm-ch02-body-526-dbd3bb",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[526]",
+      "expect": "\\begin{array}{l} \\text {for i[n] = 0,s[n] = \\pm s_{0} , where s_{0} = (+1, + 1) ,} \\\\ \\text {for i[n] = 1,s[n] = \\pm s_{1} , where s_{1} = (+1, - 1) .} \\end{array}",
+      "new": "\\begin{array}{l} \\text {for i[n] = 0,s[n] = }\\pm s_{0}\\text { , where }s_{0} = (+1, + 1)\\text { ,} \\\\ \\text {for i[n] = 1,s[n] = }\\pm s_{1}\\text { , where }s_{1} = (+1, - 1)\\text { .} \\end{array}"
+    }
+  ]
+}

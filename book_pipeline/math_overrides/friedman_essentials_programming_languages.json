@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "id": "friedman_essentials_programming_languages-ch05-body-141-863a61",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[141]",
+      "expect": "\\begin{array}{l} \\text {(letrec ((fact (lambda (n) \\\\ \\quad (if (zero? n) \\\\ \\quad 1 \\\\ \\quad (* n (fact (- n f)))))) \\\\ \\dots)} \\end{array}",
+      "new": "\\begin{array}{l} \\text {(letrec ((fact (lambda (n)} \\\\ \\quad \\text {(if (zero? n)} \\\\ \\quad \\text {1} \\\\ \\quad \\text {(* n (fact (- n f))))))} \\\\ \\dots\\text {)} \\end{array}"
+    },
+    {
+      "id": "friedman_essentials_programming_languages-ch09-problem-9-3-4-body-12-ebfb51",
+      "action": "fix_inline_math",
+      "chunk": "ch09",
+      "selector": "problem:9.3.4:body[12]",
+      "field": "md",
+      "all": true,
+      "old": "\\( (E\\_{1} \\text{ (lambda } (\\nu k') \\text{ (k",
+      "new": "(E_{1} \\text{ (lambda } (\\nu k') \\text{ (k}",
+      "anchor": "9ba76dd8"
+    }
+  ]
+}

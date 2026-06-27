@@ -1,0 +1,71 @@
+{
+  "overrides": [
+    {
+      "id": "kozen_automata_computability-ch29-body-10-20480b",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "body[10]",
+      "expect": "\\pi^ {\\prime} = \\left\\{ \\begin{array}{l l} A \\to \\underset {\\pi} {\\overset {1} {[ B ]}} \\underset {\\pi \\pi} {\\overset {1 2} {[ C ]}} _ {\\pi} & \\text {if} \\pi = A \\to B C, \\\\ A \\to \\underset {\\pi} {\\overset {1} {[ ]}} \\underset {\\pi \\pi} {\\overset {1 2} {[ ]}} _ {\\pi} & \\text {if} \\pi = A \\to a; \\end{array} \\right.",
+      "new": "\\pi^ {\\prime} = \\left\\{ \\begin{array}{l l} A \\to {\\underset {\\pi} {\\overset {1} {[ B ]}}} _ {\\pi} {\\underset {\\pi \\pi} {\\overset {1 2} {[ C ]}}} _ {\\pi} & \\text {if } \\pi = A \\to B C, \\\\ A \\to {\\underset {\\pi} {\\overset {1} {[ ]}}} _ {\\pi} {\\underset {\\pi \\pi} {\\overset {1 2} {[ ]}}} _ {\\pi} & \\text {if } \\pi = A \\to a; \\end{array} \\right."
+    },
+    {
+      "id": "kozen_automata_computability-ch29-body-12-11d225",
+      "action": "fix_eq_tex",
+      "chunk": "ch29",
+      "selector": "body[12]",
+      "expect": "\\begin{array}{r l}&{\\Gamma = \\{\\stackrel {1} {\\underset {\\pi} {\\left[ \\right.}}, \\stackrel {1} {\\underset {\\pi} {\\left[ \\right.}}}, \\stackrel {2} {\\underset {\\pi} {\\left[ \\right.}}, \\stackrel {2} {\\underset {\\pi} {\\left[}} \\right. | \\pi \\in P \\},\\\\&{P ^ {\\prime} = \\{\\pi^ {\\prime} | \\pi \\in P \\}.}\\end{array}",
+      "new": "\\begin{array}{r l}&{\\Gamma = \\{\\stackrel {1} {\\underset {\\pi} {[}}, \\stackrel {1} {\\underset {\\pi} {[}}, \\stackrel {2} {\\underset {\\pi} {[}}, \\stackrel {2} {\\underset {\\pi} {[}} | \\pi \\in P \\},}\\\\&{P ^ {\\prime} = \\{\\pi^ {\\prime} | \\pi \\in P \\}.}\\end{array}"
+    },
+    {
+      "id": "kozen_automata_computability-ch10-body-83-e7a013",
+      "action": "fix_eq_tex",
+      "chunk": "ch10",
+      "selector": "body[83]",
+      "expect": "X _ {q} = \\left\\{ \\begin{array}{l l} \\sum_ {a \\in \\Sigma} a X _ {\\delta (q, a)} & \\text {if q\\notin F}, \\\\ \\sum_ {a \\in \\Sigma} a X _ {\\delta (q, a)} + 1 & \\text {if q\\in F}. \\end{array} \\right.",
+      "new": "X _ {q} = \\left\\{ \\begin{array}{l l} \\sum_ {a \\in \\Sigma} a X _ {\\delta (q, a)} & \\text {if } q\\notin F, \\\\ \\sum_ {a \\in \\Sigma} a X _ {\\delta (q, a)} + 1 & \\text {if } q\\in F. \\end{array} \\right."
+    },
+    {
+      "id": "kozen_automata_computability-ch15-body-63-868a10",
+      "action": "fix_eq_tex",
+      "chunk": "ch15",
+      "selector": "body[63]",
+      "expect": "\\begin{array}{r l} f (s ^ {\\prime}) = f ([ \\epsilon ]) & \\text {definition of s^{\\prime}} \\\\ = \\widehat {\\delta} (s, \\epsilon) & \\text {definition of f} \\\\ = s & \\text {definition of \\widehat {\\delta} ;} \\end{array}",
+      "new": "\\begin{array}{r l} f (s ^ {\\prime}) = f ([ \\epsilon ]) & \\text {definition of } s^{\\prime} \\\\ = \\widehat {\\delta} (s, \\epsilon) & \\text {definition of } f \\\\ = s & \\text {definition of } \\widehat {\\delta} ; \\end{array}"
+    },
+    {
+      "id": "kozen_automata_computability-ch22-body-34-7380db",
+      "action": "fix_eq_tex",
+      "chunk": "ch22",
+      "selector": "body[34]",
+      "expect": "\\begin{array}{r l} L (\\alpha) = L (\\beta) + 1 & \\\\ = R (\\beta) + 1 & \\text {since \\beta satisfies (i)} \\\\ = R (\\alpha), \\end{array}",
+      "new": "\\begin{array}{r l} L (\\alpha) = L (\\beta) + 1 & \\\\ = R (\\beta) + 1 & \\text {since } \\beta \\text { satisfies (i)} \\\\ = R (\\alpha), \\end{array}"
+    },
+    {
+      "id": "kozen_automata_computability-ch32-body-64-e792da",
+      "action": "fix_eq_tex",
+      "chunk": "ch32",
+      "selector": "body[64]",
+      "expect": "\\begin{array}{c c c c} \\framebox {a} & \\framebox {\\widehat {a}} & \\framebox {a} & \\framebox {\\widehat {a}} \\\\ \\framebox {c} & \\framebox {c} & \\framebox {\\widehat {c}} & \\framebox {\\widehat {c}} \\end{array}",
+      "new": "\\begin{array}{c c c c} \\boxed {a} & \\boxed {\\widehat {a}} & \\boxed {a} & \\boxed {\\widehat {a}} \\\\ \\boxed {c} & \\boxed {c} & \\boxed {\\widehat {c}} & \\boxed {\\widehat {c}} \\end{array}"
+    },
+    {
+      "id": "kozen_automata_computability-ch57-problem-5-body-3-30f4f1",
+      "action": "fix_inline_math",
+      "chunk": "ch57",
+      "selector": "problem:5:body[3]",
+      "field": "md",
+      "all": true,
+      "old": "${ \\^ { \\mathbf { H } } \\mathbf { 6 } } .$",
+      "new": "${ \\hat { \\mathbf { H } } \\mathbf { 6 } } .$",
+      "anchor": "90e2b727"
+    },
+    {
+      "id": "kozen_automata_computability-ch58-problem-878-body-41-7ee50a",
+      "action": "fix_eq_tex",
+      "chunk": "ch58",
+      "selector": "problem:878:body[41]",
+      "expect": "\\begin{array}{c} \\textbf {p e r m u t e} A = \\{a a a b c, a a b c a, a b c a a, b c a a a, c a a a b, \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
+      "new": "\\begin{array}{c} \\textbf {p e r m u t e} A = \\{a a a b c, a a b c a, a b c a a, b c a a a, c a a a b, \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    }
+  ]
+}
