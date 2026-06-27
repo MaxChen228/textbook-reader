@@ -1,0 +1,286 @@
+slug: willard_instrumental_analysis
+title: Instrumental Methods of Analysis
+author: "Hobart H. Willard; Lynne L. Merritt Jr.; John A. Dean; Frank A. Settle Jr."
+edition: "6th"
+subject: Analytical Chemistry
+publisher: Wadsworth
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # section heading = 'N.M TITLE' ALL-CAPS @ lvl2；chapter title @ lvl1（手動 anchor）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 30
+appendices_start_page: 966     # 'Experiments' 段起點（在 ch31 之後、附錄 A-G 之前）
+bibliography_start_page: null  # 無 back-matter 全域 bibliography（per-chapter BIBLIOGRAPHY/LITERATURE CITED 非後頁）
+index_start_page: 1038
+
+# ── 模式：binary（每章末 lvl2 'PROBLEMS' heading；7 章無習題 → pbi=null） ──
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: An Introduction to Absorption and Emission Spectroscopy
+    page_start: 30
+    page_end: 47
+    chapter_title_block_idx: 167
+    problems_block_idx: null
+    next_chapter_block_idx: 311
+  - num: 2
+    title: Ultraviolet and Visible Spectrophotometry — Instrumentation
+    page_start: 48
+    page_end: 94
+    chapter_title_block_idx: 311
+    problems_block_idx: 678
+    next_chapter_block_idx: 722
+  - num: 3
+    title: Ultraviolet and Visible Absorption Methods
+    page_start: 95
+    page_end: 133
+    chapter_title_block_idx: 722
+    problems_block_idx: 991
+    next_chapter_block_idx: 1082
+  - num: 4
+    title: Fluorescence and Phosphorescence Spectrophotometry
+    page_start: 134
+    page_end: 155
+    chapter_title_block_idx: 1082
+    problems_block_idx: 1220
+    next_chapter_block_idx: 1258
+  - num: 5
+    title: Flame Emission and Atomic Absorption Spectrometry
+    page_start: 156
+    page_end: 182
+    chapter_title_block_idx: 1258
+    problems_block_idx: 1456
+    next_chapter_block_idx: 1512
+  - num: 6
+    title: Atomic Emission Spectroscopy
+    page_start: 183
+    page_end: 205
+    chapter_title_block_idx: 1512
+    problems_block_idx: 1666
+    next_chapter_block_idx: 1702
+  - num: 7
+    title: Infrared Spectrophotometry
+    page_start: 206
+    page_end: 245
+    chapter_title_block_idx: 1702
+    problems_block_idx: 1929
+    next_chapter_block_idx: 2014
+  - num: 8
+    title: Raman Spectroscopy
+    page_start: 246
+    page_end: 267
+    chapter_title_block_idx: 2014
+    problems_block_idx: 2131
+    next_chapter_block_idx: 2174
+  - num: 9
+    title: X-Ray Methods
+    page_start: 268
+    page_end: 317
+    chapter_title_block_idx: 2174
+    problems_block_idx: 2544
+    next_chapter_block_idx: 2638
+  - num: 10
+    title: Radiochemical Methods
+    page_start: 318
+    page_end: 344
+    chapter_title_block_idx: 2638
+    chapter_title_block_idx_secondary: 2639
+    problems_block_idx: 2858
+    next_chapter_block_idx: 2913
+  - num: 11
+    title: Nuclear Magnetic Resonance Spectroscopy
+    page_start: 345
+    page_end: 385
+    chapter_title_block_idx: 2913
+    problems_block_idx: 3167
+    next_chapter_block_idx: 3241
+  - num: 12
+    title: Electron Spin Resonance Spectroscopy
+    page_start: 386
+    page_end: 407
+    chapter_title_block_idx: 3241
+    problems_block_idx: 3367
+    next_chapter_block_idx: 3429
+  - num: 13
+    title: Chemical Analysis of Surfaces
+    page_start: 408
+    page_end: 431
+    chapter_title_block_idx: 3429
+    problems_block_idx: null      # idx 3447 'Problems Unique to Surface Analysis' 是討論散文 section、非習題集
+    next_chapter_block_idx: 3631
+  - num: 14
+    title: "Refractometry and Interferometry; Polarimetry, Circular Dichroism, and Optical Rotatory Dispersion"
+    page_start: 432
+    page_end: 458
+    chapter_title_block_idx: 3631
+    problems_block_idx: 3869
+    next_chapter_block_idx: 3915
+  - num: 15
+    title: Chromatography — General Principles
+    page_start: 459
+    page_end: 482
+    chapter_title_block_idx: 3915
+    problems_block_idx: 4145
+    next_chapter_block_idx: 4165
+  - num: 16
+    title: Gas Chromatography
+    page_start: 483
+    page_end: 523
+    chapter_title_block_idx: 4165
+    problems_block_idx: 4430
+    next_chapter_block_idx: 4528
+  - num: 17
+    title: "Liquid Column Chromatography: Instrumentation and Optimization"
+    page_start: 524
+    page_end: 557
+    chapter_title_block_idx: 4528
+    problems_block_idx: 4786
+    next_chapter_block_idx: 4833
+  - num: 18
+    title: High-Performance Liquid Chromatography Methods
+    page_start: 558
+    page_end: 593
+    chapter_title_block_idx: 4833
+    problems_block_idx: 5127
+    next_chapter_block_idx: 5179
+  - num: 19
+    title: Mass Spectrometry
+    page_start: 594
+    page_end: 634
+    chapter_title_block_idx: 5179
+    problems_block_idx: 5490
+    next_chapter_block_idx: 5550
+  - num: 20
+    title: Thermal Analysis
+    page_start: 635
+    page_end: 656
+    chapter_title_block_idx: 5550
+    chapter_title_block_idx_secondary: 5551
+    problems_block_idx: 5673
+    next_chapter_block_idx: 5733
+  - num: 21
+    title: Introduction to Electrometric Methods of Analysis
+    page_start: 657
+    page_end: 668
+    chapter_title_block_idx: 5733
+    problems_block_idx: null
+    next_chapter_block_idx: 5866
+  - num: 22
+    title: pH and Ion Selective Potentiometry
+    page_start: 669
+    page_end: 692
+    chapter_title_block_idx: 5866
+    problems_block_idx: 6061
+    next_chapter_block_idx: 6104
+  - num: 23
+    title: Potentiometric Titrations
+    page_start: 693
+    page_end: 719
+    chapter_title_block_idx: 6104
+    chapter_title_block_idx_secondary: 6105
+    problems_block_idx: 6319
+    next_chapter_block_idx: 6382
+  - num: 24
+    title: "Voltammetry, Polarography, and Related Techniques"
+    page_start: 720
+    page_end: 764
+    chapter_title_block_idx: 6382
+    problems_block_idx: 6693
+    next_chapter_block_idx: 6765
+  - num: 25
+    title: Electrogravimetry and Coulometry
+    page_start: 765
+    page_end: 809
+    chapter_title_block_idx: 6765
+    problems_block_idx: 7112
+    next_chapter_block_idx: 7222
+  - num: 26
+    title: Conductance Methods
+    page_start: 810
+    page_end: 829
+    chapter_title_block_idx: 7222
+    problems_block_idx: 7393
+    next_chapter_block_idx: 7428
+  - num: 27
+    title: "Electronics: Fundamentals of Solid-State Devices"
+    page_start: 830
+    page_end: 850
+    chapter_title_block_idx: 7428
+    problems_block_idx: null
+    next_chapter_block_idx: 7626
+  - num: 28
+    title: "Electronics: Commonly Used Signal Modifying Circuits"
+    page_start: 851
+    page_end: 874
+    chapter_title_block_idx: 7626
+    problems_block_idx: null
+    next_chapter_block_idx: 7826
+  - num: 29
+    title: Data Handling
+    page_start: 875
+    page_end: 896
+    chapter_title_block_idx: 7826
+    problems_block_idx: null
+    next_chapter_block_idx: 8045
+  - num: 30
+    title: Computer-Aided Analysis
+    page_start: 897
+    page_end: 925
+    chapter_title_block_idx: 8045
+    problems_block_idx: null
+    next_chapter_block_idx: 8291
+  - num: 31
+    title: Process Instruments and Automatic Analysis
+    page_start: 926
+    page_end: 965
+    chapter_title_block_idx: 8291
+    problems_block_idx: 8565      # 8315 'Sampling Problems' 是 section 非題集；8565 才是 10 題習題集
+    next_chapter_block_idx: 8594
+
+# ── 附錄（body-only；'Experiments' 實驗段 + 附錄 A/B/G；C-F 為純表格無乾淨 heading、併入 B body） ──
+appendices:
+  - id: Experiments
+    title: Experiments
+    page_start: 966
+    chapter_title_block_idx: 8594
+  - id: A
+    title: Potentials of Selected Half-Reactions at 25°C
+    page_start: 1024
+    chapter_title_block_idx: 9275
+  - id: B
+    title: Polarographic Half-Wave Potentials and Diffusion-Current Constants
+    page_start: 1026
+    chapter_title_block_idx: 9282
+  - id: G
+    title: Wave-Number/Wavelength Conversion Table
+    page_start: 1035
+    chapter_title_block_idx: 9315
+
+# ── heading regex（section N.M ALL-CAPS @ lvl2；無 N.M.K subsection） ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號（純流水整數、每章重置 '1.' '2.' …） ──
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation（\tag{N-M} hyphen 格式） ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+-[0-9]+[a-z]?)\}'
+
+# ── example（'Example N-M' hyphen 格式） ──
+example_start_re: '^Example\s+(\d+-\d+)'
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
