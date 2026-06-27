@@ -1,0 +1,26 @@
+{
+  "overrides": [
+    {
+      "id": "skolnik_radar_systems-ch02-body-29-25d98b",
+      "action": "fix_inline_math",
+      "chunk": "ch02",
+      "selector": "body[29]",
+      "field": "md",
+      "all": true,
+      "old": "\\( H(f) = \\text{frequency-response function of the IF amplifier (filter) and } f\\_{0} = \\text{frequency of the maximum response (usually occurs at midband). Noise bandwidth is not the same as the more familiar half-power, or 3-dB, bandwidth. Equation (2.3) states that the noise bandwidth is the bandwidth of the equivalent rectangular filter whose noise-power output is the same as the filter with frequency response function  \\( H(f) \\)",
+      "new": "\\( H(f) = \\text{frequency-response function of the IF amplifier (filter) and } f_{0} = \\text{frequency of the maximum response (usually occurs at midband). Noise bandwidth is not the same as the more familiar half-power, or 3-dB, bandwidth. Equation (2.3) states that the noise bandwidth is the bandwidth of the equivalent rectangular filter whose noise-power output is the same as the filter with frequency response function } H(f) \\)",
+      "anchor": "cd7c1eca"
+    },
+    {
+      "id": "skolnik_radar_systems-ch03-body-47-0c14e0",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[47]",
+      "field": "md",
+      "all": true,
+      "old": "\\( f\\_{d} = \\text{doppler frequency shift}, \\phi\\_{0} = \\text{a constant phase equal to } 4\\pi R\\_{0}/\\lambda, R\\_{0} = \\text{range at time equal to zero}, \\lambda = \\text{wavelength, and } k = \\text{amplitude of the signal. [For convenience, the cosine of Eq. (3.6) has been replaced by the sine.] The signal from the previous radar transmission is similar, except it is delayed by a time  \\( T\\_{p} = \\text{pulse repetition interval, and is} \\)",
+      "new": "\\( f_{d} = \\text{doppler frequency shift}, \\phi_{0} = \\text{a constant phase equal to } 4\\pi R_{0}/\\lambda, R_{0} = \\text{range at time equal to zero}, \\lambda = \\text{wavelength, and } k = \\text{amplitude of the signal. [For convenience, the cosine of Eq. (3.6) has been replaced by the sine.] The signal from the previous radar transmission is similar, except it is delayed by a time } T_{p} = \\text{pulse repetition interval, and is} \\)",
+      "anchor": "40efaa14"
+    }
+  ]
+}
