@@ -1,0 +1,134 @@
+# ── 書本 metadata ──
+slug: dayan_abbott_theoretical_neuroscience
+title: "Theoretical Neuroscience: Computational and Mathematical Modeling of Neural Systems"
+author: "Peter Dayan; L. F. Abbott"
+edition: "1st"
+subject: Computational Neuroscience
+publisher: MIT Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 4
+appendices_start_page: 397
+bibliography_start_page: 425
+index_start_page: null
+
+# ── inline-problem 模式 ──
+# 本書無 per-chapter 習題：所有 exercises 收在書末單一「Exercises」段（pg 397-405），
+# 依 Chapter N 分組（純流水題號 1. 2. 3. 每章重置）。此段超出各章 page 範圍，
+# 引擎以 per-chapter 模型無從關聯回母章，故全章 problems_block_idx=null，
+# Exercises 段保留為 back-matter 附錄（附錄 A）。詳見 _audit.md。
+inline_problems: false
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Neural Encoding I: Firing Rates and Spike Statistics"
+    page_start: 4
+    page_end: 45
+    chapter_title_block_idx: 28
+    problems_block_idx: null
+    next_chapter_block_idx: 553
+  - num: 2
+    title: "Neural Encoding II: Reverse Correlation and Visual Receptive Fields"
+    page_start: 46
+    page_end: 87
+    chapter_title_block_idx: 553
+    problems_block_idx: null
+    next_chapter_block_idx: 1044
+  - num: 3
+    title: Neural Decoding
+    page_start: 88
+    page_end: 124
+    chapter_title_block_idx: 1044
+    problems_block_idx: null
+    next_chapter_block_idx: 1524
+  - num: 4
+    title: Information Theory
+    page_start: 125
+    page_end: 154
+    chapter_title_block_idx: 1524
+    problems_block_idx: null
+    next_chapter_block_idx: 1890
+  - num: 5
+    title: "Model Neurons I: Neuroelectronics"
+    page_start: 155
+    page_end: 197
+    chapter_title_block_idx: 1890
+    problems_block_idx: null
+    next_chapter_block_idx: 2418
+  - num: 6
+    title: "Model Neurons II: Conductances and Morphology"
+    page_start: 198
+    page_end: 232
+    chapter_title_block_idx: 2418
+    problems_block_idx: null
+    next_chapter_block_idx: 2825
+  - num: 7
+    title: Network Models
+    page_start: 233
+    page_end: 282
+    chapter_title_block_idx: 2825
+    problems_block_idx: null
+    next_chapter_block_idx: 3442
+  - num: 8
+    title: Plasticity and Learning
+    page_start: 283
+    page_end: 330
+    chapter_title_block_idx: 3442
+    problems_block_idx: null
+    next_chapter_block_idx: 4073
+  - num: 9
+    title: Classical Conditioning and Reinforcement Learning
+    page_start: 331
+    page_end: 359
+    chapter_title_block_idx: 4073
+    problems_block_idx: null
+    next_chapter_block_idx: 4447
+  - num: 10
+    title: Representational Learning
+    page_start: 360
+    page_end: 396
+    chapter_title_block_idx: 4447
+    problems_block_idx: null
+    next_chapter_block_idx: 4902
+
+# ── 附錄 ──
+appendices:
+  - id: A
+    title: Exercises
+    page_start: 397
+    chapter_title_block_idx: 4902
+  - id: B
+    title: Mathematical Appendix
+    page_start: 406
+    chapter_title_block_idx: 5023
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z].*\S)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題（可空） ──
+known_missing_problems: []
