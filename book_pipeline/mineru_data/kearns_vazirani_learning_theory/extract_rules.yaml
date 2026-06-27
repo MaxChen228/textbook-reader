@@ -1,0 +1,105 @@
+slug: kearns_vazirani_learning_theory
+title: An Introduction to Computational Learning Theory
+author: Michael J. Kearns; Umesh V. Vazirani
+edition: 1st
+subject: Machine Learning
+publisher: The MIT Press
+language: en
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 12
+appendices_start_page: 197
+bibliography_start_page: 201
+index_start_page: 212
+inline_problems: false
+chapters:
+  - num: 1
+    title: The Probably Approximately Correct Learning Model
+    page_start: 12
+    page_end: 40
+    chapter_title_block_idx: 61
+    problems_block_idx: 273
+    next_chapter_block_idx: 298
+  - num: 2
+    title: "Occam's Razor"
+    page_start: 41
+    page_end: 58
+    chapter_title_block_idx: 298
+    problems_block_idx: 420
+    next_chapter_block_idx: 451
+  - num: 3
+    title: The Vapnik-Chervonenkis Dimension
+    page_start: 59
+    page_end: 81
+    chapter_title_block_idx: 451
+    problems_block_idx: 617
+    next_chapter_block_idx: 657
+  - num: 4
+    title: Weak and Strong Learning
+    page_start: 82
+    page_end: 111
+    chapter_title_block_idx: 657
+    problems_block_idx: 962
+    next_chapter_block_idx: 985
+  - num: 5
+    title: Learning in the Presence of Noise
+    page_start: 112
+    page_end: 131
+    chapter_title_block_idx: 985
+    problems_block_idx: 1150
+    next_chapter_block_idx: 1176
+  - num: 6
+    title: Inherent Unpredictability
+    page_start: 132
+    page_end: 151
+    chapter_title_block_idx: 1176
+    problems_block_idx: 1325
+    next_chapter_block_idx: 1345
+  - num: 7
+    title: Reducibility in PAC Learning
+    page_start: 152
+    page_end: 163
+    chapter_title_block_idx: 1345
+    problems_block_idx: 1424
+    next_chapter_block_idx: 1437
+  - num: 8
+    title: Learning Finite Automata by Experimentation
+    page_start: 164
+    page_end: 196
+    chapter_title_block_idx: 1437
+    problems_block_idx: 1695
+    next_chapter_block_idx: 1716
+appendices:
+  - id: A
+    title: Some Tools for Probabilistic Analysis
+    page_start: 197
+    chapter_title_block_idx: 1716
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+heading_text_level: 2
+problem_start_re: '^(\d+\s*\.\s*\d+)\s*\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^\d+\.\d+\s+Bibliographic Notes$'
+solution_start_re: null
+problems_start_re: null
+equation_strip_dollar: true
+equation_label_re: '\(([^()]+)\)'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems:
+  - chapter: 3
+    nums:
+      - '3.2'
+  - chapter: 6
+    nums:
+      - '6.1'

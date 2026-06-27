@@ -1,0 +1,141 @@
+slug: rotman_algebraic_topology
+title: An Introduction to Algebraic Topology
+author: Joseph J. Rotman
+edition: 1st
+subject: Topology
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 430
+bibliography_start_page: 430
+index_start_page: 435
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 12
+    page_end: 24
+    chapter_title_block_idx: 131
+    problems_block_idx: null
+    next_chapter_block_idx: 320
+  - num: 1
+    title: Some Basic Topological Notions
+    page_start: 25
+    page_end: 41
+    chapter_title_block_idx: 320
+    problems_block_idx: null
+    next_chapter_block_idx: 591
+  - num: 2
+    title: Simplexes
+    page_start: 42
+    page_end: 49
+    chapter_title_block_idx: 591
+    problems_block_idx: null
+    next_chapter_block_idx: 725
+  - num: 3
+    title: The Fundamental Group
+    page_start: 50
+    page_end: 67
+    chapter_title_block_idx: 725
+    problems_block_idx: null
+    next_chapter_block_idx: 1009
+  - num: 4
+    title: Singular Homology
+    page_start: 68
+    page_end: 96
+    chapter_title_block_idx: 1009
+    problems_block_idx: null
+    next_chapter_block_idx: 1461
+  - num: 5
+    title: Long Exact Sequences
+    page_start: 97
+    page_end: 116
+    chapter_title_block_idx: 1461
+    problems_block_idx: null
+    next_chapter_block_idx: 1819
+  - num: 6
+    title: Excision and Applications
+    page_start: 117
+    page_end: 141
+    chapter_title_block_idx: 1819
+    problems_block_idx: null
+    next_chapter_block_idx: 2230
+  - num: 7
+    title: Simplicial Complexes
+    page_start: 142
+    page_end: 190
+    chapter_title_block_idx: 2230
+    problems_block_idx: null
+    next_chapter_block_idx: 3011
+  - num: 8
+    title: CW Complexes
+    page_start: 191
+    page_end: 238
+    chapter_title_block_idx: 3011
+    problems_block_idx: null
+    next_chapter_block_idx: 3780
+  - num: 9
+    title: Natural Transformations
+    page_start: 239
+    page_end: 282
+    chapter_title_block_idx: 3780
+    problems_block_idx: null
+    next_chapter_block_idx: 4522
+  - num: 10
+    title: Covering Spaces
+    page_start: 283
+    page_end: 322
+    chapter_title_block_idx: 4522
+    problems_block_idx: null
+    next_chapter_block_idx: 5139
+  - num: 11
+    title: Homotopy Groups
+    page_start: 323
+    page_end: 383
+    chapter_title_block_idx: 5139
+    problems_block_idx: null
+    next_chapter_block_idx: 6105
+  - num: 12
+    title: Cohomology
+    page_start: 384
+    page_end: 429
+    chapter_title_block_idx: 6105
+    problems_block_idx: null
+    next_chapter_block_idx: 6972
+
+appendices: []
+
+section_re: '^()((?!EXERCISES?$)(?!EXERCISE$)(?!Theorem(?:\s|$))(?!Lemma(?:\s|$))(?!Corollary(?:\s|$))(?!\\?\*?\d+\.\d+\.)\S(?:.*\S)?)$'
+subsection_re: '^()((?:EXERCISES?|Theorem(?:\s+[0-9]+(?:\.[0-9]+)?\.)?|Lemma(?:\s+[0-9]+(?:\.[0-9]+)?\.)?|Corollary(?:\s+[0-9]+(?:\.[0-9]+)?\.)?))$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:\\?\*)?(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

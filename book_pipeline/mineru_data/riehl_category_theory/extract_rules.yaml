@@ -1,0 +1,93 @@
+slug: riehl_category_theory
+title: Category Theory in Context
+author: Emily Riehl
+edition: null
+subject: Category Theory
+publisher: Dover Publications
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 19
+appendices_start_page: 255
+bibliography_start_page: 265
+index_start_page: null
+
+inline_problems: true
+heading_text_level: [1, 2]
+section_re: '^((?:\d+\.\d+|E\.\d+)\.)\s+(.+)$'
+subsection_re: '^(NEVER_MATCH_THIS_SUBSECTION)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(?:E<sup>xercise</sup>|Exercise)\s+([0-9]+\.[0-9]+\.[ivxlcdm]+)\.'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_start_re: null
+problems_end_re: null
+solution_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: '^(?:E<sup>xample</sup>|Example)\s+([0-9]+\.[0-9]+\.[0-9]+)\.'
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []
+
+chapters:
+  - num: 1
+    title: Categories, Functors, Natural Transformations
+    page_start: 19
+    page_end: 68
+    chapter_title_block_idx: 156
+    problems_block_idx: null
+    next_chapter_block_idx: 997
+  - num: 2
+    title: Universal Properties, Representability, and the Yoneda Lemma
+    page_start: 69
+    page_end: 96
+    chapter_title_block_idx: 1009
+    problems_block_idx: null
+    next_chapter_block_idx: 1403
+  - num: 3
+    title: Limits and Colimits
+    page_start: 97
+    page_end: 144
+    chapter_title_block_idx: 1419
+    problems_block_idx: null
+    next_chapter_block_idx: 2162
+  - num: 4
+    title: Adjunctions
+    page_start: 145
+    page_end: 186
+    chapter_title_block_idx: 2180
+    problems_block_idx: null
+    next_chapter_block_idx: 2885
+  - num: 5
+    title: Monads and Their Algebras
+    page_start: 187
+    page_end: 224
+    chapter_title_block_idx: 2904
+    problems_block_idx: null
+    next_chapter_block_idx: 3512
+  - num: 6
+    title: All Concepts Are Kan Extensions
+    page_start: 225
+    page_end: 254
+    chapter_title_block_idx: 3526
+    problems_block_idx: null
+    next_chapter_block_idx: 3985
+
+appendices:
+  - id: E
+    title: 'Epilogue: Theorems in Category Theory'
+    page_start: 255
+    page_end: 264
+    chapter_title_block_idx: 3985

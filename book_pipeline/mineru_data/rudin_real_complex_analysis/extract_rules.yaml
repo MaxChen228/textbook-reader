@@ -1,0 +1,172 @@
+slug: rudin_real_complex_analysis
+title: Real and Complex Analysis
+author: Walter Rudin
+edition: 3rd International
+subject: Real Analysis
+publisher: McGraw-Hill
+language: en
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 17
+appendices_start_page: 407
+bibliography_start_page: 416
+index_start_page: 421
+inline_problems: false
+chapters:
+  - num: 1
+    title: "ABSTRACT INTEGRATION"
+    page_start: 17
+    page_end: 44
+    chapter_title_block_idx: 116
+    problems_block_idx: 633
+    next_chapter_block_idx: 669
+  - num: 2
+    title: "POSITIVE BOREL MEASURES"
+    page_start: 45
+    page_end: 72
+    chapter_title_block_idx: 669
+    problems_block_idx: 1134
+    next_chapter_block_idx: 1214
+  - num: 3
+    title: "Lp-SPACES"
+    page_start: 73
+    page_end: 87
+    chapter_title_block_idx: 1214
+    problems_block_idx: 1392
+    next_chapter_block_idx: 1509
+  - num: 4
+    title: "ELEMENTARY HILBERT SPACE THEORY"
+    page_start: 88
+    page_end: 106
+    chapter_title_block_idx: 1509
+    problems_block_idx: 1844
+    next_chapter_block_idx: 1903
+  - num: 5
+    title: "EXAMPLES OF BANACH SPACE TECHNIQUES"
+    page_start: 107
+    page_end: 127
+    chapter_title_block_idx: 1903
+    problems_block_idx: 2240
+    next_chapter_block_idx: 2323
+  - num: 6
+    title: "COMPLEX MEASURES"
+    page_start: 128
+    page_end: 146
+    chapter_title_block_idx: 2323
+    problems_block_idx: 2649
+    next_chapter_block_idx: 2702
+  - num: 7
+    title: "DIFFERENTIATION"
+    page_start: 147
+    page_end: 171
+    chapter_title_block_idx: 2702
+    problems_block_idx: 3152
+    next_chapter_block_idx: 3254
+  - num: 8
+    title: "INTEGRATION ON PRODUCT SPACES"
+    page_start: 172
+    page_end: 189
+    chapter_title_block_idx: 3254
+    problems_block_idx: 3526
+    next_chapter_block_idx: 3611
+  - num: 9
+    title: "FOURIER TRANSFORMS"
+    page_start: 190
+    page_end: 207
+    chapter_title_block_idx: 3611
+    problems_block_idx: 3914
+    next_chapter_block_idx: 3983
+  - num: 10
+    title: "ELEMENTARY PROPERTIES OF HOLOMORPHIC FUNCTIONS"
+    page_start: 208
+    page_end: 242
+    chapter_title_block_idx: 3983
+    problems_block_idx: 4586
+    next_chapter_block_idx: 4678
+  - num: 11
+    title: "HARMONIC FUNCTIONS"
+    page_start: 243
+    page_end: 264
+    chapter_title_block_idx: 4678
+    problems_block_idx: 5034
+    next_chapter_block_idx: 5120
+  - num: 12
+    title: "THE MAXIMUM MODULUS PRINCIPLE"
+    page_start: 265
+    page_end: 277
+    chapter_title_block_idx: 5120
+    problems_block_idx: 5351
+    next_chapter_block_idx: 5395
+  - num: 13
+    title: "APPROXIMATIONS BY RATIONAL FUNCTIONS"
+    page_start: 278
+    page_end: 289
+    chapter_title_block_idx: 5395
+    problems_block_idx: 5563
+    next_chapter_block_idx: 5588
+  - num: 14
+    title: "CONFORMAL MAPPING"
+    page_start: 290
+    page_end: 309
+    chapter_title_block_idx: 5588
+    problems_block_idx: 5845
+    next_chapter_block_idx: 5965
+  - num: 15
+    title: "ZEROS OF HOLOMORPHIC FUNCTIONS"
+    page_start: 310
+    page_end: 330
+    chapter_title_block_idx: 5965
+    problems_block_idx: 6295
+    next_chapter_block_idx: 6366
+  - num: 16
+    title: "ANALYTIC CONTINUATION"
+    page_start: 331
+    page_end: 346
+    chapter_title_block_idx: 6366
+    problems_block_idx: 6606
+    next_chapter_block_idx: 6664
+  - num: 17
+    title: "HP-SPACES"
+    page_start: 347
+    page_end: 367
+    chapter_title_block_idx: 6664
+    problems_block_idx: 6999
+    next_chapter_block_idx: 7069
+  - num: 18
+    title: "ELEMENTARY THEORY OF BANACH ALGEBRAS"
+    page_start: 368
+    page_end: 382
+    chapter_title_block_idx: 7069
+    problems_block_idx: 7305
+    next_chapter_block_idx: 7346
+  - num: 19
+    title: "HOLOMORPHIC FOURIER TRANSFORMS"
+    page_start: 383
+    page_end: 397
+    chapter_title_block_idx: 7346
+    problems_block_idx: 7604
+    next_chapter_block_idx: 7653
+  - num: 20
+    title: "UNIFORM APPROXIMATION BY POLYNOMIALS"
+    page_start: 398
+    page_end: 406
+    chapter_title_block_idx: 7653
+    problems_block_idx: 7807
+    next_chapter_block_idx: 7818
+appendices:
+  - id: A
+    title: "Hausdorff's Maximality Theorem"
+    page_start: 407
+    chapter_title_block_idx: 7818
+section_re: '^([0-9]+\.[0-9]+)\s+(.+)$'
+subsection_re: '^(\b\B)(a)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^\s*([0-9]+)\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+equation_label_re: '\tag\{([^}]+)\}'
+equation_strip_dollar: true
+known_missing_problems: []

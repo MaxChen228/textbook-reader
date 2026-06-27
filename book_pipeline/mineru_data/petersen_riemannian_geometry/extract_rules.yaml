@@ -1,0 +1,132 @@
+slug: petersen_riemannian_geometry
+title: Riemannian Geometry
+author: Peter Petersen
+edition: 3rd
+subject: Differential Geometry
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 507
+bibliography_start_page: null
+index_start_page: 507
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Riemannian Metrics
+    page_start: 19
+    page_end: 57
+    chapter_title_block_idx: 108
+    problems_block_idx: 594
+    next_chapter_block_idx: 725
+  - num: 2
+    title: Derivatives
+    page_start: 58
+    page_end: 93
+    chapter_title_block_idx: 725
+    problems_block_idx: 1156
+    next_chapter_block_idx: 1293
+  - num: 3
+    title: Curvature
+    page_start: 94
+    page_end: 131
+    chapter_title_block_idx: 1293
+    problems_block_idx: 1689
+    next_chapter_block_idx: 1901
+  - num: 4
+    title: Examples
+    page_start: 132
+    page_end: 180
+    chapter_title_block_idx: 1901
+    problems_block_idx: 2440
+    next_chapter_block_idx: 2639
+  - num: 5
+    title: Geodesics and Distance
+    page_start: 181
+    page_end: 245
+    chapter_title_block_idx: 2639
+    problems_block_idx: 3390
+    next_chapter_block_idx: 3553
+  - num: 6
+    title: Sectional Curvature Comparison I
+    page_start: 246
+    page_end: 288
+    chapter_title_block_idx: 3553
+    problems_block_idx: 4037
+    next_chapter_block_idx: 4159
+  - num: 7
+    title: Ricci Curvature Comparison
+    page_start: 289
+    page_end: 325
+    chapter_title_block_idx: 4159
+    problems_block_idx: 4637
+    next_chapter_block_idx: 4718
+  - num: 8
+    title: Killing Fields
+    page_start: 326
+    page_end: 345
+    chapter_title_block_idx: 4718
+    problems_block_idx: 4958
+    next_chapter_block_idx: 5020
+  - num: 9
+    title: The Bochner Technique
+    page_start: 346
+    page_end: 376
+    chapter_title_block_idx: 5020
+    problems_block_idx: 5413
+    next_chapter_block_idx: 5506
+  - num: 10
+    title: Symmetric Spaces and Holonomy
+    page_start: 377
+    page_end: 406
+    chapter_title_block_idx: 5506
+    problems_block_idx: 5882
+    next_chapter_block_idx: 5939
+  - num: 11
+    title: Convergence
+    page_start: 407
+    page_end: 454
+    chapter_title_block_idx: 5939
+    problems_block_idx: 6614
+    next_chapter_block_idx: 6648
+  - num: 12
+    title: Sectional Curvature Comparison II
+    page_start: 455
+    page_end: 506
+    chapter_title_block_idx: 6648
+    problems_block_idx: 7294
+    next_chapter_block_idx: 7501
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^EXERCISE\s+(\d+\.\d+\.\d+)\.'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([^}]+)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\.'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,149 @@
+slug: mitra_digital_signal_processing
+title: "Digital Signal Processing: A Computer-Based Approach"
+author: "Sanjit K. Mitra"
+edition: "3rd"
+subject: "Signal Processing"
+publisher: "McGraw-Hill"
+language: "en"
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 892
+bibliography_start_page: 904
+index_start_page: 934
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Signals and Signal Processing"
+    page_start: 20
+    page_end: 59
+    chapter_title_block_idx: 102
+    problems_block_idx: null
+    next_chapter_block_idx: 523
+  - num: 2
+    title: "Discrete-Time Signals and Systems"
+    page_start: 60
+    page_end: 135
+    chapter_title_block_idx: 523
+    problems_block_idx: 1682
+    next_chapter_block_idx: 1889
+  - num: 3
+    title: "Discrete-Time Fourier Transform"
+    page_start: 136
+    page_end: 189
+    chapter_title_block_idx: 1889
+    problems_block_idx: 2653
+    next_chapter_block_idx: 2867
+  - num: 4
+    title: "Digital Processing of Continuous-Time Signals"
+    page_start: 190
+    page_end: 251
+    chapter_title_block_idx: 2867
+    problems_block_idx: 3580
+    next_chapter_block_idx: 3675
+  - num: 5
+    title: "Finite-Length Discrete Transforms"
+    page_start: 252
+    page_end: 319
+    chapter_title_block_idx: 3675
+    problems_block_idx: 4644
+    next_chapter_block_idx: 4890
+  - num: 6
+    title: "z-Transform"
+    page_start: 320
+    page_end: 371
+    chapter_title_block_idx: 4890
+    problems_block_idx: 5662
+    next_chapter_block_idx: 5868
+  - num: 7
+    title: "LTI Discrete-Time Systems in the Transform Domain"
+    page_start: 372
+    page_end: 445
+    chapter_title_block_idx: 5868
+    problems_block_idx: 6892
+    next_chapter_block_idx: 7194
+  - num: 8
+    title: "Digital Filter Structures"
+    page_start: 446
+    page_end: 507
+    chapter_title_block_idx: 7194
+    problems_block_idx: 7996
+    next_chapter_block_idx: 8219
+  - num: 9
+    title: "IIR Digital Filter Design"
+    page_start: 508
+    page_end: 541
+    chapter_title_block_idx: 8219
+    problems_block_idx: 8658
+    next_chapter_block_idx: 8769
+  - num: 10
+    title: "FIR Digital Filter Design"
+    page_start: 542
+    page_end: 607
+    chapter_title_block_idx: 8769
+    problems_block_idx: 9609
+    next_chapter_block_idx: 9780
+  - num: 11
+    title: "DSP Algorithm Implementation"
+    page_start: 608
+    page_end: 683
+    chapter_title_block_idx: 9780
+    problems_block_idx: 10759
+    next_chapter_block_idx: 10943
+  - num: 12
+    title: "Analysis of Finite Wordlength Effects"
+    page_start: 684
+    page_end: 757
+    chapter_title_block_idx: 10943
+    problems_block_idx: 11930
+    next_chapter_block_idx: 12074
+  - num: 13
+    title: "Multirate Digital Signal Processing Fundamentals"
+    page_start: 758
+    page_end: 817
+    chapter_title_block_idx: 12074
+    problems_block_idx: 12819
+    next_chapter_block_idx: 12949
+  - num: 14
+    title: "Applications of Digital Signal Processing"
+    page_start: 818
+    page_end: 891
+    chapter_title_block_idx: 12949
+    problems_block_idx: null
+    next_chapter_block_idx: 13949
+
+appendices:
+  - id: "A"
+    title: "Discrete-Time Random Signals"
+    page_start: 892
+    chapter_title_block_idx: 13949
+
+section_re: '^(\d+\.\d+)(?:\.)?\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)(?:\.)?\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^(?:\d+\.\d+\.?\s+MATLAB Exercises|MATLAB Exercises)\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^EXAMPLE\s+([0-9]+\.[0-9]+)\s+'
+
+figure_caption_merge: false
+
+known_missing_problems: []

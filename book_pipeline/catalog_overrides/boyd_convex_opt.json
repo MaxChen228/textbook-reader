@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-boyd-convex-opt-sol",
+      "action": "copy_solution_images",
+      "from_slug": "boyd_convex_opt_sol",
+      "reason": "All 41 C3 findings are solution-block visuals whose hashed src files exist in boyd_convex_opt_sol/unified/images but not in the main book image directory after sol merge. Copy those immutable solution-book assets into boyd_convex_opt/unified/images so the merged solution figures resolve without altering parsed blocks."
+    }
+  ]
+}

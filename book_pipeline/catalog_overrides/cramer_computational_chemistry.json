@@ -1,0 +1,1031 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "cramer_computational_chemistry-ch13-63-renumber",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[63]",
+      "expect": {
+        "id": "fig-13.4"
+      },
+      "set": {
+        "id": "fig-13.4--1"
+      },
+      "reason": "fig fig-13.4 多 panel 共用 id（catalog 去重為 fig-13.4--1）；對齊真實 body 唯一 id 供 pdf_crop update"
+    },
+    {
+      "id": "cramer_computational_chemistry-ch13-64-renumber",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[64]",
+      "expect": {
+        "id": "fig-13.4"
+      },
+      "set": {
+        "id": "fig-13.4--2"
+      },
+      "reason": "fig fig-13.4 多 panel 共用 id（catalog 去重為 fig-13.4--2）；對齊真實 body 唯一 id 供 pdf_crop update"
+    },
+    {
+      "id": "cramer_computational_chemistry-ch13-65-renumber",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[65]",
+      "expect": {
+        "id": "fig-13.4"
+      },
+      "set": {
+        "id": "fig-13.4--3"
+      },
+      "reason": "fig fig-13.4 多 panel 共用 id（catalog 去重為 fig-13.4--3）；對齊真實 body 唯一 id 供 pdf_crop update"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-9.8-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[242]",
+      "page": 366,
+      "clip": [
+        0.227,
+        0.535,
+        0.748,
+        0.83
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-9.8",
+        "kind": "line",
+        "caption": "Figure 9.8 Potential energy and zeroth vibrational level with associated wave function (reference left ordinate) and $^ { 1 3 } \\mathrm { C }$ h.f.s. (reference right ordinate) as a function of umbrella angle for $\\mathrm { C H _ { 3 } } ^ { \\bullet }$"
+      },
+      "src": "cramer_computational_chemistry-fig-9.8.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p366 依 MinerU bbox 重裁；content_list page_idx=7 bbox=[227, 535, 748, 830]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-9.9-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[272]",
+      "page": 373,
+      "clip": [
+        0.233,
+        0.101,
+        0.783,
+        0.338
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-9.9",
+        "kind": "line",
+        "caption": "Figure 9.9 Bergman cycloaromatization reactions for hex-3-en-1,5-diyne and its perfluorinated congener, as well as a photochemical reaction scheme for generating the perfluorinated diradical from an iodinated precursor. What spectral features would be expected to be most diagnostic of the different intermediates? What levels of theory would be appropriate for predicting these spectral signatures? (Note that equilibrium arrows of unequal length indicate which species predominates at equilibrium.)"
+      },
+      "src": "cramer_computational_chemistry-fig-9.9.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p373 依 MinerU bbox 重裁；content_list page_idx=14 bbox=[233, 101, 783, 338]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-10.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[111]",
+      "page": 391,
+      "clip": [
+        0.25,
+        0.098,
+        0.766,
+        0.388
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-10.1",
+        "kind": "line",
+        "caption": "Figure 10.1 Graphical illustration of the procedure for predicting enthalpies and free energies of formation from computation"
+      },
+      "src": "cramer_computational_chemistry-fig-10.1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p391 依 MinerU bbox 重裁；content_list page_idx=32 bbox=[250, 98, 766, 388]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch10-139-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[139]",
+      "page": 396,
+      "clip": [
+        0.167,
+        0.2,
+        0.8,
+        0.258
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch10-139",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch10-139.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p396 依 MinerU bbox 重裁；content_list page_idx=37 bbox=[167, 200, 800, 258]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch10-143-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[143]",
+      "page": 396,
+      "clip": [
+        0.201,
+        0.486,
+        0.772,
+        0.542
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch10-143",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch10-143.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p396 依 MinerU bbox 重裁；content_list page_idx=37 bbox=[201, 486, 772, 542]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch10-146-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[146]",
+      "page": 396,
+      "clip": [
+        0.277,
+        0.662,
+        0.697,
+        0.718
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch10-146",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch10-146.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p396 依 MinerU bbox 重裁；content_list page_idx=37 bbox=[277, 662, 697, 718]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch10-151-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[151]",
+      "page": 397,
+      "clip": [
+        0.225,
+        0.365,
+        0.791,
+        0.684
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch10-151",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch10-151.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p397 依 MinerU bbox 重裁；content_list page_idx=38 bbox=[225, 365, 791, 684]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[22]",
+      "page": 412,
+      "clip": [
+        0.287,
+        0.5,
+        0.66,
+        0.77
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.1",
+        "kind": "line",
+        "caption": "Figure 11.1 A two-dimensional gas-phase PES and the corresponding PES derived from adding the free energy of solvation to every point. This process is illustrated for point $( x , y )$ . Thick lines on the two surfaces indicate some chemical reaction proceeding from one minimum-energy structure to another. Note that there is no requirement for the x and y coordinates of equivalent stationary points on the two surfaces to be the same"
+      },
+      "src": "cramer_computational_chemistry-fig-11.1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p412 依 MinerU bbox 重裁；content_list page_idx=53 bbox=[287, 500, 660, 770]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[23]",
+      "page": 413,
+      "clip": [
+        0.369,
+        0.1,
+        0.645,
+        0.232
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.2",
+        "kind": "line",
+        "caption": "Figure 11.2 4-Pyridone is considerably more polar than its hydroxypyridine tautomer, and its extended π system also renders it highly polarizable. As a result, polar solvents shift the equilibrium between the two strongly to the right in comparison to the gas phase"
+      },
+      "src": "cramer_computational_chemistry-fig-11.2.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p413 依 MinerU bbox 重裁；content_list page_idx=54 bbox=[369, 100, 645, 232]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[26]",
+      "page": 413,
+      "clip": [
+        0.235,
+        0.672,
+        0.779,
+        0.837
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.3",
+        "kind": "line",
+        "caption": "Figure 11.3 Cycle for computation of a free-energy change in solution"
+      },
+      "src": "cramer_computational_chemistry-fig-11.3.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p413 依 MinerU bbox 重裁；content_list page_idx=54 bbox=[235, 672, 779, 837]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[31]",
+      "page": 414,
+      "clip": [
+        0.182,
+        0.461,
+        0.792,
+        0.797
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.4",
+        "kind": "line",
+        "caption": "Figure 11.4 Gas-phase (upper) and solution (lower) reaction coordinates, and the thermodynamic cycles that connect them via free energies of solvation of the various stationary points (vertical lines). Note the significant left to right movement of all stationary points, and particularly the TS structure, on going from the gas phase to solution"
+      },
+      "src": "cramer_computational_chemistry-fig-11.4.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p414 依 MinerU bbox 重裁；content_list page_idx=55 bbox=[182, 461, 792, 797]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[33]",
+      "page": 415,
+      "clip": [
+        0.222,
+        0.474,
+        0.792,
+        0.839
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.5",
+        "kind": "line",
+        "caption": "Figure 11.5 Gas-phase reaction coordinate for the Claisen rearrangement of allyl vinyl ether"
+      },
+      "src": "cramer_computational_chemistry-fig-11.5.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p415 依 MinerU bbox 重裁；content_list page_idx=56 bbox=[222, 474, 792, 839]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[34]",
+      "page": 416,
+      "clip": [
+        0.199,
+        0.098,
+        0.772,
+        0.44
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.6",
+        "kind": "line",
+        "caption": "Figure 11.6 Menschutkin reaction of ammonia and chloromethane. In the gas phase nucleophilic displacement fails to take place, while in water solvation of the anions allows the reaction to proceed"
+      },
+      "src": "cramer_computational_chemistry-fig-11.6.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p416 依 MinerU bbox 重裁；content_list page_idx=57 bbox=[199, 98, 772, 440]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[120]",
+      "page": 426,
+      "clip": [
+        0.216,
+        0.1,
+        0.759,
+        0.302
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.7",
+        "kind": "line",
+        "caption": "Figure 11.7 To determine α for atom $k$ in the GB approach, the interaction of the charge q on atom k with the surrounding continuum is determined by the radial integration shown, where $\\rho _ { k }$ is the cavity radius (sometimes called the Coulomb radius) of atom k and A is the area of expanding spherical shells used in the integration which depend on all other atomic radii $\\rho _ { k ^ { \\prime } }$ . (Note that, once the outermost shell encompasses the entire molecule, the remaining integral may be solved analytically using the Born formula, since the system is simply a sphere having charge $q _ { k } . )$ The effective Born radius α is then determined by requiring the equality of the first and second lines on the r.h.s. of the indicated equation"
+      },
+      "src": "cramer_computational_chemistry-fig-11.7.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p426 依 MinerU bbox 重裁；content_list page_idx=67 bbox=[216, 100, 759, 302]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.8-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[151]",
+      "page": 431,
+      "clip": [
+        0.199,
+        0.098,
+        0.826,
+        0.42
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.8",
+        "kind": "line",
+        "caption": "Figure 11.8 Approximately linear relationship between solvation free energy and solvent-accessible surface area for linear and branched alkanes. A best fit line passing through zero has a slope of 8.6 cal mol $^ { - 1 } \\mathrm { ~ \\AA ~ } ^ { - 2 }$ , which may be taken as the σ value for alkane surface area in Eq. (11.22) (Giesen, Cramer, and Truhlar 1994)"
+      },
+      "src": "cramer_computational_chemistry-fig-11.8.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p431 依 MinerU bbox 重裁；content_list page_idx=72 bbox=[199, 98, 826, 420]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch11-180-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[180]",
+      "page": 436,
+      "clip": [
+        0.319,
+        0.18,
+        0.654,
+        0.275
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch11-180",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch11-180.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p436 依 MinerU bbox 重裁；content_list page_idx=77 bbox=[319, 180, 654, 275]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch11-183-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[183]",
+      "page": 436,
+      "clip": [
+        0.261,
+        0.322,
+        0.712,
+        0.414
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch11-183",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch11-183.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p436 依 MinerU bbox 重裁；content_list page_idx=77 bbox=[261, 322, 712, 414]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch11-186-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[186]",
+      "page": 436,
+      "clip": [
+        0.348,
+        0.497,
+        0.625,
+        0.585
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch11-186",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch11-186.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p436 依 MinerU bbox 重裁；content_list page_idx=77 bbox=[348, 497, 625, 585]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.10-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[192]",
+      "page": 437,
+      "clip": [
+        0.223,
+        0.101,
+        0.796,
+        0.242
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.10",
+        "kind": "line",
+        "caption": "Figure 11.10 Thermodynamic cycles for one-electron oxidation (left) and reduction (right) potentials in solution"
+      },
+      "src": "cramer_computational_chemistry-fig-11.10.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p437 依 MinerU bbox 重裁；content_list page_idx=78 bbox=[223, 101, 796, 242]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[213]",
+      "page": 440,
+      "clip": [
+        0.25,
+        0.098,
+        0.725,
+        0.325
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.11",
+        "kind": "line",
+        "caption": "Figure 11.11 Thermodynamic relationship between partitioning free energies and free energies of solvation. Knowledge of any two free energies permits prediction of the third since any cycle around the free-energy triangle must sum to zero"
+      },
+      "src": "cramer_computational_chemistry-fig-11.11.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p440 依 MinerU bbox 重裁；content_list page_idx=81 bbox=[250, 98, 725, 325]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.12-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[224]",
+      "page": 442,
+      "clip": [
+        0.238,
+        0.542,
+        0.733,
+        0.814
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.12",
+        "kind": "line",
+        "caption": "Figure 11.12 Potential of mean force between solutes X and Y as a function of the distance between their centers of mass. This particular PMF indicates that both tight and solvent-separated pairs exist as distinct minima"
+      },
+      "src": "cramer_computational_chemistry-fig-11.12.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p442 依 MinerU bbox 重裁；content_list page_idx=83 bbox=[238, 542, 733, 814]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-11.13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[246]",
+      "page": 447,
+      "clip": [
+        0.152,
+        0.097,
+        0.856,
+        0.489
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-11.13",
+        "kind": "line",
+        "caption": "Figure 11.13 Relative aqueous free energies (eV) for various species on different reductive dechlorination paths of hexachloroethane as computed by Patterson and co-workers The relative energies are properly balanced, although for simplicity spectator species are not shown in every case. What is involved in achieving this balance for energy? What about free energy?"
+      },
+      "src": "cramer_computational_chemistry-fig-11.13.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p447 依 MinerU bbox 重裁；content_list page_idx=88 bbox=[152, 97, 856, 489]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-12.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[35]",
+      "page": 456,
+      "clip": [
+        0.315,
+        0.098,
+        0.66,
+        0.309
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-12.1",
+        "kind": "line",
+        "caption": "Figure 12.1 HCN(H) and one water molecule from the simulation box. In free energy perturbation, the simulation snapshots would be generated using the HCN system, and the energy difference for $\\mathrm { H _ { A } }$ being present compared to $\\mathrm { H _ { B } }$ would then be computed over that ensemble. For example, the differential interaction of the two with $\\mathrm { H } _ { \\mathrm { D } }$ would contribute to the full difference"
+      },
+      "src": "cramer_computational_chemistry-fig-12.1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p456 依 MinerU bbox 重裁；content_list page_idx=97 bbox=[315, 98, 660, 309]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-12.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[48]",
+      "page": 458,
+      "clip": [
+        0.285,
+        0.098,
+        0.69,
+        0.387
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-12.2",
+        "kind": "line",
+        "caption": "Figure 12.2 A typical FEP diagram showing the free-energy change in the forward (above) and reverse (below) directions for a λ-coupled mutation"
+      },
+      "src": "cramer_computational_chemistry-fig-12.2.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p458 依 MinerU bbox 重裁；content_list page_idx=99 bbox=[285, 98, 690, 387]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-12.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[91]",
+      "page": 464,
+      "clip": [
+        0.313,
+        0.536,
+        0.662,
+        0.784
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-12.5",
+        "kind": "line",
+        "caption": "Figure 12.5 A reaction coordinate $q$ constructed piecewise from reactants R to products P as a series of PMFs determined using different umbrella functions. The individual PMFs determined using Eq. (12.26), shown below the dashed line and taking each left endpoint as the relative zero, are held within their respective regions of the reaction coordinate by the umbrella function. Their overlap on a common energy scale generates the complete PMF shown above the dashed line"
+      },
+      "src": "cramer_computational_chemistry-fig-12.5.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p464 依 MinerU bbox 重裁；content_list page_idx=105 bbox=[313, 536, 662, 784]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-12.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "body[162]",
+      "page": 476,
+      "clip": [
+        0.235,
+        0.1,
+        0.738,
+        0.35
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-12.6",
+        "kind": "line",
+        "caption": "Figure 12.6 Free-energy cycle associated with the binding of biotin and fluorobiotin analogs to avidin. What issues arise in choosing a force field for explicit simulation of these systems? What methods are better suited to computing the vertical legs of the cycle and what methods the horizontal ones?"
+      },
+      "src": "cramer_computational_chemistry-fig-12.6.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p476 依 MinerU bbox 重裁；content_list page_idx=117 bbox=[235, 100, 738, 350]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[5]",
+      "page": 481,
+      "clip": [
+        0.281,
+        0.098,
+        0.736,
+        0.334
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.1",
+        "kind": "line",
+        "caption": "Figure 13.1 In large systems that require explicit representation, understanding bond-making/- bond-breaking processes can often be accomplished using a quantum mechanical representation of only a portion of the full system, with a molecular mechanics representation of the rest"
+      },
+      "src": "cramer_computational_chemistry-fig-13.1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p481 依 MinerU bbox 重裁；content_list page_idx=122 bbox=[281, 98, 736, 334]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[38]",
+      "page": 487,
+      "clip": [
+        0.208,
+        0.098,
+        0.811,
+        0.451
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.2",
+        "kind": "line",
+        "caption": "Figure 13.2 Schematic comparison of gas-phase and aqueous dipole moments (- - - - - - ) to the free energy of solvation ( ) along the reaction path for the Claisen rearrangement as computed at the QM/MM level. FEP technology allows access to the solvation free energy, while the QM treatment of the substrate permits evaluation of the dipole moment operator. Note the large increase in polarizability (as judged by the difference between gas-phase and aqueous dipole moments) in the region of the TS structure that contributes to a sharp increase in the magnitude of the favorable solvation free energy. Note also, however, that comparison of the relevant curves indicates that the total solvation free energy depends on more than just the dipole moment"
+      },
+      "src": "cramer_computational_chemistry-fig-13.2.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p487 依 MinerU bbox 重裁；content_list page_idx=128 bbox=[208, 98, 811, 451]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[58]",
+      "page": 491,
+      "clip": [
+        0.266,
+        0.56,
+        0.746,
+        0.767
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.3",
+        "kind": "line",
+        "caption": "Figure 13.3 A bis(µ-oxo)dicopper complex represented using Eq. (13.6) where each boxed R group is H for the small QM system and benzyl for the large MM system. The structure on the right is a TS structure for H-atom transfer from C to O found by optimization at the hybrid level of theory. All other H atoms have been removed for clarity"
+      },
+      "src": "cramer_computational_chemistry-fig-13.3.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p491 依 MinerU bbox 重裁；content_list page_idx=132 bbox=[266, 560, 746, 767]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[62]",
+      "page": 493,
+      "clip": [
+        0.201,
+        0.114,
+        0.677,
+        0.484
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.4",
+        "kind": "line",
+        "caption": "(continued)"
+      },
+      "src": "cramer_computational_chemistry-fig-13.4.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p493 依 MinerU bbox 重裁；content_list page_idx=134 bbox=[201, 114, 677, 484]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.4--1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[63]",
+      "page": 493,
+      "clip": [
+        0.199,
+        0.497,
+        0.654,
+        0.857
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.4--1",
+        "kind": "line",
+        "caption": "<sub>surface</sub> <sub>is</sub> <sub>the</sub> <sub>only</sub> <sub>one</sub> <sub>that</sub> <sub>clusters</sub> <sub>the</sub> <sub>large</sub> m<sup>ajority</sup> <sup>of</sup> <sup>these</sup> <sup>triangles</sup> <sup>within</sup> <sup>l</sup> <sub>ntum</sub> m<sup>echanically.</sup> <sup>Solid</sup> <sup>triangles</sup> <sup>represent</sup> <sup>anomeric</sup> <sup>torsions</sup> <sup>in</sup> <sup>sucrose</sup> <sup>units</sup> <sup>found</sup> <sup>in</sup> <sup>various</sup> <sub>e</sub> <sub>MM3</sub> <sub>level,</sub> <sub>added</sub> <sub>to</sub> <sub>the</sub> <sub>framework</sub> <sub>surface</sub> c<sup>alculated</sup> <sup>at</sup> <sup>the</sup> <sup>ab</sup> <sup>initio</sup> <sup>level,</sup> <sup>or</sup> <sup>as</sup> <sup>an</sup> <sup>MM</sup> <sup>(((</sup> <sub>th</sub> <sub>the</sub> <sub>first</sub> <sub>(d).</sub> <sub>Thus,</sub> <sub>the</sub> <sub>last</sub> <sub>surface</sub> m<sup>ay</sup> <sup>be</sup> <sup>viewed</sup> <sup>either</sup> <sup>as</sup> <sup>the</sup> <sup>effect</sup> <sup>of</sup> <sup>the</sup> <sup>sucrose</sup> <sup>hydrox</sup> <sub>trahydropyranyl</sub> <sub>ether</sub> <sub>at</sub> <sub>the</sub> <sub>M</sub><sup>M3</sup> <sup>level</sup> <sup>b),</sup> <sup>the</sup> <sup>same</sup> <sup>ether</sup> <sup>at</sup> <sup>the</sup> <sup>HF/6-31Gd)</sup> <sup>level</sup> <sup>c),</sup> <sup>and</sup> <sup>t</sup> <sub>potential</sub> <sub>energy</sub> <sub>surfaces</sub> <sub>about</sub> <sub>the</sub> <sub>two</sub> <sub>C–O</sub> <sub>bonds</sub> <sub>linking</sub> <sub>the</sub> <sub>ano</sub>m<sup>eric</sup> <sup>centers</sup> <sup>of</sup> <sup>sucros</sup>"
+      },
+      "src": "cramer_computational_chemistry-fig-13.4--1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p493 依 MinerU bbox 重裁；content_list page_idx=134 bbox=[199, 497, 654, 857]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.4--2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[64]",
+      "page": 494,
+      "clip": [
+        0.229,
+        0.117,
+        0.703,
+        0.482
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.4--2",
+        "kind": "line",
+        "caption": "Figure 13.4 (continued)"
+      },
+      "src": "cramer_computational_chemistry-fig-13.4--2.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p494 依 MinerU bbox 重裁；content_list page_idx=135 bbox=[229, 117, 703, 482]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.4--3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[65]",
+      "page": 494,
+      "clip": [
+        0.227,
+        0.492,
+        0.703,
+        0.857
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.4--3",
+        "kind": "line",
+        "caption": "(continued)"
+      },
+      "src": "cramer_computational_chemistry-fig-13.4--3.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p494 依 MinerU bbox 重裁；content_list page_idx=135 bbox=[227, 492, 703, 857]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[66]",
+      "page": 495,
+      "clip": [
+        0.164,
+        0.101,
+        0.852,
+        0.484
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.5",
+        "kind": "line",
+        "caption": "Figure 13.5 An application of a hybrid MO/MO philosophy to the indicated RNA trimer proceeds using correlated levels of electronic structure theory for various tautomers and protonation states of the central base pair, this pair then representing the small system in the MO/MO analog of Eq. (13.6), and semiempirical theory for both the small system and the frozen-geometry larger system"
+      },
+      "src": "cramer_computational_chemistry-fig-13.5.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p495 依 MinerU bbox 重裁；content_list page_idx=136 bbox=[164, 101, 852, 484]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[93]",
+      "page": 500,
+      "clip": [
+        0.277,
+        0.098,
+        0.697,
+        0.464
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.6",
+        "kind": "line",
+        "caption": "Figure 13.6 Comparison of QM/MM partitioning schemes across covalent bonds. Included MM bond stretch, angle bend, and torsion terms are indicated; those that are boxed are ignored by some authors. Frozen orbitals are in gray for the LSCF and GHO methods"
+      },
+      "src": "cramer_computational_chemistry-fig-13.6.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p500 依 MinerU bbox 重裁；content_list page_idx=141 bbox=[277, 98, 697, 464]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[115]",
+      "page": 503,
+      "clip": [
+        0.292,
+        0.098,
+        0.727,
+        0.338
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.7",
+        "kind": "line",
+        "caption": "Figure 13.7 Example of potential energy curves for separate VB Hamiltonians and the curve for the lowest energy eigenvalue when the separate Hamiltonians are coupled by an off-diagonal term in a $2 \\times 2$ Hamiltonian matrix. Note that the difference between the minima for $H _ { 1 1 }$ and $H _ { 2 2 }$ is the term $\\Gamma _ { 2 }$ in the example given in the text only if all non-bonded and electrostatic interactions are identical in the two VB representations, and thus the quotes around the label"
+      },
+      "src": "cramer_computational_chemistry-fig-13.7.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p503 依 MinerU bbox 重裁；content_list page_idx=144 bbox=[292, 98, 727, 338]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-13.8-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch13",
+      "selector": "body[138]",
+      "page": 506,
+      "clip": [
+        0.186,
+        0.097,
+        0.781,
+        0.55
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-13.8",
+        "kind": "line",
+        "caption": "Figure 13.8 A 25-atom quantum subsystem embedded in an 8863-atom classical system to model the catalytic step in the conversion of D-2-phosphoglycerate to phosphoenolpyruvate by enolase. What factors influence the choice of where to set the boundary between the QM and MM regions? Alhambra and co-workers found, using variational transition-state theory with a frozen MM region that was selected from a classical trajectory so as to make the reaction barrier and thermochemistry reasonable, that the breaking and making bond lengths were 1.75 and 1.12 A, respectively, for H, but 1.57 and 1.26 <sup>˚</sup> A, respectively, for D <sup>˚</sup>"
+      },
+      "src": "cramer_computational_chemistry-fig-13.8.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p506 依 MinerU bbox 重裁；content_list page_idx=147 bbox=[186, 97, 781, 550]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[8]",
+      "page": 511,
+      "clip": [
+        0.371,
+        0.1,
+        0.649,
+        0.428
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.1",
+        "kind": "line",
+        "caption": "Figure 14.1 The singly excited state on the right may be qualitatively viewed as deriving from movement of an electron out of the ground-state HOMO into the indicated higher energy orbital (perhaps following absorption of a photon carrying the appropriate quantum of energy). Note, however, that the optimized orbitals of the ground state are at best approximations to those of the excited state"
+      },
+      "src": "cramer_computational_chemistry-fig-14.1.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p511 依 MinerU bbox 重裁；content_list page_idx=152 bbox=[371, 100, 649, 428]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[21]",
+      "page": 513,
+      "clip": [
+        0.277,
+        0.098,
+        0.738,
+        0.437
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.2",
+        "kind": "line",
+        "caption": "Generic coordinate Figure 14.2 Schematic relationship between vertical absorption and emission energies and the adiabatic energy difference between the ground and excited states. [Note that a more rigorous treatment requires inclusion of ZPVE and thermal contributions in the adiabatic energy difference, and consideration of Franck–Condon overlap between quantized vibrational states for the vertical processes; some of these points are discussed in Section 14.5.]"
+      },
+      "src": "cramer_computational_chemistry-fig-14.2.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p513 依 MinerU bbox 重裁；content_list page_idx=154 bbox=[277, 98, 738, 437]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[25]",
+      "page": 514,
+      "clip": [
+        0.21,
+        0.1,
+        0.763,
+        0.403
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.3",
+        "kind": "line",
+        "caption": "Figure 14.3 Electronic configurations of phenylnitrene, differing in occupation of the nitrogen p orbitals, labeled according to their spin and spatial symmetries. Relative energy orderings for the four configurations are indicated in parentheses; T0 is the triplet ground state, and Sn represents the nth lowest singlet excited state"
+      },
+      "src": "cramer_computational_chemistry-fig-14.3.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p514 依 MinerU bbox 重裁；content_list page_idx=155 bbox=[210, 100, 763, 403]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[44]",
+      "page": 516,
+      "clip": [
+        0.253,
+        0.553,
+        0.722,
+        0.814
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.4",
+        "kind": "line",
+        "caption": "Figure 14.4 Valence MO occupations for three different electronic states of fluorovinylidene. The triplet states belong to different irreducible representations of the molecular point group because the singly occupied orbitals in which they differ belong alternatively to either the $a ^ { \\prime }$ or $a ^ { \\prime \\prime }$ irreps"
+      },
+      "src": "cramer_computational_chemistry-fig-14.4.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p516 依 MinerU bbox 重裁；content_list page_idx=157 bbox=[253, 553, 722, 814]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[57]",
+      "page": 519,
+      "clip": [
+        0.24,
+        0.659,
+        0.774,
+        0.799
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.5",
+        "kind": "line",
+        "caption": "Figure 14.5 The CIS procedure diagonalizes the CI matrix formed only from the $\\mathrm { H F }$ reference and all singly excited configurations. The diagonalization provides energy eigenvalues and associated eigenvectors that may be used to characterize individual states as linear combinations of single excitations"
+      },
+      "src": "cramer_computational_chemistry-fig-14.5.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p519 依 MinerU bbox 重裁；content_list page_idx=160 bbox=[240, 659, 774, 799]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.6-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[74]",
+      "page": 523,
+      "clip": [
+        0.22,
+        0.1,
+        0.794,
+        0.416
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.6",
+        "kind": "line",
+        "caption": "Figure 14.6 Two electronic states of an arbitrary system having a conical intersection. The inset region illustrates the effect on each curve of optimizing the orbitals for either State A or State B. At the coordinate position marked by an asterisk, the relative energies of the two states depend on which is chosen for orbital optimization, which can lead to root switching problems in an MCSCF calculation. Additionally, geometry optimization can cause root switching as well, if optimization passes through the conical intersection"
+      },
+      "src": "cramer_computational_chemistry-fig-14.6.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p523 依 MinerU bbox 重裁；content_list page_idx=164 bbox=[220, 100, 794, 416]"
+    },
+    {
+      "id": "cramer_computational_chemistry-tbl-14.3-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[92]",
+      "page": 526,
+      "clip": [
+        0.388,
+        0.134,
+        0.587,
+        0.193
+      ],
+      "block": {
+        "t": "fig",
+        "id": "tbl-14.3",
+        "kind": "line",
+        "caption": "Table 14.3 Vertical excited-state energies (eV) of 4-dimethylaminobenzonitrile and 3,5-dimethyl-4-dimethylaminobenzonitrile relative to $\\mathbf { S } _ { 0 }$ ground state"
+      },
+      "src": "cramer_computational_chemistry-tbl-14.3.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p526 依 MinerU bbox 重裁；content_list page_idx=167 bbox=[388, 134, 587, 193]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-ch14-94-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[94]",
+      "page": 526,
+      "clip": [
+        0.389,
+        0.42,
+        0.587,
+        0.526
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-ch14-94",
+        "kind": "line",
+        "caption": ""
+      },
+      "src": "cramer_computational_chemistry-fig-ch14-94.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p526 依 MinerU bbox 重裁；content_list page_idx=167 bbox=[389, 420, 587, 526]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[170]",
+      "page": 535,
+      "clip": [
+        0.186,
+        0.1,
+        0.83,
+        0.406
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.7",
+        "kind": "line",
+        "caption": "Figure 14.7 The dependence of solvatochromism on differential solvation of the ground- and excited-state PESs"
+      },
+      "src": "cramer_computational_chemistry-fig-14.7.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p535 依 MinerU bbox 重裁；content_list page_idx=176 bbox=[186, 100, 830, 406]"
+    },
+    {
+      "id": "cramer_computational_chemistry-fig-14.8-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[180]",
+      "page": 537,
+      "clip": [
+        0.195,
+        0.098,
+        0.819,
+        0.238
+      ],
+      "block": {
+        "t": "fig",
+        "id": "fig-14.8",
+        "kind": "line",
+        "caption": "Figure 14.8 Structure of Alq3 with only one ligand drawn in full. The two states involved in the photoemission are computed to be highly localized to a single aryl ligand, and indeed to resemble the analogous HOMO and LUMO of 8-hydroxyquinoline (inset at right). How are issues of molecular geometry and absorption/emission spectroscopy related? What levels of theory would be expected to be most successful, and economical, for predicting geometry, or absorption/emission, or both? How does the inorganic aluminum atom complicate things if at all?"
+      },
+      "src": "cramer_computational_chemistry-fig-14.8.jpg",
+      "reason": "chunk_2 images 目錄整批遺失（ingest）→ 從 raw PDF p537 依 MinerU bbox 重裁；content_list page_idx=178 bbox=[195, 98, 819, 238]"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "allen_holberg_cmos_analog",
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "3.1.3",
+      "classification": "source_mismatch",
+      "reason": "Problem 5.4-10 in the raw PDF explicitly says Table 3.1-3, but Chapter 3 catalogs contain Table 3.1-1 and Table 3.1-2 only; no Table 3.1-3 exists in the book source.",
+      "where": "ch05.json problem 5.4-9 body[2]",
+      "evidence": "Raw PDF page 268 text: 'Use the parameters of Table 3.1-3.' Nearby Chapter 3 source/catalog has Table 3.1-1 Constants for Silicon and Table 3.1-2 Model Parameters; no Table 3.1-3 caption/table is present."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "allen-p5-2-15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:5.2-15:body[0]",
+      "position": "after",
+      "page": 263,
+      "clip": [0.18, 0.095, 0.805, 0.375],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P5.2.15",
+        "kind": "line",
+        "caption": "Figure P5.2-15"
+      },
+      "reason": "Raw PDF page 263 contains Figure P5.2-15 immediately following Problem 5.2-15, but MinerU did not emit a figure block."
+    },
+    {
+      "id": "allen-p7-1-11-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.1-11:body[0]",
+      "position": "after",
+      "page": 451,
+      "clip": [0.19, 0.095, 0.77, 0.33],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-P7.1.11",
+        "kind": "line",
+        "caption": "Figure P7.1-11"
+      },
+      "reason": "Raw PDF page 451 contains Figure P7.1-11 in the problems section, but MinerU did not emit a figure block."
+    },
+    {
+      "id": "allen-fix-table-9-5-4-ref-ocr",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[503]",
+      "field": "md",
+      "old": "procedure of Table 6.5-4",
+      "new": "procedure of Table 9.5-4",
+      "reason": "OCR misread the source reference; the surrounding ch09 section and existing catalog table are Table 9.5-4 Design Specifications for Sample-and-Hold Circuit."
+    }
+  ]
+}

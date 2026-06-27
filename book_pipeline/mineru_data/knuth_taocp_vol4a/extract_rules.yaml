@@ -1,0 +1,56 @@
+slug: knuth_taocp_vol4a
+title: "The Art of Computer Programming, Volume 4A: Combinatorial Algorithms, Part 1"
+author: "Donald E. Knuth"
+edition: "1st"
+subject: "Algorithms"
+publisher: "Addison-Wesley"
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: [2, null]
+
+body_start_page: 18
+appendices_start_page: 531
+bibliography_start_page: 839
+index_start_page: 851
+
+inline_problems: true
+problem_num_namespace_by_section: true
+problems_start_re: '^EXERCISES$'
+suppress_running_header_sections: true
+
+chapters:
+  - num: 7
+    title: "Combinatorial Searching"
+    page_start: 18
+    page_end: 530
+    chapter_title_block_idx: 125
+    problems_block_idx: null
+    next_chapter_block_idx: 9211
+
+appendices: []
+
+section_re: '^(\d+(?:\.\d+)+)\.\s+(.+)$'
+subsection_re: '^(?!)()()'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:x\s*)?(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: null

@@ -4,7 +4,7 @@
 `uv run python -m book_pipeline.proposals {propose|resolve|park|verify|frontier|list|stale|check|gate}`。
 決策樹/閘/生命週期（owner 知識）正本：`book_pipeline/proposals.py` 模組 docstring。
 
-## domain: crawl  （6 條；proposed=2 parked=0）
+## domain: crawl  （7 條；proposed=3 parked=0）
 ### P-2026-06-25-courant-hilbert-methods-1 — courant_hilbert_methods_1 內容實為 Volume II (PDE)，非 slug/editions 宣稱的 Vol 1
 - proposed | type=edition-mismatch | source=audit:courant_hilbert_methods_1
 - 證據：
@@ -22,6 +22,15 @@
 > 架構師裁決：park --kind re-source（重 OCR 救 ch8/ch10/ch9.8 習題）或接受該2章無習題出貨（其餘10章內容+9章習題完整）。次要：book_qc 完整性閘可考慮加 per-chapter 粒度（宣告有 Exercises heading 的章 parsed 0 題→旗標），補本案暴露的靜默丟題盲區。
 - 風險：
 > low
+
+### P-2026-06-27-willard-instrumental-analysis — willard_instrumental_analysis：ingested 實體為 6th/1981，editions metadata 標 7th/1988
+- proposed | type=edition-mismatch | source=audit-book/architect
+- 證據：
+> 封面標題頁(PDF p6)、©1981(content_list idx 15)、Preface(idx 21/23 三處)皆印證 Sixth Edition；作者 Willard/Merritt/Dean/Settle；Wadsworth。editions/willard_instrumental_analysis.json version.label='7th edition' year=1988（restock zlib advisory 127508245）。同書差版、非 wrong-volume：書完整 31 章+Experiments+App A-G+Index、已 audit 上架。
+- 提議：
+> editions version 校正為 6th/1981（或保留 7th 並記 owned 實體為 6th）；edition_pref 為空故 matches_pref 不受影響、不下架。若要 7th 內容須 re-source 1988 版重 ingest。
+- 風險：
+> 低：純 metadata 校正，不影響已上架內容/題目切分。
 
 ### P-2026-06-18-cohen-tannoudji-qm-2nd-ed — cohen_tannoudji_qm 在 2nd ed 下指涉不清
 - accepted | type=booklist-fix | source=crawl
@@ -63,7 +72,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （248 條；proposed=6 parked=9）
+## domain: engine  （249 條；proposed=7 parked=9）
 ### P-2026-06-25-bona-combinatorics — worker 越界改核心碼：book_pipeline/normalize_metadata.py（audit bona_combinatorics）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -191,6 +200,13 @@
 > taur_ning_vlsi_devices catalog 出現 152 個 C3(missing_images)。根因：chunk_1.zip 內含 473 張圖(images/*.jpg)，但 extract_zip(mineru_ingest.py:402-407 的 zf.extractall)當時 transient 失敗(極可能 ENOSPC，事發時 felix 工作碟 99% 滿)，raw/chunk_1/ 解出全部其他檔(content_list/model/origin.pdf/full.md/layout)獨缺 images/ 子目錄。手動 test-extract images/* rc=0 乾淨解出 473 張→zip 完好、失敗在 extractall 調用層。兩道防線同時失效：(1)_chunk_done(:419-422)只認 content_list.json 存在即判 chunk 完成、不檢查 images/，誤判已完成不重解；(2)assemble 合併 images 用 if src_img.is_dir() (:461)靜默跳過缺失目錄、無報錯。結果 130 個被 content_list 引用的圖名(catalog src=content-hash)在 unified/images 缺檔。簽名：單 chunk、乾淨缺一目錄、其他 chunk(0/2/3)images 完整。已用補解 chunk_1.zip 到 unified/images 救回(critical 152→0)，但 unified/ 是可重生產物，daemon 重 ingest 仍會復發。
 - 提議：
 > (A) post-unified 完整性閘：assemble 後斷言 content_list 所有 img_path 屬於 unified/images(扣 kind=text)，落差大於0 即 raise 或 flag review、不放行 audit。(B) _chunk_done 完成判據納入 images：若該 chunk content_list 有 img refs 但 chunk_dir/images 不存在或檔數明顯少於 refs，判未完成、觸發重解。(C) extract_zip 後驗 zip namelist 與解出檔數一致(防 ENOSPC 半途中斷靜默吞)。建好後可 fix-tooling-then-sweep 回掃既有書(掃 content_list img-refs vs unified/images 落差)找同類受害書。
+
+### P-2026-06-27-cramer-computational-chemistry — ingest/unified 未偵測單一 chunk 的 images 目錄整批遺失
+- proposed | type=tooling-gap | source=agent
+- 證據：
+> cramer_computational_chemistry 的 raw/chunk_2（主 PDF p359-538＝ch9末-ch14）images/ 目錄完全缺失（chunk_0=225、chunk_1=242、chunk_3=126 都有圖；唯 chunk_2 無 images 子目錄），但其 content_list/layout 仍引用 46 個圖 hash。unified merge images_merged=592 對此整批遺失零察覺，parser 照樣產出 46 個 src 指向不存在 jpg 的 fig block → 全數成 C3 missing_images（含 8 個 unnumbered_body_fig 與 1 個圖片化 table）。下游 catalog/build 無從補，圖在 reader 全壞。本書已 per-book 用 pdf_crop_insert 從 raw PDF 依 MinerU content_list bbox(/1000 normalized)+chunk 頁 offset(359+page_idx) 逐張重裁修復、critical 歸零並目視驗證；但這是手工補救，根因（某 chunk 圖批靜默遺失）可跨書複發。
+- 提議：
+> ingest/unified 階段對每 chunk 做對帳：content_list 引用的 image hash 集合 vs 該 chunk images/ 實際檔案；缺口>閾值即（a）重抓該 chunk 的 images zip，或（b）標 book_qc review 不靜默上架。最低限度在 unified_summary 記錄 per-chunk expected_images vs merged_images 落差供 status/trace 觀測，避免『整章圖靜默壞掉』滑過所有閘門。
 
 ### P-2026-06-27-tinoco-physical-chemistry-bio — worker 越界改核心碼：book_pipeline/catalog_audit.py（catalog_audit tinoco_physical_chemistry_bio）
 - proposed | type=patch | source=scope_guard

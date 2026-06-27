@@ -1,0 +1,52 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "12.1",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Figure 12.1，但本機 raw PDF 在章首頁到下一頁之間文字連續、沒有該圖；MinerU 也未產生任何相鄰 image/table block 可修。",
+      "where": "ch12.json body[5]",
+      "evidence": "raw_pdfs/stevens_tcp_ip_illustrated.pdf physical page 170 contains the Figure 12.1 reference followed immediately by the explanatory paragraph; physical page 171 continues the paragraph with 'broadcasts.' and section 12.2. No Figure 12.1 caption or image appears on either page."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "stevens-fig-11.16-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[90]",
+      "position": "before",
+      "page": 164,
+      "clip": [
+        0.10,
+        0.43,
+        0.96,
+        0.625
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-11.16",
+        "kind": "line",
+        "caption": "Figure 11.16: Path MTU discovery using UDP."
+      },
+      "reason": "Raw PDF physical page 164 contains Figure 11.16 as tcpdump output plus caption, but MinerU emitted it as an uncaptioned table block and omitted the figure catalog entry."
+    },
+    {
+      "id": "stevens-fig-28.7-normalize",
+      "action": "set_fields",
+      "chunk": "ch28",
+      "selector": "body[184]",
+      "expect": {
+        "id": "fig-29.7",
+        "caption": "Figure 29.7 MIME content types and subtypes."
+      },
+      "set": {
+        "id": "fig-28.7",
+        "caption": "Figure 28.7: MIME content types and subtypes.",
+        "catalog_repair_source": "agent-caption-normalize"
+      },
+      "reason": "Raw PDF physical page 450 / chapter text identify this table-like figure as Figure 28.7; MinerU OCR misread the chapter number as 29."
+    }
+  ]
+}

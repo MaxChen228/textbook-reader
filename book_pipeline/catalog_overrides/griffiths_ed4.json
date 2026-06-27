@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "griffiths-ed4-solution-image-sync",
+      "action": "copy_solution_images",
+      "from_slug": "griffiths_ed4_sol",
+      "reason": "catalog audit 的 2 個 critical 都是 ch02 題解 fig block 指向缺失 jpg；逐一核對後，兩個 hash 圖檔都存在於解答書 slug `griffiths_ed4_sol` 的 `unified/images/`，屬 merge solution 內容後未同步資產的標準情境。依 catalog-audit.md 以 copy_solution_images 把 immutable image assets 複製到主書目錄，讓主書 solution reader/catalog 引用落實。"
+    }
+  ]
+}

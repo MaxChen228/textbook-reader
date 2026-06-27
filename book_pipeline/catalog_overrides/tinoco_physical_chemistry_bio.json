@@ -1,0 +1,32 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "13.27",
+      "classification": "external",
+      "reason": "ch12 body[192] 是 Figure 12.16 的圖說，末句明寫此圖改編自外部書：figure 13-27 of Cantor & Schimmel, Biophysical Chemistry, part 2。13.27 是跨書引用，非本書 figure。",
+      "where": "ch12.json body[192]",
+      "evidence": "Text says: (Adapted from figure 13-27 of C. R. Cantor and P. R. Schimmel, 1980, in Biophysical Chemistry, part 2.)"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "tinoco-fig-11.13-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[426]",
+      "position": "after",
+      "page": 676,
+      "clip": [0.05, 0.395, 0.97, 0.855],
+      "zoom": 2.8,
+      "src": "manual_fig-11.13.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-11.13",
+        "kind": "line",
+        "caption": "Figure 11.13: Possible distributions of systems in an ensemble among energy levels."
+      },
+      "reason": "MinerU 把 Figure 11.13 的能階分布示意圖渲成 monospace HTML table(body[426], 無 image src, 歸入 unnumbered_body_table 排除), 圖本身未抽成 image → catalog 無 fig-11.13, 正文 figure 11.13 ref 判 missing(C4)。從重組 raw PDF p.676 底部裁真圖補回。"
+    }
+  ]
+}

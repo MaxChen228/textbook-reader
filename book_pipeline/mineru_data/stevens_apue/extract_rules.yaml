@@ -1,0 +1,193 @@
+slug: stevens_apue
+title: Advanced Programming in the UNIX Environment
+author: W. Richard Stevens; Stephen A. Rago
+edition: 3rd
+subject: Operating Systems
+publisher: Addison-Wesley
+language: en
+filter_types:
+- page_number
+- header
+- footer
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 34
+appendices_start_page: 878
+bibliography_start_page: 980
+index_start_page: 988
+inline_problems: false
+chapters:
+- num: 1
+  title: UNIX System Overview
+  chapter_title_block_idx: 223
+  problems_block_idx: 521
+  next_chapter_block_idx: 530
+  page_start: 34
+  page_end: 57
+- num: 2
+  title: UNIX Standardization and Implementations
+  chapter_title_block_idx: 530
+  problems_block_idx: 919
+  next_chapter_block_idx: 926
+  page_start: 58
+  page_end: 93
+- num: 3
+  title: File I/O
+  chapter_title_block_idx: 926
+  problems_block_idx: 1328
+  next_chapter_block_idx: 1349
+  page_start: 94
+  page_end: 125
+- num: 4
+  title: Files and Directories
+  chapter_title_block_idx: 1349
+  problems_block_idx: 1910
+  next_chapter_block_idx: 1936
+  page_start: 126
+  page_end: 175
+- num: 5
+  title: Standard I/O Library
+  chapter_title_block_idx: 1936
+  problems_block_idx: 2327
+  next_chapter_block_idx: 2340
+  page_start: 176
+  page_end: 209
+- num: 6
+  title: System Data Files and Information
+  chapter_title_block_idx: 2340
+  problems_block_idx: 2569
+  next_chapter_block_idx: 2578
+  page_start: 210
+  page_end: 229
+- num: 7
+  title: Process Environment
+  chapter_title_block_idx: 2578
+  problems_block_idx: 2907
+  next_chapter_block_idx: 2922
+  page_start: 230
+  page_end: 259
+- num: 8
+  title: Process Control
+  chapter_title_block_idx: 2922
+  problems_block_idx: 3585
+  next_chapter_block_idx: 3607
+  page_start: 260
+  page_end: 317
+- num: 9
+  title: Process Relationships
+  chapter_title_block_idx: 3607
+  problems_block_idx: 3969
+  next_chapter_block_idx: 3975
+  page_start: 318
+  page_end: 345
+- num: 10
+  title: Signals
+  chapter_title_block_idx: 3975
+  problems_block_idx: 4775
+  next_chapter_block_idx: 4797
+  page_start: 346
+  page_end: 415
+- num: 11
+  title: Threads
+  chapter_title_block_idx: 4797
+  problems_block_idx: 5192
+  next_chapter_block_idx: 5215
+  page_start: 416
+  page_end: 457
+- num: 12
+  title: Thread Control
+  chapter_title_block_idx: 5215
+  problems_block_idx: 5605
+  next_chapter_block_idx: 5617
+  page_start: 458
+  page_end: 495
+- num: 13
+  title: Daemon Processes
+  chapter_title_block_idx: 5617
+  problems_block_idx: 5784
+  next_chapter_block_idx: 5792
+  page_start: 496
+  page_end: 513
+- num: 14
+  title: Advanced I/O
+  chapter_title_block_idx: 5792
+  problems_block_idx: 6391
+  next_chapter_block_idx: 6406
+  page_start: 514
+  page_end: 565
+- num: 15
+  title: Interprocess Communication
+  chapter_title_block_idx: 6406
+  problems_block_idx: 7057
+  next_chapter_block_idx: 7085
+  page_start: 566
+  page_end: 621
+- num: 16
+  title: 'Network IPC: Sockets'
+  chapter_title_block_idx: 7085
+  problems_block_idx: 7487
+  next_chapter_block_idx: 7497
+  page_start: 622
+  page_end: 661
+- num: 17
+  title: Advanced IPC
+  chapter_title_block_idx: 7497
+  problems_block_idx: 7834
+  next_chapter_block_idx: 7845
+  page_start: 662
+  page_end: 703
+- num: 18
+  title: Terminal I/O
+  chapter_title_block_idx: 7845
+  problems_block_idx: 8285
+  next_chapter_block_idx: 8293
+  page_start: 704
+  page_end: 747
+- num: 19
+  title: Pseudo Terminals
+  chapter_title_block_idx: 8293
+  problems_block_idx: 8562
+  next_chapter_block_idx: 8576
+  page_start: 748
+  page_end: 775
+- num: 20
+  title: A Database Library
+  chapter_title_block_idx: 8576
+  problems_block_idx: 8954
+  next_chapter_block_idx: 8969
+  page_start: 776
+  page_end: 821
+- num: 21
+  title: Communicating with a Network Printer
+  chapter_title_block_idx: 8969
+  problems_block_idx: 9385
+  next_chapter_block_idx: 9399
+  page_start: 822
+  page_end: 877
+appendices:
+- id: A
+  title: Function Prototypes
+  chapter_title_block_idx: 9399
+- id: B
+  title: Miscellaneous Source Code
+  chapter_title_block_idx: 9833
+- id: C
+  title: Solutions to Selected Exercises
+  chapter_title_block_idx: 9886
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \\tag\{([^}]+)\}
+example_start_re: ^(Example)\s*$
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

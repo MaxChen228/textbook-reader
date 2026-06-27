@@ -1,0 +1,136 @@
+slug: tao_analysis_1
+title: Analysis I
+author: Terence Tao
+edition: 4th
+subject: Real Analysis
+publisher: Hindustan Book Agency; Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 276
+bibliography_start_page: null
+index_start_page: 305
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 26
+    chapter_title_block_idx: 85
+    problems_block_idx: null
+    next_chapter_block_idx: 234
+  - num: 2
+    title: "Starting at the Beginning: The Natural Numbers"
+    page_start: 27
+    page_end: 42
+    chapter_title_block_idx: 234
+    problems_block_idx: null
+    next_chapter_block_idx: 437
+  - num: 3
+    title: Set Theory
+    page_start: 43
+    page_end: 78
+    chapter_title_block_idx: 437
+    chapter_title_block_idx_secondary: 442
+    problems_block_idx: null
+    next_chapter_block_idx: 938
+  - num: 4
+    title: Integers and Rationals
+    page_start: 79
+    page_end: 95
+    chapter_title_block_idx: 938
+    problems_block_idx: null
+    next_chapter_block_idx: 1196
+  - num: 5
+    title: The Real Numbers
+    page_start: 96
+    page_end: 122
+    chapter_title_block_idx: 1196
+    problems_block_idx: null
+    next_chapter_block_idx: 1608
+  - num: 6
+    title: Limits of Sequences
+    page_start: 123
+    page_end: 147
+    chapter_title_block_idx: 1608
+    chapter_title_block_idx_secondary: 1615
+    problems_block_idx: null
+    next_chapter_block_idx: 2026
+  - num: 7
+    title: Series
+    page_start: 148
+    page_end: 171
+    chapter_title_block_idx: 2026
+    chapter_title_block_idx_secondary: 2035
+    problems_block_idx: null
+    next_chapter_block_idx: 2410
+  - num: 8
+    title: Infinite Sets
+    page_start: 172
+    page_end: 195
+    chapter_title_block_idx: 2410
+    chapter_title_block_idx_secondary: 2417
+    problems_block_idx: null
+    next_chapter_block_idx: 2767
+  - num: 9
+    title: "Continuous Functions on R"
+    page_start: 196
+    page_end: 229
+    chapter_title_block_idx: 2767
+    chapter_title_block_idx_secondary: 2772
+    problems_block_idx: null
+    next_chapter_block_idx: 3271
+  - num: 10
+    title: Differentiation of Functions
+    page_start: 230
+    page_end: 242
+    chapter_title_block_idx: 3271
+    chapter_title_block_idx_secondary: 3278
+    problems_block_idx: null
+    next_chapter_block_idx: 3472
+  - num: 11
+    title: The Riemann Integral
+    page_start: 243
+    page_end: 275
+    chapter_title_block_idx: 3472
+    chapter_title_block_idx_secondary: 3476
+    problems_block_idx: null
+    next_chapter_block_idx: 4049
+
+appendices:
+  - id: A
+    title: Mathematical Statements
+    page_start: 276
+    chapter_title_block_idx: 4049
+  - id: B
+    title: The Decimal System
+    page_start: 298
+    chapter_title_block_idx: 4317
+
+section_re: '^((?:\d+\.\d+)|(?:[A-B]\.\d+))\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)|(?:[A-B]\.\d+\.\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)\.?(?:\s+|$)'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

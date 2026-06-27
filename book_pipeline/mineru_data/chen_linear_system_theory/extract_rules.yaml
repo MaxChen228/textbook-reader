@@ -1,0 +1,101 @@
+slug: chen_linear_system_theory
+title: Linear System Theory and Design
+author: Chi-Tsong Chen
+edition: 3rd
+subject: Control Systems
+publisher: Oxford University Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 8
+appendices_start_page: 168
+bibliography_start_page: 167
+index_start_page: 173
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+problem_start_re: '^([1-9]\d?\.\d+)\s+(?!(?:Introduction|Overview)$).*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+equation_label_re: '^\((\d+\.\d+)\)$'
+equation_strip_dollar: true
+heading_priority: [subsection_re, section_re]
+example_start_re: '^Example\s+(\d+\.\d+)'
+problems_end_re: '^References$'
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 8
+    page_end: 9
+    chapter_title_block_idx: 77
+    problems_block_idx: null
+    next_chapter_block_idx: 116
+  - num: 2
+    title: Mathematical Descriptions of Systems
+    page_start: 10
+    page_end: 29
+    chapter_title_block_idx: 116
+    problems_block_idx: 644
+    next_chapter_block_idx: 715
+  - num: 3
+    title: Linear Algebra
+    page_start: 30
+    page_end: 50
+    chapter_title_block_idx: 717
+    problems_block_idx: 1389
+    next_chapter_block_idx: 1467
+  - num: 4
+    title: State-Space Solutions and Realizations
+    page_start: 51
+    page_end: 68
+    chapter_title_block_idx: 1467
+    problems_block_idx: 2017
+    next_chapter_block_idx: 2117
+  - num: 5
+    title: Stability
+    page_start: 68
+    page_end: 78
+    chapter_title_block_idx: 2117
+    problems_block_idx: 2505
+    next_chapter_block_idx: 2539
+  - num: 6
+    title: Controllability and Observability
+    page_start: 79
+    page_end: 99
+    chapter_title_block_idx: 2539
+    problems_block_idx: 3179
+    next_chapter_block_idx: 3218
+  - num: 7
+    title: Minimal Realizations and Coprime Fractions
+    page_start: 100
+    page_end: 122
+    chapter_title_block_idx: 3218
+    problems_block_idx: 3986
+    next_chapter_block_idx: 4029
+  - num: 8
+    title: State Feedback and State Estimators
+    page_start: 123
+    page_end: 142
+    chapter_title_block_idx: 4029
+    problems_block_idx: 4615
+    next_chapter_block_idx: 4654
+  - num: 9
+    title: Pole Placement and Model Matching
+    page_start: 142
+    page_end: 167
+    chapter_title_block_idx: 4654
+    problems_block_idx: 5386
+    next_chapter_block_idx: 5440
+
+appendices: []

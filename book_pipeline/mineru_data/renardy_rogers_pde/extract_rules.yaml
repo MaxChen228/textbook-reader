@@ -1,0 +1,142 @@
+slug: renardy_rogers_pde
+title: An Introduction to Partial Differential Equations
+author: Michael Renardy; Robert C. Rogers
+edition: 2nd
+subject: Differential Equations
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 438
+bibliography_start_page: 438
+index_start_page: 443
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 13
+    page_end: 47
+    chapter_title_block_idx: 82
+    problems_block_idx: null
+    next_chapter_block_idx: 711
+  - num: 2
+    title: Characteristics
+    page_start: 48
+    page_end: 78
+    chapter_title_block_idx: 711
+    problems_block_idx: null
+    next_chapter_block_idx: 1221
+  - num: 3
+    title: Conservation Laws and Shocks
+    page_start: 79
+    page_end: 112
+    chapter_title_block_idx: 1221
+    problems_block_idx: null
+    next_chapter_block_idx: 1747
+  - num: 4
+    title: Maximum Principles
+    page_start: 113
+    page_end: 133
+    chapter_title_block_idx: 1747
+    problems_block_idx: null
+    next_chapter_block_idx: 2071
+  - num: 5
+    title: Distributions
+    page_start: 134
+    page_end: 185
+    chapter_title_block_idx: 2071
+    problems_block_idx: null
+    next_chapter_block_idx: 2944
+  - num: 6
+    title: Function Spaces
+    page_start: 186
+    page_end: 214
+    chapter_title_block_idx: 2944
+    problems_block_idx: null
+    next_chapter_block_idx: 3411
+  - num: 7
+    title: Sobolev Spaces
+    page_start: 215
+    page_end: 239
+    chapter_title_block_idx: 3411
+    problems_block_idx: null
+    next_chapter_block_idx: 3818
+  - num: 8
+    title: Operator Theory
+    page_start: 240
+    page_end: 294
+    chapter_title_block_idx: 3818
+    problems_block_idx: null
+    next_chapter_block_idx: 4839
+  - num: 9
+    title: Linear Elliptic Equations
+    page_start: 295
+    page_end: 346
+    chapter_title_block_idx: 4839
+    problems_block_idx: null
+    next_chapter_block_idx: 5728
+  - num: 10
+    title: Nonlinear Elliptic Equations
+    page_start: 347
+    page_end: 391
+    chapter_title_block_idx: 5728
+    problems_block_idx: null
+    next_chapter_block_idx: 6605
+  - num: 11
+    title: Energy Methods for Evolution Problems
+    page_start: 392
+    page_end: 406
+    chapter_title_block_idx: 6605
+    problems_block_idx: null
+    next_chapter_block_idx: 6855
+  - num: 12
+    title: Semigroup Methods
+    page_start: 407
+    page_end: 437
+    chapter_title_block_idx: 6855
+    problems_block_idx: null
+    next_chapter_block_idx: 7367
+
+appendices:
+  - id: A
+    title: References
+    page_start: 438
+    chapter_title_block_idx: 7367
+
+section_re: '^(\d+\.\d+)\s+(?!Let\b|Prove\b|Show\b|Verify\b|Consider\b|Find\b|Compute\b|Solve\b|Use\b|Apply\b|State\b|Discuss\b|Formulate\b|Assume\b|Suppose\b|Give\b|Write\b|Characterize\b|Fill\b)(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(?!Let\b|Prove\b|Show\b|Verify\b|Consider\b|Find\b|Compute\b|Solve\b|Use\b|Apply\b|State\b|Discuss\b|Formulate\b|Assume\b|Suppose\b|Give\b|Write\b|Characterize\b|Fill\b)(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\.(?!\d)\s*'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_start_re: null
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: true
+figure_caption_main_re: '^(?:Fig\.|Figure)\s+\d+(?:\.\d+)?\.?.*$'
+
+known_missing_problems:
+  - chapter: 1
+    nums:
+      - '1.17'

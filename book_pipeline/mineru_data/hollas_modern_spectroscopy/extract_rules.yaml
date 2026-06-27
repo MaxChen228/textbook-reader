@@ -1,0 +1,117 @@
+slug: hollas_modern_spectroscopy
+title: Modern Spectroscopy
+author: J. Michael Hollas
+edition: 4th
+subject: Physical Chemistry
+publisher: John Wiley & Sons Ltd
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 32
+appendices_start_page: 438
+bibliography_start_page: null
+index_start_page: 460
+
+chapters:
+  - num: 1
+    title: Some Important Results in Quantum Mechanics
+    page_start: 32
+    page_end: 57
+    chapter_title_block_idx: 144
+    problems_block_idx: 462
+    next_chapter_block_idx: 482
+  - num: 2
+    title: Electromagnetic Radiation and its Interaction with Atoms and Molecules
+    page_start: 58
+    page_end: 71
+    chapter_title_block_idx: 482
+    problems_block_idx: 629
+    next_chapter_block_idx: 644
+  - num: 3
+    title: General Features of Experimental Methods
+    page_start: 72
+    page_end: 103
+    chapter_title_block_idx: 644
+    problems_block_idx: 931
+    next_chapter_block_idx: 951
+  - num: 4
+    title: Molecular Symmetry
+    page_start: 104
+    page_end: 133
+    chapter_title_block_idx: 951
+    problems_block_idx: 1329
+    next_chapter_block_idx: 1350
+  - num: 5
+    title: Rotational Spectroscopy
+    page_start: 134
+    page_end: 167
+    chapter_title_block_idx: 1350
+    problems_block_idx: 1724
+    next_chapter_block_idx: 1749
+  - num: 6
+    title: Vibrational Spectroscopy
+    page_start: 168
+    page_end: 229
+    chapter_title_block_idx: 1749
+    problems_block_idx: 2381
+    next_chapter_block_idx: 2417
+  - num: 7
+    title: Electronic Spectroscopy
+    page_start: 230
+    page_end: 319
+    chapter_title_block_idx: 2417
+    problems_block_idx: 3406
+    next_chapter_block_idx: 3449
+  - num: 8
+    title: Photoelectron and Related Spectroscopies
+    page_start: 320
+    page_end: 367
+    chapter_title_block_idx: 3449
+    problems_block_idx: 3845
+    next_chapter_block_idx: 3875
+  - num: 9
+    title: Lasers and Laser Spectroscopy
+    page_start: 368
+    page_end: 437
+    chapter_title_block_idx: 3875
+    problems_block_idx: 4543
+    next_chapter_block_idx: 4564
+
+appendices:
+  - id: A
+    title: Character Tables
+    page_start: 438
+    chapter_title_block_idx: 4564
+  - id: B
+    title: Symmetry Species of Vibrations
+    page_start: 454
+    chapter_title_block_idx: 4642
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+(?:\.\d+)?(?:\([a-z]\))?)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^Bibliography\s*$'
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '(?i)^Worked example\s+(\d+\.\d+)$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,174 @@
+slug: washington_elliptic_curves
+title: Elliptic Curves Number Theory and Cryptography
+author: Lawrence C. Washington
+edition: 2nd
+subject: Number Theory
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 489
+bibliography_start_page: 517
+index_start_page: 527
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 19
+    page_end: 26
+    chapter_title_block_idx: 105
+    chapter_title_block_idx_secondary: 106
+    problems_block_idx: 219
+    next_chapter_block_idx: 233
+  - num: 2
+    title: The Basic Theory
+    page_start: 27
+    page_end: 94
+    chapter_title_block_idx: 233
+    chapter_title_block_idx_secondary: 234
+    problems_block_idx: 1320
+    next_chapter_block_idx: 1412
+  - num: 3
+    title: Torsion Points
+    page_start: 95
+    page_end: 112
+    chapter_title_block_idx: 1412
+    chapter_title_block_idx_secondary: 1413
+    problems_block_idx: 1686
+    next_chapter_block_idx: 1711
+  - num: 4
+    title: Elliptic Curves over Finite Fields
+    page_start: 113
+    page_end: 160
+    chapter_title_block_idx: 1711
+    chapter_title_block_idx_secondary: 1712
+    problems_block_idx: 2527
+    next_chapter_block_idx: 2594
+  - num: 5
+    title: The Discrete Logarithm Problem
+    page_start: 161
+    page_end: 186
+    chapter_title_block_idx: 2594
+    problems_block_idx: 2996
+    next_chapter_block_idx: 3039
+  - num: 6
+    title: Elliptic Curve Cryptography
+    page_start: 187
+    page_end: 206
+    chapter_title_block_idx: 3039
+    chapter_title_block_idx_secondary: 3040
+    problems_block_idx: 3321
+    next_chapter_block_idx: 3359
+  - num: 7
+    title: Other Applications
+    page_start: 207
+    page_end: 216
+    chapter_title_block_idx: 3359
+    problems_block_idx: 3477
+    next_chapter_block_idx: 3502
+  - num: 8
+    title: Elliptic Curves over Q
+    page_start: 217
+    page_end: 274
+    chapter_title_block_idx: 3502
+    chapter_title_block_idx_secondary: 3503
+    problems_block_idx: 4561
+    next_chapter_block_idx: 4613
+  - num: 9
+    title: Elliptic Curves over C
+    page_start: 275
+    page_end: 328
+    chapter_title_block_idx: 4613
+    chapter_title_block_idx_secondary: 4614
+    problems_block_idx: 5535
+    next_chapter_block_idx: 5612
+  - num: 10
+    title: Complex Multiplication
+    page_start: 329
+    page_end: 356
+    chapter_title_block_idx: 5612
+    chapter_title_block_idx_secondary: 5613
+    problems_block_idx: 6109
+    next_chapter_block_idx: 6129
+  - num: 11
+    title: Divisors
+    page_start: 357
+    page_end: 398
+    chapter_title_block_idx: 6129
+    chapter_title_block_idx_secondary: 6130
+    problems_block_idx: 6952
+    next_chapter_block_idx: 6965
+  - num: 12
+    title: Isogenies
+    page_start: 399
+    page_end: 424
+    chapter_title_block_idx: 6965
+    chapter_title_block_idx_secondary: 6966
+    problems_block_idx: 7321
+    next_chapter_block_idx: 7403
+  - num: 13
+    title: Hyperelliptic Curves
+    page_start: 425
+    page_end: 446
+    chapter_title_block_idx: 7403
+    chapter_title_block_idx_secondary: 7404
+    problems_block_idx: 7710
+    next_chapter_block_idx: 7742
+  - num: 14
+    title: Zeta Functions
+    page_start: 447
+    page_end: 462
+    chapter_title_block_idx: 7742
+    chapter_title_block_idx_secondary: 7743
+    problems_block_idx: 7955
+    next_chapter_block_idx: 7975
+  - num: 15
+    title: Fermat's Last Theorem
+    page_start: 463
+    page_end: 488
+    chapter_title_block_idx: 7975
+    problems_block_idx: null
+    next_chapter_block_idx: 8402
+
+appendices:
+  - id: A
+    title: Number Theory
+    page_start: 489
+    chapter_title_block_idx: 8402
+  - id: B
+    title: Groups
+    page_start: 495
+    chapter_title_block_idx: 8496
+  - id: C
+    title: Fields
+    page_start: 499
+    chapter_title_block_idx: 8562
+  - id: D
+    title: Computer Packages
+    page_start: 507
+    chapter_title_block_idx: 8670
+
+section_re: '^((?:\d+\.\d+)|(?:[A-D]\.\d+))\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+\.\d+)\s+(?!(?:Overview|Galois Representations|Sketch of Ribet[''’]s Proof|Sketch of Wiles[''’]s Proof)$).+'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([A-Z]?\.?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)$'

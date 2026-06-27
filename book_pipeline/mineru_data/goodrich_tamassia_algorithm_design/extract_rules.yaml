@@ -1,0 +1,157 @@
+slug: goodrich_tamassia_algorithm_design
+title: "Algorithm Design: Foundations, Analysis, and Internet Examples"
+author: Michael T. Goodrich; Roberto Tamassia
+edition: null
+subject: Algorithms
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 696
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Algorithm Analysis
+    page_start: 15
+    page_end: 65
+    chapter_title_block_idx: 92
+    problems_block_idx: 651
+    next_chapter_block_idx: 791
+  - num: 2
+    title: Basic Data Structures
+    page_start: 67
+    page_end: 149
+    chapter_title_block_idx: 791
+    problems_block_idx: 1644
+    next_chapter_block_idx: 1754
+  - num: 3
+    title: Search Trees and Skip Lists
+    page_start: 151
+    page_end: 227
+    chapter_title_block_idx: 1754
+    problems_block_idx: 2439
+    next_chapter_block_idx: 2528
+  - num: 4
+    title: Sorting, Sets, and Selection
+    page_start: 229
+    page_end: 267
+    chapter_title_block_idx: 2528
+    problems_block_idx: 2976
+    next_chapter_block_idx: 3058
+  - num: 5
+    title: Fundamental Techniques
+    page_start: 269
+    page_end: 301
+    chapter_title_block_idx: 3058
+    problems_block_idx: 3359
+    next_chapter_block_idx: 3438
+  - num: 6
+    title: Graphs
+    page_start: 303
+    page_end: 349
+    chapter_title_block_idx: 3438
+    problems_block_idx: 3948
+    next_chapter_block_idx: 4027
+  - num: 7
+    title: Weighted Graphs
+    page_start: 351
+    page_end: 391
+    chapter_title_block_idx: 4027
+    problems_block_idx: 4390
+    next_chapter_block_idx: 4470
+  - num: 8
+    title: Network Flow and Matching
+    page_start: 393
+    page_end: 427
+    chapter_title_block_idx: 4470
+    problems_block_idx: 4918
+    next_chapter_block_idx: 4980
+  - num: 9
+    title: Text Processing
+    page_start: 429
+    page_end: 461
+    chapter_title_block_idx: 4980
+    problems_block_idx: 5316
+    next_chapter_block_idx: 5389
+  - num: 10
+    title: Number Theory and Cryptography
+    page_start: 463
+    page_end: 521
+    chapter_title_block_idx: 5389
+    problems_block_idx: 6158
+    next_chapter_block_idx: 6219
+  - num: 11
+    title: Network Algorithms
+    page_start: 523
+    page_end: 557
+    chapter_title_block_idx: 6219
+    problems_block_idx: 6533
+    next_chapter_block_idx: 6587
+  - num: 12
+    title: Computational Geometry
+    page_start: 559
+    page_end: 601
+    chapter_title_block_idx: 6587
+    problems_block_idx: 6982
+    next_chapter_block_idx: 7055
+  - num: 13
+    title: NP-Completeness
+    page_start: 603
+    page_end: 653
+    chapter_title_block_idx: 7055
+    problems_block_idx: 7524
+    next_chapter_block_idx: 7602
+  - num: 14
+    title: Algorithmic Frameworks
+    page_start: 655
+    page_end: 695
+    chapter_title_block_idx: 7602
+    problems_block_idx: 7973
+    next_chapter_block_idx: 8027
+
+appendices:
+  - id: A
+    title: Useful Mathematical Facts
+    page_start: 696
+    chapter_title_block_idx: 8027
+
+section_re: '^(\d+\.\d+)\.?\s+(.+?)\s*$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+?)\s*$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:<[^>]+>\s*)*[RCP]\s*-?\s*(\d+\s*[\.,]\s*\d+)\b'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)\s*:'
+
+figure_caption_merge: true
+figure_caption_main_re: '^(Figure|Fig\.)\s+(\d+\.\d+)[:.]\s*(.*)$'
+
+known_missing_problems:
+  - chapter: 8
+    nums:
+      - "8.1"
+      - "8.8"

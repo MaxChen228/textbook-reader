@@ -1,0 +1,190 @@
+slug: zhang_dive_into_deep_learning
+title: Dive into Deep Learning
+author: Aston Zhang; Zachary C. Lipton; Mu Li; Alexander J. Smola
+edition: null
+subject: Machine Learning
+publisher: Cambridge University Press
+language: en
+filter_types:
+- page_number
+- header
+- footer
+- page_footnote
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+body_start_page: 41
+appendices_start_page: 937
+bibliography_start_page: null
+index_start_page: null
+inline_problems: true
+chapters:
+- num: 1
+  title: Introduction
+  page_start: 41
+  chapter_title_block_idx: 257
+  problems_block_idx: null
+  next_chapter_block_idx: 558
+  page_end: 70
+- num: 2
+  title: Preliminaries
+  page_start: 70
+  chapter_title_block_idx: 557
+  problems_block_idx: null
+  next_chapter_block_idx: 1276
+  page_end: 121
+- num: 3
+  title: Linear Neural Networks for Regression
+  page_start: 122
+  chapter_title_block_idx: 1276
+  problems_block_idx: null
+  next_chapter_block_idx: 1837
+  page_end: 165
+- num: 4
+  title: Linear Neural Networks for Classification
+  page_start: 165
+  chapter_title_block_idx: 1836
+  problems_block_idx: null
+  next_chapter_block_idx: 2383
+  page_end: 206
+- num: 5
+  title: Multilayer Perceptrons
+  page_start: 207
+  chapter_title_block_idx: 2383
+  problems_block_idx: null
+  next_chapter_block_idx: 2873
+  page_end: 246
+- num: 6
+  title: Builders’ Guide
+  page_start: 247
+  chapter_title_block_idx: 2873
+  problems_block_idx: null
+  next_chapter_block_idx: 3234
+  page_end: 272
+- num: 7
+  title: Convolutional Neural Networks
+  page_start: 273
+  chapter_title_block_idx: 3234
+  problems_block_idx: null
+  next_chapter_block_idx: 3666
+  page_end: 307
+- num: 8
+  title: Modern Convolutional Neural Networks
+  page_start: 308
+  chapter_title_block_idx: 3666
+  problems_block_idx: null
+  next_chapter_block_idx: 4290
+  page_end: 364
+- num: 9
+  title: Recurrent Neural Networks
+  page_start: 365
+  chapter_title_block_idx: 4290
+  problems_block_idx: null
+  next_chapter_block_idx: 4831
+  page_end: 408
+- num: 10
+  title: Modern Recurrent Neural Networks
+  page_start: 409
+  chapter_title_block_idx: 4831
+  problems_block_idx: null
+  next_chapter_block_idx: 5334
+  page_end: 451
+- num: 11
+  title: Attention Mechanisms and Transformers
+  page_start: 451
+  chapter_title_block_idx: 5333
+  problems_block_idx: null
+  next_chapter_block_idx: 5952
+  page_end: 507
+- num: 12
+  title: Optimization Algorithms
+  page_start: 508
+  chapter_title_block_idx: 5952
+  problems_block_idx: null
+  next_chapter_block_idx: 6980
+  page_end: 586
+- num: 13
+  title: Computational Performance
+  page_start: 587
+  chapter_title_block_idx: 6980
+  problems_block_idx: null
+  next_chapter_block_idx: 7494
+  page_end: 631
+- num: 14
+  title: Computer Vision
+  page_start: 632
+  chapter_title_block_idx: 7494
+  problems_block_idx: null
+  next_chapter_block_idx: 8663
+  page_end: 730
+- num: 15
+  title: 'Natural Language Processing: Pretraining'
+  page_start: 730
+  chapter_title_block_idx: 8663
+  problems_block_idx: null
+  next_chapter_block_idx: 9340
+  page_end: 783
+- num: 16
+  title: 'Natural Language Processing: Applications'
+  page_start: 784
+  chapter_title_block_idx: 9340
+  problems_block_idx: null
+  next_chapter_block_idx: 9788
+  page_end: 820
+- num: 17
+  title: Reinforcement Learning
+  page_start: 821
+  chapter_title_block_idx: 9788
+  problems_block_idx: null
+  next_chapter_block_idx: 9988
+  page_end: 836
+- num: 18
+  title: Gaussian Processes
+  page_start: 837
+  chapter_title_block_idx: 9988
+  problems_block_idx: null
+  next_chapter_block_idx: 10319
+  page_end: 867
+- num: 19
+  title: Hyperparameter Optimization
+  page_start: 868
+  chapter_title_block_idx: 10319
+  problems_block_idx: null
+  next_chapter_block_idx: 10774
+  page_end: 919
+- num: 20
+  title: Generative Adversarial Networks
+  page_start: 920
+  chapter_title_block_idx: 10773
+  problems_block_idx: null
+  next_chapter_block_idx: 10929
+  page_end: 932
+- num: 21
+  title: Recommender Systems
+  page_start: 933
+  chapter_title_block_idx: 10929
+  problems_block_idx: null
+  next_chapter_block_idx: 10964
+  page_end: 936
+appendices:
+- id: A
+  title: Mathematics for Deep Learning
+  page_start: 937
+  chapter_title_block_idx: 10964
+- id: B
+  title: Tools for Deep Learning
+  page_start: 1075
+  chapter_title_block_idx: 13027
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+)\.\s+
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_start_re: (?i)^\d+\.\d+(?:\.\d+)?\s+Exercises\s*$
+problems_end_re: null
+solution_start_re: null
+equation_label_re: \\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}
+equation_strip_dollar: true

@@ -1,0 +1,81 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "mitra-ch06-table-6.5-to-6.1",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "body[387]",
+      "field": "md",
+      "old": "Table 6.5",
+      "new": "Table 6.1",
+      "reason": "該句在講 z-transform pairs，對應本章現存的 Table 6.1；raw/unified 亦無 Table 6.5。"
+    },
+    {
+      "id": "mitra-prob-6.27-table-6.5-to-6.2",
+      "action": "replace_text",
+      "chunk": "ch06",
+      "selector": "problem:6.27:body[0]",
+      "field": "md",
+      "old": "Table 6.5",
+      "new": "Table 6.2",
+      "reason": "Problem 6.27 明示要證明 z-transform properties，對應本章現存的 Table 6.2。"
+    },
+    {
+      "id": "mitra-ch08-figure-6.38-to-8.39",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[394]",
+      "field": "md",
+      "old": "Figure 6.38",
+      "new": "Figure 8.39",
+      "reason": "raw PDF 物理頁 479 同頁上方就是 Figure 8.39，下一句也立即回指 Figure 8.39；6.38 為明顯誤引。"
+    },
+    {
+      "id": "mitra-prob-12.20-figure-p8.8-to-p8.9",
+      "action": "replace_text",
+      "chunk": "ch12",
+      "selector": "problem:12.20:body[0]",
+      "field": "md",
+      "old": "Figure P8.8",
+      "new": "Figure P8.9",
+      "reason": "Chapter 8 problems 頁面只存在 Figure P8.6/P8.7/P8.9，Problem 8.9 的題圖就是 Figure P8.9，P8.8 為誤引。"
+    },
+    {
+      "id": "mitra-prob-7.30-insert-fig-p7.3",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "problem:7.30:body[0]",
+      "position": "after",
+      "page": 436,
+      "clip": [0.08, 0.16, 0.54, 0.43],
+      "zoom": 2.5,
+      "src": "manual_fig-P7.3.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P7.3",
+        "kind": "line",
+        "caption": "Figure P7.3"
+      },
+      "reason": "raw PDF 物理頁 436 左半明確有 Figure P7.3，但 unified 只保留整行混合圖並被 fig-P7.4 吃掉；依 catalog-audit §4.C4(B) 補回左半題圖。"
+    },
+    {
+      "id": "mitra-prob-12.7-insert-fig-p12.3",
+      "action": "pdf_crop_insert",
+      "chunk": "ch12",
+      "selector": "problem:12.7:body[0]",
+      "position": "before",
+      "page": 751,
+      "clip": [0.58, 0.34, 0.93, 0.62],
+      "zoom": 2.5,
+      "src": "manual_fig-P12.3.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-P12.3",
+        "kind": "line",
+        "caption": "Figure P12.3"
+      },
+      "reason": "raw PDF 物理頁 751 右側明確有 Figure P12.3，但 parsed/catalog 漏整塊；依 catalog-audit §4.C4(B) 以 pdf_crop_insert 補回。"
+    }
+  ]
+}

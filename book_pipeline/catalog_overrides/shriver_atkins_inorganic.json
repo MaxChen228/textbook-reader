@@ -1,0 +1,59 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "shriver-fig-1.15-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[151]",
+      "position": "after",
+      "page": 38,
+      "clip": [0.04, 0.045, 0.54, 0.345],
+      "zoom": 3.0,
+      "src": "manual_fig-1.15.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-1.15",
+        "kind": "line",
+        "caption": "FIGURE 1.15 One representation of the boundary surfaces of the d orbitals. Four of the orbitals have two perpendicular nodal planes that intersect in a line passing through the nucleus. In the dz2 orbital, the nodal surface forms two cones that meet at the nucleus."
+      },
+      "reason": "MinerU 整塊漏抓 fig-1.15（d 軌域 boundary surfaces）+ fig-1.16，catalog 序列從 1.14 直跳 1.17。raw PDF p.38 上欄確有此圖；ch01 body[149] 原文『Figs 1.15 and 1.16』、ch23 引用 Figure 1.16。情境(B) 真缺→pdf_crop。"
+    },
+    {
+      "id": "shriver-fig-1.16-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch01",
+      "selector": "body[152]",
+      "position": "after",
+      "page": 38,
+      "clip": [0.04, 0.345, 0.63, 0.575],
+      "zoom": 3.0,
+      "src": "manual_fig-1.16.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-1.16",
+        "kind": "line",
+        "caption": "FIGURE 1.16 One representation of the boundary surfaces of the f orbitals. Other representations (with different shapes) are also sometimes encountered."
+      },
+      "reason": "MinerU 漏抓 fig-1.16（f 軌域 boundary surfaces），ch23 body[15] 引用 Figure 1.16 觸發 C4。raw PDF p.38 下欄確有此圖。selector body[152] 為前一筆插入 fig-1.15 後的位置（引擎逐條 re-load）→ fig-1.16 落在 fig-1.15 之後。"
+    },
+    {
+      "id": "shriver-fig-B4.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[136]",
+      "position": "after",
+      "page": 126,
+      "clip": [0.555, 0.085, 0.905, 0.245],
+      "zoom": 3.2,
+      "src": "manual_fig-B4.1.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-B4.1",
+        "kind": "line",
+        "caption": "FIGURE B4.1 The layered structure of the Earth, whose solid iron inner core is proposed to adopt the body-centred cubic structure."
+      },
+      "reason": "MinerU 漏抓 fig-B4.1（Box 4.1『What happens to metals under pressure?』內 Earth 核心剖面+bcc 晶格圖）；ch04 body[136] 內文『...aligns along the Earth's axis of rotation (Fig. B4.1)』觸發 C4。catalog 已有 fig-B4.2..B4.5、缺 B4.1。raw PDF p.126 右欄確有此圖。CAPTION 為重建（非 verbatim）：raw 文字層此圖只剩裸『FIGURE B4.1』標籤、無描述句，重建內容忠於圖面（Earth 剖面 6378/1278 km + Inner core + bcc 晶格）與 Box 4.1 內文（鐵核心 bcc 多晶型）。"
+    }
+  ]
+}

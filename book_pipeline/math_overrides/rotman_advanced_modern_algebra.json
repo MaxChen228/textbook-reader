@@ -1,0 +1,75 @@
+{
+  "overrides": [
+    {
+      "id": "rotman_advanced_modern_algebra-ch04-problem-a-4-67-body-0-69a369",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:A-4.67:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$A = \\left[  \\begin{array} { { 0 } \\\\ { - 1 } \\end{array} } { 1 } \\right]$",
+      "new": "$A = \\left[  \\begin{array} { r } { 0 } \\\\ { - 1 } \\end{array} { 1 } \\right]$",
+      "anchor": "b14cae9d"
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch10-body-967-69a369",
+      "action": "fix_inline_math",
+      "chunk": "ch10",
+      "selector": "body[967]",
+      "field": "md",
+      "all": true,
+      "old": "$A = \\left[  \\begin{array} { { 0 } \\\\ { - 1 } \\end{array} } { 1 } \\right]$",
+      "new": "$A = \\left[  \\begin{array} { r } { 0 } \\\\ { - 1 } \\end{array} { 1 } \\right]$",
+      "anchor": "cf8107b6"
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch03-body-813-8f606d",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[813]",
+      "expect": "\\mu (m) = \\left\\{ \\begin{array}{c l} 1 & \\text {if m = 1 ,} \\\\ 0 & \\text {if any e_{i} >1 ,} \\\\ (- 1) ^ {n} & \\text {if 1 = e_{1} = e_{2} = \\cdots = e_{n} .} \\end{array} \\right.",
+      "new": "\\mu (m) = \\left\\{ \\begin{array}{c l} 1 & \\text {if m = 1 ,} \\\\ 0 & \\text {if any } e_{i} >1 \\text { ,} \\\\ (- 1) ^ {n} & \\text {if } 1 = e_{1} = e_{2} = \\cdots = e_{n} \\text { .} \\end{array} \\right."
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch12-body-147-4d2960",
+      "action": "fix_inline_math",
+      "chunk": "ch12",
+      "selector": "body[147]",
+      "field": "md",
+      "all": true,
+      "old": "$- 1 ? \\ \\textbf { \\ \\blacktriangleleft }$",
+      "new": "$- 1 ? \\ \\mathbf { \\blacktriangleleft }$",
+      "anchor": "6e5f222e"
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch12-body-625-737170",
+      "action": "fix_eq_tex",
+      "chunk": "ch12",
+      "selector": "body[625]",
+      "expect": "e _ {H} \\wedge e _ {K} = \\left\\{ \\begin{array}{l l} 0 & \\text {if H\\cap K\\neq\\varnothing ,} \\\\ \\rho_ {H, K} e _ {H * K} & \\text {if H\\cap K = \\varnothing .} \\end{array} \\right.",
+      "new": "e _ {H} \\wedge e _ {K} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } H\\cap K\\neq\\varnothing \\text { ,} \\\\ \\rho_ {H, K} e _ {H * K} & \\text {if } H\\cap K = \\varnothing \\text { .} \\end{array} \\right."
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch04-problem-a-4-88-body-0-dc17dc",
+      "action": "fix_inline_math",
+      "chunk": "ch04",
+      "selector": "problem:A-4.88:body[0]",
+      "field": "md",
+      "all": true,
+      "old": "$B = \\left[ { \\begin{array} { { 0 1 } \\\\ { - 1 } \\end{array} } } \\right]$",
+      "new": "$B = \\left[ { \\begin{array} { r } { 0 1 } \\\\ { - 1 } \\end{array} } \\right]$",
+      "anchor": "9c22b1a0"
+    },
+    {
+      "id": "rotman_advanced_modern_algebra-ch14-problem-b-7-14-body-1-e59aba",
+      "action": "fix_inline_math",
+      "chunk": "ch14",
+      "selector": "problem:B-7.14:body[1]",
+      "field": "md",
+      "all": true,
+      "old": "$( \\varphi \\boxed { \\begin{array} { r } { \\overrightarrow { \\bigtriangledown } , F } ) } \\end{array}$",
+      "new": "$( \\varphi \\boxed { \\begin{array} { r } { \\overrightarrow { \\bigtriangledown } , F } \\end{array} } )$",
+      "anchor": "eb76b3bc"
+    }
+  ]
+}

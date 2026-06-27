@@ -1,0 +1,162 @@
+slug: haykin_neural_networks
+title: Neural Networks and Learning Machines
+author: Simon Haykin
+edition: 3rd
+subject: Machine Learning
+publisher: Pearson Prentice Hall
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 34
+appendices_start_page: 921
+bibliography_start_page: null
+index_start_page: 921
+
+inline_problems: false
+
+chapters:
+  - num: 0
+    title: Introduction
+    page_start: 34
+    page_end: 79
+    chapter_title_block_idx: 411
+    problems_block_idx: null
+    next_chapter_block_idx: 892
+  - num: 1
+    title: Rosenblatt's Perceptron
+    page_start: 80
+    page_end: 100
+    chapter_title_block_idx: 892
+    problems_block_idx: 1162
+    next_chapter_block_idx: 1183
+  - num: 2
+    title: Model Building through Regression
+    page_start: 101
+    page_end: 123
+    chapter_title_block_idx: 1183
+    problems_block_idx: 1524
+    next_chapter_block_idx: 1560
+  - num: 3
+    title: The Least-Mean-Square Algorithm
+    page_start: 124
+    page_end: 154
+    chapter_title_block_idx: 1560
+    problems_block_idx: 2012
+    next_chapter_block_idx: 2082
+  - num: 4
+    title: Multilayer Perceptrons
+    page_start: 155
+    page_end: 262
+    chapter_title_block_idx: 2082
+    problems_block_idx: 3430
+    next_chapter_block_idx: 3584
+  - num: 5
+    title: Kernel Methods and Radial-Basis Function Networks
+    page_start: 263
+    page_end: 300
+    chapter_title_block_idx: 3584
+    problems_block_idx: 4088
+    next_chapter_block_idx: 4171
+  - num: 6
+    title: Support Vector Machines
+    page_start: 301
+    page_end: 345
+    chapter_title_block_idx: 4171
+    problems_block_idx: 4770
+    next_chapter_block_idx: 4869
+  - num: 7
+    title: Regularization Theory
+    page_start: 346
+    page_end: 399
+    chapter_title_block_idx: 4869
+    problems_block_idx: 5648
+    next_chapter_block_idx: 5729
+  - num: 8
+    title: Principal-Components Analysis
+    page_start: 400
+    page_end: 457
+    chapter_title_block_idx: 5729
+    problems_block_idx: 6533
+    next_chapter_block_idx: 6674
+  - num: 9
+    title: Self-Organizing Maps
+    page_start: 458
+    page_end: 507
+    chapter_title_block_idx: 6674
+    problems_block_idx: 7233
+    next_chapter_block_idx: 7318
+  - num: 10
+    title: Information-Theoretic Learning Models
+    page_start: 508
+    page_end: 611
+    chapter_title_block_idx: 7318
+    problems_block_idx: 8830
+    next_chapter_block_idx: 8966
+  - num: 11
+    title: Stochastic Methods Rooted in Statistical Mechanics
+    page_start: 612
+    page_end: 659
+    chapter_title_block_idx: 8966
+    problems_block_idx: 9625
+    next_chapter_block_idx: 9718
+  - num: 12
+    title: Dynamic Programming
+    page_start: 660
+    page_end: 704
+    chapter_title_block_idx: 9718
+    problems_block_idx: 10339
+    next_chapter_block_idx: 10403
+  - num: 13
+    title: Neurodynamics
+    page_start: 705
+    page_end: 763
+    chapter_title_block_idx: 10403
+    problems_block_idx: 11161
+    next_chapter_block_idx: 11219
+  - num: 14
+    title: Bayesian Filtering for State Estimation of Dynamic Systems
+    page_start: 764
+    page_end: 822
+    chapter_title_block_idx: 11219
+    problems_block_idx: 12052
+    next_chapter_block_idx: 12152
+  - num: 15
+    title: Dynamically Driven Recurrent Networks
+    page_start: 823
+    page_end: 920
+    chapter_title_block_idx: 12152
+    problems_block_idx: 12845
+    next_chapter_block_idx: 14038
+
+section_re: "^((?:\\d+\\.\\d+)|(?:\\d{1,2}))\\s+([A-Z][A-Z0-9 .,:;()'/?&$-]+)$"
+subsection_re: "^()((?:\\([ivx]+\\)\\s+)?[A-Z][^\\n]+)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^(\\d+\\.\\d+)\\s+"
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: "(?i)^example\\s+([0-9]+)\\b.*$"
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

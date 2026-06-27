@@ -1,0 +1,101 @@
+slug: taylor_pde_1
+title: "Partial Differential Equations I: Basic Theory"
+author: "Michael E. Taylor"
+edition: 2nd
+subject: "Differential Equations"
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 567
+bibliography_start_page: 664
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: "Basic Theory of ODE and Vector Fields"
+    page_start: 22
+    page_end: 147
+    chapter_title_block_idx: 151
+    problems_block_idx: null
+    next_chapter_block_idx: 2513
+  - num: 2
+    title: "The Laplace Equation and Wave Equation"
+    page_start: 148
+    page_end: 216
+    chapter_title_block_idx: 2513
+    problems_block_idx: null
+    next_chapter_block_idx: 3762
+  - num: 3
+    title: "Fourier Analysis, Distributions, and Constant-Coefficient Linear PDE"
+    page_start: 217
+    page_end: 333
+    chapter_title_block_idx: 3762
+    problems_block_idx: null
+    next_chapter_block_idx: 5887
+  - num: 4
+    title: "Sobolev Spaces"
+    page_start: 334
+    page_end: 371
+    chapter_title_block_idx: 5887
+    problems_block_idx: null
+    next_chapter_block_idx: 6643
+  - num: 5
+    title: "Linear Elliptic Equations"
+    page_start: 372
+    page_end: 499
+    chapter_title_block_idx: 6643
+    problems_block_idx: null
+    next_chapter_block_idx: 9091
+  - num: 6
+    title: "Linear Evolution Equations"
+    page_start: 500
+    page_end: 566
+    chapter_title_block_idx: 9091
+    problems_block_idx: null
+    next_chapter_block_idx: 10216
+
+appendices:
+  - id: A
+    title: "Outline of Functional Analysis"
+    page_start: 567
+    chapter_title_block_idx: 10216
+  - id: B
+    title: "Manifolds, Vector Bundles, and Lie Groups"
+    page_start: 634
+    chapter_title_block_idx: 11411
+
+section_re: '^((?:\d+)(?=\.\s+\S)|(?:Exercises on spaces of gradient and divergence-free vector)|(?:Exercises on the div-curl)|(?:Exercises on the Airy)|(?:Auxiliary exercises on the Hodge star)|(?:Exercises on))(?:\.\s+|\s+)(.+)$'
+subsection_re: '^(?=a)b()(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: '^(?:Exercises|Exercises on .+|Auxiliary exercises on .+)$'
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\\s*\\{([^}]+)\\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

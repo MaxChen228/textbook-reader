@@ -1,0 +1,115 @@
+slug: madhow_fundamentals_digital_comm
+title: Fundamentals of Digital Communication
+author: Upamanyu Madhow
+edition: null
+subject: Digital Communications
+publisher: Cambridge University Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 22
+appendices_start_page: 495
+bibliography_start_page: 509
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 22
+    page_end: 27
+    chapter_title_block_idx: 79
+    problems_block_idx: null
+    next_chapter_block_idx: 116
+  - num: 2
+    title: Modulation
+    page_start: 28
+    page_end: 94
+    chapter_title_block_idx: 116
+    problems_block_idx: 753
+    next_chapter_block_idx: 992
+  - num: 3
+    title: Demodulation
+    page_start: 95
+    page_end: 173
+    chapter_title_block_idx: 992
+    problems_block_idx: 1800
+    next_chapter_block_idx: 2076
+  - num: 4
+    title: Synchronization and noncoherent communication
+    page_start: 174
+    page_end: 219
+    chapter_title_block_idx: 2076
+    problems_block_idx: 2562
+    next_chapter_block_idx: 2712
+  - num: 5
+    title: Channel equalization
+    page_start: 220
+    page_end: 313
+    chapter_title_block_idx: 2712
+    problems_block_idx: 3297
+    next_chapter_block_idx: 3456
+  - num: 6
+    title: Information-theoretic limits and their computation
+    page_start: 273
+    page_end: 313
+    chapter_title_block_idx: 3456
+    problems_block_idx: 3947
+    next_chapter_block_idx: 4025
+  - num: 7
+    title: Channel coding
+    page_start: 314
+    page_end: 399
+    chapter_title_block_idx: 4025
+    problems_block_idx: 4989
+    next_chapter_block_idx: 5149
+  - num: 8
+    title: Wireless communication
+    page_start: 400
+    page_end: 494
+    chapter_title_block_idx: 5149
+    problems_block_idx: 6071
+    next_chapter_block_idx: 6435
+
+appendices:
+  - id: A
+    title: Probability, random variables, and random processes
+    page_start: 495
+    chapter_title_block_idx: 6435
+  - id: B
+    title: The Chernoff bound
+    page_start: 503
+    chapter_title_block_idx: 6572
+
+section_re: '^([0-9]+\.[0-9]+)\s+(.+)$'
+subsection_re: '^([0-9]+\.[0-9]+\.[0-9]+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+([0-9]+\.[0-9]+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-Z]?\.?[0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^Example\s+([0-9]+\.[0-9]+\.[0-9]+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

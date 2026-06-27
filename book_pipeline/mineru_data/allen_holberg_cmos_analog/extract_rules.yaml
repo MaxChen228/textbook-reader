@@ -1,0 +1,115 @@
+slug: allen_holberg_cmos_analog
+title: CMOS Analog Circuit Design
+author: Phillip E. Allen; Douglas R. Holberg
+edition: 3rd
+subject: Microelectronics
+publisher: Oxford University Press
+language: en
+
+filter_types: [page_number, header, footer, page_footnote, aside_text, ref_text]
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 663
+bibliography_start_page: null
+index_start_page: 760
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction and Background
+    page_start: 12
+    page_end: 28
+    chapter_title_block_idx: 119
+    problems_block_idx: 263
+    next_chapter_block_idx: 292
+  - num: 2
+    title: CMOS Technology
+    page_start: 29
+    page_end: 77
+    chapter_title_block_idx: 292
+    problems_block_idx: 784
+    next_chapter_block_idx: 881
+  - num: 3
+    title: CMOS Device Modeling
+    page_start: 78
+    page_end: 124
+    chapter_title_block_idx: 881
+    problems_block_idx: 1463
+    next_chapter_block_idx: 1537
+  - num: 4
+    title: Analog CMOS Subcircuits
+    page_start: 125
+    page_end: 195
+    chapter_title_block_idx: 1537
+    problems_block_idx: 2334
+    next_chapter_block_idx: 2469
+  - num: 5
+    title: CMOS Amplifiers
+    page_start: 196
+    page_end: 271
+    chapter_title_block_idx: 2469
+    problems_block_idx: 3309
+    next_chapter_block_idx: 3514
+  - num: 6
+    title: CMOS Operational Amplifiers
+    page_start: 272
+    page_end: 363
+    chapter_title_block_idx: 3514
+    problems_block_idx: 4558
+    next_chapter_block_idx: 4717
+  - num: 7
+    title: High-Performance CMOS Op Amps
+    page_start: 364
+    page_end: 454
+    chapter_title_block_idx: 4717
+    problems_block_idx: 5698
+    next_chapter_block_idx: 5815
+  - num: 8
+    title: Comparators
+    page_start: 455
+    page_end: 508
+    chapter_title_block_idx: 5815
+    problems_block_idx: 6446
+    next_chapter_block_idx: 6533
+  - num: 9
+    title: Digital–Analog and Analog–Digital Converters
+    page_start: 509
+    page_end: 662
+    chapter_title_block_idx: 6533
+    problems_block_idx: 7727
+    next_chapter_block_idx: 8570
+
+appendices:
+  - id: A
+    title: Circuit Analysis for Analog Circuit Design
+    page_start: 663
+    chapter_title_block_idx: 8570
+  - id: B
+    title: Integrated Circuit Layout
+    page_start: 674
+    chapter_title_block_idx: 8714
+  - id: C
+    title: CMOS Device Characterization
+    page_start: 696
+    chapter_title_block_idx: 8921
+  - id: D
+    title: Time and Frequency Domain Relationships for Second-Order Systems
+    page_start: 720
+    chapter_title_block_idx: 9286
+  - id: E
+    title: Switched Capacitor Circuits
+    page_start: 728
+    chapter_title_block_idx: 9383
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()([A-Z][A-Za-z][^\n]{1,120})$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+-\d+)\.\s*'
+problem_chapter_must_match: true
+problems_end_re: '^References$'
+equation_strip_dollar: true
+equation_label_re: '\((\d+\.\d+-\d+)\)'

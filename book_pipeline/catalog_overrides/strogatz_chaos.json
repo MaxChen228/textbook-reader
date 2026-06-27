@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-strogatz-chaos-sol",
+      "action": "copy_solution_images",
+      "from_slug": "strogatz_chaos_sol",
+      "reason": "live `audit_catalog` 的 447 個 critical 全是 C3 missing image，且全部都落在 `problem:*` 的習題/題解 figure block。逐一核對後，447/447 缺失 jpg 全存在於解答書 slug `strogatz_chaos_sol` 的 `unified/images/`，主書 `strogatz_chaos` 則全缺。這屬 merge solution 內容後未同步 immutable image assets 的標準情境，依 catalog-audit.md 以 copy_solution_images 將解答圖資產補進主書目錄。"
+    }
+  ]
+}

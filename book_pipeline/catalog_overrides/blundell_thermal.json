@@ -2,6 +2,12 @@
   "ref_classifications": [],
   "overrides": [
     {
+      "id": "blundell-solution-image-sync",
+      "action": "copy_solution_images",
+      "from_slug": "blundell_thermal_sol",
+      "reason": "Sync solution figure assets referenced from merged problem solutions into the main book unified/images directory."
+    },
+    {
       "id": "blundell-fig-33.1-footnote-split",
       "action": "replace_text",
       "chunk": "ch33",

@@ -1,0 +1,128 @@
+slug: collin_guided_waves
+title: Field Theory of Guided Waves
+author: Robert E. Collin
+edition: 2nd
+subject: Electromagnetism
+publisher: IEEE Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 793
+bibliography_start_page: null
+index_start_page: 846
+
+chapters:
+  - num: 1
+    title: Basic Electromagnetic Theory
+    page_start: 11
+    page_end: 64
+    chapter_title_block_idx: 133
+    problems_block_idx: 938
+    next_chapter_block_idx: 973
+  - num: 2
+    title: Green's Functions
+    page_start: 65
+    page_end: 182
+    chapter_title_block_idx: 973
+    problems_block_idx: 2707
+    next_chapter_block_idx: 2916
+  - num: 3
+    title: Transverse Electromagnetic Waves
+    page_start: 183
+    page_end: 255
+    chapter_title_block_idx: 2916
+    problems_block_idx: 4082
+    next_chapter_block_idx: 4137
+  - num: 4
+    title: Transmission Lines
+    page_start: 256
+    page_end: 337
+    chapter_title_block_idx: 4137
+    problems_block_idx: 5295
+    next_chapter_block_idx: 5365
+  - num: 5
+    title: Waveguides and Cavities
+    page_start: 338
+    page_end: 419
+    chapter_title_block_idx: 5365
+    problems_block_idx: 6562
+    next_chapter_block_idx: 6684
+  - num: 6
+    title: Inhomogeneously Filled Waveguides and Dielectric Resonators
+    page_start: 420
+    page_end: 479
+    chapter_title_block_idx: 6684
+    problems_block_idx: 7591
+    next_chapter_block_idx: 7612
+  - num: 7
+    title: Excitation of Waveguides and Cavities
+    page_start: 480
+    page_end: 554
+    chapter_title_block_idx: 7612
+    problems_block_idx: 8648
+    next_chapter_block_idx: 8761
+  - num: 8
+    title: Variational Methods for Waveguide Discontinuities
+    page_start: 555
+    page_end: 611
+    chapter_title_block_idx: 8761
+    problems_block_idx: 9557
+    next_chapter_block_idx: 9615
+  - num: 9
+    title: Periodic Structures
+    page_start: 612
+    page_end: 650
+    chapter_title_block_idx: 9615
+    problems_block_idx: 10203
+    next_chapter_block_idx: 10239
+  - num: 10
+    title: Integral Transform and Function-Theoretic Techniques
+    page_start: 651
+    page_end: 702
+    chapter_title_block_idx: 10239
+    problems_block_idx: 10998
+    next_chapter_block_idx: 11043
+  - num: 11
+    title: Surface Waveguides
+    page_start: 703
+    page_end: 754
+    chapter_title_block_idx: 11043
+    problems_block_idx: 11812
+    next_chapter_block_idx: 11845
+  - num: 12
+    title: Artificial Dielectrics
+    page_start: 755
+    page_end: 792
+    chapter_title_block_idx: 11845
+    problems_block_idx: 12387
+    next_chapter_block_idx: 12443
+
+appendices:
+  - id: A
+    title: Mathematical Appendix
+    page_start: 793
+    chapter_title_block_idx: 12443
+
+section_re: '^(\d+\.\d+)\.\s+([A-Z0-9][A-Z0-9 ,:;\-\''’/()]+)$'
+subsection_re: '^(a^)(a)$'
+heading_priority: [subsection_re, section_re]
+problem_start_re: '^(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: '^Answer:\s*(.*)$'
+equation_strip_dollar: true
+equation_label_re: '^\(?([0-9]+[a-z]?)\)?$'
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: '^Fig\.\s+([0-9]+\.[0-9]+)\.\s*(.*)$'
+known_missing_problems: []

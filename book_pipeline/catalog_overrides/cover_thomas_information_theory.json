@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-cover-thomas-information-theory-sol",
+      "action": "copy_solution_images",
+      "from_slug": "cover_thomas_information_theory_sol",
+      "reason": "catalog audit 的 41 個 critical 全是 solution fig block 指向缺失 jpg；逐一核對後，38 個唯一圖檔皆存在於解答書 slug `cover_thomas_information_theory_sol` 的 `unified/images/`，屬 merge solution 內容後未同步資產的標準情境。依 catalog-audit.md 以 copy_solution_images 把 immutable image assets 複製到主書目錄，讓主書 solution catalog/reader 引用落實。"
+    }
+  ]
+}

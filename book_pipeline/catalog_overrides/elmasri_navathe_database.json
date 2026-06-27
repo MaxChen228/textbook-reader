@@ -1,0 +1,681 @@
+{
+  "overrides": [
+    {
+      "id": "elmasri-fig-10.1-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[32]",
+      "expect": {
+        "id": "tbl-ch10-32"
+      },
+      "set": {
+        "id": "fig-10.1",
+        "caption": "Figure 10.1: C program variables used in the embedded SQL examples E1 and E2.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.1 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.2-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[45]",
+      "expect": {
+        "id": "tbl-ch10-45"
+      },
+      "set": {
+        "id": "fig-10.2",
+        "caption": "Figure 10.2: Program segment E1, a C program segment that uses embedded SQL for retrieval.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.2 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.3-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[52]",
+      "expect": {
+        "id": "tbl-ch10-52"
+      },
+      "set": {
+        "id": "fig-10.3",
+        "caption": "Figure 10.3: Program segment E2, a C program segment that uses cursors with embedded SQL for update purposes.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.3 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.5-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[77]",
+      "expect": {
+        "id": "tbl-ch10-77"
+      },
+      "set": {
+        "id": "fig-10.5",
+        "caption": "Figure 10.5: Importing SQLJ/JDBC classes and establishing a default Oracle connection.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.5 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.6-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[82]",
+      "expect": {
+        "id": "tbl-ch10-82"
+      },
+      "set": {
+        "id": "fig-10.6",
+        "caption": "Figure 10.6: Java program variables used in SQLJ examples J1 and J2.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.6 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.7-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[83]",
+      "expect": {
+        "id": "tbl-ch10-83"
+      },
+      "set": {
+        "id": "fig-10.7",
+        "caption": "Figure 10.7: Program segment J1, a Java/SQLJ segment for retrieving employee information.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.7 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.8-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[95]",
+      "expect": {
+        "id": "tbl-ch10-95"
+      },
+      "set": {
+        "id": "fig-10.8",
+        "caption": "Figure 10.8: Program segment J2A using a named iterator in SQLJ.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.8 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.10-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[107]",
+      "expect": {
+        "id": "tbl-ch10-107"
+      },
+      "set": {
+        "id": "fig-10.10",
+        "caption": "Figure 10.10: Program CLI1 using SQL/CLI to retrieve one employee salary.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.10 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.11-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[128]",
+      "expect": {
+        "id": "tbl-ch10-128"
+      },
+      "set": {
+        "id": "fig-10.11",
+        "caption": "Figure 10.11: Program CLI2 using SQL/CLI to retrieve multiple tuples.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.11 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.12-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[140]",
+      "expect": {
+        "id": "tbl-ch10-140"
+      },
+      "set": {
+        "id": "fig-10.12",
+        "caption": "Figure 10.12: Program JDBC1 for retrieving employee information through JDBC.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.12 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.13-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[151]",
+      "expect": {
+        "id": "tbl-ch10-151"
+      },
+      "set": {
+        "id": "fig-10.13",
+        "caption": "Figure 10.13: Program segment JDBC2 for retrieving department employees through JDBC.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.13 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-10.14-catalog",
+      "action": "set_fields",
+      "chunk": "ch10",
+      "selector": "body[193]",
+      "expect": {
+        "id": "tbl-ch10-193"
+      },
+      "set": {
+        "id": "fig-10.14",
+        "caption": "Figure 10.14: SQL/PSM function illustrating conditional branching.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 10.14 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-11.4-catalog",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[51]",
+      "expect": {
+        "id": "tbl-ch11-51"
+      },
+      "set": {
+        "id": "fig-11.4",
+        "caption": "Figure 11.4: Rewriting program segment P1 as P1' using functions.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 11.4 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-11.6-catalog",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[77]",
+      "expect": {
+        "id": "tbl-ch11-77"
+      },
+      "set": {
+        "id": "fig-11.6",
+        "caption": "Figure 11.6: PHP program segment showing database connection and updates.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 11.6 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-11.7-catalog",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[106]",
+      "expect": {
+        "id": "tbl-ch11-106"
+      },
+      "set": {
+        "id": "fig-11.7",
+        "caption": "Figure 11.7: PHP retrieval query examples.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 11.7 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-12.7-catalog",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[204]",
+      "expect": {
+        "id": "tbl-ch12-204"
+      },
+      "set": {
+        "id": "fig-12.7",
+        "caption": "Figure 12.7: The attributes, relationships, and operations in a class definition.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 12.7 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-13.5-catalog",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[61]",
+      "expect": {
+        "id": "tbl-ch13-61"
+      },
+      "set": {
+        "id": "fig-13.5",
+        "caption": "Figure 13.5: An XML schema file called company.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 13.5 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-13.6-catalog",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[90]",
+      "expect": {
+        "id": "tbl-ch13-90"
+      },
+      "set": {
+        "id": "fig-13.6",
+        "caption": "Figure 13.6: Some examples of XPath expressions on XML documents that follow the XML schema file company in Figure 13.5.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 13.6 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-18.3-catalog",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[120]",
+      "expect": {
+        "id": "tbl-ch18-120"
+      },
+      "set": {
+        "id": "fig-18.3",
+        "caption": "Figure 18.3: Algorithm for external sorting.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 18.3 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-21.1-catalog",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[9]",
+      "expect": {
+        "id": "tbl-ch21-9"
+      },
+      "set": {
+        "id": "fig-21.1",
+        "caption": "Figure 21.1: Lock and unlock operations for binary locks.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 21.1 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-21.2-catalog",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[21]",
+      "expect": {
+        "id": "tbl-ch21-21"
+      },
+      "set": {
+        "id": "fig-21.2",
+        "caption": "Figure 21.2: Read-lock, write-lock, and unlock operations for shared/exclusive locks.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 21.2 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-21.6-catalog",
+      "action": "set_fields",
+      "chunk": "ch21",
+      "selector": "body[100]",
+      "expect": {
+        "id": "tbl-ch21-100"
+      },
+      "set": {
+        "id": "fig-21.6",
+        "caption": "Figure 21.6: Compatibility matrices for locking modes.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 21.6 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-23.4-catalog",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[150]",
+      "expect": {
+        "id": "tbl-ch23-150"
+      },
+      "set": {
+        "id": "fig-23.4",
+        "caption": "Figure 23.4: EMPLOYEE and DEPARTMENT relation fragments distributed at two sites.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 23.4 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-23.5-catalog",
+      "action": "set_fields",
+      "chunk": "ch23",
+      "selector": "body[179]",
+      "expect": {
+        "id": "tbl-ch23-179"
+      },
+      "set": {
+        "id": "fig-23.5",
+        "caption": "Figure 23.5: Guard conditions and attribute lists for distributed fragments.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 23.5 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-26.10-catalog",
+      "action": "set_fields",
+      "chunk": "ch26",
+      "selector": "body[141]",
+      "expect": {
+        "id": "tbl-ch26-141"
+      },
+      "set": {
+        "id": "fig-26.10",
+        "caption": "Figure 26.10: Possible ODL schema for a temporal valid time EMPLOYEE_VT object class using attribute versioning.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 26.10 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-26.11-catalog",
+      "action": "set_fields",
+      "chunk": "ch26",
+      "selector": "body[272]",
+      "expect": {
+        "id": "tbl-ch26-272"
+      },
+      "set": {
+        "id": "fig-26.11",
+        "caption": "Figure 26.11: Facts and supervisory tree for a recursive deductive database example.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 26.11 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-28.8-catalog",
+      "action": "set_fields",
+      "chunk": "ch28",
+      "selector": "body[158]",
+      "expect": {
+        "id": "tbl-ch28-158"
+      },
+      "set": {
+        "id": "fig-28.8",
+        "caption": "Figure 28.8: Sample two-dimensional records for clustering example.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 28.8 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-6.1-catalog",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[23]",
+      "expect": {
+        "id": "tbl-ch06-23"
+      },
+      "set": {
+        "id": "fig-6.1",
+        "caption": "Figure 6.1: SQL data definition statements for the COMPANY relational database schema.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 6.1 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-8.11-catalog",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[259]",
+      "expect": {
+        "id": "tbl-ch08-259"
+      },
+      "set": {
+        "id": "fig-8.11",
+        "caption": "Figure 8.11: Result of recursive queries on the SUPERVISION relation.",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Parsed block is the body/caption of Figure 8.11 but was excluded or given a fallback table id."
+    },
+    {
+      "id": "elmasri-fig-2.1-alias",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[17]",
+      "expect": {
+        "id": "fig-1.2"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-2.1",
+            "type": "figure",
+            "caption": "Figure 2.1: Schema diagram for the database shown in Figure 1.2.",
+            "source": "agent-catalog-audit",
+            "evidence": "Caption says schema diagram for database in Figure 1.2; surrounding text identifies it as Figure 2.1 schema diagram."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit",
+        "kind": "text"
+      },
+      "reason": "Figure 2.1 is reused/cross-referenced at this block; expose it as a catalog alias without changing the primary figure id."
+    },
+    {
+      "id": "elmasri-fig-6.9-alias",
+      "action": "set_fields",
+      "chunk": "ch19",
+      "selector": "body[8]",
+      "expect": {
+        "id": "fig-19.1"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-6.9",
+            "type": "figure",
+            "caption": "Figure 6.9: Query tree for query Q2, reused as Figure 19.1(a).",
+            "source": "agent-catalog-audit",
+            "evidence": "Block caption explicitly says it is the same as shown in Figure 6.9."
+          },
+          {
+            "id": "fig-6.13",
+            "type": "figure",
+            "caption": "Figure 6.13: Query graph for query Q2, reused as Figure 19.1(c).",
+            "source": "agent-catalog-audit",
+            "evidence": "Following paragraph states Figure 19.1(c) is the same as shown in Figure 6.13; same composite figure block anchors both parts."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Figure 19.1 is a composite figure reused from earlier chapter figures 6.9 and 6.13; expose both as aliases without changing primary id."
+    },
+    {
+      "id": "elmasri-fig-7.7-alias",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[61]",
+      "expect": {
+        "id": "fig-13.5"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.7",
+            "type": "figure",
+            "caption": "Figure 7.7: Company entity attributes referenced by the XML schema example.",
+            "source": "agent-catalog-audit",
+            "evidence": "Text says complex elements correspond to database attributes of each entity type in Figure 7.7; this is a cross-chapter source figure reused conceptually."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit",
+        "kind": "text"
+      },
+      "reason": "Figure 7.7 is reused/cross-referenced at this block; expose it as a catalog alias without changing the primary figure id."
+    },
+    {
+      "id": "elmasri-fig-7.15-alias",
+      "action": "set_fields",
+      "chunk": "appA",
+      "selector": "body[49]",
+      "expect": {
+        "id": "fig-9.2"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-7.15",
+            "type": "figure",
+            "caption": "Figure 7.15: Alternative notation used for (min, max) constraints.",
+            "source": "agent-catalog-audit",
+            "evidence": "Appendix text states notation (ii) is the alternative notation used in Figure 7.15; nearby appendix figure block contains the notation variants."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "Figure 7.15 is reused/cross-referenced at this block; expose it as a catalog alias without changing the primary figure id."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "5.3",
+      "classification": "source_mismatch",
+      "reason": "The reference discusses a relation tuple-order example, but parsed chapter 5 has no Figure 5.3 block; surrounding catalog jumps from Figure 5.2 to Figure 5.5.",
+      "where": "ch05.json body[47]",
+      "evidence": "Parsed ch05 visual blocks include Figure 5.1, 5.2, 5.5, 5.6, 5.7; no block/caption for Figure 5.3 is present."
+    },
+    {
+      "type": "figure",
+      "ref": "6.6",
+      "classification": "source_mismatch",
+      "reason": "Problem references the LIBRARY schema in Figure 6.6, but parsed chapter 6 has no corresponding visual block; only Figure 6.5 and later unrelated figures are present.",
+      "where": "ch06.json problem:6.7:body[0]",
+      "evidence": "Parsed ch06 problem body contains only the textual reference; chapter visuals show no Figure 6.6 block."
+    },
+    {
+      "type": "figure",
+      "ref": "9.4",
+      "classification": "source_mismatch",
+      "reason": "Text references SUPPLY relation in Figure 9.4, but parsed chapter 9 has no Figure 9.4 block; nearby blocks contain source Figure 3.17 and later Figure 9.5.",
+      "where": "ch09.json body[48]",
+      "evidence": "Parsed ch09 body[52] is Figure 3.17 and body[76] is Figure 9.5; no Figure 9.4 block exists in parsed data."
+    },
+    {
+      "type": "figure",
+      "ref": "9.9",
+      "classification": "source_mismatch",
+      "reason": "Exercise references an EER diagram in Figure 9.9, but parsed problem has no visual block and chapter 9 catalog ends before Figure 9.9.",
+      "where": "ch09.json problem:9.8:body[0]",
+      "evidence": "Problem 9.8 body contains only text; parsed chapter 9 visuals include Figure 9.8 but no Figure 9.9."
+    },
+    {
+      "type": "figure",
+      "ref": "12.2",
+      "classification": "source_mismatch",
+      "reason": "Figure 12.2 appears in parsed text as a code/class listing paragraph, not a visual/table block; current override engine cannot promote p blocks into catalog entries without corrupting text semantics.",
+      "where": "ch12.json body[36]",
+      "evidence": "body[36] references Figure 12.2 and body[37] contains class text as a paragraph, not a fig/table block; no Figure 12.2 catalogable visual block is emitted."
+    },
+    {
+      "type": "figure",
+      "ref": "12.3",
+      "classification": "source_mismatch",
+      "reason": "Figure 12.3 is referenced conceptually in this chapter but no Figure 12.3 visual block is emitted in parsed data.",
+      "where": "ch12.json body[40]",
+      "evidence": "Parsed ch12 visual list jumps through excluded code blocks and later Figure 12.6/12.7; no Figure 12.3 block exists."
+    },
+    {
+      "type": "figure",
+      "ref": "26.6",
+      "classification": "source_mismatch",
+      "reason": "Figure 26.6 trigger listing is present only as inline paragraphs, not as a catalogable fig/table block in parsed data.",
+      "where": "ch26.json body[79]",
+      "evidence": "body[80] contains trigger T1 as paragraph text; nearby visual blocks are Figure 26.5 and Figure 26.7, with no Figure 26.6 block."
+    }
+  ]
+}

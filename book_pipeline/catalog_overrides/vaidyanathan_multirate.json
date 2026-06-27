@@ -1,0 +1,112 @@
+{
+  "overrides": [
+    {
+      "id": "vaidyanathan-tbl-4.4.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[300]",
+      "position": "before",
+      "page": 153,
+      "clip": [0.14, 0.015, 0.93, 0.39],
+      "zoom": 3.0,
+      "src": "tbl-4.4.1.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-4.4.1",
+        "kind": "line",
+        "caption": "TABLE 4.4.1 Design example 4.4.1. Complexity comparison between the direct method and the IFIR method."
+      },
+      "reason": "C5: 正文 (ch04 body[292]) 引用 Table 4.4.1（IFIR vs 直接設計複雜度比較表）。掃描頁 p139(page_idx152) 頂部確有此網格表，但 caption 被 MinerU 併入/裁掉、表體未成獨立 catalog table block → 重裁該頁頂部網格表，落 tbl-4.4.1。"
+    },
+    {
+      "id": "vaidyanathan-tbl-5.10.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[796]",
+      "position": "before",
+      "page": 282,
+      "clip": [0.06, 0.012, 0.96, 0.93],
+      "zoom": 2.5,
+      "src": "tbl-5.10.2.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-5.10.2",
+        "kind": "line",
+        "caption": "TABLE 5.10.2 IIR allpass based QMF banks."
+      },
+      "reason": "C5: 正文 (ch05 body[792]) 引用 Table 5.10.2。章末 5.10『SUMMARY AND TABLES』整頁盒狀摘要表，caption『TABLE 5.10.2 IIR allpass based QMF banks』被 OCR 成 header(content_list[3397]) 遭 parser 當跑馬燈丟、body 散成 prose → 重裁掃描頁 p268(page_idx281) 整盒，落 tbl-5.10.2。"
+    },
+    {
+      "id": "vaidyanathan-tbl-5.10.5-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "body[826]",
+      "position": "before",
+      "page": 285,
+      "clip": [0.05, 0.015, 0.97, 0.94],
+      "zoom": 2.5,
+      "src": "tbl-5.10.5.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-5.10.5",
+        "kind": "line",
+        "caption": "TABLE 5.10.5 Summary of important matrix quantities and the relations between them."
+      },
+      "reason": "C5: 正文 (ch05 body[782]) 引用 Table 5.10.5（重要矩陣量及其關係的摘要）。掃描頁 p271(page_idx284) 整頁矩陣定義即此表，caption header 未被 OCR、body 成 eq blocks → 重裁該頁，落 tbl-5.10.5。"
+    },
+    {
+      "id": "vaidyanathan-tbl-6.7.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch06",
+      "selector": "body[436]",
+      "position": "before",
+      "page": 341,
+      "clip": [0.07, 0.012, 0.93, 0.93],
+      "zoom": 2.5,
+      "src": "tbl-6.7.1.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-6.7.1",
+        "kind": "line",
+        "caption": "TABLE 6.7.1 Perfect reconstruction filter banks with paraunitary E(z)."
+      },
+      "reason": "C5: 正文 (ch06 body[432]) 引用 Table 6.7.1。章末 6.7 盒狀摘要表，caption『TABLE 6.7.1 Perfect reconstruction filter banks with paraunitary E(z)』被 OCR 成 header(content_list[4220]) 遭丟、body 散成 prose → 重裁掃描頁 p327(page_idx340) 整盒，落 tbl-6.7.1。"
+    },
+    {
+      "id": "vaidyanathan-tbl-10.1.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[88]",
+      "position": "after",
+      "page": 451,
+      "clip": [0.07, 0.012, 0.93, 0.93],
+      "zoom": 2.5,
+      "src": "tbl-10.1.1.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-10.1.1",
+        "kind": "line",
+        "caption": "TABLE 10.1.1 Block filtering, LPTV systems, and filter banks."
+      },
+      "reason": "C5: 正文 (ch10 body[88]) 引用 Table 10.1.1。整頁盒狀摘要表，caption『TABLE 10.1.1 Block filtering, LPTV systems, and filter banks』被 OCR 成 header(content_list[5608]) 遭丟、body 成三段編號 prose → 重裁掃描頁 p437(page_idx450) 整盒，落 tbl-10.1.1。"
+    },
+    {
+      "id": "vaidyanathan-tbl-11.4.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch11",
+      "selector": "body[510]",
+      "position": "before",
+      "page": 525,
+      "clip": [0.07, 0.013, 0.93, 0.93],
+      "zoom": 2.5,
+      "src": "tbl-11.4.1.jpg",
+      "block": {
+        "t": "fig",
+        "id": "tbl-11.4.1",
+        "kind": "line",
+        "caption": "TABLE 11.4.1 The discrete-time wavelet transform (DTWT)."
+      },
+      "reason": "C5: 正文 (ch11 body[506]) 引用 Table 11.4.1。盒狀摘要表，caption『TABLE 11.4.1 The discrete-time wavelet transform (DTWT)』被 OCR 成 header(content_list[6539]) 遭丟、body 散成 Orthonormal basis / Special cases 編號 prose → 重裁掃描頁 p511(page_idx524) 整盒，落 tbl-11.4.1。"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "overrides": [
+    {
+      "id": "goodrich-ch04-fix-quick-sort-ref-4-11-to-4-12",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[218]",
+      "field": "md",
+      "old": "see Figure 4.11",
+      "new": "see Figure 4.12",
+      "reason": "Raw PDF page 247 has no Figure 4.11 reference here; page text and adjacent catalog show the quick-sort tree is Figure 4.12, so this is OCR/ref extraction noise."
+    },
+    {
+      "id": "goodrich-ch08-fig-8-10-id",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[142]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-142",
+        "caption": "Figure 8;1O: Illustration of the proof of Lemma 8.8."
+      },
+      "set": {
+        "id": "fig-8.10",
+        "caption": "Figure 8.10: Illustration of the proof of Lemma 8.8.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption OCR reads '8;1O', which is Figure 8.10;正文 on raw PDF page 406 references Figure 8.10."
+    },
+    {
+      "id": "goodrich-ch08-fig-8-11-id",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[177]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch08-177"
+      },
+      "set": {
+        "id": "fig-8.11",
+        "caption": "Figure 8.11: (a) A bipartite graph G. (b) Flow network H derived from G and a maximum flow in H; thick edges have unit flow and other edges have zero flow.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Caption OCR rendered 'Figure 8.11' as 'Figûre tilt'; the block contains subfigures (a)/(b) for the bipartite matching construction referenced by Figure 8.11 and Figure 8.11b."
+    },
+    {
+      "id": "goodrich-ch09-fig-9-4a-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[72]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch09-72"
+      },
+      "set": {
+        "id": "fig-9.4",
+        "caption": "Figure 9.4: Illustration of the jump step in the BM algorithm, case (a).",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "The following caption text is OCR'd as 'Figure 94'; this image is the first subfigure of Figure 9.4 illustrating the BM jump step."
+    },
+    {
+      "id": "goodrich-ch09-fig-9-4b-id",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[74]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.5"
+      },
+      "set": {
+        "id": "fig-9.4--1",
+        "caption": "Figure 9.4: Illustration of the jump step in the BM algorithm, case (b).",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "This image immediately precedes the OCR'd Figure 9.4 caption and visually shows the second BM jump case; its previous fig-9.5 id was assigned from the later Figure 9.5 discussion."
+    }
+  ]
+}

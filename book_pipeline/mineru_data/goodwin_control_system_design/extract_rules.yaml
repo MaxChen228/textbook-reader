@@ -1,0 +1,234 @@
+slug: goodwin_control_system_design
+title: Control System Design
+author: Graham C. Goodwin; Stefan F. Graebe; Mario E. Salgado
+edition: 2000th
+subject: Control Systems
+publisher: null
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+body_start_page: 32
+appendices_start_page: null
+bibliography_start_page: null
+index_start_page: 900
+inline_problems: false
+heading_text_level:
+- 1
+- 2
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^(\d+\.\d+\.\d+)\s+(.+)$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^Problem\s+(\d+\.\d+)\.
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: \((\d+\.\d+\.\d+)\)
+example_start_re: ^Example\s+(\d+\.\d+)\.
+figure_caption_merge: true
+figure_caption_main_re: ^Fig(?:ure)?\.\s*\d+\.\d+
+known_missing_problems:
+- chapter: 7
+  nums:
+  - '7.3'
+- chapter: 18
+  nums:
+  - '18.4'
+- chapter: 21
+  nums:
+  - '21.5'
+- chapter: 23
+  nums:
+  - '23.5'
+chapters:
+- num: 1
+  title: The Excitement of Control Engineering
+  page_start: 32
+  page_end: 47
+  chapter_title_block_idx: 130
+  problems_block_idx: null
+  next_chapter_block_idx: 325
+- num: 2
+  title: Introduction to the Principles of Feedback
+  page_start: 48
+  page_end: 67
+  chapter_title_block_idx: 325
+  problems_block_idx: null
+  next_chapter_block_idx: 588
+- num: 3
+  title: Modeling
+  page_start: 68
+  page_end: 91
+  chapter_title_block_idx: 588
+  problems_block_idx: 900
+  next_chapter_block_idx: 960
+- num: 4
+  title: Continuous Time Signals and Systems
+  page_start: 92
+  page_end: 145
+  chapter_title_block_idx: 960
+  problems_block_idx: 1597
+  next_chapter_block_idx: 1705
+- num: 5
+  title: Analysis of SISO Control Loops
+  page_start: 146
+  page_end: 183
+  chapter_title_block_idx: 1705
+  problems_block_idx: 2222
+  next_chapter_block_idx: 2294
+- num: 6
+  title: Classical PID Control
+  page_start: 184
+  page_end: 203
+  chapter_title_block_idx: 2294
+  problems_block_idx: 2471
+  next_chapter_block_idx: 2509
+- num: 7
+  title: Synthesis of SISO Controllers
+  page_start: 204
+  page_end: 225
+  chapter_title_block_idx: 2509
+  problems_block_idx: 2742
+  next_chapter_block_idx: 2795
+- num: 8
+  title: Fundamental Limitations in SISO Control
+  page_start: 226
+  page_end: 265
+  chapter_title_block_idx: 2795
+  problems_block_idx: 3301
+  next_chapter_block_idx: 3348
+- num: 9
+  title: Frequency Domain Design Limitations
+  page_start: 266
+  page_end: 289
+  chapter_title_block_idx: 3348
+  problems_block_idx: 3652
+  next_chapter_block_idx: 3675
+- num: 10
+  title: Architectural Issues in SISO Control
+  page_start: 290
+  page_end: 317
+  chapter_title_block_idx: 3675
+  problems_block_idx: 4010
+  next_chapter_block_idx: 4070
+- num: 11
+  title: Dealing with Constraints
+  page_start: 318
+  page_end: 343
+  chapter_title_block_idx: 4070
+  problems_block_idx: 4285
+  next_chapter_block_idx: 4387
+- num: 12
+  title: Models for Sampled Data Systems
+  page_start: 344
+  page_end: 377
+  chapter_title_block_idx: 4387
+  problems_block_idx: 4821
+  next_chapter_block_idx: 4881
+- num: 13
+  title: Digital Control
+  page_start: 378
+  page_end: 411
+  chapter_title_block_idx: 4881
+  problems_block_idx: 5347
+  next_chapter_block_idx: 5426
+- num: 14
+  title: Hybrid Control
+  page_start: 412
+  page_end: 431
+  chapter_title_block_idx: 5426
+  problems_block_idx: 5569
+  next_chapter_block_idx: 5639
+- num: 15
+  title: SISO Controller Parameterizations
+  page_start: 432
+  page_end: 481
+  chapter_title_block_idx: 5639
+  problems_block_idx: 6344
+  next_chapter_block_idx: 6383
+- num: 16
+  title: Control Design Based on Optimization
+  page_start: 482
+  page_end: 509
+  chapter_title_block_idx: 6383
+  problems_block_idx: 6756
+  next_chapter_block_idx: 6806
+- num: 17
+  title: Linear State Space Models
+  page_start: 510
+  page_end: 545
+  chapter_title_block_idx: 6806
+  problems_block_idx: 7322
+  next_chapter_block_idx: 7386
+- num: 18
+  title: Synthesis via State Space Methods
+  page_start: 546
+  page_end: 577
+  chapter_title_block_idx: 7386
+  problems_block_idx: 7883
+  next_chapter_block_idx: 7926
+- num: 19
+  title: Introduction to Nonlinear Control
+  page_start: 578
+  page_end: 617
+  chapter_title_block_idx: 7926
+  problems_block_idx: 8435
+  next_chapter_block_idx: 8477
+- num: 20
+  title: Analysis of MIMO Control Loops
+  page_start: 618
+  page_end: 657
+  chapter_title_block_idx: 8477
+  problems_block_idx: 9045
+  next_chapter_block_idx: 9107
+- num: 21
+  title: Exploiting SISO Techniques in MIMO Control
+  page_start: 658
+  page_end: 683
+  chapter_title_block_idx: 9107
+  problems_block_idx: 9362
+  next_chapter_block_idx: 9397
+- num: 22
+  title: Design via Optimal Control Techniques
+  page_start: 684
+  page_end: 745
+  chapter_title_block_idx: 9397
+  problems_block_idx: 10328
+  next_chapter_block_idx: 10375
+- num: 23
+  title: Model Predictive Control
+  page_start: 746
+  page_end: 773
+  chapter_title_block_idx: 10375
+  problems_block_idx: 10696
+  next_chapter_block_idx: 10745
+- num: 24
+  title: Fundamental Limitations in MIMO Control
+  page_start: 774
+  page_end: 813
+  chapter_title_block_idx: 10745
+  problems_block_idx: 11238
+  next_chapter_block_idx: 11282
+- num: 25
+  title: MIMO Controller Parameterizations
+  page_start: 814
+  page_end: 855
+  chapter_title_block_idx: 11282
+  problems_block_idx: 11951
+  next_chapter_block_idx: 11986
+- num: 26
+  title: Decoupling
+  page_start: 856
+  page_end: 899
+  chapter_title_block_idx: 11986
+  problems_block_idx: 12631
+  next_chapter_block_idx: 12656
+appendices: []

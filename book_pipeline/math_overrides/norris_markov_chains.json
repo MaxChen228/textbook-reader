@@ -1,0 +1,148 @@
+{
+  "overrides": [
+    {
+      "id": "norris_markov_chains-ch03-body-77-97ebcd",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[77]",
+      "expect": "\\left\\{ \\begin{array}{l l} k _ {i} ^ {A} = 0 & \\text {for i\\in A} \\\\ - \\sum_ {j \\in I} q _ {i j} k _ {j} ^ {A} = 1 & \\text {for i\\not\\in A}. \\end{array} \\right.\\tag{3.1}",
+      "new": "\\left\\{ \\begin{array}{l l} k _ {i} ^ {A} = 0 & \\text {for } i\\in A \\\\ - \\sum_ {j \\in I} q _ {i j} k _ {j} ^ {A} = 1 & \\text {for } i\\not\\in A. \\end{array} \\right.\\tag{3.1}"
+    },
+    {
+      "id": "norris_markov_chains-ch04-body-292-5a9b55",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[292]",
+      "expect": "\\begin{array}{l l} \\phi_ {i} = p \\phi_ {i + 1} + q \\phi_ {i - 1} & \\text {for i = 1,2,\\ldots ,} \\\\ \\phi_ {0} = \\frac {1}{2} \\phi_ {1} + \\frac {1}{2} \\phi_ {- 1}, \\\\ \\phi_ {i} = q \\phi_ {i + 1} + p \\phi_ {i - 1} & \\text {for i = -1, - 2,\\ldots .} \\end{array}",
+      "new": "\\begin{array}{l l} \\phi_ {i} = p \\phi_ {i + 1} + q \\phi_ {i - 1} & \\text {for } i = 1,2,\\ldots , \\\\ \\phi_ {0} = \\frac {1}{2} \\phi_ {1} + \\frac {1}{2} \\phi_ {- 1}, \\\\ \\phi_ {i} = q \\phi_ {i + 1} + p \\phi_ {i - 1} & \\text {for } i = -1, - 2,\\ldots . \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch04-body-300-177c45",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[300]",
+      "expect": "h _ {i} ^ {+} = \\left\\{ \\begin{array}{l l} \\frac {1}{2} + \\frac {1}{2} \\big (1 - (q / p) ^ {i} \\big) & \\text {for i = 0,1,2,\\ldots ,} \\\\ \\frac {1}{2} - \\frac {1}{2} \\big (1 - (q / p) ^ {- i} \\big) & \\text {for i = -1,-2,\\ldots .} \\end{array} \\right.",
+      "new": "h _ {i} ^ {+} = \\left\\{ \\begin{array}{l l} \\frac {1}{2} + \\frac {1}{2} \\big (1 - (q / p) ^ {i} \\big) & \\text {for } i = 0,1,2,\\ldots , \\\\ \\frac {1}{2} - \\frac {1}{2} \\big (1 - (q / p) ^ {- i} \\big) & \\text {for } i = -1,-2,\\ldots . \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch04-body-384-42b1d0",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[384]",
+      "expect": "\\begin{array}{l l} \\text {minimize} & E (\\phi) \\\\ \\text {subject to} & \\phi_ {i} = f _ {i} \\quad \\text {for i\\in\\partial D}. \\end{array}",
+      "new": "\\begin{array}{l l} \\text {minimize} & E (\\phi) \\\\ \\text {subject to} & \\phi_ {i} = f _ {i} \\quad \\text {for } i\\in\\partial D. \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch04-body-386-155dd0",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[386]",
+      "expect": "\\begin{array}{l l} \\text {minimize} & I (\\gamma) \\\\ \\text {subject to} & \\gamma_ {i} = g _ {i} \\quad \\text {for i\\in D}. \\end{array}",
+      "new": "\\begin{array}{l l} \\text {minimize} & I (\\gamma) \\\\ \\text {subject to} & \\gamma_ {i} = g _ {i} \\quad \\text {for } i\\in D. \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch04-body-416-9b7c81",
+      "action": "fix_eq_tex",
+      "chunk": "ch04",
+      "selector": "body[416]",
+      "expect": "\\left\\{ \\begin{array}{r l} \\sum_ {k \\in I} (\\phi_ {i} ^ {j} - \\phi_ {k} ^ {j}) a _ {i k} = 0 & \\text {for i\\notin J} \\\\ \\phi_ {i} ^ {j} = \\delta_ {i j} & \\text {for i\\in J}. \\end{array} \\right.\\tag{4.11}",
+      "new": "\\left\\{ \\begin{array}{r l} \\sum_ {k \\in I} (\\phi_ {i} ^ {j} - \\phi_ {k} ^ {j}) a _ {i k} = 0 & \\text {for } i\\notin J \\\\ \\phi_ {i} ^ {j} = \\delta_ {i j} & \\text {for } i\\in J. \\end{array} \\right.\\tag{4.11}"
+    },
+    {
+      "id": "norris_markov_chains-ch05-body-89-d8d2ea",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[89]",
+      "expect": "\\begin{array}{l} k _ {i} ^ {j} = \\delta_ {i j} + (p _ {i, i - 1} k _ {i - 1} ^ {j} + p _ {i i} k _ {i} ^ {j} + p _ {i, i + 1} k _ {i + 1} ^ {j}) \\quad \\text {for i = 1,\\ldots,m - 1} \\\\ k _ {0} ^ {j} = k _ {m} ^ {j} = 0. \\end{array}",
+      "new": "\\begin{array}{l} k _ {i} ^ {j} = \\delta_ {i j} + (p _ {i, i - 1} k _ {i - 1} ^ {j} + p _ {i i} k _ {i} ^ {j} + p _ {i, i + 1} k _ {i + 1} ^ {j}) \\quad \\text {for } i = 1,\\ldots,m - 1 \\\\ k _ {0} ^ {j} = k _ {m} ^ {j} = 0. \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch05-body-93-f4cd56",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[93]",
+      "expect": "k _ {i} ^ {j} = \\left\\{ \\begin{array}{l l} (i / j) k _ {j} ^ {j} & \\text {for i\\leq j} \\\\ \\big ((m - i) / (m - j) \\big) k _ {j} ^ {j} & \\text {for i\\geq j} \\end{array} \\right.",
+      "new": "k _ {i} ^ {j} = \\left\\{ \\begin{array}{l l} (i / j) k _ {j} ^ {j} & \\text {for } i\\leq j \\\\ \\big ((m - i) / (m - j) \\big) k _ {j} ^ {j} & \\text {for } i\\geq j \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch05-body-272-3055a0",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[272]",
+      "expect": "X _ {n + 1} = \\left\\{ \\begin{array}{l l} (c - D _ {n + 1}) ^ {+} & \\text {if X_{n} \\leq m} \\\\ (X _ {n} - D _ {n + 1}) ^ {+} & \\text {if m <   X_{n} \\leq c}. \\end{array} \\right.",
+      "new": "X _ {n + 1} = \\left\\{ \\begin{array}{l l} (c - D _ {n + 1}) ^ {+} & \\text {if } X_{n} \\leq m \\\\ (X _ {n} - D _ {n + 1}) ^ {+} & \\text {if } m <   X_{n} \\leq c. \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch05-body-507-dc811c",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[507]",
+      "expect": "\\begin{array}{c} X _ {0} = G _ {0} (U _ {0}), \\\\ X _ {n + 1} = G (X _ {n}, U _ {n + 1}) \\quad \\text {for n\\geq 0 .} \\end{array}",
+      "new": "\\begin{array}{c} X _ {0} = G _ {0} (U _ {0}), \\\\ X _ {n + 1} = G (X _ {n}, U _ {n + 1}) \\quad \\text {for } n\\geq 0 . \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch02-body-326-78f6ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[326]",
+      "expect": "\\begin{array}{l} \\pi_ {i j} = \\left\\{ \\begin{array}{l l} q _ {i j} / q _ {i} & \\text {if j\\neq i and q_{i} \\neq 0} \\\\ 0 & \\text {if j\\neq i and q_{i} = 0}, \\end{array} \\right. \\\\ \\pi_ {i i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if q_{i} \\neq 0} \\\\ 1 & \\text {if q_{i} = 0}. \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\pi_ {i j} = \\left\\{ \\begin{array}{l l} q _ {i j} / q _ {i} & \\text {if } j\\neq i \\text { and } q_{i} \\neq 0 \\\\ 0 & \\text {if } j\\neq i \\text { and } q_{i} = 0, \\end{array} \\right. \\\\ \\pi_ {i i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } q_{i} \\neq 0 \\\\ 1 & \\text {if } q_{i} = 0. \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch03-body-7-78f6ef",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[7]",
+      "expect": "\\begin{array}{l} \\pi_ {i j} = \\left\\{ \\begin{array}{l l} q _ {i j} / q _ {i} & \\text {if j\\neq i and q_{i} \\neq 0} \\\\ 0 & \\text {if j\\neq i and q_{i} = 0}, \\end{array} \\right. \\\\ \\pi_ {i i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if q_{i} \\neq 0} \\\\ 1 & \\text {if q_{i} = 0}. \\end{array} \\right. \\end{array}",
+      "new": "\\begin{array}{l} \\pi_ {i j} = \\left\\{ \\begin{array}{l l} q _ {i j} / q _ {i} & \\text {if } j\\neq i \\text { and } q_{i} \\neq 0 \\\\ 0 & \\text {if } j\\neq i \\text { and } q_{i} = 0, \\end{array} \\right. \\\\ \\pi_ {i i} = \\left\\{ \\begin{array}{l l} 0 & \\text {if } q_{i} \\neq 0 \\\\ 1 & \\text {if } q_{i} = 0. \\end{array} \\right. \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch01-body-196-a1b8c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[196]",
+      "expect": "\\begin{array}{l} h _ {0} = 1, \\\\ h _ {i} = p _ {i} h _ {i + 1} + q _ {i} h _ {i - 1}, \\quad \\text {for i = 1,2,\\ldots .} \\end{array}",
+      "new": "\\begin{array}{l} h _ {0} = 1, \\\\ h _ {i} = p _ {i} h _ {i + 1} + q _ {i} h _ {i - 1}, \\quad \\text {for } i = 1,2,\\ldots . \\end{array}"
+    },
+    {
+      "id": "norris_markov_chains-ch01-body-210-a9d32b",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[210]",
+      "expect": "\\left\\{ \\begin{array}{l l} k _ {i} ^ {A} = 0 & \\text {for i\\in A} \\\\ k _ {i} ^ {A} = 1 + \\sum_ {j \\not \\in A} p _ {i j} k _ {j} ^ {A} & \\text {for i\\notin A}. \\end{array} \\right.\\tag{1.4}",
+      "new": "\\left\\{ \\begin{array}{l l} k _ {i} ^ {A} = 0 & \\text {for } i\\in A \\\\ k _ {i} ^ {A} = 1 + \\sum_ {j \\not \\in A} p _ {i j} k _ {j} ^ {A} & \\text {for } i\\notin A. \\end{array} \\right.\\tag{1.4}"
+    },
+    {
+      "id": "norris_markov_chains-ch01-body-540-3e345e",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[540]",
+      "expect": "Z _ {n} = \\left\\{ \\begin{array}{l l} X _ {n} & \\text {if n <   T} \\\\ Y _ {n} & \\text {if n\\geq T}. \\end{array} \\right.",
+      "new": "Z _ {n} = \\left\\{ \\begin{array}{l l} X _ {n} & \\text {if } n <   T \\\\ Y _ {n} & \\text {if } n\\geq T. \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch01-body-543-45899b",
+      "action": "fix_eq_tex",
+      "chunk": "ch01",
+      "selector": "body[543]",
+      "expect": "Z _ {n} ^ {\\prime} = \\left\\{ \\begin{array}{l l} Y _ {n} & \\text {if n <   T} \\\\ X _ {n} & \\text {if n\\geq T}. \\end{array} \\right.",
+      "new": "Z _ {n} ^ {\\prime} = \\left\\{ \\begin{array}{l l} Y _ {n} & \\text {if } n <   T \\\\ X _ {n} & \\text {if } n\\geq T. \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch02-body-544-115073",
+      "action": "fix_eq_tex",
+      "chunk": "ch02",
+      "selector": "body[544]",
+      "expect": "X _ {\\zeta} = \\left\\{ \\begin{array}{l l} 0 & \\quad \\text {if X_{t} \\to - \\infty as t\\uparrow\\zeta} \\\\ Z & \\quad \\text {if X_{t} \\to\\infty as t\\uparrow\\zeta} \\end{array} \\right.",
+      "new": "X _ {\\zeta} = \\left\\{ \\begin{array}{l l} 0 & \\quad \\text {if } X_{t} \\to - \\infty \\text { as } t\\uparrow\\zeta \\\\ Z & \\quad \\text {if } X_{t} \\to\\infty \\text { as } t\\uparrow\\zeta \\end{array} \\right."
+    },
+    {
+      "id": "norris_markov_chains-ch03-body-62-afb5ae",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[62]",
+      "expect": "\\left\\{ \\begin{array}{l l} h _ {i} ^ {A} = 1 & \\text {for i\\in A}, \\\\ \\sum_ {j \\in I} q _ {i j} h _ {j} ^ {A} = 0 & \\text {for i\\not\\in A}. \\end{array} \\right.",
+      "new": "\\left\\{ \\begin{array}{l l} h _ {i} ^ {A} = 1 & \\text {for } i\\in A, \\\\ \\sum_ {j \\in I} q _ {i j} h _ {j} ^ {A} = 0 & \\text {for } i\\not\\in A. \\end{array} \\right."
+    }
+  ]
+}

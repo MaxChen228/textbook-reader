@@ -1,0 +1,171 @@
+slug: scott_programming_language_pragmatics
+title: Programming Language Pragmatics
+author: Michael L. Scott; Jonathan Aldrich
+edition: 5th
+subject: Compilers
+publisher: Morgan Kaufmann
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 35
+appendices_start_page: 923
+bibliography_start_page: 955
+index_start_page: 975
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 35
+    page_end: 72
+    chapter_title_block_idx: 157
+    problems_block_idx: 524
+    next_chapter_block_idx: 569
+  - num: 2
+    title: Programming Language Syntax
+    page_start: 73
+    page_end: 142
+    chapter_title_block_idx: 569
+    problems_block_idx: 1187
+    next_chapter_block_idx: 1308
+  - num: 3
+    title: Names, Scopes, and Bindings
+    page_start: 143
+    page_end: 206
+    chapter_title_block_idx: 1308
+    problems_block_idx: 1861
+    next_chapter_block_idx: 1988
+  - num: 4
+    title: Program Semantics
+    page_start: 207
+    page_end: 260
+    chapter_title_block_idx: 1988
+    problems_block_idx: 2450
+    next_chapter_block_idx: 2532
+  - num: 5
+    title: Target Machine Architecture
+    page_start: 261
+    page_end: 261
+    chapter_title_block_idx: 2532
+    problems_block_idx: null
+    next_chapter_block_idx: 2536
+  - num: 6
+    title: Control Flow
+    page_start: 267
+    page_end: 338
+    chapter_title_block_idx: 2559
+    problems_block_idx: 3373
+    next_chapter_block_idx: 3487
+  - num: 7
+    title: Type Systems
+    page_start: 339
+    page_end: 400
+    chapter_title_block_idx: 3487
+    problems_block_idx: 4135
+    next_chapter_block_idx: 4229
+  - num: 8
+    title: Composite Types
+    page_start: 401
+    page_end: 480
+    chapter_title_block_idx: 4229
+    problems_block_idx: 5048
+    next_chapter_block_idx: 5167
+  - num: 9
+    title: Subroutines and Control Abstraction
+    page_start: 481
+    page_end: 548
+    chapter_title_block_idx: 5167
+    problems_block_idx: 5858
+    next_chapter_block_idx: 5958
+  - num: 10
+    title: Object Orientation
+    page_start: 551
+    page_end: 610
+    chapter_title_block_idx: 5958
+    problems_block_idx: 6573
+    next_chapter_block_idx: 6638
+  - num: 11
+    title: Functional Languages
+    page_start: 611
+    page_end: 666
+    chapter_title_block_idx: 6638
+    problems_block_idx: 7323
+    next_chapter_block_idx: 7400
+  - num: 12
+    title: Logic Languages
+    page_start: 667
+    page_end: 696
+    chapter_title_block_idx: 7400
+    problems_block_idx: 7781
+    next_chapter_block_idx: 7827
+  - num: 13
+    title: Concurrency
+    page_start: 697
+    page_end: 770
+    chapter_title_block_idx: 7827
+    problems_block_idx: 8532
+    next_chapter_block_idx: 8644
+  - num: 14
+    title: Scripting
+    page_start: 771
+    page_end: 836
+    chapter_title_block_idx: 8644
+    problems_block_idx: 9376
+    next_chapter_block_idx: 9459
+  - num: 15
+    title: Building a Runnable Program
+    page_start: 839
+    page_end: 872
+    chapter_title_block_idx: 9459
+    problems_block_idx: 9745
+    next_chapter_block_idx: 9782
+  - num: 16
+    title: Run-Time Program Management
+    page_start: 873
+    page_end: 920
+    chapter_title_block_idx: 9782
+    problems_block_idx: 10293
+    next_chapter_block_idx: 10351
+  - num: 17
+    title: Code Improvement
+    page_start: 921
+    page_end: 922
+    chapter_title_block_idx: 10351
+    problems_block_idx: null
+    next_chapter_block_idx: 10361
+
+appendices:
+  - id: A
+    title: Programming Languages Mentioned
+    page_start: 923
+    chapter_title_block_idx: 10361
+  - id: B
+    title: Language Design and Language Implementation
+    page_start: 935
+    chapter_title_block_idx: 10465
+  - id: C
+    title: Numbered Examples
+    page_start: 941
+    chapter_title_block_idx: 10483
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+example_start_re: '^EXAMPLE\s+(\d+\.\d+)\b'
+
+problem_start_re: '^(\d+\.\d+(?:–\d+\.\d+)?)\s+'
+problem_chapter_must_match: true
+problems_end_re: '^\d+\.\d+\s+(Explorations|Bibliographic Notes)$'
+
+equation_strip_dollar: true
+equation_label_re: '^\((\d+\.\d+)\)'

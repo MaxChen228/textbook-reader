@@ -1,0 +1,29 @@
+{
+  "slug": "zorich_mathematical_analysis_1",
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "zorich-ma1-fix-fig-6.6-problem-image",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "problem:6.4.6.2:body[1]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-ch06-prob22-1",
+        "src": "8e91527c1236b8594f1e8ebf5236b2f3dea47bf02cff90ab4f9d3880b69083d9.jpg"
+      },
+      "set": {
+        "id": "fig-6.6",
+        "caption": "Fig. 6.6",
+        "catalog_aliases": [
+          "6.6"
+        ],
+        "catalog_repair_source": "catalog-audit-2026-06-26"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "audit_catalog reported missing Figure 6.6 at ch06 problem 6.4.6.5 body[0]. Raw PDF physical page 412 shows the graph labeled Fig. 6.6 at the top of the page; MinerU extracted the image as problem 6.4.6.2 body[1] with fallback id fig-ch06-prob22-1 and separately emitted the caption as a header, so promote that existing image block to semantic id fig-6.6."
+    }
+  ]
+}

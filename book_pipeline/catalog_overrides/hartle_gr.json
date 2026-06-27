@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-hartle-gr-sol",
+      "action": "copy_solution_images",
+      "from_slug": "hartle_gr_sol",
+      "reason": "catalog audit 的 27 個 critical 全是 C3 missing image，逐一核對後 27/27 缺失 jpg 全存在於解答書 slug `hartle_gr_sol` 的 `unified/images/`，主書 `hartle_gr` 則全缺。這屬 merge solution 內容後未同步 immutable image assets 的標準情境，依 catalog-audit.md 以 copy_solution_images 將解答圖資產補進主書目錄。"
+    }
+  ]
+}

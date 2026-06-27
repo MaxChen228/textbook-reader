@@ -1,0 +1,68 @@
+{
+  "overrides": [
+    {
+      "id": "razavi-fig-14.40-misocr-ref",
+      "action": "replace_text",
+      "chunk": "ch14",
+      "selector": "body[279]",
+      "field": "md",
+      "old": "shown in Fig. 1-2-0, the allowable",
+      "new": "shown in Fig. 14.40, the allowable",
+      "reason": "C4 ref 1.2.0：正文 misOCR。原書印『Fig. 14.40』(fig-14.40 'Definition of a VCO'，ωout-Vcont 線性特性圖，正是文中 V1-V2/ω1-ω2 range 的那張)；同段 body[277] Center Frequency 亦正確引 14.40。劣化掃描把 14.40 OCR 成 1-2-0。已渲染 p529 印刷體核對(首1尾0、中段兩劣化數字)。改正後 ref 解析為 14.40，catalog 已有 fig-14.40。"
+    },
+    {
+      "id": "razavi-fig-2.50-id-fix",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "problem:2.17:body[10]",
+      "expect": { "id": "fig-2.49" },
+      "set": {
+        "id": "fig-2.50",
+        "caption": "Figure 2.50",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 ref 2.50：Problem 2.16 引 Fig. 2.50(兩串接 W/L MOSFET=等效 W/(2L) 單管)。圖實際在此塊(已目視 raw p44 確認)，但 caption 被 OCR 成跑馬燈頁眉『Chap. 2 Basic MOS Device Physics』→ 塊被誤併入 fig-2.49。校正 id+caption 為 2.50。"
+    },
+    {
+      "id": "razavi-fig-5.39-id-fix",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "problem:5.16:body[17]",
+      "expect": { "id": "fig-5.37" },
+      "set": {
+        "id": "fig-5.39",
+        "caption": "Figure 5.39",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "C4 ref 5.39：Problem 5.15 引 Fig. 5.39(cascode current mirror，M0 source follower + Vb1 偏壓 M4 + I1 小電流，M0-M3 identical)。圖實際在此塊(已目視 raw p161 確認)，但真 caption『Figure 5.39』被 OCR 成 footer 分離→塊被誤標 fig-5.37/caption『Figure 5.38』。校正 id+caption 為 5.39。"
+    },
+    {
+      "id": "razavi-fig-7.17-clean-orphan-caption",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[119]",
+      "field": "tex",
+      "old": "\\text {   Figure   7.17   Thermal   noise   of   a   MOSFET.   }",
+      "new": "",
+      "reason": "C4 ref 7.17 配套：Fig. 7.17 caption 被 OCR 成 display equation(圖本身漏抓)。插入真圖前清掉此孤立 caption-eq，避免 reader 與圖 caption 重複顯示。"
+    },
+    {
+      "id": "razavi-fig-7.17-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[119]",
+      "position": "after",
+      "page": 229,
+      "clip": [0.285, 0.695, 0.535, 0.815],
+      "zoom": 3.5,
+      "src": "manual_fig-7.17.jpg",
+      "block": {
+        "t": "fig",
+        "id": "fig-7.17",
+        "kind": "line",
+        "caption": "Figure 7.17 Thermal noise of a MOSFET."
+      },
+      "reason": "C4 ref 7.17：MinerU 漏抓 Fig. 7.17(MOSFET 通道熱雜訊模型，drain-source 間電流源 i_n²=4kTγg_m)。caption 被 OCR 成 equation、無 image 塊。raw PDF p229 左下確有(已裁切目視驗證 clip 框準)，裁入。src 顯式 .jpg 避免 .png 在 reader 靜默壞圖。"
+    }
+  ]
+}

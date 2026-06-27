@@ -1,0 +1,70 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "16.52",
+      "classification": "external",
+      "reason": "正文參照明確指向 TCPv2（TCP/IP Illustrated, Volume 2）的 Figure 16.52，不是本書內部 figure。",
+      "where": "ch06.json body[98]",
+      "evidence": "Parsed text says: \"sockets (Figure 16.52 of TCPv2)\"; same section later states the definitions are taken from TCPv2 pp. 530-531."
+    },
+    {
+      "type": "figure",
+      "ref": "16.53",
+      "classification": "external",
+      "reason": "正文參照明確指向 TCPv2 的 Figure 16.53，不是本書內部 figure。",
+      "where": "ch06.json body[121]",
+      "evidence": "Parsed text says: \"Figure 16.53 of TCPv2 declares three descriptor sets within the kernel\"; raw PDF text on physical page 190 contains the same cross-volume wording."
+    },
+    {
+      "type": "figure",
+      "ref": "17.31",
+      "classification": "external",
+      "reason": "正文參照明確指向 TCPv3（TCP/IP Illustrated, Volume 3）的 Figure 17.31，不是本書內部 figure。",
+      "where": "ch15.json body[32]",
+      "evidence": "Parsed text says: \"Berkeley-derived kernels traditionally return two half-duplex descriptors (Figure 17.31 of TCPv3).\""
+    }
+  ],
+  "overrides": [
+    {
+      "id": "stevens-unp-fig-5.18-code-table-id-caption",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[249]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch05-249",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-5.18",
+        "caption": "Figure 5.18 sum.h header.",
+        "catalog_repair_source": "agent-id-caption-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 body[248] says the sum.h header is shown in Figure 5.18; MinerU emitted the code block as an excluded table immediately before Figure 5.19, so give it the semantic figure id/caption."
+    },
+    {
+      "id": "stevens-unp-fig-22.10-code-table-id-caption",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[146]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-ch22-146",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-22.10",
+        "caption": "Figure 22.10 unprtt.h header.",
+        "catalog_repair_source": "agent-id-caption-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文 body[145] says Figure 22.10 shows the unprtt.h header; MinerU emitted that code block as an excluded table at body[146] followed by lib/unprtt.h/rtt_info text, so give it the semantic figure id/caption."
+    }
+  ]
+}

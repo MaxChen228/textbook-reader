@@ -1,0 +1,65 @@
+{
+  "overrides": [
+    {
+      "id": "taur-fig-8.10-id-realign",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[91]",
+      "expect": { "id": "fig-8.11", "src": "0aa855c8b78bb6f09fe860a4c5608c07bf0936f03f83fa600ee6672ea6b2f587.jpg" },
+      "set": {
+        "id": "fig-8.10",
+        "catalog_repair_source": "agent-id-fix-caption-misalign"
+      },
+      "reason": "MinerU caption 漏『Figure 8.X』編號→parser 把真 Figure 8.10（CMOS NAND/NOR 電路圖，origin.pdf chunk_1 local p158 確認）誤掛成 fig-8.11。改回 8.10 後騰空 fig-8.11，相鄰 body[92]（真 8.11）catalog build 去重時自動回正 fig-8.11（不再 --1）。消 C4 Figure 8.10。"
+    },
+    {
+      "id": "taur-fig-8.13-id-realign",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[99]",
+      "expect": { "id": "fig-8.12", "src": "3f46927f6f6bb79150a3720f04f9a19c698db6be8962569a3fc53fe744c239eb.jpg" },
+      "set": {
+        "id": "fig-8.13",
+        "catalog_repair_source": "agent-id-fix-caption-misalign"
+      },
+      "reason": "真 Figure 8.13（worst-case noise margin of NAND，origin.pdf chunk_1 local p161 確認）caption 漏編號→被擠成 fig-8.12--1（canonical 8.12，不覆蓋 ref 8.13）。改 id 為 8.13；真 8.12（Transfer curves）另由 fig-8.12 覆蓋、不受影響。消 C4 Figure 8.13。"
+    },
+    {
+      "id": "taur-fig-8.17-id-realign",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[117]",
+      "expect": { "id": "fig-8.16", "src": "141d81de120d35ca0b5691e53ed1f8eb58c516555f0231cda26190f344bc13cc.jpg" },
+      "set": {
+        "id": "fig-8.17",
+        "catalog_repair_source": "agent-id-fix-caption-misalign"
+      },
+      "reason": "真 Figure 8.17（Equivalent circuit of MOSFET with source/drain series resistance，origin.pdf chunk_1 local p165 確認）caption 漏編號→被擠成 fig-8.16--1（canonical 8.16）。改 id 為 8.17；真 8.16（Layout example）另由 fig-8.16 覆蓋。消 C4 Figure 8.17。"
+    },
+    {
+      "id": "taur-fig-8.38-id-realign",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[290]",
+      "expect": { "id": "fig-8.37", "src": "9f5cd3f9fa573dc354acd3045ca11b7463b1c685a4bd504f24a2d37057b080e9.jpg" },
+      "set": {
+        "id": "fig-8.38",
+        "caption": "Figure 8.38 Intrinsic delay and switching resistance versus gate oxide thickness for the 0.1-μm CMOS devices.",
+        "catalog_repair_source": "agent-id-fix-caption-misalign"
+      },
+      "reason": "真 Figure 8.38（origin.pdf chunk_2 local p11 第一張圖；原 caption 是正文殘段『shows the variation…』故一併補正確圖題）誤掛 fig-8.37。改 8.38 騰空後，相鄰 body[291]（真 8.37，caption『Intrinsic CMOS inverter delay versus channel length』）自動回正 fig-8.37。消 C4 Figure 8.38。"
+    },
+    {
+      "id": "taur-fig-8.42-id-realign",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[314]",
+      "expect": { "id": "fig-8.43", "src": "398b04fcd2d31fb7fd47dfb07cdd24a3c86f3d90de792e30d60dd560e9f8a4c7.jpg" },
+      "set": {
+        "id": "fig-8.42",
+        "catalog_repair_source": "agent-id-fix-caption-misalign"
+      },
+      "reason": "真 Figure 8.42（Input and output capacitances versus overlap capacitance，origin.pdf chunk_2 local p15 確認）caption 漏編號→被擠成 fig-8.43--1（canonical 8.43）。改 id 為 8.42；真 8.43（A circuit example，caption 空）另由 fig-8.43 覆蓋。消 C4 Figure 8.42。"
+    }
+  ]
+}

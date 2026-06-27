@@ -1,0 +1,69 @@
+slug: desoer_kuh_basic_circuit_theory
+title: Basic Circuit Theory
+author: Charles A. Desoer; Ernest S. Kuh
+edition: 6th
+subject: Electric Circuits
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 18
+appendices_start_page: 844
+bibliography_start_page: null
+index_start_page: 879
+
+heading_text_level: 2
+heading_priority:
+  - subsection_re
+  - section_re
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+(?:\.\d+)*)\s+(.+)$'
+example_start_re: '^Example\s+(\d+)\b.*$'
+problem_start_re: '^(?:[^0-9\n]{1,80}\s+)?(\d+)\.(?!\d)\s*'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+figure_caption_merge: false
+figure_caption_main_re: '^(?:Fig\.|Figure)\s+([A-Za-z0-9.]+)\b.*'
+inline_problems: false
+known_missing_problems: []
+
+chapters:
+  - {num: 1, title: "Lumped Circuits and Kirchhoff's Laws", page_start: 18, page_end: 29, chapter_title_block_idx: 446, problems_block_idx: 561, next_chapter_block_idx: 588}
+  - {num: 2, title: Circuit Elements, page_start: 30, page_end: 88, chapter_title_block_idx: 588, problems_block_idx: 1158, next_chapter_block_idx: 1282}
+  - {num: 3, title: Simple Circuits, page_start: 89, page_end: 124, chapter_title_block_idx: 1282, problems_block_idx: 1650, next_chapter_block_idx: 1741}
+  - {num: 4, title: First-order Circuits, page_start: 125, page_end: 191, chapter_title_block_idx: 1741, problems_block_idx: 2517, next_chapter_block_idx: 2664}
+  - {num: 5, title: Second-order Circuits, page_start: 192, page_end: 249, chapter_title_block_idx: 2664, problems_block_idx: 3330, next_chapter_block_idx: 3437}
+  - {num: 6, title: Introduction to Linear Time-invariant Circuits, page_start: 250, page_end: 283, chapter_title_block_idx: 3437, problems_block_idx: 3823, next_chapter_block_idx: 3935}
+  - {num: 7, title: Sinusoidal Steady-state Analysis, page_start: 284, page_end: 355, chapter_title_block_idx: 3935, problems_block_idx: 4932, next_chapter_block_idx: 5080}
+  - {num: 8, title: Coupling Elements and Coupled Circuits, page_start: 356, page_end: 395, chapter_title_block_idx: 5080, problems_block_idx: 5550, next_chapter_block_idx: 5648}
+  - {num: 9, title: "Network Graphs and Tellegen's Theorem", page_start: 396, page_end: 437, chapter_title_block_idx: 5648, problems_block_idx: 5922, next_chapter_block_idx: 6141}
+  - {num: 10, title: Node and Mesh Analyses, page_start: 438, page_end: 492, chapter_title_block_idx: 6141, problems_block_idx: 6772, next_chapter_block_idx: 6908}
+  - {num: 11, title: Loop and Cut-set Analysis, page_start: 493, page_end: 518, chapter_title_block_idx: 6908, problems_block_idx: 7173, next_chapter_block_idx: 7273}
+  - {num: 12, title: State Equations, page_start: 519, page_end: 538, chapter_title_block_idx: 7273, problems_block_idx: 7548, next_chapter_block_idx: 7589}
+  - {num: 13, title: Laplace Transforms, page_start: 539, page_end: 594, chapter_title_block_idx: 7589, problems_block_idx: 8401, next_chapter_block_idx: 8509}
+  - {num: 14, title: Natural Frequencies, page_start: 595, page_end: 625, chapter_title_block_idx: 8509, problems_block_idx: 8898, next_chapter_block_idx: 8971}
+  - {num: 15, title: Network Functions, page_start: 626, page_end: 666, chapter_title_block_idx: 8971, problems_block_idx: 9367, next_chapter_block_idx: 9502}
+  - {num: 16, title: Network Theorems, page_start: 667, page_end: 727, chapter_title_block_idx: 9502, problems_block_idx: 10070, next_chapter_block_idx: 10207}
+  - {num: 17, title: Two-ports, page_start: 725, page_end: 773, chapter_title_block_idx: 10207, problems_block_idx: 10711, next_chapter_block_idx: 10838}
+  - {num: 18, title: Resistive Networks, page_start: 774, page_end: 799, chapter_title_block_idx: 10838, problems_block_idx: 11122, next_chapter_block_idx: 11170}
+  - {num: 19, title: Energy and Passivity, page_start: 800, page_end: 843, chapter_title_block_idx: 11170, problems_block_idx: 11702, next_chapter_block_idx: 11761}
+
+appendices:
+  - {id: A, title: Functions and Linearity, page_start: 844, page_end: 854, chapter_title_block_idx: 11761, next_chapter_block_idx: 11946}
+  - {id: B, title: Matrices and Determinants, page_start: 855, page_end: 871, chapter_title_block_idx: 11946, next_chapter_block_idx: 12284}
+  - {id: C, title: Differential Equations, page_start: 872, page_end: 878, chapter_title_block_idx: 12284, next_chapter_block_idx: 12382}

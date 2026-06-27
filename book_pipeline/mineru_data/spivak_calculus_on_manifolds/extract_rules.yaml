@@ -1,0 +1,85 @@
+slug: spivak_calculus_on_manifolds
+title: Calculus on Manifolds
+author: Michael Spivak
+edition: null
+subject: Differential Geometry
+publisher: Addison-Wesley Publishing Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 12
+appendices_start_page: 150
+bibliography_start_page: 150
+index_start_page: 152
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Functions on Euclidean Space
+    page_start: 12
+    page_end: 25
+    chapter_title_block_idx: 89
+    problems_block_idx: null
+    next_chapter_block_idx: 255
+  - num: 2
+    title: Differentiation
+    page_start: 26
+    page_end: 56
+    chapter_title_block_idx: 255
+    problems_block_idx: null
+    next_chapter_block_idx: 739
+  - num: 3
+    title: Integration
+    page_start: 57
+    page_end: 85
+    chapter_title_block_idx: 739
+    problems_block_idx: null
+    next_chapter_block_idx: 1116
+  - num: 4
+    title: Integration on Chains
+    page_start: 86
+    page_end: 119
+    chapter_title_block_idx: 1116
+    problems_block_idx: null
+    next_chapter_block_idx: 1571
+  - num: 5
+    title: Integration on Manifolds
+    page_start: 120
+    page_end: 149
+    chapter_title_block_idx: 1571
+    problems_block_idx: null
+    next_chapter_block_idx: 1904
+
+appendices: []
+
+section_re: "^()([A-Z][A-Z][A-Z\\- ',.&/:]*[A-Z)])$"
+subsection_re: "^()(\\b\\B)$"
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: "^(?:Problems\\.\\s+)?(\\d+-\\d+)\\.\\*?\\s+(?!Theorem\\b|Corollary\\b|Lemma\\b|Proposition\\b|Proof\\b)"
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: "\\\\tag\\s*\\{([0-9]+[a-z]?)\\}"
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

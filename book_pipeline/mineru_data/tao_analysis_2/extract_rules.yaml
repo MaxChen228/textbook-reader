@@ -1,0 +1,103 @@
+slug: tao_analysis_2
+title: Analysis II
+author: Terence Tao
+edition: 4th
+subject: Real Analysis
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 203
+bibliography_start_page: null
+index_start_page: 203
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Metric Spaces
+    page_start: 15
+    page_end: 36
+    chapter_title_block_idx: 88
+    problems_block_idx: null
+    next_chapter_block_idx: 423
+  - num: 2
+    title: Continuous Functions on Metric Spaces
+    page_start: 37
+    page_end: 51
+    chapter_title_block_idx: 423
+    problems_block_idx: null
+    next_chapter_block_idx: 642
+  - num: 3
+    title: Uniform Convergence
+    page_start: 52
+    page_end: 77
+    chapter_title_block_idx: 642
+    problems_block_idx: null
+    next_chapter_block_idx: 1044
+  - num: 4
+    title: Power Series
+    page_start: 78
+    page_end: 105
+    chapter_title_block_idx: 1044
+    problems_block_idx: null
+    next_chapter_block_idx: 1501
+  - num: 5
+    title: Fourier Series
+    page_start: 106
+    page_end: 124
+    chapter_title_block_idx: 1501
+    problems_block_idx: null
+    next_chapter_block_idx: 1787
+  - num: 6
+    title: Several Variable Differential Calculus
+    page_start: 125
+    page_end: 156
+    chapter_title_block_idx: 1787
+    problems_block_idx: null
+    next_chapter_block_idx: 2290
+  - num: 7
+    title: Lebesgue Measure
+    page_start: 157
+    page_end: 178
+    chapter_title_block_idx: 2290
+    problems_block_idx: null
+    next_chapter_block_idx: 2645
+  - num: 8
+    title: Lebesgue Integration
+    page_start: 179
+    page_end: 202
+    chapter_title_block_idx: 2645
+    problems_block_idx: null
+    next_chapter_block_idx: 3093
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^()(.^)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Exercise\s+(\d+\.\d+\.\d+)\b'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+\.\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

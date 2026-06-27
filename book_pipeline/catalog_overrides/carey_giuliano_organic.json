@@ -1,0 +1,66 @@
+{
+  "overrides": [
+    {
+      "id": "carey-ch01-table-1-1-id-fix",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[69]",
+      "expect": {
+        "t": "table",
+        "id": "fig-1.4"
+      },
+      "set": {
+        "id": "tbl-1.1",
+        "caption": "TABLE 1.1 Electron Configurations of the First Twelve Elements of the Periodic Table",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "MinerU extracted TABLE 1.1 as a table block but inherited the neighboring Figure 1.4 id/caption, leaving the text reference to Table 1.1 uncovered."
+    },
+    {
+      "id": "carey-ch13-table-13-3-summary-alias-13-4",
+      "action": "set_fields",
+      "chunk": "ch13",
+      "selector": "body[593]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-13.3"
+      },
+      "set": {
+        "id": "tbl-13.3",
+        "catalog_aliases": [
+          "13.4"
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The extracted block is printed TABLE 13.3 and is also the summary table later referenced as Table 13.3; the earlier Table 13.4 sentence appears to be a source/OCR numbering mismatch, handled in ref_classifications."
+    },
+    {
+      "id": "carey-ch22-table-22-4-reactions-id-fix",
+      "action": "set_fields",
+      "chunk": "ch22",
+      "selector": "body[533]",
+      "expect": {
+        "t": "table",
+        "id": "tbl-22.6"
+      },
+      "set": {
+        "id": "tbl-22.4",
+        "catalog_aliases": [
+          "22.6"
+        ],
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "The section text introduces the amine-reaction summary as Table 22.4, but the extracted table block is numbered tbl-22.6; correcting the catalog id covers the internal reference while aliasing the extracted number."
+    }
+  ],
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "13.4",
+      "classification": "source_mismatch",
+      "reason": "Parsed/raw text says Friedel–Crafts limitations are summarized in Table 13.4, but the only relevant chapter summary table extracted from the source is printed TABLE 13.3 and the chapter summary later cites it as Table 13.3. No internal tbl-13.4 target exists to repair without breaking the valid Table 13.3 reference.",
+      "where": "ch13.json body[149]",
+      "evidence": "body[149]: \"Other limitations to Friedel–Crafts reactions ... summarized in Table 13.4.\" body[590] later cites the summary as Table 13.3; body[593] table html begins \"TABLE 13.3 Representative Electrophilic Aromatic Substitution Reactions\"."
+    }
+  ]
+}

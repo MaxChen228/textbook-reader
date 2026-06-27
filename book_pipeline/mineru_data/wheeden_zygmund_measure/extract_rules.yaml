@@ -1,0 +1,148 @@
+slug: wheeden_zygmund_measure
+title: "Measure and Integral: An Introduction to Real Analysis"
+author: "Richard L. Wheeden; Antoni Zygmund"
+edition: 2nd
+subject: Real Analysis
+publisher: CRC Press
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 19
+appendices_start_page: 519
+bibliography_start_page: null
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Preliminaries
+    page_start: 19
+    page_end: 34
+    chapter_title_block_idx: 127
+    problems_block_idx: 290
+    next_chapter_block_idx: 349
+  - num: 2
+    title: Functions of Bounded Variation and the Riemann–Stieltjes Integral
+    page_start: 35
+    page_end: 58
+    chapter_title_block_idx: 349
+    problems_block_idx: 641
+    next_chapter_block_idx: 687
+  - num: 3
+    title: Lebesgue Measure and Outer Measure
+    page_start: 59
+    page_end: 80
+    chapter_title_block_idx: 687
+    chapter_title_block_idx_secondary: 688
+    problems_block_idx: 923
+    next_chapter_block_idx: 974
+  - num: 4
+    title: Lebesgue Measurable Functions
+    page_start: 81
+    page_end: 98
+    chapter_title_block_idx: 974
+    problems_block_idx: 1155
+    next_chapter_block_idx: 1197
+  - num: 5
+    title: The Lebesgue Integral
+    page_start: 99
+    page_end: 130
+    chapter_title_block_idx: 1197
+    problems_block_idx: 1581
+    next_chapter_block_idx: 1636
+  - num: 6
+    title: Repeated Integration
+    page_start: 131
+    page_end: 146
+    chapter_title_block_idx: 1636
+    problems_block_idx: 1802
+    next_chapter_block_idx: 1843
+  - num: 7
+    title: Differentiation
+    page_start: 147
+    page_end: 199
+    chapter_title_block_idx: 1843
+    problems_block_idx: 2559
+    next_chapter_block_idx: 2633
+  - num: 8
+    title: L^p Classes
+    page_start: 200
+    page_end: 230
+    chapter_title_block_idx: 2633
+    problems_block_idx: 2969
+    next_chapter_block_idx: 3060
+  - num: 9
+    title: Approximations of the Identity and Maximal Functions
+    page_start: 231
+    page_end: 254
+    chapter_title_block_idx: 3060
+    problems_block_idx: 3355
+    next_chapter_block_idx: 3402
+  - num: 10
+    title: Abstract Integration
+    page_start: 255
+    page_end: 296
+    chapter_title_block_idx: 3402
+    problems_block_idx: 3911
+    next_chapter_block_idx: 3995
+  - num: 11
+    title: Outer Measure and Measure
+    page_start: 297
+    page_end: 318
+    chapter_title_block_idx: 3995
+    problems_block_idx: 4279
+    next_chapter_block_idx: 4317
+  - num: 12
+    title: A Few Facts from Harmonic Analysis
+    page_start: 319
+    page_end: 388
+    chapter_title_block_idx: 4317
+    problems_block_idx: 5241
+    next_chapter_block_idx: 5333
+  - num: 13
+    title: The Fourier Transform
+    page_start: 389
+    page_end: 432
+    chapter_title_block_idx: 5333
+    problems_block_idx: 5867
+    next_chapter_block_idx: 5984
+  - num: 14
+    title: Fractional Integration
+    page_start: 433
+    page_end: 478
+    chapter_title_block_idx: 5984
+    problems_block_idx: 6531
+    next_chapter_block_idx: 6646
+  - num: 15
+    title: Weak Derivatives and Poincaré–Sobolev Estimates
+    page_start: 479
+    page_end: 518
+    chapter_title_block_idx: 6646
+    problems_block_idx: 7153
+    next_chapter_block_idx: 7255
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null

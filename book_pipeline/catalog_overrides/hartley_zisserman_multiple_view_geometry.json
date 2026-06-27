@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "ch03-table-3.2-fix-caption-id",
+      "action": "set_fields",
+      "chunk": "ch03",
+      "selector": "body[172]",
+      "expect": {
+        "id": "fig-3.6",
+        "caption": "3 Projective Geometry and Transformations of 3D Table 3.2. Geometric properties invariant to commonly occurring transformations of 3-space. The matrix A is an invertible $3 ^ { - } \\times 3$ matrix, R is a 3D rotation matrix, $\\mathbf { t } = ( t _ { \\mathrm { X } } , t _ { \\mathrm { Y } } , t _ { \\mathrm { Z } } ) ^ { \\top }$ a 3D translation, <sup>v</sup> a general 3-vector, v a scalar, and $\\mathbf { 0 } = ( 0 , 0 , 0 ) ^ { \\top }$ a null 3-vector. The distortion column shows typical effects of the transformations on a cube. Transformations higher in the table can produce all the actions of the ones below. These range from Euclidean, where only translations and rotations occur, to projective where five points can be transformed to any other five points (provided no three points are collinear, or four coplanar)."
+      },
+      "set": {
+        "id": "tbl-3.2",
+        "caption": "Table 3.2. Geometric properties invariant to commonly occurring transformations of 3-space. The matrix A is an invertible $3 ^ { - } \\times 3$ matrix, R is a 3D rotation matrix, $\\mathbf { t } = ( t _ { \\mathrm { X } } , t _ { \\mathrm { Y } } , t _ { \\mathrm { Z } } ) ^ { \\top }$ a 3D translation, <sup>v</sup> a general 3-vector, v a scalar, and $\\mathbf { 0 } = ( 0 , 0 , 0 ) ^ { \\top }$ a null 3-vector. The distortion column shows typical effects of the transformations on a cube. Transformations higher in the table can produce all the actions of the ones below. These range from Euclidean, where only translations and rotations occur, to projective where five points can be transformed to any other five points (provided no three points are collinear, or four coplanar).",
+        "catalog_repair_source": "catalog-audit-table-caption-fix"
+      },
+      "reason": "MinerU 將 Table 3.2 圖像表格標成 fig-3.6，且 caption 前混入頁眉，導致 catalog 進 figures 而正文 Table 3.2 ref 缺 supply；保留原圖 src，只校正語意 id 與 caption 起始標籤。"
+    }
+  ]
+}

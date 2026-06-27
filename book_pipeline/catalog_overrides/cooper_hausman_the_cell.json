@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "id": "cooper-cell-ch02-fig-2-36-alias",
+      "action": "set_fields",
+      "chunk": "ch02",
+      "selector": "body[271]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-2.37",
+        "src": "18647eaa3988e5131121b0eac0cd68371bf2d65a15067b0fd5ab9449ae8cce77.jpg"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-2.36",
+            "type": "figure",
+            "caption": "FIGURE 2.36 Competitive and noncompetitive inhibition of enzymes",
+            "source": "agent-catalog-alias",
+            "evidence": "Raw PDF page 101 contains FIGURE 2.36 and this image block is the competitive-inhibition panel; MinerU attached it to the following FIGURE 2.37 catalog id."
+          }
+        ],
+        "catalog_repair_source": "agent-catalog-alias"
+      },
+      "reason": "正文跨章引用 Figure 2.36；raw PDF 第 101 頁確認 FIGURE 2.36 存在，但 MinerU 將其圖像 block 語意掛到 fig-2.37。補父圖 alias 讓 catalog 覆蓋 Figure 2.36，不改動 fig-2.37 正式條目。"
+    }
+  ]
+}

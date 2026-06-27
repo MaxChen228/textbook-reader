@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "5.2",
+      "classification": "source_mismatch",
+      "reason": "正文原文引用 Table 5.2，但 Chapter 5 的 catalog 與 raw PDF 只出現 Table 5.1；Table 5.2 在原書來源中不存在，無可對應表格可補。",
+      "where": "ch06.json body[250]",
+      "evidence": "raw_pdfs/baker_cmos_design.pdf page 195 text says 'see also Table 5.2'; unified content around ch05 has Table 5.1 at page_idx 153 and no Table 5.2 table/caption; parsed ch05 contains only tbl-5.1."
+    }
+  ],
+  "overrides": []
+}

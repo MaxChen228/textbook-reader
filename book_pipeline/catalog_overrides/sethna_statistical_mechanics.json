@@ -17,25 +17,22 @@
     },
     {
       "id": "insert-fig-2.5-conserved-current",
-      "action": "pdf_crop_insert",
+      "action": "set_fields",
       "chunk": "ch02",
       "selector": "body[96]",
-      "position": "before",
-      "page": 53,
-      "clip": [
-        0.61,
-        0.145,
-        0.93,
-        0.185
-      ],
-      "zoom": 3,
-      "block": {
-        "t": "fig",
+      "expect": {
+        "id": "fig-2.5",
+        "src": "manual_fig-2.5.png"
+      },
+      "set": {
         "id": "fig-2.5",
         "kind": "line",
-        "caption": "Fig. 2.5 Conserved current."
+        "caption": "Fig. 2.5 Conserved current.",
+        "src": "manual_fig-2.5.png",
+        "aspect": 5.653,
+        "catalog_repair_source": "agent-pdf-crop"
       },
-      "reason": "MinerU missed the small conserved-current diagram in the right column."
+      "reason": "Preserve the previously inserted manual crop for Fig. 2.5 without depending on a local raw PDF replay."
     },
     {
       "id": "trim-ch02-body96-caption-prefix",
@@ -71,6 +68,22 @@
       "old": "Fig. 11.11.32 At",
       "new": "Fig. 11.18. At",
       "reason": "OCR merged the Fig. 11.18 reference with footnote 32."
+    },
+    {
+      "id": "copy-solution-images",
+      "action": "copy_solution_images",
+      "from_slug": "sethna_statistical_mechanics_sol",
+      "reason": "Merged solution figures reference image hashes that exist in the solution book but were never copied into the main book's unified/images directory."
+    },
+    {
+      "id": "fix-ch04-prob4.3-fig-range-ref",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "problem:4.3:solution[3]",
+      "field": "md",
+      "old": "See FIG. 22-26 for plots.",
+      "new": "See FIGS. 22-26 for plots.",
+      "reason": "This is a range reference to solution-local figures 22 through 26, not an internal catalog reference to Figure 22.26."
     }
   ]
 }

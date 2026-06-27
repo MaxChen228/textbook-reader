@@ -1,0 +1,199 @@
+slug: shoup_computational_number_theory
+title: A Computational Introduction to Number Theory and Algebra
+author: Victor Shoup
+edition: null
+subject: Number Theory
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 13
+appendices_start_page: 578
+bibliography_start_page: 583
+index_start_page: 591
+
+inline_problems: true
+
+chapters:
+  - num: 0
+    title: "Preliminaries"
+    page_start: 13
+    page_end: 17
+    chapter_title_block_idx: 63
+    problems_block_idx: null
+    next_chapter_block_idx: 109
+  - num: 1
+    title: "Basic properties of the integers"
+    page_start: 18
+    page_end: 31
+    chapter_title_block_idx: 109
+    problems_block_idx: null
+    next_chapter_block_idx: 320
+  - num: 2
+    title: "Congruences"
+    page_start: 32
+    page_end: 66
+    chapter_title_block_idx: 320
+    problems_block_idx: null
+    next_chapter_block_idx: 931
+  - num: 3
+    title: "Computing with large integers"
+    page_start: 67
+    page_end: 90
+    chapter_title_block_idx: 931
+    problems_block_idx: null
+    next_chapter_block_idx: 1234
+  - num: 4
+    title: "Euclid’s algorithm"
+    page_start: 91
+    page_end: 120
+    chapter_title_block_idx: 1234
+    problems_block_idx: null
+    next_chapter_block_idx: 1633
+  - num: 5
+    title: "The distribution of primes"
+    page_start: 121
+    page_end: 142
+    chapter_title_block_idx: 1633
+    problems_block_idx: null
+    next_chapter_block_idx: 1997
+  - num: 6
+    title: "Abelian groups"
+    page_start: 143
+    page_end: 182
+    chapter_title_block_idx: 1997
+    problems_block_idx: null
+    next_chapter_block_idx: 2674
+  - num: 7
+    title: "Rings"
+    page_start: 183
+    page_end: 223
+    chapter_title_block_idx: 2674
+    problems_block_idx: null
+    next_chapter_block_idx: 3319
+  - num: 8
+    title: "Finite and discrete probability distributions"
+    page_start: 224
+    page_end: 293
+    chapter_title_block_idx: 3319
+    problems_block_idx: null
+    next_chapter_block_idx: 4318
+  - num: 9
+    title: "Probabilistic algorithms"
+    page_start: 294
+    page_end: 322
+    chapter_title_block_idx: 4318
+    problems_block_idx: null
+    next_chapter_block_idx: 4742
+  - num: 10
+    title: "Probabilistic primality testing"
+    page_start: 323
+    page_end: 343
+    chapter_title_block_idx: 4742
+    problems_block_idx: null
+    next_chapter_block_idx: 5034
+  - num: 11
+    title: 'Finding generators and discrete logarithms in $\mathbb { Z } _ { p } ^ { * }$'
+    page_start: 344
+    page_end: 358
+    chapter_title_block_idx: 5034
+    problems_block_idx: null
+    next_chapter_block_idx: 5225
+  - num: 12
+    title: "Quadratic reciprocity and computing modular square roots"
+    page_start: 359
+    page_end: 374
+    chapter_title_block_idx: 5225
+    problems_block_idx: null
+    next_chapter_block_idx: 5462
+  - num: 13
+    title: "Modules and vector spaces"
+    page_start: 375
+    page_end: 393
+    chapter_title_block_idx: 5462
+    problems_block_idx: null
+    next_chapter_block_idx: 5779
+  - num: 14
+    title: "Matrices"
+    page_start: 394
+    page_end: 415
+    chapter_title_block_idx: 5779
+    problems_block_idx: null
+    next_chapter_block_idx: 6107
+  - num: 15
+    title: "Subexponential-time discrete logarithms and factoring"
+    page_start: 416
+    page_end: 437
+    chapter_title_block_idx: 6107
+    problems_block_idx: null
+    next_chapter_block_idx: 6425
+  - num: 16
+    title: "More rings"
+    page_start: 438
+    page_end: 481
+    chapter_title_block_idx: 6425
+    problems_block_idx: null
+    next_chapter_block_idx: 7105
+  - num: 17
+    title: "Polynomial arithmetic and applications"
+    page_start: 482
+    page_end: 502
+    chapter_title_block_idx: 7105
+    problems_block_idx: null
+    next_chapter_block_idx: 7421
+  - num: 18
+    title: "Linearly generated sequences and applications"
+    page_start: 503
+    page_end: 525
+    chapter_title_block_idx: 7421
+    problems_block_idx: null
+    next_chapter_block_idx: 7751
+  - num: 19
+    title: "Finite fields"
+    page_start: 526
+    page_end: 538
+    chapter_title_block_idx: 7751
+    problems_block_idx: null
+    next_chapter_block_idx: 7947
+  - num: 20
+    title: "Algorithms for finite fields"
+    page_start: 539
+    page_end: 564
+    chapter_title_block_idx: 7947
+    problems_block_idx: null
+    next_chapter_block_idx: 8314
+  - num: 21
+    title: "Deterministic primality testing"
+    page_start: 565
+    page_end: 577
+    chapter_title_block_idx: 8314
+    problems_block_idx: null
+    next_chapter_block_idx: 8526
+
+appendices:
+  - id: A
+    title: Some useful facts
+    page_start: 578
+    chapter_title_block_idx: 8526
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^EXERCISE\s+(\d+\.\d+)\.\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

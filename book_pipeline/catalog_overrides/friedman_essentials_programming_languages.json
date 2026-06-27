@@ -1,0 +1,232 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "fix-fig-11.2.2",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[47]",
+      "set": {
+        "id": "fig-11.2.2",
+        "caption": "Figure 11.2.2: Cookers for tokens",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 11.2.2 and contains cook-punctuation/cook-number/cook-identifier.",
+      "expect": {
+        "id": "tbl-ch11-47",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-12.4.1",
+      "action": "set_fields",
+      "chunk": "ch12",
+      "selector": "body[130]",
+      "set": {
+        "id": "fig-12.4.1",
+        "caption": "Figure 12.4.1: Interpreter for a language with procedures",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 12.4.1; front-matter figure list names it as Interpreter for a language with procedures.",
+      "expect": {
+        "id": "tbl-ch12-130",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-5.7.1",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[169]",
+      "set": {
+        "id": "fig-5.7.1",
+        "caption": "Figure 5.7.1: Interpreter with dynamic scope",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 5.7.1; front-matter figure list names it as Interpreter with dynamic scope.",
+      "expect": {
+        "id": "tbl-ch05-169",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-6.5.1",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[74]",
+      "set": {
+        "id": "fig-6.5.1",
+        "caption": "Figure 6.5.1: Call-by-name interpreter",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block follows the figure 6.5.1 discussion and precedes the explicit Figure 6.5.2 caption.",
+      "expect": {
+        "id": "tbl-ch06-74",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-7.2.1",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[48]",
+      "set": {
+        "id": "fig-7.2.1",
+        "caption": "Figure 7.2.1: Bounded-stack procedure",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 7.2.1 and contains make-bounded-stack.",
+      "expect": {
+        "id": "tbl-ch07-48",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-7.2.3",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[55]",
+      "set": {
+        "id": "fig-7.2.3",
+        "caption": "Figure 7.2.3: Countclass",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Paragraph/code block immediately follows the discussion referencing figure 7.2.3 and starts define countclass."
+    },
+    {
+      "id": "fix-fig-7.3.1",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[90]",
+      "set": {
+        "id": "fig-7.3.1",
+        "caption": "Figure 7.3.1: Interpreter changes for meta-classes",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 7.3.1 and contains eval-exp clauses for class variables/meta-classes.",
+      "expect": {
+        "id": "tbl-ch07-90",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-8.6.1",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[127]",
+      "set": {
+        "id": "fig-8.6.1",
+        "caption": "Figure 8.6.1: The cps-simple procedure",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately before the explanatory paragraph for figure 8.6.1 defines cps-simple."
+    },
+    {
+      "id": "fix-fig-8.6.2",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[132]",
+      "set": {
+        "id": "fig-8.6.2",
+        "caption": "Figure 8.6.2: The cps-exp procedure",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 8.6.2 and defines cps-exp.",
+      "expect": {
+        "id": "tbl-ch08-132",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      }
+    },
+    {
+      "id": "fix-fig-9.4.3",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.4.1:body[17]",
+      "set": {
+        "id": "fig-9.4.3",
+        "caption": "Figure 9.4.3: The samefringe procedure",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Problem solution text at this block contains the samefringe code introduced by the preceding figure 9.4.3 paragraph."
+    },
+    {
+      "id": "fix-fig-9.4.4",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "problem:9.4.1:body[24]",
+      "set": {
+        "id": "fig-9.4.4",
+        "caption": "Figure 9.4.4: Implementation of coroutines",
+        "catalog_repair_source": "catalog-audit-agent"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Code block immediately follows the paragraph referencing figure 9.4.4 and defines makecoroutine/localresume.",
+      "expect": {
+        "id": "tbl-ch09-prob17-24",
+        "catalog_exclude_reason": "problem_inline_unlabeled_table"
+      }
+    },
+    {
+      "id": "caption-fig-7.2.3-leading-text",
+      "action": "replace_text",
+      "chunk": "ch07",
+      "selector": "body[55]",
+      "field": "md",
+      "old": "define countclass =",
+      "new": "Figure 7.2.3: Countclass\n\ndefine countclass =",
+      "reason": "Block is OCRed as paragraph text but is the figure 7.2.3 code; leading Figure caption lets build_catalogs create fig-7.2.3."
+    },
+    {
+      "id": "caption-fig-8.6.1-leading-text",
+      "action": "replace_text",
+      "chunk": "ch08",
+      "selector": "body[127]",
+      "field": "md",
+      "old": "(define cps-simple",
+      "new": "Figure 8.6.1: The cps-simple procedure\n\n(define cps-simple",
+      "reason": "Block is OCRed as paragraph text but is the figure 8.6.1 code; leading Figure caption lets build_catalogs create fig-8.6.1."
+    },
+    {
+      "id": "caption-fig-9.4.3-leading-text",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "problem:9.4.1:body[17]",
+      "field": "md",
+      "old": "define makesfcoroutine =",
+      "new": "Figure 9.4.3: The samefringe procedure\n\ndefine makesfcoroutine =",
+      "reason": "Problem solution code block contains the figure 9.4.3 program but is OCRed as paragraph text; leading caption creates fig-9.4.3."
+    }
+  ]
+}

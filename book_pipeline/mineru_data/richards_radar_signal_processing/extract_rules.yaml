@@ -1,0 +1,109 @@
+slug: richards_radar_signal_processing
+title: Fundamentals of Radar Signal Processing
+author: Mark A. Richards
+edition: null
+subject: Signal Processing
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 25
+appendices_start_page: 529
+bibliography_start_page: null
+index_start_page: 529
+
+chapters:
+  - num: 1
+    title: Introduction to Radar Systems
+    page_start: 25
+    page_end: 76
+    chapter_title_block_idx: 88
+    problems_block_idx: null
+    next_chapter_block_idx: 586
+  - num: 2
+    title: Signal Models
+    page_start: 77
+    page_end: 138
+    chapter_title_block_idx: 586
+    problems_block_idx: null
+    next_chapter_block_idx: 1233
+  - num: 3
+    title: Sampling and Quantization of Pulsed Radar Signals
+    page_start: 139
+    page_end: 182
+    chapter_title_block_idx: 1233
+    problems_block_idx: null
+    next_chapter_block_idx: 1627
+  - num: 4
+    title: Radar Waveforms
+    page_start: 183
+    page_end: 248
+    chapter_title_block_idx: 1627
+    problems_block_idx: null
+    next_chapter_block_idx: 2298
+  - num: 5
+    title: Doppler Processing
+    page_start: 249
+    page_end: 318
+    chapter_title_block_idx: 2298
+    problems_block_idx: null
+    next_chapter_block_idx: 3046
+  - num: 6
+    title: Detection Fundamentals
+    page_start: 319
+    page_end: 370
+    chapter_title_block_idx: 3046
+    problems_block_idx: null
+    next_chapter_block_idx: 3622
+  - num: 7
+    title: Constant False Alarm Rate (CFAR) Detection
+    page_start: 371
+    page_end: 408
+    chapter_title_block_idx: 3622
+    problems_block_idx: null
+    next_chapter_block_idx: 4006
+  - num: 8
+    title: Introduction to Synthetic Aperture Imaging
+    page_start: 409
+    page_end: 484
+    chapter_title_block_idx: 4006
+    problems_block_idx: null
+    next_chapter_block_idx: 4663
+  - num: 9
+    title: Introduction to Beamforming and Space-Time Adaptive Processing
+    page_start: 485
+    page_end: 528
+    chapter_title_block_idx: 4663
+    problems_block_idx: null
+    next_chapter_block_idx: 5205
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

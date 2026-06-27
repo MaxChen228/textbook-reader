@@ -1,0 +1,96 @@
+slug: nakamoto_infrared_raman
+title: "Infrared and Raman Spectra of Inorganic and Coordination Compounds Part A: Theory and Applications in Inorganic Chemistry"
+author: Kazuo Nakamoto
+edition: 6th
+subject: Physical Chemistry
+publisher: Wiley
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 363
+bibliography_start_page: null
+index_start_page: 422
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Theory of Normal Vibrations
+    page_start: 10
+    page_end: 156
+    chapter_title_block_idx: 70
+    problems_block_idx: null
+    next_chapter_block_idx: 1782
+  - num: 2
+    title: Applications in Inorganic Chemistry
+    page_start: 157
+    page_end: 362
+    chapter_title_block_idx: 1782
+    problems_block_idx: null
+    next_chapter_block_idx: 4745
+
+appendices:
+  - id: I
+    title: POINT GROUPS AND THEIR CHARACTER TABLES
+    page_start: 363
+    chapter_title_block_idx: 4745
+  - id: II
+    title: MATRIX ALGEBRA
+    page_start: 376
+    chapter_title_block_idx: 4813
+  - id: III
+    title: GENERAL FORMULAS FOR CALCULATING THE NUMBER OF NORMAL VIBRATIONS IN EACH SPECIES
+    page_start: 381
+    chapter_title_block_idx: 4902
+  - id: IV
+    title: DIRECT PRODUCTS OF IRREDUCIBLE REPRESENTATIONS
+    page_start: 385
+    chapter_title_block_idx: 4918
+  - id: VI
+    title: DERIVATION OF EQ. 1.113
+    page_start: 387
+    chapter_title_block_idx: 4945
+  - id: VII
+    title: THE G AND F MATRIX ELEMENTS OF TYPICAL MOLECULES
+    page_start: 390
+    chapter_title_block_idx: 4995
+  - id: IX
+    title: CORRELATION TABLES
+    page_start: 401
+    chapter_title_block_idx: 5133
+  - id: X
+    title: SITE SYMMETRY FOR THE 230 SPACE GROUPS
+    page_start: 415
+    chapter_title_block_idx: 5229
+
+section_re: '^(\d+\.\d+)\.\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

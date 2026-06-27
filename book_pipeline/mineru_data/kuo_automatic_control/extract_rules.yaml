@@ -1,0 +1,154 @@
+slug: kuo_automatic_control
+title: Automatic Control Systems
+author: M. Farid Golnaraghi; Benjamin C. Kuo
+edition: 9th
+subject: Control Systems
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 790
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 17
+    page_end: 31
+    chapter_title_block_idx: 304
+    problems_block_idx: null
+    next_chapter_block_idx: 462
+  - num: 2
+    title: Mathematical Foundation
+    page_start: 32
+    page_end: 119
+    chapter_title_block_idx: 462
+    problems_block_idx: 1674
+    next_chapter_block_idx: 1904
+  - num: 3
+    title: Block Diagrams and Signal-Flow Graphs
+    page_start: 120
+    page_end: 162
+    chapter_title_block_idx: 1904
+    problems_block_idx: 2392
+    next_chapter_block_idx: 2583
+  - num: 4
+    title: "Theoretical Foundation and Background Material: Modeling of Dynamic Systems"
+    page_start: 163
+    page_end: 268
+    chapter_title_block_idx: 2583
+    problems_block_idx: 3754
+    next_chapter_block_idx: 4175
+  - num: 5
+    title: Time-Domain Analysis of Control Systems
+    page_start: 269
+    page_end: 352
+    chapter_title_block_idx: 4175
+    problems_block_idx: 5121
+    next_chapter_block_idx: 5395
+  - num: 6
+    title: The Control Lab
+    page_start: 353
+    page_end: 387
+    chapter_title_block_idx: 5395
+    problems_block_idx: 5699
+    next_chapter_block_idx: 5791
+  - num: 7
+    title: Root Locus Analysis
+    page_start: 388
+    page_end: 424
+    chapter_title_block_idx: 5791
+    problems_block_idx: 6186
+    next_chapter_block_idx: 6367
+  - num: 8
+    title: Frequency-Domain Analysis
+    page_start: 425
+    page_end: 502
+    chapter_title_block_idx: 6367
+    problems_block_idx: 7197
+    next_chapter_block_idx: 7476
+  - num: 9
+    title: Design of Control Systems
+    page_start: 503
+    page_end: 688
+    chapter_title_block_idx: 7476
+    problems_block_idx: 9344
+    next_chapter_block_idx: 9871
+  - num: 10
+    title: State Variable Analysis
+    page_start: 689
+    page_end: 789
+    chapter_title_block_idx: 9871
+    problems_block_idx: 11173
+    next_chapter_block_idx: 11667
+
+appendices:
+  - id: A
+    title: Elementary Matrix Theory and Algebra
+    page_start: 803
+    chapter_title_block_idx: 12685
+  - id: B
+    title: Difference Equations
+    page_start: 812
+    chapter_title_block_idx: 12890
+  - id: C
+    title: Laplace Transform Table
+    page_start: 814
+    chapter_title_block_idx: 12902
+  - id: D
+    title: z-Transform Table
+    page_start: 816
+    chapter_title_block_idx: 12909
+  - id: E
+    title: Properties and Construction of the Root Loci
+    page_start: 817
+    chapter_title_block_idx: 12928
+  - id: F
+    title: General Nyquist Criterion
+    page_start: 839
+    chapter_title_block_idx: 13218
+  - id: G
+    title: "ACSYS 2008: Description of the Software"
+    page_start: 856
+    chapter_title_block_idx: 13478
+  - id: H
+    title: Discrete-Data Control Systems
+    page_start: 861
+    chapter_title_block_idx: 13544
+
+section_re: '^((?:[A-H]-\d+)|(?:\d+-\d+))\s+(.+)$'
+subsection_re: '^((?:[A-H]-\d+-\d+)|(?:\d+-\d+-\d+))\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^((?:[A-H]-\d+)|(?:\d+-\d+))\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([A-H0-9]+-[0-9]+(?:-[0-9]+)?)\}'
+
+example_start_re: '^"?\s*EXAMPLE\s+([A-H0-9]+-[0-9]+(?:-[0-9]+)?)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

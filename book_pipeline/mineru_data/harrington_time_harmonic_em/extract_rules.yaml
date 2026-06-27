@@ -1,0 +1,126 @@
+slug: harrington_time_harmonic_em
+title: Time-Harmonic Electromagnetic Fields
+author: Roger F. Harrington
+edition: null
+subject: Electromagnetism
+publisher: IEEE Press; John Wiley & Sons
+language: en
+
+filter_types:
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [null]
+
+body_start_page: 19
+appendices_start_page: 467
+bibliography_start_page: null
+index_start_page: null
+
+chapters:
+  - num: 1
+    title: Fundamental Concepts
+    page_start: 19
+    page_end: 54
+    chapter_title_block_idx: 314
+    chapter_title_block_idx_secondary: 315
+    problems_block_idx: 779
+    next_chapter_block_idx: 809
+  - num: 2
+    title: Introduction to Waves
+    page_start: 55
+    page_end: 112
+    chapter_title_block_idx: 809
+    chapter_title_block_idx_secondary: 810
+    problems_block_idx: 1511
+    next_chapter_block_idx: 1667
+  - num: 3
+    title: Some Theorems and Concepts
+    page_start: 113
+    page_end: 160
+    chapter_title_block_idx: 1667
+    problems_block_idx: 2206
+    next_chapter_block_idx: 2358
+  - num: 4
+    title: Plane Wave Functions
+    page_start: 161
+    page_end: 215
+    chapter_title_block_idx: 2358
+    chapter_title_block_idx_secondary: 2359
+    problems_block_idx: 2957
+    next_chapter_block_idx: 3109
+  - num: 5
+    title: Cylindrical Wave Functions
+    page_start: 216
+    page_end: 281
+    chapter_title_block_idx: 3109
+    problems_block_idx: 3929
+    next_chapter_block_idx: 4123
+  - num: 6
+    title: Spherical Wave Functions
+    page_start: 282
+    page_end: 334
+    chapter_title_block_idx: 4123
+    chapter_title_block_idx_secondary: 4124
+    problems_block_idx: 4822
+    next_chapter_block_idx: 4922
+  - num: 7
+    title: Perturbational and Variational Techniques
+    page_start: 335
+    page_end: 398
+    chapter_title_block_idx: 4922
+    chapter_title_block_idx_secondary: 4923
+    problems_block_idx: 5713
+    next_chapter_block_idx: 5916
+  - num: 8
+    title: Microwave Networks
+    page_start: 399
+    page_end: 466
+    chapter_title_block_idx: 5916
+    chapter_title_block_idx_secondary: 5917
+    problems_block_idx: 6809
+    next_chapter_block_idx: 6989
+
+appendices:
+  - id: A
+    title: Vector Analysis
+    page_start: 467
+    chapter_title_block_idx: 6989
+  - id: B
+    title: Complex Permittivities
+    page_start: 471
+    chapter_title_block_idx: 7031
+  - id: C
+    title: Fourier Series and Integrals
+    page_start: 476
+    chapter_title_block_idx: 7044
+  - id: D
+    title: Bessel Functions
+    page_start: 480
+    chapter_title_block_idx: 7104
+  - id: E
+    title: Legendre Functions
+    page_start: 485
+    chapter_title_block_idx: 7174
+
+section_re: '^(\d+-\d+)\.\s+(.+)$'
+subsection_re: '^(\d+-\d+-\d+)\.\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^\\?-?\s*\(?(\d+-\d+)\)?\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([A-E]?\d+(?:-\d+)?[a-z]?)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

@@ -1,0 +1,24 @@
+{
+  "slug": "stevens_apue",
+  "overrides": [
+    {
+      "id": "stevens-apue-fig-17-17-header-open-h",
+      "action": "set_fields",
+      "chunk": "ch17",
+      "selector": "body[129]",
+      "expect": {
+        "id": "tbl-ch17-129",
+        "catalog_exclude_reason": "unnumbered_body_table"
+      },
+      "set": {
+        "id": "fig-17.17",
+        "caption": "Figure 17.17 The open.h header",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "正文在 ch17 body[128] 引用 Figure 17.17 open.h；相鄰 body[129] 是該 open.h 程式碼，原被當作無編號 table 排除。"
+    }
+  ]
+}

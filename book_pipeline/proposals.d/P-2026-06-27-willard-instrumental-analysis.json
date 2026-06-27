@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-27-willard-instrumental-analysis",
+  "domain": "crawl",
+  "type": "edition-mismatch",
+  "status": "proposed",
+  "title": "willard_instrumental_analysis：ingested 實體為 6th/1981，editions metadata 標 7th/1988",
+  "slug": "willard_instrumental_analysis",
+  "detect": [],
+  "source": "audit-book/architect",
+  "resolution": "",
+  "created": "2026-06-27T03:34:47+00:00",
+  "updated": "2026-06-27T03:34:47+00:00",
+  "evidence": "封面標題頁(PDF p6)、©1981(content_list idx 15)、Preface(idx 21/23 三處)皆印證 Sixth Edition；作者 Willard/Merritt/Dean/Settle；Wadsworth。editions/willard_instrumental_analysis.json version.label='7th edition' year=1988（restock zlib advisory 127508245）。同書差版、非 wrong-volume：書完整 31 章+Experiments+App A-G+Index、已 audit 上架。",
+  "proposal": "editions version 校正為 6th/1981（或保留 7th 並記 owned 實體為 6th）；edition_pref 為空故 matches_pref 不受影響、不下架。若要 7th 內容須 re-source 1988 版重 ingest。",
+  "risk": "低：純 metadata 校正，不影響已上架內容/題目切分。",
+  "disposition": ""
+}

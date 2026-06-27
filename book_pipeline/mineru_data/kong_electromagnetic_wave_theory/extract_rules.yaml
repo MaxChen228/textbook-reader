@@ -1,0 +1,96 @@
+slug: kong_electromagnetic_wave_theory
+title: Electromagnetic Wave Theory
+author: Jin Au Kong
+edition: 1st
+subject: Electromagnetism
+publisher: John Wiley & Sons
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 676
+bibliography_start_page: 676
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Fundamental Equations
+    page_start: 10
+    page_end: 51
+    chapter_title_block_idx: 42
+    problems_block_idx: 397
+    next_chapter_block_idx: 606
+  - num: 2
+    title: Propagation in Homogeneous Media
+    page_start: 52
+    page_end: 111
+    chapter_title_block_idx: 606
+    problems_block_idx: 1229
+    next_chapter_block_idx: 1460
+  - num: 3
+    title: Reflection, Transmission, Guidance, and Resonance
+    page_start: 112
+    page_end: 227
+    chapter_title_block_idx: 1460
+    problems_block_idx: 2556
+    next_chapter_block_idx: 2873
+  - num: 4
+    title: Radiation
+    page_start: 228
+    page_end: 365
+    chapter_title_block_idx: 2873
+    problems_block_idx: 4263
+    next_chapter_block_idx: 4653
+  - num: 5
+    title: Theorems of Waves and Media
+    page_start: 366
+    page_end: 489
+    chapter_title_block_idx: 4653
+    problems_block_idx: 6006
+    next_chapter_block_idx: 6290
+  - num: 6
+    title: Scattering
+    page_start: 490
+    page_end: 585
+    chapter_title_block_idx: 6290
+    problems_block_idx: 7510
+    next_chapter_block_idx: 7686
+  - num: 7
+    title: Electromagnetic Wave Theory and Special Relativity
+    page_start: 586
+    page_end: 675
+    chapter_title_block_idx: 7686
+    problems_block_idx: 8474
+    next_chapter_block_idx: 9015
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^([a-z])\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+P?(\d+\.\d+)\b'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

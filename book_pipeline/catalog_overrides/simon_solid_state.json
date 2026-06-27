@@ -1,0 +1,11 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "sync-solution-images-from-simon-solid-state-sol",
+      "action": "copy_solution_images",
+      "from_slug": "simon_solid_state_sol",
+      "reason": "live `audit_catalog` 的 54 個 critical 全是 C3 missing image，且逐筆核對後全部都落在 `source=sol*` 的解答圖 block。53 個唯一缺失 jpg 全存在於解答書 slug `simon_solid_state_sol` 的 `unified/images/`，主書 `simon_solid_state` 則全缺。這屬 merge solution 內容後未同步 immutable image assets 的標準情境，依 catalog-audit.md 以 copy_solution_images 將解答圖資產補進主書目錄。"
+    }
+  ]
+}

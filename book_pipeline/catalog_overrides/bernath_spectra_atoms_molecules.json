@@ -1,0 +1,64 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "0.1",
+      "classification": "external",
+      "reason": "appD「Figure Acknowledgments」credit 行：本書 Figure 1.2 改編自 Harris and Bertolucci 的 Figure 0-1，目標圖在外部書、非本書 figure。",
+      "where": "appD.json body[17]",
+      "evidence": "appD body[17]: 'Figure 1.2. After Figure 0-1 of Harris and Bertolucci.'"
+    },
+    {
+      "type": "figure",
+      "ref": "2.30",
+      "classification": "external",
+      "reason": "appD credit 行：本書 Figure 1.11 改編自 Demtröder 的 Figure 2.30，目標圖在外部書、非本書 figure。",
+      "where": "appD.json body[20]",
+      "evidence": "appD body[20]: 'Figure 1.11. After Figure 2.30 of Demtröder.'"
+    },
+    {
+      "type": "figure",
+      "ref": "2.18",
+      "classification": "external",
+      "reason": "appD credit 行：本書 Figure 1.21 改編自 Svelto 的 Figure 2.18，目標圖在外部書、非本書 figure。",
+      "where": "appD.json body[21]",
+      "evidence": "appD body[21]: 'Figure 1.21. After Figure 2.18 of Svelto.'"
+    },
+    {
+      "type": "table",
+      "ref": "3.7.1",
+      "classification": "external",
+      "reason": "appD credit 行：本書 Figure 2.11 改編自 Bishop 的 Table 3-7.1，目標表在外部書、非本書 table。",
+      "where": "appD.json body[22]",
+      "evidence": "appD body[22]: 'Figure 2.11. After Table 3-7.1 of Bishop.'"
+    },
+    {
+      "type": "figure",
+      "ref": "5.2.3",
+      "classification": "external",
+      "reason": "appD credit 行：本書 Figure 3.5 改編自 Bishop 的 Figure 5-2.3，目標圖在外部書、非本書 figure。",
+      "where": "appD.json body[23]",
+      "evidence": "appD body[23]: 'Figure 3.5. After Figure 5-2.3 of Bishop.'"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bernath-tbl-9.4-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch09",
+      "selector": "body[117]",
+      "position": "before",
+      "page": 350,
+      "clip": [0.05, 0.105, 0.83, 0.578],
+      "zoom": 3,
+      "image_id": "tbl-9.4",
+      "block": {
+        "t": "fig",
+        "id": "tbl-9.4",
+        "kind": "line",
+        "caption": "Table 9.4: Hönl-London Factors"
+      },
+      "reason": "MinerU 整塊漏抓 Table 9.4（Hönl-London Factors，實體頁 350=印刷頁 335，section 9.3 頂部），但全書 ch06/07/09/10 多處引用此表。catalog tables 在 tbl-9.3 與 tbl-9.5 間缺號。raw PDF 該頁確有完整表（caption + ΔΛ=0/+1/-1 共 9 條公式 + 註腳）。以 t=fig + caption 'Table 9.4' 插入：build_catalogs 經 _visual_semantic 判為 type=table、id=tbl-9.4 並保留 src 圖 → 進 tables 清單滿足 C5、reader 以圖渲染。selector body[117]='decrease (Figure 9.12)...'=page 350 表格正下方段，before 即表的實體位置。"
+    }
+  ]
+}

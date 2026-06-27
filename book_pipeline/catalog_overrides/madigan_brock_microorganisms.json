@@ -1,0 +1,803 @@
+{
+  "slug": "madigan_brock_microorganisms",
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "31.33b",
+      "classification": "source_mismatch",
+      "reason": "Raw PDF chapter 31 pages 958-975 contain no Figure 31.33; this source tops out around Figure 31.24, so the body reference cannot be satisfied from the source.",
+      "where": "ch25.json body[128]",
+      "evidence": "Searched raw PDF chapter 31 page range 958-975; found no Figure 31.33 caption or matching visual."
+    },
+    {
+      "type": "table",
+      "ref": "4.6",
+      "classification": "source_mismatch",
+      "reason": "Raw PDF chapter 4 pages 141-175 contain no Table 4.6; parsed chapter 4 tables top out at tbl-4.4, so the body reference cannot be satisfied from the source.",
+      "where": "ch09.json body[53]",
+      "evidence": "Searched raw PDF chapter 4 page range 141-175; found no Table 4.6 caption or table block."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "madigan_brock_microorganisms-fig-25.11",
+      "action": "set_fields",
+      "chunk": "ch25",
+      "selector": "body[99]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-25.12",
+        "src": "9d303578d9828aa75e0cbf2d457a48ca843271f3758bcd281f601700bca5c97a.jpg"
+      },
+      "set": {
+        "id": "fig-25.11",
+        "caption": "Figure 25.11 Activity of some enzyme virulence factors.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-25.12 to fig-25.11 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.14",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[131]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.15",
+        "src": "c5c359bf412633402c6041ccaf99adaa813cea8fd74d07eb520b56281ca46269.jpg"
+      },
+      "set": {
+        "id": "fig-31.14",
+        "caption": "Figure 31.14 West Nile virus.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.15 to fig-31.14 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.19",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[156]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.20",
+        "src": "05a8c422d9931cf73eaf6146ffa207d3b3a1afccbb583236d245d77176680b12.jpg"
+      },
+      "set": {
+        "id": "fig-31.19",
+        "caption": "Figure 31.19 Plague in humans.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.20 to fig-31.19 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.22",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[179]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.23",
+        "src": "b2bd821400f903e9ed88b448c51492617669f12df2e0d5054a84f540008a01e2.jpg"
+      },
+      "set": {
+        "id": "fig-31.22",
+        "caption": "Figure 31.22 Anthrax pathology.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.23 to fig-31.22 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.3",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[36]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.4",
+        "src": "eaf7db3437be008f24e797c7ca7a01da8f2a3350bcc2626b0d35f6f41e722225.jpg"
+      },
+      "set": {
+        "id": "fig-31.3",
+        "caption": "Figure 31.3 Hantavirus.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.4 to fig-31.3 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.6",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[57]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.5",
+        "src": "b96ff3f15d15fd296d2a2cd8671f94d8e7dd2567b63ff52fa44e694853d9ab8f.jpg"
+      },
+      "set": {
+        "id": "fig-31.6",
+        "caption": "Figure 31.6 Rickettsia rickettsii and spotted fever rickettsiosis.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.5 to fig-31.6 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-32.15",
+      "action": "set_fields",
+      "chunk": "ch32",
+      "selector": "body[229]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-32.16",
+        "src": "06bbb6fb9dea96949e6df150a66d098577ac7ebc3f4b42f07f4a6fdf0c1f19ad.jpg"
+      },
+      "set": {
+        "id": "fig-32.15",
+        "caption": "Figure 32.15 Campylobacter.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-32.16 to fig-32.15 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-32.3",
+      "action": "set_fields",
+      "chunk": "ch32",
+      "selector": "body[59]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-32.4",
+        "src": "fed58ffea57fedfa8197b62eb329faaa819be09a61a399abfb567486b53e8d1c.jpg"
+      },
+      "set": {
+        "id": "fig-32.3",
+        "caption": "Figure 32.3 Cholera and its diagnosis.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-32.4 to fig-32.3 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-32.7",
+      "action": "set_fields",
+      "chunk": "ch32",
+      "selector": "body[117]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-32.8",
+        "src": "d1793329077a33bed286a2440e9704e34ca5158ddb6aefeb1ee1a79715a8c7d8.jpg"
+      },
+      "set": {
+        "id": "fig-32.7",
+        "caption": "Figure 32.7 Changes in sealed tin cans as a result of microbial spoilage.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-32.8 to fig-32.7 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-33.14",
+      "action": "set_fields",
+      "chunk": "ch33",
+      "selector": "body[148]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-33.15",
+        "src": "620417b38e3e8d4ebaa63abf9fca94db667e3c2a414b6fe93d47454246e370bb.jpg"
+      },
+      "set": {
+        "id": "fig-33.14",
+        "caption": "Figure 33.14 African trypanosomiasis and Chagas disease.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-33.15 to fig-33.14 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-4.19",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[125]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.20",
+        "src": "1e014f3164c45ed380dcf7f614488ae09387936faa43e9e70232baed352587ac.jpg"
+      },
+      "set": {
+        "id": "fig-4.19",
+        "caption": "Figure 4.19 Transcription.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-4.20 to fig-4.19 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-4.42",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[296]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.43",
+        "src": "e02abb25f8e63c9b13c98d6c6fba2f8037d957f280f516add3614479d4c3bf2f.jpg"
+      },
+      "set": {
+        "id": "fig-4.42",
+        "caption": "Figure 4.42 Secretion systems in gram-negative bacteria.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-4.43 to fig-4.42 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.12",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[135]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.13",
+        "src": "b3410d129b33b51b7faf6f785892926921f5a8ccacd39261632770fbe1bb8bd6.jpg"
+      },
+      "set": {
+        "id": "fig-5.12",
+        "caption": "Figure 5.12 Aseptic transfer.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.13 to fig-5.12 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.22",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[248]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.23",
+        "src": "55b748cd673b4aebb98c2039a466afcadac53a6dd50a2a4ed1f3c9855b78aaf9.jpg"
+      },
+      "set": {
+        "id": "fig-5.22",
+        "caption": "Figure 5.22 Hot spring microbes and their heat-stable enzymes.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.23 to fig-5.22 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.31",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[333]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.32",
+        "src": "4f6630fdda52aac0ac5d44d5e79747945184a14a27ad3e4a177e770f8cab7300.jpg"
+      },
+      "set": {
+        "id": "fig-5.31",
+        "caption": "Figure 5.31 The autoclave and moist heat sterilization.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.32 to fig-5.31 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.4",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[38]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.5",
+        "src": "dfae733a6565d7600629b2c021ff6c3b2d23e73f839c9b56c0e8763fa8891941.jpg"
+      },
+      "set": {
+        "id": "fig-5.4",
+        "caption": "Figure 5.4 Biofilms.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.5 to fig-5.4 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.6",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[64]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.7",
+        "src": "369704380529095f3215e3be4a4218bd165227d19e0f69997e158e6695b27bd2.jpg"
+      },
+      "set": {
+        "id": "fig-5.6",
+        "caption": "Figure 5.6 Calculating microbial growth parameters.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.7 to fig-5.6 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.8",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[95]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.9",
+        "src": "fe6e1b2fd7f10348c38d2d7b76d483e89a939e1ce0ce86107b31cc0677171fae.jpg"
+      },
+      "set": {
+        "id": "fig-5.8",
+        "caption": "Figure 5.8 Continuous culture device (chemostat).",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.9 to fig-5.8 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-6.10",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[62]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-6.11",
+        "src": "7c20a8ea3435b37132651113ce236a9d65b634bf0725d5d9fe73ff6d62f92804.jpg"
+      },
+      "set": {
+        "id": "fig-6.10",
+        "caption": "Figure 6.10 Activator protein interactions with RNA polymerase.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-6.11 to fig-6.10 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-6.23",
+      "action": "set_fields",
+      "chunk": "ch06",
+      "selector": "body[174]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-6.24",
+        "src": "cdf859520f4db9b9dcd63e993a704c1c8ae660b15698d79aa7d3eeb5f946bf0f.jpg"
+      },
+      "set": {
+        "id": "fig-6.23",
+        "caption": "Figure 6.23 The stringent response in Escherichia coli.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-6.24 to fig-6.23 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-7.5",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[51]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-7.6",
+        "src": "0f76465e7288cfb853abe1f017c60791884b98beb9cd89c000dc2b83b3d11a01.jpg"
+      },
+      "set": {
+        "id": "fig-7.5",
+        "caption": "Figure 7.5 Genome replication in cells of Escherichia coli growing at 60 min or 20 min generation times.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-7.6 to fig-7.5 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.13",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[119]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.14",
+        "src": "cf2f365ac45762a1a830cff7bd1bd09ceb0ffc115e653870373da71ab68afc3f.jpg"
+      },
+      "set": {
+        "id": "fig-8.13",
+        "caption": "Figure 8.13 Circular permutation and the unique DNA of bacteriophage T4.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.14 to fig-8.13 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.17",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[145]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.18",
+        "src": "714120638eddb70cae0b5641cfb4692f73f6e061e362fcde9964eb19b124231b.jpg"
+      },
+      "set": {
+        "id": "fig-8.17",
+        "caption": "Figure 8.17 Bacteriophage lambda: virions, integration of viral DNA and rolling circle replication.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.18 to fig-8.17 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.19",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[166]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.20",
+        "src": "c6ead75a0c3b78598b66a5e0910c25edee360678be8b4d1ef2d1d08f3e146e4d.jpg"
+      },
+      "set": {
+        "id": "fig-8.19",
+        "caption": "Figure 8.19 Rotavirus cell entry.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.20 to fig-8.19 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.3",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[38]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.4",
+        "src": "c442e419d890a5485b6a122ce4ecea2988e0af98be02215a8fe91e08983aaf4f.jpg"
+      },
+      "set": {
+        "id": "fig-8.3",
+        "caption": "Figure 8.3 The arrangement of RNA and protein coat in a simple virus, tobacco mosaic virus.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.4 to fig-8.3 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.6",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[52]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.7",
+        "src": "c5e80a7f4449334de767f1f9f9ceab8be6af1c8281262bc95d933dcada27551f.jpg"
+      },
+      "set": {
+        "id": "fig-8.6",
+        "caption": "Figure 8.6 Enveloped viruses.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.7 to fig-8.6 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-9.12",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[99]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.13",
+        "src": "665307ed19341b7a725b7566a966e7d8539a25afa42036b7926ff7501b2989b7.jpg"
+      },
+      "set": {
+        "id": "fig-9.12",
+        "caption": "Figure 9.12 Map of the human mitochondrial genome and the mitochondrial proteome.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-9.13 to fig-9.12 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-9.15",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[119]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.16",
+        "src": "22a973776ab1e27d60fe9517db43b88a05c4c984eaaa71ca93a6f92231ad7039.jpg"
+      },
+      "set": {
+        "id": "fig-9.15",
+        "caption": "Figure 9.15 Evolution by gene duplication.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-9.16 to fig-9.15 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-9.25",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[197]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.26",
+        "src": "0152a6571d14727dc478491f0c1fd1cb83d822a9446df90f240e4b78dcfded20.jpg"
+      },
+      "set": {
+        "id": "fig-9.25",
+        "caption": "Figure 9.25 RNA-Seq analysis of the heterocyst-forming cyanobacterium Anabaena during nitrogen starvation.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-9.26 to fig-9.25 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-9.4",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[42]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-9.5",
+        "src": "6722b6accd05abf5d2d9a4e50ce1ee45263bdd1786cd3a41d0d8bde471e8bdb8.jpg"
+      },
+      "set": {
+        "id": "fig-9.4",
+        "caption": "Figure 9.4 DNA sequencing.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-9.5 to fig-9.4 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.8",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[85]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.10",
+        "src": "45f159bc55af6828c6e85a24eb675c87e7569894f31716b850429bdbb25057e6.jpg"
+      },
+      "set": {
+        "id": "fig-31.8",
+        "caption": "Figure 31.8 The Lyme spirochete, Borrelia burgdorferi.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-31.10 to fig-31.8 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-4.17",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "body[108]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-4.16",
+        "src": "add608ced0042edd43cbd1ea440923040ebd2682297be30d8677db9d226a5eb4.jpg"
+      },
+      "set": {
+        "id": "fig-4.17",
+        "caption": "Figure 4.17 The replisome.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-4.16 to fig-4.17 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.35",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[361]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.34",
+        "src": "ca4320210eaab8d26c63fe7c2876f82cc76ffb0579c2035ad757939967c5bbb5.jpg"
+      },
+      "set": {
+        "id": "fig-5.35",
+        "caption": "Figure 5.35 Membrane filters.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-5.34 to fig-5.35 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.15",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[129]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.14",
+        "src": "e6254fcc5d732a9dcb76f2228e1cdd8b5e3df5eebe5af5497aec26be0adbd125.jpg"
+      },
+      "set": {
+        "id": "fig-8.15",
+        "caption": "Figure 8.15 Packaging of DNA into a T4 phage head.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Catalog id/caption shifted; align fig-8.14 to fig-8.15 based on unified image and raw PDF evidence."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.5",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[58]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.5a",
+        "src": "027a84c1f28036363d80a03ad66287b6c2b8619ff5db5521ed6b967d874443e2.jpg"
+      },
+      "set": {
+        "id": "fig-5.5",
+        "caption": "Figure 5.5 The rate of growth of a microbial culture.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 179 shows this semilog plot as Figure 5.5b; promoting the block to fig-5.5 restores coverage for Figure 5.5 and Figure 5.5b."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-5.13",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[155]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-5.11",
+        "src": "0ac068633e54d9dd8cc1721ba82cf24aefbbd0295b39f287dedbc096f36b5e8f.jpg"
+      },
+      "set": {
+        "id": "fig-5.13",
+        "caption": "Figure 5.13 Direct microscopic counting procedure using the Petroff-Hausser counting chamber.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 187 shows this counting-chamber diagram as Figure 5.13; the parsed block retained only a stray right parenthesis."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-8.14",
+      "action": "set_fields",
+      "chunk": "ch08",
+      "selector": "body[127]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-8.15a",
+        "src": "7ae7b452ce1bcc63d1fbb952a807d2a314503dd4ad63d65b2b1e979ff78a8497.jpg"
+      },
+      "set": {
+        "id": "fig-8.14",
+        "caption": "Figure 8.14 Time course of events in phage T4 infection.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 272 labels this infection timeline as Figure 8.14; the parsed block had drifted to fig-8.15a."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-31.15",
+      "action": "set_fields",
+      "chunk": "ch31",
+      "selector": "body[140]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-31.16",
+        "src": "fc86c3280d0491729840bba819e9f91a955053c2c2852e86ca7836698f27fc02.jpg"
+      },
+      "set": {
+        "id": "fig-31.15",
+        "caption": "Figure 31.15 West Nile encephalitis.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 968 labels the lower-right pathology micrograph as Figure 31.15; the following map block at body[141] remains Figure 31.16."
+    },
+    {
+      "id": "madigan_brock_microorganisms-fig-32.4",
+      "action": "set_fields",
+      "chunk": "ch32",
+      "selector": "body[67]",
+      "expect": {
+        "t": "fig",
+        "id": "fig-32.5",
+        "src": "6a00d7c31d188ad01837c4d3003b23a99ac8b052bd32716df0d3d87054c71262.jpg"
+      },
+      "set": {
+        "id": "fig-32.4",
+        "caption": "Figure 32.4 Cells of Vibrio cholerae attached to the surface of Volvox, a freshwater alga.",
+        "catalog_repair_source": "catalog-audit-2026-06-27"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 980 labels the lower-right cholera/alga fluorescence image as Figure 32.4; Legionella remains covered by the later Figure 32.5 blocks."
+    }
+  ]
+}

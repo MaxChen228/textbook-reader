@@ -1,0 +1,90 @@
+slug: warner_differentiable_manifolds
+title: Foundations of Differentiable Manifolds and Lie Groups
+author: Frank W. Warner
+edition: null
+subject: Differential Geometry
+publisher: Scott, Foresman and Company
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 272
+bibliography_start_page: 272
+index_start_page: 272
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: MANIFOLDS
+    page_start: 15
+    page_end: 66
+    chapter_title_block_idx: 55
+    problems_block_idx: 778
+    next_chapter_block_idx: 822
+  - num: 2
+    title: TENSORS AND DIFFERENTIAL FORMS
+    page_start: 67
+    page_end: 94
+    chapter_title_block_idx: 822
+    problems_block_idx: 1219
+    next_chapter_block_idx: 1281
+  - num: 3
+    title: LIE GROUPS
+    page_start: 95
+    page_end: 150
+    chapter_title_block_idx: 1281
+    problems_block_idx: 2094
+    next_chapter_block_idx: 2150
+  - num: 4
+    title: INTEGRATION ON MANIFOLDS
+    page_start: 151
+    page_end: 175
+    chapter_title_block_idx: 2150
+    problems_block_idx: 2457
+    next_chapter_block_idx: 2533
+  - num: 5
+    title: "SHEAVES, COHOMOLOGY, AND THE DE RHAM THEOREM"
+    page_start: 176
+    page_end: 232
+    chapter_title_block_idx: 2533
+    problems_block_idx: 3373
+    next_chapter_block_idx: 3412
+  - num: 6
+    title: THE HODGE THEOREM
+    page_start: 233
+    page_end: 271
+    chapter_title_block_idx: 3412
+    problems_block_idx: 3982
+    next_chapter_block_idx: 4177
+
+appendices: []
+
+section_re: '^()([^(\d].+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\s+'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

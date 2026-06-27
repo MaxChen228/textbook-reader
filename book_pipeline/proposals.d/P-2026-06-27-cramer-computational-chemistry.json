@@ -1,0 +1,17 @@
+{
+  "id": "P-2026-06-27-cramer-computational-chemistry",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "proposed",
+  "title": "ingest/unified 未偵測單一 chunk 的 images 目錄整批遺失",
+  "slug": "cramer_computational_chemistry",
+  "detect": [],
+  "source": "agent",
+  "resolution": "",
+  "created": "2026-06-27T03:39:01+00:00",
+  "updated": "2026-06-27T03:39:01+00:00",
+  "evidence": "cramer_computational_chemistry 的 raw/chunk_2（主 PDF p359-538＝ch9末-ch14）images/ 目錄完全缺失（chunk_0=225、chunk_1=242、chunk_3=126 都有圖；唯 chunk_2 無 images 子目錄），但其 content_list/layout 仍引用 46 個圖 hash。unified merge images_merged=592 對此整批遺失零察覺，parser 照樣產出 46 個 src 指向不存在 jpg 的 fig block → 全數成 C3 missing_images（含 8 個 unnumbered_body_fig 與 1 個圖片化 table）。下游 catalog/build 無從補，圖在 reader 全壞。本書已 per-book 用 pdf_crop_insert 從 raw PDF 依 MinerU content_list bbox(/1000 normalized)+chunk 頁 offset(359+page_idx) 逐張重裁修復、critical 歸零並目視驗證；但這是手工補救，根因（某 chunk 圖批靜默遺失）可跨書複發。",
+  "proposal": "ingest/unified 階段對每 chunk 做對帳：content_list 引用的 image hash 集合 vs 該 chunk images/ 實際檔案；缺口>閾值即（a）重抓該 chunk 的 images zip，或（b）標 book_qc review 不靜默上架。最低限度在 unified_summary 記錄 per-chunk expected_images vs merged_images 落差供 status/trace 觀測，避免『整章圖靜默壞掉』滑過所有閘門。",
+  "risk": "",
+  "disposition": ""
+}

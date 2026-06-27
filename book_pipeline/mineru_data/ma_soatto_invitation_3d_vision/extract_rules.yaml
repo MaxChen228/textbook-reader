@@ -1,0 +1,139 @@
+slug: ma_soatto_invitation_3d_vision
+title: An Invitation to 3-D Vision
+author: Yi Ma; Stefano Soatto; Jana Košecká; S. Shankar Sastry
+edition: null
+subject: Computer Vision
+publisher: Springer
+language: en
+
+filter_types: [header, footer, page_number, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 20
+appendices_start_page: 455
+bibliography_start_page: 501
+index_start_page: 527
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction
+    page_start: 20
+    page_end: 32
+    chapter_title_block_idx: 113
+    problems_block_idx: null
+    next_chapter_block_idx: 208
+  - num: 2
+    title: Representation of a Three-Dimensional Moving Scene
+    page_start: 33
+    page_end: 61
+    chapter_title_block_idx: 208
+    problems_block_idx: 561
+    next_chapter_block_idx: 656
+  - num: 3
+    title: Image Formation
+    page_start: 62
+    page_end: 92
+    chapter_title_block_idx: 656
+    problems_block_idx: 865
+    next_chapter_block_idx: 1015
+  - num: 4
+    title: Image Primitives and Correspondence
+    page_start: 93
+    page_end: 125
+    chapter_title_block_idx: 1015
+    problems_block_idx: 1255
+    next_chapter_block_idx: 1396
+  - num: 5
+    title: Reconstruction from Two Calibrated Views
+    page_start: 126
+    page_end: 187
+    chapter_title_block_idx: 1396
+    problems_block_idx: 2086
+    next_chapter_block_idx: 2244
+  - num: 6
+    title: Reconstruction from Two Uncalibrated Views
+    page_start: 188
+    page_end: 244
+    chapter_title_block_idx: 2244
+    problems_block_idx: 2693
+    next_chapter_block_idx: 2970
+  - num: 7
+    title: Estimation of Multiple Motions from Two Views
+    page_start: 245
+    page_end: 278
+    chapter_title_block_idx: 2970
+    problems_block_idx: 3297
+    next_chapter_block_idx: 3408
+  - num: 8
+    title: Multiple-View Geometry of Points and Lines
+    page_start: 279
+    page_end: 325
+    chapter_title_block_idx: 3408
+    problems_block_idx: 3800
+    next_chapter_block_idx: 4031
+  - num: 9
+    title: Extension to General Incidence Relations
+    page_start: 326
+    page_end: 353
+    chapter_title_block_idx: 4031
+    problems_block_idx: 4242
+    next_chapter_block_idx: 4383
+  - num: 10
+    title: Geometry and Reconstruction from Symmetry
+    page_start: 354
+    page_end: 389
+    chapter_title_block_idx: 4383
+    problems_block_idx: 4711
+    next_chapter_block_idx: 4783
+  - num: 11
+    title: Step-by-Step Building of a 3-D Model from Images
+    page_start: 390
+    page_end: 426
+    chapter_title_block_idx: 4783
+    problems_block_idx: null
+    next_chapter_block_idx: 5147
+  - num: 12
+    title: Visual Feedback
+    page_start: 427
+    page_end: 454
+    chapter_title_block_idx: 5147
+    problems_block_idx: null
+    next_chapter_block_idx: 5420
+
+appendices:
+  - id: A
+    title: Basic Facts from Linear Algebra
+    page_start: 455
+    chapter_title_block_idx: 5420
+  - id: B
+    title: Least-Variance Estimation and Filtering
+    page_start: 476
+    chapter_title_block_idx: 5771
+  - id: C
+    title: Basic Facts from Nonlinear Optimization
+    page_start: 493
+    chapter_title_block_idx: 6051
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Exercise\s+(\d+\.\d+)\b.*$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true
+example_start_re: '^Example\s+(\d+\.\d+)\b.*$'
+figure_caption_main_re: '^Figure\s+(\d+\.\d+)\s*(.*)$'
+
+known_missing_problems:
+  - chapter: 5
+    nums: ['5.1', '5.2', '5.3', '5.8']

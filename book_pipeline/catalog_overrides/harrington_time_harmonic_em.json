@@ -1,0 +1,51 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "harrington-fig-3.30-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch03",
+      "selector": "problem:3-24:body[0]",
+      "position": "before",
+      "page": 160,
+      "clip": [
+        0.24,
+        0.05,
+        0.82,
+        0.26
+      ],
+      "zoom": 2.8,
+      "src": "manual_fig-3.30.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-3.30",
+        "kind": "line",
+        "caption": "Figure 3.30 Differential scattering."
+      },
+      "reason": "C4 ref 3.30：raw PDF 物理頁 160（印刷頁 141）頁首明確有 Fig. 3-30 題圖與 caption，但 parsed/ch03 的 problem 3-24 body 僅剩正文與公式，完全漏掉圖塊。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    },
+    {
+      "id": "harrington-fig-5.32-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch05",
+      "selector": "problem:5-25:body[0]",
+      "position": "before",
+      "page": 278,
+      "clip": [
+        0.2,
+        0.09,
+        0.77,
+        0.25
+      ],
+      "zoom": 2.8,
+      "src": "manual_fig-5.32.png",
+      "block": {
+        "t": "fig",
+        "id": "fig-5.32",
+        "kind": "line",
+        "caption": "Figure 5.32 Wedge in a circular cavity."
+      },
+      "reason": "C4 ref 5.32：raw PDF 物理頁 278（印刷頁 259）頁首明確有 Fig. 5-32 題圖與 caption，但 parsed/ch05 的 problem 5-25 body 只剩題幹、公式與表格，缺整個 figure block。依 catalog-audit §4.C4 情境(B) 以 pdf_crop_insert 補回。"
+    }
+  ]
+}

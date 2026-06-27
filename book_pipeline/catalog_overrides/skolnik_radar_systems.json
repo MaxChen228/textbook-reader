@@ -1,0 +1,40 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "0.5",
+      "classification": "mis_ocr",
+      "reason": "audit regex 把一般名詞片語 'noise figure 0.5 dB' 誤當成 Figure 0.5；此處不是圖引用。",
+      "where": "ch11.json body[57]",
+      "evidence": "Parsed block reads: 'the IF noise figure 0.5 dB ... the receiver noise figure would be 6.7 dB ... equal to the conversion loss times the IF noise figure.' All three occurrences are lower-case technical term 'noise figure', not 'Fig.'/'Figure' caption reference."
+    },
+    {
+      "type": "table",
+      "ref": "15.4",
+      "classification": "external",
+      "reason": "正文明寫 Table 15.4 in Ref. 1，指向參考文獻內的表，不是本書 catalog table。",
+      "where": "ch03.json body[395]",
+      "evidence": "Block text is exactly: 'Other limitations due to system instabilities can be found in the discussion of Table 15.4 in Ref. 1.' The 'in Ref. 1' qualifier makes the target external to this book chapter's table catalog."
+    },
+    {
+      "type": "table",
+      "ref": "7.16",
+      "classification": "external",
+      "reason": "正文明寫 Table 7.16 of Ref 2，並由本書 Fig. 7.11 caption 佐證來源應為 Ref. 2 的 Table 2.16；不是本書內部 table。",
+      "where": "ch07.json body[97]",
+      "evidence": "Block text says 'derived from Table 7.16 of Ref 2'; the immediately following cataloged Figure 7.11 caption says the solid curves are 'as given by Table 2.16 of Ref. 2.' Both indicate an external reference table, not an internal Table 7.16."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "skolnik-ch04-fig-14.14b-to-4.14b",
+      "action": "replace_text",
+      "chunk": "ch04",
+      "selector": "body[94]",
+      "field": "md",
+      "old": "as sketched in Fig. 14.14b (exaggerated to show the principle)",
+      "new": "as sketched in Fig. 4.14b (exaggerated to show the principle)",
+      "reason": "同段前句引用 Fig. 4.14a，catalog 中存在 fig-4.14/fig-4.14--1，caption 明確含 (a)/(b) wavefront sketches；14.14b 是章號 OCR/解析誤植，應為 4.14b。"
+    }
+  ]
+}

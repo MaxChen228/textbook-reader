@@ -1,0 +1,135 @@
+slug: yosida_functional_analysis
+title: Functional Analysis
+author: Kosaku Yosida
+edition: 6th
+subject: Functional Analysis
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 112
+appendices_start_page: 449
+bibliography_start_page: 449
+index_start_page: 463
+
+chapters:
+  - num: 4
+    title: The Hahn-Banach Theorems
+    page_start: 112
+    page_end: 128
+    chapter_title_block_idx: 1805
+    problems_block_idx: null
+    next_chapter_block_idx: 2124
+  - num: 5
+    title: Strong Convergence and Weak Convergence
+    page_start: 129
+    page_end: 145
+    chapter_title_block_idx: 2124
+    problems_block_idx: null
+    next_chapter_block_idx: 2391
+  - num: 6
+    title: Appendix to Chapter V. Weak Topologies and Duality in Locally Convex Linear Topological Spaces
+    page_start: 146
+    page_end: 154
+    chapter_title_block_idx: 2391
+    problems_block_idx: null
+    next_chapter_block_idx: 2528
+  - num: 7
+    title: Fourier Transform and Differential Equations
+    page_start: 155
+    page_end: 202
+    chapter_title_block_idx: 2528
+    problems_block_idx: null
+    next_chapter_block_idx: 3487
+  - num: 8
+    title: Dual Operators
+    page_start: 203
+    page_end: 218
+    chapter_title_block_idx: 3487
+    problems_block_idx: null
+    next_chapter_block_idx: 3800
+  - num: 9
+    title: Resolvent and Spectrum
+    page_start: 219
+    page_end: 240
+    chapter_title_block_idx: 3800
+    problems_block_idx: null
+    next_chapter_block_idx: 4223
+  - num: 10
+    title: Analytical Theory of Semi-groups
+    page_start: 241
+    page_end: 283
+    chapter_title_block_idx: 4223
+    problems_block_idx: null
+    next_chapter_block_idx: 5016
+  - num: 11
+    title: Compact Operators
+    page_start: 284
+    page_end: 298
+    chapter_title_block_idx: 5016
+    problems_block_idx: null
+    next_chapter_block_idx: 5274
+  - num: 12
+    title: Appendix to Chapter X. The Nuclear Space of A. Grothendieck
+    page_start: 299
+    page_end: 303
+    chapter_title_block_idx: 5274
+    problems_block_idx: null
+    next_chapter_block_idx: 5369
+  - num: 13
+    title: Normed Rings and Spectral Representation
+    page_start: 304
+    page_end: 371
+    chapter_title_block_idx: 5369
+    problems_block_idx: null
+    next_chapter_block_idx: 6616
+  - num: 14
+    title: Other Representation Theorems in Linear Spaces
+    page_start: 372
+    page_end: 388
+    chapter_title_block_idx: 6616
+    problems_block_idx: null
+    next_chapter_block_idx: 6914
+  - num: 15
+    title: Ergodic Theory and Diffusion Theory
+    page_start: 389
+    page_end: 420
+    chapter_title_block_idx: 6914
+    problems_block_idx: null
+    next_chapter_block_idx: 7541
+  - num: 16
+    title: The Integration of the Equation of Evolution
+    page_start: 421
+    page_end: 448
+    chapter_title_block_idx: 7541
+    problems_block_idx: null
+    next_chapter_block_idx: 8739
+
+appendices: []
+
+section_re: '^(\d+)\.\s+(.+)$'
+subsection_re: '^(\b\B)(\b\B)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\b\B)$'
+problem_chapter_must_match: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

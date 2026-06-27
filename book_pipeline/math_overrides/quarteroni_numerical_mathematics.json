@@ -1,0 +1,58 @@
+{
+  "overrides": [
+    {
+      "id": "quarteroni_numerical_mathematics-ch03-body-622-31ef59",
+      "action": "fix_inline_math",
+      "chunk": "ch03",
+      "selector": "body[622]",
+      "field": "md",
+      "all": true,
+      "old": "$\\left. \\operatorname { D } _ { 1 } \\mathrm { { A D } _ { 2 } \\right. . }$",
+      "new": "$\\left. \\operatorname { D } _ { 1 } \\mathrm { A D } _ { 2 } \\right. .$",
+      "anchor": "06406b11"
+    },
+    {
+      "id": "quarteroni_numerical_mathematics-ch05-body-208-951c28",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[208]",
+      "expect": "\\begin{array}{l} \\text {determine Q^{(k)} ,R^{(k)} such that} \\\\ \\mathrm{Q} ^ {(k)} \\mathrm{R} ^ {(k)} = \\mathrm{T} ^ {(k - 1)} \\qquad (\\mathrm{QRfactorization}); \\\\ \\text {then, let} \\\\ \\mathrm{T} ^ {(k)} = \\mathrm{R} ^ {(k)} \\mathrm{Q} ^ {(k)}. \\end{array}",
+      "new": "\\begin{array}{l} \\text{determine } Q^{(k)} ,R^{(k)} \\text{ such that} \\\\ \\mathrm{Q} ^ {(k)} \\mathrm{R} ^ {(k)} = \\mathrm{T} ^ {(k - 1)} \\qquad (\\mathrm{QRfactorization}); \\\\ \\text{then, let} \\\\ \\mathrm{T} ^ {(k)} = \\mathrm{R} ^ {(k)} \\mathrm{Q} ^ {(k)}. \\end{array}"
+    },
+    {
+      "id": "quarteroni_numerical_mathematics-ch05-body-357-2921fe",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[357]",
+      "expect": "\\begin{array}{l} \\text {determine Q^{(k)} ,R^{(k)} such that} \\\\ \\mathrm{Q} ^ {(k)} \\mathrm{R} ^ {(k)} = \\mathrm{T} ^ {(k - 1)} - \\mu \\mathrm{I} \\qquad (\\mathrm{QRfactorization}); \\\\ \\text {then, let} \\\\ \\mathrm{T} ^ {(k)} = \\mathrm{R} ^ {(k)} \\mathrm{Q} ^ {(k)} + \\mu \\mathrm{I}, \\end{array}",
+      "new": "\\begin{array}{l} \\text{determine } Q^{(k)} ,R^{(k)} \\text{ such that} \\\\ \\mathrm{Q} ^ {(k)} \\mathrm{R} ^ {(k)} = \\mathrm{T} ^ {(k - 1)} - \\mu \\mathrm{I} \\qquad (\\mathrm{QRfactorization}); \\\\ \\text{then, let} \\\\ \\mathrm{T} ^ {(k)} = \\mathrm{R} ^ {(k)} \\mathrm{Q} ^ {(k)} + \\mu \\mathrm{I}, \\end{array}"
+    },
+    {
+      "id": "quarteroni_numerical_mathematics-ch05-body-402-e1c0c7",
+      "action": "fix_eq_tex",
+      "chunk": "ch05",
+      "selector": "body[402]",
+      "expect": "\\begin{array}{l} \\text {where t_{31} ^{(97)} = 2.06\\cdot 10^{-17} +7.15\\cdot 10^{-49} i,t_{41} ^{(97)} = -5.59\\cdot 10^{-17} and t_{42} ^{(97)} = -4.26\\cdot 10^{-18}}, \\\\ \\text {respectively.} \\end{array}",
+      "new": "\\begin{array}{l} \\text{where } t_{31} ^{(97)} = 2.06\\cdot 10^{-17} +7.15\\cdot 10^{-49} i,t_{41} ^{(97)} = -5.59\\cdot 10^{-17} \\text{ and } t_{42} ^{(97)} = -4.26\\cdot 10^{-18}, \\\\ \\text{respectively.} \\end{array}"
+    },
+    {
+      "id": "quarteroni_numerical_mathematics-ch08-body-443-a53d24",
+      "action": "fix_eq_tex",
+      "chunk": "ch08",
+      "selector": "body[443]",
+      "expect": "\\begin{array}{l} \\text { A = tridiag_{K - 1} (-12,24, - 12),} \\\\ \\text { B = tridiag_{K - 1} (-6,0,6),} \\\\ \\text { C = tridiag_{K - 1}(2,8,2).} \\end{array}",
+      "new": "\\begin{array}{l} A = \\operatorname{tridiag}_{K - 1} (-12,24, - 12), \\\\ B = \\operatorname{tridiag}_{K - 1} (-6,0,6), \\\\ C = \\operatorname{tridiag}_{K - 1}(2,8,2). \\end{array}"
+    },
+    {
+      "id": "quarteroni_numerical_mathematics-ch08-body-450-1ca1bd",
+      "action": "fix_inline_math",
+      "chunk": "ch08",
+      "selector": "body[450]",
+      "field": "md",
+      "all": true,
+      "old": "$\\widetilde \\mathrm { C }$",
+      "new": "$\\widetilde {\\mathrm { C }}$",
+      "anchor": "a6020ee0"
+    }
+  ]
+}

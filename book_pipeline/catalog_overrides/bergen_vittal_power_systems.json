@@ -1,0 +1,65 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "0.49",
+      "classification": "mis_ocr",
+      "reason": "正文為小寫普通名詞 'the figure 0.49'，指 capability/load factor 數值，非 Figure 0.49 圖號引用。",
+      "where": "ch01.json body[16]",
+      "evidence": "Parsed text reads: 'Using the figure 0.49 for the capability (or load) factor'; raw/PDF text search has no numbered Figure 0.49 caption."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "bergen-vittal-a4-4-id-fix",
+      "action": "set_fields",
+      "chunk": "app4",
+      "selector": "body[26]",
+      "expect": {
+        "id": "fig-A4.1",
+        "caption": "Figure A4.1"
+      },
+      "set": {
+        "id": "fig-A4.4",
+        "caption": "Figure A4.4",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "正文在 body[17]/body[20] 引用 Figure A4.4；此圖塊位於引用後且影像內容是極座標角度示意，被 MinerU 錯標成 Figure A4.1。"
+    },
+    {
+      "id": "bergen-vittal-a5-2-id-fix",
+      "action": "set_fields",
+      "chunk": "app5",
+      "selector": "body[26]",
+      "expect": {
+        "id": "fig-app5-26",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-A5.2",
+        "caption": "Figure A5.2 Calculation of i_F in steady state.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "影像本身含 caption 'Figure A5.2 Calculation of i_F in steady state.'，不應被排除為 unnumbered_body_fig。"
+    },
+    {
+      "id": "bergen-vittal-a5-4-id-fix",
+      "action": "set_fields",
+      "chunk": "app5",
+      "selector": "body[65]",
+      "expect": {
+        "id": "fig-A5.3",
+        "caption": "Zero-sequence test"
+      },
+      "set": {
+        "id": "fig-A5.4",
+        "caption": "Figure A5.4 Zero-sequence model for generator.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "body[65] 影像 caption 顯示 Figure A5.4 Zero-sequence model for generator；原 id/caption 沿用前一張 Figure A5.3。"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+slug: gonzalez_microwave_amplifiers
+title: "Microwave Transistor Amplifiers: Analysis and Design"
+author: "Guillermo Gonzalez"
+edition: "2nd"
+subject: Microelectronics
+publisher: Prentice Hall
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 11
+appendices_start_page: 443
+bibliography_start_page: null
+index_start_page: 508
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Representations of Two-Port Networks"
+    page_start: 11
+    page_end: 101
+    chapter_title_block_idx: 87
+    problems_block_idx: 1296
+    next_chapter_block_idx: 1401
+  - num: 2
+    title: "Matching Networks and Signal Flow Graphs"
+    page_start: 102
+    page_end: 221
+    chapter_title_block_idx: 1401
+    problems_block_idx: 2575
+    next_chapter_block_idx: 2698
+  - num: 3
+    title: "Microwave Transistor Amplifier Design"
+    page_start: 222
+    page_end: 303
+    chapter_title_block_idx: 2698
+    problems_block_idx: 3618
+    next_chapter_block_idx: 3822
+  - num: 4
+    title: "Noise, Broadband, and High-Power Design Methods"
+    page_start: 304
+    page_end: 393
+    chapter_title_block_idx: 3822
+    problems_block_idx: 4723
+    next_chapter_block_idx: 4865
+  - num: 5
+    title: "Microwave Transistor Oscillator Design"
+    page_start: 394
+    page_end: 442
+    chapter_title_block_idx: 4865
+    problems_block_idx: 5435
+    next_chapter_block_idx: 5525
+
+appendices:
+  - id: CAD
+    title: "Computer-Aided Designs"
+    page_start: 443
+    chapter_title_block_idx: 5525
+  - id: A
+    title: "Circle Equations: Bilinear Transformation"
+    page_start: 459
+    chapter_title_block_idx: 5648
+  - id: B
+    title: "Stability Conditions"
+    page_start: 463
+    chapter_title_block_idx: 5711
+  - id: C
+    title: "Unconditional Stability Conditions: K > 1 and B1 > 0"
+    page_start: 472
+    chapter_title_block_idx: 5884
+  - id: D
+    title: "Derivation of the Unilateral Constant-Gain Circles [Equation (3.4.10)]"
+    page_start: 474
+    chapter_title_block_idx: 5906
+  - id: E
+    title: "Derivation of GT,max [Equation (3.6.10)]"
+    page_start: 479
+    chapter_title_block_idx: 5966
+  - id: F
+    title: "Derivation of the Constant Operating Power-Gain Circles"
+    page_start: 482
+    chapter_title_block_idx: 6020
+  - id: G
+    title: "Constant VSWR Circles"
+    page_start: 486
+    chapter_title_block_idx: 6054
+  - id: J
+    title: "Mapping of Circles in the Gamma_s and Gamma_L Planes"
+    page_start: 488
+    chapter_title_block_idx: 6080
+  - id: K
+    title: "Noise Concepts"
+    page_start: 490
+    chapter_title_block_idx: 6120
+  - id: L
+    title: "Noise Figure of an Amplifier"
+    page_start: 495
+    chapter_title_block_idx: 6179
+  - id: M
+    title: "Conditions for a Stable Oscillation"
+    page_start: 503
+    chapter_title_block_idx: 6318
+
+heading_priority: [subsection_re, section_re]
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^([A-Z][A-Z0-9,\-:() /]+)(\s*)$'
+example_start_re: '^(Example\s+\d+\.\d+\.\d+)\s*$'
+problem_start_re: '^(\d+\.\d+)\.?(?:\s|$)'
+problem_chapter_must_match: true
+problems_end_re: '^REFERENCES?$'
+equation_strip_dollar: true
+equation_label_re: '\\((\d+\.\d+\.\d+)\\)'
+
+known_missing_problems:
+  - chapter: 1
+    nums: ['1.21']
+  - chapter: 2
+    nums: ['2.35']
+  - chapter: 3
+    nums: ['3.4', '3.21', '3.24', '3.30']
+  - chapter: 4
+    nums: ['4.14']

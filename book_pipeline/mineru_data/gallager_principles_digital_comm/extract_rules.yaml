@@ -1,0 +1,104 @@
+slug: gallager_principles_digital_comm
+title: Principles of Digital Communication
+author: Robert G. Gallager
+edition: 1st
+subject: Digital Communications
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+
+body_start_page: 16
+appendices_start_page: null
+bibliography_start_page: 413
+index_start_page: 415
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Introduction to digital communication
+    page_start: 16
+    page_end: 30
+    chapter_title_block_idx: 70
+    problems_block_idx: 221
+    next_chapter_block_idx: 222
+  - num: 2
+    title: Coding for discrete sources
+    page_start: 31
+    page_end: 81
+    chapter_title_block_idx: 222
+    problems_block_idx: 752
+    next_chapter_block_idx: 938
+  - num: 3
+    title: Quantization
+    page_start: 82
+    page_end: 107
+    chapter_title_block_idx: 938
+    problems_block_idx: 1211
+    next_chapter_block_idx: 1280
+  - num: 4
+    title: Source and channel waveforms
+    page_start: 108
+    page_end: 167
+    chapter_title_block_idx: 1280
+    problems_block_idx: 1993
+    next_chapter_block_idx: 2172
+  - num: 5
+    title: Vector spaces and signal space
+    page_start: 168
+    page_end: 195
+    chapter_title_block_idx: 2172
+    problems_block_idx: 2571
+    next_chapter_block_idx: 2638
+  - num: 6
+    title: Channels, modulation, and demodulation
+    page_start: 196
+    page_end: 230
+    chapter_title_block_idx: 2638
+    problems_block_idx: 2976
+    next_chapter_block_idx: 3077
+  - num: 7
+    title: Random processes and noise
+    page_start: 231
+    page_end: 282
+    chapter_title_block_idx: 3077
+    problems_block_idx: 3712
+    next_chapter_block_idx: 3791
+  - num: 8
+    title: Detection, coding, and decoding
+    page_start: 283
+    page_end: 344
+    chapter_title_block_idx: 3791
+    problems_block_idx: 4461
+    next_chapter_block_idx: 4595
+  - num: 9
+    title: Wireless digital communication
+    page_start: 345
+    page_end: 412
+    chapter_title_block_idx: 4595
+    problems_block_idx: 5319
+    next_chapter_block_idx: 5462
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: 2
+
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: '^References$'
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

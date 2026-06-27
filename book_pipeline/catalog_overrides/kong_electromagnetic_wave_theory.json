@@ -1,0 +1,21 @@
+{
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "5.2.8",
+      "classification": "source_mismatch",
+      "reason": "原書在 Babinet's principle 段落先連續討論 Figure 5.2.4a/5.2.4b/5.2.4c，但隨後又寫成 'fields of Figure 5.2.8'；本書 Chapter 5 的實際 catalog 只有 Figure 5.2.1, 5.2.2, 5.2.3, 5.2.4, 5.2.5a, 5.2.5b，無任何 Figure 5.2.8 可對應，屬來源編號不一致。",
+      "where": "ch05.json body[183]",
+      "evidence": "raw PDF 物理頁 385（印刷頁 376）清楚印出：'... Figure 5.2.4b as illustrated in Figure 5.2.4c ... where Ed and Hd denote fields of Figure 5.2.8.'；同章 parsed/catalog neighbor check 僅有 fig-5.2.1, fig-5.2.2, fig-5.2.3, fig-5.2.4, fig-5.2.5a, fig-5.2.5b，unified/full.md 也只有這一處正文提到 Figure 5.2.8。"
+    },
+    {
+      "type": "figure",
+      "ref": "P3.10",
+      "classification": "source_mismatch",
+      "reason": "Problem P3.10 正文明指 'Figure P3.10'，但原書該題所在頁面前後直接接到 Problem P3.11，沒有任何 P3.10 圖說或圖塊；這不是 catalog 漏抓，而是源頭題文引用了不存在的內部圖。",
+      "where": "ch03.json problem 3.10 body[0]",
+      "evidence": "raw PDF 物理頁 208（印刷頁 198）可見 Problem P3.10 題文後立刻開始 Problem P3.11；物理頁 209（印刷頁 199）則續接 Problem P3.11 / P3.12，兩頁皆無 Figure P3.10 caption 或圖。parsed problem figures 只存在 fig-P3.3, fig-P3.5, fig-P3.15, fig-P3.29；unified/content_list 在 page_idx 207 只有這段題文一處提到 Figure P3.10。"
+    }
+  ],
+  "overrides": []
+}

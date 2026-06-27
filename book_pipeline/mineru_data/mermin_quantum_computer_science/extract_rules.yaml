@@ -1,0 +1,150 @@
+slug: mermin_quantum_computer_science
+title: "Quantum Computer Science: An Introduction"
+author: "N. David Mermin"
+edition: null
+subject: "Quantum Information"
+publisher: "Cambridge University Press"
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 175
+bibliography_start_page: null
+index_start_page: 234
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Cbits and Qbits"
+    page_start: 17
+    page_end: 51
+    chapter_title_block_idx: 67
+    chapter_title_block_idx_secondary: 68
+    problems_block_idx: null
+    next_chapter_block_idx: 488
+  - num: 2
+    title: "General features and some simple examples"
+    page_start: 52
+    page_end: 78
+    chapter_title_block_idx: 488
+    problems_block_idx: null
+    next_chapter_block_idx: 811
+  - num: 3
+    title: "Breaking RSA encryption"
+    page_start: 79
+    page_end: 103
+    chapter_title_block_idx: 811
+    problems_block_idx: null
+    next_chapter_block_idx: 1118
+  - num: 4
+    title: "Searching with a quantum computer"
+    page_start: 104
+    page_end: 114
+    chapter_title_block_idx: 1118
+    problems_block_idx: null
+    next_chapter_block_idx: 1233
+  - num: 5
+    title: "Quantum error correction"
+    page_start: 115
+    page_end: 151
+    chapter_title_block_idx: 1233
+    problems_block_idx: null
+    next_chapter_block_idx: 1603
+  - num: 6
+    title: "Protocols that use just a few Qbits"
+    page_start: 152
+    page_end: 174
+    chapter_title_block_idx: 1603
+    problems_block_idx: null
+    next_chapter_block_idx: 1829
+
+appendices:
+  - id: A
+    title: "Vector spaces: basic properties and Dirac notation"
+    page_start: 175
+    chapter_title_block_idx: 1829
+  - id: B
+    title: "Structure of the general 1-Qbit unitary transformation"
+    page_start: 184
+    chapter_title_block_idx: 1962
+  - id: C
+    title: "Structure of the general 1-Qbit state"
+    page_start: 189
+    chapter_title_block_idx: 2039
+  - id: D
+    title: "Spooky action at a distance"
+    page_start: 191
+    chapter_title_block_idx: 2056
+  - id: E
+    title: "Consistency of the generalized Born rule"
+    page_start: 197
+    chapter_title_block_idx: 2132
+  - id: F
+    title: "Other aspects of Deutsch’s problem"
+    page_start: 199
+    chapter_title_block_idx: 2165
+  - id: G
+    title: "The probability of success in Simon’s problem"
+    page_start: 203
+    chapter_title_block_idx: 2218
+  - id: H
+    title: "One way to make a cNOT gate"
+    page_start: 205
+    chapter_title_block_idx: 2238
+  - id: I
+    title: "A little elementary group theory"
+    page_start: 209
+    chapter_title_block_idx: 2304
+  - id: J
+    title: "Some simple number theory"
+    page_start: 211
+    chapter_title_block_idx: 2315
+  - id: K
+    title: "Period finding and continued fractions"
+    page_start: 213
+    chapter_title_block_idx: 2329
+  - id: L
+    title: "Better estimates of success in period finding"
+    page_start: 217
+    chapter_title_block_idx: 2375
+  - id: M
+    title: "Factoring and period finding"
+    page_start: 219
+    chapter_title_block_idx: 2404
+  - id: N
+    title: "Shor’s 9-Qbit error-correcting code"
+    page_start: 223
+    chapter_title_block_idx: 2449
+  - id: O
+    title: "Circuit-diagrammatic treatment of the 7-Qbit code"
+    page_start: 226
+    chapter_title_block_idx: 2475
+  - id: P
+    title: "On bit commitment"
+    page_start: 232
+    chapter_title_block_idx: 2503
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(?!)()()$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?!)()$'
+problem_chapter_must_match: true
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+
+equation_label_re: '\\tag\{([^}]+)\}'
+equation_strip_dollar: true
+known_missing_problems: []

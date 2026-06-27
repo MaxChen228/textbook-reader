@@ -1,0 +1,115 @@
+slug: spanier_algebraic_topology
+title: Algebraic Topology
+author: Edwin H. Spanier
+edition: 1st
+subject: Topology
+publisher: McGraw-Hill
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 31
+appendices_start_page: 540
+bibliography_start_page: null
+index_start_page: 540
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Homotopy and the Fundamental Group
+    page_start: 31
+    page_end: 78
+    chapter_title_block_idx: 235
+    problems_block_idx: 883
+    next_chapter_block_idx: 955
+  - num: 2
+    title: Covering Spaces and Fibrations
+    page_start: 79
+    page_end: 124
+    chapter_title_block_idx: 955
+    problems_block_idx: 1598
+    next_chapter_block_idx: 1648
+  - num: 3
+    title: Polyhedra
+    page_start: 125
+    page_end: 172
+    chapter_title_block_idx: 1648
+    chapter_title_block_idx_secondary: 1649
+    problems_block_idx: 2320
+    next_chapter_block_idx: 2396
+  - num: 4
+    title: Homology
+    page_start: 173
+    page_end: 228
+    chapter_title_block_idx: 2396
+    chapter_title_block_idx_secondary: 2397
+    problems_block_idx: 3245
+    next_chapter_block_idx: 3364
+  - num: 5
+    title: Products
+    page_start: 229
+    page_end: 302
+    chapter_title_block_idx: 3364
+    problems_block_idx: 4606
+    next_chapter_block_idx: 4776
+  - num: 6
+    title: General Cohomology Theory and Duality
+    page_start: 303
+    page_end: 380
+    chapter_title_block_idx: 4776
+    problems_block_idx: 6065
+    next_chapter_block_idx: 6183
+  - num: 7
+    title: Homotopy Theory
+    page_start: 381
+    page_end: 440
+    chapter_title_block_idx: 6183
+    problems_block_idx: 7161
+    next_chapter_block_idx: 7259
+  - num: 8
+    title: Obstruction Theory
+    page_start: 441
+    page_end: 482
+    chapter_title_block_idx: 7259
+    problems_block_idx: 7871
+    next_chapter_block_idx: 7949
+  - num: 9
+    title: Spectral Sequences and Homotopy Groups of Spheres
+    page_start: 483
+    page_end: 539
+    chapter_title_block_idx: 7949
+    problems_block_idx: 8818
+    next_chapter_block_idx: 8891
+
+appendices: []
+
+section_re: '^([A-Z]|[IVX]+|\d+)\s+([A-Z][A-Z0-9ČÉÜ\- ,;:()''’$\\^{}]+(?:\s+\$\^\{1\}\$)?)$'
+subsection_re: '^(__NO_SUBSECTION__)(__NO_SUBSECTION__)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\s+(?=\S)'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

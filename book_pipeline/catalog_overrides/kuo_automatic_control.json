@@ -1,0 +1,56 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "kuo-fig-4.26-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[213]",
+      "position": "before",
+      "page": 182,
+      "clip": [0.18, 0.085, 0.90, 0.205],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.26",
+        "kind": "line",
+        "caption": "Figure 4-26 Basic passive electrical elements. (a) A resistor. (b) An inductor. (c) A capacitor."
+      },
+      "reason": "C4: 正文 body[213] 'Consider Fig. 4-26 ...' 指此圖，但 MinerU 整塊漏抓。raw PDF 物理頁 182 頂部確有此圖（R/L/C 三元件）。pdf_crop_insert 重裁，id=fig-4.26 使 canonical num 4.26 覆蓋 ref。此筆排在 fig-4.22 之前套用＝同 chunk 高 index 先，避免 insert 位移 body[178]。"
+    },
+    {
+      "id": "kuo-fig-4.22-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch04",
+      "selector": "body[178]",
+      "position": "before",
+      "page": 179,
+      "clip": [0.24, 0.063, 0.80, 0.225],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-4.22",
+        "kind": "line",
+        "caption": "Figure 4-22 Gear train."
+      },
+      "reason": "C4: 正文 body[178] 'Two gears are shown coupled together in Fig. 4-22' 指此圖，但 MinerU 整塊漏抓。raw PDF 物理頁 179 頂部確有齒輪圖（N1/N2 兩齒輪 + T,θ 標註）。pdf_crop_insert 重裁，id=fig-4.22 覆蓋 ref。"
+    },
+    {
+      "id": "kuo-fig-10.23-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch10",
+      "selector": "body[675]",
+      "position": "before",
+      "page": 733,
+      "clip": [0.25, 0.066, 0.85, 0.122],
+      "zoom": 2.5,
+      "block": {
+        "t": "fig",
+        "id": "fig-10.23",
+        "kind": "line",
+        "caption": "Figure 10-23 Linear time-invariant system."
+      },
+      "reason": "C4: 正文 body[675] 'as shown in Fig. 10-23' 指此圖，但 MinerU 整塊漏抓（catalog 從 fig-10.22 直跳 fig-10.24）。raw PDF 物理頁 733 頂部確有方塊圖（Control u(t) → G → State x(t)）。pdf_crop_insert 重裁，id=fig-10.23 覆蓋 ref。"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "slug": "huheey_inorganic_chemistry",
+  "ref_classifications": [
+    {
+      "type": "figure",
+      "ref": "12.24",
+      "classification": "source_mismatch",
+      "reason": "正文引用 Fig. 12.24，但 raw PDF 的 Chapter 12 原書頁面在 Fig. 12.23、Fig. 12.25、Fig. 12.26 間直接跳號，來源中不存在可對應的 Figure 12.24。",
+      "where": "ch06.json body[195]",
+      "evidence": "Raw PDF page 507/printed 494 顯示 Fig. 12.22 與 Fig. 12.23；page 509/printed 498 顯示 Fig. 12.25；page 510/printed 499 顯示 Fig. 12.26。中間頁 508/printed 495 只有正文，沒有任何 Fig. 12.24 圖或 caption。"
+    }
+  ],
+  "overrides": [
+    {
+      "id": "huheey-fig-5.32-idfix",
+      "action": "set_fields",
+      "chunk": "ch05",
+      "selector": "body[373]",
+      "expect": {
+        "id": "fig-ch05-373",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "id": "fig-5.32",
+        "caption": "Fig. 5.32 Ionization energy-electron affinity curves for fluorine and chlorine. The electronegativities are given by the slopes of these curves. This figure is an enlarged portion of Fig. 2.13.",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "Raw PDF page 201/printed 184 明確存在 Fig. 5.32；MinerU 已抽出對應圖檔到 body[373]，但漏掉 caption 與語意 id，退成 fallback fig-ch05-373 並被標 unnumbered_body_fig。補回真 id/caption 後即可供應正文對 Fig. 5.32 的引用。"
+    },
+    {
+      "id": "huheey-tbl-11.24-idfix",
+      "action": "set_fields",
+      "chunk": "ch11",
+      "selector": "body[380]",
+      "expect": {
+        "id": "tbl-11.25",
+        "caption": "Diamagnetic susceptibilities $[ \\times 10^{5} (\\text{cgs units}) \\, \\text{mol}^{-1} ]^{o}$"
+      },
+      "set": {
+        "id": "tbl-11.24",
+        "caption": "Table 11.24 Diamagnetic susceptibilities $[ \\times 10^{5} (\\text{cgs units}) \\, \\text{mol}^{-1} ]^{o}$",
+        "catalog_repair_source": "agent-id-fix"
+      },
+      "reason": "Raw PDF page 480/printed 463 顯示這塊就是 Table 11.24（Diamagnetic susceptibilities）；parsed body[380] 卻被錯編成 tbl-11.25，而真正的 Table 11.25 另在 body[386]。將 body[380] 改回 tbl-11.24 可消除正文對 Table 11.24 的缺表引用，且不會佔用真正的 11.25。"
+    }
+  ]
+}

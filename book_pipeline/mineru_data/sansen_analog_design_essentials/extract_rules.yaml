@@ -1,0 +1,213 @@
+# Willy Sansen — Analog Design Essentials (Springer 2006, slide-based lecture book)
+# 結構特性：投影片式講義。章標部分被 MinerU 標 lvl1、部分 lvl2（被漏標）。
+# 章界由投影片編號前綴（CCSS = 章+slide）精確界定 → 24 章。
+# 每張投影片標題 = 一個 section（heading_text_level=2，section_re 接受任何含字母標題、
+# 排除純投影片編號 0110）。全書無編號習題（"Exercise" 僅散落投影片標題）→ 全章 pbi=null。
+slug: sansen_analog_design_essentials
+title: "Analog Design Essentials"
+author: "Willy M. C. Sansen"
+edition: "1st"
+subject: "Microelectronics"
+publisher: "Springer"
+language: "en"
+
+filter_types: ["header", "page_number", "footer", "page_footnote", "ref_text"]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 6
+appendices_start_page: 765
+bibliography_start_page: null
+index_start_page: 765
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Comparison of MOST and Bipolar Transistor Models"
+    page_start: 6
+    page_end: 54
+    chapter_title_block_idx: 23
+    problems_block_idx: null
+    next_chapter_block_idx: 1002
+  - num: 2
+    title: "Amplifiers, Source Followers & Cascodes"
+    page_start: 55
+    page_end: 91
+    chapter_title_block_idx: 1002
+    problems_block_idx: null
+    next_chapter_block_idx: 1692
+  - num: 3
+    title: "Differential Voltage & Current Amplifiers"
+    page_start: 92
+    page_end: 118
+    chapter_title_block_idx: 1692
+    problems_block_idx: null
+    next_chapter_block_idx: 2202
+  - num: 4
+    title: "Noise Performance of Elementary Transistor Stages"
+    page_start: 119
+    page_end: 149
+    chapter_title_block_idx: 2202
+    problems_block_idx: null
+    next_chapter_block_idx: 2941
+  - num: 5
+    title: "Stability of Operational Amplifiers"
+    page_start: 150
+    page_end: 181
+    chapter_title_block_idx: 2941
+    problems_block_idx: null
+    next_chapter_block_idx: 3564
+  - num: 6
+    title: "Systematic Design of Operational Amplifiers"
+    page_start: 182
+    page_end: 210
+    chapter_title_block_idx: 3564
+    problems_block_idx: null
+    next_chapter_block_idx: 4251
+  - num: 7
+    title: "Important Opamp Configurations"
+    page_start: 211
+    page_end: 237
+    chapter_title_block_idx: 4251
+    problems_block_idx: null
+    next_chapter_block_idx: 4752
+  - num: 8
+    title: "Fully-Differential Amplifiers"
+    page_start: 238
+    page_end: 260
+    chapter_title_block_idx: 4752
+    problems_block_idx: null
+    next_chapter_block_idx: 5201
+  - num: 9
+    title: "Design of Multistage Operational Amplifiers"
+    page_start: 261
+    page_end: 288
+    chapter_title_block_idx: 5201
+    problems_block_idx: null
+    next_chapter_block_idx: 5744
+  - num: 10
+    title: "Current Amplifiers"
+    page_start: 289
+    page_end: 298
+    chapter_title_block_idx: 5744
+    problems_block_idx: null
+    next_chapter_block_idx: 5930
+  - num: 11
+    title: "Rail-to-Rail Input and Output Amplifiers"
+    page_start: 299
+    page_end: 334
+    chapter_title_block_idx: 5930
+    problems_block_idx: null
+    next_chapter_block_idx: 6517
+  - num: 12
+    title: "Class AB and Driver Amplifiers"
+    page_start: 335
+    page_end: 360
+    chapter_title_block_idx: 6517
+    problems_block_idx: null
+    next_chapter_block_idx: 7006
+  - num: 13
+    title: "Feedback Voltage & Transconductance Amplifiers"
+    page_start: 361
+    page_end: 385
+    chapter_title_block_idx: 7006
+    problems_block_idx: null
+    next_chapter_block_idx: 7527
+  - num: 14
+    title: "Feedback Transimpedance & Current Amplifiers"
+    page_start: 386
+    page_end: 417
+    chapter_title_block_idx: 7527
+    problems_block_idx: null
+    next_chapter_block_idx: 8253
+  - num: 15
+    title: "Offset and CMRR: Random and Systematic"
+    page_start: 418
+    page_end: 452
+    chapter_title_block_idx: 8253
+    problems_block_idx: null
+    next_chapter_block_idx: 8920
+  - num: 16
+    title: "Bandgap and Current Reference Circuits"
+    page_start: 453
+    page_end: 479
+    chapter_title_block_idx: 8920
+    problems_block_idx: null
+    next_chapter_block_idx: 9473
+  - num: 17
+    title: "Switched-Capacitor Filters"
+    page_start: 480
+    page_end: 513
+    chapter_title_block_idx: 9473
+    problems_block_idx: null
+    next_chapter_block_idx: 10354
+  - num: 18
+    title: "Distortion in Elementary Transistor Circuits"
+    page_start: 514
+    page_end: 560
+    chapter_title_block_idx: 10354
+    problems_block_idx: null
+    next_chapter_block_idx: 11385
+  - num: 19
+    title: "Continuous-Time Filters"
+    page_start: 561
+    page_end: 596
+    chapter_title_block_idx: 11385
+    problems_block_idx: null
+    next_chapter_block_idx: 12047
+  - num: 20
+    title: "CMOS ADC & DAC Principles"
+    page_start: 597
+    page_end: 630
+    chapter_title_block_idx: 12047
+    problems_block_idx: null
+    next_chapter_block_idx: 12691
+  - num: 21
+    title: "Low-Power Sigma-Delta AD Converters"
+    page_start: 631
+    page_end: 670
+    chapter_title_block_idx: 12691
+    problems_block_idx: null
+    next_chapter_block_idx: 13453
+  - num: 22
+    title: "Design of Crystal Oscillators"
+    page_start: 671
+    page_end: 703
+    chapter_title_block_idx: 13453
+    problems_block_idx: null
+    next_chapter_block_idx: 14147
+  - num: 23
+    title: "Low-Noise Amplifiers"
+    page_start: 704
+    page_end: 735
+    chapter_title_block_idx: 14147
+    problems_block_idx: null
+    next_chapter_block_idx: 14831
+  - num: 24
+    title: "Coupling Effects in Mixed Analog-Digital ICs"
+    page_start: 736
+    page_end: 764
+    chapter_title_block_idx: 14831
+    problems_block_idx: null
+    next_chapter_block_idx: 15373
+
+appendices: []
+
+section_re: '^()(?!Table of contents)(?=.*[A-Za-z])(.{3,})$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\b'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

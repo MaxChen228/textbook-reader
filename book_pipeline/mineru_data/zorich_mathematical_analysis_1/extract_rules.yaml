@@ -1,0 +1,126 @@
+slug: zorich_mathematical_analysis_1
+title: Mathematical Analysis I
+author: Vladimir A. Zorich
+edition: 2nd
+subject: Real Analysis
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 21
+appendices_start_page: 577
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Some General Mathematical Concepts and Notation
+    page_start: 21
+    page_end: 54
+    chapter_title_block_idx: 162
+    problems_block_idx: null
+    next_chapter_block_idx: 795
+  - num: 2
+    title: The Real Numbers
+    page_start: 55
+    page_end: 98
+    chapter_title_block_idx: 795
+    problems_block_idx: null
+    next_chapter_block_idx: 1609
+  - num: 3
+    title: Limits
+    page_start: 99
+    page_end: 168
+    chapter_title_block_idx: 1609
+    problems_block_idx: null
+    next_chapter_block_idx: 2894
+  - num: 4
+    title: Continuous Functions
+    page_start: 169
+    page_end: 190
+    chapter_title_block_idx: 2894
+    problems_block_idx: null
+    next_chapter_block_idx: 3256
+  - num: 5
+    title: Differential Calculus
+    page_start: 191
+    page_end: 349
+    chapter_title_block_idx: 3256
+    problems_block_idx: null
+    next_chapter_block_idx: 5975
+  - num: 6
+    title: Integration
+    page_start: 350
+    page_end: 427
+    chapter_title_block_idx: 5975
+    problems_block_idx: null
+    next_chapter_block_idx: 7399
+  - num: 7
+    title: "Functions of Several Variables: Their Limits and Continuity"
+    page_start: 428
+    page_end: 445
+    chapter_title_block_idx: 7399
+    problems_block_idx: null
+    next_chapter_block_idx: 7730
+  - num: 8
+    title: The Differential Calculus of Functions of Several Variables
+    page_start: 446
+    page_end: 562
+    chapter_title_block_idx: 7730
+    problems_block_idx: null
+    next_chapter_block_idx: 9780
+
+appendices:
+  - id: A
+    title: Mathematical Analysis (Introductory Lecture)
+    page_start: 577
+    chapter_title_block_idx: 10011
+  - id: B
+    title: Numerical Methods for Solving Equations (An Introduction)
+    page_start: 586
+    chapter_title_block_idx: 10138
+  - id: D
+    title: The Euler-MacLaurin Formula
+    page_start: 592
+    chapter_title_block_idx: 10231
+  - id: E
+    title: "Riemann-Stieltjes Integral, Delta Function, and the Concept of Generalized Functions"
+    page_start: 597
+    chapter_title_block_idx: 10312
+  - id: F
+    title: The Implicit Function Theorem (An Alternative Presentation)
+    page_start: 605
+    chapter_title_block_idx: 10421
+
+section_re: '^([A-Z]?\d+\.\d+)\s+(.+)$'
+subsection_re: '^([A-Z]?\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: null
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '^\(?([A-Z]?\d+(?:\.\d+)*(?:'')?)\)?$'
+
+example_start_re: '^Example\s+(\d+)\b'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

@@ -1,0 +1,42 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "14.2",
+      "classification": "external",
+      "reason": "The occurrence is in the footnote/source attribution of Table 13.11, not an internal table reference in this book.",
+      "where": "ch13.json body[286] footnote",
+      "evidence": "Table 13.11 footnote reads: From A. Yariv, Quantum Electronics, 3rd ed., Table 14.2, Wiley, New York, 1989."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "ramo-fix-fig-14-13-ref-ocr",
+      "action": "replace_text",
+      "chunk": "ch14",
+      "selector": "body[440]",
+      "field": "md",
+      "old": "approximately spherical wavefronts (Fig. 4.13), and $w(z)$",
+      "new": "approximately spherical wavefronts (Fig. 14.13), and $w(z)$",
+      "reason": "The paragraph is in Chapter 14 and immediately before/after cites Fig. 14.13; raw page shows Fig. 14.13, so Fig. 4.13 is OCR loss of the leading 1."
+    },
+    {
+      "id": "ramo-table-7-7-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch07",
+      "selector": "body[287]",
+      "position": "before",
+      "page": 363,
+      "clip": [0.05, 0.08, 0.94, 0.36],
+      "zoom": 3.0,
+      "image_id": "tbl-7.7",
+      "src": "manual_tbl-7.7.png",
+      "block": {
+        "t": "table",
+        "id": "tbl-7.7",
+        "caption": "Table 7.7"
+      },
+      "reason": "MinerU parsed the visual Table 7.7 as equation blocks, so no table catalog entry existed; raw PDF page 363 contains the table directly above the reference sentence."
+    }
+  ]
+}

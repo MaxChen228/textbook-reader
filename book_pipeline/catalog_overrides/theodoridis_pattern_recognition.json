@@ -1,0 +1,20 @@
+{
+  "overrides": [
+    {
+      "id": "theodoridis-ch07-table-7.2-id-caption",
+      "action": "set_fields",
+      "chunk": "ch07",
+      "selector": "body[108]",
+      "expect": {
+        "t": "table",
+        "id": "fig-7.3"
+      },
+      "set": {
+        "id": "tbl-7.2",
+        "caption": "Table 7.2 Second-Order Histogram Features for the Two Images of Figure 7.3",
+        "catalog_repair_source": "agent-catalog-audit"
+      },
+      "reason": "MinerU emitted the actual Table 7.2 HTML table at ch07 body[108] but attached the neighboring Figure 7.3 caption/id; raw PDF physical page 431 shows this table immediately after Figure 7.3. Setting the semantic table id/caption satisfies the internal Table 7.2 reference without fabricating data."
+    }
+  ]
+}

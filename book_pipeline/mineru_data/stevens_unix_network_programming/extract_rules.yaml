@@ -1,0 +1,274 @@
+slug: stevens_unix_network_programming
+title: 'UNIX Network Programming, Volume 1: The Sockets Networking API'
+author: W. Richard Stevens; Bill Fenner; Andrew M. Rudoff
+edition: 3rd
+subject: Computer Networks
+publisher: Addison-Wesley
+language: en
+filter_types:
+- header
+- page_number
+- footer
+- aside_text
+- page_footnote
+- ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+body_start_page: 24
+appendices_start_page: 892
+bibliography_start_page: 970
+index_start_page: 982
+inline_problems: false
+chapters:
+- num: 1
+  title: Introduction and TCP/IP
+  page_start: 24
+  page_end: 53
+  chapter_title_block_idx: 192
+  problems_block_idx: 498
+  next_chapter_block_idx: 507
+- num: 2
+  title: 'The Transport Layer: TCP, UDP, and SCTP'
+  page_start: 54
+  page_end: 89
+  chapter_title_block_idx: 507
+  problems_block_idx: 842
+  next_chapter_block_idx: 859
+- num: 3
+  title: Sockets Introduction
+  page_start: 90
+  page_end: 117
+  chapter_title_block_idx: 859
+  problems_block_idx: 1134
+  next_chapter_block_idx: 1143
+- num: 4
+  title: Elementary TCP Sockets
+  page_start: 118
+  page_end: 143
+  chapter_title_block_idx: 1143
+  problems_block_idx: 1432
+  next_chapter_block_idx: 1443
+- num: 5
+  title: TCP Client/Server Example
+  page_start: 144
+  page_end: 175
+  chapter_title_block_idx: 1443
+  problems_block_idx: 1817
+  next_chapter_block_idx: 1835
+- num: 6
+  title: 'I/O Multiplexing: The select and poll Functions'
+  page_start: 176
+  page_end: 213
+  chapter_title_block_idx: 1835
+  problems_block_idx: 2232
+  next_chapter_block_idx: 2245
+- num: 7
+  title: Socket Options
+  page_start: 214
+  page_end: 261
+  chapter_title_block_idx: 2245
+  problems_block_idx: 2804
+  next_chapter_block_idx: 2827
+- num: 8
+  title: Elementary UDP Sockets
+  page_start: 262
+  page_end: 289
+  chapter_title_block_idx: 2827
+  problems_block_idx: 3124
+  next_chapter_block_idx: 3139
+- num: 9
+  title: Elementary SCTP Sockets
+  page_start: 290
+  page_end: 309
+  chapter_title_block_idx: 3139
+  problems_block_idx: 3354
+  next_chapter_block_idx: 3363
+- num: 10
+  title: SCTP Client/Server Example
+  page_start: 310
+  page_end: 325
+  chapter_title_block_idx: 3363
+  problems_block_idx: 3553
+  next_chapter_block_idx: 3565
+- num: 11
+  title: Name and Address Conversions
+  page_start: 326
+  page_end: 375
+  chapter_title_block_idx: 3565
+  problems_block_idx: 4115
+  next_chapter_block_idx: 4136
+- num: 12
+  title: IPv4 and IPv6 Interoperability
+  page_start: 376
+  page_end: 385
+  chapter_title_block_idx: 4136
+  problems_block_idx: 4232
+  next_chapter_block_idx: 4238
+- num: 13
+  title: Daemon Processes and the inetd Superserver
+  page_start: 386
+  page_end: 403
+  chapter_title_block_idx: 4238
+  problems_block_idx: 4445
+  next_chapter_block_idx: 4455
+- num: 14
+  title: Advanced I/O Functions
+  page_start: 404
+  page_end: 433
+  chapter_title_block_idx: 4455
+  problems_block_idx: 4778
+  next_chapter_block_idx: 4788
+- num: 15
+  title: Unix Domain Protocols
+  page_start: 434
+  page_end: 457
+  chapter_title_block_idx: 4788
+  problems_block_idx: 5027
+  next_chapter_block_idx: 5044
+- num: 16
+  title: Nonblocking I/O
+  page_start: 458
+  page_end: 487
+  chapter_title_block_idx: 5044
+  problems_block_idx: 5373
+  next_chapter_block_idx: 5383
+- num: 17
+  title: ioctl Operations
+  page_start: 488
+  page_end: 507
+  chapter_title_block_idx: 5383
+  problems_block_idx: 5607
+  next_chapter_block_idx: 5615
+- num: 18
+  title: Routing Sockets
+  page_start: 508
+  page_end: 533
+  chapter_title_block_idx: 5615
+  problems_block_idx: 5856
+  next_chapter_block_idx: 5863
+- num: 19
+  title: Key Management Sockets
+  page_start: 534
+  page_end: 551
+  chapter_title_block_idx: 5863
+  problems_block_idx: 6033
+  next_chapter_block_idx: 6039
+- num: 20
+  title: Broadcasting
+  page_start: 552
+  page_end: 571
+  chapter_title_block_idx: 6039
+  problems_block_idx: 6225
+  next_chapter_block_idx: 6233
+- num: 21
+  title: Multicasting
+  page_start: 572
+  page_end: 609
+  chapter_title_block_idx: 6233
+  problems_block_idx: 6648
+  next_chapter_block_idx: 6660
+- num: 22
+  title: Advanced UDP Sockets
+  page_start: 610
+  page_end: 643
+  chapter_title_block_idx: 6660
+  problems_block_idx: 7048
+  next_chapter_block_idx: 7059
+- num: 23
+  title: Advanced SCTP Sockets
+  page_start: 644
+  page_end: 667
+  chapter_title_block_idx: 7059
+  problems_block_idx: 7347
+  next_chapter_block_idx: 7358
+- num: 24
+  title: Out-of-Band Data
+  page_start: 668
+  page_end: 685
+  chapter_title_block_idx: 7358
+  problems_block_idx: 7535
+  next_chapter_block_idx: 7544
+- num: 25
+  title: Signal-Driven I/O
+  page_start: 686
+  page_end: 697
+  chapter_title_block_idx: 7544
+  problems_block_idx: 7672
+  next_chapter_block_idx: 7679
+- num: 26
+  title: Threads
+  page_start: 698
+  page_end: 731
+  chapter_title_block_idx: 7679
+  problems_block_idx: 8062
+  next_chapter_block_idx: 8073
+- num: 27
+  title: IP Options
+  page_start: 732
+  page_end: 757
+  chapter_title_block_idx: 8073
+  problems_block_idx: 8339
+  next_chapter_block_idx: 8351
+- num: 28
+  title: Raw Sockets
+  page_start: 758
+  page_end: 809
+  chapter_title_block_idx: 8351
+  problems_block_idx: 8887
+  next_chapter_block_idx: 8895
+- num: 29
+  title: Datalink Access
+  page_start: 810
+  page_end: 839
+  chapter_title_block_idx: 8895
+  problems_block_idx: 9204
+  next_chapter_block_idx: 9211
+- num: 30
+  title: Client/Server Design Alternatives
+  page_start: 840
+  page_end: 873
+  chapter_title_block_idx: 9211
+  problems_block_idx: 9555
+  next_chapter_block_idx: 9562
+- num: 31
+  title: STREAMS
+  page_start: 874
+  page_end: 891
+  chapter_title_block_idx: 9562
+  problems_block_idx: 9752
+  next_chapter_block_idx: 9757
+appendices:
+- title: IPv4, IPv6, ICMPv4, and ICMPv6
+  page_start: 892
+  page_end: 907
+  chapter_title_block_idx: 9757
+  id: A
+- title: Virtual Networks
+  page_start: 908
+  page_end: 913
+  chapter_title_block_idx: 9938
+  id: B
+- title: Debugging Techniques
+  page_start: 914
+  page_end: 921
+  chapter_title_block_idx: 9987
+  id: C
+- title: Miscellaneous Source Code
+  page_start: 922
+  page_end: 935
+  chapter_title_block_idx: 10082
+  id: D
+section_re: ^(\d+\.\d+)\s+(.+)$
+subsection_re: ^()([A-Z][A-Za-z0-9_\\/().,+:;’‘\'\" -]{2,})$
+heading_priority:
+- subsection_re
+- section_re
+problem_start_re: ^(\d+\.\d+)\s+
+problem_chapter_must_match: true
+equation_strip_dollar: true
+equation_label_re: \\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}
+example_start_re: null
+figure_caption_merge: true
+figure_caption_main_re: ^(Figure\s+\d+\.\d+)\s+(.+)$
+known_missing_problems: []

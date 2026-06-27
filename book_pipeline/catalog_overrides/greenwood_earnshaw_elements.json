@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "greenwood-fig-10.5c-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch10",
+      "selector": "body[87]",
+      "field": "md",
+      "old": "Fig. i0.5c",
+      "new": "Fig. 10.5c",
+      "reason": "正文同段多次引用 Figure 10.5 的子圖；catalog 已有 fig-10.5，raw/OCR 語境顯示 'i0.5c' 是 '10.5c' 的 misOCR（數字 1 被讀成 i）。修正文 ref，讓 audit 的 parent fallback 由 fig-10.5 覆蓋。"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+slug: rotman_advanced_modern_algebra
+title: Advanced Modern Algebra
+author: Joseph J. Rotman
+edition: 3rd
+subject: Abstract Algebra
+publisher: American Mathematical Society
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 17
+appendices_start_page: 695
+bibliography_start_page: 695
+index_start_page: 707
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Classical Formulas
+    page_start: 17
+    page_end: 22
+    chapter_title_block_idx: 90
+    problems_block_idx: null
+    next_chapter_block_idx: 173
+  - num: 2
+    title: Classical Number Theory
+    page_start: 23
+    page_end: 42
+    chapter_title_block_idx: 173
+    problems_block_idx: null
+    next_chapter_block_idx: 607
+  - num: 3
+    title: Commutative Rings
+    page_start: 43
+    page_end: 128
+    chapter_title_block_idx: 607
+    problems_block_idx: null
+    next_chapter_block_idx: 2290
+  - num: 4
+    title: Groups
+    page_start: 129
+    page_end: 192
+    chapter_title_block_idx: 2290
+    problems_block_idx: null
+    next_chapter_block_idx: 3462
+  - num: 5
+    title: Galois Theory
+    page_start: 193
+    page_end: 248
+    chapter_title_block_idx: 3462
+    problems_block_idx: null
+    next_chapter_block_idx: 4448
+  - num: 6
+    title: "Appendix: Set Theory"
+    page_start: 249
+    page_end: 260
+    chapter_title_block_idx: 4448
+    problems_block_idx: null
+    next_chapter_block_idx: 4681
+  - num: 7
+    title: "Appendix: Linear Algebra"
+    page_start: 261
+    page_end: 286
+    chapter_title_block_idx: 4681
+    problems_block_idx: null
+    next_chapter_block_idx: 5135
+  - num: 8
+    title: Modules
+    page_start: 287
+    page_end: 326
+    chapter_title_block_idx: 5135
+    problems_block_idx: null
+    next_chapter_block_idx: 5908
+  - num: 9
+    title: Zorn's Lemma
+    page_start: 327
+    page_end: 372
+    chapter_title_block_idx: 5908
+    problems_block_idx: null
+    next_chapter_block_idx: 6716
+  - num: 10
+    title: Advanced Linear Algebra
+    page_start: 373
+    page_end: 454
+    chapter_title_block_idx: 6716
+    problems_block_idx: null
+    next_chapter_block_idx: 8274
+  - num: 11
+    title: Categories of Modules
+    page_start: 455
+    page_end: 556
+    chapter_title_block_idx: 8274
+    problems_block_idx: null
+    next_chapter_block_idx: 10137
+  - num: 12
+    title: Multilinear Algebra
+    page_start: 557
+    page_end: 604
+    chapter_title_block_idx: 10137
+    problems_block_idx: null
+    next_chapter_block_idx: 11041
+  - num: 13
+    title: Commutative Algebra II
+    page_start: 605
+    page_end: 664
+    chapter_title_block_idx: 11041
+    problems_block_idx: null
+    next_chapter_block_idx: 12114
+  - num: 14
+    title: "Appendix: Categorical Limits"
+    page_start: 665
+    page_end: 686
+    chapter_title_block_idx: 12114
+    problems_block_idx: null
+    next_chapter_block_idx: 12520
+  - num: 15
+    title: "Appendix: Topological Spaces"
+    page_start: 687
+    page_end: 694
+    chapter_title_block_idx: 12520
+    problems_block_idx: null
+    next_chapter_block_idx: 12860
+
+section_re: '^()((?!(?:Exercises|Example|Theorem|Lemma|Proposition|Corollary|Definition|Proof|Remark|Contents|Acknowledgments|Index|Bibliography)\b).+)$'
+subsection_re: '^((?:Example|Theorem|Lemma|Proposition|Corollary|Definition|Proof|Remark)(?:\s+[AB]-\d+\.\d+)?\.?)\s*(.*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^[∗*]?\s*([AB]-\d+\.\d+)\.\s+'
+problem_chapter_must_match: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^Example\s+([AB]-\d+\.\d+)\.?$'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

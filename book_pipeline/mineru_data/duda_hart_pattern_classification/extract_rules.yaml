@@ -1,0 +1,120 @@
+slug: duda_hart_pattern_classification
+title: "Pattern Classification"
+author: "Richard O. Duda; Peter E. Hart; David G. Stork"
+edition: "2nd"
+subject: "Machine Learning"
+publisher: "Wiley"
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - page_footnote
+  - aside_text
+  - ref_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 14
+appendices_start_page: 696
+bibliography_start_page: 730
+index_start_page: 732
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+example_start_re: '^Example\s+(\d+):?.*$'
+equation_strip_dollar: true
+equation_label_re: '^\(?([A-Za-z]?\d+(?:\.\d+)?)\)?$'
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction"
+    page_start: 14
+    page_end: 37
+    chapter_title_block_idx: 65
+    chapter_title_block_idx_secondary: 66
+    problems_block_idx: null
+    next_chapter_block_idx: 269
+  - num: 2
+    title: "Bayesian Decision Theory"
+    page_start: 38
+    page_end: 105
+    chapter_title_block_idx: 269
+    chapter_title_block_idx_secondary: 270
+    problems_block_idx: 768
+    next_chapter_block_idx: 1200
+  - num: 3
+    title: "Maximum Likelihood and Bayesian Parameter Estimation"
+    page_start: 106
+    page_end: 185
+    chapter_title_block_idx: 1200
+    chapter_title_block_idx_secondary: 1201
+    problems_block_idx: 1837
+    next_chapter_block_idx: 2237
+  - num: 4
+    title: "Nonparametric Techniques"
+    page_start: 186
+    page_end: 259
+    chapter_title_block_idx: 2237
+    chapter_title_block_idx_secondary: 2238
+    problems_block_idx: 2811
+    next_chapter_block_idx: 3157
+  - num: 5
+    title: "Linear Discriminant Functions"
+    page_start: 260
+    page_end: 331
+    chapter_title_block_idx: 3157
+    chapter_title_block_idx_secondary: 3158
+    problems_block_idx: 3907
+    next_chapter_block_idx: 4136
+  - num: 6
+    title: "Multilayer Neural Networks"
+    page_start: 332
+    page_end: 409
+    chapter_title_block_idx: 4136
+    chapter_title_block_idx_secondary: 4137
+    problems_block_idx: 4730
+    next_chapter_block_idx: 5053
+  - num: 7
+    title: "Stochastic Methods"
+    page_start: 410
+    page_end: 459
+    chapter_title_block_idx: 5053
+    chapter_title_block_idx_secondary: 5054
+    problems_block_idx: 5373
+    next_chapter_block_idx: 5587
+  - num: 8
+    title: "Non-Metric Methods"
+    page_start: 460
+    page_end: 529
+    chapter_title_block_idx: 5587
+    problems_block_idx: 6098
+    next_chapter_block_idx: 6510
+  - num: 9
+    title: "Algorithm-Independent Machine Learning"
+    page_start: 530
+    page_end: 603
+    chapter_title_block_idx: 6510
+    problems_block_idx: 7061
+    next_chapter_block_idx: 7409
+  - num: 10
+    title: "Unsupervised Learning and Clustering"
+    page_start: 604
+    page_end: 695
+    chapter_title_block_idx: 7409
+    chapter_title_block_idx_secondary: 7410
+    problems_block_idx: 8193
+    next_chapter_block_idx: 8590
+
+appendices:
+  - id: A
+    title: "Mathematical Foundations"
+    chapter_title_block_idx: 8590

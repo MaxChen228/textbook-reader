@@ -1,0 +1,125 @@
+slug: lewis_optimal_control
+title: Optimal Control
+author: Frank L. Lewis; Draguna L. Vrabie; Vassilis L. Syrmos
+edition: 3rd
+subject: Control Systems
+publisher: John Wiley & Sons, Inc.
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 9
+appendices_start_page: 526
+bibliography_start_page: 535
+index_start_page: null
+
+inline_problems: true
+
+chapters:
+  - num: 1
+    title: Static Optimization
+    page_start: 9
+    page_end: 26
+    chapter_title_block_idx: 61
+    problems_block_idx: 324
+    next_chapter_block_idx: 390
+  - num: 2
+    title: Optimal Control of Discrete-Time Systems
+    page_start: 27
+    page_end: 117
+    chapter_title_block_idx: 390
+    problems_block_idx: 1806
+    next_chapter_block_idx: 1967
+  - num: 3
+    title: Optimal Control of Continuous-Time Systems
+    page_start: 118
+    page_end: 184
+    chapter_title_block_idx: 1967
+    problems_block_idx: 3104
+    next_chapter_block_idx: 3315
+  - num: 4
+    title: The Tracking Problem and Other LQR Extensions
+    page_start: 185
+    page_end: 220
+    chapter_title_block_idx: 3315
+    problems_block_idx: 3955
+    next_chapter_block_idx: 3993
+  - num: 5
+    title: Final-Time-Free and Constrained Input Control
+    page_start: 221
+    page_end: 267
+    chapter_title_block_idx: 3993
+    problems_block_idx: 4800
+    next_chapter_block_idx: 4852
+  - num: 6
+    title: Dynamic Programming
+    page_start: 268
+    page_end: 294
+    chapter_title_block_idx: 4852
+    problems_block_idx: 5288
+    next_chapter_block_idx: 5352
+  - num: 7
+    title: Optimal Control for Polynomial Systems
+    page_start: 295
+    page_end: 304
+    chapter_title_block_idx: 5352
+    problems_block_idx: 5506
+    next_chapter_block_idx: 5550
+  - num: 8
+    title: Output Feedback and Structured Control
+    page_start: 305
+    page_end: 362
+    chapter_title_block_idx: 5550
+    problems_block_idx: 6419
+    next_chapter_block_idx: 6479
+  - num: 9
+    title: Robustness and Multivariable Frequency-Domain Techniques
+    page_start: 363
+    page_end: 445
+    chapter_title_block_idx: 6479
+    problems_block_idx: 7625
+    next_chapter_block_idx: 7662
+  - num: 10
+    title: Differential Games
+    page_start: 446
+    page_end: 468
+    chapter_title_block_idx: 7662
+    problems_block_idx: null
+    next_chapter_block_idx: 8007
+  - num: 11
+    title: Reinforcement Learning and Optimal Adaptive Control
+    page_start: 469
+    page_end: 525
+    chapter_title_block_idx: 8007
+    problems_block_idx: null
+    next_chapter_block_idx: 8791
+
+appendices:
+  - id: A
+    title: Review of Matrix Algebra
+    page_start: 526
+    chapter_title_block_idx: 8791
+
+section_re: '^((?:\d+\.\d+)|(?:[A-Z]\.\d+))\s+(.+)$'
+subsection_re: '^([a-z]?)(?:\.\s+)?((?!(?:Example|PROBLEMS|Section\s+\d+\.\d+|Exercise\s+\d+\.\d+-\d+\.|TABLE\b|FIGURE\b))[A-Z][A-Za-z0-9 ,:;()\/&-]*(?:\s+[A-Za-z0-9 ,:;()\/&-]+)*)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(?:Exercise\s+)?(\d+\.\d+-\d+)\.\s*'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+(?:\.[0-9]+)?(?:-[0-9]+)?[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+-\d+)\.'
+
+known_missing_problems: []

@@ -1,0 +1,107 @@
+slug: serre_course_arithmetic
+title: A Course in Arithmetic
+author: Jean-Pierre Serre
+edition: null
+subject: Number Theory
+publisher: Springer-Verlag
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 10
+appendices_start_page: 119
+bibliography_start_page: 119
+index_start_page: 121
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Finite Fields
+    page_start: 10
+    page_end: 17
+    chapter_title_block_idx: 42
+    chapter_title_block_idx_secondary: 43
+    problems_block_idx: null
+    next_chapter_block_idx: 202
+  - num: 2
+    title: p-Adic Fields
+    page_start: 18
+    page_end: 25
+    chapter_title_block_idx: 202
+    chapter_title_block_idx_secondary: 203
+    problems_block_idx: null
+    next_chapter_block_idx: 360
+  - num: 3
+    title: Hilbert Symbol
+    page_start: 26
+    page_end: 33
+    chapter_title_block_idx: 360
+    chapter_title_block_idx_secondary: 361
+    problems_block_idx: null
+    next_chapter_block_idx: 491
+  - num: 4
+    title: 'Quadratic Forms over $Q_{p}$ and over Q'
+    page_start: 34
+    page_end: 54
+    chapter_title_block_idx: 491
+    chapter_title_block_idx_secondary: 492
+    problems_block_idx: null
+    next_chapter_block_idx: 927
+  - num: 5
+    title: Integral Quadratic Forms with Discriminant ±1
+    page_start: 55
+    page_end: 67
+    chapter_title_block_idx: 927
+    chapter_title_block_idx_secondary: 928
+    problems_block_idx: null
+    next_chapter_block_idx: 1123
+  - num: 6
+    title: The Theorem on Arithmetic Progressions
+    page_start: 68
+    page_end: 83
+    chapter_title_block_idx: 1123
+    chapter_title_block_idx_secondary: 1124
+    problems_block_idx: null
+    next_chapter_block_idx: 1457
+  - num: 7
+    title: Modular Forms
+    page_start: 84
+    page_end: 118
+    chapter_title_block_idx: 1457
+    chapter_title_block_idx_secondary: 1458
+    problems_block_idx: null
+    next_chapter_block_idx: 2339
+
+appendices: []
+
+section_re: '^§(\d+)\.\s+(.+)$'
+subsection_re: '^(\d+(?:\.\d+)+)\.\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^Problem\s+(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

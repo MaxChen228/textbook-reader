@@ -1,0 +1,70 @@
+slug: stanley_enumerative_combinatorics_2
+title: Enumerative Combinatorics, Volume 2
+author: Richard P. Stanley
+edition: 2nd
+subject: Combinatorics
+publisher: Cambridge University Press
+language: en
+
+filter_types: [header, page_number, footer, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 704
+bibliography_start_page: 742
+index_start_page: 760
+
+chapters:
+  - num: 5
+    title: Trees and the Composition of Generating Functions
+    page_start: 18
+    page_end: 190
+    chapter_title_block_idx: 131
+    problems_block_idx: 1015
+    next_chapter_block_idx: 1609
+  - num: 6
+    title: Algebraic, D-finite, and Noncommutative Generating Functions
+    page_start: 191
+    page_end: 334
+    chapter_title_block_idx: 2402
+    problems_block_idx: 3227
+    next_chapter_block_idx: 3803
+  - num: 7
+    title: Symmetric Functions
+    page_start: 335
+    page_end: 703
+    chapter_title_block_idx: 4320
+    problems_block_idx: 6006
+    next_chapter_block_idx: 6786
+
+appendices:
+  - id: A1
+    title: Knuth Equivalence, Jeu de Taquin, and the Littlewood-Richardson Rule
+    page_start: 704
+    chapter_title_block_idx: 9648
+  - id: A2
+    title: The Characters of GL(n, C)
+    page_start: 731
+    chapter_title_block_idx: 9979
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^((?:\d+\.\d+\.\d+)|(?:A\d+\.\d+\.\d+))\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+)\.\s*'
+problem_chapter_must_match: false
+solution_start_re: null
+
+problems_end_re: null
+problems_start_re: null
+suppress_running_header_sections: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([^}]+)\}'
+example_start_re: null
+
+figure_caption_merge: false
+figure_caption_main_re: null
+known_missing_problems: []

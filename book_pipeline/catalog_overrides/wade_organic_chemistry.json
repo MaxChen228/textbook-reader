@@ -1,0 +1,138 @@
+{
+  "overrides": [
+    {
+      "id": "wade-figure-1.19-alias-on-merged-1.20-block",
+      "action": "set_fields",
+      "chunk": "ch01",
+      "selector": "body[369]",
+      "expect": {
+        "id": "fig-1.20"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "fig-1.19",
+            "type": "figure",
+            "caption": "Figure 1.19: Common bond angles. Bond angles in organic compounds are usually close to 109°, 120°, or 180°.",
+            "source": "agent-alias-merged-figure-block",
+            "evidence": "The parsed image at ch01 body[369] contains both FIGURE 1-19 and FIGURE 1-20; keep the existing fig-1.20 identity and expose fig-1.19 as an alias anchored to the same block."
+          }
+        ],
+        "catalog_repair_source": "agent-alias-merged-figure-block"
+      },
+      "reason": "MinerU emitted one image block containing both Figure 1-19 and Figure 1-20 but the block id is fig-1.20, so the Figure 1-19 text reference lacks catalog supply."
+    },
+    {
+      "id": "wade-figure-14.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch14",
+      "selector": "body[15]",
+      "position": "after",
+      "page": 711,
+      "clip": [
+        0.0,
+        0.78,
+        0.91,
+        0.985
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "fig-14.1",
+        "kind": "line",
+        "caption": "Figure 14.1: Structure of dimethyl ether."
+      },
+      "reason": "Figure 14-1 is present in the raw PDF page 711 bottom band but MinerU did not emit a numbered figure block; crop the figure and caption near the citing paragraph."
+    },
+    {
+      "id": "wade-table-18.2-alias-on-excluded-image",
+      "action": "set_fields",
+      "chunk": "ch18",
+      "selector": "body[41]",
+      "expect": {
+        "id": "fig-ch18-41",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-18.2",
+            "type": "table",
+            "caption": "Table 18.2: Common Names of Acids and Aldehydes",
+            "source": "agent-alias-table-image",
+            "evidence": "The parsed image at ch18 body[41] visibly begins with TABLE 18-2 Common Names of Acids and Aldehydes."
+          }
+        ],
+        "catalog_repair_source": "agent-alias-table-image"
+      },
+      "reason": "MinerU emitted Table 18-2 as an unnumbered fig image; add a table alias instead of fabricating text table rows."
+    },
+    {
+      "id": "wade-table-22.1-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch22",
+      "selector": "body[314]",
+      "position": "after",
+      "page": 1186,
+      "clip": [
+        0.255,
+        0.055,
+        0.98,
+        0.635
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "tbl-22.1",
+        "kind": "line",
+        "caption": "Table 22.1: Typical Acidities of Carbonyl Compounds"
+      },
+      "reason": "Table 22-1 exists in the raw PDF on page 1186 but was not emitted as a cataloged table block; crop the full table after its textual reference."
+    },
+    {
+      "id": "wade-table-22.2-pdf-crop",
+      "action": "pdf_crop_insert",
+      "chunk": "ch22",
+      "selector": "body[376]",
+      "position": "after",
+      "page": 1193,
+      "clip": [
+        0.0,
+        0.19,
+        0.86,
+        0.55
+      ],
+      "zoom": 3.0,
+      "block": {
+        "t": "fig",
+        "id": "tbl-22.2",
+        "kind": "line",
+        "caption": "Table 22.2: Some Common Michael Donors and Michael Acceptors"
+      },
+      "reason": "Table 22-2 is present in the raw PDF page 1193 but MinerU emitted only nearby unnumbered molecule fragments; crop the complete table near the citing paragraph."
+    },
+    {
+      "id": "wade-table-9.3-alias-on-excluded-image",
+      "action": "set_fields",
+      "chunk": "ch09",
+      "selector": "body[94]",
+      "expect": {
+        "id": "fig-ch09-94",
+        "catalog_exclude_reason": "unnumbered_body_fig"
+      },
+      "set": {
+        "catalog_aliases": [
+          {
+            "id": "tbl-9.3",
+            "type": "table",
+            "caption": "Table 9.3: Acidity of a C-H Bond as a Function of Hybridization",
+            "source": "agent-alias-table-image",
+            "evidence": "The parsed image at ch09 body[94] contains the TABLE 9-3 panel shown at the bottom of raw PDF page 472."
+          }
+        ],
+        "catalog_repair_source": "agent-alias-table-image"
+      },
+      "reason": "MinerU captured Table 9-3 as an unnumbered figure image; add a table alias to satisfy the internal Table 9-3 reference."
+    }
+  ]
+}

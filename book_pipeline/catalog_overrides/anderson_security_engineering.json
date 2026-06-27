@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "anderson-fig-5.18-ref-misocr",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[283]",
+      "field": "md",
+      "old": "session key (see Figure 5.19).",
+      "new": "session key (see Figure 5.18).",
+      "reason": "C4 單一殘留是正文 misOCR，不是 catalog 缺圖。chapter 5 catalog 與 unified caption 只存在 Figure 5.18（Diffie-Hellman key exchange protocol）；公開原文 PDF 同段正文也寫 '(see Figure 5.18)'。依 catalog-audit C4(C) 用 replace_text 修正文引用。"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+slug: quarteroni_numerical_mathematics
+title: Numerical Mathematics
+author: Alfio Quarteroni; Riccardo Sacco; Fausto Saleri
+edition: 2nd
+subject: Mathematical Methods
+publisher: Springer
+language: en
+
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 18
+appendices_start_page: 642
+bibliography_start_page: 642
+index_start_page: 655
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: Foundations of Matrix Analysis
+    page_start: 18
+    page_end: 47
+    chapter_title_block_idx: 122
+    problems_block_idx: 608
+    next_chapter_block_idx: 650
+  - num: 2
+    title: Principles of Numerical Mathematics
+    page_start: 48
+    page_end: 71
+    chapter_title_block_idx: 650
+    problems_block_idx: 946
+    next_chapter_block_idx: 994
+  - num: 3
+    title: Direct Methods for the Solution of Linear Systems
+    page_start: 72
+    page_end: 137
+    chapter_title_block_idx: 994
+    problems_block_idx: 1852
+    next_chapter_block_idx: 1886
+  - num: 4
+    title: Iterative Methods for Solving Linear Systems
+    page_start: 138
+    page_end: 195
+    chapter_title_block_idx: 1886
+    problems_block_idx: 2621
+    next_chapter_block_idx: 2676
+  - num: 5
+    title: Approximation of Eigenvalues and Eigenvectors
+    page_start: 196
+    page_end: 258
+    chapter_title_block_idx: 2676
+    problems_block_idx: 3403
+    next_chapter_block_idx: 3462
+  - num: 6
+    title: Rootfinding for Nonlinear Equations
+    page_start: 259
+    page_end: 296
+    chapter_title_block_idx: 3462
+    problems_block_idx: 3906
+    next_chapter_block_idx: 3933
+  - num: 7
+    title: Nonlinear Systems and Numerical Optimization
+    page_start: 297
+    page_end: 343
+    chapter_title_block_idx: 3933
+    problems_block_idx: 4585
+    next_chapter_block_idx: 4616
+  - num: 8
+    title: Polynomial Interpolation
+    page_start: 344
+    page_end: 388
+    chapter_title_block_idx: 4616
+    problems_block_idx: 5164
+    next_chapter_block_idx: 5208
+  - num: 9
+    title: Numerical Integration
+    page_start: 389
+    page_end: 433
+    chapter_title_block_idx: 5208
+    problems_block_idx: 5777
+    next_chapter_block_idx: 5805
+  - num: 10
+    title: Orthogonal Polynomials in Approximation Theory
+    page_start: 434
+    page_end: 487
+    chapter_title_block_idx: 5805
+    problems_block_idx: 6547
+    next_chapter_block_idx: 6580
+  - num: 11
+    title: Numerical Solution of Ordinary Diferential Equations
+    page_start: 488
+    page_end: 547
+    chapter_title_block_idx: 6580
+    problems_block_idx: 7412
+    next_chapter_block_idx: 7471
+  - num: 12
+    title: Two-Point Boundary Value Problems
+    page_start: 548
+    page_end: 596
+    chapter_title_block_idx: 7471
+    problems_block_idx: 8157
+    next_chapter_block_idx: 8190
+  - num: 13
+    title: Parabolic and Hyperbolic Initial Boundary Value Problems
+    page_start: 597
+    page_end: 641
+    chapter_title_block_idx: 8190
+    problems_block_idx: 8845
+    next_chapter_block_idx: 9161
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: false
+problems_end_re: null
+solution_start_re: null
+problems_start_re: null
+suppress_running_header_sections: false
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []

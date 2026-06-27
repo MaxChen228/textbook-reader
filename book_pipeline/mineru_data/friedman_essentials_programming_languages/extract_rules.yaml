@@ -1,0 +1,173 @@
+slug: friedman_essentials_programming_languages
+title: Essentials of Programming Languages
+author: Daniel P. Friedman; Mitchell Wand; Christopher T. Haynes
+edition: null
+subject: Programming Languages
+publisher: MIT Press
+language: en
+
+filter_types:
+  - page_number
+  - header
+  - footer
+  - ref_text
+  - aside_text
+ignore_image_content: false
+ignore_chart_content: false
+heading_text_level: 2
+
+body_start_page: 3
+appendices_start_page: 485
+bibliography_start_page: 531
+index_start_page: 537
+
+inline_problems: true
+suppress_running_header_sections: true
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+problem_start_re: '^(?:[-•o○]\s*|\\-\s*)?Exercise[ .]+(\d+(?:\.\d+)+)\b'
+problem_chapter_must_match: true
+problems_end_re: '^\d+\.\d+\s+Summary\b'
+solution_start_re: null
+equation_strip_dollar: true
+equation_label_re: '^\((\d+(?:\.\d+)*)\)$'
+example_start_re: null
+
+known_missing_problems:
+  - chapter: 1
+    nums: ["1.3.2"]
+  - chapter: 2
+    nums: ["2.1.1"]
+  - chapter: 5
+    nums: ["5.7.6"]
+  - chapter: 6
+    nums: ["6.6.1"]
+  - chapter: 7
+    nums: ["7.9.1"]
+
+chapters:
+  - num: 1
+    title: "Tools for Symbolic Programming"
+    page_start: 3
+    page_end: 53
+    chapter_title_block_idx: 15
+    problems_block_idx: null
+    next_chapter_block_idx: 547
+  - num: 2
+    title: "Induction, Recursion, and Scope"
+    page_start: 54
+    page_end: 89
+    chapter_title_block_idx: 547
+    problems_block_idx: null
+    next_chapter_block_idx: 1017
+  - num: 3
+    title: "Syntactic Abstraction and Data Abstraction"
+    page_start: 90
+    page_end: 121
+    chapter_title_block_idx: 1017
+    problems_block_idx: null
+    next_chapter_block_idx: 1357
+  - num: 4
+    title: "Reduction Rules and Imperative Programming"
+    page_start: 122
+    page_end: 161
+    chapter_title_block_idx: 1357
+    problems_block_idx: null
+    next_chapter_block_idx: 1824
+  - num: 5
+    title: "Interpreters"
+    page_start: 162
+    page_end: 201
+    chapter_title_block_idx: 1824
+    problems_block_idx: null
+    next_chapter_block_idx: 2267
+  - num: 6
+    title: "Parameter Passing"
+    page_start: 202
+    page_end: 235
+    chapter_title_block_idx: 2267
+    problems_block_idx: null
+    next_chapter_block_idx: 2575
+  - num: 7
+    title: "Object-Oriented Languages"
+    page_start: 236
+    page_end: 263
+    chapter_title_block_idx: 2575
+    problems_block_idx: null
+    next_chapter_block_idx: 2782
+  - num: 8
+    title: "Continuation-Passing Style"
+    page_start: 264
+    page_end: 313
+    chapter_title_block_idx: 2782
+    problems_block_idx: null
+    next_chapter_block_idx: 3325
+  - num: 9
+    title: "Continuation-Passing Interpreters"
+    page_start: 314
+    page_end: 357
+    chapter_title_block_idx: 3325
+    problems_block_idx: null
+    next_chapter_block_idx: 3685
+  - num: 10
+    title: "Imperative Form and Stack Architecture"
+    page_start: 358
+    page_end: 397
+    chapter_title_block_idx: 3685
+    problems_block_idx: null
+    next_chapter_block_idx: 3993
+  - num: 11
+    title: "Scanners and Parsers"
+    page_start: 398
+    page_end: 443
+    chapter_title_block_idx: 3993
+    problems_block_idx: null
+    next_chapter_block_idx: 4413
+  - num: 12
+    title: "Compiler Derivation"
+    page_start: 444
+    page_end: 484
+    chapter_title_block_idx: 4413
+    problems_block_idx: null
+    next_chapter_block_idx: 4755
+
+appendices:
+  - id: "A"
+    title: "Record Implementation"
+    page_start: 485
+    page_end: 486
+    chapter_title_block_idx: 4755
+  - id: "B"
+    title: "Abstract Syntax"
+    page_start: 487
+    page_end: 490
+    chapter_title_block_idx: 4764
+  - id: "D"
+    title: "Character String Parser"
+    page_start: 491
+    page_end: 508
+    chapter_title_block_idx: 4775
+  - id: "E"
+    title: "Character String Scanner"
+    page_start: 509
+    page_end: 512
+    chapter_title_block_idx: 4863
+  - id: "F"
+    title: "A Read-Eval-Print Loop"
+    page_start: 513
+    page_end: 516
+    chapter_title_block_idx: 4887
+  - id: "G"
+    title: "List Structure Syntax"
+    page_start: 517
+    page_end: 524
+    chapter_title_block_idx: 4907
+  - id: "H"
+    title: "List Structure Parser"
+    page_start: 525
+    page_end: 530
+    chapter_title_block_idx: 5004

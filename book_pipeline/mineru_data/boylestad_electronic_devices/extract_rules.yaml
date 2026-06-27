@@ -1,0 +1,158 @@
+slug: boylestad_electronic_devices
+title: Electronic Devices and Circuit Theory
+author: Robert L. Boylestad; Louis Nashelsky
+edition: 11th International
+subject: Microelectronics
+publisher: Pearson
+language: en
+
+filter_types: [page_number, header, footer, page_footnote, aside_text]
+ignore_image_content: false
+ignore_chart_content: false
+
+body_start_page: 5
+appendices_start_page: 911
+bibliography_start_page: null
+index_start_page: 917
+
+chapters:
+  - num: 1
+    title: Semiconductor Diodes
+    page_start: 5
+    page_end: 60
+    chapter_title_block_idx: 21
+    problems_block_idx: 759
+    next_chapter_block_idx: 883
+  - num: 2
+    title: Diode Applications
+    page_start: 61
+    page_end: 136
+    chapter_title_block_idx: 883
+    problems_block_idx: 1837
+    next_chapter_block_idx: 2019
+  - num: 3
+    title: Bipolar Junction Transistors
+    page_start: 137
+    page_end: 169
+    chapter_title_block_idx: 2019
+    problems_block_idx: 2436
+    next_chapter_block_idx: 2548
+  - num: 4
+    title: DC Biasing—BJTs
+    page_start: 170
+    page_end: 264
+    chapter_title_block_idx: 2548
+    problems_block_idx: 3890
+    next_chapter_block_idx: 4222
+  - num: 5
+    title: BJT AC Analysis
+    page_start: 265
+    page_end: 390
+    chapter_title_block_idx: 4222
+    problems_block_idx: 6075
+    next_chapter_block_idx: 6437
+  - num: 6
+    title: Field-Effect Transistors
+    page_start: 391
+    page_end: 436
+    chapter_title_block_idx: 6437
+    problems_block_idx: 6906
+    next_chapter_block_idx: 7016
+  - num: 7
+    title: FET Biasing
+    page_start: 437
+    page_end: 498
+    chapter_title_block_idx: 7016
+    problems_block_idx: 7822
+    next_chapter_block_idx: 8001
+  - num: 8
+    title: FET Amplifiers
+    page_start: 499
+    page_end: 564
+    chapter_title_block_idx: 8001
+    problems_block_idx: 9006
+    next_chapter_block_idx: 9186
+  - num: 9
+    title: BJT and JFET Frequency Response
+    page_start: 565
+    page_end: 628
+    chapter_title_block_idx: 9186
+    problems_block_idx: 10121
+    next_chapter_block_idx: 10271
+  - num: 10
+    title: Operational Amplifiers
+    page_start: 629
+    page_end: 676
+    chapter_title_block_idx: 10271
+    problems_block_idx: 10962
+    next_chapter_block_idx: 11027
+  - num: 11
+    title: Op-Amp Applications
+    page_start: 677
+    page_end: 708
+    chapter_title_block_idx: 11027
+    problems_block_idx: 11356
+    next_chapter_block_idx: 11403
+  - num: 12
+    title: Power Amplifiers
+    page_start: 709
+    page_end: 749
+    chapter_title_block_idx: 11403
+    problems_block_idx: 12020
+    next_chapter_block_idx: 12096
+  - num: 13
+    title: Linear-Digital ICs
+    page_start: 750
+    page_end: 778
+    chapter_title_block_idx: 12096
+    problems_block_idx: 12369
+    next_chapter_block_idx: 12414
+  - num: 14
+    title: Feedback and Oscillator Circuits
+    page_start: 779
+    page_end: 810
+    chapter_title_block_idx: 12414
+    problems_block_idx: 12878
+    next_chapter_block_idx: 12911
+  - num: 15
+    title: Power Supplies (Voltage Regulators)
+    page_start: 811
+    page_end: 840
+    chapter_title_block_idx: 12911
+    problems_block_idx: 13264
+    next_chapter_block_idx: 13327
+  - num: 16
+    title: Other Two-Terminal Devices
+    page_start: 841
+    page_end: 872
+    chapter_title_block_idx: 13327
+    problems_block_idx: 13631
+    next_chapter_block_idx: 13735
+  - num: 17
+    title: pnpn and Other Devices
+    page_start: 873
+    page_end: 910
+    chapter_title_block_idx: 13735
+    problems_block_idx: 14221
+    next_chapter_block_idx: 14341
+
+appendices:
+  - id: A
+    title: Ripple Factor and Voltage Calculations
+    page_start: 911
+    chapter_title_block_idx: 14341
+
+section_re: '^(\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+heading_text_level: [1, 2]
+
+problem_start_re: '^\\*?(\d+)\.\s+'
+problem_chapter_must_match: false
+problem_num_namespace_by_section: true
+problems_end_re: '(?i)^s[o0]luti[o0]ns\s+t[o0]\s+selec?ted\s+odd[- ]numbered\s+pr[o0]blems\s*$'
+solution_start_re: null
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+[a-z]?)\}'
+example_start_re: '(?i)^e[a-z]*x[a-z]*a[a-z]*m[a-z]*p[a-z]*l[a-z]*e\s+(\d+)\b'

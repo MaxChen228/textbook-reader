@@ -1,0 +1,188 @@
+slug: cooper_hausman_the_cell
+title: "The Cell: A Molecular Approach"
+author: "Geoffrey M. Cooper; Kenneth W. Hausman"
+edition: "9th"
+subject: Biology
+publisher: Oxford University Press
+language: en
+
+# ── block 過濾 ──
+filter_types: [header, page_number, footer, aside_text, page_footnote, ref_text]
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: [2, 1]     # N.M section 多在 lvl2（152）；但 §16.4/17.3/18.2 straggler 落 lvl1 → 補偵測（代價：6493 'KEY EXPERIMENT 14.1 Examining…' 變假 section，影響有限）
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 28
+appendices_start_page: 726     # 'Appendix'@idx8518 起 = 後 matter（trivial 表附錄 + Answers to Questions 答案 key + Glossary + Index）全排除
+bibliography_start_page: null
+index_start_page: 780
+
+# ── inline-problem 模式 ──
+# 每節 N.M 結尾接 lvl2 'Questions' heading + 逐節重置流水題號（1. 2. … N.）。
+# 'Questions' 是 heading-lvl 但非 detected section（不匹配 section_re）→ problems_start_re 開區 + 保留 current_section_id（Enderton 變體）。
+inline_problems: true
+problem_num_namespace_by_section: true   # 各節題號從 1 重置 → walker 串 section_id：§1.1 題 1 → num='1.1.1'
+problems_start_re: '(?i)^Questions$'      # 題目只在 'Questions' heading 後收（gate 掉 LEARNING OBJECTIVES / 正文編號散文）
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: "Introduction to Cells and Cell Research"
+    page_start: 28
+    page_end: 66
+    chapter_title_block_idx: 310
+    problems_block_idx: null
+    next_chapter_block_idx: 808
+  - num: 2
+    title: "Physical Principles Underlying Cell Structure and Function"
+    page_start: 67
+    page_end: 110
+    chapter_title_block_idx: 808
+    problems_block_idx: null
+    next_chapter_block_idx: 1339
+  - num: 3
+    title: "Fundamentals of Molecular Biology"
+    page_start: 111
+    page_end: 161
+    chapter_title_block_idx: 1339
+    problems_block_idx: null
+    next_chapter_block_idx: 1883
+  - num: 4
+    title: "Genes and Genomes"
+    page_start: 162
+    page_end: 188
+    chapter_title_block_idx: 1883
+    problems_block_idx: null
+    next_chapter_block_idx: 2215
+  - num: 5
+    title: "Replication, Maintenance, and Rearrangements of Genomic DNA"
+    page_start: 189
+    page_end: 225
+    chapter_title_block_idx: 2215
+    problems_block_idx: null
+    next_chapter_block_idx: 2614
+  - num: 6
+    title: "RNA Synthesis and Processing"
+    page_start: 226
+    page_end: 256
+    chapter_title_block_idx: 2614
+    problems_block_idx: null
+    next_chapter_block_idx: 2967
+  - num: 7
+    title: "Transcriptional Regulation and Epigenetics"
+    page_start: 257
+    page_end: 289
+    chapter_title_block_idx: 2967
+    problems_block_idx: null
+    next_chapter_block_idx: 3337
+  - num: 8
+    title: "Protein Synthesis, Processing, and Regulation"
+    page_start: 290
+    page_end: 330
+    chapter_title_block_idx: 3337
+    problems_block_idx: null
+    next_chapter_block_idx: 3797
+  - num: 9
+    title: "Genomics, Proteomics, and Systems Biology"
+    page_start: 331
+    page_end: 362
+    chapter_title_block_idx: 3797
+    problems_block_idx: null
+    next_chapter_block_idx: 4159
+  - num: 10
+    title: "The Nucleus"
+    page_start: 363
+    page_end: 391
+    chapter_title_block_idx: 4159
+    problems_block_idx: null
+    next_chapter_block_idx: 4532
+  - num: 11
+    title: "Protein Processing and Sorting: The Endoplasmic Reticulum, Golgi Apparatus, and Lysosomes"
+    page_start: 392
+    page_end: 437
+    chapter_title_block_idx: 4532
+    problems_block_idx: null
+    next_chapter_block_idx: 5023
+  - num: 12
+    title: "Mitochondria, Chloroplasts, and Peroxisomes"
+    page_start: 438
+    page_end: 484
+    chapter_title_block_idx: 5023
+    problems_block_idx: null
+    next_chapter_block_idx: 5562
+  - num: 13
+    title: "The Cytoskeleton and Cell Movement"
+    page_start: 485
+    page_end: 528
+    chapter_title_block_idx: 5562
+    problems_block_idx: null
+    next_chapter_block_idx: 6109
+  - num: 14
+    title: "The Plasma Membrane"
+    page_start: 529
+    page_end: 568
+    chapter_title_block_idx: 6109
+    problems_block_idx: null
+    next_chapter_block_idx: 6528
+  - num: 15
+    title: "Cell Walls, the Extracellular Matrix, and Cell Interactions"
+    page_start: 569
+    page_end: 589
+    chapter_title_block_idx: 6528
+    problems_block_idx: null
+    next_chapter_block_idx: 6840
+  - num: 16
+    title: "Cell Signaling"
+    page_start: 590
+    page_end: 624
+    chapter_title_block_idx: 6840
+    problems_block_idx: null
+    next_chapter_block_idx: 7292
+  - num: 17
+    title: "The Cell Cycle"
+    page_start: 625
+    page_end: 656
+    chapter_title_block_idx: 7292
+    problems_block_idx: null
+    next_chapter_block_idx: 7700
+  - num: 18
+    title: "Cell Renewal and Cell Death"
+    page_start: 657
+    page_end: 686
+    chapter_title_block_idx: 7700
+    problems_block_idx: null
+    next_chapter_block_idx: 8063
+  - num: 19
+    title: "Cancer"
+    page_start: 687
+    page_end: 725
+    chapter_title_block_idx: 8063
+    problems_block_idx: null
+    next_chapter_block_idx: 8518
+
+# ── 附錄 ──
+appendices: []                 # 'Appendix'(trivial 表) + Answers to Questions(答案 key) + Glossary 皆 back matter，由 appendices_start_page 排除
+
+# ── heading regex ──
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+# ── 題號 ──
+problem_start_re: '^(\d+)\.\s+'
+problem_chapter_must_match: false        # 題號純流水（1. 2. …），namespace 由 walker 補 section_id 前綴
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\tag\s*\{([0-9]+[a-z]?)\}'
+
+# ── example（內文題） ──
+example_start_re: null          # 無 Example 段；callout 為 KEY EXPERIMENT / MOLECULAR MEDICINE（非 example）
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+# ── OCR 漏題 ──
+known_missing_problems: []

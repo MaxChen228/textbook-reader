@@ -1,0 +1,13 @@
+{
+  "ref_classifications": [
+    {
+      "type": "table",
+      "ref": "9.7",
+      "classification": "mis_ocr",
+      "reason": "正文寫 Table 9.7，但原文上下文實際指第 9.7 節的 conditional expectation 性質清單；該清單不是 catalog table，書內也沒有正式 Table 9.7。",
+      "where": "ch14.json body[98]",
+      "evidence": "Raw PDF physical page 152 says: Apply the conditional form of Jensen's inequality in Table 9.7. Raw PDF physical page 102 starts printed section 9.7 as 'Properties of conditional expectation: a list' and contains the Jensen inequality property; this is a section/list reference, not a numbered table caption. Parsed catalogs.json has no numbered tables in chapter 9."
+    }
+  ],
+  "overrides": []
+}

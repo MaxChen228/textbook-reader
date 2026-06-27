@@ -1,0 +1,26 @@
+{
+  "slug": "spivak_calculus_on_manifolds",
+  "overrides": [
+    {
+      "id": "spivak-com-fig-4-6-promote-problem-image",
+      "action": "set_fields",
+      "chunk": "ch04",
+      "selector": "problem:4-33:body[21]",
+      "expect": {
+        "id": "fig-ch04-prob29-21",
+        "caption": "Problem 4-33 figure",
+        "src": "28ad3eb2cc5d4f3e32d7e5ca55297c6a091227b5121494548c6beef7df340dbd.jpg"
+      },
+      "set": {
+        "id": "fig-4.6",
+        "caption": "FIGURE 4-6",
+        "catalog_repair_source": "agent-promote-mislabeled-problem-figure"
+      },
+      "unset": [
+        "catalog_exclude_reason"
+      ],
+      "reason": "audit C4: problem 4-34 references Figure 4-6; unified page_idx 118 image and visual inspection show the adjacent full-page problem image is the original FIGURE 4-6, but parser labeled it as an excluded unlabeled Problem 4-33 figure. Promote the existing figure block to semantic id fig-4.6."
+    }
+  ],
+  "ref_classifications": []
+}

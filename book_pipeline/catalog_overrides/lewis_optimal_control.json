@@ -1,0 +1,25 @@
+{
+  "ref_classifications": [],
+  "overrides": [
+    {
+      "id": "lewis-ch05-table-3-1-1-ocr-ref",
+      "action": "replace_text",
+      "chunk": "ch05",
+      "selector": "body[123]",
+      "field": "md",
+      "old": "According to Table 3.1-1, the Hamiltonian is",
+      "new": "According to Table 3.2-1, the Hamiltonian is",
+      "reason": "正文誤引。Chapter 3 的語意 table 供給是 Table 3.2-1，且該表正是連續非線性最優控制條件；3.1-1 在 source OCR 只對應 Figure 3.1-1。"
+    },
+    {
+      "id": "lewis-ch09-table-8-3-2-ocr-ref",
+      "action": "replace_text",
+      "chunk": "ch09",
+      "selector": "body[341]",
+      "field": "md",
+      "old": "The best that may be said is that if the plant is output stabilizable, then the algorithm of Table 8.3-2 yields a local minimum for the PI and a stable plant.",
+      "new": "The best that may be said is that if the plant is output stabilizable, then the algorithm of Table 8.1-2 yields a local minimum for the PI and a stable plant.",
+      "reason": "正文誤引。Chapter 8 原文多處將 output-feedback 迭代法指向 Table 8.1-2，且該表明示演算法只保證 local minimum；8.3-2 在 source OCR 中無對應 catalog 供給。"
+    }
+  ]
+}
