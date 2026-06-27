@@ -1,0 +1,166 @@
+slug: razavi_analog_cmos
+title: "Design of Analog CMOS Integrated Circuits"
+author: "Behzad Razavi"
+edition: "1st"
+subject: "Microelectronics"
+publisher: "McGraw-Hill"
+language: "en"
+
+filter_types: ['header', 'page_number', 'footer', 'aside_text', 'page_footnote', 'ref_text']
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2
+
+body_start_page: 15
+appendices_start_page: 694
+bibliography_start_page: null
+index_start_page: null
+
+inline_problems: false
+
+chapters:
+  - num: 1
+    title: "Introduction to Analog Design"
+    page_start: 15
+    page_end: 22
+    chapter_title_block_idx: 128
+    problems_block_idx: null
+    next_chapter_block_idx: 196
+  - num: 2
+    title: "Basic MOS Device Physics"
+    page_start: 23
+    page_end: 60
+    chapter_title_block_idx: 196
+    problems_block_idx: 556
+    next_chapter_block_idx: 650
+  - num: 3
+    title: "Single-Stage Amplifiers"
+    page_start: 61
+    page_end: 113
+    chapter_title_block_idx: 650
+    problems_block_idx: 1284
+    next_chapter_block_idx: 1391
+  - num: 4
+    title: "Differential Amplifiers"
+    page_start: 114
+    page_end: 149
+    chapter_title_block_idx: 1391
+    problems_block_idx: 1741
+    next_chapter_block_idx: 1817
+  - num: 5
+    title: "Passive and Active Current Mirrors"
+    page_start: 150
+    page_end: 181
+    chapter_title_block_idx: 1817
+    problems_block_idx: 2137
+    next_chapter_block_idx: 2219
+  - num: 6
+    title: "Frequency Response of Amplifiers"
+    page_start: 182
+    page_end: 216
+    chapter_title_block_idx: 2219
+    problems_block_idx: 2608
+    next_chapter_block_idx: 2669
+  - num: 7
+    title: "Noise"
+    page_start: 217
+    page_end: 261
+    chapter_title_block_idx: 2669
+    problems_block_idx: 3195
+    next_chapter_block_idx: 3279
+  - num: 8
+    title: "Feedback"
+    page_start: 262
+    page_end: 307
+    chapter_title_block_idx: 3279
+    problems_block_idx: 3766
+    next_chapter_block_idx: 3838
+  - num: 9
+    title: "Operational Amplifiers"
+    page_start: 308
+    page_end: 361
+    chapter_title_block_idx: 3838
+    problems_block_idx: 4343
+    next_chapter_block_idx: 4434
+  - num: 10
+    title: "Stability and Frequency Compensation"
+    page_start: 362
+    page_end: 393
+    chapter_title_block_idx: 4434
+    problems_block_idx: 4728
+    next_chapter_block_idx: 4789
+  - num: 11
+    title: "Bandgap References"
+    page_start: 394
+    page_end: 421
+    chapter_title_block_idx: 4789
+    problems_block_idx: 5056
+    next_chapter_block_idx: 5111
+  - num: 12
+    title: "Introduction to Switched-Capacitor Circuits"
+    page_start: 422
+    page_end: 464
+    chapter_title_block_idx: 5111
+    problems_block_idx: 5533
+    next_chapter_block_idx: 5602
+  - num: 13
+    title: "Nonlinearity and Mismatch"
+    page_start: 465
+    page_end: 498
+    chapter_title_block_idx: 5602
+    problems_block_idx: 5967
+    next_chapter_block_idx: 6007
+  - num: 14
+    title: "Oscillators"
+    page_start: 499
+    page_end: 548
+    chapter_title_block_idx: 6007
+    problems_block_idx: 6571
+    next_chapter_block_idx: 6604
+  - num: 15
+    title: "Phase-Locked Loops"
+    page_start: 549
+    page_end: 595
+    chapter_title_block_idx: 6604
+    problems_block_idx: 7108
+    next_chapter_block_idx: 7137
+  - num: 16
+    title: "Short-Channel Effects and Device Models"
+    page_start: 596
+    page_end: 620
+    chapter_title_block_idx: 7137
+    problems_block_idx: 7412
+    next_chapter_block_idx: 7459
+  - num: 17
+    title: "CMOS Processing Technology"
+    page_start: 621
+    page_end: 647
+    chapter_title_block_idx: 7459
+    problems_block_idx: 7678
+    next_chapter_block_idx: 7710
+  - num: 18
+    title: "Layout and Packaging"
+    page_start: 648
+    page_end: 693
+    chapter_title_block_idx: 7710
+    problems_block_idx: 8146
+    next_chapter_block_idx: 8177
+
+appendices: []
+
+section_re: '^(\d+\.\d+)\s+(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority: [subsection_re, section_re]
+
+problem_start_re: '^(\d+\.\d+)\.\s'
+problem_chapter_must_match: true
+
+equation_strip_dollar: true
+equation_label_re: '\\tag\s*\{([0-9]+\.[0-9]+[a-z]?)\}'
+
+example_start_re: '^Example\s+(\d+\.\d+)'
+
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
