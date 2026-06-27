@@ -1,0 +1,21 @@
+{
+  "id": "P-2026-06-27-shriver-atkins-inorganic",
+  "domain": "engine",
+  "type": "tooling-gap",
+  "status": "parked",
+  "title": "two-part 章末雙題組（EXERCISES + TUTORIAL PROBLEMS）各自 N.M 獨立重編號，引擎無欄位表達、monotonic guard 靜默丟整個 tutorial 組",
+  "slug": "shriver_atkins_inorganic",
+  "detect": [],
+  "source": "audit-book/shriver_atkins_inorganic",
+  "resolution": "",
+  "created": "2026-06-27T02:40:13+00:00",
+  "updated": "2026-06-27T02:47:15+00:00",
+  "evidence": "本書每章章末問題區 [pbi+1,nci-1] 內含兩組各自 N.M 編號的題集：EXERCISES（1.1–1.24…）緊接 TUTORIAL PROBLEMS（restart 1.1–1.8 + 延續 1.25–1.28），兩組題目語義互異（exercise 1.1='What is the ratio of the energy…' vs tutorial 1.1='In the paper What can the Bohr–Sommerfeld model show…'）。parser 在單一 problems 區內套遞增/重複守則，把 tutorial 組往回跳的題號（1.1–1.8）整段當偽命中丟棄，只留延續過 exercise max 的（1.25–1.28）。實測丟失：ch1 raw34→parsed26（丟8）、ch2 raw52→parsed32（丟20）、ch24 raw71→parsed40（丟31），27 章結構一致、全書估丟數百題。problem_num_namespace_by_section 僅 inline 模式生效、two-part 模式無對應欄位；problems_end_re 只能截斷（會把 tutorial 組整個切掉，更糟）。",
+  "proposal": "引擎需支援『單一 two-part problems 區內含多個各自獨立重編號的子題組』：可選 schema 欄位如 problems_subblock_split_re（命中 lvl2 'TUTORIAL PROBLEMS' 等子標 → 開新子組、其後題號掛子組 namespace 如 'N.M-tutorial' 或 'N.tM'），或在 two-part 模式下讓 monotonic guard 在遇到 problems-region 內的子標 heading 時 reset 編號基準而非丟棄回跳題。",
+  "risk": "",
+  "disposition": "真相層已驗(raw blocks 756-796 + parsed ch01):EXERCISES 1.1-1.28(26題全留) vs TUTORIAL PROBLEMS 獨立 1.1-1.8(8題全丟,因與 exercises 撞號回跳被 monotonic guard 當偽命中),全書27章一致估丟數百題。現有欄位皆無解:inline+namespace 因 EXERCISES/TUTORIAL heading 非 N.M 不 reset→仍撞 '1.1';problems_end_re 只截掉 tutorial;單 pbi 無法表達兩區。疊加 OCR two-column 亂序(1.25-1.28 錯置到 TUTORIAL heading 後)使簡單 heading-split 也不足。yaml 已產(exercises 組 643 題完整 ship,不觸 R audit-blocked),待引擎能力落地由 proposals stale resurface 重 parse 救回 tutorial。",
+  "unblock": {
+    "kind": "engine-capability",
+    "target": "parser.py: 二分(非-inline)模式 problems 區子題組 split/namespace — 缺欄位表達『單一 [pbi+1,nci-1] 區內含多組各自從 N.1 重編號的子題集(EXERCISES + TUTORIAL PROBLEMS)』"
+  }
+}
