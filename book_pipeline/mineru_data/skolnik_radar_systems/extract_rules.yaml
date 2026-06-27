@@ -1,0 +1,137 @@
+slug: skolnik_radar_systems
+title: Introduction to Radar Systems
+author: Merrill I. Skolnik
+edition: 3rd
+subject: Radar Systems
+publisher: McGraw-Hill
+language: en
+
+# ── block 過濾 ──
+filter_types:
+  - header
+  - page_number
+  - footer
+  - aside_text
+  - page_footnote
+  - ref_text
+ignore_image_content: true
+ignore_chart_content: true
+heading_text_level: 2          # MinerU 把 §-heading (N.M ...) 全標 lvl2，章標 lvl1
+
+# ── 內容範圍（global 0-based PDF page_idx） ──
+body_start_page: 12
+appendices_start_page: 774      # 無 Appendix → 末章 page_end(773)+1
+bibliography_start_page: null   # 每章末各自 References，無書級 Bibliography
+index_start_page: 774
+
+inline_problems: false          # 每章末 lvl2 'PROBLEMS' heading → 二分模式
+
+# ── 章節 ──
+chapters:
+  - num: 1
+    title: An Introduction to Radar
+    page_start: 12
+    page_end: 40
+    chapter_title_block_idx: 155
+    problems_block_idx: 389
+    next_chapter_block_idx: 440
+  - num: 2
+    title: The Radar Equation
+    page_start: 41
+    page_end: 114
+    chapter_title_block_idx: 440
+    problems_block_idx: 1171
+    next_chapter_block_idx: 1295
+  - num: 3
+    title: MTI and Pulse Doppler Radar
+    page_start: 115
+    page_end: 220
+    chapter_title_block_idx: 1295
+    problems_block_idx: 2385
+    next_chapter_block_idx: 2444
+  - num: 4
+    title: Tracking Radar
+    page_start: 221
+    page_end: 286
+    chapter_title_block_idx: 2444
+    problems_block_idx: 3044
+    next_chapter_block_idx: 3072
+  - num: 5
+    title: Detection of Signals in Noise
+    page_start: 287
+    page_end: 323
+    chapter_title_block_idx: 3072
+    problems_block_idx: 3478
+    next_chapter_block_idx: 3520
+  - num: 6
+    title: Information from Radar Signals
+    page_start: 324
+    page_end: 413
+    chapter_title_block_idx: 3520
+    problems_block_idx: 4387
+    next_chapter_block_idx: 4465
+  - num: 7
+    title: Radar Clutter
+    page_start: 414
+    page_end: 492
+    chapter_title_block_idx: 4465
+    problems_block_idx: 5289
+    next_chapter_block_idx: 5336
+  - num: 8
+    title: Propagation of Radar Waves
+    page_start: 493
+    page_end: 548
+    chapter_title_block_idx: 5336
+    problems_block_idx: 5885
+    next_chapter_block_idx: 5908
+  - num: 9
+    title: The Radar Antenna
+    page_start: 549
+    page_end: 700
+    chapter_title_block_idx: 5908
+    problems_block_idx: 7397
+    next_chapter_block_idx: 7465
+  - num: 10
+    title: Radar Transmitters
+    page_start: 701
+    page_end: 737
+    chapter_title_block_idx: 7465
+    problems_block_idx: 7796
+    next_chapter_block_idx: 7816
+  - num: 11
+    title: Radar Receiver
+    page_start: 738
+    page_end: 773
+    chapter_title_block_idx: 7816
+    problems_block_idx: 8142
+    next_chapter_block_idx: 8170   # 指向 'INDEX' (idx 8170) 防末章吞 Index
+
+appendices: []
+
+# ── heading regex ──
+# section_re tempered：真 section 標題全 ALL-CAPS（'2.1 INTRODUCTION'），習題是
+# sentence-case（'1.8 Three variants...'）。MinerU 偶把 N.M 習題塊誤標 lvl2 → 與
+# section 撞號被吃掉（ch1 1.6/1.8、ch2 2.25）。負向預查 (?![A-Z][a-z]) 拒 Title/
+# sentence-case 標題、保留 96 個全大寫真 section（0 誤殺），習題塊落回 problem 偵測。
+section_re: '^(\d+\.\d+)\s+(?![A-Z][a-z])(.+)$'
+subsection_re: '^(\d+\.\d+\.\d+)\s+(.+)$'
+heading_priority:
+  - subsection_re
+  - section_re
+
+# ── 題號 ──
+problem_start_re: '^(\d+\.\d+)\s+'
+problem_chapter_must_match: true
+
+# ── equation ──
+equation_strip_dollar: true
+equation_label_re: '\\tag\{\[?([0-9]+\.[0-9]+[a-z]?)\]?\}'   # tag 內多帶方括號 [N.M]
+
+# ── example（內文無編號 Example 段落） ──
+example_start_re: null
+
+# ── figure ──
+figure_caption_merge: false
+figure_caption_main_re: null
+
+known_missing_problems: []
