@@ -63,7 +63,7 @@
 - 風險：
 > 母書非 owned（pending），無下架風險；不重查則 sol 4th 永卡 PENDING、4th 母書+解答本俱在卻不收。
 
-## domain: engine  （247 條；proposed=6 parked=8）
+## domain: engine  （248 條；proposed=6 parked=9）
 ### P-2026-06-25-bona-combinatorics — worker 越界改核心碼：book_pipeline/normalize_metadata.py（audit bona_combinatorics）
 - proposed | type=patch | source=scope_guard
 - 證據：
@@ -285,6 +285,18 @@
 > 兩個獨立子缺口，須分清：(A) namespace 撞號——problems_start_re 命中且帶 capture group 時，引擎於 exercises-gate 把該 group 當 current_section_id（覆寫 last section heading 推來的值）。加性：無 capture group 的書（如 Enderton ^Exercises$）行為不變。(B) body bleed——bleed 發生在 EXERCISES 7A→7B 之間（7B 整節定理在 EXERCISES 7B 之前），故『在 EXERCISES 7B 關區』太遲、解不了 bleed；真正缺的是『被 OCR 剝掉 id 的 7B title 塊（title-only heading-lvl）仍能當 section boundary 關閉前一題區』，例如新欄位允許指定 title-only heading 也關區、或引擎對 heading-lvl 但非 detected-section 的塊預設關 problems region。**(A) 只解撞號、(B) 才解 bleed，兩者需分別落地**。可泛化至任何『每節 EXERCISES NA 自帶 id、但前置 section heading 被 OCR 丟失/標錯層』的書（Axler 全家族）。margin 題號 OCR 散落造成的全書欠切分屬 source-quality、另論、不在此提案。
 - 風險：
 > low；加性、僅影響 problems_start_re 帶 group 的書
+
+### P-2026-06-27-mortimer-physical-chemistry — inline 題目 walker 應在任何 heading-level 塊結束、不僅 section_re 命中者（救 OCR 丟 section 號的書）
+- parked | type=tooling-gap | source=audit:mortimer_physical_chemistry | 偵測=inline-walker-heading-termination ocr-stripped-section-number
+- 解鎖條件：engine-capability → parser inline walker: terminate problem at any heading-level block
+- 處置：
+> schema 欄位無解（broaden section_re 以一缺陷換更壞缺陷），真修需引擎能力。書已 ship（章節完美/92%題乾淨/內容無遺失），engine 缺待落地由 proposals stale resurface
+- 證據：
+> mortimer_physical_chemistry：MinerU 把多數 section 的 N.M 號丟進 filtered running header，body heading 塊只剩裸 Title → 全書帶號 section 僅 48/~200 命中 section_re。inline_problems 模式下 walker 只在 section_re/subsection_re 命中處結束題目 → 每個『P R O B L E M S 塊→後續無號 section 散文』邊界的末題吞下整段 section 散文，114/1412 題(8%)body 過大（樣本 2.37 吞 Enthalpy、3.32 吞 Absolute Entropies、28.36 吞 Polymer Conformation）。broaden section_re 認無號 Title-Case 會把 800+ Solution/EXAMPLE/Table noise 全變 body section（更糟）+ 與 example_start_re 衝突，schema 欄位無解。
+- 提議：
+> inline walker 結束題目的判據從『section_re/subsection_re 命中』放寬為『任何 text_level==heading_text_level 的 heading 塊』（lvl2 的 Solution/EXAMPLE/section/subsection 本就不該落在題身內，於其處結束題目皆正確），但**不**從非 section 塊造 body section（保持 section 結構僅由 section_re 驅動）。乾淨書行為不變（heading-level 塊即 section_re 命中者）。
+- 風險：
+> 改動 inline walker 終止判據，需回歸既有 inline 書（griffiths/strang/taocp…）確認題身不被新 heading 提早截斷
 
 ### P-2026-06-27-shriver-atkins-inorganic — two-part 章末雙題組（EXERCISES + TUTORIAL PROBLEMS）各自 N.M 獨立重編號，引擎無欄位表達、monotonic guard 靜默丟整個 tutorial 組
 - parked | type=tooling-gap | source=audit-book/shriver_atkins_inorganic
