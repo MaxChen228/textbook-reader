@@ -7,6 +7,14 @@
       "selector": "problem:525:body[9]",
       "expect": "\\left(\\frac {1}{2} \\cdot (x _ {0} + x _ {1}), \\frac {1}{2} \\cdot (y _ {0} + y _ {1})\\right). ₺",
       "new": "\\left(\\frac {1}{2} \\cdot (x _ {0} + x _ {1}), \\frac {1}{2} \\cdot (y _ {0} + y _ {1})\\right)."
+    },
+    {
+      "id": "felleisen_how_to_design_programs-ch28-problem-462-body-8-189f94",
+      "action": "fix_eq_tex",
+      "chunk": "ch28",
+      "selector": "problem:462:body[8]",
+      "expect": "\\begin{array}{r c l r c l} 2 \\cdot x & + & 2 \\cdot y & + & 3 \\cdot z & = & 1 0 \\\\ & & 3 \\cdot y & + & 9 \\cdot z & = & 2 1 \\\\ & & & & 1 \\cdot z & = & 2 \\end{array}\\tag{( \\left( *\\right) \\}",
+      "new": "\\begin{array}{r c l r c l r} 2 \\cdot x & + & 2 \\cdot y & + & 3 \\cdot z & = & 1 0 \\\\ & & 3 \\cdot y & + & 9 \\cdot z & = & 2 1 \\\\ & & & & 1 \\cdot z & = & 2 \\end{array}\\tag{(*)}"
     }
   ]
 }
