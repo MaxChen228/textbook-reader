@@ -31,6 +31,17 @@
       "selector": "body[123]",
       "expect": "\\begin{array}{c c} \\framebox {\\text {H}} & \\framebox {\\text {U} _ {f}} \\\\ \\framebox {\\text {H}} & \\framebox {\\text {H}} \\end{array} = \\begin{array}{c c} \\framebox {\\text {H}} & \\\\ \\framebox {\\text {Z}} & \\end{array}",
       "new": "\\begin{array}{c c} \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {U} _ {f}} \\\\ \\boxed {\\mathrm {H}} & \\boxed {\\mathrm {H}} \\end{array} = \\begin{array}{c c} \\boxed {\\mathrm {H}} & \\\\ \\boxed {\\mathrm {Z}} & \\end{array}"
+    },
+    {
+      "id": "mermin_quantum_computer_science-appB-body-56-b70d9e",
+      "action": "fix_inline_math",
+      "chunk": "appB",
+      "selector": "body[56]",
+      "field": "md",
+      "all": true,
+      "old": "$\\right. \\left.$",
+      "new": "$\\left. \\right.$",
+      "anchor": "8cf5b836"
     }
   ]
 }
