@@ -87,6 +87,14 @@
       "selector": "body[834]",
       "expect": "\\begin{array}{r l} f (x ^ {k + 1}) & = \\frac {1}{2} (x ^ {k} - \\alpha^ {k} g ^ {k}) ^ {\\prime} Q (x ^ {k} - \\alpha^ {k} g ^ {k}) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} Q x ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} g ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\end{array} \\tag {1.61}\\tag{1.61}",
       "new": "\\begin{array}{r l} f (x ^ {k + 1}) & = \\frac {1}{2} (x ^ {k} - \\alpha^ {k} g ^ {k}) ^ {\\prime} Q (x ^ {k} - \\alpha^ {k} g ^ {k}) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} Q x ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\\\ & = \\frac {1}{2} \\left(x ^ {k ^ {\\prime}} Q x ^ {k} - 2 \\alpha^ {k} g ^ {k ^ {\\prime}} g ^ {k} + (\\alpha^ {k}) ^ {2} g ^ {k ^ {\\prime}} Q g ^ {k}\\right) \\end{array} \\tag {1.61}"
+    },
+    {
+      "id": "bertsekas_nonlinear_programming-ch03-body-886-9694ba",
+      "action": "fix_eq_tex",
+      "chunk": "ch03",
+      "selector": "body[886]",
+      "expect": "\\forall x \\in \\mathfrak {R} ^ {n},\\tag{(f^{*} + \\beta d(x)\\leq f(x),\\}",
+      "new": "\\forall x \\in \\mathfrak {R}^{n},\\quad f^{*} + \\beta d(x)\\leq f(x),"
     }
   ]
 }

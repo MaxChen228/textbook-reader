@@ -109,6 +109,17 @@
       "selector": "body[96]",
       "expect": "\\begin{array}{l} | f _ {\\varepsilon} (\\mathbf {x}) - f (\\mathbf {x}) | \\leq \\eta \\int_ {| \\mathbf {t} | <   \\delta} | K _ {\\varepsilon} (\\mathbf {t}) | d \\mathbf {t} + \\int_ {| \\mathbf {t} | \\geq \\delta} | f (\\mathbf {x} - \\mathbf {t}) - f (\\mathbf {x}) |   | K _ {\\varepsilon} (\\mathbf {t}) |   d \\mathbf {t} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qend{array}",
       "new": "\\begin{array}{l} | f _ {\\varepsilon} (\\mathbf {x}) - f (\\mathbf {x}) | \\leq \\eta \\int_ {| \\mathbf {t} | <   \\delta} | K _ {\\varepsilon} (\\mathbf {t}) | d \\mathbf {t} + \\int_ {| \\mathbf {t} | \\geq \\delta} | f (\\mathbf {x} - \\mathbf {t}) - f (\\mathbf {x}) |   | K _ {\\varepsilon} (\\mathbf {t}) |   d \\mathbf {t} \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\\\ \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\qquad \\end{array}"
+    },
+    {
+      "id": "wheeden_zygmund_measure-ch07-body-143-4f07ef",
+      "action": "fix_inline_math",
+      "chunk": "ch07",
+      "selector": "body[143]",
+      "field": "md",
+      "all": true,
+      "old": "$\\begin{array} { r } { { ^ { \\mathrm { i } } Q } \\searrow \\ule { 1 / | Q | } { ] } \\int _ { Q } f ( \\mathbf y ) d \\mathbf y = f ( \\mathbf x ) } \\end{array}$",
+      "new": "$\\begin{array} { r } { { ^ { \\mathrm { i } } Q } \\searrow \\frac { 1 } { | Q | } \\int _ { Q } f ( \\mathbf y ) d \\mathbf y = f ( \\mathbf x ) } \\end{array}$",
+      "anchor": "933fe47e"
     }
   ]
 }
