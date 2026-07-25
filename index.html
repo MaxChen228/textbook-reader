@@ -9,6 +9,15 @@
   <script src="assets/vendor/mathjax/tex-chtml-full.js" async></script>
   <script src="assets/vendor/marked.min.js"></script>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <!-- ESM 模組圖只有兩層深，但入口檔要先下載解析完，瀏覽器才會發現它的 import。
+       modulepreload 讓所有模組與入口同時開始下載，省掉一個 round trip。
+       這裡不加 ?v=：/assets/ 由 nginx 發 private,no-cache（見 deploy/nginx.conf），
+       且 preload 的 URL 必須與 import 指定的完全一致，否則會下載兩次。 -->
+  <link rel="modulepreload" href="assets/js/reader.js">
+  <link rel="modulepreload" href="assets/js/shared.js">
+  <link rel="modulepreload" href="assets/js/blocks.js">
+  <link rel="modulepreload" href="assets/js/store.js">
+  <link rel="modulepreload" href="assets/js/router.js">
   <link rel="stylesheet" href="design/tokens.css">
   <link rel="stylesheet" href="assets/qbank-shared.css?v=20260725">
   <!-- CJK 襯線（中譯面板用）：檔案太大不自託管，改非阻塞載入；連不到就退系統宋體，不影響首屏 -->
@@ -799,6 +808,6 @@
   </div>
 </div>
 
-<script type="module" src="assets/js/reader.js?v=20260725"></script>
+<script type="module" src="assets/js/reader.js"></script>
 </body>
 </html>
