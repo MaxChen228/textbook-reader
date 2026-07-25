@@ -21,6 +21,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 鍵盤操作可見性：全站統一 focus ring（滑鼠點擊不顯示，Tab/方向鍵才顯示）。
+   outline 不受 overflow:hidden 裁切，比 box-shadow 在側欄/清單裡穩。 */
+:focus-visible {
+  outline: 2px solid var(--ink-light);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 mjx-container {
   padding: 2px 4px;
 }
@@ -133,6 +141,7 @@ mjx-container[display="true"] {
 .qbk-app {
   display: flex;
   height: 100vh;
+  height: 100dvh;   /* iOS Safari：工具列收合時 100vh 會溢出視口、底部內容被吃掉 */
   overflow: hidden;
 }
 

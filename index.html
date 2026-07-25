@@ -67,16 +67,25 @@
       padding: 14px 20px 6px; font-family: var(--mono); font-size: 9px; font-weight: 600;
       text-transform: uppercase; letter-spacing: .14em; color: var(--sub);
     }
-    .toc-item {
-      display: flex; align-items: baseline; gap: 10px; padding: 8px 20px;
-      cursor: pointer; font-size: 13.5px; line-height: 1.4;
-      color: var(--text); border-left: 2px solid transparent;
+    /* 目錄列 = 真連結(<a href>) + 複製鈕的並排 row。連結不可包按鈕（HTML 非法、
+       且鍵盤語意會壞），故列本身是 flex 容器，狀態 class 掛在 row 上。 */
+    .toc-row, .toc-sec-row {
+      display: flex; align-items: center;
+      border-left: 2px solid transparent;
       transition: background .12s ease, border-color .12s ease;
     }
-    .toc-item:hover { background: var(--bg); }
-    .toc-item.active { background: var(--bg); border-left-color: var(--ink); font-weight: 600; }
+    .toc-row:hover, .toc-sec-row:hover { background: var(--bg); }
+    .toc-row.active { background: var(--bg); border-left-color: var(--ink); }
+    .toc-sec-row.active { background: var(--bg); border-left-color: var(--ink-light); }
+    .toc-item {
+      flex: 1; min-width: 0;
+      display: flex; align-items: baseline; gap: 10px; padding: 8px 6px 8px 20px;
+      cursor: pointer; font-size: 13.5px; line-height: 1.4;
+      color: var(--text); text-decoration: none;
+    }
+    .toc-row.active .toc-item { font-weight: 600; }
     .toc-num { font-family: var(--mono); font-size: 11px; color: var(--sub); flex-shrink: 0; min-width: 34px; }
-    .toc-item.active .toc-num { color: var(--ink); }
+    .toc-row.active .toc-num { color: var(--ink); }
     .toc-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .toc-meta { font-family: var(--mono); font-size: 9px; color: var(--sub); flex-shrink: 0; }
     .toc-caret {
@@ -85,29 +94,30 @@
       display: inline-block; opacity: .6;
     }
     .toc-item.has-children { padding-left: 18px; gap: 8px; }
-    .toc-item.expanded .toc-caret { transform: rotate(90deg); opacity: 1; }
+    .toc-row.expanded .toc-caret { transform: rotate(90deg); opacity: 1; }
     .toc-section-list { display: none; padding: 2px 0 8px; }
-    .toc-item.expanded + .toc-section-list { display: block; }
+    .toc-row.expanded + .toc-section-list { display: block; }
     .toc-sec {
+      flex: 1; min-width: 0;
       display: flex; align-items: baseline; gap: 10px; cursor: pointer;
-      padding: 5px 20px 5px 52px; font-size: 12.5px; line-height: 1.45;
-      color: var(--ink-light); border-left: 2px solid transparent;
-      transition: color .12s ease, background .12s ease, border-color .12s ease;
+      padding: 5px 6px 5px 52px; font-size: 12.5px; line-height: 1.45;
+      color: var(--ink-light); text-decoration: none;
+      transition: color .12s ease;
     }
-    .toc-sec:hover { color: var(--text); background: var(--bg); }
-    .toc-sec.active { color: var(--ink); border-left-color: var(--ink-light); background: var(--bg); }
+    .toc-sec-row:hover .toc-sec { color: var(--text); }
+    .toc-sec-row.active .toc-sec { color: var(--ink); }
     .toc-sec[data-level="3"] { padding-left: 72px; font-size: 11.5px; color: var(--sub); }
-    .toc-sec[data-level="3"]:hover { color: var(--text); }
     .toc-sec-num { font-family: var(--mono); font-size: 10px; color: var(--sub); flex-shrink: 0; min-width: 28px; }
-    .toc-sec.active .toc-sec-num { color: var(--ink); }
+    .toc-sec-row.active .toc-sec-num { color: var(--ink); }
     .toc-sec-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
     /* ── 章/節複製按鈕 ────────────────────────────────────────────────── */
     .toc-copy {
-      margin-left: auto;
+      flex-shrink: 0; margin-right: 8px;
       opacity: 0;
     }
-    .toc-item:hover .toc-copy, .toc-sec:hover .toc-copy { opacity: .65; }
+    .toc-row:hover .toc-copy, .toc-sec-row:hover .toc-copy { opacity: .65; }
+    .toc-copy:focus-visible { opacity: 1; }
     .toc-copy:hover, .toc-copy.copied { opacity: 1 !important; }
 
     .reader-tabs {
@@ -210,6 +220,28 @@
       display: flex; justify-content: flex-end; gap: 8px;
       padding: 10px 14px; border-top: 1px solid var(--border);
     }
+
+    /* ── 鍵盤快捷鍵說明 ───────────────────────────────────────────────── */
+    #shortcuts-modal {
+      display: none; position: fixed; inset: 0; z-index: 10001;
+      background: rgba(8, 7, 5, .48); align-items: center; justify-content: center; padding: 18px;
+    }
+    #shortcuts-modal.open { display: flex; }
+    .shortcuts-dialog {
+      width: min(420px, 96vw);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.28);
+    }
+    .shortcuts-list {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px 16px;
+      padding: 16px 18px 20px; align-items: center;
+    }
+    .shortcuts-list kbd {
+      font-family: var(--mono); font-size: 11px; color: var(--ink);
+      border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px;
+      padding: 3px 8px; background: var(--bg); white-space: nowrap;
+    }
+    .sc-desc { font-size: 13px; color: var(--text); }
 
     /* ── main ───────────────────────────────────────────────────────── */
     #main { transition: background .25s ease; }
@@ -553,6 +585,32 @@
       color: var(--sub); font-family: var(--mono); font-size: 12px; padding: 40px;
       text-align: center;
     }
+    .chunk-error {
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      padding: 80px 20px; color: var(--sub); font-family: var(--mono); font-size: 12px;
+    }
+    /* 骨架屏：章節載入中先撐出版心與段落節奏，避免「空白 → 內容」的突兀跳動 */
+    .skeleton {
+      max-width: var(--article-max-width, 880px); margin: 0 auto;
+      padding: 56px 72px; animation: sk-in .2s ease;
+    }
+    .sk-bar {
+      height: 13px; margin-bottom: 14px; border-radius: 4px;
+      background: linear-gradient(90deg, var(--border-l) 25%, var(--bg) 37%, var(--border-l) 63%);
+      background-size: 400% 100%;
+      animation: sk-shimmer 1.4s ease-in-out infinite;
+    }
+    .sk-bar.title { height: 30px; width: 60%; margin-bottom: 34px; }
+    .sk-bar.short { width: 42%; margin-bottom: 34px; }
+    @keyframes sk-shimmer { 0% { background-position: 100% 50% } 100% { background-position: 0 50% } }
+    @keyframes sk-in { from { opacity: 0 } to { opacity: 1 } }
+    @media (prefers-reduced-motion: reduce) {
+      .sk-bar { animation: none; }
+      * { scroll-behavior: auto !important; }
+    }
+    @media (max-width: 768px) {
+      .skeleton { padding: 28px 22px; }
+    }
 
     @media (max-width: 768px) {
       .article { padding: 28px 22px 80px; }
@@ -621,6 +679,7 @@
       <span class="meta library-only qbk-result-count" id="library-count"></span>
       <button class="qbk-control-btn reader-only" id="btn-prev" disabled>← prev</button>
       <button class="qbk-control-btn reader-only" id="btn-next" disabled>next →</button>
+      <button class="qbk-icon-btn" id="btn-shortcuts" type="button" title="鍵盤快捷鍵（按 ?）" aria-label="鍵盤快捷鍵">?</button>
       <div class="qbk-popover-wrap">
         <button class="qbk-icon-btn" id="btn-settings" title="顯示設置" aria-haspopup="true" aria-expanded="false">⚙</button>
         <div class="qbk-popover" id="settings-pop" role="dialog" aria-label="顯示設置">
@@ -690,13 +749,26 @@
   </div>
 </div>
 
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大" tabindex="-1">
   <button id="lightbox-close" aria-label="關閉">✕</button>
   <img id="lightbox-img" alt="">
   <div id="lightbox-caption"></div>
 </div>
 
-<div id="catalog-detail-modal" role="dialog" aria-modal="true" aria-label="Catalog detail">
+<div id="shortcuts-modal" role="dialog" aria-modal="true" aria-label="鍵盤快捷鍵" tabindex="-1">
+  <div class="shortcuts-dialog">
+    <div class="catalog-detail-head">
+      <div>
+        <div class="catalog-detail-title">鍵盤快捷鍵</div>
+        <div class="catalog-detail-meta">在輸入框內不觸發</div>
+      </div>
+      <button class="qbk-icon-btn compact" id="shortcuts-close" type="button" aria-label="關閉">✕</button>
+    </div>
+    <div class="shortcuts-list" id="shortcuts-list"></div>
+  </div>
+</div>
+
+<div id="catalog-detail-modal" role="dialog" aria-modal="true" aria-label="Catalog detail" tabindex="-1">
   <div class="catalog-detail-dialog">
     <div class="catalog-detail-head">
       <div>
@@ -1002,6 +1074,7 @@ async function init() {
   setupCatalogDetail()
   setupLightbox()
   setupMathCopy()
+  setupKeyboard()
   try {
     books = await QBankShared.fetchJson('data/books.json')
     bookBySlug = Object.fromEntries(books.map(b => [b.slug, b]))
@@ -1112,6 +1185,151 @@ async function copyCurrentChunk(e) {
   await copyChapter(currentKind, currentKey, e?.currentTarget || null)
 }
 
+const SKELETON_HTML = `<div class="skeleton" aria-hidden="true">
+  <div class="sk-bar title"></div>
+  ${'<div class="sk-bar"></div>'.repeat(3)}<div class="sk-bar short"></div>
+  ${'<div class="sk-bar"></div>'.repeat(4)}<div class="sk-bar short"></div>
+  ${'<div class="sk-bar"></div>'.repeat(3)}
+</div>`
+
+// ── overlay 管理：焦點鎖 + 捲動鎖 + 焦點回復 ─────────────────────────
+// 兩個舊 bug 一起修：① 只鎖 body 沒用（真正的捲動容器是 #content，背景照捲）
+// ② 開了對話框仍能 Tab 到背景的目錄/按鈕（螢幕閱讀器也讀得到）→ 用 inert + Tab 迴圈雙保險。
+const overlayStack = []
+
+function lockScroll(on) {
+  document.body.style.overflow = on ? 'hidden' : ''
+  const c = document.getElementById('content')
+  if (c) c.style.overflow = on ? 'hidden' : ''   // scrollTop 保留，關閉後回原位
+}
+
+function focusablesIn(root) {
+  return [...root.querySelectorAll(
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter(el => el.offsetWidth || el.offsetHeight || el === document.activeElement)
+}
+
+function openOverlay(el, { initialFocus = null } = {}) {
+  if (overlayStack.some(o => o.el === el)) return
+  overlayStack.push({ el, restore: document.activeElement })
+  document.getElementById('app').inert = true
+  lockScroll(true)
+  // 同步聚焦：呼叫端已先把浮層設為顯示。（別排進 rAF——分頁在背景時 rAF 不跑，焦點會留在背景內容上）
+  const target = initialFocus || focusablesIn(el)[0] || el
+  target.focus?.({ preventScroll: true })
+}
+
+function closeOverlay(el) {
+  const i = overlayStack.findIndex(o => o.el === el)
+  if (i === -1) return
+  const [entry] = overlayStack.splice(i, 1)
+  if (!overlayStack.length) {
+    document.getElementById('app').inert = false
+    lockScroll(false)
+  }
+  entry.restore?.focus?.({ preventScroll: true })
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab' || !overlayStack.length) return
+  const el = overlayStack[overlayStack.length - 1].el
+  const f = focusablesIn(el)
+  if (!f.length) return
+  const first = f[0], last = f[f.length - 1]
+  if (!el.contains(document.activeElement)) { e.preventDefault(); first.focus() }
+  else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+})
+
+// ── 鍵盤操作 ───────────────────────────────────────────────────────
+const SHORTCUTS = [
+  ['←  /  [', '上一章'],
+  ['→  /  ]', '下一章'],
+  ['j  /  k', '向下 / 向上捲動'],
+  ['g', '回書庫'],
+  ['t', '跳到目錄（手機自動開側欄）'],
+  ['/', '搜尋（書庫：書名；閱讀中：圖表）'],
+  ['d', '切換明暗'],
+  ['?', '本說明'],
+  ['Esc', '關閉浮層 / 離開輸入框'],
+]
+
+function isTypingTarget(el) {
+  return Boolean(el) && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)
+}
+
+function clickIfEnabled(id) {
+  const b = document.getElementById(id)
+  if (b && !b.disabled) b.click()
+}
+
+function focusTOC() {
+  if (document.getElementById('app').dataset.view !== 'reader') return
+  if (readerDrawer && window.matchMedia('(max-width: 768px)').matches) readerDrawer.open()
+  setSidebarMode('toc')
+  const target = document.querySelector('.toc-row.active .toc-item') || document.querySelector('.toc-item')
+  target?.focus({ preventScroll: true })
+  target?.scrollIntoView({ block: 'nearest' })
+}
+
+function focusSearch() {
+  const isReader = document.getElementById('app').dataset.view === 'reader'
+  if (!isReader) { document.getElementById('lib-search').focus(); return }
+  if (readerDrawer && window.matchMedia('(max-width: 768px)').matches) readerDrawer.open()
+  setSidebarMode('catalog').then(() => document.getElementById('catalog-search').focus())
+}
+
+function toggleShortcuts(force) {
+  const el = document.getElementById('shortcuts-modal')
+  const open = force != null ? force : !el.classList.contains('open')
+  el.classList.toggle('open', open)
+  if (open) openOverlay(el)
+  else closeOverlay(el)
+}
+
+function setupKeyboard() {
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return
+    if (isTypingTarget(document.activeElement)) {
+      if (e.key === 'Escape') document.activeElement.blur()
+      return
+    }
+    if (e.key === 'Escape') {
+      if (document.getElementById('shortcuts-modal').classList.contains('open')) toggleShortcuts(false)
+      return
+    }
+    if (overlayStack.length) return   // 浮層開著時，其餘快捷鍵讓位
+    const content = document.getElementById('content')
+    const isReader = document.getElementById('app').dataset.view === 'reader'
+    switch (e.key) {
+      case 'ArrowLeft': case '[':
+        if (isReader) { e.preventDefault(); clickIfEnabled('btn-prev') } break
+      case 'ArrowRight': case ']':
+        if (isReader) { e.preventDefault(); clickIfEnabled('btn-next') } break
+      case 'j':
+        if (isReader) { e.preventDefault(); content.scrollBy({ top: Math.round(content.clientHeight * 0.12) }) } break
+      case 'k':
+        if (isReader) { e.preventDefault(); content.scrollBy({ top: -Math.round(content.clientHeight * 0.12) }) } break
+      case 'g': e.preventDefault(); location.hash = ''; break
+      case 't': e.preventDefault(); focusTOC(); break
+      case '/': e.preventDefault(); focusSearch(); break
+      case 'd':
+        e.preventDefault()
+        settings.theme = resolvedTheme() === 'dark' ? 'light' : 'dark'
+        saveSettings(); applySettings()
+        break
+      case '?': e.preventDefault(); toggleShortcuts(); break
+    }
+  })
+  document.getElementById('shortcuts-list').innerHTML = SHORTCUTS
+    .map(([k, d]) => `<div class="sc-key"><kbd>${esc(k)}</kbd></div><div class="sc-desc">${esc(d)}</div>`).join('')
+  document.getElementById('shortcuts-close').addEventListener('click', () => toggleShortcuts(false))
+  document.getElementById('shortcuts-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'shortcuts-modal') toggleShortcuts(false)
+  })
+  document.getElementById('btn-shortcuts').addEventListener('click', () => toggleShortcuts(true))
+}
+
 // ── lightbox ──────────────────────────────────────────────────────
 function setupLightbox() {
   const lb = document.getElementById('lightbox')
@@ -1128,12 +1346,13 @@ function setupLightbox() {
     lbCap.textContent = cap
     lbCap.style.display = cap ? 'block' : 'none'
     lb.classList.add('open')
-    document.body.style.overflow = 'hidden'
+    openOverlay(lb, { initialFocus: document.getElementById('lightbox-close') })
   })
   const close = () => {
+    if (!lb.classList.contains('open')) return
     lb.classList.remove('open')
     lbImg.src = ''
-    document.body.style.overflow = ''
+    closeOverlay(lb)
   }
   lb.addEventListener('click', close)
   document.getElementById('lightbox-close').addEventListener('click', (e) => {
@@ -1312,42 +1531,48 @@ function renderTOC() {
   const el = document.getElementById('toc')
   el.innerHTML = ''
   const isZh = settings.lang === 'zh'
+  const copyBtn = (title, onClick) => {
+    const b = document.createElement('button')
+    b.className = 'toc-copy qbk-icon-btn compact'; b.type = 'button'
+    b.title = title; b.setAttribute('aria-label', title)
+    b.textContent = '⧉'
+    b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); onClick(b) })
+    return b
+  }
   const buildItem = (kind, key, num, title, meta, sections) => {
     const hasSecs = (sections || []).length > 0
-    const it = document.createElement('div')
+    const row = document.createElement('div')
+    row.className = 'toc-row'
+    row.dataset.kind = kind; row.dataset.key = String(key)
+    const it = document.createElement('a')
     it.className = 'toc-item' + (hasSecs ? ' has-children' : '')
-    it.dataset.kind = kind; it.dataset.key = String(key)
+    it.href = chunkHash(kind, key)
     it.innerHTML =
       (hasSecs ? `<span class="toc-caret">▸</span>` : `<span class="toc-caret"></span>`) +
       `<span class="toc-num">${num}</span>` +
       `<span class="toc-title">${esc(title)}</span>` +
       (meta ? `<span class="toc-meta">${meta}</span>` : '')
-    it.onclick = () => navigate(slug, kind, key)
-    const cpBtn = document.createElement('button')
-    cpBtn.className = 'toc-copy qbk-icon-btn compact'; cpBtn.type = 'button'; cpBtn.title = '複製本章純文字'
-    cpBtn.textContent = '⧉'
-    cpBtn.onclick = (e) => { e.stopPropagation(); copyChapter(kind, key, cpBtn) }
-    it.appendChild(cpBtn)
-    el.appendChild(it)
+    row.appendChild(it)
+    row.appendChild(copyBtn('複製本章純文字', (b) => copyChapter(kind, key, b)))
+    el.appendChild(row)
     if (hasSecs) {
       const list = document.createElement('div')
       list.className = 'toc-section-list'
       list.dataset.parentKind = kind; list.dataset.parentKey = String(key)
       sections.forEach(s => {
-        const si = document.createElement('div')
+        const secRow = document.createElement('div')
+        secRow.className = 'toc-sec-row'
+        const si = document.createElement('a')
         si.className = 'toc-sec'
+        si.href = chunkHash(kind, key, s.anchor)
         si.dataset.kind = kind; si.dataset.key = String(key); si.dataset.anchor = s.anchor
         si.dataset.level = String(s.level)
         si.innerHTML =
           `<span class="toc-sec-num">${s.id ? esc(s.id) : ''}</span>` +
           `<span class="toc-sec-title">${esc(s.title)}</span>`
-        si.onclick = (e) => { e.stopPropagation(); jumpToSection(kind, key, s.anchor) }
-        const scBtn = document.createElement('button')
-        scBtn.className = 'toc-copy qbk-icon-btn compact'; scBtn.type = 'button'; scBtn.title = '複製本節純文字'
-        scBtn.textContent = '⧉'
-        scBtn.onclick = (e) => { e.stopPropagation(); copySection(kind, key, s.anchor, scBtn) }
-        si.appendChild(scBtn)
-        list.appendChild(si)
+        secRow.appendChild(si)
+        secRow.appendChild(copyBtn('複製本節純文字', (b) => copySection(kind, key, s.anchor, b)))
+        list.appendChild(secRow)
       })
       el.appendChild(list)
     }
@@ -1492,9 +1717,11 @@ function setupCatalogDetail() {
 }
 
 function closeCatalogDetail() {
-  document.getElementById('catalog-detail-modal').classList.remove('open')
+  const modal = document.getElementById('catalog-detail-modal')
+  if (!modal.classList.contains('open')) return
+  modal.classList.remove('open')
   document.getElementById('catalog-detail-body').innerHTML = ''
-  document.body.style.overflow = ''
+  closeOverlay(modal)
   catalogDetailTarget = null
 }
 
@@ -1505,8 +1732,9 @@ async function openCatalogDetail(entry, type) {
   document.getElementById('catalog-detail-meta').textContent = catalogMeta(entry)
   const body = document.getElementById('catalog-detail-body')
   body.innerHTML = '<div class="catalog-detail-fallback">Loading…</div>'
-  document.getElementById('catalog-detail-modal').classList.add('open')
-  document.body.style.overflow = 'hidden'
+  const modal = document.getElementById('catalog-detail-modal')
+  modal.classList.add('open')
+  openOverlay(modal, { initialFocus: document.getElementById('catalog-detail-close') })
   const html = await catalogDetailHtml(entry, type)
   if (!catalogDetailTarget || catalogDetailTarget.entry !== entry) return
   body.innerHTML = html
@@ -1574,10 +1802,10 @@ function jumpToCatalogEntry(entry) {
 }
 
 function highlightTOC() {
-  document.querySelectorAll('.toc-item').forEach(it => {
-    const on = it.dataset.kind === currentKind && it.dataset.key === String(currentKey)
-    it.classList.toggle('active', on)
-    it.classList.toggle('expanded', on && it.classList.contains('has-children'))
+  document.querySelectorAll('.toc-row').forEach(row => {
+    const on = row.dataset.kind === currentKind && row.dataset.key === String(currentKey)
+    row.classList.toggle('active', on)
+    row.classList.toggle('expanded', on && Boolean(row.querySelector('.toc-item.has-children')))
   })
 }
 
@@ -1585,9 +1813,10 @@ function jumpToSection(kind, key, anchor) {
   if (kind === currentKind && String(key) === String(currentKey)) {
     scrollToAnchor(anchor)
     setActiveSection(anchor)
+    replaceHash(chunkHash(kind, key, anchor))
   } else {
     pendingAnchor = anchor
-    navigate(slug, kind, key)
+    navigate(slug, kind, key, anchor)
   }
 }
 
@@ -1608,7 +1837,7 @@ function scrollToAnchor(anchor) {
 function setActiveSection(anchor) {
   activeSectionAnchor = anchor || null
   document.querySelectorAll('.toc-sec').forEach(s =>
-    s.classList.toggle('active', Boolean(anchor) && s.dataset.anchor === anchor))
+    s.closest('.toc-sec-row')?.classList.toggle('active', Boolean(anchor) && s.dataset.anchor === anchor))
   revealActiveTOC(anchor)
 }
 
@@ -1616,7 +1845,7 @@ function revealActiveTOC(anchor) {
   const toc = document.getElementById('toc')
   const target = anchor
     ? toc.querySelector(`.toc-sec[data-anchor="${CSS.escape(anchor)}"]`)
-    : toc.querySelector(`.toc-item.active`)
+    : toc.querySelector(`.toc-row.active`)
   if (!target) return
   target.scrollIntoView({ block: 'nearest' })
 }
@@ -1786,11 +2015,22 @@ function setupSectionSpy() {
 }
 
 // ── navigation ──
-function navigate(s, kind, key) {
+// 路由：#slug / #slug/kind/key / #slug/kind/key/anchor（節錨可分享、可收藏）
+function chunkHash(kind, key, anchor) {
+  const base = `#${encodeURIComponent(slug)}/${kind}/${encodeURIComponent(key)}`
+  return anchor ? `${base}/${encodeURIComponent(anchor)}` : base
+}
+
+function navigate(s, kind, key, anchor) {
   persistCurrentProgress()
   if (!s) { location.hash = ''; return }
-  if (!kind) location.hash = s
-  else location.hash = `${s}/${kind}/${key}`
+  if (!kind) { location.hash = s; return }
+  location.hash = `${s}/${kind}/${key}` + (anchor ? `/${encodeURIComponent(anchor)}` : '')
+}
+
+// 捲動造成的「目前所在節」變動只改網址、不寫 history（否則上一頁會被逐節塞爆）
+function replaceHash(hash) {
+  try { history.replaceState(null, '', hash) } catch { /* file:// 等環境 → 放棄同步網址 */ }
 }
 
 async function parseHash({ restoreSaved = false } = {}) {
@@ -1821,11 +2061,18 @@ async function parseHash({ restoreSaved = false } = {}) {
   await loadBook(s)
   if (parts.length >= 3) {
     const kind = parts[1]
-    const key = parts[2]
+    const key = decodeURIComponent(parts[2])
+    const anchor = parts[3] ? decodeURIComponent(parts[3]) : null
     if (!validChunkRef(kind, key)) {
       showBookOverview()
       return
     }
+    // 同一章內換錨點：只捲動，不重建整章 DOM（重建 = 丟掉已排版的數學與捲動脈絡）
+    if (book && kind === currentKind && String(key) === String(currentKey)) {
+      if (anchor) { scrollToAnchor(anchor); setActiveSection(anchor) }
+      return
+    }
+    pendingAnchor = anchor || pendingAnchor
     await showChunk(kind, key)
   } else {
     const saved = savedProgressTargetFor(s)
@@ -1868,13 +2115,16 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
   const content = document.getElementById('content')
   const previousScrollTop = preserveScroll ? content.scrollTop : 0
   const savedPosition = preserveScroll || pendingAnchor ? null : chunkProgress(slug, kind, key)
-  content.innerHTML = '<div id="loading">loading...</div>'
+  content.innerHTML = SKELETON_HTML
   content.scrollLeft = 0
   let data
   try {
     data = await fetchChunk(kind, key)
   } catch (e) {
-    content.innerHTML = `<div id="empty">章節載入失敗</div>`
+    content.innerHTML = `<div class="chunk-error">
+      <div>章節載入失敗：${esc(e.message || 'network error')}</div>
+      <button class="qbk-control-btn" id="chunk-retry" type="button">重試</button></div>`
+    document.getElementById('chunk-retry').onclick = () => showChunk(kind, key, { preserveScroll })
     return
   }
 
