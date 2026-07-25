@@ -1,0 +1,13 @@
+{
+  "name": "textbook-reader-frontend-tests",
+  "private": true,
+  "type": "module",
+  "description": "前端 smoke 測試（Playwright）。應用本身是零依賴的靜態站，這裡只有測試工具鏈。",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}

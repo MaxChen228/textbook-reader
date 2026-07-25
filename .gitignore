@@ -6,6 +6,11 @@ __pycache__/
 # Node（math_validate 的 render_check.js 依賴 mathjax-full；package.json/lock 追蹤、modules 不入 git）
 book_pipeline/node_modules/
 
+# Node（前端 smoke 測試的 Playwright；package.json/lock 追蹤、modules 與報告不入 git）
+/node_modules/
+/test-results/
+/playwright-report/
+
 # macOS
 .DS_Store
 
