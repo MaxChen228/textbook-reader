@@ -289,9 +289,14 @@
     startup: { typeset: false },
   };
 
+  // 列印視窗是 about:blank + document.write，沒有 base URL → 相對路徑無效，一律用 origin 絕對路徑。
+  function assetUrl(path) {
+    return new URL(path, location.href).href;
+  }
+
   function printTypographyCss() {
     return `
-@import url('https://cdn.jsdelivr.net/npm/computer-modern@0.1.3/cmu-serif.css');
+@import url('${assetUrl('assets/fonts/fonts.css')}');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;600&display=swap');
 :root {
   --latin-serif: 'CMU Serif', 'Computer Modern Serif', 'Computer Modern', 'Latin Modern Roman', 'Times New Roman';
@@ -307,7 +312,7 @@
     const html = `<!DOCTYPE html><html lang="zh-TW"><head>
 <meta charset="UTF-8"><title>${escapeHtml(title || '')}</title>
 <script>MathJax=${JSON.stringify(mathJaxConfig)};</` + `script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></` + `script>
+<script src="${assetUrl('assets/vendor/mathjax/tex-chtml-full.js')}"></` + `script>
 <style>${extraStyles || ''}</style></head><body>
 ${bodyHtml}
 <script>
