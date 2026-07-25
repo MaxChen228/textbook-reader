@@ -77,10 +77,15 @@ uv run python -m http.server 8001                        # 本機預覽
 
 - Hash 路由:`#`→library,`#slug`→書總覽,`#slug/kind/key`→chunk,`#slug/kind/key/anchor`→節錨(可分享)。文法單一真相 = `assets/js/router.js`。
 - **Math 視窗化 + derender**(`setupIncrementalMath`,最核心架構決策):整章 typeset 上千公式會阻塞數秒、吃數百 MB。只 typeset 視窗 ±900px 的 unit,捲出 3000px 還原成 `_mathRaw` 原始碼以 placeholder 占位 → 記憶體封頂。改公式渲染前必懂。三態 `data-mathState` raw→rendering→rendered:排版失敗**必須**退回 raw,提前記成 rendered 會讓整章數學永久卡在原始碼。
-- **原生 ESM,無 bundler**(2026-07-25 重構):`assets/js/` = `blocks.js`(區塊→HTML/純文字的**單一真相**,reader 與 problems 共用——過去兩份實作已漂移出圖片無版位預留、表格轉文字丟表身等實質差異)/`store.js`(設置+進度持久化)/`router.js`(路由文法)/`shared.js`(下述全域層的 ESM 轉接)/`reader.js`+`problems.js`(各頁應用層)。各頁 `<head>` 以 modulepreload 攤平 import 瀑布。
+- **原生 ESM,無 bundler**(2026-07-25 重構):`assets/js/` = `blocks.js`(區塊→HTML/純文字的**單一真相**,reader 與 problems 共用——過去兩份實作已漂移出圖片無版位預留、表格轉文字丟表身等實質差異)/`store.js`(設置+進度+標註持久化)/`router.js`(路由文法)/`search.js`(書內全文搜尋)/`annotate.js`(畫線定位)/`shared.js`(下述全域層的 ESM 轉接)/`reader.js`+`problems.js`(各頁應用層)。各頁 `<head>` 以 modulepreload 攤平 import 瀑布。
+- **書內全文搜尋**(`/` 或側欄 SEARCH):兩段式——build 每本烤 `data/<slug>/search.json` 倒排索引(token→章序號,~40KB gz)只回答「哪幾章可能有」;前端只抓那幾章 JSON 在瀏覽器做子字串比對產生命中與摘要(一次最多 12 章、並行 4、掃不完明說「還有 N 章」)。**分詞規格在 `build/bake_json.py` 檔頭,`search.js` 逐條鏡像**(小寫+去附加符號+CJK 2-gram),兩邊漂移=索引查不到,已有測試綁住。
+- **閱讀進度/標註全在 localStorage**(`store.js`):進度 item 的 `scrollRatio`(離開位置,續讀用)與 `maxRatio`(最遠處,顯示用)**刻意分開**——合成一個會被「排版後高度長高」把 40% 覆寫成 4%。標註**認原文不認座標**(存 quote+前後 32 字,重載時回找):`data/` 每天重生,只認位置的標註必然錯位;找不到就標 orphan 留著,絕不靜默丟掉。
+- **Service Worker (`sw.js`) 一律 network-first**,只為離線、不為加速:此站 data/ 天天重生且 CF 邊緣已咬過一次快取,再疊一層提前回應的快取等於再造失效來源。`/dev` 排除;逃生口 `?sw=off`(登出+清空);nginx 對 `= /sw.js` 發 private,no-cache。
+- 版心以 **ch** 計(非 px):字級可調時 px 版心會讓每行字數暴衝(10px×1180px≒一行兩百字)。
 - 共用層 `assets/qbank-shared.js` 維持**傳統全域腳本**(`window.QBankShared`)不改 module:`dev/index.html` 的 inline 腳本同步依賴它,且 `build/gen_macros.py` 以字串區塊寫入其 mathJaxConfig。新模組一律經 `shared.js` 取用。
 - 第三方資產全自託管(`assets/vendor/` MathJax 3 + marked;`assets/fonts/` CMU/Inter 等),無 CDN 依賴。
-- **前端測試**:`npx playwright test`(先 `npm install && npx playwright install chromium`)。`tests/` 16 條 smoke 守住路由/渲染/CLS/焦點鎖/虛擬捲動/分片索引等不變量;webServer `reuseExistingServer` → 常駐主機直接沿用 8001 的 nginx。
+- **前端測試**:`npx playwright test`(先 `npm install && npx playwright install chromium`)。`tests/` 37 條 smoke 守住路由/渲染/CLS/焦點鎖/虛擬捲動/分片索引/搜尋分詞一致性/進度語意/標註重錨/**換書狀態隔離**/離線等不變量;webServer `reuseExistingServer` → 常駐主機直接沿用 8001 的 nginx。
+- **換書的單一收斂點 = `reader.js` 的 `resetBookScopedState()`**:搜尋命中、面板查詢、待處理錨點、在飛掃描、chunk/catalog/index 快取全在此清乾淨(舊命中列點下去會用新書 slug 導到不存在的章;快取跨書累積是幾百 MB)。**新增任何 per-book 狀態都必須同步加進去**。
 
 ## 部署（standby）
 
