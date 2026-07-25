@@ -66,7 +66,13 @@ export function saveSettings(settings) {
 
 // ── 閱讀進度 ───────────────────────────────────────────────────────
 // schema：{ last: item, chunks: { '<slug>/<kind>/<key>': item } }
-// item：{ slug, kind, key, anchor, scrollTop, scrollRatio, updatedAt }
+// item：{ slug, kind, key, anchor, scrollTop, scrollRatio, maxRatio, updatedAt }
+//
+// **兩個比例各司其職，別合併**：
+//   scrollRatio = 離開時的位置 → 下次回到這一章要捲到哪（resume）
+//   maxRatio    = 這一章曾到達的最遠處 → 進度顯示（單調不減）
+// 合成一個會壞在這個真實情境：開站自動回到上次位置，內容因為數學排版而長高，
+// 同一個 scrollTop 換算出來的比例變小，一離開就把 40% 覆寫成 4%。進度只該往前。
 export const PROGRESS_KEY = 'textbook.readerProgress.v1'
 
 export function progressKey(slug, kind, key) {
@@ -94,10 +100,18 @@ export function recordProgress(item) {
   const ck = progressKey(item.slug, item.kind, item.key)
   if (!ck) return false
   const data = loadProgress()
-  data.last = item
   data.chunks = (data.chunks && typeof data.chunks === 'object') ? data.chunks : {}
-  data.chunks[ck] = item
+  const merged = { ...item, maxRatio: Math.max(furthest(data.chunks[ck]), Number(item.scrollRatio) || 0) }
+  data.last = merged
+  data.chunks[ck] = merged
   return saveProgress(data)
+}
+
+/** 一筆紀錄的「最遠讀到哪」。舊資料只有 scrollRatio → 拿它當初始值。 */
+export function furthest(item) {
+  if (!item) return 0
+  const v = Number(item.maxRatio)
+  return Number.isFinite(v) ? v : (Number(item.scrollRatio) || 0)
 }
 
 /** 某本書上次讀到哪（跨 chunk）；不是這本書就 null。 */
@@ -105,4 +119,66 @@ export function lastProgressFor(slug) {
   const last = loadProgress().last
   if (!last || last.slug !== slug || !last.kind || last.key == null) return null
   return last
+}
+
+/** 捲到這個比例就算「讀完這一章」。不用 1.0：最後一段常留在視窗中段，永遠碰不到底。 */
+export const CHUNK_DONE_RATIO = 0.9
+/**
+ * 低於這個比例視同「只是點進去看了一眼」，不算讀過。
+ * 沒有這道門檻的話，隨手翻過的書會全部掛上「已讀 0/9 章 0%」，書牆變成一片雜訊。
+ */
+export const CHUNK_STARTED_RATIO = 0.02
+
+function chunkItems(data, slug) {
+  return Object.entries(data.chunks || {})
+    .filter(([ck]) => ck.startsWith(`${slug}/`))
+    .map(([, item]) => item)
+    .filter(it => it && typeof it === 'object')
+}
+
+/**
+ * 單書統計：碰過幾章、讀完幾章、最後閱讀時間與位置。
+ * total（總章數）由呼叫端從 books.json 給——store 不該知道書的結構。
+ */
+export function bookStats(slug, total = 0) {
+  const data = loadProgress()
+  const items = chunkItems(data, slug)
+  if (!items.length) return { touched: 0, started: 0, read: 0, total, ratio: 0, lastAt: 0, last: null }
+  const read = items.filter(it => furthest(it) >= CHUNK_DONE_RATIO).length
+  const started = items.filter(it => furthest(it) >= CHUNK_STARTED_RATIO).length
+  const newest = items.reduce((a, b) => (Number(b.updatedAt) > Number(a.updatedAt) ? b : a))
+  return {
+    touched: items.length,
+    started,
+    read,
+    total,
+    ratio: total ? Math.min(1, read / total) : 0,
+    lastAt: Number(newest.updatedAt) || 0,
+    last: newest,
+  }
+}
+
+/** 最近讀過的書（新到舊）。回傳 [{slug, lastAt, last}]，供「繼續閱讀」用。 */
+export function recentBooks(limit = 4) {
+  const data = loadProgress()
+  const bySlug = new Map()
+  for (const [ck, item] of Object.entries(data.chunks || {})) {
+    if (!item || typeof item !== 'object') continue
+    if (furthest(item) < CHUNK_STARTED_RATIO) continue   // 點進去看一眼不算「在讀」
+    const slug = item.slug || ck.split('/')[0]
+    const at = Number(item.updatedAt) || 0
+    const cur = bySlug.get(slug)
+    if (!cur || at > cur.lastAt) bySlug.set(slug, { slug, lastAt: at, last: item })
+  }
+  return [...bySlug.values()].sort((a, b) => b.lastAt - a.lastAt).slice(0, limit)
+}
+
+/** 忘掉某本書的所有進度（書卡上的「清除進度」）。 */
+export function forgetBook(slug) {
+  const data = loadProgress()
+  for (const ck of Object.keys(data.chunks || {})) {
+    if (ck.startsWith(`${slug}/`)) delete data.chunks[ck]
+  }
+  if (data.last?.slug === slug) delete data.last
+  return saveProgress(data)
 }

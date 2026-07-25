@@ -80,6 +80,11 @@ export function queryTerms(q) {
 
 const indexCache = new Map()
 
+/** 換書時丟掉別本書的索引（一本 ~100KB，沒必要留著）。 */
+export function dropIndexesExcept(slug) {
+  for (const k of indexCache.keys()) if (k !== slug) indexCache.delete(k)
+}
+
 /** 載某本書的索引（含快取）。找不到（舊 build 沒烤）回 null，呼叫端據此顯示「此書尚無索引」。 */
 export async function loadIndex(slug) {
   if (!indexCache.has(slug)) {

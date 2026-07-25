@@ -13,9 +13,10 @@ import {
   FS_VALUES, LH_VALUES, WIDTH_VALUES, DEFAULT_SETTINGS, clampStep,
   loadSettings, saveSettings as persistSettings,
   loadProgress, recordProgress, chunkProgress, lastProgressFor,
+  bookStats, recentBooks, furthest, CHUNK_DONE_RATIO,
 } from './store.js'
 import { buildHash, parseHash as parseRoute, go as routerGo, replace as replaceHash } from './router.js'
-import { loadIndex, queryTerms, candidateChunks, searchChunk, highlightInDom } from './search.js'
+import { loadIndex, dropIndexesExcept, queryTerms, candidateChunks, searchChunk, highlightInDom } from './search.js'
 
 let books = []         // 已收錄可讀書 metadata（data/books.json）
 let catalog = null     // 完整收錄表（data/catalog.json）：書單 SoT × 三態，library 渲染來源
@@ -67,6 +68,27 @@ function persistCurrentProgress() {
     scrollRatio: maxScroll ? Math.min(1, Math.max(0, content.scrollTop / maxScroll)) : 0,
     updatedAt: Date.now(),
   })
+  updateTocProgressBadge()
+}
+
+/** 只更新目前這一章在目錄上的已讀徽章（整份 renderTOC 太貴，捲動時每 250ms 會跑到）。 */
+function updateTocProgressBadge() {
+  const row = document.querySelector(
+    `.toc-row[data-kind="${CSS.escape(String(currentKind))}"][data-key="${CSS.escape(String(currentKey))}"]`)
+  if (!row) return
+  const prog = chunkProgress(slug, currentKind, currentKey)
+  const ratio = furthest(prog)
+  const done = ratio >= CHUNK_DONE_RATIO
+  row.classList.toggle('read', Boolean(prog) && done)
+  row.classList.toggle('reading', Boolean(prog) && !done)
+  let badge = row.querySelector('.toc-read')
+  if (!badge) {
+    badge = document.createElement('span')
+    badge.className = 'toc-read'
+    row.querySelector('.toc-title')?.after(badge)
+  }
+  badge.textContent = done ? '✓' : `${Math.round(ratio * 100)}%`
+  badge.title = done ? '已讀完' : `讀到 ${Math.round(ratio * 100)}%`
 }
 
 function scheduleProgressSave() {
@@ -729,6 +751,48 @@ function renderLibraryRail() {
 
 // 收錄表渲染：catalog.fields（書單 SoT × 三態）→ field 群組 → 具名子單 → 三態卡片。
 // 搜尋對 title/author 做子字串過濾；libraryField 選領域。只有「已收錄」卡可點進 reader。
+// ── 繼續閱讀 ───────────────────────────────────────────────────────────
+// 進度一直都在存（store.js），但過去完全看不見：只有「開站自動跳回上次」這個
+// 隱形行為。這裡把它顯性化——書庫最上方列出最近讀的書，點下去回到原處。
+
+/** 一本書的總 chunk 數（章 + 附錄），books.json 的 meta 就有，不必載 book.json。 */
+function bookChunkTotal(m) {
+  return (m?.chapter_count || 0) + (m?.appendix_count || 0)
+}
+
+function progressBarHtml(ratio) {
+  return `<div class="prog-bar"><i style="width:${Math.round(Math.max(0, Math.min(1, ratio)) * 100)}%"></i></div>`
+}
+
+function chunkLabel(kind, key) {
+  return kind === 'ch' ? `Ch ${key}` : `App ${key}`
+}
+
+function renderContinueReading() {
+  const host = document.getElementById('lib-continue')
+  const recent = recentBooks(4).filter(r => bookBySlug[r.slug])
+  if (!recent.length) { host.hidden = true; host.innerHTML = ''; return }
+  host.hidden = false
+  host.innerHTML = `<div class="lib-continue-label">繼續閱讀</div>
+    <div class="lib-continue-grid">${recent.map(r => {
+      const m = bookBySlug[r.slug]
+      const st = bookStats(r.slug, bookChunkTotal(m))
+      const pct = Math.round(furthest(r.last) * 100)
+      const cover = m.has_cover
+        ? `<div class="lib-resume-cover"><img src="img/${escAttr(r.slug)}/cover.webp" alt="" loading="lazy"
+             onerror="this.closest('.lib-resume-cover').style.display='none'"></div>`
+        : ''
+      return `<a class="lib-resume qbk-raised-item" href="${escAttr(buildHash({ slug: r.slug, kind: r.last.kind, key: r.last.key }))}" data-slug="${escAttr(r.slug)}">
+        ${cover}
+        <div class="lib-resume-body">
+          <div class="lib-resume-title">${esc(m.title || r.slug)}</div>
+          <div class="lib-resume-where">${esc(chunkLabel(r.last.kind, r.last.key))} · ${pct}%${st.total ? ` · 全書 ${st.read}/${st.total} 章` : ''}</div>
+          ${progressBarHtml(st.total ? st.read / st.total : 0)}
+        </div>
+      </a>`
+    }).join('')}</div>`
+}
+
 function renderLibrary(filter) {
   const wrap = document.getElementById('lib-groups')
   const count = document.getElementById('library-count')
@@ -761,9 +825,14 @@ function renderLibrary(filter) {
 
   count.textContent = `${shown}/${totalAll}`
   wrap.innerHTML = html || '<div class="lib-empty">沒有相符的書</div>'
-  wrap.querySelectorAll('.lib-card[data-slug]').forEach(card => {
+  renderContinueReading()
+  // 書卡與「繼續閱讀」都是真 <a href>；這裡攔下來走 navigate（會先存目前進度）。
+  document.querySelectorAll('.lib-card[data-slug], .lib-resume[data-slug]').forEach(card => {
     card.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return   // 開新分頁維持原生行為
       e.preventDefault()
+      const href = card.getAttribute('href') || ''
+      if (card.classList.contains('lib-resume')) { location.hash = href; return }
       navigate(card.dataset.slug)
     })
   })
@@ -788,6 +857,12 @@ function catalogCardHtml(b) {
     const cover = m.has_cover
       ? `<div class="lib-card-cover"><img src="img/${escAttr(b.slug)}/cover.webp" alt="" loading="lazy" onerror="this.closest('.lib-card-cover').style.display='none'"></div>`
       : ''
+    // 讀過的書在卡片底部顯示進度（沒讀過的完全不佔版面，書牆維持乾淨）
+    const total = bookChunkTotal(m)
+    const st = bookStats(b.slug, total)
+    const progress = st.started
+      ? `<div class="lib-card-progress"><span>已讀 ${st.read}/${total || '?'} 章</span><span>${Math.round(st.ratio * 100)}%</span></div>${progressBarHtml(st.ratio)}`
+      : ''
     return `<a class="lib-card qbk-raised-item" href="#${escAttr(b.slug)}" data-slug="${escAttr(b.slug)}">
       ${cover}
       <div class="lib-card-body">
@@ -795,6 +870,7 @@ function catalogCardHtml(b) {
         <div class="lib-card-author">${esc(b.author || m.author || '')}</div>
         <div class="lib-card-meta">${meta}</div>
       </div>
+      ${progress}
     </a>`
   }
   const ghost = (st === 'owned') ? 'processing' : st   // owned 但未部署 → 處理中 ghost
@@ -814,6 +890,49 @@ function updateSidebarHeader() {
   document.getElementById('sb-bookmeta').textContent = meta
 }
 
+/**
+ * 換書時清掉**只屬於上一本書**的狀態。
+ *
+ * 這些狀態過去都活到下一本書：搜尋命中（點下去會用新書的 slug 導航 → 開到不存在的章）、
+ * 圖表面板的查詢與型別、待處理的節錨/題號、在飛的非同步掃描與計時器。
+ * 快取也一併只留當前這本：每章解析後是數 MB 的物件，跨書累積會吃掉幾百 MB。
+ * **新增任何 per-book 狀態時，必須同時在這裡清掉**——這是換書的單一收斂點。
+ */
+function resetBookScopedState(nextSlug) {
+  searchRun += 1                       // 作廢在飛的搜尋掃描（worker 迴圈會自己停）
+  if (searchTimer) { clearTimeout(searchTimer); searchTimer = null }
+  searchTerms = []
+  searchHits = []
+  activeSearchHit = -1
+  searchChunkCap = SEARCH_CHUNK_CAP
+  pendingSearchScroll = false
+  const box = document.getElementById('book-search')
+  if (box) box.value = ''
+  setSearchStatus('')
+  renderSearchResults()
+
+  if (catalogSearchTimer) { clearTimeout(catalogSearchTimer); catalogSearchTimer = null }
+  catalogQuery = ''
+  catalogType = 'figures'
+  catalogLimit = 80
+  catalogDetailTarget = null
+  const cbox = document.getElementById('catalog-search')
+  if (cbox) cbox.value = ''
+  closeCatalogDetail()
+
+  pendingAnchor = null
+  pendingProblemNum = null
+  activeSectionAnchor = null
+  // 側欄回到目錄：搜尋與圖表面板的內容都已歸零，停在空面板只會讓人以為新書沒東西。
+  setSidebarMode('toc')
+
+  const keep = `${nextSlug}/`
+  for (const k of Object.keys(chunkCache)) if (!k.startsWith(keep)) delete chunkCache[k]
+  for (const k of Object.keys(bookCache)) if (!k.startsWith(keep)) delete bookCache[k]
+  for (const k of Object.keys(catalogCache)) if (k !== nextSlug) delete catalogCache[k]
+  dropIndexesExcept(nextSlug)
+}
+
 async function loadBook(s, { reloadForLanguage = false } = {}) {
   currentBookHasZh = !!(books.find(b => b.slug === s) || {}).has_zh
   const key = `${s}/${bookLangKey()}`
@@ -824,6 +943,7 @@ async function loadBook(s, { reloadForLanguage = false } = {}) {
     }
     return book
   }
+  if (slug !== s) resetBookScopedState(s)
   slug = s
   if (!bookCache[key]) {
     bookCache[key] = await QBankShared.fetchJson(`data/${s}/book${bookLangSuffix()}.json`)
@@ -856,6 +976,13 @@ function renderTOC() {
     const row = document.createElement('div')
     row.className = 'toc-row'
     row.dataset.kind = kind; row.dataset.key = String(key)
+    // 讀過的章在目錄留痕：讀完打勾、讀一半顯示百分比。翻書時一眼看得出走到哪。
+    const prog = chunkProgress(slug, kind, key)
+    const ratio = furthest(prog)
+    if (prog) row.classList.add(ratio >= CHUNK_DONE_RATIO ? 'read' : 'reading')
+    const badge = !prog ? ''
+      : ratio >= CHUNK_DONE_RATIO ? '<span class="toc-read" title="已讀完">✓</span>'
+      : `<span class="toc-read" title="讀到 ${Math.round(ratio * 100)}%">${Math.round(ratio * 100)}%</span>`
     const it = document.createElement('a')
     it.className = 'toc-item' + (hasSecs ? ' has-children' : '')
     it.href = chunkHash(kind, key)
@@ -863,6 +990,7 @@ function renderTOC() {
       (hasSecs ? `<span class="toc-caret">▸</span>` : `<span class="toc-caret"></span>`) +
       `<span class="toc-num">${num}</span>` +
       `<span class="toc-title">${esc(title)}</span>` +
+      badge +
       (meta ? `<span class="toc-meta">${meta}</span>` : '')
     row.appendChild(it)
     row.appendChild(copyBtn('複製本章純文字', (b) => copyChapter(kind, key, b)))
@@ -1364,7 +1492,6 @@ async function applyRoute({ restoreSaved = false } = {}) {
     }
     showLibrary(); return
   }
-  pendingProblemNum = route.params.get('problem')
   const s = route.slug
   if (!books.find(b => b.slug === s)) {
     showLibrary()
@@ -1375,6 +1502,8 @@ async function applyRoute({ restoreSaved = false } = {}) {
   document.getElementById('app').dataset.view = 'reader'
   closeReaderSidebar()
   await loadBook(s)
+  // 必須在 loadBook 之後才取：換書會清掉所有 per-book 待處理狀態（resetBookScopedState）
+  pendingProblemNum = route.params.get('problem')
   if (route.kind && route.key != null) {
     const { kind, key, anchor } = route
     if (!validChunkRef(kind, key)) {
@@ -1406,11 +1535,30 @@ function showBookOverview() {
   document.getElementById('btn-prev').disabled = true
   document.getElementById('btn-next').disabled = true
   updateReaderPanel()
+  // 書總覽是「上次讀到哪」最該出現的地方：有進度就給續讀入口，沒有就給第一章。
+  const total = bookChunkTotal(bookBySlug[slug])
+  const st = bookStats(slug, total)
+  const first = book.chapters?.[0]
+    ? { kind: 'ch', key: book.chapters[0].num }
+    : (book.appendices?.[0] ? { kind: 'app', key: book.appendices[0].id } : null)
+  const resume = st.last ? { kind: st.last.kind, key: st.last.key } : null
+  const cta = (resume || first)
+    ? `<a class="qbk-control-btn overview-cta" href="${escAttr(chunkHash((resume || first).kind, (resume || first).key))}">
+         ${resume ? `繼續讀 ${esc(chunkLabel(resume.kind, resume.key))}` : '從第一章開始'}
+       </a>`
+    : ''
+  const progress = st.started
+    ? `<div class="overview-progress">
+         <div class="overview-progress-line">已讀 ${st.read}/${total || '?'} 章 · ${Math.round(st.ratio * 100)}%</div>
+         ${progressBarHtml(st.ratio)}
+       </div>`
+    : ''
   document.getElementById('content').innerHTML = `
     <div class="article">
       <h1>${esc(book.title)}</h1>
       <p style="color:var(--sub);margin-top:6px;font-style:italic">${esc(book.author||'')}${book.edition?` · ${esc(book.edition)} edition`:''}</p>
-      <p>從左側選章節開始閱讀。</p>
+      ${progress}
+      <p>${cta || '從左側選章節開始閱讀。'}</p>
     </div>`
 }
 

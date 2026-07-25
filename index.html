@@ -108,6 +108,12 @@
        overflow-wrap:anywhere 只在遇到超長不可斷詞（化學式/URL）時才硬斷。 */
     .toc-title { flex: 1; min-width: 0; overflow-wrap: anywhere; }
     .toc-meta { font-family: var(--mono); font-size: 9px; color: var(--sub); flex-shrink: 0; }
+    .toc-read {
+      font-family: var(--mono); font-size: 8.5px; flex-shrink: 0;
+      color: var(--sub); letter-spacing: .02em;
+    }
+    .toc-row.read .toc-read { color: var(--ink); }
+    .toc-row.read .toc-title, .toc-row.reading .toc-title { color: var(--ink-light); }
     .toc-caret {
       flex-shrink: 0; width: 10px; font-family: var(--mono); font-size: 9px;
       color: var(--sub); text-align: center; transition: transform .15s ease;
@@ -336,6 +342,49 @@
       display: grid; gap: 12px;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     }
+    /* ── 繼續閱讀 ─────────────────────────────────────────────────────── */
+    .overview-cta { display: inline-flex; margin-top: 4px; }
+    .overview-progress { margin: 14px 0 18px; max-width: 320px; }
+    .overview-progress-line {
+      font-family: var(--mono); font-size: 10px; color: var(--sub); margin-bottom: 5px;
+    }
+    .lib-continue { margin-bottom: 26px; }
+    .lib-continue-label {
+      font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--sub); margin-bottom: 10px;
+    }
+    .lib-continue-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px;
+    }
+    .lib-resume {
+      display: flex; gap: 11px; padding: 10px; background: var(--surface);
+      text-decoration: none; color: inherit; align-items: center;
+      transition: box-shadow .2s ease;
+    }
+    .lib-resume:hover { box-shadow: var(--shadow-card); }
+    .lib-resume-cover {
+      width: 42px; flex: 0 0 42px; aspect-ratio: 3/4; overflow: hidden;
+      background: var(--bg); border: 1px solid var(--border-l);
+    }
+    .lib-resume-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .lib-resume-body { min-width: 0; flex: 1; }
+    .lib-resume-title {
+      font-size: 13px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .lib-resume-where {
+      font-family: var(--mono); font-size: 9.5px; color: var(--sub); margin-top: 3px;
+    }
+    /* 進度條：書卡與繼續閱讀共用同一顆元件 */
+    .prog-bar { height: 2px; background: var(--border-l); overflow: hidden; }
+    .prog-bar > i { display: block; height: 100%; background: var(--ink); }
+    .lib-resume .prog-bar { margin-top: 6px; }
+    .lib-card .prog-bar { margin: 0; }
+    .lib-card-progress {
+      font-family: var(--mono); font-size: 9px; color: var(--sub);
+      padding: 4px 12px 0; display: flex; justify-content: space-between;
+    }
+
     .lib-card {
       padding: 0; background: var(--surface);
       cursor: pointer; text-decoration: none; color: inherit;
@@ -802,6 +851,7 @@
 
     <div id="library-view">
       <div class="lib-wrap qbk-scroll">
+        <section id="lib-continue" class="lib-continue" hidden></section>
         <div id="lib-groups"></div>
       </div>
     </div>
