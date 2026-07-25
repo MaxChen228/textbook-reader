@@ -32,3 +32,33 @@ export const {
 } = S
 
 export default S
+
+/**
+ * 註冊 Service Worker（只為離線，見 sw.js 檔頭；一律 network-first、零陳舊風險）。
+ * `?sw=off` 是逃生口：萬一某天 SW 出事，帶這個 query 開一次就會登出並清空它的快取。
+ * 失敗一律靜默——離線能力是加分項，絕不能因為它讓正常載入出問題。
+ */
+export function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return
+  if (new URLSearchParams(location.search).get('sw') === 'off') {
+    (async () => {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map(r => r.unregister()))
+      // unregister 不會停掉「目前這一頁」的 controller：這一輪的資源請求仍走 SW，
+      // 清了快取也會被它馬上填回去。所以先重載一次脫離控管（用 sessionStorage 擋迴圈），
+      // 下一輪 controller 為 null 時才真的清得乾淨。
+      if (navigator.serviceWorker.controller && !sessionStorage.getItem('sw-off')) {
+        sessionStorage.setItem('sw-off', '1')
+        location.reload()
+        return
+      }
+      sessionStorage.removeItem('sw-off')
+      const ks = await caches.keys()
+      await Promise.all(ks.map(k => caches.delete(k)))
+    })().catch(() => {})
+    return
+  }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {})
+  })
+}

@@ -7,7 +7,7 @@
  *   router.js — hash 路由文法
  *   shared.js — 三頁共用的 QBankShared（傳統全域腳本的 ESM 轉接層）
  */
-import QBankShared, { safeHtml as esc, escapeAttr as escAttr, renderMarkdown } from './shared.js'
+import QBankShared, { safeHtml as esc, escapeAttr as escAttr, renderMarkdown, registerServiceWorker } from './shared.js'
 import { renderBlocks, biReveal, blocksToText, problemsToText } from './blocks.js'
 import {
   FS_VALUES, LH_VALUES, WIDTH_VALUES, DEFAULT_SETTINGS, clampStep,
@@ -138,7 +138,7 @@ function applySettings() {
   const width = WIDTH_VALUES[settings.widthStep - 1]
   document.documentElement.style.setProperty('--article-fs', fs + 'px')
   document.documentElement.style.setProperty('--article-lh', lh)
-  document.documentElement.style.setProperty('--article-max-width', width + 'px')
+  document.documentElement.style.setProperty('--article-max-width', width + 'ch')
   document.querySelectorAll('#seg-lang button').forEach(b =>
     b.classList.toggle('active', b.dataset.lang === settings.lang))
   document.getElementById('slider-fs').value = String(settings.fsStep)
@@ -146,7 +146,7 @@ function applySettings() {
   document.getElementById('slider-width').value = String(settings.widthStep)
   document.getElementById('fs-value').textContent = fs + 'px'
   document.getElementById('lh-value').textContent = lh.toFixed(2)
-  document.getElementById('width-value').textContent = width + 'px'
+  document.getElementById('width-value').textContent = width + 'ch'
   document.querySelectorAll('#seg-theme button').forEach(b =>
     b.classList.toggle('active', b.dataset.theme === settings.theme))
   document.querySelectorAll('#seg-skin button').forEach(b =>
@@ -248,6 +248,7 @@ async function init() {
   setupKeyboard()
   setupSelectionToolbar()
   setupNotesPanel()
+  registerServiceWorker()
   try {
     books = await QBankShared.fetchJson('data/books.json')
     bookBySlug = Object.fromEntries(books.map(b => [b.slug, b]))

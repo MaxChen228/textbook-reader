@@ -512,7 +512,7 @@
     #content::-webkit-scrollbar { width: 5px; }
     #content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
     .article {
-      max-width: var(--article-max-width, 880px); margin: 0 auto; padding: 56px 72px 120px;
+      max-width: var(--article-max-width, 65ch); margin: 0 auto; padding: 56px 72px 120px;
       font-family: var(--article-font); font-size: var(--article-fs); line-height: var(--article-lh);
       min-width: 0;
     }
@@ -729,7 +729,7 @@
     }
     /* 骨架屏：章節載入中先撐出版心與段落節奏，避免「空白 → 內容」的突兀跳動 */
     .skeleton {
-      max-width: var(--article-max-width, 880px); margin: 0 auto;
+      max-width: var(--article-max-width, 65ch); margin: 0 auto;
       padding: 56px 72px; animation: sk-in .2s ease;
     }
     .sk-bar {
@@ -877,7 +877,7 @@
           <div class="qbk-control-row">
             <div class="qbk-control-label-line">
               <span class="qbk-control-label">版心</span>
-              <span class="qbk-control-value" id="width-value">880px</span>
+              <span class="qbk-control-value" id="width-value">65ch</span>
             </div>
             <input class="qbk-slider" id="slider-width" type="range" min="1" max="10" step="1" aria-label="版心">
             <div class="qbk-slider-scale"><span>窄</span><span>寬</span></div>

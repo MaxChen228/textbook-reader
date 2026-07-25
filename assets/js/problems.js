@@ -2,7 +2,7 @@
  * 題庫頁（problems.html）的應用層：分類樹、虛擬捲動列表、搜尋、選取匯出、單題詳情。
  * 區塊渲染與純文字轉換一律用 blocks.js（與 reader 同一份），別在這裡重寫。
  */
-import S from './shared.js'
+import S, { registerServiceWorker } from './shared.js'
 import { renderBlocks, blocksToText } from './blocks.js'
 
 const esc = S.escapeHtml
@@ -841,6 +841,7 @@ async function ensureBlocks(p) {
 
 async function init() {
   S.theme.init()   // 主題+換皮：套用全站設定並綁切換鈕（補回本頁原缺的 dark/skin）
+  registerServiceWorker()
   try {
     const data = await S.fetchJson('data/problems/index.json', { cache: 'no-cache' })
     allProblems = hydrate(data)

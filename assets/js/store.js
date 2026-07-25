@@ -27,7 +27,13 @@ export const VALID_SKINS = ['cohere']   // 與 design/tokens.css + QBankShared.t
 /** 三條滑桿的實際值表；UI 存的是 1–10 的 step，換算才得到 px / 倍數。 */
 export const FS_VALUES = [10, 12, 14, 16, 18, 22, 26, 30, 35, 40]
 export const LH_VALUES = [1.00, 1.15, 1.30, 1.50, 1.70, 1.95, 2.25, 2.55, 2.85, 3.20]
-export const WIDTH_VALUES = [640, 700, 760, 820, 880, 940, 1000, 1060, 1120, 1180]
+/**
+ * 版心以 **ch（字元寬）** 計，不是 px。
+ * px 版心配上可調字級是壞組合：10px 字 × 1180px＝一行兩百多字（讀到會迷路），
+ * 40px 字 × 640px＝一行十幾字（每行都在斷）。以 ch 計則不論字級多大，
+ * 一行的「字數」恆定，這才是排版學上真正的量度（最佳落在 60–75ch）。
+ */
+export const WIDTH_VALUES = [45, 50, 55, 60, 65, 70, 75, 80, 90, 100]
 
 /** 滑桿值一律夾在 1–10 的整數；非法就退回 fallback。UI 事件與 localStorage 共用同一道驗證。 */
 export function clampStep(value, fallback) {
