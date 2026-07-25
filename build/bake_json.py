@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import argparse
+from functools import lru_cache
 import os
 import re
 import sys
@@ -18,10 +19,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import nh3
+from PIL import Image
 
 from textbooks import corpus
 
-OUT = Path(__file__).resolve().parent.parent / 'data'
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / 'data'
+IMG = ROOT / 'img'
 JPG_TO_WEBP = re.compile(r'\.jpg$', re.IGNORECASE)
 HTML_IMG_RE = re.compile(r'(src="images/[0-9a-fA-F]+)\.jpg"')
 
@@ -38,23 +42,41 @@ def _sanitize_table_html(html: str) -> str:
     return nh3.clean(html, tags=_TABLE_TAGS, attributes=_TABLE_ATTRS)
 
 
-def _rewrite_blocks(blocks: list) -> None:
-    """就地把 fig.src 與 table.html 內的 .jpg 改成 .webp；table.html 先過白名單消毒（XSS）。"""
+@lru_cache(maxsize=None)
+def _webp_size(path: str) -> tuple[int, int] | None:
+    """讀 webp 的內在尺寸（PIL 只讀檔頭，不解碼像素）。缺檔/壞檔回 None。"""
+    try:
+        with Image.open(path) as im:
+            return im.size
+    except Exception:
+        return None
+
+
+def _rewrite_blocks(blocks: list, slug: str) -> None:
+    """就地把 fig.src 與 table.html 內的 .jpg 改成 .webp；table.html 先過白名單消毒（XSS）。
+
+    順帶把圖片的內在寬高（w/h）烤進 block：reader 據此在 <img> 上給 width/height，
+    瀏覽器排版時就能先留好版位 → 圖載入不再把整段文字往下推（CLS）。
+    convert_images 一定先於 bake 跑（見 build_all docstring），故此時 webp 必已存在；
+    真缺檔就不寫欄位，前端自然退回舊行為。"""
     for b in blocks or []:
         if not isinstance(b, dict):
             continue
         t = b.get('t')
         if t == 'fig' and isinstance(b.get('src'), str):
             b['src'] = JPG_TO_WEBP.sub('.webp', b['src'])
+            size = _webp_size(str(IMG / slug / b['src']))
+            if size:
+                b['w'], b['h'] = size
         if t == 'table' and isinstance(b.get('html'), str):
             b['html'] = HTML_IMG_RE.sub(r'\1.webp"', _sanitize_table_html(b['html']))
 
 
-def _rewrite_chunk(chunk: dict) -> dict:
-    _rewrite_blocks(chunk.get('body', []))
+def _rewrite_chunk(chunk: dict, slug: str) -> dict:
+    _rewrite_blocks(chunk.get('body', []), slug)
     for prob in chunk.get('problems', []):
-        _rewrite_blocks(prob.get('body', []))
-        _rewrite_blocks(prob.get('solution', []))
+        _rewrite_blocks(prob.get('body', []), slug)
+        _rewrite_blocks(prob.get('solution', []), slug)
     return chunk
 
 
@@ -220,16 +242,16 @@ def bake_book(slug: str, has_zh: bool) -> None:
     book = corpus.load_book(slug, None)
     for ch in book.get('chapters', []):
         n = ch['num']
-        dump(base / 'ch' / f'{n}.json', _rewrite_chunk(corpus.load_chapter(slug, n, None)))
+        dump(base / 'ch' / f'{n}.json', _rewrite_chunk(corpus.load_chapter(slug, n, None), slug))
         if has_zh:
-            dump(base / 'ch' / f'{n}.zh.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'zh')))
-            dump(base / 'ch' / f'{n}.bi.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'bi')))
+            dump(base / 'ch' / f'{n}.zh.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'zh'), slug))
+            dump(base / 'ch' / f'{n}.bi.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'bi'), slug))
     for ap in book.get('appendices', []):
         aid = ap['id']
-        dump(base / 'app' / f'{aid}.json', _rewrite_chunk(corpus.load_appendix(slug, aid, None)))
+        dump(base / 'app' / f'{aid}.json', _rewrite_chunk(corpus.load_appendix(slug, aid, None), slug))
         if has_zh:
-            dump(base / 'app' / f'{aid}.zh.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'zh')))
-            dump(base / 'app' / f'{aid}.bi.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'bi')))
+            dump(base / 'app' / f'{aid}.zh.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'zh'), slug))
+            dump(base / 'app' / f'{aid}.bi.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'bi'), slug))
 
 
 def bake_catalog() -> None:

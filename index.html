@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>教科書 Reader</title>
-  <script src="assets/qbank-shared.js"></script>
+  <script src="assets/qbank-shared.js?v=20260725"></script>
   <script>if(!window.MathJax)window.MathJax=QBankShared.mathJaxConfig;</script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script src="assets/vendor/mathjax/tex-chtml-full.js" async></script>
+  <script src="assets/vendor/marked.min.js"></script>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="design/tokens.css">
-  <link rel="stylesheet" href="assets/qbank-shared.css">
+  <link rel="stylesheet" href="assets/qbank-shared.css?v=20260725">
+  <!-- CJK 襯線（中譯面板用）：檔案太大不自託管，改非阻塞載入；連不到就退系統宋體，不影響首屏 -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&display=swap">
   <style>
     :root {
       --article-fs: 18px;
@@ -464,8 +469,11 @@
     }
     #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .article figure { margin: 22px 0; text-align: center; }
+    /* 版位預留：每張圖由 renderBlock 內聯 width + aspect-ratio（來自 bake 讀到的 webp 尺寸），
+       所以「還沒載入」時就有正確高度、不會把下方文字往下推。max-height 仍為極端長圖設上限，
+       此時靠 object-fit:contain 保比例（不壓扁）。 */
     .article figure img {
-      max-width: min(100%, 480px); max-height: 42vh; height: auto;
+      max-width: min(100%, 480px); max-height: 42vh; object-fit: contain;
       border: 1px solid var(--border-l); border-radius: 3px;
       cursor: zoom-in; background: #fff;
       transition: filter .25s ease, border-color .25s ease, opacity .15s ease;
@@ -478,7 +486,7 @@
       margin: 22px 0;
     }
     .fig-row figure { margin: 0; flex: 1 1 240px; max-width: 480px; }
-    .fig-row figure img { max-width: 100%; max-height: 36vh; }
+    .fig-row figure img { max-width: 100%; max-height: 36vh; object-fit: contain; }
     /* 暗色：線條圖反相（黑線→白線、白底→黑底），照片溫和 dim */
     body[data-theme="dark"] .article figure[data-kind="line"] img {
       filter: invert(1) hue-rotate(180deg);
@@ -1899,13 +1907,19 @@ function setupIncrementalMath(content) {
   }
   const rendered = new Set()   // 目前已 typeset 的 unit（derender 掃描只看這些，O(視窗數)）
 
+  // 狀態三態：raw（原始碼）→ rendering（排版中，擋重入）→ rendered。
+  // 排版失敗/MathJax 未就緒時退回 raw，讓下一次捲動 refresh 重試——若在此提前記成
+  // rendered，一次冷載逾時就會讓整章數學永久停在原始碼。
   const renderUnit = async (el) => {
-    if (!el || !el.isConnected || el.dataset.mathState === 'rendered') return
+    if (!el || !el.isConnected) return
+    if (el.dataset.mathState === 'rendered' || el.dataset.mathState === 'rendering') return
     if (el._mathRaw == null) el._mathRaw = el.innerHTML   // 首次排版前存原始碼
-    el.dataset.mathState = 'rendered'
+    el.dataset.mathState = 'rendering'
     el.style.minHeight = ''
-    rendered.add(el)
-    await QBankShared.renderMath(el)
+    const ok = await QBankShared.renderMath(el)
+    if (!el.isConnected) return
+    if (ok) { el.dataset.mathState = 'rendered'; rendered.add(el) }
+    else { delete el.dataset.mathState }
   }
   const derenderUnit = (el) => {
     if (el.dataset.mathState !== 'rendered' || el._mathRaw == null) return
@@ -2391,7 +2405,13 @@ function renderBlock(b, isBi, path) {
       const cap = b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''
       const id = b.id ? ` id="${escAttr(b.id)}"` : ''
       const kind = b.kind ? ` data-kind="${escAttr(b.kind)}"` : ''
-      const fig = `<figure class="editable-block"${id}${kind}${editAttrs(path, 'caption', 'fig', b.caption)}><img src="img/${escAttr(slug)}/${escAttr(b.src)}" loading="lazy" alt="${escAttr(b.caption||'')}">${cap}${editButton()}</figure>`
+      // w/h 由 bake 從 webp 檔頭讀進來：有了它瀏覽器排版時就先留好版位，
+      // 圖片載入不再把下方整段文字往下推（CLS）。舊資料沒這兩欄 → 退回原行為。
+      // 版位預留：內聯 width（不超過版心上限）+ aspect-ratio → 圖未載入時高度就已正確。
+      const dim = (b.w && b.h)
+        ? ` width="${escAttr(b.w)}" height="${escAttr(b.h)}" style="width:min(100%,${Math.min(b.w, 480)}px);aspect-ratio:${b.w}/${b.h}"`
+        : ''
+      const fig = `<figure class="editable-block"${id}${kind}${editAttrs(path, 'caption', 'fig', b.caption)}><img src="img/${escAttr(slug)}/${escAttr(b.src)}"${dim} loading="lazy" decoding="async" alt="${escAttr(b.caption||'')}">${cap}${editButton()}</figure>`
       return fig + (isBi ? biReveal(b.caption_zh) : '')
     }
     case 'table': {

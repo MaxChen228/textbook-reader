@@ -23,9 +23,10 @@
    每個區塊都定義「全集」(不靠別塊補)，避免跨 skin 殘留。
    ============================================================================ */
 
-/* webfonts — UI 走 Cohere 替身(Space Grotesk/Inter/Space Mono)，內文走襯線(CMU/Noto) */
-@import url('https://cdn.jsdelivr.net/npm/computer-modern@0.1.3/cmu-serif.css');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+TC:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap');
+/* webfonts — UI 走 Cohere 替身(Space Grotesk/Inter/Space Mono)，內文走襯線(CMU/Noto)。
+   字型檔已自託管於 assets/fonts/fonts.css，各頁在本檔【之前】直接 <link>。
+   這裡刻意不用 @import：@import 會讓字型 CSS 排到 tokens.css 解析完才開始下載
+   （HTML → tokens.css → 字型 CSS → 字型檔，四段串行），且外部 CDN 一掛全站失去字型。 */
 
 /* ── Tier 1 · 結構 token（skin 無關，全 skin 共用） ───────────────────────── */
 :root {

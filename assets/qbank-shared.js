@@ -63,39 +63,48 @@
     }).join('');
   }
 
-  // MathJax CDN 用 async 載入，呼叫端可能在 CDN executed 前先呼叫到。
-  // _mathjax_head.html 把 window.MathJax 設成 config 物件（truthy 但無 typesetPromise），
-  // 所以只測 `!window.MathJax` 不夠 — 必須等 typesetPromise 函式真的出現。
-  function renderMath(targets) {
-    if (!window.MathJax) return Promise.resolve();
+  // MathJax 以 async 載入，呼叫端可能在它 executed 前就先呼叫到。各頁把 window.MathJax
+  // 先設成 config 物件（truthy 但無 typesetPromise），所以只測 `!window.MathJax` 不夠 —
+  // 必須等 typesetPromise 函式真的出現。
+  //
+  // 回傳 Promise<boolean>：true = 真的排版過；false = MathJax 遲遲沒 ready（呼叫端據此
+  // 把該區塊留在「未排版」狀態、之後再試，而不是誤記成已排版）。等待上限 30s：自託管的
+  // 1.3MB tex-chtml-full 冷載可能遠超過舊版寫死的 3s，逾時即放棄會整章數學不排版。
+  const MATH_READY_TIMEOUT_MS = 30000;
+  let mathReadyPromise = null;
 
-    function callTypeset() {
-      if (targets == null) return MathJax.typesetPromise();
-      const nodes = Array.isArray(targets) ? targets.filter(Boolean) : [targets].filter(Boolean);
-      if (!nodes.length) return Promise.resolve();
-      return MathJax.typesetPromise(nodes);
+  function mathReady() {
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') return Promise.resolve(true);
+    if (!mathReadyPromise) {
+      mathReadyPromise = new Promise((resolve) => {
+        const started = Date.now();
+        const tick = () => {
+          if (window.MathJax && typeof MathJax.typesetPromise === 'function') return resolve(true);
+          if (Date.now() - started > MATH_READY_TIMEOUT_MS) {
+            console.warn('[renderMath] MathJax 未就緒（逾時）— 數學式維持原始碼');
+            mathReadyPromise = null;   // 下次呼叫重新等（例如網路恢復後）
+            return resolve(false);
+          }
+          setTimeout(tick, 50);
+        };
+        tick();
+      });
     }
+    return mathReadyPromise;
+  }
 
-    if (typeof MathJax.typesetPromise === 'function') return callTypeset();
-
-    // CDN 尚未 ready：輪詢 startup.promise / typesetPromise（最多 ~3s）。
-    return new Promise(resolve => {
-      let tries = 0;
-      const tick = () => {
-        if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-          (window.MathJax.startup && window.MathJax.startup.promise
-            ? MathJax.startup.promise
-            : Promise.resolve()
-          ).then(() => callTypeset()).then(resolve, resolve);
-          return;
-        }
-        if (++tries > 60) {
-          console.warn('[renderMath] MathJax not ready after 3s — math left unrendered');
-          return resolve();
-        }
-        setTimeout(tick, 50);
-      };
-      tick();
+  function renderMath(targets) {
+    function callTypeset() {
+      if (targets == null) return MathJax.typesetPromise().then(() => true);
+      const nodes = Array.isArray(targets) ? targets.filter(Boolean) : [targets].filter(Boolean);
+      if (!nodes.length) return Promise.resolve(true);
+      return MathJax.typesetPromise(nodes).then(() => true);
+    }
+    return mathReady().then((ok) => {
+      if (!ok) return false;
+      return (MathJax.startup && MathJax.startup.promise ? MathJax.startup.promise : Promise.resolve())
+        .then(callTypeset)
+        .catch((e) => { console.warn('[renderMath] typeset 失敗', e); return false; });
     });
   }
 
