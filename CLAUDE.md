@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **自包含**的教科書 pipeline + 靜態 reader 站。一條鏈 crawl→ingest(MinerU 雲端 OCR)→qc→parse→audit→catalog→sol→bake→serve 全住本 repo。原本依賴外部 `qbank` repo,已整條搬進來(`book_pipeline/` + `textbooks/`)。常駐主機 standby(`100.118.39.104`)24hr 跑 daemon 全自動產書,經 Cloudflare `kg-standby` tunnel 自託管於 **books.wordnexus.lol**。**不再用 GitHub Pages**(remote 僅留作 git 跨機同步)。
 
-前端是單頁 reader(`index.html`,全 JS inline)。`data/`(JSON)+ `img/`(WebP)是 build 從 `book_pipeline/mineru_data/` 烤出的**本地產物**,**不入 git**,standby 上由 daemon 自動重生。
+前端是單頁 reader(`index.html` + `assets/js/` 原生 ESM 模組,無 build step)。`data/`(JSON)+ `img/`(WebP)是 build 從 `book_pipeline/mineru_data/` 烤出的**本地產物**,**不入 git**,standby 上由 daemon 自動重生。
 
 ## 指令
 
@@ -75,9 +75,12 @@ uv run python -m http.server 8001                        # 本機預覽
 
 ## 前端 reader（index.html）
 
-- Hash 路由:`#`→library,`#slug`→書總覽,`#slug/kind/key`→chunk。
-- **Math 視窗化 + derender**(`setupIncrementalMath`,最核心架構決策):整章 typeset 上千公式會阻塞數秒、吃數百 MB。只 typeset 視窗 ±900px 的 unit,捲出 3000px 還原成 `_mathRaw` 原始碼以 placeholder 占位 → 記憶體封頂。改公式渲染前必懂。
-- 共用層 `assets/qbank-shared.js`(`QBankShared`)。CDN:MathJax 3、marked 9。
+- Hash 路由:`#`→library,`#slug`→書總覽,`#slug/kind/key`→chunk,`#slug/kind/key/anchor`→節錨(可分享)。文法單一真相 = `assets/js/router.js`。
+- **Math 視窗化 + derender**(`setupIncrementalMath`,最核心架構決策):整章 typeset 上千公式會阻塞數秒、吃數百 MB。只 typeset 視窗 ±900px 的 unit,捲出 3000px 還原成 `_mathRaw` 原始碼以 placeholder 占位 → 記憶體封頂。改公式渲染前必懂。三態 `data-mathState` raw→rendering→rendered:排版失敗**必須**退回 raw,提前記成 rendered 會讓整章數學永久卡在原始碼。
+- **原生 ESM,無 bundler**(2026-07-25 重構):`assets/js/` = `blocks.js`(區塊→HTML/純文字的**單一真相**,reader 與 problems 共用——過去兩份實作已漂移出圖片無版位預留、表格轉文字丟表身等實質差異)/`store.js`(設置+進度持久化)/`router.js`(路由文法)/`shared.js`(下述全域層的 ESM 轉接)/`reader.js`+`problems.js`(各頁應用層)。各頁 `<head>` 以 modulepreload 攤平 import 瀑布。
+- 共用層 `assets/qbank-shared.js` 維持**傳統全域腳本**(`window.QBankShared`)不改 module:`dev/index.html` 的 inline 腳本同步依賴它,且 `build/gen_macros.py` 以字串區塊寫入其 mathJaxConfig。新模組一律經 `shared.js` 取用。
+- 第三方資產全自託管(`assets/vendor/` MathJax 3 + marked;`assets/fonts/` CMU/Inter 等),無 CDN 依賴。
+- **前端測試**:`npx playwright test`(先 `npm install && npx playwright install chromium`)。`tests/` 16 條 smoke 守住路由/渲染/CLS/焦點鎖/虛擬捲動/分片索引等不變量;webServer `reuseExistingServer` → 常駐主機直接沿用 8001 的 nginx。
 
 ## 部署（standby）
 
