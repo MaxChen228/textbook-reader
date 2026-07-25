@@ -811,6 +811,7 @@ let sectionObserver = null
 let sectionScrollHandler = null
 let mathScrollHandler = null // 視窗化增量 MathJax：只保留視窗附近排版
 let mathResizeHandler = null
+let mathVisibilityHandler = null
 let activeSectionAnchor = null
 let readerDrawer = null
 const bookCache = {}
@@ -1882,6 +1883,10 @@ function cleanupMathObserver() {
     window.removeEventListener('resize', mathResizeHandler)
     mathResizeHandler = null
   }
+  if (mathVisibilityHandler) {
+    document.removeEventListener('visibilitychange', mathVisibilityHandler)
+    mathVisibilityHandler = null
+  }
 }
 
 // 整章一次 typeset 上千條公式 → 阻塞數秒、17 萬 DOM 節點、分頁 RAM 數百 MB。
@@ -1972,6 +1977,10 @@ function setupIncrementalMath(content) {
   content.addEventListener('scroll', mathScrollHandler, { passive: true })
   mathResizeHandler = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; refresh() }) } }
   window.addEventListener('resize', mathResizeHandler)
+  // 分頁在背景時 rAF 停擺 → 捲動事件不會觸發排版（例如從別的分頁開錨點連結進來）。
+  // 回到前景補跑一次，避免使用者切回來看到一整片未排版的原始碼。
+  mathVisibilityHandler = () => { if (document.visibilityState === 'visible') refresh() }
+  document.addEventListener('visibilitychange', mathVisibilityHandler)
 
   refresh()   // 初始排版視窗內 unit（同步呼叫，不依賴 rAF）
   return Promise.resolve()
