@@ -135,6 +135,18 @@ def table_id_from_caption(caption: str) -> str | None:
     return f'tbl-{num}'
 
 
+def _next_free_num(used: set[str]) -> str:
+    """無號題的合成題號：該 namespace 內未用過的最小流水號。
+
+    有些書刻意讓題號選填——一節只有一題時書上就只印裸 'PROBLEM'，多題才編號（Landau &
+    Lifshitz 全系列）。audit 於是寫出題號組可不參與的 problem_start_re（`^PROBLEM(?:\\s+(\\d+)\\.)?`），
+    此時 group(1) is None。避開已配發號碼是為了讓合成號與同節有號手足共處一個編號空間、不相撞。"""
+    n = 1
+    while str(n) in used:
+        n += 1
+    return str(n)
+
+
 def _media_fallback_id(t: str, stem: str, source: str, idx: int) -> str:
     prefix = {'fig': 'fig', 'table': 'tbl', 'eq': 'eq'}[t]
     suffix = f'{source}-{idx}' if source != 'body' else str(idx)
@@ -415,6 +427,7 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
     current_section_id: str = str(ch_num)  # namespace fallback：第一個 section 前用章號
     max_num_seen = 0     # 章末 Problems 題號嚴格遞增；回退 → 已離開題目區（supplement 正文）
                          # namespace 模式：每遇 section heading 歸零（各子集自成 1..max）
+    used_nums: dict[str, set[str]] = {}  # namespace → 已配發題號（無號題補流水號時避開有號手足）
 
     for b in expand_list_blocks(blocks):
         t = b.get('type')
@@ -467,9 +480,13 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
                 # 題號去內部空白：救 OCR 把帶上標難度標記的題號渲染成 LaTeX 空格化數學
                 # （MacKay `Exercise $2 . 1 4 .`→`2.14`）。clean 書本題號無空白 → no-op，
                 # 對其他書無影響；同 section id（block_to_struct）既有處理。
-                num = re.sub(r'\s+', '', m.group(1))
+                # 題號組選填且未參與 → 無號題，補該 namespace 內未用過的最小流水號（鏡像
+                # walk_inline_chapter；兩道靠題號判真偽的守則對合成號無意義故一併跳過）。
+                numbered = m.group(1) is not None
+                num = (re.sub(r'\s+', '', m.group(1)) if numbered
+                       else _next_free_num(used_nums.setdefault(current_section_id, set())))
                 # 章號 prefix 比對
-                if problem_chapter_must_match:
+                if numbered and problem_chapter_must_match:
                     try:
                         if int(num.split('.')[0]) != ch_num:
                             # 不屬於本章 → 不視為題目起點
@@ -477,7 +494,7 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
                     except ValueError:
                         m = None
                 # 遞增守則：題號回退（≤ 已見最大）視為離開題目區的偽命中，不開新題
-                if m and max_num_seen > 0:
+                if m and numbered and max_num_seen > 0:
                     try:
                         if int(num.split('.')[-1]) <= max_num_seen:
                             m = None
@@ -492,8 +509,10 @@ def split_problems(blocks: list[dict], rules: dict, ch_num: int,
                     current = {'num': (f'{current_section_id}.{num}' if namespace_by_section else num),
                                'body': []}
                     in_solution = False
+                    used_nums.setdefault(current_section_id, set()).add(num)
                     try:
-                        max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
+                        if numbered:
+                            max_num_seen = max(max_num_seen, int(num.split('.')[-1]))
                     except ValueError:
                         pass
                     if tail:
@@ -587,6 +606,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
     in_solution = False     # solution_start_re 命中後：後續 block 收進 current['solution']
     in_problems_region = problems_start_re is None  # exercises-gate：None=不 gate（永遠 True、行為不變）；
                                                     # 設定時起始 False，待 heading 命中 problems_start_re 才開
+    used_nums: dict[str, set[str]] = {}  # namespace(section_id) → 已配發題號。僅供【無號題】補流水號時
+                                         # 避開有號手足，見下方 raw_num is None 分支。
 
     exp = expand_list_blocks(blocks)
 
@@ -601,8 +622,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                 nt = (nb.get('text') or '').strip()
                 if nt:
                     m = problem_start_re.match(nt)
-                    if not m:
-                        return None
+                    if not m or m.group(1) is None:
+                        return None  # 無號題（選填題號組未參與）無從判溢出 → 不抑制
                     try:
                         return int(re.sub(r'\s+', '', m.group(1)).split('.')[0])
                     except ValueError:
@@ -672,16 +693,21 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
         if not problems_ended and in_problems_region and t in ('text', 'list') and text:
             m = problem_start_re.match(text)
             if m:
+                # 題號組選填且未參與 → 無號題，補流水號（見 _next_free_num）。兩道守則
+                # （chapter_must_match / 遞增）都靠題號本身判真偽，對合成號無意義且會誤殺，故跳過
+                # ——選填組是 audit 明示的授權，責任在規則作者。
+                numbered = m.group(1) is not None
                 # 題號去內部空白：同上（OCR LaTeX 空格化數字 `2 . 1 4`→`2.14`），clean 書 no-op
-                raw_num = re.sub(r'\s+', '', m.group(1))
-                if problem_chapter_must_match:
+                raw_num = (re.sub(r'\s+', '', m.group(1)) if numbered
+                           else _next_free_num(used_nums.setdefault(current_section_id, set())))
+                if numbered and problem_chapter_must_match:
                     try:
                         if int(raw_num.split('.')[0]) != ch_num:
                             m = None
                     except ValueError:
                         m = None
                 # 遞增守則（非 namespace 模式）：題號回退視為正文 numbered list 偽命中
-                if m and not namespace_by_section and max_num_seen:
+                if m and numbered and not namespace_by_section and max_num_seen:
                     try:  # 整數 tuple 比較：題號回退（≤ 已見最大）= 離開題目區的偽命中
                         if tuple(int(x) for x in raw_num.split('.')) <= max_num_seen:
                             m = None
@@ -694,7 +720,8 @@ def walk_inline_chapter(blocks: list[dict], rules: dict, ch_num: int,
                     num = f'{current_section_id}.{raw_num}' if namespace_by_section else raw_num
                     current = {'num': num, 'body': []}
                     in_solution = False
-                    if not namespace_by_section:
+                    used_nums.setdefault(current_section_id, set()).add(raw_num)
+                    if numbered and not namespace_by_section:
                         try:
                             max_num_seen = max(max_num_seen, tuple(int(x) for x in raw_num.split('.')))
                         except ValueError:
