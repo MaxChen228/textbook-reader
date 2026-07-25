@@ -18,6 +18,7 @@
   <link rel="modulepreload" href="assets/js/blocks.js">
   <link rel="modulepreload" href="assets/js/store.js">
   <link rel="modulepreload" href="assets/js/router.js">
+  <link rel="modulepreload" href="assets/js/search.js">
   <link rel="stylesheet" href="design/tokens.css">
   <link rel="stylesheet" href="assets/qbank-shared.css?v=20260725">
   <!-- CJK 襯線（中譯面板用）：檔案太大不自託管，改非阻塞載入；連不到就退系統宋體，不影響首屏 -->
@@ -145,7 +146,7 @@
     .toc-copy:hover, .toc-copy.copied { opacity: 1 !important; }
 
     .reader-tabs {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
       padding: 8px 12px; border-bottom: 1px solid var(--border);
     }
     .reader-tab {
@@ -155,10 +156,39 @@
     }
     .reader-tab:hover { color: var(--ink); background: var(--bg); }
     .reader-tab.active { color: var(--ink); border-color: var(--border); background: var(--bg); }
-    #catalog-panel {
+    #catalog-panel, #search-panel {
       display: none; flex: 1; min-height: 0; overflow: hidden; flex-direction: column;
       border-top: 0;
     }
+    /* ── 書內搜尋 ─────────────────────────────────────────────────────── */
+    .search-status {
+      padding: 7px 12px; font-family: var(--mono); font-size: 9.5px; line-height: 1.5;
+      color: var(--sub); border-bottom: 1px solid var(--border-l); min-height: 15px;
+    }
+    .search-results { flex: 1; min-height: 0; overflow-y: auto; padding: 4px 0 14px; }
+    .search-hit-row {
+      display: block; width: 100%; text-align: left; padding: 9px 12px; cursor: pointer;
+      border: 0; border-left: 2px solid transparent; background: transparent;
+      color: var(--text); font: inherit;
+    }
+    .search-hit-row:hover { background: var(--bg); }
+    .search-hit-row.active { border-left-color: var(--ink); background: var(--bg); }
+    .search-hit-where {
+      font-family: var(--mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--sub); margin-bottom: 3px;
+    }
+    .search-hit-text { font-size: 12px; line-height: 1.5; color: var(--ink-light); overflow-wrap: anywhere; }
+    .search-hit-text mark { background: color-mix(in srgb, var(--ink) 16%, transparent); color: var(--ink); }
+    .search-group {
+      padding: 10px 12px 4px; font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--sub);
+    }
+    .search-more {
+      margin: 8px 12px; width: calc(100% - 24px);
+    }
+    /* 正文裡的命中：閱讀時看得見但不刺眼；目前跳到的那一顆再強調一層 */
+    mark.search-hit { background: color-mix(in srgb, var(--ink) 15%, transparent); color: inherit; border-radius: 2px; }
+    mark.search-hit.current { background: color-mix(in srgb, var(--ink) 34%, transparent); }
     .catalog-tools { padding: 10px 12px 8px; border-bottom: 1px solid var(--border-l); }
     .catalog-search {
       width: 100%; height: 32px; padding: 0 9px;
@@ -673,9 +703,17 @@
       </div>
       <div class="reader-tabs" id="reader-tabs">
         <button class="reader-tab active" type="button" data-sidebar-mode="toc">TOC</button>
+        <button class="reader-tab" type="button" data-sidebar-mode="search">Search</button>
         <button class="reader-tab" type="button" data-sidebar-mode="catalog">Catalog</button>
       </div>
       <div id="toc"></div>
+      <div id="search-panel">
+        <div class="catalog-tools">
+          <input class="catalog-search" id="book-search" type="search" placeholder="搜尋本書全文…" autocomplete="off">
+        </div>
+        <div class="search-status" id="search-status"></div>
+        <div class="search-results" id="search-results"></div>
+      </div>
       <div id="catalog-panel">
         <div class="catalog-tools">
           <input class="catalog-search" id="catalog-search" type="search" placeholder="搜尋圖表…" autocomplete="off">

@@ -15,6 +15,7 @@ from functools import lru_cache
 import os
 import re
 import sys
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -106,6 +107,62 @@ def _blocks_text(blocks: list) -> str:
         text for text in (_block_text(b) for b in blocks or [])
         if text
     )
+
+
+# ── 書內全文搜尋索引 ────────────────────────────────────────────────────────
+# 分詞規格（**前端 assets/js/search.js 必須逐條鏡像，否則索引查不到**）：
+#   1. 全部轉小寫，並把附加符號拆掉（NFD 後丟棄結合字元）→ thévenin 與 thevenin 同一個
+#      token。教科書滿是 Thévenin/Schrödinger/Gauß，使用者幾乎都打無附加符號的拼法。
+#   2. 取所有「字母或數字」的連續段（Python `[^\W_]+` ≒ JS `\p{L}\p{N}` 類）
+#   3. 含 CJK 的段：改取所有 2-gram（單字段則取該字），因為中日韓不以空白斷詞
+#   4. 其餘：長度 2–30 才收（單字母噪音大、超長多為 OCR 垃圾）
+# 索引只是**候選過濾器**：命中哪一章由它決定，實際片語比對與摘要由前端抓該章
+# JSON 後在瀏覽器裡做 → 索引即使略有損失也不會給出錯的結果。
+_TOKEN_RE = re.compile(r'[^\W_]+', re.UNICODE)
+_CJK_RE = re.compile(r'[぀-ヿ㐀-䶿一-鿿豈-﫿]')
+# 出現在超過這個比例的章節 = 對縮小範圍毫無幫助（the/of/section…）→ 移進 common 清單，
+# 前端見到 common token 一律當「全部命中」，語意等同停用詞。
+_COMMON_RATIO = 0.6
+
+
+def _fold(text: str) -> str:
+    """小寫 + 去附加符號。前端 search.js 的 fold() 必須等價。"""
+    nfd = unicodedata.normalize('NFD', (text or '').lower())
+    return ''.join(c for c in nfd if unicodedata.category(c) != 'Mn')
+
+
+def _tokenize(text: str) -> set[str]:
+    out: set[str] = set()
+    for raw in _TOKEN_RE.findall(_fold(text)):
+        if _CJK_RE.search(raw):
+            if len(raw) == 1:
+                out.add(raw)
+            else:
+                out.update(raw[i:i + 2] for i in range(len(raw) - 1))
+        elif 2 <= len(raw) <= 30:
+            out.add(raw)
+    return out
+
+
+def _build_search_index(entries: list[tuple[str, str, str, str]]) -> dict:
+    """entries = [(kind, key, title, plaintext), …] → 倒排索引。
+
+    posting list 存章節序號陣列（不用 bitmask：JS 位元運算只有 32 bit，>32 章的書會靜默錯）。
+    """
+    postings: dict[str, list[int]] = {}
+    for i, (_kind, _key, _title, text) in enumerate(entries):
+        for tok in _tokenize(text):
+            postings.setdefault(tok, []).append(i)
+    n = len(entries)
+    cutoff = max(3, int(n * _COMMON_RATIO)) if n > 5 else n + 1
+    tokens = {t: p for t, p in postings.items() if len(p) < cutoff}
+    common = sorted(t for t, p in postings.items() if len(p) >= cutoff)
+    return {
+        'v': 1,
+        'chunks': [[k, key, title] for k, key, title, _ in entries],
+        'tokens': tokens,
+        'common': common,
+    }
 
 
 def _preview(text: str, limit: int = 200) -> str:
@@ -276,18 +333,34 @@ def bake_book(slug: str, has_zh: bool) -> None:
     dump(base / 'catalogs.json', _rewrite_catalogs(cat))
 
     book = corpus.load_book(slug, None)
+    search_entries: list[tuple[str, str, str, str]] = []
+
+    def _chunk_text(chunk: dict) -> str:
+        """章節全文＝正文 ⊕ 每題題幹與解答（搜尋要找得到題目裡的字）。"""
+        parts = [_blocks_text(chunk.get('body') or [])]
+        for p in chunk.get('problems') or []:
+            parts.append(_blocks_text(p.get('body') or []))
+            parts.append(_blocks_text(p.get('solution') or []))
+        return '\n'.join(t for t in parts if t)
+
     for ch in book.get('chapters', []):
         n = ch['num']
-        dump(base / 'ch' / f'{n}.json', _rewrite_chunk(corpus.load_chapter(slug, n, None), slug))
+        raw = corpus.load_chapter(slug, n, None)
+        dump(base / 'ch' / f'{n}.json', _rewrite_chunk(raw, slug))
+        search_entries.append(('ch', str(n), raw.get('title') or '', _chunk_text(raw)))
         if has_zh:
             dump(base / 'ch' / f'{n}.zh.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'zh'), slug))
             dump(base / 'ch' / f'{n}.bi.json', _rewrite_chunk(corpus.load_chapter(slug, n, 'bi'), slug))
     for ap in book.get('appendices', []):
         aid = ap['id']
-        dump(base / 'app' / f'{aid}.json', _rewrite_chunk(corpus.load_appendix(slug, aid, None), slug))
+        raw = corpus.load_appendix(slug, aid, None)
+        dump(base / 'app' / f'{aid}.json', _rewrite_chunk(raw, slug))
+        search_entries.append(('app', str(aid), raw.get('title') or '', _chunk_text(raw)))
         if has_zh:
             dump(base / 'app' / f'{aid}.zh.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'zh'), slug))
             dump(base / 'app' / f'{aid}.bi.json', _rewrite_chunk(corpus.load_appendix(slug, aid, 'bi'), slug))
+
+    dump(base / 'search.json', _build_search_index(search_entries))
 
 
 def bake_catalog() -> None:

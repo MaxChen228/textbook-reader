@@ -15,6 +15,7 @@ import {
   loadProgress, recordProgress, chunkProgress, lastProgressFor,
 } from './store.js'
 import { buildHash, parseHash as parseRoute, go as routerGo, replace as replaceHash } from './router.js'
+import { loadIndex, queryTerms, candidateChunks, searchChunk, highlightInDom } from './search.js'
 
 let books = []         // 已收錄可讀書 metadata（data/books.json）
 let catalog = null     // 完整收錄表（data/catalog.json）：書單 SoT × 三態，library 渲染來源
@@ -275,6 +276,21 @@ function setupSidebarModes() {
     catalogLimit = 80
     renderCatalogPanel()
   })
+  const box = document.getElementById('book-search')
+  box.addEventListener('input', (e) => {
+    if (searchTimer) clearTimeout(searchTimer)
+    const q = e.target.value || ''
+    searchTimer = setTimeout(() => runBookSearch(q), 160)
+  })
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); runBookSearch(box.value || '') }
+  })
+  document.getElementById('search-results').addEventListener('click', (e) => {
+    const more = e.target.closest('#search-more')
+    if (more) { searchChunkCap += SEARCH_CHUNK_CAP; runBookSearch(box.value || '', { keepCap: true }); return }
+    const row = e.target.closest('.search-hit-row')
+    if (row) gotoSearchHit(Number(row.dataset.hit))
+  })
   document.getElementById('catalog-search').addEventListener('input', (e) => {
     if (catalogSearchTimer) clearTimeout(catalogSearchTimer)
     catalogSearchTimer = setTimeout(() => {
@@ -285,11 +301,161 @@ function setupSidebarModes() {
   })
 }
 
+// ── 書內全文搜尋 ───────────────────────────────────────────────────────
+// 索引只給候選章節（search.js），真正的命中與摘要靠抓那幾章的 JSON 在本機比對。
+// 每章 JSON 動輒數百 KB，所以：一次最多掃 SEARCH_CHUNK_CAP 章、並行 4、邊掃邊出結果，
+// 掃不完的部分明說「還有 N 章」讓使用者自己決定要不要繼續——沒有後端就別假裝免費。
+const SEARCH_CHUNK_CAP = 12
+const SEARCH_CONCURRENCY = 4
+let searchTerms = []          // 目前查詢的詞條（已 fold），也用來標記正文
+let searchHits = []           // [{ ci, kind, key, chapterTitle, anchor, where, snippet }]
+let searchRun = 0             // 取消舊查詢用（輸入變更即作廢在飛的掃描）
+let searchTimer = null
+let searchChunkCap = SEARCH_CHUNK_CAP
+let activeSearchHit = -1
+let pendingSearchScroll = false   // 下一次 showChunk 後要不要跳到命中處
+
+function setSearchStatus(html) {
+  document.getElementById('search-status').innerHTML = html
+}
+
+async function runBookSearch(query, { keepCap = false } = {}) {
+  const run = ++searchRun
+  if (!keepCap) searchChunkCap = SEARCH_CHUNK_CAP
+  searchTerms = queryTerms(query)
+  searchHits = []
+  activeSearchHit = -1
+  renderSearchResults()
+  if (!searchTerms.length) { setSearchStatus(''); clearSearchHighlight(); return }
+
+  const index = await loadIndex(slug)
+  if (run !== searchRun) return
+  if (!index) {
+    setSearchStatus('這本書還沒有搜尋索引（重新 build 後就會有）')
+    return
+  }
+  const cands = candidateChunks(index, searchTerms)
+  if (!cands.length) { setSearchStatus('沒有找到'); return }
+
+  const scan = cands.slice(0, searchChunkCap)
+  const rest = cands.length - scan.length
+  let done = 0
+  const tick = () => {
+    setSearchStatus(`掃描 ${done}/${scan.length} 章 · 命中 ${searchHits.length}`
+      + (rest > 0 ? ` · 還有 ${rest} 章未掃` : ''))
+  }
+  tick()
+
+  let cursor = 0
+  const worker = async () => {
+    while (cursor < scan.length && run === searchRun) {
+      const ci = scan[cursor++]
+      const [kind, key, title] = index.chunks[ci]
+      try {
+        const data = await fetchChunk(kind, key)
+        if (run !== searchRun) return
+        const secPrefix = kind === 'ch' ? String(data.num) : `app${data.id}`
+        for (const h of searchChunk(data, searchTerms, { secPrefix })) {
+          searchHits.push({ ci, kind, key, chapterTitle: title, ...h })
+        }
+      } catch { /* 單章抓失敗不該讓整個搜尋停擺 */ }
+      done += 1
+      searchHits.sort((a, b) => a.ci - b.ci)
+      tick()
+      renderSearchResults(rest)
+    }
+  }
+  await Promise.all(Array.from({ length: SEARCH_CONCURRENCY }, worker))
+  if (run !== searchRun) return
+  setSearchStatus(searchHits.length
+    ? `命中 ${searchHits.length} 處 · 已掃 ${scan.length} 章` + (rest > 0 ? ` · 還有 ${rest} 章未掃` : '')
+    : `這 ${scan.length} 章裡沒有` + (rest > 0 ? `（還有 ${rest} 章未掃）` : ''))
+  renderSearchResults(rest)
+}
+
+function renderSearchResults(rest = 0) {
+  const root = document.getElementById('search-results')
+  if (!searchTerms.length) { root.innerHTML = ''; return }
+  let html = ''
+  let lastCi = null
+  searchHits.forEach((h, i) => {
+    if (h.ci !== lastCi) {
+      lastCi = h.ci
+      const label = h.kind === 'ch' ? `Ch ${h.key}` : `App ${h.key}`
+      html += `<div class="search-group">${esc(label)} · ${esc(h.chapterTitle)}</div>`
+    }
+    html += `<button class="search-hit-row${i === activeSearchHit ? ' active' : ''}" type="button" data-hit="${i}">
+      ${h.where ? `<div class="search-hit-where">${esc(h.where)}</div>` : ''}
+      <div class="search-hit-text">${h.snippet}</div>
+    </button>`
+  })
+  if (rest > 0) {
+    html += `<button class="qbk-control-btn compact search-more" id="search-more" type="button">再掃 ${Math.min(rest, SEARCH_CHUNK_CAP)} 章</button>`
+  }
+  root.innerHTML = html
+}
+
+async function gotoSearchHit(i) {
+  const h = searchHits[i]
+  if (!h) return
+  activeSearchHit = i
+  renderSearchResults(0)
+  document.querySelectorAll('.search-hit-row').forEach((el, idx) => el.classList.toggle('active', idx === i))
+  if (readerDrawer && window.matchMedia('(max-width: 768px)').matches) readerDrawer.close()
+  pendingSearchScroll = true
+  if (String(currentKind) === h.kind && String(currentKey) === String(h.key)) {
+    // 已經在這一章 → 不重建 DOM，就地補標記再跳過去
+    const content = document.getElementById('content')
+    applySearchHighlight(content)
+    if (h.anchor) { scrollToAnchor(h.anchor); setActiveSection(h.anchor) }
+    focusSearchHit(content, h.anchor)
+    pendingSearchScroll = false
+    return
+  }
+  navigate(slug, h.kind, h.key, h.anchor || undefined)
+}
+
+/** 在正文標出所有命中；被 showChunk 呼叫（必須在 setupIncrementalMath 之前，
+ *  否則 _mathRaw 快照裡不含這些 <mark>，捲出去再回來就掉了）。 */
+function applySearchHighlight(content) {
+  if (!searchTerms.length || sidebarMode !== 'search') return
+  const article = content.querySelector('.article')
+  if (!article) return
+  clearSearchHighlight()   // 冪等：同一章重複套用（換查詢詞、點另一筆命中）不會疊出巢狀 <mark>
+  highlightInDom(article, searchTerms)
+}
+
+/** 清掉正文裡的命中標記（查詢清空時）。就地還原成文字節點，不重建整章。 */
+function clearSearchHighlight() {
+  const content = document.getElementById('content')
+  content.querySelectorAll('mark.search-hit').forEach(m => {
+    const parent = m.parentNode
+    parent.replaceChild(document.createTextNode(m.textContent), m)
+    parent.normalize()
+  })
+}
+
+/** 把 anchor 之後的第一顆命中標成 current 並捲到畫面中央。 */
+function focusSearchHit(content, anchor) {
+  content.querySelectorAll('mark.search-hit.current').forEach(m => m.classList.remove('current'))
+  const marks = [...content.querySelectorAll('mark.search-hit')]
+  if (!marks.length) return
+  const from = anchor ? document.getElementById(anchor) : null
+  const target = from
+    ? marks.find(m => from.compareDocumentPosition(m) & Node.DOCUMENT_POSITION_FOLLOWING) || marks[0]
+    : marks[0]
+  target.classList.add('current')
+  target.scrollIntoView({ block: 'center', behavior: 'auto' })
+}
+
+const SIDEBAR_MODES = ['toc', 'search', 'catalog']
+
 async function setSidebarMode(mode) {
-  sidebarMode = mode === 'catalog' ? 'catalog' : 'toc'
+  sidebarMode = SIDEBAR_MODES.includes(mode) ? mode : 'toc'
   document.querySelectorAll('.reader-tab').forEach(b =>
     b.classList.toggle('active', b.dataset.sidebarMode === sidebarMode))
   document.getElementById('toc').style.display = sidebarMode === 'toc' ? 'block' : 'none'
+  document.getElementById('search-panel').style.display = sidebarMode === 'search' ? 'flex' : 'none'
   document.getElementById('catalog-panel').style.display = sidebarMode === 'catalog' ? 'flex' : 'none'
   if (sidebarMode === 'catalog') {
     await loadCatalog(slug)
@@ -394,7 +560,7 @@ const SHORTCUTS = [
   ['j  /  k', '向下 / 向上捲動'],
   ['g', '回書庫'],
   ['t', '跳到目錄（手機自動開側欄）'],
-  ['/', '搜尋（書庫：書名；閱讀中：圖表）'],
+  ['/', '搜尋（書庫：書名；閱讀中：本書全文）'],
   ['d', '切換明暗'],
   ['?', '本說明'],
   ['Esc', '關閉浮層 / 離開輸入框'],
@@ -422,7 +588,7 @@ function focusSearch() {
   const isReader = document.getElementById('app').dataset.view === 'reader'
   if (!isReader) { document.getElementById('lib-search').focus(); return }
   if (readerDrawer && window.matchMedia('(max-width: 768px)').matches) readerDrawer.open()
-  setSidebarMode('catalog').then(() => document.getElementById('catalog-search').focus())
+  setSidebarMode('search').then(() => document.getElementById('book-search').focus())
 }
 
 function toggleShortcuts(force) {
@@ -1296,6 +1462,7 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
   content.innerHTML = articleHtml
   groupAdjacentFigures(content)
   wrapInlineMath(content)
+  applySearchHighlight(content)   // 必須早於 setupIncrementalMath：_mathRaw 快照要含這些 <mark>
   content.scrollLeft = 0
 
   // 先定位捲動位置（用尚未 typeset 的 DOM offset），再啟動增量排版。
@@ -1326,6 +1493,10 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
         if (content._primeVisible) content._primeVisible()
       }
     }))
+  }
+  if (pendingSearchScroll) {
+    pendingSearchScroll = false
+    requestAnimationFrame(() => focusSearchHit(content, restoreAnchor))
   }
   if (pendingAnchor) {
     pendingAnchor = null
