@@ -123,6 +123,19 @@
       padding: 1px 7px; background: var(--bg);
     }
     .pill.ok { color: var(--status-known); border-color: color-mix(in srgb, var(--status-known) 45%, var(--border)); }
+    /* 內文搜尋語料提示：全站搜尋要載入各書 preview 分片，故先問過使用者再下載 */
+    #search-corpus-note {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 9px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface); color: var(--sub);
+      font-family: var(--mono); font-size: 11px;
+    }
+    #search-corpus-note[hidden] { display: none; }
+    #search-corpus-note button {
+      border: 1px solid var(--border); border-radius: 5px; background: var(--bg);
+      color: var(--ink); font: inherit; padding: 4px 10px; cursor: pointer;
+    }
+    #search-corpus-note button:hover { border-color: var(--ink-light); }
     .problem-grid {
       display: none; padding: 20px 24px; overflow-y: auto;
     }
@@ -295,6 +308,7 @@
       </div>
     </div>
     <div id="fetch-error"></div>
+    <div id="search-corpus-note" hidden></div>
     <div id="list-view" class="qbk-scroll">
       <div id="loading">loading...</div>
       <div id="problem-list" class="problem-list"></div>
@@ -337,6 +351,7 @@ let expandedFields = new Set()
 let expandedBooks = new Set()
 let activeSolution = 'all'
 let searchQ = ''
+let searchProgress = null   // 「搜尋語料載入中 n/N 本」的進度字串
 let viewMode = localStorage.getItem('textbook.problems.view') || 'grid'
 let selectedIds = new Set()
 let suppressClickUntil = 0
@@ -354,7 +369,10 @@ function label(value) {
 }
 
 function textPreview(p) {
-  return (p.question_text || '').replace(/\s+/g, ' ').trim() || 'OCR missing - see original PDF'
+  const t = (p.question_text || '').replace(/\s+/g, ' ').trim()
+  if (t) return t
+  // 分片還沒到 ≠ 這題沒內容 → 不可誤報成 OCR missing
+  return p.preview_loaded ? 'OCR missing - see original PDF' : '…'
 }
 
 function chip(container, text, value, active, onClick, count = null) {
@@ -515,12 +533,14 @@ function matches(p) {
 function render() {
   buildFilters()
   filtered = allProblems.filter(matches)
+  updateSearchCorpusNote()   // 必須在「無結果就 return」之前：沒結果往往正是內文還沒載入
   const isGrid = viewMode === 'grid'
   // list 走虛擬捲動 → 無上限；grid 無虛擬化 → 仍設上限防 6 萬格塊凍結
   const capped = isGrid && filtered.length > RENDER_CAP
   displayed = capped ? filtered.slice(0, RENDER_CAP) : filtered
+  const countText = capped ? `${RENDER_CAP}/${filtered.length} 顯示` : `${filtered.length}/${allProblems.length}`
   document.getElementById('result-count').textContent =
-    capped ? `${RENDER_CAP}/${filtered.length} 顯示` : `${filtered.length}/${allProblems.length}`
+    countText + (searchProgress ? ` · 語料 ${searchProgress}` : '')
   const list = document.getElementById('problem-list')
   const grid = document.getElementById('problem-grid')
   document.getElementById('loading').style.display = 'none'
@@ -545,6 +565,39 @@ function render() {
     renderList()
   }
   syncRenderedSelection()
+}
+
+// 索引不含題目內文（preview 在各書分片）。使用者打字搜尋時：
+//  · 範圍已收斂到某一本 → 已自動載入，不打擾
+//  · 範圍是領域/全部 → 顯示「要不要載入內文語料（約 N MB）」，避免無預警吃掉幾十 MB
+function pendingSearchScope() {
+  const scope = allProblems.filter((p) => {
+    if (activeBook !== 'all') return p.book_title === activeBook
+    if (activeField !== 'all') return p.field_id === activeField
+    return true
+  })
+  const slugs = new Set()
+  let problems = 0
+  scope.forEach((p) => { if (!p.preview_loaded) { slugs.add(p.book_slug); problems += 1 } })
+  return { books: slugs.size, mb: Math.max(1, Math.round(problems * 170 / 1e6)) }
+}
+
+function updateSearchCorpusNote() {
+  const note = document.getElementById('search-corpus-note')
+  if (!searchQ || searchPriming) { note.hidden = true; return }
+  const { books, mb } = pendingSearchScope()
+  if (!books) { note.hidden = true; return }
+  // 範圍已收斂到單一本書（不論是打字時就選好、還是查詢中途才收斂）→ 直接載，不打擾
+  if (activeBook !== 'all') { note.hidden = true; primeSearchCorpus(); return }
+  note.hidden = false
+  note.innerHTML = ''
+  const msg = document.createElement('span')
+  msg.textContent = `目前只搜到書名／章名／題號。還有 ${books} 本書的題目內文尚未載入（約 ${mb} MB）。`
+  const btn = document.createElement('button')
+  btn.type = 'button'
+  btn.textContent = '載入內文一起搜'
+  btn.onclick = () => { note.hidden = true; primeSearchCorpus() }
+  note.append(msg, btn)
 }
 
 function openProblem(id) {
@@ -603,6 +656,8 @@ function paintList() {
     cb.addEventListener('change', (e) => setIdSelection(p.id, e.target.checked))
   })
   S.renderMath(list)   // 只 typeset 已掛載（可見）的卡 → 工作量恆定
+  // 可見卡的 preview 若還沒到 → 抓該書分片，回來後重畫這段視窗
+  ensurePreviews(displayed.slice(start, end), () => { listRange = [-1, -1]; paintList() })
 }
 
 function cardHtml(p, top, i) {
@@ -628,6 +683,7 @@ function cardHtml(p, top, i) {
 
 function renderGrid() {
   const grid = document.getElementById('problem-grid')
+  ensurePreviews(displayed, renderGrid)
   const groups = new Map()
   displayed.forEach(p => {
     const key = p.book_title || p.book_slug || 'Unknown'
@@ -979,6 +1035,8 @@ function route() {
 
 document.getElementById('search').addEventListener('input', (e) => {
   searchQ = (e.target.value || '').trim().toLowerCase()
+  // 單本書 → 分片小，直接載；範圍更大 → 由 #search-corpus-note 讓使用者決定（見 render）
+  if (searchQ && activeBook !== 'all') primeSearchCorpus()
   if (document.getElementById('app').dataset.mode === 'list') render()
 })
 document.addEventListener('keydown', (e) => {
@@ -997,37 +1055,129 @@ document.addEventListener('keydown', (e) => {
 })
 window.addEventListener('hashchange', route)
 
-// 索引 v2 = 輕量 tuple [bookIdx, chapter, num, hasSol, preview] + books 去重表。
-// body/solution 不在索引內，detail/匯出時由 ensureBlocks 按需抓 data/<slug>/ch/<n>.json。
+// 索引 v3 = data/problems/index.json：books 去重表 + rows [bookIdx, chapter, [num…]]
+// （num 前綴 '*' = 有解答）。**preview 不在索引裡**——它佔了舊單檔 45MB / 12.7MB gz 的絕大
+// 部分，現在按書放在 data/problems/book/<slug>.json，等到真的要顯示/搜尋該書時才抓。
+// body/solution 一如既往不入索引，detail/匯出時由 ensureBlocks 抓 data/<slug>/ch/<n>.json。
 function hydrate(data) {
   const books = data.books || []
-  const rows = data.problems || []
-  if (!rows.length || !Array.isArray(rows[0])) return rows  // 舊 v1 全欄位格式，原樣用
-  return rows.map(([bi, ch, num, hs, preview]) => {
+  const out = []
+  ;(data.rows || []).forEach(([bi, ch, nums]) => {
     const b = books[bi] || {}
     const slug = b.slug || ''
     const key = String(ch)
-    return {
-      id: `tb:${slug}:ch:${ch}:p:${num}`,
-      book_slug: slug,
-      book_title: b.title || slug,
-      author: b.author || null,
-      subject: b.subject || null,
-      kind: 'ch',
-      key,
-      chapter: ch,
-      chapter_title: (b.chapters || {})[key] || '',
-      num,
-      has_solution: !!hs,
-      question_text: preview || '',      // 預覽＋搜尋用；完整文字在 ensureBlocks 後補上
-      href_reader: `index.html#${slug}/ch/${ch}?problem=${encodeURIComponent(num)}`,
-      field: b.field || '其他',
-      field_id: b.field_id || 'other',
-      sublist: b.sublist || '',
-      frank: b.frank ?? 999,
-      srank: b.srank ?? 999,
-    }
+    const chapterTitle = (b.chapters || {})[key] || ''
+    nums.forEach((raw) => {
+      const hasSol = raw.charCodeAt(0) === 42   // '*'
+      const num = hasSol ? raw.slice(1) : raw
+      out.push({
+        id: `tb:${slug}:ch:${ch}:p:${num}`,
+        book_slug: slug,
+        book_title: b.title || slug,
+        author: b.author || null,
+        subject: b.subject || null,
+        kind: 'ch',
+        key,
+        chapter: ch,
+        chapter_title: chapterTitle,
+        num,
+        has_solution: hasSol,
+        question_text: '',                 // 由 preview 分片補；ensureBlocks 後換成全文
+        preview_loaded: false,
+        href_reader: `index.html#${slug}/ch/${ch}?problem=${encodeURIComponent(num)}`,
+        field: b.field || '其他',
+        field_id: b.field_id || 'other',
+        sublist: b.sublist || '',
+        frank: b.frank ?? 999,
+        srank: b.srank ?? 999,
+      })
+    })
   })
+  return out
+}
+
+let searchPriming = false
+function primeSearchCorpus() {
+  if (searchPriming) return
+  searchPriming = true
+  ensureSearchCorpus((done, total) => {
+    searchProgress = done < total ? `${done}/${total} 本` : null
+    render()
+  }).finally(() => {
+    searchPriming = false
+    searchProgress = null
+    render()
+  })
+}
+
+// ── preview 分片：按書載入，載到就回填 question_text ────────────────────────
+const previewShards = new Map()     // slug → Promise
+const bySlug = new Map()            // slug → 該書的題目物件（回填用）
+
+function indexBySlug() {
+  bySlug.clear()
+  allProblems.forEach((p) => {
+    if (!bySlug.has(p.book_slug)) bySlug.set(p.book_slug, [])
+    bySlug.get(p.book_slug).push(p)
+  })
+}
+
+function loadPreviews(slug) {
+  if (!slug) return Promise.resolve()
+  if (!previewShards.has(slug)) {
+    previewShards.set(slug, S.fetchJson(`data/problems/book/${slug}.json`).then((shard) => {
+      const text = new Map()
+      ;(shard.rows || []).forEach(([ch, num, , preview]) => text.set(`${ch}/${num}`, preview || ''))
+      ;(bySlug.get(slug) || []).forEach((p) => {
+        if (!p.preview_loaded) {
+          p.question_text = text.get(`${p.chapter}/${p.num}`) || ''
+          p.preview_loaded = true
+        }
+      })
+    }).catch(() => {
+      ;(bySlug.get(slug) || []).forEach((p) => { p.preview_loaded = true })
+    }))
+  }
+  return previewShards.get(slug)
+}
+
+// 目前畫面上這批題目缺哪些書的 preview → 抓回來後重畫（只重畫一次，避免每片一次）
+let previewRepaintTimer = null
+function ensurePreviews(items, onDone) {
+  const want = new Set()
+  items.forEach((p) => { if (!p.preview_loaded) want.add(p.book_slug) })
+  if (!want.size) return
+  Promise.all([...want].map(loadPreviews)).then(() => {
+    if (previewRepaintTimer) clearTimeout(previewRepaintTimer)
+    previewRepaintTimer = setTimeout(() => { previewRepaintTimer = null; onDone() }, 0)
+  })
+}
+
+// 全站文字搜尋：索引沒有 preview，故搜尋前要把「搜尋範圍」的分片備齊。
+// 範圍已收斂到某書/某領域 → 一兩個請求即可；範圍是全部書 → 邊下載邊出結果並顯示進度。
+let searchLoadToken = 0
+async function ensureSearchCorpus(onProgress) {
+  const scope = allProblems.filter((p) => {
+    if (activeBook !== 'all') return p.book_title === activeBook
+    if (activeField !== 'all') return p.field_id === activeField
+    return true
+  })
+  const slugs = [...new Set(scope.filter((p) => !p.preview_loaded).map((p) => p.book_slug))]
+  if (!slugs.length) return
+  const token = ++searchLoadToken
+  const CONCURRENCY = 8
+  let done = 0
+  let cursor = 0
+  const worker = async () => {
+    while (cursor < slugs.length) {
+      if (token !== searchLoadToken) return          // 使用者改了範圍 → 放棄這一輪
+      const slug = slugs[cursor++]
+      await loadPreviews(slug)
+      done += 1
+      if (done % CONCURRENCY === 0 || done === slugs.length) onProgress(done, slugs.length)
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, slugs.length) }, worker))
 }
 
 const chapterCache = new Map()
@@ -1058,14 +1208,15 @@ async function ensureBlocks(p) {
 async function init() {
   S.theme.init()   // 主題+換皮：套用全站設定並綁切換鈕（補回本頁原缺的 dark/skin）
   try {
-    const data = await S.fetchJson('data/problems.json', { cache: 'no-cache' })
+    const data = await S.fetchJson('data/problems/index.json', { cache: 'no-cache' })
     allProblems = hydrate(data)
+    indexBySlug()
     setError('')
     setViewMode(viewMode)
     setupDragSelect()
     route()
   } catch (err) {
-    document.getElementById('loading').textContent = 'data/problems.json not found - run build first.'
+    document.getElementById('loading').textContent = 'data/problems/index.json not found - run build first.'
     setError(S.errorMessage(err, 'failed to load problems'))
   }
 }

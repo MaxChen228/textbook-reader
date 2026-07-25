@@ -140,75 +140,111 @@ def _field_map() -> dict[str, dict]:
     return m
 
 
-def build_problem_index(books: list[dict]) -> tuple[list[dict], list[list]]:
-    """烤成輕量索引：books 去重表 + 每題 tuple [bookIdx, chapter, num, hasSol, preview]。
+def _book_shard(slug: str, meta: dict, fm: dict) -> dict | None:
+    """單書題目分片：該書所有題的 [chapter, num, has_solution, preview]。
 
-    body/solution 區塊**不**入索引（與 data/<slug>/ch/<n>.json 完全重複，
-    detail/匯出時 reader 端按需抓那份既有分片）→ 索引從 ~110MB 砍到 ~15MB。
-    books 表帶 field/sublist（與 library 同分類）供前端巢狀側欄。
+    分片是題目索引的**唯一原料**：全域索引由各書分片彙整而成（見 bake_problems）。
+    好處有二 —— ① 前端啟動只需下載無 preview 的索引（12.7MB gz → ~0.5MB gz），
+    preview 依需要按書抓；② 只有這次 build 到的書要重讀 corpus，其餘直接讀既有分片，
+    不必每次部署都重掃全站 12000+ 章。
+    """
+    book = corpus.load_book(slug, None)
+    if not book:
+        return None
+    chapters: dict[str, str] = {}
+    rows: list[list] = []
+    for ch in book.get('chapters', []):
+        n = ch['num']
+        chunk = corpus.load_chapter(slug, n, None)
+        if not chunk:
+            continue
+        problems = chunk.get('problems') or []
+        if not problems:
+            continue
+        ch_title = ch.get('title') or chunk.get('title')
+        if ch_title:
+            chapters[str(n)] = ch_title
+        for prob in problems:
+            num = str(prob.get('num') or '').strip()
+            if not num:
+                continue
+            rows.append([n, num, 1 if prob.get('solution') else 0,
+                         _preview(_blocks_text(prob.get('body') or []))])
+    if not rows:
+        return None
+    return {
+        'slug': slug,
+        'title': book.get('title') or meta.get('title') or slug,
+        'author': book.get('author') or meta.get('author'),
+        'subject': book.get('subject') or meta.get('subject'),
+        'field': fm.get('field') or '其他',
+        'field_id': fm.get('field_id') or 'other',
+        'sublist': fm.get('sublist') or (book.get('subject') or meta.get('subject') or '其他'),
+        'frank': fm.get('frank', 999),
+        'srank': fm.get('srank', 999),
+        'chapters': chapters,
+        'rows': rows,
+    }
+
+
+def bake_problems(books: list[dict], rebuilt: set[str] | None = None) -> None:
+    """題目索引：全域 index.json（無 preview）+ 每書一個分片（含 preview）。
+
+    rebuilt = 這次真的重烤過的 slug；其餘書沿用磁碟上既有分片（缺分片者才重讀 corpus）。
     """
     fmap = _field_map()
+    shard_dir = OUT / 'problems' / 'book'
     book_table: list[dict] = []
-    book_idx: dict[str, int] = {}
-    rows: list[list] = []
-    for b in books:
-        slug = b['slug']
-        book = corpus.load_book(slug, None)
-        if not book:
+    rows: list[list] = []      # [bookIdx, chapter, [num…]]，num 前綴 '*' = 有解答
+    total = 0
+    for meta in books:
+        slug = meta['slug']
+        path = shard_dir / f'{slug}.json'
+        shard = None
+        if rebuilt is None or slug in rebuilt or not path.is_file():
+            shard = _book_shard(slug, meta, fmap.get(slug, {}))
+            if shard:
+                dump(path, shard)
+            elif path.is_file():
+                path.unlink()          # 書已無題（重解析後題目消失）→ 撤掉舊分片
+        else:
+            try:
+                shard = json.loads(path.read_text(encoding='utf-8'))
+            except Exception:
+                shard = _book_shard(slug, meta, fmap.get(slug, {}))
+                if shard:
+                    dump(path, shard)
+        if not shard:
             continue
-        for ch in book.get('chapters', []):
-            n = ch['num']
-            chunk = corpus.load_chapter(slug, n, None)
-            if not chunk:
-                continue
-            problems = chunk.get('problems') or []
-            if not problems:
-                continue
-            if slug not in book_idx:
-                book_idx[slug] = len(book_table)
-                fm = fmap.get(slug, {})
-                book_table.append({
-                    'slug': slug,
-                    'title': book.get('title') or b.get('title') or slug,
-                    'author': book.get('author') or b.get('author'),
-                    'subject': book.get('subject') or b.get('subject'),
-                    'field': fm.get('field') or '其他',
-                    'field_id': fm.get('field_id') or 'other',
-                    'sublist': fm.get('sublist') or (book.get('subject') or b.get('subject') or '其他'),
-                    'frank': fm.get('frank', 999),
-                    'srank': fm.get('srank', 999),
-                    'chapters': {},
-                })
-            bi = book_idx[slug]
-            ch_title = ch.get('title') or chunk.get('title')
-            if ch_title:
-                book_table[bi]['chapters'][str(n)] = ch_title
-            for p in problems:
-                num = str(p.get('num') or '').strip()
-                if not num:
-                    continue
-                preview = _preview(_blocks_text(p.get('body') or []))
-                rows.append([bi, n, num, 1 if p.get('solution') else 0, preview])
+        bi = len(book_table)
+        book_table.append({k: shard[k] for k in (
+            'slug', 'title', 'author', 'subject', 'field', 'field_id',
+            'sublist', 'frank', 'srank', 'chapters')})
+        by_ch: dict[int, list[str]] = {}
+        for ch, num, has_sol, _preview_text in shard['rows']:
+            by_ch.setdefault(ch, []).append(('*' if has_sol else '') + num)
+            total += 1
+        book_table[bi]['count'] = sum(len(v) for v in by_ch.values())
+        for ch, nums in by_ch.items():
+            rows.append([bi, ch, nums])
+    # 全域排序與舊版一致：subject → title → chapter（章內維持書中原順序）
     rows.sort(key=lambda r: (
         book_table[r[0]].get('subject') or '',
         book_table[r[0]].get('title') or '',
         r[1] if isinstance(r[1], int) else 0,
-        r[2],
     ))
-    return book_table, rows
-
-
-def bake_problems(books: list[dict]) -> None:
-    book_table, problems = build_problem_index(books)
-    dump(OUT / 'problems.json', {
-        'version': 2,
-        'fields': ['book', 'chapter', 'num', 'has_solution', 'preview'],
+    dump(OUT / 'problems' / 'index.json', {
+        'version': 3,
+        'shape': 'rows=[bookIdx, chapter, [num…]]；num 前綴 * = 有解答；preview 在 problems/book/<slug>.json',
         'books': book_table,
         'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
-        'count': len(problems),
-        'problems': problems,
+        'count': total,
+        'rows': rows,
     })
-    print(f'baked problems.json：{len(problems)} problems')
+    legacy = OUT / 'problems.json'
+    if legacy.is_file():
+        legacy.unlink()        # v2 的 45MB 單檔已被分片取代
+    print(f'baked problems/index.json：{total} problems · {len(book_table)} books')
 
 
 def _rewrite_catalogs(cat: dict) -> dict:
@@ -289,7 +325,7 @@ def main(argv: list[str] | None = None) -> None:
     if wanted:
         dump(OUT / 'books.json', all_books)
     bake_catalog()  # 完整收錄表（書單 SoT × 三態）——每次 build 都重生
-    bake_problems(all_books)
+    bake_problems(all_books, rebuilt={b['slug'] for b in books})
     print(f'done: {len(books)} book(s) → {OUT}')
 
 
