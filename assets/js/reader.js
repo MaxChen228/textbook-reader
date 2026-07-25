@@ -14,7 +14,9 @@ import {
   loadSettings, saveSettings as persistSettings,
   loadProgress, recordProgress, chunkProgress, lastProgressFor,
   bookStats, recentBooks, furthest, CHUNK_DONE_RATIO,
+  annotationsFor, addAnnotation, updateAnnotation, removeAnnotation, bookmarkAt,
 } from './store.js'
+import { captureSelection, applyAnnotations, clearAnnotations } from './annotate.js'
 import { buildHash, parseHash as parseRoute, go as routerGo, replace as replaceHash } from './router.js'
 import { loadIndex, dropIndexesExcept, queryTerms, candidateChunks, searchChunk, highlightInDom } from './search.js'
 
@@ -244,6 +246,8 @@ async function init() {
   setupLightbox()
   setupMathCopy()
   setupKeyboard()
+  setupSelectionToolbar()
+  setupNotesPanel()
   try {
     books = await QBankShared.fetchJson('data/books.json')
     bookBySlug = Object.fromEntries(books.map(b => [b.slug, b]))
@@ -470,7 +474,175 @@ function focusSearchHit(content, anchor) {
   target.scrollIntoView({ block: 'center', behavior: 'auto' })
 }
 
-const SIDEBAR_MODES = ['toc', 'search', 'catalog']
+// ── 標註：畫線 / 書籤 / 筆記 ────────────────────────────────────────
+// 資料在 store.js（認原文不認座標，見該處說明），DOM 貼合在 annotate.js，
+// 這裡只做 UI：選取工具列、書籤鈕、側欄清單。
+let annotOrphans = new Set()
+
+function currentAnnotations() {
+  return slug ? annotationsFor(slug) : []
+}
+
+/** 把本章的標註貼回正文。與搜尋標記一樣必須早於 setupIncrementalMath。 */
+function applyChunkAnnotations(content) {
+  const article = content.querySelector('.article')
+  if (!article) return
+  clearAnnotations(article)
+  const mine = currentAnnotations().filter(a =>
+    a.quote && a.kind === currentKind && String(a.key) === String(currentKey))
+  const { orphans } = applyAnnotations(article, mine)
+  annotOrphans = new Set(orphans)
+  if (sidebarMode === 'notes') renderNotesPanel()
+}
+
+function setupSelectionToolbar() {
+  const bar = document.getElementById('sel-toolbar')
+  const content = document.getElementById('content')
+  let draft = null
+
+  const hide = () => { bar.classList.remove('open'); draft = null }
+  const show = () => {
+    const article = content.querySelector('.article')
+    if (!article) return hide()
+    draft = captureSelection(article)
+    if (!draft) return hide()
+    const rect = window.getSelection().getRangeAt(0).getBoundingClientRect()
+    if (!rect.width && !rect.height) return hide()
+    bar.classList.add('open')
+    // 工具列固定定位於視窗座標；夾在視窗內避免貼邊被切掉
+    bar.style.left = `${Math.max(8, Math.min(window.innerWidth - bar.offsetWidth - 8, rect.left + rect.width / 2 - bar.offsetWidth / 2))}px`
+    bar.style.top = `${Math.max(8, rect.top - bar.offsetHeight - 8)}px`
+    bar.style.position = 'fixed'
+  }
+
+  content.addEventListener('mouseup', () => setTimeout(show, 0))
+  content.addEventListener('keyup', (e) => { if (e.shiftKey) setTimeout(show, 0) })
+  document.addEventListener('mousedown', (e) => { if (!bar.contains(e.target)) hide() })
+  content.addEventListener('scroll', hide, { passive: true })
+
+  document.getElementById('sel-annotate').addEventListener('click', () => {
+    if (draft) saveAnnotation(draft, null)
+    hide()
+  })
+  document.getElementById('sel-note').addEventListener('click', () => {
+    if (!draft) return hide()
+    const note = window.prompt('筆記（留空只畫線）', '')
+    if (note !== null) saveAnnotation(draft, note.trim() || null)
+    hide()
+  })
+  document.getElementById('sel-copy-text').addEventListener('click', async () => {
+    if (draft) flashCopy(await copyText(draft.quote), null)
+    hide()
+  })
+}
+
+function saveAnnotation(draft, note) {
+  addAnnotation({ slug, kind: currentKind, key: String(currentKey), ...draft, note })
+  window.getSelection()?.removeAllRanges()
+  applyChunkAnnotations(document.getElementById('content'))
+  renderNotesPanel()
+  showCopyToast(note ? '已加筆記' : '已畫線')
+}
+
+function toggleBookmark() {
+  if (!slug || !currentKind || currentKey == null) return
+  // 書籤以「章」為單位，不綁小節：綁小節的話捲動改變 activeSectionAnchor，
+  // 星號會邊捲邊亮邊滅。小節仍記在 anchor 欄位裡，供跳轉時精準定位。
+  const anchor = activeSectionAnchor || null
+  const existing = bookmarkAt(slug, currentKind, currentKey)
+  if (existing) removeAnnotation(existing.id)
+  else {
+    addAnnotation({
+      slug, kind: currentKind, key: String(currentKey), anchor,
+      quote: null, note: null,
+      label: currentReaderLabel() + (anchor ? ` · ${anchor.replace(/^sec-/, '§')}` : ''),
+    })
+  }
+  updateBookmarkButton()
+  renderNotesPanel()
+  showCopyToast(existing ? '已移除書籤' : '已加書籤')
+}
+
+function updateBookmarkButton() {
+  const btn = document.getElementById('btn-bookmark')
+  if (!btn) return
+  const on = Boolean(slug && currentKind && currentKey != null
+    && bookmarkAt(slug, currentKind, currentKey))
+  btn.classList.toggle('on', on)
+  btn.textContent = on ? '★' : '☆'
+  btn.setAttribute('aria-pressed', String(on))
+  btn.title = on ? '移除書籤（按 b）' : '書籤（按 b）'
+}
+
+function renderNotesPanel() {
+  const list = document.getElementById('notes-list')
+  const status = document.getElementById('notes-status')
+  if (!list) return
+  const items = currentAnnotations()
+  status.textContent = items.length
+    ? `${items.filter(a => a.quote).length} 條畫線 · ${items.filter(a => !a.quote).length} 個書籤`
+    : '選取正文即可畫線；☆ 加書籤'
+  list.innerHTML = items.map(a => {
+    const label = a.kind === 'ch' ? `Ch ${a.key}` : `App ${a.key}`
+    const orphan = a.quote && annotOrphans.has(a.id)
+      && a.kind === currentKind && String(a.key) === String(currentKey)
+    return `<div class="search-hit-row annot-row${a.quote ? '' : ' annot-bookmark'}" data-annot="${escAttr(a.id)}">
+      <div class="search-hit-where">${esc(label)}${a.anchor ? ` · ${esc(a.anchor.replace(/^sec-/, '§'))}` : ''}</div>
+      <div class="annot-quote">${esc(a.quote || a.label || '書籤')}</div>
+      ${a.note ? `<div class="annot-note">${esc(a.note)}</div>` : ''}
+      ${orphan ? '<div class="annot-orphan">⚠ 原文已變動，找不到位置</div>' : ''}
+      <div class="annot-actions">
+        <button type="button" data-act="go">跳過去</button>
+        ${a.quote ? '<button type="button" data-act="note">筆記</button>' : ''}
+        <button type="button" data-act="del">刪除</button>
+      </div>
+    </div>`
+  }).join('') || '<div class="search-group">還沒有任何標註</div>'
+}
+
+function setupNotesPanel() {
+  document.getElementById('notes-list').addEventListener('click', async (e) => {
+    const row = e.target.closest('[data-annot]')
+    if (!row) return
+    const id = row.dataset.annot
+    const item = currentAnnotations().find(a => a.id === id)
+    if (!item) return
+    const act = e.target.closest('button')?.dataset.act
+    if (act === 'del') {
+      removeAnnotation(id)
+      renderNotesPanel()
+      applyChunkAnnotations(document.getElementById('content'))
+      return
+    }
+    if (act === 'note') {
+      const note = window.prompt('筆記', item.note || '')
+      if (note !== null) {
+        updateAnnotation(id, { note: note.trim() || null })
+        renderNotesPanel()
+        applyChunkAnnotations(document.getElementById('content'))
+      }
+      return
+    }
+    // 預設：跳到標註處
+    if (readerDrawer && window.matchMedia('(max-width: 768px)').matches) readerDrawer.close()
+    if (String(currentKind) === item.kind && String(currentKey) === String(item.key)) {
+      scrollToAnnotation(item)
+    } else {
+      pendingAnnotationId = item.id
+      navigate(slug, item.kind, item.key, item.anchor || undefined)
+    }
+  })
+}
+
+let pendingAnnotationId = null
+
+function scrollToAnnotation(item) {
+  const el = document.querySelector(`mark.annot[data-annot="${CSS.escape(item.id)}"]`)
+  if (el) { el.scrollIntoView({ block: 'center' }); return }
+  if (item.anchor && document.getElementById(item.anchor)) scrollToAnchor(item.anchor)
+}
+
+const SIDEBAR_MODES = ['toc', 'search', 'catalog', 'notes']
 
 async function setSidebarMode(mode) {
   sidebarMode = SIDEBAR_MODES.includes(mode) ? mode : 'toc'
@@ -478,7 +650,9 @@ async function setSidebarMode(mode) {
     b.classList.toggle('active', b.dataset.sidebarMode === sidebarMode))
   document.getElementById('toc').style.display = sidebarMode === 'toc' ? 'block' : 'none'
   document.getElementById('search-panel').style.display = sidebarMode === 'search' ? 'flex' : 'none'
+  document.getElementById('notes-panel').style.display = sidebarMode === 'notes' ? 'flex' : 'none'
   document.getElementById('catalog-panel').style.display = sidebarMode === 'catalog' ? 'flex' : 'none'
+  if (sidebarMode === 'notes') renderNotesPanel()
   if (sidebarMode === 'catalog') {
     await loadCatalog(slug)
     renderCatalogPanel()
@@ -583,6 +757,8 @@ const SHORTCUTS = [
   ['g', '回書庫'],
   ['t', '跳到目錄（手機自動開側欄）'],
   ['/', '搜尋（書庫：書名；閱讀中：本書全文）'],
+  ['b', '書籤（目前章節/小節）'],
+  ['n', '標註清單'],
   ['d', '切換明暗'],
   ['?', '本說明'],
   ['Esc', '關閉浮層 / 離開輸入框'],
@@ -647,6 +823,10 @@ function setupKeyboard() {
       case 'g': e.preventDefault(); location.hash = ''; break
       case 't': e.preventDefault(); focusTOC(); break
       case '/': e.preventDefault(); focusSearch(); break
+      case 'b':
+        if (isReader) { e.preventDefault(); toggleBookmark() } break
+      case 'n':
+        if (isReader) { e.preventDefault(); setSidebarMode('notes') } break
       case 'd':
         e.preventDefault()
         settings.theme = resolvedTheme() === 'dark' ? 'light' : 'dark'
@@ -662,6 +842,7 @@ function setupKeyboard() {
     if (e.target.id === 'shortcuts-modal') toggleShortcuts(false)
   })
   document.getElementById('btn-shortcuts').addEventListener('click', () => toggleShortcuts(true))
+  document.getElementById('btn-bookmark').addEventListener('click', toggleBookmark)
 }
 
 // ── lightbox ──────────────────────────────────────────────────────
@@ -922,6 +1103,8 @@ function resetBookScopedState(nextSlug) {
 
   pendingAnchor = null
   pendingProblemNum = null
+  pendingAnnotationId = null
+  annotOrphans = new Set()
   activeSectionAnchor = null
   // 側欄回到目錄：搜尋與圖表面板的內容都已歸零，停在空面板只會讓人以為新書沒東西。
   setSidebarMode('toc')
@@ -1530,6 +1713,7 @@ function showBookOverview() {
   cleanupSectionSpy()
   currentKind = currentKey = null
   highlightTOC()
+  updateBookmarkButton()
   document.getElementById('crumb').innerHTML =
     `<span class="cur">${esc(book.title)}</span> <span style="color:var(--sub)">— ${book.chapters?.length||0} 章</span>`
   document.getElementById('btn-prev').disabled = true
@@ -1611,6 +1795,7 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
   groupAdjacentFigures(content)
   wrapInlineMath(content)
   applySearchHighlight(content)   // 必須早於 setupIncrementalMath：_mathRaw 快照要含這些 <mark>
+  applyChunkAnnotations(content)  // 同上：畫線也要進 _mathRaw 快照
   content.scrollLeft = 0
 
   // 先定位捲動位置（用尚未 typeset 的 DOM offset），再啟動增量排版。
@@ -1646,6 +1831,12 @@ async function showChunk(kind, key, { preserveScroll = false } = {}) {
     pendingSearchScroll = false
     requestAnimationFrame(() => focusSearchHit(content, restoreAnchor))
   }
+  if (pendingAnnotationId) {
+    const target = currentAnnotations().find(a => a.id === pendingAnnotationId)
+    pendingAnnotationId = null
+    if (target) requestAnimationFrame(() => scrollToAnnotation(target))
+  }
+  updateBookmarkButton()
   if (pendingAnchor) {
     pendingAnchor = null
     persistCurrentProgress()

@@ -173,6 +173,61 @@ export function recentBooks(limit = 4) {
   return [...bySlug.values()].sort((a, b) => b.lastAt - a.lastAt).slice(0, limit)
 }
 
+// ── 標註（書籤 + 畫線 + 筆記）───────────────────────────────────────
+// schema：{ items: [ {id, slug, kind, key, anchor, quote, before, after, note, createdAt} ] }
+//   quote == null → 書籤（只記位置）；quote 有值 → 畫線（記下原文）
+//
+// **為什麼存原文而不是 DOM 位置**：data/ 是 daemon 每天重生的產物，重新 OCR/切章後
+// block 索引與字元位移都會變，只認位置的標註會全部錯位或消失。存原文 + 前後文，
+// 重新載入時在該章文字裡回找 → 內容沒被改動就一定找得到；真的找不到就標成
+// orphan 留在清單裡（附原文），使用者自己判斷，絕不靜默丟掉他寫的東西。
+export const ANNOTATIONS_KEY = 'textbook.annotations.v1'
+
+export function loadAnnotations() {
+  const data = readJson(ANNOTATIONS_KEY, {})
+  return Array.isArray(data.items) ? data.items : []
+}
+
+function saveAnnotations(items) {
+  return writeJson(ANNOTATIONS_KEY, { items })
+}
+
+/** 這本書的標註，依章節、建立時間排序。 */
+export function annotationsFor(slug) {
+  return loadAnnotations()
+    .filter(a => a.slug === slug)
+    .sort((a, b) => String(a.key).localeCompare(String(b.key), undefined, { numeric: true })
+      || a.createdAt - b.createdAt)
+}
+
+export function addAnnotation(a) {
+  const items = loadAnnotations()
+  const item = { id: `an_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`, createdAt: Date.now(), ...a }
+  items.push(item)
+  saveAnnotations(items)
+  return item
+}
+
+export function updateAnnotation(id, patch) {
+  const items = loadAnnotations()
+  const i = items.findIndex(a => a.id === id)
+  if (i < 0) return null
+  items[i] = { ...items[i], ...patch }
+  saveAnnotations(items)
+  return items[i]
+}
+
+export function removeAnnotation(id) {
+  const items = loadAnnotations().filter(a => a.id !== id)
+  return saveAnnotations(items)
+}
+
+/** 某個 chunk 有沒有書籤（書籤按鈕的三態顯示用）。 */
+export function bookmarkAt(slug, kind, key, anchor = null) {
+  return loadAnnotations().find(a => a.slug === slug && a.kind === kind
+    && String(a.key) === String(key) && !a.quote && (anchor ? a.anchor === anchor : true)) || null
+}
+
 /** 忘掉某本書的所有進度（書卡上的「清除進度」）。 */
 export function forgetBook(slug) {
   const data = loadProgress()

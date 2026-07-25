@@ -19,6 +19,7 @@
   <link rel="modulepreload" href="assets/js/store.js">
   <link rel="modulepreload" href="assets/js/router.js">
   <link rel="modulepreload" href="assets/js/search.js">
+  <link rel="modulepreload" href="assets/js/annotate.js">
   <link rel="stylesheet" href="design/tokens.css">
   <link rel="stylesheet" href="assets/qbank-shared.css?v=20260725">
   <!-- CJK 襯線（中譯面板用）：檔案太大不自託管，改非阻塞載入；連不到就退系統宋體，不影響首屏 -->
@@ -152,17 +153,17 @@
     .toc-copy:hover, .toc-copy.copied { opacity: 1 !important; }
 
     .reader-tabs {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
       padding: 8px 12px; border-bottom: 1px solid var(--border);
     }
     .reader-tab {
       border: 1px solid transparent; background: transparent; color: var(--sub);
       font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .08em;
-      padding: 6px 8px; border-radius: 4px; cursor: pointer; text-transform: uppercase;
+      padding: 6px 4px; border-radius: 4px; cursor: pointer; text-transform: uppercase;
     }
     .reader-tab:hover { color: var(--ink); background: var(--bg); }
     .reader-tab.active { color: var(--ink); border-color: var(--border); background: var(--bg); }
-    #catalog-panel, #search-panel {
+    #catalog-panel, #search-panel, #notes-panel {
       display: none; flex: 1; min-height: 0; overflow: hidden; flex-direction: column;
       border-top: 0;
     }
@@ -192,6 +193,41 @@
     .search-more {
       margin: 8px 12px; width: calc(100% - 24px);
     }
+    /* ── 標註（畫線／書籤／筆記）─────────────────────────────────────── */
+    mark.annot {
+      background: color-mix(in srgb, var(--accent, #d8a657) 30%, transparent);
+      color: inherit; border-radius: 2px; padding: 0 1px;
+    }
+    mark.annot.has-note { box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--ink) 45%, transparent); }
+    .sel-toolbar {
+      position: absolute; z-index: 60; display: none; gap: 3px;
+      padding: 3px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; box-shadow: var(--shadow-card);
+    }
+    .sel-toolbar.open { display: flex; }
+    .annot-row { display: block; width: 100%; }
+    .annot-quote {
+      font-size: 12px; line-height: 1.5; color: var(--text); overflow-wrap: anywhere;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+      border-left: 2px solid color-mix(in srgb, var(--accent, #d8a657) 60%, transparent);
+      padding-left: 7px;
+    }
+    .annot-note {
+      margin-top: 4px; font-size: 11.5px; line-height: 1.45; color: var(--ink-light);
+      overflow-wrap: anywhere; white-space: pre-wrap;
+    }
+    .annot-orphan { color: var(--sub); font-family: var(--mono); font-size: 9px; margin-top: 3px; }
+    .annot-actions { display: flex; gap: 6px; margin-top: 5px; }
+    .annot-actions button {
+      border: 0; background: transparent; color: var(--sub); cursor: pointer;
+      font-family: var(--mono); font-size: 9px; padding: 2px 4px; border-radius: 3px;
+    }
+    .annot-actions button:hover { color: var(--ink); background: var(--bg); }
+    .annot-bookmark .annot-quote {
+      border-left-color: var(--ink); font-family: var(--mono); font-size: 10.5px; color: var(--sub);
+    }
+    #btn-bookmark.on { color: var(--ink); }
+
     /* 正文裡的命中：閱讀時看得見但不刺眼；目前跳到的那一顆再強調一層 */
     mark.search-hit { background: color-mix(in srgb, var(--ink) 15%, transparent); color: inherit; border-radius: 2px; }
     mark.search-hit.current { background: color-mix(in srgb, var(--ink) 34%, transparent); }
@@ -754,6 +790,7 @@
         <button class="reader-tab active" type="button" data-sidebar-mode="toc">TOC</button>
         <button class="reader-tab" type="button" data-sidebar-mode="search">Search</button>
         <button class="reader-tab" type="button" data-sidebar-mode="catalog">Catalog</button>
+        <button class="reader-tab" type="button" data-sidebar-mode="notes">Notes</button>
       </div>
       <div id="toc"></div>
       <div id="search-panel">
@@ -762,6 +799,10 @@
         </div>
         <div class="search-status" id="search-status"></div>
         <div class="search-results" id="search-results"></div>
+      </div>
+      <div id="notes-panel">
+        <div class="search-status" id="notes-status"></div>
+        <div class="search-results" id="notes-list"></div>
       </div>
       <div id="catalog-panel">
         <div class="catalog-tools">
@@ -789,6 +830,7 @@
       <span class="meta library-only qbk-result-count" id="library-count"></span>
       <button class="qbk-control-btn reader-only" id="btn-prev" disabled>← prev</button>
       <button class="qbk-control-btn reader-only" id="btn-next" disabled>next →</button>
+      <button class="qbk-icon-btn reader-only" id="btn-bookmark" type="button" title="書籤（按 b）" aria-label="加入書籤" aria-pressed="false">☆</button>
       <button class="qbk-icon-btn" id="btn-shortcuts" type="button" title="鍵盤快捷鍵（按 ?）" aria-label="鍵盤快捷鍵">?</button>
       <div class="qbk-popover-wrap">
         <button class="qbk-icon-btn" id="btn-settings" title="顯示設置" aria-haspopup="true" aria-expanded="false">⚙</button>
@@ -896,6 +938,11 @@
   </div>
 </div>
 
+<div class="sel-toolbar" id="sel-toolbar" role="toolbar" aria-label="選取操作">
+  <button class="qbk-control-btn compact" id="sel-annotate" type="button">畫線</button>
+  <button class="qbk-control-btn compact" id="sel-note" type="button">筆記</button>
+  <button class="qbk-control-btn compact" id="sel-copy-text" type="button">複製</button>
+</div>
 <script type="module" src="assets/js/reader.js"></script>
 </body>
 </html>
