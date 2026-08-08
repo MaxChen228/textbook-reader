@@ -8,13 +8,12 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/us
 # MinerU token 不入 plist/git（plist world-readable）；從 ~/.secrets 載入進程環境。
 [ -f "$HOME/.secrets/mineru.env" ] && source "$HOME/.secrets/mineru.env"
 # LLM 派工策略＝單一真相源 pipeline_tick.py 的 DispatchSpec 配置層（DEFAULT_DISPATCH +
-# STAGE_DISPATCH），**不在此 export 雙寫**。四條 provider：
+# STAGE_DISPATCH），**不在此 export 雙寫**。三條 provider：
 #   codex-pool = codex CLI 走 ccNexus 池子（-p nexus；maxn970228 輪換、獨立額度）
 #   codex      = codex CLI 原生 OAuth（~/.codex/auth.json，ChatGPT 訂閱；與 pool 不同帳號＝不同額度）
 #                codex CLI 須裝 npm @openai/codex（headless），勿用 brew cask GUI 包裝（dyld 卡死）
-#   kimi       = claude CLI 導 Kimi 端點（~/.secrets/kimi.env）
 #   claude     = Claude Max 訂閱原生
-# 預設 chain codex-pool→codex→kimi→claude（撞額度沿鏈 failover），per-stage reasoning effort
+# 預設 chain codex→codex-pool→claude（撞額度沿鏈 failover），per-stage reasoning effort
 # 與模型亦在 STAGE_DISPATCH 宣告。要臨時覆寫（運維拉桿，凌駕程式）才在此 export：
 #   BOOK_PIPELINE_PROVIDER_CHAIN（逗號分隔）/ _CODEX_MODEL（codex 家族含 pool 共用）
 #   / _CODEX_EFFORT / _CLAUDE_MODEL / _LLM_TIMEOUT。預設不設＝走程式宣告值。
